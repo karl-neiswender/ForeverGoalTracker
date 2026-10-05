@@ -19,6 +19,12 @@ FGT.categoryColors = {
 -- Difficulty tiers (order = relative scale, color = r, g, b)
 -- ============================================================
 FGT.difficultyOrder = { "Moderate", "Hard", "Very Hard", "Extreme" }
+
+-- Time estimates, fastest first. Goals use exactly these labels, and
+-- "Sort: Duration" follows this order.
+FGT.timeScale = { "Days", "1-2 Weeks", "2-4 Weeks", "1-2 Months", "3+ Months", "Years", "Ongoing", "Varies" }
+FGT.timeRank = {}
+for i, label in ipairs(FGT.timeScale) do FGT.timeRank[label] = i end
 FGT.difficultyColors = {
     ["Moderate"]  = { 0.62, 0.91, 0.44 },   -- #9fe870
     ["Hard"]      = { 1.00, 0.82, 0.00 },   -- #ffd100
@@ -68,7 +74,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
           auto = { raceLevel = { race = raceFile, level = 60 } } },
         { name = "Train Expert Riding (100% speed) from your riding trainer", materials = {},
           auto = { skill = { name = "Riding", rank = 150 }, forRace = raceFile } },
-        { name = "Save up roughly 800-1000 gold on that character (less with a home-city reputation discount)", materials = {},
+        { name = "Save about 800-1000 gold on that character", materials = {},
           auto = { money = 800 * 10000, forRace = raceFile } },
         { name = "Buy the " .. mountName .. " from " .. vendor .. " in " .. location, materials = {},
           auto = { ownedPattern = ownedPatterns, forRace = raceFile } },
@@ -99,8 +105,8 @@ end
 
 -- ============================================================
 -- Goal data
--- Each goal: id, name, category, difficulty, timeEstimate, timeRank
--- (1=fastest .. 5=slowest, used only for the "sort by duration" option),
+-- Each goal: id, name, short (optional list name), category, difficulty,
+-- timeEstimate (one of FGT.timeScale, which also sets the duration sort),
 -- note (optional caveat/flavor), and either:
 --   steps    = a flat ordered list of step descriptions, or
 --   sections = a class > piece > materials hierarchy (Tier 3 only)
@@ -112,21 +118,25 @@ FGT.goals = {
         completeWith = { item = { 22691, 22709 } },
         icon = "inv_sword_2h_ashbringercorrupt",
         name = "Corrupted Ashbringer",
+        short = "Ashbringer",
         category = "Epic Weapon",
         difficulty = "Extreme",
-        timeEstimate = "Months of weekly Naxx clears (pure RNG)",
-        timeRank = 4,
+        timeEstimate = "3+ Months",
         note = "This is the raid-dropped sword itself. The 'purified' legendary upgrade needs content beyond the original 1-60 game, so under classic rules this goal is really about the Corrupted Ashbringer drop.",
         steps = {
-            { text = "Reach level 60 and gear up for a 40-player Naxxramas raid (aim for at least pre-raid BiS from dungeons/world drops).", auto = { level = 60 } },
-            { text = "Get attuned to Naxxramas: reach Honored with the Argent Dawn, then turn in a Righteous Orb (needs 5 Arcane Crystal + 2 Nexus Crystal at Honored, less at Revered) to Archmage Angela Dosantos at Light's Hope Chapel, Eastern Plaguelands.", auto = { quest = { 9121, 9122, 9123 } } },
-            "Join or build a guild raid team that clears Naxxramas on a weekly reset schedule.",
-            "Clear trash and bosses through the Military Wing up to the Four Horsemen encounter (Highlord Mograine, Thane Korth'azz, Sir Zeliek, Baron Rivendare).",
-            "Defeat all four Horsemen together in the same attempt (either the 2-tank 'square' strat or a full 4-group synced kill).",
-            "Open the chest that spawns after the kill - Corrupted Ashbringer has a very low, unofficial-estimate drop chance, on par with other raid-legendary RNG drops like the Bindings of the Windseeker.",
-            { text = "It's Bind on Pickup and unique, so only one raider can loot it per kill - repeat weekly clears (with a loot council or roll system) until it drops.", auto = { item = { 22691, 22709 } } },
-            "Optional lore moment: equip the sword and visit Scarlet Monastery Cathedral to trigger a cutscene with Balnazzar.",
-            "Unequip the sword before approaching Argent Dawn NPCs (like at Light's Hope Chapel) - wielding it flags you Hated with them and they'll attack on sight.",
+            { text = "Reach level 60 and gear up for 40-player Naxxramas.", auto = { level = 60 } },
+            { text = "Get attuned to Naxxramas: reach Honored with the Argent Dawn, then turn in a Righteous Orb to Archmage Angela Dosantos at Light's Hope Chapel, Eastern Plaguelands.", auto = { quest = { 9121, 9122, 9123 } } },
+            "Join or build a raid team that clears Naxxramas every week.",
+            { text = "Clear the Military Wing up to the Four Horsemen.", auto = { boss = "Gothik the Harvester" } },
+            { text = "Defeat all four Horsemen in the same attempt.", auto = { boss = "Four Horsemen" } },
+            { text = "Loot Corrupted Ashbringer from the chest that appears after the kill. Repeat weekly clears until it drops.", auto = { item = { 22691, 22709 } } },
+        },
+        tips = {
+            "The Righteous Orb needs 5 Arcane Crystals and 2 Nexus Crystals at Honored, fewer at Revered.",
+            "The Four Horsemen are Highlord Mograine, Thane Korth'azz, Sir Zeliek and Baron Rivendare. Raids use either a 2-tank rotation or a synced 4-group kill.",
+            "The drop chance is very low, and the sword is Bind on Pickup, so only one raider can get it per kill.",
+            "Equip the sword and visit the Scarlet Monastery Cathedral for a hidden scene with Balnazzar.",
+            "Unequip it before visiting Argent Dawn NPCs. Wielding it makes them hostile.",
         },
     },
 
@@ -135,20 +145,25 @@ FGT.goals = {
         completeWith = { item = 13086, owned = { "Winterspring Frostsaber" } },
         icon = "ability_mount_pinktiger",
         name = "Winterspring Frostsaber",
+        short = "Frostsaber",
         category = "Mount",
         difficulty = "Hard",
-        timeEstimate = "3-6 weeks of daily turn-ins",
-        timeRank = 2,
+        timeEstimate = "1-2 Months",
         note = "Alliance-only mount, ~900g at Exalted. Non-Night Elves also need Darnassus Exalted to learn Tiger Riding.",
         steps = {
-            { text = "Be level 40+ (level 60 recommended for safe travel) and head to Winterspring.", auto = { level = 40 } },
-            { text = "Find Rivern Frostwind at Frostsaber Rock (south-central Winterspring) and pick up the introductory quest chain.", auto = { rep = { faction = 589, standing = 4, value = 1 } } },
-            { text = "Turn in 'Frostsaber Provisions' once per day (5 Shardtooth Meat + 5 Chillwind Meat, farmed from Winterspring wolves/yetis) to build Wintersaber Trainers reputation from Neutral toward 1500/3000.", auto = { rep = { faction = 589, standing = 4, value = 1500 } } },
-            { text = "At 1500/3000 Neutral, switch to the repeatable 'Winterfall Intrusion' - kill 5 Winterfall Shaman + 5 Winterfall Ursa at Winterfall Village and turn in once per day.", auto = { rep = { faction = 589, standing = 5 } } },
-            { text = "Once Honored, add 'Rampaging Giants' (kill giants near Frostsaber Rock) as a second daily turn-in to speed up the grind to Exalted.", auto = { rep = { faction = 589, standing = 6 } } },
-            { text = "Keep repeating the daily turn-ins all the way to Exalted with Wintersaber Trainers - this is the long pole, typically several weeks even doing every turn-in daily.", auto = { rep = { faction = 589, standing = 8 } } },
-            { text = "If you are not a Night Elf, also reach Exalted with Darnassus (via Darnassus tabard dungeon runs or turn-ins) to unlock Tiger/Frostsaber Riding.", auto = { rep = { faction = 69, standing = 8 }, race = "NightElf" } },
-            { text = "Buy Reins of the Winterspring Frostsaber from Rivern Frostwind for roughly 900 gold (small discount if Exalted rep gives a price break).", auto = { item = 13086, owned = { "Winterspring Frostsaber" } } },
+            { text = "Reach level 40 and travel to Winterspring.", auto = { level = 40 } },
+            { text = "Meet Rivern Frostwind at Frostsaber Rock (south-central Winterspring) and start the introductory quests.", auto = { rep = { faction = 589, standing = 4, value = 1 } } },
+            { text = "Turn in 'Frostsaber Provisions' daily (5 Shardtooth Meat + 5 Chillwind Meat) until 1500/3000 Neutral.", auto = { rep = { faction = 589, standing = 4, value = 1500 } } },
+            { text = "Switch to the daily 'Winterfall Intrusion' (5 Winterfall Shaman + 5 Winterfall Ursa at Winterfall Village) until Friendly.", auto = { rep = { faction = 589, standing = 5 } } },
+            { text = "Reach Honored, then add the daily 'Rampaging Giants' turn-in (giants near Frostsaber Rock).", auto = { rep = { faction = 589, standing = 6 } } },
+            { text = "Reach Exalted with the Wintersaber Trainers.", auto = { rep = { faction = 589, standing = 8 } } },
+            { text = "Not a Night Elf? Reach Exalted with Darnassus to learn Frostsaber riding.", auto = { rep = { faction = 69, standing = 8 }, race = "NightElf" } },
+            { text = "Buy the Reins of the Winterspring Frostsaber from Rivern Frostwind (about 900 gold).", auto = { item = 13086, owned = { "Winterspring Frostsaber" } } },
+        },
+        tips = {
+            "Level 60 makes the trip and the daily kills much safer.",
+            "Shardtooth Meat drops from Shardtooth bears and Chillwind Meat from Chillwind chimaeras, both in Winterspring.",
+            "Exalted is the long part: expect several weeks even doing every turn-in daily.",
         },
     },
 
@@ -157,22 +172,26 @@ FGT.goals = {
         completeWith = { item = { 22589, 22630, 22631, 22632 }, quest = { 9257, 9269, 9270, 9271 } },
         icon = "inv_staff_medivh",
         name = "Atiesh, Greatstaff of the Guardian",
+        short = "Atiesh",
         category = "Legendary Weapon",
         difficulty = "Extreme",
-        timeEstimate = "Several months, gated by both Naxx and AQ40 progression",
-        timeRank = 4,
+        timeEstimate = "3+ Months",
         note = "Only for Druid, Mage, Priest, or Warlock. Requires access to Naxxramas, Ahn'Qiraj 40, and Stratholme.",
         steps = {
             { text = "Play a Druid, Mage, Priest, or Warlock and be raiding both Naxxramas and Ahn'Qiraj 40 regularly.", auto = { level = 60 } },
             { text = "Farm Splinters of Atiesh, a random-chance drop from most Naxxramas bosses, until you have 40.", auto = { item = 22726, count = 40 } },
             { text = "Combine the 40 splinters into the Frame of Atiesh.", auto = { item = 22727, quest = 9250 } },
             { text = "Take the Frame of Atiesh to Anachronos at the Caverns of Time entrance in Tanaris to start the class-specific quest chain.", auto = { quest = 9250 } },
-            { text = "Obtain the Staff Head of Atiesh, a guaranteed(ish) drop from Kel'Thuzad in Naxxramas.", auto = { item = 22733 } },
-            { text = "Obtain the Base of Atiesh, a guaranteed(ish) drop from C'Thun in Ahn'Qiraj (AQ40).", auto = { item = 22734 } },
+            { text = "Obtain the Staff Head of Atiesh from Kel'Thuzad in Naxxramas.", auto = { item = 22733 } },
+            { text = "Obtain the Base of Atiesh from C'Thun in Ahn'Qiraj (AQ40).", auto = { item = 22734 } },
             { text = "Return both pieces to Anachronos to continue the chain.", auto = { quest = 9251 } },
-            "Complete your class-specific purification quest from Anachronos (varies: Druid/Mage/Priest/Warlock each get a distinct short questline).",
-            "Travel to Stratholme (Festival Lane) with the purified staff, clear a path through the undead, and defeat the summoned guardian encounter.",
-            { text = "Return to Anachronos to receive Atiesh, Greatstaff of the Guardian - it grants a raid-wide buff, so guilds often prioritize it for a support-focused player.", auto = { item = { 22589, 22630, 22631, 22632 }, quest = { 9257, 9269, 9270, 9271 } } },
+            "Complete your class's purification quest from Anachronos.",
+            "Take the staff to Festival Lane in Stratholme and defeat the guardian it summons.",
+            { text = "Return to Anachronos to receive Atiesh, Greatstaff of the Guardian.", auto = { item = { 22589, 22630, 22631, 22632 }, quest = { 9257, 9269, 9270, 9271 } } },
+        },
+        tips = {
+            "Each class (Druid, Mage, Priest, Warlock) gets its own short purification questline and its own version of the staff.",
+            "Atiesh gives a raid-wide aura, so guilds often hand the splinters to a support player.",
         },
     },
 
@@ -180,18 +199,20 @@ FGT.goals = {
         id = "rhokdelar",
         icon = "inv_weapon_bow_01",
         name = "Rhok'delar, Longbow of the Ancient Keepers",
+        short = "Rhok'delar",
         category = "Epic Weapon",
         difficulty = "Hard",
-        timeEstimate = "2-4 weeks once Molten Core-geared",
-        timeRank = 1,
+        timeEstimate = "2-4 Weeks",
         note = "Hunter-only epic bow. It's built from the Ancient Rune Etched Stave you earn in the Lok'delar chain, so do that goal first. Since patch 1.8 one Hunter ends up with both weapons.",
         steps = {
             { text = "Finish 'Stave of the Ancients' (see the Lok'delar goal) to receive the Ancient Rune Etched Stave.", auto = { item = 18707, quest = 7636 } },
-            "Pick up 'A Proper String' from Vartrus the Ancient in Felwood (Irontree Woods).",
+            { text = "Pick up 'A Proper String' from Vartrus the Ancient in Felwood (Irontree Woods).", auto = { questTaken = 7635 } },
             { text = "Kill Onyxia in Onyxia's Lair and loot the Mature Black Dragon Sinew (Hunter quest drop).", auto = { item = 18705, quest = 7635 } },
             { text = "Turn the sinew in to Vartrus to receive the Enchanted Black Dragon Sinew.", auto = { item = 18724, quest = 7635 } },
             { text = "Combine the Ancient Rune Etched Stave with the Enchanted Black Dragon Sinew to create Rhok'delar.", auto = { item = { 18713, 20488 } } },
-            { text = "Optional: kill Azuregos in Azshara for a Mature Blue Dragon Sinew and turn in 'Ancient Sinew Wrapped Lamina' for the matching epic quiver.", auto = { quest = 7634 } },
+        },
+        tips = {
+            "Optional: kill Azuregos in Azshara for a Mature Blue Dragon Sinew, then turn in 'Ancient Sinew Wrapped Lamina' for the matching epic quiver.",
         },
     },
 
@@ -200,20 +221,23 @@ FGT.goals = {
         completeWith = { item = { 18715, 20487 } },
         icon = "inv_staff_21",
         name = "Lok'delar, Stave of the Ancient Keepers",
+        short = "Lok'delar",
         category = "Epic Weapon",
         difficulty = "Hard",
-        timeEstimate = "2-4 weeks once Molten Core-geared",
-        timeRank = 1,
+        timeEstimate = "2-4 Weeks",
         note = "Hunter-only epic staff, the first half of the Ancient Keepers chain. The same turn-in also gives the Ancient Rune Etched Stave used to make Rhok'delar.",
         steps = {
             { text = "Raid Molten Core on a Hunter and loot the Ancient Petrified Leaf from the Cache of the Firelord after Majordomo Executus.", auto = { item = 18703, quest = 7632 } },
-            { text = "Bring the leaf to Vartrus the Ancient in Felwood (Irontree Woods) and pick up 'Stave of the Ancients'.", auto = { quest = 7632 } },
-            "Solo Artorius the Doombringer in Winterspring (no pet help, no other players).",
-            "Solo Klinfran the Crazed in Burning Steppes.",
-            "Solo Solenor the Slayer in Silithus.",
-            "Solo Simone the Seductress in Un'Goro Crater.",
-            { text = "Return all four demon heads to Vartrus.", auto = { quest = 7636 } },
-            { text = "Receive Lok'delar, plus the Ancient Rune Etched Stave for Rhok'delar.", auto = { item = { 18715, 20487 }, quest = 7636 } },
+            { text = "Bring the leaf to Vartrus the Ancient in Felwood (Irontree Woods) and pick up 'Stave of the Ancients'.", auto = { quest = 7632, questTaken = 7636 } },
+            { text = "Solo Artorius the Doombringer in Winterspring.", auto = { owned = { "Artorius's Head" }, quest = 7636 } },
+            { text = "Solo Klinfran the Crazed in Burning Steppes.", auto = { owned = { "Klinfran's Head" }, quest = 7636 } },
+            { text = "Solo Solenor the Slayer in Silithus.", auto = { owned = { "Solenor's Head" }, quest = 7636 } },
+            { text = "Solo Simone the Seductress in Un'Goro Crater.", auto = { owned = { "Simone's Head" }, quest = 7636 } },
+            { text = "Return all four demon heads to Vartrus to receive Lok'delar and the Ancient Rune Etched Stave.", auto = { item = { 18715, 20487 }, quest = 7636 } },
+        },
+        tips = {
+            "Fight each demon alone. If another player helps, the fight is forfeit.",
+            "Keep the Ancient Rune Etched Stave: it becomes Rhok'delar.",
         },
     },
 
@@ -222,10 +246,10 @@ FGT.goals = {
         completeWith = { item = 19019, quest = 7787 },
         icon = "inv_sword_39",
         name = "Thunderfury, Blessed Blade of the Windseeker",
+        short = "Thunderfury",
         category = "Legendary Weapon",
         difficulty = "Very Hard",
-        timeEstimate = "Months of weekly MC clears (both bindings ~3% each)",
-        timeRank = 4,
+        timeEstimate = "3+ Months",
         note = "The classic legendary. Both bindings are roughly a 3% drop each, so this is usually a long farm even with consistent weekly clears.",
         steps = {
             { text = "Raid Molten Core on a weekly reset schedule.", auto = { level = 60 } },
@@ -248,10 +272,10 @@ FGT.goals = {
         group = true, -- pick class sets individually in the Library
         icon = "inv_helmet_58",
         name = "Tier 3 Set Appearances",
+        short = "Tier 3 Sets",
         category = "Item Set",
         difficulty = "Extreme",
-        timeEstimate = "Years - a full Naxx tier clear per class/character",
-        timeRank = 5,
+        timeEstimate = "Years",
         note = "Tier 3 comes from Naxxramas via a token-and-crafting system: bosses drop 'Desecrated' class tokens, which you combine with Wartorn Scraps and class/slot-specific profession materials at your class's quartermaster near Light's Hope Chapel (Eastern Plaguelands). You'll need Naxxramas attunement (Honored Argent Dawn + a Righteous Orb) on each character first. Click a class to expand its 8 pieces; each piece has its own materials checklist. Exact quantities are a template - verify at your quartermaster since they vary slightly by piece.",
         sections = {
             {
@@ -343,19 +367,21 @@ FGT.goals = {
         completeWith = { item = { 18608, 18609 } },
         icon = "inv_staff_30",
         name = "Benediction / Anathema",
+        short = "Benediction",
         category = "Epic Weapon",
         difficulty = "Hard",
-        timeEstimate = "3-6 weeks once raiding Molten Core",
-        timeRank = 2,
-        note = "Priest-only. One staff, two forms - right-click to swap between Benediction (Holy) and Anathema (Shadow) on a 30-minute cooldown.",
+        timeEstimate = "1-2 Months",
+        note = "Priest-only. One staff with two forms: Benediction (Holy) and Anathema (Shadow).",
         steps = {
             { text = "Raid Molten Core and loot The Eye of Divinity from Majordomo Executus.", auto = { item = 18646, quest = 7622 } },
-            { text = "Travel to the Eastern Plaguelands and speak with Eris Havenfire (northwest, near Stratholme) to start 'The Balance of Light and Shadow'.", auto = { quest = 7622 } },
-            { text = "Complete the escort event: heal and protect 50 peasants from undead attackers, keeping deaths under 15 (expect the attempt to run 5+ minutes; if it fails, Eris resets after about 15 minutes).", auto = { quest = 7622 } },
-            { text = "Receive the Splinter of Nordrassil as your reward.", auto = { item = 18659, quest = 7622 } },
-            { text = "Obtain The Eye of Shadow, which drops from elite demons in southern Winterspring (it's also tradeable/BoE, so it can be bought off the Auction House instead of farmed).", auto = { item = 18665 } },
+            { text = "Speak with Eris Havenfire in the Eastern Plaguelands (northwest, near Stratholme) to start 'The Balance of Light and Shadow'.", auto = { questTaken = 7622 } },
+            { text = "Complete the event: protect 50 peasants from the undead with fewer than 15 deaths to earn the Splinter of Nordrassil.", auto = { item = 18659, quest = 7622 } },
+            { text = "Get The Eye of Shadow from elite demons in southern Winterspring, or buy one on the Auction House.", auto = { item = 18665 } },
             { text = "Combine the Splinter of Nordrassil with the Eye of Shadow and the Eye of Divinity to complete the staff.", auto = { item = { 18608, 18609 } } },
-            { text = "Right-click the finished staff any time to swap between Benediction (Holy) and Anathema (Shadow) - 30-minute cooldown between swaps.", auto = { item = { 18608, 18609 } } },
+        },
+        tips = {
+            "The peasant event runs 5+ minutes. If it fails, Eris resets after about 15 minutes.",
+            "Right-click the finished staff to swap between Benediction (Holy) and Anathema (Shadow). Swapping has a 30-minute cooldown.",
         },
     },
 
@@ -366,8 +392,7 @@ FGT.goals = {
         name = "Epic Racial Mounts",
         category = "Mount Collection",
         difficulty = "Hard",
-        timeEstimate = "Ongoing - limited by gold and having a level 60 of each race",
-        timeRank = 3,
+        timeEstimate = "Ongoing",
         note = "Reputation is NOT required to buy these - it only gives a small discount (roughly 10% off at Honored with your home city). You need a level 60 character of each race, riding skill trained, and gold. The real bottleneck is usually having 8 different races leveled to 60, not the gold itself. Each vendor sells a few color variants of the same mount for the same price - pick whichever color you like. Click a race to expand its 4-task checklist.",
         sections = {
             {
@@ -418,10 +443,10 @@ FGT.goals = {
         completeWith = { item = 17182 },
         icon = "inv_hammer_unique_sulfuras",
         name = "Sulfuras, Hand of Ragnaros",
+        short = "Sulfuras",
         category = "Legendary Weapon",
         difficulty = "Very Hard",
-        timeEstimate = "Months of weekly MC clears (Eye ~3%)",
-        timeRank = 4,
+        timeEstimate = "3+ Months",
         note = "Two-handed legendary mace. You need the Eye of Sulfuras from Ragnaros and a Sulfuron Hammer crafted by a 300 Blacksmith (you or someone you trust). Combining them is instant, with no quest turn-in.",
         steps = {
             { text = "Raid Molten Core on a weekly reset schedule.", auto = { level = 60 } },
@@ -448,8 +473,7 @@ FGT.goals = {
         name = "Level Classes to 60",
         category = "Milestone",
         difficulty = "Very Hard",
-        timeEstimate = "Ongoing - one full leveling run per class",
-        timeRank = 5,
+        timeEstimate = "Ongoing",
         note = "Tracked automatically. Every character you log into is remembered, and each class shows its highest character's level, filling as you earn XP. A class completes when any character of it hits 60. Characters you haven't logged into since installing show as not seen yet.",
         steps = {
             { text = "Warrior",  icon = "ClassIcon_Warrior", autoClass = "WARRIOR" },

@@ -28,10 +28,11 @@ When Forever goes live (November), the addon and the SavedVariables need to move
 |---|---|
 | `ForeverGoalTracker.toc` | `## Interface: 11509, 16001` (Classic Era + Forever). Load order: Data.lua, Library.lua, Core.lua. SavedVariables `ForeverGoalTrackerDB`. |
 | `Data.lua` | The original 11 goals (Atiesh, Thunderfury, Sulfuras, Ashbringer, Rhok'delar, Lok'delar, Benediction, Frostsaber, level all classes, Tier 3, epic racial mounts). Builders for group goals (`autoLevels`, `BuildMountTasks` with `forRace`). |
-| `Library.lua` | 37 more goals: reputations, mounts, Quel'Serrar, raids (`BossSteps`), professions (`SKILL_ICONS`), gold, item sets (`TIER1`, `TIER2`, Embrace of the Viper), per-faction PvP. 48 goals in total. |
+| `Library.lua` | 54 more goals: reputations (incl. Ambassador per faction), mounts (incl. Dreadsteed, Charger), Quel'Serrar, raids (`BossSteps`, AQ20), attunements and dungeon keys (category `Attunement`, one goal each; Onyxia has one per faction), professions (`SKILL_ICONS`), gold, item sets (`TIER1`, `TIER2`, `DUNGEON1`, `DUNGEON2`, Embrace of the Viper), per-faction PvP. 65 goals in total. Set piece tuples are `{ name, itemId, source, icon }`; sources come from Wowhead "Dropped by" / "Reward from". |
 | `Core.lua` | Everything else (~3,000 lines): DB, roster scanning, rules engine, UI, minimap button, slash commands. Namespace table `FGT`, addon folder name `ADDON`. |
 | `Media/icon.tga` | 64px addon list icon (book logo). |
 | `Media/minimap.tga` | 64px minimap button icon (green checkmark, circular alpha). Source: `Media/minimap-source.png`. |
+| `Media/web.tga` | 256px corner cobweb for the empty state (white on transparent, tinted in code). |
 | `Media/logo.png` | 1024px logo for GitHub/CurseForge. |
 | `README.txt` | Player-facing readme that ships in the zip. `README.md` is the GitHub page. |
 | `CHANGELOG.md` | Update for every version. |
@@ -44,7 +45,7 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 
 ### Roster and rules
 - `RecordCharacter()` snapshots the logged-in character into `DB.characters["Name-Realm"]`: level, XP, race, class, faction, items (bags, equipped, bank when it's open), quests, reputations, skills, money, owned mounts, PvP rank and honorable kills, plus boss kills from `ENCOUNTER_END`/`BOSS_KILL`.
-- `RuleMet(rule)` checks a step's `auto` rule against the whole roster. A rule is met if **any** of its conditions holds. Conditions: `level`, `raceLevel`, `race`, `item`+`count` (summed across the roster), `quest`, `rep` (faction id or list, `standing`, `value`), `skill`, `money`, `pvpRank`, `hk`, `owned`, `ownedPattern`, `boss`. Scope keys `forRace` and `forFaction` limit which characters count.
+- `RuleMet(rule)` checks a step's `auto` rule against the whole roster. A rule is met if **any** of its conditions holds. Conditions: `level`, `raceLevel`, `race`, `item`+`count` (summed across the roster), `quest` (turned in), `questTaken` (picked up or turned in; read from the quest log and remembered on the character), `rep` (faction id or list, `standing`, `value`), `skill`, `money`, `pvpRank`, `hk`, `owned`, `ownedPattern`, `boss`. Scope keys `forRace` and `forFaction` limit which characters count.
 - `completeWith` on a goal completes the entire goal when the final reward is owned.
 - `ApplyAutoRules()` ticks steps and **never unticks** them, because items get consumed along the way. Ticks are written to `autoLog` for debugging.
 - Bag and money events are debounced with `C_Timer`.
@@ -55,7 +56,8 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 - The window anchor is normalized to TOPLEFT before dragging. The frame uses `SetDontSavePosition`, saves its position in the DB, and re-measures resize bounds each time.
 - The minimap button radius is `Minimap:GetWidth()/2 + 5`. Don't use a fixed 80, which sits off Forever's smaller minimap.
 - Slash commands: `/goals`, `/fgt`, `/forevergoals`. `/goals reset` resets the window.
-- First run: `DB.active` is missing, so it is set to `{}`, the window opens on the Library tab, and a welcome message prints.
+- First run: `DB.active` is missing, so it is set to `{}`, the window opens on My Goals, and a welcome message prints.
+- Empty state (no goals on the tracker): cobwebs (`Media/web.tga`, mirrored for the right corner) in the goal list's top corners, an "Empty" label, the sort bar hidden, and a "Browse the Goal Library" button on the right. Built in `FGT.emptyUI`, toggled by `FGT.ShowEmptyTracker`/`HideEmptyTracker`.
 
 ## Hard-won lessons (don't regress these)
 
