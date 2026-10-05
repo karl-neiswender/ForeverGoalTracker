@@ -8,3 +8,4 @@ ignore:
   - .gitignore
   - .pkgmeta
   - Media/logo.png
+  - Media/minimap-source.png

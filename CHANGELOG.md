@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1
+
+- New minimap button icon (green checkmark).
+
 ## 2.1.0 (first public release)
 
 - Goal Library with 48 goals across legendary and epic weapons, mounts, reputations, raids, item sets, professions, PvP and milestones.
