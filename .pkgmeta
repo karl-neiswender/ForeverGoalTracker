@@ -9,3 +9,4 @@ ignore:
   - .pkgmeta
   - Media/logo.png
   - Media/minimap-source.png
+  - CLAUDE.md
