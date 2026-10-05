@@ -2,6 +2,12 @@
 # and uploads it to CurseForge when a version tag is pushed.
 package-as: ForeverGoalTracker
 
+# Use our hand-written changelog (instead of a list of commit messages)
+# for the CurseForge file page, and keep it as-is inside the zip.
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
+
 ignore:
   - README.md
   - .github
