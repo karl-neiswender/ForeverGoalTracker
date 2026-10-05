@@ -1,0 +1,10 @@
+# BigWigs packager settings: builds ForeverGoalTracker-<version>.zip
+# and uploads it to CurseForge when a version tag is pushed.
+package-as: ForeverGoalTracker
+
+ignore:
+  - README.md
+  - .github
+  - .gitignore
+  - .pkgmeta
+  - Media/logo.png
