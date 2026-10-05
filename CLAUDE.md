@@ -107,7 +107,8 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 ## Current state (2026-10-05)
 
 - CurseForge approved the project (ID 1728528, now in the `.toc`); the public page may take a while to appear in search. v2.1.0 is the uploaded file. v2.1.2 (big update, includes 2.1.1) is committed and pushed, with its zip in Downloads for Karl to upload by hand.
-- Pending: Karl adds the `CF_API_KEY` secret on GitHub, then the first tag-driven release (check the CurseForge game version on that run); CurseForge screenshots; move to the live client in November.
+- Release automation is set up (project ID in the `.toc`, `CF_API_KEY` secret on GitHub since 2026-10-05). Next version (2.1.3) is the first tag-driven release: push `v2.1.3`, watch the GitHub Action, check that CurseForge filed it under Forever 1.60.1 (if not, pass the game version to the packager in `release.yml`), and compare the uploaded zip with a hand-built one.
+- Pending: CurseForge screenshots; move to the live client in November.
 - Open questions: where Horde warlocks start the Dreadsteed chain (Wowhead only lists Spackle Thornberry in Stormwind); the memory check (Karl hasn't run the before/after `GetAddOnMemoryUsage` commands yet).
 - Ideas not done yet: Tier 3 token drop sources, item icons for Tier 1 to 3 pieces, second goal batch (Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle/Ravenholdt/Shen'dralar reputation, Bloodsail Admiral, fishing tournament, more class sets).
 
