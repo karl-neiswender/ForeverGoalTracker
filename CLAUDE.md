@@ -3,7 +3,7 @@
 A World of Warcraft addon for **Warcraft Forever** (beta now, live launch November 2026). Players pick long-term goals from a built-in library (legendaries, mounts, reputations, raids, item sets, professions, PvP) and follow step-by-step guides, and steps tick automatically from game state across all of the player's characters.
 
 - Author: Karl (GitHub `karl-neiswender`). Repo: https://github.com/karl-neiswender/ForeverGoalTracker
-- Published on CurseForge as "Forever Goal Tracker" (submitted 2026-10-05, awaiting moderator approval).
+- Published on CurseForge as "Forever Goal Tracker", project ID 1728528 (approved 2026-10-05). Public page: https://www.curseforge.com/wow/addons/forever-goal-tracker
 - License: MIT. Bundled Cinzel font is SIL OFL (`Fonts/OFL.txt`).
 
 ## Where this folder lives
@@ -106,8 +106,8 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 
 ## Current state (2026-10-05)
 
-- v2.1.0 uploaded to CurseForge, under review. v2.1.1 (minimap icon) and v2.1.2 (big update, see CHANGELOG) are committed and pushed; the 2.1.2 zip is built and ready to upload after approval (it includes everything from 2.1.1).
-- Pending: CurseForge Project ID and CF_API_KEY setup, CurseForge screenshots, move to the live client in November.
+- CurseForge approved the project (ID 1728528, now in the `.toc`); the public page may take a while to appear in search. v2.1.0 is the uploaded file. v2.1.2 (big update, includes 2.1.1) is committed and pushed, with its zip in Downloads for Karl to upload by hand.
+- Pending: Karl adds the `CF_API_KEY` secret on GitHub, then the first tag-driven release (check the CurseForge game version on that run); CurseForge screenshots; move to the live client in November.
 - Open questions: where Horde warlocks start the Dreadsteed chain (Wowhead only lists Spackle Thornberry in Stormwind); the memory check (Karl hasn't run the before/after `GetAddOnMemoryUsage` commands yet).
 - Ideas not done yet: Tier 3 token drop sources, item icons for Tier 1 to 3 pieces, second goal batch (Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle/Ravenholdt/Shen'dralar reputation, Bloodsail Admiral, fishing tournament, more class sets).
 
