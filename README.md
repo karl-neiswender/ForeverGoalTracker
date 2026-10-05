@@ -6,7 +6,7 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 
 ## Features
 
-- **Goal Library with 48 goals:** legendary and epic weapons, rare mounts, reputations, raid clears, item sets, professions, PvP ranks and milestones.
+- **Goal Library with 65 goals:** legendary and epic weapons, rare and class mounts, reputations, raid clears, raid attunements and dungeon keys, item sets (Dungeon Sets 1 and 2, Tier 1 to 3), professions, PvP ranks and milestones. Search by name or filter by type.
 - **Step-by-step guides** for every goal.
 - **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills and raid boss kills.
 - **Pick the parts you want** of multi-part goals: individual classes, professions, mount races or Tier set classes.

@@ -69,11 +69,15 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 6. Rank 11 PvP titles are Commander (Alliance) and Lieutenant General (Horde).
 7. Icon names come from Wowhead (`https://www.wowhead.com/classic/item=ID&xml`). Item and quest IDs were cross-checked against QuestieDB.
 8. Never untick steps automatically.
+9. Don't use the game's `StartMoving`/`StartSizing` for the main window. They re-measured the window on grab and made it jump. Moving and resizing follow the cursor by hand (`FGT.mover`, the resize grip's OnUpdate), and a saved position is nudged on screen, never recentered.
+10. All piece progress goes through `FGT.PieceProgress`: a piece with materials (Tier 3) counts only its materials and has no checkbox; a piece without materials is one checkbox. Counting a piece and its materials together made the bars disagree.
+11. Steps are drawn without a closing period (`FGT.StepText`); write data normally and don't strip periods by hand. Steps are actions; advice goes in a goal's `tips`.
+12. Steps are saved by position. If you remove or merge steps in an existing goal, add a one-time remap in the init code (see `tipsFix`) so saved ticks follow their steps.
 
 ## Testing
 
 There's no automated test suite. Testing happens in the Forever beta: edit, `/reload`, and Karl reports back with screenshots. Before handing back a change:
-- Check the Lua for syntax errors (for example `luac -p *.lua` if Lua 5.1 is installed).
+- Check the Lua for syntax errors. Lua isn't installed on this PC, so the fallback is a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs. It catches most slips but not a missing comma.
 - Watch the local count in Core.lua's main chunk (lesson 1).
 - Ask Karl to `/reload` and check the change. If something misbehaves, `/console scriptErrors 1` shows Lua errors.
 
@@ -91,10 +95,21 @@ There's no automated test suite. Testing happens in the Forever beta: edit, `/re
 
 Commits are made as `karl-neiswender <97697208+karl-neiswender@users.noreply.github.com>`.
 
+Git for Windows is installed at `C:\Program Files\Git\cmd\git.exe` but may not be on PATH in Claude's shell; call it by full path with `-c safe.directory=*` (the repo is under Program Files). The GitHub sign-in is stored, so pushes work from Claude's shell. Release zips go in `C:\Users\kneis\Downloads`.
+
+## Looking things up on Wowhead
+
+Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified on Wowhead Classic through the built-in browser, never written from memory.
+- Item pages carry `WH.Gatherer.addData(...)` (name, icon, slot, item set) and a `dropped-by` Listview (NPC, drop count). Dungeon bosses are not flagged `boss` there, so read NPC names, not the flag.
+- Quest start NPCs are filled in by script: open the page and read the rendered text ("Start: ...").
+- Wowhead rate-limits hard (403 for several minutes). Fetch one page about every 1.2 s, run long batches in the background (the JS tool times out at 45 s), and stop on the first 403.
+
 ## Current state (2026-10-05)
 
-- v2.1.0 uploaded to CurseForge, under review. v2.1.1 (new minimap icon) is committed and installed, with its zip built and ready to upload after approval.
+- v2.1.0 uploaded to CurseForge, under review. v2.1.1 (minimap icon) and v2.1.2 (big update, see CHANGELOG) are committed and pushed; the 2.1.2 zip is built and ready to upload after approval (it includes everything from 2.1.1).
 - Pending: CurseForge Project ID and CF_API_KEY setup, CurseForge screenshots, move to the live client in November.
+- Open questions: where Horde warlocks start the Dreadsteed chain (Wowhead only lists Spackle Thornberry in Stormwind); the memory check (Karl hasn't run the before/after `GetAddOnMemoryUsage` commands yet).
+- Ideas not done yet: Tier 3 token drop sources, item icons for Tier 1 to 3 pieces, second goal batch (Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle/Ravenholdt/Shen'dralar reputation, Bloodsail Admiral, fishing tournament, more class sets).
 
 ## Working with Karl
 

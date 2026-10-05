@@ -12,8 +12,8 @@ GETTING STARTED
    (the .toc file should sit directly inside ForeverGoalTracker).
 2. Restart the game and make sure Forever Goal Tracker is enabled on the
    AddOns list at character select.
-3. Type /goals or click the minimap button. On first use the Goal Library
-   opens so you can choose which goals to track.
+3. Type /goals or click the minimap button. Your tracker starts empty;
+   click "Browse the Goal Library" to choose which goals to track.
 
 SLASH COMMANDS
 --------------
@@ -25,13 +25,15 @@ THE TWO TABS
 My Goals
   The goals you've added. Pick one on the left to see its guide on the
   right. Click a step to tick it by hand; hover a step to see what it
-  tracks automatically. The bar at the top shows your overall progress,
-  averaged across your goals.
+  tracks automatically. Tips under the steps hold advice and strategy.
+  The bar at the top shows your overall progress, averaged across your
+  goals.
 
 Goal Library
-  Every goal the addon knows (48 and counting). Use the filter chips to
-  browse by type or faction, then click "+ Add" to put a goal on your
-  tracker. Goals with several parts (classes, professions, mount races,
+  Every goal the addon knows (65 and counting). Search by name, or use
+  the filter chips to browse by type; PvP, Reputation and Attunements
+  also have a Both / Alliance / Horde picker. Click "+ Add" to put a
+  goal on your tracker. Goals with several parts (classes, professions, mount races,
   set classes) have a "Choose" button so you can add only the parts you
   want.
 
@@ -40,8 +42,9 @@ AUTOMATIC TRACKING
 Each character you log into is remembered. Steps tick themselves when a
 rule is met on any of your characters:
   - Level and XP (per class and per race)
-  - Items in your bags, gear and bank (open your bank once per character)
-  - Completed quests
+  - Items in your bags, gear, keyring and bank (open your bank once per
+    character)
+  - Quests picked up and completed
   - Reputation standing
   - Profession skill levels
   - Gold on hand
@@ -59,9 +62,11 @@ with the addon installed.
 
 GOAL TYPES
 ----------
-Legendary and epic weapons, mounts, reputations, raid clears, item sets
-(Tier 1, 2 and 3, Embrace of the Viper), professions, PvP ranks and
-reputations for each faction, and milestones such as leveling every class.
+Legendary and epic weapons, mounts (including the Warlock and Paladin
+epic mounts), reputations, raid clears, raid attunements and dungeon keys,
+item sets (Dungeon Sets 1 and 2, Tier 1, 2 and 3, Embrace of the Viper),
+professions, PvP ranks and reputations for each faction, and milestones
+such as leveling every class.
 
 NOTES
 -----
