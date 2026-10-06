@@ -2262,23 +2262,25 @@ end
 local function CelebrateStep(self, elapsed)
     local t = self.fxT + elapsed
     self.fxT = t
-    if t >= 0.95 then return FGT.EndCelebration(self) end
+    if t >= 0.85 then return FGT.EndCelebration(self) end
     PopFrame(self, t)
 
-    local r = Clamp01(t / 0.65)
-    local o = 7 * (1 - (1 - r) ^ 3)
+    -- The ring keeps moving until it's gone: a gentle ease-out, and a
+    -- fade that finishes first, so it never sits still while visible.
+    local r = Clamp01(t / 0.55)
+    local o = 7 * (1 - (1 - r) ^ 2)
     self.burst:ClearAllPoints()
     self.burst:SetPoint("TOPLEFT", -o, o)
     self.burst:SetPoint("BOTTOMRIGHT", o, -o)
-    self.burst:SetAlpha(1 - r)
+    self.burst:SetAlpha((1 - r) ^ 2)
 
     -- steady speed the whole way (easing to a stop read as a stall),
     -- fading in and out at the ends
-    local sh = Clamp01((t - 0.1) / 0.75)
+    local sh = Clamp01((t - 0.08) / 0.77)
     local travel = math.max(0, self:GetWidth() - 69)
     self.shineL:ClearAllPoints()
     self.shineL:SetPoint("LEFT", self, "LEFT", 2 + travel * sh, 0)
-    local a = math.sin(math.pi * sh) ^ 0.7
+    local a = math.sin(math.pi * sh)
     self.shineL:SetAlpha(a)
     self.shineC:SetAlpha(a)
     self.shineR:SetAlpha(a)
