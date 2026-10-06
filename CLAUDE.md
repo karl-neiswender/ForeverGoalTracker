@@ -148,7 +148,7 @@ The CurseForge gallery has five screenshots, also kept in `Screenshots/` in the 
 | `04-links-and-tips.png` | `/goals demo 4` | Corrupted Ashbringer: gold links, link card, Tips, Forever notice | goal links, link card, tips, Ashbringer steps |
 | `05-settings.png` | `/goals settings` (any scene behind it) | Settings page: both columns, pill toggles, choices, sliders, tracked characters | any settings row or group, the toggle look, the gear; its header shows the version, so retake after each version bump |
 
-Retake every shot when Warcraft Forever launches (live client instead of beta). When adding a shot, add a demo scene to `FGT.Demo` (`SCENES` in Core.lua) and a row here.
+Shot 3 is knowingly stale since the 2026-10-06 racial mount step change (Karl: not worth a retake before launch). Retake every shot when Warcraft Forever launches (live client instead of beta). When adding a shot, add a demo scene to `FGT.Demo` (`SCENES` in Core.lua) and a row here.
 
 ## Looking things up on Wowhead
 
