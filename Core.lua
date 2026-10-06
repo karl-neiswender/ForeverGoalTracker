@@ -1280,6 +1280,12 @@ local function PopFrame(row, t)
     if row.popChip then
         row.popChip:SetScale(math.max(0.01, s))
         row.popChip:SetAlpha(Clamp01(c * 3))
+        if row.bigCheck then
+            -- the big check lands a beat after the tag
+            local b = Clamp01((t - 0.12) / 0.4)
+            row.bigCheck:SetScale(math.max(0.01, PopEase(b)))
+            row.bigCheck:SetAlpha(Clamp01(b * 3))
+        end
     elseif row.popTex then
         local px = math.max(0.01, row.popSize * s)
         row.popTex:SetSize(px, px)
@@ -1293,6 +1299,12 @@ function FGT.EndCelebration(row)
     if row.popChip then
         row.popChip:SetScale(1)
         row.popChip:SetAlpha(1)
+        if row.bigCheck then
+            row.bigCheck:SetScale(1)
+            row.bigCheck:SetAlpha(1)
+            row.checkGlow:SetAlpha(0)
+            row.checkShadow:SetAlpha(0.75)
+        end
     elseif row.popTex then
         row.popTex:SetSize(row.popSize, row.popSize)
         row.popTex:SetAlpha(1)
@@ -1350,6 +1362,12 @@ local function CelebrateStep(self, elapsed)
 
     ShineFrame(self, Clamp01((t - 0.06) / 0.55), self.fxInset)
     SetGlow(self, Clamp01(t / 0.6))
+    if self.bigCheck then
+        -- bright green glow as the check lands, easing into a soft shadow
+        local g = Clamp01((t - 0.12) / 0.15) * (1 - Clamp01((t - 0.3) / 0.4))
+        self.checkGlow:SetAlpha(0.9 * g)
+        self.checkShadow:SetAlpha(0.75 * Clamp01((t - 0.25) / 0.45))
+    end
 end
 
 -- Group rows pop their green check; goal cards pop the COMPLETE tag.
@@ -2055,6 +2073,16 @@ local function RefreshGoalList()
         local complete = total > 0 and done == total
         row.check:SetShown(complete)
         row.doneGlow:SetShown(complete)
+        row.bigCheck:SetShown(complete)
+        row.icon.tex:SetDesaturated(complete)
+        row.icon.tex:SetAlpha(complete and 0.45 or 1)
+        local rim = row.catColor
+        if complete then
+            local g = rim[1] * 0.3 + rim[2] * 0.59 + rim[3] * 0.11
+            row.icon:SetBackdropBorderColor(g, g, g, 1)
+        else
+            row.icon:SetBackdropBorderColor(rim[1], rim[2], rim[3], 1)
+        end
         FGT.CheckCelebration(row, "card_" .. row.goal.id, complete, FGT.CelebrateRow)
     end
 end
@@ -2097,15 +2125,32 @@ for i, goal in ipairs(FGT.goals) do
     row.check:SetPoint("LEFT", row.diffChip, "RIGHT", 4, 0)
     row.check:SetLabel("COMPLETE", C.DONE)
     row.check:SetBackdropBorderColor(0.16, 0.35, 0.10, 1)
-    -- green checkmark beside the tag; it's part of the tag, so it shows,
-    -- hides and pops in with it
-    row.check.mark = row.check:CreateTexture(nil, "OVERLAY")
-    row.check.mark:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-    row.check.mark:SetSize(16, 16)
-    row.check.mark:SetPoint("LEFT", row.check, "RIGHT", 1, 1)
-    row.check.mark:SetDesaturated(true)
-    row.check.mark:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
     row.check:Hide()
+
+    -- Finished goals: a big green check over the greyed-out icon, with
+    -- a soft shadow under it. It pops in wrapped in a green glow that
+    -- settles into the shadow (FGT.CelebrateRow).
+    row.catColor = catColor
+    row.bigCheck = CreateFrame("Frame", nil, row)
+    row.bigCheck:SetSize(42, 42)
+    row.bigCheck:SetPoint("CENTER", row.icon, "CENTER", 0, 0)
+    row.bigCheck:SetFrameLevel(row.icon:GetFrameLevel() + 2)
+    for _, part in ipairs({
+        { "checkShadow", "BACKGROUND", 40, 1, -2, { 0, 0, 0 }, 0.75, "BLEND" },
+        { "checkGlow", "BORDER", 54, 0, 0, { 0.55, 1.00, 0.40 }, 0, "ADD" },
+        { "checkMark", "ARTWORK", 36, 0, 0, { 0.45, 0.95, 0.30 }, 1, "BLEND" },
+    }) do
+        local t = row.bigCheck:CreateTexture(nil, part[2])
+        t:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+        t:SetDesaturated(true)
+        t:SetSize(part[3], part[3])
+        t:SetPoint("CENTER", part[4], part[5] + 1)
+        t:SetVertexColor(part[6][1], part[6][2], part[6][3])
+        t:SetAlpha(part[7])
+        t:SetBlendMode(part[8])
+        row[part[1]] = t
+    end
+    row.bigCheck:Hide()
     FGT.AddCelebrationFX(row, 3, 56)
 
     row.bar = NewBar(row, 4)
