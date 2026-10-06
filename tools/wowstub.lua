@@ -42,6 +42,7 @@ GetScreenWidth = function() return 1920 end
 GetScreenHeight = function() return 1080 end
 GetTime = function() return 100 end
 time = function() return 1790000000 end
+date = os.date
 GetMoney = function() return 0 end
 UnitXP = function() return 0 end
 UnitXPMax = function() return 1 end
@@ -61,6 +62,9 @@ fmt.__index = function(t, k)
     local e = rawget(self, "_ev") or {}; e[ev] = true; rawset(self, "_ev", e) end end
   if k == "UnregisterEvent" then return function(self, ev)
     local e = rawget(self, "_ev"); if e then e[ev] = nil end end end
+  -- Lowercase keys are the addon's own fields (bar.cur, row.goal): unset
+  -- ones are nil on a real frame. Capitalized keys are API methods.
+  if type(k) == "string" and k:match("^%l") then return nil end
   return mt.__index(t, k)
 end
 CreateFrame = function()
