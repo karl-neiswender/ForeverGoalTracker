@@ -130,6 +130,7 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 - v2.2.0 released 2026-10-05 (tag `v2.2.0`): favorites and the right-click menu, login greeting, goal-complete chat link and banner, completion celebrations, real Tier 3 recipes and token sources, item icons for Tier 1 to 3.
 - Pending: CurseForge screenshots; move to the live client in November.
 - Open questions: where Horde warlocks start the Dreadsteed chain (Wowhead only lists Spackle Thornberry in Stormwind); the memory check (Karl hasn't run the before/after `GetAddOnMemoryUsage` commands yet).
+- Next session idea (Karl, 2026-10-05): guild announcements when a guild member completes a goal. Likely approach: send a hidden addon message on the GUILD channel (`C_ChatInfo.SendAddonMessage`, or `SendAddonMessage` on older clients) when a goal finishes, so guildmates who also run the addon see a chat line or banner. An optional, off-by-default setting could also post a plain line in guild chat for members without the addon (that's public, so it must be the player's choice).
 - Ideas not done yet: second goal batch (Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle/Ravenholdt/Shen'dralar reputation, Bloodsail Admiral, fishing tournament, more class sets).
 
 ## Working with Karl
