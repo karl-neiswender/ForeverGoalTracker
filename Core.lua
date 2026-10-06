@@ -2609,12 +2609,17 @@ SelectGoal = function(id, skipListRefresh)
 
     resetBtn:SetShown(not goal.autoLevels)
     local done, total = GoalProgress(goal)
+    -- The bar is shared by every goal: opening a different goal jumps
+    -- straight to its value, so it only glides when progress changes.
+    detailBar.instant = detailBar.goalId ~= goal.id or nil
+    detailBar.goalId = goal.id
     if goal.autoLevels then
         detailBar:SetProgress(done, total, string.format("%d / %d levels  ·  %d%%",
             done, total, math.floor(done / math.max(1, total) * 100 + 0.5)))
     else
         detailBar:SetProgress(done, total)
     end
+    detailBar.instant = nil
 
     RefreshSteps(goal)
     RefreshGoalList()

@@ -7,6 +7,7 @@
 - Tier 3 Tips: Naxxramas attunement, every class's quartermaster, and where scraps drop.
 - Tier 1, Tier 2 and Tier 3 pieces show their item icons.
 - Fixed the Shaman Tier 3 set name (The Earthshatterer).
+- A goal's progress bar no longer replays its fill animation each time you open the goal. It only glides when progress changes.
 
 ## 2.1.2
 
