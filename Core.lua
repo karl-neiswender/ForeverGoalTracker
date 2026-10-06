@@ -178,6 +178,10 @@ local function EnsureDB()
     if type(ForeverGoalTrackerDB.activeParts) ~= "table" then
         ForeverGoalTrackerDB.activeParts = {}
     end
+    -- favorited goals sit in their own section at the top of My Goals
+    if type(ForeverGoalTrackerDB.favorites) ~= "table" then
+        ForeverGoalTrackerDB.favorites = {}
+    end
     for _, g in ipairs(FGT.goals) do
         if g.group and ForeverGoalTrackerDB.activeParts[g.id] == nil then
             local sel = {}
@@ -2070,6 +2074,9 @@ local function RefreshGoalList()
             row:SetEtch(STYLE.row)
             row.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
         end
+        local fav = ForeverGoalTrackerDB.favorites[row.goal.id] and true or false
+        row.star:SetShown(fav)
+        row.name:SetPoint("RIGHT", fav and -26 or -8, 0)
         local complete = total > 0 and done == total
         row.check:SetShown(complete)
         row.doneGlow:SetShown(complete)
@@ -2153,6 +2160,13 @@ for i, goal in ipairs(FGT.goals) do
     row.bigCheck:Hide()
     FGT.AddCelebrationFX(row, 3, 56)
 
+    -- gold star in the top-right corner of favorited goals
+    row.star = row:CreateTexture(nil, "OVERLAY")
+    row.star:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_1")
+    row.star:SetSize(14, 14)
+    row.star:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
+    row.star:Hide()
+
     row.bar = NewBar(row, 4)
     row.bar:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, 1)
     row.bar:SetPoint("RIGHT", row, "RIGHT", -10, 0)
@@ -2172,14 +2186,21 @@ for i, goal in ipairs(FGT.goals) do
         if self.goal.timeEstimate then
             GameTooltip:AddLine(self.goal.timeEstimate, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
+        GameTooltip:AddLine("Right-click for options", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         GameTooltip:Show()
     end)
     row:SetScript("OnLeave", function(self)
         RefreshGoalList()
         GameTooltip:Hide()
     end)
-    row:SetScript("OnClick", function(self)
-        SelectGoal(self.goal.id)
+    row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    row:SetScript("OnClick", function(self, button)
+        if button == "RightButton" then
+            GameTooltip:Hide()
+            FGT.OpenGoalMenu(self)
+        else
+            SelectGoal(self.goal.id)
+        end
     end)
 
     goalRows[goal.id] = row
@@ -2190,19 +2211,51 @@ LayoutGoalList = function()
     for _, g in ipairs(FGT.goals) do
         if goalRows[g.id] then goalRows[g.id]:SetShown(IsActive(g)) end
     end
+    -- Favorites first, then the rest; each group follows the sort.
     local mode = sortModes[sortModeIndex].key
-    table.sort(sorted, function(a, b) return CompareGoals(mode, a, b) end)
+    local favs = ForeverGoalTrackerDB.favorites
+    table.sort(sorted, function(a, b)
+        local fa, fb = favs[a.id] and true or false, favs[b.id] and true or false
+        if fa ~= fb then return fa end
+        return CompareGoals(mode, a, b)
+    end)
 
+    -- A thin gold divider between the two groups, brightest in the
+    -- middle and fading out toward both ends.
+    local divider = FGT.favDivider
+    if not divider then
+        divider = CreateFrame("Frame", nil, listContent)
+        divider:SetHeight(1)
+        local l, r = divider:CreateTexture(nil, "ARTWORK"), divider:CreateTexture(nil, "ARTWORK")
+        for _, t in ipairs({ l, r }) do t:SetTexture(SOLID); t:SetHeight(1) end
+        l:SetPoint("LEFT"); l:SetPoint("RIGHT", divider, "CENTER")
+        r:SetPoint("LEFT", divider, "CENTER"); r:SetPoint("RIGHT")
+        ApplyHGradient(l, C.GOLD2, C.GOLD2, 0, 0.45)
+        ApplyHGradient(r, C.GOLD2, C.GOLD2, 0.45, 0)
+        FGT.favDivider = divider
+    end
+    divider:Hide()
+
+    local y = yStart
     for i, g in ipairs(sorted) do
         local row = goalRows[g.id]
+        if i > 1 and favs[sorted[i - 1].id] and not favs[g.id] then
+            y = y - 6
+            divider:ClearAllPoints()
+            divider:SetPoint("TOPLEFT", listContent, "TOPLEFT", 16, y)
+            divider:SetPoint("RIGHT", listContent, "RIGHT", -16, 0)
+            divider:Show()
+            y = y - 11
+        end
         if row then
             row:ClearAllPoints()
-            row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, yStart - (i - 1) * (rowHeight + 4))
+            row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, y)
             row:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
         end
+        y = y - (rowHeight + 4)
     end
 
-    local totalListHeight = 8 + #sorted * (rowHeight + 4)
+    local totalListHeight = -y
     listContent:SetHeight(math.max(totalListHeight, listScrollObj.scroll:GetHeight()))
     listScrollObj:Update()
 end
@@ -3292,6 +3345,92 @@ local function SetGoalActive(goal, on)
     end
     RefreshOverall()
     LayoutLibrary()
+end
+
+-- ============================================================
+-- Right-click menu on a My Goals card: favorite / unfavorite the goal,
+-- or remove it from the tracker (its progress is kept). Styled like the
+-- sort menu; any click outside closes it.
+-- ============================================================
+function FGT.CloseGoalMenu()
+    local M = FGT.goalMenu
+    if M then
+        M:Hide()
+        M.catcher:Hide()
+    end
+end
+
+function FGT.OpenGoalMenu(card)
+    local M = FGT.goalMenu
+    if not M then
+        M = CreateFrame("Frame", nil, main, "BackdropTemplate")
+        M:SetFrameLevel(main:GetFrameLevel() + 60)
+        M:SetClampedToScreen(true)
+        M:SetWidth(200)
+        Etch(M, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
+        M:EnableMouse(true)
+        M.catcher = CreateFrame("Button", nil, main)
+        M.catcher:SetAllPoints(main)
+        M.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
+        M.catcher:RegisterForClicks("AnyUp")
+        M.catcher:SetScript("OnClick", FGT.CloseGoalMenu)
+        M.rows = {}
+        for i = 1, 2 do
+            local row = CreateFrame("Button", nil, M)
+            row:SetHeight(MENU_ROW)
+            row:SetPoint("TOPLEFT", M, "TOPLEFT", 4, -4 - (i - 1) * MENU_ROW)
+            row:SetPoint("TOPRIGHT", M, "TOPRIGHT", -4, -4 - (i - 1) * MENU_ROW)
+            row.hl = row:CreateTexture(nil, "BACKGROUND")
+            row.hl:SetTexture(SOLID)
+            row.hl:SetAllPoints(row)
+            ApplyHGradient(row.hl, C.ACCENT, C.ACCENT, 0.18, 0.02)
+            row.hl:Hide()
+            row.icon = row:CreateTexture(nil, "OVERLAY")
+            row.icon:SetSize(14, 14)
+            row.icon:SetPoint("LEFT", row, "LEFT", 4, 0)
+            row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            row.label:SetPoint("LEFT", row, "LEFT", 24, 0)
+            row:SetScript("OnEnter", function(self) self.hl:Show() end)
+            row:SetScript("OnLeave", function(self) self.hl:Hide() end)
+            M.rows[i] = row
+        end
+        M:SetHeight(2 * MENU_ROW + 8)
+
+        -- 1: favorite toggle
+        M.rows[1].icon:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_1")
+        M.rows[1]:SetScript("OnClick", function()
+            local id = M.goal.id
+            local favs = ForeverGoalTrackerDB.favorites
+            favs[id] = (not favs[id]) or nil
+            FGT.CloseGoalMenu()
+            LayoutGoalList()
+            RefreshGoalList()
+        end)
+        -- 2: remove from My Goals
+        M.rows[2].icon:SetTexture("Interface\\Buttons\\UI-GroupLoot-Pass-Up")
+        M.rows[2].label:SetText("Remove from My Goals")
+        M.rows[2].label:SetTextColor(1.00, 0.50, 0.42)
+        M.rows[2]:SetScript("OnClick", function()
+            local goal = M.goal
+            FGT.CloseGoalMenu()
+            ForeverGoalTrackerDB.favorites[goal.id] = nil
+            SetGoalActive(goal, false)
+        end)
+        FGT.goalMenu = M
+    end
+
+    M.goal = card.goal
+    local fav = ForeverGoalTrackerDB.favorites[card.goal.id]
+    M.rows[1].label:SetText(fav and "Remove from favorites" or "Add to favorites")
+    M.rows[1].icon:SetDesaturated(fav and true or false)
+
+    -- open at the cursor
+    local x, y = GetCursorPosition()
+    local scale = M:GetEffectiveScale()
+    M:ClearAllPoints()
+    M:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x / scale, y / scale)
+    M:Show()
+    M.catcher:Show()
 end
 
 -- Label alone: dead center. Label + checkmark: center the pair, i.e.

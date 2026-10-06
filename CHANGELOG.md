@@ -2,6 +2,8 @@
 
 ## 2.2.0
 
+- Favorites: right-click a goal in My Goals to add it to your favorites. Favorites get a gold star and sit in their own group at the top of the list, above a thin divider. Both groups follow the sort you pick.
+- Right-click a goal in My Goals to remove it from your tracker. Its progress is kept if you add it back.
 - Tier 3 pieces list their real recipe from the quartermaster: the Desecrated token, the exact number of Wartorn scraps, and the exact crafting materials (Arcanite Bars, Cured Rugged Hides, Mooncloth, Nexus Crystals, Arcane Crystals). Ticks on the old placeholder crafting materials are cleared; token and scrap ticks stay.
 - Each Desecrated token says which Naxxramas boss drops it (for example "Desecrated Helmet from Thaddius").
 - Tier 3 Tips: Naxxramas attunement, every class's quartermaster, and where scraps drop.
