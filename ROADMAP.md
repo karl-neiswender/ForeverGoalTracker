@@ -6,10 +6,6 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Next up
 
-**WoW Forever markers.** Every guide is written from Classic Era, where the steps are known to be right. Until Wowhead's Forever database confirms an item and how you get it, its goal shows a small "not confirmed in WoW Forever yet" notice. Anything brand new in Forever is marked NEW, and Classic content Forever changed is marked UPDATED, both in Forever blue, with a "New & Updated" filter in the Goal Library. First up: the Skyborne Swift Galestrider and the updated Embrace of the Viper.
-
-**Everyday polish.** Each goal card shows how many steps you've done, finished goals show the day you completed them, groups get Expand all / Collapse all and fold closed when finished, "Reset this goal" can be undone, and the minimap button shows your progress and your favorites' next steps.
-
 **Settings page.** One place to choose how the addon behaves: the login greeting, the goal-complete chat line and banner, celebration effects (on, subtle or off), an optional sound, the minimap button, opening the window on login, window size and transparency, and removing old characters from the list. It opens from a gear icon in the window and from the game's Options > AddOns.
 
 ## Quick wins
@@ -50,6 +46,8 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
+- **2.3.1:** more goal links across the library, and steps you can't check off turned into tips.
+- **2.3.0:** WoW Forever markers: a "not confirmed in WoW Forever yet" notice on Classic-based guides, NEW and UPDATED labels in Forever blue, and a "New & Updated" filter, starting with the Skyborne Swift Galestrider and the updated Embrace of the Viper. Plus goal links (click a linked goal in a step to add it), completion dates, undo after reset, Expand all / Collapse all, a cleaner goal card, a richer minimap tooltip and clearer step wording.
 - **2.2.0:** favorites and a right-click menu, a login check-in, goal-complete banners and celebrations, real Tier 3 recipes and token sources, item icons for Tier 1 to 3.
 - **2.1.2:** Goal Library search, attunements and dungeon keys, Dungeon Sets 1 and 2, AQ20, Ambassador, Dreadsteed and Charger, Tips under each goal.
 
