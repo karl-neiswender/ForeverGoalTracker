@@ -37,6 +37,7 @@ UnitFactionGroup = function() return "Alliance" end
 UnitLevel = function() return 60 end
 GetFileIDFromPath = function() return 1 end
 C_Timer = { After = function() end }
+SlashCmdList = {}
 GetScreenWidth = function() return 1920 end
 GetScreenHeight = function() return 1080 end
 GetTime = function() return 100 end

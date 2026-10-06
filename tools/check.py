@@ -84,6 +84,7 @@ if ok_all:
         ("goal finished while closed", None,
             'local p = ForeverGoalTrackerDB.progress.atiesh; for i = 1, 10 do p[i] = true end; '
             'STUB_PRINTS = {}; STUB_FIRE("BAG_UPDATE_DELAYED")'),
+        ("/goals testbanner", None, 'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("testbanner")'),
     ]
     saved = None
     for label, before, after in steps:

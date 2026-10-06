@@ -3937,6 +3937,19 @@ local function Announce(goal)
     if not (toast and toast:IsShown()) then FGT.NextToast() end
 end
 
+-- /goals testbanner: plays the announcement for the open goal (or the
+-- first goal on the tracker) without changing any progress.
+function FGT.TestBanner()
+    local DB = ForeverGoalTrackerDB
+    local goal
+    for _, g in ipairs(FGT.goals) do
+        if DB and g.id == DB.selected then goal = g end
+    end
+    goal = goal or ActiveGoals()[1] or FGT.goals[1]
+    print(TAG .. "Test banner (no progress changed):")
+    Announce(goal)
+end
+
 -- Remembers which goals are finished (DB.goalsDone) so each one is
 -- announced once, the moment it finishes. Goals finished with the
 -- window open celebrate in the list instead, so they're only noted.
@@ -4369,6 +4382,10 @@ SLASH_FOREVERGOALTRACKER2 = "/fgt"
 SLASH_FOREVERGOALTRACKER3 = "/forevergoals"
 SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
+    if msg == "testbanner" then
+        FGT.TestBanner()
+        return
+    end
     if msg == "reset" then
         -- Manual escape hatch: puts the window back to its default size
         -- and re-centers it, in case it's ever stuck too big, too small,

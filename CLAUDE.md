@@ -68,7 +68,7 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 - Two tabs: **My Goals** (goal list on the left with a sort dropdown, step guide on the right) and **Goal Library** (cards with filter chips, `+ Add` / `Choose` / `Remove`).
 - The window anchor is normalized to TOPLEFT before dragging. The frame uses `SetDontSavePosition`, saves its position in the DB, and re-measures resize bounds each time.
 - The minimap button radius is `Minimap:GetWidth()/2 + 5`. Don't use a fixed 80, which sits off Forever's smaller minimap.
-- Slash commands: `/goals`, `/fgt`, `/forevergoals`. `/goals reset` resets the window.
+- Slash commands: `/goals`, `/fgt`, `/forevergoals`. `/goals reset` resets the window. `/goals testbanner` plays the goal-complete chat line and banner for the open goal without changing progress.
 - First run: `DB.active` is missing, so it is set to `{}`, the window opens on My Goals, and a welcome message prints.
 - Empty state (no goals on the tracker): cobwebs (`Media/web.tga`, mirrored for the right corner) in the goal list's top corners, an "Empty" label, the sort bar hidden, and a "Browse the Goal Library" button on the right. Built in `FGT.emptyUI`, toggled by `FGT.ShowEmptyTracker`/`HideEmptyTracker`.
 
