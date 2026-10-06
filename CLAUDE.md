@@ -119,9 +119,9 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 
 ## Current state (2026-10-05)
 
-- CurseForge approved the project (ID 1728528, now in the `.toc`); the public page may take a while to appear in search. v2.1.0 is the uploaded file. v2.1.2 (big update, includes 2.1.1) is committed and pushed, with its zip in Downloads for Karl to upload by hand.
+- CurseForge approved the project (ID 1728528, now in the `.toc`); the public page may take a while to appear in search. v2.1.2 (big update, includes 2.1.1) is the current file on CurseForge.
 - Release automation works: tag `v2.1.2` (2026-10-05) was the first automatic release. The packager mapped the `.toc` interfaces to game versions 1.60.1 (Forever) and 1.15.9 (Classic Era) and uploaded to CurseForge. Releasing is now: bump the `.toc` version, add a CHANGELOG entry, commit, push, then `git tag -a vX.Y.Z` and push the tag. The full Action log needs a GitHub sign-in (Karl can read it); public API gives run status, annotations and the GitHub release.
-- `.pkgmeta` now has `manual-changelog` (after 2.1.2, whose CurseForge changelog was generated from commit messages; Karl fixes that one by hand).
+- `.pkgmeta` now has `manual-changelog` (after 2.1.2, whose CurseForge changelog was generated from commit messages; Karl has fixed that one by hand).
 - Pending: CurseForge screenshots; move to the live client in November.
 - Open questions: where Horde warlocks start the Dreadsteed chain (Wowhead only lists Spackle Thornberry in Stormwind); the memory check (Karl hasn't run the before/after `GetAddOnMemoryUsage` commands yet).
 - Ideas not done yet: Tier 3 token drop sources, item icons for Tier 1 to 3 pieces, second goal batch (Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle/Ravenholdt/Shen'dralar reputation, Bloodsail Admiral, fishing tournament, more class sets).
