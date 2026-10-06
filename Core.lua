@@ -4177,6 +4177,8 @@ local function GetCard(goal)
     card.bar:SetPoint("BOTTOMLEFT", card.icon, "BOTTOMRIGHT", 10, 1)
     card.bar:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -10, 0)
     card.bar.label:Hide()
+    -- finished goals: green wash like the My Goals cards (shown in LayoutLibrary)
+    FGT.AddCelebrationFX(card, 3, 56)
 
     -- hover the card for the full description
     card:EnableMouse(true)
@@ -4349,11 +4351,25 @@ LayoutLibrary = function()
         local isNew = FGT.ApplyForeverLook(card, g)
         card:SetEtch(STYLE.row)
         card.metaBase = isNew and (FGT.NewTag(isNew) .. "  ·  " .. card.metaPlain) or card.metaPlain
+        -- Finished goals: the quiet finished look (green wash, grey icon,
+        -- softer name, no bar) and the completion date on the info line.
+        local gd, gt = GoalProgress(g)
+        local finished = IsActive(g) and gt > 0 and gd >= gt
+        if finished then
+            local on = FGT.CompletedOn(g)
+            card.metaBase = card.metaBase .. "  ·  |cff6f9a5e" .. (on and ("Completed " .. on) or "Complete") .. "|r"
+        end
+        card.doneGlow:SetShown(finished)
+        card.icon.tex:SetDesaturated(finished)
+        card.icon.tex:SetAlpha(finished and 0.6 or 1)
+        local nc = finished and C.SUBTEXT or C.TEXT
+        card.name:SetTextColor(nc[1], nc[2], nc[3])
         card.meta:SetText(card.metaBase)
         local d, t = GoalProgress(g)
         card.bar:SetProgress(d, t)
-        -- only goals on the tracker can make progress, so only they get a bar
-        card.bar:SetShown(IsActive(g))
+        -- only goals on the tracker can make progress, so only they get a
+        -- bar; a finished goal shows its date instead
+        card.bar:SetShown(IsActive(g) and not finished)
         StyleCardButton(card)
         card:Show()
         cy = cy + CARD_H + 6

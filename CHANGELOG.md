@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Goal Library: finished goals get the same finished look as on My Goals (green wash, greyed icon, no progress bar) with "Completed <date>" on their info line.
+
 ## 2.4.0
 
 - Settings page: click the gear next to the close button (or type /goals settings). Turn off the login check-in, the goal-complete message or banner, and step updates in chat; set celebrations to Full, Subtle or Off; pick a sound for finished goals (Level up or Quest turn-in) and which game volume channel it plays on; hide the minimap button; open the window on login; change the window scale and opacity; reset the window; and remove old characters from the tracked list. Everything starts the way the addon already worked. Also listed under Options > AddOns.
