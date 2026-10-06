@@ -2262,7 +2262,7 @@ end
 local function CelebrateStep(self, elapsed)
     local t = self.fxT + elapsed
     self.fxT = t
-    if t >= 0.85 then return FGT.EndCelebration(self) end
+    if t >= 0.7 then return FGT.EndCelebration(self) end
     PopFrame(self, t)
 
     -- The ring keeps moving until it's gone: a gentle ease-out, and a
@@ -2276,8 +2276,8 @@ local function CelebrateStep(self, elapsed)
 
     -- steady speed the whole way (easing to a stop read as a stall),
     -- fading in and out at the ends
-    local sh = Clamp01((t - 0.08) / 0.77)
-    local travel = math.max(0, self:GetWidth() - 69)
+    local sh = Clamp01((t - 0.06) / 0.55)
+    local travel = math.max(0, self:GetWidth() - 107)
     self.shineL:ClearAllPoints()
     self.shineL:SetPoint("LEFT", self, "LEFT", 2 + travel * sh, 0)
     local a = math.sin(math.pi * sh)
@@ -2364,9 +2364,9 @@ local function GetHeaderRow(index)
         t:SetHeight(26)
         t:Hide()
     end
-    row.shineL:SetWidth(30)
-    row.shineC:SetWidth(5)
-    row.shineR:SetWidth(30)
+    row.shineL:SetWidth(48)
+    row.shineC:SetWidth(7)
+    row.shineR:SetWidth(48)
     ApplyHGradient(row.shineL, deep, pale, 0, 0.32)
     ApplyHGradient(row.shineC, pale, pale, 0.5, 0.5)
     ApplyHGradient(row.shineR, pale, deep, 0.32, 0)
