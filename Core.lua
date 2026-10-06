@@ -2230,6 +2230,7 @@ function FGT.EndCelebration(row)
     if row.burst then
         row.burst:Hide()
         row.shineL:Hide()
+        row.shineC:Hide()
         row.shineR:Hide()
         row.doneGlow:SetAlpha(1)
     end
@@ -2271,13 +2272,15 @@ local function CelebrateStep(self, elapsed)
     self.burst:SetPoint("BOTTOMRIGHT", o, -o)
     self.burst:SetAlpha(1 - r)
 
-    local sh = Clamp01((t - 0.1) / 0.7)
-    local eased = sh * sh * (3 - 2 * sh)
-    local travel = math.max(0, self:GetWidth() - 76)
+    -- steady speed the whole way (easing to a stop read as a stall),
+    -- fading in and out at the ends
+    local sh = Clamp01((t - 0.1) / 0.75)
+    local travel = math.max(0, self:GetWidth() - 69)
     self.shineL:ClearAllPoints()
-    self.shineL:SetPoint("LEFT", self, "LEFT", 2 + travel * eased, 0)
-    local a = math.sin(math.pi * sh)
+    self.shineL:SetPoint("LEFT", self, "LEFT", 2 + travel * sh, 0)
+    local a = math.sin(math.pi * sh) ^ 0.7
     self.shineL:SetAlpha(a)
+    self.shineC:SetAlpha(a)
     self.shineR:SetAlpha(a)
 
     self.doneGlow:SetAlpha(Clamp01(t / 0.6))
@@ -2288,6 +2291,7 @@ function FGT.CelebrateRow(row)
     row.fxT = 0
     row.burst:Show()
     row.shineL:Show()
+    row.shineC:Show()
     row.shineR:Show()
     CelebrateStep(row, 0)
     row:SetScript("OnUpdate", CelebrateStep)
@@ -2340,23 +2344,32 @@ local function GetHeaderRow(index)
     ApplyHGradient(row.doneGlow, C.DONE, C.DONE, 0, 0.16)
     row.doneGlow:Hide()
 
-    -- Celebration pieces (FGT.CelebrateRow): a green ring that bursts
-    -- outward from the border, and a soft shine that sweeps across.
+    -- Celebration pieces (FGT.CelebrateRow): a gold ring that bursts
+    -- outward from the border, and a metallic gold shine that sweeps
+    -- across: deep gold edges warming to a pale, bright core.
     row.burst = CreateFrame("Frame", nil, row, "BackdropTemplate")
     row.burst:SetFrameLevel(row:GetFrameLevel() + 3)
     row.burst:SetBackdrop({ edgeFile = ETCH_EDGE, edgeSize = 10 })
-    row.burst:SetBackdropBorderColor(0.55, 1, 0.40, 1)
+    row.burst:SetBackdropBorderColor(1.00, 0.82, 0.00, 1)
     row.burst:Hide()
+    local deep, pale = { 1.00, 0.62, 0.10 }, { 1.00, 0.95, 0.72 }
     row.shineL = row:CreateTexture(nil, "OVERLAY", nil, 1)
+    row.shineC = row:CreateTexture(nil, "OVERLAY", nil, 2)
     row.shineR = row:CreateTexture(nil, "OVERLAY", nil, 1)
-    for i, t in ipairs({ row.shineL, row.shineR }) do
+    for _, t in ipairs({ row.shineL, row.shineC, row.shineR }) do
         t:SetTexture(SOLID)
         t:SetBlendMode("ADD")
-        t:SetSize(36, 26)
-        ApplyHGradient(t, { 0.6, 1, 0.5 }, { 0.6, 1, 0.5 }, i == 1 and 0 or 0.28, i == 1 and 0.28 or 0)
+        t:SetHeight(26)
         t:Hide()
     end
-    row.shineR:SetPoint("LEFT", row.shineL, "RIGHT", 0, 0)
+    row.shineL:SetWidth(30)
+    row.shineC:SetWidth(5)
+    row.shineR:SetWidth(30)
+    ApplyHGradient(row.shineL, deep, pale, 0, 0.32)
+    ApplyHGradient(row.shineC, pale, pale, 0.5, 0.5)
+    ApplyHGradient(row.shineR, pale, deep, 0.32, 0)
+    row.shineC:SetPoint("LEFT", row.shineL, "RIGHT", 0, 0)
+    row.shineR:SetPoint("LEFT", row.shineC, "RIGHT", 0, 0)
     row.doneCheck = row:CreateTexture(nil, "OVERLAY")
     row.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
     row.doneCheck:SetSize(20, 20)
