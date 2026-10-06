@@ -3535,6 +3535,20 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         end
         ForeverGoalTrackerDB.tipsFix = true
     end
+    -- v2.2.0 one-time fix: Tier 3 materials were a placeholder list and are
+    -- now each piece's real recipe. The token and scraps lines kept their
+    -- place; the crafting materials changed, so clear their ticks (owned
+    -- pieces tick them again).
+    if not ForeverGoalTrackerDB.t3RecipeFix then
+        local p = ForeverGoalTrackerDB.progress.tier3
+        if p then
+            for key in pairs(p) do
+                local m = key:match("^%d+_%d+_m(%d+)$")
+                if m and tonumber(m) >= 3 then p[key] = nil end
+            end
+        end
+        ForeverGoalTrackerDB.t3RecipeFix = true
+    end
     -- The combined "All Attunements and Keys" goal became nine separate
     -- goals; if it was on the tracker, put all nine there instead.
     if ForeverGoalTrackerDB.active.raid_attunements then

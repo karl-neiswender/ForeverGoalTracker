@@ -88,7 +88,7 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 ## Testing
 
 There's no automated test suite. Testing happens in the Forever beta: edit, `/reload`, and Karl reports back with screenshots. Before handing back a change:
-- Check the Lua for syntax errors. If `lua`/`luac` isn't available (it isn't on the PC or the Mac), the fallback is a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs. It catches most slips but not a missing comma.
+- Check the Lua for syntax errors. Best option (works on the Mac, needs Python 3 and pip): `pip3 install --target <scratch>/py lupa`, then compile each file with real Lua 5.1 (`from lupa import lua51`; `loadstring(src)` returns an error for syntax slips, missing commas and the 200-local limit). Data.lua and Library.lua can also be run that way with `f("ForeverGoalTracker", ns)` to print the built goals. If that isn't available (the PC has no Python setup for it yet), fall back to a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs. It catches most slips but not a missing comma.
 - Watch the local count in Core.lua's main chunk (lesson 1).
 - Ask Karl to `/reload` and check the change. If something misbehaves, `/console scriptErrors 1` shows Lua errors.
 
@@ -122,9 +122,10 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 - CurseForge approved the project (ID 1728528, now in the `.toc`); the public page may take a while to appear in search. v2.1.2 (big update, includes 2.1.1) is the current file on CurseForge.
 - Release automation works: tag `v2.1.2` (2026-10-05) was the first automatic release. The packager mapped the `.toc` interfaces to game versions 1.60.1 (Forever) and 1.15.9 (Classic Era) and uploaded to CurseForge. Releasing is now: bump the `.toc` version, add a CHANGELOG entry, commit, push, then `git tag -a vX.Y.Z` and push the tag. The full Action log needs a GitHub sign-in (Karl can read it); public API gives run status, annotations and the GitHub release.
 - `.pkgmeta` now has `manual-changelog` (after 2.1.2, whose CurseForge changelog was generated from commit messages; Karl has fixed that one by hand).
+- v2.2.0 (real Tier 3 recipes and token sources, item icons for Tier 1 to 3) is committed but not released yet; Karl tests it in game first.
 - Pending: CurseForge screenshots; move to the live client in November.
 - Open questions: where Horde warlocks start the Dreadsteed chain (Wowhead only lists Spackle Thornberry in Stormwind); the memory check (Karl hasn't run the before/after `GetAddOnMemoryUsage` commands yet).
-- Ideas not done yet: Tier 3 token drop sources, item icons for Tier 1 to 3 pieces, second goal batch (Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle/Ravenholdt/Shen'dralar reputation, Bloodsail Admiral, fishing tournament, more class sets).
+- Ideas not done yet: second goal batch (Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle/Ravenholdt/Shen'dralar reputation, Bloodsail Admiral, fishing tournament, more class sets).
 
 ## Working with Karl
 

@@ -32,37 +32,6 @@ FGT.difficultyColors = {
     ["Extreme"]   = { 1.00, 0.48, 0.48 },   -- #ff7a7a
 }
 
--- ============================================================
--- Tier 3 helper: builds the 8-piece list for one class's set.
--- Materials are a representative template (real token/scrap/crafting-
--- material TYPES, scaled by piece size) rather than hand-verified exact
--- quantities for all 72 pieces - the goal note says to double check
--- exact numbers at your quartermaster, same as the rest of this addon.
--- ============================================================
-local TIER3_SLOTS = {
-    { slot = "Helm",      size = "medium" },
-    { slot = "Shoulder",  size = "small"  },
-    { slot = "Chest",     size = "large"  },
-    { slot = "Hands",     size = "small"  },
-    { slot = "Legs",      size = "large"  },
-    { slot = "Waist",     size = "small"  },
-    { slot = "Wrist",     size = "small"  },
-    { slot = "Feet",      size = "medium" },
-}
-
-local ARMOR_MATERIAL = {
-    Plate   = "Arcanite Bar",
-    Mail    = "Arcanite Bar",
-    Leather = "Cured Rugged Hide",
-    Cloth   = "Mooncloth",
-}
-
-local SIZE_QTY = {
-    small  = { scraps = 6,  mat = 2 },
-    medium = { scraps = 10, mat = 4 },
-    large  = { scraps = 16, mat = 6 },
-}
-
 -- Epic riding mount helper: builds the 4-task checklist for one race's
 -- mount (level to 60, train riding, save gold, buy from the vendor).
 -- raceFile is the game's internal race name (UnitRace's 2nd return;
@@ -81,26 +50,152 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
     }
 end
 
-local function BuildTier3Pieces(pieceNames, armorType)
-    local mat = ARMOR_MATERIAL[armorType]
-    local pieces = {}
-    for i, slotInfo in ipairs(TIER3_SLOTS) do
-        local qty = SIZE_QTY[slotInfo.size]
-        local materials = {
-            "Desecrated " .. slotInfo.slot .. " token (Naxxramas boss drop)",
-            "Wartorn " .. armorType .. " Scraps x" .. qty.scraps .. " (trash mobs inside Naxxramas)",
-            mat .. " x" .. qty.mat,
-        }
-        if slotInfo.size == "large" then
-            table.insert(materials, "Nexus Crystal x1")
+-- ============================================================
+-- Tier 3: your class's quartermaster at Light's Hope Chapel makes each
+-- piece from a Desecrated token, Wartorn scraps and crafting materials.
+-- Recipes, item IDs and icons from Wowhead (each piece's quest); token
+-- sources from the tokens' "Dropped by" tabs.
+-- ============================================================
+-- Where each slot's token comes from, in piece order (helm to feet).
+local TIER3_TOKEN_SOURCE = {
+    "Thaddius",
+    "Patchwerk, Grobbulus or Gluth",
+    "the Four Horsemen Chest",
+    "Maexxna",
+    "Loatheb",
+    "Noth the Plaguebringer, Heigan the Unclean or Gluth",
+    "Anub'Rekhan, Grand Widow Faerlina or Gluth",
+    "Instructor Razuvious, Gothik the Harvester or Gluth",
+}
+
+-- { class, set name, quartermaster, scrap type, pieces }
+-- piece = { name, item id, icon, token, scraps, material, count, material, count }
+local TIER3 = {
+    { "Warrior", "Dreadnaught's Battlegear", "Korfax, Champion of the Light", "Plate", {
+        { "Dreadnaught Helmet", 22418, "inv_helmet_58", "Desecrated Helmet", 15, "Arcanite Bar", 5, "Nexus Crystal", 1 },
+        { "Dreadnaught Pauldrons", 22419, "inv_shoulder_29", "Desecrated Pauldrons", 12, "Arcanite Bar", 2, "Cured Rugged Hide", 3 },
+        { "Dreadnaught Breastplate", 22416, "inv_chest_plate02", "Desecrated Breastplate", 25, "Arcanite Bar", 4, "Nexus Crystal", 2 },
+        { "Dreadnaught Gauntlets", 22421, "inv_gauntlets_28", "Desecrated Gauntlets", 8, "Arcanite Bar", 1, "Cured Rugged Hide", 5 },
+        { "Dreadnaught Legplates", 22417, "inv_pants_plate_05", "Desecrated Legplates", 20, "Arcanite Bar", 4, "Cured Rugged Hide", 3 },
+        { "Dreadnaught Waistguard", 22422, "inv_belt_27", "Desecrated Waistguard", 8, "Arcanite Bar", 1, "Cured Rugged Hide", 5 },
+        { "Dreadnaught Bracers", 22423, "inv_bracer_15", "Desecrated Bracers", 6, "Arcanite Bar", 1, "Nexus Crystal", 1 },
+        { "Dreadnaught Sabatons", 22420, "inv_boots_plate_06", "Desecrated Sabatons", 12, "Arcanite Bar", 2, "Cured Rugged Hide", 3 },
+    } },
+    { "Paladin", "Redemption Armor", "Commander Eligor Dawnbringer", "Plate", {
+        { "Redemption Headpiece", 22428, "inv_helmet_15", "Desecrated Headpiece", 15, "Arcanite Bar", 5, "Cured Rugged Hide", 2 },
+        { "Redemption Spaulders", 22429, "inv_shoulder_14", "Desecrated Spaulders", 12, "Arcanite Bar", 2, "Nexus Crystal", 2 },
+        { "Redemption Tunic", 22425, "inv_chest_chain_15", "Desecrated Tunic", 25, "Arcanite Bar", 4, "Cured Rugged Hide", 3 },
+        { "Redemption Handguards", 22426, "inv_gauntlets_25", "Desecrated Handguards", 8, "Arcanite Bar", 1, "Cured Rugged Hide", 5 },
+        { "Redemption Legguards", 22427, "inv_pants_mail_15", "Desecrated Legguards", 20, "Arcanite Bar", 4, "Nexus Crystal", 2 },
+        { "Redemption Girdle", 22431, "inv_belt_22", "Desecrated Girdle", 8, "Arcanite Bar", 1, "Nexus Crystal", 3 },
+        { "Redemption Wristguards", 22424, "inv_bracer_02", "Desecrated Wristguards", 6, "Arcanite Bar", 1, "Cured Rugged Hide", 2 },
+        { "Redemption Boots", 22430, "inv_boots_chain_05", "Desecrated Boots", 12, "Arcanite Bar", 2, "Cured Rugged Hide", 3 },
+    } },
+    { "Hunter", "Cryptstalker Armor", "Huntsman Leopold", "Chain", {
+        { "Cryptstalker Headpiece", 22438, "inv_helmet_15", "Desecrated Headpiece", 15, "Arcanite Bar", 4, "Nexus Crystal", 2 },
+        { "Cryptstalker Spaulders", 22439, "inv_shoulder_14", "Desecrated Spaulders", 12, "Arcanite Bar", 2, "Cured Rugged Hide", 3 },
+        { "Cryptstalker Tunic", 22436, "inv_chest_chain_15", "Desecrated Tunic", 25, "Arcanite Bar", 4, "Cured Rugged Hide", 3 },
+        { "Cryptstalker Handguards", 22441, "inv_gauntlets_25", "Desecrated Handguards", 8, "Arcanite Bar", 1, "Cured Rugged Hide", 5 },
+        { "Cryptstalker Legguards", 22437, "inv_pants_mail_15", "Desecrated Legguards", 20, "Arcanite Bar", 3, "Cured Rugged Hide", 5 },
+        { "Cryptstalker Girdle", 22442, "inv_belt_22", "Desecrated Girdle", 8, "Arcanite Bar", 1, "Nexus Crystal", 3 },
+        { "Cryptstalker Wristguards", 22443, "inv_bracer_02", "Desecrated Wristguards", 6, "Arcanite Bar", 1, "Cured Rugged Hide", 2 },
+        { "Cryptstalker Boots", 22440, "inv_boots_chain_05", "Desecrated Boots", 12, "Arcanite Bar", 1, "Nexus Crystal", 3 },
+    } },
+    { "Rogue", "Bonescythe Armor", "Rohan the Assassin", "Leather", {
+        { "Bonescythe Helmet", 22478, "inv_helmet_58", "Desecrated Helmet", 15, "Cured Rugged Hide", 8, "Nexus Crystal", 1 },
+        { "Bonescythe Pauldrons", 22479, "inv_shoulder_29", "Desecrated Pauldrons", 12, "Cured Rugged Hide", 5, "Nexus Crystal", 1 },
+        { "Bonescythe Breastplate", 22476, "inv_chest_plate02", "Desecrated Breastplate", 25, "Arcanite Bar", 2, "Cured Rugged Hide", 6 },
+        { "Bonescythe Gauntlets", 22481, "inv_gauntlets_28", "Desecrated Gauntlets", 8, "Arcanite Bar", 1, "Cured Rugged Hide", 5 },
+        { "Bonescythe Legplates", 22477, "inv_pants_plate_05", "Desecrated Legplates", 20, "Arcanite Bar", 1, "Cured Rugged Hide", 8 },
+        { "Bonescythe Waistguard", 22482, "inv_belt_27", "Desecrated Waistguard", 8, "Cured Rugged Hide", 5, "Nexus Crystal", 1 },
+        { "Bonescythe Bracers", 22483, "inv_bracer_15", "Desecrated Bracers", 6, "Arcanite Bar", 1, "Cured Rugged Hide", 2 },
+        { "Bonescythe Sabatons", 22480, "inv_boots_plate_06", "Desecrated Sabatons", 12, "Cured Rugged Hide", 3, "Nexus Crystal", 2 },
+    } },
+    { "Priest", "Vestments of Faith", "Father Inigo Montoy", "Cloth", {
+        { "Circlet of Faith", 22514, "inv_crown_01", "Desecrated Circlet", 15, "Mooncloth", 3, "Nexus Crystal", 3 },
+        { "Shoulderpads of Faith", 22515, "inv_shoulder_25", "Desecrated Shoulderpads", 12, "Mooncloth", 2, "Cured Rugged Hide", 3 },
+        { "Robe of Faith", 22512, "inv_chest_cloth_43", "Desecrated Robe", 25, "Mooncloth", 4, "Nexus Crystal", 2 },
+        { "Gloves of Faith", 22517, "inv_gauntlets_17", "Desecrated Gloves", 8, "Mooncloth", 4 },
+        { "Leggings of Faith", 22513, "inv_pants_cloth_05", "Desecrated Leggings", 20, "Mooncloth", 4, "Nexus Crystal", 2 },
+        { "Belt of Faith", 22518, "inv_belt_08", "Desecrated Belt", 8, "Arcane Crystal", 2, "Mooncloth", 2 },
+        { "Bindings of Faith", 22519, "inv_bracer_13", "Desecrated Bindings", 6, "Arcane Crystal", 1, "Nexus Crystal", 1 },
+        { "Sandals of Faith", 22516, "inv_boots_fabric_01", "Desecrated Sandals", 12, "Mooncloth", 2, "Cured Rugged Hide", 3 },
+    } },
+    { "Druid", "Dreamwalker Raiment", "Rayne", "Leather", {
+        { "Dreamwalker Headpiece", 22490, "inv_helmet_15", "Desecrated Headpiece", 15, "Cured Rugged Hide", 6, "Nexus Crystal", 2 },
+        { "Dreamwalker Spaulders", 22491, "inv_shoulder_14", "Desecrated Spaulders", 12, "Cured Rugged Hide", 5, "Nexus Crystal", 1 },
+        { "Dreamwalker Tunic", 22488, "inv_chest_chain_15", "Desecrated Tunic", 25, "Cured Rugged Hide", 6, "Nexus Crystal", 2 },
+        { "Dreamwalker Handguards", 22493, "inv_gauntlets_25", "Desecrated Handguards", 8, "Cured Rugged Hide", 5, "Nexus Crystal", 1 },
+        { "Dreamwalker Legguards", 22489, "inv_pants_mail_15", "Desecrated Legguards", 20, "Cured Rugged Hide", 8, "Nexus Crystal", 1 },
+        { "Dreamwalker Girdle", 22494, "inv_belt_22", "Desecrated Girdle", 8, "Mooncloth", 3, "Cured Rugged Hide", 2 },
+        { "Dreamwalker Wristguards", 22495, "inv_bracer_02", "Desecrated Wristguards", 6, "Arcane Crystal", 1, "Cured Rugged Hide", 2 },
+        { "Dreamwalker Boots", 22492, "inv_boots_chain_05", "Desecrated Boots", 12, "Mooncloth", 3, "Cured Rugged Hide", 2 },
+    } },
+    { "Mage", "Frostfire Regalia", "Archmage Angela Dosantos", "Cloth", {
+        { "Frostfire Circlet", 22498, "inv_crown_01", "Desecrated Circlet", 15, "Mooncloth", 3, "Nexus Crystal", 3 },
+        { "Frostfire Shoulderpads", 22499, "inv_shoulder_25", "Desecrated Shoulderpads", 12, "Mooncloth", 2, "Cured Rugged Hide", 3 },
+        { "Frostfire Robe", 22496, "inv_chest_cloth_43", "Desecrated Robe", 25, "Mooncloth", 4, "Nexus Crystal", 2 },
+        { "Frostfire Gloves", 22501, "inv_gauntlets_17", "Desecrated Gloves", 8, "Mooncloth", 4 },
+        { "Frostfire Leggings", 22497, "inv_pants_cloth_05", "Desecrated Leggings", 20, "Mooncloth", 4, "Nexus Crystal", 2 },
+        { "Frostfire Belt", 22502, "inv_belt_03", "Desecrated Belt", 8, "Arcane Crystal", 2, "Mooncloth", 2 },
+        { "Frostfire Bindings", 22503, "inv_bracer_13", "Desecrated Bindings", 6, "Arcane Crystal", 1, "Nexus Crystal", 1 },
+        { "Frostfire Sandals", 22500, "inv_boots_fabric_01", "Desecrated Sandals", 12, "Mooncloth", 2, "Cured Rugged Hide", 3 },
+    } },
+    { "Warlock", "Plagueheart Raiment", "Mataus the Wrathcaster", "Cloth", {
+        { "Plagueheart Circlet", 22506, "inv_crown_01", "Desecrated Circlet", 15, "Mooncloth", 3, "Nexus Crystal", 3 },
+        { "Plagueheart Shoulderpads", 22507, "inv_shoulder_25", "Desecrated Shoulderpads", 12, "Mooncloth", 2, "Cured Rugged Hide", 3 },
+        { "Plagueheart Robe", 22504, "inv_chest_cloth_43", "Desecrated Robe", 25, "Mooncloth", 4, "Nexus Crystal", 2 },
+        { "Plagueheart Gloves", 22509, "inv_gauntlets_17", "Desecrated Gloves", 8, "Mooncloth", 4 },
+        { "Plagueheart Leggings", 22505, "inv_pants_cloth_05", "Desecrated Leggings", 20, "Mooncloth", 4, "Nexus Crystal", 2 },
+        { "Plagueheart Belt", 22510, "inv_belt_03", "Desecrated Belt", 8, "Arcane Crystal", 2, "Mooncloth", 2 },
+        { "Plagueheart Bindings", 22511, "inv_bracer_13", "Desecrated Bindings", 6, "Arcane Crystal", 1, "Nexus Crystal", 1 },
+        { "Plagueheart Sandals", 22508, "inv_boots_fabric_01", "Desecrated Sandals", 12, "Mooncloth", 2, "Cured Rugged Hide", 3 },
+    } },
+    { "Shaman", "The Earthshatterer", "Rimblat Earthshatter", "Chain", {
+        { "Earthshatter Headpiece", 22466, "inv_helmet_15", "Desecrated Headpiece", 15, "Arcanite Bar", 4, "Nexus Crystal", 2 },
+        { "Earthshatter Spaulders", 22467, "inv_shoulder_14", "Desecrated Spaulders", 12, "Arcanite Bar", 2, "Mooncloth", 2 },
+        { "Earthshatter Tunic", 22464, "inv_chest_chain_15", "Desecrated Tunic", 25, "Arcanite Bar", 4, "Cured Rugged Hide", 3 },
+        { "Earthshatter Handguards", 22469, "inv_gauntlets_25", "Desecrated Handguards", 8, "Arcanite Bar", 1, "Cured Rugged Hide", 5 },
+        { "Earthshatter Legguards", 22465, "inv_pants_mail_15", "Desecrated Legguards", 20, "Arcanite Bar", 3, "Cured Rugged Hide", 5 },
+        { "Earthshatter Girdle", 22470, "inv_belt_22", "Desecrated Girdle", 8, "Arcanite Bar", 1, "Nexus Crystal", 3 },
+        { "Earthshatter Wristguards", 22471, "inv_bracer_02", "Desecrated Wristguards", 6, "Arcanite Bar", 1, "Cured Rugged Hide", 2 },
+        { "Earthshatter Boots", 22468, "inv_boots_chain_05", "Desecrated Boots", 12, "Arcanite Bar", 1, "Nexus Crystal", 3 },
+    } },
+}
+
+local function Tier3Count(n, name)
+    if n == 1 or name == "Mooncloth" then return n .. " " .. name end
+    return n .. " " .. name .. "s"
+end
+
+local function BuildTier3Sections()
+    local sections = {}
+    for _, set in ipairs(TIER3) do
+        local class, setName, scrap, pieces = set[1], set[2], set[4], set[5]
+        local list = {}
+        for i, p in ipairs(pieces) do
+            local materials = {
+                p[4] .. " from " .. TIER3_TOKEN_SOURCE[i],
+                Tier3Count(p[5], "Wartorn " .. scrap .. " Scrap") .. " from Naxxramas trash",
+            }
+            for m = 6, #p, 2 do
+                table.insert(materials, Tier3Count(p[m + 1], p[m]))
+            end
+            table.insert(list, { name = p[1], icon = p[3], materials = materials,
+                                 auto = { item = p[2], owned = { p[1] } } })
         end
-        table.insert(pieces, {
-            name = pieceNames[i],
-            materials = materials,
-            auto = { owned = { pieceNames[i] } },
-        })
+        table.insert(sections, { icon = "ClassIcon_" .. class, name = class .. " - " .. setName, pieces = list })
     end
-    return pieces
+    return sections
+end
+
+-- One tip naming every class's quartermaster.
+local function Tier3QuartermasterTip()
+    local names = {}
+    for _, set in ipairs(TIER3) do
+        table.insert(names, set[3] .. " (" .. set[1] .. ")")
+    end
+    return "Quartermasters at Light's Hope Chapel: " .. table.concat(names, ", ") .. "."
 end
 
 -- ============================================================
@@ -276,89 +371,13 @@ FGT.goals = {
         category = "Item Set",
         difficulty = "Extreme",
         timeEstimate = "Years",
-        note = "Tier 3 comes from Naxxramas via a token-and-crafting system: bosses drop 'Desecrated' class tokens, which you combine with Wartorn Scraps and class/slot-specific profession materials at your class's quartermaster near Light's Hope Chapel (Eastern Plaguelands). You'll need Naxxramas attunement (Honored Argent Dawn + a Righteous Orb) on each character first. Click a class to expand its 8 pieces; each piece has its own materials checklist. Exact quantities are a template - verify at your quartermaster since they vary slightly by piece.",
-        sections = {
-            {
-                icon = "ClassIcon_Warrior",
-                name = "Warrior - Dreadnaught's Battlegear",
-                pieces = BuildTier3Pieces({
-                    "Dreadnaught Helmet", "Dreadnaught Pauldrons", "Dreadnaught Breastplate",
-                    "Dreadnaught Gauntlets", "Dreadnaught Legplates", "Dreadnaught Waistguard",
-                    "Dreadnaught Bracers", "Dreadnaught Sabatons",
-                }, "Plate"),
-            },
-            {
-                icon = "ClassIcon_Paladin",
-                name = "Paladin - Redemption Armor",
-                pieces = BuildTier3Pieces({
-                    "Redemption Headpiece", "Redemption Spaulders", "Redemption Tunic",
-                    "Redemption Handguards", "Redemption Legguards", "Redemption Girdle",
-                    "Redemption Wristguards", "Redemption Boots",
-                }, "Plate"),
-            },
-            {
-                icon = "ClassIcon_Hunter",
-                name = "Hunter - Cryptstalker Armor",
-                pieces = BuildTier3Pieces({
-                    "Cryptstalker Headpiece", "Cryptstalker Spaulders", "Cryptstalker Tunic",
-                    "Cryptstalker Handguards", "Cryptstalker Legguards", "Cryptstalker Girdle",
-                    "Cryptstalker Wristguards", "Cryptstalker Boots",
-                }, "Mail"),
-            },
-            {
-                icon = "ClassIcon_Rogue",
-                name = "Rogue - Bonescythe Armor",
-                pieces = BuildTier3Pieces({
-                    "Bonescythe Helmet", "Bonescythe Pauldrons", "Bonescythe Breastplate",
-                    "Bonescythe Gauntlets", "Bonescythe Legplates", "Bonescythe Waistguard",
-                    "Bonescythe Bracers", "Bonescythe Sabatons",
-                }, "Leather"),
-            },
-            {
-                icon = "ClassIcon_Priest",
-                name = "Priest - Vestments of Faith",
-                pieces = BuildTier3Pieces({
-                    "Circlet of Faith", "Shoulderpads of Faith", "Robe of Faith",
-                    "Gloves of Faith", "Leggings of Faith", "Belt of Faith",
-                    "Bindings of Faith", "Sandals of Faith",
-                }, "Cloth"),
-            },
-            {
-                icon = "ClassIcon_Druid",
-                name = "Druid - Dreamwalker Raiment",
-                pieces = BuildTier3Pieces({
-                    "Dreamwalker Headpiece", "Dreamwalker Spaulders", "Dreamwalker Tunic",
-                    "Dreamwalker Handguards", "Dreamwalker Legguards", "Dreamwalker Girdle",
-                    "Dreamwalker Wristguards", "Dreamwalker Boots",
-                }, "Leather"),
-            },
-            {
-                icon = "ClassIcon_Mage",
-                name = "Mage - Frostfire Regalia",
-                pieces = BuildTier3Pieces({
-                    "Frostfire Circlet", "Frostfire Shoulderpads", "Frostfire Robe",
-                    "Frostfire Gloves", "Frostfire Leggings", "Frostfire Belt",
-                    "Frostfire Bindings", "Frostfire Sandals",
-                }, "Cloth"),
-            },
-            {
-                icon = "ClassIcon_Warlock",
-                name = "Warlock - Plagueheart Raiment",
-                pieces = BuildTier3Pieces({
-                    "Plagueheart Circlet", "Plagueheart Shoulderpads", "Plagueheart Robe",
-                    "Plagueheart Gloves", "Plagueheart Leggings", "Plagueheart Belt",
-                    "Plagueheart Bindings", "Plagueheart Sandals",
-                }, "Cloth"),
-            },
-            {
-                icon = "ClassIcon_Shaman",
-                name = "Shaman - Earthshatter Regalia",
-                pieces = BuildTier3Pieces({
-                    "Earthshatter Headpiece", "Earthshatter Spaulders", "Earthshatter Tunic",
-                    "Earthshatter Handguards", "Earthshatter Legguards", "Earthshatter Girdle",
-                    "Earthshatter Wristguards", "Earthshatter Boots",
-                }, "Mail"),
-            },
+        note = "The Naxxramas sets. Bosses drop Desecrated tokens, and your class's quartermaster at Light's Hope Chapel (Eastern Plaguelands) turns each token, Wartorn scraps and crafting materials into a piece. Pick the classes you want in the Library, then click a piece to see its materials.",
+        sections = BuildTier3Sections(),
+        tips = {
+            "You need to be attuned to Naxxramas (Honored with the Argent Dawn, plus a Righteous Orb) on each character that raids it.",
+            Tier3QuartermasterTip(),
+            "Wartorn scraps drop from trash all over Naxxramas. Each armor type has its own scrap (cloth, leather, chain or plate).",
+            "A piece ticks itself when you own it, along with its materials. Tick materials by hand as you collect them.",
         },
     },
 

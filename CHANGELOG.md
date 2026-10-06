@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.2.0
+
+- Tier 3 pieces list their real recipe from the quartermaster: the Desecrated token, the exact number of Wartorn scraps, and the exact crafting materials (Arcanite Bars, Cured Rugged Hides, Mooncloth, Nexus Crystals, Arcane Crystals). Ticks on the old placeholder crafting materials are cleared; token and scrap ticks stay.
+- Each Desecrated token says which Naxxramas boss drops it (for example "Desecrated Helmet from Thaddius").
+- Tier 3 Tips: Naxxramas attunement, every class's quartermaster, and where scraps drop.
+- Tier 1, Tier 2 and Tier 3 pieces show their item icons.
+- Fixed the Shaman Tier 3 set name (The Earthshatterer).
+
 ## 2.1.2
 
 - Steps read as checklist items, without a closing period.
