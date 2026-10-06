@@ -1134,6 +1134,9 @@ local STYLE = {
     forever  = { top = { 0.040, 0.120, 0.200 }, bottom = { 0.015, 0.040, 0.075 }, edge = { 0.09, 0.36, 0.55, 1 } },
     -- finished goals and parts in the Library ("Complete" button)
     done     = { top = { 0.130, 0.300, 0.080 }, bottom = { 0.040, 0.110, 0.030 }, edge = { 0.31, 0.75, 0.23, 1 } },
+    -- Settings choices you won't hear (game sound or that channel off)
+    muted    = { top = { 0.120, 0.118, 0.115 }, bottom = { 0.050, 0.050, 0.050 }, edge = { 0.24, 0.24, 0.23, 1 } },
+    mutedSel = { top = { 0.190, 0.180, 0.160 }, bottom = { 0.070, 0.066, 0.060 }, edge = { 0.52, 0.46, 0.32, 1 } },
     -- Blue twins of row / rowHover / rowSel for things new in Forever.
     fRow     = { top = { 0.060, 0.110, 0.180 }, bottom = { 0.020, 0.036, 0.062 }, edge = { 0.09, 0.36, 0.55, 1 } },
     fHover   = { top = { 0.085, 0.160, 0.260 }, bottom = { 0.030, 0.058, 0.095 }, edge = { 0.25, 0.55, 1.00, 1 } },
@@ -4608,24 +4611,45 @@ local function NewChoice(row, spec)
         b:SetPoint("LEFT", f, "LEFT", x, 0)
         x = x + b:GetWidth() + 3
         b.value = opt[1]
-        b:SetScript("OnClick", function()
+        b:SetScript("OnClick", function(self)
+            if self.mutedWhy then return end -- greyed out: you wouldn't hear it
             FGT.SetSetting(spec.key, opt[1])
             f:Refresh()
             if spec.apply then spec.apply(opt[1]) end
         end)
         b:SetScript("OnEnter", function(self)
-            if FGT.Setting(spec.key) ~= self.value then self:SetEtch(STYLE.btnHover) end
+            if self.mutedWhy then
+                GameTooltip:SetOwner(self, "ANCHOR_TOP")
+                GameTooltip:AddLine(self.mutedWhy, 1, 1, 1)
+                GameTooltip:Show()
+            elseif FGT.Setting(spec.key) ~= self.value then
+                self:SetEtch(STYLE.btnHover)
+            end
         end)
-        b:SetScript("OnLeave", function() f:Refresh() end)
+        b:SetScript("OnLeave", function() f:Refresh(); GameTooltip:Hide() end)
         f.buttons[i] = b
     end
     f:SetSize(math.max(1, x - 3), 22)
+    -- spec.muted() / spec.optionMuted(value) return why you won't hear it
+    -- (the game's sound settings); those buttons go grey and can't be clicked.
     function f:Refresh()
+        local rowWhy = spec.muted and spec.muted()
+        if spec.mutedDesc and row.desc then row.desc:SetText(rowWhy and spec.mutedDesc or spec.desc) end
+        local lc = rowWhy and C.SUBTEXT or C.TEXT
+        row.label:SetTextColor(lc[1], lc[2], lc[3])
         for _, b in ipairs(self.buttons) do
             local on = FGT.Setting(spec.key) == b.value
-            b:SetEtch(on and STYLE.rowSel or STYLE.button)
-            local c = on and C.TITLE or C.INK2
-            b.text:SetTextColor(c[1], c[2], c[3])
+            b.mutedWhy = rowWhy or (spec.optionMuted and spec.optionMuted(b.value))
+            local off = b.mutedWhy ~= nil
+            if off then
+                b:SetEtch(on and STYLE.mutedSel or STYLE.muted)
+                local c = on and C.MUTED_SEL or C.MUTED
+                b.text:SetTextColor(c[1], c[2], c[3])
+            else
+                b:SetEtch(on and STYLE.rowSel or STYLE.button)
+                local c = on and C.TITLE or C.INK2
+                b.text:SetTextColor(c[1], c[2], c[3])
+            end
         end
     end
     return f
@@ -4830,6 +4854,37 @@ local function KeybindLabel()
     return key or "Not set"
 end
 
+-- The game's own sound settings (Options > Sound), read live and never
+-- changed here. Used to grey out sound choices you wouldn't hear.
+C.MUTED     = { 0.40, 0.39, 0.37 }
+C.MUTED_SEL = { 0.62, 0.56, 0.40 }
+FGT.CHANNEL_CVARS = {
+    Master   = { vol = "Sound_MasterVolume", name = "Master" },
+    SFX      = { on = "Sound_EnableSFX",      vol = "Sound_SFXVolume",      name = "Effects" },
+    Ambience = { on = "Sound_EnableAmbience", vol = "Sound_AmbienceVolume", name = "Ambience" },
+    Music    = { on = "Sound_EnableMusic",    vol = "Sound_MusicVolume",    name = "Music" },
+    Dialog   = { on = "Sound_EnableDialog",   vol = "Sound_DialogVolume",   name = "Dialog" },
+}
+function FGT.SoundCVar(name)
+    local get = (C_CVar and C_CVar.GetCVar) or GetCVar
+    local ok, v = pcall(get, name)
+    return ok and tonumber(v) or nil
+end
+-- All game sound is off, or Master is at 0%.
+function FGT.SoundOff()
+    if FGT.SoundCVar("Sound_EnableAllSound") == 0 or FGT.SoundCVar("Sound_MasterVolume") == 0 then
+        return "Your game sound is disabled"
+    end
+end
+-- That channel is unchecked or its slider is at 0%.
+function FGT.ChannelMuted(ch)
+    local cv = FGT.CHANNEL_CVARS[ch]
+    if not cv then return end
+    if (cv.on and FGT.SoundCVar(cv.on) == 0) or FGT.SoundCVar(cv.vol) == 0 then
+        return "Your " .. cv.name:lower() .. " channel is disabled"
+    end
+end
+
 FGT.SETTINGS = {
     { title = "Chat and alerts", rows = {
         { type = "toggle", key = "greeting", label = "Login check-in",
@@ -4851,11 +4906,15 @@ FGT.SETTINGS = {
         { type = "choice", key = "sound", label = "Sound when a goal completes",
           desc = "Picking one plays it",
           options = { { "off", "Off" }, { "levelup", "Level up" }, { "questturnin", "Quest turn-in" } },
+          muted = function() return FGT.SoundOff() end,
+          mutedDesc = "Game sound is off in Options > Sound",
           apply = function(v) FGT.PlayGoalSound(v) end },
         { type = "choice", key = "soundChannel", label = "Sound channel",
-          desc = "Which of the game's volume sliders the sound follows. Master plays even with effects muted.",
+          desc = "Which of the game's volume sliders the sound follows",
           options = { { "Master", "Master" }, { "SFX", "Effects" }, { "Ambience", "Ambience" },
                       { "Music", "Music" }, { "Dialog", "Dialog" } },
+          muted = function() return FGT.SoundOff() end,
+          optionMuted = function(v) return FGT.ChannelMuted(v) end,
           apply = function() FGT.PlayGoalSound(FGT.Setting("sound")) end },
     } },
     { title = "Window and minimap", rows = {
@@ -4962,6 +5021,31 @@ function FGT.RefreshSettings()
 end
 
 panel:SetScript("OnSizeChanged", function() FGT.LayoutSettings() end)
+
+-- Follow the game's sound settings while the page is open (Ctrl+S, or a
+-- volume slider in Options > Sound). Not every change fires CVAR_UPDATE,
+-- so the page checks twice a second and redraws only when one changed.
+do
+    local watched = { "Sound_EnableAllSound" }
+    for _, cv in pairs(FGT.CHANNEL_CVARS) do
+        if cv.on then watched[#watched + 1] = cv.on end
+        watched[#watched + 1] = cv.vol
+    end
+    local last, wait = nil, 0
+    panel:HookScript("OnUpdate", function(_, elapsed)
+        wait = wait - elapsed
+        if wait > 0 or not S.built then return end
+        wait = 0.5
+        local parts = {}
+        for i, name in ipairs(watched) do parts[i] = tostring(FGT.SoundCVar(name) == 0) end
+        local now = table.concat(parts, ",")
+        if last and now ~= last then
+            FGT.RefreshSettings()
+            FGT.LayoutSettings()
+        end
+        last = now
+    end)
+end
 
 -- ------------------------------------------------------------
 -- Opening and closing. The gear sits left of the close button.

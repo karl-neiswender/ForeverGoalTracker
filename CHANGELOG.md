@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Goal Library: finished goals get the same finished look as on My Goals (green wash, greyed icon, no progress bar) with "Completed <date>" on their info line.
+- Settings: sound choices go grey when you wouldn't hear them. If game sound is off (or Master is at 0%) the whole sound section dims; a channel that's unchecked or at 0% in Options > Sound dims on its own. Grey buttons can't be picked; hover one to see why ("Your music channel is disabled"). They update live as you change the game's sound settings.
 
 ## 2.4.0
 
