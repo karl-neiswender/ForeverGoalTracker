@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.3.0
 
 - WoW Forever notice: every goal is written from Classic Era data, and nothing is confirmed for WoW Forever until it shows up in Wowhead's Forever database after launch. Goals not confirmed yet carry a slim blue notice with the WoW Forever logo on the goal page, and a note in their tooltips (Forever client only).
 - Two labels: NEW for things that only exist in WoW Forever, UPDATED for Classic content that Forever changed.
