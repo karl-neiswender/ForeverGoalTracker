@@ -1003,6 +1003,7 @@ end
 -- ============================================================
 FGT.LINK_ALIAS = {
     att_ony = function() return UnitFactionGroup("player") == "Horde" and "att_ony_horde" or "att_ony_ally" end,
+    rep_ambassador = function() return UnitFactionGroup("player") == "Horde" and "rep_ambassador_horde" or "rep_ambassador_ally" end,
 }
 
 function FGT.GoalById(id)
@@ -5678,6 +5679,23 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         end
         ForeverGoalTrackerDB.stepsFix231 = true
     end
+    -- One-time fix: racial mounts gained an Exalted step at position 2
+    -- (any race of the faction can buy them), so steps 2-4 of the eight
+    -- Classic races move down one. Skyborne (part 9) keeps its 4 steps.
+    if not ForeverGoalTrackerDB.mountsFix then
+        local p = ForeverGoalTrackerDB.progress.epicmounts
+        if p then
+            local new = {}
+            for key, v in pairs(p) do
+                local s, i, rest = key:match("^(%d+)_(%d+)(_.*)$")
+                s, i = tonumber(s), tonumber(i)
+                if s and s <= 8 and i >= 2 then key = s .. "_" .. (i + 1) .. rest end
+                new[key] = new[key] or v
+            end
+            ForeverGoalTrackerDB.progress.epicmounts = new
+        end
+        ForeverGoalTrackerDB.mountsFix = true
+    end
     -- v2.2.0 one-time fix: Tier 3 materials were a placeholder list and are
     -- now each piece's real recipe. The token and scraps lines kept their
     -- place; the crafting materials changed, so clear their ticks (owned
@@ -5924,10 +5942,10 @@ local function Stage(DB)
     Flat("att_naxx", 0.5)
     Flat("set_viper", 0.6)
     Flat("ashbringer", 0.4)
-    -- Epic Racial Mounts: Human done, Dwarf 3/4, Night Elf 2/4, Gnome 1/4,
+    -- Epic Racial Mounts: Human done, Dwarf 4/5, Night Elf 2/5, Gnome 1/5,
     -- and the Skyborne Galestrider (part 9, new in Forever) 2/4.
     DB.activeParts.epicmounts = { [1] = true, [2] = true, [3] = true, [4] = true, [9] = true }
-    for si, n in pairs({ [1] = 4, [2] = 3, [3] = 2, [4] = 1, [9] = 2 }) do
+    for si, n in pairs({ [1] = 5, [2] = 4, [3] = 2, [4] = 1, [9] = 2 }) do
         for pi = 1, n do SetStepDone("epicmounts", PieceKey(si, pi), true) end
     end
     DB.favorites = { thunderfury = true, epicmounts = true, atiesh = true }
