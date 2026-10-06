@@ -18,6 +18,7 @@ Small improvements that make everyday use smoother.
 
 New tools that take more building.
 
+- **Starter picks:** the first time you open the tracker, tell it what you enjoy (raiding, PvP, epic loot, collecting mounts, reputation, professions) and it suggests goals that fit, skipping what you don't play. Or start from a ready-made bundle like "Fresh 60" or "Raider" and add the whole set in one click.
 - **Pop-out tracker:** keep one goal's steps on screen while you play, like the quest tracker.
 - **Step-complete toasts:** a small "Step complete" note when a step ticks itself while the window is closed.
 - **Step order:** steps that need an earlier step done first show a lock until you get there.
