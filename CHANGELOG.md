@@ -1,7 +1,11 @@
 # Changelog
 
-## Unreleased
+## 2.4.0
 
+- Settings page: click the gear next to the close button (or type /goals settings). Turn off the login check-in, the goal-complete message or banner, and step updates in chat; set celebrations to Full, Subtle or Off; pick a sound for finished goals (Level up or Quest turn-in) and which game volume channel it plays on; hide the minimap button; open the window on login; change the window scale and opacity; reset the window; and remove old characters from the tracked list. Everything starts the way the addon already worked. Also listed under Options > AddOns.
+- Keybind: Options > Keybindings > AddOns > Forever Goal Tracker opens and closes the tracker.
+- Goal Library: finished parts of a goal (a race, a class, a profession) get the finished look, with a green check and a greyed icon instead of a full bar. Finished goals and parts show a green "Complete" button instead of "Added"; hover it to remove, as before.
+- The goal-complete banner always shows above the tracker window, instead of behind its edges.
 - Epic Racial Mounts has a short description; the details (reputation discount, colors) moved to Tips.
 
 ## 2.3.1

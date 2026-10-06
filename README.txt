@@ -18,8 +18,23 @@ GETTING STARTED
 SLASH COMMANDS
 --------------
   /goals             Open or close the window (also /fgt, /forevergoals)
+  /goals settings    Open the Settings page
   /goals reset       Reset the window size and position
   /goals testbanner  Preview the goal-complete banner
+
+You can also bind a key: Options > Keybindings > AddOns > Forever Goal
+Tracker.
+
+SETTINGS
+--------
+Click the gear next to the close button. Everything starts on, the way
+the addon has always worked, and each option turns something off or
+adjusts it: the login check-in, the goal-complete message and banner,
+step updates in chat, celebrations (Full, Subtle or Off), a sound when a
+goal completes (and which volume channel it uses), the minimap button,
+opening the window on login, window scale and opacity, resetting the
+window, and removing old characters from the tracked list. Changes apply
+right away.
 
 THE TWO TABS
 ------------
@@ -72,11 +87,21 @@ item sets (Dungeon Sets 1 and 2, Tier 1, 2 and 3, Embrace of the Viper),
 professions, PvP ranks and reputations for each faction, and milestones
 such as leveling every class.
 
+WARCRAFT FOREVER
+----------------
+Step guides are written from Classic Era, where they're known to be
+accurate. Until Wowhead's Forever database confirms a goal, its page shows
+a small "not confirmed in WoW Forever yet" notice. Content that's new in
+Forever is marked NEW, and Classic content Forever changed is marked
+UPDATED, both in blue; the Library's "New & Updated" filter lists them.
+
+Gold text in a step or tip is a link to another goal it depends on (an
+attunement, a reputation, a raid). Click it to add that goal.
+
 NOTES
 -----
-Step guides are written for classic-era rules. Drop rates and costs are
-estimates; check a live source such as Wowhead before planning a raid
-night around one.
+Drop rates and costs are estimates; check a live source such as Wowhead
+before planning a raid night around one.
 
 LICENSE
 -------

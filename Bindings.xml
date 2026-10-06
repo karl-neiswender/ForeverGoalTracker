@@ -1,0 +1,5 @@
+<Bindings>
+	<Binding name="FGT_TOGGLE" header="FOREVERGOALTRACKER" category="ADDONS">
+		ForeverGoalTracker_Toggle()
+	</Binding>
+</Bindings>

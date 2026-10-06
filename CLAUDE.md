@@ -40,6 +40,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `ForeverGoalTracker.toc` | `## Interface: 11509, 16001` (Classic Era + Forever). Load order: Data.lua, Library.lua, Core.lua. SavedVariables `ForeverGoalTrackerDB`. |
 | `Data.lua` | The original 11 goals (Atiesh, Thunderfury, Sulfuras, Ashbringer, Rhok'delar, Lok'delar, Benediction, Frostsaber, level all classes, Tier 3, epic racial mounts). Builders for group goals (`autoLevels`, `BuildMountTasks` with `forRace`). |
 | `Library.lua` | 54 more goals: reputations (incl. Ambassador per faction), mounts (incl. Dreadsteed, Charger), Quel'Serrar, raids (`BossSteps`, AQ20), attunements and dungeon keys (category `Attunement`, one goal each; Onyxia has one per faction), professions (`SKILL_ICONS`), gold, item sets (`TIER1`, `TIER2`, `DUNGEON1`, `DUNGEON2`, Embrace of the Viper), per-faction PvP. 65 goals in total. Set piece tuples are `{ name, itemId, source, icon }`; sources come from Wowhead "Dropped by" / "Reward from". |
+| `Bindings.xml` | Key binding "Open or close the tracker" (Options > Keybindings > AddOns). |
 | `Core.lua` | Everything else (~3,000 lines): DB, roster scanning, rules engine, UI, minimap button, slash commands. Namespace table `FGT`, addon folder name `ADDON`. |
 | `Media/icon.tga` | 64px addon list icon (book logo). |
 | `Media/minimap.tga` | 64px minimap button icon (green checkmark, circular alpha). Source: `Media/minimap-source.png`. |
@@ -47,6 +48,8 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `Media/web.tga` | 256px corner cobweb for the empty state (white on transparent, tinted in code). |
 | `Media/forever.tga` | 64px WoW Forever logo bug (gold W on teal), used on the not-confirmed notice (too small to read in chips). Source: `Media/forever-source.png`. |
 | `Media/dot.tga` | 32px white dot with a soft halo, tinted Forever blue inline (`FGT.ForeverDot`, `FGT.NewTag`) for NEW labels. |
+| `Media/pill.tga`, `Media/knob.tga` | 64x32 capsule and 32px circle (white), the Settings on/off switch: rim + gradient fill from the pill, knob with its own gradient and a shadow. |
+| `Media/gear.tga` | 64px eight-tooth gear (white, tinted gold), the Settings button in the title bar. Drawn by a PowerShell script, no source file. |
 | `ROADMAP.md` | Public roadmap (GitHub page; Karl pastes it into the CurseForge description). Keep it in sync when features ship. |
 | `Screenshots/` | The four CurseForge gallery shots (see "Screenshots and store page"). Not shipped. |
 | `Media/logo.png` | 1024px logo for GitHub/CurseForge. |
@@ -83,6 +86,7 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 - Reset undo: `FGT.resetUndo` holds the goal's ticks, goalsDone and date for 10 s; `FGT.quietCelebrate` suppresses celebrations while restoring. Cleared when another goal is opened.
 - Goal links: write `{goalId:shown text}` in a step or tip (e.g. `{att_naxx:attuned to Naxxramas}`). `FGT.LinkText` (called by `FGT.StepText` and `LayoutTips`) turns it into a gold `|Hfgtgoal:id|h` link if the goal exists, else plain text. `FGT.LINK_ALIAS` resolves per-faction ids (`att_ony`). Step rows and `stepsContainer` (tips) have hyperlinks on (`FGT.EnableGoalLinks`); `FGT.overLink` stops a link click from ticking its step. Clicking opens `FGT.OpenLinkCard` (Add to My Goals / Open goal); adding closes the card and prints a chat line. Only link to goals that exist in the Library.
 - New detail-page widgets must be added to `detailParts` so the empty state hides them.
+- **Settings** (`DB.settings`, read with `FGT.Setting(key)`, written with `FGT.SetSetting`, which stores only values that differ from `FGT.SETTING_DEFAULTS`). Defaults are the pre-settings behavior (Karl): every option turns something off or adjusts it. The page (`FGT.settingsPanel`, gear button left of the close button, `/goals settings`, and a stub page in Options > AddOns) replaces the tab content inside the main window, so it matches the window size and scrolls with fades. It is data-driven: `FGT.SETTINGS` is a list of groups, each with rows of type toggle, choice, slider (whole percents, stored as fractions; `live` applies while dragging), button (text may be a function) or custom (`build(parent)` returns a frame with `:Layout(width)`). Groups flow into the shorter of two columns, one column under 560px. To add an option: a default in `FGT.SETTING_DEFAULTS`, a row in `FGT.SETTINGS`, and an `FGT.Setting` check where the behavior lives. Tracked characters: most recent first, 8 shown with "Show all N", two-click Remove (not for the logged-in character). Window scale goes through `FGT.ApplyWindowScale` (keeps the top-left corner in place); `GetEffectiveMaxSize` and `FGT.PlaceWindow` measure in scaled units via `FGT.windowScale`. Keybind: `Bindings.xml` calls the global `ForeverGoalTracker_Toggle`. Goal-complete sounds: `FGT.SOUNDS` maps setting values to sound kit IDs from Wowhead (888 LEVELUP, 878 igQuestListComplete); add more there plus an option in the "sound" choice row. `soundChannel` (default "SFX") is passed to PlaySound. Rows put a wide control under the label instead of beside it (`r:Layout`, when the text would get under 150px).
 - Empty state (no goals on the tracker): cobwebs (`Media/web.tga`, mirrored for the right corner) in the goal list's top corners, an "Empty" label, the sort bar hidden, and a "Browse the Goal Library" button on the right. Built in `FGT.emptyUI`, toggled by `FGT.ShowEmptyTracker`/`HideEmptyTracker`.
 
 ## Hard-won lessons (don't regress these)
@@ -132,7 +136,7 @@ Git setup per machine:
 
 ## Screenshots and store page
 
-The CurseForge gallery has four screenshots, also kept in `Screenshots/` in the repo (left out of the release zip). Each one is rebuilt exactly with a demo scene, so a retake takes Karl about two minutes: `/goals demo N`, `/goals photo`, Print Screen, then `/goals demo off`. Karl sends the image and it replaces the file in `Screenshots/`. Shot 1 is starred as the featured image.
+The CurseForge gallery has five screenshots, also kept in `Screenshots/` in the repo (left out of the release zip). Each one is rebuilt exactly with a demo scene, so a retake takes Karl about two minutes: `/goals demo N`, `/goals photo`, Print Screen, then `/goals demo off`. Karl sends the image and it replaces the file in `Screenshots/`. Shot 1 is starred as the featured image.
 
 | Shot | Demo | Shows | Stale when this changes |
 |---|---|---|---|
@@ -140,6 +144,7 @@ The CurseForge gallery has four screenshots, also kept in `Screenshots/` in the 
 | `02-new-and-updated.png` | `/goals demo 2` | Library cards, filter chips, New & Updated filter, Epic Racial Mounts parts with the Skyborne NEW row | Library layout, filter chips, part rows, the Forever blue look |
 | `03-epic-mounts.png` | `/goals demo 3` | Group headers (finished, counts), Expand all, open Skyborne part | group rows, Expand all, Epic Racial Mounts data or wording |
 | `04-links-and-tips.png` | `/goals demo 4` | Corrupted Ashbringer: gold links, link card, Tips, Forever notice | goal links, link card, tips, Ashbringer steps |
+| `05-settings.png` | `/goals settings` (any scene behind it) | Settings page: both columns, pill toggles, choices, sliders, tracked characters | any settings row or group, the toggle look, the gear; its header shows the version, so retake after each version bump |
 
 Retake every shot when Warcraft Forever launches (live client instead of beta). When adding a shot, add a demo scene to `FGT.Demo` (`SCENES` in Core.lua) and a row here.
 
@@ -153,10 +158,11 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 
 ## Current state (2026-10-06)
 
-- CurseForge approved the project (ID 1728528, now in the `.toc`). The public page is live and the addon can be downloaded (confirmed 2026-10-06). v2.3.1 is the current file on CurseForge.
+- CurseForge approved the project (ID 1728528, now in the `.toc`). The public page is live and the addon can be downloaded (confirmed 2026-10-06). v2.4.0 is the current file on CurseForge.
 - Release automation works: tag `v2.1.2` (2026-10-05) was the first automatic release. The packager mapped the `.toc` interfaces to game versions 1.60.1 (Forever) and 1.15.9 (Classic Era) and uploaded to CurseForge. Releasing is now: bump the `.toc` version, add a CHANGELOG entry, commit, push, then `git tag -a vX.Y.Z` and push the tag. The full Action log needs a GitHub sign-in (Karl can read it); public API gives run status, annotations and the GitHub release.
 - `.pkgmeta` now has `manual-changelog` (after 2.1.2, whose CurseForge changelog was generated from commit messages; Karl has fixed that one by hand).
 - v2.2.0 released 2026-10-05 (tag `v2.2.0`): favorites and the right-click menu, login greeting, goal-complete chat link and banner, completion celebrations, real Tier 3 recipes and token sources, item icons for Tier 1 to 3.
+- v2.4.0 released 2026-10-06 (tag `v2.4.0`): Settings page (data-driven `FGT.SETTINGS`, pill toggles, gold gear), goal-complete sounds and channel, keybind, banner above the window (DIALOG strata), finished parts and goals marked Complete in green in the Library. Gallery shot 5 (Settings) added; it shows "Version 2.3.1" (Karl: fine).
 - v2.3.1 released 2026-10-06 (tag `v2.3.1`): more goal links (raids, UBRS key, Scholomance key, ZG, Key to the City) and uncheckable steps moved to tips (stepsFix231 remap).
 - v2.3.0 released 2026-10-06 (tag `v2.3.0`): WoW Forever markers (not-confirmed notice, NEW / UPDATED blue theme, New & Updated filter), Skyborne Galestrider, Viper UPDATED, goal links, completion dates, undo reset, Expand all, card redesign, minimap tooltip, step wording pass, ROADMAP.md. Classic Era client untested for this release (goal links may show as plain text there).
 - Store page (2026-10-06): the CurseForge description was rewritten for 2.3.1 (65 goals, Forever markers, goal links, favorites, completion dates, attunements and keys) with the roadmap at the end (after a divider, headings one level down, full URLs). The gallery has the four screenshots with titles and captions. Both were saved in the author console; the public page was still catching up from its cache at the time.

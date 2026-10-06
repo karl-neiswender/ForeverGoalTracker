@@ -87,8 +87,10 @@ local MAX_FRAME_HEIGHT = 900
 -- against whichever is smaller, with a margin so the frame never runs
 -- edge-to-edge.
 local function GetEffectiveMaxSize()
-    local screenW = GetScreenWidth and GetScreenWidth() or MAX_FRAME_WIDTH
-    local screenH = GetScreenHeight and GetScreenHeight() or MAX_FRAME_HEIGHT
+    -- measured in the window's own units, so a scaled window still fits
+    local s = FGT.windowScale or 1
+    local screenW = (GetScreenWidth and GetScreenWidth() or MAX_FRAME_WIDTH) / s
+    local screenH = (GetScreenHeight and GetScreenHeight() or MAX_FRAME_HEIGHT) / s
     local maxW = math.min(MAX_FRAME_WIDTH, math.floor(screenW - 60))
     local maxH = math.min(MAX_FRAME_HEIGHT, math.floor(screenH - 60))
     return math.max(MIN_FRAME_WIDTH, maxW), math.max(MIN_FRAME_HEIGHT, maxH)
@@ -214,6 +216,41 @@ local function EnsureDB()
     if ForeverGoalTrackerDB.frameHeight == nil then
         ForeverGoalTrackerDB.frameHeight = FRAME_HEIGHT
     end
+end
+
+-- ============================================================
+-- Settings (DB.settings). Defaults are how the addon behaved before
+-- settings existed, so every option only turns something off or
+-- adjusts it. The settings page itself is built further down.
+-- ============================================================
+FGT.SETTING_DEFAULTS = {
+    greeting = true,         -- login check-in in chat
+    completeChat = true,     -- "You just completed ..." chat line
+    completeBanner = true,   -- goal-complete banner
+    stepChat = true,         -- "3 steps checked off", boss kills, level 60
+    celebrations = "full",   -- "full" / "subtle" / "off"
+    sound = "off",           -- sound when a goal completes: a key of FGT.SOUNDS
+    soundChannel = "SFX",    -- the game volume slider it follows: Master, SFX, Ambience, Music, Dialog
+    minimap = true,          -- minimap button shown
+    openOnLogin = false,     -- open the window after login
+    scale = 1,               -- window scale
+    alpha = 1,               -- window opacity
+}
+
+function FGT.Setting(key)
+    local s = ForeverGoalTrackerDB and ForeverGoalTrackerDB.settings
+    local v = s and s[key]
+    if v == nil then return FGT.SETTING_DEFAULTS[key] end
+    return v
+end
+
+function FGT.SetSetting(key, value)
+    if not ForeverGoalTrackerDB then return end
+    ForeverGoalTrackerDB.settings = ForeverGoalTrackerDB.settings or {}
+    -- store only what differs from the default, so future default
+    -- changes still reach players who never touched the option
+    if value == FGT.SETTING_DEFAULTS[key] then value = nil end
+    ForeverGoalTrackerDB.settings[key] = value
 end
 
 local function IsStepDone(goalId, index)
@@ -1095,6 +1132,8 @@ local STYLE = {
     danger   = { top = { 0.420, 0.110, 0.090 }, bottom = { 0.140, 0.030, 0.030 }, edge = { 0.62, 0.22, 0.16, 1 } },
     dangerHv = { top = { 0.540, 0.150, 0.120 }, bottom = { 0.190, 0.045, 0.040 }, edge = { 0.90, 0.35, 0.25, 1 } },
     forever  = { top = { 0.040, 0.120, 0.200 }, bottom = { 0.015, 0.040, 0.075 }, edge = { 0.09, 0.36, 0.55, 1 } },
+    -- finished goals and parts in the Library ("Complete" button)
+    done     = { top = { 0.130, 0.300, 0.080 }, bottom = { 0.040, 0.110, 0.030 }, edge = { 0.31, 0.75, 0.23, 1 } },
     -- Blue twins of row / rowHover / rowSel for things new in Forever.
     fRow     = { top = { 0.060, 0.110, 0.180 }, bottom = { 0.020, 0.036, 0.062 }, edge = { 0.09, 0.36, 0.55, 1 } },
     fHover   = { top = { 0.085, 0.160, 0.260 }, bottom = { 0.030, 0.058, 0.095 }, edge = { 0.25, 0.55, 1.00, 1 } },
@@ -1431,6 +1470,7 @@ function FGT.CheckCelebration(row, key, complete, play)
     FGT.doneSeen[key] = complete
     if row.fxKey and row.fxKey ~= key then FGT.EndCelebration(row) end
     if complete and was == false then
+        if FGT.Setting("celebrations") == "off" then return end
         row.fxKey = key
         play(row)
     end
@@ -1576,6 +1616,7 @@ end
 function FGT.MaybePopTick(row, goalId, key)
     if row.isDone and FGT.justTicked == goalId .. "|" .. key then
         FGT.justTicked = nil
+        if FGT.Setting("celebrations") == "off" then return end
         FGT.PopCheck(row, row.check, 22)
     end
 end
@@ -1588,16 +1629,20 @@ local function CelebrateStep(self, elapsed)
     if t >= 0.7 then return FGT.EndCelebration(self) end
     PopFrame(self, t)
 
-    -- The ring keeps moving until it's gone: a gentle ease-out, and a
-    -- fade that finishes first, so it never sits still while visible.
-    local r = Clamp01(t / 0.55)
-    local o = 7 * (1 - (1 - r) ^ 2)
-    self.burst:ClearAllPoints()
-    self.burst:SetPoint("TOPLEFT", -o, o)
-    self.burst:SetPoint("BOTTOMRIGHT", o, -o)
-    self.burst:SetAlpha((1 - r) ^ 2)
+    -- Subtle celebrations keep the pop and the glow, without the ring
+    -- burst and the shine.
+    if not self.fxSubtle then
+        -- The ring keeps moving until it's gone: a gentle ease-out, and a
+        -- fade that finishes first, so it never sits still while visible.
+        local r = Clamp01(t / 0.55)
+        local o = 7 * (1 - (1 - r) ^ 2)
+        self.burst:ClearAllPoints()
+        self.burst:SetPoint("TOPLEFT", -o, o)
+        self.burst:SetPoint("BOTTOMRIGHT", o, -o)
+        self.burst:SetAlpha((1 - r) ^ 2)
 
-    ShineFrame(self, Clamp01((t - 0.06) / 0.55), self.fxInset)
+        ShineFrame(self, Clamp01((t - 0.06) / 0.55), self.fxInset)
+    end
     SetGlow(self, Clamp01(t / 0.6))
     if self.bigCheck then
         -- bright green glow as the check lands, easing into a soft shadow
@@ -1616,8 +1661,9 @@ function FGT.CelebrateRow(row)
         row.popChip, row.popTex, row.popSize = nil, row.doneCheck, 20
     end
     row.fxT = 0
-    row.burst:Show()
-    ShowShine(row, true)
+    row.fxSubtle = FGT.Setting("celebrations") == "subtle"
+    row.burst:SetShown(not row.fxSubtle)
+    ShowShine(row, not row.fxSubtle)
     CelebrateStep(row, 0)
     row:SetScript("OnUpdate", CelebrateStep)
 end
@@ -1635,6 +1681,7 @@ local function BarShineStep(self, elapsed)
 end
 
 function FGT.BarShine(bar)
+    if FGT.Setting("celebrations") ~= "full" then return end
     if not bar.shineL then MakeShine(bar, math.max(2, bar:GetHeight() - 2)) end
     bar.shineT = 0
     ShineFrame(bar, 0, 1)
@@ -4016,7 +4063,21 @@ local function StyleCardButtonInner(card)
             return
         end
     end
-    if on then
+    -- a tracked goal that's finished says Complete, in green
+    local d, t = GoalProgress(goal)
+    local done = on and t > 0 and d >= t
+    card.btnCheck:SetDesaturated(done)
+    if done then
+        card.btnCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
+    else
+        card.btnCheck:SetVertexColor(1, 1, 1)
+    end
+    if done and not hover then
+        card.btn:SetEtch(STYLE.done)
+        card.btnText:SetText("Complete")
+        card.btnText:SetTextColor(0.62, 0.95, 0.50)
+        card.btnCheck:Show()
+    elseif on then
         card.btn:SetEtch(hover and STYLE.dangerHv or STYLE.rowSel)
         card.btnText:SetText(hover and (goal.group and "Remove all" or "Remove") or "Added")
         card.btnText:SetTextColor(1, hover and 0.8 or 0.85, hover and 0.8 or 0.3)
@@ -4139,12 +4200,31 @@ local function GetCard(goal)
     return card
 end
 
+-- Progress of a single part (for the little bar under each part, and
+-- the Complete button). Above StyleSubButton, its first user.
+local function PartProgress(goal, key)
+    if goal.sections then
+        return SectionProgress(goal, key, goal.sections[key])
+    end
+    local entry = goal.steps[key]
+    if IsAutoStep(entry) then
+        return math.floor(AutoStepFraction(entry) * 100), 100
+    end
+    return IsStepDone(goal.id, key) and 1 or 0, 1
+end
+
 -- One row per part of a group goal, shown under its card when expanded.
 local SUB_H = 32
 local function StyleSubButton(sub)
     local on = FGT.PartSelected(sub.goal, sub.key)
     local hover = sub.btn:IsMouseOver()
-    if on then
+    local d, t = PartProgress(sub.goal, sub.key)
+    if on and t > 0 and d >= t and not hover then
+        -- finished part: Complete in green (hover still offers Remove)
+        sub.btn:SetEtch(STYLE.done)
+        sub.btnText:SetText("Complete")
+        sub.btnText:SetTextColor(0.62, 0.95, 0.50)
+    elseif on then
         sub.btn:SetEtch(hover and STYLE.dangerHv or STYLE.rowSel)
         sub.btnText:SetText(hover and "Remove" or "Added")
         sub.btnText:SetTextColor(1, hover and 0.8 or 0.85, hover and 0.8 or 0.3)
@@ -4181,6 +4261,16 @@ local function GetSub(card, index, part)
         sub.bar:SetPoint("BOTTOMLEFT", sub.icon, "BOTTOMRIGHT", 8, -3)
         sub.bar:SetPoint("RIGHT", sub.btn, "LEFT", -10, 0)
         sub.bar.label:Hide()
+        -- Finished parts: the same quiet look as finished group rows on
+        -- the goal page (green wash, green check, grey icon, no bar).
+        FGT.AddCelebrationFX(sub, 3, 26)
+        sub.doneCheck = sub:CreateTexture(nil, "OVERLAY")
+        sub.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+        sub.doneCheck:SetSize(18, 18)
+        sub.doneCheck:SetPoint("LEFT", sub.label, "RIGHT", 6, 1)
+        sub.doneCheck:SetDesaturated(true)
+        sub.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
+        sub.doneCheck:Hide()
         card.subs[index] = sub
     end
     sub.goal, sub.key = card.goal, part.key
@@ -4190,18 +4280,6 @@ local function GetSub(card, index, part)
     sub.icon:SetIcon(part.icon or card.goal.icon, partNew and C.FOREVER or C.GOLD2)
     StyleSubButton(sub)
     return sub
-end
-
--- Progress of a single part (for the little bar under each part).
-local function PartProgress(goal, key)
-    if goal.sections then
-        return SectionProgress(goal, key, goal.sections[key])
-    end
-    local entry = goal.steps[key]
-    if IsAutoStep(entry) then
-        return math.floor(AutoStepFraction(entry) * 100), 100
-    end
-    return IsStepDone(goal.id, key) and 1 or 0, 1
 end
 
 LayoutLibrary = function()
@@ -4294,8 +4372,16 @@ LayoutLibrary = function()
                     sub:SetPoint("TOPLEFT", libScroll.content, "TOPLEFT", 40, -cy)
                     sub:SetPoint("RIGHT", libScroll.content, "RIGHT", -4, 0)
                     local pd, pt = PartProgress(g, part.key)
+                    local chosen = FGT.PartSelected(g, part.key)
+                    local finished = chosen and pt > 0 and pd >= pt
                     sub.bar:SetProgress(pd, pt)
-                    sub.bar:SetShown(FGT.PartSelected(g, part.key))
+                    sub.bar:SetShown(chosen and not finished)
+                    sub.doneGlow:SetShown(finished)
+                    sub.doneCheck:SetShown(finished)
+                    sub.icon.tex:SetDesaturated(finished)
+                    sub.icon.tex:SetAlpha(finished and 0.6 or 1)
+                    local lc = finished and C.SUBTEXT or C.TEXT
+                    sub.label:SetTextColor(lc[1], lc[2], lc[3])
                     sub:Show()
                     cy = cy + SUB_H + 3
                 end
@@ -4323,6 +4409,7 @@ FGT.LayoutLibrary = LayoutLibrary
 
 local function ShowTab(which)
     ForeverGoalTrackerDB.tab = which
+    if FGT.CloseSettings then FGT.CloseSettings() end -- a tab click leaves Settings
     local lib = (which == "library")
     trackerTab:SetActive(not lib)
     libraryTab:SetActive(lib)
@@ -4337,11 +4424,662 @@ local function ShowTab(which)
     end
 end
 FGT.ShowTab = ShowTab
+-- for the Settings page (built in its own block below)
+FGT.trackerTab, FGT.libraryTab, FGT.libraryPanel = trackerTab, libraryTab, libraryPanel
 trackerTab:SetScript("OnClick", function() ShowTab("tracker") end)
 libraryTab:SetScript("OnClick", function() ShowTab("library") end)
 libraryPanel:SetScript("OnSizeChanged", function() if libraryPanel:IsShown() then LayoutLibrary() end end)
 
 end
+
+do -- scoped (200-local budget)
+-- ============================================================
+-- Settings page
+-- ============================================================
+-- Opened from the gear in the title bar. It takes the place of the tab
+-- content inside the main window, so it always matches the window's
+-- size, and scrolls like the step list. The page is built from
+-- FGT.SETTINGS (groups of rows); adding an option is one row there plus
+-- its default in FGT.SETTING_DEFAULTS. Groups flow into two columns
+-- (whichever is shorter), or one column on a narrow window.
+local S = { built = false, groups = {}, controls = {} }
+
+local panel = CreateFrame("Frame", nil, main, "BackdropTemplate")
+panel:SetPoint("TOPLEFT", main, "TOPLEFT", 16, PANEL_TOP)
+panel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
+Etch(panel, STYLE.panel, 12)
+panel:Hide()
+FGT.settingsPanel = panel
+
+S.header = NewTitleString(panel, 14)
+S.header:SetPoint("TOPLEFT", 14, -12)
+S.header:SetText("Settings")
+S.sub = NewFontString(panel, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+S.sub:SetPoint("LEFT", S.header, "RIGHT", 10, -1)
+do
+    local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
+    local version = getMeta and getMeta(ADDON, "Version")
+    S.sub:SetText((version and ("Version " .. version .. "  ·  ") or "") .. "Changes apply right away")
+end
+
+S.scroll = CreateScrollArea(panel)
+S.scroll.scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 10, -40)
+S.scroll.scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -18, 10)
+S.scroll:Finalize()
+
+-- ------------------------------------------------------------
+-- Building blocks. Every row is a frame with :Layout(width) that
+-- returns its height; controls sit at the row's top right.
+-- ------------------------------------------------------------
+local function NewRow(parent, label, desc)
+    local r = CreateFrame("Frame", nil, parent)
+    r.label = NewFontString(r, 12, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    r.label:SetPoint("TOPLEFT", 0, -9)
+    r.label:SetJustifyH("LEFT")
+    r.label:SetWordWrap(true)
+    r.label:SetText(label or "")
+    if desc then
+        r.desc = NewFontString(r, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        r.desc:SetPoint("TOPLEFT", r.label, "BOTTOMLEFT", 0, -3)
+        r.desc:SetJustifyH("LEFT")
+        r.desc:SetWordWrap(true)
+        r.desc:SetText(desc)
+    end
+    -- hairline between rows (hidden on a group's first row)
+    r.line = r:CreateTexture(nil, "BACKGROUND")
+    r.line:SetTexture(SOLID)
+    r.line:SetHeight(1)
+    r.line:SetPoint("TOPLEFT")
+    r.line:SetPoint("TOPRIGHT")
+    r.line:SetVertexColor(1, 0.92, 0.7, 0.07)
+    function r:Layout(w)
+        local ctl = self.control
+        local cw = ctl and (ctl:GetWidth() + 14) or 0
+        -- A wide control (a long row of choices) would squeeze the text,
+        -- so it moves under the label instead of beside it.
+        local stacked = ctl and (w - cw) < 150
+        local tw = stacked and w or math.max(60, w - cw)
+        self.label:SetWidth(tw)
+        local h = self.label:GetStringHeight() or 12
+        if self.desc then
+            self.desc:SetWidth(tw)
+            h = h + 3 + (self.desc:GetStringHeight() or 10)
+        end
+        if ctl then
+            ctl:ClearAllPoints()
+            if stacked then
+                ctl:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -(9 + h + 8))
+                h = h + 8 + ctl:GetHeight()
+            else
+                ctl:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, ctl.topOffset or -8)
+                h = math.max(h, ctl:GetHeight())
+            end
+        end
+        h = h + 18
+        self:SetSize(w, h)
+        return h
+    end
+    return r
+end
+
+-- On/off switch: a pill track with a 1px rim and a vertical gradient
+-- like the buttons (gold when on, dark when off), and a round knob with
+-- its own top-lit gradient and a soft shadow. Shapes are Media/pill and
+-- Media/knob (white, tinted here).
+local PILL = "Interface\\AddOns\\" .. ADDON .. "\\Media\\pill"
+local KNOB = "Interface\\AddOns\\" .. ADDON .. "\\Media\\knob"
+local TOGGLE_LOOK = {
+    on  = { rim = { 0.85, 0.68, 0.20 }, top = { 0.55, 0.42, 0.10 }, bottom = { 0.22, 0.16, 0.03 },
+            knobTop = { 1.00, 0.96, 0.78 }, knobBottom = { 0.92, 0.70, 0.22 } },
+    off = { rim = { 0.32, 0.30, 0.26 }, top = { 0.17, 0.16, 0.15 }, bottom = { 0.05, 0.05, 0.05 },
+            knobTop = { 0.66, 0.65, 0.62 }, knobBottom = { 0.36, 0.35, 0.33 } },
+}
+local function NewToggle(row, spec)
+    local t = CreateFrame("Button", nil, row)
+    t:SetSize(36, 18)
+    t:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, -8)
+    t.rim = t:CreateTexture(nil, "BACKGROUND")
+    t.rim:SetTexture(PILL)
+    t.rim:SetAllPoints(t)
+    t.fill = t:CreateTexture(nil, "BORDER")
+    t.fill:SetTexture(PILL)
+    t.fill:SetPoint("TOPLEFT", 1, -1)
+    t.fill:SetPoint("BOTTOMRIGHT", -1, 1)
+    t.shadow = t:CreateTexture(nil, "ARTWORK", nil, 1)
+    t.shadow:SetTexture(KNOB)
+    t.shadow:SetSize(14, 14)
+    t.shadow:SetVertexColor(0, 0, 0, 0.55)
+    t.knob = t:CreateTexture(nil, "ARTWORK", nil, 2)
+    t.knob:SetTexture(KNOB)
+    t.knob:SetSize(14, 14)
+    function t:Refresh()
+        local on = FGT.Setting(spec.key) and true or false
+        local L = on and TOGGLE_LOOK.on or TOGGLE_LOOK.off
+        local lift = self:IsMouseOver() and 0.12 or 0
+        self.rim:SetVertexColor(math.min(1, L.rim[1] + lift), math.min(1, L.rim[2] + lift), math.min(1, L.rim[3] + lift))
+        ApplyVGradient(self.fill, L.top, L.bottom)
+        ApplyVGradient(self.knob, L.knobTop, L.knobBottom)
+        local x = on and 20 or 2
+        self.knob:ClearAllPoints()
+        self.knob:SetPoint("LEFT", self, "LEFT", x, 0)
+        self.shadow:ClearAllPoints()
+        self.shadow:SetPoint("LEFT", self, "LEFT", x, -1)
+    end
+    t:SetScript("OnEnter", function(self) self:Refresh() end)
+    t:SetScript("OnLeave", function(self) self:Refresh() end)
+    t:SetScript("OnClick", function(self)
+        FGT.SetSetting(spec.key, not FGT.Setting(spec.key))
+        self:Refresh()
+        if spec.apply then spec.apply(FGT.Setting(spec.key)) end
+    end)
+    return t
+end
+
+-- A row of small buttons, one per option; the chosen one is gold.
+local function NewChoice(row, spec)
+    local f = CreateFrame("Frame", nil, row)
+    f:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, -6)
+    f.topOffset = -6
+    f.buttons = {}
+    local x = 0
+    for i, opt in ipairs(spec.options) do
+        local b = CreateFrame("Button", nil, f, "BackdropTemplate")
+        Etch(b, STYLE.button, 8)
+        b.text = NewFontString(b, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+        b.text:SetPoint("CENTER", 0, 0)
+        b.text:SetText(opt[2])
+        b:SetSize(math.ceil(b.text:GetStringWidth()) + 18, 22)
+        b:SetPoint("LEFT", f, "LEFT", x, 0)
+        x = x + b:GetWidth() + 3
+        b.value = opt[1]
+        b:SetScript("OnClick", function()
+            FGT.SetSetting(spec.key, opt[1])
+            f:Refresh()
+            if spec.apply then spec.apply(opt[1]) end
+        end)
+        b:SetScript("OnEnter", function(self)
+            if FGT.Setting(spec.key) ~= self.value then self:SetEtch(STYLE.btnHover) end
+        end)
+        b:SetScript("OnLeave", function() f:Refresh() end)
+        f.buttons[i] = b
+    end
+    f:SetSize(math.max(1, x - 3), 22)
+    function f:Refresh()
+        for _, b in ipairs(self.buttons) do
+            local on = FGT.Setting(spec.key) == b.value
+            b:SetEtch(on and STYLE.rowSel or STYLE.button)
+            local c = on and C.TITLE or C.INK2
+            b.text:SetTextColor(c[1], c[2], c[3])
+        end
+    end
+    return f
+end
+
+-- Slider in whole percent steps (stored as a fraction, 100% = 1).
+-- spec.live applies while dragging (opacity); otherwise on release
+-- (scale, which would move the slider under the cursor).
+local function NewSlider(row, spec)
+    local f = CreateFrame("Frame", nil, row)
+    f:SetSize(150, 18)
+    f:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, -8)
+    f.value = NewFontString(f, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    f.value:SetPoint("RIGHT", 0, 0)
+    f.value:SetWidth(38)
+    f.value:SetJustifyH("RIGHT")
+    local track = CreateFrame("Frame", nil, f, "BackdropTemplate")
+    track:SetPoint("LEFT", f, "LEFT", 6, 0)
+    track:SetSize(100, 4)
+    Skin(track, { 0.012, 0.012, 0.012, 1 }, { 0, 0, 0, 1 })
+    local fill = track:CreateTexture(nil, "ARTWORK")
+    fill:SetTexture(SOLID)
+    fill:SetPoint("TOPLEFT", 1, -1)
+    fill:SetPoint("BOTTOMLEFT", 1, 1)
+    fill:SetVertexColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+    local thumb = CreateFrame("Frame", nil, f, "BackdropTemplate")
+    thumb:SetSize(10, 16)
+    Skin(thumb, { 0.38, 0.29, 0.06, 1 }, C.ACCENT)
+    local hit = CreateFrame("Button", nil, f)
+    hit:SetPoint("TOPLEFT", track, "TOPLEFT", -6, 8)
+    hit:SetPoint("BOTTOMRIGHT", track, "BOTTOMRIGHT", 6, -8)
+    local lo, hi, step = spec.min, spec.max, spec.step -- whole percents
+    local function Draw(pct)
+        local p = (pct - lo) / (hi - lo)
+        fill:SetWidth(math.max(0.01, 98 * p))
+        thumb:ClearAllPoints()
+        thumb:SetPoint("CENTER", track, "LEFT", 100 * p, 0)
+        f.value:SetText(pct .. "%")
+    end
+    local function FromCursor()
+        local x = GetCursorPosition() / track:GetEffectiveScale()
+        local p = math.max(0, math.min(1, (x - track:GetLeft()) / track:GetWidth()))
+        return lo + math.floor(p * (hi - lo) / step + 0.5) * step
+    end
+    hit:SetScript("OnMouseDown", function(self)
+        self:SetScript("OnUpdate", function()
+            local pct = FromCursor()
+            f.pending = pct
+            Draw(pct)
+            if spec.live and spec.apply then spec.apply(pct / 100) end
+        end)
+    end)
+    hit:SetScript("OnMouseUp", function(self)
+        self:SetScript("OnUpdate", nil)
+        local pct = f.pending or math.floor(FGT.Setting(spec.key) * 100 + 0.5)
+        f.pending = nil
+        FGT.SetSetting(spec.key, pct / 100)
+        Draw(pct)
+        if spec.apply then spec.apply(pct / 100) end
+    end)
+    function f:Refresh() Draw(math.floor(FGT.Setting(spec.key) * 100 + 0.5)) end
+    return f
+end
+
+local function NewButton(parent, text, onClick)
+    local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    Etch(b, STYLE.button, 8)
+    b.text = NewFontString(b, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    b.text:SetPoint("CENTER", 0, 0)
+    function b:SetLabel(t)
+        self.text:SetText(t)
+        self:SetSize(math.max(64, math.ceil(self.text:GetStringWidth()) + 20), 22)
+    end
+    b:SetLabel(text)
+    b:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
+    b:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
+    b:SetScript("OnClick", onClick)
+    return b
+end
+
+-- ------------------------------------------------------------
+-- Tracked characters: most recently played first, 8 at a time with a
+-- "Show all" link. Remove asks once ("Confirm") before it deletes.
+-- ------------------------------------------------------------
+local CHAR_SHOWN = 8
+local function CharacterList(parent)
+    local f = CreateFrame("Frame", nil, parent)
+    f.line = f:CreateTexture(nil, "BACKGROUND") -- unused hairline, keeps rows uniform
+    f.line:Hide()
+    f.items = {}
+    f.more = CreateFrame("Button", nil, f)
+    f.more:SetHeight(18)
+    f.more.text = NewFontString(f.more, 10, "", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+    f.more.text:SetPoint("LEFT")
+    f.more:SetScript("OnClick", function()
+        S.showAllChars = not S.showAllChars
+        FGT.LayoutSettings()
+    end)
+    f.note = NewFontString(f, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    f.note:SetJustifyH("LEFT")
+    f.note:SetWordWrap(true)
+    f.note:SetText("A character is added when you log into it. Removing one drops its saved items, quests and reputation from the totals; steps already ticked stay ticked.")
+
+    local function NewItem()
+        local it = CreateFrame("Frame", nil, f)
+        it:SetHeight(30)
+        it.name = NewFontString(it, 12, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+        it.name:SetPoint("TOPLEFT", 0, -3)
+        it.name:SetJustifyH("LEFT")
+        it.name:SetWordWrap(false)
+        it.detail = NewFontString(it, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        it.detail:SetPoint("TOPLEFT", it.name, "BOTTOMLEFT", 0, -2)
+        it.detail:SetJustifyH("LEFT")
+        it.detail:SetWordWrap(false)
+        it.me = NewFontString(it, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        it.me:SetPoint("RIGHT", it, "RIGHT", 0, 0)
+        it.me:SetText("this character")
+        it.remove = NewButton(it, "Remove", function(self)
+            if self.armed then
+                ForeverGoalTrackerDB.characters[it.key] = nil
+                FGT.LayoutSettings()
+            else
+                -- first click arms it; the second removes
+                self.armed = true
+                self:SetLabel("Confirm")
+                self:SetEtch(STYLE.dangerHv)
+                C_Timer.After(3, function()
+                    if self.armed then
+                        self.armed = nil
+                        self:SetLabel("Remove")
+                        self:SetEtch(STYLE.button)
+                    end
+                end)
+            end
+        end)
+        it.remove:SetScript("OnLeave", function(self) self:SetEtch(self.armed and STYLE.dangerHv or STYLE.button) end)
+        it.remove:SetPoint("RIGHT", it, "RIGHT", 0, 0)
+        return it
+    end
+
+    function f:Layout(w)
+        local DB = ForeverGoalTrackerDB
+        local list = {}
+        for key, c in pairs(DB and DB.characters or {}) do
+            list[#list + 1] = { key = key, c = c }
+        end
+        table.sort(list, function(a, b) return (a.c.lastSeen or 0) > (b.c.lastSeen or 0) end)
+        local shown = S.showAllChars and #list or math.min(#list, CHAR_SHOWN)
+        local me = CharKey()
+        local y = 6
+        for i = 1, shown do
+            local it = self.items[i] or NewItem()
+            self.items[i] = it
+            local c = list[i].c
+            it.key = list[i].key
+            local cc = RAID_CLASS_COLORS and c.class and RAID_CLASS_COLORS[c.class]
+            it.name:SetText(c.name or it.key)
+            if cc then it.name:SetTextColor(cc.r, cc.g, cc.b) else it.name:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3]) end
+            local className = (LOCALIZED_CLASS_NAMES_MALE and c.class and LOCALIZED_CLASS_NAMES_MALE[c.class]) or ""
+            it.detail:SetText(string.format("Level %d %s  ·  %s", c.level or 1, className, c.realm or ""))
+            local isMe = it.key == me
+            it.me:SetShown(isMe)
+            it.remove:SetShown(not isMe)
+            it.remove.armed = nil
+            it.remove:SetLabel("Remove")
+            it.remove:SetEtch(STYLE.button)
+            it.name:SetWidth(w - 90)
+            it.detail:SetWidth(w - 90)
+            it:ClearAllPoints()
+            it:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -y)
+            it:SetWidth(w)
+            it:Show()
+            y = y + 34
+        end
+        for i = shown + 1, #self.items do self.items[i]:Hide() end
+        if #list > CHAR_SHOWN then
+            self.more.text:SetText(S.showAllChars and "Show fewer" or ("Show all " .. #list))
+            self.more:SetWidth(self.more.text:GetStringWidth() + 4)
+            self.more:ClearAllPoints()
+            self.more:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -y)
+            self.more:Show()
+            y = y + 22
+        else
+            self.more:Hide()
+        end
+        self.note:SetWidth(w)
+        self.note:ClearAllPoints()
+        self.note:SetPoint("TOPLEFT", self, "TOPLEFT", 0, -(y + 4))
+        y = y + 4 + (self.note:GetStringHeight() or 20) + 6
+        self:SetSize(w, y)
+        return y
+    end
+    return f
+end
+
+-- ------------------------------------------------------------
+-- What's on the page. Row types: toggle, choice, slider, button, and
+-- custom (build(parent) returns a frame with :Layout(width)).
+-- ------------------------------------------------------------
+local function KeybindLabel()
+    local key = GetBindingKey and GetBindingKey("FGT_TOGGLE")
+    return key or "Not set"
+end
+
+FGT.SETTINGS = {
+    { title = "Chat and alerts", rows = {
+        { type = "toggle", key = "greeting", label = "Login check-in",
+          desc = "Your overall progress in chat a few seconds after you log in" },
+        { type = "toggle", key = "completeChat", label = "Goal complete message",
+          desc = "A line in chat with a link to the goal you finished" },
+        { type = "toggle", key = "completeBanner", label = "Goal complete banner",
+          desc = "A tile near the top of the screen when a goal finishes" },
+        { type = "toggle", key = "stepChat", label = "Step updates in chat",
+          desc = "\"3 steps checked off\", boss kills and characters reaching 60" },
+        { type = "button", label = "Try the goal-complete alerts",
+          desc = "Plays the message, banner and sound, whatever they're set to",
+          text = "Preview", onClick = function() FGT.TestBanner() end },
+    } },
+    { title = "Effects", rows = {
+        { type = "choice", key = "celebrations", label = "Celebrations",
+          desc = "When a step, group or goal finishes. Subtle keeps the checkmark pop only.",
+          options = { { "full", "Full" }, { "subtle", "Subtle" }, { "off", "Off" } } },
+        { type = "choice", key = "sound", label = "Sound when a goal completes",
+          desc = "Picking one plays it",
+          options = { { "off", "Off" }, { "levelup", "Level up" }, { "questturnin", "Quest turn-in" } },
+          apply = function(v) FGT.PlayGoalSound(v) end },
+        { type = "choice", key = "soundChannel", label = "Sound channel",
+          desc = "Which of the game's volume sliders the sound follows. Master plays even with effects muted.",
+          options = { { "Master", "Master" }, { "SFX", "Effects" }, { "Ambience", "Ambience" },
+                      { "Music", "Music" }, { "Dialog", "Dialog" } },
+          apply = function() FGT.PlayGoalSound(FGT.Setting("sound")) end },
+    } },
+    { title = "Window and minimap", rows = {
+        { type = "toggle", key = "minimap", label = "Minimap button",
+          apply = function(on) if FGT.minimapButton then FGT.minimapButton:SetShown(on) end end },
+        { type = "toggle", key = "openOnLogin", label = "Open on login",
+          desc = "Show this window each time you log in" },
+        { type = "slider", key = "scale", label = "Scale", min = 70, max = 130, step = 5,
+          apply = function(v) FGT.ApplyWindowScale(v) end },
+        { type = "slider", key = "alpha", label = "Opacity", min = 50, max = 100, step = 5, live = true,
+          apply = function(v) main:SetAlpha(v) end },
+        { type = "button", label = "Keybind", desc = "Set it in Options, Keybindings, AddOns",
+          text = KeybindLabel, onClick = function()
+              local ok = Settings and Settings.OpenToCategory and Settings.KEYBINDINGS_CATEGORY_ID
+                  and pcall(Settings.OpenToCategory, Settings.KEYBINDINGS_CATEGORY_ID)
+              if not ok then print(TAG .. "set a key in Options > Keybindings > AddOns > Forever Goal Tracker.") end
+          end },
+        { type = "button", label = "Window size and position", desc = "Back to the default size, centered",
+          text = "Reset", onClick = function() FGT.ResetWindow() end },
+    } },
+    { title = "Tracked characters", rows = {
+        { type = "custom", build = CharacterList },
+    } },
+}
+
+function FGT.BuildSettings()
+    if S.built then return end
+    S.built = true
+    for gi, spec in ipairs(FGT.SETTINGS) do
+        local g = CreateFrame("Frame", nil, S.scroll.content, "BackdropTemplate")
+        Etch(g, STYLE.row, 12)
+        g.title = NewTitleString(g, 13)
+        g.title:SetPoint("TOPLEFT", 12, -12)
+        g.title:SetText(spec.title)
+        g.rows = {}
+        for _, rs in ipairs(spec.rows) do
+            local r
+            if rs.type == "custom" then
+                r = rs.build(g)
+            else
+                r = NewRow(g, rs.label, rs.desc)
+                if rs.type == "toggle" then
+                    r.control = NewToggle(r, rs)
+                elseif rs.type == "choice" then
+                    r.control = NewChoice(r, rs)
+                elseif rs.type == "slider" then
+                    r.control = NewSlider(r, rs)
+                elseif rs.type == "button" then
+                    local btn = NewButton(r, "", rs.onClick)
+                    btn:SetPoint("TOPRIGHT", r, "TOPRIGHT", 0, -6)
+                    btn.topOffset = -6
+                    -- text may be a function (the keybind shows the current key)
+                    function btn:Refresh()
+                        self:SetLabel(type(rs.text) == "function" and rs.text() or rs.text)
+                    end
+                    r.control = btn
+                end
+            end
+            if r.control and r.control.Refresh then table.insert(S.controls, r.control) end
+            table.insert(g.rows, r)
+        end
+        S.groups[gi] = g
+    end
+end
+
+-- Lays the groups out for the current window size.
+function FGT.LayoutSettings()
+    if not (S.built and panel:IsShown()) then return end
+    local W = S.scroll.scroll:GetWidth()
+    if not W or W < 50 then return end
+    S.scroll.content:SetWidth(W)
+    local gap = 12
+    local cols = (W >= 560) and 2 or 1
+    local colW = math.floor((W - gap * (cols - 1)) / cols)
+    local colY = {}
+    for c = 1, cols do colY[c] = 0 end
+    for _, g in ipairs(S.groups) do
+        -- the group's own height for this width
+        g:SetWidth(colW)
+        local y, inner = 36, colW - 24 -- below the group title
+        for i, r in ipairs(g.rows) do
+            local h = r:Layout(inner)
+            r:ClearAllPoints()
+            r:SetPoint("TOPLEFT", g, "TOPLEFT", 12, -y)
+            r.line:SetShown(i > 1)
+            y = y + h
+        end
+        g:SetHeight(y + 8)
+        -- into the shorter column
+        local col = 1
+        for c = 2, cols do if colY[c] < colY[col] then col = c end end
+        g:ClearAllPoints()
+        g:SetPoint("TOPLEFT", S.scroll.content, "TOPLEFT", (col - 1) * (colW + gap), -colY[col])
+        colY[col] = colY[col] + y + 8 + gap
+    end
+    local total = 0
+    for c = 1, cols do total = math.max(total, colY[c]) end
+    S.scroll.content:SetHeight(math.max(1, total - gap))
+    S.scroll:Update()
+end
+
+function FGT.RefreshSettings()
+    for _, ctl in ipairs(S.controls) do ctl:Refresh() end
+end
+
+panel:SetScript("OnSizeChanged", function() FGT.LayoutSettings() end)
+
+-- ------------------------------------------------------------
+-- Opening and closing. The gear sits left of the close button.
+-- ------------------------------------------------------------
+local gear = CreateFrame("Button", nil, titleBar, "BackdropTemplate")
+gear:SetSize(22, 22)
+gear:SetPoint("RIGHT", closeBtn, "LEFT", -6, 0)
+Etch(gear, STYLE.button, 10)
+-- Media/gear: a white gear shape, tinted gold (brighter on hover and
+-- while Settings is open).
+gear.icon = gear:CreateTexture(nil, "ARTWORK")
+gear.icon:SetSize(15, 15)
+gear.icon:SetPoint("CENTER", 0, 0)
+gear.icon:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\gear")
+
+function FGT.UpdateGear()
+    local open = panel:IsShown()
+    gear:SetEtch(open and STYLE.rowSel or STYLE.button)
+    local c = open and C.ACCENT or C.GOLD2
+    gear.icon:SetVertexColor(c[1], c[2], c[3])
+end
+FGT.UpdateGear()
+gear:SetScript("OnEnter", function(self)
+    self:SetEtch(STYLE.btnHover)
+    self.icon:SetVertexColor(1, 0.9, 0.45)
+    GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+    GameTooltip:AddLine("Settings")
+    GameTooltip:Show()
+end)
+gear:SetScript("OnLeave", function()
+    FGT.UpdateGear()
+    GameTooltip:Hide()
+end)
+gear:SetScript("OnClick", function()
+    if panel:IsShown() then FGT.LeaveSettings() else FGT.OpenSettings() end
+end)
+
+function FGT.OpenSettings()
+    if not main:IsShown() then FGT.ToggleFrame() end
+    FGT.BuildSettings()
+    if FGT.CloseGoalMenu then FGT.CloseGoalMenu() end
+    if FGT.CloseLinkCard then FGT.CloseLinkCard() end
+    listPanel:Hide()
+    detailPanel:Hide()
+    FGT.libraryPanel:Hide()
+    FGT.trackerTab:SetActive(false)
+    FGT.libraryTab:SetActive(false)
+    panel:Show()
+    FGT.UpdateGear()
+    FGT.RefreshSettings()
+    S.scroll.scroll:SetVerticalScroll(0)
+    FGT.LayoutSettings()
+end
+
+-- Hides the page without touching the tabs (ShowTab calls this).
+function FGT.CloseSettings()
+    if panel:IsShown() then
+        panel:Hide()
+        FGT.UpdateGear()
+    end
+end
+
+-- Back to the tab you were on.
+function FGT.LeaveSettings()
+    if panel:IsShown() then
+        FGT.ShowTab(ForeverGoalTrackerDB and ForeverGoalTrackerDB.tab or "tracker")
+    end
+end
+main:HookScript("OnHide", function() FGT.LeaveSettings() end)
+
+-- ------------------------------------------------------------
+-- Window scale and reset
+-- ------------------------------------------------------------
+-- Keeps the window's top-left corner where it is on screen while the
+-- scale changes; PlaceWindow then re-checks size and position.
+function FGT.ApplyWindowScale(s)
+    s = s or 1
+    FGT.windowScale = s
+    local old = main:GetScale()
+    if math.abs(old - s) < 0.001 then return end
+    local l, t = main:GetLeft(), main:GetTop()
+    main:SetScale(s)
+    if l and t and ForeverGoalTrackerDB then
+        ForeverGoalTrackerDB.frameLeft, ForeverGoalTrackerDB.frameTop = l * old / s, t * old / s
+    end
+    FGT.PlaceWindow()
+    FGT.LayoutSettings()
+end
+
+function FGT.ResetWindow()
+    local DB = ForeverGoalTrackerDB
+    if not DB then return end
+    DB.frameWidth, DB.frameHeight = FRAME_WIDTH, FRAME_HEIGHT
+    DB.frameLeft, DB.frameTop = nil, nil
+    FGT.PlaceWindow()
+    LayoutGoalList()
+    if selectedId then SelectGoal(selectedId, true) end
+    FGT.LayoutSettings()
+end
+
+-- ------------------------------------------------------------
+-- Options > AddOns: a short page with a button to the real settings.
+-- ------------------------------------------------------------
+do
+    local op = CreateFrame("Frame")
+    op.name = FGT.NAME
+    local t = op:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+    t:SetPoint("TOPLEFT", 16, -16)
+    t:SetText(FGT.NAME)
+    local d = op:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+    d:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 0, -8)
+    d:SetText("Settings live in the tracker window, behind the gear icon.")
+    local b = NewButton(op, "Open settings", function()
+        if SettingsPanel and SettingsPanel:IsShown() then pcall(HideUIPanel, SettingsPanel) end
+        if InterfaceOptionsFrame and InterfaceOptionsFrame:IsShown() then pcall(HideUIPanel, InterfaceOptionsFrame) end
+        FGT.OpenSettings()
+    end)
+    b:SetPoint("TOPLEFT", d, "BOTTOMLEFT", 0, -12)
+    if Settings and Settings.RegisterCanvasLayoutCategory and Settings.RegisterAddOnCategory then
+        pcall(function()
+            local cat = Settings.RegisterCanvasLayoutCategory(op, FGT.NAME)
+            Settings.RegisterAddOnCategory(cat)
+        end)
+    elseif InterfaceOptions_AddCategory then
+        pcall(InterfaceOptions_AddCategory, op)
+    end
+end
+
+end
+
+-- Key Bindings (Bindings.xml): Options > Keybindings > AddOns.
+BINDING_HEADER_FOREVERGOALTRACKER = "Forever Goal Tracker"
+BINDING_NAME_FGT_TOGGLE = "Open or close the tracker"
+function ForeverGoalTracker_Toggle() FGT.ToggleFrame() end
 
 -- ============================================================
 -- Toggle / init
@@ -4350,12 +5088,13 @@ function FGT.ToggleFrame()
     if main:IsShown() then
         main:Hide()
     else
+        local a = FGT.Setting("alpha") -- fade in to the chosen opacity
         main:SetAlpha(0)
         main:Show()
         if UIFrameFadeIn then
-            UIFrameFadeIn(main, 0.15, 0, 1)
+            UIFrameFadeIn(main, 0.15, 0, a)
         else
-            main:SetAlpha(1)
+            main:SetAlpha(a)
         end
     end
 end
@@ -4410,6 +5149,7 @@ end
 -- 1. A few seconds after login or /reload, once the login chatter has
 -- passed: overall progress and a random cheer.
 function FGT.LoginGreeting()
+    if not FGT.Setting("greeting") then return end
     local function say()
         local goals = ActiveGoals()
         if #goals == 0 then
@@ -4443,7 +5183,9 @@ local function BuildToast()
     toast = CreateFrame("Button", nil, UIParent, "BackdropTemplate")
     toast:SetSize(340, 64)
     toast:SetPoint("TOP", UIParent, "TOP", 0, -70)
-    toast:SetFrameStrata("HIGH")
+    -- one layer above the tracker window (HIGH), so the window's lines
+    -- and panels never draw across the banner
+    toast:SetFrameStrata("DIALOG")
     Etch(toast, STYLE.window, 12)
     toast.icon = NewIcon(toast, 42)
     toast.icon:SetPoint("LEFT", toast, "LEFT", 12, 0)
@@ -4483,7 +5225,7 @@ local function BuildToast()
             t:SetAlpha(1)
             if not t.played then
                 t.played = true
-                FGT.CelebrateRow(t)
+                if FGT.Setting("celebrations") ~= "off" then FGT.CelebrateRow(t) end
             end
         elseif life < FADE_IN + HOLD + FADE_OUT then
             t:SetAlpha(1 - (life - FADE_IN - HOLD) / FADE_OUT)
@@ -4507,10 +5249,29 @@ function FGT.NextToast()
     toast:Show()
 end
 
-local function Announce(goal)
-    print(TAG .. "You just completed " .. GoalLink(goal) .. "! " .. Pick(PRAISE))
-    table.insert(queue, goal)
-    if not (toast and toast:IsShown()) then FGT.NextToast() end
+-- force: /goals testbanner shows both whatever the settings say.
+local function Announce(goal, force)
+    if force or FGT.Setting("completeChat") then
+        print(TAG .. "You just completed " .. GoalLink(goal) .. "! " .. Pick(PRAISE))
+    end
+    if force or FGT.Setting("completeBanner") then
+        table.insert(queue, goal)
+        if not (toast and toast:IsShown()) then FGT.NextToast() end
+    end
+end
+
+-- Optional sound when a whole goal finishes (off by default). Sound kit
+-- IDs from Wowhead's UI sounds (https://www.wowhead.com/sounds/user-interface):
+-- 888 LEVELUP, 878 igQuestListComplete (the quest turn-in chime).
+FGT.SOUNDS = { levelup = 888, questturnin = 878 }
+
+function FGT.PlayGoalSound(which)
+    local id = FGT.SOUNDS[which]
+    if id and PlaySound then pcall(PlaySound, id, FGT.Setting("soundChannel")) end
+end
+
+function FGT.GoalCompleteSound()
+    FGT.PlayGoalSound(FGT.Setting("sound"))
 end
 
 -- /goals testbanner: plays the announcement for the open goal (or the
@@ -4523,7 +5284,8 @@ function FGT.TestBanner()
     end
     goal = goal or ActiveGoals()[1] or FGT.goals[1]
     print(TAG .. "Test banner (no progress changed):")
-    Announce(goal)
+    Announce(goal, true)
+    FGT.GoalCompleteSound() -- the chosen sound and channel, like a real finish
 end
 
 -- Remembers which goals are finished (DB.goalsDone) so each one is
@@ -4545,6 +5307,7 @@ function FGT.CheckGoalCompletions()
             if not DB.goalsDone[g.id] then
                 DB.goalsDone[g.id] = true
                 if not first then DB.goalDates[g.id] = time() end
+                if not first and not DB.demoBackup then FGT.GoalCompleteSound() end
                 if not quiet then Announce(g) end
             end
         else
@@ -4585,7 +5348,8 @@ function FGT.PlaceWindow()
     main:SetSize(w, h)
     ForeverGoalTrackerDB.frameWidth, ForeverGoalTrackerDB.frameHeight = w, h
     local left, top = ForeverGoalTrackerDB.frameLeft, ForeverGoalTrackerDB.frameTop
-    local sw, sh = GetScreenWidth(), GetScreenHeight()
+    local sc = FGT.windowScale or 1 -- positions are in the window's own (scaled) units
+    local sw, sh = GetScreenWidth() / sc, GetScreenHeight() / sc
     main:ClearAllPoints()
     if left and top then
         -- nudge a saved spot back on screen rather than recentering, so a
@@ -4629,6 +5393,7 @@ end)
 local minimapButton = CreateFrame("Button", "ForeverGoalTrackerMinimapButton", Minimap)
 minimapButton:SetSize(31, 31)
 minimapButton:SetFrameStrata("MEDIUM")
+FGT.minimapButton = minimapButton -- for the "Minimap button" setting
 minimapButton:SetFrameLevel(8)
 minimapButton:RegisterForClicks("LeftButtonUp")
 minimapButton:RegisterForDrag("LeftButton")
@@ -4860,7 +5625,10 @@ initFrame:SetScript("OnEvent", function(self, event, name)
     -- fixed 1100x900 caps - this is what self-heals a previously
     -- saved oversized window (or one saved on a bigger monitor) back
     -- to something that actually fits and keeps the resize grip
-    -- reachable.
+    -- reachable. Scale first: placement measures in scaled units.
+    FGT.windowScale = FGT.Setting("scale")
+    main:SetScale(FGT.windowScale)
+    main:SetAlpha(FGT.Setting("alpha"))
     FGT.PlaceWindow()
 
     for i, m in ipairs(sortModes) do
@@ -4878,6 +5646,7 @@ initFrame:SetScript("OnEvent", function(self, event, name)
     overallBar:SetProgress(d, t, string.format("%d%% overall", math.floor(d / math.max(1, t) * 100 + 0.5)))
 
     UpdateMinimapButtonPosition()
+    minimapButton:SetShown(FGT.Setting("minimap"))
     -- re-place once the minimap has its final size after login
     if C_Timer and C_Timer.After then C_Timer.After(1, UpdateMinimapButtonPosition) end
 
@@ -4916,7 +5685,7 @@ end
 local function ScanNow(announce)
     RecordCharacter()
     local changed = ApplyAutoRules()
-    if changed > 0 and announce and not FGT.firstRun then
+    if changed > 0 and announce and not FGT.firstRun and FGT.Setting("stepChat") then
         print(TAG .. string.format("%d step%s checked off automatically.",
             changed, changed == 1 and "" or "s"))
     end
@@ -4951,7 +5720,7 @@ local function RecordBossKill(name)
     me.bosses = me.bosses or {}
     me.bosses[name] = true
     local changed = ApplyAutoRules()
-    if changed > 0 then
+    if changed > 0 and FGT.Setting("stepChat") then
         print(TAG .. string.format("%s defeated, %d step%s checked off.",
             name, changed, changed == 1 and "" or "s"))
     end
@@ -4978,7 +5747,7 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
         if me and arg1 then
             -- UnitLevel can lag a frame behind the event; trust the event.
             me.level, me.xp = arg1, 0
-            if arg1 >= MAX_LEVEL and (oldLevel or 0) < MAX_LEVEL then
+            if arg1 >= MAX_LEVEL and (oldLevel or 0) < MAX_LEVEL and FGT.Setting("stepChat") then
                 print(TAG .. string.format("%s reached %d. Class marked complete.", me.name, MAX_LEVEL))
             end
         end
@@ -5004,6 +5773,7 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
     if event == "PLAYER_LOGIN" then
         ScanNow(true)
         if not FGT.firstRun then FGT.LoginGreeting() end
+        if FGT.Setting("openOnLogin") and not main:IsShown() then FGT.ToggleFrame() end
         return
     end
     ScanSoon()
@@ -5128,6 +5898,10 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         FGT.TestBanner()
         return
     end
+    if msg == "settings" or msg == "options" or msg == "config" then
+        FGT.OpenSettings()
+        return
+    end
     local demo = msg:match("^demo%s*(%w*)$")
     if demo then
         FGT.Demo(demo ~= "" and demo or "1")
@@ -5182,16 +5956,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         -- Manual escape hatch: puts the window back to its default size
         -- and re-centers it, in case it's ever stuck too big, too small,
         -- or somewhere the resize grip can't be reached.
-        if ForeverGoalTrackerDB then
-            ForeverGoalTrackerDB.frameWidth = FRAME_WIDTH
-            ForeverGoalTrackerDB.frameHeight = FRAME_HEIGHT
-        end
-        ForeverGoalTrackerDB.frameLeft, ForeverGoalTrackerDB.frameTop = nil, nil
-        FGT.PlaceWindow()
-        LayoutGoalList()
-        if selectedId then
-            SelectGoal(selectedId, true)
-        end
+        FGT.ResetWindow() -- same as the Reset button in Settings
         if not main:IsShown() then
             FGT.ToggleFrame()
         end

@@ -12,6 +12,9 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Pick the parts you want** of multi-part goals: individual classes, professions, mount races or Tier set classes.
 - **Separate Alliance and Horde goals**, with faction filters.
 - **Favorites:** right-click a goal to star it and keep it at the top of your list, or to remove it.
+- **Built for Warcraft Forever:** NEW and UPDATED markers in Forever blue, a "New & Updated" filter, and a notice on guides not yet confirmed in Forever.
+- **Goal links:** steps and tips link to the goals they depend on; click one to add it.
+- **Settings:** the gear in the title bar turns off chat lines, the banner or celebrations, adds a goal-complete sound, hides the minimap button, and sets window scale and opacity. Everything starts on.
 - **Celebrations** when you finish a step, a group or a goal, plus a chat message and an on-screen banner when a goal finishes while the window is closed. A progress check-in greets you on login.
 
 ## Roadmap
@@ -29,7 +32,10 @@ Download the latest release from CurseForge, or copy this repository's files int
 |---|---|
 | `/goals` (also `/fgt`, `/forevergoals`) | Open or close the window |
 | `/goals reset` | Reset the window size and position |
+| `/goals settings` | Open the Settings page |
 | `/goals testbanner` | Preview the goal-complete banner |
+
+A key binding is available under Options > Keybindings > AddOns.
 
 Open the **Goal Library** tab, click **+ Add** on the goals you want, then follow them on **My Goals**. Steps tick themselves as you play; you can also click any step to tick it by hand.
 
