@@ -7,6 +7,7 @@
 - Tier 3 Tips: Naxxramas attunement, every class's quartermaster, and where scraps drop.
 - Tier 1, Tier 2 and Tier 3 pieces show their item icons.
 - Fixed the Shaman Tier 3 set name (The Earthshatterer).
+- Finished groups (a mount race, a set class, a Tier 3 piece) show a green check instead of the count, and their name and icon go quiet like checked steps. Finished groups also get a soft green glow.
 - A goal's progress bar no longer replays its fill animation each time you open the goal. It only glides when progress changes.
 
 ## 2.1.2

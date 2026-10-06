@@ -2118,6 +2118,14 @@ local function GetStepRow(index)
     row.count:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -4)
     row.count:SetJustifyH("RIGHT")
     row.count:Hide()
+    -- green check that replaces the count once every material is done
+    row.doneCheck = row:CreateTexture(nil, "OVERLAY")
+    row.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+    row.doneCheck:SetSize(18, 18)
+    row.doneCheck:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, 0)
+    row.doneCheck:SetDesaturated(true)
+    row.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
+    row.doneCheck:Hide()
     row.guide = Flat(row, C.GOLD2[1], C.GOLD2[2], C.GOLD2[3], 0.22)
     row.guide:SetWidth(1)
     row.guide:Hide()
@@ -2133,6 +2141,7 @@ local function GetStepRow(index)
         self.miniBar:Hide()
         self.toggle:Hide()
         self.count:Hide()
+        self.doneCheck:Hide()
         self.guide:Hide()
         self.box:Show()
         self.icon:ClearAllPoints()
@@ -2226,9 +2235,29 @@ local function GetHeaderRow(index)
     row.count = NewFontString(row, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
     row.count:SetPoint("RIGHT", -8, 0)
 
+    -- Finished sections: a faint green wash from the left and a green
+    -- check in place of the count (the game's checkmark, recolored).
+    row.doneGlow = row:CreateTexture(nil, "BACKGROUND", nil, -5)
+    row.doneGlow:SetTexture(SOLID)
+    row.doneGlow:SetPoint("TOPLEFT", 2, -2)
+    row.doneGlow:SetPoint("BOTTOMRIGHT", -2, 2)
+    ApplyHGradient(row.doneGlow, C.DONE, C.DONE, 0.16, 0)
+    row.doneGlow:Hide()
+    row.doneCheck = row:CreateTexture(nil, "OVERLAY")
+    row.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+    row.doneCheck:SetSize(20, 20)
+    row.doneCheck:SetPoint("RIGHT", -5, 1)
+    row.doneCheck:SetDesaturated(true)
+    row.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
+    row.doneCheck:Hide()
+
     -- Expanded headers wear the "selected" gold look; collapsed ones are
-    -- plain tiles that lighten on hover.
+    -- plain tiles that lighten on hover. Finished ones sit back quietly,
+    -- like checked steps, until hovered or opened.
     function row:ApplyState(hovered)
+        local quiet = self.complete and not hovered and not self.expanded
+        self.icon:SetAlpha(quiet and 0.55 or 1)
+        self.arrow:SetAlpha(quiet and 0.6 or 1)
         if self.expanded then
             self:SetEtch(STYLE.rowSel)
             self.name:SetTextColor(1, 1, 1)
@@ -2236,6 +2265,8 @@ local function GetHeaderRow(index)
             self:SetEtch(hovered and STYLE.rowHover or STYLE.row)
             if hovered then
                 self.name:SetTextColor(1, 1, 1)
+            elseif quiet then
+                self.name:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
             else
                 self.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
             end
@@ -2343,12 +2374,14 @@ local function RefreshTierSections(goal)
         header.name:SetText(section.name)
         header.icon:SetIcon(section.icon or goal.icon, C.GOLD2)
         header.expanded = expanded and true or false
-        header:ApplyState(header:IsMouseOver())
 
         local sd, st = SectionProgress(goal, si, section)
-        local doneColor = (st > 0 and sd == st) and C.DONE or C.SUBTEXT
+        header.complete = st > 0 and sd == st
         header.count:SetText(sd .. " / " .. st)
-        header.count:SetTextColor(doneColor[1], doneColor[2], doneColor[3])
+        header.count:SetShown(not header.complete)
+        header.doneCheck:SetShown(header.complete)
+        header.doneGlow:SetShown(header.complete)
+        header:ApplyState(header:IsMouseOver())
 
         header:SetScript("OnClick", function()
             sectionExpanded[si] = not sectionExpanded[si]
@@ -2388,10 +2421,10 @@ local function RefreshTierSections(goal)
                     row.toggle:SetPoint("TOPLEFT", row, "TOPLEFT", 20, -3)
                     row.toggle:SetText(open and "-" or "+")
                     row.toggle:Show()
-                    local cc = (md == mt) and C.DONE or C.SUBTEXT
                     row.count:SetText(md .. " / " .. mt)
-                    row.count:SetTextColor(cc[1], cc[2], cc[3])
-                    row.count:Show()
+                    row.count:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+                    row.count:SetShown(md < mt)
+                    row.doneCheck:SetShown(md == mt)
                     row.pieceKey = pieceKey
                 end
 
