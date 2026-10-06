@@ -2280,9 +2280,12 @@ local function CelebrateStep(self, elapsed)
     local travel = math.max(0, self:GetWidth() - 107)
     self.shineL:ClearAllPoints()
     self.shineL:SetPoint("LEFT", self, "LEFT", 2 + travel * sh, 0)
-    local a = math.sin(math.pi * sh)
+    -- quick fade in, then a long soft fade out while it keeps moving;
+    -- the bright core fades first, so it never shrinks to a thin line
+    local a = Clamp01(sh / 0.15)
+    if sh > 0.45 then a = 0.5 + 0.5 * math.cos(math.pi * (sh - 0.45) / 0.55) end
     self.shineL:SetAlpha(a)
-    self.shineC:SetAlpha(a)
+    self.shineC:SetAlpha(a * a * a)
     self.shineR:SetAlpha(a)
 
     self.doneGlow:SetAlpha(Clamp01(t / 0.6))
