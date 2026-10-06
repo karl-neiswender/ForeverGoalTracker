@@ -161,8 +161,9 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 ## Current state (2026-10-06)
 
 **Start here next session** (end of 2026-10-06):
-- Live on CurseForge: **v2.4.0**. On `main` but unreleased: finished goal cards in the Library get the finished look and date (changelog "Unreleased"). Karl decides: ship as 2.4.1, or with the next feature.
-- Next builds, Karl's pick: **item tooltips and links** (roadmap "Next up"), or **starter picks** for new players (interest picker plus bundles; plan in the ideas below).
+- Live on CurseForge: **v2.4.0**. On `main` but unreleased (changelog "Unreleased"): Library finished look, greyed-out sound settings, racial mounts open to any race of the faction. Likely ships with the wizard as 2.5.0.
+- **Next build (Karl chose, 2026-10-06): the welcome wizard / starter picks.** The full plan is in the ideas below ("starter picks" and its sub-bullets: five interests, smart suggestions, no attunements, meet players where they are, "Complete ..." with progress, shown once to everyone, copy). Read it all before building; open choices are listed there.
+- Before release: check on Wowhead Classic whether vanilla barred some races from other races' epic mounts (e.g. Tauren); adjust Epic Racial Mounts if so.
 - Karl's to-do on CurseForge: delete the four old 2.3 gallery images (un-featured, top row of the Media tab).
 - The CurseForge copy of the roadmap doesn't have "Starter picks" yet; add it with the next release's store page check.
 - Demo mode: make sure Karl isn't still in `/goals demo` (exit with `/goals demo off`).
