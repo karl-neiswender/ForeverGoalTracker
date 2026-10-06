@@ -2391,6 +2391,14 @@ local function GetHeaderRow(index)
         local quiet = self.complete and not hovered and not self.expanded
         self.icon:SetAlpha(quiet and 0.7 or 1)
         self.icon.tex:SetDesaturated(quiet)
+        -- the gold rim goes grey too (same brightness, no color)
+        local rim = C.GOLD2
+        if quiet then
+            local g = rim[1] * 0.3 + rim[2] * 0.59 + rim[3] * 0.11
+            self.icon:SetBackdropBorderColor(g, g, g, 1)
+        else
+            self.icon:SetBackdropBorderColor(rim[1], rim[2], rim[3], 1)
+        end
         self.arrow:SetAlpha(quiet and 0.6 or 1)
         if self.expanded then
             self:SetEtch(STYLE.rowSel)
