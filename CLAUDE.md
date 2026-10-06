@@ -13,7 +13,7 @@ Karl works on the addon from two machines, a Windows PC and a MacBook. Both have
 | Machine | Addon folder |
 |---|---|
 | PC | `C:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\ForeverGoalTracker\` |
-| Mac | `/Applications/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/` |
+| Mac | `/Users/karlneiswender/Projects/ForeverGoalTracker/`, with a symlink to it at `/Applications/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker` |
 
 Work out which machine you're on from the working directory before running platform-specific commands.
 
@@ -88,7 +88,7 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 ## Testing
 
 There's no automated test suite. Testing happens in the Forever beta: edit, `/reload`, and Karl reports back with screenshots. Before handing back a change:
-- Check the Lua for syntax errors. If `lua`/`luac` isn't available (it isn't on the PC), the fallback is a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs. It catches most slips but not a missing comma.
+- Check the Lua for syntax errors. If `lua`/`luac` isn't available (it isn't on the PC or the Mac), the fallback is a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs. It catches most slips but not a missing comma.
 - Watch the local count in Core.lua's main chunk (lesson 1).
 - Ask Karl to `/reload` and check the change. If something misbehaves, `/console scriptErrors 1` shows Lua errors.
 
