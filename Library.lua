@@ -178,10 +178,10 @@ local library = {
         timeEstimate = "3+ Months",
         note = "Exalted with all four Alliance capitals. Your own race's city is the easy one; the rest take turn-ins.",
         steps = {
-            { text = "Exalted with Stormwind.", icon = "spell_arcane_teleportstormwind", auto = { rep = { faction = 72, standing = 8 }, forFaction = "Alliance" } },
-            { text = "Exalted with Ironforge.", icon = "spell_arcane_teleportironforge", auto = { rep = { faction = 47, standing = 8 }, forFaction = "Alliance" } },
-            { text = "Exalted with Darnassus.", icon = "spell_arcane_teleportdarnassus", auto = { rep = { faction = 69, standing = 8 }, forFaction = "Alliance" } },
-            { text = "Exalted with Gnomeregan Exiles.", icon = "inv_misc_gear_01", auto = { rep = { faction = 54, standing = 8 }, forFaction = "Alliance" } },
+            { text = "Reach Exalted with Stormwind.", icon = "spell_arcane_teleportstormwind", auto = { rep = { faction = 72, standing = 8 }, forFaction = "Alliance" } },
+            { text = "Reach Exalted with Ironforge.", icon = "spell_arcane_teleportironforge", auto = { rep = { faction = 47, standing = 8 }, forFaction = "Alliance" } },
+            { text = "Reach Exalted with Darnassus.", icon = "spell_arcane_teleportdarnassus", auto = { rep = { faction = 69, standing = 8 }, forFaction = "Alliance" } },
+            { text = "Reach Exalted with Gnomeregan Exiles.", icon = "inv_misc_gear_01", auto = { rep = { faction = 54, standing = 8 }, forFaction = "Alliance" } },
         },
         tips = {
             "Each city has repeatable cloth turn-ins at its cloth quartermaster, the fastest route for most players.",
@@ -196,10 +196,10 @@ local library = {
         timeEstimate = "3+ Months",
         note = "Exalted with all four Horde capitals. Your own race's city is the easy one; the rest take turn-ins.",
         steps = {
-            { text = "Exalted with Orgrimmar.", icon = "spell_arcane_teleportorgrimmar", auto = { rep = { faction = 76, standing = 8 }, forFaction = "Horde" } },
-            { text = "Exalted with Thunder Bluff.", icon = "spell_arcane_teleportthunderbluff", auto = { rep = { faction = 81, standing = 8 }, forFaction = "Horde" } },
-            { text = "Exalted with Undercity.", icon = "spell_arcane_teleportundercity", auto = { rep = { faction = 68, standing = 8 }, forFaction = "Horde" } },
-            { text = "Exalted with the Darkspear Trolls.", icon = "inv_misc_head_troll_01", auto = { rep = { faction = 530, standing = 8 }, forFaction = "Horde" } },
+            { text = "Reach Exalted with Orgrimmar.", icon = "spell_arcane_teleportorgrimmar", auto = { rep = { faction = 76, standing = 8 }, forFaction = "Horde" } },
+            { text = "Reach Exalted with Thunder Bluff.", icon = "spell_arcane_teleportthunderbluff", auto = { rep = { faction = 81, standing = 8 }, forFaction = "Horde" } },
+            { text = "Reach Exalted with Undercity.", icon = "spell_arcane_teleportundercity", auto = { rep = { faction = 68, standing = 8 }, forFaction = "Horde" } },
+            { text = "Reach Exalted with the Darkspear Trolls.", icon = "inv_misc_head_troll_01", auto = { rep = { faction = 530, standing = 8 }, forFaction = "Horde" } },
         },
         tips = {
             "Each city has repeatable cloth turn-ins at its cloth quartermaster, the fastest route for most players.",
@@ -218,8 +218,8 @@ local library = {
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             "Get a group (or solo once geared) for Stratholme's undead side through the service entrance.",
-            { text = "Defeat Baron Rivendare.", auto = { boss = "Baron Rivendare" } },
-            { text = "Loot Deathcharger's Reins.", auto = { item = 13335, owned = { "Deathcharger" } } },
+            { text = "Defeat Baron Rivendare in Stratholme.", auto = { boss = "Baron Rivendare" } },
+            { text = "Loot Deathcharger's Reins from Baron Rivendare.", auto = { item = 13335, owned = { "Deathcharger" } } },
         },
         completeWith = { item = 13335, owned = { "Deathcharger" } },
     },
@@ -233,8 +233,8 @@ local library = {
         note = "Rare drop from Bloodlord Mandokir in Zul'Gurub.",
         steps = {
             "Join a weekly Zul'Gurub (20-player) raid.",
-            { text = "Defeat Bloodlord Mandokir.", auto = { boss = "Bloodlord Mandokir" } },
-            { text = "Win the Swift Razzashi Raptor.", auto = { item = 19872, owned = { "Swift Razzashi Raptor" } } },
+            { text = "Defeat Bloodlord Mandokir in Zul'Gurub.", auto = { boss = "Bloodlord Mandokir" } },
+            { text = "Loot the Swift Razzashi Raptor from Bloodlord Mandokir.", auto = { item = 19872, owned = { "Swift Razzashi Raptor" } } },
         },
         completeWith = { item = 19872, owned = { "Swift Razzashi Raptor" } },
     },
@@ -248,8 +248,8 @@ local library = {
         note = "Rare drop from High Priest Thekal in Zul'Gurub.",
         steps = {
             "Join a weekly Zul'Gurub (20-player) raid.",
-            { text = "Defeat High Priest Thekal.", auto = { boss = "High Priest Thekal" } },
-            { text = "Win the Swift Zulian Tiger.", auto = { item = 19902, owned = { "Swift Zulian Tiger" } } },
+            { text = "Defeat High Priest Thekal in Zul'Gurub.", auto = { boss = "High Priest Thekal" } },
+            { text = "Loot the Swift Zulian Tiger from High Priest Thekal.", auto = { item = 19902, owned = { "Swift Zulian Tiger" } } },
         },
         completeWith = { item = 19902, owned = { "Swift Zulian Tiger" } },
     },
@@ -277,13 +277,13 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "The Warlock's epic mount, earned through a level 60 quest chain that ends with a summoning ritual in Dire Maul. Quest IDs checked on Wowhead.",
         steps = {
-            { text = "Start the chain: pick up 'Mor'zul Bloodbringer' from Spackle Thornberry, the demon trainer in Stormwind City, and complete it.", auto = { quest = 7562 } },
+            { text = "Complete 'Mor'zul Bloodbringer' from Spackle Thornberry in Stormwind City.", auto = { quest = 7562 } },
             { text = "Complete 'Rage of Blood'.", auto = { quest = 7563 } },
             { text = "Complete 'Wildeyes'.", auto = { quest = 7564 } },
             { text = "Complete 'Kroshius' Infernal Core'.", auto = { quest = 7603 } },
             { text = "Complete 'Imp Delivery'.", auto = { quest = 7629 } },
             { text = "Complete 'Arcanite'.", auto = { quest = 7630 } },
-            { text = "Complete 'Dreadsteed of Xoroth': perform the ritual in Dire Maul and defeat the Xorothian Dreadsteed.", auto = { quest = 7631 } },
+            { text = "Defeat the Xorothian Dreadsteed in Dire Maul ('Dreadsteed of Xoroth').", auto = { quest = 7631 } },
         },
         completeWith = { quest = 7631 },
         tips = {
@@ -300,7 +300,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "The Paladin's epic mount, earned through Lord Grayson Shadowbreaker's level 60 quest chain that ends in Scholomance. Quest IDs checked on Wowhead.",
         steps = {
-            { text = "Start the chain: pick up 'Lord Grayson Shadowbreaker' from Duthorian Rall in Stormwind City, and complete it.", auto = { quest = 7638 } },
+            { text = "Complete 'Lord Grayson Shadowbreaker' from Duthorian Rall in Stormwind City.", auto = { quest = 7638 } },
             { text = "Complete 'Emphasis on Sacrifice'.", auto = { quest = 7637 } },
             { text = "Complete 'To Show Due Judgment'.", auto = { quest = 7639 } },
             { text = "Complete 'Exorcising Terrordale'.", auto = { quest = 7640 } },
@@ -328,11 +328,11 @@ local library = {
         timeEstimate = "Varies",
         note = "Tanking sword (Warrior and Paladin) forged in Onyxia's breath.",
         steps = {
-            { text = "Loot the Compendium of Dragon Slaying, a rare book drop in Dire Maul.", auto = { item = 18401, quest = { 7508, 7509 } } },
-            { text = "Turn it in at the Dire Maul library to start 'The Forging of Quel'Serrar' and receive the Unfired Ancient Blade.",
+            { text = "Loot the Compendium of Dragon Slaying in Dire Maul (rare).", auto = { item = 18401, quest = { 7508, 7509 } } },
+            { text = "Get the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library.",
               auto = { quest = { 7508, 7509 }, questTaken = { 7508, 7509 }, item = 18489 } },
-            { text = "During an Onyxia fight, plant the blade where her fire breath will heat it.", auto = { item = { 18488, 18492, 18348 } } },
-            { text = "Grab the Heated Ancient Blade and drive it into Onyxia's corpse before it cools.", auto = { item = { 18492, 18348 } } },
+            { text = "Heat the blade in Onyxia's fire breath.", auto = { item = { 18488, 18492, 18348 } } },
+            { text = "Drive the Heated Ancient Blade into Onyxia's corpse before it cools.", auto = { item = { 18492, 18348 } } },
             { text = "Return the Treated Ancient Blade to receive Quel'Serrar.", auto = { item = 18348 } },
         },
         completeWith = { item = 18348 },
@@ -348,7 +348,7 @@ local library = {
         timeEstimate = "1-2 Weeks",
         note = "Boss kills tick off automatically when you're in the raid with the addon loaded.",
         steps = BossSteps({
-            { text = "Complete 'Attunement to the Core' in Blackrock Depths.", auto = { quest = 7848 } },
+            { text = "Complete {att_mc:'Attunement to the Core'} in Blackrock Depths.", auto = { quest = 7848 } },
         }, { "Lucifron", "Magmadar", "Gehennas", "Garr", "Shazzrah", "Baron Geddon",
              "Golemagg the Incinerator", "Sulfuron Harbinger", "Majordomo Executus", "Ragnaros" }),
     },
@@ -361,8 +361,8 @@ local library = {
         timeEstimate = "1-2 Weeks",
         note = "Needs the Drakefire Amulet from the faction-specific attunement chain.",
         steps = {
-            { text = "Complete the Onyxia attunement chain and earn the Drakefire Amulet. It starts with 'Dragonkin Menace' (Alliance) or 'Warlord's Command' (Horde).", auto = { item = 16309 } },
-            { text = "Defeat Onyxia.", auto = { boss = "Onyxia" } },
+            { text = "Earn the Drakefire Amulet from the {att_ony:Onyxia attunement}.", auto = { item = 16309 } },
+            { text = "Defeat Onyxia in Onyxia's Lair.", auto = { boss = "Onyxia" } },
             { text = "Loot the Head of Onyxia and turn it in at your capital city.", auto = { item = { 18422, 18423 } } },
         },
     },
@@ -375,7 +375,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "Boss kills tick off automatically when you're in the raid with the addon loaded.",
         steps = BossSteps({
-            { text = "Complete 'Blackhand's Command' (Upper Blackrock Spire) for attunement.", auto = { quest = 7761 } },
+            { text = "Complete {att_bwl:'Blackhand's Command'} (Upper Blackrock Spire) for attunement.", auto = { quest = 7761 } },
         }, { "Razorgore the Untamed", "Vaelastrasz the Corrupt", "Broodlord Lashlayer", "Firemaw",
              "Ebonroc", "Flamegor", "Chromaggus", "Nefarian" }),
     },
@@ -426,7 +426,7 @@ local library = {
         timeEstimate = "3+ Months",
         note = "The hardest raid in the game: all four wings, Sapphiron and Kel'Thuzad.",
         steps = BossSteps({
-            { text = "Get attuned to Naxxramas at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
+            { text = "Get {att_naxx:attuned to Naxxramas} at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
         }, { "Anub'Rekhan", "Grand Widow Faerlina", "Maexxna", "Noth the Plaguebringer", "Heigan the Unclean",
              "Loatheb", "Instructor Razuvious", "Gothik the Harvester", { "Four Horsemen" }, "Patchwerk",
              "Grobbulus", "Gluth", "Thaddius", "Sapphiron", "Kel'Thuzad" }),
@@ -458,7 +458,7 @@ local library = {
         timeEstimate = "1-2 Weeks",
         note = "The Alliance chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire and Blackrock Depths and ends with a masquerade in Stormwind.",
         steps = {
-            { text = "Start the chain: pick up 'Dragonkin Menace' from Helendis Riverhorn in the Burning Steppes, and complete it.", auto = { quest = 4182 } },
+            { text = "Complete 'Dragonkin Menace' from Helendis Riverhorn in the Burning Steppes.", auto = { quest = 4182 } },
             { text = "Complete the 'The True Masters' quests.", auto = { quest = 4224 } },
             { text = "Complete 'Marshal Windsor'.", auto = { quest = 4241 } },
             { text = "Complete 'Abandoned Hope'.", auto = { quest = 4242 } },
@@ -481,7 +481,7 @@ local library = {
         timeEstimate = "1-2 Weeks",
         note = "The Horde chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire, the Test of Skulls and Upper Blackrock Spire.",
         steps = {
-            { text = "Start the chain: pick up 'Warlord's Command' from Warlord Goretooth in Kargath, Badlands, and complete it.", auto = { quest = 4903 } },
+            { text = "Complete 'Warlord's Command' from Warlord Goretooth in Kargath, Badlands.", auto = { quest = 4903 } },
             { text = "Complete 'Eitrigg's Wisdom'.", auto = { quest = 4941 } },
             { text = "Complete 'For The Horde!'.", auto = { quest = 4974 } },
             { text = "Complete 'What the Wind Carries'.", auto = { quest = 6566 } },
@@ -507,7 +507,7 @@ local library = {
         timeEstimate = "1-2 Weeks",
         note = "Without the Mark of Drakkisath you can't use the orb into Blackwing Lair. The whole quest happens in Blackrock Spire.",
         steps = {
-            { text = "Loot Blackhand's Command, a rare drop from the Scarshield Quartermaster in Blackrock Spire, and read it.", auto = { item = 18987, questTaken = 7761, quest = 7761 } },
+            { text = "Loot and read Blackhand's Command from the Scarshield Quartermaster in Blackrock Spire.", auto = { item = 18987, questTaken = 7761, quest = 7761 } },
             { text = "Defeat General Drakkisath in Upper Blackrock Spire.", auto = { boss = "General Drakkisath", quest = 7761 } },
             { text = "Touch Drakkisath's Brand behind him to gain the Mark of Drakkisath.", auto = { quest = 7761 } },
         },
@@ -520,7 +520,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "Taken at Light's Hope Chapel in the Eastern Plaguelands once you're Honored with the Argent Dawn.",
         steps = {
-            { text = "Reach Honored with the Argent Dawn.", auto = { rep = { faction = 529, standing = 6 }, quest = { 9121, 9122, 9123 } } },
+            { text = "Reach Honored with the {rep_argentdawn:Argent Dawn}.", auto = { rep = { faction = 529, standing = 6 }, quest = { 9121, 9122, 9123 } } },
             { text = "Get attuned at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
         },
         tips = {
@@ -616,16 +616,16 @@ local library = {
 
     -- ---------------- Milestones ----------------
     {
-        id = "gold_5k", library = true,
+        id = "gold_5k", library = true, forever = "confirmed",
         icon = { "inv_misc_coin_02", "inv_misc_coin_01" },
         name = "Save 5,000 Gold",
         category = "Milestone", difficulty = "Hard",
         timeEstimate = "Varies",
         note = "Hold 1k, 2.5k and 5k gold on a single character. Ticks itself from your gold.",
         steps = {
-            { text = "1,000 gold on one character.", auto = { money = 1000 * 10000 } },
-            { text = "2,500 gold on one character.", auto = { money = 2500 * 10000 } },
-            { text = "5,000 gold on one character.", auto = { money = 5000 * 10000 } },
+            { text = "Hold 1,000 gold on one character.", auto = { money = 1000 * 10000 } },
+            { text = "Hold 2,500 gold on one character.", auto = { money = 2500 * 10000 } },
+            { text = "Hold 5,000 gold on one character.", auto = { money = 5000 * 10000 } },
         },
     },
 }
@@ -757,19 +757,22 @@ local sets = {
         },
     },
     {
-        id = "set_viper", library = true,
+        -- Updated in Warcraft Forever: same pieces, new set bonuses (Wowhead
+        -- Forever, item-set=162, 2026-10-06) and the druid serpent form.
+        id = "set_viper", library = true, forever = "updated",
         icon = "inv_shirt_16",
         name = "Embrace of the Viper",
         short = "Viper Set",
         category = "Item Set", difficulty = "Moderate",
         timeEstimate = "Days",
-        note = "A five-piece leather set from Wailing Caverns. A druid wearing all five is transformed into a serpent, with coloring that depends on race.",
+        note = "A five-piece leather set from Wailing Caverns.",
+        foreverNote = "Updated in WoW Forever with a new set bonus that turns you into a snake.",
         steps = {
-            { text = "Armor of the Fang (chest) from Lord Pythas.", icon = "inv_shirt_16", auto = { item = 6473, owned = { "Armor of the Fang" } } },
-            { text = "Leggings of the Fang from Lord Cobrahn.", icon = "inv_pants_11", auto = { item = 10410, owned = { "Leggings of the Fang" } } },
-            { text = "Footpads of the Fang from Lord Serpentis.", icon = "inv_boots_04", auto = { item = 10411, owned = { "Footpads of the Fang" } } },
-            { text = "Belt of the Fang from Lady Anacondra.", icon = "inv_belt_30", auto = { item = 10412, owned = { "Belt of the Fang" } } },
-            { text = "Gloves of the Fang, a rare drop from Druids of the Fang.", icon = "inv_gauntlets_18", auto = { item = 10413, owned = { "Gloves of the Fang" } } },
+            { text = "Loot Armor of the Fang from Lord Pythas.", icon = "inv_shirt_16", auto = { item = 6473, owned = { "Armor of the Fang" } } },
+            { text = "Loot Leggings of the Fang from Lord Cobrahn.", icon = "inv_pants_11", auto = { item = 10410, owned = { "Leggings of the Fang" } } },
+            { text = "Loot Footpads of the Fang from Lord Serpentis.", icon = "inv_boots_04", auto = { item = 10411, owned = { "Footpads of the Fang" } } },
+            { text = "Loot Belt of the Fang from Lady Anacondra.", icon = "inv_belt_30", auto = { item = 10412, owned = { "Belt of the Fang" } } },
+            { text = "Loot Gloves of the Fang from Druids of the Fang (rare).", icon = "inv_gauntlets_18", auto = { item = 10413, owned = { "Gloves of the Fang" } } },
         },
     },
 }
@@ -889,10 +892,10 @@ table.insert(pvp, {
     timeEstimate = "Ongoing",
     note = "Lifetime honorable kills on a single character. Ticks itself from your PvP stats.",
     steps = {
-        { text = "1,000 honorable kills.", auto = { hk = 1000 } },
-        { text = "5,000 honorable kills.", auto = { hk = 5000 } },
-        { text = "10,000 honorable kills.", auto = { hk = 10000 } },
-        { text = "25,000 honorable kills.", auto = { hk = 25000 } },
+        { text = "Earn 1,000 honorable kills.", auto = { hk = 1000 } },
+        { text = "Earn 5,000 honorable kills.", auto = { hk = 5000 } },
+        { text = "Earn 10,000 honorable kills.", auto = { hk = 10000 } },
+        { text = "Earn 25,000 honorable kills.", auto = { hk = 25000 } },
     },
 })
 

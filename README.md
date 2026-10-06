@@ -14,6 +14,10 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Favorites:** right-click a goal to star it and keep it at the top of your list, or to remove it.
 - **Celebrations** when you finish a step, a group or a goal, plus a chat message and an on-screen banner when a goal finishes while the window is closed. A progress check-in greets you on login.
 
+## Roadmap
+
+See what's coming next in [ROADMAP.md](ROADMAP.md).
+
 ## Install
 
 Download the latest release from CurseForge, or copy this repository's files into

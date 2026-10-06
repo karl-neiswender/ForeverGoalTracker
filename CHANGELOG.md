@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased
+
+- WoW Forever notice: every goal is written from Classic Era data, and nothing is confirmed for WoW Forever until it shows up in Wowhead's Forever database after launch. Goals not confirmed yet carry a slim blue notice with the WoW Forever logo on the goal page, and a note in their tooltips (Forever client only).
+- Two labels: NEW for things that only exist in WoW Forever, UPDATED for Classic content that Forever changed.
+- Anything new in WoW Forever is themed in blue instead of gold (cards, open rows, progress bars, icon frames), with a light blue NEW label and a glowing dot. It only appears on the Forever client.
+- Epic Racial Mounts: new Skyborne part, the Swift Galestrider (Genn Fairweather, Zephras Isle; about 1,200 gold with Journeyman Riding). All races' steps now use the same wording. On the Forever client the other races' riding step now says Journeyman Riding, as Forever calls it.
+- Embrace of the Viper is marked UPDATED in WoW Forever: its new set bonus turns you into a snake (Forever client only).
+- Goal Library: a blue "New & Updated" filter lists every goal that is new in WoW Forever or updated by it (Forever client only).
+- Finished goals in My Goals drop their difficulty label, leaving room for COMPLETE.
+- My Goals cards: a bigger icon, and once a goal is finished its progress bar turns into the day it was completed. Hovering a card shows how many steps are done.
+- Completion dates: finished goals remember the day, shown on the card, its tooltip, the goal page and the minimap tooltip. (Goals finished before this update have no date.)
+- Expand all / Collapse all for goals with several groups (mount races, set classes), and a group folds itself closed a moment after you finish it. Open groups are now remembered per goal.
+- Undo: after "Reset this goal", the button offers "Undo reset" for 10 seconds.
+- Clearer step wording across the library: each step now reads as one action with where to do it (for example "Loot The Eye of Divinity from Majordomo Executus in Molten Core"). Advice and drop chances moved to Tips.
+- Goal links: when a step or tip depends on another goal (like the Naxxramas attunement or Honored with the Argent Dawn), that text is a gold link. Click it to add that goal to My Goals, or to open it if you already track it.
+- The minimap button tooltip shows your overall progress and each favorite goal's next step.
+- Level Classes to 60 and Save 5,000 Gold are confirmed for WoW Forever, so they no longer show the notice.
+
 ## 2.2.0
 
 ### New

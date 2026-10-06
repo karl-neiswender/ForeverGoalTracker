@@ -28,6 +28,11 @@ C.BTN         = { 0.227, 0.227, 0.227, 1 } -- #3a3a3a
 C.BTN_HOVER   = { 0.29, 0.29, 0.29, 1 }    -- #4a4a4a
 C.BOX_RING    = { 0.42, 0.42, 0.42, 1 }    -- #6b6b6b
 C.BOX_DONE_BG = { 0.18, 0.165, 0.12, 1 }   -- #2e2a1f
+-- WoW Forever blues, for Forever-only goals and the "not confirmed yet" notice.
+C.FOREVER      = { 0.251, 0.549, 1.00 }   -- #408cff, text and edges
+C.FOREVER_MID  = { 0.000, 0.298, 0.749 }  -- #004cbf
+C.FOREVER_DEEP = { 0.090, 0.357, 0.549 }  -- #175b8c
+C.FOREVER_LIGHT = { 0.61, 0.79, 1.00 }    -- #9ccaff, NEW labels (reads on blue tiles)
 
 local FONT = "Fonts\\FRIZQT__.TTF"
 local FONT_TITLE = "Interface\\AddOns\\" .. ADDON .. "\\Fonts\\Cinzel-Bold.ttf"
@@ -113,7 +118,10 @@ function FGT.GroupParts(goal)
     local parts = {}
     if goal.sections then
         for si, section in ipairs(goal.sections) do
-            table.insert(parts, { key = si, label = section.name, icon = section.icon })
+            -- Forever-only parts (the Skyborne mount) don't exist on Classic Era.
+            if section.forever ~= "new" or FGT.isForever then
+                table.insert(parts, { key = si, label = section.name, icon = section.icon, forever = section.forever })
+            end
         end
     else
         for i, entry in ipairs(goal.steps) do
@@ -859,6 +867,63 @@ local function CountGoalsComplete()
     return complete
 end
 
+-- The first step still to do, in guide order, as display text (nil when
+-- the goal is finished). Group goals only look at the parts you chose;
+-- when several sections are chosen the section name leads ("Troll: ...").
+function FGT.NextStep(goal)
+    if goal.sections then
+        local chosen = FGT.SelectedPartCount(goal)
+        for si, section in ipairs(goal.sections) do
+            if PartSelected(goal, si) then
+                for pi, piece in ipairs(section.pieces) do
+                    local d, t = FGT.PieceProgress(goal.id, si, pi, piece)
+                    if d < t then
+                        local text = FGT.StepText(piece.text or piece.name)
+                        if chosen > 1 then text = section.name:gsub(" %- .*", "") .. ": " .. text end
+                        return text
+                    end
+                end
+            end
+        end
+        return nil
+    end
+    for i, entry in ipairs(goal.steps) do
+        if PartSelected(goal, i) then
+            local text = type(entry) == "table" and entry.text or entry
+            if IsAutoStep(entry) then
+                if AutoStepFraction(entry) < 1 then return text .. " to level " .. MAX_LEVEL end
+            elseif not IsStepDone(goal.id, i) then
+                return FGT.StepText(text)
+            end
+        end
+    end
+    return nil
+end
+
+-- "12 of 18 steps done", or "3 of 9 classes at 60" for the leveling goal.
+function FGT.StepCountText(goal)
+    if goal.autoLevels then
+        local n, at60 = 0, 0
+        for i, entry in ipairs(goal.steps) do
+            if PartSelected(goal, i) then
+                n = n + 1
+                if AutoStepFraction(entry) >= 1 then at60 = at60 + 1 end
+            end
+        end
+        return string.format("%d of %d classes at %d", at60, n, MAX_LEVEL)
+    end
+    local d, t = GoalProgress(goal)
+    return string.format("%d of %d steps done", d, t)
+end
+
+-- "Oct 6, 2026" for a saved completion time, or nil.
+function FGT.CompletedOn(goal)
+    local DB = ForeverGoalTrackerDB
+    local t = DB and DB.goalDates and DB.goalDates[goal.id]
+    if not t then return nil end
+    return date("%b ", t) .. tonumber(date("%d", t)) .. date(", %Y", t)
+end
+
 -- Convert a 0-1 r,g,b table into a "RRGGBB" hex string for inline
 -- |cffRRGGBB color codes in font strings.
 local function HexColor(c)
@@ -889,7 +954,62 @@ end
 -- Steps read as checklist items, so they're shown without a closing
 -- period (periods between sentences inside a step stay).
 function FGT.StepText(s)
-    return (tostring(s or ""):gsub("%.%s*$", ""))
+    return FGT.LinkText((tostring(s or ""):gsub("%.%s*$", "")))
+end
+
+-- ============================================================
+-- Goal links: "{att_naxx:attuned to Naxxramas}" in step or tip text
+-- becomes gold, clickable text that offers to track that goal. Only
+-- goals that exist in the catalog become links; anything else shows as
+-- plain text. Aliases pick a goal per faction.
+-- ============================================================
+FGT.LINK_ALIAS = {
+    att_ony = function() return UnitFactionGroup("player") == "Horde" and "att_ony_horde" or "att_ony_ally" end,
+}
+
+function FGT.GoalById(id)
+    if not FGT.goalIndex then
+        FGT.goalIndex = {}
+        for _, g in ipairs(FGT.goals) do FGT.goalIndex[g.id] = g end
+    end
+    return FGT.goalIndex[id]
+end
+
+function FGT.LinkText(s)
+    return (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
+        local alias = FGT.LINK_ALIAS[id]
+        if alias then id = alias() end
+        if not FGT.GoalById(id) then return label end
+        return "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
+    end))
+end
+
+-- Makes goal links inside a frame's text hoverable and clickable. While
+-- the mouse is on a link, FGT.overLink is set so the step under it
+-- doesn't tick (ToggleStep checks it).
+function FGT.EnableGoalLinks(f)
+    if not f.SetHyperlinksEnabled then return end -- very old clients: plain text
+    f:SetHyperlinksEnabled(true)
+    f:SetScript("OnHyperlinkEnter", function(self, link)
+        local id = link:match("^fgtgoal:(.+)")
+        local goal = id and FGT.GoalById(id)
+        if not goal then return end
+        FGT.overLink = id
+        GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+        GameTooltip:AddLine(goal.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine(IsActive(goal) and "On your tracker. Click to open it." or "Click to track this goal.",
+            C.INK2[1], C.INK2[2], C.INK2[3])
+        GameTooltip:Show()
+    end)
+    f:SetScript("OnHyperlinkLeave", function()
+        FGT.overLink = nil
+        GameTooltip:Hide()
+    end)
+    f:SetScript("OnHyperlinkClick", function(self, link)
+        local id = link:match("^fgtgoal:(.+)")
+        GameTooltip:Hide()
+        if id and FGT.OpenLinkCard then FGT.OpenLinkCard(id) end
+    end)
 end
 
 local function NewFontString(parent, size, flags, r, g, b)
@@ -973,7 +1093,15 @@ local STYLE = {
     btnHover = { top = { 0.330, 0.300, 0.240 }, bottom = { 0.120, 0.110, 0.090 }, edge = { 0.85, 0.68, 0.20, 1 } },
     danger   = { top = { 0.420, 0.110, 0.090 }, bottom = { 0.140, 0.030, 0.030 }, edge = { 0.62, 0.22, 0.16, 1 } },
     dangerHv = { top = { 0.540, 0.150, 0.120 }, bottom = { 0.190, 0.045, 0.040 }, edge = { 0.90, 0.35, 0.25, 1 } },
+    forever  = { top = { 0.040, 0.120, 0.200 }, bottom = { 0.015, 0.040, 0.075 }, edge = { 0.09, 0.36, 0.55, 1 } },
+    -- Blue twins of row / rowHover / rowSel for things new in Forever.
+    fRow     = { top = { 0.060, 0.110, 0.180 }, bottom = { 0.020, 0.036, 0.062 }, edge = { 0.09, 0.36, 0.55, 1 } },
+    fHover   = { top = { 0.085, 0.160, 0.260 }, bottom = { 0.030, 0.058, 0.095 }, edge = { 0.25, 0.55, 1.00, 1 } },
+    fSel     = { top = { 0.070, 0.240, 0.460 }, bottom = { 0.015, 0.075, 0.170 }, edge = { 0.55, 0.78, 1.00, 1 } },
 }
+-- Which blue twin replaces each gold state.
+STYLE.foreverTwin = { [STYLE.row] = STYLE.fRow, [STYLE.rowHover] = STYLE.fHover, [STYLE.rowSel] = STYLE.fSel,
+    [STYLE.panel] = STYLE.fRow, [STYLE.button] = STYLE.fRow, [STYLE.btnHover] = STYLE.fHover }
 
 -- Vertical gradient on a texture (top color -> bottom color). SetGradient
 -- takes (min = bottom, max = top). Falls back to a flat midpoint color.
@@ -1019,10 +1147,98 @@ local function Etch(frame, style, edgeSize)
     frame.etchHi:SetVertexColor(1, 0.92, 0.70, 0.07)
 
     function frame:SetEtch(st)
+        -- Things new in Forever wear blue instead of gold in every state.
+        if self.foreverNew then st = STYLE.foreverTwin[st] or st end
         ApplyVGradient(self.etchBg, st.top, st.bottom)
         self:SetBackdropBorderColor(st.edge[1], st.edge[2], st.edge[3], st.edge[4] or 1)
     end
     frame:SetEtch(style)
+end
+
+-- ============================================================
+-- WoW Forever status
+-- ============================================================
+-- Every goal is written from Classic Era data. Whether it exists in
+-- Warcraft Forever, and works the same, is only known once it shows up
+-- in Wowhead's Forever database (items are hidden there until someone
+-- loots one after launch). A goal's `forever` field says what we know:
+--   nil          not confirmed yet (the default)
+--   "listed"     in Forever's database, but the steps aren't checked
+--   "confirmed"  checked: same steps in Forever
+--   "new"        only exists in Forever (hidden on Classic Era)
+--   "updated"    in Classic too, but Forever changed it (the Viper set's
+--                new bonus): marked UPDATED on Forever, plain on Classic Era
+-- Both wear the blue theme on Forever; only the word differs (NEW /
+-- UPDATED). A goal's `foreverNote` says what's new; it shows in the blue
+-- goal-page notice.
+FGT.FOREVER_BUG = "Interface\\AddOns\\" .. ADDON .. "\\Media\\forever"
+FGT.testNew = {} -- /goals testnew: preview the "new" look (not saved)
+
+function FGT.ForeverStatus(goal)
+    if FGT.testNew[goal.id] then return "new" end
+    if goal.forever == "updated" then
+        return FGT.isForever and "updated" or "confirmed"
+    end
+    return goal.forever or "unconfirmed"
+end
+
+-- "NEW" or "UPDATED" when a goal (or part) gets the blue Forever look,
+-- otherwise nil.
+function FGT.ForeverWord(goal)
+    local s = FGT.ForeverStatus(goal)
+    if s == "new" then return "NEW" end
+    if s == "updated" then return "UPDATED" end
+end
+
+-- One line for tooltips (short) and the goal page notice, or nil when
+-- there's nothing to say. Unconfirmed goals only matter on Forever.
+function FGT.ForeverNote(goal, short)
+    local s = FGT.ForeverStatus(goal)
+    if s == "new" or s == "updated" then
+        return (not short and goal.foreverNote)
+            or (s == "new" and "New in WoW Forever." or "Updated in WoW Forever.")
+    end
+    if not FGT.isForever then return nil end
+    if s == "listed" then
+        return "In WoW Forever's database, but the steps aren't confirmed yet. They follow Classic Era and may differ."
+    elseif s == "unconfirmed" then
+        return "Not yet confirmed in WoW Forever. These steps follow Classic Era and may differ."
+    end
+end
+
+-- Bright Forever-blue dot for font strings ("|T...|t", tinted #408cff).
+-- The logo is too small to read at chip size, so labels use the dot.
+FGT.FOREVER_DOT = "Interface\\AddOns\\" .. ADDON .. "\\Media\\dot"
+-- The dot image carries its own soft glow, so the solid core is about
+-- 40% of `size`; the glow also spaces it from the word after it. Nudged
+-- down 3px to sit level with capital letters (measured in game).
+function FGT.ForeverDot(size)
+    return string.format("|T%s:%d:%d:0:-3:32:32:0:32:0:32:156:202:255|t", FGT.FOREVER_DOT, size, size)
+end
+
+-- "<dot>NEW" (or UPDATED) in light Forever blue, after a name.
+function FGT.NewTag(word)
+    return FGT.ForeverDot(14) .. "|cff9ccaff" .. (word or "NEW") .. "|r"
+end
+
+-- True when a goal is new or updated in Forever, or holds a part that is
+-- (Epic Racial Mounts and its Skyborne mount). Drives the Library chip.
+function FGT.HasForeverNew(goal)
+    if FGT.ForeverWord(goal) then return true end
+    for _, section in ipairs(goal.sections or {}) do
+        if FGT.ForeverWord(section) then return true end
+    end
+    return false
+end
+
+-- Marks a tile (goal card, group header, Library row) as new or updated
+-- in Forever: SetEtch then swaps its gold states for the blue twins.
+-- Callers re-etch right after. Returns "NEW", "UPDATED" or nil.
+function FGT.ApplyForeverLook(frame, goal)
+    local word = FGT.ForeverWord(goal)
+    frame.foreverNew = word and true or false
+    if frame.bar and frame.bar.SetBlue then frame.bar:SetBlue(frame.foreverNew) end
+    return word
 end
 
 -- ============================================================
@@ -1135,13 +1351,28 @@ local function NewBar(parent, height)
         self.sheen:SetShown(on and height >= 6)
         self.tip:SetWidth(math.min(24, fillW))
         self.tip:SetShown(on and not complete)
-        if complete ~= self.wasComplete then
-            self.wasComplete = complete
-            if complete then
+        local look = complete and "done" or (self.blue and "blue" or "gold")
+        if look ~= self.look then
+            self.look = look
+            if look == "done" then
                 ApplyHGradient(self.fill, { 0.08, 0.32, 0.04 }, { 0.55, 1.00, 0.40 })
+            elseif look == "blue" then
+                -- new in Forever: deep Forever blue building to light blue
+                ApplyHGradient(self.fill, { 0.01, 0.12, 0.36 }, { 0.40, 0.70, 1.00 })
+                ApplyHGradient(self.tip, { 0.40, 0.70, 1.00 }, { 0.80, 0.92, 1.00 }, 0, 0.75)
             else
                 ApplyHGradient(self.fill, { 0.32, 0.18, 0.01 }, { 1.00, 0.86, 0.30 })
+                ApplyHGradient(self.tip, { 1.00, 0.85, 0.40 }, { 1.00, 0.95, 0.70 }, 0, 0.75)
             end
+        end
+    end
+
+    -- Blue instead of gold, for goals and parts new in Forever.
+    function bar:SetBlue(on)
+        on = on and true or false
+        if on ~= (self.blue or false) then
+            self.blue = on
+            if self.cur then self:Render(self.cur) end
         end
     end
 
@@ -1195,6 +1426,7 @@ FGT.doneSeen = {}
 
 function FGT.CheckCelebration(row, key, complete, play)
     local was = FGT.doneSeen[key]
+    if FGT.quietCelebrate then was = complete end -- undoing a reset: no fanfare
     FGT.doneSeen[key] = complete
     if row.fxKey and row.fxKey ~= key then FGT.EndCelebration(row) end
     if complete and was == false then
@@ -2063,10 +2295,31 @@ main:HookScript("OnHide", function()
 end)
 
 local function RefreshGoalList()
+    -- first, so a goal finished just now already has its date below
+    if FGT.CheckGoalCompletions then FGT.CheckGoalCompletions() end
     for _, row in pairs(goalRows) do
         local done, total = GoalProgress(row.goal)
         row.bar:SetProgress(done, total)
         local isSelected = (row.goal.id == selectedId)
+        local isNew = FGT.ApplyForeverLook(row, row.goal)
+        if isNew then row.newChip:SetLabel(FGT.ForeverDot(12) .. isNew, C.FOREVER_LIGHT) end
+        -- Chip line under the name, left to right. A finished goal drops
+        -- its difficulty: COMPLETE says all that matters now.
+        local finished = total > 0 and done == total
+        local prev
+        for _, chip in ipairs({ row.diffChip, row.newChip, row.check }) do
+            local show = (chip == row.diffChip and not finished)
+                or (chip == row.newChip and isNew)
+                or (chip == row.check and finished)
+            chip:ClearAllPoints()
+            if prev then
+                chip:SetPoint("LEFT", prev, "RIGHT", 4, 0)
+            else
+                chip:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -4)
+            end
+            chip:SetShown(show)
+            if show then prev = chip end
+        end
         if isSelected then
             row:SetEtch(STYLE.rowSel)
             row.name:SetTextColor(1, 1, 1)
@@ -2078,8 +2331,7 @@ local function RefreshGoalList()
         local fav = favs[row.goal.id] and true or false
         row.star:SetShown(fav)
         row.name:SetPoint("RIGHT", fav and -26 or -8, 0)
-        local complete = total > 0 and done == total
-        row.check:SetShown(complete)
+        local complete = finished
         row.doneGlow:SetShown(complete)
         row.bigCheck:SetShown(complete)
         row.icon.tex:SetDesaturated(complete)
@@ -2091,15 +2343,20 @@ local function RefreshGoalList()
         else
             row.icon:SetBackdropBorderColor(rim[1], rim[2], rim[3], 1)
         end
+        -- the bar's slot shows the completion date once the goal is done
+        local on = complete and FGT.CompletedOn(row.goal)
+        row.bar:SetShown(not complete)
+        row.doneText:SetText(on and ("Completed " .. on) or "")
+        row.doneText:SetShown(complete)
         FGT.CheckCelebration(row, "card_" .. row.goal.id, complete, FGT.CelebrateRow)
     end
-    if FGT.CheckGoalCompletions then FGT.CheckGoalCompletions() end
 end
 
 local SelectGoal -- forward declare
 
 local yStart = -8
-local rowHeight = 64
+FGT.ROW_H = 72 -- name, chips, then the bar (or the completion date)
+local rowHeight = FGT.ROW_H
 for i, goal in ipairs(FGT.goals) do
     local row = CreateFrame("Button", nil, listContent, "BackdropTemplate")
     row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, yStart - (i - 1) * (rowHeight + 4))
@@ -2110,8 +2367,8 @@ for i, goal in ipairs(FGT.goals) do
 
     -- Item icon, rimmed in the category's quality color.
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
-    row.icon = NewIcon(row, 42)
-    row.icon:SetPoint("LEFT", row, "LEFT", 10, 0)
+    row.icon = NewIcon(row, 50) -- bottom lines up with the third text line
+    row.icon:SetPoint("TOPLEFT", row, "TOPLEFT", 10, -11)
     row.icon:SetIcon(goal.icon, catColor)
 
     row.name = NewFontString(row, 13, "", C.INK2[1], C.INK2[2], C.INK2[3])
@@ -2130,6 +2387,13 @@ for i, goal in ipairs(FGT.goals) do
     row.diffChip:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -4)
     row.diffChip:SetLabel(string.upper(goal.difficulty or ""), diffColor)
 
+    -- Forever-only goals: a blue NEW chip with the Forever logo.
+    row.newChip = NewChip(row, 8)
+    row.newChip:SetPoint("LEFT", row.diffChip, "RIGHT", 4, 0)
+    row.newChip:SetLabel(FGT.ForeverDot(12) .. "NEW", C.FOREVER_LIGHT)
+    row.newChip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
+    row.newChip:Hide()
+
     row.check = NewChip(row, 8)
     row.check:SetPoint("LEFT", row.diffChip, "RIGHT", 4, 0)
     row.check:SetLabel("COMPLETE", C.DONE)
@@ -2141,7 +2405,7 @@ for i, goal in ipairs(FGT.goals) do
     -- settles into the shadow (FGT.CelebrateRow).
     row.catColor = catColor
     row.bigCheck = CreateFrame("Frame", nil, row)
-    row.bigCheck:SetSize(42, 42)
+    row.bigCheck:SetSize(50, 50)
     row.bigCheck:SetPoint("CENTER", row.icon, "CENTER", 0, 0)
     row.bigCheck:SetFrameLevel(row.icon:GetFrameLevel() + 2)
     for _, part in ipairs({
@@ -2160,7 +2424,7 @@ for i, goal in ipairs(FGT.goals) do
         row[part[1]] = t
     end
     row.bigCheck:Hide()
-    FGT.AddCelebrationFX(row, 3, 56)
+    FGT.AddCelebrationFX(row, 3, 64)
 
     -- gold star in the top-right corner of favorited goals
     row.star = row:CreateTexture(nil, "OVERLAY")
@@ -2170,10 +2434,19 @@ for i, goal in ipairs(FGT.goals) do
     row.star:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
     row.star:Hide()
 
+    -- Last line, level with the icon's bottom: the progress bar, which a
+    -- finished goal swaps for the day it was completed (same footprint,
+    -- so cards never change height).
     row.bar = NewBar(row, 4)
     row.bar:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, 1)
     row.bar:SetPoint("RIGHT", row, "RIGHT", -10, 0)
     row.bar.label:Hide()
+
+    row.doneText = NewFontString(row, 10, "", 0.435, 0.604, 0.369) -- #6f9a5e
+    row.doneText:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, -1)
+    row.doneText:SetPoint("RIGHT", row, "RIGHT", -10, 0)
+    row.doneText:SetJustifyH("LEFT")
+    row.doneText:SetWordWrap(false)
 
     row:SetScript("OnEnter", function(self)
         if self.goal.id ~= selectedId then
@@ -2188,6 +2461,15 @@ for i, goal in ipairs(FGT.goals) do
         GameTooltip:AddLine(self.goal.difficulty or "", dc[1], dc[2], dc[3])
         if self.goal.timeEstimate then
             GameTooltip:AddLine(self.goal.timeEstimate, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        end
+        local fnote = FGT.ForeverNote(self.goal, true)
+        if fnote then GameTooltip:AddLine(fnote, C.FOREVER[1], C.FOREVER[2], C.FOREVER[3], true) end
+        local d, t = GoalProgress(self.goal)
+        if t > 0 and d == t then
+            local on = FGT.CompletedOn(self.goal)
+            GameTooltip:AddLine(on and ("Completed " .. on) or "Complete", C.DONE[1], C.DONE[2], C.DONE[3])
+        else
+            GameTooltip:AddLine(FGT.StepCountText(self.goal), C.INK2[1], C.INK2[2], C.INK2[3])
         end
         GameTooltip:AddLine("Right-click for options", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         GameTooltip:Show()
@@ -2298,10 +2580,79 @@ detailNote:SetPoint("RIGHT", -16, 0)
 detailNote:SetWordWrap(true)
 detailNote:SetJustifyH("LEFT")
 
+-- WoW Forever: a NEW chip beside the difficulty chips, and a slim blue
+-- notice under the description for goals not confirmed in Forever yet.
+do
+    local chip = NewChip(detailPanel, 9)
+    chip:SetLabel(FGT.ForeverDot(13) .. "NEW IN FOREVER", C.FOREVER_LIGHT)
+    chip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
+    chip:Hide()
+    FGT.detailNewChip = chip
+
+    -- "COMPLETED OCT 6, 2026" on finished goals
+    local done = NewChip(detailPanel, 9)
+    done:SetBackdropBorderColor(0.16, 0.35, 0.10, 1)
+    done:Hide()
+    FGT.detailDoneChip = done
+
+    local n = CreateFrame("Frame", nil, detailPanel, "BackdropTemplate")
+    n:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
+    n:SetPoint("RIGHT", -16, 0)
+    Etch(n, STYLE.forever, 10)
+    n.bug = n:CreateTexture(nil, "ARTWORK")
+    n.bug:SetTexture(FGT.FOREVER_BUG)
+    n.bug:SetSize(18, 18)
+    n.bug:SetPoint("TOPLEFT", 9, -6)
+    n.text = NewFontString(n, 10, "", 0.72, 0.84, 1.00)
+    n.text:SetPoint("TOPLEFT", n.bug, "TOPRIGHT", 8, -3)
+    n.text:SetJustifyH("LEFT")
+    n.text:SetWordWrap(true)
+    n:Hide()
+    FGT.foreverNotice = n
+end
+
 local detailBar = NewBar(detailPanel, 8)
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
 detailBar:SetPoint("RIGHT", -16, 0)
+
+-- Shows or hides the Forever chip and notice for a goal, and hangs the
+-- progress bar under whichever is last.
+function FGT.LayoutForeverInfo(goal)
+    local chip = FGT.detailNewChip
+    chip:ClearAllPoints()
+    chip:SetPoint("LEFT", detailTimeChip:IsShown() and detailTimeChip or detailDiffChip, "RIGHT", 6, 0)
+    local word = FGT.ForeverWord(goal)
+    if word then chip:SetLabel(FGT.ForeverDot(13) .. word .. " IN FOREVER", C.FOREVER_LIGHT) end
+    chip:SetShown(word ~= nil)
+    detailBar:SetBlue(word ~= nil)
+
+    local dc = FGT.detailDoneChip
+    if FGT.CheckGoalCompletions then FGT.CheckGoalCompletions() end -- date a goal finished just now
+    local d, t = GoalProgress(goal)
+    local on = t > 0 and d == t and FGT.CompletedOn(goal)
+    dc:ClearAllPoints()
+    dc:SetPoint("LEFT", word and chip or (detailTimeChip:IsShown() and detailTimeChip or detailDiffChip), "RIGHT", 6, 0)
+    if on then dc:SetLabel("COMPLETED " .. string.upper(on), C.DONE) end
+    dc:SetShown(on and true or false)
+
+    local n = FGT.foreverNotice
+    -- New goals only get the notice when there's something to explain.
+    local note = (not word or goal.foreverNote) and FGT.ForeverNote(goal)
+    detailBar:ClearAllPoints()
+    detailBar:SetPoint("RIGHT", -16, 0)
+    if note then
+        local w = math.max(120, detailPanel:GetWidth() - 32)
+        n.text:SetWidth(w - 9 - 18 - 8 - 10)
+        n.text:SetText(note)
+        n:SetHeight(math.max(30, math.ceil(n.text:GetStringHeight()) + 18))
+        n:Show()
+        detailBar:SetPoint("TOPLEFT", n, "BOTTOMLEFT", 0, -14)
+    else
+        n:Hide()
+        detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
+    end
+end
 
 local divider = NewFadeLine(detailPanel)
 divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -24)
@@ -2311,11 +2662,48 @@ local stepsHeader = NewTitleString(detailPanel, 12)
 stepsHeader:SetPoint("TOPLEFT", divider, "BOTTOMLEFT", 0, -10)
 stepsHeader:SetText("Step by Step")
 
+-- "Expand all" / "Collapse all" on the right of the heading, for goals
+-- with two or more groups chosen (mount races, set classes). Groups only;
+-- Tier 3 pieces keep their materials folded.
+do
+    local b = CreateFrame("Button", nil, detailPanel)
+    b:SetPoint("TOPRIGHT", divider, "BOTTOMRIGHT", -8, -10)
+    b.text = NewFontString(b, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    b.text:SetPoint("RIGHT")
+    b:SetScript("OnEnter", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
+    b:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
+    b:Hide()
+    FGT.expandAllBtn = b
+end
+
+-- Shows the button for a goal and labels it: "Expand all" while any
+-- chosen group is closed, otherwise "Collapse all".
+function FGT.UpdateExpandAll(goal)
+    local b = FGT.expandAllBtn
+    if not goal.sections or FGT.SelectedPartCount(goal) < 2 then b:Hide() return end
+    local anyClosed = false
+    for si in ipairs(goal.sections) do
+        if PartSelected(goal, si) and not FGT.sectionOpen[goal.id .. "_" .. si] then anyClosed = true end
+    end
+    b.text:SetText(anyClosed and "Expand all" or "Collapse all")
+    b:SetSize(math.ceil(b.text:GetStringWidth()) + 4, 16)
+    b:SetScript("OnClick", function()
+        for si in ipairs(goal.sections) do
+            if PartSelected(goal, si) then FGT.sectionOpen[goal.id .. "_" .. si] = anyClosed or nil end
+        end
+        SelectGoal(goal.id, true) -- (RefreshSteps is declared further down)
+    end)
+    b:Show()
+end
+
 local stepsScrollObj = CreateScrollArea(detailPanel)
 stepsScrollObj.scroll:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -8)
 stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -24, 40)
 stepsScrollObj:Finalize()
 local stepsContainer = stepsScrollObj.content
+-- Tips are drawn straight on the list, so it carries their goal links.
+stepsContainer:EnableMouse(true)
+FGT.EnableGoalLinks(stepsContainer)
 stepsContainer:SetHeight(1)
 
 local resetBtn = CreateFrame("Button", nil, detailPanel, "BackdropTemplate")
@@ -2326,13 +2714,54 @@ Etch(resetBtn, STYLE.danger, 10)
 local resetLabel = NewFontString(resetBtn, 10, "", 1, 0.75, 0.75)
 resetLabel:SetPoint("CENTER")
 resetLabel:SetText("Reset this goal")
-resetBtn:SetScript("OnEnter", function(self) self:SetEtch(STYLE.dangerHv) end)
-resetBtn:SetScript("OnLeave", function(self) self:SetEtch(STYLE.danger) end)
-resetBtn:SetScript("OnClick", function()
-    if selectedId then
-        ForeverGoalTrackerDB.progress[selectedId] = {}
-        SelectGoal(selectedId)
+-- After a reset the button offers "Undo reset" for 10 seconds, holding
+-- a copy of the goal's ticks (and its finished state and date).
+-- FGT.resetUndo = { id, progress, done, date } while that's possible.
+function FGT.StyleResetButton()
+    local undo = FGT.resetUndo
+    local hover = resetBtn:IsMouseOver()
+    if undo then
+        resetBtn:SetEtch(hover and STYLE.btnHover or STYLE.button)
+        resetLabel:SetText("Undo reset")
+        resetLabel:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    else
+        resetBtn:SetEtch(hover and STYLE.dangerHv or STYLE.danger)
+        resetLabel:SetText("Reset this goal")
+        resetLabel:SetTextColor(1, 0.75, 0.75)
     end
+end
+resetBtn:SetScript("OnEnter", FGT.StyleResetButton)
+resetBtn:SetScript("OnLeave", FGT.StyleResetButton)
+resetBtn:SetScript("OnClick", function()
+    if not selectedId then return end
+    local DB = ForeverGoalTrackerDB
+    local undo = FGT.resetUndo
+    if undo and undo.id == selectedId then
+        -- Put everything back, quietly: no celebration for ticks you had.
+        DB.progress[undo.id] = undo.progress
+        if DB.goalsDone then DB.goalsDone[undo.id] = undo.done end
+        if DB.goalDates then DB.goalDates[undo.id] = undo.date end
+        FGT.resetUndo = nil
+        FGT.quietCelebrate = true
+        SelectGoal(selectedId)
+        FGT.quietCelebrate = nil
+    else
+        local copy = {}
+        for k, v in pairs(DB.progress[selectedId] or {}) do copy[k] = v end
+        undo = { id = selectedId, progress = copy,
+            done = DB.goalsDone and DB.goalsDone[selectedId],
+            date = DB.goalDates and DB.goalDates[selectedId] }
+        FGT.resetUndo = undo
+        DB.progress[selectedId] = {}
+        SelectGoal(selectedId)
+        C_Timer.After(10, function()
+            if FGT.resetUndo == undo then
+                FGT.resetUndo = nil
+                FGT.StyleResetButton()
+            end
+        end)
+    end
+    FGT.StyleResetButton()
 end)
 
 -- ============================================================
@@ -2347,6 +2776,7 @@ local function GetStepRow(index)
     row = CreateFrame("Button", nil, stepsContainer)
     row:SetPoint("LEFT", stepsContainer, "LEFT", 0, 0)
     row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
+    FGT.EnableGoalLinks(row)
 
     row.box = CreateFrame("Frame", nil, row, "BackdropTemplate")
     row.box:SetSize(16, 16)
@@ -2491,6 +2921,7 @@ local function GetStepRow(index)
 end
 
 local function ToggleStep(goalId, index)
+    if FGT.overLink then return end -- the click was on a goal link in the step
     local nowDone = not IsStepDone(goalId, index)
     SetStepDone(goalId, index, nowDone)
     FGT.justTicked = nowDone and (goalId .. "|" .. index) or nil
@@ -2528,7 +2959,7 @@ end
 -- Tier 3 collapsible class headers
 -- ============================================================
 local headerRowPool = {}
-local sectionExpanded = {}
+FGT.sectionOpen = {} -- "goalId_section" -> true while that group is open
 FGT.pieceExpanded = {} -- "goalId_section_piece" -> true while its materials are shown
 
 local function GetHeaderRow(index)
@@ -2581,7 +3012,7 @@ local function GetHeaderRow(index)
         self.icon:SetAlpha(quiet and 0.7 or 1)
         self.icon.tex:SetDesaturated(quiet)
         -- the gold rim goes grey too (same brightness, no color)
-        local rim = C.GOLD2
+        local rim = self.foreverNew and C.FOREVER or C.GOLD2
         if quiet then
             local g = rim[1] * 0.3 + rim[2] * 0.59 + rim[3] * 0.11
             self.icon:SetBackdropBorderColor(g, g, g, 1)
@@ -2674,7 +3105,7 @@ function FGT.LayoutTips(goal, yOffset, width)
         row:ClearAllPoints()
         row:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 14, -yOffset)
         row:SetWidth(math.max(50, width - 18))
-        row:SetText(tip)
+        row:SetText(FGT.LinkText(tip))
         row:Show()
         row.dot:ClearAllPoints()
         row.dot:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 3, -yOffset - 5)
@@ -2700,9 +3131,12 @@ local function RefreshTierSections(goal)
         header:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
         header:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
 
-        local expanded = sectionExpanded[si]
+        local openKey = goal.id .. "_" .. si
+        local expanded = FGT.sectionOpen[openKey]
         header.arrow:SetText(expanded and "-" or "+")
-        header.name:SetText(section.name)
+        -- a part that's new in Forever (the Skyborne mount): blue look + NEW
+        local partNew = FGT.ApplyForeverLook(header, section)
+        header.name:SetText(partNew and (section.name .. "   " .. FGT.NewTag(partNew)) or section.name)
         header.icon:SetIcon(section.icon or goal.icon, C.GOLD2)
         header.expanded = expanded and true or false
 
@@ -2713,10 +3147,21 @@ local function RefreshTierSections(goal)
         header.doneCheck:SetShown(header.complete)
         header.doneGlow:SetShown(header.complete)
         header:ApplyState(header:IsMouseOver())
-        FGT.CheckCelebration(header, goal.id .. "_" .. si, header.complete, FGT.CelebrateRow)
+        -- An open group that finishes just now folds itself closed once
+        -- its celebration has played, so its quiet finished look shows.
+        local justDone = header.complete and FGT.doneSeen[openKey] == false and not FGT.quietCelebrate
+        FGT.CheckCelebration(header, openKey, header.complete, FGT.CelebrateRow)
+        if justDone and expanded then
+            C_Timer.After(1.4, function()
+                if FGT.sectionOpen[openKey] and selectedId == goal.id then
+                    FGT.sectionOpen[openKey] = nil
+                    RefreshSteps(goal)
+                end
+            end)
+        end
 
         header:SetScript("OnClick", function()
-            sectionExpanded[si] = not sectionExpanded[si]
+            FGT.sectionOpen[openKey] = not FGT.sectionOpen[openKey] or nil
             RefreshSteps(goal)
         end)
         header:Show()
@@ -2824,6 +3269,7 @@ local function RefreshTierSections(goal)
         stepRowPool[i]:Hide()
     end
 
+    FGT.UpdateExpandAll(goal)
     yOffset = FGT.LayoutTips(goal, yOffset, width)
     stepsContainer:SetHeight(math.max(1, yOffset))
     stepsScrollObj:Update()
@@ -2937,6 +3383,7 @@ RefreshSteps = function(goal)
         headerRowPool[i]:Hide()
     end
 
+    FGT.UpdateExpandAll(goal)
     yOffset = FGT.LayoutTips(goal, yOffset, width)
     stepsContainer:SetHeight(math.max(1, yOffset))
     stepsScrollObj:Update()
@@ -2975,12 +3422,15 @@ SelectGoal = function(id, skipListRefresh)
     end
 
     detailNote:SetText(goal.note or "")
+    FGT.LayoutForeverInfo(goal)
 
     resetBtn:SetShown(not goal.autoLevels)
+    if FGT.resetUndo and FGT.resetUndo.id ~= goal.id then FGT.resetUndo = nil end -- undo is per goal
+    FGT.StyleResetButton()
     local done, total = GoalProgress(goal)
     -- The bar is shared by every goal: opening a different goal jumps
     -- straight to its value, so it only glides when progress changes.
-    detailBar.instant = detailBar.goalId ~= goal.id or nil
+    detailBar.instant = detailBar.goalId ~= goal.id or FGT.quietCelebrate or nil
     detailBar.goalId = goal.id
     if goal.autoLevels then
         detailBar:SetProgress(done, total, string.format("%d / %d levels  ·  %d%%",
@@ -3103,7 +3553,8 @@ function FGT.HideEmptyTracker()
     for _, part in ipairs(detailParts) do part:Show() end
 end
 detailParts = { detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
-    detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn }
+    detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
+    FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn }
 
 -- ------------------------------------------------------------
 -- Library panel
@@ -3136,6 +3587,11 @@ local FILTERS = {
     { key = "PvP",        label = "PvP" },
     { key = "Milestone",  label = "Milestones" },
 }
+-- Forever client: a blue "New & Updated" chip after Added (goals new
+-- in Forever or updated by it).
+if FGT.isForever then
+    table.insert(FILTERS, 3, { key = "new", label = FGT.ForeverDot(14) .. "New & Updated", forever = true })
+end
 local libFilter = "all"
 local filterChips = {}
 local libScroll = CreateScrollArea(libraryPanel)
@@ -3150,6 +3606,7 @@ for i, f in ipairs(FILTERS) do
     chip.text:SetText(f.label)
     chip:SetWidth(math.ceil(chip.text:GetStringWidth()) + 18)
     chip.filter = f
+    chip.foreverNew = f.forever -- blue twin styles (STYLE.foreverTwin)
     chip:SetScript("OnClick", function()
         libFilter = f.key
         libScroll.scroll:SetVerticalScroll(0)
@@ -3274,6 +3731,8 @@ end
 
 -- Search and faction rules, applied on top of the chip filter.
 function FGT.LibraryVisible(goal)
+    -- Forever-only goals can't be earned on Classic Era.
+    if goal.forever == "new" and not FGT.isForever then return false end
     if goal.faction and not IsActive(goal) and libFilter ~= "all" then
         -- All shows everything; filters with faction goals (PvP,
         -- Reputation, Attunements) follow the Alliance / Horde / Both picker
@@ -3296,6 +3755,7 @@ end
 local function FilterMatches(f, goal)
     if f.key == "all" then return true end
     if f.key == "added" then return IsActive(goal) end
+    if f.key == "new" then return FGT.HasForeverNew(goal) end
     if f.faction then return goal.faction == f.key end
     if f.match then return goal.category:find(f.match) ~= nil end
     return goal.category == f.key
@@ -3431,6 +3891,99 @@ function FGT.OpenGoalMenu(card)
     M.catcher:Show()
 end
 
+-- ============================================================
+-- Goal link card: clicking a goal link in a step or tip opens a small
+-- card for that goal (icon, name, what it is) with "+ Add to My Goals",
+-- or "Open goal" once it's on your tracker. Clicking anywhere else
+-- closes it, like the right-click menu.
+-- ============================================================
+function FGT.CloseLinkCard()
+    local L = FGT.linkCard
+    if L then L:Hide(); L.catcher:Hide() end
+end
+
+function FGT.OpenLinkCard(id)
+    local goal = FGT.GoalById(id)
+    if not goal then return end
+    local L = FGT.linkCard
+    if not L then
+        L = CreateFrame("Frame", nil, main, "BackdropTemplate")
+        L:SetFrameLevel(main:GetFrameLevel() + 60)
+        L:SetClampedToScreen(true)
+        L:SetWidth(270)
+        Etch(L, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
+        L:EnableMouse(true)
+        L.catcher = CreateFrame("Button", nil, main)
+        L.catcher:SetAllPoints(main)
+        L.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
+        L.catcher:RegisterForClicks("AnyUp")
+        L.catcher:SetScript("OnClick", FGT.CloseLinkCard)
+
+        L.icon = NewIcon(L, 36)
+        L.icon:SetPoint("TOPLEFT", 12, -12)
+        L.tag = NewFontString(L, 9, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
+        L.tag:SetPoint("TOPLEFT", L.icon, "TOPRIGHT", 10, -1)
+        L.name = NewTitleString(L, 13)
+        L.name:SetPoint("TOPLEFT", L.tag, "BOTTOMLEFT", 0, -3)
+        L.name:SetPoint("RIGHT", L, "RIGHT", -12, 0)
+        L.name:SetJustifyH("LEFT")
+        L.name:SetWordWrap(true)
+        L.note = NewFontString(L, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+        L.note:SetJustifyH("LEFT")
+        L.note:SetWordWrap(true)
+        L.note:SetWidth(270 - 24)
+
+        L.btn = CreateFrame("Button", nil, L, "BackdropTemplate")
+        L.btn:SetSize(150, 24)
+        Etch(L.btn, STYLE.button, 10)
+        L.btn.text = NewFontString(L.btn, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+        L.btn.text:SetPoint("CENTER")
+        L.btn:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
+        L.btn:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
+        L.btn:SetScript("OnClick", function()
+            local g = L.goal
+            if IsActive(g) then
+                -- already tracked: take you to it
+                FGT.CloseLinkCard()
+                if FGT.ShowTab then FGT.ShowTab("tracker") end
+                SelectGoal(g.id)
+            else
+                -- done: close the card, the chat line confirms it
+                FGT.CloseLinkCard()
+                GameTooltip:Hide()
+                SetGoalActive(g, true)
+                print(TAG .. g.name .. " added to My Goals.")
+            end
+        end)
+        FGT.linkCard = L
+    end
+
+    L.goal = goal
+    local catColor = FGT.categoryColors[goal.category] or C.ACCENT
+    L.icon:SetIcon(goal.icon, catColor)
+    L.tag:SetText(string.upper(goal.category))
+    L.tag:SetTextColor(catColor[1], catColor[2], catColor[3])
+    L.name:SetText(goal.name)
+    L.note:ClearAllPoints()
+    L.note:SetPoint("TOPLEFT", L, "TOPLEFT", 12, -12 - math.max(36, 16 + L.name:GetStringHeight()) - 10)
+    L.note:SetText(goal.note or "")
+    local active = IsActive(goal)
+    L.btn.text:SetText(active and "Open goal" or "+ Add to My Goals")
+    L.btn:ClearAllPoints()
+    L.btn:SetPoint("TOPLEFT", L.note, "BOTTOMLEFT", 0, -12)
+    L:SetHeight(12 + math.max(36, 16 + L.name:GetStringHeight()) + 10 + L.note:GetStringHeight() + 12 + 24 + 12)
+
+    -- open at the cursor (first time) and stay put while it updates
+    if not L:IsShown() then
+        local x, y = GetCursorPosition()
+        local scale = L:GetEffectiveScale()
+        L:ClearAllPoints()
+        L:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x / scale + 8, y / scale - 8)
+    end
+    L:Show()
+    L.catcher:Show()
+end
+
 -- Label alone: dead center. Label + checkmark: center the pair, i.e.
 -- shift the label right by half the checkmark's width (16px + 1px gap).
 local function CenterCardLabel(card)
@@ -3546,6 +4099,7 @@ local function GetCard(goal)
         local fc = goal.faction == "Alliance" and "4d8cff" or "e8483c"
         card.metaBase = string.format("|cff%s%s|r  ·  ", fc, string.upper(goal.faction)) .. card.metaBase
     end
+    card.metaPlain = card.metaBase
     card.meta:SetText(card.metaBase)
 
     card.bar = NewBar(card, 4)
@@ -3560,6 +4114,8 @@ local function GetCard(goal)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine(goal.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
         if goal.note then GameTooltip:AddLine(goal.note, 0.9, 0.9, 0.9, true) end
+        local fnote = FGT.ForeverNote(goal, true)
+        if fnote then GameTooltip:AddLine(fnote, C.FOREVER[1], C.FOREVER[2], C.FOREVER[3], true) end
         local d, t = GoalProgress(goal)
         GameTooltip:AddLine(string.format("%d of %d steps done", d, t), C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         GameTooltip:Show()
@@ -3618,8 +4174,10 @@ local function GetSub(card, index, part)
         card.subs[index] = sub
     end
     sub.goal, sub.key = card.goal, part.key
-    sub.label:SetText(part.label)
-    sub.icon:SetIcon(part.icon or card.goal.icon, C.GOLD2)
+    local partNew = FGT.ApplyForeverLook(sub, part)
+    sub.label:SetText(partNew and (part.label .. "   " .. FGT.NewTag(partNew)) or part.label)
+    sub:SetEtch(STYLE.panel) -- blue twin when the part is new
+    sub.icon:SetIcon(part.icon or card.goal.icon, partNew and C.FOREVER or C.GOLD2)
     StyleSubButton(sub)
     return sub
 end
@@ -3648,7 +4206,10 @@ LayoutLibrary = function()
         x = x + w + 5
         local on = (libFilter == chip.filter.key)
         chip:SetEtch(on and STYLE.rowSel or STYLE.button)
-        if on then chip.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        if chip.filter.forever then
+            local c = on and { 1, 1, 1 } or C.FOREVER_LIGHT
+            chip.text:SetTextColor(c[1], c[2], c[3])
+        elseif on then chip.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])
         else chip.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end
     end
     -- The faction picker gets its own row under the chips, on any filter
@@ -3696,6 +4257,11 @@ LayoutLibrary = function()
         card:ClearAllPoints()
         card:SetPoint("TOPLEFT", libScroll.content, "TOPLEFT", 4, -cy)
         card:SetPoint("RIGHT", libScroll.content, "RIGHT", -4, 0)
+        -- Forever-only goals: blue wash and rim, NEW at the front of the meta line.
+        local isNew = FGT.ApplyForeverLook(card, g)
+        card:SetEtch(STYLE.row)
+        card.metaBase = isNew and (FGT.NewTag(isNew) .. "  ·  " .. card.metaPlain) or card.metaPlain
+        card.meta:SetText(card.metaBase)
         local d, t = GoalProgress(g)
         card.bar:SetProgress(d, t)
         -- only goals on the tracker can make progress, so only they get a bar
@@ -3959,16 +4525,21 @@ function FGT.CheckGoalCompletions()
     if not DB then return end
     local first = type(DB.goalsDone) ~= "table"
     if first then DB.goalsDone = {} end
+    -- When each goal was finished (time()), for "Completed Oct 6, 2026".
+    -- Goals already finished before dates existed simply have none.
+    if type(DB.goalDates) ~= "table" then DB.goalDates = {} end
     local quiet = first or main:IsShown()
     for _, g in ipairs(ActiveGoals()) do
         local d, t = GoalProgress(g)
         if t > 0 and d == t then
             if not DB.goalsDone[g.id] then
                 DB.goalsDone[g.id] = true
+                if not first then DB.goalDates[g.id] = time() end
                 if not quiet then Announce(g) end
             end
         else
             DB.goalsDone[g.id] = nil
+            DB.goalDates[g.id] = nil
         end
     end
 end
@@ -4102,6 +4673,33 @@ end)
 minimapButton:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
     GameTooltip:AddLine(FGT.NAME)
+    -- Progress at a glance: overall, then each favorite's next step.
+    local active = ForeverGoalTrackerDB and ActiveGoals() or {}
+    if #active > 0 then
+        local d, t = OverallProgress()
+        GameTooltip:AddLine(string.format("%d%% overall  ·  %d of %d goals complete",
+            math.floor(d / math.max(1, t) * 100 + 0.5), CountGoalsComplete(), #active), C.INK2[1], C.INK2[2], C.INK2[3])
+        local favs = ForeverGoalTrackerDB.favorites or {}
+        local list = {}
+        for _, g in ipairs(active) do if favs[g.id] then table.insert(list, g) end end
+        table.sort(list, function(a, b) return (a.short or a.name) < (b.short or b.name) end)
+        local star = "|TInterface\\AddOns\\" .. ADDON .. "\\Media\\star:12:12:0:0:64:64:0:64:0:64:255:209:0|t "
+        for i, g in ipairs(list) do
+            if i > 5 then break end
+            local gd, gt = GoalProgress(g)
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddDoubleLine(star .. (g.short or g.name), string.format("%d%%", math.floor(gd / math.max(1, gt) * 100 + 0.5)),
+                C.TITLE[1], C.TITLE[2], C.TITLE[3], C.INK2[1], C.INK2[2], C.INK2[3])
+            local nxt = FGT.NextStep(g)
+            local on = not nxt and FGT.CompletedOn(g)
+            if nxt then
+                GameTooltip:AddLine("Next: " .. nxt, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            else
+                GameTooltip:AddLine(on and ("Completed " .. on) or "Complete", C.DONE[1], C.DONE[2], C.DONE[3])
+            end
+        end
+        GameTooltip:AddLine(" ")
+    end
     GameTooltip:AddLine("Click to open your checklist", 0.7, 0.7, 0.7)
     GameTooltip:AddLine("Drag to move this button", 0.7, 0.7, 0.7)
     GameTooltip:Show()
@@ -4384,6 +4982,18 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
     if msg == "testbanner" then
         FGT.TestBanner()
+        return
+    end
+    if msg == "testnew" then
+        -- Preview: shows the open goal as "new in Forever" until /reload.
+        if not selectedId then
+            print(TAG .. "open a goal on My Goals first.")
+            return
+        end
+        FGT.testNew[selectedId] = not FGT.testNew[selectedId] or nil
+        SelectGoal(selectedId, true)
+        if FGT.LayoutLibrary then FGT.LayoutLibrary() end
+        print(TAG .. (FGT.testNew[selectedId] and "previewing this goal as new in Forever." or "preview off."))
         return
     end
     if msg == "reset" then
