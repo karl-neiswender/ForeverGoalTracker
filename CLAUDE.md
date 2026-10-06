@@ -39,7 +39,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 |---|---|
 | `ForeverGoalTracker.toc` | `## Interface: 11509, 16001` (Classic Era + Forever). Load order: Data.lua, Library.lua, Core.lua. SavedVariables `ForeverGoalTrackerDB`. |
 | `Data.lua` | The original 11 goals (Atiesh, Thunderfury, Sulfuras, Ashbringer, Rhok'delar, Lok'delar, Benediction, Frostsaber, level all classes, Tier 3, epic racial mounts). Builders for group goals (`autoLevels`, `BuildMountTasks` with `forRace`). |
-| `Library.lua` | 54 more goals: reputations (incl. Ambassador per faction), mounts (incl. Dreadsteed, Charger), Quel'Serrar, raids (`BossSteps`, AQ20), attunements and dungeon keys (category `Attunement`, one goal each; Onyxia has one per faction), professions (`SKILL_ICONS`), gold, item sets (`TIER1`, `TIER2`, `DUNGEON1`, `DUNGEON2`, Embrace of the Viper), per-faction PvP. 66 goals in total. Set piece tuples are `{ name, itemId, source, icon }`; sources come from Wowhead "Dropped by" / "Reward from". |
+| `Library.lua` | 54 more goals: reputations (incl. Ambassador per faction), mounts (incl. Dreadsteed, Charger), Quel'Serrar, raids (`BossSteps`, AQ20), attunements and dungeon keys (category `Attunement`, one goal each; Onyxia has one per faction), professions (`SKILL_ICONS`), gold, item sets (`TIER1`, `TIER2`, `DUNGEON1`, `DUNGEON2`, Embrace of the Viper), per-faction PvP. 65 goals in total. Set piece tuples are `{ name, itemId, source, icon }`; sources come from Wowhead "Dropped by" / "Reward from". |
 | `Core.lua` | Everything else (~3,000 lines): DB, roster scanning, rules engine, UI, minimap button, slash commands. Namespace table `FGT`, addon folder name `ADDON`. |
 | `Media/icon.tga` | 64px addon list icon (book logo). |
 | `Media/minimap.tga` | 64px minimap button icon (green checkmark, circular alpha). Source: `Media/minimap-source.png`. |
@@ -48,6 +48,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `Media/forever.tga` | 64px WoW Forever logo bug (gold W on teal), used on the not-confirmed notice (too small to read in chips). Source: `Media/forever-source.png`. |
 | `Media/dot.tga` | 32px white dot with a soft halo, tinted Forever blue inline (`FGT.ForeverDot`, `FGT.NewTag`) for NEW labels. |
 | `ROADMAP.md` | Public roadmap (GitHub page; Karl pastes it into the CurseForge description). Keep it in sync when features ship. |
+| `Screenshots/` | The four CurseForge gallery shots (see "Screenshots and store page"). Not shipped. |
 | `Media/logo.png` | 1024px logo for GitHub/CurseForge. |
 | `README.txt` | Player-facing readme that ships in the zip. `README.md` is the GitHub page. |
 | `CHANGELOG.md` | Update for every version. |
@@ -111,21 +112,36 @@ There's no automated test suite. Testing happens in the Forever beta: edit, `/re
 
 ## Releasing
 
-1. Bump `## Version:` in the `.toc` and add a `CHANGELOG.md` entry.
-2. Commit and push to `main`.
-3. Until automation is set up: build `ForeverGoalTracker-<version>.zip` containing a single `ForeverGoalTracker/` folder. Leave out README.md, .github, .gitignore, .pkgmeta, CLAUDE.md, tools, Media/logo.png and Media/minimap-source.png. Karl uploads it on CurseForge as a **Release** file for game version **1.60.1** (Forever).
-4. Automated releases (pending): once CurseForge approves the project,
-   - add `## X-Curse-Project-ID: <id>` to the `.toc`
-   - Karl adds a `CF_API_KEY` secret on the GitHub repo
-   - pushing a tag like `v2.1.2` then runs `.github/workflows/release.yml` (BigWigsMods/packager), which builds the zip and uploads it
-   - on the first run, check that CurseForge filed it under the Forever game version. If not, set the version in `.pkgmeta`/the workflow.
-   - Don't push version tags until all of this is in place.
+Releases are automatic: pushing a version tag runs `.github/workflows/release.yml` (BigWigsMods/packager), which builds the zip (leaving out everything in `.pkgmeta`'s ignore list) and uploads it to CurseForge for 1.60.1 (Forever) and 1.15.9 (Classic Era), using `CHANGELOG.md` as the release notes.
+
+1. Turn the CHANGELOG's `## Unreleased` section into `## X.Y.Z` and bump `## Version:` in the `.toc`.
+2. **Store page check** (tell Karl the result every release, even when it's "nothing to update"):
+   - **Screenshots:** compare the release's changes with the shot map in "Screenshots and store page" below and name which shots are stale. Patch releases usually need none; minor releases get a check; a visible headline feature may deserve a new shot (add a demo scene for it first).
+   - **CurseForge description:** does it still describe the addon correctly (goal count, features, goals list)?
+   - **Roadmap:** move shipped items to "Recently shipped" in `ROADMAP.md`, and update the copy at the end of the CurseForge description to match.
+3. Commit, push, then `git tag -a vX.Y.Z -m "vX.Y.Z"` and push the tag.
+4. Watch the run through the public API (`/repos/karl-neiswender/ForeverGoalTracker/actions/runs`, then `/releases/tags/vX.Y.Z` for the zip). CurseForge takes a few minutes to process the file.
+
+Edits to the CurseForge description and gallery are made in the author console (`https://authors.curseforge.com/#/projects/1728528/description`, `.../media`), through Karl's Chrome when he asks. The public page is cached: saved edits take 30 to 60+ minutes to show, so don't re-save. On the media tab, the gallery upload is the file input next to "Add media"; another file input on that page opens the **release file** form instead, so check before uploading.
 
 Commits are made as `karl-neiswender <97697208+karl-neiswender@users.noreply.github.com>`.
 
 Git setup per machine:
 - **PC:** Git for Windows is installed at `C:\Program Files\Git\cmd\git.exe` but may not be on PATH in Claude's shell; call it by full path with `-c safe.directory=*` (the repo is under Program Files). The GitHub sign-in is stored, so pushes work from Claude's shell. Release zips go in `C:\Users\kneis\Downloads`.
 - **Mac:** plain `git` (Xcode command line tools). If a push asks for a GitHub sign-in, have Karl sign in once (for example with GitHub Desktop or `gh auth login`). Release zips go in `~/Downloads`.
+
+## Screenshots and store page
+
+The CurseForge gallery has four screenshots, also kept in `Screenshots/` in the repo (left out of the release zip). Each one is rebuilt exactly with a demo scene, so a retake takes Karl about two minutes: `/goals demo N`, `/goals photo`, Print Screen, then `/goals demo off`. Karl sends the image and it replaces the file in `Screenshots/`. Shot 1 is starred as the featured image.
+
+| Shot | Demo | Shows | Stale when this changes |
+|---|---|---|---|
+| `01-my-goals.png` | `/goals demo 1` | My Goals cards (favorites, finished with date, UPDATED), Thunderfury guide, Forever notice, overall bar | goal cards, list, step rows, Forever notice, header and overall bar |
+| `02-new-and-updated.png` | `/goals demo 2` | Library cards, filter chips, New & Updated filter, Epic Racial Mounts parts with the Skyborne NEW row | Library layout, filter chips, part rows, the Forever blue look |
+| `03-epic-mounts.png` | `/goals demo 3` | Group headers (finished, counts), Expand all, open Skyborne part | group rows, Expand all, Epic Racial Mounts data or wording |
+| `04-links-and-tips.png` | `/goals demo 4` | Corrupted Ashbringer: gold links, link card, Tips, Forever notice | goal links, link card, tips, Ashbringer steps |
+
+Retake every shot when Warcraft Forever launches (live client instead of beta). When adding a shot, add a demo scene to `FGT.Demo` (`SCENES` in Core.lua) and a row here.
 
 ## Looking things up on Wowhead
 
@@ -137,14 +153,14 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 
 ## Current state (2026-10-06)
 
-- CurseForge approved the project (ID 1728528, now in the `.toc`). The public page is live and the addon can be downloaded (confirmed 2026-10-06). v2.1.2 (big update, includes 2.1.1) is the current file on CurseForge.
+- CurseForge approved the project (ID 1728528, now in the `.toc`). The public page is live and the addon can be downloaded (confirmed 2026-10-06). v2.3.1 is the current file on CurseForge.
 - Release automation works: tag `v2.1.2` (2026-10-05) was the first automatic release. The packager mapped the `.toc` interfaces to game versions 1.60.1 (Forever) and 1.15.9 (Classic Era) and uploaded to CurseForge. Releasing is now: bump the `.toc` version, add a CHANGELOG entry, commit, push, then `git tag -a vX.Y.Z` and push the tag. The full Action log needs a GitHub sign-in (Karl can read it); public API gives run status, annotations and the GitHub release.
 - `.pkgmeta` now has `manual-changelog` (after 2.1.2, whose CurseForge changelog was generated from commit messages; Karl has fixed that one by hand).
 - v2.2.0 released 2026-10-05 (tag `v2.2.0`): favorites and the right-click menu, login greeting, goal-complete chat link and banner, completion celebrations, real Tier 3 recipes and token sources, item icons for Tier 1 to 3.
 - v2.3.1 released 2026-10-06 (tag `v2.3.1`): more goal links (raids, UBRS key, Scholomance key, ZG, Key to the City) and uncheckable steps moved to tips (stepsFix231 remap).
 - v2.3.0 released 2026-10-06 (tag `v2.3.0`): WoW Forever markers (not-confirmed notice, NEW / UPDATED blue theme, New & Updated filter), Skyborne Galestrider, Viper UPDATED, goal links, completion dates, undo reset, Expand all, card redesign, minimap tooltip, step wording pass, ROADMAP.md. Classic Era client untested for this release (goal links may show as plain text there).
-- Roadmap: ROADMAP.md on GitHub, and appended (after a divider, headings one level down, full URLs) to the CurseForge description on 2026-10-06 via the author console (Markdown editor). Update both when features ship. The rest of the CurseForge description is outdated (says 48 goals; no attunements, favorites or Forever features).
-- Pending: CurseForge screenshots; move to the live client in November.
+- Store page (2026-10-06): the CurseForge description was rewritten for 2.3.1 (65 goals, Forever markers, goal links, favorites, completion dates, attunements and keys) with the roadmap at the end (after a divider, headings one level down, full URLs). The gallery has the four screenshots with titles and captions. Both were saved in the author console; the public page was still catching up from its cache at the time.
+- Pending: move to the live client in November (and retake all screenshots then).
 - Open questions: where Horde warlocks start the Dreadsteed chain (Wowhead only lists Spackle Thornberry in Stormwind); the memory check (Karl hasn't run the before/after `GetAddOnMemoryUsage` commands yet).
 - Next session idea (Karl, 2026-10-05): guild announcements when a guild member completes a goal. Likely approach: send a hidden addon message on the GUILD channel (`C_ChatInfo.SendAddonMessage`, or `SendAddonMessage` on older clients) when a goal finishes, so guildmates who also run the addon see a chat line or banner. An optional, off-by-default setting could also post a plain line in guild chat for members without the addon (that's public, so it must be the player's choice). Reference: the Attune addon posts a plain guild chat line like "[Attune] The Hall of Thanes attunement complete!" (seen 2026-10-05), only for whole attunements. Lean: whole goals only (maybe skip small milestones), a short tag like "[Forever Goals]", and ask the player once before posting in guild chat.
 - Idea (Karl, 2026-10-05): "Pop out" in the goal card's right-click menu opens a small, movable tracker for that one goal, so it can stay on screen while the main window is closed. The point: see a goal's steps at a glance while playing, without opening the full window every time (like a quest tracker). Questions for then: one pop-out or several at once, which steps it shows (all, or only the next few unticked), whether you can tick steps in it, and whether its position and open state survive a /reload (they should).
