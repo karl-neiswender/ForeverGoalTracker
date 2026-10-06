@@ -2389,7 +2389,8 @@ local function GetHeaderRow(index)
     -- like checked steps, until hovered or opened.
     function row:ApplyState(hovered)
         local quiet = self.complete and not hovered and not self.expanded
-        self.icon:SetAlpha(quiet and 0.55 or 1)
+        self.icon:SetAlpha(quiet and 0.7 or 1)
+        self.icon.tex:SetDesaturated(quiet)
         self.arrow:SetAlpha(quiet and 0.6 or 1)
         if self.expanded then
             self:SetEtch(STYLE.rowSel)
