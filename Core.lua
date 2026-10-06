@@ -2093,6 +2093,7 @@ local function RefreshGoalList()
         end
         FGT.CheckCelebration(row, "card_" .. row.goal.id, complete, FGT.CelebrateRow)
     end
+    if FGT.CheckGoalCompletions then FGT.CheckGoalCompletions() end
 end
 
 local SelectGoal -- forward declare
@@ -3783,6 +3784,183 @@ function FGT.ToggleFrame()
     end
 end
 
+-- ============================================================
+-- Chat greeting, finished-goal announcements and the banner
+-- ============================================================
+do -- scoped (200-local budget)
+local CHEERS = {
+    "You got this!", "Look at you go!", "Let's get it!", "One step closer.",
+    "Keep that momentum.", "Legends are built one step at a time.", "Onward, hero!",
+    "Today's a good day for progress.", "The grind is paying off.",
+    "Your future self says thanks.", "Small steps, epic loot.", "Nothing can stop you now.",
+    "Fortune favors the persistent.", "Every run counts.", "Keep stacking those wins.",
+    "You're on a roll.", "Make it a legendary day.", "Azeroth won't conquer itself.",
+    "Steady hands, big rewards.", "The best loot goes to the stubborn.",
+}
+local PRAISE = {
+    "Well earned.", "Legendary.", "Take a bow.", "What a moment.",
+    "One for the history books.", "Nicely done.",
+}
+local function Pick(list) return list[math.random(#list)] end
+
+-- Clickable chat links. The chat frame hands every clicked link to
+-- SetItemRef; ours ("fgt:...") open the tracker, everything else goes
+-- on to the game's own handler untouched.
+local function GoalLink(goal)
+    return "|cffffd100|Hfgt:goal:" .. goal.id .. "|h[" .. goal.name .. "]|h|r"
+end
+local OPEN_LINK = "|cffffd100|Hfgt:open|h[Open tracker]|h|r"
+
+function FGT.OpenToGoal(id)
+    if not main:IsShown() then FGT.ToggleFrame() end
+    if id and #ActiveGoals() > 0 then
+        FGT.ShowTab("tracker")
+        SelectGoal(id)
+    elseif #ActiveGoals() == 0 then
+        FGT.ShowTab("library")
+    end
+end
+
+local gameSetItemRef = SetItemRef
+SetItemRef = function(link, text, button, chatFrame)
+    if type(link) == "string" and link:sub(1, 4) == "fgt:" then
+        local _, kind, id = strsplit(":", link)
+        FGT.OpenToGoal(kind == "goal" and id or nil)
+        return
+    end
+    return gameSetItemRef(link, text, button, chatFrame)
+end
+
+-- 1. A few seconds after login or /reload, once the login chatter has
+-- passed: overall progress and a random cheer.
+function FGT.LoginGreeting()
+    local function say()
+        local goals = ActiveGoals()
+        if #goals == 0 then
+            print(TAG .. "your tracker is empty. " .. OPEN_LINK .. " to pick your first goal.")
+            return
+        end
+        local d, t = OverallProgress()
+        local pct = d / math.max(1, t) * 100
+        pct = (pct >= 100) and 100 or math.floor(pct)
+        local cheer
+        if pct >= 100 then
+            cheer = "Every goal complete. Time to pick new ones!"
+        elseif pct == 0 then
+            cheer = "Every legend starts at zero. Let's get it!"
+        else
+            cheer = Pick(CHEERS)
+        end
+        print(TAG .. string.format("You've completed |cffffffff%d%%|r of your goals. %s ", pct, cheer) .. OPEN_LINK)
+    end
+    if C_Timer and C_Timer.After then C_Timer.After(4, say) else say() end
+end
+
+-- 2. The banner: a gold-edged tile near the top of the screen with the
+-- goal's icon and name. It plays the same celebration as the list,
+-- holds for a few seconds (longer while hovered), and opens the goal
+-- when clicked. Several at once queue up.
+local toast, queue = nil, {}
+local HOLD, FADE_IN, FADE_OUT = 6, 0.25, 0.6
+
+local function BuildToast()
+    toast = CreateFrame("Button", nil, UIParent, "BackdropTemplate")
+    toast:SetSize(340, 64)
+    toast:SetPoint("TOP", UIParent, "TOP", 0, -70)
+    toast:SetFrameStrata("HIGH")
+    Etch(toast, STYLE.window, 12)
+    toast.icon = NewIcon(toast, 42)
+    toast.icon:SetPoint("LEFT", toast, "LEFT", 12, 0)
+    toast.label = NewTitleString(toast, 10)
+    toast.label:SetPoint("TOPLEFT", toast.icon, "TOPRIGHT", 10, -3)
+    toast.label:SetText("Goal complete")
+    toast.name = NewFontString(toast, 14, "", 1, 1, 1)
+    toast.name:SetPoint("TOPLEFT", toast.label, "BOTTOMLEFT", 0, -5)
+    toast.name:SetPoint("RIGHT", toast, "RIGHT", -40, 0)
+    toast.name:SetJustifyH("LEFT")
+    toast.name:SetWordWrap(false)
+    toast.doneCheck = toast:CreateTexture(nil, "OVERLAY")
+    toast.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+    toast.doneCheck:SetSize(20, 20)
+    toast.doneCheck:SetPoint("RIGHT", toast, "RIGHT", -10, 1)
+    toast.doneCheck:SetDesaturated(true)
+    toast.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
+    FGT.AddCelebrationFX(toast, 3, 56)
+    toast.doneGlow:Show()
+    toast:SetScript("OnClick", function(self)
+        local id = self.goalId
+        self.life = HOLD + FADE_IN -- skip straight to the fade out
+        FGT.OpenToGoal(id)
+    end)
+    -- Fade and timing run on a child frame: the celebration itself
+    -- uses the banner's own OnUpdate.
+    toast.driver = CreateFrame("Frame", nil, toast)
+    toast.driver:SetScript("OnUpdate", function(_, elapsed)
+        local t = toast
+        -- hovering holds it on screen (but never mid-fade)
+        local holding = t.life >= FADE_IN and t.life < FADE_IN + HOLD and t:IsMouseOver()
+        if not holding then t.life = t.life + elapsed end
+        local life = t.life
+        if life < FADE_IN then
+            t:SetAlpha(life / FADE_IN)
+        elseif life < FADE_IN + HOLD then
+            t:SetAlpha(1)
+            if not t.played then
+                t.played = true
+                FGT.CelebrateRow(t)
+            end
+        elseif life < FADE_IN + HOLD + FADE_OUT then
+            t:SetAlpha(1 - (life - FADE_IN - HOLD) / FADE_OUT)
+        else
+            t:Hide()
+            FGT.NextToast()
+        end
+    end)
+    toast:Hide()
+end
+
+function FGT.NextToast()
+    local goal = table.remove(queue, 1)
+    if not goal then return end
+    if not toast then BuildToast() end
+    toast.goalId = goal.id
+    toast.icon:SetIcon(goal.icon, FGT.categoryColors[goal.category] or C.ACCENT)
+    toast.name:SetText(goal.name)
+    toast.life, toast.played = 0, false
+    toast:SetAlpha(0)
+    toast:Show()
+end
+
+local function Announce(goal)
+    print(TAG .. "You just completed " .. GoalLink(goal) .. "! " .. Pick(PRAISE))
+    table.insert(queue, goal)
+    if not (toast and toast:IsShown()) then FGT.NextToast() end
+end
+
+-- Remembers which goals are finished (DB.goalsDone) so each one is
+-- announced once, the moment it finishes. Goals finished with the
+-- window open celebrate in the list instead, so they're only noted.
+-- The first run after updating just takes stock, quietly.
+function FGT.CheckGoalCompletions()
+    local DB = ForeverGoalTrackerDB
+    if not DB then return end
+    local first = type(DB.goalsDone) ~= "table"
+    if first then DB.goalsDone = {} end
+    local quiet = first or main:IsShown()
+    for _, g in ipairs(ActiveGoals()) do
+        local d, t = GoalProgress(g)
+        if t > 0 and d == t then
+            if not DB.goalsDone[g.id] then
+                DB.goalsDone[g.id] = true
+                if not quiet then Announce(g) end
+            end
+        else
+            DB.goalsDone[g.id] = nil
+        end
+    end
+end
+end
+
 -- Let Escape close the window like any other Blizzard panel. Registering
 -- with UISpecialFrames is the standard way and works on every client.
 -- (The old OnKeyDown + SetPropagateKeyboardInput approach throws an
@@ -4058,8 +4236,6 @@ initFrame:SetScript("OnEvent", function(self, event, name)
 
     if FGT.firstRun then
         print(TAG .. "welcome! Type |cffffffff/goals|r or click the minimap button, then add goals from the Goal Library.")
-    else
-        print(TAG .. "loaded. Type |cffffffff/goals|r to open your tracker, or click the minimap button.")
     end
     self:UnregisterEvent("ADDON_LOADED")
 end)
@@ -4078,6 +4254,7 @@ do -- scoped (200-local budget)
 -- throttled to one redraw per second.
 local lastRedraw = 0
 local function RefreshOpenWindow()
+    FGT.CheckGoalCompletions() -- announces goals finished while closed
     if not main:IsShown() then return end
     if ForeverGoalTrackerDB and ForeverGoalTrackerDB.tab == "library" and FGT.LayoutLibrary then
         FGT.LayoutLibrary()
@@ -4179,6 +4356,7 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
 
     if event == "PLAYER_LOGIN" then
         ScanNow(true)
+        if not FGT.firstRun then FGT.LoginGreeting() end
         return
     end
     ScanSoon()

@@ -86,11 +86,14 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 10. All piece progress goes through `FGT.PieceProgress`: a piece with materials (Tier 3) counts only its materials and has no checkbox; a piece without materials is one checkbox. Counting a piece and its materials together made the bars disagree.
 11. Steps are drawn without a closing period (`FGT.StepText`); write data normally and don't strip periods by hand. Steps are actions; advice goes in a goal's `tips`.
 12. Steps are saved by position. If you remove or merge steps in an existing goal, add a one-time remap in the init code (see `tipsFix`) so saved ticks follow their steps.
+13. Code in Core.lua's main chunk runs at load, before the game has loaded `ForeverGoalTrackerDB` (it arrives with ADDON_LOADED). `LayoutGoalList` runs then, so anything it or the list refresh reads from the DB needs a `ForeverGoalTrackerDB and ...` guard. `tools/check.py` catches this.
+14. Gradient textures (anything colored with `ApplyHGradient`/`ApplyVGradient`) ignore `SetAlpha` in game. To fade one, redraw its gradient with scaled alphas each frame (see the celebration shine). Plain textures and frames fade with `SetAlpha` as normal.
+15. Chat links use the `fgt:` link type (`|Hfgt:goal:<id>|h[Name]|h`). `SetItemRef` is wrapped to catch them and passes every other link to the game's handler.
 
 ## Testing
 
 There's no automated test suite. Testing happens in the Forever beta: edit, `/reload`, and Karl reports back with screenshots. Before handing back a change:
-- Run `python3 tools/check.py` (needs Python 3; first time on a machine: `pip3 install --target tools/.py lupa`). It compiles the three Lua files with real Lua 5.1 (syntax, missing commas, the 200-local limit), then runs them against `tools/wowstub.lua`, a stand-in for the WoW API with no saved variables yet, which catches load-time errors like reading `ForeverGoalTrackerDB` before the game loads it. If Python isn't available, fall back to a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs.
+- Run `python3 tools/check.py` (needs Python 3; first time on a machine: `pip3 install --target tools/.py lupa`). It compiles the three Lua files with real Lua 5.1 (syntax, missing commas, the 200-local limit), then plays three sessions against `tools/wowstub.lua`, a stand-in for the WoW API, each in a fresh Lua state with the saved variables carried over: a fresh install, a login with goals, and a goal finishing while the window is closed. It prints what each session said in chat. It catches load-time Lua errors, not visual problems. When the stand-in trips on something the real game handles (it answers unknown API calls with nil), improve the stand-in rather than the addon.
 - Watch the local count in Core.lua's main chunk (lesson 1).
 - Ask Karl to `/reload` and check the change. If something misbehaves, `/console scriptErrors 1` shows Lua errors.
 

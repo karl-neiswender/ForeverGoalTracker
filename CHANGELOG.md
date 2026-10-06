@@ -2,6 +2,8 @@
 
 ## 2.2.0
 
+- On login and /reload, chat shows your overall progress with a random cheer ("You've completed 34% of your goals. Look at you go!") and a link to open the tracker.
+- Finish a goal while the window is closed (a drop, a quest turn-in) and chat says so, with a clickable link to the goal, while a "Goal complete" banner celebrates near the top of the screen. Click the banner to open the goal.
 - Favorites: right-click a goal in My Goals to add it to your favorites. Favorites get a gold star and sit in their own group at the top of the list, above a thin divider. Both groups follow the sort you pick.
 - Right-click a goal in My Goals to remove it from your tracker. Its progress is kept if you add it back.
 - Tier 3 pieces list their real recipe from the quartermaster: the Desecrated token, the exact number of Wartorn scraps, and the exact crafting materials (Arcanite Bars, Cured Rugged Hides, Mooncloth, Nexus Crystals, Arcane Crystals). Ticks on the old placeholder crafting materials are cleared; token and scrap ticks stay.
