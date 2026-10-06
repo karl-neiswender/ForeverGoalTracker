@@ -10,7 +10,7 @@
 - Finished groups (a mount race, a set class, a Tier 3 piece) show a green check instead of the count, and their name and icon go quiet like checked steps (the icon and its frame turn grey). Finished groups also get a soft green glow from the right.
 - A small celebration when a group turns complete while you watch: a gold ring bursts out of the border, a metallic gold shine sweeps across, and the check pops in. Tier 3 pieces get the check pop.
 - Ticking a step pops its checkmark in.
-- Finishing a goal: its progress bar gets a gold shine when it fills to 100%, and its card in the My Goals list celebrates (gold ring, shine, and the COMPLETE tag pops in).
+- Finishing a goal: its progress bar gets a gold shine when it fills to 100%, and its card in the My Goals list celebrates (gold ring, shine, and the COMPLETE tag pops in with a green checkmark).
 - Finished goals keep a soft green glow on their card in the My Goals list.
 - A goal's progress bar no longer replays its fill animation each time you open the goal. It only glides when progress changes.
 

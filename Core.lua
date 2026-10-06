@@ -2097,6 +2097,14 @@ for i, goal in ipairs(FGT.goals) do
     row.check:SetPoint("LEFT", row.diffChip, "RIGHT", 4, 0)
     row.check:SetLabel("COMPLETE", C.DONE)
     row.check:SetBackdropBorderColor(0.16, 0.35, 0.10, 1)
+    -- green checkmark beside the tag; it's part of the tag, so it shows,
+    -- hides and pops in with it
+    row.check.mark = row.check:CreateTexture(nil, "OVERLAY")
+    row.check.mark:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+    row.check.mark:SetSize(16, 16)
+    row.check.mark:SetPoint("LEFT", row.check, "RIGHT", 1, 1)
+    row.check.mark:SetDesaturated(true)
+    row.check.mark:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
     row.check:Hide()
     FGT.AddCelebrationFX(row, 3, 56)
 
