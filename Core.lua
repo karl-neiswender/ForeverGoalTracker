@@ -2284,9 +2284,12 @@ local function CelebrateStep(self, elapsed)
     -- the bright core fades first, so it never shrinks to a thin line
     local a = Clamp01(sh / 0.15)
     if sh > 0.45 then a = 0.5 + 0.5 * math.cos(math.pi * (sh - 0.45) / 0.55) end
-    self.shineL:SetAlpha(a)
-    self.shineC:SetAlpha(a * a * a)
-    self.shineR:SetAlpha(a)
+    -- Faded by redrawing the gradient: the game ignores SetAlpha on
+    -- these additive gradient textures.
+    local deep, pale, core = self.shineDeep, self.shinePale, a * a * a
+    ApplyHGradient(self.shineL, deep, pale, 0, 0.32 * a)
+    ApplyHGradient(self.shineC, pale, pale, 0.5 * core, 0.5 * core)
+    ApplyHGradient(self.shineR, pale, deep, 0.32 * a, 0)
 
     self.doneGlow:SetAlpha(Clamp01(t / 0.6))
 end
@@ -2370,9 +2373,7 @@ local function GetHeaderRow(index)
     row.shineL:SetWidth(48)
     row.shineC:SetWidth(7)
     row.shineR:SetWidth(48)
-    ApplyHGradient(row.shineL, deep, pale, 0, 0.32)
-    ApplyHGradient(row.shineC, pale, pale, 0.5, 0.5)
-    ApplyHGradient(row.shineR, pale, deep, 0.32, 0)
+    row.shineDeep, row.shinePale = deep, pale
     row.shineC:SetPoint("LEFT", row.shineL, "RIGHT", 0, 0)
     row.shineR:SetPoint("LEFT", row.shineC, "RIGHT", 0, 0)
     row.doneCheck = row:CreateTexture(nil, "OVERLAY")
