@@ -745,6 +745,7 @@ end
 -- (owning the final reward) ticks the whole goal.
 local function ApplyAutoRules()
     if not ForeverGoalTrackerDB then return 0 end
+    if ForeverGoalTrackerDB.demoBackup then return 0 end -- demo mode: keep the staged progress as is
     local changed = 0
     -- Every automatic tick logs why (saved with the addon data), so a
     -- wrong tick can be traced to the rule and the numbers behind it.
@@ -3768,6 +3769,15 @@ local libCards = {}
 
 local libExpanded = {}
 
+-- Sets the Library view from outside (demo mode): a filter chip and,
+-- optionally, one group goal with its parts list open.
+function FGT.SetLibraryView(filterKey, expandId)
+    libFilter = filterKey or "all"
+    for k in pairs(libExpanded) do libExpanded[k] = nil end
+    if expandId then libExpanded[expandId] = true end
+    libScroll.scroll:SetVerticalScroll(0)
+end
+
 local function AfterSelectionChange(goal, nowActive)
     LayoutGoalList()
     if nowActive and not selectedId then
@@ -4528,7 +4538,7 @@ function FGT.CheckGoalCompletions()
     -- When each goal was finished (time()), for "Completed Oct 6, 2026".
     -- Goals already finished before dates existed simply have none.
     if type(DB.goalDates) ~= "table" then DB.goalDates = {} end
-    local quiet = first or main:IsShown()
+    local quiet = first or main:IsShown() or DB.demoBackup -- no banners for demo goals
     for _, g in ipairs(ActiveGoals()) do
         local d, t = GoalProgress(g)
         if t > 0 and d == t then
@@ -5001,6 +5011,114 @@ end)
 
 end
 
+-- ============================================================
+-- Demo mode (/goals demo 1-4, /goals demo off): staged goals and
+-- progress for gallery screenshots. Your real data is copied to
+-- DB.demoBackup first and put back on "off" (it survives a /reload in
+-- between). Automatic ticking pauses while a demo is on.
+-- ============================================================
+do
+local SAVED = { "active", "activeParts", "progress", "favorites", "goalsDone", "goalDates", "selected", "tab" }
+
+local function Copy(v)
+    if type(v) ~= "table" then return v end
+    local t = {}
+    for k, x in pairs(v) do t[k] = Copy(x) end
+    return t
+end
+
+-- One staged roster shared by every scene, so shots match each other.
+local function Stage(DB)
+    DB.active, DB.activeParts, DB.progress = {}, {}, {}
+    DB.favorites, DB.goalsDone, DB.goalDates = {}, {}, {}
+    local day = 86400
+    -- flat goals: tick the first share of their steps (1 = finished)
+    local function Flat(id, share, daysAgo)
+        local g = FGT.GoalById(id)
+        if not g then return end
+        DB.active[id] = true
+        local n = math.floor(#g.steps * share + 0.5)
+        if share > 0 and n == 0 then n = 1 end
+        for i = 1, n do SetStepDone(id, i, true) end
+        if share >= 1 then
+            DB.goalsDone[id] = true
+            DB.goalDates[id] = time() - (daysAgo or 3) * day
+        end
+    end
+    Flat("thunderfury", 0.6)
+    Flat("atiesh", 0.3)
+    Flat("quelserrar", 1, 15)
+    Flat("benediction", 1, 4)
+    Flat("rep_argentdawn", 0.5)
+    Flat("raid_mc", 0.6)
+    Flat("att_naxx", 0.5)
+    Flat("set_viper", 0.6)
+    Flat("ashbringer", 0.4)
+    -- Epic Racial Mounts: Human done, Dwarf 3/4, Night Elf 2/4, Gnome 1/4,
+    -- and the Skyborne Galestrider (part 9, new in Forever) 2/4.
+    DB.activeParts.epicmounts = { [1] = true, [2] = true, [3] = true, [4] = true, [9] = true }
+    for si, n in pairs({ [1] = 4, [2] = 3, [3] = 2, [4] = 1, [9] = 2 }) do
+        for pi = 1, n do SetStepDone("epicmounts", PieceKey(si, pi), true) end
+    end
+    DB.favorites = { thunderfury = true, epicmounts = true, atiesh = true }
+end
+
+-- The view for each scene.
+local SCENES = {
+    [1] = { tab = "tracker", goal = "thunderfury" },                     -- hero: My Goals + a guide
+    [2] = { tab = "library", filter = "new", expand = "epicmounts" },    -- New & Updated, Skyborne row
+    [3] = { tab = "tracker", goal = "epicmounts",                        -- groups: finished, counts, NEW open
+            open = { "epicmounts_9" } },
+    [4] = { tab = "tracker", goal = "ashbringer" },                      -- links, tips, Forever notice
+}
+
+local function Redraw()
+    FGT.quietCelebrate = true -- staged finishes shouldn't set off fireworks
+    LayoutGoalList()
+    RefreshGoalList()
+    if FGT.LayoutLibrary then FGT.LayoutLibrary() end
+    FGT.quietCelebrate = nil
+end
+
+function FGT.Demo(arg)
+    local DB = ForeverGoalTrackerDB
+    if not DB then return end
+    if arg == "off" then
+        if not DB.demoBackup then print(TAG .. "demo mode isn't on.") return end
+        for _, k in ipairs(SAVED) do DB[k] = DB.demoBackup[k] end
+        DB.demoBackup = nil
+        for k in pairs(FGT.sectionOpen) do FGT.sectionOpen[k] = nil end
+        if FGT.SetLibraryView then FGT.SetLibraryView("all") end
+        FGT.quietCelebrate = true
+        if FGT.ShowTab then FGT.ShowTab(DB.tab or "tracker") end
+        if DB.selected then SelectGoal(DB.selected, true) end
+        FGT.quietCelebrate = nil
+        Redraw()
+        print(TAG .. "demo off. Your own goals and progress are back.")
+        return
+    end
+    local scene = SCENES[tonumber(arg) or 1]
+    if not scene then print(TAG .. "demo scenes are 1 to 4, or /goals demo off.") return end
+    if not DB.demoBackup then
+        local b = {}
+        for _, k in ipairs(SAVED) do b[k] = Copy(DB[k]) end
+        DB.demoBackup = b
+    end
+    Stage(DB)
+    for k in pairs(FGT.sectionOpen) do FGT.sectionOpen[k] = nil end
+    for _, key in ipairs(scene.open or {}) do FGT.sectionOpen[key] = true end
+    if not main:IsShown() then FGT.ToggleFrame() end
+    FGT.quietCelebrate = true
+    listScrollObj.scroll:SetVerticalScroll(0)
+    if scene.goal then SelectGoal(scene.goal) end
+    if scene.tab == "library" and FGT.SetLibraryView then FGT.SetLibraryView(scene.filter, scene.expand) end
+    if FGT.ShowTab then FGT.ShowTab(scene.tab) end
+    FGT.quietCelebrate = nil
+    Redraw()
+    print(TAG .. "demo scene " .. (tonumber(arg) or 1) .. " of 4. Your real data is safe; /goals demo off brings it back.")
+end
+end
+
 SLASH_FOREVERGOALTRACKER1 = "/goals"
 SLASH_FOREVERGOALTRACKER2 = "/fgt"
 SLASH_FOREVERGOALTRACKER3 = "/forevergoals"
@@ -5008,6 +5126,44 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
     if msg == "testbanner" then
         FGT.TestBanner()
+        return
+    end
+    local demo = msg:match("^demo%s*(%w*)$")
+    if demo then
+        FGT.Demo(demo ~= "" and demo or "1")
+        return
+    end
+    -- /goals photo [black|green|white]: a solid full-screen backdrop right
+    -- under the window, for clean screenshots of just the panel. Green is
+    -- pure #00FF00 so it keys out to transparency. Same command again
+    -- (or /goals photo off) turns it off.
+    local photo = msg:match("^photo%s*(%a*)$")
+    if photo then
+        local P = FGT.photoBackdrop
+        if not P then
+            P = CreateFrame("Frame", nil, UIParent)
+            P:SetAllPoints(UIParent)
+            P:SetFrameStrata("HIGH")
+            P:SetFrameLevel(0) -- the window and its menus sit above it
+            P.tex = P:CreateTexture(nil, "BACKGROUND")
+            P.tex:SetTexture(SOLID)
+            P.tex:SetAllPoints(P)
+            P:Hide()
+            -- closing the window (Escape, X) also ends photo mode
+            main:HookScript("OnHide", function() P:Hide() end)
+            FGT.photoBackdrop = P
+        end
+        local colors = { black = { 0, 0, 0 }, green = { 0, 1, 0 }, white = { 1, 1, 1 } }
+        if photo == "off" or (photo == "" and P:IsShown()) then
+            P:Hide()
+            print(TAG .. "photo mode off.")
+            return
+        end
+        local c = colors[photo] or colors.black
+        P.tex:SetVertexColor(c[1], c[2], c[3], 1)
+        P:Show()
+        if not main:IsShown() then FGT.ToggleFrame() end
+        print(TAG .. "photo mode on (" .. (colors[photo] and photo or "black") .. "). Type /goals photo again to turn it off.")
         return
     end
     if msg == "testnew" then

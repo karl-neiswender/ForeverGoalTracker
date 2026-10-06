@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Epic Racial Mounts has a short description; the details (reputation discount, colors) moved to Tips.
+
 ## 2.3.1
 
 - Steps you can't check off ("Join a raid team", "Get a group") are now tips, in Corrupted Ashbringer, Deathcharger, Swift Razzashi Raptor and Swift Zulian Tiger. Your checkmarks move with their steps. Black Qiraji's steps are now concrete actions.

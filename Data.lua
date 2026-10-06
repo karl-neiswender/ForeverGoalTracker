@@ -429,7 +429,12 @@ FGT.goals = {
         category = "Mount Collection",
         difficulty = "Hard",
         timeEstimate = "Ongoing",
-        note = "Reputation is NOT required to buy these - it only gives a small discount (roughly 10% off at Honored with your home city). You need a level 60 character of each race, riding skill trained, and gold. The real bottleneck is usually having 8 different races leveled to 60, not the gold itself. Each vendor sells a few color variants of the same mount for the same price - pick whichever color you like. Click a race to expand its 4-task checklist.",
+        note = "An epic mount for each race: a level 60 of that race, swift riding trained, and gold. Pick the races you want.",
+        tips = {
+            "Reputation isn't required to buy these. Honored with your home city only gives a small discount.",
+            "The real bottleneck is leveling each race to 60, not the gold.",
+            "Each vendor sells a few colors of the same mount for the same price, and any of them counts.",
+        },
         sections = {
             {
                 icon = "ability_mount_ridinghorse",
