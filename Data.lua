@@ -229,14 +229,15 @@ FGT.goals = {
         timeEstimate = "3+ Months",
         note = "This is the raid-dropped sword itself. The 'purified' legendary upgrade needs content beyond the original 1-60 game, so under classic rules this goal is really about the Corrupted Ashbringer drop.",
         steps = {
-            { text = "Reach level 60 and gear up for Naxxramas.", auto = { level = 60 } },
+            -- (v2.3.1: "Join a raid team" moved to tips; see stepsFix231 in Core.lua)
+            { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Get {att_naxx:attuned to Naxxramas} from Archmage Angela Dosantos at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
-            "Join a raid team that clears Naxxramas weekly.",
-            { text = "Clear the Military Wing up to the Four Horsemen.", auto = { boss = "Gothik the Harvester" } },
-            { text = "Defeat the Four Horsemen in Naxxramas.", auto = { boss = "Four Horsemen" } },
+            { text = "Clear the Military Wing of {raid_naxx:Naxxramas} up to the Four Horsemen.", auto = { boss = "Gothik the Harvester" } },
+            { text = "Defeat the Four Horsemen.", auto = { boss = "Four Horsemen" } },
             { text = "Loot Corrupted Ashbringer from the Four Horsemen Chest.", auto = { item = { 22691, 22709 } } },
         },
         tips = {
+            "You'll need a 40-player raid that clears Naxxramas every week.",
             "Attunement needs Honored with the {rep_argentdawn:Argent Dawn} and a Righteous Orb: 5 Arcane Crystals and 2 Nexus Crystals at Honored, fewer at Revered.",
             "The chest appears after the Four Horsemen die. Keep clearing weekly until the sword drops.",
             "The Four Horsemen are Highlord Mograine, Thane Korth'azz, Sir Zeliek and Baron Rivendare. Raids use either a 2-tank rotation or a synced 4-group kill.",
@@ -285,7 +286,7 @@ FGT.goals = {
         timeEstimate = "3+ Months",
         note = "Only for Druid, Mage, Priest, or Warlock. Requires access to Naxxramas, Ahn'Qiraj 40, and Stratholme.",
         steps = {
-            { text = "Raid Naxxramas and Ahn'Qiraj on a Druid, Mage, Priest or Warlock.", auto = { level = 60 } },
+            { text = "Raid {raid_naxx:Naxxramas} and {raid_aq40:Ahn'Qiraj} on a Druid, Mage, Priest or Warlock.", auto = { level = 60 } },
             { text = "Collect 40 Splinters of Atiesh from Naxxramas bosses.", auto = { item = 22726, count = 40 } },
             { text = "Combine the 40 splinters into the Frame of Atiesh.", auto = { item = 22727, quest = 9250 } },
             { text = "Bring the Frame of Atiesh to Anachronos at the Caverns of Time in Tanaris.", auto = { quest = 9250 } },
@@ -314,7 +315,7 @@ FGT.goals = {
         steps = {
             { text = "Get the Ancient Rune Etched Stave from 'Stave of the Ancients' (the {lokdelar:Lok'delar} goal).", auto = { item = 18707, quest = 7636 } },
             { text = "Pick up 'A Proper String' from Vartrus the Ancient in Felwood.", auto = { questTaken = 7635 } },
-            { text = "Loot the Mature Black Dragon Sinew from Onyxia.", auto = { item = 18705, quest = 7635 } },
+            { text = "Loot the Mature Black Dragon Sinew from {raid_ony:Onyxia}.", auto = { item = 18705, quest = 7635 } },
             { text = "Turn in the sinew to Vartrus for the Enchanted Black Dragon Sinew.", auto = { item = 18724, quest = 7635 } },
             { text = "Combine the stave and the Enchanted Black Dragon Sinew into Rhok'delar.", auto = { item = { 18713, 20488 } } },
         },
@@ -334,7 +335,7 @@ FGT.goals = {
         timeEstimate = "2-4 Weeks",
         note = "Hunter-only epic staff, the first half of the Ancient Keepers chain. The same turn-in also gives the Ancient Rune Etched Stave used to make Rhok'delar.",
         steps = {
-            { text = "Loot the Ancient Petrified Leaf from the Cache of the Firelord in Molten Core.", auto = { item = 18703, quest = 7632 } },
+            { text = "Loot the Ancient Petrified Leaf from the Cache of the Firelord in {raid_mc:Molten Core}.", auto = { item = 18703, quest = 7632 } },
             { text = "Bring the leaf to Vartrus the Ancient in Felwood and pick up 'Stave of the Ancients'.", auto = { quest = 7632, questTaken = 7636 } },
             { text = "Solo Artorius the Doombringer in Winterspring.", auto = { owned = { "Artorius's Head" }, quest = 7636 } },
             { text = "Solo Klinfran the Crazed in Burning Steppes.", auto = { owned = { "Klinfran's Head" }, quest = 7636 } },
@@ -359,7 +360,7 @@ FGT.goals = {
         timeEstimate = "3+ Months",
         note = "The classic legendary. Both bindings are roughly a 3% drop each, so this is usually a long farm even with consistent weekly clears.",
         steps = {
-            { text = "Raid Molten Core on a weekly reset schedule.", auto = { level = 60 } },
+            { text = "Raid {raid_mc:Molten Core} on a weekly reset schedule.", auto = { level = 60 } },
             { text = "Loot the left Binding of the Windseeker from Baron Geddon in Molten Core.", auto = { item = 18563, quest = 7785 } },
             { text = "Loot the right Binding of the Windseeker from Garr in Molten Core.", auto = { item = 18564, quest = 7785 } },
             { text = "Start 'Examine the Vessel' with Highlord Demitrian in Silithus.", auto = { quest = 7785 } },
@@ -408,7 +409,7 @@ FGT.goals = {
         timeEstimate = "1-2 Months",
         note = "Priest-only. One staff with two forms: Benediction (Holy) and Anathema (Shadow).",
         steps = {
-            { text = "Loot The Eye of Divinity from Majordomo Executus in Molten Core.", auto = { item = 18646, quest = 7622 } },
+            { text = "Loot The Eye of Divinity from Majordomo Executus in {raid_mc:Molten Core}.", auto = { item = 18646, quest = 7622 } },
             { text = "Start 'The Balance of Light and Shadow' with Eris Havenfire near Stratholme.", auto = { questTaken = 7622 } },
             { text = "Save 50 peasants (fewer than 15 deaths) to earn the Splinter of Nordrassil.", auto = { item = 18659, quest = 7622 } },
             { text = "Loot The Eye of Shadow from demons in southern Winterspring, or buy one.", auto = { item = 18665 } },
@@ -499,7 +500,7 @@ FGT.goals = {
         timeEstimate = "3+ Months",
         note = "Two-handed legendary mace. You need the Eye of Sulfuras from Ragnaros and a Sulfuron Hammer crafted by a 300 Blacksmith (you or someone you trust). Combining them is instant, with no quest turn-in.",
         steps = {
-            { text = "Raid Molten Core on a weekly reset schedule.", auto = { level = 60 } },
+            { text = "Raid {raid_mc:Molten Core} on a weekly reset schedule.", auto = { level = 60 } },
             { text = "Loot the Eye of Sulfuras from Ragnaros in Molten Core.", auto = { item = 17204 } },
             { text = "Get the Plans: Sulfuron Hammer from Lokhtos Darkbargainer in Blackrock Depths ('A Binding Contract').", auto = { item = 18592, quest = 7604 } },
             { text = "Collect 8 Sulfuron Ingots from Golemagg the Incinerator in Molten Core.", auto = { item = 17203, count = 8 } },

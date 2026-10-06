@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.1
+
+- Steps you can't check off ("Join a raid team", "Get a group") are now tips, in Corrupted Ashbringer, Deathcharger, Swift Razzashi Raptor and Swift Zulian Tiger. Your checkmarks move with their steps. Black Qiraji's steps are now concrete actions.
+- More goal links: Molten Core, Onyxia, Naxxramas and Ahn'Qiraj in the legendary and epic weapon guides link to their raid goals, Upper Blackrock Spire links to its key, Scholomance (Charger) links to the Skeleton Key, the Zul'Gurub mounts link to the Zul'Gurub raid, and Deathcharger links to the Key to the City.
+
 ## 2.3.0
 
 - WoW Forever notice: every goal is written from Classic Era data, and nothing is confirmed for WoW Forever until it shows up in Wowhead's Forever database after launch. Goals not confirmed yet carry a slim blue notice with the WoW Forever logo on the goal page, and a note in their tooltips (Forever client only).

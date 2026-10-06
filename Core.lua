@@ -4777,6 +4777,32 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         end
         ForeverGoalTrackerDB.tipsFix = true
     end
+    -- v2.3.1 one-time fix: steps you can't check off ("Join a raid team",
+    -- "Get a group") became tips, so later ticks move up one.
+    if not ForeverGoalTrackerDB.stepsFix231 then
+        local zg = { [1] = false, [2] = 1, [3] = 2 }
+        local remap = {
+            ashbringer = { [3] = false, [4] = 3, [5] = 4, [6] = 5 },
+            mount_deathcharger = { [2] = false, [3] = 2, [4] = 3 },
+            mount_raptor = zg, mount_tiger = zg,
+        }
+        for id, map in pairs(remap) do
+            local old = ForeverGoalTrackerDB.progress[id]
+            if old then
+                local new = {}
+                for k, v in pairs(old) do
+                    local to = map[k]
+                    if to == nil then
+                        new[k] = new[k] or v
+                    elseif to then
+                        new[to] = new[to] or v
+                    end
+                end
+                ForeverGoalTrackerDB.progress[id] = new
+            end
+        end
+        ForeverGoalTrackerDB.stepsFix231 = true
+    end
     -- v2.2.0 one-time fix: Tier 3 materials were a placeholder list and are
     -- now each piece's real recipe. The token and scraps lines kept their
     -- place; the crafting materials changed, so clear their ticks (owned

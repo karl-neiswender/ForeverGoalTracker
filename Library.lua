@@ -215,13 +215,16 @@ local library = {
         category = "Mount", difficulty = "Extreme",
         timeEstimate = "3+ Months",
         note = "Baron Rivendare's own steed. A tiny drop chance in the undead side of Stratholme.",
-        steps = {
+        steps = { -- (v2.3.1: the "get a group" step moved to tips; see stepsFix231 in Core.lua)
             { text = "Reach level 60.", auto = { level = 60 } },
-            "Get a group (or solo once geared) for Stratholme's undead side through the service entrance.",
             { text = "Defeat Baron Rivendare in Stratholme.", auto = { boss = "Baron Rivendare" } },
             { text = "Loot Deathcharger's Reins from Baron Rivendare.", auto = { item = 13335, owned = { "Deathcharger" } } },
         },
         completeWith = { item = 13335, owned = { "Deathcharger" } },
+        tips = {
+            "Baron Rivendare is on Stratholme's undead side, through the service entrance, which the {key_strat:Key to the City} opens.",
+            "Run it with a group, or solo once you're well geared. The drop chance is tiny, so expect many runs.",
+        },
     },
     {
         id = "mount_raptor", library = true,
@@ -231,12 +234,14 @@ local library = {
         category = "Mount", difficulty = "Very Hard",
         timeEstimate = "1-2 Months",
         note = "Rare drop from Bloodlord Mandokir in Zul'Gurub.",
-        steps = {
-            "Join a weekly Zul'Gurub (20-player) raid.",
-            { text = "Defeat Bloodlord Mandokir in Zul'Gurub.", auto = { boss = "Bloodlord Mandokir" } },
+        steps = { -- (v2.3.1: "Join a raid" moved to tips; see stepsFix231 in Core.lua)
+            { text = "Defeat Bloodlord Mandokir in {raid_zg:Zul'Gurub}.", auto = { boss = "Bloodlord Mandokir" } },
             { text = "Loot the Swift Razzashi Raptor from Bloodlord Mandokir.", auto = { item = 19872, owned = { "Swift Razzashi Raptor" } } },
         },
         completeWith = { item = 19872, owned = { "Swift Razzashi Raptor" } },
+        tips = {
+            "Zul'Gurub is a 20-player raid, so you'll need a raid group.",
+        },
     },
     {
         id = "mount_tiger", library = true,
@@ -246,12 +251,14 @@ local library = {
         category = "Mount", difficulty = "Very Hard",
         timeEstimate = "1-2 Months",
         note = "Rare drop from High Priest Thekal in Zul'Gurub.",
-        steps = {
-            "Join a weekly Zul'Gurub (20-player) raid.",
-            { text = "Defeat High Priest Thekal in Zul'Gurub.", auto = { boss = "High Priest Thekal" } },
+        steps = { -- (v2.3.1: "Join a raid" moved to tips; see stepsFix231 in Core.lua)
+            { text = "Defeat High Priest Thekal in {raid_zg:Zul'Gurub}.", auto = { boss = "High Priest Thekal" } },
             { text = "Loot the Swift Zulian Tiger from High Priest Thekal.", auto = { item = 19902, owned = { "Swift Zulian Tiger" } } },
         },
         completeWith = { item = 19902, owned = { "Swift Zulian Tiger" } },
+        tips = {
+            "Zul'Gurub is a 20-player raid, so you'll need a raid group.",
+        },
     },
     {
         id = "mount_qiraji", library = true,
@@ -262,11 +269,14 @@ local library = {
         timeEstimate = "Varies",
         note = "The black battle tank, originally awarded only to Scarab Lords who rang the gong at the opening of Ahn'Qiraj. Whether Forever offers it again depends on how its gate event runs.",
         steps = {
-            "Take part in your realm's Ahn'Qiraj war effort and the Scepter of the Shifting Sands chain.",
-            "Be the one who rings the Scarab Gong, or follow your realm's version of the event.",
+            "Complete the Scepter of the Shifting Sands quest chain.",
+            "Ring the Scarab Gong in Silithus to open Ahn'Qiraj.",
             { text = "Own the Black Qiraji Resonating Crystal.", auto = { item = 21176, owned = { "Black Qiraji" } } },
         },
         completeWith = { item = 21176, owned = { "Black Qiraji" } },
+        tips = {
+            "The gong can only be rung once your realm's Ahn'Qiraj war effort is finished. Forever may run its own version of the event.",
+        },
     },
     {
         id = "mount_dreadsteed", library = true,
@@ -310,7 +320,7 @@ local library = {
             { text = "Complete 'Blessed Arcanite Barding'.", auto = { quest = 7644 } },
             { text = "Complete 'Manna-Enriched Horse Feed'.", auto = { quest = 7645 } },
             { text = "Complete 'The Divination Scryer'.", auto = { quest = 7646 } },
-            { text = "Complete 'Judgment and Redemption' in Scholomance to earn the Charger.", auto = { quest = 7647 } },
+            { text = "Complete 'Judgment and Redemption' in {key_scholo:Scholomance} to earn the Charger.", auto = { quest = 7647 } },
         },
         completeWith = { quest = 7647 },
         tips = {
@@ -331,7 +341,7 @@ local library = {
             { text = "Loot the Compendium of Dragon Slaying in Dire Maul (rare).", auto = { item = 18401, quest = { 7508, 7509 } } },
             { text = "Get the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library.",
               auto = { quest = { 7508, 7509 }, questTaken = { 7508, 7509 }, item = 18489 } },
-            { text = "Heat the blade in Onyxia's fire breath.", auto = { item = { 18488, 18492, 18348 } } },
+            { text = "Heat the blade in {raid_ony:Onyxia's} fire breath.", auto = { item = { 18488, 18492, 18348 } } },
             { text = "Drive the Heated Ancient Blade into Onyxia's corpse before it cools.", auto = { item = { 18492, 18348 } } },
             { text = "Return the Treated Ancient Blade to receive Quel'Serrar.", auto = { item = 18348 } },
         },
@@ -375,7 +385,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "Boss kills tick off automatically when you're in the raid with the addon loaded.",
         steps = BossSteps({
-            { text = "Complete {att_bwl:'Blackhand's Command'} (Upper Blackrock Spire) for attunement.", auto = { quest = 7761 } },
+            { text = "Complete {att_bwl:'Blackhand's Command'} ({key_ubrs:Upper Blackrock Spire}) for attunement.", auto = { quest = 7761 } },
         }, { "Razorgore the Untamed", "Vaelastrasz the Corrupt", "Broodlord Lashlayer", "Firemaw",
              "Ebonroc", "Flamegor", "Chromaggus", "Nefarian" }),
     },
@@ -508,7 +518,7 @@ local library = {
         note = "Without the Mark of Drakkisath you can't use the orb into Blackwing Lair. The whole quest happens in Blackrock Spire.",
         steps = {
             { text = "Loot and read Blackhand's Command from the Scarshield Quartermaster in Blackrock Spire.", auto = { item = 18987, questTaken = 7761, quest = 7761 } },
-            { text = "Defeat General Drakkisath in Upper Blackrock Spire.", auto = { boss = "General Drakkisath", quest = 7761 } },
+            { text = "Defeat General Drakkisath in {key_ubrs:Upper Blackrock Spire}.", auto = { boss = "General Drakkisath", quest = 7761 } },
             { text = "Touch Drakkisath's Brand behind him to gain the Mark of Drakkisath.", auto = { quest = 7761 } },
         },
     },    {
