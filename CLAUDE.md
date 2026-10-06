@@ -8,19 +8,30 @@ A World of Warcraft addon for **Warcraft Forever** (beta now, live launch Novemb
 
 ## Where this folder lives
 
-This repo is checked out **directly into the game's AddOns folder**:
+Karl works on the addon from two machines, a Windows PC and a MacBook. Both have the Forever beta installed, and on each one this repo is checked out **directly into the game's AddOns folder**:
 
-```
-C:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\ForeverGoalTracker\
-```
+| Machine | Addon folder |
+|---|---|
+| PC | `C:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\ForeverGoalTracker\` |
+| Mac | `/Applications/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/` |
 
-Edits here are live: Karl types `/reload` in game to see Lua changes. New or replaced texture/font files (`.tga`, `.ttf`) need a full game restart, because the client caches them.
+Work out which machine you're on from the working directory before running platform-specific commands.
 
-The SavedVariables file is at `_classic_beta_\WTF\Account\52647669#1\SavedVariables\ForeverGoalTracker.lua`. The old `KarlClassicGoals.lua` save next to it is a backup from before the rename. Leave it alone.
+Edits are live on the machine you're running on: Karl types `/reload` in game to see Lua changes. New or replaced texture/font files (`.tga`, `.ttf`) need a full game restart, because the client caches them.
 
-An older, separate copy of the addon (KarlClassicGoals v1.1.0) lives in `_classic_era_`. It is not part of this project, so don't touch it.
+The SavedVariables file is at `_classic_beta_/WTF/Account/<account>/SavedVariables/ForeverGoalTracker.lua` (on the PC the account folder is `52647669#1`). The old `KarlClassicGoals.lua` save next to it on the PC is a backup from before the rename. Leave it alone.
 
-When Forever goes live (November), the addon and the SavedVariables need to move from `_classic_beta_` to the live client's folder.
+An older, separate copy of the addon (KarlClassicGoals v1.1.0) lives in `_classic_era_` on the PC. It is not part of this project, so don't touch it.
+
+When Forever goes live (November), the addon and the SavedVariables need to move from `_classic_beta_` to the live client's folder on both machines.
+
+## Working across both machines
+
+GitHub keeps the two checkouts in sync; `main` is the shared branch.
+- **Starting a session:** run `git pull` first, so you work on the latest code from the other machine. If the working tree has uncommitted changes, ask Karl before pulling.
+- **Ending a session (or when Karl switches machines):** commit and push to `main`, so the other machine can pull it. Don't leave work uncommitted on one machine.
+- Saved progress does not sync. SavedVariables (ticked steps, scanned characters) are local to each machine, so the tracker can look different on the PC and the Mac. That's expected, not a bug.
+- Remember that `git pull` changes the files the game loads, so Karl should `/reload` afterwards.
 
 ## Files
 
@@ -77,7 +88,7 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 ## Testing
 
 There's no automated test suite. Testing happens in the Forever beta: edit, `/reload`, and Karl reports back with screenshots. Before handing back a change:
-- Check the Lua for syntax errors. Lua isn't installed on this PC, so the fallback is a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs. It catches most slips but not a missing comma.
+- Check the Lua for syntax errors. If `lua`/`luac` isn't available (it isn't on the PC), the fallback is a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs. It catches most slips but not a missing comma.
 - Watch the local count in Core.lua's main chunk (lesson 1).
 - Ask Karl to `/reload` and check the change. If something misbehaves, `/console scriptErrors 1` shows Lua errors.
 
@@ -95,7 +106,9 @@ There's no automated test suite. Testing happens in the Forever beta: edit, `/re
 
 Commits are made as `karl-neiswender <97697208+karl-neiswender@users.noreply.github.com>`.
 
-Git for Windows is installed at `C:\Program Files\Git\cmd\git.exe` but may not be on PATH in Claude's shell; call it by full path with `-c safe.directory=*` (the repo is under Program Files). The GitHub sign-in is stored, so pushes work from Claude's shell. Release zips go in `C:\Users\kneis\Downloads`.
+Git setup per machine:
+- **PC:** Git for Windows is installed at `C:\Program Files\Git\cmd\git.exe` but may not be on PATH in Claude's shell; call it by full path with `-c safe.directory=*` (the repo is under Program Files). The GitHub sign-in is stored, so pushes work from Claude's shell. Release zips go in `C:\Users\kneis\Downloads`.
+- **Mac:** plain `git` (Xcode command line tools). If a push asks for a GitHub sign-in, have Karl sign in once (for example with GitHub Desktop or `gh auth login`). Release zips go in `~/Downloads`.
 
 ## Looking things up on Wowhead
 
