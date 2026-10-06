@@ -43,6 +43,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `Core.lua` | Everything else (~3,000 lines): DB, roster scanning, rules engine, UI, minimap button, slash commands. Namespace table `FGT`, addon folder name `ADDON`. |
 | `Media/icon.tga` | 64px addon list icon (book logo). |
 | `Media/minimap.tga` | 64px minimap button icon (green checkmark, circular alpha). Source: `Media/minimap-source.png`. |
+| `Media/star.tga` | 64px five-point star for favorites (white with a soft dark edge, tinted gold in code). Drawn by a Python script, no source file. |
 | `Media/web.tga` | 256px corner cobweb for the empty state (white on transparent, tinted in code). |
 | `Media/logo.png` | 1024px logo for GitHub/CurseForge. |
 | `README.txt` | Player-facing readme that ships in the zip. `README.md` is the GitHub page. |

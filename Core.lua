@@ -2163,8 +2163,9 @@ for i, goal in ipairs(FGT.goals) do
 
     -- gold star in the top-right corner of favorited goals
     row.star = row:CreateTexture(nil, "OVERLAY")
-    row.star:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_1")
-    row.star:SetSize(14, 14)
+    row.star:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\star")
+    row.star:SetVertexColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
+    row.star:SetSize(15, 15)
     row.star:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
     row.star:Hide()
 
@@ -3368,7 +3369,7 @@ function FGT.OpenGoalMenu(card)
         M = CreateFrame("Frame", nil, main, "BackdropTemplate")
         M:SetFrameLevel(main:GetFrameLevel() + 60)
         M:SetClampedToScreen(true)
-        M:SetWidth(200)
+        M:SetWidth(180)
         Etch(M, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
         M:EnableMouse(true)
         M.catcher = CreateFrame("Button", nil, main)
@@ -3387,11 +3388,8 @@ function FGT.OpenGoalMenu(card)
             row.hl:SetAllPoints(row)
             ApplyHGradient(row.hl, C.ACCENT, C.ACCENT, 0.18, 0.02)
             row.hl:Hide()
-            row.icon = row:CreateTexture(nil, "OVERLAY")
-            row.icon:SetSize(14, 14)
-            row.icon:SetPoint("LEFT", row, "LEFT", 4, 0)
             row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
-            row.label:SetPoint("LEFT", row, "LEFT", 24, 0)
+            row.label:SetPoint("LEFT", row, "LEFT", 8, 0)
             row:SetScript("OnEnter", function(self) self.hl:Show() end)
             row:SetScript("OnLeave", function(self) self.hl:Hide() end)
             M.rows[i] = row
@@ -3399,7 +3397,6 @@ function FGT.OpenGoalMenu(card)
         M:SetHeight(2 * MENU_ROW + 8)
 
         -- 1: favorite toggle
-        M.rows[1].icon:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcon_1")
         M.rows[1]:SetScript("OnClick", function()
             local id = M.goal.id
             local favs = ForeverGoalTrackerDB.favorites
@@ -3409,7 +3406,6 @@ function FGT.OpenGoalMenu(card)
             RefreshGoalList()
         end)
         -- 2: remove from My Goals
-        M.rows[2].icon:SetTexture("Interface\\Buttons\\UI-GroupLoot-Pass-Up")
         M.rows[2].label:SetText("Remove from My Goals")
         M.rows[2].label:SetTextColor(1.00, 0.50, 0.42)
         M.rows[2]:SetScript("OnClick", function()
@@ -3424,7 +3420,6 @@ function FGT.OpenGoalMenu(card)
     M.goal = card.goal
     local fav = ForeverGoalTrackerDB.favorites[card.goal.id]
     M.rows[1].label:SetText(fav and "Remove from favorites" or "Add to favorites")
-    M.rows[1].icon:SetDesaturated(fav and true or false)
 
     -- open at the cursor
     local x, y = GetCursorPosition()
