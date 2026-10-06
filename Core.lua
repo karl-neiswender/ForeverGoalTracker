@@ -1148,6 +1148,7 @@ local function NewBar(parent, height)
         if math.abs(gap) < 0.001 then
             self.cur = self.target
             self:SetScript("OnUpdate", nil)
+            if self.celebrate and self.cur >= 0.9995 then FGT.BarShine(self) end
         else
             self.cur = self.cur + gap * math.min(1, elapsed * 9)
         end
@@ -1158,6 +1159,9 @@ local function NewBar(parent, height)
         local pct = total > 0 and math.min(1, done / total) or 0
         self.label:SetText(customLabel or string.format("%d / %d  ·  %d%%", done, total, math.floor(pct * 100 + 0.5)))
         self.target = pct
+        if self.shineL then -- a finished shine never lingers into a new glide
+            self.shineL:Hide(); self.shineC:Hide(); self.shineR:Hide()
+        end
         if self.instant or not self:IsVisible() then
             -- hidden bars (or pooled rows) jump straight there
             self.cur = (self.instant or self.cur ~= nil) and pct or 0
@@ -1172,6 +1176,216 @@ local function NewBar(parent, height)
         end
     end
     return bar
+end
+
+-- ============================================================
+-- Completion celebration
+-- ============================================================
+-- Plays once, at the moment something turns complete while you're
+-- looking at it: a group row, a goal card, a Tier 3 piece, a step's
+-- checkbox, the goal's progress bar. FGT.doneSeen remembers what each
+-- one looked like last time it was drawn, so opening a goal that's
+-- already finished stays quiet. Lives on FGT to stay clear of the
+-- main chunk's local limit.
+FGT.doneSeen = {}
+
+function FGT.CheckCelebration(row, key, complete, play)
+    local was = FGT.doneSeen[key]
+    FGT.doneSeen[key] = complete
+    if row.fxKey and row.fxKey ~= key then FGT.EndCelebration(row) end
+    if complete and was == false then
+        row.fxKey = key
+        play(row)
+    end
+end
+
+do
+local GLOW_A = 0.16
+local DEEP, PALE = { 1.00, 0.62, 0.10 }, { 1.00, 0.95, 0.72 }
+
+local function Clamp01(x) return x < 0 and 0 or (x > 1 and 1 or x) end
+-- ease-out-back: shoots a little past 1, then settles
+local function PopEase(t) local u = t - 1; return 1 + 2.6 * u * u * u + 1.6 * u * u end
+
+-- Gradient textures ignore SetAlpha in game, so fades redraw them.
+local function SetGlow(row, a)
+    ApplyHGradient(row.doneGlow, C.DONE, C.DONE, 0, GLOW_A * a)
+end
+
+-- Three additive strips (deep gold edges, a pale bright core) that
+-- sweep across a frame; built lazily for whatever frame shines.
+local function MakeShine(f, height)
+    f.shineL = f:CreateTexture(nil, "OVERLAY", nil, 1)
+    f.shineC = f:CreateTexture(nil, "OVERLAY", nil, 2)
+    f.shineR = f:CreateTexture(nil, "OVERLAY", nil, 1)
+    for _, t in ipairs({ f.shineL, f.shineC, f.shineR }) do
+        t:SetTexture(SOLID)
+        t:SetBlendMode("ADD")
+        t:SetHeight(height)
+        t:Hide()
+    end
+    f.shineL:SetWidth(48)
+    f.shineC:SetWidth(7)
+    f.shineR:SetWidth(48)
+    f.shineC:SetPoint("LEFT", f.shineL, "RIGHT", 0, 0)
+    f.shineR:SetPoint("LEFT", f.shineC, "RIGHT", 0, 0)
+end
+
+local function ShowShine(f, on)
+    f.shineL:SetShown(on)
+    f.shineC:SetShown(on)
+    f.shineR:SetShown(on)
+end
+
+-- sh = 0..1 along the sweep. Steady speed the whole way (easing to a
+-- stop read as a stall); a quick fade in, then a long soft fade out
+-- while it keeps moving, with the bright core going first so it never
+-- shrinks to a thin line.
+local function ShineFrame(f, sh, inset)
+    local travel = math.max(0, f:GetWidth() - 103 - 2 * inset)
+    f.shineL:ClearAllPoints()
+    f.shineL:SetPoint("LEFT", f, "LEFT", inset + travel * sh, 0)
+    local a = Clamp01(sh / 0.15)
+    if sh > 0.45 then a = 0.5 + 0.5 * math.cos(math.pi * (sh - 0.45) / 0.55) end
+    local core = a * a * a
+    ApplyHGradient(f.shineL, DEEP, PALE, 0, 0.32 * a)
+    ApplyHGradient(f.shineC, PALE, PALE, 0.5 * core, 0.5 * core)
+    ApplyHGradient(f.shineR, PALE, DEEP, 0.32 * a, 0)
+end
+
+-- Adds the celebration layers to an etched tile (group rows, goal
+-- cards): a faint green wash from the right for finished ones, a gold
+-- ring that bursts out of the border, and the gold shine.
+function FGT.AddCelebrationFX(row, inset, shineHeight)
+    row.fxInset = inset
+    row.doneGlow = row:CreateTexture(nil, "BACKGROUND", nil, -5)
+    row.doneGlow:SetTexture(SOLID)
+    row.doneGlow:SetPoint("TOPLEFT", inset, -inset)
+    row.doneGlow:SetPoint("BOTTOMRIGHT", -inset, inset)
+    SetGlow(row, 1)
+    row.doneGlow:Hide()
+    row.burst = CreateFrame("Frame", nil, row, "BackdropTemplate")
+    row.burst:SetFrameLevel(row:GetFrameLevel() + 3)
+    row.burst:SetBackdrop({ edgeFile = ETCH_EDGE, edgeSize = 10 })
+    row.burst:SetBackdropBorderColor(1.00, 0.82, 0.00, 1)
+    row.burst:Hide()
+    MakeShine(row, shineHeight)
+end
+
+-- What pops: a checkmark texture (grows from nothing) or a chip frame
+-- like the COMPLETE tag (scales up from nothing).
+local function PopFrame(row, t)
+    local c = Clamp01((t - 0.05) / 0.4)
+    local s = PopEase(c)
+    if row.popChip then
+        row.popChip:SetScale(math.max(0.01, s))
+        row.popChip:SetAlpha(Clamp01(c * 3))
+    elseif row.popTex then
+        local px = math.max(0.01, row.popSize * s)
+        row.popTex:SetSize(px, px)
+        row.popTex:SetAlpha(Clamp01(c * 3))
+    end
+end
+
+function FGT.EndCelebration(row)
+    row:SetScript("OnUpdate", nil)
+    row.fxT, row.fxKey = nil, nil
+    if row.popChip then
+        row.popChip:SetScale(1)
+        row.popChip:SetAlpha(1)
+    elseif row.popTex then
+        row.popTex:SetSize(row.popSize, row.popSize)
+        row.popTex:SetAlpha(1)
+    end
+    if row.burst then
+        row.burst:Hide()
+        ShowShine(row, false)
+        SetGlow(row, 1)
+    end
+end
+
+local function PopStep(self, elapsed)
+    self.fxT = self.fxT + elapsed
+    if self.fxT >= 0.5 then return FGT.EndCelebration(self) end
+    PopFrame(self, self.fxT)
+end
+
+-- Small moment: a checkmark springs in, overshoots, and settles.
+-- tex/size default to the Tier 3 piece's green check.
+function FGT.PopCheck(row, tex, size)
+    if row.fxT then FGT.EndCelebration(row) end
+    row.popChip = nil
+    row.popTex = tex or row.doneCheck
+    row.popSize = size or 18
+    row.fxT = 0
+    PopFrame(row, 0)
+    row:SetScript("OnUpdate", PopStep)
+end
+
+-- A step's checkbox pops when you tick it. ToggleStep notes what was
+-- just ticked; the row drawing that step calls this.
+function FGT.MaybePopTick(row, goalId, key)
+    if row.isDone and FGT.justTicked == goalId .. "|" .. key then
+        FGT.justTicked = nil
+        FGT.PopCheck(row, row.check, 22)
+    end
+end
+
+-- Big moment: the pop, plus the gold ring bursting out of the border,
+-- the shine sweeping across, and the green glow fading in.
+local function CelebrateStep(self, elapsed)
+    local t = self.fxT + elapsed
+    self.fxT = t
+    if t >= 0.7 then return FGT.EndCelebration(self) end
+    PopFrame(self, t)
+
+    -- The ring keeps moving until it's gone: a gentle ease-out, and a
+    -- fade that finishes first, so it never sits still while visible.
+    local r = Clamp01(t / 0.55)
+    local o = 7 * (1 - (1 - r) ^ 2)
+    self.burst:ClearAllPoints()
+    self.burst:SetPoint("TOPLEFT", -o, o)
+    self.burst:SetPoint("BOTTOMRIGHT", o, -o)
+    self.burst:SetAlpha((1 - r) ^ 2)
+
+    ShineFrame(self, Clamp01((t - 0.06) / 0.55), self.fxInset)
+    SetGlow(self, Clamp01(t / 0.6))
+end
+
+-- Group rows pop their green check; goal cards pop the COMPLETE tag.
+function FGT.CelebrateRow(row)
+    if row.fxT then FGT.EndCelebration(row) end
+    if row.check and row.check.SetLabel then
+        row.popChip = row.check
+    else
+        row.popChip, row.popTex, row.popSize = nil, row.doneCheck, 20
+    end
+    row.fxT = 0
+    row.burst:Show()
+    ShowShine(row, true)
+    CelebrateStep(row, 0)
+    row:SetScript("OnUpdate", CelebrateStep)
+end
+
+-- The goal's progress bar: once its fill glides all the way to 100%,
+-- a gold shine runs along it. Called by the bar itself (bar.celebrate).
+local function BarShineStep(self, elapsed)
+    self.shineT = self.shineT + elapsed
+    local sh = Clamp01(self.shineT / 0.6)
+    ShineFrame(self, sh, 1)
+    if sh >= 1 then
+        self:SetScript("OnUpdate", nil)
+        ShowShine(self, false)
+    end
+end
+
+function FGT.BarShine(bar)
+    if not bar.shineL then MakeShine(bar, math.max(2, bar:GetHeight() - 2)) end
+    bar.shineT = 0
+    ShineFrame(bar, 0, 1)
+    ShowShine(bar, true)
+    bar:SetScript("OnUpdate", BarShineStep)
+end
 end
 
 -- A subtle top/bottom fade overlay, colored to match the panel behind it,
@@ -1838,11 +2052,10 @@ local function RefreshGoalList()
             row:SetEtch(STYLE.row)
             row.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
         end
-        if total > 0 and done == total then
-            row.check:Show()
-        else
-            row.check:Hide()
-        end
+        local complete = total > 0 and done == total
+        row.check:SetShown(complete)
+        row.doneGlow:SetShown(complete)
+        FGT.CheckCelebration(row, "card_" .. row.goal.id, complete, FGT.CelebrateRow)
     end
 end
 
@@ -1885,6 +2098,7 @@ for i, goal in ipairs(FGT.goals) do
     row.check:SetLabel("COMPLETE", C.DONE)
     row.check:SetBackdropBorderColor(0.16, 0.35, 0.10, 1)
     row.check:Hide()
+    FGT.AddCelebrationFX(row, 3, 56)
 
     row.bar = NewBar(row, 4)
     row.bar:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, 1)
@@ -1975,6 +2189,7 @@ detailNote:SetWordWrap(true)
 detailNote:SetJustifyH("LEFT")
 
 local detailBar = NewBar(detailPanel, 8)
+detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
 detailBar:SetPoint("RIGHT", -16, 0)
 
@@ -2168,6 +2383,7 @@ end
 local function ToggleStep(goalId, index)
     local nowDone = not IsStepDone(goalId, index)
     SetStepDone(goalId, index, nowDone)
+    FGT.justTicked = nowDone and (goalId .. "|" .. index) or nil
     SelectGoal(goalId, true)
 end
 
@@ -2196,114 +2412,6 @@ end
 local function SetRowIndent(row, indent)
     row.box:ClearAllPoints()
     row.box:SetPoint("TOPLEFT", indent, -2)
-end
-
--- ============================================================
--- Completion celebration
--- ============================================================
--- Plays once, at the moment a group (or a Tier 3 piece) turns complete
--- while you're looking at it. FGT.doneSeen remembers what each one
--- looked like last time it was drawn, so opening a goal that's already
--- finished stays quiet. Lives on FGT to stay clear of the local limit.
-FGT.doneSeen = {}
-
-function FGT.CheckCelebration(row, key, complete, play)
-    local was = FGT.doneSeen[key]
-    FGT.doneSeen[key] = complete
-    if row.fxKey and row.fxKey ~= key then FGT.EndCelebration(row) end
-    if complete and was == false then
-        row.fxKey = key
-        play(row)
-    end
-end
-
-do
-local function Clamp01(x) return x < 0 and 0 or (x > 1 and 1 or x) end
--- ease-out-back: shoots a little past 1, then settles
-local function PopEase(t) local u = t - 1; return 1 + 2.6 * u * u * u + 1.6 * u * u end
-
-function FGT.EndCelebration(row)
-    row:SetScript("OnUpdate", nil)
-    row.fxT, row.fxKey = nil, nil
-    row.doneCheck:SetAlpha(1)
-    row.doneCheck:SetSize(row.checkSize or 18, row.checkSize or 18)
-    if row.burst then
-        row.burst:Hide()
-        row.shineL:Hide()
-        row.shineC:Hide()
-        row.shineR:Hide()
-        row.doneGlow:SetAlpha(1)
-    end
-end
-
--- The check springs in from nothing, overshoots, and settles.
-local function PopFrame(row, t)
-    local c = Clamp01((t - 0.05) / 0.4)
-    local s = math.max(0.01, (row.checkSize or 18) * PopEase(c))
-    row.doneCheck:SetSize(s, s)
-    row.doneCheck:SetAlpha(Clamp01(c * 3))
-end
-
-local function PopStep(self, elapsed)
-    self.fxT = self.fxT + elapsed
-    if self.fxT >= 0.5 then return FGT.EndCelebration(self) end
-    PopFrame(self, self.fxT)
-end
-
-function FGT.PopCheck(row)
-    row.checkSize = 18
-    row.fxT = 0
-    PopFrame(row, 0)
-    row:SetScript("OnUpdate", PopStep)
-end
-
--- Header rows: the pop, plus a green ring bursting out of the border,
--- a shine sweeping left to right, and the glow fading in.
-local function CelebrateStep(self, elapsed)
-    local t = self.fxT + elapsed
-    self.fxT = t
-    if t >= 0.7 then return FGT.EndCelebration(self) end
-    PopFrame(self, t)
-
-    -- The ring keeps moving until it's gone: a gentle ease-out, and a
-    -- fade that finishes first, so it never sits still while visible.
-    local r = Clamp01(t / 0.55)
-    local o = 7 * (1 - (1 - r) ^ 2)
-    self.burst:ClearAllPoints()
-    self.burst:SetPoint("TOPLEFT", -o, o)
-    self.burst:SetPoint("BOTTOMRIGHT", o, -o)
-    self.burst:SetAlpha((1 - r) ^ 2)
-
-    -- steady speed the whole way (easing to a stop read as a stall),
-    -- fading in and out at the ends
-    local sh = Clamp01((t - 0.06) / 0.55)
-    local travel = math.max(0, self:GetWidth() - 107)
-    self.shineL:ClearAllPoints()
-    self.shineL:SetPoint("LEFT", self, "LEFT", 2 + travel * sh, 0)
-    -- quick fade in, then a long soft fade out while it keeps moving;
-    -- the bright core fades first, so it never shrinks to a thin line
-    local a = Clamp01(sh / 0.15)
-    if sh > 0.45 then a = 0.5 + 0.5 * math.cos(math.pi * (sh - 0.45) / 0.55) end
-    -- Faded by redrawing the gradient: the game ignores SetAlpha on
-    -- these additive gradient textures.
-    local deep, pale, core = self.shineDeep, self.shinePale, a * a * a
-    ApplyHGradient(self.shineL, deep, pale, 0, 0.32 * a)
-    ApplyHGradient(self.shineC, pale, pale, 0.5 * core, 0.5 * core)
-    ApplyHGradient(self.shineR, pale, deep, 0.32 * a, 0)
-
-    self.doneGlow:SetAlpha(Clamp01(t / 0.6))
-end
-
-function FGT.CelebrateRow(row)
-    row.checkSize = 20
-    row.fxT = 0
-    row.burst:Show()
-    row.shineL:Show()
-    row.shineC:Show()
-    row.shineR:Show()
-    CelebrateStep(row, 0)
-    row:SetScript("OnUpdate", CelebrateStep)
-end
 end
 
 -- ============================================================
@@ -2343,39 +2451,10 @@ local function GetHeaderRow(index)
     row.count = NewFontString(row, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
     row.count:SetPoint("RIGHT", -8, 0)
 
-    -- Finished sections: a faint green wash from the right and a green
-    -- check in place of the count (the game's checkmark, recolored).
-    row.doneGlow = row:CreateTexture(nil, "BACKGROUND", nil, -5)
-    row.doneGlow:SetTexture(SOLID)
-    row.doneGlow:SetPoint("TOPLEFT", 2, -2)
-    row.doneGlow:SetPoint("BOTTOMRIGHT", -2, 2)
-    ApplyHGradient(row.doneGlow, C.DONE, C.DONE, 0, 0.16)
-    row.doneGlow:Hide()
-
-    -- Celebration pieces (FGT.CelebrateRow): a gold ring that bursts
-    -- outward from the border, and a metallic gold shine that sweeps
-    -- across: deep gold edges warming to a pale, bright core.
-    row.burst = CreateFrame("Frame", nil, row, "BackdropTemplate")
-    row.burst:SetFrameLevel(row:GetFrameLevel() + 3)
-    row.burst:SetBackdrop({ edgeFile = ETCH_EDGE, edgeSize = 10 })
-    row.burst:SetBackdropBorderColor(1.00, 0.82, 0.00, 1)
-    row.burst:Hide()
-    local deep, pale = { 1.00, 0.62, 0.10 }, { 1.00, 0.95, 0.72 }
-    row.shineL = row:CreateTexture(nil, "OVERLAY", nil, 1)
-    row.shineC = row:CreateTexture(nil, "OVERLAY", nil, 2)
-    row.shineR = row:CreateTexture(nil, "OVERLAY", nil, 1)
-    for _, t in ipairs({ row.shineL, row.shineC, row.shineR }) do
-        t:SetTexture(SOLID)
-        t:SetBlendMode("ADD")
-        t:SetHeight(26)
-        t:Hide()
-    end
-    row.shineL:SetWidth(48)
-    row.shineC:SetWidth(7)
-    row.shineR:SetWidth(48)
-    row.shineDeep, row.shinePale = deep, pale
-    row.shineC:SetPoint("LEFT", row.shineL, "RIGHT", 0, 0)
-    row.shineR:SetPoint("LEFT", row.shineC, "RIGHT", 0, 0)
+    -- Finished sections: a faint green wash from the right, the gold
+    -- celebration layers, and a green check in place of the count (the
+    -- game's checkmark, recolored).
+    FGT.AddCelebrationFX(row, 2, 26)
     row.doneCheck = row:CreateTexture(nil, "OVERLAY")
     row.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
     row.doneCheck:SetSize(20, 20)
@@ -2555,6 +2634,7 @@ local function RefreshTierSections(goal)
                 row.text:SetText(FGT.StepText(piece.text or piece.name))
                 row.text:SetWidth(math.max(50, width - 18 - 44 - (hasMats and 44 or 0) - (piece.icon and 14 or 0)))
                 StyleCheckRow(row, md == mt)
+                if not hasMats then FGT.MaybePopTick(row, goal.id, PieceKey(si, pi)) end
 
                 if hasMats then
                     -- No checkbox: the piece is done when its materials are.
@@ -2601,6 +2681,7 @@ local function RefreshTierSections(goal)
                         mrow.text:SetText(FGT.StepText(materialText))
                         mrow.text:SetWidth(math.max(50, width - 40 - 44))
                         StyleCheckRow(mrow, IsStepDone(goal.id, MaterialKey(si, pi, mi)))
+                        FGT.MaybePopTick(mrow, goal.id, MaterialKey(si, pi, mi))
                         if not mrow.isDone then
                             mrow.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
                         end
@@ -2705,6 +2786,7 @@ RefreshSteps = function(goal)
             row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46)))
 
             StyleCheckRow(row, IsStepDone(goal.id, i))
+            FGT.MaybePopTick(row, goal.id, i)
 
             local textHeight = row.text:GetStringHeight() or 14
             rowHeight2 = math.max(stepIcon and 26 or 20, textHeight + 6)
