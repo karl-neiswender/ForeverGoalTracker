@@ -11,6 +11,8 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills and raid boss kills.
 - **Pick the parts you want** of multi-part goals: individual classes, professions, mount races or Tier set classes.
 - **Separate Alliance and Horde goals**, with faction filters.
+- **Favorites:** right-click a goal to star it and keep it at the top of your list, or to remove it.
+- **Celebrations** when you finish a step, a group or a goal, plus a chat message and an on-screen banner when a goal finishes while the window is closed. A progress check-in greets you on login.
 
 ## Install
 
@@ -23,6 +25,7 @@ Download the latest release from CurseForge, or copy this repository's files int
 |---|---|
 | `/goals` (also `/fgt`, `/forevergoals`) | Open or close the window |
 | `/goals reset` | Reset the window size and position |
+| `/goals testbanner` | Preview the goal-complete banner |
 
 Open the **Goal Library** tab, click **+ Add** on the goals you want, then follow them on **My Goals**. Steps tick themselves as you play; you can also click any step to tick it by hand.
 

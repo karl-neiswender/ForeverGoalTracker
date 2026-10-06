@@ -17,8 +17,9 @@ GETTING STARTED
 
 SLASH COMMANDS
 --------------
-  /goals          Open or close the window (also /fgt, /forevergoals)
-  /goals reset    Reset the window size and position
+  /goals             Open or close the window (also /fgt, /forevergoals)
+  /goals reset       Reset the window size and position
+  /goals testbanner  Preview the goal-complete banner
 
 THE TWO TABS
 ------------
@@ -28,6 +29,9 @@ My Goals
   tracks automatically. Tips under the steps hold advice and strategy.
   The bar at the top shows your overall progress, averaged across your
   goals.
+  Right-click a goal on the left to add it to your favorites (they get a
+  gold star and stay at the top of the list) or to remove it from your
+  tracker. Removing keeps its progress in case you add it back.
 
 Goal Library
   Every goal the addon knows (65 and counting). Search by name, or use

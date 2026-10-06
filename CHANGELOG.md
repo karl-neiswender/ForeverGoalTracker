@@ -2,21 +2,27 @@
 
 ## 2.2.0
 
-- On login and /reload, chat shows your overall progress with a random cheer ("You've completed 34% of your goals. Look at you go!") and a link to open the tracker.
-- Finish a goal while the window is closed (a drop, a quest turn-in) and chat says so, with a clickable link to the goal, while a "Goal complete" banner celebrates near the top of the screen. Click the banner to open the goal.
-- Favorites: right-click a goal in My Goals to add it to your favorites. Favorites get a gold star and sit in their own group at the top of the list, above a thin divider. Both groups follow the sort you pick.
+### New
+- Favorites: right-click a goal in My Goals and choose Add to favorites. Favorites get a gold star and their own group at the top of the list, above a thin divider. Both groups follow the sort you pick.
 - Right-click a goal in My Goals to remove it from your tracker. Its progress is kept if you add it back.
-- Tier 3 pieces list their real recipe from the quartermaster: the Desecrated token, the exact number of Wartorn scraps, and the exact crafting materials (Arcanite Bars, Cured Rugged Hides, Mooncloth, Nexus Crystals, Arcane Crystals). Ticks on the old placeholder crafting materials are cleared; token and scrap ticks stay.
+- On login and /reload, chat shows your overall progress with a random cheer ("You've completed 34% of your goals. Look at you go!") and a link to open the tracker.
+- Finish a goal while the window is closed (a drop, a quest turn-in) and chat tells you, with a clickable link to the goal, while a "Goal complete" banner celebrates near the top of the screen. Click the banner to open the goal. Type /goals testbanner to preview it.
+
+### Item sets
+- Tier 3 pieces list their real recipe from the quartermaster: the Desecrated token, the exact number of Wartorn scraps, and the exact crafting materials. Ticks on the old placeholder crafting materials are cleared; token and scrap ticks stay.
 - Each Desecrated token says which Naxxramas boss drops it (for example "Desecrated Helmet from Thaddius").
-- Tier 3 Tips: Naxxramas attunement, every class's quartermaster, and where scraps drop.
+- New Tier 3 tips: Naxxramas attunement, every class's quartermaster, and where scraps drop.
 - Tier 1, Tier 2 and Tier 3 pieces show their item icons.
-- Fixed the Shaman Tier 3 set name (The Earthshatterer).
-- Finished groups (a mount race, a set class, a Tier 3 piece) show a green check instead of the count, and their name and icon go quiet like checked steps (the icon and its frame turn grey). Finished groups also get a soft green glow from the right.
-- A small celebration when a group turns complete while you watch: a gold ring bursts out of the border, a metallic gold shine sweeps across, and the check pops in. Tier 3 pieces get the check pop.
+
+### Celebrations and finished goals
 - Ticking a step pops its checkmark in.
-- Finishing a goal: its progress bar gets a gold shine when it fills to 100%, and its card in the My Goals list celebrates (gold ring, shine, and the COMPLETE tag pops in).
-- Finished goals in the My Goals list: the icon turns grey with a big green check on top, and the card keeps a soft green glow. The check pops in with a green glow that settles into a soft shadow.
-- A goal's progress bar no longer replays its fill animation each time you open the goal. It only glides when progress changes.
+- When a group finishes while you watch (a mount race, a set class), a gold ring bursts out of its border, a metallic gold shine sweeps across, and a green check pops in.
+- When a goal finishes, its progress bar gets a gold shine at 100% and its card in My Goals celebrates the same way.
+- Finished groups and goals stay easy to spot: a green check in place of the count, a soft green glow, and a greyed-out icon. Finished goal cards get a big green check over the icon.
+
+### Fixes
+- A goal's progress bar no longer replays its fill animation each time you open the goal.
+- Fixed the Shaman Tier 3 set name (The Earthshatterer).
 
 ## 2.1.2
 
