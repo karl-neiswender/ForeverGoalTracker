@@ -2074,7 +2074,8 @@ local function RefreshGoalList()
             row:SetEtch(STYLE.row)
             row.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
         end
-        local fav = ForeverGoalTrackerDB.favorites[row.goal.id] and true or false
+        local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
+        local fav = favs[row.goal.id] and true or false
         row.star:SetShown(fav)
         row.name:SetPoint("RIGHT", fav and -26 or -8, 0)
         local complete = total > 0 and done == total
@@ -2213,7 +2214,8 @@ LayoutGoalList = function()
     end
     -- Favorites first, then the rest; each group follows the sort.
     local mode = sortModes[sortModeIndex].key
-    local favs = ForeverGoalTrackerDB.favorites
+    -- (this also runs once at load, before the saved variables exist)
+    local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
     table.sort(sorted, function(a, b)
         local fa, fb = favs[a.id] and true or false, favs[b.id] and true or false
         if fa ~= fb then return fa end

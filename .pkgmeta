@@ -16,3 +16,4 @@ ignore:
   - Media/logo.png
   - Media/minimap-source.png
   - CLAUDE.md
+  - tools

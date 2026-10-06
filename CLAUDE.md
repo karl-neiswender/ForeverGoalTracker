@@ -48,6 +48,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `README.txt` | Player-facing readme that ships in the zip. `README.md` is the GitHub page. |
 | `CHANGELOG.md` | Update for every version. |
 | `.pkgmeta`, `.github/workflows/release.yml` | Release packaging (see below). |
+| `tools/check.py`, `tools/wowstub.lua` | Local Lua check (compile + load test). Not shipped. |
 
 ## How it works
 
@@ -88,7 +89,7 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 ## Testing
 
 There's no automated test suite. Testing happens in the Forever beta: edit, `/reload`, and Karl reports back with screenshots. Before handing back a change:
-- Check the Lua for syntax errors. Best option (works on the Mac, needs Python 3 and pip): `pip3 install --target <scratch>/py lupa`, then compile each file with real Lua 5.1 (`from lupa import lua51`; `loadstring(src)` returns an error for syntax slips, missing commas and the 200-local limit). Data.lua and Library.lua can also be run that way with `f("ForeverGoalTracker", ns)` to print the built goals. If that isn't available (the PC has no Python setup for it yet), fall back to a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs. It catches most slips but not a missing comma.
+- Run `python3 tools/check.py` (needs Python 3; first time on a machine: `pip3 install --target tools/.py lupa`). It compiles the three Lua files with real Lua 5.1 (syntax, missing commas, the 200-local limit), then runs them against `tools/wowstub.lua`, a stand-in for the WoW API with no saved variables yet, which catches load-time errors like reading `ForeverGoalTrackerDB` before the game loads it. If Python isn't available, fall back to a balance check: strip strings and comments, then count `function|if|do|repeat` against `end|until`, plus `{}` and `()` pairs.
 - Watch the local count in Core.lua's main chunk (lesson 1).
 - Ask Karl to `/reload` and check the change. If something misbehaves, `/console scriptErrors 1` shows Lua errors.
 
@@ -96,7 +97,7 @@ There's no automated test suite. Testing happens in the Forever beta: edit, `/re
 
 1. Bump `## Version:` in the `.toc` and add a `CHANGELOG.md` entry.
 2. Commit and push to `main`.
-3. Until automation is set up: build `ForeverGoalTracker-<version>.zip` containing a single `ForeverGoalTracker/` folder. Leave out README.md, .github, .gitignore, .pkgmeta, CLAUDE.md, Media/logo.png and Media/minimap-source.png. Karl uploads it on CurseForge as a **Release** file for game version **1.60.1** (Forever).
+3. Until automation is set up: build `ForeverGoalTracker-<version>.zip` containing a single `ForeverGoalTracker/` folder. Leave out README.md, .github, .gitignore, .pkgmeta, CLAUDE.md, tools, Media/logo.png and Media/minimap-source.png. Karl uploads it on CurseForge as a **Release** file for game version **1.60.1** (Forever).
 4. Automated releases (pending): once CurseForge approves the project,
    - add `## X-Curse-Project-ID: <id>` to the `.toc`
    - Karl adds a `CF_API_KEY` secret on the GitHub repo
