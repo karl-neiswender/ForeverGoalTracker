@@ -150,7 +150,7 @@ Git setup per machine:
 
 ## Screenshots and store page
 
-The CurseForge gallery has five screenshots, also kept in `Screenshots/` in the repo (left out of the release zip). Each one is rebuilt exactly with a demo scene, so a retake takes Karl about two minutes: `/goals demo N`, `/goals photo`, Print Screen, then `/goals demo off`. Karl sends the image and it replaces the file in `Screenshots/`. Shot 1 is starred as the featured image.
+The CurseForge gallery screenshots are kept in `Screenshots/` in the repo (left out of the release zip). **Automatic retakes (built 2026-10-07, not yet run in game):** Karl types `/goals shots` (mouse off the window): `FGT.TakeShots` turns on the black photo backdrop, runs each entry of `FGT.SHOTS` in gallery order (demo scene, Settings for 08), waits for the animations (3 s first, then 2.2 s), calls `Screenshot()`, and ends with demo off and photo off; it switches `screenshotFormat` to tga and quality 10 for the run and restores them. Then Claude runs `python tools/shots.py` (Pillow): it takes the newest burst of `WoWScrnShot_*` files from the game's Screenshots folder (`_classic_beta_/Screenshots`, or pass the folder), crops each to the window (bounding box of everything brighter than the backdrop) and writes `Screenshots/<name>.png`. Shots that need a hover (a tooltip) still need a manual Print Screen. Manual retake: `/goals demo N`, `/goals photo`, Print Screen, `/goals demo off`. Shot 1 is starred as the featured image.
 
 | Shot | Demo | Shows | Stale when this changes |
 |---|---|---|---|
@@ -158,8 +158,8 @@ The CurseForge gallery has five screenshots, also kept in `Screenshots/` in the 
 | `02-new-and-updated.png` | `/goals demo 2` | Library cards, filter chips, New & Updated filter, Epic Racial Mounts parts with the Skyborne NEW row | Library layout, filter chips, part rows, the Forever blue look |
 | `03-epic-mounts.png` | `/goals demo 3` | Group headers (finished, counts), Expand all, open Skyborne part | group rows, Expand all, Epic Racial Mounts data or wording |
 | `04-links-and-tips.png` | `/goals demo 4` | Corrupted Ashbringer: gold links, link card, Tips, Forever notice | goal links, link card, tips, Ashbringer steps |
-| `05-find-your-next-goal.png` | none (Karl's own goals) | Embrace of the Viper (UPDATED notice, blue bar, colored item links, grey finished icons) and Find your next goal at the end of My Goals | Viper data, Forever UPDATED look, Find your next goal, step rows |
-| `08-settings.png` (not in the gallery) | `/goals settings` (any scene behind it) | Settings page: both columns, pill toggles, choices, sliders, tracked characters | any settings row or group, the toggle look, the gear; its header shows the version, so retake after each version bump |
+| `05-find-your-next-goal.png` | `/goals demo 8` | Embrace of the Viper (UPDATED notice, blue bar, colored item links, grey finished icons) and Find your next goal at the end of My Goals | Viper data, Forever UPDATED look, Find your next goal, step rows |
+| `08-settings.png` (not in the gallery) | `/goals demo 1`, then `/goals settings` | Settings page: both columns, pill toggles, choices, sliders, tracked characters | any settings row or group, the toggle look, the gear; its header shows the version, so retake after each version bump |
 | `06-welcome.png` | `/goals demo 5` | Welcome wizard: the five hand-drawn interest tiles, two picked, over the greyed empty tracker | the wizard's interest step, tile art or motion |
 | `07-suggestions.png` | `/goals demo 6` | Wizard suggestions for the logged-in character (raiding and epic loot) | suggestion rows, wizard copy, suggestion rules |
 | `08-whats-new.png` (planned) | `/goals demo 7` | Social goals, a changed gold target, the SAVED UNTIL chip on Molten Core, Find your next goal at the end of the list | those features, goal cards |

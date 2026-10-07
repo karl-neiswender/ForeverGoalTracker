@@ -198,6 +198,14 @@ if ok_all:
             'STUB_NS.ShowQuestTip({}, 4); STUB_NS.QuestWowhead(4); print("  " .. STUB_NS.wowheadCard.url); '
             'for k, q in ipairs(STUB_NS.QUESTS) do if q.perClass then STUB_NS.QuestWowhead(k); break end end; '
             'print("  " .. STUB_NS.wowheadCard.url)'),
+        # /goals shots: walks every gallery scene, takes a screenshot each,
+        # and puts demo mode, photo mode and the screenshot format back.
+        ("gallery screenshots", None,
+            'STUB_PRINTS = {}; local shots, cv = 0, {}; Screenshot = function() shots = shots + 1 end; '
+            'SetCVar = function(k, v) cv[k] = v end; GetCVar = function(k) return k == "screenshotFormat" and "jpeg" or "3" end; '
+            'for _, f in ipairs(STUB_FRAMES) do rawset(f, "IsShown", function() return true end) end; '
+            'SlashCmdList["FOREVERGOALTRACKER"]("shots"); '
+            'print("  screenshots: " .. shots .. ", format back to " .. tostring(cv.screenshotFormat) .. ", demo off: " .. tostring(ForeverGoalTrackerDB.demoBackup == nil))'),
         # Test commands: add every goal, then reset all (asks first) and undo.
         ("add all and reset all", None,
             'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '
@@ -207,7 +215,7 @@ if ok_all:
             'S("resetall undo"); print("  gold ticks after undo: " .. tostring(ForeverGoalTrackerDB.progress.gold_5k[1]))'),
         # The demo scenes, then everything back.
         ("demo scenes", None,
-            'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '
+            'STUB_PRINTS = {}; for i = 1, 8 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '
             'print("  demo gold name: " .. STUB_NS.GoalById("gold_5k").name); '
             'SlashCmdList["FOREVERGOALTRACKER"]("demo off"); print("  after off: " .. STUB_NS.GoalById("gold_5k").name)'),
     ]

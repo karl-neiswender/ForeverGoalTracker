@@ -8246,7 +8246,69 @@ local SCENES = {
                 Flat("social_guild", 0.5)
                 Flat("social_friends", 0.67)
             end },
+    -- gallery shot 5: Embrace of the Viper (UPDATED in Forever) open, and
+    -- "Find your next goal" at the end of the list
+    [8] = { tab = "tracker", goal = "set_viper", find = true, bottom = true,
+            setup = function(DB, Flat)
+                DB.targets = { gold_5k = 10000 }
+                Flat("gold_5k", 0.34)
+            end },
 }
+
+-- /goals shots: every gallery screenshot in one go (Karl). Black photo
+-- backdrop, then each scene in gallery order, a pause for its animations,
+-- and the game's Screenshot(); demo off at the end. The game saves them
+-- in its Screenshots folder; tools/shots.py crops them to the window and
+-- names them (Screenshots/01-my-goals.png ...). Lossless TGA for the run,
+-- the player's format and quality put back after.
+FGT.SHOTS = {
+    { scene = 1, file = "01-my-goals" },
+    { scene = 2, file = "02-new-and-updated" },
+    { scene = 3, file = "03-epic-mounts" },
+    { scene = 4, file = "04-links-and-tips" },
+    { scene = 8, file = "05-find-your-next-goal" },
+    { scene = 5, file = "06-welcome" },
+    { scene = 6, file = "07-suggestions" },
+    { scene = 1, settings = true, file = "08-settings" },
+}
+function FGT.TakeShots()
+    if FGT.shooting then print(TAG .. "already taking screenshots.") return end
+    if not Screenshot then print(TAG .. "this client can't take screenshots from an addon.") return end
+    local getCVar = (C_CVar and C_CVar.GetCVar) or GetCVar
+    local setCVar = (C_CVar and C_CVar.SetCVar) or SetCVar
+    local saved = getCVar and { getCVar("screenshotFormat"), getCVar("screenshotQuality") } or {}
+    if setCVar then pcall(setCVar, "screenshotFormat", "tga"); pcall(setCVar, "screenshotQuality", "10") end
+    FGT.shooting = true
+    SlashCmdList["FOREVERGOALTRACKER"]("photo black")
+    print(TAG .. "taking " .. #FGT.SHOTS .. " screenshots. Keep your mouse off the window.")
+    local function Finish(stopped)
+        FGT.shooting = nil
+        if FGT.CloseSettings then FGT.CloseSettings() end
+        FGT.Demo("off")
+        SlashCmdList["FOREVERGOALTRACKER"]("photo off")
+        if setCVar then
+            if saved[1] then pcall(setCVar, "screenshotFormat", saved[1]) end
+            if saved[2] then pcall(setCVar, "screenshotQuality", saved[2]) end
+        end
+        print(TAG .. (stopped and "screenshots stopped (the window closed)." or
+            ("done: " .. #FGT.SHOTS .. " screenshots in the game's Screenshots folder. Tell Claude to process the shots.")))
+    end
+    local function Step(i)
+        if not main:IsShown() then Finish(true) return end
+        local shot = FGT.SHOTS[i]
+        if not shot then Finish() return end
+        if FGT.CloseSettings then FGT.CloseSettings() end
+        FGT.Demo(tostring(shot.scene))
+        if shot.settings and FGT.OpenSettings then FGT.OpenSettings() end
+        -- let tabs, fades and the wizard settle, then shoot
+        C_Timer.After(i == 1 and 3 or 2.2, function()
+            if not main:IsShown() then Finish(true) return end
+            pcall(Screenshot)
+            C_Timer.After(1.2, function() Step(i + 1) end)
+        end)
+    end
+    Step(1)
+end
 
 local function Redraw()
     FGT.quietCelebrate = true -- staged finishes shouldn't set off fireworks
@@ -8326,6 +8388,10 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     end
     if msg == "settings" or msg == "options" or msg == "config" then
         FGT.OpenSettings()
+        return
+    end
+    if msg == "shots" then
+        FGT.TakeShots()
         return
     end
     local demo = msg:match("^demo%s*(%w*)$")
