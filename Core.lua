@@ -1172,6 +1172,10 @@ do
         byId, names = {}, {}
         for _, n in ipairs(FGT.NPCS or {}) do
             if not n.forever or FGT.isForever then
+                -- Forever's own spot, where it differs
+                if FGT.isForever and n.f then
+                    n.map, n.x, n.y, n.zone = n.f[1], n.f[2], n.f[3], n.f[4] or n.zone
+                end
                 byId[n.id] = n
                 table.insert(names, { n.name, n.id })
                 for _, a in ipairs(n.alias or {}) do table.insert(names, { a, n.id }) end
@@ -1211,6 +1215,19 @@ do
 
     local function Coords(n) return string.format("%.1f, %.1f", n.x, n.y) end
 
+    -- the clear "why not" line (Karl): no pin inside dungeons, or not
+    -- found in WoW Forever yet
+    function FGT.NpcNote(n)
+        if FGT.isForever and n.missingInForever then
+            return "Not found in WoW Forever yet. This spot is from Classic Era."
+        end
+        if not n.map then return "No map pin: inside a dungeon, where the map can't show it." end
+    end
+    function FGT.NpcNoteColor(n)
+        if FGT.isForever and n.missingInForever then return C.FOREVER_LIGHT[1], C.FOREVER_LIGHT[2], C.FOREVER_LIGHT[3], true end
+        return 1, 0.62, 0.45, true
+    end
+
     function FGT.ShowNpcTip(owner, id)
         local n = FGT.NpcById(id)
         if not n then return end
@@ -1219,9 +1236,11 @@ do
         if n.tag then GameTooltip:AddLine("<" .. n.tag .. ">", C.INK2[1], C.INK2[2], C.INK2[3]) end
         if n.map then
             GameTooltip:AddLine(n.zone .. "  " .. Coords(n), C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            if n.where then GameTooltip:AddLine(n.where, C.INK2[1], C.INK2[2], C.INK2[3], true) end
         elseif n.where then
             GameTooltip:AddLine(n.where, C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
         end
+        if FGT.NpcNote(n) then GameTooltip:AddLine(FGT.NpcNote(n), FGT.NpcNoteColor(n)) end
         if n.disguise then
             GameTooltip:AddLine("Found disguised as " .. n.disguise .. (n.wanders and ", who wanders nearby" or "") .. ".",
                 C.INK2[1], C.INK2[2], C.INK2[3], true)
@@ -1242,7 +1261,7 @@ do
         local n = FGT.NpcById(id)
         if not n then return end
         if not n.map then
-            print(TAG .. n.name .. ": " .. (n.where or "no map spot known") .. ".")
+            print(TAG .. n.name .. " can't be shown on the map: " .. ((n.where or "no spot known"):gsub("^%u", string.lower)) .. ".")
             return
         end
         local x, y = n.x / 100, n.y / 100
@@ -7648,12 +7667,15 @@ do
         if npc then
             K.title:SetText(npc.name)
             K.sub:SetText(npc.tag and ("<" .. npc.tag .. ">") or (npc.disguise and ("Found as " .. npc.disguise) or ""))
-            K.place:SetText(npc.map and (npc.zone .. "  " .. string.format("%.1f, %.1f", npc.x, npc.y)) or (npc.where or ""))
+            local note = FGT.NpcNote(npc)
+            local nr, ng, nb = FGT.NpcNoteColor(npc)
+            K.place:SetText((npc.map and (npc.zone .. "  " .. string.format("%.1f, %.1f", npc.x, npc.y)) or (npc.where or ""))
+                .. (note and string.format("\n|cff%02x%02x%02x%s|r", nr * 255, ng * 255, nb * 255, note) or ""))
             K.place:Show()
             K.map:SetShown(npc.map and true or false)
             K.map:SetLabel((TomTom and TomTom.AddWaypoint) and "Set TomTom waypoint" or "Show on map")
             K.box:SetPoint("TOPLEFT", npc.map and K.map or K.place, "BOTTOMLEFT", 0, -10)
-            K:SetHeight(npc.map and 176 or 142)
+            K:SetHeight((npc.map and 176 or 142) + (note and 14 or 0) + ((not npc.map and npc.where) and 14 or 0))
         else
             K.title:SetText("Wowhead link")
             K.place:Hide()

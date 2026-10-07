@@ -176,6 +176,10 @@ if ok_all:
             'STUB_NS.ShowNpcOnMap(14535); TomTom = nil; '
             'STUB_NS.OpenWowheadCard("npc", 14524, "Vartrus", nil, STUB_NS.NpcById(14524)); print("  card: " .. STUB_NS.wowheadCard.url); '
             'STUB_NS.OpenWowheadCard("item", 16866, "Helm")'),
+        # On Forever: Lothos has Forever's own spot (outside the mountain).
+        ("npc spots on forever", None,
+            'STUB_PRINTS = {}; TomTom = false; STUB_NS.ShowNpcOnMap(14387); local h = STUB_NS.NpcById(3685); '
+            'print("  harb: " .. h.x .. ", " .. h.y)', True),
         # Test commands: add every goal, then reset all (asks first) and undo.
         ("add all and reset all", None,
             'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '
