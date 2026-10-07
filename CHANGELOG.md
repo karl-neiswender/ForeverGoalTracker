@@ -3,7 +3,7 @@
 ## Unreleased
 
 - Find your next goal: suggestions picked for you at the end of My Goals
-- Set your own target: right-click Save 5,000 Gold or Honorable Kills to change the number
+- Edit goal: change the number on Save 5,000 Gold, Honorable Kills or Make Friends
 - New Social goals: Join a Guild and Make Friends
 - Raid goals show when the character you're on is saved this week
 - Bug fixes

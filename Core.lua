@@ -2919,6 +2919,43 @@ do
     end
 end
 
+-- "Edit goal": a quiet pencil at the top right of the goal page, only on
+-- goals you can edit (a `target`). Opens the same card as right-click >
+-- Edit goal. Grey at rest, gold on hover, with an "Edit goal" tooltip.
+do
+    local b = CreateFrame("Button", nil, detailPanel)
+    b:SetSize(22, 22)
+    b:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -12, -12)
+    b.icon = b:CreateTexture(nil, "ARTWORK")
+    b.icon:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\pencil")
+    b.icon:SetSize(15, 15)
+    b.icon:SetPoint("CENTER")
+    local function Tint(on)
+        local c = on and C.ACCENT or C.SUBTEXT
+        b.icon:SetVertexColor(c[1], c[2], c[3], on and 1 or 0.8)
+    end
+    Tint(false)
+    b:SetScript("OnEnter", function(self)
+        Tint(true)
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:AddLine("Edit goal", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:Show()
+    end)
+    b:SetScript("OnLeave", function() Tint(false); GameTooltip:Hide() end)
+    b:SetScript("OnClick", function(self)
+        GameTooltip:Hide()
+        if self.goal and FGT.OpenTargetCard then FGT.OpenTargetCard(self.goal) end
+    end)
+    b:Hide()
+    FGT.detailEditBtn = b
+    function FGT.UpdateEditButton(goal)
+        b.goal = goal
+        b:SetShown(goal and goal.target ~= nil)
+        -- keep a long title clear of the pencil
+        detailTitle:SetPoint("RIGHT", detailPanel, "RIGHT", b:IsShown() and -40 or -16, 0)
+    end
+end
+
 local detailBar = NewBar(detailPanel, 8)
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
@@ -3777,6 +3814,7 @@ SelectGoal = function(id, skipListRefresh)
 
     detailNote:SetText(goal.note or "")
     FGT.LayoutForeverInfo(goal)
+    FGT.UpdateEditButton(goal)
 
     resetBtn:SetShown(not goal.autoLevels)
     if FGT.resetUndo and FGT.resetUndo.id ~= goal.id then FGT.resetUndo = nil end -- undo is per goal
@@ -4260,7 +4298,7 @@ function FGT.HideEmptyTracker()
 end
 detailParts = { detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
     detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
-    FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip }
+    FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip, FGT.detailEditBtn }
 
 -- "Clear" next to the sort bar: removes every goal from My Goals in one
 -- go, after a confirm in the right-click menu's style. Progress is kept
@@ -4663,8 +4701,8 @@ function FGT.OpenGoalMenu(card)
             ForeverGoalTrackerDB.favorites[goal.id] = nil
             SetGoalActive(goal, false)
         end)
-        -- 3: change target (goals built on one number, like gold)
-        M.rows[3].label:SetText("Change target")
+        -- 3: edit goal: change its target (goals built on one number, like gold)
+        M.rows[3].label:SetText("Edit goal")
         M.rows[3]:SetScript("OnClick", function()
             local goal = M.goal
             FGT.CloseGoalMenu()
@@ -4679,7 +4717,7 @@ function FGT.OpenGoalMenu(card)
     M.goal = card.goal
     local fav = ForeverGoalTrackerDB.favorites[card.goal.id]
     M.rows[1].label:SetText(fav and "Remove from favorites" or "Add to favorites")
-    -- favorite, change target (when the goal has one), remove last
+    -- favorite, edit goal (when the goal has a target), remove last
     local order = { M.rows[1] }
     if card.goal.target then table.insert(order, M.rows[3]) end
     table.insert(order, M.rows[2])
@@ -6596,8 +6634,8 @@ local function ScanNow(announce)
 end
 
 -- ============================================================
--- Change target: goals built on one number (gold, honorable kills) carry
--- a `target` in their data. Right-click > Change target saves the
+-- Edit goal: goals built on one number (gold, honorable kills) carry
+-- a `target` in their data. Right-click > Edit goal (or the pencil on the goal page) saves the
 -- player's number in DB.targets[id]; the name and steps are rebuilt from
 -- it (each step a fraction of the target, rounded to two significant
 -- figures), and the goal's ticks are re-checked from scratch.
@@ -6690,7 +6728,7 @@ do
 
             T.title = NewTitleString(T, 13)
             T.title:SetPoint("TOPLEFT", 14, -14)
-            T.title:SetText("Change target")
+            T.title:SetText("Edit goal")
             T.sub = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
             T.sub:SetPoint("TOPLEFT", T.title, "BOTTOMLEFT", 0, -4)
             T.sub:SetPoint("RIGHT", T, "RIGHT", -14, 0)
