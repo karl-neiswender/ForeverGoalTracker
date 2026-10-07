@@ -280,7 +280,6 @@ FGT.goals = {
             "The chest appears after the Four Horsemen die. Keep clearing weekly until the sword drops.",
             "The Four Horsemen are Highlord Mograine, Thane Korth'azz, Sir Zeliek and Baron Rivendare. Raids use either a 2-tank rotation or a synced 4-group kill.",
             "The drop chance is very low, and the sword is Bind on Pickup, so only one raider can get it per kill.",
-            "Equip the sword and visit the Scarlet Monastery Cathedral for a hidden scene with Balnazzar.",
             "Unequip it before visiting Argent Dawn NPCs. Wielding it makes them hostile.",
         },
     },
