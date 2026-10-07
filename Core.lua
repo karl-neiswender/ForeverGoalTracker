@@ -3963,13 +3963,38 @@ do
     -- Karl's painted panel (Media/empty-bg.tga, 512x1024, cobwebs in all
     -- four corners), stretched to fill the panel inside its border so
     -- every corner shows at any window height.
-    E.bg = listPanel:CreateTexture(nil, "ARTWORK")
+    -- It sits in its own frame (E.art) so it can fade in with the empty
+    -- message. Tinted a little darker and less brown so it belongs to
+    -- the window, with a soft inner shadow so it looks set into the frame.
+    E.art = CreateFrame("Frame", nil, listPanel)
+    E.art:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 3, -3)
+    E.art:SetPoint("BOTTOMRIGHT", listPanel, "BOTTOMRIGHT", -3, 3)
+    E.bg = E.art:CreateTexture(nil, "BACKGROUND")
     E.bg:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\empty-bg")
-    E.bg:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 3, -3)
-    E.bg:SetPoint("BOTTOMRIGHT", listPanel, "BOTTOMRIGHT", -3, 3)
+    E.bg:SetAllPoints(E.art)
+    E.bg:SetVertexColor(0.80, 0.78, 0.75) -- darker, a touch cooler
+    local SHADE, BLACK = 16, { 0, 0, 0 }
+    for _, side in ipairs({ "TOP", "BOTTOM", "LEFT", "RIGHT" }) do
+        local t = E.art:CreateTexture(nil, "BORDER")
+        t:SetTexture(SOLID)
+        if side == "TOP" or side == "BOTTOM" then
+            t:SetPoint(side .. "LEFT", E.art, side .. "LEFT", 0, 0)
+            t:SetPoint(side .. "RIGHT", E.art, side .. "RIGHT", 0, 0)
+            t:SetHeight(SHADE)
+            if side == "TOP" then ApplyVGradient(t, BLACK, BLACK, 0.55, 0)
+            else ApplyVGradient(t, BLACK, BLACK, 0, 0.55) end
+        else
+            t:SetPoint("TOP" .. side, E.art, "TOP" .. side, 0, 0)
+            t:SetPoint("BOTTOM" .. side, E.art, "BOTTOM" .. side, 0, 0)
+            t:SetWidth(SHADE)
+            if side == "LEFT" then ApplyHGradient(t, BLACK, BLACK, 0.55, 0)
+            else ApplyHGradient(t, BLACK, BLACK, 0, 0.55) end
+        end
+    end
 
-    E.label = NewTitleString(listPanel, 13)
-    E.label:SetPoint("CENTER", listPanel, "CENTER", 0, 40)
+    E.label = NewTitleString(E.art, 13)
+    E.label:SetDrawLayer("OVERLAY")
+    E.label:SetPoint("CENTER", listPanel, "CENTER", 0, 0)
     E.label:SetText("Empty")
     E.label:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
     E.label:SetShadowColor(0, 0, 0, 1)
@@ -3999,7 +4024,7 @@ do
     E.button:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
     E.button:SetScript("OnClick", function() if FGT.ShowTab then FGT.ShowTab("library") end end)
 
-    E.parts = { E.bg, E.label, E.button, E.help }
+    E.parts = { E.art, E.label, E.button, E.help }
     for _, p in ipairs(E.parts) do p:Hide() end
     FGT.emptyUI = E
 end
@@ -4032,14 +4057,15 @@ do
     FGT.emptyCluster = cluster
 end
 function FGT.AnimateEmpty()
-    local W, cl = FGT.welcome, FGT.emptyCluster
+    local W, cl, art = FGT.welcome, FGT.emptyCluster, FGT.emptyUI.art
     if not (W and W.Tween) then return end
     local full = W.Motion() == "full"
     W.Tween("empty", 0.7, function(p)
         local e = W.EaseOut(p)
         cl:SetAlpha(e)
+        art:SetAlpha(e) -- the painted panel fades in with the message
         cl:SetScale(full and (0.94 + 0.06 * e) or 1)
-    end, function() cl:SetAlpha(1); cl:SetScale(1) end)
+    end, function() cl:SetAlpha(1); art:SetAlpha(1); cl:SetScale(1) end)
 end
 main:HookScript("OnShow", function()
     if emptyNote:IsShown() then FGT.AnimateEmpty() end
