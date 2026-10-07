@@ -2730,7 +2730,8 @@ LayoutGoalList = function()
     -- "Find your next goal" after the last card (built after this runs at load)
     local fm = FGT.FindMoreButton and FGT.FindMoreButton()
     if fm then
-        local show = #sorted > 0 and not (ForeverGoalTrackerDB and ForeverGoalTrackerDB.demoBackup) -- keeps the demo shots as they are
+        -- hidden in demos (keeps shots 1 to 4 as they are) unless the scene shows it
+        local show = #sorted > 0 and (FGT.demoFind or not (ForeverGoalTrackerDB and ForeverGoalTrackerDB.demoBackup))
         fm:SetShown(show)
         if show then
             y = y - 8
@@ -6833,7 +6834,15 @@ end
 -- between). Automatic ticking pauses while a demo is on.
 -- ============================================================
 do
-local SAVED = { "active", "activeParts", "progress", "favorites", "goalsDone", "goalDates", "selected", "tab" }
+local SAVED = { "active", "activeParts", "progress", "favorites", "goalsDone", "goalDates", "selected", "tab", "targets",
+    "interests", "welcomeSeen" } -- the wizard scenes save interests on close
+
+-- scene extras that live outside the saved data: undo them between scenes
+local function ClearExtras()
+    if FGT.demoLock then FGT.lockouts[FGT.demoLock] = nil; FGT.demoLock = nil end
+    FGT.demoFind = nil
+    if FGT.CloseWelcome then FGT.CloseWelcome(true) end
+end
 
 local function Copy(v)
     if type(v) ~= "table" then return v end
@@ -6876,15 +6885,35 @@ local function Stage(DB)
         for pi = 1, n do SetStepDone("epicmounts", PieceKey(si, pi), true) end
     end
     DB.favorites = { thunderfury = true, epicmounts = true, atiesh = true }
+    return Flat
 end
 
--- The view for each scene.
+-- The view for each scene. Optional extras (scenes 5 to 7):
+--   setup(DB, Flat)  more staged goals or targets, on top of the shared roster
+--   welcome = step   opens the welcome wizard with `interests` picked
+--   lock = mapId     a pretend raid lockout (the SAVED UNTIL chip)
+--   find = true      shows "Find your next goal" (hidden in demos otherwise)
+--   bottom = true    scrolls the goal list to the end
 local SCENES = {
     [1] = { tab = "tracker", goal = "thunderfury" },                     -- hero: My Goals + a guide
     [2] = { tab = "library", filter = "new", expand = "epicmounts" },    -- New & Updated, Skyborne row
     [3] = { tab = "tracker", goal = "epicmounts",                        -- groups: finished, counts, NEW open
             open = { "epicmounts_9" } },
     [4] = { tab = "tracker", goal = "ashbringer" },                      -- links, tips, Forever notice
+    -- welcome wizard over an empty tracker, as a new player sees it
+    [5] = { tab = "tracker", welcome = 2, interests = { raid = true, loot = true },   -- interests, two picked
+            setup = function(DB) DB.active, DB.activeParts = {}, {} end },
+    [6] = { tab = "tracker", welcome = 3, interests = { raid = true, loot = true },   -- goals to get started
+            setup = function(DB) DB.active, DB.activeParts = {}, {} end },
+    -- what's new in 2.6: Social goals, a changed gold target, the lockout
+    -- chip on Molten Core, and "Find your next goal" at the end of the list
+    [7] = { tab = "tracker", goal = "raid_mc", lock = 409, find = true, bottom = true,
+            setup = function(DB, Flat)
+                DB.targets = { gold_5k = 10000 }
+                Flat("gold_5k", 0.34)
+                Flat("social_guild", 0.5)
+                Flat("social_friends", 0.67)
+            end },
 }
 
 local function Redraw()
@@ -6902,6 +6931,8 @@ function FGT.Demo(arg)
         if not DB.demoBackup then print(TAG .. "demo mode isn't on.") return end
         for _, k in ipairs(SAVED) do DB[k] = DB.demoBackup[k] end
         DB.demoBackup = nil
+        ClearExtras()
+        if FGT.ApplyTargets then FGT.ApplyTargets() end
         for k in pairs(FGT.sectionOpen) do FGT.sectionOpen[k] = nil end
         if FGT.SetLibraryView then FGT.SetLibraryView("all") end
         FGT.quietCelebrate = true
@@ -6913,13 +6944,22 @@ function FGT.Demo(arg)
         return
     end
     local scene = SCENES[tonumber(arg) or 1]
-    if not scene then print(TAG .. "demo scenes are 1 to 4, or /goals demo off.") return end
+    if not scene then print(TAG .. "demo scenes are 1 to " .. #SCENES .. ", or /goals demo off.") return end
     if not DB.demoBackup then
         local b = {}
         for _, k in ipairs(SAVED) do b[k] = Copy(DB[k]) end
         DB.demoBackup = b
     end
-    Stage(DB)
+    ClearExtras()
+    local Flat = Stage(DB)
+    DB.targets = {}
+    if scene.setup then scene.setup(DB, Flat) end
+    if FGT.ApplyTargets then FGT.ApplyTargets() end
+    if scene.lock then
+        FGT.lockouts[scene.lock] = time() + 3 * 86400
+        FGT.demoLock = scene.lock
+    end
+    FGT.demoFind = scene.find
     for k in pairs(FGT.sectionOpen) do FGT.sectionOpen[k] = nil end
     for _, key in ipairs(scene.open or {}) do FGT.sectionOpen[key] = true end
     if not main:IsShown() then FGT.ToggleFrame() end
@@ -6930,7 +6970,16 @@ function FGT.Demo(arg)
     if FGT.ShowTab then FGT.ShowTab(scene.tab) end
     FGT.quietCelebrate = nil
     Redraw()
-    print(TAG .. "demo scene " .. (tonumber(arg) or 1) .. " of 4. Your real data is safe; /goals demo off brings it back.")
+    if scene.bottom then
+        -- after the list has been measured
+        C_Timer.After(0.05, function()
+            local s = listScrollObj.scroll
+            s:SetVerticalScroll(s:GetVerticalScrollRange())
+            listScrollObj:Update()
+        end)
+    end
+    if scene.welcome and FGT.OpenWelcome then FGT.OpenWelcome(scene.welcome, nil, scene.interests) end
+    print(TAG .. "demo scene " .. (tonumber(arg) or 1) .. " of " .. #SCENES .. ". Your real data is safe; /goals demo off brings it back.")
 end
 end
 
@@ -7934,10 +7983,11 @@ end
 -- step: 1 (the two choices, default) or 2 (straight to the interests).
 -- find: "Find your next goal" from the end of My Goals; skips goals you
 -- already have and starts on step 3 with your saved interests.
-function FGT.OpenWelcome(step, find)
+-- demoPicked: demo scenes 5 and 6 open it with these interests picked.
+function FGT.OpenWelcome(step, find, demoPicked)
     local DB = ForeverGoalTrackerDB
     if not DB then return end
-    if DB.demoBackup then
+    if DB.demoBackup and not demoPicked then
         -- demo goals carry staged ticks and favorites; adding to them would mislead
         print(TAG .. "goal suggestions are off in demo mode. Type |cffffffff/goals demo off|r first.")
         return
@@ -7952,6 +8002,7 @@ function FGT.OpenWelcome(step, find)
     if FGT.CloseTargetCard then FGT.CloseTargetCard() end
     DB.welcomeSeen = true -- shown once; closing it any way counts
     W.picked = {} -- always starts with nothing picked
+    for k, v in pairs(demoPicked or {}) do W.picked[k] = v end
     W.find = find and true or nil
     if find then
         -- your interests from last time; none saved yet: ask first
