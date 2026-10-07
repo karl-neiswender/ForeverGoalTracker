@@ -195,6 +195,7 @@ if ok_all:
             'print("  " .. STUB_NS.LinkText("Pick up \'A Proper String\' from Stoma the Ancient in Felwood.")); '
             'print("  " .. STUB_NS.LinkText("Bring the Frame of Atiesh to Anachronos.")); '
             'print("  " .. STUB_NS.LinkText("Turn in \'Frostsaber Provisions\' daily.")); '
+            'print("  " .. STUB_NS.LinkText("Bring a {item:12811:Righteous Orb} to {rep_argentdawn:the Argent Dawn}.")); '
             'STUB_NS.ShowQuestTip({}, 4); STUB_NS.QuestWowhead(4); print("  " .. STUB_NS.wowheadCard.url); '
             'for k, q in ipairs(STUB_NS.QUESTS) do if q.perClass then STUB_NS.QuestWowhead(k); break end end; '
             'print("  " .. STUB_NS.wowheadCard.url)'),

@@ -1191,6 +1191,11 @@ do
 end
 
 function FGT.LinkText(s)
+    -- {item:ID:name}: an item named in a tip (or a step that doesn't track
+    -- it) links like the step items do (FGT.ItemTag, further down)
+    s = (s:gsub("{item:(%d+):([^}]+)}", function(id, label)
+        return FGT.ItemTag and FGT.ItemTag(tonumber(id), label) or label
+    end))
     s = (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
         local alias = FGT.LINK_ALIAS[id]
         if alias then id = alias() end
@@ -7715,7 +7720,9 @@ do
     -- joins the link ("Elementium Bars").
     function FGT.LinkItemName(row)
         local text = row.text:GetText()
-        if type(text) ~= "string" or text:find("|Hitem:", 1, true) or text:find("|Hfgtvariants:", 1, true) then return end
+        -- (names already inside a link are skipped below, so {item:} tags
+        -- and a second pass are safe)
+        if type(text) ~= "string" then return end
         -- { id, names... } for the rule's first item, then the step's extras
         local items = {}
         if row.itemId then
@@ -7781,6 +7788,19 @@ do
         return FGT.itemMissing[id] or (asked and GetTime() - asked > 2)
     end
     FGT.ItemUnavailable = Unavailable
+
+    -- {item:ID:name} in steps and tips (FGT.LinkText): the item's link in
+    -- its quality color (white and grey items in parchment, like step
+    -- links); asks the game for the item so the page redraws when it comes
+    function FGT.ItemTag(id, label)
+        local _, _, q = FGT.ItemInfo(id)
+        if not q and not FGT.itemMissing[id] then
+            waiting[id] = true
+            if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+        end
+        local hex = (q == 1 and "f0dcb0") or (q == 0 and "b3a68c") or QUALITY_HEX[q] or "f0dcb0"
+        return "|cff" .. hex .. "|Hitem:" .. id .. "|h" .. label .. "|h|r"
+    end
 
     local f = CreateFrame("Frame")
     pcall(f.RegisterEvent, f, "GET_ITEM_INFO_RECEIVED")
