@@ -3960,18 +3960,13 @@ emptyNote:Hide()
 
 do
     local E = {}
-    local web = "Interface\\AddOns\\" .. ADDON .. "\\Media\\web"
-    E.webL = listPanel:CreateTexture(nil, "ARTWORK")
-    E.webL:SetTexture(web)
-    E.webL:SetSize(110, 110)
-    E.webL:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 3, -3)
-    E.webL:SetVertexColor(0.75, 0.72, 0.66, 0.45)
-    E.webR = listPanel:CreateTexture(nil, "ARTWORK")
-    E.webR:SetTexture(web)
-    E.webR:SetTexCoord(1, 0, 0, 1) -- mirrored for the right corner
-    E.webR:SetSize(110, 110)
-    E.webR:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -3, -3)
-    E.webR:SetVertexColor(0.75, 0.72, 0.66, 0.45)
+    -- Karl's painted panel (Media/empty-bg.tga, 512x1024, cobwebs in all
+    -- four corners), stretched to fill the panel inside its border so
+    -- every corner shows at any window height.
+    E.bg = listPanel:CreateTexture(nil, "ARTWORK")
+    E.bg:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\empty-bg")
+    E.bg:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 3, -3)
+    E.bg:SetPoint("BOTTOMRIGHT", listPanel, "BOTTOMRIGHT", -3, 3)
 
     E.label = NewTitleString(listPanel, 13)
     E.label:SetPoint("CENTER", listPanel, "CENTER", 0, 40)
@@ -4004,7 +3999,7 @@ do
     E.button:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
     E.button:SetScript("OnClick", function() if FGT.ShowTab then FGT.ShowTab("library") end end)
 
-    E.parts = { E.webL, E.webR, E.label, E.button, E.help }
+    E.parts = { E.bg, E.label, E.button, E.help }
     for _, p in ipairs(E.parts) do p:Hide() end
     FGT.emptyUI = E
 end

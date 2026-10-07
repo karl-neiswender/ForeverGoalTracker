@@ -1,28 +1,30 @@
-"""Turn one of Karl's icon images (PNG/WebP with transparency) into the
-128x128 TGA the addon loads: python3 tools/icon.py <image> <name>
-writes Media/interests/<name>.tga and keeps the original as
-Media/interests/<name>-source.<ext> (left out of the zip by .pkgmeta).
+"""Turn one of Karl's images (PNG/WebP) into a TGA the addon loads:
+  python3 tools/icon.py <image> <name> [WxH] [folder]
+Default 128x128 into Media/interests (the wizard's interest icons).
+Writes <folder>/<name>.tga and keeps the original as
+<folder>/<name>-source.<ext> (left out of the zip by .pkgmeta).
 Uses macOS sips to resize; the PNG decode and TGA write are plain Python."""
 import os, shutil, struct, subprocess, sys, tempfile, zlib
 
 src, name = sys.argv[1], sys.argv[2]
+tw, th = (int(v) for v in (sys.argv[3] if len(sys.argv) > 3 else "128x128").split("x"))
 here = os.path.dirname(os.path.abspath(__file__))
-out_dir = os.path.join(here, "..", "Media", "interests")
+out_dir = os.path.join(here, "..", *(sys.argv[4] if len(sys.argv) > 4 else "Media/interests").split("/"))
 os.makedirs(out_dir, exist_ok=True)
 shutil.copy(src, os.path.join(out_dir, name + "-source" + os.path.splitext(src)[1]))
 
 tmp = os.path.join(tempfile.mkdtemp(), "icon.png")
-subprocess.run(["sips", "-s", "format", "png", "-z", "128", "128", src, "--out", tmp], check=True, capture_output=True)
+subprocess.run(["sips", "-s", "format", "png", "-z", str(th), str(tw), src, "--out", tmp], check=True, capture_output=True)
 data = open(tmp, "rb").read()
 pos, idat = 8, b""
 while pos < len(data):
     ln, = struct.unpack(">I", data[pos:pos + 4]); typ = data[pos + 4:pos + 8]; body = data[pos + 8:pos + 8 + ln]; pos += 12 + ln
     if typ == b"IHDR":
         w, h, bd, ct = struct.unpack(">IIBB", body[:10])
-        assert bd == 8 and ct == 6, "needs an RGBA image with transparency"
+        assert bd == 8 and ct in (2, 6), "needs an 8-bit RGB or RGBA image"
     elif typ == b"IDAT":
         idat += body
-raw = zlib.decompress(idat); bpp = 4; stride = w * bpp; rows = []; prev = bytearray(stride); i = 0
+raw = zlib.decompress(idat); bpp = 4 if ct == 6 else 3; stride = w * bpp; rows = []; prev = bytearray(stride); i = 0
 for y in range(h):
     f = raw[i]; i += 1; cur = bytearray(raw[i:i + stride]); i += stride
     for x in range(stride):
@@ -36,8 +38,8 @@ for y in range(h):
     rows.append(cur); prev = cur
 out = bytearray(struct.pack("<BBBHHBHHHHBB", 0, 0, 2, 0, 0, 0, 0, 0, w, h, 32, 0x28))
 for r in rows:
-    for x in range(0, stride, 4): out += bytes((r[x + 2], r[x + 1], r[x], r[x + 3]))
+    for x in range(0, stride, bpp): out += bytes((r[x + 2], r[x + 1], r[x], r[x + 3] if bpp == 4 else 255))
 open(os.path.join(out_dir, name + ".tga"), "wb").write(out)
-alphas = [r[x + 3] for r in rows for x in range(0, stride, 4)]
+alphas = [(r[x + 3] if bpp == 4 else 255) for r in rows for x in range(0, stride, bpp)]
 print("%s.tga: %dx%d, %d see-through pixels, %d solid" % (name, w, h,
       sum(1 for a in alphas if a == 0), sum(1 for a in alphas if a >= 240)))

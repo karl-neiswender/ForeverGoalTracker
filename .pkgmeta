@@ -17,6 +17,7 @@ ignore:
   - Media/minimap-source.png
   - Media/forever-source.png
   - Media/interests/*-source.*
+  - Media/*-source.webp
   - ROADMAP.md
   - Screenshots
   - CLAUDE.md
