@@ -6,16 +6,18 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 
 ## Features
 
-- **Goal suggestions:** a short welcome asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind, Social) and picks starting goals for the character you're on: its class, race, faction and level.
+- **Goal suggestions:** a short welcome asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind, Social) and picks starting goals for the character you're on: its class, race, faction and level. **Find your next goal**, at the end of My Goals, suggests what to chase next.
 - **Goal Library with 79 goals:** legendary and epic weapons, rare and class mounts, reputations, raid clears (including Forever's new Hyjal Summit and Barrow Deeps), raid attunements and dungeon keys, item sets (Dungeon Sets 1 and 2, Tier 1 to 3, Forever's raid sets), PvP ranks and sets, professions, social goals and milestones. Search by name or filter by type.
 - **Step-by-step guides** for every goal.
-- **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills and raid boss kills.
+- **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills, raid boss kills, guild and friends, and WoW Forever's Statistics window (like duels won).
+- **Edit goal:** change the number on goals like Save 5,000 Gold.
+- **Raid lockouts:** raid goals show when the character you're on is saved this week.
 - **Pick the parts you want** of multi-part goals: individual classes, professions, mount races or Tier set classes.
 - **Separate Alliance and Horde goals**, with faction filters.
 - **Favorites:** right-click a goal to star it and keep it at the top of your list, or to remove it.
 - **Built for Warcraft Forever:** NEW and UPDATED markers in Forever blue, a "New & Updated" filter, and a notice on guides not yet confirmed in Forever.
 - **Goal links:** steps and tips link to the goals they depend on; click one to add it.
-- **Settings:** the gear in the title bar turns off chat lines, the banner or celebrations, adds a goal-complete sound, hides the minimap button, and sets window scale and opacity. Everything starts on.
+- **Settings:** the gear in the title bar turns off chat lines, the banner or celebrations, adds a goal-complete sound or screenshot, hides the minimap button, and sets window scale and opacity. Everything starts on.
 - **Celebrations** when you finish a step, a group or a goal, plus a chat message and an on-screen banner when a goal finishes while the window is closed. A progress check-in greets you on login.
 
 Made with the help of AI. Every change is tested in game and approved by a human before release.
