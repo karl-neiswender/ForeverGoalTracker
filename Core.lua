@@ -1397,9 +1397,10 @@ end
 -- ============================================================
 do
     local YELLOW = "fff23a"
-    FGT.QUEST_ICON = "|TInterface\\GossipFrame\\AvailableQuestIcon:0|t"
+    -- 15px, nudged 3px down: the icon's art sits high in its square
+    FGT.QUEST_ICON = "|TInterface\\GossipFrame\\AvailableQuestIcon:15:15:0:-3|t"
     -- the same "!" greyed, for finished steps (StyleCheckRow)
-    FGT.QUEST_ICON_DIM = "|TInterface\\GossipFrame\\AvailableQuestIcon:0:0:0:0:32:32:0:32:0:32:120:120:120|t"
+    FGT.QUEST_ICON_DIM = "|TInterface\\GossipFrame\\AvailableQuestIcon:15:15:0:-3:32:32:0:32:0:32:120:120:120|t"
     local order
     function FGT.LinkQuests(text)
         if not text:find("'", 1, true) then return text end
