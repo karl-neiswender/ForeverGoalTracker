@@ -6989,6 +6989,22 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         FGT.OpenWelcome(1) -- the welcome wizard again; your goals stay as they are
         return
     end
+    if msg == "testlockout" then
+        -- Preview: pretends this character is saved to the open raid goal's
+        -- raid (resets in 3 days) until /reload. Run again to turn it off.
+        local goal = selectedId and FGT.GoalById(selectedId)
+        local inst = goal and goal.instance
+        if not inst then
+            print(TAG .. "open a raid goal on My Goals first (Molten Core, Onyxia, Naxxramas...).")
+            return
+        end
+        local on = not FGT.lockouts[inst[1]]
+        FGT.lockouts[inst[1]] = on and (time() + 3 * 86400) or nil
+        FGT.lockouts[inst[2]] = nil
+        SelectGoal(selectedId, true)
+        print(TAG .. (on and ("previewing a lockout for " .. inst[2] .. ".") or "lockout preview off."))
+        return
+    end
     if msg == "testnew" then
         -- Preview: shows the open goal as "new in Forever" until /reload.
         if not selectedId then
