@@ -123,6 +123,7 @@ There's no automated test suite. Testing happens in the Forever beta: edit, `/re
 Releases are automatic: pushing a version tag runs `.github/workflows/release.yml` (BigWigsMods/packager), which builds the zip (leaving out everything in `.pkgmeta`'s ignore list) and uploads it to CurseForge for 1.60.1 (Forever) and 1.15.9 (Classic Era), using `CHANGELOG.md` as the release notes.
 
 1. Turn the CHANGELOG's `## Unreleased` section into `## X.Y.Z` and bump `## Version:` in the `.toc`.
+   **Keep the CHANGELOG short and player-facing (Karl, 2026-10-07).** It is the CurseForge release notes. Name only the big features and things players will notice and care about, one plain line each. Roll polish (animations, spacing, colors, hover effects, wording) into a single "UI improvements" line and fixes into "Bug fixes". Don't describe how things look or work in detail. The detailed record lives in git history and CLAUDE.md.
 2. **Store page check** (tell Karl the result every release, even when it's "nothing to update"):
    - **Screenshots:** compare the release's changes with the shot map in "Screenshots and store page" below and name which shots are stale. Patch releases usually need none; minor releases get a check; a visible headline feature may deserve a new shot (add a demo scene for it first).
    - **CurseForge description:** does it still describe the addon correctly (goal count, features, goals list)?
