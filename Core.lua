@@ -2555,6 +2555,17 @@ local function RefreshGoalList()
             row:SetEtch(STYLE.row)
             row.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
         end
+        -- the open goal: a very slow, faint streak around its border, like
+        -- a picked interest tile (added the first time a card is opened;
+        -- the comet code loads after this list's first draw)
+        if isSelected and not row.comet and FGT.AddBorderComet then
+            FGT.AddBorderComet(row, 2, 0.3, 10)
+            row.comet.vis = 0 -- fades in
+        end
+        if row.comet then
+            row.comet.on = isSelected
+            row.comet.color = isNew and C.FOREVER_LIGHT or nil
+        end
         local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
         local fav = favs[row.goal.id] and true or false
         row.star:SetShown(fav)
@@ -4013,6 +4024,7 @@ do
     -- a straight piece on edge 1-4; a and b run along the edge from its first corner
     local function Place(f, tex, edge, a, b, fa, fb)
         local w, h, c = f:GetWidth(), f:GetHeight(), f.comet.inset + T / 2
+        local GOLD = f.comet.color or GOLD -- optional tint (blue on Forever-new goals)
         tex:ClearAllPoints()
         if edge == 1 then -- top, left to right
             tex:SetPoint("TOPLEFT", f, "TOPLEFT", c + a, -(c - T / 2))
@@ -4109,7 +4121,8 @@ do
                             dot:ClearAllPoints()
                             dot:SetPoint("TOPLEFT", f, "TOPLEFT", px - T / 2, -(py - T / 2))
                             dot:SetSize(T, T)
-                            dot:SetVertexColor(GOLD[1], GOLD[2], GOLD[3], al)
+                            local g = cm.color or GOLD
+                            dot:SetVertexColor(g[1], g[2], g[3], al)
                             dot:Show()
                         end
                     end
