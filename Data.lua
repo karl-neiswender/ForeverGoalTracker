@@ -283,7 +283,8 @@ FGT.goals = {
             { text = "Turn in 'Winterfall Intrusion' daily until Friendly.", auto = { rep = { faction = 589, standing = 5 } } },
             { text = "Reach Honored, then add 'Rampaging Giants' to your dailies.", auto = { rep = { faction = 589, standing = 6 } } },
             { text = "Reach Exalted with the Wintersaber Trainers.", auto = { rep = { faction = 589, standing = 8 } } },
-            { text = "Reach Exalted with Darnassus to learn Frostsaber riding (Night Elves skip this).", auto = { rep = { faction = 69, standing = 8 }, race = "NightElf" } },
+            { text = "Reach Exalted with Darnassus to learn Frostsaber riding (Night Elves skip this).", auto = { rep = { faction = 69, standing = 8 } },
+              skipIfRace = "NightElf" }, -- hidden while you play a Night Elf (FGT.PieceSkipped)
             { text = "Buy the Reins of the Winterspring Frostsaber from Rivern Frostwind (about 900 gold).", auto = { item = 13086, owned = { "Winterspring Frostsaber" } } },
         },
         tips = {

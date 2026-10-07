@@ -72,8 +72,8 @@ local Atan2 = math.atan2 or function(y, x)
 end
 
 local LIST_WIDTH   = 216
-local FRAME_WIDTH  = 700
-local FRAME_HEIGHT = 560
+local FRAME_WIDTH  = 1020 -- default size, 3:2 (FGT.DefaultSize fits it to small screens)
+local FRAME_HEIGHT = 680
 local MIN_FRAME_WIDTH  = 520
 local MIN_FRAME_HEIGHT = 360
 local MAX_FRAME_WIDTH  = 1100
@@ -106,6 +106,19 @@ local function ClampFrameSize(w, h)
     local cw = math.max(MIN_FRAME_WIDTH, math.min(maxW, w or FRAME_WIDTH))
     local ch = math.max(MIN_FRAME_HEIGHT, math.min(maxH, h or FRAME_HEIGHT))
     return cw, ch
+end
+
+-- The default window size: 3:2, as large as FRAME_WIDTH x FRAME_HEIGHT,
+-- shrunk evenly (keeping the shape) when the screen is smaller.
+function FGT.DefaultSize()
+    local maxW, maxH = GetEffectiveMaxSize()
+    local w = math.min(FRAME_WIDTH, maxW)
+    local h = math.floor(w * 2 / 3)
+    if h > maxH then
+        h = maxH
+        w = math.floor(h * 3 / 2)
+    end
+    return ClampFrameSize(w, h)
 end
 
 -- ============================================================
@@ -210,11 +223,16 @@ local function EnsureDB()
     if ForeverGoalTrackerDB.sortMode == nil then
         ForeverGoalTrackerDB.sortMode = "alpha"
     end
-    if ForeverGoalTrackerDB.frameWidth == nil then
-        ForeverGoalTrackerDB.frameWidth = FRAME_WIDTH
+    if ForeverGoalTrackerDB.frameWidth == nil or ForeverGoalTrackerDB.frameHeight == nil then
+        ForeverGoalTrackerDB.frameWidth, ForeverGoalTrackerDB.frameHeight = FGT.DefaultSize()
     end
-    if ForeverGoalTrackerDB.frameHeight == nil then
-        ForeverGoalTrackerDB.frameHeight = FRAME_HEIGHT
+    -- One-time: windows still at the old default (700 x 560, never
+    -- resized) move to the new 3:2 default. A size someone dragged stays.
+    if not ForeverGoalTrackerDB.sizeFix250 then
+        if ForeverGoalTrackerDB.frameWidth == 700 and ForeverGoalTrackerDB.frameHeight == 560 then
+            ForeverGoalTrackerDB.frameWidth, ForeverGoalTrackerDB.frameHeight = FGT.DefaultSize()
+        end
+        ForeverGoalTrackerDB.sizeFix250 = true
     end
 end
 
@@ -611,8 +629,8 @@ end
 -- hidden (and left out of every count) while you play that race, who
 -- can buy the mount without the reputation.
 function FGT.PieceSkipped(piece)
-    local race = piece.skipIfRace
-    return race ~= nil and UnitRace ~= nil and select(2, UnitRace("player")) == race
+    local race = type(piece) == "table" and piece.skipIfRace
+    return race and UnitRace ~= nil and select(2, UnitRace("player")) == race or false
 end
 
 local function ItemTotal(ids, roster)
@@ -869,7 +887,7 @@ local function GoalProgress(goal)
 
     local done, total = 0, 0
     for i = 1, #goal.steps do
-        if PartSelected(goal, i) then
+        if PartSelected(goal, i) and not FGT.PieceSkipped(goal.steps[i]) then
             total = total + 1
             if IsStepDone(goal.id, i) then
                 done = done + 1
@@ -935,7 +953,7 @@ function FGT.NextStep(goal)
         return nil
     end
     for i, entry in ipairs(goal.steps) do
-        if PartSelected(goal, i) then
+        if PartSelected(goal, i) and not FGT.PieceSkipped(entry) then
             local text = type(entry) == "table" and entry.text or entry
             if IsAutoStep(entry) then
                 if AutoStepFraction(entry) < 1 then return text .. " to level " .. MAX_LEVEL end
@@ -1463,7 +1481,86 @@ local function NewBar(parent, height)
             self:SetScript("OnUpdate", Step)
         end
     end
+    FGT.allBars = FGT.allBars or {}
+    table.insert(FGT.allBars, bar) -- for the idle glint below
     return bar
+end
+
+-- Idle glint: every few seconds a faint light sweeps across the filled
+-- part of each visible progress bar, top to bottom as a gentle wave.
+-- It stays inside the fill (a clip frame on it), skips empty and
+-- finished bars, and only plays with Celebrations on Full. Its own
+-- driver, so it never takes over a bar's glide or 100% shine.
+do
+    local EVERY, SWEEP, WAVE = 4.5, 2.4, 0.08 -- seconds between, one slow sweep, delay per bar
+    local LIGHT = { 1.00, 0.96, 0.80 }
+    local active = {}
+    local wait = 1.5
+    local function Glint(bar)
+        if bar.glint then return bar.glint end
+        local clip = CreateFrame("Frame", nil, bar)
+        clip:SetPoint("TOPLEFT", bar.fill, "TOPLEFT", 0, 0)
+        clip:SetPoint("BOTTOMRIGHT", bar.fill, "BOTTOMRIGHT", 0, 0)
+        if clip.SetClipsChildren then pcall(clip.SetClipsChildren, clip, true) end
+        local g = { clip = clip }
+        g.l = clip:CreateTexture(nil, "OVERLAY")
+        g.r = clip:CreateTexture(nil, "OVERLAY")
+        for _, t in ipairs({ g.l, g.r }) do
+            t:SetTexture(SOLID)
+            t:SetBlendMode("ADD")
+            t:SetVertexColor(0, 0, 0, 0) -- new textures start white and shown:
+            t:Hide()                     -- keep them dark until the sweep draws them
+            t:SetPoint("TOP", clip, "TOP", 0, 0)
+            t:SetPoint("BOTTOM", clip, "BOTTOM", 0, 0)
+        end
+        g.r:SetPoint("LEFT", g.l, "RIGHT", 0, 0)
+        bar.glint = g
+        return g
+    end
+    local driver = CreateFrame("Frame")
+    driver:SetScript("OnUpdate", function(_, elapsed)
+        wait = wait - elapsed
+        if wait <= 0 then
+            wait = EVERY
+            if FGT.Setting and FGT.Setting("celebrations") == "full" then
+                local list = {}
+                for _, bar in ipairs(FGT.allBars or {}) do
+                    if bar:IsVisible() and bar.fill:IsShown() and bar.look ~= "done" and (bar.cur or 0) > 0.02 then
+                        table.insert(list, bar)
+                    end
+                end
+                table.sort(list, function(a, b) return (a:GetTop() or 0) > (b:GetTop() or 0) end)
+                for i, bar in ipairs(list) do active[bar] = -(i - 1) * WAVE end
+            end
+        end
+        for bar, t in pairs(active) do
+            t = t + elapsed
+            active[bar] = t
+            local g = Glint(bar)
+            if t >= 0 then
+                local p = t / SWEEP
+                local fw = bar.fill:GetWidth()
+                if p >= 1 or not bar:IsVisible() then
+                    g.l:Hide(); g.r:Hide()
+                    active[bar] = nil
+                else
+                    -- a wide, soft band gliding at an even pace (like a text shimmer)
+                    local half = math.max(8, math.min(70, fw * 0.35))
+                    local x = -2 * half + (fw + 2 * half) * p
+                    local a = 0.22 * math.sin(math.pi * p) -- fades in, then out
+                    g.l:SetWidth(half)
+                    g.r:SetWidth(half)
+                    g.l:ClearAllPoints()
+                    g.l:SetPoint("TOP", g.clip, "TOP", 0, 0)
+                    g.l:SetPoint("BOTTOM", g.clip, "BOTTOM", 0, 0)
+                    g.l:SetPoint("LEFT", g.clip, "LEFT", x, 0)
+                    ApplyHGradient(g.l, LIGHT, LIGHT, 0, a)
+                    ApplyHGradient(g.r, LIGHT, LIGHT, a, 0)
+                    g.l:Show(); g.r:Show()
+                end
+            end
+        end
+    end)
 end
 
 -- ============================================================
@@ -1511,6 +1608,7 @@ local function MakeShine(f, height)
     for _, t in ipairs({ f.shineL, f.shineC, f.shineR }) do
         t:SetTexture(SOLID)
         t:SetBlendMode("ADD")
+        t:SetVertexColor(0, 0, 0, 0)
         t:SetHeight(height)
         t:Hide()
     end
@@ -1532,7 +1630,8 @@ end
 -- while it keeps moving, with the bright core going first so it never
 -- shrinks to a thin line.
 local function ShineFrame(f, sh, inset)
-    local travel = math.max(0, f:GetWidth() - 103 - 2 * inset)
+    local band = f.shineL:GetWidth() + f.shineC:GetWidth() + f.shineR:GetWidth()
+    local travel = math.max(0, f:GetWidth() - band - 2 * inset)
     f.shineL:ClearAllPoints()
     f.shineL:SetPoint("LEFT", f, "LEFT", inset + travel * sh, 0)
     local a = Clamp01(sh / 0.15)
@@ -1685,7 +1784,7 @@ end
 -- a gold shine runs along it. Called by the bar itself (bar.celebrate).
 local function BarShineStep(self, elapsed)
     self.shineT = self.shineT + elapsed
-    local sh = Clamp01(self.shineT / 0.6)
+    local sh = Clamp01(self.shineT / 0.9)
     ShineFrame(self, sh, 1)
     if sh >= 1 then
         self:SetScript("OnUpdate", nil)
@@ -1696,6 +1795,10 @@ end
 function FGT.BarShine(bar)
     if FGT.Setting("celebrations") ~= "full" then return end
     if not bar.shineL then MakeShine(bar, math.max(2, bar:GetHeight() - 2)) end
+    -- a wide soft band sized to the bar (like the idle glint), bright core in the middle
+    local side = math.max(12, math.min(70, bar:GetWidth() * 0.35))
+    bar.shineL:SetWidth(side)
+    bar.shineR:SetWidth(side)
     bar.shineT = 0
     ShineFrame(bar, 0, 1)
     ShowShine(bar, true)
@@ -2078,7 +2181,7 @@ end)
 local titleBar = CreateFrame("Frame", nil, main)
 titleBar:SetPoint("TOPLEFT", 0, 0)
 titleBar:SetPoint("TOPRIGHT", 0, 0)
-titleBar:SetHeight(52)
+titleBar:SetHeight(56)
 titleBar:EnableMouse(true)
 titleBar:RegisterForDrag("LeftButton")
 titleBar:SetScript("OnDragStart", BeginMove)
@@ -2088,7 +2191,7 @@ titleBar:SetScript("OnDragStop", EndMove)
 -- underline that fades out to the right.
 local title = NewTitleString(titleBar, 20)
 title:SetText(FGT.NAME)
-title:SetPoint("TOPLEFT", 16, -10)
+title:SetPoint("TOPLEFT", 16, -14)
 
 local tagline = NewFontString(titleBar, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
 tagline:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -3)
@@ -2117,16 +2220,16 @@ closeBtn:SetScript("OnClick", function() main:Hide() end)
 
 -- Overall progress bar
 local overallBar = NewBar(main, 8)
-overallBar:SetPoint("TOPLEFT", 16, -66)
-overallBar:SetPoint("TOPRIGHT", -16, -66)
+overallBar:SetPoint("TOPLEFT", 16, -70)
+overallBar:SetPoint("TOPRIGHT", -16, -70)
 
 -- "N of 9 goals complete" summary line under the overall bar
 local goalsCompleteText = NewFontString(main, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
 goalsCompleteText:SetPoint("TOPLEFT", overallBar, "BOTTOMLEFT", 0, -4)
 
 -- Tabs sit between the overall bar and the panels.
-local TABS_TOP = -98
-local PANEL_TOP = -138
+local TABS_TOP = -102
+local PANEL_TOP = -142
 
 -- Left panel (goal list) - "sticky": a fixed width set once via SetWidth,
 -- never a second horizontal anchor, so resizing the window never
@@ -2159,7 +2262,7 @@ local sortModeIndex = 1
 -- Styled like the site's toolbar buttons: #3a3a3a, lighter on hover.
 local sortBar = CreateFrame("Button", nil, listPanel, "BackdropTemplate")
 sortBar:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 6, -6)
-sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6, -6)
+sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 58, -6) -- room for Clear
 sortBar:SetHeight(22)
 Etch(sortBar, STYLE.button, 10)
 local sortLabel = NewFontString(sortBar, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
@@ -2744,13 +2847,13 @@ function FGT.UpdateExpandAll(goal)
     if not goal.sections or FGT.SelectedPartCount(goal) < 2 then b:Hide() return end
     local anyClosed = false
     for si in ipairs(goal.sections) do
-        if PartSelected(goal, si) and not FGT.sectionOpen[goal.id .. "_" .. si] then anyClosed = true end
+        if PartSelected(goal, si) and not FGT.SectionIsOpen(goal, si) then anyClosed = true end
     end
     b.text:SetText(anyClosed and "Expand all" or "Collapse all")
     b:SetSize(math.ceil(b.text:GetStringWidth()) + 4, 16)
     b:SetScript("OnClick", function()
         for si in ipairs(goal.sections) do
-            if PartSelected(goal, si) then FGT.sectionOpen[goal.id .. "_" .. si] = anyClosed or nil end
+            if PartSelected(goal, si) then FGT.sectionOpen[goal.id .. "_" .. si] = anyClosed end
         end
         SelectGoal(goal.id, true) -- (RefreshSteps is declared further down)
     end)
@@ -3033,7 +3136,14 @@ end
 -- Tier 3 collapsible class headers
 -- ============================================================
 local headerRowPool = {}
-FGT.sectionOpen = {} -- "goalId_section" -> true while that group is open
+FGT.sectionOpen = {} -- "goalId_section" -> true (opened) / false (closed by you); nil = default
+-- Default: a goal with just one chosen part (one mount, one class's set)
+-- shows it open; with several, they start closed.
+function FGT.SectionIsOpen(goal, si)
+    local v = FGT.sectionOpen[goal.id .. "_" .. si]
+    if v == nil then return FGT.SelectedPartCount(goal) == 1 end
+    return v
+end
 FGT.pieceExpanded = {} -- "goalId_section_piece" -> true while its materials are shown
 
 local function GetHeaderRow(index)
@@ -3132,23 +3242,40 @@ end
 
 -- Tips: advice with no checkbox (goal.tips), listed under the steps.
 -- Lives on FGT to stay clear of the main chunk's local limit.
+-- Tips fold open and closed under a "+ Tips (3)" header; closed by
+-- default, remembered per goal until /reload.
+FGT.tipsOpen = {}
 function FGT.LayoutTips(goal, yOffset, width)
     local T = FGT.tipsUI
     if not T then
         T = { rows = {} }
         T.line = NewFadeLine(stepsContainer)
-        T.header = NewTitleString(stepsContainer, 12)
-        T.header:SetText("Tips")
+        T.btn = CreateFrame("Button", nil, stepsContainer)
+        T.arrow = NewFontString(T.btn, 12, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
+        T.arrow:SetPoint("LEFT", T.btn, "LEFT", 0, 0)
+        T.header = NewTitleString(T.btn, 12)
+        T.header:SetPoint("LEFT", T.btn, "LEFT", 14, 0)
+        T.count = NewFontString(T.btn, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        T.count:SetPoint("LEFT", T.header, "RIGHT", 6, 0)
+        T.btn:SetScript("OnEnter", function() T.header:SetTextColor(1, 1, 1) end)
+        T.btn:SetScript("OnLeave", function() T.header:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
+        T.btn:SetScript("OnClick", function()
+            local id = T.goalId
+            FGT.tipsOpen[id] = not FGT.tipsOpen[id] or nil
+            SelectGoal(id, true)
+        end)
         FGT.tipsUI = T
     end
     local tips = goal.tips or {}
-    for i = #tips + 1, #T.rows do
+    local open = FGT.tipsOpen[goal.id]
+    T.goalId = goal.id
+    for i = (open and #tips or 0) + 1, #T.rows do
         T.rows[i]:Hide()
         T.rows[i].dot:Hide()
     end
     if #tips == 0 then
         T.line:Hide()
-        T.header:Hide()
+        T.btn:Hide()
         return yOffset
     end
 
@@ -3157,11 +3284,17 @@ function FGT.LayoutTips(goal, yOffset, width)
     T.line:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
     T.line:SetPoint("RIGHT", stepsContainer, "RIGHT", -16, 0)
     T.line:Show()
-    yOffset = yOffset + 11
-    T.header:ClearAllPoints()
-    T.header:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
-    T.header:Show()
-    yOffset = yOffset + (T.header:GetStringHeight() or 12) + 10
+    yOffset = yOffset + 9
+    T.header:SetText("Tips")
+    T.arrow:SetText(open and "-" or "+")
+    T.count:SetText(open and "" or ("(" .. #tips .. ")"))
+    local hh = (T.header:GetStringHeight() or 12) + 6
+    T.btn:ClearAllPoints()
+    T.btn:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
+    T.btn:SetSize(math.ceil(T.header:GetStringWidth() + T.count:GetStringWidth()) + 40, hh)
+    T.btn:Show()
+    yOffset = yOffset + hh + (open and 8 or 4)
+    if not open then return yOffset end
 
     for i, tip in ipairs(tips) do
         local row = T.rows[i]
@@ -3206,7 +3339,7 @@ local function RefreshTierSections(goal)
         header:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
 
         local openKey = goal.id .. "_" .. si
-        local expanded = FGT.sectionOpen[openKey]
+        local expanded = FGT.SectionIsOpen(goal, si)
         header.arrow:SetText(expanded and "-" or "+")
         -- a part that's new in Forever (the Skyborne mount): blue look + NEW
         local partNew = FGT.ApplyForeverLook(header, section)
@@ -3227,15 +3360,15 @@ local function RefreshTierSections(goal)
         FGT.CheckCelebration(header, openKey, header.complete, FGT.CelebrateRow)
         if justDone and expanded then
             C_Timer.After(1.4, function()
-                if FGT.sectionOpen[openKey] and selectedId == goal.id then
-                    FGT.sectionOpen[openKey] = nil
+                if FGT.SectionIsOpen(goal, si) and selectedId == goal.id then
+                    FGT.sectionOpen[openKey] = false
                     RefreshSteps(goal)
                 end
             end)
         end
 
         header:SetScript("OnClick", function()
-            FGT.sectionOpen[openKey] = not FGT.sectionOpen[openKey] or nil
+            FGT.sectionOpen[openKey] = not FGT.SectionIsOpen(goal, si)
             RefreshSteps(goal)
         end)
         header:Show()
@@ -3365,8 +3498,8 @@ RefreshSteps = function(goal)
         local stepText = FGT.StepText(type(entry) == "table" and entry.text or entry)
         local stepIcon = type(entry) == "table" and entry.icon or nil
         local row = GetStepRow(i)
-        if not PartSelected(goal, i) then
-            row:Hide() -- part of a group you haven't added
+        if not PartSelected(goal, i) or FGT.PieceSkipped(entry) then
+            row:Hide() -- part of a group you haven't added, or a step your race skips
         else
         shown = shown + 1
         row:SetParent(stepsContainer)
@@ -3682,14 +3815,140 @@ libraryTab:SetPoint("LEFT", trackerTab, "RIGHT", 6, 0)
 -- the goal list lines up with the right edge of the Goal Library tab
 listPanel:SetWidth(trackerTab:GetWidth() + 6 + libraryTab:GetWidth())
 
+-- A bright gold streak that circles a button's border, fading out behind
+-- it like a comet's tail (talentsforever.com's "Back to Class" button).
+-- It follows the border's rounded corners and eases in and out on each
+-- lap (4.5 s). Still when Celebrations are off. inset = where the
+-- border line starts inside the frame.
+do
+    local LAP, T, R, DOTS = 4.5, 2, 4, 4 -- lap time, line width, corner radius, dots per corner
+    local GOLD = { 1.00, 0.89, 0.48 }
+    -- arc centers (from the frame's corners) and start angles, in order
+    local ARCS = {
+        tr = { 1, 0, -90 }, br = { 1, 1, 0 }, bl = { 0, 1, 90 }, tl = { 0, 0, 180 },
+    }
+    -- a straight piece on edge 1-4; a and b run along the edge from its first corner
+    local function Place(f, tex, edge, a, b, fa, fb)
+        local w, h, c = f:GetWidth(), f:GetHeight(), f.comet.inset + T / 2
+        tex:ClearAllPoints()
+        if edge == 1 then -- top, left to right
+            tex:SetPoint("TOPLEFT", f, "TOPLEFT", c + a, -(c - T / 2))
+            tex:SetSize(b - a, T)
+            ApplyHGradient(tex, GOLD, GOLD, fa, fb)
+        elseif edge == 2 then -- right, top to bottom
+            tex:SetPoint("TOPLEFT", f, "TOPLEFT", w - c - T / 2, -(c + a))
+            tex:SetSize(T, b - a)
+            ApplyVGradient(tex, GOLD, GOLD, fa, fb)
+        elseif edge == 3 then -- bottom, right to left
+            tex:SetPoint("TOPLEFT", f, "TOPLEFT", w - c - b, -(h - c - T / 2))
+            tex:SetSize(b - a, T)
+            ApplyHGradient(tex, GOLD, GOLD, fb, fa)
+        else -- left, bottom to top
+            tex:SetPoint("TOPLEFT", f, "TOPLEFT", c - T / 2, -(h - c - b))
+            tex:SetSize(T, b - a)
+            ApplyVGradient(tex, GOLD, GOLD, fb, fa)
+        end
+        tex:Show()
+    end
+    local function Tex(cm, pool, i)
+        local tex = cm[pool][i]
+        if not tex then
+            tex = cm.layer:CreateTexture(nil, "OVERLAY")
+            tex:SetTexture(SOLID)
+            tex:SetBlendMode("ADD")
+            cm[pool][i] = tex
+        end
+        return tex
+    end
+    local function Draw(f)
+        local cm = f.comet
+        local w, h = f:GetWidth(), f:GetHeight()
+        local c = cm.inset + T / 2
+        local lw, lh = w - 2 * c - 2 * R, h - 2 * c - 2 * R
+        local n, nd = 0, 0
+        if lw > 0 and lh > 0 and FGT.Setting("celebrations") ~= "off" then
+            local A = math.pi * R / 2
+            local segs = { { 1, lw }, { "tr", A }, { 2, lh }, { "br", A }, { 3, lw }, { "bl", A }, { 4, lh }, { "tl", A } }
+            local P = 2 * (lw + lh) + 4 * A
+            -- gentle ease: a little slower at the start of a lap, quicker
+            -- through the middle, never below half speed (no "stuck" look)
+            local x = (cm.t / LAP) % 1
+            x = x - 0.5 * math.sin(2 * math.pi * x) / (2 * math.pi)
+            local peak = x * P
+            local tail, head = P * 0.22, P * 0.08
+            local function Alpha(pos)
+                local u = (pos - peak) % P
+                if u > P / 2 then u = u - P end
+                if u <= 0 and u >= -tail then return cm.alpha * (1 + u / tail) end
+                if u > 0 and u <= head then return cm.alpha * (1 - u / head) end
+                return 0
+            end
+            local pieces = { { peak - tail, peak, 0, cm.alpha }, { peak, peak + head, cm.alpha, 0 } }
+            local start = 0
+            for _, sg in ipairs(segs) do
+                local kind, len = sg[1], sg[2]
+                if type(kind) == "number" then
+                    for _, pc in ipairs(pieces) do
+                        for shift = -P, P, P do -- the streak wraps past the start
+                            local a0, a1 = pc[1] + shift, pc[2] + shift
+                            local s0, s1 = math.max(a0, start), math.min(a1, start + len)
+                            if s1 - s0 > 0.5 then
+                                local fa = pc[3] + (pc[4] - pc[3]) * (s0 - a0) / (a1 - a0)
+                                local fb = pc[3] + (pc[4] - pc[3]) * (s1 - a0) / (a1 - a0)
+                                n = n + 1
+                                Place(f, Tex(cm, "tex", n), kind, R + s0 - start, R + s1 - start, fa, fb)
+                            end
+                        end
+                    end
+                else
+                    -- a rounded corner: a few small dots along the quarter circle
+                    local arc = ARCS[kind]
+                    local cx = (arc[1] == 1) and (w - c - R) or (c + R)
+                    local cy = (arc[2] == 1) and (h - c - R) or (c + R)
+                    for k = 0, DOTS - 1 do
+                        local q = (k + 0.5) / DOTS
+                        local al = Alpha(start + q * len)
+                        if al > 0.02 then
+                            local ang = math.rad(arc[3] + 90 * q)
+                            local px, py = cx + R * math.cos(ang), cy + R * math.sin(ang)
+                            nd = nd + 1
+                            local dot = Tex(cm, "dots", nd)
+                            dot:ClearAllPoints()
+                            dot:SetPoint("TOPLEFT", f, "TOPLEFT", px - T / 2, -(py - T / 2))
+                            dot:SetSize(T, T)
+                            dot:SetVertexColor(GOLD[1], GOLD[2], GOLD[3], al)
+                            dot:Show()
+                        end
+                    end
+                end
+                start = start + len
+            end
+        end
+        for i = n + 1, #cm.tex do cm.tex[i]:Hide() end
+        for i = nd + 1, #cm.dots do cm.dots[i]:Hide() end
+    end
+    function FGT.AddBorderComet(f, inset, alpha)
+        local layer = CreateFrame("Frame", nil, f)
+        layer:SetAllPoints()
+        layer:SetFrameLevel(f:GetFrameLevel() + 3)
+        f.comet = { inset = inset or 2, alpha = alpha or 0.9, t = 0, tex = {}, dots = {}, layer = layer }
+        layer:SetScript("OnUpdate", function(_, elapsed)
+            f.comet.t = f.comet.t + elapsed
+            Draw(f)
+        end)
+    end
+end
+
 -- Empty tracker (first open, or every goal removed): cobwebs in the
 -- goal list's top corners like an empty quest log, a quiet "Empty"
 -- label, and on the right a short note with a button to the Library.
 local emptyNote = NewFontString(detailPanel, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
 emptyNote:SetPoint("CENTER", detailPanel, "CENTER", 0, 24)
-emptyNote:SetWidth(320)
+emptyNote:SetWidth(380)
 emptyNote:SetJustifyH("CENTER")
-emptyNote:SetText("No goals on your tracker yet.\n\nGet a few picked for you, or choose your own from the Goal Library.")
+-- Lines are broken by hand (no single word left on a line); the box is
+-- wide enough that none of them wraps on its own.
+emptyNote:SetText("No goals on your tracker yet.\n\nGet a few picked for your character,\nor choose your own.")
 emptyNote:Hide()
 
 do
@@ -3713,30 +3972,30 @@ do
     E.label:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
     E.label:SetShadowColor(0, 0, 0, 1)
 
-    E.button = CreateFrame("Button", nil, detailPanel, "BackdropTemplate")
-    E.button:SetHeight(28)
-    Etch(E.button, STYLE.button, 10)
-    E.button.text = NewTitleString(E.button, 12)
-    E.button.text:SetPoint("CENTER", 0, 0)
-    E.button.text:SetText("Browse the Goal Library")
-    E.button:SetWidth(math.ceil(E.button.text:GetStringWidth()) + 40)
-    E.button:SetPoint("TOPLEFT", emptyNote, "BOTTOM", 6, -16)
-    E.button:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
-    E.button:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
-    E.button:SetScript("OnClick", function() if FGT.ShowTab then FGT.ShowTab("library") end end)
-
-    -- the welcome wizard's suggestions, straight to "What interests you?"
+    -- Primary: the welcome wizard's suggestions, straight to "What interests you?"
     E.help = CreateFrame("Button", nil, detailPanel, "BackdropTemplate")
-    E.help:SetHeight(28)
-    Etch(E.help, STYLE.rowSel, 10)
-    E.help.text = NewTitleString(E.help, 12)
+    E.help:SetHeight(36)
+    Etch(E.help, STYLE.rowSel, 12)
+    E.help.text = NewTitleString(E.help, 14)
     E.help.text:SetPoint("CENTER", 0, 0)
     E.help.text:SetText("Help me get started")
-    E.help:SetWidth(math.ceil(E.help.text:GetStringWidth()) + 40)
-    E.help:SetPoint("TOPRIGHT", emptyNote, "BOTTOM", -6, -16)
+    E.help:SetWidth(math.ceil(E.help.text:GetStringWidth()) + 64)
+    E.help:SetPoint("TOP", emptyNote, "BOTTOM", 0, -20)
     E.help:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
     E.help:SetScript("OnLeave", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
     E.help:SetScript("OnClick", function() if FGT.OpenWelcome then FGT.OpenWelcome(2) end end)
+    FGT.AddBorderComet(E.help, 2, 0.9)
+
+    -- Secondary: a quiet text link under it
+    E.button = CreateFrame("Button", nil, detailPanel)
+    E.button.text = NewFontString(E.button, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    E.button.text:SetPoint("CENTER", 0, 0)
+    E.button.text:SetText("or browse the Goal Library")
+    E.button:SetSize(math.ceil(E.button.text:GetStringWidth()) + 12, 22)
+    E.button:SetPoint("TOP", E.help, "BOTTOM", 0, -10)
+    E.button:SetScript("OnEnter", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
+    E.button:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
+    E.button:SetScript("OnClick", function() if FGT.ShowTab then FGT.ShowTab("library") end end)
 
     E.parts = { E.webL, E.webR, E.label, E.button, E.help }
     for _, p in ipairs(E.parts) do p:Hide() end
@@ -3745,6 +4004,7 @@ end
 
 local detailParts -- every detail-panel element hidden by the empty state
 function FGT.ShowEmptyTracker()
+    local appearing = not emptyNote:IsVisible()
     selectedId = nil
     for _, part in ipairs(detailParts) do part:Hide() end
     emptyNote:Show()
@@ -3752,7 +4012,36 @@ function FGT.ShowEmptyTracker()
     sortBar:Hide() -- nothing to sort
     RefreshGoalList()
     RefreshOverall()
+    -- the message, button and link fade (and rise) in when they appear
+    if appearing then FGT.AnimateEmpty() end
 end
+-- The message, button and link sit in one container that fades in while
+-- growing from 94% (no slide), when they appear and when the window
+-- opens on an empty tracker. Subtle: fade only. Off: instant.
+do
+    local cluster = CreateFrame("Frame", nil, detailPanel)
+    cluster:SetSize(1, 1)
+    cluster:SetPoint("CENTER", detailPanel, "CENTER", 0, 24)
+    emptyNote:SetParent(cluster)
+    emptyNote:ClearAllPoints()
+    emptyNote:SetPoint("CENTER", cluster, "CENTER", 0, 0)
+    FGT.emptyUI.help:SetParent(cluster)
+    FGT.emptyUI.button:SetParent(cluster)
+    FGT.emptyCluster = cluster
+end
+function FGT.AnimateEmpty()
+    local W, cl = FGT.welcome, FGT.emptyCluster
+    if not (W and W.Tween) then return end
+    local full = W.Motion() == "full"
+    W.Tween("empty", 0.7, function(p)
+        local e = W.EaseOut(p)
+        cl:SetAlpha(e)
+        cl:SetScale(full and (0.94 + 0.06 * e) or 1)
+    end, function() cl:SetAlpha(1); cl:SetScale(1) end)
+end
+main:HookScript("OnShow", function()
+    if emptyNote:IsShown() then FGT.AnimateEmpty() end
+end)
 function FGT.HideEmptyTracker()
     if not emptyNote:IsShown() then return end
     emptyNote:Hide()
@@ -3763,6 +4052,84 @@ end
 detailParts = { detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
     detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
     FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn }
+
+-- "Clear" next to the sort bar: removes every goal from My Goals in one
+-- go, after a confirm in the right-click menu's style. Progress is kept
+-- (adding a goal back brings its ticks back), like removing one goal.
+do
+    local btn = CreateFrame("Button", nil, sortBar, "BackdropTemplate") -- hides with the sort bar
+    btn:SetSize(52, 22)
+    btn:SetPoint("LEFT", sortBar, "RIGHT", 6, 0)
+    Etch(btn, STYLE.button, 10)
+    btn.text = NewFontString(btn, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    btn.text:SetPoint("CENTER", 0, 0)
+    btn.text:SetText("Clear")
+    btn:SetScript("OnEnter", function(self)
+        self:SetEtch(STYLE.btnHover)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine("Remove all goals", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine("Your progress is kept if you add them back.", 0.9, 0.9, 0.9, true)
+        GameTooltip:Show()
+    end)
+    btn:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button); GameTooltip:Hide() end)
+
+    local M = CreateFrame("Frame", nil, main, "BackdropTemplate")
+    M:SetFrameLevel(main:GetFrameLevel() + 60)
+    M:SetWidth(200)
+    M:SetHeight(2 * MENU_ROW + 8)
+    Etch(M, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
+    M:EnableMouse(true)
+    M:Hide()
+    M.catcher = CreateFrame("Button", nil, main)
+    M.catcher:SetAllPoints(main)
+    M.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
+    M.catcher:RegisterForClicks("AnyUp")
+    M.catcher:Hide()
+    local function Close() M:Hide(); M.catcher:Hide() end
+    M.catcher:SetScript("OnClick", Close)
+    main:HookScript("OnHide", Close)
+    M.rows = {}
+    for i = 1, 2 do
+        local row = CreateFrame("Button", nil, M)
+        row:SetHeight(MENU_ROW)
+        row:SetPoint("TOPLEFT", M, "TOPLEFT", 4, -4 - (i - 1) * MENU_ROW)
+        row:SetPoint("TOPRIGHT", M, "TOPRIGHT", -4, -4 - (i - 1) * MENU_ROW)
+        row.hl = row:CreateTexture(nil, "BACKGROUND")
+        row.hl:SetTexture(SOLID)
+        row.hl:SetAllPoints(row)
+        ApplyHGradient(row.hl, C.ACCENT, C.ACCENT, 0.18, 0.02)
+        row.hl:Hide()
+        row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+        row.label:SetPoint("LEFT", row, "LEFT", 8, 0)
+        row:SetScript("OnEnter", function(self) self.hl:Show() end)
+        row:SetScript("OnLeave", function(self) self.hl:Hide() end)
+        M.rows[i] = row
+    end
+    FGT.clearMenu = M
+    M.rows[1].label:SetTextColor(1.00, 0.50, 0.42)
+    M.rows[2].label:SetText("Cancel")
+    M.rows[2]:SetScript("OnClick", Close)
+    M.rows[1]:SetScript("OnClick", function()
+        Close()
+        local DB = ForeverGoalTrackerDB
+        DB.active = {}
+        for id in pairs(DB.activeParts) do DB.activeParts[id] = {} end
+        DB.favorites = {}
+        SelectGoal(nil)
+        LayoutGoalList()
+        FGT.RefreshOverall()
+        if FGT.LayoutLibrary then FGT.LayoutLibrary() end
+    end)
+    btn:SetScript("OnClick", function()
+        if M:IsShown() then Close() return end
+        local n = #ActiveGoals()
+        M.rows[1].label:SetText(n == 1 and "Remove 1 goal" or string.format("Remove all %d goals", n))
+        M:ClearAllPoints()
+        M:SetPoint("TOPRIGHT", btn, "BOTTOMRIGHT", 0, -4)
+        M:Show()
+        M.catcher:Show()
+    end)
+end
 
 -- ------------------------------------------------------------
 -- Library panel
@@ -5294,7 +5661,7 @@ end
 function FGT.ResetWindow()
     local DB = ForeverGoalTrackerDB
     if not DB then return end
-    DB.frameWidth, DB.frameHeight = FRAME_WIDTH, FRAME_HEIGHT
+    DB.frameWidth, DB.frameHeight = FGT.DefaultSize()
     DB.frameLeft, DB.frameTop = nil, nil
     FGT.PlaceWindow()
     LayoutGoalList()
@@ -5870,6 +6237,17 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         end
         ForeverGoalTrackerDB.exaltedRaceFix = true
     end
+    -- Same for the Winterspring Frostsaber's Darnassus step (step 7).
+    if not ForeverGoalTrackerDB.frostRaceFix then
+        local p = ForeverGoalTrackerDB.progress.frostsaber
+        local log = ForeverGoalTrackerDB.autoLog or {}
+        local why = log["frostsaber:7"]
+        if p and p[7] and why and why:match("^race ") then
+            p[7] = nil
+            log["frostsaber:7"] = nil
+        end
+        ForeverGoalTrackerDB.frostRaceFix = true
+    end
     -- v2.2.0 one-time fix: Tier 3 materials were a placeholder list and are
     -- now each piece's real recipe. The token and scraps lines kept their
     -- place; the crafting materials changed, so clear their ticks (owned
@@ -6287,8 +6665,9 @@ local INTERESTS = {
     { key = "collect", label = "Collecting", phrase = "collecting", icon = { "ability_mount_ridinghorse" } },
     { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" } },
 }
-local MAX_PICKS = 6   -- new interest suggestions, on top of leveling and the mount
-local MAX_TRACKED = 4 -- matching goals already on My Goals, shown dimmed
+local MAX_ROWS = 6    -- rows in all, so the list fits without scrolling
+local MAX_SETS = 2    -- item sets among the suggestions
+local MAX_TRACKED = 4 -- matching goals already on My Goals, shown dimmed (only if there's room)
 
 -- English part names in the goal data, by the game's race and class tokens.
 local RACE_PART = { Human = "Human", Dwarf = "Dwarf", NightElf = "Night Elf", Gnome = "Gnome", Orc = "Orc",
@@ -6353,8 +6732,8 @@ local function Progress(goal, keys)
             end
         end
     else
-        for i in ipairs(goal.steps) do
-            if not keys or keys[i] then
+        for i, entry in ipairs(goal.steps) do
+            if (not keys or keys[i]) and not FGT.PieceSkipped(entry) then
                 t = t + 1
                 if IsStepDone(goal.id, i) then d = d + 1 end
             end
@@ -6502,11 +6881,9 @@ local function Suggest(picked)
                 push(sets, Entry(me, "set_dungeon2", ClassPart("set_dungeon2"), tag))
                 local weapons = {}
                 for _, id in ipairs(WEAPONS[me.class] or {}) do push(weapons, Entry(me, id, nil, tag)) end
-                -- under 60, the dungeon sets come first
-                local a, b = weapons, sets
-                if me.level < MAX_LEVEL then a, b = sets, weapons end
-                for _, e in ipairs(a) do table.insert(list, e) end
-                for _, e in ipairs(b) do table.insert(list, e) end
+                -- the class's signature weapons lead, at any level
+                for _, e in ipairs(weapons) do table.insert(list, e) end
+                for _, e in ipairs(sets) do table.insert(list, e) end
             elseif it.key == "collect" then
                 push(list, Entry(me, "mount_raptor", nil, tag))
                 push(list, Entry(me, "mount_tiger", nil, tag))
@@ -6560,7 +6937,7 @@ local function Suggest(picked)
     -- replaces its raid if the raid came first.
     local function RoundRobin(from, max, maxTracked)
         local picks, chosen, idx = {}, {}, {}
-        local new, old = 0, 0
+        local new, old, sets = 0, 0, 0
         local progress = true
         while new < max and progress do
             progress = false
@@ -6571,7 +6948,9 @@ local function Suggest(picked)
                     local e = list[i]
                     local id = e.goal.id
                     i = i + 1
+                    -- at most two item sets in all (dungeon and tier sets look alike)
                     local covered = (e.tracked and old >= maxTracked)
+                        or (e.goal.category == "Item Set" and sets >= MAX_SETS)
                     for leg, raid in pairs(COVERS) do
                         if raid == id and chosen[leg] then covered = true end
                     end
@@ -6590,6 +6969,7 @@ local function Suggest(picked)
                         table.insert(picks, e)
                         chosen[id] = true
                         if e.tracked then old = old + 1 else new = new + 1 end
+                        if e.goal.category == "Item Set" then sets = sets + 1 end
                         progress = true
                         break
                     end
@@ -6599,7 +6979,10 @@ local function Suggest(picked)
         end
         return picks
     end
-    local picks = RoundRobin(lists, MAX_PICKS, MAX_TRACKED)
+    -- leveling and the mount come first; interests fill the rest
+    local newFixed = 0
+    for _, e in ipairs(fixed) do if not e.tracked then newFixed = newFixed + 1 end end
+    local picks = RoundRobin(lists, math.max(0, MAX_ROWS - newFixed), MAX_TRACKED)
 
     -- Nothing left for those interests: offer a few from all of them.
     W.fallback = false
@@ -6637,7 +7020,7 @@ local function Suggest(picked)
     for pass = 1, 2 do
         for _, list in ipairs({ fixed, picks }) do
             for _, e in ipairs(list) do
-                if (pass == 1) == (not e.tracked) then table.insert(out, e) end
+                if (pass == 1) == (not e.tracked) and #out < MAX_ROWS then table.insert(out, e) end
             end
         end
     end
@@ -6726,6 +7109,7 @@ local function Build()
     dim:SetPoint("TOPLEFT", 4, -4)
     dim:SetPoint("BOTTOMRIGHT", -4, 4)
     dim:SetVertexColor(0, 0, 0, 0.72)
+    W.dim = dim
     f:Hide()
     W.frame = f
 
@@ -6761,6 +7145,12 @@ local function Build()
         c:SetScript("OnClick", function(self) if self.onClick then self.onClick() end end)
         W.choices[i] = c
     end
+    -- the suggested path: moving gold border and a label
+    local help = W.choices[2]
+    FGT.AddBorderComet(help, 2, 0.9)
+    help.tag = NewChip(help, 9)
+    help.tag:SetPoint("TOP", help.desc, "BOTTOM", 0, -12)
+    help.tag:SetLabel("RECOMMENDED", C.TITLE)
 
     -- Step 2: interest tiles
     W.tiles = {}
@@ -6940,6 +7330,12 @@ function W.Show(step)
     local mw, mh = main:GetWidth(), main:GetHeight()
     local cw = math.min(640, mw - 40)
     local ch = (step == 3) and math.min(520, mh - 40) or math.min(330, mh - 40)
+    W.sub:SetWidth(cw - 60)
+    if step == 1 then
+        -- just tall enough: title, intro line, the cards
+        W.sub:SetText("Forever Goal Tracker keeps your long-term goals in one place and checks off steps as you play.")
+        ch = math.min(26 + 26 + 10 + math.ceil(W.sub:GetStringHeight()) + 24 + 170 + 26, mh - 40)
+    end
     W.card:ClearAllPoints()
     W.card:SetSize(cw, ch)
     W.card:SetPoint("CENTER", W.frame, "CENTER", 0, 0)
@@ -6948,6 +7344,7 @@ function W.Show(step)
     for _, t in ipairs(W.tiles) do t:Hide() end
     for _, r in ipairs(W.rows) do r:Hide() end
     W.scroll.scroll:Hide()
+    W.scroll.content:SetHeight(1) -- nothing to scroll: hides its bar and edge fades
     W.scroll:Update()
     W.note:Hide()
     W.back:Hide(); W.next:Hide(); W.add:Hide()
@@ -6965,7 +7362,7 @@ function W.Show(step)
         for i, c in ipairs(W.choices) do
             c:SetSize(w, 170)
             c:ClearAllPoints()
-            c:SetPoint("BOTTOMLEFT", W.card, "BOTTOMLEFT", 24 + (i - 1) * (w + gap), 28)
+            c:SetPoint("TOPLEFT", W.sub, "BOTTOM", -(cw - 48) / 2 + (i - 1) * (w + gap), -24)
             c.desc:SetWidth(w - 30)
             c:SetEtch(STYLE.row)
             c:Show()
@@ -6981,7 +7378,7 @@ function W.Show(step)
             own.name:SetText("I'll pick my own")
             own.desc:SetText(string.format("Browse all %d goals in the Goal Library.", #FGT.goals))
             own.onClick = function()
-                FGT.CloseWelcome()
+                FGT.CloseWelcome(true)
                 FGT.ShowTab("library")
             end
             help.name:SetText("Help me get started")
@@ -6989,6 +7386,7 @@ function W.Show(step)
         help.icon:SetIcon({ "inv_misc_map_01", "inv_misc_map02" })
         help.desc:SetText("Tell us what you enjoy and get goals picked for your " .. who .. ".")
         help.onClick = function() W.Show(2) end
+        W.Enter(W.choices)
     elseif step == 2 then
         W.title:SetText("What interests you?")
         W.sub:SetText("Pick as many as you like.")
@@ -7007,10 +7405,12 @@ function W.Show(step)
             t:Refresh()
             t:Show()
         end
-        W.back:Show()
+        -- Back only when you came from the welcome screen
+        W.back:SetShown(W.startStep == 1)
         W.back:SetScript("OnClick", function() W.Show(1) end)
         W.next:Show()
         W.next:SetOn(next(W.picked) ~= nil)
+        W.Enter(W.tiles)
     else
         W.title:SetText("Goals to get started")
         local list
@@ -7027,6 +7427,9 @@ function W.Show(step)
         W.scroll.scroll:Show()
         W.scroll.content:SetWidth(W.scroll.scroll:GetWidth())
         FillRows(me)
+        local shown = {}
+        for i = 1, #W.list do shown[i] = W.rows[i] end
+        W.Enter(shown)
         W.note:ClearAllPoints()
         W.note:SetPoint("BOTTOM", W.card, "BOTTOM", 0, 60)
         W.note:SetText(#list > 0 and "Add or remove goals anytime from the Goal Library."
@@ -7055,7 +7458,7 @@ function W.AddChosen()
             first = first or e.goal.id
         end
     end
-    FGT.CloseWelcome()
+    FGT.CloseWelcome(true)
     if n == 0 then return end
     FGT.ShowTab("tracker")
     FGT.SelectGoal(first)
@@ -7082,12 +7485,37 @@ function FGT.OpenWelcome(step)
     if FGT.CloseLinkCard then FGT.CloseLinkCard() end
     DB.welcomeSeen = true -- shown once; closing it any way counts
     W.picked = {} -- always starts with nothing picked
+    W.startStep = step or 1
+    W.Tween("close", nil) -- reopened mid-close
+    W.closing = nil
     W.Show(step or 1)
     W.frame:Show()
+    W.Grey(true)
+    W.AnimateIn()
 end
 
-function FGT.CloseWelcome()
+-- instant: no fade-out (when the window changes right after, like adding
+-- goals or going to the Library, so colors aren't restored over new ones)
+function FGT.CloseWelcome(instant)
+    if W.frame and W.frame:IsShown() and not instant and W.Motion() ~= "off" and not W.closing then
+        W.closing = true
+        W.Tween("open", nil)
+        W.Tween("close", 0.28, function(p)
+            local q = 1 - p
+            W.card:SetAlpha(q)
+            if W.Motion() == "full" then W.card:SetScale(0.97 + 0.03 * q) end
+            W.SetGrey(1 - W.EaseOut(p))
+        end, function()
+            W.closing = nil
+            FGT.CloseWelcome(true)
+        end)
+        return
+    end
+    W.closing = nil
+    W.Tween("open", nil)
+    W.Tween("close", nil)
     if W.frame then W.frame:Hide() end
+    W.Grey(false)
     if ForeverGoalTrackerDB and next(W.picked) then
         local keep = {}
         for k, v in pairs(W.picked) do keep[k] = v end
@@ -7095,8 +7523,126 @@ function FGT.CloseWelcome()
     end
 end
 
+-- While the wizard is up, the window behind it goes grey as well as
+-- dark: images desaturate, text and border colors turn to their grey
+-- (luminance) value. Everything is put back when it closes. (Gradient
+-- fills can't be greyed, but the dark layer covers them.)
+local grey = nil
+local function Lum(r, g, b) return 0.30 * r + 0.59 * g + 0.11 * b end
+local function Collect(frame)
+    for _, r in ipairs({ frame:GetRegions() }) do
+        if r:IsObjectType("Texture") then
+            if r.IsDesaturated and not r:IsDesaturated() then table.insert(grey.tex, r) end
+        elseif r:IsObjectType("FontString") then
+            local cr, cg, cb, ca = r:GetTextColor()
+            if cr then grey.fs[r] = { cr, cg, cb, ca } end
+        end
+    end
+    if frame.GetBackdropBorderColor and frame.GetBackdrop and frame:GetBackdrop() then
+        local cr, cg, cb, ca = frame:GetBackdropBorderColor()
+        if cr then grey.bd[frame] = { cr, cg, cb, ca } end
+    end
+    for _, child in ipairs({ frame:GetChildren() }) do
+        if child ~= W.frame then Collect(child) end
+    end
+end
+-- amount 0 = full color, 1 = grey (and the dark layer at full strength)
+function W.SetGrey(amount)
+    if W.dim then W.dim:SetVertexColor(0, 0, 0, 0.72 * amount) end
+    if not grey then return end
+    for _, t in ipairs(grey.tex) do
+        if t.SetDesaturation then t:SetDesaturation(amount) else t:SetDesaturated(amount > 0.5) end
+    end
+    for fs, c in pairs(grey.fs) do
+        local l = Lum(c[1], c[2], c[3])
+        fs:SetTextColor(c[1] + (l - c[1]) * amount, c[2] + (l - c[2]) * amount, c[3] + (l - c[3]) * amount, c[4])
+    end
+    for f, c in pairs(grey.bd) do
+        local l = Lum(c[1], c[2], c[3])
+        f:SetBackdropBorderColor(c[1] + (l - c[1]) * amount, c[2] + (l - c[2]) * amount, c[3] + (l - c[3]) * amount, c[4])
+    end
+end
+function W.Grey(on)
+    if on and not grey then
+        grey = { tex = {}, fs = {}, bd = {} }
+        pcall(Collect, main)
+        W.SetGrey(1)
+    elseif not on and grey then
+        W.SetGrey(0)
+        for _, t in ipairs(grey.tex) do t:SetDesaturated(false) end
+        grey = nil
+    end
+end
+
+-- ------------------------------------------------------------
+-- Motion. One OnUpdate drives every running tween; the Celebrations
+-- setting picks how much moves: full (fades, grow and rise), subtle
+-- (fades only) or off (instant).
+-- ------------------------------------------------------------
+function W.Motion() return FGT.Setting("celebrations") or "full" end
+function W.EaseOut(p) return 1 - (1 - p) ^ 3 end
+local EaseOut = W.EaseOut
+local tweens = {}
+local driver = CreateFrame("Frame")
+driver:Hide()
+driver:SetScript("OnUpdate", function(_, elapsed)
+    local any = false
+    for key, tw in pairs(tweens) do
+        tw.t = tw.t + elapsed
+        local p = math.min(1, tw.t / tw.dur)
+        if p >= 0 then tw.fn(p) end
+        if p >= 1 then
+            tweens[key] = nil
+            if tw.done then tw.done() end
+        else
+            any = true
+        end
+    end
+    if not any and not next(tweens) then driver:Hide() end
+end)
+-- W.Tween(key, seconds, fn(p), done, delay); seconds nil cancels the key
+function W.Tween(key, dur, fn, done, delay)
+    if not dur then tweens[key] = nil return end
+    if W.Motion() == "off" then fn(1); if done then done() end return end
+    tweens[key] = { t = -(delay or 0), dur = dur, fn = fn, done = done }
+    fn(0)
+    driver:Show()
+end
+
+-- Opening: dark layer and grey fade in, the card grows in from 95%
+-- with a soft settle and fades in.
+local function EaseBack(p) local u = p - 1; return 1 + 1.7 * u * u * u + 0.7 * u * u end
+function W.AnimateIn()
+    local full = W.Motion() == "full"
+    W.Tween("open", 0.34, function(p)
+        W.SetGrey(EaseOut(p))
+        W.card:SetAlpha(math.min(1, p * 1.6))
+        W.card:SetScale(full and (0.95 + 0.05 * EaseBack(p)) or 1)
+    end, function() W.card:SetScale(1); W.card:SetAlpha(1) end)
+end
+
+-- Step content rises into place one item after another.
+function W.Enter(items)
+    local full = W.Motion() == "full"
+    for i, f in ipairs(items) do
+        local pts = {}
+        for k = 1, (f:GetNumPoints() or 0) do pts[k] = { f:GetPoint(k) } end
+        local rise = full
+        W.Tween("enter" .. i, 0.26, function(p)
+            local e = EaseOut(p)
+            f:SetAlpha(e)
+            if rise and #pts > 0 then
+                f:ClearAllPoints()
+                for _, pt in ipairs(pts) do
+                    f:SetPoint(pt[1], pt[2], pt[3], pt[4] or 0, (pt[5] or 0) - 10 * (1 - e))
+                end
+            end
+        end, nil, 0.04 * (i - 1))
+    end
+end
+
 -- Escape (or any close of the window) closes the wizard for good.
-main:HookScript("OnHide", function() if W.frame and W.frame:IsShown() then FGT.CloseWelcome() end end)
+main:HookScript("OnHide", function() if W.frame and W.frame:IsShown() then FGT.CloseWelcome(true) end end)
 
 -- First time the window opens (fresh installs and updates alike).
 main:HookScript("OnShow", function()

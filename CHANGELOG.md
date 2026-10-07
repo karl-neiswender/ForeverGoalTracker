@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- My Goals: a Clear button next to Sort removes every goal at once (after a confirm). Your progress is kept if you add them back.
+- Tips fold away under "+ Tips (n)", closed by default; click to open.
+- Goals with just one part chosen (one mount, one class's set) show it open; with several, they start closed.
+- Winterspring Frostsaber: the Darnassus step is hidden while you play a Night Elf and only ticks at Exalted.
+- An empty tracker leads with "Help me get started" (with a moving gold border) and a "browse the Goal Library" link.
+- Animations: the welcome wizard fades and grows in while the window behind it fades to grey; its cards, tiles and suggestions rise in one by one; progress bars get a slow, soft glint every few seconds, and the 100% shine is wider. All follow the Celebrations setting (Subtle: fades only; Off: none).
+- The window's default size is larger and 3:2 (1020 x 680, smaller screens keep the shape). Windows still at the old default move to the new one; a size you set yourself stays.
+- A little more room above the window title.
 - Welcome wizard: the first time the window opens (after installing or updating), pick your own goals or get help. "Help me get started" asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind) and suggests goals for the character you're on: leveling to 60 if none of your characters is there yet, your race's epic mount (Warlocks and Paladins: their class mount; Skyborne: the Swift Galestrider), and goals that fit your class, faction and level. Goals you already track are listed as "On My Goals". Open it again with /goals welcome, Settings, or "Help me get started" on an empty tracker.
 - Epic Racial Mounts: the "Reach Exalted" step is hidden while you play that race, since you can buy the mount without it, and it only ticks itself once you're really Exalted (it used to tick for any account with a character of that race). Ticking "Reach level 60" or "Train Journeyman Riding" by hand ticks it for every mount you've picked. The Night Elf mount is now the Swift Saber.
 - Goal Library: finished goals get the same finished look as on My Goals (green wash, greyed icon, no progress bar) with "Completed <date>" on their info line.
