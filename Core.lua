@@ -268,6 +268,7 @@ FGT.SETTING_DEFAULTS = {
     openOnLogin = false,     -- open the window after login
     scale = 1,               -- window scale
     alpha = 1,               -- window opacity
+    mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
 }
 
 function FGT.Setting(key)
@@ -1215,6 +1216,13 @@ do
 
     local function Coords(n) return string.format("%.1f, %.1f", n.x, n.y) end
 
+    function FGT.HasTomTom() return (TomTom and TomTom.AddWaypoint) and true or false end
+    -- the map pins setting: TomTom only when it's installed and not turned
+    -- off (a saved "tomtom" falls back to the game map if TomTom is removed)
+    function FGT.UseTomTom()
+        return FGT.HasTomTom() and FGT.Setting("mapPins") ~= "game"
+    end
+
     -- the clear "why not" line (Karl): no pin inside dungeons, or not
     -- found in WoW Forever yet
     function FGT.NpcNote(n)
@@ -1247,7 +1255,7 @@ do
         end
         GameTooltip:AddLine(" ")
         if n.map then
-            local tomtom = TomTom and TomTom.AddWaypoint
+            local tomtom = FGT.UseTomTom()
             GameTooltip:AddLine(tomtom and "Shift-click to set a TomTom waypoint." or "Shift-click to show on your map.",
                 C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
             GameTooltip:AddLine("Right-click for map and Wowhead options.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
@@ -1266,7 +1274,7 @@ do
         end
         local x, y = n.x / 100, n.y / 100
         local label = n.disguise and (n.name .. " (as " .. n.disguise .. ")") or n.name
-        if TomTom and TomTom.AddWaypoint then
+        if FGT.UseTomTom() then
             pcall(TomTom.AddWaypoint, TomTom, n.map, x, y,
                 { title = label, from = "Forever Goal Tracker", persistent = false, minimap = true, world = true })
             print(TAG .. "TomTom waypoint set: " .. label .. ", " .. n.zone .. " " .. Coords(n) .. ".")
@@ -6239,6 +6247,12 @@ FGT.SETTINGS = {
         { type = "button", label = "Window size and position", desc = "Back to the default size, centered",
           text = "Reset", onClick = function() FGT.ResetWindow() end },
     } },
+    { title = "NPC map pins", rows = {
+        { type = "choice", key = "mapPins", label = "Where map pins go",
+          desc = "When you shift-click an NPC or use Show on map. Automatic uses TomTom if it's installed.",
+          options = { { "auto", "Automatic" }, { "tomtom", "TomTom" }, { "game", "Game map" } },
+          optionMuted = function(v) if v == "tomtom" and not FGT.HasTomTom() then return "TomTom isn't installed" end end },
+    } },
     { title = "Tracked characters", rows = {
         { type = "custom", build = CharacterList },
     } },
@@ -7673,7 +7687,7 @@ do
                 .. (note and string.format("\n|cff%02x%02x%02x%s|r", nr * 255, ng * 255, nb * 255, note) or ""))
             K.place:Show()
             K.map:SetShown(npc.map and true or false)
-            K.map:SetLabel((TomTom and TomTom.AddWaypoint) and "Set TomTom waypoint" or "Show on map")
+            K.map:SetLabel(FGT.UseTomTom() and "Set TomTom waypoint" or "Show on map")
             K.box:SetPoint("TOPLEFT", npc.map and K.map or K.place, "BOTTOMLEFT", 0, -10)
             K:SetHeight((npc.map and 176 or 142) + (note and 14 or 0) + ((not npc.map and npc.where) and 14 or 0))
         else

@@ -173,7 +173,8 @@ if ok_all:
             'print("  " .. STUB_NS.LinkText("Solo Artorius the Doombringer in Winterspring.")); '
             'STUB_NS.ShowNpcTip({}, 14535); STUB_NS.ShowNpcOnMap(14524); STUB_NS.ShowNpcOnMap(14387); '
             'TomTom = { AddWaypoint = function(self, m, x, y, o) print("  tomtom: " .. m .. " " .. x .. " " .. y .. " " .. o.title) end }; '
-            'STUB_NS.ShowNpcOnMap(14535); TomTom = nil; '
+            'STUB_NS.ShowNpcOnMap(14535); STUB_NS.SetSetting("mapPins", "game"); print("  set to game map:"); STUB_NS.ShowNpcOnMap(14535); '
+            'STUB_NS.SetSetting("mapPins", "auto"); TomTom = nil; '
             'STUB_NS.OpenWowheadCard("npc", 14524, "Vartrus", nil, STUB_NS.NpcById(14524)); print("  card: " .. STUB_NS.wowheadCard.url); '
             'STUB_NS.OpenWowheadCard("item", 16866, "Helm")'),
         # On Forever: Lothos has Forever's own spot (outside the mountain).
