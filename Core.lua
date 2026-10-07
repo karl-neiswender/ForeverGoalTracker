@@ -2473,9 +2473,9 @@ do
         local b = tip:CreateTexture(nil, "BACKGROUND", nil, -8)
         b:SetPoint("TOPLEFT", 3, -3)
         b:SetPoint("BOTTOMRIGHT", -3, 3)
-        b:SetColorTexture(0.03, 0.025, 0.02, 1)
+        b:SetColorTexture(0.03, 0.025, 0.02, 0.93)
         tip.fgtBack = b
-        tip.fgtShadow = FGT.AddDropShadow(tip, 34, 0.8, 6, 6)
+        tip.fgtShadow = FGT.AddDropShadow(tip, 44, 0.38, 5, 12)
         -- AddDropShadow shows the shadow on every show; keep it to ours
         tip:HookScript("OnShow", function(self) self.fgtShadow:SetShown(self.fgtBack:IsShown()) end)
     end
