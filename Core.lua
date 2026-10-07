@@ -1261,6 +1261,8 @@ local STYLE = {
     forever  = { top = { 0.040, 0.120, 0.200 }, bottom = { 0.015, 0.040, 0.075 }, edge = { 0.09, 0.36, 0.55, 1 } },
     -- finished goals and parts in the Library ("Complete" button)
     done     = { top = { 0.130, 0.300, 0.080 }, bottom = { 0.040, 0.110, 0.030 }, edge = { 0.31, 0.75, 0.23, 1 } },
+    -- a finished goal's Library card: neutral grey under its green wash (Karl)
+    doneCard = { top = { 0.115, 0.115, 0.112 }, bottom = { 0.040, 0.040, 0.040 }, edge = { 0.30, 0.30, 0.29, 1 } },
     -- Settings choices you won't hear (game sound or that channel off)
     muted    = { top = { 0.120, 0.118, 0.115 }, bottom = { 0.050, 0.050, 0.050 }, edge = { 0.24, 0.24, 0.23, 1 } },
     mutedSel = { top = { 0.190, 0.180, 0.160 }, bottom = { 0.070, 0.066, 0.060 }, edge = { 0.52, 0.46, 0.32, 1 } },
@@ -5021,7 +5023,7 @@ function FGT.OpenLinkCard(id)
 end
 
 -- Label alone: dead center. Label + checkmark: center the pair, i.e.
--- shift the label right by half the checkmark's width (16px + 1px gap).
+-- shift the label right by half the checkmark's width (12px + 4px gap).
 local function CenterCardLabel(card)
     card.btnText:ClearAllPoints()
     card.btnText:SetPoint("CENTER", card.btn, "CENTER", card.btnCheck:IsShown() and 8 or 0, 0)
@@ -5087,6 +5089,7 @@ local function GetCard(goal)
     card.icon = NewIcon(card, 42)
     card.icon:SetPoint("LEFT", card, "LEFT", 10, 0)
     card.icon:SetIcon(goal.icon, catColor)
+    card.baseRim = catColor -- finished cards swap it for grey
 
     card.btn = CreateFrame("Button", nil, card, "BackdropTemplate")
     card.btn:SetSize(92, 26)
@@ -5098,7 +5101,7 @@ local function GetCard(goal)
     card.btnCheck = card.btn:CreateTexture(nil, "OVERLAY")
     card.btnCheck:SetTexture(FGT.Icon("check"))
     card.btnCheck:SetSize(12, 12)
-    card.btnCheck:SetPoint("RIGHT", card.btnText, "LEFT", -1, 0)
+    card.btnCheck:SetPoint("RIGHT", card.btnText, "LEFT", -4, 0) -- room between check and word (Karl)
     card.btn:SetScript("OnEnter", function() StyleCardButton(card) end)
     card.btn:SetScript("OnLeave", function() StyleCardButton(card) end)
     card.btn:SetScript("OnClick", function()
@@ -5174,7 +5177,7 @@ local function GetCard(goal)
         GameTooltip:Show()
     end)
     card:SetScript("OnLeave", function(self)
-        self:SetEtch(STYLE.row)
+        self:SetEtch(self.restStyle or STYLE.row) -- grey again on finished cards
         GameTooltip:Hide()
     end)
 
@@ -5330,15 +5333,25 @@ LayoutLibrary = function()
         -- Forever-only goals: blue wash and rim, NEW at the front of the meta line.
         local isNew = FGT.ApplyForeverLook(card, g)
         card:SetEtch(STYLE.row)
+        card.restStyle = STYLE.row
         card.metaBase = isNew and (FGT.NewTag(isNew) .. "  ·  " .. card.metaPlain) or card.metaPlain
         -- Finished goals: the quiet finished look (green wash, grey icon,
         -- softer name, no bar) and the completion date on the info line.
         local gd, gt = GoalProgress(g)
         local finished = IsActive(g) and gt > 0 and gd >= gt
         if finished then
+            -- the whole card goes grey (Karl): no blue, grey border, grey
+            -- icon and frame, one grey info line without its colors or the
+            -- NEW dot; the green wash and the green Complete button stay
             local on = FGT.CompletedOn(g)
-            card.metaBase = card.metaBase .. "  ·  |cff6f9a5e" .. (on and ("Completed " .. on) or "Complete") .. "|r"
+            local plain = card.metaPlain:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+            card.metaBase = "|cff7d7d78" .. (isNew and (isNew .. "  ·  ") or "") .. plain
+                .. "  ·  " .. (on and ("Completed " .. on) or "Complete") .. "|r"
+            card.foreverNew = false
+            card:SetEtch(STYLE.doneCard)
+            card.restStyle = STYLE.doneCard
         end
+        card.icon:SetIcon(g.icon, finished and { 0.40, 0.40, 0.39 } or card.baseRim)
         card.doneGlow:SetShown(finished)
         card.icon.tex:SetDesaturated(finished)
         card.icon.tex:SetAlpha(finished and 0.6 or 1)
