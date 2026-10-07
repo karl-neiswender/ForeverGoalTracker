@@ -6,6 +6,7 @@
 - Edit goal: change the number on Save 5,000 Gold, Honorable Kills or Make Friends
 - New Social goals (Join a Guild, Make Friends) and a Social interest in the welcome wizard
 - Raid goals show when the character you're on is saved this week
+- Optional screenshot when you finish a goal (Settings, off by default)
 - Bug fixes
 
 ## 2.5.2

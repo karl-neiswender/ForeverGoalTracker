@@ -32,7 +32,8 @@ Click the gear next to the close button. Everything starts on, the way
 the addon has always worked, and each option turns something off or
 adjusts it: the login check-in, the goal-complete message and banner,
 step updates in chat, celebrations (Full, Subtle or Off), a sound when a
-goal completes (and which volume channel it uses), the minimap button,
+goal completes (and which volume channel it uses), a screenshot when a
+goal completes (off unless you turn it on), the minimap button,
 opening the window on login, window scale and opacity, resetting the
 window, and removing old characters from the tracked list. Changes apply
 right away.

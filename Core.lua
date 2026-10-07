@@ -245,6 +245,7 @@ FGT.SETTING_DEFAULTS = {
     greeting = true,         -- login check-in in chat
     completeChat = true,     -- "You just completed ..." chat line
     completeBanner = true,   -- goal-complete banner
+    screenshot = false,      -- game screenshot when a goal finishes (Karl: off by default)
     stepChat = true,         -- "3 steps checked off", boss kills, level 60
     celebrations = "full",   -- "full" / "subtle" / "off"
     sound = "off",           -- sound when a goal completes: a key of FGT.SOUNDS
@@ -5744,10 +5745,12 @@ FGT.SETTINGS = {
           desc = "A line in chat with a link to the goal you finished" },
         { type = "toggle", key = "completeBanner", label = "Goal complete banner",
           desc = "A tile near the top of the screen when a goal finishes" },
+        { type = "toggle", key = "screenshot", label = "Screenshot when a goal finishes",
+          desc = "Saved in the game's Screenshots folder, like pressing Print Screen" },
         { type = "toggle", key = "stepChat", label = "Step updates in chat",
           desc = "\"3 steps checked off\", boss kills and characters reaching 60" },
         { type = "button", label = "Try the goal-complete alerts",
-          desc = "Plays the message, banner and sound, whatever they're set to",
+          desc = "Plays the message, banner, sound and screenshot, whatever they're set to",
           text = "Preview", onClick = function() FGT.TestBanner() end },
     } },
     { title = "Effects", rows = {
@@ -6227,6 +6230,19 @@ function FGT.GoalCompleteSound()
     FGT.PlayGoalSound(FGT.Setting("sound"))
 end
 
+-- Optional screenshot when a goal finishes (Settings, off by default).
+-- Waits a moment so the banner (or the card's celebration) is in the
+-- picture; goals finishing together give one screenshot. The game saves
+-- it in its Screenshots folder; addons can't choose the name or place.
+function FGT.GoalScreenshot()
+    if not FGT.Setting("screenshot") or FGT.shotPending or not Screenshot then return end
+    FGT.shotPending = true
+    C_Timer.After(1.2, function()
+        FGT.shotPending = nil
+        pcall(Screenshot)
+    end)
+end
+
 -- /goals testbanner: plays the announcement for the open goal (or the
 -- first goal on the tracker) without changing any progress.
 function FGT.TestBanner()
@@ -6239,6 +6255,7 @@ function FGT.TestBanner()
     print(TAG .. "Test banner (no progress changed):")
     Announce(goal, true)
     FGT.GoalCompleteSound() -- the chosen sound and channel, like a real finish
+    FGT.GoalScreenshot()
 end
 
 -- Remembers which goals are finished (DB.goalsDone) so each one is
@@ -6260,7 +6277,7 @@ function FGT.CheckGoalCompletions()
             if not DB.goalsDone[g.id] then
                 DB.goalsDone[g.id] = true
                 if not first then DB.goalDates[g.id] = time() end
-                if not first and not DB.demoBackup then FGT.GoalCompleteSound() end
+                if not first and not DB.demoBackup then FGT.GoalCompleteSound(); FGT.GoalScreenshot() end
                 if not quiet then Announce(g) end
             end
         else
