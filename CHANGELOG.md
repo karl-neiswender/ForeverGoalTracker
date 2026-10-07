@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.8.0
+
+- Quest links: hover a quest in a guide to see who starts it and where each of your characters stands on it
+- Daily quests show in blue
+- Goal links shimmer in gold, so they stand apart from quest links
+- Guide fixes: A Proper String starts with Stoma the Ancient, Thunderfury's Bindings now link
+- UI improvements and bug fixes
+
 ## 2.7.0
 
 - Item tooltips: hover an item in a guide to see its real tooltip, shift-click to link it in chat

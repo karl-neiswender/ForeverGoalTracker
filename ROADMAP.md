@@ -6,7 +6,6 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Next up
 
-- **Quest links:** quest names in guides become links, with a tooltip showing where each quest starts and whether each of your characters has it or turned it in.
 - **"Needed for" on items:** "Needed for Thunderfury" on items in your bags, the Auction House and loot.
 - **Feedback from inside the game:** write a suggestion or report a wrong step in the addon and get a link to send it.
 
@@ -38,6 +37,7 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
+- **2.8.0:** quest links in every guide, with who starts each quest and where each of your characters stands on it; daily quests in blue; goal links that shimmer in gold.
 - **2.7.0:** links in every guide: real item tooltips (shift-click to link in chat), NPC links with their location and a map pin or TomTom waypoint, and Wowhead links for items, NPCs and quests; a setting for where map pins go; hand-painted gold icons; darker tooltips; finished steps that fade back; and goal links that shine.
 - **2.6.0:** WoW Forever's new raids (Hyjal Summit and the Barrow Deeps), Forever Raid Sets, and the Field Marshal's and Warlord's PvP sets by armor type; Find your next goal; Edit goal to change a goal's number; Social goals and a Social interest; Duelist from the Statistics window; raid lockouts on raid goals; and an optional screenshot when you finish a goal.
 - **2.5.0:** goal suggestions: a welcome that asks what interests you and picks goals for your character; folder-style tabs; a Clear button to empty My Goals; tips that fold away; racial mount and Frostsaber steps that follow your race; a larger default window; and gentle animations throughout.

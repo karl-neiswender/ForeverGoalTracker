@@ -106,6 +106,9 @@ where they stand, shift-click to put a pin on your map (a TomTom
 waypoint if TomTom is installed; choose in Settings). Right-click an
 item or NPC for its Wowhead link.
 
+Quest names show a gold "!" (blue for daily quests): hover one to see
+who starts it and where each of your characters stands on it.
+
 NOTES
 -----
 Drop rates and costs are estimates; check a live source such as Wowhead

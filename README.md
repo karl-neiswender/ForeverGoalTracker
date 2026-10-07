@@ -17,7 +17,7 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Favorites:** right-click a goal to star it and keep it at the top of your list, or to remove it.
 - **Built for Warcraft Forever:** NEW and UPDATED markers in Forever blue, a "New & Updated" filter, and a notice on guides not yet confirmed in Forever.
 - **Goal links:** steps and tips link to the goals they depend on; click one to add it.
-- **Item and NPC links:** hover an item in a guide for its real tooltip (shift-click links it in chat). Hover an NPC to see where they stand, and shift-click to put a pin on your map or a TomTom waypoint. Right-click either for its Wowhead link.
+- **Item, NPC and quest links:** hover an item in a guide for its real tooltip (shift-click links it in chat). Hover an NPC to see where they stand, and shift-click to put a pin on your map or a TomTom waypoint. Hover a quest to see who starts it and where each of your characters stands on it. Right-click any of them for its Wowhead link.
 - **Settings:** the gear in the title bar turns off chat lines, the banner or celebrations, adds a goal-complete sound or screenshot, hides the minimap button, and sets window scale and opacity. Everything starts on.
 - **Celebrations** when you finish a step, a group or a goal, plus a chat message and an on-screen banner when a goal finishes while the window is closed. A progress check-in greets you on login.
 
@@ -53,6 +53,7 @@ Click **Help me get started** for suggestions, or open the **Goal Library** tab 
 | `Data.lua` | The original goal definitions and shared helpers |
 | `Library.lua` | The rest of the Goal Library catalog |
 | `Npcs.lua` | NPCs the guides link to, with their map spots |
+| `Quests.lua` | Quests the guides link to, with who starts them |
 | `Core.lua` | UI, tracking engine and saved data |
 | `Media/` | Addon icons |
 | `Fonts/` | Cinzel font (SIL Open Font License) |
