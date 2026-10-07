@@ -352,6 +352,10 @@ local function CollectRule(rule)
         for _, fid in ipairs(AsList(rule.rep.faction)) do WATCH.factions[fid] = true end
     end
     if rule.skill then WATCH.skills[rule.skill.name] = true end
+    if rule.stat then
+        WATCH.stats = WATCH.stats or {}
+        WATCH.stats[rule.stat.id] = true
+    end
     for _, n in ipairs(AsList(rule.owned)) do WATCH.names[n] = true end
     for _, pat in ipairs(AsList(rule.ownedPattern)) do WATCH.patterns[pat] = true end
 end
@@ -502,6 +506,48 @@ local function ScanOwnedNames(owned)
     end
 end
 
+-- ------------------------------------------------------------
+-- Statistics (Forever's Statistics window; not on Classic Era): the
+-- game's own per-character counters, like duels won. Goals that use
+-- them carry `needs = "stats"` and are hidden where the API is missing.
+-- Values come back as text: "--" for none, "533", "292 (Humanoid)", or
+-- money with coin icons ("5|T...GoldIcon...|t 56|T...SilverIcon...|t").
+-- ------------------------------------------------------------
+function FGT.HasStats() return GetStatisticsCategoryList ~= nil and GetStatistic ~= nil end
+
+function FGT.StatNumber(q)
+    q = tostring(q or "")
+    if q:find("Icon") then -- money, in copper
+        local function coin(kind)
+            local n = q:match("([%d,]+)%s*|T[^|]*" .. kind .. "Icon")
+            return n and tonumber((n:gsub(",", ""))) or 0
+        end
+        return coin("Gold") * 10000 + coin("Silver") * 100 + coin("Copper")
+    end
+    local n = q:gsub(",", ""):match("^%s*(%d+)")
+    return tonumber(n) or 0
+end
+
+-- The watched statistics for the character you're on, by stat ID. The
+-- game only lists them by category, so this walks every category; at
+-- most once every 10 seconds unless forced.
+function FGT.ReadStats(force)
+    local watch = WATCH.stats
+    if not (watch and FGT.HasStats()) then return nil end
+    local now = GetTime and GetTime() or 0
+    if not force and FGT.statsReadAt and now - FGT.statsReadAt < 10 then return nil end
+    FGT.statsReadAt = now
+    local out = {}
+    for _, cat in pairs(GetStatisticsCategoryList() or {}) do
+        local num = GetCategoryNumAchievements and GetCategoryNumAchievements(cat) or 0
+        for i = 1, num do
+            local quantity, _, statID = GetStatistic(cat, i)
+            if statID and watch[statID] then out[statID] = FGT.StatNumber(quantity) end
+        end
+    end
+    return out
+end
+
 local function RecordCharacter()
     if not ForeverGoalTrackerDB then return end
     local name = UnitName("player")
@@ -576,6 +622,14 @@ local function RecordCharacter()
             or (GetNumFriends and GetNumFriends()) or 0
         c.friends = math.max(c.friends or 0, friends or 0)
     end)
+
+    -- statistics (Forever): counters only grow, so keep the highest seen
+    local ok2, stats = pcall(FGT.ReadStats, FGT.forceStats)
+    FGT.forceStats = nil
+    if ok2 and stats then
+        c.stats = c.stats or {}
+        for id, v in pairs(stats) do c.stats[id] = math.max(c.stats[id] or 0, v) end
+    end
 end
 
 -- Exact level including the fraction of the current level's XP, so a
@@ -736,6 +790,12 @@ local function RuleMet(rule)
     if rule.friends then
         for _, c in pairs(roster) do if (c.friends or 0) >= rule.friends then return true, "friends " .. c.friends end end
     end
+    if rule.stat then
+        for _, c in pairs(roster) do
+            local v = c.stats and c.stats[rule.stat.id] or 0
+            if v >= rule.stat.value then return true, "stat " .. rule.stat.id .. " = " .. v end
+        end
+    end
     for _, want in ipairs(AsList(rule.owned)) do
         if OwnsName(function(n) return n:find(want, 1, true) ~= nil end, roster) then return true, "owned" end
     end
@@ -783,6 +843,11 @@ local function RuleReadout(rule)
         for _, c in pairs(roster) do best = math.max(best, c.friends or 0) end
         return string.format("%d / %d", math.min(best, rule.friends), rule.friends), math.min(best, rule.friends), rule.friends
     end
+    if rule.stat then
+        local best, want = 0, rule.stat.value
+        for _, c in pairs(roster) do best = math.max(best, c.stats and c.stats[rule.stat.id] or 0) end
+        return string.format("%d / %d", math.min(best, want), want), math.min(best, want), want
+    end
     if rule.money then
         local best = 0
         for _, c in pairs(roster) do best = math.max(best, c.money or 0) end
@@ -820,6 +885,10 @@ local function DescribeRule(rule)
     if rule.hk then table.insert(parts, "a character reaches " .. rule.hk .. " lifetime honorable kills") end
     if rule.guild then table.insert(parts, "a character joins a guild") end
     if rule.friends then table.insert(parts, "a character has " .. rule.friends .. " friends on their friends list") end
+    if rule.stat then
+        table.insert(parts, "a character's " .. (rule.stat.what or "statistic") .. " reaches " .. rule.stat.value
+            .. " (from the Statistics window)")
+    end
     if rule.forRace then table.insert(parts, "(" .. rule.forRace .. " characters only)") end
     if rule.forFaction then table.insert(parts, "(" .. rule.forFaction .. " characters only)") end
     if rule.owned or rule.ownedPattern then table.insert(parts, "it shows up in your bags, gear or mount collection") end
@@ -4614,6 +4683,7 @@ end
 function FGT.LibraryVisible(goal)
     -- Forever-only goals can't be earned on Classic Era.
     if goal.forever == "new" and not FGT.isForever then return false end
+    if goal.needs == "stats" and not FGT.HasStats() then return false end -- no Statistics window
     if goal.faction and not IsActive(goal) and libFilter ~= "all" then
         -- All shows everything; filters with faction goals (PvP,
         -- Reputation, Attunements) follow the Alliance / Horde / Both picker
@@ -6753,11 +6823,14 @@ do
                     if card then card.name:SetText(goal.name) end
                 end
                 for i, frac in ipairs(t.marks) do
-                    local n = (frac == 1) and value or Nice(value * frac)
+                    -- a goal with a `one` text always starts at its first (Duelist: first duel)
+                    local n = (i == 1 and t.one) and 1 or (frac == 1) and value or Nice(value * frac)
                     local step = goal.steps[i]
-                    step.text = string.format(t.step, Commas(n))
+                    step.text = (n == 1 and t.one) or string.format(t.step, Commas(n))
                     step.auto = step.auto or {}
-                    if t.kind == "money" then step.auto.money = n * 10000 else step.auto[t.kind] = n end
+                    if t.kind == "money" then step.auto.money = n * 10000
+                    elseif t.kind == "stat" then step.auto.stat = { id = t.stat, value = n, what = t.what }
+                    else step.auto[t.kind] = n end
                 end
             end
         end
@@ -6905,7 +6978,7 @@ for _, ev in ipairs({
     "BANKFRAME_OPENED", "BANKFRAME_CLOSED", "PLAYERBANKSLOTS_CHANGED",
     "UPDATE_FACTION", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "SKILL_LINES_CHANGED",
     "NEW_MOUNT_ADDED", "COMPANION_LEARNED", "PLAYER_PVP_RANK_CHANGED", "PLAYER_PVP_KILLS_CHANGED",
-    "PLAYER_GUILD_UPDATE", "FRIENDLIST_UPDATE",
+    "PLAYER_GUILD_UPDATE", "FRIENDLIST_UPDATE", "DUEL_FINISHED",
 }) do
     pcall(rosterWatcher.RegisterEvent, rosterWatcher, ev) -- skip events a client lacks
 end
@@ -6937,6 +7010,11 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
     if event == "BANKFRAME_OPENED" then bankOpen = true end
     if event == "BANKFRAME_CLOSED" then bankOpen = false; return end
     if event == "PLAYER_LOGOUT" then RecordCharacter(); return end
+    if event == "DUEL_FINISHED" then
+        -- the duel counters update a moment after the duel ends
+        C_Timer.After(2, function() FGT.forceStats = true; ScanSoon() end)
+        return
+    end
 
     if event == "PLAYER_LEVEL_UP" then
         local before = Roster()[CharKey()]
@@ -7410,6 +7488,7 @@ local function Entry(me, id, keys, why)
     if not g then return nil end
     if g.faction and g.faction ~= me.faction then return nil end
     if g.forever == "new" and not FGT.isForever then return nil end
+    if g.needs == "stats" and not FGT.HasStats() then return nil end
     local set, tracked
     if g.group then
         set = {}

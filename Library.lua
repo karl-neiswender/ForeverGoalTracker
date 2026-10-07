@@ -19,6 +19,7 @@ local ADDON, FGT = ...
 --   money = copper, level = n
 --   guild = true                              any character has been in a guild
 --   friends = n                               friends on a character's friends list
+--   stat = { id = n, value = n, what = text } a Statistics window counter (Forever; goal needs = "stats")
 
 FGT.categoryColors["Social"]     = { 1.00, 0.56, 0.69 } -- rose #ff8fb0
 FGT.categoryColors["Reputation"] = { 0.40, 0.85, 0.55 }
@@ -952,6 +953,28 @@ table.insert(pvp, {
         { text = "Earn 5,000 honorable kills.", auto = { hk = 5000 } },
         { text = "Earn 10,000 honorable kills.", auto = { hk = 10000 } },
         { text = "Earn 25,000 honorable kills.", auto = { hk = 25000 } },
+    },
+})
+
+-- Duels won, from Forever's Statistics window (stat 319, per character;
+-- `needs = "stats"` hides it on Classic Era, which has no such window).
+table.insert(pvp, {
+    id = "pvp_duelist", library = true, forever = "confirmed", needs = "stats",
+    icon = { "ability_dualwield", "inv_sword_04" },
+    name = "Duelist",
+    category = "PvP", difficulty = "Moderate",
+    timeEstimate = "Ongoing",
+    note = "Prove yourself one duel at a time. Ticks itself from your Statistics window.",
+    tips = {
+        "Right-click a player's portrait and choose Duel to challenge them.",
+    },
+    target = { kind = "stat", stat = 319, what = "duels won", default = 100, min = 20, max = 10000,
+               marks = { 0.01, 0.1, 0.5, 1 }, step = "Win %s duels.", one = "Win your first duel.", unit = "duels" },
+    steps = {
+        { text = "Win your first duel.", auto = { stat = { id = 319, value = 1, what = "duels won" } } },
+        { text = "Win 10 duels.", auto = { stat = { id = 319, value = 10, what = "duels won" } } },
+        { text = "Win 50 duels.", auto = { stat = { id = 319, value = 50, what = "duels won" } } },
+        { text = "Win 100 duels.", auto = { stat = { id = 319, value = 100, what = "duels won" } } },
     },
 })
 

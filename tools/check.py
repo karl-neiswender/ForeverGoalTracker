@@ -110,6 +110,19 @@ if ok_all:
             'D.active.raid_mc = true; STUB_FIRE("FRIENDLIST_UPDATE"); '
             'STUB_NS.SelectGoal("raid_mc"); SlashCmdList["FOREVERGOALTRACKER"]("testlockout"); '
             'SlashCmdList["FOREVERGOALTRACKER"]("testlockout")'),
+        # Statistics (Forever): 12 duels won ticks Duelist's first two steps;
+        # money text with coin icons parses to copper.
+        ("statistics: duelist", None,
+            'STUB_PRINTS = {}; GetStatisticsCategoryList = function() return { 21, 130 } end; '
+            'GetCategoryNumAchievements = function() return 1 end; '
+            'GetStatistic = function(cat) if cat == 21 then return "12", false, 319 end '
+            'return "5|TInterface\\\\MoneyFrame\\\\UI-GoldIcon:0:0:2:0|t 56|TInterface\\\\MoneyFrame\\\\UI-SilverIcon:0:0:2:0|t", false, 334 end; '
+            'ForeverGoalTrackerDB.active.pvp_duelist = true; STUB_NS.forceStats = true; STUB_FIRE("BAG_UPDATE_DELAYED"); '
+            'local p = ForeverGoalTrackerDB.progress.pvp_duelist or {}; '
+            'print("  duelist ticks: " .. tostring(p[1]) .. " " .. tostring(p[2]) .. " " .. tostring(p[3])); '
+            'print("  money parse: " .. STUB_NS.StatNumber(select(1, GetStatistic(130))) .. " copper"); '
+            'local g = STUB_NS.GoalById("pvp_duelist"); STUB_NS.SetTarget(g, 200); '
+            'for _, s in ipairs(g.steps) do print("  " .. s.text) end'),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '

@@ -7,6 +7,7 @@
 - New Social goals (Join a Guild, Make Friends) and a Social interest in the welcome wizard
 - Raid goals show when the character you're on is saved this week
 - Optional screenshot when you finish a goal (Settings, off by default)
+- New goal: Duelist, tracked from the Statistics window (WoW Forever)
 - Bug fixes
 
 ## 2.5.2
