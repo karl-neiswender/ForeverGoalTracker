@@ -159,7 +159,10 @@ if ok_all:
             'local row2 = { text = { GetText = function(self) return self.s end, SetText = function(self, s) self.s = s end } }; '
             'row2.text:SetText("Turn in the four demon heads to Vartrus for Lok\'delar and the Ancient Rune Etched Stave."); '
             'local lok = STUB_NS.GoalById("lokdelar"); local st = lok.steps[#lok.steps]; STUB_NS.SetStepLinks(row2, st.auto, st); '
-            'print("  step 7: " .. row2.text:GetText())'),
+            'print("  step 7: " .. row2.text:GetText()); '
+            'local row3 = { text = { GetText = function(self) return self.s end, SetText = function(self, s) self.s = s end } }; '
+            'local ram = STUB_NS.GoalById("epicmounts").sections[2].pieces[5]; row3.text:SetText(ram.name); STUB_NS.stepQuality = 4; '
+            'STUB_NS.SetStepLinks(row3, ram.auto, ram); print("  ram: " .. row3.text:GetText())'),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '

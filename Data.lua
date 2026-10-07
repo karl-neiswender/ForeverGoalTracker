@@ -47,7 +47,10 @@ FGT.difficultyColors = {
 -- faction can buy it (level 60, Exalted with the race's home city; that
 -- race itself skips the reputation). 5 steps. Without home (Skyborne,
 -- whose rules for other races aren't known yet) it's the 4 race-only steps.
-local function BuildMountTasks(race, mountName, vendor, location, raceFile, ownedPatterns, gold, home)
+-- items: the mount's color variants (Wowhead Classic, checked 2026-10-07);
+-- any one ticks the buy step, and the first is the item the step's mount
+-- name links to (its tooltip on hover).
+local function BuildMountTasks(race, mountName, vendor, location, raceFile, ownedPatterns, gold, home, items)
     gold = gold or { "800-1,000", 800 }
     if home then
         local side, repId, repName, races = home[1], home[2], home[3], home[4]
@@ -62,7 +65,8 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
             { name = "Save about " .. gold[1] .. " gold on that character", materials = {},
               auto = { money = gold[2] * 10000, forFaction = side } },
             { name = "Buy the " .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
-              auto = { ownedPattern = ownedPatterns, forFaction = side } },
+              auto = { ownedPattern = ownedPatterns, item = items, forFaction = side },
+              links = items and { { items[1], mountName } } },
         }
     end
     return {
@@ -75,7 +79,8 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
         { name = "Save about " .. gold[1] .. " gold on that character", materials = {},
           auto = { money = gold[2] * 10000, forRace = raceFile } },
         { name = "Buy the " .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
-          auto = { ownedPattern = ownedPatterns, forRace = raceFile } },
+          auto = { ownedPattern = ownedPatterns, item = items, forRace = raceFile },
+          links = items and { { items[1], mountName } } },
     }
 end
 
@@ -445,6 +450,7 @@ FGT.goals = {
 
     {
         id = "epicmounts",
+        itemQuality = 4, -- epic mounts: purple names even before the game loads them
         group = true, -- pick races individually in the Library
         icon = "ability_mount_mountainram",
         name = "Epic Racial Mounts",
@@ -462,42 +468,42 @@ FGT.goals = {
             {
                 icon = "ability_mount_ridinghorse",
                 name = "Human - Swift Steed",
-                pieces = BuildMountTasks("Human", "Swift Steed", "Katie Hunter", "Eastvale Logging Camp, Elwynn Forest", "Human", { "Swift .*Steed", "Swift Palomino" }, nil, { "Alliance", 72, "Stormwind", "Humans" }),
+                pieces = BuildMountTasks("Human", "Swift Steed", "Katie Hunter", "Eastvale Logging Camp, Elwynn Forest", "Human", { "Swift .*Steed", "Swift Palomino" }, nil, { "Alliance", 72, "Stormwind", "Humans" }, { 18777, 18776, 18778 }),
             },
             {
                 icon = "ability_mount_mountainram",
                 name = "Dwarf - Swift Ram",
-                pieces = BuildMountTasks("Dwarf", "Swift Ram", "Veron Amberstill", "Amberstill Ranch, Dun Morogh", "Dwarf", { "Swift .*Ram" }, nil, { "Alliance", 47, "Ironforge", "Dwarves" }),
+                pieces = BuildMountTasks("Dwarf", "Swift Ram", "Veron Amberstill", "Amberstill Ranch, Dun Morogh", "Dwarf", { "Swift .*Ram" }, nil, { "Alliance", 47, "Ironforge", "Dwarves" }, { 18786, 18787, 18785 }),
             },
             {
                 icon = "ability_mount_whitetiger",
                 name = "Night Elf - Swift Saber",
-                pieces = BuildMountTasks("Night Elf", "Swift Saber", "Lelanai", "Cenarion Enclave, Darnassus", "NightElf", { "Swift Frostsaber", "Swift Mistsaber", "Swift Stormsaber" }, nil, { "Alliance", 69, "Darnassus", "Night Elves" }),
+                pieces = BuildMountTasks("Night Elf", "Swift Saber", "Lelanai", "Cenarion Enclave, Darnassus", "NightElf", { "Swift Frostsaber", "Swift Mistsaber", "Swift Stormsaber" }, nil, { "Alliance", 69, "Darnassus", "Night Elves" }, { 18766, 18767, 18902 }),
             },
             {
                 icon = "ability_mount_mechastrider",
                 name = "Gnome - Swift Mechanostrider",
-                pieces = BuildMountTasks("Gnome", "Swift Mechanostrider", "Milli Featherwhistle", "Kharanos, Dun Morogh", "Gnome", { "Swift .*Mechanostrider" }, nil, { "Alliance", 54, "Gnomeregan Exiles", "Gnomes" }),
+                pieces = BuildMountTasks("Gnome", "Swift Mechanostrider", "Milli Featherwhistle", "Kharanos, Dun Morogh", "Gnome", { "Swift .*Mechanostrider" }, nil, { "Alliance", 54, "Gnomeregan Exiles", "Gnomes" }, { 18772, 18773, 18774 }),
             },
             {
                 icon = "ability_mount_blackdirewolf",
                 name = "Orc - Swift Timber Wolf",
-                pieces = BuildMountTasks("Orc", "Horn of the Swift Timber Wolf", "Ogunaro Wolfrunner", "Valley of Honor, Orgrimmar", "Orc", { "Swift .*Wolf" }, nil, { "Horde", 76, "Orgrimmar", "Orcs" }),
+                pieces = BuildMountTasks("Orc", "Horn of the Swift Timber Wolf", "Ogunaro Wolfrunner", "Valley of Honor, Orgrimmar", "Orc", { "Swift .*Wolf" }, nil, { "Horde", 76, "Orgrimmar", "Orcs" }, { 18797, 18796, 18798 }),
             },
             {
                 icon = "ability_mount_kodo_03",
                 name = "Tauren - Great Kodo",
-                pieces = BuildMountTasks("Tauren", "Great Kodo", "Harb Clawhoof", "Bloodhoof Village, Mulgore", "Tauren", { "Great .*Kodo" }, nil, { "Horde", 81, "Thunder Bluff", "Tauren" }),
+                pieces = BuildMountTasks("Tauren", "Great Kodo", "Harb Clawhoof", "Bloodhoof Village, Mulgore", "Tauren", { "Great .*Kodo" }, nil, { "Horde", 81, "Thunder Bluff", "Tauren" }, { 18794, 18795, 18793 }),
             },
             {
                 icon = "ability_mount_undeadhorse",
                 name = "Undead - Skeletal Warhorse",
-                pieces = BuildMountTasks("Undead", "Skeletal Warhorse", "Zachariah Post", "Brill, Tirisfal Glades", "Scourge", { "Skeletal Warhorse" }, nil, { "Horde", 68, "Undercity", "Undead" }),
+                pieces = BuildMountTasks("Undead", "Skeletal Warhorse", "Zachariah Post", "Brill, Tirisfal Glades", "Scourge", { "Skeletal Warhorse" }, nil, { "Horde", 68, "Undercity", "Undead" }, { 18791, 13334 }),
             },
             {
                 icon = "ability_mount_raptor",
                 name = "Troll - Swift Raptor",
-                pieces = BuildMountTasks("Troll", "Swift Raptor", "Zjolnir", "Sen'jin Village, Durotar", "Troll", { "Swift .*Raptor" }, nil, { "Horde", 530, "the Darkspear Trolls", "Trolls" }),
+                pieces = BuildMountTasks("Troll", "Swift Raptor", "Zjolnir", "Sen'jin Village, Durotar", "Troll", { "Swift .*Raptor" }, nil, { "Horde", 530, "the Darkspear Trolls", "Trolls" }, { 18788, 18789, 18790 }),
             },
             -- New in Warcraft Forever, so it's last (parts are saved by
             -- position) and only listed on the Forever client. Wowhead
@@ -512,7 +518,7 @@ FGT.goals = {
                 -- 1,200 gold = Journeyman Riding (1,000) + the mount (200).
                 -- Genn Fairweather is also the riding trainer there.
                 pieces = BuildMountTasks("Skyborne", "Swift Galestrider", "Genn Fairweather", "Zephras Isle",
-                    "Skyborne", { "Swift .*Galestrider" }, { "1,200", 1200 }),
+                    "Skyborne", { "Swift .*Galestrider" }, { "1,200", 1200 }, nil, { 269671, 274933, 269678 }),
             },
         },
     },

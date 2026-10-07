@@ -3792,7 +3792,7 @@ local function RefreshTierSections(goal)
                 row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
                 SetRowIndent(row, 18)
                 row:SetStepIcon(piece.icon) -- item icon when the set data has one
-                FGT.SetStepLinks(row, piece.auto)
+                FGT.SetStepLinks(row, piece.auto, piece)
 
                 -- Pieces with materials fold open individually (closed by
                 -- default) and show how many of their materials are done.
