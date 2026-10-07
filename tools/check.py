@@ -173,7 +173,9 @@ if ok_all:
             'print("  " .. STUB_NS.LinkText("Solo Artorius the Doombringer in Winterspring.")); '
             'STUB_NS.ShowNpcTip({}, 14535); STUB_NS.ShowNpcOnMap(14524); STUB_NS.ShowNpcOnMap(14387); '
             'TomTom = { AddWaypoint = function(self, m, x, y, o) print("  tomtom: " .. m .. " " .. x .. " " .. y .. " " .. o.title) end }; '
-            'STUB_NS.ShowNpcOnMap(14535); TomTom = nil'),
+            'STUB_NS.ShowNpcOnMap(14535); TomTom = nil; '
+            'STUB_NS.OpenWowheadCard("npc", 14524, "Vartrus", nil, STUB_NS.NpcById(14524)); print("  card: " .. STUB_NS.wowheadCard.url); '
+            'STUB_NS.OpenWowheadCard("item", 16866, "Helm")'),
         # Test commands: add every goal, then reset all (asks first) and undo.
         ("add all and reset all", None,
             'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '

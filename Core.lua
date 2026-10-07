@@ -1229,10 +1229,12 @@ do
         GameTooltip:AddLine(" ")
         if n.map then
             local tomtom = TomTom and TomTom.AddWaypoint
-            GameTooltip:AddLine(tomtom and "Click to set a TomTom waypoint." or "Click to show on your map.",
+            GameTooltip:AddLine(tomtom and "Shift-click to set a TomTom waypoint." or "Shift-click to show on your map.",
                 C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+            GameTooltip:AddLine("Right-click for map and Wowhead options.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        else
+            GameTooltip:AddLine("Right-click for its Wowhead link.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         end
-        GameTooltip:AddLine("Right-click for its Wowhead link.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         GameTooltip:Show()
     end
 
@@ -1317,12 +1319,15 @@ function FGT.EnableGoalLinks(f)
         if npcId then
             local n = FGT.NpcById(npcId)
             if button == "RightButton" then
-                FGT.OpenWowheadCard("npc", npcId, n and n.name or text)
-            else
+                FGT.OpenWowheadCard("npc", npcId, n and n.name or text, nil, n)
+                return
+            elseif IsShiftKeyDown() then
                 FGT.ShowNpcOnMap(npcId)
+                return
             end
-            return
         end
+        -- a plain click on an NPC or item name ticks the step (below)
+        local tick = npcId and true
         -- a mount type: right-click and shift-click use its first color
         local itemId = tonumber(link:match("^item:(%d+)") or link:match("^fgtvariants:(%d+)") or "")
         if itemId then
@@ -1333,15 +1338,17 @@ function FGT.EnableGoalLinks(f)
             elseif IsShiftKeyDown() then
                 FGT.InsertItemLink(itemId)
             else
-                -- a plain click on the name ticks the step, like the rest
-                -- of the row (the link makes a big part of it)
-                local click = self.GetScript and self:GetScript("OnClick")
-                if click then
-                    local was = FGT.overLink
-                    FGT.overLink = nil
-                    click(self, "LeftButton")
-                    FGT.overLink = was
-                end
+                tick = true
+            end
+        end
+        if tick then
+            -- like the rest of the row: the link makes a big part of it
+            local click = self.GetScript and self:GetScript("OnClick")
+            if click then
+                local was = FGT.overLink
+                FGT.overLink = nil
+                click(self, "LeftButton")
+                FGT.overLink = was
             end
             return
         end
@@ -7562,7 +7569,9 @@ do
     end
 
     -- kind: item, quest or npc; anchor: a page section, like "#sells"
-    function FGT.OpenWowheadCard(kind, id, label, anchor)
+    -- npc: an FGT.NPCS entry; its card also shows where they stand and a
+    -- button for the map pin (or TomTom waypoint)
+    function FGT.OpenWowheadCard(kind, id, label, anchor, npc)
         local K = FGT.wowheadCard
         if not K then
             K = CreateFrame("Frame", nil, main, "BackdropTemplate")
@@ -7603,6 +7612,26 @@ do
             K.hint = NewFontString(K, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
             K.hint:SetPoint("TOPLEFT", K.box, "BOTTOMLEFT", 0, -6)
             K.hint:SetText("Press Ctrl+C to copy, then paste it into your browser.")
+            -- NPC cards: where they stand, and a map button
+            K.place = NewFontString(K, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            K.place:SetPoint("TOPLEFT", K.sub, "BOTTOMLEFT", 0, -10)
+            K.place:SetPoint("RIGHT", K, "RIGHT", -14, 0)
+            K.place:SetJustifyH("LEFT")
+            K.map = CreateFrame("Button", nil, K, "BackdropTemplate")
+            Etch(K.map, STYLE.button, 8)
+            K.map.text = NewFontString(K.map, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            K.map.text:SetPoint("CENTER", 0, 0)
+            function K.map:SetLabel(t)
+                self.text:SetText(t)
+                self:SetSize(math.max(64, math.ceil(self.text:GetStringWidth()) + 20), 22)
+            end
+            K.map:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
+            K.map:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
+            K.map:SetScript("OnClick", function()
+                if K.npc then FGT.ShowNpcOnMap(K.npc.id) end
+                FGT.CloseWowheadCard()
+            end)
+            K.map:SetPoint("TOPLEFT", K.place, "BOTTOMLEFT", 0, -8)
             -- new frames start shown
             K:Hide()
             K.catcher:Hide()
@@ -7613,6 +7642,26 @@ do
         local name = kind == "item" and not anchor and FGT.ItemInfo(id) or nil
         K.sub:SetText(name or (label and label:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")) or "")
         K.box:SetText(K.url)
+        -- the URL box sits under the NPC's place and map button, if any
+        K.npc = npc
+        K.box:ClearAllPoints()
+        if npc then
+            K.title:SetText(npc.name)
+            K.sub:SetText(npc.tag and ("<" .. npc.tag .. ">") or (npc.disguise and ("Found as " .. npc.disguise) or ""))
+            K.place:SetText(npc.map and (npc.zone .. "  " .. string.format("%.1f, %.1f", npc.x, npc.y)) or (npc.where or ""))
+            K.place:Show()
+            K.map:SetShown(npc.map and true or false)
+            K.map:SetLabel((TomTom and TomTom.AddWaypoint) and "Set TomTom waypoint" or "Show on map")
+            K.box:SetPoint("TOPLEFT", npc.map and K.map or K.place, "BOTTOMLEFT", 0, -10)
+            K:SetHeight(npc.map and 176 or 142)
+        else
+            K.title:SetText("Wowhead link")
+            K.place:Hide()
+            K.map:Hide()
+            K.box:SetPoint("TOPLEFT", K.sub, "BOTTOMLEFT", 0, -10)
+            K:SetHeight(112)
+        end
+        K.box:SetPoint("RIGHT", K, "RIGHT", -14, 0)
         local x, y = GetCursorPosition()
         local scale = K:GetEffectiveScale()
         K:ClearAllPoints()
