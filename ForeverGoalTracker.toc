@@ -13,4 +13,5 @@
 Data.lua
 Library.lua
 Npcs.lua
+Quests.lua
 Core.lua

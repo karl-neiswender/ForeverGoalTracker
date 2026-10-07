@@ -350,7 +350,7 @@ FGT.goals = {
         note = "Hunter-only epic bow. It's built from the Ancient Rune Etched Stave you earn in the Lok'delar chain, so do that goal first. Since patch 1.8 one Hunter ends up with both weapons.",
         steps = {
             { text = "Get the Ancient Rune Etched Stave from 'Stave of the Ancients' (the {lokdelar:Lok'delar} goal).", auto = { item = 18707, quest = 7636 } },
-            { text = "Pick up 'A Proper String' from Vartrus the Ancient in Felwood.", auto = { questTaken = 7635 } },
+            { text = "Pick up 'A Proper String' from Stoma the Ancient in Felwood.", auto = { questTaken = 7635 } },
             { text = "Loot the Mature Black Dragon Sinew from {raid_ony:Onyxia}.", auto = { item = 18705, quest = 7635 } },
             { text = "Turn in the sinew to Vartrus for the Enchanted Black Dragon Sinew.", auto = { item = 18724, quest = 7635 } },
             { text = "Combine the stave and the Enchanted Black Dragon Sinew into Rhok'delar.", auto = { item = { 18713, 20488 } } },

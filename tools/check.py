@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "Npcs.lua", "Core.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "Npcs.lua", "Quests.lua", "Core.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -188,6 +188,15 @@ if ok_all:
             'local s = STUB_NS.ShineText(t, 0.5); print("  " .. s); '
             'print("  plain: " .. s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")); '
             'STUB_NS.OpenLinkCard("att_naxx"); print("  add comet on: " .. tostring(STUB_NS.linkCard.btn.comet.on))'),
+        # Quest links: the "!" and yellow link (quoted names only), next to
+        # an NPC link; the tooltip, a per-class quest's Wowhead search.
+        ("quest links", None,
+            'STUB_PRINTS = {}; '
+            'print("  " .. STUB_NS.LinkText("Pick up \'A Proper String\' from Stoma the Ancient in Felwood.")); '
+            'print("  " .. STUB_NS.LinkText("Bring the Frame of Atiesh to Anachronos.")); '
+            'STUB_NS.ShowQuestTip({}, 4); STUB_NS.QuestWowhead(4); print("  " .. STUB_NS.wowheadCard.url); '
+            'for k, q in ipairs(STUB_NS.QUESTS) do if q.perClass then STUB_NS.QuestWowhead(k); break end end; '
+            'print("  " .. STUB_NS.wowheadCard.url)'),
         # Test commands: add every goal, then reset all (asks first) and undo.
         ("add all and reset all", None,
             'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '

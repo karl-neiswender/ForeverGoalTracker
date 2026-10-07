@@ -385,6 +385,10 @@ local function BuildWatchList()
             for _, piece in ipairs(section.pieces) do CollectRule(piece.auto) end
         end
     end
+    -- every linked quest (Quests.lua), for the quest tooltips' status lines
+    for _, q in ipairs(FGT.QUESTS or {}) do
+        for _, id in ipairs(q[2]) do WATCH.quests[id] = true; WATCH.taken[id] = true end
+    end
 end
 
 -- ------------------------------------------------------------
@@ -1156,7 +1160,8 @@ function FGT.LinkText(s)
         if not FGT.GoalById(id) then return label end
         return "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
     end))
-    -- then NPC names (below)
+    -- then quest names, then NPC names (below)
+    if FGT.LinkQuests then s = FGT.LinkQuests(s) end
     return FGT.LinkNpcs and FGT.LinkNpcs(s) or s
 end
 
@@ -1383,6 +1388,108 @@ do
     end
 end
 
+-- ============================================================
+-- Quest links (Quests.lua): a quest name in quotes becomes a bright
+-- yellow link with the game's gold "!" in front (Karl). Hover shows who
+-- starts it and where each of your characters stands; a plain click
+-- ticks the step, shift-click puts the name in chat, right-click gives
+-- the Wowhead link.
+-- ============================================================
+do
+    local YELLOW = "fff23a"
+    FGT.QUEST_ICON = "|TInterface\\GossipFrame\\AvailableQuestIcon:0|t"
+    -- the same "!" greyed, for finished steps (StyleCheckRow)
+    FGT.QUEST_ICON_DIM = "|TInterface\\GossipFrame\\AvailableQuestIcon:0:0:0:0:32:32:0:32:0:32:120:120:120|t"
+    local order
+    function FGT.LinkQuests(text)
+        if not text:find("'", 1, true) then return text end
+        if not order then
+            order = {}
+            for key, q in ipairs(FGT.QUESTS or {}) do table.insert(order, { "'" .. q[1] .. "'", key, q[1] }) end
+            table.sort(order, function(a, b) return #a[1] > #b[1] end) -- longest first
+        end
+        for _, e in ipairs(order) do
+            local s, e2 = text:find(e[1], 1, true)
+            if s and not text:sub(1, s - 1):find("|H[^|]*|h[^|]*$") then
+                text = text:sub(1, s - 1) .. FGT.QUEST_ICON .. "|cff" .. YELLOW .. "|Hfgtquest:" .. e[2] .. "|h"
+                    .. e[3] .. "|h|r" .. text:sub(e2 + 1)
+            end
+        end
+        return text
+    end
+
+    -- "Turned in", "In your quest log" or "Picked up" for one character
+    local function Status(c, ids, isMe)
+        for _, id in ipairs(ids) do
+            if c.quests and c.quests[id] then return "Turned in", 0.35, 0.85, 0.35 end
+        end
+        if isMe then
+            local want = {}
+            for _, id in ipairs(ids) do want[id] = true end
+            if next(FGT.QuestsInLog(want)) then return "In your quest log", 1, 0.95, 0.23 end
+        end
+        for _, id in ipairs(ids) do
+            if c.questsTaken and c.questsTaken[id] then return "Picked up", 1, 0.82, 0.4 end
+        end
+    end
+
+    function FGT.ShowQuestTip(owner, key)
+        local q = FGT.QUESTS and FGT.QUESTS[key]
+        if not q then return end
+        GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
+        GameTooltip:AddLine(q[1], 1, 0.95, 0.23)
+        if q.startName then
+            local npc = q.start and FGT.NpcById and FGT.NpcById(q.start)
+            GameTooltip:AddLine("Starts with " .. q.startName .. (npc and npc.zone and (" in " .. npc.zone) or ""),
+                C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
+        end
+        GameTooltip:AddLine(" ")
+        if q.perClass then
+            GameTooltip:AddLine("Every class has its own version of this quest.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+        else
+            -- your characters, most recently played first
+            local list, me = {}, CharKey()
+            for k, c in pairs(Roster()) do table.insert(list, { k = k, c = c }) end
+            table.sort(list, function(a, b) return (a.c.lastSeen or 0) > (b.c.lastSeen or 0) end)
+            local shown = 0
+            for _, e in ipairs(list) do
+                local label, r, g, b = Status(e.c, q[2], e.k == me)
+                if label and shown < 6 then
+                    shown = shown + 1
+                    local cc = RAID_CLASS_COLORS and e.c.class and RAID_CLASS_COLORS[e.c.class]
+                    GameTooltip:AddDoubleLine(e.c.name or e.k, label,
+                        cc and cc.r or C.TEXT[1], cc and cc.g or C.TEXT[2], cc and cc.b or C.TEXT[3], r, g, b)
+                end
+            end
+            if shown == 0 then
+                GameTooltip:AddLine("None of your characters have started it yet.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+            end
+        end
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine("Shift-click to put its name in chat.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:AddLine("Right-click for its Wowhead link.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:Show()
+    end
+
+    function FGT.QuestChat(key)
+        local q = FGT.QUESTS and FGT.QUESTS[key]
+        if not q then return end
+        if not (ChatEdit_InsertLink and ChatEdit_InsertLink(q[1])) and ChatFrame_OpenChat then
+            ChatFrame_OpenChat(q[1])
+        end
+    end
+
+    function FGT.QuestWowhead(key)
+        local q = FGT.QUESTS and FGT.QUESTS[key]
+        if not q then return end
+        if q[2][1] then
+            FGT.OpenWowheadCard("quest", q[2][1], q[1])
+        else
+            FGT.OpenWowheadCard("search", 0, q[1]) -- per-class quests: a search
+        end
+    end
+end
+
 -- Makes goal links inside a frame's text hoverable and clickable. While
 -- the mouse is on a link, FGT.overLink is set so the step under it
 -- doesn't tick (ToggleStep checks it).
@@ -1408,6 +1515,12 @@ function FGT.EnableGoalLinks(f)
         if npcId then
             FGT.overLink = "npc"
             FGT.ShowNpcTip(self, npcId)
+            return
+        end
+        local questKey = tonumber(link:match("^fgtquest:(%d+)") or "")
+        if questKey then
+            FGT.overLink = "quest"
+            FGT.ShowQuestTip(self, questKey)
             return
         end
         local id = link:match("^fgtgoal:(.+)")
@@ -1440,8 +1553,18 @@ function FGT.EnableGoalLinks(f)
                 return
             end
         end
-        -- a plain click on an NPC or item name ticks the step (below)
-        local tick = npcId and true
+        local questKey = tonumber(link:match("^fgtquest:(%d+)") or "")
+        if questKey then
+            if button == "RightButton" then
+                FGT.QuestWowhead(questKey)
+                return
+            elseif IsShiftKeyDown() then
+                FGT.QuestChat(questKey)
+                return
+            end
+        end
+        -- a plain click on an NPC, quest or item name ticks the step (below)
+        local tick = (npcId or questKey) and true
         -- a mount type: right-click and shift-click use its first color
         local itemId = tonumber(link:match("^item:(%d+)") or link:match("^fgtvariants:(%d+)") or "")
         if itemId then
@@ -3840,6 +3963,15 @@ local function StyleCheckRow(row, done)
         -- dimmed text, a hint of the item's quality left (Karl)
         local text = row.text:GetText()
         if type(text) == "string" and text:find("|H", 1, true) then
+            -- the quest "!" greys too
+            local plain, dim = FGT.QUEST_ICON, FGT.QUEST_ICON_DIM
+            if plain and text:find(plain, 1, true) then
+                local s, e = text:find(plain, 1, true)
+                while s do
+                    text = text:sub(1, s - 1) .. dim .. text:sub(e + 1)
+                    s, e = text:find(plain, s + #dim, true)
+                end
+            end
             row.text:SetText((text:gsub("|cff(%x%x)(%x%x)(%x%x)(|H)", function(r, g, b, h)
                 local function mix(x, s) return math.floor((tonumber(x, 16) / 255 * 0.45 + s * 0.55) * 255 + 0.5) end
                 return string.format("|cff%02x%02x%02x", mix(r, C.SUBTEXT[1]), mix(g, C.SUBTEXT[2]), mix(b, C.SUBTEXT[3])) .. h
@@ -7779,7 +7911,11 @@ do
             FGT.wowheadCard = K
         end
         local site = FGT.isForever and "forever" or "classic"
-        K.url = string.format("https://www.wowhead.com/%s/%s=%d", site, kind, id) .. (anchor or "")
+        if kind == "search" then -- (per-class quests have no single page)
+            K.url = string.format("https://www.wowhead.com/%s/search?q=%s", site, (label or ""):gsub(" ", "+"))
+        else
+            K.url = string.format("https://www.wowhead.com/%s/%s=%d", site, kind, id) .. (anchor or "")
+        end
         local name = kind == "item" and not anchor and FGT.ItemInfo(id) or nil
         K.sub:SetText(name or (label and label:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")) or "")
         K.box:SetText(K.url)
