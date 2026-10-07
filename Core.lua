@@ -4214,19 +4214,17 @@ end
 
 -- "Find your next goal": a button after the last goal card that opens the
 -- welcome wizard's suggestions, skipping goals you already have. Same gold
--- comet as "Help me get started", slower and fainter so it doesn't pull
--- focus from the goals. Placed by LayoutGoalList.
+-- look and comet as "Help me get started" (Karl). Placed by LayoutGoalList.
 function FGT.FindMoreButton()
     local b = FGT.findMore
     if b then return b end
     b = CreateFrame("Button", nil, listContent, "BackdropTemplate")
     b:SetHeight(40)
-    Etch(b, STYLE.row, 12)
+    Etch(b, STYLE.rowSel, 12) -- gold, like "Help me get started" (Karl)
     b.text = NewTitleString(b, 13)
     b.text:SetPoint("CENTER", 0, 0)
     b.text:SetText("Find your next goal")
     b:SetScript("OnEnter", function(self)
-        self:SetEtch(STYLE.rowHover)
         self.text:SetTextColor(1, 1, 1)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine("Find your next goal", C.TITLE[1], C.TITLE[2], C.TITLE[3])
@@ -4235,7 +4233,6 @@ function FGT.FindMoreButton()
         GameTooltip:Show()
     end)
     b:SetScript("OnLeave", function(self)
-        self:SetEtch(STYLE.row)
         self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])
         GameTooltip:Hide()
     end)
@@ -4243,7 +4240,7 @@ function FGT.FindMoreButton()
         GameTooltip:Hide()
         if FGT.OpenWelcome then FGT.OpenWelcome(nil, true) end
     end)
-    FGT.AddBorderComet(b, 2, 0.5, 6.5)
+    FGT.AddBorderComet(b, 2, 0.9) -- same comet as "Help me get started"
     FGT.findMore = b
     return b
 end
