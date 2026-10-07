@@ -1165,6 +1165,12 @@ function FGT.EnableGoalLinks(f)
     f:SetHyperlinksEnabled(true)
     f:SetScript("OnHyperlinkEnter", function(self, link, text)
         -- an item name in a step (FGT.LinkItemName): the game's item tooltip
+        local variantId = tonumber(link:match("^fgtvariants:(%d+)") or "")
+        if variantId then
+            FGT.overLink = "item"
+            FGT.ShowVariantsTip(self, variantId, self.ruleEntry)
+            return
+        end
         local itemId = tonumber(link:match("^item:(%d+)") or "")
         if itemId then
             FGT.overLink = "item"
@@ -1191,7 +1197,8 @@ function FGT.EnableGoalLinks(f)
     end)
     f:SetScript("OnHyperlinkClick", function(self, link, text, button)
         GameTooltip:Hide()
-        local itemId = tonumber(link:match("^item:(%d+)") or "")
+        -- a mount type: right-click and shift-click use its first color
+        local itemId = tonumber(link:match("^item:(%d+)") or link:match("^fgtvariants:(%d+)") or "")
         if itemId then
             if button == "RightButton" then
                 FGT.OpenWowheadCard("item", itemId, text)
@@ -7128,7 +7135,7 @@ do
     -- joins the link ("Elementium Bars").
     function FGT.LinkItemName(row)
         local text = row.text:GetText()
-        if type(text) ~= "string" or text:find("|Hitem:", 1, true) then return end
+        if type(text) ~= "string" or text:find("|Hitem:", 1, true) or text:find("|Hfgtvariants:", 1, true) then return end
         -- { id, names... } for the rule's first item, then the step's extras
         local items = {}
         if row.itemId then
@@ -7136,14 +7143,25 @@ do
             for _, n in ipairs(row.itemNames or {}) do table.insert(names, n) end
             items[1] = { row.itemId, names }
         end
-        for _, l in ipairs(row.extraLinks or {}) do table.insert(items, { l[1], { l[2] } }) end
+        for _, l in ipairs(row.extraLinks or {}) do table.insert(items, { l[1], { l[2] }, l.variants }) end
         local done = {}
         for _, it in ipairs(items) do
-            local id, names = it[1], it[2]
+            local id, names, variants = it[1], it[2], it[3]
+            -- a mount type sold in several colors ("Swift Ram"): its own link,
+            -- whose tooltip lists the colors (FGT.ShowVariantsTip)
+            local linkType = "item:" .. id
+            if variants then
+                FGT.variants = FGT.variants or {}
+                FGT.variants[id] = { name = names[1], items = variants }
+                linkType = "fgtvariants:" .. id
+            end
             local name, _, quality = FGT.ItemInfo(id)
+            if variants then name = nil end -- "Swift Ram", not "Swift Brown Ram"
             if not name then
-                waiting[id] = true
-                if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+                if not variants then
+                    waiting[id] = true
+                    if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+                end
             else
                 table.insert(names, 1, name)
                 -- "Lok'delar, Stave of the Ancient Keepers" is "Lok'delar" in steps
@@ -7155,9 +7173,9 @@ do
             for _, n in ipairs(names) do
                 local s, e
                 if not done[n] then s, e = text:find(n, 1, true) end
-                if s and not text:sub(1, s - 1):find("|Hitem:[^|]*|h[^|]*$") then -- not inside a link
+                if s and not text:sub(1, s - 1):find("|H[^|]*|h[^|]*$") then -- not inside a link
                     if text:sub(e + 1, e + 1) == "s" then e = e + 1 end
-                    text = text:sub(1, s - 1) .. color .. "|Hitem:" .. id .. "|h"
+                    text = text:sub(1, s - 1) .. color .. "|H" .. linkType .. "|h"
                         .. text:sub(s, e) .. "|h|r" .. text:sub(e + 1)
                     done[n] = true
                     break
@@ -7250,6 +7268,34 @@ do
         GameTooltip:Show()
         -- the game's side-by-side comparison with your equipped item
         if compare and known and GameTooltip_ShowCompareItem then pcall(GameTooltip_ShowCompareItem, GameTooltip) end
+    end
+
+    -- A mount type sold in several colors ("Swift Ram", Karl): its name in
+    -- epic purple, then each color with its icon, marked Owned when any
+    -- of your characters has it (in bags, or learned in the mount
+    -- collection), then how the step tracks it.
+    function FGT.ShowVariantsTip(owner, firstId, rule)
+        local v = FGT.variants and FGT.variants[firstId]
+        if not v then return end
+        local EPIC = { 0.64, 0.21, 0.93 }
+        GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
+        GameTooltip:AddLine(v.name, EPIC[1], EPIC[2], EPIC[3])
+        GameTooltip:AddLine(string.format("Epic mount, sold in %d colors:", #v.items), 1, 1, 1)
+        for _, it in ipairs(v.items) do
+            local id, ourName = it[1], it[2]
+            local name = FGT.ItemInfo(id) or ourName
+            local icon = (C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(id))
+                or (GetItemIcon and GetItemIcon(id))
+            local owned = ItemTotal({ id }) > 0 or OwnsName(function(n) return n == name or n == ourName end)
+            GameTooltip:AddDoubleLine((icon and ("|T" .. icon .. ":16:16|t ") or "") .. name,
+                owned and "Owned" or "", EPIC[1], EPIC[2], EPIC[3], C.DONE[1], C.DONE[2], C.DONE[3])
+        end
+        if rule then
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine("Checks itself off when you own any of them.", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
+        end
+        GameTooltip:AddLine("Right-click for the Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        GameTooltip:Show()
     end
 
     -- puts the item's link in the chat box (opening it if needed)
