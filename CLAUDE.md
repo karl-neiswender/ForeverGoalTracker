@@ -96,6 +96,8 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 
 ## Hard-won lessons (don't regress these)
 
+0. **Never call `GetStatistic` (or other new Forever APIs) during `PLAYER_LOGOUT`.** In 2.6.0 the logout save read the Statistics window and crashed the Forever client on exit with `ASSERT(s_lootInitialized)` (Loot.cpp; the game's systems are shutting down; `pcall` can't catch an engine assert). `FGT.loggingOut` now skips the stats and friends reads; `tools/check.py` has a "logout reads no statistics" session. Crash reports land in `_classic_beta_/Errors/*.txt` with a Lua stack that names the addon.
+
 1. **Lua 5.1 allows at most 200 active local variables per function.** Core.lua's main chunk is near the limit. Put new state on `FGT` or inside `do ... end` blocks, and keep colors in `C`. A "too many local variables" error means the main chunk crossed the limit.
 2. **Reputation for unmet factions reads as Neutral, 0.** Always check `KnownFactions()` (the reputation panel) before trusting `GetFactionInfoByID`. The first Wintersaber step uses `value >= 1` for the same reason.
 3. **`local _, raceFile = UnitRace and UnitRace()` only captures one value.** Use `select(2, UnitRace("player"))`.

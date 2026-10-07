@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.1
+
+- Fixed a crash when logging out or exiting WoW Forever
+
 ## 2.6.0
 
 - New WoW Forever raids: Hyjal Summit and the Barrow Deeps

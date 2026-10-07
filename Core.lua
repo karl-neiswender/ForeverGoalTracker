@@ -533,7 +533,7 @@ end
 -- most once every 10 seconds unless forced.
 function FGT.ReadStats(force)
     local watch = WATCH.stats
-    if not (watch and FGT.HasStats()) then return nil end
+    if not (watch and FGT.HasStats()) or FGT.loggingOut then return nil end
     local now = GetTime and GetTime() or 0
     if not force and FGT.statsReadAt and now - FGT.statsReadAt < 10 then return nil end
     FGT.statsReadAt = now
@@ -615,13 +615,14 @@ local function RecordCharacter()
     ScanOwnedNames(c.owned)
 
     -- Social: ever in a guild, and the most friends seen on the list (both
-    -- remembered: guild and friend data can arrive late after login)
-    pcall(function()
+    -- remembered: guild and friend data can arrive late after login).
+    -- Not during logout (see PLAYER_LOGOUT).
+    if not FGT.loggingOut then pcall(function()
         if IsInGuild and IsInGuild() then c.guilded = true end
         local friends = (C_FriendList and C_FriendList.GetNumFriends and C_FriendList.GetNumFriends())
             or (GetNumFriends and GetNumFriends()) or 0
         c.friends = math.max(c.friends or 0, friends or 0)
-    end)
+    end) end
 
     -- statistics (Forever): counters only grow, so keep the highest seen
     local ok2, stats = pcall(FGT.ReadStats, FGT.forceStats)
@@ -7031,7 +7032,16 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
     if event == "BOSS_KILL" then RecordBossKill(arg2); return end -- id, name
     if event == "BANKFRAME_OPENED" then bankOpen = true end
     if event == "BANKFRAME_CLOSED" then bankOpen = false; return end
-    if event == "PLAYER_LOGOUT" then RecordCharacter(); return end
+    if event == "PLAYER_LOGOUT" then
+        -- last save on the way out. FGT.loggingOut skips the Statistics and
+        -- friends reads: the game tears down systems during logout, and
+        -- GetStatistic then hit ASSERT(s_lootInitialized) and crashed the
+        -- Forever beta client on exit (2.6.0). The values read while playing
+        -- are already saved.
+        FGT.loggingOut = true
+        RecordCharacter()
+        return
+    end
     if event == "DUEL_FINISHED" then
         -- the duel counters update a moment after the duel ends
         C_Timer.After(2, function() FGT.forceStats = true; ScanSoon() end)

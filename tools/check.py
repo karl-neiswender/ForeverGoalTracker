@@ -137,6 +137,14 @@ if ok_all:
             'local s = STUB_NS.GoalById("pvp_set_plate_ally").sections[1].pieces[2]; print("  " .. s.text); '
             'local r = STUB_NS.GoalById("set_forever_raid"); print("  raid set parts: " .. #r.sections .. ", plate PvP parts: " .. #STUB_NS.GoalById("pvp_set_plate_ally").sections); '
             'print("  paladin helm ticks from: " .. table.concat(r.sections[2].pieces[1].auto.item, ", "))', True),
+        # Logout must not read statistics: GetStatistic during PLAYER_LOGOUT
+        # crashed the Forever client on exit (2.6.0, ASSERT s_lootInitialized).
+        ("logout reads no statistics", None,
+            'STUB_PRINTS = {}; GetStatisticsCategoryList = function() return { 21 } end; '
+            'GetCategoryNumAchievements = function() return 1 end; '
+            'GetStatistic = function() rawset(_G, "STUB_STAT_CALLED", true); return "0", false, 319 end; '
+            'STUB_NS.statsReadAt = nil; rawset(_G, "STUB_STAT_CALLED", nil); STUB_FIRE("PLAYER_LOGOUT"); '
+            'assert(not rawget(_G, "STUB_STAT_CALLED"), "GetStatistic was called during logout"); print("  logout ok")', True),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '
