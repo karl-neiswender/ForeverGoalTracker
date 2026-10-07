@@ -4564,6 +4564,10 @@ function FGT.OpenLinkCard(id)
                 print(TAG .. g.name .. " added to My Goals.")
             end
         end)
+        -- new frames start shown: hide them so the first open is placed
+        -- at the cursor below (it took three clicks to open before)
+        L:Hide()
+        L.catcher:Hide()
         FGT.linkCard = L
     end
 
