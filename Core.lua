@@ -2274,10 +2274,10 @@ Etch(detailPanel, STYLE.panel, 12)
 -- Sort control - a dropdown button above the list. Built by hand (not
 -- Blizzard's UIDropDownMenu template, which differs between clients).
 local sortModes = {
-    { key = "alpha",      label = "A - Z",      hint = "Alphabetical" },
-    { key = "difficulty", label = "Difficulty", hint = "Easiest first" },
-    { key = "duration",   label = "Duration",   hint = "Fastest first" },
-    { key = "progress",   label = "Progress",   hint = "Most done first" },
+    { key = "alpha",      label = "A - Z" },
+    { key = "difficulty", label = "Difficulty" },
+    { key = "duration",   label = "Duration" },
+    { key = "progress",   label = "Progress" },
 }
 local sortModeIndex = 1
 
@@ -2381,11 +2381,11 @@ local function SetSortMode(index)
 end
 
 -- Dropdown menu: etched gold-rimmed panel under the button, one row per
--- sort mode, current choice marked with the gold check. A transparent
--- catcher over the window closes it when you click anywhere else.
+-- sort mode, current choice marked with the gold check. Only as wide as
+-- its options (Karl: the full-width menu with hints felt clunky). A
+-- transparent catcher over the window closes it when you click elsewhere.
 sortMenu = CreateFrame("Frame", nil, main, "BackdropTemplate")
 sortMenu:SetPoint("TOPLEFT", sortBar, "BOTTOMLEFT", 0, -2)
-sortMenu:SetPoint("TOPRIGHT", sortBar, "BOTTOMRIGHT", 0, -2)
 sortMenu:SetFrameLevel(main:GetFrameLevel() + 60)
 Etch(sortMenu, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
 sortMenu:EnableMouse(true)
@@ -2446,11 +2446,6 @@ for i, mode in ipairs(sortModes) do
     row.label:SetPoint("LEFT", row, "LEFT", 22, 0)
     row.label:SetText(mode.label)
 
-    row.hint = NewFontString(row, 9, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    row.hint:SetPoint("RIGHT", row, "RIGHT", -6, 0)
-    row.hint:SetJustifyH("RIGHT")
-    row.hint:SetText(mode.hint)
-
     row:SetScript("OnEnter", function(self) self.hl:Show() end)
     row:SetScript("OnLeave", function(self) self.hl:Hide() end)
     row:SetScript("OnClick", function()
@@ -2460,6 +2455,11 @@ for i, mode in ipairs(sortModes) do
     sortMenuRows[i] = row
 end
 sortMenu:SetHeight(#sortModes * MENU_ROW + 8)
+do -- widest label + check column + padding, never narrower than 130
+    local w = 0
+    for _, row in ipairs(sortMenuRows) do w = math.max(w, row.label:GetStringWidth()) end
+    sortMenu:SetWidth(math.max(130, math.ceil(w) + 22 + 28))
+end
 
 sortBar:SetScript("OnClick", function()
     if sortMenu:IsShown() then CloseSortMenu() else OpenSortMenu() end
