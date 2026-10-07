@@ -2381,11 +2381,13 @@ local function SetSortMode(index)
 end
 
 -- Dropdown menu: etched gold-rimmed panel under the button, one row per
--- sort mode, current choice marked with the gold check. Only as wide as
--- its options (Karl: the full-width menu with hints felt clunky). A
--- transparent catcher over the window closes it when you click elsewhere.
+-- sort mode, the same width as the button. Names line up with "Sort:",
+-- and the current choice gets a gold check on the right, under the caret
+-- (Karl). A transparent catcher over the window closes it when you click
+-- anywhere else.
 sortMenu = CreateFrame("Frame", nil, main, "BackdropTemplate")
 sortMenu:SetPoint("TOPLEFT", sortBar, "BOTTOMLEFT", 0, -2)
+sortMenu:SetPoint("TOPRIGHT", sortBar, "BOTTOMRIGHT", 0, -2)
 sortMenu:SetFrameLevel(main:GetFrameLevel() + 60)
 Etch(sortMenu, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
 sortMenu:EnableMouse(true)
@@ -2440,10 +2442,10 @@ for i, mode in ipairs(sortModes) do
     row.check = row:CreateTexture(nil, "OVERLAY")
     row.check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
     row.check:SetSize(16, 16)
-    row.check:SetPoint("LEFT", row, "LEFT", 2, 0)
+    row.check:SetPoint("RIGHT", row, "RIGHT", -3, 0) -- centered under the caret
 
     row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
-    row.label:SetPoint("LEFT", row, "LEFT", 22, 0)
+    row.label:SetPoint("LEFT", row, "LEFT", 4, 0) -- lines up with "Sort:"
     row.label:SetText(mode.label)
 
     row:SetScript("OnEnter", function(self) self.hl:Show() end)
@@ -2455,11 +2457,6 @@ for i, mode in ipairs(sortModes) do
     sortMenuRows[i] = row
 end
 sortMenu:SetHeight(#sortModes * MENU_ROW + 8)
-do -- widest label + check column + padding, never narrower than 130
-    local w = 0
-    for _, row in ipairs(sortMenuRows) do w = math.max(w, row.label:GetStringWidth()) end
-    sortMenu:SetWidth(math.max(130, math.ceil(w) + 22 + 28))
-end
 
 sortBar:SetScript("OnClick", function()
     if sortMenu:IsShown() then CloseSortMenu() else OpenSortMenu() end
