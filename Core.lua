@@ -4505,6 +4505,7 @@ end
 -- time, a progress bar, and an Add / Remove button on the right.
 local CARD_H = 64
 local libCards = {}
+FGT.libCards = libCards -- for FGT.ApplyTargets (outside this block)
 
 local libExpanded = {}
 
@@ -6590,7 +6591,7 @@ do
                 if t.name then
                     goal.name = string.format(t.name, Commas(value))
                     -- cards set their name once when built
-                    local row, card = goalRows[goal.id], libCards[goal.id]
+                    local row, card = goalRows[goal.id], FGT.libCards and FGT.libCards[goal.id]
                     if row then row.name:SetText(goal.short or goal.name) end
                     if card then card.name:SetText(goal.name) end
                 end

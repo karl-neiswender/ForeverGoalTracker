@@ -25,6 +25,11 @@ setmetatable(_G, { __index = function(t, k)
   if k == "ForeverGoalTrackerDB" then return nil end
   if type(k) == "string" and k:match("^C_") then return nil end -- optional game namespaces: the addon checks for them
   if type(k) == "string" and k:match("^GetNum") then return function() return 0 end end -- counts are always numbers
+  -- Lowercase names aren't game API: an unknown one is the addon's own
+  -- local used out of its scope (libCards in 2.6), which is nil in game.
+  if type(k) == "string" and k:match("^%l") then
+    error("unknown global '" .. k .. "' (a local out of scope?)", 2)
+  end
   return setmetatable({}, gmt)
 end })
 -- a few real values the addon reads at load
@@ -43,6 +48,12 @@ GetScreenHeight = function() return 1080 end
 GetTime = function() return 100 end
 time = function() return 1790000000 end
 date = os.date
+-- the game's lowercase helpers
+tinsert, tremove, wipe = table.insert, table.remove, function(t) for k in pairs(t) do t[k] = nil end return t end
+format, strfind, strsub, strlower, strupper, strlen = string.format, string.find, string.sub, string.lower, string.upper, string.len
+strtrim = function(s) return (s:gsub("^%s+", ""):gsub("%s+$", "")) end
+strsplit = function(sep, s) local out = {} for p in (s .. sep):gmatch("(.-)" .. sep:gsub("%p", "%%%0")) do out[#out + 1] = p end return unpack(out) end
+floor, ceil, abs, min, max = math.floor, math.ceil, math.abs, math.min, math.max
 GetMoney = function() return 0 end
 UnitXP = function() return 0 end
 UnitXPMax = function() return 1 end
