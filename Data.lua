@@ -259,6 +259,7 @@ FGT.goals = {
         icon = "inv_sword_2h_ashbringercorrupt",
         name = "Corrupted Ashbringer",
         short = "Ashbringer",
+        itemQuality = 4, -- epic purple links even though the game has no details
         category = "Epic Weapon",
         difficulty = "Extreme",
         timeEstimate = "3+ Months",
@@ -269,7 +270,9 @@ FGT.goals = {
             { text = "Get {att_naxx:attuned to Naxxramas} from Archmage Angela Dosantos at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
             { text = "Clear the Military Wing of {raid_naxx:Naxxramas} up to the Four Horsemen.", auto = { boss = "Gothik the Harvester" } },
             { text = "Defeat the Four Horsemen.", auto = { boss = "Four Horsemen" } },
-            { text = "Loot Corrupted Ashbringer from the Four Horsemen Chest.", auto = { item = { 22691, 22709 } } },
+            -- the game has no details for 22691 (Wowhead: removed from the game), so the name links from here
+            { text = "Loot Corrupted Ashbringer from the Four Horsemen Chest.", auto = { item = { 22691, 22709 } },
+              links = { { 22691, "Corrupted Ashbringer" } } },
         },
         tips = {
             "You'll need a 40-player raid that clears Naxxramas every week.",
