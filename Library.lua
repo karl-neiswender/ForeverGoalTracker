@@ -631,7 +631,12 @@ local library = {
         name = "Save 5,000 Gold",
         category = "Milestone", difficulty = "Hard",
         timeEstimate = "Varies",
-        note = "Hold 1k, 2.5k and 5k gold on a single character. Ticks itself from your gold.",
+        note = "Hold your gold target on a single character, with milestones on the way. Ticks itself from your gold.",
+        -- Right-click > Change target. Steps are the marks (fractions of
+        -- the target), rebuilt by FGT.ApplyTargets; the steps below are
+        -- the default target's.
+        target = { kind = "money", default = 5000, min = 100, max = 200000, marks = { 0.2, 0.5, 1 },
+                   name = "Save %s Gold", step = "Hold %s gold on one character.", unit = "gold" },
         steps = {
             { text = "Hold 1,000 gold on one character.", auto = { money = 1000 * 10000 } },
             { text = "Hold 2,500 gold on one character.", auto = { money = 2500 * 10000 } },
@@ -901,6 +906,8 @@ table.insert(pvp, {
     category = "PvP", difficulty = "Hard",
     timeEstimate = "Ongoing",
     note = "Lifetime honorable kills on a single character. Ticks itself from your PvP stats.",
+    target = { kind = "hk", default = 25000, min = 100, max = 1000000, marks = { 0.04, 0.2, 0.4, 1 },
+               step = "Earn %s honorable kills.", unit = "honorable kills" },
     steps = {
         { text = "Earn 1,000 honorable kills.", auto = { hk = 1000 } },
         { text = "Earn 5,000 honorable kills.", auto = { hk = 5000 } },

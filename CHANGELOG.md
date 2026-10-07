@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Find your next goal: a button at the end of My Goals suggests what to chase next, skipping goals you already have.
+- Set your own target: right-click Save 5,000 Gold or Honorable Kills to change the number.
 - Bug fixes
 
 ## 2.5.2

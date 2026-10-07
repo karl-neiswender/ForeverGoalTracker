@@ -2705,6 +2705,20 @@ LayoutGoalList = function()
         y = y - (rowHeight + 4)
     end
 
+    -- "Find your next goal" after the last card (built after this runs at load)
+    local fm = FGT.FindMoreButton and FGT.FindMoreButton()
+    if fm then
+        local show = #sorted > 0 and not (ForeverGoalTrackerDB and ForeverGoalTrackerDB.demoBackup) -- keeps the demo shots as they are
+        fm:SetShown(show)
+        if show then
+            y = y - 8
+            fm:ClearAllPoints()
+            fm:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, y)
+            fm:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
+            y = y - (fm:GetHeight() + 10)
+        end
+    end
+
     local totalListHeight = -y
     listContent:SetHeight(math.max(totalListHeight, listScrollObj.scroll:GetHeight()))
     listScrollObj:Update()
@@ -4029,6 +4043,42 @@ do
     FGT.emptyUI = E
 end
 
+-- "Find your next goal": a button after the last goal card that opens the
+-- welcome wizard's suggestions, skipping goals you already have. Same gold
+-- comet as "Help me get started", slower and fainter so it doesn't pull
+-- focus from the goals. Placed by LayoutGoalList.
+function FGT.FindMoreButton()
+    local b = FGT.findMore
+    if b then return b end
+    b = CreateFrame("Button", nil, listContent, "BackdropTemplate")
+    b:SetHeight(40)
+    Etch(b, STYLE.row, 12)
+    b.text = NewTitleString(b, 13)
+    b.text:SetPoint("CENTER", 0, 0)
+    b.text:SetText("Find your next goal")
+    b:SetScript("OnEnter", function(self)
+        self:SetEtch(STYLE.rowHover)
+        self.text:SetTextColor(1, 1, 1)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine("Find your next goal", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine("Suggestions for the character you're on, skipping goals you already have.",
+            C.INK2[1], C.INK2[2], C.INK2[3], true)
+        GameTooltip:Show()
+    end)
+    b:SetScript("OnLeave", function(self)
+        self:SetEtch(STYLE.row)
+        self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:Hide()
+    end)
+    b:SetScript("OnClick", function()
+        GameTooltip:Hide()
+        if FGT.OpenWelcome then FGT.OpenWelcome(nil, true) end
+    end)
+    FGT.AddBorderComet(b, 2, 0.5, 6.5)
+    FGT.findMore = b
+    return b
+end
+
 local detailParts -- every detail-panel element hidden by the empty state
 function FGT.ShowEmptyTracker()
     local appearing = not emptyNote:IsVisible()
@@ -4448,11 +4498,9 @@ function FGT.OpenGoalMenu(card)
         M.catcher:RegisterForClicks("AnyUp")
         M.catcher:SetScript("OnClick", FGT.CloseGoalMenu)
         M.rows = {}
-        for i = 1, 2 do
+        for i = 1, 3 do
             local row = CreateFrame("Button", nil, M)
             row:SetHeight(MENU_ROW)
-            row:SetPoint("TOPLEFT", M, "TOPLEFT", 4, -4 - (i - 1) * MENU_ROW)
-            row:SetPoint("TOPRIGHT", M, "TOPRIGHT", -4, -4 - (i - 1) * MENU_ROW)
             row.hl = row:CreateTexture(nil, "BACKGROUND")
             row.hl:SetTexture(SOLID)
             row.hl:SetAllPoints(row)
@@ -4464,8 +4512,6 @@ function FGT.OpenGoalMenu(card)
             row:SetScript("OnLeave", function(self) self.hl:Hide() end)
             M.rows[i] = row
         end
-        M:SetHeight(2 * MENU_ROW + 8)
-
         -- 1: favorite toggle
         M.rows[1]:SetScript("OnClick", function()
             local id = M.goal.id
@@ -4484,12 +4530,33 @@ function FGT.OpenGoalMenu(card)
             ForeverGoalTrackerDB.favorites[goal.id] = nil
             SetGoalActive(goal, false)
         end)
+        -- 3: change target (goals built on one number, like gold)
+        M.rows[3].label:SetText("Change target")
+        M.rows[3]:SetScript("OnClick", function()
+            local goal = M.goal
+            FGT.CloseGoalMenu()
+            if FGT.OpenTargetCard then FGT.OpenTargetCard(goal) end
+        end)
+        -- new frames start shown
+        M:Hide()
+        M.catcher:Hide()
         FGT.goalMenu = M
     end
 
     M.goal = card.goal
     local fav = ForeverGoalTrackerDB.favorites[card.goal.id]
     M.rows[1].label:SetText(fav and "Remove from favorites" or "Add to favorites")
+    -- favorite, change target (when the goal has one), remove last
+    local order = { M.rows[1] }
+    if card.goal.target then table.insert(order, M.rows[3]) end
+    table.insert(order, M.rows[2])
+    M.rows[3]:SetShown(card.goal.target ~= nil)
+    for i, row in ipairs(order) do
+        row:ClearAllPoints()
+        row:SetPoint("TOPLEFT", M, "TOPLEFT", 4, -4 - (i - 1) * MENU_ROW)
+        row:SetPoint("TOPRIGHT", M, "TOPRIGHT", -4, -4 - (i - 1) * MENU_ROW)
+    end
+    M:SetHeight(#order * MENU_ROW + 8)
 
     -- open at the cursor
     local x, y = GetCursorPosition()
@@ -6321,6 +6388,7 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         if p and p[1] and not ForeverGoalTrackerDB.attuneSteps then p[3] = true end
     end
     ForeverGoalTrackerDB.attuneSteps = true
+    if FGT.ApplyTargets then FGT.ApplyTargets() end -- player-set targets (gold, honorable kills)
     ApplyAutoRules() -- re-check against the saved roster from earlier sessions
 
     -- Re-clamp against the CURRENT screen every load, not just the
@@ -6392,6 +6460,186 @@ local function ScanNow(announce)
             changed, changed == 1 and "" or "s"))
     end
     RefreshOpenWindow()
+end
+
+-- ============================================================
+-- Change target: goals built on one number (gold, honorable kills) carry
+-- a `target` in their data. Right-click > Change target saves the
+-- player's number in DB.targets[id]; the name and steps are rebuilt from
+-- it (each step a fraction of the target, rounded to two significant
+-- figures), and the goal's ticks are re-checked from scratch.
+-- ============================================================
+do
+    local function Nice(v)
+        if v < 100 then return math.max(1, math.floor(v + 0.5)) end
+        local mag = 10 ^ (math.floor(math.log10(v)) - 1)
+        return math.floor(v / mag + 0.5) * mag
+    end
+    local function Commas(n)
+        local s = tostring(math.floor(n))
+        while true do
+            local k
+            s, k = s:gsub("^(%d+)(%d%d%d)", "%1,%2")
+            if k == 0 then return s end
+        end
+    end
+    FGT.Commas = Commas
+
+    function FGT.TargetOf(goal)
+        local t = goal.target
+        if not t then return nil end
+        local saved = ForeverGoalTrackerDB and ForeverGoalTrackerDB.targets and ForeverGoalTrackerDB.targets[goal.id]
+        return saved or t.default
+    end
+
+    function FGT.ApplyTargets()
+        for _, goal in ipairs(FGT.goals) do
+            local t = goal.target
+            if t then
+                local value = FGT.TargetOf(goal)
+                if t.name then
+                    goal.name = string.format(t.name, Commas(value))
+                    -- cards set their name once when built
+                    local row, card = goalRows[goal.id], libCards[goal.id]
+                    if row then row.name:SetText(goal.short or goal.name) end
+                    if card then card.name:SetText(goal.name) end
+                end
+                for i, frac in ipairs(t.marks) do
+                    local n = (frac == 1) and value or Nice(value * frac)
+                    local step = goal.steps[i]
+                    step.text = string.format(t.step, Commas(n))
+                    step.auto = step.auto or {}
+                    if t.kind == "money" then step.auto.money = n * 10000 else step.auto[t.kind] = n end
+                end
+            end
+        end
+    end
+
+    -- value nil: back to the default
+    function FGT.SetTarget(goal, value)
+        local DB = ForeverGoalTrackerDB
+        if not (DB and goal.target) then return end
+        DB.targets = DB.targets or {}
+        if value == goal.target.default then value = nil end
+        DB.targets[goal.id] = value
+        FGT.ApplyTargets()
+        -- the old ticks were for other numbers: check again from scratch
+        DB.progress[goal.id] = {}
+        if FGT.resetUndo and FGT.resetUndo.id == goal.id then FGT.resetUndo = nil end
+        FGT.quietCelebrate = true -- a lower target you already reach: no fireworks
+        ApplyAutoRules()
+        LayoutGoalList()
+        RefreshOpenWindow()
+        FGT.quietCelebrate = nil
+        print(TAG .. goal.name .. ": target set to " .. Commas(FGT.TargetOf(goal)) .. " " .. goal.target.unit .. ".")
+    end
+
+    -- The card: goal name, a number box, Save, and "Reset to default".
+    function FGT.CloseTargetCard()
+        local T = FGT.targetCard
+        if T then T:Hide(); T.catcher:Hide(); T.box:ClearFocus() end
+    end
+
+    function FGT.OpenTargetCard(goal)
+        local T = FGT.targetCard
+        if not T then
+            T = CreateFrame("Frame", nil, main, "BackdropTemplate")
+            T:SetFrameLevel(main:GetFrameLevel() + 60)
+            T:SetClampedToScreen(true)
+            T:SetSize(260, 146)
+            Etch(T, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
+            T:EnableMouse(true)
+            T.catcher = CreateFrame("Button", nil, main)
+            T.catcher:SetAllPoints(main)
+            T.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
+            T.catcher:RegisterForClicks("AnyUp")
+            T.catcher:SetScript("OnClick", FGT.CloseTargetCard)
+
+            T.title = NewTitleString(T, 13)
+            T.title:SetPoint("TOPLEFT", 14, -14)
+            T.title:SetText("Change target")
+            T.sub = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+            T.sub:SetPoint("TOPLEFT", T.title, "BOTTOMLEFT", 0, -4)
+            T.sub:SetPoint("RIGHT", T, "RIGHT", -14, 0)
+            T.sub:SetJustifyH("LEFT")
+
+            T.box = CreateFrame("EditBox", nil, T, "BackdropTemplate")
+            T.box:SetSize(130, 24)
+            T.box:SetPoint("TOPLEFT", T.sub, "BOTTOMLEFT", 0, -12)
+            Skin(T.box, { 0, 0, 0, 0.6 }, C.BOX_RING)
+            T.box:SetAutoFocus(false)
+            T.box:SetFont(FONT, 12, "")
+            T.box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            T.box:SetTextInsets(8, 8, 0, 0)
+            T.box:SetMaxLetters(9)
+            T.unit = NewFontString(T, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
+            T.unit:SetPoint("LEFT", T.box, "RIGHT", 8, 0)
+            T.warn = NewFontString(T, 10, "", 1.00, 0.50, 0.42)
+            T.warn:SetPoint("TOPLEFT", T.box, "BOTTOMLEFT", 0, -6)
+
+            T.save = CreateFrame("Button", nil, T, "BackdropTemplate")
+            T.save:SetSize(90, 24)
+            T.save:SetPoint("BOTTOMLEFT", T, "BOTTOMLEFT", 14, 14)
+            Etch(T.save, STYLE.button, 10)
+            T.save.text = NewFontString(T.save, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            T.save.text:SetPoint("CENTER")
+            T.save.text:SetText("Save")
+            T.save:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
+            T.save:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
+
+            T.reset = CreateFrame("Button", nil, T)
+            T.reset.text = NewFontString(T.reset, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+            T.reset.text:SetPoint("CENTER")
+            T.reset:SetPoint("LEFT", T.save, "RIGHT", 10, 0)
+            T.reset:SetScript("OnEnter", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
+            T.reset:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
+            T.reset:SetScript("OnClick", function()
+                local g = T.goal
+                FGT.CloseTargetCard()
+                FGT.SetTarget(g, nil)
+            end)
+
+            local function Save()
+                local t = T.goal.target
+                local n = tonumber(((T.box:GetText() or ""):gsub("[,%.%s]", "")))
+                if not n or n < t.min or n > t.max then
+                    T.warn:SetText("Pick a number from " .. Commas(t.min) .. " to " .. Commas(t.max) .. ".")
+                    return
+                end
+                local g = T.goal
+                FGT.CloseTargetCard()
+                FGT.SetTarget(g, math.floor(n))
+            end
+            T.save:SetScript("OnClick", Save)
+            T.box:SetScript("OnEnterPressed", Save)
+            T.box:SetScript("OnEscapePressed", FGT.CloseTargetCard)
+            T.box:SetScript("OnTextChanged", function() T.warn:SetText("") end)
+            -- new frames start shown
+            T:Hide()
+            T.catcher:Hide()
+            FGT.targetCard = T
+        end
+
+        T.goal = goal
+        local t = goal.target
+        T.sub:SetText(goal.name)
+        T.unit:SetText(t.unit)
+        T.box:SetText(Commas(FGT.TargetOf(goal)))
+        T.warn:SetText("")
+        local custom = FGT.TargetOf(goal) ~= t.default
+        T.reset.text:SetText("Reset to " .. Commas(t.default))
+        T.reset:SetSize(math.ceil(T.reset.text:GetStringWidth()) + 8, 24)
+        T.reset:SetShown(custom)
+
+        local x, y = GetCursorPosition()
+        local scale = T:GetEffectiveScale()
+        T:ClearAllPoints()
+        T:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x / scale + 8, y / scale - 8)
+        T:Show()
+        T.catcher:Show()
+        T.box:SetFocus()
+        T.box:HighlightText()
+    end
 end
 
 local scanPending = false
@@ -6812,6 +7060,8 @@ local function Entry(me, id, keys, why)
     elseif IsActive(g) then
         tracked = true
     end
+    -- "Find your next goal": only goals you don't have yet
+    if tracked and W.find then return nil end
     local d, t = Progress(g, set)
     if t > 0 and d >= t then return nil end
     local e = { goal = g, keys = set, d = d, t = t, why = why, on = not tracked, tracked = tracked }
@@ -6895,9 +7145,21 @@ local function Suggest(picked)
                 -- next raid you haven't cleared, its tier set, then the side raids
                 local prog = { "raid_mc", "raid_bwl", "raid_aq40", "raid_naxx" }
                 local tierOf = { raid_mc = "set_tier1", raid_bwl = "set_tier2", raid_naxx = "tier3" }
-                local nextRaid, after
+                local nextRaid, after, current
                 for i, id in ipairs(prog) do
-                    if not Finished(id) then nextRaid, after = id, prog[i + 1] break end
+                    if not Finished(id) then
+                        local rg = FGT.GoalById(id)
+                        if W.find and rg and IsActive(rg) then
+                            -- already working on this raid: offer its set, then move up
+                            current = current or id
+                        else
+                            nextRaid, after = id, prog[i + 1]
+                            break
+                        end
+                    end
+                end
+                if current and tierOf[current] then
+                    push(list, Entry(me, tierOf[current], ClassPart(tierOf[current]), tag))
                 end
                 if nextRaid then
                     push(list, Entry(me, nextRaid, nil, tag))
@@ -7503,7 +7765,7 @@ function W.Show(step)
         W.next:SetOn(next(W.picked) ~= nil)
         W.Enter(W.tiles)
     else
-        W.title:SetText("Goals to get started")
+        W.title:SetText(W.find and "Your next goals" or "Goals to get started")
         local list
         list, me = Suggest(W.picked)
         W.list = list
@@ -7559,7 +7821,9 @@ function W.AddChosen()
 end
 
 -- step: 1 (the two choices, default) or 2 (straight to the interests).
-function FGT.OpenWelcome(step)
+-- find: "Find your next goal" from the end of My Goals; skips goals you
+-- already have and starts on step 3 with your saved interests.
+function FGT.OpenWelcome(step, find)
     local DB = ForeverGoalTrackerDB
     if not DB then return end
     if DB.demoBackup then
@@ -7574,8 +7838,15 @@ function FGT.OpenWelcome(step)
     if FGT.CloseSettings then FGT.CloseSettings() end
     if FGT.CloseGoalMenu then FGT.CloseGoalMenu() end
     if FGT.CloseLinkCard then FGT.CloseLinkCard() end
+    if FGT.CloseTargetCard then FGT.CloseTargetCard() end
     DB.welcomeSeen = true -- shown once; closing it any way counts
     W.picked = {} -- always starts with nothing picked
+    W.find = find and true or nil
+    if find then
+        -- your interests from last time; none saved yet: ask first
+        for k, v in pairs(DB.interests or {}) do W.picked[k] = v end
+        step = next(W.picked) and 3 or 2
+    end
     W.startStep = step or 1
     W.Tween("close", nil) -- reopened mid-close
     W.closing = nil
