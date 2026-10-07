@@ -1,17 +1,16 @@
 # Changelog
 
-## Unreleased
+## 2.6.0
 
+- New WoW Forever raids: Hyjal Summit and the Barrow Deeps
+- Forever Raid Sets, plus the Field Marshal's and Warlord's PvP sets
 - Find your next goal: suggestions picked for you at the end of My Goals
-- Edit goal: change the number on Save 5,000 Gold, Honorable Kills or Make Friends
-- New Social goals (Join a Guild, Make Friends) and a Social interest in the welcome wizard
-- Raid goals show when the character you're on is saved this week
-- Optional screenshot when you finish a goal (Settings, off by default)
-- New goal: Duelist, tracked from the Statistics window (WoW Forever)
-- New WoW Forever raids: Hyjal Summit and the Barrow Deeps (more bosses as they're revealed)
-- New goal: Forever Raid Sets, the class sets from the new raids
-- New goals: Field Marshal's and Warlord's PvP sets in cloth, leather, mail and plate (WoW Forever)
-- Bug fixes
+- Edit goal: change the number on goals like Save 5,000 Gold
+- New Social goals, and a Social interest in the welcome wizard
+- New goal: Duelist
+- Raid goals show when you're saved this week
+- Optional screenshot when you finish a goal (off by default)
+- UI improvements and bug fixes
 
 ## 2.5.2
 

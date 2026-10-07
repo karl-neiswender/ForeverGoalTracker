@@ -6,13 +6,7 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Next up
 
-- **Find your next goal:** a button at the end of My Goals that suggests what to chase next, picked for your character and interests, skipping goals you already have and moving you up (Blackwing Lair after Molten Core, Tier 2 after Tier 1).
-- **Social goals:** a sixth interest for players who love the people side of the game, starting with joining a guild.
-- **Set your own target:** right-click goals built on a number, like "Save 5,000 Gold", and change it to 10,000.
-
-## Quick wins
-
-Small improvements that make everyday use smoother.
+Links in every guide:
 
 - **NPC links:** click an NPC's name in a guide to put a pin on your map, or copy its Wowhead link.
 - **Item tooltips and links:** hover an item in a guide to see its real game tooltip, shift-click it to link it in chat, and see "Needed for Thunderfury" on items in your bags, the Auction House and loot.
@@ -30,16 +24,15 @@ New tools that take more building.
 - **Step order:** steps that need an earlier step done first show a lock until you get there.
 - **Personal notes** on each goal.
 - **Character overview:** see which of your characters is furthest along on reputation and leveling goals.
-- **Raid lockout hints** on raid goals.
 - **Guild announcements:** guildmates who use the addon see when you finish a goal, with an optional line in guild chat (off by default).
-- **Share your wins:** a "Copy for Discord" button and an optional screenshot when you finish a goal.
+- **Share your wins:** a "Copy for Discord" button when you finish a goal.
 
 ## Big updates
 
 Larger updates with lots of new content.
 
-- **More Warcraft Forever content:** Forever's new raids and their tier sets, its own items and mounts, and updated steps for Classic goals as Forever confirms them.
-- **Goals from your character stats:** Warcraft Forever's new Stats window counts things like gold earned and enemy players defeated. Turn those into goals that track themselves, including Horde Slayer and Alliance Slayer.
+- **More Warcraft Forever content:** the new raids' bosses and loot sources as they're revealed, Forever's own items and mounts, and updated steps for Classic goals as Forever confirms them.
+- **More goals from your character stats:** Warcraft Forever's Statistics window counts things like gold earned, quests completed and emotes. More goals that track themselves from it, like Duelist does.
 - **More goals:** Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle Cartel, Ravenholdt and Shen'dralar reputations, Bloodsail Admiral, the Stranglethorn Fishing Extravaganza, and more class sets.
 
 ## Maybe someday
@@ -48,6 +41,7 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
+- **2.6.0:** WoW Forever's new raids (Hyjal Summit and the Barrow Deeps), Forever Raid Sets, and the Field Marshal's and Warlord's PvP sets by armor type; Find your next goal; Edit goal to change a goal's number; Social goals and a Social interest; Duelist from the Statistics window; raid lockouts on raid goals; and an optional screenshot when you finish a goal.
 - **2.5.0:** goal suggestions: a welcome that asks what interests you and picks goals for your character; folder-style tabs; a Clear button to empty My Goals; tips that fold away; racial mount and Frostsaber steps that follow your race; a larger default window; and gentle animations throughout.
 - **2.4.0:** a Settings page (gear in the title bar) to turn off chat lines, the banner or celebrations, pick a goal-complete sound and its volume channel, hide the minimap button, open on login, and set window scale and opacity; tracked characters you can remove; a keybind; and finished goals and parts marked Complete in green in the Goal Library.
 - **2.3.1:** more goal links across the library, and steps you can't check off turned into tips.
