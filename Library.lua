@@ -1149,9 +1149,11 @@ for _, f in ipairs({ "Alliance", "Horde" }) do
         note = "Alterac Valley's exalted mount for the " .. (A and "Stormpike Guard" or "Frostwolf Clan") .. ".",
         tips = { "Play Alterac Valley, and turn in armor scraps, blood and crystals between matches." },
         steps = {
-            { text = "Reach Exalted with the " .. (A and "Stormpike Guard" or "Frostwolf Clan") .. ".",
+            { text = "Reach Exalted with the {pvp_av_" .. key .. ":" .. (A and "Stormpike Guard" or "Frostwolf Clan") .. "}.",
               auto = { rep = { faction = A and 730 or 729, standing = 8 }, forFaction = f } },
-            { text = "Buy the " .. avMount .. ".", auto = { owned = { avMount }, forFaction = f } },
+            -- item 19030 / 19029 (Wowhead Classic); the vendors stand outside AV
+            { text = "Buy the " .. avMount .. " from " .. (A and "Thanthaldis Snowgleam" or "Jekyll Flandring") .. " in the Alterac Mountains.",
+              auto = { owned = { avMount }, item = A and 19030 or 19029, forFaction = f } },
         },
         completeWith = { owned = { avMount }, forFaction = f },
     })
