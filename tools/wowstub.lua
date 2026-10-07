@@ -6,6 +6,10 @@ local mock
 local function newmock() return setmetatable({}, getmetatable(mock)) end
 local mt = {}
 mt.__index = function(t, k)
+  -- text boxes remember their text, like the real ones (string code such
+  -- as the item-name links needs it)
+  if k == "SetText" then return function(self, s) rawset(self, "_text", s) end end
+  if k == "GetText" then return function(self) return rawget(self, "_text") end end
   if type(k) == "string" and k:match("^Get") then return function() return 0, 0, 0, 0 end end
   if type(k) == "string" and (k:match("^Is") or k:match("^Has")) then return function() return false end end
   local m = newmock(); rawset(t, k, m); return m

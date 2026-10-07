@@ -94,6 +94,8 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 
 ## Hard-won lessons (don't regress these)
 
+00. **Forever runs on the modern engine: some old globals are gone there.** `GetItemInfo` is `C_Item.GetItemInfo` in Forever (calling the old name crashed the 2.7 item links; Classic Era still has it). Use `FGT.ItemInfo(id)`, and check other old item/spell globals the same way before using them. `tools/check.py`'s Forever sessions set `GetItemInfo = false` so a direct call fails there; add any other removed global to that list.
+
 0. **Never call `GetStatistic` (or other new Forever APIs) during `PLAYER_LOGOUT`.** In 2.6.0 the logout save read the Statistics window and crashed the Forever client on exit with `ASSERT(s_lootInitialized)` (Loot.cpp; the game's systems are shutting down; `pcall` can't catch an engine assert). `FGT.loggingOut` now skips the stats and friends reads; `tools/check.py` has a "logout reads no statistics" session. Crash reports land in `_classic_beta_/Errors/*.txt` with a Lua stack that names the addon.
 
 1. **Lua 5.1 allows at most 200 active local variables per function.** Core.lua's main chunk is near the limit. Put new state on `FGT` or inside `do ... end` blocks, and keep colors in `C`. A "too many local variables" error means the main chunk crossed the limit.

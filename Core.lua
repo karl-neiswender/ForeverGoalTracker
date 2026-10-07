@@ -58,6 +58,14 @@ local TAG = "|cffffd75eForever Goal Tracker:|r " -- prefix for chat messages
 -- texture, so sizes are smaller than the textures they replaced.
 function FGT.Icon(name) return "Interface\\AddOns\\" .. ADDON .. "\\Media\\icons\\" .. name end
 
+-- GetItemInfo moved to C_Item.GetItemInfo on the modern engine Forever runs
+-- on (the old global is gone there: 2.7 work crashed on it); Classic Era
+-- has the global. Same returns either way; nil when unavailable.
+function FGT.ItemInfo(id)
+    local f = (C_Item and C_Item.GetItemInfo) or GetItemInfo
+    if f then return f(id) end
+end
+
 -- math.atan2 has been dropped from some newer clients' Lua environment
 -- (only math.atan with one argument remains guaranteed). Use the real
 -- one when it exists, otherwise compute the same thing by hand.
@@ -867,7 +875,7 @@ end
 local function DescribeRule(rule)
     local parts = {}
     local function itemName(id)
-        local n = GetItemInfo and GetItemInfo(id)
+        local n = FGT.ItemInfo(id)
         return n or ("item " .. id)
     end
     if rule.level then table.insert(parts, "any character reaches level " .. rule.level) end
@@ -7097,7 +7105,7 @@ do
     function FGT.LinkItemName(row)
         local id, text = row.itemId, row.text:GetText()
         if not id or type(text) ~= "string" or text:find("|Hitem:", 1, true) then return end
-        local name, _, quality = GetItemInfo(id)
+        local name, _, quality = FGT.ItemInfo(id)
         if not name then
             waiting[id] = true
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
@@ -7150,7 +7158,7 @@ do
 
     -- puts the item's link in the chat box (opening it if needed)
     function FGT.InsertItemLink(id)
-        local _, link = GetItemInfo(id)
+        local _, link = FGT.ItemInfo(id)
         if not link then
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
             print(TAG .. "that item's details are still loading. Shift-click again in a moment.")
@@ -7230,7 +7238,7 @@ do
         end
         local site = FGT.isForever and "forever" or "classic"
         K.url = string.format("https://www.wowhead.com/%s/%s=%d", site, kind, id)
-        local name = kind == "item" and GetItemInfo(id) or nil
+        local name = kind == "item" and FGT.ItemInfo(id) or nil
         K.sub:SetText(name or (label and label:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")) or "")
         K.box:SetText(K.url)
         local x, y = GetCursorPosition()
