@@ -60,6 +60,8 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
     gold = gold or { "800-1,000", 800 }
     local ids = {}
     for i, it in ipairs(items or {}) do ids[i] = it[1] end
+    -- "Buy a Swift Ram" when it comes in several colors, "Buy the ..." for one
+    local article = (#ids > 1) and "a " or "the "
     local link = items and { { ids[1], mountName, variants = items, npc = VENDOR_NPC[vendor], vendor = vendor } }
     if home then
         local side, repId, repName, races = home[1], home[2], home[3], home[4]
@@ -73,7 +75,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
               auto = { skill = { name = "Riding", rank = 150 }, forFaction = side } },
             { name = "Save about " .. gold[1] .. " gold on that character", materials = {},
               auto = { money = gold[2] * 10000, forFaction = side } },
-            { name = "Buy the " .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
+            { name = "Buy " .. article .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
               auto = { ownedPattern = ownedPatterns, item = ids, forFaction = side },
               links = link },
         }
@@ -87,7 +89,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
           auto = { skill = { name = "Riding", rank = 150 }, forRace = raceFile } },
         { name = "Save about " .. gold[1] .. " gold on that character", materials = {},
           auto = { money = gold[2] * 10000, forRace = raceFile } },
-        { name = "Buy the " .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
+        { name = "Buy " .. article .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
           auto = { ownedPattern = ownedPatterns, item = ids, forRace = raceFile },
           links = link },
     }
@@ -497,7 +499,7 @@ FGT.goals = {
             {
                 icon = "ability_mount_blackdirewolf",
                 name = "Orc - Swift Timber Wolf",
-                pieces = BuildMountTasks("Orc", "Horn of the Swift Timber Wolf", "Ogunaro Wolfrunner", "Valley of Honor, Orgrimmar", "Orc", { "Swift .*Wolf" }, nil, { "Horde", 76, "Orgrimmar", "Orcs" }, { { 18797, "Horn of the Swift Timber Wolf" }, { 18796, "Horn of the Swift Brown Wolf" }, { 18798, "Horn of the Swift Gray Wolf" } }),
+                pieces = BuildMountTasks("Orc", "Swift Wolf", "Ogunaro Wolfrunner", "Valley of Honor, Orgrimmar", "Orc", { "Swift .*Wolf" }, nil, { "Horde", 76, "Orgrimmar", "Orcs" }, { { 18797, "Horn of the Swift Timber Wolf" }, { 18796, "Horn of the Swift Brown Wolf" }, { 18798, "Horn of the Swift Gray Wolf" } }),
             },
             {
                 icon = "ability_mount_kodo_03",

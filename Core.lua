@@ -2442,6 +2442,40 @@ function FGT.IconButton(btn, name, size)
     btn:RefreshIcon()
 end
 
+-- Darker, more solid tooltips for the addon's own tooltips (Karl). The
+-- game's tooltip is shared by the whole UI, so it's darkened only while
+-- its owner is in our window (or our minimap button), and put back to the
+-- game's color for anyone else. Re-applied on show: item tooltips reset
+-- their own backdrop when they fill in.
+do
+    local DARK = { 0.02, 0.02, 0.02, 0.97 }
+    local function Ours(owner)
+        while owner do
+            if owner == main or owner == FGT.minimapButton or owner.fgtOwn then return true end
+            owner = owner.GetParent and owner:GetParent() or nil
+        end
+        return false
+    end
+    local function Paint(tip, c)
+        if tip.NineSlice and tip.NineSlice.SetCenterColor then
+            tip.NineSlice:SetCenterColor(c[1], c[2], c[3], c[4])
+        elseif tip.SetBackdropColor then
+            tip:SetBackdropColor(c[1], c[2], c[3], c[4])
+        end
+    end
+    local function Default()
+        local d = TOOLTIP_DEFAULT_BACKGROUND_COLOR
+        if d and d.GetRGBA then local r, g, b, a = d:GetRGBA(); return { r, g, b, a or 1 } end
+        return { 0.09, 0.09, 0.19, 1 }
+    end
+    hooksecurefunc(GameTooltip, "SetOwner", function(self, owner)
+        local ours = Ours(owner)
+        if ours then Paint(self, DARK) elseif self.fgtDark then Paint(self, Default()) end
+        self.fgtDark = ours
+    end)
+    GameTooltip:HookScript("OnShow", function(self) if self.fgtDark then Paint(self, DARK) end end)
+end
+
 local closeBtn = CreateFrame("Button", nil, titleBar)
 closeBtn:SetSize(22, 22)
 closeBtn:SetPoint("TOPRIGHT", -12, -12)
@@ -6349,6 +6383,7 @@ local HOLD, FADE_IN, FADE_OUT = 6, 0.25, 0.6
 local function BuildToast()
     toast = CreateFrame("Button", nil, UIParent, "BackdropTemplate")
     toast:SetSize(340, 64)
+    toast.fgtOwn = true -- our tooltips are drawn darker
     toast:SetPoint("TOP", UIParent, "TOP", 0, -70)
     -- one layer above the tracker window (HIGH), so the window's lines
     -- and panels never draw across the banner
@@ -7160,7 +7195,9 @@ do
             local name, _, quality = FGT.ItemInfo(id)
             if variants then name = nil end -- "Swift Ram", not "Swift Brown Ram"
             if not name then
-                if not variants then
+                -- (never ask again for an item the game said it doesn't have:
+                -- its "no" answer redrew the list, which asked again, in a loop)
+                if not variants and not FGT.itemMissing[id] then
                     waiting[id] = true
                     if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
                 end
@@ -7201,12 +7238,15 @@ do
     local f = CreateFrame("Frame")
     pcall(f.RegisterEvent, f, "GET_ITEM_INFO_RECEIVED")
     f:SetScript("OnEvent", function(_, _, id, ok)
-        if ok == false then FGT.itemMissing[id] = true end
+        if ok == false then
+            FGT.itemMissing[id] = true
+            waiting[id] = nil -- nothing new to draw
+        end
         -- the open tooltip was waiting for this item: show the real one now
         if FGT.tip and FGT.tip.id == id and GameTooltip:IsOwned(FGT.tip.owner) then
             FGT.ShowItemTip(FGT.tip.owner, id, FGT.tip.rule, FGT.tip.name, FGT.tip.compare)
         end
-        if not waiting[id] then return end
+        if ok == false or not waiting[id] then return end
         waiting[id] = nil
         if f.pending then return end
         f.pending = true
@@ -7229,7 +7269,7 @@ do
         else
             -- not loaded: ask once, say "loading" briefly, then say it isn't
             -- in the game yet instead of the game's endless "Retrieving..."
-            if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+            if not FGT.itemMissing[id] and C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
             GameTooltip:AddLine(name or "Item", 1, 1, 1)
             if Unavailable(id) then
                 -- new Forever items are hidden until found ("yet" is true for
