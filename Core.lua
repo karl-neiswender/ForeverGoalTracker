@@ -1163,12 +1163,13 @@ end
 function FGT.EnableGoalLinks(f)
     if not f.SetHyperlinksEnabled then return end -- very old clients: plain text
     f:SetHyperlinksEnabled(true)
-    f:SetScript("OnHyperlinkEnter", function(self, link)
+    f:SetScript("OnHyperlinkEnter", function(self, link, text)
         -- an item name in a step (FGT.LinkItemName): the game's item tooltip
         local itemId = tonumber(link:match("^item:(%d+)") or "")
         if itemId then
             FGT.overLink = "item"
-            FGT.ShowItemTip(self, itemId, self.ruleEntry)
+            local name = type(text) == "string" and text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1") or nil
+            FGT.ShowItemTip(self, itemId, self.ruleEntry, name)
             return
         end
         local id = link:match("^fgtgoal:(.+)")
@@ -3392,7 +3393,7 @@ local function GetStepRow(index)
     row.icon:SetScript("OnEnter", function()
         local enter = row:GetScript("OnEnter")
         if enter then enter(row) end -- the row's hover highlight
-        if row.itemId then FGT.ShowItemTip(row.icon, row.itemId, row.ruleEntry) end
+        if row.itemId then FGT.ShowItemTip(row.icon, row.itemId, row.ruleEntry, row.itemNames and row.itemNames[1]) end
     end)
     row.icon:SetScript("OnLeave", function()
         GameTooltip:Hide()
@@ -7125,9 +7126,25 @@ do
         end
     end
 
+    -- Items the game can't give us: Forever keeps new items (the raid
+    -- sets) hidden until players find them after launch, so their details
+    -- never arrive. The server says so (success = false), or we give up
+    -- after a couple of seconds (FGT.itemAskedAt).
+    FGT.itemMissing, FGT.itemAskedAt = {}, {}
+    local function Unavailable(id)
+        local asked = FGT.itemAskedAt[id]
+        return FGT.itemMissing[id] or (asked and GetTime() - asked > 2)
+    end
+    FGT.ItemUnavailable = Unavailable
+
     local f = CreateFrame("Frame")
     pcall(f.RegisterEvent, f, "GET_ITEM_INFO_RECEIVED")
-    f:SetScript("OnEvent", function(_, _, id)
+    f:SetScript("OnEvent", function(_, _, id, ok)
+        if ok == false then FGT.itemMissing[id] = true end
+        -- the open tooltip was waiting for this item: show the real one now
+        if FGT.tip and FGT.tip.id == id and GameTooltip:IsOwned(FGT.tip.owner) then
+            FGT.ShowItemTip(FGT.tip.owner, id, FGT.tip.rule, FGT.tip.name)
+        end
         if not waiting[id] then return end
         waiting[id] = nil
         if f.pending then return end
@@ -7140,9 +7157,32 @@ do
 
     -- The game's tooltip for an item, at the cursor (Karl), then how the
     -- step tracks it and what clicks do.
-    function FGT.ShowItemTip(owner, id, rule)
+    -- name: the item's name from our data, shown when the game doesn't have it
+    function FGT.ShowItemTip(owner, id, rule, name)
+        FGT.tip = { owner = owner, id = id, rule = rule, name = name }
         GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
-        GameTooltip:SetHyperlink("item:" .. id)
+        local known = FGT.ItemInfo(id)
+        if known then
+            GameTooltip:SetHyperlink("item:" .. id)
+        else
+            -- not loaded: ask once, say "loading" briefly, then say it isn't
+            -- in the game yet instead of the game's endless "Retrieving..."
+            if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+            GameTooltip:AddLine(name or "Item", 1, 1, 1)
+            if Unavailable(id) then
+                GameTooltip:AddLine("Not in the game yet", 1.00, 0.50, 0.42)
+                GameTooltip:AddLine("WoW Forever shows this item's details once players find it after launch.",
+                    C.INK2[1], C.INK2[2], C.INK2[3], true)
+            else
+                FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()
+                GameTooltip:AddLine("Loading item details...", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+                C_Timer.After(2.1, function() -- still hovering? show the outcome
+                    if FGT.tip and FGT.tip.id == id and GameTooltip:IsOwned(owner) then
+                        FGT.ShowItemTip(owner, id, rule, name)
+                    end
+                end)
+            end
+        end
         if rule then
             GameTooltip:AddLine(" ")
             GameTooltip:AddLine("Checks itself off when " .. DescribeRule(rule) .. ".", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
@@ -7151,15 +7191,18 @@ do
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
             end
         end
-        GameTooltip:AddLine("Shift-click to link it in chat. Right-click for its Wowhead link.",
-            C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        GameTooltip:AddLine(known and "Shift-click to link it in chat. Right-click for its Wowhead link."
+            or "Right-click for its Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         GameTooltip:Show()
     end
 
     -- puts the item's link in the chat box (opening it if needed)
     function FGT.InsertItemLink(id)
         local _, link = FGT.ItemInfo(id)
-        if not link then
+        if not link and Unavailable(id) then
+            print(TAG .. "that item isn't in the game yet, so it can't be linked.")
+        elseif not link then
+            FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
             print(TAG .. "that item's details are still loading. Shift-click again in a moment.")
         elseif not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) then
