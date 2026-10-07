@@ -221,7 +221,7 @@ local library = {
         note = "Baron Rivendare's own steed. A tiny drop chance in the undead side of Stratholme.",
         steps = { -- (v2.3.1: the "get a group" step moved to tips; see stepsFix231 in Core.lua)
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Defeat Baron Rivendare in Stratholme.", auto = { boss = "Baron Rivendare" } },
+            { text = "Defeat Baron Rivendare in {key_strat:Stratholme}.", auto = { boss = "Baron Rivendare" } },
             { text = "Loot Deathcharger's Reins from Baron Rivendare.", auto = { item = 13335, owned = { "Deathcharger" } } },
         },
         completeWith = { item = 13335, owned = { "Deathcharger" } },
