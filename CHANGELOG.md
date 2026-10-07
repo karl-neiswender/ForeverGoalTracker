@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Smaller download: removed an old image the addon no longer uses.
+
 ## 2.5.1
 
 - The empty tracker has a new hand-painted panel with cobwebs in every corner.
