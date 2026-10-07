@@ -3281,6 +3281,7 @@ local function GetStepRow(index)
     if row then return row end
 
     row = CreateFrame("Button", nil, stepsContainer)
+    row:RegisterForClicks("LeftButtonUp", "RightButtonUp") -- right-click: Wowhead link
     row:SetPoint("LEFT", stepsContainer, "LEFT", 0, 0)
     row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
     FGT.EnableGoalLinks(row)
@@ -3315,6 +3316,22 @@ local function GetStepRow(index)
                 GameTooltip:AddLine("Updates automatically as you level.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
             end
             GameTooltip:Show()
+        elseif self.itemId then
+            -- the game's own tooltip for the item, then how the step tracks it
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetHyperlink("item:" .. self.itemId)
+            if self.ruleEntry then
+                GameTooltip:AddLine(" ")
+                GameTooltip:AddLine("Checks itself off when " .. DescribeRule(self.ruleEntry) .. ".",
+                    C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
+                local now = RuleReadout(self.ruleEntry)
+                if now then
+                    GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
+                end
+            end
+            GameTooltip:AddLine("Shift-click to link it in chat. Right-click for its Wowhead link.",
+                C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            GameTooltip:Show()
         elseif self.ruleEntry then
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
             GameTooltip:AddLine("Tracked automatically", C.TITLE[1], C.TITLE[2], C.TITLE[3])
@@ -3325,6 +3342,9 @@ local function GetStepRow(index)
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
             end
             GameTooltip:AddLine("You can still click to tick it by hand.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            if self.questId then
+                GameTooltip:AddLine("Right-click for the quest's Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            end
             GameTooltip:Show()
         end
     end)
@@ -3398,6 +3418,7 @@ local function GetStepRow(index)
         -- every render starts as a plain manual row
         self.autoEntry = nil
         self.ruleEntry = nil
+        self.itemId, self.questId = nil, nil -- what the row links to (FGT.SetStepLinks)
         self.pieceKey = nil
         self.levelText:Hide()
         self.miniBar:Hide()
@@ -3729,6 +3750,7 @@ local function RefreshTierSections(goal)
                 row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
                 SetRowIndent(row, 18)
                 row:SetStepIcon(piece.icon) -- item icon when the set data has one
+                FGT.SetStepLinks(row, piece.auto)
 
                 -- Pieces with materials fold open individually (closed by
                 -- default) and show how many of their materials are done.
@@ -3762,7 +3784,8 @@ local function RefreshTierSections(goal)
                 local textHeight = row.text:GetStringHeight() or 14
                 local rowHeight2 = math.max(22, textHeight + 8)
                 row:SetHeight(rowHeight2)
-                row:SetScript("OnClick", function(self)
+                row:SetScript("OnClick", function(self, button)
+                    if FGT.StepLinkClick(self, button) then return end
                     if self.pieceKey then
                         FGT.pieceExpanded[self.pieceKey] = not FGT.pieceExpanded[self.pieceKey]
                         RefreshSteps(goal)
@@ -3801,7 +3824,8 @@ local function RefreshTierSections(goal)
                         mrow.guide:SetPoint("TOPLEFT", mrow, "TOPLEFT", 26, (mi == 1) and 2 or 3)
                         mrow.guide:SetPoint("BOTTOMLEFT", mrow, "BOTTOMLEFT", 26, (mi == #piece.materials) and 8 or 0)
                         mrow.guide:Show()
-                        mrow:SetScript("OnClick", function()
+                        mrow:SetScript("OnClick", function(self, button)
+                            if FGT.StepLinkClick(self, button) then return end
                             ToggleStep(goal.id, MaterialKey(si, pi, mi))
                         end)
                         mrow:Show()
@@ -3906,6 +3930,7 @@ RefreshSteps = function(goal)
             -- bar for anything countable (materials, skill, gold).
             local rule = type(entry) == "table" and entry.auto or nil
             row.ruleEntry = rule
+            FGT.SetStepLinks(row, rule)
             if rule then
                 local _, cur, max = RuleReadout(rule)
                 if cur and max and not IsStepDone(goal.id, i) then
@@ -3919,7 +3944,8 @@ RefreshSteps = function(goal)
             end
             row:SetHeight(rowHeight2)
 
-            row:SetScript("OnClick", function()
+            row:SetScript("OnClick", function(self, button)
+                if FGT.StepLinkClick(self, button) then return end
                 ToggleStep(goal.id, i)
             end)
         end
@@ -7019,6 +7045,115 @@ do
         T.catcher:Show()
         T.box:SetFocus()
         T.box:HighlightText()
+    end
+end
+
+-- ============================================================
+-- Item and Wowhead links on steps. A step whose rule names an item
+-- (set pieces, materials to gather) shows the game's item tooltip on
+-- hover and links the item in chat on shift-click; right-click opens a
+-- small card with the Wowhead page (item, or else quest) selected for
+-- Ctrl+C, since addons can't open a browser.
+-- ============================================================
+do
+    function FGT.SetStepLinks(row, rule)
+        row.itemId = rule and AsList(rule.item)[1] or nil
+        row.questId = rule and (AsList(rule.quest)[1] or AsList(rule.questTaken)[1]) or nil
+    end
+
+    -- the item's chat link, once the game has its data (asks for it if not)
+    local function ItemLink(id)
+        local _, link = GetItemInfo(id)
+        if not link and C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+        return link
+    end
+
+    -- true when the click was a link action (the step doesn't tick)
+    function FGT.StepLinkClick(row, button)
+        if button == "RightButton" then
+            if row.itemId or row.questId then
+                GameTooltip:Hide()
+                FGT.OpenWowheadCard(row.itemId and "item" or "quest", row.itemId or row.questId, row.text:GetText())
+            end
+            return true
+        end
+        if IsShiftKeyDown() and row.itemId then
+            local link = ItemLink(row.itemId)
+            if not link then
+                print(TAG .. "that item's details are still loading. Shift-click again in a moment.")
+            elseif not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) then
+                if ChatFrame_OpenChat then ChatFrame_OpenChat(link) end
+            end
+            return true
+        end
+        return false
+    end
+
+    -- The card: "Wowhead link", what it's for, the address selected.
+    function FGT.CloseWowheadCard()
+        local K = FGT.wowheadCard
+        if K then K:Hide(); K.catcher:Hide(); K.box:ClearFocus() end
+    end
+
+    function FGT.OpenWowheadCard(kind, id, label)
+        local K = FGT.wowheadCard
+        if not K then
+            K = CreateFrame("Frame", nil, main, "BackdropTemplate")
+            K:SetFrameLevel(main:GetFrameLevel() + 60)
+            K:SetClampedToScreen(true)
+            K:SetSize(340, 112)
+            Etch(K, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
+            K:EnableMouse(true)
+            K.catcher = CreateFrame("Button", nil, main)
+            K.catcher:SetAllPoints(main)
+            K.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
+            K.catcher:RegisterForClicks("AnyUp")
+            K.catcher:SetScript("OnClick", FGT.CloseWowheadCard)
+            K.title = NewTitleString(K, 13)
+            K.title:SetPoint("TOPLEFT", 14, -12)
+            K.title:SetText("Wowhead link")
+            K.sub = NewFontString(K, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+            K.sub:SetPoint("TOPLEFT", K.title, "BOTTOMLEFT", 0, -4)
+            K.sub:SetPoint("RIGHT", K, "RIGHT", -14, 0)
+            K.sub:SetJustifyH("LEFT")
+            K.sub:SetWordWrap(false)
+            K.box = CreateFrame("EditBox", nil, K, "BackdropTemplate")
+            K.box:SetHeight(24)
+            K.box:SetPoint("TOPLEFT", K.sub, "BOTTOMLEFT", 0, -10)
+            K.box:SetPoint("RIGHT", K, "RIGHT", -14, 0)
+            Skin(K.box, { 0, 0, 0, 0.6 }, C.BOX_RING)
+            K.box:SetAutoFocus(false)
+            K.box:SetFont(FONT, 11, "")
+            K.box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            K.box:SetTextInsets(8, 8, 0, 0)
+            -- the address can't be edited: typing puts it back
+            K.box:SetScript("OnTextChanged", function(self, user)
+                if user then self:SetText(K.url); self:HighlightText() end
+            end)
+            K.box:SetScript("OnEscapePressed", FGT.CloseWowheadCard)
+            K.box:SetScript("OnEnterPressed", FGT.CloseWowheadCard)
+            K.box:SetScript("OnEditFocusGained", function(self) self:HighlightText() end)
+            K.hint = NewFontString(K, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+            K.hint:SetPoint("TOPLEFT", K.box, "BOTTOMLEFT", 0, -6)
+            K.hint:SetText("Press Ctrl+C to copy, then paste it into your browser.")
+            -- new frames start shown
+            K:Hide()
+            K.catcher:Hide()
+            FGT.wowheadCard = K
+        end
+        local site = FGT.isForever and "forever" or "classic"
+        K.url = string.format("https://www.wowhead.com/%s/%s=%d", site, kind, id)
+        local name = kind == "item" and GetItemInfo(id) or nil
+        K.sub:SetText(name or (label and label:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")) or "")
+        K.box:SetText(K.url)
+        local x, y = GetCursorPosition()
+        local scale = K:GetEffectiveScale()
+        K:ClearAllPoints()
+        K:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x / scale + 8, y / scale - 8)
+        K:Show()
+        K.catcher:Show()
+        K.box:SetFocus()
+        K.box:HighlightText()
     end
 end
 

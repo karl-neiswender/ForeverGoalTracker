@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Item tooltips: hover an item in a guide to see its real tooltip, shift-click to link it in chat
+- Wowhead links: right-click a step to copy its item or quest page
 - New hand-painted gold icons throughout
 - UI improvements
 

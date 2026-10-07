@@ -145,6 +145,13 @@ if ok_all:
             'GetStatistic = function() rawset(_G, "STUB_STAT_CALLED", true); return "0", false, 319 end; '
             'STUB_NS.statsReadAt = nil; rawset(_G, "STUB_STAT_CALLED", nil); STUB_FIRE("PLAYER_LOGOUT"); '
             'assert(not rawget(_G, "STUB_STAT_CALLED"), "GetStatistic was called during logout"); print("  logout ok")', True),
+        # Item and Wowhead links: a set piece links to its item, the card
+        # builds the address for this client.
+        ("item and wowhead links", None,
+            'STUB_PRINTS = {}; local row = {}; local g = STUB_NS.GoalById("set_tier1"); '
+            'STUB_NS.SetStepLinks(row, g.sections[1].pieces[1].auto); print("  helm item: " .. tostring(row.itemId)); '
+            'STUB_NS.OpenWowheadCard("item", row.itemId, "Helm of Might"); print("  " .. STUB_NS.wowheadCard.url); '
+            'STUB_NS.CloseWowheadCard()'),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '

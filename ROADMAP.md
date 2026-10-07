@@ -9,8 +9,8 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 Links in every guide:
 
 - **NPC links:** click an NPC's name in a guide to put a pin on your map, or copy its Wowhead link.
-- **Item tooltips and links:** hover an item in a guide to see its real game tooltip, shift-click it to link it in chat, and see "Needed for Thunderfury" on items in your bags, the Auction House and loot.
-- **Wowhead links:** right-click a step, item or quest to copy its Wowhead link.
+- **Item tooltips and links:** hover an item in a guide to see its real game tooltip and shift-click it to link it in chat (done, coming in the next update), then "Needed for Thunderfury" on items in your bags, the Auction House and loot.
+- **Wowhead links:** right-click a step to copy its item or quest page (done, coming in the next update).
 
 ## Bigger features
 
