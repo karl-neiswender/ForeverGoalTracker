@@ -361,7 +361,8 @@ FGT.goals = {
             { text = "Solo Klinfran the Crazed in Burning Steppes.", auto = { owned = { "Klinfran's Head" }, quest = 7636 } },
             { text = "Solo Solenor the Slayer in Silithus.", auto = { owned = { "Solenor's Head" }, quest = 7636 } },
             { text = "Solo Simone the Seductress in Un'Goro Crater.", auto = { owned = { "Simone's Head" }, quest = 7636 } },
-            { text = "Turn in the four demon heads to Vartrus for Lok'delar and the Ancient Rune Etched Stave.", auto = { item = { 18715, 20487 }, quest = 7636 } },
+            { text = "Turn in the four demon heads to Vartrus for Lok'delar and the Ancient Rune Etched Stave.", auto = { item = { 18715, 20487 }, quest = 7636 },
+              links = { { 18707, "Ancient Rune Etched Stave" } } }, -- other items the step names (shown as item links)
         },
         tips = {
             "Fight each demon alone. If another player helps, the fight is forfeit.",
@@ -401,6 +402,7 @@ FGT.goals = {
 
     {
         id = "tier3",
+        itemQuality = 4, -- piece names' color when the game doesn't know the item
         group = true, -- pick class sets individually in the Library
         icon = "inv_helmet_58",
         name = "Tier 3 Set Appearances",

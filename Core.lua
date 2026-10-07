@@ -2992,6 +2992,15 @@ LayoutGoalList()
 local DETAIL_ICON = 50
 local detailIcon = NewIcon(detailPanel, DETAIL_ICON)
 detailIcon:SetPoint("TOPLEFT", 16, -16)
+-- Goals with one final reward (weapons, mounts): hovering the big icon
+-- shows that item, compared with what you're wearing (Karl). The reward
+-- is the goal's `rewardItem`, or the first item of its `completeWith`.
+detailIcon:EnableMouse(true)
+detailIcon:SetScript("OnEnter", function(self)
+    local id = FGT.detailReward
+    if id then FGT.ShowItemTip(self, id, nil, FGT.detailRewardName, true) end
+end)
+detailIcon:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
 local detailTag = NewFontString(detailPanel, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
 detailTag:SetPoint("TOPLEFT", detailIcon, "TOPRIGHT", 12, -1)
@@ -3889,6 +3898,7 @@ end
 RefreshSteps = function(goal)
     -- icon frames on this goal's steps: blue on Forever-new goals
     FGT.stepRim = FGT.ForeverWord(goal) and C.FOREVER or C.GOLD2
+    FGT.stepQuality = goal.itemQuality -- item name color when the game doesn't know
     if goal.sections then
         RefreshTierSections(goal)
         return
@@ -3964,7 +3974,7 @@ RefreshSteps = function(goal)
             -- bar for anything countable (materials, skill, gold).
             local rule = type(entry) == "table" and entry.auto or nil
             row.ruleEntry = rule
-            FGT.SetStepLinks(row, rule)
+            FGT.SetStepLinks(row, rule, entry)
             if rule then
                 local _, cur, max = RuleReadout(rule)
                 if cur and max and not IsStepDone(goal.id, i) then
@@ -4022,6 +4032,9 @@ SelectGoal = function(id, skipListRefresh)
     ForeverGoalTrackerDB.selected = id
 
     detailTitle:SetText(goal.name)
+    local cw = goal.completeWith
+    FGT.detailReward = not goal.sections and (goal.rewardItem or (cw and AsList(cw.item)[1])) or nil
+    FGT.detailRewardName = goal.name
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     detailIcon:SetIcon(goal.icon, catColor)
     detailTag:SetText(string.upper(goal.category))
@@ -7094,38 +7107,64 @@ do
     -- drawn; the open goal redraws when the game sends their details
     local waiting = {}
 
-    function FGT.SetStepLinks(row, rule)
+    -- entry: the step itself, whose `links` name other items the text
+    -- mentions ({ { id, name }, ... }: Lok'delar's Ancient Rune Etched Stave)
+    function FGT.SetStepLinks(row, rule, entry)
         row.itemId = rule and AsList(rule.item)[1] or nil
         row.questId = rule and (AsList(rule.quest)[1] or AsList(rule.questTaken)[1]) or nil
         row.itemNames = rule and rule.owned and AsList(rule.owned) or nil
+        row.extraLinks = type(entry) == "table" and entry.links or nil
         FGT.LinkItemName(row)
     end
 
-    -- The item's name inside the step text becomes a link in its quality
-    -- color (purple epic, blue rare...; white until the game has the
-    -- item), so hovering the name shows the item (Karl). Matches the
-    -- game's item name or the rule's owned names; "Bars" keeps its "s".
+    -- standard WoW quality colors, for when the game can't tell us
+    local QUALITY_HEX = { [0] = "9d9d9d", [1] = "ffffff", [2] = "1eff00", [3] = "0070dd", [4] = "a335ee", [5] = "ff8000" }
+
+    -- Item names inside the step text become links in their quality color
+    -- (purple epic, blue rare...), so hovering a name shows the item
+    -- (Karl). Colors come from the game, or else from the goal's data
+    -- (FGT.stepQuality: set pieces stay purple even where Forever removed
+    -- them), or white. Names come from the game or our data; a plural "s"
+    -- joins the link ("Elementium Bars").
     function FGT.LinkItemName(row)
-        local id, text = row.itemId, row.text:GetText()
-        if not id or type(text) ~= "string" or text:find("|Hitem:", 1, true) then return end
-        local name, _, quality = FGT.ItemInfo(id)
-        if not name then
-            waiting[id] = true
-            if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+        local text = row.text:GetText()
+        if type(text) ~= "string" or text:find("|Hitem:", 1, true) then return end
+        -- { id, names... } for the rule's first item, then the step's extras
+        local items = {}
+        if row.itemId then
+            local names = {}
+            for _, n in ipairs(row.itemNames or {}) do table.insert(names, n) end
+            items[1] = { row.itemId, names }
         end
-        local candidates = { name }
-        for _, n in ipairs(row.itemNames or {}) do table.insert(candidates, n) end
-        for _, n in ipairs(candidates) do
-            local s, e = text:find(n, 1, true)
-            if s then
-                if text:sub(e + 1, e + 1) == "s" then e = e + 1 end
-                local q = quality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]
-                local color = q and q.hex or "|cffffffff"
-                row.text:SetText(text:sub(1, s - 1) .. color .. "|Hitem:" .. id .. "|h"
-                    .. text:sub(s, e) .. "|h|r" .. text:sub(e + 1))
-                return
+        for _, l in ipairs(row.extraLinks or {}) do table.insert(items, { l[1], { l[2] } }) end
+        local done = {}
+        for _, it in ipairs(items) do
+            local id, names = it[1], it[2]
+            local name, _, quality = FGT.ItemInfo(id)
+            if not name then
+                waiting[id] = true
+                if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+            else
+                table.insert(names, 1, name)
+                -- "Lok'delar, Stave of the Ancient Keepers" is "Lok'delar" in steps
+                local short = name:match("^(.-), ")
+                if short then table.insert(names, 2, short) end
+            end
+            quality = quality or FGT.stepQuality
+            local color = "|cff" .. (QUALITY_HEX[quality] or "ffffff")
+            for _, n in ipairs(names) do
+                local s, e
+                if not done[n] then s, e = text:find(n, 1, true) end
+                if s and not text:sub(1, s - 1):find("|Hitem:[^|]*|h[^|]*$") then -- not inside a link
+                    if text:sub(e + 1, e + 1) == "s" then e = e + 1 end
+                    text = text:sub(1, s - 1) .. color .. "|Hitem:" .. id .. "|h"
+                        .. text:sub(s, e) .. "|h|r" .. text:sub(e + 1)
+                    done[n] = true
+                    break
+                end
             end
         end
+        row.text:SetText(text)
     end
 
     -- Items the game can't give us: Forever keeps new items (the raid
@@ -7145,7 +7184,7 @@ do
         if ok == false then FGT.itemMissing[id] = true end
         -- the open tooltip was waiting for this item: show the real one now
         if FGT.tip and FGT.tip.id == id and GameTooltip:IsOwned(FGT.tip.owner) then
-            FGT.ShowItemTip(FGT.tip.owner, id, FGT.tip.rule, FGT.tip.name)
+            FGT.ShowItemTip(FGT.tip.owner, id, FGT.tip.rule, FGT.tip.name, FGT.tip.compare)
         end
         if not waiting[id] then return end
         waiting[id] = nil
@@ -7160,8 +7199,9 @@ do
     -- The game's tooltip for an item, at the cursor (Karl), then how the
     -- step tracks it and what clicks do.
     -- name: the item's name from our data, shown when the game doesn't have it
-    function FGT.ShowItemTip(owner, id, rule, name)
-        FGT.tip = { owner = owner, id = id, rule = rule, name = name }
+    -- compare: also show the game's comparison with what you're wearing
+    function FGT.ShowItemTip(owner, id, rule, name, compare)
+        FGT.tip = { owner = owner, id = id, rule = rule, name = name, compare = compare }
         GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
         local known = FGT.ItemInfo(id)
         if known then
@@ -7190,7 +7230,7 @@ do
                 GameTooltip:AddLine("Loading item details...", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
                 C_Timer.After(2.1, function() -- still hovering? show the outcome
                     if FGT.tip and FGT.tip.id == id and GameTooltip:IsOwned(owner) then
-                        FGT.ShowItemTip(owner, id, rule, name)
+                        FGT.ShowItemTip(owner, id, rule, name, compare)
                     end
                 end)
             end
@@ -7203,9 +7243,13 @@ do
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
             end
         end
-        GameTooltip:AddLine(known and "Shift-click to link it in chat. Right-click for its Wowhead link."
-            or "Right-click for its Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        if not compare then -- the goal icon: no click actions there
+            GameTooltip:AddLine(known and "Shift-click to link it in chat. Right-click for its Wowhead link."
+                or "Right-click for its Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        end
         GameTooltip:Show()
+        -- the game's side-by-side comparison with your equipped item
+        if compare and known and GameTooltip_ShowCompareItem then pcall(GameTooltip_ShowCompareItem, GameTooltip) end
     end
 
     -- puts the item's link in the chat box (opening it if needed)

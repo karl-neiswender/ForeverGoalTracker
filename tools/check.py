@@ -155,7 +155,11 @@ if ok_all:
             'STUB_PRINTS = {}; local row = { text = { GetText = function(self) return self.s or "Helm of Might from Garr." end, SetText = function(self, s) self.s = s end } }; local g = STUB_NS.GoalById("set_tier1"); '
             'STUB_NS.SetStepLinks(row, g.sections[1].pieces[1].auto); print("  helm item: " .. tostring(row.itemId) .. ", text: " .. row.text:GetText()); '
             'STUB_NS.OpenWowheadCard("item", row.itemId, "Helm of Might"); print("  " .. STUB_NS.wowheadCard.url); '
-            'STUB_NS.CloseWowheadCard()'),
+            'STUB_NS.CloseWowheadCard(); '
+            'local row2 = { text = { GetText = function(self) return self.s end, SetText = function(self, s) self.s = s end } }; '
+            'row2.text:SetText("Turn in the four demon heads to Vartrus for Lok\'delar and the Ancient Rune Etched Stave."); '
+            'local lok = STUB_NS.GoalById("lokdelar"); local st = lok.steps[#lok.steps]; STUB_NS.SetStepLinks(row2, st.auto, st); '
+            'print("  step 7: " .. row2.text:GetText())'),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '

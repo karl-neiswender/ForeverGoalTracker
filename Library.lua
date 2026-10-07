@@ -946,6 +946,7 @@ local PVP_SET_GOALS = {
 local sets = {
     {
         id = "set_tier1", library = true, group = true,
+        itemQuality = 4, -- piece names' color when the game doesn't know the item
         -- Wowhead's Forever database lists these Classic pieces as removed
         -- (2026-10-07); Forever's own versions aren't revealed. Shown with a
         -- notice, never suggested by the wizard on Forever.
@@ -961,6 +962,7 @@ local sets = {
     },
     {
         id = "set_tier2", library = true, group = true,
+        itemQuality = 4, -- piece names' color when the game doesn't know the item
         -- Wowhead's Forever database lists these Classic pieces as removed
         -- (2026-10-07); Forever's own versions aren't revealed. Shown with a
         -- notice, never suggested by the wizard on Forever.
@@ -976,6 +978,7 @@ local sets = {
     },
     {
         id = "set_dungeon1", library = true, group = true,
+        itemQuality = 3, -- piece names' color when the game doesn't know the item
         icon = "inv_helmet_02",
         name = "Dungeon Set 1 (Tier 0)",
         short = "Dungeon Set 1",
@@ -990,6 +993,7 @@ local sets = {
     },
     {
         id = "set_dungeon2", library = true, group = true,
+        itemQuality = 3, -- piece names' color when the game doesn't know the item
         icon = "inv_helmet_08",
         name = "Dungeon Set 2 (Tier 0.5)",
         short = "Dungeon Set 2",
@@ -1026,6 +1030,7 @@ local sets = {
         -- new raids, early in raiding (around Onyxia). Don't mention the item
         -- level Wowhead shows; max level is 60.
         id = "set_forever_raid", library = true, group = true, forever = "new",
+        itemQuality = 4,
         icon = "inv_helm_plate_raidwarriorhyjalc60_d_01",
         name = "Forever Raid Set Appearances",
         short = "Forever Raid Sets",
@@ -1049,6 +1054,7 @@ for _, g in ipairs(PVP_SET_GOALS) do
     local key, faction, title, armor, who, list, icon = g[1], g[2], g[3], g[4], g[5], g[6], g[7]
     table.insert(FGT.goals, {
         id = "pvp_set_" .. armor:lower() .. "_" .. key, library = true, group = true,
+        itemQuality = 4,
         faction = faction, forever = "listed", needs = "forever",
         icon = icon,
         name = title .. " " .. armor .. " Sets",
