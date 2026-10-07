@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Welcome wizard: custom art for the Epic Loot interest (more to come) with a soft gold glow. Interest tiles grow and glow on hover, pop with a little wiggle when picked, and picked tiles get a slow gold streak around their border and a gently breathing glow.
+- Welcome wizard: new hand-drawn gold icons for the five interests (skull, flag, sword, gem, coin) with a soft gold glow. Interest tiles grow and glow on hover, pop with a little wiggle when picked, and picked tiles get a slow gold streak around their border and a gently breathing glow.
 
 ## 2.5.0
 

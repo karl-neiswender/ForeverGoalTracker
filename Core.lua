@@ -6666,11 +6666,11 @@ local W = { picked = {}, list = {} }
 FGT.welcome = W
 
 local INTERESTS = {
-    { key = "raid",    label = "Raiding",    phrase = "raiding",    icon = { "inv_misc_head_dragon_01" } },
-    { key = "pvp",     label = "PvP",        phrase = "PvP",        icon = "pvp" },
+    { key = "raid",    label = "Raiding",    phrase = "raiding",    icon = { "inv_misc_head_dragon_01" }, art = "raiding" },
+    { key = "pvp",     label = "PvP",        phrase = "PvP",        icon = "pvp", art = "pvp" },
     { key = "loot",    label = "Epic Loot",  phrase = "epic loot",  icon = { "inv_sword_39" }, art = "loot" },
-    { key = "collect", label = "Collecting", phrase = "collecting", icon = { "ability_mount_ridinghorse" } },
-    { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" } },
+    { key = "collect", label = "Collecting", phrase = "collecting", icon = { "ability_mount_ridinghorse" }, art = "collecting" },
+    { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" }, art = "grind" },
 }
 local MAX_ROWS = 6    -- rows in all, so the list fits without scrolling
 local MAX_SETS = 2    -- item sets among the suggestions
