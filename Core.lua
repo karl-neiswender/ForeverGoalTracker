@@ -1164,7 +1164,7 @@ do
     -- (default the middle); it glides left and right (the ticker below)
     -- the progress bar's golds (Karl): deep gold at rest, its bright gold
     -- where the glow passes. W: how far the glow blooms
-    local EDGE, MID, W = FGT.GOAL_RGB, { 1.00, 0.86, 0.30 }, 0.8
+    local EDGE, MID, W = FGT.GOAL_RGB, { 1.00, 0.91, 0.45 }, 0.8
     function FGT.GoldGradient(label, center)
         center = center or 0.5
         local chars = {}
@@ -1284,6 +1284,15 @@ do
         -- eased ping-pong, a little past both ends; still in the middle
         -- with Celebrations off
         local center = on and (0.5 - 0.6 * math.cos(2 * math.pi * GetTime() / SCAN)) or 0.5
+        -- the open goal link card's title scans too (Karl)
+        local L = FGT.linkCard
+        if L and L:IsShown() and L.goal then
+            local want = FGT.GoldGradient(L.goal.name, center)
+            if want ~= L.nameShown then
+                L.nameShown = want
+                L.name:SetText(want)
+            end
+        end
         -- a goal link's tooltip title shines along with the links
         local tip = FGT.tipShine
         if tip then
@@ -5640,6 +5649,7 @@ function FGT.OpenLinkCard(id)
     L.tag:SetText(string.upper(goal.category))
     L.tag:SetTextColor(catColor[1], catColor[2], catColor[3])
     L.name:SetText(goal.name)
+    L.nameShown = nil -- (the gradient ticker repaints it)
     L.note:ClearAllPoints()
     L.note:SetPoint("TOPLEFT", L, "TOPLEFT", 12, -12 - math.max(36, 16 + L.name:GetStringHeight()) - 10)
     L.note:SetText(goal.note or "")
