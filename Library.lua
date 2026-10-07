@@ -648,7 +648,6 @@ local library = {
     },
 
     -- ---------------- Social ----------------
-    -- (Not in the welcome wizard yet: the Social interest waits on its icon.)
     {
         id = "social_guild", library = true, forever = "confirmed",
         icon = { "inv_shirt_guildtabard_01", "inv_misc_groupneedmore" },

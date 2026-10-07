@@ -6,7 +6,7 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 
 ## Features
 
-- **Goal suggestions:** a short welcome asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind) and picks starting goals for the character you're on: its class, race, faction and level.
+- **Goal suggestions:** a short welcome asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind, Social) and picks starting goals for the character you're on: its class, race, faction and level.
 - **Goal Library with 65 goals:** legendary and epic weapons, rare and class mounts, reputations, raid clears, raid attunements and dungeon keys, item sets (Dungeon Sets 1 and 2, Tier 1 to 3), professions, PvP ranks and milestones. Search by name or filter by type.
 - **Step-by-step guides** for every goal.
 - **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills and raid boss kills.

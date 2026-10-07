@@ -89,7 +89,7 @@ if ok_all:
         # Welcome wizard: every step, then the suggestions for some interests.
         ("welcome wizard", None,
             'STUB_PRINTS = {}; local W = STUB_NS.welcome; STUB_NS.OpenWelcome(1); W.Show(2); '
-            'W.picked = { raid = true, loot = true, grind = true, pvp = true, collect = true }; W.Show(3); '
+            'W.picked = { raid = true, loot = true, grind = true, pvp = true, collect = true, social = true }; W.Show(3); '
             'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" }) .. "  [" .. e.why .. (e.tracked and ", on My Goals" or "") .. "]") end; '
             'W.AddChosen()'),
         # Find your next goal: saved interests, goals already tracked left out.

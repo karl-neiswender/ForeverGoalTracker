@@ -4,7 +4,7 @@
 
 - Find your next goal: suggestions picked for you at the end of My Goals
 - Edit goal: change the number on Save 5,000 Gold, Honorable Kills or Make Friends
-- New Social goals: Join a Guild and Make Friends
+- New Social goals (Join a Guild, Make Friends) and a Social interest in the welcome wizard
 - Raid goals show when the character you're on is saved this week
 - Bug fixes
 

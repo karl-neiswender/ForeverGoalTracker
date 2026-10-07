@@ -7169,7 +7169,7 @@ do -- scoped (200-local budget)
 -- once (DB.welcomeSeen; existing players see it after updating too).
 --   1. Two choices: pick your own goals / get help (for players who
 --      already track goals: keep my goals / help me find more).
---   2. What do you like to do? Five interests, pick any number.
+--   2. What do you like to do? Six interests, pick any number.
 --   3. Goals to get started: suggestions for the logged-in character,
 --      ticked, then "Add N goals".
 -- Suggestions read the same progress as the tracker, so finished goals
@@ -7185,6 +7185,7 @@ local INTERESTS = {
     { key = "loot",    label = "Epic Loot",  phrase = "epic loot",  icon = { "inv_sword_39" }, art = "loot" },
     { key = "collect", label = "Collecting", phrase = "collecting", icon = { "ability_mount_ridinghorse" }, art = "collecting" },
     { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" }, art = "grind" },
+    { key = "social",  label = "Social",     phrase = "the social side", icon = { "inv_misc_groupneedmore" }, art = "social" },
 }
 local MAX_ROWS = 6    -- rows in all, so the list fits without scrolling
 local MAX_SETS = 2    -- item sets among the suggestions
@@ -7458,6 +7459,9 @@ local function Suggest(picked)
                 for _, id in ipairs({ "rep_thorium", "rep_zandalar", "rep_hydraxian", "rep_nozdormu" }) do
                     push(list, Entry(me, id, nil, tag))
                 end
+            elseif it.key == "social" then
+                push(list, Entry(me, "social_guild", nil, tag))
+                push(list, Entry(me, "social_friends", nil, tag))
             end
             -- goals you've already started go first
             local started, rest = {}, {}
@@ -7922,7 +7926,7 @@ function W.Show(step)
     Build()
     W.step = step
     local mw, mh = main:GetWidth(), main:GetHeight()
-    local cw = math.min(640, mw - 40)
+    local cw = math.min(step == 2 and 720 or 640, mw - 40) -- step 2: room for six tiles
     local ch = (step == 3) and math.min(520, mh - 40) or math.min(330, mh - 40)
     W.sub:SetWidth(cw - 60)
     if step == 1 then
@@ -7985,7 +7989,8 @@ function W.Show(step)
         W.title:SetText("What interests you?")
         W.sub:SetText("Pick as many as you like.")
         local gap = 8
-        local tw = math.floor((cw - 48 - gap * 4) / 5)
+        local n = #W.tiles
+        local tw = math.floor((cw - 48 - gap * (n - 1)) / n)
         for i, t in ipairs(W.tiles) do
             t:SetSize(tw, 104)
             t:ClearAllPoints()

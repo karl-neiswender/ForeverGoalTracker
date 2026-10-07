@@ -3,7 +3,8 @@
 Default 128x128 into Media/interests (the wizard's interest icons).
 Writes <folder>/<name>.tga and keeps the original as
 <folder>/<name>-source.<ext> (left out of the zip by .pkgmeta).
-Uses macOS sips to resize; the PNG decode and TGA write are plain Python."""
+Resizes with macOS sips, or Pillow on the PC (pip install --target
+tools/.py pillow); the PNG decode and TGA write are plain Python."""
 import os, shutil, struct, subprocess, sys, tempfile, zlib
 
 src, name = sys.argv[1], sys.argv[2]
@@ -16,7 +17,12 @@ if os.path.abspath(src) != os.path.abspath(keep):  # re-running from the kept or
     shutil.copy(src, keep)
 
 tmp = os.path.join(tempfile.mkdtemp(), "icon.png")
-subprocess.run(["sips", "-s", "format", "png", "-z", str(th), str(tw), src, "--out", tmp], check=True, capture_output=True)
+if shutil.which("sips"):  # Mac
+    subprocess.run(["sips", "-s", "format", "png", "-z", str(th), str(tw), src, "--out", tmp], check=True, capture_output=True)
+else:  # PC: Pillow (pip install --target tools/.py pillow)
+    sys.path.insert(0, os.path.join(here, ".py"))
+    from PIL import Image
+    Image.open(src).convert("RGBA").resize((tw, th), Image.LANCZOS).save(tmp)
 data = open(tmp, "rb").read()
 pos, idat = 8, b""
 while pos < len(data):
