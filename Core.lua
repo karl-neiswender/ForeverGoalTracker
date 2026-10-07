@@ -1153,8 +1153,8 @@ function FGT.GoalById(id)
     return FGT.goalIndex[id]
 end
 
-FGT.GOAL_HEX = "ffbe4a"           -- goal links: amber, a step from orange (Karl)
-FGT.GOAL_RGB = { 1, 0.745, 0.29 }
+FGT.GOAL_HEX = "cc9e29"           -- goal links: the progress bar's deep gold (Karl)
+FGT.GOAL_RGB = { 0.80, 0.62, 0.16 }
 
 -- Goal link text as a metallic gold gradient (Karl, in place of the
 -- moving shine): amber at both ends, bright gold in the middle. Each run
@@ -1162,7 +1162,9 @@ FGT.GOAL_RGB = { 1, 0.745, 0.29 }
 do
     -- center: where the bright gold sits, 0 = first letter, 1 = last
     -- (default the middle); it glides left and right (the ticker below)
-    local EDGE, MID, W = { 1, 0.70, 0.25 }, { 1, 0.85, 0.46 }, 0.8 -- W: how far the glow blooms
+    -- the progress bar's golds (Karl): deep gold at rest, its bright gold
+    -- where the glow passes. W: how far the glow blooms
+    local EDGE, MID, W = FGT.GOAL_RGB, { 1.00, 0.86, 0.30 }, 0.8
     function FGT.GoldGradient(label, center)
         center = center or 0.5
         local chars = {}
@@ -4508,6 +4510,8 @@ RefreshSteps = function(goal)
         else
             row.text:SetText(stepText)
             row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46)))
+            -- item links first, so a finished step fades them too (Karl)
+            FGT.SetStepLinks(row, type(entry) == "table" and entry.auto or nil, entry)
 
             StyleCheckRow(row, IsStepDone(goal.id, i))
             FGT.MaybePopTick(row, goal.id, i)
@@ -4519,7 +4523,6 @@ RefreshSteps = function(goal)
             -- bar for anything countable (materials, skill, gold).
             local rule = type(entry) == "table" and entry.auto or nil
             row.ruleEntry = rule
-            FGT.SetStepLinks(row, rule, entry)
             if rule then
                 local _, cur, max = RuleReadout(rule)
                 if cur and max and not IsStepDone(goal.id, i) then
