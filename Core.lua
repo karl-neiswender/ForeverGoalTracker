@@ -2393,6 +2393,31 @@ Etch(sortMenu, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge
 sortMenu:EnableMouse(true)
 sortMenu:Hide()
 
+-- Soft drop shadow for popups: stacked rectangles, each a little larger
+-- and fainter, in a frame just under the popup and nudged down, so the
+-- edges fade out like a blur. Shows and hides with the popup.
+function FGT.AddDropShadow(f, spread, alpha, drop)
+    spread, alpha, drop = spread or 10, alpha or 0.07, drop or 4
+    local s = CreateFrame("Frame", nil, f:GetParent())
+    s:SetFrameStrata(f:GetFrameStrata())
+    s:SetFrameLevel(math.max(0, f:GetFrameLevel() - 1))
+    s:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -drop)
+    s:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, -drop)
+    for i = 1, spread do
+        local t = s:CreateTexture(nil, "BACKGROUND")
+        t:SetTexture(SOLID)
+        t:SetVertexColor(0, 0, 0, alpha)
+        t:SetPoint("TOPLEFT", s, "TOPLEFT", -i, i * 0.5)
+        t:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", i, -i)
+    end
+    s:SetShown(f:IsShown())
+    f:HookScript("OnShow", function() s:Show() end)
+    f:HookScript("OnHide", function() s:Hide() end)
+    f.shadow = s
+    return s
+end
+FGT.AddDropShadow(sortMenu)
+
 local sortCatcher = CreateFrame("Button", nil, main)
 sortCatcher:SetAllPoints(main)
 sortCatcher:SetFrameLevel(main:GetFrameLevel() + 55)
