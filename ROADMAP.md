@@ -14,7 +14,7 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 New tools that take more building.
 
 - **Custom goals:** create your own goals with a title, difficulty, icon and your own steps, from serious to silly ("Give Billy five high fives"). Steps the game can track tick themselves; the rest you check off by hand. Or copy any Library goal and make it your own.
-- **Materials tab:** a dashboard of every material your goals need, how many you have across all your characters, and how close you are. Replaces the shopping list idea.
+- **Materials tab:** a dashboard of every material your goals need, how many you have across all your characters, and how close you are. Right-click a "Collect 10 ..." step to pin that item to it.
 - **Toasts:** a small note when a step ticks itself while the window is closed, and milestone cheers along the way ("50 down, keep going!").
 - **Pop-out tracker:** keep one goal's steps on screen while you play, like the quest tracker.
 - **Step order:** steps that need an earlier step done first show a lock until you get there.
