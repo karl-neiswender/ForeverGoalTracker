@@ -7248,7 +7248,11 @@ do
                 if short then table.insert(names, 2, short) end
             end
             quality = quality or FGT.stepQuality
-            local color = "|cff" .. (QUALITY_HEX[quality] or "ffffff")
+            -- white and grey items would vanish in the near-white step text,
+            -- so they get a pale parchment tone instead (softer than the gold
+            -- goal links); green and up keep the game's quality colors (Karl)
+            local hex = (quality == 1 and "f0dcb0") or (quality == 0 and "b3a68c") or QUALITY_HEX[quality] or "f0dcb0"
+            local color = "|cff" .. hex
             for _, n in ipairs(names) do
                 local s, e
                 if not done[n] then s, e = text:find(n, 1, true) end
