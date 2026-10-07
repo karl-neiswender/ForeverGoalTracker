@@ -7196,6 +7196,33 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         FGT.OpenWelcome(1) -- the welcome wizard again; your goals stay as they are
         return
     end
+    if msg == "stats" then
+        -- Saves every statistic the game tracks (Forever's Statistics
+        -- window: categories, stat IDs, names, values) into the saved
+        -- variables as DB.statsDump, for planning stats-based goals. Read it
+        -- from the SavedVariables file after a /reload.
+        if not (GetStatisticsCategoryList and GetStatistic) then
+            print(TAG .. "this client has no Statistics window.")
+            return
+        end
+        local out, n = {}, 0
+        for _, cat in pairs(GetStatisticsCategoryList() or {}) do
+            local catName, parent = GetCategoryInfo(cat)
+            local num = GetCategoryNumAchievements and GetCategoryNumAchievements(cat) or 0
+            for i = 1, num do
+                local quantity, skip, statID = GetStatistic(cat, i)
+                if statID then
+                    local name = select(2, GetAchievementInfo(statID))
+                    n = n + 1
+                    out[n] = string.format("%s | %s | %d | %s | %s%s", tostring(parent), tostring(catName), statID,
+                        tostring(name), tostring(quantity), skip and " | skip" or "")
+                end
+            end
+        end
+        ForeverGoalTrackerDB.statsDump = { at = date("%Y-%m-%d %H:%M"), char = UnitName("player"), list = out }
+        print(TAG .. string.format("saved %d statistics. Type /reload so they're written to disk.", n))
+        return
+    end
     if msg == "lockouts" then
         -- What the game reports (same as Raid Info), and which raid goal
         -- each lockout matches, to check the SAVED UNTIL chip's data.
