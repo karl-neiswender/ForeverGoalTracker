@@ -52,6 +52,7 @@ Click **Help me get started** for suggestions, or open the **Goal Library** tab 
 |---|---|
 | `Data.lua` | The original goal definitions and shared helpers |
 | `Library.lua` | The rest of the Goal Library catalog |
+| `Npcs.lua` | NPCs the guides link to, with their map spots |
 | `Core.lua` | UI, tracking engine and saved data |
 | `Media/` | Addon icons |
 | `Fonts/` | Cinzel font (SIL Open Font License) |
