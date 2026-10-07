@@ -2399,7 +2399,8 @@ sortMenu:Hide()
 -- shows is only the soft outer falloff, with rounded corners.
 -- spread: blur width in pixels; inset: how far inside the edge it starts.
 function FGT.AddDropShadow(f, spread, alpha, drop, inset)
-    spread, alpha, drop, inset = spread or 18, alpha or 0.7, drop or 4, inset or 5
+    -- defaults tuned in game with Karl: wide, faint and soft
+    spread, alpha, drop, inset = spread or 30, alpha or 0.55, drop or 6, inset or 8
     local s = CreateFrame("Frame", nil, f:GetParent())
     s:SetFrameStrata(f:GetFrameStrata())
     s:SetFrameLevel(math.max(0, f:GetFrameLevel() - 1))
