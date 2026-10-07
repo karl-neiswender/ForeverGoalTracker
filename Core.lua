@@ -1161,6 +1161,82 @@ function FGT.LinkText(s)
 end
 
 -- ============================================================
+-- Goal link shine (Karl): a slow band of light sweeps across gold goal
+-- links in steps and tips, like the border comets. A font string can't
+-- animate part of its text, so the link's letters are redrawn in
+-- brighter gold as the band passes. FGT.Shimmer(fs) wraps a font
+-- string's SetText/GetText so the rest of the code only ever sees the
+-- plain text. Paused while the mouse is on the text (tooltips stay
+-- steady), off with Celebrations off; finished steps' faded links
+-- don't match the gold, so they don't shine.
+-- ============================================================
+do
+    local list = {}
+    local GOLD, HI = { 1, 0.843, 0.369 }, { 1, 0.97, 0.86 }
+    local PERIOD, SWEEP, BAND = 4.5, 2.4, 4 -- seconds per cycle, seconds of sweep, half-width in letters
+
+    local function Hex(k)
+        return string.format("%02x%02x%02x",
+            (GOLD[1] + (HI[1] - GOLD[1]) * k) * 255 + 0.5,
+            (GOLD[2] + (HI[2] - GOLD[2]) * k) * 255 + 0.5,
+            (GOLD[3] + (HI[3] - GOLD[3]) * k) * 255 + 0.5)
+    end
+    local function ShineLabel(label, phase)
+        local chars = {}
+        for c in label:gmatch("[%z\1-\127\194-\244][\128-\191]*") do chars[#chars + 1] = c end
+        local pos = phase * (#chars + 2 * BAND) - BAND
+        local out, last = {}, nil
+        for i, c in ipairs(chars) do
+            local d = math.abs(i - pos)
+            local k = d < BAND and (math.cos(d / BAND * math.pi) + 1) / 2 * 0.9 or 0
+            local hex = Hex(math.floor(k * 10 + 0.5) / 10) -- steps, so runs share a color
+            if hex ~= last then out[#out + 1] = "|cff" .. hex; last = hex end
+            out[#out + 1] = c
+        end
+        return table.concat(out)
+    end
+    local function Shine(base, phase)
+        return (base:gsub("|cffffd75e|Hfgtgoal:([^|]+)|h(.-)|h|r", function(id, label)
+            return "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. ShineLabel(label, phase) .. "|h|r"
+        end))
+    end
+
+    FGT.ShineText = Shine -- (tools/check.py)
+
+    function FGT.Shimmer(fs)
+        local set, get = fs.SetText, fs.GetText
+        fs.fgtSet = set
+        fs.SetText = function(self, t) self.fgtBase = t; self.fgtShown = t; set(self, t) end
+        fs.GetText = function(self)
+            if self.fgtBase ~= nil then return self.fgtBase end
+            return get(self)
+        end
+        table.insert(list, fs)
+    end
+
+    local ticker = CreateFrame("Frame")
+    local acc = 0
+    ticker:SetScript("OnUpdate", function(_, elapsed)
+        acc = acc + elapsed
+        if acc < 0.05 then return end
+        acc = 0
+        local on = FGT.Setting("celebrations") ~= "off"
+        local phase = (GetTime() % PERIOD) / SWEEP
+        for _, fs in ipairs(list) do
+            local base = fs.fgtBase
+            if type(base) == "string" and fs:IsVisible() and base:find("|Hfgtgoal:", 1, true) then
+                local want = base
+                if on and phase <= 1 and not fs:IsMouseOver() then want = Shine(base, phase) end
+                if want ~= fs.fgtShown then
+                    fs.fgtShown = want
+                    fs.fgtSet(fs, want)
+                end
+            end
+        end
+    end)
+end
+
+-- ============================================================
 -- NPC links (Npcs.lua): teal names in steps and tips. Hover shows where
 -- they stand, click puts a pin on the map (a TomTom waypoint when TomTom
 -- is installed), right-click gives the Wowhead link.
@@ -3643,6 +3719,7 @@ local function GetStepRow(index)
     end)
 
     row.text = NewFontString(row, 12, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    FGT.Shimmer(row.text) -- goal links in the step shine
     row.text:SetJustifyH("LEFT")
     row.text:SetWordWrap(true)
 
@@ -3950,6 +4027,7 @@ function FGT.LayoutTips(goal, yOffset, width)
         local row = T.rows[i]
         if not row then
             row = NewFontString(stepsContainer, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
+            FGT.Shimmer(row) -- goal links in the tip shine
             row:SetWordWrap(true)
             row:SetShadowColor(0, 0, 0, 1)
             row:SetShadowOffset(1, -1)
@@ -5307,6 +5385,11 @@ function FGT.OpenLinkCard(id)
                 print(TAG .. g.name .. " added to My Goals.")
             end
         end)
+        -- a slow shine around the card, and the "Help me get started" gold
+        -- comet on Add while the goal isn't on your list (Karl)
+        FGT.AddBorderComet(L, 2, 0.4, 9)
+        FGT.AddBorderComet(L.btn, 2, 0.9)
+        L.btn.comet.ref = FGT.emptyUI and FGT.emptyUI.help
         -- new frames start shown: hide them so the first open is placed
         -- at the cursor below (it took three clicks to open before)
         L:Hide()
@@ -5325,6 +5408,8 @@ function FGT.OpenLinkCard(id)
     L.note:SetText(goal.note or "")
     local active = IsActive(goal)
     L.btn.text:SetText(active and "Open goal" or "+ Add to My Goals")
+    L.btn.comet.on = not active
+    L.btn.comet.vis = active and 0 or 1 -- no fade on open
     L.btn:ClearAllPoints()
     L.btn:SetPoint("TOPLEFT", L.note, "BOTTOMLEFT", 0, -12)
     L:SetHeight(12 + math.max(36, 16 + L.name:GetStringHeight()) + 10 + L.note:GetStringHeight() + 12 + 24 + 12)

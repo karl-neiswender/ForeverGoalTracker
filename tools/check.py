@@ -181,6 +181,13 @@ if ok_all:
         ("npc spots on forever", None,
             'STUB_PRINTS = {}; TomTom = false; STUB_NS.ShowNpcOnMap(14387); local h = STUB_NS.NpcById(3685); '
             'print("  harb: " .. h.x .. ", " .. h.y)', True),
+        # Goal link shine: mid-sweep the link's letters get their own golds;
+        # the link and the text around it stay intact. Then the link card.
+        ("goal link shine", None,
+            'STUB_PRINTS = {}; local t = STUB_NS.LinkText("Get {att_naxx:attuned to Naxxramas} at the chapel."); '
+            'local s = STUB_NS.ShineText(t, 0.5); print("  " .. s); '
+            'print("  plain: " .. s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")); '
+            'STUB_NS.OpenLinkCard("att_naxx"); print("  add comet on: " .. tostring(STUB_NS.linkCard.btn.comet.on))'),
         # Test commands: add every goal, then reset all (asks first) and undo.
         ("add all and reset all", None,
             'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '
