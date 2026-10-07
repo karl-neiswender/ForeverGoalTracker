@@ -17,7 +17,10 @@ local ADDON, FGT = ...
 --   boss = "Ragnaros"                         a kill seen while the addon runs
 --   owned / ownedPattern = names              bags, gear or mount collection
 --   money = copper, level = n
+--   guild = true                              any character has been in a guild
+--   friends = n                               friends on a character's friends list
 
+FGT.categoryColors["Social"]     = { 1.00, 0.56, 0.69 } -- rose #ff8fb0
 FGT.categoryColors["Reputation"] = { 0.40, 0.85, 0.55 }
 FGT.categoryColors["Raid"]       = { 0.95, 0.40, 0.30 }
 FGT.categoryColors["Profession"] = { 0.85, 0.70, 0.45 }
@@ -641,6 +644,43 @@ local library = {
             { text = "Hold 1,000 gold on one character.", auto = { money = 1000 * 10000 } },
             { text = "Hold 2,500 gold on one character.", auto = { money = 2500 * 10000 } },
             { text = "Hold 5,000 gold on one character.", auto = { money = 5000 * 10000 } },
+        },
+    },
+
+    -- ---------------- Social ----------------
+    -- (Not in the welcome wizard yet: the Social interest waits on its icon.)
+    {
+        id = "social_guild", library = true, forever = "listed",
+        icon = { "inv_shirt_guildtabard_01", "inv_misc_groupneedmore" },
+        name = "Join a Guild",
+        category = "Social", difficulty = "Moderate",
+        timeEstimate = "Days",
+        note = "Find your people: join a guild and wear its colors. Ticks itself.",
+        tips = {
+            "Guilds recruit in the Guild Recruitment channel in capital cities, and in general chat.",
+            "Guild Tabards are sold by the Guild Master in each capital city once your guild has designed its tabard.",
+        },
+        steps = {
+            { text = "Join a guild.", auto = { guild = true } },
+            { text = "Buy a Guild Tabard from a Guild Master in a capital city.", auto = { item = 5976 } },
+        },
+    },
+    {
+        id = "social_friends", library = true, forever = "confirmed",
+        icon = { "inv_misc_groupneedmore", "inv_misc_grouplooking" },
+        name = "Make Friends",
+        category = "Social", difficulty = "Moderate",
+        timeEstimate = "Varies",
+        note = "Add the people you enjoy playing with to your friends list. Ticks itself.",
+        tips = {
+            "Right-click a player's name and choose Add Friend, or type /friend and their name.",
+        },
+        target = { kind = "friends", default = 25, min = 5, max = 100, marks = { 0.2, 0.4, 1 },
+                   step = "Have %s friends on your friends list.", unit = "friends" },
+        steps = {
+            { text = "Have 5 friends on your friends list.", auto = { friends = 5 } },
+            { text = "Have 10 friends on your friends list.", auto = { friends = 10 } },
+            { text = "Have 25 friends on your friends list.", auto = { friends = 25 } },
         },
     },
 }

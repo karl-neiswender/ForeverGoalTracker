@@ -566,6 +566,15 @@ local function RecordCharacter()
     end)
     c.owned = c.owned or {}
     ScanOwnedNames(c.owned)
+
+    -- Social: ever in a guild, and the most friends seen on the list (both
+    -- remembered: guild and friend data can arrive late after login)
+    pcall(function()
+        if IsInGuild and IsInGuild() then c.guilded = true end
+        local friends = (C_FriendList and C_FriendList.GetNumFriends and C_FriendList.GetNumFriends())
+            or (GetNumFriends and GetNumFriends()) or 0
+        c.friends = math.max(c.friends or 0, friends or 0)
+    end)
 end
 
 -- Exact level including the fraction of the current level's XP, so a
@@ -720,6 +729,12 @@ local function RuleMet(rule)
     if rule.hk then
         for _, c in pairs(roster) do if (c.hk or 0) >= rule.hk then return true, "hk " .. c.hk end end
     end
+    if rule.guild then
+        for _, c in pairs(roster) do if c.guilded then return true, "guild (" .. tostring(c.name) .. ")" end end
+    end
+    if rule.friends then
+        for _, c in pairs(roster) do if (c.friends or 0) >= rule.friends then return true, "friends " .. c.friends end end
+    end
     for _, want in ipairs(AsList(rule.owned)) do
         if OwnsName(function(n) return n:find(want, 1, true) ~= nil end, roster) then return true, "owned" end
     end
@@ -762,6 +777,11 @@ local function RuleReadout(rule)
         for _, c in pairs(roster) do best = math.max(best, c.pvpRank or 0) end
         return string.format("Rank %d / %d", best, rule.pvpRank), math.min(best, rule.pvpRank), rule.pvpRank
     end
+    if rule.friends then
+        local best = 0
+        for _, c in pairs(roster) do best = math.max(best, c.friends or 0) end
+        return string.format("%d / %d", math.min(best, rule.friends), rule.friends), math.min(best, rule.friends), rule.friends
+    end
     if rule.money then
         local best = 0
         for _, c in pairs(roster) do best = math.max(best, c.money or 0) end
@@ -797,6 +817,8 @@ local function DescribeRule(rule)
     if rule.money then table.insert(parts, "a character has " .. math.floor(rule.money / 10000) .. " gold") end
     if rule.pvpRank then table.insert(parts, "your PvP rank (current or highest ever) reaches " .. rule.pvpRank) end
     if rule.hk then table.insert(parts, "a character reaches " .. rule.hk .. " lifetime honorable kills") end
+    if rule.guild then table.insert(parts, "a character joins a guild") end
+    if rule.friends then table.insert(parts, "a character has " .. rule.friends .. " friends on their friends list") end
     if rule.forRace then table.insert(parts, "(" .. rule.forRace .. " characters only)") end
     if rule.forFaction then table.insert(parts, "(" .. rule.forFaction .. " characters only)") end
     if rule.owned or rule.ownedPattern then table.insert(parts, "it shows up in your bags, gear or mount collection") end
@@ -4236,6 +4258,7 @@ local FILTERS = {
     { key = "Profession", label = "Professions" },
     { key = "PvP",        label = "PvP" },
     { key = "Milestone",  label = "Milestones" },
+    { key = "Social",     label = "Social" },
 }
 -- Forever client: a blue "New & Updated" chip after Added (goals new
 -- in Forever or updated by it).
@@ -6657,6 +6680,7 @@ for _, ev in ipairs({
     "BANKFRAME_OPENED", "BANKFRAME_CLOSED", "PLAYERBANKSLOTS_CHANGED",
     "UPDATE_FACTION", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "SKILL_LINES_CHANGED",
     "NEW_MOUNT_ADDED", "COMPANION_LEARNED", "PLAYER_PVP_RANK_CHANGED", "PLAYER_PVP_KILLS_CHANGED",
+    "PLAYER_GUILD_UPDATE", "FRIENDLIST_UPDATE",
 }) do
     pcall(rosterWatcher.RegisterEvent, rosterWatcher, ev) -- skip events a client lacks
 end
@@ -6721,6 +6745,11 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
     end
 
     if event == "PLAYER_LOGIN" then
+        -- ask the server for the friends list (FRIENDLIST_UPDATE rescans)
+        pcall(function()
+            if C_FriendList and C_FriendList.ShowFriends then C_FriendList.ShowFriends()
+            elseif ShowFriends then ShowFriends() end
+        end)
         ScanNow(true)
         if not FGT.firstRun then FGT.LoginGreeting() end
         if FGT.Setting("openOnLogin") and not main:IsShown() then FGT.ToggleFrame() end
