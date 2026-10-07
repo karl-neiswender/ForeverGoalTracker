@@ -1206,6 +1206,16 @@ function FGT.EnableGoalLinks(f)
                 FGT.OpenWowheadCard("item", itemId, text)
             elseif IsShiftKeyDown() then
                 FGT.InsertItemLink(itemId)
+            else
+                -- a plain click on the name ticks the step, like the rest
+                -- of the row (the link makes a big part of it)
+                local click = self.GetScript and self:GetScript("OnClick")
+                if click then
+                    local was = FGT.overLink
+                    FGT.overLink = nil
+                    click(self, "LeftButton")
+                    FGT.overLink = was
+                end
             end
             return
         end
@@ -3577,12 +3587,26 @@ local function StyleCheckRow(row, done)
         row.box:SetBackdropBorderColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], 1)
         row.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         row.num:SetTextColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        -- links keep their own color, so fade them too: halfway to the
+        -- dimmed text, a hint of the item's quality left (Karl)
+        local text = row.text:GetText()
+        if type(text) == "string" and text:find("|H", 1, true) then
+            row.text:SetText((text:gsub("|cff(%x%x)(%x%x)(%x%x)(|H)", function(r, g, b, h)
+                local function mix(x, s) return math.floor((tonumber(x, 16) / 255 * 0.45 + s * 0.55) * 255 + 0.5) end
+                return string.format("|cff%02x%02x%02x", mix(r, C.SUBTEXT[1]), mix(g, C.SUBTEXT[2]), mix(b, C.SUBTEXT[3])) .. h
+            end)))
+        end
     else
         row.check:Hide()
         row.box:SetBackdropColor(0, 0, 0, 1)
         row.box:SetBackdropBorderColor(C.BOX_RING[1], C.BOX_RING[2], C.BOX_RING[3], 1)
         row.text:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
         row.num:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    end
+    -- a finished step's item icon steps back: grey and faded
+    if row.icon and row.icon.tex then
+        row.icon.tex:SetDesaturated(done and true or false)
+        row.icon:SetAlpha(done and 0.5 or 1)
     end
 end
 
