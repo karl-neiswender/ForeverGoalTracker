@@ -1153,21 +1153,13 @@ function FGT.GoalById(id)
     return FGT.goalIndex[id]
 end
 
--- Goal links wear Karl's gold chain-link icon in front, so they read apart
--- from quest links (gold "!", brighter yellow) at a glance (Karl).
-do
-    local LINK = "Interface\\AddOns\\" .. ADDON .. "\\Media\\icons\\link"
-    FGT.GOAL_ICON = "|T" .. LINK .. ":14:14:0:-2|t"
-    FGT.LINK_ICONS = FGT.LINK_ICONS or {}
-    table.insert(FGT.LINK_ICONS, { FGT.GOAL_ICON, "|T" .. LINK .. ":14:14:0:-2:64:64:0:64:0:64:130:130:130|t" })
-end
-
 function FGT.LinkText(s)
     s = (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
         local alias = FGT.LINK_ALIAS[id]
         if alias then id = alias() end
         if not FGT.GoalById(id) then return label end
-        return "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
+        -- amber (Karl): apart from the bright yellow of quest links
+        return "|cffffb340|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
     end))
     -- then quest names, then NPC names (below)
     if FGT.LinkQuests then s = FGT.LinkQuests(s) end
@@ -1186,7 +1178,7 @@ end
 -- ============================================================
 do
     local list = {}
-    local GOLD, HI = { 1, 0.843, 0.369 }, { 1, 0.97, 0.86 }
+    local GOLD, HI = { 1, 0.702, 0.251 }, { 1, 0.93, 0.74 } -- amber (ffb340) to warm white
     local PERIOD, SWEEP, BAND = 4, 1.1, 2.5 -- seconds per cycle, seconds of sweep, half-width in letters
 
     local function Hex(k)
@@ -1217,8 +1209,8 @@ do
         return table.concat(out)
     end
     local function Shine(base, phase)
-        return (base:gsub("|cffffd75e|Hfgtgoal:([^|]+)|h(.-)|h|r", function(id, label)
-            return "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. ShineLabel(label, phase) .. "|h|r"
+        return (base:gsub("|cffffb340|Hfgtgoal:([^|]+)|h(.-)|h|r", function(id, label)
+            return "|cffffb340|Hfgtgoal:" .. id .. "|h" .. ShineLabel(label, phase) .. "|h|r"
         end))
     end
 
