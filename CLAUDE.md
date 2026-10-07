@@ -46,6 +46,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `Media/minimap.tga` | 64px minimap button icon (green checkmark, circular alpha). Source: `Media/minimap-source.png`. |
 | `Media/star.tga` | 64px five-point star for favorites (white with a soft dark edge, tinted gold in code). Drawn by a Python script, no source file. |
 | `Media/web.tga` | 256px corner cobweb for the empty state (white on transparent, tinted in code). |
+| `Media/tabcorner-line.tga`, `tabcorner-fill.tga` | 32px quarter-circle curve (line and the fill outside it) where the active tab's sides flare into the line under the tabs; mirrored for the right side, tinted in code. Drawn by a Python script, no source file. |
 | `Media/forever.tga` | 64px WoW Forever logo bug (gold W on teal), used on the not-confirmed notice (too small to read in chips). Source: `Media/forever-source.png`. |
 | `Media/dot.tga` | 32px white dot with a soft halo, tinted Forever blue inline (`FGT.ForeverDot`, `FGT.NewTag`) for NEW labels. |
 | `Media/pill.tga`, `Media/knob.tga` | 64x32 capsule and 32px circle (white), the Settings on/off switch: rim + gradient fill from the pill, knob with its own gradient and a shadow. |

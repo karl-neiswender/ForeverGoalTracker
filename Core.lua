@@ -2117,7 +2117,7 @@ goalsCompleteText:SetPoint("TOPLEFT", overallBar, "BOTTOMLEFT", 0, -4)
 
 -- Tabs sit between the overall bar and the panels.
 local TABS_TOP = -98
-local PANEL_TOP = -132
+local PANEL_TOP = -138
 
 -- Left panel (goal list) - "sticky": a fixed width set once via SetWidth,
 -- never a second horizontal anchor, so resizing the window never
@@ -3510,25 +3510,144 @@ local function RefreshOverall()
 end
 FGT.RefreshOverall = RefreshOverall
 
+-- Folder tabs: the active tab is a box with rounded top corners, a gold
+-- glow along its top edge and no bottom edge. Its sides curve outward
+-- into a thin line that runs under the row and fades out by the middle
+-- of the window. Inactive tabs are just text.
+local TAB_H = 30
+local TAB_CURVE = 8 -- size of the curved corners where the tab meets the line
+local TAB_STYLE = { top = { 0.150, 0.125, 0.070 }, bottom = { 0.060, 0.057, 0.052 }, edge = { 0.78, 0.61, 0.10, 1 } }
+local TAB_LINE = STYLE.panel.edge
+local TAB_CORNER = "Interface\\AddOns\\" .. ADDON .. "\\Media\\tabcorner-"
+-- the curves are a dimmer gold than the box edge, which the border art darkens
+local TAB_CURVE_GOLD = { 0.45, 0.36, 0.09 }
+local tabs = {}
+local tabLineL = main:CreateTexture(nil, "ARTWORK")
+local tabLineR = main:CreateTexture(nil, "ARTWORK")
+for _, t in ipairs({ tabLineL, tabLineR }) do
+    t:SetTexture(SOLID)
+    t:SetHeight(1)
+end
+
+-- The line breaks under the active tab, so the tab reads as open.
+local function PlaceTabLine()
+    local on
+    for _, t in ipairs(tabs) do if t.active then on = t end end
+    local y = TABS_TOP - TAB_H + 1
+    tabLineL:ClearAllPoints()
+    tabLineR:ClearAllPoints()
+    tabLineL:SetPoint("TOPLEFT", main, "TOPLEFT", 16, y)
+    if on then
+        tabLineL:SetPoint("TOPRIGHT", on, "BOTTOMLEFT", 3 - TAB_CURVE, 1)
+        tabLineR:SetPoint("TOPLEFT", on, "BOTTOMRIGHT", TAB_CURVE - 3, 1)
+        tabLineR:SetPoint("TOPRIGHT", main, "TOP", 0, y)
+        ApplyHGradient(tabLineL, TAB_LINE, TAB_LINE, 1, 1)
+        ApplyHGradient(tabLineR, TAB_LINE, TAB_LINE, 1, 0)
+        tabLineR:Show()
+    else
+        tabLineL:SetPoint("TOPRIGHT", main, "TOP", 0, y)
+        ApplyHGradient(tabLineL, TAB_LINE, TAB_LINE, 1, 0)
+        tabLineR:Hide()
+    end
+end
+
 local function NewTab(label)
-    local tab = CreateFrame("Button", nil, main, "BackdropTemplate")
-    tab:SetHeight(26)
-    Etch(tab, STYLE.button, 10)
-    tab.text = NewTitleString(tab, 12)
-    tab.text:SetPoint("CENTER", 0, 0)
+    local tab = CreateFrame("Button", nil, main)
+    tab:SetHeight(TAB_H)
+    -- The box hangs below a clip frame that ends where the curves begin,
+    -- which hides the box's bottom edge but keeps the rounded top corners.
+    local clip = CreateFrame("Frame", nil, tab)
+    clip:SetPoint("TOPLEFT", 0, 0)
+    clip:SetPoint("BOTTOMRIGHT", 0, TAB_CURVE)
+    local clips = clip.SetClipsChildren and pcall(clip.SetClipsChildren, clip, true)
+    tab.box = CreateFrame("Frame", nil, clip, "BackdropTemplate")
+    tab.box:SetPoint("TOPLEFT", 0, 0)
+    tab.box:SetPoint("BOTTOMRIGHT", 0, clips and -14 or 0)
+    Etch(tab.box, TAB_STYLE, 14)
+    -- gold glow fading down from the top edge
+    local glow = tab.box:CreateTexture(nil, "ARTWORK")
+    glow:SetTexture(SOLID)
+    glow:SetPoint("TOPLEFT", 3, -3)
+    glow:SetPoint("TOPRIGHT", -3, -3)
+    glow:SetHeight(12)
+    ApplyVGradient(glow, C.ACCENT, C.ACCENT, 0.22, 0)
+    -- bright gold line along the top, strongest in the middle
+    local hiL = tab.box:CreateTexture(nil, "ARTWORK", nil, 1)
+    local hiR = tab.box:CreateTexture(nil, "ARTWORK", nil, 1)
+    for _, t in ipairs({ hiL, hiR }) do
+        t:SetTexture(SOLID)
+        t:SetHeight(1)
+    end
+    hiL:SetPoint("TOPLEFT", 3, -3)
+    hiL:SetPoint("TOPRIGHT", tab.box, "TOP", 0, -3)
+    hiR:SetPoint("TOPLEFT", tab.box, "TOP", 0, -3)
+    hiR:SetPoint("TOPRIGHT", -3, -3)
+    local hiGold = { 1.00, 0.88, 0.45 }
+    ApplyHGradient(hiL, hiGold, hiGold, 0.25, 0.95)
+    ApplyHGradient(hiR, hiGold, hiGold, 0.95, 0.25)
+
+    -- Below the clip: the tab's fill carries on down to the line, and
+    -- each side curves outward into it (gold fading to the line color).
+    tab.feet = CreateFrame("Frame", nil, tab)
+    tab.feet:SetAllPoints()
+    local f = (TAB_H - TAB_CURVE) / (TAB_H - TAB_CURVE + 14) -- box gradient at the clip edge
+    local fr, fg, fb = TAB_STYLE.top[1] + (TAB_STYLE.bottom[1] - TAB_STYLE.top[1]) * f,
+        TAB_STYLE.top[2] + (TAB_STYLE.bottom[2] - TAB_STYLE.top[2]) * f,
+        TAB_STYLE.top[3] + (TAB_STYLE.bottom[3] - TAB_STYLE.top[3]) * f
+    local strip = tab.feet:CreateTexture(nil, "BACKGROUND")
+    strip:SetTexture(SOLID)
+    strip:SetVertexColor(fr, fg, fb, 1)
+    strip:SetPoint("BOTTOMLEFT", 3, 0)
+    strip:SetPoint("BOTTOMRIGHT", -3, 0)
+    strip:SetHeight(TAB_CURVE)
+    for side = 1, 2 do
+        local fill = tab.feet:CreateTexture(nil, "BACKGROUND", nil, 1)
+        local line = tab.feet:CreateTexture(nil, "ARTWORK")
+        fill:SetTexture(TAB_CORNER .. "fill")
+        line:SetTexture(TAB_CORNER .. "line")
+        fill:SetVertexColor(fr, fg, fb, 1)
+        for _, t in ipairs({ fill, line }) do
+            t:SetSize(TAB_CURVE, TAB_CURVE)
+            if side == 1 then
+                t:SetPoint("BOTTOMRIGHT", tab, "BOTTOMLEFT", 3, 0)
+            else
+                t:SetPoint("BOTTOMLEFT", tab, "BOTTOMRIGHT", -3, 0)
+                t:SetTexCoord(1, 0, 0, 1) -- mirrored
+            end
+        end
+        if side == 1 then
+            ApplyHGradient(line, TAB_LINE, TAB_CURVE_GOLD, 1, 1)
+        else
+            ApplyHGradient(line, TAB_CURVE_GOLD, TAB_LINE, 1, 1)
+        end
+    end
+
+    -- the label sits above the box
+    local over = CreateFrame("Frame", nil, tab)
+    over:SetAllPoints()
+    over:SetFrameLevel(tab.box:GetFrameLevel() + 2)
+    tab.text = NewTitleString(over, 12)
+    tab.text:SetPoint("CENTER", 0, -1)
     tab.text:SetText(label)
     tab:SetWidth(math.ceil(tab.text:GetStringWidth()) + 40)
-    tab:SetScript("OnEnter", function(self) if not self.active then self:SetEtch(STYLE.btnHover) end end)
-    tab:SetScript("OnLeave", function(self) if not self.active then self:SetEtch(STYLE.button) end end)
+    tab:SetScript("OnEnter", function(self)
+        if not self.active then self.text:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3]) end
+    end)
+    tab:SetScript("OnLeave", function(self)
+        if not self.active then self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end
+    end)
     function tab:SetActive(on)
         self.active = on
-        self:SetEtch(on and STYLE.rowSel or STYLE.button)
+        self.box:SetShown(on)
+        self.feet:SetShown(on)
         if on then
             self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])
         else
             self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         end
+        PlaceTabLine()
     end
+    table.insert(tabs, tab)
     return tab
 end
 
@@ -3617,12 +3736,9 @@ libraryPanel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(libraryPanel, STYLE.panel, 12)
 libraryPanel:Hide()
 
-local libHeader = NewTitleString(libraryPanel, 14)
-libHeader:SetPoint("TOPLEFT", 14, -12)
-libHeader:SetText("Goal Library")
-
-local libSummary = NewFontString(libraryPanel, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-libSummary:SetPoint("LEFT", libHeader, "RIGHT", 10, -1)
+-- No heading here: the Goal Library tab above already names the page.
+local libSummary = NewFontString(libraryPanel, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+libSummary:SetPoint("LEFT", libraryPanel, "TOPLEFT", 14, -20)
 
 -- Category filter chips (wrap onto extra lines on narrow windows).
 local FILTERS = {

@@ -4,6 +4,7 @@
 
 - Goal Library: finished goals get the same finished look as on My Goals (green wash, greyed icon, no progress bar) with "Completed <date>" on their info line.
 - Settings: sound choices go grey when you wouldn't hear them. If game sound is off (or Master is at 0%) the whole sound section dims; a channel that's unchecked or at 0% in Options > Sound dims on its own. Grey buttons can't be picked; hover one to see why ("Your music channel is disabled"). They update live as you change the game's sound settings.
+- My Goals and Goal Library are now folder tabs: the open tab has a gold-edged box with rounded corners that curves into a line under the row. The Library no longer repeats its name inside the page.
 - Epic Racial Mounts: any race in your faction can earn any of its racial mounts. Each mount now reads "Level a Horde character to level 60", "Reach Exalted with the Darkspear Trolls" (optional for Trolls), riding, gold and the purchase, and counts every character of the faction, not just that race. Your saved progress moves with the steps.
 
 ## 2.4.0
