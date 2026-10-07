@@ -1389,8 +1389,10 @@ FGT.FOREVER_DOT = "Interface\\AddOns\\" .. ADDON .. "\\Media\\dot"
 -- The dot image carries its own soft glow, so the solid core is about
 -- 40% of `size`; the glow also spaces it from the word after it. Nudged
 -- down 3px to sit level with capital letters (measured in game).
-function FGT.ForeverDot(size)
-    return string.format("|T%s:%d:%d:0:-3:32:32:0:32:0:32:156:202:255|t", FGT.FOREVER_DOT, size, size)
+-- grey: the desaturated dot on finished goals' grey info line (Karl)
+function FGT.ForeverDot(size, grey)
+    local tint = grey and "125:125:120" or "156:202:255"
+    return string.format("|T%s:%d:%d:0:-3:32:32:0:32:0:32:%s|t", FGT.FOREVER_DOT, size, size, tint)
 end
 
 -- "<dot>NEW" (or UPDATED) in light Forever blue, after a name.
@@ -5345,7 +5347,7 @@ LayoutLibrary = function()
             -- NEW dot; the green wash and the green Complete button stay
             local on = FGT.CompletedOn(g)
             local plain = card.metaPlain:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
-            card.metaBase = "|cff7d7d78" .. (isNew and (isNew .. "  ·  ") or "") .. plain
+            card.metaBase = (isNew and FGT.ForeverDot(14, true) or "") .. "|cff7d7d78" .. (isNew and (isNew .. "  ·  ") or "") .. plain
                 .. "  ·  " .. (on and ("Completed " .. on) or "Complete") .. "|r"
             card.foreverNew = false
             card:SetEtch(STYLE.doneCard)
