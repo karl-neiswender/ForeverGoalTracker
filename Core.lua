@@ -2393,22 +2393,41 @@ Etch(sortMenu, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge
 sortMenu:EnableMouse(true)
 sortMenu:Hide()
 
--- Soft drop shadow for popups: stacked rectangles, each a little larger
--- and fainter, in a frame just under the popup and nudged down, so the
--- edges fade out like a blur. Shows and hides with the popup.
-function FGT.AddDropShadow(f, spread, alpha, drop)
-    spread, alpha, drop = spread or 10, alpha or 0.07, drop or 4
+-- Soft drop shadow for popups: Media/shadow.tga (a round blur, drawn by
+-- tools/shadow.py) as a nine-slice in a frame just under the popup,
+-- nudged down. The blur starts a little inside the popup's edge, so what
+-- shows is only the soft outer falloff, with rounded corners.
+-- spread: blur width in pixels; inset: how far inside the edge it starts.
+function FGT.AddDropShadow(f, spread, alpha, drop, inset)
+    spread, alpha, drop, inset = spread or 18, alpha or 0.7, drop or 4, inset or 5
     local s = CreateFrame("Frame", nil, f:GetParent())
     s:SetFrameStrata(f:GetFrameStrata())
     s:SetFrameLevel(math.max(0, f:GetFrameLevel() - 1))
-    s:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -drop)
-    s:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, -drop)
-    for i = 1, spread do
+    s:SetPoint("TOPLEFT", f, "TOPLEFT", inset, -drop - inset)
+    s:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -inset, -drop + inset)
+    local TEX = "Interface\\AddOns\\" .. ADDON .. "\\Media\\shadow"
+    local A, B = 0.49, 0.51 -- the center lines, stretched for edges and middle
+    local R = spread
+    -- each piece: its top-left (point of s, x, y), its bottom-right
+    -- (point of s, x, y), then texcoords left, right, top, bottom
+    local pieces = {
+        { "TOPLEFT", -R, R, "TOPLEFT", 0, 0,          0, 0.5, 0, 0.5 },  -- corners
+        { "TOPRIGHT", 0, R, "TOPRIGHT", R, 0,         0.5, 1, 0, 0.5 },
+        { "BOTTOMLEFT", -R, 0, "BOTTOMLEFT", 0, -R,   0, 0.5, 0.5, 1 },
+        { "BOTTOMRIGHT", 0, 0, "BOTTOMRIGHT", R, -R,  0.5, 1, 0.5, 1 },
+        { "TOPLEFT", 0, R, "TOPRIGHT", 0, 0,          A, B, 0, 0.5 },    -- top
+        { "BOTTOMLEFT", 0, 0, "BOTTOMRIGHT", 0, -R,   A, B, 0.5, 1 },    -- bottom
+        { "TOPLEFT", -R, 0, "BOTTOMLEFT", 0, 0,       0, 0.5, A, B },    -- left
+        { "TOPRIGHT", 0, 0, "BOTTOMRIGHT", R, 0,      0.5, 1, A, B },    -- right
+        { "TOPLEFT", 0, 0, "BOTTOMRIGHT", 0, 0,       A, B, A, B },      -- middle
+    }
+    for _, p in ipairs(pieces) do
         local t = s:CreateTexture(nil, "BACKGROUND")
-        t:SetTexture(SOLID)
+        t:SetTexture(TEX)
         t:SetVertexColor(0, 0, 0, alpha)
-        t:SetPoint("TOPLEFT", s, "TOPLEFT", -i, i * 0.5)
-        t:SetPoint("BOTTOMRIGHT", s, "BOTTOMRIGHT", i, -i)
+        t:SetPoint("TOPLEFT", s, p[1], p[2], p[3])
+        t:SetPoint("BOTTOMRIGHT", s, p[4], p[5], p[6])
+        t:SetTexCoord(p[7], p[8], p[9], p[10])
     end
     s:SetShown(f:IsShown())
     f:HookScript("OnShow", function() s:Show() end)

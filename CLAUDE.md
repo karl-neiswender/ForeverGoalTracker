@@ -52,6 +52,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `Media/dot.tga` | 32px white dot with a soft halo, tinted Forever blue inline (`FGT.ForeverDot`, `FGT.NewTag`) for NEW labels. |
 | `Media/pill.tga`, `Media/knob.tga` | 64x32 capsule and 32px circle (white), the Settings on/off switch: rim + gradient fill from the pill, knob with its own gradient and a shadow. |
 | `Media/gear.tga` | 64px eight-tooth gear (white, tinted gold), the Settings button in the title bar. Drawn by a PowerShell script, no source file. |
+| `Media/shadow.tga` | 64px round blur (white, Gaussian alpha) used as a nine-slice drop shadow by `FGT.AddDropShadow` (sort menu). Drawn by `tools/shadow.py`. |
 | `ROADMAP.md` | Public roadmap (GitHub page; Karl pastes it into the CurseForge description). Keep it in sync when features ship. |
 | `Screenshots/` | The four CurseForge gallery shots (see "Screenshots and store page"). Not shipped. |
 | `Media/logo.png` | 1024px logo for GitHub/CurseForge. |
