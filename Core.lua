@@ -1167,7 +1167,7 @@ function FGT.LinkText(s)
         local alias = FGT.LINK_ALIAS[id]
         if alias then id = alias() end
         if not FGT.GoalById(id) then return label end
-        return FGT.GOAL_ICON .. "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
+        return "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
     end))
     -- then quest names, then NPC names (below)
     if FGT.LinkQuests then s = FGT.LinkQuests(s) end
