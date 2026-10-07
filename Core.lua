@@ -7185,7 +7185,7 @@ local INTERESTS = {
     { key = "loot",    label = "Epic Loot",  phrase = "epic loot",  icon = { "inv_sword_39" }, art = "loot" },
     { key = "collect", label = "Collecting", phrase = "collecting", icon = { "ability_mount_ridinghorse" }, art = "collecting" },
     { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" }, art = "grind" },
-    { key = "social",  label = "Social",     phrase = "the social side", icon = { "inv_misc_groupneedmore" }, art = "social" },
+    { key = "social",  label = "Social",     phrase = "being social", icon = { "inv_misc_groupneedmore" }, art = "social" },
 }
 local MAX_ROWS = 6    -- rows in all, so the list fits without scrolling
 local MAX_SETS = 2    -- item sets among the suggestions
