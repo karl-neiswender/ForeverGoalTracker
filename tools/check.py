@@ -183,9 +183,9 @@ if ok_all:
             'print("  harb: " .. h.x .. ", " .. h.y)', True),
         # Goal link shine: mid-sweep the link's letters get their own golds;
         # the link and the text around it stay intact. Then the link card.
-        ("goal link shine", None,
+        ("goal link gradient", None,
             'STUB_PRINTS = {}; local t = STUB_NS.LinkText("Get {att_naxx:attuned to Naxxramas} at the chapel."); '
-            'local s = STUB_NS.ShineText(t, 0.5); print("  " .. s); '
+            'local s = t; print("  " .. s); '
             'print("  plain: " .. s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")); '
             'STUB_NS.OpenLinkCard("att_naxx"); print("  add comet on: " .. tostring(STUB_NS.linkCard.btn.comet.on))'),
         # Quest links: the "!" and yellow link (quoted names only), next to

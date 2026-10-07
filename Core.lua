@@ -1156,13 +1156,41 @@ end
 FGT.GOAL_HEX = "ffbe4a"           -- goal links: amber, a step from orange (Karl)
 FGT.GOAL_RGB = { 1, 0.745, 0.29 }
 
+-- Goal link text as a metallic gold gradient (Karl, in place of the
+-- moving shine): amber at both ends, bright gold in the middle. Each run
+-- of one color is closed with |r (the game keeps a color stack).
+do
+    local EDGE, MID = { 1, 0.70, 0.25 }, { 1, 0.90, 0.55 }
+    function FGT.GoldGradient(label)
+        local chars = {}
+        for c in label:gmatch("[%z\1-\127\194-\244][\128-\191]*") do chars[#chars + 1] = c end
+        local n, out, last = #chars, {}, nil
+        for i, c in ipairs(chars) do
+            local t = n > 1 and (i - 1) / (n - 1) or 0.5
+            local k = math.floor(math.sin(t * math.pi) * 8 + 0.5) / 8 -- steps, so runs share a color
+            local hex = string.format("%02x%02x%02x",
+                (EDGE[1] + (MID[1] - EDGE[1]) * k) * 255 + 0.5,
+                (EDGE[2] + (MID[2] - EDGE[2]) * k) * 255 + 0.5,
+                (EDGE[3] + (MID[3] - EDGE[3]) * k) * 255 + 0.5)
+            if hex ~= last then
+                if last then out[#out + 1] = "|r" end
+                out[#out + 1] = "|cff" .. hex
+                last = hex
+            end
+            out[#out + 1] = c
+        end
+        if last then out[#out + 1] = "|r" end
+        return table.concat(out)
+    end
+end
+
 function FGT.LinkText(s)
     s = (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
         local alias = FGT.LINK_ALIAS[id]
         if alias then id = alias() end
         if not FGT.GoalById(id) then return label end
         -- amber (Karl): apart from the bright yellow of quest links
-        return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
+        return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. FGT.GoldGradient(label) .. "|h|r"
     end))
     -- then quest names, then NPC names (below)
     if FGT.LinkQuests then s = FGT.LinkQuests(s) end
@@ -1236,6 +1264,7 @@ do
         acc = acc + elapsed
         if acc < 0.05 then return end
         acc = 0
+        if not FGT.GOAL_SHINE then return end -- off: goal links use the gold gradient (Karl)
         local on = FGT.Setting("celebrations") ~= "off"
         local phase = (GetTime() % PERIOD) / SWEEP
         -- a goal link's tooltip title shines along with the links
@@ -1564,12 +1593,10 @@ function FGT.EnableGoalLinks(f)
         if not goal then return end
         FGT.overLink = id
         GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-        local A = FGT.GOAL_RGB -- amber, like the link, and it shines too
-        GameTooltip:AddLine(goal.name, A[1], A[2], A[3])
+        GameTooltip:AddLine(FGT.GoldGradient(goal.name)) -- the link's gold gradient
         GameTooltip:AddLine(IsActive(goal) and "On your tracker. Click to open it." or "Click to track this goal.",
             C.INK2[1], C.INK2[2], C.INK2[3])
         GameTooltip:Show()
-        FGT.tipShine = { owner = self, name = goal.name }
     end)
     f:SetScript("OnHyperlinkLeave", function(self)
         FGT.overLink = nil
@@ -4010,9 +4037,9 @@ local function StyleCheckRow(row, done)
                     s, e = text:find(plain, s + #dim, true)
                 end
             end
-            row.text:SetText((text:gsub("|cff(%x%x)(%x%x)(%x%x)(|H)", function(r, g, b, h)
+            row.text:SetText((text:gsub("|cff(%x%x)(%x%x)(%x%x)", function(r, g, b)
                 local function mix(x, s) return math.floor((tonumber(x, 16) / 255 * 0.45 + s * 0.55) * 255 + 0.5) end
-                return string.format("|cff%02x%02x%02x", mix(r, C.SUBTEXT[1]), mix(g, C.SUBTEXT[2]), mix(b, C.SUBTEXT[3])) .. h
+                return string.format("|cff%02x%02x%02x", mix(r, C.SUBTEXT[1]), mix(g, C.SUBTEXT[2]), mix(b, C.SUBTEXT[3]))
             end)))
         end
     else
