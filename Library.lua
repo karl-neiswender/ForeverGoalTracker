@@ -291,7 +291,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "The Warlock's epic mount, earned through a level 60 quest chain that ends with a summoning ritual in Dire Maul. Quest IDs checked on Wowhead.",
         steps = {
-            { text = "Complete 'Mor'zul Bloodbringer' from Spackle Thornberry in Stormwind City.", auto = { quest = 7562 } },
+            { text = "Complete 'Mor'zul Bloodbringer' from a demon trainer in a capital city.", auto = { quest = 7562 } },
             { text = "Complete 'Rage of Blood'.", auto = { quest = 7563 } },
             { text = "Complete 'Wildeyes'.", auto = { quest = 7564 } },
             { text = "Complete 'Kroshius' Infernal Core'.", auto = { quest = 7603 } },
@@ -302,6 +302,7 @@ local library = {
         completeWith = { quest = 7631 },
         tips = {
             "Warlock only, and the chain needs level 60.",
+            "The chain starts with a demon trainer: Spackle Thornberry (Stormwind) or Jubahl Corpseseeker (Ironforge) for the Alliance, Martha Strain (Undercity) or Kurgul (Orgrimmar) for the Horde.",
             "The Dire Maul ritual is a group fight, so bring friends.",
         },
     },
@@ -532,7 +533,7 @@ local library = {
         timeEstimate = "1-2 Weeks",
         note = "The Horde chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire, the Test of Skulls and Upper Blackrock Spire.",
         steps = {
-            { text = "Complete 'Warlord's Command' from Warlord Goretooth in Kargath, Badlands.", auto = { quest = 4903 } },
+            { text = "Complete 'Warlord's Command' and turn it in to Warlord Goretooth in Kargath, Badlands.", auto = { quest = 4903 } },
             { text = "Complete 'Eitrigg's Wisdom'.", auto = { quest = 4941 } },
             { text = "Complete 'For The Horde!'.", auto = { quest = 4974 } },
             { text = "Complete 'What the Wind Carries'.", auto = { quest = 6566 } },

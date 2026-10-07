@@ -1534,9 +1534,14 @@ do
             GameTooltip:AddLine(q[1], 1, 0.95, 0.23)
         end
         if q.startName then
+            -- where the giver stands: their zone, or the instance note
             local npc = q.start and FGT.NpcById and FGT.NpcById(q.start)
-            GameTooltip:AddLine("Starts with " .. q.startName .. (npc and npc.zone and (" in " .. npc.zone) or ""),
-                C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
+            local where = npc and ((npc.map and npc.zone and (" in " .. npc.zone))
+                or (npc.where and (" (" .. npc.where:gsub("^%u", string.lower) .. ")"))) or ""
+            GameTooltip:AddLine("Starts with " .. q.startName .. where, C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
+        end
+        if q.startItem then -- "This Item Begins a Quest"
+            GameTooltip:AddLine("Starts from an item: |cfff0dcb0" .. q.startItem[2] .. "|r", C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
         end
         GameTooltip:AddLine(" ")
         if q.perClass then

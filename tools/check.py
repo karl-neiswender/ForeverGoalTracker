@@ -219,6 +219,14 @@ if ok_all:
             'local tf = STUB_NS.GoalById("thunderfury"); for _, st in ipairs(tf.steps) do if type(st) == "table" and st.text:find("^Turn in .Rise") then '
             'local r = Row(); r.text:SetText(STUB_NS.LinkText(st.text)); STUB_NS.SetStepLinks(r, st.auto, st); print("  " .. r.text:GetText()) end end; '
             'local ash = STUB_NS.GoalById("ashbringer"); print("  " .. STUB_NS.LinkText(ash.tips[2])); C_Item = nil'),
+        # Quest starts: every start NPC is in Npcs.lua (so tooltips can say
+        # where), and the quests that begin from an item name it.
+        ("quest starts", None,
+            'STUB_PRINTS = {}; local missing, items = {}, 0; '
+            'for _, q in ipairs(STUB_NS.QUESTS) do '
+            'if q.start and not STUB_NS.NpcById(q.start) then table.insert(missing, q.startName) end; '
+            'if q.startItem then items = items + 1 end end; '
+            'print("  start NPCs missing from Npcs.lua: " .. (#missing > 0 and table.concat(missing, ", ") or "none") .. "; item starts: " .. items)'),
         # Test commands: add every goal, then reset all (asks first) and undo.
         ("add all and reset all", None,
             'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '
