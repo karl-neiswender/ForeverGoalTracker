@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Smaller download: removed an old image the addon no longer uses.
+- Smaller download: removed an old image the addon no longer uses, and the empty-tracker panel is stored more compactly (same look).
 
 ## 2.5.1
 

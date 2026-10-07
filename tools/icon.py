@@ -11,7 +11,9 @@ tw, th = (int(v) for v in (sys.argv[3] if len(sys.argv) > 3 else "128x128").spli
 here = os.path.dirname(os.path.abspath(__file__))
 out_dir = os.path.join(here, "..", *(sys.argv[4] if len(sys.argv) > 4 else "Media/interests").split("/"))
 os.makedirs(out_dir, exist_ok=True)
-shutil.copy(src, os.path.join(out_dir, name + "-source" + os.path.splitext(src)[1]))
+keep = os.path.join(out_dir, name + "-source" + os.path.splitext(src)[1])
+if os.path.abspath(src) != os.path.abspath(keep):  # re-running from the kept original
+    shutil.copy(src, keep)
 
 tmp = os.path.join(tempfile.mkdtemp(), "icon.png")
 subprocess.run(["sips", "-s", "format", "png", "-z", str(th), str(tw), src, "--out", tmp], check=True, capture_output=True)
@@ -36,10 +38,14 @@ for y in range(h):
             p = a + b - c; pa, pb, pc = abs(p - a), abs(p - b), abs(p - c)
             cur[x] = (cur[x] + (a if pa <= pb and pa <= pc else (b if pb <= pc else c))) & 255
     rows.append(cur); prev = cur
-out = bytearray(struct.pack("<BBBHHBHHHHBB", 0, 0, 2, 0, 0, 0, 0, 0, w, h, 32, 0x28))
-for r in rows:
-    for x in range(0, stride, bpp): out += bytes((r[x + 2], r[x + 1], r[x], r[x + 3] if bpp == 4 else 255))
-open(os.path.join(out_dir, name + ".tga"), "wb").write(out)
 alphas = [(r[x + 3] if bpp == 4 else 255) for r in rows for x in range(0, stride, bpp)]
-print("%s.tga: %dx%d, %d see-through pixels, %d solid" % (name, w, h,
+# Fully opaque art is saved as 24-bit (no alpha layer): a quarter smaller,
+# no quality lost. Anything with transparency stays 32-bit.
+opaque = all(a == 255 for a in alphas)
+out = bytearray(struct.pack("<BBBHHBHHHHBB", 0, 0, 2, 0, 0, 0, 0, 0, w, h, 24 if opaque else 32, 0x20 if opaque else 0x28))
+for r in rows:
+    for x in range(0, stride, bpp):
+        out += bytes((r[x + 2], r[x + 1], r[x])) if opaque else bytes((r[x + 2], r[x + 1], r[x], r[x + 3] if bpp == 4 else 255))
+open(os.path.join(out_dir, name + ".tga"), "wb").write(out)
+print("%s.tga: %dx%d, %s, %d see-through pixels, %d solid" % (name, w, h, "24-bit" if opaque else "32-bit",
       sum(1 for a in alphas if a == 0), sum(1 for a in alphas if a >= 240)))
