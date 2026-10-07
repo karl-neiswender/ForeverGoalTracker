@@ -104,6 +104,9 @@ NOTES
 Drop rates and costs are estimates; check a live source such as Wowhead
 before planning a raid night around one.
 
+Made with the help of AI. Every change is tested in game and approved by
+a human before release.
+
 LICENSE
 -------
 MIT (see LICENSE.txt). The Cinzel font is included under the SIL Open
