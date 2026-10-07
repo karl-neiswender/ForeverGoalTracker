@@ -420,7 +420,7 @@ local library = {
         },
     },
     {
-        id = "raid_aq40", library = true, instance = { 531, "Ahn'Qiraj Temple" },
+        id = "raid_aq40", library = true, instance = { 531, "Ahn'Qiraj Temple", "Temple of Ahn'Qiraj" },
         icon = { "achievement_boss_cthun", "inv_misc_qirajicrystal_05" },
         name = "Clear Temple of Ahn'Qiraj",
         short = "Ahn'Qiraj (AQ40)",

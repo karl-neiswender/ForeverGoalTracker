@@ -2905,7 +2905,7 @@ do
     FGT.foreverNotice = n
 end
 
--- Raid lockout: on a raid goal (data field `instance` = { mapId, name }),
+-- Raid lockout: on a raid goal (data field `instance` = { mapId, name, other name }),
 -- a "SAVED UNTIL TUE" chip when the character you're on is saved there.
 -- The game sends lockouts after RequestRaidInfo (UPDATE_INSTANCE_INFO);
 -- they're kept for this session only, since they change every week.
@@ -2956,7 +2956,7 @@ do
     function FGT.LayoutLockout(goal, anchor)
         FGT.lockGoal, FGT.lockAnchor = goal, anchor
         local inst = goal.instance
-        local at = inst and (FGT.lockouts[inst[1]] or FGT.lockouts[inst[2]])
+        local at = inst and (FGT.lockouts[inst[1]] or FGT.lockouts[inst[2]] or (inst[3] and FGT.lockouts[inst[3]]))
         if at and at > time() then
             chip.reset, chip.raid = at, inst[2]
             chip:SetLabel("SAVED UNTIL " .. string.upper(date("%a", at)), C.INK2)
@@ -7188,7 +7188,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
             local name, _, reset, _, locked, extended, _, isRaid, _, _, _, _, _, mapId = GetSavedInstanceInfo(i)
             local goal
             for _, g in ipairs(FGT.goals) do
-                if g.instance and (g.instance[1] == mapId or g.instance[2] == name) then goal = g end
+                if g.instance and (g.instance[1] == mapId or g.instance[2] == name or g.instance[3] == name) then goal = g end
             end
             print(TAG .. string.format("%s (map %s)%s, resets %s%s -> %s", tostring(name), tostring(mapId),
                 isRaid and "" or " [dungeon]", reset and reset > 0 and date("%a %b %d at %H:%M", time() + reset) or "?",
