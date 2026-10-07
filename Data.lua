@@ -398,8 +398,8 @@ FGT.goals = {
         note = "The classic legendary. Both bindings are roughly a 3% drop each, so this is usually a long farm even with consistent weekly clears.",
         steps = {
             { text = "Raid {raid_mc:Molten Core} on a weekly reset schedule.", auto = { level = 60 } },
-            { text = "Loot the left Binding of the Windseeker from Baron Geddon in Molten Core.", auto = { item = 18563, quest = 7785 } },
-            { text = "Loot the right Binding of the Windseeker from Garr in Molten Core.", auto = { item = 18564, quest = 7785 } },
+            { text = "Loot the Bindings of the Windseeker (left) from Baron Geddon in Molten Core.", auto = { item = 18563, quest = 7785 } },
+            { text = "Loot the Bindings of the Windseeker (right) from Garr in Molten Core.", auto = { item = 18564, quest = 7785 } },
             { text = "Start 'Examine the Vessel' with Highlord Demitrian in Silithus.", auto = { quest = 7785 } },
             { text = "Gather 10 Elementium Bars.", auto = { item = 17771, count = 10 } },
             { text = "Gather 100 Arcanite Bars.", auto = { item = 12360, count = 100 } },
