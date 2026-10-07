@@ -1160,14 +1160,18 @@ FGT.GOAL_RGB = { 1, 0.745, 0.29 }
 -- moving shine): amber at both ends, bright gold in the middle. Each run
 -- of one color is closed with |r (the game keeps a color stack).
 do
-    local EDGE, MID = { 1, 0.70, 0.25 }, { 1, 0.90, 0.55 }
-    function FGT.GoldGradient(label)
+    -- center: where the bright gold sits, 0 = first letter, 1 = last
+    -- (default the middle); it glides left and right (the ticker below)
+    local EDGE, MID, W = { 1, 0.70, 0.25 }, { 1, 0.85, 0.46 }, 0.55
+    function FGT.GoldGradient(label, center)
+        center = center or 0.5
         local chars = {}
         for c in label:gmatch("[%z\1-\127\194-\244][\128-\191]*") do chars[#chars + 1] = c end
         local n, out, last = #chars, {}, nil
         for i, c in ipairs(chars) do
             local t = n > 1 and (i - 1) / (n - 1) or 0.5
-            local k = math.floor(math.sin(t * math.pi) * 8 + 0.5) / 8 -- steps, so runs share a color
+            local d = math.min(1, math.abs(t - center) / W)
+            local k = math.floor((math.cos(d * math.pi) + 1) / 2 * 8 + 0.5) / 8 -- steps, so runs share a color
             local hex = string.format("%02x%02x%02x",
                 (EDGE[1] + (MID[1] - EDGE[1]) * k) * 255 + 0.5,
                 (EDGE[2] + (MID[2] - EDGE[2]) * k) * 255 + 0.5,
@@ -1190,7 +1194,8 @@ function FGT.LinkText(s)
         if alias then id = alias() end
         if not FGT.GoalById(id) then return label end
         -- amber (Karl): apart from the bright yellow of quest links
-        return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. FGT.GoldGradient(label) .. "|h|r"
+        -- (the label stays plain here: the ticker paints the moving gradient)
+        return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
     end))
     -- then quest names, then NPC names (below)
     if FGT.LinkQuests then s = FGT.LinkQuests(s) end
@@ -1239,6 +1244,15 @@ do
         if last then out[#out + 1] = "|r" end
         return table.concat(out)
     end
+    -- the scanning gradient: the bright gold glides from one end of the
+    -- link to the other and back, easing at each end (Karl)
+    local SCAN = 7 -- seconds for a full left-right-left loop
+    local function Scan(base, center)
+        return (base:gsub("|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:([^|]+)|h(.-)|h|r", function(id, label)
+            return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. FGT.GoldGradient(label, center) .. "|h|r"
+        end))
+    end
+    FGT.ScanText = Scan -- (tools/check.py)
     local function Shine(base, phase)
         return (base:gsub("|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:([^|]+)|h(.-)|h|r", function(id, label)
             return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. ShineLabel(label, phase) .. "|h|r"
@@ -1264,9 +1278,10 @@ do
         acc = acc + elapsed
         if acc < 0.05 then return end
         acc = 0
-        if not FGT.GOAL_SHINE then return end -- off: goal links use the gold gradient (Karl)
         local on = FGT.Setting("celebrations") ~= "off"
-        local phase = (GetTime() % PERIOD) / SWEEP
+        -- eased ping-pong, a little past both ends; still in the middle
+        -- with Celebrations off
+        local center = on and (0.5 - 0.6 * math.cos(2 * math.pi * GetTime() / SCAN)) or 0.5
         -- a goal link's tooltip title shines along with the links
         local tip = FGT.tipShine
         if tip then
@@ -1274,7 +1289,7 @@ do
             if not (GameTooltip:IsShown() and GameTooltip:IsOwned(tip.owner)) or not title then
                 FGT.tipShine = nil
             else
-                local want = (on and phase <= 1) and ShineLabel(tip.name, phase) or tip.name
+                local want = FGT.GoldGradient(tip.name, center)
                 if want ~= tip.shown then
                     tip.shown = want
                     title:SetText(want)
@@ -1288,8 +1303,7 @@ do
             -- (tooltip flicker). Hovering the rest of the text keeps shining.
             local onLink = FGT.overLink and fs:IsMouseOver()
             if type(base) == "string" and not onLink and fs:IsVisible() and base:find("|Hfgtgoal:", 1, true) then
-                local want = base
-                if on and phase <= 1 then want = Shine(base, phase) end
+                local want = Scan(base, center)
                 if want ~= fs.fgtShown then
                     fs.fgtShown = want
                     fs.fgtSet(fs, want)
@@ -1593,10 +1607,12 @@ function FGT.EnableGoalLinks(f)
         if not goal then return end
         FGT.overLink = id
         GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-        GameTooltip:AddLine(FGT.GoldGradient(goal.name)) -- the link's gold gradient
+        local A = FGT.GOAL_RGB -- the ticker paints the link's moving gradient on it
+        GameTooltip:AddLine(goal.name, A[1], A[2], A[3])
         GameTooltip:AddLine(IsActive(goal) and "On your tracker. Click to open it." or "Click to track this goal.",
             C.INK2[1], C.INK2[2], C.INK2[3])
         GameTooltip:Show()
+        FGT.tipShine = { owner = self, name = goal.name }
     end)
     f:SetScript("OnHyperlinkLeave", function(self)
         FGT.overLink = nil

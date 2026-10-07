@@ -185,7 +185,7 @@ if ok_all:
         # the link and the text around it stay intact. Then the link card.
         ("goal link gradient", None,
             'STUB_PRINTS = {}; local t = STUB_NS.LinkText("Get {att_naxx:attuned to Naxxramas} at the chapel."); '
-            'local s = t; print("  " .. s); '
+            'local s = STUB_NS.ScanText(t, 0.2); print("  " .. s); '
             'print("  plain: " .. s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")); '
             'STUB_NS.OpenLinkCard("att_naxx"); print("  add comet on: " .. tostring(STUB_NS.linkCard.btn.comet.on))'),
         # Quest links: the "!" and yellow link (quoted names only), next to
