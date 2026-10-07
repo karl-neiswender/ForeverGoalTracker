@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.5.1
 
 - The empty tracker has a new hand-painted panel with cobwebs in every corner.
 - Welcome wizard: new hand-drawn gold icons for the five interests (skull, flag, sword, gem, coin) with a soft gold glow. Interest tiles grow and glow on hover, pop with a little wiggle when picked, and picked tiles get a slow gold streak around their border and a gently breathing glow.
