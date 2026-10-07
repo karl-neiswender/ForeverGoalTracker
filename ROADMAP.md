@@ -44,6 +44,7 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
+- **2.5.0:** goal suggestions: a welcome that asks what interests you and picks goals for your character; folder-style tabs; a Clear button to empty My Goals; tips that fold away; racial mount and Frostsaber steps that follow your race; a larger default window; and gentle animations throughout.
 - **2.4.0:** a Settings page (gear in the title bar) to turn off chat lines, the banner or celebrations, pick a goal-complete sound and its volume channel, hide the minimap button, open on login, and set window scale and opacity; tracked characters you can remove; a keybind; and finished goals and parts marked Complete in green in the Goal Library.
 - **2.3.1:** more goal links across the library, and steps you can't check off turned into tips.
 - **2.3.0:** WoW Forever markers: a "not confirmed in WoW Forever yet" notice on Classic-based guides, NEW and UPDATED labels in Forever blue, and a "New & Updated" filter, starting with the Skyborne Swift Galestrider and the updated Embrace of the Viper. Plus goal links (click a linked goal in a step to add it), completion dates, undo after reset, Expand all / Collapse all, a cleaner goal card, a richer minimap tooltip and clearer step wording.

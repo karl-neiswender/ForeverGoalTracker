@@ -6,6 +6,7 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 
 ## Features
 
+- **Goal suggestions:** a short welcome asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind) and picks starting goals for the character you're on: its class, race, faction and level.
 - **Goal Library with 65 goals:** legendary and epic weapons, rare and class mounts, reputations, raid clears, raid attunements and dungeon keys, item sets (Dungeon Sets 1 and 2, Tier 1 to 3), professions, PvP ranks and milestones. Search by name or filter by type.
 - **Step-by-step guides** for every goal.
 - **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills and raid boss kills.
@@ -33,11 +34,12 @@ Download the latest release from CurseForge, or copy this repository's files int
 | `/goals` (also `/fgt`, `/forevergoals`) | Open or close the window |
 | `/goals reset` | Reset the window size and position |
 | `/goals settings` | Open the Settings page |
+| `/goals welcome` | Get goal suggestions for your character |
 | `/goals testbanner` | Preview the goal-complete banner |
 
 A key binding is available under Options > Keybindings > AddOns.
 
-Open the **Goal Library** tab, click **+ Add** on the goals you want, then follow them on **My Goals**. Steps tick themselves as you play; you can also click any step to tick it by hand.
+Click **Help me get started** for suggestions, or open the **Goal Library** tab and click **+ Add** on the goals you want, then follow them on **My Goals**. Steps tick themselves as you play; you can also click any step to tick it by hand.
 
 ## Project layout
 
