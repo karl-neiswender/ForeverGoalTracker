@@ -1431,6 +1431,43 @@ local function NewBar(parent, height)
     bar.label:SetPoint("TOPRIGHT", bar, "BOTTOMRIGHT", 0, -4)
     bar.label:SetJustifyH("RIGHT")
 
+    -- Fill and tip colors per look: { fill left, fill right, tip left, tip right }.
+    local LOOKS = {
+        done = { { 0.08, 0.32, 0.04 }, { 0.55, 1.00, 0.40 } },
+        -- new in Forever: deep Forever blue building to light blue
+        blue = { { 0.01, 0.12, 0.36 }, { 0.40, 0.70, 1.00 }, { 0.40, 0.70, 1.00 }, { 0.80, 0.92, 1.00 } },
+        gold = { { 0.32, 0.18, 0.01 }, { 1.00, 0.86, 0.30 }, { 1.00, 0.85, 0.40 }, { 1.00, 0.95, 0.70 } },
+    }
+    local function Mix(a, b, p) return { a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p, a[3] + (b[3] - a[3]) * p } end
+
+    -- Reaching 100% while you watch: the fill slides from gold (or blue)
+    -- into green and the bright tip dims out, over 0.6 s, instead of both
+    -- switching in one frame (Karl). Gradients ignore SetAlpha, so each
+    -- frame redraws them (lesson 14).
+    local FADE = 0.6
+    local function FadeToDone(self, from)
+        local f, d = LOOKS[from], LOOKS.done
+        self.fading = 0
+        self.fader = self.fader or CreateFrame("Frame", nil, self)
+        self.fader:SetScript("OnUpdate", function(fr, elapsed)
+            if self.look ~= "done" then -- dropped below 100% meanwhile
+                self.fading = nil
+                fr:SetScript("OnUpdate", nil)
+                return
+            end
+            self.fading = self.fading + elapsed
+            local p = math.min(1, self.fading / FADE)
+            local e = 1 - (1 - p) ^ 2 -- ease out
+            ApplyHGradient(self.fill, Mix(f[1], d[1], e), Mix(f[2], d[2], e))
+            ApplyHGradient(self.tip, f[3], f[4], 0, 0.75 * (1 - e))
+            if p >= 1 then
+                self.fading = nil
+                self.tip:Hide()
+                fr:SetScript("OnUpdate", nil)
+            end
+        end)
+    end
+
     -- Draws the fill at a fraction (0..1). The green "complete" look
     -- only kicks in once the fill has actually arrived at 100%.
     function bar:Render(pct)
@@ -1443,19 +1480,22 @@ local function NewBar(parent, height)
         self.shade:SetShown(on)
         self.sheen:SetShown(on and height >= 6)
         self.tip:SetWidth(math.min(24, fillW))
-        self.tip:SetShown(on and not complete)
+        self.tip:SetShown(on and (not complete or self.fading ~= nil))
         local look = complete and "done" or (self.blue and "blue" or "gold")
         if look ~= self.look then
+            local from = self.look
             self.look = look
-            if look == "done" then
-                ApplyHGradient(self.fill, { 0.08, 0.32, 0.04 }, { 0.55, 1.00, 0.40 })
-            elseif look == "blue" then
-                -- new in Forever: deep Forever blue building to light blue
-                ApplyHGradient(self.fill, { 0.01, 0.12, 0.36 }, { 0.40, 0.70, 1.00 })
-                ApplyHGradient(self.tip, { 0.40, 0.70, 1.00 }, { 0.80, 0.92, 1.00 }, 0, 0.75)
+            local L = LOOKS[look]
+            if look == "done" and (from == "gold" or from == "blue") and self:IsVisible()
+                and not self.instant and FGT.Setting("celebrations") ~= "off" then
+                FadeToDone(self, from)
+                self.tip:Show()
             else
-                ApplyHGradient(self.fill, { 0.32, 0.18, 0.01 }, { 1.00, 0.86, 0.30 })
-                ApplyHGradient(self.tip, { 1.00, 0.85, 0.40 }, { 1.00, 0.95, 0.70 }, 0, 0.75)
+                self.fading = nil
+                if self.fader then self.fader:SetScript("OnUpdate", nil) end
+                ApplyHGradient(self.fill, L[1], L[2])
+                if L[3] then ApplyHGradient(self.tip, L[3], L[4], 0, 0.75) end
+                if look == "done" then self.tip:Hide() end
             end
         end
     end
