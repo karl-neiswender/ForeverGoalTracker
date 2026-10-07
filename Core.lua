@@ -1363,7 +1363,9 @@ function FGT.ForeverNote(goal, short)
     end
     if not FGT.isForever then return nil end
     if s == "listed" then
-        return "In WoW Forever's database, but the steps aren't confirmed yet. They follow Classic Era and may differ."
+        -- a goal can say what's unconfirmed about it (the PvP sets: the ranks)
+        return (not short and goal.foreverNote)
+            or "In WoW Forever's database, but the steps aren't confirmed yet. They follow Classic Era and may differ."
     elseif s == "unconfirmed" then
         return "Not yet confirmed in WoW Forever. These steps follow Classic Era and may differ."
     end
@@ -4684,6 +4686,7 @@ function FGT.LibraryVisible(goal)
     -- Forever-only goals can't be earned on Classic Era.
     if goal.forever == "new" and not FGT.isForever then return false end
     if goal.needs == "stats" and not FGT.HasStats() then return false end -- no Statistics window
+    if goal.needs == "forever" and not FGT.isForever then return false end -- Forever-only items
     if goal.faction and not IsActive(goal) and libFilter ~= "all" then
         -- All shows everything; filters with faction goals (PvP,
         -- Reputation, Attunements) follow the Alliance / Horde / Both picker
@@ -7489,6 +7492,7 @@ local function Entry(me, id, keys, why)
     if g.faction and g.faction ~= me.faction then return nil end
     if g.forever == "new" and not FGT.isForever then return nil end
     if g.needs == "stats" and not FGT.HasStats() then return nil end
+    if g.needs == "forever" and not FGT.isForever then return nil end
     local set, tracked
     if g.group then
         set = {}
@@ -7528,8 +7532,8 @@ local function Title(e, me)
     if g.sections and only then
         local sec = g.sections[only].name
         local what = sec:match(" %- (.+)$") or sec
-        if g.id == "epicmounts" then
-            name = what
+        if g.id == "epicmounts" or g.id:find("^pvp_set_") then
+            name = what -- "Swift Timber Wolf", "Field Marshal's Battlegear"
         else
             name = g.name:gsub(" Set Appearances", ""):gsub(" %(.-%)$", "") .. ": " .. what
         end
@@ -7573,10 +7577,18 @@ local function Suggest(picked)
         end
     end
 
+    -- the character's class set; for classes with several versions (one
+    -- per role, Forever sets), only the first, so a suggestion stays one set
     local function ClassPart(id)
         local g = FGT.GoalById(id)
-        return g and PartKeys(g, { CLASS_PART[me.class] or "" })
+        local keys = g and PartKeys(g, { CLASS_PART[me.class] or "" })
+        if not keys then return nil end
+        local first
+        for k in pairs(keys) do if not first or k < first then first = k end end
+        return { [first] = true }
     end
+    local ARMOR = { WARRIOR = "plate", PALADIN = "plate", HUNTER = "mail", SHAMAN = "mail",
+                    ROGUE = "leather", DRUID = "leather", PRIEST = "cloth", MAGE = "cloth", WARLOCK = "cloth" }
 
     local lists = {}
     for _, it in ipairs(INTERESTS) do
@@ -7612,6 +7624,7 @@ local function Suggest(picked)
                 -- Forever's new raids (Entry skips them on Classic Era)
                 push(list, Entry(me, "raid_barrow", nil, tag))
                 push(list, Entry(me, "raid_hyjal", nil, tag))
+                push(list, Entry(me, "set_forever_raid", ClassPart("set_forever_raid"), tag))
                 if after then push(list, Entry(me, after, nil, tag)) end
             elseif it.key == "loot" then
                 local sets = {}
@@ -7631,9 +7644,11 @@ local function Suggest(picked)
                 push(list, Entry(me, "mount_qiraji", nil, tag))
             elseif it.key == "pvp" then
                 local f = (me.faction == "Horde") and "horde" or "ally"
+                -- the PvP set for your faction and armor type (Forever), your class's set chosen
+                local pvpSet = "pvp_set_" .. (ARMOR[me.class] or "") .. "_" .. f
                 for _, id in ipairs({ "pvp_avmount_" .. f, "pvp_wsg_" .. f, "pvp_ab_" .. f, "pvp_mount_" .. f,
-                                      "pvp_hk", "pvp_av_" .. f, "pvp_rank14_" .. f }) do
-                    push(list, Entry(me, id, nil, tag))
+                                      pvpSet, "pvp_hk", "pvp_av_" .. f, "pvp_rank14_" .. f }) do
+                    push(list, Entry(me, id, id == pvpSet and ClassPart(id) or nil, tag))
                 end
             elseif it.key == "grind" then
                 -- the professions this character already knows

@@ -47,10 +47,13 @@ function STUB_SERIALIZE(v)
 end
 '''
 
-def session(saved, before_events=None, after_login=None):
-    """One game session in a fresh Lua state. Returns (saved, chat)."""
+def session(saved, before_events=None, after_login=None, forever=False):
+    """One game session in a fresh Lua state. Returns (saved, chat).
+    forever: the Warcraft Forever client (interface 16001) instead of Classic Era."""
     rt = lua51.LuaRuntime()
     rt.execute(STUB)
+    if forever:
+        rt.execute('GetBuildInfo = function() return "1.60.1", "0", "", 16001 end')
     rt.execute(SERIALIZE)
     run = rt.eval('function(src, name, ns) local f = assert(loadstring(src, "@" .. name)); f("ForeverGoalTracker", ns) end')
     ns = rt.eval("{}")
@@ -123,6 +126,15 @@ if ok_all:
             'print("  money parse: " .. STUB_NS.StatNumber(select(1, GetStatistic(130))) .. " copper"); '
             'local g = STUB_NS.GoalById("pvp_duelist"); STUB_NS.SetTarget(g, 200); '
             'for _, s in ipairs(g.steps) do print("  " .. s.text) end'),
+        # Forever client: the new raid sets and PvP sets show up, and the
+        # wizard suggests the character's class set from each (Human Warrior).
+        ("forever: new sets in the wizard", None,
+            'STUB_PRINTS = {}; local W = STUB_NS.welcome; ForeverGoalTrackerDB.welcomeSeen = true; '
+            'W.picked = { raid = true, pvp = true }; W.Show(3); '
+            'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" })) end; '
+            'local n = 0; for _, g in ipairs(STUB_NS.goals) do if STUB_NS.LibraryVisible(g) then n = n + 1 end end; '
+            'print("  goals visible on Forever: " .. n); '
+            'local s = STUB_NS.GoalById("pvp_set_plate_ally").sections[1].pieces[2]; print("  " .. s.text)', True),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '
@@ -130,9 +142,10 @@ if ok_all:
             'SlashCmdList["FOREVERGOALTRACKER"]("demo off"); print("  after off: " .. STUB_NS.GoalById("gold_5k").name)'),
     ]
     saved = None
-    for label, before, after in steps:
+    for step in steps:
+        label, before, after = step[0], step[1], step[2]
         try:
-            saved, chat = session(saved, before, after)
+            saved, chat = session(saved, before, after, forever=len(step) > 3 and step[3])
             print("session    " + label)
             for line in chat:
                 print("             chat: " + line)

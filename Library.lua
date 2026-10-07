@@ -740,7 +740,9 @@ local function BuildSetSections(sets)
             table.insert(list, { name = p[1], text = p[3] and (p[1] .. " from " .. p[3] .. ".") or nil,
                                  icon = p[4], materials = {}, auto = { item = p[2], owned = { p[1] } } })
         end
-        table.insert(sections, { icon = "ClassIcon_" .. class, name = class .. " - " .. setName, pieces = list })
+        -- set[4] = true: a set new in WoW Forever (blue NEW part)
+        table.insert(sections, { icon = "ClassIcon_" .. class, name = class .. " - " .. setName, pieces = list,
+                                 forever = set[4] and "new" or nil })
     end
     return sections
 end
@@ -795,6 +797,125 @@ local DUNGEON2 = {
     { "Mage", "Sorcerer's Regalia", { { "Sorcerer's Crown", 22065, "the quest 'Saving the Best for Last'", "inv_crown_02" }, { "Sorcerer's Mantle", 22068, "the quest 'Anthion's Parting Words'", "inv_shoulder_23" }, { "Sorcerer's Robes", 22069, "the quest 'Saving the Best for Last'", "inv_chest_cloth_25" }, { "Sorcerer's Gloves", 22066, "the quest 'Just Compensation'", "inv_gauntlets_17" }, { "Sorcerer's Leggings", 22067, "the quest 'Anthion's Parting Words'", "inv_pants_06" }, { "Sorcerer's Belt", 22062, "the quest 'Just Compensation'", "inv_belt_08" }, { "Sorcerer's Bindings", 22063, "the quest 'An Earnest Proposition'", "inv_jewelry_ring_23" }, { "Sorcerer's Boots", 22064, "the quest 'Anthion's Parting Words'", "inv_boots_02" } } },
     { "Warlock", "Deathmist Raiment", { { "Deathmist Mask", 22074, "the quest 'Saving the Best for Last'", "inv_helmet_29" }, { "Deathmist Mantle", 22073, "the quest 'Anthion's Parting Words'", "inv_misc_bone_taurenskull_01" }, { "Deathmist Robe", 22075, "the quest 'Saving the Best for Last'", "inv_chest_cloth_49" }, { "Deathmist Wraps", 22077, "the quest 'Just Compensation'", "inv_gauntlets_32" }, { "Deathmist Leggings", 22072, "the quest 'Anthion's Parting Words'", "inv_pants_08" }, { "Deathmist Belt", 22070, "the quest 'Just Compensation'", "inv_belt_12" }, { "Deathmist Bracers", 22071, "the quest 'An Earnest Proposition'", "inv_bracer_13" }, { "Deathmist Sandals", 22076, "the quest 'Anthion's Parting Words'", "inv_boots_05" } } },
     { "Druid", "Feralheart Raiment", { { "Feralheart Cowl", 22109, "the quest 'Saving the Best for Last'", "inv_helmet_27" }, { "Feralheart Spaulders", 22112, "the quest 'Anthion's Parting Words'", "inv_shoulder_01" }, { "Feralheart Vest", 22113, "the quest 'Saving the Best for Last'", "inv_chest_plate06" }, { "Feralheart Gloves", 22110, "the quest 'Just Compensation'", "inv_gauntlets_17" }, { "Feralheart Kilt", 22111, "the quest 'Anthion's Parting Words'", "inv_pants_08" }, { "Feralheart Belt", 22106, "the quest 'Just Compensation'", "inv_belt_15" }, { "Feralheart Bracers", 22108, "the quest 'An Earnest Proposition'", "inv_bracer_09" }, { "Feralheart Boots", 22107, "the quest 'Anthion's Parting Words'", "inv_boots_08" } } },
+}
+
+-- ------------------------------------------------------------
+-- WoW Forever sets. Pieces are { name, item id, icon }; the builders
+-- below turn them into the { name, id, source, icon } tuples above.
+-- Item IDs, names and icons from Wowhead's Forever item-set pages
+-- (2026-10-07). Forever gives some classes several versions of a set
+-- (one per role); each version is its own part.
+-- ------------------------------------------------------------
+
+-- The raid sets from Forever's first new raids (icons are named for Hyjal
+-- Summit). Which boss drops what isn't revealed yet, so no sources.
+local FOREVER_RAID = {
+    { "Warrior", "Battlegear of Glory", { { "Helm of Glory", 280904, "inv_helm_plate_raidwarriorhyjalc60_d_01" }, { "Shoulders of Glory", 280903, "inv_shoulder_plate_raidwarriorhyjalc60_d_01" }, { "Breastplate of Glory", 280902, "inv_chest_plate_raidwarriorhyjalc60_d_01" }, { "Gauntlets of Glory", 280899, "inv_glove_plate_raidwarriorhyjalc60_d_01" }, { "Legplates of Glory", 280901, "inv_pant_plate_raidwarriorhyjalc60_d_01" }, { "Greaves of Glory", 280900, "inv_boot_plate_raidwarriorhyjalc60_d_01" } } },
+    { "Warrior", "Battleplate of Glory", { { "Greathelm of Glory", 280910, "inv_helm_plate_raidwarriorhyjalc60_d_01" }, { "Pauldrons of Glory", 280909, "inv_shoulder_plate_raidwarriorhyjalc60_d_01" }, { "Chestguard of Glory", 280908, "inv_chest_plate_raidwarriorhyjalc60_d_01" }, { "Handguards of Glory", 280905, "inv_glove_plate_raidwarriorhyjalc60_d_01" }, { "Legguards of Glory", 280907, "inv_pant_plate_raidwarriorhyjalc60_d_01" }, { "Sabatons of Glory", 280906, "inv_boot_plate_raidwarriorhyjalc60_d_01" } } },
+    { "Paladin", "Justice Armor", { { "Justice Headpiece", 280936, "inv_helm_plate_raidpaladinhyjalc60_d_01" }, { "Justice Epaulets", 280935, "inv_shoulder_plate_raidpaladinhyjalc60_d_01" }, { "Justice Tunic", 280934, "inv_chest_plate_raidpaladinhyjalc60_d_01" }, { "Justice Gloves", 280931, "inv_glove_plate_raidpaladinhyjalc60_d_01" }, { "Justice Legplates", 280933, "inv_pant_plate_raidpaladinhyjalc60_d_01" }, { "Justice Treads", 280932, "inv_boot_plate_raidpaladinhyjalc60_d_01" } } },
+    { "Paladin", "Justice Battlegear", { { "Justice Crown", 280930, "inv_helm_plate_raidpaladinhyjalc60_d_01" }, { "Justice Spaulders", 280929, "inv_shoulder_plate_raidpaladinhyjalc60_d_01" }, { "Justice Breastplate", 280928, "inv_chest_plate_raidpaladinhyjalc60_d_01" }, { "Justice Gauntlets", 280925, "inv_glove_plate_raidpaladinhyjalc60_d_01" }, { "Justice Leggings", 280927, "inv_pant_plate_raidpaladinhyjalc60_d_01" }, { "Justice Greaves", 280926, "inv_boot_plate_raidpaladinhyjalc60_d_01" } } },
+    { "Paladin", "Justice Battleplate", { { "Justice Greathelm", 280937, "inv_helm_plate_raidpaladinhyjalc60_d_01" }, { "Justice Pauldrons", 280942, "inv_shoulder_plate_raidpaladinhyjalc60_d_01" }, { "Justice Chestguard", 280941, "inv_chest_plate_raidpaladinhyjalc60_d_01" }, { "Justice Handguards", 280938, "inv_glove_plate_raidpaladinhyjalc60_d_01" }, { "Justice Legguards", 280940, "inv_pant_plate_raidpaladinhyjalc60_d_01" }, { "Justice Sabatons", 280939, "inv_boot_plate_raidpaladinhyjalc60_d_01" } } },
+    { "Hunter", "Wildstalker Armor", { { "Wildstalker's Helm", 280898, "inv_helm_mail_raidhunterhyjalc60_d_01" }, { "Wildstalker's Spaulders", 280897, "inv_shoulder_l_mail_raidhunterhyjalc60_d_01" }, { "Wildstalker's Breastplate", 280896, "inv_chest_mail_raidhunterhyjalc60_d_01" }, { "Wildstalker's Gauntlets", 280893, "inv_glove_mail_raidhunterhyjalc60_d_01" }, { "Wildstalker's Legguards", 280895, "inv_pant_mail_raidhunterhyjalc60_d_01" }, { "Wildstalker's Greaves", 280894, "inv_boot_mail_raidhunterhyjalc60_d_01" } } },
+    { "Rogue", "Grimstitch Armor", { { "Grimstitch Mask", 280877, "inv_helm_leather_raidroguehyjalc60_d_01" }, { "Grimstitch Spaulders", 280876, "inv_shoulder_leather_raidroguehyjalc60_d_01" }, { "Grimstitch Chestpiece", 280879, "inv_robe_leather_raidroguehyjalc60_d_01" }, { "Grimstitch Gloves", 280875, "inv_glove_leather_raidroguehyjalc60_d_01" }, { "Grimstitch Pants", 280872, "inv_pant_leather_raidroguehyjalc60_d_01" }, { "Grimstitch Boots", 280878, "inv_boot_leather_raidroguehyjalc60_d_01" } } },
+    { "Priest", "Vestments of Conviction", { { "Halo of Conviction", 280918, "inv_helm_cloth_raidpriesthyjalc60_d_01" }, { "Pauldrons of Conviction", 280917, "inv_shoulder_r_cloth_raidpriesthyjalc60_d_01" }, { "Robes of Conviction", 280912, "inv_robe_cloth_raidpriesthyjalc60_d_01" }, { "Handguards of Conviction", 280913, "inv_glove_cloth_raidpriesthyjalc60_d_01" }, { "Leggings of Conviction", 280915, "inv_pant_cloth_raidpriesthyjalc60_d_01" }, { "Boots of Conviction", 280914, "inv_boot_cloth_raidpriesthyjalc60_d_01" } } },
+    { "Priest", "Raiments of Conviction", { { "Crown of Conviction", 280924, "inv_helm_cloth_raidpriesthyjalc60_d_01" }, { "Mantle of Conviction", 280923, "inv_shoulder_r_cloth_raidpriesthyjalc60_d_01" }, { "Garb of Conviction", 280919, "inv_robe_cloth_raidpriesthyjalc60_d_01" }, { "Gloves of Conviction", 280920, "inv_glove_cloth_raidpriesthyjalc60_d_01" }, { "Pants of Conviction", 280922, "inv_pant_cloth_raidpriesthyjalc60_d_01" }, { "Treads of Conviction", 280921, "inv_boot_cloth_raidpriesthyjalc60_d_01" } } },
+    { "Shaman", "The Spiritcaller", { { "Spiritcaller Helmet", 280951, "inv_helm_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Epaulets", 280944, "inv_shoulder_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Breastplate", 280950, "inv_chest_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Gauntlets", 280949, "inv_glove_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Pants", 280947, "inv_pant_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Greaves", 280945, "inv_boot_mail_raidshamanhyjalc60_d_01" } } },
+    { "Shaman", "The Spiritcaller's Rage", { { "Spiritcaller Crown", 280957, "inv_helm_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Spaulders", 280956, "inv_shoulder_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Armor", 280955, "inv_chest_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Grips", 280952, "inv_glove_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Leggings", 280954, "inv_pant_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Treads", 280953, "inv_boot_mail_raidshamanhyjalc60_d_01" } } },
+    { "Shaman", "The Spiritcaller's Storm", { { "Spiritcaller Headdress", 280963, "inv_helm_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Mantle", 280962, "inv_shoulder_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Embrace", 280961, "inv_chest_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Gloves", 280958, "inv_glove_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Kilt", 280960, "inv_pant_mail_raidshamanhyjalc60_d_01" }, { "Spiritcaller Boots", 280959, "inv_boot_mail_raidshamanhyjalc60_d_01" } } },
+    { "Mage", "Manaflare Regalia", { { "Manaflare Crown", 280455, "inv_helm_cloth_raidmagehyjalc60_d_01" }, { "Manaflare Mantle", 280454, "inv_shoulder_cloth_raidmagehyjalc60_d_01" }, { "Manaflare Robes", 280450, "inv_chest_cloth_raidmagehyjalc60_d_01" }, { "Manaflare Gloves", 280451, "inv_glove_cloth_raidmagehyjalc60_d_01" }, { "Manaflare Pants", 280453, "inv_pant_cloth_raidmagehyjalc60_d_01" }, { "Manaflare Boots", 280452, "inv_boot_cloth_raidmagehyjalc60_d_01" } } },
+    { "Warlock", "Demonheart Raiment", { { "Demonheart Skullcap", 280887, "inv_helm_cloth_raidwarlockhyjalc60_d_01" }, { "Demonheart Spaulders", 280882, "inv_shoulder_cloth_raidwarlockhyjalc60_d_01" }, { "Demonheart Robes", 280883, "inv_chest_cloth_raidwarlockhyjalc60_d_01" }, { "Demonheart Gloves", 280888, "inv_glove_cloth_raidwarlockhyjalc60_d_01" }, { "Demonheart Leggings", 280886, "inv_pant_cloth_raidwarlockhyjalc60_d_01" }, { "Demonheart Boots", 280889, "inv_boot_cloth_raidwarlockhyjalc60_d_01" } } },
+    { "Druid", "Grovekeeper Raiment", { { "Grovekeeper Cover", 280977, "inv_helm_leather_raiddruidhyjalc60_d_01" }, { "Grovekeeper Pauldrons", 280976, "inv_shoulder_leather_raiddruidhyjalc60_d_01" }, { "Grovekeeper Chestguard", 280974, "inv_robe_leather_raiddruidhyjalc60_d_01" }, { "Grovekeeper Handguards", 280965, "inv_glove_leather_raiddruidhyjalc60_d_01" }, { "Grovekeeper Legguards", 280971, "inv_pant_leather_raiddruidhyjalc60_d_01" }, { "Grovekeeper Boots", 280967, "inv_boot_leather_raiddruidhyjalc60_d_01" } } },
+}
+
+-- Forever's PvP sets ("Premier ..." pieces). The rank in each piece's name
+-- is the PvP rank that unlocks it; PvpSections turns it into the source.
+-- A trailing true marks sets new in Forever (Horde Paladins, Alliance
+-- Shamans, and the extra role versions for Priests, Druids and Shamans).
+local PVP_ALLY_PLATE = {
+    { "Warrior", "Field Marshal's Battlegear", { { "Premier Field Marshal's Plate Helm", 272787, "inv_helmet_05" }, { "Premier Marshal's Plate Shoulderguards", 272789, "inv_shoulder_20" }, { "Premier Field Marshal's Plate Armor", 272786, "inv_chest_plate03" }, { "Premier Lieutenant Commander's Plate Gauntlets", 272793, "inv_gauntlets_29" }, { "Premier Marshal's Plate Legguards", 272788, "inv_pants_04" }, { "Premier Knight-Champion's Plate Boots", 272792, "inv_boots_plate_09" } } },
+    { "Paladin", "Field Marshal's Aegis", { { "Premier Field Marshal's Luminous Faceguard", 273332, "inv_helmet_05" }, { "Premier Marshal's Luminous Pauldrons", 273334, "inv_shoulder_20" }, { "Premier Field Marshal's Luminous Chestplate", 273331, "inv_chest_plate03" }, { "Premier Lieutenant Commander's Luminous Gloves", 273329, "inv_gauntlets_29" }, { "Premier Marshal's Luminous Legplates", 273333, "inv_pants_04" }, { "Premier Knight-Champion's Luminous Boots", 273330, "inv_boots_plate_09" } } },
+    { "Paladin", "Field Marshal's Vindication", { { "Premier Field Marshal's Chevalier Faceguard", 272783, "inv_helmet_05" }, { "Premier Marshal's Chevalier Pauldrons", 272785, "inv_shoulder_20" }, { "Premier Field Marshal's Chevalier Chestplate", 272782, "inv_chest_plate03" }, { "Premier Lieutenant Commander's Chevalier Gloves", 272780, "inv_gauntlets_29" }, { "Premier Marshal's Chevalier Legplates", 272784, "inv_pants_04" }, { "Premier Knight-Champion's Chevalier Boots", 272781, "inv_boots_plate_09" } }, true },
+}
+local PVP_ALLY_MAIL = {
+    { "Hunter", "Field Marshal's Pursuit", { { "Premier Field Marshal's Chainmail Helm", 272774, "inv_helmet_05" }, { "Premier Marshal's Chainmail Spaulders", 272777, "inv_shoulder_10" }, { "Premier Field Marshal's Chainmail Breastplate", 272775, "inv_chest_chain_03" }, { "Premier Lieutenant Commander's Chainmail Grips", 272772, "inv_gauntlets_10" }, { "Premier Marshal's Chainmail Legguards", 272776, "inv_pants_mail_17" }, { "Premier Knight-Champion's Chainmail Boots", 272771, "inv_boots_plate_07" } } },
+    { "Shaman", "Field Marshal's Earthshaker", { { "Premier Field Marshal's Flatmail Helm", 274188, "inv_helmet_09" }, { "Premier Marshal's Flatmail Spaulders", 274190, "inv_shoulder_29" }, { "Premier Field Marshal's Flatmail Armor", 274187, "inv_chest_chain_11" }, { "Premier Lieutenant Commander's Flatmail Gauntlets", 274184, "inv_gauntlets_11" }, { "Premier Marshal's Flatmail Leggings", 274189, "inv_pants_mail_15" }, { "Premier Knight-Champion's Flatmail Boots", 274183, "inv_boots_plate_06" } }, true },
+    { "Shaman", "Field Marshal's Thunderfist", { { "Premier Field Marshal's Scalemail Helm", 274203, "inv_helmet_09" }, { "Premier Marshal's Scalemail Spaulders", 274205, "inv_shoulder_29" }, { "Premier Field Marshal's Scalemail Armor", 274202, "inv_chest_chain_11" }, { "Premier Lieutenant Commander's Scalemail Gauntlets", 274199, "inv_gauntlets_11" }, { "Premier Marshal's Scalemail Leggings", 274204, "inv_pants_mail_15" }, { "Premier Knight-Champion's Scalemail Boots", 274198, "inv_boots_plate_06" } }, true },
+    { "Shaman", "Field Marshal's Wartide", { { "Premier Field Marshal's Linkmail Helm", 274211, "inv_helmet_09" }, { "Premier Marshal's Linkmail Spaulders", 274213, "inv_shoulder_29" }, { "Premier Field Marshal's Linkmail Armor", 274210, "inv_chest_chain_11" }, { "Premier Lieutenant Commander's Linkmail Gauntlets", 274207, "inv_gauntlets_11" }, { "Premier Marshal's Linkmail Leggings", 274212, "inv_pants_mail_15" }, { "Premier Knight-Champion's Linkmail Boots", 274206, "inv_boots_plate_06" } }, true },
+}
+local PVP_ALLY_LEATHER = {
+    { "Rogue", "Field Marshal's Vestments", { { "Premier Field Marshal's Leather Mask", 272764, "inv_helmet_41" }, { "Premier Marshal's Leather Epaulets", 272766, "inv_shoulder_23" }, { "Premier Field Marshal's Leather Chestpiece", 272762, "inv_chest_cloth_07" }, { "Premier Lieutenant Commander's Leather Handgrips", 272763, "inv_gauntlets_21" }, { "Premier Marshal's Leather Leggings", 272765, "inv_pants_06" }, { "Premier Knight-Champion's Leather Footguards", 272755, "inv_boots_08" } } },
+    { "Druid", "Field Marshal's Sanctuary", { { "Premier Field Marshal's Beasthide Helmet", 272760, "inv_helmet_41" }, { "Premier Marshal's Beasthide Spaulders", 272758, "inv_shoulder_23" }, { "Premier Field Marshal's Beasthide Breastplate", 272761, "inv_chest_cloth_07" }, { "Premier Lieutenant Commander's Beasthide Gauntlets", 272757, "inv_gauntlets_21" }, { "Premier Marshal's Beasthide Legguards", 272759, "inv_pants_06" }, { "Premier Knight-Champion's Beasthide Boots", 272768, "inv_boots_08" } } },
+    { "Druid", "Field Marshal's Refuge", { { "Premier Field Marshal's Dreamhide Helmet", 273402, "inv_helmet_41" }, { "Premier Marshal's Dreamhide Spaulders", 273400, "inv_shoulder_23" }, { "Premier Field Marshal's Dreamhide Breastplate", 273403, "inv_chest_cloth_07" }, { "Premier Lieutenant Commander's Dreamhide Gauntlets", 273399, "inv_gauntlets_21" }, { "Premier Marshal's Dreamhide Legguards", 273401, "inv_pants_06" }, { "Premier Knight-Champion's Dreamhide Boots", 273404, "inv_boots_08" } }, true },
+    { "Druid", "Field Marshal's Wildhide", { { "Premier Field Marshal's Lunarhide Helmet", 273394, "inv_helmet_41" }, { "Premier Marshal's Lunarhide Spaulders", 273392, "inv_shoulder_23" }, { "Premier Field Marshal's Lunarhide Breastplate", 273395, "inv_chest_cloth_07" }, { "Premier Lieutenant Commander's Lunarhide Gauntlets", 273391, "inv_gauntlets_21" }, { "Premier Marshal's Lunarhide Legguards", 273393, "inv_pants_06" }, { "Premier Knight-Champion's Lunarhide Boots", 273396, "inv_boots_08" } }, true },
+}
+local PVP_ALLY_CLOTH = {
+    { "Priest", "Field Marshal's Raiment", { { "Premier Field Marshal's Voidcloth Headdress", 272818, "inv_helmet_24" }, { "Premier Marshal's Voidcloth Mantle", 272820, "inv_shoulder_02" }, { "Premier Field Marshal's Voidcloth Vestments", 272821, "inv_chest_cloth_02" }, { "Premier Lieutenant Commander's Voidcloth Gloves", 272824, "inv_gauntlets_14" }, { "Premier Marshal's Voidcloth Pants", 272819, "inv_pants_06" }, { "Premier Knight-Champion's Voidcloth Sandals", 272823, "inv_boots_07" } } },
+    { "Priest", "Field Marshal's Investiture", { { "Premier Field Marshal's Mooncloth Headdress", 273421, "inv_helmet_24" }, { "Premier Marshal's Mooncloth Mantle", 273423, "inv_shoulder_02" }, { "Premier Field Marshal's Mooncloth Vestments", 273424, "inv_chest_cloth_02" }, { "Premier Lieutenant Commander's Mooncloth Gloves", 273427, "inv_gauntlets_14" }, { "Premier Marshal's Mooncloth Pants", 273422, "inv_pants_06" }, { "Premier Knight-Champion's Mooncloth Sandals", 273426, "inv_boots_07" } }, true },
+    { "Mage", "Field Marshal's Regalia", { { "Premier Field Marshal's Silk Coronet", 272750, "inv_helmet_24" }, { "Premier Marshal's Silk Spaulders", 272753, "inv_shoulder_23" }, { "Premier Field Marshal's Silk Vestments", 272752, "inv_chest_cloth_12" }, { "Premier Lieutenant Commander's Silk Gloves", 272749, "inv_gauntlets_14" }, { "Premier Marshal's Silk Leggings", 272751, "inv_pants_08" }, { "Premier Knight-Champion's Silk Footwraps", 272746, "inv_boots_cloth_03" } } },
+    { "Warlock", "Field Marshal's Threads", { { "Premier Field Marshal's Dreadweave Coronal", 272802, "inv_helmet_24" }, { "Premier Marshal's Dreadweave Shoulders", 272804, "inv_shoulder_02" }, { "Premier Field Marshal's Dreadweave Robe", 272805, "inv_chest_cloth_09" }, { "Premier Lieutenant Commander's Dreadweave Gloves", 272808, "inv_gauntlets_14" }, { "Premier Marshal's Dreadweave Leggings", 272803, "inv_pants_cloth_09" }, { "Premier Knight-Champion's Dreadweave Boots", 272807, "inv_boots_07" } } },
+}
+local PVP_HORDE_PLATE = {
+    { "Warrior", "Warlord's Battlegear", { { "Premier Warlord's Mortarplate Headpiece", 272507, "inv_helmet_09" }, { "Premier General's Mortarplate Shoulders", 272509, "inv_shoulder_11" }, { "Premier Warlord's Mortarplate Armor", 272506, "inv_chest_plate16" }, { "Premier Champion's Mortarplate Gauntlets", 272513, "inv_gauntlets_10" }, { "Premier General's Mortarplate Leggings", 272508, "inv_pants_04" }, { "Premier Centurion's Mortarplate Boots", 272510, "inv_boots_plate_04" } } },
+    { "Paladin", "Warlord's Aegis", { { "Premier Warlord's Lamellar Faceguard", 274253, "inv_helmet_05" }, { "Premier General's Lamellar Pauldrons", 274255, "inv_shoulder_20" }, { "Premier Warlord's Lamellar Chestplate", 274252, "inv_chest_plate03" }, { "Premier Champion's Lamellar Gloves", 274250, "inv_gauntlets_29" }, { "Premier General's Lamellar Legplates", 274254, "inv_pants_04" }, { "Premier Centurion's Lamellar Boots", 274251, "inv_boots_plate_09" } }, true },
+    { "Paladin", "Warlord's Vindication", { { "Premier Warlord's Scaled Faceguard", 274239, "inv_helmet_05" }, { "Premier General's Scaled Pauldrons", 274241, "inv_shoulder_20" }, { "Premier Warlord's Scaled Chestplate", 274238, "inv_chest_plate03" }, { "Premier Champion's Scaled Gloves", 274236, "inv_gauntlets_29" }, { "Premier General's Scaled Legplates", 274240, "inv_pants_04" }, { "Premier Centurion's Scaled Boots", 274237, "inv_boots_plate_09" } }, true },
+}
+local PVP_HORDE_MAIL = {
+    { "Hunter", "Warlord's Pursuit", { { "Premier Warlord's Chain Helmet", 272531, "inv_helmet_09" }, { "Premier General's Chain Shoulders", 272533, "inv_shoulder_29" }, { "Premier Warlord's Chain Chestpiece", 272530, "inv_chest_chain_11" }, { "Premier Champion's Chain Gloves", 272536, "inv_gauntlets_11" }, { "Premier General's Chain Legguards", 272532, "inv_pants_mail_16" }, { "Premier Centurion's Chain Sabatons", 272534, "inv_boots_plate_06" } } },
+    { "Shaman", "Warlord's Earthshaker", { { "Premier Warlord's Linked Helm", 272543, "inv_helmet_09" }, { "Premier General's Linked Spaulders", 272545, "inv_shoulder_29" }, { "Premier Warlord's Linked Armor", 272542, "inv_chest_chain_11" }, { "Premier Champion's Linked Gauntlets", 272539, "inv_gauntlets_11" }, { "Premier General's Linked Leggings", 272544, "inv_pants_mail_15" }, { "Premier Centurion's Linked Boots", 272538, "inv_boots_plate_06" } } },
+    { "Shaman", "Warlord's Thunderfist", { { "Premier Warlord's Mail Helm", 273341, "inv_helmet_09" }, { "Premier General's Mail Spaulders", 273343, "inv_shoulder_29" }, { "Premier Warlord's Mail Armor", 273340, "inv_chest_chain_11" }, { "Premier Champion's Mail Gauntlets", 273337, "inv_gauntlets_11" }, { "Premier General's Mail Leggings", 273342, "inv_pants_mail_15" }, { "Premier Centurion's Mail Boots", 273336, "inv_boots_plate_06" } }, true },
+    { "Shaman", "Warlord's Wartide", { { "Premier Warlord's Ringmail Helm", 273349, "inv_helmet_09" }, { "Premier General's Ringmail Spaulders", 273351, "inv_shoulder_29" }, { "Premier Warlord's Ringmail Armor", 273348, "inv_chest_chain_11" }, { "Premier Champion's Ringmail Gauntlets", 273345, "inv_gauntlets_11" }, { "Premier General's Ringmail Leggings", 273350, "inv_pants_mail_15" }, { "Premier Centurion's Ringmail Boots", 273344, "inv_boots_plate_06" } }, true },
+}
+local PVP_HORDE_LEATHER = {
+    { "Rogue", "Warlord's Vestments", { { "Premier Warlord's Shadowhide Helm", 272526, "inv_helmet_09" }, { "Premier General's Shadowhide Spaulders", 272527, "inv_shoulder_07" }, { "Premier Warlord's Shadowhide Breastplate", 272528, "inv_chest_chain_16" }, { "Premier Champion's Shadowhide Mitts", 272525, "inv_gauntlets_25" }, { "Premier General's Shadowhide Legguards", 272529, "inv_pants_06" }, { "Premier Centurion's Shadowhide Treads", 272523, "inv_boots_08" } } },
+    { "Druid", "Warlord's Sanctuary", { { "Premier Warlord's Dragonhide Helmet", 272515, "inv_helmet_09" }, { "Premier General's Dragonhide Epaulets", 272516, "inv_shoulder_07" }, { "Premier Warlord's Dragonhide Hauberk", 272514, "inv_chest_chain_16" }, { "Premier Champion's Dragonhide Gloves", 272520, "inv_gauntlets_25" }, { "Premier General's Dragonhide Leggings", 272517, "inv_pants_06" }, { "Premier Centurion's Dragonhide Boots", 272519, "inv_boots_08" } } },
+    { "Druid", "Warlord's Refuge", { { "Premier Warlord's Kodohide Helmet", 273414, "inv_helmet_09" }, { "Premier General's Kodohide Epaulets", 273415, "inv_shoulder_07" }, { "Premier Warlord's Kodohide Hauberk", 273413, "inv_chest_chain_16" }, { "Premier Champion's Kodohide Gloves", 273419, "inv_gauntlets_25" }, { "Premier General's Kodohide Leggings", 273416, "inv_pants_06" }, { "Premier Centurion's Kodohide Boots", 273418, "inv_boots_08" } }, true },
+    { "Druid", "Warlord's Wildhide", { { "Premier Warlord's Wyrmhide Helmet", 273406, "inv_helmet_09" }, { "Premier General's Wyrmhide Epaulets", 273407, "inv_shoulder_07" }, { "Premier Warlord's Wyrmhide Hauberk", 273405, "inv_chest_chain_16" }, { "Premier Champion's Wyrmhide Gloves", 273411, "inv_gauntlets_25" }, { "Premier General's Wyrmhide Leggings", 273408, "inv_pants_06" }, { "Premier Centurion's Wyrmhide Boots", 273410, "inv_boots_08" } }, true },
+}
+local PVP_HORDE_CLOTH = {
+    { "Priest", "Warlord's Raiment", { { "Premier Warlord's Satin Cowl", 272575, "inv_helmet_08" }, { "Premier General's Satin Mantle", 272574, "inv_shoulder_19" }, { "Premier Warlord's Satin Robes", 272576, "inv_chest_leather_01" }, { "Premier Champion's Satin Gloves", 272572, "inv_gauntlets_27" }, { "Premier General's Satin Leggings", 272577, "inv_pants_07" }, { "Premier Centurion's Satin Boots", 272570, "inv_boots_05" } } },
+    { "Priest", "Warlord's Investiture", { { "Premier Warlord's Silken Cowl", 273434, "inv_helmet_08" }, { "Premier General's Silken Mantle", 273433, "inv_shoulder_19" }, { "Premier Warlord's Silken Robes", 273435, "inv_chest_leather_01" }, { "Premier Champion's Silken Gloves", 273431, "inv_gauntlets_27" }, { "Premier General's Silken Leggings", 273436, "inv_pants_07" }, { "Premier Centurion's Silken Boots", 273429, "inv_boots_05" } }, true },
+    { "Mage", "Warlord's Regalia", { { "Premier Warlord's Magus Cowl", 272498, "inv_helmet_08" }, { "Premier General's Magus Amice", 272501, "inv_shoulder_19" }, { "Premier Warlord's Magus Raiment", 272500, "inv_chest_leather_01" }, { "Premier Champion's Magus Handguards", 272505, "inv_gauntlets_19" }, { "Premier General's Magus Trousers", 272499, "inv_pants_07" }, { "Premier Centurion's Magus Boots", 272504, "inv_boots_05" } } },
+    { "Warlock", "Warlord's Threads", { { "Premier Warlord's Felweave Hood", 272559, "inv_helmet_08" }, { "Premier General's Felweave Mantle", 272558, "inv_shoulder_19" }, { "Premier Warlord's Felweave Robe", 272560, "inv_chest_leather_01" }, { "Premier Champion's Felweave Gloves", 272556, "inv_gauntlets_19" }, { "Premier General's Felweave Pants", 272561, "inv_pants_07" }, { "Premier Centurion's Felweave Boots", 272554, "inv_boots_05" } } },
+}
+
+-- { name, id, icon } pieces -> BuildSetSections tuples. With rank = true,
+-- the source is the PvP rank named in the piece ("Premier Marshal's ...").
+local PVP_RANKS = {
+    { "Field Marshal's", "PvP rank 13 (Field Marshal)" }, { "Marshal's", "PvP rank 12 (Marshal)" },
+    { "Lieutenant Commander's", "PvP rank 10 (Lieutenant Commander)" }, { "Knight%-Champion's", "PvP rank 9 (Knight-Champion)" },
+    { "Warlord's", "PvP rank 13 (Warlord)" }, { "General's", "PvP rank 12 (General)" },
+    { "Champion's", "PvP rank 10 (Champion)" }, { "Centurion's", "PvP rank 9 (Centurion)" },
+}
+local function ForeverSections(list, rank)
+    local out = {}
+    for _, set in ipairs(list) do
+        local pieces = {}
+        for _, p in ipairs(set[3]) do
+            local source
+            if rank then
+                -- the rank right after "Premier " (Field Marshal's before Marshal's)
+                local after = p[1]:gsub("^Premier ", "")
+                for _, r in ipairs(PVP_RANKS) do
+                    if after:find("^" .. r[1]) then source = r[2] break end
+                end
+            end
+            table.insert(pieces, { p[1], p[2], source, p[3] })
+        end
+        table.insert(out, { set[1], set[2], pieces, set[4] })
+    end
+    return BuildSetSections(out)
+end
+
+-- The eight PvP set goals: faction x armor type, each class's sets as parts.
+local PVP_SET_GOALS = {
+    { "ally", "Alliance", "Field Marshal's", "Plate", "Warriors and Paladins", PVP_ALLY_PLATE, "inv_helmet_05" },
+    { "ally", "Alliance", "Field Marshal's", "Mail", "Hunters and Shamans", PVP_ALLY_MAIL, "inv_helmet_09" },
+    { "ally", "Alliance", "Field Marshal's", "Leather", "Rogues and Druids", PVP_ALLY_LEATHER, "inv_helmet_41" },
+    { "ally", "Alliance", "Field Marshal's", "Cloth", "Priests, Mages and Warlocks", PVP_ALLY_CLOTH, "inv_helmet_24" },
+    { "horde", "Horde", "Warlord's", "Plate", "Warriors and Paladins", PVP_HORDE_PLATE, "inv_helmet_09" },
+    { "horde", "Horde", "Warlord's", "Mail", "Hunters and Shamans", PVP_HORDE_MAIL, "inv_helmet_09" },
+    { "horde", "Horde", "Warlord's", "Leather", "Rogues and Druids", PVP_HORDE_LEATHER, "inv_helmet_09" },
+    { "horde", "Horde", "Warlord's", "Cloth", "Priests, Mages and Warlocks", PVP_HORDE_CLOTH, "inv_helmet_08" },
 }
 
 local sets = {
@@ -865,10 +986,44 @@ local sets = {
             { text = "Loot Gloves of the Fang from Druids of the Fang (rare).", icon = "inv_gauntlets_18", auto = { item = 10413, owned = { "Gloves of the Fang" } } },
         },
     },
+    {
+        -- New in WoW Forever (Karl, 2026-10-07): the class sets of the first
+        -- new raids, early in raiding (around Onyxia). Don't mention the item
+        -- level Wowhead shows; max level is 60.
+        id = "set_forever_raid", library = true, group = true, forever = "new",
+        icon = "inv_helm_plate_raidwarriorhyjalc60_d_01",
+        name = "Forever Raid Set Appearances",
+        short = "Forever Raid Sets",
+        category = "Item Set", difficulty = "Hard",
+        timeEstimate = "1-2 Months",
+        note = "The new class sets from WoW Forever's first new raids, Hyjal Summit and the Barrow Deeps, which open December 9, 2026. Pick the sets you want in the Library; each piece ticks itself when you own it.",
+        foreverNote = "New in WoW Forever. Which boss drops each piece isn't revealed yet; sources are added as they are.",
+        sections = ForeverSections(FOREVER_RAID),
+    },
 }
 
 for _, goal in ipairs(sets) do
     table.insert(FGT.goals, goal)
+end
+
+-- Forever's PvP sets, one goal per faction and armor type. Hidden on
+-- Classic Era (`needs = "forever"`): these "Premier" pieces only exist
+-- in Forever. Status "listed": in Wowhead's Forever database, but how
+-- Forever's PvP ranks work isn't confirmed yet.
+for _, g in ipairs(PVP_SET_GOALS) do
+    local key, faction, title, armor, who, list, icon = g[1], g[2], g[3], g[4], g[5], g[6], g[7]
+    table.insert(FGT.goals, {
+        id = "pvp_set_" .. armor:lower() .. "_" .. key, library = true, group = true,
+        faction = faction, forever = "listed", needs = "forever",
+        icon = icon,
+        name = title .. " " .. armor .. " Sets",
+        short = title .. " " .. armor,
+        category = "PvP", difficulty = "Extreme",
+        timeEstimate = "3+ Months",
+        note = "The " .. faction .. " PvP " .. armor:lower() .. " sets for " .. who .. ". Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+        foreverNote = "In WoW Forever's database. The ranks come from each piece's name; how Forever's PvP ranks work isn't confirmed yet.",
+        sections = ForeverSections(list, true),
+    })
 end
 
 -- ============================================================

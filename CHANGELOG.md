@@ -9,6 +9,8 @@
 - Optional screenshot when you finish a goal (Settings, off by default)
 - New goal: Duelist, tracked from the Statistics window (WoW Forever)
 - New WoW Forever raids: Hyjal Summit and the Barrow Deeps (more bosses as they're revealed)
+- New goal: Forever Raid Sets, the class sets from the new raids
+- New goals: Field Marshal's and Warlord's PvP sets in cloth, leather, mail and plate (WoW Forever)
 - Bug fixes
 
 ## 2.5.2
