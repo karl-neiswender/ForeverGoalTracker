@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "Core.lua"]
+FILES = ["Data.lua", "Library.lua", "Npcs.lua", "Core.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -164,6 +164,16 @@ if ok_all:
             'local ram = STUB_NS.GoalById("epicmounts").sections[2].pieces[5]; row3.text:SetText(ram.name); STUB_NS.stepQuality = 4; '
             'STUB_NS.SetStepLinks(row3, ram.auto, ram); print("  ram: " .. row3.text:GetText()); '
             'STUB_NS.ShowVariantsTip({}, 18786, ram.auto); STUB_NS.OpenVariantsWowhead(18786); print("  " .. STUB_NS.wowheadCard.url)'),
+        # NPC links: teal names (longest name first, aliases, not inside
+        # other links), the map pin without TomTom, then with TomTom.
+        ("npc links", None,
+            'STUB_PRINTS = {}; TomTom = false; '
+            'print("  " .. STUB_NS.LinkText("Bring the leaf to Vartrus the Ancient in Felwood.")); '
+            'print("  " .. STUB_NS.LinkText("Turn in the sinew to Vartrus for the {lokdelar:Lokdelar} reward.")); '
+            'print("  " .. STUB_NS.LinkText("Solo Artorius the Doombringer in Winterspring.")); '
+            'STUB_NS.ShowNpcTip({}, 14535); STUB_NS.ShowNpcOnMap(14524); STUB_NS.ShowNpcOnMap(14387); '
+            'TomTom = { AddWaypoint = function(self, m, x, y, o) print("  tomtom: " .. m .. " " .. x .. " " .. y .. " " .. o.title) end }; '
+            'STUB_NS.ShowNpcOnMap(14535); TomTom = nil'),
         # Test commands: add every goal, then reset all (asks first) and undo.
         ("add all and reset all", None,
             'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '

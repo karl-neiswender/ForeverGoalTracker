@@ -1149,12 +1149,122 @@ function FGT.GoalById(id)
 end
 
 function FGT.LinkText(s)
-    return (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
+    s = (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
         local alias = FGT.LINK_ALIAS[id]
         if alias then id = alias() end
         if not FGT.GoalById(id) then return label end
         return "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
     end))
+    -- then NPC names (below)
+    return FGT.LinkNpcs and FGT.LinkNpcs(s) or s
+end
+
+-- ============================================================
+-- NPC links (Npcs.lua): teal names in steps and tips. Hover shows where
+-- they stand, click puts a pin on the map (a TomTom waypoint when TomTom
+-- is installed), right-click gives the Wowhead link.
+-- ============================================================
+do
+    local TEAL = "5fd4bd"
+    local byId, names
+    local function Index()
+        if names then return end
+        byId, names = {}, {}
+        for _, n in ipairs(FGT.NPCS or {}) do
+            if not n.forever or FGT.isForever then
+                byId[n.id] = n
+                table.insert(names, { n.name, n.id })
+                for _, a in ipairs(n.alias or {}) do table.insert(names, { a, n.id }) end
+            end
+        end
+        -- longest first, so "Vartrus the Ancient" wins over "Vartrus"
+        table.sort(names, function(a, b) return #a[1] > #b[1] end)
+    end
+    function FGT.NpcById(id) Index(); return byId[id] end
+
+    local function Word(c) return c ~= "" and c:find("[%w']") ~= nil end
+    function FGT.LinkNpcs(text)
+        Index()
+        local linked = {}
+        for _, e in ipairs(names) do
+            local name, id = e[1], e[2]
+            if not linked[id] then
+                local from = 1
+                while true do
+                    local s, e2 = text:find(name, from, true)
+                    if not s then break end
+                    local before, after = text:sub(s - 1, s - 1), text:sub(e2 + 1, e2 + 1)
+                    -- whole words only, and never inside another link
+                    if not Word(before) and not Word(after)
+                        and not text:sub(1, s - 1):find("|H[^|]*|h[^|]*$") then
+                        text = text:sub(1, s - 1) .. "|cff" .. TEAL .. "|Hfgtnpc:" .. id .. "|h"
+                            .. name .. "|h|r" .. text:sub(e2 + 1)
+                        linked[id] = true
+                        break
+                    end
+                    from = e2 + 1
+                end
+            end
+        end
+        return text
+    end
+
+    local function Coords(n) return string.format("%.1f, %.1f", n.x, n.y) end
+
+    function FGT.ShowNpcTip(owner, id)
+        local n = FGT.NpcById(id)
+        if not n then return end
+        GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
+        GameTooltip:AddLine(n.name, 0.37, 0.83, 0.74)
+        if n.tag then GameTooltip:AddLine("<" .. n.tag .. ">", C.INK2[1], C.INK2[2], C.INK2[3]) end
+        if n.map then
+            GameTooltip:AddLine(n.zone .. "  " .. Coords(n), C.TEXT[1], C.TEXT[2], C.TEXT[3])
+        elseif n.where then
+            GameTooltip:AddLine(n.where, C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
+        end
+        if n.disguise then
+            GameTooltip:AddLine("Found disguised as " .. n.disguise .. (n.wanders and ", who wanders nearby" or "") .. ".",
+                C.INK2[1], C.INK2[2], C.INK2[3], true)
+        end
+        GameTooltip:AddLine(" ")
+        if n.map then
+            local tomtom = TomTom and TomTom.AddWaypoint
+            GameTooltip:AddLine(tomtom and "Click to set a TomTom waypoint." or "Click to show on your map.",
+                C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        end
+        GameTooltip:AddLine("Right-click for its Wowhead link.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:Show()
+    end
+
+    function FGT.ShowNpcOnMap(id)
+        local n = FGT.NpcById(id)
+        if not n then return end
+        if not n.map then
+            print(TAG .. n.name .. ": " .. (n.where or "no map spot known") .. ".")
+            return
+        end
+        local x, y = n.x / 100, n.y / 100
+        local label = n.disguise and (n.name .. " (as " .. n.disguise .. ")") or n.name
+        if TomTom and TomTom.AddWaypoint then
+            pcall(TomTom.AddWaypoint, TomTom, n.map, x, y,
+                { title = label, from = "Forever Goal Tracker", persistent = false, minimap = true, world = true })
+            print(TAG .. "TomTom waypoint set: " .. label .. ", " .. n.zone .. " " .. Coords(n) .. ".")
+            return
+        end
+        -- the game's own map pin, where the client has it
+        local pinned = false
+        if C_Map and C_Map.SetUserWaypoint and UiMapPoint and UiMapPoint.CreateFromCoordinates then
+            local can = not C_Map.CanSetUserWaypointOnMap or C_Map.CanSetUserWaypointOnMap(n.map)
+            if can then
+                pinned = pcall(C_Map.SetUserWaypoint, UiMapPoint.CreateFromCoordinates(n.map, x, y))
+                if pinned and C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
+                    pcall(C_SuperTrack.SetSuperTrackedUserWaypoint, true)
+                end
+            end
+        end
+        if not (InCombatLockdown and InCombatLockdown()) and OpenWorldMap then pcall(OpenWorldMap, n.map) end
+        print(TAG .. (pinned and "map pin set: " or "") .. label .. ", " .. n.zone .. " " .. Coords(n) .. ".")
+    end
 end
 
 -- Makes goal links inside a frame's text hoverable and clickable. While
@@ -1178,6 +1288,12 @@ function FGT.EnableGoalLinks(f)
             FGT.ShowItemTip(self, itemId, self.ruleEntry, name)
             return
         end
+        local npcId = tonumber(link:match("^fgtnpc:(%d+)") or "")
+        if npcId then
+            FGT.overLink = "npc"
+            FGT.ShowNpcTip(self, npcId)
+            return
+        end
         local id = link:match("^fgtgoal:(.+)")
         local goal = id and FGT.GoalById(id)
         if not goal then return end
@@ -1197,6 +1313,16 @@ function FGT.EnableGoalLinks(f)
     end)
     f:SetScript("OnHyperlinkClick", function(self, link, text, button)
         GameTooltip:Hide()
+        local npcId = tonumber(link:match("^fgtnpc:(%d+)") or "")
+        if npcId then
+            local n = FGT.NpcById(npcId)
+            if button == "RightButton" then
+                FGT.OpenWowheadCard("npc", npcId, n and n.name or text)
+            else
+                FGT.ShowNpcOnMap(npcId)
+            end
+            return
+        end
         -- a mount type: right-click and shift-click use its first color
         local itemId = tonumber(link:match("^item:(%d+)") or link:match("^fgtvariants:(%d+)") or "")
         if itemId then
