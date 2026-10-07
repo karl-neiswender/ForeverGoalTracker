@@ -6,37 +6,41 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Next up
 
-**Item tooltips and links.** Hover an item in a guide to see its real game tooltip, shift-click it to link it in chat, and see "Needed for Thunderfury" on items in your bags, the Auction House and loot.
+- **Find your next goal:** a button at the end of My Goals that suggests what to chase next, picked for your character and interests, skipping goals you already have and moving you up (Blackwing Lair after Molten Core, Tier 2 after Tier 1).
+- **Social goals:** a sixth interest for players who love the people side of the game, starting with joining a guild.
+- **Set your own target:** right-click goals built on a number, like "Save 5,000 Gold", and change it to 10,000.
 
 ## Quick wins
 
 Small improvements that make everyday use smoother.
 
+- **NPC links:** click an NPC's name in a guide to put a pin on your map, or copy its Wowhead link.
+- **Item tooltips and links:** hover an item in a guide to see its real game tooltip, shift-click it to link it in chat, and see "Needed for Thunderfury" on items in your bags, the Auction House and loot.
 - **Wowhead links:** right-click a step, item or quest to copy its Wowhead link.
 
 ## Bigger features
 
 New tools that take more building.
 
-- **Starter picks:** the first time you open the tracker, tell it what you enjoy (raiding, PvP, epic loot, collecting mounts, reputation, professions) and it suggests goals that fit, skipping what you don't play. Or start from a ready-made bundle like "Fresh 60" or "Raider" and add the whole set in one click.
+- **Custom goals:** create your own goals with a title, difficulty, icon and your own steps, from serious to silly ("Give Billy five high fives"). Steps the game can track tick themselves; the rest you check off by hand. Or copy any Library goal and make it your own.
+- **Materials tab:** a dashboard of every material your goals need, how many you have across all your characters, and how close you are. Replaces the shopping list idea.
+- **Feedback from inside the game:** write a suggestion or report a wrong step in the addon and get a link to send it.
+- **Toasts:** a small note when a step ticks itself while the window is closed, and milestone cheers along the way ("50 down, keep going!").
 - **Pop-out tracker:** keep one goal's steps on screen while you play, like the quest tracker.
-- **Step-complete toasts:** a small "Step complete" note when a step ticks itself while the window is closed.
 - **Step order:** steps that need an earlier step done first show a lock until you get there.
-- **Shopping list:** the materials you still need, totaled across all your goals.
 - **Personal notes** on each goal.
-- **Alt overview:** see which of your characters is furthest along on reputation and leveling goals.
+- **Character overview:** see which of your characters is furthest along on reputation and leveling goals.
 - **Raid lockout hints** on raid goals.
 - **Guild announcements:** guildmates who use the addon see when you finish a goal, with an optional line in guild chat (off by default).
 - **Share your wins:** a "Copy for Discord" button and an optional screenshot when you finish a goal.
-- **Feedback from inside the game:** write a suggestion in the addon and get a link to send it.
 
 ## Big updates
 
 Larger updates with lots of new content.
 
-- **More Warcraft Forever content:** Forever's own items, raids and sets as they show up on Wowhead, and updated steps for Classic goals as Forever confirms them.
+- **More Warcraft Forever content:** Forever's new raids and their tier sets, its own items and mounts, and updated steps for Classic goals as Forever confirms them.
+- **Goals from your character stats:** Warcraft Forever's new Stats window counts things like gold earned and enemy players defeated. Turn those into goals that track themselves, including Horde Slayer and Alliance Slayer.
 - **More goals:** Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle Cartel, Ravenholdt and Shen'dralar reputations, Bloodsail Admiral, the Stranglethorn Fishing Extravaganza, and more class sets.
-- **Custom goals:** build your own goals with your own steps.
 
 ## Maybe someday
 
