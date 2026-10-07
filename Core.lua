@@ -7179,6 +7179,23 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         FGT.OpenWelcome(1) -- the welcome wizard again; your goals stay as they are
         return
     end
+    if msg == "lockouts" then
+        -- What the game reports (same as Raid Info), and which raid goal
+        -- each lockout matches, to check the SAVED UNTIL chip's data.
+        local n = GetNumSavedInstances and GetNumSavedInstances() or 0
+        if n == 0 then print(TAG .. "the game reports no lockouts for this character.") end
+        for i = 1, n do
+            local name, _, reset, _, locked, extended, _, isRaid, _, _, _, _, _, mapId = GetSavedInstanceInfo(i)
+            local goal
+            for _, g in ipairs(FGT.goals) do
+                if g.instance and (g.instance[1] == mapId or g.instance[2] == name) then goal = g end
+            end
+            print(TAG .. string.format("%s (map %s)%s, resets %s%s -> %s", tostring(name), tostring(mapId),
+                isRaid and "" or " [dungeon]", reset and reset > 0 and date("%a %b %d at %H:%M", time() + reset) or "?",
+                (locked or extended) and "" or " [not locked]", goal and goal.name or "no goal"))
+        end
+        return
+    end
     if msg == "testlockout" then
         -- Preview: pretends this character is saved to the open raid goal's
         -- raid (resets in 3 days) until /reload. Run again to turn it off.
