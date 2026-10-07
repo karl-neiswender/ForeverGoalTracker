@@ -52,6 +52,12 @@ FGT.clientLabel = FGT.isForever and "FOREVER" or "CLASSIC"
 FGT.NAME = "Forever Goal Tracker"
 local TAG = "|cffffd75eForever Goal Tracker:|r " -- prefix for chat messages
 
+-- Karl's UI icons (Media/icons, 64px): "<name>" painted gold, or
+-- "<name>-white" in grey for icons tinted in code (SetVertexColor).
+-- The glyph fills the square (3px padding), unlike Blizzard's check
+-- texture, so sizes are smaller than the textures they replaced.
+function FGT.Icon(name) return "Interface\\AddOns\\" .. ADDON .. "\\Media\\icons\\" .. name end
+
 -- math.atan2 has been dropped from some newer clients' Lua environment
 -- (only math.atan with one argument remains guaranteed). Use the real
 -- one when it exists, otherwise compute the same thing by hand.
@@ -2352,21 +2358,51 @@ local titleLine = NewFadeLine(titleBar)
 titleLine:SetPoint("BOTTOMLEFT", titleBar, "BOTTOMLEFT", 16, 0)
 titleLine:SetPoint("BOTTOMRIGHT", titleBar, "BOTTOMRIGHT", -16, 0)
 
-local closeBtn = CreateFrame("Button", nil, titleBar, "BackdropTemplate")
+-- Expand / collapse markers: Karl's plus and minus icons drawn over the
+-- old "+" / "-" text, which stays (invisible) so spacing doesn't change.
+function FGT.SetPlusMinus(fs, open)
+    if not fs.pm then
+        fs.pm = fs:GetParent():CreateTexture(nil, "OVERLAY")
+        fs.pm:SetSize(11, 11)
+        fs.pm:SetPoint("CENTER", fs, "CENTER", 0, 0)
+        fs:SetAlpha(0)
+        -- the icon lives on the parent, so it follows the text's Show/Hide
+        hooksecurefunc(fs, "Show", function() fs.pm:Show() end)
+        hooksecurefunc(fs, "Hide", function() fs.pm:Hide() end)
+        hooksecurefunc(fs, "SetShown", function(_, on) fs.pm:SetShown(on) end)
+    end
+    fs.pm:SetShown(fs:IsShown())
+    fs:SetText(open and "-" or "+")
+    fs.pm:SetTexture(FGT.Icon(open and "minus" or "plus"))
+end
+-- An icon button with no box (Karl): the painted icon, a little dimmed at
+-- rest, full strength plus an additive copy on hover so it brightens.
+-- btn.lit = true keeps it lit (the gear while Settings is open).
+function FGT.IconButton(btn, name, size)
+    btn.icon = btn:CreateTexture(nil, "ARTWORK")
+    btn.icon:SetSize(size, size)
+    btn.icon:SetPoint("CENTER", 0, 0)
+    btn.icon:SetTexture(FGT.Icon(name))
+    btn.glow = btn:CreateTexture(nil, "OVERLAY")
+    btn.glow:SetAllPoints(btn.icon)
+    btn.glow:SetTexture(FGT.Icon(name))
+    btn.glow:SetBlendMode("ADD")
+    function btn:RefreshIcon()
+        local on = self.lit or self:IsMouseOver()
+        self.icon:SetAlpha(on and 1 or 0.82)
+        self.glow:SetAlpha(self:IsMouseOver() and 0.35 or (self.lit and 0.15 or 0))
+    end
+    btn:HookScript("OnEnter", btn.RefreshIcon)
+    btn:HookScript("OnLeave", btn.RefreshIcon)
+    btn:HookScript("OnMouseDown", function(self) self.icon:SetPoint("CENTER", 1, -1) end)
+    btn:HookScript("OnMouseUp", function(self) self.icon:SetPoint("CENTER", 0, 0) end)
+    btn:RefreshIcon()
+end
+
+local closeBtn = CreateFrame("Button", nil, titleBar)
 closeBtn:SetSize(22, 22)
 closeBtn:SetPoint("TOPRIGHT", -12, -12)
-Etch(closeBtn, STYLE.button, 10)
-local closeLabel = NewFontString(closeBtn, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
-closeLabel:SetPoint("CENTER", 0, 1)
-closeLabel:SetText("x")
-closeBtn:SetScript("OnEnter", function(self)
-    self:SetEtch(STYLE.dangerHv)
-    closeLabel:SetTextColor(1, 1, 1)
-end)
-closeBtn:SetScript("OnLeave", function(self)
-    self:SetEtch(STYLE.button)
-    closeLabel:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
-end)
+FGT.IconButton(closeBtn, "close", 16)
 closeBtn:SetScript("OnClick", function() main:Hide() end)
 
 -- Overall progress bar
@@ -2418,34 +2454,16 @@ sortBar:SetHeight(22)
 Etch(sortBar, STYLE.button, 10)
 local sortLabel = NewFontString(sortBar, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
 sortLabel:SetPoint("LEFT", sortBar, "LEFT", 8, 0)
--- Gold chevron drawn from two rotated bars, centered on the label's
--- line. Points down when closed, up while the menu is open.
+-- Karl's gold chevron (Media/icons/chevron), centered on the label's
+-- line. Points down when closed; flipped up while the menu is open.
 local caret = CreateFrame("Frame", nil, sortBar)
-caret:SetSize(12, 8)
-caret:SetPoint("RIGHT", sortBar, "RIGHT", -9, 0)
-local caretL = caret:CreateTexture(nil, "OVERLAY")
-local caretR = caret:CreateTexture(nil, "OVERLAY")
-for _, t in ipairs({ caretL, caretR }) do
-    t:SetTexture(SOLID)
-    t:SetSize(7, 2)
-    t:SetVertexColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], 1)
-end
-caretL:SetPoint("CENTER", caret, "CENTER", -2.4, 0)
-caretR:SetPoint("CENTER", caret, "CENTER", 2.4, 0)
-local caretText -- fallback if a client can't rotate textures
+caret:SetSize(14, 14)
+caret:SetPoint("RIGHT", sortBar, "RIGHT", -6, 0)
+caret.icon = caret:CreateTexture(nil, "OVERLAY")
+caret.icon:SetAllPoints(caret)
+caret.icon:SetTexture(FGT.Icon("chevron"))
 local function SetCaret(open)
-    if caretL.SetRotation then
-        local a = math.rad(45)
-        caretL:SetRotation(open and a or -a)
-        caretR:SetRotation(open and -a or a)
-    else
-        caretL:Hide(); caretR:Hide()
-        if not caretText then
-            caretText = NewFontString(caret, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
-            caretText:SetPoint("CENTER")
-        end
-        caretText:SetText(open and "^" or "v")
-    end
+    caret.icon:SetTexCoord(0, 1, open and 1 or 0, open and 0 or 1)
 end
 SetCaret(false)
 
@@ -2614,9 +2632,9 @@ for i, mode in ipairs(sortModes) do
     row.hl:Hide()
 
     row.check = row:CreateTexture(nil, "OVERLAY")
-    row.check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-    row.check:SetSize(16, 16)
-    row.check:SetPoint("RIGHT", row, "RIGHT", -3, 0) -- centered under the caret
+    row.check:SetTexture(FGT.Icon("check"))
+    row.check:SetSize(12, 12)
+    row.check:SetPoint("RIGHT", row, "RIGHT", -5, 0) -- centered under the chevron
 
     row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
     row.label:SetPoint("LEFT", row, "LEFT", 4, 0) -- lines up with "Sort:"
@@ -2782,9 +2800,9 @@ for i, goal in ipairs(FGT.goals) do
         { "checkMark", "ARTWORK", 36, 0, 0, { 0.45, 0.95, 0.30 }, 1, "BLEND" },
     }) do
         local t = row.bigCheck:CreateTexture(nil, part[2])
-        t:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+        t:SetTexture(FGT.Icon("check-white"))
         t:SetDesaturated(true)
-        t:SetSize(part[3], part[3])
+        t:SetSize(part[3] * 0.72, part[3] * 0.72)
         t:SetPoint("CENTER", part[4], part[5] + 1)
         t:SetVertexColor(part[6][1], part[6][2], part[6][3])
         t:SetAlpha(part[7])
@@ -2796,8 +2814,7 @@ for i, goal in ipairs(FGT.goals) do
 
     -- gold star in the top-right corner of favorited goals
     row.star = row:CreateTexture(nil, "OVERLAY")
-    row.star:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\star")
-    row.star:SetVertexColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
+    row.star:SetTexture(FGT.Icon("star")) -- Karl's painted gold star
     row.star:SetSize(15, 15)
     row.star:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
     row.star:Hide()
@@ -3067,7 +3084,7 @@ do
     b:SetSize(22, 22)
     b:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -12, -12)
     b.icon = b:CreateTexture(nil, "ARTWORK")
-    b.icon:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\pencil")
+    b.icon:SetTexture(FGT.Icon("pencil-white")) -- grey, tinted gold on hover
     b.icon:SetSize(15, 15)
     b.icon:SetPoint("CENTER")
     local function Tint(on)
@@ -3318,9 +3335,9 @@ local function GetStepRow(index)
     -- The game's own gold checkmark, so a checked step looks exactly
     -- like a ticked Blizzard checkbox.
     row.check = row.box:CreateTexture(nil, "OVERLAY")
-    row.check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-    row.check:SetSize(22, 22)
-    row.check:SetPoint("CENTER", 1, 1)
+    row.check:SetTexture(FGT.Icon("check"))
+    row.check:SetSize(15, 15)
+    row.check:SetPoint("CENTER", 0, 0)
     row.check:Hide()
 
     row.num = NewFontString(row, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
@@ -3361,8 +3378,8 @@ local function GetStepRow(index)
     row.count:Hide()
     -- green check that replaces the count once every material is done
     row.doneCheck = row:CreateTexture(nil, "OVERLAY")
-    row.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-    row.doneCheck:SetSize(18, 18)
+    row.doneCheck:SetTexture(FGT.Icon("check-white"))
+    row.doneCheck:SetSize(13, 13)
     row.doneCheck:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, 0)
     row.doneCheck:SetDesaturated(true)
     row.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
@@ -3504,8 +3521,8 @@ local function GetHeaderRow(index)
     -- game's checkmark, recolored).
     FGT.AddCelebrationFX(row, 2, 26)
     row.doneCheck = row:CreateTexture(nil, "OVERLAY")
-    row.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-    row.doneCheck:SetSize(20, 20)
+    row.doneCheck:SetTexture(FGT.Icon("check-white"))
+    row.doneCheck:SetSize(14, 14)
     row.doneCheck:SetPoint("RIGHT", -5, 1)
     row.doneCheck:SetDesaturated(true)
     row.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
@@ -3609,7 +3626,7 @@ function FGT.LayoutTips(goal, yOffset, width)
     T.line:Show()
     yOffset = yOffset + 9
     T.header:SetText("Tips")
-    T.arrow:SetText(open and "-" or "+")
+    FGT.SetPlusMinus(T.arrow, open)
     T.count:SetText(open and "" or ("(" .. #tips .. ")"))
     local hh = (T.header:GetStringHeight() or 12) + 6
     T.btn:ClearAllPoints()
@@ -3663,7 +3680,7 @@ local function RefreshTierSections(goal)
 
         local openKey = goal.id .. "_" .. si
         local expanded = FGT.SectionIsOpen(goal, si)
-        header.arrow:SetText(expanded and "-" or "+")
+        FGT.SetPlusMinus(header.arrow, expanded)
         -- a part that's new in Forever (the Skyborne mount): blue look + NEW
         local partNew = FGT.ApplyPartLook(header, section, goal)
         header.name:SetText(partNew and (section.name .. "   " .. FGT.NewTag(partNew)) or section.name)
@@ -3728,7 +3745,7 @@ local function RefreshTierSections(goal)
                     row.box:Hide()
                     row.toggle:ClearAllPoints()
                     row.toggle:SetPoint("TOPLEFT", row, "TOPLEFT", 20, -3)
-                    row.toggle:SetText(open and "-" or "+")
+                    FGT.SetPlusMinus(row.toggle, open)
                     row.toggle:Show()
                     row.count:SetText(md .. " / " .. mt)
                     row.count:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
@@ -4498,14 +4515,19 @@ do
         row.hl:SetAllPoints(row)
         ApplyHGradient(row.hl, C.ACCENT, C.ACCENT, 0.18, 0.02)
         row.hl:Hide()
+        row.icon = row:CreateTexture(nil, "ARTWORK") -- Karl's UI icons
+        row.icon:SetSize(13, 13)
+        row.icon:SetPoint("LEFT", row, "LEFT", 7, 0)
         row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
-        row.label:SetPoint("LEFT", row, "LEFT", 8, 0)
+        row.label:SetPoint("LEFT", row, "LEFT", 27, 0)
         row:SetScript("OnEnter", function(self) self.hl:Show() end)
         row:SetScript("OnLeave", function(self) self.hl:Hide() end)
         M.rows[i] = row
     end
     FGT.clearMenu = M
     M.rows[1].label:SetTextColor(1.00, 0.50, 0.42)
+    M.rows[1].icon:SetTexture(FGT.Icon("trash"))
+    M.rows[2].icon:SetTexture(FGT.Icon("close"))
     M.rows[2].label:SetText("Cancel")
     M.rows[2]:SetScript("OnClick", Close)
     M.rows[1]:SetScript("OnClick", function()
@@ -4662,7 +4684,7 @@ do
     box:SetMaxLetters(40)
 
     local glass = box:CreateTexture(nil, "OVERLAY")
-    glass:SetTexture("Interface\\Common\\UI-Searchbox-Icon")
+    glass:SetTexture(FGT.Icon("search-white")) -- tinted like the hint text
     glass:SetSize(13, 13)
     glass:SetPoint("LEFT", 6, -1)
     glass:SetVertexColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
@@ -4674,11 +4696,14 @@ do
     local clear = CreateFrame("Button", nil, box)
     clear:SetSize(16, 16)
     clear:SetPoint("RIGHT", -4, 0)
-    clear.text = NewFontString(clear, 12, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    clear.text:SetPoint("CENTER", 0, 0)
-    clear.text:SetText("x")
-    clear:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
-    clear:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
+    -- grey X, tinted like the hint text; white on hover
+    clear.icon = clear:CreateTexture(nil, "ARTWORK")
+    clear.icon:SetSize(10, 10)
+    clear.icon:SetPoint("CENTER", 0, 0)
+    clear.icon:SetTexture(FGT.Icon("close-white"))
+    clear.icon:SetVertexColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    clear:SetScript("OnEnter", function(self) self.icon:SetVertexColor(1, 1, 1) end)
+    clear:SetScript("OnLeave", function(self) self.icon:SetVertexColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
     clear:SetScript("OnClick", function() box:SetText(""); box:ClearFocus() end)
     clear:Hide()
 
@@ -4831,8 +4856,11 @@ function FGT.OpenGoalMenu(card)
             row.hl:SetAllPoints(row)
             ApplyHGradient(row.hl, C.ACCENT, C.ACCENT, 0.18, 0.02)
             row.hl:Hide()
+            row.icon = row:CreateTexture(nil, "ARTWORK") -- Karl's UI icons
+            row.icon:SetSize(13, 13)
+            row.icon:SetPoint("LEFT", row, "LEFT", 7, 0)
             row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
-            row.label:SetPoint("LEFT", row, "LEFT", 8, 0)
+            row.label:SetPoint("LEFT", row, "LEFT", 27, 0)
             row:SetScript("OnEnter", function(self) self.hl:Show() end)
             row:SetScript("OnLeave", function(self) self.hl:Hide() end)
             M.rows[i] = row
@@ -4848,6 +4876,9 @@ function FGT.OpenGoalMenu(card)
         end)
         -- 2: remove from My Goals
         M.rows[2].label:SetText("Remove from My Goals")
+        M.rows[2].icon:SetTexture(FGT.Icon("trash"))
+        M.rows[1].icon:SetTexture(FGT.Icon("star"))
+        M.rows[3].icon:SetTexture(FGT.Icon("pencil"))
         M.rows[2].label:SetTextColor(1.00, 0.50, 0.42)
         M.rows[2]:SetScript("OnClick", function()
             local goal = M.goal
@@ -5014,7 +5045,8 @@ local function StyleCardButtonInner(card)
     -- a tracked goal that's finished says Complete, in green
     local d, t = GoalProgress(goal)
     local done = on and t > 0 and d >= t
-    card.btnCheck:SetDesaturated(done)
+    -- gold check; the grey one tinted green once it's done
+    card.btnCheck:SetTexture(FGT.Icon(done and "check-white" or "check"))
     if done then
         card.btnCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
     else
@@ -5064,8 +5096,8 @@ local function GetCard(goal)
     card.btnText:SetPoint("CENTER", 0, 0)
     card.btnText:SetJustifyH("CENTER")
     card.btnCheck = card.btn:CreateTexture(nil, "OVERLAY")
-    card.btnCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-    card.btnCheck:SetSize(16, 16)
+    card.btnCheck:SetTexture(FGT.Icon("check"))
+    card.btnCheck:SetSize(12, 12)
     card.btnCheck:SetPoint("RIGHT", card.btnText, "LEFT", -1, 0)
     card.btn:SetScript("OnEnter", function() StyleCardButton(card) end)
     card.btn:SetScript("OnLeave", function() StyleCardButton(card) end)
@@ -5215,8 +5247,8 @@ local function GetSub(card, index, part)
         -- the goal page (green wash, green check, grey icon, no bar).
         FGT.AddCelebrationFX(sub, 3, 26)
         sub.doneCheck = sub:CreateTexture(nil, "OVERLAY")
-        sub.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-        sub.doneCheck:SetSize(18, 18)
+        sub.doneCheck:SetTexture(FGT.Icon("check-white"))
+        sub.doneCheck:SetSize(13, 13)
         sub.doneCheck:SetPoint("LEFT", sub.label, "RIGHT", 6, 1)
         sub.doneCheck:SetDesaturated(true)
         sub.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
@@ -5999,68 +6031,24 @@ end
 -- ------------------------------------------------------------
 -- Opening and closing. The gear sits left of the close button.
 -- ------------------------------------------------------------
--- Forever: the game's own settings gear, the one its damage meter uses
--- (Karl), a whole button drawn by the game in each state. Classic Era
--- doesn't have those images, so it keeps our etched button with
--- Media/gear (a white gear shape, tinted gold).
-FGT.GEAR_ATLAS = {
-    normal = "common-dropdown-a-button-settings-shadowless",
-    hover = "common-dropdown-a-button-settings-hover-shadowless",
-    pressed = "common-dropdown-a-button-settings-pressed-shadowless",
-    hoverPressed = "common-dropdown-a-button-settings-pressedhover-shadowless",
-    open = "common-dropdown-a-button-settings-open-shadowless",
-}
-local gear
-do
-    local info = C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(FGT.GEAR_ATLAS.normal)
-    if info then
-        gear = CreateFrame("Button", nil, titleBar)
-        gear.atlas = true
-        gear:SetSize(math.min(26, info.width or 22), math.min(26, info.height or 22))
-        gear.icon = gear:CreateTexture(nil, "ARTWORK")
-        gear.icon:SetAllPoints(gear)
-        gear.SetEtch = function() end -- no etched box around the game's own button
-    else
-        gear = CreateFrame("Button", nil, titleBar, "BackdropTemplate")
-        gear:SetSize(22, 22)
-        Etch(gear, STYLE.button, 10)
-        gear.icon = gear:CreateTexture(nil, "ARTWORK")
-        gear.icon:SetSize(15, 15)
-        gear.icon:SetPoint("CENTER", 0, 0)
-        gear.icon:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\gear")
-    end
-    gear:SetPoint("RIGHT", closeBtn, "LEFT", -6, 0)
-end
-
--- Shows the gear's state: open while Settings is showing, plus hover and
--- pressed. The game's button has an image per state; ours re-tints.
-function FGT.UpdateGear()
-    local open = panel:IsShown()
-    local over, down = gear:IsMouseOver(), gear.down
-    if gear.atlas then
-        local A = FGT.GEAR_ATLAS
-        gear.icon:SetAtlas((down and over and A.hoverPressed) or (down and A.pressed)
-            or (over and A.hover) or (open and A.open) or A.normal)
-        return
-    end
-    gear:SetEtch(over and STYLE.btnHover or (open and STYLE.rowSel or STYLE.button))
-    local c = over and { 1, 0.9, 0.45 } or (open and C.ACCENT or C.GOLD2)
-    gear.icon:SetVertexColor(c[1], c[2], c[3])
-end
-FGT.UpdateGear()
+-- Karl's gold gear (Media/icons/gear), no box, matching the close X
+-- beside it. It stays a little lit while Settings is open.
+local gear = CreateFrame("Button", nil, titleBar)
+gear:SetSize(22, 22)
+gear:SetPoint("RIGHT", closeBtn, "LEFT", -4, 0)
 gear:SetScript("OnEnter", function(self)
-    FGT.UpdateGear()
     GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
     GameTooltip:AddLine("Settings")
     GameTooltip:Show()
 end)
-gear:SetScript("OnLeave", function()
-    gear.down = nil
-    FGT.UpdateGear()
-    GameTooltip:Hide()
-end)
-gear:SetScript("OnMouseDown", function() gear.down = true; FGT.UpdateGear() end)
-gear:SetScript("OnMouseUp", function() gear.down = nil; FGT.UpdateGear() end)
+gear:SetScript("OnLeave", function() GameTooltip:Hide() end)
+FGT.IconButton(gear, "gear", 17) -- after SetScript: SetScript would drop its hooks
+
+function FGT.UpdateGear()
+    gear.lit = panel:IsShown()
+    gear:RefreshIcon()
+end
+FGT.UpdateGear()
 gear:SetScript("OnClick", function()
     if panel:IsShown() then FGT.LeaveSettings() else FGT.OpenSettings() end
 end)
@@ -6280,8 +6268,8 @@ local function BuildToast()
     toast.name:SetJustifyH("LEFT")
     toast.name:SetWordWrap(false)
     toast.doneCheck = toast:CreateTexture(nil, "OVERLAY")
-    toast.doneCheck:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-    toast.doneCheck:SetSize(20, 20)
+    toast.doneCheck:SetTexture(FGT.Icon("check-white"))
+    toast.doneCheck:SetSize(14, 14)
     toast.doneCheck:SetPoint("RIGHT", toast, "RIGHT", -10, 1)
     toast.doneCheck:SetDesaturated(true)
     toast.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
@@ -6554,7 +6542,7 @@ minimapButton:SetScript("OnEnter", function(self)
         local list = {}
         for _, g in ipairs(active) do if favs[g.id] then table.insert(list, g) end end
         table.sort(list, function(a, b) return (a.short or a.name) < (b.short or b.name) end)
-        local star = "|TInterface\\AddOns\\" .. ADDON .. "\\Media\\star:12:12:0:0:64:64:0:64:0:64:255:209:0|t "
+        local star = "|T" .. FGT.Icon("star") .. ":12:12|t "
         for i, g in ipairs(list) do
             if i > 5 then break end
             local gd, gt = GoalProgress(g)
@@ -7975,9 +7963,12 @@ local function Build()
     card:EnableMouse(true)
     W.card = card
 
-    local close = TextLink(card, "x", 14)
-    close:SetPoint("TOPRIGHT", card, "TOPRIGHT", -8, -6)
+    -- the same gold X as the window's close button (Karl)
+    local close = CreateFrame("Button", nil, card)
+    close:SetSize(20, 20)
+    close:SetPoint("TOPRIGHT", card, "TOPRIGHT", -10, -10)
     close:SetScript("OnClick", function() FGT.CloseWelcome() end)
+    FGT.IconButton(close, "close", 13)
 
     W.title = NewTitleString(card, 20)
     W.title:SetPoint("TOP", card, "TOP", 0, -26)
@@ -8086,9 +8077,9 @@ local function GetRow(i)
     row.box:SetPoint("LEFT", row, "LEFT", 12, 0)
     Skin(row.box, { 0, 0, 0, 1 }, C.BOX_RING)
     row.check = row.box:CreateTexture(nil, "OVERLAY")
-    row.check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
-    row.check:SetSize(22, 22)
-    row.check:SetPoint("CENTER", 1, 1)
+    row.check:SetTexture(FGT.Icon("check"))
+    row.check:SetSize(15, 15)
+    row.check:SetPoint("CENTER", 0, 0)
     row.icon = NewIcon(row, 36)
     row.icon:SetPoint("LEFT", row.box, "RIGHT", 12, 0)
     -- right side: "On My Goals" for goals you already track

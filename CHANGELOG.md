@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- New hand-painted gold icons throughout
 - UI improvements
 
 ## 2.6.1

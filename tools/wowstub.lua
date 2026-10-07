@@ -54,6 +54,11 @@ format, strfind, strsub, strlower, strupper, strlen = string.format, string.find
 strtrim = function(s) return (s:gsub("^%s+", ""):gsub("%s+$", "")) end
 strsplit = function(sep, s) local out = {} for p in (s .. sep):gmatch("(.-)" .. sep:gsub("%p", "%%%0")) do out[#out + 1] = p end return unpack(out) end
 floor, ceil, abs, min, max = math.floor, math.ceil, math.abs, math.min, math.max
+hooksecurefunc = function(t, name, fn)
+  if type(t) == "string" then t, name, fn = _G, t, name end
+  local orig = t[name]
+  t[name] = function(...) local r = { orig(...) }; fn(...); return unpack(r) end
+end
 GetMoney = function() return 0 end
 UnitXP = function() return 0 end
 UnitXPMax = function() return 1 end
