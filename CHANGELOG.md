@@ -1,11 +1,13 @@
 # Changelog
 
-## Unreleased
+## 2.7.0
 
 - Item tooltips: hover an item in a guide to see its real tooltip, shift-click to link it in chat
-- Wowhead links: right-click a step to copy its item or quest page
+- NPC links: hover an NPC to see where they are, shift-click to put a pin on your map (TomTom supported)
+- Wowhead links: right-click an item, NPC or step to copy its Wowhead page
+- New setting: choose where map pins go (TomTom or the game map)
 - New hand-painted gold icons throughout
-- UI improvements
+- UI improvements and bug fixes
 
 ## 2.6.1
 

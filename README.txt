@@ -100,6 +100,12 @@ UPDATED, both in blue; the Library's "New & Updated" filter lists them.
 Gold text in a step or tip is a link to another goal it depends on (an
 attunement, a reputation, a raid). Click it to add that goal.
 
+Item names in a guide show their real tooltip when you hover them;
+shift-click puts the item in chat. Teal names are NPCs: hover to see
+where they stand, shift-click to put a pin on your map (a TomTom
+waypoint if TomTom is installed; choose in Settings). Right-click an
+item or NPC for its Wowhead link.
+
 NOTES
 -----
 Drop rates and costs are estimates; check a live source such as Wowhead

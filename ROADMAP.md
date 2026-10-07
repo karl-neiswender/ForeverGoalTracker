@@ -6,11 +6,9 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Next up
 
-Links in every guide:
-
-- **NPC links:** click an NPC's name in a guide to put a pin on your map, or copy its Wowhead link.
-- **Item tooltips and links:** hover an item in a guide to see its real game tooltip and shift-click it to link it in chat (done, coming in the next update), then "Needed for Thunderfury" on items in your bags, the Auction House and loot.
-- **Wowhead links:** right-click a step to copy its item or quest page (done, coming in the next update).
+- **Quest links:** quest names in guides become links, with a tooltip showing where each quest starts and whether each of your characters has it or turned it in.
+- **"Needed for" on items:** "Needed for Thunderfury" on items in your bags, the Auction House and loot.
+- **Feedback from inside the game:** write a suggestion or report a wrong step in the addon and get a link to send it.
 
 ## Bigger features
 
@@ -18,7 +16,6 @@ New tools that take more building.
 
 - **Custom goals:** create your own goals with a title, difficulty, icon and your own steps, from serious to silly ("Give Billy five high fives"). Steps the game can track tick themselves; the rest you check off by hand. Or copy any Library goal and make it your own.
 - **Materials tab:** a dashboard of every material your goals need, how many you have across all your characters, and how close you are. Replaces the shopping list idea.
-- **Feedback from inside the game:** write a suggestion or report a wrong step in the addon and get a link to send it.
 - **Toasts:** a small note when a step ticks itself while the window is closed, and milestone cheers along the way ("50 down, keep going!").
 - **Pop-out tracker:** keep one goal's steps on screen while you play, like the quest tracker.
 - **Step order:** steps that need an earlier step done first show a lock until you get there.
@@ -41,6 +38,7 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
+- **2.7.0:** links in every guide: real item tooltips (shift-click to link in chat), NPC links with their location and a map pin or TomTom waypoint, and Wowhead links for items, NPCs and quests; a setting for where map pins go; hand-painted gold icons; darker tooltips; finished steps that fade back; and goal links that shine.
 - **2.6.0:** WoW Forever's new raids (Hyjal Summit and the Barrow Deeps), Forever Raid Sets, and the Field Marshal's and Warlord's PvP sets by armor type; Find your next goal; Edit goal to change a goal's number; Social goals and a Social interest; Duelist from the Statistics window; raid lockouts on raid goals; and an optional screenshot when you finish a goal.
 - **2.5.0:** goal suggestions: a welcome that asks what interests you and picks goals for your character; folder-style tabs; a Clear button to empty My Goals; tips that fold away; racial mount and Frostsaber steps that follow your race; a larger default window; and gentle animations throughout.
 - **2.4.0:** a Settings page (gear in the title bar) to turn off chat lines, the banner or celebrations, pick a goal-complete sound and its volume channel, hide the minimap button, open on login, and set window scale and opacity; tracked characters you can remove; a keybind; and finished goals and parts marked Complete in green in the Goal Library.
