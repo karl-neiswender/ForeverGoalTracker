@@ -7819,18 +7819,17 @@ do
             if not FGT.itemMissing[id] and C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
             GameTooltip:AddLine(name or "Item", 1, 1, 1)
             if Unavailable(id) then
-                -- new Forever items are hidden until found ("yet" is true for
-                -- them); Classic items Forever removed get no "yet" (Karl:
-                -- don't raise hopes), e.g. Tier 1 and 2
-                local g = selectedId and FGT.GoalById(selectedId)
-                if g and FGT.ForeverStatus(g) == "new" then
+                -- WoW Forever hides every item until a player finds one after
+                -- launch (Wowhead: "Item #... doesn't exist"), Classic ones
+                -- included, so there it's "not revealed yet". On Classic Era
+                -- an item the game can't give really isn't in the game.
+                if FGT.isForever then
                     GameTooltip:AddLine("Not revealed yet", 1.00, 0.50, 0.42)
                     GameTooltip:AddLine("WoW Forever shows this item's details once players find it after launch.",
                         C.INK2[1], C.INK2[2], C.INK2[3], true)
                 else
                     GameTooltip:AddLine("Not in the game", 1.00, 0.50, 0.42)
-                    GameTooltip:AddLine(FGT.isForever and "This item isn't in WoW Forever."
-                        or "The game has no details for this item.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+                    GameTooltip:AddLine("The game has no details for this item.", C.INK2[1], C.INK2[2], C.INK2[3], true)
                 end
             else
                 FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()
@@ -7902,7 +7901,8 @@ do
     function FGT.InsertItemLink(id)
         local _, link = FGT.ItemInfo(id)
         if not link and Unavailable(id) then
-            print(TAG .. "that item isn't in the game, so it can't be linked.")
+            print(TAG .. (FGT.isForever and "that item isn't revealed in WoW Forever yet, so it can't be linked."
+                or "that item isn't in the game, so it can't be linked."))
         elseif not link then
             FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
