@@ -2443,12 +2443,13 @@ function FGT.IconButton(btn, name, size)
 end
 
 -- Darker, more solid tooltips for the addon's own tooltips (Karl). The
--- game's tooltip is shared by the whole UI, so it's darkened only while
--- its owner is in our window (or our minimap button), and put back to the
--- game's color for anyone else. Re-applied on show: item tooltips reset
--- their own backdrop when they fill in.
+-- game's tooltip is shared by the whole UI, so this only happens while
+-- its owner is in our window (or our minimap button or banner). The
+-- game redraws its own tooltip background, so instead of recoloring it we
+-- add our own layers under it: a solid near-black backing inside the
+-- border and the soft drop shadow (FGT.AddDropShadow), shown only for our
+-- tooltips. The compare tooltips ("Equipped") follow GameTooltip.
 do
-    local DARK = { 0.02, 0.02, 0.02, 0.97 }
     local function Ours(owner)
         while owner do
             if owner == main or owner == FGT.minimapButton or owner.fgtOwn then return true end
@@ -2456,24 +2457,36 @@ do
         end
         return false
     end
-    local function Paint(tip, c)
-        if tip.NineSlice and tip.NineSlice.SetCenterColor then
-            tip.NineSlice:SetCenterColor(c[1], c[2], c[3], c[4])
-        elseif tip.SetBackdropColor then
-            tip:SetBackdropColor(c[1], c[2], c[3], c[4])
+    local function Backer(tip)
+        if tip.fgtBack then return end
+        local b = tip:CreateTexture(nil, "BACKGROUND", nil, -8)
+        b:SetPoint("TOPLEFT", 3, -3)
+        b:SetPoint("BOTTOMRIGHT", -3, 3)
+        b:SetColorTexture(0.03, 0.025, 0.02, 1)
+        tip.fgtBack = b
+        tip.fgtShadow = FGT.AddDropShadow(tip, 34, 0.8, 6, 6)
+        -- AddDropShadow shows the shadow on every show; keep it to ours
+        tip:HookScript("OnShow", function(self) self.fgtShadow:SetShown(self.fgtBack:IsShown()) end)
+    end
+    local function SetDark(tip, on)
+        if not tip then return end
+        if on then Backer(tip) end
+        if tip.fgtBack then
+            tip.fgtBack:SetShown(on)
+            tip.fgtShadow:SetShown(on and tip:IsShown())
         end
     end
-    local function Default()
-        local d = TOOLTIP_DEFAULT_BACKGROUND_COLOR
-        if d and d.GetRGBA then local r, g, b, a = d:GetRGBA(); return { r, g, b, a or 1 } end
-        return { 0.09, 0.09, 0.19, 1 }
-    end
+    FGT.SetTipDark = SetDark
     hooksecurefunc(GameTooltip, "SetOwner", function(self, owner)
-        local ours = Ours(owner)
-        if ours then Paint(self, DARK) elseif self.fgtDark then Paint(self, Default()) end
-        self.fgtDark = ours
+        self.fgtDark = Ours(owner)
+        SetDark(self, self.fgtDark)
     end)
-    GameTooltip:HookScript("OnShow", function(self) if self.fgtDark then Paint(self, DARK) end end)
+    for _, name in ipairs({ "ShoppingTooltip1", "ShoppingTooltip2" }) do
+        local t = _G[name]
+        if t and t.HookScript then
+            t:HookScript("OnShow", function(self) SetDark(self, GameTooltip.fgtDark and true or false) end)
+        end
+    end
 end
 
 local closeBtn = CreateFrame("Button", nil, titleBar)
