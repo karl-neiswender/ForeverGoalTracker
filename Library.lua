@@ -353,7 +353,7 @@ local library = {
 
     -- ---------------- Raids ----------------
     {
-        id = "raid_mc", library = true,
+        id = "raid_mc", library = true, instance = { 409, "Molten Core" },
         icon = { "achievement_boss_ragnaros", "spell_fire_lavaspawn", "inv_misc_head_dragon_01" },
         name = "Clear Molten Core",
         short = "Molten Core",
@@ -366,7 +366,7 @@ local library = {
              "Golemagg the Incinerator", "Sulfuron Harbinger", "Majordomo Executus", "Ragnaros" }),
     },
     {
-        id = "raid_ony", library = true,
+        id = "raid_ony", library = true, instance = { 249, "Onyxia's Lair" },
         icon = "inv_misc_head_dragon_01",
         name = "Slay Onyxia",
         short = "Onyxia",
@@ -380,7 +380,7 @@ local library = {
         },
     },
     {
-        id = "raid_bwl", library = true,
+        id = "raid_bwl", library = true, instance = { 469, "Blackwing Lair" },
         icon = { "achievement_boss_nefarion", "inv_misc_head_dragon_black", "inv_misc_head_dragon_01" },
         name = "Clear Blackwing Lair",
         short = "Blackwing Lair",
@@ -393,7 +393,7 @@ local library = {
              "Ebonroc", "Flamegor", "Chromaggus", "Nefarian" }),
     },
     {
-        id = "raid_zg", library = true,
+        id = "raid_zg", library = true, instance = { 309, "Zul'Gurub" },
         icon = { "achievement_boss_hakkar", "inv_misc_coin_01" },
         name = "Clear Zul'Gurub",
         short = "Zul'Gurub",
@@ -405,7 +405,7 @@ local library = {
             "High Priestess Arlokk", "Jin'do the Hexxer", "Hakkar" }),
     },
     {
-        id = "raid_aq20", library = true,
+        id = "raid_aq20", library = true, instance = { 509, "Ruins of Ahn'Qiraj" },
         icon = { "achievement_boss_ossirian", "inv_misc_qirajicrystal_01" },
         name = "Clear Ruins of Ahn'Qiraj",
         short = "Ahn'Qiraj (AQ20)",
@@ -420,7 +420,7 @@ local library = {
         },
     },
     {
-        id = "raid_aq40", library = true,
+        id = "raid_aq40", library = true, instance = { 531, "Ahn'Qiraj Temple" },
         icon = { "achievement_boss_cthun", "inv_misc_qirajicrystal_05" },
         name = "Clear Temple of Ahn'Qiraj",
         short = "Ahn'Qiraj (AQ40)",
@@ -431,7 +431,7 @@ local library = {
             "Fankriss the Unyielding", "Viscidus", "Princess Huhuran", { "Twin Emperors", "Emperor Vek" }, "Ouro", "C'Thun" }),
     },
     {
-        id = "raid_naxx", library = true,
+        id = "raid_naxx", library = true, instance = { 533, "Naxxramas" },
         icon = { "achievement_boss_kelthuzad_01", "inv_misc_head_dragon_01" },
         name = "Clear Naxxramas",
         short = "Naxxramas",

@@ -2811,6 +2811,71 @@ do
     FGT.foreverNotice = n
 end
 
+-- Raid lockout: on a raid goal (data field `instance` = { mapId, name }),
+-- a "SAVED UNTIL TUE" chip when the character you're on is saved there.
+-- The game sends lockouts after RequestRaidInfo (UPDATE_INSTANCE_INFO);
+-- they're kept for this session only, since they change every week.
+do
+    local chip = NewChip(detailPanel, 9)
+    chip:SetBackdropBorderColor(0.45, 0.22, 0.16, 1)
+    chip:EnableMouse(true)
+    chip:SetScript("OnEnter", function(self)
+        if not self.reset then return end
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+        GameTooltip:AddLine("Saved this week", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine(string.format("This character is saved to %s until %s.",
+            self.raid, date("%A at %H:%M", self.reset)), C.INK2[1], C.INK2[2], C.INK2[3], true)
+        GameTooltip:Show()
+    end)
+    chip:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    chip:Hide()
+    FGT.detailLockChip = chip
+    FGT.lockouts = {}
+
+    -- seconds until reset -> absolute time, by map ID and by name
+    local function ReadLockouts()
+        local out = {}
+        local n = GetNumSavedInstances and GetNumSavedInstances() or 0
+        for i = 1, n do
+            local name, _, reset, _, locked, extended, _, _, _, _, _, _, _, mapId = GetSavedInstanceInfo(i)
+            if name and reset and reset > 0 and (locked or extended) then
+                local at = time() + reset
+                out[name] = at
+                if mapId then out[mapId] = at end
+            end
+        end
+        FGT.lockouts = out
+        if FGT.lockGoal and detailPanel:IsVisible() then FGT.LayoutLockout(FGT.lockGoal, FGT.lockAnchor) end
+    end
+    local f = CreateFrame("Frame")
+    f:RegisterEvent("PLAYER_LOGIN")
+    pcall(f.RegisterEvent, f, "UPDATE_INSTANCE_INFO")
+    f:SetScript("OnEvent", function(_, event)
+        if event == "PLAYER_LOGIN" then
+            if RequestRaidInfo then RequestRaidInfo() end
+        else
+            pcall(ReadLockouts)
+        end
+    end)
+
+    -- anchor: the chip it sits after
+    function FGT.LayoutLockout(goal, anchor)
+        FGT.lockGoal, FGT.lockAnchor = goal, anchor
+        local inst = goal.instance
+        local at = inst and (FGT.lockouts[inst[1]] or FGT.lockouts[inst[2]])
+        if at and at > time() then
+            chip.reset, chip.raid = at, inst[2]
+            chip:SetLabel("SAVED UNTIL " .. string.upper(date("%a", at)), C.INK2)
+            chip:ClearAllPoints()
+            chip:SetPoint("LEFT", anchor, "RIGHT", 6, 0)
+            chip:Show()
+        else
+            chip.reset = nil
+            chip:Hide()
+        end
+    end
+end
+
 local detailBar = NewBar(detailPanel, 8)
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
@@ -2835,6 +2900,7 @@ function FGT.LayoutForeverInfo(goal)
     dc:SetPoint("LEFT", word and chip or (detailTimeChip:IsShown() and detailTimeChip or detailDiffChip), "RIGHT", 6, 0)
     if on then dc:SetLabel("COMPLETED " .. string.upper(on), C.DONE) end
     dc:SetShown(on and true or false)
+    FGT.LayoutLockout(goal, on and dc or (word and chip) or (detailTimeChip:IsShown() and detailTimeChip or detailDiffChip))
 
     local n = FGT.foreverNotice
     -- New goals only get the notice when there's something to explain.
@@ -4151,7 +4217,7 @@ function FGT.HideEmptyTracker()
 end
 detailParts = { detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
     detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
-    FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn }
+    FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip }
 
 -- "Clear" next to the sort bar: removes every goal from My Goals in one
 -- go, after a confirm in the right-click menu's style. Progress is kept
