@@ -152,11 +152,11 @@ The CurseForge gallery has five screenshots, also kept in `Screenshots/` in the 
 | `03-epic-mounts.png` | `/goals demo 3` | Group headers (finished, counts), Expand all, open Skyborne part | group rows, Expand all, Epic Racial Mounts data or wording |
 | `04-links-and-tips.png` | `/goals demo 4` | Corrupted Ashbringer: gold links, link card, Tips, Forever notice | goal links, link card, tips, Ashbringer steps |
 | `05-settings.png` | `/goals settings` (any scene behind it) | Settings page: both columns, pill toggles, choices, sliders, tracked characters | any settings row or group, the toggle look, the gear; its header shows the version, so retake after each version bump |
-| `06-welcome.png` (planned) | `/goals demo 5` | Welcome wizard: the five hand-drawn interest tiles, two picked, over the greyed empty tracker | the wizard's interest step, tile art or motion |
-| `07-suggestions.png` (planned) | `/goals demo 6` | Wizard suggestions for the logged-in character (raiding and epic loot) | suggestion rows, wizard copy, suggestion rules |
+| `06-welcome.png` | `/goals demo 5` | Welcome wizard: the five hand-drawn interest tiles, two picked, over the greyed empty tracker | the wizard's interest step, tile art or motion |
+| `07-suggestions.png` | `/goals demo 6` | Wizard suggestions for the logged-in character (raiding and epic loot) | suggestion rows, wizard copy, suggestion rules |
 | `08-whats-new.png` (planned) | `/goals demo 7` | Social goals, a changed gold target, the SAVED UNTIL chip on Molten Core, Find your next goal at the end of the list | those features, goal cards |
 
-Shot 3 is knowingly stale since the 2026-10-06 racial mount step change (Karl: not worth a retake before launch). Retake every shot when Warcraft Forever launches (live client instead of beta). When adding a shot, add a demo scene to `FGT.Demo` (`SCENES` in Core.lua) and a row here.
+Gallery as of 2026-10-07 (v2.6.0, all retaken that day by Karl, old images deleted): shots 1, 2, 3, 4, 6, 7 in that order, titled My Goals / New & Updated in WoW Forever / Pick the parts you want / Goal links and tips / What interests you? / Goals picked for you, with descriptions; shot 1 featured. Shot 5 (Settings) is NOT in the gallery right now (old file kept in `Screenshots/`, stale: new screenshot row and version). Shot 8 (demo 7) not taken yet. Retake every shot when Warcraft Forever launches (live client instead of beta). When adding a shot, add a demo scene to `FGT.Demo` (`SCENES` in Core.lua) and a row here.
 
 ## Looking things up on Wowhead
 
