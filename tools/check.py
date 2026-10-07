@@ -163,7 +163,7 @@ if ok_all:
             'local row3 = { text = { GetText = function(self) return self.s end, SetText = function(self, s) self.s = s end } }; '
             'local ram = STUB_NS.GoalById("epicmounts").sections[2].pieces[5]; row3.text:SetText(ram.name); STUB_NS.stepQuality = 4; '
             'STUB_NS.SetStepLinks(row3, ram.auto, ram); print("  ram: " .. row3.text:GetText()); '
-            'STUB_NS.ShowVariantsTip({}, 18786, ram.auto); print("  variants tip ok")'),
+            'STUB_NS.ShowVariantsTip({}, 18786, ram.auto); STUB_NS.OpenVariantsWowhead(18786); print("  " .. STUB_NS.wowheadCard.url)'),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '

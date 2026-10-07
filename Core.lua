@@ -1200,7 +1200,9 @@ function FGT.EnableGoalLinks(f)
         -- a mount type: right-click and shift-click use its first color
         local itemId = tonumber(link:match("^item:(%d+)") or link:match("^fgtvariants:(%d+)") or "")
         if itemId then
-            if button == "RightButton" then
+            if button == "RightButton" and link:find("^fgtvariants:") then
+                FGT.OpenVariantsWowhead(itemId)
+            elseif button == "RightButton" then
                 FGT.OpenWowheadCard("item", itemId, text)
             elseif IsShiftKeyDown() then
                 FGT.InsertItemLink(itemId)
@@ -7143,7 +7145,7 @@ do
             for _, n in ipairs(row.itemNames or {}) do table.insert(names, n) end
             items[1] = { row.itemId, names }
         end
-        for _, l in ipairs(row.extraLinks or {}) do table.insert(items, { l[1], { l[2] }, l.variants }) end
+        for _, l in ipairs(row.extraLinks or {}) do table.insert(items, { l[1], { l[2] }, l.variants and l }) end
         local done = {}
         for _, it in ipairs(items) do
             local id, names, variants = it[1], it[2], it[3]
@@ -7152,7 +7154,7 @@ do
             local linkType = "item:" .. id
             if variants then
                 FGT.variants = FGT.variants or {}
-                FGT.variants[id] = { name = names[1], items = variants }
+                FGT.variants[id] = { name = names[1], items = variants.variants, npc = variants.npc, vendor = variants.vendor }
                 linkType = "fgtvariants:" .. id
             end
             local name, _, quality = FGT.ItemInfo(id)
@@ -7294,8 +7296,19 @@ do
             GameTooltip:AddLine(" ")
             GameTooltip:AddLine("Checks itself off when you own any of them.", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
         end
-        GameTooltip:AddLine("Right-click for the Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        GameTooltip:AddLine(v.npc and ("Right-click for " .. v.vendor .. "'s Wowhead page, with every color.")
+            or "Right-click for the Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         GameTooltip:Show()
+    end
+
+    -- a mount type's Wowhead link: its vendor's Sells tab (every color), else the first color
+    function FGT.OpenVariantsWowhead(firstId)
+        local v = FGT.variants and FGT.variants[firstId]
+        if v and v.npc then
+            FGT.OpenWowheadCard("npc", v.npc, v.name .. ": every color, sold by " .. v.vendor, "#sells")
+        else
+            FGT.OpenWowheadCard("item", firstId, v and v.name)
+        end
     end
 
     -- puts the item's link in the chat box (opening it if needed)
@@ -7316,7 +7329,10 @@ do
     function FGT.StepLinkClick(row, button)
         if FGT.overLink then return true end -- the name's own link handled it
         if button == "RightButton" then
-            if row.itemId or row.questId then
+            if row.itemId and FGT.variants and FGT.variants[row.itemId] then
+                GameTooltip:Hide()
+                FGT.OpenVariantsWowhead(row.itemId)
+            elseif row.itemId or row.questId then
                 GameTooltip:Hide()
                 FGT.OpenWowheadCard(row.itemId and "item" or "quest", row.itemId or row.questId, row.text:GetText())
             end
@@ -7335,7 +7351,8 @@ do
         if K then K:Hide(); K.catcher:Hide(); K.box:ClearFocus() end
     end
 
-    function FGT.OpenWowheadCard(kind, id, label)
+    -- kind: item, quest or npc; anchor: a page section, like "#sells"
+    function FGT.OpenWowheadCard(kind, id, label, anchor)
         local K = FGT.wowheadCard
         if not K then
             K = CreateFrame("Frame", nil, main, "BackdropTemplate")
@@ -7382,8 +7399,8 @@ do
             FGT.wowheadCard = K
         end
         local site = FGT.isForever and "forever" or "classic"
-        K.url = string.format("https://www.wowhead.com/%s/%s=%d", site, kind, id)
-        local name = kind == "item" and FGT.ItemInfo(id) or nil
+        K.url = string.format("https://www.wowhead.com/%s/%s=%d", site, kind, id) .. (anchor or "")
+        local name = kind == "item" and not anchor and FGT.ItemInfo(id) or nil
         K.sub:SetText(name or (label and label:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1")) or "")
         K.box:SetText(K.url)
         local x, y = GetCursorPosition()

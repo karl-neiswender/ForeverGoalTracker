@@ -50,11 +50,17 @@ FGT.difficultyColors = {
 -- items: the mount's color variants as { item id, name } (Wowhead Classic,
 -- checked 2026-10-07); any one ticks the buy step, and the step's mount
 -- name becomes a link whose tooltip lists every color (ariants).
+-- Wowhead NPC IDs of the mount vendors (Classic, Genn on Forever; checked
+-- 2026-10-07): the mount type's Wowhead link opens the vendor's "Sells"
+-- tab, which lists every color (Karl: one color's page felt clunky).
+local VENDOR_NPC = { ["Katie Hunter"] = 384, ["Veron Amberstill"] = 1261, ["Lelanai"] = 4730,
+    ["Milli Featherwhistle"] = 7955, ["Ogunaro Wolfrunner"] = 3362, ["Harb Clawhoof"] = 3685,
+    ["Zachariah Post"] = 4731, ["Zjolnir"] = 7952, ["Genn Fairweather"] = 265756 }
 local function BuildMountTasks(race, mountName, vendor, location, raceFile, ownedPatterns, gold, home, items)
     gold = gold or { "800-1,000", 800 }
     local ids = {}
     for i, it in ipairs(items or {}) do ids[i] = it[1] end
-    local link = items and { { ids[1], mountName, variants = items } }
+    local link = items and { { ids[1], mountName, variants = items, npc = VENDOR_NPC[vendor], vendor = vendor } }
     if home then
         local side, repId, repName, races = home[1], home[2], home[3], home[4]
         return {
