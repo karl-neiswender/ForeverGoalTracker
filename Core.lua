@@ -3866,24 +3866,25 @@ do
         local c = cm.inset + T / 2
         local lw, lh = w - 2 * c - 2 * R, h - 2 * c - 2 * R
         local n, nd = 0, 0
-        if lw > 0 and lh > 0 and FGT.Setting("celebrations") ~= "off" then
+        local peakA = cm.alpha * cm.vis -- fades with the on/off switch
+        if lw > 0 and lh > 0 and peakA > 0.005 and FGT.Setting("celebrations") ~= "off" then
             local A = math.pi * R / 2
             local segs = { { 1, lw }, { "tr", A }, { 2, lh }, { "br", A }, { 3, lw }, { "bl", A }, { 4, lh }, { "tl", A } }
             local P = 2 * (lw + lh) + 4 * A
             -- gentle ease: a little slower at the start of a lap, quicker
             -- through the middle, never below half speed (no "stuck" look)
-            local x = (cm.t / LAP) % 1
+            local x = (cm.t / (cm.lap or LAP)) % 1
             x = x - 0.5 * math.sin(2 * math.pi * x) / (2 * math.pi)
             local peak = x * P
             local tail, head = P * 0.22, P * 0.08
             local function Alpha(pos)
                 local u = (pos - peak) % P
                 if u > P / 2 then u = u - P end
-                if u <= 0 and u >= -tail then return cm.alpha * (1 + u / tail) end
-                if u > 0 and u <= head then return cm.alpha * (1 - u / head) end
+                if u <= 0 and u >= -tail then return peakA * (1 + u / tail) end
+                if u > 0 and u <= head then return peakA * (1 - u / head) end
                 return 0
             end
-            local pieces = { { peak - tail, peak, 0, cm.alpha }, { peak, peak + head, cm.alpha, 0 } }
+            local pieces = { { peak - tail, peak, 0, peakA }, { peak, peak + head, peakA, 0 } }
             local start = 0
             for _, sg in ipairs(segs) do
                 local kind, len = sg[1], sg[2]
@@ -3927,13 +3928,19 @@ do
         for i = n + 1, #cm.tex do cm.tex[i]:Hide() end
         for i = nd + 1, #cm.dots do cm.dots[i]:Hide() end
     end
-    function FGT.AddBorderComet(f, inset, alpha)
+    -- lap: seconds per lap (default 4.5). f.comet.on = false fades it out
+    -- (and true back in) over about half a second.
+    function FGT.AddBorderComet(f, inset, alpha, lap)
         local layer = CreateFrame("Frame", nil, f)
         layer:SetAllPoints()
         layer:SetFrameLevel(f:GetFrameLevel() + 3)
-        f.comet = { inset = inset or 2, alpha = alpha or 0.9, t = 0, tex = {}, dots = {}, layer = layer }
+        f.comet = { inset = inset or 2, alpha = alpha or 0.9, lap = lap, t = 0, tex = {}, dots = {},
+                    layer = layer, on = true, vis = 1 }
         layer:SetScript("OnUpdate", function(_, elapsed)
-            f.comet.t = f.comet.t + elapsed
+            local cm = f.comet
+            cm.t = cm.t + elapsed
+            local want = cm.on and 1 or 0
+            cm.vis = cm.vis + (want - cm.vis) * math.min(1, elapsed * 4)
             Draw(f)
         end)
     end
@@ -6661,7 +6668,7 @@ FGT.welcome = W
 local INTERESTS = {
     { key = "raid",    label = "Raiding",    phrase = "raiding",    icon = { "inv_misc_head_dragon_01" } },
     { key = "pvp",     label = "PvP",        phrase = "PvP",        icon = "pvp" },
-    { key = "loot",    label = "Epic Loot",  phrase = "epic loot",  icon = { "inv_sword_39" } },
+    { key = "loot",    label = "Epic Loot",  phrase = "epic loot",  icon = { "inv_sword_39" }, art = "loot" },
     { key = "collect", label = "Collecting", phrase = "collecting", icon = { "ability_mount_ridinghorse" } },
     { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" } },
 }
@@ -7093,6 +7100,44 @@ local function TextLink(parent, text, size)
     return b
 end
 
+-- Interest tile micro-interactions, every frame while a tile shows:
+-- hover grows the icon ~10% and brightens its glow; a click pops it
+-- (springy bounce plus a small wiggle); a picked tile's glow breathes.
+-- Full: all of it. Subtle: glow only. Off: still.
+function W.TileMotion(t, elapsed)
+    local motion = W.Motion()
+    local on = W.picked[t.it.key]
+    local k = math.min(1, elapsed * 12)
+    local want = (motion == "full") and ((t.hover and 1.10) or (on and 1.04) or 1) or 1
+    t.s = (t.s or 1) + (want - (t.s or 1)) * k
+    local pop, rot = 0, 0
+    if t.popT then
+        t.popT = t.popT + elapsed
+        if t.popT > 0.7 then
+            t.popT = nil
+        elseif motion == "full" then
+            local d = math.exp(-t.popT * 7)
+            pop = 0.16 * d * math.cos(t.popT * 18)
+            rot = 0.13 * d * math.sin(t.popT * 24) -- about 7 degrees, settling
+        end
+    end
+    local sc = t.s + pop
+    local glowWant = 0.22
+    if motion ~= "off" then
+        if t.hover then glowWant = 0.40
+        elseif on then glowWant = 0.32 + 0.08 * math.sin(GetTime() * 2.4) end
+    end
+    t.g = (t.g or 0.22) + (glowWant - (t.g or 0.22)) * k
+    if t.art then
+        t.art:SetSize(56 * sc, 56 * sc)
+        if t.art.SetRotation then t.art:SetRotation(rot) end
+        t.glow:SetSize(88 * (0.9 + 0.1 * sc), 88 * (0.9 + 0.1 * sc))
+        t.glow:SetVertexColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], t.g)
+    else
+        t.icon:SetSize(40 * sc, 40 * sc)
+    end
+end
+
 local ROW_H = 54
 
 local function Build()
@@ -7159,12 +7204,28 @@ local function Build()
         Etch(t, STYLE.row, 12)
         t.it = it
         t.icon = NewIcon(t, 40)
-        t.icon:SetPoint("TOP", t, "TOP", 0, -16)
+        t.icon:SetPoint("CENTER", t, "TOP", 0, -36)
+        -- custom art (Media/interests/<name>.tga): shown whole, no rim or
+        -- crop, with a very soft gold glow behind it
+        if it.art then
+            t.icon:Hide()
+            t.glow = t:CreateTexture(nil, "ARTWORK", nil, 1)
+            t.glow:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\glow")
+            t.glow:SetBlendMode("ADD")
+            t.glow:SetSize(88, 88)
+            t.glow:SetPoint("CENTER", t, "TOP", 0, -40)
+            t.glow:SetVertexColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], 0.22)
+            t.art = t:CreateTexture(nil, "ARTWORK", nil, 2)
+            t.art:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\interests\\" .. it.art)
+            t.art:SetSize(56, 56)
+            t.art:SetPoint("CENTER", t, "TOP", 0, -40)
+        end
         t.name = NewTitleString(t, 12)
         t.name:SetPoint("BOTTOM", t, "BOTTOM", 0, 14)
         t.name:SetText(it.label)
         function t:Refresh()
             local on = W.picked[self.it.key]
+            self.comet.on = on and true or false
             self:SetEtch(on and STYLE.rowSel or (self.hover and STYLE.rowHover or STYLE.row))
             local c = on and C.TITLE or C.INK2
             self.name:SetTextColor(c[1], c[2], c[3])
@@ -7173,9 +7234,14 @@ local function Build()
         t:SetScript("OnLeave", function(self) self.hover = false; self:Refresh() end)
         t:SetScript("OnClick", function(self)
             W.picked[self.it.key] = (not W.picked[self.it.key]) or nil
+            self.popT = 0 -- the pop and wiggle (TileMotion)
             self:Refresh()
             W.next:SetOn(next(W.picked) ~= nil)
         end)
+        -- a slow, soft gold streak circles the border while the tile is picked
+        FGT.AddBorderComet(t, 2, 0.4, 6.5)
+        t.comet.on, t.comet.vis = false, 0
+        t:SetScript("OnUpdate", W.TileMotion)
         W.tiles[i] = t
     end
 
@@ -7400,7 +7466,7 @@ function W.Show(step)
             if icon == "pvp" then
                 icon = (me.faction == "Horde") and { "inv_bannerpvp_01" } or { "inv_bannerpvp_02" }
             end
-            t.icon:SetIcon(icon)
+            if t.art then t.icon:Hide() else t.icon:SetIcon(icon) end
             t.hover = false
             t:Refresh()
             t:Show()

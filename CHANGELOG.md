@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Welcome wizard: custom art for the Epic Loot interest (more to come) with a soft gold glow. Interest tiles grow and glow on hover, pop with a little wiggle when picked, and picked tiles get a slow gold streak around their border and a gently breathing glow.
+
 ## 2.5.0
 
 - Welcome wizard: the first time the window opens (after installing or updating), pick your own goals or get help. "Help me get started" asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind) and suggests goals for the character you're on: leveling to 60 if none of your characters is there yet, your race's epic mount (Warlocks and Paladins: their class mount; Skyborne: the Swift Galestrider), and goals that fit your class, faction and level. Goals you already track are listed as "On My Goals". Open it again with /goals welcome, Settings, or "Help me get started" on an empty tracker.
