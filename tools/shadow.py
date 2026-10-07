@@ -19,8 +19,9 @@ for y in range(SIZE):
         a = math.exp(-((dist / SIGMA) ** 2) / 2)
         pixels += bytes((255, 255, 255, round(a * 255)))  # BGRA
 
-# uncompressed true-color TGA, 32 bits with 8 alpha bits
-header = struct.pack("<BBBHHBHHHHBB", 0, 0, 2, 0, 0, 0, 0, 0, SIZE, SIZE, 32, 8)
+# uncompressed true-color TGA, 32 bits, 8 alpha bits, rows top to bottom
+# (0x28: the same header as tools/icon.py, which the game loads fine)
+header = struct.pack("<BBBHHBHHHHBB", 0, 0, 2, 0, 0, 0, 0, 0, SIZE, SIZE, 32, 0x28)
 out = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "Media", "shadow.tga")
 with open(out, "wb") as f:
     f.write(header + bytes(pixels))
