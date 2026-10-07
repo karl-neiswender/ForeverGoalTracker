@@ -9,14 +9,15 @@ local ADDON, FGT = ...
 -- gives the Wowhead link. Only quoted names are linked, so an item that
 -- shares a quest's name ("Frame of Atiesh") stays an item.
 --
--- { name, { quest ids }, start = NPC id, startName }. Several ids: the
+-- { name, { quest ids }, start = NPC id, startName }. daily = true: blue,
+-- like the game's daily quests. Several ids: the
 -- faction or class versions of one quest (any of them counts). From
 -- Wowhead Classic (2026-10-07); start is Wowhead's "Start:" NPC.
 FGT.QUESTS = {
     -- Winterspring Frostsaber
-    { "Frostsaber Provisions", { 4970 }, start = 10618, startName = "Rivern Frostwind" },
-    { "Winterfall Intrusion", { 5201 }, start = 10618, startName = "Rivern Frostwind" },
-    { "Rampaging Giants", { 5981 }, start = 10618, startName = "Rivern Frostwind" },
+    { "Frostsaber Provisions", { 4970 }, start = 10618, startName = "Rivern Frostwind", daily = true },
+    { "Winterfall Intrusion", { 5201 }, start = 10618, startName = "Rivern Frostwind", daily = true },
+    { "Rampaging Giants", { 5981 }, start = 10618, startName = "Rivern Frostwind", daily = true },
     -- Rhok'delar and Lok'delar
     { "A Proper String", { 7635 }, start = 14525, startName = "Stoma the Ancient" },
     { "Stave of the Ancients", { 7636 }, start = 14524, startName = "Vartrus the Ancient" },

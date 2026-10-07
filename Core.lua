@@ -1153,12 +1153,21 @@ function FGT.GoalById(id)
     return FGT.goalIndex[id]
 end
 
+-- Goal links wear Karl's gold chain-link icon in front, so they read apart
+-- from quest links (gold "!", brighter yellow) at a glance (Karl).
+do
+    local LINK = "Interface\\AddOns\\" .. ADDON .. "\\Media\\icons\\link"
+    FGT.GOAL_ICON = "|T" .. LINK .. ":14:14:0:-2|t"
+    FGT.LINK_ICONS = FGT.LINK_ICONS or {}
+    table.insert(FGT.LINK_ICONS, { FGT.GOAL_ICON, "|T" .. LINK .. ":14:14:0:-2:64:64:0:64:0:64:130:130:130|t" })
+end
+
 function FGT.LinkText(s)
     s = (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
         local alias = FGT.LINK_ALIAS[id]
         if alias then id = alias() end
         if not FGT.GoalById(id) then return label end
-        return "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
+        return FGT.GOAL_ICON .. "|cffffd75e|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
     end))
     -- then quest names, then NPC names (below)
     if FGT.LinkQuests then s = FGT.LinkQuests(s) end
@@ -1396,11 +1405,21 @@ end
 -- the Wowhead link.
 -- ============================================================
 do
-    local YELLOW = "fff23a"
+    local YELLOW, DAILY_BLUE = "fff23a", "5cb8ff"
     -- 15px, nudged 3px down: the icon's art sits high in its square
-    FGT.QUEST_ICON = "|TInterface\\GossipFrame\\AvailableQuestIcon:15:15:0:-3|t"
-    -- the same "!" greyed, for finished steps (StyleCheckRow)
-    FGT.QUEST_ICON_DIM = "|TInterface\\GossipFrame\\AvailableQuestIcon:15:15:0:-3:32:32:0:32:0:32:120:120:120|t"
+    local QUEST = "Interface\\GossipFrame\\AvailableQuestIcon"
+    local DAILY = "Interface\\GossipFrame\\DailyQuestIcon"
+    -- the blue daily "!" where the client has it, else the gold one
+    if not (GetFileIDFromPath and GetFileIDFromPath(DAILY)) then DAILY = QUEST end
+    local function Icon(path, dim)
+        return "|T" .. path .. ":15:15:0:-3" .. (dim and ":32:32:0:32:0:32:120:120:120" or "") .. "|t"
+    end
+    FGT.QUEST_ICON, FGT.DAILY_ICON = Icon(QUEST), Icon(DAILY)
+    -- the icons in front of links, and their greyed copies for finished
+    -- steps (StyleCheckRow swaps them)
+    FGT.LINK_ICONS = FGT.LINK_ICONS or {}
+    table.insert(FGT.LINK_ICONS, { FGT.QUEST_ICON, Icon(QUEST, true) })
+    if DAILY ~= QUEST then table.insert(FGT.LINK_ICONS, { FGT.DAILY_ICON, Icon(DAILY, true) }) end
     local order
     function FGT.LinkQuests(text)
         if not text:find("'", 1, true) then return text end
@@ -1412,7 +1431,9 @@ do
         for _, e in ipairs(order) do
             local s, e2 = text:find(e[1], 1, true)
             if s and not text:sub(1, s - 1):find("|H[^|]*|h[^|]*$") then
-                text = text:sub(1, s - 1) .. FGT.QUEST_ICON .. "|cff" .. YELLOW .. "|Hfgtquest:" .. e[2] .. "|h"
+                local daily = FGT.QUESTS[e[2]].daily -- blue, like the game's daily quests (Karl)
+                text = text:sub(1, s - 1) .. (daily and FGT.DAILY_ICON or FGT.QUEST_ICON)
+                    .. "|cff" .. (daily and DAILY_BLUE or YELLOW) .. "|Hfgtquest:" .. e[2] .. "|h"
                     .. e[3] .. "|h|r" .. text:sub(e2 + 1)
             end
         end
@@ -1438,7 +1459,12 @@ do
         local q = FGT.QUESTS and FGT.QUESTS[key]
         if not q then return end
         GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
-        GameTooltip:AddLine(q[1], 1, 0.95, 0.23)
+        if q.daily then
+            GameTooltip:AddLine(q[1], 0.36, 0.72, 1)
+            GameTooltip:AddLine("Daily quest", 0.36, 0.72, 1)
+        else
+            GameTooltip:AddLine(q[1], 1, 0.95, 0.23)
+        end
         if q.startName then
             local npc = q.start and FGT.NpcById and FGT.NpcById(q.start)
             GameTooltip:AddLine("Starts with " .. q.startName .. (npc and npc.zone and (" in " .. npc.zone) or ""),
@@ -3964,9 +3990,9 @@ local function StyleCheckRow(row, done)
         -- dimmed text, a hint of the item's quality left (Karl)
         local text = row.text:GetText()
         if type(text) == "string" and text:find("|H", 1, true) then
-            -- the quest "!" greys too
-            local plain, dim = FGT.QUEST_ICON, FGT.QUEST_ICON_DIM
-            if plain and text:find(plain, 1, true) then
+            -- the icons in front of links (quest "!", goal chain) grey too
+            for _, pair in ipairs(FGT.LINK_ICONS or FGT.EMPTY) do
+                local plain, dim = pair[1], pair[2]
                 local s, e = text:find(plain, 1, true)
                 while s do
                     text = text:sub(1, s - 1) .. dim .. text:sub(e + 1)
