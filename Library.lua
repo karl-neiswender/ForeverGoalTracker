@@ -804,7 +804,7 @@ local DUNGEON2 = {
 -- below turn them into the { name, id, source, icon } tuples above.
 -- Item IDs, names and icons from Wowhead's Forever item-set pages
 -- (2026-10-07). Forever gives some classes several versions of a set
--- (one per role); each version is its own part.
+-- (one per role); they look the same, so ForeverSections merges them.
 -- ------------------------------------------------------------
 
 -- The raid sets from Forever's first new raids (icons are named for Hyjal
@@ -886,24 +886,49 @@ local PVP_RANKS = {
     { "Warlord's", "PvP rank 13 (Warlord)" }, { "General's", "PvP rank 12 (General)" },
     { "Champion's", "PvP rank 10 (Champion)" }, { "Centurion's", "PvP rank 9 (Centurion)" },
 }
+-- A class's versions of a set look the same (only the stats differ), so
+-- they become ONE part (Karl, 2026-10-07): named after the class's first
+-- version, and each piece ticks from that slot's piece in ANY version
+-- (pieces are listed in the same slot order in every version). The part
+-- is NEW only when every version is new in Forever.
 local function ForeverSections(list, rank)
-    local out = {}
+    local out, byClass = {}, {}
     for _, set in ipairs(list) do
-        local pieces = {}
-        for _, p in ipairs(set[3]) do
-            local source
-            if rank then
-                -- the rank right after "Premier " (Field Marshal's before Marshal's)
-                local after = p[1]:gsub("^Premier ", "")
-                for _, r in ipairs(PVP_RANKS) do
-                    if after:find("^" .. r[1]) then source = r[2] break end
-                end
-            end
-            table.insert(pieces, { p[1], p[2], source, p[3] })
+        local class = set[1]
+        local merged = byClass[class]
+        if not merged then
+            merged = { class, set[2], {}, set[4] }
+            byClass[class] = merged
+            table.insert(out, merged)
+        elseif not set[4] then
+            merged[4] = nil
         end
-        table.insert(out, { set[1], set[2], pieces, set[4] })
+        for i, p in ipairs(set[3]) do
+            local piece = merged[3][i]
+            if not piece then
+                local source
+                if rank then
+                    -- the rank right after "Premier " (Field Marshal's before Marshal's)
+                    local after = p[1]:gsub("^Premier ", "")
+                    for _, r in ipairs(PVP_RANKS) do
+                        if after:find("^" .. r[1]) then source = r[2] break end
+                    end
+                end
+                piece = { p[1], {}, source, p[3], {} }
+                merged[3][i] = piece
+            end
+            table.insert(piece[2], p[2])
+            table.insert(piece[5], p[1])
+        end
     end
-    return BuildSetSections(out)
+    local sections = BuildSetSections(out)
+    -- every version's item ID and name counts for the piece
+    for si, set in ipairs(out) do
+        for pi, p in ipairs(set[3]) do
+            sections[si].pieces[pi].auto = { item = p[2], owned = p[5] }
+        end
+    end
+    return sections
 end
 
 -- The eight PvP set goals: faction x armor type, each class's sets as parts.

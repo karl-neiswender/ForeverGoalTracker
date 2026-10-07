@@ -134,7 +134,9 @@ if ok_all:
             'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" })) end; '
             'local n = 0; for _, g in ipairs(STUB_NS.goals) do if STUB_NS.LibraryVisible(g) then n = n + 1 end end; '
             'print("  goals visible on Forever: " .. n); '
-            'local s = STUB_NS.GoalById("pvp_set_plate_ally").sections[1].pieces[2]; print("  " .. s.text)', True),
+            'local s = STUB_NS.GoalById("pvp_set_plate_ally").sections[1].pieces[2]; print("  " .. s.text); '
+            'local r = STUB_NS.GoalById("set_forever_raid"); print("  raid set parts: " .. #r.sections .. ", plate PvP parts: " .. #STUB_NS.GoalById("pvp_set_plate_ally").sections); '
+            'print("  paladin helm ticks from: " .. table.concat(r.sections[2].pieces[1].auto.item, ", "))', True),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '
