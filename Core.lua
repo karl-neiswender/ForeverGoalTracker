@@ -4799,6 +4799,7 @@ listPanel:SetWidth(trackerTab:GetWidth() + 6 + libraryTab:GetWidth())
 -- border line starts inside the frame.
 do
     local LAP, T, R, DOTS = 4.5, 2, 4, 4 -- lap time, line width, corner radius, dots per corner
+    local T_DEFAULT = T -- f.comet.width overrides T per comet (thinner on small buttons)
     local GOLD = { 1.00, 0.89, 0.48 }
     -- arc centers (from the frame's corners) and start angles, in order
     local ARCS = {
@@ -4840,6 +4841,7 @@ do
     end
     local function Draw(f)
         local cm = f.comet
+        T = cm.width or T_DEFAULT
         local w, h = f:GetWidth(), f:GetHeight()
         local c = cm.inset + T / 2
         local lw, lh = w - 2 * c - 2 * R, h - 2 * c - 2 * R
@@ -5636,6 +5638,7 @@ function FGT.OpenLinkCard(id)
         -- comet on Add while the goal isn't on your list (Karl)
         FGT.AddBorderComet(L, 2, 0.4, 9)
         FGT.AddBorderComet(L.btn, 2, 0.9, 6) -- its own slow lap: copying the big button's speed raced on this small one
+        L.btn.comet.width = 1 -- a thinner line on this small button (Karl)
         -- new frames start shown: hide them so the first open is placed
         -- at the cursor below (it took three clicks to open before)
         L:Hide()
