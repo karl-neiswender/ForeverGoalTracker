@@ -24,14 +24,17 @@ FGT.NPCS = {
     { id = 14524, name = "Vartrus the Ancient", alias = { "Vartrus" }, map = 1448, zone = "Felwood", x = 48.8, y = 24.2 },
     { id = 14525, name = "Stoma the Ancient", map = 1448, zone = "Felwood", x = 48.6, y = 23.2 }, -- next to Vartrus
     { id = 14347, name = "Highlord Demitrian", alias = { "Demitrian" }, map = 1451, zone = "Silithus", x = 21.6, y = 8.4 },
-    { id = 14494, name = "Eris Havenfire", map = 1423, zone = "Eastern Plaguelands", x = 20.8, y = 18.4 },
+    { id = 14494, name = "Eris Havenfire", alias = { "Eris" }, map = 1423, zone = "Eastern Plaguelands", x = 20.8, y = 18.4 },
     { id = 5520, name = "Spackle Thornberry", tag = "Demon Trainer", map = 1453, zone = "Stormwind City", x = 25.8, y = 77.6 },
     { id = 6171, name = "Duthorian Rall", map = 1453, zone = "Stormwind City", x = 39.8, y = 29.8 },
     { id = 14387, name = "Lothos Riftwaker", where = "Inside Blackrock Mountain, by the Molten Core portal",
       f = { 1428, 26.4, 24.6, "Burning Steppes" } }, -- Forever maps him outside
-    { id = 12944, name = "Lokhtos Darkbargainer", tag = "The Thorium Brotherhood", where = "Inside Blackrock Depths, in the Grim Guzzler" },
+    { id = 12944, name = "Lokhtos Darkbargainer", alias = { "Lokhtos" }, tag = "The Thorium Brotherhood", where = "Inside Blackrock Depths, in the Grim Guzzler" },
     { id = 9562, name = "Helendis Riverhorn", map = 1428, zone = "Burning Steppes", x = 85.4, y = 68.8 },
     { id = 9077, name = "Warlord Goretooth", tag = "Kargath Expeditionary Force", map = 1418, zone = "Badlands", x = 5.8, y = 47.6 },
+    -- named in tips (2026-10-07 sweep): out in the world, same spot on Forever
+    { id = 6109, name = "Azuregos", map = 1447, zone = "Azshara", x = 48.0, y = 75.4 },
+    { id = 13278, name = "Duke Hydraxis", map = 1447, zone = "Azshara", x = 79.2, y = 73.4 },
     -- Rhok'delar demons: each hides as a friendly NPC until you talk to them
     { id = 14535, name = "Artorius the Doombringer", disguise = "Artorius the Amiable", map = 1452, zone = "Winterspring", x = 51.4, y = 36.2 },
     { id = 14534, name = "Klinfran the Crazed", disguise = "Franklin the Friendly", map = 1428, zone = "Burning Steppes", x = 17.0, y = 54.0 },

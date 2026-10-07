@@ -7723,14 +7723,16 @@ do
         -- (names already inside a link are skipped below, so {item:} tags
         -- and a second pass are safe)
         if type(text) ~= "string" then return end
-        -- { id, names... } for the rule's first item, then the step's extras
+        -- { id, names... }: the step's extra items first, then the rule's
+        -- first item, so a longer name is linked before a shorter one it
+        -- holds ("Eye of Sulfuras" before "Sulfuras")
         local items = {}
+        for _, l in ipairs(row.extraLinks or {}) do table.insert(items, { l[1], { l[2] }, l.variants and l }) end
         if row.itemId then
             local names = {}
             for _, n in ipairs(row.itemNames or {}) do table.insert(names, n) end
-            items[1] = { row.itemId, names }
+            table.insert(items, { row.itemId, names })
         end
-        for _, l in ipairs(row.extraLinks or {}) do table.insert(items, { l[1], { l[2] }, l.variants and l }) end
         local done = {}
         for _, it in ipairs(items) do
             local id, names, variants = it[1], it[2], it[3]
@@ -7763,16 +7765,25 @@ do
             -- goal links); green and up keep the game's quality colors (Karl)
             local hex = (quality == 1 and "f0dcb0") or (quality == 0 and "b3a68c") or QUALITY_HEX[quality] or "f0dcb0"
             local color = "|cff" .. hex
+            local linked = false
             for _, n in ipairs(names) do
-                local s, e
-                if not done[n] then s, e = text:find(n, 1, true) end
-                if s and not text:sub(1, s - 1):find("|H[^|]*|h[^|]*$") then -- not inside a link
-                    if text:sub(e + 1, e + 1) == "s" then e = e + 1 end
-                    text = text:sub(1, s - 1) .. color .. "|H" .. linkType .. "|h"
-                        .. text:sub(s, e) .. "|h|r" .. text:sub(e + 1)
-                    done[n] = true
-                    break
+                -- the first spot that isn't already inside a link ('Rise,
+                -- Thunderfury!' is a quest link; the item comes after it)
+                local from = 1
+                while not done[n] and not linked do
+                    local s, e = text:find(n, from, true)
+                    if not s then break end
+                    if not text:sub(1, s - 1):find("|H[^|]*|h[^|]*$") then -- not inside a link
+                        if text:sub(e + 1, e + 1) == "s" then e = e + 1 end
+                        text = text:sub(1, s - 1) .. color .. "|H" .. linkType .. "|h"
+                            .. text:sub(s, e) .. "|h|r" .. text:sub(e + 1)
+                        done[n] = true
+                        linked = true
+                    else
+                        from = e + 1
+                    end
                 end
+                if linked then break end
             end
         end
         row.text:SetText(text)

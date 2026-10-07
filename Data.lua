@@ -276,7 +276,7 @@ FGT.goals = {
         },
         tips = {
             "You'll need a 40-player raid that clears Naxxramas every week.",
-            "Attunement needs Honored with the {rep_argentdawn:Argent Dawn} and a Righteous Orb: 5 Arcane Crystals and 2 Nexus Crystals at Honored, fewer at Revered.",
+            "Attunement needs Honored with the {rep_argentdawn:Argent Dawn} and a {item:12811:Righteous Orb}: 5 {item:12363:Arcane Crystals} and 2 {item:20725:Nexus Crystals} at Honored, fewer at Revered.",
             "The chest appears after the Four Horsemen die. Keep clearing weekly until the sword drops.",
             "The Four Horsemen are Highlord Mograine, Thane Korth'azz, Sir Zeliek and Baron Rivendare. Raids use either a 2-tank rotation or a synced 4-group kill.",
             "The drop chance is very low, and the sword is Bind on Pickup, so only one raider can get it per kill.",
@@ -308,7 +308,7 @@ FGT.goals = {
         },
         tips = {
             "Level 60 makes the trip and the daily kills much safer.",
-            "'Frostsaber Provisions' takes 5 Shardtooth Meat (Shardtooth bears) and 5 Chillwind Meat (Chillwind chimaeras), both in Winterspring.",
+            "'Frostsaber Provisions' takes 5 {item:12622:Shardtooth Meat} (Shardtooth bears) and 5 {item:12623:Chillwind Meat} (Chillwind chimaeras), both in Winterspring.",
             "'Winterfall Intrusion' asks for 5 Winterfall Shaman and 5 Winterfall Ursa at Winterfall Village; the 'Rampaging Giants' are near Frostsaber Rock.",
             "Exalted is the long part: expect several weeks even doing every turn-in daily.",
         },
@@ -326,9 +326,11 @@ FGT.goals = {
         note = "Only for Druid, Mage, Priest, or Warlock. Requires access to Naxxramas, Ahn'Qiraj 40, and Stratholme.",
         steps = {
             { text = "Raid {raid_naxx:Naxxramas} and {raid_aq40:Ahn'Qiraj} on a Druid, Mage, Priest or Warlock.", auto = { level = 60 } },
-            { text = "Collect 40 Splinters of Atiesh from Naxxramas bosses.", auto = { item = 22726, count = 40 } },
+            { text = "Collect 40 Splinters of Atiesh from Naxxramas bosses.", auto = { item = 22726, count = 40 },
+              links = { { 22726, "Splinters of Atiesh" } } }, -- the game says "Splinter of Atiesh"
             { text = "Combine the 40 splinters into the Frame of Atiesh.", auto = { item = 22727, quest = 9250 } },
-            { text = "Bring the Frame of Atiesh to Anachronos at the Caverns of Time in Tanaris.", auto = { quest = 9250 } },
+            { text = "Bring the Frame of Atiesh to Anachronos at the Caverns of Time in Tanaris.", auto = { quest = 9250 },
+              links = { { 22727, "Frame of Atiesh" } } },
             { text = "Loot the Staff Head of Atiesh from Kel'Thuzad in Naxxramas.", auto = { item = 22733 } },
             { text = "Loot the Base of Atiesh from C'Thun in Ahn'Qiraj.", auto = { item = 22734 } },
             { text = "Return both pieces to Anachronos.", auto = { quest = 9251 } },
@@ -356,10 +358,11 @@ FGT.goals = {
             { text = "Pick up 'A Proper String' from Stoma the Ancient in Felwood.", auto = { questTaken = 7635 } },
             { text = "Loot the Mature Black Dragon Sinew from {raid_ony:Onyxia}.", auto = { item = 18705, quest = 7635 } },
             { text = "Turn in the sinew to Vartrus for the Enchanted Black Dragon Sinew.", auto = { item = 18724, quest = 7635 } },
-            { text = "Combine the stave and the Enchanted Black Dragon Sinew into Rhok'delar.", auto = { item = { 18713, 20488 } } },
+            { text = "Combine the stave and the Enchanted Black Dragon Sinew into Rhok'delar.", auto = { item = { 18713, 20488 } },
+              links = { { 18724, "Enchanted Black Dragon Sinew" } } },
         },
         tips = {
-            "Optional: kill Azuregos in Azshara for a Mature Blue Dragon Sinew, then turn in 'Ancient Sinew Wrapped Lamina' for the matching epic quiver.",
+            "Optional: kill Azuregos in Azshara for a {item:18704:Mature Blue Dragon Sinew}, then turn in 'Ancient Sinew Wrapped Lamina' for the matching epic quiver.",
         },
     },
 
@@ -385,7 +388,7 @@ FGT.goals = {
         },
         tips = {
             "Fight each demon alone. If another player helps, the fight is forfeit.",
-            "Keep the Ancient Rune Etched Stave: it becomes Rhok'delar.",
+            "Keep the {item:18707:Ancient Rune Etched Stave}: it becomes {item:18713:Rhok'delar}.",
         },
     },
 
@@ -414,7 +417,7 @@ FGT.goals = {
             { text = "Turn in 'Rise, Thunderfury!' to receive Thunderfury.", auto = { item = 19019, quest = 7787 } },
         },
         tips = {
-            "Each Binding of the Windseeker is a rare drop, roughly 3%, so plan on many weekly Molten Core clears.",
+            "Each half of the {item:18563:Bindings of the Windseeker} is a rare drop, roughly 3%, so plan on many weekly Molten Core clears.",
             "You need one binding in hand to start 'Examine the Vessel'.",
         },
     },
@@ -432,7 +435,7 @@ FGT.goals = {
         note = "The Naxxramas sets. Bosses drop Desecrated tokens, and your class's quartermaster at Light's Hope Chapel (Eastern Plaguelands) turns each token, Wartorn scraps and crafting materials into a piece. Pick the classes you want in the Library, then click a piece to see its materials.",
         sections = BuildTier3Sections(),
         tips = {
-            "You need to be {att_naxx:attuned to Naxxramas} (Honored with the {rep_argentdawn:Argent Dawn}, plus a Righteous Orb) on each character that raids it.",
+            "You need to be {att_naxx:attuned to Naxxramas} (Honored with the {rep_argentdawn:Argent Dawn}, plus a {item:12811:Righteous Orb}) on each character that raids it.",
             Tier3QuartermasterTip(),
             "Wartorn scraps drop from trash all over Naxxramas. Each armor type has its own scrap (cloth, leather, chain or plate).",
             "A piece ticks itself when you own it, along with its materials. Tick materials by hand as you collect them.",
@@ -454,11 +457,12 @@ FGT.goals = {
             { text = "Start 'The Balance of Light and Shadow' with Eris Havenfire near Stratholme.", auto = { questTaken = 7622 } },
             { text = "Save 50 peasants (fewer than 15 deaths) to earn the Splinter of Nordrassil.", auto = { item = 18659, quest = 7622 } },
             { text = "Loot The Eye of Shadow from demons in southern Winterspring, or buy one.", auto = { item = 18665 } },
-            { text = "Combine the Splinter of Nordrassil, the Eye of Shadow and the Eye of Divinity into Benediction.", auto = { item = { 18608, 18609 } } },
+            { text = "Combine the Splinter of Nordrassil, the Eye of Shadow and the Eye of Divinity into Benediction.", auto = { item = { 18608, 18609 } },
+              links = { { 18659, "Splinter of Nordrassil" }, { 18665, "Eye of Shadow" }, { 18646, "Eye of Divinity" } } },
         },
         tips = {
             "The peasant event runs 5+ minutes. If it fails, Eris resets after about 15 minutes.",
-            "Right-click the finished staff to swap between Benediction (Holy) and Anathema (Shadow). Swapping has a 30-minute cooldown.",
+            "Right-click the finished staff to swap between {item:18608:Benediction} (Holy) and {item:18609:Anathema} (Shadow). Swapping has a 30-minute cooldown.",
         },
     },
 
@@ -560,11 +564,12 @@ FGT.goals = {
             { text = "Gather 10 Fiery Cores (Molten Core trash, BoE).", auto = { item = 17010, count = 10 } },
             { text = "Reach 300 Blacksmithing, or find a Blacksmith to craft it.", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
             { text = "Craft the Sulfuron Hammer.", auto = { item = 17193 } },
-            { text = "Combine the Sulfuron Hammer and the Eye of Sulfuras into Sulfuras.", auto = { item = 17182 } },
+            { text = "Combine the Sulfuron Hammer and the Eye of Sulfuras into Sulfuras.", auto = { item = 17182 },
+              links = { { 17193, "Sulfuron Hammer" }, { 17204, "Eye of Sulfuras" } } },
         },
         tips = {
-            "The Eye of Sulfuras is a rare drop from Ragnaros, roughly 3%.",
-            "'A Binding Contract' costs one Sulfuron Ingot and needs no Thorium Brotherhood reputation. Lokhtos is in the Grim Guzzler.",
+            "The {item:17204:Eye of Sulfuras} is a rare drop from Ragnaros, roughly 3%.",
+            "'A Binding Contract' costs one {item:17203:Sulfuron Ingot} and needs no Thorium Brotherhood reputation. Lokhtos is in the Grim Guzzler.",
         },
     },
 

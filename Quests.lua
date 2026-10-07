@@ -29,6 +29,7 @@ FGT.QUESTS = {
     -- (no status in the tooltip; right-click searches Wowhead)
     { "An Earnest Proposition", {}, perClass = true },
     { "Just Compensation", {}, perClass = true },
+    { "Anthion's Parting Words", {}, perClass = true },
     { "Saving the Best for Last", {}, perClass = true },
     -- Thunderfury
     { "Examine the Vessel", { 7785 } },

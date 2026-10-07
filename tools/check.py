@@ -207,6 +207,18 @@ if ok_all:
             'for _, f in ipairs(STUB_FRAMES) do rawset(f, "IsShown", function() return true end) end; '
             'SlashCmdList["FOREVERGOALTRACKER"]("shots"); '
             'print("  screenshots: " .. shots .. ", format back to " .. tostring(cv.screenshotFormat) .. ", demo off: " .. tostring(ForeverGoalTrackerDB.demoBackup == nil))'),
+        # Link sweep (2026-10-07): extra items link before the rule item
+        # ("Eye of Sulfuras" before "Sulfuras"), and a name inside a quest
+        # link is skipped for its next spot ('Rise, Thunderfury!').
+        ("link sweep", None,
+            'STUB_PRINTS = {}; '
+            'C_Item = { GetItemInfo = function(id) local n = ({ [17182] = "Sulfuras, Hand of Ragnaros", [19019] = "Thunderfury, Blessed Blade of the Windseeker" })[id]; if n then return n, nil, 5 end end }; '
+            'local function Row(t) return { text = { GetText = function(self) return self.s end, SetText = function(self, s) self.s = s end } } end; '
+            'local sul = STUB_NS.GoalById("sulfuras"); for _, st in ipairs(sul.steps) do if type(st) == "table" and st.text:find("^Combine") then '
+            'local r = Row(); r.text:SetText(STUB_NS.LinkText(st.text)); STUB_NS.SetStepLinks(r, st.auto, st); print("  " .. r.text:GetText()) end end; '
+            'local tf = STUB_NS.GoalById("thunderfury"); for _, st in ipairs(tf.steps) do if type(st) == "table" and st.text:find("^Turn in .Rise") then '
+            'local r = Row(); r.text:SetText(STUB_NS.LinkText(st.text)); STUB_NS.SetStepLinks(r, st.auto, st); print("  " .. r.text:GetText()) end end; '
+            'local ash = STUB_NS.GoalById("ashbringer"); print("  " .. STUB_NS.LinkText(ash.tips[2])); C_Item = nil'),
         # Test commands: add every goal, then reset all (asks first) and undo.
         ("add all and reset all", None,
             'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '

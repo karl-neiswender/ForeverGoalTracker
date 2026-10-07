@@ -86,7 +86,7 @@ local library = {
         steps = RepSteps(576),
         tips = {
             "Kill Deadwood furbolgs in Felwood and Winterfall furbolgs in Winterspring for reputation.",
-            "Turn in Deadwood Headdress Feathers and Winterfall Spirit Beads in batches of 5 at Timbermaw Hold.",
+            "Turn in {item:21377:Deadwood Headdress Feathers} and {item:21383:Winterfall Spirit Beads} in batches of 5 at Timbermaw Hold.",
         },
     },
     {
@@ -99,8 +99,8 @@ local library = {
         note = "Lokhtos Darkbargainer's epic crafting recipes unlock as you climb, including fire resistance gear.",
         steps = RepSteps(59),
         tips = {
-            "Turn in Dark Iron Ore and Fiery Flux to Lokhtos Darkbargainer (Grim Guzzler, Blackrock Depths) early on.",
-            "From Honored on, turn in Molten Core materials such as Lava Cores and Fiery Cores.",
+            "Turn in {item:11370:Dark Iron Ore} and {item:18942:Fiery Flux} to Lokhtos Darkbargainer (Grim Guzzler, Blackrock Depths) early on.",
+            "From Honored on, turn in Molten Core materials such as {item:17011:Lava Cores} and {item:17010:Fiery Cores}.",
         },
     },
     {
@@ -113,7 +113,7 @@ local library = {
         note = "Honored opens the Naxxramas attunement; Exalted unlocks the best Argent Dawn shoulder enchants.",
         steps = RepSteps(529),
         tips = {
-            "Wear an Argent Dawn Commission while killing undead in the Plaguelands, Stratholme and Scholomance.",
+            "Wear an {item:12846:Argent Dawn Commission} while killing undead in the Plaguelands, Stratholme and Scholomance.",
             "Turn in Scourgestones at Light's Hope Chapel or Chillwind Camp.",
         },
     },
@@ -128,7 +128,7 @@ local library = {
         steps = RepSteps(609),
         tips = {
             "Do the Silithus quests at Cenarion Hold.",
-            "Turn in Twilight Texts and run Ruins of Ahn'Qiraj for steady reputation.",
+            "Turn in {item:20404:Encrypted Twilight Texts} and run Ruins of Ahn'Qiraj for steady reputation.",
         },
     },
     {
@@ -170,7 +170,7 @@ local library = {
         steps = RepSteps(910),
         tips = {
             "Complete 'The Charge of the Dragonflights' line to obtain your Signet Ring.",
-            "Clear Temple of Ahn'Qiraj; kills and Ancient Qiraji Artifacts raise reputation.",
+            "Clear Temple of Ahn'Qiraj; kills and {item:21230:Ancient Qiraji Artifacts} raise reputation.",
         },
     },
     {
@@ -342,12 +342,14 @@ local library = {
         timeEstimate = "Varies",
         note = "Tanking sword (Warrior and Paladin) forged in Onyxia's breath.",
         steps = {
-            { text = "Loot the Compendium of Dragon Slaying in Dire Maul (rare).", auto = { item = 18401, quest = { 7508, 7509 } } },
+            { text = "Loot Nostro's Compendium of Dragon Slaying in Dire Maul (rare).", auto = { item = 18401, quest = { 7508, 7509 } } },
             { text = "Get the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library.",
               auto = { quest = { 7508, 7509 }, questTaken = { 7508, 7509 }, item = 18489 } },
             { text = "Heat the blade in {raid_ony:Onyxia's} fire breath.", auto = { item = { 18488, 18492, 18348 } } },
-            { text = "Drive the Heated Ancient Blade into Onyxia's corpse before it cools.", auto = { item = { 18492, 18348 } } },
-            { text = "Return the Treated Ancient Blade to receive Quel'Serrar.", auto = { item = 18348 } },
+            { text = "Drive the Heated Ancient Blade into Onyxia's corpse before it cools.", auto = { item = { 18492, 18348 } },
+              links = { { 18488, "Heated Ancient Blade" } } },
+            { text = "Return the Treated Ancient Blade to receive Quel'Serrar.", auto = { item = 18348 },
+              links = { { 18492, "Treated Ancient Blade" } } },
         },
         completeWith = { item = 18348 },
     },
@@ -693,7 +695,7 @@ local library = {
         note = "Find your people: join a guild and wear its colors. Ticks itself.",
         tips = {
             "Guilds recruit in the Guild Recruitment channel in capital cities, and in general chat.",
-            "Guild Tabards are sold by the Guild Master in each capital city once your guild has designed its tabard.",
+            "{item:5976:Guild Tabards} are sold by the Guild Master in each capital city once your guild has designed its tabard.",
         },
         steps = {
             { text = "Join a guild.", auto = { guild = true } },
