@@ -7609,6 +7609,9 @@ local function Suggest(picked)
                 end
                 if nextRaid == "raid_mc" or nextRaid == "raid_bwl" then push(list, Entry(me, "raid_ony", nil, tag)) end
                 push(list, Entry(me, "raid_zg", nil, tag))
+                -- Forever's new raids (Entry skips them on Classic Era)
+                push(list, Entry(me, "raid_barrow", nil, tag))
+                push(list, Entry(me, "raid_hyjal", nil, tag))
                 if after then push(list, Entry(me, after, nil, tag)) end
             elseif it.key == "loot" then
                 local sets = {}

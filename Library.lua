@@ -445,6 +445,41 @@ local library = {
              "Loatheb", "Instructor Razuvious", "Gothik the Harvester", { "Four Horsemen" }, "Patchwerk",
              "Grobbulus", "Gluth", "Thaddius", "Sapphiron", "Kel'Thuzad" }),
     },
+    -- New in WoW Forever (Wowhead's Forever raids guide, 2026-09-13): both
+    -- open December 9, 2026; bosses, entrances, attunements and loot are
+    -- still hidden. One boss each is known from the game's Statistics
+    -- window ("<boss> kills (<raid>)"), so that step ticks from the kill
+    -- statistic or from a kill seen while the addon runs. Add the other
+    -- bosses at the END of the steps as they're revealed (steps are saved
+    -- by position). No `instance` yet: their map IDs are unknown.
+    {
+        id = "raid_hyjal", library = true, forever = "new",
+        icon = { "spell_nature_starfall", "ability_druid_starfall" },
+        name = "Clear Hyjal Summit",
+        short = "Hyjal Summit",
+        category = "Raid", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A new 20-player raid in Mount Hyjal, opening December 9, 2026. More bosses join this guide as they're revealed.",
+        foreverNote = "New in WoW Forever. Its bosses, entrance and loot haven't been revealed yet; this guide grows as they are.",
+        steps = {
+            { text = "Defeat The Wild King in Hyjal Summit.",
+              auto = { boss = "The Wild King", stat = { id = 63580, value = 1, what = "Wild King kills" } } },
+        },
+    },
+    {
+        id = "raid_barrow", library = true, forever = "new",
+        icon = { "spell_nature_sleep", "spell_nature_starfall" },
+        name = "Clear the Barrow Deeps",
+        short = "Barrow Deeps",
+        category = "Raid", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A new 10-player raid where the Night Elves hold dangerous prisoners, with three entrances, one in Mount Hyjal. Opens December 9, 2026.",
+        foreverNote = "New in WoW Forever. Its bosses, entrances and loot haven't been revealed yet; this guide grows as they are.",
+        steps = {
+            { text = "Defeat Sonya Darkhallow in the Barrow Deeps.",
+              auto = { boss = "Sonya Darkhallow", stat = { id = 63581, value = 1, what = "Sonya Darkhallow kills" } } },
+        },
+    },
     -- ---------------- Attunements and keys ----------------
     -- One goal each, so players add only the ones they need. IDs checked
     -- on Wowhead. Attunements are per character; a tick means at least

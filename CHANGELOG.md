@@ -8,6 +8,7 @@
 - Raid goals show when the character you're on is saved this week
 - Optional screenshot when you finish a goal (Settings, off by default)
 - New goal: Duelist, tracked from the Statistics window (WoW Forever)
+- New WoW Forever raids: Hyjal Summit and the Barrow Deeps (more bosses as they're revealed)
 - Bug fixes
 
 ## 2.5.2
