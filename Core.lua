@@ -1406,6 +1406,19 @@ function FGT.ApplyForeverLook(frame, goal)
     return word
 end
 
+-- A part's row (Library part row, goal page group row). A new part in an
+-- older goal (the Skyborne mount) gets the blue look and its NEW tag; every
+-- part of an all-new goal (Forever Raid Sets) gets the blue look without
+-- the tag, since the goal already says NEW (Karl). Returns the tag word.
+function FGT.ApplyPartLook(frame, part, goal)
+    local word = FGT.ApplyForeverLook(frame, part)
+    if not word and FGT.ForeverWord(goal) then
+        frame.foreverNew = true
+        if frame.bar and frame.bar.SetBlue then frame.bar:SetBlue(true) end
+    end
+    return word
+end
+
 -- ============================================================
 -- Icons, loaded straight from the game's own Interface\Icons files
 -- (names from Wowhead). A goal can list fallbacks; the first one the
@@ -3647,7 +3660,7 @@ local function RefreshTierSections(goal)
         local expanded = FGT.SectionIsOpen(goal, si)
         header.arrow:SetText(expanded and "-" or "+")
         -- a part that's new in Forever (the Skyborne mount): blue look + NEW
-        local partNew = FGT.ApplyForeverLook(header, section)
+        local partNew = FGT.ApplyPartLook(header, section, goal)
         header.name:SetText(partNew and (section.name .. "   " .. FGT.NewTag(partNew)) or section.name)
         header.icon:SetIcon(section.icon or goal.icon, C.GOLD2)
         header.expanded = expanded and true or false
@@ -5204,10 +5217,10 @@ local function GetSub(card, index, part)
         card.subs[index] = sub
     end
     sub.goal, sub.key = card.goal, part.key
-    local partNew = FGT.ApplyForeverLook(sub, part)
+    local partNew = FGT.ApplyPartLook(sub, part, card.goal)
     sub.label:SetText(partNew and (part.label .. "   " .. FGT.NewTag(partNew)) or part.label)
     sub:SetEtch(STYLE.panel) -- blue twin when the part is new
-    sub.icon:SetIcon(part.icon or card.goal.icon, partNew and C.FOREVER or C.GOLD2)
+    sub.icon:SetIcon(part.icon or card.goal.icon, sub.foreverNew and C.FOREVER or C.GOLD2)
     StyleSubButton(sub)
     return sub
 end
