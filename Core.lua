@@ -4054,12 +4054,21 @@ do
             local A = math.pi * R / 2
             local segs = { { 1, lw }, { "tr", A }, { 2, lh }, { "br", A }, { 3, lw }, { "bl", A }, { 4, lh }, { "tl", A } }
             local P = 2 * (lw + lh) + 4 * A
+            -- cm.ref: move like another button's comet (same speed and tail
+            -- in pixels), so buttons of different sizes match
+            local lap, Pt = cm.lap or LAP, P
+            local ref = cm.ref
+            if ref and ref:GetWidth() > 0 then
+                local rc = (ref.comet and ref.comet.inset or cm.inset) + T / 2
+                Pt = 2 * (ref:GetWidth() - 2 * rc - 2 * R + ref:GetHeight() - 2 * rc - 2 * R) + 4 * A
+                lap = (ref.comet and ref.comet.lap or LAP) * P / Pt
+            end
             -- gentle ease: a little slower at the start of a lap, quicker
             -- through the middle, never below half speed (no "stuck" look)
-            local x = (cm.t / (cm.lap or LAP)) % 1
+            local x = (cm.t / lap) % 1
             x = x - 0.5 * math.sin(2 * math.pi * x) / (2 * math.pi)
             local peak = x * P
-            local tail, head = P * 0.22, P * 0.08
+            local tail, head = Pt * 0.22, Pt * 0.08
             local function Alpha(pos)
                 local u = (pos - peak) % P
                 if u > P / 2 then u = u - P end
@@ -4241,6 +4250,7 @@ function FGT.FindMoreButton()
         if FGT.OpenWelcome then FGT.OpenWelcome(nil, true) end
     end)
     FGT.AddBorderComet(b, 2, 0.9) -- same comet as "Help me get started"
+    b.comet.ref = FGT.emptyUI.help -- and the same speed, though this button is wider
     FGT.findMore = b
     return b
 end
