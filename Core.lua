@@ -1231,9 +1231,13 @@ do
         local phase = (GetTime() % PERIOD) / SWEEP
         for _, fs in ipairs(list) do
             local base = fs.fgtBase
-            if type(base) == "string" and fs:IsVisible() and base:find("|Hfgtgoal:", 1, true) then
+            -- never redraw under the cursor while it's on a link: a redraw
+            -- rebuilds the link's hover area and the game thinks you left it
+            -- (tooltip flicker). Hovering the rest of the text keeps shining.
+            local onLink = FGT.overLink and fs:IsMouseOver()
+            if type(base) == "string" and not onLink and fs:IsVisible() and base:find("|Hfgtgoal:", 1, true) then
                 local want = base
-                if on and phase <= 1 and not fs:IsMouseOver() then want = Shine(base, phase) end
+                if on and phase <= 1 then want = Shine(base, phase) end
                 if want ~= fs.fgtShown then
                     fs.fgtShown = want
                     fs.fgtSet(fs, want)
