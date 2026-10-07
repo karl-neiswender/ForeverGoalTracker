@@ -92,6 +92,29 @@ if ok_all:
             'W.picked = { raid = true, loot = true, grind = true, pvp = true, collect = true }; W.Show(3); '
             'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" }) .. "  [" .. e.why .. (e.tracked and ", on My Goals" or "") .. "]") end; '
             'W.AddChosen()'),
+        # Find your next goal: saved interests, goals already tracked left out.
+        ("find your next goal", None,
+            'STUB_PRINTS = {}; local W = STUB_NS.welcome; STUB_NS.FindMoreButton(); '
+            'ForeverGoalTrackerDB.interests = { raid = true, loot = true }; STUB_NS.OpenWelcome(nil, true); '
+            'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" }) .. (e.tracked and "  [TRACKED: wrong]" or "")) end; '
+            'STUB_NS.CloseWelcome(true)'),
+        # Change target on the gold goal, then back to the default.
+        ("change target", None,
+            'STUB_PRINTS = {}; local g = STUB_NS.GoalById("gold_5k"); ForeverGoalTrackerDB.active.gold_5k = true; '
+            'STUB_NS.OpenTargetCard(g); STUB_NS.CloseTargetCard(); STUB_NS.SetTarget(g, 10000); '
+            'for _, s in ipairs(g.steps) do print("  " .. s.text .. " (" .. s.auto.money / 10000 .. "g)") end; '
+            'STUB_NS.SetTarget(g, nil); print("  back to: " .. g.name)'),
+        # Social goals tick from guild and friends; the lockout preview.
+        ("social goals and lockout", None,
+            'STUB_PRINTS = {}; local D = ForeverGoalTrackerDB; D.active.social_guild = true; D.active.social_friends = true; '
+            'D.active.raid_mc = true; STUB_FIRE("FRIENDLIST_UPDATE"); '
+            'STUB_NS.SelectGoal("raid_mc"); SlashCmdList["FOREVERGOALTRACKER"]("testlockout"); '
+            'SlashCmdList["FOREVERGOALTRACKER"]("testlockout")'),
+        # The demo scenes, then everything back.
+        ("demo scenes", None,
+            'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '
+            'print("  demo gold name: " .. STUB_NS.GoalById("gold_5k").name); '
+            'SlashCmdList["FOREVERGOALTRACKER"]("demo off"); print("  after off: " .. STUB_NS.GoalById("gold_5k").name)'),
     ]
     saved = None
     for label, before, after in steps:
