@@ -1173,7 +1173,7 @@ end
 do
     local list = {}
     local GOLD, HI = { 1, 0.843, 0.369 }, { 1, 0.97, 0.86 }
-    local PERIOD, SWEEP, BAND = 4.5, 2.4, 4 -- seconds per cycle, seconds of sweep, half-width in letters
+    local PERIOD, SWEEP, BAND = 4, 1.1, 2.5 -- seconds per cycle, seconds of sweep, half-width in letters
 
     local function Hex(k)
         return string.format("%02x%02x%02x",
@@ -1185,14 +1185,21 @@ do
         local chars = {}
         for c in label:gmatch("[%z\1-\127\194-\244][\128-\191]*") do chars[#chars + 1] = c end
         local pos = phase * (#chars + 2 * BAND) - BAND
+        -- each run of one color is closed with |r: the game keeps a stack
+        -- of colors, and unclosed runs let the gold spill past the link
         local out, last = {}, nil
         for i, c in ipairs(chars) do
             local d = math.abs(i - pos)
             local k = d < BAND and (math.cos(d / BAND * math.pi) + 1) / 2 * 0.9 or 0
             local hex = Hex(math.floor(k * 10 + 0.5) / 10) -- steps, so runs share a color
-            if hex ~= last then out[#out + 1] = "|cff" .. hex; last = hex end
+            if hex ~= last then
+                if last then out[#out + 1] = "|r" end
+                out[#out + 1] = "|cff" .. hex
+                last = hex
+            end
             out[#out + 1] = c
         end
+        if last then out[#out + 1] = "|r" end
         return table.concat(out)
     end
     local function Shine(base, phase)
@@ -5368,8 +5375,19 @@ function FGT.OpenLinkCard(id)
         Etch(L.btn, STYLE.button, 10)
         L.btn.text = NewFontString(L.btn, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
         L.btn.text:SetPoint("CENTER")
-        L.btn:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
-        L.btn:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
+        -- gold like "Find your next goal" while it adds; plain for Open goal
+        function L.btn:Style(hover)
+            if self.gold then
+                self:SetEtch(STYLE.rowSel)
+                local c = hover and { 1, 1, 1 } or C.TITLE
+                self.text:SetTextColor(c[1], c[2], c[3])
+            else
+                self:SetEtch(hover and STYLE.btnHover or STYLE.button)
+                self.text:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            end
+        end
+        L.btn:SetScript("OnEnter", function(self) self:Style(true) end)
+        L.btn:SetScript("OnLeave", function(self) self:Style(false) end)
         L.btn:SetScript("OnClick", function()
             local g = L.goal
             if IsActive(g) then
@@ -5388,8 +5406,7 @@ function FGT.OpenLinkCard(id)
         -- a slow shine around the card, and the "Help me get started" gold
         -- comet on Add while the goal isn't on your list (Karl)
         FGT.AddBorderComet(L, 2, 0.4, 9)
-        FGT.AddBorderComet(L.btn, 2, 0.9)
-        L.btn.comet.ref = FGT.emptyUI and FGT.emptyUI.help
+        FGT.AddBorderComet(L.btn, 2, 0.9, 6) -- its own slow lap: copying the big button's speed raced on this small one
         -- new frames start shown: hide them so the first open is placed
         -- at the cursor below (it took three clicks to open before)
         L:Hide()
@@ -5410,6 +5427,8 @@ function FGT.OpenLinkCard(id)
     L.btn.text:SetText(active and "Open goal" or "+ Add to My Goals")
     L.btn.comet.on = not active
     L.btn.comet.vis = active and 0 or 1 -- no fade on open
+    L.btn.gold = not active
+    L.btn:Style(L.btn:IsMouseOver())
     L.btn:ClearAllPoints()
     L.btn:SetPoint("TOPLEFT", L.note, "BOTTOMLEFT", 0, -12)
     L:SetHeight(12 + math.max(36, 16 + L.name:GetStringHeight()) + 10 + L.note:GetStringHeight() + 12 + 24 + 12)
