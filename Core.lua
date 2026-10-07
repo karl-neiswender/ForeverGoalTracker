@@ -7874,6 +7874,78 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         print(TAG .. (on and ("previewing a lockout for " .. inst[2] .. ".") or "lockout preview off."))
         return
     end
+    if msg == "addall" then
+        -- Testing: every goal this client can show (both factions), with
+        -- every part of group goals.
+        local DB = ForeverGoalTrackerDB
+        local n, first = 0, nil
+        for _, g in ipairs(FGT.goals) do
+            local ok = not (g.forever == "new" and not FGT.isForever)
+                and not (g.needs == "stats" and not FGT.HasStats())
+                and not (g.needs == "forever" and not FGT.isForever)
+            if ok and not IsActive(g) then
+                if g.group then
+                    local sel = DB.activeParts[g.id] or {}
+                    DB.activeParts[g.id] = sel
+                    for _, part in ipairs(FGT.GroupParts(g)) do sel[part.key] = true end
+                else
+                    DB.active[g.id] = true
+                end
+                n = n + 1
+                first = first or g.id
+            end
+        end
+        FGT.ShowTab("tracker")
+        FGT.SelectGoal(selectedId or first)
+        FGT.RefreshOverall()
+        if FGT.LayoutLibrary then FGT.LayoutLibrary() end
+        print(TAG .. string.format("added %d goal%s to My Goals.", n, n == 1 and "" or "s"))
+        return
+    end
+    if msg == "resetall" or msg == "resetall undo" then
+        -- Testing: clears the ticks of every goal on My Goals. Run twice
+        -- within 10 seconds to confirm; "/goals resetall undo" brings the
+        -- ticks back (until /reload).
+        local DB = ForeverGoalTrackerDB
+        if msg == "resetall undo" then
+            local b = FGT.resetAllBackup
+            if not b then print(TAG .. "nothing to undo.") return end
+            DB.progress, DB.goalsDone, DB.goalDates = b.progress, b.done, b.dates
+            FGT.resetAllBackup = nil
+            FGT.quietCelebrate = true
+            if selectedId then SelectGoal(selectedId, true) end
+            FGT.quietCelebrate = nil
+            FGT.RefreshOverall()
+            if FGT.LayoutLibrary then FGT.LayoutLibrary() end
+            print(TAG .. "progress restored.")
+            return
+        end
+        if not (FGT.resetAllAsked and GetTime() - FGT.resetAllAsked < 10) then
+            FGT.resetAllAsked = GetTime()
+            print(TAG .. "this clears the ticks on every goal on My Goals. Type |cffffffff/goals resetall|r again within 10 seconds to confirm.")
+            return
+        end
+        FGT.resetAllAsked = nil
+        local function Copy(t)
+            local out = {}
+            for k, v in pairs(t or {}) do out[k] = type(v) == "table" and Copy(v) or v end
+            return out
+        end
+        FGT.resetAllBackup = { progress = Copy(DB.progress), done = Copy(DB.goalsDone), dates = Copy(DB.goalDates) }
+        local n = 0
+        for _, g in ipairs(ActiveGoals()) do
+            DB.progress[g.id] = {}
+            if DB.goalsDone then DB.goalsDone[g.id] = nil end
+            if DB.goalDates then DB.goalDates[g.id] = nil end
+            n = n + 1
+        end
+        FGT.resetUndo = nil
+        if selectedId then SelectGoal(selectedId, true) end
+        FGT.RefreshOverall()
+        if FGT.LayoutLibrary then FGT.LayoutLibrary() end
+        print(TAG .. string.format("reset %d goal%s. Steps the game can check will tick again on the next scan. Undo with |cffffffff/goals resetall undo|r.", n, n == 1 and "" or "s"))
+        return
+    end
     if msg == "testnew" then
         -- Preview: shows the open goal as "new in Forever" until /reload.
         if not selectedId then

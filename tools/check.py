@@ -164,6 +164,13 @@ if ok_all:
             'local ram = STUB_NS.GoalById("epicmounts").sections[2].pieces[5]; row3.text:SetText(ram.name); STUB_NS.stepQuality = 4; '
             'STUB_NS.SetStepLinks(row3, ram.auto, ram); print("  ram: " .. row3.text:GetText()); '
             'STUB_NS.ShowVariantsTip({}, 18786, ram.auto); STUB_NS.OpenVariantsWowhead(18786); print("  " .. STUB_NS.wowheadCard.url)'),
+        # Test commands: add every goal, then reset all (asks first) and undo.
+        ("add all and reset all", None,
+            'STUB_PRINTS = {}; local S = SlashCmdList["FOREVERGOALTRACKER"]; S("addall"); '
+            'print("  active: " .. #STUB_NS.ActiveGoals()); '
+            'ForeverGoalTrackerDB.progress.gold_5k = { [1] = true }; S("resetall"); S("resetall"); '
+            'print("  gold ticks after reset: " .. tostring(ForeverGoalTrackerDB.progress.gold_5k[1])); '
+            'S("resetall undo"); print("  gold ticks after undo: " .. tostring(ForeverGoalTrackerDB.progress.gold_5k[1]))'),
         # The demo scenes, then everything back.
         ("demo scenes", None,
             'STUB_PRINTS = {}; for i = 1, 7 do SlashCmdList["FOREVERGOALTRACKER"]("demo " .. i) end; '
