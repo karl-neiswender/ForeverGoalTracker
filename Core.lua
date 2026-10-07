@@ -1261,6 +1261,9 @@ local STYLE = {
     fRow     = { top = { 0.060, 0.110, 0.180 }, bottom = { 0.020, 0.036, 0.062 }, edge = { 0.09, 0.36, 0.55, 1 } },
     fHover   = { top = { 0.085, 0.160, 0.260 }, bottom = { 0.030, 0.058, 0.095 }, edge = { 0.25, 0.55, 1.00, 1 } },
     fSel     = { top = { 0.070, 0.240, 0.460 }, bottom = { 0.015, 0.075, 0.170 }, edge = { 0.55, 0.78, 1.00, 1 } },
+    -- an open group row on a Forever goal: darker than fSel, so it reads as
+    -- open without outshining the title (Karl)
+    fOpen    = { top = { 0.045, 0.135, 0.260 }, bottom = { 0.012, 0.042, 0.095 }, edge = { 0.40, 0.66, 1.00, 1 } },
 }
 -- Which blue twin replaces each gold state.
 STYLE.foreverTwin = { [STYLE.row] = STYLE.fRow, [STYLE.rowHover] = STYLE.fHover, [STYLE.rowSel] = STYLE.fSel,
@@ -1311,7 +1314,7 @@ local function Etch(frame, style, edgeSize)
 
     function frame:SetEtch(st)
         -- Things new in Forever wear blue instead of gold in every state.
-        if self.foreverNew then st = STYLE.foreverTwin[st] or st end
+        if self.foreverNew then st = (self.twin and self.twin[st]) or STYLE.foreverTwin[st] or st end
         ApplyVGradient(self.etchBg, st.top, st.bottom)
         self:SetBackdropBorderColor(st.edge[1], st.edge[2], st.edge[3], st.edge[4] or 1)
     end
@@ -3385,7 +3388,7 @@ local function GetStepRow(index)
         self.icon:SetPoint("TOPLEFT", self.box, "TOPRIGHT", 8, 2)
         self.text:ClearAllPoints()
         if spec then
-            self.icon:SetIcon(spec, C.GOLD2)
+            self.icon:SetIcon(spec, FGT.stepRim or C.GOLD2)
             self.icon:Show()
             self.num:Hide()
             self.text:SetPoint("LEFT", self.icon, "RIGHT", 8, 0)
@@ -3469,6 +3472,7 @@ local function GetHeaderRow(index)
     if row then return row end
 
     row = CreateFrame("Button", nil, stepsContainer, "BackdropTemplate")
+    row.twin = { [STYLE.rowSel] = STYLE.fOpen } -- softer blue when open (Forever goals)
     row:SetPoint("LEFT", stepsContainer, "LEFT", 0, 0)
     row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
     row:SetHeight(30)
@@ -3662,7 +3666,7 @@ local function RefreshTierSections(goal)
         -- a part that's new in Forever (the Skyborne mount): blue look + NEW
         local partNew = FGT.ApplyPartLook(header, section, goal)
         header.name:SetText(partNew and (section.name .. "   " .. FGT.NewTag(partNew)) or section.name)
-        header.icon:SetIcon(section.icon or goal.icon, C.GOLD2)
+        header.icon:SetIcon(section.icon or goal.icon, header.foreverNew and C.FOREVER or C.GOLD2)
         header.expanded = expanded and true or false
 
         local sd, st = SectionProgress(goal, si, section)
@@ -3803,6 +3807,8 @@ local function RefreshTierSections(goal)
 end
 
 RefreshSteps = function(goal)
+    -- icon frames on this goal's steps: blue on Forever-new goals
+    FGT.stepRim = FGT.ForeverWord(goal) and C.FOREVER or C.GOLD2
     if goal.sections then
         RefreshTierSections(goal)
         return

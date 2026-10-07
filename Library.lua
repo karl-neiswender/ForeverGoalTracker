@@ -460,7 +460,7 @@ local library = {
         category = "Raid", difficulty = "Hard",
         timeEstimate = "Varies",
         note = "A new 20-player raid in Mount Hyjal, opening December 9, 2026. More bosses join this guide as they're revealed.",
-        foreverNote = "New in WoW Forever. Its bosses, entrance and loot haven't been revealed yet; this guide grows as they are.",
+        foreverNote = "Its bosses, entrance and loot haven't been revealed yet; this guide grows as they are.",
         steps = {
             { text = "Defeat The Wild King in Hyjal Summit.",
               auto = { boss = "The Wild King", stat = { id = 63580, value = 1, what = "Wild King kills" } } },
@@ -474,7 +474,7 @@ local library = {
         category = "Raid", difficulty = "Hard",
         timeEstimate = "Varies",
         note = "A new 10-player raid where the Night Elves hold dangerous prisoners, with three entrances, one in Mount Hyjal. Opens December 9, 2026.",
-        foreverNote = "New in WoW Forever. Its bosses, entrances and loot haven't been revealed yet; this guide grows as they are.",
+        foreverNote = "Its bosses, entrances and loot haven't been revealed yet; this guide grows as they are.",
         steps = {
             { text = "Defeat Sonya Darkhallow in the Barrow Deeps.",
               auto = { boss = "Sonya Darkhallow", stat = { id = 63581, value = 1, what = "Sonya Darkhallow kills" } } },
@@ -1022,7 +1022,7 @@ local sets = {
         category = "Item Set", difficulty = "Hard",
         timeEstimate = "1-2 Months",
         note = "The new class sets from WoW Forever's first new raids, Hyjal Summit and the Barrow Deeps, which open December 9, 2026. Pick the sets you want in the Library; each piece ticks itself when you own it.",
-        foreverNote = "New in WoW Forever. Which boss drops each piece isn't revealed yet; sources are added as they are.",
+        foreverNote = "Which boss drops each piece isn't revealed yet; sources are added as they are.",
         sections = ForeverSections(FOREVER_RAID),
     },
 }
