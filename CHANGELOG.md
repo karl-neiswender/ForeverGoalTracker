@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.5.2
 
 - Smaller download: removed an old image the addon no longer uses, and the empty-tracker panel is stored more compactly (same look).
 
