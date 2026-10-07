@@ -1153,13 +1153,16 @@ function FGT.GoalById(id)
     return FGT.goalIndex[id]
 end
 
+FGT.GOAL_HEX = "ffbe4a"           -- goal links: amber, a step from orange (Karl)
+FGT.GOAL_RGB = { 1, 0.745, 0.29 }
+
 function FGT.LinkText(s)
     s = (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
         local alias = FGT.LINK_ALIAS[id]
         if alias then id = alias() end
         if not FGT.GoalById(id) then return label end
         -- amber (Karl): apart from the bright yellow of quest links
-        return "|cffffb340|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
+        return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. label .. "|h|r"
     end))
     -- then quest names, then NPC names (below)
     if FGT.LinkQuests then s = FGT.LinkQuests(s) end
@@ -1178,7 +1181,7 @@ end
 -- ============================================================
 do
     local list = {}
-    local GOLD, HI = { 1, 0.702, 0.251 }, { 1, 0.93, 0.74 } -- amber (ffb340) to warm white
+    local GOLD, HI = FGT.GOAL_RGB, { 1, 0.98, 0.9 } -- amber to near white
     local PERIOD, SWEEP, BAND = 4, 1.1, 2.5 -- seconds per cycle, seconds of sweep, half-width in letters
 
     local function Hex(k)
@@ -1196,7 +1199,7 @@ do
         local out, last = {}, nil
         for i, c in ipairs(chars) do
             local d = math.abs(i - pos)
-            local k = d < BAND and (math.cos(d / BAND * math.pi) + 1) / 2 * 0.9 or 0
+            local k = d < BAND and (math.cos(d / BAND * math.pi) + 1) / 2 or 0
             local hex = Hex(math.floor(k * 10 + 0.5) / 10) -- steps, so runs share a color
             if hex ~= last then
                 if last then out[#out + 1] = "|r" end
@@ -1209,8 +1212,8 @@ do
         return table.concat(out)
     end
     local function Shine(base, phase)
-        return (base:gsub("|cffffb340|Hfgtgoal:([^|]+)|h(.-)|h|r", function(id, label)
-            return "|cffffb340|Hfgtgoal:" .. id .. "|h" .. ShineLabel(label, phase) .. "|h|r"
+        return (base:gsub("|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:([^|]+)|h(.-)|h|r", function(id, label)
+            return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. ShineLabel(label, phase) .. "|h|r"
         end))
     end
 
@@ -1235,6 +1238,20 @@ do
         acc = 0
         local on = FGT.Setting("celebrations") ~= "off"
         local phase = (GetTime() % PERIOD) / SWEEP
+        -- a goal link's tooltip title shines along with the links
+        local tip = FGT.tipShine
+        if tip then
+            local title = _G.GameTooltipTextLeft1
+            if not (GameTooltip:IsShown() and GameTooltip:IsOwned(tip.owner)) or not title then
+                FGT.tipShine = nil
+            else
+                local want = (on and phase <= 1) and ShineLabel(tip.name, phase) or tip.name
+                if want ~= tip.shown then
+                    tip.shown = want
+                    title:SetText(want)
+                end
+            end
+        end
         for _, fs in ipairs(list) do
             local base = fs.fgtBase
             -- never redraw under the cursor while it's on a link: a redraw
@@ -1547,10 +1564,12 @@ function FGT.EnableGoalLinks(f)
         if not goal then return end
         FGT.overLink = id
         GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-        GameTooltip:AddLine(goal.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        local A = FGT.GOAL_RGB -- amber, like the link, and it shines too
+        GameTooltip:AddLine(goal.name, A[1], A[2], A[3])
         GameTooltip:AddLine(IsActive(goal) and "On your tracker. Click to open it." or "Click to track this goal.",
             C.INK2[1], C.INK2[2], C.INK2[3])
         GameTooltip:Show()
+        FGT.tipShine = { owner = self, name = goal.name }
     end)
     f:SetScript("OnHyperlinkLeave", function(self)
         FGT.overLink = nil
