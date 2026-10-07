@@ -1162,7 +1162,7 @@ FGT.GOAL_RGB = { 1, 0.745, 0.29 }
 do
     -- center: where the bright gold sits, 0 = first letter, 1 = last
     -- (default the middle); it glides left and right (the ticker below)
-    local EDGE, MID, W = { 1, 0.70, 0.25 }, { 1, 0.85, 0.46 }, 0.55
+    local EDGE, MID, W = { 1, 0.70, 0.25 }, { 1, 0.85, 0.46 }, 0.8 -- W: how far the glow blooms
     function FGT.GoldGradient(label, center)
         center = center or 0.5
         local chars = {}
@@ -1246,7 +1246,7 @@ do
     end
     -- the scanning gradient: the bright gold glides from one end of the
     -- link to the other and back, easing at each end (Karl)
-    local SCAN = 7 -- seconds for a full left-right-left loop
+    local SCAN = 8.5 -- seconds for a full left-right-left loop
     local function Scan(base, center)
         return (base:gsub("|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:([^|]+)|h(.-)|h|r", function(id, label)
             return "|cff" .. FGT.GOAL_HEX .. "|Hfgtgoal:" .. id .. "|h" .. FGT.GoldGradient(label, center) .. "|h|r"
