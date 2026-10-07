@@ -1525,6 +1525,7 @@ local function NewIcon(parent, size)
             self:Hide()
         end
         local c = rim or C.GOLD2
+        self.rim = c -- (StyleCheckRow greys it on finished steps)
         self:SetBackdropBorderColor(c[1], c[2], c[3], 1)
     end
     return f
@@ -3607,6 +3608,8 @@ local function StyleCheckRow(row, done)
     if row.icon and row.icon.tex then
         row.icon.tex:SetDesaturated(done and true or false)
         row.icon:SetAlpha(done and 0.5 or 1)
+        local c = done and { 0.42, 0.42, 0.42 } or row.icon.rim or C.GOLD2
+        row.icon:SetBackdropBorderColor(c[1], c[2], c[3], 1)
     end
 end
 
