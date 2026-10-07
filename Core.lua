@@ -5999,35 +5999,68 @@ end
 -- ------------------------------------------------------------
 -- Opening and closing. The gear sits left of the close button.
 -- ------------------------------------------------------------
-local gear = CreateFrame("Button", nil, titleBar, "BackdropTemplate")
-gear:SetSize(22, 22)
-gear:SetPoint("RIGHT", closeBtn, "LEFT", -6, 0)
-Etch(gear, STYLE.button, 10)
--- Media/gear: a white gear shape, tinted gold (brighter on hover and
--- while Settings is open).
-gear.icon = gear:CreateTexture(nil, "ARTWORK")
-gear.icon:SetSize(15, 15)
-gear.icon:SetPoint("CENTER", 0, 0)
-gear.icon:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\gear")
+-- Forever: the game's own settings gear, the one its damage meter uses
+-- (Karl), a whole button drawn by the game in each state. Classic Era
+-- doesn't have those images, so it keeps our etched button with
+-- Media/gear (a white gear shape, tinted gold).
+FGT.GEAR_ATLAS = {
+    normal = "common-dropdown-a-button-settings-shadowless",
+    hover = "common-dropdown-a-button-settings-hover-shadowless",
+    pressed = "common-dropdown-a-button-settings-pressed-shadowless",
+    hoverPressed = "common-dropdown-a-button-settings-pressedhover-shadowless",
+    open = "common-dropdown-a-button-settings-open-shadowless",
+}
+local gear
+do
+    local info = C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(FGT.GEAR_ATLAS.normal)
+    if info then
+        gear = CreateFrame("Button", nil, titleBar)
+        gear.atlas = true
+        gear:SetSize(math.min(26, info.width or 22), math.min(26, info.height or 22))
+        gear.icon = gear:CreateTexture(nil, "ARTWORK")
+        gear.icon:SetAllPoints(gear)
+        gear.SetEtch = function() end -- no etched box around the game's own button
+    else
+        gear = CreateFrame("Button", nil, titleBar, "BackdropTemplate")
+        gear:SetSize(22, 22)
+        Etch(gear, STYLE.button, 10)
+        gear.icon = gear:CreateTexture(nil, "ARTWORK")
+        gear.icon:SetSize(15, 15)
+        gear.icon:SetPoint("CENTER", 0, 0)
+        gear.icon:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\gear")
+    end
+    gear:SetPoint("RIGHT", closeBtn, "LEFT", -6, 0)
+end
 
+-- Shows the gear's state: open while Settings is showing, plus hover and
+-- pressed. The game's button has an image per state; ours re-tints.
 function FGT.UpdateGear()
     local open = panel:IsShown()
-    gear:SetEtch(open and STYLE.rowSel or STYLE.button)
-    local c = open and C.ACCENT or C.GOLD2
+    local over, down = gear:IsMouseOver(), gear.down
+    if gear.atlas then
+        local A = FGT.GEAR_ATLAS
+        gear.icon:SetAtlas((down and over and A.hoverPressed) or (down and A.pressed)
+            or (over and A.hover) or (open and A.open) or A.normal)
+        return
+    end
+    gear:SetEtch(over and STYLE.btnHover or (open and STYLE.rowSel or STYLE.button))
+    local c = over and { 1, 0.9, 0.45 } or (open and C.ACCENT or C.GOLD2)
     gear.icon:SetVertexColor(c[1], c[2], c[3])
 end
 FGT.UpdateGear()
 gear:SetScript("OnEnter", function(self)
-    self:SetEtch(STYLE.btnHover)
-    self.icon:SetVertexColor(1, 0.9, 0.45)
+    FGT.UpdateGear()
     GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
     GameTooltip:AddLine("Settings")
     GameTooltip:Show()
 end)
 gear:SetScript("OnLeave", function()
+    gear.down = nil
     FGT.UpdateGear()
     GameTooltip:Hide()
 end)
+gear:SetScript("OnMouseDown", function() gear.down = true; FGT.UpdateGear() end)
+gear:SetScript("OnMouseUp", function() gear.down = nil; FGT.UpdateGear() end)
 gear:SetScript("OnClick", function()
     if panel:IsShown() then FGT.LeaveSettings() else FGT.OpenSettings() end
 end)

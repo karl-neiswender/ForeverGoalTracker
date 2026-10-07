@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- UI improvements
+
 ## 2.6.1
 
 - Fixed a crash when logging out or exiting WoW Forever
