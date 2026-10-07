@@ -52,11 +52,12 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
     if home then
         local side, repId, repName, races = home[1], home[2], home[3], home[4]
         return {
-            { name = "Level a " .. side .. " character to level 60", materials = {},
+            { name = "Level a " .. side .. " character to level 60", materials = {}, shared = "level60",
               auto = { level = 60, forFaction = side } },
             { name = "Reach Exalted with " .. repName .. " (optional for " .. races .. ")", materials = {},
-              auto = { rep = { faction = repId, standing = 8 }, race = raceFile, forFaction = side } },
-            { name = "Train " .. (FOREVER_CLIENT and "Journeyman" or "Expert") .. " Riding from your riding trainer", materials = {},
+              auto = { rep = { faction = repId, standing = 8 }, forFaction = side },
+              skipIfRace = raceFile }, -- hidden while you play that race (FGT.PieceSkipped)
+            { name = "Train " .. (FOREVER_CLIENT and "Journeyman" or "Expert") .. " Riding from your riding trainer", materials = {}, shared = "riding",
               auto = { skill = { name = "Riding", rank = 150 }, forFaction = side } },
             { name = "Save about " .. gold[1] .. " gold on that character", materials = {},
               auto = { money = gold[2] * 10000, forFaction = side } },
@@ -69,7 +70,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
           auto = { raceLevel = { race = raceFile, level = 60 } } },
         -- Warcraft Forever renamed the skill: Journeyman Riding is what
         -- teaches swift mounts there. Same skill rank, 150.
-        { name = "Train " .. (FOREVER_CLIENT and "Journeyman" or "Expert") .. " Riding from your riding trainer", materials = {},
+        { name = "Train " .. (FOREVER_CLIENT and "Journeyman" or "Expert") .. " Riding from your riding trainer", materials = {}, shared = "riding",
           auto = { skill = { name = "Riding", rank = 150 }, forRace = raceFile } },
         { name = "Save about " .. gold[1] .. " gold on that character", materials = {},
           auto = { money = gold[2] * 10000, forRace = raceFile } },
@@ -467,8 +468,8 @@ FGT.goals = {
             },
             {
                 icon = "ability_mount_whitetiger",
-                name = "Night Elf - Swift Stormsaber",
-                pieces = BuildMountTasks("Night Elf", "Reins of the Swift Stormsaber", "Lelanai", "Cenarion Enclave, Darnassus", "NightElf", { "Swift Frostsaber", "Swift Mistsaber", "Swift Stormsaber" }, nil, { "Alliance", 69, "Darnassus", "Night Elves" }),
+                name = "Night Elf - Swift Saber",
+                pieces = BuildMountTasks("Night Elf", "Swift Saber", "Lelanai", "Cenarion Enclave, Darnassus", "NightElf", { "Swift Frostsaber", "Swift Mistsaber", "Swift Stormsaber" }, nil, { "Alliance", 69, "Darnassus", "Night Elves" }),
             },
             {
                 icon = "ability_mount_mechastrider",

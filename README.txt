@@ -19,6 +19,7 @@ SLASH COMMANDS
 --------------
   /goals             Open or close the window (also /fgt, /forevergoals)
   /goals settings    Open the Settings page
+  /goals welcome     Get goal suggestions picked for your character
   /goals reset       Reset the window size and position
   /goals testbanner  Preview the goal-complete banner
 

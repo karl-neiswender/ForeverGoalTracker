@@ -54,6 +54,7 @@ def session(saved, before_events=None, after_login=None):
     rt.execute(SERIALIZE)
     run = rt.eval('function(src, name, ns) local f = assert(loadstring(src, "@" .. name)); f("ForeverGoalTracker", ns) end')
     ns = rt.eval("{}")
+    rt.globals().STUB_NS = ns
     for f in FILES:
         run(open(f).read(), f, ns)
     if saved:
@@ -85,6 +86,12 @@ if ok_all:
             'local p = ForeverGoalTrackerDB.progress.atiesh; for i = 1, 10 do p[i] = true end; '
             'STUB_PRINTS = {}; STUB_FIRE("BAG_UPDATE_DELAYED")'),
         ("/goals testbanner", None, 'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("testbanner")'),
+        # Welcome wizard: every step, then the suggestions for some interests.
+        ("welcome wizard", None,
+            'STUB_PRINTS = {}; local W = STUB_NS.welcome; STUB_NS.OpenWelcome(1); W.Show(2); '
+            'W.picked = { raid = true, loot = true, grind = true, pvp = true, collect = true }; W.Show(3); '
+            'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" }) .. "  [" .. e.why .. (e.tracked and ", on My Goals" or "") .. "]") end; '
+            'W.AddChosen()'),
     ]
     saved = None
     for label, before, after in steps:

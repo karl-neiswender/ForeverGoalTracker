@@ -161,13 +161,20 @@ Goal data (quest IDs, item IDs, drop sources, icons, chain starts) is verified o
 
 ## Current state (2026-10-06)
 
-**Start here next session** (end of 2026-10-06):
-- Live on CurseForge: **v2.4.0**. On `main` but unreleased (changelog "Unreleased"): Library finished look, greyed-out sound settings, racial mounts open to any race of the faction. Likely ships with the wizard as 2.5.0.
-- **Next build (Karl chose, 2026-10-06): the welcome wizard / starter picks.** The full plan is in the ideas below ("starter picks" and its sub-bullets: five interests, smart suggestions, no attunements, meet players where they are, "Complete ..." with progress, shown once to everyone, copy). Read it all before building; open choices are listed there.
+**Start here next session** (2026-10-06, Mac session):
+- Live on CurseForge: **v2.4.0**. On `main` but unreleased (changelog "Unreleased"): Library finished look, greyed-out sound settings, racial mounts open to any race of the faction, folder-style tabs, the welcome wizard, Exalted/shared-step fixes for racial mounts. Likely ships as 2.5.0.
+- **Welcome wizard: built and tested in game (Mac).** Code: the last `do` block of Core.lua (`FGT.welcome`, `FGT.OpenWelcome(step)`, `FGT.CloseWelcome`). Decided while testing (Karl, 2026-10-06), on top of the plan in the ideas below:
+  - Step 1 cards: "I'll pick my own" (to the Library) / "Help me get started"; with goals already tracked: "Keep my goals" / "Help me find more". Step 2 title "What interests you?", no checkmark on picked tiles (gold is enough), no limit on picks, always starts with nothing picked (DB.interests is saved but never restored). Step 3 has no "Browse the Goal Library" button (it stranded Karl outside the wizard).
+  - Always offered: leveling the character's class to 60 when no character on the roster is 60; the race's epic mount part (Warlock: Dreadsteed, Paladin: Charger instead; Skyborne: Galestrider, blue). Then up to 6 new goals, interests taking turns (`MAX_PICKS`). Goals already tracked are listed dimmed as "On My Goals" (up to 4, `MAX_TRACKED`), not hidden: hiding them confused Karl ("why no Rhok'delar?").
+  - No progress bars or "Complete ..." titles on suggestions (Karl: confusing with an empty tracker); started goals are still ranked first. No "First step" line. No AQ20 under Raiding. Hunters get only Rhok'delar and Lok'delar (weapon table `WEAPONS`, Karl to review the rest). Legendaries replace the raid their guide runs through (`COVERS`).
+  - Off in demo mode (prints a hint): demo data carries staged ticks and favorites, which made added goals look pre-ticked and favorited.
+  - Opened from: first window open (everyone once, `DB.welcomeSeen`), `/goals welcome`, Settings > Goal suggestions (step 2), "Help me get started" on the empty tracker (step 2).
+  - Not built yet: tile pop / fade-in animations, a Library chip to reopen it, store page screenshot and description line.
+- Racial mounts (2026-10-06): the Exalted step has `skipIfRace` and is hidden (and uncounted, via `FGT.PieceSkipped` in `FGT.PieceProgress`) while the logged-in character is that race; it ticks only at real Exalted (the old `race =` clause ticked it for any account with that race; one-time cleanup `exaltedRaceFix` clears ticks whose autoLog says "race ..."). Pieces with the same `shared` tag (level60, riding) tick together when ticked by hand (`ToggleStep`). Night Elf part renamed "Swift Saber". Open: the Winterspring Frostsaber's Darnassus step still has the old `race = "NightElf"` rule; Karl hasn't decided whether to change it.
 - Before release: check on Wowhead Classic whether vanilla barred some races from other races' epic mounts (e.g. Tauren); adjust Epic Racial Mounts if so.
 - Karl's to-do on CurseForge: delete the four old 2.3 gallery images (un-featured, top row of the Media tab).
 - The CurseForge copy of the roadmap doesn't have "Starter picks" yet; add it with the next release's store page check.
-- Demo mode: make sure Karl isn't still in `/goals demo` (exit with `/goals demo off`).
+- Demo mode: make sure Karl isn't still in `/goals demo` (exit with `/goals demo off`). It caught us twice on 2026-10-06.
 
 - CurseForge approved the project (ID 1728528, now in the `.toc`). The public page is live and the addon can be downloaded (confirmed 2026-10-06). v2.4.0 is the current file on CurseForge.
 - Release automation works: tag `v2.1.2` (2026-10-05) was the first automatic release. The packager mapped the `.toc` interfaces to game versions 1.60.1 (Forever) and 1.15.9 (Classic Era) and uploaded to CurseForge. Releasing is now: bump the `.toc` version, add a CHANGELOG entry, commit, push, then `git tag -a vX.Y.Z` and push the tag. The full Action log needs a GitHub sign-in (Karl can read it); public API gives run status, annotations and the GitHub release.

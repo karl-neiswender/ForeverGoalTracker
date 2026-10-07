@@ -283,6 +283,7 @@ end
 -- are, and owning it ticks them all. A piece without materials (a mount
 -- task, a Tier 1/2 item) is a single checkbox.
 function FGT.PieceProgress(goalId, si, pi, piece)
+    if FGT.PieceSkipped(piece) then return 0, 0 end -- not shown, not counted
     local n = #piece.materials
     if n == 0 then
         return IsStepDone(goalId, PieceKey(si, pi)) and 1 or 0, 1
@@ -604,6 +605,14 @@ local function RosterFor(rule)
         end
     end
     return out
+end
+
+-- A step that doesn't apply to you: the epic mount's Exalted step is
+-- hidden (and left out of every count) while you play that race, who
+-- can buy the mount without the reputation.
+function FGT.PieceSkipped(piece)
+    local race = piece.skipIfRace
+    return race ~= nil and UnitRace ~= nil and select(2, UnitRace("player")) == race
 end
 
 local function ItemTotal(ids, roster)
@@ -2976,6 +2985,19 @@ local function ToggleStep(goalId, index)
     if FGT.overLink then return end -- the click was on a goal link in the step
     local nowDone = not IsStepDone(goalId, index)
     SetStepDone(goalId, index, nowDone)
+    -- A shared step (riding, reaching 60 for the racial mounts) is the
+    -- same in every part, so ticking it by hand ticks it everywhere.
+    local goal = FGT.GoalById(goalId)
+    local si, pi = tostring(index):match("^(%d+)_(%d+)_piece$")
+    local piece = goal and goal.sections and si and goal.sections[tonumber(si)]
+        and goal.sections[tonumber(si)].pieces[tonumber(pi)]
+    if piece and piece.shared then
+        for s2, sec in ipairs(goal.sections) do
+            for p2, other in ipairs(sec.pieces) do
+                if other.shared == piece.shared then SetStepDone(goalId, PieceKey(s2, p2), nowDone) end
+            end
+        end
+    end
     FGT.justTicked = nowDone and (goalId .. "|" .. index) or nil
     SelectGoal(goalId, true)
 end
@@ -3221,6 +3243,7 @@ local function RefreshTierSections(goal)
 
         if expanded then
             for pi, piece in ipairs(section.pieces) do
+                if not FGT.PieceSkipped(piece) then -- (closes after the materials)
                 rowIndex = rowIndex + 1
                 local row = GetStepRow(rowIndex)
                 row:SetParent(stepsContainer)
@@ -3308,6 +3331,7 @@ local function RefreshTierSections(goal)
                         yOffset = yOffset + mRowHeight + 3
                     end
                     yOffset = yOffset + 4
+                end
                 end
             end
         end
@@ -3665,7 +3689,7 @@ local emptyNote = NewFontString(detailPanel, 12, "", C.INK2[1], C.INK2[2], C.INK
 emptyNote:SetPoint("CENTER", detailPanel, "CENTER", 0, 24)
 emptyNote:SetWidth(320)
 emptyNote:SetJustifyH("CENTER")
-emptyNote:SetText("No goals on your tracker yet.\n\nPick the ones you want to chase from the Goal Library.")
+emptyNote:SetText("No goals on your tracker yet.\n\nGet a few picked for you, or choose your own from the Goal Library.")
 emptyNote:Hide()
 
 do
@@ -3696,12 +3720,25 @@ do
     E.button.text:SetPoint("CENTER", 0, 0)
     E.button.text:SetText("Browse the Goal Library")
     E.button:SetWidth(math.ceil(E.button.text:GetStringWidth()) + 40)
-    E.button:SetPoint("TOP", emptyNote, "BOTTOM", 0, -16)
+    E.button:SetPoint("TOPLEFT", emptyNote, "BOTTOM", 6, -16)
     E.button:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
     E.button:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
     E.button:SetScript("OnClick", function() if FGT.ShowTab then FGT.ShowTab("library") end end)
 
-    E.parts = { E.webL, E.webR, E.label, E.button }
+    -- the welcome wizard's suggestions, straight to "What interests you?"
+    E.help = CreateFrame("Button", nil, detailPanel, "BackdropTemplate")
+    E.help:SetHeight(28)
+    Etch(E.help, STYLE.rowSel, 10)
+    E.help.text = NewTitleString(E.help, 12)
+    E.help.text:SetPoint("CENTER", 0, 0)
+    E.help.text:SetText("Help me get started")
+    E.help:SetWidth(math.ceil(E.help.text:GetStringWidth()) + 40)
+    E.help:SetPoint("TOPRIGHT", emptyNote, "BOTTOM", -6, -16)
+    E.help:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
+    E.help:SetScript("OnLeave", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
+    E.help:SetScript("OnClick", function() if FGT.OpenWelcome then FGT.OpenWelcome(2) end end)
+
+    E.parts = { E.webL, E.webR, E.label, E.button, E.help }
     for _, p in ipairs(E.parts) do p:Hide() end
     FGT.emptyUI = E
 end
@@ -5039,6 +5076,8 @@ FGT.SETTINGS = {
           apply = function(on) if FGT.minimapButton then FGT.minimapButton:SetShown(on) end end },
         { type = "toggle", key = "openOnLogin", label = "Open on login",
           desc = "Show this window each time you log in" },
+        { type = "button", label = "Goal suggestions", desc = "Pick what you enjoy and get goals for this character",
+          text = "Open", onClick = function() FGT.OpenWelcome(2) end },
         { type = "slider", key = "scale", label = "Scale", min = 70, max = 130, step = 5,
           apply = function(v) FGT.ApplyWindowScale(v) end },
         { type = "slider", key = "alpha", label = "Opacity", min = 50, max = 100, step = 5, live = true,
@@ -5812,6 +5851,25 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         end
         ForeverGoalTrackerDB.mountsFix = true
     end
+    -- One-time fix: the racial mounts' Exalted step used to tick itself
+    -- when any character of that race existed, which showed a tick to
+    -- other races who still need the reputation. It now ticks only at
+    -- Exalted, so clear the ticks that rule made (the auto log says why).
+    if not ForeverGoalTrackerDB.exaltedRaceFix then
+        local p = ForeverGoalTrackerDB.progress.epicmounts
+        local log = ForeverGoalTrackerDB.autoLog or {}
+        if p then
+            for si = 1, 8 do
+                local key = si .. "_2_piece"
+                local why = log["epicmounts:" .. key]
+                if p[key] and why and why:match("^race ") then
+                    p[key] = nil
+                    log["epicmounts:" .. key] = nil
+                end
+            end
+        end
+        ForeverGoalTrackerDB.exaltedRaceFix = true
+    end
     -- v2.2.0 one-time fix: Tier 3 materials were a placeholder list and are
     -- now each piece's real recipe. The token and scraps lines kept their
     -- place; the crafting materials changed, so clear their ticks (owned
@@ -6174,6 +6232,10 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         print(TAG .. "photo mode on (" .. (colors[photo] and photo or "black") .. "). Type /goals photo again to turn it off.")
         return
     end
+    if msg == "welcome" then
+        FGT.OpenWelcome(1) -- the welcome wizard again; your goals stay as they are
+        return
+    end
     if msg == "testnew" then
         -- Preview: shows the open goal as "new in Forever" until /reload.
         if not selectedId then
@@ -6198,4 +6260,849 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     else
         FGT.ToggleFrame()
     end
+end
+
+do -- scoped (200-local budget)
+-- ============================================================
+-- Welcome wizard
+-- ============================================================
+-- Pops over the darkened window the first time it opens, for everyone,
+-- once (DB.welcomeSeen; existing players see it after updating too).
+--   1. Two choices: pick your own goals / get help (for players who
+--      already track goals: keep my goals / help me find more).
+--   2. What do you like to do? Five interests, pick any number.
+--   3. Goals to get started: suggestions for the logged-in character,
+--      ticked, then "Add N goals".
+-- Suggestions read the same progress as the tracker, so finished goals
+-- are skipped and partly done ones read "Complete ...". Attunements are
+-- never suggested (finding those is part of the fun); the raid goals
+-- lead there. /goals welcome and Settings open it again.
+local W = { picked = {}, list = {} }
+FGT.welcome = W
+
+local INTERESTS = {
+    { key = "raid",    label = "Raiding",    phrase = "raiding",    icon = { "inv_misc_head_dragon_01" } },
+    { key = "pvp",     label = "PvP",        phrase = "PvP",        icon = "pvp" },
+    { key = "loot",    label = "Epic Loot",  phrase = "epic loot",  icon = { "inv_sword_39" } },
+    { key = "collect", label = "Collecting", phrase = "collecting", icon = { "ability_mount_ridinghorse" } },
+    { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" } },
+}
+local MAX_PICKS = 6   -- new interest suggestions, on top of leveling and the mount
+local MAX_TRACKED = 4 -- matching goals already on My Goals, shown dimmed
+
+-- English part names in the goal data, by the game's race and class tokens.
+local RACE_PART = { Human = "Human", Dwarf = "Dwarf", NightElf = "Night Elf", Gnome = "Gnome", Orc = "Orc",
+    Tauren = "Tauren", Scourge = "Undead", Troll = "Troll", Skyborne = "Skyborne" }
+local CLASS_PART = { WARRIOR = "Warrior", PALADIN = "Paladin", HUNTER = "Hunter", ROGUE = "Rogue", PRIEST = "Priest",
+    SHAMAN = "Shaman", MAGE = "Mage", WARLOCK = "Warlock", DRUID = "Druid" }
+-- Legendary and epic weapons each class can use, best fit first.
+local WEAPONS = {
+    WARRIOR = { "thunderfury", "quelserrar", "sulfuras", "ashbringer" },
+    PALADIN = { "thunderfury", "sulfuras", "quelserrar", "ashbringer" },
+    HUNTER  = { "rhokdelar", "lokdelar" },
+    ROGUE   = { "thunderfury" },
+    PRIEST  = { "benediction", "atiesh" },
+    SHAMAN  = { "sulfuras" },
+    MAGE    = { "atiesh" },
+    WARLOCK = { "atiesh" },
+    DRUID   = { "atiesh", "sulfuras" },
+}
+-- A legendary whose guide already runs through a raid replaces that raid.
+local COVERS = { thunderfury = "raid_mc", sulfuras = "raid_mc", atiesh = "raid_naxx", ashbringer = "raid_naxx" }
+local PRIMARY = { "Alchemy", "Blacksmithing", "Enchanting", "Engineering", "Herbalism",
+    "Leatherworking", "Mining", "Skinning", "Tailoring" }
+
+local function Me()
+    local raceName, race = UnitRace("player")
+    local className, class = UnitClass("player")
+    return { race = race, raceName = raceName or "", class = class, className = className or "",
+             faction = UnitFactionGroup("player"), level = UnitLevel("player") or 1 }
+end
+
+-- Set of the parts whose label starts with `name` ("Warrior - ...",
+-- "Warrior", "Alchemy 300"), or nil when the goal has no such part.
+local function PartKeys(goal, names)
+    local set
+    for _, part in ipairs(FGT.GroupParts(goal)) do
+        for _, name in ipairs(names) do
+            if part.label == name or part.label:sub(1, #name + 1) == name .. " " then
+                set = set or {}
+                set[part.key] = true
+            end
+        end
+    end
+    return set
+end
+
+-- Progress over the given parts (all of them when keys is nil),
+-- whether or not the goal is on the tracker.
+local function Progress(goal, keys)
+    local d, t = 0, 0
+    if goal.sections then
+        for si, section in ipairs(goal.sections) do
+            if not keys or keys[si] then
+                local a, b = SectionProgress(goal, si, section)
+                d, t = d + a, t + b
+            end
+        end
+    elseif goal.autoLevels then
+        for i, entry in ipairs(goal.steps) do
+            if not keys or keys[i] then
+                t = t + MAX_LEVEL
+                if IsAutoStep(entry) then d = d + math.floor(AutoStepFraction(entry) * MAX_LEVEL + 1e-6) end
+            end
+        end
+    else
+        for i in ipairs(goal.steps) do
+            if not keys or keys[i] then
+                t = t + 1
+                if IsStepDone(goal.id, i) then d = d + 1 end
+            end
+        end
+    end
+    return d, t
+end
+
+local function Finished(id)
+    local g = FGT.GoalById(id)
+    if not g then return true end
+    local d, t = Progress(g)
+    return t > 0 and d >= t
+end
+
+local function OnlyKey(keys)
+    local only
+    for k in pairs(keys or {}) do
+        if only then return nil end
+        only = k
+    end
+    return only
+end
+
+-- One suggestion: the goal plus the parts to add (group goals), or nil
+-- when it doesn't apply (other faction, Forever-only on Classic Era, or
+-- finished). Goals already on My Goals come back with tracked = true:
+-- they're listed (dimmed) so you can see they were considered.
+local function Entry(me, id, keys, why)
+    local g = FGT.GoalById(id)
+    if not g then return nil end
+    if g.faction and g.faction ~= me.faction then return nil end
+    if g.forever == "new" and not FGT.isForever then return nil end
+    local set, tracked
+    if g.group then
+        set = {}
+        for k in pairs(keys or {}) do
+            if not PartSelected(g, k) then set[k] = true end
+        end
+        if not next(set) then
+            if not keys or not next(keys) then return nil end
+            set, tracked = keys, true
+        end
+    elseif IsActive(g) then
+        tracked = true
+    end
+    local d, t = Progress(g, set)
+    if t > 0 and d >= t then return nil end
+    local e = { goal = g, keys = set, d = d, t = t, why = why, on = not tracked, tracked = tracked }
+    -- blue Forever look: a new part (the Skyborne mount) or a new/updated goal
+    local only = OnlyKey(set)
+    local look = (only and g.sections and g.sections[only]) or g
+    e.word = FGT.ForeverWord(look) or (not g.group and FGT.ForeverWord(g)) or nil
+    e.look = e.word and look or nil
+    return e
+end
+
+-- Display name: the part for one-part picks ("Swift Timber Wolf",
+-- "Tier 1: Felheart Raiment"), "Complete ..." once it's partly done.
+local function Title(e, me)
+    local g = e.goal
+    local name = g.name
+    local only = OnlyKey(e.keys)
+    if g.autoLevels then
+        if only then return "Level your " .. me.className .. " to " .. MAX_LEVEL end
+        return "Level more classes to " .. MAX_LEVEL
+    end
+    if g.sections and only then
+        local sec = g.sections[only].name
+        local what = sec:match(" %- (.+)$") or sec
+        if g.id == "epicmounts" then
+            name = what
+        else
+            name = g.name:gsub(" Set Appearances", ""):gsub(" %(.-%)$", "") .. ": " .. what
+        end
+    end
+    return name
+end
+W.Title = Title
+
+-- Suggestions for the logged-in character and the picked interests.
+local function Suggest(picked)
+    local me = Me()
+    local seen = {}
+    local function push(list, e)
+        if e and not seen[e.goal.id] then
+            seen[e.goal.id] = true
+            table.insert(list, e)
+        end
+    end
+
+    -- Always: reach 60 if no character has, and this character's epic
+    -- mount (Warlocks and Paladins: their class mount instead).
+    local fixed = {}
+    local has60 = (me.level >= MAX_LEVEL)
+    for _, c in pairs(Roster()) do
+        if (c.level or 0) >= MAX_LEVEL then has60 = true end
+    end
+    local leveling = FGT.GoalById("allclasses")
+    if not has60 and leveling then
+        push(fixed, Entry(me, "allclasses", PartKeys(leveling, { CLASS_PART[me.class] or "" }), "Everything opens up at 60"))
+    end
+    if me.class == "WARLOCK" then
+        push(fixed, Entry(me, "mount_dreadsteed", nil, "The Warlock's own epic mount"))
+    elseif me.class == "PALADIN" then
+        push(fixed, Entry(me, "mount_charger", nil, "The Paladin's own epic mount"))
+    else
+        local mounts = FGT.GoalById("epicmounts")
+        local keys = mounts and PartKeys(mounts, { RACE_PART[me.race] or "" })
+        if keys then
+            push(fixed, Entry(me, "epicmounts", keys,
+                me.race == "Skyborne" and "The Skyborne's own epic mount" or ("The " .. me.raceName .. " epic mount")))
+        end
+    end
+
+    local function ClassPart(id)
+        local g = FGT.GoalById(id)
+        return g and PartKeys(g, { CLASS_PART[me.class] or "" })
+    end
+
+    local lists = {}
+    for _, it in ipairs(INTERESTS) do
+        if picked[it.key] then
+            local list = {}
+            local tag = it.label
+            if it.key == "raid" then
+                -- next raid you haven't cleared, its tier set, then the side raids
+                local prog = { "raid_mc", "raid_bwl", "raid_aq40", "raid_naxx" }
+                local tierOf = { raid_mc = "set_tier1", raid_bwl = "set_tier2", raid_naxx = "tier3" }
+                local nextRaid, after
+                for i, id in ipairs(prog) do
+                    if not Finished(id) then nextRaid, after = id, prog[i + 1] break end
+                end
+                if nextRaid then
+                    push(list, Entry(me, nextRaid, nil, tag))
+                    if tierOf[nextRaid] then push(list, Entry(me, tierOf[nextRaid], ClassPart(tierOf[nextRaid]), tag)) end
+                end
+                if nextRaid == "raid_mc" or nextRaid == "raid_bwl" then push(list, Entry(me, "raid_ony", nil, tag)) end
+                push(list, Entry(me, "raid_zg", nil, tag))
+                if after then push(list, Entry(me, after, nil, tag)) end
+            elseif it.key == "loot" then
+                local sets = {}
+                if me.class == "DRUID" then push(sets, Entry(me, "set_viper", nil, tag)) end
+                push(sets, Entry(me, "set_dungeon1", ClassPart("set_dungeon1"), tag))
+                push(sets, Entry(me, "set_dungeon2", ClassPart("set_dungeon2"), tag))
+                local weapons = {}
+                for _, id in ipairs(WEAPONS[me.class] or {}) do push(weapons, Entry(me, id, nil, tag)) end
+                -- under 60, the dungeon sets come first
+                local a, b = weapons, sets
+                if me.level < MAX_LEVEL then a, b = sets, weapons end
+                for _, e in ipairs(a) do table.insert(list, e) end
+                for _, e in ipairs(b) do table.insert(list, e) end
+            elseif it.key == "collect" then
+                push(list, Entry(me, "mount_raptor", nil, tag))
+                push(list, Entry(me, "mount_tiger", nil, tag))
+                if me.faction == "Alliance" then push(list, Entry(me, "frostsaber", nil, tag)) end
+                push(list, Entry(me, "mount_deathcharger", nil, tag))
+                push(list, Entry(me, "mount_qiraji", nil, tag))
+            elseif it.key == "pvp" then
+                local f = (me.faction == "Horde") and "horde" or "ally"
+                for _, id in ipairs({ "pvp_avmount_" .. f, "pvp_wsg_" .. f, "pvp_ab_" .. f, "pvp_mount_" .. f,
+                                      "pvp_hk", "pvp_av_" .. f, "pvp_rank14_" .. f }) do
+                    push(list, Entry(me, id, nil, tag))
+                end
+            elseif it.key == "grind" then
+                -- the professions this character already knows
+                local mine = Roster()[CharKey()]
+                local known = {}
+                for _, p in ipairs(PRIMARY) do
+                    if mine and mine.skills and (mine.skills[p] or 0) > 0 then table.insert(known, p) end
+                end
+                local profs = FGT.GoalById("prof_all")
+                if profs and #known > 0 then push(list, Entry(me, "prof_all", PartKeys(profs, known), tag)) end
+                push(list, Entry(me, "rep_argentdawn", nil, tag))
+                push(list, Entry(me, "rep_timbermaw", nil, tag))
+                push(list, Entry(me, "gold_5k", nil, tag))
+                if has60 and leveling then
+                    -- leveling other classes
+                    local others = {}
+                    for i, entry in ipairs(leveling.steps) do
+                        if IsAutoStep(entry) and AutoStepFraction(entry) < 1 then others[i] = true end
+                    end
+                    push(list, Entry(me, "allclasses", others, tag))
+                end
+                push(list, Entry(me, "rep_cenarion", nil, tag))
+                push(list, Entry(me, (me.faction == "Horde") and "rep_ambassador_horde" or "rep_ambassador_ally", nil, tag))
+                local sec = FGT.GoalById("prof_secondary")
+                if sec then push(list, Entry(me, "prof_secondary", PartKeys(sec, { "Fishing", "Cooking", "First Aid" }), tag)) end
+                for _, id in ipairs({ "rep_thorium", "rep_zandalar", "rep_hydraxian", "rep_nozdormu" }) do
+                    push(list, Entry(me, id, nil, tag))
+                end
+            end
+            -- goals you've already started go first
+            local started, rest = {}, {}
+            for _, e in ipairs(list) do table.insert(e.d > 0 and started or rest, e) end
+            for _, e in ipairs(rest) do table.insert(started, e) end
+            table.insert(lists, started)
+        end
+    end
+
+    -- Take turns between the interests, so each one is represented. A
+    -- raid whose legendary is already in is skipped, and a legendary
+    -- replaces its raid if the raid came first.
+    local function RoundRobin(from, max, maxTracked)
+        local picks, chosen, idx = {}, {}, {}
+        local new, old = 0, 0
+        local progress = true
+        while new < max and progress do
+            progress = false
+            for li, list in ipairs(from) do
+                if new >= max then break end
+                local i = idx[li] or 1
+                while list[i] do
+                    local e = list[i]
+                    local id = e.goal.id
+                    i = i + 1
+                    local covered = (e.tracked and old >= maxTracked)
+                    for leg, raid in pairs(COVERS) do
+                        if raid == id and chosen[leg] then covered = true end
+                    end
+                    if not covered then
+                        local raid = COVERS[id]
+                        if raid and chosen[raid] then
+                            for pi, p in ipairs(picks) do
+                                if p.goal.id == raid then
+                                    table.remove(picks, pi)
+                                    if p.tracked then old = old - 1 else new = new - 1 end
+                                    break
+                                end
+                            end
+                            chosen[raid] = nil
+                        end
+                        table.insert(picks, e)
+                        chosen[id] = true
+                        if e.tracked then old = old + 1 else new = new + 1 end
+                        progress = true
+                        break
+                    end
+                end
+                idx[li] = i
+            end
+        end
+        return picks
+    end
+    local picks = RoundRobin(lists, MAX_PICKS, MAX_TRACKED)
+
+    -- Nothing left for those interests: offer a few from all of them.
+    W.fallback = false
+    local anyNew = false
+    for _, e in ipairs(picks) do if not e.tracked then anyNew = true end end
+    if not anyNew and not picked.__all then
+        local all = { __all = true }
+        for _, it in ipairs(INTERESTS) do all[it.key] = true end
+        local fixedIds = {}
+        for _, e in ipairs(fixed) do fixedIds[e.goal.id] = true end
+        local added = 0
+        for _, e in ipairs((Suggest(all))) do
+            if not fixedIds[e.goal.id] and not e.tracked and added < 4 then
+                table.insert(picks, e)
+                added = added + 1
+            end
+        end
+        W.fallback = added > 0
+    end
+
+    -- Under 60: easier goals first, the long-haul dream last.
+    if me.level < MAX_LEVEL then
+        local rank = {}
+        for i, d in ipairs(FGT.difficultyOrder) do rank[d] = i end
+        for i, e in ipairs(picks) do e.order = i end
+        table.sort(picks, function(a, b)
+            local ra, rb = rank[a.goal.difficulty] or 9, rank[b.goal.difficulty] or 9
+            if ra ~= rb then return ra < rb end
+            return a.order < b.order
+        end)
+    end
+
+    -- new suggestions first, then the ones already on My Goals
+    local out = {}
+    for pass = 1, 2 do
+        for _, list in ipairs({ fixed, picks }) do
+            for _, e in ipairs(list) do
+                if (pass == 1) == (not e.tracked) then table.insert(out, e) end
+            end
+        end
+    end
+    return out, me
+end
+W.Suggest = Suggest
+
+-- "an Orc Warlock who loves raiding, PvP and the grind"
+local function PickedLine(me, picked)
+    local words = {}
+    for _, it in ipairs(INTERESTS) do
+        if picked[it.key] then table.insert(words, it.phrase) end
+    end
+    local loves
+    if #words == 1 then
+        loves = words[1]
+    else
+        loves = table.concat(words, ", ", 1, #words - 1) .. " and " .. words[#words]
+    end
+    local who = me.raceName .. " " .. me.className
+    local article = who:match("^[AEIOUaeiou]") and "an" or "a"
+    return string.format("Picked for %s %s who loves %s", article, who, loves)
+end
+
+-- ------------------------------------------------------------
+-- UI
+-- ------------------------------------------------------------
+local function Button(parent, text, primary)
+    local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    b:SetHeight(28)
+    Etch(b, STYLE.button, 10)
+    b.text = NewTitleString(b, 12)
+    b.text:SetPoint("CENTER", 0, 0)
+    b.primary = primary
+    function b:SetLabel(t)
+        self.text:SetText(t)
+        self:SetWidth(math.max(110, math.ceil(self.text:GetStringWidth()) + 40))
+    end
+    function b:SetOn(on)
+        self.enabled = on
+        if not on then
+            self:SetEtch(STYLE.muted)
+            self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        else
+            self:SetEtch(self.primary and STYLE.rowSel or STYLE.button)
+            local c = self.primary and C.TITLE or C.TEXT
+            self.text:SetTextColor(c[1], c[2], c[3])
+        end
+    end
+    b:SetScript("OnEnter", function(self)
+        if self.enabled then self:SetEtch(self.primary and STYLE.rowSel or STYLE.btnHover) end
+        if self.enabled and self.primary then self.text:SetTextColor(1, 1, 1) end
+    end)
+    b:SetScript("OnLeave", function(self) self:SetOn(self.enabled) end)
+    b:SetScript("OnClick", function(self) if self.enabled and self.onClick then self.onClick() end end)
+    b:SetLabel(text)
+    b:SetOn(true)
+    return b
+end
+
+-- Small grey text link ("No thanks", "x").
+local function TextLink(parent, text, size)
+    local b = CreateFrame("Button", nil, parent)
+    b.text = NewFontString(b, size or 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    b.text:SetPoint("CENTER", 0, 0)
+    b.text:SetText(text)
+    b:SetSize(math.ceil(b.text:GetStringWidth()) + 8, (size or 11) + 8)
+    b:SetScript("OnEnter", function(self) self.text:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3]) end)
+    b:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
+    return b
+end
+
+local ROW_H = 54
+
+local function Build()
+    if W.frame then return end
+    -- darkened window behind the card; takes the clicks
+    local f = CreateFrame("Frame", nil, main)
+    f:SetAllPoints(main)
+    f:SetFrameLevel(main:GetFrameLevel() + 70)
+    f:EnableMouse(true)
+    f:EnableMouseWheel(true)
+    f:SetScript("OnMouseWheel", function() end)
+    local dim = f:CreateTexture(nil, "BACKGROUND")
+    dim:SetTexture(SOLID)
+    dim:SetPoint("TOPLEFT", 4, -4)
+    dim:SetPoint("BOTTOMRIGHT", -4, 4)
+    dim:SetVertexColor(0, 0, 0, 0.72)
+    f:Hide()
+    W.frame = f
+
+    local card = CreateFrame("Frame", nil, f, "BackdropTemplate")
+    Etch(card, STYLE.window, 16)
+    card:EnableMouse(true)
+    W.card = card
+
+    local close = TextLink(card, "x", 14)
+    close:SetPoint("TOPRIGHT", card, "TOPRIGHT", -8, -6)
+    close:SetScript("OnClick", function() FGT.CloseWelcome() end)
+
+    W.title = NewTitleString(card, 20)
+    W.title:SetPoint("TOP", card, "TOP", 0, -26)
+    W.sub = NewFontString(card, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    W.sub:SetPoint("TOP", W.title, "BOTTOM", 0, -10)
+    W.sub:SetJustifyH("CENTER")
+
+    -- Step 1: two big choice cards
+    W.choices = {}
+    for i = 1, 2 do
+        local c = CreateFrame("Button", nil, card, "BackdropTemplate")
+        Etch(c, STYLE.row, 12)
+        c.icon = NewIcon(c, 40)
+        c.icon:SetPoint("TOP", c, "TOP", 0, -20)
+        c.name = NewTitleString(c, 14)
+        c.name:SetPoint("TOP", c.icon, "BOTTOM", 0, -12)
+        c.desc = NewFontString(c, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
+        c.desc:SetPoint("TOP", c.name, "BOTTOM", 0, -8)
+        c.desc:SetJustifyH("CENTER")
+        c:SetScript("OnEnter", function(self) self:SetEtch(STYLE.rowSel) end)
+        c:SetScript("OnLeave", function(self) self:SetEtch(STYLE.row) end)
+        c:SetScript("OnClick", function(self) if self.onClick then self.onClick() end end)
+        W.choices[i] = c
+    end
+
+    -- Step 2: interest tiles
+    W.tiles = {}
+    for i, it in ipairs(INTERESTS) do
+        local t = CreateFrame("Button", nil, card, "BackdropTemplate")
+        Etch(t, STYLE.row, 12)
+        t.it = it
+        t.icon = NewIcon(t, 40)
+        t.icon:SetPoint("TOP", t, "TOP", 0, -16)
+        t.name = NewTitleString(t, 12)
+        t.name:SetPoint("BOTTOM", t, "BOTTOM", 0, 14)
+        t.name:SetText(it.label)
+        function t:Refresh()
+            local on = W.picked[self.it.key]
+            self:SetEtch(on and STYLE.rowSel or (self.hover and STYLE.rowHover or STYLE.row))
+            local c = on and C.TITLE or C.INK2
+            self.name:SetTextColor(c[1], c[2], c[3])
+        end
+        t:SetScript("OnEnter", function(self) self.hover = true; self:Refresh() end)
+        t:SetScript("OnLeave", function(self) self.hover = false; self:Refresh() end)
+        t:SetScript("OnClick", function(self)
+            W.picked[self.it.key] = (not W.picked[self.it.key]) or nil
+            self:Refresh()
+            W.next:SetOn(next(W.picked) ~= nil)
+        end)
+        W.tiles[i] = t
+    end
+
+    -- Step 3: suggestion rows in a scroll area
+    W.scroll = CreateScrollArea(card)
+    W.rows = {}
+    W.note = NewFontString(card, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+
+    -- footer buttons (shared by steps 2 and 3)
+    W.back = TextLink(card, "Back", 12)
+    W.next = Button(card, "Next", true)
+    W.add = Button(card, "Add goals", true)
+    W.back:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 18, 20)
+    W.next:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -20, 16)
+    W.add:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -20, 16)
+    W.next.onClick = function() W.Show(3) end
+    W.add.onClick = function() W.AddChosen() end
+
+    W.scroll:Finalize()
+end
+
+local function GetRow(i)
+    local row = W.rows[i]
+    if row then return row end
+    row = CreateFrame("Button", nil, W.scroll.content, "BackdropTemplate")
+    row:SetHeight(ROW_H - 6)
+    Etch(row, STYLE.row, 10)
+    row.box = CreateFrame("Frame", nil, row, "BackdropTemplate")
+    row.box:SetSize(16, 16)
+    row.box:SetPoint("LEFT", row, "LEFT", 12, 0)
+    Skin(row.box, { 0, 0, 0, 1 }, C.BOX_RING)
+    row.check = row.box:CreateTexture(nil, "OVERLAY")
+    row.check:SetTexture("Interface\\Buttons\\UI-CheckBox-Check")
+    row.check:SetSize(22, 22)
+    row.check:SetPoint("CENTER", 1, 1)
+    row.icon = NewIcon(row, 36)
+    row.icon:SetPoint("LEFT", row.box, "RIGHT", 12, 0)
+    -- right side: "On My Goals" for goals you already track
+    row.extra = NewFontString(row, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    row.extra:SetJustifyH("RIGHT")
+    row.name = NewFontString(row, 12, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    row.name:SetPoint("BOTTOMLEFT", row.icon, "RIGHT", 10, 1)
+    row.name:SetPoint("RIGHT", row, "RIGHT", -120, 0)
+    row.name:SetJustifyH("LEFT")
+    row.name:SetWordWrap(false)
+    row.meta = NewFontString(row, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    row.meta:SetPoint("TOPLEFT", row.icon, "RIGHT", 10, -3)
+    row.meta:SetPoint("RIGHT", row, "RIGHT", -120, 0)
+    row.meta:SetJustifyH("LEFT")
+    row.meta:SetWordWrap(false)
+    function row:Refresh()
+        local e = self.entry
+        if e.tracked then
+            -- already on My Goals: quiet, no checkbox, can't be toggled
+            self:SetEtch(STYLE.muted)
+            self.box:Hide()
+            self.icon:SetAlpha(0.55)
+            self.name:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+            return
+        end
+        self.box:Show()
+        self.icon:SetAlpha(1)
+        self.name:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
+        local st = e.on and STYLE.rowSel or (self.hover and STYLE.rowHover or STYLE.row)
+        self:SetEtch(st)
+        self.check:SetShown(e.on)
+        if e.on then
+            self.box:SetBackdropColor(C.BOX_DONE_BG[1], C.BOX_DONE_BG[2], C.BOX_DONE_BG[3], 1)
+            self.box:SetBackdropBorderColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], 1)
+        else
+            self.box:SetBackdropColor(0, 0, 0, 1)
+            self.box:SetBackdropBorderColor(C.BOX_RING[1], C.BOX_RING[2], C.BOX_RING[3], 1)
+        end
+    end
+    row:SetScript("OnEnter", function(self)
+        self.hover = true
+        self:Refresh()
+        local g = self.entry.goal
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(g.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        if g.note then GameTooltip:AddLine(g.note, 0.9, 0.9, 0.9, true) end
+        if self.entry.tracked then
+            GameTooltip:AddLine("Already on My Goals.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        end
+        local fn = FGT.ForeverNote(self.entry.look or g, true)
+        if fn then GameTooltip:AddLine(fn, C.FOREVER_LIGHT[1], C.FOREVER_LIGHT[2], C.FOREVER_LIGHT[3], true) end
+        GameTooltip:Show()
+    end)
+    row:SetScript("OnLeave", function(self)
+        self.hover = false
+        self:Refresh()
+        GameTooltip:Hide()
+    end)
+    row:SetScript("OnClick", function(self)
+        if self.entry.tracked then return end
+        self.entry.on = not self.entry.on
+        self:Refresh()
+        W.UpdateAdd()
+    end)
+    W.rows[i] = row
+    return row
+end
+
+function W.UpdateAdd()
+    local n = 0
+    for _, e in ipairs(W.list) do if e.on then n = n + 1 end end
+    W.add:SetLabel(n == 1 and "Add 1 goal" or string.format("Add %d goals", n))
+    W.add:SetOn(n > 0)
+end
+
+local function FillRows(me)
+    local y = 0
+    for i, e in ipairs(W.list) do
+        local row = GetRow(i)
+        row.entry = e
+        row:ClearAllPoints()
+        row:SetPoint("TOPLEFT", W.scroll.content, "TOPLEFT", 0, -y)
+        row:SetPoint("RIGHT", W.scroll.content, "RIGHT", -6, 0)
+        local g = e.goal
+        local only = OnlyKey(e.keys)
+        local icon = (g.sections and only and g.sections[only].icon) or g.icon
+        -- blue twin styles for things new in Forever
+        row.foreverNew = e.word and true or false
+        row.icon:SetIcon(icon, row.foreverNew and C.FOREVER or C.GOLD2)
+        local title = Title(e, me)
+        row.name:SetText(e.word and (title .. "   " .. FGT.NewTag(e.word)) or title)
+        local dc = FGT.difficultyColors and FGT.difficultyColors[g.difficulty]
+        local diff = g.difficulty and (dc and ("|cff" .. HexColor(dc) .. g.difficulty .. "|r") or g.difficulty) or ""
+        local parts = { e.why }
+        if g.difficulty then table.insert(parts, diff) end
+        if g.timeEstimate then table.insert(parts, g.timeEstimate) end
+        row.meta:SetText(table.concat(parts, "  ·  "))
+        -- right side: "On My Goals" for goals you already track
+        row.extra:SetText(e.tracked and "On My Goals" or "")
+        row.extra:ClearAllPoints()
+        row.extra:SetPoint("RIGHT", row, "RIGHT", -14, 0)
+        row.hover = false
+        row:Refresh()
+        row:Show()
+        y = y + ROW_H
+    end
+    for i = #W.list + 1, #W.rows do W.rows[i]:Hide() end
+    W.scroll.content:SetHeight(math.max(1, y))
+    W.scroll.scroll:SetVerticalScroll(0)
+    W.scroll:Update()
+end
+
+-- Shows one step. The card is at most 640 x 520 and shrinks with the window.
+function W.Show(step)
+    Build()
+    W.step = step
+    local mw, mh = main:GetWidth(), main:GetHeight()
+    local cw = math.min(640, mw - 40)
+    local ch = (step == 3) and math.min(520, mh - 40) or math.min(330, mh - 40)
+    W.card:ClearAllPoints()
+    W.card:SetSize(cw, ch)
+    W.card:SetPoint("CENTER", W.frame, "CENTER", 0, 0)
+
+    for _, c in ipairs(W.choices) do c:Hide() end
+    for _, t in ipairs(W.tiles) do t:Hide() end
+    for _, r in ipairs(W.rows) do r:Hide() end
+    W.scroll.scroll:Hide()
+    W.scroll:Update()
+    W.note:Hide()
+    W.back:Hide(); W.next:Hide(); W.add:Hide()
+    W.sub:SetWidth(cw - 60)
+
+    local me = Me()
+    local who = me.raceName .. " " .. me.className
+    if step == 1 then
+        local n = #ActiveGoals()
+        W.title:SetText(n > 0 and "Welcome back!" or "Welcome!")
+        W.sub:SetText("Forever Goal Tracker keeps your long-term goals in one place and checks off steps as you play.")
+        local gap = 16
+        local w = math.floor((cw - 48 - gap) / 2)
+        local own, help = W.choices[1], W.choices[2]
+        for i, c in ipairs(W.choices) do
+            c:SetSize(w, 170)
+            c:ClearAllPoints()
+            c:SetPoint("BOTTOMLEFT", W.card, "BOTTOMLEFT", 24 + (i - 1) * (w + gap), 28)
+            c.desc:SetWidth(w - 30)
+            c:SetEtch(STYLE.row)
+            c:Show()
+        end
+        if n > 0 then
+            own.icon:SetIcon({ "inv_misc_book_09", "inv_misc_book_07" })
+            own.name:SetText("Keep my goals")
+            own.desc:SetText(string.format("Carry on with the %d goal%s on your tracker.", n, n == 1 and "" or "s"))
+            own.onClick = function() FGT.CloseWelcome() end
+            help.name:SetText("Help me find more")
+        else
+            own.icon:SetIcon({ "inv_misc_book_09", "inv_misc_book_07" })
+            own.name:SetText("I'll pick my own")
+            own.desc:SetText(string.format("Browse all %d goals in the Goal Library.", #FGT.goals))
+            own.onClick = function()
+                FGT.CloseWelcome()
+                FGT.ShowTab("library")
+            end
+            help.name:SetText("Help me get started")
+        end
+        help.icon:SetIcon({ "inv_misc_map_01", "inv_misc_map02" })
+        help.desc:SetText("Tell us what you enjoy and get goals picked for your " .. who .. ".")
+        help.onClick = function() W.Show(2) end
+    elseif step == 2 then
+        W.title:SetText("What interests you?")
+        W.sub:SetText("Pick as many as you like.")
+        local gap = 8
+        local tw = math.floor((cw - 48 - gap * 4) / 5)
+        for i, t in ipairs(W.tiles) do
+            t:SetSize(tw, 104)
+            t:ClearAllPoints()
+            t:SetPoint("TOPLEFT", W.card, "TOPLEFT", 24 + (i - 1) * (tw + gap), -110)
+            local icon = t.it.icon
+            if icon == "pvp" then
+                icon = (me.faction == "Horde") and { "inv_bannerpvp_01" } or { "inv_bannerpvp_02" }
+            end
+            t.icon:SetIcon(icon)
+            t.hover = false
+            t:Refresh()
+            t:Show()
+        end
+        W.back:Show()
+        W.back:SetScript("OnClick", function() W.Show(1) end)
+        W.next:Show()
+        W.next:SetOn(next(W.picked) ~= nil)
+    else
+        W.title:SetText("Goals to get started")
+        local list
+        list, me = Suggest(W.picked)
+        W.list = list
+        if W.fallback then
+            W.sub:SetText("You're ahead of us on those! Here are a few other things to chase.")
+        else
+            W.sub:SetText(PickedLine(me, W.picked))
+        end
+        W.scroll.scroll:ClearAllPoints()
+        W.scroll.scroll:SetPoint("TOPLEFT", W.card, "TOPLEFT", 22, -86)
+        W.scroll.scroll:SetPoint("BOTTOMRIGHT", W.card, "BOTTOMRIGHT", -28, 86)
+        W.scroll.scroll:Show()
+        W.scroll.content:SetWidth(W.scroll.scroll:GetWidth())
+        FillRows(me)
+        W.note:ClearAllPoints()
+        W.note:SetPoint("BOTTOM", W.card, "BOTTOM", 0, 60)
+        W.note:SetText(#list > 0 and "Add or remove goals anytime from the Goal Library."
+            or "Nothing to suggest right now. The Goal Library has everything.")
+        W.note:Show()
+        W.back:Show()
+        W.back:SetScript("OnClick", function() W.Show(2) end)
+        W.add:Show()
+        W.UpdateAdd()
+    end
+end
+
+function W.AddChosen()
+    local DB = ForeverGoalTrackerDB
+    local first, n = nil, 0
+    for _, e in ipairs(W.list) do
+        if e.on then
+            if e.goal.group then
+                local sel = DB.activeParts[e.goal.id] or {}
+                DB.activeParts[e.goal.id] = sel
+                for k in pairs(e.keys) do sel[k] = true end
+            else
+                DB.active[e.goal.id] = true
+            end
+            n = n + 1
+            first = first or e.goal.id
+        end
+    end
+    FGT.CloseWelcome()
+    if n == 0 then return end
+    FGT.ShowTab("tracker")
+    FGT.SelectGoal(first)
+    FGT.RefreshOverall()
+    if FGT.LayoutLibrary then FGT.LayoutLibrary() end
+    print(TAG .. string.format("added %d goal%s to My Goals. Good luck out there!", n, n == 1 and "" or "s"))
+end
+
+-- step: 1 (the two choices, default) or 2 (straight to the interests).
+function FGT.OpenWelcome(step)
+    local DB = ForeverGoalTrackerDB
+    if not DB then return end
+    if DB.demoBackup then
+        -- demo goals carry staged ticks and favorites; adding to them would mislead
+        print(TAG .. "goal suggestions are off in demo mode. Type |cffffffff/goals demo off|r first.")
+        return
+    end
+    if not main:IsShown() then
+        DB.welcomeSeen = true -- the OnShow hook below won't open it a second time
+        FGT.ToggleFrame()
+    end
+    if FGT.CloseSettings then FGT.CloseSettings() end
+    if FGT.CloseGoalMenu then FGT.CloseGoalMenu() end
+    if FGT.CloseLinkCard then FGT.CloseLinkCard() end
+    DB.welcomeSeen = true -- shown once; closing it any way counts
+    W.picked = {} -- always starts with nothing picked
+    W.Show(step or 1)
+    W.frame:Show()
+end
+
+function FGT.CloseWelcome()
+    if W.frame then W.frame:Hide() end
+    if ForeverGoalTrackerDB and next(W.picked) then
+        local keep = {}
+        for k, v in pairs(W.picked) do keep[k] = v end
+        ForeverGoalTrackerDB.interests = keep -- for a later "For you" sort
+    end
+end
+
+-- Escape (or any close of the window) closes the wizard for good.
+main:HookScript("OnHide", function() if W.frame and W.frame:IsShown() then FGT.CloseWelcome() end end)
+
+-- First time the window opens (fresh installs and updates alike).
+main:HookScript("OnShow", function()
+    local DB = ForeverGoalTrackerDB
+    if DB and not DB.welcomeSeen and not DB.demoBackup and not (W.frame and W.frame:IsShown()) then
+        FGT.OpenWelcome(1)
+    end
+end)
 end

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Welcome wizard: the first time the window opens (after installing or updating), pick your own goals or get help. "Help me get started" asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind) and suggests goals for the character you're on: leveling to 60 if none of your characters is there yet, your race's epic mount (Warlocks and Paladins: their class mount; Skyborne: the Swift Galestrider), and goals that fit your class, faction and level. Goals you already track are listed as "On My Goals". Open it again with /goals welcome, Settings, or "Help me get started" on an empty tracker.
+- Epic Racial Mounts: the "Reach Exalted" step is hidden while you play that race, since you can buy the mount without it, and it only ticks itself once you're really Exalted (it used to tick for any account with a character of that race). Ticking "Reach level 60" or "Train Journeyman Riding" by hand ticks it for every mount you've picked. The Night Elf mount is now the Swift Saber.
 - Goal Library: finished goals get the same finished look as on My Goals (green wash, greyed icon, no progress bar) with "Completed <date>" on their info line.
 - Settings: sound choices go grey when you wouldn't hear them. If game sound is off (or Master is at 0%) the whole sound section dims; a channel that's unchecked or at 0% in Options > Sound dims on its own. Grey buttons can't be picked; hover one to see why ("Your music channel is disabled"). They update live as you change the game's sound settings.
 - My Goals and Goal Library are now folder tabs: the open tab has a gold-edged box with rounded corners that curves into a line under the row. The Library no longer repeats its name inside the page.
