@@ -148,8 +148,8 @@ if ok_all:
         # Item and Wowhead links: a set piece links to its item, the card
         # builds the address for this client.
         ("item and wowhead links", None,
-            'STUB_PRINTS = {}; local row = {}; local g = STUB_NS.GoalById("set_tier1"); '
-            'STUB_NS.SetStepLinks(row, g.sections[1].pieces[1].auto); print("  helm item: " .. tostring(row.itemId)); '
+            'STUB_PRINTS = {}; local row = { text = { GetText = function(self) return self.s or "Helm of Might from Garr." end, SetText = function(self, s) self.s = s end } }; local g = STUB_NS.GoalById("set_tier1"); '
+            'STUB_NS.SetStepLinks(row, g.sections[1].pieces[1].auto); print("  helm item: " .. tostring(row.itemId) .. ", text: " .. row.text:GetText()); '
             'STUB_NS.OpenWowheadCard("item", row.itemId, "Helm of Might"); print("  " .. STUB_NS.wowheadCard.url); '
             'STUB_NS.CloseWowheadCard()'),
         # The demo scenes, then everything back.

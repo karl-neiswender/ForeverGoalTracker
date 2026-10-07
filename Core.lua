@@ -1156,6 +1156,13 @@ function FGT.EnableGoalLinks(f)
     if not f.SetHyperlinksEnabled then return end -- very old clients: plain text
     f:SetHyperlinksEnabled(true)
     f:SetScript("OnHyperlinkEnter", function(self, link)
+        -- an item name in a step (FGT.LinkItemName): the game's item tooltip
+        local itemId = tonumber(link:match("^item:(%d+)") or "")
+        if itemId then
+            FGT.overLink = "item"
+            FGT.ShowItemTip(self, itemId, self.ruleEntry)
+            return
+        end
         local id = link:match("^fgtgoal:(.+)")
         local goal = id and FGT.GoalById(id)
         if not goal then return end
@@ -1166,13 +1173,25 @@ function FGT.EnableGoalLinks(f)
             C.INK2[1], C.INK2[2], C.INK2[3])
         GameTooltip:Show()
     end)
-    f:SetScript("OnHyperlinkLeave", function()
+    f:SetScript("OnHyperlinkLeave", function(self)
         FGT.overLink = nil
         GameTooltip:Hide()
+        -- back on the rest of a step row: its own tooltip again
+        local enter = self.GetScript and self:GetScript("OnEnter")
+        if enter and self:IsMouseOver() then enter(self) end
     end)
-    f:SetScript("OnHyperlinkClick", function(self, link)
-        local id = link:match("^fgtgoal:(.+)")
+    f:SetScript("OnHyperlinkClick", function(self, link, text, button)
         GameTooltip:Hide()
+        local itemId = tonumber(link:match("^item:(%d+)") or "")
+        if itemId then
+            if button == "RightButton" then
+                FGT.OpenWowheadCard("item", itemId, text)
+            elseif IsShiftKeyDown() then
+                FGT.InsertItemLink(itemId)
+            end
+            return
+        end
+        local id = link:match("^fgtgoal:(.+)")
         if id and FGT.OpenLinkCard then FGT.OpenLinkCard(id) end
     end)
 end
@@ -3316,22 +3335,6 @@ local function GetStepRow(index)
                 GameTooltip:AddLine("Updates automatically as you level.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
             end
             GameTooltip:Show()
-        elseif self.itemId then
-            -- the game's own tooltip for the item, then how the step tracks it
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:SetHyperlink("item:" .. self.itemId)
-            if self.ruleEntry then
-                GameTooltip:AddLine(" ")
-                GameTooltip:AddLine("Checks itself off when " .. DescribeRule(self.ruleEntry) .. ".",
-                    C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
-                local now = RuleReadout(self.ruleEntry)
-                if now then
-                    GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
-                end
-            end
-            GameTooltip:AddLine("Shift-click to link it in chat. Right-click for its Wowhead link.",
-                C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
-            GameTooltip:Show()
         elseif self.ruleEntry then
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
             GameTooltip:AddLine("Tracked automatically", C.TITLE[1], C.TITLE[2], C.TITLE[3])
@@ -3342,7 +3345,10 @@ local function GetStepRow(index)
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
             end
             GameTooltip:AddLine("You can still click to tick it by hand.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
-            if self.questId then
+            if self.itemId then
+                GameTooltip:AddLine("Hover the item's name or icon for its tooltip. Right-click for its Wowhead link.",
+                    C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            elseif self.questId then
                 GameTooltip:AddLine("Right-click for the quest's Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             end
             GameTooltip:Show()
@@ -3372,6 +3378,22 @@ local function GetStepRow(index)
     row.icon = NewIcon(row, 20)
     row.icon:SetPoint("TOPLEFT", row.box, "TOPRIGHT", 8, 2)
     row.icon:Hide()
+    -- hovering the icon shows the item's tooltip (Karl); clicks pass on to
+    -- the row, so the icon still ticks the step like before
+    row.icon:EnableMouse(true)
+    row.icon:SetScript("OnEnter", function()
+        local enter = row:GetScript("OnEnter")
+        if enter then enter(row) end -- the row's hover highlight
+        if row.itemId then FGT.ShowItemTip(row.icon, row.itemId, row.ruleEntry) end
+    end)
+    row.icon:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+        local leave = row:GetScript("OnLeave")
+        if leave and not row:IsMouseOver() then leave(row) end
+    end)
+    row.icon:SetScript("OnMouseUp", function(_, button)
+        if row:IsMouseOver() then row:Click(button) end
+    end)
 
     row.text = NewFontString(row, 12, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
     row.text:SetJustifyH("LEFT")
@@ -3761,6 +3783,7 @@ local function RefreshTierSections(goal)
 
                 row.num:SetText("")
                 row.text:SetText(FGT.StepText(piece.text or piece.name))
+                FGT.LinkItemName(row) -- the piece's name as an item link
                 row.text:SetWidth(math.max(50, width - 18 - 44 - (hasMats and 44 or 0) - (piece.icon and 14 or 0)))
                 StyleCheckRow(row, md == mt)
                 if not hasMats then FGT.MaybePopTick(row, goal.id, PieceKey(si, pi)) end
@@ -7056,20 +7079,89 @@ end
 -- Ctrl+C, since addons can't open a browser.
 -- ============================================================
 do
+    -- items whose name or quality wasn't loaded yet when their step was
+    -- drawn; the open goal redraws when the game sends their details
+    local waiting = {}
+
     function FGT.SetStepLinks(row, rule)
         row.itemId = rule and AsList(rule.item)[1] or nil
         row.questId = rule and (AsList(rule.quest)[1] or AsList(rule.questTaken)[1]) or nil
+        row.itemNames = rule and rule.owned and AsList(rule.owned) or nil
+        FGT.LinkItemName(row)
     end
 
-    -- the item's chat link, once the game has its data (asks for it if not)
-    local function ItemLink(id)
+    -- The item's name inside the step text becomes a link in its quality
+    -- color (purple epic, blue rare...; white until the game has the
+    -- item), so hovering the name shows the item (Karl). Matches the
+    -- game's item name or the rule's owned names; "Bars" keeps its "s".
+    function FGT.LinkItemName(row)
+        local id, text = row.itemId, row.text:GetText()
+        if not id or type(text) ~= "string" or text:find("|Hitem:", 1, true) then return end
+        local name, _, quality = GetItemInfo(id)
+        if not name then
+            waiting[id] = true
+            if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+        end
+        local candidates = { name }
+        for _, n in ipairs(row.itemNames or {}) do table.insert(candidates, n) end
+        for _, n in ipairs(candidates) do
+            local s, e = text:find(n, 1, true)
+            if s then
+                if text:sub(e + 1, e + 1) == "s" then e = e + 1 end
+                local q = quality and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]
+                local color = q and q.hex or "|cffffffff"
+                row.text:SetText(text:sub(1, s - 1) .. color .. "|Hitem:" .. id .. "|h"
+                    .. text:sub(s, e) .. "|h|r" .. text:sub(e + 1))
+                return
+            end
+        end
+    end
+
+    local f = CreateFrame("Frame")
+    pcall(f.RegisterEvent, f, "GET_ITEM_INFO_RECEIVED")
+    f:SetScript("OnEvent", function(_, _, id)
+        if not waiting[id] then return end
+        waiting[id] = nil
+        if f.pending then return end
+        f.pending = true
+        C_Timer.After(0.3, function() -- several items often arrive together
+            f.pending = nil
+            if main:IsShown() and selectedId then SelectGoal(selectedId, true) end
+        end)
+    end)
+
+    -- The game's tooltip for an item, at the cursor (Karl), then how the
+    -- step tracks it and what clicks do.
+    function FGT.ShowItemTip(owner, id, rule)
+        GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
+        GameTooltip:SetHyperlink("item:" .. id)
+        if rule then
+            GameTooltip:AddLine(" ")
+            GameTooltip:AddLine("Checks itself off when " .. DescribeRule(rule) .. ".", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
+            local now = RuleReadout(rule)
+            if now then
+                GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
+            end
+        end
+        GameTooltip:AddLine("Shift-click to link it in chat. Right-click for its Wowhead link.",
+            C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        GameTooltip:Show()
+    end
+
+    -- puts the item's link in the chat box (opening it if needed)
+    function FGT.InsertItemLink(id)
         local _, link = GetItemInfo(id)
-        if not link and C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
-        return link
+        if not link then
+            if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+            print(TAG .. "that item's details are still loading. Shift-click again in a moment.")
+        elseif not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) then
+            if ChatFrame_OpenChat then ChatFrame_OpenChat(link) end
+        end
     end
 
     -- true when the click was a link action (the step doesn't tick)
     function FGT.StepLinkClick(row, button)
+        if FGT.overLink then return true end -- the name's own link handled it
         if button == "RightButton" then
             if row.itemId or row.questId then
                 GameTooltip:Hide()
@@ -7078,12 +7170,7 @@ do
             return true
         end
         if IsShiftKeyDown() and row.itemId then
-            local link = ItemLink(row.itemId)
-            if not link then
-                print(TAG .. "that item's details are still loading. Shift-click again in a moment.")
-            elseif not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) then
-                if ChatFrame_OpenChat then ChatFrame_OpenChat(link) end
-            end
+            FGT.InsertItemLink(row.itemId)
             return true
         end
         return false
