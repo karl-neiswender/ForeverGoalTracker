@@ -946,6 +946,11 @@ local PVP_SET_GOALS = {
 local sets = {
     {
         id = "set_tier1", library = true, group = true,
+        -- Wowhead's Forever database lists these Classic pieces as removed
+        -- (2026-10-07); Forever's own versions aren't revealed. Shown with a
+        -- notice, never suggested by the wizard on Forever.
+        removedInForever = true,
+        foreverNote = "Wowhead lists these Classic pieces as removed in WoW Forever. Forever's own sets for this raid haven't been revealed.",
         icon = "inv_helmet_09",
         name = "Tier 1 Set Appearances",
         short = "Tier 1 Sets",
@@ -956,6 +961,11 @@ local sets = {
     },
     {
         id = "set_tier2", library = true, group = true,
+        -- Wowhead's Forever database lists these Classic pieces as removed
+        -- (2026-10-07); Forever's own versions aren't revealed. Shown with a
+        -- notice, never suggested by the wizard on Forever.
+        removedInForever = true,
+        foreverNote = "Wowhead lists these Classic pieces as removed in WoW Forever. Forever's own sets for this raid haven't been revealed.",
         icon = "inv_helmet_71",
         name = "Tier 2 Set Appearances",
         short = "Tier 2 Sets",

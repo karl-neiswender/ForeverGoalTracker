@@ -1407,7 +1407,9 @@ function FGT.ForeverNote(goal, short)
         return (not short and goal.foreverNote)
             or "In WoW Forever's database, but the steps aren't confirmed yet. They follow Classic Era and may differ."
     elseif s == "unconfirmed" then
-        return "Not yet confirmed in WoW Forever. These steps follow Classic Era and may differ."
+        -- a goal can say more (Tier 1 and 2: removed in Forever)
+        return (not short and goal.foreverNote)
+            or "Not yet confirmed in WoW Forever. These steps follow Classic Era and may differ."
     end
 end
 
@@ -7170,9 +7172,19 @@ do
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
             GameTooltip:AddLine(name or "Item", 1, 1, 1)
             if Unavailable(id) then
-                GameTooltip:AddLine("Not in the game yet", 1.00, 0.50, 0.42)
-                GameTooltip:AddLine("WoW Forever shows this item's details once players find it after launch.",
-                    C.INK2[1], C.INK2[2], C.INK2[3], true)
+                -- new Forever items are hidden until found ("yet" is true for
+                -- them); Classic items Forever removed get no "yet" (Karl:
+                -- don't raise hopes), e.g. Tier 1 and 2
+                local g = selectedId and FGT.GoalById(selectedId)
+                if g and FGT.ForeverStatus(g) == "new" then
+                    GameTooltip:AddLine("Not revealed yet", 1.00, 0.50, 0.42)
+                    GameTooltip:AddLine("WoW Forever shows this item's details once players find it after launch.",
+                        C.INK2[1], C.INK2[2], C.INK2[3], true)
+                else
+                    GameTooltip:AddLine("Not in the game", 1.00, 0.50, 0.42)
+                    GameTooltip:AddLine(FGT.isForever and "This item isn't in WoW Forever."
+                        or "The game has no details for this item.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+                end
             else
                 FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()
                 GameTooltip:AddLine("Loading item details...", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
@@ -7200,7 +7212,7 @@ do
     function FGT.InsertItemLink(id)
         local _, link = FGT.ItemInfo(id)
         if not link and Unavailable(id) then
-            print(TAG .. "that item isn't in the game yet, so it can't be linked.")
+            print(TAG .. "that item isn't in the game, so it can't be linked.")
         elseif not link then
             FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
@@ -7831,6 +7843,7 @@ local function Entry(me, id, keys, why)
     if g.forever == "new" and not FGT.isForever then return nil end
     if g.needs == "stats" and not FGT.HasStats() then return nil end
     if g.needs == "forever" and not FGT.isForever then return nil end
+    if g.removedInForever and FGT.isForever then return nil end -- can't be finished there
     local set, tracked
     if g.group then
         set = {}
