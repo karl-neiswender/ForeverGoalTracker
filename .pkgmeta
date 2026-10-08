@@ -18,6 +18,7 @@ ignore:
   - Media/forever-source.png
   - Media/interests/*-source.*
   - Media/icons/*-source.*
+  - Media/artwork/*-source.*
   - Media/*-source.webp
   - ROADMAP.md
   - Screenshots

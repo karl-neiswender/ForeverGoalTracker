@@ -2,13 +2,13 @@
 
 ## Unreleased
 
+- Goal banner redesign draft: larger icon/title, spacious outlined chips and description, with subtly vignetted Thunderfury artwork from Karl's Figma design.
+
 - Personal notes on each goal: a note icon opens an editor over a darkened window, with gold Save when text is entered, Delete note and a close X; your note appears under the goal description
 - Note editor fades and gently pops into place over a greyed-out background; gold Save brightens on hover
 - New painted refresh icon for Reset this goal, with a gentle turn when clicked
 - Undo reset tooltip counts down the remaining 10-second undo window
 - Undo reset restores checkmark animations and the goal progress bar's glide
-
-## Unreleased
 
 - First Classic Era step-dependency pass: prerequisite locks, muted-red explanations, click jiggle and breakaway unlock animation. Parallel and alternative prerequisites supported; gathering and completed steps remain available. Forever gates await current-build verification.
 - Personal note text is read-only; use the note icon to add or edit.

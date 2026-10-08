@@ -3694,9 +3694,9 @@ LayoutGoalList()
 -- Small uppercase category label in its category color, above the title
 -- (the site's tooltip "small" style).
 -- Large item icon at the top-left of the goal page.
-local DETAIL_ICON = 50
+local DETAIL_ICON = 70
 local detailIcon = NewIcon(detailPanel, DETAIL_ICON)
-detailIcon:SetPoint("TOPLEFT", 16, -16)
+detailIcon:SetPoint("TOPLEFT", 22, -24)
 -- Goals with one final reward (weapons, mounts): hovering the big icon
 -- shows that item, compared with what you're wearing (Karl). The reward
 -- is the goal's `rewardItem`, or the first item of its `completeWith`.
@@ -3710,21 +3710,21 @@ detailIcon:SetScript("OnLeave", function() GameTooltip:Hide() end)
 local detailTag = NewFontString(detailPanel, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
 detailTag:SetPoint("TOPLEFT", detailIcon, "TOPRIGHT", 12, -1)
 
-local detailTitle = NewTitleString(detailPanel, 18)
-detailTitle:SetPoint("TOPLEFT", detailTag, "BOTTOMLEFT", 0, -4)
-detailTitle:SetPoint("RIGHT", -16, 0)
+local detailTitle = NewTitleString(detailPanel, 20)
+detailTitle:SetPoint("TOPLEFT", detailTag, "BOTTOMLEFT", 0, -8)
+detailTitle:SetPoint("RIGHT", -22, 0)
 detailTitle:SetWordWrap(true)
 
 -- Difficulty + time estimate as two chips.
 local detailDiffChip = NewChip(detailPanel, 9)
-detailDiffChip:SetPoint("TOPLEFT", detailTitle, "BOTTOMLEFT", 0, -8)
+detailDiffChip:SetPoint("TOPLEFT", detailIcon, "BOTTOMLEFT", 0, -20)
 
 local detailTimeChip = NewChip(detailPanel, 9)
-detailTimeChip:SetPoint("LEFT", detailDiffChip, "RIGHT", 6, 0)
+detailTimeChip:SetPoint("LEFT", detailDiffChip, "RIGHT", 10, 0)
 
-local detailNote = NewFontString(detailPanel, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
-detailNote:SetPoint("TOPLEFT", detailDiffChip, "BOTTOMLEFT", -(DETAIL_ICON + 12), -12)
-detailNote:SetPoint("RIGHT", -16, 0)
+local detailNote = NewFontString(detailPanel, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
+detailNote:SetPoint("TOPLEFT", detailDiffChip, "BOTTOMLEFT", 0, -24)
+detailNote:SetPoint("RIGHT", -22, 0)
 detailNote:SetWordWrap(true)
 detailNote:SetJustifyH("LEFT")
 
@@ -3733,7 +3733,7 @@ do
     local n = CreateFrame("Frame", nil, detailPanel)
     n:EnableMouse(false) -- display only; the note icon is the sole editor entry point
     n:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -10)
-    n:SetPoint("RIGHT", detailPanel, "RIGHT", -16, 0)
+    n:SetPoint("RIGHT", detailPanel, "RIGHT", -22, 0)
     n.text = NewFontString(n, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
     n.text:SetPoint("TOPLEFT")
     n.text:SetPoint("RIGHT")
@@ -3781,7 +3781,7 @@ do
         n:SetShown(text ~= "")
         if text == "" then return detailNote end
         -- User text stays literal, even if it contains WoW formatting codes.
-        n.text:SetWidth(math.max(120, detailPanel:GetWidth() - 32))
+        n.text:SetWidth(math.max(120, detailPanel:GetWidth() - 44))
         n.text:SetText("|cffcc9e29NOTE:|r " .. text:gsub("|", "||"))
         n:SetHeight(math.max(14, math.ceil(n.text:GetStringHeight())))
         return n
@@ -4104,20 +4104,105 @@ do
         local resetShown = goal and not goal.autoLevels
         if FGT.resetBtn then
             FGT.resetBtn:ClearAllPoints()
-            FGT.resetBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", b:IsShown() and -38 or -12, -12)
+            FGT.resetBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", b:IsShown() and -46 or -20, -22)
         end
         local icons = (b:IsShown() and 1 or 0) + (resetShown and 1 or 0)
         FGT.detailNoteBtn:ClearAllPoints()
-        FGT.detailNoteBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -12 - 26 * icons, -12)
+        FGT.detailNoteBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -20 - 26 * icons, -22)
         icons = icons + 1
-        detailTitle:SetPoint("RIGHT", detailPanel, "RIGHT", -16 - 26 * icons, 0)
+        -- The title begins below the action icons and can use the full width.
+        detailTitle:SetPoint("RIGHT", detailPanel, "RIGHT", -22, 0)
+        b:ClearAllPoints(); b:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -20, -22)
     end
 end
 
 local detailBar = NewBar(detailPanel, 8)
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
-detailBar:SetPoint("RIGHT", -16, 0)
+detailBar:SetPoint("RIGHT", -22, 0)
+
+do -- Banner art lives behind the real widgets; no duplicate UI renderer.
+    local B = CreateFrame("Frame", nil, detailPanel)
+    B:EnableMouse(false)
+    B:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
+    B:SetPoint("BOTTOMRIGHT", detailBar, "TOPRIGHT", 18, 6)
+    B.background = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -4)
+    B.background:SetTexture(SOLID)
+    B.background:SetAllPoints(B)
+    ApplyVGradient(B.background, {0.028,0.024,0.017}, {0.005,0.005,0.005}, 1, 1)
+    B.art = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -3)
+    B.art:SetPoint("TOPRIGHT", B, "TOPRIGHT")
+    B.art:SetAlpha(0.18)
+    B.left = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
+    B.top = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
+    B.bottom = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
+    for _, t in ipairs({B.left,B.top,B.bottom}) do t:SetTexture(SOLID) end
+    B.left:SetPoint("TOPLEFT", B.art, "TOPLEFT")
+    B.top:SetPoint("TOPRIGHT", B, "TOPRIGHT")
+    B.bottom:SetPoint("BOTTOMRIGHT", B, "BOTTOMRIGHT")
+    ApplyHGradient(B.left, {0.012,0.011,0.008}, {0.012,0.011,0.008}, 1, 0)
+    ApplyVGradient(B.top, {0.02,0.017,0.012}, {0.02,0.017,0.012}, 0.65, 0)
+    ApplyVGradient(B.bottom, {0.005,0.005,0.005}, {0.005,0.005,0.005}, 0, 1)
+    B.artPaths = { thunderfury = "thunderfury-banner" }
+    function B:Fit()
+        local w = math.max(1, detailPanel:GetWidth()-8)
+        local h = math.max(1, self:GetHeight())
+        local aw = w*0.6
+        self.art:SetSize(aw,h)
+        -- Cover crop preserves the square source's proportions at any window size.
+        local ratio = aw/h
+        if ratio >= 1 then
+            local crop = (1-1/ratio)/2
+            self.art:SetTexCoord(0,1,crop,1-crop)
+        else
+            local crop = (1-ratio)/2
+            self.art:SetTexCoord(crop,1-crop,0,1)
+        end
+        self.left:SetSize(aw*0.78,h)
+        self.top:SetSize(aw,h*0.28)
+        self.bottom:SetSize(aw,h*0.3)
+    end
+    B:SetScript("OnSizeChanged", function(self) self:Fit() end)
+    B:SetScript("OnHide", function(self)
+        for _,t in ipairs({self.background,self.art,self.left,self.top,self.bottom}) do t:Hide() end
+    end)
+    B:SetScript("OnShow", function(self)
+        self.background:Show()
+        for _,t in ipairs({self.art,self.left,self.top,self.bottom}) do t:SetShown(self.hasArt and true or false) end
+    end)
+    B:Hide()
+    FGT.goalBanner = B
+    B.title, B.tag, B.icon, B.description, B.panel = detailTitle, detailTag, detailIcon, detailNote, detailPanel
+    B.difficulty, B.duration = detailDiffChip, detailTimeChip
+    function FGT.LayoutGoalBanner(goal)
+        B.goal = goal
+        local rowHeight = math.max(DETAIL_ICON, (detailTag:GetStringHeight() or 12) + 8 + (detailTitle:GetStringHeight() or 24))
+        for _,chip in ipairs({detailDiffChip,detailTimeChip}) do
+            chip:SetSize(math.ceil(chip.text:GetStringWidth())+24,22)
+            chip:SetBackdrop({bgFile=SOLID,edgeFile=ETCH_EDGE,edgeSize=8,insets={left=2,right=2,top=2,bottom=2}})
+            chip:SetBackdropColor(0.02,0.02,0.015,0.75)
+            chip:SetBackdropBorderColor(0.34,0.30,0.20,1)
+        end
+        -- Completion/Forever/lockout badges wrap instead of entering the description.
+        local x, y = 22, 24+rowHeight+20
+        for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip,FGT.detailLockChip}) do
+            if chip:IsShown() then
+                local width = chip:GetWidth()
+                if x > 22 and x+width > detailPanel:GetWidth()-22 then x,y = 22,y+30 end
+                chip:ClearAllPoints(); chip:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", x,-y)
+                x = x+width+10
+            end
+        end
+        detailNote:ClearAllPoints()
+        detailNote:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 22,-(y+22+24))
+        detailNote:SetPoint("RIGHT", detailPanel, "RIGHT", -22,0)
+        local art = B.artPaths[goal.id]
+        B.hasArt = art ~= nil
+        if art then B.art:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..art) end
+        for _,t in ipairs({B.art,B.left,B.top,B.bottom}) do t:SetShown(B.hasArt) end
+        B:Fit()
+    end
+end
 
 -- Shows or hides the Forever chip and notice for a goal, and hangs the
 -- progress bar under whichever is last.
@@ -4144,13 +4229,13 @@ function FGT.LayoutForeverInfo(goal)
     local n = FGT.foreverNotice
     n:ClearAllPoints()
     n:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -12)
-    n:SetPoint("RIGHT", detailPanel, "RIGHT", -16, 0)
+    n:SetPoint("RIGHT", detailPanel, "RIGHT", -22, 0)
     -- New goals only get the notice when there's something to explain.
     local note = (not word or goal.foreverNote) and FGT.ForeverNote(goal)
     detailBar:ClearAllPoints()
-    detailBar:SetPoint("RIGHT", -16, 0)
+    detailBar:SetPoint("RIGHT", -22, 0)
     if note then
-        local w = math.max(120, detailPanel:GetWidth() - 32)
+        local w = math.max(120, detailPanel:GetWidth() - 44)
         n.text:SetWidth(w - 9 - 18 - 8 - 10)
         n.text:SetText(note)
         n:SetHeight(math.max(30, math.ceil(n.text:GetStringHeight()) + 18))
@@ -4160,6 +4245,7 @@ function FGT.LayoutForeverInfo(goal)
         n:Hide()
         detailBar:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -12)
     end
+    FGT.LayoutGoalBanner(goal)
 end
 
 local divider = FGT.NewEmbossLine(detailPanel) -- above the steps
@@ -5134,8 +5220,8 @@ SelectGoal = function(id, skipListRefresh)
     end
 
     detailNote:SetText(goal.note or "")
-    FGT.LayoutForeverInfo(goal)
     FGT.UpdateEditButton(goal)
+    FGT.LayoutForeverInfo(goal)
 
     resetBtn:SetShown(not goal.autoLevels)
     if FGT.resetUndo and FGT.resetUndo.id ~= goal.id then FGT.resetUndo = nil end -- undo is per goal
@@ -5632,7 +5718,7 @@ end
 detailParts = { detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
     detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
     FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip, FGT.detailEditBtn,
-    FGT.personalNote, FGT.detailNoteBtn }
+    FGT.personalNote, FGT.detailNoteBtn, FGT.goalBanner }
 
 -- "Clear" next to the sort bar: removes every goal from My Goals in one
 -- go, after a confirm in the right-click menu's style. Progress is kept

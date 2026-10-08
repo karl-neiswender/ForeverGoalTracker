@@ -328,6 +328,7 @@ if ok_all:
             'SlashCmdList["FOREVERGOALTRACKER"]("demo off"); print("  after off: " .. STUB_NS.GoalById("gold_5k").name)'),
     ]
     steps.extend([
+        ("goal banner layout", None, open(os.path.join(here, "banner-tests.lua"), encoding="utf-8").read()),
         ("step dependencies", None, open(os.path.join(here, "dependency-tests.lua"), encoding="utf-8").read()),
         ("Forever dependency gates withheld", None,
             'local F = STUB_NS; assert(F.isForever); '
