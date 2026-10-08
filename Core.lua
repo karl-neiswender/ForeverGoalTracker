@@ -3810,6 +3810,28 @@ do
         FGT.SetGoalNote(goal, text)
     end
 
+    function FGT.DeleteNoteCard()
+        local T = FGT.noteCard
+        if not (T and T.goal) then return end
+        local goal = T.goal
+        FGT.CloseNoteCard()
+        FGT.SetGoalNote(goal, "")
+    end
+
+    function FGT.StyleNoteControls()
+        local T = FGT.noteCard
+        if not (T and T.save) then return end
+        local hasText = (T.box:GetText() or ""):find("%S") ~= nil
+        T.save.gold = hasText
+        T.save:SetEtch(hasText and STYLE.rowSel or (T.save:IsMouseOver() and STYLE.btnHover or STYLE.button))
+        T.save.text:SetTextColor(unpack(hasText and C.TITLE or C.TEXT))
+        local saved = FGT.GoalNote(T.goal) ~= ""
+        T.delete:SetEnabled(saved)
+        T.delete:SetEtch(saved and (T.delete:IsMouseOver() and STYLE.dangerHv or STYLE.button) or STYLE.muted)
+        local c = saved and { 1, 0.5, 0.42 } or C.SUBTEXT
+        T.delete.text:SetTextColor(c[1], c[2], c[3])
+    end
+
     function FGT.OpenNoteCard(goal)
         GameTooltip:Hide()
         if FGT.CloseTargetCard then FGT.CloseTargetCard() end
@@ -3826,9 +3848,22 @@ do
             T.catcher:SetAllPoints(main)
             T.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
             T.catcher:RegisterForClicks("AnyUp")
+            T.catcher:EnableMouseWheel(true)
+            T.catcher:SetScript("OnMouseWheel", function() end)
             T.catcher:SetScript("OnClick", FGT.CloseNoteCard)
+            T.dim = T.catcher:CreateTexture(nil, "BACKGROUND")
+            T.dim:SetTexture(SOLID)
+            T.dim:SetPoint("TOPLEFT", 4, -4)
+            T.dim:SetPoint("BOTTOMRIGHT", -4, 4)
+            T.dim:SetVertexColor(0, 0, 0, 0.72) -- same dark layer as the welcome wizard
+            T.close = CreateFrame("Button", nil, T)
+            T.close:SetSize(20, 20)
+            T.close:SetPoint("TOPRIGHT", -10, -10)
+            T.close:SetScript("OnClick", FGT.CloseNoteCard)
+            FGT.IconButton(T.close, "close", 13)
             T.title = NewTitleString(T, 13)
             T.title:SetPoint("TOPLEFT", 14, -14)
+            T.title:SetPoint("RIGHT", T, "RIGHT", -42, 0)
             T.title:SetText("Personal note")
             T.sub = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
             T.sub:SetPoint("TOPLEFT", T.title, "BOTTOMLEFT", 0, -6)
@@ -3853,6 +3888,7 @@ do
             T.box:SetTextInsets(8, 8, 8, 8)
             T.box:SetMaxLetters(240)
             T.box:SetScript("OnEscapePressed", FGT.CloseNoteCard)
+            T.box:SetScript("OnTextChanged", FGT.StyleNoteControls)
             T.scroll:EnableMouseWheel(true)
             T.scroll:SetScript("OnMouseWheel", function(self, delta)
                 self:SetVerticalScroll(math.max(0, math.min(self:GetVerticalScrollRange(), self:GetVerticalScroll() - delta * 24)))
@@ -3869,8 +3905,8 @@ do
             end)
             T.hint = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
             T.hint:SetPoint("BOTTOMLEFT", 14, 47)
-            T.hint:SetText("Up to 240 characters. Clear the text to remove your note.")
-            for i, label in ipairs({ "Save", "Cancel" }) do
+            T.hint:SetText("Up to 240 characters.")
+            for i, label in ipairs({ "Save", "Delete note" }) do
                 local btn = CreateFrame("Button", nil, T, "BackdropTemplate")
                 btn:SetSize(90, 24)
                 btn:SetPoint("BOTTOMLEFT", 14 + (i - 1) * 100, 14)
@@ -3878,9 +3914,10 @@ do
                 btn.text = NewFontString(btn, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
                 btn.text:SetPoint("CENTER")
                 btn.text:SetText(label)
-                btn:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
-                btn:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
-                btn:SetScript("OnClick", i == 1 and FGT.SaveNoteCard or FGT.CloseNoteCard)
+                btn:SetScript("OnEnter", FGT.StyleNoteControls)
+                btn:SetScript("OnLeave", FGT.StyleNoteControls)
+                btn:SetScript("OnClick", i == 1 and FGT.SaveNoteCard or FGT.DeleteNoteCard)
+                if i == 1 then T.save = btn else T.delete = btn end
             end
             T:Hide(); T.catcher:Hide()
         end
@@ -3889,6 +3926,7 @@ do
         T:SetPoint("CENTER", main, "CENTER")
         T.sub:SetText(goal.name)
         T.box:SetText(FGT.GoalNote(goal))
+        FGT.StyleNoteControls()
         T.scroll:SetVerticalScroll(0)
         T.catcher:Show(); T:Show()
         T.box:SetFocus()

@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Personal notes on each goal: a note icon opens a Save/Cancel editor, with your note displayed under the goal description
+- Personal notes on each goal: a note icon opens an editor over a darkened window, with gold Save when text is entered, Delete note and a close X; your note appears under the goal description
 - New painted refresh icon for Reset this goal, with a gentle turn when clicked
 - Undo reset tooltip counts down the remaining 10-second undo window
 - Undo reset restores checkmark animations and the goal progress bar's glide
