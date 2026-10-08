@@ -3811,6 +3811,7 @@ do
             W.Tween("noteClose", 0.18, function(p)
                 local e = W.EaseOut(p)
                 T:SetAlpha(alpha * (1 - e))
+                T.shadow:SetAlpha(alpha * (1 - e))
                 T:SetScale(W.Motion() == "full" and scale * (1 - 0.015 * e) or 1)
                 T.greyAmount = shade * (1 - e)
                 T.dim:SetVertexColor(0, 0, 0, 0.72 * T.greyAmount)
@@ -3823,6 +3824,7 @@ do
         T.greyActive, T.greyAmount, T.closing = nil, nil, nil
         T.box:ClearFocus(); T:Hide(); T.catcher:Hide(); T.goal = nil
         T:SetAlpha(1); T:SetScale(1)
+        if T.shadow then T.shadow:SetAlpha(1) end
     end
 
     function FGT.SaveNoteCard()
@@ -3869,6 +3871,7 @@ do
             T:SetClampedToScreen(true)
             T:EnableMouse(true)
             Etch(T, STYLE.rowSel, 12)
+            FGT.AddDropShadow(T, 64, 0.85, 8, 10) -- broad, soft and dark behind the note card
             T.catcher = CreateFrame("Button", nil, main)
             T.catcher:SetAllPoints(main)
             T.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
@@ -3965,10 +3968,11 @@ do
             T.dim:SetVertexColor(0, 0, 0, 0.72 * e)
             W.SetGrey(e)
             T:SetAlpha(e)
+            T.shadow:SetAlpha(e)
             local u = p - 1
             local pop = 1 + 1.7 * u * u * u + 0.7 * u * u
             T:SetScale(full and (0.96 + 0.04 * pop) or 1)
-        end, function() T:SetAlpha(1); T:SetScale(1) end)
+        end, function() T:SetAlpha(1); T:SetScale(1); T.shadow:SetAlpha(1) end)
     end
     main:HookScript("OnHide", function() FGT.CloseNoteCard(true) end)
 end
@@ -10177,7 +10181,7 @@ local function Collect(frame)
     for _, child in ipairs({ frame:GetChildren() }) do
         -- Both modal cards stay in color while the addon behind them greys.
         local T = FGT.noteCard
-        if child ~= W.frame and child ~= T and (not T or child ~= T.catcher) then Collect(child) end
+        if child ~= W.frame and child ~= T and (not T or (child ~= T.catcher and child ~= T.shadow)) then Collect(child) end
     end
 end
 -- amount 0 = full color, 1 = grey (and the dark layer at full strength)
