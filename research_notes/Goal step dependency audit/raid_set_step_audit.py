@@ -49,7 +49,7 @@ for g in C:
   out.append(r)
 assert len(out)==878
 assert len({(r['goalId'],str(r['address'])) for r in out})==878
-(P/'raid_set_step_audit.json').write_text(json.dumps(out,indent=2,ensure_ascii=False),encoding='utf-8')
+(P/'raid_set_step_audit.json').write_text(json.dumps(out,indent=2,ensure_ascii=False),encoding='utf-8',newline='\n')
 summary={'catalogueGoals':len(C),'rawAddresses':sum(len(g['addresses']) for g in C),'countedTasks':sum(sum(a.get('counted',True) for a in g['addresses']) for g in C),'raidSetGoals':sum(owned(g) for g in C),'raidSetRawAddresses':len(out),'raidSetCountedTasks':sum(r['countedTask'] for r in out),'ownedIDs':[g['id'] for g in C if owned(g)],'semantics':'raw includes72 uncounted Tier3 parent-piece addresses; other raw piece parents with materials are likewise uncounted. Counted means PieceProgress weighting, not number of UI headers. The complete catalogue retains hidden goals/parts.'}
-(P/'inventory_assertions.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
+(P/'inventory_assertions.json').write_text(json.dumps(summary,indent=2),encoding='utf-8',newline='\n')
 print(json.dumps(summary,indent=2))

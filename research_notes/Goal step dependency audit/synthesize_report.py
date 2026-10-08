@@ -88,12 +88,12 @@ assert len(inventory['Forever'])==79 and len(records)==1177
 assert sum(r['countedTask'] for r in records)==1105
 assert sum(not r['countedTask'] for r in records)==72
 validation={'researchDate':'2026-10-08','passed':True,'goalCount':79,'rawAddressCount':1177,'countedTaskCount':1105,'uncountedTier3Parents':72,'inputCounts':input_counts,'statusCountsRaw':dict(counts),'statusCountsCountedTasks':dict(task_counts),'missingAddresses':0,'duplicateAddresses':0,'unownedAddresses':0,'mismatchedTexts':0,'danglingReferences':0,'selfDependencies':0,'rowDependencyCycles':0,'validatedRowReferences':refs,'EraForeverAddressSetsMatch':True,'clientTextVariants':variants,'productionEdgesImplemented':0,'meaning':'Complete classification coverage including deliberate withheld decisions; coverage does not establish all external gameplay predicates or validate the incoming Forever build.'}
-def write_json(name,data): (OUT/name).write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
+def write_json(name,data): (OUT/name).write_text(json.dumps(data,indent=2,ensure_ascii=False)+'\n',encoding='utf-8',newline='\n')
 write_json('Goal step dependency audit.validation.json',validation)
 write_json('Goal step dependency audit.json',{'researchDate':'2026-10-08','purpose':'Research only; do not import as production dependency edges','addressSyntax':'goalId:steps[n] or goalId:sections[s].pieces[p][.materials[m]], original one-based saved source positions','statusDefinitions':{'no_lock':'Available collection/milestone or soft/contextual ordering; no hard row lock recommended. External gameplay eligibility can still exist.','candidate':'Source-supported Classic dependency candidate, conditional on evidence/scope and client verification; not production-ready.','withheld':'Guide correction, missing condition, conflicting source or unverified client/access/vendor behavior prevents an asserted row lock.'},'logicalSemantics':'requiresAll = AND row-completion candidates; requiresAny = OR row-completion candidates, potentially joined by alternativeConditions. External quest acceptance/completion, eligibility and instance conditions stay in externalPredicateNotes/notes/missingPrerequisite. Empty arrays are not proof of unrestricted gameplay.','validation':validation,'records':records})
 columns=['id','goalId','address','rawKey','kind','countedTask','text','status','requiresAll','requiresAny','scope','confidence','sourceURLs','notes','externalPredicateNotes','alternativeConditions','classification','productionReady','provenance']
 with (OUT/'Goal step dependency audit.csv').open('w',newline='',encoding='utf-8-sig') as f:
-    writer=csv.DictWriter(f,fieldnames=columns)
+    writer=csv.DictWriter(f,fieldnames=columns,lineterminator='\n')
     writer.writeheader()
     for r in records:
         writer.writerow({k:json.dumps(r[k],ensure_ascii=False) if isinstance(r.get(k),(dict,list)) else r.get(k,'') for k in columns})
@@ -152,5 +152,5 @@ table=['| Goal ID | Goal | Raw / tasks | No lock / candidate / withheld | Resear
 for g in inventory['Forever']:
     rs=bygoal[g['id']];c=collections.Counter(r['status'] for r in rs)
     table.append(f"| `{g['id']}` | {g['name']} | {len(rs)} / {sum(r['countedTask'] for r in rs)} | {c['no_lock']} / {c['candidate']} / {c['withheld']} | {overview(g)} |")
-(BASE/'per_goal_overview.md').write_text('\n'.join(table)+'\n',encoding='utf-8')
+(BASE/'per_goal_overview.md').write_text('\n'.join(table)+'\n',encoding='utf-8',newline='\n')
 print(json.dumps(validation,indent=2))

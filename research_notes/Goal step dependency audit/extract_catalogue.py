@@ -20,6 +20,6 @@ for client,interface in [('Era',11509),('Forever',16001)]:
         run((ROOT/f).read_text(encoding='utf-8'),f,ns)
     rt.execute('STUB_FIRE("ADDON_LOADED", "ForeverGoalTracker"); STUB_FIRE("PLAYER_LOGIN")')
     out[client]=convert(ns['goals'])
-(ROOT/'research_notes/Goal step dependency audit/catalogue.json').write_text(json.dumps(out,indent=2,ensure_ascii=False),encoding='utf-8')
+(ROOT/'research_notes/Goal step dependency audit/catalogue.json').write_text(json.dumps(out,indent=2,ensure_ascii=False),encoding='utf-8',newline='\n')
 for client,goals in out.items():
     print(client,len(goals),[(g['id'],g['category']) for g in goals])
