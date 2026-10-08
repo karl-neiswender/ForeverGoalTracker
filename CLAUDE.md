@@ -279,6 +279,8 @@ Player-chosen style options in Settings. Karl's ideas: how Forever goals look (a
 
 ## Working with Karl
 
+- Note editor readability / count (Karl / Codex, 2026-10-08): the goal title under "Add personal note" uses brighter `C.TEXT` instead of `C.INK2`. The old "Up to 240 characters" hint now displays a live "N / 240 characters" count via `StyleNoteControls` / OnTextChanged, counting UTF-8 characters rather than bytes. Tests include accented text.
+
 - Note editor title / empty Save (Karl / Codex, 2026-10-08): title is now "Add personal note". Save is disabled and muted when empty or whitespace-only, enabled and gold for actual text. `SaveNoteCard` also guards against empty input, so clearing the editor cannot delete a saved note; use Delete note. Tests verify title, enabled states and empty/blank save preserving the editor and saved data. Karl approved the wider shadow in game.
 
 - Note-window shadow (Karl / Codex, 2026-10-08): Karl requested a wider, softer, darker drop shadow. Note card now uses `FGT.AddDropShadow(T, 64, 0.85, 8, 10)` with the existing Gaussian nine-slice texture, above the dim backdrop and below the card. Shadow alpha follows the modal's open/close fade and hides with the card; excluded from background greyscale collection.

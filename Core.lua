@@ -3848,6 +3848,9 @@ do
         local T = FGT.noteCard
         if not (T and T.save) then return end
         local hasText = (T.box:GetText() or ""):find("%S") ~= nil
+        -- Count UTF-8 characters, rather than bytes, for accented text too.
+        local _, count = (T.box:GetText() or ""):gsub("[^\128-\191]", "")
+        T.hint:SetText(string.format("%d / 240 characters", count))
         T.save.gold = hasText
         T.save:SetEnabled(hasText)
         local hover = T.save:IsMouseOver()
@@ -3895,7 +3898,7 @@ do
             T.title:SetPoint("TOPLEFT", 14, -14)
             T.title:SetPoint("RIGHT", T, "RIGHT", -42, 0)
             T.title:SetText("Add personal note")
-            T.sub = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+            T.sub = NewFontString(T, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
             T.sub:SetPoint("TOPLEFT", T.title, "BOTTOMLEFT", 0, -6)
             T.sub:SetPoint("RIGHT", T, "RIGHT", -14, 0)
             T.sub:SetWordWrap(true)
@@ -3935,7 +3938,7 @@ do
             end)
             T.hint = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
             T.hint:SetPoint("BOTTOMLEFT", 14, 47)
-            T.hint:SetText("Up to 240 characters.")
+            T.hint:SetText("0 / 240 characters")
             for i, label in ipairs({ "Save", "Delete note" }) do
                 local btn = CreateFrame("Button", nil, T, "BackdropTemplate")
                 btn:SetSize(90, 24)
