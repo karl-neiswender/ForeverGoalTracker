@@ -3729,7 +3729,8 @@ detailNote:SetJustifyH("LEFT")
 
 -- Personal notes are separate from the Library's description and progress.
 do
-    local n = CreateFrame("Button", nil, detailPanel)
+    local n = CreateFrame("Frame", nil, detailPanel)
+    n:EnableMouse(false) -- display only; the note icon is the sole editor entry point
     n:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -10)
     n:SetPoint("RIGHT", detailPanel, "RIGHT", -16, 0)
     n.text = NewFontString(n, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
@@ -3770,13 +3771,6 @@ do
     b:SetScript("OnLeave", function() FGT.StyleNoteButton(); GameTooltip:Hide() end)
     b:SetScript("OnClick", function(self) if self.goal then FGT.OpenNoteCard(self.goal) end end)
     FGT.IconButton(b, "note", 15) -- same dim/rest and additive hover as Settings and Close
-    n:SetScript("OnClick", function() if b.goal then FGT.OpenNoteCard(b.goal) end end)
-    n:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-        GameTooltip:AddLine("Click to edit your personal note", C.TITLE[1], C.TITLE[2], C.TITLE[3])
-        GameTooltip:Show()
-    end)
-    n:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
     function FGT.LayoutPersonalNote(goal)
         local text = FGT.GoalNote(goal)
