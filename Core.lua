@@ -1821,6 +1821,7 @@ local STYLE = {
     row      = { top = { 0.150, 0.142, 0.130 }, bottom = { 0.050, 0.048, 0.045 }, edge = { 0.28, 0.26, 0.22, 1 } },
     rowHover = { top = { 0.225, 0.205, 0.170 }, bottom = { 0.085, 0.078, 0.065 }, edge = { 0.55, 0.47, 0.30, 1 } },
     rowSel   = { top = { 0.380, 0.290, 0.060 }, bottom = { 0.110, 0.080, 0.015 }, edge = { 1.00, 0.82, 0.00, 1 } },
+    goldHover = { top = { 0.470, 0.365, 0.085 }, bottom = { 0.155, 0.115, 0.025 }, edge = { 1.00, 0.89, 0.30, 1 } },
     button   = { top = { 0.240, 0.225, 0.200 }, bottom = { 0.080, 0.075, 0.068 }, edge = { 0.42, 0.37, 0.26, 1 } },
     btnHover = { top = { 0.330, 0.300, 0.240 }, bottom = { 0.120, 0.110, 0.090 }, edge = { 0.85, 0.68, 0.20, 1 } },
     danger   = { top = { 0.420, 0.110, 0.090 }, bottom = { 0.140, 0.030, 0.030 }, edge = { 0.62, 0.22, 0.16, 1 } },
@@ -3797,24 +3798,46 @@ do
         return n
     end
 
-    function FGT.CloseNoteCard()
+    function FGT.CloseNoteCard(instant)
         local T = FGT.noteCard
-        if T then T.box:ClearFocus(); T:Hide(); T.catcher:Hide(); T.goal = nil end
+        if not T then return end
+        local W = FGT.welcome
+        if instant ~= true and T:IsShown() and T.greyActive and W.Motion() ~= "off" then
+            if T.closing then return end
+            T.closing = true
+            T.box:ClearFocus()
+            W.Tween("noteOpen", nil)
+            local alpha, scale, shade = T:GetAlpha(), T:GetScale(), T.greyAmount or 1
+            W.Tween("noteClose", 0.18, function(p)
+                local e = W.EaseOut(p)
+                T:SetAlpha(alpha * (1 - e))
+                T:SetScale(W.Motion() == "full" and scale * (1 - 0.015 * e) or 1)
+                T.greyAmount = shade * (1 - e)
+                T.dim:SetVertexColor(0, 0, 0, 0.72 * T.greyAmount)
+                W.SetGrey(T.greyAmount)
+            end, function() FGT.CloseNoteCard(true) end)
+            return
+        end
+        if W and W.Tween then W.Tween("noteOpen", nil); W.Tween("noteClose", nil) end
+        if T.greyActive then W.Grey(false) end
+        T.greyActive, T.greyAmount, T.closing = nil, nil, nil
+        T.box:ClearFocus(); T:Hide(); T.catcher:Hide(); T.goal = nil
+        T:SetAlpha(1); T:SetScale(1)
     end
 
     function FGT.SaveNoteCard()
         local T = FGT.noteCard
-        if not (T and T.goal) then return end
+        if not (T and T.goal) or T.closing then return end
         local goal, text = T.goal, T.box:GetText()
-        FGT.CloseNoteCard()
+        FGT.CloseNoteCard(true) -- restore colors before redrawing the saved note
         FGT.SetGoalNote(goal, text)
     end
 
     function FGT.DeleteNoteCard()
         local T = FGT.noteCard
-        if not (T and T.goal) then return end
+        if not (T and T.goal) or T.closing then return end
         local goal = T.goal
-        FGT.CloseNoteCard()
+        FGT.CloseNoteCard(true)
         FGT.SetGoalNote(goal, "")
     end
 
@@ -3823,8 +3846,9 @@ do
         if not (T and T.save) then return end
         local hasText = (T.box:GetText() or ""):find("%S") ~= nil
         T.save.gold = hasText
-        T.save:SetEtch(hasText and STYLE.rowSel or (T.save:IsMouseOver() and STYLE.btnHover or STYLE.button))
-        T.save.text:SetTextColor(unpack(hasText and C.TITLE or C.TEXT))
+        local hover = T.save:IsMouseOver()
+        T.save:SetEtch(hasText and (hover and STYLE.goldHover or STYLE.rowSel) or (hover and STYLE.btnHover or STYLE.button))
+        T.save.text:SetTextColor(unpack(hasText and (hover and { 1, 0.95, 0.75 } or C.TITLE) or C.TEXT))
         local saved = FGT.GoalNote(T.goal) ~= ""
         T.delete:SetEnabled(saved)
         T.delete:SetEtch(saved and (T.delete:IsMouseOver() and STYLE.dangerHv or STYLE.button) or STYLE.muted)
@@ -3833,6 +3857,7 @@ do
     end
 
     function FGT.OpenNoteCard(goal)
+        FGT.CloseNoteCard(true)
         GameTooltip:Hide()
         if FGT.CloseTargetCard then FGT.CloseTargetCard() end
         local T = FGT.noteCard
@@ -3930,8 +3955,22 @@ do
         T.scroll:SetVerticalScroll(0)
         T.catcher:Show(); T:Show()
         T.box:SetFocus()
+        local W = FGT.welcome
+        W.Grey(true)
+        T.greyActive = true
+        local full = W.Motion() == "full"
+        W.Tween("noteOpen", 0.28, function(p)
+            local e = W.EaseOut(p)
+            T.greyAmount = e
+            T.dim:SetVertexColor(0, 0, 0, 0.72 * e)
+            W.SetGrey(e)
+            T:SetAlpha(e)
+            local u = p - 1
+            local pop = 1 + 1.7 * u * u * u + 0.7 * u * u
+            T:SetScale(full and (0.96 + 0.04 * pop) or 1)
+        end, function() T:SetAlpha(1); T:SetScale(1) end)
     end
-    main:HookScript("OnHide", FGT.CloseNoteCard)
+    main:HookScript("OnHide", function() FGT.CloseNoteCard(true) end)
 end
 
 -- WoW Forever: a NEW chip beside the difficulty chips, and a slim blue
@@ -5050,7 +5089,7 @@ RefreshSteps = function(goal)
 end
 
 SelectGoal = function(id, skipListRefresh)
-    if FGT.noteCard and FGT.noteCard.goal and FGT.noteCard.goal.id ~= id then FGT.CloseNoteCard() end
+    if FGT.noteCard and FGT.noteCard.goal and FGT.noteCard.goal.id ~= id then FGT.CloseNoteCard(true) end
     local goal
     for _, g in ipairs(FGT.goals) do
         if g.id == id and IsActive(g) then goal = g break end
@@ -5534,7 +5573,7 @@ end
 
 local detailParts -- every detail-panel element hidden by the empty state
 function FGT.ShowEmptyTracker()
-    FGT.CloseNoteCard()
+    FGT.CloseNoteCard(true)
     local appearing = not emptyNote:IsVisible()
     selectedId = nil
     for _, part in ipairs(detailParts) do part:Hide() end
@@ -6554,7 +6593,7 @@ libScroll:Finalize()
 FGT.LayoutLibrary = LayoutLibrary
 
 local function ShowTab(which)
-    FGT.CloseNoteCard()
+    FGT.CloseNoteCard(true)
     ForeverGoalTrackerDB.tab = which
     if FGT.CloseSettings then FGT.CloseSettings() end -- a tab click leaves Settings
     local lib = (which == "library")
@@ -7212,7 +7251,7 @@ gear:SetScript("OnClick", function()
 end)
 
 function FGT.OpenSettings()
-    FGT.CloseNoteCard()
+    FGT.CloseNoteCard(true)
     if not main:IsShown() then FGT.ToggleFrame() end
     FGT.BuildSettings()
     if FGT.CloseGoalMenu then FGT.CloseGoalMenu() end
@@ -8065,8 +8104,8 @@ do
         if T then T:Hide(); T.catcher:Hide(); T.box:ClearFocus() end
     end
 
-function FGT.OpenTargetCard(goal)
-        FGT.CloseNoteCard()
+    function FGT.OpenTargetCard(goal)
+        FGT.CloseNoteCard(true)
         local T = FGT.targetCard
         if not T then
             T = CreateFrame("Frame", nil, main, "BackdropTemplate")
@@ -10059,7 +10098,7 @@ function FGT.OpenWelcome(step, find, demoPicked)
     if FGT.CloseGoalMenu then FGT.CloseGoalMenu() end
     if FGT.CloseLinkCard then FGT.CloseLinkCard() end
     if FGT.CloseTargetCard then FGT.CloseTargetCard() end
-    if FGT.CloseNoteCard then FGT.CloseNoteCard() end
+    if FGT.CloseNoteCard then FGT.CloseNoteCard(true) end
     DB.welcomeSeen = true -- shown once; closing it any way counts
     W.picked = {} -- always starts with nothing picked
     for k, v in pairs(demoPicked or {}) do W.picked[k] = v end
@@ -10136,7 +10175,9 @@ local function Collect(frame)
         if cr then grey.bd[frame] = { cr, cg, cb, ca } end
     end
     for _, child in ipairs({ frame:GetChildren() }) do
-        if child ~= W.frame then Collect(child) end
+        -- Both modal cards stay in color while the addon behind them greys.
+        local T = FGT.noteCard
+        if child ~= W.frame and child ~= T and (not T or child ~= T.catcher) then Collect(child) end
     end
 end
 -- amount 0 = full color, 1 = grey (and the dark layer at full strength)
