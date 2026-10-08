@@ -37,7 +37,7 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
-- **2.9.0:** a fresh look (a subtle textured window, one matching gold for every icon, softer hovers, embossed dividers); a reset arrow on each goal page; quest tooltips that show where each quest starts, with quest givers linked; items in tips linked; and guide fixes.
+- **2.9.0:** visual improvements, more links in guides and tips, and guide fixes.
 - **2.8.0:** quest links in every guide, with who starts each quest and where each of your characters stands on it; daily quests in blue; goal links that shimmer in gold.
 - **2.7.0:** links in every guide: real item tooltips (shift-click to link in chat), NPC links with their location and a map pin or TomTom waypoint, and Wowhead links for items, NPCs and quests; a setting for where map pins go; hand-painted gold icons; darker tooltips; finished steps that fade back; and goal links that shine.
 - **2.6.0:** WoW Forever's new raids (Hyjal Summit and the Barrow Deeps), Forever Raid Sets, and the Field Marshal's and Warlord's PvP sets by armor type; Find your next goal; Edit goal to change a goal's number; Social goals and a Social interest; Duelist from the Statistics window; raid lockouts on raid goals; and an optional screenshot when you finish a goal.

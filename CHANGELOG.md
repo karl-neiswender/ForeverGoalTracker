@@ -2,13 +2,9 @@
 
 ## 2.9.0
 
-- A fresh look: a subtle textured window, icons in one matching gold, softer hovers and embossed dividers
-- Reset a goal from the arrow at the top of its page
-- Quest tooltips show where each quest starts, and quest givers are linked with map pins
-- Items named in tips are linked, and more items in the guides now link
-- Guide fixes: the Dreadsteed chain starts at any demon trainer (Horde too), plus Warlord's Command and Thunderfury
-- Tier 1 and 2 are no longer marked as removed in WoW Forever: they just haven't been revealed yet
-- UI improvements and bug fixes
+- Visual improvements
+- More links in guides and tips
+- Guide fixes and bug fixes
 
 ## 2.8.0
 
