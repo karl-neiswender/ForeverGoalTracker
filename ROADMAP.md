@@ -18,7 +18,7 @@ New tools that take more building.
 - **Materials tab:** a dashboard of every material your goals need, how many you have across all your characters, and how close you are. Right-click a "Collect 10 ..." step to pin that item to it.
 - **Toasts:** a small note when a step ticks itself while the window is closed, and milestone cheers along the way ("50 down, keep going!").
 - **Pop-out tracker:** keep one goal's steps on screen while you play, like the quest tracker.
-- **Step order:** steps that need an earlier step done first show a lock until you get there.
+- **Step dependencies:** steps that truly require earlier steps show a lock until their prerequisites are complete. Clicking a locked step gives the lock a small jiggle, with no red tint on the icon; its tooltip explains the missing prerequisites in muted red text. When unlocked, the lock breaks away to reveal the checkbox. One prerequisite can unlock several steps, and a step can require several prerequisites. Keep independent steps available in parallel.
 - **Personal notes (ready for in-game testing):** a painted pencil-over-parchment icon opens an editor over the darkened addon window for a short note on each goal. Save turns gold when there is text; Delete note removes a saved note, and the close X discards unsaved edits. Notes start with "NOTE:" and sit between the goal description and the blue Forever notice, or above the progress bar when there is no notice. Click the saved note to edit it.
 - **Character overview:** see which of your characters is furthest along on reputation and leveling goals.
 - **Guild announcements:** guildmates who use the addon see when you finish a goal, with an optional line in guild chat (off by default).
