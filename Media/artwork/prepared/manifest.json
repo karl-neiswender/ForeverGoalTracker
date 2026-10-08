@@ -1,0 +1,100 @@
+{
+  "anathema": {
+    "source": "anathema-source.jpg",
+    "aspect": 1.1123470522803114,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "atiesh": {
+    "source": "atiesh-source.jpg",
+    "aspect": 1.0,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "blackrock-mountain---trailer1": {
+    "source": "blackrock-mountain---trailer1-source.jpg",
+    "aspect": 1.7777777777777777,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "corrupted-ashbringer": {
+    "source": "corrupted-ashbringer-source.jpg",
+    "aspect": 1.0,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "kelthuzad": {
+    "source": "kelthuzad-source.jpg",
+    "aspect": 0.6679712981082844,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "majordomo-executus": {
+    "source": "majordomo-executus-source.jpg",
+    "aspect": 0.8703220191470844,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "naxx---trailer-baron": {
+    "source": "naxx---trailer-baron-source.jpg",
+    "aspect": 1.7786561264822134,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "naxx---trailer-naxx": {
+    "source": "naxx---trailer-naxx-source.jpg",
+    "aspect": 1.7786561264822134,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "queldelar": {
+    "source": "queldelar-source.jpg",
+    "aspect": 1.002257336343115,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "ragnaros-the-firelord": {
+    "source": "ragnaros-the-firelord-source.jpg",
+    "aspect": 0.7751312071053694,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "sulfuras": {
+    "source": "sulfuras-source.jpg",
+    "aspect": 1.068893528183716,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "ashbringer-banner": {
+    "source": "ashbringer-banner-source.png",
+    "aspect": 1.0,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "atiesh-banner": {
+    "source": "atiesh-banner-source.jpg",
+    "aspect": 1.0,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "sulfuras-banner": {
+    "source": "sulfuras-banner-source.jpg",
+    "aspect": 1.068893528183716,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  }
+}

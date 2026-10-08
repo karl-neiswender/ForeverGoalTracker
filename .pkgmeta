@@ -19,6 +19,7 @@ ignore:
   - Media/interests/*-source.*
   - Media/icons/*-source.*
   - Media/artwork/*-source.*
+  - Media/artwork/prepared
   - Media/*-source.webp
   - ROADMAP.md
   - Screenshots
