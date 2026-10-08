@@ -1892,7 +1892,7 @@ function FGT.NewEmbossLine(parent)
     f:SetHeight(2)
     -- shadow, then the brown of the panels' bottom edge (sampled from a
     -- screenshot: about 42, 36, 25), a hair brighter to read mid-panel
-    local LINES = { { 0, 0, 0, 0.6 }, { 0.19, 0.16, 0.11, 1 } }
+    local LINES = { { 0, 0, 0, 0.9 }, { 0.19, 0.16, 0.11, 1 } } -- a deep shadow makes the emboss
     for i, c in ipairs(LINES) do
         local col = { c[1], c[2], c[3] }
         local l, m, r = f:CreateTexture(nil, "ARTWORK"), f:CreateTexture(nil, "ARTWORK"), f:CreateTexture(nil, "ARTWORK")
@@ -3895,6 +3895,7 @@ function FGT.LayoutForeverInfo(goal)
 end
 
 local divider = FGT.NewEmbossLine(detailPanel) -- above the steps
+FGT.stepsDivider = divider -- (the tips line ends where this one does)
 divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -24)
 divider:SetPoint("RIGHT", -16, 0)
 
@@ -4451,7 +4452,8 @@ function FGT.LayoutTips(goal, yOffset, width)
     yOffset = yOffset + 8
     T.line:ClearAllPoints()
     T.line:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
-    T.line:SetPoint("RIGHT", stepsContainer, "RIGHT", -16, 0)
+    -- same right end as the divider above the steps, so both fade alike
+    T.line:SetPoint("RIGHT", FGT.stepsDivider, "RIGHT", 0, 0)
     T.line:Show()
     yOffset = yOffset + 9
     T.header:SetText("Tips")
