@@ -3784,7 +3784,7 @@ do
         n.text:SetWidth(math.max(120, detailPanel:GetWidth() - 44))
         n.text:SetText("|cffcc9e29NOTE:|r " .. text:gsub("|", "||"))
         n:SetHeight(math.max(14, math.ceil(n.text:GetStringHeight())))
-        return n
+        return detailNote
     end
 
     function FGT.CloseNoteCard(instant)
@@ -4125,7 +4125,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     local B = CreateFrame("Frame", nil, detailPanel)
     B:EnableMouse(false)
     B:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
-    B:SetPoint("BOTTOMRIGHT", detailBar, "TOPRIGHT", 18, 6)
+    B:SetPoint("BOTTOMRIGHT", detailBar, "BOTTOMRIGHT", 18, -24)
     B.background = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -4)
     B.background:SetTexture(SOLID)
     B.background:SetAllPoints(B)
@@ -4143,14 +4143,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     ApplyHGradient(B.left, {0.012,0.011,0.008}, {0.012,0.011,0.008}, 1, 0)
     ApplyVGradient(B.top, {0.02,0.017,0.012}, {0.02,0.017,0.012}, 0.65, 0)
     ApplyVGradient(B.bottom, {0.005,0.005,0.005}, {0.005,0.005,0.005}, 0, 1)
-    B.artPaths = { thunderfury = "thunderfury-banner" }
+    B.artPaths = { ashbringer = "ashbringer-banner", atiesh = "atiesh-banner", sulfuras = "sulfuras-banner" }
+    B.artAspects = { ashbringer = 1, atiesh = 1, sulfuras = 1024/958 }
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
         local h = math.max(1, self:GetHeight())
         local aw = w*0.6
         self.art:SetSize(aw,h)
-        -- Cover crop preserves the square source's proportions at any window size.
-        local ratio = aw/h
+        -- Restore the source proportions while covering the artwork area.
+        local ratio = aw/h/(self.sourceAspect or 1)
         if ratio >= 1 then
             local crop = (1-1/ratio)/2
             self.art:SetTexCoord(0,1,crop,1-crop)
@@ -4184,7 +4185,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             chip:SetBackdropBorderColor(0.34,0.30,0.20,1)
         end
         -- Completion/Forever/lockout badges wrap instead of entering the description.
-        local x, y = 22, 24+rowHeight+20
+        local x, y = 22, 24+rowHeight+24
         for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip,FGT.detailLockChip}) do
             if chip:IsShown() then
                 local width = chip:GetWidth()
@@ -4194,10 +4195,19 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             end
         end
         detailNote:ClearAllPoints()
-        detailNote:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 22,-(y+22+24))
+        local personal = FGT.personalNote
+        personal:ClearAllPoints()
+        personal:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 22,-(y+22+28))
+        personal:SetPoint("RIGHT", detailPanel, "RIGHT", -22,0)
+        if FGT.GoalNote(goal) ~= "" then
+            detailNote:SetPoint("TOPLEFT", personal, "BOTTOMLEFT", 0,-14)
+        else
+            detailNote:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 22,-(y+22+28))
+        end
         detailNote:SetPoint("RIGHT", detailPanel, "RIGHT", -22,0)
         local art = B.artPaths[goal.id]
         B.hasArt = art ~= nil
+        B.sourceAspect = B.artAspects[goal.id] or 1
         if art then B.art:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..art) end
         for _,t in ipairs({B.art,B.left,B.top,B.bottom}) do t:SetShown(B.hasArt) end
         B:Fit()
@@ -4240,17 +4250,17 @@ function FGT.LayoutForeverInfo(goal)
         n.text:SetText(note)
         n:SetHeight(math.max(30, math.ceil(n.text:GetStringHeight()) + 18))
         n:Show()
-        detailBar:SetPoint("TOPLEFT", n, "BOTTOMLEFT", 0, -14)
+        detailBar:SetPoint("TOPLEFT", n, "BOTTOMLEFT", 0, -18)
     else
         n:Hide()
-        detailBar:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -12)
+        detailBar:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -18)
     end
     FGT.LayoutGoalBanner(goal)
 end
 
 local divider = FGT.NewEmbossLine(detailPanel) -- above the steps
 FGT.stepsDivider = divider -- (the tips line ends where this one does)
-divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -24)
+divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -36)
 divider:SetPoint("RIGHT", -16, 0)
 
 local stepsHeader = NewTitleString(detailPanel, 12)

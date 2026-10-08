@@ -151,11 +151,11 @@ if ok_all:
         ("forever personal note layout", None,
             'local F = STUB_NS; local g = F.GoalById("ashbringer"); F.SelectGoal(g.id); '
             'local anchor; F.foreverNotice.SetPoint = function(_, point, relative) if point == "TOPLEFT" then anchor = relative end end; '
-            'F.LayoutForeverInfo(g); assert(anchor == F.personalNote, "notice follows personal note"); '
+            'F.LayoutForeverInfo(g); assert(anchor == F.goalBanner.description, "notice follows description after note"); '
             'F.SetGoalNote(g, ""); assert(anchor ~= F.personalNote, "empty note removes gap"); '
             'F.SetGoalNote(g, "Bring resistance gear."); '
             'local oldNotice = F.ForeverNote; F.ForeverNote = function() return nil end; '
-            'F.LayoutForeverInfo(g); assert(F.LayoutPersonalNote(g) == F.personalNote); F.ForeverNote = oldNotice; '
+            'F.LayoutForeverInfo(g); assert(F.LayoutPersonalNote(g) == F.goalBanner.description); F.ForeverNote = oldNotice; '
             'print("  personal note layout with and without Forever notice ok")', True),
         ("reset icon and undo countdown", None,
             'local F, D = STUB_NS, ForeverGoalTrackerDB; local now, timers = 100, {}; '

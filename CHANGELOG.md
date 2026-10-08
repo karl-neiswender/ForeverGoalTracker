@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Goal banner redesign draft: larger icon/title, spacious outlined chips and description, with subtly vignetted Thunderfury artwork from Karl's Figma design.
+- Goal banner redesign draft: larger icon/title, spacious outlined chips and description, with subtly vignetted Corrupted Ashbringer, Atiesh and Sulfuras artwork. The taller banner includes the progress bar and step count; personal notes appear above the description.
 
 - Personal notes on each goal: a note icon opens an editor over a darkened window, with gold Save when text is entered, Delete note and a close X; your note appears under the goal description
 - Note editor fades and gently pops into place over a greyed-out background; gold Save brightens on hover
