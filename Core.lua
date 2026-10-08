@@ -4150,7 +4150,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     local B = CreateFrame("Frame", nil, detailPanel)
     B:EnableMouse(false)
     B:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
-    B:SetPoint("BOTTOMRIGHT", detailBar, "BOTTOMRIGHT", 18, -10)
+    B:SetPoint("BOTTOMRIGHT", detailBar, "BOTTOMRIGHT", 18, -32)
     B.background = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -4)
     B.background:SetTexture(SOLID)
     B.background:SetAllPoints(B)
@@ -4163,7 +4163,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     ApplyVGradient(B.background, STYLE.panel.top, STYLE.panel.bottom, 0, 0)
     B.art = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -3)
     B.art:SetPoint("TOPRIGHT", B, "TOPRIGHT")
-    B.art:SetAlpha(0.18)
+    -- Fade the actual image alpha, avoiding a colored rectangle at its left edge.
+    ApplyHGradient(B.art, {1,1,1}, {1,1,1}, 0,0.18)
     B.art:SetDesaturated(true) -- neutral banner art; preserve uploaded color originals
     B.left = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
     B.top = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
@@ -4212,8 +4213,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             self.art:SetTexCoord(crop,1-crop,0,1)
         end
         self.left:SetSize(aw*0.78,h)
-        self.top:SetSize(aw,h*0.28)
-        self.bottom:SetSize(aw,h*0.42)
+        self.top:SetSize(w,h*0.28)
+        local bottomFade = math.min(80, h*0.42)
+        self.bottom:SetSize(w,bottomFade)
         -- Sample the panel's own gradient at the artwork's actual vertical position.
         -- The bottom veil ends on precisely the body shade, avoiding a black seam.
         local panelHeight = math.max(1, detailPanel:GetHeight()-8)
@@ -4223,10 +4225,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             for i=1,3 do c[i] = STYLE.panel.top[i] + (STYLE.panel.bottom[i]-STYLE.panel.top[i])*p end
             return c
         end
-        local topColor, midColor = PanelColor(0), PanelColor(h*0.5)
-        ApplyHGradient(self.left, midColor, midColor, 1,0)
+        local topColor = PanelColor(0)
+        ApplyHGradient(self.left, topColor, topColor, 0,0)
         ApplyVGradient(self.top, topColor, PanelColor(h*0.28), 0.65,0)
-        ApplyVGradient(self.bottom, PanelColor(h*0.58), PanelColor(h), 0,1)
+        ApplyVGradient(self.bottom, PanelColor(h-bottomFade), PanelColor(h), 0,1)
     end
     B:SetScript("OnSizeChanged", function(self) self:Fit() end)
     B:SetScript("OnHide", function(self)
