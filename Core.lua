@@ -1890,7 +1890,9 @@ end
 function FGT.NewEmbossLine(parent)
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(2)
-    local LINES = { { 0, 0, 0, 0.6 }, { 0.42, 0.36, 0.24, 0.8 } } -- shadow, highlight
+    -- shadow, then the brown of the panels' bottom edge (sampled from a
+    -- screenshot: about 42, 36, 25), a hair brighter to read mid-panel
+    local LINES = { { 0, 0, 0, 0.6 }, { 0.19, 0.16, 0.11, 1 } }
     for i, c in ipairs(LINES) do
         local col = { c[1], c[2], c[3] }
         local l, m, r = f:CreateTexture(nil, "ARTWORK"), f:CreateTexture(nil, "ARTWORK"), f:CreateTexture(nil, "ARTWORK")
