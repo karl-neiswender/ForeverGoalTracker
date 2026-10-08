@@ -365,7 +365,7 @@ local library = {
         timeEstimate = "1-2 Weeks",
         note = "Boss kills tick off automatically when you're in the raid with the addon loaded.",
         steps = BossSteps({
-            { text = "Complete {att_mc:'Attunement to the Core'} in Blackrock Depths.", auto = { quest = 7848 } },
+            { text = "Complete {att_mc:Attunement to the Core} in Blackrock Depths.", auto = { quest = 7848 } },
         }, { "Lucifron", "Magmadar", "Gehennas", "Garr", "Shazzrah", "Baron Geddon",
              "Golemagg the Incinerator", "Sulfuron Harbinger", "Majordomo Executus", "Ragnaros" }),
     },
@@ -392,7 +392,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "Boss kills tick off automatically when you're in the raid with the addon loaded.",
         steps = BossSteps({
-            { text = "Complete {att_bwl:'Blackhand's Command'} ({key_ubrs:Upper Blackrock Spire}) for attunement.", auto = { quest = 7761 } },
+            { text = "Complete {att_bwl:Blackhand's Command} ({key_ubrs:Upper Blackrock Spire}) for attunement.", auto = { quest = 7761 } },
         }, { "Razorgore the Untamed", "Vaelastrasz the Corrupt", "Broodlord Lashlayer", "Firemaw",
              "Ebonroc", "Flamegor", "Chromaggus", "Nefarian" }),
     },

@@ -2547,17 +2547,21 @@ end
 -- the same way again.
 local FADE_STEPS = 6
 local function CreateEdgeFade(parent, isTop)
-    local height = 16
+    -- the bottom fade is taller, eases in, and ends on the panels' darker
+    -- bottom shade, so it melts into the grime fading out there (Karl)
+    local height = isTop and 16 or 28
+    local steps = isTop and FADE_STEPS or 12
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(height)
     f:SetFrameStrata(parent:GetFrameStrata())
     f:SetFrameLevel(parent:GetFrameLevel() + 20)
-    local c = C.PANEL
-    local stepH = height / FADE_STEPS
-    for i = 1, FADE_STEPS do
+    local c = isTop and C.PANEL or { 0.022, 0.022, 0.021 }
+    local stepH = height / steps
+    for i = 1, steps do
         -- i = 1 sits at the outer edge (nearly opaque panel color) and
         -- fades toward ~0 alpha by the inner edge, closest to the content.
-        local alpha = 1 - ((i - 0.5) / FADE_STEPS)
+        local alpha = 1 - ((i - 0.5) / steps)
+        if not isTop then alpha = alpha ^ 1.6 end
         local strip = Flat(f, c[1], c[2], c[3], alpha)
         strip:ClearAllPoints()
         if isTop then
