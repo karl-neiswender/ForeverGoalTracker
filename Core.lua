@@ -2640,6 +2640,12 @@ local function CreateEdgeFade(parent, isTop)
         -- fades toward ~0 alpha by the inner edge, closest to the content.
         local alpha = 1 - ((i - 0.5) / steps)
         alpha = alpha ^ 1.6 -- eased: soft where it meets the rows
+        -- the top starts with a solid lip, so rows are fully hidden before
+        -- the scroll edge cuts them (light step text showed the cut, Karl)
+        if isTop then
+            local LIP = 6
+            alpha = (i <= LIP) and 1 or (1 - ((i - LIP - 0.5) / (steps - LIP))) ^ 1.6
+        end
         local strip = Flat(f, c[1], c[2], c[3], alpha)
         strip:ClearAllPoints()
         if isTop then
