@@ -279,6 +279,8 @@ Player-chosen style options in Settings. Karl's ideas: how Forever goals look (a
 
 ## Working with Karl
 
+- Note icon interaction (Karl / Codex, 2026-10-08): the goal-page note button now uses `FGT.IconButton(b, "note", 15)` exactly like Settings and Close: painted gold at 82% alpha at rest, full alpha with a 35% additive glow on hover, and the same small press offset. This supersedes the earlier silver/empty versus gold/saved styling. Tooltip still says Add or Edit personal note based on saved content. Karl approved the live character count and brighter goal subtitle in game.
+
 - Note editor readability / count (Karl / Codex, 2026-10-08): the goal title under "Add personal note" uses brighter `C.TEXT` instead of `C.INK2`. The old "Up to 240 characters" hint now displays a live "N / 240 characters" count via `StyleNoteControls` / OnTextChanged, counting UTF-8 characters rather than bytes. Tests include accented text.
 
 - Note editor title / empty Save (Karl / Codex, 2026-10-08): title is now "Add personal note". Save is disabled and muted when empty or whitespace-only, enabled and gold for actual text. `SaveNoteCard` also guards against empty input, so clearing the editor cannot delete a saved note; use Delete note. Tests verify title, enabled states and empty/blank save preserving the editor and saved data. Karl approved the wider shadow in game.

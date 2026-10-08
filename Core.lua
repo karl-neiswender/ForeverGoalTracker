@@ -3757,16 +3757,9 @@ do
 
     local b = CreateFrame("Button", nil, detailPanel)
     b:SetSize(22, 22)
-    b.icon = b:CreateTexture(nil, "ARTWORK")
-    b.icon:SetSize(15, 15)
-    b.icon:SetPoint("CENTER")
     FGT.detailNoteBtn = b
     function FGT.StyleNoteButton()
-        local saved = FGT.GoalNote(b.goal) ~= ""
-        local hover = b:IsMouseOver()
-        b.icon:SetTexture(FGT.Icon(saved and "note" or "note-white"))
-        local c = saved and { 1, 1, 1 } or (hover and C.ACCENT or C.SUBTEXT)
-        b.icon:SetVertexColor(c[1], c[2], c[3], (saved or hover) and 1 or 0.8)
+        b:RefreshIcon()
     end
     b:SetScript("OnEnter", function(self)
         FGT.StyleNoteButton()
@@ -3776,6 +3769,7 @@ do
     end)
     b:SetScript("OnLeave", function() FGT.StyleNoteButton(); GameTooltip:Hide() end)
     b:SetScript("OnClick", function(self) if self.goal then FGT.OpenNoteCard(self.goal) end end)
+    FGT.IconButton(b, "note", 15) -- same dim/rest and additive hover as Settings and Close
     n:SetScript("OnClick", function() if b.goal then FGT.OpenNoteCard(b.goal) end end)
     n:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
