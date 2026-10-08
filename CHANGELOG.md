@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- New painted refresh icon for Reset this goal, with a gentle turn when clicked
+- Undo reset tooltip counts down the remaining 10-second undo window
+
 ## 2.9.0
 
 - Visual improvements

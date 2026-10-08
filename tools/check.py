@@ -92,6 +92,26 @@ if ok_all:
             'local p = ForeverGoalTrackerDB.progress.atiesh; for i = 1, 10 do p[i] = true end; '
             'STUB_PRINTS = {}; STUB_FIRE("BAG_UPDATE_DELAYED")'),
         ("/goals testbanner", None, 'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("testbanner")'),
+        ("reset icon and undo countdown", None,
+            'local F, D = STUB_NS, ForeverGoalTrackerDB; local now, timers = 100, {}; '
+            'local oldTime, oldAfter = GetTime, C_Timer.After; GetTime = function() return now end; '
+            'C_Timer.After = function(_, fn) timers[#timers + 1] = fn end; '
+            'D.active.ashbringer = true; D.progress.ashbringer = {true, true, true, true, true, true}; D.goalsDone.ashbringer = true; D.goalDates.ashbringer = 123; '
+            'F.SelectGoal("ashbringer"); local b = F.resetBtn; local click = b:GetScript("OnClick"); '
+            'GameTooltip = GameTooltip; local tipLines = {}; GameTooltip.AddLine = function(_, text) tipLines[#tipLines + 1] = text end; '
+            'b.IsMouseOver = function() return true end; GameTooltip.IsOwned = function() return true end; '
+            'click(); assert(F.resetUndo.expires == 110 and not D.progress.ashbringer[1], "reset"); '
+            'assert(tipLines[#tipLines] == "10 seconds left", "initial tooltip: " .. tostring(tipLines[#tipLines])); '
+            'local rotation; b.icon.SetRotation = function(_, r) rotation = r end; '
+            'b:GetScript("OnUpdate")(b, 0.325); assert(rotation < -3 and rotation > -3.2, "half turn"); '
+            'b:GetScript("OnUpdate")(b, 0.325); assert(rotation == 0 and b.spin == nil, "rotation end"); '
+            'now = 104.1; b:GetScript("OnUpdate")(b, 0); assert(tipLines[#tipLines] == "6 seconds left", "countdown"); '
+            'click(); assert(D.progress.ashbringer[1] and D.goalsDone.ashbringer and D.goalDates.ashbringer == 123, "restore"); '
+            'assert(F.resetUndo == nil); timers[1](); '
+            'click(); now = 114.1; b:GetScript("OnUpdate")(b, 0); assert(F.resetUndo == nil); '
+            'assert(tipLines[#tipLines - 1] == "Reset this goal"); '
+            'click(); assert(F.resetUndo); F.SelectGoal("atiesh"); assert(F.resetUndo == nil); '
+            'GetTime, C_Timer.After = oldTime, oldAfter; print("  reset, rotation, countdown, restore, expiry and goal switching ok")'),
         # Welcome wizard: every step, then the suggestions for some interests.
         ("welcome wizard", None,
             'STUB_PRINTS = {}; local W = STUB_NS.welcome; STUB_NS.OpenWelcome(1); W.Show(2); '

@@ -3975,20 +3975,22 @@ local resetBtn = CreateFrame("Button", nil, detailPanel)
 resetBtn:SetSize(22, 22)
 resetBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -12, -12)
 resetBtn.icon = resetBtn:CreateTexture(nil, "ARTWORK")
-resetBtn.icon:SetTexture(FGT.Icon("undo-white"))
+resetBtn.icon:SetTexture(FGT.Icon("refresh-white"))
 resetBtn.icon:SetSize(15, 15)
 resetBtn.icon:SetPoint("CENTER")
 FGT.resetBtn = resetBtn
 function FGT.StyleResetButton()
     local undo = FGT.resetUndo
     local hover = resetBtn:IsMouseOver()
-    local c = undo and C.ACCENT or (hover and { 1, 0.55, 0.5 }) or C.SUBTEXT
+    resetBtn.icon:SetTexture(FGT.Icon(undo and "refresh" or "refresh-white"))
+    local c = undo and { 1, 1, 1 } or (hover and { 1, 0.55, 0.5 }) or C.SUBTEXT
     resetBtn.icon:SetVertexColor(c[1], c[2], c[3], (undo or hover) and 1 or 0.8)
     if hover then
         GameTooltip:SetOwner(resetBtn, "ANCHOR_LEFT")
         if undo then
             GameTooltip:AddLine("Undo reset", C.TITLE[1], C.TITLE[2], C.TITLE[3])
             GameTooltip:AddLine("Puts back the ticks you just cleared.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+            GameTooltip:AddLine(string.format("%d seconds left", math.max(0, math.ceil(undo.expires - GetTime()))), C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
         else
             GameTooltip:AddLine("Reset this goal", 1, 0.6, 0.55)
             GameTooltip:AddLine("Clears its ticks. You can undo it for 10 seconds.", C.INK2[1], C.INK2[2], C.INK2[3], true)
@@ -4000,10 +4002,35 @@ function FGT.StyleResetButton()
 end
 resetBtn:SetScript("OnEnter", FGT.StyleResetButton)
 resetBtn:SetScript("OnLeave", FGT.StyleResetButton)
+resetBtn:SetScript("OnUpdate", function(self, elapsed)
+    if self.spin then
+        self.spin = self.spin + elapsed
+        local t = math.min(1, self.spin / 0.65)
+        -- One clockwise turn with a soft start and stop.
+        self.icon:SetRotation(-2 * math.pi * (t * t * (3 - 2 * t)))
+        if t == 1 then self.spin = nil; self.icon:SetRotation(0) end
+    end
+    local undo = FGT.resetUndo
+    local seconds = undo and math.max(0, math.ceil(undo.expires - GetTime()))
+    if undo and seconds == 0 then
+        FGT.resetUndo = nil
+        FGT.StyleResetButton()
+    elseif seconds ~= self.undoSeconds then
+        if self:IsMouseOver() and GameTooltip:IsOwned(self) then FGT.StyleResetButton() end
+    end
+    self.undoSeconds = seconds
+end)
+resetBtn:SetScript("OnHide", function(self)
+    self.spin = nil
+    self.icon:SetRotation(0)
+    if GameTooltip:IsOwned(self) then GameTooltip:Hide() end
+end)
 resetBtn:SetScript("OnClick", function()
     if not selectedId then return end
     local DB = ForeverGoalTrackerDB
     local undo = FGT.resetUndo
+    if undo and GetTime() >= undo.expires then FGT.resetUndo = nil; undo = nil end
+    if FGT.Setting("celebrations") ~= "off" then resetBtn.spin = 0 end
     if undo and undo.id == selectedId then
         -- Put everything back, quietly: no celebration for ticks you had.
         DB.progress[undo.id] = undo.progress
@@ -4018,7 +4045,7 @@ resetBtn:SetScript("OnClick", function()
         for k, v in pairs(DB.progress[selectedId] or {}) do copy[k] = v end
         undo = { id = selectedId, progress = copy,
             done = DB.goalsDone and DB.goalsDone[selectedId],
-            date = DB.goalDates and DB.goalDates[selectedId] }
+            date = DB.goalDates and DB.goalDates[selectedId], expires = GetTime() + 10 }
         FGT.resetUndo = undo
         DB.progress[selectedId] = {}
         SelectGoal(selectedId)
