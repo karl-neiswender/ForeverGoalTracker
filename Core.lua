@@ -1279,6 +1279,7 @@ do
         table.insert(list, fs)
     end
 
+    FGT.itemFade, FGT.linkPrevHex = {}, {} -- (see Fade below and FGT.LinkItemName)
     local ticker = CreateFrame("Frame")
     local acc = 0
     ticker:SetScript("OnUpdate", function(_, elapsed)
@@ -1312,20 +1313,46 @@ do
                 end
             end
         end
+        -- item links whose details just arrived ease from the color they
+        -- were drawn in to their real one (Karl: no snap). FGT.itemFade[id]
+        -- = { t0, from hex }, set by the GET_ITEM_INFO_RECEIVED redraw.
+        local fades, finished = FGT.itemFade, nil
+        local now = GetTime()
+        local function Fade(text)
+            for id, f in pairs(fades) do
+                local p = math.max(0, math.min(1, (now - f[1]) / 0.5))
+                if p >= 1 then finished = finished or {}; finished[id] = true end
+                local e = 1 - (1 - p) ^ 2
+                text = text:gsub("|cff(%x%x%x%x%x%x)(|Hitem:" .. id .. "|h)", function(hex, link)
+                    local out = ""
+                    for k = 1, 5, 2 do
+                        local a, b = tonumber(f[2]:sub(k, k + 1), 16), tonumber(hex:sub(k, k + 1), 16)
+                        out = out .. string.format("%02x", math.floor(a + (b - a) * e + 0.5))
+                    end
+                    return "|cff" .. out .. link
+                end)
+            end
+            return text
+        end
+        local fading = next(fades) ~= nil
         for _, fs in ipairs(list) do
             local base = fs.fgtBase
             -- never redraw under the cursor while it's on a link: a redraw
             -- rebuilds the link's hover area and the game thinks you left it
             -- (tooltip flicker). Hovering the rest of the text keeps shining.
             local onLink = FGT.overLink and fs:IsMouseOver()
-            if type(base) == "string" and not onLink and fs:IsVisible() and base:find("|Hfgtgoal:", 1, true) then
-                local want = Scan(base, center)
+            local goal = type(base) == "string" and base:find("|Hfgtgoal:", 1, true)
+            local item = fading and type(base) == "string" and base:find("|Hitem:", 1, true)
+            if (goal or item) and not onLink and fs:IsVisible() then
+                local want = goal and Scan(base, center) or base
+                if item then want = Fade(want) end
                 if want ~= fs.fgtShown then
                     fs.fgtShown = want
                     fs.fgtSet(fs, want)
                 end
             end
         end
+        for id in pairs(finished or FGT.EMPTY) do fades[id] = nil end
     end)
 end
 
@@ -7870,6 +7897,9 @@ do
             -- goal links); green and up keep the game's quality colors (Karl)
             local hex = (quality == 1 and "f0dcb0") or (quality == 0 and "b3a68c") or QUALITY_HEX[quality] or "f0dcb0"
             local color = "|cff" .. hex
+            -- drawn before the game sent the item: remember the color, so
+            -- the real one can fade in when it arrives
+            if not name and not variants then FGT.linkPrevHex[id] = hex end
             local linked = false
             for _, n in ipairs(names) do
                 -- the first spot that isn't already inside a link ('Rise,
@@ -7915,6 +7945,7 @@ do
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
         end
         local hex = (q == 1 and "f0dcb0") or (q == 0 and "b3a68c") or QUALITY_HEX[q] or "f0dcb0"
+        if not q then FGT.linkPrevHex[id] = hex end
         return "|cff" .. hex .. "|Hitem:" .. id .. "|h" .. label .. "|h|r"
     end
 
@@ -7931,6 +7962,8 @@ do
         end
         if ok == false or not waiting[id] then return end
         waiting[id] = nil
+        -- the redraw below lands in 0.3 s; the link eases to its color from there
+        FGT.itemFade[id] = { GetTime() + 0.3, FGT.linkPrevHex[id] or "e8e8e8" }
         if f.pending then return end
         f.pending = true
         C_Timer.After(0.3, function() -- several items often arrive together
