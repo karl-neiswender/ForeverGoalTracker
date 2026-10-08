@@ -2631,9 +2631,10 @@ local function CreateEdgeFade(parent, isTop)
     f:SetHeight(height)
     f:SetFrameStrata(parent:GetFrameStrata())
     f:SetFrameLevel(parent:GetFrameLevel() + 20)
-    -- top: the panel color with the 25% grime blended in (Media/grime
-    -- averages about #1e160f), or it shows as a dark band once you scroll
-    local c = isTop and { 0.054, 0.047, 0.039 } or { 0.022, 0.022, 0.021 }
+    -- top: the panel color with the faint grime blended in (Media/grime
+    -- averages about #1e160f), a touch darker than the panel so rows feel
+    -- like they slide under it; bottom: the panels' darker bottom shade
+    local c = isTop and { 0.05, 0.045, 0.04 } or { 0.022, 0.022, 0.021 }
     local stepH = height / steps
     for i = 1, steps do
         -- i = 1 sits at the outer edge (nearly opaque panel color) and
@@ -2658,7 +2659,6 @@ end
 -- flat scrollbar, and top/bottom edge fades. Call :Finalize() once the
 -- returned .scroll frame has been anchored, then use .content as the parent
 -- for whatever gets listed inside it.
-local ROW_FADE = 40 -- px over which rows fade in from a scroll edge
 local function CreateScrollArea(parent)
     local scroll = CreateFrame("ScrollFrame", nil, parent)
     scroll:EnableMouseWheel(true)
@@ -2795,27 +2795,11 @@ local function CreateScrollArea(parent)
             scroll:SetVerticalScroll(current)
         end
 
-        -- Rows fade out near the edges instead of a dark overlay on top
-        -- (Karl: like a mask; text can't be masked, but each row's own
-        -- alpha can follow its distance from the edge). The old overlay
-        -- strips stay hidden.
-        fadeTop:Hide()
-        fadeBottom:Hide()
-        local top, bottom = scroll:GetTop(), scroll:GetBottom()
-        if top and bottom then
-            local fadeT, fadeB = maxScroll > 1 and current > 1, maxScroll > 1 and current < maxScroll - 1
-            local function Fade(r)
-                if type(r) ~= "table" or r.fgtKeepAlpha or not r:IsShown() then return end
-                local rt, rb = r:GetTop(), r:GetBottom()
-                if not (rt and rb) then return end
-                local mid, a = (rt + rb) / 2, 1
-                if fadeT then a = math.min(a, (top - mid) / ROW_FADE + 0.15) end
-                if fadeB then a = math.min(a, (mid - bottom) / ROW_FADE + 0.15) end
-                r:SetAlpha(math.max(0, math.min(1, a)))
-            end
-            for _, r in ipairs({ content:GetChildren() }) do Fade(r) end
-            for _, r in ipairs({ content:GetRegions() }) do Fade(r) end
-        end
+        -- Rows slide under soft edge gradients, a sense of depth (Karl).
+        -- (Fading each row's own alpha instead was tried and dropped: the
+        -- rows looked like they vanished rather than went under.)
+        fadeTop:SetShown(maxScroll > 1 and current > 1)
+        fadeBottom:SetShown(maxScroll > 1 and current < maxScroll - 1)
 
         if maxScroll > 1 then
             trackHit:Show()
@@ -3041,7 +3025,6 @@ function FGT.SetPlusMinus(fs, open)
         fs.pm:SetSize(11, 11)
         fs.pm:SetPoint("CENTER", fs, "CENTER", 0, 0)
         fs:SetAlpha(0)
-        fs.fgtKeepAlpha = true -- (scroll edge fades leave it hidden)
         -- the icon lives on the parent, so it follows the text's Show/Hide
         hooksecurefunc(fs, "Show", function() fs.pm:Show() end)
         hooksecurefunc(fs, "Hide", function() fs.pm:Hide() end)
