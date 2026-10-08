@@ -4150,7 +4150,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     local B = CreateFrame("Frame", nil, detailPanel)
     B:EnableMouse(false)
     B:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
-    B:SetPoint("BOTTOMRIGHT", detailBar, "BOTTOMRIGHT", 18, -32)
+    B:SetPoint("BOTTOMRIGHT", detailBar, "BOTTOMRIGHT", 18, -112)
     B.background = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -4)
     B.background:SetTexture(SOLID)
     B.background:SetAllPoints(B)
@@ -4214,7 +4214,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         self.left:SetSize(aw*0.78,h)
         self.top:SetSize(w,h*0.28)
-        local bottomFade = math.min(80, h*0.42)
+        local bottomFade = math.min(140, h*0.42)
         self.bottom:SetSize(w,bottomFade)
         -- Sample the panel's own gradient at the artwork's actual vertical position.
         -- The bottom veil ends on precisely the body shade, avoiding a black seam.
@@ -4329,7 +4329,7 @@ end
 local divider = CreateFrame("Frame", nil, detailPanel) -- invisible layout anchor above the steps
 divider:SetHeight(2)
 FGT.stepsDivider = divider -- (the tips line ends where this one does)
-divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -22)
+divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -10)
 divider:SetPoint("RIGHT", -16, 0)
 
 local stepsHeader = NewTitleString(detailPanel, 12)
