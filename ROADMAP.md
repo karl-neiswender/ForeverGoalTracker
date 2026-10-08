@@ -19,7 +19,7 @@ New tools that take more building.
 - **Toasts:** a small note when a step ticks itself while the window is closed, and milestone cheers along the way ("50 down, keep going!").
 - **Pop-out tracker:** keep one goal's steps on screen while you play, like the quest tracker.
 - **Step order:** steps that need an earlier step done first show a lock until you get there.
-- **Personal notes** on each goal. Design ideas from Karl (2026-10-08, brainstorming): prefix the displayed note with "NOTE:" and place it between the goal description and the blue Forever notice, or above the progress bar when there is no Forever notice. Consider a pencil in a square / parchment note icon, distinct from the existing Edit goal pencil; if chosen, create it in the existing painted icon style. Icon and editing interaction still to decide.
+- **Personal notes (ready for in-game testing):** a painted pencil-over-parchment icon opens a Save/Cancel editor for a short note on each goal. Notes start with "NOTE:" and sit between the goal description and the blue Forever notice, or above the progress bar when there is no notice. Click the saved note to edit it; clear its text and Save to remove it.
 - **Character overview:** see which of your characters is furthest along on reputation and leveling goals.
 - **Guild announcements:** guildmates who use the addon see when you finish a goal, with an optional line in guild chat (off by default).
 - **Share your wins:** a "Copy for Discord" button when you finish a goal.

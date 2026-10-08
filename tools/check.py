@@ -92,6 +92,33 @@ if ok_all:
             'local p = ForeverGoalTrackerDB.progress.atiesh; for i = 1, 10 do p[i] = true end; '
             'STUB_PRINTS = {}; STUB_FIRE("BAG_UPDATE_DELAYED")'),
         ("/goals testbanner", None, 'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("testbanner")'),
+        ("personal notes", None,
+            'local F, D = STUB_NS, ForeverGoalTrackerDB; local g = F.GoalById("ashbringer"); '
+            'F.SelectGoal(g.id); local progress, date = D.progress[g.id], D.goalDates[g.id]; '
+            'F.OpenNoteCard(g); F.noteCard.box:SetText("  Bring resistance gear |cff123456  "); F.SaveNoteCard(); '
+            'assert(F.GoalNote(g) == "Bring resistance gear |cff123456"); '
+            'assert(F.personalNote.text:GetText():find("||cff123456", 1, true), "literal formatting"); '
+            'assert(D.progress[g.id] == progress and D.goalDates[g.id] == date, "notes preserve progress"); '
+            'F.OpenNoteCard(g); F.noteCard.box:SetText("Unsaved changes"); F.CloseNoteCard(); '
+            'assert(F.GoalNote(g) == "Bring resistance gear |cff123456", "cancel"); '
+            'F.OpenNoteCard(g); F.SelectGoal("atiesh"); assert(F.noteCard.goal == nil, "switch closes editor"); '
+            'F.SetGoalNote(F.GoalById("atiesh"), "Keep the splinters in the bank."); '
+            'assert(F.GoalNote(g) == "Bring resistance gear |cff123456", "separate goals"); '
+            'F.OpenNoteCard(g); F.noteCard.box:SetText("   "); F.SaveNoteCard(); assert(D.notes[g.id] == nil, "delete"); '
+            'F.SetGoalNote(g, "Bring resistance gear."); print("  save, cancel, delete, literal text and separate goals ok")'),
+        ("personal notes survive reload", None,
+            'assert(STUB_NS.GoalNote(STUB_NS.GoalById("ashbringer")) == "Bring resistance gear."); '
+            'assert(STUB_NS.GoalNote(STUB_NS.GoalById("atiesh")) == "Keep the splinters in the bank."); '
+            'print("  both notes restored from SavedVariables")'),
+        ("forever personal note layout", None,
+            'local F = STUB_NS; local g = F.GoalById("ashbringer"); F.SelectGoal(g.id); '
+            'local anchor; F.foreverNotice.SetPoint = function(_, point, relative) if point == "TOPLEFT" then anchor = relative end end; '
+            'F.LayoutForeverInfo(g); assert(anchor == F.personalNote, "notice follows personal note"); '
+            'F.SetGoalNote(g, ""); assert(anchor ~= F.personalNote, "empty note removes gap"); '
+            'F.SetGoalNote(g, "Bring resistance gear."); '
+            'local oldNotice = F.ForeverNote; F.ForeverNote = function() return nil end; '
+            'F.LayoutForeverInfo(g); assert(F.LayoutPersonalNote(g) == F.personalNote); F.ForeverNote = oldNotice; '
+            'print("  personal note layout with and without Forever notice ok")', True),
         ("reset icon and undo countdown", None,
             'local F, D = STUB_NS, ForeverGoalTrackerDB; local now, timers = 100, {}; '
             'local oldTime, oldAfter = GetTime, C_Timer.After; GetTime = function() return now end; '

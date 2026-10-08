@@ -44,6 +44,9 @@ My Goals
   The goals you've added. Pick one on the left to see its guide on the
   right. Click a step to tick it by hand; hover a step to see what it
   tracks automatically. Tips under the steps hold advice and strategy.
+  Click the note icon on a goal page to save a personal reminder under
+  its description. Click the note to edit it. Clear the text and Save
+  to remove it; resetting or removing a goal keeps its note.
   The bar at the top shows your overall progress, averaged across your
   goals.
   Right-click a goal on the left to add it to your favorites (they get a

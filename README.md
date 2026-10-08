@@ -11,6 +11,7 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Step-by-step guides** for every goal.
 - **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills, raid boss kills, guild and friends, and WoW Forever's Statistics window (like duels won).
 - **Edit goal:** change the number on goals like Save 5,000 Gold.
+- **Personal notes:** click the note icon on a goal page to save a reminder under its description. Click the note to edit it; clear its text and Save to remove it.
 - **Raid lockouts:** raid goals show when the character you're on is saved this week.
 - **Pick the parts you want** of multi-part goals: individual classes, professions, mount races or Tier set classes.
 - **Separate Alliance and Horde goals**, with faction filters.

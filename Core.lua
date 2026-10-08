@@ -3726,6 +3726,176 @@ detailNote:SetPoint("RIGHT", -16, 0)
 detailNote:SetWordWrap(true)
 detailNote:SetJustifyH("LEFT")
 
+-- Personal notes are separate from the Library's description and progress.
+do
+    local n = CreateFrame("Button", nil, detailPanel)
+    n:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -10)
+    n:SetPoint("RIGHT", detailPanel, "RIGHT", -16, 0)
+    n.text = NewFontString(n, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    n.text:SetPoint("TOPLEFT")
+    n.text:SetPoint("RIGHT")
+    n.text:SetWordWrap(true)
+    n.text:SetJustifyH("LEFT")
+    n:Hide()
+    FGT.personalNote = n
+
+    function FGT.GoalNote(goal)
+        local notes = ForeverGoalTrackerDB and ForeverGoalTrackerDB.notes
+        local text = notes and goal and notes[goal.id]
+        return type(text) == "string" and text or ""
+    end
+
+    function FGT.SetGoalNote(goal, text)
+        local DB = ForeverGoalTrackerDB
+        if not (DB and goal and FGT.GoalById(goal.id)) then return end
+        text = (text or ""):gsub("\r", ""):match("^%s*(.-)%s*$")
+        DB.notes = DB.notes or {}
+        DB.notes[goal.id] = text ~= "" and text or nil
+        if selectedId == goal.id then SelectGoal(goal.id, true) end
+    end
+
+    local b = CreateFrame("Button", nil, detailPanel)
+    b:SetSize(22, 22)
+    b.icon = b:CreateTexture(nil, "ARTWORK")
+    b.icon:SetSize(15, 15)
+    b.icon:SetPoint("CENTER")
+    FGT.detailNoteBtn = b
+    function FGT.StyleNoteButton()
+        local saved = FGT.GoalNote(b.goal) ~= ""
+        local hover = b:IsMouseOver()
+        b.icon:SetTexture(FGT.Icon(saved and "note" or "note-white"))
+        local c = saved and { 1, 1, 1 } or (hover and C.ACCENT or C.SUBTEXT)
+        b.icon:SetVertexColor(c[1], c[2], c[3], (saved or hover) and 1 or 0.8)
+    end
+    b:SetScript("OnEnter", function(self)
+        FGT.StyleNoteButton()
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:AddLine(FGT.GoalNote(self.goal) ~= "" and "Edit personal note" or "Add personal note", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:Show()
+    end)
+    b:SetScript("OnLeave", function() FGT.StyleNoteButton(); GameTooltip:Hide() end)
+    b:SetScript("OnClick", function(self) if self.goal then FGT.OpenNoteCard(self.goal) end end)
+    n:SetScript("OnClick", function() if b.goal then FGT.OpenNoteCard(b.goal) end end)
+    n:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:AddLine("Click to edit your personal note", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:Show()
+    end)
+    n:SetScript("OnLeave", function() GameTooltip:Hide() end)
+
+    function FGT.LayoutPersonalNote(goal)
+        local text = FGT.GoalNote(goal)
+        b.goal = goal
+        b:SetShown(goal ~= nil)
+        FGT.StyleNoteButton()
+        n:SetShown(text ~= "")
+        if text == "" then return detailNote end
+        -- User text stays literal, even if it contains WoW formatting codes.
+        n.text:SetWidth(math.max(120, detailPanel:GetWidth() - 32))
+        n.text:SetText("|cffcc9e29NOTE:|r " .. text:gsub("|", "||"))
+        n:SetHeight(math.max(14, math.ceil(n.text:GetStringHeight())))
+        return n
+    end
+
+    function FGT.CloseNoteCard()
+        local T = FGT.noteCard
+        if T then T.box:ClearFocus(); T:Hide(); T.catcher:Hide(); T.goal = nil end
+    end
+
+    function FGT.SaveNoteCard()
+        local T = FGT.noteCard
+        if not (T and T.goal) then return end
+        local goal, text = T.goal, T.box:GetText()
+        FGT.CloseNoteCard()
+        FGT.SetGoalNote(goal, text)
+    end
+
+    function FGT.OpenNoteCard(goal)
+        GameTooltip:Hide()
+        if FGT.CloseTargetCard then FGT.CloseTargetCard() end
+        local T = FGT.noteCard
+        if not T then
+            T = CreateFrame("Frame", nil, main, "BackdropTemplate")
+            FGT.noteCard = T
+            T:SetSize(330, 270)
+            T:SetFrameLevel(main:GetFrameLevel() + 60)
+            T:SetClampedToScreen(true)
+            T:EnableMouse(true)
+            Etch(T, STYLE.rowSel, 12)
+            T.catcher = CreateFrame("Button", nil, main)
+            T.catcher:SetAllPoints(main)
+            T.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
+            T.catcher:RegisterForClicks("AnyUp")
+            T.catcher:SetScript("OnClick", FGT.CloseNoteCard)
+            T.title = NewTitleString(T, 13)
+            T.title:SetPoint("TOPLEFT", 14, -14)
+            T.title:SetText("Personal note")
+            T.sub = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+            T.sub:SetPoint("TOPLEFT", T.title, "BOTTOMLEFT", 0, -6)
+            T.sub:SetPoint("RIGHT", T, "RIGHT", -14, 0)
+            T.sub:SetWordWrap(true)
+            T.sub:SetJustifyH("LEFT")
+            T.field = CreateFrame("Frame", nil, T, "BackdropTemplate")
+            T.field:SetPoint("TOPLEFT", T.sub, "BOTTOMLEFT", 0, -12)
+            T.field:SetPoint("BOTTOMRIGHT", T, "BOTTOMRIGHT", -14, 65)
+            Skin(T.field, { 0, 0, 0, 0.6 }, C.BOX_RING)
+            T.scroll = CreateFrame("ScrollFrame", nil, T.field)
+            T.scroll:SetPoint("TOPLEFT", 4, -4)
+            T.scroll:SetPoint("BOTTOMRIGHT", -4, 4)
+            T.box = CreateFrame("EditBox", nil, T.scroll)
+            T.box:SetWidth(294)
+            T.box:SetHeight(110)
+            T.scroll:SetScrollChild(T.box)
+            T.box:SetMultiLine(true)
+            T.box:SetAutoFocus(false)
+            T.box:SetFont(FONT, 12, "")
+            T.box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            T.box:SetTextInsets(8, 8, 8, 8)
+            T.box:SetMaxLetters(240)
+            T.box:SetScript("OnEscapePressed", FGT.CloseNoteCard)
+            T.scroll:EnableMouseWheel(true)
+            T.scroll:SetScript("OnMouseWheel", function(self, delta)
+                self:SetVerticalScroll(math.max(0, math.min(self:GetVerticalScrollRange(), self:GetVerticalScroll() - delta * 24)))
+            end)
+            T.scroll:SetScript("OnSizeChanged", function(self) T.box:SetWidth(self:GetWidth()) end)
+            T.box:SetScript("OnCursorChanged", function(_, _, y, _, height)
+                local top = -y
+                local current = T.scroll:GetVerticalScroll()
+                local bottom = top + height + 8
+                if top < current then T.scroll:SetVerticalScroll(math.max(0, top))
+                elseif bottom > current + T.scroll:GetHeight() then
+                    T.scroll:SetVerticalScroll(math.max(0, bottom - T.scroll:GetHeight()))
+                end
+            end)
+            T.hint = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+            T.hint:SetPoint("BOTTOMLEFT", 14, 47)
+            T.hint:SetText("Up to 240 characters. Clear the text to remove your note.")
+            for i, label in ipairs({ "Save", "Cancel" }) do
+                local btn = CreateFrame("Button", nil, T, "BackdropTemplate")
+                btn:SetSize(90, 24)
+                btn:SetPoint("BOTTOMLEFT", 14 + (i - 1) * 100, 14)
+                Etch(btn, STYLE.button, 10)
+                btn.text = NewFontString(btn, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+                btn.text:SetPoint("CENTER")
+                btn.text:SetText(label)
+                btn:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
+                btn:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
+                btn:SetScript("OnClick", i == 1 and FGT.SaveNoteCard or FGT.CloseNoteCard)
+            end
+            T:Hide(); T.catcher:Hide()
+        end
+        T.goal = goal
+        T:ClearAllPoints()
+        T:SetPoint("CENTER", main, "CENTER")
+        T.sub:SetText(goal.name)
+        T.box:SetText(FGT.GoalNote(goal))
+        T.scroll:SetVerticalScroll(0)
+        T.catcher:Show(); T:Show()
+        T.box:SetFocus()
+    end
+    main:HookScript("OnHide", FGT.CloseNoteCard)
+end
+
 -- WoW Forever: a NEW chip beside the difficulty chips, and a slim blue
 -- notice under the description for goals not confirmed in Forever yet.
 do
@@ -3862,6 +4032,9 @@ do
             FGT.resetBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", b:IsShown() and -38 or -12, -12)
         end
         local icons = (b:IsShown() and 1 or 0) + (resetShown and 1 or 0)
+        FGT.detailNoteBtn:ClearAllPoints()
+        FGT.detailNoteBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -12 - 26 * icons, -12)
+        icons = icons + 1
         detailTitle:SetPoint("RIGHT", detailPanel, "RIGHT", -16 - 26 * icons, 0)
     end
 end
@@ -3874,6 +4047,7 @@ detailBar:SetPoint("RIGHT", -16, 0)
 -- Shows or hides the Forever chip and notice for a goal, and hangs the
 -- progress bar under whichever is last.
 function FGT.LayoutForeverInfo(goal)
+    local descriptionEnd = FGT.LayoutPersonalNote(goal)
     local chip = FGT.detailNewChip
     chip:ClearAllPoints()
     chip:SetPoint("LEFT", detailTimeChip:IsShown() and detailTimeChip or detailDiffChip, "RIGHT", 6, 0)
@@ -3893,6 +4067,9 @@ function FGT.LayoutForeverInfo(goal)
     FGT.LayoutLockout(goal, on and dc or (word and chip) or (detailTimeChip:IsShown() and detailTimeChip or detailDiffChip))
 
     local n = FGT.foreverNotice
+    n:ClearAllPoints()
+    n:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -12)
+    n:SetPoint("RIGHT", detailPanel, "RIGHT", -16, 0)
     -- New goals only get the notice when there's something to explain.
     local note = (not word or goal.foreverNote) and FGT.ForeverNote(goal)
     detailBar:ClearAllPoints()
@@ -3906,7 +4083,7 @@ function FGT.LayoutForeverInfo(goal)
         detailBar:SetPoint("TOPLEFT", n, "BOTTOMLEFT", 0, -14)
     else
         n:Hide()
-        detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
+        detailBar:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -12)
     end
 end
 
@@ -4835,6 +5012,7 @@ RefreshSteps = function(goal)
 end
 
 SelectGoal = function(id, skipListRefresh)
+    if FGT.noteCard and FGT.noteCard.goal and FGT.noteCard.goal.id ~= id then FGT.CloseNoteCard() end
     local goal
     for _, g in ipairs(FGT.goals) do
         if g.id == id and IsActive(g) then goal = g break end
@@ -5318,6 +5496,7 @@ end
 
 local detailParts -- every detail-panel element hidden by the empty state
 function FGT.ShowEmptyTracker()
+    FGT.CloseNoteCard()
     local appearing = not emptyNote:IsVisible()
     selectedId = nil
     for _, part in ipairs(detailParts) do part:Hide() end
@@ -5366,7 +5545,8 @@ function FGT.HideEmptyTracker()
 end
 detailParts = { detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
     detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
-    FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip, FGT.detailEditBtn }
+    FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip, FGT.detailEditBtn,
+    FGT.personalNote, FGT.detailNoteBtn }
 
 -- "Clear" next to the sort bar: removes every goal from My Goals in one
 -- go, after a confirm in the right-click menu's style. Progress is kept
@@ -6336,6 +6516,7 @@ libScroll:Finalize()
 FGT.LayoutLibrary = LayoutLibrary
 
 local function ShowTab(which)
+    FGT.CloseNoteCard()
     ForeverGoalTrackerDB.tab = which
     if FGT.CloseSettings then FGT.CloseSettings() end -- a tab click leaves Settings
     local lib = (which == "library")
@@ -6993,6 +7174,7 @@ gear:SetScript("OnClick", function()
 end)
 
 function FGT.OpenSettings()
+    FGT.CloseNoteCard()
     if not main:IsShown() then FGT.ToggleFrame() end
     FGT.BuildSettings()
     if FGT.CloseGoalMenu then FGT.CloseGoalMenu() end
@@ -7845,7 +8027,8 @@ do
         if T then T:Hide(); T.catcher:Hide(); T.box:ClearFocus() end
     end
 
-    function FGT.OpenTargetCard(goal)
+function FGT.OpenTargetCard(goal)
+        FGT.CloseNoteCard()
         local T = FGT.targetCard
         if not T then
             T = CreateFrame("Frame", nil, main, "BackdropTemplate")
@@ -9838,6 +10021,7 @@ function FGT.OpenWelcome(step, find, demoPicked)
     if FGT.CloseGoalMenu then FGT.CloseGoalMenu() end
     if FGT.CloseLinkCard then FGT.CloseLinkCard() end
     if FGT.CloseTargetCard then FGT.CloseTargetCard() end
+    if FGT.CloseNoteCard then FGT.CloseNoteCard() end
     DB.welcomeSeen = true -- shown once; closing it any way counts
     W.picked = {} -- always starts with nothing picked
     for k, v in pairs(demoPicked or {}) do W.picked[k] = v end
