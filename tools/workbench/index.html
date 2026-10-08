@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Forever Goal Tracker · Workbench</title><link rel="stylesheet" href="/style.css"></head>
+<body>
+<header class="top"><div><span class="eyebrow">FOREVER GOAL TRACKER</span><h1>Offline workbench <span class="badge">DRAFT</span></h1></div><div class="tools"><button id="reload">Reload changes</button><button id="checks">Run Lua checks</button></div></header>
+<section class="control"><label>Test setup <select id="fixture"><option value="fresh">Empty roster</option><option value="level">Level 60 character · 10,000 gold</option><option value="loot">Thunderfury reward owned</option><option value="quests">Molten Core attunement quests</option></select></label><button id="applyFixture">Load setup</button><span id="status" role="status">Loading addon…</span></section>
+<main class="addon"><div class="addonHead"><img src="/asset/Media/icon.tga" alt=""><div><h2>Forever Goal Tracker</h2><p>Long-term goals. One step at a time.</p></div><div class="mode"><button class="active" data-tab="tracker">My Goals</button><button data-tab="library">Goal Library</button></div></div>
+<div class="workspace"><aside><div class="search"><input id="search" type="search" placeholder="Find a goal…" aria-label="Find a goal"></div><div id="goals"></div></aside><article id="detail"></article></div></main>
+<footer><span class="dot"></span> Local test data only · Real addon Lua · Browser rendering is an approximation <span id="source"></span></footer>
+<dialog id="notes"><div class="modal"><button id="closeNote" class="icon close" aria-label="Close note"><img src="/asset/Media/icons/close.tga" alt=""></button><h3>Add personal note</h3><p id="noteGoal"></p><textarea id="noteText" maxlength="480" aria-label="Personal note"></textarea><p class="count" id="count">0 / 240 characters</p><div class="buttons"><button id="saveNote" class="gold" disabled>Save</button><button id="deleteNote">Delete note</button></div></div></dialog>
+<dialog id="results"><div class="result"><button id="closeResults">Close</button><h3>Lua checks</h3><pre id="checkOutput"></pre></div></dialog>
+<script src="/app.js"></script></body></html>
