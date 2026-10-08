@@ -1862,21 +1862,28 @@ do
     -- mostly in the header and bleeds a little into the panels, leaving the
     -- lists clean): a body at full strength for `solid` px, then a strip
     -- whose vertex alpha runs to 0 over `fade` px (gradients ignore
-    -- SetAlpha, lesson 14). Both share one set of texture coordinates.
+    -- SetAlpha, lesson 14), then the rest at a faint floor: just enough
+    -- grain to dither the panels' dark gradients, which otherwise show as
+    -- bands (Karl). All three share one set of texture coordinates.
+    local FLOOR = 0.07
     function FGT.AddGrime(frame, alpha, edgeSize, offset, solid, fade)
         local inset = math.floor((edgeSize or 12) / 4)
         solid, fade = solid or 0, fade or 140
         local body = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
         local strip = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
-        for _, t in ipairs({ body, strip }) do
+        local rest = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
+        for _, t in ipairs({ body, strip, rest }) do
             t:SetTexture(GRIME, "REPEAT", "REPEAT")
         end
+        rest:SetPoint("TOPLEFT", strip, "BOTTOMLEFT")
+        rest:SetPoint("BOTTOMRIGHT", -inset, inset)
+        rest:SetVertexColor(1, 1, 1, FLOOR)
         body:SetPoint("TOPLEFT", inset, -inset)
         body:SetPoint("TOPRIGHT", -inset, -inset)
         strip:SetPoint("TOPLEFT", body, "BOTTOMLEFT")
         strip:SetPoint("TOPRIGHT", body, "BOTTOMRIGHT")
         body:SetVertexColor(1, 1, 1, alpha)
-        ApplyVGradient(strip, { 1, 1, 1 }, { 1, 1, 1 }, alpha, 0)
+        ApplyVGradient(strip, { 1, 1, 1 }, { 1, 1, 1 }, alpha, FLOOR)
         offset = offset or 0
         local function Fit()
             local w, h = frame:GetWidth() - 2 * inset, frame:GetHeight() - 2 * inset
@@ -1889,6 +1896,8 @@ do
             local x0, x1, y0 = offset, offset + w / TILE, offset * 0.6
             body:SetTexCoord(x0, x1, y0, y0 + s / TILE)
             strip:SetTexCoord(x0, x1, y0 + s / TILE, y0 + (s + f) / TILE)
+            rest:SetShown(h - s - f > 0)
+            rest:SetTexCoord(x0, x1, y0 + (s + f) / TILE, y0 + h / TILE)
         end
         frame:HookScript("OnSizeChanged", Fit)
         Fit()
