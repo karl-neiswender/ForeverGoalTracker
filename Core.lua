@@ -3998,37 +3998,30 @@ local function GetStepRow(index)
     -- right, a little taller than the row, so text never meets a hard edge
     -- (Karl). Three pieces behind the text; row.hover shows and hides them.
     do
-        -- Media/hoverglow: soft at the top and bottom in every column; its
-        -- left half ramps in (the caps), its right half is the middle. The
-        -- right cap is the left one mirrored, stretched longer.
-        local A, W, PAD = 0.05, { 1, 0.95, 0.85 }, 8
-        local GLOW = "Interface\\AddOns\\" .. ADDON .. "\\Media\\hoverglow"
-        local l, m, r = row:CreateTexture(nil, "ARTWORK"), row:CreateTexture(nil, "ARTWORK"), row:CreateTexture(nil, "ARTWORK")
-        for _, t in ipairs({ l, m, r }) do
-            t:SetTexture(GLOW)
-            t:SetVertexColor(W[1], W[2], W[3], A)
-        end
-        l:SetTexCoord(0, 0.5, 0, 1)
-        m:SetTexCoord(0.7, 0.9, 0, 1)
-        r:SetTexCoord(0.5, 0, 0, 1)
-        l:SetWidth(22)
+        -- (a soft vignette texture was tried and dropped: it looked cheap)
+        local A, W, PAD = 0.025, { 1, 0.95, 0.85 }, 5
+        local l, m, r = Flat(row, 1, 1, 1, 1), Flat(row, 1, 1, 1, 1), Flat(row, 1, 1, 1, 1)
+        l:SetWidth(40)
         r:SetWidth(160)
+        ApplyHGradient(l, W, W, 0, A)
+        m:SetVertexColor(W[1], W[2], W[3], A)
+        ApplyHGradient(r, W, W, A, 0)
         local parts = { l, m, r }
         row.hover = {}
         -- sized to the text (and the progress bar under it, if any), not
-        -- the row, with PAD px of soft room above and below; the left cap
-        -- finishes fading in just before the checkbox (Karl)
+        -- the row, with PAD px of room above and below; it starts fading in
+        -- at the checkbox's right edge, so the box itself stays clear (Karl)
         function row.hover:Show()
             local rowTop, rowLeft = row:GetTop(), row:GetLeft()
             local tTop, tBottom = row.text:GetTop(), row.text:GetBottom()
-            local y, h, x = 3, (row:GetHeight() or 20) + 6, -20
+            local y, h, x = 3, (row:GetHeight() or 20) + 6, 20
             if rowTop and tTop and tBottom then
                 if row.miniBar:IsShown() and row.miniBar:GetBottom() then
                     tBottom = math.min(tBottom, row.miniBar:GetBottom())
                 end
                 y, h = (tTop - rowTop) + PAD, (tTop - tBottom) + 2 * PAD
             end
-            if rowLeft and row.box:GetLeft() then x = row.box:GetLeft() - rowLeft - 24 end
+            if rowLeft and row.box:GetRight() then x = row.box:GetRight() - rowLeft + 2 end
             l:ClearAllPoints(); r:ClearAllPoints(); m:ClearAllPoints()
             l:SetPoint("TOPLEFT", row, "TOPLEFT", x, y)
             r:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, y)
