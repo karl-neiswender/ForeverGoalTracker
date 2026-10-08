@@ -2624,7 +2624,10 @@ end
 local function CreateEdgeFade(parent, isTop)
     -- the bottom fade is taller, eases in, and ends on the panels' darker
     -- bottom shade, so it melts into the grime fading out there (Karl)
-    local height = 28 -- top and bottom alike (Karl)
+    -- the top is taller than a row with a progress bar, so a row slides
+    -- under as a whole instead of leaving its bar behind (Karl); a solid
+    -- lip at the edge was tried and made that worse
+    local height = isTop and 40 or 28
     local steps = height -- one strip per pixel: a smooth ramp, no visible steps (Karl: banding)
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(height)
@@ -2639,13 +2642,9 @@ local function CreateEdgeFade(parent, isTop)
         -- i = 1 sits at the outer edge (nearly opaque panel color) and
         -- fades toward ~0 alpha by the inner edge, closest to the content.
         local alpha = 1 - ((i - 0.5) / steps)
-        alpha = alpha ^ 1.6 -- eased: soft where it meets the rows
-        -- the top starts with a solid lip, so rows are fully hidden before
-        -- the scroll edge cuts them (light step text showed the cut, Karl)
-        if isTop then
-            local LIP = 6
-            alpha = (i <= LIP) and 1 or (1 - ((i - LIP - 0.5) / (steps - LIP))) ^ 1.6
-        end
+        -- eased: soft where it meets the rows (gentler at the top, whose
+        -- band is taller so a step with a progress bar fades as a whole)
+        alpha = alpha ^ (isTop and 1.3 or 1.6)
         local strip = Flat(f, c[1], c[2], c[3], alpha)
         strip:ClearAllPoints()
         if isTop then
