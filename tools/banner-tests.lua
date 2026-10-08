@@ -1,5 +1,7 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+local desaturated
+B.art.SetDesaturated = function(_, value) desaturated=value end
 local g = F.GoalById("ashbringer")
 D.active[g.id] = true
 F.SelectGoal(g.id)
@@ -49,7 +51,17 @@ for id in pairs(B.artPaths) do
     D.active[id] = true
     F.SelectGoal(id)
     assert(B.hasArt and B.sourceAspect == B.artAspects[id], id .. " uses supplied art with original proportions")
+    assert(desaturated == (not B.preprocessed[id]), id .. " selects the correct desaturation state on reused art")
+    if B.preprocessed[id] then assert(B.sourceAspect == 1.5, "final masters retain 3:2 proportions") end
 end
+D.active.raid_bwl = true
+F.SelectGoal("raid_bwl")
+assert(not desaturated, "final Blackwing Lair artwork bypasses desaturation")
+D.active.raid_ony = true
+F.SelectGoal("raid_ony")
+assert(desaturated, "switching to older color artwork restores its existing monochrome look")
+F.SelectGoal("raid_bwl")
+assert(not desaturated, "switching back clears desaturation")
 D.active.gold_5k = true
 F.SelectGoal("gold_5k")
 assert(not B.hasArt, "unmapped goal clears previous artwork")

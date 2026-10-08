@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Installed approved monochrome weapon and Blackwing Lair banner images with stronger contrast and 3:2 framing. These final textures bypass addon desaturation; older color banners keep their existing treatment. Source options and final JPEG masters are excluded from releases.
+
 - Added artwork credits in Settings, with an unofficial-addon notice and separate code/artwork licensing information.
 
 - Added Thunderfury, Rhok’delar, Onyxia, Blackwing Lair, Dreadsteed and Charger banner artwork.

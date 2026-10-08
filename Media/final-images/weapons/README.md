@@ -1,6 +1,6 @@
 # Weapon banner imagegen pass
 
-October 8, 2026. Seven individual edits using built-in ChatGPT imagegen. Saved here for Karl's visual review, not yet approved or installed as game textures. All are 1200 x 800 optimized JPEG masters. The full final-images folder remains excluded from releases.
+October 8, 2026. Seven individual edits using built-in ChatGPT imagegen, approved by Karl and installed as compressed game textures. All are 1200 x 800 optimized JPEG masters. The full final-images folder remains excluded from releases.
 
 | Master / goal ID | Original option in Media/artwork |
 | --- | --- |
@@ -12,7 +12,7 @@ October 8, 2026. Seven individual edits using built-in ChatGPT imagegen. Saved h
 | benediction.jpg | anathema.jpg (Anathema illustration) |
 | quelserrar.jpg | Quel'Delar_full.jpg (Karl approved this substitute) |
 
-Comparison: reports/image-tests/weapon-pass-before-after.jpg. Full prompt and source manifest: reports/image-tests/weapon-pass-manifest.json. Technical export/comparison script: reports/image-tests/export-weapon-pass.py. Original options are untouched; current in-game banners remain unchanged. AI reframing alters some painted detail, despite preservation instructions.
+Comparison: reports/image-tests/weapon-pass-before-after.jpg. Full prompt and source manifest: reports/image-tests/weapon-pass-manifest.json. Technical export/comparison script: reports/image-tests/export-weapon-pass.py. Original options are untouched. Rebuild the approved game textures with `python tools/artwork.py --final-only`; manifest is ../runtime-manifest.json. The addon restores their 3:2 proportions and skips runtime desaturation. AI reframing alters some painted detail, despite preservation instructions.
 
 Usage snapshot: five-hour account meter 12% before, 15% after; weekly 18% before and after. Rounded, account-wide values cannot isolate image-generation cost.
 

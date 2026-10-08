@@ -4165,7 +4165,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.art:SetPoint("TOPRIGHT", B, "TOPRIGHT")
     -- Fade the actual image alpha, avoiding a colored rectangle at its left edge.
     ApplyHGradient(B.art, {1,1,1}, {1,1,1}, 0,0.18)
-    B.art:SetDesaturated(true) -- neutral banner art; preserve uploaded color originals
     B.left = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
     B.top = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
     B.bottom = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
@@ -4195,22 +4194,28 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         att_naxx = "att_naxx-banner.blp",
     }
     B.artAspects = {
-        thunderfury = 1.1314673452078032,
-        rhokdelar = 1.0,
+        thunderfury = 1.5,
+        rhokdelar = 1.5,
         raid_ony = 0.8650519031141869,
-        raid_bwl = 1.7777777777777777,
+        raid_bwl = 1.5,
         mount_dreadsteed = 0.7974481658692185,
         mount_charger = 0.7501831501831502,
 
-        quelserrar = 1.002257336343115,
-        ashbringer = 1, atiesh = 1, sulfuras = 1024/958,
-        benediction = 1.1123470522803114,
+        quelserrar = 1.5,
+        ashbringer = 1.5, atiesh = 1.5, sulfuras = 1.5,
+        benediction = 1.5,
         raid_mc = 0.7751312071053694,
         att_mc = 1.7777777777777777,
         set_tier1 = 0.8703220191470844,
         raid_naxx = 0.6679712981082844,
         tier3 = 1.7786561264822134,
         att_naxx = 1.7786561264822134,
+    }
+    -- Approved monochrome masters need no runtime desaturation.
+    -- Older color banners keep their existing look until their final pass.
+    B.preprocessed = {
+        ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
+        rhokdelar=true, quelserrar=true, benediction=true, raid_bwl=true,
     }
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
@@ -4290,7 +4295,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local art = B.artPaths[goal.id]
         B.hasArt = art ~= nil
         B.sourceAspect = B.artAspects[goal.id] or 1
-        if art then B.art:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..art) end
+        if art then
+            B.art:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..art)
+            B.art:SetDesaturated(not B.preprocessed[goal.id])
+        end
         for _,t in ipairs({B.art,B.left,B.top,B.bottom}) do t:SetShown(B.hasArt) end
         B:Fit()
     end

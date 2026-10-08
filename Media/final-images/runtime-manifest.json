@@ -1,0 +1,58 @@
+{
+  "ashbringer": {
+    "source": "weapons/ashbringer.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "atiesh": {
+    "source": "weapons/atiesh.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "sulfuras": {
+    "source": "weapons/sulfuras.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "thunderfury": {
+    "source": "weapons/thunderfury.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rhokdelar": {
+    "source": "weapons/rhokdelar.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "quelserrar": {
+    "source": "weapons/quelserrar.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "benediction": {
+    "source": "weapons/benediction.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_bwl": {
+    "source": "blackwing-lair.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  }
+}

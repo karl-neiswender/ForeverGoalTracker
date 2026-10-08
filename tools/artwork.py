@@ -2,7 +2,7 @@
 
 Requires Pillow with its DDS BC1 encoder. Uses the BLP2 layout documented by
 https://github.com/Kanma/BLPConverter/blob/master/blp_internal.h
-Colors are unchanged here; the addon handles desaturation at runtime.
+Colors are unchanged here; approved monochrome masters bypass runtime desaturation.
 """
 from io import BytesIO
 from pathlib import Path
@@ -12,6 +12,13 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
+FINAL = ROOT / "Media/final-images"
+FINAL_BANNERS = {
+    **{goal: "weapons/" + goal + ".jpg" for goal in (
+        "ashbringer", "atiesh", "sulfuras", "thunderfury",
+        "rhokdelar", "quelserrar", "benediction")},
+    "raid_bwl": "blackwing-lair.jpg",
+}
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",
     "rhokdelar": "Rhok'delar_full.jpg",
@@ -73,6 +80,20 @@ def build_selected():
     manifest_path.write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8", newline="\n")
 
 
+def build_final():
+    """Compile approved masters only, without touching candidate artwork."""
+    manifest = {}
+    for goal, filename in FINAL_BANNERS.items():
+        source = FINAL / filename
+        with Image.open(source) as image:
+            assert image.size == (1200, 800), (goal, image.size)
+        manifest[goal] = compress(source, ROOT / "Media" / (goal + "-banner.blp"))
+        manifest[goal]["source"] = filename
+        print(goal, manifest[goal]["bytes"], "bytes; aspect", manifest[goal]["aspect"])
+    (FINAL / "runtime-manifest.json").write_text(
+        json.dumps(manifest, indent=2)+"\n", encoding="utf-8", newline="\n")
+
+
 def main():
     build_selected()
     manifest = json.loads((ART / "prepared/manifest.json").read_text())
@@ -115,7 +136,11 @@ def main():
 
 if __name__ == "__main__":
     import sys
-    if "--selected-only" in sys.argv:
+    if "--final-only" in sys.argv:
+        build_final()
+    elif "--selected-only" in sys.argv:
         build_selected()
+        build_final()
     else:
         main()
+        build_final()
