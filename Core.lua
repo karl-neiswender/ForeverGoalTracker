@@ -7203,7 +7203,7 @@ end
 
 -- ------------------------------------------------------------
 -- What's on the page. Row types: toggle, choice, slider, button, and
--- custom (build(parent) returns a frame with :Layout(width)).
+-- info (text only), custom (build(parent) returns a frame with :Layout(width)).
 -- ------------------------------------------------------------
 local function KeybindLabel()
     local key = GetBindingKey and GetBindingKey("FGT_TOGGLE")
@@ -7303,6 +7303,18 @@ FGT.SETTINGS = {
     } },
     { title = "Tracked characters", rows = {
         { type = "custom", build = CharacterList },
+    } },
+    { title = "Artwork and credits", rows = {
+        { type = "info", label = "Blizzard Entertainment",
+          desc = "World of Warcraft and Hearthstone artwork: copyright Blizzard Entertainment. All rights reserved." },
+        { type = "info", label = "AI-assisted artwork",
+          desc = "Some original addon artwork was created with assistance from ChatGPT and Nano Banana." },
+        { type = "info", label = "Cinzel font",
+          desc = "Cinzel is included under the SIL Open Font License. See Fonts/OFL.txt." },
+        { type = "info", label = "Unofficial community addon",
+          desc = "Forever Goal Tracker is not affiliated with or endorsed by Blizzard Entertainment." },
+        { type = "info", label = "Artwork and code licenses",
+          desc = "The addon's MIT license applies to its code. Third-party artwork retains its applicable rights and is not covered by that license. These credits are acknowledgments, not a grant of permission." },
     } },
 }
 

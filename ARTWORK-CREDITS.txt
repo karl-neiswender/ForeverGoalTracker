@@ -1,0 +1,22 @@
+FOREVER GOAL TRACKER - ARTWORK AND CREDITS
+
+Blizzard Entertainment
+World of Warcraft and Hearthstone artwork: copyright Blizzard Entertainment.
+All rights reserved. Individual artwork may carry additional artist notices.
+
+AI-assisted artwork
+Some original addon artwork was created with assistance from ChatGPT and
+Nano Banana, as identified by the addon author.
+
+Cinzel font
+Included under the SIL Open Font License. See Fonts/OFL.txt.
+
+Independent project
+Forever Goal Tracker is an unofficial community addon. It is not affiliated
+with or endorsed by Blizzard Entertainment.
+
+Licensing scope
+The MIT license in LICENSE.txt applies to the addon's code. It does not
+relicense third-party artwork or the bundled font. Third-party artwork
+retains its applicable rights. These credits are acknowledgments, not a
+grant of permission to redistribute or reuse that artwork.

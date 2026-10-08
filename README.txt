@@ -123,5 +123,6 @@ a human before release.
 
 LICENSE
 -------
-MIT (see LICENSE.txt). The Cinzel font is included under the SIL Open
-Font License (see Fonts/OFL.txt).
+The addon code uses MIT (see LICENSE.txt). Third-party artwork is not
+covered by that license; see ARTWORK-CREDITS.txt and Settings > Artwork
+and credits. The Cinzel font uses the SIL Open Font License (Fonts/OFL.txt).

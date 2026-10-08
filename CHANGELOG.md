@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added artwork credits in Settings, with an unofficial-addon notice and separate code/artwork licensing information.
+
 - Added Thunderfury, Rhok’delar, Onyxia, Blackwing Lair, Dreadsteed and Charger banner artwork.
 
 - Added matching banner artwork for Benediction/Anathema, Quel’Serrar, Molten Core and Naxxramas goals, Tier 1 and Tier 3 sets.
