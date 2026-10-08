@@ -1849,6 +1849,36 @@ local function Etch(frame, style, edgeSize)
     frame:SetEtch(style)
 end
 
+-- Subtle dirt texture over a window or panel fill (Karl, 2026-10-07):
+-- Media/grime (512px, seamless) repeated at its real size inside the
+-- etched border, above the fill and below everything else. alpha sets the
+-- strength; offset (0-1) shifts where the tile starts, so panels next to
+-- each other don't repeat in step. Only on the big surfaces: cards, rows,
+-- buttons, tooltips and Forever blue stay flat.
+do
+    local GRIME = "Interface\\AddOns\\" .. ADDON .. "\\Media\\grime"
+    local TILE = 512
+    function FGT.AddGrime(frame, alpha, edgeSize, offset)
+        local inset = math.floor((edgeSize or 12) / 4)
+        local t = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
+        t:SetTexture(GRIME, "REPEAT", "REPEAT")
+        t:SetPoint("TOPLEFT", inset, -inset)
+        t:SetPoint("BOTTOMRIGHT", -inset, inset)
+        t:SetAlpha(alpha)
+        offset = offset or 0
+        local function Fit()
+            local w, h = frame:GetWidth() - 2 * inset, frame:GetHeight() - 2 * inset
+            if w > 0 and h > 0 then
+                t:SetTexCoord(offset, offset + w / TILE, offset * 0.6, offset * 0.6 + h / TILE)
+            end
+        end
+        frame:HookScript("OnSizeChanged", Fit)
+        Fit()
+        frame.grime = t
+        return t
+    end
+end
+
 -- ============================================================
 -- WoW Forever status
 -- ============================================================
@@ -2702,6 +2732,7 @@ main:RegisterForDrag("LeftButton")
 -- also restoring it (two systems placing one window = random jumps).
 if main.SetDontSavePosition then main:SetDontSavePosition(true) end
 Etch(main, STYLE.window, 16)
+FGT.AddGrime(main, 0.45, 16, 0)
 
 -- Pin the window by its top-left corner in plain screen coordinates.
 -- Moving or sizing a frame that's still anchored by its CENTER makes
@@ -3000,6 +3031,7 @@ listPanel:SetPoint("TOPLEFT", 16, PANEL_TOP)
 listPanel:SetPoint("BOTTOMLEFT", main, "BOTTOMLEFT", 16, 16)
 listPanel:SetWidth(LIST_WIDTH)
 Etch(listPanel, STYLE.panel, 12)
+FGT.AddGrime(listPanel, 0.3, 12, 0.37)
 
 -- Right panel (detail) - fully anchor-driven (both corners), so it
 -- fluidly fills whatever space is left of the sticky left panel as the
@@ -3008,6 +3040,7 @@ local detailPanel = CreateFrame("Frame", nil, main, "BackdropTemplate")
 detailPanel:SetPoint("TOPLEFT", listPanel, "TOPRIGHT", 12, 0)
 detailPanel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(detailPanel, STYLE.panel, 12)
+FGT.AddGrime(detailPanel, 0.3, 12, 0.71)
 
 -- Sort control - a dropdown button above the list. Built by hand (not
 -- Blizzard's UIDropDownMenu template, which differs between clients).
@@ -5205,6 +5238,7 @@ local libraryPanel = CreateFrame("Frame", nil, main, "BackdropTemplate")
 libraryPanel:SetPoint("TOPLEFT", main, "TOPLEFT", 16, PANEL_TOP)
 libraryPanel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(libraryPanel, STYLE.panel, 12)
+FGT.AddGrime(libraryPanel, 0.3, 12, 0.13)
 libraryPanel:Hide()
 
 -- No heading here: the Goal Library tab above already names the page.
@@ -6122,6 +6156,7 @@ local panel = CreateFrame("Frame", nil, main, "BackdropTemplate")
 panel:SetPoint("TOPLEFT", main, "TOPLEFT", 16, PANEL_TOP)
 panel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(panel, STYLE.panel, 12)
+FGT.AddGrime(panel, 0.3, 12, 0.53)
 panel:Hide()
 FGT.settingsPanel = panel
 
