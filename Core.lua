@@ -2400,7 +2400,7 @@ FGT.doneSeen = {}
 
 function FGT.CheckCelebration(row, key, complete, play)
     local was = FGT.doneSeen[key]
-    if FGT.quietCelebrate then was = complete end -- undoing a reset: no fanfare
+    if FGT.quietCelebrate then was = complete end -- silent redraws: no fanfare
     FGT.doneSeen[key] = complete
     if row.fxKey and row.fxKey ~= key then FGT.EndCelebration(row) end
     if complete and was == false then
@@ -2550,7 +2550,7 @@ end
 -- A step's checkbox pops when you tick it. ToggleStep notes what was
 -- just ticked; the row drawing that step calls this.
 function FGT.MaybePopTick(row, goalId, key)
-    if row.isDone and FGT.justTicked == goalId .. "|" .. key then
+    if row.isDone and (FGT.justTicked == goalId .. "|" .. key or FGT.restoringReset == goalId) then
         FGT.justTicked = nil
         if FGT.Setting("celebrations") == "off" then return end
         FGT.PopCheck(row, row.check, 22)
@@ -4032,14 +4032,14 @@ resetBtn:SetScript("OnClick", function()
     if undo and GetTime() >= undo.expires then FGT.resetUndo = nil; undo = nil end
     if FGT.Setting("celebrations") ~= "off" then resetBtn.spin = 0 end
     if undo and undo.id == selectedId then
-        -- Put everything back, quietly: no celebration for ticks you had.
+        -- Restore the saved state with the usual bar glide and check pops.
         DB.progress[undo.id] = undo.progress
         if DB.goalsDone then DB.goalsDone[undo.id] = undo.done end
         if DB.goalDates then DB.goalDates[undo.id] = undo.date end
         FGT.resetUndo = nil
-        FGT.quietCelebrate = true
+        FGT.restoringReset = selectedId
         SelectGoal(selectedId)
-        FGT.quietCelebrate = nil
+        FGT.restoringReset = nil
     else
         local copy = {}
         for k, v in pairs(DB.progress[selectedId] or {}) do copy[k] = v end

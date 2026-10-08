@@ -279,6 +279,8 @@ Player-chosen style options in Settings. Karl's ideas: how Forever goals look (a
 
 ## Working with Karl
 
+- Reset undo follow-up (Karl / Codex, 2026-10-08): Karl checked the refresh icon in game and approved it. Undo should animate restored progress too: it now redraws without `quietCelebrate` so the detail bar glides, and `FGT.restoringReset` lets restored step/material checkmarks use their normal pop. Celebrations off still skips pops. Saved ticks, completion state and date are restored as before.
+
 - Reset icon update (Karl / Codex, 2026-10-08): implemented the supplied gold/silver circular arrows as `Media/icons/refresh.tga` and `refresh-white.tga`, replacing the old undo-arrow on the goal page at the same 15px size. Gold during the existing 10-second undo window, silver tinted grey/red otherwise; `tools/gold.py` applied to gold (hue 45, saturation 0.80). A gentle 0.65s clockwise turn on reset/undo respects Celebrations off. Undo tooltip updates once per second using `resetUndo.expires`; reset/restore behavior retained. Source `Media/icons/refresh-source.png`, reproducible slicing in `tools/refresh.py`. Needs a full game restart for the new textures; appearance still needs Karl's in-game check. New feature ideas from Codex conversations are recorded in shared `ROADMAP.md`, including the post-update Welcome / What's new modal with feature snapshots, vignette, skip, pagination and text transitions.
 
 - Karl is a designer (web and digital design director). Give clear, brief explanations and skip coding jargon where possible.
