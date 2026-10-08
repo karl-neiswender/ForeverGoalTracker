@@ -1,0 +1,41 @@
+{
+  "method": "Built-in imagegen, one call per weapon",
+  "prompt": "Edit the supplied illustration into one landscape 3:2 banner, target 1200x800. Apply neutral BLACK AND WHITE with moderately increased contrast (about 20%), retaining midtone painted detail and avoiding crushed shadows or blown highlights. Reframe the existing weapon so its identifying head/blade detail is centered around 65% across and 35% down, higher and right of center; keep the full recognizable weapon silhouette where possible. Scale down the weapon within the scene if required for this framing rather than cutting off the defining details. Leave quieter darker space on the left for UI text. Preserve the supplied weapon design, blade count, ornamentation, proportions, existing scene and original painted style as faithfully as possible. Change only framing and tonal treatment. No new characters, objects, weapon redesign, text, UI, borders, blur or baked vignette. Preserve any existing artist signature/copyright notice unobtrusively. Single finished artwork, not a before/after collage.",
+  "images": [
+    {
+      "id": "ashbringer",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/ashbringer-color.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-dcfed41d-6bc7-443f-b875-39caa8fb3769.png"
+    },
+    {
+      "id": "atiesh",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/atiesh.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-c115e957-4864-4b67-8ca6-4735f1fe0cc8.png"
+    },
+    {
+      "id": "sulfuras",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/Sulfuras_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-039e1499-8398-4579-b9a4-cf67f74f3b22.png"
+    },
+    {
+      "id": "quelserrar",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/Quel'Delar_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-ea85c88e-3e2a-4060-8eee-79c93d42d6cd.png"
+    },
+    {
+      "id": "benediction",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/anathema.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-efae520a-51b2-4060-b143-4fa0d1085f24.png"
+    },
+    {
+      "id": "rhokdelar",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/Rhok'delar_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-a2549c06-0707-4fda-af10-29b3641ffb67.png"
+    },
+    {
+      "id": "thunderfury",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/thunderfury.png",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-d8a35071-525c-45bd-b07a-aa71e279343f.png"
+    }
+  ]
+}
