@@ -3831,6 +3831,7 @@ do
         local T = FGT.noteCard
         if not (T and T.goal) or T.closing then return end
         local goal, text = T.goal, T.box:GetText()
+        if not (text and text:find("%S")) then return end
         FGT.CloseNoteCard(true) -- restore colors before redrawing the saved note
         FGT.SetGoalNote(goal, text)
     end
@@ -3848,9 +3849,10 @@ do
         if not (T and T.save) then return end
         local hasText = (T.box:GetText() or ""):find("%S") ~= nil
         T.save.gold = hasText
+        T.save:SetEnabled(hasText)
         local hover = T.save:IsMouseOver()
-        T.save:SetEtch(hasText and (hover and STYLE.goldHover or STYLE.rowSel) or (hover and STYLE.btnHover or STYLE.button))
-        T.save.text:SetTextColor(unpack(hasText and (hover and { 1, 0.95, 0.75 } or C.TITLE) or C.TEXT))
+        T.save:SetEtch(hasText and (hover and STYLE.goldHover or STYLE.rowSel) or STYLE.muted)
+        T.save.text:SetTextColor(unpack(hasText and (hover and { 1, 0.95, 0.75 } or C.TITLE) or C.SUBTEXT))
         local saved = FGT.GoalNote(T.goal) ~= ""
         T.delete:SetEnabled(saved)
         T.delete:SetEtch(saved and (T.delete:IsMouseOver() and STYLE.dangerHv or STYLE.button) or STYLE.muted)
@@ -3892,7 +3894,7 @@ do
             T.title = NewTitleString(T, 13)
             T.title:SetPoint("TOPLEFT", 14, -14)
             T.title:SetPoint("RIGHT", T, "RIGHT", -42, 0)
-            T.title:SetText("Personal note")
+            T.title:SetText("Add personal note")
             T.sub = NewFontString(T, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
             T.sub:SetPoint("TOPLEFT", T.title, "BOTTOMLEFT", 0, -6)
             T.sub:SetPoint("RIGHT", T, "RIGHT", -14, 0)

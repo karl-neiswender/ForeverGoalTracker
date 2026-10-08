@@ -279,6 +279,8 @@ Player-chosen style options in Settings. Karl's ideas: how Forever goals look (a
 
 ## Working with Karl
 
+- Note editor title / empty Save (Karl / Codex, 2026-10-08): title is now "Add personal note". Save is disabled and muted when empty or whitespace-only, enabled and gold for actual text. `SaveNoteCard` also guards against empty input, so clearing the editor cannot delete a saved note; use Delete note. Tests verify title, enabled states and empty/blank save preserving the editor and saved data. Karl approved the wider shadow in game.
+
 - Note-window shadow (Karl / Codex, 2026-10-08): Karl requested a wider, softer, darker drop shadow. Note card now uses `FGT.AddDropShadow(T, 64, 0.85, 8, 10)` with the existing Gaussian nine-slice texture, above the dim backdrop and below the card. Shadow alpha follows the modal's open/close fade and hides with the card; excluded from background greyscale collection.
 
 - Personal note modal motion (Karl / Codex, 2026-10-08): added 0.28s open fade with a subtle scale pop from 96%, and 0.18s close fade. Reuses `FGT.welcome.Tween`, `Grey` and `SetGrey`; the shared greyscale collector skips both note card and its catcher so only the addon behind them desaturates. `T.greyActive` / `greyAmount` track ownership and animation position. Close X / Escape / outside click fade out; save/delete, window hide and view changes close instantly to restore the original palette before redrawing. Opening/closing mid-animation cancels the note tweens and restores scale/alpha/colors. Celebrations Subtle fades only; Off is instant. `STYLE.goldHover` provides the brighter gold Save hover fill/border and label. Tests cover tween endpoints, interruption, hover and Full/Subtle/Off. Awaiting Karl's visual check.
