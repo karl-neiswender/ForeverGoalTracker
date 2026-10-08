@@ -4158,27 +4158,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.border:SetHeight(2)
     B.border:SetPoint("BOTTOMLEFT", B, "BOTTOMLEFT")
     B.border:SetPoint("BOTTOMRIGHT", B, "BOTTOMRIGHT")
-    do -- Same bronze highlight and black groove as the addon's embossed edges.
-        local shadow = B.border:CreateTexture(nil, "ARTWORK")
-        shadow:SetTexture(SOLID)
-        shadow:SetHeight(1)
-        shadow:SetPoint("TOPLEFT", B.border, "TOPLEFT", 0,0)
-        shadow:SetPoint("TOPRIGHT", B.border, "TOPRIGHT", 0,0)
-        shadow:SetVertexColor(0,0,0,0.75)
-        local rim = B.border:CreateTexture(nil, "ARTWORK")
-        rim:SetTexture(SOLID)
-        rim:SetHeight(1)
-        rim:SetPoint("BOTTOMLEFT", B.border, "BOTTOMLEFT", 0,0)
-        rim:SetPoint("BOTTOMRIGHT", B.border, "BOTTOMRIGHT", 0,0)
-        rim:SetVertexColor(STYLE.panel.edge[1], STYLE.panel.edge[2], STYLE.panel.edge[3], 1)
-        local shade = B.border:CreateTexture(nil, "ARTWORK")
-        shade:SetTexture(SOLID)
-        shade:SetHeight(7)
-        shade:SetPoint("BOTTOMLEFT", B.border, "TOPLEFT")
-        shade:SetPoint("BOTTOMRIGHT", B.border, "TOPRIGHT")
-        ApplyVGradient(shade, {0,0,0}, {0,0,0}, 0,0.45)
-    end
-    ApplyVGradient(B.background, {0.028,0.024,0.017}, {0.005,0.005,0.005}, 1, 1)
+    -- The banner ends in a soft blend now, rather than a separate ruled edge.
+    B.border:SetAlpha(0)
+    ApplyVGradient(B.background, STYLE.panel.top, STYLE.panel.bottom, 0, 0)
     B.art = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -3)
     B.art:SetPoint("TOPRIGHT", B, "TOPRIGHT")
     B.art:SetAlpha(0.18)
@@ -4210,7 +4192,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         self.left:SetSize(aw*0.78,h)
         self.top:SetSize(aw,h*0.28)
-        self.bottom:SetSize(aw,h*0.3)
+        self.bottom:SetSize(aw,h*0.42)
+        -- Sample the panel's own gradient at the artwork's actual vertical position.
+        -- The bottom veil ends on precisely the body shade, avoiding a black seam.
+        local panelHeight = math.max(1, detailPanel:GetHeight()-8)
+        local function PanelColor(y)
+            local p = math.min(1, math.max(0,y/panelHeight))
+            local c = {}
+            for i=1,3 do c[i] = STYLE.panel.top[i] + (STYLE.panel.bottom[i]-STYLE.panel.top[i])*p end
+            return c
+        end
+        local topColor, midColor = PanelColor(0), PanelColor(h*0.5)
+        ApplyHGradient(self.left, midColor, midColor, 1,0)
+        ApplyVGradient(self.top, topColor, PanelColor(h*0.28), 0.65,0)
+        ApplyVGradient(self.bottom, PanelColor(h*0.58), PanelColor(h), 0,1)
     end
     B:SetScript("OnSizeChanged", function(self) self:Fit() end)
     B:SetScript("OnHide", function(self)
