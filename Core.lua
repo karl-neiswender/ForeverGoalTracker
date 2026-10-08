@@ -824,6 +824,7 @@ local function RuleMet(rule)
     end
     return false
 end
+FGT.StepRuleMet = RuleMet -- prerequisite evidence uses the same roster rules
 
 -- Short live readout for a step row: text, plus current/max when the
 -- step has a count worth drawing as a bar.
@@ -4372,6 +4373,7 @@ local function GetStepRow(index)
     end
     row:SetScript("OnEnter", function(self)
         self.hover:Show()
+        if self.depLocked then FGT.ShowStepLockTip(self); return end
         if not self.isDone and not self.autoEntry then
             self.box:SetBackdropBorderColor(1, 1, 1, 1)
         end
@@ -4534,6 +4536,7 @@ end
 
 local function ToggleStep(goalId, index)
     if FGT.overLink then return end -- the click was on a goal link in the step
+    if FGT.StepLocked(FGT.GoalById(goalId), index) then return end
     local nowDone = not IsStepDone(goalId, index)
     SetStepDone(goalId, index, nowDone)
     -- A shared step (riding, reaching 60 for the racial mounts) is the
@@ -4862,6 +4865,7 @@ local function RefreshTierSections(goal)
                 row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
                 SetRowIndent(row, 18)
                 row:SetStepIcon(piece.icon) -- item icon when the set data has one
+                FGT.ClearStepLock(row) -- grouped collection rows are independent in this pass
                 FGT.SetStepLinks(row, piece.auto, piece)
 
                 -- Pieces with materials fold open individually (closed by
@@ -4919,6 +4923,7 @@ local function RefreshTierSections(goal)
                         mrow:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
                         SetRowIndent(mrow, 40)
                         mrow:SetStepIcon(nil)
+                        FGT.ClearStepLock(mrow)
 
                         mrow.num:SetText("")
                         mrow.text:SetText(FGT.StepText(materialText))
@@ -4997,6 +5002,7 @@ RefreshSteps = function(goal)
 
         local rowHeight2
         if IsAutoStep(entry) then
+            FGT.ClearStepLock(row)
             -- Level-tracked row: no manual checkbox, it reads the roster.
             row.autoEntry = entry
             local best = BestOfClass(entry.autoClass)
@@ -5038,6 +5044,7 @@ RefreshSteps = function(goal)
 
             StyleCheckRow(row, IsStepDone(goal.id, i))
             FGT.MaybePopTick(row, goal.id, i)
+            FGT.StyleStepLock(row, goal, i)
 
             local textHeight = row.text:GetStringHeight() or 14
             rowHeight2 = math.max(stepIcon and 26 or 20, textHeight + 6)
@@ -5061,6 +5068,11 @@ RefreshSteps = function(goal)
 
             row:SetScript("OnClick", function(self, button)
                 if FGT.StepLinkClick(self, button) then return end
+                if FGT.StepLocked(goal, i) then
+                    FGT.PlayLockMotion(self, "jiggle")
+                    FGT.ShowStepLockTip(self)
+                    return
+                end
                 ToggleStep(goal.id, i)
             end)
         end

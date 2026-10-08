@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "Npcs.lua", "Quests.lua", "Core.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Core.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -327,6 +327,14 @@ if ok_all:
             'print("  demo gold name: " .. STUB_NS.GoalById("gold_5k").name); '
             'SlashCmdList["FOREVERGOALTRACKER"]("demo off"); print("  after off: " .. STUB_NS.GoalById("gold_5k").name)'),
     ]
+    steps.extend([
+        ("step dependencies", None, open(os.path.join(here, "dependency-tests.lua"), encoding="utf-8").read()),
+        ("Forever dependency gates withheld", None,
+            'local F = STUB_NS; assert(F.isForever); '
+            'for id, gates in pairs(F.DEPENDENCIES) do if type(gates) == "table" then '
+            'for key in pairs(gates) do assert(not F.StepLocked(F.GoalById(id), key), "unverified Forever gate withheld") end end end; '
+            'print("  Classic-only gates stay off in unverified Forever builds")', True),
+    ])
     saved = None
     for step in steps:
         label, before, after = step[0], step[1], step[2]

@@ -8,6 +8,11 @@
 - Undo reset tooltip counts down the remaining 10-second undo window
 - Undo reset restores checkmark animations and the goal progress bar's glide
 
+## Unreleased
+
+- First Classic Era step-dependency pass: prerequisite locks, muted-red explanations, click jiggle and breakaway unlock animation. Parallel and alternative prerequisites supported; gathering and completed steps remain available. Forever gates await current-build verification.
+- Personal note text is read-only; use the note icon to add or edit.
+
 ## 2.9.0
 
 - Visual improvements
