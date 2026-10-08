@@ -105,10 +105,10 @@ function FGT.CreateStepLock(row)
     L:SetFrameLevel(row:GetFrameLevel() + 4)
     L:EnableMouse(false)
     L.icon = L:CreateTexture(nil, "OVERLAY")
-    L.icon:SetTexture(FGT.Icon("lock")); L.icon:SetSize(18,18); L.icon:SetPoint("CENTER")
+    L.icon:SetTexture(FGT.Icon("lock-white")); L.icon:SetSize(18,18); L.icon:SetPoint("CENTER")
     for _, name in ipairs({"left", "right"}) do
         local t = L:CreateTexture(nil, "OVERLAY")
-        t:SetTexture(FGT.Icon("lock")); t:SetSize(9,18)
+        t:SetTexture(FGT.Icon("lock-white")); t:SetSize(9,18)
         t:SetTexCoord(name == "left" and 0 or 0.5, name == "left" and 0.5 or 1, 0, 1)
         t:Hide(); L[name] = t
     end
