@@ -2555,7 +2555,9 @@ local function CreateEdgeFade(parent, isTop)
     f:SetHeight(height)
     f:SetFrameStrata(parent:GetFrameStrata())
     f:SetFrameLevel(parent:GetFrameLevel() + 20)
-    local c = isTop and C.PANEL or { 0.022, 0.022, 0.021 }
+    -- top: the panel color with the 25% grime blended in (Media/grime
+    -- averages about #1e160f), or it shows as a dark band once you scroll
+    local c = isTop and { 0.054, 0.047, 0.039 } or { 0.022, 0.022, 0.021 }
     local stepH = height / steps
     for i = 1, steps do
         -- i = 1 sits at the outer edge (nearly opaque panel color) and
