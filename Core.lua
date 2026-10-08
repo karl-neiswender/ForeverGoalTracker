@@ -2289,7 +2289,7 @@ local function NewBar(parent, height)
 
     function bar:SetProgress(done, total, customLabel)
         local pct = total > 0 and math.min(1, done / total) or 0
-        self.label:SetText(customLabel or string.format("%d / %d  Â·  %d%%", done, total, math.floor(pct * 100 + 0.5)))
+        self.label:SetText(customLabel or string.format("%d / %d  ·  %d%%", done, total, math.floor(pct * 100 + 0.5)))
         self.target = pct
         if self.shineL then -- a finished shine never lingers into a new glide
             self.shineL:Hide(); self.shineC:Hide(); self.shineR:Hide()
@@ -4119,7 +4119,8 @@ end
 local detailBar = NewBar(detailPanel, 8)
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar.label:ClearAllPoints()
-detailBar.label:SetPoint("BOTTOMRIGHT", detailBar, "TOPRIGHT", 0, 4)
+detailBar.label:SetPoint("BOTTOMLEFT", detailBar, "TOPLEFT", 0, 4)
+detailBar.label:SetJustifyH("LEFT")
 detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
 detailBar:SetPoint("RIGHT", -22, 0)
 
@@ -4131,6 +4132,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.background = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -4)
     B.background:SetTexture(SOLID)
     B.background:SetAllPoints(B)
+    B.border = detailPanel:CreateTexture(nil, "BACKGROUND", nil, 0)
+    B.border:SetTexture(SOLID)
+    B.border:SetVertexColor(0.24,0.20,0.13,0.7)
+    B.border:SetHeight(1)
+    B.border:SetPoint("BOTTOMLEFT", B, "BOTTOMLEFT")
+    B.border:SetPoint("BOTTOMRIGHT", B, "BOTTOMRIGHT")
     ApplyVGradient(B.background, {0.028,0.024,0.017}, {0.005,0.005,0.005}, 1, 1)
     B.art = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -3)
     B.art:SetPoint("TOPRIGHT", B, "TOPRIGHT")
@@ -4167,10 +4174,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     B:SetScript("OnSizeChanged", function(self) self:Fit() end)
     B:SetScript("OnHide", function(self)
-        for _,t in ipairs({self.background,self.art,self.left,self.top,self.bottom}) do t:Hide() end
+        for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
+        self.border:Show()
         for _,t in ipairs({self.art,self.left,self.top,self.bottom}) do t:SetShown(self.hasArt and true or false) end
     end)
     B:Hide()
@@ -4260,7 +4268,8 @@ function FGT.LayoutForeverInfo(goal)
     FGT.LayoutGoalBanner(goal)
 end
 
-local divider = FGT.NewEmbossLine(detailPanel) -- above the steps
+local divider = CreateFrame("Frame", nil, detailPanel) -- invisible layout anchor above the steps
+divider:SetHeight(2)
 FGT.stepsDivider = divider -- (the tips line ends where this one does)
 divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -22)
 divider:SetPoint("RIGHT", -16, 0)
@@ -5244,7 +5253,7 @@ SelectGoal = function(id, skipListRefresh)
     detailBar.instant = detailBar.goalId ~= goal.id or FGT.quietCelebrate or nil
     detailBar.goalId = goal.id
     if goal.autoLevels then
-        detailBar:SetProgress(done, total, string.format("%d / %d levels  Â·  %d%%",
+        detailBar:SetProgress(done, total, string.format("%d / %d levels  ·  %d%%",
             done, total, math.floor(done / math.max(1, total) * 100 + 0.5)))
     else
         detailBar:SetProgress(done, total)
@@ -6429,12 +6438,12 @@ local function GetCard(goal)
     card.meta:SetPoint("TOPLEFT", card.name, "BOTTOMLEFT", 0, -4)
     card.meta:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -10, 0)
     card.meta:SetWordWrap(false)
-    card.metaBase = string.format("|cff%s%s|r  Â·  |cff%s%s|r  Â·  %s",
+    card.metaBase = string.format("|cff%s%s|r  ·  |cff%s%s|r  ·  %s",
         HexColor(catColor), string.upper(goal.category),
         HexColor(diffColor), string.upper(goal.difficulty or ""), goal.timeEstimate or "")
     if goal.faction then
         local fc = goal.faction == "Alliance" and "4d8cff" or "e8483c"
-        card.metaBase = string.format("|cff%s%s|r  Â·  ", fc, string.upper(goal.faction)) .. card.metaBase
+        card.metaBase = string.format("|cff%s%s|r  ·  ", fc, string.upper(goal.faction)) .. card.metaBase
     end
     card.metaPlain = card.metaBase
     card.meta:SetText(card.metaBase)
@@ -6617,7 +6626,7 @@ LayoutLibrary = function()
         local isNew = FGT.ApplyForeverLook(card, g)
         card:SetEtch(STYLE.row)
         card.restStyle = STYLE.row
-        card.metaBase = isNew and (FGT.NewTag(isNew) .. "  Â·  " .. card.metaPlain) or card.metaPlain
+        card.metaBase = isNew and (FGT.NewTag(isNew) .. "  ·  " .. card.metaPlain) or card.metaPlain
         -- Finished goals: the quiet finished look (green wash, grey icon,
         -- softer name, no bar) and the completion date on the info line.
         local gd, gt = GoalProgress(g)
@@ -6628,8 +6637,8 @@ LayoutLibrary = function()
             -- NEW dot; the green wash and the green Complete button stay
             local on = FGT.CompletedOn(g)
             local plain = card.metaPlain:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
-            card.metaBase = (isNew and FGT.ForeverDot(14, true) or "") .. "|cff7d7d78" .. (isNew and (isNew .. "  Â·  ") or "") .. plain
-                .. "  Â·  " .. (on and ("Completed " .. on) or "Complete") .. "|r"
+            card.metaBase = (isNew and FGT.ForeverDot(14, true) or "") .. "|cff7d7d78" .. (isNew and (isNew .. "  ·  ") or "") .. plain
+                .. "  ·  " .. (on and ("Completed " .. on) or "Complete") .. "|r"
             card.foreverNew = false
             card:SetEtch(STYLE.doneCard)
             card.restStyle = STYLE.doneCard
@@ -6653,7 +6662,7 @@ LayoutLibrary = function()
         if g.group then
             local parts = FGT.GroupParts(g)
             local n = FGT.SelectedPartCount(g)
-            card.meta:SetText(card.metaBase .. string.format("  Â·  |cffffd75e%d of %d chosen|r", n, #parts))
+            card.meta:SetText(card.metaBase .. string.format("  ·  |cffffd75e%d of %d chosen|r", n, #parts))
             local open = libExpanded[g.id]
             card.pickText:SetText(open and "Hide" or "Choose")
             card.pick:SetEtch(open and STYLE.rowSel or STYLE.button)
@@ -6753,7 +6762,7 @@ S.sub:SetPoint("LEFT", S.header, "RIGHT", 10, -1)
 do
     local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
     local version = getMeta and getMeta(ADDON, "Version")
-    S.sub:SetText((version and ("Version " .. version .. "  Â·  ") or "") .. "Changes apply right away")
+    S.sub:SetText((version and ("Version " .. version .. "  ·  ") or "") .. "Changes apply right away")
 end
 
 S.scroll = CreateScrollArea(panel)
@@ -7084,7 +7093,7 @@ local function CharacterList(parent)
             it.name:SetText(c.name or it.key)
             if cc then it.name:SetTextColor(cc.r, cc.g, cc.b) else it.name:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3]) end
             local className = (LOCALIZED_CLASS_NAMES_MALE and c.class and LOCALIZED_CLASS_NAMES_MALE[c.class]) or ""
-            it.detail:SetText(string.format("Level %d %s  Â·  %s", c.level or 1, className, c.realm or ""))
+            it.detail:SetText(string.format("Level %d %s  ·  %s", c.level or 1, className, c.realm or ""))
             local isMe = it.key == me
             it.me:SetShown(isMe)
             it.remove:SetShown(not isMe)
@@ -7842,7 +7851,7 @@ minimapButton:SetScript("OnEnter", function(self)
     local active = ForeverGoalTrackerDB and ActiveGoals() or {}
     if #active > 0 then
         local d, t = OverallProgress()
-        GameTooltip:AddLine(string.format("%d%% overall  Â·  %d of %d goals complete",
+        GameTooltip:AddLine(string.format("%d%% overall  ·  %d of %d goals complete",
             math.floor(d / math.max(1, t) * 100 + 0.5), CountGoalsComplete(), #active), C.INK2[1], C.INK2[2], C.INK2[3])
         local favs = ForeverGoalTrackerDB.favorites or {}
         local list = {}
@@ -10024,7 +10033,7 @@ local function FillRows(me)
         local parts = { e.why }
         if g.difficulty then table.insert(parts, diff) end
         if g.timeEstimate then table.insert(parts, g.timeEstimate) end
-        row.meta:SetText(table.concat(parts, "  Â·  "))
+        row.meta:SetText(table.concat(parts, "  ·  "))
         -- right side: "On My Goals" for goals you already track
         row.extra:SetText(e.tracked and "On My Goals" or "")
         row.extra:ClearAllPoints()

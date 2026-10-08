@@ -53,7 +53,7 @@ D.active.thunderfury = true
 F.SelectGoal("thunderfury")
 assert(not B.hasArt, "unmapped goal clears previous artwork")
 local hidden=0
-for _,t in ipairs({B.background,B.art,B.left,B.top,B.bottom}) do t.Hide=function() hidden=hidden+1 end end
+for _,t in ipairs({B.background,B.border,B.art,B.left,B.top,B.bottom}) do t.Hide=function() hidden=hidden+1 end end
 B:GetScript("OnHide")(B)
-assert(hidden==5, "empty-state hide clears all background layers")
+assert(hidden==6, "empty-state hide clears all background layers")
 print("  banner title reflow, badge wrapping, artwork switching, aspect crop and empty-state layers ok")
