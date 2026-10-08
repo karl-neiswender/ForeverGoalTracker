@@ -3,3 +3,5 @@
 .DS_Store
 Thumbs.db
 tools/.py/
+research_notes/Goal step dependency audit/questie-classicQuestDB.lua
+research_notes/Goal step dependency audit/questie-classicQuestFixes.lua

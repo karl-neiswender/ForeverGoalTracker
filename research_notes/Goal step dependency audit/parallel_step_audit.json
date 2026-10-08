@@ -1,0 +1,4844 @@
+{
+  "researchDate": "2026-10-08",
+  "addressSyntax": "goalId + steps[n] or sections[s].pieces[p], one-based raw source indices including hidden rows",
+  "coverageGoalCount": 34,
+  "coverageStepCount": 171,
+  "goalIds": [
+    "rep_timbermaw",
+    "rep_thorium",
+    "rep_argentdawn",
+    "rep_cenarion",
+    "rep_zandalar",
+    "rep_hydraxian",
+    "rep_nozdormu",
+    "rep_ambassador_ally",
+    "rep_ambassador_horde",
+    "mount_deathcharger",
+    "mount_raptor",
+    "mount_tiger",
+    "mount_qiraji",
+    "epicmounts",
+    "allclasses",
+    "prof_secondary",
+    "prof_all",
+    "gold_5k",
+    "social_guild",
+    "social_friends",
+    "pvp_rank14_ally",
+    "pvp_rank14_horde",
+    "pvp_mount_ally",
+    "pvp_mount_horde",
+    "pvp_avmount_ally",
+    "pvp_avmount_horde",
+    "pvp_wsg_ally",
+    "pvp_wsg_horde",
+    "pvp_ab_ally",
+    "pvp_ab_horde",
+    "pvp_av_ally",
+    "pvp_av_horde",
+    "pvp_hk",
+    "pvp_duelist"
+  ],
+  "records": [
+    {
+      "goalId": "epicmounts",
+      "address": "sections[1].pieces[1]",
+      "text": "Level a Alliance character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "forFaction": "Alliance",
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[1].pieces[2]",
+      "text": "Reach Exalted with Stormwind (optional for Humans)",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent reputation work; native race skipIfRace must count as satisfied, not unseen unmet prerequisite.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 72
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {},
+      "skipIfRace": "Human"
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[1].pieces[3]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {
+        "Era": {
+          "status": "unknown",
+          "notes": "Classic riding guide uses racial skill, not separate epic training; do not import Forever gate.",
+          "text": "Train Expert Riding from your riding trainer"
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[1].pieces[4]",
+      "text": "Save about 800-1,000 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "money": 8000000,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[1].pieces[5]",
+      "text": "Buy a Swift Steed from Katie Hunter (Eastvale Logging Camp, Elwynn Forest)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [
+        "sections[1].pieces[2]"
+      ],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "forFaction": "Alliance",
+        "ownedPattern": [
+          "Swift .*Steed",
+          "Swift Palomino"
+        ],
+        "item": [
+          18777,
+          18776,
+          18778
+        ]
+      },
+      "clientVariants": {},
+      "alternativeConditions": [
+        {
+          "race": "Human",
+          "conditional": "Current client purchase eligibility must be verified",
+          "kind": "nativeRace",
+          "relation": "OR"
+        }
+      ]
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[2].pieces[1]",
+      "text": "Level a Alliance character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "forFaction": "Alliance",
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[2].pieces[2]",
+      "text": "Reach Exalted with Ironforge (optional for Dwarves)",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent reputation work; native race skipIfRace must count as satisfied, not unseen unmet prerequisite.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 47
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {},
+      "skipIfRace": "Dwarf"
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[2].pieces[3]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {
+        "Era": {
+          "status": "unknown",
+          "notes": "Classic riding guide uses racial skill, not separate epic training; do not import Forever gate.",
+          "text": "Train Expert Riding from your riding trainer"
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[2].pieces[4]",
+      "text": "Save about 800-1,000 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "money": 8000000,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[2].pieces[5]",
+      "text": "Buy a Swift Ram from Veron Amberstill (Amberstill Ranch, Dun Morogh)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [
+        "sections[2].pieces[2]"
+      ],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "forFaction": "Alliance",
+        "ownedPattern": [
+          "Swift .*Ram"
+        ],
+        "item": [
+          18786,
+          18787,
+          18785
+        ]
+      },
+      "clientVariants": {},
+      "alternativeConditions": [
+        {
+          "race": "Dwarf",
+          "conditional": "Current client purchase eligibility must be verified",
+          "kind": "nativeRace",
+          "relation": "OR"
+        }
+      ]
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[3].pieces[1]",
+      "text": "Level a Alliance character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "forFaction": "Alliance",
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[3].pieces[2]",
+      "text": "Reach Exalted with Darnassus (optional for Night Elves)",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent reputation work; native race skipIfRace must count as satisfied, not unseen unmet prerequisite.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 69
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {},
+      "skipIfRace": "NightElf"
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[3].pieces[3]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {
+        "Era": {
+          "status": "unknown",
+          "notes": "Classic riding guide uses racial skill, not separate epic training; do not import Forever gate.",
+          "text": "Train Expert Riding from your riding trainer"
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[3].pieces[4]",
+      "text": "Save about 800-1,000 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "money": 8000000,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[3].pieces[5]",
+      "text": "Buy a Swift Saber from Lelanai (Cenarion Enclave, Darnassus)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [
+        "sections[3].pieces[2]"
+      ],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "forFaction": "Alliance",
+        "ownedPattern": [
+          "Swift Frostsaber",
+          "Swift Mistsaber",
+          "Swift Stormsaber"
+        ],
+        "item": [
+          18766,
+          18767,
+          18902
+        ]
+      },
+      "clientVariants": {},
+      "alternativeConditions": [
+        {
+          "race": "NightElf",
+          "conditional": "Current client purchase eligibility must be verified",
+          "kind": "nativeRace",
+          "relation": "OR"
+        }
+      ]
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[4].pieces[1]",
+      "text": "Level a Alliance character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "forFaction": "Alliance",
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[4].pieces[2]",
+      "text": "Reach Exalted with Gnomeregan Exiles (optional for Gnomes)",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent reputation work; native race skipIfRace must count as satisfied, not unseen unmet prerequisite.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 54
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {},
+      "skipIfRace": "Gnome"
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[4].pieces[3]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {
+        "Era": {
+          "status": "unknown",
+          "notes": "Classic riding guide uses racial skill, not separate epic training; do not import Forever gate.",
+          "text": "Train Expert Riding from your riding trainer"
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[4].pieces[4]",
+      "text": "Save about 800-1,000 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "money": 8000000,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[4].pieces[5]",
+      "text": "Buy a Swift Mechanostrider from Milli Featherwhistle (Kharanos, Dun Morogh)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [
+        "sections[4].pieces[2]"
+      ],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "forFaction": "Alliance",
+        "ownedPattern": [
+          "Swift .*Mechanostrider"
+        ],
+        "item": [
+          18772,
+          18773,
+          18774
+        ]
+      },
+      "clientVariants": {},
+      "alternativeConditions": [
+        {
+          "race": "Gnome",
+          "conditional": "Current client purchase eligibility must be verified",
+          "kind": "nativeRace",
+          "relation": "OR"
+        }
+      ]
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[5].pieces[1]",
+      "text": "Level a Horde character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "forFaction": "Horde",
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[5].pieces[2]",
+      "text": "Reach Exalted with Orgrimmar (optional for Orcs)",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent reputation work; native race skipIfRace must count as satisfied, not unseen unmet prerequisite.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 76
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {},
+      "skipIfRace": "Orc"
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[5].pieces[3]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {
+        "Era": {
+          "status": "unknown",
+          "notes": "Classic riding guide uses racial skill, not separate epic training; do not import Forever gate.",
+          "text": "Train Expert Riding from your riding trainer"
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[5].pieces[4]",
+      "text": "Save about 800-1,000 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "money": 8000000,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[5].pieces[5]",
+      "text": "Buy a Swift Wolf from Ogunaro Wolfrunner (Valley of Honor, Orgrimmar)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [
+        "sections[5].pieces[2]"
+      ],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "forFaction": "Horde",
+        "ownedPattern": [
+          "Swift .*Wolf"
+        ],
+        "item": [
+          18797,
+          18796,
+          18798
+        ]
+      },
+      "clientVariants": {},
+      "alternativeConditions": [
+        {
+          "race": "Orc",
+          "conditional": "Current client purchase eligibility must be verified",
+          "kind": "nativeRace",
+          "relation": "OR"
+        }
+      ]
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[6].pieces[1]",
+      "text": "Level a Horde character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "forFaction": "Horde",
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[6].pieces[2]",
+      "text": "Reach Exalted with Thunder Bluff (optional for Tauren)",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent reputation work; native race skipIfRace must count as satisfied, not unseen unmet prerequisite.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 81
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {},
+      "skipIfRace": "Tauren"
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[6].pieces[3]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {
+        "Era": {
+          "status": "unknown",
+          "notes": "Classic riding guide uses racial skill, not separate epic training; do not import Forever gate.",
+          "text": "Train Expert Riding from your riding trainer"
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[6].pieces[4]",
+      "text": "Save about 800-1,000 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "money": 8000000,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[6].pieces[5]",
+      "text": "Buy a Great Kodo from Harb Clawhoof (Bloodhoof Village, Mulgore)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [
+        "sections[6].pieces[2]"
+      ],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "forFaction": "Horde",
+        "ownedPattern": [
+          "Great .*Kodo"
+        ],
+        "item": [
+          18794,
+          18795,
+          18793
+        ]
+      },
+      "clientVariants": {},
+      "alternativeConditions": [
+        {
+          "race": "Tauren",
+          "conditional": "Current client purchase eligibility must be verified",
+          "kind": "nativeRace",
+          "relation": "OR"
+        }
+      ]
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[7].pieces[1]",
+      "text": "Level a Horde character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "forFaction": "Horde",
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[7].pieces[2]",
+      "text": "Reach Exalted with Undercity (optional for Undead)",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent reputation work; native race skipIfRace must count as satisfied, not unseen unmet prerequisite.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 68
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {},
+      "skipIfRace": "Scourge"
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[7].pieces[3]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {
+        "Era": {
+          "status": "unknown",
+          "notes": "Classic riding guide uses racial skill, not separate epic training; do not import Forever gate.",
+          "text": "Train Expert Riding from your riding trainer"
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[7].pieces[4]",
+      "text": "Save about 800-1,000 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "money": 8000000,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[7].pieces[5]",
+      "text": "Buy a Skeletal Warhorse from Zachariah Post (Brill, Tirisfal Glades)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [
+        "sections[7].pieces[2]"
+      ],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "forFaction": "Horde",
+        "ownedPattern": [
+          "Skeletal Warhorse"
+        ],
+        "item": [
+          18791,
+          13334
+        ]
+      },
+      "clientVariants": {},
+      "alternativeConditions": [
+        {
+          "race": "Scourge",
+          "conditional": "Current client purchase eligibility must be verified",
+          "kind": "nativeRace",
+          "relation": "OR"
+        }
+      ]
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[8].pieces[1]",
+      "text": "Level a Horde character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "forFaction": "Horde",
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[8].pieces[2]",
+      "text": "Reach Exalted with the Darkspear Trolls (optional for Trolls)",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent reputation work; native race skipIfRace must count as satisfied, not unseen unmet prerequisite.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 530
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {},
+      "skipIfRace": "Troll"
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[8].pieces[3]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {
+        "Era": {
+          "status": "unknown",
+          "notes": "Classic riding guide uses racial skill, not separate epic training; do not import Forever gate.",
+          "text": "Train Expert Riding from your riding trainer"
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[8].pieces[4]",
+      "text": "Save about 800-1,000 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "money": 8000000,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[8].pieces[5]",
+      "text": "Buy a Swift Raptor from Zjolnir (Sen'jin Village, Durotar)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [
+        "sections[8].pieces[2]"
+      ],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite.",
+      "autoRule": {
+        "forFaction": "Horde",
+        "ownedPattern": [
+          "Swift .*Raptor"
+        ],
+        "item": [
+          18788,
+          18789,
+          18790
+        ]
+      },
+      "clientVariants": {},
+      "alternativeConditions": [
+        {
+          "race": "Troll",
+          "conditional": "Current client purchase eligibility must be verified",
+          "kind": "nativeRace",
+          "relation": "OR"
+        }
+      ]
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[9].pieces[1]",
+      "text": "Level a Skyborne character to level 60",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/forever/item=269671/swift-empyrean-galestrider"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Skyborne restriction belongs to current detector; item is account-wide. No new-build trainer eligibility verified.",
+      "autoRule": {
+        "raceLevel": {
+          "level": 60,
+          "race": "Skyborne"
+        }
+      },
+      "clientVariants": {
+        "Era": {
+          "visible": false
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[9].pieces[2]",
+      "text": "Train Journeyman Riding from your riding trainer",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": true,
+        "forRace": "Skyborne",
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider",
+        "https://www.wowhead.com/forever/item=269671/swift-empyrean-galestrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite. Skyborne restriction belongs to current detector; item is account-wide. No new-build trainer eligibility verified.",
+      "autoRule": {
+        "skill": {
+          "name": "Riding",
+          "rank": 150
+        },
+        "forRace": "Skyborne"
+      },
+      "clientVariants": {
+        "Era": {
+          "visible": false
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[9].pieces[3]",
+      "text": "Save about 1,200 gold on that character",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": "Skyborne",
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/forever/item=269671/swift-empyrean-galestrider"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Skyborne restriction belongs to current detector; item is account-wide. No new-build trainer eligibility verified.",
+      "autoRule": {
+        "money": 12000000,
+        "forRace": "Skyborne"
+      },
+      "clientVariants": {
+        "Era": {
+          "visible": false
+        }
+      }
+    },
+    {
+      "goalId": "epicmounts",
+      "address": "sections[9].pieces[4]",
+      "text": "Buy a Swift Galestrider from Genn Fairweather (Zephras Isle)",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": true,
+        "forRace": "Skyborne",
+        "faction": null
+      },
+      "confidence": "low_purchase_gate",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua",
+        "https://www.wowhead.com/classic/item=18774/swift-yellow-mechanostrider",
+        "https://www.wowhead.com/forever/item=269671/swift-empyrean-galestrider"
+      ],
+      "notes": "HOLD hard lock. Current level/riding milestones describe USE/preparation, not proven purchase gates. Classic racial riding/race exceptions differ from existing generic detector; same character needed. Savings estimate never a hard purchase prerequisite. Skyborne restriction belongs to current detector; item is account-wide. No new-build trainer eligibility verified.",
+      "autoRule": {
+        "forRace": "Skyborne",
+        "ownedPattern": [
+          "Swift .*Galestrider"
+        ],
+        "item": [
+          269671,
+          274933,
+          269678
+        ]
+      },
+      "clientVariants": {
+        "Era": {
+          "visible": false
+        }
+      }
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[1]",
+      "text": "Warrior",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[2]",
+      "text": "Paladin",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[3]",
+      "text": "Hunter",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[4]",
+      "text": "Rogue",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[5]",
+      "text": "Priest",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[6]",
+      "text": "Shaman",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[7]",
+      "text": "Mage",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[8]",
+      "text": "Warlock",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "allclasses",
+      "address": "steps[9]",
+      "text": "Druid",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Data.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_timbermaw",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 576
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_timbermaw",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 576
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_timbermaw",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 576
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_timbermaw",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 576
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_thorium",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 59
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_thorium",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 59
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_thorium",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 59
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_thorium",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 59
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_argentdawn",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 529
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_argentdawn",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 529
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_argentdawn",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 529
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_argentdawn",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 529
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_cenarion",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 609
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_cenarion",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 609
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_cenarion",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 609
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_cenarion",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 609
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_zandalar",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 270
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_zandalar",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 270
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_zandalar",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 270
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_zandalar",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 270
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_hydraxian",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 749
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_hydraxian",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 749
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_hydraxian",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 749
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_hydraxian",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 749
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_nozdormu",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 910
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_nozdormu",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 910
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_nozdormu",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 910
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_nozdormu",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 910
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_ambassador_ally",
+      "address": "steps[1]",
+      "text": "Reach Exalted with Stormwind.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 72
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_ambassador_ally",
+      "address": "steps[2]",
+      "text": "Reach Exalted with Ironforge.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 47
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_ambassador_ally",
+      "address": "steps[3]",
+      "text": "Reach Exalted with Darnassus.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 69
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_ambassador_ally",
+      "address": "steps[4]",
+      "text": "Reach Exalted with Gnomeregan Exiles.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 54
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_ambassador_horde",
+      "address": "steps[1]",
+      "text": "Reach Exalted with Orgrimmar.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 76
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_ambassador_horde",
+      "address": "steps[2]",
+      "text": "Reach Exalted with Thunder Bluff.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 81
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_ambassador_horde",
+      "address": "steps[3]",
+      "text": "Reach Exalted with Undercity.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 68
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rep_ambassador_horde",
+      "address": "steps[4]",
+      "text": "Reach Exalted with the Darkspear Trolls.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 530
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_deathcharger",
+      "address": "steps[1]",
+      "text": "Reach level 60.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_deathcharger",
+      "address": "steps[2]",
+      "text": "Defeat Baron Rivendare in {key_strat:Stratholme}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "boss": "Baron Rivendare"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_deathcharger",
+      "address": "steps[3]",
+      "text": "Loot Deathcharger's Reins from Baron Rivendare.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=13335/deathchargers-reins"
+      ],
+      "notes": "Logical boss death before corpse loot; missed kill events must not block already-owned reward. Item/name evidence and completeWith override. Parsed source lacks structured current-build drop table.",
+      "autoRule": {
+        "item": 13335,
+        "owned": [
+          "Deathcharger"
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_raptor",
+      "address": "steps[1]",
+      "text": "Defeat Bloodlord Mandokir in {raid_zg:Zul'Gurub}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "boss": "Bloodlord Mandokir"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_raptor",
+      "address": "steps[2]",
+      "text": "Loot the Swift Razzashi Raptor from Bloodlord Mandokir.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=19872/swift-razzashi-raptor"
+      ],
+      "notes": "Logical boss death before corpse loot; missed kill events must not block already-owned reward. Item/name evidence and completeWith override. Parsed source lacks structured current-build drop table.",
+      "autoRule": {
+        "item": 19872,
+        "owned": [
+          "Swift Razzashi Raptor"
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_tiger",
+      "address": "steps[1]",
+      "text": "Defeat High Priest Thekal in {raid_zg:Zul'Gurub}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "boss": "High Priest Thekal"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_tiger",
+      "address": "steps[2]",
+      "text": "Loot the Swift Zulian Tiger from High Priest Thekal.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=19902/swift-zulian-tiger"
+      ],
+      "notes": "Logical boss death before corpse loot; missed kill events must not block already-owned reward. Item/name evidence and completeWith override. Parsed source lacks structured current-build drop table.",
+      "autoRule": {
+        "item": 19902,
+        "owned": [
+          "Swift Zulian Tiger"
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_qiraji",
+      "address": "steps[1]",
+      "text": "Complete the Scepter of the Shifting Sands quest chain.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_qiraji",
+      "address": "steps[2]",
+      "text": "Ring the Scarab Gong in Silithus to open Ahn'Qiraj.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high_classic_route_unknown_forever",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/quest=8743/bang-a-gong"
+      ],
+      "notes": "Classic quest requires Scepter and rewards crystal; external realm event gate also required. Forever event route/timing unconfirmed, HOLD Forever hard lock. Ownership evidence wins; do not imply only first gong ring qualifies.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_qiraji",
+      "address": "steps[3]",
+      "text": "Own the Black Qiraji Resonating Crystal.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high_classic_route_unknown_forever",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/quest=8743/bang-a-gong"
+      ],
+      "notes": "Classic quest requires Scepter and rewards crystal; external realm event gate also required. Forever event route/timing unconfirmed, HOLD Forever hard lock. Ownership evidence wins; do not imply only first gong ring qualifies.",
+      "autoRule": {
+        "item": 21176,
+        "owned": [
+          "Black Qiraji"
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_secondary",
+      "address": "steps[1]",
+      "text": "Fishing 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Fishing",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_secondary",
+      "address": "steps[2]",
+      "text": "Cooking 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Cooking",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_secondary",
+      "address": "steps[3]",
+      "text": "First Aid 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "First Aid",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[1]",
+      "text": "Alchemy 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Alchemy",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[2]",
+      "text": "Blacksmithing 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Blacksmithing",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[3]",
+      "text": "Enchanting 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Enchanting",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[4]",
+      "text": "Engineering 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Engineering",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[5]",
+      "text": "Herbalism 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Herbalism",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[6]",
+      "text": "Leatherworking 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Leatherworking",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[7]",
+      "text": "Mining 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Mining",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[8]",
+      "text": "Skinning 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Skinning",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "prof_all",
+      "address": "steps[9]",
+      "text": "Tailoring 300.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "skill": {
+          "name": "Tailoring",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "gold_5k",
+      "address": "steps[1]",
+      "text": "Hold 1,000 gold on one character.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "money": 10000000
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 100,
+        "name": "Save %s Gold",
+        "default": 5000,
+        "step": "Hold %s gold on one character.",
+        "max": 200000,
+        "kind": "money",
+        "marks": [
+          0.2,
+          0.5,
+          1
+        ],
+        "unit": "gold"
+      }
+    },
+    {
+      "goalId": "gold_5k",
+      "address": "steps[2]",
+      "text": "Hold 2,500 gold on one character.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "money": 25000000
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 100,
+        "name": "Save %s Gold",
+        "default": 5000,
+        "step": "Hold %s gold on one character.",
+        "max": 200000,
+        "kind": "money",
+        "marks": [
+          0.2,
+          0.5,
+          1
+        ],
+        "unit": "gold"
+      }
+    },
+    {
+      "goalId": "gold_5k",
+      "address": "steps[3]",
+      "text": "Hold 5,000 gold on one character.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "money": 50000000
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 100,
+        "name": "Save %s Gold",
+        "default": 5000,
+        "step": "Hold %s gold on one character.",
+        "max": 200000,
+        "kind": "money",
+        "marks": [
+          0.2,
+          0.5,
+          1
+        ],
+        "unit": "gold"
+      }
+    },
+    {
+      "goalId": "social_guild",
+      "address": "steps[1]",
+      "text": "Join a guild.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "guild": true
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "social_guild",
+      "address": "steps[2]",
+      "text": "Buy a Guild Tabard from a Guild Master in a capital city.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=5976/guild-tabard"
+      ],
+      "notes": "Conditional purchase gate: guild membership AND guild tabard design. Purchase versus equip restriction needs current client confirmation; historical roster guild tick insufficient. HOLD hard lock.",
+      "autoRule": {
+        "item": 5976
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "social_friends",
+      "address": "steps[1]",
+      "text": "Have 5 friends on your friends list.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "friends": 5
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 5,
+        "default": 25,
+        "step": "Have %s friends on your friends list.",
+        "max": 100,
+        "kind": "friends",
+        "marks": [
+          0.2,
+          0.4,
+          1
+        ],
+        "unit": "friends"
+      }
+    },
+    {
+      "goalId": "social_friends",
+      "address": "steps[2]",
+      "text": "Have 10 friends on your friends list.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "friends": 10
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 5,
+        "default": 25,
+        "step": "Have %s friends on your friends list.",
+        "max": 100,
+        "kind": "friends",
+        "marks": [
+          0.2,
+          0.4,
+          1
+        ],
+        "unit": "friends"
+      }
+    },
+    {
+      "goalId": "social_friends",
+      "address": "steps[3]",
+      "text": "Have 25 friends on your friends list.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "friends": 25
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 5,
+        "default": 25,
+        "step": "Have %s friends on your friends list.",
+        "max": 100,
+        "kind": "friends",
+        "marks": [
+          0.2,
+          0.4,
+          1
+        ],
+        "unit": "friends"
+      }
+    },
+    {
+      "goalId": "pvp_rank14_ally",
+      "address": "steps[1]",
+      "text": "Reach Rank 6, Knight.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 6,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_ally",
+      "address": "steps[2]",
+      "text": "Reach Rank 10, Lieutenant Commander.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 10,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_ally",
+      "address": "steps[3]",
+      "text": "Reach Rank 12, Marshal.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 12,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_ally",
+      "address": "steps[4]",
+      "text": "Reach Rank 13, Field Marshal.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 13,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_ally",
+      "address": "steps[5]",
+      "text": "Reach Rank 14, Grand Marshal.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 14,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_ally",
+      "address": "steps[6]",
+      "text": "Buy your rank 14 weapon from the PvP quartermaster.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[5]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=18855/grand-marshals-hand-cannon"
+      ],
+      "notes": "Conditional Classic-intended rank14 purchase eligibility. Forever vendor rules unconfirmed; same purchaser rank required, any-roster historical rank insufficient. HOLD hard lock; no item auto rule on this manual row.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_mount_ally",
+      "address": "steps[1]",
+      "text": "Reach Rank 11, Commander.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 11,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_mount_ally",
+      "address": "steps[2]",
+      "text": "Buy a war mount from your faction's PvP quartermaster.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=18241/black-war-steed-bridle"
+      ],
+      "notes": "Conditional Classic-intended rank11 vendor gate; Forever unconfirmed, HOLD hard lock. Ownership/completeWith evidence supersedes gate. City rep/riding are not inferred purchase gates.",
+      "autoRule": {
+        "owned": [
+          "Black War Steed",
+          "Black War Tiger",
+          "Black War Ram",
+          "Black Battlestrider"
+        ],
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_avmount_ally",
+      "address": "steps[1]",
+      "text": "Reach Exalted with the {pvp_av_ally:Stormpike Guard}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 730
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_avmount_ally",
+      "address": "steps[2]",
+      "text": "Buy the Stormpike Battle Charger from Thanthaldis Snowgleam in the Alterac Mountains.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=19030/stormpike-battle-charger"
+      ],
+      "notes": "Conditional Exalted purchase gate on purchaser, Classic source-supported; Forever vendor confirmation pending. HOLD hard lock on Forever; no full external rep-goal dependency, no rank3 gate. Use level requirements not purchase requirements.",
+      "autoRule": {
+        "owned": [
+          "Stormpike Battle Charger"
+        ],
+        "item": 19030,
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_wsg_ally",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 890
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_wsg_ally",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 890
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_wsg_ally",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 890
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_wsg_ally",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 890
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_ab_ally",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 509
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_ab_ally",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 509
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_ab_ally",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 509
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_ab_ally",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 509
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_av_ally",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 730
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_av_ally",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 730
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_av_ally",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 730
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_av_ally",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Alliance",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Alliance"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 730
+        },
+        "forFaction": "Alliance"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_horde",
+      "address": "steps[1]",
+      "text": "Reach Rank 6, Stone Guard.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 6,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_horde",
+      "address": "steps[2]",
+      "text": "Reach Rank 10, Champion.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 10,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_horde",
+      "address": "steps[3]",
+      "text": "Reach Rank 12, General.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 12,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_horde",
+      "address": "steps[4]",
+      "text": "Reach Rank 13, Warlord.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 13,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_horde",
+      "address": "steps[5]",
+      "text": "Reach Rank 14, High Warlord.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 14,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_rank14_horde",
+      "address": "steps[6]",
+      "text": "Buy your rank 14 weapon from the PvP quartermaster.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[5]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=18855/grand-marshals-hand-cannon"
+      ],
+      "notes": "Conditional Classic-intended rank14 purchase eligibility. Forever vendor rules unconfirmed; same purchaser rank required, any-roster historical rank insufficient. HOLD hard lock; no item auto rule on this manual row.",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_mount_horde",
+      "address": "steps[1]",
+      "text": "Reach Rank 11, Lieutenant General.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "pvpRank": 11,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_mount_horde",
+      "address": "steps[2]",
+      "text": "Buy a war mount from your faction's PvP quartermaster.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=18241/black-war-steed-bridle"
+      ],
+      "notes": "Conditional Classic-intended rank11 vendor gate; Forever unconfirmed, HOLD hard lock. Ownership/completeWith evidence supersedes gate. City rep/riding are not inferred purchase gates.",
+      "autoRule": {
+        "owned": [
+          "Black War Wolf",
+          "Black War Raptor",
+          "Black War Kodo",
+          "Red Skeletal Warhorse"
+        ],
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_avmount_horde",
+      "address": "steps[1]",
+      "text": "Reach Exalted with the {pvp_av_horde:Frostwolf Clan}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 729
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_avmount_horde",
+      "address": "steps[2]",
+      "text": "Buy the Frostwolf Howler from Jekyll Flandring in the Alterac Mountains.",
+      "status": "unknown",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": true,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "medium",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua",
+        "https://www.wowhead.com/classic/item=19030/stormpike-battle-charger"
+      ],
+      "notes": "Conditional Exalted purchase gate on purchaser, Classic source-supported; Forever vendor confirmation pending. HOLD hard lock on Forever; no full external rep-goal dependency, no rank3 gate. Use level requirements not purchase requirements.",
+      "autoRule": {
+        "owned": [
+          "Frostwolf Howler"
+        ],
+        "item": 19029,
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_wsg_horde",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 889
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_wsg_horde",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 889
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_wsg_horde",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 889
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_wsg_horde",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 889
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_ab_horde",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 510
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_ab_horde",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 510
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_ab_horde",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 510
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_ab_horde",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 510
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_av_horde",
+      "address": "steps[1]",
+      "text": "Reach Friendly.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 729
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_av_horde",
+      "address": "steps[2]",
+      "text": "Reach Honored.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 729
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_av_horde",
+      "address": "steps[3]",
+      "text": "Reach Revered.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 7,
+          "faction": 729
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_av_horde",
+      "address": "steps[4]",
+      "text": "Reach Exalted.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": "Horde",
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": "Horde"
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist.",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 729
+        },
+        "forFaction": "Horde"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "pvp_hk",
+      "address": "steps[1]",
+      "text": "Earn 1,000 honorable kills.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "hk": 1000
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 100,
+        "default": 25000,
+        "step": "Earn %s honorable kills.",
+        "max": 1000000,
+        "kind": "hk",
+        "marks": [
+          0.04,
+          0.2,
+          0.4,
+          1
+        ],
+        "unit": "honorable kills"
+      }
+    },
+    {
+      "goalId": "pvp_hk",
+      "address": "steps[2]",
+      "text": "Earn 5,000 honorable kills.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "hk": 5000
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 100,
+        "default": 25000,
+        "step": "Earn %s honorable kills.",
+        "max": 1000000,
+        "kind": "hk",
+        "marks": [
+          0.04,
+          0.2,
+          0.4,
+          1
+        ],
+        "unit": "honorable kills"
+      }
+    },
+    {
+      "goalId": "pvp_hk",
+      "address": "steps[3]",
+      "text": "Earn 10,000 honorable kills.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "hk": 10000
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 100,
+        "default": 25000,
+        "step": "Earn %s honorable kills.",
+        "max": 1000000,
+        "kind": "hk",
+        "marks": [
+          0.04,
+          0.2,
+          0.4,
+          1
+        ],
+        "unit": "honorable kills"
+      }
+    },
+    {
+      "goalId": "pvp_hk",
+      "address": "steps[4]",
+      "text": "Earn 25,000 honorable kills.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "hk": 25000
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "min": 100,
+        "default": 25000,
+        "step": "Earn %s honorable kills.",
+        "max": 1000000,
+        "kind": "hk",
+        "marks": [
+          0.04,
+          0.2,
+          0.4,
+          1
+        ],
+        "unit": "honorable kills"
+      }
+    },
+    {
+      "goalId": "pvp_duelist",
+      "address": "steps[1]",
+      "text": "Win your first duel.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "stat": {
+          "id": 319,
+          "value": 1,
+          "what": "duels won"
+        }
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "what": "duels won",
+        "max": 10000,
+        "marks": [
+          0.01,
+          0.1,
+          0.5,
+          1
+        ],
+        "unit": "duels",
+        "min": 20,
+        "default": 100,
+        "one": "Win your first duel.",
+        "kind": "stat",
+        "stat": 319,
+        "step": "Win %s duels."
+      }
+    },
+    {
+      "goalId": "pvp_duelist",
+      "address": "steps[2]",
+      "text": "Win 10 duels.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "stat": {
+          "id": 319,
+          "value": 10,
+          "what": "duels won"
+        }
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "what": "duels won",
+        "max": 10000,
+        "marks": [
+          0.01,
+          0.1,
+          0.5,
+          1
+        ],
+        "unit": "duels",
+        "min": 20,
+        "default": 100,
+        "one": "Win your first duel.",
+        "kind": "stat",
+        "stat": 319,
+        "step": "Win %s duels."
+      }
+    },
+    {
+      "goalId": "pvp_duelist",
+      "address": "steps[3]",
+      "text": "Win 50 duels.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "stat": {
+          "id": 319,
+          "value": 50,
+          "what": "duels won"
+        }
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "what": "duels won",
+        "max": 10000,
+        "marks": [
+          0.01,
+          0.1,
+          0.5,
+          1
+        ],
+        "unit": "duels",
+        "min": 20,
+        "default": 100,
+        "one": "Win your first duel.",
+        "kind": "stat",
+        "stat": 319,
+        "step": "Win %s duels."
+      }
+    },
+    {
+      "goalId": "pvp_duelist",
+      "address": "steps[4]",
+      "text": "Win 100 duels.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "forFaction": null,
+        "sameCharacterRequired": false,
+        "forRace": null,
+        "faction": null
+      },
+      "confidence": "high",
+      "sources": [
+        "https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/Library.lua"
+      ],
+      "notes": "Independent objective or cumulative milestone; do not chain adjacent rows. Auto evidence overrides locks; prior completed ticks persist. Target marks expand through Core.ApplyTargets Nice rounding; not separate locked objectives.",
+      "autoRule": {
+        "stat": {
+          "id": 319,
+          "value": 100,
+          "what": "duels won"
+        }
+      },
+      "clientVariants": {},
+      "targetExpansion": {
+        "what": "duels won",
+        "max": 10000,
+        "marks": [
+          0.01,
+          0.1,
+          0.5,
+          1
+        ],
+        "unit": "duels",
+        "min": 20,
+        "default": 100,
+        "one": "Win your first duel.",
+        "kind": "stat",
+        "stat": 319,
+        "step": "Win %s duels."
+      }
+    }
+  ]
+}

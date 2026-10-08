@@ -1,0 +1,54 @@
+{
+  "researchDate": "2026-10-08",
+  "passed": true,
+  "goalCount": 79,
+  "rawAddressCount": 1177,
+  "countedTaskCount": 1105,
+  "uncountedTier3Parents": 72,
+  "inputCounts": {
+    "quest_step_audit.json": {
+      "goals": 21,
+      "addresses": 128
+    },
+    "parallel_step_audit.json": {
+      "goals": 34,
+      "addresses": 171
+    },
+    "raid_set_step_audit.json": {
+      "goals": 24,
+      "addresses": 878
+    }
+  },
+  "statusCountsRaw": {
+    "no_lock": 825,
+    "candidate": 147,
+    "withheld": 205
+  },
+  "statusCountsCountedTasks": {
+    "no_lock": 753,
+    "candidate": 147,
+    "withheld": 205
+  },
+  "missingAddresses": 0,
+  "duplicateAddresses": 0,
+  "unownedAddresses": 0,
+  "mismatchedTexts": 0,
+  "danglingReferences": 0,
+  "selfDependencies": 0,
+  "rowDependencyCycles": 0,
+  "validatedRowReferences": 256,
+  "EraForeverAddressSetsMatch": true,
+  "clientTextVariants": [
+    "epicmounts:sections[1].pieces[3]",
+    "epicmounts:sections[2].pieces[3]",
+    "epicmounts:sections[3].pieces[3]",
+    "epicmounts:sections[4].pieces[3]",
+    "epicmounts:sections[5].pieces[3]",
+    "epicmounts:sections[6].pieces[3]",
+    "epicmounts:sections[7].pieces[3]",
+    "epicmounts:sections[8].pieces[3]",
+    "epicmounts:sections[9].pieces[2]"
+  ],
+  "productionEdgesImplemented": 0,
+  "meaning": "Complete classification coverage including deliberate withheld decisions; coverage does not establish all external gameplay predicates or validate the incoming Forever build."
+}

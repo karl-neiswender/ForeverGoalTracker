@@ -23,3 +23,5 @@ ignore:
   - Screenshots
   - CLAUDE.md
   - tools
+  - research_notes
+  - reports

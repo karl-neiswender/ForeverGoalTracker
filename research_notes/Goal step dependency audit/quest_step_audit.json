@@ -1,0 +1,3510 @@
+{
+  "researchDate": "2026-10-08",
+  "addressSyntax": "goalId + steps[n], one-based raw source indices including skipped rows",
+  "coverageGoalCount": 21,
+  "coverageStepCount": 128,
+  "goalIds": [
+    "ashbringer",
+    "frostsaber",
+    "atiesh",
+    "rhokdelar",
+    "lokdelar",
+    "thunderfury",
+    "benediction",
+    "sulfuras",
+    "mount_dreadsteed",
+    "mount_charger",
+    "quelserrar",
+    "att_mc",
+    "att_ony_ally",
+    "att_ony_horde",
+    "att_bwl",
+    "att_naxx",
+    "key_ubrs",
+    "key_scholo",
+    "key_brd",
+    "key_strat",
+    "key_dm"
+  ],
+  "records": [
+    {
+      "goalId": "ashbringer",
+      "address": "steps[1]",
+      "text": "Reach level 60.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "No earlier step. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "ashbringer",
+      "address": "steps[2]",
+      "text": "Get {att_naxx:attuned to Naxxramas} from Archmage Angela Dosantos at Light's Hope Chapel.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9121",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Naxx attunement minimum level 60; att_naxx completion can satisfy this without tracking that goal. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "quest": [
+          9121,
+          9122,
+          9123
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "ashbringer",
+      "address": "steps[3]",
+      "text": "Clear the Military Wing of {raid_naxx:Naxxramas} up to the Four Horsemen.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9121"
+      ],
+      "notes": "Naxx entry requires attunement on raiding character; already attuned alt / cleared instance evidence must override. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "soft/contextual; no lock",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "boss": "Gothik the Harvester"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "ashbringer",
+      "address": "steps[4]",
+      "text": "Defeat the Four Horsemen.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=22691"
+      ],
+      "notes": "Gothik is instance route progression, not a permanently required personal kill. Joining a raid already at Four Horsemen is allowed. Proposed expression: 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "soft/contextual; no lock",
+      "structuredPredicateNotes": "3",
+      "autoRule": {
+        "boss": "Four Horsemen"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "ashbringer",
+      "address": "steps[5]",
+      "text": "Loot Corrupted Ashbringer from the Four Horsemen Chest.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=22691"
+      ],
+      "notes": "Chest becomes available after encounter; item evidence overrides missing personal boss history. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "item": [
+          22691,
+          22709
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "frostsaber",
+      "address": "steps[1]",
+      "text": "Reach level 40 and travel to Winterspring.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Data conflict: Classic quest level58 versus current level40",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4970",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Classic Questie records quests4970/5201/5981 min58, so step1 cannot prove actual eligibility. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "level": 40
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "frostsaber",
+      "address": "steps[2]",
+      "text": "Start Rivern Frostwind's quests at Frostsaber Rock in Winterspring.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Current step1 level40 insufficient Classic quest gate. Do not encode until Forever level rules checked. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "soft/contextual; no lock",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "rep": {
+          "value": 1,
+          "standing": 4,
+          "faction": 589
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "frostsaber",
+      "address": "steps[3]",
+      "text": "Turn in 'Frostsaber Provisions' daily until 1500/3000 Neutral.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Step2 first reputation point is implied by later cumulative milestone; avoid hiding farm. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "soft/contextual; no lock",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "rep": {
+          "value": 1500,
+          "standing": 4,
+          "faction": 589
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "frostsaber",
+      "address": "steps[4]",
+      "text": "Turn in 'Winterfall Intrusion' daily until Friendly.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=5201",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Winterfall Intrusion unlocks at1500 neutral; alternative quests still earn Friendly. Proposed expression: 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3",
+      "autoRule": {
+        "rep": {
+          "standing": 5,
+          "faction": 589
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "frostsaber",
+      "address": "steps[5]",
+      "text": "Reach Honored, then add 'Rampaging Giants' to your dailies.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=5981",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Honored is cumulative reputation; Rampaging Giants unlocked there, but other repeatables still work. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "soft/contextual; no lock",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 589
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "frostsaber",
+      "address": "steps[6]",
+      "text": "Reach Exalted with the Wintersaber Trainers.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=5981",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Exalted cumulative reputation; do not force use of particular repeatables. Proposed expression: 5. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "soft/contextual; no lock",
+      "structuredPredicateNotes": "5",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 589
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "frostsaber",
+      "address": "steps[7]",
+      "text": "Reach Exalted with Darnassus to learn Frostsaber riding (Night Elves skip this).",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=13086"
+      ],
+      "notes": "Independent Darnassus reputation grind; NightElf skips. Required to USE under old race riding rules, not necessarily BUY. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "rep": {
+          "standing": 8,
+          "faction": 69
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "frostsaber",
+      "address": "steps[8]",
+      "text": "Buy the Reins of the Winterspring Frostsaber from Rivern Frostwind (about 900 gold).",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[6]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=13086"
+      ],
+      "notes": "Purchase Wintersaber Exalted gate; Darnassus step7 relates riding, do not add as buy prerequisite without Forever verification. Proposed expression: 6. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "6",
+      "autoRule": {
+        "item": 13086,
+        "owned": [
+          "Winterspring Frostsaber"
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[1]",
+      "text": "Raid {raid_naxx:Naxxramas} and {raid_aq40:Ahn'Qiraj} on a Druid, Mage, Priest or Warlock.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Preparation, auto level60 does not prove class/raids. No lock. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[2]",
+      "text": "Collect 40 Splinters of Atiesh from Naxxramas bosses.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=22726"
+      ],
+      "notes": "Collect splinters independently; Naxx attunement on same caster is external entry gate. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 22726,
+        "count": 40
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[3]",
+      "text": "Combine the 40 splinters into the Frame of Atiesh.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=22727"
+      ],
+      "notes": "40 splinters consumed to form frame. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "item": 22727,
+        "quest": 9250
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[4]",
+      "text": "Bring the Frame of Atiesh to Anachronos at the Caverns of Time in Tanaris.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9250"
+      ],
+      "notes": "Frame starts9250. Also Anachronos requires nonhostile/Neutral Brood reputation; unrepresented external condition. Proposed expression: 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3",
+      "autoRule": {
+        "quest": 9250
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[5]",
+      "text": "Loot the Staff Head of Atiesh from Kel'Thuzad in Naxxramas.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium drop gating; high chain; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9251",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Accept9251 after9250 before quest-item boss loot; no order versus step6. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "item": 22733
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[6]",
+      "text": "Loot the Base of Atiesh from C'Thun in Ahn'Qiraj.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium drop gating; high chain; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9251",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Accept9251 after9250 before quest-item boss loot; parallel with step5. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "item": 22734
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[7]",
+      "text": "Return both pieces to Anachronos.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[5]",
+        "steps[6]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9251",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Both pieces required for9251. Proposed expression: 5 AND 6. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "5 AND 6",
+      "autoRule": {
+        "quest": 9251
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[8]",
+      "text": "Complete your class's purification quest from Anachronos.",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High inconsistency",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9257",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Step says COMPLETE purification before defeating entity in step9, but9257/9269/9270/9271 completion includes entity defeat and final return. Should say PICK UP purification; then7â†’8â†’9â†’10. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "data wording invalid; withhold lock",
+      "structuredPredicateNotes": "",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[9]",
+      "text": "Defeat the guardian the staff summons on Festival Lane in Stratholme.",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High chain; ambiguous current step8",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9257"
+      ],
+      "notes": "Requires purification quest ACTIVE after7, not completed current8. Encode only after rewording8. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "blocked by data correction",
+      "structuredPredicateNotes": "",
+      "autoRule": null,
+      "clientVariants": {}
+    },
+    {
+      "goalId": "atiesh",
+      "address": "steps[10]",
+      "text": "Receive Atiesh, Greatstaff of the Guardian from Anachronos.",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9257",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Receive reward when turning in class purification; step8 current COMPLETE redundantly includes9/10. Proposed expression: 9. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "9",
+      "autoRule": {
+        "item": [
+          22589,
+          22630,
+          22631,
+          22632
+        ],
+        "quest": [
+          9257,
+          9269,
+          9270,
+          9271
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rhokdelar",
+      "address": "steps[1]",
+      "text": "Get the Ancient Rune Etched Stave from 'Stave of the Ancients' (the {lokdelar:Lok'delar} goal).",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636"
+      ],
+      "notes": "External Lokdelar step7 yields stave; reward item/quest7636 evidence can satisfy without cross-goal active ticks. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18707,
+        "quest": 7636
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rhokdelar",
+      "address": "steps[2]",
+      "text": "Pick up 'A Proper String' from Stoma the Ancient in Felwood.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7635",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Requires The Ancient Leaf7632 = lokdelar step2, NOT stave completion in current step1. This can run alongside four demons. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "questTaken": 7635
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rhokdelar",
+      "address": "steps[3]",
+      "text": "Loot the Mature Black Dragon Sinew from {raid_ony:Onyxia}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18705",
+        "https://www.wowhead.com/classic/quest=7635"
+      ],
+      "notes": "Black sinew can be obtained before quest; own Onyxia attunement required to enter but avoid cross-goal lock. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18705,
+        "quest": 7635
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rhokdelar",
+      "address": "steps[4]",
+      "text": "Turn in the sinew to Vartrus for the Enchanted Black Dragon Sinew.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]",
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7635",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Turn-in to STOMA, not Vartrus (current text wrong). Proposed expression: 2 AND 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2 AND 3",
+      "autoRule": {
+        "item": 18724,
+        "quest": 7635
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "rhokdelar",
+      "address": "steps[5]",
+      "text": "Combine the stave and the Enchanted Black Dragon Sinew into Rhok'delar.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]",
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18713"
+      ],
+      "notes": "Stave and enchanted string both consumed. Proposed expression: 1 AND 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1 AND 4",
+      "autoRule": {
+        "item": [
+          18713,
+          20488
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "lokdelar",
+      "address": "steps[1]",
+      "text": "Loot the Ancient Petrified Leaf from the Cache of the Firelord in {raid_mc:Molten Core}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18703"
+      ],
+      "notes": "Independent raid drop; personal MC attunement optional shortcut. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18703,
+        "quest": 7632
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "lokdelar",
+      "address": "steps[2]",
+      "text": "Bring the leaf to Vartrus the Ancient in Felwood and pick up 'Stave of the Ancients'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7632",
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Leaf starts7632, which unlocks7636. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "quest": 7632,
+        "questTaken": 7636
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "lokdelar",
+      "address": "steps[3]",
+      "text": "Solo Artorius the Doombringer in Winterspring.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "7636 active; all four demons available in parallel, not sequential. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "owned": [
+          "Artorius's Head"
+        ],
+        "quest": 7636
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "lokdelar",
+      "address": "steps[4]",
+      "text": "Solo Klinfran the Crazed in Burning Steppes.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "7636 active; all four demons available in parallel, not sequential. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "owned": [
+          "Klinfran's Head"
+        ],
+        "quest": 7636
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "lokdelar",
+      "address": "steps[5]",
+      "text": "Solo Solenor the Slayer in Silithus.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "7636 active; all four demons available in parallel, not sequential. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "owned": [
+          "Solenor's Head"
+        ],
+        "quest": 7636
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "lokdelar",
+      "address": "steps[6]",
+      "text": "Solo Simone the Seductress in Un'Goro Crater.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "7636 active; all four demons available in parallel, not sequential. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "owned": [
+          "Simone's Head"
+        ],
+        "quest": 7636
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "lokdelar",
+      "address": "steps[7]",
+      "text": "Turn in the four demon heads to Vartrus for Lok'delar and the Ancient Rune Etched Stave.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]",
+        "steps[4]",
+        "steps[5]",
+        "steps[6]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Four demon heads all required. Proposed expression: 3 AND 4 AND 5 AND 6. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3 AND 4 AND 5 AND 6",
+      "autoRule": {
+        "item": [
+          18715,
+          20487
+        ],
+        "quest": 7636
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[1]",
+      "text": "Raid {raid_mc:Molten Core} on a weekly reset schedule.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Weekly raiding is preparation, level60 auto not actual history. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[2]",
+      "text": "Loot the Bindings of the Windseeker (left) from Baron Geddon in Molten Core.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18563"
+      ],
+      "notes": "Independent binding loot; no ordering versus right binding. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18563,
+        "quest": 7785
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[3]",
+      "text": "Loot the Bindings of the Windseeker (right) from Garr in Molten Core.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18564"
+      ],
+      "notes": "Independent binding loot; no ordering versus left binding. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18564,
+        "quest": 7785
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[4]",
+      "text": "Start 'Examine the Vessel' with Highlord Demitrian in Silithus.",
+      "status": "candidate",
+      "requiresAll": [],
+      "requiresAny": [
+        "steps[2]",
+        "steps[3]"
+      ],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7785",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Either binding obtains Vessel19016 and starts7785. Do not require both. Proposed expression: 2 OR 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2 OR 3",
+      "autoRule": {
+        "quest": 7785
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[5]",
+      "text": "Gather 10 Elementium Bars.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=17771"
+      ],
+      "notes": "Buy bars or gather/smelt; do not hard-lock on raw materials6/7/8. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 17771,
+        "count": 10
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[6]",
+      "text": "Gather 100 Arcanite Bars.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://www.wowhead.com/classic/item=17771"
+      ],
+      "notes": "Parallel raw ingredient of step5, consumed in Elementium; NOT an extra final turn-in. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 12360,
+        "count": 100
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[7]",
+      "text": "Gather 10 Fiery Cores (Molten Core).",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://www.wowhead.com/classic/item=17771"
+      ],
+      "notes": "Parallel raw ingredient of step5; NOT extra final turn-in. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 17010,
+        "count": 10
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[8]",
+      "text": "Gather 30 Elemental Flux.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://www.wowhead.com/classic/item=17771"
+      ],
+      "notes": "Parallel raw ingredient of step5; NOT extra final turn-in. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18567,
+        "count": 30
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[9]",
+      "text": "Loot the Essence of the Firelord from Ragnaros in Molten Core.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7785",
+        "https://www.wowhead.com/classic/quest=7786"
+      ],
+      "notes": "Must ACCEPT7786 after7785 before Essence drops. Step4 says start but auto only completed7785; improve watch evidence. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "item": [
+          19017,
+          18566
+        ],
+        "quest": 7786
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[10]",
+      "text": "Turn in the bindings, the Essence and the materials to Demitrian ('Thunderaan the Windseeker').",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]",
+        "steps[3]",
+        "steps[4]",
+        "steps[5]",
+        "steps[9]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Final summon turn-in requires both bindings,10 bars,Essence. Do not also require consumed raw ingredients6/7/8. Proposed expression: 2 AND 3 AND 4 AND 5 AND 9. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2 AND 3 AND 4 AND 5 AND 9",
+      "autoRule": {
+        "quest": 7786
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[11]",
+      "text": "Defeat Prince Thunderaan in Silithus.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[10]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://www.wowhead.com/classic/quest=7787"
+      ],
+      "notes": "Summons Prince; CURRENT auto quest7786 incorrectly ticks defeat at summon turn-in, before kill. Proposed expression: 10. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "10",
+      "autoRule": {
+        "quest": 7786
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "thunderfury",
+      "address": "steps[12]",
+      "text": "Turn in 'Rise, Thunderfury!' to receive Thunderfury.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[11]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7787",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Loot Dormant Wind Kissed Blade19018 to start7787. Completion proof overrides missed kill. Proposed expression: 11. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "11",
+      "autoRule": {
+        "item": 19019,
+        "quest": 7787
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "benediction",
+      "address": "steps[1]",
+      "text": "Loot The Eye of Divinity from Majordomo Executus in {raid_mc:Molten Core}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18646"
+      ],
+      "notes": "Independent Eye raid drop. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18646,
+        "quest": 7622
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "benediction",
+      "address": "steps[2]",
+      "text": "Start 'The Balance of Light and Shadow' with Eris Havenfire near Stratholme.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7622",
+        "https://www.wowhead.com/classic/item=18646"
+      ],
+      "notes": "Eye equipped to see/interact with Eris and take7622. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "questTaken": 7622
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "benediction",
+      "address": "steps[3]",
+      "text": "Save 50 peasants (fewer than 15 deaths) to earn the Splinter of Nordrassil.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7622"
+      ],
+      "notes": "Event for7622 rewards Splinter. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "item": 18659,
+        "quest": 7622
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "benediction",
+      "address": "steps[4]",
+      "text": "Loot The Eye of Shadow from demons in southern Winterspring, or buy one.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18665"
+      ],
+      "notes": "Tradeable Eye of Shadow may be bought/farmed at any time. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18665
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "benediction",
+      "address": "steps[5]",
+      "text": "Combine the Splinter of Nordrassil, the Eye of Shadow and the Eye of Divinity into Benediction.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]",
+        "steps[3]",
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18608"
+      ],
+      "notes": "All three components required/consumed. Proposed expression: 1 AND 3 AND 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1 AND 3 AND 4",
+      "autoRule": {
+        "item": [
+          18608,
+          18609
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[1]",
+      "text": "Raid {raid_mc:Molten Core} on a weekly reset schedule.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Preparation; not valid hard gate to purchasing materials. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "level": 60
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[2]",
+      "text": "Loot the Eye of Sulfuras from Ragnaros in Molten Core.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=17204"
+      ],
+      "notes": "Eye independent of all preparation/materials. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 17204
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[3]",
+      "text": "Get the Plans: Sulfuron Hammer from Lokhtos Darkbargainer in Blackrock Depths ('A Binding Contract').",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7604",
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "One Ingot required externally, not ALL eight of step4; plans can be bought; crafter may already know recipe. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18592,
+        "quest": 7604
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[4]",
+      "text": "Collect 8 Sulfuron Ingots from Golemagg the Incinerator in Molten Core.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 17203,
+        "count": 8
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[5]",
+      "text": "Smelt 20 Dark Iron Bars at the Black Forge in Blackrock Depths.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 11371,
+        "count": 20
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[6]",
+      "text": "Gather 50 Arcanite Bars.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 12360,
+        "count": 50
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[7]",
+      "text": "Gather 25 Essence of Fire.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 7078,
+        "count": 25
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[8]",
+      "text": "Gather 10 Blood of the Mountain (rare from Dark Iron deposits).",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 11382,
+        "count": 10
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[9]",
+      "text": "Gather 10 Lava Cores (Molten Core trash, BoE).",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 17011,
+        "count": 10
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[10]",
+      "text": "Gather 10 Fiery Cores (Molten Core trash, BoE).",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 17010,
+        "count": 10
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[11]",
+      "text": "Reach 300 Blacksmithing, or find a Blacksmith to craft it.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "Can use another blacksmith; own skill rule cannot prove service found. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "skill": {
+          "name": "Blacksmithing",
+          "rank": 300
+        }
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[12]",
+      "text": "Craft the Sulfuron Hammer.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=17193",
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "notes": "If personally commissioning craft needs4..10 and recipe on crafter/BS300. Hammer is BoE and may be bought, bypassing3..11. No universal checkbox gate. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "conditional crafting AND; no universal hard lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 17193
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "sulfuras",
+      "address": "steps[13]",
+      "text": "Combine the Sulfuron Hammer and the Eye of Sulfuras into Sulfuras.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]",
+        "steps[12]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=17182"
+      ],
+      "notes": "Eye plus completed hammer required. Proposed expression: 2 AND 12. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2 AND 12",
+      "autoRule": {
+        "item": 17182
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_dreadsteed",
+      "address": "steps[1]",
+      "text": "Complete 'Mor'zul Bloodbringer' from a demon trainer in a capital city.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Warlock level60 start. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": 7562
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_dreadsteed",
+      "address": "steps[2]",
+      "text": "Complete 'Rage of Blood'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7563",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "7563 follows7562. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "quest": 7563
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_dreadsteed",
+      "address": "steps[3]",
+      "text": "Complete 'Wildeyes'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7564",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "7564 follows7563. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "quest": 7564
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_dreadsteed",
+      "address": "steps[4]",
+      "text": "Complete 'Kroshius' Infernal Core'.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7603",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "7603 is Inferno spell chain7601â†’7602â†’7603 atlevel50, not Dreadsteed. No dependency from3 and no dependency into5. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "UNRELATED; remove/remap in guide fix",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": 7603
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_dreadsteed",
+      "address": "steps[5]",
+      "text": "Complete 'Imp Delivery'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7629",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Imp Delivery7629 requires7564 AND Xorothian Stardust7625. Missing chain7623â†’7624â†’7625. Proposed expression: 3 + external7625. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3 + external7625",
+      "autoRule": {
+        "quest": 7629
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_dreadsteed",
+      "address": "steps[6]",
+      "text": "Complete 'Arcanite'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7630",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Arcanite7630 requires Bell/Wheel/Candle material turn-ins, available after7564; may parallel Imp Delivery, NOT gated by5. Proposed expression: 3 + external7626 AND7627 AND7628. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3 + external7626 AND7627 AND7628",
+      "autoRule": {
+        "quest": 7630
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_dreadsteed",
+      "address": "steps[7]",
+      "text": "Defeat the Xorothian Dreadsteed in Dire Maul ('Dreadsteed of Xoroth').",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[5]",
+        "steps[6]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7631",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Corrections/classicQuestFixes.lua"
+      ],
+      "notes": "Dreadsteed quest7631 requires7629 AND7630; another warlock may supply reusable ritual tools; unrelated4 never gate. Proposed expression: 5 AND 6. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "5 AND 6",
+      "autoRule": {
+        "quest": 7631
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[1]",
+      "text": "Complete 'Lord Grayson Shadowbreaker' from Duthorian Rall in Stormwind City.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Paladin level60 starter. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": 7638
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[2]",
+      "text": "Complete 'Emphasis on Sacrifice'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7637",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": " Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "quest": 7637
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[3]",
+      "text": "Complete 'To Show Due Judgment'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7639",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": " Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "quest": 7639
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[4]",
+      "text": "Complete 'Exorcising Terrordale'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7640",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": " Proposed expression: 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3",
+      "autoRule": {
+        "quest": 7640
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[5]",
+      "text": "Complete 'The Work of Grimand Elmore'.",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "Conflicting Classic evidence",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7641",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Questie v10 records preQuestSingle7640; old comments describe separate branches. Guide corrections/new beta need verify before asserting parallel or strict gate. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "uncertain ordering; withhold lock",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "quest": 7641
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[6]",
+      "text": "Complete 'Collection of Goods'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[5]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7642",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": " Proposed expression: 5. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "5",
+      "autoRule": {
+        "quest": 7642
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[7]",
+      "text": "Complete 'Ancient Equine Spirit'.",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7643",
+        "https://www.wowhead.com/classic/quest=7645",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Completion7643 requires Feed item18775 from step9. Accept7643 after6 unlocks feed9; distinction creates cycle if use completed7 as prerequisite of9. Proposed expression: 6 AND 9. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "6 AND 9",
+      "autoRule": {
+        "quest": 7643
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[8]",
+      "text": "Complete 'Blessed Arcanite Barding'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[7]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7644",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": " Proposed expression: 7. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "7",
+      "autoRule": {
+        "quest": 7644
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[9]",
+      "text": "Complete 'Manna-Enriched Horse Feed'.",
+      "status": "unknown",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7645",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Requires Ancient Equine Spirit7643 IN PROGRESS. Gather biscuits/gold beforehand; feed must complete before step7. Reorder rows or represent acceptance explicitly. Proposed expression: 6 + quest7643 ACTIVE. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "active-quest prerequisite; NOT earlier completed-step gate",
+      "structuredPredicateNotes": "6 + quest7643 ACTIVE",
+      "autoRule": {
+        "quest": 7645
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[10]",
+      "text": "Complete 'The Divination Scryer'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[8]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7646",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "No dependency on9 here:9 needed earlier for7. Proposed expression: 8. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "8",
+      "autoRule": {
+        "quest": 7646
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "mount_charger",
+      "address": "steps[11]",
+      "text": "Complete 'Judgment and Redemption' in {key_scholo:Scholomance} to earn the Charger.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[10]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7647",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Personal key_scholo NOT required if party can open door. Proposed expression: 10. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "10",
+      "autoRule": {
+        "quest": 7647
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "quelserrar",
+      "address": "steps[1]",
+      "text": "Loot Nostro's Compendium of Dragon Slaying in Dire Maul (rare).",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18401"
+      ],
+      "notes": "Book tradeable; looting is one option, purchase bypasses. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18401,
+        "quest": [
+          7508,
+          7509
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "quelserrar",
+      "address": "steps[2]",
+      "text": "Get the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7508",
+        "https://www.wowhead.com/classic/quest=7509",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Book7507â†’7508 handoffâ†’7509 provides blade. Current combined auto questTaken7508 may mark blade obtained too early. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "item": 18489,
+        "quest": [
+          7508,
+          7509
+        ],
+        "questTaken": [
+          7508,
+          7509
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "quelserrar",
+      "address": "steps[3]",
+      "text": "Heat the blade in {raid_ony:Onyxia's} fire breath.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7509"
+      ],
+      "notes": "Need Unfired blade before breath. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "item": [
+          18488,
+          18492,
+          18348
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "quelserrar",
+      "address": "steps[4]",
+      "text": "Drive the Heated Ancient Blade into Onyxia's corpse before it cools.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7509"
+      ],
+      "notes": "Need heated blade and killed Onyxia; warmth time-limited, old checkbox is history not current possession. Proposed expression: 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3",
+      "autoRule": {
+        "item": [
+          18492,
+          18348
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "quelserrar",
+      "address": "steps[5]",
+      "text": "Return the Treated Ancient Blade to receive Quel'Serrar.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": true
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7509"
+      ],
+      "notes": "Treated blade turn-in. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "item": 18348
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_mc",
+      "address": "steps[1]",
+      "text": "Pick up 'Attunement to the Core' from Lothos Riftwaker in Blackrock Mountain.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7848"
+      ],
+      "notes": "Min55 Classic; shortcut attunement not prerequisite of raidingMC. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": 7848,
+        "questTaken": 7848
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_mc",
+      "address": "steps[2]",
+      "text": "Recover a Core Fragment at the Molten Core entry portal in Blackrock Depths.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7848"
+      ],
+      "notes": "Conservative: item pre-loot availability not independently verified. No lock until verified. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "soft/contextual; no lock",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "item": 18412,
+        "quest": 7848
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_mc",
+      "address": "steps[3]",
+      "text": "Return the Core Fragment to Lothos Riftwaker.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]",
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7848",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Accept quest and return fragment. Proposed expression: 1 AND 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1 AND 2",
+      "autoRule": {
+        "quest": 7848
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[1]",
+      "text": "Complete 'Dragonkin Menace' from Helendis Riverhorn in the Burning Steppes.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4182",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": " Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": 4182
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[2]",
+      "text": "Complete the 'The True Masters' quests.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4224"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "quest": 4224
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[3]",
+      "text": "Complete 'Marshal Windsor'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4241"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "quest": 4241
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[4]",
+      "text": "Complete 'Abandoned Hope'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4242"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3",
+      "autoRule": {
+        "quest": 4242
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[5]",
+      "text": "Complete 'A Crumpled Up Note'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4264"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "quest": 4264
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[6]",
+      "text": "Complete 'A Shred of Hope'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[5]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4282"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 5. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "5",
+      "autoRule": {
+        "quest": 4282
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[7]",
+      "text": "Complete 'Jail Break!'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[6]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4322"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 6. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "6",
+      "autoRule": {
+        "quest": 4322
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[8]",
+      "text": "Complete 'Stormwind Rendezvous'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[7]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6402"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 7. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "7",
+      "autoRule": {
+        "quest": 6402
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[9]",
+      "text": "Complete 'The Great Masquerade'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[8]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6403"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 8. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "8",
+      "autoRule": {
+        "quest": 6403
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[10]",
+      "text": "Complete 'The Dragon's Eye'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[9]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6501"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 9. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "9",
+      "autoRule": {
+        "quest": 6501
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_ally",
+      "address": "steps[11]",
+      "text": "Complete 'Drakefire Amulet' and receive the amulet.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[10]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Alliance",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6502"
+      ],
+      "notes": "Same Alliance character chain; row2 compresses4183â†’4184â†’4185â†’4186â†’4223â†’4224. Proposed expression: 10. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "10",
+      "autoRule": {
+        "quest": 6502,
+        "item": 16309
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[1]",
+      "text": "Complete 'Warlord's Command' and turn it in to Warlord Goretooth in Kargath, Badlands.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4903",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": " Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": 4903
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[2]",
+      "text": "Complete 'Eitrigg's Wisdom'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4941"
+      ],
+      "notes": "Same Horde character chain. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "quest": 4941
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[3]",
+      "text": "Complete 'For The Horde!'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4974"
+      ],
+      "notes": "Same Horde character chain. Proposed expression: 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "2",
+      "autoRule": {
+        "quest": 4974
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[4]",
+      "text": "Complete 'What the Wind Carries'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[3]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6566"
+      ],
+      "notes": "Same Horde character chain. Proposed expression: 3. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "3",
+      "autoRule": {
+        "quest": 6566
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[5]",
+      "text": "Complete 'The Champion of the Horde'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[4]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6567"
+      ],
+      "notes": "Same Horde character chain. Proposed expression: 4. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "4",
+      "autoRule": {
+        "quest": 6567
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[6]",
+      "text": "Complete 'The Testament of Rexxar'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[5]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6568"
+      ],
+      "notes": "Same Horde character chain. Proposed expression: 5. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "5",
+      "autoRule": {
+        "quest": 6568
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[7]",
+      "text": "Complete 'Oculus Illusions'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[6]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6569"
+      ],
+      "notes": "Same Horde character chain. Proposed expression: 6. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "6",
+      "autoRule": {
+        "quest": 6569
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[8]",
+      "text": "Complete 'Emberstrife'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[7]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6570"
+      ],
+      "notes": "Same Horde character chain. Proposed expression: 7. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "7",
+      "autoRule": {
+        "quest": 6570
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[9]",
+      "text": "Complete 'The Test of Skulls, Scryer'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[8]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6582"
+      ],
+      "notes": "Three first skull quests unlock together, no order among9,10,11. Proposed expression: 8. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "8",
+      "autoRule": {
+        "quest": 6582
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[10]",
+      "text": "Complete 'The Test of Skulls, Somnus'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[8]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6583"
+      ],
+      "notes": "Three first skull quests unlock together, no order among9,10,11. Proposed expression: 8. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "8",
+      "autoRule": {
+        "quest": 6583
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[11]",
+      "text": "Complete 'The Test of Skulls, Chronalis'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[8]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6584"
+      ],
+      "notes": "Three first skull quests unlock together, no order among9,10,11. Proposed expression: 8. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "8",
+      "autoRule": {
+        "quest": 6584
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[12]",
+      "text": "Complete 'The Test of Skulls, Axtroz'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[9]",
+        "steps[10]",
+        "steps[11]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6585"
+      ],
+      "notes": "All three first skulls needed for Axtroz. Proposed expression: 9 AND 10 AND 11. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "9 AND 10 AND 11",
+      "autoRule": {
+        "quest": 6585
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[13]",
+      "text": "Complete 'Ascension...'.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[12]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6601"
+      ],
+      "notes": " Proposed expression: 12. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "12",
+      "autoRule": {
+        "quest": 6601
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_ony_horde",
+      "address": "steps[14]",
+      "text": "Complete 'Blood of the Black Dragon Champion' and receive the Drakefire Amulet.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[13]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": "Horde",
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6602"
+      ],
+      "notes": " Proposed expression: 13. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "13",
+      "autoRule": {
+        "quest": 6602,
+        "item": 16309
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_bwl",
+      "address": "steps[1]",
+      "text": "Loot and read Blackhand's Command from the Scarshield Quartermaster in Blackrock Spire.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7761"
+      ],
+      "notes": "Min55 quest; orb shortcut optional, UBRS raid entrance alternative. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": 7761,
+        "item": 18987,
+        "questTaken": 7761
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_bwl",
+      "address": "steps[2]",
+      "text": "Defeat General Drakkisath in {key_ubrs:Upper Blackrock Spire}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7761"
+      ],
+      "notes": "Can kill Drakkisath without taking command; raid encounter independent; party key_ubrs enough. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": 7761,
+        "boss": "General Drakkisath"
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_bwl",
+      "address": "steps[3]",
+      "text": "Touch Drakkisath's Brand behind him to gain the Mark of Drakkisath.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]",
+        "steps[2]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7761",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Quest active and boss cleared; prior personal kill evidence not necessary if joining cleared instance. Proposed expression: 1 AND 2. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1 AND 2",
+      "autoRule": {
+        "quest": 7761
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_naxx",
+      "address": "steps[1]",
+      "text": "Reach Honored with the {rep_argentdawn:Argent Dawn}.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9121",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Honored Argent Dawn andlevel60 on character receiving attunement. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "rep": {
+          "standing": 6,
+          "faction": 529
+        },
+        "quest": [
+          9121,
+          9122,
+          9123
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "att_naxx",
+      "address": "steps[2]",
+      "text": "Get attuned at Light's Hope Chapel.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9121",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Honored/Revered/Exalted quest alternatives9121/9122/9123; different costs. External rep_argentdawn whole goal Exalted unnecessary. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "quest": [
+          9121,
+          9122,
+          9123
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "key_ubrs",
+      "address": "steps[1]",
+      "text": "Pick up 'Seal of Ascension'.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4742",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Min57; can collect gems/Unadorned Seal before pickup. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 12344,
+        "quest": [
+          4742,
+          4743
+        ],
+        "questTaken": [
+          4742,
+          4743
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "key_ubrs",
+      "address": "steps[2]",
+      "text": "Forge the Seal of Ascension.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4742",
+        "https://www.wowhead.com/classic/quest=4743",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "4742 collection then4743 forging; condensed guide missing gem collection/handoff detail. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "owned": [
+          "Seal of Ascension"
+        ],
+        "item": 12344,
+        "quest": 4743
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "key_scholo",
+      "address": "steps[1]",
+      "text": "Complete 'The Key to Scholomance' and receive the Skeleton Key.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=5505",
+        "https://www.wowhead.com/classic/quest=5511",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Only one row; internal chain unrepresented: faction opening questsâ†’Skeletal Fragmentsâ†’Mold Rhymes With...â†’Fire Plume Forgedâ†’Araj Scarabâ†’5505/5511. Personal key not required to enter with group/lockpicker. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "owned": [
+          "Skeleton Key"
+        ],
+        "item": 13704,
+        "quest": [
+          5505,
+          5511
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "key_brd",
+      "address": "steps[1]",
+      "text": "Complete the first 'Dark Iron Legacy'.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=3801",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "Talk to ghost while dead; no earlier row. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "quest": [
+          3801,
+          3802
+        ],
+        "item": 11000
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "key_brd",
+      "address": "steps[2]",
+      "text": "Complete the second 'Dark Iron Legacy' and receive the Shadowforge Key.",
+      "status": "candidate",
+      "requiresAll": [
+        "steps[1]"
+      ],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=3802",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "notes": "3802 after3801; requires Ironfel from Fineous then shrine. Personal key not universal dungeon gate. Proposed expression: 1. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "hard prerequisite",
+      "structuredPredicateNotes": "1",
+      "autoRule": {
+        "owned": [
+          "Shadowforge Key"
+        ],
+        "item": 11000,
+        "quest": 3802
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "key_strat",
+      "address": "steps[1]",
+      "text": "Loot the Key to the City from Magistrate Barthilas.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=12382"
+      ],
+      "notes": "Single boss loot; party key enough for gates. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 12382,
+        "owned": [
+          "Key to the City"
+        ]
+      },
+      "clientVariants": {}
+    },
+    {
+      "goalId": "key_dm",
+      "address": "steps[1]",
+      "text": "Loot the Crescent Key from Pusillin in Dire Maul East.",
+      "status": "no_lock",
+      "requiresAll": [],
+      "requiresAny": [],
+      "scope": {
+        "sameCharacterRequired": true,
+        "faction": null,
+        "tradeableMaterialsMayBeSuppliedByOthers": false
+      },
+      "confidence": "High Classic; unconfirmed Forever",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18249"
+      ],
+      "notes": "Single boss loot; Pusillin conversation/chase within row; no earlier goal prerequisite. Proposed expression: None. Classic baseline only; auto completion evidence overrides locks; never untick.",
+      "classification": "independent / no lock",
+      "structuredPredicateNotes": "",
+      "autoRule": {
+        "item": 18249,
+        "owned": [
+          "Crescent Key"
+        ]
+      },
+      "clientVariants": {}
+    }
+  ]
+}

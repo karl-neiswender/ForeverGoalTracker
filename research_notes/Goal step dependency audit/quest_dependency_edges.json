@@ -1,0 +1,1539 @@
+{
+  "ashbringer": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "No earlier step.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "ashbringer:1",
+      "text": "Reach level 60."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Naxx attunement minimum level 60; att_naxx completion can satisfy this without tracking that goal.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9121",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "ashbringer:2",
+      "text": "Get {att_naxx:attuned to Naxxramas} from Archmage Angela Dosantos at Light's Hope Chapel."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "soft/contextual; no lock",
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "reason": "Naxx entry requires attunement on raiding character; already attuned alt / cleared instance evidence must override.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9121"
+      ],
+      "address": "ashbringer:3",
+      "text": "Clear the Military Wing of {raid_naxx:Naxxramas} up to the Four Horsemen."
+    },
+    {
+      "prerequisites": "3",
+      "classification": "soft/contextual; no lock",
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "reason": "Gothik is instance route progression, not a permanently required personal kill. Joining a raid already at Four Horsemen is allowed.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=22691"
+      ],
+      "address": "ashbringer:4",
+      "text": "Defeat the Four Horsemen."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Chest becomes available after encounter; item evidence overrides missing personal boss history.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=22691"
+      ],
+      "address": "ashbringer:5",
+      "text": "Loot Corrupted Ashbringer from the Four Horsemen Chest."
+    }
+  ],
+  "frostsaber": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "Data conflict: Classic quest level58 versus current level40",
+      "reason": "Classic Questie records quests4970/5201/5981 min58, so step1 cannot prove actual eligibility.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4970",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "frostsaber:1",
+      "text": "Reach level 40 and travel to Winterspring."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "soft/contextual; no lock",
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "reason": "Current step1 level40 insufficient Classic quest gate. Do not encode until Forever level rules checked.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "frostsaber:2",
+      "text": "Start Rivern Frostwind's quests at Frostsaber Rock in Winterspring."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "soft/contextual; no lock",
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "reason": "Step2 first reputation point is implied by later cumulative milestone; avoid hiding farm.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "frostsaber:3",
+      "text": "Turn in 'Frostsaber Provisions' daily until 1500/3000 Neutral."
+    },
+    {
+      "prerequisites": "3",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Winterfall Intrusion unlocks at1500 neutral; alternative quests still earn Friendly.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=5201",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "frostsaber:4",
+      "text": "Turn in 'Winterfall Intrusion' daily until Friendly."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "soft/contextual; no lock",
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "reason": "Honored is cumulative reputation; Rampaging Giants unlocked there, but other repeatables still work.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=5981",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "frostsaber:5",
+      "text": "Reach Honored, then add 'Rampaging Giants' to your dailies."
+    },
+    {
+      "prerequisites": "5",
+      "classification": "soft/contextual; no lock",
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "reason": "Exalted cumulative reputation; do not force use of particular repeatables.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=5981",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "frostsaber:6",
+      "text": "Reach Exalted with the Wintersaber Trainers."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Independent Darnassus reputation grind; NightElf skips. Required to USE under old race riding rules, not necessarily BUY.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=13086"
+      ],
+      "address": "frostsaber:7",
+      "text": "Reach Exalted with Darnassus to learn Frostsaber riding (Night Elves skip this)."
+    },
+    {
+      "prerequisites": "6",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Purchase Wintersaber Exalted gate; Darnassus step7 relates riding, do not add as buy prerequisite without Forever verification.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=13086"
+      ],
+      "address": "frostsaber:8",
+      "text": "Buy the Reins of the Winterspring Frostsaber from Rivern Frostwind (about 900 gold)."
+    }
+  ],
+  "atiesh": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Preparation, auto level60 does not prove class/raids. No lock.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "atiesh:1",
+      "text": "Raid {raid_naxx:Naxxramas} and {raid_aq40:Ahn'Qiraj} on a Druid, Mage, Priest or Warlock."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Collect splinters independently; Naxx attunement on same caster is external entry gate.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=22726"
+      ],
+      "address": "atiesh:2",
+      "text": "Collect 40 Splinters of Atiesh from Naxxramas bosses."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "40 splinters consumed to form frame.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=22727"
+      ],
+      "address": "atiesh:3",
+      "text": "Combine the 40 splinters into the Frame of Atiesh."
+    },
+    {
+      "prerequisites": "3",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Frame starts9250. Also Anachronos requires nonhostile/Neutral Brood reputation; unrepresented external condition.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9250"
+      ],
+      "address": "atiesh:4",
+      "text": "Bring the Frame of Atiesh to Anachronos at the Caverns of Time in Tanaris."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "hard prerequisite",
+      "confidence": "Medium drop gating; high chain; unconfirmed Forever",
+      "reason": "Accept9251 after9250 before quest-item boss loot; no order versus step6.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9251",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "atiesh:5",
+      "text": "Loot the Staff Head of Atiesh from Kel'Thuzad in Naxxramas."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "hard prerequisite",
+      "confidence": "Medium drop gating; high chain; unconfirmed Forever",
+      "reason": "Accept9251 after9250 before quest-item boss loot; parallel with step5.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9251",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "atiesh:6",
+      "text": "Loot the Base of Atiesh from C'Thun in Ahn'Qiraj."
+    },
+    {
+      "prerequisites": "5 AND 6",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Both pieces required for9251.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9251",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "atiesh:7",
+      "text": "Return both pieces to Anachronos."
+    },
+    {
+      "prerequisites": "",
+      "classification": "data wording invalid; withhold lock",
+      "confidence": "High inconsistency",
+      "reason": "Step says COMPLETE purification before defeating entity in step9, but9257/9269/9270/9271 completion includes entity defeat and final return. Should say PICK UP purification; then7→8→9→10.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9257",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "atiesh:8",
+      "text": "Complete your class's purification quest from Anachronos."
+    },
+    {
+      "prerequisites": "",
+      "classification": "blocked by data correction",
+      "confidence": "High chain; ambiguous current step8",
+      "reason": "Requires purification quest ACTIVE after7, not completed current8. Encode only after rewording8.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9257"
+      ],
+      "address": "atiesh:9",
+      "text": "Defeat the guardian the staff summons on Festival Lane in Stratholme."
+    },
+    {
+      "prerequisites": "9",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Receive reward when turning in class purification; step8 current COMPLETE redundantly includes9/10.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9257",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "atiesh:10",
+      "text": "Receive Atiesh, Greatstaff of the Guardian from Anachronos."
+    }
+  ],
+  "rhokdelar": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "External Lokdelar step7 yields stave; reward item/quest7636 evidence can satisfy without cross-goal active ticks.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636"
+      ],
+      "address": "rhokdelar:1",
+      "text": "Get the Ancient Rune Etched Stave from 'Stave of the Ancients' (the {lokdelar:Lok'delar} goal)."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Requires The Ancient Leaf7632 = lokdelar step2, NOT stave completion in current step1. This can run alongside four demons.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7635",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "rhokdelar:2",
+      "text": "Pick up 'A Proper String' from Stoma the Ancient in Felwood."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Black sinew can be obtained before quest; own Onyxia attunement required to enter but avoid cross-goal lock.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18705",
+        "https://www.wowhead.com/classic/quest=7635"
+      ],
+      "address": "rhokdelar:3",
+      "text": "Loot the Mature Black Dragon Sinew from {raid_ony:Onyxia}."
+    },
+    {
+      "prerequisites": "2 AND 3",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Turn-in to STOMA, not Vartrus (current text wrong).",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7635",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "rhokdelar:4",
+      "text": "Turn in the sinew to Vartrus for the Enchanted Black Dragon Sinew."
+    },
+    {
+      "prerequisites": "1 AND 4",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Stave and enchanted string both consumed.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18713"
+      ],
+      "address": "rhokdelar:5",
+      "text": "Combine the stave and the Enchanted Black Dragon Sinew into Rhok'delar."
+    }
+  ],
+  "lokdelar": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Independent raid drop; personal MC attunement optional shortcut.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18703"
+      ],
+      "address": "lokdelar:1",
+      "text": "Loot the Ancient Petrified Leaf from the Cache of the Firelord in {raid_mc:Molten Core}."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Leaf starts7632, which unlocks7636.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7632",
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "lokdelar:2",
+      "text": "Bring the leaf to Vartrus the Ancient in Felwood and pick up 'Stave of the Ancients'."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "7636 active; all four demons available in parallel, not sequential.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "lokdelar:3",
+      "text": "Solo Artorius the Doombringer in Winterspring."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "7636 active; all four demons available in parallel, not sequential.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "lokdelar:4",
+      "text": "Solo Klinfran the Crazed in Burning Steppes."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "7636 active; all four demons available in parallel, not sequential.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "lokdelar:5",
+      "text": "Solo Solenor the Slayer in Silithus."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "7636 active; all four demons available in parallel, not sequential.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "lokdelar:6",
+      "text": "Solo Simone the Seductress in Un'Goro Crater."
+    },
+    {
+      "prerequisites": "3 AND 4 AND 5 AND 6",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Four demon heads all required.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7636",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "lokdelar:7",
+      "text": "Turn in the four demon heads to Vartrus for Lok'delar and the Ancient Rune Etched Stave."
+    }
+  ],
+  "thunderfury": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Weekly raiding is preparation, level60 auto not actual history.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "thunderfury:1",
+      "text": "Raid {raid_mc:Molten Core} on a weekly reset schedule."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Independent binding loot; no ordering versus right binding.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18563"
+      ],
+      "address": "thunderfury:2",
+      "text": "Loot the Bindings of the Windseeker (left) from Baron Geddon in Molten Core."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Independent binding loot; no ordering versus left binding.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18564"
+      ],
+      "address": "thunderfury:3",
+      "text": "Loot the Bindings of the Windseeker (right) from Garr in Molten Core."
+    },
+    {
+      "prerequisites": "2 OR 3",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Either binding obtains Vessel19016 and starts7785. Do not require both.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7785",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "thunderfury:4",
+      "text": "Start 'Examine the Vessel' with Highlord Demitrian in Silithus."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Buy bars or gather/smelt; do not hard-lock on raw materials6/7/8.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=17771"
+      ],
+      "address": "thunderfury:5",
+      "text": "Gather 10 Elementium Bars."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Parallel raw ingredient of step5, consumed in Elementium; NOT an extra final turn-in.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://www.wowhead.com/classic/item=17771"
+      ],
+      "address": "thunderfury:6",
+      "text": "Gather 100 Arcanite Bars."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Parallel raw ingredient of step5; NOT extra final turn-in.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://www.wowhead.com/classic/item=17771"
+      ],
+      "address": "thunderfury:7",
+      "text": "Gather 10 Fiery Cores (Molten Core)."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Parallel raw ingredient of step5; NOT extra final turn-in.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://www.wowhead.com/classic/item=17771"
+      ],
+      "address": "thunderfury:8",
+      "text": "Gather 30 Elemental Flux."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Must ACCEPT7786 after7785 before Essence drops. Step4 says start but auto only completed7785; improve watch evidence.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7785",
+        "https://www.wowhead.com/classic/quest=7786"
+      ],
+      "address": "thunderfury:9",
+      "text": "Loot the Essence of the Firelord from Ragnaros in Molten Core."
+    },
+    {
+      "prerequisites": "2 AND 3 AND 4 AND 5 AND 9",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Final summon turn-in requires both bindings,10 bars,Essence. Do not also require consumed raw ingredients6/7/8.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "thunderfury:10",
+      "text": "Turn in the bindings, the Essence and the materials to Demitrian ('Thunderaan the Windseeker')."
+    },
+    {
+      "prerequisites": "10",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Summons Prince; CURRENT auto quest7786 incorrectly ticks defeat at summon turn-in, before kill.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7786",
+        "https://www.wowhead.com/classic/quest=7787"
+      ],
+      "address": "thunderfury:11",
+      "text": "Defeat Prince Thunderaan in Silithus."
+    },
+    {
+      "prerequisites": "11",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Loot Dormant Wind Kissed Blade19018 to start7787. Completion proof overrides missed kill.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7787",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "thunderfury:12",
+      "text": "Turn in 'Rise, Thunderfury!' to receive Thunderfury."
+    }
+  ],
+  "benediction": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Independent Eye raid drop.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18646"
+      ],
+      "address": "benediction:1",
+      "text": "Loot The Eye of Divinity from Majordomo Executus in {raid_mc:Molten Core}."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Eye equipped to see/interact with Eris and take7622.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7622",
+        "https://www.wowhead.com/classic/item=18646"
+      ],
+      "address": "benediction:2",
+      "text": "Start 'The Balance of Light and Shadow' with Eris Havenfire near Stratholme."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Event for7622 rewards Splinter.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7622"
+      ],
+      "address": "benediction:3",
+      "text": "Save 50 peasants (fewer than 15 deaths) to earn the Splinter of Nordrassil."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Tradeable Eye of Shadow may be bought/farmed at any time.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18665"
+      ],
+      "address": "benediction:4",
+      "text": "Loot The Eye of Shadow from demons in southern Winterspring, or buy one."
+    },
+    {
+      "prerequisites": "1 AND 3 AND 4",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "All three components required/consumed.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18608"
+      ],
+      "address": "benediction:5",
+      "text": "Combine the Splinter of Nordrassil, the Eye of Shadow and the Eye of Divinity into Benediction."
+    }
+  ],
+  "sulfuras": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Preparation; not valid hard gate to purchasing materials.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "sulfuras:1",
+      "text": "Raid {raid_mc:Molten Core} on a weekly reset schedule."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Eye independent of all preparation/materials.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=17204"
+      ],
+      "address": "sulfuras:2",
+      "text": "Loot the Eye of Sulfuras from Ragnaros in Molten Core."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "One Ingot required externally, not ALL eight of step4; plans can be bought; crafter may already know recipe.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7604",
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:3",
+      "text": "Get the Plans: Sulfuron Hammer from Lokhtos Darkbargainer in Blackrock Depths ('A Binding Contract')."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:4",
+      "text": "Collect 8 Sulfuron Ingots from Golemagg the Incinerator in Molten Core."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:5",
+      "text": "Smelt 20 Dark Iron Bars at the Black Forge in Blackrock Depths."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:6",
+      "text": "Gather 50 Arcanite Bars."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:7",
+      "text": "Gather 25 Essence of Fire."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:8",
+      "text": "Gather 10 Blood of the Mountain (rare from Dark Iron deposits)."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:9",
+      "text": "Gather 10 Lava Cores (Molten Core trash, BoE)."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Materials can be collected/bought in any order; Black Forge needed only if personally smelting Dark Iron.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:10",
+      "text": "Gather 10 Fiery Cores (Molten Core trash, BoE)."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Can use another blacksmith; own skill rule cannot prove service found.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:11",
+      "text": "Reach 300 Blacksmithing, or find a Blacksmith to craft it."
+    },
+    {
+      "prerequisites": "",
+      "classification": "conditional crafting AND; no universal hard lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "If personally commissioning craft needs4..10 and recipe on crafter/BS300. Hammer is BoE and may be bought, bypassing3..11. No universal checkbox gate.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=17193",
+        "https://www.wowhead.com/classic/item=18592"
+      ],
+      "address": "sulfuras:12",
+      "text": "Craft the Sulfuron Hammer."
+    },
+    {
+      "prerequisites": "2 AND 12",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Eye plus completed hammer required.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=17182"
+      ],
+      "address": "sulfuras:13",
+      "text": "Combine the Sulfuron Hammer and the Eye of Sulfuras into Sulfuras."
+    }
+  ],
+  "mount_dreadsteed": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Warlock level60 start.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_dreadsteed:1",
+      "text": "Complete 'Mor'zul Bloodbringer' from a demon trainer in a capital city."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "7563 follows7562.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7563",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_dreadsteed:2",
+      "text": "Complete 'Rage of Blood'."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "7564 follows7563.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7564",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_dreadsteed:3",
+      "text": "Complete 'Wildeyes'."
+    },
+    {
+      "prerequisites": "",
+      "classification": "UNRELATED; remove/remap in guide fix",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "7603 is Inferno spell chain7601→7602→7603 atlevel50, not Dreadsteed. No dependency from3 and no dependency into5.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7603",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_dreadsteed:4",
+      "text": "Complete 'Kroshius' Infernal Core'."
+    },
+    {
+      "prerequisites": "3 + external7625",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Imp Delivery7629 requires7564 AND Xorothian Stardust7625. Missing chain7623→7624→7625.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7629",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_dreadsteed:5",
+      "text": "Complete 'Imp Delivery'."
+    },
+    {
+      "prerequisites": "3 + external7626 AND7627 AND7628",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Arcanite7630 requires Bell/Wheel/Candle material turn-ins, available after7564; may parallel Imp Delivery, NOT gated by5.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7630",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_dreadsteed:6",
+      "text": "Complete 'Arcanite'."
+    },
+    {
+      "prerequisites": "5 AND 6",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Dreadsteed quest7631 requires7629 AND7630; another warlock may supply reusable ritual tools; unrelated4 never gate.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7631",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Corrections/classicQuestFixes.lua"
+      ],
+      "address": "mount_dreadsteed:7",
+      "text": "Defeat the Xorothian Dreadsteed in Dire Maul ('Dreadsteed of Xoroth')."
+    }
+  ],
+  "mount_charger": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Paladin level60 starter.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:1",
+      "text": "Complete 'Lord Grayson Shadowbreaker' from Duthorian Rall in Stormwind City."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7637",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:2",
+      "text": "Complete 'Emphasis on Sacrifice'."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7639",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:3",
+      "text": "Complete 'To Show Due Judgment'."
+    },
+    {
+      "prerequisites": "3",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7640",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:4",
+      "text": "Complete 'Exorcising Terrordale'."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "uncertain ordering; withhold lock",
+      "confidence": "Conflicting Classic evidence",
+      "reason": "Questie v10 records preQuestSingle7640; old comments describe separate branches. Guide corrections/new beta need verify before asserting parallel or strict gate.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7641",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:5",
+      "text": "Complete 'The Work of Grimand Elmore'."
+    },
+    {
+      "prerequisites": "5",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7642",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:6",
+      "text": "Complete 'Collection of Goods'."
+    },
+    {
+      "prerequisites": "6 AND 9",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Completion7643 requires Feed item18775 from step9. Accept7643 after6 unlocks feed9; distinction creates cycle if use completed7 as prerequisite of9.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7643",
+        "https://www.wowhead.com/classic/quest=7645",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:7",
+      "text": "Complete 'Ancient Equine Spirit'."
+    },
+    {
+      "prerequisites": "7",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7644",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:8",
+      "text": "Complete 'Blessed Arcanite Barding'."
+    },
+    {
+      "prerequisites": "6 + quest7643 ACTIVE",
+      "classification": "active-quest prerequisite; NOT earlier completed-step gate",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Requires Ancient Equine Spirit7643 IN PROGRESS. Gather biscuits/gold beforehand; feed must complete before step7. Reorder rows or represent acceptance explicitly.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7645",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:9",
+      "text": "Complete 'Manna-Enriched Horse Feed'."
+    },
+    {
+      "prerequisites": "8",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "No dependency on9 here:9 needed earlier for7.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7646",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:10",
+      "text": "Complete 'The Divination Scryer'."
+    },
+    {
+      "prerequisites": "10",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Personal key_scholo NOT required if party can open door.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7647",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "mount_charger:11",
+      "text": "Complete 'Judgment and Redemption' in {key_scholo:Scholomance} to earn the Charger."
+    }
+  ],
+  "quelserrar": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Book tradeable; looting is one option, purchase bypasses.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18401"
+      ],
+      "address": "quelserrar:1",
+      "text": "Loot Nostro's Compendium of Dragon Slaying in Dire Maul (rare)."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Book7507→7508 handoff→7509 provides blade. Current combined auto questTaken7508 may mark blade obtained too early.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7508",
+        "https://www.wowhead.com/classic/quest=7509",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "quelserrar:2",
+      "text": "Get the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Need Unfired blade before breath.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7509"
+      ],
+      "address": "quelserrar:3",
+      "text": "Heat the blade in {raid_ony:Onyxia's} fire breath."
+    },
+    {
+      "prerequisites": "3",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Need heated blade and killed Onyxia; warmth time-limited, old checkbox is history not current possession.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7509"
+      ],
+      "address": "quelserrar:4",
+      "text": "Drive the Heated Ancient Blade into Onyxia's corpse before it cools."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Treated blade turn-in.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7509"
+      ],
+      "address": "quelserrar:5",
+      "text": "Return the Treated Ancient Blade to receive Quel'Serrar."
+    }
+  ],
+  "att_mc": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Min55 Classic; shortcut attunement not prerequisite of raidingMC.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7848"
+      ],
+      "address": "att_mc:1",
+      "text": "Pick up 'Attunement to the Core' from Lothos Riftwaker in Blackrock Mountain."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "soft/contextual; no lock",
+      "confidence": "Medium Classic; unconfirmed Forever",
+      "reason": "Conservative: item pre-loot availability not independently verified. No lock until verified.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7848"
+      ],
+      "address": "att_mc:2",
+      "text": "Recover a Core Fragment at the Molten Core entry portal in Blackrock Depths."
+    },
+    {
+      "prerequisites": "1 AND 2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Accept quest and return fragment.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7848",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "att_mc:3",
+      "text": "Return the Core Fragment to Lothos Riftwaker."
+    }
+  ],
+  "att_ony_ally": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4182",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "att_ony_ally:1",
+      "text": "Complete 'Dragonkin Menace' from Helendis Riverhorn in the Burning Steppes."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4224"
+      ],
+      "address": "att_ony_ally:2",
+      "text": "Complete the 'The True Masters' quests."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4241"
+      ],
+      "address": "att_ony_ally:3",
+      "text": "Complete 'Marshal Windsor'."
+    },
+    {
+      "prerequisites": "3",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4242"
+      ],
+      "address": "att_ony_ally:4",
+      "text": "Complete 'Abandoned Hope'."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4264"
+      ],
+      "address": "att_ony_ally:5",
+      "text": "Complete 'A Crumpled Up Note'."
+    },
+    {
+      "prerequisites": "5",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4282"
+      ],
+      "address": "att_ony_ally:6",
+      "text": "Complete 'A Shred of Hope'."
+    },
+    {
+      "prerequisites": "6",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4322"
+      ],
+      "address": "att_ony_ally:7",
+      "text": "Complete 'Jail Break!'."
+    },
+    {
+      "prerequisites": "7",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6402"
+      ],
+      "address": "att_ony_ally:8",
+      "text": "Complete 'Stormwind Rendezvous'."
+    },
+    {
+      "prerequisites": "8",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6403"
+      ],
+      "address": "att_ony_ally:9",
+      "text": "Complete 'The Great Masquerade'."
+    },
+    {
+      "prerequisites": "9",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6501"
+      ],
+      "address": "att_ony_ally:10",
+      "text": "Complete 'The Dragon's Eye'."
+    },
+    {
+      "prerequisites": "10",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Alliance character chain; row2 compresses4183→4184→4185→4186→4223→4224.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6502"
+      ],
+      "address": "att_ony_ally:11",
+      "text": "Complete 'Drakefire Amulet' and receive the amulet."
+    }
+  ],
+  "att_ony_horde": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4903",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "att_ony_horde:1",
+      "text": "Complete 'Warlord's Command' and turn it in to Warlord Goretooth in Kargath, Badlands."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Horde character chain.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4941"
+      ],
+      "address": "att_ony_horde:2",
+      "text": "Complete 'Eitrigg's Wisdom'."
+    },
+    {
+      "prerequisites": "2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Horde character chain.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=4974"
+      ],
+      "address": "att_ony_horde:3",
+      "text": "Complete 'For The Horde!'."
+    },
+    {
+      "prerequisites": "3",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Horde character chain.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6566"
+      ],
+      "address": "att_ony_horde:4",
+      "text": "Complete 'What the Wind Carries'."
+    },
+    {
+      "prerequisites": "4",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Horde character chain.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6567"
+      ],
+      "address": "att_ony_horde:5",
+      "text": "Complete 'The Champion of the Horde'."
+    },
+    {
+      "prerequisites": "5",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Horde character chain.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6568"
+      ],
+      "address": "att_ony_horde:6",
+      "text": "Complete 'The Testament of Rexxar'."
+    },
+    {
+      "prerequisites": "6",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Horde character chain.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6569"
+      ],
+      "address": "att_ony_horde:7",
+      "text": "Complete 'Oculus Illusions'."
+    },
+    {
+      "prerequisites": "7",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Same Horde character chain.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6570"
+      ],
+      "address": "att_ony_horde:8",
+      "text": "Complete 'Emberstrife'."
+    },
+    {
+      "prerequisites": "8",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Three first skull quests unlock together, no order among9,10,11.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6582"
+      ],
+      "address": "att_ony_horde:9",
+      "text": "Complete 'The Test of Skulls, Scryer'."
+    },
+    {
+      "prerequisites": "8",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Three first skull quests unlock together, no order among9,10,11.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6583"
+      ],
+      "address": "att_ony_horde:10",
+      "text": "Complete 'The Test of Skulls, Somnus'."
+    },
+    {
+      "prerequisites": "8",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Three first skull quests unlock together, no order among9,10,11.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6584"
+      ],
+      "address": "att_ony_horde:11",
+      "text": "Complete 'The Test of Skulls, Chronalis'."
+    },
+    {
+      "prerequisites": "9 AND 10 AND 11",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "All three first skulls needed for Axtroz.",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6585"
+      ],
+      "address": "att_ony_horde:12",
+      "text": "Complete 'The Test of Skulls, Axtroz'."
+    },
+    {
+      "prerequisites": "12",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6601"
+      ],
+      "address": "att_ony_horde:13",
+      "text": "Complete 'Ascension...'."
+    },
+    {
+      "prerequisites": "13",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "",
+      "sources": [
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua",
+        "https://www.wowhead.com/classic/quest=6602"
+      ],
+      "address": "att_ony_horde:14",
+      "text": "Complete 'Blood of the Black Dragon Champion' and receive the Drakefire Amulet."
+    }
+  ],
+  "att_bwl": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Min55 quest; orb shortcut optional, UBRS raid entrance alternative.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7761"
+      ],
+      "address": "att_bwl:1",
+      "text": "Loot and read Blackhand's Command from the Scarshield Quartermaster in Blackrock Spire."
+    },
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Can kill Drakkisath without taking command; raid encounter independent; party key_ubrs enough.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7761"
+      ],
+      "address": "att_bwl:2",
+      "text": "Defeat General Drakkisath in {key_ubrs:Upper Blackrock Spire}."
+    },
+    {
+      "prerequisites": "1 AND 2",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Quest active and boss cleared; prior personal kill evidence not necessary if joining cleared instance.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=7761",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "att_bwl:3",
+      "text": "Touch Drakkisath's Brand behind him to gain the Mark of Drakkisath."
+    }
+  ],
+  "att_naxx": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Honored Argent Dawn andlevel60 on character receiving attunement.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9121",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "att_naxx:1",
+      "text": "Reach Honored with the {rep_argentdawn:Argent Dawn}."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Honored/Revered/Exalted quest alternatives9121/9122/9123; different costs. External rep_argentdawn whole goal Exalted unnecessary.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=9121",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "att_naxx:2",
+      "text": "Get attuned at Light's Hope Chapel."
+    }
+  ],
+  "key_ubrs": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Min57; can collect gems/Unadorned Seal before pickup.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4742",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "key_ubrs:1",
+      "text": "Pick up 'Seal of Ascension'."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "4742 collection then4743 forging; condensed guide missing gem collection/handoff detail.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=4742",
+        "https://www.wowhead.com/classic/quest=4743",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "key_ubrs:2",
+      "text": "Forge the Seal of Ascension."
+    }
+  ],
+  "key_scholo": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Only one row; internal chain unrepresented: faction opening quests→Skeletal Fragments→Mold Rhymes With...→Fire Plume Forged→Araj Scarab→5505/5511. Personal key not required to enter with group/lockpicker.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=5505",
+        "https://www.wowhead.com/classic/quest=5511",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "key_scholo:1",
+      "text": "Complete 'The Key to Scholomance' and receive the Skeleton Key."
+    }
+  ],
+  "key_brd": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Talk to ghost while dead; no earlier row.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=3801",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "key_brd:1",
+      "text": "Complete the first 'Dark Iron Legacy'."
+    },
+    {
+      "prerequisites": "1",
+      "classification": "hard prerequisite",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "3802 after3801; requires Ironfel from Fineous then shrine. Personal key not universal dungeon gate.",
+      "sources": [
+        "https://www.wowhead.com/classic/quest=3802",
+        "https://github.com/Questie/Questie/blob/v10.0.0/Database/Classic/classicQuestDB.lua"
+      ],
+      "address": "key_brd:2",
+      "text": "Complete the second 'Dark Iron Legacy' and receive the Shadowforge Key."
+    }
+  ],
+  "key_strat": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Single boss loot; party key enough for gates.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=12382"
+      ],
+      "address": "key_strat:1",
+      "text": "Loot the Key to the City from Magistrate Barthilas."
+    }
+  ],
+  "key_dm": [
+    {
+      "prerequisites": "",
+      "classification": "independent / no lock",
+      "confidence": "High Classic; unconfirmed Forever",
+      "reason": "Single boss loot; Pusillin conversation/chase within row; no earlier goal prerequisite.",
+      "sources": [
+        "https://www.wowhead.com/classic/item=18249"
+      ],
+      "address": "key_dm:1",
+      "text": "Loot the Crescent Key from Pusillin in Dire Maul East."
+    }
+  ]
+}
