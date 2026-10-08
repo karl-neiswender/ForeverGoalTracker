@@ -1,7 +1,8 @@
 """Slice Karl's transparent gold/silver refresh pair into the 64px UI icons.
 
-Usage: python tools/refresh.py <image>
-Then: python tools/gold.py Media/icons/refresh.tga
+Usage: python tools/refresh.py <image> [name]
+Name defaults to refresh; also supports other side-by-side gold/silver pairs.
+Then: python tools/gold.py Media/icons/<name>.tga
 Uses the same outline crop, padding and TGA format as tools/sheet.py.
 """
 import os
@@ -14,13 +15,14 @@ sys.path.insert(0, os.path.join(here, '.py'))
 from PIL import Image
 
 src = sys.argv[1]
+name_base = sys.argv[2] if len(sys.argv) > 2 else 'refresh'
 out = os.path.join(here, '..', 'Media', 'icons')
-keep = os.path.join(out, 'refresh-source.png')
+keep = os.path.join(out, name_base + '-source.png')
 if os.path.abspath(src) != os.path.abspath(keep):
     shutil.copyfile(src, keep)
 sheet = Image.open(src).convert('RGBA')
 w, h = sheet.size
-for i, name in enumerate(('refresh', 'refresh-white')):
+for i, name in enumerate((name_base, name_base + '-white')):
     cell = sheet.crop((i * w // 2, 0, (i + 1) * w // 2, h))
     box = cell.getchannel('A').point(lambda v: 255 if v > 16 else 0).getbbox()
     icon = cell.crop(box)
