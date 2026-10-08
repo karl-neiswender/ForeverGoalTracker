@@ -2621,12 +2621,11 @@ end
 -- CreateScrollArea comment below). Solid-color strips only ever use
 -- SetVertexColor, which has been stable since vanilla, so this can't break
 -- the same way again.
-local FADE_STEPS = 6
 local function CreateEdgeFade(parent, isTop)
     -- the bottom fade is taller, eases in, and ends on the panels' darker
     -- bottom shade, so it melts into the grime fading out there (Karl)
     local height = isTop and 16 or 28
-    local steps = isTop and FADE_STEPS or 12
+    local steps = height -- one strip per pixel: a smooth ramp, no visible steps (Karl: banding)
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(height)
     f:SetFrameStrata(parent:GetFrameStrata())
@@ -3828,8 +3827,15 @@ do
     function FGT.UpdateEditButton(goal)
         b.goal = goal
         b:SetShown(goal and goal.target ~= nil)
-        -- keep a long title clear of the pencil
-        detailTitle:SetPoint("RIGHT", detailPanel, "RIGHT", b:IsShown() and -40 or -16, 0)
+        -- the reset arrow sits left of the pencil (or in its place), and a
+        -- long title stays clear of both
+        local resetShown = goal and not goal.autoLevels
+        if FGT.resetBtn then
+            FGT.resetBtn:ClearAllPoints()
+            FGT.resetBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", b:IsShown() and -38 or -12, -12)
+        end
+        local icons = (b:IsShown() and 1 or 0) + (resetShown and 1 or 0)
+        detailTitle:SetPoint("RIGHT", detailPanel, "RIGHT", -16 - 26 * icons, 0)
     end
 end
 
@@ -3922,7 +3928,7 @@ end
 
 local stepsScrollObj = CreateScrollArea(detailPanel)
 stepsScrollObj.scroll:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -8)
-stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -24, 40)
+stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -24, 12) -- (no reset button below any more)
 stepsScrollObj:Finalize()
 local stepsContainer = stepsScrollObj.content
 -- Tips are drawn straight on the list, so it carries their goal links.
@@ -3930,28 +3936,37 @@ stepsContainer:EnableMouse(true)
 FGT.EnableGoalLinks(stepsContainer)
 stepsContainer:SetHeight(1)
 
-local resetBtn = CreateFrame("Button", nil, detailPanel, "BackdropTemplate")
-resetBtn:SetSize(110, 22)
-resetBtn:SetPoint("BOTTOMRIGHT", -14, 12)
--- The site's "remove" action colors: #5a1f1f with #ffbfbf text.
-Etch(resetBtn, STYLE.danger, 10)
-local resetLabel = NewFontString(resetBtn, 10, "", 1, 0.75, 0.75)
-resetLabel:SetPoint("CENTER")
-resetLabel:SetText("Reset this goal")
--- After a reset the button offers "Undo reset" for 10 seconds, holding
--- a copy of the goal's ticks (and its finished state and date).
--- FGT.resetUndo = { id, progress, done, date } while that's possible.
+-- "Reset this goal": a quiet undo-arrow icon at the top right, next to the
+-- Edit goal pencil (Karl: no big red button at the bottom, so the steps
+-- run to the panel's edge). Grey at rest, soft red on hover; gold while
+-- a reset can be undone. After a reset it offers "Undo reset" for 10
+-- seconds, holding a copy of the goal's ticks (and its finished state and
+-- date): FGT.resetUndo = { id, progress, done, date } while that's possible.
+local resetBtn = CreateFrame("Button", nil, detailPanel)
+resetBtn:SetSize(22, 22)
+resetBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -12, -12)
+resetBtn.icon = resetBtn:CreateTexture(nil, "ARTWORK")
+resetBtn.icon:SetTexture(FGT.Icon("undo-white"))
+resetBtn.icon:SetSize(15, 15)
+resetBtn.icon:SetPoint("CENTER")
+FGT.resetBtn = resetBtn
 function FGT.StyleResetButton()
     local undo = FGT.resetUndo
     local hover = resetBtn:IsMouseOver()
-    if undo then
-        resetBtn:SetEtch(hover and STYLE.btnHover or STYLE.button)
-        resetLabel:SetText("Undo reset")
-        resetLabel:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
-    else
-        resetBtn:SetEtch(hover and STYLE.dangerHv or STYLE.danger)
-        resetLabel:SetText("Reset this goal")
-        resetLabel:SetTextColor(1, 0.75, 0.75)
+    local c = undo and C.ACCENT or (hover and { 1, 0.55, 0.5 }) or C.SUBTEXT
+    resetBtn.icon:SetVertexColor(c[1], c[2], c[3], (undo or hover) and 1 or 0.8)
+    if hover then
+        GameTooltip:SetOwner(resetBtn, "ANCHOR_LEFT")
+        if undo then
+            GameTooltip:AddLine("Undo reset", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+            GameTooltip:AddLine("Puts back the ticks you just cleared.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+        else
+            GameTooltip:AddLine("Reset this goal", 1, 0.6, 0.55)
+            GameTooltip:AddLine("Clears its ticks. You can undo it for 10 seconds.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+        end
+        GameTooltip:Show()
+    elseif GameTooltip:IsOwned(resetBtn) then
+        GameTooltip:Hide()
     end
 end
 resetBtn:SetScript("OnEnter", FGT.StyleResetButton)
