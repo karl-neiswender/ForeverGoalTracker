@@ -1882,6 +1882,36 @@ local function Etch(frame, style, edgeSize)
     frame:SetEtch(style)
 end
 
+-- Embossed divider (Karl, 2026-10-07): a 1px dark shadow line over a 1px
+-- bronze highlight, like the panel borders, so it reads as carved into the
+-- panel rather than drawn on it. Bronze, not gold: gold lines compete with
+-- the progress bars. Fades in on the left and out to the right. A frame
+-- (2px tall) so it can be placed, shown and hidden like a texture.
+function FGT.NewEmbossLine(parent)
+    local f = CreateFrame("Frame", nil, parent)
+    f:SetHeight(2)
+    local LINES = { { 0, 0, 0, 0.6 }, { 0.42, 0.36, 0.24, 0.8 } } -- shadow, highlight
+    for i, c in ipairs(LINES) do
+        local col = { c[1], c[2], c[3] }
+        local l, m, r = f:CreateTexture(nil, "ARTWORK"), f:CreateTexture(nil, "ARTWORK"), f:CreateTexture(nil, "ARTWORK")
+        for _, t in ipairs({ l, m, r }) do
+            t:SetTexture(SOLID)
+            t:SetHeight(1)
+        end
+        local y = -(i - 1)
+        l:SetPoint("TOPLEFT", f, "TOPLEFT", 0, y)
+        l:SetWidth(24)
+        r:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, y)
+        r:SetWidth(180)
+        m:SetPoint("TOPLEFT", l, "TOPRIGHT")
+        m:SetPoint("TOPRIGHT", r, "TOPLEFT")
+        ApplyHGradient(l, col, col, 0, c[4])
+        m:SetVertexColor(c[1], c[2], c[3], c[4])
+        ApplyHGradient(r, col, col, c[4], 0)
+    end
+    return f
+end
+
 -- Subtle dirt texture over a window or panel fill (Karl, 2026-10-07):
 -- Media/grime (512px, seamless) repeated at its real size inside the
 -- etched border, above the fill and below everything else. alpha sets the
@@ -3862,7 +3892,7 @@ function FGT.LayoutForeverInfo(goal)
     end
 end
 
-local divider = NewFadeLine(detailPanel)
+local divider = FGT.NewEmbossLine(detailPanel) -- above the steps
 divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -24)
 divider:SetPoint("RIGHT", -16, 0)
 
@@ -4386,7 +4416,7 @@ function FGT.LayoutTips(goal, yOffset, width)
     local T = FGT.tipsUI
     if not T then
         T = { rows = {} }
-        T.line = NewFadeLine(stepsContainer)
+        T.line = FGT.NewEmbossLine(stepsContainer) -- above the tips
         T.btn = CreateFrame("Button", nil, stepsContainer)
         T.arrow = NewFontString(T.btn, 12, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
         T.arrow:SetPoint("LEFT", T.btn, "LEFT", 0, 0)
