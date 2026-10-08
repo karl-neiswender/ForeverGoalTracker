@@ -2624,7 +2624,7 @@ end
 local function CreateEdgeFade(parent, isTop)
     -- the bottom fade is taller, eases in, and ends on the panels' darker
     -- bottom shade, so it melts into the grime fading out there (Karl)
-    local height = isTop and 16 or 28
+    local height = 28 -- top and bottom alike (Karl)
     local steps = height -- one strip per pixel: a smooth ramp, no visible steps (Karl: banding)
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(height)
@@ -2639,7 +2639,7 @@ local function CreateEdgeFade(parent, isTop)
         -- i = 1 sits at the outer edge (nearly opaque panel color) and
         -- fades toward ~0 alpha by the inner edge, closest to the content.
         local alpha = 1 - ((i - 0.5) / steps)
-        if not isTop then alpha = alpha ^ 1.6 end
+        alpha = alpha ^ 1.6 -- eased: soft where it meets the rows
         local strip = Flat(f, c[1], c[2], c[3], alpha)
         strip:ClearAllPoints()
         if isTop then
@@ -3928,7 +3928,9 @@ end
 
 local stepsScrollObj = CreateScrollArea(detailPanel)
 stepsScrollObj.scroll:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -8)
-stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -24, 12) -- (no reset button below any more)
+-- down to the panel's inner edge (its border is 3px), so the bottom
+-- gradient meets the edge with no gap (no reset button below any more)
+stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -24, 3)
 stepsScrollObj:Finalize()
 local stepsContainer = stepsScrollObj.content
 -- Tips are drawn straight on the list, so it carries their goal links.
