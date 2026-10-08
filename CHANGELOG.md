@@ -6,7 +6,7 @@
 
 - Banner artwork uses native desaturation and compressed 512px textures with smaller mip levels; originals preserved.
 
-- Goal banner redesign draft: larger icon/title, spacious outlined chips and description, with subtly vignetted Corrupted Ashbringer, Atiesh and Sulfuras artwork. The taller banner includes the step count above the progress bar at the bottom; personal notes appear above the description.
+- Goal banner redesign: larger icon/title, spacious outlined chips and description, with subtly vignetted Corrupted Ashbringer, Atiesh and Sulfuras artwork. The taller banner includes the step count above the progress bar at the bottom; personal notes appear above the description.
 
 - Personal notes on each goal: a note icon opens an editor over a darkened window, with gold Save when text is entered, Delete note and a close X; your note appears above the goal description
 - Note editor fades and gently pops into place over a greyed-out background; gold Save brightens on hover
