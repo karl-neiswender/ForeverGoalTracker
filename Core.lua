@@ -1858,35 +1858,37 @@ end
 do
     local GRIME = "Interface\\AddOns\\" .. ADDON .. "\\Media\\grime"
     local TILE = 512
-    -- The texture fades out over the bottom FADE pixels (Karl), so the
-    -- scroll fades at the bottom of the lists still melt into a clean dark
-    -- edge: a body at full strength, then a strip whose vertex alpha runs
-    -- down to 0 (gradients ignore SetAlpha, lesson 14). Both pieces share
-    -- one set of texture coordinates, so there's no seam between them.
-    local FADE = 110
-    function FGT.AddGrime(frame, alpha, edgeSize, offset)
+    -- Strongest at the top, fading out downward (Karl: the texture lives
+    -- mostly in the header and bleeds a little into the panels, leaving the
+    -- lists clean): a body at full strength for `solid` px, then a strip
+    -- whose vertex alpha runs to 0 over `fade` px (gradients ignore
+    -- SetAlpha, lesson 14). Both share one set of texture coordinates.
+    function FGT.AddGrime(frame, alpha, edgeSize, offset, solid, fade)
         local inset = math.floor((edgeSize or 12) / 4)
+        solid, fade = solid or 0, fade or 140
         local body = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
-        local fade = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
-        for _, t in ipairs({ body, fade }) do
+        local strip = frame:CreateTexture(nil, "BACKGROUND", nil, -5)
+        for _, t in ipairs({ body, strip }) do
             t:SetTexture(GRIME, "REPEAT", "REPEAT")
         end
         body:SetPoint("TOPLEFT", inset, -inset)
-        body:SetPoint("BOTTOMRIGHT", fade, "TOPRIGHT")
-        fade:SetPoint("BOTTOMLEFT", inset, inset)
-        fade:SetPoint("BOTTOMRIGHT", -inset, inset)
+        body:SetPoint("TOPRIGHT", -inset, -inset)
+        strip:SetPoint("TOPLEFT", body, "BOTTOMLEFT")
+        strip:SetPoint("TOPRIGHT", body, "BOTTOMRIGHT")
         body:SetVertexColor(1, 1, 1, alpha)
-        ApplyVGradient(fade, { 1, 1, 1 }, { 1, 1, 1 }, alpha, 0)
+        ApplyVGradient(strip, { 1, 1, 1 }, { 1, 1, 1 }, alpha, 0)
         offset = offset or 0
         local function Fit()
             local w, h = frame:GetWidth() - 2 * inset, frame:GetHeight() - 2 * inset
             if w <= 0 or h <= 0 then return end
-            local f = math.min(FADE, h * 0.5)
-            fade:SetHeight(f)
+            local s = math.min(solid, h)
+            local f = math.max(1, math.min(fade, h - s))
+            body:SetHeight(math.max(0.01, s))
+            body:SetShown(s > 0)
+            strip:SetHeight(f)
             local x0, x1, y0 = offset, offset + w / TILE, offset * 0.6
-            local split = y0 + (h - f) / TILE
-            body:SetTexCoord(x0, x1, y0, split)
-            fade:SetTexCoord(x0, x1, split, y0 + h / TILE)
+            body:SetTexCoord(x0, x1, y0, y0 + s / TILE)
+            strip:SetTexCoord(x0, x1, y0 + s / TILE, y0 + (s + f) / TILE)
         end
         frame:HookScript("OnSizeChanged", Fit)
         Fit()
@@ -2582,6 +2584,7 @@ end
 -- flat scrollbar, and top/bottom edge fades. Call :Finalize() once the
 -- returned .scroll frame has been anchored, then use .content as the parent
 -- for whatever gets listed inside it.
+local ROW_FADE = 40 -- px over which rows fade in from a scroll edge
 local function CreateScrollArea(parent)
     local scroll = CreateFrame("ScrollFrame", nil, parent)
     scroll:EnableMouseWheel(true)
@@ -2718,8 +2721,27 @@ local function CreateScrollArea(parent)
             scroll:SetVerticalScroll(current)
         end
 
-        fadeTop:SetShown(maxScroll > 1 and current > 1)
-        fadeBottom:SetShown(maxScroll > 1 and current < maxScroll - 1)
+        -- Rows fade out near the edges instead of a dark overlay on top
+        -- (Karl: like a mask; text can't be masked, but each row's own
+        -- alpha can follow its distance from the edge). The old overlay
+        -- strips stay hidden.
+        fadeTop:Hide()
+        fadeBottom:Hide()
+        local top, bottom = scroll:GetTop(), scroll:GetBottom()
+        if top and bottom then
+            local fadeT, fadeB = maxScroll > 1 and current > 1, maxScroll > 1 and current < maxScroll - 1
+            local function Fade(r)
+                if type(r) ~= "table" or r.fgtKeepAlpha or not r:IsShown() then return end
+                local rt, rb = r:GetTop(), r:GetBottom()
+                if not (rt and rb) then return end
+                local mid, a = (rt + rb) / 2, 1
+                if fadeT then a = math.min(a, (top - mid) / ROW_FADE + 0.15) end
+                if fadeB then a = math.min(a, (mid - bottom) / ROW_FADE + 0.15) end
+                r:SetAlpha(math.max(0, math.min(1, a)))
+            end
+            for _, r in ipairs({ content:GetChildren() }) do Fade(r) end
+            for _, r in ipairs({ content:GetRegions() }) do Fade(r) end
+        end
 
         if maxScroll > 1 then
             trackHit:Show()
@@ -2754,7 +2776,7 @@ main:RegisterForDrag("LeftButton")
 -- also restoring it (two systems placing one window = random jumps).
 if main.SetDontSavePosition then main:SetDontSavePosition(true) end
 Etch(main, STYLE.window, 16)
-FGT.AddGrime(main, 0.25, 16, 0)
+FGT.AddGrime(main, 0.25, 16, 0, 150, 220) -- the header, fading out below it
 
 -- Pin the window by its top-left corner in plain screen coordinates.
 -- Moving or sizing a frame that's still anchored by its CENTER makes
@@ -2945,6 +2967,7 @@ function FGT.SetPlusMinus(fs, open)
         fs.pm:SetSize(11, 11)
         fs.pm:SetPoint("CENTER", fs, "CENTER", 0, 0)
         fs:SetAlpha(0)
+        fs.fgtKeepAlpha = true -- (scroll edge fades leave it hidden)
         -- the icon lives on the parent, so it follows the text's Show/Hide
         hooksecurefunc(fs, "Show", function() fs.pm:Show() end)
         hooksecurefunc(fs, "Hide", function() fs.pm:Hide() end)
@@ -3053,7 +3076,7 @@ listPanel:SetPoint("TOPLEFT", 16, PANEL_TOP)
 listPanel:SetPoint("BOTTOMLEFT", main, "BOTTOMLEFT", 16, 16)
 listPanel:SetWidth(LIST_WIDTH)
 Etch(listPanel, STYLE.panel, 12)
-FGT.AddGrime(listPanel, 0.25, 12, 0.37)
+FGT.AddGrime(listPanel, 0.18, 12, 0.37, 0, 140)
 
 -- Right panel (detail) - fully anchor-driven (both corners), so it
 -- fluidly fills whatever space is left of the sticky left panel as the
@@ -3062,7 +3085,7 @@ local detailPanel = CreateFrame("Frame", nil, main, "BackdropTemplate")
 detailPanel:SetPoint("TOPLEFT", listPanel, "TOPRIGHT", 12, 0)
 detailPanel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(detailPanel, STYLE.panel, 12)
-FGT.AddGrime(detailPanel, 0.25, 12, 0.71)
+FGT.AddGrime(detailPanel, 0.18, 12, 0.71, 0, 140)
 
 -- Sort control - a dropdown button above the list. Built by hand (not
 -- Blizzard's UIDropDownMenu template, which differs between clients).
@@ -5260,7 +5283,7 @@ local libraryPanel = CreateFrame("Frame", nil, main, "BackdropTemplate")
 libraryPanel:SetPoint("TOPLEFT", main, "TOPLEFT", 16, PANEL_TOP)
 libraryPanel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(libraryPanel, STYLE.panel, 12)
-FGT.AddGrime(libraryPanel, 0.25, 12, 0.13)
+FGT.AddGrime(libraryPanel, 0.18, 12, 0.13, 0, 140)
 libraryPanel:Hide()
 
 -- No heading here: the Goal Library tab above already names the page.
@@ -6178,7 +6201,7 @@ local panel = CreateFrame("Frame", nil, main, "BackdropTemplate")
 panel:SetPoint("TOPLEFT", main, "TOPLEFT", 16, PANEL_TOP)
 panel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(panel, STYLE.panel, 12)
-FGT.AddGrime(panel, 0.25, 12, 0.53)
+FGT.AddGrime(panel, 0.18, 12, 0.53, 0, 140)
 panel:Hide()
 FGT.settingsPanel = panel
 
