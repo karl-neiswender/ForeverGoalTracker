@@ -2640,13 +2640,15 @@ end
 -- CreateScrollArea comment below). Solid-color strips only ever use
 -- SetVertexColor, which has been stable since vanilla, so this can't break
 -- the same way again.
-local function CreateEdgeFade(parent, isTop)
+-- soft: a gentler bottom (the goal list: bright finished or Forever cards
+-- showed the full-strength fade as a dark band, Karl)
+local function CreateEdgeFade(parent, isTop, soft)
     -- the bottom fade is taller, eases in, and ends on the panels' darker
     -- bottom shade, so it melts into the grime fading out there (Karl)
     -- the top is taller than a row with a progress bar, so a row slides
     -- under as a whole instead of leaving its bar behind (Karl); a solid
     -- lip at the edge was tried and made that worse
-    local height = isTop and 40 or 28
+    local height = isTop and 40 or (soft and 36 or 28)
     local steps = height -- one strip per pixel: a smooth ramp, no visible steps (Karl: banding)
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(height)
@@ -2663,7 +2665,8 @@ local function CreateEdgeFade(parent, isTop)
         local alpha = 1 - ((i - 0.5) / steps)
         -- eased: soft where it meets the rows (gentler at the top, whose
         -- band is taller so a step with a progress bar fades as a whole)
-        alpha = alpha ^ (isTop and 1.3 or 1.6)
+        alpha = alpha ^ (isTop and 1.3 or (soft and 1.2 or 1.6))
+        if soft and not isTop then alpha = alpha * 0.75 end
         local strip = Flat(f, c[1], c[2], c[3], alpha)
         strip:ClearAllPoints()
         if isTop then
@@ -2682,7 +2685,7 @@ end
 -- flat scrollbar, and top/bottom edge fades. Call :Finalize() once the
 -- returned .scroll frame has been anchored, then use .content as the parent
 -- for whatever gets listed inside it.
-local function CreateScrollArea(parent)
+local function CreateScrollArea(parent, softBottom)
     local scroll = CreateFrame("ScrollFrame", nil, parent)
     scroll:EnableMouseWheel(true)
 
@@ -2690,7 +2693,7 @@ local function CreateScrollArea(parent)
     scroll:SetScrollChild(content)
 
     local fadeTop = CreateEdgeFade(parent, true)
-    local fadeBottom = CreateEdgeFade(parent, false)
+    local fadeBottom = CreateEdgeFade(parent, false, softBottom)
 
     -- Scrollbar. The visible track and thumb stay slim, but each sits in
     -- a wider invisible hit area that takes the mouse, so you can grab
@@ -3205,7 +3208,7 @@ sortBar:SetScript("OnLeave", function(self)
 end)
 
 -- Scrollable content area inside the goal list panel
-local listScrollObj = CreateScrollArea(listPanel)
+local listScrollObj = CreateScrollArea(listPanel, true) -- softer bottom fade over bright cards
 listScrollObj.scroll:SetPoint("TOPLEFT", sortBar, "BOTTOMLEFT", 0, -4)
 listScrollObj.scroll:SetPoint("BOTTOMRIGHT", listPanel, "BOTTOMRIGHT", -10, 4)
 listScrollObj:Finalize()
