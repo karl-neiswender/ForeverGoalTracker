@@ -1799,7 +1799,10 @@ STYLE.foreverTwin = { [STYLE.row] = STYLE.fRow, [STYLE.rowHover] = STYLE.fHover,
 
 -- Vertical gradient on a texture (top color -> bottom color). SetGradient
 -- takes (min = bottom, max = top). Falls back to a flat midpoint color.
+-- (each gradient remembers what it was given, as plain fields with no new
+-- table per call, so the wizard can grey it and put it back: W.Grey)
 local function ApplyVGradient(tex, top, bottom, topA, bottomA)
+    tex.fgtGdir, tex.fgtG1, tex.fgtG2, tex.fgtGa1, tex.fgtGa2 = "V", top, bottom, topA, bottomA
     local ok = CreateColor and pcall(tex.SetGradient, tex, "VERTICAL",
         CreateColor(bottom[1], bottom[2], bottom[3], bottomA or 1),
         CreateColor(top[1], top[2], top[3], topA or 1))
@@ -1811,6 +1814,7 @@ end
 
 -- Horizontal gradient (left color -> right color).
 local function ApplyHGradient(tex, left, right, leftA, rightA)
+    tex.fgtGdir, tex.fgtG1, tex.fgtG2, tex.fgtGa1, tex.fgtGa2 = "H", left, right, leftA, rightA
     local ok = CreateColor and pcall(tex.SetGradient, tex, "HORIZONTAL",
         CreateColor(left[1], left[2], left[3], leftA or 1),
         CreateColor(right[1], right[2], right[3], rightA or 1))
@@ -4017,8 +4021,14 @@ local function GetStepRow(index)
     row.check:Hide()
 
     row.num = NewFontString(row, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    -- sits 2px lower than the text top so the smaller number shares its baseline
-    row.num:SetPoint("TOPLEFT", row.box, "TOPRIGHT", 8, -1)
+    -- numbers right-aligned in a fixed column, so "10." lines up with "9."
+    -- (rows without a number keep their old, tighter spacing), and set a
+    -- touch lower so the first line of text centers on the checkbox (Karl)
+    row.num:SetPoint("TOPLEFT", row.box, "TOPRIGHT", 8, -2)
+    row.num:SetJustifyH("RIGHT")
+    hooksecurefunc(row.num, "SetText", function(self, t)
+        self:SetWidth((t and t ~= "") and 18 or 0.1)
+    end)
 
     -- Optional per-step icon (used by "Level Every Class to 60").
     row.icon = NewIcon(row, 20)
@@ -4107,7 +4117,7 @@ local function GetStepRow(index)
         else
             self.icon:Hide()
             self.num:Show()
-            self.text:SetPoint("TOPLEFT", self.num, "TOPRIGHT", 4, 2)
+            self.text:SetPoint("TOPLEFT", self.num, "TOPRIGHT", 4, 1)
         end
         self.text:SetPoint("RIGHT", self, "RIGHT", 0, 0)
     end
@@ -4144,7 +4154,8 @@ local function StyleCheckRow(row, done)
     row.isDone = done and true or false
     if done then
         row.check:Show()
-        row.box:SetBackdropColor(C.BOX_DONE_BG[1], C.BOX_DONE_BG[2], C.BOX_DONE_BG[3], 1)
+        -- a lighter fill, so the gold check stands out from its box (Karl)
+        row.box:SetBackdropColor(C.BOX_DONE_BG[1], C.BOX_DONE_BG[2], C.BOX_DONE_BG[3], 0.45)
         row.box:SetBackdropBorderColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], 1)
         row.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         row.num:SetTextColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
@@ -9419,7 +9430,7 @@ local function GetRow(i)
         self:SetEtch(st)
         self.check:SetShown(e.on)
         if e.on then
-            self.box:SetBackdropColor(C.BOX_DONE_BG[1], C.BOX_DONE_BG[2], C.BOX_DONE_BG[3], 1)
+            self.box:SetBackdropColor(C.BOX_DONE_BG[1], C.BOX_DONE_BG[2], C.BOX_DONE_BG[3], 0.45)
             self.box:SetBackdropBorderColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], 1)
         else
             self.box:SetBackdropColor(0, 0, 0, 1)
@@ -9721,6 +9732,15 @@ local function Collect(frame)
     for _, r in ipairs({ frame:GetRegions() }) do
         if r:IsObjectType("Texture") then
             if r.IsDesaturated and not r:IsDesaturated() then table.insert(grey.tex, r) end
+            -- colors set in code don't desaturate: gold lines (vertex
+            -- color) and gradients (remembered by ApplyV/HGradient)
+            if r.fgtGdir then
+                local a, b = r.fgtG1, r.fgtG2
+                grey.grad[r] = { r.fgtGdir, { a[1], a[2], a[3] }, { b[1], b[2], b[3] }, r.fgtGa1, r.fgtGa2 }
+            elseif r.GetVertexColor then
+                local vr, vg, vb, va = r:GetVertexColor()
+                if vr and not (vr == 1 and vg == 1 and vb == 1) then grey.vc[r] = { vr, vg, vb, va } end
+            end
         elseif r:IsObjectType("FontString") then
             local cr, cg, cb, ca = r:GetTextColor()
             if cr then grey.fs[r] = { cr, cg, cb, ca } end
@@ -9749,10 +9769,22 @@ function W.SetGrey(amount)
         local l = Lum(c[1], c[2], c[3])
         f:SetBackdropBorderColor(c[1] + (l - c[1]) * amount, c[2] + (l - c[2]) * amount, c[3] + (l - c[3]) * amount, c[4])
     end
+    local function G(c)
+        local l = Lum(c[1], c[2], c[3])
+        return { c[1] + (l - c[1]) * amount, c[2] + (l - c[2]) * amount, c[3] + (l - c[3]) * amount }
+    end
+    for t, c in pairs(grey.vc) do
+        local g = G(c)
+        t:SetVertexColor(g[1], g[2], g[3], c[4])
+    end
+    for t, g in pairs(grey.grad) do
+        if g[1] == "V" then ApplyVGradient(t, G(g[2]), G(g[3]), g[4], g[5])
+        else ApplyHGradient(t, G(g[2]), G(g[3]), g[4], g[5]) end
+    end
 end
 function W.Grey(on)
     if on and not grey then
-        grey = { tex = {}, fs = {}, bd = {} }
+        grey = { tex = {}, fs = {}, bd = {}, vc = {}, grad = {} }
         pcall(Collect, main)
         W.SetGrey(1)
     elseif not on and grey then
