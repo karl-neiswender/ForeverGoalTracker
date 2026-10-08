@@ -1268,10 +1268,57 @@ do
 
     FGT.ShineText = Shine -- (tools/check.py)
 
+    FGT.itemFade, FGT.linkPrevHex = {}, {} -- (see Fade below and FGT.LinkItemName)
+
+    -- where the bright gold of goal links sits right now: an eased
+    -- ping-pong, a little past both ends; in the middle with Celebrations off
+    local function Center()
+        if FGT.Setting("celebrations") == "off" then return 0.5 end
+        return 0.5 - 0.6 * math.cos(2 * math.pi * GetTime() / SCAN)
+    end
+
+    -- item links whose details just arrived ease from the color they were
+    -- drawn in to their real one (Karl: no snap). FGT.itemFade[id] =
+    -- { t0, from hex }, set by the GET_ITEM_INFO_RECEIVED redraw.
+    local finished = {}
+    local function Fade(text, now)
+        for id, f in pairs(FGT.itemFade) do
+            local p = math.max(0, math.min(1, (now - f[1]) / 0.5))
+            if p >= 1 then finished[id] = true end
+            local e = 1 - (1 - p) ^ 2
+            text = text:gsub("|cff(%x%x%x%x%x%x)(|Hitem:" .. id .. "|h)", function(hex, link)
+                local out = ""
+                for k = 1, 5, 2 do
+                    local a, b = tonumber(f[2]:sub(k, k + 1), 16), tonumber(hex:sub(k, k + 1), 16)
+                    out = out .. string.format("%02x", math.floor(a + (b - a) * e + 0.5))
+                end
+                return "|cff" .. out .. link
+            end)
+        end
+        return text
+    end
+
+    -- what a text actually shows: goal links in their scanning gold, item
+    -- links mid-fade. Used both when the text is set (so the very first
+    -- frame is already right: setting the plain text and painting it a tick
+    -- later flashed the final color, Karl) and by the ticker below.
+    local function Paint(base, center, now)
+        if type(base) ~= "string" then return base end
+        local out = base
+        if base:find("|Hfgtgoal:", 1, true) then out = Scan(out, center) end
+        if next(FGT.itemFade) and base:find("|Hitem:", 1, true) then out = Fade(out, now) end
+        return out
+    end
+
     function FGT.Shimmer(fs)
         local set, get = fs.SetText, fs.GetText
         fs.fgtSet = set
-        fs.SetText = function(self, t) self.fgtBase = t; self.fgtShown = t; set(self, t) end
+        fs.SetText = function(self, t)
+            self.fgtBase = t
+            local shown = Paint(t, Center(), GetTime())
+            self.fgtShown = shown
+            set(self, shown)
+        end
         fs.GetText = function(self)
             if self.fgtBase ~= nil then return self.fgtBase end
             return get(self)
@@ -1279,17 +1326,14 @@ do
         table.insert(list, fs)
     end
 
-    FGT.itemFade, FGT.linkPrevHex = {}, {} -- (see Fade below and FGT.LinkItemName)
     local ticker = CreateFrame("Frame")
     local acc = 0
     ticker:SetScript("OnUpdate", function(_, elapsed)
+        -- every frame while an item link is fading (smooth), else 20 a second
         acc = acc + elapsed
-        if acc < 0.05 then return end
+        if acc < 0.05 and not next(FGT.itemFade) then return end
         acc = 0
-        local on = FGT.Setting("celebrations") ~= "off"
-        -- eased ping-pong, a little past both ends; still in the middle
-        -- with Celebrations off
-        local center = on and (0.5 - 0.6 * math.cos(2 * math.pi * GetTime() / SCAN)) or 0.5
+        local center, now = Center(), GetTime()
         -- the open goal link card's title scans too (Karl)
         local L = FGT.linkCard
         if L and L:IsShown() and L.goal then
@@ -1313,46 +1357,21 @@ do
                 end
             end
         end
-        -- item links whose details just arrived ease from the color they
-        -- were drawn in to their real one (Karl: no snap). FGT.itemFade[id]
-        -- = { t0, from hex }, set by the GET_ITEM_INFO_RECEIVED redraw.
-        local fades, finished = FGT.itemFade, nil
-        local now = GetTime()
-        local function Fade(text)
-            for id, f in pairs(fades) do
-                local p = math.max(0, math.min(1, (now - f[1]) / 0.5))
-                if p >= 1 then finished = finished or {}; finished[id] = true end
-                local e = 1 - (1 - p) ^ 2
-                text = text:gsub("|cff(%x%x%x%x%x%x)(|Hitem:" .. id .. "|h)", function(hex, link)
-                    local out = ""
-                    for k = 1, 5, 2 do
-                        local a, b = tonumber(f[2]:sub(k, k + 1), 16), tonumber(hex:sub(k, k + 1), 16)
-                        out = out .. string.format("%02x", math.floor(a + (b - a) * e + 0.5))
-                    end
-                    return "|cff" .. out .. link
-                end)
-            end
-            return text
-        end
-        local fading = next(fades) ~= nil
         for _, fs in ipairs(list) do
             local base = fs.fgtBase
             -- never redraw under the cursor while it's on a link: a redraw
             -- rebuilds the link's hover area and the game thinks you left it
             -- (tooltip flicker). Hovering the rest of the text keeps shining.
             local onLink = FGT.overLink and fs:IsMouseOver()
-            local goal = type(base) == "string" and base:find("|Hfgtgoal:", 1, true)
-            local item = fading and type(base) == "string" and base:find("|Hitem:", 1, true)
-            if (goal or item) and not onLink and fs:IsVisible() then
-                local want = goal and Scan(base, center) or base
-                if item then want = Fade(want) end
+            if type(base) == "string" and not onLink and fs:IsVisible() then
+                local want = Paint(base, center, now)
                 if want ~= fs.fgtShown then
                     fs.fgtShown = want
                     fs.fgtSet(fs, want)
                 end
             end
         end
-        for id in pairs(finished or FGT.EMPTY) do fades[id] = nil end
+        for id in pairs(finished) do FGT.itemFade[id] = nil; finished[id] = nil end
     end)
 end
 
