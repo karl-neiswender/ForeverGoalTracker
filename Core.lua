@@ -8570,6 +8570,8 @@ function FGT.TakeShots()
         -- let tabs, fades and the wizard settle, then shoot
         C_Timer.After(i == 1 and 3 or 2.2, function()
             if not main:IsShown() then Finish(true) return end
+            -- no stray tooltip (the mouse resting on a character in the world)
+            GameTooltip:Hide()
             pcall(Screenshot)
             C_Timer.After(1.2, function() Step(i + 1) end)
         end)

@@ -46,8 +46,19 @@ out_dir = os.path.join(here, "..", "Screenshots")
 os.makedirs(out_dir, exist_ok=True)
 for src, name in zip(burst, names):
     img = Image.open(src).convert("RGB")
-    # everything brighter than the black backdrop is the window
-    box = img.convert("L").point(lambda v: 255 if v > 12 else 0).getbbox()
+    # The window is the big bright block on the black backdrop: keep the
+    # columns and rows where a good share of pixels are lit, so small
+    # things outside it (the beta's Issue Reporter button, a tooltip from
+    # the mouse resting on a character) don't widen the crop.
+    mask = img.convert("L").point(lambda v: 255 if v > 12 else 0)
+    cols = list(mask.resize((mask.width, 1), Image.BOX).getdata())
+    rows = list(mask.resize((1, mask.height), Image.BOX).getdata())
+    def span(vals):
+        cut = max(vals) * 0.4
+        lit = [i for i, v in enumerate(vals) if v >= cut]
+        return (lit[0], lit[-1] + 1) if lit else None
+    cx, cy = span(cols), span(rows)
+    box = (cx[0], cy[0], cx[1], cy[1]) if cx and cy else None
     if not box:
         print("  %s: all black, skipped" % os.path.basename(src))
         continue
