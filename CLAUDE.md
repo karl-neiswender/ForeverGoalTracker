@@ -327,3 +327,5 @@ Player-chosen style options in Settings. Karl's ideas: how Forever goals look (a
 - Karl is a designer (web and digital design director). Give clear, brief explanations and skip coding jargon where possible.
 - Never use em dashes in responses or in written copy.
 - He tests in game and sends screenshots. Fix exactly what the screenshot shows, then say what to check.
+
+- Final artwork workflow (Karl / Codex, 2026-10-08): Karl approved the monochrome Blackwing Lair preview and requested a separate final-images folder. Approved 1200x800 master saved as `Media/final-images/blackwing-lair.jpg`; source options remain in `Media/artwork`, and Karl is still collecting them. Both full source/options folder and final JPEG masters are excluded by `.pkgmeta`; only game-ready selected textures elsewhere in Media ship. Do not automatically process/map the remaining options. Existing in-game Blackwing Lair texture has not changed. Target: stronger monochrome contrast, subject higher and right of center. AI edit used one generation (about 28s), changed some painted details; local processing would preserve artwork more faithfully for later batches.
