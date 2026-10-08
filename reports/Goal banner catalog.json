@@ -1,0 +1,1031 @@
+[
+  {
+    "id": "ashbringer",
+    "name": "Corrupted Ashbringer",
+    "category": "Epic Weapon",
+    "note": "This is the raid-dropped sword itself. The 'purified' legendary upgrade needs content beyond the original 1-60 game, so under classic rules this goal is really about the Corrupted Ashbringer drop.",
+    "parts": []
+  },
+  {
+    "id": "frostsaber",
+    "name": "Winterspring Frostsaber",
+    "category": "Mount",
+    "note": "Alliance-only mount, ~900g at Exalted. Non-Night Elves also need Darnassus Exalted to learn Tiger Riding.",
+    "parts": []
+  },
+  {
+    "id": "atiesh",
+    "name": "Atiesh, Greatstaff of the Guardian",
+    "category": "Legendary Weapon",
+    "note": "Only for Druid, Mage, Priest, or Warlock. Requires access to Naxxramas, Ahn'Qiraj 40, and Stratholme.",
+    "parts": []
+  },
+  {
+    "id": "rhokdelar",
+    "name": "Rhok'delar, Longbow of the Ancient Keepers",
+    "category": "Epic Weapon",
+    "note": "Hunter-only epic bow. It's built from the Ancient Rune Etched Stave you earn in the Lok'delar chain, so do that goal first. Since patch 1.8 one Hunter ends up with both weapons.",
+    "parts": []
+  },
+  {
+    "id": "lokdelar",
+    "name": "Lok'delar, Stave of the Ancient Keepers",
+    "category": "Epic Weapon",
+    "note": "Hunter-only epic staff, the first half of the Ancient Keepers chain. The same turn-in also gives the Ancient Rune Etched Stave used to make Rhok'delar.",
+    "parts": []
+  },
+  {
+    "id": "thunderfury",
+    "name": "Thunderfury, Blessed Blade of the Windseeker",
+    "category": "Legendary Weapon",
+    "note": "The classic legendary. Both bindings are roughly a 3% drop each, so this is usually a long farm even with consistent weekly clears.",
+    "parts": []
+  },
+  {
+    "id": "tier3",
+    "name": "Tier 3 Set Appearances",
+    "category": "Item Set",
+    "note": "The Naxxramas sets. Bosses drop Desecrated tokens, and your class's quartermaster at Light's Hope Chapel (Eastern Plaguelands) turns each token, Wartorn scraps and crafting materials into a piece. Pick the classes you want in the Library, then click a piece to see its materials.",
+    "parts": [
+      {
+        "name": "Warrior - Dreadnaught's Battlegear",
+        "forever": null
+      },
+      {
+        "name": "Paladin - Redemption Armor",
+        "forever": null
+      },
+      {
+        "name": "Hunter - Cryptstalker Armor",
+        "forever": null
+      },
+      {
+        "name": "Rogue - Bonescythe Armor",
+        "forever": null
+      },
+      {
+        "name": "Priest - Vestments of Faith",
+        "forever": null
+      },
+      {
+        "name": "Druid - Dreamwalker Raiment",
+        "forever": null
+      },
+      {
+        "name": "Mage - Frostfire Regalia",
+        "forever": null
+      },
+      {
+        "name": "Warlock - Plagueheart Raiment",
+        "forever": null
+      },
+      {
+        "name": "Shaman - The Earthshatterer",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "benediction",
+    "name": "Benediction / Anathema",
+    "category": "Epic Weapon",
+    "note": "Priest-only. One staff with two forms: Benediction (Holy) and Anathema (Shadow).",
+    "parts": []
+  },
+  {
+    "id": "epicmounts",
+    "name": "Epic Racial Mounts",
+    "category": "Mount Collection",
+    "note": "The epic mount of each race in your faction: a level 60, swift riding trained, and gold. Any race can buy one at Exalted with its home city. Pick the mounts you want.",
+    "parts": [
+      {
+        "name": "Human - Swift Steed",
+        "forever": null
+      },
+      {
+        "name": "Dwarf - Swift Ram",
+        "forever": null
+      },
+      {
+        "name": "Night Elf - Swift Saber",
+        "forever": null
+      },
+      {
+        "name": "Gnome - Swift Mechanostrider",
+        "forever": null
+      },
+      {
+        "name": "Orc - Swift Timber Wolf",
+        "forever": null
+      },
+      {
+        "name": "Tauren - Great Kodo",
+        "forever": null
+      },
+      {
+        "name": "Undead - Skeletal Warhorse",
+        "forever": null
+      },
+      {
+        "name": "Troll - Swift Raptor",
+        "forever": null
+      },
+      {
+        "name": "Skyborne - Swift Galestrider",
+        "forever": "new"
+      }
+    ]
+  },
+  {
+    "id": "sulfuras",
+    "name": "Sulfuras, Hand of Ragnaros",
+    "category": "Legendary Weapon",
+    "note": "Two-handed legendary mace. You need the Eye of Sulfuras from Ragnaros and a Sulfuron Hammer crafted by a 300 Blacksmith (you or someone you trust). Combining them is instant, with no quest turn-in.",
+    "parts": []
+  },
+  {
+    "id": "allclasses",
+    "name": "Level Classes to 60",
+    "category": "Milestone",
+    "forever": "confirmed",
+    "note": "Tracked automatically. Every character you log into is remembered, and each class shows its highest character's level, filling as you earn XP. A class completes when any character of it hits 60. Characters you haven't logged into since installing show as not seen yet.",
+    "parts": [
+      {
+        "name": "Warrior",
+        "class": "WARRIOR"
+      },
+      {
+        "name": "Paladin",
+        "class": "PALADIN"
+      },
+      {
+        "name": "Hunter",
+        "class": "HUNTER"
+      },
+      {
+        "name": "Rogue",
+        "class": "ROGUE"
+      },
+      {
+        "name": "Priest",
+        "class": "PRIEST"
+      },
+      {
+        "name": "Shaman",
+        "class": "SHAMAN"
+      },
+      {
+        "name": "Mage",
+        "class": "MAGE"
+      },
+      {
+        "name": "Warlock",
+        "class": "WARLOCK"
+      },
+      {
+        "name": "Druid",
+        "class": "DRUID"
+      }
+    ]
+  },
+  {
+    "id": "rep_timbermaw",
+    "name": "Exalted: Timbermaw Hold",
+    "category": "Reputation",
+    "note": "The furbolgs of Felwood and Winterspring. Rewards include safe passage through the Timbermaw tunnels and leatherworking patterns.",
+    "parts": []
+  },
+  {
+    "id": "rep_thorium",
+    "name": "Exalted: Thorium Brotherhood",
+    "category": "Reputation",
+    "note": "Lokhtos Darkbargainer's epic crafting recipes unlock as you climb, including fire resistance gear.",
+    "parts": []
+  },
+  {
+    "id": "rep_argentdawn",
+    "name": "Exalted: Argent Dawn",
+    "category": "Reputation",
+    "note": "Honored opens the Naxxramas attunement; Exalted unlocks the best Argent Dawn shoulder enchants.",
+    "parts": []
+  },
+  {
+    "id": "rep_cenarion",
+    "name": "Exalted: Cenarion Circle",
+    "category": "Reputation",
+    "note": "The druids of Silithus. Ruins of Ahn'Qiraj kills and Twilight cultist turn-ins carry most of the grind.",
+    "parts": []
+  },
+  {
+    "id": "rep_zandalar",
+    "name": "Exalted: Zandalar Tribe",
+    "category": "Reputation",
+    "note": "Earned in Zul'Gurub. Unlocks the class-specific Zandalar armor sets and head/leg enchants.",
+    "parts": []
+  },
+  {
+    "id": "rep_hydraxian",
+    "name": "Exalted: Hydraxian Waterlords",
+    "category": "Reputation",
+    "note": "Needed to douse Molten Core's runes without Aqual Quintessence; Revered gives the Eternal Quintessence.",
+    "parts": []
+  },
+  {
+    "id": "rep_nozdormu",
+    "name": "Exalted: Brood of Nozdormu",
+    "category": "Reputation",
+    "note": "Starts at Hated. The rings from Anachronos upgrade as you climb, and the grind is famously long.",
+    "parts": []
+  },
+  {
+    "id": "rep_ambassador_ally",
+    "name": "Ambassador: Alliance Capitals",
+    "category": "Reputation",
+    "faction": "Alliance",
+    "note": "Exalted with all four Alliance capitals. Your own race's city is the easy one; the rest take turn-ins.",
+    "parts": []
+  },
+  {
+    "id": "rep_ambassador_horde",
+    "name": "Ambassador: Horde Capitals",
+    "category": "Reputation",
+    "faction": "Horde",
+    "note": "Exalted with all four Horde capitals. Your own race's city is the easy one; the rest take turn-ins.",
+    "parts": []
+  },
+  {
+    "id": "mount_deathcharger",
+    "name": "Deathcharger's Reins",
+    "category": "Mount",
+    "note": "Baron Rivendare's own steed. A tiny drop chance in the undead side of Stratholme.",
+    "parts": []
+  },
+  {
+    "id": "mount_raptor",
+    "name": "Swift Razzashi Raptor",
+    "category": "Mount",
+    "note": "Rare drop from Bloodlord Mandokir in Zul'Gurub.",
+    "parts": []
+  },
+  {
+    "id": "mount_tiger",
+    "name": "Swift Zulian Tiger",
+    "category": "Mount",
+    "note": "Rare drop from High Priest Thekal in Zul'Gurub.",
+    "parts": []
+  },
+  {
+    "id": "mount_qiraji",
+    "name": "Black Qiraji Resonating Crystal",
+    "category": "Mount",
+    "note": "The black battle tank, originally awarded only to Scarab Lords who rang the gong at the opening of Ahn'Qiraj. Whether Forever offers it again depends on how its gate event runs.",
+    "parts": []
+  },
+  {
+    "id": "mount_dreadsteed",
+    "name": "Dreadsteed (Warlock Epic Mount)",
+    "category": "Mount",
+    "note": "The Warlock's epic mount, earned through a level 60 quest chain that ends with a summoning ritual in Dire Maul. Quest IDs checked on Wowhead.",
+    "parts": []
+  },
+  {
+    "id": "mount_charger",
+    "name": "Charger (Paladin Epic Mount)",
+    "category": "Mount",
+    "note": "The Paladin's epic mount, earned through Lord Grayson Shadowbreaker's level 60 quest chain that ends in Scholomance. Quest IDs checked on Wowhead.",
+    "parts": []
+  },
+  {
+    "id": "quelserrar",
+    "name": "Quel'Serrar",
+    "category": "Epic Weapon",
+    "note": "Tanking sword (Warrior and Paladin) forged in Onyxia's breath.",
+    "parts": []
+  },
+  {
+    "id": "raid_mc",
+    "name": "Clear Molten Core",
+    "category": "Raid",
+    "note": "Boss kills tick off automatically when you're in the raid with the addon loaded.",
+    "parts": []
+  },
+  {
+    "id": "raid_ony",
+    "name": "Slay Onyxia",
+    "category": "Raid",
+    "note": "Needs the Drakefire Amulet from the faction-specific attunement chain.",
+    "parts": []
+  },
+  {
+    "id": "raid_bwl",
+    "name": "Clear Blackwing Lair",
+    "category": "Raid",
+    "note": "Boss kills tick off automatically when you're in the raid with the addon loaded.",
+    "parts": []
+  },
+  {
+    "id": "raid_zg",
+    "name": "Clear Zul'Gurub",
+    "category": "Raid",
+    "note": "The 20-player troll raid. Gahz'ranka and the Edge of Madness boss are optional.",
+    "parts": []
+  },
+  {
+    "id": "raid_aq20",
+    "name": "Clear Ruins of Ahn'Qiraj",
+    "category": "Raid",
+    "note": "The 20-player AQ raid in Silithus. Kills here also build Cenarion Circle reputation.",
+    "parts": []
+  },
+  {
+    "id": "raid_aq40",
+    "name": "Clear Temple of Ahn'Qiraj",
+    "category": "Raid",
+    "note": "The 40-player AQ raid. The Bug Trio, Viscidus and Ouro are optional for reaching C'Thun.",
+    "parts": []
+  },
+  {
+    "id": "raid_naxx",
+    "name": "Clear Naxxramas",
+    "category": "Raid",
+    "note": "The hardest raid in the game: all four wings, Sapphiron and Kel'Thuzad.",
+    "parts": []
+  },
+  {
+    "id": "raid_hyjal",
+    "name": "Clear Hyjal Summit",
+    "category": "Raid",
+    "forever": "new",
+    "note": "A new 20-player raid in Mount Hyjal, opening December 9, 2026. More bosses join this guide as they're revealed.",
+    "parts": []
+  },
+  {
+    "id": "raid_barrow",
+    "name": "Clear the Barrow Deeps",
+    "category": "Raid",
+    "forever": "new",
+    "note": "A new 10-player raid where the Night Elves hold dangerous prisoners, with three entrances, one in Mount Hyjal. Opens December 9, 2026.",
+    "parts": []
+  },
+  {
+    "id": "att_mc",
+    "name": "Attunement: Molten Core",
+    "category": "Attunement",
+    "note": "Required to enter Molten Core. A short trip into Blackrock Depths to the raid's entry portal.",
+    "parts": []
+  },
+  {
+    "id": "att_ony_ally",
+    "name": "Attunement: Onyxia's Lair (Alliance)",
+    "category": "Attunement",
+    "faction": "Alliance",
+    "note": "The Alliance chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire and Blackrock Depths and ends with a masquerade in Stormwind.",
+    "parts": []
+  },
+  {
+    "id": "att_ony_horde",
+    "name": "Attunement: Onyxia's Lair (Horde)",
+    "category": "Attunement",
+    "faction": "Horde",
+    "note": "The Horde chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire, the Test of Skulls and Upper Blackrock Spire.",
+    "parts": []
+  },
+  {
+    "id": "att_bwl",
+    "name": "Attunement: Blackwing Lair",
+    "category": "Attunement",
+    "note": "Without the Mark of Drakkisath you can't use the orb into Blackwing Lair. The whole quest happens in Blackrock Spire.",
+    "parts": []
+  },
+  {
+    "id": "att_naxx",
+    "name": "Attunement: Naxxramas",
+    "category": "Attunement",
+    "note": "Taken at Light's Hope Chapel in the Eastern Plaguelands once you're Honored with the Argent Dawn.",
+    "parts": []
+  },
+  {
+    "id": "key_ubrs",
+    "name": "Key: Seal of Ascension (Upper Blackrock Spire)",
+    "category": "Attunement",
+    "note": "The Seal of Ascension opens Upper Blackrock Spire. You build it from gems collected in Lower Blackrock Spire.",
+    "parts": []
+  },
+  {
+    "id": "key_scholo",
+    "name": "Key: Skeleton Key (Scholomance)",
+    "category": "Attunement",
+    "note": "The Skeleton Key opens Scholomance's front door.",
+    "parts": []
+  },
+  {
+    "id": "key_brd",
+    "name": "Key: Shadowforge Key (Blackrock Depths)",
+    "category": "Attunement",
+    "note": "Opens the Shadowforge doors inside Blackrock Depths.",
+    "parts": []
+  },
+  {
+    "id": "key_strat",
+    "name": "Key: Key to the City (Stratholme)",
+    "category": "Attunement",
+    "note": "Opens the locked gates in Stratholme.",
+    "parts": []
+  },
+  {
+    "id": "key_dm",
+    "name": "Key: Crescent Key (Dire Maul)",
+    "category": "Attunement",
+    "note": "Opens the locked doors in Dire Maul's West and North wings.",
+    "parts": []
+  },
+  {
+    "id": "prof_secondary",
+    "name": "Max Secondary Skills",
+    "category": "Profession",
+    "note": "Fishing, Cooking and First Aid to 300 on any character. Pick the ones you want in the Library; each ticks itself from your skill levels.",
+    "parts": [
+      {
+        "name": "Fishing 300.",
+        "class": null
+      },
+      {
+        "name": "Cooking 300.",
+        "class": null
+      },
+      {
+        "name": "First Aid 300.",
+        "class": null
+      }
+    ]
+  },
+  {
+    "id": "prof_all",
+    "name": "Max Primary Professions",
+    "category": "Profession",
+    "note": "Primary professions at 300 somewhere on your roster. Pick the ones you care about in the Library; each ticks itself from your skill levels.",
+    "parts": [
+      {
+        "name": "Alchemy 300.",
+        "class": null
+      },
+      {
+        "name": "Blacksmithing 300.",
+        "class": null
+      },
+      {
+        "name": "Enchanting 300.",
+        "class": null
+      },
+      {
+        "name": "Engineering 300.",
+        "class": null
+      },
+      {
+        "name": "Herbalism 300.",
+        "class": null
+      },
+      {
+        "name": "Leatherworking 300.",
+        "class": null
+      },
+      {
+        "name": "Mining 300.",
+        "class": null
+      },
+      {
+        "name": "Skinning 300.",
+        "class": null
+      },
+      {
+        "name": "Tailoring 300.",
+        "class": null
+      }
+    ]
+  },
+  {
+    "id": "gold_5k",
+    "name": "Save 5,000 Gold",
+    "category": "Milestone",
+    "forever": "confirmed",
+    "note": "Hold your gold target on a single character, with milestones on the way. Ticks itself from your gold.",
+    "parts": []
+  },
+  {
+    "id": "social_guild",
+    "name": "Join a Guild",
+    "category": "Social",
+    "forever": "confirmed",
+    "note": "Find your people: join a guild and wear its colors. Ticks itself.",
+    "parts": []
+  },
+  {
+    "id": "social_friends",
+    "name": "Make Friends",
+    "category": "Social",
+    "forever": "confirmed",
+    "note": "Add the people you enjoy playing with to your friends list. Ticks itself.",
+    "parts": []
+  },
+  {
+    "id": "set_tier1",
+    "name": "Tier 1 Set Appearances",
+    "category": "Item Set",
+    "note": "The Molten Core sets. Most pieces drop from Molten Core bosses; belts and bracers come from Molten Core trash. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Warrior - Battlegear of Might",
+        "forever": null
+      },
+      {
+        "name": "Paladin - Lawbringer Armor",
+        "forever": null
+      },
+      {
+        "name": "Hunter - Giantstalker Armor",
+        "forever": null
+      },
+      {
+        "name": "Rogue - Nightslayer Armor",
+        "forever": null
+      },
+      {
+        "name": "Priest - Vestments of Prophecy",
+        "forever": null
+      },
+      {
+        "name": "Shaman - The Earthfury",
+        "forever": null
+      },
+      {
+        "name": "Mage - Arcanist Regalia",
+        "forever": null
+      },
+      {
+        "name": "Warlock - Felheart Raiment",
+        "forever": null
+      },
+      {
+        "name": "Druid - Cenarion Raiment",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "set_tier2",
+    "name": "Tier 2 Set Appearances",
+    "category": "Item Set",
+    "note": "Helms come from Onyxia, legs from Ragnaros, and the rest from Blackwing Lair. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Warrior - Battlegear of Wrath",
+        "forever": null
+      },
+      {
+        "name": "Paladin - Judgement Armor",
+        "forever": null
+      },
+      {
+        "name": "Hunter - Dragonstalker Armor",
+        "forever": null
+      },
+      {
+        "name": "Rogue - Bloodfang Armor",
+        "forever": null
+      },
+      {
+        "name": "Priest - Vestments of Transcendence",
+        "forever": null
+      },
+      {
+        "name": "Shaman - The Ten Storms",
+        "forever": null
+      },
+      {
+        "name": "Mage - Netherwind Regalia",
+        "forever": null
+      },
+      {
+        "name": "Warlock - Nemesis Raiment",
+        "forever": null
+      },
+      {
+        "name": "Druid - Stormrage Raiment",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "set_dungeon1",
+    "name": "Dungeon Set 1 (Tier 0)",
+    "category": "Item Set",
+    "note": "The blue level-60 dungeon sets from Scholomance, Stratholme and Blackrock Spire. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Warrior - Battlegear of Valor",
+        "forever": null
+      },
+      {
+        "name": "Paladin - Lightforge Armor",
+        "forever": null
+      },
+      {
+        "name": "Hunter - Beaststalker Armor",
+        "forever": null
+      },
+      {
+        "name": "Rogue - Shadowcraft Armor",
+        "forever": null
+      },
+      {
+        "name": "Priest - Vestments of the Devout",
+        "forever": null
+      },
+      {
+        "name": "Shaman - The Elements",
+        "forever": null
+      },
+      {
+        "name": "Mage - Magister's Regalia",
+        "forever": null
+      },
+      {
+        "name": "Warlock - Dreadmist Raiment",
+        "forever": null
+      },
+      {
+        "name": "Druid - Wildheart Raiment",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "set_dungeon2",
+    "name": "Dungeon Set 2 (Tier 0.5)",
+    "category": "Item Set",
+    "note": "The upgraded dungeon sets. Every piece comes from a long quest chain that trades in your Dungeon Set 1 pieces plus materials and gold. The chain starts with 'An Earnest Proposition' from Deliana in Ironforge (Alliance) or Mokvar in Orgrimmar (Horde). Pick the classes you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Warrior - Battlegear of Heroism",
+        "forever": null
+      },
+      {
+        "name": "Paladin - Soulforge Armor",
+        "forever": null
+      },
+      {
+        "name": "Hunter - Beastmaster Armor",
+        "forever": null
+      },
+      {
+        "name": "Rogue - Darkmantle Armor",
+        "forever": null
+      },
+      {
+        "name": "Priest - Vestments of the Virtuous",
+        "forever": null
+      },
+      {
+        "name": "Shaman - The Five Thunders",
+        "forever": null
+      },
+      {
+        "name": "Mage - Sorcerer's Regalia",
+        "forever": null
+      },
+      {
+        "name": "Warlock - Deathmist Raiment",
+        "forever": null
+      },
+      {
+        "name": "Druid - Feralheart Raiment",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "set_viper",
+    "name": "Embrace of the Viper",
+    "category": "Item Set",
+    "forever": "updated",
+    "note": "A five-piece leather set from Wailing Caverns.",
+    "parts": []
+  },
+  {
+    "id": "set_forever_raid",
+    "name": "Forever Raid Set Appearances",
+    "category": "Item Set",
+    "forever": "new",
+    "note": "The new class sets from WoW Forever's first new raids, Hyjal Summit and the Barrow Deeps, which open December 9, 2026. Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Warrior - Battlegear of Glory",
+        "forever": null
+      },
+      {
+        "name": "Paladin - Justice Armor",
+        "forever": null
+      },
+      {
+        "name": "Hunter - Wildstalker Armor",
+        "forever": null
+      },
+      {
+        "name": "Rogue - Grimstitch Armor",
+        "forever": null
+      },
+      {
+        "name": "Priest - Vestments of Conviction",
+        "forever": null
+      },
+      {
+        "name": "Shaman - The Spiritcaller",
+        "forever": null
+      },
+      {
+        "name": "Mage - Manaflare Regalia",
+        "forever": null
+      },
+      {
+        "name": "Warlock - Demonheart Raiment",
+        "forever": null
+      },
+      {
+        "name": "Druid - Grovekeeper Raiment",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "pvp_set_plate_ally",
+    "name": "Field Marshal's Plate Sets",
+    "category": "PvP",
+    "faction": "Alliance",
+    "forever": "listed",
+    "needs": "forever",
+    "note": "The Alliance PvP plate sets for Warriors and Paladins. Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Warrior - Field Marshal's Battlegear",
+        "forever": null
+      },
+      {
+        "name": "Paladin - Field Marshal's Aegis",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "pvp_set_mail_ally",
+    "name": "Field Marshal's Mail Sets",
+    "category": "PvP",
+    "faction": "Alliance",
+    "forever": "listed",
+    "needs": "forever",
+    "note": "The Alliance PvP mail sets for Hunters and Shamans. Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Hunter - Field Marshal's Pursuit",
+        "forever": null
+      },
+      {
+        "name": "Shaman - Field Marshal's Earthshaker",
+        "forever": "new"
+      }
+    ]
+  },
+  {
+    "id": "pvp_set_leather_ally",
+    "name": "Field Marshal's Leather Sets",
+    "category": "PvP",
+    "faction": "Alliance",
+    "forever": "listed",
+    "needs": "forever",
+    "note": "The Alliance PvP leather sets for Rogues and Druids. Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Rogue - Field Marshal's Vestments",
+        "forever": null
+      },
+      {
+        "name": "Druid - Field Marshal's Sanctuary",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "pvp_set_cloth_ally",
+    "name": "Field Marshal's Cloth Sets",
+    "category": "PvP",
+    "faction": "Alliance",
+    "forever": "listed",
+    "needs": "forever",
+    "note": "The Alliance PvP cloth sets for Priests, Mages and Warlocks. Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Priest - Field Marshal's Raiment",
+        "forever": null
+      },
+      {
+        "name": "Mage - Field Marshal's Regalia",
+        "forever": null
+      },
+      {
+        "name": "Warlock - Field Marshal's Threads",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "pvp_set_plate_horde",
+    "name": "Warlord's Plate Sets",
+    "category": "PvP",
+    "faction": "Horde",
+    "forever": "listed",
+    "needs": "forever",
+    "note": "The Horde PvP plate sets for Warriors and Paladins. Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Warrior - Warlord's Battlegear",
+        "forever": null
+      },
+      {
+        "name": "Paladin - Warlord's Aegis",
+        "forever": "new"
+      }
+    ]
+  },
+  {
+    "id": "pvp_set_mail_horde",
+    "name": "Warlord's Mail Sets",
+    "category": "PvP",
+    "faction": "Horde",
+    "forever": "listed",
+    "needs": "forever",
+    "note": "The Horde PvP mail sets for Hunters and Shamans. Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Hunter - Warlord's Pursuit",
+        "forever": null
+      },
+      {
+        "name": "Shaman - Warlord's Earthshaker",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "pvp_set_leather_horde",
+    "name": "Warlord's Leather Sets",
+    "category": "PvP",
+    "faction": "Horde",
+    "forever": "listed",
+    "needs": "forever",
+    "note": "The Horde PvP leather sets for Rogues and Druids. Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Rogue - Warlord's Vestments",
+        "forever": null
+      },
+      {
+        "name": "Druid - Warlord's Sanctuary",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "pvp_set_cloth_horde",
+    "name": "Warlord's Cloth Sets",
+    "category": "PvP",
+    "faction": "Horde",
+    "forever": "listed",
+    "needs": "forever",
+    "note": "The Horde PvP cloth sets for Priests, Mages and Warlocks. Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
+    "parts": [
+      {
+        "name": "Priest - Warlord's Raiment",
+        "forever": null
+      },
+      {
+        "name": "Mage - Warlord's Regalia",
+        "forever": null
+      },
+      {
+        "name": "Warlock - Warlord's Threads",
+        "forever": null
+      }
+    ]
+  },
+  {
+    "id": "pvp_rank14_ally",
+    "name": "Grand Marshal",
+    "category": "PvP",
+    "faction": "Alliance",
+    "note": "The top PvP rank and its rank 14 weapons. Rank steps tick themselves from your current or highest-ever rank.",
+    "parts": []
+  },
+  {
+    "id": "pvp_mount_ally",
+    "name": "Alliance War Mount (Rank 11)",
+    "category": "PvP",
+    "faction": "Alliance",
+    "note": "The epic PvP mount, sold to Commanders and above: Black War Steed, Black War Tiger, Black War Ram, Black Battlestrider.",
+    "parts": []
+  },
+  {
+    "id": "pvp_avmount_ally",
+    "name": "Stormpike Battle Charger",
+    "category": "PvP",
+    "faction": "Alliance",
+    "note": "Alterac Valley's exalted mount for the Stormpike Guard.",
+    "parts": []
+  },
+  {
+    "id": "pvp_wsg_ally",
+    "name": "Exalted: Silverwing Sentinels",
+    "category": "PvP",
+    "faction": "Alliance",
+    "note": "The Alliance Warsong Gulch battleground faction. Exalted unlocks its best rewards.",
+    "parts": []
+  },
+  {
+    "id": "pvp_ab_ally",
+    "name": "Exalted: League of Arathor",
+    "category": "PvP",
+    "faction": "Alliance",
+    "note": "The Alliance Arathi Basin battleground faction. Exalted unlocks its best rewards.",
+    "parts": []
+  },
+  {
+    "id": "pvp_av_ally",
+    "name": "Exalted: Stormpike Guard",
+    "category": "PvP",
+    "faction": "Alliance",
+    "note": "The Alliance Alterac Valley battleground faction. Exalted unlocks its best rewards.",
+    "parts": []
+  },
+  {
+    "id": "pvp_rank14_horde",
+    "name": "High Warlord",
+    "category": "PvP",
+    "faction": "Horde",
+    "note": "The top PvP rank and its rank 14 weapons. Rank steps tick themselves from your current or highest-ever rank.",
+    "parts": []
+  },
+  {
+    "id": "pvp_mount_horde",
+    "name": "Horde War Mount (Rank 11)",
+    "category": "PvP",
+    "faction": "Horde",
+    "note": "The epic PvP mount, sold to Lieutenant Generals and above: Black War Wolf, Black War Raptor, Black War Kodo, Red Skeletal Warhorse.",
+    "parts": []
+  },
+  {
+    "id": "pvp_avmount_horde",
+    "name": "Frostwolf Howler",
+    "category": "PvP",
+    "faction": "Horde",
+    "note": "Alterac Valley's exalted mount for the Frostwolf Clan.",
+    "parts": []
+  },
+  {
+    "id": "pvp_wsg_horde",
+    "name": "Exalted: Warsong Outriders",
+    "category": "PvP",
+    "faction": "Horde",
+    "note": "The Horde Warsong Gulch battleground faction. Exalted unlocks its best rewards.",
+    "parts": []
+  },
+  {
+    "id": "pvp_ab_horde",
+    "name": "Exalted: The Defilers",
+    "category": "PvP",
+    "faction": "Horde",
+    "note": "The Horde Arathi Basin battleground faction. Exalted unlocks its best rewards.",
+    "parts": []
+  },
+  {
+    "id": "pvp_av_horde",
+    "name": "Exalted: Frostwolf Clan",
+    "category": "PvP",
+    "faction": "Horde",
+    "note": "The Horde Alterac Valley battleground faction. Exalted unlocks its best rewards.",
+    "parts": []
+  },
+  {
+    "id": "pvp_hk",
+    "name": "Honorable Kills",
+    "category": "PvP",
+    "note": "Lifetime honorable kills on a single character. Ticks itself from your PvP stats.",
+    "parts": []
+  },
+  {
+    "id": "pvp_duelist",
+    "name": "Duelist",
+    "category": "PvP",
+    "forever": "confirmed",
+    "needs": "stats",
+    "note": "Prove yourself one duel at a time. Ticks itself from your Statistics window.",
+    "parts": []
+  }
+]
