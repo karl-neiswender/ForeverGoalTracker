@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added Thunderfury, Rhok’delar, Onyxia, Blackwing Lair, Dreadsteed and Charger banner artwork.
+
 - Added matching banner artwork for Benediction/Anathema, Quel’Serrar, Molten Core and Naxxramas goals, Tier 1 and Tier 3 sets.
 
 - Banner artwork uses native desaturation and compressed 512px textures with smaller mip levels; originals preserved.

@@ -167,9 +167,9 @@ def main():
               "- Blackrock vista: BWL attunement or UBRS/BRD keys if it really depicts the location. The currently named Blackrock trailer image actually depicts a fire boss, so don't assume every file named Blackrock is a mountain vista.",
               "- WSG, AB and AV: one approved faction scene can cover that faction's battleground reputation goal and supplement its PvP banners. Keep each battleground identifiable.",
               "- One neutral tools shot can initially cover both profession goals. A forge alone is a Blacksmithing image, not a complete representation of all professions.", ""]
-    out.write_text('\n'.join(lines), encoding='utf-8')
+    out.write_text('\n'.join(lines), encoding='utf-8', newline='\n')
     with (ROOT / 'reports/Goal banner shot list.csv').open('w', newline='', encoding='utf-8-sig') as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader(); writer.writerows(rows)
     print(f"79 goals: {counts}; {len(by_class)} classes in armor matrix; saved Markdown and CSV.")
 

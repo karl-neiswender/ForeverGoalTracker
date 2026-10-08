@@ -50,8 +50,8 @@ for id in pairs(B.artPaths) do
     F.SelectGoal(id)
     assert(B.hasArt and B.sourceAspect == B.artAspects[id], id .. " uses supplied art with original proportions")
 end
-D.active.thunderfury = true
-F.SelectGoal("thunderfury")
+D.active.gold_5k = true
+F.SelectGoal("gold_5k")
 assert(not B.hasArt, "unmapped goal clears previous artwork")
 local hidden=0
 for _,t in ipairs({B.background,B.border,B.art,B.left,B.top,B.bottom}) do t.Hide=function() hidden=hidden+1 end end

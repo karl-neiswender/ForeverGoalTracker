@@ -2,7 +2,7 @@
 
 Prepared for Karl, October 8, 2026. Covers all 79 goals in the current Lua catalog.
 
-**11 assigned · 36 have an uploaded candidate · 32 still need a suitable image.**
+**17 assigned · 30 have an uploaded candidate · 32 still need a suitable image.**
 
 A candidate is selected by filename/theme, not yet visually approved or hooked up. Some recent filenames label tiers incorrectly; verify the actual armor. Existing banner assignments are preserved.
 
@@ -36,7 +36,7 @@ Winterspring Frostsaber should use an Alliance-themed mount shot. Dreadsteed sho
 | Goal | Status / existing file | Shot to find | Faction, class or race direction |
 |---|---|---|---|
 | Corrupted Ashbringer (`ashbringer`) | ASSIGNED — `ashbringer-banner.blp` | Corrupted Ashbringer sword close-up; optional Four Horsemen background | Corrupted version, not purified Ashbringer; weapon-only avoids class/race bias |
-| Rhok'delar, Longbow of the Ancient Keepers (`rhokdelar`) | CANDIDATE: visual verification needed — `Rhok'delar_full.jpg` | Rhok'delar bow in Felwood, clearly showing its distinctive limbs | Hunter only if a wielder is shown; either faction |
+| Rhok'delar, Longbow of the Ancient Keepers (`rhokdelar`) | ASSIGNED — `rhokdelar-banner.blp` | Rhok'delar bow in Felwood, clearly showing its distinctive limbs | Hunter only if a wielder is shown; either faction |
 | Lok'delar, Stave of the Ancient Keepers (`lokdelar`) | FIND | Lok'delar staff beside the Felwood ancient quest givers | Hunter only if a wielder is shown; do not substitute Rhok'delar bow |
 | Benediction / Anathema (`benediction`) | ASSIGNED — `benediction-banner.blp` | Benediction and Anathema staff pair, or existing Anathema alone | Priest only if a wielder is shown; both factions |
 | Quel'Serrar (`quelserrar`) | ASSIGNED — `quelserrar-banner.blp` | Quel'Serrar sword; existing approved Quel'Delar illustration can remain | Karl explicitly approved the substitute; actual Quel'Serrar reference would be an optional upgrade |
@@ -50,15 +50,15 @@ Winterspring Frostsaber should use an Alliance-themed mount shot. Dreadsteed sho
 | Swift Razzashi Raptor (`mount_raptor`) | CANDIDATE: visual verification needed — `Sunscale_Raptor_full.jpg` | Swift Razzashi Raptor in Zul'Gurub jungle | Exact raid mount, not a generic raptor; both factions |
 | Swift Zulian Tiger (`mount_tiger`) | FIND | Swift Zulian Tiger in Zul'Gurub jungle | Exact orange/black striped reward; both factions |
 | Black Qiraji Resonating Crystal (`mount_qiraji`) | FIND | Black Qiraji battle tank/silithid mount at the Scarab Wall | Exact black mount; not a colored AQ-only crystal mount |
-| Dreadsteed (Warlock Epic Mount) (`mount_dreadsteed`) | CANDIDATE: visual verification needed — `warlock-mount-dreadsteed.jpg` | Warlock epic Dreadsteed with fire hooves, in ritual/warlock setting | Warlock only if rider shown; either faction; Classic model preferred |
-| Charger (Paladin Epic Mount) (`mount_charger`) | CANDIDATE: visual verification needed — `paladin-mount-charger.jpg` | Paladin Charger in gold/holy armor, mounted or alone | Paladin only if rider shown; Classic Alliance look; Forever faction/class combinations must match client |
+| Dreadsteed (Warlock Epic Mount) (`mount_dreadsteed`) | ASSIGNED — `mount_dreadsteed-banner.blp` | Warlock epic Dreadsteed with fire hooves, in ritual/warlock setting | Warlock only if rider shown; either faction; Classic model preferred |
+| Charger (Paladin Epic Mount) (`mount_charger`) | ASSIGNED — `mount_charger-banner.blp` | Paladin Charger in gold/holy armor, mounted or alone | Paladin only if rider shown; Classic Alliance look; Forever faction/class combinations must match client |
 
 ### Legendary Weapon
 
 | Goal | Status / existing file | Shot to find | Faction, class or race direction |
 |---|---|---|---|
 | Atiesh, Greatstaff of the Guardian (`atiesh`) | ASSIGNED — `atiesh-banner.blp` | Atiesh staff, upright or diagonal, with Naxxramas atmosphere | Staff-only; if a wielder is shown, Druid/Mage/Priest/Warlock |
-| Thunderfury, Blessed Blade of the Windseeker (`thunderfury`) | CANDIDATE: visual verification needed — `thunderfury.png` | Thunderfury sword close-up, lightning silhouette on the right | Weapon-only preferred; either faction; verify any wielder's compatibility in the target client |
+| Thunderfury, Blessed Blade of the Windseeker (`thunderfury`) | ASSIGNED — `thunderfury-banner.blp` | Thunderfury sword close-up, lightning silhouette on the right | Weapon-only preferred; either faction; verify any wielder's compatibility in the target client |
 | Sulfuras, Hand of Ragnaros (`sulfuras`) | ASSIGNED — `sulfuras-banner.blp` | Sulfuras hammer close-up, embers or Molten Core behind it | Weapon-only preferred; both factions |
 
 ### Item Set
@@ -105,8 +105,8 @@ Winterspring Frostsaber should use an Alliance-themed mount shot. Dreadsteed sho
 | Goal | Status / existing file | Shot to find | Faction, class or race direction |
 |---|---|---|---|
 | Clear Molten Core (`raid_mc`) | ASSIGNED — `raid_mc-banner.blp` | Ragnaros in Molten Core | Raid encounter, both factions; already covered |
-| Slay Onyxia (`raid_ony`) | CANDIDATE: visual verification needed — `Onyxia_full.jpg` | Onyxia in her lair, wings/head on the right | Raid encounter, both factions; no faction-specific player needed |
-| Clear Blackwing Lair (`raid_bwl`) | CANDIDATE: visual verification needed — `blackwinglair.jpg` | Nefarian in Blackwing Lair, throne room or dragon silhouette | Both factions; Blackwing Lair, not Blackrock Caverns/Blackwing Descent |
+| Slay Onyxia (`raid_ony`) | ASSIGNED — `raid_ony-banner.blp` | Onyxia in her lair, wings/head on the right | Raid encounter, both factions; no faction-specific player needed |
+| Clear Blackwing Lair (`raid_bwl`) | ASSIGNED — `raid_bwl-banner.blp` | Nefarian in Blackwing Lair, throne room or dragon silhouette | Both factions; Blackwing Lair, not Blackrock Caverns/Blackwing Descent |
 | Clear Zul'Gurub (`raid_zg`) | FIND | Hakkar or recognizable Zul'Gurub temple vista | Both factions; original Zul'Gurub, not a later dungeon remake |
 | Clear Ruins of Ahn'Qiraj (`raid_aq20`) | FIND | Ossirian or Ruins of Ahn'Qiraj exterior/arena | Both factions; differentiate Ruins/AQ20 from Temple/AQ40 |
 | Clear Temple of Ahn'Qiraj (`raid_aq40`) | FIND | C'Thun or Twin Emperors inside Temple of Ahn'Qiraj | Both factions; differentiate Temple/AQ40 from Ruins/AQ20 |

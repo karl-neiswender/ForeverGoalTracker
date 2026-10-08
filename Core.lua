@@ -4177,6 +4177,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     ApplyVGradient(B.top, {0.02,0.017,0.012}, {0.02,0.017,0.012}, 0.65, 0)
     ApplyVGradient(B.bottom, {0.005,0.005,0.005}, {0.005,0.005,0.005}, 0, 1)
     B.artPaths = {
+        thunderfury = "thunderfury-banner.blp",
+        rhokdelar = "rhokdelar-banner.blp",
+        raid_ony = "raid_ony-banner.blp",
+        raid_bwl = "raid_bwl-banner.blp",
+        mount_dreadsteed = "mount_dreadsteed-banner.blp",
+        mount_charger = "mount_charger-banner.blp",
+
         quelserrar = "quelserrar-banner.blp",
         ashbringer = "ashbringer-banner.blp", atiesh = "atiesh-banner.blp", sulfuras = "sulfuras-banner.blp",
         benediction = "benediction-banner.blp",
@@ -4188,6 +4195,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         att_naxx = "att_naxx-banner.blp",
     }
     B.artAspects = {
+        thunderfury = 1.1314673452078032,
+        rhokdelar = 1.0,
+        raid_ony = 0.8650519031141869,
+        raid_bwl = 1.7777777777777777,
+        mount_dreadsteed = 0.7974481658692185,
+        mount_charger = 0.7501831501831502,
+
         quelserrar = 1.002257336343115,
         ashbringer = 1, atiesh = 1, sulfuras = 1024/958,
         benediction = 1.1123470522803114,

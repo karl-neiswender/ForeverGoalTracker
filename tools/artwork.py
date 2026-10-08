@@ -12,6 +12,14 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
+EXTRA_BANNERS = {
+    "thunderfury": "thunderfury.png",
+    "rhokdelar": "Rhok'delar_full.jpg",
+    "raid_ony": "Onyxia_full.jpg",
+    "raid_bwl": "blackwinglair.jpg",
+    "mount_dreadsteed": "warlock-mount-dreadsteed.jpg",
+    "mount_charger": "paladin-mount-charger.jpg",
+}
 
 
 def compress(source, target):
@@ -51,8 +59,23 @@ def compress(source, target):
             "mips": len(payloads), "equivalent_tga_bytes": 512*512*3+44}
 
 
+def build_selected():
+    """Build only the six approved additions, preserving other artwork work."""
+    manifest_path = ART / "prepared/manifest.json"
+    manifest = json.loads(manifest_path.read_text()) if manifest_path.exists() else {}
+    for goal, filename in EXTRA_BANNERS.items():
+        original = ART / filename
+        source = ART / (goal + "-banner-source" + original.suffix)
+        if not source.exists():
+            source.write_bytes(original.read_bytes())
+        manifest[goal + "-banner"] = compress(source, ROOT / "Media" / (goal + "-banner.blp"))
+        print(goal, manifest[goal + "-banner"]['aspect'])
+    manifest_path.write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8", newline="\n")
+
+
 def main():
-    manifest = {}
+    build_selected()
+    manifest = json.loads((ART / "prepared/manifest.json").read_text())
     # Tracked normalized originals also make the build reproducible on the Mac.
     sources = {p.stem[:-7]: p for p in ART.glob("*-source.jpg")
                if "-banner-source" not in p.stem}
@@ -83,7 +106,7 @@ def main():
     for goal, art in runtime.items():
         (ROOT / "Media" / (goal + "-banner.blp")).write_bytes(
             (ART / "prepared" / (art + ".blp")).read_bytes())
-    (ART / "prepared/manifest.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
+    (ART / "prepared/manifest.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8", newline="\n")
     print(f"Compressed {len(manifest)} textures; each 512px BLP with 10 mip levels.")
     old = sum(v["equivalent_tga_bytes"] for v in manifest.values())
     new = sum(v["bytes"] for v in manifest.values())
@@ -91,4 +114,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    if "--selected-only" in sys.argv:
+        build_selected()
+    else:
+        main()

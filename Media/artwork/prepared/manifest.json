@@ -96,5 +96,47 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "thunderfury-banner": {
+    "source": "thunderfury-banner-source.png",
+    "aspect": 1.1314673452078032,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rhokdelar-banner": {
+    "source": "rhokdelar-banner-source.jpg",
+    "aspect": 1.0,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_ony-banner": {
+    "source": "raid_ony-banner-source.jpg",
+    "aspect": 0.8650519031141869,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_bwl-banner": {
+    "source": "raid_bwl-banner-source.jpg",
+    "aspect": 1.7777777777777777,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mount_dreadsteed-banner": {
+    "source": "mount_dreadsteed-banner-source.jpg",
+    "aspect": 0.7974481658692185,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mount_charger-banner": {
+    "source": "mount_charger-banner-source.jpg",
+    "aspect": 0.7501831501831502,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }
