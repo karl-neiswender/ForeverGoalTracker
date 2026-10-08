@@ -1,0 +1,27 @@
+{
+  "method": "Built-in imagegen: three separate calls",
+  "prompt": "Edit the supplied artwork into a single landscape 3:2 goal-banner image, target 1200x800. Match the approved previous passes: neutral black and white, stronger contrast (around 20%) while retaining painted midtone details, readable shadows, and controlled fire highlights. Reframe the main subject so the face/main detail sits around 65% across and 35% down, right of center and above midpoint. Leave quieter, darker space on the left for addon text. Preserve the original character anatomy, face, pose, armor, weapons, environment and painted style as faithfully as possible; change framing and tonal treatment only. Retain defining details rather than cutting off the face or weapons. Preserve existing artist signatures unobtrusively. No new characters or objects, redesign, text, UI, borders, blur, or baked vignette. One finished image, not a comparison collage.",
+  "images": [
+    {
+      "id": "raid_mc",
+      "file": "Ragnaros_the_Firelord_full.jpg",
+      "subject": "Ragnaros, his face, massive shoulder armor and hammer",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/Ragnaros_the_Firelord_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-1704035a-a533-4627-8191-fa1bd2c61130.png"
+    },
+    {
+      "id": "att_mc",
+      "file": "blackrock-mountain.jpg",
+      "subject": "the existing fire creature and lava environment",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/blackrock-mountain.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-492b75fa-81ee-49f9-8435-26111b23c150.png"
+    },
+    {
+      "id": "set_tier1",
+      "file": "Majordomo_Executus_full.jpg",
+      "subject": "Majordomo Executus, especially his face and upper body",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/Majordomo_Executus_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-c3d8c2eb-9cdf-4a4e-a9e3-1f2b7085aacb.png"
+    }
+  ]
+}
