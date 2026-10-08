@@ -1777,6 +1777,8 @@ local function NewFadeLine(parent)
     local t = parent:CreateTexture(nil, "ARTWORK")
     t:SetTexture(SOLID)
     t:SetHeight(1)
+    -- (remembered like ApplyHGradient's, so the wizard can grey it)
+    t.fgtGdir, t.fgtG1, t.fgtG2, t.fgtGa1, t.fgtGa2 = "H", C.GOLD2, C.GOLD2, 1, 0
     local ok = CreateColor and pcall(t.SetGradient, t, "HORIZONTAL",
         CreateColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3], 1),
         CreateColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3], 0))
@@ -3402,6 +3404,9 @@ local function RefreshGoalList()
         end
         if row.comet then
             row.comet.on = isSelected
+            -- gone at once from the card you left (a fade lingered there,
+            -- Karl); the new one still fades in
+            if not isSelected then row.comet.vis = 0 end
             row.comet.color = isNew and C.FOREVER_LIGHT or nil
         end
         local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
@@ -3989,9 +3994,30 @@ local function GetStepRow(index)
     -- ring turns white on hover and gold once checked ("maxed").
     Skin(row.box, { 0, 0, 0, 1 }, C.BOX_RING)
 
-    row.hover = Flat(row, 1, 1, 1, 0.04)
-    row.hover:SetAllPoints(row)
-    row.hover:Hide()
+    -- Hover: a soft warm wash that fades in on the left and out to the
+    -- right, a little taller than the row, so text never meets a hard edge
+    -- (Karl). Three pieces behind the text; row.hover shows and hides them.
+    do
+        local A, W = 0.055, { 1, 0.95, 0.85 }
+        local l, m, r = Flat(row, 1, 1, 1, 1), Flat(row, 1, 1, 1, 1), Flat(row, 1, 1, 1, 1)
+        l:ClearAllPoints(); m:ClearAllPoints(); r:ClearAllPoints()
+        l:SetPoint("TOPLEFT", row, "TOPLEFT", -4, 3)
+        l:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", -4, -3)
+        l:SetWidth(36)
+        r:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, 3)
+        r:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", 0, -3)
+        r:SetWidth(160)
+        m:SetPoint("TOPLEFT", l, "TOPRIGHT")
+        m:SetPoint("BOTTOMRIGHT", r, "BOTTOMLEFT")
+        ApplyHGradient(l, W, W, 0, A)
+        m:SetVertexColor(W[1], W[2], W[3], A)
+        ApplyHGradient(r, W, W, A, 0)
+        local parts = { l, m, r }
+        row.hover = {}
+        function row.hover:Show() for _, t in ipairs(parts) do t:Show() end end
+        function row.hover:Hide() for _, t in ipairs(parts) do t:Hide() end end
+        row.hover:Hide()
+    end
     row:SetScript("OnEnter", function(self)
         self.hover:Show()
         if not self.isDone and not self.autoEntry then
