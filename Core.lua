@@ -4175,8 +4175,28 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     ApplyHGradient(B.left, {0.012,0.011,0.008}, {0.012,0.011,0.008}, 1, 0)
     ApplyVGradient(B.top, {0.02,0.017,0.012}, {0.02,0.017,0.012}, 0.65, 0)
     ApplyVGradient(B.bottom, {0.005,0.005,0.005}, {0.005,0.005,0.005}, 0, 1)
-    B.artPaths = { ashbringer = "ashbringer-banner.blp", atiesh = "atiesh-banner.blp", sulfuras = "sulfuras-banner.blp" }
-    B.artAspects = { ashbringer = 1, atiesh = 1, sulfuras = 1024/958 }
+    B.artPaths = {
+        quelserrar = "quelserrar-banner.blp",
+        ashbringer = "ashbringer-banner.blp", atiesh = "atiesh-banner.blp", sulfuras = "sulfuras-banner.blp",
+        benediction = "benediction-banner.blp",
+        raid_mc = "raid_mc-banner.blp",
+        att_mc = "att_mc-banner.blp",
+        set_tier1 = "set_tier1-banner.blp",
+        raid_naxx = "raid_naxx-banner.blp",
+        tier3 = "tier3-banner.blp",
+        att_naxx = "att_naxx-banner.blp",
+    }
+    B.artAspects = {
+        quelserrar = 1.002257336343115,
+        ashbringer = 1, atiesh = 1, sulfuras = 1024/958,
+        benediction = 1.1123470522803114,
+        raid_mc = 0.7751312071053694,
+        att_mc = 1.7777777777777777,
+        set_tier1 = 0.8703220191470844,
+        raid_naxx = 0.6679712981082844,
+        tier3 = 1.7786561264822134,
+        att_naxx = 1.7786561264822134,
+    }
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
         local h = math.max(1, self:GetHeight())

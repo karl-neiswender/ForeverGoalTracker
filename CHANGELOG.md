@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added matching banner artwork for Benediction/Anathema, Quel’Serrar, Molten Core and Naxxramas goals, Tier 1 and Tier 3 sets.
+
 - Banner artwork uses native desaturation and compressed 512px textures with smaller mip levels; originals preserved.
 
 - Goal banner redesign draft: larger icon/title, spacious outlined chips and description, with subtly vignetted Corrupted Ashbringer, Atiesh and Sulfuras artwork. The taller banner includes the step count above the progress bar at the bottom; personal notes appear above the description.

@@ -73,6 +73,16 @@ def main():
     for name in ("ashbringer", "atiesh", "sulfuras"):
         source = next(ART.glob(name + "-banner-source.*"))
         manifest[name + "-banner"] = compress(source, ROOT / "Media" / (name + "-banner.blp"))
+    runtime = {
+        "quelserrar": "queldelar",
+        "benediction": "anathema", "raid_mc": "ragnaros-the-firelord",
+        "att_mc": "blackrock-mountain---trailer1", "set_tier1": "majordomo-executus",
+        "raid_naxx": "kelthuzad", "tier3": "naxx---trailer-baron",
+        "att_naxx": "naxx---trailer-naxx",
+    }
+    for goal, art in runtime.items():
+        (ROOT / "Media" / (goal + "-banner.blp")).write_bytes(
+            (ART / "prepared" / (art + ".blp")).read_bytes())
     (ART / "prepared/manifest.json").write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8")
     print(f"Compressed {len(manifest)} textures; each 512px BLP with 10 mip levels.")
     old = sum(v["equivalent_tga_bytes"] for v in manifest.values())

@@ -44,10 +44,11 @@ assert(coords[1]==0 and coords[2]==1 and coords[3]>0, "wide cover crops vertical
 B.panel.GetWidth = function() return 190 end
 B:Fit()
 assert(coords[1]>0 and coords[3]==0 and coords[4]==1, "tall cover crops horizontally")
-for _,id in ipairs({"atiesh","sulfuras"}) do
+for id in pairs(B.artPaths) do
+    assert(F.GoalById(id), "artwork maps to an existing goal: " .. id)
     D.active[id] = true
     F.SelectGoal(id)
-    assert(B.hasArt, id .. " uses supplied art")
+    assert(B.hasArt and B.sourceAspect == B.artAspects[id], id .. " uses supplied art with original proportions")
 end
 D.active.thunderfury = true
 F.SelectGoal("thunderfury")
