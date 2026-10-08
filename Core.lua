@@ -1892,7 +1892,7 @@ function FGT.NewEmbossLine(parent)
     f:SetHeight(2)
     -- shadow, then the brown of the panels' bottom edge (sampled from a
     -- screenshot: about 42, 36, 25), a hair brighter to read mid-panel
-    local LINES = { { 0, 0, 0, 0.9 }, { 0.19, 0.16, 0.11, 1 } } -- a deep shadow makes the emboss
+    local LINES = { { 0, 0, 0, 0.75 }, { 0.19, 0.16, 0.11, 0.55 } } -- quiet: a groove, not a line (Karl)
     for i, c in ipairs(LINES) do
         local col = { c[1], c[2], c[3] }
         local l, m, r = f:CreateTexture(nil, "ARTWORK"), f:CreateTexture(nil, "ARTWORK"), f:CreateTexture(nil, "ARTWORK")
