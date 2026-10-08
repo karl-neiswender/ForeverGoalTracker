@@ -3998,23 +3998,30 @@ local function GetStepRow(index)
     -- right, a little taller than the row, so text never meets a hard edge
     -- (Karl). Three pieces behind the text; row.hover shows and hides them.
     do
-        local A, W = 0.055, { 1, 0.95, 0.85 }
+        local A, W, PAD = 0.035, { 1, 0.95, 0.85 }, 5
         local l, m, r = Flat(row, 1, 1, 1, 1), Flat(row, 1, 1, 1, 1), Flat(row, 1, 1, 1, 1)
-        l:ClearAllPoints(); m:ClearAllPoints(); r:ClearAllPoints()
-        l:SetPoint("TOPLEFT", row, "TOPLEFT", -4, 3)
-        l:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", -4, -3)
         l:SetWidth(36)
-        r:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, 3)
-        r:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", 0, -3)
         r:SetWidth(160)
-        m:SetPoint("TOPLEFT", l, "TOPRIGHT")
-        m:SetPoint("BOTTOMRIGHT", r, "BOTTOMLEFT")
         ApplyHGradient(l, W, W, 0, A)
         m:SetVertexColor(W[1], W[2], W[3], A)
         ApplyHGradient(r, W, W, A, 0)
         local parts = { l, m, r }
         row.hover = {}
-        function row.hover:Show() for _, t in ipairs(parts) do t:Show() end end
+        -- sized to the text each time (not the row, which runs taller and
+        -- lower than its text), with PAD px of room above and below
+        function row.hover:Show()
+            local rowTop, tTop, tBottom = row:GetTop(), row.text:GetTop(), row.text:GetBottom()
+            local y, h = 3, (row:GetHeight() or 20) + 6
+            if rowTop and tTop and tBottom then
+                y, h = (tTop - rowTop) + PAD, (tTop - tBottom) + 2 * PAD
+            end
+            l:ClearAllPoints(); r:ClearAllPoints(); m:ClearAllPoints()
+            l:SetPoint("TOPLEFT", row, "TOPLEFT", -4, y)
+            r:SetPoint("TOPRIGHT", row, "TOPRIGHT", 0, y)
+            m:SetPoint("TOPLEFT", l, "TOPRIGHT")
+            m:SetPoint("TOPRIGHT", r, "TOPLEFT")
+            for _, t in ipairs(parts) do t:SetHeight(h); t:Show() end
+        end
         function row.hover:Hide() for _, t in ipairs(parts) do t:Hide() end end
         row.hover:Hide()
     end
