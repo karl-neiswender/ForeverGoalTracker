@@ -5,6 +5,7 @@
 - New Forever goal: Violet Sorcerer's Vestments
 - Dalaran banner for Violet Sorcerer's Vestments
 - Hyjal Summit and Barrow Deeps raid banners
+- Ruins of Ahn'Qiraj battle banner and Temple of Ahn'Qiraj C'Thun banner
 - Per-goal banner opacity tuning
 - Alex Horley artwork credit in Settings
 - Updated Dreadsteed banner artwork

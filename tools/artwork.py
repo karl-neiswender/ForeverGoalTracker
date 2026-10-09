@@ -40,6 +40,8 @@ FINAL_BANNERS = {
     "set_violet_sorcerer": "tall-1200x900/set_violet_sorcerer.jpg",
     "raid_hyjal": "tall-1200x900/raid_hyjal.jpg",
     "raid_barrow": "tall-1200x900/raid_barrow.jpg",
+    "raid_aq20": "tall-1200x900/raid_aq20.jpg",
+    "raid_aq40": "tall-1200x900/raid_aq40.jpg",
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",
