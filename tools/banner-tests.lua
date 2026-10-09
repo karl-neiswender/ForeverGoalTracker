@@ -70,6 +70,45 @@ assert(not desaturated, "switching back clears desaturation")
 D.active.gold_5k = true
 F.SelectGoal("gold_5k")
 assert(not B.hasArt, "unmapped goal clears previous artwork")
+-- Actual gradient alpha and icon opacity must animate together, not the text.
+B:StopImageFade()
+B.imageSeen = {}
+local visible = false
+B.IsVisible = function() return visible end
+F.SetSetting("celebrations", "full")
+B.goal = F.GoalById("raid_mc")
+B:RevealImages()
+assert(not B.imageSeen.raid_mc and not B.revealGoal, "hidden layouts do not consume first-open reveal")
+visible = true
+B:RevealImages()
+assert(B.imageFade == 0 and B:GetScript("OnUpdate"), "first visible open starts at zero")
+local tick = B:GetScript("OnUpdate")
+tick(B, 0.2)
+local mid = B.imageFade
+assert(mid > 0 and mid < 1, "fade eases through intermediate opacity")
+B:RevealImages()
+assert(B.imageFade == mid and B:GetScript("OnUpdate") == tick, "layout refresh does not restart fade")
+tick(B, 0.25)
+assert(B.imageFade == 1 and B.imageSeen.raid_mc and not B:GetScript("OnUpdate"), "fade completes and stops its ticker")
+B:StopImageFade(); B:RevealImages()
+assert(B.imageFade == 1 and not B:GetScript("OnUpdate"), "repeat visits are immediate")
+B.goal = F.GoalById("att_mc")
+B:RevealImages()
+assert(B.imageFade == 0, "another goal gets its own first reveal")
+B:GetScript("OnUpdate")(B, 0.1)
+B:GetScript("OnHide")(B)
+assert(B.imageFade == 1 and not B:GetScript("OnUpdate") and not B.imageSeen.att_mc,
+    "hide cancels fade without leaving a dimmed icon or consuming unseen goal")
+F.SetSetting("celebrations", "subtle")
+B:RevealImages()
+assert(B:GetScript("OnUpdate"), "subtle motion still fades")
+F.SetSetting("celebrations", "off")
+B:GetScript("OnUpdate")(B, 0.01)
+assert(B.imageFade == 1 and not B:GetScript("OnUpdate"), "motion off completes a running fade immediately")
+B.goal = F.GoalById("gold_5k")
+B:RevealImages()
+assert(B.imageFade == 1 and B.imageSeen.gold_5k and not B:GetScript("OnUpdate"), "motion off skips new fades too")
+F.SetSetting("celebrations", "full")
 local hidden=0
 for _,t in ipairs({B.background,B.border,B.art,B.left,B.top,B.bottom}) do t.Hide=function() hidden=hidden+1 end end
 B:GetScript("OnHide")(B)

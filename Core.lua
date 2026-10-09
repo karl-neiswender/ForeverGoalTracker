@@ -4218,6 +4218,41 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         rhokdelar=true, quelserrar=true, benediction=true, raid_bwl=true,
         raid_mc=true, att_mc=true, set_tier1=true,
     }
+    B.imageSeen = {} -- per-session, never written to SavedVariables
+    function B:SetImageFade(amount)
+        self.imageFade = amount
+        -- Gradient textures ignore SetAlpha in WoW; scale their vertex alphas.
+        ApplyHGradient(self.art, {1,1,1}, {1,1,1}, 0,0.18*amount)
+        detailIcon:SetAlpha(amount)
+    end
+    function B:StopImageFade()
+        self:SetScript("OnUpdate", nil)
+        self.revealGoal = nil
+        self:SetImageFade(1)
+    end
+    function B:RevealImages()
+        if not self.goal or not self:IsVisible() then return end
+        local id = self.goal.id
+        if self.revealGoal == id then return end -- progress/layout refreshes keep the fade
+        self:StopImageFade()
+        self.revealGoal = id
+        if self.imageSeen[id] or FGT.Setting("celebrations") == "off" then
+            self.imageSeen[id] = true
+            return
+        end
+        self:SetImageFade(0)
+        self.revealElapsed = 0
+        self:SetScript("OnUpdate", function(frame, elapsed)
+            frame.revealElapsed = frame.revealElapsed + elapsed
+            local p = math.min(1, frame.revealElapsed/0.45)
+            if FGT.Setting("celebrations") == "off" then p = 1 end
+            frame:SetImageFade(1-(1-p)^3)
+            if p == 1 then
+                frame.imageSeen[id] = true
+                frame:SetScript("OnUpdate", nil)
+            end
+        end)
+    end
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
         local h = math.max(1, self:GetHeight())
@@ -4252,12 +4287,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     B:SetScript("OnSizeChanged", function(self) self:Fit() end)
     B:SetScript("OnHide", function(self)
+        self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
         self.border:Show()
         for _,t in ipairs({self.art,self.left,self.top,self.bottom}) do t:SetShown(self.hasArt and true or false) end
+        self:RevealImages()
     end)
     B:Hide()
     FGT.goalBanner = B
@@ -4302,6 +4339,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         for _,t in ipairs({B.art,B.left,B.top,B.bottom}) do t:SetShown(B.hasArt) end
         B:Fit()
+        B:RevealImages()
     end
 end
 
