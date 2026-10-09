@@ -1,7 +1,7 @@
 {
   "date": "2026-10-09",
   "method": "Built-in imagegen edits",
-  "status": "Review versions awaiting Karl's approval before runtime installation",
+  "status": "Mage Tier 3 approved and installed. Ahn'Qiraj and C'Thun remain review versions awaiting approval.",
   "targets": [
     {
       "source": "Media/artwork/AhnQirajWarClassic.jpg",
@@ -18,7 +18,10 @@
       "output": "Media/final-images/tier-sets/mage/tier3-review.png",
       "goal": "tier3_mage",
       "prompt": "Edit supplied frost mage illustration into ONE 4:3 landscape Warcraft addon Mage Tier 3 armor banner intended 1200x900. Neutral black and white with moderately increased contrast, painted detail and controlled frost highlights, matching subdued monochrome banners. Preserve exact male mage face, hood, frost crystal shoulders, robe decorations, both hands, and staff with icy blade. Reframe face and identifying armor high and RIGHT OF CENTER, occupying right half, with quiet dark atmospheric forest space in left third for UI text. Extend original forest environment as needed, preserve complete visible staff geometry and natural hands, no redesign/new objects/characters. Wide smooth baked LEFT darkening naturally blended; soft baked BOTTOM darkening over lowest approximately 100px ending near-black neutral charcoal. No hard strips, added text, UI or borders. Preserve original painterly brush texture and artist marks.",
-      "refinement": "Remove all blue/cyan tint; strictly neutral grayscale. Preserve composition, face, armor, staff, forest, contrast and left/bottom fades."
+      "refinement": "Remove all blue/cyan tint; strictly neutral grayscale. Preserve composition, face, armor, staff, forest, contrast and left/bottom fades.",
+      "status": "Karl approved. Installed on tier3_mage.",
+      "master": "Media/final-images/tier-sets/mage/tier3.jpg",
+      "runtime": "Media/tier3_mage-banner.blp"
     }
   ]
 }

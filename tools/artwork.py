@@ -36,6 +36,7 @@ FINAL_BANNERS = {
     "set_tier1_warlock": "tier-sets/warlock/tier1.jpg",
     "set_tier2_warlock": "tier-sets/warlock/tier2.jpg",
     "tier3_warrior": "tier-sets/warrior/tier3.jpg",
+    "tier3_mage": "tier-sets/mage/tier3.jpg",
     "set_violet_sorcerer": "tall-1200x900/set_violet_sorcerer.jpg",
     "raid_hyjal": "tall-1200x900/raid_hyjal.jpg",
     "raid_barrow": "tall-1200x900/raid_barrow.jpg",
