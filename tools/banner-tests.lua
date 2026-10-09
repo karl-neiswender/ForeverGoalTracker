@@ -156,6 +156,28 @@ assert(B.imageFade == 1 and B.imageSeen.gold_5k and not B:GetScript("OnUpdate"),
 F.SetSetting("celebrations", "full")
 assert(iconAlphaWrites == 0, "background reveal never changes the square goal icon opacity")
 B.icon.SetAlpha = originalIconAlpha
+-- Per-goal tuning must scale all gradient strips and survive goal switches.
+F.SelectGoal("raid_mc")
+B:StopImageFade()
+SlashCmdList.FOREVERGOALTRACKER("banneropacity 60")
+assert(D.bannerOpacity.raid_mc == 0.6 and math.abs(B.art.fgtGa2-0.108)<0.0001,
+    "saved opacity scales the existing banner strength")
+for _, strip in ipairs(B.fadeStrips) do
+    assert(math.abs(strip.fgtGa2-0.108*strip.fadeWeight)<0.0001,
+        "opacity preserves the smooth bottom fade")
+end
+B:SetImageFade(0.5)
+assert(math.abs(B.art.fgtGa2-0.054)<0.0001, "opacity multiplies rather than replacing reveal fade")
+F.SelectGoal("raid_bwl"); B:StopImageFade()
+assert(B:GetArtOpacity()==1 and math.abs(B.art.fgtGa2-0.18)<0.0001,
+    "tuning one banner leaves other banners at their default")
+F.SelectGoal("raid_mc"); B:StopImageFade()
+assert(B:GetArtOpacity()==0.6, "saved tuning follows the goal on return")
+SlashCmdList.FOREVERGOALTRACKER("banneropacity 101")
+assert(B:GetArtOpacity()==0.6, "invalid tuning is rejected")
+SlashCmdList.FOREVERGOALTRACKER("banneropacity reset")
+assert(D.bannerOpacity.raid_mc==nil and math.abs(B.art.fgtGa2-0.18)<0.0001,
+    "reset restores the approved banner default")
 local hidden=0
 for _,t in ipairs({B.background,B.border,B.art,B.left,B.top,B.bottom}) do t.Hide=function() hidden=hidden+1 end end
 B:GetScript("OnHide")(B)

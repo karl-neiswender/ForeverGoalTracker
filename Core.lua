@@ -4286,13 +4286,24 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
+    -- Brightness tuning multiplies the existing reveal and bottom fades.
+    -- Approved defaults go here; in-game overrides are saved per goal.
+    B.artOpacity = {}
+    function B:GetArtOpacity()
+        local id = self.goal and self.goal.id
+        local db = ForeverGoalTrackerDB
+        local value = id and db and db.bannerOpacity and db.bannerOpacity[id]
+        if value == nil then value = id and self.artOpacity[id] end
+        return math.max(0, math.min(1, tonumber(value) or 1))
+    end
     B.imageSeen = {} -- per-session, never written to SavedVariables
     function B:SetImageFade(amount)
         self.imageFade = amount
         -- Keep art on the panel's working background layer, below text.
-        ApplyHGradient(self.art, {1,1,1}, {1,1,1}, 0,0.18*amount)
+        local alpha = 0.18*amount*self:GetArtOpacity()
+        ApplyHGradient(self.art, {1,1,1}, {1,1,1}, 0,alpha)
         for _,t in ipairs(self.fadeStrips) do
-            ApplyHGradient(t, {1,1,1}, {1,1,1}, 0,0.18*amount*(t.fadeWeight or 0))
+            ApplyHGradient(t, {1,1,1}, {1,1,1}, 0,alpha*(t.fadeWeight or 0))
         end
     end
     function B:StopImageFade()
@@ -9352,6 +9363,25 @@ SLASH_FOREVERGOALTRACKER2 = "/fgt"
 SLASH_FOREVERGOALTRACKER3 = "/forevergoals"
 SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
+    local opacity = msg:match("^banneropacity%s*(.*)$")
+    if opacity then
+        local banner, db = FGT.goalBanner, ForeverGoalTrackerDB
+        if not db or not banner.goal or not banner.hasArt then
+            print(TAG .. "Open a goal with banner artwork first.")
+            return
+        end
+        local percent = tonumber(opacity)
+        if opacity == "reset" or (percent and percent >= 0 and percent <= 100) then
+            db.bannerOpacity = db.bannerOpacity or {}
+            db.bannerOpacity[banner.goal.id] = opacity ~= "reset" and percent/100 or nil
+            banner:SetImageFade(banner.imageFade or 1)
+        elseif opacity ~= "" then
+            print(TAG .. "Use /goals banneropacity 0-100, or /goals banneropacity reset.")
+            return
+        end
+        print(TAG .. banner.goal.name .. " banner opacity: " .. math.floor(banner:GetArtOpacity()*100+0.5) .. "%.")
+        return
+    end
     if msg == "testbanner" then
         FGT.TestBanner()
         return

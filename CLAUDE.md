@@ -403,3 +403,7 @@ Karl noticed prerequisite locks were not visible in the Forever release and aske
 ## Gallery refresh (2026-10-09)
 
 Karl ran /goals shots at 01:43. Converted the eight new TGA captures with tools/shots.py, replaced Screenshots/01 through 08 with cropped 1429x950 PNGs, and visually reviewed the complete batch. Screenshot 08 still displays Version 2.9.0 because the running game had not reloaded the release version; preserve the actual capture rather than altering it. Public CurseForge gallery upload remains separate from this local/Git replacement.
+
+## Banner brightness tuning (2026-10-09)
+
+Karl agreed to per-banner opacity for the consistency pass. `/goals banneropacity 0-100` adjusts the open goal's artwork live, saved per goal in DB.bannerOpacity; no argument reports the value, `reset` restores its default. Percent multiplies the existing 18% artwork strength, reveal animation and bottom fade by redrawing gradient alpha (never SetAlpha on gradients). Other banners and text/icon opacity keep their existing appearance. Approved shared defaults can go in goalBanner.artOpacity after in-game review. Hyjal and Barrow Deeps review PNGs and exact built-in imagegen prompts are committed in Media/final-images/raid-reviews and reports/image-tests/raid-banner-pass-2026-10-09.json; not installed yet. Global brightness matching and texture-size optimization remain pending. Original sources unchanged.

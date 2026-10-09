@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Per-goal banner opacity tuning
+
 ## 2.10.0
 
 - Personal notes on goals
