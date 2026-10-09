@@ -1,0 +1,15 @@
+{
+  "prompt": "Edit this supplied Warcraft illustration into a 4:3 landscape addon banner, intended1200x900. Neutral black and white with moderately stronger contrast, keeping painted midtone detail. Preserve the exact character identity, pose, anatomy, clothing and ALL distinctive armor designs, weapons and surrounding objects; do not redesign the armor or substitute a different tier. Place face and identifying shoulder/chest details right of center and above midpoint, around65% across and35% down, using expanded original background on the left as needed. Retain surrounding scene faithfully. Quiet dark left space with soft baked left-edge darkening; soft baked bottom gradient blending through the last approximately100px toward very dark neutral charcoal, no hard strip or border. Match the previously approved monochrome goal banners. No extra subjects, labels or UI. Preserve existing artist signatures/copyright notices unobtrusively and readably. One finished illustration, no collage. This target is Rexxar in hunter tier armor: retain the distinctive original helmet, shoulder armor, gloves and weapon exactly; no armor redesign. Keep his head and identifying shoulders high and right of center, with quieter left room.",
+  "targets": [
+    {
+      "id": "tier1",
+      "file": "Giantstalker_Rexxar_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-83f00135-95b3-4d00-9be4-d7eddc1f1b4b.png"
+    },
+    {
+      "id": "tier2",
+      "file": "Dragonstalker_tier3-hunter-moltencore.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-2411bdbe-12a6-4e76-88aa-685402fee661.png"
+    }
+  ]
+}
