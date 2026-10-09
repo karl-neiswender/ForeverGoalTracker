@@ -70,10 +70,13 @@ assert(not desaturated, "switching back clears desaturation")
 D.active.gold_5k = true
 F.SelectGoal("gold_5k")
 assert(not B.hasArt, "unmapped goal clears previous artwork")
--- Actual gradient alpha and icon opacity must animate together, not the text.
+-- Only the background artwork fades; the square goal icon remains immediate.
 B:StopImageFade()
 B.imageSeen = {}
 local visible = false
+local iconAlphaWrites = 0
+local originalIconAlpha = B.icon.SetAlpha
+B.icon.SetAlpha = function() iconAlphaWrites=iconAlphaWrites+1 end
 B.IsVisible = function() return visible end
 F.SetSetting("celebrations", "full")
 B.goal = F.GoalById("raid_mc")
@@ -98,7 +101,7 @@ assert(B.imageFade == 0, "another goal gets its own first reveal")
 B:GetScript("OnUpdate")(B, 0.1)
 B:GetScript("OnHide")(B)
 assert(B.imageFade == 1 and not B:GetScript("OnUpdate") and not B.imageSeen.att_mc,
-    "hide cancels fade without leaving a dimmed icon or consuming unseen goal")
+    "hide cancels fade without leaving dimmed artwork or consuming unseen goal")
 F.SetSetting("celebrations", "subtle")
 B:RevealImages()
 assert(B:GetScript("OnUpdate"), "subtle motion still fades")
@@ -109,6 +112,8 @@ B.goal = F.GoalById("gold_5k")
 B:RevealImages()
 assert(B.imageFade == 1 and B.imageSeen.gold_5k and not B:GetScript("OnUpdate"), "motion off skips new fades too")
 F.SetSetting("celebrations", "full")
+assert(iconAlphaWrites == 0, "background reveal never changes the square goal icon opacity")
+B.icon.SetAlpha = originalIconAlpha
 local hidden=0
 for _,t in ipairs({B.background,B.border,B.art,B.left,B.top,B.bottom}) do t.Hide=function() hidden=hidden+1 end end
 B:GetScript("OnHide")(B)

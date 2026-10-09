@@ -4223,7 +4223,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.imageFade = amount
         -- Gradient textures ignore SetAlpha in WoW; scale their vertex alphas.
         ApplyHGradient(self.art, {1,1,1}, {1,1,1}, 0,0.18*amount)
-        detailIcon:SetAlpha(amount)
     end
     function B:StopImageFade()
         self:SetScript("OnUpdate", nil)

@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Goal banner artwork and its icon gently fade in on the first opening of each goal per session. Repeat visits stay instant; text and progress remain readable. Respects animations being turned off.
+- Goal background artwork gently fades in on the first opening of each goal per session. The square goal icon, text and progress appear immediately; repeat visits stay instant. Respects animations being turned off.
 
 - Installed approved monochrome Ragnaros, Molten Core attunement and Majordomo/Tier 1 banners with 3:2 framing and no redundant addon desaturation.
 
