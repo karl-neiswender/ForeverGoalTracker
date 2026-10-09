@@ -101,7 +101,11 @@ F.SelectGoal("raid_ony")
 assert(B.preprocessed.raid_ony and not desaturated and B.sourceAspect == 4/3, "approved Onyxia master bypasses desaturation at 4:3")
 D.active.mount_dreadsteed = true
 F.SelectGoal("mount_dreadsteed")
-assert(desaturated, "switching to older color artwork restores its existing monochrome look")
+assert(B.preprocessed.mount_dreadsteed and not desaturated and B.sourceAspect == 4/3,
+    "approved Dreadsteed master retains its monochrome look and landscape proportions")
+D.active.mount_charger = true
+F.SelectGoal("mount_charger")
+assert(desaturated, "switching to older Charger artwork restores its existing monochrome look")
 F.SelectGoal("raid_bwl")
 assert(not desaturated, "switching back clears desaturation")
 D.active.gold_5k = true

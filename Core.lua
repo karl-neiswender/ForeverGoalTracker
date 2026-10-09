@@ -4248,7 +4248,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         rhokdelar = 4/3,
         raid_ony = 4/3,
         raid_bwl = 4/3,
-        mount_dreadsteed = 0.7974481658692185,
+        mount_dreadsteed = 4/3,
         mount_charger = 0.7501831501831502,
 
         quelserrar = 4/3,
@@ -4267,7 +4267,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Older color banners keep their existing look until their final pass.
     B.preprocessed = {
         ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
-        rhokdelar=true, raid_ony=true,
+        rhokdelar=true, raid_ony=true, mount_dreadsteed=true,
         quelserrar=true, benediction=true, raid_bwl=true,
         raid_mc=true, att_mc=true, set_tier1=true,
         lokdelar=true, frostsaber=true, set_viper=true, rep_cenarion=true, key_scholo=true,
@@ -7528,8 +7528,7 @@ FGT.SETTINGS = {
     { title = "Artwork and credits", rows = {
         { type = "info", label = "Blizzard Entertainment",
           desc = "World of Warcraft and Hearthstone artwork: copyright Blizzard Entertainment. All rights reserved." },
-        { type = "info", label = "Alex Horley",
-          desc = "Dreadsteed artwork. alexhorleyart.com" },
+        { type = "info", label = "Alex Horley" },
         { type = "info", label = "AI-assisted artwork",
           desc = "Some original addon artwork was created with assistance from ChatGPT and Nano Banana." },
         { type = "info", label = "Cinzel font",

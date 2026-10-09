@@ -166,5 +166,12 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "mount_dreadsteed": {
+    "source": "tall-1200x900/mount_dreadsteed.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }
