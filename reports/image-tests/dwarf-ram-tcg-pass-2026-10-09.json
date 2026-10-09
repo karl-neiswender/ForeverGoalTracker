@@ -1,0 +1,10 @@
+{
+  "source": "Media/artwork/Swift_Ram_TCG.jpg",
+  "review": "Media/final-images/mounts/dwarf-ram-tcg-review.png",
+  "master": "Media/final-images/mounts/dwarf-ram.jpg",
+  "runtime": "Media/epicmounts_dwarf-banner.blp",
+  "status": "Karl approved; replacement installed",
+  "tool": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Edit target: supplied low-resolution Swift Ram TCG painting. Faithfully upscale and refine its painted detail into a single4:3 landscape Forever Goal Tracker epic Dwarf ram mount banner intended1200x900. Preserve exact white shaggy armored ram, huge curled brown horns, green/gold head armor, bridle, saddle, dwarven rider with red hair and beard, shoulder armor and long rifle, their riding pose, snowy rocky ledge and distant mountain valley. Preserve character and mount anatomy, all four legs coherent, hoof placement, horn symmetry and continuous rifle geometry. Upscale details faithfully without changing armor design or introducing objects. Position ram's head and rider high/right with breathing room; ram and rider dominant on right two-thirds and quiet extended mountain atmosphere in left third. Strict neutral BLACK AND WHITE, rich painterly midtones, moderate contrast, white fur detailed rather than blown out. Bake BOTH fades: broad smooth LEFT dark charcoal gradient strongest at left edge blending naturally into mountain scene with no hard strip; soft BOTTOM charcoal fade over last~100px of1200x900 master ending near-black at bottom edge with no horizontal boundary. No added text, UI, border, characters or unrelated objects. Preserve original artist marks if any.",
+  "intendedUse": "Epic racial mounts Dwarf ram; existing race/faction selection retained"
+}
