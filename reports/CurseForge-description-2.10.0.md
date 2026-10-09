@@ -19,10 +19,18 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Built for Warcraft Forever:** NEW and UPDATED markers in Forever blue, a "New & Updated" filter, and a notice on guides not yet confirmed in Forever.
 - **Goal links:** steps and tips link to the goals they depend on; click one to add it.
 - **Item, NPC and quest links:** hover an item in a guide for its real tooltip (shift-click links it in chat). Hover an NPC to see where they stand, and shift-click to put a pin on your map or a TomTom waypoint. Hover a quest to see who starts it and where each of your characters stands on it. Right-click any of them for its Wowhead link.
-- **Settings:** the gear in the title bar turns off chat lines, the banner or celebrations, adds a goal-complete sound or screenshot, hides the minimap button, and sets window scale and opacity. Everything starts on.
+- **Settings:** the gear in the title bar turns off chat lines, the banner or celebrations, adds a goal-complete sound or screenshot, hides the minimap button, picks where map pins go, and sets window scale and opacity.
 - **Celebrations** when you finish a step, a group or a goal, plus a chat message and an on-screen banner when a goal finishes while the window is closed. A progress check-in greets you on login.
 
 Made with the help of AI. Every change is tested in game and approved by a human before release.
+
+## Commands
+
+- `/goals` (also `/fgt`, `/forevergoals`): open or close the window
+- `/goals settings`: open Settings
+- `/goals welcome`: get goal suggestions
+- `/goals reset`: reset window size and position
+- A key binding is available under Options > Keybindings > AddOns.
 
 ## Roadmap
 
