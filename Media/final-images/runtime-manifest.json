@@ -54,5 +54,26 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "raid_mc": {
+    "source": "molten-core/raid_mc.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "att_mc": {
+    "source": "molten-core/att_mc.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1": {
+    "source": "molten-core/set_tier1.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

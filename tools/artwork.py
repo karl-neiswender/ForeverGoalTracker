@@ -18,6 +18,8 @@ FINAL_BANNERS = {
         "ashbringer", "atiesh", "sulfuras", "thunderfury",
         "rhokdelar", "quelserrar", "benediction")},
     "raid_bwl": "blackwing-lair.jpg",
+    **{goal: "molten-core/" + goal + ".jpg" for goal in (
+        "raid_mc", "att_mc", "set_tier1")},
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",

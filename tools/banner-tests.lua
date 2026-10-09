@@ -54,6 +54,11 @@ for id in pairs(B.artPaths) do
     assert(desaturated == (not B.preprocessed[id]), id .. " selects the correct desaturation state on reused art")
     if B.preprocessed[id] then assert(B.sourceAspect == 1.5, "final masters retain 3:2 proportions") end
 end
+for _, id in ipairs({"raid_mc", "att_mc", "set_tier1"}) do
+    F.SelectGoal(id)
+    assert(B.preprocessed[id] and not desaturated and B.sourceAspect == 1.5,
+        id .. " uses the approved monochrome Molten Core master")
+end
 D.active.raid_bwl = true
 F.SelectGoal("raid_bwl")
 assert(not desaturated, "final Blackwing Lair artwork bypasses desaturation")

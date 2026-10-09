@@ -4204,9 +4204,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         quelserrar = 1.5,
         ashbringer = 1.5, atiesh = 1.5, sulfuras = 1.5,
         benediction = 1.5,
-        raid_mc = 0.7751312071053694,
-        att_mc = 1.7777777777777777,
-        set_tier1 = 0.8703220191470844,
+        raid_mc = 1.5,
+        att_mc = 1.5,
+        set_tier1 = 1.5,
         raid_naxx = 0.6679712981082844,
         tier3 = 1.7786561264822134,
         att_naxx = 1.7786561264822134,
@@ -4216,6 +4216,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.preprocessed = {
         ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
         rhokdelar=true, quelserrar=true, benediction=true, raid_bwl=true,
+        raid_mc=true, att_mc=true, set_tier1=true,
     }
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)

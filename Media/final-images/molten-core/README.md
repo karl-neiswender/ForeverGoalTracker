@@ -1,6 +1,6 @@
 # Molten Core banner imagegen pass
 
-October 8, 2026. Three edits using built-in ChatGPT imagegen, saved for Karl's review. Not yet installed in game. Source options and existing runtime textures are untouched. These JPEG masters are excluded from releases along with the entire final-images folder.
+October 8, 2026. Three edits using built-in ChatGPT imagegen, approved by Karl and installed in their banners. Source options remain untouched. These JPEG masters are excluded from releases along with the entire final-images folder; only compressed game textures ship. Rebuild with `python tools/artwork.py --final-only`. The addon restores 3:2 proportions and bypasses desaturation for these final textures while retaining its existing gradients and fades.
 
 | Master / existing banner | Original option in Media/artwork |
 | --- | --- |
