@@ -154,16 +154,23 @@ do
     race, class, faction = "Troll", "MAGE", "Horde"
     assert(B:ArtPath("epicmounts")=="epicmounts_troll-banner.blp")
     assert(B:ArtPath("pvp_hk")=="set_tier2_warrior-banner.blp")
-    assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp", "missing Horde mage art never selects an Alliance mage")
+    F.SelectGoal("allclasses")
+    assert(B:ArtPath("allclasses")=="allclasses_troll_mage-banner.blp", "troll mage leveling uses approved troll portrait")
+    assert(B.sourceAspect==4/3 and not desaturated)
+    race = "Scourge"
+    assert(B:ArtPath("allclasses")=="allclasses_troll_mage-banner.blp", "other Horde mages use approved Horde mage fallback")
+    race = "Troll"
     -- Register future approved Mage variants and check exact-race precedence.
-    local candidates = B.artVariants.allclasses
+    local registeredCandidates = B.artVariants.allclasses
+    local candidates = {}
+    B.artVariants.allclasses = candidates
     candidates[#candidates+1] = {path="horde-mage-test.blp",faction="Horde",class="MAGE",aspect=1.5,preprocessed=false}
     candidates[#candidates+1] = {path="troll-mage-test.blp",faction="Horde",class="MAGE",race="Troll"}
     assert(B:ArtPath("allclasses")=="troll-mage-test.blp", "race/class match beats faction/class regardless of insertion order")
     race = "Scourge"
     local path, aspect, processed = B:ResolveArt("allclasses")
     assert(path=="horde-mage-test.blp" and aspect==1.5 and processed==false, "variant carries its own aspect and desaturation")
-    table.remove(candidates); table.remove(candidates)
+    B.artVariants.allclasses = registeredCandidates
     race, class, faction = "Dwarf", "WARRIOR", "Alliance"
     assert(B:ArtPath("allclasses")=="tier3_warrior-banner.blp", "available dwarf warrior is more specific than Alliance warrior")
     race = "Skyborne"

@@ -4292,6 +4292,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Only approved runtime textures belong here, never source/review files.
     B.artVariants = {
         allclasses = {
+            {path="allclasses_troll_mage-banner.blp", faction="Horde", class="MAGE", race="Troll"},
+            {path="allclasses_troll_mage-banner.blp", faction="Horde", class="MAGE"},
             {path="set_tier1_priest-banner.blp", faction="Alliance", class="PRIEST", race="Human"},
             {path="set_tier2_priest-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf"},
             {path="rhokdelar-banner.blp", faction="Alliance", class="HUNTER", race="NightElf"},

@@ -1,0 +1,13 @@
+{
+  "source": "Media/artwork/Ice_Barrier_full.jpg",
+  "review": "Media/final-images/leveling/troll-mage-review.png",
+  "master": "Media/final-images/leveling/troll-mage.jpg",
+  "runtime": "Media/allclasses_troll_mage-banner.blp",
+  "status": "Karl approved; installed for Troll Mage leveling and Horde Mage fallback",
+  "tool": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Edit target: supplied Ice Barrier troll mage painting. Create one4:3 landscape Forever Goal Tracker character leveling banner intended1200x900. Preserve exact troll identity, fierce facial expression, long tusks, face markings, spiky mohawk, angular mage robes/shoulders, casting pose, large outstretched hand and swirling ice barrier. Reframe portrait with face HIGH and on the RIGHT around70%width30%height, quiet left third for addon text, extending the existing icy magical atmosphere naturally. You may mirror the composition to achieve right-side focus but preserve consistent anatomy and magic. Mage face and robes dominate, ice circle frames him without hiding face or tusks. Preserve all hand/finger geometry, tusks and shoulder shapes faithfully; no extra fingers. Strict neutral BLACK AND WHITE, rich painterly midtones, moderate contrast with ice highlights controlled and no blown-out hand. Bake BOTH gradients: a broad smooth dark charcoal LEFT fade strongest at left edge blending seamlessly into scene without a vertical strip; soft BOTTOM fade over last~100px of intended1200x900 master ending near-black neutral charcoal at bottom edge without a horizontal strip. Preserve original artist signature in a natural corresponding position. No added text, UI, border, unrelated objects or characters. Maintain breathing room around hair and shoulders.",
+  "goal": "allclasses",
+  "faction": "Horde",
+  "class": "MAGE",
+  "race": "Troll"
+}

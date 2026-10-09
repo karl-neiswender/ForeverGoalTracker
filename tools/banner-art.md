@@ -6,7 +6,7 @@ Priority is race + class, faction + class, class, race, faction, then shared goa
 
 ResolveArt returns filename, aspect, and preprocessed flag together, so reused art keeps its own proportions and color treatment. Variant defaults are 4:3 and preprocessed=true. ArtPath remains a filename-only wrapper for existing callers. The established factionArtPaths table still handles Warrior Tier 2; individual class-set goals otherwise retain their specific artwork.
 
-Current allclasses artwork covers approved Alliance Hunter/Mage/Warrior/Druid/Paladin, Alliance Human and Dwarf Priest, and Horde Hunter/Warrior/Shaman/Warlock. Other Priest races, Horde Mage, Horde Druid, Alliance Shaman and faction-specific Rogue leveling variants use shared art until approved variants are registered.
+Current allclasses artwork covers approved Alliance Hunter/Mage/Warrior/Druid/Paladin, Alliance Human and Dwarf Priest, and Horde Hunter/Mage/Warrior/Shaman/Warlock. Other Priest races, Horde Druid, Alliance Shaman and faction-specific Rogue leveling variants use shared art until approved variants are registered.
 
 Epic racial mounts include approved Human, Dwarf, Night Elf, Gnome, Orc, Troll and Tauren images and prefer the current race, then a sole selected same-faction mount if race art is missing, then a same-faction mount. `part` values identify the existing section position without changing saved progress. PvP goals share the approved Alliance night elf Warrior Tier 2 and Horde orc Warrior Tier 2 images by faction, with the original shared PvP banner for unknown faction.
 
@@ -19,3 +19,5 @@ Priest Tier 2 uses the approved mirrored close-up of the dwarf from wow-zul-guru
 Priest Tier 1 uses the approved Anduin Prophecy portrait with the corrected Benediction tip. The same texture is reused by allclasses for a logged-in Alliance Human Priest; Dwarf Priests retain their Tier 2 portrait.
 
 Warlock Tier 1 selects the approved human Felheart illustration from Curse from Beyond for Alliance and retains the original orc banner for Horde and unknown faction. The full original TCG card remains in Media/artwork.
+
+Horde Mage leveling uses the approved Ice Barrier Troll Mage portrait. It is registered as both an exact Troll Mage match and the faction/class fallback for other Horde mages. Future race-specific mage portraits can take priority without changing this fallback.
