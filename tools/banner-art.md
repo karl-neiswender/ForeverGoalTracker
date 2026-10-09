@@ -11,3 +11,5 @@ Current allclasses artwork covers approved Alliance Hunter/Mage/Warrior/Druid/Pa
 Epic racial mounts include approved Human, Dwarf, Night Elf, Gnome, Orc, Troll and Tauren images and prefer the current race, then a sole selected same-faction mount if race art is missing, then a same-faction mount. `part` values identify the existing section position without changing saved progress. PvP goals share the approved Alliance night elf Warrior Tier 2 and Horde orc Warrior Tier 2 images by faction, with the original shared PvP banner for unknown faction.
 
 Only approved runtime BLPs may be registered. New banner artwork must follow .agents/skills/forever-goal-tracker-banners/SKILL.md, with baked left and bottom gradients. Update tools/artwork.py and the runtime manifest when adding a new texture. Tests in banner-tests.lua cover both clients, specificity, missing art/APIs, and layout metadata.
+
+Priest Tier 3 uses the approved kneeling night elf for Alliance and as the shared default, including Horde until a Horde image is approved. Add that future image as the Horde entry in factionArtPaths.tier3_priest; retain the shared default.

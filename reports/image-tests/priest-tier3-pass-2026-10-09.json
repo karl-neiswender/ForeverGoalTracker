@@ -1,8 +1,11 @@
 {
   "source": "Media/artwork/priest-alliance-nightelf-tier3.jpg",
   "review": "Media/final-images/tier-sets/priest/tier3-review.png",
-  "status": "awaiting-review-approval",
+  "status": "Karl approved; installed as Alliance and shared default until Horde artwork is available",
   "tool": "built-in imagegen",
   "prompt": "Use case: style-transfer. Edit target: the supplied kneeling night elf priest artwork. Create a single 4:3 landscape Forever Goal Tracker Priest Tier 3 banner intended for a 1200x900 master. Preserve her exact identity, face, long white hair, ears, blue-and-gold armor converted to grayscale, kneeling prayer pose, clasped hands and anatomy, and the ruined forest columns and moonlit atmosphere. Recompose by extending the existing environment horizontally so she sits high and toward the RIGHT with breathing room, keeping the left third quiet for addon text. Strictly neutral BLACK AND WHITE, detailed painterly midtones, moderate contrast and controlled highlights with no blown-out hair. Bake BOTH fades into the artwork: a broad smooth dark charcoal LEFT gradient strongest at the left edge and blending naturally into the scene with no visible vertical boundary; a soft BOTTOM gradient across approximately the lowest 100px of the 1200x900 master fading down to near-black neutral charcoal at the bottom edge with no hard horizontal strip. Keep the subject recognizable, hands complete and natural, no extra characters, objects, text, UI or border. Preserve any existing artist marks.",
-  "intendedUse": "Priest Tier 3 Alliance and shared default until a Horde image is available"
+  "intendedUse": "Priest Tier 3 Alliance and shared default until a Horde image is available",
+  "master": "Media/final-images/tier-sets/priest/tier3.jpg",
+  "runtime": "Media/tier3_priest-banner.blp",
+  "goal": "tier3_priest"
 }
