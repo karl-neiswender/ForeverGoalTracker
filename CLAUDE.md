@@ -399,3 +399,7 @@ Release published: main 59be3e5, annotated tag v2.10.0, GitHub Actions run 37889
 ## Next session reminder from Karl (2026-10-09)
 
 Karl noticed prerequisite locks were not visible in the Forever release and asked to revisit them next time. The Classic Era dependency implementation shipped in 2.10.0, but gates remain intentionally disabled on unverified Forever builds. Next session: verify prerequisite rules against the current Forever build, enable appropriate gates, and test silver locks, missing-prerequisite tooltips, error jiggle and breakaway unlock animations, including multiple steps unlocked by one prerequisite. Do not claim Forever locks are active until verified.
+
+## Gallery refresh (2026-10-09)
+
+Karl ran /goals shots at 01:43. Converted the eight new TGA captures with tools/shots.py, replaced Screenshots/01 through 08 with cropped 1429x950 PNGs, and visually reviewed the complete batch. Screenshot 08 still displays Version 2.9.0 because the running game had not reloaded the release version; preserve the actual capture rather than altering it. Public CurseForge gallery upload remains separate from this local/Git replacement.
