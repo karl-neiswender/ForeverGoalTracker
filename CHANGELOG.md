@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fixed goal content escaping short windows. Short panels scroll the whole goal page; taller panels keep the fixed banner and independently scrolling steps.
+
 - Compact armor-set names in My Goals now use title case to match the other goals.
 
 - Installed approved Mage Tier 1 and Tier 2 banners. Armor goal cards use compact set names; the full set title stays on the detail page, with the class beside the category.

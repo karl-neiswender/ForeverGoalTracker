@@ -343,6 +343,8 @@ if ok_all:
         ("goal banner layout", None, open(os.path.join(here, "banner-tests.lua"), encoding="utf-8").read()),
         ("Forever 70291 banner layout and image fades", None,
             open(os.path.join(here, "banner-tests.lua"), encoding="utf-8").read(), True),
+        ("short goal window", None, open(os.path.join(here, "short-window-tests.lua"), encoding="utf-8").read()),
+        ("Forever short goal window", None, open(os.path.join(here, "short-window-tests.lua"), encoding="utf-8").read(), True),
         ("step dependencies", None, open(os.path.join(here, "dependency-tests.lua"), encoding="utf-8").read()),
         ("Forever dependency gates withheld", None,
             'local F = STUB_NS; assert(F.isForever); '

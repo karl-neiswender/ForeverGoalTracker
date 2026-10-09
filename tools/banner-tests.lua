@@ -1,5 +1,6 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+F.detailBody.GetWidth = function() return B.panel:GetWidth() - 14 end
 local desaturated
 B.art.SetDesaturated = function(_, value) desaturated=value end
 local g = F.GoalById("ashbringer")
@@ -36,7 +37,7 @@ F.LayoutForeverInfo(g)
 assert(descriptionAnchor == F.personalNote, "description follows the personal note")
 F.SetGoalNote(g,"")
 F.LayoutForeverInfo(g)
-assert(descriptionAnchor == B.panel, "empty note leaves no extra gap")
+assert(descriptionAnchor == F.detailBody, "empty note leaves no extra gap")
 local coords
 local artWidth, artHeight
 B.art.SetSize = function(_,w,h) artWidth,artHeight=w,h end

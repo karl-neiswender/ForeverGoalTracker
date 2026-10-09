@@ -2738,6 +2738,7 @@ local function CreateScrollArea(parent, softBottom)
         fadeBottom = fadeBottom,
         track = track,
         thumb = thumb,
+        trackHit = trackHit,
     }
 
     local function Metrics()
@@ -3718,8 +3719,24 @@ LayoutGoalList()
 -- Small uppercase category label in its category color, above the title
 -- (the site's tooltip "small" style).
 -- Large item icon at the top-left of the goal page.
+-- A real scroll viewport clips all goal widgets to the panel. On short
+-- windows the header and steps scroll together; taller windows retain the
+-- familiar fixed banner and independently scrolling steps.
+do
+    local view = CreateScrollArea(detailPanel)
+    view.scroll:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
+    view.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -10, 4)
+    view.content:SetHeight(600)
+    view:Finalize()
+    view.scroll:HookScript("OnHide", function()
+        view.trackHit:Hide(); view.fadeTop:Hide(); view.fadeBottom:Hide()
+    end)
+    view.scroll:HookScript("OnShow", function() view:Update() end)
+    FGT.detailViewport, FGT.detailBody = view, view.content
+end
+
 local DETAIL_ICON = 70
-local detailIcon = NewIcon(detailPanel, DETAIL_ICON)
+local detailIcon = NewIcon(FGT.detailBody, DETAIL_ICON)
 detailIcon:SetPoint("TOPLEFT", 22, -24)
 -- Goals with one final reward (weapons, mounts): hovering the big icon
 -- shows that item, compared with what you're wearing (Karl). The reward
@@ -3731,22 +3748,22 @@ detailIcon:SetScript("OnEnter", function(self)
 end)
 detailIcon:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
-local detailTag = NewFontString(detailPanel, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
+local detailTag = NewFontString(FGT.detailBody, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
 detailTag:SetPoint("TOPLEFT", detailIcon, "TOPRIGHT", 12, -1)
 
-local detailTitle = NewTitleString(detailPanel, 20)
+local detailTitle = NewTitleString(FGT.detailBody, 20)
 detailTitle:SetPoint("TOPLEFT", detailTag, "BOTTOMLEFT", 0, -8)
 detailTitle:SetPoint("RIGHT", -22, 0)
 detailTitle:SetWordWrap(true)
 
 -- Difficulty + time estimate as two chips.
-local detailDiffChip = NewChip(detailPanel, 9)
+local detailDiffChip = NewChip(FGT.detailBody, 9)
 detailDiffChip:SetPoint("TOPLEFT", detailIcon, "BOTTOMLEFT", 0, -20)
 
-local detailTimeChip = NewChip(detailPanel, 9)
+local detailTimeChip = NewChip(FGT.detailBody, 9)
 detailTimeChip:SetPoint("LEFT", detailDiffChip, "RIGHT", 10, 0)
 
-local detailNote = NewFontString(detailPanel, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
+local detailNote = NewFontString(FGT.detailBody, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
 detailNote:SetPoint("TOPLEFT", detailDiffChip, "BOTTOMLEFT", 0, -24)
 detailNote:SetPoint("RIGHT", -22, 0)
 detailNote:SetWordWrap(true)
@@ -3754,10 +3771,10 @@ detailNote:SetJustifyH("LEFT")
 
 -- Personal notes are separate from the Library's description and progress.
 do
-    local n = CreateFrame("Frame", nil, detailPanel)
+    local n = CreateFrame("Frame", nil, FGT.detailBody)
     n:EnableMouse(false) -- display only; the note icon is the sole editor entry point
     n:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -10)
-    n:SetPoint("RIGHT", detailPanel, "RIGHT", -22, 0)
+    n:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22, 0)
     n.text = NewFontString(n, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
     n.text:SetPoint("TOPLEFT")
     n.text:SetPoint("RIGHT")
@@ -3781,7 +3798,7 @@ do
         if selectedId == goal.id then SelectGoal(goal.id, true) end
     end
 
-    local b = CreateFrame("Button", nil, detailPanel)
+    local b = CreateFrame("Button", nil, FGT.detailBody)
     b:SetSize(22, 22)
     FGT.detailNoteBtn = b
     function FGT.StyleNoteButton()
@@ -3805,7 +3822,7 @@ do
         n:SetShown(text ~= "")
         if text == "" then return detailNote end
         -- User text stays literal, even if it contains WoW formatting codes.
-        n.text:SetWidth(math.max(120, detailPanel:GetWidth() - 44))
+        n.text:SetWidth(math.max(120, FGT.detailBody:GetWidth() - 44))
         n.text:SetText("|cffcc9e29NOTE:|r " .. text:gsub("|", "||"))
         n:SetHeight(math.max(14, math.ceil(n.text:GetStringHeight())))
         return detailNote
@@ -3998,19 +4015,19 @@ end
 -- WoW Forever: a NEW chip beside the difficulty chips, and a slim blue
 -- notice under the description for goals not confirmed in Forever yet.
 do
-    local chip = NewChip(detailPanel, 9)
+    local chip = NewChip(FGT.detailBody, 9)
     chip:SetLabel(FGT.ForeverDot(13) .. "NEW IN FOREVER", C.FOREVER_LIGHT)
     chip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
     chip:Hide()
     FGT.detailNewChip = chip
 
     -- "COMPLETED OCT 6, 2026" on finished goals
-    local done = NewChip(detailPanel, 9)
+    local done = NewChip(FGT.detailBody, 9)
     done:SetBackdropBorderColor(0.16, 0.35, 0.10, 1)
     done:Hide()
     FGT.detailDoneChip = done
 
-    local n = CreateFrame("Frame", nil, detailPanel, "BackdropTemplate")
+    local n = CreateFrame("Frame", nil, FGT.detailBody, "BackdropTemplate")
     n:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
     n:SetPoint("RIGHT", -16, 0)
     Etch(n, STYLE.forever, 10)
@@ -4031,7 +4048,7 @@ end
 -- The game sends lockouts after RequestRaidInfo (UPDATE_INSTANCE_INFO);
 -- they're kept for this session only, since they change every week.
 do
-    local chip = NewChip(detailPanel, 9)
+    local chip = NewChip(FGT.detailBody, 9)
     chip:SetBackdropBorderColor(0.45, 0.22, 0.16, 1)
     chip:EnableMouse(true)
     chip:SetScript("OnEnter", function(self)
@@ -4060,7 +4077,7 @@ do
             end
         end
         FGT.lockouts = out
-        if FGT.lockGoal and detailPanel:IsVisible() then FGT.LayoutLockout(FGT.lockGoal, FGT.lockAnchor) end
+        if FGT.lockGoal and FGT.detailBody:IsVisible() then FGT.LayoutLockout(FGT.lockGoal, FGT.lockAnchor) end
     end
     local f = CreateFrame("Frame")
     f:RegisterEvent("PLAYER_LOGIN")
@@ -4095,9 +4112,9 @@ end
 -- goals you can edit (a `target`). Opens the same card as right-click >
 -- Edit goal. Grey at rest, gold on hover, with an "Edit goal" tooltip.
 do
-    local b = CreateFrame("Button", nil, detailPanel)
+    local b = CreateFrame("Button", nil, FGT.detailBody)
     b:SetSize(22, 22)
-    b:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -12, -12)
+    b:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -12, -12)
     b.icon = b:CreateTexture(nil, "ARTWORK")
     b.icon:SetTexture(FGT.Icon("pencil-white")) -- grey, tinted gold on hover
     b.icon:SetSize(15, 15)
@@ -4128,19 +4145,19 @@ do
         local resetShown = goal and not goal.autoLevels
         if FGT.resetBtn then
             FGT.resetBtn:ClearAllPoints()
-            FGT.resetBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", b:IsShown() and -46 or -20, -22)
+            FGT.resetBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", b:IsShown() and -46 or -20, -22)
         end
         local icons = (b:IsShown() and 1 or 0) + (resetShown and 1 or 0)
         FGT.detailNoteBtn:ClearAllPoints()
-        FGT.detailNoteBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -20 - 26 * icons, -22)
+        FGT.detailNoteBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20 - 26 * icons, -22)
         icons = icons + 1
         -- The title begins below the action icons and can use the full width.
-        detailTitle:SetPoint("RIGHT", detailPanel, "RIGHT", -22, 0)
-        b:ClearAllPoints(); b:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -20, -22)
+        detailTitle:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22, 0)
+        b:ClearAllPoints(); b:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20, -22)
     end
 end
 
-local detailBar = NewBar(detailPanel, 8)
+local detailBar = NewBar(FGT.detailBody, 8)
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar.label:ClearAllPoints()
 detailBar.label:SetPoint("BOTTOMLEFT", detailBar, "TOPLEFT", 0, 4)
@@ -4173,7 +4190,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     local B = CreateFrame("Frame", nil, detailPanel)
     B:EnableMouse(false)
     B:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
-    B:SetPoint("BOTTOMRIGHT", detailBar, "BOTTOMRIGHT", 18, -112)
+    B:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -4, -4)
+    B:SetHeight(500) -- measured below; independent of the text scroll offset
     B.background = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -4)
     B.background:SetTexture(SOLID)
     B.background:SetAllPoints(B)
@@ -4386,22 +4404,29 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip,FGT.detailLockChip}) do
             if chip:IsShown() then
                 local width = chip:GetWidth()
-                if x > 22 and x+width > detailPanel:GetWidth()-22 then x,y = 22,y+30 end
-                chip:ClearAllPoints(); chip:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", x,-y)
+                if x > 22 and x+width > FGT.detailBody:GetWidth()-22 then x,y = 22,y+30 end
+                chip:ClearAllPoints(); chip:SetPoint("TOPLEFT", FGT.detailBody, "TOPLEFT", x,-y)
                 x = x+width+10
             end
         end
         detailNote:ClearAllPoints()
         local personal = FGT.personalNote
         personal:ClearAllPoints()
-        personal:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 22,-(y+22+28))
-        personal:SetPoint("RIGHT", detailPanel, "RIGHT", -22,0)
+        personal:SetPoint("TOPLEFT", FGT.detailBody, "TOPLEFT", 22,-(y+22+28))
+        personal:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22,0)
         if FGT.GoalNote(goal) ~= "" then
             detailNote:SetPoint("TOPLEFT", personal, "BOTTOMLEFT", 0,-14)
         else
-            detailNote:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 22,-(y+22+28))
+            detailNote:SetPoint("TOPLEFT", FGT.detailBody, "TOPLEFT", 22,-(y+22+28))
         end
-        detailNote:SetPoint("RIGHT", detailPanel, "RIGHT", -22,0)
+        detailNote:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22,0)
+        FGT.detailHeaderHeight = y + 22 + 28
+            + (FGT.GoalNote(goal) ~= "" and personal:GetHeight() + 14 or 0)
+            + math.max(12, detailNote:GetStringHeight() or 12)
+            + (FGT.foreverNotice:IsShown() and FGT.foreverNotice:GetHeight() + 12 or 0)
+            + 32 + 8 + 10 + 2 + 10 + 14 + 8
+        B:SetHeight(FGT.detailHeaderHeight + 68)
+        if FGT.UpdateDetailViewport then FGT.UpdateDetailViewport() end
         local art = B.artPaths[goal.id]
         B.hasArt = art ~= nil
         B.sourceAspect = B.artAspects[goal.id] or 1
@@ -4449,13 +4474,13 @@ function FGT.LayoutForeverInfo(goal)
     local n = FGT.foreverNotice
     n:ClearAllPoints()
     n:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -12)
-    n:SetPoint("RIGHT", detailPanel, "RIGHT", -22, 0)
+    n:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22, 0)
     -- New goals only get the notice when there's something to explain.
     local note = (not word or goal.foreverNote) and FGT.ForeverNote(goal)
     detailBar:ClearAllPoints()
     detailBar:SetPoint("RIGHT", -22, 0)
     if note then
-        local w = math.max(120, detailPanel:GetWidth() - 44)
+        local w = math.max(120, FGT.detailBody:GetWidth() - 44)
         n.text:SetWidth(w - 9 - 18 - 8 - 10)
         n.text:SetText(note)
         n:SetHeight(math.max(30, math.ceil(n.text:GetStringHeight()) + 18))
@@ -4468,13 +4493,13 @@ function FGT.LayoutForeverInfo(goal)
     FGT.LayoutGoalBanner(goal)
 end
 
-local divider = CreateFrame("Frame", nil, detailPanel) -- invisible layout anchor above the steps
+local divider = CreateFrame("Frame", nil, FGT.detailBody) -- invisible layout anchor above the steps
 divider:SetHeight(2)
 FGT.stepsDivider = divider -- (the tips line ends where this one does)
 divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -10)
 divider:SetPoint("RIGHT", -16, 0)
 
-local stepsHeader = NewTitleString(detailPanel, 12)
+local stepsHeader = NewTitleString(FGT.detailBody, 12)
 stepsHeader:SetPoint("TOPLEFT", divider, "BOTTOMLEFT", 0, -10)
 stepsHeader:SetText("Step by Step")
 
@@ -4482,7 +4507,7 @@ stepsHeader:SetText("Step by Step")
 -- with two or more groups chosen (mount races, set classes). Groups only;
 -- Tier 3 pieces keep their materials folded.
 do
-    local b = CreateFrame("Button", nil, detailPanel)
+    local b = CreateFrame("Button", nil, FGT.detailBody)
     b:SetPoint("TOPRIGHT", divider, "BOTTOMRIGHT", -8, -10)
     b.text = NewFontString(b, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
     b.text:SetPoint("RIGHT")
@@ -4512,17 +4537,46 @@ function FGT.UpdateExpandAll(goal)
     b:Show()
 end
 
-local stepsScrollObj = CreateScrollArea(detailPanel)
+local stepsScrollObj = CreateScrollArea(FGT.detailBody)
 stepsScrollObj.scroll:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -8)
 -- down to the panel's inner edge (its border is 3px), so the bottom
 -- gradient meets the edge with no gap (no reset button below any more)
-stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -24, 3)
+stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", FGT.detailBody, "BOTTOMRIGHT", -24, 3)
 stepsScrollObj:Finalize()
 local stepsContainer = stepsScrollObj.content
 -- Tips are drawn straight on the list, so it carries their goal links.
 stepsContainer:EnableMouse(true)
 FGT.EnableGoalLinks(stepsContainer)
 stepsContainer:SetHeight(1)
+FGT.detailStepsScroll = stepsScrollObj
+function FGT.UpdateDetailViewport()
+    local view = FGT.detailViewport
+    if view.updating then return end
+    view.updating = true
+    local height = math.max(1, view.scroll:GetHeight())
+    local header = FGT.detailHeaderHeight or 0
+    view.short = height < header + 100
+    view.content:SetHeight(view.short and (header + math.max(100, stepsContainer:GetHeight()) + 8) or height)
+    if not view.short then view.scroll:SetVerticalScroll(0) end
+    if view.short then stepsScrollObj.scroll:SetVerticalScroll(0) end
+    stepsScrollObj:Update()
+    view:Update()
+    view.updating = nil
+end
+FGT.detailViewport.scroll:HookScript("OnSizeChanged", FGT.UpdateDetailViewport)
+stepsContainer:HookScript("OnSizeChanged", FGT.UpdateDetailViewport)
+do
+    local original = stepsScrollObj.scroll:GetScript("OnMouseWheel")
+    stepsScrollObj.scroll:SetScript("OnMouseWheel", function(self, delta)
+        if FGT.detailViewport.short then
+            local outer = FGT.detailViewport.scroll
+            outer:GetScript("OnMouseWheel")(outer, delta)
+        else
+            original(self, delta)
+        end
+    end)
+end
+
 
 -- "Reset this goal": a quiet undo-arrow icon at the top right, next to the
 -- Edit goal pencil (Karl: no big red button at the bottom, so the steps
@@ -4530,9 +4584,9 @@ stepsContainer:SetHeight(1)
 -- a reset can be undone. After a reset it offers "Undo reset" for 10
 -- seconds, holding a copy of the goal's ticks (and its finished state and
 -- date): FGT.resetUndo = { id, progress, done, date } while that's possible.
-local resetBtn = CreateFrame("Button", nil, detailPanel)
+local resetBtn = CreateFrame("Button", nil, FGT.detailBody)
 resetBtn:SetSize(22, 22)
-resetBtn:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -12, -12)
+resetBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -12, -12)
 resetBtn.icon = resetBtn:CreateTexture(nil, "ARTWORK")
 resetBtn.icon:SetTexture(FGT.Icon("refresh-white"))
 resetBtn.icon:SetSize(15, 15)
@@ -5468,6 +5522,11 @@ SelectGoal = function(id, skipListRefresh)
     detailBar.instant = nil
 
     RefreshSteps(goal)
+    if FGT.detailViewport.goalId ~= goal.id then
+        FGT.detailViewport.scroll:SetVerticalScroll(0)
+        FGT.detailViewport.goalId = goal.id
+    end
+    FGT.UpdateDetailViewport()
     RefreshGoalList()
     local d2, t2 = OverallProgress()
     overallBar:SetProgress(d2, t2, string.format("%d%% overall", math.floor(d2 / math.max(1, t2) * 100 + 0.5)))
@@ -5943,7 +6002,7 @@ function FGT.HideEmptyTracker()
     sortBar:Show()
     for _, part in ipairs(detailParts) do part:Show() end
 end
-detailParts = { detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
+detailParts = { FGT.detailViewport.scroll, detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
     detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
     FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip, FGT.detailEditBtn,
     FGT.personalNote, FGT.detailNoteBtn, FGT.goalBanner }
