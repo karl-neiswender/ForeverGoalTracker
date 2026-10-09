@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit; native 4:3 review preserved",
+  "source": "Media/artwork/warrior-dwarf-alliance-tier3.jpg",
+  "output": "Media/final-images/tier-sets/warrior/tier3-review.png",
+  "goal": "tier3_warrior",
+  "prompt": "Edit the supplied dwarf Warrior Tier3 illustration into ONE4:3 landscape Warcraft addon armor goal banner, intended1200x900. Preserve this original rough painterly artwork style, brushwork and character identity. Neutral black and white with moderately increased contrast, detailed midtones and controlled highlights matching subdued monochrome banners. Reframe dwarf FACE and identifying gold helmet/etched dark plate armor and glowing skull shoulder high and RIGHT OF CENTER filling right half. Left third quiet dark atmospheric battlefield space for UI text, extending original sky/battlefield environment left as needed. Preserve exact dwarf facial features, flowing dark beard, helmet shape, original shoulder/chest decorations, skull/gem shoulder shapes, raised arm and action pose, visible weapon/hand geometry. Do not redesign armor or make him a different race; no extra people, objects, text or UI. Keep face and identifying armor inside frame with breathing room. Improve legibility gently from the low-resolution source without replacing painterly detail with a different illustration style. Convert skull/gem glow into controlled grayscale retaining its shape, avoid blown highlights. Wide soft baked LEFT darkening naturally blended into scene; soft baked BOTTOM darkening over lowest approximately100 pixels ending near-black neutral charcoal. No hard strips or border. Preserve any existing artist marks.",
+  "status": "Review awaiting Karl's approval before installation; original unchanged."
+}
