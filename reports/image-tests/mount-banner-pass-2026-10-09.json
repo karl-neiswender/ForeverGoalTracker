@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-09",
+  "status": "Review versions; existing mount textures unchanged. Awaiting visual approval before installation.",
+  "method": "Built-in imagegen edits; native 4:3 PNG outputs preserved. Intended approved master dimensions 1200x900. In-game opacity consistency pass and runtime optimization pending.",
+  "targets": [
+    {
+      "goal": "mount_charger",
+      "source": "Media/artwork/mount-paladin-charger-epic.jpg",
+      "output": "Media/final-images/mount-reviews/charger-review.png",
+      "prompt": "Edit this supplied paladin epic Charger mount illustration into ONE 4:3 landscape Warcraft addon goal banner, intended 1200x900. Neutral black and white with moderately increased contrast, preserving painted detail and midtones. Place the horse's head and identifying ornate armor high and RIGHT OF CENTER, filling the right half; leave quiet dark atmospheric space across the left third for UI text, extending the original tournament/grass/sky setting to the left as needed. Preserve the horse's exact recognizable face, ears, armor shapes, decorations, cloth, raised front legs and rearing pose. Keep entire ears and head inside the frame with breathing room. No rider, no extra people or objects, no redesign. Control the bright sky so the horse remains readable and the left text area stays dark. Add wide smooth baked LEFT darkening blending into scene and soft baked BOTTOM darkening over lowest approximately 100 pixels, ending near-black neutral charcoal. No hard strips, borders, added text or UI. Preserve any existing artist marks. Match subdued grayscale painted banners, avoid blown highlights."
+    },
+    {
+      "goal": "mount_dreadsteed",
+      "source": "Media/artwork/mount_dreadsteed-banner-source.jpg",
+      "output": "Media/final-images/mount-reviews/dreadsteed-review.png",
+      "prompt": "Edit the supplied warlock epic Dreadsteed illustration into ONE 4:3 landscape Warcraft addon goal banner, intended 1200x900. Neutral black and white, moderately increased contrast while retaining the original painterly style and detailed midtones. Reframe the dreadsteed head, long horns and identifying spiked armor high and RIGHT OF CENTER filling right half; leave a quiet dark atmospheric left third for UI text, extending its existing misty forest environment left as needed. Preserve exact horse identity, long horn shapes, face, armor decoration, rearing pose and flame shapes as controlled grayscale glow. Keep all horns and head fully inside frame with breathing room. Control flame highlights to avoid white blowout and keep the left text area dark. Wide soft baked LEFT darkening smoothly blended into scene; soft baked BOTTOM darkening across lowest approximately 100 pixels ending near-black neutral charcoal. No hard strips, borders, extra people or objects, redesigned mount, or added text/UI. Preserve the source artist credit ALEXHORLEYART.COM and HORLEY signature, legible as part of original art, repositioned within the extended canvas if needed, without making them focal."
+    }
+  ]
+}
