@@ -49,10 +49,10 @@ B.GetHeight = function() return 200 end
 B.panel.GetHeight = function() return 600 end
 B.panel.GetWidth = function() return 600 end
 B:Fit()
-assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and B.fullImageHeight == 284,
-    "artwork retains its width and adds 100 pixels below its top-right anchor")
-assert(math.abs(artHeight-(284-math.min(240,284*0.55))) < 0.001,
-    "bottom transparency extends smoothly through the taller artwork")
+assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and B.fullImageHeight == 184,
+    "artwork retains its approved eight percent reduction from the top-right anchor")
+assert(math.abs(artHeight-(184-math.min(140,184*0.35))) < 0.001,
+    "original bottom transparency is preserved without an extra height change")
 assert(not bottomShown, "bottom veil stays removed during resize")
 B.panel.GetWidth = function() return 1000 end
 B:Fit()

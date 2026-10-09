@@ -4283,11 +4283,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
-        local h = math.max(1, self:GetHeight())*0.92+100
+        local h = math.max(1, self:GetHeight())*0.92
         local aw = w*0.6*0.92
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
         self.fullImageHeight = shownHeight
-        local fadeHeight = math.min(240,shownHeight*0.55)
+        local fadeHeight = math.min(140,shownHeight*0.35)
         local solidHeight = shownHeight-fadeHeight
         self.art:SetSize(aw,solidHeight)
         -- Restore the source proportions while covering the artwork area.

@@ -1,0 +1,85 @@
+{
+  "prompt": "Edit this approved banner image into a 4:3 landscape image, target 1200x900 pixels. The supplied image is 1200x800. Extend the CANVAS DOWNWARD ONLY by 100px: keep the original image at the top at its original scale, same subject placement, same left darkening, same neutral monochrome and contrast. Do not zoom, stretch, crop, shift or redesign the existing composition. Continue only the existing background scenery naturally in the new lower area. Bake a soft dark gradient into the actual image across the bottom: gently begin just above the old bottom edge and blend smoothly through the added area to a very dark neutral charcoal bottom (approximately RGB 12,12,11), resembling the existing left-side darkening. Avoid a visible horizontal seam, solid black strip or border. Keep the upper scene and subject details unchanged. No new subjects, text or UI. Return ONE finished 4:3 illustration. Preserve any existing artist signature or copyright notice, readable and in its existing position.",
+  "targets": [
+    {
+      "id": "ashbringer",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/weapons/ashbringer.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-dacb8f27-8bdf-4faf-9d0a-08454a8f6693.png"
+    },
+    {
+      "id": "atiesh",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/weapons/atiesh.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-1ff14479-00f0-4bc5-91a3-0b611a38268f.png"
+    },
+    {
+      "id": "sulfuras",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/weapons/sulfuras.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-5be02869-c4a5-41e5-9b5d-7abeb00a0e0f.png"
+    },
+    {
+      "id": "thunderfury",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/weapons/thunderfury.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-78e4203a-3d22-4583-b1df-c6274c0052a1.png"
+    },
+    {
+      "id": "rhokdelar",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/weapons/rhokdelar.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-ebd3b9a8-d6a2-4e5d-bb1c-44c9c4c64995.png"
+    },
+    {
+      "id": "quelserrar",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/weapons/quelserrar.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-5e39e672-f936-42ee-b11f-b2936038f3e5.png"
+    },
+    {
+      "id": "benediction",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/weapons/benediction.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-8b68cd9b-78a4-4f1d-8a24-563e157a9e46.png"
+    },
+    {
+      "id": "raid_bwl",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/blackwing-lair.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-831fa4e0-a07a-44a1-be96-4053abf26a8c.png"
+    },
+    {
+      "id": "raid_mc",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/molten-core/raid_mc.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-62c987c2-4491-4ca9-a252-dc68ac8bde39.png"
+    },
+    {
+      "id": "att_mc",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/molten-core/att_mc.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-9da39f4a-1cb3-4b59-8d02-cda2c9419b2b.png"
+    },
+    {
+      "id": "set_tier1",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/molten-core/set_tier1.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-e0751c31-51e9-4a82-a745-a345735d9532.png"
+    },
+    {
+      "id": "lokdelar",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/additional-goals/lokdelar.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-999dbed8-4611-4569-9da4-0f892f71d96e.png"
+    },
+    {
+      "id": "frostsaber",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/additional-goals/frostsaber.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-9f5d0709-7bee-463d-a487-b11c2ff39cc7.png"
+    },
+    {
+      "id": "set_viper",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/additional-goals/set_viper.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-e83f26bf-4bd8-4a73-97a0-6d889192fe84.png"
+    },
+    {
+      "id": "rep_cenarion",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/additional-goals/rep_cenarion.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-d0a7f0cf-f2ce-44c0-83fb-e7da9c3cffeb.png"
+    },
+    {
+      "id": "key_scholo",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/final-images/additional-goals/key_scholo.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-b2e26a64-1f91-4905-8ebb-98b9c5089094.png"
+    }
+  ]
+}
