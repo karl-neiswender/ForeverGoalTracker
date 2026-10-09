@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Removed unapproved inherited Baron artwork from Tier 3 sets
+- Approved floating Naxxramas background for Tier 3 sets and Naxxramas attunement
 - New Forever goal: Violet Sorcerer's Vestments
 - Dalaran banner for Violet Sorcerer's Vestments
 - Hyjal Summit and Barrow Deeps raid banners

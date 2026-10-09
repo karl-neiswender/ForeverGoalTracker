@@ -22,6 +22,8 @@ FINAL_BANNERS = {
     "raid_ony": "tall-1200x900/raid_ony.jpg",
     "mount_dreadsteed": "tall-1200x900/mount_dreadsteed.jpg",
     "mount_deathcharger": "tall-1200x900/mount_deathcharger.jpg",
+    "tier3": "tall-1200x900/naxxramas.jpg",
+    "att_naxx": "tall-1200x900/naxxramas.jpg",
     "set_tier1_rogue": "tier-sets/rogue/tier1.jpg",
     "set_tier2_rogue": "tier-sets/rogue/tier2.jpg",
     "tier3_rogue": "tier-sets/rogue/tier3.jpg",

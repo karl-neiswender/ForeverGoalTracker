@@ -4237,6 +4237,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         att_mc = "att_mc-banner.blp",
         set_tier1 = "set_tier1-banner.blp",
         raid_naxx = "raid_naxx-banner.blp",
+        tier3 = "tier3-banner.blp",
         att_naxx = "att_naxx-banner.blp",
         lokdelar = "lokdelar-banner.blp", frostsaber = "frostsaber-banner.blp",
         set_viper = "set_viper-banner.blp", rep_cenarion = "rep_cenarion-banner.blp",
@@ -4257,7 +4258,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         att_mc = 4/3,
         set_tier1 = 4/3,
         raid_naxx = 0.6679712981082844,
-        att_naxx = 1.7786561264822134,
+        tier3 = 4/3,
+        att_naxx = 4/3,
         lokdelar = 4/3, frostsaber = 4/3, set_viper = 4/3,
         rep_cenarion = 4/3, key_scholo = 4/3,
     }
@@ -4277,6 +4279,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Approved monochrome masters need no runtime desaturation.
     -- Older color banners keep their existing look until their final pass.
     B.preprocessed = {
+        tier3=true, att_naxx=true,
         ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
         rhokdelar=true, raid_ony=true, mount_dreadsteed=true,
         quelserrar=true, benediction=true, raid_bwl=true,

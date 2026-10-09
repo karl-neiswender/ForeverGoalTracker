@@ -71,7 +71,8 @@ RAID_CLASS_COLORS = oldColors
 
 for _, child in ipairs(F.GoalById("tier3").armorChildren) do
     if child.id ~= "tier3_rogue" and child.id ~= "tier3_warrior" and child.id ~= "tier3_mage" then
-        assert(not F.goalBanner:ArtPath(child.id), "Tier 3 cannot inherit unapproved Baron artwork")
+        assert(F.goalBanner:ArtPath(child.id) == "tier3-banner.blp", "Tier 3 inherits approved floating Naxx artwork")
+        assert(F.goalBanner.preprocessed[child.id] and F.goalBanner.artAspects[child.id] == 4/3)
     end
 end
 

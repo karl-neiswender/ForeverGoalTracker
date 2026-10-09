@@ -3,6 +3,11 @@
   "method": "Built-in imagegen edit",
   "source": "Media/artwork/Naxx_-_trailer_Naxx.jpg",
   "output": "Media/final-images/raid-reviews/naxxramas-review.png",
-  "status": "Review awaiting approval. Proposed shared Tier 3 fallback; replaces old floating Naxx attunement art once approved.",
-  "prompt": "Edit supplied floating Naxxramas fortress screenshot into ONE 4:3 landscape Warcraft addon banner intended1200x900. Match established neutral black and white painted banners with moderately increased contrast, detailed midtones and controlled highlights. Preserve unmistakable exact floating fortress architecture, skull ornament, towers, underside, vertical magical beams, twisted trees and burning ruins. Reframe fortress HIGH and RIGHT OF CENTER with breathing room above towers, quiet dark storm sky/ruins on left third for UI text. Extend existing environment left as needed; no new subjects, no architectural redesign. Give gentle painterly texture comparable to game illustration without changing scene identity. All magic and fires strictly neutral grayscale no green/blue/purple tint. Wide soft baked LEFT darkening blended naturally; soft baked BOTTOM darkening over lowest approximately100px ending near-black neutral charcoal. No hard strips/borders, no text/UI. Preserve original dramatic scale and looming atmosphere. Avoid blown out white beams."
+  "status": "Karl approved. Installed as shared Tier 3 fallback and Naxxramas attunement background. Approved Rogue, Warrior and Mage overrides retained.",
+  "prompt": "Edit supplied floating Naxxramas fortress screenshot into ONE 4:3 landscape Warcraft addon banner intended1200x900. Match established neutral black and white painted banners with moderately increased contrast, detailed midtones and controlled highlights. Preserve unmistakable exact floating fortress architecture, skull ornament, towers, underside, vertical magical beams, twisted trees and burning ruins. Reframe fortress HIGH and RIGHT OF CENTER with breathing room above towers, quiet dark storm sky/ruins on left third for UI text. Extend existing environment left as needed; no new subjects, no architectural redesign. Give gentle painterly texture comparable to game illustration without changing scene identity. All magic and fires strictly neutral grayscale no green/blue/purple tint. Wide soft baked LEFT darkening blended naturally; soft baked BOTTOM darkening over lowest approximately100px ending near-black neutral charcoal. No hard strips/borders, no text/UI. Preserve original dramatic scale and looming atmosphere. Avoid blown out white beams.",
+  "master": "Media/final-images/tall-1200x900/naxxramas.jpg",
+  "runtime": [
+    "Media/tier3-banner.blp",
+    "Media/att_naxx-banner.blp"
+  ]
 }
