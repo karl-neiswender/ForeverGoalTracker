@@ -1,0 +1,187 @@
+Failed to find real location of C:\Users\kneis\AppData\Local\Python\pythoncore-3.14-64\python.exe
+compiles   Data.lua
+compiles   Library.lua
+compiles   ArmorSets.lua
+compiles   Npcs.lua
+compiles   Quests.lua
+compiles   Dependencies.lua
+compiles   Core.lua
+session    fresh install
+             chat: |cffffd75eForever Goal Tracker:|r welcome! Type |cffffffff/goals|r or click the minimap button, then add goals from the Goal Library.
+session    Forever 1.60.1 build 70291 startup
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Hfgt:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   build 70291 startup, Forever detection, final banners and logout ok
+session    login with goals
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff36%|r of your goals. You got this! |cffffd100|Hfgt:open|h[Open tracker]|h|r
+session    goal finished while closed
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Hfgt:goal:atiesh|h[Atiesh, Greatstaff of the Guardian]|h|r! Legendary.
+session    /goals testbanner
+             chat: |cffffd75eForever Goal Tracker:|r Test banner (no progress changed):
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Hfgt:goal:raid_mc|h[Clear Molten Core]|h|r! What a moment.
+session    personal notes
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Your future self says thanks. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   save, cancel, delete, literal text and separate goals ok
+session    personal notes survive reload
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Today's a good day for progress. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   both notes restored from SavedVariables
+session    note modal motion and gold hover
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Azeroth won't conquer itself. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   fades, pop, hover, interrupted close and motion settings ok
+session    forever personal note layout
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Make it a legendary day. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   personal note layout with and without Forever notice ok
+session    reset icon and undo countdown
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Keep stacking those wins. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   reset, rotation, countdown, restore, expiry and goal switching ok
+session    welcome wizard
+             chat: Swift Steed  [The Human epic mount]
+             chat: Stormpike Battle Charger  [PvP]
+             chat: Thunderfury, Blessed Blade of the Windseeker  [Epic Loot]
+             chat: Winterspring Frostsaber  [Collecting]
+             chat: Exalted: Argent Dawn  [The Grind]
+             chat: Join a Guild  [Social]
+             chat: |cffffd75eForever Goal Tracker:|r added 6 goals to My Goals. Good luck out there!
+session    find your next goal
+             chat: Battlegear of Might
+             chat: Sulfuras, Hand of Ragnaros
+             chat: Clear Blackwing Lair
+             chat: Quel'Serrar
+             chat: Battlegear of Wrath
+             chat: Slay Onyxia
+session    change target
+             chat: |cffffd75eForever Goal Tracker:|r Save 10,000 Gold: target set to 10,000 gold.
+             chat:   Hold 2,000 gold on one character. (2000g)
+             chat:   Hold 5,000 gold on one character. (5000g)
+             chat:   Hold 10,000 gold on one character. (10000g)
+             chat: |cffffd75eForever Goal Tracker:|r Save 5,000 Gold: target set to 5,000 gold.
+             chat:   back to: Save 5,000 Gold
+session    social goals and lockout
+             chat: |cffffd75eForever Goal Tracker:|r previewing a lockout for Molten Core.
+             chat: |cffffd75eForever Goal Tracker:|r lockout preview off.
+session    statistics: duelist
+             chat: |cffffd75eForever Goal Tracker:|r 2 steps checked off automatically.
+             chat:   duelist ticks: true true nil
+             chat:   money parse: 55600 copper
+             chat: |cffffd75eForever Goal Tracker:|r Duelist: target set to 200 duels.
+             chat:   Win your first duel.
+             chat:   Win 20 duels.
+             chat:   Win 100 duels.
+             chat:   Win 200 duels.
+session    forever: new sets in the wizard
+             chat: Battlegear of Might
+             chat: Exalted: Silverwing Sentinels
+             chat: Slay Onyxia
+             chat: Exalted: League of Arathor
+             chat: Clear Zul'Gurub
+             chat: Alliance War Mount (Rank 11)
+             chat:   goals visible on Forever: 79
+             chat:   Premier Marshal's Plate Shoulderguards from PvP rank 12 (Marshal).
+             chat:   raid set parts: 9, plate PvP parts: 2
+             chat:   paladin helm ticks from: 280936, 280930, 280937
+session    logout reads no statistics
+             chat:   logout ok
+session    item and wowhead links
+             chat:   helm item: 16866, text: |cfff0dcb0|Hitem:16866|hHelm of Might|h|r from Garr.
+             chat:   https://www.wowhead.com/classic/item=16866
+             chat:   step 7: Turn in the four demon heads to Vartrus for Lok'delar and the |cfff0dcb0|Hitem:18707|hAncient Rune Etched Stave|h|r.
+             chat:   ram: Buy a |cffa335ee|Hfgtvariants:18786|hSwift Ram|h|r from Veron Amberstill (Amberstill Ranch, Dun Morogh)
+             chat:   https://www.wowhead.com/classic/npc=1261#sells
+session    npc links
+             chat:   Bring the leaf to |cff5fd4bd|Hfgtnpc:14524|hVartrus the Ancient|h|r in Felwood.
+             chat:   Turn in the sinew to |cff5fd4bd|Hfgtnpc:14524|hVartrus|h|r for the |cffcc9e29|Hfgtgoal:lokdelar|hLokdelar|h|r reward.
+             chat:   Solo |cff5fd4bd|Hfgtnpc:14535|hArtorius the Doombringer|h|r in Winterspring.
+             chat: |cffffd75eForever Goal Tracker:|r Vartrus the Ancient, Felwood 48.8, 24.2.
+             chat: |cffffd75eForever Goal Tracker:|r Lothos Riftwaker can't be shown on the map: inside Blackrock Mountain, by the Molten Core portal.
+             chat:   tomtom: 1452 0.514 0.362 Artorius the Doombringer (as Artorius the Amiable)
+             chat: |cffffd75eForever Goal Tracker:|r TomTom waypoint set: Artorius the Doombringer (as Artorius the Amiable), Winterspring 51.4, 36.2.
+             chat:   set to game map:
+             chat: |cffffd75eForever Goal Tracker:|r Artorius the Doombringer (as Artorius the Amiable), Winterspring 51.4, 36.2.
+             chat:   card: https://www.wowhead.com/classic/npc=14524
+session    npc spots on forever
+             chat: |cffffd75eForever Goal Tracker:|r Lothos Riftwaker, Burning Steppes 26.4, 24.6.
+             chat:   harb: 46.6, 62
+session    goal link gradient
+             chat:   Get |cffcc9e29|Hfgtgoal:att_naxx|h|cfff9df6aat|r|cffffe873tuned|r|cfff9df6a t|r|cfff2d660o|r|cffeccc57 |r|cffe6c34eNa|r|cffdfba45x|r|cffd9b13bx|r|cffd2a732ra|r|cffcc9e29mas|r|h|r at the chapel.
+             chat:   plain: Get attuned to Naxxramas at the chapel.
+             chat:   add comet on: true
+session    quest links
+             chat:   Pick up |TInterface\GossipFrame\AvailableQuestIcon:15:15:0:-3|t|cfffff23a|Hfgtquest:4|hA Proper String|h|r from |cff5fd4bd|Hfgtnpc:14525|hStoma the Ancient|h|r in Felwood.
+             chat:   Bring the Frame of Atiesh to |cff5fd4bd|Hfgtnpc:15192|hAnachronos|h|r.
+             chat:   Turn in |TInterface\GossipFrame\DailyQuestIcon:15:15:0:-3|t|cff5cb8ff|Hfgtquest:1|hFrostsaber Provisions|h|r daily.
+             chat:   Bring a |cfff0dcb0|Hitem:12811|hRighteous Orb|h|r to |cffcc9e29|Hfgtgoal:rep_argentdawn|hthe Argent Dawn|h|r.
+             chat:   https://www.wowhead.com/classic/quest=7635
+             chat:   https://www.wowhead.com/classic/search?q=An+Earnest+Proposition
+session    gallery screenshots
+             chat: |cffffd75eForever Goal Tracker:|r photo mode on (black). Type /goals photo again to turn it off.
+             chat: |cffffd75eForever Goal Tracker:|r taking 8 screenshots. Keep your mouse off the window.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 1 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 2 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 3 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 4 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 8 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 5 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 6 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 1 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo off. Your own goals and progress are back.
+             chat: |cffffd75eForever Goal Tracker:|r photo mode off.
+             chat: |cffffd75eForever Goal Tracker:|r done: 8 screenshots in the game's Screenshots folder. Tell Claude to process the shots.
+             chat:   screenshots: 8, format back to jpeg, demo off: true
+session    link sweep
+             chat:   Combine the |cfff0dcb0|Hitem:17193|hSulfuron Hammer|h|r and the |cfff0dcb0|Hitem:17204|hEye of Sulfuras|h|r into |cffff8000|Hitem:17182|hSulfuras|h|r.
+             chat:   Turn in |TInterface\GossipFrame\AvailableQuestIcon:15:15:0:-3|t|cfffff23a|Hfgtquest:15|hRise, Thunderfury!|h|r to receive |cffff8000|Hitem:19019|hThunderfury|h|r.
+             chat:   Attunement needs Honored with the |cffcc9e29|Hfgtgoal:rep_argentdawn|hArgent Dawn|h|r and a |cfff0dcb0|Hitem:12811|hRighteous Orb|h|r: 5 |cfff0dcb0|Hitem:12363|hArcane Crystals|h|r and 2 |cfff0dcb0|Hitem:20725|hNexus Crystals|h|r at Honored, fewer at Revered.
+session    quest starts
+             chat:   start NPCs missing from Npcs.lua: Ancient Equine Spirit; item starts: 6
+session    add all and reset all
+             chat: |cffffd75eForever Goal Tracker:|r added 96 goals to My Goals.
+             chat:   active: 108
+             chat: |cffffd75eForever Goal Tracker:|r this clears the ticks on every goal on My Goals. Type |cffffffff/goals resetall|r again within 10 seconds to confirm.
+             chat: |cffffd75eForever Goal Tracker:|r reset 108 goals. Steps the game can check will tick again on the next scan. Undo with |cffffffff/goals resetall undo|r.
+             chat:   gold ticks after reset: nil
+             chat: |cffffd75eForever Goal Tracker:|r progress restored.
+             chat:   gold ticks after undo: true
+session    demo scenes
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 1 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 2 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 3 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 4 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 5 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 6 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 7 of 8. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 8 of 8. Your real data is safe; /goals demo off brings it back.
+             chat:   demo gold name: Save 10,000 Gold
+             chat: |cffffd75eForever Goal Tracker:|r demo off. Your own goals and progress are back.
+             chat:   after off: Save 5,000 Gold
+session    individual armor sets
+             chat: |cffffd75eForever Goal Tracker:|r 10 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff38%|r of your goals. Nothing can stop you now. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   individual armor goals, migration, materials, notes, dates, reset/undo, Library picker and dedicated banners ok
+session    Forever individual armor sets
+             chat: |cffffd75eForever Goal Tracker:|r 10 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff38%|r of your goals. Fortune favors the persistent. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   individual armor goals, migration, materials, notes, dates, reset/undo, Library picker and dedicated banners ok
+session    goal banner layout
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff28%|r of your goals. Fortune favors the persistent. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 60%.
+             chat: |cffffd75eForever Goal Tracker:|r Use /goals banneropacity 0-100, or /goals banneropacity reset.
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 100%.
+             chat:   banner title reflow, badge wrapping, artwork switching, aspect crop and empty-state layers ok
+session    Forever 70291 banner layout and image fades
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff4%|r of your goals. One step closer. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 60%.
+             chat: |cffffd75eForever Goal Tracker:|r Use /goals banneropacity 0-100, or /goals banneropacity reset.
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 100%.
+             chat:   banner title reflow, badge wrapping, artwork switching, aspect crop and empty-state layers ok
+session    short goal window
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff4%|r of your goals. Every run counts. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   minimum/tall heights, full-page wheel, content bounds, expanded recipes and long headers ok
+session    Forever short goal window
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff4%|r of your goals. Your future self says thanks. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   minimum/tall heights, full-page wheel, content bounds, expanded recipes and long headers ok
+session    step dependencies
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff4%|r of your goals. Today's a good day for progress. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   dependency references, cycles, blocked clicks, links, fan-out, fan-in, OR, evidence and motion modes ok
+session    Forever dependency gates withheld
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff6%|r of your goals. Look at you go! |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   Classic-only gates stay off in unverified Forever builds
