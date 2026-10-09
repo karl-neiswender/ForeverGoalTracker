@@ -1,5 +1,7 @@
 # Goal banner shot list
 
+Armor set update, October 9, 2026: sets are now independent class goals. Use [Individual armor set goals](Armor%20set%20goals.md) for the current armor image inventory and dedicated banner assignments. The grouped armor entries below describe the older layout.
+
 Prepared for Karl, October 8, 2026. Covers all 79 goals in the current Lua catalog.
 
 **22 assigned · 26 have an uploaded candidate · 31 still need a suitable image.**

@@ -51,3 +51,7 @@ Larger updates with lots of new content.
 - **2.1.2:** Goal Library search, attunements and dungeon keys, Dungeon Sets 1 and 2, AQ20, Ambassador, Dreadsteed and Charger, Tips under each goal.
 
 See the [changelog](CHANGELOG.md) for everything.
+
+## Added in the current development build
+
+- **Individual armor set goals:** browse sets together in the Library, then track each class set separately with its own progress, notes and artwork. Includes raid, dungeon, Forever and PvP sets. Existing selections and checkmarks carry over.

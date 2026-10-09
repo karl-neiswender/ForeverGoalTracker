@@ -55,12 +55,13 @@ My Goals
   tracker. Removing keeps its progress in case you add it back.
 
 Goal Library
-  Every goal the addon knows (79 and counting). Search by name, or use
+  Every goal the addon knows (137 and counting). Search by name, or use
   the filter chips to browse by type; PvP, Reputation and Attunements
   also have a Both / Alliance / Horde picker. Click "+ Add" to put a
   goal on your tracker. Goals with several parts (classes, professions, mount races,
   set classes) have a "Choose" button so you can add only the parts you
-  want.
+  want. Each chosen armor set becomes its own goal with separate progress,
+  notes and artwork.
 
 AUTOMATIC TRACKING
 ------------------

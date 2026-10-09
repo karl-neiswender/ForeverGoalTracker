@@ -10,3 +10,5 @@ Karl identified and requested treatments of these Rexxar images:
 Same approved banner style: neutral monochrome, stronger contrast, subject high/right of center, soft baked left/bottom gradients. One built-in ChatGPT edit per source, then technical resize to exact1200x900 (4:3) and quality90 optimized JPEG. Original source files untouched. Image generation can vary painted details. Prompt and source provenance: reports/image-tests/hunter-tier-pass.json; technical export script beside it.
 
 Karl approved both images and requested saving them in the folder while leaving them unattached to goals. Approved masters are shared on main for Claude and the Mac; no runtime attachment or installation. This folder is excluded from release packages by the existing final-images rule, like the approved rogue masters. Shared class/tier structure is for later use; these files do not implement class-specific banner selection.
+
+Update October 9, 2026: Karl requested individual armor set goals with their own artwork. These approved masters are now installed for their matching class and tier goals; this supersedes the earlier held/unattached status.

@@ -163,6 +163,11 @@ function FGT.GroupParts(goal)
 end
 
 local function PartSelected(goal, key)
+    if goal.armorChildren then
+        local child = goal.armorChildren[key]
+        return child and ForeverGoalTrackerDB and ForeverGoalTrackerDB.active
+            and ForeverGoalTrackerDB.active[child.id] and true or false
+    end
     if not goal.group then return true end
     local sel = ForeverGoalTrackerDB and ForeverGoalTrackerDB.activeParts
         and ForeverGoalTrackerDB.activeParts[goal.id]
@@ -187,7 +192,7 @@ end
 local function ActiveGoals()
     local out = {}
     for _, g in ipairs(FGT.goals) do
-        if IsActive(g) then table.insert(out, g) end
+        if not g.libraryOnly and IsActive(g) then table.insert(out, g) end
     end
     return out
 end
@@ -317,6 +322,8 @@ end
 -- are, and owning it ticks them all. A piece without materials (a mount
 -- task, a Tier 1/2 item) is a single checkbox.
 function FGT.PieceProgress(goalId, si, pi, piece)
+    local collection = FGT.armorCollections[goalId]
+    if collection then goalId, si = collection.armorChildren[si].id, 1 end
     if FGT.PieceSkipped(piece) then return 0, 0 end -- not shown, not counted
     local n = #piece.materials
     if n == 0 then
@@ -936,6 +943,7 @@ local function ApplyAutoRules()
         end
     end
     for _, goal in ipairs(FGT.goals) do
+        if not goal.libraryOnly then
         local all = goal.completeWith and (RuleMet(goal.completeWith)) or false
         -- Steps already ticked are skipped: they can never untick, and
         -- re-checking hundreds of them on every bag change only made
@@ -966,6 +974,7 @@ local function ApplyAutoRules()
                     for mi in ipairs(piece.materials) do mark(goal.id, MaterialKey(si, pi, mi), "piece owned") end
                 end
             end
+        end
         end
     end
     return changed
@@ -3633,7 +3642,7 @@ end
 LayoutGoalList = function()
     local sorted = ActiveGoals()
     for _, g in ipairs(FGT.goals) do
-        if goalRows[g.id] then goalRows[g.id]:SetShown(IsActive(g)) end
+        if goalRows[g.id] then goalRows[g.id]:SetShown(not g.libraryOnly and IsActive(g)) end
     end
     -- Favorites first, then the rest; each group follows the sort.
     local mode = sortModes[sortModeIndex].key
@@ -4245,6 +4254,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         raid_mc=true, att_mc=true, set_tier1=true,
         lokdelar=true, frostsaber=true, set_viper=true, rep_cenarion=true, key_scholo=true,
     }
+    -- Individual sets can carry their own banner; other sets retain the
+    -- collection's existing artwork until a dedicated image is approved.
+    for _, parent in pairs(FGT.armorCollections) do
+        for _, child in ipairs(parent.armorChildren) do
+            B.artPaths[child.id] = B.artPaths[parent.id]
+            B.artAspects[child.id] = B.artAspects[parent.id]
+            B.preprocessed[child.id] = B.preprocessed[parent.id]
+        end
+    end
+    for _, id in ipairs({"set_tier1_rogue", "set_tier2_rogue", "tier3_rogue",
+            "set_tier1_hunter", "set_tier2_hunter"}) do
+        B.artPaths[id] = id .. "-banner.blp"
+        B.artAspects[id], B.preprocessed[id] = 4/3, true
+    end
     B.imageSeen = {} -- per-session, never written to SavedVariables
     function B:SetImageFade(amount)
         self.imageFade = amount
@@ -5382,10 +5405,16 @@ RefreshSteps = function(goal)
 end
 
 SelectGoal = function(id, skipListRefresh)
+    local parent = FGT.armorCollections[id]
+    if parent then
+        for _, child in ipairs(parent.armorChildren) do
+            if IsActive(child) then id = child.id break end
+        end
+    end
     if FGT.noteCard and FGT.noteCard.goal and FGT.noteCard.goal.id ~= id then FGT.CloseNoteCard(true) end
     local goal
     for _, g in ipairs(FGT.goals) do
-        if g.id == id and IsActive(g) then goal = g break end
+        if g.id == id and not g.libraryOnly and IsActive(g) then goal = g break end
     end
     if not goal then
         goal = ActiveGoals()[1]
@@ -6178,6 +6207,7 @@ end
 
 -- Search and faction rules, applied on top of the chip filter.
 function FGT.LibraryVisible(goal)
+    if goal.libraryChild then return false end
     -- Forever-only goals can't be earned on Classic Era.
     if goal.forever == "new" and not FGT.isForever then return false end
     if goal.needs == "stats" and not FGT.HasStats() then return false end -- no Statistics window
@@ -6191,6 +6221,7 @@ function FGT.LibraryVisible(goal)
     local q = FGT.libSearch
     if q and q ~= "" then
         local hay = (goal.name .. " " .. (goal.short or "") .. " " .. (goal.category or "") .. " " .. (goal.faction or "")):lower()
+        for _, child in ipairs(goal.armorChildren or {}) do hay = hay .. " " .. child.name:lower() end
         if not hay:find(q, 1, true) then return false end
     end
     return true
@@ -6241,6 +6272,11 @@ local function AfterSelectionChange(goal, nowActive)
 end
 
 local function SetPartActive(goal, key, on)
+    if goal.armorChildren then
+        local child = FGT.SetArmorPartActive(goal, key, on)
+        AfterSelectionChange(child, on)
+        return
+    end
     local sel = ForeverGoalTrackerDB.activeParts[goal.id] or {}
     ForeverGoalTrackerDB.activeParts[goal.id] = sel
     sel[key] = on or nil
@@ -6248,6 +6284,15 @@ local function SetPartActive(goal, key, on)
 end
 
 local function SetGoalActive(goal, on)
+    if goal.armorChildren then
+        local first
+        for _, part in ipairs(FGT.GroupParts(goal)) do
+            local child = FGT.SetArmorPartActive(goal, part.key, on)
+            first = first or child
+        end
+        AfterSelectionChange(first, on)
+        return
+    end
     if goal.group then
         local sel = {}
         if on then
@@ -6880,7 +6925,7 @@ LayoutLibrary = function()
     FGT.libNoMatch:SetText((FGT.libSearch ~= "") and ("No goals match \"" .. FGT.searchBox:GetText() .. "\".") or "No goals here yet.")
     FGT.libNoMatch:SetShown(#list == 0)
 
-    libSummary:SetText(string.format("%d of %d goals on your tracker", #ActiveGoals(), #FGT.goals))
+    libSummary:SetText(string.format("%d of %d goals on your tracker", #ActiveGoals(), FGT.CatalogGoalCount()))
 end
 libScroll:Finalize()
 FGT.LayoutLibrary = LayoutLibrary
@@ -8254,6 +8299,7 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         if p and p[1] and not ForeverGoalTrackerDB.attuneSteps then p[3] = true end
     end
     ForeverGoalTrackerDB.attuneSteps = true
+    FGT.MigrateArmorSets(ForeverGoalTrackerDB)
     if FGT.ApplyTargets then FGT.ApplyTargets() end -- player-set targets (gold, honorable kills)
     ApplyAutoRules() -- re-check against the saved roster from earlier sessions
 
@@ -9369,7 +9415,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
             local ok = not (g.forever == "new" and not FGT.isForever)
                 and not (g.needs == "stats" and not FGT.HasStats())
                 and not (g.needs == "forever" and not FGT.isForever)
-            if ok and not IsActive(g) then
+            if ok and not g.libraryOnly and not IsActive(g) then
                 if g.group then
                     local sel = DB.activeParts[g.id] or {}
                     DB.activeParts[g.id] = sel
@@ -9582,6 +9628,12 @@ end
 -- finished). Goals already on My Goals come back with tracked = true:
 -- they're listed (dimmed) so you can see they were considered.
 local function Entry(me, id, keys, why)
+    local parent = FGT.armorCollections[id]
+    if parent then
+        local key = OnlyKey(keys)
+        if not key then return nil end
+        id, keys = parent.armorChildren[key].id, nil
+    end
     local g = FGT.GoalById(id)
     if not g then return nil end
     if g.faction and g.faction ~= me.faction then return nil end
@@ -10291,7 +10343,7 @@ function W.Show(step)
         else
             own.icon:SetIcon({ "inv_misc_book_09", "inv_misc_book_07" })
             own.name:SetText("I'll pick my own")
-            own.desc:SetText(string.format("Browse all %d goals in the Goal Library.", #FGT.goals))
+            own.desc:SetText(string.format("Browse all %d goals in the Goal Library.", FGT.CatalogGoalCount()))
             own.onClick = function()
                 FGT.CloseWelcome(true)
                 FGT.ShowTab("library")

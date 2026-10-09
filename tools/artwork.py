@@ -20,6 +20,11 @@ FINAL_BANNERS = {
         "lokdelar", "frostsaber", "set_viper", "rep_cenarion", "key_scholo")},
     "rhokdelar": "tall-1200x900/rhokdelar-hunter.jpg",
     "raid_ony": "tall-1200x900/raid_ony.jpg",
+    "set_tier1_rogue": "tier-sets/rogue/tier1.jpg",
+    "set_tier2_rogue": "tier-sets/rogue/tier2.jpg",
+    "tier3_rogue": "tier-sets/rogue/tier3.jpg",
+    "set_tier1_hunter": "tier-sets/hunter/tier1.jpg",
+    "set_tier2_hunter": "tier-sets/hunter/tier2.jpg",
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",

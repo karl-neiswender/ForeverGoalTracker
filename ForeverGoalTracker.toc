@@ -12,6 +12,7 @@
 
 Data.lua
 Library.lua
+ArmorSets.lua
 Npcs.lua
 Quests.lua
 Dependencies.lua

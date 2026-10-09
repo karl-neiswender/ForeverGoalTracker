@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Armor sets now track separately by class, including raid, dungeon, Forever and PvP sets. The Library keeps its grouped browsing. Existing selections and progress migrate automatically; each set has its own notes, reset, completion and banner. Installed five approved Rogue and Hunter tier banners.
+
 - Replaced Slay Onyxia artwork with the approved monochrome orc-and-dragon banner, including soft left and bottom gradients.
 
 - Installed the approved night elf hunter artwork as Rhok'delar's replacement banner, with monochrome treatment and soft left/bottom gradients.

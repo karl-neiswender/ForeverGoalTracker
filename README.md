@@ -13,7 +13,7 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Edit goal:** change the number on goals like Save 5,000 Gold.
 - **Personal notes:** click the note icon on a goal page to save a reminder under its description. Click the note to edit it; use Delete note to remove it, or the close X to discard unsaved edits.
 - **Raid lockouts:** raid goals show when the character you're on is saved this week.
-- **Pick the parts you want** of multi-part goals: individual classes, professions, mount races or Tier set classes.
+- **Pick the parts you want** of multi-part goals: individual classes, professions or mount races. Armor sets stay grouped in the Library, but each selected class set becomes its own goal with separate progress, notes and artwork.
 - **Separate Alliance and Horde goals**, with faction filters.
 - **Favorites:** right-click a goal to star it and keep it at the top of your list, or to remove it.
 - **Built for Warcraft Forever:** NEW and UPDATED markers in Forever blue, a "New & Updated" filter, and a notice on guides not yet confirmed in Forever.
