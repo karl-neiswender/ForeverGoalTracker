@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Reduced goal background artwork by 8% from its top-right anchor, removed the extra bottom veil, and clipped backgrounds inside the panel. First-open fades now use a dedicated background layer over 0.6 seconds; goal icons remain instant.
+
 - Updated local Forever compatibility checks for 1.60.1 build 70291: startup, client detection, banner layout/image fades and logout pass. Existing interface declaration remains 16001; in-client visual validation remains to be done.
 
 - Goal background artwork gently fades in on the first opening of each goal per session. The square goal icon, text and progress appear immediately; repeat visits stay instant. Respects animations being turned off.

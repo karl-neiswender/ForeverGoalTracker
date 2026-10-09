@@ -38,10 +38,21 @@ F.SetGoalNote(g,"")
 F.LayoutForeverInfo(g)
 assert(descriptionAnchor == B.panel, "empty note leaves no extra gap")
 local coords
+local artWidth, artHeight
+B.art.SetSize = function(_,w,h) artWidth,artHeight=w,h end
+local bottomShown = false
+B.bottom.Show = function() bottomShown=true end
+B.bottom.Hide = function() bottomShown=false end
+B.bottom.SetShown = function(_,v) bottomShown=v end
+local clipAlpha
+B.clip.SetAlpha = function(_,v) clipAlpha=v end
 B.art.SetTexCoord = function(_,...) coords={...} end
 B.GetHeight = function() return 200 end
 B.panel.GetWidth = function() return 600 end
 B:Fit()
+assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and artHeight == 184,
+    "artwork scales down eight percent from its existing top-right anchor")
+assert(not bottomShown, "bottom veil stays removed during resize")
 assert(coords[1]==0 and coords[2]==1 and coords[3]>0, "wide cover crops vertically")
 B.panel.GetWidth = function() return 190 end
 B:Fit()
@@ -85,13 +96,15 @@ assert(not B.imageSeen.raid_mc and not B.revealGoal, "hidden layouts do not cons
 visible = true
 B:RevealImages()
 assert(B.imageFade == 0 and B:GetScript("OnUpdate"), "first visible open starts at zero")
+assert(clipAlpha == 0, "dedicated background layer starts fully transparent")
 local tick = B:GetScript("OnUpdate")
 tick(B, 0.2)
 local mid = B.imageFade
 assert(mid > 0 and mid < 1, "fade eases through intermediate opacity")
+assert(clipAlpha == mid, "parent-layer opacity follows the fade")
 B:RevealImages()
 assert(B.imageFade == mid and B:GetScript("OnUpdate") == tick, "layout refresh does not restart fade")
-tick(B, 0.25)
+tick(B, 0.4)
 assert(B.imageFade == 1 and B.imageSeen.raid_mc and not B:GetScript("OnUpdate"), "fade completes and stops its ticker")
 B:StopImageFade(); B:RevealImages()
 assert(B.imageFade == 1 and not B:GetScript("OnUpdate"), "repeat visits are immediate")

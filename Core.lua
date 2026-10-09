@@ -4154,6 +4154,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.background = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -4)
     B.background:SetTexture(SOLID)
     B.background:SetAllPoints(B)
+    B.clip = CreateFrame("Frame", nil, detailPanel)
+    B.clip:SetFrameLevel(detailPanel:GetFrameLevel())
+    B.clip:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4,-4)
+    B.clip:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -4,4)
+    B.clip:EnableMouse(false)
+    if B.clip.SetClipsChildren then B.clip:SetClipsChildren(true) end
     B.border = CreateFrame("Frame", nil, B)
     B.border:SetHeight(2)
     B.border:SetPoint("BOTTOMLEFT", B, "BOTTOMLEFT")
@@ -4161,20 +4167,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- The banner ends in a soft blend now, rather than a separate ruled edge.
     B.border:SetAlpha(0)
     ApplyVGradient(B.background, STYLE.panel.top, STYLE.panel.bottom, 0, 0)
-    B.art = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -3)
+    B.art = B.clip:CreateTexture(nil, "BACKGROUND", nil, -3)
     B.art:SetPoint("TOPRIGHT", B, "TOPRIGHT")
     -- Fade the actual image alpha, avoiding a colored rectangle at its left edge.
     ApplyHGradient(B.art, {1,1,1}, {1,1,1}, 0,0.18)
-    B.left = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
-    B.top = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
-    B.bottom = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
+    B.left = B.clip:CreateTexture(nil, "BACKGROUND", nil, -2)
+    B.top = B.clip:CreateTexture(nil, "BACKGROUND", nil, -1)
+    B.bottom = B.clip:CreateTexture(nil, "BACKGROUND", nil, -1)
     for _, t in ipairs({B.left,B.top,B.bottom}) do t:SetTexture(SOLID) end
     B.left:SetPoint("TOPLEFT", B.art, "TOPLEFT")
     B.top:SetPoint("TOPRIGHT", B, "TOPRIGHT")
     B.bottom:SetPoint("BOTTOMRIGHT", B, "BOTTOMRIGHT")
     ApplyHGradient(B.left, {0.012,0.011,0.008}, {0.012,0.011,0.008}, 1, 0)
     ApplyVGradient(B.top, {0.02,0.017,0.012}, {0.02,0.017,0.012}, 0.65, 0)
-    ApplyVGradient(B.bottom, {0.005,0.005,0.005}, {0.005,0.005,0.005}, 0, 1)
+    B.bottom:Hide() -- removed bottom veil; never draw below the panel
     B.artPaths = {
         thunderfury = "thunderfury-banner.blp",
         rhokdelar = "rhokdelar-banner.blp",
@@ -4221,8 +4227,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.imageSeen = {} -- per-session, never written to SavedVariables
     function B:SetImageFade(amount)
         self.imageFade = amount
-        -- Gradient textures ignore SetAlpha in WoW; scale their vertex alphas.
-        ApplyHGradient(self.art, {1,1,1}, {1,1,1}, 0,0.18*amount)
+        -- Fade a dedicated parent layer; texture gradient alpha remains fixed.
+        self.clip:SetAlpha(amount)
     end
     function B:StopImageFade()
         self:SetScript("OnUpdate", nil)
@@ -4243,9 +4249,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.revealElapsed = 0
         self:SetScript("OnUpdate", function(frame, elapsed)
             frame.revealElapsed = frame.revealElapsed + elapsed
-            local p = math.min(1, frame.revealElapsed/0.45)
+            local p = math.min(1, frame.revealElapsed/0.6)
             if FGT.Setting("celebrations") == "off" then p = 1 end
-            frame:SetImageFade(1-(1-p)^3)
+            frame:SetImageFade(p*p*(3-2*p))
             if p == 1 then
                 frame.imageSeen[id] = true
                 frame:SetScript("OnUpdate", nil)
@@ -4254,8 +4260,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
-        local h = math.max(1, self:GetHeight())
-        local aw = w*0.6
+        local h = math.max(1, self:GetHeight())*0.92
+        local aw = w*0.6*0.92
         self.art:SetSize(aw,h)
         -- Restore the source proportions while covering the artwork area.
         local ratio = aw/h/(self.sourceAspect or 1)
@@ -4268,10 +4274,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         self.left:SetSize(aw*0.78,h)
         self.top:SetSize(w,h*0.28)
-        local bottomFade = math.min(140, h*0.42)
-        self.bottom:SetSize(w,bottomFade)
         -- Sample the panel's own gradient at the artwork's actual vertical position.
-        -- The bottom veil ends on precisely the body shade, avoiding a black seam.
+        -- The remaining top treatment follows the panel's actual shade.
         local panelHeight = math.max(1, detailPanel:GetHeight()-8)
         local function PanelColor(y)
             local p = math.min(1, math.max(0,y/panelHeight))
@@ -4282,17 +4286,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local topColor = PanelColor(0)
         ApplyHGradient(self.left, topColor, topColor, 0,0)
         ApplyVGradient(self.top, topColor, PanelColor(h*0.28), 0.65,0)
-        ApplyVGradient(self.bottom, PanelColor(h-bottomFade), PanelColor(h), 0,1)
+        self.bottom:Hide()
     end
     B:SetScript("OnSizeChanged", function(self) self:Fit() end)
     B:SetScript("OnHide", function(self)
         self:StopImageFade()
+        self.clip:Hide()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
         self.border:Show()
-        for _,t in ipairs({self.art,self.left,self.top,self.bottom}) do t:SetShown(self.hasArt and true or false) end
+        self.clip:Show()
+        for _,t in ipairs({self.art,self.left,self.top}) do t:SetShown(self.hasArt and true or false) end
+        self.bottom:Hide()
         self:RevealImages()
     end)
     B:Hide()
@@ -4335,8 +4342,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if art then
             B.art:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..art)
             B.art:SetDesaturated(not B.preprocessed[goal.id])
+            ApplyHGradient(B.art, {1,1,1}, {1,1,1}, 0,0.18)
         end
-        for _,t in ipairs({B.art,B.left,B.top,B.bottom}) do t:SetShown(B.hasArt) end
+        for _,t in ipairs({B.art,B.left,B.top}) do t:SetShown(B.hasArt) end
+        B.bottom:Hide()
         B:Fit()
         B:RevealImages()
     end
