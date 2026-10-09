@@ -9,6 +9,7 @@ manual-changelog:
   markup-type: markdown
 
 ignore:
+  - .agents
   - README.md
   - .github
   - .gitignore
