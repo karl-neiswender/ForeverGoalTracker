@@ -1039,6 +1039,36 @@ local sets = {
         foreverNote = "Which boss drops each piece isn't revealed yet; sources are added as they are.",
         sections = ForeverSections(FOREVER_RAID),
     },
+    {
+        -- Wowhead Forever item-set 2134 and all five item pages, 2026-10-09.
+        -- Only the Mantle and Robes have revealed drop sources so far.
+        id = "set_violet_sorcerer", library = true, forever = "new", needs = "forever",
+        itemQuality = 3,
+        icon = "inv_chest_cloth_25",
+        name = "Violet Sorcerer's Vestments",
+        short = "Violet Sorcerer's",
+        category = "Item Set", difficulty = "Moderate",
+        timeEstimate = "Days",
+        note = "Collect the five pieces of this new cloth set in Warcraft Forever. Each piece ticks itself when you own it.",
+        foreverNote = "A new five-piece set with mana regeneration and an Arcane elemental summon bonus. Sources for the Leggings, Sandals and Wraps are not revealed yet.",
+        steps = {
+            { text = "Loot Violet Sorcerer's Mantle from Shade of the Archmage in the City of Dalaran.", icon = "inv_shoulder_02",
+              auto = { item = 273051, owned = { "Violet Sorcerer's Mantle" } } },
+            { text = "Loot Violet Sorcerer's Robes from Arcanic Enigma in the City of Dalaran.", icon = "inv_chest_cloth_25",
+              auto = { item = 273044, owned = { "Violet Sorcerer's Robes" } } },
+            { text = "Collect Violet Sorcerer's Leggings.", icon = "inv_pants_06",
+              auto = { item = 286988, owned = { "Violet Sorcerer's Leggings" } } },
+            { text = "Collect Violet Sorcerer's Sandals.", icon = "inv_boots_05",
+              auto = { item = 286987, owned = { "Violet Sorcerer's Sandals" } } },
+            { text = "Collect Violet Sorcerer's Wraps.", icon = "inv_gauntlets_06",
+              auto = { item = 286989, owned = { "Violet Sorcerer's Wraps" } } },
+        },
+        tips = {
+            "{item:273051:Violet Sorcerer's Mantle} and {item:273044:Violet Sorcerer's Robes} bind on pickup. The other three pieces bind on equip, so they can be traded before being equipped.",
+            "The full set requires level 30 to wear every piece. It has no class restriction listed.",
+            "Four pieces can improve mana regeneration while casting; the effect is stronger in Strongholds and Cities. Five pieces can summon an Arcane elemental when you deal spell damage.",
+        },
+    },
 }
 
 for _, goal in ipairs(sets) do

@@ -68,3 +68,24 @@ RAID_CLASS_COLORS = nil
 assert(F.ArmorClassLabel("Mage") == "|cff69ccf0MAGE|r", "standard class color fallback")
 assert(F.ArmorClassLabel("Priest") == "|cffffffffPRIEST|r", "white Priest label")
 RAID_CLASS_COLORS = oldColors
+
+local violet = F.GoalById("set_violet_sorcerer")
+assert(violet and #violet.steps == 5 and not violet.faction)
+assert(F.LibraryVisible(violet) == F.isForever, "Violet set is available only on Forever")
+if F.isForever then
+    local frame = {}
+    assert(F.ApplyForeverLook(frame, violet) == "NEW" and frame.foreverNew, "new set uses blue treatment")
+    D.active[violet.id] = true
+    D.characters["VioletTest-Other"] = {name="VioletTest", faction="Horde", items={}}
+    local items = D.characters["VioletTest-Other"].items
+    for i, step in ipairs(violet.steps) do
+        assert(not F.StepRuleMet(step.auto), "unowned pieces stay incomplete")
+        items[step.auto.item] = 1
+        STUB_FIRE("BAG_UPDATE_DELAYED")
+        assert(D.progress[violet.id][i], "each piece ticks from another character's inventory")
+        items[step.auto.item] = nil
+        STUB_FIRE("BAG_UPDATE_DELAYED")
+        assert(D.progress[violet.id][i], "selling a piece cannot undo its tick")
+    end
+    print("  Violet set: Forever visibility, blue treatment, five roster item ticks and sticky progress ok")
+end

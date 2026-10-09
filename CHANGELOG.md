@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- New Forever goal: Violet Sorcerer's Vestments
 - Per-goal banner opacity tuning
 - Alex Horley artwork credit in Settings
 - Updated Dreadsteed banner artwork

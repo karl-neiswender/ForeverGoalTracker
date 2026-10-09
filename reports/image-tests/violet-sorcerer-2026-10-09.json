@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-09",
+  "goal": "set_violet_sorcerer",
+  "setSource": "https://www.wowhead.com/forever/item-set=2134/violet-sorcerers-vestments",
+  "items": [
+    {
+      "id": 273051,
+      "name": "Violet Sorcerer's Mantle",
+      "source": "Shade of the Archmage, City of Dalaran",
+      "url": "https://www.wowhead.com/forever/item=273051"
+    },
+    {
+      "id": 273044,
+      "name": "Violet Sorcerer's Robes",
+      "source": "Arcanic Enigma, City of Dalaran",
+      "url": "https://www.wowhead.com/forever/item=273044"
+    },
+    {
+      "id": 286988,
+      "name": "Violet Sorcerer's Leggings",
+      "source": null,
+      "url": "https://www.wowhead.com/forever/item=286988"
+    },
+    {
+      "id": 286987,
+      "name": "Violet Sorcerer's Sandals",
+      "source": null,
+      "url": "https://www.wowhead.com/forever/item=286987"
+    },
+    {
+      "id": 286989,
+      "name": "Violet Sorcerer's Wraps",
+      "source": null,
+      "url": "https://www.wowhead.com/forever/item=286989"
+    }
+  ],
+  "unknownSources": "No source listed for Leggings, Sandals or Wraps. Goal uses collection steps without invented drops.",
+  "artwork": {
+    "source": "Media/artwork/dalaran.jpg",
+    "review": "Media/final-images/set-reviews/violet-sorcerer-review.png",
+    "status": "Review only; awaiting approval before runtime installation",
+    "prompt": "Edit supplied Dalaran city illustration into ONE4:3 landscape Warcraft addon goal banner intended1200x900. Neutral black and white with moderately increased contrast preserving rich painterly architectural detail and controlled midtones, matching subdued monochrome addon banners. Frame recognizable Dalaran domes and ornate tall spires high and to the RIGHT, leaving quiet dark atmospheric architecture on left third for overlay text. Extend existing city environment as necessary, preserving its original architectural style and building identity, no new people or unrelated objects. Control bright sky and pavement highlights so architecture stays readable. Wide soft baked LEFT darkening naturally blended into scene; soft baked BOTTOM darkening across lowest approximately100 pixels ending near-black neutral charcoal. No hard strips or border, no added text/UI. Preserve existing artist signature at bottom-left. Retain original painted brush texture, domes/spires ornamentation and courtyard character. New in Forever blue styling is added by UI code, image remains neutral grayscale."
+  }
+}
