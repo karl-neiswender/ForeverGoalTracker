@@ -4219,7 +4219,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects = {
         thunderfury = 4/3,
         rhokdelar = 4/3,
-        raid_ony = 0.8650519031141869,
+        raid_ony = 4/3,
         raid_bwl = 4/3,
         mount_dreadsteed = 0.7974481658692185,
         mount_charger = 0.7501831501831502,
@@ -4240,7 +4240,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Older color banners keep their existing look until their final pass.
     B.preprocessed = {
         ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
-        rhokdelar=true,
+        rhokdelar=true, raid_ony=true,
         quelserrar=true, benediction=true, raid_bwl=true,
         raid_mc=true, att_mc=true, set_tier1=true,
         lokdelar=true, frostsaber=true, set_viper=true, rep_cenarion=true, key_scholo=true,

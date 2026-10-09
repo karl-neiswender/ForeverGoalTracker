@@ -1,0 +1,11 @@
+{
+  "source": "Media/artwork/Hit_It_Very_Hard_full.jpg",
+  "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-595c584a-323a-4376-a5ea-18d69db84eda.png",
+  "approved": "2026-10-09: good, commit",
+  "master": "Media/final-images/tall-1200x900/raid_ony.jpg",
+  "method": "Built-in imagegen monochrome contrast, left and bottom gradient treatment; Pillow technical resize only",
+  "dimensions": [
+    1200,
+    900
+  ]
+}

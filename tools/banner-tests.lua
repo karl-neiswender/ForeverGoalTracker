@@ -97,6 +97,9 @@ F.SelectGoal("raid_bwl")
 assert(not desaturated, "final Blackwing Lair artwork bypasses desaturation")
 D.active.raid_ony = true
 F.SelectGoal("raid_ony")
+assert(B.preprocessed.raid_ony and not desaturated and B.sourceAspect == 4/3, "approved Onyxia master bypasses desaturation at 4:3")
+D.active.mount_dreadsteed = true
+F.SelectGoal("mount_dreadsteed")
 assert(desaturated, "switching to older color artwork restores its existing monochrome look")
 F.SelectGoal("raid_bwl")
 assert(not desaturated, "switching back clears desaturation")

@@ -19,10 +19,10 @@ FINAL_BANNERS = {
         "quelserrar", "benediction", "raid_bwl", "raid_mc", "att_mc", "set_tier1",
         "lokdelar", "frostsaber", "set_viper", "rep_cenarion", "key_scholo")},
     "rhokdelar": "tall-1200x900/rhokdelar-hunter.jpg",
+    "raid_ony": "tall-1200x900/raid_ony.jpg",
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",
-    "raid_ony": "Onyxia_full.jpg",
     "raid_bwl": "blackwinglair.jpg",
     "mount_dreadsteed": "warlock-mount-dreadsteed.jpg",
     "mount_charger": "paladin-mount-charger.jpg",
