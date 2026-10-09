@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-09",
+  "status": "Reviews awaiting Karl's approval before installation. Original sources unchanged.",
+  "method": "Built-in imagegen edits. Native 4:3 PNG outputs preserved; intended approved master dimensions 1200x900.",
+  "targets": [
+    {
+      "goal": "set_tier1_warrior",
+      "source": "Media/artwork/warrior-might-armor-tier1.jpg",
+      "output": "Media/final-images/tier-sets/warrior/tier1-review.png",
+      "prompt": "Edit supplied Warrior Tier1 Might armor orc illustration into ONE 4:3 landscape Warcraft addon armor goal banner, intended1200x900. Neutral black and white, moderately stronger contrast with controlled highlights and detailed painted midtones. Reframe face and identifying head/shoulder/chest armor high and RIGHT OF CENTER filling right half, quiet dark atmospheric fortress space on left third for UI text, extending original environment left as needed. Preserve exact distinctive Might armor shapes, huge curved shoulder spikes, chest decoration, helmet, face, tusks, expression, nose ring, axe and across-shoulders pose. No redesign or changed armor, extra people/objects, or added text/UI. Keep head and identifying spikes inside frame with breathing room; weapon may retain original source-edge cropping but must not be distorted. Wide soft baked LEFT darkening naturally blended into scene; soft baked BOTTOM darkening over lowest approximately100 pixels ending near-black neutral charcoal. No hard strips or border. Bring bright fortress background and reflective armor into controlled grayscale, retaining sculpted detail. Match the subdued monochrome banner treatment. Preserve existing artist marks if any."
+    },
+    {
+      "goal": "set_tier2_warrior",
+      "source": "Media/artwork/orc-horde-warrior-tier2.jpg",
+      "output": "Media/final-images/tier-sets/warrior/tier2-review.png",
+      "prompt": "Edit the supplied Warrior Tier 2 orc illustration into ONE 4:3 landscape Warcraft addon armor goal banner, intended1200x900. Neutral black and white, moderately stronger contrast retaining painted texture, controlled highlights and rich midtone detail. Reframe the orc's FACE and iconic skull chest/shoulder armor high and RIGHT OF CENTER filling the right half; extend the existing warm fortress environment to the left as quiet dark atmospheric space for overlay text. Preserve exact recognizable armor shapes and decoration, orc face, tusks, nose ring, screaming expression, pose and raised weapon. Keep face fully within frame and weapon recognizable without deforming it; no redesigned armor, no extra people/objects, no text/UI. Wide soft baked LEFT darkening smoothly blended into scene; soft baked BOTTOM darkening over lowest approximately100 pixels ending near-black neutral charcoal. No hard strips/borders. Control the luminous weapon and skull eyes in grayscale, retaining outlines without blowing out the background. Preserve any existing artist marks."
+    }
+  ]
+}
