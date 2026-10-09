@@ -62,6 +62,19 @@ assert(B.fullImageHeight == 92 and B.uv[4] < 1, "short panel crops artwork at it
 assert(B.fadeStrips[1].fadeWeight > 0.99 and B.fadeStrips[64].fadeWeight < 0.001,
     "artwork itself fades smoothly to transparent at its bottom")
 B.panel.GetHeight = function() return 600 end
+-- A saved-goal startup may have no empty-state transition to show the driver.
+local driverShown = false
+local originalShow, originalIsShown = B.Show, B.IsShown
+B.Show = function() driverShown=true end
+B.IsShown = function() return driverShown end
+local stripVisible = {}
+for i,t in ipairs(B.fadeStrips) do
+    t.SetShown = function(_,v) stripVisible[i]=v end
+end
+F.LayoutGoalBanner(g)
+assert(driverShown, "saved-goal layout explicitly shows the animation driver")
+for i=1,#B.fadeStrips do assert(stripVisible[i], "bottom fade strip stays visible: "..i) end
+B.Show, B.IsShown = originalShow, originalIsShown
 for id in pairs(B.artPaths) do
     assert(F.GoalById(id), "artwork maps to an existing goal: " .. id)
     D.active[id] = true

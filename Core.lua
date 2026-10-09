@@ -4372,6 +4372,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         for _,t in ipairs({B.art,B.left,B.top}) do t:SetShown(B.hasArt) end
         B.bottom:Hide()
+        -- Textures live on detailPanel, but their fade driver must be shown too.
+        -- Existing saved goals can bypass HideEmptyTracker's first-run Show path.
+        B:Show()
         B:Fit()
         B:RevealImages()
     end

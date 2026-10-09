@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fixed saved-goal startup hiding the banner animation driver, which prevented the bottom fade strips and first-open animation from displaying.
+
 - Slowed first-open background image fade to 1.1 seconds with smooth easing. Artwork stays anchored at the panel's top-right and fades to transparency at the bottom without a dark overlay.
 
 - Reduced goal background artwork by 8% from its top-right anchor, removed the extra bottom veil, and cropped backgrounds inside the panel. First-open fades redraw artwork gradient opacity over 0.6 seconds; goal icons remain instant. Artwork stays on the original background layer so it remains visible.
