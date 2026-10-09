@@ -12,7 +12,7 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Bigger features
 
-- **More prerequisite checks:** verify dependent steps on Warcraft Forever and extend Classic Era coverage.
+- **More prerequisite checks (next session):** verify dependent steps on the current Warcraft Forever build, enable the appropriate locks and test their animations, including one prerequisite unlocking several steps. Extend Classic Era coverage as guides are verified.
 
 New tools that take more building.
 
