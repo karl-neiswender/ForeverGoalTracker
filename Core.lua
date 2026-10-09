@@ -4263,6 +4263,19 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         lokdelar = 4/3, frostsaber = 4/3, set_viper = 4/3,
         rep_cenarion = 4/3, key_scholo = 4/3,
     }
+    -- Faction variants share their goal's aspect ratio and monochrome treatment.
+    -- Choose from the logged-in character, independent of Library filters/roster.
+    B.factionArtPaths = {
+        set_tier2_warrior = {
+            Alliance = "set_tier2_warrior-alliance-banner.blp",
+            Horde = "set_tier2_warrior-banner.blp",
+        },
+    }
+    function B:ArtPath(id)
+        local variants = self.factionArtPaths[id]
+        local faction = UnitFactionGroup and UnitFactionGroup("player")
+        return (variants and variants[faction]) or self.artPaths[id]
+    end
     -- Approved monochrome masters need no runtime desaturation.
     -- Older color banners keep their existing look until their final pass.
     B.preprocessed = {
@@ -4439,7 +4452,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             + 32 + 8 + 10 + 2 + 10 + 14 + 8
         B:SetHeight(FGT.detailHeaderHeight + 68)
         if FGT.UpdateDetailViewport then FGT.UpdateDetailViewport() end
-        local art = B.artPaths[goal.id]
+        local art = B:ArtPath(goal.id)
         B.hasArt = art ~= nil
         B.sourceAspect = B.artAspects[goal.id] or 1
         if art then

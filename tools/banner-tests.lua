@@ -93,6 +93,25 @@ for _, id in ipairs({"raid_mc", "att_mc", "set_tier1"}) do
     assert(B.preprocessed[id] and not desaturated and B.sourceAspect == 4/3,
         id .. " uses the approved monochrome Molten Core master")
 end
+-- The logged-in faction picks Warrior Tier 2 art on both clients.
+local originalFaction = UnitFactionGroup
+local texture, originalTexture = nil, B.art.SetTexture
+B.art.SetTexture = function(_, path) texture=path end
+for _, faction in ipairs({"Alliance", "Horde", "Neutral"}) do
+    UnitFactionGroup = function(unit) assert(unit=="player"); return faction end
+    F.SelectGoal("set_tier2_warrior")
+    local filename = faction=="Alliance" and "set_tier2_warrior-alliance-banner.blp" or "set_tier2_warrior-banner.blp"
+    assert(texture:sub(-#filename)==filename, "logged-in faction selects "..filename)
+    assert(not desaturated and B.sourceAspect==4/3, "faction variants keep approved treatment")
+    F.SelectGoal("set_tier1_warrior")
+    assert(texture:sub(-#"set_tier1_warrior-banner.blp")=="set_tier1_warrior-banner.blp",
+        "faction variants leave other goals unchanged")
+end
+UnitFactionGroup = nil
+F.SelectGoal("set_tier2_warrior")
+assert(B:ArtPath("set_tier2_warrior")==B.artPaths.set_tier2_warrior,
+    "unavailable faction API keeps the existing banner")
+UnitFactionGroup, B.art.SetTexture = originalFaction, originalTexture
 D.active.raid_bwl = true
 F.SelectGoal("raid_bwl")
 assert(not desaturated, "final Blackwing Lair artwork bypasses desaturation")

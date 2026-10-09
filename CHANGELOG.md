@@ -7,6 +7,7 @@
 - Updated Dreadsteed banner artwork
 - Individual Warrior Tier 1 and Tier 2 banners
 - Individual Druid Tier 2 banner
+- Warrior Tier 2 banner matches your character's faction
 
 ## 2.10.0
 

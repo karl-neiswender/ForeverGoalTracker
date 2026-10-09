@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/alliance-nightelf-warrior-tier2.jpg",
+  "review": "Media/final-images/tier-sets/warrior/tier2-alliance-review.png",
+  "master": "Media/final-images/tier-sets/warrior/tier2-alliance.jpg",
+  "runtime": "Media/set_tier2_warrior-alliance-banner.blp",
+  "prompt": "Edit supplied Alliance night elf Warrior Tier2 illustration into ONE4:3 landscape Warcraft addon armor goal banner intended1200x900. Neutral black and white, moderately stronger contrast retaining painted midtones and controlled highlights, matching subdued monochrome armor banners. Reframe her FACE and identifying skull shoulder/chest armor high and RIGHT OF CENTER filling right half; left third quiet dark atmospheric snowy mountains for overlay text, extending original environment left as needed. Preserve exact identity, facial marks, long ears, hair and long braid, expression, armor shapes and skull placements, pose, sword and visible weapon geometry. No redesign, extra people/objects or text/UI. Keep face/ears within frame with breathing room. Preserve luminous weapon trail as controlled grayscale glow without blowing out armor or left text area. Wide soft baked LEFT darkening naturally blended into scene, soft baked BOTTOM darkening across lowest approximately100 pixels ending near-black neutral charcoal. No hard strips or borders. Preserve artist marks if present.",
+  "behavior": "User requested faction-aware Warrior Tier2: Alliance uses night elf, Horde uses existing orc. Logged-in UnitFactionGroup(player), existing orc fallback when unavailable. Other goals unchanged."
+}

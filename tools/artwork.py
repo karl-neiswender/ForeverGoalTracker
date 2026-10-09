@@ -30,6 +30,7 @@ FINAL_BANNERS = {
     "set_tier2_mage": "tier-sets/mage/tier2.jpg",
     "set_tier1_warrior": "tier-sets/warrior/tier1.jpg",
     "set_tier2_warrior": "tier-sets/warrior/tier2.jpg",
+    "set_tier2_warrior-alliance": "tier-sets/warrior/tier2-alliance.jpg",
     "set_tier2_druid": "tier-sets/druid/tier2.jpg",
 }
 EXTRA_BANNERS = {
