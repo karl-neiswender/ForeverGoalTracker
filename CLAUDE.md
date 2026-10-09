@@ -406,6 +406,8 @@ Karl ran /goals shots at 01:43. Converted the eight new TGA captures with tools/
 
 ## Banner brightness tuning (2026-10-09)
 
+Warrior Tier 3: Karl approved the dwarf banner review. Master tier-sets/warrior/tier3.jpg installed on tier3_warrior with dedicated 512px DXT1 BLP, ten mip levels, 4:3/preprocessed=true. Original and review preserved; build mapping, runtime manifest and prompt report updated. Full restart required for new texture.
+
 Warlock Tier 1/2 (Karl, 2026-10-09): supplied orc-horde-warlock-tier1.jpg and horde-orc-warlock-tier2.jpg for both factions. Built-in imagegen applied established grayscale/high-right framing/left-bottom fades; Karl approved both. Masters tier-sets/warlock/tier1.jpg and tier2.jpg installed on set_tier1_warlock and set_tier2_warlock with dedicated 512px DXT1 BLPs, 4:3/preprocessed=true, same image per goal on Alliance/Horde. Source/reviews retained; rebuild mappings, runtime manifest and exact prompt report recorded. Full game restart required for new textures.
 
 Shaman Tier 2 (Karl, 2026-10-09): supplied tauren-horde-shaman-tier2.jpg and explicitly requested the same banner for both factions. Built-in imagegen applied established grayscale/high-right framing/left-bottom fades; Karl approved. Master tier-sets/shaman/tier2.jpg installed on set_tier2_shaman with dedicated 512px DXT1 BLP, 4:3/preprocessed=true, shared by Alliance and Horde. Source/review retained; rebuild mapping, manifest and prompt report recorded. Full game restart required for the new texture.

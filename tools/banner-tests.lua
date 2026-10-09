@@ -84,9 +84,11 @@ for id in pairs(B.artPaths) do
     assert(F.GoalById(id), "artwork maps to an existing goal: " .. id)
     D.active[id] = true
     F.SelectGoal(id)
-    assert(B.hasArt and B.sourceAspect == B.artAspects[id], id .. " uses supplied art with original proportions")
-    assert(desaturated == (not B.preprocessed[id]), id .. " selects the correct desaturation state on reused art")
-    if B.preprocessed[id] then assert(B.sourceAspect == 4/3, "taller final masters retain 4:3 proportions") end
+    -- Legacy collection links open an individual set, which may have its own art.
+    local selected = B.goal.id
+    assert(B.hasArt and B.sourceAspect == B.artAspects[selected], id .. " uses supplied art with original proportions")
+    assert(desaturated == (not B.preprocessed[selected]), id .. " selects the correct desaturation state on reused art")
+    if B.preprocessed[selected] then assert(B.sourceAspect == 4/3, "taller final masters retain 4:3 proportions") end
 end
 for _, id in ipairs({"raid_mc", "att_mc", "set_tier1"}) do
     F.SelectGoal(id)

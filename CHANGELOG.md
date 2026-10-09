@@ -9,6 +9,7 @@
 - Individual Druid Tier 2 banner
 - Individual Shaman Tier 2 banner for both factions
 - Individual Warlock Tier 1 and Tier 2 banners for both factions
+- Individual Warrior Tier 3 banner
 - Warrior Tier 2 banner matches your character's faction
 
 ## 2.10.0

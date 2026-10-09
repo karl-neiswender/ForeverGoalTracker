@@ -35,6 +35,7 @@ FINAL_BANNERS = {
     "set_tier2_shaman": "tier-sets/shaman/tier2.jpg",
     "set_tier1_warlock": "tier-sets/warlock/tier1.jpg",
     "set_tier2_warlock": "tier-sets/warlock/tier2.jpg",
+    "tier3_warrior": "tier-sets/warrior/tier3.jpg",
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",
