@@ -1,17 +1,23 @@
 {
   "date": "2026-10-09",
-  "status": "Review versions, not installed. Global brightness pass and runtime optimization pending.",
+  "status": "Karl requested installation after in-game review showed missing art. Both banners installed as 512px DXT1 BLP with ten mips, 4:3, preprocessed=true. Global brightness pass remains pending; per-goal opacity available in game.",
   "method": "Built-in imagegen edits. Native 4:3 PNG outputs preserved. Intended approved master dimensions 1200x900.",
   "targets": [
     {
       "source": "Media/artwork/hyjal-raid.jpg",
       "output": "Media/final-images/raid-reviews/hyjal-review.png",
-      "prompt": "Edit this supplied artwork into one 4:3 landscape Warcraft addon raid banner, intended 1200x900. Neutral black and white with moderately stronger contrast and controlled highlights, detailed midtones comparable to a subdued monochrome painted game UI banner. Preserve the original painted style, character identities, silhouettes, objects and scene; no extra characters, text or UI. Preserve any existing artist signature. Reframe the main visual subject high and to the right, keeping a quiet dark left third for overlay text, extending the existing environment only as needed. Wide smooth baked LEFT darkening blending naturally into scene; soft baked BOTTOM darkening over lowest approximately 100 pixels ending at near-black neutral charcoal. No hard strips or borders. For this Hyjal illustration preserve the ancient tree and blue spirit shapes as grayscale shapes, emphasize the upper-right scene and control the bright sky and spirit highlights without losing their outlines."
+      "prompt": "Edit this supplied artwork into one 4:3 landscape Warcraft addon raid banner, intended 1200x900. Neutral black and white with moderately stronger contrast and controlled highlights, detailed midtones comparable to a subdued monochrome painted game UI banner. Preserve the original painted style, character identities, silhouettes, objects and scene; no extra characters, text or UI. Preserve any existing artist signature. Reframe the main visual subject high and to the right, keeping a quiet dark left third for overlay text, extending the existing environment only as needed. Wide smooth baked LEFT darkening blending naturally into scene; soft baked BOTTOM darkening over lowest approximately 100 pixels ending at near-black neutral charcoal. No hard strips or borders. For this Hyjal illustration preserve the ancient tree and blue spirit shapes as grayscale shapes, emphasize the upper-right scene and control the bright sky and spirit highlights without losing their outlines.",
+      "goal": "raid_hyjal",
+      "master": "Media/final-images/tall-1200x900/raid_hyjal.jpg",
+      "runtime": "Media/raid_hyjal-banner.blp"
     },
     {
       "source": "Media/artwork/furnolg-raid-burrow.jpg",
       "output": "Media/final-images/raid-reviews/barrow-deeps-review.png",
-      "prompt": "Edit the supplied furbolg illustration into ONE 4:3 landscape Warcraft addon Barrow Deeps raid banner, intended 1200x900. Neutral black and white, moderately increased contrast preserving detailed painted midtones and controlled highlights; match a subdued grayscale game UI banner. Reframe with the furbolg face and identifying upper body high and RIGHT OF CENTER, filling right half, quiet dark atmospheric forest space in left third for overlay text. Extend original environment left as needed. Wide soft baked LEFT darkening smoothly blending into scene, soft baked BOTTOM darkening over lowest approximately 100 pixels ending near-black neutral charcoal. No hard strips or border. Preserve the character identity, exact face, teeth, fur, pose, armor, raised claw and existing staff/wood object and magical effects as grayscale glows. No redesign, extra people/objects/text/UI. Keep face, ears and raised claw fully inside frame with breathing room. Control the spell highlights so they do not overwhelm the subject or text area; retain detail. Preserve existing signatures if present."
+      "prompt": "Edit the supplied furbolg illustration into ONE 4:3 landscape Warcraft addon Barrow Deeps raid banner, intended 1200x900. Neutral black and white, moderately increased contrast preserving detailed painted midtones and controlled highlights; match a subdued grayscale game UI banner. Reframe with the furbolg face and identifying upper body high and RIGHT OF CENTER, filling right half, quiet dark atmospheric forest space in left third for overlay text. Extend original environment left as needed. Wide soft baked LEFT darkening smoothly blending into scene, soft baked BOTTOM darkening over lowest approximately 100 pixels ending near-black neutral charcoal. No hard strips or border. Preserve the character identity, exact face, teeth, fur, pose, armor, raised claw and existing staff/wood object and magical effects as grayscale glows. No redesign, extra people/objects/text/UI. Keep face, ears and raised claw fully inside frame with breathing room. Control the spell highlights so they do not overwhelm the subject or text area; retain detail. Preserve existing signatures if present.",
+      "goal": "raid_barrow",
+      "master": "Media/final-images/tall-1200x900/raid_barrow.jpg",
+      "runtime": "Media/raid_barrow-banner.blp"
     }
   ]
 }

@@ -236,5 +236,19 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "raid_hyjal": {
+    "source": "tall-1200x900/raid_hyjal.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_barrow": {
+    "source": "tall-1200x900/raid_barrow.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }
