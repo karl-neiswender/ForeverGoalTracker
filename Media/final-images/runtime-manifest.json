@@ -27,13 +27,6 @@
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "rhokdelar": {
-    "source": "weapons/rhokdelar.jpg",
-    "aspect": 1.5,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
   "quelserrar": {
     "source": "weapons/quelserrar.jpg",
     "aspect": 1.5,

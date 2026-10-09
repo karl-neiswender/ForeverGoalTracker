@@ -16,7 +16,7 @@ FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
     **{goal: "weapons/" + goal + ".jpg" for goal in (
         "ashbringer", "atiesh", "sulfuras", "thunderfury",
-        "rhokdelar", "quelserrar", "benediction")},
+        "quelserrar", "benediction")},
     "raid_bwl": "blackwing-lair.jpg",
     **{goal: "molten-core/" + goal + ".jpg" for goal in (
         "raid_mc", "att_mc", "set_tier1")},
@@ -25,7 +25,6 @@ FINAL_BANNERS = {
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",
-    "rhokdelar": "Rhok'delar_full.jpg",
     "raid_ony": "Onyxia_full.jpg",
     "raid_bwl": "blackwinglair.jpg",
     "mount_dreadsteed": "warlock-mount-dreadsteed.jpg",

@@ -4197,7 +4197,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.bottom:Hide() -- removed bottom veil; never draw below the panel
     B.artPaths = {
         thunderfury = "thunderfury-banner.blp",
-        rhokdelar = "rhokdelar-banner.blp",
         raid_ony = "raid_ony-banner.blp",
         raid_bwl = "raid_bwl-banner.blp",
         mount_dreadsteed = "mount_dreadsteed-banner.blp",
@@ -4218,7 +4217,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     }
     B.artAspects = {
         thunderfury = 1.5,
-        rhokdelar = 1.5,
         raid_ony = 0.8650519031141869,
         raid_bwl = 1.5,
         mount_dreadsteed = 0.7974481658692185,
@@ -4240,7 +4238,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Older color banners keep their existing look until their final pass.
     B.preprocessed = {
         ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
-        rhokdelar=true, quelserrar=true, benediction=true, raid_bwl=true,
+        quelserrar=true, benediction=true, raid_bwl=true,
         raid_mc=true, att_mc=true, set_tier1=true,
         lokdelar=true, frostsaber=true, set_viper=true, rep_cenarion=true, key_scholo=true,
     }

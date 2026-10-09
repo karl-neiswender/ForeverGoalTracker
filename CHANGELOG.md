@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Removed the Rhok'delar banner artwork pending a replacement image.
+
 - Installed approved monochrome Lok'delar, Frostsaber, Embrace of the Viper, Cenarion Circle and Skeleton Key banners. Restored the original banner layout after clarifying that the requested extra 100px belongs in the image assets, rather than the addon rendering.
 
 - Added faint, short inner shadows along the goal panel's top and right edges.

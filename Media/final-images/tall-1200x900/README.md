@@ -1,5 +1,7 @@
 # Taller banner masters: 1200 x 900
 
+**Rhok'delar is withdrawn for now at Karl's request.** The bowstring corrections were not approved. Its JPEG is retained only as an archived option; do not install or ship it. Rhok'delar currently has no background artwork, and is excluded from runtime artwork build mappings. The other fifteen taller masters remain approved and await installation.
+
 Karl clarified that the extra 100px belongs in the actual image asset, not the addon layout, then explicitly selected all 16 final banners for this treatment. This folder contains the new review versions. Existing 1200 x 800 masters and currently installed runtime textures remain available unchanged.
 
 Each image received one built-in ChatGPT image edit requesting a downward-only canvas extension, original subject scale/placement and monochrome treatment, and a baked soft dark gradient into the lower extension. The bottom fades toward neutral charcoal rather than adding a hard black strip. Artist notices were requested to remain visible. Generative editing is not pixel-exact: painted details and some framing can vary from the original, as visible in the previews.
