@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-09",
+  "source": "Media/final-images/mount-reviews/dreadsteed-review.png",
+  "output": "Media/final-images/mount-reviews/dreadsteed-review-v2.png",
+  "method": "Built-in imagegen edit",
+  "prompt": "Edit this supplied monochrome Dreadsteed banner with only two precise changes: remove the ALEXHORLEYART.COM text across the top-left and remove the HORLEY signature at the bottom-left. Seamlessly reconstruct the dark misty forest and ground under those markings using surrounding texture. Keep every other part unchanged: exact 4:3 landscape composition, mount position and proportions, face, horns, armor, flame shapes, grayscale brightness and contrast, left dark fade, bottom fade, painterly texture. No new text or watermark. This is an attribution relocation edit; artist credit is being placed in the addon's Settings page.",
+  "artistCredit": "Alex Horley; Dreadsteed artwork. alexhorleyart.com; Settings > Artwork and credits",
+  "status": "Watermarks removed at Karl's request; original and first review retained. Not installed as runtime texture."
+}

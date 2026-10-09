@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Per-goal banner opacity tuning
+- Alex Horley artwork credit in Settings
 
 ## 2.10.0
 

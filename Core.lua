@@ -7528,6 +7528,8 @@ FGT.SETTINGS = {
     { title = "Artwork and credits", rows = {
         { type = "info", label = "Blizzard Entertainment",
           desc = "World of Warcraft and Hearthstone artwork: copyright Blizzard Entertainment. All rights reserved." },
+        { type = "info", label = "Alex Horley",
+          desc = "Dreadsteed artwork. alexhorleyart.com" },
         { type = "info", label = "AI-assisted artwork",
           desc = "Some original addon artwork was created with assistance from ChatGPT and Nano Banana." },
         { type = "info", label = "Cinzel font",
