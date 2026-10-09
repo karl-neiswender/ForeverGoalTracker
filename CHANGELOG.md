@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Reduced goal background artwork by 8% from its top-right anchor, removed the extra bottom veil, and clipped backgrounds inside the panel. First-open fades now use a dedicated background layer over 0.6 seconds; goal icons remain instant.
+- Reduced goal background artwork by 8% from its top-right anchor, removed the extra bottom veil, and cropped backgrounds inside the panel. First-open fades redraw artwork gradient opacity over 0.6 seconds; goal icons remain instant. Artwork stays on the original background layer so it remains visible.
 
 - Updated local Forever compatibility checks for 1.60.1 build 70291: startup, client detection, banner layout/image fades and logout pass. Existing interface declaration remains 16001; in-client visual validation remains to be done.
 

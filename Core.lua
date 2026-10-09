@@ -4154,12 +4154,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.background = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -4)
     B.background:SetTexture(SOLID)
     B.background:SetAllPoints(B)
-    B.clip = CreateFrame("Frame", nil, detailPanel)
-    B.clip:SetFrameLevel(detailPanel:GetFrameLevel())
-    B.clip:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4,-4)
-    B.clip:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -4,4)
-    B.clip:EnableMouse(false)
-    if B.clip.SetClipsChildren then B.clip:SetClipsChildren(true) end
     B.border = CreateFrame("Frame", nil, B)
     B.border:SetHeight(2)
     B.border:SetPoint("BOTTOMLEFT", B, "BOTTOMLEFT")
@@ -4167,13 +4161,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- The banner ends in a soft blend now, rather than a separate ruled edge.
     B.border:SetAlpha(0)
     ApplyVGradient(B.background, STYLE.panel.top, STYLE.panel.bottom, 0, 0)
-    B.art = B.clip:CreateTexture(nil, "BACKGROUND", nil, -3)
+    B.art = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -3)
     B.art:SetPoint("TOPRIGHT", B, "TOPRIGHT")
     -- Fade the actual image alpha, avoiding a colored rectangle at its left edge.
     ApplyHGradient(B.art, {1,1,1}, {1,1,1}, 0,0.18)
-    B.left = B.clip:CreateTexture(nil, "BACKGROUND", nil, -2)
-    B.top = B.clip:CreateTexture(nil, "BACKGROUND", nil, -1)
-    B.bottom = B.clip:CreateTexture(nil, "BACKGROUND", nil, -1)
+    B.left = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
+    B.top = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
+    B.bottom = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
     for _, t in ipairs({B.left,B.top,B.bottom}) do t:SetTexture(SOLID) end
     B.left:SetPoint("TOPLEFT", B.art, "TOPLEFT")
     B.top:SetPoint("TOPRIGHT", B, "TOPRIGHT")
@@ -4227,8 +4221,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.imageSeen = {} -- per-session, never written to SavedVariables
     function B:SetImageFade(amount)
         self.imageFade = amount
-        -- Fade a dedicated parent layer; texture gradient alpha remains fixed.
-        self.clip:SetAlpha(amount)
+        -- Keep art on the panel's working background layer, below text.
+        ApplyHGradient(self.art, {1,1,1}, {1,1,1}, 0,0.18*amount)
     end
     function B:StopImageFade()
         self:SetScript("OnUpdate", nil)
@@ -4262,18 +4256,19 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local w = math.max(1, detailPanel:GetWidth()-8)
         local h = math.max(1, self:GetHeight())*0.92
         local aw = w*0.6*0.92
-        self.art:SetSize(aw,h)
+        local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
+        self.art:SetSize(aw,shownHeight)
         -- Restore the source proportions while covering the artwork area.
         local ratio = aw/h/(self.sourceAspect or 1)
         if ratio >= 1 then
             local crop = (1-1/ratio)/2
-            self.art:SetTexCoord(0,1,crop,1-crop)
+            self.art:SetTexCoord(0,1,crop,crop+(1-2*crop)*shownHeight/h)
         else
             local crop = (1-ratio)/2
-            self.art:SetTexCoord(crop,1-crop,0,1)
+            self.art:SetTexCoord(crop,1-crop,0,shownHeight/h)
         end
-        self.left:SetSize(aw*0.78,h)
-        self.top:SetSize(w,h*0.28)
+        self.left:SetSize(aw*0.78,shownHeight)
+        self.top:SetSize(w,math.min(shownHeight,h*0.28))
         -- Sample the panel's own gradient at the artwork's actual vertical position.
         -- The remaining top treatment follows the panel's actual shade.
         local panelHeight = math.max(1, detailPanel:GetHeight()-8)
@@ -4291,13 +4286,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B:SetScript("OnSizeChanged", function(self) self:Fit() end)
     B:SetScript("OnHide", function(self)
         self:StopImageFade()
-        self.clip:Hide()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
         self.border:Show()
-        self.clip:Show()
         for _,t in ipairs({self.art,self.left,self.top}) do t:SetShown(self.hasArt and true or false) end
         self.bottom:Hide()
         self:RevealImages()
@@ -4342,7 +4335,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if art then
             B.art:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..art)
             B.art:SetDesaturated(not B.preprocessed[goal.id])
-            ApplyHGradient(B.art, {1,1,1}, {1,1,1}, 0,0.18)
+            B:SetImageFade(B.imageFade or 1)
         end
         for _,t in ipairs({B.art,B.left,B.top}) do t:SetShown(B.hasArt) end
         B.bottom:Hide()
