@@ -4242,6 +4242,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         lokdelar = "lokdelar-banner.blp", frostsaber = "frostsaber-banner.blp",
         set_viper = "set_viper-banner.blp", rep_cenarion = "rep_cenarion-banner.blp",
         key_scholo = "key_scholo-banner.blp",
+        rep_argentdawn = "rep_argentdawn-banner.blp",
     }
     B.artAspects = {
         thunderfury = 4/3,
@@ -4262,6 +4263,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         att_naxx = 4/3,
         lokdelar = 4/3, frostsaber = 4/3, set_viper = 4/3,
         rep_cenarion = 4/3, key_scholo = 4/3,
+        rep_argentdawn = 4/3,
+        epicmounts = 4/3,
     }
     -- Faction variants share their goal's aspect ratio and monochrome treatment.
     -- Choose from the logged-in character, independent of Library filters/roster.
@@ -4272,6 +4275,33 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         },
     }
     function B:ArtPath(id)
+        if id == "epicmounts" then
+            local selected = ForeverGoalTrackerDB and ForeverGoalTrackerDB.activeParts
+                and ForeverGoalTrackerDB.activeParts.epicmounts or {}
+            local count, dwarf = 0, false
+            for key, active in pairs(selected) do
+                if active then count = count + 1; dwarf = dwarf or key == 2 end
+            end
+            local _, race = UnitRace("player")
+            if race == "Troll" then
+                return "epicmounts_troll-banner.blp"
+            end
+            if race == "Human" then
+                return "epicmounts_human-banner.blp"
+            end
+            if race == "NightElf" then
+                return "epicmounts_nightelf-banner.blp"
+            end
+            if race == "Orc" then
+                return "epicmounts_orc-banner.blp"
+            end
+            if race == "Tauren" then
+                return "epicmounts_tauren-banner.blp"
+            end
+            if race == "Dwarf" or (count == 1 and dwarf) then
+                return "epicmounts_dwarf-banner.blp"
+            end
+        end
         local variants = self.factionArtPaths[id]
         local faction = UnitFactionGroup and UnitFactionGroup("player")
         return (variants and variants[faction]) or self.artPaths[id]
@@ -4280,6 +4310,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Older color banners keep their existing look until their final pass.
     B.preprocessed = {
         tier3=true, att_naxx=true,
+        rep_argentdawn=true,
+        epicmounts=true,
         ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
         rhokdelar=true, raid_ony=true, mount_dreadsteed=true,
         quelserrar=true, benediction=true, raid_bwl=true,
@@ -4299,10 +4331,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             "set_tier1_hunter", "set_tier2_hunter", "set_tier1_mage", "set_tier2_mage",
             "set_tier1_warrior", "set_tier2_warrior", "set_tier1_druid", "set_tier2_druid",
             "set_tier1_shaman", "set_tier2_shaman", "tier3_druid", "set_tier1_warlock", "set_tier2_warlock",
-            "tier3_warrior", "tier3_mage", "set_violet_sorcerer", "raid_hyjal", "raid_barrow",
-            "raid_aq20", "raid_aq40", "mount_deathcharger"}) do
+            "tier3_warrior", "tier3_mage", "tier3_shaman", "tier3_warlock", "tier3_paladin", "set_tier2_paladin", "set_violet_sorcerer", "raid_hyjal", "raid_barrow",
+            "raid_aq20", "raid_aq40", "mount_deathcharger", "raid_zg"}) do
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
+    end
+    for _, id in ipairs({"rep_zandalar", "mount_raptor", "mount_tiger"}) do
+        B.artPaths[id] = B.artPaths.raid_zg
+        B.artAspects[id], B.preprocessed[id] = 4/3, true
+    end
+    -- Shared artwork for PvP ranks, mounts, reputation and class sets.
+    for _, goal in ipairs(FGT.goals) do
+        if goal.category == "PvP" then
+            B.artPaths[goal.id] = "pvp_shared-banner.blp"
+            B.artAspects[goal.id], B.preprocessed[goal.id] = 4/3, true
+        end
     end
     -- Brightness tuning multiplies the existing reveal and bottom fades.
     -- Approved defaults go here; in-game overrides are saved per goal.

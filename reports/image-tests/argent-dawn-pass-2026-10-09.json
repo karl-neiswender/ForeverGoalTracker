@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/argent-dawn.jpg",
+  "output": "Media/final-images/reputation/rep_argentdawn-review.png",
+  "goal": "rep_argentdawn",
+  "status": "Prepared preview; not installed in runtime.",
+  "treatment": "Monochrome, increased contrast, landscape 4:3, subject upper right, subdued architectural space at left. Source preserved."
+}

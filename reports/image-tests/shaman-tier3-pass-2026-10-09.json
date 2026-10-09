@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/shaman-orc-horde-tier3.jpg",
+  "output": "Media/final-images/tier-sets/shaman/tier3-review.png",
+  "goal": "tier3_shaman",
+  "status": "Review, not installed"
+}

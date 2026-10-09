@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/Swift_Raptor_TCG.jpg",
+  "output": "Media/final-images/mounts/troll-raptor-review.png",
+  "target": "Epic Racial Mounts banner for logged-in Troll",
+  "status": "Karl approved and installed for logged-in Troll characters.",
+  "master": "Media/final-images/mounts/troll-raptor.jpg",
+  "runtime": "Media/epicmounts_troll-banner.blp"
+}

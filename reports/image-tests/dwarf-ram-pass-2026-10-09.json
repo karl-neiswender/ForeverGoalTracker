@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/dwarf-alliance-epicmount-ram.jpg",
+  "output": "Media/final-images/mounts/dwarf-ram-review.png",
+  "target": "Dwarf ram path of Epic Racial Mounts",
+  "status": "Karl approved and installed. Banner shown for any logged-in dwarf character, or dwarf-only mount selection on another race.",
+  "master": "Media/final-images/mounts/dwarf-ram.jpg",
+  "runtime": "Media/epicmounts_dwarf-banner.blp"
+}

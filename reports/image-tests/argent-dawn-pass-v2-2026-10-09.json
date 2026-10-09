@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/argent-dawn.jpg",
+  "output": "Media/final-images/reputation/rep_argentdawn-review-v2.png",
+  "goal": "rep_argentdawn",
+  "status": "Review, not installed"
+}

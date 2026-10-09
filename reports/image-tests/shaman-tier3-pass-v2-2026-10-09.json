@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen targeted edit",
+  "source": "Media/final-images/tier-sets/shaman/tier3-review.png",
+  "output": "Media/final-images/tier-sets/shaman/tier3-review-v2.png",
+  "goal": "tier3_shaman",
+  "status": "Karl approved and installed on tier3_shaman.",
+  "master": "Media/final-images/tier-sets/shaman/tier3.jpg",
+  "runtime": "Media/tier3_shaman-banner.blp"
+}

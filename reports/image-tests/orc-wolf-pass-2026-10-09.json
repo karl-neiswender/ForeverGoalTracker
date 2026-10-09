@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/orc-wolf-mount.jpg",
+  "output": "Media/final-images/mounts/orc-wolf-review.png",
+  "target": "Epic Racial Mounts banner for logged-in Orc",
+  "status": "Karl approved and installed for logged-in Orc characters.",
+  "master": "Media/final-images/mounts/orc-wolf.jpg",
+  "runtime": "Media/epicmounts_orc-banner.blp"
+}

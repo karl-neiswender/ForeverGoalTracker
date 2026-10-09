@@ -313,5 +313,96 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "rep_argentdawn": {
+    "source": "reputation/rep_argentdawn.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_dwarf": {
+    "source": "mounts/dwarf-ram.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_tauren": {
+    "source": "mounts/tauren-kodo.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_orc": {
+    "source": "mounts/orc-wolf.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_shaman": {
+    "source": "tier-sets/shaman/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_zg": {
+    "source": "zul-gurub/hakkar.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_warlock": {
+    "source": "tier-sets/warlock/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_paladin": {
+    "source": "tier-sets/paladin/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_paladin": {
+    "source": "tier-sets/paladin/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_shared": {
+    "source": "pvp/shared-pvp.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_nightelf": {
+    "source": "mounts/nightelf-nightsaber.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_human": {
+    "source": "mounts/human-palomino.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_troll": {
+    "source": "mounts/troll-raptor.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

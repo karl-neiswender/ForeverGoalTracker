@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/Hakkar,_the_Soulflayer_full.jpg",
+  "output": "Media/final-images/zul-gurub/hakkar-review.png",
+  "goals": [
+    "raid_zg",
+    "rep_zandalar",
+    "mount_raptor",
+    "mount_tiger"
+  ],
+  "status": "Karl approved and installed on all four Zul Gurub goals, sharing one texture.",
+  "master": "Media/final-images/zul-gurub/hakkar.jpg",
+  "runtime": "Media/raid_zg-banner.blp"
+}

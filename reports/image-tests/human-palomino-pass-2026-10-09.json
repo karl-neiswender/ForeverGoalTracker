@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/Swift_Palomino_TCG.jpg",
+  "output": "Media/final-images/mounts/human-palomino-review.png",
+  "target": "Epic Racial Mounts banner for logged-in Human",
+  "status": "Review, not installed"
+}

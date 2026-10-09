@@ -69,9 +69,16 @@ assert(F.ArmorClassLabel("Mage") == "|cff69ccf0MAGE|r", "standard class color fa
 assert(F.ArmorClassLabel("Priest") == "|cffffffffPRIEST|r", "white Priest label")
 RAID_CLASS_COLORS = oldColors
 
+local dedicatedTier3 = {
+    tier3_rogue=true, tier3_warrior=true, tier3_mage=true, tier3_druid=true,
+    tier3_shaman=true, tier3_warlock=true, tier3_paladin=true,
+}
 for _, child in ipairs(F.GoalById("tier3").armorChildren) do
-    if child.id ~= "tier3_rogue" and child.id ~= "tier3_warrior" and child.id ~= "tier3_mage" and child.id ~= "tier3_druid" then
-        assert(F.goalBanner:ArtPath(child.id) == "tier3-banner.blp", "Tier 3 inherits approved floating Naxx artwork")
+    if not dedicatedTier3[child.id] then
+        assert(F.goalBanner:ArtPath(child.id) == "tier3-banner.blp", "Tier 3 without dedicated art inherits Naxx artwork")
+        assert(F.goalBanner.preprocessed[child.id] and F.goalBanner.artAspects[child.id] == 4/3)
+    else
+        assert(F.goalBanner:ArtPath(child.id) == child.id .. "-banner.blp", "Tier 3 uses its dedicated class artwork")
         assert(F.goalBanner.preprocessed[child.id] and F.goalBanner.artAspects[child.id] == 4/3)
     end
 end

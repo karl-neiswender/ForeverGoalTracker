@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen central illustration extraction and treatment",
+  "source": "Media/artwork/Zealotry_TCG_card.png",
+  "output": "Media/final-images/tier-sets/paladin/tier2-review.png",
+  "goal": "set_tier2_paladin",
+  "status": "Karl approved and installed on set_tier2_paladin.",
+  "master": "Media/final-images/tier-sets/paladin/tier2.jpg",
+  "runtime": "Media/set_tier2_paladin-banner.blp"
+}

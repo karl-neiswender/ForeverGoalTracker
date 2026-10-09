@@ -14,6 +14,19 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "epicmounts_troll": "mounts/troll-raptor.jpg",
+    "epicmounts_human": "mounts/human-palomino.jpg",
+    "epicmounts_nightelf": "mounts/nightelf-nightsaber.jpg",
+    "pvp_shared": "pvp/shared-pvp.jpg",
+    "set_tier2_paladin": "tier-sets/paladin/tier2.jpg",
+    "tier3_paladin": "tier-sets/paladin/tier3.jpg",
+    "tier3_warlock": "tier-sets/warlock/tier3.jpg",
+    "raid_zg": "zul-gurub/hakkar.jpg",
+    "tier3_shaman": "tier-sets/shaman/tier3.jpg",
+    "epicmounts_orc": "mounts/orc-wolf.jpg",
+    "epicmounts_tauren": "mounts/tauren-kodo.jpg",
+    "epicmounts_dwarf": "mounts/dwarf-ram.jpg",
+    "rep_argentdawn": "reputation/rep_argentdawn.jpg",
     **{goal: "tall-1200x900/" + goal + ".jpg" for goal in (
         "ashbringer", "atiesh", "sulfuras", "thunderfury",
         "quelserrar", "benediction", "raid_bwl", "raid_mc", "att_mc", "set_tier1",

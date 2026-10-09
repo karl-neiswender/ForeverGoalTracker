@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen grayscale tone correction",
+  "source": "Media/final-images/mounts/human-palomino-review.png",
+  "tone_reference": "Media/final-images/mounts/nightelf-nightsaber-review.png",
+  "output": "Media/final-images/mounts/human-palomino-review-v2.png",
+  "status": "Karl approved corrected tone and installed for logged-in Human characters.",
+  "master": "Media/final-images/mounts/human-palomino.jpg",
+  "runtime": "Media/epicmounts_human-banner.blp"
+}

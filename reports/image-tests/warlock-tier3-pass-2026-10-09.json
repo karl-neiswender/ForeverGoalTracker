@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/undead-warlock-horde-tier3.jpg",
+  "output": "Media/final-images/tier-sets/warlock/tier3-review.png",
+  "goal": "tier3_warlock",
+  "status": "Karl approved and installed on tier3_warlock.",
+  "master": "Media/final-images/tier-sets/warlock/tier3.jpg",
+  "runtime": "Media/tier3_warlock-banner.blp"
+}
