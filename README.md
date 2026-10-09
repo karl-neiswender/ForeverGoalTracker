@@ -7,11 +7,13 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 ## Features
 
 - **Goal suggestions:** a short welcome asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind, Social) and picks starting goals for the character you're on: its class, race, faction and level. **Find your next goal**, at the end of My Goals, suggests what to chase next.
-- **Goal Library with 79 goals:** legendary and epic weapons, rare and class mounts, reputations, raid clears (including Forever's new Hyjal Summit and Barrow Deeps), raid attunements and dungeon keys, item sets (Dungeon Sets 1 and 2, Tier 1 to 3, Forever's raid sets), PvP ranks and sets, professions, social goals and milestones. Search by name or filter by type.
+- **Goal Library with 137 goals:** legendary and epic weapons, rare and class mounts, reputations, raid clears (including Forever's new Hyjal Summit and Barrow Deeps), raid attunements and dungeon keys, item sets (Dungeon Sets 1 and 2, Tier 1 to 3, Forever's raid sets), PvP ranks and sets, professions, social goals and milestones. Search by name or filter by type.
 - **Step-by-step guides** for every goal.
 - **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills, raid boss kills, guild and friends, and WoW Forever's Statistics window (like duels won).
 - **Edit goal:** change the number on goals like Save 5,000 Gold.
-- **Personal notes:** click the note icon on a goal page to save a reminder under its description. Click the note to edit it; use Delete note to remove it, or the close X to discard unsaved edits.
+- **Personal notes:** click the note icon on a goal page to save a reminder above its description. Use the note icon to edit it; use Delete note to remove it, or the close X to discard unsaved edits.
+- **Goal artwork:** monochrome banners with soft fades and individual class-set artwork.
+- **Prerequisite locks on Classic Era:** dependent steps unlock as you finish their prerequisites.
 - **Raid lockouts:** raid goals show when the character you're on is saved this week.
 - **Pick the parts you want** of multi-part goals: individual classes, professions or mount races. Armor sets stay grouped in the Library, but each selected class set becomes its own goal with separate progress, notes and artwork.
 - **Separate Alliance and Horde goals**, with faction filters.
