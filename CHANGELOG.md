@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Extended goal background artwork 100px further down with a longer soft bottom fade, bounded inside the panel. Installed approved monochrome Lok'delar, Frostsaber, Embrace of the Viper, Cenarion Circle and Skeleton Key banners.
+
 - Added faint, short inner shadows along the goal panel's top and right edges.
 
 - Fixed saved-goal startup hiding the banner animation driver, which prevented the bottom fade strips and first-open animation from displaying.

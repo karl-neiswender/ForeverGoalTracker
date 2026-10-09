@@ -1,6 +1,6 @@
 # Additional goal banner treatments
 
-Review masters created October 8, 2026 at Karl's request. Awaiting visual approval and installation; no runtime goal mappings changed in this pass.
+Masters created October 8, 2026 at Karl's request and subsequently approved for installation. All five now map to their goals via compressed game textures in Media. Rebuild with `python tools/artwork.py --final-only`; originals and JPEG masters remain excluded from release packages.
 
 | Master | Goal | Original option |
 | --- | --- | --- |

@@ -20,6 +20,8 @@ FINAL_BANNERS = {
     "raid_bwl": "blackwing-lair.jpg",
     **{goal: "molten-core/" + goal + ".jpg" for goal in (
         "raid_mc", "att_mc", "set_tier1")},
+    **{goal: "additional-goals/" + goal + ".jpg" for goal in (
+        "lokdelar", "frostsaber", "set_viper", "rep_cenarion", "key_scholo")},
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",

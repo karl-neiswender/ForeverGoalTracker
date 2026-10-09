@@ -75,5 +75,40 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "lokdelar": {
+    "source": "additional-goals/lokdelar.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "frostsaber": {
+    "source": "additional-goals/frostsaber.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_viper": {
+    "source": "additional-goals/set_viper.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_cenarion": {
+    "source": "additional-goals/rep_cenarion.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "key_scholo": {
+    "source": "additional-goals/key_scholo.jpg",
+    "aspect": 1.5,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

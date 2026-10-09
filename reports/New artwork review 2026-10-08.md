@@ -15,3 +15,5 @@ The first three are useful candidates for the next banner pass. None has been pr
 ## Subsequent requested treatments
 
 Karl selected all five and requested the image treatments. Five monochrome, stronger-contrast 1200 x 800 review masters are saved in Media/final-images/additional-goals. See that folder's README and reports/image-tests/additional-banner-pass-before-after.jpg. No runtime mappings installed yet; awaiting visual approval. Original source options were not changed. The Skeleton Key artwork is the selected thematic image for the existing key_scholo goal.
+
+Karl subsequently approved the review and banner-height/fade refinement. All five are installed as 512px BLP2/DXT1 textures with 3:2 framing, bypassing runtime desaturation. Background artwork extends 100px lower while remaining inside the panel, with a soft transparent bottom fade up to 240px deep. This supersedes the pending-installation status above.

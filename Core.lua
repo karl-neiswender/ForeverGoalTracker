@@ -4212,6 +4212,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         raid_naxx = "raid_naxx-banner.blp",
         tier3 = "tier3-banner.blp",
         att_naxx = "att_naxx-banner.blp",
+        lokdelar = "lokdelar-banner.blp", frostsaber = "frostsaber-banner.blp",
+        set_viper = "set_viper-banner.blp", rep_cenarion = "rep_cenarion-banner.blp",
+        key_scholo = "key_scholo-banner.blp",
     }
     B.artAspects = {
         thunderfury = 1.5,
@@ -4230,6 +4233,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         raid_naxx = 0.6679712981082844,
         tier3 = 1.7786561264822134,
         att_naxx = 1.7786561264822134,
+        lokdelar = 1.5, frostsaber = 1.5, set_viper = 1.5,
+        rep_cenarion = 1.5, key_scholo = 1.5,
     }
     -- Approved monochrome masters need no runtime desaturation.
     -- Older color banners keep their existing look until their final pass.
@@ -4237,6 +4242,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
         rhokdelar=true, quelserrar=true, benediction=true, raid_bwl=true,
         raid_mc=true, att_mc=true, set_tier1=true,
+        lokdelar=true, frostsaber=true, set_viper=true, rep_cenarion=true, key_scholo=true,
     }
     B.imageSeen = {} -- per-session, never written to SavedVariables
     function B:SetImageFade(amount)
@@ -4277,11 +4283,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
-        local h = math.max(1, self:GetHeight())*0.92
+        local h = math.max(1, self:GetHeight())*0.92+100
         local aw = w*0.6*0.92
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
         self.fullImageHeight = shownHeight
-        local fadeHeight = math.min(140,shownHeight*0.35)
+        local fadeHeight = math.min(240,shownHeight*0.55)
         local solidHeight = shownHeight-fadeHeight
         self.art:SetSize(aw,solidHeight)
         -- Restore the source proportions while covering the artwork area.
