@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edits",
+  "status": "Karl approved both. Installed for both Alliance and Horde.",
+  "targets": [
+    {
+      "goal": "set_tier1_warlock",
+      "source": "Media/artwork/orc-horde-warlock-tier1.jpg",
+      "master": "Media/final-images/tier-sets/warlock/tier1.jpg",
+      "prompt": "Edit supplied Warlock Tier1 orc illustration into ONE4:3 landscape Warcraft addon armor goal banner intended1200x900. Neutral black and white, moderately stronger contrast preserving painterly texture and detailed midtones, controlled highlights. Reframe FACE and identifying spiked/skull shoulder armor high and RIGHT OF CENTER filling right half; left third quiet dark atmospheric fortress space for UI text, extend original environment left as needed. Preserve exact orc identity, face, tusks, beard, small curved head horns, tall shoulder spikes, skull decoration, robe/armor shapes, skull-topped weapon and casting hand, original pose and expression. Keep face/head horns and identifying armor silhouette inside frame with breathing room. Do not redesign armor, add people/objects or text/UI. Convert green spell orb to controlled grayscale glow with intact swirling shape and finger outlines, avoiding blown highlights. Wide soft baked LEFT darkening naturally blended into scene; soft baked BOTTOM darkening across lowest approximately100 pixels ending near-black neutral charcoal. No hard strips/borders. Preserve existing artist marks if any. Match subdued monochrome painted banners."
+    },
+    {
+      "goal": "set_tier2_warlock",
+      "source": "Media/artwork/horde-orc-warlock-tier2.jpg",
+      "master": "Media/final-images/tier-sets/warlock/tier2.jpg",
+      "prompt": "Edit supplied Warlock Tier2 orc illustration into ONE4:3 landscape Warcraft addon armor goal banner intended1200x900. Neutral black and white, moderately stronger contrast retaining original painted texture and detailed midtones, controlled highlights. Reframe FACE and identifying horned skull helmet/demonic shoulder armor high and RIGHT OF CENTER filling right half; left third quiet dark atmospheric rocky fortress space for overlay text, extend original environment left as needed. Preserve exact orc identity, face/tusks/beard/expression, long horned skull helmet shape, layered armor, demonic open-mouth shoulder with glowing orb, skulls, gauntlets, held skull-topped staff and original casting pose. Keep head and long horns fully inside frame with breathing room. No armor redesign, extra people/objects or added text/UI. Convert colored magic into controlled grayscale glow retaining staff, orb and hand outlines, avoid blown highlights. Wide soft baked LEFT darkening blended naturally into scene plus soft baked BOTTOM darkening over lowest approximately100 pixels ending near-black neutral charcoal. No hard strips/borders. Preserve any artist marks. Match subdued monochrome painted banners."
+    }
+  ]
+}
