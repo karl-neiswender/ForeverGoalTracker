@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/Baron_Rivendare_full.jpg",
+  "output": "Media/final-images/mount-reviews/deathcharger-review.png",
+  "goal": "mount_deathcharger",
+  "status": "Review version awaiting approval before runtime installation",
+  "prompt": "Edit supplied Baron Rivendare riding Deathcharger illustration into ONE 4:3 landscape Warcraft addon mount goal banner intended 1200x900. Neutral black and white, moderately increased contrast, rich painted midtones and controlled spectral highlights matching subdued monochrome addon banners. Preserve exact undead horse skull face, horns, mane, bridle, armor, Baron rider face, armor, cape, raised arm and complete sword with spectral effects. Reframe horse head and rider high and RIGHT OF CENTER, horse dominant in right half while rider and sword remain identifiable inside frame. Quiet dark atmospheric Stratholme stone wall space in left third for UI text, extending original environment only as needed. Preserve painterly style, character identities, geometry and pose, no extra subjects/objects/text/UI. Wide soft baked LEFT darkening naturally blending into scene. Soft baked BOTTOM darkening over lowest approximately100px ending near-black neutral charcoal. No hard strips/borders. Keep all effects strictly neutral grayscale with no blue/cyan/purple tint. Preserve any existing artist marks."
+}
