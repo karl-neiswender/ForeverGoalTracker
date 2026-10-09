@@ -49,16 +49,18 @@ B.GetHeight = function() return 200 end
 B.panel.GetHeight = function() return 600 end
 B.panel.GetWidth = function() return 600 end
 B:Fit()
-assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and artHeight == 184,
+assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and B.fullImageHeight == 184,
     "artwork scales down eight percent from its existing top-right anchor")
 assert(not bottomShown, "bottom veil stays removed during resize")
-assert(coords[1]==0 and coords[2]==1 and coords[3]>0, "wide cover crops vertically")
+assert(B.uv[1]==0 and B.uv[2]==1 and B.uv[3]>0, "wide cover crops vertically")
 B.panel.GetWidth = function() return 190 end
 B:Fit()
-assert(coords[1]>0 and coords[3]==0 and coords[4]==1, "tall cover crops horizontally")
+assert(B.uv[1]>0 and B.uv[3]==0 and B.uv[4]==1, "tall cover crops horizontally")
 B.panel.GetHeight = function() return 100 end
 B:Fit()
-assert(artHeight == 92 and coords[4] < 1, "short panel crops artwork at its bottom without shrinking the subject")
+assert(B.fullImageHeight == 92 and B.uv[4] < 1, "short panel crops artwork at its bottom without shrinking the subject")
+assert(B.fadeStrips[1].fadeWeight > 0.99 and B.fadeStrips[64].fadeWeight < 0.001,
+    "artwork itself fades smoothly to transparent at its bottom")
 B.panel.GetHeight = function() return 600 end
 for id in pairs(B.artPaths) do
     assert(F.GoalById(id), "artwork maps to an existing goal: " .. id)
@@ -110,7 +112,7 @@ assert(B.imageFade == mid and B:GetScript("OnUpdate") == tick, "layout refresh d
 F.LayoutGoalBanner(B.goal)
 assert(B.imageFade == mid and math.abs(B.art.fgtGa2-0.18*mid)<0.0001,
     "texture refresh preserves the running gradient fade")
-tick(B, 0.4)
+tick(B, 0.9)
 assert(B.imageFade == 1 and B.imageSeen.raid_mc and not B:GetScript("OnUpdate"), "fade completes and stops its ticker")
 B:StopImageFade(); B:RevealImages()
 assert(B.imageFade == 1 and not B:GetScript("OnUpdate"), "repeat visits are immediate")
