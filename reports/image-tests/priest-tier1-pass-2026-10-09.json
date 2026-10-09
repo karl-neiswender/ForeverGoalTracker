@@ -1,0 +1,8 @@
+{
+  "source": "Media/artwork/human-alliance-priest-benediction-tier1.jpg",
+  "review": "Media/final-images/tier-sets/priest/tier1-review.png",
+  "status": "awaiting-review-approval",
+  "tool": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Edit target: supplied blond human priest Anduin wearing the Prophecy Tier 1 set and holding Benediction. Create one4:3 landscape Forever Goal Tracker banner intended1200x900. Preserve his exact young face, blond hair, expression, ornate Prophecy shoulders with tall square red/gold shapes converted to grayscale, robes, Benediction's distinctive staff head and floating crystals, and hands with natural complete geometry. Recompose an upper-body portrait with Anduin high on the RIGHT, face near x70% y30%, recognizable shoulders and chest prominent. Keep the same staff beside him and fully coherent, retaining its recognizable head. Extend existing soft magical architectural background leftward, left third quiet for addon text. Strict neutral black and white, painterly midtones, moderate contrast, controlled magical highlights, no blown-out face or armor. Bake both gradients into artwork: a wide smooth LEFT charcoal darkening fade strongest at left edge and gradually blending into scene, no vertical strip; a soft BOTTOM darkening fade over approximately the final100px of a1200x900 master down to near-black charcoal at bottom edge, no hard horizontal strip. Preserve identity, armor and staff design without redesign, no extra characters, unrelated objects, text, UI or borders. Preserve artist marks if any.",
+  "intendedUse": "Priest Tier 1 and Human Priest leveling variant"
+}
