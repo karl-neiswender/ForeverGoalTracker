@@ -18,6 +18,7 @@ FINAL_BANNERS = {
         "ashbringer", "atiesh", "sulfuras", "thunderfury",
         "quelserrar", "benediction", "raid_bwl", "raid_mc", "att_mc", "set_tier1",
         "lokdelar", "frostsaber", "set_viper", "rep_cenarion", "key_scholo")},
+    "rhokdelar": "tall-1200x900/rhokdelar-hunter.jpg",
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",

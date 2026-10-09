@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Installed the approved night elf hunter artwork as Rhok'delar's replacement banner, with monochrome treatment and soft left/bottom gradients.
+
 - Installed fifteen approved 1200 x 900 banner assets with baked soft bottom gradients and correct 4:3 proportions. Rhok'delar remains without background artwork.
 
 - Removed the Rhok'delar banner artwork pending a replacement image.
