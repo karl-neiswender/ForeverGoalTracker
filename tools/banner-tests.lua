@@ -101,6 +101,10 @@ local texture, originalTexture = nil, B.art.SetTexture
 B.art.SetTexture = function(_, path) texture=path end
 for _, faction in ipairs({"Alliance", "Horde", "Neutral"}) do
     UnitFactionGroup = function(unit) assert(unit=="player"); return faction end
+    F.SelectGoal("set_tier1_warlock")
+    local warlockArt = faction=="Alliance" and "set_tier1_warlock-alliance-banner.blp" or "set_tier1_warlock-banner.blp"
+    assert(B:ArtPath("set_tier1_warlock")==warlockArt, "Warlock Tier 1 selects approved faction artwork for "..faction)
+    assert(not desaturated and B.sourceAspect==4/3, "Felheart faction artwork keeps approved treatment and proportions")
     F.SelectGoal("set_tier1_priest")
     assert(B:ArtPath("set_tier1_priest")=="set_tier1_priest-banner.blp", "Priest Tier 1 uses approved portrait for "..faction)
     assert(not desaturated and B.sourceAspect==4/3, "Priest Tier 1 keeps approved treatment and proportions")

@@ -1,0 +1,13 @@
+{
+  "source": "Media/artwork/Curse_from_Beyond_TCG_card.png",
+  "artist": "Karl Kopinski",
+  "review": "Media/final-images/tier-sets/warlock/tier1-alliance-review.png",
+  "master": "Media/final-images/tier-sets/warlock/tier1-alliance.jpg",
+  "runtime": "Media/set_tier1_warlock-alliance-banner.blp",
+  "status": "Karl approved; installed as Alliance variant, Horde artwork retained",
+  "tool": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Edit target: supplied Curse from Beyond TCG card. Extract and faithfully upscale ONLY the central illustration; exclude printed card title, numbers, symbols, game rules, card border and footer. Prepare a single4:3 landscape Forever Goal Tracker ALLIANCE Warlock Tier1 Felheart banner intended1200x900. Preserve the exact HUMAN male warlock in the illustration, beard and face, distinctive Felheart horned crown, gold-trimmed dark red armor converted to grayscale, spiked shoulders with skull details and green gemstones, belt and spell-casting posture. Do not turn him into an orc. Preserve horn and shoulder spike geometry, skulls and gem layout, complete hands if visible. Reframe close upper-body portrait HIGH and RIGHT with breathing room above all horns; subject and Felheart armor dominant right two-thirds. Extend the existing billowing magical smoke naturally to a quiet left third for addon text. Remove print/halftone scan noise while retaining painted style and faithful character detail. STRICT neutral BLACK AND WHITE, rich painterly midtones, moderate contrast and controlled spell highlights. Bake BOTH gradients: wide smooth charcoal LEFT fade strongest at left edge blending seamlessly with smoke, no vertical strip; soft charcoal BOTTOM fade across last~100px of intended1200x900 master ending near-black at bottom edge, no horizontal boundary. No printed card elements, text, UI, border, additional characters or unrelated objects. Preserve any artist signature within the painting itself; card footer credit is outside the extracted painting.",
+  "refinementPrompt": "Edit the supplied Alliance Warlock Felheart banner ONLY to give the tallest upper shoulder spike safe breathing room. Slightly reduce/reposition the character so EVERY horn and shoulder spike has at least40px clear margin below the top edge at1200x900, with no spike touching any edge. Keep human warlock identity, beard, exact Felheart armor, skulls, gems, smoke, grayscale, existing LEFT and BOTTOM dark fades and4:3 framing unchanged. Character remains dominant high/right. Do not crop tips or redesign any armor detail; preserve painterly detail. No text, UI or border.",
+  "goal": "set_tier1_warlock",
+  "faction": "Alliance"
+}

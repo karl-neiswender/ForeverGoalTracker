@@ -17,3 +17,5 @@ Priest Tier 3 uses the approved kneeling night elf for Alliance and as the share
 Priest Tier 2 uses the approved mirrored close-up of the dwarf from wow-zul-gurub.jpg for Alliance and as the shared default until Horde artwork is approved. The same texture is reused by allclasses when the logged-in character is an Alliance Dwarf Priest. No additional texture is needed for leveling.
 
 Priest Tier 1 uses the approved Anduin Prophecy portrait with the corrected Benediction tip. The same texture is reused by allclasses for a logged-in Alliance Human Priest; Dwarf Priests retain their Tier 2 portrait.
+
+Warlock Tier 1 selects the approved human Felheart illustration from Curse from Beyond for Alliance and retains the original orc banner for Horde and unknown faction. The full original TCG card remains in Media/artwork.
