@@ -1,0 +1,40 @@
+{
+  "targets": [
+    {
+      "id": "lokdelar",
+      "file": "lokdelar.png",
+      "subject": "the existing staff and forest",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/lokdelar.png",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-911eb190-f7c5-48cb-b931-64c4ed1bf39b.png"
+    },
+    {
+      "id": "frostsaber",
+      "file": "frostsaber.jpg",
+      "subject": "the saber's face and upper body",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/frostsaber.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-6f134585-44be-4e1e-9bf3-ec99fb7a7df0.png"
+    },
+    {
+      "id": "set_viper",
+      "file": "Lady_Anacondra_full.jpg",
+      "subject": "Lady Anacondra's face and the serpent",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/Lady_Anacondra_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-44262f09-1b67-4c68-9880-2e5debaffeb1.png"
+    },
+    {
+      "id": "rep_cenarion",
+      "file": "cenarion-circle.jpg",
+      "subject": "the hippogryph's face, antlers and wings",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/cenarion-circle.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-2a1dc6ff-ebd3-4240-9683-f4189ad25860.png"
+    },
+    {
+      "id": "key_scholo",
+      "file": "The_Skeleton_Key_full.jpg",
+      "subject": "the magical skeleton key",
+      "path": "C:/Program Files (x86)/World of Warcraft/_classic_beta_/Interface/AddOns/ForeverGoalTracker/Media/artwork/The_Skeleton_Key_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-72340359-fec5-4d65-badf-eb5e7f018ab2.png"
+    }
+  ],
+  "prompt": "Edit this supplied illustration into ONE landscape 3:2 addon banner, target 1200x800 pixels. Apply neutral black and white with moderately stronger contrast (about 20%) while retaining painted midtone detail and avoiding crushed blacks or blown highlights. Reframe the existing main subject so its face or identifying detail sits around 65% across and 35% down, right of center and above midpoint. Leave quieter darker space on the left for the addon's text. Preserve the exact original creature/character/weapon/key design, anatomy, pose, ornamentation, surrounding scene and painted illustration style as faithfully as possible; change framing and tonal treatment only. Scale subject down if needed to keep defining details rather than cutting them off. Preserve existing signatures and copyright notices unobtrusively. No new subjects, objects, redesign, labels, UI, borders, added blur or baked vignette; the addon handles fades. Single finished artwork, not a collage."
+}
