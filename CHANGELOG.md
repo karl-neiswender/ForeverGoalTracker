@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Updated local Forever compatibility checks for 1.60.1 build 70291: startup, client detection, banner layout/image fades and logout pass. Existing interface declaration remains 16001; in-client visual validation remains to be done.
+
 - Goal background artwork gently fades in on the first opening of each goal per session. The square goal icon, text and progress appear immediately; repeat visits stay instant. Respects animations being turned off.
 
 - Installed approved monochrome Ragnaros, Molten Core attunement and Majordomo/Tier 1 banners with 3:2 framing and no redundant addon desaturation.

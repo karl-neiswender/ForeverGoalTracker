@@ -53,7 +53,7 @@ def session(saved, before_events=None, after_login=None, forever=False):
     rt = lua51.LuaRuntime()
     rt.execute(STUB)
     if forever:
-        rt.execute('GetBuildInfo = function() return "1.60.1", "0", "", 16001 end')
+        rt.execute('GetBuildInfo = function() return "1.60.1", "70291", "", 16001 end')
         # globals the modern engine removed (moved into C_ namespaces): calling
         # one errors, like in the Forever client (GetItemInfo crashed 2.7 work)
         rt.execute('GetItemInfo = false')
@@ -84,6 +84,15 @@ for f in FILES:
 if ok_all:
     steps = [
         ("fresh install", None, None),
+        ("Forever 1.60.1 build 70291 startup", None,
+            'local version, build, _, interface = GetBuildInfo(); '
+            'assert(version == "1.60.1" and build == "70291" and interface == 16001, "build identity"); '
+            'assert(STUB_NS.isForever and STUB_NS.clientLabel == "FOREVER", "Forever detection"); '
+            'assert(GetItemInfo == false, "removed legacy API stays unavailable"); '
+            'ForeverGoalTrackerDB.active.raid_mc = true; STUB_NS.SelectGoal("raid_mc"); '
+            'assert(STUB_NS.goalBanner.hasArt and STUB_NS.goalBanner.preprocessed.raid_mc, "approved banner loaded"); '
+            'STUB_FIRE("PLAYER_LOGOUT"); '
+            'print("  build 70291 startup, Forever detection, final banners and logout ok")', True),
         # Ashbringer finished (6 steps), Atiesh just started.
         ("login with goals", 'local D = ForeverGoalTrackerDB; D.active.ashbringer = true; D.active.atiesh = true; '
             'D.progress.ashbringer = {true, true, true, true, true, true}; D.progress.atiesh = {true}; '
@@ -329,6 +338,8 @@ if ok_all:
     ]
     steps.extend([
         ("goal banner layout", None, open(os.path.join(here, "banner-tests.lua"), encoding="utf-8").read()),
+        ("Forever 70291 banner layout and image fades", None,
+            open(os.path.join(here, "banner-tests.lua"), encoding="utf-8").read(), True),
         ("step dependencies", None, open(os.path.join(here, "dependency-tests.lua"), encoding="utf-8").read()),
         ("Forever dependency gates withheld", None,
             'local F = STUB_NS; assert(F.isForever); '
