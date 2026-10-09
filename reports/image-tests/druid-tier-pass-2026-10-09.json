@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-09",
+  "status": "Reviews awaiting Karl's approval before installation. Original sources unchanged.",
+  "method": "Built-in imagegen edits; native 4:3 PNGs retained. Intended approved master dimensions1200x900.",
+  "targets": [
+    {
+      "goal": "set_tier1_druid",
+      "source": "Media/artwork/druid-nightelf-alliance-tier1.jpg",
+      "output": "Media/final-images/tier-sets/druid/tier1-review.png",
+      "prompt": "Edit supplied Druid Tier1 night elf illustration into ONE 4:3 landscape Warcraft addon armor goal banner intended1200x900. Neutral black and white with moderately increased contrast and detailed painted midtones, controlled highlights. Reframe face and identifying antler/leaf shoulder armor high and RIGHT OF CENTER filling right half; left third quiet dark atmospheric forest space for UI text, extend original forest left as needed. Preserve exact character identity, face, long ears, beard/hair, branching antler shapes, leafy armor decoration, two hands and casting pose. Keep head and antlers within frame with breathing room. No redesigned armor, extra people/objects, added text/UI. Translate green magic into controlled grayscale glows with intact swirling shapes and hand outlines; avoid blown highlights. Wide soft baked LEFT darkening naturally blending into scene plus soft baked BOTTOM darkening over lowest approximately100 pixels ending near-black neutral charcoal. No hard strips or borders. Preserve existing artist marks if any. Match subdued monochrome painted banner treatment."
+    },
+    {
+      "goal": "set_tier2_druid",
+      "source": "Media/artwork/druid-alliance-nightelf-tier2.jpg",
+      "output": "Media/final-images/tier-sets/druid/tier2-review.png",
+      "prompt": "Edit supplied Druid Tier2 night elf illustration into ONE 4:3 landscape Warcraft addon armor goal banner intended1200x900. Neutral black and white, moderately increased contrast preserving painted midtones and detailed armor. Reframe face and identifying antler hood/round jeweled shoulder armor high and RIGHT OF CENTER filling right half; left third quiet dark atmospheric forest space for overlay text, extend original forest left as needed. Preserve exact character identity, face, pointed ears, long hair and beard, hood, tall wooden antlers, round gem placements, feather trim, armored gloves, weapon and pose. Keep face and antlers inside frame with breathing room. Do not redesign armor, add extra people/objects/text/UI. Translate spell ribbons into controlled grayscale glows retaining their shapes and weapon detail, no blown highlights. Wide soft baked LEFT darkening blending naturally into scene and soft baked BOTTOM darkening across lowest approximately100 pixels ending near-black neutral charcoal. No hard strips/borders. Preserve any artist marks. Match subdued monochrome painted banners."
+    },
+    {
+      "goal": "tier3_druid",
+      "source": "Media/artwork/druid-tier3.jpg",
+      "output": "Media/final-images/tier-sets/druid/tier3-review.png",
+      "prompt": "Edit supplied Druid Tier3 night elf illustration into ONE 4:3 landscape Warcraft addon armor goal banner intended1200x900. Neutral black and white, moderately stronger contrast preserving painterly texture and detailed midtones, controlled highlights. Reframe face and identifying serpent shoulder/chest armor high and RIGHT OF CENTER filling right half; left third quiet dark snowy atmosphere for UI text, extend original snowy environment to left as needed. Preserve exact night elf identity, face, long pointed ears, hair, shouting expression, distinctive serpent shoulder armor and gem shapes, chest ornamentation, two casting hands, torso pose. Reposition composition without changing pose or redesigning armor; do not mirror unless unavoidable, no extra people/objects/text/UI. Keep head and shoulder silhouette fully within frame with breathing room. Preserve magic as controlled grayscale glow and its original flowing shapes, retain hand outlines and avoid blown highlights. Wide soft baked LEFT darkening blended naturally into environment; soft baked BOTTOM darkening over lowest approximately100 pixels ending near-black neutral charcoal. No hard strips/borders. Preserve existing artist marks if any. Match subdued monochrome banners."
+    }
+  ]
+}
