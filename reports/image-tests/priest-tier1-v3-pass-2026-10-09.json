@@ -1,0 +1,9 @@
+{
+  "source": "Media/artwork/human-alliance-priest-benediction-tier1.jpg",
+  "editTarget": "Media/final-images/tier-sets/priest/tier1-review.png",
+  "review": "Media/final-images/tier-sets/priest/tier1-review-v3.png",
+  "status": "awaiting-review-approval",
+  "tool": "built-in imagegen",
+  "prompt": "Precise localized edit of supplied grayscale Anduin banner. Change ONLY the UPPER-LEFT pointed staff finial at approximately x44%,y35% (above the upper-left square gem setting). It is incorrectly drawn as a tall stacked spire with several flared tiers/collars. REMOVE the stacked tiers and extra collar sections. Replace it with ONE SHORT SIMPLE SMOOTH FOUR-SIDED PYRAMID SPIKE, matching the shape, proportional height and simple single uninterrupted taper of the staff's UPPER-RIGHT pointed finial at approximately x60%,y43%. Both top finials should be the same simple pyramidal ornament in their respective perspective, not one elaborate tower and one simple spike. Keep the upper-left square gem setting and frame intact underneath. Do NOT modify gem settings, other corners, floating crystals, crossbars, shaft, Anduin, armor, hands, background, composition, grayscale or baked gradients. No markings/red circle or extra text. Return same4:3 banner. The only edit is simplifying the top-left finial to match the top-right finial.",
+  "intendedUse": "Priest Tier 1 and Human Priest leveling variant"
+}
