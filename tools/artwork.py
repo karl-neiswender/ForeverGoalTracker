@@ -25,6 +25,8 @@ FINAL_BANNERS = {
     "tier3_rogue": "tier-sets/rogue/tier3.jpg",
     "set_tier1_hunter": "tier-sets/hunter/tier1.jpg",
     "set_tier2_hunter": "tier-sets/hunter/tier2.jpg",
+    "set_tier1_mage": "tier-sets/mage/tier1.jpg",
+    "set_tier2_mage": "tier-sets/mage/tier2.jpg",
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",

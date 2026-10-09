@@ -1,0 +1,22 @@
+{
+  "status": "Karl approved and requested linking to Mage Tier 1 and Tier 2, 2026-10-09",
+  "method": "Built-in imagegen edit per source, followed by technical resize to 1200x900 and optimized JPEG quality90",
+  "targets": [
+    {
+      "tier": 1,
+      "source": "Media/artwork/human-alliance-mage-tier1.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-43db5fec-36dc-4a3e-9cc5-2d8b9700cb97.png",
+      "target": "Media/final-images/tier-sets/mage/tier1-review.jpg",
+      "prompt": "Edit the supplied illustration into ONE 4:3 landscape Warcraft addon banner, intended 1200x900. Neutral black and white, moderately increased contrast preserving detailed painted midtones. Reframe with the mage's face and identifying head/shoulder armor high and RIGHT OF CENTER, filling the right half, while the left third has quiet dark atmospheric space for UI text. Extend the original environment on the left as necessary, retaining the artwork style. Add a wide soft baked LEFT darkening smoothly blending into the scene, plus soft baked BOTTOM darkening over the lowest approximately 100 pixels ending at near-black neutral charcoal. No hard strips, no border. Preserve character identity, exact recognizable armor shapes and decoration, hairstyle, expression, pose, hands, weapon/spell elements. No redesigning armor, no extra people or objects, no text/UI. Preserve existing signatures/notices if present. This is the female human Tier 1 mage. Keep her hood/crown, layered shoulder armor, white-blonde hair, staff and flowing arcane spell trails recognizable. Keep head fully within the frame with breathing room.",
+      "approvedMaster": "Media/final-images/tier-sets/mage/tier1.jpg"
+    },
+    {
+      "tier": 2,
+      "source": "Media/artwork/human-alliance-mage-tier2.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-65225b4c-853c-40f7-a964-aad94efbe68f.png",
+      "target": "Media/final-images/tier-sets/mage/tier2-review.jpg",
+      "prompt": "Edit the supplied illustration into ONE 4:3 landscape Warcraft addon banner, intended 1200x900. Neutral black and white, moderately increased contrast preserving detailed painted midtones. Reframe with the mage's face and identifying head/shoulder armor high and RIGHT OF CENTER, filling the right half, while the left third has quiet dark atmospheric space for UI text. Extend the original environment on the left as necessary, retaining the artwork style. Add a wide soft baked LEFT darkening smoothly blending into the scene, plus soft baked BOTTOM darkening over the lowest approximately 100 pixels ending at near-black neutral charcoal. No hard strips, no border. Preserve character identity, exact recognizable armor shapes and decoration, hairstyle, expression, pose, hands, weapon/spell elements. No redesigning armor, no extra people or objects, no text/UI. Preserve existing signatures/notices if present. This is the bearded male human Tier 2 mage. Preserve the distinctive two tall helmet prongs, broad rune-inscribed circular shoulder armor, flowing dark hair, glowing shoulder orb and his hands casting fire. Keep face and the entire helmet high/right of center and inside the frame. Bring the intense spell highlights into controlled grayscale so the left text area is dark rather than blown out, while the hands and spell remain readable.",
+      "approvedMaster": "Media/final-images/tier-sets/mage/tier2.jpg"
+    }
+  ]
+}

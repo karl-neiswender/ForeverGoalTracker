@@ -17,8 +17,16 @@ do
                 local goal = {}
                 for k, v in pairs(parent) do goal[k] = v end
                 goal.id = parent.id .. "_" .. class:lower()
-                goal.name = name .. " (" .. class .. ")"
-                goal.short = nil
+                goal.name = name
+                local simple = name
+                if not parent.id:match("^pvp_set_") then
+                    simple = simple:gsub("^Battlegear of ", ""):gsub("^Vestments of ", "")
+                        :gsub("^Regalia of ", ""):gsub("^Armor of ", ""):gsub("^The ", "")
+                    for _, suffix in ipairs({" Armor", " Regalia", " Raiment", " Vestments", " Battlegear", " Garb", " Attire"}) do
+                        simple = simple:gsub(suffix .. "$", "")
+                    end
+                end
+                goal.short = simple:gsub("'s$", ""):upper()
                 goal.icon = section.pieces[1] and section.pieces[1].icon or section.icon
                 goal.group, goal.libraryOnly, goal.armorChildren = nil, nil, nil
                 goal.armorParent, goal.armorSection, goal.armorClass = parent.id, si, class

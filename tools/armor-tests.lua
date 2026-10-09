@@ -47,3 +47,14 @@ if not F.isForever then
     assert(not F.LibraryVisible(F.GoalById("pvp_set_plate_ally")), "Forever PvP collections hidden in Era")
 end
 print("  individual armor goals, migration, materials, notes, dates, reset/undo, Library picker and dedicated banners ok")
+
+local might = F.GoalById("set_tier1_warrior")
+assert(might.short == "MIGHT" and might.name == "Battlegear of Might", "compact list and full title")
+D.active[might.id] = true
+F.SelectGoal(might.id)
+assert(F.goalBanner.tag:GetText():find("WARRIOR", 1, true), "class moves beside category")
+assert(not F.goalBanner.title:GetText():find("(Warrior)", 1, true), "title omits class suffix")
+for _, id in ipairs({"set_tier1_mage", "set_tier2_mage"}) do
+    assert(F.goalBanner.preprocessed[id] and F.goalBanner.artAspects[id] == 4/3, "approved mage artwork")
+    assert(F.goalBanner.artPaths[id] == id .. "-banner.blp", "dedicated mage banner mapping")
+end

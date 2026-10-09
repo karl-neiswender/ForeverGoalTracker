@@ -4264,7 +4264,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
     end
     for _, id in ipairs({"set_tier1_rogue", "set_tier2_rogue", "tier3_rogue",
-            "set_tier1_hunter", "set_tier2_hunter"}) do
+            "set_tier1_hunter", "set_tier2_hunter", "set_tier1_mage", "set_tier2_mage"}) do
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
@@ -5434,7 +5434,8 @@ SelectGoal = function(id, skipListRefresh)
     FGT.detailRewardName = goal.name
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     detailIcon:SetIcon(goal.icon, catColor)
-    detailTag:SetText(string.upper(goal.category))
+    detailTag:SetText(string.upper(goal.category) .. (goal.armorClass
+        and ("  |cff77736a\194\183|r  " .. string.upper(goal.armorClass)) or ""))
     detailTag:SetTextColor(catColor[1], catColor[2], catColor[3])
 
     local diffColor = FGT.difficultyColors[goal.difficulty] or C.SUBTEXT
