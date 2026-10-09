@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Removed unapproved inherited Baron artwork from Tier 3 sets
 - New Forever goal: Violet Sorcerer's Vestments
 - Dalaran banner for Violet Sorcerer's Vestments
 - Hyjal Summit and Barrow Deeps raid banners

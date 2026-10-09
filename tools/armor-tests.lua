@@ -69,6 +69,12 @@ assert(F.ArmorClassLabel("Mage") == "|cff69ccf0MAGE|r", "standard class color fa
 assert(F.ArmorClassLabel("Priest") == "|cffffffffPRIEST|r", "white Priest label")
 RAID_CLASS_COLORS = oldColors
 
+for _, child in ipairs(F.GoalById("tier3").armorChildren) do
+    if child.id ~= "tier3_rogue" and child.id ~= "tier3_warrior" and child.id ~= "tier3_mage" then
+        assert(not F.goalBanner:ArtPath(child.id), "Tier 3 cannot inherit unapproved Baron artwork")
+    end
+end
+
 local violet = F.GoalById("set_violet_sorcerer")
 assert(violet and #violet.steps == 5 and not violet.faction)
 assert(F.LibraryVisible(violet) == F.isForever, "Violet set is available only on Forever")
