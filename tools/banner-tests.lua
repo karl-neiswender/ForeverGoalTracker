@@ -104,6 +104,9 @@ for _, faction in ipairs({"Alliance", "Horde", "Neutral"}) do
     F.SelectGoal("tier3_priest")
     assert(B:ArtPath("tier3_priest")=="tier3_priest-banner.blp", "Priest Tier 3 keeps approved Alliance/default art for "..faction)
     assert(not desaturated and B.sourceAspect==4/3, "Priest Tier 3 keeps approved treatment and proportions")
+    F.SelectGoal("set_tier2_priest")
+    assert(B:ArtPath("set_tier2_priest")=="set_tier2_priest-banner.blp", "Priest Tier 2 keeps approved Alliance/default art for "..faction)
+    assert(not desaturated and B.sourceAspect==4/3, "Priest Tier 2 keeps approved treatment and proportions")
     F.SelectGoal("set_tier2_warrior")
     local filename = faction=="Alliance" and "set_tier2_warrior-alliance-banner.blp" or "set_tier2_warrior-banner.blp"
     assert(texture:sub(-#filename)==filename, "logged-in faction selects "..filename)
@@ -131,6 +134,12 @@ do
     assert(B.hasArt and B.sourceAspect==4/3 and not desaturated)
     assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "logged-in dwarf favors ram over selected mounts")
     assert(B:ArtPath("pvp_hk")=="set_tier2_warrior-alliance-banner.blp", "Alliance PvP art ignores player class")
+    class = "PRIEST"
+    F.SelectGoal("allclasses")
+    assert(B:ArtPath("allclasses")=="set_tier2_priest-banner.blp", "dwarf priest leveling uses approved dwarf Tier 2 portrait despite selected parts")
+    assert(B.sourceAspect==4/3 and not desaturated)
+    race = "Human"
+    assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp", "dwarf priest portrait stays specific to dwarf leveling characters")
     race, class, faction = "Troll", "MAGE", "Horde"
     assert(B:ArtPath("epicmounts")=="epicmounts_troll-banner.blp")
     assert(B:ArtPath("pvp_hk")=="set_tier2_warrior-banner.blp")

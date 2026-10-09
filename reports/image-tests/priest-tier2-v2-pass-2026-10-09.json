@@ -2,8 +2,17 @@
   "source": "Media/artwork/wow-zul-gurub.jpg",
   "editTarget": "Media/final-images/tier-sets/priest/tier2-review.png",
   "review": "Media/final-images/tier-sets/priest/tier2-review-v2.png",
-  "status": "awaiting-review-approval",
+  "status": "Karl approved; installed for Priest Tier 2 Alliance/shared default and Alliance Dwarf Priest leveling",
   "tool": "built-in imagegen",
   "prompt": "Use case: precise-object-edit. Edit target: supplied monochrome dwarf Priest Tier 2 banner v1. Make a tighter upper-body portrait of the SAME dwarf priest, retaining the horizontal flip from v1. Increase dwarf scale substantially: his face high in the upper-right (around x70%,y28%), ornate Tier 2 shoulder armor and luminous gemmed chest fill the right two-thirds of the composition. His beard, face, expression, shoulders, chest gems and distinctive spiked armor should be the focal subject. Preserve exact character identity, armor design, staff and casting-hand geometry; crop lower torso instead of leaving the dwarf small or low. Keep casting hand extending toward the left-middle, staff on far right, while providing quiet leftmost third for addon text. Hakkar must become a barely visible distant background hint, mostly outside the crop or lost in soft jungle shadow; no prominent dragon face, large wings or bright dragon behind the dwarf. Maintain the painterly style, strictly neutral black and white, rich midtone armor detail and restrained highlights. Retain both baked gradients: broad smooth dark charcoal LEFT fade with no hard strip, and soft BOTTOM fade across last ~100px of intended1200x900 master ending near-black with natural blending. Single4:3 landscape banner. No added text, borders, UI, characters or unrelated props. This revision changes only composition/subject emphasis and background prominence; preserve dwarf identity and Tier 2 armor.",
-  "intendedUse": "Priest Tier 2 Alliance and shared default until a Horde image is available"
+  "intendedUse": "Priest Tier 2 Alliance and shared default until a Horde image is available",
+  "master": "Media/final-images/tier-sets/priest/tier2.jpg",
+  "runtime": "Media/set_tier2_priest-banner.blp",
+  "goal": "set_tier2_priest",
+  "levelingVariant": {
+    "goal": "allclasses",
+    "faction": "Alliance",
+    "class": "PRIEST",
+    "race": "Dwarf"
+  }
 }
