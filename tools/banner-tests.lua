@@ -101,6 +101,9 @@ local texture, originalTexture = nil, B.art.SetTexture
 B.art.SetTexture = function(_, path) texture=path end
 for _, faction in ipairs({"Alliance", "Horde", "Neutral"}) do
     UnitFactionGroup = function(unit) assert(unit=="player"); return faction end
+    F.SelectGoal("set_tier1_priest")
+    assert(B:ArtPath("set_tier1_priest")=="set_tier1_priest-banner.blp", "Priest Tier 1 uses approved portrait for "..faction)
+    assert(not desaturated and B.sourceAspect==4/3, "Priest Tier 1 keeps approved treatment and proportions")
     F.SelectGoal("tier3_priest")
     assert(B:ArtPath("tier3_priest")=="tier3_priest-banner.blp", "Priest Tier 3 keeps approved Alliance/default art for "..faction)
     assert(not desaturated and B.sourceAspect==4/3, "Priest Tier 3 keeps approved treatment and proportions")
@@ -139,7 +142,11 @@ do
     assert(B:ArtPath("allclasses")=="set_tier2_priest-banner.blp", "dwarf priest leveling uses approved dwarf Tier 2 portrait despite selected parts")
     assert(B.sourceAspect==4/3 and not desaturated)
     race = "Human"
-    assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp", "dwarf priest portrait stays specific to dwarf leveling characters")
+    F.SelectGoal("allclasses")
+    assert(B:ArtPath("allclasses")=="set_tier1_priest-banner.blp", "human priest leveling uses approved Anduin portrait")
+    assert(B.sourceAspect==4/3 and not desaturated)
+    race = "NightElf"
+    assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp", "human and dwarf priest leveling portraits remain race-specific")
     race, class, faction = "Troll", "MAGE", "Horde"
     assert(B:ArtPath("epicmounts")=="epicmounts_troll-banner.blp")
     assert(B:ArtPath("pvp_hk")=="set_tier2_warrior-banner.blp")

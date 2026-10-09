@@ -4269,6 +4269,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Faction variants share their goal's aspect ratio and monochrome treatment.
     -- Choose from the logged-in character, independent of Library filters/roster.
     B.factionArtPaths = {
+        set_tier1_priest = {
+            Alliance = "set_tier1_priest-banner.blp",
+        },
         set_tier2_priest = {
             Alliance = "set_tier2_priest-banner.blp",
         },
@@ -4285,6 +4288,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Only approved runtime textures belong here, never source/review files.
     B.artVariants = {
         allclasses = {
+            {path="set_tier1_priest-banner.blp", faction="Alliance", class="PRIEST", race="Human"},
             {path="set_tier2_priest-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf"},
             {path="rhokdelar-banner.blp", faction="Alliance", class="HUNTER", race="NightElf"},
             {path="rhokdelar-banner.blp", faction="Alliance", class="HUNTER"},
@@ -4392,7 +4396,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             "set_tier1_hunter", "set_tier2_hunter", "set_tier1_mage", "set_tier2_mage",
             "set_tier1_warrior", "set_tier2_warrior", "set_tier1_druid", "set_tier2_druid",
             "set_tier1_shaman", "set_tier2_shaman", "tier3_druid", "set_tier1_warlock", "set_tier2_warlock",
-            "tier3_warrior", "tier3_mage", "tier3_priest", "tier3_shaman", "tier3_warlock", "tier3_paladin", "set_tier2_paladin", "set_tier2_priest", "set_violet_sorcerer", "raid_hyjal", "raid_barrow",
+            "tier3_warrior", "tier3_mage", "tier3_priest", "tier3_shaman", "tier3_warlock", "tier3_paladin", "set_tier2_paladin", "set_tier1_priest", "set_tier2_priest", "set_violet_sorcerer", "raid_hyjal", "raid_barrow",
             "raid_aq20", "raid_aq40", "mount_deathcharger", "raid_zg"}) do
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
