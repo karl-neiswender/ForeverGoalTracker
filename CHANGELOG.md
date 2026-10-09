@@ -14,6 +14,7 @@
 - Baron Rivendare artwork for Deathcharger's Reins
 - Individual Warrior Tier 1 and Tier 2 banners
 - Individual Druid Tier 2 banner
+- Individual Druid Tier 1 banner
 - Individual Shaman Tier 2 banner for both factions
 - Individual Warlock Tier 1 and Tier 2 banners for both factions
 - Individual Warrior Tier 3 banner

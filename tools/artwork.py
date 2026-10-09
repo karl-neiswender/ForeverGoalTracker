@@ -35,6 +35,7 @@ FINAL_BANNERS = {
     "set_tier2_warrior": "tier-sets/warrior/tier2.jpg",
     "set_tier2_warrior-alliance": "tier-sets/warrior/tier2-alliance.jpg",
     "set_tier2_druid": "tier-sets/druid/tier2.jpg",
+    "set_tier1_druid": "tier-sets/druid/tier1.jpg",
     "set_tier2_shaman": "tier-sets/shaman/tier2.jpg",
     "set_tier1_warlock": "tier-sets/warlock/tier1.jpg",
     "set_tier2_warlock": "tier-sets/warlock/tier2.jpg",
