@@ -5,6 +5,7 @@
 - Per-goal banner opacity tuning
 - Alex Horley artwork credit in Settings
 - Updated Dreadsteed banner artwork
+- Individual Warrior Tier 1 and Tier 2 banners
 
 ## 2.10.0
 

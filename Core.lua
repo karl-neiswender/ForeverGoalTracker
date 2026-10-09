@@ -4282,7 +4282,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
     end
     for _, id in ipairs({"set_tier1_rogue", "set_tier2_rogue", "tier3_rogue",
-            "set_tier1_hunter", "set_tier2_hunter", "set_tier1_mage", "set_tier2_mage"}) do
+            "set_tier1_hunter", "set_tier2_hunter", "set_tier1_mage", "set_tier2_mage",
+            "set_tier1_warrior", "set_tier2_warrior"}) do
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
