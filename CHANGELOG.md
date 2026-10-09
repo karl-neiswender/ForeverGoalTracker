@@ -6,6 +6,7 @@
 - Alex Horley artwork credit in Settings
 - Updated Dreadsteed banner artwork
 - Individual Warrior Tier 1 and Tier 2 banners
+- Individual Druid Tier 2 banner
 
 ## 2.10.0
 

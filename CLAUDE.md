@@ -406,6 +406,8 @@ Karl ran /goals shots at 01:43. Converted the eight new TGA captures with tools/
 
 ## Banner brightness tuning (2026-10-09)
 
+Druid Tier 2 approval: Karl identified the missing left staff arc in tier2-review.png. Built-in imagegen repaired the metal arch using the original staff as reference, saved tier2-review-v2.png. Karl approved and requested installation: master Media/final-images/tier-sets/druid/tier2.jpg maps to set_tier2_druid, dedicated 512px DXT1 BLP, ten mip levels, 4:3, preprocessed=true. Rebuild mapping and runtime manifest updated. Druid Tier 1 and Tier 3 remain review versions awaiting approval. Full game restart required for the new texture.
+
 Warrior banner approval: Karl approved both Tier 1 and Tier 2 reviews and requested installation. Masters Media/final-images/tier-sets/warrior/tier1.jpg and tier2.jpg map to set_tier1_warrior and set_tier2_warrior, dedicated 512px DXT1 BLPs with ten mip levels, 4:3, preprocessed=true. Rebuild mappings and runtime manifest updated; original artwork and review PNGs retained. Full game restart required for the cached textures.
 
 Dreadsteed approval update: Karl approved the watermark-free v2 and requested name-only artist attribution. Settings now lists only Alex Horley. Approved master Media/final-images/tall-1200x900/mount_dreadsteed.jpg compiled to Media/mount_dreadsteed-banner.blp (175,948 bytes, DXT1, ten mip levels), mapped at 4:3 with preprocessed=true. Rebuild mapping in tools/artwork.py and runtime-manifest.json updated. Original source and reviews preserved. Full game restart required to refresh the cached texture. Charger and raid reviews still await installation approval.
