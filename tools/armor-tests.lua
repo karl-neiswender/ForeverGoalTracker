@@ -49,7 +49,7 @@ end
 print("  individual armor goals, migration, materials, notes, dates, reset/undo, Library picker and dedicated banners ok")
 
 local might = F.GoalById("set_tier1_warrior")
-assert(might.short == "MIGHT" and might.name == "Battlegear of Might", "compact list and full title")
+assert(might.short == "Might" and might.name == "Battlegear of Might", "compact list and full title")
 D.active[might.id] = true
 F.SelectGoal(might.id)
 assert(F.goalBanner.tag:GetText():find("WARRIOR", 1, true), "class moves beside category")
