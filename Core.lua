@@ -4299,7 +4299,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             "set_tier1_warrior", "set_tier2_warrior", "set_tier2_druid",
             "set_tier2_shaman", "set_tier1_warlock", "set_tier2_warlock",
             "tier3_warrior", "tier3_mage", "set_violet_sorcerer", "raid_hyjal", "raid_barrow",
-            "raid_aq20", "raid_aq40"}) do
+            "raid_aq20", "raid_aq40", "mount_deathcharger"}) do
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end

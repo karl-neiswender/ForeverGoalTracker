@@ -9,6 +9,7 @@
 - Per-goal banner opacity tuning
 - Alex Horley artwork credit in Settings
 - Updated Dreadsteed banner artwork
+- Baron Rivendare artwork for Deathcharger's Reins
 - Individual Warrior Tier 1 and Tier 2 banners
 - Individual Druid Tier 2 banner
 - Individual Shaman Tier 2 banner for both factions
