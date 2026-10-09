@@ -4216,23 +4216,23 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         key_scholo = "key_scholo-banner.blp",
     }
     B.artAspects = {
-        thunderfury = 1.5,
+        thunderfury = 4/3,
         raid_ony = 0.8650519031141869,
-        raid_bwl = 1.5,
+        raid_bwl = 4/3,
         mount_dreadsteed = 0.7974481658692185,
         mount_charger = 0.7501831501831502,
 
-        quelserrar = 1.5,
-        ashbringer = 1.5, atiesh = 1.5, sulfuras = 1.5,
-        benediction = 1.5,
-        raid_mc = 1.5,
-        att_mc = 1.5,
-        set_tier1 = 1.5,
+        quelserrar = 4/3,
+        ashbringer = 4/3, atiesh = 4/3, sulfuras = 4/3,
+        benediction = 4/3,
+        raid_mc = 4/3,
+        att_mc = 4/3,
+        set_tier1 = 4/3,
         raid_naxx = 0.6679712981082844,
         tier3 = 1.7786561264822134,
         att_naxx = 1.7786561264822134,
-        lokdelar = 1.5, frostsaber = 1.5, set_viper = 1.5,
-        rep_cenarion = 1.5, key_scholo = 1.5,
+        lokdelar = 4/3, frostsaber = 4/3, set_viper = 4/3,
+        rep_cenarion = 4/3, key_scholo = 4/3,
     }
     -- Approved monochrome masters need no runtime desaturation.
     -- Older color banners keep their existing look until their final pass.

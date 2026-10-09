@@ -1,105 +1,105 @@
 {
   "ashbringer": {
-    "source": "weapons/ashbringer.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/ashbringer.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "atiesh": {
-    "source": "weapons/atiesh.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/atiesh.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "sulfuras": {
-    "source": "weapons/sulfuras.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/sulfuras.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "thunderfury": {
-    "source": "weapons/thunderfury.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/thunderfury.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "quelserrar": {
-    "source": "weapons/quelserrar.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/quelserrar.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "benediction": {
-    "source": "weapons/benediction.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/benediction.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "raid_bwl": {
-    "source": "blackwing-lair.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/raid_bwl.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "raid_mc": {
-    "source": "molten-core/raid_mc.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/raid_mc.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "att_mc": {
-    "source": "molten-core/att_mc.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/att_mc.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "set_tier1": {
-    "source": "molten-core/set_tier1.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/set_tier1.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "lokdelar": {
-    "source": "additional-goals/lokdelar.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/lokdelar.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "frostsaber": {
-    "source": "additional-goals/frostsaber.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/frostsaber.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "set_viper": {
-    "source": "additional-goals/set_viper.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/set_viper.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "rep_cenarion": {
-    "source": "additional-goals/rep_cenarion.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/rep_cenarion.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
   "key_scholo": {
-    "source": "additional-goals/key_scholo.jpg",
-    "aspect": 1.5,
+    "source": "tall-1200x900/key_scholo.jpg",
+    "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476

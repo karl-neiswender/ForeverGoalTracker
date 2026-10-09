@@ -14,13 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
-    **{goal: "weapons/" + goal + ".jpg" for goal in (
+    **{goal: "tall-1200x900/" + goal + ".jpg" for goal in (
         "ashbringer", "atiesh", "sulfuras", "thunderfury",
-        "quelserrar", "benediction")},
-    "raid_bwl": "blackwing-lair.jpg",
-    **{goal: "molten-core/" + goal + ".jpg" for goal in (
-        "raid_mc", "att_mc", "set_tier1")},
-    **{goal: "additional-goals/" + goal + ".jpg" for goal in (
+        "quelserrar", "benediction", "raid_bwl", "raid_mc", "att_mc", "set_tier1",
         "lokdelar", "frostsaber", "set_viper", "rep_cenarion", "key_scholo")},
 }
 EXTRA_BANNERS = {
@@ -89,7 +85,7 @@ def build_final():
     for goal, filename in FINAL_BANNERS.items():
         source = FINAL / filename
         with Image.open(source) as image:
-            assert image.size == (1200, 800), (goal, image.size)
+            assert image.size == (1200, 900), (goal, image.size)
         manifest[goal] = compress(source, ROOT / "Media" / (goal + "-banner.blp"))
         manifest[goal]["source"] = filename
         print(goal, manifest[goal]["bytes"], "bytes; aspect", manifest[goal]["aspect"])

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Installed fifteen approved 1200 x 900 banner assets with baked soft bottom gradients and correct 4:3 proportions. Rhok'delar remains without background artwork.
+
 - Removed the Rhok'delar banner artwork pending a replacement image.
 
 - Installed approved monochrome Lok'delar, Frostsaber, Embrace of the Viper, Cenarion Circle and Skeleton Key banners. Restored the original banner layout after clarifying that the requested extra 100px belongs in the image assets, rather than the addon rendering.
