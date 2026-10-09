@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Armor goal class labels now use their WoW class colors.
+
 - Fixed goal content escaping short windows. Short panels scroll the whole goal page; taller panels keep the fixed banner and independently scrolling steps.
 
 - Compact armor-set names in My Goals now use title case to match the other goals.

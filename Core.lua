@@ -5489,7 +5489,7 @@ SelectGoal = function(id, skipListRefresh)
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     detailIcon:SetIcon(goal.icon, catColor)
     detailTag:SetText(string.upper(goal.category) .. (goal.armorClass
-        and ("  |cff77736a\194\183|r  " .. string.upper(goal.armorClass)) or ""))
+        and ("  |cff77736a\194\183|r  " .. FGT.ArmorClassLabel(goal.armorClass)) or ""))
     detailTag:SetTextColor(catColor[1], catColor[2], catColor[3])
 
     local diffColor = FGT.difficultyColors[goal.difficulty] or C.SUBTEXT

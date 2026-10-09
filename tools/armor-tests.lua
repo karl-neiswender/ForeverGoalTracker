@@ -58,3 +58,13 @@ for _, id in ipairs({"set_tier1_mage", "set_tier2_mage"}) do
     assert(F.goalBanner.preprocessed[id] and F.goalBanner.artAspects[id] == 4/3, "approved mage artwork")
     assert(F.goalBanner.artPaths[id] == id .. "-banner.blp", "dedicated mage banner mapping")
 end
+
+local oldColors = RAID_CLASS_COLORS
+RAID_CLASS_COLORS = { WARRIOR = { r = 199/255, g = 156/255, b = 110/255 } }
+F.SelectGoal(might.id)
+assert(F.goalBanner.tag:GetText():find("|cffc79c6eWARRIOR|r", 1, true), "class label uses the client's class color")
+assert(F.goalBanner.tag:GetText():find("ITEM SET  |cff77736a", 1, true), "category and muted dot retain their treatment")
+RAID_CLASS_COLORS = nil
+assert(F.ArmorClassLabel("Mage") == "|cff69ccf0MAGE|r", "standard class color fallback")
+assert(F.ArmorClassLabel("Priest") == "|cffffffffPRIEST|r", "white Priest label")
+RAID_CLASS_COLORS = oldColors

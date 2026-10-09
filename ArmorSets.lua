@@ -1,5 +1,23 @@
 local ADDON, FGT = ...
 
+do
+    local fallback = {
+        WARRIOR = "c79c6e", PALADIN = "f58cba", HUNTER = "abd473",
+        ROGUE = "fff569", PRIEST = "ffffff", SHAMAN = "0070de",
+        MAGE = "69ccf0", WARLOCK = "9482c9", DRUID = "ff7d0a",
+    }
+    function FGT.ArmorClassLabel(class)
+        local token = class:upper()
+        local color = RAID_CLASS_COLORS and RAID_CLASS_COLORS[token]
+        local hex = fallback[token] or "ffffff"
+        if color and type(color.r) == "number" and type(color.g) == "number" and type(color.b) == "number" then
+            local function byte(value) return math.floor(math.max(0, math.min(1, value)) * 255 + 0.5) end
+            hex = string.format("%02x%02x%02x", byte(color.r), byte(color.g), byte(color.b))
+        end
+        return "|cff" .. hex .. token .. "|r"
+    end
+end
+
 -- Library collections retain their familiar class picker. The selected
 -- appearances are independent goals everywhere else, with stable class IDs.
 FGT.armorCollections = {}
