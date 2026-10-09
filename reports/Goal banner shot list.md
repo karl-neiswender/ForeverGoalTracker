@@ -2,13 +2,13 @@
 
 Prepared for Karl, October 8, 2026. Covers all 79 goals in the current Lua catalog.
 
-**17 assigned · 30 have an uploaded candidate · 32 still need a suitable image.**
+**22 assigned · 26 have an uploaded candidate · 31 still need a suitable image.**
 
 A candidate is selected by filename/theme, not yet visually approved or hooked up. Some recent filenames label tiers incorrectly; verify the actual armor. Existing banner assignments are preserved.
 
 ## What to collect first
 
-1. Review the uploaded Thunderfury, Rhok'delar, Onyxia, Blackwing Lair, Dreadsteed and Charger images: recognizable subjects cover major missing banners quickly.
+1. Installed: 16 approved monochrome 1200 x 900 masters, including the night elf hunter replacement for Rhok'delar. Older Onyxia, Dreadsteed, Charger and Naxxramas-family images are assigned but still available for a matching final treatment.
 2. Find the missing raid subjects: Hakkar/Zul'Gurub, Ossirian/AQ20, C'Thun/AQ40 and real Forever Barrow Deeps imagery. Check the uploaded Hyjal image against the actual Forever zone.
 3. Find faction-specific PvP scenes: separate Alliance/Horde Warsong Gulch and Arathi Basin, Frostwolf Howler, and identifiable rank-11 war mounts.
 4. Find neutral reputation/quest-location art and profession/social scenes. These can often cover several related goals without a class/race requirement.
@@ -17,9 +17,9 @@ A candidate is selected by filename/theme, not yet visually approved or hooked u
 ## Framing that works in this addon
 
 - Keep the main subject in the right half, with clear head/weapon/mount silhouettes. The left edge fades away beneath the title and text.
-- A landscape source around 16:9 with generous space above/below is useful. Portrait boss art also works when the face survives a centered cover crop. Supply the uncropped original.
+- Final approved masters are 1200 x 900 (4:3), with soft baked left/bottom darkening. Collect uncropped originals with generous room around the subject; portrait art can be reframed during treatment.
 - Prefer 1024px or larger originals when available. The build makes 512px compressed game textures and restores source proportions when displayed.
-- Keep color originals. The addon desaturates the background, so identity should read from shape, not color alone. Contrast remains deferred.
+- Keep color originals in artwork. Selected final masters are monochrome with stronger contrast and bypass addon desaturation; older color banners keep runtime desaturation until their final pass.
 - For screenshots, hide interface/nameplates, remove floating damage text, and avoid foreground effects obscuring the subject. Full-body armor shots should show helm, shoulders, chest and legs clearly.
 - One shared banner is currently supported per goal. Class/race/faction variants below are collection options, not an already implemented automatic switching feature.
 
@@ -37,7 +37,7 @@ Winterspring Frostsaber should use an Alliance-themed mount shot. Dreadsteed sho
 |---|---|---|---|
 | Corrupted Ashbringer (`ashbringer`) | ASSIGNED — `ashbringer-banner.blp` | Corrupted Ashbringer sword close-up; optional Four Horsemen background | Corrupted version, not purified Ashbringer; weapon-only avoids class/race bias |
 | Rhok'delar, Longbow of the Ancient Keepers (`rhokdelar`) | ASSIGNED — `rhokdelar-banner.blp` | Rhok'delar bow in Felwood, clearly showing its distinctive limbs | Hunter only if a wielder is shown; either faction |
-| Lok'delar, Stave of the Ancient Keepers (`lokdelar`) | FIND | Lok'delar staff beside the Felwood ancient quest givers | Hunter only if a wielder is shown; do not substitute Rhok'delar bow |
+| Lok'delar, Stave of the Ancient Keepers (`lokdelar`) | ASSIGNED — `lokdelar-banner.blp` | Lok'delar staff beside the Felwood ancient quest givers | Hunter only if a wielder is shown; do not substitute Rhok'delar bow |
 | Benediction / Anathema (`benediction`) | ASSIGNED — `benediction-banner.blp` | Benediction and Anathema staff pair, or existing Anathema alone | Priest only if a wielder is shown; both factions |
 | Quel'Serrar (`quelserrar`) | ASSIGNED — `quelserrar-banner.blp` | Quel'Serrar sword; existing approved Quel'Delar illustration can remain | Karl explicitly approved the substitute; actual Quel'Serrar reference would be an optional upgrade |
 
@@ -45,7 +45,7 @@ Winterspring Frostsaber should use an Alliance-themed mount shot. Dreadsteed sho
 
 | Goal | Status / existing file | Shot to find | Faction, class or race direction |
 |---|---|---|---|
-| Winterspring Frostsaber (`frostsaber`) | CANDIDATE: visual verification needed — `Frostsaber_Matriarch_HS.jpg` | Winterspring Frostsaber in snowy Winterspring | Alliance theme; exact purple/pink mount, not a generic saber; Night Elf rider optional |
+| Winterspring Frostsaber (`frostsaber`) | ASSIGNED — `frostsaber-banner.blp` | Winterspring Frostsaber in snowy Winterspring | Alliance theme; exact purple/pink mount, not a generic saber; Night Elf rider optional |
 | Deathcharger's Reins (`mount_deathcharger`) | FIND | Rivendare's Deathcharger, mounted or alone, in Stratholme | Exact skeletal horse reward; neutral goal, either-faction rider |
 | Swift Razzashi Raptor (`mount_raptor`) | CANDIDATE: visual verification needed — `Sunscale_Raptor_full.jpg` | Swift Razzashi Raptor in Zul'Gurub jungle | Exact raid mount, not a generic raptor; both factions |
 | Swift Zulian Tiger (`mount_tiger`) | FIND | Swift Zulian Tiger in Zul'Gurub jungle | Exact orange/black striped reward; both factions |
@@ -70,7 +70,7 @@ Winterspring Frostsaber should use an Alliance-themed mount shot. Dreadsteed sho
 | Tier 2 Set Appearances (`set_tier2`) | CANDIDATE: visual verification needed — `Ten_Storm_Thrall_full.jpg` | Actual Tier 2 class-set lineup or full-body geared character | Nine exact sets below; don't mistake Dragonstalker for Tier 3 |
 | Dungeon Set 1 (Tier 0) (`set_dungeon1`) | FIND | Full Dungeon Set 1/Tier 0 character lineup | Nine exact sets below; not raid/PvP armor |
 | Dungeon Set 2 (Tier 0.5) (`set_dungeon2`) | FIND | Full Dungeon Set 2/Tier 0.5 character lineup | Nine exact upgraded sets below; distinguish from Tier 0 |
-| Embrace of the Viper (`set_viper`) | CANDIDATE: visual verification needed — `Lady_Anacondra_full.jpg` | Armor of the Fang wearer in Wailing Caverns; snake motif | Leather set, not class-locked; Forever snake-bonus theme appropriate |
+| Embrace of the Viper (`set_viper`) | ASSIGNED — `set_viper-banner.blp` | Armor of the Fang wearer in Wailing Caverns; snake motif | Leather set, not class-locked; Forever snake-bonus theme appropriate |
 | Forever Raid Set Appearances (`set_forever_raid`) | FIND | Actual Forever raid armor on class models | Nine exact Forever sets below; don't substitute familiar Classic tiers |
 
 ### Mount Collection
@@ -93,7 +93,7 @@ Winterspring Frostsaber should use an Alliance-themed mount shot. Dreadsteed sho
 | Exalted: Timbermaw Hold (`rep_timbermaw`) | CANDIDATE: visual verification needed — `Furbolg_Spiritbinder_TCG.jpg` | Timbermaw furbolgs or Timbermaw Hold entrance | Neutral reputation, both factions; actual furbolgs rather than player race |
 | Exalted: Thorium Brotherhood (`rep_thorium`) | FIND | Thorium Brotherhood forge, dark iron smiths, Lokhtos or Thorium Point | Neutral reputation; dwarf NPCs appropriate, no dwarf player requirement |
 | Exalted: Argent Dawn (`rep_argentdawn`) | FIND | Argent Dawn banner and Light's Hope Chapel, with Argent NPCs | Neutral reputation; avoid Argent Crusade/Wrath replacements |
-| Exalted: Cenarion Circle (`rep_cenarion`) | CANDIDATE: visual verification needed — `Moonwell_full.jpg` | Cenarion Circle druids at Cenarion Hold in Silithus | Neutral reputation; not restricted to Druid players |
+| Exalted: Cenarion Circle (`rep_cenarion`) | ASSIGNED — `rep_cenarion-banner.blp` | Cenarion Circle druids at Cenarion Hold in Silithus | Neutral reputation; not restricted to Druid players |
 | Exalted: Zandalar Tribe (`rep_zandalar`) | FIND | Zandalar Tribe on Yojamba Isle; trolls, shrines and jungle | Neutral reputation; troll NPCs appropriate, not Horde-only player content |
 | Exalted: Hydraxian Waterlords (`rep_hydraxian`) | CANDIDATE: visual verification needed — `Water_Invocation_full.jpg` | Duke Hydraxis or a water elemental on the Azshara coast | Neutral reputation; water rather than fire elemental |
 | Exalted: Brood of Nozdormu (`rep_nozdormu`) | FIND | Anachronos/bronze dragon at Caverns of Time, or AQ bronze-dragon atmosphere | Neutral reputation; avoid unrelated dragonflights |
@@ -124,7 +124,7 @@ Winterspring Frostsaber should use an Alliance-themed mount shot. Dreadsteed sho
 | Attunement: Blackwing Lair (`att_bwl`) | CANDIDATE: visual verification needed — `blackwinglair.jpg` | Blackrock Spire entrance, Scarshield Infiltrator or orb of command | Both factions; Blackrock mountain/entrance alternative acceptable |
 | Attunement: Naxxramas (`att_naxx`) | ASSIGNED — `att_naxx-banner.blp` | Naxxramas exterior or Angela Dosantos at Light's Hope Chapel | Both factions; already covered by Naxx exterior |
 | Key: Seal of Ascension (Upper Blackrock Spire) (`key_ubrs`) | FIND | Seal of Ascension ring or Upper Blackrock Spire entrance | Both factions; exact ring if using item art |
-| Key: Skeleton Key (Scholomance) (`key_scholo`) | CANDIDATE: visual verification needed — `The_Skeleton_Key_full.jpg` | Skeleton Key close-up with Scholomance gate/ruins | Both factions; verify key silhouette is the actual reward |
+| Key: Skeleton Key (Scholomance) (`key_scholo`) | ASSIGNED — `key_scholo-banner.blp` | Skeleton Key close-up with Scholomance gate/ruins | Both factions; verify key silhouette is the actual reward |
 | Key: Shadowforge Key (Blackrock Depths) (`key_brd`) | FIND | Shadowforge Key, Dark Iron architecture or Franclorn Forgewright | Both factions; Blackrock Depths, not unrelated dwarf city |
 | Key: Key to the City (Stratholme) (`key_strat`) | FIND | Key to the City with Stratholme gate or Magistrate Barthilas | Both factions; undead city atmosphere |
 | Key: Crescent Key (Dire Maul) (`key_dm`) | FIND | Crescent Key or Dire Maul East ruins with Pusillin | Both factions; elven ruins, not generic troll jungle |
