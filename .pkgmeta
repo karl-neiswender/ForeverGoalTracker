@@ -25,6 +25,7 @@ ignore:
   - ROADMAP.md
   - Screenshots
   - CLAUDE.md
+  - AGENTS.md
   - tools
   - research_notes
   - reports
