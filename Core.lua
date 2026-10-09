@@ -3172,6 +3172,20 @@ detailPanel:SetPoint("TOPLEFT", listPanel, "TOPRIGHT", 12, 0)
 detailPanel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(detailPanel, STYLE.panel, 12)
 FGT.AddGrime(detailPanel, 0.18, 12, 0.71, 0, 140)
+do -- Short inner shadows stay inside the etched edge, below content.
+    local top = detailPanel:CreateTexture(nil, "BORDER", nil, 0)
+    top:SetTexture(SOLID)
+    top:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4,-4)
+    top:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -4,-4)
+    top:SetHeight(14)
+    ApplyVGradient(top, {0,0,0}, {0,0,0}, 0.26,0)
+    local right = detailPanel:CreateTexture(nil, "BORDER", nil, 0)
+    right:SetTexture(SOLID)
+    right:SetPoint("TOPRIGHT", detailPanel, "TOPRIGHT", -4,-4)
+    right:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -4,4)
+    right:SetWidth(10)
+    ApplyHGradient(right, {0,0,0}, {0,0,0}, 0,0.24)
+end
 
 -- Sort control - a dropdown button above the list. Built by hand (not
 -- Blizzard's UIDropDownMenu template, which differs between clients).
