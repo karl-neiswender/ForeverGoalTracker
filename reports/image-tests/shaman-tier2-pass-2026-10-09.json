@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen edit",
+  "source": "Media/artwork/tauren-horde-shaman-tier2.jpg",
+  "review": "Media/final-images/tier-sets/shaman/tier2-review.png",
+  "master": "Media/final-images/tier-sets/shaman/tier2.jpg",
+  "goal": "set_tier2_shaman",
+  "factions": "Alliance and Horde use same banner, per Karl",
+  "prompt": "Edit supplied Tauren Shaman Tier2 illustration into ONE4:3 landscape Warcraft addon armor goal banner intended1200x900. Neutral black and white, moderately increased contrast preserving original painterly detail and rich midtones, controlled highlights. Reframe the tauren FACE and identifying dragon-head shoulder armor high and RIGHT OF CENTER filling right half; leave quiet dark atmospheric rocky storm landscape in left third for UI text, extending original environment left as needed. Preserve exact character identity, horns, snout, upward shouting expression, braids, armor design, dragon shoulder shapes, belt and hanging gems, gloves, open right hand and pose. Keep head/horns and shoulder silhouette fully inside frame with breathing room. No redesigned armor, extra people/objects, added text/UI. Translate lightning into grayscale, retaining branched shapes and storm mood but avoiding blown highlights and keeping left text area dark. Wide soft baked LEFT darkening blending naturally into scene and soft baked BOTTOM darkening over lowest approximately100 pixels ending near-black neutral charcoal. No hard strips/borders. Preserve existing artist marks if any. Match subdued monochrome painted banners for consistent addon appearance.",
+  "status": "Karl approved and requested both factions; installed."
+}
