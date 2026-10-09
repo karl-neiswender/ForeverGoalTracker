@@ -143,11 +143,13 @@ do
     table.remove(candidates); table.remove(candidates)
     race, class, faction = "Dwarf", "WARRIOR", "Alliance"
     assert(B:ArtPath("allclasses")=="tier3_warrior-banner.blp", "available dwarf warrior is more specific than Alliance warrior")
-    race = "Gnome"
+    race = "Skyborne"
     D.activeParts.epicmounts = {[2]=true}
     assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "missing race art can use sole same-faction selected mount")
     D.activeParts.epicmounts = {[8]=true}
     assert(B:ArtPath("epicmounts")=="epicmounts_human-banner.blp", "opposite faction selection cannot override faction fallback")
+    race = "Gnome"
+    assert(B:ArtPath("epicmounts")=="epicmounts_gnome-banner.blp", "Gnome gets approved mechanostrider even with other mounts selected")
     UnitRace, UnitClass, UnitFactionGroup = nil, nil, nil
     assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp")
     assert(B:ArtPath("pvp_hk")=="pvp_shared-banner.blp", "absent APIs preserve shared fallback")

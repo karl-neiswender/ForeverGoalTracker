@@ -26,6 +26,7 @@ FINAL_BANNERS = {
     "epicmounts_orc": "mounts/orc-wolf.jpg",
     "epicmounts_tauren": "mounts/tauren-kodo.jpg",
     "epicmounts_dwarf": "mounts/dwarf-ram.jpg",
+    "epicmounts_gnome": "mounts/gnome-mechanostrider.jpg",
     "rep_argentdawn": "reputation/rep_argentdawn.jpg",
     **{goal: "tall-1200x900/" + goal + ".jpg" for goal in (
         "ashbringer", "atiesh", "sulfuras", "thunderfury",

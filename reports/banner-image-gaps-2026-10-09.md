@@ -28,8 +28,8 @@ Available faction/class combinations: Alliance Hunter, Mage, Warrior, Druid, Pal
 
 ## Racial mounts
 
-- Missing dedicated race banners: Gnome (mechanostrider), Undead/Scourge (skeletal warhorse), Skyborne (galestrider).
-- Installed: Human horse, Dwarf ram, Night Elf nightsaber, Orc wolf, Troll raptor, Tauren kodo.
+- Missing dedicated race banners: Undead/Scourge (skeletal warhorse), Skyborne (galestrider). Gnome mechanostrider approved and installed after this audit.
+- Installed: Human horse, Dwarf ram, Night Elf nightsaber, Gnome mechanostrider, Orc wolf, Troll raptor, Tauren kodo.
 - Missing race art uses a sole selected same-faction mount, then a same-faction mount; unknown faction has no mount fallback.
 
 ## PvP

@@ -4298,6 +4298,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="epicmounts_human-banner.blp", faction="Alliance", race="Human", part=1},
             {path="epicmounts_dwarf-banner.blp", faction="Alliance", race="Dwarf", part=2},
             {path="epicmounts_nightelf-banner.blp", faction="Alliance", race="NightElf", part=3},
+            {path="epicmounts_gnome-banner.blp", faction="Alliance", race="Gnome", part=4},
             {path="epicmounts_orc-banner.blp", faction="Horde", race="Orc", part=5},
             {path="epicmounts_troll-banner.blp", faction="Horde", race="Troll", part=8},
             {path="epicmounts_tauren-banner.blp", faction="Horde", race="Tauren", part=6},
