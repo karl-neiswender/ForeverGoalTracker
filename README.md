@@ -12,7 +12,7 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills, raid boss kills, guild and friends, and WoW Forever's Statistics window (like duels won).
 - **Edit goal:** change the number on goals like Save 5,000 Gold.
 - **Personal notes:** click the note icon on a goal page to save a reminder above its description. Use the note icon to edit it; use Delete note to remove it, or the close X to discard unsaved edits.
-- **Goal artwork:** monochrome banners with soft fades and individual class-set artwork.
+- **Goal artwork:** monochrome banners with soft fades and individual class-set artwork. Leveling banners favor your logged-in character's class and faction, racial mounts favor your race, and PvP banners follow your faction. Shared artwork fills gaps where a matching image is unavailable.
 - **Prerequisite locks on Classic Era:** dependent steps unlock as you finish their prerequisites.
 - **Raid lockouts:** raid goals show when the character you're on is saved this week.
 - **Pick the parts you want** of multi-part goals: individual classes, professions or mount races. Armor sets stay grouped in the Library, but each selected class set becomes its own goal with separate progress, notes and artwork.

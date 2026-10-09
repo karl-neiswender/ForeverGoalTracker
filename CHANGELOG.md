@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Character-aware banners: class and faction artwork for leveling, racial mounts, and faction artwork for PvP
 - Removed unapproved inherited Baron artwork from Tier 3 sets
 - Approved floating Naxxramas background for Tier 3 sets and Naxxramas attunement
 - New Forever goal: Violet Sorcerer's Vestments

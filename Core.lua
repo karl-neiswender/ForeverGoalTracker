@@ -4274,37 +4274,90 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             Horde = "set_tier2_warrior-banner.blp",
         },
     }
-    function B:ArtPath(id)
-        if id == "epicmounts" then
-            local selected = ForeverGoalTrackerDB and ForeverGoalTrackerDB.activeParts
-                and ForeverGoalTrackerDB.activeParts.epicmounts or {}
-            local count, dwarf = 0, false
-            for key, active in pairs(selected) do
-                if active then count = count + 1; dwarf = dwarf or key == 2 end
-            end
-            local _, race = UnitRace("player")
-            if race == "Troll" then
-                return "epicmounts_troll-banner.blp"
-            end
-            if race == "Human" then
-                return "epicmounts_human-banner.blp"
-            end
-            if race == "NightElf" then
-                return "epicmounts_nightelf-banner.blp"
-            end
-            if race == "Orc" then
-                return "epicmounts_orc-banner.blp"
-            end
-            if race == "Tauren" then
-                return "epicmounts_tauren-banner.blp"
-            end
-            if race == "Dwarf" or (count == 1 and dwarf) then
-                return "epicmounts_dwarf-banner.blp"
+    -- Optional character variants: every specified condition must match.
+    -- Most specific compatible artwork wins; list order breaks equal scores.
+    -- Only approved runtime textures belong here, never source/review files.
+    B.artVariants = {
+        allclasses = {
+            {path="rhokdelar-banner.blp", faction="Alliance", class="HUNTER", race="NightElf"},
+            {path="rhokdelar-banner.blp", faction="Alliance", class="HUNTER"},
+            {path="set_tier1_hunter-banner.blp", faction="Horde", class="HUNTER"},
+            {path="set_tier1_mage-banner.blp", faction="Alliance", class="MAGE", race="Human"},
+            {path="set_tier1_mage-banner.blp", faction="Alliance", class="MAGE"},
+            {path="tier3_warrior-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf"},
+            {path="set_tier2_warrior-alliance-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf"},
+            {path="set_tier2_warrior-alliance-banner.blp", faction="Alliance", class="WARRIOR"},
+            {path="set_tier2_warrior-banner.blp", faction="Horde", class="WARRIOR"},
+            {path="set_tier2_druid-banner.blp", faction="Alliance", class="DRUID"},
+            {path="set_tier2_paladin-banner.blp", faction="Alliance", class="PALADIN"},
+            {path="set_tier2_shaman-banner.blp", faction="Horde", class="SHAMAN", race="Tauren"},
+            {path="set_tier1_shaman-banner.blp", faction="Horde", class="SHAMAN"},
+            {path="set_tier1_warlock-banner.blp", faction="Horde", class="WARLOCK"},
+        },
+        epicmounts = {
+            {path="epicmounts_human-banner.blp", faction="Alliance", race="Human", part=1},
+            {path="epicmounts_dwarf-banner.blp", faction="Alliance", race="Dwarf", part=2},
+            {path="epicmounts_nightelf-banner.blp", faction="Alliance", race="NightElf", part=3},
+            {path="epicmounts_orc-banner.blp", faction="Horde", race="Orc", part=5},
+            {path="epicmounts_troll-banner.blp", faction="Horde", race="Troll", part=8},
+            {path="epicmounts_tauren-banner.blp", faction="Horde", race="Tauren", part=6},
+        },
+    }
+    B.pvpArtVariants = {
+        {path="set_tier2_warrior-alliance-banner.blp", faction="Alliance"},
+        {path="set_tier2_warrior-banner.blp", faction="Horde"},
+    }
+    function B:PlayerArtContext()
+        -- Use stable file tokens, not localized class/race display names.
+        local race, class
+        if UnitRace then race = select(2, UnitRace("player")) end
+        if UnitClass then class = select(2, UnitClass("player")) end
+        return {race=race, class=class, faction=UnitFactionGroup and UnitFactionGroup("player")}
+    end
+    function B:BestArtVariant(variants, player)
+        local best, score = nil, -1
+        for _, variant in ipairs(variants or {}) do
+            if (not variant.faction or variant.faction == player.faction)
+                and (not variant.class or variant.class == player.class)
+                and (not variant.race or variant.race == player.race) then
+                local weight = (variant.class and 100 or 0) + (variant.race and 20 or 0)
+                    + (variant.faction and 10 or 0)
+                if weight > score then best, score = variant, weight end
             end
         end
+        return best
+    end
+    function B:ResolveArt(id)
+        local player = self:PlayerArtContext()
+        local goal = FGT.GoalById(id)
+        local choices = self.artVariants[id] or (goal and goal.category == "PvP" and self.pvpArtVariants)
+        local best = self:BestArtVariant(choices, player)
+        if not best and id == "epicmounts" then
+            -- Missing race art: prefer a sole selected mount in this faction.
+            local selected = ForeverGoalTrackerDB and ForeverGoalTrackerDB.activeParts
+                and ForeverGoalTrackerDB.activeParts.epicmounts or {}
+            local count, part = 0, nil
+            for key, active in pairs(selected) do
+                if active then count, part = count + 1, key end
+            end
+            for _, variant in ipairs(choices) do
+                if count == 1 and variant.part == part and variant.faction == player.faction then best = variant end
+            end
+            -- A faction mount is the final fallback when its race has no art.
+            if not best then
+                for _, variant in ipairs(choices) do
+                    if variant.faction == player.faction then best = variant; break end
+                end
+            end
+        end
+        if best then return best.path, best.aspect or 4/3, best.preprocessed ~= false end
         local variants = self.factionArtPaths[id]
-        local faction = UnitFactionGroup and UnitFactionGroup("player")
-        return (variants and variants[faction]) or self.artPaths[id]
+        return (variants and variants[player.faction]) or self.artPaths[id],
+            self.artAspects[id] or 1, self.preprocessed[id] or false
+    end
+    function B:ArtPath(id)
+        local path = self:ResolveArt(id)
+        return path
     end
     -- Approved monochrome masters need no runtime desaturation.
     -- Older color banners keep their existing look until their final pass.
@@ -4347,6 +4400,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             B.artAspects[goal.id], B.preprocessed[goal.id] = 4/3, true
         end
     end
+    -- Leveling art follows the logged-in character, independent of selected
+    -- classes and the account roster. Shared art covers missing variants.
+    B.artPaths.allclasses = "pvp_shared-banner.blp"
+    B.artAspects.allclasses, B.preprocessed.allclasses = 4/3, true
     -- Brightness tuning multiplies the existing reveal and bottom fades.
     -- Approved defaults go here; in-game overrides are saved per goal.
     B.artOpacity = {}
@@ -4499,15 +4556,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             + 32 + 8 + 10 + 2 + 10 + 14 + 8
         B:SetHeight(FGT.detailHeaderHeight + 68)
         if FGT.UpdateDetailViewport then FGT.UpdateDetailViewport() end
-        local art = B:ArtPath(goal.id)
+        local art, aspect, preprocessed = B:ResolveArt(goal.id)
         B.hasArt = art ~= nil
-        B.sourceAspect = B.artAspects[goal.id] or 1
+        B.sourceAspect = aspect
         if art then
             B.art:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..art)
-            B.art:SetDesaturated(not B.preprocessed[goal.id])
+            B.art:SetDesaturated(not preprocessed)
             for _,t in ipairs(B.fadeStrips) do
                 t:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..art)
-                t:SetDesaturated(not B.preprocessed[goal.id])
+                t:SetDesaturated(not preprocessed)
             end
             B:SetImageFade(B.imageFade or 1)
         end

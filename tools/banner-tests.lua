@@ -114,6 +114,48 @@ F.SelectGoal("set_tier2_warrior")
 assert(B:ArtPath("set_tier2_warrior")==B.artPaths.set_tier2_warrior,
     "unavailable faction API keeps the existing banner")
 UnitFactionGroup, B.art.SetTexture = originalFaction, originalTexture
+-- Live character context, not selected group parts or another roster entry.
+do
+    local savedRace, savedClass, savedFaction = UnitRace, UnitClass, UnitFactionGroup
+    local savedParts = D.activeParts
+    local race, class, faction = "Dwarf", "HUNTER", "Alliance"
+    UnitRace = function(unit) assert(unit=="player"); return "Localized race", race end
+    UnitClass = function(unit) assert(unit=="player"); return "Localized class", class end
+    UnitFactionGroup = function(unit) assert(unit=="player"); return faction end
+    D.activeParts = {allclasses={[7]=true}, epicmounts={[1]=true,[8]=true}}
+    F.SelectGoal("allclasses")
+    assert(B:ArtPath("allclasses")=="rhokdelar-banner.blp", "dwarf hunter gets available Alliance hunter art despite mage-only selection")
+    assert(B.hasArt and B.sourceAspect==4/3 and not desaturated)
+    assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "logged-in dwarf favors ram over selected mounts")
+    assert(B:ArtPath("pvp_hk")=="set_tier2_warrior-alliance-banner.blp", "Alliance PvP art ignores player class")
+    race, class, faction = "Troll", "MAGE", "Horde"
+    assert(B:ArtPath("epicmounts")=="epicmounts_troll-banner.blp")
+    assert(B:ArtPath("pvp_hk")=="set_tier2_warrior-banner.blp")
+    assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp", "missing Horde mage art never selects an Alliance mage")
+    -- Register future approved Mage variants and check exact-race precedence.
+    local candidates = B.artVariants.allclasses
+    candidates[#candidates+1] = {path="horde-mage-test.blp",faction="Horde",class="MAGE",aspect=1.5,preprocessed=false}
+    candidates[#candidates+1] = {path="troll-mage-test.blp",faction="Horde",class="MAGE",race="Troll"}
+    assert(B:ArtPath("allclasses")=="troll-mage-test.blp", "race/class match beats faction/class regardless of insertion order")
+    race = "Scourge"
+    local path, aspect, processed = B:ResolveArt("allclasses")
+    assert(path=="horde-mage-test.blp" and aspect==1.5 and processed==false, "variant carries its own aspect and desaturation")
+    table.remove(candidates); table.remove(candidates)
+    race, class, faction = "Dwarf", "WARRIOR", "Alliance"
+    assert(B:ArtPath("allclasses")=="tier3_warrior-banner.blp", "available dwarf warrior is more specific than Alliance warrior")
+    race = "Gnome"
+    D.activeParts.epicmounts = {[2]=true}
+    assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "missing race art can use sole same-faction selected mount")
+    D.activeParts.epicmounts = {[8]=true}
+    assert(B:ArtPath("epicmounts")=="epicmounts_human-banner.blp", "opposite faction selection cannot override faction fallback")
+    UnitRace, UnitClass, UnitFactionGroup = nil, nil, nil
+    assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp")
+    assert(B:ArtPath("pvp_hk")=="pvp_shared-banner.blp", "absent APIs preserve shared fallback")
+    assert(not B:ArtPath("epicmounts"), "unknown character cannot leak previous mount")
+    UnitRace, UnitClass, UnitFactionGroup = savedRace, savedClass, savedFaction
+    D.activeParts = savedParts
+    print("  character banners: faction/class/race priority, live login, racial mounts, PvP, metadata and absent-API fallback ok")
+end
 D.active.raid_bwl = true
 F.SelectGoal("raid_bwl")
 assert(not desaturated, "final Blackwing Lair artwork bypasses desaturation")
