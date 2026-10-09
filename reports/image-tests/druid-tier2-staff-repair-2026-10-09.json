@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-09",
+  "method": "Built-in imagegen localized edit",
+  "source": "Media/final-images/tier-sets/druid/tier2-review.png",
+  "reference": "Media/artwork/druid-alliance-nightelf-tier2.jpg",
+  "output": "Media/final-images/tier-sets/druid/tier2-review-v2.png",
+  "prompt": "Precise localized repair to IMAGE1 (the grayscale landscape banner). IMAGE2 is only the original weapon design reference. At approximately x33.3%,y57.7% in IMAGE1 the broad curved silver staff head abruptly vanishes on its LEFT side. Complete this missing leftmost portion: continue the existing thick curved metal arc around smoothly to the left and downward, joining its existing lower curved portion into one coherent crescent/ring-shaped staff head with the original segmented silver edge and dark inner trim, matching IMAGE2's staff design. It must be an actual visible metal arch, not just the glowing spell ribbon. Reconstruct the interrupted curve naturally and preserve its perspective, thickness, painted shading and silhouette. Keep all other parts of IMAGE1 unchanged: character/face/armor/hands/weapon shaft, exact framing and 4:3 dimensions, forest background, grayscale brightness, spell highlights, left and bottom dark fades. Only modify the missing staff-head end and immediately adjacent background as needed. No new text, objects or redesign.",
+  "status": "Missing staff arc repaired at Karl's annotated location. Review only; not installed."
+}
