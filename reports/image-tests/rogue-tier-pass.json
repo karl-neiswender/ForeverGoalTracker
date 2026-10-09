@@ -1,0 +1,20 @@
+{
+  "prompt": "Edit this supplied Warcraft illustration into a 4:3 landscape addon banner, intended1200x900. Neutral black and white with moderately stronger contrast, keeping painted midtone detail. Preserve the exact character identity, pose, anatomy, clothing and ALL distinctive armor designs, weapons and surrounding objects; do not redesign the armor or substitute a different tier. Place face and identifying shoulder/chest details right of center and above midpoint, around65% across and35% down, using expanded original background on the left as needed. Retain surrounding scene faithfully. Quiet dark left space with soft baked left-edge darkening; soft baked bottom gradient blending through the last approximately100px toward very dark neutral charcoal, no hard strip or border. Match the previously approved monochrome goal banners. No extra subjects, labels or UI. Preserve existing artist signatures/copyright notices unobtrusively and readably. One finished illustration, no collage.",
+  "targets": [
+    {
+      "id": "tier1",
+      "file": "Garrote_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-524d99d0-250f-42be-9a58-2156e587aff7.png"
+    },
+    {
+      "id": "tier2",
+      "file": "Maestra_of_the_Masquerade_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-aab47ab0-d02f-46b3-ad8c-2dbb1a13185c.png"
+    },
+    {
+      "id": "tier3",
+      "file": "Smokescreen_full.jpg",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a11bcb-68c8-7473-b077-2daaee9dff4c\\exec-e9e471ea-8e20-46b6-a548-2d8fa54d57c5.png"
+    }
+  ]
+}
