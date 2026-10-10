@@ -166,4 +166,30 @@ session    Forever individual armor sets
              chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
              chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Hfgt:goal:set_violet_sorcerer|h[Violet Sorcerer's Vestments]|h|r! One for the history books.
              chat:   Violet set: Forever visibility, blue treatment, five roster item ticks and sticky progress ok
-ERROR      goal banner layout: [string "<python>"]:233: unmapped goal clears previous artwork
+session    goal banner layout
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff43%|r of your goals. Steady hands, big rewards. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   character banners: faction/class/race priority, live login, racial mounts, PvP, metadata and absent-API fallback ok
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 60%.
+             chat: |cffffd75eForever Goal Tracker:|r Use /goals banneropacity 0-100, or /goals banneropacity reset.
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 100%.
+             chat:   banner title reflow, badge wrapping, artwork switching, aspect crop and empty-state layers ok
+session    Forever 70291 banner layout and image fades
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. You're on a roll. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   character banners: faction/class/race priority, live login, racial mounts, PvP, metadata and absent-API fallback ok
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 60%.
+             chat: |cffffd75eForever Goal Tracker:|r Use /goals banneropacity 0-100, or /goals banneropacity reset.
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 100%.
+             chat:   banner title reflow, badge wrapping, artwork switching, aspect crop and empty-state layers ok
+session    short goal window
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. Legends are built one step at a time. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   minimum/tall heights, full-page wheel, content bounds, expanded recipes and long headers ok
+session    Forever short goal window
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. You got this! |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   minimum/tall heights, full-page wheel, content bounds, expanded recipes and long headers ok
+session    step dependencies
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. Keep stacking those wins. |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   dependency references, cycles, blocked clicks, links, fan-out, fan-in, OR, evidence and motion modes ok
+session    Forever dependency gates withheld
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff4%|r of your goals. Onward, hero! |cffffd100|Hfgt:open|h[Open tracker]|h|r
+             chat:   Classic-only gates stay off in unverified Forever builds

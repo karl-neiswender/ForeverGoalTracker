@@ -230,6 +230,9 @@ F.SelectGoal("raid_bwl")
 assert(not desaturated, "switching back clears desaturation")
 D.active.gold_5k = true
 F.SelectGoal("gold_5k")
+assert(B.hasArt and B:ArtPath("gold_5k")=="gold_5k-banner.blp" and B.sourceAspect==4/3 and not desaturated, "gold goal uses approved treasure banner")
+D.active.social_friends = true
+F.SelectGoal("social_friends")
 assert(not B.hasArt, "unmapped goal clears previous artwork")
 -- Only the background artwork fades; the square goal icon remains immediate.
 B:StopImageFade()
