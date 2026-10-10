@@ -28,7 +28,7 @@ FINAL_BANNERS = {
     "gold_5k": "additional-goals/gold.jpg",
     "pvp_set_mail_horde": "pvp/warlord-mail.jpg",
     "rep_timbermaw": "reputation/timbermaw.jpg",
-    "mount_qiraji": "mounts/black-qiraji.jpg",
+    "mount_qiraji": "mounts/scarab-lord-review.png",
     "allclasses_dwarf_shaman": "leveling/dwarf-shaman.jpg",
     "pvp_drums_of_war": "pvp/drums-of-war.jpg",
     "epicmounts_undead": "mounts/undead-warhorse.jpg",

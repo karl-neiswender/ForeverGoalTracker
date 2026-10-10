@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Scarab Lord banner artwork for the Black Qiraji mount goal
 - Separate Blue, Green, Yellow and Red Qiraji battle tank goals with automatic ownership tracking and shared AQ mount artwork
 - Booty Bay banner artwork for the Fishing Extravaganza goal
 - Stranglethorn Fishing Extravaganza goal, with tournament preparation, fish tracking and automatic completion from the winning quest or either prize

@@ -3,7 +3,7 @@
   "generated": "reports/image-tests/scarab-lord-generated.png",
   "review": "Media/final-images/mounts/scarab-lord-review.png",
   "goal": "mount_qiraji",
-  "status": "Awaiting edited review approval before replacing black mount banner",
+  "status": "Approved by Karl: New banner good. Installed for mount_qiraji on 2026-10-10.",
   "method": "Built-in imagegen; technical resize only with Pillow",
   "prompt": "Edit this supplied The Scarab Lord painting into one 4:3 landscape Forever Goal Tracker banner, master1200x900. Preserve the identical masked armored rider, face and hair, raised dagger and complete gripping hand, red cape translated to neutral gray, saddle, insect mount with its distinct armored head and glowing eye, jaws, pincers, complete long segmented legs and pose, architecture and original painterly rendering. Main rider and mount high and toward the right with breathing room, quiet left third for addon text. Reframe and extend the original desert environment naturally, retaining all leg anatomy including left foreground legs; no missing limbs, no disconnected hand, no cropped dagger, no extra rider or new objects. Strict neutral black and white grayscale, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a wide smooth dark LEFT gradient into the artwork, neutral charcoal strongest at left edge gradually blending into scene without a hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately lowest100pixels of1200x900 master, smoothly fading to near-black at the bottom edge with no hard horizontal strip. Both gradients are part of the image itself. No text, UI, border or unrelated characters. Preserve any existing artist marks.",
   "reuse": {
