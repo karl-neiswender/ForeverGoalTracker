@@ -1,0 +1,7 @@
+{
+  "source": "Media/final-images/pending/undead-paladin-leveling-review.png",
+  "output": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/undead-paladin-leveling-review-v2.png",
+  "prompt": "Use case: style-transfer. Edit this Undead Paladin banner to look like hand-painted Warcraft fantasy illustration and classic Warcraft trading card artwork. Replace the cinematic CGI surface rendering with confident visible brushwork, sculptural painted shapes, bold stylized armor, expressive angular undead facial features, rich painted midtones, dramatic readable lighting, and textured atmospheric background. Preserve this exact character identity, hood, skeletal face, glowing eyes, raised hammer, shield, armor design, pose and hand geometry. Do not add characters or objects. Keep the hammer fully in frame with breathing room. Preserve 4:3 landscape framing with subject high toward right and quiet left third. STRICTLY neutral black and white, moderately increased contrast, controlled highlights. Preserve the wide smooth baked dark charcoal gradient from LEFT edge and soft baked dark gradient across lowest approximately 100px fading to near black BOTTOM edge, both without visible boundaries. No text, UI, borders. Intended 1200x900 banner. Make it clearly a painted fantasy illustration rather than a photorealistic 3D cinematic still.",
+  "method": "built-in imagegen",
+  "status": "awaiting approval"
+}
