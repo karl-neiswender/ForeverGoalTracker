@@ -4498,7 +4498,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
         local h = math.max(1, self:GetHeight())*0.92
-        local aw = w*0.6*0.92
+        -- Size from the shorter banner height, so wide windows do not zoom in.
+        local aw = math.min(w*0.6*0.92, h*(self.sourceAspect or 1))
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
         self.fullImageHeight = shownHeight
         local fadeHeight = math.min(140,shownHeight*0.35)
@@ -4507,11 +4508,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Restore the source proportions while covering the artwork area.
         local ratio = aw/h/(self.sourceAspect or 1)
         if ratio >= 1 then
-            local crop = (1-1/ratio)/2
-            self.uv = {0,1,crop,crop+(1-2*crop)*shownHeight/h}
+            self.uv = {0,1,0,(1/ratio)*shownHeight/h}
         else
-            local crop = (1-ratio)/2
-            self.uv = {crop,1-crop,0,shownHeight/h}
+            self.uv = {1-ratio,1,0,shownHeight/h}
         end
         local u = self.uv
         local span = u[4]-u[3]
