@@ -1,0 +1,9 @@
+{
+  "source": "Media/artwork/Skeram_Cultist.jpg",
+  "editTarget": "Media/final-images/tier-sets/aq40/tier25-review.png",
+  "generated": "reports/image-tests/aq40-tier25-generated-v2.png",
+  "review": "Media/final-images/tier-sets/aq40/tier25-review-v2.png",
+  "status": "Awaiting edited review approval before installation",
+  "method": "Built-in imagegen targeted leg correction; Pillow resize only",
+  "prompt": "Targeted correction to image 1, the existing grayscale landscape banner. Image 2 is the original color artwork and authoritative anatomy reference. Restore the MISSING LOWER-LEFT FOREGROUND LEG: in the original, a large thick hairy insectoid leg/thigh extends diagonally from the lower central body toward the lower-left corner, behind the curved sharp armored plate visible there. The banner mistakenly shows empty background beneath that plate. Reconstruct that exact substantial furry leg behind and below the existing blade-shaped armor, with a continuous anatomically connected volume tapering toward the lower-left outside the frame, matching the original anatomy and painterly fur. Make its silhouette and textured surface clearly visible through the subtle bottom fade. Do not add a humanoid foot or change the armor into a weapon. Preserve ALL other anatomy, the existing pose, face, hood, shoulder plates, right furry leg, architecture, scale and composition. Strict neutral black and white. Keep subject high and toward right and quiet left third. Keep wide smooth dark LEFT gradient baked in, blending without hard vertical boundary; keep soft dark BOTTOM gradient over lowest approximately 100px of 1200x900 master ending near-black with no hard horizontal strip. 4:3 landscape, 1200x900 master. No added text, UI, border, annotations, red markings or extra characters."
+}
