@@ -6237,6 +6237,7 @@ do
         art.leather = art:CreateTexture(nil, "BACKGROUND")
         art.leather:SetTexture(MEDIA .. "empty-book-leather")
         art.leather:SetDesaturated(true)
+        art.leather:SetVertexColor(1, 0.72, 0.48)
         art.tiles = { art.leather }
         art.corners = {}
         if fittings then
@@ -6244,7 +6245,7 @@ do
                 local t = art:CreateTexture(nil, "ARTWORK", nil, layer or -2)
                 t:SetTexture(MEDIA .. "empty-book-" .. name)
                 t:SetDesaturated(true)
-                t:SetVertexColor(0.58, 0.58, 0.58)
+                t:SetVertexColor(0.68, 0.49, 0.33)
                 return t
             end
             art.spine = { top = piece("spine"), bottom = piece("spine"), tiles = {}, bands = {} }
@@ -6307,6 +6308,7 @@ do
                         tile = self:CreateTexture(nil, "BACKGROUND")
                         tile:SetTexture(MEDIA .. "empty-book-leather")
                         tile:SetDesaturated(true)
+                        tile:SetVertexColor(1, 0.72, 0.48)
                         self.tiles[used] = tile
                     end
                     local tw, th = math.min(512, w - x * 512), math.min(512, h - y * 512)
@@ -6400,7 +6402,7 @@ do
     E.art = BookSurface(listPanel, false)
     E.art.webs = E.art:CreateTexture(nil, "ARTWORK", nil, -3)
     E.art.webs:SetTexture(MEDIA .. "empty-bg")
-    E.art.webs:SetDesaturated(true)
+    E.art.webs:SetDesaturated(false)
     E.art.webs:SetVertexColor(0.55, 0.55, 0.55)
     E.art.webs:SetAllPoints(E.art)
     E.bg = E.art.leather
