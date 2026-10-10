@@ -27,5 +27,13 @@
     "method": "built-in imagegen",
     "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v2.png",
     "change": "Remove extra lion fang"
-  }
+  },
+  "revisions": [
+    {
+      "prompt": "Make one localized edit to this existing grayscale Warcraft banner: remove only the SMALL foreground acacia tree immediately LEFT of the lion's mane, centered approximately x=493 y=497 in this 1448x1086 image, occupying x=399-592 and y=447-544. Remove its canopy and trunk and fill that spot naturally with matching distant dry Barrens grassland, ground and atmospheric landscape brushwork. Preserve the LARGER acacia above it around x=620 y=363 and the far right tree. Preserve everything else exactly, especially troll, armor, lion, corrected two saber fangs, poses, faces, rocks, mesas, sky, neutral grayscale, painterly texture, framing, left dark gradient and bottom fade. No annotation, no new objects. Do not redesign the scene.",
+      "method": "built-in imagegen",
+      "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v3.png",
+      "change": "Remove marked small acacia tree"
+    }
+  ]
 }
