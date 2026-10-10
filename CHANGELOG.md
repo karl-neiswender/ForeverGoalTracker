@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Subtle etched faction insignia on faction-only My Goals cards, plus shorter PvP set names in the goal list
 - Show or hide completed steps from the goal guide; completed steps are shown by default
 - Newly completed steps finish their check animation, fade away and let the remaining steps slide up when completed steps are hidden
 

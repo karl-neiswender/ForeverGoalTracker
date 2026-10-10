@@ -37,7 +37,9 @@ do
                 goal.id = parent.id .. "_" .. class:lower()
                 goal.name = name
                 local simple = name
-                if not parent.id:match("^pvp_set_") then
+                if parent.id:match("^pvp_set_") then
+                    simple = simple:gsub("^Field Marshal's ", ""):gsub("^Warlord's ", "")
+                else
                     simple = simple:gsub("^Battlegear of ", ""):gsub("^Vestments of ", "")
                         :gsub("^Regalia of ", ""):gsub("^Armor of ", ""):gsub("^The ", "")
                     for _, suffix in ipairs({" Armor", " Regalia", " Raiment", " Vestments", " Battlegear", " Garb", " Attire"}) do

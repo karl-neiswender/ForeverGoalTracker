@@ -33,6 +33,9 @@ C.FOREVER      = { 0.251, 0.549, 1.00 }   -- #408cff, text and edges
 C.FOREVER_MID  = { 0.000, 0.298, 0.749 }  -- #004cbf
 C.FOREVER_DEEP = { 0.090, 0.357, 0.549 }  -- #175b8c
 C.FOREVER_LIGHT = { 0.61, 0.79, 1.00 }    -- #9ccaff, NEW labels (reads on blue tiles)
+C.FACTION_INSET = { 0.07, 0.07, 0.07 }
+C.FACTION_SHADE = { 0, 0, 0 }
+C.FACTION_EDGE = { 0.55, 0.55, 0.55 }
 
 local FONT = "Fonts\\FRIZQT__.TTF"
 local FONT_TITLE = "Interface\\AddOns\\" .. ADDON .. "\\Fonts\\Cinzel-Bold.ttf"
@@ -1913,6 +1916,31 @@ local function Etch(frame, style, edgeSize)
     frame:SetEtch(style)
 end
 
+-- Large cropped insignia, carved into the card rather than sitting on
+-- the text. Upper-left shadow and lower-right light suggest a recess.
+-- Client textures avoid adding cached addon artwork for these emblems.
+function FGT.AddFactionCardEtch(row, faction)
+    if faction ~= "Alliance" and faction ~= "Horde" then return end
+    local path = "Interface\\Timer\\" .. faction .. "-Logo"
+    if GetFileIDFromPath and not GetFileIDFromPath(path) then return end
+    row.factionEtch = {}
+    for i, layer in ipairs({
+        { C.FACTION_SHADE, 0.32, -1, 1 },
+        { C.FACTION_EDGE, 0.10, 1, -1 },
+        { C.FACTION_INSET, 0.22, 0, 0 },
+    }) do
+        local tex = row:CreateTexture(nil, "BACKGROUND", nil, -6 + i)
+        tex:SetTexture(path)
+        tex:SetDesaturated(true)
+        -- 108px graphic, cropped to the card's interior instead of shrunk.
+        tex:SetSize(108, 64)
+        tex:SetTexCoord(0, 1, 0, 64 / 108)
+        tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5 + layer[3], -4 + layer[4])
+        ApplyHGradient(tex, layer[1], layer[1], layer[2] * 0.04, layer[2])
+        row.factionEtch[i] = tex
+    end
+end
+
 -- Embossed divider (Karl, 2026-10-07): a 1px dark shadow line over a 1px
 -- bronze highlight, like the panel borders, so it reads as carved into the
 -- panel rather than drawn on it. Bronze, not gold: gold lines compete with
@@ -3515,6 +3543,7 @@ for i, goal in ipairs(FGT.goals) do
     row:SetHeight(rowHeight)
     row.goal = goal
     Etch(row, STYLE.row, 12)
+    FGT.AddFactionCardEtch(row, goal.faction)
 
     -- Item icon, rimmed in the category's quality color.
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
