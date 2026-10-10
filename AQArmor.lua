@@ -106,7 +106,8 @@ for _, set in ipairs(sets) do
             " with the Brood of Nozdormu."
     end
     sections[#sections + 1] = {
-        name = set[1] .. " - " .. set[2], icon = "ClassIcon_" .. set[1], pieces = pieces, tips = tips,
+        name = set[1] .. " - " .. set[2], icon = "ClassIcon_" .. set[1],
+        goalIcon = pieces[2].icon, pieces = pieces, tips = tips,
     }
 end
 FGT.goals[#FGT.goals + 1] = {

@@ -49,7 +49,7 @@ do
                     end
                 end
                 goal.short = simple:gsub("'s$", "")
-                goal.icon = section.pieces[1] and section.pieces[1].icon or section.icon
+                goal.icon = section.goalIcon or (section.pieces[1] and section.pieces[1].icon) or section.icon
                 goal.group, goal.libraryOnly, goal.armorChildren = nil, nil, nil
                 goal.armorParent, goal.armorSection, goal.armorClass = parent.id, si, class
                 goal.libraryChild = true
