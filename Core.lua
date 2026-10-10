@@ -6244,6 +6244,7 @@ do
                 local t = art:CreateTexture(nil, "ARTWORK", nil, layer or -2)
                 t:SetTexture(MEDIA .. "empty-book-" .. name)
                 t:SetDesaturated(true)
+                t:SetVertexColor(0.58, 0.58, 0.58)
                 return t
             end
             art.spine = { top = piece("spine"), bottom = piece("spine"), tiles = {}, bands = {} }
@@ -6258,22 +6259,40 @@ do
                 local corner = art:CreateTexture(nil, "ARTWORK", nil, 1)
                 corner:SetTexture(MEDIA .. "empty-book-corner")
                 corner:SetDesaturated(true)
+                corner:SetVertexColor(0.62, 0.62, 0.62)
                 corner:SetPoint(spec[1], art, spec[1], -4, spec[4])
                 corner:SetTexCoord(1, 0, spec[2], spec[3])
                 -- Separate contact shadow stays down/right on every corner.
                 local shadow = art:CreateTexture(nil, "ARTWORK", nil, 0)
                 shadow:SetTexture(MEDIA .. "empty-book-corner")
-                shadow:SetPoint(spec[1], art, spec[1], -3, spec[4] - 2)
+                shadow:SetPoint(spec[1], art, spec[1], -1, spec[4] - 3)
                 shadow:SetTexCoord(1, 0, spec[2], spec[3])
-                shadow:SetVertexColor(0, 0, 0, 0.55)
+                shadow:SetVertexColor(0, 0, 0, 0.85)
                 art.corners[#art.corners + 1] = { metal = corner, shadow = shadow }
             end
         end
         -- All artwork sits below this darkness, keeping the empty-state
         -- copy/buttons readable. Plain alpha also follows the frame fade.
-        art.darkness = art:CreateTexture(nil, "OVERLAY")
+        art.darkness = art:CreateTexture(nil, "ARTWORK", nil, -4)
         art.darkness:SetAllPoints(art)
         art.darkness:SetColorTexture(0.025, 0.022, 0.019, fittings and 0.68 or 0.77)
+        if fittings then
+            art.spineShade = art:CreateTexture(nil, "ARTWORK", nil, -3)
+            art.spineShade:SetColorTexture(1, 1, 1)
+            art.spineShade:SetPoint("TOPLEFT", art.spine.top, "TOPRIGHT", -4, 0)
+            art.spineShade:SetPoint("BOTTOMLEFT", art.spine.bottom, "BOTTOMRIGHT", -4, 0)
+            art.spineShade:SetWidth(24)
+            ApplyHGradient(art.spineShade, {0, 0, 0}, {0, 0, 0}, 0.8, 0)
+            for _, side in ipairs({"TOP", "BOTTOM"}) do
+                local shade = art:CreateTexture(nil, "ARTWORK", nil, -4)
+                shade:SetColorTexture(1, 1, 1)
+                shade:SetPoint(side .. "LEFT", art, side .. "LEFT", 0, side == "TOP" and -8 or 8)
+                shade:SetPoint(side .. "RIGHT", art, side .. "RIGHT", 0, side == "TOP" and -8 or 8)
+                shade:SetHeight(20)
+                ApplyVGradient(shade, {0, 0, 0}, {0, 0, 0},
+                    side == "TOP" and 0.7 or 0, side == "TOP" and 0 or 0.7)
+            end
+        end
         function art:Fit()
             local w, h = self:GetWidth(), self:GetHeight()
             if w <= 0 or h <= 0 then return end
@@ -6379,6 +6398,11 @@ do
         return art
     end
     E.art = BookSurface(listPanel, false)
+    E.art.webs = E.art:CreateTexture(nil, "ARTWORK", nil, -3)
+    E.art.webs:SetTexture(MEDIA .. "empty-bg")
+    E.art.webs:SetDesaturated(true)
+    E.art.webs:SetVertexColor(0.55, 0.55, 0.55)
+    E.art.webs:SetAllPoints(E.art)
     E.bg = E.art.leather
     E.detailArt = BookSurface(detailPanel, true)
 
