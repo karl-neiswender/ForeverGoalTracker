@@ -147,6 +147,9 @@ do
     race = "NightElf"
     assert(B:ArtPath("allclasses")=="allclasses_nightelf_hunter-banner.blp", "Night Elf Hunter uses new leveling art")
     assert(B:ArtPath("tier3_warlock")=="tier3_warlock-alliance-banner.blp")
+    assert(B:ArtPath("pvp_set_mail_horde_hunter")=="pvp_set_mail_horde-banner.blp", "Alliance player sees Warlord mail art on Horde Hunter set")
+    assert(B:ArtPath("pvp_set_mail_horde_shaman")=="pvp_set_mail_horde-banner.blp", "Horde Shaman set inherits dedicated mail art")
+    assert(B:ArtPath("pvp_rank14_horde")=="set_tier2_warrior-banner.blp", "Horde PvP goal ignores player's Alliance faction")
     assert(B:ArtPath("set_tier2_warlock")=="set_tier2_warlock-alliance-banner.blp")
     assert(B:ArtPath("set_tier1_paladin")=="set_tier1_paladin-banner.blp")
     race = "Dwarf"
@@ -165,6 +168,7 @@ do
     assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp")
     assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp")
     assert(B:ArtPath("pvp_rank14_horde")=="set_tier2_warrior-banner.blp", "Horde rank retains existing faction art")
+    assert(B:ArtPath("pvp_rank14_ally")=="set_tier2_warrior-alliance-banner.blp", "Alliance PvP goal ignores player's Horde faction")
     class = "HUNTER"
     assert(B:ArtPath("allclasses")=="tier3_hunter-banner.blp", "Troll Hunter leveling uses Cryptstalker and white lion artwork")
     race = "Orc"

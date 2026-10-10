@@ -4362,7 +4362,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:ResolveArt(id)
         local player = self:PlayerArtContext()
         local goal = FGT.GoalById(id)
-        local choices = self.artVariants[id] or (goal and goal.category == "PvP" and self.pvpArtVariants)
+        local pvp = goal and goal.category == "PvP"
+        if pvp then
+            player = {faction=goal.faction}
+        end
+        local choices = self.artVariants[id]
+            or (pvp and goal.armorParent and self.artVariants[goal.armorParent])
+            or (pvp and self.pvpArtVariants)
         local best = self:BestArtVariant(choices, player)
         if not best and id == "epicmounts" then
             -- Missing race art: prefer a sole selected mount in this faction.
@@ -5650,7 +5656,8 @@ SelectGoal = function(id, skipListRefresh)
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     detailIcon:SetIcon(goal.icon, catColor)
     detailTag:SetText(string.upper(goal.category) .. (goal.armorClass
-        and ("  |cff77736a\194\183|r  " .. FGT.ArmorClassLabel(goal.armorClass)) or ""))
+        and ("  |cff77736a\194\183|r  " .. FGT.ArmorClassLabel(goal.armorClass)) or "")
+        .. (goal.faction and ("  |cff77736a\194\183|r  " .. string.upper(goal.faction) .. " ONLY") or ""))
     detailTag:SetTextColor(catColor[1], catColor[2], catColor[3])
 
     local diffColor = FGT.difficultyColors[goal.difficulty] or C.SUBTEXT
@@ -6729,7 +6736,8 @@ function FGT.OpenLinkCard(id)
     L.goal = goal
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     L.icon:SetIcon(goal.icon, catColor)
-    L.tag:SetText(string.upper(goal.category))
+    L.tag:SetText(string.upper(goal.category)
+        .. (goal.faction and ("  \194\183  " .. string.upper(goal.faction) .. " ONLY") or ""))
     L.tag:SetTextColor(catColor[1], catColor[2], catColor[3])
     L.name:SetText(goal.name)
     L.nameShown = nil -- (the gradient ticker repaints it)
