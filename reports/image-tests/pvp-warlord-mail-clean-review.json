@@ -1,0 +1,8 @@
+{
+  "source": "Media/final-images/pending/pvp-warlord-mail-review.png",
+  "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/pvp-warlord-mail-review-v2.png",
+  "prompt": "Precisely edit this banner: remove ONLY the small pale signature/watermark symbol near the lower-left corner (approximately x=25 to80,y=940 to990 in the 1448x1086 image). Seamlessly fill that tiny area with the surrounding dark painted forest texture and gradient. Preserve all other artwork, hunter, bear, armor, faces, pose, foliage, composition, grayscale tones, brightness, left and bottom fades, and 4:3 dimensions unchanged. No new text or marks.",
+  "method": "built-in imagegen",
+  "status": "awaiting approval",
+  "goal": "pvp_set_mail_horde"
+}
