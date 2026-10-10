@@ -1,0 +1,8 @@
+{
+  "source": "Media/artwork/King's_Ransom_full.jpg",
+  "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/gold-goal-review.png",
+  "prompt": "Use case: style-transfer. Edit supplied King's Ransom Warcraft treasure painting into one 4:3 landscape Forever Goal Tracker gold savings banner, intended 1200x900 master. Preserve original treasure chest design, coins, gems, sword, shield, goblets, stone architecture, original painted Warcraft style and existing copyright/artist marks. Place main treasure chest high toward RIGHT with breathing room; keep left third quiet shaded stone and subdued treasure for addon text. Strictly neutral BLACK AND WHITE, moderately increased contrast, detailed painterly midtones, controlled metallic highlights with readable coins. Bake wide smooth neutral charcoal dark gradient from LEFT edge gradually blending into scene with no visible boundary. Bake soft dark gradient across lowest approximately 100px fading downward to near black BOTTOM edge with no horizontal strip. BOTH fades baked into artwork. No added text, UI, border, characters or unrelated objects.",
+  "method": "built-in imagegen",
+  "status": "awaiting approval",
+  "goal": "gold_5k"
+}
