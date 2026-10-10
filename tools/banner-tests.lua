@@ -143,6 +143,13 @@ do
     assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp", "Alliance kills use shared Drums of War")
     assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp", "Alliance duels use shared Drums of War")
     assert(B:ArtPath("pvp_rank14_ally")=="set_tier2_warrior-alliance-banner.blp", "Alliance rank retains existing faction art")
+    assert(B:ArtPath("pvp_mount_ally")=="pvp_mount_ally-banner.blp" and B:ArtPath("pvp_avmount_ally")=="pvp_mount_ally-banner.blp", "both Alliance PvP mounts use flipped ram")
+    race = "NightElf"
+    assert(B:ArtPath("allclasses")=="allclasses_nightelf_hunter-banner.blp", "Night Elf Hunter uses new leveling art")
+    assert(B:ArtPath("tier3_warlock")=="tier3_warlock-alliance-banner.blp")
+    assert(B:ArtPath("set_tier2_warlock")=="set_tier2_warlock-alliance-banner.blp")
+    assert(B:ArtPath("set_tier1_paladin")=="set_tier1_paladin-banner.blp")
+    race = "Dwarf"
     class = "PRIEST"
     F.SelectGoal("allclasses")
     assert(B:ArtPath("allclasses")=="set_tier2_priest-banner.blp", "dwarf priest leveling uses approved dwarf Tier 2 portrait despite selected parts")
@@ -158,6 +165,11 @@ do
     assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp")
     assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp")
     assert(B:ArtPath("pvp_rank14_horde")=="set_tier2_warrior-banner.blp", "Horde rank retains existing faction art")
+    class = "HUNTER"
+    assert(B:ArtPath("allclasses")=="allclasses_horde_hunter-banner.blp", "Horde Hunter uses new leveling art")
+    assert(B:ArtPath("tier3_druid")=="tier3_druid-horde-banner.blp")
+    assert(B:ArtPath("tier3_warlock")=="tier3_warlock-banner.blp", "Horde Warlock retains existing artwork")
+    class = "MAGE"
     F.SelectGoal("allclasses")
     assert(B:ArtPath("allclasses")=="allclasses_troll_mage-banner.blp", "troll mage leveling uses approved troll portrait")
     assert(B.sourceAspect==4/3 and not desaturated)

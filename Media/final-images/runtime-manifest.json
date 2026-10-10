@@ -516,5 +516,54 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "tier3_warlock-alliance": {
+    "source": "tier-sets/warlock/tier3-alliance.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_nightelf_hunter": {
+    "source": "leveling/nightelf-hunter.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_horde_hunter": {
+    "source": "leveling/horde-hunter.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_warlock-alliance": {
+    "source": "tier-sets/warlock/tier2-alliance.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_druid-horde": {
+    "source": "tier-sets/druid/tier3-horde.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_mount_ally": {
+    "source": "pvp/alliance-mounts.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_paladin": {
+    "source": "tier-sets/paladin/tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

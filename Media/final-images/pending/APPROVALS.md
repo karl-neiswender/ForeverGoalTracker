@@ -1,5 +1,16 @@
 # Approved banner reviews
 
+Karl approved all seven reviews in seven-banner-contact-sheet.jpg for installation:
+- Grand_Widow_Faerlina_full.jpg: Alliance Warlock Tier 3, tier3_warlock-alliance.
+- Elven_Archer_full.jpg: Alliance Night Elf Hunter leveling, allclasses_nightelf_hunter.
+- horde-orc-hunter.jpg: Horde Hunter leveling, allclasses_horde_hunter.
+- Mias_the_Fair_TCG.jpg: Alliance Warlock Tier 2, set_tier2_warlock-alliance.
+- Morova_of_the_Sands_TCG.jpg: Horde Druid Tier 3, tier3_druid-horde.
+- pvp-alliance-ram-dwarf.jpg: horizontally flipped ram for pvp_mount_ally and pvp_avmount_ally.
+- Ring_of_Courage_full.jpg: Human Paladin Tier 1, set_tier1_paladin.
+
+Original source files and review PNGs preserved. Installed masters and BLP textures are recorded in runtime-manifest.json and tools/artwork.py.
+
 Karl approved gold-goal-review-v2.png for installation. Master: ../additional-goals/gold.jpg, adjustable gold savings goal (gold_5k), both factions. Source ../../artwork/King's_Ransom_full.jpg preserved unchanged. Lower-left watermark removed at Karl's request.
 
 Karl approved the cleaned pvp-warlord-mail-review-v2.png for installation. Master: ../pvp/warlord-mail.jpg, Horde Warlord Mail Sets (pvp_set_mail_horde). Original source ../../artwork/horde-master-mail-pvp.jpg remains unchanged. Lower-left mark removed at Karl's request.

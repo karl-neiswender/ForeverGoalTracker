@@ -78,7 +78,10 @@ for _, child in ipairs(F.GoalById("tier3").armorChildren) do
         assert(F.goalBanner:ArtPath(child.id) == "tier3-banner.blp", "Tier 3 without dedicated art inherits Naxx artwork")
         assert(F.goalBanner.preprocessed[child.id] and F.goalBanner.artAspects[child.id] == 4/3)
     else
-        assert(F.goalBanner:ArtPath(child.id) == child.id .. "-banner.blp", "Tier 3 uses its dedicated class artwork")
+        local faction = UnitFactionGroup and UnitFactionGroup("player")
+        local variants = F.goalBanner.factionArtPaths[child.id]
+        local expected = (variants and variants[faction]) or child.id .. "-banner.blp"
+        assert(F.goalBanner:ArtPath(child.id) == expected, "Tier 3 uses its dedicated class and faction artwork")
         assert(F.goalBanner.preprocessed[child.id] and F.goalBanner.artAspects[child.id] == 4/3)
     end
 end

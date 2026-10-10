@@ -14,6 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "tier3_warlock-alliance": "tier-sets/warlock/tier3-alliance.jpg",
+    "set_tier2_warlock-alliance": "tier-sets/warlock/tier2-alliance.jpg",
+    "tier3_druid-horde": "tier-sets/druid/tier3-horde.jpg",
+    "set_tier1_paladin": "tier-sets/paladin/tier1.jpg",
+    "allclasses_nightelf_hunter": "leveling/nightelf-hunter.jpg",
+    "allclasses_horde_hunter": "leveling/horde-hunter.jpg",
+    "pvp_mount_ally": "pvp/alliance-mounts.jpg",
     "gold_5k": "additional-goals/gold.jpg",
     "pvp_set_mail_horde": "pvp/warlord-mail.jpg",
     "rep_timbermaw": "reputation/timbermaw.jpg",

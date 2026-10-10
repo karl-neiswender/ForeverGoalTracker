@@ -4269,6 +4269,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Faction variants share their goal's aspect ratio and monochrome treatment.
     -- Choose from the logged-in character, independent of Library filters/roster.
     B.factionArtPaths = {
+        tier3_warlock = {Alliance = "tier3_warlock-alliance-banner.blp"},
+        set_tier2_warlock = {Alliance = "set_tier2_warlock-alliance-banner.blp"},
+        tier3_druid = {Horde = "tier3_druid-horde-banner.blp"},
         set_tier1_warlock = {
             Alliance = "set_tier1_warlock-alliance-banner.blp",
             Horde = "set_tier1_warlock-banner.blp",
@@ -4292,15 +4295,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Only approved runtime textures belong here, never source/review files.
     B.artVariants = {
         allclasses = {
+            {path="allclasses_nightelf_hunter-banner.blp", faction="Alliance", class="HUNTER", race="NightElf"},
+            {path="allclasses_horde_hunter-banner.blp", faction="Horde", class="HUNTER"},
             {path="allclasses_dwarf_shaman-banner.blp", faction="Alliance", class="SHAMAN", race="Dwarf"},
             {path="allclasses_undead_paladin-banner.blp", faction="Horde", class="PALADIN", race="Scourge"},
             {path="allclasses_troll_mage-banner.blp", faction="Horde", class="MAGE", race="Troll"},
             {path="allclasses_troll_mage-banner.blp", faction="Horde", class="MAGE"},
             {path="set_tier1_priest-banner.blp", faction="Alliance", class="PRIEST", race="Human"},
             {path="set_tier2_priest-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf"},
-            {path="rhokdelar-banner.blp", faction="Alliance", class="HUNTER", race="NightElf"},
             {path="rhokdelar-banner.blp", faction="Alliance", class="HUNTER"},
-            {path="set_tier1_hunter-banner.blp", faction="Horde", class="HUNTER"},
             {path="set_tier1_mage-banner.blp", faction="Alliance", class="MAGE", race="Human"},
             {path="set_tier1_mage-banner.blp", faction="Alliance", class="MAGE"},
             {path="tier3_warrior-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf"},
@@ -4333,6 +4336,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_hk = {{path="pvp_drums_of_war-banner.blp"}}
     B.artVariants.pvp_duelist = {{path="pvp_drums_of_war-banner.blp"}}
     B.artVariants.pvp_set_mail_horde = {{path="pvp_set_mail_horde-banner.blp"}}
+    B.artVariants.pvp_mount_ally = {{path="pvp_mount_ally-banner.blp"}}
+    B.artVariants.pvp_avmount_ally = {{path="pvp_mount_ally-banner.blp"}}
     function B:PlayerArtContext()
         -- Use stable file tokens, not localized class/race display names.
         local race, class
@@ -4411,7 +4416,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             "set_tier1_warrior", "set_tier2_warrior", "set_tier1_druid", "set_tier2_druid",
             "set_tier1_shaman", "set_tier2_shaman", "tier3_druid", "set_tier1_warlock", "set_tier2_warlock",
             "tier3_warrior", "tier3_mage", "tier3_priest", "tier3_shaman", "tier3_warlock", "tier3_paladin", "set_tier2_paladin", "set_tier1_priest", "set_tier2_priest", "set_violet_sorcerer", "raid_hyjal", "raid_barrow",
-            "raid_aq20", "raid_aq40", "mount_deathcharger", "raid_zg", "key_dm", "mount_qiraji", "rep_timbermaw", "gold_5k"}) do
+            "raid_aq20", "raid_aq40", "mount_deathcharger", "raid_zg", "key_dm", "mount_qiraji", "rep_timbermaw", "gold_5k", "set_tier1_paladin"}) do
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
