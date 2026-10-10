@@ -140,7 +140,9 @@ do
     assert(B:ArtPath("allclasses")=="rhokdelar-banner.blp", "dwarf hunter gets available Alliance hunter art despite mage-only selection")
     assert(B.hasArt and B.sourceAspect==4/3 and not desaturated)
     assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "logged-in dwarf favors ram over selected mounts")
-    assert(B:ArtPath("pvp_hk")=="set_tier2_warrior-alliance-banner.blp", "Alliance PvP art ignores player class")
+    assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp", "Alliance kills use shared Drums of War")
+    assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp", "Alliance duels use shared Drums of War")
+    assert(B:ArtPath("pvp_rank14_ally")=="set_tier2_warrior-alliance-banner.blp", "Alliance rank retains existing faction art")
     class = "PRIEST"
     F.SelectGoal("allclasses")
     assert(B:ArtPath("allclasses")=="set_tier2_priest-banner.blp", "dwarf priest leveling uses approved dwarf Tier 2 portrait despite selected parts")
@@ -153,7 +155,9 @@ do
     assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp", "human and dwarf priest leveling portraits remain race-specific")
     race, class, faction = "Troll", "MAGE", "Horde"
     assert(B:ArtPath("epicmounts")=="epicmounts_troll-banner.blp")
-    assert(B:ArtPath("pvp_hk")=="set_tier2_warrior-banner.blp")
+    assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp")
+    assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp")
+    assert(B:ArtPath("pvp_rank14_horde")=="set_tier2_warrior-banner.blp", "Horde rank retains existing faction art")
     F.SelectGoal("allclasses")
     assert(B:ArtPath("allclasses")=="allclasses_troll_mage-banner.blp", "troll mage leveling uses approved troll portrait")
     assert(B.sourceAspect==4/3 and not desaturated)
@@ -195,7 +199,7 @@ do
     assert(B:ArtPath("epicmounts")=="epicmounts_gnome-banner.blp", "Gnome gets approved mechanostrider even with other mounts selected")
     UnitRace, UnitClass, UnitFactionGroup = nil, nil, nil
     assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp")
-    assert(B:ArtPath("pvp_hk")=="pvp_shared-banner.blp", "absent APIs preserve shared fallback")
+    assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp", "shared combat art works without character APIs")
     assert(not B:ArtPath("epicmounts"), "unknown character cannot leak previous mount")
     UnitRace, UnitClass, UnitFactionGroup = savedRace, savedClass, savedFaction
     D.activeParts = savedParts

@@ -4328,6 +4328,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="set_tier2_warrior-alliance-banner.blp", faction="Alliance"},
         {path="set_tier2_warrior-banner.blp", faction="Horde"},
     }
+    -- Shared combat artwork for kills and duels on either faction.
+    B.artVariants.pvp_hk = {{path="pvp_drums_of_war-banner.blp"}}
+    B.artVariants.pvp_duelist = {{path="pvp_drums_of_war-banner.blp"}}
     function B:PlayerArtContext()
         -- Use stable file tokens, not localized class/race display names.
         local race, class

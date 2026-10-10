@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "pvp_drums_of_war": "pvp/drums-of-war.jpg",
     "epicmounts_undead": "mounts/undead-warhorse.jpg",
     "epicmounts_skyborne": "mounts/skyborne-location.jpg",
     "key_dm": "additional-goals/key_dm.jpg",
