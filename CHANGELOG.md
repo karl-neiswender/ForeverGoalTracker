@@ -1,28 +1,11 @@
 # Changelog
 
-## Unreleased
+## 2.10.1
 
-- Swift Mechanostrider banner for Gnome racial mount selection
-- Character-aware banners: class and faction artwork for leveling, racial mounts, and faction artwork for PvP
-- Removed unapproved inherited Baron artwork from Tier 3 sets
-- Approved floating Naxxramas background for Tier 3 sets and Naxxramas attunement
-- New Forever goal: Violet Sorcerer's Vestments
-- Dalaran banner for Violet Sorcerer's Vestments
-- Hyjal Summit and Barrow Deeps raid banners
-- Ruins of Ahn'Qiraj battle banner and Temple of Ahn'Qiraj C'Thun banner
-- Per-goal banner opacity tuning
-- Alex Horley artwork credit in Settings
-- Updated Dreadsteed banner artwork
-- Baron Rivendare artwork for Deathcharger's Reins
-- Individual Warrior Tier 1 and Tier 2 banners
-- Individual Druid Tier 2 banner
-- Individual Druid Tier 1 banner
-- Individual Druid Tier 3 and Shaman Tier 1 banners
-- Individual Shaman Tier 2 banner for both factions
-- Individual Warlock Tier 1 and Tier 2 banners for both factions
-- Individual Warrior Tier 3 banner
-- Individual Mage Tier 3 banner
-- Warrior Tier 2 banner matches your character's faction
+- UI improvements
+- More banner images
+- Violet Sorcerer's Vestments goal
+- Bug fixes
 
 ## 2.10.0
 
