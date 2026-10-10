@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Show or hide completed steps from the goal guide; completed steps are shown by default
+- Newly completed steps finish their check animation, fade away and let the remaining steps slide up when completed steps are hidden
 
 ## 2.10.1
 
