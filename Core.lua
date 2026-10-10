@@ -10221,6 +10221,7 @@ local function Suggest(picked)
                 for _, e in ipairs(weapons) do table.insert(list, e) end
                 for _, e in ipairs(sets) do table.insert(list, e) end
             elseif it.key == "collect" then
+                push(list, Entry(me, "fishing_extravaganza", nil, tag))
                 push(list, Entry(me, "mount_raptor", nil, tag))
                 push(list, Entry(me, "mount_tiger", nil, tag))
                 if me.faction == "Alliance" then push(list, Entry(me, "frostsaber", nil, tag)) end
@@ -10235,6 +10236,7 @@ local function Suggest(picked)
                     push(list, Entry(me, id, id == pvpSet and ClassPart(id) or nil, tag))
                 end
             elseif it.key == "grind" then
+                push(list, Entry(me, "fishing_extravaganza", nil, tag))
                 -- the professions this character already knows
                 local mine = Roster()[CharKey()]
                 local known = {}

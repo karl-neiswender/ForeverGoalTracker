@@ -95,4 +95,6 @@ FGT.QUESTS = {
     { "The Test of Skulls, Axtroz", { 6585 }, start = 10321, startName = "Emberstrife" },
     { "Ascension...", { 6601 }, start = 10321, startName = "Emberstrife" },
     { "Blood of the Black Dragon Champion", { 6602 }, start = 10182, startName = "Rexxar" },
+    -- Append to preserve the indices used by existing quest links.
+    { "Master Angler", { 8193 }, start = 15077, startName = "Riggle Bassbait" },
 }

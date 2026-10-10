@@ -666,6 +666,29 @@ local library = {
     },
 
 
+    -- Classic tournament rules, items and quest checked on Wowhead,
+    -- 2026-10-10: /classic/guide/wow-classic-stranglethorn-vale-fishing-extravaganza
+    {
+        id = "fishing_extravaganza", library = true,
+        name = "Win the Stranglethorn Fishing Extravaganza", short = "Fishing Extravaganza",
+        icon = "trade_fishing", category = "Profession", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "Race to bring 40 Speckled Tastyfish to Riggle Bassbait in Booty Bay before the other anglers. Win once and choose a tournament prize.",
+        completeWith = { quest = 8193, item = { 19970, 19979 } },
+        tips = {
+            "The Classic tournament runs on Sundays. Check your realm's event schedule; Forever's timing and rules have not been verified.",
+            "Fish in Pools of Tastyfish around Stranglethorn Vale. Booty Bay itself has no tournament pools. Fishing 225 or higher helps avoid fish getting away.",
+            "Set your hearthstone in Booty Bay, keep it ready, and leave bag space for the catch. Riggle Bassbait stands on the central docks near the inn during the event.",
+            "The first 'Master Angler' turn-in wins. Choose either {item:19970:Arcanite Fishing Pole} or {item:19979:Hook of the Master Angler}; owning either completes this goal.",
+            "{item:19807:Speckled Tastyfish} expire after the event, so they cannot be saved for next week's tournament.",
+        },
+        steps = {
+            { text = "Reach Fishing 150 on a character.", icon = "trade_fishing", auto = { skill = { name = "Fishing", rank = 150 } } },
+            { text = "Catch 40 Speckled Tastyfish from Pools of Tastyfish in Stranglethorn Vale.", icon = "inv_misc_fish_21", auto = { item = 19807, count = 40 } },
+            { text = "Turn in 'Master Angler' to Riggle Bassbait in Booty Bay before the other anglers.", icon = "trade_fishing", auto = { quest = 8193, item = { 19970, 19979 } } },
+        },
+    },
+
     -- ---------------- Milestones ----------------
     {
         id = "gold_5k", library = true, forever = "confirmed",

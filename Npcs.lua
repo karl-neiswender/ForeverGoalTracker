@@ -17,6 +17,8 @@ local ADDON, FGT = ...
 -- not in Wowhead's Forever database (the tooltip says so on Forever).
 -- Checked 2026-10-07: every Classic NPC below is in the Forever database.
 FGT.NPCS = {
+    -- Classic fishing tournament guide, Wowhead, 2026-10-10.
+    { id = 15077, name = "Riggle Bassbait", tag = "Fishmaster", where = "Booty Bay, on the central docks near the inn during the fishing tournament" },
     -- AQ40 turn-ins: Classic IDs and instance location checked on Wowhead's
     -- Tier 2.5 guide, 2026-10-10. Forever positions are not yet verified.
     { id = 15502, name = "Andorgos", where = "Inside Temple of Ahn'Qiraj, near C'Thun's chamber" },
