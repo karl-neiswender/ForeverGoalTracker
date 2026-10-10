@@ -2634,6 +2634,9 @@ function FGT.CelebrateRow(row)
     if row.fxT then FGT.EndCelebration(row) end
     if row.check and row.check.SetLabel then
         row.popChip = row.check
+    elseif row.bigCheck then
+        row.popChip = row.bigCheck
+        row.popTex, row.popSize = nil, nil
     else
         row.popChip, row.popTex, row.popSize = nil, row.doneCheck, 20
     end
@@ -3476,22 +3479,12 @@ local function RefreshGoalList()
         local isSelected = (row.goal.id == selectedId)
         local isNew = FGT.ApplyForeverLook(row, row.goal)
         if isNew then row.newChip:SetLabel(FGT.ForeverDot(12) .. isNew, C.FOREVER_LIGHT) end
-        -- State markers stay under the name; category/class/faction live
-        -- in the quiet eyebrow above it instead of a difficulty chip.
         local finished = total > 0 and done == total
-        local prev
-        for _, chip in ipairs({ row.newChip, row.check }) do
-            local show = (chip == row.newChip and isNew)
-                or (chip == row.check and finished)
-            chip:ClearAllPoints()
-            if prev then
-                chip:SetPoint("LEFT", prev, "RIGHT", 4, 0)
-            else
-                chip:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -2)
-            end
-            chip:SetShown(show)
-            if show then prev = chip end
-        end
+        row.newChip:SetShown(isNew and true or false)
+        local on = finished and FGT.CompletedOn(row.goal)
+        row.eyebrow:SetText(finished and (on and ("Completed " .. on) or "Completed") or FGT.GoalEyebrow(row.goal))
+        local eyebrowColor = finished and C.DONE or C.SUBTEXT
+        row.eyebrow:SetTextColor(eyebrowColor[1], eyebrowColor[2], eyebrowColor[3])
         if isSelected then
             row:SetEtch(STYLE.rowSel)
             row.name:SetTextColor(1, 1, 1)
@@ -3516,8 +3509,11 @@ local function RefreshGoalList()
         local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
         local fav = favs[row.goal.id] and true or false
         row.star:SetShown(fav)
-        row.eyebrow:SetPoint("RIGHT", fav and -26 or -8, 0)
-        row.name:SetPoint("RIGHT", fav and -26 or -8, 0)
+        row.newChip:ClearAllPoints()
+        row.newChip:SetPoint("TOPRIGHT", row, "TOPRIGHT", fav and -28 or -8, -8)
+        local rightInset = (fav and 28 or 8) + (isNew and (row.newChip:GetWidth() + 6) or 0)
+        row.eyebrow:SetPoint("RIGHT", -rightInset, 0)
+        row.name:SetPoint("RIGHT", -8, 0)
         local complete = finished
         row.doneGlow:SetShown(complete)
         row.bigCheck:SetShown(complete)
@@ -3530,11 +3526,7 @@ local function RefreshGoalList()
         else
             row.icon:SetBackdropBorderColor(rim[1], rim[2], rim[3], 1)
         end
-        -- the bar's slot shows the completion date once the goal is done
-        local on = complete and FGT.CompletedOn(row.goal)
-        row.bar:SetShown(not complete)
-        row.doneText:SetText(on and ("Completed " .. on) or "")
-        row.doneText:SetShown(complete)
+        row.bar:Show()
         FGT.CheckCelebration(row, "card_" .. row.goal.id, complete, FGT.CelebrateRow)
     end
 end
@@ -3542,7 +3534,7 @@ end
 local SelectGoal -- forward declare
 
 local yStart = -8
-FGT.ROW_H = 72 -- eyebrow, name, state markers, then bar/completion date
+FGT.ROW_H = 72 -- eyebrow/completion date, name, then progress bar
 local rowHeight = FGT.ROW_H
 for i, goal in ipairs(FGT.goals) do
     local row = CreateFrame("Button", nil, listContent, "BackdropTemplate")
@@ -3568,7 +3560,7 @@ for i, goal in ipairs(FGT.goals) do
     row.eyebrow:SetNonSpaceWrap(false)
 
     row.name = NewFontString(row, 13, "", C.INK2[1], C.INK2[2], C.INK2[3])
-    row.name:SetPoint("TOPLEFT", row.eyebrow, "BOTTOMLEFT", 0, -2)
+    row.name:SetPoint("TOPLEFT", row.eyebrow, "BOTTOMLEFT", 0, -7)
     row.name:SetPoint("RIGHT", -8, 0)
     row.name:SetJustifyH("LEFT")
     -- the list uses the goal's short name; the full name shows on the right
@@ -3580,16 +3572,10 @@ for i, goal in ipairs(FGT.goals) do
 
     -- Forever-only goals: a blue NEW chip with the Forever logo.
     row.newChip = NewChip(row, 8)
-    row.newChip:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -2)
+    row.newChip:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
     row.newChip:SetLabel(FGT.ForeverDot(12) .. "NEW", C.FOREVER_LIGHT)
     row.newChip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
     row.newChip:Hide()
-
-    row.check = NewChip(row, 8)
-    row.check:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -2)
-    row.check:SetLabel("COMPLETE", C.DONE)
-    row.check:SetBackdropBorderColor(0.16, 0.35, 0.10, 1)
-    row.check:Hide()
 
     -- Finished goals: a big green check over the greyed-out icon, with
     -- a soft shadow under it. It pops in wrapped in a green glow that
@@ -3624,19 +3610,12 @@ for i, goal in ipairs(FGT.goals) do
     row.star:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
     row.star:Hide()
 
-    -- Last line, level with the icon's bottom: the progress bar, which a
-    -- finished goal swaps for the day it was completed (same footprint,
-    -- so cards never change height).
+    -- Last line, level with the icon's bottom: progress, including the
+    -- full bar on completed goals. Their date replaces the eyebrow.
     row.bar = NewBar(row, 4)
     row.bar:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, 1)
     row.bar:SetPoint("RIGHT", row, "RIGHT", -10, 0)
     row.bar.label:Hide()
-
-    row.doneText = NewFontString(row, 10, "", 0.435, 0.604, 0.369) -- #6f9a5e
-    row.doneText:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, -1)
-    row.doneText:SetPoint("RIGHT", row, "RIGHT", -10, 0)
-    row.doneText:SetJustifyH("LEFT")
-    row.doneText:SetWordWrap(false)
 
     row:SetScript("OnEnter", function(self)
         if self.goal.id ~= selectedId then

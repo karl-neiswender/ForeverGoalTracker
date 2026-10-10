@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- NEW and UPDATED markers sit at the card's top right; completed cards replace the eyebrow with their completion date and keep their full progress bar
 - Goal cards show category, class and faction above the name instead of difficulty; PvP cards use compact names such as Marshal Plate and Warlord Cloth
 - Subtle etched faction insignia on faction-only My Goals cards, plus shorter PvP set names in the goal list
 - Show or hide completed steps from the goal guide; completed steps are shown by default
