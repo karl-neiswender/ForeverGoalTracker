@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Tier 2.5 Ahn'Qiraj armor goals for all nine classes, with automatic piece tracking and class-specific token, material and reputation guidance
 - Reset arrow is mirrored and spins counterclockwise when clicked
 - Scrollbars use subtle bronze border colors with a gentle hover highlight
 - NEW and UPDATED markers sit at the card's top right, replaced by the star on favorited cards; completed cards replace the eyebrow with their completion date and keep their full progress bar

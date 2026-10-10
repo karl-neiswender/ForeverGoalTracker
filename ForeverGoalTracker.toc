@@ -12,6 +12,7 @@
 
 Data.lua
 Library.lua
+AQArmor.lua
 ArmorSets.lua
 Npcs.lua
 Quests.lua

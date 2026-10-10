@@ -54,6 +54,7 @@ do
                 goal.armorParent, goal.armorSection, goal.armorClass = parent.id, si, class
                 goal.libraryChild = true
                 goal.sections = { section }
+                goal.tips = section.tips or parent.tips
                 goal.forever = section.forever or parent.forever
                 goal.note = parent.note:gsub("Pick the classes you want in the Library, then click", "Click")
                     :gsub("Pick the classes you want in the Library[;,] ?", "")

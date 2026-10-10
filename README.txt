@@ -55,7 +55,7 @@ My Goals
   tracker. Removing keeps its progress in case you add it back.
 
 Goal Library
-  Every goal the addon knows (138 and counting). Search by name, or use
+  Every goal the addon knows (147 and counting). Search by name, or use
   the filter chips to browse by type; PvP, Reputation and Attunements
   also have a Both / Alliance / Horde picker. Click "+ Add" to put a
   goal on your tracker. Goals with several parts (classes, professions, mount races,
@@ -90,7 +90,7 @@ GOAL TYPES
 ----------
 Legendary and epic weapons, mounts (including the Warlock and Paladin
 epic mounts), reputations, raid clears, raid attunements and dungeon keys,
-item sets (Dungeon Sets 1 and 2, Tier 1, 2 and 3, Embrace of the Viper),
+item sets (Dungeon Sets 1 and 2, Tier 1, 2, 2.5 and 3, Embrace of the Viper),
 professions, PvP ranks and reputations for each faction, and milestones
 such as leveling every class.
 

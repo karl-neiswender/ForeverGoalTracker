@@ -10178,7 +10178,7 @@ local function Suggest(picked)
             if it.key == "raid" then
                 -- next raid you haven't cleared, its tier set, then the side raids
                 local prog = { "raid_mc", "raid_bwl", "raid_aq40", "raid_naxx" }
-                local tierOf = { raid_mc = "set_tier1", raid_bwl = "set_tier2", raid_naxx = "tier3" }
+                local tierOf = { raid_mc = "set_tier1", raid_bwl = "set_tier2", raid_aq40 = "set_tier25", raid_naxx = "tier3" }
                 local nextRaid, after, current
                 for i, id in ipairs(prog) do
                     if not Finished(id) then
@@ -10211,6 +10211,7 @@ local function Suggest(picked)
                 if me.class == "DRUID" then push(sets, Entry(me, "set_viper", nil, tag)) end
                 push(sets, Entry(me, "set_dungeon1", ClassPart("set_dungeon1"), tag))
                 push(sets, Entry(me, "set_dungeon2", ClassPart("set_dungeon2"), tag))
+                push(sets, Entry(me, "set_tier25", ClassPart("set_tier25"), tag))
                 local weapons = {}
                 for _, id in ipairs(WEAPONS[me.class] or {}) do push(weapons, Entry(me, id, nil, tag)) end
                 -- the class's signature weapons lead, at any level

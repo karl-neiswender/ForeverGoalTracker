@@ -17,6 +17,11 @@ local ADDON, FGT = ...
 -- not in Wowhead's Forever database (the tooltip says so on Forever).
 -- Checked 2026-10-07: every Classic NPC below is in the Forever database.
 FGT.NPCS = {
+    -- AQ40 turn-ins: Classic IDs and instance location checked on Wowhead's
+    -- Tier 2.5 guide, 2026-10-10. Forever positions are not yet verified.
+    { id = 15502, name = "Andorgos", where = "Inside Temple of Ahn'Qiraj, near C'Thun's chamber" },
+    { id = 15503, name = "Kandrostrasz", where = "Inside Temple of Ahn'Qiraj, near C'Thun's chamber" },
+    { id = 15504, name = "Vethsera", where = "Inside Temple of Ahn'Qiraj, near C'Thun's chamber" },
     -- quest givers and turn-ins
     { id = 16116, name = "Archmage Angela Dosantos", tag = "Brotherhood of the Light", map = 1423, zone = "Eastern Plaguelands", x = 81.4, y = 58.2 },
     { id = 10618, name = "Rivern Frostwind", tag = "Wintersaber Trainers", map = 1452, zone = "Winterspring", x = 49.8, y = 9.8 },
