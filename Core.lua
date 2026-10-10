@@ -3189,7 +3189,7 @@ FGT.IconButton(closeBtn, "close", 16)
 closeBtn:SetScript("OnClick", function() main:Hide() end)
 
 -- Overall progress bar
-local overallBar = NewBar(main, 8)
+local overallBar = NewBar(main, 10)
 overallBar:SetPoint("TOPLEFT", 16, -70)
 overallBar:SetPoint("TOPRIGHT", -16, -70)
 
@@ -5915,9 +5915,31 @@ do -- scoped: keeps these locals out of the file's 200-local budget
 -- ============================================================
 local function RefreshOverall()
     local populated = #ActiveGoals() > 0
-    overallBar:SetShown(populated)
+    local wasPopulated = FGT.overallPopulated
+    FGT.overallPopulated = populated
+    overallBar:Show()
     overallBar.label:SetShown(populated)
     goalsCompleteText:SetShown(populated)
+    local W = FGT.welcome
+    if not populated then
+        if W and W.Tween then W.Tween("overallSummary", nil) end
+        overallBar.label:SetAlpha(0)
+        goalsCompleteText:SetAlpha(0)
+    elseif wasPopulated == false and W and W.Tween and W.Motion() ~= "off" then
+        overallBar.label:SetAlpha(0)
+        goalsCompleteText:SetAlpha(0)
+        W.Tween("overallSummary", 0.45, function(p)
+            local alpha = W.EaseOut(p)
+            overallBar.label:SetAlpha(alpha)
+            goalsCompleteText:SetAlpha(alpha)
+        end, function()
+            overallBar.label:SetAlpha(1)
+            goalsCompleteText:SetAlpha(1)
+        end)
+    elseif wasPopulated ~= true then
+        overallBar.label:SetAlpha(1)
+        goalsCompleteText:SetAlpha(1)
+    end
     local d, t = OverallProgress()
     overallBar:SetProgress(d, t, string.format("%d%% overall", math.floor(d / math.max(1, t) * 100 + 0.5)))
     goalsCompleteText:SetText(string.format("%d of %d goals fully complete", CountGoalsComplete(), #ActiveGoals()))
