@@ -4497,7 +4497,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
-        local h = math.max(1, self:GetHeight())*0.92
+        -- Let artwork continue beneath the compact header before fading out.
+        local h = math.max(math.max(1, self:GetHeight())*0.92,
+            w*0.6*0.92/(self.sourceAspect or 1))
         -- Scale with window width; crop from the top-right of the source.
         local aw = w*0.6*0.92
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))

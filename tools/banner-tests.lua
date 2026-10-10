@@ -50,9 +50,10 @@ B.GetHeight = function() return 200 end
 B.panel.GetHeight = function() return 600 end
 B.panel.GetWidth = function() return 600 end
 B:Fit()
-assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and B.fullImageHeight == 184,
+local expectedHeight = math.max(184,592*0.6*0.92/(B.sourceAspect or 1))
+assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and math.abs(B.fullImageHeight-expectedHeight)<0.001,
     "artwork scales with window width")
-assert(math.abs(artHeight-(184-math.min(140,184*0.35))) < 0.001,
+assert(math.abs(artHeight-(expectedHeight-math.min(140,expectedHeight*0.35))) < 0.001,
     "original bottom transparency is preserved without an extra height change")
 assert(not bottomShown, "bottom veil stays removed during resize")
 B.panel.GetWidth = function() return 1000 end
