@@ -1,0 +1,8 @@
+{
+  "source": "Media/artwork/Furbolg_Spiritbinder_TCG.jpg",
+  "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/timbermaw-review.png",
+  "prompt": "Use case: style-transfer. Edit the supplied Furbolg Spiritbinder Warcraft TCG painting into one 4:3 landscape Forever Goal Tracker Timbermaw reputation banner, intended master 1200x900. Preserve furbolg identity, expressive roaring face, teeth, fur, feather ornaments, necklace, both paws and claws, spear, pose, artist mark and original painted Warcraft style. Place the main subject high toward RIGHT with breathing room around head, feathers and full spear tip. Keep left third quiet woodland for addon text, extending matching background naturally if needed. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake wide smooth dark neutral charcoal gradient from LEFT edge blending gradually into scene without visible boundary. Bake soft dark gradient across lowest approximately 100px fading downward to near black BOTTOM edge without horizontal strip. BOTH gradients in artwork itself. No added text, UI, border, unrelated objects or extra characters.",
+  "method": "built-in imagegen",
+  "status": "awaiting approval",
+  "goal": "rep_timbermaw"
+}
