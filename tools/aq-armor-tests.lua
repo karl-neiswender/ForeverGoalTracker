@@ -4,6 +4,8 @@ assert(parent and parent.libraryOnly and F.LibraryVisible(parent))
 assert(#parent.sections == 9 and #parent.armorChildren == 9)
 local allItems = {}
 for _, child in ipairs(parent.armorChildren) do
+    assert(F.goalBanner:ArtPath(child.id) == "set_tier25-banner.blp", "all nine sets share approved AQ40 art")
+    assert(F.goalBanner.artAspects[child.id] == 4/3 and F.goalBanner.preprocessed[child.id], "approved framing and grayscale treatment")
     assert(child.armorParent == parent.id and #child.sections == 1)
     assert(not child.forever and not child.faction, "Classic set retains unverified Forever notice and both factions")
     assert(#child.tips == 7 and #child.sections[1].pieces == 5)

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Shared Skeram Cultist banner artwork for all nine Tier 2.5 class sets
 - Tier 2.5 class goals use their headpiece icons for thumbnails
 - Fixed a Lua error when a hidden completed step finishes fading and the remaining steps begin sliding up
 - Tier 2.5 Ahn'Qiraj armor goals for all nine classes, with automatic piece tracking and class-specific token, material and reputation guidance
