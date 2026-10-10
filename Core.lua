@@ -4914,6 +4914,7 @@ resetBtn:SetSize(22, 22)
 resetBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -12, -12)
 resetBtn.icon = resetBtn:CreateTexture(nil, "ARTWORK")
 resetBtn.icon:SetTexture(FGT.Icon("refresh-white"))
+resetBtn.icon:SetTexCoord(1, 0, 0, 1) -- mirror the arrow horizontally
 resetBtn.icon:SetSize(15, 15)
 resetBtn.icon:SetPoint("CENTER")
 FGT.resetBtn = resetBtn
@@ -4945,7 +4946,7 @@ resetBtn:SetScript("OnUpdate", function(self, elapsed)
         self.spin = self.spin + elapsed
         local t = math.min(1, self.spin / 0.65)
         -- One clockwise turn with a soft start and stop.
-        self.icon:SetRotation(-2 * math.pi * (t * t * (3 - 2 * t)))
+        self.icon:SetRotation(2 * math.pi * (t * t * (3 - 2 * t)))
         if t == 1 then self.spin = nil; self.icon:SetRotation(0) end
     end
     local undo = FGT.resetUndo

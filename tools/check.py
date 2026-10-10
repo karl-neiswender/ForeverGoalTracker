@@ -177,7 +177,7 @@ if ok_all:
             'click(); assert(F.resetUndo.expires == 110 and not D.progress.ashbringer[1], "reset"); '
             'assert(tipLines[#tipLines] == "10 seconds left", "initial tooltip: " .. tostring(tipLines[#tipLines])); '
             'local rotation; b.icon.SetRotation = function(_, r) rotation = r end; '
-            'b:GetScript("OnUpdate")(b, 0.325); assert(rotation < -3 and rotation > -3.2, "half turn"); '
+            'b:GetScript("OnUpdate")(b, 0.325); assert(rotation > 3 and rotation < 3.2, "counterclockwise half turn"); '
             'b:GetScript("OnUpdate")(b, 0.325); assert(rotation == 0 and b.spin == nil, "rotation end"); '
             'now = 104.1; b:GetScript("OnUpdate")(b, 0); assert(tipLines[#tipLines] == "6 seconds left", "countdown"); '
             'local pops, oldPop = 0, F.PopCheck; F.PopCheck = function(...) pops = pops + 1; return oldPop(...) end; '
