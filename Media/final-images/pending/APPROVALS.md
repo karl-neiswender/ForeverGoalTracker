@@ -1,5 +1,7 @@
 # Approved banner reviews
 
+Karl approved gold-goal-review-v2.png for installation. Master: ../additional-goals/gold.jpg, adjustable gold savings goal (gold_5k), both factions. Source ../../artwork/King's_Ransom_full.jpg preserved unchanged. Lower-left watermark removed at Karl's request.
+
 Karl approved the cleaned pvp-warlord-mail-review-v2.png for installation. Master: ../pvp/warlord-mail.jpg, Horde Warlord Mail Sets (pvp_set_mail_horde). Original source ../../artwork/horde-master-mail-pvp.jpg remains unchanged. Lower-left mark removed at Karl's request.
 
 Karl approved timbermaw-review.png for installation. Master: ../reputation/timbermaw.jpg, Timbermaw reputation (rep_timbermaw), both factions. Source ../../artwork/Furbolg_Spiritbinder_TCG.jpg preserved unchanged.

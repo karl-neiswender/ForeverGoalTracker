@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "gold_5k": "additional-goals/gold.jpg",
     "pvp_set_mail_horde": "pvp/warlord-mail.jpg",
     "rep_timbermaw": "reputation/timbermaw.jpg",
     "mount_qiraji": "mounts/black-qiraji.jpg",
