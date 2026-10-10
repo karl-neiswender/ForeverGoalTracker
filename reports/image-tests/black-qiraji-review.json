@@ -1,0 +1,8 @@
+{
+  "source": "Media/artwork/Ultramarine_Qiraji_Battle_Tank_TCG.jpg",
+  "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/black-qiraji-review.png",
+  "prompt": "Use case: precise-object-edit and upscale restoration. Edit target supplied low resolution Warcraft TCG Qiraji battle tank illustration. Upscale and carefully reconstruct crisp painterly detail while preserving recognizable Qiraji insect mount identity, silhouette, anatomy, pose, segmented legs and pincers, tall armored carapace and desert scene. Change the turquoise mount to a BLACK Qiraji battle tank: deep black/charcoal chitin and armor, readable subtle gray highlights and detailed shell surfaces, no blue tint. Deliver one 4:3 landscape Forever Goal Tracker banner intended 1200x900. Strictly neutral black and white throughout, moderately increased contrast, detailed Warcraft painted illustration midtones, controlled highlights. Place complete mount high toward right with breathing room around carapace and legs; quiet desert left third for addon text. Extend desert naturally if needed, no new characters or objects. Remove cropped card-frame decoration at upper left; no added text, UI or border. Bake wide smooth dark neutral charcoal gradient from LEFT edge blending gradually into scene without a boundary. Bake soft dark gradient across lowest approximately 100px fading downward to near black BOTTOM edge without a horizontal strip. Preserve clear BLACK mount silhouette against lighter gray desert while left and bottom remain dark.",
+  "method": "built-in imagegen",
+  "status": "awaiting approval",
+  "goal": "mount_qiraji"
+}
