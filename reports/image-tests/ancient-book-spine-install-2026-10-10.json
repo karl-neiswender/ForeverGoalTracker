@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-10",
+  "tool": "built-in image_gen",
+  "authorization": "Karl requested restoring the spine and right-only corner caps, then said Let's do it.",
+  "prompts": {
+    "spine": "Use case: stylized-concept. Asset type: transparent modular game UI book spine. Reference 1 is material/lighting reference only, reference 2 is matching metal treatment only. Generate ONE narrow vertical ancient closed-book leather spine, centered, straight-on orthographic view, truly transparent background. Canvas portrait, spine fills almost whole canvas width and height with a tiny transparent margin. Dark monochrome charcoal cracked heavy leather, centuries of rubbed wear, faint highlights upper left, deep hinge seam at right edge, rounded folded top and bottom ends. IMPORTANT: middle 70 percent is uniform along its length with continuous vertical shading, no horizontal bands, no ornaments, no clasps, no lettering. Ends must smoothly merge into the middle leather. This will be sliced into fixed top/bottom ends and repeated middle in the game. No book cover or pages, no background, no drop shadow outside silhouette. Same muted neutral metal/leather aesthetic as references.",
+    "band": "Use case: stylized-concept. Asset type: one transparent raised band for an ancient book spine in a game UI. References are matching dark monochrome cracked leather and scratched aged metal, material and lighting reference only. Generate a SINGLE short horizontal leather binding rib, straight-on orthographic, 4:1 wide-to-high silhouette centered with small transparent margins. Two closely spaced rounded raised ridges of heavily worn charcoal leather with subtle rubbed gray highlights on upper left and shadow beneath, rounded ends, no buckle or metal ornaments. It will cross a narrow vertical leather spine. True transparent background, no surrounding spine or cover or text. Muted neutral gray, painted realistic fantasy texture, no gold or glow.",
+    "edge": "Use case: stylized-concept. Asset type: one transparent repeating horizontal ancient leather book cover edge for game UI. Reference is material/lighting only. Generate ONE perfectly straight long thin charcoal leather rolled welt with a faint upper gray highlight and dark lower crease, cracked heavily worn leather matching reference. Orthographic straight-on, strip runs to both left and right canvas boundaries so pieces can repeat seamlessly. Uniform thickness and shading along length. Strip centered vertically in a wide 3:1 transparent canvas; strip occupies about one quarter canvas height. No end caps, no book cover, no lettering, no buckles, no ornaments, no glow, neutral monochrome. Real transparent background."
+  },
+  "originals": [
+    "Media/artwork/ancient-book-spine-2026-10-10.png",
+    "Media/artwork/ancient-book-band-2026-10-10.png",
+    "Media/artwork/ancient-book-edge-2026-10-10.png"
+  ],
+  "runtime": {
+    "empty-book-spine.tga": "256x512 RGBA; horizontal texcoord .31-.69 crops margins, fixed end folds sample first/last 1/12; 160px middle tiles at normal 48px spine width",
+    "empty-book-band.tga": "256x128 RGBA; uv .055-.945,.28-.72, display52x12 normal",
+    "empty-book-edge.tga": "512x128 RGBA; vertical uv .36-.62; mirrored/cropped horizontal128px segments, display12px height"
+  },
+  "layout": "Right empty detail page: spine width48px max16% panel width, fewer than five bands on short heights, two right88px metal corners, centered96x64 clasp. Left list keeps quiet leather only. All art desaturated under original darkness overlay.",
+  "conversion": "tools/icon.py originals name dimensions Media; Windows preload native PIL.Image and set tempfile.tempdir to a workspace scratch directory. Source PNG copies excluded by .pkgmeta; originals remain unchanged.",
+  "validation": "tools/check.py full Lua5.1 Era/Forever suite passes. Extended tools/empty-book-tests.lua checks modular spine coverage, grain scale, band bounds, edge widths/pools and existing transitions/fades. Visual approval in game remains pending full client restart."
+}

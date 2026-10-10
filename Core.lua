@@ -6220,8 +6220,8 @@ emptyNote:Hide()
 
 do
     local E = {}
-    -- One transparent fitting reused four times on the empty goal page.
-    -- Matching leather fills the list; no spine and no stretched grain.
+    -- Modular book: fixed spine ends, cropped/mirrored strips, separate
+    -- raised bands and two right-side fittings. Grain never stretches.
     local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
     local function BookSurface(panel, fittings)
         local art = CreateFrame("Frame", nil, panel)
@@ -6234,8 +6234,18 @@ do
         art.tiles = { art.leather }
         art.corners = {}
         if fittings then
-            for _, spec in ipairs({ { "TOPLEFT", 0, 4, -4 }, { "TOPRIGHT", -math.pi / 2, -4, -4 },
-                                    { "BOTTOMRIGHT", math.pi, -4, 4 }, { "BOTTOMLEFT", math.pi / 2, 4, 4 } }) do
+            local function piece(name, layer)
+                local t = art:CreateTexture(nil, "ARTWORK", nil, layer or -2)
+                t:SetTexture(MEDIA .. "empty-book-" .. name)
+                t:SetDesaturated(true)
+                return t
+            end
+            art.spine = { top = piece("spine"), bottom = piece("spine"), tiles = {}, bands = {} }
+            art.edges = { top = {}, bottom = {} }
+            for i = 1, 5 do art.spine.bands[i] = piece("band", -1) end
+            art.NewBookPiece = piece
+            for _, spec in ipairs({ { "TOPRIGHT", -math.pi / 2, -4, -4 },
+                                    { "BOTTOMRIGHT", math.pi, -4, 4 } }) do
                 local corner = art:CreateTexture(nil, "ARTWORK", nil, 1)
                 corner:SetTexture(MEDIA .. "empty-book-corner")
                 corner:SetDesaturated(true)
@@ -6291,6 +6301,71 @@ do
                 end
             end
             for i = used + 1, #self.tiles do self.tiles[i]:Hide() end
+            if self.spine then
+                local spine = self.spine
+                local sw = math.min(48, w * 0.16)
+                local scale = sw / 48
+                local cap = math.min(16 * scale, h / 2)
+                self.spineWidth = sw
+                -- Sample the central silhouette, excluding transparent
+                -- source margins. End folds retain their proportions.
+                spine.top:ClearAllPoints()
+                spine.top:SetPoint("TOPLEFT", self, "TOPLEFT", 2, 0)
+                spine.top:SetSize(sw, cap)
+                spine.top:SetTexCoord(0.31, 0.69, 0, cap / (192 * scale))
+                spine.bottom:ClearAllPoints()
+                spine.bottom:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 2, 0)
+                spine.bottom:SetSize(sw, cap)
+                spine.bottom:SetTexCoord(0.31, 0.69, 1 - cap / (192 * scale), 1)
+                local remaining, unit, count = h - 2 * cap, 160 * scale, 0
+                while remaining > 0.001 do
+                    count = count + 1
+                    local t = spine.tiles[count]
+                    if not t then t = self.NewBookPiece("spine"); spine.tiles[count] = t end
+                    local th = math.min(unit, remaining)
+                    local v = count % 2 == 1 and 1 / 12 or 11 / 12
+                    t:ClearAllPoints()
+                    t:SetPoint("TOPLEFT", self, "TOPLEFT", 2, -cap - (count - 1) * unit)
+                    t:SetSize(sw, th)
+                    t:SetTexCoord(0.31, 0.69, v, v + (count % 2 == 1 and 1 or -1) * th / (192 * scale))
+                    t:Show()
+                    remaining = remaining - th
+                end
+                for i = count + 1, #spine.tiles do spine.tiles[i]:Hide() end
+                -- Short books lose bands rather than crowding the folds.
+                local bands = math.max(0, math.min(5, math.floor((h - 2 * cap) / (90 * scale))))
+                for i, t in ipairs(spine.bands) do
+                    t:SetShown(i <= bands)
+                    if i <= bands then
+                        t:ClearAllPoints()
+                        t:SetPoint("TOPLEFT", self, "TOPLEFT", 0,
+                            -cap - (h - 2 * cap) * i / (bands + 1) + 6 * scale)
+                        t:SetSize(sw + 4 * scale, 12 * scale)
+                        t:SetTexCoord(0.055, 0.945, 0.28, 0.72)
+                    end
+                end
+                -- Thin rolled cover edges repeat horizontally at a fixed
+                -- scale, under the spine and right metal caps.
+                for _, side in ipairs({ "top", "bottom" }) do
+                    local pool, n, span = self.edges[side], 0, math.max(0, w - sw - 6)
+                    while span > 0.001 do
+                        n = n + 1
+                        local t = pool[n]
+                        if not t then t = self.NewBookPiece("edge", -3); pool[n] = t end
+                        local tw, u = math.min(128, span), (n - 1) % 2
+                        t:ClearAllPoints()
+                        local anchor = side == "top" and "TOPLEFT" or "BOTTOMLEFT"
+                        t:SetPoint(anchor, self, anchor, sw + (n - 1) * 128,
+                            side == "top" and -2 or 2)
+                        t:SetSize(tw, math.min(12, h / 4))
+                        t:SetTexCoord(u, u + (u == 0 and 1 or -1) * tw / 128,
+                            side == "top" and 0.36 or 0.62, side == "top" and 0.62 or 0.36)
+                        t:Show()
+                        span = span - tw
+                    end
+                    for i = n + 1, #pool do pool[i]:Hide() end
+                end
+            end
             -- Normally 88px. Only shrink in exceptionally tiny bounds so
             -- opposing corners cannot collide or escape the panel.
             local size = math.max(1, math.min(88, (w - 16) / 2, (h - 16) / 2))

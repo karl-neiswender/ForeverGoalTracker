@@ -1,7 +1,8 @@
 local F, D, E = STUB_NS, ForeverGoalTrackerDB, STUB_NS.emptyUI
 local saved = { active = D.active, parts = D.activeParts, selected = D.selected,
     progress = D.progress, celebrations = F.Setting("celebrations") }
-assert(#E.detailArt.corners == 4 and #E.art.corners == 0, "four fittings on the goal page only")
+assert(#E.detailArt.corners == 2 and #E.art.corners == 0, "two right fittings on the goal page only")
+assert(E.detailArt.spine and not E.art.spine, "spine on the goal page only")
 assert(E.detailArt.clasp and not E.art.clasp, "one clasp on the goal page only")
 local sizes = { {320, 200}, {650, 680}, {1100, 850}, {100, 90}, {320, 200} }
 local function texture()
@@ -19,11 +20,17 @@ local function texture()
 end
 for _, art in ipairs({ E.art, E.detailArt }) do
     local oldTiles, oldCorners = art.tiles, art.corners
-    local oldClasp = art.clasp
+    local oldClasp, oldSpine, oldEdges, oldPiece = art.clasp, art.spine, art.edges, art.NewBookPiece
     local oldCreate, oldW, oldH = art.CreateTexture, art.GetWidth, art.GetHeight
     art.tiles, art.corners = {}, {}
     for i in ipairs(oldCorners) do art.corners[i] = { metal = texture(), shadow = texture() } end
     if oldClasp then art.clasp = { metal = texture(), shadow = texture() } end
+    if oldSpine then
+        art.spine = { top = texture(), bottom = texture(), tiles = {}, bands = {} }
+        for i = 1, 5 do art.spine.bands[i] = texture() end
+        art.edges = { top = {}, bottom = {} }
+        art.NewBookPiece = function() return texture() end
+    end
     art.CreateTexture = function() return texture() end
     local w, h
     art.GetWidth, art.GetHeight = function() return w end, function() return h end
@@ -43,6 +50,39 @@ for _, art in ipairs({ E.art, E.detailArt }) do
             end
         end
         assert(shown == math.ceil(w / 512) * math.ceil(h / 512), "cover completely filled; excess pooled tiles hidden")
+        if art.spine then
+            local sw, sh = art.spineWidth, art.spine.top.h
+            assert(sw <= 48 and sw <= w * 0.16, "spine width stays narrow on any window")
+            local total = 2 * sh
+            for _, tile in ipairs(art.spine.tiles) do
+                if tile.visible then
+                    total = total + tile.h
+                    assert(-tile.y + tile.h <= h - sh + 0.001, "spine tiles stay between fixed ends")
+                    assert(math.abs(math.abs(tile.uv[4] - tile.uv[3]) * 192 * sw / 48 - tile.h) < 0.001,
+                        "spine grain keeps a consistent scale")
+                end
+            end
+            assert(math.abs(total - h) < 0.001, "spine covers the full height without gaps")
+            local bands = 0
+            for _, band in ipairs(art.spine.bands) do
+                if band.visible then
+                    bands = bands + 1
+                    assert(-band.y >= sh and -band.y + band.h <= h - sh, "bands clear both folded ends")
+                end
+            end
+            assert(bands <= 5, "band count adapts to height")
+            for _, pool in pairs(art.edges) do
+                local span = 0
+                for _, edge in ipairs(pool) do
+                    if edge.visible then
+                        span = span + edge.w
+                        assert(edge.x + edge.w <= w, "cover edge stays inside bounds")
+                        assert(math.abs(edge.uv[2] - edge.uv[1]) == edge.w / 128, "edge grain never stretches")
+                    end
+                end
+                assert(span == math.max(0, w - sw - 6), "edge fills every width and hides spare tiles")
+            end
+        end
         for _, corner in ipairs(art.corners) do
             local expected = math.min(88, (w - 16) / 2, (h - 16) / 2)
             assert(corner.metal.w == expected and corner.metal.h == expected, "fixed fitting size with tiny-panel safety")
@@ -61,6 +101,7 @@ for _, art in ipairs({ E.art, E.detailArt }) do
     end
     art.tiles, art.corners = oldTiles, oldCorners
     art.clasp = oldClasp
+    art.spine, art.edges, art.NewBookPiece = oldSpine, oldEdges, oldPiece
     art.CreateTexture, art.GetWidth, art.GetHeight = oldCreate, oldW, oldH
 end
 
@@ -110,4 +151,4 @@ for frame, old in pairs(methods) do
 end
 D.active, D.activeParts, D.selected, D.progress = saved.active, saved.parts, saved.selected, saved.progress
 F.SetSetting("celebrations", saved.celebrations)
-print("  book tile scale/bounds/pooling, four fixed fittings, empty/add/remove transitions and paired fades ok")
+print("  book tile scale/bounds/pooling, modular spine/bands/edges, two right fittings, empty/add/remove transitions and paired fades ok")

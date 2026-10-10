@@ -25,6 +25,9 @@ ignore:
   - Media/empty-book-corner-source.png
   - Media/empty-book-leather-source.png
   - Media/empty-book-clasp-source.png
+  - Media/empty-book-spine-source.png
+  - Media/empty-book-band-source.png
+  - Media/empty-book-edge-source.png
   - ROADMAP.md
   - Screenshots
   - CLAUDE.md
