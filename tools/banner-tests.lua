@@ -166,10 +166,12 @@ do
     assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp")
     assert(B:ArtPath("pvp_rank14_horde")=="set_tier2_warrior-banner.blp", "Horde rank retains existing faction art")
     class = "HUNTER"
+    assert(B:ArtPath("allclasses")=="tier3_hunter-banner.blp", "Troll Hunter leveling uses Cryptstalker and white lion artwork")
+    race = "Orc"
     assert(B:ArtPath("allclasses")=="allclasses_horde_hunter-banner.blp", "Horde Hunter uses new leveling art")
     assert(B:ArtPath("tier3_druid")=="tier3_druid-horde-banner.blp")
     assert(B:ArtPath("tier3_warlock")=="tier3_warlock-banner.blp", "Horde Warlock retains existing artwork")
-    class = "MAGE"
+    race, class = "Troll", "MAGE"
     F.SelectGoal("allclasses")
     assert(B:ArtPath("allclasses")=="allclasses_troll_mage-banner.blp", "troll mage leveling uses approved troll portrait")
     assert(B.sourceAspect==4/3 and not desaturated)
