@@ -60,6 +60,12 @@
       "method": "built-in imagegen",
       "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v7.png",
       "change": "Restore tall shoulder spike and soft grayscale aura"
+    },
+    {
+      "prompt": "Strict localized edit of IMAGE 1. Change ONLY the two SHOULDER PADS to accurately reproduce the Cryptstalker Spaulders shown in IMAGE 2 and IMAGE 3. Image 2 shows the viewer-left pad orientation, image 3 shows viewer-right. Do not alter any other part of image 1. The existing pads are too ornate and have too many narrow overlapping sharp plates. Replace them with the exact simpler reference construction: a SINGLE broad angular shield-shaped frontal cap with thick beveled rim; ONE very long narrow upward blade spike growing continuously from the inner top corner; small triangular inset near top; large simple stepped/zigzag relief on the broad face; beneath/behind the cap a rounded tapering segmented outer shell with about THREE broad overlapping curved bands, ending in a pointed lower piece. Mirror the construction appropriately across the shoulders. Follow the references' broad panel shapes, clean zigzag motif, band spacing and silhouette very closely, not generic spiky fantasy armor. Match size and perspective to existing shoulders. Exactly ONE tall spike per pad, tall as reference, two total. Retain soft diffuse magical aura just outside the outer segmented shells, translated from purple in references to subtle SILVER-GRAY glow. Render replacement pads in the same dark charcoal grayscale painted material and lighting as image 1. LOCK EVERYTHING OUTSIDE SHOULDER PADS: identical troll head, mohawk, ears, tusks, face, chest armor, arms, hands, legs, lion, fur, fangs, scenery, sky, mesas, grass, composition, brushwork, contrast, left fade and bottom fade. No new logos/text or colored tint. Only shoulder pad shapes/details and their immediate aura may change.",
+      "method": "built-in imagegen",
+      "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v8.png",
+      "change": "Replace shoulder pads using both directional references"
     }
   ]
 }
