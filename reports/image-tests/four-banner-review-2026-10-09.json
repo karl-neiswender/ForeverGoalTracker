@@ -1,0 +1,30 @@
+[
+  {
+    "source": "undead-mount.jpg",
+    "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/undead-racial-mount-review.png",
+    "prompt": "Use case: style-transfer. Edit the provided source into one 4:3 landscape Forever Goal Tracker banner, intended master 1200x900. Strictly neutral black and white with moderately increased contrast, detailed midtones and controlled highlights. Preserve source identity, subjects, pose, armor, hands, weapons, architecture and existing artist marks. Reframe the main subject high toward the right with breathing room, left third quiet for addon text. Bake a wide smooth neutral charcoal dark gradient into the LEFT edge blending gradually into the scene, no visible boundary. Bake a soft dark gradient across the lowest approximately 100 pixels fading downward to near-black at bottom edge, no horizontal strip. Both gradients must be in artwork itself. No added text, UI, border, unrelated objects or extra characters. Undead skeletal horse racial mount: preserve the complete horse silhouette, skull, saddle and legs; shift horse right without mirroring.",
+    "status": "awaiting review",
+    "method": "built-in imagegen"
+  },
+  {
+    "source": "dirmaul.jpg",
+    "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/dire-maul-key-review.png",
+    "prompt": "Use case: style-transfer. Edit the provided source into one 4:3 landscape Forever Goal Tracker banner, intended master 1200x900. Strictly neutral black and white with moderately increased contrast, detailed midtones and controlled highlights. Preserve source identity, subjects, pose, armor, hands, weapons, architecture and existing artist marks. Reframe the main subject high toward the right with breathing room, left third quiet for addon text. Bake a wide smooth neutral charcoal dark gradient into the LEFT edge blending gradually into the scene, no visible boundary. Bake a soft dark gradient across the lowest approximately 100 pixels fading downward to near-black at bottom edge, no horizontal strip. Both gradients must be in artwork itself. No added text, UI, border, unrelated objects or extra characters. Dire Maul key: preserve the recognizable central architecture and magical sky; extend composition to landscape naturally.",
+    "status": "awaiting review",
+    "method": "built-in imagegen"
+  },
+  {
+    "source": "zepheras-isle.jpeg",
+    "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/skyborne-racial-mount-review.png",
+    "prompt": "Use case: style-transfer. Edit the provided source into one 4:3 landscape Forever Goal Tracker banner, intended master 1200x900. Strictly neutral black and white with moderately increased contrast, detailed midtones and controlled highlights. Preserve source identity, subjects, pose, armor, hands, weapons, architecture and existing artist marks. Reframe the main subject high toward the right with breathing room, left third quiet for addon text. Bake a wide smooth neutral charcoal dark gradient into the LEFT edge blending gradually into the scene, no visible boundary. Bake a soft dark gradient across the lowest approximately 100 pixels fading downward to near-black at bottom edge, no horizontal strip. Both gradients must be in artwork itself. No added text, UI, border, unrelated objects or extra characters. Skyborne racial mount location Zephera's Isle: preserve the source's illustrated island city and towers, mountains and trees; extend to 4:3 with city high right, matching the illustration.",
+    "status": "awaiting review",
+    "method": "built-in imagegen"
+  },
+  {
+    "source": "WoW_Forever_Cinematic_Still_11.jpeg",
+    "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/undead-paladin-leveling-review.png",
+    "prompt": "Use case: style-transfer. Edit the provided source into one 4:3 landscape Forever Goal Tracker banner, intended master 1200x900. Strictly neutral black and white with moderately increased contrast, detailed midtones and controlled highlights. Preserve source identity, subjects, pose, armor, hands, weapons, architecture and existing artist marks. Reframe the main subject high toward the right with breathing room, left third quiet for addon text. Bake a wide smooth neutral charcoal dark gradient into the LEFT edge blending gradually into the scene, no visible boundary. Bake a soft dark gradient across the lowest approximately 100 pixels fading downward to near-black at bottom edge, no horizontal strip. Both gradients must be in artwork itself. No added text, UI, border, unrelated objects or extra characters. Undead Paladin leveling to 60: preserve exactly this cinematic undead hooded face, shield, raised hammer and armored hand, including full hammer head within frame with breathing room. Keep cinematic rendering rather than inventing a different character.",
+    "status": "awaiting review",
+    "method": "built-in imagegen"
+  }
+]
