@@ -86,14 +86,14 @@ local Atan2 = math.atan2 or function(y, x)
 end
 
 local LIST_WIDTH   = 216
-local FRAME_WIDTH  = 1020 -- default size, 3:2 (FGT.DefaultSize fits it to small screens)
-local FRAME_HEIGHT = 680
+local FRAME_WIDTH  = 1240 -- FGT.DefaultSize fits it to small screens
+local FRAME_HEIGHT = 750
 local MIN_FRAME_WIDTH  = 520
 local MIN_FRAME_HEIGHT = 360
-local MAX_FRAME_WIDTH  = 1100
+local MAX_FRAME_WIDTH  = 1240
 local MAX_FRAME_HEIGHT = 900
 
--- The 1100x900 caps above are meaningless if they're bigger than the
+-- The size caps above are meaningless if they're bigger than the
 -- player's actual screen (in UI units, which is what GetScreenWidth/
 -- Height report, and exactly what SetSize/SetPoint use) - that's what
 -- previously let the window grow taller than the screen and pushed the
@@ -122,15 +122,15 @@ local function ClampFrameSize(w, h)
     return cw, ch
 end
 
--- The default window size: 3:2, as large as FRAME_WIDTH x FRAME_HEIGHT,
+-- The default window size: as large as FRAME_WIDTH x FRAME_HEIGHT,
 -- shrunk evenly (keeping the shape) when the screen is smaller.
 function FGT.DefaultSize()
     local maxW, maxH = GetEffectiveMaxSize()
     local w = math.min(FRAME_WIDTH, maxW)
-    local h = math.floor(w * 2 / 3)
+    local h = math.floor(w * FRAME_HEIGHT / FRAME_WIDTH)
     if h > maxH then
         h = maxH
-        w = math.floor(h * 3 / 2)
+        w = math.floor(h * FRAME_WIDTH / FRAME_HEIGHT)
     end
     return ClampFrameSize(w, h)
 end
@@ -5669,7 +5669,9 @@ SelectGoal = function(id, skipListRefresh)
         detailTimeChip:Hide()
     end
 
-    detailNote:SetText(goal.note or "")
+    -- Keep descriptions in the data for tooltips; temporarily hide banner copy.
+    detailNote:SetText("")
+    detailNote:Hide()
     FGT.UpdateEditButton(goal)
     FGT.LayoutForeverInfo(goal)
 
@@ -8534,7 +8536,7 @@ initFrame:SetScript("OnEvent", function(self, event, name)
     ApplyAutoRules() -- re-check against the saved roster from earlier sessions
 
     -- Re-clamp against the CURRENT screen every load, not just the
-    -- fixed 1100x900 caps - this is what self-heals a previously
+    -- fixed size caps - this is what self-heals a previously
     -- saved oversized window (or one saved on a bigger monitor) back
     -- to something that actually fits and keeps the resize grip
     -- reachable. Scale first: placement measures in scaled units.
