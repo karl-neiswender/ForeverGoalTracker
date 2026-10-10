@@ -3480,7 +3480,6 @@ local function RefreshGoalList()
         local isNew = FGT.ApplyForeverLook(row, row.goal)
         if isNew then row.newChip:SetLabel(FGT.ForeverDot(12) .. isNew, C.FOREVER_LIGHT) end
         local finished = total > 0 and done == total
-        row.newChip:SetShown(isNew and true or false)
         local on = finished and FGT.CompletedOn(row.goal)
         row.eyebrow:SetText(finished and (on and ("Completed " .. on) or "Completed") or FGT.GoalEyebrow(row.goal))
         local eyebrowColor = finished and C.DONE or C.SUBTEXT
@@ -3509,9 +3508,11 @@ local function RefreshGoalList()
         local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
         local fav = favs[row.goal.id] and true or false
         row.star:SetShown(fav)
+        local showNew = isNew and not fav
+        row.newChip:SetShown(showNew and true or false)
         row.newChip:ClearAllPoints()
-        row.newChip:SetPoint("TOPRIGHT", row, "TOPRIGHT", fav and -28 or -8, -8)
-        local rightInset = (fav and 28 or 8) + (isNew and (row.newChip:GetWidth() + 6) or 0)
+        row.newChip:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
+        local rightInset = fav and 28 or (showNew and (row.newChip:GetWidth() + 14) or 8)
         row.eyebrow:SetPoint("RIGHT", -rightInset, 0)
         row.name:SetPoint("RIGHT", -8, 0)
         local complete = finished
