@@ -171,9 +171,22 @@ do
     local path, aspect, processed = B:ResolveArt("allclasses")
     assert(path=="horde-mage-test.blp" and aspect==1.5 and processed==false, "variant carries its own aspect and desaturation")
     B.artVariants.allclasses = registeredCandidates
+    race, class, faction = "Scourge", "PALADIN", "Horde"
+    F.SelectGoal("allclasses")
+    assert(B:ArtPath("allclasses")=="allclasses_undead_paladin-banner.blp", "Undead Paladin gets approved painted leveling portrait")
+    assert(B.sourceAspect==4/3 and not desaturated)
+    assert(B:ArtPath("epicmounts")=="epicmounts_undead-banner.blp", "Undead gets skeletal warhorse")
+    class = "PRIEST"
+    assert(B:ArtPath("allclasses")~="allclasses_undead_paladin-banner.blp", "Undead portrait requires Paladin class")
+    class, race = "PALADIN", "BloodElf"
+    assert(B:ArtPath("allclasses")~="allclasses_undead_paladin-banner.blp", "Paladin portrait requires Undead race")
+    local dmPath, dmAspect, dmProcessed = B:ResolveArt("key_dm")
+    assert(dmPath=="key_dm-banner.blp" and dmAspect==4/3 and dmProcessed, "Dire Maul has approved preprocessed banner")
     race, class, faction = "Dwarf", "WARRIOR", "Alliance"
     assert(B:ArtPath("allclasses")=="tier3_warrior-banner.blp", "available dwarf warrior is more specific than Alliance warrior")
     race = "Skyborne"
+    assert(B:ArtPath("epicmounts")=="epicmounts_skyborne-banner.blp", "Skyborne gets approved island location")
+    race = "UnknownRace"
     D.activeParts.epicmounts = {[2]=true}
     assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "missing race art can use sole same-faction selected mount")
     D.activeParts.epicmounts = {[8]=true}
