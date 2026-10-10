@@ -6244,30 +6244,24 @@ do
             art.edges = { top = {}, bottom = {} }
             for i = 1, 5 do art.spine.bands[i] = piece("band", -1) end
             art.NewBookPiece = piece
-            for _, spec in ipairs({ { "TOPRIGHT", -math.pi / 2, -4, -4 },
-                                    { "BOTTOMRIGHT", math.pi, -4, 4 } }) do
+            -- The source is a top-left fitting. Mirror its texture instead
+            -- of rotating the sampling rectangle, keeping both edge arms
+            -- flush and the inward flourish facing the leather field.
+            for _, spec in ipairs({ { "TOPRIGHT", 0, 1, -4 },
+                                    { "BOTTOMRIGHT", 1, 0, 4 } }) do
                 local corner = art:CreateTexture(nil, "ARTWORK", nil, 1)
                 corner:SetTexture(MEDIA .. "empty-book-corner")
                 corner:SetDesaturated(true)
-                corner:SetPoint(spec[1], art, spec[1], spec[3], spec[4])
-                corner:SetRotation(spec[2])
+                corner:SetPoint(spec[1], art, spec[1], -4, spec[4])
+                corner:SetTexCoord(1, 0, spec[2], spec[3])
                 -- Separate contact shadow stays down/right on every corner.
                 local shadow = art:CreateTexture(nil, "ARTWORK", nil, 0)
                 shadow:SetTexture(MEDIA .. "empty-book-corner")
-                shadow:SetPoint(spec[1], art, spec[1], spec[3] + 1, spec[4] - 2)
-                shadow:SetRotation(spec[2])
+                shadow:SetPoint(spec[1], art, spec[1], -3, spec[4] - 2)
+                shadow:SetTexCoord(1, 0, spec[2], spec[3])
                 shadow:SetVertexColor(0, 0, 0, 0.55)
                 art.corners[#art.corners + 1] = { metal = corner, shadow = shadow }
             end
-            local clasp = art:CreateTexture(nil, "ARTWORK", nil, 1)
-            clasp:SetTexture(MEDIA .. "empty-book-clasp")
-            clasp:SetDesaturated(true)
-            clasp:SetPoint("RIGHT", art, "RIGHT", -4, 0)
-            local shadow = art:CreateTexture(nil, "ARTWORK", nil, 0)
-            shadow:SetTexture(MEDIA .. "empty-book-clasp")
-            shadow:SetPoint("RIGHT", art, "RIGHT", -3, -2)
-            shadow:SetVertexColor(0, 0, 0, 0.55)
-            art.clasp = { metal = clasp, shadow = shadow }
         end
         -- All artwork sits below this darkness, keeping the empty-state
         -- copy/buttons readable. Plain alpha also follows the frame fade.
@@ -6372,15 +6366,6 @@ do
             for _, corner in ipairs(self.corners) do
                 corner.metal:SetSize(size, size)
                 corner.shadow:SetSize(size, size)
-            end
-            if self.clasp then
-                -- Keep the original 3:2 silhouette. Only shrink when the
-                -- panel leaves too little room between the corner fittings.
-                local scale = math.max(0, math.min(1, (w - 16) / 240, (h - 2 * size - 12) / 64))
-                self.clasp.metal:SetSize(math.max(1, 96 * scale), math.max(1, 64 * scale))
-                self.clasp.shadow:SetSize(math.max(1, 96 * scale), math.max(1, 64 * scale))
-                self.clasp.metal:SetShown(scale > 0)
-                self.clasp.shadow:SetShown(scale > 0)
             end
         end
         art:SetScript("OnSizeChanged", function(self) self:Fit() end)

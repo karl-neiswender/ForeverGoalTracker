@@ -3,7 +3,7 @@ local saved = { active = D.active, parts = D.activeParts, selected = D.selected,
     progress = D.progress, celebrations = F.Setting("celebrations") }
 assert(#E.detailArt.corners == 2 and #E.art.corners == 0, "two right fittings on the goal page only")
 assert(E.detailArt.spine and not E.art.spine, "spine on the goal page only")
-assert(E.detailArt.clasp and not E.art.clasp, "one clasp on the goal page only")
+assert(not E.detailArt.clasp and not E.art.clasp, "middle lock removed from both panels")
 local sizes = { {320, 200}, {650, 680}, {1100, 850}, {100, 90}, {320, 200} }
 local function texture()
     return {
@@ -20,11 +20,10 @@ local function texture()
 end
 for _, art in ipairs({ E.art, E.detailArt }) do
     local oldTiles, oldCorners = art.tiles, art.corners
-    local oldClasp, oldSpine, oldEdges, oldPiece = art.clasp, art.spine, art.edges, art.NewBookPiece
+    local oldSpine, oldEdges, oldPiece = art.spine, art.edges, art.NewBookPiece
     local oldCreate, oldW, oldH = art.CreateTexture, art.GetWidth, art.GetHeight
     art.tiles, art.corners = {}, {}
     for i in ipairs(oldCorners) do art.corners[i] = { metal = texture(), shadow = texture() } end
-    if oldClasp then art.clasp = { metal = texture(), shadow = texture() } end
     if oldSpine then
         art.spine = { top = texture(), bottom = texture(), tiles = {}, bands = {} }
         for i = 1, 5 do art.spine.bands[i] = texture() end
@@ -88,19 +87,8 @@ for _, art in ipairs({ E.art, E.detailArt }) do
             assert(corner.metal.w == expected and corner.metal.h == expected, "fixed fitting size with tiny-panel safety")
             assert(corner.shadow.w == expected, "contact shadow follows fitting size")
         end
-        if art.clasp then
-            local cornerSize = math.min(88, (w - 16) / 2, (h - 16) / 2)
-            local available = h - 2 * cornerSize - 12
-            assert(art.clasp.metal.visible == (available > 0), "clasp never overlaps corner fittings")
-            if art.clasp.metal.visible then
-                assert(art.clasp.metal.w / art.clasp.metal.h == 1.5, "clasp keeps its original proportions")
-                assert(art.clasp.metal.h <= available, "clasp fits the available center edge")
-                assert(art.clasp.metal.w <= 96, "clasp never stretches on larger windows")
-            end
-        end
     end
     art.tiles, art.corners = oldTiles, oldCorners
-    art.clasp = oldClasp
     art.spine, art.edges, art.NewBookPiece = oldSpine, oldEdges, oldPiece
     art.CreateTexture, art.GetWidth, art.GetHeight = oldCreate, oldW, oldH
 end
