@@ -4292,6 +4292,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Only approved runtime textures belong here, never source/review files.
     B.artVariants = {
         allclasses = {
+            {path="allclasses_dwarf_shaman-banner.blp", faction="Alliance", class="SHAMAN", race="Dwarf"},
             {path="allclasses_undead_paladin-banner.blp", faction="Horde", class="PALADIN", race="Scourge"},
             {path="allclasses_troll_mage-banner.blp", faction="Horde", class="MAGE", race="Troll"},
             {path="allclasses_troll_mage-banner.blp", faction="Horde", class="MAGE"},

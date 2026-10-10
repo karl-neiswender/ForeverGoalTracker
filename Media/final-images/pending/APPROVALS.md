@@ -1,5 +1,7 @@
 # Approved banner reviews
 
+Karl approved dwarf-shaman-leveling-review.png for installation. Master: ../leveling/dwarf-shaman.jpg. Level Classes to 60 artwork matches logged-in Alliance Dwarf Shamans specifically; source ../../artwork/dwarf-shaman-alliance.jpg remains unchanged.
+
 Karl approved Drums of War for installation on October 9, 2026. pvp-drums-of-war-review.png is installed as ../pvp/drums-of-war.jpg for Honorable Kills and Duelist on both factions. Other PvP goals retain existing faction artwork and shared fallback. Source: ../../artwork/Drums_of_War_TCG_art.jpg, right-half human and orc.
 
 Karl approved all four reviews and the painted Undead Paladin revision on October 9, 2026.

@@ -175,6 +175,14 @@ do
     local path, aspect, processed = B:ResolveArt("allclasses")
     assert(path=="horde-mage-test.blp" and aspect==1.5 and processed==false, "variant carries its own aspect and desaturation")
     B.artVariants.allclasses = registeredCandidates
+    race, class, faction = "Dwarf", "SHAMAN", "Alliance"
+    F.SelectGoal("allclasses")
+    assert(B:ArtPath("allclasses")=="allclasses_dwarf_shaman-banner.blp", "Alliance Dwarf Shaman gets approved leveling portrait")
+    assert(B.sourceAspect==4/3 and not desaturated)
+    race = "Human"
+    assert(B:ArtPath("allclasses")~="allclasses_dwarf_shaman-banner.blp", "Shaman portrait requires Dwarf race")
+    race, faction = "Dwarf", "Horde"
+    assert(B:ArtPath("allclasses")~="allclasses_dwarf_shaman-banner.blp", "Dwarf Shaman portrait requires Alliance")
     race, class, faction = "Scourge", "PALADIN", "Horde"
     F.SelectGoal("allclasses")
     assert(B:ArtPath("allclasses")=="allclasses_undead_paladin-banner.blp", "Undead Paladin gets approved painted leveling portrait")
