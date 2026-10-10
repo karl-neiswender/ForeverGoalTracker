@@ -71,7 +71,7 @@ RAID_CLASS_COLORS = oldColors
 
 local dedicatedTier3 = {
     tier3_rogue=true, tier3_warrior=true, tier3_mage=true, tier3_druid=true,
-    tier3_shaman=true, tier3_warlock=true, tier3_paladin=true, tier3_priest=true,
+    tier3_shaman=true, tier3_warlock=true, tier3_paladin=true, tier3_priest=true, tier3_hunter=true,
 }
 for _, child in ipairs(F.GoalById("tier3").armorChildren) do
     if not dedicatedTier3[child.id] then

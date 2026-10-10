@@ -1,5 +1,5 @@
 {
-  "status": "awaiting approval",
+  "status": "approved and installed",
   "goal": "tier3_hunter",
   "method": "built-in imagegen",
   "references": [
@@ -67,5 +67,13 @@
       "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v8.png",
       "change": "Replace shoulder pads using both directional references"
     }
-  ]
+  ],
+  "approvedReview": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v8.png",
+  "installed": {
+    "source": "tier-sets/hunter/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  }
 }

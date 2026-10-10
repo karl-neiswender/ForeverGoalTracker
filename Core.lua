@@ -4412,7 +4412,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
     end
     for _, id in ipairs({"set_tier1_rogue", "set_tier2_rogue", "tier3_rogue",
-            "set_tier1_hunter", "set_tier2_hunter", "set_tier1_mage", "set_tier2_mage",
+            "set_tier1_hunter", "set_tier2_hunter", "tier3_hunter", "set_tier1_mage", "set_tier2_mage",
             "set_tier1_warrior", "set_tier2_warrior", "set_tier1_druid", "set_tier2_druid",
             "set_tier1_shaman", "set_tier2_shaman", "tier3_druid", "set_tier1_warlock", "set_tier2_warlock",
             "tier3_warrior", "tier3_mage", "tier3_priest", "tier3_shaman", "tier3_warlock", "tier3_paladin", "set_tier2_paladin", "set_tier1_priest", "set_tier2_priest", "set_violet_sorcerer", "raid_hyjal", "raid_barrow",
