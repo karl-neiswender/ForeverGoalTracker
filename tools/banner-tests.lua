@@ -50,14 +50,15 @@ B.GetHeight = function() return 200 end
 B.panel.GetHeight = function() return 600 end
 B.panel.GetWidth = function() return 600 end
 B:Fit()
-assert(math.abs(artWidth-math.min(592*0.6*0.92,184*(B.sourceAspect or 1))) < 0.001 and B.fullImageHeight == 184,
-    "artwork width is capped by banner height")
+assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and B.fullImageHeight == 184,
+    "artwork scales with window width")
 assert(math.abs(artHeight-(184-math.min(140,184*0.35))) < 0.001,
     "original bottom transparency is preserved without an extra height change")
 assert(not bottomShown, "bottom veil stays removed during resize")
 B.panel.GetWidth = function() return 1000 end
 B:Fit()
-assert(B.uv[1]==0 and B.uv[2]==1 and B.uv[3]==0, "wide window preserves full image from top-right")
+assert(math.abs(artWidth-992*0.6*0.92)<0.001 and B.uv[1]==0 and B.uv[2]==1 and B.uv[3]==0,
+    "wide window enlarges artwork while preserving the top-right crop")
 B.panel.GetWidth = function() return 190 end
 B:Fit()
 assert(B.uv[1]>0 and B.uv[3]==0 and B.uv[4]==1, "tall cover crops horizontally")

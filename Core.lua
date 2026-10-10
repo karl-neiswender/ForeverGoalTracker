@@ -4498,8 +4498,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:Fit()
         local w = math.max(1, detailPanel:GetWidth()-8)
         local h = math.max(1, self:GetHeight())*0.92
-        -- Size from the shorter banner height, so wide windows do not zoom in.
-        local aw = math.min(w*0.6*0.92, h*(self.sourceAspect or 1))
+        -- Scale with window width; crop from the top-right of the source.
+        local aw = w*0.6*0.92
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
         self.fullImageHeight = shownHeight
         local fadeHeight = math.min(140,shownHeight*0.35)
