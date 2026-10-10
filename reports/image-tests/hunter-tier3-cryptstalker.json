@@ -41,6 +41,12 @@
       "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v4.png",
       "reference": "Media/artwork/hunter-tier3-references/Cryptstalker Spaulders.png",
       "change": "One top spike on each shoulder"
+    },
+    {
+      "prompt": "Apply a final tonal treatment ONLY to this finished Warcraft illustration. Convert to STRICTLY NEUTRAL black-and-white grayscale with absolutely no warm/sepia tint. Deepen the blacks visibly and moderately increase contrast to match a rich charcoal Warcraft goal banner: darker armor recesses, deeper hair and ground shadows, stronger black point, detailed painterly middle tones and controlled highlights. Keep the white lion's fur bright and dimensional, preserve face readability and every engraved armor detail, do not crush detail or blow highlights. Reinforce the existing wide smooth LEFT charcoal fade, darkest at left edge with gradual seamless blend. Reinforce the soft BOTTOM fade across lowest approximately 11 percent down to near-black charcoal. No hard bands. Preserve EXACTLY all composition, characters, poses, anatomy, lion's corrected two saber teeth, one top spike per shoulder, armor design, removed small tree, background, brushwork and dimensions. Do not regenerate or redesign any objects. No added text, logo, border or marks.",
+      "method": "built-in imagegen",
+      "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v5.png",
+      "change": "Neutral grayscale and deeper blacks"
     }
   ]
 }
