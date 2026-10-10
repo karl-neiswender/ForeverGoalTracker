@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Show or hide completed steps from the goal guide; completed steps are shown by default
+
 ## 2.10.1
 
 - UI improvements

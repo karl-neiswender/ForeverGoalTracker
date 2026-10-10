@@ -274,6 +274,7 @@ FGT.SETTING_DEFAULTS = {
     scale = 1,               -- window scale
     alpha = 1,               -- window opacity
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
+    hideCompletedSteps = false, -- guide filter, controlled beside Step by Step
 }
 
 function FGT.Setting(key)
@@ -4677,6 +4678,28 @@ local stepsHeader = NewTitleString(FGT.detailBody, 12)
 stepsHeader:SetPoint("TOPLEFT", divider, "BOTTOMLEFT", 0, -10)
 stepsHeader:SetText("Step by Step")
 
+-- A quiet guide filter. Only the layout changes; saved ticks and progress
+-- always include completed steps, even when they are hidden.
+do
+    local b = CreateFrame("Button", nil, FGT.detailBody)
+    b:SetPoint("LEFT", stepsHeader, "RIGHT", 14, 0)
+    b.text = NewFontString(b, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    b.text:SetPoint("LEFT")
+    b:SetScript("OnEnter", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
+    b:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
+    b:SetScript("OnClick", function()
+        FGT.SetSetting("hideCompletedSteps", not FGT.Setting("hideCompletedSteps"))
+        if selectedId then SelectGoal(selectedId, true) end
+    end)
+    FGT.completedStepsBtn = b
+end
+
+function FGT.ShowStepSection(goal, si, section)
+    if not PartSelected(goal, si) then return false end
+    local done, total = SectionProgress(goal, si, section)
+    return not (FGT.Setting("hideCompletedSteps") and total > 0 and done == total)
+end
+
 -- "Expand all" / "Collapse all" on the right of the heading, for goals
 -- with two or more groups chosen (mount races, set classes). Groups only;
 -- Tier 3 pieces keep their materials folded.
@@ -4695,16 +4718,21 @@ end
 -- chosen group is closed, otherwise "Collapse all".
 function FGT.UpdateExpandAll(goal)
     local b = FGT.expandAllBtn
-    if not goal.sections or FGT.SelectedPartCount(goal) < 2 then b:Hide() return end
+    if not goal.sections then b:Hide() return end
+    local visible = 0
     local anyClosed = false
-    for si in ipairs(goal.sections) do
-        if PartSelected(goal, si) and not FGT.SectionIsOpen(goal, si) then anyClosed = true end
+    for si, section in ipairs(goal.sections) do
+        if FGT.ShowStepSection(goal, si, section) then
+            visible = visible + 1
+            if not FGT.SectionIsOpen(goal, si) then anyClosed = true end
+        end
     end
+    if visible < 2 then b:Hide() return end
     b.text:SetText(anyClosed and "Expand all" or "Collapse all")
     b:SetSize(math.ceil(b.text:GetStringWidth()) + 4, 16)
     b:SetScript("OnClick", function()
-        for si in ipairs(goal.sections) do
-            if PartSelected(goal, si) then FGT.sectionOpen[goal.id .. "_" .. si] = anyClosed end
+        for si, section in ipairs(goal.sections) do
+            if FGT.ShowStepSection(goal, si, section) then FGT.sectionOpen[goal.id .. "_" .. si] = anyClosed end
         end
         SelectGoal(goal.id, true) -- (RefreshSteps is declared further down)
     end)
@@ -4718,6 +4746,20 @@ stepsScrollObj.scroll:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -8)
 stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", FGT.detailBody, "BOTTOMRIGHT", -24, 3)
 stepsScrollObj:Finalize()
 local stepsContainer = stepsScrollObj.content
+function FGT.LayoutStepControls()
+    local b = FGT.completedStepsBtn
+    local expandWidth = FGT.expandAllBtn:IsShown() and (FGT.expandAllBtn:GetWidth() + 20) or 0
+    local narrow = stepsHeader:GetStringWidth() + 14 + b:GetWidth() + expandWidth > FGT.detailBody:GetWidth() - 44
+    b:ClearAllPoints()
+    if narrow then
+        b:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -6)
+    else
+        b:SetPoint("LEFT", stepsHeader, "RIGHT", 14, 0)
+    end
+    stepsScrollObj.scroll:ClearAllPoints()
+    stepsScrollObj.scroll:SetPoint("TOPLEFT", narrow and b or stepsHeader, "BOTTOMLEFT", 0, -8)
+    stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", FGT.detailBody, "BOTTOMRIGHT", -24, 3)
+end
 -- Tips are drawn straight on the list, so it carries their goal links.
 stepsContainer:EnableMouse(true)
 FGT.EnableGoalLinks(stepsContainer)
@@ -5345,7 +5387,7 @@ local function RefreshTierSections(goal)
     local headerIndex = 0
 
     for si, section in ipairs(goal.sections) do
-        if PartSelected(goal, si) then
+        if FGT.ShowStepSection(goal, si, section) then
         headerIndex = headerIndex + 1
         local header = GetHeaderRow(headerIndex)
         header:SetParent(stepsContainer)
@@ -5391,7 +5433,8 @@ local function RefreshTierSections(goal)
 
         if expanded then
             for pi, piece in ipairs(section.pieces) do
-                if not FGT.PieceSkipped(piece) then -- (closes after the materials)
+                local md, mt = FGT.PieceProgress(goal.id, si, pi, piece)
+                if not FGT.PieceSkipped(piece) and not (FGT.Setting("hideCompletedSteps") and md == mt) then -- (closes after the materials)
                 rowIndex = rowIndex + 1
                 local row = GetStepRow(rowIndex)
                 row:SetParent(stepsContainer)
@@ -5408,7 +5451,6 @@ local function RefreshTierSections(goal)
                 local hasMats = #piece.materials > 0
                 local pieceKey = goal.id .. "_" .. si .. "_" .. pi
                 local open = hasMats and FGT.pieceExpanded[pieceKey]
-                local md, mt = FGT.PieceProgress(goal.id, si, pi, piece)
 
                 row.num:SetText("")
                 row.text:SetText(FGT.StepText(piece.text or piece.name))
@@ -5450,6 +5492,7 @@ local function RefreshTierSections(goal)
 
                 if open then
                     for mi, materialText in ipairs(piece.materials) do
+                        if not (FGT.Setting("hideCompletedSteps") and IsStepDone(goal.id, MaterialKey(si, pi, mi))) then
                         rowIndex = rowIndex + 1
                         local mrow = GetStepRow(rowIndex)
                         mrow:SetParent(stepsContainer)
@@ -5483,6 +5526,7 @@ local function RefreshTierSections(goal)
                         end)
                         mrow:Show()
                         yOffset = yOffset + mRowHeight + 3
+                        end
                     end
                     yOffset = yOffset + 4
                 end
@@ -5500,12 +5544,17 @@ local function RefreshTierSections(goal)
     end
 
     FGT.UpdateExpandAll(goal)
+    FGT.LayoutStepControls()
     yOffset = FGT.LayoutTips(goal, yOffset, width)
     stepsContainer:SetHeight(math.max(1, yOffset))
     stepsScrollObj:Update()
 end
 
 RefreshSteps = function(goal)
+    local filter = FGT.completedStepsBtn
+    filter.text:SetText(FGT.Setting("hideCompletedSteps") and "Show completed" or "Hide completed")
+    filter:SetSize(math.ceil(filter.text:GetStringWidth()) + 4, 16)
+    filter:Show()
     -- icon frames on this goal's steps: blue on Forever-new goals
     FGT.stepRim = FGT.ForeverWord(goal) and C.FOREVER or C.GOLD2
     FGT.stepQuality = goal.itemQuality -- item name color when the game doesn't know
@@ -5526,6 +5575,11 @@ RefreshSteps = function(goal)
             row:Hide() -- part of a group you haven't added, or a step your race skips
         else
         shown = shown + 1
+        local complete = IsAutoStep(entry) and AutoStepFraction(entry) >= 1 or
+            (not IsAutoStep(entry) and IsStepDone(goal.id, i))
+        if FGT.Setting("hideCompletedSteps") and complete then
+            row:Hide()
+        else
         row:SetParent(stepsContainer)
         row:ClearAllPoints()
         row:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
@@ -5615,6 +5669,7 @@ RefreshSteps = function(goal)
         row:Show()
         yOffset = yOffset + rowHeight2 + 6
         end
+        end
     end
 
     -- hide unused pooled rows (both flat-step rows and any leftover
@@ -5627,6 +5682,7 @@ RefreshSteps = function(goal)
     end
 
     FGT.UpdateExpandAll(goal)
+    FGT.LayoutStepControls()
     yOffset = FGT.LayoutTips(goal, yOffset, width)
     stepsContainer:SetHeight(math.max(1, yOffset))
     stepsScrollObj:Update()
@@ -6182,7 +6238,7 @@ end
 detailParts = { FGT.detailViewport.scroll, detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
     detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
     FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip, FGT.detailEditBtn,
-    FGT.personalNote, FGT.detailNoteBtn, FGT.goalBanner }
+    FGT.personalNote, FGT.detailNoteBtn, FGT.goalBanner, FGT.completedStepsBtn }
 
 -- "Clear" next to the sort bar: removes every goal from My Goals in one
 -- go, after a confirm in the right-click menu's style. Progress is kept
