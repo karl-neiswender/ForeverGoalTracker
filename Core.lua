@@ -2107,6 +2107,19 @@ function FGT.NewTag(word)
     return FGT.ForeverDot(14) .. "|cff9ccaff" .. (word or "NEW") .. "|r"
 end
 
+function FGT.AddForeverPulse(frame)
+    local glow = frame:CreateTexture(nil, "BACKGROUND", nil, -1)
+    glow:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\shadow")
+    glow:SetBlendMode("ADD")
+    glow:SetVertexColor(0.25, 0.55, 1)
+    glow:SetPoint("TOPLEFT", frame, "TOPLEFT", -8, 6)
+    glow:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 8, -6)
+    frame:SetScript("OnUpdate", function()
+        local animated = FGT.Setting("celebrations") ~= "off"
+        glow:SetAlpha(animated and (0.09 + 0.05 * (0.5 - 0.5 * math.cos(GetTime() * 2 * math.pi / 5))) or 0.09)
+    end)
+end
+
 -- True when a goal is new or updated in Forever, or holds a part that is
 -- (Epic Racial Mounts and its Skyborne mount). Drives the Library chip.
 function FGT.HasForeverNew(goal)
@@ -3581,7 +3594,8 @@ for i, goal in ipairs(FGT.goals) do
     row.newChip = NewChip(row, 8)
     row.newChip:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
     row.newChip:SetLabel(FGT.ForeverDot(12) .. "NEW", C.FOREVER_LIGHT)
-    row.newChip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
+    row.newChip:SetBackdrop(nil)
+    FGT.AddForeverPulse(row.newChip)
     row.newChip:Hide()
 
     -- Finished goals: a big green check over the greyed-out icon, with
@@ -4047,6 +4061,7 @@ end
 do
     local chip = NewChip(FGT.detailBody, 9)
     chip:SetLabel(FGT.ForeverDot(13) .. "NEW IN FOREVER", C.FOREVER_LIGHT)
+    FGT.AddForeverPulse(chip)
     chip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
     chip:Hide()
     FGT.detailNewChip = chip
@@ -4615,11 +4630,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function FGT.LayoutGoalBanner(goal)
         B.goal = goal
         local rowHeight = math.max(DETAIL_ICON, (detailTag:GetStringHeight() or 12) + 8 + (detailTitle:GetStringHeight() or 24) + 8 + 22)
-        for _,chip in ipairs({detailDiffChip,detailTimeChip}) do
+        for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip}) do
             chip:SetSize(math.ceil(chip.text:GetStringWidth())+24,22)
             chip:SetBackdrop({bgFile=SOLID,edgeFile=ETCH_EDGE,edgeSize=8,insets={left=2,right=2,top=2,bottom=2}})
             chip:SetBackdropColor(0.02,0.02,0.015,0.75)
             chip:SetBackdropBorderColor(0.34,0.30,0.20,1)
+            if chip == FGT.detailNewChip then
+                chip:SetBackdropBorderColor(C.FOREVER_DEEP[1],C.FOREVER_DEEP[2],C.FOREVER_DEEP[3],1)
+            end
         end
         -- Completion/Forever/lockout badges wrap instead of entering the description.
         local firstX = 22 + DETAIL_ICON + 12

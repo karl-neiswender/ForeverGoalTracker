@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Forever badge polish: My Goals NEW/UPDATED labels have no box. Detail NEW/UPDATED IN FOREVER chips now use the same 22px height, padding and etched corner border as difficulty/duration, retaining blue edging. Both have a soft blue underlight breathing on a five-second cycle, held still with Celebrations Off. Uses existing texture; `/reload` to review.
+
 Warm radial book lighting trial: a broad oval using the existing soft shadow texture with additive amber at 7% alpha, spanning the upper-left 90% width / 72% height of the cover. ARTWORK layer 2 lights leather, spine, edges and corner metal together, below welcome text/buttons. Scales inside the cover bounds; Lua-only, `/reload` to review.
 
 Summary text fade slowed to 1.2 seconds at Karl's request. Suggested next visual treatment, not implemented: a faint warm upper-area light on the book to match the cobweb panel's brighter upper region; retain current spine and bronze fittings.
