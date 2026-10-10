@@ -8,8 +8,8 @@ AI-assisted artwork
 Some original addon artwork was created with assistance from ChatGPT and
 Nano Banana, as identified by the addon author.
 
-The ancient leather book empty-state texture and reusable metal corner
-fitting were generated with ChatGPT's built-in image generation, October
+The ancient leather book empty-state texture, reusable metal corner
+fitting and matching clasp were generated with ChatGPT's built-in image generation, October
 10, 2026, from an author-approved original book-cover concept.
 
 Cinzel font

@@ -24,6 +24,7 @@ ignore:
   - Media/*-source.webp
   - Media/empty-book-corner-source.png
   - Media/empty-book-leather-source.png
+  - Media/empty-book-clasp-source.png
   - ROADMAP.md
   - Screenshots
   - CLAUDE.md

@@ -6249,6 +6249,15 @@ do
                 shadow:SetVertexColor(0, 0, 0, 0.55)
                 art.corners[#art.corners + 1] = { metal = corner, shadow = shadow }
             end
+            local clasp = art:CreateTexture(nil, "ARTWORK", nil, 1)
+            clasp:SetTexture(MEDIA .. "empty-book-clasp")
+            clasp:SetDesaturated(true)
+            clasp:SetPoint("RIGHT", art, "RIGHT", -4, 0)
+            local shadow = art:CreateTexture(nil, "ARTWORK", nil, 0)
+            shadow:SetTexture(MEDIA .. "empty-book-clasp")
+            shadow:SetPoint("RIGHT", art, "RIGHT", -3, -2)
+            shadow:SetVertexColor(0, 0, 0, 0.55)
+            art.clasp = { metal = clasp, shadow = shadow }
         end
         -- All artwork sits below this darkness, keeping the empty-state
         -- copy/buttons readable. Plain alpha also follows the frame fade.
@@ -6288,6 +6297,15 @@ do
             for _, corner in ipairs(self.corners) do
                 corner.metal:SetSize(size, size)
                 corner.shadow:SetSize(size, size)
+            end
+            if self.clasp then
+                -- Keep the original 3:2 silhouette. Only shrink when the
+                -- panel leaves too little room between the corner fittings.
+                local scale = math.max(0, math.min(1, (w - 16) / 240, (h - 2 * size - 12) / 64))
+                self.clasp.metal:SetSize(math.max(1, 96 * scale), math.max(1, 64 * scale))
+                self.clasp.shadow:SetSize(math.max(1, 96 * scale), math.max(1, 64 * scale))
+                self.clasp.metal:SetShown(scale > 0)
+                self.clasp.shadow:SetShown(scale > 0)
             end
         end
         art:SetScript("OnSizeChanged", function(self) self:Fit() end)
