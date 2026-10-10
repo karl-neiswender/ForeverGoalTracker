@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Summary text fade slowed to 1.2 seconds at Karl's request. Suggested next visual treatment, not implemented: a faint warm upper-area light on the book to match the cobweb panel's brighter upper region; retain current spine and bronze fittings.
+
 Correction to empty progress polish: overall bar stays visible even with no goals and is now 10px tall (previously 8px). Only the summary text underneath, including the percent, hides while empty. Adding the first goal fades both labels in over 0.45 seconds; motion Off shows them immediately. Removing all goals cancels the fade and hides the labels.
 
 Final Mac empty-state polish: broad soft central shadow wash quiets leather behind welcome copy; corner contact shadows eased to 62%. Overall bar, percent label and goal completion count now hide with zero tracked goals and return when goals are added. Brown palette and spine lighting retained. Existing textures only; `/reload` applies changes.

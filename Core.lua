@@ -5928,7 +5928,7 @@ local function RefreshOverall()
     elseif wasPopulated == false and W and W.Tween and W.Motion() ~= "off" then
         overallBar.label:SetAlpha(0)
         goalsCompleteText:SetAlpha(0)
-        W.Tween("overallSummary", 0.45, function(p)
+        W.Tween("overallSummary", 1.2, function(p)
             local alpha = W.EaseOut(p)
             overallBar.label:SetAlpha(alpha)
             goalsCompleteText:SetAlpha(alpha)
