@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+After housekeeping, Karl explicitly requested a new empty-state art concept: an ancient closed leather book in monochrome, with four fixed corner fittings, a separate leather field and a left spine strip for flexible window dimensions. A coherent full-cover reference was generated first using built-in imagegen and saved as `Media/artwork/ancient-book-cover-concept-2026-10-10.png`; prompt/provenance is in `reports/image-tests/ancient-book-empty-state-2026-10-10.json`. This is a concept for review, not installed artwork. The separate runtime assets and resizing behavior are not implemented. Do not treat this reference as an approved installed banner or stretch it directly across all window sizes.
+
 All **257 tracked artwork originals** in `Media/artwork` were audited recursively, including ignored additions. There were no pending originals or deletions at handoff. Artwork originals and final masters stay in GitHub for both machines; `.pkgmeta` excludes `Media/artwork`, `Media/final-images`, tools and reports from releases. Banner installation approval remains separate from source syncing.
 
 The Stormwind / Orgrimmar ambassador photos Karl mentioned are still missing from the synced artwork folder. He will add them later; do not substitute unrelated images. No ambassador banner was installed in this session.
