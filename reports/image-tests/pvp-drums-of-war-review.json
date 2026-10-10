@@ -1,0 +1,15 @@
+{
+  "source": "Media/artwork/Drums_of_War_TCG_art.jpg",
+  "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/pvp-drums-of-war-review.png",
+  "prompt": "Use case: style-transfer. Edit target: supplied Drums of War Warcraft TCG painting. Make one 4:3 landscape banner intended 1200x900, using ONLY the RIGHT HALF's foreground human Alliance warrior and Horde orc warrior as the subjects, excluding left-half battle crowd. Preserve their identities, faces, armor, poses, correct hands, swords and axes, artist signature where possible, and original Warcraft painted illustration style. Compose both warriors high toward right with breathing room around full raised axe, left third quiet forest for addon text. Extend matching forest as necessary without adding characters or unrelated objects. Strictly neutral BLACK AND WHITE, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a wide smooth neutral charcoal dark gradient from LEFT edge gradually blending into scene with no visible boundary, and a soft dark gradient across lowest approximately 100px of master fading downward to near black BOTTOM edge, no horizontal strip. Both gradients baked in artwork. No added text, UI or border. Shared PvP banner for both factions, show both human and orc clearly.",
+  "method": "built-in imagegen",
+  "status": "awaiting approval",
+  "proposedGoals": [
+    "pvp_hk",
+    "pvp_duelist"
+  ],
+  "factions": [
+    "Alliance",
+    "Horde"
+  ]
+}
