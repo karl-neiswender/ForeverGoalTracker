@@ -6220,37 +6220,83 @@ emptyNote:Hide()
 
 do
     local E = {}
-    -- Karl's painted panel (Media/empty-bg.tga, 512x1024, cobwebs in all
-    -- four corners), stretched to fill the panel inside its border so
-    -- every corner shows at any window height.
-    -- It sits in its own frame (E.art) so it can fade in with the empty
-    -- message. Tinted a little darker and less brown so it belongs to
-    -- the window, with a soft inner shadow so it looks set into the frame.
-    E.art = CreateFrame("Frame", nil, listPanel)
-    E.art:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 3, -3)
-    E.art:SetPoint("BOTTOMRIGHT", listPanel, "BOTTOMRIGHT", -3, 3)
-    E.bg = E.art:CreateTexture(nil, "BACKGROUND")
-    E.bg:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\empty-bg")
-    E.bg:SetAllPoints(E.art)
-    E.bg:SetVertexColor(0.80, 0.78, 0.75) -- darker, a touch cooler
-    local SHADE, BLACK = 16, { 0, 0, 0 }
-    for _, side in ipairs({ "TOP", "BOTTOM", "LEFT", "RIGHT" }) do
-        local t = E.art:CreateTexture(nil, "BORDER")
-        t:SetTexture(SOLID)
-        if side == "TOP" or side == "BOTTOM" then
-            t:SetPoint(side .. "LEFT", E.art, side .. "LEFT", 0, 0)
-            t:SetPoint(side .. "RIGHT", E.art, side .. "RIGHT", 0, 0)
-            t:SetHeight(SHADE)
-            if side == "TOP" then ApplyVGradient(t, BLACK, BLACK, 0.55, 0)
-            else ApplyVGradient(t, BLACK, BLACK, 0, 0.55) end
-        else
-            t:SetPoint("TOP" .. side, E.art, "TOP" .. side, 0, 0)
-            t:SetPoint("BOTTOM" .. side, E.art, "BOTTOM" .. side, 0, 0)
-            t:SetWidth(SHADE)
-            if side == "LEFT" then ApplyHGradient(t, BLACK, BLACK, 0.55, 0)
-            else ApplyHGradient(t, BLACK, BLACK, 0, 0.55) end
+    -- One transparent fitting reused four times on the empty goal page.
+    -- Matching leather fills the list; no spine and no stretched grain.
+    local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
+    local function BookSurface(panel, fittings)
+        local art = CreateFrame("Frame", nil, panel)
+        art:SetPoint("TOPLEFT", panel, "TOPLEFT", 3, -3)
+        art:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -3, 3)
+        art:EnableMouse(false)
+        art.leather = art:CreateTexture(nil, "BACKGROUND")
+        art.leather:SetTexture(MEDIA .. "empty-book-leather")
+        art.leather:SetDesaturated(true)
+        art.tiles = { art.leather }
+        art.corners = {}
+        if fittings then
+            for _, spec in ipairs({ { "TOPLEFT", 0, 4, -4 }, { "TOPRIGHT", -math.pi / 2, -4, -4 },
+                                    { "BOTTOMRIGHT", math.pi, -4, 4 }, { "BOTTOMLEFT", math.pi / 2, 4, 4 } }) do
+                local corner = art:CreateTexture(nil, "ARTWORK", nil, 1)
+                corner:SetTexture(MEDIA .. "empty-book-corner")
+                corner:SetDesaturated(true)
+                corner:SetPoint(spec[1], art, spec[1], spec[3], spec[4])
+                corner:SetRotation(spec[2])
+                -- Separate contact shadow stays down/right on every corner.
+                local shadow = art:CreateTexture(nil, "ARTWORK", nil, 0)
+                shadow:SetTexture(MEDIA .. "empty-book-corner")
+                shadow:SetPoint(spec[1], art, spec[1], spec[3] + 1, spec[4] - 2)
+                shadow:SetRotation(spec[2])
+                shadow:SetVertexColor(0, 0, 0, 0.55)
+                art.corners[#art.corners + 1] = { metal = corner, shadow = shadow }
+            end
         end
+        -- All artwork sits below this darkness, keeping the empty-state
+        -- copy/buttons readable. Plain alpha also follows the frame fade.
+        art.darkness = art:CreateTexture(nil, "OVERLAY")
+        art.darkness:SetAllPoints(art)
+        art.darkness:SetColorTexture(0.025, 0.022, 0.019, fittings and 0.68 or 0.77)
+        function art:Fit()
+            local w, h = self:GetWidth(), self:GetHeight()
+            if w <= 0 or h <= 0 then return end
+            -- Mirror alternate tiles so the generated edge pixels meet
+            -- exactly. Crop the final tiles; never stretch the grain.
+            local used = 0
+            for y = 0, math.ceil(h / 512) - 1 do
+                for x = 0, math.ceil(w / 512) - 1 do
+                    used = used + 1
+                    local tile = self.tiles[used]
+                    if not tile then
+                        tile = self:CreateTexture(nil, "BACKGROUND")
+                        tile:SetTexture(MEDIA .. "empty-book-leather")
+                        tile:SetDesaturated(true)
+                        self.tiles[used] = tile
+                    end
+                    local tw, th = math.min(512, w - x * 512), math.min(512, h - y * 512)
+                    local u, v = x % 2, y % 2
+                    tile:ClearAllPoints()
+                    tile:SetPoint("TOPLEFT", self, "TOPLEFT", x * 512, -y * 512)
+                    tile:SetSize(tw, th)
+                    tile:SetTexCoord(u, u + (u == 0 and 1 or -1) * tw / 512,
+                        v, v + (v == 0 and 1 or -1) * th / 512)
+                    tile:Show()
+                end
+            end
+            for i = used + 1, #self.tiles do self.tiles[i]:Hide() end
+            -- Normally 88px. Only shrink in exceptionally tiny bounds so
+            -- opposing corners cannot collide or escape the panel.
+            local size = math.max(1, math.min(88, (w - 16) / 2, (h - 16) / 2))
+            for _, corner in ipairs(self.corners) do
+                corner.metal:SetSize(size, size)
+                corner.shadow:SetSize(size, size)
+            end
+        end
+        art:SetScript("OnSizeChanged", function(self) self:Fit() end)
+        art:Fit()
+        return art
     end
+    E.art = BookSurface(listPanel, false)
+    E.bg = E.art.leather
+    E.detailArt = BookSurface(detailPanel, true)
 
     E.label = NewTitleString(E.art, 13)
     E.label:SetDrawLayer("OVERLAY")
@@ -6284,7 +6330,7 @@ do
     E.button:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
     E.button:SetScript("OnClick", function() if FGT.ShowTab then FGT.ShowTab("library") end end)
 
-    E.parts = { E.art, E.label, E.button, E.help }
+    E.parts = { E.art, E.detailArt, E.label, E.button, E.help }
     for _, p in ipairs(E.parts) do p:Hide() end
     FGT.emptyUI = E
 end
@@ -6361,8 +6407,11 @@ function FGT.AnimateEmpty()
         local e = W.EaseOut(p)
         cl:SetAlpha(e)
         art:SetAlpha(e) -- the painted panel fades in with the message
+        FGT.emptyUI.detailArt:SetAlpha(e)
         cl:SetScale(full and (0.94 + 0.06 * e) or 1)
-    end, function() cl:SetAlpha(1); art:SetAlpha(1); cl:SetScale(1) end)
+    end, function()
+        cl:SetAlpha(1); art:SetAlpha(1); FGT.emptyUI.detailArt:SetAlpha(1); cl:SetScale(1)
+    end)
 end
 main:HookScript("OnShow", function()
     if emptyNote:IsShown() then FGT.AnimateEmpty() end

@@ -6,7 +6,7 @@
 - Ctrl-click gear in guides to preview it on your character
 - Show or hide completed guide steps
 - Tier 2.5 armor sets, Stranglethorn Fishing Extravaganza and four AQ battle tank goals
-- More banner images
+- More artwork, including an ancient leather book behind the empty tracker
 - UI improvements
 - Bug fixes
 
