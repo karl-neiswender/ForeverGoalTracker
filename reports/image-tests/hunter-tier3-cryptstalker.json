@@ -34,6 +34,13 @@
       "method": "built-in imagegen",
       "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v3.png",
       "change": "Remove marked small acacia tree"
+    },
+    {
+      "prompt": "Localized armor correction to IMAGE 1, using IMAGE 2 ONLY as the exact Cryptstalker spaulder construction reference. Each shoulder pad has exactly ONE tall upward spike at its inner top corner, not a pair. On the viewer-right shoulder of image 1, remove the secondary outer curved tall spike (around x=1184 y=218) and keep the single main tall straight spike nearest the head (around x=1143 y=187). On the viewer-left shoulder remove the secondary diagonal upward spike around x=927 y=266, keep the single main tall spike around x=898 y=192. Naturally rebuild the shoulder top edge and the background behind removed spikes. Match the single-spike structure of image 2, preserving the existing decorative angular shoulder plates and layered outer segments. TWO shoulder pads, ONE tall top spike on EACH, TWO tall armor spikes TOTAL. Change nothing else. Preserve troll mohawk, long ears and facial tusks, exact face, lion and corrected teeth, pose, all remaining armor, grayscale painted style, background with small tree already removed, framing and left/bottom gradients. Do not copy screenshot logos, add text or annotations, or redesign the scene.",
+      "method": "built-in imagegen",
+      "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v4.png",
+      "reference": "Media/artwork/hunter-tier3-references/Cryptstalker Spaulders.png",
+      "change": "One top spike on each shoulder"
     }
   ]
 }
