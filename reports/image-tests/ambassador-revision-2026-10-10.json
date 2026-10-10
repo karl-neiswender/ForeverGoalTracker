@@ -1,0 +1,15 @@
+{
+  "method": "Built-in imagegen",
+  "source": "Media/artwork/Exploring_Azeroth_-_Stormwind.jpg",
+  "review": "Media/final-images/reputations/ambassador-alliance-review-v2.png",
+  "goal": "rep_ambassador_ally",
+  "status": "Revised to preserve original hazy sky, architecture and statues. Awaiting Karl's approval; not installed.",
+  "prompt": "Edit target: supplied original Exploring Azeroth Stormwind artwork. Revise for Alliance Ambassador goal background. The previous attempt redrew the castle and statues excessively. This time preserve original pixels and painterly forms as closely as possible: exact original castle architecture, simple hazy sky (do not add clouds or a sun), exact statue faces, bodies, armor, hammer and staff, bridge paving, perspective and stone arch. Do not reinterpret, sharpen into new detail, redesign or replace any objects. Only desaturate to strictly neutral black and white, modest contrast, reframe into 4:3 landscape with minimal necessary crop or extension of existing stone arch surroundings. Keep the original scene centered slightly toward the right with quiet space on left. Preserve the source's soft atmospheric painting. Bake a wide smooth neutral charcoal LEFT fade, gradual without hard strip, and a soft BOTTOM fade across approximately lowest 100px of a 1200x900 master to near-black. No new subjects, text, border or UI. Fidelity to original scene is the top priority.",
+  "horde": {
+    "approval": "Karl: the horde one is good",
+    "goal": "rep_ambassador_horde",
+    "master": "Media/final-images/reputations/ambassador-horde-master.png",
+    "runtime": "Media/rep_ambassador_horde-banner.blp",
+    "status": "Installed; 512px DXT1 BLP, 10 mips; full Lua 5.1 checker passes on Era and Forever"
+  }
+}
