@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-10",
+  "method": "built-in image_gen edit",
+  "source": "Media/artwork/ancient-book-cover-concept-2026-10-10.png",
+  "output": "Media/artwork/ancient-book-cover-no-spine-2026-10-10.png",
+  "status": "Spine removed at Karl's request; revised concept for review, not installed.",
+  "prompt": "Use case: precise-object-edit. Edit target: the supplied ancient monochrome leather book cover concept.\nRemove the ENTIRE left spine assembly: the rounded raised spine column, horizontal binding ribs, vertical hinge seam, lacing and exposed spine stitching. Replace that whole area with continuous flat aged leather matching the existing cover. The result is a simple rectangular closed book COVER, viewed straight down orthographically, with NO SPINE on any side.\nMove the existing upper-left and lower-left metal corner fittings outward to the true left corners of the resulting full-width cover. All FOUR fittings must attach to the four actual outer corners with equal inset and the same scale. Preserve their existing distinctive worn pewter scrollwork, rivets, pitting and shading. Preserve the other two corners. The left edge should match the slim weathered leather edging of the right edge, with no raised column or seam.\nKeep the original 4:3 landscape framing, deeply old dark leather grain, worn cracked surface, rubbed edges, neutral monochrome palette, painterly realistic fantasy material rendering, restrained upper light, and quiet open center unchanged. Preserve the aged character and most surface details. No new ornament, central emblem, title, text, runes, straps, clasps, objects, pages, tabletop, color, bright glows or UI. No extra corners. No remaining spine remnants."
+}
