@@ -750,6 +750,37 @@ for _, goal in ipairs(library) do
     table.insert(FGT.goals, goal)
 end
 
+-- AQ40 trash mounts: Classic names, IDs, icons and sources checked on
+-- Wowhead's four crystal item pages, 2026-10-10. Independent color goals.
+do
+    for _, crystal in ipairs({
+        { "Blue", 21218, "inv_misc_qirajicrystal_04" },
+        { "Green", 21323, "inv_misc_qirajicrystal_03" },
+        { "Yellow", 21324, "inv_misc_qirajicrystal_01" },
+        { "Red", 21321, "inv_misc_qirajicrystal_02" },
+    }) do
+        local color, id, icon = crystal[1], crystal[2], crystal[3]
+        local name = color .. " Qiraji Resonating Crystal"
+        table.insert(FGT.goals, {
+            id = "mount_qiraji_" .. color:lower(), library = true,
+            name = name, short = color .. " Qiraji", icon = icon,
+            category = "Mount", difficulty = color == "Red" and "Very Hard" or "Hard",
+            timeEstimate = "Varies",
+            note = "Collect the " .. color:lower() .. " Qiraji battle tank from trash enemies in Temple of Ahn'Qiraj. Ticks itself when the crystal or learned mount is owned.",
+            steps = {
+                { text = "Loot the " .. name .. " from trash enemies in Temple of Ahn'Qiraj.",
+                  icon = icon, auto = { item = id, owned = { color .. " Qiraji" } } },
+            },
+            completeWith = { item = id, owned = { color .. " Qiraji" } },
+            tips = {
+                "These crystals drop in {raid_aq40:Temple of Ahn'Qiraj}, the 40-player raid, rather than Ruins of Ahn'Qiraj.",
+                "In Classic, this mount can only be ridden inside Temple of Ahn'Qiraj and requires level 60. Forever's rules have not been verified.",
+                "The red crystal drops less often than blue, green and yellow. None of these requires the Scarab Gong event for the {mount_qiraji:black battle tank}.",
+            },
+        })
+    end
+end
+
 -- ============================================================
 -- Item sets (Tier 1, Tier 2, dungeon sets)
 -- ============================================================

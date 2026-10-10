@@ -4464,6 +4464,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artPaths[id] = B.artPaths.raid_zg
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
+    -- Keep the approved lone battle tank shared by the four AQ40 colors,
+    -- independently of future artwork on the Scarab Lord's black mount.
+    for _, color in ipairs({"blue", "green", "yellow", "red"}) do
+        local id = "mount_qiraji_" .. color
+        B.artPaths[id] = "mount_qiraji_aq-banner.blp"
+        B.artAspects[id], B.preprocessed[id] = 4/3, true
+    end
     -- Shared artwork for PvP ranks, mounts, reputation and class sets.
     for _, goal in ipairs(FGT.goals) do
         if goal.category == "PvP" then
@@ -10230,6 +10237,9 @@ local function Suggest(picked)
                 if me.faction == "Alliance" then push(list, Entry(me, "frostsaber", nil, tag)) end
                 push(list, Entry(me, "mount_deathcharger", nil, tag))
                 push(list, Entry(me, "mount_qiraji", nil, tag))
+                for _, color in ipairs({"blue", "green", "yellow", "red"}) do
+                    push(list, Entry(me, "mount_qiraji_" .. color, nil, tag))
+                end
             elseif it.key == "pvp" then
                 local f = (me.faction == "Horde") and "horde" or "ally"
                 -- the PvP set for your faction and armor type (Forever), your class's set chosen

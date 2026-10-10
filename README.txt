@@ -55,7 +55,7 @@ My Goals
   tracker. Removing keeps its progress in case you add it back.
 
 Goal Library
-  Every goal the addon knows (148 and counting). Search by name, or use
+  Every goal the addon knows (152 and counting). Search by name, or use
   the filter chips to browse by type; PvP, Reputation and Attunements
   also have a Both / Alliance / Horde picker. Click "+ Add" to put a
   goal on your tracker. Goals with several parts (classes, professions, mount races,

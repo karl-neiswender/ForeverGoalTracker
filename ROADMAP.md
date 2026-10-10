@@ -30,7 +30,7 @@ Larger updates with lots of new content.
 
 - **More Warcraft Forever content:** the new raids' bosses and loot sources as they're revealed, Forever's own items and mounts, and updated steps for Classic goals as Forever confirms them.
 - **More goals from your character stats:** Warcraft Forever's Statistics window counts things like gold earned, quests completed and emotes. More goals that track themselves from it, like Duelist does.
-- **More goals:** Qiraji battle tanks, Darkmoon Faire decks, Steamwheedle Cartel, Ravenholdt and Shen'dralar reputations, Bloodsail Admiral, and more class sets.
+- **More goals:** Darkmoon Faire decks, Steamwheedle Cartel, Ravenholdt and Shen'dralar reputations, Bloodsail Admiral, and more class sets.
 
 ## Maybe someday
 
