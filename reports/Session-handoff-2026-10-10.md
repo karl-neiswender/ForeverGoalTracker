@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Third Mac visual follow-up: corner fittings tinted aged bronze to match the brown leather. Spine's right contact shadow widened from 24 to 40px and strengthened from 80% to 95% at its root, fading smoothly to transparent. Lua-only; `/reload` to review.
+
 Second Mac visual follow-up: restored the cobweb source's original brown by removing runtime desaturation. Empty book leather, spine, binding bands and rolled edges now use a dark brown tint; metal corner fittings remain neutral. Existing texture files are unchanged; `/reload` applies this color pass.
 
 In-game review follow-up on Mac: restored the preserved `empty-bg` cobweb artwork over the empty goals-list panel. Book fittings now sit above the leather darkness with brighter neutral shading, stronger offset corner shadows, and smooth contact shadows under the spine and rolled edges. Existing textures only; `/reload` applies the change. Ambassador backgrounds are now approved and installed for both factions; originals, reviews, masters and runtime assets are synced.

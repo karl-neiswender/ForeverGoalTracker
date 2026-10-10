@@ -6260,7 +6260,7 @@ do
                 local corner = art:CreateTexture(nil, "ARTWORK", nil, 1)
                 corner:SetTexture(MEDIA .. "empty-book-corner")
                 corner:SetDesaturated(true)
-                corner:SetVertexColor(0.62, 0.62, 0.62)
+                corner:SetVertexColor(0.72, 0.51, 0.32)
                 corner:SetPoint(spec[1], art, spec[1], -4, spec[4])
                 corner:SetTexCoord(1, 0, spec[2], spec[3])
                 -- Separate contact shadow stays down/right on every corner.
@@ -6282,8 +6282,8 @@ do
             art.spineShade:SetColorTexture(1, 1, 1)
             art.spineShade:SetPoint("TOPLEFT", art.spine.top, "TOPRIGHT", -4, 0)
             art.spineShade:SetPoint("BOTTOMLEFT", art.spine.bottom, "BOTTOMRIGHT", -4, 0)
-            art.spineShade:SetWidth(24)
-            ApplyHGradient(art.spineShade, {0, 0, 0}, {0, 0, 0}, 0.8, 0)
+            art.spineShade:SetWidth(40)
+            ApplyHGradient(art.spineShade, {0, 0, 0}, {0, 0, 0}, 0.95, 0)
             for _, side in ipairs({"TOP", "BOTTOM"}) do
                 local shade = art:CreateTexture(nil, "ARTWORK", nil, -4)
                 shade:SetColorTexture(1, 1, 1)
