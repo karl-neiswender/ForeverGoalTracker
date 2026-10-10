@@ -1,0 +1,17 @@
+{
+  "method": "Built-in imagegen",
+  "status": "Prepared for Karl's review; not installed",
+  "prompt": "Use case: style-transfer. Edit the supplied artwork into one 4:3 landscape 1200x900 goal background for Forever Goal Tracker. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve recognizable source architecture, subjects, poses and artist marks. Reframe the principal city landmarks high and toward the right with breathing room, left third quiet for addon text. Bake a wide smooth neutral charcoal dark gradient into the LEFT edge, gradually blending into the scene with no hard boundary. Bake a soft dark BOTTOM gradient across the lowest approximately 100 pixels, fading to near-black at bottom edge, no hard strip. Both gradients must be in the image. No added text, UI, borders, unrelated objects or extra characters. Preserve existing artist/copyright marks.",
+  "assets": [
+    {
+      "source": "Media/artwork/Exploring_Azeroth_-_Stormwind.jpg",
+      "review": "Media/final-images/reputations/ambassador-alliance-review.png",
+      "goal": "rep_ambassador_ally"
+    },
+    {
+      "source": "Media/artwork/Exploring_Azeroth_-_Orgrimmar.jpg",
+      "review": "Media/final-images/reputations/ambassador-horde-review.png",
+      "goal": "rep_ambassador_horde"
+    }
+  ]
+}
