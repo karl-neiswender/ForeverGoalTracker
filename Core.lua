@@ -4564,7 +4564,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.difficulty, B.duration = detailDiffChip, detailTimeChip
     function FGT.LayoutGoalBanner(goal)
         B.goal = goal
-        local rowHeight = math.max(DETAIL_ICON, (detailTag:GetStringHeight() or 12) + 8 + (detailTitle:GetStringHeight() or 24))
+        local rowHeight = math.max(DETAIL_ICON, (detailTag:GetStringHeight() or 12) + 8 + (detailTitle:GetStringHeight() or 24) + 8 + 22)
         for _,chip in ipairs({detailDiffChip,detailTimeChip}) do
             chip:SetSize(math.ceil(chip.text:GetStringWidth())+24,22)
             chip:SetBackdrop({bgFile=SOLID,edgeFile=ETCH_EDGE,edgeSize=8,insets={left=2,right=2,top=2,bottom=2}})
@@ -4572,11 +4572,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             chip:SetBackdropBorderColor(0.34,0.30,0.20,1)
         end
         -- Completion/Forever/lockout badges wrap instead of entering the description.
-        local x, y = 22, 24+rowHeight+24
+        local firstX = 22 + DETAIL_ICON + 12
+        local x, y = firstX, 24+rowHeight-22
         for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip,FGT.detailLockChip}) do
             if chip:IsShown() then
                 local width = chip:GetWidth()
-                if x > 22 and x+width > FGT.detailBody:GetWidth()-22 then x,y = 22,y+30 end
+                if x > firstX and x+width > FGT.detailBody:GetWidth()-22 then x,y = firstX,y+30 end
                 chip:ClearAllPoints(); chip:SetPoint("TOPLEFT", FGT.detailBody, "TOPLEFT", x,-y)
                 x = x+width+10
             end
@@ -4584,7 +4585,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         detailNote:ClearAllPoints()
         local personal = FGT.personalNote
         personal:ClearAllPoints()
-        personal:SetPoint("TOPLEFT", FGT.detailBody, "TOPLEFT", 22,-(y+22+8))
+        personal:SetPoint("TOPLEFT", FGT.detailBody, "TOPLEFT", 22,-(y+22+24))
         personal:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22,0)
         if FGT.GoalNote(goal) ~= "" then
             detailNote:SetPoint("TOPLEFT", personal, "BOTTOMLEFT", 0,-14)
@@ -4592,7 +4593,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             detailNote:SetPoint("TOPLEFT", FGT.detailBody, "TOPLEFT", 22,-(y+22+8))
         end
         detailNote:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22,0)
-        FGT.detailHeaderHeight = y + 22 + 8
+        FGT.detailHeaderHeight = y + 22 + (FGT.GoalNote(goal) ~= "" and 24 or 8)
             + (FGT.GoalNote(goal) ~= "" and personal:GetHeight() + 14 or 0)
             + math.max(12, detailNote:GetStringHeight() or 12)
             + (FGT.foreverNotice:IsShown() and FGT.foreverNotice:GetHeight() + 12 or 0)
