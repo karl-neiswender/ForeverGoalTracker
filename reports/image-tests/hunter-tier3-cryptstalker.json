@@ -47,6 +47,13 @@
       "method": "built-in imagegen",
       "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v5.png",
       "change": "Neutral grayscale and deeper blacks"
+    },
+    {
+      "prompt": "Edit IMAGE 1 (troll hunter kneeling beside white lion) to match the GRAYSCALE TONAL PALETTE and PAINTED FINISH of IMAGE 2 (night elf archer). Image 2 is exclusively a style/tonal reference, do not transfer its character, forest or objects. Preserve image 1's composition and design faithfully. Match image 2's neutral monochrome charcoal blacks, balanced silver-gray midtones, soft controlled highlights, smooth confident Warcraft TCG painted surfaces, clean selective details, readable contours and gently simplified background brushwork. Remove all warm beige/sepia tint from image 1. Darken armor to rich charcoal with restrained gray edge highlights rather than shiny chrome. Reduce busy etched/sharpened texture, glittery highlights and excessively bright sky detail. Lion remains white but its mane is softly painted with grouped fur shapes and natural shadow, not over-sharpened strands. Clear faces and deep dimensional shadows, rich black values without crushed details. This should feel like the exact same illustration collection as image 2. Keep troll and white lion, pose, faces, hand on lion, corrected lion two saber canines, exactly ONE top spike on EACH Cryptstalker shoulder, mohawk, ears, tusks, armor design, Barrens savanna and mesas, small tree already removed. Preserve the 4:3 framing and quiet left third. Match reference 2's wide seamless LEFT fade into dark charcoal and soft BOTTOM fade to near-black, baked into painting, no hard strips. No added text, border, extra objects, watermark or logos.",
+      "method": "built-in imagegen",
+      "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v6.png",
+      "reference": "Media/artwork/hunter-tier3-references/grayscale-finish-reference.png",
+      "change": "Match supplied painted grayscale finish"
     }
   ]
 }
