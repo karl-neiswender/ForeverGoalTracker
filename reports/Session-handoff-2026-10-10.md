@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Final Mac empty-state polish: broad soft central shadow wash quiets leather behind welcome copy; corner contact shadows eased to 62%. Overall bar, percent label and goal completion count now hide with zero tracked goals and return when goals are added. Brown palette and spine lighting retained. Existing textures only; `/reload` applies changes.
+
 Third Mac visual follow-up: corner fittings tinted aged bronze to match the brown leather. Spine's right contact shadow widened from 24 to 40px and strengthened from 80% to 95% at its root, fading smoothly to transparent. Lua-only; `/reload` to review.
 
 Second Mac visual follow-up: restored the cobweb source's original brown by removing runtime desaturation. Empty book leather, spine, binding bands and rolled edges now use a dark brown tint; metal corner fittings remain neutral. Existing texture files are unchanged; `/reload` applies this color pass.

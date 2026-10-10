@@ -5914,6 +5914,10 @@ do -- scoped: keeps these locals out of the file's 200-local budget
 -- Tabs: My Goals | Goal Library
 -- ============================================================
 local function RefreshOverall()
+    local populated = #ActiveGoals() > 0
+    overallBar:SetShown(populated)
+    overallBar.label:SetShown(populated)
+    goalsCompleteText:SetShown(populated)
     local d, t = OverallProgress()
     overallBar:SetProgress(d, t, string.format("%d%% overall", math.floor(d / math.max(1, t) * 100 + 0.5)))
     goalsCompleteText:SetText(string.format("%d of %d goals fully complete", CountGoalsComplete(), #ActiveGoals()))
@@ -6268,7 +6272,7 @@ do
                 shadow:SetTexture(MEDIA .. "empty-book-corner")
                 shadow:SetPoint(spec[1], art, spec[1], -1, spec[4] - 3)
                 shadow:SetTexCoord(1, 0, spec[2], spec[3])
-                shadow:SetVertexColor(0, 0, 0, 0.85)
+                shadow:SetVertexColor(0, 0, 0, 0.62)
                 art.corners[#art.corners + 1] = { metal = corner, shadow = shadow }
             end
         end
@@ -6278,6 +6282,10 @@ do
         art.darkness:SetAllPoints(art)
         art.darkness:SetColorTexture(0.025, 0.022, 0.019, fittings and 0.68 or 0.77)
         if fittings then
+            art.focusWash = art:CreateTexture(nil, "ARTWORK", nil, -3)
+            art.focusWash:SetTexture(MEDIA .. "shadow")
+            art.focusWash:SetVertexColor(0, 0, 0, 0.38)
+            art.focusWash:SetPoint("CENTER", art, "CENTER", 0, 24)
             art.spineShade = art:CreateTexture(nil, "ARTWORK", nil, -3)
             art.spineShade:SetColorTexture(1, 1, 1)
             art.spineShade:SetPoint("TOPLEFT", art.spine.top, "TOPRIGHT", -4, 0)
@@ -6297,6 +6305,7 @@ do
         function art:Fit()
             local w, h = self:GetWidth(), self:GetHeight()
             if w <= 0 or h <= 0 then return end
+            if self.focusWash then self.focusWash:SetSize(w * 0.9, h * 0.8) end
             -- Mirror alternate tiles so the generated edge pixels meet
             -- exactly. Crop the final tiles; never stretch the grain.
             local used = 0
@@ -6531,6 +6540,7 @@ function FGT.HideEmptyTracker()
     emptyNote:Hide()
     for _, p in ipairs(FGT.emptyUI.parts) do p:Hide() end
     sortBar:Show()
+    FGT.RefreshOverall()
     for _, part in ipairs(detailParts) do part:Show() end
 end
 detailParts = { FGT.detailViewport.scroll, detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
