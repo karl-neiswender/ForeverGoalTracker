@@ -67,4 +67,38 @@ assert(F.guideLayout.byKey["piece:1:2"].frame.guideIdentity == set.id .. "|piece
 scheduled.guideSlide.update(1)
 scheduled.guideSlide.finish()
 W.Tween = tween
+-- Exercise the real OnUpdate loop: the earlier tests intentionally
+-- intercepted Tween and could not catch mutations during pairs().
+local driver
+for i = 1, 20 do
+    local name, value = debug.getupvalue(W.Tween, i)
+    if not name then break end
+    if name == "driver" then driver = value end
+end
+assert(driver, "real animation driver found")
+local update = driver:GetScript("OnUpdate")
+F.SelectGoal(g.id)
+D.progress[g.id] = {}
+F.SelectGoal(g.id)
+F.stepRows[1]:GetScript("OnClick")(F.stepRows[1], "LeftButton")
+assert(F.guideLayout.pending["step:1"])
+for i = 1, 125 do update(driver, 0.007) end
+assert(not F.guideLayout.byKey["step:1"], "real fade callback removes completed row and starts slide")
+for i = 1, 40 do update(driver, 0.007) end
+assert(F.guideLayout.byKey["step:2"], "remaining rows survive slide")
+-- A replacement added in an update callback must not be removed when
+-- the old tween finishes; new entries start on the next frame.
+local replacementTicks, replacementDone = 0, false
+W.Tween("mutationTest", 0.01, function(p)
+    if p == 1 then
+        W.Tween("mutationTest", 0.02, function(q)
+            if q > 0 then replacementTicks = replacementTicks + 1 end
+        end, function() replacementDone = true end)
+        for i = 1, 64 do W.Tween("mutationAdded" .. i, 0.02, function() end) end
+    end
+end)
+update(driver, 0.01)
+assert(replacementTicks == 0 and not replacementDone, "replacement waits until next frame")
+update(driver, 0.02)
+assert(replacementTicks == 1 and replacementDone, "replacement survives old completion")
 print("  check pause, gradual fade, consecutive completions, slide, pooled alpha, switching and motion-off behavior ok")

@@ -11022,19 +11022,26 @@ local tweens = {}
 local driver = CreateFrame("Frame")
 driver:Hide()
 driver:SetScript("OnUpdate", function(_, elapsed)
-    local any = false
+    -- Callbacks can rebuild the guide and add/cancel tweens. Iterate a
+    -- snapshot so those changes cannot invalidate Lua 5.1's next key.
+    local pending = {}
     for key, tw in pairs(tweens) do
-        tw.t = tw.t + elapsed
-        local p = math.min(1, tw.t / tw.dur)
-        if p >= 0 then tw.fn(p) end
-        if p >= 1 then
-            tweens[key] = nil
-            if tw.done then tw.done() end
-        else
-            any = true
+        pending[#pending + 1] = { key, tw }
+    end
+    for _, entry in ipairs(pending) do
+        local key, tw = entry[1], entry[2]
+        -- A previous callback may have cancelled or replaced this entry.
+        if tweens[key] == tw then
+            tw.t = tw.t + elapsed
+            local p = math.min(1, tw.t / tw.dur)
+            if p >= 0 then tw.fn(p) end
+            if p >= 1 and tweens[key] == tw then
+                tweens[key] = nil
+                if tw.done then tw.done() end
+            end
         end
     end
-    if not any and not next(tweens) then driver:Hide() end
+    if not next(tweens) then driver:Hide() end
 end)
 -- W.Tween(key, seconds, fn(p), done, delay); seconds nil cancels the key
 function W.Tween(key, dur, fn, done, delay)

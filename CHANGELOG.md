@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Fixed a Lua error when a hidden completed step finishes fading and the remaining steps begin sliding up
 - Tier 2.5 Ahn'Qiraj armor goals for all nine classes, with automatic piece tracking and class-specific token, material and reputation guidance
 - Reset arrow is mirrored and spins counterclockwise when clicked
 - Scrollbars use subtle bronze border colors with a gentle hover highlight
