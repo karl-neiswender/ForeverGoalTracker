@@ -2,23 +2,13 @@
 
 ## Unreleased
 
-- "Needed for" on item tooltips in bags, loot, chat and the Auction House, with unfinished tracked goals and remaining amounts; includes Tier 3 materials and Tier 2.5 turn-in supplies, with a Settings toggle
-- Ctrl-click gear links, step icons and the goal reward icon to try items on in the game's dressing room without checking off steps
-- Scarab Lord banner artwork for the Black Qiraji mount goal
-- Separate Blue, Green, Yellow and Red Qiraji battle tank goals with automatic ownership tracking and shared AQ mount artwork
-- Booty Bay banner artwork for the Fishing Extravaganza goal
-- Stranglethorn Fishing Extravaganza goal, with tournament preparation, fish tracking and automatic completion from the winning quest or either prize
-- Shared Skeram Cultist banner artwork for all nine Tier 2.5 class sets
-- Tier 2.5 class goals use their headpiece icons for thumbnails
-- Fixed a Lua error when a hidden completed step finishes fading and the remaining steps begin sliding up
-- Tier 2.5 Ahn'Qiraj armor goals for all nine classes, with automatic piece tracking and class-specific token, material and reputation guidance
-- Reset arrow is mirrored and spins counterclockwise when clicked
-- Scrollbars use subtle bronze border colors with a gentle hover highlight
-- NEW and UPDATED markers sit at the card's top right, replaced by the star on favorited cards; completed cards replace the eyebrow with their completion date and keep their full progress bar
-- Goal cards show category, class and faction above the name instead of difficulty; PvP cards use compact names such as Marshal Plate and Warlord Cloth
-- Subtle etched faction insignia on faction-only My Goals cards, plus shorter PvP set names in the goal list
-- Show or hide completed steps from the goal guide; completed steps are shown by default
-- Newly completed steps finish their check animation, fade away and let the remaining steps slide up when completed steps are hidden
+- Needed for hints on item tooltips, with remaining supplies for tracked goals
+- Ctrl-click gear in guides to preview it on your character
+- Show or hide completed guide steps
+- Tier 2.5 armor sets, Stranglethorn Fishing Extravaganza and four AQ battle tank goals
+- More banner images
+- UI improvements
+- Bug fixes
 
 ## 2.10.1
 

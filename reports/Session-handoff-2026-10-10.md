@@ -1,0 +1,62 @@
+# Session handoff: October 10, 2026
+
+## Current state
+
+Karl has finished adding features for today. Next action is his in-game review, followed by fixes if needed. Do not add more features or publish a release before that review. The addon still reports version **2.10.1**; today's changes are **Unreleased**. No release tag or CurseForge upload was made for this work.
+
+All implementation commits are on shared `main`, through `11ba600` (item tooltips and previews). Pull `main` on the Mac before continuing. Check for local changes first and ask Karl before pulling over them. SavedVariables remain local to each machine.
+
+## Implemented today
+
+- **Completed-step filter:** subtle Show completed / Hide completed text beside Step by step, shown by default. Saved as `hideCompletedSteps`. With hiding enabled, a newly completed step gets 0.55 seconds for its check animation, fades for 0.28 seconds, then remaining rows slide for 0.26 seconds. Switching goals, resetting and turning the filter off cancel pending transitions. The tween driver snapshots work before callbacks and checks tween identity, avoiding mutation during `pairs` iteration. Karl reproduced the old `invalid key to 'next'` error and confirmed the fix in game.
+- **My Goals cards:** three layers only: eyebrow, name, progress bar. Eyebrow uses the detail-page category/class/faction information, replaced by completion status and date when finished. Difficulty removed from cards. NEW / UPDATED sits at top right; favoriting replaces it with the star. Fixed card height remains 72px. Faction-only cards have large, subtle monochrome etched insignia at top right. PvP names use Marshal Plate, Marshal Cloth, Warlord Plate, etc. Full titles remain on the goal page.
+- **Scrollbars and reset:** subtle bronze scrollbar colors brighten on hover without widening. Reset arrow is horizontally mirrored and spins counterclockwise.
+- **Tier 2.5:** nine independent AQ40 class-set goals, IDs `set_tier25_<class>`, built in `AQArmor.lua` before `ArmorSets.lua`. Five pieces per class; automatic ownership rules, token/material/reputation tips, headpiece thumbnails. Approved shared Skeram Cultist banner maps to the collection and its children. Sources remain unchanged.
+- **Fishing Extravaganza:** `fishing_extravaganza`, with 150 Fishing, 40 Speckled Tastyfish (19807), and winning Master Angler (8193) or either prize (19970 / 19979). In Profession category and collect/grind suggestions. Approved Booty Bay banner installed.
+- **AQ mounts:** separate `mount_qiraji_blue`, `mount_qiraji_green`, `mount_qiraji_yellow`, `mount_qiraji_red`; item IDs 21218, 21323, 21324, 21321, with automatic item/owned tracking. They share the prior AQ mount artwork under `mount_qiraji_aq-banner.blp`. `mount_qiraji` remains the Black Qiraji goal and now uses approved Scarab Lord artwork.
+- **Item tooltips:** new `ItemTooltips.lua`, loaded after `Core.lua` in both the TOC and checker. “Needed for” shows unfinished tracked goals in native bags, loot, AH and chat item tooltips, plus addon item tooltips. Enabled by default through `itemNeeds`; Settings has an Item tooltips group. Modern hook uses `TooltipDataProcessor.AddTooltipPostCall`; legacy uses `OnTooltipSetItem`. Cleared tooltips reset duplicate suppression. Comparison tooltips stay clear.
+- **Remaining supplies:** item rules respect race/faction scopes and alternative item IDs. Repeated collection milestones use the largest remaining target. Tier 3 manual material lines match the cached item's exact English name with the existing count/plural/location syntax; unfinished recipes share one stock subtraction per goal. AQ pieces carry `requiredItems` metadata for token, two idols and five of each scarab. Completing a piece removes those requirements. Counts use last recorded character inventories, including banks only after opened. Separate goals each report their own needs; this is not a combined shopping list or stock allocation system. Incidental mentions in tips are not treated as requirements.
+- **Gear preview:** item hyperlink and row clicks call `FGT.PreviewItemClick`, using the game's DRESSUP modifier (Ctrl by default) and `DressUpItemLink`. Step icons forward to the row handler. The detail reward icon has its own preview handler. Preview clicks consume the action without checking off a step, even while item data loads. Tooltip preview hints appear on equippable cached items. Shift-click chat links and right-click Wowhead actions remain.
+
+The library currently has **152 goal definitions**, including collection wrappers and client-specific entries; the visible count varies by client and faction.
+
+## Artwork and cleanup
+
+All **257 tracked artwork originals** in `Media/artwork` were audited recursively, including ignored additions. There were no pending originals or deletions at handoff. Artwork originals and final masters stay in GitHub for both machines; `.pkgmeta` excludes `Media/artwork`, `Media/final-images`, tools and reports from releases. Banner installation approval remains separate from source syncing.
+
+The Stormwind / Orgrimmar ambassador photos Karl mentioned are still missing from the synced artwork folder. He will add them later; do not substitute unrelated images. No ambassador banner was installed in this session.
+
+Existing dependency runtimes, the ignored offline workbench and previous release logs are retained. They are not disposable source files. Only generated Python bytecode caches may be removed during cleanup.
+
+## Validation
+
+`tools/check.py` compiles all nine loaded Lua files with real Lua 5.1, then runs startup and behavior sessions for Classic Era and Forever (including the removed legacy `GetItemInfo` global). The full checker passed after the implementation. It catches syntax/local-limit/load/behavior regressions, but does not establish in-game visual or native API behavior.
+
+Relevant checks: `item-tooltip-tests.lua`, `completed-step-tests.lua`, `completed-step-motion-tests.lua`, `aq-armor-tests.lua`, `fishing-tests.lua`, `qiraji-tests.lua`, plus the existing armor migration, banner, short-window and dependency checks. Tooltip tests cover both hook paths, duplicates/rebuilds, selection/completion changes, scopes, alternative stock, actual Tier 3 totals, AQ ingredient totals, settings and preview versus normal clicks.
+
+Mac: `python3 tools/check.py` after installing platform-native Lupa as described in AGENTS.md. On this PC, the bundled Python runtime and Windows Lupa under `C:/Users/kneis/AppData/Local/Temp/fgt-lua-check` were used because `tools/.py` contains a different platform's dependency build:
+
+```powershell
+& 'C:\Users\kneis\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe' -c 'import sys, runpy; sys.path.insert(0, "C:/Users/kneis/AppData/Local/Temp/fgt-lua-check"); from lupa import lua51; runpy.run_path("tools/check.py", run_name="__main__")'
+```
+
+## Karl's in-game review checklist
+
+Restart the client after pulling new artwork. Lua-only follow-up fixes need `/reload`.
+
+1. Narrow and wide My Goals panels: card names, eyebrow/class/faction text, etched faction insignia, favorite versus NEW / UPDATED, completed date and full bar.
+2. Hide completed steps; finish individual steps, several automatic steps and a grouped/material step. Check the pause, fade, upward slide and absence of Lua errors. Toggle the filter, switch goals and reset during a transition.
+3. Scrollbar normal/hover/drag states; reset icon orientation, counterclockwise spin and undo.
+4. All nine AQ armor sets: independent cards, headpiece thumbnail, shared Skeram banner, tips and ownership progress.
+5. Fishing goal: Booty Bay banner and three steps; blue/green/yellow/red AQ mounts share the old AQ art, Black Qiraji uses Scarab Lord art.
+6. With a material goal active, hover its item in bags, loot, AH and chat. Confirm Needed for and remaining amounts. Complete the relevant step or remove the goal, then hover again. Verify no duplicates, and that the Settings switch disables it. Open banks on relevant alts before assessing counts.
+7. AQ tokens / idols / scarabs and Tier 3 shared materials: remaining totals fall when pieces or material lines finish; unselected groups do not contribute.
+8. Ctrl-click an available armor/weapon link, step icon, item tag in tips and reward icon. Dressing room opens on the character and progress does not change. Ordinary clicks, Shift-click chat links and right-click Wowhead still work. Items Forever has not revealed cannot be meaningfully previewed until their data is available.
+9. Small window, expanded recipes, Settings and demo scenes retain their existing bounds and scrolling behavior.
+
+## Existing follow-ups and release prep
+
+- Forever prerequisite gates are still deliberately off pending verification. Do not claim they are active.
+- The existing `SetItemRef` replacement / player-name-copy taint issue remains a separate open follow-up in AGENTS.md. Today's item tooltip hooks do not replace it, and this session did not resolve it.
+- Public gallery shots 01, 03, 04 and 05 now have changed cards and/or guide controls; review/retake before the next release. The saved Settings shot also needs a retake for the new tooltip group and eventual version bump. A manual tooltip screenshot could illustrate Needed for after Karl checks it in game.
+- README files and ROADMAP describe the new features. CHANGELOG keeps brief player-facing Unreleased notes; this handoff and git history hold the details. When Karl authorizes a release after review, choose the version then, update the store description's goal count/features/roadmap, check screenshots, and use the normal release workflow. No “Saturday CurseForge push” task or release title is needed.
