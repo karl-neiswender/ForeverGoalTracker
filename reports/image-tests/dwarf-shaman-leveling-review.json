@@ -1,0 +1,11 @@
+{
+  "source": "Media/artwork/dwarf-shaman-alliance.jpg",
+  "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/dwarf-shaman-leveling-review.png",
+  "prompt": "Use case: style-transfer. Edit supplied Alliance Dwarf Shaman illustration into one 4:3 landscape Forever Goal Tracker leveling banner, intended master 1200x900. Preserve exact character identity, expressive dwarf face, braided beard, armor, tattoos, pose, both hands and fingers, lightning casting and background architecture, and existing Warcraft painted illustration style. Reframe dwarf high toward RIGHT with full raised hand inside frame and breathing room. Extend matching architecture/atmosphere to left with quiet left third for addon text. Strictly neutral BLACK AND WHITE, moderately increased contrast, detailed painterly midtones and controlled lightning highlights. Bake wide smooth neutral charcoal dark gradient from LEFT edge blending gradually into scene without visible boundary, and soft dark gradient across lowest approximately 100px fading downward to near black BOTTOM edge without a horizontal strip. Both gradients must be in artwork. No added text, UI, border, unrelated objects or extra characters.",
+  "method": "built-in imagegen",
+  "status": "awaiting approval",
+  "goal": "allclasses",
+  "faction": "Alliance",
+  "race": "Dwarf",
+  "class": "SHAMAN"
+}
