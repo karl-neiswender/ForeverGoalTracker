@@ -1,0 +1,8 @@
+{
+  "source": "Media/final-images/pending/gold-goal-review.png",
+  "review": "/Users/karlneiswender/Projects/ForeverGoalTracker/Media/final-images/pending/gold-goal-review-v2.png",
+  "prompt": "Precise localized edit: remove only the small copyright/watermark text at the very bottom-left reading © 2017 Blizzard Entertainment. Seamlessly replace that text area with surrounding near-black painted ground texture and bottom gradient. Preserve every other element unchanged: treasure chest, coins, gems, sword, shield, goblets, architecture, composition, original neutral grayscale tones, lighting, 4:3 aspect, wide left dark fade and soft bottom dark fade. No new text, symbols or marks.",
+  "method": "built-in imagegen",
+  "status": "awaiting approval",
+  "goal": "gold_5k"
+}
