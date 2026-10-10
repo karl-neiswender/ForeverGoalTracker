@@ -2749,7 +2749,7 @@ local function CreateScrollArea(parent, softBottom)
     trackHit:SetWidth(HIT_W)
     trackHit:EnableMouse(true)
     trackHit:EnableMouseWheel(true)
-    local track = Flat(trackHit, 1, 1, 1, 0.05)
+    local track = Flat(trackHit, STYLE.row.edge[1], STYLE.row.edge[2], STYLE.row.edge[3], 0.20)
     track:SetPoint("TOP", trackHit, "TOP", 0, 0)
     track:SetPoint("BOTTOM", trackHit, "BOTTOM", 0, 0)
     track:SetWidth(3)
@@ -2758,7 +2758,7 @@ local function CreateScrollArea(parent, softBottom)
     thumbHit:SetWidth(HIT_W)
     thumbHit:SetFrameLevel(trackHit:GetFrameLevel() + 1)
     thumbHit:EnableMouse(true)
-    local thumb = Flat(thumbHit, C.GOLD2[1], C.GOLD2[2], C.GOLD2[3], 0.8)
+    local thumb = Flat(thumbHit, STYLE.row.edge[1], STYLE.row.edge[2], STYLE.row.edge[3], 0.95)
     thumb:SetPoint("TOP", thumbHit, "TOP", 0, 0)
     thumb:SetPoint("BOTTOM", thumbHit, "BOTTOM", 0, 0)
     thumb:SetWidth(3)
@@ -2796,9 +2796,11 @@ local function CreateScrollArea(parent, softBottom)
     -- the track. Brightens while hovered or dragged.
     local dragging = false
     local function Highlight(on)
+        -- The same subdued bronze as etched borders, with a small lift
+        -- on hover/drag instead of the progress bars' saturated yellow.
+        local color = on and STYLE.button.edge or STYLE.row.edge
         thumb:SetWidth(on and 5 or 3)
-        thumb:SetVertexColor(on and C.ACCENT[1] or C.GOLD2[1], on and C.ACCENT[2] or C.GOLD2[2],
-            on and C.ACCENT[3] or C.GOLD2[3], on and 1 or 0.8)
+        thumb:SetVertexColor(color[1], color[2], color[3], on and 1 or 0.95)
     end
     thumbHit:SetScript("OnEnter", function() Highlight(true) end)
     thumbHit:SetScript("OnLeave", function() if not dragging then Highlight(false) end end)

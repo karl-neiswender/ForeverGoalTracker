@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Scrollbars use subtle bronze border colors with a gentle hover highlight
 - NEW and UPDATED markers sit at the card's top right, replaced by the star on favorited cards; completed cards replace the eyebrow with their completion date and keep their full progress bar
 - Goal cards show category, class and faction above the name instead of difficulty; PvP cards use compact names such as Marshal Plate and Warlord Cloth
 - Subtle etched faction insignia on faction-only My Goals cards, plus shorter PvP set names in the goal list
