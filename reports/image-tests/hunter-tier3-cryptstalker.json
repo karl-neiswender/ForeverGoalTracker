@@ -54,6 +54,12 @@
       "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v6.png",
       "reference": "Media/artwork/hunter-tier3-references/grayscale-finish-reference.png",
       "change": "Match supplied painted grayscale finish"
+    },
+    {
+      "prompt": "Make TWO localized corrections ONLY to image 1, using image 2 as Cryptstalker shoulder reference. (1) Extend the single top spike on the VIEWER-RIGHT shoulder: currently its tip at approximately x1170 y207 in 1448x1086, extend that SAME spike upward to approximately y135, maintaining tapered blade shape, natural armor base and perspective. Its height should match the tall spike of viewer-left shoulder and the elongated spike proportions of reference 2. Keep exactly ONE spike per shoulder, do not add a second spike. Do not shorten viewer-left spike. (2) Restore a SOFT diffuse magical glow emanating from both shoulder pads, like the violet aura surrounding the reference shoulder but translated into NEUTRAL GRAYSCALE. Gentle luminous silver-gray haze behind and just outside layered shoulder edges, subtle wisp-like bloom and light from inset details, visible but soft and restrained, not solid white outlines, smoke clouds or flames. Keep armor dark charcoal and engraved details readable. Preserve everything else precisely: current smooth painted finish, neutral grayscale palette, rich blacks, lion's white fur and corrected teeth, troll face/hair/ears/tusks, pose, armor details, Barrens background, composition and baked left/bottom fades. No redesign, no text or logos, no colored tint.",
+      "method": "built-in imagegen",
+      "output": "Media/final-images/pending/hunter-tier3-cryptstalker-review-v7.png",
+      "change": "Restore tall shoulder spike and soft grayscale aura"
     }
   ]
 }
