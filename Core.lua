@@ -4332,6 +4332,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Shared combat artwork for kills and duels on either faction.
     B.artVariants.pvp_hk = {{path="pvp_drums_of_war-banner.blp"}}
     B.artVariants.pvp_duelist = {{path="pvp_drums_of_war-banner.blp"}}
+    B.artVariants.pvp_set_mail_horde = {{path="pvp_set_mail_horde-banner.blp"}}
     function B:PlayerArtContext()
         -- Use stable file tokens, not localized class/race display names.
         local race, class

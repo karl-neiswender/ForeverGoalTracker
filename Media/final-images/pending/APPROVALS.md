@@ -1,5 +1,7 @@
 # Approved banner reviews
 
+Karl approved the cleaned pvp-warlord-mail-review-v2.png for installation. Master: ../pvp/warlord-mail.jpg, Horde Warlord Mail Sets (pvp_set_mail_horde). Original source ../../artwork/horde-master-mail-pvp.jpg remains unchanged. Lower-left mark removed at Karl's request.
+
 Karl approved timbermaw-review.png for installation. Master: ../reputation/timbermaw.jpg, Timbermaw reputation (rep_timbermaw), both factions. Source ../../artwork/Furbolg_Spiritbinder_TCG.jpg preserved unchanged.
 
 Karl approved black-qiraji-review.png for installation. Master: ../mounts/black-qiraji.jpg, Black Qiraji Resonating Crystal (mount_qiraji), both factions. Source ../../artwork/Ultramarine_Qiraji_Battle_Tank_TCG.jpg preserved; built-in imagegen restored detail and recolored the mount black.
