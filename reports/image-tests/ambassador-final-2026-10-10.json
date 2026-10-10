@@ -1,0 +1,12 @@
+{
+  "method": "Built-in imagegen; technical resize and BLP encoding with existing artwork pipeline",
+  "prompt": "Edit target Image 1: approved Alliance Ambassador Stormwind banner. Image 2 is grayscale contrast reference ONLY: approved Horde Orgrimmar banner. Perform ONLY a final tonal contrast pass on Image 1 to bring its grayscale contrast closer to Image 2: deeper darks, clearer midtone separation and restrained brighter highlights, retaining the original soft atmospheric haze. Keep absolutely every shape, pixel position, framing, architecture, statue, face, weapon, sky, stone arch, bridge and painted detail of Image 1 unchanged. Do not redraw, sharpen, add detail, crop, move or replace anything. Preserve the existing baked left and bottom gradients exactly in position and smoothness. Strict neutral grayscale. Output same 4:3 landscape composition as Image 1. The only permitted change is tonal contrast; no creative alteration.",
+  "source": "Media/final-images/reputations/ambassador-alliance-review-v2.png",
+  "contrastReference": "Media/final-images/reputations/ambassador-horde-review.png",
+  "review": "Media/final-images/reputations/ambassador-alliance-contrast-review.png",
+  "master": "Media/final-images/reputations/ambassador-alliance-master.png",
+  "runtime": "Media/rep_ambassador_ally-banner.blp",
+  "goal": "rep_ambassador_ally",
+  "approval": "Karl approved revised framing, requested contrast pass, then approved final result: good",
+  "status": "Installed"
+}
