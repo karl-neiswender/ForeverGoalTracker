@@ -2799,7 +2799,6 @@ local function CreateScrollArea(parent, softBottom)
         -- The same subdued bronze as etched borders, with a small lift
         -- on hover/drag instead of the progress bars' saturated yellow.
         local color = on and STYLE.button.edge or STYLE.row.edge
-        thumb:SetWidth(on and 5 or 3)
         thumb:SetVertexColor(color[1], color[2], color[3], on and 1 or 0.95)
     end
     thumbHit:SetScript("OnEnter", function() Highlight(true) end)
