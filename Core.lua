@@ -6308,6 +6308,12 @@ do
             art.focusWash:SetTexture(MEDIA .. "shadow")
             art.focusWash:SetVertexColor(0, 0, 0, 0.38)
             art.focusWash:SetPoint("CENTER", art, "CENTER", 0, 24)
+            -- Soft upper-left light unifies leather and metal without
+            -- competing with the welcome copy drawn above the artwork.
+            art.coverLight = art:CreateTexture(nil, "ARTWORK", nil, 2)
+            art.coverLight:SetTexture(MEDIA .. "shadow")
+            art.coverLight:SetBlendMode("ADD")
+            art.coverLight:SetVertexColor(0.72, 0.46, 0.22, 0.07)
             art.spineShade = art:CreateTexture(nil, "ARTWORK", nil, -3)
             art.spineShade:SetColorTexture(1, 1, 1)
             art.spineShade:SetPoint("TOPLEFT", art.spine.top, "TOPRIGHT", -4, 0)
@@ -6328,6 +6334,11 @@ do
             local w, h = self:GetWidth(), self:GetHeight()
             if w <= 0 or h <= 0 then return end
             if self.focusWash then self.focusWash:SetSize(w * 0.9, h * 0.8) end
+            if self.coverLight then
+                self.coverLight:ClearAllPoints()
+                self.coverLight:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+                self.coverLight:SetSize(w * 0.9, h * 0.72)
+            end
             -- Mirror alternate tiles so the generated edge pixels meet
             -- exactly. Crop the final tiles; never stretch the grain.
             local used = 0

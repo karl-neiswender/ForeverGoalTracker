@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Warm radial book lighting trial: a broad oval using the existing soft shadow texture with additive amber at 7% alpha, spanning the upper-left 90% width / 72% height of the cover. ARTWORK layer 2 lights leather, spine, edges and corner metal together, below welcome text/buttons. Scales inside the cover bounds; Lua-only, `/reload` to review.
+
 Summary text fade slowed to 1.2 seconds at Karl's request. Suggested next visual treatment, not implemented: a faint warm upper-area light on the book to match the cobweb panel's brighter upper region; retain current spine and bronze fittings.
 
 Correction to empty progress polish: overall bar stays visible even with no goals and is now 10px tall (previously 8px). Only the summary text underneath, including the percent, hides while empty. Adding the first goal fades both labels in over 0.45 seconds; motion Off shows them immediately. Removing all goals cancels the fade and hides the labels.
