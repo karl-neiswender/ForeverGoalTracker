@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Booty Bay banner artwork for the Fishing Extravaganza goal
 - Stranglethorn Fishing Extravaganza goal, with tournament preparation, fish tracking and automatic completion from the winning quest or either prize
 - Shared Skeram Cultist banner artwork for all nine Tier 2.5 class sets
 - Tier 2.5 class goals use their headpiece icons for thumbnails

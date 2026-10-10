@@ -4264,6 +4264,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         att_mc = "att_mc-banner.blp",
         set_tier1 = "set_tier1-banner.blp",
         set_tier25 = "set_tier25-banner.blp",
+        fishing_extravaganza = "fishing_extravaganza-banner.blp",
         raid_naxx = "raid_naxx-banner.blp",
         tier3 = "tier3-banner.blp",
         att_naxx = "att_naxx-banner.blp",
@@ -4273,6 +4274,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         rep_argentdawn = "rep_argentdawn-banner.blp",
     }
     B.artAspects = {
+        fishing_extravaganza = 4/3,
         set_tier25 = 4/3,
         thunderfury = 4/3,
         rhokdelar = 4/3,
@@ -4429,6 +4431,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Approved monochrome masters need no runtime desaturation.
     -- Older color banners keep their existing look until their final pass.
     B.preprocessed = {
+        fishing_extravaganza=true,
         set_tier25=true,
         tier3=true, att_naxx=true,
         rep_argentdawn=true,

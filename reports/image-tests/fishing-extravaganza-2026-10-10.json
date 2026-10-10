@@ -3,7 +3,7 @@
   "generated": "reports/image-tests/fishing-extravaganza-generated.png",
   "review": "Media/final-images/fishing/booty-bay-review.png",
   "goal": "fishing_extravaganza",
-  "status": "Awaiting edited banner approval before installation",
+  "status": "Approved by Karl: Banner is good! Installed on fishing_extravaganza on 2026-10-10.",
   "method": "Built-in imagegen; technical resize only with Pillow",
   "prompt": "Edit this supplied Booty Bay harbor painting into one 4:3 landscape Forever Goal Tracker banner, master 1200x900. Preserve the original recognizable Booty Bay buildings, docks, boats, palms, cliffs, water, suspended fish, ropes, mast, perspective and painterly style. Keep complete coherent building and boat geometry and any existing artist marks. Reframe the main recognizable harbor architecture high toward the right with breathing room; keep the left third quiet for addon text. Strictly neutral black and white grayscale, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a WIDE SMOOTH DARK LEFT gradient into the artwork, neutral charcoal strongest at the left edge, gradually blending into the harbor without a hard vertical strip or visible boundary. Bake a SOFT DARK BOTTOM gradient across approximately the lowest100 pixels of the1200x900 master, fading downward to near-black neutral charcoal at bottom edge with a natural transition and no hard horizontal strip. Both gradients must be in the generated image itself. No added text, UI, border, unrelated objects, anglers or extra characters."
 }

@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "fishing_extravaganza": "fishing/booty-bay-review.png",
     "set_tier25": "tier-sets/aq40/tier25-review-v2.png",
     "tier3_hunter": "tier-sets/hunter/tier3.jpg",
     "tier3_warlock-alliance": "tier-sets/warlock/tier3-alliance.jpg",
