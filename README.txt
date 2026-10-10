@@ -106,10 +106,17 @@ Gold text in a step or tip is a link to another goal it depends on (an
 attunement, a reputation, a raid). Click it to add that goal.
 
 Item names in a guide show their real tooltip when you hover them;
-shift-click puts the item in chat. Teal names are NPCs: hover to see
+shift-click puts the item in chat; Ctrl-click gear to try it on in the
+game's dressing room. The same preview works on step icons and the
+goal's reward icon. Teal names are NPCs: hover to see
 where they stand, shift-click to put a pin on your map (a TomTom
 waypoint if TomTom is installed; choose in Settings). Right-click an
 item or NPC for its Wowhead link.
+
+Items in bags, loot, chat and the Auction House show "Needed for" with
+unfinished goals on your tracker and remaining amounts, including Tier 3
+materials and Tier 2.5 turn-in supplies. Counts use your characters' last
+scans, so open their banks to update stored items. Turn this off in Settings.
 
 Quest names show a gold "!" (blue for daily quests): hover one to see
 who starts it and where each of your characters stands on it.

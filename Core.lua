@@ -278,6 +278,7 @@ FGT.SETTING_DEFAULTS = {
     alpha = 1,               -- window opacity
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
     hideCompletedSteps = false, -- guide filter, controlled beside Step by Step
+    itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
 }
 
 function FGT.Setting(key)
@@ -1023,6 +1024,8 @@ local function GoalProgress(goal)
     return done, total
 end
 
+FGT.GoalProgress = GoalProgress
+
 -- Section-level (one class's set) progress, used by the Tier 3 header rows.
 local function SectionProgress(goal, si, section)
     local done, total = 0, 0
@@ -1736,6 +1739,8 @@ function FGT.EnableGoalLinks(f)
                 FGT.OpenWowheadCard("item", itemId, text)
             elseif IsShiftKeyDown() then
                 FGT.InsertItemLink(itemId)
+            elseif FGT.PreviewItemClick(itemId, button) then
+                return
             else
                 tick = true
             end
@@ -3769,6 +3774,9 @@ detailIcon:SetScript("OnEnter", function(self)
     if id then FGT.ShowItemTip(self, id, nil, FGT.detailRewardName, true) end
 end)
 detailIcon:SetScript("OnLeave", function() GameTooltip:Hide() end)
+detailIcon:SetScript("OnMouseUp", function(_, button)
+    FGT.PreviewItemClick(FGT.detailReward, button)
+end)
 
 local detailTag = NewFontString(FGT.detailBody, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
 detailTag:SetPoint("TOPLEFT", detailIcon, "TOPRIGHT", 12, -1)
@@ -7817,6 +7825,10 @@ function FGT.ChannelMuted(ch)
 end
 
 FGT.SETTINGS = {
+    { title = "Item tooltips", rows = {
+        { type = "toggle", key = "itemNeeds", label = "Show Needed for",
+          desc = "Show unfinished tracked goals on items in bags, loot and the Auction House, with remaining amounts from your characters' last scans" },
+    } },
     { title = "Chat and alerts", rows = {
         { type = "toggle", key = "greeting", label = "Login check-in",
           desc = "Your overall progress in chat a few seconds after you log in" },
@@ -9143,6 +9155,7 @@ do
     -- compare: also show the game's comparison with what you're wearing
     function FGT.ShowItemTip(owner, id, rule, name, compare)
         FGT.tip = { owner = owner, id = id, rule = rule, name = name, compare = compare }
+        GameTooltip.fgtNeedsItem = nil
         GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
         local known = FGT.ItemInfo(id)
         if known then
@@ -9183,7 +9196,11 @@ do
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
             end
         end
-        if not compare then -- the goal icon: no click actions there
+        FGT.AddItemNeeds(GameTooltip, id)
+        if known and FGT.ItemCanPreview(id) then
+            GameTooltip:AddLine("Ctrl-click to try it on.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        end
+        if not compare then
             GameTooltip:AddLine(known and "Shift-click to link it in chat. Right-click for its Wowhead link."
                 or "Right-click for its Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
@@ -9263,6 +9280,7 @@ do
             FGT.InsertItemLink(row.itemId)
             return true
         end
+        if FGT.PreviewItemClick(row.itemId, button) then return true end
         return false
     end
 

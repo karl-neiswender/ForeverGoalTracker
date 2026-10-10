@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Core.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Core.lua", "ItemTooltips.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -338,6 +338,8 @@ if ok_all:
     ]
     armor_fixture = 'local F = STUB_NS; local r = F.GoalById("set_tier1_rogue").armorSection; local h = F.GoalById("set_tier1_hunter").armorSection; local t = F.GoalById("tier3_rogue").armorSection;\nForeverGoalTrackerDB = { active = {}, activeParts = { set_tier1 = {[r]=true,[h]=true}, tier3 = {[t]=true} }, progress = {set_tier1 = {[r.."_1_piece"]=true,[h.."_2_piece"]=true}, tier3 = {[t.."_1_m1"]=true}}, selected="set_tier1", notes={set_tier1="Keep this note"}, favorites={set_tier1=true}, goalsDone={set_tier1=true}, goalDates={set_tier1=123456}, t3RecipeFix=true, characters={} }; for pi in ipairs(F.GoalById("set_tier1_rogue").sections[1].pieces) do ForeverGoalTrackerDB.progress.set_tier1[r.."_"..pi.."_piece"] = true end'
     steps.extend([
+        ("item needs and previews", None, open(os.path.join(here, "item-tooltip-tests.lua"), encoding="utf-8").read()),
+        ("Forever item needs and previews", None, open(os.path.join(here, "item-tooltip-tests.lua"), encoding="utf-8").read(), True),
         ("AQ40 battle tanks", None, open(os.path.join(here, "qiraji-tests.lua"), encoding="utf-8").read()),
         ("Forever AQ40 battle tanks", None, open(os.path.join(here, "qiraji-tests.lua"), encoding="utf-8").read(), True),
         ("fishing tournament", None, open(os.path.join(here, "fishing-tests.lua"), encoding="utf-8").read()),

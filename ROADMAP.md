@@ -6,7 +6,6 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Next up
 
-- **"Needed for" on items:** "Needed for Thunderfury" on items in your bags, the Auction House and loot.
 - **Feedback from inside the game:** write a suggestion or report a wrong step in the addon and get a link to send it.
 - **Welcome / What's new after an update:** a modal window when a player enters the game after an addon update, introducing the new features. Each feature gets a snapshot in the background with a subtle gradient vignette and text over it explaining the feature. Include a way to skip, pagination when there are multiple features, and subtle text animations or treatments as each page loads in and out.
 
@@ -38,6 +37,7 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
+- **Ready for the next update:** "Needed for" on item tooltips, remaining supplies for tracked goals, and Ctrl-click gear previews in guides.
 - **2.10.1:** UI improvements, more banner images, Violet Sorcerer's Vestments and bug fixes.
 
 - **2.10.0:** personal notes, individual armor set goals, prerequisite locks on Classic Era, goal banner artwork, visual improvements and bug fixes.

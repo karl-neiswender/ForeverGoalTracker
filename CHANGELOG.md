@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- "Needed for" on item tooltips in bags, loot, chat and the Auction House, with unfinished tracked goals and remaining amounts; includes Tier 3 materials and Tier 2.5 turn-in supplies, with a Settings toggle
+- Ctrl-click gear links, step icons and the goal reward icon to try items on in the game's dressing room without checking off steps
 - Scarab Lord banner artwork for the Black Qiraji mount goal
 - Separate Blue, Green, Yellow and Red Qiraji battle tank goals with automatic ownership tracking and shared AQ mount artwork
 - Booty Bay banner artwork for the Fishing Extravaganza goal

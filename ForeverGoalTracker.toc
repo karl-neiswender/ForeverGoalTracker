@@ -18,3 +18,4 @@ Npcs.lua
 Quests.lua
 Dependencies.lua
 Core.lua
+ItemTooltips.lua

@@ -99,6 +99,8 @@ for _, set in ipairs(sets) do
         pieces[pi] = {
             name = p[1], text = "Collect " .. p[1] .. " from " .. npcs[pi] .. " in Temple of Ahn'Qiraj.",
             icon = p[3], materials = {}, auto = { item = p[2], owned = { p[1] } },
+            requiredItems = { { item = p[4], count = 1 }, { item = p[5], count = 2 },
+                              { item = p[6], count = 5 }, { item = p[7], count = 5 } },
         }
         tips[#tips + 1] = "{item:" .. p[2] .. ":" .. p[1] .. "}: bring 1 " .. item(p[4]) ..
             " (from " .. bosses[p[4]] .. "), 2 " .. item(p[5]) .. ", 5 " .. item(p[6]) ..
