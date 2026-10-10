@@ -3459,6 +3459,14 @@ main:HookScript("OnHide", function()
     end
 end)
 
+-- Shared context line on the goal page and on its My Goals card.
+function FGT.GoalEyebrow(goal)
+    local category = goal.armorParent and goal.armorParent:match("^pvp_set_") and "PvP Set" or goal.category
+    return string.upper(category) .. (goal.armorClass
+        and ("  |cff77736a\194\183|r  " .. FGT.ArmorClassLabel(goal.armorClass)) or "")
+        .. (goal.faction and ("  |cff77736a\194\183|r  " .. string.upper(goal.faction) .. " ONLY") or "")
+end
+
 local function RefreshGoalList()
     -- first, so a goal finished just now already has its date below
     if FGT.CheckGoalCompletions then FGT.CheckGoalCompletions() end
@@ -3468,19 +3476,18 @@ local function RefreshGoalList()
         local isSelected = (row.goal.id == selectedId)
         local isNew = FGT.ApplyForeverLook(row, row.goal)
         if isNew then row.newChip:SetLabel(FGT.ForeverDot(12) .. isNew, C.FOREVER_LIGHT) end
-        -- Chip line under the name, left to right. A finished goal drops
-        -- its difficulty: COMPLETE says all that matters now.
+        -- State markers stay under the name; category/class/faction live
+        -- in the quiet eyebrow above it instead of a difficulty chip.
         local finished = total > 0 and done == total
         local prev
-        for _, chip in ipairs({ row.diffChip, row.newChip, row.check }) do
-            local show = (chip == row.diffChip and not finished)
-                or (chip == row.newChip and isNew)
+        for _, chip in ipairs({ row.newChip, row.check }) do
+            local show = (chip == row.newChip and isNew)
                 or (chip == row.check and finished)
             chip:ClearAllPoints()
             if prev then
                 chip:SetPoint("LEFT", prev, "RIGHT", 4, 0)
             else
-                chip:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -4)
+                chip:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -2)
             end
             chip:SetShown(show)
             if show then prev = chip end
@@ -3509,6 +3516,7 @@ local function RefreshGoalList()
         local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
         local fav = favs[row.goal.id] and true or false
         row.star:SetShown(fav)
+        row.eyebrow:SetPoint("RIGHT", fav and -26 or -8, 0)
         row.name:SetPoint("RIGHT", fav and -26 or -8, 0)
         local complete = finished
         row.doneGlow:SetShown(complete)
@@ -3534,7 +3542,7 @@ end
 local SelectGoal -- forward declare
 
 local yStart = -8
-FGT.ROW_H = 72 -- name, chips, then the bar (or the completion date)
+FGT.ROW_H = 72 -- eyebrow, name, state markers, then bar/completion date
 local rowHeight = FGT.ROW_H
 for i, goal in ipairs(FGT.goals) do
     local row = CreateFrame("Button", nil, listContent, "BackdropTemplate")
@@ -3551,8 +3559,16 @@ for i, goal in ipairs(FGT.goals) do
     row.icon:SetPoint("TOPLEFT", row, "TOPLEFT", 10, -11)
     row.icon:SetIcon(goal.icon, catColor)
 
+    row.eyebrow = NewFontString(row, 9, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    row.eyebrow:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 9, 0)
+    row.eyebrow:SetPoint("RIGHT", -8, 0)
+    row.eyebrow:SetJustifyH("LEFT")
+    row.eyebrow:SetText(FGT.GoalEyebrow(goal))
+    row.eyebrow:SetWordWrap(false)
+    row.eyebrow:SetNonSpaceWrap(false)
+
     row.name = NewFontString(row, 13, "", C.INK2[1], C.INK2[2], C.INK2[3])
-    row.name:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 9, -1)
+    row.name:SetPoint("TOPLEFT", row.eyebrow, "BOTTOMLEFT", 0, -2)
     row.name:SetPoint("RIGHT", -8, 0)
     row.name:SetJustifyH("LEFT")
     -- the list uses the goal's short name; the full name shows on the right
@@ -3562,20 +3578,15 @@ for i, goal in ipairs(FGT.goals) do
     row.name:SetShadowColor(0, 0, 0, 1)
     row.name:SetShadowOffset(1, -1)
 
-    local diffColor = FGT.difficultyColors[goal.difficulty] or C.SUBTEXT
-    row.diffChip = NewChip(row, 8)
-    row.diffChip:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -4)
-    row.diffChip:SetLabel(string.upper(goal.difficulty or ""), diffColor)
-
     -- Forever-only goals: a blue NEW chip with the Forever logo.
     row.newChip = NewChip(row, 8)
-    row.newChip:SetPoint("LEFT", row.diffChip, "RIGHT", 4, 0)
+    row.newChip:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -2)
     row.newChip:SetLabel(FGT.ForeverDot(12) .. "NEW", C.FOREVER_LIGHT)
     row.newChip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
     row.newChip:Hide()
 
     row.check = NewChip(row, 8)
-    row.check:SetPoint("LEFT", row.diffChip, "RIGHT", 4, 0)
+    row.check:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -2)
     row.check:SetLabel("COMPLETE", C.DONE)
     row.check:SetBackdropBorderColor(0.16, 0.35, 0.10, 1)
     row.check:Hide()
@@ -5843,9 +5854,7 @@ SelectGoal = function(id, skipListRefresh)
     FGT.detailRewardName = goal.name
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     detailIcon:SetIcon(goal.icon, catColor)
-    detailTag:SetText(string.upper(goal.category) .. (goal.armorClass
-        and ("  |cff77736a\194\183|r  " .. FGT.ArmorClassLabel(goal.armorClass)) or "")
-        .. (goal.faction and ("  |cff77736a\194\183|r  " .. string.upper(goal.faction) .. " ONLY") or ""))
+    detailTag:SetText(FGT.GoalEyebrow(goal))
     detailTag:SetTextColor(catColor[1], catColor[2], catColor[3])
 
     local diffColor = FGT.difficultyColors[goal.difficulty] or C.SUBTEXT

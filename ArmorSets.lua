@@ -38,7 +38,9 @@ do
                 goal.name = name
                 local simple = name
                 if parent.id:match("^pvp_set_") then
-                    simple = simple:gsub("^Field Marshal's ", ""):gsub("^Warlord's ", "")
+                    local armor = assert(parent.id:match("^pvp_set_(%a+)_"))
+                    armor = armor:sub(1, 1):upper() .. armor:sub(2)
+                    simple = (parent.faction == "Alliance" and "Marshal " or "Warlord ") .. armor
                 else
                     simple = simple:gsub("^Battlegear of ", ""):gsub("^Vestments of ", "")
                         :gsub("^Regalia of ", ""):gsub("^Armor of ", ""):gsub("^The ", "")
