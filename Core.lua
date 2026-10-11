@@ -2724,13 +2724,13 @@ end
 -- the same way again.
 -- soft: a gentler bottom (the goal list: bright finished or Forever cards
 -- showed the full-strength fade as a dark band, Karl)
-local function CreateEdgeFade(parent, isTop, soft)
+local function CreateEdgeFade(parent, isTop, soft, bottomHeight)
     -- the bottom fade is taller, eases in, and ends on the panels' darker
     -- bottom shade, so it melts into the grime fading out there (Karl)
     -- the top is taller than a row with a progress bar, so a row slides
     -- under as a whole instead of leaving its bar behind (Karl); a solid
     -- lip at the edge was tried and made that worse
-    local height = isTop and 40 or (soft and 36 or 28)
+    local height = isTop and 40 or bottomHeight or (soft and 36 or 28)
     local steps = height -- one strip per pixel: a smooth ramp, no visible steps (Karl: banding)
     local f = CreateFrame("Frame", nil, parent)
     f:SetHeight(height)
@@ -2767,7 +2767,7 @@ end
 -- flat scrollbar, and top/bottom edge fades. Call :Finalize() once the
 -- returned .scroll frame has been anchored, then use .content as the parent
 -- for whatever gets listed inside it.
-local function CreateScrollArea(parent, softBottom)
+local function CreateScrollArea(parent, softBottom, bottomHeight)
     local scroll = CreateFrame("ScrollFrame", nil, parent)
     scroll:EnableMouseWheel(true)
 
@@ -2775,7 +2775,7 @@ local function CreateScrollArea(parent, softBottom)
     scroll:SetScrollChild(content)
 
     local fadeTop = CreateEdgeFade(parent, true)
-    local fadeBottom = CreateEdgeFade(parent, false, softBottom)
+    local fadeBottom = CreateEdgeFade(parent, false, softBottom, bottomHeight)
 
     -- Scrollbar. The visible track and thumb stay slim, but each sits in
     -- a wider invisible hit area that takes the mouse, so you can grab
@@ -3789,7 +3789,7 @@ LayoutGoalList()
 -- windows the header and steps scroll together; taller windows retain the
 -- familiar fixed banner and independently scrolling steps.
 do
-    local view = CreateScrollArea(detailPanel)
+    local view = CreateScrollArea(detailPanel, nil, 32)
     view.scroll:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
     view.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -10, 4)
     view.content:SetHeight(600)
@@ -4649,9 +4649,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.creditLayer:SetAllPoints(detailPanel)
     B.creditLayer:SetFrameLevel(FGT.detailViewport.scroll:GetFrameLevel()+10)
     B.credit = B.creditLayer:CreateFontString(nil, "OVERLAY")
-    B.credit:SetFont(FONT, 6, "")
+    B.credit:SetFont(FONT, 7, "")
     B.credit:SetTextColor(0.48, 0.48, 0.48)
-    B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -26, 7)
+    B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -34, 7)
     B.artArtists = {
         ["wolfsbane-banner.blp"] = "Samwise Didier",
         ["pvp_av_horde-banner.blp"] = "Glenn Rane",
