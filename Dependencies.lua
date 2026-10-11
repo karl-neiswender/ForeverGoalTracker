@@ -26,7 +26,9 @@ for i = 2, 8 do FGT.DEPENDENCIES.att_ony_horde[i] = { all = {i-1} } end
 -- established item/quest edges aligned; gathering remains parallel.
 for _, id in ipairs({"benediction", "lokdelar", "att_mc", "att_bwl"}) do
     local moved = {}
-    for key, rule in pairs(FGT.DEPENDENCIES[id]) do
+    local dependencies = FGT.DEPENDENCIES[id]
+    assert(type(dependencies) == "table", "Missing guide dependencies: " .. id)
+    for key, rule in pairs(dependencies) do
         local shifted = {}
         for kind, keys in pairs(rule) do
             shifted[kind] = {}

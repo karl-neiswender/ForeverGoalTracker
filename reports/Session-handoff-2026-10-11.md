@@ -12,3 +12,9 @@ Source changes for the next release. No release tag or CurseForge publication.
 - Quest minimums and Dreadsteed branches checked against https://raw.githubusercontent.com/Questie/Questie/v10.0.0/Database/Classic/classicQuestDB.lua and the retained dependency audit. These are Classic baselines, not verified Forever prerequisite gates.
 - Original artwork recursively checked, including ignored files: no new, modified, deleted or ignored originals awaiting sync.
 - No live release requested. Fresh Ketho/LuaLS diagnostics are still required before the next release tag, per AGENTS.md.
+
+## 2.11.1 release candidate (latest)
+
+Karl requested preparation while performing final in-game checks. Version, changelog and roadmap are prepared for 2.11.1. Ketho 0.22.3/LuaLS 3.19.1 installed and annotations verified loaded. Final diagnostic passes report zero problems with individually documented legacy/optional API exceptions; no categories disabled. Retained API review: reports/checks/release-2.11.1-api-review.md. Full Lua 5.1/Era/Forever checks pass, including progress migrations, profession selection, mount previews and accidental globals.
+
+Cleanup corrects the statistics debug command’s achievement-ID lookup, documents dynamic UI fields/settings and guards the wizard grey-state collector. Approved art includes profession faction selection, credited shaman Warlord Mail and Stratholme Key/Devout. Deathcharger art is unchanged. Candidate ZIP at /private/tmp/ForeverGoalTracker-2.11.1-candidate.zip passes integrity/texture bounds; 199 files, 117 runtime BLPs, source artwork/reviews/tools excluded. No release tag or live publication. Wait for Karl’s final in-game checks and release instruction.

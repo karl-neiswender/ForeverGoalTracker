@@ -276,6 +276,10 @@ FGT.SETTING_DEFAULTS = {
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
 }
 
+---@overload fun(key: "scale"|"alpha"): number
+---@overload fun(key: "minimap"): boolean
+---@param key string
+---@return any
 function FGT.Setting(key)
     local s = ForeverGoalTrackerDB and ForeverGoalTrackerDB.settings
     local v = s and s[key]
@@ -3220,6 +3224,8 @@ do
         end
     end
     FGT.SetTipDark = SetDark
+    ---@class GameTooltip
+    ---@field fgtDark boolean?
     hooksecurefunc(GameTooltip, "SetOwner", function(self, owner)
         self.fgtDark = Ours(owner)
         SetDark(self, self.fgtDark)
@@ -4200,7 +4206,7 @@ do
         local at = inst and (FGT.lockouts[inst[1]] or FGT.lockouts[inst[2]] or (inst[3] and FGT.lockouts[inst[3]]))
         if at and at > time() then
             chip.reset, chip.raid = at, inst[2]
-            chip:SetLabel("SAVED UNTIL " .. string.upper(date("%a", at)), C.INK2)
+            chip:SetLabel("SAVED UNTIL " .. string.upper(tostring(date("%a", at))), C.INK2)
             chip:ClearAllPoints()
             chip:SetPoint("LEFT", anchor, "RIGHT", 6, 0)
             chip:Show()
@@ -4598,7 +4604,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 end
             end
         end
-        if best then return best.path, best.aspect or 4/3, best.preprocessed ~= false end
+        if best then return best.path, best.aspect or (4/3), best.preprocessed ~= false end
         local variants = self.factionArtPaths[id]
         return (variants and variants[player.faction]) or self.artPaths[id],
             self.artAspects[id] or 1, self.preprocessed[id] or false
@@ -8685,7 +8691,9 @@ end
 -- goal's icon and name. It plays the same celebration as the list,
 -- holds for a few seconds (longer while hovered), and opens the goal
 -- when clicked. Several at once queue up.
-local toast, queue = nil, {}
+---@type any
+local toast
+local queue = {}
 local HOLD, FADE_IN, FADE_OUT = 6, 0.25, 0.6
 
 local function BuildToast()
@@ -9561,6 +9569,7 @@ do
                 FGT.variants[id] = { name = names[1], items = variants.variants, npc = variants.npc, vendor = variants.vendor }
                 linkType = "fgtvariants:" .. id
             end
+            ---@type string?
             local name, _, quality = FGT.ItemInfo(id)
             if variants then name = nil end -- "Swift Ram", not "Swift Brown Ram"
             if not name then
@@ -10334,7 +10343,8 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
             local catName, parent = GetCategoryInfo(cat)
             local num = GetCategoryNumAchievements and GetCategoryNumAchievements(cat) or 0
             for i = 1, num do
-                local quantity, skip, statID = GetStatistic(cat, i)
+                local quantity, skip = GetStatistic(cat, i)
+                local statID = GetAchievementInfo(cat, i)
                 if statID then
                     local name = select(2, GetAchievementInfo(statID))
                     n = n + 1
@@ -11487,9 +11497,11 @@ end
 -- dark: images desaturate, text and border colors turn to their grey
 -- (luminance) value. Everything is put back when it closes. (Gradient
 -- fills can't be greyed, but the dark layer covers them.)
+---@type table?
 local grey = nil
 local function Lum(r, g, b) return 0.30 * r + 0.59 * g + 0.11 * b end
 local function Collect(frame)
+    if not grey then return end
     for _, r in ipairs({ frame:GetRegions() }) do
         if r:IsObjectType("Texture") then
             if r.IsDesaturated and not r:IsDesaturated() then table.insert(grey.tex, r) end

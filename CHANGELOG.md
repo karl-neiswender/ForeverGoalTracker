@@ -1,23 +1,14 @@
 # Changelog
 
-## Unreleased
+## 2.11.1
 
-- Profession scanning supports modern clients, restoring primary and secondary profession banner selection
+- Fix profession scanning and select artwork from the logged-in character’s professions
+- Add and refresh profession, reputation, dungeon, raid, mount and armor-set artwork
+- Show artist credits with the artwork, with smoother fades on goal pages
 - Ctrl-click mount items and color variants in guides to preview them
-- Tiny artwork credits that fade away in narrow or short windows
-- Clearer guide milestones, explicit level requirements and preserved saved progress
-
-- Wolfsbane rare quest-weapon goal for Undead Paladins in Forever
-- Wolfsbane includes an automatically checked Two-Handed Swords training prerequisite; existing quest progress is preserved
-
-- Dedicated Swift Zulian Tiger artwork
-- Profession banner selection follows the logged-in character's skills, with a stable random choice when several apply
-- Dedicated Alliance Dwarf Hunter leveling artwork
-- Shared Blackwing Lair key artwork for the raid and attunement goals
-- Beaststalker Armor banner with artwork by Jim Nelson
-- Alliance Benediction and Night Elf Priest leveling artwork by Jimmy Lo
-- Dedicated banners for Thorium Brotherhood, Silverwing Sentinels, Warsong Outriders and Stormpike Guard
-- Reduce progress-bar animation allocations and update frequency
+- Add Wolfsbane for Undead Paladins in Forever, including weapon training
+- Clarify guide milestones and item sources while preserving saved progress
+- Improve progress-bar animation performance
 
 ## 2.11.0
 

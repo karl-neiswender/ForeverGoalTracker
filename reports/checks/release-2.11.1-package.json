@@ -1,0 +1,10 @@
+{
+  "version": "2.11.1",
+  "candidate": "/private/tmp/ForeverGoalTracker-2.11.1-candidate.zip",
+  "fileCount": 199,
+  "runtimeBLPs": 117,
+  "bytes": 15805100,
+  "integrity": "passed",
+  "excludedOriginalsAndReviews": true,
+  "publishStatus": "not published; Karl final checks pending"
+}

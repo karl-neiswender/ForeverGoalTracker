@@ -1,0 +1,1112 @@
+{
+    "file:///Users/karlneiswender/Projects/ForeverGoalTracker/ArmorSets.lua": [
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `ForeverGoalTrackerDB`.",
+            "range": {
+                "end": {
+                    "character": 24,
+                    "line": 72
+                },
+                "start": {
+                    "character": 4,
+                    "line": 72
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        }
+    ],
+    "file:///Users/karlneiswender/Projects/ForeverGoalTracker/Core.lua": [
+        {
+            "code": "ambiguity-1",
+            "message": "Compute `4/3` first. You may need to add brackets.",
+            "range": {
+                "end": {
+                    "character": 57,
+                    "line": 4600
+                },
+                "start": {
+                    "character": 39,
+                    "line": 4600
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetFactionInfoByID`.",
+            "range": {
+                "end": {
+                    "character": 25,
+                    "line": 447
+                },
+                "start": {
+                    "character": 7,
+                    "line": 447
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetContainerItemLink`.",
+            "range": {
+                "end": {
+                    "character": 31,
+                    "line": 501
+                },
+                "start": {
+                    "character": 11,
+                    "line": 501
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetAddOnMetadata`.",
+            "range": {
+                "end": {
+                    "character": 80,
+                    "line": 7880
+                },
+                "start": {
+                    "character": 64,
+                    "line": 7880
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `InterfaceOptions_AddCategory`.",
+            "range": {
+                "end": {
+                    "character": 39,
+                    "line": 8580
+                },
+                "start": {
+                    "character": 11,
+                    "line": 8580
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetNumQuestLogEntries`.",
+            "range": {
+                "end": {
+                    "character": 28,
+                    "line": 430
+                },
+                "start": {
+                    "character": 7,
+                    "line": 430
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetQuestLogTitle`.",
+            "range": {
+                "end": {
+                    "character": 49,
+                    "line": 430
+                },
+                "start": {
+                    "character": 33,
+                    "line": 430
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetNumFactions`.",
+            "range": {
+                "end": {
+                    "character": 25,
+                    "line": 464
+                },
+                "start": {
+                    "character": 11,
+                    "line": 464
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetFactionInfo`.",
+            "range": {
+                "end": {
+                    "character": 44,
+                    "line": 464
+                },
+                "start": {
+                    "character": 30,
+                    "line": 464
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetNumSkillLines`.",
+            "range": {
+                "end": {
+                    "character": 23,
+                    "line": 486
+                },
+                "start": {
+                    "character": 7,
+                    "line": 486
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetSkillLineInfo`.",
+            "range": {
+                "end": {
+                    "character": 44,
+                    "line": 486
+                },
+                "start": {
+                    "character": 28,
+                    "line": 486
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetContainerNumSlots`.",
+            "range": {
+                "end": {
+                    "character": 31,
+                    "line": 497
+                },
+                "start": {
+                    "character": 11,
+                    "line": 497
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetContainerItemLink`.",
+            "range": {
+                "end": {
+                    "character": 56,
+                    "line": 501
+                },
+                "start": {
+                    "character": 36,
+                    "line": 501
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `IsQuestFlaggedCompleted`.",
+            "range": {
+                "end": {
+                    "character": 34,
+                    "line": 416
+                },
+                "start": {
+                    "character": 11,
+                    "line": 416
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetNumFactions`.",
+            "range": {
+                "end": {
+                    "character": 33,
+                    "line": 465
+                },
+                "start": {
+                    "character": 19,
+                    "line": 465
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetNumSkillLines`.",
+            "range": {
+                "end": {
+                    "character": 35,
+                    "line": 487
+                },
+                "start": {
+                    "character": 19,
+                    "line": 487
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetContainerNumSlots`.",
+            "range": {
+                "end": {
+                    "character": 56,
+                    "line": 497
+                },
+                "start": {
+                    "character": 36,
+                    "line": 497
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `InterfaceOptions_AddCategory`.",
+            "range": {
+                "end": {
+                    "character": 42,
+                    "line": 8581
+                },
+                "start": {
+                    "character": 14,
+                    "line": 8581
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `IsQuestFlaggedCompleted`.",
+            "range": {
+                "end": {
+                    "character": 62,
+                    "line": 416
+                },
+                "start": {
+                    "character": 39,
+                    "line": 416
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetFactionInfoByID`.",
+            "range": {
+                "end": {
+                    "character": 73,
+                    "line": 448
+                },
+                "start": {
+                    "character": 55,
+                    "line": 448
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `TomTom`.",
+            "range": {
+                "end": {
+                    "character": 44,
+                    "line": 1520
+                },
+                "start": {
+                    "character": 38,
+                    "line": 1520
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetNumQuestLogEntries`.",
+            "range": {
+                "end": {
+                    "character": 41,
+                    "line": 431
+                },
+                "start": {
+                    "character": 20,
+                    "line": 431
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetQuestLogTitle`.",
+            "range": {
+                "end": {
+                    "character": 72,
+                    "line": 432
+                },
+                "start": {
+                    "character": 56,
+                    "line": 432
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetFactionInfo`.",
+            "range": {
+                "end": {
+                    "character": 90,
+                    "line": 466
+                },
+                "start": {
+                    "character": 76,
+                    "line": 466
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetSkillLineInfo`.",
+            "range": {
+                "end": {
+                    "character": 60,
+                    "line": 488
+                },
+                "start": {
+                    "character": 44,
+                    "line": 488
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `TomTom`.",
+            "range": {
+                "end": {
+                    "character": 43,
+                    "line": 1461
+                },
+                "start": {
+                    "character": 37,
+                    "line": 1461
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `TomTom`.",
+            "range": {
+                "end": {
+                    "character": 24,
+                    "line": 1520
+                },
+                "start": {
+                    "character": 18,
+                    "line": 1520
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `TomTom`.",
+            "range": {
+                "end": {
+                    "character": 54,
+                    "line": 1461
+                },
+                "start": {
+                    "character": 48,
+                    "line": 1461
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `UnitPVPRank`.",
+            "range": {
+                "end": {
+                    "character": 22,
+                    "line": 636
+                },
+                "start": {
+                    "character": 11,
+                    "line": 636
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetPVPRankInfo`.",
+            "range": {
+                "end": {
+                    "character": 41,
+                    "line": 636
+                },
+                "start": {
+                    "character": 27,
+                    "line": 636
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `InterfaceOptionsFrame`.",
+            "range": {
+                "end": {
+                    "character": 32,
+                    "line": 8571
+                },
+                "start": {
+                    "character": 11,
+                    "line": 8571
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `InterfaceOptionsFrame`.",
+            "range": {
+                "end": {
+                    "character": 114,
+                    "line": 8571
+                },
+                "start": {
+                    "character": 93,
+                    "line": 8571
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `ShowFriends`.",
+            "range": {
+                "end": {
+                    "character": 30,
+                    "line": 10012
+                },
+                "start": {
+                    "character": 19,
+                    "line": 10012
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetPVPRankInfo`.",
+            "range": {
+                "end": {
+                    "character": 39,
+                    "line": 637
+                },
+                "start": {
+                    "character": 25,
+                    "line": 637
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetPVPRankInfo`.",
+            "range": {
+                "end": {
+                    "character": 41,
+                    "line": 643
+                },
+                "start": {
+                    "character": 27,
+                    "line": 643
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetNumFriends`.",
+            "range": {
+                "end": {
+                    "character": 29,
+                    "line": 659
+                },
+                "start": {
+                    "character": 16,
+                    "line": 659
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `InterfaceOptionsFrame`.",
+            "range": {
+                "end": {
+                    "character": 58,
+                    "line": 8571
+                },
+                "start": {
+                    "character": 37,
+                    "line": 8571
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `ShowFriends`.",
+            "range": {
+                "end": {
+                    "character": 47,
+                    "line": 10012
+                },
+                "start": {
+                    "character": 36,
+                    "line": 10012
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetNumFriends`.",
+            "range": {
+                "end": {
+                    "character": 47,
+                    "line": 659
+                },
+                "start": {
+                    "character": 34,
+                    "line": 659
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `UnitPVPRank`.",
+            "range": {
+                "end": {
+                    "character": 51,
+                    "line": 637
+                },
+                "start": {
+                    "character": 40,
+                    "line": 637
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-global",
+            "message": "Undefined global `GetPVPRankInfo`.",
+            "range": {
+                "end": {
+                    "character": 43,
+                    "line": 644
+                },
+                "start": {
+                    "character": 29,
+                    "line": 644
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "cast-local-type",
+            "message": "This variable is defined as type `string`. Cannot convert its type to `nil`.\n- `nil` cannot match `string`\n- Type `nil` cannot match `string`",
+            "range": {
+                "end": {
+                    "character": 33,
+                    "line": 9564
+                },
+                "start": {
+                    "character": 29,
+                    "line": 9564
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "inject-field",
+            "message": "Fields cannot be injected into the reference of `nil` for `goalId`. To do so, use `---@class` for `toast`.",
+            "range": {
+                "end": {
+                    "character": 16,
+                    "line": 8753
+                },
+                "start": {
+                    "character": 10,
+                    "line": 8753
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "inject-field",
+            "message": "Fields cannot be injected into the reference of `nil` for `life`. To do so, use `---@class` for `toast`.",
+            "range": {
+                "end": {
+                    "character": 14,
+                    "line": 8756
+                },
+                "start": {
+                    "character": 10,
+                    "line": 8756
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "inject-field",
+            "message": "Fields cannot be injected into the reference of `nil` for `played`. To do so, use `---@class` for `toast`.",
+            "range": {
+                "end": {
+                    "character": 28,
+                    "line": 8756
+                },
+                "start": {
+                    "character": 22,
+                    "line": 8756
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 9,
+                    "line": 8757
+                },
+                "start": {
+                    "character": 4,
+                    "line": 8757
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 9,
+                    "line": 8758
+                },
+                "start": {
+                    "character": 4,
+                    "line": 8758
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 9,
+                    "line": 8754
+                },
+                "start": {
+                    "character": 4,
+                    "line": 8754
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 9,
+                    "line": 8755
+                },
+                "start": {
+                    "character": 4,
+                    "line": 8755
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 23,
+                    "line": 11511
+                },
+                "start": {
+                    "character": 19,
+                    "line": 11511
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 20,
+                    "line": 11499
+                },
+                "start": {
+                    "character": 16,
+                    "line": 11499
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 27,
+                    "line": 11506
+                },
+                "start": {
+                    "character": 23,
+                    "line": 11506
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 79,
+                    "line": 11494
+                },
+                "start": {
+                    "character": 75,
+                    "line": 11494
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "need-check-nil",
+            "message": "Need check nil.",
+            "range": {
+                "end": {
+                    "character": 73,
+                    "line": 11502
+                },
+                "start": {
+                    "character": 69,
+                    "line": 11502
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-field",
+            "message": "Undefined field `bd`.",
+            "range": {
+                "end": {
+                    "character": 26,
+                    "line": 11511
+                },
+                "start": {
+                    "character": 24,
+                    "line": 11511
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-field",
+            "message": "Undefined field `grad`.",
+            "range": {
+                "end": {
+                    "character": 25,
+                    "line": 11499
+                },
+                "start": {
+                    "character": 21,
+                    "line": 11499
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-field",
+            "message": "Undefined field `fs`.",
+            "range": {
+                "end": {
+                    "character": 30,
+                    "line": 11506
+                },
+                "start": {
+                    "character": 28,
+                    "line": 11506
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-field",
+            "message": "Undefined field `tex`.",
+            "range": {
+                "end": {
+                    "character": 83,
+                    "line": 11494
+                },
+                "start": {
+                    "character": 80,
+                    "line": 11494
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-field",
+            "message": "Undefined field `fgtDark`.",
+            "range": {
+                "end": {
+                    "character": 83,
+                    "line": 3229
+                },
+                "start": {
+                    "character": 76,
+                    "line": 3229
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-field",
+            "message": "Undefined field `vc`.",
+            "range": {
+                "end": {
+                    "character": 76,
+                    "line": 11502
+                },
+                "start": {
+                    "character": 74,
+                    "line": 11502
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-field",
+            "message": "Undefined field `SetAlpha`.",
+            "range": {
+                "end": {
+                    "character": 18,
+                    "line": 8757
+                },
+                "start": {
+                    "character": 10,
+                    "line": 8757
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "undefined-field",
+            "message": "Undefined field `Show`.",
+            "range": {
+                "end": {
+                    "character": 14,
+                    "line": 8758
+                },
+                "start": {
+                    "character": 10,
+                    "line": 8758
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "param-type-mismatch",
+            "message": "Cannot assign `boolean|string|integer|unknown` to parameter `number`.\n- `boolean` cannot match `number`\n- Type `boolean` cannot match `number`",
+            "range": {
+                "end": {
+                    "character": 38,
+                    "line": 9258
+                },
+                "start": {
+                    "character": 18,
+                    "line": 9258
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "param-type-mismatch",
+            "message": "Cannot assign `boolean|string|integer|unknown` to parameter `boolean?`.\n- `string` cannot match `boolean?`\n- Type `string` cannot match `nil`\n- Type `string` cannot match `boolean`",
+            "range": {
+                "end": {
+                    "character": 49,
+                    "line": 9276
+                },
+                "start": {
+                    "character": 27,
+                    "line": 9276
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "param-type-mismatch",
+            "message": "Cannot assign `boolean|string|integer|unknown` to parameter `number`.\n- `boolean` cannot match `number`\n- Type `boolean` cannot match `number`",
+            "range": {
+                "end": {
+                    "character": 27,
+                    "line": 8605
+                },
+                "start": {
+                    "character": 26,
+                    "line": 8605
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "param-type-mismatch",
+            "message": "Cannot assign `string|osdate` to parameter `string|number`.\n- `osdate` cannot match `string|number`\n- `osdate` cannot match any subtypes in `string|number`\n- Type `osdate` cannot match `number`\n- Type `osdateparam` cannot match `number`\n- Type `osdate` cannot match `string`\n- Type `osdateparam` cannot match `string`",
+            "range": {
+                "end": {
+                    "character": 71,
+                    "line": 4202
+                },
+                "start": {
+                    "character": 57,
+                    "line": 4202
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        },
+        {
+            "code": "param-type-mismatch",
+            "message": "Cannot assign `string` to parameter `number`.\n- `string` cannot match `number`\n- Type `string` cannot match `number`",
+            "range": {
+                "end": {
+                    "character": 68,
+                    "line": 10338
+                },
+                "start": {
+                    "character": 62,
+                    "line": 10338
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        }
+    ],
+    "file:///Users/karlneiswender/Projects/ForeverGoalTracker/Dependencies.lua": [
+        {
+            "code": "param-type-mismatch",
+            "message": "Cannot assign `boolean|table` to parameter `<T:table>`.\n- `boolean` cannot match `table`\n- Type `boolean` cannot match `table`",
+            "range": {
+                "end": {
+                    "character": 47,
+                    "line": 28
+                },
+                "start": {
+                    "character": 27,
+                    "line": 28
+                }
+            },
+            "severity": 2,
+            "source": "Lua Diagnostics."
+        }
+    ]
+}

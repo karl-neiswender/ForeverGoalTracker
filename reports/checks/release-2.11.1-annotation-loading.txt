@@ -1,0 +1,69 @@
+Ketho WoW API 0.22.3; LuaLS 3.19.1; Lua runtime 5.1
+Annotation library: /Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+Annotation Lua files: 3506
+Loaded library path occurrences in LuaLS workspace log: 14028
+[
+  {
+    "symbol": "GetProfessions",
+    "annotationFiles": [
+      "Core/Data/Wiki.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_ArchaeologyUI/Blizzard_ArchaeologyUI.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_UIPanels_Game/Mainline/WorldMapFrame.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_Tutorials/Blizzard_Tutorials_Professions.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_TrainerUI/Blizzard_TrainerUI.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_WorldMap/Blizzard_WorldMapTemplates.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_ProfessionsBook/Blizzard_ProfessionsBook.lua.annotated.lua"
+    ]
+  },
+  {
+    "symbol": "GetProfessionInfo",
+    "annotationFiles": [
+      "Core/Blizzard_APIDocumentationGenerated/TradeSkillUIDocumentation.lua",
+      "Core/Data/Wiki.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_ArchaeologyUI/Blizzard_ArchaeologyUI.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_ProfessionsTemplates/Blizzard_Professions.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_ProfessionsTemplates/Blizzard_ProfessionsRecipeSchematicForm.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_Professions/Blizzard_ProfessionsFrame.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_Professions/Blizzard_ProfessionsRankBar.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_Professions/Blizzard_ProfessionsSpecializations.lua.annotated.lua"
+    ]
+  },
+  {
+    "symbol": "DressUpMount",
+    "annotationFiles": [
+      "FrameXML/Annotations/AddOns/Blizzard_SharedXMLGame/DressUpModelFrameMixin.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_UIPanels_Game/Mainline/DressUpFrames.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_RecruitAFriend/RecruitAFriendFrame.lua.annotated.lua"
+    ]
+  },
+  {
+    "symbol": "GetMountFromItem",
+    "annotationFiles": [
+      "Core/Blizzard_APIDocumentationGenerated/MountJournalDocumentation.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_PlayerChoice/Blizzard_PlayerChoiceOptionBase.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_UIPanels_Game/Mainline/DressUpFrames.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_APIDocumentationGenerated/MountJournalDocumentation.lua.annotated.lua"
+    ]
+  },
+  {
+    "symbol": "GetMountIDs",
+    "annotationFiles": [
+      "Core/Blizzard_APIDocumentationGenerated/MountJournalDocumentation.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_Collections/Mainline/Blizzard_MountCollection.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_APIDocumentationGenerated/MountJournalDocumentation.lua.annotated.lua"
+    ]
+  },
+  {
+    "symbol": "GetMountInfoByID",
+    "annotationFiles": [
+      "Core/Blizzard_APIDocumentationGenerated/MountJournalDocumentation.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_NewPlayerExperience/Blizzard_TutorialTutorials.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_FrameXMLUtil/RenownRewardUtil.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_SharedXML/Mainline/SharedUIPanelTemplates.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_Collections/Mainline/Blizzard_MountCollection.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_FrameXML/Mainline/AlertFrameSystems.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_APIDocumentationGenerated/MountJournalDocumentation.lua.annotated.lua",
+      "FrameXML/Annotations/AddOns/Blizzard_RecruitAFriend/RecruitAFriendFrame.lua.annotated.lua"
+    ]
+  }
+]
