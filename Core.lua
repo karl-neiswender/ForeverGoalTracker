@@ -1921,32 +1921,25 @@ local function Etch(frame, style, edgeSize)
     frame:SetEtch(style)
 end
 
--- Large cropped insignia, carved into the card rather than sitting on
--- the text. Upper-left shadow and lower-right light suggest a recess.
+-- Soft monochrome faction artwork cropped into the upper-right corner.
 -- Client textures avoid adding cached addon artwork for these emblems.
 function FGT.AddFactionCardEtch(row, faction)
     if faction ~= "Alliance" and faction ~= "Horde" then return end
     local path = "Interface\\Timer\\" .. faction .. "-Logo"
     if GetFileIDFromPath and not GetFileIDFromPath(path) then return end
     row.factionEtch = {}
-    for i, layer in ipairs({
-        { C.FACTION_SHADE, 0.40, -1, 1 },
-        { C.FACTION_EDGE, 0.22, 1, -1 },
-        { C.FACTION_INSET, 0.28, 0, 0 },
-    }) do
-        -- Sample past the logo's empty margins so it sits high/right.
-        -- Fine strips combine a gentle bottom fade with the left fade.
-        for y = 0, 62, 2 do
-            local tex = row:CreateTexture(nil, "ARTWORK", nil, -6 + i)
-            tex:SetTexture(path)
-            tex:SetDesaturated(true)
-            tex:SetSize(90, 2)
-            tex:SetTexCoord(0.08, 0.92, 0.08 + y / 108, 0.08 + (y + 2) / 108)
-            tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -3 + layer[3], -2 - y + layer[4])
-            local alpha = layer[2] * (1 - 0.45 * (y / 63)^2)
-            ApplyHGradient(tex, layer[1], layer[1], alpha * 0.35, alpha)
-            row.factionEtch[#row.factionEtch + 1] = tex
-        end
+    -- Crop the top/right of the emblem within the card bounds. It fades
+    -- completely before reaching the progress bar, with no dark stamp.
+    for y = 0, 42, 2 do
+        local tex = row:CreateTexture(nil, "ARTWORK", nil, -4)
+        tex:SetTexture(path)
+        tex:SetDesaturated(true)
+        tex:SetSize(76, 2)
+        tex:SetTexCoord(0.20, 0.85, 0.22 + y / 116, 0.22 + (y + 2) / 116)
+        tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -3, -3 - y)
+        local alpha = 0.20 * (1 - y / 44)^2
+        ApplyHGradient(tex, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, 0, alpha)
+        row.factionEtch[#row.factionEtch + 1] = tex
     end
 end
 
