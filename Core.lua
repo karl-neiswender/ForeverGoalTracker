@@ -3490,6 +3490,9 @@ end)
 
 -- Shared context line on the goal page and on its My Goals card.
 function FGT.GoalEyebrow(goal, card)
+    if card and goal.armorClass then
+        return string.upper(goal.armorClass) .. " SET"
+    end
     local category = goal.armorParent and goal.armorParent:match("^pvp_set_") and "PvP Set" or goal.category
     return string.upper(category) .. (goal.armorClass
         and ("  |cff77736a\194\183|r  " .. FGT.ArmorClassLabel(goal.armorClass)) or "")
