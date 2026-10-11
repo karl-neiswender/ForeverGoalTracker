@@ -4242,6 +4242,35 @@ do
 end
 
 local detailBar = NewBar(FGT.detailBody, 13)
+do -- The guide's large bar gets a softer tip and a quiet breathing bloom.
+    local render = detailBar.Render
+    local bloom = detailBar:CreateTexture(nil, "OVERLAY", nil, 3)
+    bloom:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\glow")
+    bloom:SetBlendMode("ADD")
+    bloom:SetSize(46, 32)
+    bloom:SetPoint("CENTER", detailBar.fill, "RIGHT", 0, 0)
+    bloom:Hide()
+    function detailBar:Render(pct)
+        render(self, pct)
+        local active = pct > 0.0005 and pct < 0.9995
+        bloom:SetShown(active)
+        if active then
+            self.tip:SetWidth(math.min(70, math.max(0.01, (self:GetWidth()-2)*pct)))
+            local left = self.blue and {0.40,0.70,1} or {1,0.85,0.40}
+            local right = self.blue and {0.80,0.92,1} or {1,0.95,0.70}
+            ApplyHGradient(self.tip, left, right, 0, 0.26)
+            bloom:SetVertexColor(right[1],right[2],right[3],0.10)
+        end
+    end
+    local driver = CreateFrame("Frame", nil, detailBar)
+    local elapsedTotal = 0
+    driver:SetScript("OnUpdate", function(_, elapsed)
+        if not bloom:IsShown() then return end
+        elapsedTotal = elapsedTotal + elapsed
+        local pulse = FGT.Setting("celebrations") ~= "off" and (0.5-0.5*math.cos(elapsedTotal*2*math.pi/5.5)) or 0.5
+        bloom:SetAlpha(0.65+0.35*pulse)
+    end)
+end
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar.label:ClearAllPoints()
 detailBar.label:SetPoint("BOTTOMLEFT", detailBar, "TOPLEFT", 0, 4)
