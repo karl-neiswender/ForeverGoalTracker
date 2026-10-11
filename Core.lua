@@ -4504,6 +4504,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_hk = {{path="pvp_drums_of_war-banner.blp"}}
     B.artVariants.pvp_duelist = {{path="pvp_drums_of_war-banner.blp"}}
     B.artVariants.pvp_set_mail_horde = {{path="pvp_set_mail_horde-banner.blp"}}
+    B.artVariants.pvp_set_mail_horde_shaman = {{path="pvp_set_mail_horde_shaman-banner.blp"}}
+    B.artVariants.set_dungeon1_priest = {{path="key_strat-banner.blp"}}
     B.artVariants.pvp_mount_ally = {{path="pvp_mount_ally-banner.blp"}}
     B.artVariants.pvp_avmount_ally = {{path="pvp_mount_ally-banner.blp"}}
     function B:PlayerArtContext()
@@ -4746,6 +4748,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["pvp_set_mail_horde_shaman-banner.blp"] = "Alex Horley",
         ["prof_mining-banner.blp"] = "Patrick McEvoy",
         ["rep_hydraxian-banner.blp"] = "Jonboy Meyers",
         ["rep_nozdormu-banner.blp"] = "Zoltan Boros",

@@ -3,9 +3,11 @@
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-c6bb5278-db08-4700-9630-bb82d47bdb90.png",
   "review": "Media/final-images/pvp/warlord-mail-shaman-review-v2-2026-10-11.png",
   "prompt": "Precise local edit of this existing grayscale banner: remove ONLY the HORLEY signature/watermark at bottom right and seamlessly reconstruct the existing dark snowy background underneath. Preserve all other pixels, troll face, armor, pose, mountain trees, composition, grayscale and baked left and bottom gradients as closely as possible. No added lettering or credit in the bitmap; artist credit will be supplied by addon UI. Return same 4:3 landscape composition.",
-  "status": "awaiting approval",
+  "status": "approved and installed",
   "artist": "Alex Horley",
   "credit": "Artwork by Alex Horley",
   "creditSource": "User supplied",
-  "intendedUse": "Shaman part of Warlord's Mail"
+  "intendedUse": "Shaman part of Warlord's Mail",
+  "master": "Media/final-images/pvp/warlord-mail-shaman-master.png",
+  "runtime": "Media/pvp_set_mail_horde_shaman-banner.blp"
 }
