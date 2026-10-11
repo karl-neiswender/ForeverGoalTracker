@@ -3794,7 +3794,7 @@ LayoutGoalList()
 -- windows the header and steps scroll together; taller windows retain the
 -- familiar fixed banner and independently scrolling steps.
 do
-    local view = CreateScrollArea(detailPanel, nil, 32)
+    local view = CreateScrollArea(detailPanel, nil, 42)
     view.scroll:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
     view.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -10, 4)
     view.content:SetHeight(600)
