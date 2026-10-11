@@ -5,5 +5,7 @@
   "review": "Media/final-images/professions/fishing-review-2026-10-11.png",
   "artist": "Steve Prescott",
   "artistSource": "https://hearthstone.blizzard.com/en-us/cards/1147-nat-pagle/",
-  "status": "awaiting approval"
+  "status": "approved and installed",
+  "master": "Media/final-images/professions/fishing-master.png",
+  "runtime": "Media/prof_fishing-banner.blp"
 }
