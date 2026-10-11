@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Faction emblem treatment: same 62px width and source scale, extended sampling to the bottom of the 72px card instead of stopping above the progress bar. Opacity reduced from 27% to 19%; separate fade regions replaced by one continuous wash fading toward bottom-left. `/reload` to review.
+
 Faction fade tuning: left fade now covers only the first 20px rather than the full 62px emblem area. Bottom fade holds more opacity through the upper/middle shape, still reaching zero at its edge. Placement and maximum brightness unchanged; `/reload` to review.
 
 Custom faction card edge fix: emblems nudged 3px down/left. Left fade now reaches zero at its sampling boundary, and bottom fade reaches zero on the final strip, removing hard crop edges inside the card. `/reload` to review.
