@@ -853,6 +853,8 @@ local function RuleReadout(rule)
         return "not met yet"
     end
     if rule.skill then
+        -- Learning a weapon skill is a binary prerequisite, not a rank grind.
+        if rule.skill.rank == 1 then return nil end
         local best = 0
         for _, c in pairs(roster) do best = math.max(best, (c.skills and c.skills[rule.skill.name]) or 0) end
         return string.format("%d / %d", best, rule.skill.rank), math.min(best, rule.skill.rank), rule.skill.rank
