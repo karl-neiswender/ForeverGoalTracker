@@ -1918,6 +1918,16 @@ local function Etch(frame, style, edgeSize)
         -- Things new in Forever wear blue instead of gold in every state.
         if self.foreverNew then st = (self.twin and self.twin[st]) or STYLE.foreverTwin[st] or st end
         ApplyVGradient(self.etchBg, st.top, st.bottom)
+        if self.groupFade then
+            local selected = st == STYLE.rowSel or st == STYLE.fOpen
+            self.etchBg:SetShown(selected)
+            for i, tex in ipairs(self.groupFade) do
+                ApplyVGradient(tex, st.top, st.bottom)
+                local p = (i - 0.5) / #self.groupFade
+                tex:SetAlpha(1 - 0.32 * p * p * (3 - 2 * p))
+                tex:SetShown(not selected)
+            end
+        end
         self:SetBackdropBorderColor(st.edge[1], st.edge[2], st.edge[3], st.edge[4] or 1)
         if self.factionWatermark then
             if self.foreverNew then
@@ -5392,6 +5402,23 @@ local function GetHeaderRow(index)
     row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
     row:SetHeight(30)
     Etch(row, STYLE.row, 10)
+
+    -- Keep the vertical shading, with a gentle 32% transparency at the right.
+    row.groupFade = {}
+    for i = 1, 64 do
+        local tex = row:CreateTexture(nil, "BACKGROUND", nil, -7)
+        tex:SetTexture(SOLID)
+        row.groupFade[i] = tex
+    end
+    row:SetScript("OnSizeChanged", function(self, width, height)
+        local span = math.max(1, width - 4)
+        for i, tex in ipairs(self.groupFade) do
+            tex:ClearAllPoints()
+            tex:SetPoint("TOPLEFT", self, "TOPLEFT", 2 + span * (i - 1) / 64, -2)
+            tex:SetSize(span / 64, math.max(1, height - 4))
+        end
+    end)
+    row:SetEtch(STYLE.row)
 
     row.arrow = NewFontString(row, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
     row.arrow:SetPoint("LEFT", 6, 0)
