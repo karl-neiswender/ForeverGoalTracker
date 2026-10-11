@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "prof_engineering": "professions/engineering-master.png",
     "prof_mining": "professions/mining-master.png",
     "rep_hydraxian": "reputations/hydraxian-waterlords-master.png",
     "rep_nozdormu": "reputations/brood-nozdormu-master.png",

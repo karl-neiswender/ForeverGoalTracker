@@ -4529,6 +4529,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Only the logged-in character's skills choose profession artwork.
     -- Keep a random choice until the eligible pool changes or /reload.
     B.professionArt = {
+        Engineering = "prof_engineering-banner.blp",
         Mining = "prof_mining-banner.blp",
         Herbalism = "prof_herbalism-banner.blp",
         Alchemy = "prof_alchemy-banner.blp",

@@ -3,5 +3,7 @@
   "prompt": "Faithfully edit supplied dwarf engineer workshop painting into ONE 4:3 landscape WoW addon banner target1200x900. Neutral grayscale, modest contrast, preserve exact dwarf face, beard, glowing goggles, hands, raised tool, wrench, pipe bolts, valves and workshop machinery. Frame dwarf high toward right with left third quiet for UI text. Adjust framing to4:3 with minimal change; preserve original scene geometry, naturally extend only original workshop if necessary. Bake broad smooth dark LEFT gradient and soft smooth dark BOTTOM gradient about100px tall inside artwork, no hard strips. Retain painterly midtones and recognizable features, restrained highlights. No new tools, machinery, characters or text.",
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-e5b7eba8-2112-4c66-8d01-9dd7bfaf4d7a.png",
   "review": "Media/final-images/professions/engineering-review-2026-10-11.png",
-  "status": "awaiting approval"
+  "status": "approved and installed",
+  "master": "Media/final-images/professions/engineering-master.png",
+  "runtime": "Media/prof_engineering-banner.blp"
 }
