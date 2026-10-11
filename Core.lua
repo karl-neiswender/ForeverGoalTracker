@@ -4688,6 +4688,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.imageSeen = {} -- per-session, never written to SavedVariables
     function B:SetImageFade(amount)
         self.imageFade = amount
+        if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.
         local alpha = 0.18*amount*self:GetArtOpacity()
         ApplyHGradient(self.art, {1,1,1}, {1,1,1}, 0,alpha)
@@ -4753,8 +4754,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             local t = math.max(0, math.min(1, (size-low)/(high-low)))
             return t*t*(3-2*t)
         end
-        self.credit:SetAlpha(fade(detailPanel:GetWidth(), 350, 520)
-            *fade(detailPanel:GetHeight(), 280, 430)*0.90)
+        self.creditSizeAlpha = fade(detailPanel:GetWidth(), 350, 520)
+            *fade(detailPanel:GetHeight(), 280, 430)*0.90
+        self.credit:SetAlpha(self.creditSizeAlpha*(self.imageFade or 1))
         local w = math.max(1, detailPanel:GetWidth()-8)
         -- Let artwork continue beneath the compact header before fading out.
         local h = math.max(math.max(1, self:GetHeight())*0.92,
