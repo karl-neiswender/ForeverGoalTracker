@@ -1,0 +1,9 @@
+{
+  "source": "Media/artwork/Conjure_Elementals_TCG.jpg",
+  "prompt": "Edit supplied Conjure Elementals painting into ONE 4:3 landscape WoW addon banner target1200x900. Strict neutral black and white grayscale, modest contrast, painterly midtones. Preserve original water elementals, faces, liquid bodies, bracers, spray and village setting with accurate original geometry. Frame dominant elemental high on right, keep left third quiet for interface text. Bake wide smooth dark LEFT gradient and soft smooth dark BOTTOM gradient about100px tall inside artwork, no hard strips. Naturally extend original setting if necessary. No added text, symbols or new creatures.",
+  "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-a32f5d30-d941-44e5-860b-63ec36e481f6.png",
+  "review": "Media/final-images/reputations/hydraxian-waterlords-review-2026-10-11.png",
+  "artist": "Jonboy Meyers",
+  "artistSource": "https://hearthstone.wiki.gg/wiki/Glacial_Downpour",
+  "status": "awaiting approval"
+}
