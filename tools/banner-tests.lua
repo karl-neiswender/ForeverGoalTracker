@@ -158,7 +158,7 @@ do
     UnitFactionGroup = function(unit) assert(unit=="player"); return faction end
     D.activeParts = {allclasses={[7]=true}, epicmounts={[1]=true,[8]=true}}
     F.SelectGoal("allclasses")
-    assert(B:ArtPath("allclasses")=="rhokdelar-banner.blp", "dwarf hunter gets available Alliance hunter art despite mage-only selection")
+    assert(B:ArtPath("allclasses")=="allclasses_dwarf_hunter-banner.blp", "dwarf hunter uses approved portrait despite mage-only selection")
     assert(B.hasArt and B.sourceAspect==4/3 and not desaturated)
     assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "logged-in dwarf favors ram over selected mounts")
     assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp", "Alliance kills use shared Drums of War")
