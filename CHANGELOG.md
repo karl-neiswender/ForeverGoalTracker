@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.11.0
 
 - Needed for hints on item tooltips, with remaining supplies for tracked goals
 - Ctrl-click gear in guides to preview it on your character
