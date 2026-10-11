@@ -1,0 +1,14 @@
+{
+  "source": "Media/artwork/The_Eye_of_Command_TCG.jpg",
+  "review": "Media/final-images/pvp/frostwolf-review.png",
+  "finalReview": "Media/final-images/pvp/frostwolf-clean-review.png",
+  "master": "Media/final-images/pvp/frostwolf-master.png",
+  "runtime": "Media/pvp_av_horde-banner.blp",
+  "goal": "pvp_av_horde",
+  "method": "Built-in imagegen; technical resize and existing artwork.py DXT1 BLP encoder",
+  "prompt": "Edit the supplied The Eye of Command TCG painting into a 4:3 landscape 1200x900 Forever Goal Tracker Frostwolf Clan banner. Preserve the exact orc rider, face, armor, blue tabard's wolf emblem, sword, shield, wolf anatomy and pose, snowy mountain, pines, painterly style and artist/copyright marks. Reframe rider and wolf high toward the right with breathing room, keeping complete coherent weapon and hand geometry and quiet left third for text. Strict neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a wide smooth dark neutral charcoal LEFT gradient strongest at left edge gradually blending without a hard strip. Bake a soft dark BOTTOM gradient across the lowest approximately 100px fading to near-black bottom edge, no hard boundary. Both gradients in the artwork. No added text, UI, borders, unrelated objects or extra characters.",
+  "cleanupPrompt": "Edit only the two watermark/text areas at the bottom of this approved banner: remove the artist signature in bottom-left and copyright text in bottom-right, seamlessly filling with surrounding dark painting and preserving the bottom fade. Keep all other pixels and every subject, face, armor, weapon, wolf, scenery, framing, neutral grayscale and left/bottom gradients unchanged. No other alterations.",
+  "approval": "Karl approved banner conditional on watermark removal, then requested Glenn Rane in Settings credits.",
+  "status": "Installed; 4:3 preprocessed, 512px DXT1 with 10 mips",
+  "thumbnail": "Frostwolf Battle Tabard, item 19031, inv_shirt_guildtabard_01"
+}

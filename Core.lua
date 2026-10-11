@@ -4507,6 +4507,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             B.artAspects[goal.id], B.preprocessed[goal.id] = 4/3, true
         end
     end
+    B.artPaths.pvp_av_horde = "pvp_av_horde-banner.blp"
+    B.artAspects.pvp_av_horde, B.preprocessed.pvp_av_horde = 4/3, true
     -- Leveling art follows the logged-in character, independent of selected
     -- classes and the account roster. Shared art covers missing variants.
     B.artPaths.allclasses = "pvp_shared-banner.blp"
@@ -8114,6 +8116,8 @@ FGT.SETTINGS = {
     { title = "Artwork and credits", rows = {
         { type = "info", label = "Blizzard Entertainment",
           desc = "World of Warcraft and Hearthstone artwork: copyright Blizzard Entertainment. All rights reserved." },
+        { type = "info", label = "Glenn Rane",
+          desc = "The Eye of Command TCG artwork, used for the Frostwolf Clan banner." },
         { type = "info", label = "Alex Horley" },
         { type = "info", label = "AI-assisted artwork",
           desc = "Some original addon artwork was created with assistance from ChatGPT and Nano Banana." },

@@ -1251,7 +1251,7 @@ for _, f in ipairs({ "Alliance", "Horde" }) do
         { "Play Arathi Basin; holding bases and winning give the most reputation." }))
     table.insert(pvp, RepGoal("pvp_av_" .. key, f, A and 730 or 729,
         A and "Stormpike Guard" or "Frostwolf Clan", "Alterac Valley",
-        { "inv_jewelry_necklace_21", BANNER[f][1] },
+        { A and "inv_jewelry_necklace_21" or "inv_shirt_guildtabard_01", BANNER[f][1] },
         { "Play Alterac Valley and do its turn-in quests between matches." }))
 end
 

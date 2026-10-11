@@ -9,6 +9,7 @@ local function texture()
     return {
         SetTexture = function(self, path) self.path = path end,
         SetDesaturated = function() end,
+        SetVertexColor = function() end,
         ClearAllPoints = function() end,
         SetPoint = function(self, point, parent, relative, x, y) self.x, self.y = x, y end,
         SetSize = function(self, w, h) self.w, self.h = w, h end,
