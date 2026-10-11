@@ -1921,10 +1921,14 @@ local function Etch(frame, style, edgeSize)
         if self.groupFade then
             local selected = st == STYLE.rowSel or st == STYLE.fOpen
             self.etchBg:SetShown(selected)
+            local span = math.max(1, self:GetWidth() - 4)
             for i, tex in ipairs(self.groupFade) do
-                ApplyVGradient(tex, st.top, st.bottom)
                 local p = (i - 0.5) / #self.groupFade
-                tex:SetAlpha(1 - 0.32 * p * p * (3 - 2 * p))
+                local alpha = 1 - 0.50 * p * p * (3 - 2 * p)
+                tex:ClearAllPoints()
+                tex:SetPoint("TOPLEFT", self, "TOPLEFT", 2 + span * (i - 1) / #self.groupFade, -2)
+                tex:SetSize(span / #self.groupFade, math.max(1, self:GetHeight() - 4))
+                ApplyVGradient(tex, st.top, st.bottom, alpha, alpha)
                 tex:SetShown(not selected)
             end
         end
@@ -5403,7 +5407,7 @@ local function GetHeaderRow(index)
     row:SetHeight(30)
     Etch(row, STYLE.row, 10)
 
-    -- Keep the vertical shading, with a gentle 32% transparency at the right.
+    -- Keep the vertical shading, easing to half transparency at the right.
     row.groupFade = {}
     for i = 1, 64 do
         local tex = row:CreateTexture(nil, "BACKGROUND", nil, -7)
