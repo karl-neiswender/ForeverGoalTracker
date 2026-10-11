@@ -356,6 +356,8 @@ if ok_all:
         ("Forever item needs and previews", None, open(os.path.join(here, "item-tooltip-tests.lua"), encoding="utf-8").read(), True),
         ("AQ40 battle tanks", None, open(os.path.join(here, "qiraji-tests.lua"), encoding="utf-8").read()),
         ("Forever AQ40 battle tanks", None, open(os.path.join(here, "qiraji-tests.lua"), encoding="utf-8").read(), True),
+        ("Wolfsbane on Era", None, open(os.path.join(here, "wolfsbane-tests.lua"), encoding="utf-8").read()),
+        ("Wolfsbane on Forever", None, open(os.path.join(here, "wolfsbane-tests.lua"), encoding="utf-8").read(), True),
         ("fishing tournament", None, open(os.path.join(here, "fishing-tests.lua"), encoding="utf-8").read()),
         ("Forever fishing tournament", None, open(os.path.join(here, "fishing-tests.lua"), encoding="utf-8").read(), True),
         ("AQ40 armor sets", None, open(os.path.join(here, "aq-armor-tests.lua"), encoding="utf-8").read()),

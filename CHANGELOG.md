@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Wolfsbane quest-weapon goal for Undead Paladins in Forever
+
 - Dedicated Swift Zulian Tiger artwork
 - Reduce progress-bar animation allocations and update frequency
 

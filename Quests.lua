@@ -97,4 +97,19 @@ FGT.QUESTS = {
     { "Blood of the Black Dragon Champion", { 6602 }, start = 10182, startName = "Rexxar" },
     -- Append to preserve the indices used by existing quest links.
     { "Master Angler", { 8193 }, start = 15077, startName = "Riggle Bassbait" },
+    -- Wolfsbane: Forever-only Horde Paladin chain (Wowhead, 2026-10-11).
+    { "Diplomatic Incident", { 91858 }, startName = "Danitha Morr at Bandarion Keep in Tirisfal Glades" },
+    { "A Curious Pair", { 91859 }, startName = "Trevan Rol at the Sepulcher in Silverpine Forest" },
+    { "A Grim Fate", { 91860 }, startName = "Deathguard Baldren at the Sepulcher" },
+    { "Into Fenris Keep", { 91861 }, startName = "the tauren corpse on Fenris Isle" },
+    { "Lumina Windsinger", { 91862 }, startName = "Lumina Windsinger in Fenris Keep" },
+    { "The Windshaper's Wrath", { 96204 }, startName = "Lumina Windsinger in Fenris Keep" },
+    { "The Debt", { 95034 }, startName = "Lumina Windsinger at the Sepulcher" },
+    { "A Moon-Kissed Blade", { 95036 }, startName = "Lumina Windsinger at the Sepulcher" },
+    { "Seeking the Kor Gem", { 95042 }, startName = "Ulric Frostveil at the Zoram Strand in Ashenvale" },
+    { "An Underrated Talent", { 95111 }, startName = "Trevan Rol at the Sepulcher" },
+    { "Ott's Masterwork", { 95125 }, startName = "Ott in Tarren Mill" },
+    { "The Moonsilver Blade", { 95126 }, startName = "Ott in Tarren Mill" },
+    { "Old Fire-Eye", { 95140 }, startName = "Lumina Windsinger at the Sepulcher" },
+
 }
