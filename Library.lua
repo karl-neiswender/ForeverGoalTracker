@@ -119,7 +119,7 @@ local library = {
     },
     {
         id = "rep_cenarion", library = true,
-        icon = { "achievement_reputation_ogre", "inv_misc_herb_01" },
+        icon = { "ability_racial_ultravision", "inv_misc_herb_01" },
         name = "Exalted: Cenarion Circle",
         short = "Cenarion Circle",
         category = "Reputation", difficulty = "Hard",

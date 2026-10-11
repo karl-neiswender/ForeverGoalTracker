@@ -4,6 +4,9 @@
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-d182e0af-5f8c-4302-819c-dcf6b0921965.png",
   "review": "Media/final-images/reputations/cenarion-circle-review-2026-10-11.png",
   "artist": "Eugene Dlinnov",
-  "status": "awaiting approval",
-  "thumbnailRecommendation": "ability_racial_ultravision"
+  "status": "approved and installed",
+  "thumbnailRecommendation": "ability_racial_ultravision",
+  "master": "Media/final-images/reputations/cenarion-circle-master.png",
+  "runtime": "Media/rep_cenarion-banner.blp",
+  "thumbnail": "ability_racial_ultravision"
 }

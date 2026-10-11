@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "rep_cenarion": "reputations/cenarion-circle-master.png",
     "prof_herbalism": "professions/herbalism-master.png",
     "prof_alchemy": "professions/alchemy-master.png",
     "prof_first_aid": "professions/first-aid-master.png",
@@ -78,7 +79,7 @@ FINAL_BANNERS = {
     **{goal: "tall-1200x900/" + goal + ".jpg" for goal in (
         "ashbringer", "atiesh", "sulfuras", "thunderfury",
         "quelserrar", "benediction", "raid_mc", "att_mc", "set_tier1",
-        "lokdelar", "frostsaber", "set_viper", "rep_cenarion", "key_scholo")},
+        "lokdelar", "frostsaber", "set_viper", "key_scholo")},
     "rhokdelar": "tall-1200x900/rhokdelar-hunter.jpg",
     "raid_ony": "tall-1200x900/raid_ony.jpg",
     "mount_dreadsteed": "tall-1200x900/mount_dreadsteed.jpg",
