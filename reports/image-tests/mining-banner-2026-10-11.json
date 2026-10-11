@@ -1,0 +1,8 @@
+{
+  "source": "Media/artwork/Bladefist's_Breadth_TCG.jpg",
+  "prompt": "Faithfully edit supplied Bladefist's Breadth painting into ONE 4:3 landscape WoW addon banner target1200x900. Neutral grayscale, modest contrast, preserve original painterly pixels and texture as closely as possible. Keep exact angular crystal cluster, its facets and glow, original sword with ornate crossguard, rocky pedestal and dark cave. Frame crystal toward high right and leave left third quiet. Only gently extend original cave if needed for landscape. Bake wide smooth dark LEFT gradient and soft smooth dark BOTTOM gradient about100px tall within artwork, no hard strips. Do not redesign sword/crystal or add rocks, objects, text or symbols. Restrained highlights, retain midtones.",
+  "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-4e3da9f0-41cd-4447-8b58-f40cc14c6585.png",
+  "review": "Media/final-images/professions/mining-review-2026-10-11.png",
+  "artist": "Patrick McEvoy",
+  "status": "awaiting approval"
+}
