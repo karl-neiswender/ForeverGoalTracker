@@ -2290,6 +2290,7 @@ local function NewBar(parent, height)
     local FADE = 0.6
     local function FadeToDone(self, from)
         local f, d = LOOKS[from], LOOKS.done
+        local tipAlpha = self.softTipAlpha or 0.75
         self.fading = 0
         self.fader = self.fader or CreateFrame("Frame", nil, self)
         self.fader:SetScript("OnUpdate", function(fr, elapsed)
@@ -2302,7 +2303,7 @@ local function NewBar(parent, height)
             local p = math.min(1, self.fading / FADE)
             local e = 1 - (1 - p) ^ 2 -- ease out
             ApplyHGradient(self.fill, Mix(f[1], d[1], e), Mix(f[2], d[2], e))
-            ApplyHGradient(self.tip, f[3], f[4], 0, 0.75 * (1 - e))
+            ApplyHGradient(self.tip, f[3], f[4], 0, tipAlpha * (1 - e))
             if p >= 1 then
                 self.fading = nil
                 self.tip:Hide()
@@ -2322,7 +2323,7 @@ local function NewBar(parent, height)
         self.fill:SetShown(on)
         self.shade:SetShown(on)
         self.sheen:SetShown(on and height >= 6)
-        self.tip:SetWidth(math.min(24, fillW))
+        self.tip:SetWidth(math.min(self.softTipWidth or 24, fillW))
         self.tip:SetShown(on and (not complete or self.fading ~= nil))
         local look = complete and "done" or (self.blue and "blue" or "gold")
         if look ~= self.look then
@@ -4243,6 +4244,7 @@ end
 
 local detailBar = NewBar(FGT.detailBody, 13)
 do -- A soft breathing highlight stays entirely inside the guide's fill.
+    detailBar.softTipWidth = 70
     local render = detailBar.Render
     local elapsedTotal = 0
     local function PaintTip(self)
@@ -4250,7 +4252,8 @@ do -- A soft breathing highlight stays entirely inside the guide's fill.
             and (0.5-0.5*math.cos(elapsedTotal*2*math.pi/5.5)) or 0.5
         local left = self.blue and {0.40,0.70,1} or {1,0.85,0.40}
         local right = self.blue and {0.80,0.92,1} or {1,0.95,0.70}
-        ApplyHGradient(self.tip, left, right, 0, 0.22+0.04*pulse)
+        self.softTipAlpha = 0.22+0.04*pulse
+        ApplyHGradient(self.tip, left, right, 0, self.softTipAlpha)
     end
     function detailBar:Render(pct)
         render(self, pct)
