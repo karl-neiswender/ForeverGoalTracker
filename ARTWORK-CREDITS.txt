@@ -7,6 +7,9 @@ All rights reserved. Individual artwork may carry additional artist notices.
 Frostwolf Clan banner: adapted from The Eye of Command TCG artwork,
 Glenn Rane, copyright 2006 Blizzard Entertainment.
 
+Wolfsbane banner: adapted from Worgen artwork attributed to Samwise
+in the supplied source, copyright Blizzard Entertainment.
+
 AI-assisted artwork
 Some original addon artwork was created with assistance from ChatGPT and
 Nano Banana, as identified by the addon author.

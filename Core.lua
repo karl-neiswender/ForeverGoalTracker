@@ -4568,6 +4568,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artPaths[id] = B.artPaths.raid_zg
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
+    B.artPaths.wolfsbane = "wolfsbane-banner.blp"
+    B.artAspects.wolfsbane, B.preprocessed.wolfsbane = 4/3, true
     B.artPaths.mount_tiger = "mount_tiger-banner.blp"
     B.artAspects.mount_tiger, B.preprocessed.mount_tiger = 4/3, true
     -- Keep the approved lone battle tank shared by the four AQ40 colors,
@@ -8225,6 +8227,8 @@ FGT.SETTINGS = {
         { type = "info", label = "Glenn Rane",
           desc = "The Eye of Command TCG artwork, used for the Frostwolf Clan banner." },
         { type = "info", label = "Alex Horley" },
+        { type = "info", label = "Samwise",
+          desc = "Worgen artwork, used for the Wolfsbane banner." },
         { type = "info", label = "AI-assisted artwork",
           desc = "Some original addon artwork was created with assistance from ChatGPT and Nano Banana." },
         { type = "info", label = "Cinzel font",

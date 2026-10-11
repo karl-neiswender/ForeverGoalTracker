@@ -1,0 +1,17 @@
+{
+  "source": "Media/artwork/Worgen_Samwise.jpg",
+  "output": "Media/final-images/wolfsbane-review-2026-10-11.png",
+  "prompt": "Edit target: the attached Worgen_Samwise.jpg artwork. Prepare one 4:3 landscape Forever Goal Tracker banner master, 1200x900. Preserve the original painterly style, worgen identity, roaring pose, both complete hands and limbs, arrows, surrounding silhouettes and any artist marks. Recompose with the main worgen high toward the right with breathing room, left third quiet for addon text; extend the existing environment naturally as needed, no new characters or unrelated objects. Strict neutral black and white, moderately increased contrast, detailed midtones, controlled highlights. Bake a wide smooth neutral charcoal dark gradient into the LEFT edge blending gradually across the left third without a visible strip or boundary. Also bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels fading downward to near-black neutral charcoal, smooth natural transition without a horizontal strip. Both gradients must be present in the image itself. No added text, UI or border.",
+  "mode": "built-in imagegen",
+  "status": "Approved by Karl (good); installed",
+  "review": "Neutral grayscale, smooth left and bottom dark gradients, right-positioned subject and intact hands. Generated review retained at native resolution; technical 1200x900 master and BLP conversion after approval.",
+  "master": "Media/final-images/weapons/wolfsbane-master.png",
+  "runtime": "Media/wolfsbane-banner.blp",
+  "encoding": {
+    "source": "weapons/wolfsbane-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  }
+}
