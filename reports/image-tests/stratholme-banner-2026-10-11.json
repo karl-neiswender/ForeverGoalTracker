@@ -3,9 +3,10 @@
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-152a4098-2c91-4545-9d3c-c53f518ffb38.png",
   "review": "Media/final-images/stratholme/review-2026-10-11.png",
   "prompt": "Edit supplied Stratholme loading screen into ONE 4:3 landscape addon artwork banner target1200x900. Remove all World of Warcraft logo, decorative parchment UI frame, top and bottom bars, border and lettering completely. Retain only original ruined Stratholme street scene. Preserve original crooked timber stone buildings, their exact silhouettes and window locations, hanging sign, cobblestone road and small distant silhouette; avoid inventing replacement architecture. Extend existing scene naturally where UI was removed. Strictly neutral grayscale, detailed painterly midtones, moderate contrast controlled highlights. Frame recognizable buildings high toward right with left third quiet for text. Bake broad smooth dark LEFT gradient blending gradually from charcoal at edge without visible strip. Bake soft dark BOTTOM gradient across approximately lowest100px fading to nearblack with smooth natural transition, no hard bars. Both gradients part of artwork. No added text, logo, UI, frame, unrelated objects or people.",
-  "status": "awaiting approval",
+  "status": "approved and installed",
   "intendedGoals": [
-    "key_strat",
-    "mount_deathcharger"
-  ]
+    "key_strat"
+  ],
+  "master": "Media/final-images/stratholme/master.png",
+  "runtime": "Media/key_strat-banner.blp"
 }

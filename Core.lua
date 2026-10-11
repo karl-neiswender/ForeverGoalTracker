@@ -4646,6 +4646,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
     B.artPaths.key_ubrs = "key_ubrs-banner.blp"
     B.artAspects.key_ubrs, B.preprocessed.key_ubrs = 4/3, true
+    B.artPaths.key_strat = "key_strat-banner.blp"
+    B.artAspects.key_strat, B.preprocessed.key_strat = 4/3, true
     B.artPaths.rep_hydraxian = "rep_hydraxian-banner.blp"
     B.artAspects.rep_hydraxian, B.preprocessed.rep_hydraxian = 4/3, true
     B.artPaths.rep_nozdormu = "rep_nozdormu-banner.blp"

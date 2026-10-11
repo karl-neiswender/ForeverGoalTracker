@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "key_strat": "stratholme/master.png",
     "key_ubrs": "blackrock-spire/master.png",
     "prof_engineering-horde": "professions/engineering-horde-master.png",
     "prof_engineering": "professions/engineering-master.png",
