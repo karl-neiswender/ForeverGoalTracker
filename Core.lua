@@ -1933,12 +1933,20 @@ function FGT.AddFactionCardEtch(row, faction)
         local tex = row:CreateTexture(nil, "ARTWORK", nil, -4)
         tex:SetTexture(path)
         tex:SetDesaturated(true)
-        tex:SetSize(62, 2)
-        tex:SetTexCoord(0.20, 0.73, 0.25 + y / 116, 0.25 + (y + 2) / 116)
+        tex:SetSize(42, 2)
+        tex:SetTexCoord(0.20 + 0.53 * 20 / 62, 0.73, 0.25 + y / 116, 0.25 + (y + 2) / 116)
         tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, -5 - y)
-        local alpha = 0.27 * (1 - (y / 42)^2)
-        ApplyHGradient(tex, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, 0, alpha)
+        local alpha = 0.27 * (1 - (y / 42)^4)
+        tex:SetVertexColor(0.65, 0.65, 0.65, alpha)
         row.factionEtch[#row.factionEtch + 1] = tex
+        local fade = row:CreateTexture(nil, "ARTWORK", nil, -4)
+        fade:SetTexture(path)
+        fade:SetDesaturated(true)
+        fade:SetSize(20, 2)
+        fade:SetTexCoord(0.20, 0.20 + 0.53 * 20 / 62, 0.25 + y / 116, 0.25 + (y + 2) / 116)
+        fade:SetPoint("TOPRIGHT", row, "TOPRIGHT", -47, -5 - y)
+        ApplyHGradient(fade, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, 0, alpha)
+        row.factionEtch[#row.factionEtch + 1] = fade
     end
 end
 

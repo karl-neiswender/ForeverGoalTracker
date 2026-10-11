@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Faction fade tuning: left fade now covers only the first 20px rather than the full 62px emblem area. Bottom fade holds more opacity through the upper/middle shape, still reaching zero at its edge. Placement and maximum brightness unchanged; `/reload` to review.
+
 Custom faction card edge fix: emblems nudged 3px down/left. Left fade now reaches zero at its sampling boundary, and bottom fade reaches zero on the final strip, removing hard crop edges inside the card. `/reload` to review.
 
 Horde thumbnail correction: 81744 is not a loadable texture ID on Karl's Forever client (green missing-texture square). Faction-only Horde PvP thumbnails now use `inv_bannerpvp_01`, the named Horde banner counterpart to Alliance's `inv_bannerpvp_02`. Numeric resolver support retained for valid texture file IDs. `/reload` applies this fix.
