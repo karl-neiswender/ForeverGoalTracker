@@ -5,5 +5,7 @@
   "review": "Media/final-images/professions/herbalism-review-2026-10-11.png",
   "artist": "Romain De Santi",
   "artistProvidedBy": "Karl",
-  "status": "awaiting approval"
+  "status": "approved and installed",
+  "master": "Media/final-images/professions/herbalism-master.png",
+  "runtime": "Media/prof_herbalism-banner.blp"
 }
