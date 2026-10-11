@@ -126,11 +126,11 @@ local function ClampFrameSize(w, h)
     return cw, ch
 end
 
--- Start each play session at roughly 69% of the screen in both dimensions.
+-- Start each play session at roughly 70% of the screen in both dimensions.
 function FGT.DefaultSize()
     local scale = FGT.windowScale or 1
-    local w = math.floor((GetScreenWidth and GetScreenWidth() or FRAME_WIDTH) * 0.69 / scale)
-    local h = math.floor((GetScreenHeight and GetScreenHeight() or FRAME_HEIGHT) * 0.69 / scale)
+    local w = math.floor((GetScreenWidth and GetScreenWidth() or FRAME_WIDTH) * 0.70 / scale)
+    local h = math.floor((GetScreenHeight and GetScreenHeight() or FRAME_HEIGHT) * 0.70 / scale)
     return ClampFrameSize(w, h)
 end
 
