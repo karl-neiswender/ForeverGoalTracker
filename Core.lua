@@ -889,6 +889,7 @@ local function RuleReadout(rule)
 end
 
 local function DescribeRule(rule)
+    if rule.description then return rule.description end
     local parts = {}
     local function itemName(id)
         local n = FGT.ItemInfo(id)
