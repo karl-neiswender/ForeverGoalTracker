@@ -4098,6 +4098,13 @@ do
     bottom:SetPoint("BOTTOMLEFT", 2, 2)
     bottom:SetPoint("BOTTOMRIGHT", -2, 2)
     ApplyHGradient(bottom, STYLE.forever.edge, STYLE.forever.edge, 0.7, 0)
+    -- Finish the blue wash before the panel's right edge, leaving the photo clear.
+    n:SetScript("OnSizeChanged", function(self, width)
+        local fadeWidth = math.max(1, (width - 4) * 0.78)
+        self.etchBg:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", 2 + fadeWidth, 2)
+        self.etchHi:SetPoint("TOPRIGHT", self, "TOPLEFT", 2 + fadeWidth, -2)
+        bottom:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", 2 + fadeWidth, 2)
+    end)
     n.text = NewFontString(n, 10, "", 0.72, 0.84, 1.00)
     n.text:SetPoint("TOPLEFT", n, "TOPLEFT", 10, -9)
     n.text:SetJustifyH("LEFT")
