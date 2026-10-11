@@ -221,7 +221,6 @@ local library = {
         note = "Baron Rivendare's own steed. A tiny drop chance in the undead side of Stratholme.",
         steps = { -- (v2.3.1: the "get a group" step moved to tips; see stepsFix231 in Core.lua)
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Defeat Baron Rivendare in {key_strat:Stratholme}.", auto = { boss = "Baron Rivendare" } },
             { text = "Loot Deathcharger's Reins from Baron Rivendare.", auto = { item = 13335, owned = { "Deathcharger" } } },
         },
         completeWith = { item = 13335, owned = { "Deathcharger" } },
@@ -239,7 +238,6 @@ local library = {
         timeEstimate = "1-2 Months",
         note = "Rare drop from Bloodlord Mandokir in Zul'Gurub.",
         steps = { -- (v2.3.1: "Join a raid" moved to tips; see stepsFix231 in Core.lua)
-            { text = "Defeat Bloodlord Mandokir in {raid_zg:Zul'Gurub}.", auto = { boss = "Bloodlord Mandokir" } },
             { text = "Loot the Swift Razzashi Raptor from Bloodlord Mandokir.", auto = { item = 19872, owned = { "Swift Razzashi Raptor" } } },
         },
         completeWith = { item = 19872, owned = { "Swift Razzashi Raptor" } },
@@ -256,7 +254,6 @@ local library = {
         timeEstimate = "1-2 Months",
         note = "Rare drop from High Priest Thekal in Zul'Gurub.",
         steps = { -- (v2.3.1: "Join a raid" moved to tips; see stepsFix231 in Core.lua)
-            { text = "Defeat High Priest Thekal in {raid_zg:Zul'Gurub}.", auto = { boss = "High Priest Thekal" } },
             { text = "Loot the Swift Zulian Tiger from High Priest Thekal.", auto = { item = 19902, owned = { "Swift Zulian Tiger" } } },
         },
         completeWith = { item = 19902, owned = { "Swift Zulian Tiger" } },
@@ -291,11 +288,17 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "The Warlock's epic mount, earned through a level 60 quest chain that ends with a summoning ritual in Dire Maul. Quest IDs checked on Wowhead.",
         steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Complete 'Mor'zul Bloodbringer' from a demon trainer in a capital city.", auto = { quest = 7562 } },
             { text = "Complete 'Rage of Blood'.", auto = { quest = 7563 } },
             { text = "Complete 'Wildeyes'.", auto = { quest = 7564 } },
-            { text = "Complete 'Kroshius' Infernal Core'.", auto = { quest = 7603 } },
+            { text = "Complete 'Lord Banehollow' from Gorzeeki Wildeyes in the Burning Steppes.", auto = { quest = 7623 } },
+            { text = "Complete 'Ulathek the Traitor' for Lord Banehollow in Jaedenar, Felwood.", auto = { quest = 7624 } },
+            { text = "Complete 'Xorothian Stardust' for Gorzeeki Wildeyes in the Burning Steppes.", auto = { quest = 7625 } },
             { text = "Complete 'Imp Delivery'.", auto = { quest = 7629 } },
+            { text = "Complete 'Bell of Dethmoora' for Gorzeeki Wildeyes in the Burning Steppes.", auto = { quest = 7626 } },
+            { text = "Complete 'Wheel of the Black March' for Gorzeeki Wildeyes in the Burning Steppes.", auto = { quest = 7627 } },
+            { text = "Complete 'Doomsday Candle' for Gorzeeki Wildeyes in the Burning Steppes.", auto = { quest = 7628 } },
             { text = "Complete 'Arcanite'.", auto = { quest = 7630 } },
             { text = "Defeat the Xorothian Dreadsteed in Dire Maul ('Dreadsteed of Xoroth').", auto = { quest = 7631 } },
         },
@@ -315,6 +318,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "The Paladin's epic mount, earned through Lord Grayson Shadowbreaker's level 60 quest chain that ends in Scholomance. Quest IDs checked on Wowhead.",
         steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Complete 'Lord Grayson Shadowbreaker' from Duthorian Rall in Stormwind City.", auto = { quest = 7638 } },
             { text = "Complete 'Emphasis on Sacrifice'.", auto = { quest = 7637 } },
             { text = "Complete 'To Show Due Judgment'.", auto = { quest = 7639 } },
@@ -346,6 +350,7 @@ local library = {
         note = "A two-handed sword for Undead Paladins, earned through a quest chain in Silverpine Forest with materials from the Deadmines, Shadowfang Keep and Blackfathom Depths.",
         foreverNote = "A new Horde Paladin quest weapon. Its blazing-wind proc deals extra damage to wolves and worgen.",
         steps = {
+            { text = "Reach level 18.", auto = { level = 18 } },
             { text = "Complete 'Diplomatic Incident' from Danitha Morr at Bandarion Keep in Tirisfal Glades.", auto = { quest = 91858 } },
             { text = "Complete 'A Curious Pair' at the Sepulcher in Silverpine Forest.", auto = { quest = 91859 } },
             { text = "Complete 'A Grim Fate' on Fenris Isle in Silverpine Forest.", auto = { quest = 91860 } },
@@ -534,6 +539,7 @@ local library = {
         timeEstimate = "Days",
         note = "Required to enter Molten Core. A short trip into Blackrock Depths to the raid's entry portal.",
         steps = {
+            { text = "Reach level 55.", auto = { level = 55 } },
             { text = "Pick up 'Attunement to the Core' from Lothos Riftwaker in Blackrock Mountain.", auto = { questTaken = 7848, quest = 7848 } },
             { text = "Recover a Core Fragment at the Molten Core entry portal in Blackrock Depths.", auto = { item = 18412, quest = 7848 } },
             { text = "Return the Core Fragment to Lothos Riftwaker.", auto = { quest = 7848 } },
@@ -597,6 +603,7 @@ local library = {
         timeEstimate = "1-2 Weeks",
         note = "Without the Mark of Drakkisath you can't use the orb into Blackwing Lair. The whole quest happens in Blackrock Spire.",
         steps = {
+            { text = "Reach level 55.", auto = { level = 55 } },
             { text = "Loot and read Blackhand's Command from the Scarshield Quartermaster in Blackrock Spire.", auto = { item = 18987, questTaken = 7761, quest = 7761 } },
             { text = "Defeat General Drakkisath in {key_ubrs:Upper Blackrock Spire}.", auto = { boss = "General Drakkisath", quest = 7761 } },
             { text = "Touch Drakkisath's Brand behind him to gain the Mark of Drakkisath.", auto = { quest = 7761 } },
@@ -610,6 +617,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "Taken at Light's Hope Chapel in the Eastern Plaguelands once you're Honored with the Argent Dawn.",
         steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Reach Honored with the {rep_argentdawn:Argent Dawn}.", auto = { rep = { faction = 529, standing = 6 }, quest = { 9121, 9122, 9123 } } },
             { text = "Get attuned at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
         },

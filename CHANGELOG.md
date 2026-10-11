@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Ctrl-click mount items and color variants in guides to preview them
+- Tiny artwork credits that fade away in narrow or short windows
+- Clearer guide milestones, explicit level requirements and preserved saved progress
+
 - Wolfsbane quest-weapon goal for Undead Paladins in Forever
 
 - Dedicated Swift Zulian Tiger artwork

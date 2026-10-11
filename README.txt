@@ -107,8 +107,9 @@ attunement, a reputation, a raid). Click it to add that goal.
 
 Item names in a guide show their real tooltip when you hover them;
 shift-click puts the item in chat; Ctrl-click gear to try it on in the
-game's dressing room. The same preview works on step icons and the
-goal's reward icon. Teal names are NPCs: hover to see
+game's dressing room. Ctrl-click mount items to preview them; repeated
+Ctrl-clicks on a mount type cycle its colors. The same preview works on
+step icons and the goal's reward icon. Teal names are NPCs: hover to see
 where they stand, shift-click to put a pin on your map (a TomTom
 waypoint if TomTom is installed; choose in Settings). Right-click an
 item or NPC for its Wowhead link.

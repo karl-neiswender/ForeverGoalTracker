@@ -349,3 +349,24 @@ for _,t in ipairs({B.background,B.border,B.art,B.left,B.top,B.bottom}) do t.Hide
 B:GetScript("OnHide")(B)
 assert(hidden==6, "empty-state hide clears all background layers")
 print("  banner title reflow, badge wrapping, artwork switching, aspect crop and empty-state layers ok")
+
+-- Credit follows the resolved banner, stays quiet on small bounds, and
+-- never carries an artist across to unattributed artwork.
+do
+    local width, height, alpha, label = 650, 600
+    local ow, oh = B.panel.GetWidth, B.panel.GetHeight
+    local oa, ot = B.credit.SetAlpha, B.credit.SetText
+    local goal = B.goal
+    B.panel.GetWidth = function() return width end
+    B.panel.GetHeight = function() return height end
+    B.credit.SetAlpha = function(_, a) alpha=a end
+    B.credit.SetText = function(_, text) label=text end
+    B.goal = F.GoalById("wolfsbane"); B:Fit()
+    assert(alpha == 1 and label == "Artwork by Samwise Didier")
+    height = 250; B:Fit(); assert(alpha == 0, "short credit hidden")
+    height, width = 600, 330; B:Fit(); assert(alpha == 0, "narrow credit hidden")
+    width = 435; B:Fit(); assert(alpha > 0 and alpha < 1, "credit eases between bounds")
+    B.goal = F.GoalById("atiesh"); B:Fit(); assert(label == "", "unknown artist stays blank")
+    B.panel.GetWidth, B.panel.GetHeight = ow, oh
+    B.credit.SetAlpha, B.credit.SetText, B.goal = oa, ot, goal
+end

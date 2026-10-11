@@ -12,7 +12,7 @@ FGT.DEPENDENCIES = {
     thunderfury = { [4] = { any = {2,3} } },
     att_mc = { [3] = { all = {1,2} } }, -- fragment pre-looting remains available
     att_bwl = { [3] = { all = {1} } }, -- a personal Drakkisath kill is not required in a cleared instance
-    att_naxx = { [2] = { all = {1} } },
+    att_naxx = { [2] = { all = {1} }, [3] = { all = {1,2} } },
     key_brd = { [2] = { all = {1} } },
     key_ubrs = { [2] = { all = {1} } },
     att_ony_ally = {},
@@ -21,6 +21,21 @@ FGT.DEPENDENCIES = {
 }
 for i = 2, 11 do FGT.DEPENDENCIES.att_ony_ally[i] = { all = {i-1} } end
 for i = 2, 8 do FGT.DEPENDENCIES.att_ony_horde[i] = { all = {i-1} } end
+
+-- These guides now begin with an explicit level requirement. Keep the
+-- established item/quest edges aligned; gathering remains parallel.
+for _, id in ipairs({"benediction", "lokdelar", "att_mc", "att_bwl"}) do
+    local moved = {}
+    for key, rule in pairs(FGT.DEPENDENCIES[id]) do
+        local shifted = {}
+        for kind, keys in pairs(rule) do
+            shifted[kind] = {}
+            for i, prior in ipairs(keys) do shifted[kind][i] = prior+1 end
+        end
+        moved[key+1] = shifted
+    end
+    FGT.DEPENDENCIES[id] = moved
+end
 
 function FGT.DependencyEntry(goal, key)
     if not goal then return end

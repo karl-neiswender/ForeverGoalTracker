@@ -24,21 +24,21 @@ end
 local g = F.GoalById("lokdelar")
 D.active[g.id],D.progress[g.id] = true,{}
 F.SelectGoal(g.id)
-assert(F.stepRows[2].depLocked and F.stepRows[3].depLocked, "dependent rows locked")
-local row = F.stepRows[3]
+assert(F.stepRows[3].depLocked and F.stepRows[4].depLocked, "dependent rows locked")
+local row = F.stepRows[4]
 row:GetScript("OnClick")(row,"LeftButton")
-assert(not D.progress[g.id][3], "locked click never ticks")
+assert(not D.progress[g.id][4], "locked click never ticks")
 assert(row.lockLayer.motion == "jiggle", "locked click starts jiggle")
 row.lockLayer:GetScript("OnUpdate")(row.lockLayer,0.5)
 assert(row.lockLayer.motion == nil, "jiggle settles")
 -- Hyperlinks keep their existing click behavior even on a locked row.
 F.overLink = true; row:GetScript("OnClick")(row,"LeftButton"); F.overLink = nil
-assert(row.lockLayer.motion == nil and not D.progress[g.id][3], "link click bypasses locked action")
+assert(row.lockLayer.motion == nil and not D.progress[g.id][4], "link click bypasses locked action")
 
-F.stepRows[1]:GetScript("OnClick")(F.stepRows[1],"LeftButton")
-assert(not F.stepRows[2].depLocked and F.stepRows[2].lockLayer.motion == "unlock")
 F.stepRows[2]:GetScript("OnClick")(F.stepRows[2],"LeftButton")
-for i = 3,6 do
+assert(not F.stepRows[3].depLocked and F.stepRows[3].lockLayer.motion == "unlock")
+F.stepRows[3]:GetScript("OnClick")(F.stepRows[3],"LeftButton")
+for i = 4,7 do
     assert(not F.stepRows[i].depLocked, "fan-out unlocks all demon steps")
     assert(F.stepRows[i].lockLayer.motion == "unlock", "each demon has its own breakaway")
     local alpha
@@ -46,11 +46,11 @@ for i = 3,6 do
     F.stepRows[i].lockLayer:GetScript("OnUpdate")(F.stepRows[i].lockLayer,0.5)
     assert(F.stepRows[i].lockLayer.motion == nil and alpha == 1, "unlock leaves visible checkbox")
 end
-assert(F.StepLocked(g,7), "all four heads required")
-for i = 3,6 do F.stepRows[i]:GetScript("OnClick")(F.stepRows[i],"LeftButton") end
-assert(not F.StepLocked(g,7), "fan-in opens reward")
-D.progress[g.id][2]=nil
-assert(not F.StepLocked(g,3) and D.progress[g.id][3], "completed child stays completed")
+assert(F.StepLocked(g,8), "all four heads required")
+for i = 4,7 do F.stepRows[i]:GetScript("OnClick")(F.stepRows[i],"LeftButton") end
+assert(not F.StepLocked(g,8), "fan-in opens reward")
+D.progress[g.id][3]=nil
+assert(not F.StepLocked(g,4) and D.progress[g.id][4], "completed child stays completed")
 
 local t = F.GoalById("thunderfury")
 D.progress[t.id]={}
@@ -60,13 +60,13 @@ D.progress[t.id][3]=true; assert(not F.StepLocked(t,4), "right binding alone wor
 D.progress[t.id]={[2]=true}; assert(not F.StepLocked(t,4), "left binding alone works")
 local b=F.GoalById("benediction")
 D.progress[b.id]={}
-assert(not F.StepLocked(b,4), "Eye of Shadow can be gathered early")
+assert(not F.StepLocked(b,5), "Eye of Shadow can be gathered early")
 D.characters.Test={items={[18608]=1}}
-assert(not F.StepLocked(b,5), "owned reward overrides missing manual prerequisites")
+assert(not F.StepLocked(b,6), "owned reward overrides missing manual prerequisites")
 D.characters={}
 
 -- Modes and pool reuse must always restore checkbox alpha and end effects.
-local r=F.stepRows[3]
+local r=F.stepRows[4]
 r.depLocked=true; F.SetSetting("celebrations","subtle"); F.PlayLockMotion(r,"jiggle")
 r.lockLayer:GetScript("OnUpdate")(r.lockLayer,0.5)
 r.depLocked=false; F.PlayLockMotion(r,"unlock")
@@ -75,6 +75,7 @@ assert(not r.lockLayer.motion, "subtle fade finishes")
 F.SetSetting("celebrations","off"); F.PlayLockMotion(r,"unlock")
 assert(not r.lockLayer:GetScript("OnUpdate"), "motion off is instant")
 F.SetSetting("celebrations","full"); F.PlayLockMotion(r,"unlock")
+D.active.atiesh = true
 F.SelectGoal("atiesh")
 assert(not r.depLocked and not r.lockLayer.motion, "pooled row reuse cancels old lock motion")
 print("  dependency references, cycles, blocked clicks, links, fan-out, fan-in, OR, evidence and motion modes ok")

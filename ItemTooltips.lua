@@ -105,14 +105,72 @@ function FGT.AddItemNeeds(tooltip, id)
     return true
 end
 
+-- Mount items in Forever report a shared "Learning" spell, and native
+-- item-to-mount lookup returns nil. Use the library's exact mount names.
+local mountItemNames, mountNames = {}, nil
+local function MountName(name)
+    return name:gsub("^Reins of the ", ""):gsub("^Horn of the ", "")
+end
+local function MountEntry(entry)
+    if type(entry) ~= "table" then return end
+    local rule = entry.auto
+    if rule and rule.item and rule.owned then
+        local ids = type(rule.item) == "table" and rule.item or {rule.item}
+        for _, id in ipairs(ids) do mountItemNames[id] = rule.owned[1] end
+    end
+    for _, link in ipairs(entry.links or {}) do
+        for _, variant in ipairs(link.variants or {}) do
+            mountItemNames[variant[1]] = MountName(variant[2])
+        end
+    end
+end
+for _, goal in ipairs(FGT.goals) do
+    if goal.category == "Mount" or goal.category == "Mount Collection" then
+        for _, entry in ipairs(goal.steps or {}) do MountEntry(entry) end
+        for _, section in ipairs(goal.sections or {}) do
+            for _, entry in ipairs(section.pieces or {}) do MountEntry(entry) end
+        end
+    end
+end
+-- Owned-pattern labels on the AQ goals are deliberately short.
+for color, id in pairs({Blue=21218, Green=21323, Yellow=21324, Red=21321, Black=21176}) do
+    mountItemNames[id] = color.." Qiraji Battle Tank"
+end
+function FGT.ItemMountID(id)
+    if not DressUpMount or not C_MountJournal then return end
+    local journal = C_MountJournal
+    local mount = journal.GetMountFromItem and journal.GetMountFromItem(id)
+    if mount and mount > 0 then return mount end
+    local name = mountItemNames[id]
+    if not name or not journal.GetMountIDs or not journal.GetMountInfoByID then return end
+    -- One lazy scan per session, never while painting or animating rows.
+    if not mountNames then
+        mountNames = {}
+        for _, mid in ipairs(journal.GetMountIDs() or {}) do
+            local label = journal.GetMountInfoByID(mid)
+            if label then mountNames[label] = mid end
+        end
+    end
+    return mountNames[name]
+end
+
 -- Use the player's DRESSUP modifier, Ctrl by default. Consume the click
 -- even if details are still loading, so it never ticks a guide step.
-function FGT.PreviewItemClick(id, button)
+function FGT.PreviewItemClick(id, button, variants)
     if not id or button ~= "LeftButton" then return false end
     local modified = IsModifiedClick and IsModifiedClick("DRESSUP")
     if not modified then return false end
+    if variants and #variants > 1 then
+        local cycle = FGT.mountPreviewCycle
+        local index = cycle and cycle.id == id and (cycle.index % #variants)+1 or 1
+        FGT.mountPreviewCycle = {id=id, index=index}
+        id = variants[index][1]
+    end
     local name, link = FGT.ItemInfo(id)
-    if name and DressUpItemLink then
+    local mount = FGT.ItemMountID(id)
+    if mount then
+        DressUpMount(mount)
+    elseif name and DressUpItemLink then
         DressUpItemLink(link or ("item:" .. id))
     elseif C_Item and C_Item.RequestLoadItemDataByID then
         C_Item.RequestLoadItemDataByID(id)
@@ -121,6 +179,7 @@ function FGT.PreviewItemClick(id, button)
 end
 
 function FGT.ItemCanPreview(id)
+    if FGT.ItemMountID(id) then return true end
     local _, _, _, _, _, _, _, _, slot = FGT.ItemInfo(id)
     return type(slot) == "string" and slot ~= "" and slot ~= "INVTYPE_NON_EQUIP"
 end

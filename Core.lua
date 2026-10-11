@@ -1734,7 +1734,7 @@ function FGT.EnableGoalLinks(f)
                 FGT.OpenWowheadCard("item", itemId, text)
             elseif IsShiftKeyDown() then
                 FGT.InsertItemLink(itemId)
-            elseif FGT.PreviewItemClick(itemId, button) then
+            elseif FGT.PreviewItemClick(itemId, button, link:find("^fgtvariants:") and FGT.variants and FGT.variants[itemId] and FGT.variants[itemId].items) then
                 return
             else
                 tick = true
@@ -4640,7 +4640,29 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             end
         end)
     end
+    -- Credit lives above the scrolling guide and stays inside its scrollbar.
+    B.creditLayer = CreateFrame("Frame", nil, B)
+    B.creditLayer:SetAllPoints(detailPanel)
+    B.creditLayer:SetFrameLevel(FGT.detailViewport.scroll:GetFrameLevel()+10)
+    B.credit = B.creditLayer:CreateFontString(nil, "OVERLAY")
+    B.credit:SetFont(FONT, 6, "")
+    B.credit:SetTextColor(0.48, 0.48, 0.48)
+    B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -26, 7)
+    B.artArtists = {
+        ["wolfsbane-banner.blp"] = "Samwise Didier",
+        ["pvp_av_horde-banner.blp"] = "Glenn Rane",
+        ["set_tier1_warlock-alliance-banner.blp"] = "Karl Kopinski",
+    }
     function B:Fit()
+        local path = self.goal and self:ResolveArt(self.goal.id)
+        local artist = path and self.artArtists[path]
+        self.credit:SetText(artist and ("Artwork by "..artist) or "")
+        local function fade(size, low, high)
+            local t = math.max(0, math.min(1, (size-low)/(high-low)))
+            return t*t*(3-2*t)
+        end
+        self.credit:SetAlpha(fade(detailPanel:GetWidth(), 350, 520)
+            *fade(detailPanel:GetHeight(), 280, 430))
         local w = math.max(1, detailPanel:GetWidth()-8)
         -- Let artwork continue beneath the compact header before fading out.
         local h = math.max(math.max(1, self:GetHeight())*0.92,
@@ -9035,6 +9057,44 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         end
         ForeverGoalTrackerDB.frostRaceFix = true
     end
+    -- Preserve sparse ticks when preparation tips leave the guide and level
+    -- requirements become explicit. Run after the older positional remaps.
+    if not ForeverGoalTrackerDB.guideFix20261011Final then
+        local maps = {
+            sulfuras = { [11]=false, [12]=11, [13]=12 },
+            frostsaber = { [2]=false, [3]=2, [4]=3, [5]=4, [6]=5, [7]=6, [8]=7 },
+            mount_dreadsteed = { [1]=2, [2]=3, [3]=4, [4]=false, [5]=8, [6]=12, [7]=13 },
+        }
+        local levelGoals = {"benediction", "lokdelar", "rhokdelar", "att_mc", "att_bwl"}
+        if ForeverGoalTrackerDB.guideFix20261011 then
+            -- The first beta reload already applied the shorter guide pass.
+            maps = {mount_dreadsteed = {[5]=8, [6]=12, [7]=13}}
+        else
+            for _, id in ipairs({"mount_charger", "att_naxx", "wolfsbane"}) do
+                levelGoals[#levelGoals+1] = id
+            end
+        end
+        maps.mount_tiger = {[1]=false, [2]=1}
+        maps.mount_raptor = {[1]=false, [2]=1}
+        maps.mount_deathcharger = {[2]=false, [3]=2}
+        for _, id in ipairs(levelGoals) do
+            maps[id] = {}
+            for i=1,32 do maps[id][i] = i+1 end
+        end
+        for id, map in pairs(maps) do
+            local old = ForeverGoalTrackerDB.progress[id]
+            if old then
+                local new = {}
+                for key, value in pairs(old) do
+                    local target = map[key]
+                    if target == nil then target = key end
+                    if target then new[target] = value end
+                end
+                ForeverGoalTrackerDB.progress[id] = new
+            end
+        end
+        ForeverGoalTrackerDB.guideFix20261011Final = true
+    end
     -- v2.2.0 one-time fix: Tier 3 materials were a placeholder list and are
     -- now each piece's real recipe. The token and scraps lines kept their
     -- place; the crafting materials changed, so clear their ticks (owned
@@ -9537,7 +9597,7 @@ do
         end
         FGT.AddItemNeeds(GameTooltip, id)
         if known and FGT.ItemCanPreview(id) then
-            GameTooltip:AddLine("Ctrl-click to try it on.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            GameTooltip:AddLine(FGT.ItemMountID(id) and "Ctrl-click to preview this mount." or "Ctrl-click to try it on.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         if not compare then
             GameTooltip:AddLine(known and "Shift-click to link it in chat. Right-click for its Wowhead link."
@@ -9571,6 +9631,9 @@ do
         if rule then
             GameTooltip:AddLine(" ")
             GameTooltip:AddLine("Checks itself off when you own any of them.", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
+        end
+        if FGT.ItemMountID(firstId) then
+            GameTooltip:AddLine("Ctrl-click to preview each color in turn.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         GameTooltip:AddLine(v.npc and ("Right-click for " .. v.vendor .. "'s Wowhead page, with every color.")
             or "Right-click for the Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
@@ -9619,7 +9682,7 @@ do
             FGT.InsertItemLink(row.itemId)
             return true
         end
-        if FGT.PreviewItemClick(row.itemId, button) then return true end
+        if FGT.PreviewItemClick(row.itemId, button, FGT.variants and FGT.variants[row.itemId] and FGT.variants[row.itemId].items) then return true end
         return false
     end
 
