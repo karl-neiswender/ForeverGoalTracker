@@ -2,7 +2,7 @@
 
 ## Current handoff (2026-10-10)
 
-Read [today's shared handoff](reports/Session-handoff-2026-10-10.md) before continuing. Karl is done adding features for today and will review in game later. Changes are committed on `main` and remain Unreleased above version 2.10.1; do not publish or add features before his review. The handoff records current UI behavior, new goals and banners, item needs/previews, tests, artwork status, Mac setup and the review checklist. It supersedes older descriptions below where they differ.
+Read [today's shared handoff](reports/Session-handoff-2026-10-10.md) before continuing. Karl approved and shipped v2.11.0 tonight. The GitHub release and CurseForge publishing workflow succeeded. All eight gallery screenshots were refreshed, cropped and synced. The final handoff section supersedes earlier unreleased/review notes. Mount Ctrl-click previews are planned for the next release, pending Forever API verification; do not implement them merely as cleanup.
 
 A World of Warcraft addon for **Warcraft Forever** (beta now, live launch November 2026). Players pick long-term goals from a built-in library (legendaries, mounts, reputations, raids, item sets, professions, PvP) and follow step-by-step guides, and steps tick automatically from game state across all of the player's characters.
 

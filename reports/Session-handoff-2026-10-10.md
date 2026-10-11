@@ -122,3 +122,16 @@ Restart the client after pulling new artwork. Lua-only follow-up fixes need `/re
 ## Faction card watermark review
 
 Replaced segmented fades with single transparent faction-soft textures, lower 14% opacity and state-aware warm grey / amber / Forever blue tint. Same upper-right footprint. New textures require a client restart; awaiting Karl’s in-game review. Synced new Warsong artwork original unchanged.
+
+## End-of-night handoff (supersedes earlier release/review notes)
+
+- Karl approved the final UI and shipped v2.11.0. GitHub release is published; release workflow 38107969730 completed successfully, including CurseForge upload. Published ZIP verified: version correct, new textures present, artwork originals/tools/reports excluded.
+- All eight gallery shots retaken and cropped to 2408x1508, visually checked and pushed. CurseForge gallery upload and description paste were left to Karl; do not claim those author-console actions were performed here.
+- Goal artwork: large photos on by default, full panel height, 70% panel width, preserves each source aspect with top-right cropping. Settings “Large goal photos” restores previous sizing. Charger source remains correctly mapped at approximately 3:4.
+- Forever notice fades out at 65% width. Collapsed group backgrounds ease to 50% transparency on the right, hover brightens, expanded groups stay opaque. Selected group counts use soft gold / light blue.
+- Goal-page progress bar is 13 UI units tall, etched bronze rim, empty track eases to 50% transparency rightward. Soft 70px tip has a slow 5.5s internal pulse; no external halo. Tip gently fades from its current brightness during the green completion transition.
+- Cards: class set eyebrows use plain “[CLASS] SET”, grey at rest and warm gold / blue selected; detail-page eyebrows retain category and class coloring. Faction emblems approved, scaled and cropped up/right with gentle baked alpha and 14% tint.
+- Window starts at 70% of UIParent width/height on first opening after login/reload. No fixed 1240x900 cap. Dimensions live only on FGT for the session; closing/reopening preserves resizing, reload resets. Position stays saved. First-show recalculation fixes startup measurements; Karl confirmed FIXED.
+- Next release: Ctrl-click mount previews, including individual color variants. Blizzard Classic source has DressUpMountLink routing to the Mount Journal; addon currently previews gear only. Verify native Forever beta support before implementing. No mount-preview code shipped tonight.
+- Keep existing unresolved SetItemRef taint / player-name-copy follow-up and Forever prerequisite verification on the list.
+- All original artwork synced unchanged, including Warsong_Envoy_HS.jpg. No ignored artwork awaiting sync. No pending UI edits. Final full Lua 5.1/Classic/Forever suite passed.
