@@ -841,7 +841,8 @@ local function BuildSetSections(sets)
         local list = {}
         for _, p in ipairs(pieces) do
             -- p = { piece name, item id, where it comes from (Wowhead), item icon (optional) }
-            table.insert(list, { name = p[1], text = p[3] and (p[1] .. " from " .. p[3] .. ".") or nil,
+            table.insert(list, { name = p[1], text = p[3] and (p[1] .. " from " .. p[3] .. ".")
+                or (p[1] .. "  |cff888888Source unknown|r"),
                                  icon = p[4], materials = {}, auto = { item = p[2], owned = { p[1] } } })
         end
         -- set[4] = true: a set new in WoW Forever (blue NEW part)
@@ -1157,11 +1158,11 @@ local sets = {
               auto = { item = 273051, owned = { "Violet Sorcerer's Mantle" } } },
             { text = "Loot Violet Sorcerer's Robes from Arcanic Enigma in the City of Dalaran.", icon = "inv_chest_cloth_25",
               auto = { item = 273044, owned = { "Violet Sorcerer's Robes" } } },
-            { text = "Collect Violet Sorcerer's Leggings.", icon = "inv_pants_06",
+            { text = "Collect Violet Sorcerer's Leggings  |cff888888Source unknown|r", icon = "inv_pants_06",
               auto = { item = 286988, owned = { "Violet Sorcerer's Leggings" } } },
-            { text = "Collect Violet Sorcerer's Sandals.", icon = "inv_boots_05",
+            { text = "Collect Violet Sorcerer's Sandals  |cff888888Source unknown|r", icon = "inv_boots_05",
               auto = { item = 286987, owned = { "Violet Sorcerer's Sandals" } } },
-            { text = "Collect Violet Sorcerer's Wraps.", icon = "inv_gauntlets_06",
+            { text = "Collect Violet Sorcerer's Wraps  |cff888888Source unknown|r", icon = "inv_gauntlets_06",
               auto = { item = 286989, owned = { "Violet Sorcerer's Wraps" } } },
         },
         tips = {
