@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Faction fade refinement: left falloff reduced, with a narrow transparent edge transition and most of the emblem retaining 70–100% of its intended opacity. Added an eased soft bottom fade over the final 16px. Size, placement and maximum opacity retained. `/reload` to review.
+
 Faction emblem treatment: same 62px width and source scale, extended sampling to the bottom of the 72px card instead of stopping above the progress bar. Opacity reduced from 27% to 19%; separate fade regions replaced by one continuous wash fading toward bottom-left. `/reload` to review.
 
 Faction fade tuning: left fade now covers only the first 20px rather than the full 62px emblem area. Bottom fade holds more opacity through the upper/middle shape, still reaching zero at its edge. Placement and maximum brightness unchanged; `/reload` to review.
