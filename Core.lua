@@ -4441,7 +4441,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Most specific compatible artwork wins; list order breaks equal scores.
     -- Only approved runtime textures belong here, never source/review files.
     B.artVariants = {
+        benediction = {
+            {path="benediction-alliance-banner.blp", faction="Alliance"},
+            {path="benediction-banner.blp", faction="Horde"},
+        },
         allclasses = {
+            {path="benediction-alliance-banner.blp", faction="Alliance", class="PRIEST", race="NightElf"},
             {path="tier3_hunter-banner.blp", faction="Horde", class="HUNTER", race="Troll"},
             {path="allclasses_nightelf_hunter-banner.blp", faction="Alliance", class="HUNTER", race="NightElf"},
             {path="allclasses_horde_hunter-banner.blp", faction="Horde", class="HUNTER"},
@@ -4671,6 +4676,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
         ["wolfsbane-banner.blp"] = "Samwise Didier",
+        ["benediction-alliance-banner.blp"] = "Jimmy Lo",
         ["pvp_wsg_ally-banner.blp"] = "Konstantin Porubov",
         ["pvp_wsg_horde-banner.blp"] = "Hideaki Takamura",
         ["pvp_av_ally-banner.blp"] = "J. Paick & K. Turovec",

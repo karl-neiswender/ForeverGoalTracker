@@ -183,8 +183,10 @@ do
     assert(B:ArtPath("allclasses")=="set_tier1_priest-banner.blp", "human priest leveling uses approved Anduin portrait")
     assert(B.sourceAspect==4/3 and not desaturated)
     race = "NightElf"
-    assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp", "human and dwarf priest leveling portraits remain race-specific")
+    assert(B:ArtPath("allclasses")=="benediction-alliance-banner.blp", "night elf priest leveling uses Jimmy Lo artwork")
+    assert(B:ArtPath("benediction")=="benediction-alliance-banner.blp", "Alliance Benediction uses Jimmy Lo artwork")
     race, class, faction = "Troll", "MAGE", "Horde"
+    assert(B:ArtPath("benediction")=="benediction-banner.blp", "Horde retains the original Benediction artwork")
     assert(B:ArtPath("epicmounts")=="epicmounts_troll-banner.blp")
     assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp")
     assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp")

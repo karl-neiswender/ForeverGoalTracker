@@ -1,0 +1,9 @@
+{
+  "tool": "built-in imagegen",
+  "source": "Media/artwork/Mass_Dispel_TCG copy.jpg",
+  "artist": "Jimmy Lo",
+  "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-6ecedd73-2597-430a-bb6f-dcc6ccfac8d8.png",
+  "prompt": "Use case: style-transfer. Edit target: supplied Jimmy Lo Mass Dispel painting. Produce ONE 4:3 landscape addon banner, target 1200x900. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve the source artist's style, the night elf priest's identity, face, glowing eyes, pose, white robes, both hands, complete ornate staff, and the dwarf and human allies with their original armor and weapons. Reframe the priest high toward the right with breathing room, extending existing forest/magical environment naturally on the left. Keep left third quiet for text. Bake a WIDE smooth dark neutral charcoal gradient INTO the LEFT, strongest at left edge, blending without vertical strip or boundary. Bake a SOFT dark gradient INTO the BOTTOM across approximately the lowest 100 pixels of a 1200x900 master, fading downward to near-black neutral charcoal with no horizontal strip. BOTH fades in the artwork. Preserve existing artist marks. No added text, borders, UI, unrelated objects or extra characters. Intended for Alliance Benediction and Night Elf Priest leveling.",
+  "status": "approved by Karl: good",
+  "review": "Media/final-images/weapons/benediction-alliance-review.png"
+}
