@@ -1,0 +1,14 @@
+{
+  "tool": "built-in imagegen",
+  "source": "Media/artwork/Classic_Hardcore_key_art copy.jpg",
+  "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-86a57ccd-0ce1-4ef9-a99a-0bcfe70299db.png",
+  "prompt": "Use case: style-transfer. Edit supplied Classic Hardcore key art into ONE 4:3 landscape addon banner target 1200x900 for Alliance Dwarf Hunter leveling. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Preserve original painting style, dwarf hunter identity, face, beard, hair, armor, crouching pose, both hands, intact ornate rifle and bayonet, and his roaring bear companion with correct mouth, teeth and anatomy. Reframe hunter and bear high toward the right with breathing room around heads and weapon; left third quiet for text, naturally extend/reframe misty rocky mountain environment. Bake WIDE smooth dark neutral charcoal gradient INTO LEFT edge, strongest at edge and fading naturally without hard vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM across approximately lowest 100 pixels of 1200x900 master fading downward to near-black neutral charcoal without horizontal strip. BOTH gradients in artwork itself. Preserve artist marks. No added text, UI, borders, unrelated objects or extra characters.",
+  "status": "pending visual approval",
+  "goal": "allclasses",
+  "variant": {
+    "faction": "Alliance",
+    "race": "Dwarf",
+    "class": "HUNTER"
+  },
+  "review": "Media/final-images/leveling/dwarf-hunter-review.png"
+}
