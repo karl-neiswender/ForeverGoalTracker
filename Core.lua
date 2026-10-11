@@ -4241,19 +4241,33 @@ do
     end
 end
 
-local detailBar = NewBar(FGT.detailBody, 8)
+local detailBar = NewBar(FGT.detailBody, 16)
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar.label:ClearAllPoints()
 detailBar.label:SetPoint("BOTTOMLEFT", detailBar, "TOPLEFT", 0, 4)
 detailBar.label:SetJustifyH("LEFT")
 do -- The banner track keeps its bevel inside the bar, without an extra line underneath.
     detailBar.lip:Hide()
-    Skin(detailBar, {0.045,0.042,0.035,1}, {0.24,0.21,0.15,1})
-    local track = detailBar:CreateTexture(nil, "BACKGROUND", nil, 1)
-    track:SetTexture(SOLID)
-    track:SetPoint("TOPLEFT", 1,-1)
-    track:SetPoint("BOTTOMRIGHT", -1,1)
-    ApplyVGradient(track, {0.045,0.042,0.035}, {0.10,0.09,0.065}, 1,1)
+    detailBar:SetBackdrop({edgeFile=ETCH_EDGE, edgeSize=8,
+        insets={left=2,right=2,top=2,bottom=2}})
+    detailBar:SetBackdropBorderColor(0.22,0.19,0.13,0.7)
+    local tracks = {}
+    for i=1,64 do
+        local track = detailBar:CreateTexture(nil, "BACKGROUND", nil, 1)
+        track:SetTexture(SOLID)
+        local p = (i-0.5)/64
+        local alpha = 1-0.5*p*p*(3-2*p)
+        ApplyVGradient(track, {0.045,0.042,0.035}, {0.10,0.09,0.065}, alpha,alpha)
+        tracks[i]=track
+    end
+    detailBar:HookScript("OnSizeChanged", function(self,w,h)
+        local span=math.max(1,w-4)
+        for i,track in ipairs(tracks) do
+            track:ClearAllPoints()
+            track:SetPoint("TOPLEFT",self,"TOPLEFT",2+span*(i-1)/64,-2)
+            track:SetSize(span/64,math.max(1,h-4))
+        end
+    end)
     local shadow = detailBar:CreateTexture(nil, "BORDER")
     shadow:SetTexture(SOLID)
     shadow:SetHeight(2)
