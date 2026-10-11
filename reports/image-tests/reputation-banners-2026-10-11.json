@@ -1,0 +1,34 @@
+{
+  "tool": "built-in imagegen",
+  "status": "pending visual approval",
+  "banners": [
+    {
+      "id": "thorium-brotherhood",
+      "source": "War_Golem.jpg",
+      "prompt": "Use case: style-transfer. Edit the supplied artwork into ONE 4:3 landscape addon banner, target 1200x900. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Keep the source artist's painting style and subjects, armor, weapons, hands, architecture, pose and existing artist marks. Extend/reframe environment naturally for landscape. Left third quiet for addon text. BAKE a wide smooth dark neutral charcoal gradient into the LEFT, strongest at left edge, gradually blending without any strip/boundary. BAKE a soft BOTTOM dark gradient across the lowest approximately 100 pixels, fading downward to near-black charcoal smoothly. Both fades must be IN the image. No added text, UI, borders, unrelated objects or extra characters. Preserve the war golem and all three dwarves, their guns and magical hands; reframe this group high in the right two thirds with natural breathing room.",
+      "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-e26109fc-a43a-4ee0-840a-9532098145c6.png",
+      "review": "Media/final-images/reputations/thorium-brotherhood-review.png"
+    },
+    {
+      "id": "silverwing-sentinels",
+      "source": "Battleground_Battlemaster_HS.jpg",
+      "prompt": "Use case: style-transfer. Edit the supplied artwork into ONE 4:3 landscape addon banner, target 1200x900. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Keep the source artist's painting style and subjects, armor, weapons, hands, architecture, pose and existing artist marks. Extend/reframe environment naturally for landscape. Left third quiet for addon text. BAKE a wide smooth dark neutral charcoal gradient into the LEFT, strongest at left edge, gradually blending without any strip/boundary. BAKE a soft BOTTOM dark gradient across the lowest approximately 100 pixels, fading downward to near-black charcoal smoothly. Both fades must be IN the image. No added text, UI, borders, unrelated objects or extra characters. Preserve the night elf battlemaster's face, armor, raised hand, other hand, parchment table and candle. Reframe her high toward the right.",
+      "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-190f6e01-79c5-4c1f-950e-3511e7784712.png",
+      "review": "Media/final-images/reputations/silverwing-sentinels-review.png"
+    },
+    {
+      "id": "warsong-outriders",
+      "source": "Warsong_Envoy_HS.jpg",
+      "prompt": "Use case: style-transfer. Edit the supplied artwork into ONE 4:3 landscape addon banner, target 1200x900. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Keep the source artist's painting style and subjects, armor, weapons, hands, architecture, pose and existing artist marks. Extend/reframe environment naturally for landscape. Left third quiet for addon text. BAKE a wide smooth dark neutral charcoal gradient into the LEFT, strongest at left edge, gradually blending without any strip/boundary. BAKE a soft BOTTOM dark gradient across the lowest approximately 100 pixels, fading downward to near-black charcoal smoothly. Both fades must be IN the image. No added text, UI, borders, unrelated objects or extra characters. Preserve the orc's identity, anatomy, both hands gripping the intact pole and Horde flag. Reframe him high toward the right with flag legible.",
+      "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-a8f36d53-b06e-477e-a897-ab5ba86a5d31.png",
+      "review": "Media/final-images/reputations/warsong-outriders-review.png"
+    },
+    {
+      "id": "stormpike-guard",
+      "source": "Dun_Baldar_Bunker_full-stormpikeguard.jpg",
+      "prompt": "Use case: style-transfer. Edit the supplied artwork into ONE 4:3 landscape addon banner, target 1200x900. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Keep the source artist's painting style and subjects, armor, weapons, hands, architecture, pose and existing artist marks. Extend/reframe environment naturally for landscape. Left third quiet for addon text. BAKE a wide smooth dark neutral charcoal gradient into the LEFT, strongest at left edge, gradually blending without any strip/boundary. BAKE a soft BOTTOM dark gradient across the lowest approximately 100 pixels, fading downward to near-black charcoal smoothly. Both fades must be IN the image. No added text, UI, borders, unrelated objects or extra characters. Preserve the snowy Dun Baldar bunker architecture, cannons, Alliance flag and mountain scene; place the main bunker high toward the right.",
+      "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-3f374e46-0608-4256-8c6a-264255bd2fc3.png",
+      "review": "Media/final-images/reputations/stormpike-guard-review.png"
+    }
+  ]
+}
