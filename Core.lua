@@ -277,6 +277,7 @@ FGT.SETTING_DEFAULTS = {
     openOnLogin = false,     -- open the window after login
     scale = 1,               -- window scale
     alpha = 1,               -- window opacity
+    tallGoalArt = true,      -- full-height goal artwork, cropped without stretching
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
     hideCompletedSteps = false, -- guide filter, controlled beside Step by Step
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
@@ -4578,6 +4579,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Let artwork continue beneath the compact header before fading out.
         local h = math.max(math.max(1, self:GetHeight())*0.92,
             w*0.6*0.92/(self.sourceAspect or 1))
+        if FGT.Setting("tallGoalArt") then
+            h = math.max(1, detailPanel:GetHeight()-8)
+        end
         -- Scale with window width; crop from the top-right of the source.
         local aw = w*0.6*0.92
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
@@ -8097,6 +8101,9 @@ FGT.SETTINGS = {
           apply = function() FGT.PlayGoalSound(FGT.Setting("sound")) end },
     } },
     { title = "Window and minimap", rows = {
+        { type = "toggle", key = "tallGoalArt", label = "Full-height goal artwork",
+          desc = "Extend photos behind the guide without stretching. Turn off to restore the previous sizing.",
+          apply = function() if FGT.goalBanner then FGT.goalBanner:Fit() end end },
         { type = "toggle", key = "minimap", label = "Minimap button",
           apply = function(on) if FGT.minimapButton then FGT.minimapButton:SetShown(on) end end },
         { type = "toggle", key = "openOnLogin", label = "Open on login",
