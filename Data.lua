@@ -16,6 +16,7 @@ FGT.categoryColors = {
     ["Tier Set"]         = { 1.00, 0.82, 0.00 },   -- gold #ffd100
     ["Item Set"]         = { 1.00, 0.82, 0.00 },
     ["Epic Weapon"]      = { 0.64, 0.21, 0.93 },   -- epic purple #a335ee
+    ["Rare Weapon"]      = { 0, 112 / 255, 221 / 255 }, -- rare blue #0070dd
     ["Milestone"]        = { 0.62, 0.91, 0.44 },   -- #9fe870
 }
 

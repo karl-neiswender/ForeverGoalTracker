@@ -345,7 +345,7 @@ local library = {
         faction = "Horde", itemQuality = 3,
         icon = "inv_sword_01",
         name = "Wolfsbane",
-        category = "Epic Weapon", difficulty = "Moderate",
+        category = "Rare Weapon", difficulty = "Moderate",
         timeEstimate = "Days",
         note = "A two-handed sword for Undead Paladins, earned through a quest chain in Silverpine Forest with materials from the Deadmines, Shadowfang Keep and Blackfathom Depths.",
         foreverNote = "A new Horde Paladin quest weapon. Its blazing-wind proc deals extra damage to wolves and worgen.",

@@ -6830,7 +6830,7 @@ local FILTERS = {
     { key = "all",        label = "All" },
     { key = "added",      label = "Added" },
     { key = "Legendary",  label = "Legendary", match = "^Legendary" },
-    { key = "Epic Weapon", label = "Epic Weapons" },
+    { key = "Epic Weapon", label = "Weapons", match = "Weapon$" },
     { key = "Mount",      label = "Mounts", match = "^Mount" },
     { key = "Reputation", label = "Reputation" },
     { key = "Raid",       label = "Raids" },
