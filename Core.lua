@@ -4240,11 +4240,14 @@ do -- A soft breathing highlight stays entirely inside the guide's fill.
     detailBar.softTipWidth = 70
     local render = detailBar.Render
     local elapsedTotal = 0
+    local pulseElapsed = 0
+    local goldLeft, goldRight = {1,0.85,0.40}, {1,0.95,0.70}
+    local blueLeft, blueRight = {0.40,0.70,1}, {0.80,0.92,1}
     local function PaintTip(self)
         local pulse = FGT.Setting("celebrations") ~= "off"
             and (0.5-0.5*math.cos(elapsedTotal*2*math.pi/5.5)) or 0.5
-        local left = self.blue and {0.40,0.70,1} or {1,0.85,0.40}
-        local right = self.blue and {0.80,0.92,1} or {1,0.95,0.70}
+        local left = self.blue and blueLeft or goldLeft
+        local right = self.blue and blueRight or goldRight
         self.softTipAlpha = 0.22+0.04*pulse
         ApplyHGradient(self.tip, left, right, 0, self.softTipAlpha)
     end
@@ -4260,6 +4263,9 @@ do -- A soft breathing highlight stays entirely inside the guide's fill.
     driver:SetScript("OnUpdate", function(_, elapsed)
         if not detailBar.softTipActive then return end
         elapsedTotal = elapsedTotal + elapsed
+        pulseElapsed = pulseElapsed + elapsed
+        if pulseElapsed < 0.05 then return end
+        pulseElapsed = 0
         PaintTip(detailBar)
     end)
 end

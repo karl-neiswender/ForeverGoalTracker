@@ -61,8 +61,20 @@ def session(saved, before_events=None, after_login=None, forever=False):
     run = rt.eval('function(src, name, ns) local f = assert(loadstring(src, "@" .. name)); f("ForeverGoalTracker", ns) end')
     ns = rt.eval("{}")
     rt.globals().STUB_NS = ns
+    baseline_globals = set(rt.globals().keys())
     for f in FILES:
         run(open(f).read(), f, ns)
+    # Addon state belongs in the private namespace. These exports are WoW
+    # integration points; catch accidental globals on every client load.
+    allowed_globals = {
+        "BINDING_HEADER_FOREVERGOALTRACKER", "BINDING_NAME_FGT_TOGGLE",
+        "ForeverGoalTrackerDB", "ForeverGoalTracker_Toggle",
+        "ForeverGoalTrackerFrame", "ForeverGoalTrackerMinimapButton",
+        "SLASH_FOREVERGOALTRACKER1", "SLASH_FOREVERGOALTRACKER2",
+        "SLASH_FOREVERGOALTRACKER3", "SetItemRef",
+    }
+    unexpected_globals = set(rt.globals().keys()) - baseline_globals - allowed_globals
+    assert not unexpected_globals, "Unexpected addon globals: " + repr(sorted(unexpected_globals))
     if saved:
         rt.execute("ForeverGoalTrackerDB = " + saved)
     if before_events:

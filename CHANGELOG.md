@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Dedicated Swift Zulian Tiger artwork
+- Reduce progress-bar animation allocations and update frequency
+
 ## 2.11.0
 
 - Needed for hints on item tooltips, with remaining supplies for tracked goals
