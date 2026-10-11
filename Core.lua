@@ -1939,8 +1939,8 @@ function FGT.AddFactionCardEtch(row, faction)
     tex:SetTexture(path)
     -- Sample an enlarged 98x103 emblem inside the card's etched rim.
     -- Crop the top/right without painting over the border.
-    tex:SetSize(83, 66)
-    tex:SetTexCoord(0, 83 / 98, 15 / 103, 81 / 103)
+    tex:SetSize(78, 66)
+    tex:SetTexCoord(0, 78 / 98, 15 / 103, 81 / 103)
     tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -3, -3)
     tex:SetVertexColor(0.58, 0.53, 0.44, 0.14)
     row.factionWatermark = tex
