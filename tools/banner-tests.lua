@@ -1,7 +1,7 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 assert(B:ArtPath("pvp_av_horde") == "pvp_av_horde-banner.blp", "Frostwolf-specific banner wins over shared PvP variants")
-assert(F.GoalById("pvp_av_horde").icon == 81744, "Horde PvP uses requested faction thumbnail")
+assert(F.GoalById("pvp_av_horde").icon[1] == "inv_bannerpvp_01", "Horde PvP uses named Horde banner texture")
 assert(F.GoalById("pvp_av_ally").icon[1] == "inv_bannerpvp_02", "Alliance PvP uses Alliance War Mount thumbnail")
 do
     local original, received = B.icon.tex.SetTexture

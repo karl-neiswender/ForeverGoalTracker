@@ -152,7 +152,7 @@ end
 for _, goal in ipairs(FGT.goals) do
     if goal.category == "PvP" or (goal.armorParent and goal.armorParent:match("^pvp_set_")) then
         if goal.faction == "Horde" then
-            goal.icon = 81744
+            goal.icon = { "inv_bannerpvp_01", "inv_bannerpvp_02" }
         elseif goal.faction == "Alliance" then
             goal.icon = { "inv_bannerpvp_02", "inv_bannerpvp_01" }
         end

@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Horde thumbnail correction: 81744 is not a loadable texture ID on Karl's Forever client (green missing-texture square). Faction-only Horde PvP thumbnails now use `inv_bannerpvp_01`, the named Horde banner counterpart to Alliance's `inv_bannerpvp_02`. Numeric resolver support retained for valid texture file IDs. `/reload` applies this fix.
+
 Numeric icon fix: ResolveIcon now passes numeric texture IDs directly to SetTexture, including IDs in fallback lists. Fixes reload crash from Horde icon 81744. Banner tests exercise both forms. `/reload` applies the fix.
 
 Frostwolf banner correction: generic PvP art variants previously won before the explicit banner path; Frostwolf now bypasses that shared variant fallback. Faction-only PvP goals and class-set children use Horde icon 81744 or Alliance War Mount's banner icon. This supersedes the Frostwolf tabard thumbnail. Lua-only `/reload` if the new banner texture was already loaded at restart.
