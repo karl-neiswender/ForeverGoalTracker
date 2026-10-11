@@ -1,0 +1,9 @@
+{
+  "source": "Media/artwork/Nat_Pagle_HS.jpg",
+  "prompt": "Edit the supplied Nat Pagle painting into ONE 4:3 landscape WoW addon banner, target 1200x900. Neutral black and white grayscale, modest contrast, painterly midtones. Preserve Nat Pagle's recognizable face, hands, held fish, fishing rod, boat, bottle, original setting and anatomy. Place Nat and the fish high on the right, keep the left third quiet for interface text; extend the existing sea/boat setting naturally as needed. Bake a wide smooth dark left gradient inside the artwork and a soft dark bottom gradient about 100px tall, with smooth transitions and no hard strips. No added text, symbols, objects or watermark. Keep the subject readable without harsh white highlights.",
+  "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-5a4d6915-dc02-4648-99e6-3e73cb7de350.png",
+  "review": "Media/final-images/professions/fishing-review-2026-10-11.png",
+  "artist": "Steve Prescott",
+  "artistSource": "https://hearthstone.blizzard.com/en-us/cards/1147-nat-pagle/",
+  "status": "awaiting approval"
+}
