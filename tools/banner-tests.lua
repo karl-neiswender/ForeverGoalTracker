@@ -1,6 +1,31 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    local get, info, lines, lineInfo = GetProfessions, GetProfessionInfo, GetNumSkillLines, GetSkillLineInfo
+    local characters = D.characters
+    D.characters = {}
+    GetNumSkillLines, GetSkillLineInfo = nil, nil
+    GetProfessions = function() return 1, 2, nil, 4, 5, 6 end
+    local names = {[1]="Enchanting", [2]="Tailoring", [4]="Fishing", [5]="Cooking", [6]="First Aid"}
+    GetProfessionInfo = function(index) return names[index], nil, 125, 300 end
+    STUB_FIRE("SKILL_LINES_CHANGED")
+    local me = D.characters[UnitName("player") .. "-" .. GetRealmName()]
+    assert(me.skills.Enchanting == 125 and me.skills["First Aid"] == 125,
+        "modern profession scan records primary and secondary skills across nil slots")
+    assert(B:ArtPath("prof_all") and B:ArtPath("prof_secondary"), "scanned professions select installed artwork")
+    GetProfessions = function() return nil, nil, nil, 4 end
+    STUB_FIRE("SKILL_LINES_CHANGED")
+    assert(B:ArtPath("prof_secondary") == "prof_fishing-banner.blp", "secondary-only characters retain fishing artwork")
+    GetProfessions, GetProfessionInfo = nil, nil
+    GetNumSkillLines = function() return 1 end
+    GetSkillLineInfo = function() return "Leatherworking", false, nil, 75 end
+    STUB_FIRE("SKILL_LINES_CHANGED")
+    assert(B:ArtPath("prof_all") == "prof_leatherworking-banner.blp", "legacy skill scan still selects artwork")
+    GetProfessions, GetProfessionInfo, GetNumSkillLines, GetSkillLineInfo = get, info, lines, lineInfo
+    D.characters = characters
+    B.professionArtChoices = {}
+end
+do
     local characters, art, choices = D.characters, B.professionArt, B.professionArtChoices
     local key = UnitName("player") .. "-" .. GetRealmName()
     D.characters = {[key]={skills={Leatherworking=1}}, Alt={skills={Enchanting=300}}}

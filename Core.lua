@@ -473,6 +473,17 @@ end
 
 local function SkillRanks()
     local out = {}
+    -- Modern clients expose professions separately from the legacy skills pane.
+    -- Preserve nil slots: secondary skills can exist without primary professions.
+    if GetProfessions and GetProfessionInfo then
+        local professions = {GetProfessions()}
+        for i = 1, 6 do
+            if professions[i] then
+                local name, _, rank = GetProfessionInfo(professions[i])
+                if name and WATCH.skills[name] and type(rank) == "number" then out[name] = rank end
+            end
+        end
+    end
     if GetNumSkillLines and GetSkillLineInfo then
         for i = 1, GetNumSkillLines() do
             local name, isHeader, _, rank = GetSkillLineInfo(i)
