@@ -906,7 +906,7 @@ local function DescribeRule(rule)
         table.insert(parts, "reputation reaches " .. (STANDING[rule.rep.standing] or "?")
             .. ((rule.rep.value or 0) > 0 and (" " .. rule.rep.value) or ""))
     end
-    if rule.race then table.insert(parts, "you have a " .. rule.race .. " character") end
+    if rule.race then table.insert(parts, "you have a " .. (rule.race == "Scourge" and "Undead" or rule.race) .. " character") end
     if rule.boss then
         table.insert(parts, "you defeat " .. AsList(rule.boss)[1] .. " with the addon running")
     end
@@ -920,7 +920,7 @@ local function DescribeRule(rule)
         table.insert(parts, "a character's " .. (rule.stat.what or "statistic") .. " reaches " .. rule.stat.value
             .. " (from the Statistics window)")
     end
-    if rule.forRace then table.insert(parts, "(" .. rule.forRace .. " characters only)") end
+    if rule.forRace then table.insert(parts, "(" .. (rule.forRace == "Scourge" and "Undead" or rule.forRace) .. " characters only)") end
     if rule.forFaction then table.insert(parts, "(" .. rule.forFaction .. " characters only)") end
     if rule.forClass then table.insert(parts, "(" .. rule.forClass .. " characters only)") end
     if rule.owned or rule.ownedPattern then table.insert(parts, "it shows up in your bags, gear or mount collection") end
