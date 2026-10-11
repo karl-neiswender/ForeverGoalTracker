@@ -1,0 +1,8 @@
+{
+  "tool": "built-in imagegen",
+  "source": "Media/artwork/Beaststalker_Tavish_full.jpg",
+  "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-5d17b64a-82d1-4e85-a997-a26496f3e412.png",
+  "prompt": "Use case: style-transfer. Edit target: attached Beaststalker Tavish painting. ONE 4:3 landscape addon banner, target 1200x900. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Preserve artist's style, Tavish's identity, face, beard, hair, horned Beaststalker armor, hands, pose, and complete distinctive three-barrel gun with its exact three circular muzzles. Reframe dwarf high toward the right, breathing room around head, horns and gun; naturally extend the smoky battlefield leftward. Left third quiet for addon text. Bake WIDE smooth dark neutral charcoal gradient INTO LEFT, strongest at edge, gradually fading into scene without visible vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM across approximately lowest 100px of 1200x900 master, fading downward to near-black neutral charcoal without horizontal strip. BOTH gradients in the artwork itself. Preserve artist marks. No added text, UI, border, unrelated objects or extra characters. Intended Beaststalker Armor goal banner.",
+  "status": "pending visual approval",
+  "review": "Media/final-images/tier-sets/hunter/beaststalker-review.png"
+}
