@@ -3513,7 +3513,7 @@ function FGT.GoalEyebrow(goal, card)
         .. (goal.faction and not card and ("  |cff77736a\194\183|r  |cff"
             .. (goal.faction == "Horde" and "e8483d" or "408cff")
             .. string.upper(goal.faction) .. " ONLY|r") or "")
-        .. (goal.classOnly and ("  |cff77736a\194\183|r  "
+        .. (goal.classOnly and not card and ("  |cff77736a\194\183|r  "
             .. FGT.ArmorClassLabel(goal.classOnly):gsub("|r", " ONLY|r")) or "")
 end
 
