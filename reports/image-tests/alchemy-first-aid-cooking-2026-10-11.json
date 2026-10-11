@@ -5,7 +5,9 @@
     "prompt": "Edit supplied painting into ONE 4:3 landscape WoW addon banner target1200x900. Neutral black and white grayscale, modest contrast, painterly midtones. Main subject high on the right, left third quiet for UI text. Naturally extend existing backdrop. Bake wide smooth dark LEFT gradient and smooth dark BOTTOM gradient about100px tall within artwork, no hard strips. Preserve original object geometry and identity, no extra objects or text. Preserve the complete alchemy vessel, three ornate potion bottles, bubbles and magical vapor.",
     "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-6e1ef848-588e-4a2a-8d04-515111c34213.png",
     "review": "Media/final-images/professions/alchemy-review-2026-10-11.png",
-    "status": "awaiting approval"
+    "status": "approved and installed",
+    "master": "Media/final-images/professions/alchemy-master.png",
+    "runtime": "Media/prof_alchemy-banner.blp"
   },
   {
     "id": "first-aid",
@@ -13,7 +15,9 @@
     "prompt": "Edit supplied painting into ONE 4:3 landscape WoW addon banner target1200x900. Neutral black and white grayscale, modest contrast, painterly midtones. Main subject high on the right, left third quiet for UI text. Naturally extend existing backdrop. Bake wide smooth dark LEFT gradient and smooth dark BOTTOM gradient about100px tall within artwork, no hard strips. Preserve original object geometry and identity, no extra objects or text. Preserve the leather first aid satchel, cross emblem, stitching, straps, bandages and glass bottles.",
     "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-b3418731-37c0-4eb5-8a6f-1b2449824e0a.png",
     "review": "Media/final-images/professions/first-aid-review-2026-10-11.png",
-    "status": "awaiting approval"
+    "status": "approved and installed",
+    "master": "Media/final-images/professions/first-aid-master.png",
+    "runtime": "Media/prof_first_aid-banner.blp"
   },
   {
     "id": "cooking",
@@ -21,6 +25,8 @@
     "prompt": "Edit supplied painting into ONE 4:3 landscape WoW addon banner target1200x900. Neutral black and white grayscale, modest contrast, painterly midtones. Main subject high on the right, left third quiet for UI text. Naturally extend existing backdrop. Bake wide smooth dark LEFT gradient and smooth dark BOTTOM gradient about100px tall within artwork, no hard strips. Preserve original object geometry and identity, no extra objects or text. Preserve the campfire, logs, stone ring, hanging cooking pot, shovel, tent and snowy woodland setting.",
     "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-5a2925e7-3587-474d-a1b7-ca0d788b740e.png",
     "review": "Media/final-images/professions/cooking-review-2026-10-11.png",
-    "status": "awaiting approval"
+    "status": "approved and installed",
+    "master": "Media/final-images/professions/cooking-master.png",
+    "runtime": "Media/prof_cooking-banner.blp"
   }
 ]
