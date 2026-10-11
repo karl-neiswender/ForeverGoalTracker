@@ -19,6 +19,7 @@ C.TITLE       = { 1.00, 0.843, 0.369 }    -- heading gold
 C.TEXT        = { 0.91, 0.91, 0.91 }
 C.INK2        = { 0.741, 0.741, 0.741 }
 C.SUBTEXT     = { 0.541, 0.541, 0.541 }
+C.SELECTED_EYEBROW = { 0.88, 0.78, 0.53 } -- soft gold on selected cards
 C.DONE        = { 0.31, 0.75, 0.23 }
 C.ROW         = { 0.165, 0.165, 0.165, 1 } -- #2a2a2a
 C.ROW_LINE    = { 0.20, 0.20, 0.20, 1 }    -- #333
@@ -3507,7 +3508,9 @@ local function RefreshGoalList()
         local finished = total > 0 and done == total
         local on = finished and FGT.CompletedOn(row.goal)
         row.eyebrow:SetText(finished and (on and ("Completed " .. on) or "Completed") or FGT.GoalEyebrow(row.goal, true))
-        local eyebrowColor = finished and C.DONE or C.SUBTEXT
+        local eyebrowColor = finished and C.DONE
+            or (isSelected and (isNew and C.FOREVER_LIGHT or C.SELECTED_EYEBROW))
+            or C.SUBTEXT
         row.eyebrow:SetTextColor(eyebrowColor[1], eyebrowColor[2], eyebrowColor[3])
         if isSelected then
             row:SetEtch(STYLE.rowSel)
