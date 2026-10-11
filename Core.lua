@@ -1922,11 +1922,10 @@ local function Etch(frame, style, edgeSize)
 end
 
 -- Soft monochrome faction artwork cropped into the upper-right corner.
--- Client textures avoid adding cached addon artwork for these emblems.
+-- White alpha cutouts share one tint and fade across both factions.
 function FGT.AddFactionCardEtch(row, faction)
     if faction ~= "Alliance" and faction ~= "Horde" then return end
-    local path = "Interface\\Timer\\" .. faction .. "-Logo"
-    if GetFileIDFromPath and not GetFileIDFromPath(path) then return end
+    local path = "Interface\\AddOns\\" .. ADDON .. "\\Media\\faction-" .. string.lower(faction)
     row.factionEtch = {}
     -- Crop the top/right of the emblem within the card bounds. It fades
     -- gently along the left/bottom, ending above the progress bar.
@@ -1937,7 +1936,7 @@ function FGT.AddFactionCardEtch(row, faction)
         tex:SetSize(62, 2)
         tex:SetTexCoord(0.20, 0.73, 0.25 + y / 116, 0.25 + (y + 2) / 116)
         tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -2, -2 - y)
-        local alpha = (faction == "Horde" and 0.44 or 0.27) * (1 - 0.7 * (y / 44)^2)
+        local alpha = 0.27 * (1 - 0.7 * (y / 44)^2)
         ApplyHGradient(tex, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, alpha * 0.25, alpha)
         row.factionEtch[#row.factionEtch + 1] = tex
     end

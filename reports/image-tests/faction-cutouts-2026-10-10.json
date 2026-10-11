@@ -1,0 +1,21 @@
+{
+  "method": "Built-in imagegen; technical alpha-preserving crop, fit and TGA encoding",
+  "prompts": {
+    "Horde": "Edit the supplied Horde logo into a flat single-color WHITE emblem with genuinely transparent background. Preserve exact recognizable geometry and proportions. Only the red Horde symbol and detached center diamond become solid white; all gaps around the diamond and outside the symbol are transparent. Remove all source background blocks, white backdrop, colored fields, black outlines, bevels, grain, texture, highlights and shadows. No redesign, no new detail, no gradients. Crisp smooth antialiased silhouette. Center the complete uncut emblem on a transparent canvas with small even margins. PNG alpha cutout, white ink only.",
+    "Alliance": "Edit the supplied Alliance logo into a flat single-color WHITE emblem with genuinely transparent background. Preserve exact recognizable geometry and proportions. Only the gold lion face, mane and ornamental shapes become solid white; the blue shield field and all spaces between the gold shapes become transparent. Preserve eyes, nose and mouth negative spaces. Remove all source background blocks, white backdrop, colored fields, black outlines, bevels, grain, texture, highlights and shadows. No redesign, no new detail, no gradients. Crisp smooth antialiased silhouette. Center the complete uncut emblem on a transparent canvas with small even margins. PNG alpha cutout, white ink only."
+  },
+  "sources": [
+    "Media/artwork/HordeLogo.png",
+    "Media/artwork/AllianceLogo.png"
+  ],
+  "masters": [
+    "Media/final-images/factions/horde-white.png",
+    "Media/final-images/factions/alliance-white.png"
+  ],
+  "runtime": [
+    "Media/faction-horde.tga",
+    "Media/faction-alliance.tga"
+  ],
+  "approval": "Karl: excellent. lets load and replace",
+  "conversion": "Crop alpha bounds; fit within 248x248 preserving aspect; center on 256x256 transparent RGBA canvas; save TGA."
+}

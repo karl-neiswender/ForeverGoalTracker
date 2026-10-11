@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Custom faction assets: Karl approved generated white transparent logo cutouts and requested replacement. PNG masters in `Media/final-images/factions`, 256px RGBA TGA textures `Media/faction-alliance.tga` and `Media/faction-horde.tga`. Both cards now use the same tint/opacity/fades instead of differently shaded client emblems. Originals unchanged; full WoW restart required.
+
 Faction emblem nudge: slightly higher/right crop and 2px inset. Horde opacity raised independently from 27% to 44% to compensate for its darker client texture; Alliance strength unchanged. `/reload` to review.
 
 Faction emblem adjustment: shifted the artwork 10px farther right by narrowing its visible sampling area and cropping its right side within card bounds. Both fades eased and opacity slightly increased to reveal more of the emblem. `/reload` to review.
