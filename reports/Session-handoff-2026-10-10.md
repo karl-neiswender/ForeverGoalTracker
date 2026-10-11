@@ -118,3 +118,7 @@ Restart the client after pulling new artwork. Lua-only follow-up fixes need `/re
 - The existing `SetItemRef` replacement / player-name-copy taint issue remains a separate open follow-up in AGENTS.md. Today's item tooltip hooks do not replace it, and this session did not resolve it.
 - Public gallery shots 01, 03, 04 and 05 now have changed cards and/or guide controls; review/retake before the next release. The saved Settings shot also needs a retake for the new tooltip group and eventual version bump. A manual tooltip screenshot could illustrate Needed for after Karl checks it in game.
 - README files and ROADMAP describe the new features. CHANGELOG keeps brief player-facing Unreleased notes; this handoff and git history hold the details. When Karl authorizes a release after review, choose the version then, update the store description's goal count/features/roadmap, check screenshots, and use the normal release workflow. No “Saturday CurseForge push” task or release title is needed.
+
+## Faction card watermark review
+
+Replaced segmented fades with single transparent faction-soft textures, lower 14% opacity and state-aware warm grey / amber / Forever blue tint. Same upper-right footprint. New textures require a client restart; awaiting Karl’s in-game review. Synced new Warsong artwork original unchanged.

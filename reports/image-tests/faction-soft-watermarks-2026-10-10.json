@@ -1,0 +1,8 @@
+{
+  "sources": {
+    "horde": "exec-03427cd1-311a-4777-b344-56fd1313e876.png",
+    "alliance": "exec-0edd8846-c314-4906-8973-c4e18586515a.png"
+  },
+  "treatment": "White transparent watermark, broad continuous left and bottom alpha fade. Single texture at 14 percent opacity with warm grey, amber selected, or Forever blue tint.",
+  "conversion": "Proportional resize to 248px within 256px transparent TGA, alpha preserved."
+}

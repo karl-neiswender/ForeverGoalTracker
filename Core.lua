@@ -1917,6 +1917,15 @@ local function Etch(frame, style, edgeSize)
         if self.foreverNew then st = (self.twin and self.twin[st]) or STYLE.foreverTwin[st] or st end
         ApplyVGradient(self.etchBg, st.top, st.bottom)
         self:SetBackdropBorderColor(st.edge[1], st.edge[2], st.edge[3], st.edge[4] or 1)
+        if self.factionWatermark then
+            if self.foreverNew then
+                self.factionWatermark:SetVertexColor(0.38, 0.55, 0.76, 0.14)
+            elseif st == STYLE.rowSel then
+                self.factionWatermark:SetVertexColor(0.65, 0.51, 0.28, 0.14)
+            else
+                self.factionWatermark:SetVertexColor(0.58, 0.53, 0.44, 0.14)
+            end
+        end
     end
     frame:SetEtch(style)
 end
@@ -1925,30 +1934,15 @@ end
 -- White alpha cutouts share one tint and fade across both factions.
 function FGT.AddFactionCardEtch(row, faction)
     if faction ~= "Alliance" and faction ~= "Horde" then return end
-    local path = "Interface\\AddOns\\" .. ADDON .. "\\Media\\faction-" .. string.lower(faction)
-    row.factionEtch = {}
-    -- Keep the same scale, continuing the sampled emblem to the card's
-    -- bottom edge. One continuous diagonal wash softens toward bottom-left.
-    for y = 0, 64, 2 do
-        local tex = row:CreateTexture(nil, "ARTWORK", nil, -4)
-        tex:SetTexture(path)
-        tex:SetDesaturated(true)
-        tex:SetSize(50, 2)
-        tex:SetTexCoord(0.20 + 0.53 * 12 / 62, 0.73, 0.25 + y / 116, 0.25 + (y + 2) / 116)
-        tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, -5 - y)
-        local bottom = math.max(0, (y - 48) / 16)
-        local alpha = 0.19 * (1 - 0.25 * y / 64) * (1 - bottom * bottom * (3 - 2 * bottom))
-        ApplyHGradient(tex, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, alpha * 0.7, alpha)
-        row.factionEtch[#row.factionEtch + 1] = tex
-        local fade = row:CreateTexture(nil, "ARTWORK", nil, -4)
-        fade:SetTexture(path)
-        fade:SetDesaturated(true)
-        fade:SetSize(12, 2)
-        fade:SetTexCoord(0.20, 0.20 + 0.53 * 12 / 62, 0.25 + y / 116, 0.25 + (y + 2) / 116)
-        fade:SetPoint("TOPRIGHT", row, "TOPRIGHT", -55, -5 - y)
-        ApplyHGradient(fade, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, 0, alpha * 0.7)
-        row.factionEtch[#row.factionEtch + 1] = fade
-    end
+    local path = "Interface\\AddOns\\" .. ADDON .. "\\Media\\faction-soft-" .. string.lower(faction)
+    local tex = row:CreateTexture(nil, "ARTWORK", nil, -4)
+    tex:SetTexture(path)
+    tex:SetSize(62, 66)
+    tex:SetTexCoord(0, 1, 0, 1)
+    tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, -5)
+    tex:SetVertexColor(0.58, 0.53, 0.44, 0.14)
+    row.factionWatermark = tex
+    row.factionEtch = {tex}
 end
 
 -- Embossed divider (Karl, 2026-10-07): a 1px dark shadow line over a 1px
