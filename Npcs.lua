@@ -17,6 +17,8 @@ local ADDON, FGT = ...
 -- not in Wowhead's Forever database (the tooltip says so on Forever).
 -- Checked 2026-10-07: every Classic NPC below is in the Forever database.
 FGT.NPCS = {
+    -- Weapon trainer listed in Wowhead Forever, checked 2026-10-11.
+    { id = 11870, name = "Archibald", tag = "Weapon Master", where = "Undercity, in the War Quarter" },
     -- Classic fishing tournament guide, Wowhead, 2026-10-10.
     { id = 15077, name = "Riggle Bassbait", tag = "Fishmaster", where = "Booty Bay, on the central docks near the inn during the fishing tournament" },
     -- AQ40 turn-ins: Classic IDs and instance location checked on Wowhead's

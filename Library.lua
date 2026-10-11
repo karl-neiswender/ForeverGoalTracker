@@ -351,7 +351,7 @@ local library = {
         foreverNote = "A new Horde Paladin quest weapon. Its blazing-wind proc deals extra damage to wolves and worgen.",
         steps = {
             { text = "Reach level 18.", auto = { level = 18 } },
-            { text = "Learn Two-Handed Swords.", auto = { skill = { name = "Two-Handed Swords", rank = 1 }, forRace = "Scourge", forFaction = "Horde", forClass = "PALADIN", description = "Two-Handed Swords is learned on Undead Paladins only" } },
+            { text = "Learn Two-Handed Swords from Archibald in Undercity's War Quarter.", auto = { skill = { name = "Two-Handed Swords", rank = 1 }, forRace = "Scourge", forFaction = "Horde", forClass = "PALADIN", description = "an Undead Paladin learns Two-Handed Swords" } },
             { text = "Complete 'Diplomatic Incident' from Danitha Morr at Bandarion Keep in Tirisfal Glades.", auto = { quest = 91858 } },
             { text = "Complete 'A Curious Pair' at the Sepulcher in Silverpine Forest.", auto = { quest = 91859 } },
             { text = "Complete 'A Grim Fate' on Fenris Isle in Silverpine Forest.", auto = { quest = 91860 } },
