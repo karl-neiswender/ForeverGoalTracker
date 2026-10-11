@@ -4512,9 +4512,34 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         return best
     end
+    -- Only the logged-in character's skills choose profession artwork.
+    -- Keep a random choice until the eligible pool changes or /reload.
+    B.professionArt, B.professionArtChoices = {}, {}
+    function B:ProfessionArt(goal)
+        if not goal or goal.category ~= "Profession" or not goal.group then return nil end
+        local me = Roster()[CharKey()]
+        local pool = {}
+        for _, step in ipairs(goal.steps or {}) do
+            local skill = step.auto and step.auto.skill
+            local path = skill and self.professionArt[skill.name]
+            if path and me and me.skills and (me.skills[skill.name] or 0) > 0 then
+                pool[#pool+1] = path
+            end
+        end
+        if #pool == 0 then return nil end
+        local key, signature = CharKey() .. ":" .. goal.id, table.concat(pool, ":")
+        local choice = self.professionArtChoices[key]
+        if not choice or choice.signature ~= signature then
+            choice = {signature=signature, path=pool[math.random(#pool)]}
+            self.professionArtChoices[key] = choice
+        end
+        return choice.path, 4/3, true
+    end
     function B:ResolveArt(id)
         local player = self:PlayerArtContext()
         local goal = FGT.GoalById(id)
+        local professionPath, professionAspect, professionProcessed = self:ProfessionArt(goal)
+        if professionPath then return professionPath, professionAspect, professionProcessed end
         local pvp = goal and goal.category == "PvP"
         if pvp then
             player = {faction=goal.faction}

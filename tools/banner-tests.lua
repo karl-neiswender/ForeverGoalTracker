@@ -1,5 +1,26 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+do
+    local characters, art, choices = D.characters, B.professionArt, B.professionArtChoices
+    local key = UnitName("player") .. "-" .. GetRealmName()
+    D.characters = {[key]={skills={Leatherworking=1}}, Alt={skills={Enchanting=300}}}
+    B.professionArt = {Leatherworking="leather.blp", Enchanting="enchant.blp", Tailoring="tailor.blp",
+        Mining="mining.blp", Fishing="fishing.blp", Cooking="cooking.blp"}
+    B.professionArtChoices = {}
+    assert(B:ArtPath("prof_all")=="leather.blp", "profession art ignores an alt's skills")
+    D.characters[key].skills = {Enchanting=1, Tailoring=1}
+    local picked = B:ArtPath("prof_all")
+    assert(picked=="enchant.blp" or picked=="tailor.blp")
+    for i=1,5 do assert(B:ArtPath("prof_all")==picked, "random profession art stays stable during redraws") end
+    D.characters[key].skills = {Mining=1}
+    assert(B:ArtPath("prof_all")=="mining.blp", "gathering uses the same selection")
+    D.characters[key].skills = {Fishing=1, Cooking=1}
+    picked = B:ArtPath("prof_secondary")
+    assert(picked=="fishing.blp" or picked=="cooking.blp", "secondary skills use their own eligible pool")
+    D.characters[key].skills = {}
+    assert(B:ProfessionArt(F.GoalById("prof_all"))==nil, "unknown professions retain fallback art")
+    D.characters, B.professionArt, B.professionArtChoices = characters, art, choices
+end
 assert(B:ArtPath("pvp_av_horde") == "pvp_av_horde-banner.blp", "Frostwolf-specific banner wins over shared PvP variants")
 assert(F.GoalById("pvp_av_horde").icon[1] == "inv_bannerpvp_01", "Horde PvP uses named Horde banner texture")
 assert(F.GoalById("pvp_av_ally").icon[1] == "inv_bannerpvp_02", "Alliance PvP uses Alliance War Mount thumbnail")

@@ -1,0 +1,58 @@
+[
+  {
+    "id": "blacksmithing",
+    "source": "Blacksmithing_Hammer_full.jpg",
+    "prompt": "Use case: style-transfer. Edit supplied painting into ONE 4:3 landscape addon banner target 1200x900. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve original painting style, exact subjects, identity, anatomy, geometry, pose, equipment, hands and artist marks. Main subject high toward right with breathing room; left third quiet for addon text. Extend source backdrop naturally. Bake WIDE smooth neutral charcoal dark gradient INTO LEFT, strongest at edge blending without vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM approximately lowest 100px of 1200x900 master, fading downward to near-black charcoal without hard horizontal strip. BOTH fades inside image. No added text, UI, borders, extra characters or unrelated objects. Preserve the complete hammer, lion medallion, grip and magical sparks.",
+    "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-b022d2ae-0a58-4646-8d27-d7202a4f02d8.png",
+    "review": "Media/final-images/professions/blacksmithing-review-2026-10-11.png",
+    "status": "awaiting approval"
+  },
+  {
+    "id": "leatherworking",
+    "source": "Leatherworking_Kit_full.jpg",
+    "prompt": "Use case: style-transfer. Edit supplied painting into ONE 4:3 landscape addon banner target 1200x900. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve original painting style, exact subjects, identity, anatomy, geometry, pose, equipment, hands and artist marks. Main subject high toward right with breathing room; left third quiet for addon text. Extend source backdrop naturally. Bake WIDE smooth neutral charcoal dark gradient INTO LEFT, strongest at edge blending without vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM approximately lowest 100px of 1200x900 master, fading downward to near-black charcoal without hard horizontal strip. BOTH fades inside image. No added text, UI, borders, extra characters or unrelated objects. Preserve open leather tool kit, handles, spool, needle, scissors and all tool geometry.",
+    "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-5f361027-31ba-4d38-ab64-2a4b4299e203.png",
+    "review": "Media/final-images/professions/leatherworking-review-2026-10-11.png",
+    "status": "awaiting approval"
+  },
+  {
+    "id": "charger",
+    "source": "mount_charger-banner-source.jpg",
+    "prompt": "Use case: style-transfer. Edit supplied painting into ONE 4:3 landscape addon banner target 1200x900. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve original painting style, exact subjects, identity, anatomy, geometry, pose, equipment, hands and artist marks. Main subject high toward right with breathing room; left third quiet for addon text. Extend source backdrop naturally. Bake WIDE smooth neutral charcoal dark gradient INTO LEFT, strongest at edge blending without vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM approximately lowest 100px of 1200x900 master, fading downward to near-black charcoal without hard horizontal strip. BOTH fades inside image. No added text, UI, borders, extra characters or unrelated objects. Preserve rearing armored horse with correct legs, hooves, mane and tail, complete armor and Alliance banners.",
+    "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-a473f256-a12d-4b3c-88a8-8b4d899050e1.png",
+    "review": "Media/final-images/mounts/charger-review-2026-10-11.png",
+    "status": "awaiting approval"
+  },
+  {
+    "id": "naxxramas",
+    "source": "Naxxramas_TCG_key_art.jpg",
+    "prompt": "Use case: style-transfer. Edit supplied painting into ONE 4:3 landscape addon banner target 1200x900. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve original painting style, exact subjects, identity, anatomy, geometry, pose, equipment, hands and artist marks. Main subject high toward right with breathing room; left third quiet for addon text. Extend source backdrop naturally. Bake WIDE smooth neutral charcoal dark gradient INTO LEFT, strongest at edge blending without vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM approximately lowest 100px of 1200x900 master, fading downward to near-black charcoal without hard horizontal strip. BOTH fades inside image. No added text, UI, borders, extra characters or unrelated objects. Preserve Kel'Thuzad, the existing abominations, skeletons, ghost and dungeon architecture. Frame lich prominently high right, do not add monsters.",
+    "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-c3108532-c645-40c2-8047-68475893791c.png",
+    "review": "Media/final-images/naxxramas/naxxramas-review-2026-10-11.png",
+    "status": "awaiting approval"
+  },
+  {
+    "id": "rogue-tier1",
+    "source": "rogue-gnome-alliance-tier1.jpg",
+    "prompt": "Use case: style-transfer. Edit supplied painting into ONE 4:3 landscape addon banner target 1200x900. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve original painting style, exact subjects, identity, anatomy, geometry, pose, equipment, hands and artist marks. Main subject high toward right with breathing room; left third quiet for addon text. Extend source backdrop naturally. Bake WIDE smooth neutral charcoal dark gradient INTO LEFT, strongest at edge blending without vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM approximately lowest 100px of 1200x900 master, fading downward to near-black charcoal without hard horizontal strip. BOTH fades inside image. No added text, UI, borders, extra characters or unrelated objects. Preserve gnome rogue ambushing the undead warrior, their exact faces, armor, hands, weapons and Glenn Rane artist signature.",
+    "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-d420f701-e372-418d-ba05-193f02947386.png",
+    "review": "Media/final-images/tier-sets/rogue/rogue-tier1-review-2026-10-11.png",
+    "status": "awaiting approval"
+  },
+  {
+    "id": "enchanting",
+    "source": "Runed_Mithril_Rod_full.jpg",
+    "prompt": "Use case: style-transfer. Edit supplied painting into ONE 4:3 landscape addon banner target 1200x900. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve original painting style, exact subjects, identity, anatomy, geometry, pose, equipment, hands and artist marks. Main subject high toward right with breathing room; left third quiet for addon text. Extend source backdrop naturally. Bake WIDE smooth neutral charcoal dark gradient INTO LEFT, strongest at edge blending without vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM approximately lowest 100px of 1200x900 master, fading downward to near-black charcoal without hard horizontal strip. BOTH fades inside image. No added text, UI, borders, extra characters or unrelated objects. Preserve entire runed mithril rod and magical swirls against original stone backdrop.",
+    "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-227f824d-3d44-4cf3-ae75-355167736bb9.png",
+    "review": "Media/final-images/professions/enchanting-review-2026-10-11.png",
+    "status": "awaiting approval"
+  },
+  {
+    "id": "tailoring",
+    "source": "Shadowcloth_Needle_full.jpg",
+    "prompt": "Use case: style-transfer. Edit supplied painting into ONE 4:3 landscape addon banner target 1200x900. Strict neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Preserve original painting style, exact subjects, identity, anatomy, geometry, pose, equipment, hands and artist marks. Main subject high toward right with breathing room; left third quiet for addon text. Extend source backdrop naturally. Bake WIDE smooth neutral charcoal dark gradient INTO LEFT, strongest at edge blending without vertical strip or boundary. Bake SOFT dark gradient INTO BOTTOM approximately lowest 100px of 1200x900 master, fading downward to near-black charcoal without hard horizontal strip. BOTH fades inside image. No added text, UI, borders, extra characters or unrelated objects. Preserve entire needle, thread loops, folded cloth and stone backdrop.",
+    "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-c5538642-89b3-41ac-b947-c4789c43c2ba.png",
+    "review": "Media/final-images/professions/tailoring-review-2026-10-11.png",
+    "status": "awaiting approval"
+  }
+]
