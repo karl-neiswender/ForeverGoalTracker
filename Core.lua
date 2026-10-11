@@ -4241,7 +4241,7 @@ do
     end
 end
 
-local detailBar = NewBar(FGT.detailBody, 16)
+local detailBar = NewBar(FGT.detailBody, 13)
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar.label:ClearAllPoints()
 detailBar.label:SetPoint("BOTTOMLEFT", detailBar, "TOPLEFT", 0, 4)
