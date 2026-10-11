@@ -4529,6 +4529,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Only the logged-in character's skills choose profession artwork.
     -- Keep a random choice until the eligible pool changes or /reload.
     B.professionArt = {
+        Mining = "prof_mining-banner.blp",
         Herbalism = "prof_herbalism-banner.blp",
         Alchemy = "prof_alchemy-banner.blp",
         ["First Aid"] = "prof_first_aid-banner.blp",
@@ -4737,6 +4738,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["prof_mining-banner.blp"] = "Patrick McEvoy",
         ["rep_hydraxian-banner.blp"] = "Jonboy Meyers",
         ["rep_nozdormu-banner.blp"] = "Zoltan Boros",
         ["rep_cenarion-banner.blp"] = "Eugene Dlinnov",

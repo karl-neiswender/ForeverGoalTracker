@@ -4,5 +4,7 @@
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-4e3da9f0-41cd-4447-8b58-f40cc14c6585.png",
   "review": "Media/final-images/professions/mining-review-2026-10-11.png",
   "artist": "Patrick McEvoy",
-  "status": "awaiting approval"
+  "status": "approved and installed",
+  "master": "Media/final-images/professions/mining-master.png",
+  "runtime": "Media/prof_mining-banner.blp"
 }
