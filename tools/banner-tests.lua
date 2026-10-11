@@ -62,6 +62,12 @@ B.GetHeight = function() return 200 end
 B.panel.GetHeight = function() return 600 end
 B.panel.GetWidth = function() return 600 end
 B:Fit()
+assert(B.fullImageHeight == 592, "full-height artwork fills the panel")
+assert(math.abs(artWidth-592*0.6*0.92)<0.001, "full-height artwork retains its width")
+assert(math.abs((artWidth/artHeight)/((coords[2]-coords[1])/(coords[4]-coords[3]))-(B.sourceAspect or 1))<0.001,
+    "full-height artwork preserves source proportions")
+F.SetSetting("tallGoalArt", false)
+B:Fit()
 local expectedHeight = math.max(184,592*0.6*0.92/(B.sourceAspect or 1))
 assert(math.abs(artWidth-592*0.6*0.92) < 0.001 and math.abs(B.fullImageHeight-expectedHeight)<0.001,
     "artwork scales with window width")
@@ -81,6 +87,7 @@ assert(B.fullImageHeight == 92 and B.uv[4] < 1, "short panel crops artwork at it
 assert(B.fadeStrips[1].fadeWeight > 0.99 and B.fadeStrips[64].fadeWeight < 0.001,
     "artwork itself fades smoothly to transparent at its bottom")
 B.panel.GetHeight = function() return 600 end
+F.SetSetting("tallGoalArt", true)
 -- A saved-goal startup may have no empty-state transition to show the driver.
 local driverShown = false
 local originalShow, originalIsShown = B.Show, B.IsShown
