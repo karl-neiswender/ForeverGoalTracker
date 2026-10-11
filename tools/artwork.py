@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "raid_bwl": "blackwing-lair/classic-key-art-master.png",
     "set_dungeon1_hunter": "tier-sets/hunter/beaststalker-master.png",
     "benediction-alliance": "weapons/benediction-alliance-master.png",
     "rep_thorium": "reputations/thorium-brotherhood-master.png",
@@ -63,7 +64,7 @@ FINAL_BANNERS = {
     "rep_argentdawn": "reputation/rep_argentdawn.jpg",
     **{goal: "tall-1200x900/" + goal + ".jpg" for goal in (
         "ashbringer", "atiesh", "sulfuras", "thunderfury",
-        "quelserrar", "benediction", "raid_bwl", "raid_mc", "att_mc", "set_tier1",
+        "quelserrar", "benediction", "raid_mc", "att_mc", "set_tier1",
         "lokdelar", "frostsaber", "set_viper", "rep_cenarion", "key_scholo")},
     "rhokdelar": "tall-1200x900/rhokdelar-hunter.jpg",
     "raid_ony": "tall-1200x900/raid_ony.jpg",

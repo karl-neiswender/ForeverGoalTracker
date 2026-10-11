@@ -4588,6 +4588,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
+    B.artPaths.att_bwl = "raid_bwl-banner.blp"
+    B.artAspects.att_bwl, B.preprocessed.att_bwl = 4/3, true
     B.artPaths.set_dungeon1_hunter = "set_dungeon1_hunter-banner.blp"
     B.artAspects.set_dungeon1_hunter, B.preprocessed.set_dungeon1_hunter = 4/3, true
     B.artAspects.wolfsbane, B.preprocessed.wolfsbane = 4/3, true

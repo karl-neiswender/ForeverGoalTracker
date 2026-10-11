@@ -3,10 +3,11 @@
   "source": "Media/artwork/Blackwing_Lair_Classic_key_art copy.jpg",
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-322515a7-79ac-4aab-9d7a-72eb92c86dce.png",
   "prompt": "Use case: style-transfer. Edit target supplied Blackwing Lair Classic key art. Create ONE 4:3 landscape addon banner, target 1200x900. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled flame highlights. Preserve original painting style, Lord Victor Nefarius on right with his staff, flame hand and crown of fire, throne, masonry, attacking warrior with complete sword and shield, other existing adventurers, armor, hands, pose, and artist marks. Reframe focus high toward right with breathing room. Left third quiet for addon text, naturally extend/reframe scene without inventing extra characters. Bake a WIDE smooth dark neutral charcoal gradient INTO LEFT edge strongest at edge gradually blending without hard vertical strip or boundary. Bake a SOFT dark gradient INTO BOTTOM across approximately lowest 100px of 1200x900 master, fading downward to near-black neutral charcoal without a hard horizontal strip. BOTH fades in artwork itself. No added text, UI, borders or unrelated objects. Shared artwork for Blackwing Lair raid and BWL attunement.",
-  "status": "pending visual approval",
+  "status": "approved and installed; Karl: good",
   "goals": [
     "raid_bwl",
     "att_bwl"
   ],
-  "review": "Media/final-images/blackwing-lair/classic-key-art-review.png"
+  "review": "Media/final-images/blackwing-lair/classic-key-art-review.png",
+  "runtimeTexture": "Media/raid_bwl-banner.blp"
 }
