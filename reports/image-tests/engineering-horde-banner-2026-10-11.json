@@ -2,7 +2,9 @@
   "source": "Media/artwork/BG22_HERO_200p_art.jpg",
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-af50b416-fa0c-489b-b633-b275e3865ed4.png",
   "review": "Media/final-images/professions/engineering-horde-review-2026-10-11.png",
-  "status": "awaiting approval",
+  "status": "approved and installed",
   "intendedUse": "Horde Engineering; retain existing dwarf for Alliance",
-  "prompt": "Faithfully edit supplied floating engineering hammer, gear, nut and screws painting into ONE 4:3 landscape WoW addon banner target1200x900. Preserve exact hammer silhouette, wrapped handle, mechanical bands, gear teeth, nut and screws and original painterly lightning background. Remove only white outer border through reframing. Strict neutral grayscale with moderately increased contrast, detailed painterly midtones, controlled highlights. Place main hammer high toward right with breathing room, keep left third quiet by extending existing abstract lightning background, no extra objects. Bake wide smooth dark LEFT gradient strongest at edge blending gradually without boundary. Bake soft smooth dark BOTTOM gradient across lowest approximately100px fading to nearblack charcoal, no hard strips. Both gradients within artwork. No text or UI. Minimal changes to object geometry."
+  "prompt": "Faithfully edit supplied floating engineering hammer, gear, nut and screws painting into ONE 4:3 landscape WoW addon banner target1200x900. Preserve exact hammer silhouette, wrapped handle, mechanical bands, gear teeth, nut and screws and original painterly lightning background. Remove only white outer border through reframing. Strict neutral grayscale with moderately increased contrast, detailed painterly midtones, controlled highlights. Place main hammer high toward right with breathing room, keep left third quiet by extending existing abstract lightning background, no extra objects. Bake wide smooth dark LEFT gradient strongest at edge blending gradually without boundary. Bake soft smooth dark BOTTOM gradient across lowest approximately100px fading to nearblack charcoal, no hard strips. Both gradients within artwork. No text or UI. Minimal changes to object geometry.",
+  "master": "Media/final-images/professions/engineering-horde-master.png",
+  "runtime": "Media/prof_engineering-horde-banner.blp"
 }

@@ -4549,6 +4549,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         for _, step in ipairs(goal.steps or {}) do
             local skill = step.auto and step.auto.skill
             local path = skill and self.professionArt[skill.name]
+            if path and skill.name == "Engineering" and UnitFactionGroup("player") == "Horde" then
+                path = "prof_engineering-horde-banner.blp"
+            end
             if path and me and me.skills and (me.skills[skill.name] or 0) > 0 then
                 pool[#pool+1] = path
             end
