@@ -1151,7 +1151,7 @@ local sets = {
         category = "Item Set", difficulty = "Moderate",
         timeEstimate = "Days",
         note = "Collect the five pieces of this new cloth set in Warcraft Forever. Each piece ticks itself when you own it.",
-        foreverNote = "A new five-piece set with mana regeneration and an Arcane elemental summon bonus. Sources for the Leggings, Sandals and Wraps are not revealed yet.",
+        foreverNote = "A new five-piece set that grants mana regeneration and a chance to summon an Arcane elemental.",
         steps = {
             { text = "Loot Violet Sorcerer's Mantle from Shade of the Archmage in the City of Dalaran.", icon = "inv_shoulder_02",
               auto = { item = 273051, owned = { "Violet Sorcerer's Mantle" } } },
