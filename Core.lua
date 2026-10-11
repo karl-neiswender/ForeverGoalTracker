@@ -4441,6 +4441,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Most specific compatible artwork wins; list order breaks equal scores.
     -- Only approved runtime textures belong here, never source/review files.
     B.artVariants = {
+        set_tier1_rogue = {
+            {path="set_tier1_rogue-alliance-banner.blp", faction="Alliance"},
+        },
         benediction = {
             {path="benediction-alliance-banner.blp", faction="Alliance"},
             {path="benediction-banner.blp", faction="Horde"},
@@ -4514,7 +4517,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     -- Only the logged-in character's skills choose profession artwork.
     -- Keep a random choice until the eligible pool changes or /reload.
-    B.professionArt, B.professionArtChoices = {}, {}
+    B.professionArt = {
+        Blacksmithing = "prof_blacksmithing-banner.blp",
+        Leatherworking = "prof_leatherworking-banner.blp",
+        Enchanting = "prof_enchanting-banner.blp",
+        Tailoring = "prof_tailoring-banner.blp",
+    }
+    B.professionArtChoices = {}
     function B:ProfessionArt(goal)
         if not goal or goal.category ~= "Profession" or not goal.group then return nil end
         local me = Roster()[CharKey()]
@@ -4614,6 +4623,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
+    B.artAspects.mount_charger, B.preprocessed.mount_charger = 4/3, true
+    B.artAspects.raid_naxx, B.preprocessed.raid_naxx = 4/3, true
     B.artPaths.att_bwl = "raid_bwl-banner.blp"
     B.artAspects.att_bwl, B.preprocessed.att_bwl = 4/3, true
     B.artPaths.set_dungeon1_hunter = "set_dungeon1_hunter-banner.blp"

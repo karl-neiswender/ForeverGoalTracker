@@ -287,7 +287,11 @@ assert(B.preprocessed.mount_dreadsteed and not desaturated and B.sourceAspect ==
     "approved Dreadsteed master retains its monochrome look and landscape proportions")
 D.active.mount_charger = true
 F.SelectGoal("mount_charger")
-assert(desaturated, "switching to older Charger artwork restores its existing monochrome look")
+assert(not desaturated and B.sourceAspect == 4/3, "approved Charger artwork retains baked monochrome treatment")
+assert(B:ArtPath("raid_naxx") == "raid_naxx-banner.blp" and B.preprocessed.raid_naxx,
+    "Naxxramas raid uses its approved replacement")
+assert(B.professionArt.Leatherworking == "prof_leatherworking-banner.blp"
+    and B.professionArt.Enchanting == "prof_enchanting-banner.blp", "approved profession artwork is connected")
 F.SelectGoal("raid_bwl")
 assert(not desaturated, "switching back clears desaturation")
 D.active.gold_5k = true

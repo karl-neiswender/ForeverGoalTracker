@@ -14,6 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "prof_blacksmithing": "professions/blacksmithing-master.png",
+    "prof_leatherworking": "professions/leatherworking-master.png",
+    "prof_enchanting": "professions/enchanting-master.png",
+    "prof_tailoring": "professions/tailoring-master.png",
+    "mount_charger": "mounts/charger-master.png",
+    "raid_naxx": "naxxramas/tcg-key-art-master.png",
+    "set_tier1_rogue-alliance": "tier-sets/rogue/tier1-alliance-master.png",
     "allclasses_dwarf_hunter": "leveling/dwarf-hunter-master.png",
     "raid_bwl": "blackwing-lair/classic-key-art-master.png",
     "set_dungeon1_hunter": "tier-sets/hunter/beaststalker-master.png",
