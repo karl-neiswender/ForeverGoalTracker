@@ -342,7 +342,7 @@ local library = {
     {
         -- Wowhead Forever item 267369 and its quest chain, checked 2026-10-11.
         id = "wolfsbane", library = true, forever = "new", needs = "forever",
-        faction = "Horde", itemQuality = 3,
+        faction = "Horde", classOnly = "PALADIN", itemQuality = 3,
         icon = "inv_sword_01",
         name = "Wolfsbane",
         category = "Rare Weapon", difficulty = "Moderate",
