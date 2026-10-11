@@ -7,9 +7,9 @@
 - If Ketho/LuaLS is unavailable or diagnostics cannot run, the release gate is incomplete. Do not publish a live release; report the missing check and complete the setup. Ordinary source commits and artwork syncing to main may continue without a release tag.
 - Also run `python3 tools/check.py` and inspect performance-sensitive code. Ketho's API annotations do not measure in-game CPU performance and do not replace manual in-game testing.
 
-## Current handoff (2026-10-10)
+## Current handoff (2026-10-11)
 
-Read [today's shared handoff](reports/Session-handoff-2026-10-10.md) before continuing. Karl approved and shipped v2.11.0 tonight. The GitHub release and CurseForge publishing workflow succeeded. All eight gallery screenshots were refreshed, cropped and synced. The final handoff section supersedes earlier unreleased/review notes. Mount Ctrl-click previews are planned for the next release, pending Forever API verification; do not implement them merely as cleanup.
+Read [today's shared handoff](reports/Session-handoff-2026-10-11.md) before continuing. Karl approved and shipped v2.11.1; the release workflow succeeded and the published ZIP was verified. Mount Ctrl-click previews and color cycling are now shipped, with native Forever checks retained in the handoff. The final closeout section supersedes earlier candidate/review notes. Description preferences and the exact bottom AI disclaimer are recorded at the end of this file.
 
 A World of Warcraft addon for **Warcraft Forever** (beta now, live launch November 2026). Players pick long-term goals from a built-in library (legendaries, mounts, reputations, raids, item sets, professions, PvP) and follow step-by-step guides, and steps tick automatically from game state across all of the player's characters.
 
