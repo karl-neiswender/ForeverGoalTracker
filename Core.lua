@@ -1935,9 +1935,9 @@ function FGT.AddFactionCardEtch(row, faction)
         tex:SetDesaturated(true)
         tex:SetSize(62, 2)
         tex:SetTexCoord(0.20, 0.73, 0.25 + y / 116, 0.25 + (y + 2) / 116)
-        tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -2, -2 - y)
-        local alpha = 0.27 * (1 - 0.7 * (y / 44)^2)
-        ApplyHGradient(tex, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, alpha * 0.25, alpha)
+        tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, -5 - y)
+        local alpha = 0.27 * (1 - (y / 42)^2)
+        ApplyHGradient(tex, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, 0, alpha)
         row.factionEtch[#row.factionEtch + 1] = tex
     end
 end
