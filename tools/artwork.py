@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "set_dungeon1_hunter": "tier-sets/hunter/beaststalker-master.png",
     "benediction-alliance": "weapons/benediction-alliance-master.png",
     "rep_thorium": "reputations/thorium-brotherhood-master.png",
     "pvp_wsg_ally": "reputations/silverwing-sentinels-master.png",

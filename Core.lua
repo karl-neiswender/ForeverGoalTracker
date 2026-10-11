@@ -4588,6 +4588,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
+    B.artPaths.set_dungeon1_hunter = "set_dungeon1_hunter-banner.blp"
+    B.artAspects.set_dungeon1_hunter, B.preprocessed.set_dungeon1_hunter = 4/3, true
     B.artAspects.wolfsbane, B.preprocessed.wolfsbane = 4/3, true
     B.artPaths.mount_tiger = "mount_tiger-banner.blp"
     B.artAspects.mount_tiger, B.preprocessed.mount_tiger = 4/3, true
@@ -4676,6 +4678,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
         ["wolfsbane-banner.blp"] = "Samwise Didier",
+        ["set_dungeon1_hunter-banner.blp"] = "Jim Nelson",
         ["benediction-alliance-banner.blp"] = "Jimmy Lo",
         ["pvp_wsg_ally-banner.blp"] = "Konstantin Porubov",
         ["pvp_wsg_horde-banner.blp"] = "Hideaki Takamura",

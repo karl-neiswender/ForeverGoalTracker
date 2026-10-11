@@ -10,6 +10,7 @@
 - Wolfsbane includes an automatically checked Two-Handed Swords training prerequisite; existing quest progress is preserved
 
 - Dedicated Swift Zulian Tiger artwork
+- Beaststalker Armor banner with artwork by Jim Nelson
 - Alliance Benediction and Night Elf Priest leveling artwork by Jimmy Lo
 - Dedicated banners for Thorium Brotherhood, Silverwing Sentinels, Warsong Outriders and Stormpike Guard
 - Reduce progress-bar animation allocations and update frequency
