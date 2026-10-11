@@ -4639,6 +4639,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
+    B.artPaths.rep_hydraxian = "rep_hydraxian-banner.blp"
+    B.artAspects.rep_hydraxian, B.preprocessed.rep_hydraxian = 4/3, true
     B.artPaths.rep_nozdormu = "rep_nozdormu-banner.blp"
     B.artAspects.rep_nozdormu, B.preprocessed.rep_nozdormu = 4/3, true
     B.artAspects.mount_charger, B.preprocessed.mount_charger = 4/3, true
@@ -4735,6 +4737,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["rep_hydraxian-banner.blp"] = "Jonboy Meyers",
         ["rep_nozdormu-banner.blp"] = "Zoltan Boros",
         ["rep_cenarion-banner.blp"] = "Eugene Dlinnov",
         ["prof_herbalism-banner.blp"] = "Romain De Santi",

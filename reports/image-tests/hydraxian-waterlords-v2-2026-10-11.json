@@ -4,6 +4,8 @@
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-f08ca7eb-101a-48cb-b489-dc705e40b18b.png",
   "review": "Media/final-images/reputations/hydraxian-waterlords-review-v2-2026-10-11.png",
   "artist": "Jonboy Meyers",
-  "status": "awaiting approval",
-  "revision": "Preserve original village and composition"
+  "status": "approved and installed",
+  "revision": "Preserve original village and composition",
+  "master": "Media/final-images/reputations/hydraxian-waterlords-master.png",
+  "runtime": "Media/rep_hydraxian-banner.blp"
 }
