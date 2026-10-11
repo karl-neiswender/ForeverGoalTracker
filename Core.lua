@@ -8722,6 +8722,10 @@ tinsert(UISpecialFrames, "ForeverGoalTrackerFrame")
 -- inside it) is still hidden aren't always reliable, so re-measure both
 -- scroll areas the moment the window actually becomes visible.
 main:SetScript("OnShow", function()
+    if not FGT.sessionWindowOpened then
+        FGT.sessionWindowOpened = true
+        FGT.sessionWidth, FGT.sessionHeight = FGT.DefaultSize()
+    end
     if FGT.PlaceWindow then FGT.PlaceWindow() end -- screen is final by now
     LayoutGoalList()
     listScrollObj:Update()
