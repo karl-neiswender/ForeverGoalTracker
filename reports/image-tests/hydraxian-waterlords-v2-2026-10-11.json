@@ -1,0 +1,9 @@
+{
+  "source": "Media/artwork/Conjure_Elementals_TCG.jpg",
+  "prompt": "Make a faithful minimal edit of this exact source painting for a WoW addon banner. Convert to neutral grayscale and apply a broad smooth dark left fade and soft dark bottom fade. Output ONE 4:3 landscape image. CRITICAL: preserve the original painted pixels' composition and recognizable geometry as closely as possible: all three water elementals, faces, bracers, water spray, and especially the small orange/gold tiled village roofs and little existing tree behind them. Do NOT redesign or replace buildings, do NOT add extra buildings or extra trees, do NOT turn backdrop into a forest or cloudy sky. Source already nearly4:3; use only tiny framing adjustment, no scene expansion/recomposition required. Existing village must remain in its original relative position between elementals. Keep original painterly linework and texture. This is grayscale and gradient treatment, not reillustration. No new objects or text.",
+  "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-f08ca7eb-101a-48cb-b489-dc705e40b18b.png",
+  "review": "Media/final-images/reputations/hydraxian-waterlords-review-v2-2026-10-11.png",
+  "artist": "Jonboy Meyers",
+  "status": "awaiting approval",
+  "revision": "Preserve original village and composition"
+}
