@@ -97,14 +97,23 @@ local MIN_FRAME_HEIGHT = 360
 local MAX_FRAME_WIDTH  = 1240
 local MAX_FRAME_HEIGHT = 900
 
+-- Measure in the same coordinate space as the frame's UIParent anchor.
+-- GetScreenWidth/Height can differ from UIParent under the client's UI scale.
+function FGT.ScreenSize()
+    local w = UIParent and UIParent:GetWidth()
+    local h = UIParent and UIParent:GetHeight()
+    return (w and w > 0) and w or GetScreenWidth(),
+        (h and h > 0) and h or GetScreenHeight()
+end
+
 -- Size limits follow the actual screen, with a margin that keeps the
 -- resize handle reachable. Fixed pixel caps would shrink the 70% default
 -- on large displays.
 local function GetEffectiveMaxSize()
     -- measured in the window's own units, so a scaled window still fits
     local s = FGT.windowScale or 1
-    local screenW = (GetScreenWidth and GetScreenWidth() or MAX_FRAME_WIDTH) / s
-    local screenH = (GetScreenHeight and GetScreenHeight() or MAX_FRAME_HEIGHT) / s
+    local screenW, screenH = FGT.ScreenSize()
+    screenW, screenH = screenW / s, screenH / s
     local maxW = math.floor(screenW - 60)
     local maxH = math.floor(screenH - 60)
     return math.max(MIN_FRAME_WIDTH, maxW), math.max(MIN_FRAME_HEIGHT, maxH)
@@ -125,8 +134,9 @@ end
 -- Start each play session at roughly 70% of the screen in both dimensions.
 function FGT.DefaultSize()
     local scale = FGT.windowScale or 1
-    local w = math.floor((GetScreenWidth and GetScreenWidth() or FRAME_WIDTH) * 0.70 / scale)
-    local h = math.floor((GetScreenHeight and GetScreenHeight() or FRAME_HEIGHT) * 0.70 / scale)
+    local screenW, screenH = FGT.ScreenSize()
+    local w = math.floor(screenW * 0.70 / scale)
+    local h = math.floor(screenH * 0.70 / scale)
     return ClampFrameSize(w, h)
 end
 
@@ -8733,7 +8743,8 @@ function FGT.PlaceWindow()
     FGT.sessionWidth, FGT.sessionHeight = w, h
     local left, top = ForeverGoalTrackerDB.frameLeft, ForeverGoalTrackerDB.frameTop
     local sc = FGT.windowScale or 1 -- positions are in the window's own (scaled) units
-    local sw, sh = GetScreenWidth() / sc, GetScreenHeight() / sc
+    local sw, sh = FGT.ScreenSize()
+    sw, sh = sw / sc, sh / sc
     main:ClearAllPoints()
     if left and top then
         -- nudge a saved spot back on screen rather than recentering, so a
