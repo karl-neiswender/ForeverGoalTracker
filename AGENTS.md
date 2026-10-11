@@ -298,3 +298,14 @@ Player-chosen style options in Settings. Karl's ideas: how Forever goals look (a
 - Karl is a designer (web and digital design director). Give clear, brief explanations and skip coding jargon where possible.
 - Never use em dashes in responses or in written copy.
 - He tests in game and sends screenshots. Fix exactly what the screenshot shows, then say what to check.
+
+## Addon description preferences
+
+- Keep descriptions concise, with simple feature bullets. Show only the latest three releases and link to the full changelog. Link to the full roadmap rather than pasting a long roadmap.
+- When Karl asks for Markdown, paste raw Markdown in a copyable code block, not only a file link.
+- Remove the old sentence “Made with the help of AI. Every change is tested in game and approved by a human before release.”
+- End every addon description (including CurseForge and GitHub descriptions) with the exact following disclaimer, after all other content:
+
+***
+
+**AI Disclaimer**: Claude Code and ChatGPT Codex are tools to help build this addon. The idea, UI/UX, design, image sourcing, in-game testing, and final quality checks are mine. AI agents help with coding, updates, cross-checking in-game data, automation like screenshot capture, and first drafts of copy. Some artwork and UI assets are also generated or edited with AI, and tools with AI features. I review and test the work, make the final decisions, and take responsibility for what gets pushed.

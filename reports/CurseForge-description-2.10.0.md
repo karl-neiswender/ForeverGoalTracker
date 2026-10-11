@@ -22,8 +22,6 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Settings:** the gear in the title bar turns off chat lines, the banner or celebrations, adds a goal-complete sound or screenshot, hides the minimap button, picks where map pins go, and sets window scale and opacity.
 - **Celebrations** when you finish a step, a group or a goal, plus a chat message and an on-screen banner when a goal finishes while the window is closed. A progress check-in greets you on login.
 
-Made with the help of AI. Every change is tested in game and approved by a human before release.
-
 ## Commands
 
 - `/goals` (also `/fgt`, `/forevergoals`): open or close the window
@@ -85,3 +83,6 @@ Larger updates with lots of new content.
 - **2.2.0:** favorites and a right-click menu, a login check-in, goal-complete banners and celebrations, real Tier 3 recipes and token sources, item icons for Tier 1 to 3.
 - **2.1.2:** Goal Library search, attunements and dungeon keys, Dungeon Sets 1 and 2, AQ20, Ambassador, Dreadsteed and Charger, Tips under each goal.
 
+***
+
+**AI Disclaimer**: Claude Code and ChatGPT Codex are tools to help build this addon. The idea, UI/UX, design, image sourcing, in-game testing, and final quality checks are mine. AI agents help with coding, updates, cross-checking in-game data, automation like screenshot capture, and first drafts of copy. Some artwork and UI assets are also generated or edited with AI, and tools with AI features. I review and test the work, make the final decisions, and take responsibility for what gets pushed.

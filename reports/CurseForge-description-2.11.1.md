@@ -15,8 +15,6 @@ Choose long-term goals in **Warcraft Forever**, follow step-by-step guides, and 
 - **Forever support:** NEW and UPDATED markers highlight Forever content; guides awaiting verification are clearly marked.
 - **Customizable UI:** adjust size, opacity, sounds and celebrations in Settings.
 
-Made with the help of AI. Every change is tested in game and approved by a human before release.
-
 ## Getting started
 
 Type `/goals` (or `/fgt`) to open the tracker. Choose **Help me get started** for suggestions, or add goals from the **Goal Library**. Follow them on **My Goals**; steps tick automatically or can be checked by hand.
@@ -36,3 +34,7 @@ See the [full roadmap](https://github.com/karl-neiswender/ForeverGoalTracker/blo
 - **2.10.1:** Violet Sorcerer's Vestments, more artwork, UI improvements and bug fixes.
 
 See the [full changelog](https://github.com/karl-neiswender/ForeverGoalTracker/blob/main/CHANGELOG.md).
+
+***
+
+**AI Disclaimer**: Claude Code and ChatGPT Codex are tools to help build this addon. The idea, UI/UX, design, image sourcing, in-game testing, and final quality checks are mine. AI agents help with coding, updates, cross-checking in-game data, automation like screenshot capture, and first drafts of copy. Some artwork and UI assets are also generated or edited with AI, and tools with AI features. I review and test the work, make the final decisions, and take responsibility for what gets pushed.
