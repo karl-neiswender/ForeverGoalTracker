@@ -4426,7 +4426,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         local choices = self.artVariants[id]
             or (pvp and goal.armorParent and self.artVariants[goal.armorParent])
-            or (pvp and self.pvpArtVariants)
+            or (pvp and id ~= "pvp_av_horde" and self.pvpArtVariants)
         local best = self:BestArtVariant(choices, player)
         if not best and id == "epicmounts" then
             -- Missing race art: prefer a sole selected mount in this faction.

@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Frostwolf banner correction: generic PvP art variants previously won before the explicit banner path; Frostwolf now bypasses that shared variant fallback. Faction-only PvP goals and class-set children use Horde icon 81744 or Alliance War Mount's banner icon. This supersedes the Frostwolf tabard thumbnail. Lua-only `/reload` if the new banner texture was already loaded at restart.
+
 Frostwolf Clan banner installed from Karl's The Eye of Command TCG source, with approved monochrome framing/fades and watermark removal. Source preserved; Glenn Rane credited in Settings and ARTWORK-CREDITS.txt. Frostwolf thumbnail changed to Frostwolf Battle Tabard icon. Per-goal banner override follows the shared PvP map to avoid being overwritten. Full WoW restart needed for new BLP.
 
 Custom faction assets: Karl approved generated white transparent logo cutouts and requested replacement. PNG masters in `Media/final-images/factions`, 256px RGBA TGA textures `Media/faction-alliance.tga` and `Media/faction-horde.tga`. Both cards now use the same tint/opacity/fades instead of differently shaded client emblems. Originals unchanged; full WoW restart required.
