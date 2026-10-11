@@ -352,6 +352,11 @@ print("  banner title reflow, badge wrapping, artwork switching, aspect crop and
 
 -- Credit follows the resolved banner, stays quiet on small bounds, and
 -- never carries an artist across to unattributed artwork.
+for _, id in ipairs({"rep_thorium", "pvp_wsg_ally", "pvp_wsg_horde", "pvp_av_ally"}) do
+    local path, aspect, preprocessed = B:ResolveArt(id)
+    assert(path == id .. "-banner.blp", "dedicated reputation art overrides shared PvP: " .. id)
+    assert(aspect == 4/3 and preprocessed, "approved reputation art retains its framing")
+end
 do
     local width, height, alpha, label = 650, 600
     local ow, oh = B.panel.GetWidth, B.panel.GetHeight

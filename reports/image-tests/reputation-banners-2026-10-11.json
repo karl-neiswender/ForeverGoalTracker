@@ -1,6 +1,6 @@
 {
   "tool": "built-in imagegen",
-  "status": "pending visual approval",
+  "status": "approved and installed",
   "banners": [
     {
       "id": "thorium-brotherhood",
@@ -30,5 +30,30 @@
       "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-3f374e46-0608-4256-8c6a-264255bd2fc3.png",
       "review": "Media/final-images/reputations/stormpike-guard-review.png"
     }
-  ]
+  ],
+  "approval": "Karl: good",
+  "runtimeGoals": {
+    "rep_thorium": "thorium-brotherhood",
+    "pvp_wsg_ally": "silverwing-sentinels",
+    "pvp_wsg_horde": "warsong-outriders",
+    "pvp_av_ally": "stormpike-guard"
+  },
+  "artistCredits": {
+    "rep_thorium": {
+      "artist": null,
+      "status": "unverified; no name guessed"
+    },
+    "pvp_wsg_ally": {
+      "artist": "Konstantin Porubov",
+      "source": "https://hearthstone.wiki.gg/wiki/Battleground_Battlemaster"
+    },
+    "pvp_wsg_horde": {
+      "artist": "Hideaki Takamura",
+      "source": "https://hearthstone.wiki.gg/wiki/Warsong_Envoy"
+    },
+    "pvp_av_ally": {
+      "artist": "J. Paick & K. Turovec",
+      "source": "https://hearthstone.wiki.gg/wiki/Dun_Baldar_Bunker"
+    }
+  }
 }

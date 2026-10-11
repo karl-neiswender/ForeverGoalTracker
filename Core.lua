@@ -4602,6 +4602,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     B.artPaths.pvp_av_horde = "pvp_av_horde-banner.blp"
     B.artAspects.pvp_av_horde, B.preprocessed.pvp_av_horde = 4/3, true
+    -- Dedicated reputation banners take precedence over shared PvP art.
+    for _, id in ipairs({"rep_thorium", "pvp_wsg_ally", "pvp_wsg_horde", "pvp_av_ally"}) do
+        local path = id .. "-banner.blp"
+        B.artPaths[id] = path
+        B.artAspects[id], B.preprocessed[id] = 4/3, true
+        B.artVariants[id] = {{path=path, aspect=4/3, preprocessed=true}}
+    end
     -- Leveling art follows the logged-in character, independent of selected
     -- classes and the account roster. Shared art covers missing variants.
     B.artPaths.allclasses = "pvp_shared-banner.blp"
@@ -4664,6 +4671,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
         ["wolfsbane-banner.blp"] = "Samwise Didier",
+        ["pvp_wsg_ally-banner.blp"] = "Konstantin Porubov",
+        ["pvp_wsg_horde-banner.blp"] = "Hideaki Takamura",
+        ["pvp_av_ally-banner.blp"] = "J. Paick & K. Turovec",
         ["pvp_av_horde-banner.blp"] = "Glenn Rane",
         ["set_tier1_warlock-alliance-banner.blp"] = "Karl Kopinski",
     }

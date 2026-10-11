@@ -14,6 +14,10 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "rep_thorium": "reputations/thorium-brotherhood-master.png",
+    "pvp_wsg_ally": "reputations/silverwing-sentinels-master.png",
+    "pvp_wsg_horde": "reputations/warsong-outriders-master.png",
+    "pvp_av_ally": "reputations/stormpike-guard-master.png",
     "wolfsbane": "weapons/wolfsbane-master.png",
     "mount_tiger": "mounts/swift-zulian-tiger-master.png",
     "pvp_av_horde": "pvp/frostwolf-master.png",

@@ -10,6 +10,7 @@
 - Wolfsbane includes an automatically checked Two-Handed Swords training prerequisite; existing quest progress is preserved
 
 - Dedicated Swift Zulian Tiger artwork
+- Dedicated banners for Thorium Brotherhood, Silverwing Sentinels, Warsong Outriders and Stormpike Guard
 - Reduce progress-bar animation allocations and update frequency
 
 ## 2.11.0
