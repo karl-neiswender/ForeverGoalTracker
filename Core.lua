@@ -2748,7 +2748,12 @@ local function CreateEdgeFade(parent, isTop, soft, bottomHeight)
         local alpha = 1 - ((i - 0.5) / steps)
         -- eased: soft where it meets the rows (gentler at the top, whose
         -- band is taller so a step with a progress bar fades as a whole)
-        alpha = alpha ^ (isTop and 1.3 or (soft and 1.2 or 1.6))
+        if not isTop and bottomHeight then
+            -- Goal page: ease both ends so the shadow has no abrupt lip.
+            alpha = alpha * alpha * (3 - 2 * alpha)
+        else
+            alpha = alpha ^ (isTop and 1.3 or (soft and 1.2 or 1.6))
+        end
         if soft and not isTop then alpha = alpha * 0.75 end
         local strip = Flat(f, c[1], c[2], c[3], alpha)
         strip:ClearAllPoints()
@@ -3794,7 +3799,7 @@ LayoutGoalList()
 -- windows the header and steps scroll together; taller windows retain the
 -- familiar fixed banner and independently scrolling steps.
 do
-    local view = CreateScrollArea(detailPanel, nil, 42)
+    local view = CreateScrollArea(detailPanel, nil, 50)
     view.scroll:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
     view.scroll:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -10, 4)
     view.content:SetHeight(600)
