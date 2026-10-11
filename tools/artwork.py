@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "allclasses_dwarf_hunter": "leveling/dwarf-hunter-master.png",
     "raid_bwl": "blackwing-lair/classic-key-art-master.png",
     "set_dungeon1_hunter": "tier-sets/hunter/beaststalker-master.png",
     "benediction-alliance": "weapons/benediction-alliance-master.png",

@@ -4446,6 +4446,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="benediction-banner.blp", faction="Horde"},
         },
         allclasses = {
+            {path="allclasses_dwarf_hunter-banner.blp", faction="Alliance", class="HUNTER", race="Dwarf"},
             {path="benediction-alliance-banner.blp", faction="Alliance", class="PRIEST", race="NightElf"},
             {path="tier3_hunter-banner.blp", faction="Horde", class="HUNTER", race="Troll"},
             {path="allclasses_nightelf_hunter-banner.blp", faction="Alliance", class="HUNTER", race="NightElf"},

@@ -10,6 +10,7 @@
 - Wolfsbane includes an automatically checked Two-Handed Swords training prerequisite; existing quest progress is preserved
 
 - Dedicated Swift Zulian Tiger artwork
+- Dedicated Alliance Dwarf Hunter leveling artwork
 - Shared Blackwing Lair key artwork for the raid and attunement goals
 - Beaststalker Armor banner with artwork by Jim Nelson
 - Alliance Benediction and Night Elf Priest leveling artwork by Jimmy Lo
