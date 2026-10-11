@@ -4584,6 +4584,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         -- Scale with window width; crop from the top-right of the source.
         local aw = w*0.6*0.92
+        -- A wider fade gives tall artwork a gentler entrance behind the guide.
+        if FGT.Setting("tallGoalArt") then aw = w*0.70 end
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
         self.fullImageHeight = shownHeight
         local fadeHeight = math.min(140,shownHeight*0.35)

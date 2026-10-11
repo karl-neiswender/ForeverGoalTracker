@@ -63,7 +63,7 @@ B.panel.GetHeight = function() return 600 end
 B.panel.GetWidth = function() return 600 end
 B:Fit()
 assert(B.fullImageHeight == 592, "full-height artwork fills the panel")
-assert(math.abs(artWidth-592*0.6*0.92)<0.001, "full-height artwork retains its width")
+assert(math.abs(artWidth-592*0.70)<0.001, "full-height artwork uses a broad left fade")
 assert(math.abs((artWidth/artHeight)/((coords[2]-coords[1])/(coords[4]-coords[3]))-(B.sourceAspect or 1))<0.001,
     "full-height artwork preserves source proportions")
 F.SetSetting("tallGoalArt", false)
