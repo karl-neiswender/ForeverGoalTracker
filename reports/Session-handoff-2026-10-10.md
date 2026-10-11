@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Faction emblem adjustment: shifted the artwork 10px farther right by narrowing its visible sampling area and cropping its right side within card bounds. Both fades eased and opacity slightly increased to reveal more of the emblem. `/reload` to review.
+
 Faction emblem redesign: removed all carved shadow/inset layers. One soft monochrome layer now samples a cropped upper-right emblem in a 76x44px area, with full left fade and stronger downward fade before the progress bar. Existing client texture; `/reload` to review selected and unselected cards.
 
 Faction insignia refinement: smaller 90px footprint, cropped source margins and tighter top-right placement. Carved layers toned down; combined slight left/bottom fades blend the emblem into the card. Existing client artwork, Lua-only; `/reload` to review selected/unselected states.

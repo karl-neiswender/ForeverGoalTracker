@@ -1929,16 +1929,16 @@ function FGT.AddFactionCardEtch(row, faction)
     if GetFileIDFromPath and not GetFileIDFromPath(path) then return end
     row.factionEtch = {}
     -- Crop the top/right of the emblem within the card bounds. It fades
-    -- completely before reaching the progress bar, with no dark stamp.
+    -- gently along the left/bottom, ending above the progress bar.
     for y = 0, 42, 2 do
         local tex = row:CreateTexture(nil, "ARTWORK", nil, -4)
         tex:SetTexture(path)
         tex:SetDesaturated(true)
-        tex:SetSize(76, 2)
-        tex:SetTexCoord(0.20, 0.85, 0.22 + y / 116, 0.22 + (y + 2) / 116)
+        tex:SetSize(66, 2)
+        tex:SetTexCoord(0.20, 0.765, 0.22 + y / 116, 0.22 + (y + 2) / 116)
         tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -3, -3 - y)
-        local alpha = 0.20 * (1 - y / 44)^2
-        ApplyHGradient(tex, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, 0, alpha)
+        local alpha = 0.27 * (1 - 0.7 * (y / 44)^2)
+        ApplyHGradient(tex, {0.65, 0.65, 0.65}, {0.65, 0.65, 0.65}, alpha * 0.25, alpha)
         row.factionEtch[#row.factionEtch + 1] = tex
     end
 end
