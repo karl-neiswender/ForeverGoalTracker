@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Faction card follow-up: removed ALLIANCE/HORDE ONLY from My Goals eyebrows, retaining faction wording on detail pages. Background insignias now draw above card surface gradients with stronger carved shadow/highlight and a less faint left-side fade, improving selected/unselected visibility. Existing client textures; `/reload` to review.
+
 Title Forever chip follow-up: brighter blue border now breathes on the existing five-second cycle, static with Celebrations Off. Its inline dot lowered 2px to center with the text. My Goals NEW/UPDATED label treatment unchanged. `/reload` to review.
 
 Forever badge polish: My Goals NEW/UPDATED labels have no box. Detail NEW/UPDATED IN FOREVER chips now use the same 22px height, padding and etched corner border as difficulty/duration, retaining blue edging. Both have a soft blue underlight breathing on a five-second cycle, held still with Celebrations Off. Uses existing texture; `/reload` to review.

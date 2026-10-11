@@ -1930,18 +1930,18 @@ function FGT.AddFactionCardEtch(row, faction)
     if GetFileIDFromPath and not GetFileIDFromPath(path) then return end
     row.factionEtch = {}
     for i, layer in ipairs({
-        { C.FACTION_SHADE, 0.32, -1, 1 },
-        { C.FACTION_EDGE, 0.10, 1, -1 },
-        { C.FACTION_INSET, 0.22, 0, 0 },
+        { C.FACTION_SHADE, 0.65, -1, 1 },
+        { C.FACTION_EDGE, 0.38, 1, -1 },
+        { C.FACTION_INSET, 0.48, 0, 0 },
     }) do
-        local tex = row:CreateTexture(nil, "BACKGROUND", nil, -6 + i)
+        local tex = row:CreateTexture(nil, "ARTWORK", nil, -6 + i)
         tex:SetTexture(path)
         tex:SetDesaturated(true)
         -- 108px graphic, cropped to the card's interior instead of shrunk.
         tex:SetSize(108, 64)
         tex:SetTexCoord(0, 1, 0, 64 / 108)
         tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5 + layer[3], -4 + layer[4])
-        ApplyHGradient(tex, layer[1], layer[1], layer[2] * 0.04, layer[2])
+        ApplyHGradient(tex, layer[1], layer[1], layer[2] * 0.12, layer[2])
         row.factionEtch[i] = tex
     end
 end
@@ -3486,11 +3486,11 @@ main:HookScript("OnHide", function()
 end)
 
 -- Shared context line on the goal page and on its My Goals card.
-function FGT.GoalEyebrow(goal)
+function FGT.GoalEyebrow(goal, card)
     local category = goal.armorParent and goal.armorParent:match("^pvp_set_") and "PvP Set" or goal.category
     return string.upper(category) .. (goal.armorClass
         and ("  |cff77736a\194\183|r  " .. FGT.ArmorClassLabel(goal.armorClass)) or "")
-        .. (goal.faction and ("  |cff77736a\194\183|r  " .. string.upper(goal.faction) .. " ONLY") or "")
+        .. (goal.faction and not card and ("  |cff77736a\194\183|r  " .. string.upper(goal.faction) .. " ONLY") or "")
 end
 
 local function RefreshGoalList()
@@ -3504,7 +3504,7 @@ local function RefreshGoalList()
         if isNew then row.newChip:SetLabel(FGT.ForeverDot(12) .. isNew, C.FOREVER_LIGHT) end
         local finished = total > 0 and done == total
         local on = finished and FGT.CompletedOn(row.goal)
-        row.eyebrow:SetText(finished and (on and ("Completed " .. on) or "Completed") or FGT.GoalEyebrow(row.goal))
+        row.eyebrow:SetText(finished and (on and ("Completed " .. on) or "Completed") or FGT.GoalEyebrow(row.goal, true))
         local eyebrowColor = finished and C.DONE or C.SUBTEXT
         row.eyebrow:SetTextColor(eyebrowColor[1], eyebrowColor[2], eyebrowColor[3])
         if isSelected then
@@ -3579,7 +3579,7 @@ for i, goal in ipairs(FGT.goals) do
     row.eyebrow:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 9, 0)
     row.eyebrow:SetPoint("RIGHT", -8, 0)
     row.eyebrow:SetJustifyH("LEFT")
-    row.eyebrow:SetText(FGT.GoalEyebrow(goal))
+    row.eyebrow:SetText(FGT.GoalEyebrow(goal, true))
     row.eyebrow:SetWordWrap(false)
     row.eyebrow:SetNonSpaceWrap(false)
 
