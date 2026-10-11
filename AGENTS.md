@@ -1,5 +1,12 @@
 # Forever Goal Tracker
 
+## Required code quality gate before publishing
+
+- Karl requires Ketho's WoW API extension (`ketho.wow-api`) together with Lua Language Server (`sumneko.lua`) to check addon code before any live release. Run diagnostics against the supported WoW clients, review API compatibility and accidental globals, and fix actionable diagnostics before publishing or pushing a release tag that triggers CurseForge packaging.
+- Verify that the extension's annotations actually loaded and retain diagnostic results. Installing or enabling the extension alone is not a completed check. Explain any verified client-specific annotation exceptions rather than suppressing diagnostics broadly.
+- If Ketho/LuaLS is unavailable or diagnostics cannot run, the release gate is incomplete. Do not publish a live release; report the missing check and complete the setup. Ordinary source commits and artwork syncing to main may continue without a release tag.
+- Also run `python3 tools/check.py` and inspect performance-sensitive code. Ketho's API annotations do not measure in-game CPU performance and do not replace manual in-game testing.
+
 ## Current handoff (2026-10-10)
 
 Read [today's shared handoff](reports/Session-handoff-2026-10-10.md) before continuing. Karl approved and shipped v2.11.0 tonight. The GitHub release and CurseForge publishing workflow succeeded. All eight gallery screenshots were refreshed, cropped and synced. The final handoff section supersedes earlier unreleased/review notes. Mount Ctrl-click previews are planned for the next release, pending Forever API verification; do not implement them merely as cleanup.
