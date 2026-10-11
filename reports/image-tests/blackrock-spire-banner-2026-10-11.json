@@ -3,6 +3,8 @@
   "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-afe6fe7d-95b5-4ae8-a009-312d7db6884d.png",
   "review": "Media/final-images/blackrock-spire/review-2026-10-11.png",
   "prompt": "Faithfully edit supplied Blackrock mountain gates comic panel into ONE 4:3 landscape WoW addon banner target1200x900. Preserve exact giant carved stone face, gate entrance, architecture ornament, cracks, mountain rock, foreground flames and tiny entering silhouettes with original comic ink linework. Reframe architecture toward high right, left third quiet for UI, extending only existing rock/wall naturally if necessary. Strict neutral black and white, moderately increased contrast, controlled highlights and detailed midtones; retain comic style, no realistic repaint. Bake wide smooth dark LEFT gradient strongest at left edge blending gradually with no boundary. Bake soft smooth BOTTOM dark gradient over approximately100px to nearblack charcoal edge without hard strip. Both gradients inside artwork. No new structures, characters, text or border. Minimal geometry changes.",
-  "status": "awaiting approval",
-  "intendedGoal": "key_ubrs"
+  "status": "approved and installed",
+  "intendedGoal": "key_ubrs",
+  "master": "Media/final-images/blackrock-spire/master.png",
+  "runtime": "Media/key_ubrs-banner.blp"
 }
