@@ -2097,9 +2097,9 @@ FGT.FOREVER_DOT = "Interface\\AddOns\\" .. ADDON .. "\\Media\\dot"
 -- 40% of `size`; the glow also spaces it from the word after it. Nudged
 -- down 3px to sit level with capital letters (measured in game).
 -- grey: the desaturated dot on finished goals' grey info line (Karl)
-function FGT.ForeverDot(size, grey)
+function FGT.ForeverDot(size, grey, offset)
     local tint = grey and "125:125:120" or "156:202:255"
-    return string.format("|T%s:%d:%d:0:-3:32:32:0:32:0:32:%s|t", FGT.FOREVER_DOT, size, size, tint)
+    return string.format("|T%s:%d:%d:0:%d:32:32:0:32:0:32:%s|t", FGT.FOREVER_DOT, size, size, offset or -3, tint)
 end
 
 -- "<dot>NEW" (or UPDATED) in light Forever blue, after a name.
@@ -2107,7 +2107,7 @@ function FGT.NewTag(word)
     return FGT.ForeverDot(14) .. "|cff9ccaff" .. (word or "NEW") .. "|r"
 end
 
-function FGT.AddForeverPulse(frame)
+function FGT.AddForeverPulse(frame, border)
     local glow = frame:CreateTexture(nil, "BACKGROUND", nil, -1)
     glow:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\shadow")
     glow:SetBlendMode("ADD")
@@ -2116,7 +2116,11 @@ function FGT.AddForeverPulse(frame)
     glow:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 8, -6)
     frame:SetScript("OnUpdate", function()
         local animated = FGT.Setting("celebrations") ~= "off"
-        glow:SetAlpha(animated and (0.09 + 0.05 * (0.5 - 0.5 * math.cos(GetTime() * 2 * math.pi / 5))) or 0.09)
+        local pulse = animated and (0.5 - 0.5 * math.cos(GetTime() * 2 * math.pi / 5)) or 0
+        glow:SetAlpha(0.09 + 0.05 * pulse)
+        if border then
+            frame:SetBackdropBorderColor(0.25 + 0.12 * pulse, 0.55 + 0.14 * pulse, 1, 0.75 + 0.2 * pulse)
+        end
     end)
 end
 
@@ -4060,8 +4064,8 @@ end
 -- notice under the description for goals not confirmed in Forever yet.
 do
     local chip = NewChip(FGT.detailBody, 9)
-    chip:SetLabel(FGT.ForeverDot(13) .. "NEW IN FOREVER", C.FOREVER_LIGHT)
-    FGT.AddForeverPulse(chip)
+    chip:SetLabel(FGT.ForeverDot(13, false, -5) .. "NEW IN FOREVER", C.FOREVER_LIGHT)
+    FGT.AddForeverPulse(chip, true)
     chip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
     chip:Hide()
     FGT.detailNewChip = chip
@@ -4698,7 +4702,7 @@ function FGT.LayoutForeverInfo(goal)
     chip:ClearAllPoints()
     chip:SetPoint("LEFT", detailTimeChip:IsShown() and detailTimeChip or detailDiffChip, "RIGHT", 6, 0)
     local word = FGT.ForeverWord(goal)
-    if word then chip:SetLabel(FGT.ForeverDot(13) .. word .. " IN FOREVER", C.FOREVER_LIGHT) end
+    if word then chip:SetLabel(FGT.ForeverDot(13, false, -5) .. word .. " IN FOREVER", C.FOREVER_LIGHT) end
     chip:SetShown(word ~= nil)
     detailBar:SetBlue(word ~= nil)
 
