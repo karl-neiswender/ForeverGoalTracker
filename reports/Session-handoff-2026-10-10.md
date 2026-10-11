@@ -22,6 +22,8 @@ The library currently has **152 goal definitions**, including collection wrapper
 
 ## Artwork and cleanup
 
+Faction insignia refinement: smaller 90px footprint, cropped source margins and tighter top-right placement. Carved layers toned down; combined slight left/bottom fades blend the emblem into the card. Existing client artwork, Lua-only; `/reload` to review selected/unselected states.
+
 Faction card follow-up: removed ALLIANCE/HORDE ONLY from My Goals eyebrows, retaining faction wording on detail pages. Background insignias now draw above card surface gradients with stronger carved shadow/highlight and a less faint left-side fade, improving selected/unselected visibility. Existing client textures; `/reload` to review.
 
 Title Forever chip follow-up: brighter blue border now breathes on the existing five-second cycle, static with Celebrations Off. Its inline dot lowered 2px to center with the text. My Goals NEW/UPDATED label treatment unchanged. `/reload` to review.
