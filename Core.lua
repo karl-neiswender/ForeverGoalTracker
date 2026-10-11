@@ -4713,11 +4713,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["pvp_av_ally-banner.blp"] = "J. Paick & K. Turovec",
         ["pvp_av_horde-banner.blp"] = "Glenn Rane",
         ["set_tier1_warlock-alliance-banner.blp"] = "Karl Kopinski",
+        ["set_tier1_rogue-alliance-banner.blp"] = "Glenn Rane",
     }
     function B:Fit()
         local path = self.goal and self:ResolveArt(self.goal.id)
         local artist = path and self.artArtists[path]
-        self.credit:SetText(artist and ("Artwork by "..artist) or "")
+        local creditPrefix = path == "set_tier1_rogue-alliance-banner.blp" and "Art by " or "Artwork by "
+        self.credit:SetText(artist and (creditPrefix..artist) or "")
         local function fade(size, low, high)
             local t = math.max(0, math.min(1, (size-low)/(high-low)))
             return t*t*(3-2*t)
