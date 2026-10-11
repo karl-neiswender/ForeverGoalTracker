@@ -1937,9 +1937,11 @@ function FGT.AddFactionCardEtch(row, faction)
     local path = "Interface\\AddOns\\" .. ADDON .. "\\Media\\faction-soft-" .. string.lower(faction)
     local tex = row:CreateTexture(nil, "ARTWORK", nil, -4)
     tex:SetTexture(path)
-    tex:SetSize(62, 66)
-    tex:SetTexCoord(0, 1, 0, 1)
-    tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, -5)
+    -- Sample an enlarged 82x86 emblem inside the card's etched rim.
+    -- Crop eight pixels from the top/right without painting over the border.
+    tex:SetSize(74, 66)
+    tex:SetTexCoord(0, 74 / 82, 8 / 86, 74 / 86)
+    tex:SetPoint("TOPRIGHT", row, "TOPRIGHT", -3, -3)
     tex:SetVertexColor(0.58, 0.53, 0.44, 0.14)
     row.factionWatermark = tex
     row.factionEtch = {tex}
