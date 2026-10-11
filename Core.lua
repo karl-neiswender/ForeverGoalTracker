@@ -8103,8 +8103,8 @@ FGT.SETTINGS = {
           apply = function() FGT.PlayGoalSound(FGT.Setting("sound")) end },
     } },
     { title = "Window and minimap", rows = {
-        { type = "toggle", key = "tallGoalArt", label = "Full-height goal artwork",
-          desc = "Extend photos behind the guide without stretching. Turn off to restore the previous sizing.",
+        { type = "toggle", key = "tallGoalArt", label = "Large goal photos",
+          desc = "Display large photos behind the goal window. Turn off to display smaller photos.",
           apply = function() if FGT.goalBanner then FGT.goalBanner:Fit() end end },
         { type = "toggle", key = "minimap", label = "Minimap button",
           apply = function(on) if FGT.minimapButton then FGT.minimapButton:SetShown(on) end end },
