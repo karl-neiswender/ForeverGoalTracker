@@ -1,0 +1,9 @@
+{
+  "source": "Media/artwork/Masten_Everspirit_full.webp",
+  "prompt": "Edit supplied Tauren herbalist painting into ONE 4:3 landscape WoW addon banner target1200x900. Neutral black and white grayscale, modest contrast, painterly midtones. Preserve exact Tauren identity, face, horns, armor, kneeling posture, hands, picked herb, axe, grass and atmospheric setting. Place subject high on right, left third quiet for interface text, extend existing sky and meadow naturally. Bake wide smooth dark LEFT gradient and soft smooth dark BOTTOM gradient about100px tall inside artwork, no hard strips. Preserve original small artist mark; no additional text, objects or symbols. Keep subject readable with restrained highlights.",
+  "generated": "/Users/karlneiswender/.codex/generated_images/01a12b64-f59f-7ac3-9f35-915477155376/exec-37edba0c-0d9f-4b6f-b0db-8e7fdb168966.png",
+  "review": "Media/final-images/professions/herbalism-review-2026-10-11.png",
+  "artist": "Romain De Santi",
+  "artistProvidedBy": "Karl",
+  "status": "awaiting approval"
+}
