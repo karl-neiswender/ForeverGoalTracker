@@ -4558,10 +4558,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
-    for _, id in ipairs({"rep_zandalar", "mount_raptor", "mount_tiger"}) do
+    for _, id in ipairs({"rep_zandalar", "mount_raptor"}) do
         B.artPaths[id] = B.artPaths.raid_zg
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
+    B.artPaths.mount_tiger = "mount_tiger-banner.blp"
+    B.artAspects.mount_tiger, B.preprocessed.mount_tiger = 4/3, true
     -- Keep the approved lone battle tank shared by the four AQ40 colors,
     -- independently of future artwork on the Scarab Lord's black mount.
     for _, color in ipairs({"blue", "green", "yellow", "red"}) do
