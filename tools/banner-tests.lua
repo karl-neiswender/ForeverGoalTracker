@@ -362,7 +362,7 @@ do
     B.credit.SetAlpha = function(_, a) alpha=a end
     B.credit.SetText = function(_, text) label=text end
     B.goal = F.GoalById("wolfsbane"); B:Fit()
-    assert(alpha == 1 and label == "Artwork by Samwise Didier")
+    assert(alpha == 0.95 and label == "Artwork by Samwise Didier")
     height = 250; B:Fit(); assert(alpha == 0, "short credit hidden")
     height, width = 600, 330; B:Fit(); assert(alpha == 0, "narrow credit hidden")
     width = 435; B:Fit(); assert(alpha > 0 and alpha < 1, "credit eases between bounds")

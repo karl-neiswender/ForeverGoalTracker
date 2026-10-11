@@ -4652,7 +4652,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit = B.creditLayer:CreateFontString(nil, "OVERLAY")
     B.credit:SetFont(FONT, 7, "")
     B.credit:SetTextColor(0.48, 0.48, 0.48)
-    B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -34, 7)
+    B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -39, 7)
     B.artArtists = {
         ["wolfsbane-banner.blp"] = "Samwise Didier",
         ["pvp_av_horde-banner.blp"] = "Glenn Rane",
@@ -4667,7 +4667,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             return t*t*(3-2*t)
         end
         self.credit:SetAlpha(fade(detailPanel:GetWidth(), 350, 520)
-            *fade(detailPanel:GetHeight(), 280, 430))
+            *fade(detailPanel:GetHeight(), 280, 430)*0.95)
         local w = math.max(1, detailPanel:GetWidth()-8)
         -- Let artwork continue beneath the compact header before fading out.
         local h = math.max(math.max(1, self:GetHeight())*0.92,
