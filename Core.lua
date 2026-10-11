@@ -2162,6 +2162,7 @@ local function ResolveIcon(spec)
     if not spec then return nil end
     local list = type(spec) == "table" and spec or { spec }
     for _, name in ipairs(list) do
+        if type(name) == "number" then return name end
         local path = name:find("\\", 1, true) and name or ("Interface\\Icons\\" .. name)
         if not GetFileIDFromPath or GetFileIDFromPath(path) then
             return path
