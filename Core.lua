@@ -97,20 +97,16 @@ local MIN_FRAME_HEIGHT = 360
 local MAX_FRAME_WIDTH  = 1240
 local MAX_FRAME_HEIGHT = 900
 
--- The size caps above are meaningless if they're bigger than the
--- player's actual screen (in UI units, which is what GetScreenWidth/
--- Height report, and exactly what SetSize/SetPoint use) - that's what
--- previously let the window grow taller than the screen and pushed the
--- resize grip off the bottom edge with no way to reach it. This clamps
--- against whichever is smaller, with a margin so the frame never runs
--- edge-to-edge.
+-- Size limits follow the actual screen, with a margin that keeps the
+-- resize handle reachable. Fixed pixel caps would shrink the 70% default
+-- on large displays.
 local function GetEffectiveMaxSize()
     -- measured in the window's own units, so a scaled window still fits
     local s = FGT.windowScale or 1
     local screenW = (GetScreenWidth and GetScreenWidth() or MAX_FRAME_WIDTH) / s
     local screenH = (GetScreenHeight and GetScreenHeight() or MAX_FRAME_HEIGHT) / s
-    local maxW = math.min(MAX_FRAME_WIDTH, math.floor(screenW - 60))
-    local maxH = math.min(MAX_FRAME_HEIGHT, math.floor(screenH - 60))
+    local maxW = math.floor(screenW - 60)
+    local maxH = math.floor(screenH - 60)
     return math.max(MIN_FRAME_WIDTH, maxW), math.max(MIN_FRAME_HEIGHT, maxH)
 end
 
