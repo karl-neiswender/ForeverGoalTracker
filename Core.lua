@@ -4114,7 +4114,7 @@ do
     ApplyHGradient(bottom, STYLE.forever.edge, STYLE.forever.edge, 0.7, 0)
     -- Finish the blue wash before the panel's right edge, leaving the photo clear.
     n:SetScript("OnSizeChanged", function(self, width)
-        local fadeWidth = math.max(1, (width - 4) * 0.78)
+        local fadeWidth = math.max(1, (width - 4) * 0.65)
         self.etchBg:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", 2 + fadeWidth, 2)
         self.etchHi:SetPoint("TOPRIGHT", self, "TOPLEFT", 2 + fadeWidth, -2)
         bottom:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", 2 + fadeWidth, 2)
@@ -5474,6 +5474,10 @@ local function GetHeaderRow(index)
     -- plain tiles that lighten on hover. Finished ones sit back quietly,
     -- like checked steps, until hovered or opened.
     function row:ApplyState(hovered)
+        local countColor = self.expanded
+            and (self.foreverNew and C.FOREVER_LIGHT or C.SELECTED_EYEBROW)
+            or C.SUBTEXT
+        self.count:SetTextColor(countColor[1], countColor[2], countColor[3])
         local quiet = self.complete and not hovered and not self.expanded
         self.icon:SetAlpha(quiet and 0.7 or 1)
         self.icon.tex:SetDesaturated(quiet)
