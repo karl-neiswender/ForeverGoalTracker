@@ -9,7 +9,7 @@ local expected = {
     frostsaber={[1]=true,[2]=true,[7]=true},
     mount_charger={[2]=true,[12]=true},
     att_naxx={[2]=true,[3]=true},
-    wolfsbane={[2]=true,[9]=true,[17]=true},
+    wolfsbane={[3]=true,[10]=true,[18]=true},
 }
 for id, ticks in pairs(expected) do
     for key in pairs(ticks) do assert(D.progress[id][key], id.." lost tick "..key) end

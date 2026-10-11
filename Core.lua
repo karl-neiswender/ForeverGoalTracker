@@ -705,11 +705,12 @@ end
 -- A rule with forRace only looks at characters of that race (epic
 -- racial mounts: the Dwarf trains, saves and buys the ram).
 local function RosterFor(rule)
-    if not (rule and (rule.forRace or rule.forFaction)) then return Roster() end
+    if not (rule and (rule.forRace or rule.forFaction or rule.forClass)) then return Roster() end
     local out = {}
     for k, c in pairs(Roster()) do
         if (not rule.forRace or c.race == rule.forRace)
-            and (not rule.forFaction or c.faction == rule.forFaction) then
+            and (not rule.forFaction or c.faction == rule.forFaction)
+            and (not rule.forClass or c.class == rule.forClass) then
             out[k] = c
         end
     end
@@ -919,6 +920,7 @@ local function DescribeRule(rule)
     end
     if rule.forRace then table.insert(parts, "(" .. rule.forRace .. " characters only)") end
     if rule.forFaction then table.insert(parts, "(" .. rule.forFaction .. " characters only)") end
+    if rule.forClass then table.insert(parts, "(" .. rule.forClass .. " characters only)") end
     if rule.owned or rule.ownedPattern then table.insert(parts, "it shows up in your bags, gear or mount collection") end
     return table.concat(parts, ", or ")
 end
@@ -9094,6 +9096,18 @@ initFrame:SetScript("OnEvent", function(self, event, name)
             end
         end
         ForeverGoalTrackerDB.guideFix20261011Final = true
+    end
+    -- Insert the sword-training prerequisite without moving saved quest ticks.
+    if not ForeverGoalTrackerDB.wolfsbaneTrainingFix then
+        local old = ForeverGoalTrackerDB.progress.wolfsbane
+        if old then
+            local new = {}
+            for key, value in pairs(old) do
+                new[type(key) == "number" and key >= 2 and key + 1 or key] = value
+            end
+            ForeverGoalTrackerDB.progress.wolfsbane = new
+        end
+        ForeverGoalTrackerDB.wolfsbaneTrainingFix = true
     end
     -- v2.2.0 one-time fix: Tier 3 materials were a placeholder list and are
     -- now each piece's real recipe. The token and scraps lines kept their

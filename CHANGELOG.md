@@ -7,6 +7,7 @@
 - Clearer guide milestones, explicit level requirements and preserved saved progress
 
 - Wolfsbane rare quest-weapon goal for Undead Paladins in Forever
+- Wolfsbane includes an automatically checked Two-Handed Swords training prerequisite; existing quest progress is preserved
 
 - Dedicated Swift Zulian Tiger artwork
 - Reduce progress-bar animation allocations and update frequency

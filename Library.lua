@@ -351,6 +351,7 @@ local library = {
         foreverNote = "A new Horde Paladin quest weapon. Its blazing-wind proc deals extra damage to wolves and worgen.",
         steps = {
             { text = "Reach level 18.", auto = { level = 18 } },
+            { text = "Learn Two-Handed Swords.", auto = { skill = { name = "Two-Handed Swords", rank = 1 }, forRace = "Scourge", forFaction = "Horde", forClass = "PALADIN" } },
             { text = "Complete 'Diplomatic Incident' from Danitha Morr at Bandarion Keep in Tirisfal Glades.", auto = { quest = 91858 } },
             { text = "Complete 'A Curious Pair' at the Sepulcher in Silverpine Forest.", auto = { quest = 91859 } },
             { text = "Complete 'A Grim Fate' on Fenris Isle in Silverpine Forest.", auto = { quest = 91860 } },
@@ -375,7 +376,7 @@ local library = {
             "Accept 'A Moon-Kissed Blade' before collecting the materials. The {item:267454:Trevan's Weapon Notes} list what you need.",
             "The {item:6994:Whitestone Oak Lumber} comes from goblins near Sneed's room in the Deadmines. The {item:267361:Enchanted Silver Ingot} is on the table beside Arugal at the end of Shadowfang Keep.",
             "Accept 'Seeking the Kor Gem' from Ulric Frostveil before collecting the {item:6995:Corrupted Kor Gem} from naga near Blackfathom Depths. Return it to him for the {item:272448:Purified Kor Gem}.",
-            "Train Two-Handed Swords and raise your weapon skill before fighting Old Fire-Eye. Equip the {item:268484:Moonsilver Blade} and land a hit to break his protection; bring help for the elite fight.",
+            "Raise your Two-Handed Swords skill before fighting Old Fire-Eye. Equip the {item:268484:Moonsilver Blade} and land a hit to break his protection; bring help for the elite fight.",
         },
     },
     {
