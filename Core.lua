@@ -126,16 +126,11 @@ local function ClampFrameSize(w, h)
     return cw, ch
 end
 
--- The default window size: as large as FRAME_WIDTH x FRAME_HEIGHT,
--- shrunk evenly (keeping the shape) when the screen is smaller.
+-- Start each play session at roughly 69% of the screen in both dimensions.
 function FGT.DefaultSize()
-    local maxW, maxH = GetEffectiveMaxSize()
-    local w = math.min(FRAME_WIDTH, maxW)
-    local h = math.floor(w * FRAME_HEIGHT / FRAME_WIDTH)
-    if h > maxH then
-        h = maxH
-        w = math.floor(h * FRAME_WIDTH / FRAME_HEIGHT)
-    end
+    local scale = FGT.windowScale or 1
+    local w = math.floor((GetScreenWidth and GetScreenWidth() or FRAME_WIDTH) * 0.69 / scale)
+    local h = math.floor((GetScreenHeight and GetScreenHeight() or FRAME_HEIGHT) * 0.69 / scale)
     return ClampFrameSize(w, h)
 end
 
@@ -246,17 +241,9 @@ local function EnsureDB()
     if ForeverGoalTrackerDB.sortMode == nil then
         ForeverGoalTrackerDB.sortMode = "alpha"
     end
-    if ForeverGoalTrackerDB.frameWidth == nil or ForeverGoalTrackerDB.frameHeight == nil then
-        ForeverGoalTrackerDB.frameWidth, ForeverGoalTrackerDB.frameHeight = FGT.DefaultSize()
-    end
-    -- One-time: windows still at the old default (700 x 560, never
-    -- resized) move to the new 3:2 default. A size someone dragged stays.
-    if not ForeverGoalTrackerDB.sizeFix250 then
-        if ForeverGoalTrackerDB.frameWidth == 700 and ForeverGoalTrackerDB.frameHeight == 560 then
-            ForeverGoalTrackerDB.frameWidth, ForeverGoalTrackerDB.frameHeight = FGT.DefaultSize()
-        end
-        ForeverGoalTrackerDB.sizeFix250 = true
-    end
+    -- Dimensions belong to this Lua session; old saved sizes are discarded.
+    ForeverGoalTrackerDB.frameWidth, ForeverGoalTrackerDB.frameHeight = nil, nil
+
 end
 
 -- ============================================================
@@ -8423,7 +8410,7 @@ end
 function FGT.ResetWindow()
     local DB = ForeverGoalTrackerDB
     if not DB then return end
-    DB.frameWidth, DB.frameHeight = FGT.DefaultSize()
+    FGT.sessionWidth, FGT.sessionHeight = FGT.DefaultSize()
     DB.frameLeft, DB.frameTop = nil, nil
     FGT.PlaceWindow()
     LayoutGoalList()
@@ -8744,9 +8731,10 @@ end)
 function FGT.PlaceWindow()
     if not ForeverGoalTrackerDB then return end
     UpdateResizeBounds()
-    local w, h = ClampFrameSize(ForeverGoalTrackerDB.frameWidth, ForeverGoalTrackerDB.frameHeight)
+    local defaultW, defaultH = FGT.DefaultSize()
+    local w, h = ClampFrameSize(FGT.sessionWidth or defaultW, FGT.sessionHeight or defaultH)
     main:SetSize(w, h)
-    ForeverGoalTrackerDB.frameWidth, ForeverGoalTrackerDB.frameHeight = w, h
+    FGT.sessionWidth, FGT.sessionHeight = w, h
     local left, top = ForeverGoalTrackerDB.frameLeft, ForeverGoalTrackerDB.frameTop
     local sc = FGT.windowScale or 1 -- positions are in the window's own (scaled) units
     local sw, sh = GetScreenWidth() / sc, GetScreenHeight() / sc
@@ -8778,8 +8766,7 @@ resizeGrip:SetScript("OnMouseUp", function(self)
         main:SetSize(cw, ch)
     end
     if ForeverGoalTrackerDB then
-        ForeverGoalTrackerDB.frameWidth = cw
-        ForeverGoalTrackerDB.frameHeight = ch
+        FGT.sessionWidth, FGT.sessionHeight = cw, ch
     end
     LayoutGoalList()
     if selectedId then
