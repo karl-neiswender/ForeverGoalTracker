@@ -105,7 +105,7 @@ function FGT.ScreenSize()
 end
 
 -- The default is 70% of the screen. Each dimension can resize to
--- 75–125% of that baseline. Keep the readable floor where it fits,
+-- 75–110% of that baseline. Keep the readable floor where it fits,
 -- and let screen fit win on exceptionally small screens/high scales.
 function FGT.WindowSizeBounds()
     local s = FGT.windowScale or 1
@@ -117,8 +117,8 @@ function FGT.WindowSizeBounds()
     local defaultH = math.min(availableH, math.max(MIN_FRAME_HEIGHT, math.floor(screenH * 0.70)))
     local minW = math.min(defaultW, math.max(MIN_FRAME_WIDTH, math.ceil(defaultW * 0.75)))
     local minH = math.min(defaultH, math.max(MIN_FRAME_HEIGHT, math.ceil(defaultH * 0.75)))
-    local maxW = math.min(availableW, math.floor(defaultW * 1.25))
-    local maxH = math.min(availableH, math.floor(defaultH * 1.25))
+    local maxW = math.min(availableW, math.floor(defaultW * 1.10))
+    local maxH = math.min(availableH, math.floor(defaultH * 1.10))
     return minW, minH, maxW, maxH, defaultW, defaultH
 end
 
@@ -5427,8 +5427,6 @@ local function GetStepRow(index)
         elseif self.ruleEntry then
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
             GameTooltip:AddLine("Tracked automatically", C.TITLE[1], C.TITLE[2], C.TITLE[3])
-            GameTooltip:AddLine("Completes when " .. DescribeRule(self.ruleEntry) .. ".",
-                0.9, 0.9, 0.9, true)
             local now = RuleReadout(self.ruleEntry)
             if now then
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
@@ -8380,7 +8378,7 @@ function FGT.LayoutTypeStyle()
     LayoutGoalList()
     if selectedId then SelectGoal(selectedId, true) end
     if FGT.libraryPanel:IsShown() and FGT.LayoutLibrary then FGT.LayoutLibrary() end
-    RefreshOverall()
+    FGT.RefreshOverall()
 end
 
 FGT.SETTINGS = {
@@ -8960,6 +8958,11 @@ main:SetScript("OnShow", function()
     if not FGT.sessionWindowOpened then
         FGT.sessionWindowOpened = true
         FGT.sessionWidth, FGT.sessionHeight = FGT.DefaultSize()
+        -- Each session starts at the default size and centered. An anchor
+        -- from a differently sized window would shift its visual center.
+        if ForeverGoalTrackerDB then
+            ForeverGoalTrackerDB.frameLeft, ForeverGoalTrackerDB.frameTop = nil, nil
+        end
     end
     if FGT.PlaceWindow then FGT.PlaceWindow() end -- screen is final by now
     LayoutGoalList()

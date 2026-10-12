@@ -1,6 +1,9 @@
 -- Exercise existing UI widgets, saved choices, later-created widgets and
 -- missing-font fallback. The stub cannot prove native font rendering/wraps.
 local F = STUB_NS
+-- Reject the leaked private helper instead of accepting an unknown API.
+local originalRefresh = rawget(_G, "RefreshOverall")
+RefreshOverall = false
 -- Native FontStrings reject SetText until SetFont succeeds. Also exercise
 -- missing font files so optional measurement can never abort startup.
 local originalParent = rawget(_G, "UIParent")
@@ -84,4 +87,5 @@ end
 assert(STUB_SERIALIZE(ForeverGoalTrackerDB.progress) == progress, "style does not change progress")
 -- Leave modern selected to carry it through the next startup session.
 F.SetSetting("typeStyle", "modern"); F.ApplyTypeStyle()
+RefreshOverall = originalRefresh
 print("  font roles, live switching, stable line advance, lazy widgets, fallback and progress preservation ok")

@@ -77,7 +77,12 @@ for k, v in pairs(mt) do fmt[k] = v end
 fmt.__index = function(t, k)
   if k == "SetScript" then return function(self, name, fn) rawset(self, "_s_" .. name, fn) end end
   if k == "GetScript" then return function(self, name) return rawget(self, "_s_" .. name) end end
-  if k == "HookScript" then return function(self, name, fn) rawset(self, "_s_" .. name, fn) end end
+  if k == "HookScript" then return function(self, name, fn)
+    local original = rawget(self, "_s_" .. name)
+    rawset(self, "_s_" .. name, original and function(...)
+      original(...); fn(...)
+    end or fn)
+  end end
   if k == "RegisterEvent" then return function(self, ev)
     local e = rawget(self, "_ev") or {}; e[ev] = true; rawset(self, "_ev", e) end end
   if k == "UnregisterEvent" then return function(self, ev)

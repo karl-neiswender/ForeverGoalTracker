@@ -30,7 +30,7 @@ D.frameLeft, D.frameTop = nil, nil
 
 local minW, minH, maxW, maxH, defaultW, defaultH = F.WindowSizeBounds()
 assert(defaultW == 1344 and defaultH == 756)
-assert(minW == 1008 and minH == 567 and maxW == 1680 and maxH == 945, "approved 75–125% range")
+assert(minW == 1008 and minH == 567 and maxW == 1478 and maxH == 831, "reviewed 75–110% range")
 for _, scale in ipairs({0.7, 1, 1.3}) do
     for _, screen in ipairs({{640,480}, {1024,768}, {1920,1080}, {3440,1440}, {3840,2160}}) do
         screenW, screenH, F.windowScale = screen[1], screen[2], scale
@@ -40,7 +40,7 @@ for _, scale in ipairs({0.7, 1, 1.3}) do
         assert(minW <= w and w <= maxW and minH <= h and h <= maxH, "ordered limits")
         assert(maxW <= screenW/scale-60 and maxH <= screenH/scale-60, "screen margin wins")
         assert(minW >= math.ceil(w*0.75) and minH >= math.ceil(h*0.75), "readable minimum")
-        assert(maxW <= math.floor(w*1.25) and maxH <= math.floor(h*1.25), "relative maximum")
+        assert(maxW <= math.floor(w*1.10) and maxH <= math.floor(h*1.10), "relative maximum")
         F.sessionWidth, F.sessionHeight = 99999, 1
         F.PlaceWindow()
         assert(width == maxW and height == minH, "independent clamping on placement")
@@ -58,7 +58,7 @@ main.SetMinResize = function(_, w, h) bounds = {w,h} end
 main.SetMaxResize = function(_, w, h) bounds[3], bounds[4] = w,h end
 F.sessionWidth, F.sessionHeight = F.DefaultSize()
 F.PlaceWindow()
-assert(bounds[1] == 1008 and bounds[2] == 567 and bounds[3] == 1680 and bounds[4] == 945)
+assert(bounds[1] == 1008 and bounds[2] == 567 and bounds[3] == 1478 and bounds[4] == 831)
 local oldCursor = GetCursorPosition
 local cx, cy = 0, 0
 GetCursorPosition = function() return cx,cy end
@@ -70,9 +70,17 @@ grip:GetScript("OnUpdate")(grip)
 assert(width == 1008 and height == 567, "drag stops at proportional minimum")
 cx, cy = 10000,-10000
 grip:GetScript("OnUpdate")(grip)
-assert(width <= 1680 and height <= 945 and width >= 1008 and height >= 567, "drag stops at maximum/anchor edge")
+assert(width <= 1478 and height <= 831 and width >= 1008 and height >= 567, "drag stops at maximum/anchor edge")
 grip:GetScript("OnMouseUp")(grip)
 assert(F.sessionWidth == width and F.sessionHeight == height and not F.sizeStart, "mouse-up keeps valid session dimensions")
+D.frameLeft, D.frameTop = 13, 1000
+F.sessionWindowOpened = nil
+main:GetScript("OnShow")(main)
+assert(width == 1344 and height == 756 and left == 288 and top == 918, "first open centers default window")
+assert(D.frameLeft == nil and D.frameTop == nil, "old saved anchor discarded on first open")
+D.frameLeft, D.frameTop = 100, 900
+main:GetScript("OnShow")(main)
+assert(left == 100 and top == 900, "same-session reopening retains position")
 GetCursorPosition = oldCursor
 F.ScreenSize = oldScreen
 print("  relative bounds, small screens, UI scales, placement, both resize APIs, independent dimensions and drag clamping ok")
