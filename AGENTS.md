@@ -26,7 +26,7 @@ A World of Warcraft addon for **Warcraft Forever** (beta now, live launch Novemb
 
 - Author: Karl (GitHub `karl-neiswender`). Repo: https://github.com/karl-neiswender/ForeverGoalTracker
 - Published on CurseForge as "Forever Goal Tracker", project ID 1728528 (approved 2026-10-05). Public page: https://www.curseforge.com/wow/addons/forever-goal-tracker
-- License: MIT. Bundled Cinzel font is SIL OFL (`Fonts/OFL.txt`).
+- License: MIT. The UI uses the game's standard Warcraft font for headings and body text. Preserved Cinzel/Open Sans studies use SIL OFL and are excluded from releases.
 
 ## Where this folder lives
 

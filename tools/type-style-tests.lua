@@ -1,6 +1,7 @@
 -- Keep internal typography helpers while the public font choice is withdrawn.
 local F, D = STUB_NS, ForeverGoalTrackerDB
 assert(F.SETTING_DEFAULTS.typeStyle == nil and F.TYPE_STYLES.modern == nil)
+assert(F.TYPE_STYLES.serif.title == F.TYPE_STYLES.serif.body, "headings use the body Warcraft font")
 assert(not D.settings or D.settings.typeStyle == nil, "saved Modern choice retired at startup")
 for _, group in ipairs(F.SETTINGS) do
     assert(group.title ~= "Typography", "no public Typography group")
@@ -41,9 +42,14 @@ local later = CreateFrame("EditBox")
 observe(later)
 F.RegisterFont(later,"title",12,"")
 assert(later.testFont[1] == F.TYPE_STYLES.serif.title, "lazy widget uses Serif")
-later.rejectTitle=true
+local attempts=0
+later.SetFont=function(self,path,size,flags)
+    self.testFont={path,size,flags}
+    attempts=attempts+1
+    return attempts>2
+end
 F.ApplyTypeStyle()
-assert(later.testFont[1] == F.TYPE_STYLES.serif.body and later.testFont[2] == 12, "native fallback")
+assert(attempts==3 and later.testFont[1] == F.TYPE_STYLES.serif.body and later.testFont[2] == 12, "native fallback")
 for widget, spec in pairs(F.fontWidgets) do
     if rawget(widget,"testFont") then
         assert(widget.testFont[2] == spec.size, "internal swaps restore original size")

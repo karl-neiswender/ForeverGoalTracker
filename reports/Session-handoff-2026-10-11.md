@@ -58,3 +58,9 @@ The temporary leaf tick from a misaligned coordinate click was restored and
 dependency table for gradual verified-edge rollout; no rules are enabled by
 default. Shared checklist progress is not current-character eligibility.
 Details: Forever-dependency-native-review-2026-10-11.md.
+
+Latest heading style: Karl requested replacing Cinzel with the standard
+Warcraft body font. All title-role text now uses Fonts\FRIZQT__.TTF at its
+existing size/color/shadow. No selector; typography helpers remain. Cinzel
+and Open Sans studies are preserved in GitHub and excluded from releases.
+Details/checks: warcraft-heading-font-2026-10-11.md. `/reload` to review.

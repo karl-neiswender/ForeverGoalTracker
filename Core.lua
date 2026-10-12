@@ -39,7 +39,6 @@ C.FACTION_SHADE = { 0, 0, 0 }
 C.FACTION_EDGE = { 0.55, 0.55, 0.55 }
 
 local FONT = "Fonts\\FRIZQT__.TTF"
-local FONT_TITLE = "Interface\\AddOns\\" .. ADDON .. "\\Fonts\\Cinzel-Bold.ttf"
 
 local SOLID = "Interface\\Buttons\\WHITE8x8"
 local BACKDROP_SOLID = { bgFile = SOLID }
@@ -1783,7 +1782,7 @@ end
 -- use the same path. Weak keys let discarded widgets leave the registry.
 FGT.fontWidgets = setmetatable({}, { __mode = "k" })
 FGT.TYPE_STYLES = {
-    serif = { body = FONT, title = FONT_TITLE, bodyScale = 1, titleScale = 1 },
+    serif = { body = FONT, title = FONT, bodyScale = 1, titleScale = 1 },
 }
 FGT.activeTypeStyle = "serif" -- internal profile; no player font preference
 function FGT.ApplyWidgetFont(widget, spec)
@@ -1819,8 +1818,8 @@ local function NewFontString(parent, size, flags, r, g, b)
     return fs
 end
 
--- Cinzel heading in gold with a dark drop shadow (the site's .brand /
--- h2 look). Falls back to the default font if the .ttf can't load.
+-- Warcraft heading in gold with a dark drop shadow. Titles keep their
+-- own role and size, using the same font face as the body text.
 local function NewTitleString(parent, size)
     local fs = parent:CreateFontString(nil, "OVERLAY")
     FGT.RegisterFont(fs, "title", size, "", true)
@@ -3168,7 +3167,7 @@ titleBar:RegisterForDrag("LeftButton")
 titleBar:SetScript("OnDragStart", BeginMove)
 titleBar:SetScript("OnDragStop", EndMove)
 
--- Masthead: Cinzel title in gold, a muted tagline under it, and a gold
+-- Masthead: Warcraft title in gold, a muted tagline under it, and a gold
 -- underline that fades out to the right.
 local title = NewTitleString(titleBar, 20)
 title:SetText(FGT.NAME)
