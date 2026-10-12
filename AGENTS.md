@@ -13,7 +13,7 @@ Karl's priority: SIMPLE, HELPFUL, CLEAR. Players should focus on playing.
 - Use short, direct sentences. Remove filler, development notes and repeated tracking explanations.
 - Steps start with an action; keep the item/quest name, count and useful location. Put drop chances and how-to advice in tips.
 - Tips give practical advice. Preserve prerequisites, exceptions, costs, timing and class/faction restrictions.
-- Tooltips explain only what the player needs. Use consistent click hints such as `Shift-click: link · Right-click: Wowhead`.
+- Tooltips explain only what the player needs. Use consistent click hints such as `Shift-click: Chat · Right-click: Wowhead`.
 - Say `Unconfirmed` for uncertain Forever rules and `Source unknown` for missing gear sources. Do not claim that unverified content is confirmed.
 - Use `completes automatically` or `tracked automatically`, rather than `ticks itself`. Keep exact quest names and item/goal link tags intact.
 - When editing wording, preserve goal IDs, step order, rules and material strings used by item-needs parsing. No progress migration is needed for wording alone.

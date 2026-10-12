@@ -1646,7 +1646,7 @@ do
             end
         end
         GameTooltip:AddLine(" ")
-        GameTooltip:AddLine("Shift-click: name in chat", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:AddLine("Shift-click: Chat", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         GameTooltip:AddLine("Right-click: Wowhead", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         GameTooltip:Show()
     end
@@ -9834,7 +9834,7 @@ do
             GameTooltip:AddLine(FGT.ItemMountID(id) and "Ctrl-click: preview mount" or "Ctrl-click: try on", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         if not compare then
-            GameTooltip:AddLine(known and "Shift-click: link · Right-click: Wowhead"
+            GameTooltip:AddLine(known and "Shift-click: Chat · Right-click: Wowhead"
                 or "Right-click: Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         GameTooltip:Show()
