@@ -9785,7 +9785,7 @@ do
     -- step tracks it and what clicks do.
     -- name: the item's name from our data, shown when the game doesn't have it
     -- compare: also show the game's comparison with what you're wearing
-    function FGT.ShowItemTip(owner, id, rule, name, compare)
+    function FGT.ShowItemTip(owner, id, rule, name, compare, extra)
         FGT.tip = { owner = owner, id = id, rule = rule, name = name, compare = compare }
         GameTooltip.fgtNeedsItem = nil
         GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
@@ -9815,7 +9815,7 @@ do
                 GameTooltip:AddLine("Loading item...", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
                 C_Timer.After(2.1, function() -- still hovering? show the outcome
                     if FGT.tip and FGT.tip.id == id and GameTooltip:IsOwned(owner) then
-                        FGT.ShowItemTip(owner, id, rule, name, compare)
+                        FGT.ShowItemTip(owner, id, rule, name, compare, extra)
                     end
                 end)
             end
@@ -9828,12 +9828,13 @@ do
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
             end
         end
+        if extra then extra(GameTooltip) end -- e.g. the drawer's collected line, ahead of Needed for
         FGT.AddItemNeeds(GameTooltip, id)
         if known and FGT.ItemCanPreview(id) then
             GameTooltip:AddLine(FGT.ItemMountID(id) and "Ctrl-click: preview mount" or "Ctrl-click: try on", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         if not compare then
-            GameTooltip:AddLine(known and "Shift-click: link in chat. Right-click: Wowhead."
+            GameTooltip:AddLine(known and "Shift-click: link · Right-click: Wowhead"
                 or "Right-click: Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         GameTooltip:Show()

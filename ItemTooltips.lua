@@ -98,10 +98,9 @@ function FGT.AddItemNeeds(tooltip, id)
     tooltip:AddLine(" ")
     tooltip:AddLine("Needed for", 0.80, 0.62, 0.16)
     for _, entry in ipairs(needs) do
-        tooltip:AddLine(entry.goal.name .. "  (" .. (entry.remaining > 0
-            and (entry.remaining .. " more") or "Collected") .. ")", 0.88, 0.82, 0.69, true)
+        tooltip:AddLine(entry.goal.name .. " |cff9c917a· " .. (entry.remaining > 0
+            and (entry.remaining .. " more") or "Collected") .. "|r", 0.88, 0.82, 0.69, true)
     end
-    tooltip:AddLine("Counts use tracked characters' last scans.", 0.55, 0.52, 0.47, true)
     return true
 end
 

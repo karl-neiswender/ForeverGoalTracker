@@ -401,10 +401,13 @@ function FGT.RefreshMaterials()
                 row.count = U.font(row,10,"",unpack(C.SUBTEXT)); row.count:SetJustifyH("LEFT")
                 row:SetScript("OnEnter", function(self)
                     local e = self.entry
-                    if e.id then FGT.ShowItemTip(self,e.id,nil,e.name) else GameTooltip:SetOwner(self,"ANCHOR_LEFT"); GameTooltip:AddLine(e.name) end
-                    GameTooltip:AddLine(e.unknown and "Item count unavailable" or string.format("%d collected · %d remaining · %d%%",e.have,e.need-e.have,e.percent),unpack(C.TEXT))
-                    GameTooltip:AddLine(FGT.Setting("materialsAlts") and "Counts use tracked characters' last scans." or "Counts use this character's last scan.",unpack(C.SUBTEXT))
-                    GameTooltip:Show()
+                    local summary = e.unknown and "Item count unavailable" or string.format("%d collected · %d remaining · %d%%",e.have,e.need-e.have,e.percent)
+                    if e.id then
+                        FGT.ShowItemTip(self,e.id,nil,e.name,nil,function(tip) tip:AddLine(" "); tip:AddLine(summary,unpack(C.TEXT)) end)
+                    else
+                        GameTooltip:SetOwner(self,"ANCHOR_LEFT"); GameTooltip:AddLine(e.name)
+                        GameTooltip:AddLine(summary,unpack(C.TEXT)); GameTooltip:Show()
+                    end
                 end)
                 row:SetScript("OnLeave", function() FGT.tip=nil; GameTooltip:Hide() end)
                 row:SetScript("OnClick", function(self,button)
