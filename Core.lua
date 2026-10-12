@@ -5053,6 +5053,30 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         sulfuras = { 0.612, 0.21, 0.40, { 1, 1, 1 }, strength = 0.9,
             embers = { box = { 0.50, 0.74, 0.08, 0.66 }, field = { 0.30, 1.0, 0.30, 0.95 },
                 fieldShare = 0.4, count = 56, blurShare = 0.22, rise = 0.30 } },
+        -- Embers only (`glow = false`; u, v is just a point inside the art).
+        -- Shared images are keyed by image so every goal using them gets it.
+        ["raid_bwl-banner.blp"] = { 0.7, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Blackwing Lair and its attunement
+            embers = { box = { 0.40, 0.95, 0.40, 0.75 }, field = { 0.30, 1.0, 0.20, 0.90 }, count = 48, blurShare = 0.22, rise = 0.30 } },
+        raid_mc = { 0.75, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.45, 1.0, 0.35, 0.85 }, field = { 0.30, 1.0, 0.10, 0.95 }, count = 60, blurShare = 0.22, rise = 0.30 } },
+        att_mc = { 0.65, 0.6, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.30, 0.95, 0.45, 0.75 }, field = { 0.10, 1.0, 0.20, 0.90 }, count = 60, blurShare = 0.22, rise = 0.30 } },
+        att_naxx = { 0.75, 0.85, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.50, 1.0, 0.72, 0.95 }, field = { 0.30, 1.0, 0.50, 0.95 }, count = 40, blurShare = 0.22, rise = 0.30 } },
+        raid_ony = { 0.65, 0.6, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.45, 0.85, 0.45, 0.80 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 40, blurShare = 0.22, rise = 0.30 } },
+        mount_dreadsteed = { 0.7, 0.7, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.45, 0.95, 0.55, 0.88 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
+        ["key_strat-banner.blp"] = { 0.6, 0.65, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Stratholme key and The Devout
+            embers = { box = { 0.30, 0.95, 0.45, 0.85 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 40, blurShare = 0.22, rise = 0.30 } },
+        wolfsbane = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.30, 1.0, 0.60, 0.95 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 36, blurShare = 0.22, rise = 0.30 } },
+        set_tier1_shaman = { 0.6, 0.55, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- The Earthfury
+            embers = { box = { 0.25, 0.95, 0.30, 0.80 }, field = { 0.20, 1.0, 0.10, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
+        tier3_shaman = { 0.6, 0.55, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- The Earthshatterer
+            embers = { box = { 0.25, 0.95, 0.30, 0.75 }, field = { 0.20, 1.0, 0.10, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
+        ["pvp_drums_of_war-banner.blp"] = { 0.65, 0.75, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Honorable Kills and Duelist
+            embers = { box = { 0.35, 0.95, 0.55, 0.90 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 36, blurShare = 0.22, rise = 0.30 } },
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
@@ -5288,7 +5312,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         local live = on and FGT.Setting("celebrations") ~= "off"
         self.glowFrame:SetShown(on and true or false)
-        self.glowTex:SetShown(on and true or false)
+        self.glowTex:SetShown((on and spec.glow ~= false) and true or false)
         self.raysTex:SetShown((on and spec.rays) and true or false)
         if on then
             self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
