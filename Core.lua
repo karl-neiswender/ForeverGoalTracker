@@ -5032,15 +5032,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- optional rays behind the glow (Media/rays, drawn by tools/rays.py):
     -- one full turn every three minutes, too slow to read as spinning
     B.raysTex = B.glowFrame:CreateTexture(nil, "ARTWORK", nil, -1)
-    B.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\rays")
+    B.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\rays", nil, nil, "TRILINEAR")
     B.raysTex:SetBlendMode("ADD")
     B.raysTex:Hide()
-    do
-        local g = B.raysTex:CreateAnimationGroup()
-        g:SetLooping("REPEAT")
-        local turn = g:CreateAnimation("Rotation")
-        turn:SetDegrees(-360); turn:SetDuration(180)
-        B.raysTurn = g
+    -- Turned smoothly each frame (SetRotation) rather than by a Rotation
+    -- animation, and kept off the pixel grid, so the slow turn doesn't step.
+    for _, t in ipairs({ B.raysTex, B.glowTex }) do
+        if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
+        if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
     end
     B.glowFrame:Hide()
     -- Ambient, like the drifting clouds and dust: a faint light that swells
@@ -5052,14 +5051,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B.glowAnim:Play()
         self.playing = true
         B.glowFrame:SetScript("OnUpdate", function(_, dt) B:StepGlow(dt) end)
-        B.raysTurn:Play()
     end
     function B.glowAnim:Stop()
         self.playing = false
         B.glowFrame:SetScript("OnUpdate", nil)
         B.glowTex:SetAlpha(0.2)
-        B.raysTurn:Stop()
-        B.raysTex:SetAlpha(0.15)
+        B.raysTex:SetAlpha(0.05/0.54)
     end
     function B:StepGlow(dt)
         local a = self.glowAnim
@@ -5067,8 +5064,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- 0 to 1, drifting: periods of about 9 and 14 seconds
         local n = 0.5 + 0.3*math.sin(a.t*2*math.pi/9.1) + 0.2*math.sin(a.t*2*math.pi/14.3 + 1.7)
         self.glowTex:SetAlpha(0.12 + 0.16*n)
-        -- the rays breathe a little behind, on the opposite beat
-        self.raysTex:SetAlpha(0.10 + 0.10*(1-n))
+        -- the rays pulse on their own slow 8 s beat, from about 1% to 10%
+        -- visible and back (the frame itself is at 54%)
+        local w = 0.5 - 0.5*math.cos(a.t*2*math.pi/8)
+        self.raysTex:SetAlpha((0.01 + 0.09*w)/0.54)
+        if self.raysTex.SetRotation then self.raysTex:SetRotation(-(a.t % 180)/180*2*math.pi) end
         local spec = self.goal and self.glows[self.goal.id]
         if spec then
             local size = spec[3]*self.art:GetWidth()*(0.96 + 0.08*n)
