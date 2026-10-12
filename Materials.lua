@@ -196,7 +196,7 @@ peek:SetPoint("BOTTOMRIGHT", clip, "BOTTOMLEFT", 0, 0)
 peek:SetWidth(16)
 local peekTex = peek:CreateTexture(nil, "OVERLAY")
 peekTex:SetAllPoints()
-peekTex:SetTexture("Interface\Buttons\WHITE8X8")
+peekTex:SetTexture("Interface\\Buttons\\WHITE8X8")
 peek:Hide()
 
 -- The outer window edge casts a shadow only while the drawer is tucked
