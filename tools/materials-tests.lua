@@ -249,7 +249,7 @@ do
     -- Library: For a class narrows the cards and the category counts.
     D.active = {}; F.ShowTab("library")
     local function Count(key)
-        for _, row in ipairs(LF.rows) do if row.filter.key == key then return tonumber(row.count:GetText()) end end
+        for _, o in ipairs(LF.catDrop.options) do if o.key == key then return o.count end end
     end
     local allWeapons = Count("Epic Weapon")
     LF.forWho = "DRUID"; F.LayoutLibrary()
@@ -276,4 +276,27 @@ do
     assert(F.MyGoalsShows(F.GoalById("thunderfury")) and not F.MyGoalsShows(F.GoalById("mount_dreadsteed")), "This character view")
     view:SetValue("all")
     assert(F.MyGoalsShows(F.GoalById("mount_dreadsteed")), "All goals view")
+end
+
+-- Filters that hide a search match say so, and one click shows it.
+do
+    local LF = F.libState
+    F.ShowTab("library")
+    LF.Reset()
+    F.searchBox:SetText("Thunderfury"); F.libSearch = "thunderfury"
+    LF.forWho = "PRIEST"; LF.forDrop:SetValue("PRIEST")
+    F.LayoutLibrary()
+    local tags = LF.ActiveTags()
+    assert(#tags == 2 and tags[2][1] == "Priest", "one tag per active filter (search, For)")
+    local text = LF.more:GetText() or ""
+    assert(text:find("Thunderfury") and text:find("For: Priest"), "names the filter that hides the match: " .. text)
+    LF.moreBtn:GetScript("OnClick")(LF.moreBtn)
+    assert(LF.forWho == "any" and F.libSearch == "thunderfury", "Show it clears filters but keeps the search")
+    -- removing a tag clears just that filter
+    LF.show = "added"; F.LayoutLibrary()
+    local before = #LF.ActiveTags()
+    LF.tags[2].clear(); F.LayoutLibrary()
+    assert(#LF.ActiveTags() == before - 1 and LF.show == "all", "a tag's X removes its filter")
+    LF.Reset(); F.LayoutLibrary()
+    assert(#LF.ActiveTags() == 0, "reset clears every tag")
 end

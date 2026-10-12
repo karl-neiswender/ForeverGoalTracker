@@ -3627,8 +3627,9 @@ do
                         row.check:SetPoint("RIGHT", row, "RIGHT", -5, 0)
                         row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
                         row.label:SetPoint("LEFT", row, "LEFT", 4, 0)
-                        row.label:SetPoint("RIGHT", row, "RIGHT", -20, 0)
                         row.label:SetWordWrap(false)
+                        row.count = NewFontString(row, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+                        row.count:SetPoint("RIGHT", row, "RIGHT", -24, 0)
                         row:SetScript("OnEnter", function(r) r.hl:Show() end)
                         row:SetScript("OnLeave", function(r) r.hl:Hide() end)
                         row:SetScript("OnClick", function(r)
@@ -3643,6 +3644,8 @@ do
                     row:SetPoint("TOPLEFT", menu, "TOPLEFT", 4, -y)
                     row:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -4, -y)
                     row.label:SetText(o.label)
+                    row.count:SetText(o.count or "")
+                    row.label:SetPoint("RIGHT", row, "RIGHT", o.count and -52 or -20, 0)
                     row:Show()
                     y = y + ROW
                 end
@@ -7249,19 +7252,16 @@ for i, opt in ipairs({ { "all", "All" }, { "added", "Added" }, { "notadded", "No
     LF.showButtons[i] = b
 end
 
--- New & Updated (Forever): a blue toggle with the Forever dot.
+-- New & Updated (Forever): an on/off switch, like the Settings page,
+-- built on first layout (the switch maker lives in the Settings block).
 if FGT.isForever then
-    local b = CreateFrame("Button", nil, fc, "BackdropTemplate")
-    b:SetHeight(22)
-    b.foreverNew = true -- blue twin styles (STYLE.foreverTwin)
-    Etch(b, STYLE.button, 8)
-    b.text = NewFontString(b, 10, "", C.FOREVER_LIGHT[1], C.FOREVER_LIGHT[2], C.FOREVER_LIGHT[3])
-    b.text:SetPoint("LEFT", 8, 0)
-    b.text:SetText(FGT.ForeverDot(14) .. "New & Updated only")
-    b:SetScript("OnClick", function() LF.newOnly = not LF.newOnly; Refilter() end)
-    b:SetScript("OnEnter", function(self) if not LF.newOnly then self:SetEtch(STYLE.btnHover) end end)
-    b:SetScript("OnLeave", function() LF.Paint() end)
-    LF.newButton = b
+    local row = CreateFrame("Button", nil, fc)
+    row:SetHeight(22)
+    row.text = NewFontString(row, 11, "", C.FOREVER_LIGHT[1], C.FOREVER_LIGHT[2], C.FOREVER_LIGHT[3])
+    row.text:SetPoint("LEFT", 0, 0)
+    row.text:SetText(FGT.ForeverDot(14) .. "New & Updated only")
+    row:SetScript("OnClick", function() LF.newOnly = not LF.newOnly; Refilter() end)
+    LF.newRow = row
 end
 
 -- For: anyone, the logged-in character, or one class.
@@ -7292,21 +7292,20 @@ end
 
 LF.factionLabel = LF.Label("FACTION")
 LF.catLabel = LF.Label("CATEGORY")
-for i, f in ipairs(FILTERS) do
-    local row = CreateFrame("Button", nil, fc, "BackdropTemplate")
-    row:SetHeight(24)
-    Etch(row, STYLE.row, 8)
-    row.text = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
-    row.text:SetPoint("LEFT", 10, 0)
-    row.text:SetText(f.label)
-    row.count = NewFontString(row, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    row.count:SetPoint("RIGHT", -10, 0)
-    row.filter = f
-    row:SetScript("OnClick", function() libFilter = f.key; Refilter() end)
-    row:SetScript("OnEnter", function(self) if libFilter ~= f.key then self:SetEtch(STYLE.rowHover) end end)
-    row:SetScript("OnLeave", function() LF.Paint() end)
-    LF.rows[i] = row
+LF.catDrop = FGT.NewDropdown(fc)
+LF.catDrop.onChange = function(key) libFilter = key; Refilter() end
+
+-- A small gold dot beside a section label while that filter is changed.
+function LF.Dot(label)
+    local d = fc:CreateTexture(nil, "OVERLAY")
+    d:SetTexture(FGT.FOREVER_DOT)
+    d:SetVertexColor(1, 0.82, 0.3)
+    d:SetSize(12, 12)
+    d:SetPoint("LEFT", label, "RIGHT", 1, 0)
+    d:Hide()
+    label.dot = d
 end
+LF.Dot(LF.showLabel); LF.Dot(LF.forLabel); LF.Dot(LF.factionLabel); LF.Dot(LF.catLabel)
 
 LF.reset = CreateFrame("Button", nil, fc)
 LF.reset:SetHeight(20)
@@ -7315,11 +7314,16 @@ LF.reset.text:SetPoint("RIGHT", 0, 0)
 LF.reset.text:SetText("Reset filters")
 LF.reset:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
 LF.reset:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
-function LF.Reset()
+-- Everything but the search (the hidden-matches "Show" button keeps it).
+function LF.ClearFilters()
     LF.show, LF.newOnly, LF.forWho, libFilter = "all", false, "any", "all"
     if ForeverGoalTrackerDB then ForeverGoalTrackerDB.libFaction = nil end
-    if FGT.searchBox then FGT.searchBox:SetText("") end
     LF.forDrop:SetValue("any")
+end
+function LF.Reset()
+    LF.ClearFilters()
+    if FGT.searchBox then FGT.searchBox:SetText("") end
+    FGT.libSearch = ""
 end
 LF.reset:SetScript("OnClick", function() LF.Reset(); Refilter() end)
 function LF.Active()
@@ -7442,27 +7446,38 @@ do
 end
 
 -- Search and faction rules, applied on top of the chip filter.
-function FGT.LibraryVisible(goal)
+-- Goals this client can show at all (before any filter).
+function LF.Available(goal)
     if goal.libraryChild then return false end
     -- Forever-only goals can't be earned on Classic Era.
     if goal.forever == "new" and not FGT.isForever then return false end
     if goal.needs == "stats" and not FGT.HasStats() then return false end -- no Statistics window
     if goal.needs == "forever" and not FGT.isForever then return false end -- Forever-only items
+    return true
+end
+function LF.SearchMatch(goal)
+    local q = FGT.libSearch
+    if not q or q == "" then return true end
+    local hay = (goal.name .. " " .. (goal.short or "") .. " " .. (goal.category or "") .. " " .. (goal.faction or "")):lower()
+    for _, child in ipairs(goal.armorChildren or {}) do hay = hay .. " " .. child.name:lower() end
+    return hay:find(q, 1, true) ~= nil
+end
+-- The filters (not the category) that hide a goal, as tag names; empty
+-- when none do.
+function LF.Blockers(goal)
+    local out = {}
     if goal.faction and not IsActive(goal) then
         local want = FGT.factionSeg.Current()
-        if want ~= "Both" and goal.faction ~= want then return false end
+        if want ~= "Both" and goal.faction ~= want then out[#out + 1] = want end
     end
-    if LF.show == "added" and not IsActive(goal) then return false end
-    if LF.show == "notadded" and IsActive(goal) then return false end
-    if LF.newOnly and not FGT.HasForeverNew(goal) then return false end
-    if not FGT.GoalFits(goal, LF.Who()) then return false end
-    local q = FGT.libSearch
-    if q and q ~= "" then
-        local hay = (goal.name .. " " .. (goal.short or "") .. " " .. (goal.category or "") .. " " .. (goal.faction or "")):lower()
-        for _, child in ipairs(goal.armorChildren or {}) do hay = hay .. " " .. child.name:lower() end
-        if not hay:find(q, 1, true) then return false end
-    end
-    return true
+    if LF.show == "added" and not IsActive(goal) then out[#out + 1] = "Added" end
+    if LF.show == "notadded" and IsActive(goal) then out[#out + 1] = "Not added" end
+    if LF.newOnly and not FGT.HasForeverNew(goal) then out[#out + 1] = "New & Updated" end
+    if not FGT.GoalFits(goal, LF.Who()) then out[#out + 1] = "For: " .. (LF.forDrop:LabelFor(LF.forWho) or "") end
+    return out
+end
+function FGT.LibraryVisible(goal)
+    return LF.Available(goal) and #LF.Blockers(goal) == 0 and LF.SearchMatch(goal)
 end
 
 local function CurrentFilter()
@@ -7508,22 +7523,23 @@ function LF.Paint()
         local c = on and C.TITLE or C.INK2
         b.text:SetTextColor(c[1], c[2], c[3])
     end
-    if LF.newButton then
-        LF.newButton:SetEtch(LF.newOnly and STYLE.rowSel or STYLE.button)
-        local c = LF.newOnly and { 1, 1, 1 } or C.FOREVER_LIGHT
-        LF.newButton.text:SetTextColor(c[1], c[2], c[3])
-    end
-    for _, row in ipairs(LF.rows) do
-        local on = libFilter == row.filter.key
-        row:SetEtch(on and STYLE.rowSel or STYLE.row)
-        local c = on and C.TITLE or C.TEXT
-        row.text:SetTextColor(c[1], c[2], c[3])
-    end
+    if LF.newSwitch then LF.newSwitch:Refresh() end
     FGT.factionSeg.Refresh()
+    LF.showLabel.dot:SetShown(LF.show ~= "all")
+    LF.forLabel.dot:SetShown(LF.forWho ~= "any")
+    LF.factionLabel.dot:SetShown(FGT.factionSeg.Current() ~= "Both")
+    LF.catLabel.dot:SetShown(libFilter ~= "all")
     LF.reset:SetShown(LF.Active())
 end
 function LF.Layout()
     if not LF.forDrop.options[1] then LF.ForOptions() end
+    if LF.newRow and not LF.newSwitch and FGT.NewToggle then
+        LF.newSwitch = FGT.NewToggle(LF.newRow, { look = "blue",
+            get = function() return LF.newOnly end,
+            set = function(on) LF.newOnly = on; Refilter() end })
+        LF.newSwitch:ClearAllPoints()
+        LF.newSwitch:SetPoint("RIGHT", LF.newRow, "RIGHT", 0, 0)
+    end
     fpScroll.scroll:ClearAllPoints()
     fpScroll.scroll:SetPoint("TOPLEFT", fp, "TOPLEFT", 8, -40)
     fpScroll.scroll:SetPoint("BOTTOMRIGHT", fp, "BOTTOMRIGHT", -14, 8)
@@ -7542,40 +7558,37 @@ function LF.Layout()
             b:SetPoint("TOPLEFT", fc, "TOPLEFT", (i - 1) * (bw + gap), -y)
             b:SetWidth(bw)
         end
-        y = y + 22 + 12
+        y = y + 22 + 14
+    end
+    local function Full(f)
+        f:ClearAllPoints()
+        f:SetPoint("TOPLEFT", fc, "TOPLEFT", 0, -y)
+        f:SetWidth(w)
+        y = y + 22 + 14
     end
     Label(LF.showLabel)
     LF.reset:ClearAllPoints()
     LF.reset:SetPoint("RIGHT", LF.showLabel, "LEFT", w - 2, 0)
     LF.reset:SetWidth(LF.reset.text:GetStringWidth() + 4)
     Across(LF.showButtons)
-    if LF.newButton then
-        y = y - 6
-        LF.newButton:ClearAllPoints()
-        LF.newButton:SetPoint("TOPLEFT", fc, "TOPLEFT", 0, -y)
-        LF.newButton:SetWidth(w)
-        y = y + 22 + 12
-    end
+    if LF.newRow then y = y - 4; Full(LF.newRow) end
     Label(LF.forLabel)
-    LF.forDrop:ClearAllPoints()
-    LF.forDrop:SetPoint("TOPLEFT", fc, "TOPLEFT", 0, -y)
-    LF.forDrop:SetWidth(w)
-    y = y + 22 + 12
+    Full(LF.forDrop)
     Label(LF.factionLabel)
     Across(FGT.factionSeg.buttons)
     Label(LF.catLabel)
-    for _, row in ipairs(LF.rows) do
+    -- category choices with live counts under every other filter
+    local opts = {}
+    for i, f in ipairs(FILTERS) do
         local n = 0
         for _, g in ipairs(FGT.goals) do
-            if FilterMatches(row.filter, g) and FGT.LibraryVisible(g) then n = n + 1 end
+            if FilterMatches(f, g) and FGT.LibraryVisible(g) then n = n + 1 end
         end
-        row.count:SetText(n)
-        row:ClearAllPoints()
-        row:SetPoint("TOPLEFT", fc, "TOPLEFT", 0, -y)
-        row:SetWidth(w)
-        y = y + 24 + 3
+        opts[i] = { key = f.key, label = f.label, count = n }
     end
-    y = y + 8
+    LF.catDrop:SetOptions(opts)
+    LF.catDrop:SetValue(libFilter)
+    Full(LF.catDrop)
     fc:SetHeight(y)
     fpScroll:Update()
     LF.Paint()
@@ -8108,10 +8121,6 @@ end
 
 LayoutLibrary = function()
     LF.Layout()
-    libScroll.scroll:ClearAllPoints()
-    libScroll.scroll:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 10, -40)
-    libScroll.scroll:SetPoint("BOTTOMRIGHT", libraryPanel, "BOTTOMRIGHT", -18, 10)
-    libScroll.content:SetWidth(libScroll.scroll:GetWidth())
 
     -- cards: active goals first within the filter, then alphabetical
     local list = {}
@@ -8126,6 +8135,11 @@ LayoutLibrary = function()
         end
     end
     table.sort(list, function(a, b) return a.name < b.name end)
+    local top = LF.LayoutTags(#list)
+    libScroll.scroll:ClearAllPoints()
+    libScroll.scroll:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 10, top)
+    libScroll.scroll:SetPoint("BOTTOMRIGHT", libraryPanel, "BOTTOMRIGHT", -18, 10)
+    libScroll.content:SetWidth(libScroll.scroll:GetWidth())
     local cy = 0
     for _, g in ipairs(list) do
         local card = GetCard(g)
@@ -8203,30 +8217,120 @@ LayoutLibrary = function()
             end
         end
     end
+    -- Matches your search that the filters hide: say so, with a one-click way
+    -- to see them (keeps the search, clears the filters).
+    local q = FGT.libSearch or ""
+    local hidden = {}
+    if q ~= "" then
+        local shownSet = {}
+        for _, g in ipairs(list) do shownSet[g] = true end
+        for _, g in ipairs(FGT.goals) do
+            if not shownSet[g] and LF.Available(g) and LF.SearchMatch(g) then hidden[#hidden + 1] = g end
+        end
+        table.sort(hidden, function(a, b) return a.name < b.name end)
+    end
+    if not LF.more then
+        LF.more = NewFontString(libScroll.content, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        LF.more:SetJustifyH("CENTER")
+        LF.moreBtn = CreateFrame("Button", nil, libraryPanel, "BackdropTemplate")
+        LF.moreBtn:SetHeight(22)
+        Etch(LF.moreBtn, STYLE.button, 8)
+        LF.moreBtn.text = NewFontString(LF.moreBtn, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+        LF.moreBtn.text:SetPoint("CENTER", 0, 0)
+        LF.moreBtn:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
+        LF.moreBtn:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button) end)
+        LF.moreBtn:SetScript("OnClick", function() LF.ClearFilters(); Refilter() end)
+    end
+    LF.more:Hide(); LF.moreBtn:Hide()
+    if #hidden > 0 then
+        local blockers = LF.Blockers(hidden[1])
+        if libFilter ~= "all" and not FilterMatches(CurrentFilter(), hidden[1]) then
+            table.insert(blockers, 1, CurrentFilter().label)
+        end
+        local why = #blockers > 0 and (" (" .. table.concat(blockers, ", ") .. ")") or ""
+        if #list == 0 then
+            LF.more:SetText((#hidden == 1 and (hidden[1].name .. " is") or (#hidden .. " matches are"))
+                .. " hidden by your filters" .. why .. ".")
+            LF.moreBtn.text:SetText(#hidden == 1 and "Show it" or "Show them")
+        else
+            LF.more:SetText((#hidden == 1 and "1 more match is" or (#hidden .. " more matches are")) .. " hidden by your filters.")
+            LF.moreBtn.text:SetText("Show all matches")
+        end
+        LF.more:ClearAllPoints()
+        LF.more:SetPoint("TOPLEFT", libScroll.content, "TOPLEFT", 10, -(cy + (#list == 0 and 30 or 12)))
+        LF.more:SetPoint("RIGHT", libScroll.content, "RIGHT", -10, 0)
+        LF.more:Show()
+        LF.moreBtn:SetWidth(LF.moreBtn.text:GetStringWidth() + 28)
+        LF.moreBtn:ClearAllPoints()
+        LF.moreBtn:SetPoint("TOP", LF.more, "BOTTOM", 0, -8)
+        LF.moreBtn:Show()
+        cy = cy + (#list == 0 and 30 or 12) + LF.more:GetStringHeight() + 40
+    end
     libScroll.content:SetHeight(math.max(1, cy))
     libScroll:Update()
 
-    -- nothing matched the search / chip
+    -- nothing at all matched
     if not FGT.libNoMatch then
         FGT.libNoMatch = NewFontString(libraryPanel, 12, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         FGT.libNoMatch:SetJustifyH("CENTER")
     end
     FGT.libNoMatch:ClearAllPoints()
     FGT.libNoMatch:SetPoint("TOP", libScroll.scroll, "TOP", 0, -40)
-    FGT.libNoMatch:SetText((FGT.libSearch ~= "") and ("No goals match \"" .. FGT.searchBox:GetText() .. "\".") or "No goals here yet.")
-    FGT.libNoMatch:SetShown(#list == 0)
+    FGT.libNoMatch:SetText((q ~= "") and ("No goals match \"" .. FGT.searchBox:GetText() .. "\".") or "No goals match these filters.")
+    FGT.libNoMatch:SetShown(#list == 0 and #hidden == 0)
+end
 
-    -- the count, then what's narrowing it
-    local bits = {}
-    local who = LF.forDrop:LabelFor(LF.forWho)
-    if LF.forWho ~= "any" then bits[#bits + 1] = who end
-    if libFilter ~= "all" then bits[#bits + 1] = CurrentFilter().label end
-    if LF.show == "added" then bits[#bits + 1] = "Added" elseif LF.show == "notadded" then bits[#bits + 1] = "Not added" end
-    if LF.newOnly then bits[#bits + 1] = "New & Updated" end
-    if FGT.factionSeg.Current() ~= "Both" then bits[#bits + 1] = FGT.factionSeg.Current() end
-    local text = (#list == 1 and "1 goal" or (#list .. " goals"))
-    if #bits > 0 then text = text .. "  |cff77736a\194\183|r  " .. table.concat(bits, "  |cff77736a\194\183|r  ") end
-    libSummary:SetText(text)
+-- Over the cards: the result count, then one removable tag per active
+-- filter. Returns where the cards start (wraps onto more lines).
+LF.tags = {}
+function LF.ActiveTags()
+    local out = {}
+    local q = FGT.libSearch or ""
+    if q ~= "" then out[#out + 1] = { "\"" .. FGT.searchBox:GetText() .. "\"", function() FGT.searchBox:SetText(""); FGT.libSearch = "" end } end
+    if LF.forWho ~= "any" then out[#out + 1] = { LF.forDrop:LabelFor(LF.forWho), function() LF.forWho = "any"; LF.forDrop:SetValue("any") end } end
+    if libFilter ~= "all" then out[#out + 1] = { CurrentFilter().label, function() libFilter = "all" end } end
+    if LF.show ~= "all" then out[#out + 1] = { LF.show == "added" and "Added" or "Not added", function() LF.show = "all" end } end
+    if LF.newOnly then out[#out + 1] = { "New & Updated", function() LF.newOnly = false end } end
+    local faction = FGT.factionSeg.Current()
+    if faction ~= "Both" then out[#out + 1] = { faction, function() ForeverGoalTrackerDB.libFaction = nil end } end
+    return out
+end
+function LF.LayoutTags(count)
+    libSummary:ClearAllPoints()
+    libSummary:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 14, -15)
+    libSummary:SetText(count == 1 and "1 goal" or (count .. " goals"))
+    local maxX = libraryPanel:GetWidth() - 14
+    local x, y = 14 + libSummary:GetStringWidth() + 12, -10
+    for _, t in ipairs(LF.tags) do t:Hide() end
+    for i, tag in ipairs(LF.ActiveTags()) do
+        local t = LF.tags[i]
+        if not t then
+            t = CreateFrame("Button", nil, libraryPanel, "BackdropTemplate")
+            t:SetHeight(22)
+            Etch(t, STYLE.button, 8)
+            t.text = NewFontString(t, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            t.text:SetPoint("LEFT", 9, 0)
+            t.x = t:CreateTexture(nil, "OVERLAY")
+            t.x:SetTexture(FGT.Icon("close-white"))
+            t.x:SetSize(8, 8)
+            t.x:SetPoint("RIGHT", -8, 0)
+            t.x:SetVertexColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+            t:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover); self.x:SetVertexColor(1, 1, 1) end)
+            t:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button); self.x:SetVertexColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
+            t:SetScript("OnClick", function(self) self.clear(); Refilter() end)
+            LF.tags[i] = t
+        end
+        t.text:SetText(tag[1])
+        t.clear = tag[2]
+        local w = t.text:GetStringWidth() + 32
+        t:SetWidth(w)
+        if x + w > maxX and x > 14 + libSummary:GetStringWidth() + 12 then x = 14; y = y - 26 end
+        t:ClearAllPoints()
+        t:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", x, y)
+        t:Show()
+        x = x + w + 6
+    end
+    return math.min(-40, y - 30)
 end
 libScroll:Finalize()
 FGT.LayoutLibrary = LayoutLibrary
@@ -8359,6 +8463,8 @@ local TOGGLE_LOOK = {
             knobTop = { 1.00, 0.96, 0.78 }, knobBottom = { 0.92, 0.70, 0.22 } },
     off = { rim = { 0.32, 0.30, 0.26 }, top = { 0.17, 0.16, 0.15 }, bottom = { 0.05, 0.05, 0.05 },
             knobTop = { 0.66, 0.65, 0.62 }, knobBottom = { 0.36, 0.35, 0.33 } },
+    blue = { rim = { 0.40, 0.62, 1.00 }, top = { 0.12, 0.32, 0.72 }, bottom = { 0.02, 0.09, 0.26 },
+            knobTop = { 0.94, 0.97, 1.00 }, knobBottom = { 0.58, 0.76, 1.00 } },
 }
 local function NewToggle(row, spec)
     local t = CreateFrame("Button", nil, row)
@@ -8379,8 +8485,9 @@ local function NewToggle(row, spec)
     t.knob:SetTexture(KNOB)
     t.knob:SetSize(14, 14)
     function t:Refresh()
-        local on = FGT.Setting(spec.key) and true or false
-        local L = on and TOGGLE_LOOK.on or TOGGLE_LOOK.off
+        local on
+        if spec.get then on = spec.get() and true or false else on = FGT.Setting(spec.key) and true or false end
+        local L = on and (spec.look == "blue" and TOGGLE_LOOK.blue or TOGGLE_LOOK.on) or TOGGLE_LOOK.off
         local lift = self:IsMouseOver() and 0.12 or 0
         self.rim:SetVertexColor(math.min(1, L.rim[1] + lift), math.min(1, L.rim[2] + lift), math.min(1, L.rim[3] + lift))
         ApplyVGradient(self.fill, L.top, L.bottom)
@@ -8394,12 +8501,14 @@ local function NewToggle(row, spec)
     t:SetScript("OnEnter", function(self) self:Refresh() end)
     t:SetScript("OnLeave", function(self) self:Refresh() end)
     t:SetScript("OnClick", function(self)
+        if spec.set then spec.set(not spec.get()); self:Refresh(); return end
         FGT.SetSetting(spec.key, not FGT.Setting(spec.key))
         self:Refresh()
         if spec.apply then spec.apply(FGT.Setting(spec.key)) end
     end)
     return t
 end
+FGT.NewToggle = NewToggle -- also the Library's New & Updated switch
 
 -- A row of small buttons, one per option; the chosen one is gold.
 local function NewChoice(row, spec)
