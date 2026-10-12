@@ -51,7 +51,7 @@ FGT.difficultyColors = {
 -- whose rules for other races aren't known yet) it's the 4 race-only steps.
 -- items: the mount's color variants as { item id, name } (Wowhead Classic,
 -- checked 2026-10-07); any one ticks the buy step, and the step's mount
--- name becomes a link whose tooltip lists every color (ariants).
+-- name becomes a link whose tooltip lists every color (variants).
 -- Wowhead NPC IDs of the mount vendors (Classic, Genn on Forever; checked
 -- 2026-10-07): the mount type's Wowhead link opens the vendor's "Sells"
 -- tab, which lists every color (Karl: one color's page felt clunky).

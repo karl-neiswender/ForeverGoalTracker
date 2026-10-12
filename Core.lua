@@ -7311,7 +7311,7 @@ end
 LF.reset = CreateFrame("Button", nil, fc)
 LF.reset:SetHeight(20)
 LF.reset.text = NewFontString(LF.reset, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-LF.reset.text:SetPoint("LEFT", 0, 0)
+LF.reset.text:SetPoint("RIGHT", 0, 0)
 LF.reset.text:SetText("Reset filters")
 LF.reset:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
 LF.reset:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
@@ -7391,7 +7391,7 @@ do
     box:SetHeight(22)
     box:SetPoint("TOPLEFT", fp, "TOPLEFT", 10, -10)
     box:SetPoint("TOPRIGHT", fp, "TOPRIGHT", -10, -10)
-    Skin(box, { 0, 0, 0, 0.6 }, C.BOX_RING)
+    Etch(box, STYLE.row, 10) -- the same etched edge as the buttons and cards
     box:SetAutoFocus(false)
     FGT.RegisterFont(box, "body", 11, "")
     box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
@@ -7433,7 +7433,7 @@ do
     box:SetScript("OnEditFocusGained", function(self) hint:Hide(); self:SetBackdropBorderColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3], 1) end)
     box:SetScript("OnEditFocusLost", function(self)
         hint:SetShown((self:GetText() or "") == "")
-        self:SetBackdropBorderColor(C.BOX_RING[1], C.BOX_RING[2], C.BOX_RING[3], 1)
+        self:SetBackdropBorderColor(STYLE.row.edge[1], STYLE.row.edge[2], STYLE.row.edge[3], 1)
     end)
     box:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
     box:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
@@ -7545,6 +7545,9 @@ function LF.Layout()
         y = y + 22 + 12
     end
     Label(LF.showLabel)
+    LF.reset:ClearAllPoints()
+    LF.reset:SetPoint("RIGHT", LF.showLabel, "LEFT", w - 2, 0)
+    LF.reset:SetWidth(LF.reset.text:GetStringWidth() + 4)
     Across(LF.showButtons)
     if LF.newButton then
         y = y - 6
@@ -7573,10 +7576,6 @@ function LF.Layout()
         y = y + 24 + 3
     end
     y = y + 8
-    LF.reset:ClearAllPoints()
-    LF.reset:SetPoint("TOPLEFT", fc, "TOPLEFT", 2, -y)
-    LF.reset:SetWidth(w)
-    y = y + 24
     fc:SetHeight(y)
     fpScroll:Update()
     LF.Paint()
@@ -8226,7 +8225,7 @@ LayoutLibrary = function()
     if LF.newOnly then bits[#bits + 1] = "New & Updated" end
     if FGT.factionSeg.Current() ~= "Both" then bits[#bits + 1] = FGT.factionSeg.Current() end
     local text = (#list == 1 and "1 goal" or (#list .. " goals"))
-    if #bits > 0 then text = text .. "  |cff77736a9483|r  " .. table.concat(bits, "  |cff77736a9483|r  ") end
+    if #bits > 0 then text = text .. "  |cff77736a\194\183|r  " .. table.concat(bits, "  |cff77736a\194\183|r  ") end
     libSummary:SetText(text)
 end
 libScroll:Finalize()

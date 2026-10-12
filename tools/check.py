@@ -92,6 +92,14 @@ for f in FILES:
     ok, err = compile_(open(f).read(), f)
     print(("compiles   " if ok else "SYNTAX     ") + f + ("" if ok else ": " + str(err)))
     ok_all = ok_all and ok
+    # Stray control bytes (a lost backslash turns "94" into byte 1) show
+    # as empty squares in game while still compiling. Reject them.
+    src = open(f, encoding="utf-8").read()
+    bad = [i for i, ch in enumerate(src) if ord(ch) < 32 and ch not in "
+	"]
+    if bad:
+        print("CONTROL    " + f + ": byte " + str(ord(src[bad[0]])) + " near " + repr(src[max(0, bad[0] - 40):bad[0] + 10]))
+        ok_all = False
 
 if ok_all:
     steps = [
