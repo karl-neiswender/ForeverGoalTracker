@@ -8,4 +8,4 @@ C="$HOME/.cache/fgt-luals"
 cd "$C" && rm -rf log meta-cache && "$C/luals/bin/lua-language-server.exe" \
   --check "$(cd "$(dirname "$0")/.." && pwd -W)" --configpath "$C/luals-config.json" \
   --logpath "$C/log" --metapath "$C/meta-cache" --check_out_path "$C/diag.json"
-echo "annotation load events: $(grep -c ketho-ext "$C"/log/file_*.log | head -1)"
+echo "annotation load events: $(cat "$C"/log/file_*.log | grep -c ketho-ext)"
