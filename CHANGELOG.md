@@ -3,7 +3,7 @@
 ## Unreleased
 
 - Use the standard Warcraft font for headings, preserving the original panel widths
-- Widen the goals list by 40 pixels to give titles more room
+- Widen the goals list by 50 pixels to give titles more room
 - Remove repeated completion text from step tooltips
 - Update Forever racial mount budgets to 1,200g and separate mount and riding prices
 - Limit window resizing to 75–110% of its default size and center it at the start of each session

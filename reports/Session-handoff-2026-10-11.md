@@ -83,3 +83,7 @@ Checks: checks/wider-goals-list-followup-2026-10-11.txt.
 
 Latest width: Karl requested 40 UI units beyond the original footprint,
 replacing the 34-unit offset. Checks: checks/goals-list-40-2026-10-11.txt.
+
+Karl requested another 10 UI units after review; the final current offset is
+50 beyond the original tab footprint. Overall window size is unchanged.
+Checks: checks/goals-list-50-2026-10-11.txt.
