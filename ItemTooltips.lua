@@ -180,7 +180,10 @@ end
 function FGT.ItemCanPreview(id)
     if FGT.ItemMountID(id) then return true end
     local _, _, _, _, _, _, _, _, slot = FGT.ItemInfo(id)
-    return type(slot) == "string" and slot ~= "" and slot ~= "INVTYPE_NON_EQUIP"
+    -- Modern clients report "INVTYPE_NON_EQUIP_IGNORE" for trade goods, and
+    -- bags and ammo can't be tried on either.
+    return type(slot) == "string" and slot ~= "" and not slot:find("^INVTYPE_NON_EQUIP")
+        and slot ~= "INVTYPE_BAG" and slot ~= "INVTYPE_QUIVER" and slot ~= "INVTYPE_AMMO"
 end
 
 local function Clear(tooltip) tooltip.fgtNeedsItem = nil end
