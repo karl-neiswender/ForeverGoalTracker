@@ -7281,7 +7281,23 @@ function LF.ForOptions()
     LF.forDrop:SetOptions(opts)
     LF.forDrop:SetValue(LF.forWho)
 end
-LF.forDrop.onChange = function(key) LF.forWho = key; Refilter() end
+function LF.SetFor(key)
+    local DB = ForeverGoalTrackerDB
+    LF.forWho = key
+    LF.forDrop:SetValue(key)
+    if key == "me" then
+        local faction = FGT.PlayerProfile().faction
+        if faction and DB and DB.libFaction ~= faction then
+            DB.libFaction = faction
+            LF.autoFaction = faction
+        end
+    elseif LF.autoFaction then
+        -- the faction My character chose goes back to Both, unless you changed it
+        if DB and DB.libFaction == LF.autoFaction then DB.libFaction = nil end
+        LF.autoFaction = nil
+    end
+end
+LF.forDrop.onChange = function(key) LF.SetFor(key); Refilter() end
 
 -- Who the For filter means right now, or nil for anyone.
 function LF.Who()
@@ -7317,6 +7333,7 @@ LF.reset:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1]
 -- Everything but the search (the hidden-matches "Show" button keeps it).
 function LF.ClearFilters()
     LF.show, LF.newOnly, LF.forWho, libFilter = "all", false, "any", "all"
+    LF.autoFaction = nil
     if ForeverGoalTrackerDB then ForeverGoalTrackerDB.libFaction = nil end
     LF.forDrop:SetValue("any")
 end
@@ -8216,6 +8233,9 @@ LayoutLibrary = function()
         for _, sub in ipairs(card.subs or {}) do sub:Hide() end
     end
     local list = LF.Results(CurrentFilter())
+    table.sort(list, function(a, b) return CompareGoals(LF.sort, a, b) end) -- Sort dropdown
+    LF.shown = list
+    LF.RefreshAddAll()
     local top = LF.LayoutTags(#list)
     libScroll.scroll:ClearAllPoints()
     libScroll.scroll:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 10, top)
@@ -8362,6 +8382,56 @@ LayoutLibrary = function()
     FGT.libNoMatch:SetShown(#list == 0 and #hidden == 0)
 end
 
+-- Sort for the cards, and Add all for everything listed (with a confirm).
+LF.sortDrop = FGT.NewDropdown(libraryPanel, "Sort:", 8)
+LF.sortDrop:SetWidth(140)
+LF.sortDrop:SetPoint("TOPRIGHT", libraryPanel, "TOPRIGHT", -14, -10)
+LF.sortDrop:SetOptions({
+    { key = "alpha", label = "A - Z" },
+    { key = "difficulty", label = "Difficulty" },
+    { key = "duration", label = "Duration" },
+})
+LF.sort = "alpha"
+LF.sortDrop:SetValue("alpha")
+LF.sortDrop.onChange = function(key) LF.sort = key; Refilter() end
+
+LF.addAll = FGT.NewDropdown(libraryPanel, nil, 8)
+LF.addAll:SetWidth(96)
+LF.addAll:SetPoint("RIGHT", LF.sortDrop, "LEFT", -6, 0)
+-- the goals on screen not yet on My Goals (a group counts once)
+function LF.Missing()
+    local out = {}
+    for _, g in ipairs(LF.shown or {}) do
+        if g.group then
+            if FGT.SelectedPartCount(g) < #FGT.GroupParts(g) then out[#out + 1] = g end
+        elseif not LF.On(g) then
+            out[#out + 1] = g
+        end
+    end
+    return out
+end
+function LF.RefreshAddAll()
+    local n = #LF.Missing()
+    LF.addAll:SetOptions({
+        { key = "add", label = n == 1 and "Add 1 goal to My Goals" or ("Add " .. n .. " goals to My Goals") },
+        { key = "cancel", label = "Cancel" },
+    })
+    LF.addAll.label:SetText("+ Add all")
+    LF.addAll:SetShown(n > 0)
+    -- the menu reads wider than the button
+    LF.addAll.menu:ClearAllPoints()
+    LF.addAll.menu:SetPoint("TOPRIGHT", LF.addAll, "BOTTOMRIGHT", 0, -2)
+    LF.addAll.menu:SetWidth(210)
+end
+LF.addAll.onChange = function(key)
+    LF.addAll.label:SetText("+ Add all")
+    if key ~= "add" then return end
+    for _, g in ipairs(LF.Missing()) do
+        if g.partOf then SetPartActive(g.partOf, g.partKey, true) else SetGoalActive(g, true) end
+    end
+    LayoutLibrary()
+end
+
 -- Over the cards: the result count, then one removable tag per active
 -- filter. Returns where the cards start (wraps onto more lines).
 LF.tags = {}
@@ -8369,7 +8439,7 @@ function LF.ActiveTags()
     local out = {}
     local q = FGT.libSearch or ""
     if q ~= "" then out[#out + 1] = { "\"" .. FGT.searchBox:GetText() .. "\"", function() FGT.searchBox:SetText(""); FGT.libSearch = "" end } end
-    if LF.forWho ~= "any" then out[#out + 1] = { LF.forDrop:LabelFor(LF.forWho), function() LF.forWho = "any"; LF.forDrop:SetValue("any") end } end
+    if LF.forWho ~= "any" then out[#out + 1] = { LF.forDrop:LabelFor(LF.forWho), function() LF.SetFor("any") end } end
     if libFilter ~= "all" then out[#out + 1] = { CurrentFilter().label, function() libFilter = "all" end } end
     if LF.show ~= "all" then out[#out + 1] = { LF.show == "added" and "Added" or "Not added", function() LF.show = "all" end } end
     if LF.newOnly then out[#out + 1] = { "New & Updated", function() LF.newOnly = false end } end
@@ -8381,7 +8451,7 @@ function LF.LayoutTags(count)
     libSummary:ClearAllPoints()
     libSummary:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 14, -15)
     libSummary:SetText(count == 1 and "1 goal" or (count .. " goals"))
-    local maxX = libraryPanel:GetWidth() - 14
+    local maxX = libraryPanel:GetWidth() - 14 - LF.sortDrop:GetWidth() - 6 - (LF.addAll:IsShown() and (LF.addAll:GetWidth() + 6) or 0)
     local x, y = 14 + libSummary:GetStringWidth() + 12, -10
     for _, t in ipairs(LF.tags) do t:Hide() end
     for i, tag in ipairs(LF.ActiveTags()) do

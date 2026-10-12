@@ -346,3 +346,34 @@ do
     assert(Find(LF.Results(mounts), "epicmounts"), "a class alone (no race) keeps the group")
     LF.Reset()
 end
+
+-- My character brings your faction; Sort and Add all.
+do
+    local LF = F.libState
+    F.ShowTab("library"); LF.Reset()
+    LF.SetFor("me")
+    assert(D.libFaction == "Alliance", "My character picks your faction")
+    local factionTag = false
+    for _, t in ipairs(LF.ActiveTags()) do if t[1] == "Alliance" then factionTag = true end end
+    assert(factionTag, "the faction shows as its own tag")
+    LF.SetFor("any")
+    assert(D.libFaction == nil, "leaving My character gives the faction back")
+    LF.SetFor("me"); D.libFaction = "Horde"; LF.SetFor("any")
+    assert(D.libFaction == "Horde", "a faction you changed yourself stays")
+    LF.Reset()
+
+    LF.sort = "difficulty"; F.LayoutLibrary()
+    assert(#LF.shown > 0, "sorted results")
+    LF.sort = "alpha"; LF.sortDrop:SetValue("alpha")
+
+    D.active = {}; D.activeParts = {}
+    F.searchBox:SetText("onyxia"); F.libSearch = "onyxia"
+    F.LayoutLibrary()
+    local missing = #LF.Missing()
+    assert(missing > 0, "something to add")
+    LF.addAll.onChange("cancel")
+    assert(#LF.Missing() == missing, "Cancel adds nothing")
+    LF.addAll.onChange("add")
+    assert(#LF.Missing() == 0, "Add all adds everything listed")
+    LF.Reset(); D.active = {}; D.activeParts = {}
+end
