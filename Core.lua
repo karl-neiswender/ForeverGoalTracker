@@ -5041,7 +5041,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["benediction-alliance-banner.blp"] = { 0.537, 0.220, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
         -- Judgement Armor (Paladin Tier 2, also the Paladin leveling banner):
         -- the light in his raised hand, near the art's right edge
-        ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.62, { 1, 1, 1 }, rays = 1.5, strength = 0.85,
+        ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.62, { 1, 1, 1 }, rays = 2.2, strength = 0.85,
             raysStrength = 0.6, turn = 300 },
     }
     -- The light for the banner on screen: its image first, then its goal.
