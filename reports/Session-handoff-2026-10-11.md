@@ -31,3 +31,21 @@ Karl confirmed final in-game checks passed. Tag v2.11.1 points to 00bbf42. Relea
 - Recursive artwork audit included ignored files: no pending originals, modifications or deletions. Main matched remote before closeout; this closeout is committed and pushed as the final sync.
 - On either machine, pull main before editing. If that checkout has local changes, ask before pulling. Restart WoW after pulling new/replaced textures; Lua-only changes need /reload. SavedVariables remain local to each machine.
 - Mac Ketho/LuaLS installs are machine-local; the retained config contains Mac paths. On PC, install/locate both extensions and adapt annotation paths for the next release check. Do not assume this Mac installation or Python dependency build works on Windows.
+
+## PC live review and Unreleased follow-up (October 11 evening)
+
+Karl verified centered opening, the minimum window size and the revised
+110% maximum in game. He approved the shorter tips. Startup and font-switch
+Lua errors were fixed, and he confirmed both fixes in game.
+
+Warcraft Modern is withdrawn at Karl's request: Open Sans Bold headings
+looked too chunky. The font selector is removed and saved Modern preferences
+return to Serif. Internal typography helpers remain; unused Open Sans files
+stay in GitHub but are excluded from releases. Details and checks:
+modern-withdrawal-2026-10-11.md. This supersedes earlier typography plans.
+
+Other follow-ups remain Unreleased: matched note/Edit icon colors, concise
+guides/tooltips, session-only `/goals testlocks` Forever preview and revised
+racial mount cost guidance (1,000g Journeyman training + 200g mount, before
+discounts). Forever locks stay off by default. No new release was requested.
+All changes must be synced to main; native review can continue after `/reload`.

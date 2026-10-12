@@ -9,6 +9,9 @@ manual-changelog:
   markup-type: markdown
 
 ignore:
+  - Fonts/OpenSans-Regular.ttf
+  - Fonts/OpenSans-Bold.ttf
+  - Fonts/OpenSans-OFL.txt
   - .agents
   - README.md
   - .github

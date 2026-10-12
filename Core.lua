@@ -270,7 +270,6 @@ FGT.SETTING_DEFAULTS = {
     openOnLogin = false,     -- open the window after login
     scale = 1,               -- window scale
     alpha = 1,               -- window opacity
-    typeStyle = "serif",     -- current Warcraft Serif / Open Sans Warcraft Modern
     tallGoalArt = true,      -- full-height goal artwork, cropped without stretching
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
     hideCompletedSteps = false, -- guide filter, controlled beside Step by Step
@@ -1785,17 +1784,10 @@ end
 FGT.fontWidgets = setmetatable({}, { __mode = "k" })
 FGT.TYPE_STYLES = {
     serif = { body = FONT, title = FONT_TITLE, bodyScale = 1, titleScale = 1 },
-    modern = {
-        body = "Interface\\AddOns\\" .. ADDON .. "\\Fonts\\OpenSans-Regular.ttf",
-        title = "Interface\\AddOns\\" .. ADDON .. "\\Fonts\\OpenSans-Bold.ttf",
-        -- Cinzel/Open Sans heading advance ratios average about 1.11
-        -- across representative UI labels; runtime measurements refine it.
-        titleScale = 1.10,
-        bodyScale = 1,
-    },
 }
+FGT.activeTypeStyle = "serif" -- internal profile; no player font preference
 function FGT.ApplyWidgetFont(widget, spec)
-    local style = FGT.TYPE_STYLES[FGT.Setting("typeStyle")] or FGT.TYPE_STYLES.serif
+    local style = FGT.TYPE_STYLES[FGT.activeTypeStyle] or FGT.TYPE_STYLES.serif
     local size = spec.size * style[spec.role .. "Scale"]
     if not widget:SetFont(style[spec.role], size, spec.flags) then
         -- A missing/new font must not leave the widget unreadable.
@@ -1815,31 +1807,6 @@ function FGT.RegisterFont(widget, role, size, flags, lineHeight)
     FGT.ApplyWidgetFont(widget, spec)
 end
 function FGT.ApplyTypeStyle(skipLayout)
-    if not FGT.typeMetricsMeasured then
-        FGT.typeMetricsMeasured = true
-        -- One measurement per session, using the game's own font engine.
-        -- Fixed samples avoid resizing text individually as labels change.
-        local probe = UIParent:CreateFontString(nil, "OVERLAY")
-        local samples = {
-            title = "Forever Goal Tracker  Goal Library  Step by step  Window and minimap  Thunderfury",
-            body = "Loot the Eye of Divinity from Majordomo Executus in Molten Core. Show completed  0123456789",
-        }
-        for role, sample in pairs(samples) do
-            local baseline, modern
-            if probe:SetFont(FGT.TYPE_STYLES.serif[role], 12, "") then
-                probe:SetText(sample) -- native FontStrings require a font first
-                baseline = probe:GetStringWidth()
-            end
-            if probe:SetFont(FGT.TYPE_STYLES.modern[role], 12, "") then
-                probe:SetText(sample)
-                modern = probe:GetStringWidth()
-            end
-            if baseline and modern and baseline > 0 and modern > 0 then
-                FGT.TYPE_STYLES.modern[role .. "Scale"] = math.max(0.85, math.min(1.15, baseline / modern))
-            end
-        end
-        probe:Hide()
-    end
     for widget, spec in pairs(FGT.fontWidgets) do FGT.ApplyWidgetFont(widget, spec) end
     if not skipLayout and FGT.LayoutTypeStyle then FGT.LayoutTypeStyle() end
 end
@@ -8382,12 +8349,6 @@ function FGT.LayoutTypeStyle()
 end
 
 FGT.SETTINGS = {
-    { title = "Typography", rows = {
-        { type = "choice", key = "typeStyle", label = "Type style",
-          desc = "Cinzel headings or Open Sans. Similar text sizes.",
-          options = { { "serif", "Warcraft Serif" }, { "modern", "Warcraft Modern" } },
-          apply = function() FGT.ApplyTypeStyle() end },
-    } },
     { title = "Item tooltips", rows = {
         { type = "toggle", key = "itemNeeds", label = "Show Needed for",
           desc = "Show tracked goals and remaining item needs. Counts use your characters' last scans." },
@@ -9362,6 +9323,8 @@ initFrame:SetScript("OnEvent", function(self, event, name)
     -- to something that actually fits and keeps the resize grip
     -- reachable. Scale first: placement measures in scaled units.
     FGT.windowScale = FGT.Setting("scale")
+    -- Retire the withdrawn font choice, including a saved Modern selection.
+    if ForeverGoalTrackerDB.settings then ForeverGoalTrackerDB.settings.typeStyle = nil end
     FGT.ApplyTypeStyle(true) -- normal startup layout follows below
     main:SetScale(FGT.windowScale)
     main:SetAlpha(FGT.Setting("alpha"))

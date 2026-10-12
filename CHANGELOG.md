@@ -2,14 +2,12 @@
 
 ## Unreleased
 
-- Fix a startup error while measuring fonts
-- Fix font switching and remove repeated completion text from step tooltips
+- Remove repeated completion text from step tooltips
 - Update Forever racial mount budgets to 1,200g and separate mount and riding prices
 - Limit window resizing to 75–110% of its default size and center it at the start of each session
 - Shorten guides, tips and tooltips with clearer, consistent wording
 - Add a session-only preview of Classic step locks for testing in Forever
 - Match the personal note icon's grey and gold hover to the Edit goal icon
-- Choose Warcraft Serif or Warcraft Modern in Settings, with font sizes matched to keep text footprints similar
 
 ## 2.11.1
 

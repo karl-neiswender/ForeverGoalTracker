@@ -352,8 +352,8 @@ if ok_all:
     steps.extend([
         ("racial mount costs", None, open(os.path.join(here, "mount-cost-tests.lua")).read()),
         ("Forever racial mount costs", None, open(os.path.join(here, "mount-cost-tests.lua")).read(), True),
-        ("type styles", None, open(os.path.join(here, "type-style-tests.lua")).read()),
-        ("Forever type styles", None, open(os.path.join(here, "type-style-tests.lua")).read(), True),
+        ("typography helpers", 'ForeverGoalTrackerDB.settings = ForeverGoalTrackerDB.settings or {}; ForeverGoalTrackerDB.settings.typeStyle = "modern"', open(os.path.join(here, "type-style-tests.lua")).read()),
+        ("Forever typography helpers", 'ForeverGoalTrackerDB.settings = ForeverGoalTrackerDB.settings or {}; ForeverGoalTrackerDB.settings.typeStyle = "modern"', open(os.path.join(here, "type-style-tests.lua")).read(), True),
         ("empty book artwork", None, open(os.path.join(here, "empty-book-tests.lua"), encoding="utf-8").read()),
         ("Forever empty book artwork", None, open(os.path.join(here, "empty-book-tests.lua"), encoding="utf-8").read(), True),
         ("item needs and previews", None, open(os.path.join(here, "item-tooltip-tests.lua"), encoding="utf-8").read()),

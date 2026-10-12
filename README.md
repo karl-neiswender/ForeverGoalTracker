@@ -58,7 +58,7 @@ Click **Help me get started** for suggestions, or open the **Goal Library** tab 
 | `Quests.lua` | Quests the guides link to, with who starts them |
 | `Core.lua` | UI, tracking engine and saved data |
 | `Media/` | Addon icons |
-| `Fonts/` | Cinzel and Open Sans fonts (SIL Open Font License) |
+| `Fonts/` | Cinzel; unused Open Sans study files are excluded from releases (SIL Open Font License) |
 
 ## Releasing
 
