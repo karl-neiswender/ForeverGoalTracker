@@ -6087,12 +6087,14 @@ RefreshSteps = function(goal)
             rowHeight2 = math.max(stepIcon and 26 or 20, textHeight + 6)
 
             -- Steps with a detection rule: readout on the right, plus a
-            -- bar for anything countable (materials, skill, gold).
+            -- bar for non-item counts (skill, gold, etc.). Item-collection
+            -- progress now belongs in Materials instead of under the step.
             local rule = type(entry) == "table" and entry.auto or nil
             row.ruleEntry = rule
             if rule then
                 local _, cur, max = RuleReadout(rule)
-                if cur and max and not IsStepDone(goal.id, i) then
+                if cur and max and not (rule.item and rule.count and rule.count > 1)
+                    and not IsStepDone(goal.id, i) then
                     row.miniBar:ClearAllPoints()
                     row.miniBar:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -6)
                     row.miniBar:SetPoint("RIGHT", row, "RIGHT", -4, 0)

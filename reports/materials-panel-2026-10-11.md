@@ -65,3 +65,13 @@ subtle handle: now a 10-unit grey arrow, centered in the 12-unit panel gap,
 turning gold on hover. The etched button, grime and shadow are removed.
 The invisible 24x48 hit area and moving/reversing arrow behavior remain.
 Checks: checks/materials-arrow-2026-10-11.txt.
+
+Karl approved the subtle arrow. Contents now fade with the same slide
+fraction: title, sliders control, list and scrollbar. The panel surface,
+closed sliver and arrow retain their normal appearance. Open/closed state
+persists when hiding/reopening within a session; reload starts collapsed.
+Item-count step bars are removed from the guide, including collect/catch
+milestones. Readouts, links, rules and ticks remain; non-item bars such as
+gold, skills and levels remain. Tests cover content alpha in both directions,
+pooled collection rows hiding their bars and gold rows retaining theirs.
+Checks: checks/materials-fade-2026-10-11.txt. Lua-only; `/reload` to review.

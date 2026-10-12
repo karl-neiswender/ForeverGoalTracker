@@ -108,3 +108,8 @@ Karl approved the corrected slide in game. The handle is now a subtle grey
 arrow centered in the gap, gold on hover, with no button chrome or shadow.
 Its invisible hit area remains 24x48; it still moves with the drawer edge.
 Checks: checks/materials-arrow-2026-10-11.txt. `/reload` for native review.
+
+Materials contents now fade with the slide; chrome/arrow/sliver stay visible.
+Duplicate item-count bars below collection steps are removed; non-item bars
+remain. Open/closed state survives same-session window hiding, and reload
+starts collapsed. Checks: checks/materials-fade-2026-10-11.txt.
