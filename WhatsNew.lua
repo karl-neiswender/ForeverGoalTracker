@@ -175,11 +175,19 @@ local function Block(i)
     b.version:SetPoint("TOPLEFT", 10, -9)
     b.date = U.font(b, 10, "", unpack(C.SUBTEXT))
     b.date:SetPoint("TOPRIGHT", -10, -11)
+    -- the glow breathes behind a dot that never changes size
+    b.halo = b:CreateTexture(nil, "ARTWORK")
+    b.halo:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\glow")
+    b.halo:SetBlendMode("ADD")
+    b.halo:SetVertexColor(1, 0.82, 0.3)
+    b.halo:SetSize(34, 34)
+    b.halo:SetAlpha(0.15)
     b.dot = b:CreateTexture(nil, "OVERLAY")
     b.dot:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\dot")
     b.dot:SetVertexColor(1, 0.82, 0.3)
-    b.dot:SetSize(18, 18)
-    b.dot:SetPoint("LEFT", b.version, "RIGHT", 4, 0)
+    b.dot:SetSize(15, 15)
+    b.dot:SetPoint("LEFT", b.version, "RIGHT", 5, 0)
+    b.halo:SetPoint("CENTER", b.dot, "CENTER", 0, 0)
     b.new = U.font(b, 9, "", unpack(BRIGHT))
     b.new:SetText("NEW")
     b.new:SetPoint("LEFT", b.dot, "RIGHT", -3, 0)
@@ -211,7 +219,7 @@ function W.Layout(prevSeen)
         b:ClearAllPoints(); b:SetPoint("TOPLEFT", 0, -y)
         b.version:SetText(entry.version)
         b.date:SetText(entry.date)
-        b.new:SetShown(isNew); b.dot:SetShown(isNew)
+        b.new:SetShown(isNew); b.dot:SetShown(isNew); b.halo:SetShown(isNew)
         local h = 34
         for li, text in ipairs(entry.items) do
             local line = b.lines[li]
@@ -258,7 +266,7 @@ local pulser = CreateFrame("Frame", nil, pop)
 local function StartPulse()
     pulser:SetScript("OnUpdate", nil)
     if FGT.Setting("celebrations") == "off" then
-        for _, b in ipairs(blocks) do b.dot:SetAlpha(0.9); b.dot:SetSize(18, 18) end
+        for _, b in ipairs(blocks) do b.halo:SetAlpha(0.25) end
         return
     end
     local t = 0
@@ -266,7 +274,7 @@ local function StartPulse()
         t = t + dt
         local k = 0.5 - 0.5 * math.cos(t * math.pi * 2 / 2.6)
         for _, b in ipairs(blocks) do
-            if b.dot:IsShown() then b.dot:SetAlpha(0.55 + 0.45 * k); b.dot:SetSize(16 + 4 * k, 16 + 4 * k) end
+            if b.dot:IsShown() then b.halo:SetAlpha(0.08 + 0.4 * k) end
         end
     end)
 end
