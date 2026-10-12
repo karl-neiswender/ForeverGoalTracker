@@ -181,7 +181,7 @@ local function Block(i)
     b.halo:SetBlendMode("ADD")
     b.halo:SetVertexColor(1, 0.82, 0.3)
     b.halo:SetSize(22, 22)
-    b.halo:SetAlpha(0.03)
+    b.halo:SetAlpha(0.015)
     b.dot = b:CreateTexture(nil, "OVERLAY")
     b.dot:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\dot")
     b.dot:SetVertexColor(1, 0.82, 0.3)
@@ -266,15 +266,18 @@ local pulser = CreateFrame("Frame", nil, pop)
 local function StartPulse()
     pulser:SetScript("OnUpdate", nil)
     if FGT.Setting("celebrations") == "off" then
-        for _, b in ipairs(blocks) do b.halo:SetAlpha(0.05) end
+        for _, b in ipairs(blocks) do b.halo:SetAlpha(0.02) end
         return
     end
     local t = 0
     pulser:SetScript("OnUpdate", function(_, dt)
         t = t + dt
-        local k = 0.5 - 0.5 * math.cos(t * math.pi * 2 / 2.6)
+        -- a slow breath: the cosine wave eased once more (smootherstep),
+        -- so it lingers softly at the top and bottom before turning
+        local k = 0.5 - 0.5 * math.cos(t * math.pi * 2 / 4.6)
+        k = k * k * k * (k * (k * 6 - 15) + 10)
         for _, b in ipairs(blocks) do
-            if b.dot:IsShown() then b.halo:SetAlpha(0.015 + 0.065 * k) end
+            if b.dot:IsShown() then b.halo:SetAlpha(0.008 + 0.032 * k) end
         end
     end)
 end
