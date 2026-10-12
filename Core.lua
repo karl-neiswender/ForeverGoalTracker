@@ -4656,9 +4656,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.fadeStrips[i] = t
         t:Hide()
     end
-    B.left = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
-    B.top = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
-    B.bottom = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
+    -- art -3, then the glow and rays (-2, -1), then the shading over both
+    B.left = detailPanel:CreateTexture(nil, "BACKGROUND", nil, 0)
+    B.top = detailPanel:CreateTexture(nil, "BACKGROUND", nil, 1)
+    B.bottom = detailPanel:CreateTexture(nil, "BACKGROUND", nil, 1)
     for _, t in ipairs({B.left,B.top,B.bottom}) do t:SetTexture(SOLID) end
     B.left:SetPoint("TOPLEFT", B.art, "TOPLEFT")
     B.top:SetPoint("TOPRIGHT", B, "TOPRIGHT")
@@ -5016,22 +5017,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- A soft light that breathes at the heart of some banner art (Thunderfury's
     -- gem). `glows[goalId] = { u, v, size, { r, g, b } }`: u and v are where it
     -- sits in the artwork (0 to 1 from its top left), size is a share of the
-    -- art's width. The frame follows the first-open fade; the texture breathes.
+    -- art's width. Both lights sit on the panel between the photo and its
+    -- shading, and fade toward the left exactly as the photo does.
     B.glows = {
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 } }, -- the gem at the crossguard
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- the holy spell in his hand, with faint rays turning very slowly
         rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5 },
     }
-    B.glowFrame = CreateFrame("Frame", nil, detailPanel)
-    B.glowFrame:SetAllPoints(detailPanel)
-    B.glowFrame:SetFrameLevel(detailPanel:GetFrameLevel() + 1)
-    B.glowTex = B.glowFrame:CreateTexture(nil, "ARTWORK")
+    B.glowFrame = CreateFrame("Frame", nil, detailPanel) -- drives the drift only
+    B.glowTex = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
     B.glowTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\glow")
     B.glowTex:SetBlendMode("ADD")
     -- optional rays behind the glow (Media/rays, drawn by tools/rays.py):
     -- one full turn every three minutes, too slow to read as spinning
-    B.raysTex = B.glowFrame:CreateTexture(nil, "ARTWORK", nil, -1)
+    B.raysTex = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
     B.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\rays", nil, nil, "TRILINEAR")
     B.raysTex:SetBlendMode("ADD")
     B.raysTex:Hide()
@@ -5042,6 +5042,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
     end
     B.glowFrame:Hide()
+    B.glowTex:Hide()
+    -- Gradients ignore SetAlpha (lesson 14), so each light is drawn as a
+    -- horizontal gradient: its strength times the photo's own left-to-right
+    -- fade (0 at the art's left edge, full at its right) under each edge.
+    function B:PaintGlow(glowA, raysA)
+        local aw = math.max(1, self.art:GetWidth())
+        local level = self.glowLevel or 0
+        local function ramp(x) return math.max(0, math.min(1, x/aw)) end
+        for _, pair in ipairs({ { self.glowTex, glowA }, { self.raysTex, raysA } }) do
+            local t, a = pair[1], pair[2]*level
+            local half = t:GetWidth()/2
+            local c = self.glowColor or { 1, 1, 1 }
+            ApplyHGradient(t, c, c, a*ramp((self.glowX or 0)-half), a*ramp((self.glowX or 0)+half))
+        end
+    end
     -- Ambient, like the drifting clouds and dust: a faint light that swells
     -- and settles over many seconds. Two slow waves with unrelated periods
     -- keep it from feeling like a pulse. No flashes or flicker (it must be
@@ -5055,25 +5070,23 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B.glowAnim:Stop()
         self.playing = false
         B.glowFrame:SetScript("OnUpdate", nil)
-        B.glowTex:SetAlpha(0.2)
-        B.raysTex:SetAlpha(0.05/0.54)
+        B:PaintGlow(0.2, 0.05/0.54)
     end
     function B:StepGlow(dt)
         local a = self.glowAnim
         a.t = a.t + dt
         -- 0 to 1, drifting: periods of about 9 and 14 seconds
         local n = 0.5 + 0.3*math.sin(a.t*2*math.pi/9.1) + 0.2*math.sin(a.t*2*math.pi/14.3 + 1.7)
-        self.glowTex:SetAlpha(0.12 + 0.16*n)
         -- the rays pulse on their own slow 8 s beat, from about 1% to 10%
-        -- visible and back (the frame itself is at 54%)
+        -- visible and back (the light's overall level is 54%)
         local w = 0.5 - 0.5*math.cos(a.t*2*math.pi/8)
-        self.raysTex:SetAlpha((0.01 + 0.09*w)/0.54)
         if self.raysTex.SetRotation then self.raysTex:SetRotation(-(a.t % 180)/180*2*math.pi) end
         local spec = self.goal and self.glows[self.goal.id]
         if spec then
             local size = spec[3]*self.art:GetWidth()*(0.96 + 0.08*n)
             self.glowTex:SetSize(size, size)
         end
+        self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54)
     end
     function B:PlaceGlow()
         local spec = self.goal and self.glows[self.goal.id]
@@ -5088,20 +5101,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 self.glowTex:ClearAllPoints()
                 self.glowTex:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
                 self.glowTex:SetSize(size, size)
-                self.glowTex:SetVertexColor(spec[4][1], spec[4][2], spec[4][3])
-                self.raysTex:SetShown(spec.rays and true or false)
+                self.glowColor, self.glowX = spec[4], x
                 if spec.rays then
                     self.raysTex:ClearAllPoints()
                     self.raysTex:SetPoint("CENTER", self.glowTex, "CENTER", 0, 0)
                     self.raysTex:SetSize(size*spec.rays, size*spec.rays)
-                    self.raysTex:SetVertexColor(spec[4][1], spec[4][2], spec[4][3])
                 end
             end
         end
         local live = on and FGT.Setting("celebrations") ~= "off"
         self.glowFrame:SetShown(on and true or false)
+        self.glowTex:SetShown(on and true or false)
+        self.raysTex:SetShown((on and spec.rays) and true or false)
         if on then
-            self.glowFrame:SetAlpha((self.imageFade or 1)*0.54*self:GetArtOpacity())
+            self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()
+            if not live then self:PaintGlow(0.2, 0.05/0.54) end
             if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
             elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
         elseif self.glowAnim:IsPlaying() then
@@ -5110,8 +5124,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:SetImageFade(amount)
         self.imageFade = amount
-        if self.glowFrame and self.goal and self.glows[self.goal.id] and self.glowFrame:IsShown() then
-            self.glowFrame:SetAlpha(amount*0.54*self:GetArtOpacity())
+        if self.glowFrame and self.goal and self.glows[self.goal.id] then
+            self.glowLevel = amount*0.54*self:GetArtOpacity()
         end
         if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.
@@ -5253,7 +5267,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
         for _,t in ipairs(self.fadeStrips) do t:Hide() end
-        self.glowFrame:Hide(); self.glowAnim:Stop()
+        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.glowAnim:Stop()
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
