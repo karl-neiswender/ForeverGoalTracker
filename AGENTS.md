@@ -18,9 +18,9 @@ Karl's priority: SIMPLE, HELPFUL, CLEAR. Players should focus on playing.
 - Use `completes automatically` or `tracked automatically`, rather than `ticks itself`. Keep exact quest names and item/goal link tags intact.
 - When editing wording, preserve goal IDs, step order, rules and material strings used by item-needs parsing. No progress migration is needed for wording alone.
 
-## Current handoff (2026-10-11)
+## Current handoff (2026-10-12)
 
-Read [today's shared handoff](reports/Session-handoff-2026-10-11.md) before continuing. Karl approved and shipped v2.11.1; the release workflow succeeded and the published ZIP was verified. Mount Ctrl-click previews and color cycling are now shipped, with native Forever checks retained in the handoff. The final closeout section supersedes earlier candidate/review notes. Description preferences and the exact bottom AI disclaimer are recorded at the end of this file.
+Read [the October 8–11 context for Claude and Codex](reports/Claude-context-2026-10-12.md) before continuing. It consolidates code changes, final UI/data behavior, superseded experiments, native evidence and open risks, with an exhaustive Git inventory. The older [October 11 handoff](reports/Session-handoff-2026-10-11.md) retains detailed session history. v2.11.1 is shipped and verified; subsequent Materials/font/window/copy/dependency-preview/mount-cost work is Unreleased on main. Current Lua checks passed October 12; fresh Ketho/LuaLS diagnostics and native review are still required before a new authorized release. Description preferences and the exact bottom AI disclaimer are recorded at the end of this file.
 
 A World of Warcraft addon for **Warcraft Forever** (beta now, live launch November 2026). Players pick long-term goals from a built-in library (legendaries, mounts, reputations, raids, item sets, professions, PvP) and follow step-by-step guides, and steps tick automatically from game state across all of the player's characters.
 
@@ -60,9 +60,9 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 
 | File | Purpose |
 |---|---|
-| `ForeverGoalTracker.toc` | `## Interface: 11509, 16001` (Classic Era + Forever). Load order: Data.lua, Library.lua, Core.lua. SavedVariables `ForeverGoalTrackerDB`. |
+| `ForeverGoalTracker.toc` | `## Interface: 11509, 16001` (Classic Era + Forever). Load order: Data, Library, AQArmor, ArmorSets, Npcs, Quests, Dependencies, Core, ItemTooltips, Materials. SavedVariables `ForeverGoalTrackerDB`. |
 | `Data.lua` | The original 11 goals (Atiesh, Thunderfury, Sulfuras, Ashbringer, Rhok'delar, Lok'delar, Benediction, Frostsaber, level all classes, Tier 3, epic racial mounts). Builders for group goals (`autoLevels`, `BuildMountTasks`: with `home` = { faction, rep id, rep name } it's 5 faction-wide steps, any race at Exalted with the home city, that race skips the rep (Karl: not specific to one race, but faction-locked); without it, the old 4 race-only steps, used by Skyborne until Forever's rules are known. One-time remap `mountsFix`). |
-| `Library.lua` | Library goals: reputations, mounts, weapons, raids, attunements, professions, gold, social/statistics goals, item sets, PvP, Fishing Extravaganza and AQ battle tanks. Set tuples retain item/source/icon data. The library currently has 152 definitions including collection wrappers and client-specific entries. |
+| `Library.lua` | Library goals: reputations, mounts, weapons, raids, attunements, professions, gold, social/statistics goals, item sets, PvP, Fishing Extravaganza and AQ battle tanks. Set tuples retain item/source/icon data. Catalogue totals change; use `FGT.CatalogGoalCount()` and current client/faction filters instead of historical counts. |
 | `Npcs.lua` | `FGT.NPCS`: people steps send you to (quest givers, turn-ins, the four Rhok'delar demons with their disguises, the nine epic mount vendors; no raid or dungeon bosses), with id, name, alias, tag, map (uiMapID), zone, x/y from Wowhead Classic's `g_mapperData` (2026-10-07). Loads before Core.lua (in the .toc and `tools/check.py` FILES). |
 | `Quests.lua` | `FGT.QUESTS`: quests named in quotes in steps and tips: `{ name, { ids }, start, startName }` from Wowhead Classic (2026-10-07); several ids = faction/class versions; `perClass = true` (Dungeon Set 2 quests) has no ids. Loads after Npcs.lua; every id is watched (`BuildWatchList`) for the status lines. |
 | `Bindings.xml` | Key binding "Open or close the tracker" (Options > Keybindings > AddOns). |
@@ -91,7 +91,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `CHANGELOG.md` | Update for every version. |
 | `.pkgmeta`, `.github/workflows/release.yml` | Release packaging (see below). |
 | `tools/check.py`, `tools/wowstub.lua` | Local Lua check (compile + load test). Not shipped. |
-| `tools/balance.ps1`, `tools/locals.ps1` | PowerShell Lua checks for the PC (no Python there): block balance and main-chunk local count. Not shipped. |
+| `tools/balance.ps1`, `tools/locals.ps1` | Legacy PowerShell block/local checks. Bundled PC Python plus Lua 5.1 now runs the full `tools/check.py` suite; see current handoff. Not shipped. |
 
 ## How it works
 

@@ -1,14 +1,26 @@
 # Forever Goal Tracker
 
-## Current handoff (2026-10-10)
+## Current handoff (2026-10-12)
 
-Read [today's shared handoff](reports/Session-handoff-2026-10-10.md) before continuing. Karl is done adding features for today and will review in game later. Changes are committed on `main` and remain Unreleased above version 2.10.1; do not publish or add features before his review. The handoff records current UI behavior, new goals and banners, item needs/previews, tests, artwork status, Mac setup and the review checklist. It supersedes older descriptions below where they differ.
+Read [the full October 8–11 context](reports/Claude-context-2026-10-12.md) and [AGENTS.md](AGENTS.md) before continuing. The handoff explains every major code change, the final design decisions, native test evidence, current risks and the release gate. Its [complete Git inventory](reports/Claude-four-day-git-inventory-2026-10-12.md) indexes all 385 commits and 1,080 changed paths. Older sections below are historical reference; the current handoff and AGENTS.md supersede conflicting proposals, dates, font choices and release states.
+
+Latest published version is **2.11.1**. The subsequent PC work is committed on `main` and remains **Unreleased**: per-goal Materials drawer, native Warcraft headings, wider goals list, bounded/centered windows, concise copy, note-icon polish, Forever lock preview/isolated rollout groundwork and updated racial mount costs. Karl may refine and release an update after review; he has not authorized a new release tag. Fresh current-source Lua checks passed October 12; new Ketho/LuaLS diagnostics are still required before another publication.
+
+### Required release gate and current defaults
+
+- Follow AGENTS.md: run Ketho WoW API plus LuaLS diagnostics, verify annotations actually loaded, retain results and fix actionable issues for Era/Forever before publishing. Existing Mac 2.11.1 checks do not cover current Materials changes or establish PC setup. Also run `tools/check.py` and review native performance.
+- SIMPLE, HELPFUL, CLEAR: short player copy; preserve IDs, rules, order, exact links and material parsing strings. Unconfirmed for uncertain Forever rules, Source unknown for missing gear sources.
+- All visible text uses the native Warcraft font. No Modern selector. Cinzel Bold is retained only for hidden original tab-width measurements; list width adds 50 UI units.
+- Materials is a per-goal drawer, not the older all-goal tab proposal. It starts collapsed each reload, remembers state within the session and has local sliders options. See the handoff for the final arrow/sliver/slide/fade and ingredient-counting behavior.
+- Default Forever gameplay gates stay disabled; the separate verified-edge table is empty. `/goals testlocks on` is a session-only Classic preview, not proof of character eligibility or verified Forever quests.
+- SetItemRef still has the known player-name-copy taint follow-up. Do not assume a passed stub/global audit fixed it.
+- Always audit and sync artwork originals, including ignored files, at session boundaries. Check dirty status before pulling; preserve local SavedVariables and the separate older Classic Era addon.
 
 A World of Warcraft addon for **Warcraft Forever** (beta now, live launch November 2026). Players pick long-term goals from a built-in library (legendaries, mounts, reputations, raids, item sets, professions, PvP) and follow step-by-step guides, and steps tick automatically from game state across all of the player's characters.
 
 - Author: Karl (GitHub `karl-neiswender`). Repo: https://github.com/karl-neiswender/ForeverGoalTracker
 - Published on CurseForge as "Forever Goal Tracker", project ID 1728528 (approved 2026-10-05). Public page: https://www.curseforge.com/wow/addons/forever-goal-tracker
-- License: MIT. Bundled Cinzel font is SIL OFL (`Fonts/OFL.txt`).
+- License: MIT. Visible text uses Warcraft's native font. Cinzel Bold is bundled solely for hidden tab metrics (SIL OFL, `Fonts/OFL.txt`); other font studies are excluded from release packaging.
 
 ## Where this folder lives
 
@@ -41,9 +53,9 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 
 | File | Purpose |
 |---|---|
-| `ForeverGoalTracker.toc` | `## Interface: 11509, 16001` (Classic Era + Forever). Load order: Data.lua, Library.lua, Core.lua. SavedVariables `ForeverGoalTrackerDB`. |
+| `ForeverGoalTracker.toc` | `## Interface: 11509, 16001` (Classic Era + Forever). Load order: Data, Library, AQArmor, ArmorSets, Npcs, Quests, Dependencies, Core, ItemTooltips, Materials. SavedVariables `ForeverGoalTrackerDB`. |
 | `Data.lua` | The original 11 goals (Atiesh, Thunderfury, Sulfuras, Ashbringer, Rhok'delar, Lok'delar, Benediction, Frostsaber, level all classes, Tier 3, epic racial mounts). Builders for group goals (`autoLevels`, `BuildMountTasks`: with `home` = { faction, rep id, rep name } it's 5 faction-wide steps, any race at Exalted with the home city, that race skips the rep (Karl: not specific to one race, but faction-locked); without it, the old 4 race-only steps, used by Skyborne until Forever's rules are known. One-time remap `mountsFix`). |
-| `Library.lua` | Library goals: reputations, mounts, weapons, raids, attunements, professions, gold, social/statistics goals, item sets, PvP, Fishing Extravaganza and AQ battle tanks. Set tuples retain item/source/icon data. The library currently has 152 definitions including collection wrappers and client-specific entries. |
+| `Library.lua` | Library goals: reputations, mounts, weapons, raids, attunements, professions, gold, social/statistics goals, item sets, PvP, Fishing Extravaganza and AQ battle tanks. Set tuples retain item/source/icon data. Catalogue totals change; use `FGT.CatalogGoalCount()` and current client/faction filters instead of historical counts. |
 | `Npcs.lua` | `FGT.NPCS`: people steps send you to (quest givers, turn-ins, the four Rhok'delar demons with their disguises, the nine epic mount vendors; no raid or dungeon bosses), with id, name, alias, tag, map (uiMapID), zone, x/y from Wowhead Classic's `g_mapperData` (2026-10-07). Loads before Core.lua (in the .toc and `tools/check.py` FILES). |
 | `Quests.lua` | `FGT.QUESTS`: quests named in quotes in steps and tips: `{ name, { ids }, start, startName }` from Wowhead Classic (2026-10-07); several ids = faction/class versions; `perClass = true` (Dungeon Set 2 quests) has no ids. Loads after Npcs.lua; every id is watched (`BuildWatchList`) for the status lines. |
 | `Bindings.xml` | Key binding "Open or close the tracker" (Options > Keybindings > AddOns). |
@@ -52,6 +64,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `ArmorSets.lua` | Independent class-set goals, collection Library wrappers, stable IDs and one-time progress migration. |
 | `Dependencies.lua` | Prerequisite gates; Forever remains disabled pending verification. |
 | `ItemTooltips.lua` | Needed for hints on native/addon item tooltips and native dressing-room preview clicks. Loads after Core.lua; default-on `itemNeeds` setting. |
+| `Materials.lua` | Per-selected-goal drawer, recipe/stock aggregation, sliding/fading UI, local filters, pooled bars and guarded item-cache refresh. Loads after ItemTooltips.lua; details in the current handoff. |
 | `Media/icon.tga` | 64px addon list icon (book logo). |
 | `Media/minimap.tga` | 64px minimap button icon (green checkmark, circular alpha). Source: `Media/minimap-source.png`. |
 | `Media/empty-bg.tga` | Preserved legacy cobweb empty-list artwork. Replaced in the empty tracker on 2026-10-10 by the approved ancient-book leather and reusable fitting; original remains unchanged. |
@@ -71,7 +84,7 @@ GitHub keeps the two checkouts in sync; `main` is the shared branch.
 | `CHANGELOG.md` | Update for every version. |
 | `.pkgmeta`, `.github/workflows/release.yml` | Release packaging (see below). |
 | `tools/check.py`, `tools/wowstub.lua` | Local Lua check (compile + load test). Not shipped. |
-| `tools/balance.ps1`, `tools/locals.ps1` | PowerShell Lua checks for the PC (no Python there): block balance and main-chunk local count. Not shipped. |
+| `tools/balance.ps1`, `tools/locals.ps1` | Legacy PowerShell block/local checks. Bundled PC Python plus Lua 5.1 now runs the full `tools/check.py` suite; see current handoff. Not shipped. |
 
 ## How it works
 

@@ -32,7 +32,8 @@ cache. Unresolved IDs show Count unavailable, rather than a verified zero.
 When a name resolves after login, the new ID is watched and this character's
 stock is captured. Other characters require another scan on those characters;
 the tooltip explains that counts use their last scans. Item-info events are
-coalesced. No item lookups run in the animation driver. After native review,
+coalesced. No roster or journal scans or ingredient aggregation run in the
+per-frame animation placement. After native review,
 guide reflow is throttled to once per 75 ms during the 0.26-second transition
 (at most three intermediate reflows), then refreshed fully at the end. This
 keeps wrapped rows aligned while the center changes width, without rebuilding
