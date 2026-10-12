@@ -369,7 +369,7 @@ the synced implementation report are the portable reference for Claude/Mac.
 
 ## Open risks and next review
 
-1. **Known SetItemRef taint:** Core.lua still assigns a wrapper to the Blizzard
+1. **(RESOLVED 2026-10-12, confirmed in game) SetItemRef taint:** Core.lua still assigns a wrapper to the Blizzard
    global. The copy-player-name blocked-action issue is still recorded in
    AGENTS.md; no safe-hook replacement was implemented in these four days.
    Check native behavior and fix the routing safely rather than assuming the
