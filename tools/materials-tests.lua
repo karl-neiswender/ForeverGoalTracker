@@ -425,5 +425,5 @@ do
     assert(B.uv and B.shownArtHeight, "banner measured its artwork")
     B.goal = STUB_NS.GoalById("atiesh")
     B:PlaceGlow()
-    assert(B.glows.thunderfury and B.glows.ashbringer and B.glows.rep_argentdawn.rays and not B.glows.atiesh, "only goals with a glow spec get one")
+    assert(B.glows.thunderfury and B.glows.ashbringer and B.glows.rep_argentdawn.rays and B.glows["benediction-alliance-banner.blp"].rays and not B.glows.atiesh, "only goals with a glow spec get one")
 end

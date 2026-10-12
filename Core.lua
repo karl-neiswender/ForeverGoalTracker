@@ -5104,10 +5104,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54)
     end
     function B:PlaceGlow()
-        local spec = self:GlowSpec()
-        self.glowSpec = spec
+        local spec = self:GlowSpec() or {}
+        self.glowSpec = spec[1] and spec or nil
         local u = self.uv
-        local on = spec and u and self.hasArt and self.shownArtHeight
+        local on = spec[1] and u and self.hasArt and self.shownArtHeight
         if on then
             local x = (spec[1]-u[1])/(u[2]-u[1])*self.art:GetWidth()
             local y = (spec[2]-u[3])/(u[4]-u[3])*self.shownArtHeight
