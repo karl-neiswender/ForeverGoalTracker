@@ -7615,7 +7615,7 @@ end
 LF.TIERS = {
     set_dungeon1 = { 1, "Dungeon Set 1" }, set_dungeon2 = { 2, "Dungeon Set 2" },
     set_tier1 = { 3, "Tier 1" }, set_tier2 = { 4, "Tier 2" }, set_tier25 = { 5, "Tier 2.5" },
-    tier3 = { 6, "Tier 3" }, set_forever_raid = { 7, "Forever Raid" },
+    tier3 = { 6, "Tier 3" }, set_forever_raid = { 2.5, "Forever Raid" },
 }
 function LF.Tier(goal)
     local t = goal.armorParent and LF.TIERS[goal.armorParent]
