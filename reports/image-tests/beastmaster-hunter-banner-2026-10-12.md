@@ -4,7 +4,12 @@ Source: Media/artwork/-crop.jpg (preserved unchanged).
 Built-in image_gen edit; neutral grayscale 4:3 review with baked left and
 bottom gradients. Hunter, armor, raised axe and pet emphasized on the right.
 Review: Media/final-images/beastmaster-hunter-review.png.
-Awaiting Karl's visual approval; no runtime replacement or code edits yet.
+Karl approved the review. Installed for set_dungeon2_hunter at 4:3 with
+preprocessed=true. Master: Media/final-images/beastmaster-hunter-master.png
+(1200x900 neutral RGB grayscale). Runtime: Media/set_dungeon2_hunter-banner.blp,
+512px DXT1, ten mips. Rebuild map and runtime manifest updated.
+No armor rules or other class/faction banners changed. Full restart required.
+Full Lua check retained in reports/checks/beastmaster-banner-2026-10-12.txt.
 
 ## Exact prompt
 
