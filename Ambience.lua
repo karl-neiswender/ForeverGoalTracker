@@ -89,6 +89,20 @@ if cloud then
     end
 end
 
+-- Greyscale like the banner art, and faded out toward the left where the
+-- goal's text sits: a fixed mask over the panel (Media/fade-left: clear on
+-- the left, full from about 65% across), so the fade stays put while the
+-- dust drifts and turns underneath it.
+local mask = fx.CreateMaskTexture and fx:CreateMaskTexture()
+if mask then
+    mask:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\fade-left", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+    mask:SetAllPoints(fx)
+end
+for _, l in ipairs(A.layers) do
+    l.tex:SetDesaturated(true)
+    if mask then l.tex:AddMaskTexture(mask) end
+end
+
 -- Runs only while the goal page is on screen, and not with Celebrations off.
 function A.Refresh()
     local on = U.detail:IsVisible() and FGT.Setting("celebrations") ~= "off"
