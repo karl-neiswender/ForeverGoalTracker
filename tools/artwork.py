@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "set_dungeon1_warrior": "tier-sets/warrior/valor-alliance-master.png",
     "pvp_set_mail_horde_shaman": "pvp/warlord-mail-shaman-master.png",
     "key_strat": "stratholme/master.png",
     "key_ubrs": "blackrock-spire/master.png",
