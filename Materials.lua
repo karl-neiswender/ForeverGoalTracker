@@ -2,7 +2,7 @@ local ADDON, FGT = ...
 local U = FGT.MaterialsUI
 local C = U.colors
 FGT.SETTING_DEFAULTS.materialsBars = true
-FGT.SETTING_DEFAULTS.materialsHideDone = false
+FGT.SETTING_DEFAULTS.materialsShowDone = false
 FGT.SETTING_DEFAULTS.materialsAlts = true
 
 local function List(v) return type(v) == "table" and v or (v and {v} or {}) end
@@ -275,7 +275,7 @@ options:EnableMouse(true)
 U.etch(options, U.styles.panel, 10)
 options:Hide()
 local optionRows = {}
-for i, entry in ipairs({{"materialsHideDone","Hide completed"}, {"materialsBars","Show progress bars"}, {"materialsAlts","Include other characters"}}) do
+for i, entry in ipairs({{"materialsShowDone","Show completed"}, {"materialsBars","Show progress bars"}, {"materialsAlts","Include other characters"}}) do
     local button = CreateFrame("Button", nil, options)
     button:SetHeight(30)
     button:SetPoint("TOPLEFT", 6, -5-(i-1)*30)
@@ -373,7 +373,7 @@ function FGT.RefreshMaterials()
     M.data = data
     local visible = 0
     local groupsSeen, multiple = {}, false
-    local hideDone = FGT.Setting("materialsHideDone")
+    local hideDone = not FGT.Setting("materialsShowDone")
     for _, entry in ipairs(data) do
         if not (hideDone and entry.have >= entry.need) then
             groupsSeen[entry.group or 1] = true
