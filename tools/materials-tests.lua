@@ -177,3 +177,31 @@ do
     assert(not M.open,"later views do not reopen it")
     C_Timer.After=oldAfter; U.main.IsShown=oldShown
 end
+
+-- Recipe rows group into crafting materials, then tokens; single items
+-- show a count instead of a percentage.
+do
+    local rows = F.MaterialRows(F.GoalById("tier3_warrior"), true)
+    local lastGroup, order = 0, true
+    local sawCrafting, sawToken = false, false
+    for _, r in ipairs(rows) do
+        assert(r.group, "every Tier 3 row has a group: " .. r.name)
+        if r.group < lastGroup then order = false end
+        lastGroup = r.group
+        sawCrafting = sawCrafting or r.group == 1
+        sawToken = sawToken or r.group == 2
+    end
+    assert(order and sawCrafting and sawToken, "crafting materials come before tokens")
+    F.SelectGoal("tier3_warrior")
+    local labels = {}
+    for i = 1, #M.data do
+        local row = M.rows[i]
+        if row and row.groupLabel then labels[#labels + 1] = row.groupLabel end
+    end
+    assert(#labels == 2 and labels[1] == "Crafting materials" and labels[2] == "Tokens", "two group headers on Tier 3")
+    local single
+    for _, row in ipairs(M.rows) do
+        if row.entry and row.entry.need == 1 then single = row end
+    end
+    assert(single and single.percent:GetText():match("/ 1$"), "single item shows a count")
+end

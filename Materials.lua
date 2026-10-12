@@ -51,6 +51,17 @@ for id, name in pairs({
     names[name] = id; labels[id] = name
 end
 
+-- Recipe goals group their rows: reagents you gather or craft with, the
+-- gear tokens you trade in, and (AQ) the idols and scarabs handed over.
+local GROUPS = { {"Crafting materials"}, {"Tokens"}, {"Turn-in items"}, {"Other"} }
+local function GroupOf(id)
+    if not id then return nil end
+    if (id >= 22373 and id <= 22376) or id == 12360 or id == 15407 or id == 20725
+        or id == 14342 or id == 12363 then return 1 end
+    if (id >= 22349 and id <= 22372) or (id >= 20926 and id <= 20933) then return 2 end
+    if (id >= 20874 and id <= 20882) or (id >= 20858 and id <= 20865) then return 3 end
+end
+
 local function Resolve(name)
     if names[name] or names[Singular(name)] then return names[name] or names[Singular(name)] end
     local _, link = FGT.ItemInfo(name)
@@ -155,9 +166,13 @@ function FGT.MaterialRows(goal, includeAlts)
             if instant then icon = select(5, instant(row.id)) end
         end
         row.icon = icon or "Interface\\Icons\\INV_Misc_QuestionMark"
+        row.group = GroupOf(row.id)
         result[#result + 1] = row
     end
-    table.sort(result, function(a,b) return a.name < b.name end)
+    table.sort(result, function(a,b)
+        if (a.group or 9) ~= (b.group or 9) then return (a.group or 9) < (b.group or 9) end
+        return a.name < b.name
+    end)
     return result
 end
 
@@ -276,13 +291,27 @@ for i, entry in ipairs({{"materialsCollected","Show collected"}, {"materialsCoun
 end
 filter:SetScript("OnClick", function() options:SetShown(not options:IsShown()) end)
 
+M.headers = {}
 local function LayoutRows()
     local width = math.max(1, panel:GetWidth()-30)
     scroll.content:SetWidth(width)
     empty:SetWidth(width)
-    local y = 0
+    local y, used = 0, 0
+    for _, hdr in ipairs(M.headers) do hdr:Hide() end
     for _, row in ipairs(M.rows) do
         if row:IsShown() then
+            if row.groupLabel then
+                used = used + 1
+                local hdr = M.headers[used]
+                if not hdr then
+                    hdr = U.font(scroll.content, 10, "", unpack(C.ACCENT))
+                    hdr:SetJustifyH("LEFT")
+                    M.headers[used] = hdr
+                end
+                hdr:ClearAllPoints(); hdr:SetPoint("TOPLEFT", 0, -y)
+                hdr:SetText(string.upper(row.groupLabel)); hdr:Show()
+                y = y + 20
+            end
             row:SetWidth(width)
             row:ClearAllPoints(); row:SetPoint("TOPLEFT", 0, -y)
             row.name:SetWidth(math.max(1,width-52))
@@ -333,6 +362,16 @@ function FGT.RefreshMaterials()
     if added then data = FGT.MaterialRows(goal, FGT.Setting("materialsAlts")) end
     M.data = data
     local visible = 0
+    local groupsSeen, multiple = {}, false
+    for _, entry in ipairs(data) do
+        if FGT.Setting("materialsCollected") or entry.have < entry.need then
+            groupsSeen[entry.group or 4] = true
+        end
+    end
+    local groupCount = 0
+    for _ in pairs(groupsSeen) do groupCount = groupCount + 1 end
+    multiple = groupCount >= 2
+    local lastGroup
     for _, entry in ipairs(data) do
         if FGT.Setting("materialsCollected") or entry.have < entry.need then
             visible = visible + 1
@@ -366,7 +405,11 @@ function FGT.RefreshMaterials()
             end
             row.entry = entry
             row.name:SetText(entry.name); row.icon:SetTexture(entry.icon)
-            row.percent:SetText(entry.unknown and "—" or (entry.percent .. "%"))
+            -- A single item is either 0 or all; show the count, not 0% / 100%.
+            row.percent:SetText(entry.unknown and "—" or (entry.need == 1 and (entry.have .. " / 1") or (entry.percent .. "%")))
+            local group = entry.group or 4
+            row.groupLabel = (multiple and group ~= lastGroup) and GROUPS[group][1] or nil
+            lastGroup = group
             row.bar.instant=true; row.bar:SetProgress(entry.have,entry.need,""); row.bar.instant=nil
             row.count:SetText(entry.unknown and "Count unavailable" or (entry.have .. " collected · " .. (entry.need-entry.have) .. " remaining"))
             row.count:SetShown(FGT.Setting("materialsCounts")); row:EnableMouse(M.open); row:Show()
@@ -392,7 +435,7 @@ function FGT.RefreshMaterials()
                 local bigList = #data >= 9
                 C_Timer.After(0.35, function()
                     if M.goalId == id and not M.open and U.main:IsShown() then
-                        if bigList then M:SetOpen(true) else M:Bounce() end
+                        if bigList then M:SetOpen(true, 0.7) else M:Bounce() end
                     end
                 end)
             end
@@ -474,7 +517,7 @@ end
 
 local driver = CreateFrame("Frame",nil,U.main)
 M.driver = driver
-function M:SetOpen(open)
+function M:SetOpen(open, duration)
     driver:SetScript("OnUpdate",nil)
     self.bounce = 0
     self.open = open and self.canOpen or false
@@ -486,7 +529,7 @@ function M:SetOpen(open)
     local elapsed, lastReflow = 0, 0
     driver:SetScript("OnUpdate",function(_,dt)
         elapsed=elapsed+dt
-        local p=math.min(1,elapsed/0.26)
+        local p=math.min(1,elapsed/(duration or 0.26))
         M.fraction=start+(target-start)*(1-(1-p)^3)
         M:Place()
         if p>=1 then
