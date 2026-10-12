@@ -145,8 +145,8 @@ clip:SetPoint("TOPRIGHT", U.detail, "TOPRIGHT", 0, 0) -- re-anchored by Place
 if clip.SetClipsChildren then clip:SetClipsChildren(true) end
 local panel = CreateFrame("Frame", nil, clip, "BackdropTemplate")
 M.frame = panel
-panel:SetPoint("TOPRIGHT", clip, "TOPRIGHT", 0, 0)
-panel:SetPoint("BOTTOMRIGHT", clip, "BOTTOMRIGHT", 0, 0)
+panel:SetPoint("TOPLEFT", clip, "TOPLEFT", 0, 0)
+panel:SetPoint("BOTTOMLEFT", clip, "BOTTOMLEFT", 0, 0)
 U.etch(panel, U.styles.panel, 12)
 FGT.AddGrime(panel, 0.18, 12, 0.37, 0, 140)
 panel:EnableMouse(true)
@@ -162,13 +162,15 @@ local empty = U.font(scroll.content, 11, "", unpack(C.SUBTEXT))
 empty:SetPoint("TOPLEFT", 0, -10)
 empty:SetJustifyH("LEFT")
 
--- The overhanging guide edge casts a shadow onto the tucked-in panel.
-local shadow = U.main:CreateTexture(nil, "OVERLAY")
+-- The outer window edge casts a shadow only while the drawer is tucked
+-- beneath it. The panel's left edge travels inward as it is revealed.
+local shadow = panel:CreateTexture(nil, "OVERLAY", nil, 3)
+M.edgeShade = shadow
 shadow:SetTexture("Interface\\Buttons\\WHITE8X8")
-shadow:SetPoint("TOPLEFT", clip, "TOPLEFT", -12, 0)
-shadow:SetPoint("BOTTOMLEFT", clip, "BOTTOMLEFT", -12, 0)
+shadow:SetPoint("TOPRIGHT", clip, "TOPRIGHT", 0, 0)
+shadow:SetPoint("BOTTOMRIGHT", clip, "BOTTOMRIGHT", 0, 0)
 shadow:SetWidth(22)
-U.gradient(shadow, {0,0,0}, {0,0,0}, 0.65, 0)
+U.gradient(shadow, {0,0,0}, {0,0,0}, 0, 0.65)
 
 local handle = CreateFrame("Button", nil, U.main, "BackdropTemplate")
 M.handle = handle
@@ -350,6 +352,9 @@ function M:Place()
     clip:SetPoint("TOPRIGHT",U.list,"TOPRIGHT",U.main:GetWidth()-U.list:GetWidth()-32,0)
     clip:SetPoint("BOTTOMRIGHT",U.main,"BOTTOMRIGHT",-16,16)
     clip:SetWidth(math.max(1,span))
+    panel:ClearAllPoints()
+    panel:SetPoint("TOPLEFT",clip,"TOPLEFT",0,0)
+    panel:SetPoint("BOTTOMLEFT",clip,"BOTTOMLEFT",0,0)
     panel:SetWidth(self.width)
     U.detail:ClearAllPoints()
     U.detail:SetPoint("TOPLEFT",U.list,"TOPRIGHT",12,0)
@@ -360,7 +365,10 @@ function M:Place()
     handle.icon:SetRotation(rotation)
     handle.glow:SetRotation(rotation)
     local visible = U.detail:IsShown() and hasGoal
-    clip:SetShown(visible); handle:SetShown(visible); shadow:SetShown(visible)
+    clip:SetShown(visible); handle:SetShown(visible)
+    -- Gradient alpha is encoded in its colors on these clients.
+    U.gradient(shadow, {0,0,0}, {0,0,0}, 0, 0.65*(1-self.fraction))
+    shadow:SetShown(visible and self.fraction < 1)
     panel:EnableMouse(self.open)
     scroll.scroll:EnableMouse(self.open)
     scroll.scroll:EnableMouseWheel(self.open)
@@ -386,13 +394,18 @@ function M:SetOpen(open)
     if FGT.Setting("celebrations") == "off" then
         self.fraction=target; self:Place(); U.redraw(); return
     end
-    local elapsed = 0
+    local elapsed, lastReflow = 0, 0
     driver:SetScript("OnUpdate",function(_,dt)
         elapsed=elapsed+dt
         local p=math.min(1,elapsed/0.26)
         M.fraction=start+(target-start)*(1-(1-p)^3)
         M:Place()
-        if p>=1 then driver:SetScript("OnUpdate",nil); U.redraw() end
+        if p>=1 then
+            driver:SetScript("OnUpdate",nil); U.redraw()
+        elseif elapsed-lastReflow >= 0.075 then
+            lastReflow=elapsed
+            U.reflow()
+        end
     end)
 end
 handle:SetScript("OnClick",function() M:SetOpen(not M.open) end)

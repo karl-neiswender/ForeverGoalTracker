@@ -32,8 +32,11 @@ cache. Unresolved IDs show Count unavailable, rather than a verified zero.
 When a name resolves after login, the new ID is watched and this character's
 stock is captured. Other characters require another scan on those characters;
 the tooltip explains that counts use their last scans. Item-info events are
-coalesced. No item lookups or whole-guide reconstruction run per animation
-frame; the guide reflows at the end, preserving its existing scroll behavior.
+coalesced. No item lookups run in the animation driver. After native review,
+guide reflow is throttled to once per 75 ms during the 0.26-second transition
+(at most three intermediate reflows), then refreshed fully at the end. This
+keeps wrapped rows aligned while the center changes width, without rebuilding
+the guide on every frame or continuously while idle.
 Rows and bars are pooled. Main-chunk locals remain within the Lua 5.1 limit.
 
 Validation: full tools/check.py suite on Lua 5.1, Classic Era and Forever,
@@ -43,3 +46,16 @@ windows. Retained output: checks/materials-panel-2026-10-11.txt. Native visual
 and input review remains Karl's next check. Source only: no version bump,
 release tag or CurseForge publication. Fresh Ketho/LuaLS release diagnostics
 remain required before publishing.
+
+## Native slide-direction correction
+
+Karl confirmed load without Lua errors and working open/close, then clarified
+that Materials must come from under the outer right window edge. Anchoring
+the full-width panel to the clip's left edge now moves it inward as the clip
+expands; the original right anchor exposed stationary content from beneath
+the guide instead. The shade now lives on the panel at its outer right edge,
+with gradient alpha reduced throughout opening and hidden when fully open.
+There is no tuck shade beside the center guide or on either open panel edge.
+The gap, closed sliver, overall window size and moving handle are retained.
+Updated full checks: checks/materials-slide-fix-2026-10-11.txt. Native recheck
+is next; Lua-only edits, `/reload` is sufficient.

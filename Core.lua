@@ -9380,6 +9380,10 @@ FGT.MaterialsUI = {
         if DB and goal and IsActive(goal) then return goal end
     end,
     redraw = function() if selectedId then SelectGoal(selectedId, true) end end,
+    reflow = function()
+        local goal = FGT.GoalById(selectedId)
+        if goal then RefreshSteps(goal); FGT.UpdateDetailViewport() end
+    end,
 }
 FGT.headerRows = headerRowPool
 FGT.stepRows = stepRowPool

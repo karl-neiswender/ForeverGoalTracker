@@ -96,3 +96,10 @@ inside the unchanged overall window. Defaults: collapsed each reload, hide
 collected, hide inline counts, include tracked alts. All changes remain
 Unreleased; native review is next. See materials-panel-2026-10-11.md and its
 retained full checker output for data/counting limitations and validation.
+
+Native Materials review: Karl confirmed no load errors and working sliding.
+He clarified the drawer should emerge from under the outer right edge, with
+the gradient visible only while tucked away. Panel now travels with its left
+edge; right-edge shade fades away on opening. Guide rows reflow at most three
+times mid-transition, then refresh at completion. Checks and details:
+materials-panel-2026-10-11.md; checks/materials-slide-fix-2026-10-11.txt.

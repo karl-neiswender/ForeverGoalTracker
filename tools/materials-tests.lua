@@ -68,6 +68,16 @@ U.main.GetWidth=function() return width end
 U.list.GetWidth=function() return 300 end
 D.active={sulfuras=true}; D.progress.sulfuras={}; F.SelectGoal("sulfuras")
 local oldMotion=F.Setting("celebrations")
+local oldPoint, oldGradient = M.frame.SetPoint, U.gradient
+local leftAnchors, shade = 0, nil
+M.frame.SetPoint=function(self,point,...)
+    assert(point=="TOPLEFT" or point=="BOTTOMLEFT","drawer travels from the outer right edge")
+    leftAnchors=leftAnchors+1; oldPoint(self,point,...)
+end
+U.gradient=function(texture,left,right,a,b)
+    if texture==M.edgeShade then shade=b/0.65 end
+    oldGradient(texture,left,right,a,b)
+end
 F.SetSetting("celebrations","full")
 M:Place()
 local before=STUB_SERIALIZE(D.progress)
@@ -76,10 +86,13 @@ local step=M.driver:GetScript("OnUpdate")
 assert(step,"animation is active only during the transition")
 step(M.driver,0.1)
 assert(M.fraction>0 and M.fraction<1,"intermediate glide")
+assert(shade>0 and shade<1 and leftAnchors>0,"outer-edge shade fades during travel")
 step(M.driver,0.2)
 assert(M.fraction==1 and M.span==210 and not M.driver:GetScript("OnUpdate"),"glide finishes and removes update handler")
+assert(shade==0,"open drawer has no tuck shadow")
 M:SetOpen(false); M.driver:GetScript("OnUpdate")(M.driver,0.3)
 assert(M.fraction==0 and M.span==22,"closed drawer preserves its visible sliver")
+assert(shade==1,"closed sliver carries the outer-edge shadow")
 F.SetSetting("celebrations","off"); M:SetOpen(true)
 assert(M.fraction==1,"motion-off opens immediately")
 width=520; M:Place()
@@ -98,4 +111,5 @@ if mounts then
 end
 F.SetSetting("celebrations",oldMotion)
 U.main.GetWidth,U.list.GetWidth=oldMainWidth,oldListWidth
+M.frame.SetPoint,U.gradient=oldPoint,oldGradient
 print("  per-goal stock, recipe sums, historical credit, scopes, alts, unknown items, slide lifecycle and narrow bounds pass")
