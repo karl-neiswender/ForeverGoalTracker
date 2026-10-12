@@ -1646,7 +1646,7 @@ do
             end
         end
         GameTooltip:AddLine(" ")
-        GameTooltip:AddLine("Shift-click: Chat", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:AddLine("Shift-click: Link in chat", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         GameTooltip:AddLine("Right-click: Wowhead", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         GameTooltip:Show()
     end
@@ -9834,8 +9834,8 @@ do
             GameTooltip:AddLine(FGT.ItemMountID(id) and "Ctrl-click: preview mount" or "Ctrl-click: try on", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         if not compare then
-            GameTooltip:AddLine(known and "Shift-click: Chat · Right-click: Wowhead"
-                or "Right-click: Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            if known then GameTooltip:AddLine("Shift-click: Link in chat", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true) end
+            GameTooltip:AddLine("Right-click: Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         GameTooltip:Show()
         -- the game's side-by-side comparison with your equipped item
