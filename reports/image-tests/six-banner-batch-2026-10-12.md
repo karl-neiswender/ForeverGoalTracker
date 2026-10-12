@@ -15,7 +15,21 @@ remains in Core.lua and ARTWORK-CREDITS.txt. Adrian Smith and Howard Lyon
 credits come from supplied TCG card credits. Warlock artist not inferred
 from an ambiguous monogram.
 
-Forever raid-set generation pending after first network error and retry.
+Forever raid-set review completed after two upload/network failures with the
+6866x4710 source. A technical 1912x1312 reference copy allowed generation.
+Original source remains unchanged. Review awaits visual approval before install.
+
+## Shared Forever raid-set review
+
+Source: Media/artwork/WoW_Forever_Announce_Key_Art_-_Alliance.jpg
+Reference: Media/final-images/forever-raid-source-reference.png
+Review: Media/final-images/set_forever_raid-review.png
+Artist: Alex Horley (Karl's attribution and source signature).
+Intended mapping: all nine set_forever_raid class children, both factions.
+
+Exact prompt:
+
+Edit the supplied artwork into ONE 4:3 landscape Forever Goal Tracker banner, targeting a 1200x900 master. Keep the original painterly style and faithful subject geometry. STRICT neutral black and white/grayscale, moderately enhanced contrast, detailed midtones, controlled highlights. Keep the LEFT THIRD quiet for addon text and main subject high toward RIGHT with breathing room. Bake a WIDE smooth neutral charcoal dark LEFT gradient into the artwork itself, darkest at left edge, blending gradually with no hard vertical strip. Bake a SOFT dark BOTTOM gradient across approximately lowest 100px of a 1200x900 master, smoothly reaching near-black charcoal at bottom edge with no hard horizontal strip. BOTH gradients required. No added text, UI, border, extra characters or unrelated objects. Preserve all four adventurers overlooking the distant island, faces, armor, weapons and landscape. Reframe to 4:3 with adventurers on right and island visible. Preserve the authentic HORLEY signature. This is shared art for all nine Forever raid sets.
 
 ## epicmounts_undead
 
