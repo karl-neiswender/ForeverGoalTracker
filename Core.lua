@@ -5032,7 +5032,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
         -- keyed by image when a goal has several: Benediction's night elf
         -- priest (Alliance art only), the gem at the head of her staff
-        ["benediction-alliance-banner.blp"] = { 0.519, 0.220, 0.34, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
+        ["benediction-alliance-banner.blp"] = { 0.537, 0.220, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
