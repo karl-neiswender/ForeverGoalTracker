@@ -1825,15 +1825,19 @@ function FGT.ApplyTypeStyle(skipLayout)
             body = "Loot the Eye of Divinity from Majordomo Executus in Molten Core. Show completed  0123456789",
         }
         for role, sample in pairs(samples) do
-            probe:SetText(sample)
             local baseline, modern
-            if probe:SetFont(FGT.TYPE_STYLES.serif[role], 12, "") then baseline = probe:GetStringWidth() end
-            if probe:SetFont(FGT.TYPE_STYLES.modern[role], 12, "") then modern = probe:GetStringWidth() end
+            if probe:SetFont(FGT.TYPE_STYLES.serif[role], 12, "") then
+                probe:SetText(sample) -- native FontStrings require a font first
+                baseline = probe:GetStringWidth()
+            end
+            if probe:SetFont(FGT.TYPE_STYLES.modern[role], 12, "") then
+                probe:SetText(sample)
+                modern = probe:GetStringWidth()
+            end
             if baseline and modern and baseline > 0 and modern > 0 then
                 FGT.TYPE_STYLES.modern[role .. "Scale"] = math.max(0.85, math.min(1.15, baseline / modern))
             end
         end
-        probe:SetText("")
         probe:Hide()
     end
     for widget, spec in pairs(FGT.fontWidgets) do FGT.ApplyWidgetFont(widget, spec) end
