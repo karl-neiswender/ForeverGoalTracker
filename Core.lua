@@ -5037,6 +5037,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- keyed by image when a goal has several: Benediction's night elf
         -- priest (Alliance art only), the gem at the head of her staff
         ["benediction-alliance-banner.blp"] = { 0.537, 0.220, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
+        -- Judgement Armor (Paladin Tier 2, also the Paladin leveling banner):
+        -- the light in his raised hand, near the art's right edge
+        ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.34, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
@@ -5054,8 +5057,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\rays", nil, nil, "TRILINEAR")
     B.raysTex:SetBlendMode("ADD")
     B.raysTex:Hide()
-    -- Turned smoothly each frame (SetRotation) rather than by a Rotation
-    -- animation, and kept off the pixel grid, so the slow turn doesn't step.
+    -- Turned smoothly each frame (by its texture corners, see ClipLight)
+    -- rather than by a Rotation animation, and kept off the pixel grid, so
+    -- the slow turn doesn't step.
     for _, t in ipairs({ B.raysTex, B.glowTex }) do
         if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
         if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
@@ -5065,15 +5069,52 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Gradients ignore SetAlpha (lesson 14), so each light is drawn as a
     -- horizontal gradient: its strength times the photo's own left-to-right
     -- fade (0 at the art's left edge, full at its right) under each edge.
+    B.lightSpan = {} -- each light's left and right edge in the art, for PaintGlow
     function B:PaintGlow(glowA, raysA)
         local aw = math.max(1, self.art:GetWidth())
         local level = self.glowLevel or 0
         local function ramp(x) return math.max(0, math.min(1, x/aw)) end
         for _, pair in ipairs({ { self.glowTex, glowA }, { self.raysTex, raysA } }) do
             local t, a = pair[1], pair[2]*level
-            local half = t:GetWidth()/2
             local c = self.glowColor or { 1, 1, 1 }
-            ApplyHGradient(t, c, c, a*ramp((self.glowX or 0)-half), a*ramp((self.glowX or 0)+half))
+            local span = self.lightSpan[t] or { 0, 0 }
+            ApplyHGradient(t, c, c, a*ramp(span[1]), a*ramp(span[2]))
+        end
+    end
+    -- Draws a light of full size `size` centered at (cx, cy) in the art
+    -- (x right, y down), turned by `turn` radians, trimmed to the artwork's
+    -- edges: the panel doesn't clip its own textures, so the quad covers
+    -- only the visible part and its texture corners are rotated to match.
+    function B:ClipLight(t, cx, cy, size, turn)
+        local aw, ah = self.art:GetWidth(), self.shownArtHeight or 0
+        local x0, x1 = math.max(0, cx - size/2), math.min(aw, cx + size/2)
+        local y0, y1 = math.max(0, cy - size/2), math.min(ah, cy + size/2)
+        -- (never empty: PlaceGlow only lights a point inside the art)
+        x1, y1 = math.max(x1, x0 + 1), math.max(y1, y0 + 1)
+        t:ClearAllPoints()
+        t:SetPoint("TOPLEFT", self.art, "TOPLEFT", x0, -y0)
+        t:SetSize(x1 - x0, y1 - y0)
+        local span = self.lightSpan[t] or {}
+        span[1], span[2] = x0, x1
+        self.lightSpan[t] = span
+        local cs, sn = math.cos(turn or 0), math.sin(turn or 0)
+        local function tc(px, py)
+            local dx, dy = (px - cx)/size, (py - cy)/size
+            return 0.5 + dx*cs - dy*sn, 0.5 + dx*sn + dy*cs
+        end
+        local ulx, uly = tc(x0, y0)
+        local llx, lly = tc(x0, y1)
+        local urx, ury = tc(x1, y0)
+        local lrx, lry = tc(x1, y1)
+        t:SetTexCoord(ulx, uly, llx, lly, urx, ury, lrx, lry)
+    end
+    function B:DrawLights(n, turn)
+        local spec = self.glowSpec
+        if not (spec and self.glowCX) then return end
+        local size = spec[3]*self.art:GetWidth()*(0.96 + 0.08*(n or 0.5))
+        self:ClipLight(self.glowTex, self.glowCX, self.glowCY, size, 0)
+        if spec.rays then
+            self:ClipLight(self.raysTex, self.glowCX, self.glowCY, spec[3]*self.art:GetWidth()*spec.rays, turn or 0)
         end
     end
     -- Ambient, like the drifting clouds and dust: a faint light that swells
@@ -5099,12 +5140,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- the rays pulse on their own slow 8 s beat, from about 1% to 10%
         -- visible and back (the light's overall level is 54%)
         local w = 0.5 - 0.5*math.cos(a.t*2*math.pi/8)
-        if self.raysTex.SetRotation then self.raysTex:SetRotation(-(a.t % 180)/180*2*math.pi) end
-        local spec = self.glowSpec
-        if spec then
-            local size = spec[3]*self.art:GetWidth()*(0.96 + 0.08*n)
-            self.glowTex:SetSize(size, size)
-        end
+        self:DrawLights(n, -(a.t % 180)/180*2*math.pi)
         self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54)
     end
     function B:PlaceGlow()
@@ -5117,16 +5153,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             local y = (spec[2]-u[3])/(u[4]-u[3])*self.shownArtHeight
             on = x > 0 and x < self.art:GetWidth() and y > 0 and y < self.shownArtHeight*0.8
             if on then
-                local size = spec[3]*self.art:GetWidth()
-                self.glowTex:ClearAllPoints()
-                self.glowTex:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
-                self.glowTex:SetSize(size, size)
-                self.glowColor, self.glowX = spec[4], x
-                if spec.rays then
-                    self.raysTex:ClearAllPoints()
-                    self.raysTex:SetPoint("CENTER", self.glowTex, "CENTER", 0, 0)
-                    self.raysTex:SetSize(size*spec.rays, size*spec.rays)
-                end
+                self.glowColor, self.glowCX, self.glowCY = spec[4], x, y
+                self:DrawLights(0.5, 0)
             end
         end
         local live = on and FGT.Setting("celebrations") ~= "off"
@@ -5135,7 +5163,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.raysTex:SetShown((on and spec.rays) and true or false)
         if on then
             self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
-            if not live then self:PaintGlow(0.2, 0.05/0.54) end
+            if not live then self:DrawLights(0.5, 0); self:PaintGlow(0.2, 0.05/0.54) end
             if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
             elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
         elseif self.glowAnim:IsPlaying() then
