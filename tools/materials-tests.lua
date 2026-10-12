@@ -166,7 +166,7 @@ do
     local boop=M.driver:GetScript("OnUpdate")
     assert(boop and not M.open,"mid-size list bounces without opening")
     boop(M.driver,0.1); assert(M.bounce>0 and M.span>22,"bounce peeks out")
-    boop(M.driver,1)
+    boop(M.driver,10)
     assert(M.bounce==0 and M.span==22 and not M.open and not M.driver:GetScript("OnUpdate"),"bounce settles closed")
     F.SelectGoal("gold_5k"); F.SelectGoal("sulfuras")
     assert(not M.driver:GetScript("OnUpdate"),"bounce plays once per goal")

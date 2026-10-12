@@ -416,6 +416,8 @@ function M:Place()
     handle.icon:SetRotation(rotation)
     handle.glow:SetRotation(rotation)
     local visible = U.detail:IsShown() and hasGoal
+    -- While peeking out over the guide, sit above it.
+    clip:SetFrameLevel(U.detail:GetFrameLevel()+(self.bounce>0 and 30 or 0))
     clip:SetShown(visible); handle:SetShown(visible)
     -- Gradient alpha is encoded in its colors on these clients.
     U.gradient(shadow, {0,0,0}, {0,0,0}, 0, 0.65*(1-self.fraction))
@@ -465,17 +467,29 @@ function M:SetOpen(open)
         end
     end)
 end
--- A friendly double "boop": the closed drawer nudges out twice, then rests.
+-- A friendly double "boop": the closed drawer eases out and back twice,
+-- then repeats twice more, each time smaller, to catch the eye without
+-- nagging. It stops the moment you open it or change goals.
+local BURSTS = { {0, 0.06}, {2.6, 0.04}, {5.4, 0.025} } -- start (s), reach (fraction)
+local BURST_TIME = 0.8
 function M:Bounce()
     if self.open or not self.canOpen or FGT.Setting("celebrations") ~= "full" then return end
     driver:SetScript("OnUpdate",nil)
-    local elapsed, DURATION, REACH = 0, 0.8, 0.11
+    local id, elapsed, lastBounce = self.goalId, 0, 0
+    local total = BURSTS[#BURSTS][1] + BURST_TIME
     driver:SetScript("OnUpdate",function(_,dt)
         elapsed=elapsed+dt
-        local p=math.min(1,elapsed/DURATION)
-        M.bounce=REACH*math.abs(math.sin(p*math.pi*2))*(1-p*0.35)
-        M:Place()
-        if p>=1 then M.bounce=0; driver:SetScript("OnUpdate",nil); M:Place() end
+        if M.goalId ~= id or M.open then M.bounce=0; driver:SetScript("OnUpdate",nil); M:Place(); return end
+        local value = 0
+        for _, burst in ipairs(BURSTS) do
+            local p = (elapsed-burst[1])/BURST_TIME
+            if p > 0 and p < 1 then
+                value = burst[2]*0.5*(1-math.cos(p*math.pi*4)) -- two soft bumps
+            end
+        end
+        if elapsed >= total then value = 0 end
+        if value ~= lastBounce then M.bounce=value; lastBounce=value; M:Place() end
+        if elapsed >= total then driver:SetScript("OnUpdate",nil) end
     end)
 end
 handle:SetScript("OnClick",function() M:SetOpen(not M.open) end)
