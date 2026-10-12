@@ -2,6 +2,7 @@ local ADDON, FGT = ...
 local U = FGT.MaterialsUI
 local C = U.colors
 FGT.SETTING_DEFAULTS.materialsBars = true
+FGT.SETTING_DEFAULTS.materialsHideDone = false
 FGT.SETTING_DEFAULTS.materialsAlts = true
 
 local function List(v) return type(v) == "table" and v or (v and {v} or {}) end
@@ -268,13 +269,13 @@ local options = CreateFrame("Frame", nil, panel, "BackdropTemplate")
 M.options = options
 options:SetPoint("TOPLEFT", 8, -40)
 options:SetPoint("TOPRIGHT", -8, -40)
-options:SetHeight(70)
+options:SetHeight(100)
 options:SetFrameLevel(panel:GetFrameLevel()+35)
 options:EnableMouse(true)
 U.etch(options, U.styles.panel, 10)
 options:Hide()
 local optionRows = {}
-for i, entry in ipairs({{"materialsBars","Show progress bars"}, {"materialsAlts","Include other characters"}}) do
+for i, entry in ipairs({{"materialsHideDone","Hide completed"}, {"materialsBars","Show progress bars"}, {"materialsAlts","Include other characters"}}) do
     local button = CreateFrame("Button", nil, options)
     button:SetHeight(30)
     button:SetPoint("TOPLEFT", 6, -5-(i-1)*30)
@@ -319,6 +320,9 @@ local function LayoutRows()
             row:SetWidth(width)
             row:ClearAllPoints(); row:SetPoint("TOPLEFT", 0, -y)
             row.name:SetWidth(math.max(1,width-72))
+            row.check:SetShown(row.done and true or false)
+            row.check:ClearAllPoints()
+            row.check:SetPoint("LEFT",row.name,"LEFT",math.min(row.name:GetStringWidth(),width-72-14)+5,0)
             local textH = math.max(16,row.name:GetStringHeight())
             local bars = FGT.Setting("materialsBars")
             row.bar:SetShown(bars)
@@ -369,8 +373,9 @@ function FGT.RefreshMaterials()
     M.data = data
     local visible = 0
     local groupsSeen, multiple = {}, false
+    local hideDone = FGT.Setting("materialsHideDone")
     for _, entry in ipairs(data) do
-        do
+        if not (hideDone and entry.have >= entry.need) then
             groupsSeen[entry.group or 1] = true
         end
     end
@@ -379,7 +384,7 @@ function FGT.RefreshMaterials()
     multiple = groupCount >= 2
     local lastGroup
     for _, entry in ipairs(data) do
-        do
+        if not (hideDone and entry.have >= entry.need) then
             visible = visible + 1
             local row = M.rows[visible]
             if not row then
@@ -388,6 +393,9 @@ function FGT.RefreshMaterials()
                 row.icon = row:CreateTexture(nil,"ARTWORK")
                 row.icon:SetSize(14,14); row.icon:SetPoint("TOPLEFT",0,0)
                 row.name = U.font(row,11,"",unpack(C.TEXT)); row.name:SetPoint("TOPLEFT",20,0); row.name:SetJustifyH("LEFT"); row.name:SetWordWrap(false)
+                row.check = row:CreateTexture(nil,"OVERLAY")
+                row.check:SetTexture(FGT.Icon("check-white")); row.check:SetSize(11,11)
+                row.check:SetVertexColor(0.45,0.85,0.4)
                 row.percent = U.font(row,10,"",unpack(C.INK2)); row.percent:SetPoint("TOPRIGHT",0,0)
                 row.bar = U.bar(row,6); row.bar.label:Hide()
                 row.count = U.font(row,10,"",unpack(C.SUBTEXT)); row.count:SetJustifyH("LEFT")
@@ -411,8 +419,10 @@ function FGT.RefreshMaterials()
             end
             row.entry = entry
             -- Finished rows stay put (a steady list) but sit back.
-            row:SetAlpha(entry.have >= entry.need and 0.5 or 1)
-            row.name:SetText(entry.name); row.icon:SetTexture(entry.icon)
+            local done = entry.have >= entry.need
+            row:SetAlpha(done and 0.55 or 1)
+            row.done = done
+            row.name:SetText(entry.name); row.icon:SetTexture(entry.icon); row.icon:SetDesaturated(done)
             -- A single item is either 0 or all; show the count, not 0% / 100%.
             row.percent:SetText(entry.unknown and "—" or (entry.have .. " / " .. entry.need))
             local group = entry.group or 1
@@ -424,7 +434,7 @@ function FGT.RefreshMaterials()
         end
     end
     for i=visible+1,#M.rows do M.rows[i]:Hide() end
-    empty:SetText("No materials needed.")
+    empty:SetText(#data == 0 and "No materials needed." or "All materials collected.")
     empty:SetShown(visible == 0)
     if M.goalId ~= goal.id then scroll.scroll:SetVerticalScroll(0); M.goalId=goal.id; options:Hide() end
     M:Place()
