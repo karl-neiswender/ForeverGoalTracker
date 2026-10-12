@@ -1,0 +1,30 @@
+Initializing ...
+sanity\t.lua:2:11 [Warning] Undefined global `bogusGlobalFunction`. (undefined-global)
+    local a = bogusGlobalFunction(2)
+              ^^^^^^^^^^^^^^^^^^^
+sanity\t.lua:3:20 [Warning] Cannot assign `integer` to parameter `string|"anyenemy"|"anyfriend"|"anyinteract"|"arena1"...(+16)`.
+- `integer` cannot match `string|"anyenemy"|"anyfriend"|"anyinteract"|"arena1"...(+16)`
+- `integer` cannot match any subtypes in `string|"anyenemy"|"anyfriend"|"anyinteract"|"arena1"...(+16)`
+- Type `integer` cannot match `"softinteract"`
+- Type `number` cannot match `"softinteract"`
+- Type `integer` cannot match `"softfriend"`
+- Type `number` cannot match `"softfriend"`
+- Type `integer` cannot match `"softenemy"`
+- Type `number` cannot match `"softenemy"`
+- Type `integer` cannot match `"anyinteract"`
+- Type `number` cannot match `"anyinteract"`
+- Type `integer` cannot match `"anyfriend"`
+- Type `number` cannot match `"anyfriend"`
+...(+29)
+- Type `number` cannot match `"player"`
+- Type `integer` cannot match `string`
+- Type `number` cannot match `string` (param-type-mismatch)
+    local n = UnitName(1)
+                       ^
+sanity\t.lua:5:22 [Warning] Cannot assign `string` to parameter `number`.
+- `string` cannot match `number`
+- Type `string` cannot match `number` (param-type-mismatch)
+    local t = math.floor("x")
+                         ^^^
+>>>>>>>>>>>>>>>>>>>> 1/1 [Found 3 problems in 1 files]
+Diagnosis complete, 3 problems found, see C:/Users/kneis/.cache/fgt-luals/sanity.json

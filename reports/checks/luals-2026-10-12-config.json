@@ -1,0 +1,35 @@
+{
+  "runtime.version": "Lua 5.1",
+  "workspace.library": [
+    "C:/Users/kneis/.cache/fgt-luals/ketho-ext/extension/Annotations"
+  ],
+  "workspace.ignoreDir": [
+    "tools",
+    "reports",
+    "Media",
+    ".git",
+    ".agents"
+  ],
+  "workspace.checkThirdParty": false,
+  "diagnostics.globals": [
+    "ForeverGoalTrackerDB",
+    "GetAddOnMetadata",
+    "GetContainerItemLink",
+    "GetContainerNumSlots",
+    "GetFactionInfo",
+    "GetFactionInfoByID",
+    "GetNumFactions",
+    "GetNumFriends",
+    "GetNumQuestLogEntries",
+    "GetNumSkillLines",
+    "GetPVPRankInfo",
+    "GetQuestLogTitle",
+    "GetSkillLineInfo",
+    "InterfaceOptionsFrame",
+    "InterfaceOptions_AddCategory",
+    "IsQuestFlaggedCompleted",
+    "ShowFriends",
+    "TomTom",
+    "UnitPVPRank"
+  ]
+}

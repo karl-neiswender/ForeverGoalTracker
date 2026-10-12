@@ -5,6 +5,7 @@
 - Karl requires Ketho's WoW API extension (`ketho.wow-api`) together with Lua Language Server (`sumneko.lua`) to check addon code before any live release. Run diagnostics against the supported WoW clients, review API compatibility and accidental globals, and fix actionable diagnostics before publishing or pushing a release tag that triggers CurseForge packaging.
 - Verify that the extension's annotations actually loaded and retain diagnostic results. Installing or enabling the extension alone is not a completed check. Explain any verified client-specific annotation exceptions rather than suppressing diagnostics broadly.
 - If Ketho/LuaLS is unavailable or diagnostics cannot run, the release gate is incomplete. Do not publish a live release; report the missing check and complete the setup. Ordinary source commits and artwork syncing to main may continue without a release tag.
+- On the PC, `tools/run-luals.sh` runs the Ketho/LuaLS gate (see reports/checks/luals-2026-10-12.md for setup and the loaded-annotation proof).
 - Also run `python3 tools/check.py` and inspect performance-sensitive code. Ketho's API annotations do not measure in-game CPU performance and do not replace manual in-game testing.
 
 ## Player-facing wording
