@@ -5071,7 +5071,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local live = on and FGT.Setting("celebrations") ~= "off"
         self.glowFrame:SetShown(on and true or false)
         if on then
-            self.glowFrame:SetAlpha((self.imageFade or 1)*0.35*self:GetArtOpacity())
+            self.glowFrame:SetAlpha((self.imageFade or 1)*0.54*self:GetArtOpacity())
             if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
             elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
         elseif self.glowAnim:IsPlaying() then
@@ -5081,7 +5081,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:SetImageFade(amount)
         self.imageFade = amount
         if self.glowFrame and self.goal and self.glows[self.goal.id] and self.glowFrame:IsShown() then
-            self.glowFrame:SetAlpha(amount*0.35*self:GetArtOpacity())
+            self.glowFrame:SetAlpha(amount*0.54*self:GetArtOpacity())
         end
         if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.
