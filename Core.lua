@@ -4755,6 +4755,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="benediction-banner.blp", faction="Horde"},
         },
         allclasses = {
+            {path="allclasses_dwarf_paladin-banner.blp", faction="Alliance", class="PALADIN", race="Dwarf"},
             {path="allclasses_tauren_warrior-banner.blp", faction="Horde", class="WARRIOR", race="Tauren"},
             {path="allclasses_alliance_warlock-banner.blp", faction="Alliance", class="WARLOCK"},
             {path="allclasses_horde_druid-banner.blp", faction="Horde", class="DRUID"},
@@ -4973,6 +4974,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.set_dungeon1_warlock, B.preprocessed.set_dungeon1_warlock = 4/3, true
     B.artPaths.set_dungeon1_shaman = "set_dungeon1_shaman-banner.blp"
     B.artAspects.set_dungeon1_shaman, B.preprocessed.set_dungeon1_shaman = 4/3, true
+    B.artPaths.set_dungeon1_paladin = "set_dungeon1_paladin-banner.blp"
+    B.artAspects.set_dungeon1_paladin, B.preprocessed.set_dungeon1_paladin = 4/3, true
     B.artAspects.wolfsbane, B.preprocessed.wolfsbane = 4/3, true
     B.artPaths.mount_tiger = "mount_tiger-banner.blp"
     B.artAspects.mount_tiger, B.preprocessed.mount_tiger = 4/3, true
@@ -5225,6 +5228,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["allclasses_dwarf_paladin-banner.blp"] = "Glenn Rane",
         ["set_forever_raid-banner.blp"] = "Alex Horley",
         ["allclasses_horde_druid-banner.blp"] = "Alex Alexandrov",
         ["allclasses_tauren_warrior-banner.blp"] = "Adrian Smith",

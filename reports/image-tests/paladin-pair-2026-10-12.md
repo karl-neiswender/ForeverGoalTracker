@@ -1,7 +1,13 @@
 # Paladin banner pair
 
 Built-in image_gen edits; neutral grayscale, 4:3 landscape, baked left and
-bottom gradients. Originals preserved. Awaiting approval before installation.
+bottom gradients. Originals preserved. Karl approved both and they are installed.
+Masters: Media/final-images/lightforge-master.png and dwarf-paladin-master.png,
+1200x900 neutral RGB grayscale. Runtime textures: set_dungeon1_paladin-banner.blp
+and allclasses_dwarf_paladin-banner.blp in Media, 512px DXT1, ten validated mips.
+Rebuild map/runtime manifest updated. Glenn Rane addon credit retained.
+Full Lua check: reports/checks/paladin-pair-2026-10-12.txt.
+Full WoW restart required. No release tag or publication.
 
 Lightforge: Media/artwork/Lightforged_Cariel_full.jpg.
 Review: Media/final-images/lightforge-review.png.
