@@ -5375,6 +5375,49 @@ stepsContainer:EnableMouse(true)
 FGT.EnableGoalLinks(stepsContainer)
 stepsContainer:SetHeight(1)
 FGT.detailStepsScroll = stepsScrollObj
+-- The goal page's steps fade themselves near the scroll edges instead of
+-- sliding under a painted band, which smudged the banner art behind them
+-- (Karl). WoW masks can't fade text, so each row (and each tip line) takes
+-- an alpha from how close it sits to the edge. The top fade only appears
+-- once you've scrolled, the bottom one only while there's more below.
+do
+    local S = stepsScrollObj
+    S.fadeTop:SetAlpha(0); S.fadeBottom:SetAlpha(0)
+    local TOP, BOTTOM = 34, 38
+    local function Ease(x) x = math.max(0, math.min(1, x)) return x * x * (3 - 2 * x) end
+    function FGT.StepsEdgeFade()
+        local sc = S.scroll
+        local top, bottom = sc:GetTop(), sc:GetBottom()
+        if not top or not bottom then return end
+        local cur = sc:GetVerticalScroll()
+        local maxScroll = math.max(0, stepsContainer:GetHeight() - sc:GetHeight())
+        local topK, bottomK = math.min(1, cur / 24), math.min(1, (maxScroll - cur) / 24)
+        local layout = FGT.guideLayout
+        local fading = {} -- rows mid "hide completed" fade keep their own alpha
+        if layout and layout.pending then
+            for _, node in ipairs(layout.nodes or {}) do
+                if layout.pending[node.key] then fading[node.frame] = true end
+            end
+        end
+        local function Fade(r)
+            if type(r) ~= "table" or fading[r] or not r:IsShown() then return end
+            local t, b = r:GetTop(), r:GetBottom()
+            if not t or not b or t - b > 80 then r:SetAlpha(1) return end
+            local c = (t + b) / 2
+            local a = 1 - (1 - Ease((top - c) / TOP)) * topK
+            a = math.min(a, 1 - (1 - Ease((c - bottom) / BOTTOM)) * bottomK)
+            r:SetAlpha(a)
+        end
+        for _, child in ipairs({ stepsContainer:GetChildren() }) do Fade(child) end
+        for _, region in ipairs({ stepsContainer:GetRegions() }) do Fade(region) end
+    end
+    local update = S.Update
+    S.Update = function(self, ...)
+        update(self, ...)
+        FGT.StepsEdgeFade()
+    end
+    S.scroll:HookScript("OnVerticalScroll", FGT.StepsEdgeFade)
+end
 function FGT.UpdateDetailViewport()
     local view = FGT.detailViewport
     if view.updating then return end
