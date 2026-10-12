@@ -68,7 +68,7 @@ local SKILL_ICONS = {
 }
 
 local function SkillStep(name, rank)
-    return { text = name .. " " .. rank .. ".", icon = SKILL_ICONS[name],
+    return { text = "Reach " .. name .. " " .. rank .. ".", icon = SKILL_ICONS[name],
              auto = { skill = { name = name, rank = rank } } }
 end
 
@@ -96,7 +96,7 @@ local library = {
         short = "Thorium Brotherhood",
         category = "Reputation", difficulty = "Very Hard",
         timeEstimate = "3+ Months",
-        note = "Lokhtos Darkbargainer's epic crafting recipes unlock as you climb, including fire resistance gear.",
+        note = "Unlock epic recipes and fire resistance gear from Lokhtos Darkbargainer.",
         steps = RepSteps(59),
         tips = {
             "Turn in {item:11370:Dark Iron Ore} and {item:18942:Fiery Flux} to Lokhtos Darkbargainer (Grim Guzzler, Blackrock Depths) early on.",
@@ -124,11 +124,11 @@ local library = {
         short = "Cenarion Circle",
         category = "Reputation", difficulty = "Hard",
         timeEstimate = "1-2 Months",
-        note = "The druids of Silithus. Ruins of Ahn'Qiraj kills and Twilight cultist turn-ins carry most of the grind.",
+        note = "Earn reputation through Silithus quests, Twilight cultist turn-ins and Ruins of Ahn'Qiraj.",
         steps = RepSteps(609),
         tips = {
             "Do the Silithus quests at Cenarion Hold.",
-            "Turn in {item:20404:Encrypted Twilight Texts} and run Ruins of Ahn'Qiraj for steady reputation.",
+            "Turn in {item:20404:Encrypted Twilight Texts} and clear Ruins of Ahn'Qiraj.",
         },
     },
     {
@@ -155,7 +155,7 @@ local library = {
         note = "Needed to douse Molten Core's runes without Aqual Quintessence; Revered gives the Eternal Quintessence.",
         steps = RepSteps(749),
         tips = {
-            "Speak with Duke Hydraxis on his island east of Azshara and do his quest chain.",
+            "Complete Duke Hydraxis's quests on his island east of Azshara.",
             "Kill Molten Core trash and bosses; each kill adds reputation.",
         },
     },
@@ -166,7 +166,7 @@ local library = {
         short = "Brood of Nozdormu",
         category = "Reputation", difficulty = "Extreme",
         timeEstimate = "3+ Months",
-        note = "Starts at Hated. The rings from Anachronos upgrade as you climb, and the grind is famously long.",
+        note = "Starts at Hated. Anachronos's rings improve as your reputation rises.",
         steps = RepSteps(910),
         tips = {
             "Complete 'The Charge of the Dragonflights' line to obtain your Signet Ring.",
@@ -180,7 +180,7 @@ local library = {
         short = "Alliance Ambassador",
         category = "Reputation", difficulty = "Very Hard",
         timeEstimate = "3+ Months",
-        note = "Exalted with all four Alliance capitals. Your own race's city is the easy one; the rest take turn-ins.",
+        note = "Exalted with all four Alliance capitals. Use quests and cloth turn-ins to raise reputation.",
         steps = {
             { text = "Reach Exalted with Stormwind.", icon = "spell_arcane_teleportstormwind", auto = { rep = { faction = 72, standing = 8 }, forFaction = "Alliance" } },
             { text = "Reach Exalted with Ironforge.", icon = "spell_arcane_teleportironforge", auto = { rep = { faction = 47, standing = 8 }, forFaction = "Alliance" } },
@@ -188,7 +188,7 @@ local library = {
             { text = "Reach Exalted with Gnomeregan Exiles.", icon = "inv_misc_gear_01", auto = { rep = { faction = 54, standing = 8 }, forFaction = "Alliance" } },
         },
         tips = {
-            "Each city has repeatable cloth turn-ins at its cloth quartermaster, the fastest route for most players.",
+            "Repeat cloth turn-ins at each city's cloth quartermaster.",
         },
     },
     {
@@ -198,7 +198,7 @@ local library = {
         short = "Horde Ambassador",
         category = "Reputation", difficulty = "Very Hard",
         timeEstimate = "3+ Months",
-        note = "Exalted with all four Horde capitals. Your own race's city is the easy one; the rest take turn-ins.",
+        note = "Exalted with all four Horde capitals. Use quests and cloth turn-ins to raise reputation.",
         steps = {
             { text = "Reach Exalted with Orgrimmar.", icon = "spell_arcane_teleportorgrimmar", auto = { rep = { faction = 76, standing = 8 }, forFaction = "Horde" } },
             { text = "Reach Exalted with Thunder Bluff.", icon = "spell_arcane_teleportthunderbluff", auto = { rep = { faction = 81, standing = 8 }, forFaction = "Horde" } },
@@ -206,7 +206,7 @@ local library = {
             { text = "Reach Exalted with the Darkspear Trolls.", icon = "inv_misc_head_troll_01", auto = { rep = { faction = 530, standing = 8 }, forFaction = "Horde" } },
         },
         tips = {
-            "Each city has repeatable cloth turn-ins at its cloth quartermaster, the fastest route for most players.",
+            "Repeat cloth turn-ins at each city's cloth quartermaster.",
         },
     },
 
@@ -218,15 +218,15 @@ local library = {
         short = "Deathcharger",
         category = "Mount", difficulty = "Extreme",
         timeEstimate = "3+ Months",
-        note = "Baron Rivendare's own steed. A tiny drop chance in the undead side of Stratholme.",
+        note = "Rare mount from Baron Rivendare on Stratholme's undead side.",
         steps = { -- (v2.3.1: the "get a group" step moved to tips; see stepsFix231 in Core.lua)
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Loot Deathcharger's Reins from Baron Rivendare.", auto = { item = 13335, owned = { "Deathcharger" } } },
         },
         completeWith = { item = 13335, owned = { "Deathcharger" } },
         tips = {
-            "Baron Rivendare is on Stratholme's undead side, through the service entrance, which the {key_strat:Key to the City} opens.",
-            "Run it with a group, or solo once you're well geared. The drop chance is tiny, so expect many runs.",
+            "Reach Stratholme's undead side through the service entrance with the {key_strat:Key to the City}.",
+            "Bring a group, or solo with strong gear. Expect many runs.",
         },
     },
     {
@@ -242,7 +242,7 @@ local library = {
         },
         completeWith = { item = 19872, owned = { "Swift Razzashi Raptor" } },
         tips = {
-            "Zul'Gurub is a 20-player raid, so you'll need a raid group.",
+            "Bring a 20-player raid to Zul'Gurub.",
         },
     },
     {
@@ -258,7 +258,7 @@ local library = {
         },
         completeWith = { item = 19902, owned = { "Swift Zulian Tiger" } },
         tips = {
-            "Zul'Gurub is a 20-player raid, so you'll need a raid group.",
+            "Bring a 20-player raid to Zul'Gurub.",
         },
     },
     {
@@ -268,7 +268,7 @@ local library = {
         short = "Black Qiraji",
         category = "Mount", difficulty = "Extreme",
         timeEstimate = "Varies",
-        note = "The black battle tank, originally awarded only to Scarab Lords who rang the gong at the opening of Ahn'Qiraj. Whether Forever offers it again depends on how its gate event runs.",
+        note = "Scarab Lord mount from the opening of Ahn'Qiraj. Availability in Forever is unconfirmed.",
         steps = {
             "Complete the Scepter of the Shifting Sands quest chain.",
             "Ring the Scarab Gong in Silithus to open Ahn'Qiraj.",
@@ -276,7 +276,7 @@ local library = {
         },
         completeWith = { item = 21176, owned = { "Black Qiraji" } },
         tips = {
-            "The gong can only be rung once your realm's Ahn'Qiraj war effort is finished. Forever may run its own version of the event.",
+            "Finish your realm's Ahn'Qiraj war effort before ringing the gong. Forever's event rules are unconfirmed.",
         },
     },
     {
@@ -286,7 +286,7 @@ local library = {
         short = "Dreadsteed",
         category = "Mount", difficulty = "Very Hard",
         timeEstimate = "2-4 Weeks",
-        note = "The Warlock's epic mount, earned through a level 60 quest chain that ends with a summoning ritual in Dire Maul. Quest IDs checked on Wowhead.",
+        note = "Warlock epic mount from a level 60 quest chain ending in Dire Maul.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Complete 'Mor'zul Bloodbringer' from a demon trainer in a capital city.", auto = { quest = 7562 } },
@@ -304,9 +304,9 @@ local library = {
         },
         completeWith = { quest = 7631 },
         tips = {
-            "Warlock only, and the chain needs level 60.",
-            "The chain starts with a demon trainer: Spackle Thornberry (Stormwind) or Jubahl Corpseseeker (Ironforge) for the Alliance, Martha Strain (Undercity) or Kurgul (Orgrimmar) for the Horde.",
-            "The Dire Maul ritual is a group fight, so bring friends.",
+            "Requires a level 60 Warlock.",
+            "Start with a demon trainer: Spackle Thornberry (Stormwind), Jubahl Corpseseeker (Ironforge), Martha Strain (Undercity) or Kurgul (Orgrimmar).",
+            "Bring a group for the Dire Maul ritual.",
         },
     },
     {
@@ -316,7 +316,7 @@ local library = {
         short = "Charger",
         category = "Mount", difficulty = "Very Hard",
         timeEstimate = "2-4 Weeks",
-        note = "The Paladin's epic mount, earned through Lord Grayson Shadowbreaker's level 60 quest chain that ends in Scholomance. Quest IDs checked on Wowhead.",
+        note = "Paladin epic mount from Lord Grayson Shadowbreaker's level 60 quest chain ending in Scholomance.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Complete 'Lord Grayson Shadowbreaker' from Duthorian Rall in Stormwind City.", auto = { quest = 7638 } },
@@ -333,8 +333,8 @@ local library = {
         },
         completeWith = { quest = 7647 },
         tips = {
-            "Paladin only, and the chain needs level 60.",
-            "Several steps ask for materials and gold, so read each quest's requirements before heading out.",
+            "Requires a level 60 Paladin.",
+            "Check quest requirements before collecting materials and gold.",
         },
     },
 
@@ -347,7 +347,7 @@ local library = {
         name = "Wolfsbane",
         category = "Rare Weapon", difficulty = "Moderate",
         timeEstimate = "Days",
-        note = "A two-handed sword for Undead Paladins, earned through a quest chain in Silverpine Forest with materials from the Deadmines, Shadowfang Keep and Blackfathom Depths.",
+        note = "Undead Paladin two-handed sword from Silverpine Forest quests. Requires materials from the Deadmines, Shadowfang Keep and Blackfathom Depths.",
         foreverNote = "A new Horde Paladin quest weapon. Its blazing-wind proc deals extra damage to wolves and worgen.",
         steps = {
             { text = "Reach level 18.", auto = { level = 18 } },
@@ -371,12 +371,12 @@ local library = {
         },
         completeWith = { quest = 95140, item = 267369 },
         tips = {
-            "For Horde Undead Paladins. Look for Danitha Morr at Bandarion Keep in western Tirisfal Glades from level 18.",
-            "In Fenris Keep, collect the {item:267412:Fenris Isle Key} from Rot Hide Gnolls and turn it in to Lumina before starting her escort.",
-            "Accept 'A Moon-Kissed Blade' before collecting the materials. The {item:267454:Trevan's Weapon Notes} list what you need.",
-            "The {item:6994:Whitestone Oak Lumber} comes from goblins near Sneed's room in the Deadmines. The {item:267361:Enchanted Silver Ingot} is on the table beside Arugal at the end of Shadowfang Keep.",
-            "Accept 'Seeking the Kor Gem' from Ulric Frostveil before collecting the {item:6995:Corrupted Kor Gem} from naga near Blackfathom Depths. Return it to him for the {item:272448:Purified Kor Gem}.",
-            "Raise your Two-Handed Swords skill before fighting Old Fire-Eye. Equip the {item:268484:Moonsilver Blade} and land a hit to break his protection; bring help for the elite fight.",
+            "At level 18, find Danitha Morr at Bandarion Keep in western Tirisfal Glades.",
+            "Loot the {item:267412:Fenris Isle Key} from Rot Hide Gnolls in Fenris Keep. Give it to Lumina before her escort.",
+            "Accept 'A Moon-Kissed Blade' before gathering materials. See {item:267454:Trevan's Weapon Notes}.",
+            "Loot {item:6994:Whitestone Oak Lumber} from goblins near Sneed's room in the Deadmines. Find the {item:267361:Enchanted Silver Ingot} on the table beside Arugal in Shadowfang Keep.",
+            "Accept 'Seeking the Kor Gem' from Ulric Frostveil. Loot the {item:6995:Corrupted Kor Gem} from naga near Blackfathom Depths and return it for the {item:272448:Purified Kor Gem}.",
+            "Raise Two-Handed Swords before fighting Old Fire-Eye. Hit him with the {item:268484:Moonsilver Blade} to break his protection. Bring help.",
         },
     },
     {
@@ -386,8 +386,9 @@ local library = {
         category = "Epic Weapon", difficulty = "Very Hard",
         timeEstimate = "Varies",
         note = "Tanking sword (Warrior and Paladin) forged in Onyxia's breath.",
+        tips = { "{item:18401:Nostro's Compendium of Dragon Slaying} is a rare Dire Maul drop." },
         steps = {
-            { text = "Loot Nostro's Compendium of Dragon Slaying in Dire Maul (rare).", auto = { item = 18401, quest = { 7508, 7509 } } },
+            { text = "Loot Nostro's Compendium of Dragon Slaying in Dire Maul.", auto = { item = 18401, quest = { 7508, 7509 } } },
             { text = "Get the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library.",
               auto = { quest = { 7508, 7509 }, questTaken = { 7508, 7509 }, item = 18489 } },
             { text = "Heat the blade in {raid_ony:Onyxia's} fire breath.", auto = { item = { 18488, 18492, 18348 } } },
@@ -407,7 +408,7 @@ local library = {
         short = "Molten Core",
         category = "Raid", difficulty = "Hard",
         timeEstimate = "1-2 Weeks",
-        note = "Boss kills tick off automatically when you're in the raid with the addon loaded.",
+        note = "Boss kills are tracked while you're in the raid with the addon enabled.",
         steps = BossSteps({
             { text = "Complete {att_mc:Attunement to the Core} in Blackrock Depths.", auto = { quest = 7848 } },
         }, { "Lucifron", "Magmadar", "Gehennas", "Garr", "Shazzrah", "Baron Geddon",
@@ -434,9 +435,9 @@ local library = {
         short = "Blackwing Lair",
         category = "Raid", difficulty = "Very Hard",
         timeEstimate = "2-4 Weeks",
-        note = "Boss kills tick off automatically when you're in the raid with the addon loaded.",
+        note = "Boss kills are tracked while you're in the raid with the addon enabled.",
         steps = BossSteps({
-            { text = "Complete {att_bwl:Blackhand's Command} ({key_ubrs:Upper Blackrock Spire}) for attunement.", auto = { quest = 7761 } },
+            { text = "Complete {att_bwl:Blackhand's Command} in {key_ubrs:Upper Blackrock Spire}.", auto = { quest = 7761 } },
         }, { "Razorgore the Untamed", "Vaelastrasz the Corrupt", "Broodlord Lashlayer", "Firemaw",
              "Ebonroc", "Flamegor", "Chromaggus", "Nefarian" }),
     },
@@ -485,7 +486,7 @@ local library = {
         short = "Naxxramas",
         category = "Raid", difficulty = "Extreme",
         timeEstimate = "3+ Months",
-        note = "The hardest raid in the game: all four wings, Sapphiron and Kel'Thuzad.",
+        note = "Clear all four wings, Sapphiron and Kel'Thuzad.",
         steps = BossSteps({
             { text = "Get {att_naxx:attuned to Naxxramas} at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
         }, { "Anub'Rekhan", "Grand Widow Faerlina", "Maexxna", "Noth the Plaguebringer", "Heigan the Unclean",
@@ -506,8 +507,8 @@ local library = {
         short = "Hyjal Summit",
         category = "Raid", difficulty = "Hard",
         timeEstimate = "Varies",
-        note = "A new 20-player raid in Mount Hyjal, opening December 9, 2026. More bosses join this guide as they're revealed.",
-        foreverNote = "Its bosses, entrance and loot haven't been revealed yet; this guide grows as they are.",
+        note = "New 20-player raid in Mount Hyjal. Opens December 9, 2026.",
+        foreverNote = "Full boss list, entrance and loot are unconfirmed.",
         steps = {
             { text = "Defeat The Wild King in Hyjal Summit.",
               auto = { boss = "The Wild King", stat = { id = 63580, value = 1, what = "Wild King kills" } } },
@@ -520,8 +521,8 @@ local library = {
         short = "Barrow Deeps",
         category = "Raid", difficulty = "Hard",
         timeEstimate = "Varies",
-        note = "A new 10-player raid where the Night Elves hold dangerous prisoners, with three entrances, one in Mount Hyjal. Opens December 9, 2026.",
-        foreverNote = "Its bosses, entrances and loot haven't been revealed yet; this guide grows as they are.",
+        note = "New 10-player prison raid with three entrances, including Mount Hyjal. Opens December 9, 2026.",
+        foreverNote = "Full boss list, entrance locations and loot are unconfirmed.",
         steps = {
             { text = "Defeat Sonya Darkhallow in the Barrow Deeps.",
               auto = { boss = "Sonya Darkhallow", stat = { id = 63581, value = 1, what = "Sonya Darkhallow kills" } } },
@@ -538,7 +539,7 @@ local library = {
         short = "MC Attunement",
         category = "Attunement", difficulty = "Moderate",
         timeEstimate = "Days",
-        note = "Required to enter Molten Core. A short trip into Blackrock Depths to the raid's entry portal.",
+        note = "Molten Core attunement from the entry portal in Blackrock Depths.",
         steps = {
             { text = "Reach level 55.", auto = { level = 55 } },
             { text = "Pick up 'Attunement to the Core' from Lothos Riftwaker in Blackrock Mountain.", auto = { questTaken = 7848, quest = 7848 } },
@@ -553,10 +554,10 @@ local library = {
         short = "Onyxia Attunement",
         category = "Attunement", difficulty = "Hard",
         timeEstimate = "1-2 Weeks",
-        note = "The Alliance chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire and Blackrock Depths and ends with a masquerade in Stormwind.",
+        note = "Alliance quest chain for the Drakefire Amulet. Visit Blackrock Spire, Blackrock Depths and Stormwind to unlock Onyxia's Lair.",
         steps = {
             { text = "Complete 'Dragonkin Menace' from Helendis Riverhorn in the Burning Steppes.", auto = { quest = 4182 } },
-            { text = "Complete the 'The True Masters' quests.", auto = { quest = 4224 } },
+            { text = "Complete 'The True Masters'.", auto = { quest = 4224 } },
             { text = "Complete 'Marshal Windsor'.", auto = { quest = 4241 } },
             { text = "Complete 'Abandoned Hope'.", auto = { quest = 4242 } },
             { text = "Complete 'A Crumpled Up Note'.", auto = { quest = 4264 } },
@@ -576,9 +577,9 @@ local library = {
         short = "Onyxia Attunement",
         category = "Attunement", difficulty = "Hard",
         timeEstimate = "1-2 Weeks",
-        note = "The Horde chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire, the Test of Skulls and Upper Blackrock Spire.",
+        note = "Horde quest chain for the Drakefire Amulet. Complete the Test of Skulls and Blackrock Spire quests to unlock Onyxia's Lair.",
         steps = {
-            { text = "Complete 'Warlord's Command' and turn it in to Warlord Goretooth in Kargath, Badlands.", auto = { quest = 4903 } },
+            { text = "Turn in 'Warlord's Command' to Warlord Goretooth in Kargath, Badlands.", auto = { quest = 4903 } },
             { text = "Complete 'Eitrigg's Wisdom'.", auto = { quest = 4941 } },
             { text = "Complete 'For The Horde!'.", auto = { quest = 4974 } },
             { text = "Complete 'What the Wind Carries'.", auto = { quest = 6566 } },
@@ -602,7 +603,7 @@ local library = {
         short = "BWL Attunement",
         category = "Attunement", difficulty = "Hard",
         timeEstimate = "1-2 Weeks",
-        note = "Without the Mark of Drakkisath you can't use the orb into Blackwing Lair. The whole quest happens in Blackrock Spire.",
+        note = "Earn the Mark of Drakkisath in Blackrock Spire to use the Blackwing Lair entrance orb.",
         steps = {
             { text = "Reach level 55.", auto = { level = 55 } },
             { text = "Loot and read Blackhand's Command from the Scarshield Quartermaster in Blackrock Spire.", auto = { item = 18987, questTaken = 7761, quest = 7761 } },
@@ -616,14 +617,14 @@ local library = {
         short = "Naxx Attunement",
         category = "Attunement", difficulty = "Hard",
         timeEstimate = "2-4 Weeks",
-        note = "Taken at Light's Hope Chapel in the Eastern Plaguelands once you're Honored with the Argent Dawn.",
+        note = "Attunement at Light's Hope Chapel in Eastern Plaguelands. Requires Honored with the Argent Dawn.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Reach Honored with the {rep_argentdawn:Argent Dawn}.", auto = { rep = { faction = 529, standing = 6 }, quest = { 9121, 9122, 9123 } } },
             { text = "Get attuned at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
         },
         tips = {
-            "Reaching Revered first makes the attunement cheaper.",
+            "Revered lowers the attunement cost.",
         },
     },
     {
@@ -633,7 +634,7 @@ local library = {
         short = "UBRS Key",
         category = "Attunement", difficulty = "Moderate",
         timeEstimate = "Days",
-        note = "The Seal of Ascension opens Upper Blackrock Spire. You build it from gems collected in Lower Blackrock Spire.",
+        note = "Opens Upper Blackrock Spire. Collect the gems in Lower Blackrock Spire.",
         steps = {
             { text = "Pick up 'Seal of Ascension'.", auto = { questTaken = { 4742, 4743 }, quest = { 4742, 4743 }, item = 12344 } },
             { text = "Forge the Seal of Ascension.", auto = { item = 12344, quest = 4743, owned = { "Seal of Ascension" } } },
@@ -696,7 +697,7 @@ local library = {
         short = "Secondary Skills",
         category = "Profession", difficulty = "Moderate",
         timeEstimate = "2-4 Weeks",
-        note = "Fishing, Cooking and First Aid to 300 on any character. Pick the ones you want in the Library; each ticks itself from your skill levels.",
+        note = "Reach 300 in Fishing, Cooking and First Aid across your characters. Pick the skills you want in the Library.",
         steps = { SkillStep("Fishing", 300), SkillStep("Cooking", 300), SkillStep("First Aid", 300) },
     },
     {
@@ -706,7 +707,7 @@ local library = {
         short = "Professions",
         category = "Profession", difficulty = "Extreme",
         timeEstimate = "Ongoing",
-        note = "Primary professions at 300 somewhere on your roster. Pick the ones you care about in the Library; each ticks itself from your skill levels.",
+        note = "Reach 300 in primary professions across your characters. Pick the professions you want in the Library.",
         steps = { SkillStep("Alchemy", 300), SkillStep("Blacksmithing", 300), SkillStep("Enchanting", 300),
                   SkillStep("Engineering", 300), SkillStep("Herbalism", 300), SkillStep("Leatherworking", 300),
                   SkillStep("Mining", 300), SkillStep("Skinning", 300), SkillStep("Tailoring", 300) },
@@ -720,17 +721,17 @@ local library = {
         name = "Win the Stranglethorn Fishing Extravaganza", short = "Fishing Extravaganza",
         icon = "trade_fishing", category = "Profession", difficulty = "Very Hard",
         timeEstimate = "Varies",
-        note = "Race to bring 40 Speckled Tastyfish to Riggle Bassbait in Booty Bay before the other anglers. Win once and choose a tournament prize.",
+        note = "Be first to deliver 40 Speckled Tastyfish to Riggle Bassbait in Booty Bay and win a prize.",
         completeWith = { quest = 8193, item = { 19970, 19979 } },
         tips = {
-            "The Classic tournament runs on Sundays. Check your realm's event schedule; Forever's timing and rules have not been verified.",
-            "Fish in Pools of Tastyfish around Stranglethorn Vale. Booty Bay itself has no tournament pools. Fishing 225 or higher helps avoid fish getting away.",
-            "Set your hearthstone in Booty Bay, keep it ready, and leave bag space for the catch. Riggle Bassbait stands on the central docks near the inn during the event.",
-            "The first 'Master Angler' turn-in wins. Choose either {item:19970:Arcanite Fishing Pole} or {item:19979:Hook of the Master Angler}; owning either completes this goal.",
-            "{item:19807:Speckled Tastyfish} expire after the event, so they cannot be saved for next week's tournament.",
+            "Classic's tournament runs on Sundays. Check your realm's schedule; Forever's timing and rules are unconfirmed.",
+            "Fish in Stranglethorn Vale's Pools of Tastyfish, outside Booty Bay. Fishing 225+ reduces escaped fish.",
+            "Set your hearthstone in Booty Bay and leave bag space. Keep your hearthstone ready. Find Riggle Bassbait on the central docks near the inn.",
+            "The first 'Master Angler' turn-in wins. Either prize completes the goal: {item:19970:Arcanite Fishing Pole} or {item:19979:Hook of the Master Angler}.",
+            "{item:19807:Speckled Tastyfish} expire after the event. You cannot save them for next week.",
         },
         steps = {
-            { text = "Reach Fishing 150 on a character.", icon = "trade_fishing", auto = { skill = { name = "Fishing", rank = 150 } } },
+            { text = "Reach Fishing 150.", icon = "trade_fishing", auto = { skill = { name = "Fishing", rank = 150 } } },
             { text = "Catch 40 Speckled Tastyfish from Pools of Tastyfish in Stranglethorn Vale.", icon = "inv_misc_fish_21", auto = { item = 19807, count = 40 } },
             { text = "Turn in 'Master Angler' to Riggle Bassbait in Booty Bay before the other anglers.", icon = "trade_fishing", auto = { quest = 8193, item = { 19970, 19979 } } },
         },
@@ -743,7 +744,7 @@ local library = {
         name = "Save 5,000 Gold",
         category = "Milestone", difficulty = "Hard",
         timeEstimate = "Varies",
-        note = "Hold your gold target on a single character, with milestones on the way. Ticks itself from your gold.",
+        note = "Reach your gold target on one character. Progress is tracked automatically.",
         -- Right-click > Change target. Steps are the marks (fractions of
         -- the target), rebuilt by FGT.ApplyTargets; the steps below are
         -- the default target's.
@@ -763,10 +764,10 @@ local library = {
         name = "Join a Guild",
         category = "Social", difficulty = "Moderate",
         timeEstimate = "Days",
-        note = "Find your people: join a guild and wear its colors. Ticks itself.",
+        note = "Join a guild and wear its tabard. Progress is tracked automatically.",
         tips = {
-            "Guilds recruit in the Guild Recruitment channel in capital cities, and in general chat.",
-            "{item:5976:Guild Tabards} are sold by the Guild Master in each capital city once your guild has designed its tabard.",
+            "Find guilds in Guild Recruitment or General chat.",
+            "Buy {item:5976:Guild Tabards} from a capital city's Guild Master after your guild designs its tabard.",
         },
         steps = {
             { text = "Join a guild.", auto = { guild = true } },
@@ -779,16 +780,16 @@ local library = {
         name = "Make Friends",
         category = "Social", difficulty = "Moderate",
         timeEstimate = "Varies",
-        note = "Add the people you enjoy playing with to your friends list. Ticks itself.",
+        note = "Build your friends list. Progress is tracked automatically.",
         tips = {
             "Right-click a player's name and choose Add Friend, or type /friend and their name.",
         },
         target = { kind = "friends", default = 25, min = 5, max = 100, marks = { 0.2, 0.4, 1 },
-                   step = "Have %s friends on your friends list.", unit = "friends" },
+                   step = "Have %s friends.", unit = "friends" },
         steps = {
-            { text = "Have 5 friends on your friends list.", auto = { friends = 5 } },
-            { text = "Have 10 friends on your friends list.", auto = { friends = 10 } },
-            { text = "Have 25 friends on your friends list.", auto = { friends = 25 } },
+            { text = "Have 5 friends.", auto = { friends = 5 } },
+            { text = "Have 10 friends.", auto = { friends = 10 } },
+            { text = "Have 25 friends.", auto = { friends = 25 } },
         },
     },
 }
@@ -813,16 +814,16 @@ do
             name = name, short = color .. " Qiraji", icon = icon,
             category = "Mount", difficulty = color == "Red" and "Very Hard" or "Hard",
             timeEstimate = "Varies",
-            note = "Collect the " .. color:lower() .. " Qiraji battle tank from trash enemies in Temple of Ahn'Qiraj. Ticks itself when the crystal or learned mount is owned.",
+            note = "Collect the " .. color:lower() .. " Qiraji battle tank from trash in Temple of Ahn'Qiraj.",
             steps = {
                 { text = "Loot the " .. name .. " from trash enemies in Temple of Ahn'Qiraj.",
                   icon = icon, auto = { item = id, owned = { color .. " Qiraji" } } },
             },
             completeWith = { item = id, owned = { color .. " Qiraji" } },
             tips = {
-                "These crystals drop in {raid_aq40:Temple of Ahn'Qiraj}, the 40-player raid, rather than Ruins of Ahn'Qiraj.",
-                "In Classic, this mount can only be ridden inside Temple of Ahn'Qiraj and requires level 60. Forever's rules have not been verified.",
-                "The red crystal drops less often than blue, green and yellow. None of these requires the Scarab Gong event for the {mount_qiraji:black battle tank}.",
+                "These crystals drop in {raid_aq40:Temple of Ahn'Qiraj} (AQ40).",
+                "Classic: level 60 required; usable only inside Temple of Ahn'Qiraj. Forever's rules are unconfirmed.",
+                "Red is rarer than blue, green and yellow. These mounts do not require the {mount_qiraji:black battle tank}'s Scarab Gong event.",
             },
         })
     end
@@ -841,8 +842,9 @@ local function BuildSetSections(sets)
         local list = {}
         for _, p in ipairs(pieces) do
             -- p = { piece name, item id, where it comes from (Wowhead), item icon (optional) }
-            table.insert(list, { name = p[1], text = p[3] and (p[1] .. " from " .. p[3] .. ".")
-                or (p[1] .. "  |cff888888Source unknown|r"),
+            table.insert(list, { name = p[1], text = p[3] and ("Collect " .. p[1]
+                .. (p[3]:match("^PvP rank") and " at " or " from ") .. p[3] .. ".")
+                or ("Collect " .. p[1] .. "  |cff888888Source unknown|r"),
                                  icon = p[4], materials = {}, auto = { item = p[2], owned = { p[1] } } })
         end
         -- set[4] = true: a set new in WoW Forever (blue NEW part)
@@ -1060,7 +1062,7 @@ local sets = {
         short = "Tier 1 Sets",
         category = "Item Set", difficulty = "Hard",
         timeEstimate = "1-2 Months",
-        note = "The Molten Core sets. Most pieces drop from Molten Core bosses; belts and bracers come from Molten Core trash. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+        note = "The Molten Core sets. Bosses drop most pieces; trash drops belts and bracers. Pick the classes you want in the Library; owned pieces complete automatically.",
         sections = BuildSetSections(TIER1),
     },
     {
@@ -1074,7 +1076,7 @@ local sets = {
         short = "Tier 2 Sets",
         category = "Item Set", difficulty = "Very Hard",
         timeEstimate = "3+ Months",
-        note = "Helms come from Onyxia, legs from Ragnaros, and the rest from Blackwing Lair. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+        note = "Helms come from Onyxia, legs from Ragnaros, and the rest from Blackwing Lair. Pick the classes you want in the Library; owned pieces complete automatically.",
         sections = BuildSetSections(TIER2),
     },
     {
@@ -1085,11 +1087,11 @@ local sets = {
         short = "Dungeon Set 1",
         category = "Item Set", difficulty = "Hard",
         timeEstimate = "1-2 Months",
-        note = "The blue level-60 dungeon sets from Scholomance, Stratholme and Blackrock Spire. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+        note = "The blue level-60 dungeon sets from Scholomance, Stratholme and Blackrock Spire. Pick the classes you want in the Library; owned pieces complete automatically.",
         sections = BuildSetSections(DUNGEON1),
         tips = {
-            "Darkmaster Gandling, General Drakkisath and Baron Rivendare drop the helm, chest and legs for every class, so those three runs are worth repeating.",
-            "Most belts and bracers are random trash drops, so they can turn up in any of the three dungeons.",
+            "Darkmaster Gandling drops helms, General Drakkisath chests, and Baron Rivendare legs for every class.",
+            "Most belts and bracers drop from trash in these dungeons.",
         },
     },
     {
@@ -1100,11 +1102,11 @@ local sets = {
         short = "Dungeon Set 2",
         category = "Item Set", difficulty = "Very Hard",
         timeEstimate = "1-2 Months",
-        note = "The upgraded dungeon sets. Every piece comes from a long quest chain that trades in your Dungeon Set 1 pieces plus materials and gold. The chain starts with 'An Earnest Proposition' from Deliana in Ironforge (Alliance) or Mokvar in Orgrimmar (Horde). Pick the classes you want in the Library; each piece ticks itself when you own it.",
+        note = "Upgrade Dungeon Set 1 pieces through quests requiring materials and gold. Start 'An Earnest Proposition' with Deliana in Ironforge (Alliance) or Mokvar in Orgrimmar (Horde). Pick the classes you want in the Library; owned pieces complete automatically.",
         sections = BuildSetSections(DUNGEON2),
         tips = {
             "The chain starts with 'An Earnest Proposition' (bracers), then 'Just Compensation' (belt and gloves), 'Anthion's Parting Words' (shoulders, legs, boots) and 'Saving the Best for Last' (helm and chest).",
-            "Keep your Dungeon Set 1 pieces: each upgrade quest needs the matching Set 1 piece.",
+            "Keep your Dungeon Set 1 pieces. Each upgrade needs its matching piece.",
         },
     },
     {
@@ -1117,13 +1119,14 @@ local sets = {
         category = "Item Set", difficulty = "Moderate",
         timeEstimate = "Days",
         note = "A five-piece leather set from Wailing Caverns.",
-        foreverNote = "Updated in WoW Forever with a new set bonus that turns you into a snake.",
+        foreverNote = "New Forever set bonus: transform into a snake.",
+        tips = { "{item:10413:Gloves of the Fang} are a rare drop from Druids of the Fang." },
         steps = {
             { text = "Loot Armor of the Fang from Lord Pythas.", icon = "inv_shirt_16", auto = { item = 6473, owned = { "Armor of the Fang" } } },
             { text = "Loot Leggings of the Fang from Lord Cobrahn.", icon = "inv_pants_11", auto = { item = 10410, owned = { "Leggings of the Fang" } } },
             { text = "Loot Footpads of the Fang from Lord Serpentis.", icon = "inv_boots_04", auto = { item = 10411, owned = { "Footpads of the Fang" } } },
             { text = "Loot Belt of the Fang from Lady Anacondra.", icon = "inv_belt_30", auto = { item = 10412, owned = { "Belt of the Fang" } } },
-            { text = "Loot Gloves of the Fang from Druids of the Fang (rare).", icon = "inv_gauntlets_18", auto = { item = 10413, owned = { "Gloves of the Fang" } } },
+            { text = "Loot Gloves of the Fang from Druids of the Fang.", icon = "inv_gauntlets_18", auto = { item = 10413, owned = { "Gloves of the Fang" } } },
         },
     },
     {
@@ -1137,8 +1140,8 @@ local sets = {
         short = "Forever Raid Sets",
         category = "Item Set", difficulty = "Hard",
         timeEstimate = "1-2 Months",
-        note = "The new class sets from WoW Forever's first new raids, Hyjal Summit and the Barrow Deeps, which open December 9, 2026. Pick the sets you want in the Library; each piece ticks itself when you own it.",
-        foreverNote = "Which boss drops each piece isn't revealed yet; sources are added as they are.",
+        note = "New class sets from Hyjal Summit and the Barrow Deeps, opening December 9, 2026. Pick the sets you want in the Library; owned pieces complete automatically.",
+        foreverNote = "Drop sources are unknown.",
         sections = ForeverSections(FOREVER_RAID),
     },
     {
@@ -1151,7 +1154,7 @@ local sets = {
         short = "Violet Sorcerer's",
         category = "Item Set", difficulty = "Moderate",
         timeEstimate = "Days",
-        note = "Collect the five pieces of this new cloth set in Warcraft Forever. Each piece ticks itself when you own it.",
+        note = "New five-piece cloth set in Forever. Owned pieces complete automatically.",
         foreverNote = "A new five-piece set that grants mana regeneration and a chance to summon an Arcane elemental.",
         steps = {
             { text = "Loot Violet Sorcerer's Mantle from Shade of the Archmage in the City of Dalaran.", icon = "inv_shoulder_02",
@@ -1166,9 +1169,9 @@ local sets = {
               auto = { item = 286989, owned = { "Violet Sorcerer's Wraps" } } },
         },
         tips = {
-            "{item:273051:Violet Sorcerer's Mantle} and {item:273044:Violet Sorcerer's Robes} bind on pickup. The other three pieces bind on equip, so they can be traded before being equipped.",
-            "The full set requires level 30 to wear every piece. It has no class restriction listed.",
-            "Four pieces can improve mana regeneration while casting; the effect is stronger in Strongholds and Cities. Five pieces can summon an Arcane elemental when you deal spell damage.",
+            "{item:273051:Violet Sorcerer's Mantle} and {item:273044:Violet Sorcerer's Robes} bind on pickup. The other three pieces are tradable until equipped.",
+            "Full set requires level 30. No class restriction listed.",
+            "Four pieces: chance to improve mana regeneration while casting, stronger in Strongholds and Cities. Five pieces: chance to summon an Arcane elemental with spell damage.",
         },
     },
 }
@@ -1192,8 +1195,8 @@ for _, g in ipairs(PVP_SET_GOALS) do
         short = title .. " " .. armor,
         category = "PvP", difficulty = "Extreme",
         timeEstimate = "3+ Months",
-        note = "The " .. faction .. " PvP " .. armor:lower() .. " sets for " .. who .. ". Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; each piece ticks itself when you own it.",
-        foreverNote = "In WoW Forever's database. The ranks come from each piece's name; how Forever's PvP ranks work isn't confirmed yet.",
+        note = "The " .. faction .. " PvP " .. armor:lower() .. " sets for " .. who .. ". Pieces unlock from rank 9 (boots) to rank 13 (helm and chest). Pick the sets you want in the Library; owned pieces complete automatically.",
+        foreverNote = "Listed ranks come from item names. Forever's PvP rank rules are unconfirmed.",
         sections = ForeverSections(list, true),
     })
 end
@@ -1244,7 +1247,7 @@ for _, f in ipairs({ "Alliance", "Horde" }) do
         name = A and "Grand Marshal" or "High Warlord",
         category = "PvP", difficulty = "Extreme",
         timeEstimate = "3+ Months",
-        note = "The top PvP rank and its rank 14 weapons. Rank steps tick themselves from your current or highest-ever rank.",
+        note = "Reach rank 14 and buy its weapons. Your current or highest recorded rank counts.",
         steps = {
             RankStep(f, 6), RankStep(f, 10), RankStep(f, 12), RankStep(f, 13), RankStep(f, 14),
             "Buy your rank 14 weapon from the PvP quartermaster.",
@@ -1309,7 +1312,7 @@ table.insert(pvp, {
     name = "Honorable Kills",
     category = "PvP", difficulty = "Hard",
     timeEstimate = "Ongoing",
-    note = "Lifetime honorable kills on a single character. Ticks itself from your PvP stats.",
+    note = "Lifetime honorable kills on one character. Progress is tracked automatically.",
     target = { kind = "hk", default = 25000, min = 100, max = 1000000, marks = { 0.04, 0.2, 0.4, 1 },
                step = "Earn %s honorable kills.", unit = "honorable kills" },
     steps = {
@@ -1328,7 +1331,7 @@ table.insert(pvp, {
     name = "Duelist",
     category = "PvP", difficulty = "Moderate",
     timeEstimate = "Ongoing",
-    note = "Prove yourself one duel at a time. Ticks itself from your Statistics window.",
+    note = "Win duels. Progress is tracked from your Statistics window.",
     tips = {
         "Right-click a player's portrait and choose Duel to challenge them.",
     },

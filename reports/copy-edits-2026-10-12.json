@@ -1,0 +1,722 @@
+{
+  "Data.lua": [
+    [
+      "Train \" .. (FOREVER_CLIENT and \"Journeyman\" or \"Expert\") .. \" Riding from your riding trainer",
+      "Train \" .. (FOREVER_CLIENT and \"Journeyman\" or \"Expert\") .. \" Riding"
+    ],
+    [
+      "This is the raid-dropped sword itself. The 'purified' legendary upgrade needs content beyond the original 1-60 game, so under classic rules this goal is really about the Corrupted Ashbringer drop.",
+      "The sword dropped in Naxxramas. Its purified legendary form is unavailable in Classic Era."
+    ],
+    [
+      "You'll need a 40-player raid that clears Naxxramas every week.",
+      "Bring a 40-player raid to Naxxramas."
+    ],
+    [
+      "The chest appears after the Four Horsemen die. Keep clearing weekly until the sword drops.",
+      "The chest appears after the Four Horsemen die."
+    ],
+    [
+      "The drop chance is very low, and the sword is Bind on Pickup, so only one raider can get it per kill.",
+      "The sword is a rare, bind-on-pickup drop."
+    ],
+    [
+      "Reach Exalted with Darnassus to learn Frostsaber riding (Night Elves skip this).",
+      "Reach Exalted with Darnassus (Night Elves skip this)."
+    ],
+    [
+      "Level 60 makes the trip and the daily kills much safer.",
+      "Level 60 makes the daily quests safer."
+    ],
+    [
+      "Exalted is the long part: expect several weeks even doing every turn-in daily.",
+      "Expect several weeks of daily turn-ins to reach Exalted."
+    ],
+    [
+      "Only for Druid, Mage, Priest, or Warlock. Requires access to Naxxramas, Ahn'Qiraj 40, and Stratholme.",
+      "For Druids, Mages, Priests and Warlocks. Requires Naxxramas, Ahn'Qiraj 40 and Stratholme."
+    ],
+    [
+      "Each class (Druid, Mage, Priest, Warlock) gets its own short purification questline and its own version of the staff.",
+      "Each class has its own purification quests and staff."
+    ],
+    [
+      "Atiesh gives a raid-wide aura, so guilds often hand the splinters to a support player.",
+      "Atiesh grants a raid-wide aura. Agree on a recipient before collecting splinters."
+    ],
+    [
+      "Hunter-only epic bow. It's built from the Ancient Rune Etched Stave you earn in the Lok'delar chain, so do that goal first. Since patch 1.8 one Hunter ends up with both weapons.",
+      "Hunter-only epic bow. Complete Lok'delar for the Ancient Rune Etched Stave used to make it."
+    ],
+    [
+      "Get the Ancient Rune Etched Stave from 'Stave of the Ancients' (the {lokdelar:Lok'delar} goal).",
+      "Earn the Ancient Rune Etched Stave from 'Stave of the Ancients' in the {lokdelar:Lok'delar} chain."
+    ],
+    [
+      "Optional: kill Azuregos in Azshara for a {item:18704:Mature Blue Dragon Sinew}, then turn in 'Ancient Sinew Wrapped Lamina' for the matching epic quiver.",
+      "Optional quiver: loot {item:18704:Mature Blue Dragon Sinew} from Azuregos in Azshara and complete 'Ancient Sinew Wrapped Lamina'."
+    ],
+    [
+      "Hunter-only epic staff, the first half of the Ancient Keepers chain. The same turn-in also gives the Ancient Rune Etched Stave used to make Rhok'delar.",
+      "Hunter-only epic staff. The turn-in also gives the Ancient Rune Etched Stave used to make Rhok'delar."
+    ],
+    [
+      "Bring the leaf to Vartrus the Ancient in Felwood and pick up 'Stave of the Ancients'.",
+      "Accept 'Stave of the Ancients' from Vartrus the Ancient in Felwood."
+    ],
+    [
+      "Fight each demon alone. If another player helps, the fight is forfeit.",
+      "Fight each demon alone. Help from another player forfeits the fight."
+    ],
+    [
+      "The classic legendary. Both bindings are roughly a 3% drop each, so this is usually a long farm even with consistent weekly clears.",
+      "Legendary sword requiring both Bindings of the Windseeker. Each binding has roughly a 3% drop chance."
+    ],
+    [
+      "Each half of the {item:18563:Bindings of the Windseeker} is a rare drop, roughly 3%, so plan on many weekly Molten Core clears.",
+      "Each half of the {item:18563:Bindings of the Windseeker} has roughly a 3% drop chance."
+    ],
+    [
+      "You need one binding in hand to start 'Examine the Vessel'.",
+      "Either binding starts 'Examine the Vessel'."
+    ],
+    [
+      "The Naxxramas sets. Bosses drop Desecrated tokens, and your class's quartermaster at Light's Hope Chapel (Eastern Plaguelands) turns each token, Wartorn scraps and crafting materials into a piece. Pick the classes you want in the Library, then click a piece to see its materials.",
+      "Naxxramas armor sets. Trade Desecrated tokens, Wartorn scraps and materials at Light's Hope Chapel in Eastern Plaguelands. Pick the classes you want in the Library, then click a piece to see its materials."
+    ],
+    [
+      "You need to be {att_naxx:attuned to Naxxramas} (Honored with the {rep_argentdawn:Argent Dawn}, plus a {item:12811:Righteous Orb}) on each character that raids it.",
+      "Each raider needs to be {att_naxx:attuned to Naxxramas}: Honored with the {rep_argentdawn:Argent Dawn} and a {item:12811:Righteous Orb}."
+    ],
+    [
+      "Wartorn scraps drop from trash all over Naxxramas. Each armor type has its own scrap (cloth, leather, chain or plate).",
+      "Naxxramas trash drops Wartorn scraps: cloth, leather, chain or plate."
+    ],
+    [
+      "A piece ticks itself when you own it, along with its materials. Tick materials by hand as you collect them.",
+      "Owning a piece completes it and its materials. Check off materials as you collect them."
+    ],
+    [
+      "Right-click the finished staff to swap between {item:18608:Benediction} (Holy) and {item:18609:Anathema} (Shadow). Swapping has a 30-minute cooldown.",
+      "Right-click to swap between {item:18608:Benediction} (Holy) and {item:18609:Anathema} (Shadow). Cooldown: 30 minutes."
+    ],
+    [
+      "The epic mount of each race in your faction: a level 60, swift riding trained, and gold. Any race can buy one at Exalted with its home city. Pick the mounts you want.",
+      "Your faction's epic racial mounts. Requires level 60, swift riding and gold. Other races need Exalted with the mount's home city. Pick the mounts you want."
+    ],
+    [
+      "Collecting them all on one character means Exalted with every city in your faction; the {rep_ambassador:Ambassador} goal covers that.",
+      "For all mounts on one character, reach Exalted with your faction's cities. See {rep_ambassador:Ambassador}."
+    ],
+    [
+      "Each vendor sells a few colors of the same mount for the same price, and any of them counts.",
+      "Any color counts. All colors cost the same."
+    ],
+    [
+      "Two-handed legendary mace. You need the Eye of Sulfuras from Ragnaros and a Sulfuron Hammer crafted by a 300 Blacksmith (you or someone you trust). Combining them is instant, with no quest turn-in.",
+      "Legendary two-handed mace. Combine Ragnaros's Eye of Sulfuras with a crafted Sulfuron Hammer. No quest turn-in needed."
+    ],
+    [
+      "Gather 10 Blood of the Mountain (rare from Dark Iron deposits).",
+      "Gather 10 Blood of the Mountain."
+    ],
+    [
+      "Gather 10 Lava Cores (Molten Core trash, BoE).",
+      "Gather 10 Lava Cores."
+    ],
+    [
+      "Gather 10 Fiery Cores (Molten Core trash, BoE).",
+      "Gather 10 Fiery Cores."
+    ],
+    [
+      "Tracked automatically. Every character you log into is remembered, and each class shows its highest character's level, filling as you earn XP. A class completes when any character of it hits 60. Characters you haven't logged into since installing show as not seen yet.",
+      "Reach level 60 with each class. Log into each character to track their level and XP; the highest level counts for each class."
+    ]
+  ],
+  "Library.lua": [
+    [
+      "text = name .. \" \" .. rank .. \".\"",
+      "text = \"Reach \" .. name .. \" \" .. rank .. \".\""
+    ],
+    [
+      "Lokhtos Darkbargainer's epic crafting recipes unlock as you climb, including fire resistance gear.",
+      "Unlock epic recipes and fire resistance gear from Lokhtos Darkbargainer."
+    ],
+    [
+      "The druids of Silithus. Ruins of Ahn'Qiraj kills and Twilight cultist turn-ins carry most of the grind.",
+      "Earn reputation through Silithus quests, Twilight cultist turn-ins and Ruins of Ahn'Qiraj."
+    ],
+    [
+      "Turn in {item:20404:Encrypted Twilight Texts} and run Ruins of Ahn'Qiraj for steady reputation.",
+      "Turn in {item:20404:Encrypted Twilight Texts} and clear Ruins of Ahn'Qiraj."
+    ],
+    [
+      "Speak with Duke Hydraxis on his island east of Azshara and do his quest chain.",
+      "Complete Duke Hydraxis's quests on his island east of Azshara."
+    ],
+    [
+      "Starts at Hated. The rings from Anachronos upgrade as you climb, and the grind is famously long.",
+      "Starts at Hated. Anachronos's rings improve as your reputation rises."
+    ],
+    [
+      "Your own race's city is the easy one; the rest take turn-ins.",
+      "Use quests and cloth turn-ins to raise reputation."
+    ],
+    [
+      "Each city has repeatable cloth turn-ins at its cloth quartermaster, the fastest route for most players.",
+      "Repeat cloth turn-ins at each city's cloth quartermaster."
+    ],
+    [
+      "Baron Rivendare's own steed. A tiny drop chance in the undead side of Stratholme.",
+      "Rare mount from Baron Rivendare on Stratholme's undead side."
+    ],
+    [
+      "Baron Rivendare is on Stratholme's undead side, through the service entrance, which the {key_strat:Key to the City} opens.",
+      "Reach Stratholme's undead side through the service entrance with the {key_strat:Key to the City}."
+    ],
+    [
+      "Run it with a group, or solo once you're well geared. The drop chance is tiny, so expect many runs.",
+      "Bring a group, or solo with strong gear. Expect many runs."
+    ],
+    [
+      "Zul'Gurub is a 20-player raid, so you'll need a raid group.",
+      "Bring a 20-player raid to Zul'Gurub."
+    ],
+    [
+      "The black battle tank, originally awarded only to Scarab Lords who rang the gong at the opening of Ahn'Qiraj. Whether Forever offers it again depends on how its gate event runs.",
+      "Scarab Lord mount from the opening of Ahn'Qiraj. Availability in Forever is unconfirmed."
+    ],
+    [
+      "The gong can only be rung once your realm's Ahn'Qiraj war effort is finished. Forever may run its own version of the event.",
+      "Finish your realm's Ahn'Qiraj war effort before ringing the gong. Forever's event rules are unconfirmed."
+    ],
+    [
+      "The Warlock's epic mount, earned through a level 60 quest chain that ends with a summoning ritual in Dire Maul. Quest IDs checked on Wowhead.",
+      "Warlock epic mount from a level 60 quest chain ending in Dire Maul."
+    ],
+    [
+      "Warlock only, and the chain needs level 60.",
+      "Requires a level 60 Warlock."
+    ],
+    [
+      "The chain starts with a demon trainer: Spackle Thornberry (Stormwind) or Jubahl Corpseseeker (Ironforge) for the Alliance, Martha Strain (Undercity) or Kurgul (Orgrimmar) for the Horde.",
+      "Start with a demon trainer: Spackle Thornberry (Stormwind), Jubahl Corpseseeker (Ironforge), Martha Strain (Undercity) or Kurgul (Orgrimmar)."
+    ],
+    [
+      "The Dire Maul ritual is a group fight, so bring friends.",
+      "Bring a group for the Dire Maul ritual."
+    ],
+    [
+      "The Paladin's epic mount, earned through Lord Grayson Shadowbreaker's level 60 quest chain that ends in Scholomance. Quest IDs checked on Wowhead.",
+      "Paladin epic mount from Lord Grayson Shadowbreaker's level 60 quest chain ending in Scholomance."
+    ],
+    [
+      "Paladin only, and the chain needs level 60.",
+      "Requires a level 60 Paladin."
+    ],
+    [
+      "Several steps ask for materials and gold, so read each quest's requirements before heading out.",
+      "Check quest requirements before collecting materials and gold."
+    ],
+    [
+      "A two-handed sword for Undead Paladins, earned through a quest chain in Silverpine Forest with materials from the Deadmines, Shadowfang Keep and Blackfathom Depths.",
+      "Undead Paladin two-handed sword from Silverpine Forest quests. Requires materials from the Deadmines, Shadowfang Keep and Blackfathom Depths."
+    ],
+    [
+      "For Horde Undead Paladins. Look for Danitha Morr at Bandarion Keep in western Tirisfal Glades from level 18.",
+      "At level 18, find Danitha Morr at Bandarion Keep in western Tirisfal Glades."
+    ],
+    [
+      "In Fenris Keep, collect the {item:267412:Fenris Isle Key} from Rot Hide Gnolls and turn it in to Lumina before starting her escort.",
+      "Loot the {item:267412:Fenris Isle Key} from Rot Hide Gnolls in Fenris Keep. Give it to Lumina before her escort."
+    ],
+    [
+      "Accept 'A Moon-Kissed Blade' before collecting the materials. The {item:267454:Trevan's Weapon Notes} list what you need.",
+      "Accept 'A Moon-Kissed Blade' before gathering materials. See {item:267454:Trevan's Weapon Notes}."
+    ],
+    [
+      "The {item:6994:Whitestone Oak Lumber} comes from goblins near Sneed's room in the Deadmines. The {item:267361:Enchanted Silver Ingot} is on the table beside Arugal at the end of Shadowfang Keep.",
+      "Loot {item:6994:Whitestone Oak Lumber} from goblins near Sneed's room in the Deadmines. Find the {item:267361:Enchanted Silver Ingot} on the table beside Arugal in Shadowfang Keep."
+    ],
+    [
+      "Accept 'Seeking the Kor Gem' from Ulric Frostveil before collecting the {item:6995:Corrupted Kor Gem} from naga near Blackfathom Depths. Return it to him for the {item:272448:Purified Kor Gem}.",
+      "Accept 'Seeking the Kor Gem' from Ulric Frostveil. Loot the {item:6995:Corrupted Kor Gem} from naga near Blackfathom Depths and return it for the {item:272448:Purified Kor Gem}."
+    ],
+    [
+      "Raise your Two-Handed Swords skill before fighting Old Fire-Eye. Equip the {item:268484:Moonsilver Blade} and land a hit to break his protection; bring help for the elite fight.",
+      "Raise Two-Handed Swords before fighting Old Fire-Eye. Hit him with the {item:268484:Moonsilver Blade} to break his protection. Bring help."
+    ],
+    [
+      "Loot Nostro's Compendium of Dragon Slaying in Dire Maul (rare).",
+      "Loot Nostro's Compendium of Dragon Slaying in Dire Maul."
+    ],
+    [
+      "Boss kills tick off automatically when you're in the raid with the addon loaded.",
+      "Boss kills are tracked while you're in the raid with the addon enabled."
+    ],
+    [
+      "Complete {att_bwl:Blackhand's Command} ({key_ubrs:Upper Blackrock Spire}) for attunement.",
+      "Complete {att_bwl:Blackhand's Command} in {key_ubrs:Upper Blackrock Spire}."
+    ],
+    [
+      "The hardest raid in the game: all four wings, Sapphiron and Kel'Thuzad.",
+      "Clear all four wings, Sapphiron and Kel'Thuzad."
+    ],
+    [
+      "A new 20-player raid in Mount Hyjal, opening December 9, 2026. More bosses join this guide as they're revealed.",
+      "New 20-player raid in Mount Hyjal. Opens December 9, 2026."
+    ],
+    [
+      "Its bosses, entrance and loot haven't been revealed yet; this guide grows as they are.",
+      "Full boss list, entrance and loot are unconfirmed."
+    ],
+    [
+      "A new 10-player raid where the Night Elves hold dangerous prisoners, with three entrances, one in Mount Hyjal. Opens December 9, 2026.",
+      "New 10-player prison raid with three entrances, including Mount Hyjal. Opens December 9, 2026."
+    ],
+    [
+      "Its bosses, entrances and loot haven't been revealed yet; this guide grows as they are.",
+      "Full boss list, entrance locations and loot are unconfirmed."
+    ],
+    [
+      "Required to enter Molten Core. A short trip into Blackrock Depths to the raid's entry portal.",
+      "Molten Core attunement from the entry portal in Blackrock Depths."
+    ],
+    [
+      "The Alliance chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire and Blackrock Depths and ends with a masquerade in Stormwind.",
+      "Alliance quest chain for the Drakefire Amulet. Visit Blackrock Spire, Blackrock Depths and Stormwind to unlock Onyxia's Lair."
+    ],
+    [
+      "Complete the 'The True Masters' quests.",
+      "Complete 'The True Masters'."
+    ],
+    [
+      "The Horde chain to the Drakefire Amulet, which opens Onyxia's Lair. It runs through Blackrock Spire, the Test of Skulls and Upper Blackrock Spire.",
+      "Horde quest chain for the Drakefire Amulet. Complete the Test of Skulls and Blackrock Spire quests to unlock Onyxia's Lair."
+    ],
+    [
+      "Complete 'Warlord's Command' and turn it in to Warlord Goretooth in Kargath, Badlands.",
+      "Turn in 'Warlord's Command' to Warlord Goretooth in Kargath, Badlands."
+    ],
+    [
+      "Without the Mark of Drakkisath you can't use the orb into Blackwing Lair. The whole quest happens in Blackrock Spire.",
+      "Earn the Mark of Drakkisath in Blackrock Spire to use the Blackwing Lair entrance orb."
+    ],
+    [
+      "Taken at Light's Hope Chapel in the Eastern Plaguelands once you're Honored with the Argent Dawn.",
+      "Attunement at Light's Hope Chapel in Eastern Plaguelands. Requires Honored with the Argent Dawn."
+    ],
+    [
+      "Reaching Revered first makes the attunement cheaper.",
+      "Revered lowers the attunement cost."
+    ],
+    [
+      "The Seal of Ascension opens Upper Blackrock Spire. You build it from gems collected in Lower Blackrock Spire.",
+      "Opens Upper Blackrock Spire. Collect the gems in Lower Blackrock Spire."
+    ],
+    [
+      "Fishing, Cooking and First Aid to 300 on any character. Pick the ones you want in the Library; each ticks itself from your skill levels.",
+      "Reach 300 in Fishing, Cooking and First Aid across your characters. Pick the skills you want in the Library."
+    ],
+    [
+      "Primary professions at 300 somewhere on your roster. Pick the ones you care about in the Library; each ticks itself from your skill levels.",
+      "Reach 300 in primary professions across your characters. Pick the professions you want in the Library."
+    ],
+    [
+      "Race to bring 40 Speckled Tastyfish to Riggle Bassbait in Booty Bay before the other anglers. Win once and choose a tournament prize.",
+      "Be first to deliver 40 Speckled Tastyfish to Riggle Bassbait in Booty Bay and win a prize."
+    ],
+    [
+      "The Classic tournament runs on Sundays. Check your realm's event schedule; Forever's timing and rules have not been verified.",
+      "Classic's tournament runs on Sundays. Check your realm's schedule; Forever's timing and rules are unconfirmed."
+    ],
+    [
+      "Fish in Pools of Tastyfish around Stranglethorn Vale. Booty Bay itself has no tournament pools. Fishing 225 or higher helps avoid fish getting away.",
+      "Fish in Stranglethorn Vale's Pools of Tastyfish, outside Booty Bay. Fishing 225+ reduces escaped fish."
+    ],
+    [
+      "Set your hearthstone in Booty Bay, keep it ready, and leave bag space for the catch. Riggle Bassbait stands on the central docks near the inn during the event.",
+      "Set your hearthstone in Booty Bay and leave bag space. Keep your hearthstone ready. Find Riggle Bassbait on the central docks near the inn."
+    ],
+    [
+      "The first 'Master Angler' turn-in wins. Choose either {item:19970:Arcanite Fishing Pole} or {item:19979:Hook of the Master Angler}; owning either completes this goal.",
+      "The first 'Master Angler' turn-in wins. Either prize completes the goal: {item:19970:Arcanite Fishing Pole} or {item:19979:Hook of the Master Angler}."
+    ],
+    [
+      "{item:19807:Speckled Tastyfish} expire after the event, so they cannot be saved for next week's tournament.",
+      "{item:19807:Speckled Tastyfish} expire after the event. You cannot save them for next week."
+    ],
+    [
+      "Reach Fishing 150 on a character.",
+      "Reach Fishing 150."
+    ],
+    [
+      "Hold your gold target on a single character, with milestones on the way. Ticks itself from your gold.",
+      "Reach your gold target on one character. Progress is tracked automatically."
+    ],
+    [
+      "Find your people: join a guild and wear its colors. Ticks itself.",
+      "Join a guild and wear its tabard. Progress is tracked automatically."
+    ],
+    [
+      "Guilds recruit in the Guild Recruitment channel in capital cities, and in general chat.",
+      "Find guilds in Guild Recruitment or General chat."
+    ],
+    [
+      "{item:5976:Guild Tabards} are sold by the Guild Master in each capital city once your guild has designed its tabard.",
+      "Buy {item:5976:Guild Tabards} from a capital city's Guild Master after your guild designs its tabard."
+    ],
+    [
+      "Add the people you enjoy playing with to your friends list. Ticks itself.",
+      "Build your friends list. Progress is tracked automatically."
+    ],
+    [
+      "Have 5 friends on your friends list.",
+      "Have 5 friends."
+    ],
+    [
+      "Have 10 friends on your friends list.",
+      "Have 10 friends."
+    ],
+    [
+      "Have 25 friends on your friends list.",
+      "Have 25 friends."
+    ],
+    [
+      " Qiraji battle tank from trash enemies in Temple of Ahn'Qiraj. Ticks itself when the crystal or learned mount is owned.",
+      " Qiraji battle tank from trash in Temple of Ahn'Qiraj."
+    ],
+    [
+      "These crystals drop in {raid_aq40:Temple of Ahn'Qiraj}, the 40-player raid, rather than Ruins of Ahn'Qiraj.",
+      "These crystals drop in {raid_aq40:Temple of Ahn'Qiraj} (AQ40)."
+    ],
+    [
+      "In Classic, this mount can only be ridden inside Temple of Ahn'Qiraj and requires level 60. Forever's rules have not been verified.",
+      "Classic: level 60 required; usable only inside Temple of Ahn'Qiraj. Forever's rules are unconfirmed."
+    ],
+    [
+      "The red crystal drops less often than blue, green and yellow. None of these requires the Scarab Gong event for the {mount_qiraji:black battle tank}.",
+      "Red is rarer than blue, green and yellow. These mounts do not require the {mount_qiraji:black battle tank}'s Scarab Gong event."
+    ],
+    [
+      "Most pieces drop from Molten Core bosses; belts and bracers come from Molten Core trash. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+      "Bosses drop most pieces; trash drops belts and bracers. Pick the classes you want in the Library; owned pieces complete automatically."
+    ],
+    [
+      "Pick the classes you want in the Library; each piece ticks itself when you own it.",
+      "Pick the classes you want in the Library; owned pieces complete automatically."
+    ],
+    [
+      "Darkmaster Gandling, General Drakkisath and Baron Rivendare drop the helm, chest and legs for every class, so those three runs are worth repeating.",
+      "Darkmaster Gandling drops helms, General Drakkisath chests, and Baron Rivendare legs for every class."
+    ],
+    [
+      "Most belts and bracers are random trash drops, so they can turn up in any of the three dungeons.",
+      "Most belts and bracers drop from trash in these dungeons."
+    ],
+    [
+      "The upgraded dungeon sets. Every piece comes from a long quest chain that trades in your Dungeon Set 1 pieces plus materials and gold.",
+      "Upgrade Dungeon Set 1 pieces through quests requiring materials and gold."
+    ],
+    [
+      "The chain starts with 'An Earnest Proposition' from Deliana in Ironforge (Alliance) or Mokvar in Orgrimmar (Horde).",
+      "Start 'An Earnest Proposition' with Deliana in Ironforge (Alliance) or Mokvar in Orgrimmar (Horde)."
+    ],
+    [
+      "Keep your Dungeon Set 1 pieces: each upgrade quest needs the matching Set 1 piece.",
+      "Keep your Dungeon Set 1 pieces. Each upgrade needs its matching piece."
+    ],
+    [
+      "Updated in WoW Forever with a new set bonus that turns you into a snake.",
+      "New Forever set bonus: transform into a snake."
+    ],
+    [
+      "Loot Gloves of the Fang from Druids of the Fang (rare).",
+      "Loot Gloves of the Fang from Druids of the Fang."
+    ],
+    [
+      "The new class sets from WoW Forever's first new raids, Hyjal Summit and the Barrow Deeps, which open December 9, 2026.",
+      "New class sets from Hyjal Summit and the Barrow Deeps, opening December 9, 2026."
+    ],
+    [
+      "Pick the sets you want in the Library; each piece ticks itself when you own it.",
+      "Pick the sets you want in the Library; owned pieces complete automatically."
+    ],
+    [
+      "Which boss drops each piece isn't revealed yet; sources are added as they are.",
+      "Drop sources are unknown."
+    ],
+    [
+      "Collect the five pieces of this new cloth set in Warcraft Forever. Each piece ticks itself when you own it.",
+      "New five-piece cloth set in Forever. Owned pieces complete automatically."
+    ],
+    [
+      "{item:273051:Violet Sorcerer's Mantle} and {item:273044:Violet Sorcerer's Robes} bind on pickup. The other three pieces bind on equip, so they can be traded before being equipped.",
+      "{item:273051:Violet Sorcerer's Mantle} and {item:273044:Violet Sorcerer's Robes} bind on pickup. The other three pieces are tradable until equipped."
+    ],
+    [
+      "The full set requires level 30 to wear every piece. It has no class restriction listed.",
+      "Full set requires level 30. No class restriction listed."
+    ],
+    [
+      "Four pieces can improve mana regeneration while casting; the effect is stronger in Strongholds and Cities. Five pieces can summon an Arcane elemental when you deal spell damage.",
+      "Four pieces: chance to improve mana regeneration while casting, stronger in Strongholds and Cities. Five pieces: chance to summon an Arcane elemental with spell damage."
+    ],
+    [
+      "Each piece unlocks at a PvP rank, from rank 9 (boots) to rank 13 (helm and chest).",
+      "Pieces unlock from rank 9 (boots) to rank 13 (helm and chest)."
+    ],
+    [
+      "In WoW Forever's database. The ranks come from each piece's name; how Forever's PvP ranks work isn't confirmed yet.",
+      "Listed ranks come from item names. Forever's PvP rank rules are unconfirmed."
+    ],
+    [
+      "The top PvP rank and its rank 14 weapons. Rank steps tick themselves from your current or highest-ever rank.",
+      "Reach rank 14 and buy its weapons. Your current or highest recorded rank counts."
+    ],
+    [
+      "Lifetime honorable kills on a single character. Ticks itself from your PvP stats.",
+      "Lifetime honorable kills on one character. Progress is tracked automatically."
+    ],
+    [
+      "Prove yourself one duel at a time. Ticks itself from your Statistics window.",
+      "Win duels. Progress is tracked from your Statistics window."
+    ],
+    [
+      "Have %s friends on your friends list.",
+      "Have %s friends."
+    ],
+    [
+      "(p[1] .. \" from \" .. p[3] .. \".\")",
+      "(\"Collect \" .. p[1] .. \" from \" .. p[3] .. \".\")"
+    ],
+    [
+      "(p[1] .. \"  |cff888888Source unknown|r\")",
+      "(\"Collect \" .. p[1] .. \"  |cff888888Source unknown|r\")"
+    ]
+  ],
+  "AQArmor.lua": [
+    [
+      "The turn-in NPCs are inside {raid_aq40:Temple of Ahn'Qiraj}, near C'Thun's chamber, accessible after defeating The Prophet Skeram.",
+      "Find turn-in NPCs near C'Thun's chamber in {raid_aq40:Temple of Ahn'Qiraj}, after defeating The Prophet Skeram."
+    ],
+    [
+      "Idols and scarabs come from AQ40 trash and scarab coffers. Keep them for your armor turn-ins.",
+      "Save idols and scarabs from AQ40 trash and scarab coffers for armor turn-ins."
+    ],
+    [
+      "The five-piece Ahn'Qiraj sets, known as Tier 2.5. Exchange AQ40 boss tokens, idols and scarabs with Brood of Nozdormu reputation. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+      "Five-piece Tier 2.5 sets. Trade AQ40 tokens, idols and scarabs; Brood of Nozdormu reputation is required. Pick the classes you want in the Library; owned pieces complete automatically."
+    ]
+  ],
+  "Core.lua": [
+    [
+      "Shift-click to link it in chat. Right-click for its Wowhead link.",
+      "Shift-click: link in chat. Right-click: Wowhead."
+    ],
+    [
+      "Hover the item's name or icon for its tooltip. Right-click for its Wowhead link.",
+      "Hover item: details. Right-click: Wowhead."
+    ],
+    [
+      "Found disguised as ",
+      "Disguised as "
+    ],
+    [
+      ", who wanders nearby",
+      " (wanders nearby)"
+    ],
+    [
+      "Shift-click to set a TomTom waypoint.",
+      "Shift-click: TomTom waypoint"
+    ],
+    [
+      "Shift-click to show on your map.",
+      "Shift-click: show on map"
+    ],
+    [
+      "Right-click for map and Wowhead options.",
+      "Right-click: map and Wowhead"
+    ],
+    [
+      "Right-click for its Wowhead link.",
+      "Right-click: Wowhead"
+    ],
+    [
+      "Starts from an item: ",
+      "Starts with: "
+    ],
+    [
+      "Every class has its own version of this quest.",
+      "Quest varies by class."
+    ],
+    [
+      "None of your characters have started it yet.",
+      "Not started on tracked characters."
+    ],
+    [
+      "Shift-click to put its name in chat.",
+      "Shift-click: name in chat"
+    ],
+    [
+      "On your tracker. Click to open it.",
+      "Click to open"
+    ],
+    [
+      "Click to track this goal.",
+      "Click to add"
+    ],
+    [
+      "In WoW Forever's database, but the steps aren't confirmed yet. They follow Classic Era and may differ.",
+      "Listed in Forever. Steps are based on Classic Era and unconfirmed."
+    ],
+    [
+      "Not yet confirmed in WoW Forever. These steps follow Classic Era and may differ.",
+      "Unconfirmed in Forever. Steps are based on Classic Era."
+    ],
+    [
+      "Puts back the ticks you just cleared.",
+      "Restores cleared steps."
+    ],
+    [
+      "Clears its ticks. You can undo it for 10 seconds.",
+      "Clears completed steps. Undo within 10 seconds."
+    ],
+    [
+      "No character of this class seen yet. Log into one once and it's tracked from then on.",
+      "Log into a character of this class to track their level."
+    ],
+    [
+      "Checks itself off when ",
+      "Completes when "
+    ],
+    [
+      "You can still click to tick it by hand.",
+      "Click to check off manually."
+    ],
+    [
+      "Right-click for the quest's Wowhead link.",
+      "Right-click: quest on Wowhead"
+    ],
+    [
+      "Suggestions for the character you're on, skipping goals you already have.",
+      "Suggestions for this character. Tracked goals are excluded."
+    ],
+    [
+      "Your progress is kept if you add them back.",
+      "Saved progress is kept."
+    ],
+    [
+      "Warcraft Serif uses Cinzel headings. Warcraft Modern uses Open Sans. Sizes are tuned to keep a similar footprint.",
+      "Cinzel headings or Open Sans. Similar text sizes."
+    ],
+    [
+      "Show unfinished tracked goals on items in bags, loot and the Auction House, with remaining amounts from your characters' last scans",
+      "Show tracked goals and remaining item needs. Counts use your characters' last scans."
+    ],
+    [
+      "Your overall progress in chat a few seconds after you log in",
+      "Show overall progress after login"
+    ],
+    [
+      "A line in chat with a link to the goal you finished",
+      "Announce completed goals in chat"
+    ],
+    [
+      "A tile near the top of the screen when a goal finishes",
+      "Show a banner when a goal completes"
+    ],
+    [
+      "Saved in the game's Screenshots folder, like pressing Print Screen",
+      "Save to the game's Screenshots folder"
+    ],
+    [
+      "Plays the message, banner, sound and screenshot, whatever they're set to",
+      "Preview your enabled alerts"
+    ],
+    [
+      "When a step, group or goal finishes. Subtle keeps the checkmark pop only.",
+      "Completion effects. Subtle keeps only the checkmark pop."
+    ],
+    [
+      "Which of the game's volume sliders the sound follows",
+      "Use this channel's volume"
+    ],
+    [
+      "Display large photos behind the goal window. Turn off to display smaller photos.",
+      "Turn off for smaller goal photos"
+    ],
+    [
+      "Show this window each time you log in",
+      "Open the tracker after login"
+    ],
+    [
+      "Pick what you enjoy and get goals for this character",
+      "Find goals for this character"
+    ],
+    [
+      "Back to the default size, centered",
+      "Restore default size and center the window"
+    ],
+    [
+      "When you shift-click an NPC or use Show on map. Automatic uses TomTom if it's installed.",
+      "Choose where NPC map pins appear. Automatic uses TomTom when installed."
+    ],
+    [
+      "Click to open your checklist",
+      "Click to open tracker"
+    ],
+    [
+      "Ctrl-click to preview this mount.",
+      "Ctrl-click: preview mount"
+    ],
+    [
+      "Ctrl-click to try it on.",
+      "Ctrl-click: try on"
+    ],
+    [
+      "Ctrl-click to preview each color in turn.",
+      "Ctrl-click: cycle colors"
+    ],
+    [
+      "Epic mount, sold in %d colors:",
+      "Epic mount · %d colors"
+    ],
+    [
+      "Right-click for the Wowhead link.",
+      "Right-click: Wowhead"
+    ],
+    [
+      "Right-click for \" .. v.vendor .. \"'s Wowhead page, with every color.",
+      "Right-click: \" .. v.vendor .. \" on Wowhead (all colors)"
+    ],
+    [
+      "WoW Forever shows this item's details once players find it after launch.",
+      "Item details are unavailable in Forever."
+    ],
+    [
+      "Loading item details...",
+      "Loading item..."
+    ]
+  ],
+  "Dependencies.lua": [
+    [
+      "Step locked",
+      "Locked"
+    ],
+    [
+      "Complete these prerequisites first:",
+      "Complete first:"
+    ],
+    [
+      "Complete either prerequisite:",
+      "Complete one:"
+    ]
+  ],
+  "ItemTooltips.lua": [
+    [
+      "Counts include your tracked characters' last scans.",
+      "Counts use tracked characters' last scans."
+    ]
+  ]
+}

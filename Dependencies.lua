@@ -88,7 +88,7 @@ function FGT.ShowStepLockTip(row)
     if FGT.overLink then return end
     local _, missing = FGT.StepLocked(row.depGoal, row.depKey)
     GameTooltip:SetOwner(row, "ANCHOR_RIGHT")
-    GameTooltip:AddLine("Step locked", 1, 0.84, 0.4)
+    GameTooltip:AddLine("Locked", 1, 0.84, 0.4)
     local function lines(keys, heading)
         if #keys == 0 then return end
         GameTooltip:AddLine(heading, 0.9, 0.48, 0.43, true)
@@ -98,8 +98,8 @@ function FGT.ShowStepLockTip(row)
             GameTooltip:AddLine("• " .. FGT.StepText(text or tostring(key)), 0.88, 0.66, 0.61, true)
         end
     end
-    lines(missing.all, "Complete these prerequisites first:")
-    lines(missing.any, "Complete either prerequisite:")
+    lines(missing.all, "Complete first:")
+    lines(missing.any, "Complete one:")
     GameTooltip:Show()
 end
 

@@ -101,7 +101,7 @@ function FGT.AddItemNeeds(tooltip, id)
         tooltip:AddLine(entry.goal.name .. "  (" .. (entry.remaining > 0
             and (entry.remaining .. " more") or "Collected") .. ")", 0.88, 0.82, 0.69, true)
     end
-    tooltip:AddLine("Counts include your tracked characters' last scans.", 0.55, 0.52, 0.47, true)
+    tooltip:AddLine("Counts use tracked characters' last scans.", 0.55, 0.52, 0.47, true)
     return true
 end
 

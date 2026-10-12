@@ -912,36 +912,38 @@ local function DescribeRule(rule)
         return n or ("item " .. id)
     end
     if rule.level then table.insert(parts, "any character reaches level " .. rule.level) end
-    if rule.raceLevel then table.insert(parts, "a " .. rule.raceLevel.race .. " character reaches " .. rule.raceLevel.level) end
+    if rule.raceLevel then table.insert(parts, "a " .. rule.raceLevel.race .. " character reaches level " .. rule.raceLevel.level) end
     if rule.item then
         local ids = AsList(rule.item)
         table.insert(parts, ((rule.count or 1) > 1 and ("you hold " .. rule.count .. "x ") or "you own ") .. itemName(ids[1]))
     end
-    if rule.quest then table.insert(parts, "the quest is turned in") end
-    if rule.questTaken then table.insert(parts, "you pick up the quest") end
+    if rule.quest then table.insert(parts, "you complete the quest") end
+    if rule.questTaken then table.insert(parts, "you accept the quest") end
     if rule.rep then
         table.insert(parts, "reputation reaches " .. (STANDING[rule.rep.standing] or "?")
             .. ((rule.rep.value or 0) > 0 and (" " .. rule.rep.value) or ""))
     end
     if rule.race then table.insert(parts, "you have a " .. (rule.race == "Scourge" and "Undead" or rule.race) .. " character") end
     if rule.boss then
-        table.insert(parts, "you defeat " .. AsList(rule.boss)[1] .. " with the addon running")
+        table.insert(parts, "you defeat " .. AsList(rule.boss)[1] .. " with the addon enabled")
     end
     if rule.skill then table.insert(parts, rule.skill.name .. " reaches " .. rule.skill.rank) end
     if rule.money then table.insert(parts, "a character has " .. math.floor(rule.money / 10000) .. " gold") end
-    if rule.pvpRank then table.insert(parts, "your PvP rank (current or highest ever) reaches " .. rule.pvpRank) end
+    if rule.pvpRank then table.insert(parts, "your current or highest recorded PvP rank reaches " .. rule.pvpRank) end
     if rule.hk then table.insert(parts, "a character reaches " .. rule.hk .. " lifetime honorable kills") end
     if rule.guild then table.insert(parts, "a character joins a guild") end
-    if rule.friends then table.insert(parts, "a character has " .. rule.friends .. " friends on their friends list") end
+    if rule.friends then table.insert(parts, "a character has " .. rule.friends .. " friends") end
     if rule.stat then
         table.insert(parts, "a character's " .. (rule.stat.what or "statistic") .. " reaches " .. rule.stat.value
-            .. " (from the Statistics window)")
+            .. " (Statistics)")
     end
-    if rule.forRace then table.insert(parts, "(" .. (rule.forRace == "Scourge" and "Undead" or rule.forRace) .. " characters only)") end
-    if rule.forFaction then table.insert(parts, "(" .. rule.forFaction .. " characters only)") end
-    if rule.forClass then table.insert(parts, "(" .. rule.forClass .. " characters only)") end
-    if rule.owned or rule.ownedPattern then table.insert(parts, "it shows up in your bags, gear or mount collection") end
-    return table.concat(parts, ", or ")
+    if rule.owned or rule.ownedPattern then table.insert(parts, "you own it in bags, gear or your mount collection") end
+    -- Scope qualifies every alternative; it is not another way to finish.
+    local scope = {}
+    if rule.forRace then scope[#scope+1] = rule.forRace == "Scourge" and "Undead" or rule.forRace end
+    if rule.forFaction then scope[#scope+1] = rule.forFaction end
+    if rule.forClass then scope[#scope+1] = rule.forClass end
+    return table.concat(parts, ", or ") .. (#scope > 0 and (" (" .. table.concat(scope, ", ") .. " characters only)") or "")
 end
 
 -- Ticks every step whose rule is met. Never unticks: items get
@@ -1498,17 +1500,17 @@ do
         end
         if FGT.NpcNote(n) then GameTooltip:AddLine(FGT.NpcNote(n), FGT.NpcNoteColor(n)) end
         if n.disguise then
-            GameTooltip:AddLine("Found disguised as " .. n.disguise .. (n.wanders and ", who wanders nearby" or "") .. ".",
+            GameTooltip:AddLine("Disguised as " .. n.disguise .. (n.wanders and " (wanders nearby)" or "") .. ".",
                 C.INK2[1], C.INK2[2], C.INK2[3], true)
         end
         GameTooltip:AddLine(" ")
         if n.map then
             local tomtom = FGT.UseTomTom()
-            GameTooltip:AddLine(tomtom and "Shift-click to set a TomTom waypoint." or "Shift-click to show on your map.",
+            GameTooltip:AddLine(tomtom and "Shift-click: TomTom waypoint" or "Shift-click: show on map",
                 C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
-            GameTooltip:AddLine("Right-click for map and Wowhead options.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+            GameTooltip:AddLine("Right-click: map and Wowhead", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         else
-            GameTooltip:AddLine("Right-click for its Wowhead link.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+            GameTooltip:AddLine("Right-click: Wowhead", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         end
         GameTooltip:Show()
     end
@@ -1620,11 +1622,11 @@ do
             GameTooltip:AddLine("Starts with " .. q.startName .. where, C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
         end
         if q.startItem then -- "This Item Begins a Quest"
-            GameTooltip:AddLine("Starts from an item: |cfff0dcb0" .. q.startItem[2] .. "|r", C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
+            GameTooltip:AddLine("Starts with: |cfff0dcb0" .. q.startItem[2] .. "|r", C.TEXT[1], C.TEXT[2], C.TEXT[3], true)
         end
         GameTooltip:AddLine(" ")
         if q.perClass then
-            GameTooltip:AddLine("Every class has its own version of this quest.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+            GameTooltip:AddLine("Quest varies by class.", C.INK2[1], C.INK2[2], C.INK2[3], true)
         else
             -- your characters, most recently played first
             local list, me = {}, CharKey()
@@ -1641,12 +1643,12 @@ do
                 end
             end
             if shown == 0 then
-                GameTooltip:AddLine("None of your characters have started it yet.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+                GameTooltip:AddLine("Not started on tracked characters.", C.INK2[1], C.INK2[2], C.INK2[3], true)
             end
         end
         GameTooltip:AddLine(" ")
-        GameTooltip:AddLine("Shift-click to put its name in chat.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
-        GameTooltip:AddLine("Right-click for its Wowhead link.", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:AddLine("Shift-click: name in chat", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:AddLine("Right-click: Wowhead", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         GameTooltip:Show()
     end
 
@@ -1709,7 +1711,7 @@ function FGT.EnableGoalLinks(f)
         GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
         local A = FGT.GOAL_RGB -- the ticker paints the link's moving gradient on it
         GameTooltip:AddLine(goal.name, A[1], A[2], A[3])
-        GameTooltip:AddLine(IsActive(goal) and "On your tracker. Click to open it." or "Click to track this goal.",
+        GameTooltip:AddLine(IsActive(goal) and "Click to open" or "Click to add",
             C.INK2[1], C.INK2[2], C.INK2[3])
         GameTooltip:Show()
         FGT.tipShine = { owner = self, name = goal.name }
@@ -2170,11 +2172,11 @@ function FGT.ForeverNote(goal, short)
     if s == "listed" then
         -- a goal can say what's unconfirmed about it (the PvP sets: the ranks)
         return (not short and goal.foreverNote)
-            or "In WoW Forever's database, but the steps aren't confirmed yet. They follow Classic Era and may differ."
+            or (short and "Steps unconfirmed in Forever." or "Listed in Forever. Steps are based on Classic Era and unconfirmed.")
     elseif s == "unconfirmed" then
         -- a goal can say more (Tier 1 and 2: removed in Forever)
         return (not short and goal.foreverNote)
-            or "Not yet confirmed in WoW Forever. These steps follow Classic Era and may differ."
+            or (short and "Unconfirmed in Forever." or "Unconfirmed in Forever. Steps are based on Classic Era.")
     end
 end
 
@@ -5264,11 +5266,11 @@ function FGT.StyleResetButton()
         GameTooltip:SetOwner(resetBtn, "ANCHOR_LEFT")
         if undo then
             GameTooltip:AddLine("Undo reset", C.TITLE[1], C.TITLE[2], C.TITLE[3])
-            GameTooltip:AddLine("Puts back the ticks you just cleared.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+            GameTooltip:AddLine("Restores cleared steps.", C.INK2[1], C.INK2[2], C.INK2[3], true)
             GameTooltip:AddLine(string.format("%d seconds left", math.max(0, math.ceil(undo.expires - GetTime()))), C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
         else
             GameTooltip:AddLine("Reset this goal", 1, 0.6, 0.55)
-            GameTooltip:AddLine("Clears its ticks. You can undo it for 10 seconds.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+            GameTooltip:AddLine("Clears completed steps. Undo within 10 seconds.", C.INK2[1], C.INK2[2], C.INK2[3], true)
         end
         GameTooltip:Show()
     elseif GameTooltip:IsOwned(resetBtn) then
@@ -5405,7 +5407,7 @@ local function GetStepRow(index)
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
             GameTooltip:AddLine(self.autoEntry.text, C.TITLE[1], C.TITLE[2], C.TITLE[3])
             if #list == 0 then
-                GameTooltip:AddLine("No character of this class seen yet. Log into one once and it's tracked from then on.",
+                GameTooltip:AddLine("Log into a character of this class to track their level.",
                     C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             else
                 for _, c in ipairs(list) do
@@ -5418,18 +5420,18 @@ local function GetStepRow(index)
         elseif self.ruleEntry then
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
             GameTooltip:AddLine("Tracked automatically", C.TITLE[1], C.TITLE[2], C.TITLE[3])
-            GameTooltip:AddLine("Checks itself off when " .. DescribeRule(self.ruleEntry) .. ".",
+            GameTooltip:AddLine("Completes when " .. DescribeRule(self.ruleEntry) .. ".",
                 0.9, 0.9, 0.9, true)
             local now = RuleReadout(self.ruleEntry)
             if now then
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
             end
-            GameTooltip:AddLine("You can still click to tick it by hand.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            GameTooltip:AddLine("Click to check off manually.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             if self.itemId then
-                GameTooltip:AddLine("Hover the item's name or icon for its tooltip. Right-click for its Wowhead link.",
+                GameTooltip:AddLine("Hover item: details. Right-click: Wowhead.",
                     C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             elseif self.questId then
-                GameTooltip:AddLine("Right-click for the quest's Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+                GameTooltip:AddLine("Right-click: quest on Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             end
             GameTooltip:Show()
         end
@@ -6833,7 +6835,7 @@ function FGT.FindMoreButton()
         self.text:SetTextColor(1, 1, 1)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine("Find your next goal", C.TITLE[1], C.TITLE[2], C.TITLE[3])
-        GameTooltip:AddLine("Suggestions for the character you're on, skipping goals you already have.",
+        GameTooltip:AddLine("Suggestions for this character. Tracked goals are excluded.",
             C.INK2[1], C.INK2[2], C.INK2[3], true)
         GameTooltip:Show()
     end)
@@ -6926,7 +6928,7 @@ do
         self:SetEtch(STYLE.btnHover)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine("Remove all goals", C.TITLE[1], C.TITLE[2], C.TITLE[3])
-        GameTooltip:AddLine("Your progress is kept if you add them back.", 0.9, 0.9, 0.9, true)
+        GameTooltip:AddLine("Saved progress is kept.", 0.9, 0.9, 0.9, true)
         GameTooltip:Show()
     end)
     btn:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button); GameTooltip:Hide() end)
@@ -8377,32 +8379,32 @@ end
 FGT.SETTINGS = {
     { title = "Typography", rows = {
         { type = "choice", key = "typeStyle", label = "Type style",
-          desc = "Warcraft Serif uses Cinzel headings. Warcraft Modern uses Open Sans. Sizes are tuned to keep a similar footprint.",
+          desc = "Cinzel headings or Open Sans. Similar text sizes.",
           options = { { "serif", "Warcraft Serif" }, { "modern", "Warcraft Modern" } },
           apply = function() FGT.ApplyTypeStyle() end },
     } },
     { title = "Item tooltips", rows = {
         { type = "toggle", key = "itemNeeds", label = "Show Needed for",
-          desc = "Show unfinished tracked goals on items in bags, loot and the Auction House, with remaining amounts from your characters' last scans" },
+          desc = "Show tracked goals and remaining item needs. Counts use your characters' last scans." },
     } },
     { title = "Chat and alerts", rows = {
         { type = "toggle", key = "greeting", label = "Login check-in",
-          desc = "Your overall progress in chat a few seconds after you log in" },
+          desc = "Show overall progress after login" },
         { type = "toggle", key = "completeChat", label = "Goal complete message",
-          desc = "A line in chat with a link to the goal you finished" },
+          desc = "Announce completed goals in chat" },
         { type = "toggle", key = "completeBanner", label = "Goal complete banner",
-          desc = "A tile near the top of the screen when a goal finishes" },
+          desc = "Show a banner when a goal completes" },
         { type = "toggle", key = "screenshot", label = "Screenshot when a goal finishes",
-          desc = "Saved in the game's Screenshots folder, like pressing Print Screen" },
+          desc = "Save to the game's Screenshots folder" },
         { type = "toggle", key = "stepChat", label = "Step updates in chat",
           desc = "\"3 steps checked off\", boss kills and characters reaching 60" },
         { type = "button", label = "Try the goal-complete alerts",
-          desc = "Plays the message, banner, sound and screenshot, whatever they're set to",
+          desc = "Preview your enabled alerts",
           text = "Preview", onClick = function() FGT.TestBanner() end },
     } },
     { title = "Effects", rows = {
         { type = "choice", key = "celebrations", label = "Celebrations",
-          desc = "When a step, group or goal finishes. Subtle keeps the checkmark pop only.",
+          desc = "Completion effects. Subtle keeps only the checkmark pop.",
           options = { { "full", "Full" }, { "subtle", "Subtle" }, { "off", "Off" } } },
         { type = "choice", key = "sound", label = "Sound when a goal completes",
           desc = "Picking one plays it",
@@ -8411,7 +8413,7 @@ FGT.SETTINGS = {
           mutedDesc = "Game sound is off in Options > Sound",
           apply = function(v) FGT.PlayGoalSound(v) end },
         { type = "choice", key = "soundChannel", label = "Sound channel",
-          desc = "Which of the game's volume sliders the sound follows",
+          desc = "Use this channel's volume",
           options = { { "Master", "Master" }, { "SFX", "Effects" }, { "Ambience", "Ambience" },
                       { "Music", "Music" }, { "Dialog", "Dialog" } },
           muted = function() return FGT.SoundOff() end,
@@ -8420,13 +8422,13 @@ FGT.SETTINGS = {
     } },
     { title = "Window and minimap", rows = {
         { type = "toggle", key = "tallGoalArt", label = "Large goal photos",
-          desc = "Display large photos behind the goal window. Turn off to display smaller photos.",
+          desc = "Turn off for smaller goal photos",
           apply = function() if FGT.goalBanner then FGT.goalBanner:Fit() end end },
         { type = "toggle", key = "minimap", label = "Minimap button",
           apply = function(on) if FGT.minimapButton then FGT.minimapButton:SetShown(on) end end },
         { type = "toggle", key = "openOnLogin", label = "Open on login",
-          desc = "Show this window each time you log in" },
-        { type = "button", label = "Goal suggestions", desc = "Pick what you enjoy and get goals for this character",
+          desc = "Open the tracker after login" },
+        { type = "button", label = "Goal suggestions", desc = "Find goals for this character",
           text = "Open", onClick = function() FGT.OpenWelcome(2) end },
         { type = "slider", key = "scale", label = "Scale", min = 70, max = 130, step = 5,
           apply = function(v) FGT.ApplyWindowScale(v) end },
@@ -8438,12 +8440,12 @@ FGT.SETTINGS = {
                   and pcall(Settings.OpenToCategory, Settings.KEYBINDINGS_CATEGORY_ID)
               if not ok then print(TAG .. "set a key in Options > Keybindings > AddOns > Forever Goal Tracker.") end
           end },
-        { type = "button", label = "Window size and position", desc = "Back to the default size, centered",
+        { type = "button", label = "Window size and position", desc = "Restore default size and center the window",
           text = "Reset", onClick = function() FGT.ResetWindow() end },
     } },
     { title = "NPC map pins", rows = {
         { type = "choice", key = "mapPins", label = "Where map pins go",
-          desc = "When you shift-click an NPC or use Show on map. Automatic uses TomTom if it's installed.",
+          desc = "Choose where NPC map pins appear. Automatic uses TomTom when installed.",
           options = { { "auto", "Automatic" }, { "tomtom", "TomTom" }, { "game", "Game map" } },
           optionMuted = function(v) if v == "tomtom" and not FGT.HasTomTom() then return "TomTom isn't installed" end end },
     } },
@@ -9099,7 +9101,7 @@ minimapButton:SetScript("OnEnter", function(self)
         end
         GameTooltip:AddLine(" ")
     end
-    GameTooltip:AddLine("Click to open your checklist", 0.7, 0.7, 0.7)
+    GameTooltip:AddLine("Click to open tracker", 0.7, 0.7, 0.7)
     GameTooltip:AddLine("Drag to move this button", 0.7, 0.7, 0.7)
     GameTooltip:Show()
 end)
@@ -9777,7 +9779,7 @@ do
                 -- an item the game can't give really isn't in the game.
                 if FGT.isForever then
                     GameTooltip:AddLine("Not revealed yet", 1.00, 0.50, 0.42)
-                    GameTooltip:AddLine("WoW Forever shows this item's details once players find it after launch.",
+                    GameTooltip:AddLine("Item details are unavailable in Forever.",
                         C.INK2[1], C.INK2[2], C.INK2[3], true)
                 else
                     GameTooltip:AddLine("Not in the game", 1.00, 0.50, 0.42)
@@ -9785,7 +9787,7 @@ do
                 end
             else
                 FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()
-                GameTooltip:AddLine("Loading item details...", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+                GameTooltip:AddLine("Loading item...", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
                 C_Timer.After(2.1, function() -- still hovering? show the outcome
                     if FGT.tip and FGT.tip.id == id and GameTooltip:IsOwned(owner) then
                         FGT.ShowItemTip(owner, id, rule, name, compare)
@@ -9795,7 +9797,7 @@ do
         end
         if rule then
             GameTooltip:AddLine(" ")
-            GameTooltip:AddLine("Checks itself off when " .. DescribeRule(rule) .. ".", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
+            GameTooltip:AddLine("Completes when " .. DescribeRule(rule) .. ".", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
             local now = RuleReadout(rule)
             if now then
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
@@ -9803,11 +9805,11 @@ do
         end
         FGT.AddItemNeeds(GameTooltip, id)
         if known and FGT.ItemCanPreview(id) then
-            GameTooltip:AddLine(FGT.ItemMountID(id) and "Ctrl-click to preview this mount." or "Ctrl-click to try it on.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            GameTooltip:AddLine(FGT.ItemMountID(id) and "Ctrl-click: preview mount" or "Ctrl-click: try on", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         if not compare then
-            GameTooltip:AddLine(known and "Shift-click to link it in chat. Right-click for its Wowhead link."
-                or "Right-click for its Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            GameTooltip:AddLine(known and "Shift-click: link in chat. Right-click: Wowhead."
+                or "Right-click: Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         GameTooltip:Show()
         -- the game's side-by-side comparison with your equipped item
@@ -9824,7 +9826,7 @@ do
         local EPIC = { 0.64, 0.21, 0.93 }
         GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
         GameTooltip:AddLine(v.name, EPIC[1], EPIC[2], EPIC[3])
-        GameTooltip:AddLine(string.format("Epic mount, sold in %d colors:", #v.items), 1, 1, 1)
+        GameTooltip:AddLine(string.format("Epic mount · %d colors", #v.items), 1, 1, 1)
         for _, it in ipairs(v.items) do
             local id, ourName = it[1], it[2]
             local name = FGT.ItemInfo(id) or ourName
@@ -9836,13 +9838,13 @@ do
         end
         if rule then
             GameTooltip:AddLine(" ")
-            GameTooltip:AddLine("Checks itself off when you own any of them.", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
+            GameTooltip:AddLine("Completes when you own any of them.", C.TITLE[1], C.TITLE[2], C.TITLE[3], true)
         end
         if FGT.ItemMountID(firstId) then
-            GameTooltip:AddLine("Ctrl-click to preview each color in turn.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            GameTooltip:AddLine("Ctrl-click: cycle colors", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
-        GameTooltip:AddLine(v.npc and ("Right-click for " .. v.vendor .. "'s Wowhead page, with every color.")
-            or "Right-click for the Wowhead link.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        GameTooltip:AddLine(v.npc and ("Right-click: " .. v.vendor .. " on Wowhead (all colors)")
+            or "Right-click: Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         GameTooltip:Show()
     end
 

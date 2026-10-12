@@ -1,0 +1,23 @@
+{
+  "base": "a558899",
+  "clients": [
+    {
+      "client": "Classic Era",
+      "goals": 168,
+      "mechanics_unchanged": true,
+      "material_strings_unchanged": true,
+      "prerequisites_unchanged": true,
+      "existing_link_tags_preserved": true,
+      "quoted_quest_names_preserved": true
+    },
+    {
+      "client": "Forever",
+      "goals": 168,
+      "mechanics_unchanged": true,
+      "material_strings_unchanged": true,
+      "prerequisites_unchanged": true,
+      "existing_link_tags_preserved": true,
+      "quoted_quest_names_preserved": true
+    }
+  ]
+}

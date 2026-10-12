@@ -92,8 +92,8 @@ local function item(id) return "{item:" .. id .. ":" .. items[id] .. "}" end
 local sections = {}
 for _, set in ipairs(sets) do
     local pieces, tips = {}, {
-        "The turn-in NPCs are inside {raid_aq40:Temple of Ahn'Qiraj}, near C'Thun's chamber, accessible after defeating The Prophet Skeram.",
-        "Idols and scarabs come from AQ40 trash and scarab coffers. Keep them for your armor turn-ins.",
+        "Find turn-in NPCs near C'Thun's chamber in {raid_aq40:Temple of Ahn'Qiraj}, after defeating The Prophet Skeram.",
+        "Save idols and scarabs from AQ40 trash and scarab coffers for armor turn-ins.",
     }
     for pi, p in ipairs(set[3]) do
         pieces[pi] = {
@@ -116,6 +116,6 @@ FGT.goals[#FGT.goals + 1] = {
     id = "set_tier25", library = true, group = true, itemQuality = 4,
     name = "Tier 2.5 Set Appearances", short = "Tier 2.5 Sets", icon = "inv_helmet_72",
     category = "Item Set", difficulty = "Very Hard", timeEstimate = "3+ Months",
-    note = "The five-piece Ahn'Qiraj sets, known as Tier 2.5. Exchange AQ40 boss tokens, idols and scarabs with Brood of Nozdormu reputation. Pick the classes you want in the Library; each piece ticks itself when you own it.",
+    note = "Five-piece Tier 2.5 sets. Trade AQ40 tokens, idols and scarabs; Brood of Nozdormu reputation is required. Pick the classes you want in the Library; owned pieces complete automatically.",
     sections = sections,
 }

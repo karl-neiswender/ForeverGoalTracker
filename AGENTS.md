@@ -7,6 +7,17 @@
 - If Ketho/LuaLS is unavailable or diagnostics cannot run, the release gate is incomplete. Do not publish a live release; report the missing check and complete the setup. Ordinary source commits and artwork syncing to main may continue without a release tag.
 - Also run `python3 tools/check.py` and inspect performance-sensitive code. Ketho's API annotations do not measure in-game CPU performance and do not replace manual in-game testing.
 
+## Player-facing wording
+
+Karl's priority: SIMPLE, HELPFUL, CLEAR. Players should focus on playing.
+- Use short, direct sentences. Remove filler, development notes and repeated tracking explanations.
+- Steps start with an action; keep the item/quest name, count and useful location. Put drop chances and how-to advice in tips.
+- Tips give practical advice. Preserve prerequisites, exceptions, costs, timing and class/faction restrictions.
+- Tooltips explain only what the player needs. Use consistent click hints such as `Shift-click: link in chat` and `Right-click: Wowhead`.
+- Say `Unconfirmed` for uncertain Forever rules and `Source unknown` for missing gear sources. Do not claim that unverified content is confirmed.
+- Use `completes automatically` or `tracked automatically`, rather than `ticks itself`. Keep exact quest names and item/goal link tags intact.
+- When editing wording, preserve goal IDs, step order, rules and material strings used by item-needs parsing. No progress migration is needed for wording alone.
+
 ## Current handoff (2026-10-11)
 
 Read [today's shared handoff](reports/Session-handoff-2026-10-11.md) before continuing. Karl approved and shipped v2.11.1; the release workflow succeeded and the published ZIP was verified. Mount Ctrl-click previews and color cycling are now shipped, with native Forever checks retained in the handoff. The final closeout section supersedes earlier candidate/review notes. Description preferences and the exact bottom AI disclaimer are recorded at the end of this file.
