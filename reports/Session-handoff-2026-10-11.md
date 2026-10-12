@@ -103,3 +103,8 @@ the gradient visible only while tucked away. Panel now travels with its left
 edge; right-edge shade fades away on opening. Guide rows reflow at most three
 times mid-transition, then refresh at completion. Checks and details:
 materials-panel-2026-10-11.md; checks/materials-slide-fix-2026-10-11.txt.
+
+Karl approved the corrected slide in game. The handle is now a subtle grey
+arrow centered in the gap, gold on hover, with no button chrome or shadow.
+Its invisible hit area remains 24x48; it still moves with the drawer edge.
+Checks: checks/materials-arrow-2026-10-11.txt. `/reload` for native review.

@@ -59,3 +59,9 @@ There is no tuck shade beside the center guide or on either open panel edge.
 The gap, closed sliver, overall window size and moving handle are retained.
 Updated full checks: checks/materials-slide-fix-2026-10-11.txt. Native recheck
 is next; Lua-only edits, `/reload` is sufficient.
+
+Karl confirmed the corrected motion matches his intent. He requested a more
+subtle handle: now a 10-unit grey arrow, centered in the 12-unit panel gap,
+turning gold on hover. The etched button, grime and shadow are removed.
+The invisible 24x48 hit area and moving/reversing arrow behavior remain.
+Checks: checks/materials-arrow-2026-10-11.txt.
