@@ -80,3 +80,6 @@ Checks: checks/wider-goals-list-2026-10-11.txt. `/reload` for native review.
 After native review Karl requested a little more width. Added another 12 UI
 units, now 34 beyond the original footprint. Overall window size is unchanged.
 Checks: checks/wider-goals-list-followup-2026-10-11.txt.
+
+Latest width: Karl requested 40 UI units beyond the original footprint,
+replacing the 34-unit offset. Checks: checks/goals-list-40-2026-10-11.txt.
