@@ -42,7 +42,9 @@ local W = { open = false }
 FGT.WhatsNew = W
 local NEWEST = FGT.WHATS_NEW[1].version
 local GOLD = { 0.80, 0.62, 0.16 }
+local RULE = { 0.45, 0.38, 0.26 }
 local BRIGHT = { 1, 0.86, 0.35 }
+local REST = { 0.66, 0.55, 0.38 } -- warm bronze, from the UI's etched edges
 
 local function DB() return ForeverGoalTrackerDB end
 local function IsNew()
@@ -67,20 +69,20 @@ btn.glow:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\glow")
 btn.glow:SetBlendMode("ADD")
 btn.glow:SetPoint("CENTER", 0, 0)
 btn.glow:SetAlpha(0)
-btn.text = U.font(btn, 11, "", unpack(C.SUBTEXT))
+btn.text = U.font(btn, 12, "", unpack(REST))
 btn.text:SetText("What's new")
 btn.text:SetPoint("CENTER", 0, 0)
 btn:SetWidth(btn.text:GetStringWidth() + 14)
-btn.glow:SetSize(btn:GetWidth() + 56, 40)
+btn.glow:SetSize(btn:GetWidth() + 44, 34)
 btn:SetPoint("RIGHT", T.gear, "LEFT", -6, 0)
 
 local function Paint(k) -- k: 0 at rest .. 1 fully lit
-    local r = C.SUBTEXT[1] + (BRIGHT[1] - C.SUBTEXT[1]) * k
-    local g = C.SUBTEXT[2] + (BRIGHT[2] - C.SUBTEXT[2]) * k
-    local b = C.SUBTEXT[3] + (BRIGHT[3] - C.SUBTEXT[3]) * k
+    local r = REST[1] + (BRIGHT[1] - REST[1]) * k
+    local g = REST[2] + (BRIGHT[2] - REST[2]) * k
+    local b = REST[3] + (BRIGHT[3] - REST[3]) * k
     btn.text:SetTextColor(r, g, b)
     btn.glow:SetVertexColor(1, 0.82, 0.3)
-    btn.glow:SetAlpha(0.45 * k)
+    btn.glow:SetAlpha(0.16 * k)
 end
 
 function W.RefreshButton()
@@ -91,11 +93,11 @@ function W.RefreshButton()
         btn.glow:SetAlpha(0)
         return
     end
-    if FGT.Setting("celebrations") == "off" then Paint(0.8); return end
+    if FGT.Setting("celebrations") == "off" then Paint(0.55); return end
     local t = 0
     btn:SetScript("OnUpdate", function(_, dt)
         t = t + dt
-        Paint(0.35 + 0.55 * (0.5 - 0.5 * math.cos(t * math.pi * 2 / 2.6)))
+        Paint(0.25 + 0.4 * (0.5 - 0.5 * math.cos(t * math.pi * 2 / 2.8)))
     end)
 end
 btn:SetScript("OnEnter", function()
@@ -117,6 +119,8 @@ pop:SetWidth(WIDTH)
 pop:EnableMouse(true)
 U.etch(pop, U.styles.panel, 12)
 FGT.AddGrime(pop, 0.18, 12, 0.61, 0, 140)
+pop.shadow = FGT.AddDropShadow(pop, 64, 0.85, 8, 10) -- broad, soft and dark, like the note card
+pop.shadow:Hide()
 pop:Hide()
 tinsert(UISpecialFrames, "ForeverGoalTrackerWhatsNew")
 
@@ -162,6 +166,12 @@ local function Block(i)
     b.new:SetText("NEW")
     b.new:SetPoint("LEFT", b.version, "RIGHT", 8, 0)
     b.lines = {}
+    -- a faint rule under the block, fading out toward both ends
+    b.ruleL = b:CreateTexture(nil, "ARTWORK"); b.ruleR = b:CreateTexture(nil, "ARTWORK")
+    for _, t in ipairs({ b.ruleL, b.ruleR }) do t:SetTexture("Interface\\Buttons\\WHITE8X8"); t:SetHeight(1) end
+    b.ruleL:SetPoint("BOTTOMLEFT", 8, -5); b.ruleL:SetPoint("BOTTOMRIGHT", b, "BOTTOM", 0, -5)
+    b.ruleR:SetPoint("BOTTOMLEFT", b, "BOTTOM", 0, -5); b.ruleR:SetPoint("BOTTOMRIGHT", -8, -5)
+    U.gradient(b.ruleL, RULE, RULE, 0, 0.5); U.gradient(b.ruleR, RULE, RULE, 0.5, 0)
     blocks[i] = b
     return b
 end
@@ -211,8 +221,9 @@ function W.Layout(prevSeen)
             b.bg:Hide()
         end
         b.version:SetTextColor(unpack(isNew and BRIGHT or C.INK2))
+        b.ruleL:SetShown(i < #FGT.WHATS_NEW); b.ruleR:SetShown(i < #FGT.WHATS_NEW)
         b:Show()
-        y = y + h + 8
+        y = y + h + 10
     end
     for i = #FGT.WHATS_NEW + 1, #blocks do blocks[i]:Hide() end
     scroll.content:SetHeight(y)
@@ -242,16 +253,16 @@ function W.Open()
     W.open = true
     W.RefreshButton()
     W.Layout(prev)
-    catcher:Show(); pop:Show()
+    catcher:Show(); pop:Show(); pop.shadow:Show()
     local mode = FGT.Setting("celebrations")
-    if mode == "off" then Place(0); pop:SetAlpha(1); return end
+    if mode == "off" then Place(0); pop:SetAlpha(1); pop.shadow:SetAlpha(1); return end
     local t = 0
-    Place(-6); pop:SetAlpha(0)
+    Place(-6); pop:SetAlpha(0); pop.shadow:SetAlpha(0)
     driver:SetScript("OnUpdate", function(_, dt)
         t = t + dt
         local p = math.min(1, t / 0.2)
         local e = 1 - (1 - p) ^ 3
-        pop:SetAlpha(e)
+        pop:SetAlpha(e); pop.shadow:SetAlpha(e)
         Place(mode == "full" and -6 * (1 - e) or 0)
         if p >= 1 then driver:SetScript("OnUpdate", nil) end
     end)
@@ -261,7 +272,7 @@ function W.Close()
     if not W.open and not pop:IsShown() then return end
     driver:SetScript("OnUpdate", nil)
     W.open = false
-    pop:Hide(); catcher:Hide()
+    pop:Hide(); pop.shadow:Hide(); catcher:Hide()
     W.RefreshButton()
 end
 
