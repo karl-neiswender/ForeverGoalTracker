@@ -1,0 +1,74 @@
+local ADDON, FGT = ...
+local U = FGT.MaterialsUI
+
+-- Floating dust over the goal page, the same art, speed and strength as the
+-- Forever talent window (Blizzard_ClassTalentsFrame.xml, Camelot): two
+-- additive layers of "talents-animations-particles" drifting sideways while
+-- they slowly turn, each fading in over 5 s, holding, fading out over 5 s.
+-- Built on the game's own animation groups, so it costs almost nothing.
+-- Clients without that art (Classic Era) simply get none.
+local ATLAS = "talents-animations-particles"
+local info = C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(ATLAS)
+if not info then return end
+
+local A = {}
+FGT.ambience = A
+
+-- Clipped just inside the panel's etched edge, above the banner art and
+-- under the goal's text and steps.
+local fx = CreateFrame("Frame", nil, U.detail)
+A.frame = fx
+fx:SetPoint("TOPLEFT", U.detail, "TOPLEFT", 4, -4)
+fx:SetPoint("BOTTOMRIGHT", U.detail, "BOTTOMRIGHT", -4, 4)
+fx:SetFrameLevel(U.detail:GetFrameLevel())
+if fx.SetClipsChildren then fx:SetClipsChildren(true) end
+fx:EnableMouse(false)
+
+-- One drifting layer (Blizzard's numbers: start offset, travel, seconds,
+-- turn, peak alpha, when the fade out starts).
+local function Layer(flip, width, height, start, travel, seconds, degrees, peak, outAt)
+    local t = fx:CreateTexture(nil, "BACKGROUND", nil, 7)
+    if flip then
+        -- the far layer is the same art mirrored both ways
+        t:SetTexture(info.file)
+        t:SetTexCoord(info.rightTexCoord, info.leftTexCoord, info.bottomTexCoord, info.topTexCoord)
+    else
+        t:SetAtlas(ATLAS)
+    end
+    t:SetSize(width, height)
+    t:SetPoint("CENTER", fx, "CENTER", 0, 0)
+    t:SetBlendMode("ADD")
+    t:SetAlpha(0)
+    local g = t:CreateAnimationGroup()
+    g:SetLooping("REPEAT")
+    local a = g:CreateAnimation("Translation")
+    a:SetOffset(start, 0); a:SetDuration(0); a:SetOrder(1)
+    a = g:CreateAnimation("Translation")
+    a:SetOffset(-travel, 0); a:SetDuration(seconds); a:SetOrder(2)
+    a = g:CreateAnimation("Rotation")
+    a:SetDegrees(degrees); a:SetDuration(seconds); a:SetOrder(2)
+    a = g:CreateAnimation("Alpha")
+    a:SetFromAlpha(0); a:SetToAlpha(peak); a:SetDuration(5); a:SetOrder(2)
+    a = g:CreateAnimation("Alpha")
+    a:SetFromAlpha(peak); a:SetToAlpha(0); a:SetStartDelay(outAt); a:SetDuration(5); a:SetOrder(2)
+    a = g:CreateAnimation("Translation")
+    a:SetOffset(travel, 0); a:SetDuration(0); a:SetOrder(3) -- as Blizzard's order 3
+    return { tex = t, group = g }
+end
+A.layers = {
+    Layer(false, info.width, info.height, 300, 600, 27, 20, 0.15, 22), -- close
+    Layer(true, 800, 473, 100, 200, 36, -20, 0.14, 31),                -- far
+}
+
+-- Runs only while the goal page is on screen, and not with Celebrations off.
+function A.Refresh()
+    local on = U.detail:IsVisible() and FGT.Setting("celebrations") ~= "off"
+    for _, l in ipairs(A.layers) do
+        if on and not l.group:IsPlaying() then l.group:Play()
+        elseif not on and l.group:IsPlaying() then l.group:Stop(); l.tex:SetAlpha(0) end
+    end
+end
+U.detail:HookScript("OnShow", A.Refresh)
+U.detail:HookScript("OnHide", A.Refresh)
+U.main:HookScript("OnShow", A.Refresh)
+U.main:HookScript("OnHide", A.Refresh)
