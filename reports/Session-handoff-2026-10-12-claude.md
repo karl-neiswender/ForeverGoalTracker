@@ -18,3 +18,12 @@ Picks up after Codex's [October 8-11 context](Claude-context-2026-10-12.md). All
 ## Still open
 - Native review of the whole Materials drawer under heavy use; Forever lock rules; description/gallery/changelog refresh before any release.
 - Optional: put Tips in the drawer (discussed; only ~20 of 153 goals have 3+ materials). Not built.
+
+## Later the same day: Goal Library filters and My Goals view (Karl reviewed in game)
+- **Library filter column** in the goal list's spot (`LF` = `FGT.libState` in Core.lua's Library block): search, Show (All / Added / Not added), New & Updated only switch (Forever, `FGT.NewToggle` with a blue look), For dropdown (Anyone / My character / nine classes), Faction, Category dropdown with live counts, Reset filters at the top. All filters, faction included, are session-only. Gold dots mark changed sections.
+- **Results header:** "Showing N goals for" plus removable tags per filter; Sort (A - Z / Difficulty / Duration, reuses `CompareGoals`); far-right **+ Add all / Remove all** with a confirm menu. Bulk changes run inside `LF.batch` so the window refreshes once (63 one-by-one refreshes froze the game: "script ran too long").
+- **Hidden-match hint:** search matches hidden by filters get "X is hidden by your filters (For: Priest)" plus **Show it** (clears filters, keeps the search).
+- **Who-can-use logic** in `Filters.lua` (`FGT.GoalFits`, `FGT.GOAL_CLASSES`, `FGT.GOAL_RACES`). Weapons follow Classic weapon skills: "can use", not "made for" (Karl agreed). My character also sets your faction (as a tag) and reverts it when you leave My character.
+- **Hybrid sets:** For a class or My character, armor collections split into that class's own set cards (tier and class on the info line); Anyone keeps collections. My character also pulls your race's Epic Racial Mount out as its own card (`LF.RacePart`; card stands for the part, `LF.On` / `LF.Progress` handle both kinds).
+- **My Goals "Show:" dropdown** (All goals / This character), view only; progress stays account-wide.
+- `FGT.NewDropdown(parent, prefix, edge)` is the shared dropdown. `tools/check.py` now rejects stray control bytes in Lua (a lost backslash in `\194\183` drew empty squares in game).
