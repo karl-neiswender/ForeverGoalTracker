@@ -1,7 +1,6 @@
 local ADDON, FGT = ...
 local U = FGT.MaterialsUI
 local C = U.colors
-FGT.SETTING_DEFAULTS.materialsCollected = false
 FGT.SETTING_DEFAULTS.materialsBars = true
 FGT.SETTING_DEFAULTS.materialsAlts = true
 
@@ -269,13 +268,13 @@ local options = CreateFrame("Frame", nil, panel, "BackdropTemplate")
 M.options = options
 options:SetPoint("TOPLEFT", 8, -40)
 options:SetPoint("TOPRIGHT", -8, -40)
-options:SetHeight(100)
+options:SetHeight(70)
 options:SetFrameLevel(panel:GetFrameLevel()+35)
 options:EnableMouse(true)
 U.etch(options, U.styles.panel, 10)
 options:Hide()
 local optionRows = {}
-for i, entry in ipairs({{"materialsCollected","Show collected"}, {"materialsBars","Show progress bars"}, {"materialsAlts","Include other characters"}}) do
+for i, entry in ipairs({{"materialsBars","Show progress bars"}, {"materialsAlts","Include other characters"}}) do
     local button = CreateFrame("Button", nil, options)
     button:SetHeight(30)
     button:SetPoint("TOPLEFT", 6, -5-(i-1)*30)
@@ -371,7 +370,7 @@ function FGT.RefreshMaterials()
     local visible = 0
     local groupsSeen, multiple = {}, false
     for _, entry in ipairs(data) do
-        if FGT.Setting("materialsCollected") or entry.have < entry.need then
+        do
             groupsSeen[entry.group or 1] = true
         end
     end
@@ -380,7 +379,7 @@ function FGT.RefreshMaterials()
     multiple = groupCount >= 2
     local lastGroup
     for _, entry in ipairs(data) do
-        if FGT.Setting("materialsCollected") or entry.have < entry.need then
+        do
             visible = visible + 1
             local row = M.rows[visible]
             if not row then
@@ -411,6 +410,8 @@ function FGT.RefreshMaterials()
                 M.rows[visible] = row
             end
             row.entry = entry
+            -- Finished rows stay put (a steady list) but sit back.
+            row:SetAlpha(entry.have >= entry.need and 0.5 or 1)
             row.name:SetText(entry.name); row.icon:SetTexture(entry.icon)
             -- A single item is either 0 or all; show the count, not 0% / 100%.
             row.percent:SetText(entry.unknown and "—" or (entry.have .. " / " .. entry.need))
@@ -423,7 +424,7 @@ function FGT.RefreshMaterials()
         end
     end
     for i=visible+1,#M.rows do M.rows[i]:Hide() end
-    empty:SetText(#data == 0 and "No materials needed." or "All materials collected.")
+    empty:SetText("No materials needed.")
     empty:SetShown(visible == 0)
     if M.goalId ~= goal.id then scroll.scroll:SetVerticalScroll(0); M.goalId=goal.id; options:Hide() end
     M:Place()
