@@ -3558,10 +3558,10 @@ main:HookScript("OnHide", CloseSortMenu)
 -- on a pick; dd:SetValue(key) shows a choice without calling it.
 do
     local ROW = 24
-    function FGT.NewDropdown(parent, prefix)
+    function FGT.NewDropdown(parent, prefix, edge)
         local dd = CreateFrame("Button", nil, parent, "BackdropTemplate")
         dd:SetHeight(22)
-        Etch(dd, STYLE.button, 10)
+        Etch(dd, STYLE.button, edge or 10)
         dd.label = NewFontString(dd, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
         dd.label:SetPoint("LEFT", dd, "LEFT", 8, 0)
         dd.label:SetPoint("RIGHT", dd, "RIGHT", -24, 0)
@@ -7266,7 +7266,7 @@ end
 
 -- For: anyone, the logged-in character, or one class.
 LF.forLabel = LF.Label("FOR")
-LF.forDrop = FGT.NewDropdown(fc)
+LF.forDrop = FGT.NewDropdown(fc, nil, 8)
 function LF.ForOptions()
     local opts = { { key = "any", label = "Anyone" } }
     local race = UnitRace and UnitRace("player")
@@ -7292,7 +7292,7 @@ end
 
 LF.factionLabel = LF.Label("FACTION")
 LF.catLabel = LF.Label("CATEGORY")
-LF.catDrop = FGT.NewDropdown(fc)
+LF.catDrop = FGT.NewDropdown(fc, nil, 8)
 LF.catDrop.onChange = function(key) libFilter = key; Refilter() end
 
 -- A small gold dot beside a section label while that filter is changed.
@@ -7466,12 +7466,13 @@ end
 -- when none do.
 function LF.Blockers(goal)
     local out = {}
-    if goal.faction and not IsActive(goal) then
+    local on = LF.On(goal)
+    if goal.faction and not on then
         local want = FGT.factionSeg.Current()
         if want ~= "Both" and goal.faction ~= want then out[#out + 1] = want end
     end
-    if LF.show == "added" and not IsActive(goal) then out[#out + 1] = "Added" end
-    if LF.show == "notadded" and IsActive(goal) then out[#out + 1] = "Not added" end
+    if LF.show == "added" and not on then out[#out + 1] = "Added" end
+    if LF.show == "notadded" and on then out[#out + 1] = "Not added" end
     if LF.newOnly and not FGT.HasForeverNew(goal) then out[#out + 1] = "New & Updated" end
     if not FGT.GoalFits(goal, LF.Who()) then out[#out + 1] = "For: " .. (LF.forDrop:LabelFor(LF.forWho) or "") end
     return out
@@ -7503,6 +7504,33 @@ function LF.Flat()
     local who = LF.Who()
     return who and who.class and who or nil
 end
+-- A group part made for one race (Epic Racial Mounts) pulls out as its own
+-- card for My character. The card stands for that part: adding it picks
+-- the part, just like its row under Choose.
+LF.partGoals = {}
+function LF.RacePart(goal, race)
+    if not (race and goal.group and goal.sections) then return nil end
+    for si, section in ipairs(goal.sections) do
+        if section.forever ~= "new" or FGT.isForever then
+            for _, piece in ipairs(section.pieces or {}) do
+                if piece.skipIfRace == race or (piece.auto and piece.auto.forRace == race) then
+                    local key = goal.id .. "#" .. si
+                    local pg = LF.partGoals[key]
+                    if not pg then
+                        pg = { id = key, partOf = goal, partKey = si, icon = section.icon,
+                            name = section.name:match(" %- (.+)$") or section.name,
+                            partLabel = (section.name:match("^(.-) %- ") or "") .. " epic mount",
+                            category = goal.category, difficulty = goal.difficulty,
+                            timeEstimate = goal.timeEstimate, forever = section.forever,
+                            itemQuality = goal.itemQuality }
+                        LF.partGoals[key] = pg
+                    end
+                    return pg
+                end
+            end
+        end
+    end
+end
 
 local function FilterMatches(f, goal)
     if f.key == "all" then return true end
@@ -7515,7 +7543,12 @@ function LF.Results(f)
     local flat = LF.Flat()
     local out = {}
     for _, g in ipairs(FGT.goals) do
-        if flat and g.armorChildren then
+        local part = flat and flat.race and LF.RacePart(g, flat.race)
+        if part then
+            if FilterMatches(f, g) and LF.Available(g) and #LF.Blockers(part) == 0 and LF.SearchMatch(part) then
+                out[#out + 1] = part
+            end
+        elseif flat and g.armorChildren then
             for _, child in ipairs(g.armorChildren) do
                 if child.armorClass and child.armorClass:upper() == flat.class and FilterMatches(f, child)
                     and LF.Available(child, true) and #LF.Blockers(child) == 0 and LF.SearchMatch(child) then
@@ -7924,7 +7957,7 @@ end
 local function StyleCardButtonInner(card)
     local goal = card.goal
     local hover = card.btn:IsMouseOver()
-    local on = IsActive(goal)
+    local on = LF.On(goal)
     if goal.group then
         local n, total = FGT.SelectedPartCount(goal), #FGT.GroupParts(goal)
         on = (n == total)
@@ -7937,7 +7970,7 @@ local function StyleCardButtonInner(card)
         end
     end
     -- a tracked goal that's finished says Complete, in green
-    local d, t = GoalProgress(goal)
+    local d, t = LF.Progress(goal)
     local done = on and t > 0 and d >= t
     -- gold check; the grey one tinted green once it's done
     card.btnCheck:SetTexture(FGT.Icon(done and "check-white" or "check"))
@@ -7997,7 +8030,9 @@ local function GetCard(goal)
     card.btn:SetScript("OnEnter", function() StyleCardButton(card) end)
     card.btn:SetScript("OnLeave", function() StyleCardButton(card) end)
     card.btn:SetScript("OnClick", function()
-        if goal.group then
+        if goal.partOf then
+            SetPartActive(goal.partOf, goal.partKey, not LF.On(goal))
+        elseif goal.group then
             local all = FGT.SelectedPartCount(goal) == #FGT.GroupParts(goal)
             SetGoalActive(goal, not all)
         else
@@ -8039,7 +8074,7 @@ local function GetCard(goal)
     card.meta:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -10, 0)
     card.meta:SetWordWrap(false)
     local _, tier = LF.Tier(goal)
-    local catText = tier and (string.upper(tier) .. "  ·  " .. FGT.ArmorClassLabel(goal.armorClass) .. "|cff" .. HexColor(catColor))
+    local catText = goal.partLabel and string.upper(goal.partLabel) or tier and (string.upper(tier) .. "  ·  " .. FGT.ArmorClassLabel(goal.armorClass) .. "|cff" .. HexColor(catColor))
         or string.upper(goal.category)
     card.metaBase = string.format("|cff%s%s|r  ·  |cff%s%s|r  ·  %s",
         HexColor(catColor), catText,
@@ -8091,6 +8126,16 @@ local function PartProgress(goal, key)
         return math.floor(AutoStepFraction(entry) * 100), 100
     end
     return IsStepDone(goal.id, key) and 1 or 0, 1
+end
+
+-- Library cards can stand for a part (LF.RacePart); these answer for both.
+function LF.On(goal)
+    if goal.partOf then return FGT.PartSelected(goal.partOf, goal.partKey) end
+    return IsActive(goal)
+end
+function LF.Progress(goal)
+    if goal.partOf then return PartProgress(goal.partOf, goal.partKey) end
+    return GoalProgress(goal)
 end
 
 -- One row per part of a group goal, shown under its card when expanded.
@@ -8192,8 +8237,8 @@ LayoutLibrary = function()
         card.metaBase = isNew and (FGT.NewTag(isNew) .. "  ·  " .. card.metaPlain) or card.metaPlain
         -- Finished goals: the quiet finished look (green wash, grey icon,
         -- softer name, no bar) and the completion date on the info line.
-        local gd, gt = GoalProgress(g)
-        local finished = IsActive(g) and gt > 0 and gd >= gt
+        local gd, gt = LF.Progress(g)
+        local finished = LF.On(g) and gt > 0 and gd >= gt
         if finished then
             -- the whole card goes grey (Karl): no blue, grey border, grey
             -- icon and frame, one grey info line without its colors or the
@@ -8213,11 +8258,11 @@ LayoutLibrary = function()
         local nc = finished and C.SUBTEXT or C.TEXT
         card.name:SetTextColor(nc[1], nc[2], nc[3])
         card.meta:SetText(card.metaBase)
-        local d, t = GoalProgress(g)
+        local d, t = LF.Progress(g)
         card.bar:SetProgress(d, t)
         -- only goals on the tracker can make progress, so only they get a
         -- bar; a finished goal shows its date instead
-        card.bar:SetShown(IsActive(g) and not finished)
+        card.bar:SetShown(LF.On(g) and not finished)
         StyleCardButton(card)
         card:Show()
         cy = cy + CARD_H + 6
@@ -8265,7 +8310,7 @@ LayoutLibrary = function()
         for _, g in ipairs(list) do shownSet[g] = true end
         for _, g in ipairs(FGT.goals) do
             if not shownSet[g] and LF.Available(g) and LF.SearchMatch(g)
-                and not (LF.Flat() and g.armorChildren) then hidden[#hidden + 1] = g end
+                and not (LF.Flat() and (g.armorChildren or LF.RacePart(g, LF.Flat().race))) then hidden[#hidden + 1] = g end
         end
         table.sort(hidden, function(a, b) return a.name < b.name end)
     end

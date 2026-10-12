@@ -321,3 +321,26 @@ do
     assert(F.libCards.tier3_rogue and F.libCards.tier3_rogue:IsShown() ~= nil, "individual set cards are built")
     LF.Reset()
 end
+
+-- My character pulls their race's epic mount out of Epic Racial Mounts.
+do
+    local LF = F.libState
+    F.ShowTab("library"); LF.Reset()
+    local mounts = { key = "Mount", match = "^Mount" }
+    local function Find(list, id) for _, g in ipairs(list) do if g.id == id then return g end end end
+    assert(Find(LF.Results(mounts), "epicmounts"), "Anyone keeps Epic Racial Mounts whole")
+    LF.forWho = "me"; LF.forDrop:SetValue("me")
+    local list = LF.Results(mounts)
+    local part = Find(list, "epicmounts#1")
+    assert(part and not Find(list, "epicmounts") and part.name == "Swift Steed", "a Human sees the Swift Steed on its own")
+    D.activeParts.epicmounts = {}
+    F.LayoutLibrary()
+    local card = F.libCards[part.id]
+    card.btn:GetScript("OnClick")(card.btn)
+    assert(F.PartSelected(F.GoalById("epicmounts"), 1) and LF.On(part), "adding the card picks that part")
+    card.btn:GetScript("OnClick")(card.btn)
+    assert(not F.PartSelected(F.GoalById("epicmounts"), 1), "and removing it unpicks it")
+    LF.forWho = "WARRIOR"; LF.forDrop:SetValue("WARRIOR")
+    assert(Find(LF.Results(mounts), "epicmounts"), "a class alone (no race) keeps the group")
+    LF.Reset()
+end
