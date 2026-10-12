@@ -5027,7 +5027,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- A soft light that breathes at the heart of some banner art (Thunderfury's
     -- gem). `glows[goalId] = { u, v, size, { r, g, b } }`: u and v are where it
     -- sits in the artwork (0 to 1 from its top left), size is a share of the
-    -- art's width; `strength` scales one goal's light. Both lights sit on the panel between the photo and its
+    -- art's width; `strength` scales one goal's light, `raysStrength` its
+    -- rays alone, `turn` the seconds per full turn of the rays (180). Both lights sit on the panel between the photo and its
     -- shading, and fade toward the left exactly as the photo does.
     B.glows = {
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 } }, -- the gem at the crossguard
@@ -5039,7 +5040,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["benediction-alliance-banner.blp"] = { 0.537, 0.220, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
         -- Judgement Armor (Paladin Tier 2, also the Paladin leveling banner):
         -- the light in his raised hand, near the art's right edge
-        ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.34, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
+        ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25,
+            raysStrength = 0.6, turn = 300 },
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
@@ -5140,8 +5142,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- the rays pulse on their own slow 8 s beat, from about 1% to 10%
         -- visible and back (the light's overall level is 54%)
         local w = 0.5 - 0.5*math.cos(a.t*2*math.pi/8)
-        self:DrawLights(n, -(a.t % 180)/180*2*math.pi)
-        self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54)
+        local spec = self.glowSpec or {}
+        local turn = spec.turn or 180
+        self:DrawLights(n, -(a.t % turn)/turn*2*math.pi)
+        self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54*(spec.raysStrength or 1))
     end
     function B:PlaceGlow()
         local spec = self:GlowSpec() or {}
