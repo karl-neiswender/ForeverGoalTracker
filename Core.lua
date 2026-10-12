@@ -5079,6 +5079,17 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.25, 0.95, 0.30, 0.80 }, field = { 0.20, 1.0, 0.10, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
         tier3_shaman = { 0.6, 0.55, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- The Earthshatterer
             embers = { box = { 0.25, 0.95, 0.30, 0.75 }, field = { 0.20, 1.0, 0.10, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
+        -- Snow: the same particles falling (`fall = true`): slow 10 to 18 s
+        -- flakes fluttering down through the whole art. Like Karl's reference:
+        -- dense, mostly tiny sharp flakes, a few small bright halos.
+        frostsaber = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = 90, blurShare = 0.08, rise = 0.55 } },
+        rep_timbermaw = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = 80, blurShare = 0.08, rise = 0.55 } },
+        pvp_av_horde = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Frostwolf Clan
+            embers = { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = 80, blurShare = 0.08, rise = 0.55 } },
+        tier3_mage = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Frostfire Regalia
+            embers = { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = 70, blurShare = 0.08, rise = 0.55 } },
         -- UBRS key: the lava splashing up around the gate's foot
         key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
@@ -5187,21 +5198,34 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local x0, y0 = self:ArtPoint(area[1], area[3])
         local x1, y1 = self:ArtPoint(area[2], area[4])
         e.x, e.y = x0 + (x1 - x0)*math.random(), y0 + (y1 - y0)*math.random()
-        local blur = e.blur
-        e.life = (blur and 4 or 2.5) + (blur and 4 or 4)*math.random()
+        local blur, fall = e.blur, cfg.fall
+        if fall and not warm then
+            -- new snow starts along the top of its area, then falls through it
+            e.y = y0 + (y1 - y0)*0.08*math.random()
+        end
+        if fall then
+            -- snow: slow, long-lived, fluttering; mostly down, give or take 25 degrees
+            e.life = 10 + 8*math.random()
+            e.heading = math.pi/2 + (math.random()*2 - 1)*math.rad(25)
+            e.curve = (math.random()*2 - 1)*math.rad(5)
+            e.sway, e.freq = aw*0.02*(0.4 + math.random()), 0.06 + 0.14*math.random()
+        else
+            e.life = (blur and 4 or 2.5) + 4*math.random()
+            -- embers: upward, give or take 40 degrees, slowly curving
+            e.heading = -math.pi/2 + (math.random()*2 - 1)*math.rad(40)
+            e.curve = (math.random()*2 - 1)*math.rad(12)
+            e.sway, e.freq = aw*0.006*(0.3 + math.random()), 0.1 + 0.3*math.random()
+        end
         e.age = 0
-        -- heading: upward, give or take 40 degrees, slowly curving
-        e.heading = -math.pi/2 + (math.random()*2 - 1)*math.rad(40)
-        e.curve = (math.random()*2 - 1)*math.rad(12)
+        e.phase = math.random()*2*math.pi
         e.speed = cfg.rise*aw*(0.35 + 0.9*math.random())/e.life*(blur and 0.55 or 1)
-        e.sway, e.freq, e.phase = aw*0.006*(0.3 + math.random()), 0.1 + 0.3*math.random(), math.random()*2*math.pi
         if blur then
-            e.size = aw*(0.035 + 0.045*math.random())
+            e.size = aw*(fall and (0.012 + 0.016*math.random()) or (0.035 + 0.045*math.random()))
             e.peak = 0.10 + 0.16*math.random()
         else
             local r = math.random()
-            e.size = aw*(0.006 + 0.012*r*r) -- mostly tiny, a few larger
-            e.peak = 0.45 + 0.55*math.random()
+            e.size = aw*(fall and (0.004 + 0.008*r*r) or (0.006 + 0.012*r*r)) -- mostly tiny, a few larger
+            e.peak = (fall and 0.35 or 0.45) + 0.55*math.random()
         end
         if warm then
             -- already mid-flight, so the field is full from the first frame
@@ -5256,12 +5280,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                         e.y = e.y + math.sin(e.heading)*e.speed*dt
                         local x = e.x + e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
                         local y = e.y
-                        local fade = math.min(1, p/0.25)*math.min(1, (1 - p)/0.5)
+                        local fade = cfg.fall and math.min(1, p/0.12)*math.min(1, (1 - p)/0.25)
+                            or math.min(1, p/0.25)*math.min(1, (1 - p)/0.5)
                         local inside = x > 0 and x < aw and y > 0 and y < ah
                         local t = e.tex
                         t:SetShown(inside)
                         if inside then
-                            local size = e.size*(e.blur and 1 or (1 - 0.4*p))
+                            local size = e.size*((e.blur or cfg.fall) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow doesn't
                             t:ClearAllPoints()
                             t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
                             t:SetSize(size, size)

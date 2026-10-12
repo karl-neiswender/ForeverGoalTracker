@@ -458,7 +458,7 @@ end
 do
     local B = STUB_NS.goalBanner
     for _, id in ipairs({ "att_bwl", "raid_bwl", "mount_dreadsteed", "pvp_duelist", "pvp_hk", "set_tier1_shaman",
-            "tier3_shaman", "att_mc", "raid_mc", "att_naxx", "raid_ony", "key_strat", "wolfsbane", "set_dungeon1_priest", "key_ubrs" }) do
+            "tier3_shaman", "att_mc", "raid_mc", "att_naxx", "raid_ony", "key_strat", "wolfsbane", "set_dungeon1_priest", "key_ubrs", "frostsaber", "rep_timbermaw", "pvp_av_horde", "tier3_mage" }) do
         B.goal = STUB_NS.GoalById(id)
         assert(B.goal, "goal exists: " .. id)
         local spec = B:GlowSpec()
