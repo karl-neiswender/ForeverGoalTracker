@@ -352,14 +352,14 @@ do
     local LF = F.libState
     F.ShowTab("library"); LF.Reset()
     LF.SetFor("me")
-    assert(D.libFaction == "Alliance", "My character picks your faction")
+    assert(LF.faction == "Alliance", "My character picks your faction")
     local factionTag = false
     for _, t in ipairs(LF.ActiveTags()) do if t[1] == "Alliance" then factionTag = true end end
     assert(factionTag, "the faction shows as its own tag")
     LF.SetFor("any")
-    assert(D.libFaction == nil, "leaving My character gives the faction back")
-    LF.SetFor("me"); D.libFaction = "Horde"; LF.SetFor("any")
-    assert(D.libFaction == "Horde", "a faction you changed yourself stays")
+    assert(LF.faction == nil, "leaving My character gives the faction back")
+    LF.SetFor("me"); LF.faction = "Horde"; LF.SetFor("any")
+    assert(LF.faction == "Horde", "a faction you changed yourself stays")
     LF.Reset()
 
     LF.sort = "difficulty"; F.LayoutLibrary()
@@ -373,7 +373,14 @@ do
     assert(missing > 0, "something to add")
     LF.addAll.onChange("cancel")
     assert(#LF.Missing() == missing, "Cancel adds nothing")
+    local layouts, layout = 0, LF.Layout
+    LF.Layout = function(...) layouts = layouts + 1; return layout(...) end
     LF.addAll.onChange("add")
+    LF.Layout = layout
+    assert(layouts <= 1, "Add all redraws the Library once, not once per goal (" .. layouts .. ")")
     assert(#LF.Missing() == 0, "Add all adds everything listed")
+    assert(LF.addMode == "remove", "then the button offers Remove all")
+    LF.addAll.onChange("remove")
+    assert(#LF.Added() == 0, "Remove all removes everything listed")
     LF.Reset(); D.active = {}; D.activeParts = {}
 end

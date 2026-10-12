@@ -7282,18 +7282,17 @@ function LF.ForOptions()
     LF.forDrop:SetValue(LF.forWho)
 end
 function LF.SetFor(key)
-    local DB = ForeverGoalTrackerDB
     LF.forWho = key
     LF.forDrop:SetValue(key)
     if key == "me" then
         local faction = FGT.PlayerProfile().faction
-        if faction and DB and DB.libFaction ~= faction then
-            DB.libFaction = faction
+        if faction and LF.faction ~= faction then
+            LF.faction = faction
             LF.autoFaction = faction
         end
     elseif LF.autoFaction then
         -- the faction My character chose goes back to Both, unless you changed it
-        if DB and DB.libFaction == LF.autoFaction then DB.libFaction = nil end
+        if LF.faction == LF.autoFaction then LF.faction = nil end
         LF.autoFaction = nil
     end
 end
@@ -7334,7 +7333,7 @@ LF.reset:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1]
 function LF.ClearFilters()
     LF.show, LF.newOnly, LF.forWho, libFilter = "all", false, "any", "all"
     LF.autoFaction = nil
-    if ForeverGoalTrackerDB then ForeverGoalTrackerDB.libFaction = nil end
+    LF.faction = nil
     LF.forDrop:SetValue("any")
 end
 function LF.Reset()
@@ -7360,7 +7359,7 @@ do
     -- Defaults to Both: goals aren't tied to the character you're on,
     -- since players plan for alts on either side.
     function seg.Current()
-        return (ForeverGoalTrackerDB and ForeverGoalTrackerDB.libFaction) or "Both"
+        return LF.faction or "Both"
     end
     for i, opt in ipairs(OPTIONS) do
         local b = CreateFrame("Button", nil, fc, "BackdropTemplate")
@@ -7384,7 +7383,7 @@ do
         end
         b.opt = opt
         b:SetScript("OnClick", function()
-            ForeverGoalTrackerDB.libFaction = opt.key
+            LF.faction = opt.key
             Refilter()
         end)
         b:SetScript("OnEnter", function(self) if seg.Current() ~= opt.key then self:SetEtch(STYLE.btnHover) end end)
@@ -7686,6 +7685,10 @@ end
 fpScroll:Finalize()
 
 local function AfterSelectionChange(goal, nowActive)
+    if LF.batch then
+        LF.batch.first = LF.batch.first or (nowActive and goal) or nil
+        return
+    end
     LayoutGoalList()
     if nowActive and not selectedId then
         SelectGoal(goal.id)
@@ -7730,6 +7733,10 @@ local function SetGoalActive(goal, on)
         return
     end
     ForeverGoalTrackerDB.active[goal.id] = on or nil
+    if LF.batch then
+        LF.batch.first = LF.batch.first or (on and goal) or nil
+        return
+    end
     LayoutGoalList()
     if on and not selectedId then
         SelectGoal(goal.id)
@@ -8385,7 +8392,6 @@ end
 -- Sort for the cards, and Add all for everything listed (with a confirm).
 LF.sortDrop = FGT.NewDropdown(libraryPanel, "Sort:", 8)
 LF.sortDrop:SetWidth(140)
-LF.sortDrop:SetPoint("TOPRIGHT", libraryPanel, "TOPRIGHT", -14, -10)
 LF.sortDrop:SetOptions({
     { key = "alpha", label = "A - Z" },
     { key = "difficulty", label = "Difficulty" },
@@ -8395,9 +8401,10 @@ LF.sort = "alpha"
 LF.sortDrop:SetValue("alpha")
 LF.sortDrop.onChange = function(key) LF.sort = key; Refilter() end
 
+-- the farthest right, where each card's own Add button sits
 LF.addAll = FGT.NewDropdown(libraryPanel, nil, 8)
-LF.addAll:SetWidth(96)
-LF.addAll:SetPoint("RIGHT", LF.sortDrop, "LEFT", -6, 0)
+LF.addAll:SetWidth(104)
+LF.addAll:SetPoint("TOPRIGHT", libraryPanel, "TOPRIGHT", -14, -10)
 -- the goals on screen not yet on My Goals (a group counts once)
 function LF.Missing()
     local out = {}
@@ -8410,25 +8417,53 @@ function LF.Missing()
     end
     return out
 end
+function LF.Added()
+    local out = {}
+    for _, g in ipairs(LF.shown or {}) do
+        if (g.group and FGT.SelectedPartCount(g) > 0) or (not g.group and LF.On(g)) then out[#out + 1] = g end
+    end
+    return out
+end
+-- Add all while anything listed is missing; once all of it is on My
+-- Goals, the same button offers Remove all.
 function LF.RefreshAddAll()
     local n = #LF.Missing()
+    LF.addMode = n > 0 and "add" or "remove"
+    if LF.addMode == "remove" then n = #LF.Added() end
+    local noun = n == 1 and "1 goal" or (n .. " goals")
     LF.addAll:SetOptions({
-        { key = "add", label = n == 1 and "Add 1 goal to My Goals" or ("Add " .. n .. " goals to My Goals") },
+        { key = LF.addMode, label = LF.addMode == "add" and ("Add " .. noun .. " to My Goals") or ("Remove " .. noun .. " from My Goals"),
+          color = LF.addMode == "remove" and { 1, 0.5, 0.42 } or nil },
         { key = "cancel", label = "Cancel" },
     })
-    LF.addAll.label:SetText("+ Add all")
+    LF.addAll.label:SetText(LF.addMode == "add" and "+ Add all" or "Remove all")
     LF.addAll:SetShown(n > 0)
+    LF.sortDrop:ClearAllPoints()
+    if n > 0 then
+        LF.sortDrop:SetPoint("RIGHT", LF.addAll, "LEFT", -6, 0)
+    else
+        LF.sortDrop:SetPoint("TOPRIGHT", libraryPanel, "TOPRIGHT", -14, -10)
+    end
     -- the menu reads wider than the button
     LF.addAll.menu:ClearAllPoints()
     LF.addAll.menu:SetPoint("TOPRIGHT", LF.addAll, "BOTTOMRIGHT", 0, -2)
     LF.addAll.menu:SetWidth(210)
 end
 LF.addAll.onChange = function(key)
-    LF.addAll.label:SetText("+ Add all")
-    if key ~= "add" then return end
-    for _, g in ipairs(LF.Missing()) do
-        if g.partOf then SetPartActive(g.partOf, g.partKey, true) else SetGoalActive(g, true) end
+    LF.addAll.label:SetText(LF.addMode == "add" and "+ Add all" or "Remove all")
+    if key ~= "add" and key ~= "remove" then return end
+    local on = key == "add"
+    LF.batch = {}
+    for _, g in ipairs(on and LF.Missing() or LF.Added()) do
+        if g.partOf then SetPartActive(g.partOf, g.partKey, on) else SetGoalActive(g, on) end
     end
+    local first = LF.batch.first
+    LF.batch = nil
+    -- one refresh for the lot
+    LayoutGoalList()
+    if first and not selectedId then SelectGoal(first.id)
+    elseif selectedId then SelectGoal(selectedId, true) end
+    RefreshOverall()
     LayoutLibrary()
 end
 
@@ -8444,14 +8479,15 @@ function LF.ActiveTags()
     if LF.show ~= "all" then out[#out + 1] = { LF.show == "added" and "Added" or "Not added", function() LF.show = "all" end } end
     if LF.newOnly then out[#out + 1] = { "New & Updated", function() LF.newOnly = false end } end
     local faction = FGT.factionSeg.Current()
-    if faction ~= "Both" then out[#out + 1] = { faction, function() ForeverGoalTrackerDB.libFaction = nil end } end
+    if faction ~= "Both" then out[#out + 1] = { faction, function() LF.faction = nil end } end
     return out
 end
 function LF.LayoutTags(count)
     libSummary:ClearAllPoints()
     libSummary:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 14, -15)
-    libSummary:SetText(count == 1 and "1 goal" or (count .. " goals"))
-    local maxX = libraryPanel:GetWidth() - 14 - LF.sortDrop:GetWidth() - 6 - (LF.addAll:IsShown() and (LF.addAll:GetWidth() + 6) or 0)
+    local tagged = #LF.ActiveTags() > 0
+    libSummary:SetText("Showing |cfff0dcb0" .. (count == 1 and "1 goal" or (count .. " goals")) .. "|r" .. (tagged and " for" or ""))
+    local maxX = libraryPanel:GetWidth() - 14 - LF.sortDrop:GetWidth() - 12 - (LF.addAll:IsShown() and (LF.addAll:GetWidth() + 6) or 0)
     local x, y = 14 + libSummary:GetStringWidth() + 12, -10
     for _, t in ipairs(LF.tags) do t:Hide() end
     for i, tag in ipairs(LF.ActiveTags()) do
