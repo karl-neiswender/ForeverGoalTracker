@@ -187,6 +187,18 @@ local empty = U.font(scroll.content, 11, "", unpack(C.SUBTEXT))
 empty:SetPoint("TOPLEFT", 0, -10)
 empty:SetJustifyH("LEFT")
 
+-- While the drawer peeks out over the guide, its left edge casts a soft
+-- shadow onto it so it reads as sitting on top.
+local peek = CreateFrame("Frame", nil, U.main)
+M.peekShadow = peek
+peek:SetPoint("TOPRIGHT", clip, "TOPLEFT", 0, 0)
+peek:SetPoint("BOTTOMRIGHT", clip, "BOTTOMLEFT", 0, 0)
+peek:SetWidth(16)
+local peekTex = peek:CreateTexture(nil, "OVERLAY")
+peekTex:SetAllPoints()
+peekTex:SetTexture("Interface\Buttons\WHITE8X8")
+peek:Hide()
+
 -- The outer window edge casts a shadow only while the drawer is tucked
 -- beneath it. The panel's left edge travels inward as it is revealed.
 local shadow = panel:CreateTexture(nil, "OVERLAY", nil, 3)
@@ -418,6 +430,13 @@ function M:Place()
     local visible = U.detail:IsShown() and hasGoal
     -- While peeking out over the guide, sit above it.
     clip:SetFrameLevel(U.detail:GetFrameLevel()+(self.bounce>0 and 30 or 0))
+    peek:SetFrameLevel(clip:GetFrameLevel()+1)
+    if self.bounce>0 and hasGoal then
+        U.gradient(peekTex, {0,0,0}, {0,0,0}, 0, 0.55*math.min(1,self.bounce/0.025))
+        peek:Show()
+    else
+        peek:Hide()
+    end
     clip:SetShown(visible); handle:SetShown(visible)
     -- Gradient alpha is encoded in its colors on these clients.
     U.gradient(shadow, {0,0,0}, {0,0,0}, 0, 0.65*(1-self.fraction))
@@ -470,7 +489,8 @@ end
 -- A friendly double "boop": the closed drawer eases out and back twice,
 -- then repeats twice more, each time smaller, to catch the eye without
 -- nagging. It stops the moment you open it or change goals.
-local BURSTS = { {0, 0.06}, {2.6, 0.04}, {5.4, 0.025} } -- start (s), reach (fraction)
+local REACH = 0.025
+local BURSTS = { {0, REACH}, {2.6, REACH}, {5.4, REACH} } -- start (s), reach (fraction)
 local BURST_TIME = 0.8
 function M:Bounce()
     if self.open or not self.canOpen or FGT.Setting("celebrations") ~= "full" then return end
