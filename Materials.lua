@@ -31,6 +31,26 @@ for _, goal in ipairs(FGT.goals) do
     end
 end
 
+-- Tier 3 ingredients are named in text only, and the game can't look an
+-- item up by name until it is cached, so those rows showed "?" icons. IDs
+-- from Wowhead Classic (checked 2026-10-12).
+for id, name in pairs({
+    [12360] = "Arcanite Bar", [15407] = "Cured Rugged Hide", [20725] = "Nexus Crystal",
+    [14342] = "Mooncloth", [12363] = "Arcane Crystal",
+    [22373] = "Wartorn Leather Scrap", [22374] = "Wartorn Chain Scrap",
+    [22375] = "Wartorn Plate Scrap", [22376] = "Wartorn Cloth Scrap",
+    [22349] = "Desecrated Breastplate", [22350] = "Desecrated Tunic", [22351] = "Desecrated Robe",
+    [22352] = "Desecrated Legplates", [22353] = "Desecrated Helmet", [22354] = "Desecrated Pauldrons",
+    [22355] = "Desecrated Bracers", [22356] = "Desecrated Waistguard", [22357] = "Desecrated Gauntlets",
+    [22358] = "Desecrated Sabatons", [22359] = "Desecrated Legguards", [22360] = "Desecrated Headpiece",
+    [22361] = "Desecrated Spaulders", [22362] = "Desecrated Wristguards", [22363] = "Desecrated Girdle",
+    [22364] = "Desecrated Handguards", [22365] = "Desecrated Boots", [22366] = "Desecrated Leggings",
+    [22367] = "Desecrated Circlet", [22368] = "Desecrated Shoulderpads", [22369] = "Desecrated Bindings",
+    [22370] = "Desecrated Belt", [22371] = "Desecrated Gloves", [22372] = "Desecrated Sandals",
+}) do
+    names[name] = id; labels[id] = name
+end
+
 local function Resolve(name)
     if names[name] or names[Singular(name)] then return names[name] or names[Singular(name)] end
     local _, link = FGT.ItemInfo(name)
@@ -129,6 +149,11 @@ function FGT.MaterialRows(goal, includeAlts)
             name, icon = info[1], info[10]
         end
         row.name = name or row.name or labels[row.id] or ("Item " .. tostring(row.id))
+        if not icon and row.id then
+            -- The instant lookup needs no cache, so uncached items still get their icon.
+            local instant = C_Item and C_Item.GetItemInfoInstant or GetItemInfoInstant
+            if instant then icon = select(5, instant(row.id)) end
+        end
         row.icon = icon or "Interface\\Icons\\INV_Misc_QuestionMark"
         result[#result + 1] = row
     end
@@ -305,7 +330,7 @@ function FGT.RefreshMaterials()
                 row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
                 row.icon = row:CreateTexture(nil,"ARTWORK")
                 row.icon:SetSize(14,14); row.icon:SetPoint("TOPLEFT",0,0)
-                row.name = U.font(row,11,"",unpack(C.TEXT)); row.name:SetPoint("TOPLEFT",20,0); row.name:SetJustifyH("LEFT")
+                row.name = U.font(row,11,"",unpack(C.TEXT)); row.name:SetPoint("TOPLEFT",20,0); row.name:SetJustifyH("LEFT"); row.name:SetWordWrap(false)
                 row.percent = U.font(row,10,"",unpack(C.INK2)); row.percent:SetPoint("TOPRIGHT",0,0)
                 row.bar = U.bar(row,6); row.bar.label:Hide()
                 row.count = U.font(row,10,"",unpack(C.SUBTEXT)); row.count:SetJustifyH("LEFT")
@@ -344,7 +369,7 @@ end
 
 function M:Place()
     local area = math.max(0,U.main:GetWidth()-U.list:GetWidth()-44)
-    self.width = math.min(210,math.max(22,area-160))
+    self.width = math.min(280,math.max(22,area-160))
     self.canOpen = self.width >= 150
     if not self.canOpen then self.open=false; self.fraction=0 end
     local hasGoal = U.goal() ~= nil

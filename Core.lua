@@ -2388,6 +2388,13 @@ local function NewBar(parent, height)
         end
     end
 
+    -- The fill is drawn in pixels, so it re-fits whenever the bar's width
+    -- changes (the Materials drawer sliding in); otherwise it holds its old
+    -- width mid-slide and snaps at the end.
+    bar:SetScript("OnSizeChanged", function(self)
+        if self.cur and not self.fading then self:Render(self.cur) end
+    end)
+
     -- Blue instead of gold, for goals and parts new in Forever.
     function bar:SetBlue(on)
         on = on and true or false
