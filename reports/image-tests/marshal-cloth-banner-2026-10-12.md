@@ -5,7 +5,12 @@ Review: Media/final-images/marshal-cloth-review.png.
 Built-in image_gen edit; neutral grayscale, baked left and bottom gradients,
 4:3 landscape, central female caster framed in upper-right quadrant.
 Intended goals: pvp_set_cloth_ally_priest, pvp_set_cloth_ally_mage,
-pvp_set_cloth_ally_warlock. Awaiting visual approval before installation.
+pvp_set_cloth_ally_warlock. Karl approved; installed via the shared parent
+variant, retaining all other PvP artwork. Master:
+Media/final-images/marshal-cloth-master.png (1200x900 neutral grayscale).
+Runtime: Media/pvp_set_cloth_ally-banner.blp (512px DXT1, ten validated mips).
+Rebuild map/runtime manifest updated. Full Lua check:
+reports/checks/marshal-cloth-banner-2026-10-12.txt. Full restart required.
 No artist attribution inferred from the supplied image.
 
 ## Exact prompt
