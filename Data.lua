@@ -42,8 +42,9 @@ FGT.difficultyColors = {
 -- Undead is "Scourge"). ownedPatterns are Lua patterns matched against
 -- mount and item names you own, to spot the purchase automatically.
 -- Every race reads the same way; only the names, place and gold change.
--- gold = { label, minimum } for the savings step (default Classic Era's
--- 800-1,000: riding training plus the mount).
+-- gold = { label, minimum } for the savings step. Forever's undiscounted
+-- epic budget is 1,000g training + 200g mount (Karl, 2026-10-12).
+-- Classic Era keeps its existing 800-1,000g estimate.
 -- home = { faction, factionId, factionName, race plural }: any character of that
 -- faction can buy it (level 60, Exalted with the race's home city; that
 -- race itself skips the reputation). 5 steps. Without home (Skyborne,
@@ -58,7 +59,8 @@ local VENDOR_NPC = { ["Katie Hunter"] = 384, ["Veron Amberstill"] = 1261, ["Lela
     ["Milli Featherwhistle"] = 7955, ["Ogunaro Wolfrunner"] = 3362, ["Harb Clawhoof"] = 3685,
     ["Zachariah Post"] = 4731, ["Zjolnir"] = 7952, ["Genn Fairweather"] = 265756 }
 local function BuildMountTasks(race, mountName, vendor, location, raceFile, ownedPatterns, gold, home, items)
-    gold = gold or { "800-1,000", 800 }
+    gold = gold or (FOREVER_CLIENT and { "1,200", 1200 } or { "800-1,000", 800 })
+    local savings = (FOREVER_CLIENT and "Save " or "Save about ") .. gold[1] .. " gold on that character"
     local ids = {}
     for i, it in ipairs(items or {}) do ids[i] = it[1] end
     -- "Buy a Swift Ram" when it comes in several colors, "Buy the ..." for one
@@ -74,7 +76,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
               skipIfRace = raceFile }, -- hidden while you play that race (FGT.PieceSkipped)
             { name = "Train " .. (FOREVER_CLIENT and "Journeyman" or "Expert") .. " Riding", materials = {}, shared = "riding",
               auto = { skill = { name = "Riding", rank = 150 }, forFaction = side } },
-            { name = "Save about " .. gold[1] .. " gold on that character", materials = {},
+            { name = savings, materials = {},
               auto = { money = gold[2] * 10000, forFaction = side } },
             { name = "Buy " .. article .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
               auto = { ownedPattern = ownedPatterns, item = ids, forFaction = side },
@@ -88,7 +90,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
         -- teaches swift mounts there. Same skill rank, 150.
         { name = "Train " .. (FOREVER_CLIENT and "Journeyman" or "Expert") .. " Riding", materials = {}, shared = "riding",
           auto = { skill = { name = "Riding", rank = 150 }, forRace = raceFile } },
-        { name = "Save about " .. gold[1] .. " gold on that character", materials = {},
+        { name = savings, materials = {},
           auto = { money = gold[2] * 10000, forRace = raceFile } },
         { name = "Buy " .. article .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
           auto = { ownedPattern = ownedPatterns, item = ids, forRace = raceFile },
@@ -481,7 +483,12 @@ FGT.goals = {
         note = "Your faction's epic racial mounts. Requires level 60, swift riding and gold. Other races need Exalted with the mount's home city. Pick the mounts you want.",
         tips = {
             "Your own race's mount needs no reputation. Another race's mount needs Exalted with that race's home city (Darkspear Trolls for the raptor, Ironforge for the ram).",
-            "Honored with the vendor's city gives a small discount.",
+            FOREVER_CLIENT and "Journeyman Riding (100% speed): 1,000g. Epic racial mount: 200g. Total: 1,200g before faction discounts."
+                or "Honored with the vendor's city gives a small discount.",
+            FOREVER_CLIENT and "Apprentice Riding (60% speed): 100g. Non-epic racial mount: 20g, before faction discounts."
+                or "Riding training and the mount are separate purchases.",
+            FOREVER_CLIENT and "Train riding once per character. Each mount costs extra."
+                or "Each mount is a separate purchase.",
             "For all mounts on one character, reach Exalted with your faction's cities. See {rep_ambassador:Ambassador}.",
             "Any color counts. All colors cost the same.",
         },

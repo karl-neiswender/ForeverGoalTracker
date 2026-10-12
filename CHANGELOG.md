@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Update Forever racial mount budgets to 1,200g and separate mount and riding prices
 - Limit window resizing to 75–125% of its default size, with screen-fit protection
 - Shorten guides, tips and tooltips with clearer, consistent wording
 - Add a session-only preview of Classic step locks for testing in Forever

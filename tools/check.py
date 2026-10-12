@@ -350,6 +350,8 @@ if ok_all:
     ]
     armor_fixture = 'local F = STUB_NS; local r = F.GoalById("set_tier1_rogue").armorSection; local h = F.GoalById("set_tier1_hunter").armorSection; local t = F.GoalById("tier3_rogue").armorSection;\nForeverGoalTrackerDB = { active = {}, activeParts = { set_tier1 = {[r]=true,[h]=true}, tier3 = {[t]=true} }, progress = {set_tier1 = {[r.."_1_piece"]=true,[h.."_2_piece"]=true}, tier3 = {[t.."_1_m1"]=true}}, selected="set_tier1", notes={set_tier1="Keep this note"}, favorites={set_tier1=true}, goalsDone={set_tier1=true}, goalDates={set_tier1=123456}, t3RecipeFix=true, characters={} }; for pi in ipairs(F.GoalById("set_tier1_rogue").sections[1].pieces) do ForeverGoalTrackerDB.progress.set_tier1[r.."_"..pi.."_piece"] = true end'
     steps.extend([
+        ("racial mount costs", None, open(os.path.join(here, "mount-cost-tests.lua")).read()),
+        ("Forever racial mount costs", None, open(os.path.join(here, "mount-cost-tests.lua")).read(), True),
         ("type styles", None, open(os.path.join(here, "type-style-tests.lua")).read()),
         ("Forever type styles", None, open(os.path.join(here, "type-style-tests.lua")).read(), True),
         ("empty book artwork", None, open(os.path.join(here, "empty-book-tests.lua"), encoding="utf-8").read()),
