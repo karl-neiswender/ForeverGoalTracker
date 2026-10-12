@@ -10417,6 +10417,11 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         FGT.TestBanner()
         return
     end
+    if msg == "materialsreset" then
+        ForeverGoalTrackerDB.materialsSeen = nil
+        print(TAG .. "Materials will slide open again the first time you view each recipe goal.")
+        return
+    end
     if msg == "settings" or msg == "options" or msg == "config" then
         FGT.OpenSettings()
         return

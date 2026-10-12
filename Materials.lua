@@ -365,6 +365,23 @@ function FGT.RefreshMaterials()
     empty:SetShown(visible == 0)
     if M.goalId ~= goal.id then scroll.scroll:SetVerticalScroll(0); M.goalId=goal.id; options:Hide() end
     M:Place()
+    -- A real shopping list (Tier 3, AQ sets) slides the drawer open the
+    -- first time that goal is viewed with the window up, to point it out.
+    -- Once per goal ever; /goals materialsreset starts over.
+    if #data >= 3 and U.main:IsShown() and not DB.demoBackup then
+        DB.materialsSeen = DB.materialsSeen or {}
+        if not DB.materialsSeen[goal.id] then
+            if M.open then
+                DB.materialsSeen[goal.id] = true
+            elseif M.canOpen then
+                DB.materialsSeen[goal.id] = true
+                local id = goal.id
+                C_Timer.After(0.35, function()
+                    if M.goalId == id and not M.open and U.main:IsShown() then M:SetOpen(true) end
+                end)
+            end
+        end
+    end
 end
 
 function M:Place()

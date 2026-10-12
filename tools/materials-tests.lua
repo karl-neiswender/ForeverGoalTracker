@@ -148,3 +148,21 @@ end
 assert(goldBar,"gold progress bar retained")
 for bar,methods in pairs(barMethods) do bar.Show,bar.Hide=methods[1],methods[2] end
 print("  per-goal stock, recipe sums, historical credit, scopes, alts, unknown items, slide lifecycle and narrow bounds pass")
+
+-- A goal with a real shopping list slides the drawer open once, the first
+-- time it is viewed. Goals with little or nothing to collect never do.
+do
+    width=1000; U.main.GetWidth=function() return width end
+    local oldShown=U.main.IsShown; U.main.IsShown=function() return true end
+    local oldAfter=C_Timer.After; C_Timer.After=function(_,fn) fn() end
+    F.SetSetting("celebrations","off")
+    M.open=false; M.fraction=0; D.materialsSeen=nil
+    D.active={gold_5k=true,tier3_warrior=true}; D.progress.tier3_warrior=D.progress.tier3_warrior or {}
+    F.SelectGoal("gold_5k")
+    assert(not M.open,"a goal without a shopping list stays closed")
+    F.SelectGoal("tier3_warrior")
+    assert(M.open and D.materialsSeen and D.materialsSeen.tier3_warrior,"recipe goal opens on first view rows="..#(M.data or {}).." can="..tostring(M.canOpen).." shown="..tostring(U.main:IsShown()).." goal="..tostring(M.goalId))
+    M:SetOpen(false); F.SelectGoal("gold_5k"); F.SelectGoal("tier3_warrior")
+    assert(not M.open,"later views do not reopen it")
+    C_Timer.After=oldAfter; U.main.IsShown=oldShown
+end
