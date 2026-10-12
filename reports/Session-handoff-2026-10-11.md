@@ -76,3 +76,7 @@ Karl requested another 22 UI units of width for the left goals list after
 reviewing truncated titles. Added beyond the restored original tab footprint;
 the right panel uses the remaining space. Overall window size is unchanged.
 Checks: checks/wider-goals-list-2026-10-11.txt. `/reload` for native review.
+
+After native review Karl requested a little more width. Added another 12 UI
+units, now 34 beyond the original footprint. Overall window size is unchanged.
+Checks: checks/wider-goals-list-followup-2026-10-11.txt.

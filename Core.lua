@@ -6403,8 +6403,8 @@ local trackerTab = NewTab("My Goals")
 trackerTab:SetPoint("TOPLEFT", main, "TOPLEFT", 16, TABS_TOP)
 local libraryTab = NewTab("Goal Library")
 libraryTab:SetPoint("LEFT", trackerTab, "RIGHT", 6, 0)
--- Give goal titles 22 more units beyond the original combined tab footprint.
-listPanel:SetWidth(trackerTab:GetWidth() + 6 + libraryTab:GetWidth() + 22)
+-- Give goal titles 34 more units beyond the original combined tab footprint.
+listPanel:SetWidth(trackerTab:GetWidth() + 6 + libraryTab:GetWidth() + 34)
 
 -- A bright gold streak that circles a button's border, fading out behind
 -- it like a comet's tail (talentsforever.com's "Back to Class" button).
