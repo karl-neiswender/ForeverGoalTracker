@@ -3884,7 +3884,7 @@ for i, goal in ipairs(FGT.goals) do
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     row.icon = NewIcon(row, 50) -- bottom lines up with the third text line
     row.icon:SetPoint("TOPLEFT", row, "TOPLEFT", 10, -11)
-    row.icon:SetIcon(goal.icon, catColor)
+    row.icon:SetIcon(FGT.GoalIcon(goal), catColor)
 
     row.eyebrow = NewFontString(row, 9, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
     row.eyebrow:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 9, 0)
@@ -4047,6 +4047,7 @@ LayoutGoalList = function()
             y = y - 11
         end
         if row then
+            if g.group then row.icon.tex:SetTexture(ResolveIcon(FGT.GoalIcon(g))) end -- race-matched thumbnail
             row:ClearAllPoints()
             row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, y)
             row:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
@@ -6483,7 +6484,7 @@ SelectGoal = function(id, skipListRefresh)
     FGT.detailReward = not goal.sections and (goal.rewardItem or (cw and AsList(cw.item)[1])) or nil
     FGT.detailRewardName = goal.name
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
-    detailIcon:SetIcon(goal.icon, catColor)
+    detailIcon:SetIcon(FGT.GoalIcon(goal), catColor)
     detailTag:SetText(FGT.GoalEyebrow(goal))
     detailTag:SetTextColor(catColor[1], catColor[2], catColor[3])
 
@@ -8076,7 +8077,7 @@ function FGT.OpenLinkCard(id)
 
     L.goal = goal
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
-    L.icon:SetIcon(goal.icon, catColor)
+    L.icon:SetIcon(FGT.GoalIcon(goal), catColor)
     L.tag:SetText(string.upper(goal.category)
         .. (goal.faction and ("  \194\183  " .. string.upper(goal.faction) .. " ONLY") or ""))
     L.tag:SetTextColor(catColor[1], catColor[2], catColor[3])
@@ -8172,7 +8173,7 @@ local function GetCard(goal)
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     card.icon = NewIcon(card, 42)
     card.icon:SetPoint("LEFT", card, "LEFT", 10, 0)
-    card.icon:SetIcon(goal.icon, catColor)
+    card.icon:SetIcon(FGT.GoalIcon(goal), catColor)
     card.baseRim = catColor -- finished cards swap it for grey
 
     card.btn = CreateFrame("Button", nil, card, "BackdropTemplate")
@@ -8410,7 +8411,7 @@ LayoutLibrary = function()
             card:SetEtch(STYLE.doneCard)
             card.restStyle = STYLE.doneCard
         end
-        card.icon:SetIcon(g.icon, finished and { 0.40, 0.40, 0.39 } or card.baseRim)
+        card.icon:SetIcon(FGT.GoalIcon(g), finished and { 0.40, 0.40, 0.39 } or card.baseRim)
         card.doneGlow:SetShown(finished)
         card.icon.tex:SetDesaturated(finished)
         card.icon.tex:SetAlpha(finished and 0.6 or 1)

@@ -47,6 +47,26 @@ function FGT.PlayerProfile()
     return { class = class, race = race, faction = faction }
 end
 
+-- The goal's thumbnail. Epic Racial Mounts wears the logged-in character's
+-- own race's mount (a Night Elf sees the Swift Saber), like its step does.
+function FGT.GoalIcon(goal)
+    if goal.group and goal.sections then
+        local race = FGT.PlayerProfile().race
+        if race then
+            for _, section in ipairs(goal.sections) do
+                if section.icon and (section.forever ~= "new" or FGT.isForever) then
+                    for _, piece in ipairs(section.pieces or {}) do
+                        if piece.skipIfRace == race or (piece.auto and piece.auto.forRace == race) then
+                            return section.icon
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return goal.icon
+end
+
 -- "Druid - Bloodfang Armor" -> "DRUID"
 local function SectionClass(name)
     local class = type(name) == "string" and name:match("^(%a+) %- ")
