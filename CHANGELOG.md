@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- New Goal Library filters: search, show added or not, filter for your character or any class, faction and category, with removable filter tags, sorting and Add all
+- Pick a class or your character to see their own armor sets and racial mount as separate goals
+- My Goals can show only the goals your current character can do
+- Soft drifting dust on the goal page
 - Add What's new: a button beside Settings that glows after an update and opens a short release ledger
 - Materials: counts on every row, grouped by crafting materials and tokens, Show completed and progress bar options, and a gentle nudge the first time you view a goal with a shopping list
 - Fix Copy Character Name being blocked after clicking a chat link
