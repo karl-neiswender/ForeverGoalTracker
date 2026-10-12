@@ -9,7 +9,8 @@ import glob, os, sys
 
 # same order as FGT.SHOTS in Core.lua
 NAMES = ["01-my-goals", "02-new-and-updated", "03-epic-mounts", "04-links-and-tips",
-         "05-find-your-next-goal", "06-welcome", "07-suggestions", "08-settings"]
+         "05-find-your-next-goal", "06-welcome", "07-suggestions", "08-settings",
+         "09-materials", "10-library-filters"]
 
 here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))

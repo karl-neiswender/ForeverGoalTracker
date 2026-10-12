@@ -402,3 +402,15 @@ do
     assert(#LF.Added() == 0, "Remove all removes everything listed")
     LF.Reset(); D.active = {}; D.activeParts = {}
 end
+
+-- the My Goals search box hides with Sort on the empty tracker (the stub
+-- doesn't track visibility, so record the calls)
+do
+    local box, seen = STUB_NS.listSearch, {}
+    rawset(box, "Hide", function() seen[#seen + 1] = "hide" end)
+    rawset(box, "Show", function() seen[#seen + 1] = "show" end)
+    box:SetText("atiesh")
+    STUB_NS.ShowEmptyTracker()
+    assert(seen[#seen] == "hide", "no search box on the empty tracker")
+    assert(STUB_NS.listQuery == "", "the empty tracker clears the search")
+end

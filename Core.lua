@@ -7164,6 +7164,7 @@ function FGT.ShowEmptyTracker()
     for _, p in ipairs(FGT.emptyUI.parts) do p:Show() end
     sortBar:Hide() -- nothing to sort
     if FGT.myGoalsView then FGT.myGoalsView:Hide() end
+    if FGT.listSearch then FGT.listSearch:SetText(""); FGT.listSearch:ClearFocus(); FGT.listSearch:Hide() end -- nothing to search
     RefreshGoalList()
     RefreshOverall()
     -- the message, button and link fade (and rise) in when they appear
@@ -7206,6 +7207,7 @@ function FGT.HideEmptyTracker()
     for _, p in ipairs(FGT.emptyUI.parts) do p:Hide() end
     sortBar:Show()
     if FGT.myGoalsView then FGT.myGoalsView:Show() end
+    if FGT.listSearch then FGT.listSearch:Show() end
     FGT.RefreshOverall()
     for _, part in ipairs(detailParts) do part:Show() end
 end
