@@ -427,3 +427,29 @@ do
     B:PlaceGlow()
     assert(B.glows.thunderfury and B.glows.ashbringer and B.glows.rep_argentdawn.rays and B.glows["benediction-alliance-banner.blp"].rays and B.glows["set_tier2_paladin-banner.blp"].rays and not B.glows.atiesh, "only goals with a glow spec get one")
 end
+
+-- Sulfuras embers rise and stay inside the art
+do
+    local B = STUB_NS.goalBanner
+    B.goal = STUB_NS.GoalById("sulfuras")
+    B.hasArt = true
+    B.sourceAspect = 4/3
+    B:Fit()
+    -- the stub has no real sizes: give the art one, then place the lights
+    rawset(B.art, "GetWidth", function() return 600 end)
+    B.shownArtHeight, B.uv = 450, { 0.4, 1, 0, 1 }
+    B:PlaceGlow()
+    assert(B.glowSpec and B.glowSpec.embers, "Sulfuras has embers")
+    assert(#B.emberDots == 0 or not B.emberDots[1].tex:IsShown(), "no embers with Celebrations off")
+    local cel = STUB_NS.Setting("celebrations")
+    STUB_NS.SetSetting("celebrations", "full")
+    B:PlaceGlow()
+    for _ = 1, 50 do B:StepEmbers(0.1) end
+    assert(#B.emberDots == B.glowSpec.embers.count, "one dot per ember")
+    local before = B.emberFor
+    B:PlaceGlow()
+    assert(B.emberFor == before, "a re-layout keeps the embers in flight")
+    STUB_NS.SetSetting("celebrations", cel)
+    B:PlaceGlow()
+    assert(B.emberFor == nil, "Celebrations off stops the embers")
+end

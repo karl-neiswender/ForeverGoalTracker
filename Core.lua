@@ -5047,6 +5047,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- the light in his raised hand, near the art's right edge
         ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.62, { 1, 1, 1 }, rays = 2.2, strength = 0.85,
             raysStrength = 0.6, turn = 300 },
+        -- Sulfuras: heat on the hammer head, and embers rising off the
+        -- head and handle (`embers.box` = u0, u1, v0, v1 where they start)
+        sulfuras = { 0.612, 0.21, 0.40, { 1, 1, 1 }, strength = 0.9,
+            embers = { box = { 0.53, 0.70, 0.10, 0.62 }, count = 16, rise = 0.22 } },
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
@@ -5124,6 +5128,87 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             self:ClipLight(self.raysTex, self.glowCX, self.glowCY, spec[3]*self.art:GetWidth()*spec.rays, turn or 0)
         end
     end
+    -- Embers: a small pool of soft dots (Media/dot) that rise from a box in
+    -- the art, swaying gently, each fading in and out over 3 to 6 seconds.
+    -- No sudden changes in brightness anywhere (photosensitivity rule).
+    B.emberDots = {}
+    function B:ArtPoint(u, v)
+        local uv = self.uv
+        return (u - uv[1])/(uv[2] - uv[1])*self.art:GetWidth(),
+            (v - uv[3])/(uv[4] - uv[3])*(self.shownArtHeight or 0)
+    end
+    function B:HideEmbers()
+        for _, e in ipairs(self.emberDots) do e.tex:Hide() end
+    end
+    function B:SpawnEmber(e, cfg, warm)
+        local aw = self.art:GetWidth()
+        local x0, y0 = self:ArtPoint(cfg.box[1], cfg.box[3])
+        local x1, y1 = self:ArtPoint(cfg.box[2], cfg.box[4])
+        e.x0, e.y0 = x0 + (x1 - x0)*math.random(), y0 + (y1 - y0)*math.random()
+        e.life = 3 + 3*math.random()
+        e.age = warm and e.life*math.random() or 0 -- warm start: already mid-flight
+        e.rise = cfg.rise*aw*(0.6 + 0.6*math.random())
+        e.sway, e.freq, e.phase = aw*0.012*(0.5 + math.random()), 0.15 + 0.25*math.random(), math.random()*2*math.pi
+        e.size = aw*(0.010 + 0.010*math.random())
+        e.peak = 0.5 + 0.5*math.random()
+        e.wait = nil
+    end
+    function B:ResetEmbers()
+        local cfg = self.glowSpec and self.glowSpec.embers
+        if not cfg then self:HideEmbers() return end
+        for i = 1, cfg.count do
+            local e = self.emberDots[i]
+            if not e then
+                local t = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
+                t:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\dot")
+                t:SetBlendMode("ADD")
+                if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
+                if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
+                e = { tex = t }
+                self.emberDots[i] = e
+            end
+            self:SpawnEmber(e, cfg, true)
+        end
+        for i = cfg.count + 1, #self.emberDots do self.emberDots[i].tex:Hide() end
+    end
+    function B:StepEmbers(dt)
+        local cfg = self.glowSpec and self.glowSpec.embers
+        if not cfg then return end
+        local aw, ah = math.max(1, self.art:GetWidth()), self.shownArtHeight or 0
+        local level = (self.glowLevel or 0)*0.55
+        for i = 1, cfg.count do
+            local e = self.emberDots[i]
+            if e then
+                if e.wait then
+                    e.wait = e.wait - dt
+                    if e.wait <= 0 then self:SpawnEmber(e, cfg) end
+                    e.tex:Hide()
+                else
+                    e.age = e.age + dt
+                    local p = e.age/e.life
+                    if p >= 1 then
+                        e.wait = math.random()*1.5
+                        e.tex:Hide()
+                    else
+                        local x = e.x0 + e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
+                        local y = e.y0 - e.rise*p
+                        local fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.5)
+                        local inside = x > 0 and x < aw and y > 0 and y < ah
+                        local t = e.tex
+                        t:SetShown(inside)
+                        if inside then
+                            local size = e.size*(1 - 0.4*p)
+                            t:ClearAllPoints()
+                            t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
+                            t:SetSize(size, size)
+                            -- fades toward the left like the photo
+                            t:SetAlpha(level*e.peak*fade*math.min(1, x/aw))
+                        end
+                    end
+                end
+            end
+        end
+    end
     -- Ambient, like the drifting clouds and dust: a faint light that swells
     -- and settles over many seconds. Two slow waves with unrelated periods
     -- keep it from feeling like a pulse. No flashes or flicker (it must be
@@ -5138,6 +5223,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.playing = false
         B.glowFrame:SetScript("OnUpdate", nil)
         B:PaintGlow(0.2, 0.05/0.54)
+        B:HideEmbers() -- embers only move; with Celebrations off there are none
     end
     function B:StepGlow(dt)
         local a = self.glowAnim
@@ -5150,6 +5236,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local spec = self.glowSpec or {}
         local turn = spec.turn or 180
         self:DrawLights(n, -(a.t % turn)/turn*2*math.pi)
+        self:StepEmbers(dt)
         self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54*(spec.raysStrength or 1))
     end
     function B:PlaceGlow()
@@ -5173,11 +5260,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if on then
             self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
             if not live then self:DrawLights(0.5, 0); self:PaintGlow(0.2, 0.05/0.54) end
+            -- (re-layouts keep the embers in flight; a new goal starts fresh)
+            if not live then self:HideEmbers(); self.emberFor = nil
+            elseif self.emberFor ~= spec then self:ResetEmbers(); self.emberFor = spec end
             if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
             elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
         elseif self.glowAnim:IsPlaying() then
             self.glowAnim:Stop()
         end
+        if not on then self:HideEmbers(); self.emberFor = nil end
     end
     function B:SetImageFade(amount)
         self.imageFade = amount
@@ -5325,7 +5416,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
         for _,t in ipairs(self.fadeStrips) do t:Hide() end
-        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.glowAnim:Stop()
+        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.glowAnim:Stop(); self:HideEmbers(); self.emberFor = nil
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
