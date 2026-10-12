@@ -2,7 +2,7 @@ local ADDON, FGT = ...
 local U = FGT.MaterialsUI
 local C = U.colors
 FGT.SETTING_DEFAULTS.materialsCollected = false
-FGT.SETTING_DEFAULTS.materialsCounts = false
+FGT.SETTING_DEFAULTS.materialsBars = true
 FGT.SETTING_DEFAULTS.materialsAlts = true
 
 local function List(v) return type(v) == "table" and v or (v and {v} or {}) end
@@ -36,7 +36,7 @@ end
 -- from Wowhead Classic (checked 2026-10-12).
 for id, name in pairs({
     [12360] = "Arcanite Bar", [15407] = "Cured Rugged Hide", [20725] = "Nexus Crystal",
-    [14342] = "Mooncloth", [12363] = "Arcane Crystal",
+    [11371] = "Dark Iron Bar", [14342] = "Mooncloth", [12363] = "Arcane Crystal",
     [22373] = "Wartorn Leather Scrap", [22374] = "Wartorn Chain Scrap",
     [22375] = "Wartorn Plate Scrap", [22376] = "Wartorn Cloth Scrap",
     [22349] = "Desecrated Breastplate", [22350] = "Desecrated Tunic", [22351] = "Desecrated Robe",
@@ -53,13 +53,14 @@ end
 
 -- Recipe goals group their rows: reagents you gather or craft with, the
 -- gear tokens you trade in, and (AQ) the idols and scarabs handed over.
-local GROUPS = { {"Crafting materials"}, {"Tokens"}, {"Turn-in items"}, {"Other"} }
+local GROUPS = { {"Crafting materials"}, {"Tokens"}, {"Turn-in items"} }
 local function GroupOf(id)
-    if not id then return nil end
+    if not id then return 1 end
     if (id >= 22373 and id <= 22376) or id == 12360 or id == 15407 or id == 20725
         or id == 14342 or id == 12363 then return 1 end
     if (id >= 22349 and id <= 22372) or (id >= 20926 and id <= 20933) then return 2 end
     if (id >= 20874 and id <= 20882) or (id >= 20858 and id <= 20865) then return 3 end
+    return 1 -- anything else you gather or craft with
 end
 
 local function Resolve(name)
@@ -268,13 +269,13 @@ local options = CreateFrame("Frame", nil, panel, "BackdropTemplate")
 M.options = options
 options:SetPoint("TOPLEFT", 8, -40)
 options:SetPoint("TOPRIGHT", -8, -40)
-options:SetHeight(70)
+options:SetHeight(100)
 options:SetFrameLevel(panel:GetFrameLevel()+35)
 options:EnableMouse(true)
 U.etch(options, U.styles.panel, 10)
 options:Hide()
 local optionRows = {}
-for i, entry in ipairs({{"materialsCollected","Show collected"}, {"materialsAlts","Include other characters"}}) do
+for i, entry in ipairs({{"materialsCollected","Show collected"}, {"materialsBars","Show progress bars"}, {"materialsAlts","Include other characters"}}) do
     local button = CreateFrame("Button", nil, options)
     button:SetHeight(30)
     button:SetPoint("TOPLEFT", 6, -5-(i-1)*30)
@@ -320,11 +321,13 @@ local function LayoutRows()
             row:ClearAllPoints(); row:SetPoint("TOPLEFT", 0, -y)
             row.name:SetWidth(math.max(1,width-72))
             local textH = math.max(16,row.name:GetStringHeight())
+            local bars = FGT.Setting("materialsBars")
+            row.bar:SetShown(bars)
             row.bar:ClearAllPoints(); row.bar:SetPoint("TOPLEFT",0,-textH-6); row.bar:SetWidth(width)
             row.count:ClearAllPoints(); row.count:SetPoint("TOPLEFT",row.bar,"BOTTOMLEFT",0,-5)
             row.count:SetWidth(width)
             local countH = 0
-            local height = textH + 22 + countH
+            local height = textH + (bars and 22 or 4) + countH
             row:SetHeight(height); y = y + height + 10
         end
     end
@@ -369,7 +372,7 @@ function FGT.RefreshMaterials()
     local groupsSeen, multiple = {}, false
     for _, entry in ipairs(data) do
         if FGT.Setting("materialsCollected") or entry.have < entry.need then
-            groupsSeen[entry.group or 4] = true
+            groupsSeen[entry.group or 1] = true
         end
     end
     local groupCount = 0
@@ -411,7 +414,7 @@ function FGT.RefreshMaterials()
             row.name:SetText(entry.name); row.icon:SetTexture(entry.icon)
             -- A single item is either 0 or all; show the count, not 0% / 100%.
             row.percent:SetText(entry.unknown and "—" or (entry.have .. " / " .. entry.need))
-            local group = entry.group or 4
+            local group = entry.group or 1
             row.groupLabel = (multiple and group ~= lastGroup) and GROUPS[group][1] or nil
             lastGroup = group
             row.bar.instant=true; row.bar:SetProgress(entry.have,entry.need,""); row.bar.instant=nil

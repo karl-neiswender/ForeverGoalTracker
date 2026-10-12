@@ -205,3 +205,14 @@ do
     end
     assert(single and single.percent:GetText():match("/ 1$"), "rows show have / need counts")
 end
+
+-- Everything gathered or crafted without a special group is a crafting
+-- material, so Sulfuras and Thunderfury show no stray "Other" heading.
+do
+    for _, id in ipairs({"sulfuras","thunderfury"}) do
+        for _, r in ipairs(F.MaterialRows(F.GoalById(id), true)) do
+            assert(r.group == 1, id .. " row " .. r.name .. " is a crafting material")
+        end
+    end
+    assert(F.Setting("materialsBars") == true, "progress bars show by default")
+end
