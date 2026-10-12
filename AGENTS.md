@@ -154,7 +154,7 @@ Each goal has an `id`, a `name`, `category`, `icon` and `faction`, plus `section
 12. Steps are saved by position. If you remove or merge steps in an existing goal, add a one-time remap in the init code (see `tipsFix`) so saved ticks follow their steps.
 13. Code in Core.lua's main chunk runs at load, before the game has loaded `ForeverGoalTrackerDB` (it arrives with ADDON_LOADED). `LayoutGoalList` runs then, so anything it or the list refresh reads from the DB needs a `ForeverGoalTrackerDB and ...` guard. `tools/check.py` catches this.
 14. Gradient textures (anything colored with `ApplyHGradient`/`ApplyVGradient`) ignore `SetAlpha` in game. To fade one, redraw its gradient with scaled alphas each frame (see the celebration shine). Plain textures and frames fade with `SetAlpha` as normal.
-15. Chat links use the `fgt:` link type (`|Hfgt:goal:<id>|h[Name]|h`). `SetItemRef` is wrapped to catch them and passes every other link to the game's handler. **This wrapper taints chat link clicks and blocks Blizzard's protected actions (Copy Character Name): being replaced next session, see the BUG FIRST note.**
+15. Chat links use the game's `addon` link type (`|Haddon:ForeverGoalTracker:goal:<id>|h[Name]|h`), handled through `EventRegistry` "SetItemRef" (Blizzard routes it untainted on Classic Era and Forever). Never assign to the global `SetItemRef`: that taints chat link clicks and blocks Copy Character Name (fixed 2026-10-12). Old `fgt:` links in chat history are caught by a `hooksecurefunc` post-hook.
 
 ## Testing
 

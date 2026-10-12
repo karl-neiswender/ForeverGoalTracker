@@ -8705,9 +8705,9 @@ local function Pick(list) return list[math.random(#list)] end
 -- SetItemRef; ours ("fgt:...") open the tracker, everything else goes
 -- on to the game's own handler untouched.
 local function GoalLink(goal)
-    return "|cffffd100|Hfgt:goal:" .. goal.id .. "|h[" .. goal.name .. "]|h|r"
+    return "|cffffd100|Haddon:" .. ADDON .. ":goal:" .. goal.id .. "|h[" .. goal.name .. "]|h|r"
 end
-local OPEN_LINK = "|cffffd100|Hfgt:open|h[Open tracker]|h|r"
+local OPEN_LINK = "|cffffd100|Haddon:" .. ADDON .. ":open|h[Open tracker]|h|r"
 
 function FGT.OpenToGoal(id)
     if not main:IsShown() then FGT.ToggleFrame() end
@@ -8719,14 +8719,29 @@ function FGT.OpenToGoal(id)
     end
 end
 
-local gameSetItemRef = SetItemRef
-SetItemRef = function(link, text, button, chatFrame)
-    if type(link) == "string" and link:sub(1, 4) == "fgt:" then
-        local _, kind, id = strsplit(":", link)
-        FGT.OpenToGoal(kind == "goal" and id or nil)
-        return
-    end
-    return gameSetItemRef(link, text, button, chatFrame)
+-- Never replace the game's SetItemRef: a replaced global taints every chat
+-- link click, and Blizzard blocks protected actions such as Copy Character
+-- Name. Current links use the game's "addon" link type, which it routes to
+-- the SetItemRef event untainted. Old "fgt:" links already in chat history
+-- are caught by a secure post-hook.
+local function HandleOurLink(kind, id)
+    FGT.OpenToGoal(kind == "goal" and id or nil)
+end
+if EventRegistry and EventRegistry.RegisterCallback then
+    EventRegistry:RegisterCallback("SetItemRef", function(_, link)
+        if type(link) == "string" and link:sub(1, 6) == "addon:" then
+            local _, name, kind, id = strsplit(":", link)
+            if name == ADDON then HandleOurLink(kind, id) end
+        end
+    end, FGT)
+end
+if type(SetItemRef) == "function" then
+    hooksecurefunc("SetItemRef", function(link)
+        if type(link) == "string" and link:sub(1, 4) == "fgt:" then
+            local _, kind, id = strsplit(":", link)
+            HandleOurLink(kind, id)
+        end
+    end)
 end
 
 -- 1. A few seconds after login or /reload, once the login chatter has
