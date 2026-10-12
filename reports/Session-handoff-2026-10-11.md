@@ -49,3 +49,12 @@ guides/tooltips, session-only `/goals testlocks` Forever preview and revised
 racial mount cost guidance (1,000g Journeyman training + 200g mount, before
 discounts). Forever locks stay off by default. No new release was requested.
 All changes must be synced to main; native review can continue after `/reload`.
+
+Native dependency follow-up: a locked Lok'delar demon click remained at 0/8
+and displayed its prerequisite tooltip. Both modern quest-status APIs exist
+and returned false normally for this character's unstarted hunter chain.
+The temporary leaf tick from a misaligned coordinate click was restored and
+0/8 verified. Preview remains on. Code now has an empty separate Forever
+dependency table for gradual verified-edge rollout; no rules are enabled by
+default. Shared checklist progress is not current-character eligibility.
+Details: Forever-dependency-native-review-2026-10-11.md.

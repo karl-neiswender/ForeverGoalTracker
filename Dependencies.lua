@@ -41,6 +41,11 @@ for _, id in ipairs({"benediction", "lokdelar", "att_mc", "att_bwl"}) do
     FGT.DEPENDENCIES[id] = moved
 end
 
+-- Add only individually verified Forever edges here. Keep this separate
+-- from the Classic baseline so one reviewed chain never enables the rest.
+-- Native UI/API tests alone do not establish quest prerequisite rules.
+FGT.FOREVER_DEPENDENCIES = {}
+
 function FGT.DependencyEntry(goal, key)
     if not goal then return end
     if type(key) == "number" then return goal.steps and goal.steps[key] end
@@ -63,8 +68,11 @@ end
 function FGT.StepPrerequisites(goal, key)
     local entry = FGT.DependencyEntry(goal, key)
     if type(entry) == "table" and entry.requires then return entry.requires end
-    if FGT.DEPENDENCIES.classicOnly and FGT.isForever and not FGT.testDependencies then return end
-    local rules = goal and FGT.DEPENDENCIES[goal.id]
+    local dependencies = FGT.DEPENDENCIES
+    if dependencies.classicOnly and FGT.isForever and not FGT.testDependencies then
+        dependencies = FGT.FOREVER_DEPENDENCIES
+    end
+    local rules = goal and dependencies[goal.id]
     return rules and rules[key]
 end
 

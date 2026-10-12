@@ -386,6 +386,8 @@ if ok_all:
         ("beta guide migration", 'UnitLevel = function() return 1 end; ForeverGoalTrackerDB = {active={},guideFix20261011=true,repFix=true,frostRaceFix=true,tipsFix=true,stepsFix231=true,progress={sulfuras={[10]=true,[11]=true,[12]=true},frostsaber={[1]=true,[2]=true,[7]=true},mount_dreadsteed={[2]=true,[4]=true,[5]=true,[7]=true},mount_charger={[2]=true,[12]=true},att_naxx={[2]=true,[3]=true},wolfsbane={[2]=true,[9]=true,[17]=true},benediction={[1]=true,[5]=true},lokdelar={[1]=true,[7]=true},rhokdelar={[1]=true,[5]=true},att_mc={[1]=true,[3]=true},att_bwl={[1]=true,[3]=true},mount_tiger={[1]=true,[2]=true},mount_raptor={[1]=true,[2]=true},mount_deathcharger={[1]=true,[2]=true,[3]=true}}}', open(os.path.join(here, "guide-edit-tests.lua")).read()),
         ("step dependencies", None, open(os.path.join(here, "dependency-tests.lua"), encoding="utf-8").read()),
         ("Forever step-lock preview", None, open(os.path.join(here, "dependency-tests.lua"), encoding="utf-8").read(), True),
+        ("dependency rollout and scope", None, open(os.path.join(here, "forever-dependency-rollout-tests.lua")).read()),
+        ("Forever dependency rollout and scope", None, open(os.path.join(here, "forever-dependency-rollout-tests.lua")).read(), True),
         ("Forever dependency quest evidence", 'C_QuestLog = { IsQuestFlaggedCompleted = function(id) return id == 7632 end, IsOnQuest = function(id) return id == 7636 end }',
             'local F = STUB_NS; local g = F.GoalById("lokdelar"); '
             'SlashCmdList.FOREVERGOALTRACKER("testlocks on"); '
