@@ -414,3 +414,16 @@ do
     assert(seen[#seen] == "hide", "no search box on the empty tracker")
     assert(STUB_NS.listQuery == "", "the empty tracker clears the search")
 end
+
+-- Thunderfury's gem glows: the banner places it from the artwork's own coordinates
+do
+    local B = STUB_NS.goalBanner
+    B.goal = STUB_NS.GoalById("thunderfury")
+    B.hasArt = true
+    B.sourceAspect = 4/3
+    B:Fit()
+    assert(B.uv and B.shownArtHeight, "banner measured its artwork")
+    B.goal = STUB_NS.GoalById("atiesh")
+    B:PlaceGlow()
+    assert(B.glows.thunderfury and not B.glows.atiesh, "only goals with a glow spec get one")
+end

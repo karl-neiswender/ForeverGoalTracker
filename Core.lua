@@ -5013,8 +5013,56 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         return math.max(0, math.min(1, tonumber(value) or 1))
     end
     B.imageSeen = {} -- per-session, never written to SavedVariables
+    -- A soft light that breathes at the heart of some banner art (Thunderfury's
+    -- gem). `glows[goalId] = { u, v, size, { r, g, b } }`: u and v are where it
+    -- sits in the artwork (0 to 1 from its top left), size is a share of the
+    -- art's width. The frame follows the first-open fade; the texture breathes.
+    B.glows = { thunderfury = { 0.76, 0.363, 0.30, { 0.62, 0.80, 1 } } }
+    B.glowFrame = CreateFrame("Frame", nil, detailPanel)
+    B.glowFrame:SetAllPoints(detailPanel)
+    B.glowFrame:SetFrameLevel(detailPanel:GetFrameLevel() + 1)
+    B.glowTex = B.glowFrame:CreateTexture(nil, "ARTWORK")
+    B.glowTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\glow")
+    B.glowTex:SetBlendMode("ADD")
+    B.glowFrame:Hide()
+    do
+        local g = B.glowTex:CreateAnimationGroup()
+        g:SetLooping("BOUNCE")
+        local a = g:CreateAnimation("Alpha")
+        a:SetFromAlpha(1); a:SetToAlpha(0.35); a:SetDuration(2.4); a:SetSmoothing("IN_OUT")
+        B.glowAnim = g
+    end
+    function B:PlaceGlow()
+        local spec = self.goal and self.glows[self.goal.id]
+        local u = self.uv
+        local on = spec and u and self.hasArt and self.shownArtHeight
+        if on then
+            local x = (spec[1]-u[1])/(u[2]-u[1])*self.art:GetWidth()
+            local y = (spec[2]-u[3])/(u[4]-u[3])*self.shownArtHeight
+            on = x > 0 and x < self.art:GetWidth() and y > 0 and y < self.shownArtHeight*0.8
+            if on then
+                local size = spec[3]*self.art:GetWidth()
+                self.glowTex:ClearAllPoints()
+                self.glowTex:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
+                self.glowTex:SetSize(size, size)
+                self.glowTex:SetVertexColor(spec[4][1], spec[4][2], spec[4][3])
+            end
+        end
+        local live = on and FGT.Setting("celebrations") ~= "off"
+        self.glowFrame:SetShown(on and true or false)
+        if on then
+            self.glowFrame:SetAlpha((self.imageFade or 1)*0.55*self:GetArtOpacity())
+            if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
+            elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
+        elseif self.glowAnim:IsPlaying() then
+            self.glowAnim:Stop()
+        end
+    end
     function B:SetImageFade(amount)
         self.imageFade = amount
+        if self.glowFrame and self.goal and self.glows[self.goal.id] and self.glowFrame:IsShown() then
+            self.glowFrame:SetAlpha(amount*0.55*self:GetArtOpacity())
+        end
         if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.
         local alpha = 0.18*amount*self:GetArtOpacity()
@@ -5107,6 +5155,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if FGT.Setting("tallGoalArt") then aw = w*0.70 end
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
         self.fullImageHeight = shownHeight
+        self.shownArtHeight = shownHeight
         local fadeHeight = math.min(140,shownHeight*0.35)
         local solidHeight = shownHeight-fadeHeight
         self.art:SetSize(aw,solidHeight)
@@ -5132,6 +5181,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             t:SetShown(self.hasArt and self:IsShown())
         end
         self:SetImageFade(self.imageFade or 1)
+        self:PlaceGlow()
         self.left:SetSize(aw*0.78,shownHeight)
         self.top:SetSize(w,math.min(shownHeight,h*0.28))
         -- Sample the panel's own gradient at the artwork's actual vertical position.
@@ -5153,6 +5203,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
         for _,t in ipairs(self.fadeStrips) do t:Hide() end
+        self.glowFrame:Hide(); self.glowAnim:Stop()
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
