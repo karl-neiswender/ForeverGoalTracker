@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "ashbringer": "weapons/ashbringer-ryman-master.png",
     "set_dungeon1_warrior": "tier-sets/warrior/valor-alliance-master.png",
     "pvp_set_mail_horde_shaman": "pvp/warlord-mail-shaman-master.png",
     "key_strat": "stratholme/master.png",
@@ -86,7 +87,7 @@ FINAL_BANNERS = {
     "epicmounts_gnome": "mounts/gnome-mechanostrider.jpg",
     "rep_argentdawn": "reputation/rep_argentdawn.jpg",
     **{goal: "tall-1200x900/" + goal + ".jpg" for goal in (
-        "ashbringer", "atiesh", "sulfuras", "thunderfury",
+        "atiesh", "sulfuras", "thunderfury",
         "quelserrar", "benediction", "raid_mc", "att_mc", "set_tier1",
         "lokdelar", "frostsaber", "set_viper", "key_scholo")},
     "rhokdelar": "tall-1200x900/rhokdelar-hunter.jpg",

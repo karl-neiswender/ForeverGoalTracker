@@ -4992,6 +4992,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["prof_herbalism-banner.blp"] = "Romain De Santi",
         ["prof_fishing-banner.blp"] = "Steve Prescott",
         ["wolfsbane-banner.blp"] = "Samwise Didier",
+        ["ashbringer-banner.blp"] = "James Ryman",
         ["set_dungeon1_hunter-banner.blp"] = "Jim Nelson",
         ["benediction-alliance-banner.blp"] = "Jimmy Lo",
         ["pvp_wsg_ally-banner.blp"] = "Konstantin Porubov",
