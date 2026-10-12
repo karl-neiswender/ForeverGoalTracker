@@ -4,7 +4,11 @@ Source preserved: Media/artwork/Wormwood_TCG.jpg.
 Built-in image_gen edit, neutral grayscale with baked left/bottom fades,
 4:3 landscape, original hood/armor/staff geometry and painterly swamp.
 Review: Media/final-images/dreadmist-review.png.
-Intended goal: set_dungeon1_warlock. Awaiting visual approval before install.
+Karl approved. Installed for set_dungeon1_warlock, both factions, 4:3 and
+preprocessed=true. Master: Media/final-images/dreadmist-master.png (1200x900).
+Runtime: Media/set_dungeon1_warlock-banner.blp (512px DXT1, ten validated mips).
+Rebuild map/runtime manifest updated. Full Lua check retained at
+reports/checks/dreadmist-banner-2026-10-12.txt. Full WoW restart required.
 No artist name inferred from supplied image; no visible credit provided.
 
 ## Exact prompt

@@ -4968,6 +4968,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     B.artPaths.set_dungeon1_warrior = "set_dungeon1_warrior-banner.blp"
     B.artAspects.set_dungeon1_warrior, B.preprocessed.set_dungeon1_warrior = 4/3, true
+    B.artPaths.set_dungeon1_warlock = "set_dungeon1_warlock-banner.blp"
+    B.artAspects.set_dungeon1_warlock, B.preprocessed.set_dungeon1_warlock = 4/3, true
     B.artAspects.wolfsbane, B.preprocessed.wolfsbane = 4/3, true
     B.artPaths.mount_tiger = "mount_tiger-banner.blp"
     B.artAspects.mount_tiger, B.preprocessed.mount_tiger = 4/3, true
