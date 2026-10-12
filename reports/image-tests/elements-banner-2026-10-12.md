@@ -4,7 +4,12 @@ Source preserved: Media/artwork/shaman-orc-horde.jpg.
 Review: Media/final-images/elements-review.png.
 Built-in image_gen edit: neutral grayscale, baked left/bottom gradients,
 4:3 landscape; complete raised axe with breathing room, faithful armor.
-Intended goal: set_dungeon1_shaman (The Elements). Awaiting visual approval.
+Karl approved. Installed for set_dungeon1_shaman (The Elements), both factions,
+4:3 and preprocessed=true. Master: Media/final-images/elements-master.png
+(1200x900). Runtime: Media/set_dungeon1_shaman-banner.blp (512px DXT1,
+ten validated mips). Rebuild map/runtime manifest updated.
+Full Lua check: reports/checks/elements-banner-2026-10-12.txt.
+Full WoW restart required. No release tag or publication.
 No artist name inferred; supplied image has no visible credit.
 
 ## Exact prompt
