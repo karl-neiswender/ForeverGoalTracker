@@ -355,6 +355,21 @@ if ok_all:
             'print("  demo gold name: " .. STUB_NS.GoalById("gold_5k").name); '
             'SlashCmdList["FOREVERGOALTRACKER"]("demo off"); print("  after off: " .. STUB_NS.GoalById("gold_5k").name)'),
     ]
+    demo_new = ('local S, F, D = SlashCmdList["FOREVERGOALTRACKER"], STUB_NS, ForeverGoalTrackerDB; local LF = F.libState; '
+        'D.active = { raid_mc = true }; '
+        'S("demo 9"); assert(D.active.tier3_warrior and D.progress.tier3_warrior["1_1_m1"], "scene 9 stages Tier 3 materials"); '
+        'assert(#F.MaterialRows(F.GoalById("tier3_warrior"), true) >= 9, "scene 9 has a real shopping list"); '
+        'S("demo 10"); assert(LF.forWho == "WARRIOR" and LF.sort == "progression", "scene 10 sets For and Sort"); '
+        'assert(D.goalsDone.set_tier1_warrior, "scene 10 finishes Tier 1"); '
+        'local last = -1; for _, g in ipairs(LF.shown) do local r = F.SetOrder(g); assert(r >= last, "progression order"); last = r end; '
+        'S("demo off"); assert(LF.forWho == "any" and LF.sort == "alpha", "demo off resets the Library"); '
+        'assert(D.active.raid_mc and not D.active.tier3_warrior, "demo off restores your goals"); '
+        'assert(not (F.materialsPanel and F.materialsPanel.open), "demo off closes the drawer"); '
+        'assert(#F.SHOTS == 10, "ten gallery shots"); print("  materials and Library scenes ok")')
+    steps += [
+        ("demo scenes: materials and Library", None, demo_new),
+        ("Forever demo scenes: materials and Library", None, demo_new, True),
+    ]
     armor_fixture = 'local F = STUB_NS; local r = F.GoalById("set_tier1_rogue").armorSection; local h = F.GoalById("set_tier1_hunter").armorSection; local t = F.GoalById("tier3_rogue").armorSection;\nForeverGoalTrackerDB = { active = {}, activeParts = { set_tier1 = {[r]=true,[h]=true}, tier3 = {[t]=true} }, progress = {set_tier1 = {[r.."_1_piece"]=true,[h.."_2_piece"]=true}, tier3 = {[t.."_1_m1"]=true}}, selected="set_tier1", notes={set_tier1="Keep this note"}, favorites={set_tier1=true}, goalsDone={set_tier1=true}, goalDates={set_tier1=123456}, t3RecipeFix=true, characters={} }; for pi in ipairs(F.GoalById("set_tier1_rogue").sections[1].pieces) do ForeverGoalTrackerDB.progress.set_tier1[r.."_"..pi.."_piece"] = true end'
     steps.extend([
         ("materials panel", None, open(os.path.join(here, "materials-tests.lua"), encoding="utf-8").read()),

@@ -38,6 +38,7 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
+- **2.12.0:** New Goal Library filters with a Progression sort, a Materials panel on each goal, My Goals search, What's new, UI improvements and bug fixes.
 - **2.11.1:** Profession scanning fixes, mount previews, Wolfsbane, clearer guides, artwork credits and refreshed banners.
 - **2.11.0:** Needed for item tooltips, Ctrl-click gear previews, completed-step filtering, new armor and mount goals, more artwork, UI improvements and bug fixes.
 - **2.10.1:** UI improvements, more banner images, Violet Sorcerer's Vestments and bug fixes.

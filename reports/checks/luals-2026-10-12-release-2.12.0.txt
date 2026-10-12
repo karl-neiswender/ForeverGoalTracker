@@ -1,0 +1,6 @@
+Ketho/LuaLS release gate for 2.12.0 (PC, 2026-10-12)
+Source: main at f30f2d1 plus the 2.12.0 release prep
+LuaLS 3.19.1, Ketho WoW API 0.22.3 packaged extension
+Annotation load events: 14028
+Result: Diagnosis completed, no problems found
+tools/check.py: exit 0, 70 sessions (Classic Era and Forever), including the new demo scenes 9 and 10

@@ -1,25 +1,16 @@
 # Changelog
 
-## Unreleased
+## 2.12.0
 
-- New Goal Library filters: search, show added or not, filter for your character or any class, faction and category, with removable filter tags, sorting and Add all
-- Pick a class or your character to see their own armor sets and racial mount as separate goals
-- My Goals can show only the goals your current character can do
-- Soft drifting dust on the goal page
-- Add What's new: a button beside Settings that glows after an update and opens a short release ledger
-- Materials: counts on every row, grouped by crafting materials and tokens, Show completed and progress bar options, and a gentle nudge the first time you view a goal with a shopping list
-- Fix Copy Character Name being blocked after clicking a chat link
-- Simplify item tooltips and stop offering try-on for trade goods
-- Add a sliding per-goal Materials panel with progress bars, percentages and display filters
-- Fade Materials contents with the slide and remove duplicate item-collection bars from guide steps
-- Use the standard Warcraft font for headings, preserving the original panel widths
-- Widen the goals list by 50 pixels to give titles more room
-- Remove repeated completion text from step tooltips
-- Update Forever racial mount budgets to 1,200g and separate mount and riding prices
-- Limit window resizing to 75–110% of its default size and center it at the start of each session
-- Shorten guides, tips and tooltips with clearer, consistent wording
-- Add a session-only preview of Classic step locks for testing in Forever
-- Match the personal note icon's grey and gold hover to the Edit goal icon
+- New Goal Library filters: search, show added or not, filter for your character or any class, faction and category, with sorting (including Progression for armor sets) and Add all
+- Filter for a class or your character to see its armor sets (and your race's mount) as their own goals
+- Search My Goals, and show only the goals your current character can do
+- Materials panel on each goal: everything it still needs, counted across your characters
+- What's new button with a short release ledger
+- Soft drifting dust on the goal page in Forever
+- Forever racial mount budgets updated to 1,200g
+- UI improvements
+- Bug fixes, including Copy Character Name being blocked after clicking a chat link
 
 ## 2.11.1
 

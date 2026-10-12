@@ -7,6 +7,14 @@ local C = U.colors
 -- release (same player-facing lines as CHANGELOG.md). The newest entry's
 -- version is what makes the button glow for players who haven't seen it.
 FGT.WHATS_NEW = {
+    { version = "2.12.0", date = "Oct 12, 2026", items = {
+        "New Goal Library filters, with a Progression sort for armor sets",
+        "Armor sets and racial mounts for your class or character",
+        "Search My Goals and show only this character's goals",
+        "A Materials panel on each goal",
+        "This What's new button",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.11.1", date = "Oct 11, 2026", items = {
         "Fix profession scanning and pick artwork from your character's professions",
         "New profession, reputation, dungeon, raid, mount and armor-set artwork",

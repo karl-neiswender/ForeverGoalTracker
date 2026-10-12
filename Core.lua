@@ -3376,7 +3376,7 @@ do
     local box = CreateFrame("EditBox", nil, listPanel, "BackdropTemplate")
     box:SetHeight(22)
     box:SetPoint("TOPLEFT", sortBar, "BOTTOMLEFT", 0, -4)
-    box:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6, -32)
+    box:SetPoint("TOPRIGHT", sortBar, "BOTTOMRIGHT", 58, -4) -- full width, under Sort and Clear
     Etch(box, STYLE.row, 10)
     box:SetAutoFocus(false)
     FGT.RegisterFont(box, "body", 11, "")
@@ -7737,6 +7737,9 @@ function FGT.SetLibraryView(filterKey, expandId)
     if filterKey == "new" then LF.newOnly = true; filterKey = "all" end
     libFilter = filterKey or "all"
     LF.forDrop:SetValue("any")
+    LF.faction, LF.autoFaction = nil, nil
+    LF.sort = "alpha"; LF.sortDrop:SetValue("alpha")
+    if FGT.searchBox and FGT.searchBox:GetText() ~= "" then FGT.searchBox:SetText("") end
     for k in pairs(libExpanded) do libExpanded[k] = nil end
     if expandId then libExpanded[expandId] = true end
     libScroll.scroll:SetVerticalScroll(0)
@@ -10939,6 +10942,15 @@ local function ClearExtras()
     if FGT.demoLock then FGT.lockouts[FGT.demoLock] = nil; FGT.demoLock = nil end
     FGT.demoFind = nil
     if FGT.CloseWelcome then FGT.CloseWelcome(true) end
+    -- the Materials drawer closes, My Goals shows everything, unsearched
+    local M = FGT.materialsPanel
+    if M and M.open then
+        if M.driver then M.driver:SetScript("OnUpdate", nil) end
+        M.open, M.fraction = false, 0
+        M:Place()
+    end
+    if FGT.listSearch and FGT.listSearch:GetText() ~= "" then FGT.listSearch:SetText("") end
+    if FGT.myGoalsView and FGT.myGoalsView.value ~= "all" then FGT.myGoalsView:SetValue("all") end
 end
 
 local function Copy(v)
@@ -10985,12 +10997,37 @@ local function Stage(DB)
     return Flat
 end
 
+-- Armor set goals: tick a share of each piece (materials for Tier 3 pieces,
+-- the piece itself otherwise); share 1 finishes the set.
+local function Pieces(DB, id, share)
+    local g = FGT.GoalById(id)
+    local section = g and g.sections and g.sections[1]
+    if not section then return end
+    DB.active[id] = true
+    local shares = type(share) == "table" and share or nil
+    for pi, piece in ipairs(section.pieces or {}) do
+        local part = shares and (shares[pi] or 0) or share
+        local mats = piece.materials or {}
+        if #mats > 0 then
+            for mi = 1, math.floor(#mats * part + 0.5) do SetStepDone(id, MaterialKey(1, pi, mi), true) end
+        elseif pi <= math.floor(#section.pieces * part + 0.5) then
+            SetStepDone(id, PieceKey(1, pi), true)
+        end
+    end
+    if share == 1 then
+        DB.goalsDone[id] = true
+        DB.goalDates[id] = time() - 6 * 86400
+    end
+end
+
 -- The view for each scene. Optional extras (scenes 5 to 7):
 --   setup(DB, Flat)  more staged goals or targets, on top of the shared roster
 --   welcome = step   opens the welcome wizard with `interests` picked
 --   lock = mapId     a pretend raid lockout (the SAVED UNTIL chip)
 --   find = true      shows "Find your next goal" (hidden in demos otherwise)
 --   bottom = true    scrolls the goal list to the end
+--   materials = true opens the goal's Materials drawer
+--   libFor, libSort  the Library's For and Sort choices
 local SCENES = {
     [1] = { tab = "tracker", goal = "thunderfury" },                     -- hero: My Goals + a guide
     [2] = { tab = "library", filter = "new", expand = "epicmounts" },    -- New & Updated, Skyborne row
@@ -11018,6 +11055,20 @@ local SCENES = {
                 DB.targets = { gold_5k = 10000 }
                 Flat("gold_5k", 0.34)
             end },
+    -- the Materials drawer: Dreadnaught's Battlegear (Tier 3 Warrior), its
+    -- crafting materials and tokens part collected
+    [9] = { tab = "tracker", goal = "tier3_warrior", materials = true,
+            setup = function(DB)
+                Pieces(DB, "tier3_warrior", { 1, 1, 0.6, 0.5, 0.3 })
+            end },
+    -- the Goal Library's filter panel: For: Warrior, sorted by Progression,
+    -- Tier 1 finished and Tier 2 under way
+    [10] = { tab = "library", filter = "all", libFor = "WARRIOR", libSort = "progression",
+            setup = function(DB)
+                Pieces(DB, "set_tier1_warrior", 1)
+                Pieces(DB, "set_tier2_warrior", 0.5)
+                Pieces(DB, "set_dungeon1_warrior", 1)
+            end },
 }
 
 -- /goals shots: every gallery screenshot in one go (Karl). Black photo
@@ -11035,6 +11086,8 @@ FGT.SHOTS = {
     { scene = 5, file = "06-welcome" },
     { scene = 6, file = "07-suggestions" },
     { scene = 1, settings = true, file = "08-settings" },
+    { scene = 9, file = "09-materials" },
+    { scene = 10, file = "10-library-filters" },
 }
 function FGT.TakeShots()
     if FGT.shooting then print(TAG .. "already taking screenshots.") return end
@@ -11127,10 +11180,22 @@ function FGT.Demo(arg)
     FGT.quietCelebrate = true
     listScrollObj.scroll:SetVerticalScroll(0)
     if scene.goal then SelectGoal(scene.goal) end
-    if scene.tab == "library" and FGT.SetLibraryView then FGT.SetLibraryView(scene.filter, scene.expand) end
+    if scene.tab == "library" and FGT.SetLibraryView then
+        FGT.SetLibraryView(scene.filter, scene.expand)
+        local LF = FGT.libState
+        if scene.libFor then LF.SetFor(scene.libFor) end
+        if scene.libSort then LF.sort = scene.libSort; LF.sortDrop:SetValue(scene.libSort) end
+    end
     if FGT.ShowTab then FGT.ShowTab(scene.tab) end
     FGT.quietCelebrate = nil
     Redraw()
+    if scene.materials and FGT.materialsPanel then
+        -- once the goal page is laid out, so the drawer knows its room
+        C_Timer.After(0.1, function()
+            if FGT.RefreshMaterials then FGT.RefreshMaterials() end
+            FGT.materialsPanel:SetOpen(true, 0.3)
+        end)
+    end
     if scene.bottom then
         -- after the list has been measured
         C_Timer.After(0.05, function()
