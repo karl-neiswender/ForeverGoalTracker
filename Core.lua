@@ -5048,9 +5048,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.62, { 1, 1, 1 }, rays = 2.2, strength = 0.85,
             raysStrength = 0.6, turn = 300 },
         -- Sulfuras: heat on the hammer head, and embers rising off the
-        -- head and handle (`embers.box` = u0, u1, v0, v1 where they start)
+        -- head and handle (`embers.box` = u0, u1, v0, v1 where most start;
+        -- the rest rise anywhere in `field`, off the lava)
         sulfuras = { 0.612, 0.21, 0.40, { 1, 1, 1 }, strength = 0.9,
-            embers = { box = { 0.53, 0.70, 0.10, 0.62 }, count = 16, rise = 0.22 } },
+            embers = { box = { 0.50, 0.74, 0.08, 0.66 }, field = { 0.30, 1.0, 0.30, 0.95 },
+                fieldShare = 0.4, count = 56, blurShare = 0.22, rise = 0.30 } },
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
@@ -5128,10 +5130,18 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             self:ClipLight(self.raysTex, self.glowCX, self.glowCY, spec[3]*self.art:GetWidth()*spec.rays, turn or 0)
         end
     end
-    -- Embers: a small pool of soft dots (Media/dot) that rise from a box in
-    -- the art, swaying gently, each fading in and out over 3 to 6 seconds.
-    -- No sudden changes in brightness anywhere (photosensitivity rule).
+    -- Embers: a field of rising sparks with depth (Karl's reference: a dense
+    -- bokeh ember field). Most are tiny sharp sparks (Media/dot); a share are
+    -- big, soft, dim out-of-focus ones (Media/glow) that drift slower, as if
+    -- nearer the camera. Each has its own speed, heading, gentle curve and
+    -- sway, life of 2.5 to 8 s and fades in and out slowly; most start in
+    -- `box` (the fire), the rest anywhere in `field`. No sudden changes in
+    -- brightness anywhere (photosensitivity rule).
     B.emberDots = {}
+    B.emberArt = {
+        spark = "Interface\\AddOns\\"..ADDON.."\\Media\\dot",
+        blur = "Interface\\AddOns\\"..ADDON.."\\Media\\glow",
+    }
     function B:ArtPoint(u, v)
         local uv = self.uv
         return (u - uv[1])/(uv[2] - uv[1])*self.art:GetWidth(),
@@ -5142,31 +5152,51 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:SpawnEmber(e, cfg, warm)
         local aw = self.art:GetWidth()
-        local x0, y0 = self:ArtPoint(cfg.box[1], cfg.box[3])
-        local x1, y1 = self:ArtPoint(cfg.box[2], cfg.box[4])
-        e.x0, e.y0 = x0 + (x1 - x0)*math.random(), y0 + (y1 - y0)*math.random()
-        e.life = 3 + 3*math.random()
-        e.age = warm and e.life*math.random() or 0 -- warm start: already mid-flight
-        e.rise = cfg.rise*aw*(0.6 + 0.6*math.random())
-        e.sway, e.freq, e.phase = aw*0.012*(0.5 + math.random()), 0.15 + 0.25*math.random(), math.random()*2*math.pi
-        e.size = aw*(0.010 + 0.010*math.random())
-        e.peak = 0.5 + 0.5*math.random()
+        local area = (cfg.field and math.random() < (cfg.fieldShare or 0.4)) and cfg.field or cfg.box
+        local x0, y0 = self:ArtPoint(area[1], area[3])
+        local x1, y1 = self:ArtPoint(area[2], area[4])
+        e.x, e.y = x0 + (x1 - x0)*math.random(), y0 + (y1 - y0)*math.random()
+        local blur = e.blur
+        e.life = (blur and 4 or 2.5) + (blur and 4 or 4)*math.random()
+        e.age = 0
+        -- heading: upward, give or take 40 degrees, slowly curving
+        e.heading = -math.pi/2 + (math.random()*2 - 1)*math.rad(40)
+        e.curve = (math.random()*2 - 1)*math.rad(12)
+        e.speed = cfg.rise*aw*(0.35 + 0.9*math.random())/e.life*(blur and 0.55 or 1)
+        e.sway, e.freq, e.phase = aw*0.006*(0.3 + math.random()), 0.1 + 0.3*math.random(), math.random()*2*math.pi
+        if blur then
+            e.size = aw*(0.035 + 0.045*math.random())
+            e.peak = 0.10 + 0.16*math.random()
+        else
+            local r = math.random()
+            e.size = aw*(0.006 + 0.012*r*r) -- mostly tiny, a few larger
+            e.peak = 0.45 + 0.55*math.random()
+        end
+        if warm then
+            -- already mid-flight, so the field is full from the first frame
+            local skip = e.life*math.random()
+            e.x = e.x + math.cos(e.heading)*e.speed*skip
+            e.y = e.y + math.sin(e.heading)*e.speed*skip
+            e.age = skip
+        end
         e.wait = nil
     end
     function B:ResetEmbers()
         local cfg = self.glowSpec and self.glowSpec.embers
         if not cfg then self:HideEmbers() return end
+        local blurs = math.floor(cfg.count*(cfg.blurShare or 0.25) + 0.5)
         for i = 1, cfg.count do
             local e = self.emberDots[i]
             if not e then
                 local t = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
-                t:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\dot")
                 t:SetBlendMode("ADD")
                 if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
                 if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
                 e = { tex = t }
                 self.emberDots[i] = e
             end
+            e.blur = i <= blurs
+            e.tex:SetTexture(e.blur and self.emberArt.blur or self.emberArt.spark)
             self:SpawnEmber(e, cfg, true)
         end
         for i = cfg.count + 1, #self.emberDots do self.emberDots[i].tex:Hide() end
@@ -5175,7 +5205,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local cfg = self.glowSpec and self.glowSpec.embers
         if not cfg then return end
         local aw, ah = math.max(1, self.art:GetWidth()), self.shownArtHeight or 0
-        local level = (self.glowLevel or 0)*0.55
+        local level = (self.glowLevel or 0)*0.55*(cfg.strength or 1)
         for i = 1, cfg.count do
             local e = self.emberDots[i]
             if e then
@@ -5187,17 +5217,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     e.age = e.age + dt
                     local p = e.age/e.life
                     if p >= 1 then
-                        e.wait = math.random()*1.5
+                        e.wait = math.random()*2
                         e.tex:Hide()
                     else
-                        local x = e.x0 + e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
-                        local y = e.y0 - e.rise*p
-                        local fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.5)
+                        e.heading = e.heading + e.curve*dt
+                        e.x = e.x + math.cos(e.heading)*e.speed*dt
+                        e.y = e.y + math.sin(e.heading)*e.speed*dt
+                        local x = e.x + e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
+                        local y = e.y
+                        local fade = math.min(1, p/0.25)*math.min(1, (1 - p)/0.5)
                         local inside = x > 0 and x < aw and y > 0 and y < ah
                         local t = e.tex
                         t:SetShown(inside)
                         if inside then
-                            local size = e.size*(1 - 0.4*p)
+                            local size = e.size*(e.blur and 1 or (1 - 0.4*p))
                             t:ClearAllPoints()
                             t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
                             t:SetSize(size, size)
