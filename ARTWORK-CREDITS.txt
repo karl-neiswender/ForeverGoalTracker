@@ -22,6 +22,11 @@ were generated with ChatGPT's built-in image generation, October
 Cinzel font
 Included under the SIL Open Font License. See Fonts/OFL.txt.
 
+Open Sans fonts
+Copyright 2020 The Open Sans Project Authors.
+Official source: https://github.com/googlefonts/opensans
+Included under the SIL Open Font License. See Fonts/OpenSans-OFL.txt.
+
 Independent project
 Forever Goal Tracker is an unofficial community addon. It is not affiliated
 with or endorsed by Blizzard Entertainment.

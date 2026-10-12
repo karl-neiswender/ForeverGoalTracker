@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Choose Warcraft Serif or Warcraft Modern in Settings, with font sizes matched to keep text footprints similar
+
 ## 2.11.1
 
 - Fix profession scanning and select artwork from the logged-in character’s professions

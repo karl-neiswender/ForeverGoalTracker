@@ -58,7 +58,7 @@ Click **Help me get started** for suggestions, or open the **Goal Library** tab 
 | `Quests.lua` | Quests the guides link to, with who starts them |
 | `Core.lua` | UI, tracking engine and saved data |
 | `Media/` | Addon icons |
-| `Fonts/` | Cinzel font (SIL Open Font License) |
+| `Fonts/` | Cinzel and Open Sans fonts (SIL Open Font License) |
 
 ## Releasing
 
@@ -66,7 +66,7 @@ Pushing a tag such as `v2.1.1` runs the GitHub Actions workflow in `.github/work
 
 ## License
 
-MIT, see [LICENSE.txt](LICENSE.txt). The Cinzel font is included under the SIL Open Font License (see `Fonts/OFL.txt`).
+MIT, see [LICENSE.txt](LICENSE.txt). Cinzel and Open Sans are included under the SIL Open Font License (see `Fonts/OFL.txt` and `Fonts/OpenSans-OFL.txt`).
 
 ***
 

@@ -134,4 +134,5 @@ LICENSE
 -------
 The addon code uses MIT (see LICENSE.txt). Third-party artwork is not
 covered by that license; see ARTWORK-CREDITS.txt and Settings > Artwork
-and credits. The Cinzel font uses the SIL Open Font License (Fonts/OFL.txt).
+and credits. Cinzel and Open Sans use the SIL Open Font License
+(Fonts/OFL.txt and Fonts/OpenSans-OFL.txt).

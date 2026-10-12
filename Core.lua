@@ -270,6 +270,7 @@ FGT.SETTING_DEFAULTS = {
     openOnLogin = false,     -- open the window after login
     scale = 1,               -- window scale
     alpha = 1,               -- window opacity
+    typeStyle = "serif",     -- current Warcraft Serif / Open Sans Warcraft Modern
     tallGoalArt = true,      -- full-height goal artwork, cropped without stretching
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
     hideCompletedSteps = false, -- guide filter, controlled beside Step by Step
@@ -1776,12 +1777,72 @@ function FGT.EnableGoalLinks(f)
     end)
 end
 
+-- Role-based typography. Keep the original nominal size so repeated
+-- switches never accumulate scaling; pooled and lazily built widgets
+-- use the same path. Weak keys let discarded widgets leave the registry.
+FGT.fontWidgets = setmetatable({}, { __mode = "k" })
+FGT.TYPE_STYLES = {
+    serif = { body = FONT, title = FONT_TITLE, bodyScale = 1, titleScale = 1 },
+    modern = {
+        body = "Interface\\AddOns\\" .. ADDON .. "\\Fonts\\OpenSans-Regular.ttf",
+        title = "Interface\\AddOns\\" .. ADDON .. "\\Fonts\\OpenSans-Bold.ttf",
+        -- Cinzel/Open Sans heading advance ratios average about 1.11
+        -- across representative UI labels; runtime measurements refine it.
+        titleScale = 1.10,
+        bodyScale = 1,
+    },
+}
+function FGT.ApplyWidgetFont(widget, spec)
+    local style = FGT.TYPE_STYLES[FGT.Setting("typeStyle")] or FGT.TYPE_STYLES.serif
+    local size = spec.size * style[spec.role .. "Scale"]
+    if not widget:SetFont(style[spec.role], size, spec.flags) then
+        -- A missing/new font must not leave the widget unreadable.
+        size = spec.size
+        if not widget:SetFont(FGT.TYPE_STYLES.serif[spec.role], size, spec.flags) then
+            widget:SetFont(FONT, size, spec.flags)
+        end
+    end
+    -- Preserve the old wrapped-line advance even when headings grow.
+    if spec.lineHeight then
+        widget:SetSpacing(math.max(0, spec.size + math.floor(spec.size * (FGT.LINE_HEIGHT - 1) + 0.5) - size))
+    end
+end
+function FGT.RegisterFont(widget, role, size, flags, lineHeight)
+    local spec = { role = role, size = size, flags = flags or "", lineHeight = lineHeight }
+    FGT.fontWidgets[widget] = spec
+    FGT.ApplyWidgetFont(widget, spec)
+end
+function FGT.ApplyTypeStyle(skipLayout)
+    if not FGT.typeMetricsMeasured then
+        FGT.typeMetricsMeasured = true
+        -- One measurement per session, using the game's own font engine.
+        -- Fixed samples avoid resizing text individually as labels change.
+        local probe = UIParent:CreateFontString(nil, "OVERLAY")
+        local samples = {
+            title = "Forever Goal Tracker  Goal Library  Step by step  Window and minimap  Thunderfury",
+            body = "Loot the Eye of Divinity from Majordomo Executus in Molten Core. Show completed  0123456789",
+        }
+        for role, sample in pairs(samples) do
+            probe:SetText(sample)
+            local baseline, modern
+            if probe:SetFont(FGT.TYPE_STYLES.serif[role], 12, "") then baseline = probe:GetStringWidth() end
+            if probe:SetFont(FGT.TYPE_STYLES.modern[role], 12, "") then modern = probe:GetStringWidth() end
+            if baseline and modern and baseline > 0 and modern > 0 then
+                FGT.TYPE_STYLES.modern[role .. "Scale"] = math.max(0.85, math.min(1.15, baseline / modern))
+            end
+        end
+        probe:SetText("")
+        probe:Hide()
+    end
+    for widget, spec in pairs(FGT.fontWidgets) do FGT.ApplyWidgetFont(widget, spec) end
+    if not skipLayout and FGT.LayoutTypeStyle then FGT.LayoutTypeStyle() end
+end
+
 local function NewFontString(parent, size, flags, r, g, b)
     local fs = parent:CreateFontString(nil, "OVERLAY")
-    fs:SetFont(FONT, size, flags)
+    FGT.RegisterFont(fs, "body", size, flags, true)
     fs:SetTextColor(r or C.TEXT[1], g or C.TEXT[2], b or C.TEXT[3])
     fs:SetJustifyH("LEFT")
-    FGT.SetLineHeight(fs, size)
     return fs
 end
 
@@ -1789,14 +1850,11 @@ end
 -- h2 look). Falls back to the default font if the .ttf can't load.
 local function NewTitleString(parent, size)
     local fs = parent:CreateFontString(nil, "OVERLAY")
-    if not fs:SetFont(FONT_TITLE, size, "") then
-        fs:SetFont(FONT, size, "")
-    end
+    FGT.RegisterFont(fs, "title", size, "", true)
     fs:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])
     fs:SetShadowColor(0.2, 0.14, 0.02, 1)
     fs:SetShadowOffset(1, -1)
     fs:SetJustifyH("LEFT")
-    FGT.SetLineHeight(fs, size)
     return fs
 end
 
@@ -4042,7 +4100,7 @@ do
             T.scroll:SetScrollChild(T.box)
             T.box:SetMultiLine(true)
             T.box:SetAutoFocus(false)
-            T.box:SetFont(FONT, 12, "")
+            FGT.RegisterFont(T.box, "body", 12, "")
             T.box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
             T.box:SetTextInsets(8, 8, 8, 8)
             T.box:SetMaxLetters(240)
@@ -4750,7 +4808,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.creditLayer:SetAllPoints(detailPanel)
     B.creditLayer:SetFrameLevel(FGT.detailViewport.scroll:GetFrameLevel()+10)
     B.credit = B.creditLayer:CreateFontString(nil, "OVERLAY")
-    B.credit:SetFont(FONT, 7, "")
+    FGT.RegisterFont(B.credit, "body", 7, "")
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
@@ -7058,7 +7116,7 @@ do
     box:SetPoint("TOPRIGHT", libraryPanel, "TOPRIGHT", -14, -9)
     Skin(box, { 0, 0, 0, 0.6 }, C.BOX_RING)
     box:SetAutoFocus(false)
-    box:SetFont(FONT, 11, "")
+    FGT.RegisterFont(box, "body", 11, "")
     box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
     box:SetTextInsets(22, 20, 0, 0)
     box:SetMaxLetters(40)
@@ -8042,6 +8100,14 @@ local function NewChoice(row, spec)
     -- (the game's sound settings); those buttons go grey and can't be clicked.
     function f:Refresh()
         local rowWhy = spec.muted and spec.muted()
+        local width = 0
+        for _, b in ipairs(self.buttons) do
+            b:SetWidth(math.ceil(b.text:GetStringWidth()) + 18)
+            b:ClearAllPoints()
+            b:SetPoint("LEFT", self, "LEFT", width, 0)
+            width = width + b:GetWidth() + 3
+        end
+        self:SetWidth(math.max(1, width - 3))
         if spec.mutedDesc and row.desc then row.desc:SetText(rowWhy and spec.mutedDesc or spec.desc) end
         local lc = rowWhy and C.SUBTEXT or C.TEXT
         row.label:SetTextColor(lc[1], lc[2], lc[3])
@@ -8293,7 +8359,23 @@ function FGT.ChannelMuted(ch)
     end
 end
 
+function FGT.LayoutTypeStyle()
+    -- Re-measure text-driven controls before the surrounding rows.
+    FGT.RefreshSettings()
+    FGT.LayoutSettings()
+    LayoutGoalList()
+    if selectedId then SelectGoal(selectedId, true) end
+    if FGT.libraryPanel:IsShown() and FGT.LayoutLibrary then FGT.LayoutLibrary() end
+    RefreshOverall()
+end
+
 FGT.SETTINGS = {
+    { title = "Typography", rows = {
+        { type = "choice", key = "typeStyle", label = "Type style",
+          desc = "Warcraft Serif uses Cinzel headings. Warcraft Modern uses Open Sans. Sizes are tuned to keep a similar footprint.",
+          options = { { "serif", "Warcraft Serif" }, { "modern", "Warcraft Modern" } },
+          apply = function() FGT.ApplyTypeStyle() end },
+    } },
     { title = "Item tooltips", rows = {
         { type = "toggle", key = "itemNeeds", label = "Show Needed for",
           desc = "Show unfinished tracked goals on items in bags, loot and the Auction House, with remaining amounts from your characters' last scans" },
@@ -9263,6 +9345,7 @@ initFrame:SetScript("OnEvent", function(self, event, name)
     -- to something that actually fits and keeps the resize grip
     -- reachable. Scale first: placement measures in scaled units.
     FGT.windowScale = FGT.Setting("scale")
+    FGT.ApplyTypeStyle(true) -- normal startup layout follows below
     main:SetScale(FGT.windowScale)
     main:SetAlpha(FGT.Setting("alpha"))
     FGT.PlaceWindow()
@@ -9438,7 +9521,7 @@ do
             T.box:SetPoint("TOPLEFT", T.sub, "BOTTOMLEFT", 0, -12)
             Skin(T.box, { 0, 0, 0, 0.6 }, C.BOX_RING)
             T.box:SetAutoFocus(false)
-            T.box:SetFont(FONT, 12, "")
+            FGT.RegisterFont(T.box, "body", 12, "")
             T.box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
             T.box:SetTextInsets(8, 8, 0, 0)
             T.box:SetMaxLetters(9)
@@ -9841,7 +9924,7 @@ do
             K.box:SetPoint("RIGHT", K, "RIGHT", -14, 0)
             Skin(K.box, { 0, 0, 0, 0.6 }, C.BOX_RING)
             K.box:SetAutoFocus(false)
-            K.box:SetFont(FONT, 11, "")
+            FGT.RegisterFont(K.box, "body", 11, "")
             K.box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
             K.box:SetTextInsets(8, 8, 0, 0)
             -- the address can't be edited: typing puts it back
