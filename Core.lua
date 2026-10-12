@@ -5020,6 +5020,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.glows = {
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 } }, -- the gem at the crossguard
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
+        -- the holy spell in his hand, with faint rays turning very slowly
+        rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5 },
     }
     B.glowFrame = CreateFrame("Frame", nil, detailPanel)
     B.glowFrame:SetAllPoints(detailPanel)
@@ -5027,6 +5029,19 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.glowTex = B.glowFrame:CreateTexture(nil, "ARTWORK")
     B.glowTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\glow")
     B.glowTex:SetBlendMode("ADD")
+    -- optional rays behind the glow (Media/rays, drawn by tools/rays.py):
+    -- one full turn every three minutes, too slow to read as spinning
+    B.raysTex = B.glowFrame:CreateTexture(nil, "ARTWORK", nil, -1)
+    B.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\rays")
+    B.raysTex:SetBlendMode("ADD")
+    B.raysTex:Hide()
+    do
+        local g = B.raysTex:CreateAnimationGroup()
+        g:SetLooping("REPEAT")
+        local turn = g:CreateAnimation("Rotation")
+        turn:SetDegrees(-360); turn:SetDuration(180)
+        B.raysTurn = g
+    end
     B.glowFrame:Hide()
     -- Ambient, like the drifting clouds and dust: a faint light that swells
     -- and settles over many seconds. Two slow waves with unrelated periods
@@ -5037,11 +5052,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B.glowAnim:Play()
         self.playing = true
         B.glowFrame:SetScript("OnUpdate", function(_, dt) B:StepGlow(dt) end)
+        B.raysTurn:Play()
     end
     function B.glowAnim:Stop()
         self.playing = false
         B.glowFrame:SetScript("OnUpdate", nil)
         B.glowTex:SetAlpha(0.2)
+        B.raysTurn:Stop()
+        B.raysTex:SetAlpha(0.15)
     end
     function B:StepGlow(dt)
         local a = self.glowAnim
@@ -5049,6 +5067,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- 0 to 1, drifting: periods of about 9 and 14 seconds
         local n = 0.5 + 0.3*math.sin(a.t*2*math.pi/9.1) + 0.2*math.sin(a.t*2*math.pi/14.3 + 1.7)
         self.glowTex:SetAlpha(0.12 + 0.16*n)
+        -- the rays breathe a little behind, on the opposite beat
+        self.raysTex:SetAlpha(0.10 + 0.10*(1-n))
         local spec = self.goal and self.glows[self.goal.id]
         if spec then
             local size = spec[3]*self.art:GetWidth()*(0.96 + 0.08*n)
@@ -5069,6 +5089,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 self.glowTex:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
                 self.glowTex:SetSize(size, size)
                 self.glowTex:SetVertexColor(spec[4][1], spec[4][2], spec[4][3])
+                self.raysTex:SetShown(spec.rays and true or false)
+                if spec.rays then
+                    self.raysTex:ClearAllPoints()
+                    self.raysTex:SetPoint("CENTER", self.glowTex, "CENTER", 0, 0)
+                    self.raysTex:SetSize(size*spec.rays, size*spec.rays)
+                    self.raysTex:SetVertexColor(spec[4][1], spec[4][2], spec[4][3])
+                end
             end
         end
         local live = on and FGT.Setting("celebrations") ~= "off"
