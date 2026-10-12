@@ -381,6 +381,15 @@ if ok_all:
         ("guide migration repeat login", 'UnitLevel = function() return 1 end', open(os.path.join(here, "guide-edit-tests.lua")).read()),
         ("beta guide migration", 'UnitLevel = function() return 1 end; ForeverGoalTrackerDB = {active={},guideFix20261011=true,repFix=true,frostRaceFix=true,tipsFix=true,stepsFix231=true,progress={sulfuras={[10]=true,[11]=true,[12]=true},frostsaber={[1]=true,[2]=true,[7]=true},mount_dreadsteed={[2]=true,[4]=true,[5]=true,[7]=true},mount_charger={[2]=true,[12]=true},att_naxx={[2]=true,[3]=true},wolfsbane={[2]=true,[9]=true,[17]=true},benediction={[1]=true,[5]=true},lokdelar={[1]=true,[7]=true},rhokdelar={[1]=true,[5]=true},att_mc={[1]=true,[3]=true},att_bwl={[1]=true,[3]=true},mount_tiger={[1]=true,[2]=true},mount_raptor={[1]=true,[2]=true},mount_deathcharger={[1]=true,[2]=true,[3]=true}}}', open(os.path.join(here, "guide-edit-tests.lua")).read()),
         ("step dependencies", None, open(os.path.join(here, "dependency-tests.lua"), encoding="utf-8").read()),
+        ("Forever step-lock preview", None, open(os.path.join(here, "dependency-tests.lua"), encoding="utf-8").read(), True),
+        ("Forever dependency quest evidence", 'C_QuestLog = { IsQuestFlaggedCompleted = function(id) return id == 7632 end, IsOnQuest = function(id) return id == 7636 end }',
+            'local F = STUB_NS; local g = F.GoalById("lokdelar"); '
+            'SlashCmdList.FOREVERGOALTRACKER("testlocks on"); '
+            'assert(F.DependencyMet(g,2), "modern completed quest satisfies leaf prerequisite"); '
+            'assert(F.DependencyMet(g,3), "modern active quest satisfies chain start"); '
+            'for i=4,7 do assert(not F.StepLocked(g,i), "modern quest evidence opens demon branches") end; '
+            'SlashCmdList.FOREVERGOALTRACKER("testlocks off"); '
+            'print("  C_QuestLog completed/active evidence satisfies prerequisites through normal roster scanning")', True),
         ("Forever dependency gates withheld", None,
             'local F = STUB_NS; assert(F.isForever); '
             'for id, gates in pairs(F.DEPENDENCIES) do if type(gates) == "table" then '

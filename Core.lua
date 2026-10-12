@@ -10363,6 +10363,29 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         print(TAG .. banner.goal.name .. " banner opacity: " .. math.floor(banner:GetArtOpacity()*100+0.5) .. "%.")
         return
     end
+    if msg == "testlocks" or msg == "testlocks on" or msg == "testlocks off" or msg == "testlocks status" then
+        if not FGT.isForever then
+            print(TAG .. "step locks are already enabled on Classic Era.")
+            return
+        end
+        if msg ~= "testlocks status" then
+            if msg == "testlocks on" then FGT.testDependencies = true
+            elseif msg == "testlocks off" then FGT.testDependencies = nil
+            else FGT.testDependencies = not FGT.testDependencies or nil end
+            if selectedId then SelectGoal(selectedId, true) end
+        end
+        print(TAG .. "Forever step-lock preview " .. (FGT.testDependencies and "on" or "off") .. ".")
+        if FGT.testDependencies then
+            print(TAG .. "uses the audited Classic prerequisites for testing; /goals testlocks off or /reload ends it.")
+        end
+        local goal = selectedId and FGT.GoalById(selectedId)
+        if goal and goal.steps then
+            local locked = 0
+            for i in ipairs(goal.steps) do if FGT.StepLocked(goal, i) then locked = locked + 1 end end
+            print(TAG .. goal.name .. ": " .. locked .. " locked step" .. (locked == 1 and "" or "s") .. ".")
+        end
+        return
+    end
     if msg == "testbanner" then
         FGT.TestBanner()
         return

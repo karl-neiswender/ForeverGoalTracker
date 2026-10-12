@@ -1,6 +1,11 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
-assert(not F.isForever, "Classic test session")
 D.characters = {}
+if F.isForever then
+    local before = STUB_SERIALIZE(D.progress)
+    SlashCmdList.FOREVERGOALTRACKER("testlocks on")
+    assert(F.testDependencies, "Forever preview enabled")
+    assert(STUB_SERIALIZE(D.progress) == before, "enabling preview preserves progress")
+end
 -- All deployed references must exist, and their graph must be acyclic.
 for id, gates in pairs(F.DEPENDENCIES) do
     if type(gates) == "table" then
@@ -79,3 +84,17 @@ D.active.atiesh = true
 F.SelectGoal("atiesh")
 assert(not r.depLocked and not r.lockLayer.motion, "pooled row reuse cancels old lock motion")
 print("  dependency references, cycles, blocked clicks, links, fan-out, fan-in, OR, evidence and motion modes ok")
+
+if F.isForever then
+    local before = STUB_SERIALIZE(D.progress)
+    SlashCmdList.FOREVERGOALTRACKER("testlocks status")
+    assert(F.testDependencies, "status is read-only")
+    SlashCmdList.FOREVERGOALTRACKER("testlocks off")
+    assert(not F.testDependencies and not F.StepLocked(t,4), "preview off restores ungated Forever")
+    assert(STUB_SERIALIZE(D.progress) == before, "disabling preview preserves progress")
+    assert(not D.testDependencies, "preview never stored in SavedVariables")
+    SlashCmdList.FOREVERGOALTRACKER("testlocks")
+    assert(F.testDependencies, "bare command toggles on")
+    SlashCmdList.FOREVERGOALTRACKER("testlocks")
+    assert(not F.testDependencies, "bare command toggles off")
+end

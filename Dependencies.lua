@@ -2,6 +2,8 @@ local ADDON, FGT = ...
 
 -- First-pass Classic gates, reviewed against the prerequisite audit.
 -- Forever remains ungated until its changed quest rules are verified.
+-- /goals testlocks enables the audited Classic gates for one Forever
+-- session's review. It does not assert that those quest rules are confirmed.
 -- Only actual prerequisites belong here, never recommended raid order.
 FGT.DEPENDENCIES = {
     classicOnly = true,
@@ -61,7 +63,7 @@ end
 function FGT.StepPrerequisites(goal, key)
     local entry = FGT.DependencyEntry(goal, key)
     if type(entry) == "table" and entry.requires then return entry.requires end
-    if FGT.DEPENDENCIES.classicOnly and FGT.isForever then return end
+    if FGT.DEPENDENCIES.classicOnly and FGT.isForever and not FGT.testDependencies then return end
     local rules = goal and FGT.DEPENDENCIES[goal.id]
     return rules and rules[key]
 end

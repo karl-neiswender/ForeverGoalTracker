@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add a session-only preview of Classic step locks for testing in Forever
 - Match the personal note icon's grey and gold hover to the Edit goal icon
 - Choose Warcraft Serif or Warcraft Modern in Settings, with font sizes matched to keep text footprints similar
 
