@@ -33,6 +33,7 @@ Larger updates with lots of new content.
 
 ## Maybe someday
 
+- **Reveal steps as you progress:** optionally hide locked step details until their prerequisites are complete. The full guide stays visible by default.
 - **Discord companion app:** a small desktop app that posts your finished goals to a Discord channel.
 
 ## Recently shipped
