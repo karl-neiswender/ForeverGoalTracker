@@ -437,6 +437,17 @@ function M:Place()
     else
         peek:Hide()
     end
+    -- The arrow warms toward gold with each nudge, with a faint glow.
+    if not handle:IsMouseOver() then
+        local level = hasGoal and math.min(1, self.bounce/0.025) or 0
+        if level > 0 or self.arrowWarm then
+            self.arrowWarm = level > 0
+            local rest, gold = C.SUBTEXT, C.ACCENT
+            local r, g, b = rest[1]+(gold[1]-rest[1])*level, rest[2]+(gold[2]-rest[2])*level, rest[3]+(gold[3]-rest[3])*level
+            handle.icon:SetVertexColor(r, g, b); handle.icon:SetAlpha(0.82+0.18*level)
+            handle.glow:SetVertexColor(gold[1], gold[2], gold[3]); handle.glow:SetAlpha(0.3*level)
+        end
+    end
     clip:SetShown(visible); handle:SetShown(visible)
     -- Gradient alpha is encoded in its colors on these clients.
     U.gradient(shadow, {0,0,0}, {0,0,0}, 0, 0.65*(1-self.fraction))
