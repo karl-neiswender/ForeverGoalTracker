@@ -5017,13 +5017,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- A soft light that breathes at the heart of some banner art (Thunderfury's
     -- gem). `glows[goalId] = { u, v, size, { r, g, b } }`: u and v are where it
     -- sits in the artwork (0 to 1 from its top left), size is a share of the
-    -- art's width. Both lights sit on the panel between the photo and its
+    -- art's width; `strength` scales one goal's light. Both lights sit on the panel between the photo and its
     -- shading, and fade toward the left exactly as the photo does.
     B.glows = {
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 } }, -- the gem at the crossguard
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- the holy spell in his hand, with faint rays turning very slowly
-        rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5 },
+        rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
     }
     B.glowFrame = CreateFrame("Frame", nil, detailPanel) -- drives the drift only
     B.glowTex = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
@@ -5114,7 +5114,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.glowTex:SetShown(on and true or false)
         self.raysTex:SetShown((on and spec.rays) and true or false)
         if on then
-            self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()
+            self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
             if not live then self:PaintGlow(0.2, 0.05/0.54) end
             if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
             elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
@@ -5125,7 +5125,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:SetImageFade(amount)
         self.imageFade = amount
         if self.glowFrame and self.goal and self.glows[self.goal.id] then
-            self.glowLevel = amount*0.54*self:GetArtOpacity()
+            self.glowLevel = amount*0.54*self:GetArtOpacity()*(self.glows[self.goal.id].strength or 1)
         end
         if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.
