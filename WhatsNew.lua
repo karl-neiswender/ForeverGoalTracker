@@ -181,7 +181,7 @@ local function Block(i)
     b.halo:SetBlendMode("ADD")
     b.halo:SetVertexColor(1, 0.82, 0.3)
     b.halo:SetSize(22, 22)
-    b.halo:SetAlpha(0.06)
+    b.halo:SetAlpha(0.03)
     b.dot = b:CreateTexture(nil, "OVERLAY")
     b.dot:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\dot")
     b.dot:SetVertexColor(1, 0.82, 0.3)
@@ -190,7 +190,7 @@ local function Block(i)
     b.halo:SetPoint("CENTER", b.dot, "CENTER", 0, 0)
     b.new = U.font(b, 9, "", unpack(BRIGHT))
     b.new:SetText("NEW")
-    b.new:SetPoint("LEFT", b.dot, "RIGHT", -3, 0)
+    b.new:SetPoint("LEFT", b.dot, "RIGHT", 1, 0)
     b.lines = {}
     -- a faint rule under the block, fading out toward both ends
     b.ruleL = b:CreateTexture(nil, "ARTWORK"); b.ruleR = b:CreateTexture(nil, "ARTWORK")
@@ -266,7 +266,7 @@ local pulser = CreateFrame("Frame", nil, pop)
 local function StartPulse()
     pulser:SetScript("OnUpdate", nil)
     if FGT.Setting("celebrations") == "off" then
-        for _, b in ipairs(blocks) do b.halo:SetAlpha(0.1) end
+        for _, b in ipairs(blocks) do b.halo:SetAlpha(0.05) end
         return
     end
     local t = 0
@@ -274,7 +274,7 @@ local function StartPulse()
         t = t + dt
         local k = 0.5 - 0.5 * math.cos(t * math.pi * 2 / 2.6)
         for _, b in ipairs(blocks) do
-            if b.dot:IsShown() then b.halo:SetAlpha(0.03 + 0.14 * k) end
+            if b.dot:IsShown() then b.halo:SetAlpha(0.015 + 0.065 * k) end
         end
     end)
 end
