@@ -4960,6 +4960,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.set_dungeon1_hunter, B.preprocessed.set_dungeon1_hunter = 4/3, true
     B.artPaths.set_dungeon2_hunter = "set_dungeon2_hunter-banner.blp"
     B.artAspects.set_dungeon2_hunter, B.preprocessed.set_dungeon2_hunter = 4/3, true
+    B.artPaths.set_dungeon2 = "set_dungeon2-banner.blp"
+    B.artAspects.set_dungeon2, B.preprocessed.set_dungeon2 = 4/3, true
+    for _, child in ipairs(FGT.armorCollections.set_dungeon2.armorChildren) do
+        B.artPaths[child.id] = "set_dungeon2-banner.blp"
+        B.artAspects[child.id], B.preprocessed[child.id] = 4/3, true
+    end
     B.artPaths.set_dungeon1_warrior = "set_dungeon1_warrior-banner.blp"
     B.artAspects.set_dungeon1_warrior, B.preprocessed.set_dungeon1_warrior = 4/3, true
     B.artAspects.wolfsbane, B.preprocessed.wolfsbane = 4/3, true
@@ -5024,7 +5030,16 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- the holy spell in his hand, with faint rays turning very slowly
         rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
+        -- keyed by image when a goal has several: Benediction's night elf
+        -- priest (Alliance art only), the gem at the head of her staff
+        ["benediction-alliance-banner.blp"] = { 0.519, 0.220, 0.34, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
     }
+    -- The light for the banner on screen: its image first, then its goal.
+    function B:GlowSpec()
+        if not self.goal then return nil end
+        local path = self:ResolveArt(self.goal.id)
+        return (path and self.glows[path]) or self.glows[self.goal.id]
+    end
     B.glowFrame = CreateFrame("Frame", nil, detailPanel) -- drives the drift only
     B.glowTex = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
     B.glowTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\glow")
@@ -5081,7 +5096,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- visible and back (the light's overall level is 54%)
         local w = 0.5 - 0.5*math.cos(a.t*2*math.pi/8)
         if self.raysTex.SetRotation then self.raysTex:SetRotation(-(a.t % 180)/180*2*math.pi) end
-        local spec = self.goal and self.glows[self.goal.id]
+        local spec = self.glowSpec
         if spec then
             local size = spec[3]*self.art:GetWidth()*(0.96 + 0.08*n)
             self.glowTex:SetSize(size, size)
@@ -5089,7 +5104,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54)
     end
     function B:PlaceGlow()
-        local spec = self.goal and self.glows[self.goal.id]
+        local spec = self:GlowSpec()
+        self.glowSpec = spec
         local u = self.uv
         local on = spec and u and self.hasArt and self.shownArtHeight
         if on then
@@ -5124,8 +5140,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:SetImageFade(amount)
         self.imageFade = amount
-        if self.glowFrame and self.goal and self.glows[self.goal.id] then
-            self.glowLevel = amount*0.54*self:GetArtOpacity()*(self.glows[self.goal.id].strength or 1)
+        if self.glowFrame and self.glowSpec then
+            self.glowLevel = amount*0.54*self:GetArtOpacity()*(self.glowSpec.strength or 1)
         end
         if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.

@@ -5,9 +5,13 @@ the central skull/bone structure near the upper-right quadrant.
 Source preserved: Media/artwork/Scholomance_old_loading_screen.jpg.
 Review: Media/final-images/set_dungeon2-scholomance-review.png.
 Built-in image_gen edit; grayscale, baked left and bottom gradients, 4:3.
-Awaiting visual approval before installation. Intended mapping includes all
+Karl approved the preview. Installed mapping includes all
 nine class children, including Beastmaster, superseding its recent hunter art.
 The Beastmaster original, review, master and runtime file remain preserved.
+Master: Media/final-images/set_dungeon2-scholomance-master.png (1200x900).
+Runtime: Media/set_dungeon2-banner.blp (512px DXT1, ten validated mips).
+Rebuild map/runtime manifest updated. Full Lua check retained in
+reports/checks/dungeon2-scholomance-2026-10-12.txt. Full WoW restart required.
 No release tag or publication; Claude is preparing the release separately.
 
 ## Exact prompt

@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "set_dungeon2": "set_dungeon2-scholomance-master.png",
     "set_forever_raid": "set_forever_raid-master.png",
     "set_dungeon2_hunter": "beastmaster-hunter-master.png",
     "ashbringer": "weapons/ashbringer-ryman-master.png",
