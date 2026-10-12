@@ -113,3 +113,26 @@ Materials contents now fade with the slide; chrome/arrow/sliver stay visible.
 Duplicate item-count bars below collection steps are removed; non-item bars
 remain. Open/closed state survives same-session window hiding, and reload
 starts collapsed. Checks: checks/materials-fade-2026-10-11.txt.
+
+## Evening closeout — continue October 12
+
+Karl ended the session and requested committing all work. Source changes,
+tests and reports are committed and pushed to main. Working tree is clean;
+recursive artwork audit, including ignored originals, found nothing pending.
+The latest full Lua 5.1/Era/Forever suite passed. v2.11.1 remains the published
+version; all evening changes are Unreleased. No release tag or publication.
+
+Tomorrow: refine and review Materials in game, including the latest content
+fade and removed collection-step bars, local filters, narrow/resized windows,
+Tier 3/AQ recipes, item-cache availability and alt snapshots. Karl approved
+the drawer direction and subtle arrow placement in native review. Recheck
+CPU behavior on a large expanded guide while sliding; intermediate guide
+reflow is capped at three calls per transition, with no idle animation driver.
+Unknown manual ingredient IDs remain explicitly unavailable until resolved;
+newly watched ingredients on alts need a new scan on those characters.
+
+If Karl decides to release tomorrow, run fresh Ketho/LuaLS diagnostics for
+both supported clients, verify annotations loaded, retain results and fix
+actionable diagnostics. Then run the full checker, finish native review,
+prepare version/changelog/package and obtain his release instruction before
+tagging. Tonight's commit request does not authorize a release or schedule.
