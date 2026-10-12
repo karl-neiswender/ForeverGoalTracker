@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add a sliding per-goal Materials panel with progress bars, percentages and display filters
 - Use the standard Warcraft font for headings, preserving the original panel widths
 - Widen the goals list by 50 pixels to give titles more room
 - Remove repeated completion text from step tooltips

@@ -3,14 +3,11 @@ local screenW, screenH = 1920, 1080
 local oldScreen = F.ScreenSize
 F.ScreenSize = function() return screenW, screenH end
 F.windowScale = 1
-local main, grip
+local main, grip = nil, F.MaterialsUI.resizeGrip
 for _, frame in ipairs(STUB_FRAMES) do
     if rawget(frame, "_stubName") == "ForeverGoalTrackerFrame" then main = frame end
 end
 assert(main)
-for _, frame in ipairs(STUB_FRAMES) do
-    if rawget(frame, "_stubParent") == main and frame:GetScript("OnMouseDown") then grip = frame end
-end
 assert(grip, "main-window resize grip")
 local width, height, left, top = 1344, 756, 100, 1000
 local bounds

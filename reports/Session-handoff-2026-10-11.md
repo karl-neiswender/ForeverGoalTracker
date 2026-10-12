@@ -87,3 +87,12 @@ replacing the 34-unit offset. Checks: checks/goals-list-40-2026-10-11.txt.
 Karl requested another 10 UI units after review; the final current offset is
 50 beyond the original tab footprint. Overall window size is unchanged.
 Checks: checks/goals-list-50-2026-10-11.txt.
+
+Materials drawer: Karl approved the mockup and requested the first addon
+implementation. New Materials.lua loads after ItemTooltips.lua and provides
+a per-goal drawer, tucked-away sliver, moving etched handle, short glide,
+bars/percentages, counts on hover and a sliders menu. The center guide flexes
+inside the unchanged overall window. Defaults: collapsed each reload, hide
+collected, hide inline counts, include tracked alts. All changes remain
+Unreleased; native review is next. See materials-panel-2026-10-11.md and its
+retained full checker output for data/counting limitations and validation.

@@ -399,6 +399,7 @@ local function BuildWatchList()
     for _, q in ipairs(FGT.QUESTS or {}) do
         for _, id in ipairs(q[2]) do WATCH.quests[id] = true; WATCH.taken[id] = true end
     end
+    if FGT.CollectMaterialWatch then FGT.CollectMaterialWatch(WATCH.items) end
 end
 
 -- ------------------------------------------------------------
@@ -6152,6 +6153,7 @@ SelectGoal = function(id, skipListRefresh)
         goal = ActiveGoals()[1]
         if not goal then
             FGT.ShowEmptyTracker()
+            if FGT.RefreshMaterials then FGT.RefreshMaterials() end
             return
         end
         id = goal.id
@@ -6210,6 +6212,7 @@ SelectGoal = function(id, skipListRefresh)
     local d2, t2 = OverallProgress()
     overallBar:SetProgress(d2, t2, string.format("%d%% overall", math.floor(d2 / math.max(1, t2) * 100 + 0.5)))
     goalsCompleteText:SetText(string.format("%d of %d goals fully complete", CountGoalsComplete(), #ActiveGoals()))
+    if FGT.RefreshMaterials then FGT.RefreshMaterials() end
 end
 
 do -- scoped: keeps these locals out of the file's 200-local budget
@@ -9365,6 +9368,19 @@ end)
 
 -- Handy for other code (and testing) to jump to a goal.
 FGT.SelectGoal = function(id) SelectGoal(id) end
+-- Narrow bridge for the separate Materials panel; keep main-chunk locals stable.
+FGT.MaterialsUI = {
+    main = main, detail = detailPanel, list = listPanel, resizeGrip = resizeGrip, colors = C, styles = STYLE,
+    font = NewFontString, title = NewTitleString, bar = NewBar, etch = Etch,
+    scroll = CreateScrollArea, gradient = ApplyHGradient, flat = Flat,
+    charKey = CharKey, watch = WATCH.items,
+    goal = function()
+        local DB = ForeverGoalTrackerDB
+        local goal = FGT.GoalById(selectedId)
+        if DB and goal and IsActive(goal) then return goal end
+    end,
+    redraw = function() if selectedId then SelectGoal(selectedId, true) end end,
+}
 FGT.headerRows = headerRowPool
 FGT.stepRows = stepRowPool
 
