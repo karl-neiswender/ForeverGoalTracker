@@ -64,3 +64,10 @@ Warcraft body font. All title-role text now uses Fonts\FRIZQT__.TTF at its
 existing size/color/shadow. No selector; typography helpers remain. Cinzel
 and Open Sans studies are preserved in GitHub and excluded from releases.
 Details/checks: warcraft-heading-font-2026-10-11.md. `/reload` to review.
+
+Panel-width correction: Karl confirmed Warcraft headings look better, but
+the tabs' narrower text indirectly narrowed the left goals panel. Original
+tab/list widths now use hidden Cinzel Bold measurements at the previous size;
+visible labels remain Warcraft. Cinzel Bold/license stay packaged for those
+two startup measurements. Window bounds and anchors remain unchanged.
+Details/checks: warcraft-heading-font-2026-10-11.md.

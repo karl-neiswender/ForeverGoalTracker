@@ -6368,7 +6368,16 @@ local function NewTab(label)
     tab.text = NewTitleString(over, 12)
     tab.text:SetPoint("CENTER", 0, -1)
     tab.text:SetText(label)
-    tab:SetWidth(math.ceil(tab.text:GetStringWidth()) + 40)
+    -- Preserve the original tab/list footprint independently of visible typography.
+    -- This hidden measurement uses the previous heading font at its original size.
+    local footprint = tab:CreateFontString(nil, "OVERLAY")
+    footprint:Hide()
+    local labelWidth = tab.text:GetStringWidth()
+    if footprint:SetFont("Interface\\AddOns\\" .. ADDON .. "\\Fonts\\Cinzel-Bold.ttf", 12, "") then
+        footprint:SetText(label)
+        labelWidth = footprint:GetStringWidth()
+    end
+    tab:SetWidth(math.ceil(labelWidth) + 40)
     tab:SetScript("OnEnter", function(self)
         if not self.active then self.text:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3]) end
     end)

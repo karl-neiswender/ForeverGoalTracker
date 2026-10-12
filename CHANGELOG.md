@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Use the standard Warcraft font for headings
+- Use the standard Warcraft font for headings, preserving the original panel widths
 - Remove repeated completion text from step tooltips
 - Update Forever racial mount budgets to 1,200g and separate mount and riding prices
 - Limit window resizing to 75–110% of its default size and center it at the start of each session
