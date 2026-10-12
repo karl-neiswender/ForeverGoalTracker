@@ -17,7 +17,12 @@ from an ambiguous monogram.
 
 Forever raid-set review completed after two upload/network failures with the
 6866x4710 source. A technical 1912x1312 reference copy allowed generation.
-Original source remains unchanged. Review awaits visual approval before install.
+Original source remains unchanged. Karl requested signature removal and addon
+artist credit. Corrected review installed for all nine Forever raid-set children,
+both factions, with Artwork by Alex Horley. Parent collection also mapped.
+Clean review: Media/final-images/set_forever_raid-review-clean.png.
+Master: Media/final-images/set_forever_raid-master.png (1200x900).
+Runtime: Media/set_forever_raid-banner.blp (512px DXT1, ten mips).
 
 ## Shared Forever raid-set review
 
@@ -87,5 +92,11 @@ Exact prompt:
 Edit the supplied artwork into ONE 4:3 landscape Forever Goal Tracker banner, targeting a 1200x900 master. Keep the original painterly style and faithful subject geometry. STRICT neutral black and white/grayscale, moderately enhanced contrast, detailed midtones, controlled highlights. Keep the LEFT THIRD quiet for addon text and main subject high toward RIGHT with breathing room. Bake a WIDE smooth neutral charcoal dark LEFT gradient into the artwork itself, darkest at left edge, blending gradually with no hard vertical strip. Bake a SOFT dark BOTTOM gradient across approximately lowest 100px of a 1200x900 master, smoothly reaching near-black charcoal at bottom edge with no hard horizontal strip. BOTH gradients required. No added text, UI, border, extra characters or unrelated objects. Preserve the exact charging tauren druid, face, horns, mane, hands, claws, bracers and pose, with complete forward hand and horns. Extend mountain valley grassland into landscape, druid high/right. Translate green magic into subtle pale grayscale light. Preserve the authentic Alex Alexandrov credit.
 
 ## Druid watermark correction
+
+## Forever raid-set signature correction
+
+Edit ONLY the small 'HORLEY' signature at the bottom-right of this grayscale Forever raid-set banner. Remove the signature and seamlessly fill the small area with existing dark rock and ground texture. Preserve EVERYTHING ELSE exactly: all four adventurers, armor, weapons, hands, faces, island and tree, distant landscape, composition, neutral grayscale, painterly texture, broad left dark gradient and soft bottom dark gradient. Keep 4:3 proportions. No replacement signature/text. Credit 'Artwork by Alex Horley' will be shown separately in the addon.
+
+## Druid correction prompt
 
 Edit ONLY the small bottom-right watermark/credit line in this grayscale tauren druid banner. Remove the entire visible '© Blizzard Entertainment Art by: Alex Alexandrov' text and seamlessly fill that small area with existing dark grass/background and smooth bottom gradient. Preserve EVERYTHING ELSE exactly: face, horns, mane, body, hands, claws, charging pose, magic, mountains, framing, neutral grayscale, left and bottom gradients. Keep 4:3 proportions. No replacement text/signature. Alex Alexandrov will be credited separately through the addon's artwork attribution.

@@ -4990,6 +4990,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- classes and the account roster. Shared art covers missing variants.
     B.artPaths.allclasses = "pvp_shared-banner.blp"
     B.artAspects.allclasses, B.preprocessed.allclasses = 4/3, true
+    B.artPaths.set_forever_raid = "set_forever_raid-banner.blp"
+    B.artAspects.set_forever_raid, B.preprocessed.set_forever_raid = 4/3, true
+    for _, child in ipairs(FGT.armorCollections.set_forever_raid.armorChildren) do
+        B.artPaths[child.id] = "set_forever_raid-banner.blp"
+        B.artAspects[child.id], B.preprocessed[child.id] = 4/3, true
+    end
     for _, id in ipairs({"pvp_ab_ally", "pvp_ab_horde"}) do
         B.artPaths[id] = "pvp_arathi-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
@@ -5053,6 +5059,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["set_forever_raid-banner.blp"] = "Alex Horley",
         ["allclasses_horde_druid-banner.blp"] = "Alex Alexandrov",
         ["allclasses_tauren_warrior-banner.blp"] = "Adrian Smith",
         ["pvp_arathi-banner.blp"] = "Howard Lyon",
@@ -5178,7 +5185,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 local width = chip:GetWidth()
                 if x > firstX and x+width > FGT.detailBody:GetWidth()-22 then x,y = firstX,y+30 end
                 chip:ClearAllPoints(); chip:SetPoint("TOPLEFT", FGT.detailBody, "TOPLEFT", x,-y)
-                x = x+width+10
+                x = x+width+6
             end
         end
         detailNote:ClearAllPoints()
@@ -6480,10 +6487,9 @@ SelectGoal = function(id, skipListRefresh)
     detailTag:SetText(FGT.GoalEyebrow(goal))
     detailTag:SetTextColor(catColor[1], catColor[2], catColor[3])
 
-    local diffColor = FGT.difficultyColors[goal.difficulty] or C.SUBTEXT
-    detailDiffChip:SetLabel(string.upper(goal.difficulty or ""), diffColor)
+    detailDiffChip:SetLabel(goal.difficulty or "", C.SUBTEXT) -- quiet: plain case, no difficulty color
     if goal.timeEstimate then
-        detailTimeChip:SetLabel(goal.timeEstimate, C.INK2)
+        detailTimeChip:SetLabel(goal.timeEstimate, C.SUBTEXT)
         detailTimeChip:Show()
     else
         detailTimeChip:Hide()
