@@ -5054,6 +5054,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.50, 0.74, 0.08, 0.66 }, field = { 0.30, 1.0, 0.30, 0.95 },
                 fieldShare = 0.4, count = 56, blurShare = 0.22, rise = 0.30 } },
         -- Embers only (`glow = false`; u, v is just a point inside the art).
+        -- Banners with embers hide the page's floating dust (the faint
+        -- clouds stay): sideways dust and rising embers compete. `dust = true`
+        -- on a spec keeps both.
         -- Shared images are keyed by image so every goal using them gets it.
         ["raid_bwl-banner.blp"] = { 0.7, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Blackwing Lair and its attunement
             embers = { box = { 0.40, 0.95, 0.40, 0.75 }, field = { 0.30, 1.0, 0.20, 0.90 }, count = 48, blurShare = 0.22, rise = 0.30 } },
@@ -5069,8 +5072,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.45, 0.95, 0.55, 0.88 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
         ["key_strat-banner.blp"] = { 0.6, 0.65, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Stratholme key and The Devout
             embers = { box = { 0.30, 0.95, 0.45, 0.85 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 40, blurShare = 0.22, rise = 0.30 } },
-        wolfsbane = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = { box = { 0.30, 1.0, 0.60, 0.95 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 36, blurShare = 0.22, rise = 0.30 } },
+        -- (the fire is the bright haze behind him at the lower right: orange in the original)
+        wolfsbane = { 0.8, 0.72, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.62, 1.0, 0.55, 0.90 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 44, blurShare = 0.22, rise = 0.30 } },
         set_tier1_shaman = { 0.6, 0.55, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- The Earthfury
             embers = { box = { 0.25, 0.95, 0.30, 0.80 }, field = { 0.20, 1.0, 0.10, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
         tier3_shaman = { 0.6, 0.55, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- The Earthshatterer
@@ -5326,6 +5330,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             self.glowAnim:Stop()
         end
         if not on then self:HideEmbers(); self.emberFor = nil end
+        -- floating dust (Ambience.lua, Forever only) steps aside for embers
+        local A = FGT.ambience
+        if A and A.SetDust then A.SetDust(not (on and spec.embers and not spec.dust)) end
     end
     function B:SetImageFade(amount)
         self.imageFade = amount

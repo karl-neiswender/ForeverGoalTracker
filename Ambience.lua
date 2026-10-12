@@ -103,6 +103,15 @@ for _, l in ipairs(A.layers) do
     if mask then l.tex:AddMaskTexture(mask) end
 end
 
+-- Banner embers turn the drifting dust off (the faint clouds stay).
+A.dust = true
+function A.SetDust(on)
+    A.dust = on and true or false
+    for _, l in ipairs(A.layers) do
+        if not l.steady then l.tex:SetShown(A.dust) end
+    end
+end
+
 -- Runs only while the goal page is on screen, and not with Celebrations off.
 function A.Refresh()
     local on = U.detail:IsVisible() and FGT.Setting("celebrations") ~= "off"
@@ -119,9 +128,9 @@ U.main:HookScript("OnHide", A.Refresh)
 -- /goals dust: what the effect is doing, for checking in game.
 function A.Status()
     local say = function(t) print("|cffffd75eForever Goal Tracker:|r " .. t) end
-    say(string.format("dust on goal page: panel level %d, dust level %d, body level %d, shown %s, celebrations %s",
+    say(string.format("dust on goal page: panel level %d, dust level %d, body level %d, shown %s, celebrations %s, dust %s",
         U.detail:GetFrameLevel(), fx:GetFrameLevel(), body and body:GetFrameLevel() or -1,
-        tostring(fx:IsVisible()), tostring(FGT.Setting("celebrations"))))
+        tostring(fx:IsVisible()), tostring(FGT.Setting("celebrations")), A.dust and "on" or "off (embers)"))
     for i, l in ipairs(A.layers) do
         say(string.format("  layer %d: %s, playing %s, alpha %.2f, size %dx%d", i, l.steady and "clouds" or "dust",
             tostring(l.group:IsPlaying()), l.tex:GetAlpha(), l.tex:GetWidth(), l.tex:GetHeight()))
