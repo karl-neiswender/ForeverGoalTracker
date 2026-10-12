@@ -7447,8 +7447,8 @@ end
 
 -- Search and faction rules, applied on top of the chip filter.
 -- Goals this client can show at all (before any filter).
-function LF.Available(goal)
-    if goal.libraryChild then return false end
+function LF.Available(goal, allowChild)
+    if goal.libraryChild and not allowChild then return false end
     -- Forever-only goals can't be earned on Classic Era.
     if goal.forever == "new" and not FGT.isForever then return false end
     if goal.needs == "stats" and not FGT.HasStats() then return false end -- no Statistics window
@@ -7485,10 +7485,54 @@ local function CurrentFilter()
     return FILTERS[1]
 end
 
+-- Armor collections hold one set per class. With a class (or My
+-- character) picked, the Library lists that class's sets as their own
+-- cards; with Anyone it keeps the collections.
+LF.TIERS = {
+    set_dungeon1 = { 1, "Dungeon Set 1" }, set_dungeon2 = { 2, "Dungeon Set 2" },
+    set_tier1 = { 3, "Tier 1" }, set_tier2 = { 4, "Tier 2" }, set_tier25 = { 5, "Tier 2.5" },
+    tier3 = { 6, "Tier 3" }, set_forever_raid = { 7, "Forever Raid" },
+}
+function LF.Tier(goal)
+    local t = goal.armorParent and LF.TIERS[goal.armorParent]
+    if t then return t[1], t[2] end
+    if goal.armorParent and goal.armorParent:match("^pvp_set_") then return 8, "PvP Set" end
+    return 0, nil
+end
+function LF.Flat()
+    local who = LF.Who()
+    return who and who.class and who or nil
+end
+
 local function FilterMatches(f, goal)
     if f.key == "all" then return true end
     if f.match then return goal.category:find(f.match) ~= nil end
     return goal.category == f.key
+end
+
+-- The goals a category shows under every other filter.
+function LF.Results(f)
+    local flat = LF.Flat()
+    local out = {}
+    for _, g in ipairs(FGT.goals) do
+        if flat and g.armorChildren then
+            for _, child in ipairs(g.armorChildren) do
+                if child.armorClass and child.armorClass:upper() == flat.class and FilterMatches(f, child)
+                    and LF.Available(child, true) and #LF.Blockers(child) == 0 and LF.SearchMatch(child) then
+                    out[#out + 1] = child
+                end
+            end
+        elseif FilterMatches(f, g) and FGT.LibraryVisible(g) then
+            out[#out + 1] = g
+        end
+    end
+    -- sets read as a progression (Dungeon 1 ... Tier 3, PvP); the rest A to Z
+    table.sort(out, function(a, b)
+        local ra, rb = LF.Tier(a), LF.Tier(b)
+        if ra ~= rb then return ra < rb end
+        return a.name < b.name
+    end)
+    return out
 end
 
 -- One card per goal in the catalog: icon, name, category / difficulty /
@@ -7580,11 +7624,7 @@ function LF.Layout()
     -- category choices with live counts under every other filter
     local opts = {}
     for i, f in ipairs(FILTERS) do
-        local n = 0
-        for _, g in ipairs(FGT.goals) do
-            if FilterMatches(f, g) and FGT.LibraryVisible(g) then n = n + 1 end
-        end
-        opts[i] = { key = f.key, label = f.label, count = n }
+        opts[i] = { key = f.key, label = f.label, count = #LF.Results(f) }
     end
     LF.catDrop:SetOptions(opts)
     LF.catDrop:SetValue(libFilter)
@@ -7998,8 +8038,11 @@ local function GetCard(goal)
     card.meta:SetPoint("TOPLEFT", card.name, "BOTTOMLEFT", 0, -4)
     card.meta:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -10, 0)
     card.meta:SetWordWrap(false)
+    local _, tier = LF.Tier(goal)
+    local catText = tier and (string.upper(tier) .. "  ·  " .. FGT.ArmorClassLabel(goal.armorClass) .. "|cff" .. HexColor(catColor))
+        or string.upper(goal.category)
     card.metaBase = string.format("|cff%s%s|r  ·  |cff%s%s|r  ·  %s",
-        HexColor(catColor), string.upper(goal.category),
+        HexColor(catColor), catText,
         HexColor(diffColor), string.upper(goal.difficulty or ""), goal.timeEstimate or "")
     if goal.faction then
         local fc = goal.faction == "Alliance" and "4d8cff" or "e8483c"
@@ -8123,18 +8166,14 @@ LayoutLibrary = function()
     LF.Layout()
 
     -- cards: active goals first within the filter, then alphabetical
-    local list = {}
     for _, g in ipairs(FGT.goals) do
         local card = libCards[g.id]
         if card then
             card:Hide()
             for _, sub in ipairs(card.subs or {}) do sub:Hide() end
         end
-        if FilterMatches(CurrentFilter(), g) and FGT.LibraryVisible(g) then
-            table.insert(list, g)
-        end
     end
-    table.sort(list, function(a, b) return a.name < b.name end)
+    local list = LF.Results(CurrentFilter())
     local top = LF.LayoutTags(#list)
     libScroll.scroll:ClearAllPoints()
     libScroll.scroll:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 10, top)
@@ -8225,7 +8264,8 @@ LayoutLibrary = function()
         local shownSet = {}
         for _, g in ipairs(list) do shownSet[g] = true end
         for _, g in ipairs(FGT.goals) do
-            if not shownSet[g] and LF.Available(g) and LF.SearchMatch(g) then hidden[#hidden + 1] = g end
+            if not shownSet[g] and LF.Available(g) and LF.SearchMatch(g)
+                and not (LF.Flat() and g.armorChildren) then hidden[#hidden + 1] = g end
         end
         table.sort(hidden, function(a, b) return a.name < b.name end)
     end

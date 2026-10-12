@@ -300,3 +300,24 @@ do
     LF.Reset(); F.LayoutLibrary()
     assert(#LF.ActiveTags() == 0, "reset clears every tag")
 end
+
+-- With a class picked, armor collections become that class's own sets.
+do
+    local LF = F.libState
+    F.ShowTab("library"); LF.Reset()
+    local function Ids()
+        local ids = {}
+        for _, g in ipairs(LF.Results({ key = "Item Set" })) do ids[g.id] = true end
+        return ids
+    end
+    local any = Ids()
+    assert(any.tier3 and not any.tier3_rogue, "Anyone keeps the collections")
+    LF.forWho = "ROGUE"; LF.forDrop:SetValue("ROGUE")
+    local rogue = Ids()
+    assert(rogue.tier3_rogue and rogue.set_tier1_rogue and not rogue.tier3 and not rogue.tier3_mage, "a class sees its own sets")
+    local list = LF.Results({ key = "Item Set" })
+    assert(LF.Tier(list[1]) <= LF.Tier(list[#list]), "sets sort as a progression")
+    F.LayoutLibrary()
+    assert(F.libCards.tier3_rogue and F.libCards.tier3_rogue:IsShown() ~= nil, "individual set cards are built")
+    LF.Reset()
+end
