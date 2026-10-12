@@ -232,3 +232,48 @@ do
     N.Command("reset")
     assert(D.whatsNewSeen == nil, "reset glows again")
 end
+
+-- Library filter column and the My Goals view (class/race/faction fit).
+do
+    local LF = F.libState
+    local druid = { class = "DRUID", race = "NightElf", faction = "Alliance" }
+    assert(F.GoalFits(F.GoalById("sulfuras"), druid), "Druids wield two-handed maces")
+    assert(not F.GoalFits(F.GoalById("thunderfury"), druid), "Druids can't use one-handed swords")
+    assert(not F.GoalFits(F.GoalById("mount_dreadsteed"), druid), "Dreadsteed is Warlock only")
+    assert(F.GoalFits(F.GoalById("rep_argentdawn"), druid), "reputations are for everyone")
+    assert(not F.GoalFits(F.GoalById("pvp_mount_horde"), druid), "Horde goals don't fit an Alliance character")
+    assert(F.GoalFits(F.GoalById("tier3_druid"), druid) and not F.GoalFits(F.GoalById("tier3_mage"), druid), "armor goals follow their class")
+    assert(F.GoalFits(F.GoalById("tier3"), { class = "DRUID" }), "collections fit when a class version exists")
+    assert(not F.GoalFits(F.GoalById("wolfsbane"), { class = "PALADIN", race = "Human", faction = "Horde" }), "Wolfsbane is for Undead Paladins")
+
+    -- Library: For a class narrows the cards and the category counts.
+    D.active = {}; F.ShowTab("library")
+    local function Count(key)
+        for _, row in ipairs(LF.rows) do if row.filter.key == key then return tonumber(row.count:GetText()) end end
+    end
+    local allWeapons = Count("Epic Weapon")
+    LF.forWho = "DRUID"; F.LayoutLibrary()
+    assert(Count("Epic Weapon") < allWeapons, "Druid sees fewer weapons")
+    LF.forWho = "any"; F.LayoutLibrary()
+    local everything = Count("all")
+    LF.show = "added"; F.LayoutLibrary()
+    local added = Count("all")
+    LF.show = "notadded"; F.LayoutLibrary()
+    assert(added + Count("all") == everything and added < everything, "Added and Not added split the library")
+    LF.Reset(); F.LayoutLibrary()
+    assert(Count("all") > 60 and not LF.Active(), "reset clears every filter " .. tostring(Count("all")) .. " " .. tostring(LF.Active()))
+    F.SetLibraryView("new")
+    assert(LF.newOnly and LF.show == "all", "demo 'new' chip maps to the New & Updated toggle")
+    LF.Reset()
+
+    -- My Goals: This character hides goals the logged-in character can't do.
+    D.active = { thunderfury = true, mount_dreadsteed = true, rep_argentdawn = true }
+    F.ShowTab("tracker")
+    local view = F.myGoalsView
+    view:SetValue("me")
+    local me = F.PlayerProfile()
+    assert(me.class == "WARRIOR", "stub character is a Warrior")
+    assert(F.MyGoalsShows(F.GoalById("thunderfury")) and not F.MyGoalsShows(F.GoalById("mount_dreadsteed")), "This character view")
+    view:SetValue("all")
+    assert(F.MyGoalsShows(F.GoalById("mount_dreadsteed")), "All goals view")
+end

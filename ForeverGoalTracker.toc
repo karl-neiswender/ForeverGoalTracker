@@ -17,6 +17,7 @@ ArmorSets.lua
 Npcs.lua
 Quests.lua
 Dependencies.lua
+Filters.lua
 Core.lua
 ItemTooltips.lua
 Materials.lua

@@ -3551,6 +3551,170 @@ sortBar:SetScript("OnClick", function()
 end)
 sortCatcher:SetScript("OnClick", CloseSortMenu)
 main:HookScript("OnHide", CloseSortMenu)
+
+-- A dropdown in the Sort menu's style, for other pickers (My Goals view,
+-- Library "For"). options: { { key, label, color = {r,g,b} }, ... };
+-- a { divider = true } entry draws a faint rule. dd.onChange(key) runs
+-- on a pick; dd:SetValue(key) shows a choice without calling it.
+do
+    local ROW = 24
+    function FGT.NewDropdown(parent, prefix)
+        local dd = CreateFrame("Button", nil, parent, "BackdropTemplate")
+        dd:SetHeight(22)
+        Etch(dd, STYLE.button, 10)
+        dd.label = NewFontString(dd, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+        dd.label:SetPoint("LEFT", dd, "LEFT", 8, 0)
+        dd.label:SetPoint("RIGHT", dd, "RIGHT", -24, 0)
+        dd.label:SetWordWrap(false)
+        dd.caret = dd:CreateTexture(nil, "OVERLAY")
+        dd.caret:SetSize(14, 14)
+        dd.caret:SetPoint("RIGHT", dd, "RIGHT", -6, 0)
+        dd.caret:SetTexture(FGT.Icon("chevron"))
+        dd.prefix, dd.options, dd.rows = prefix, {}, {}
+
+        local menu = CreateFrame("Frame", nil, main, "BackdropTemplate")
+        menu:SetPoint("TOPLEFT", dd, "BOTTOMLEFT", 0, -2)
+        menu:SetPoint("TOPRIGHT", dd, "BOTTOMRIGHT", 0, -2)
+        menu:SetFrameLevel(main:GetFrameLevel() + 60)
+        Etch(menu, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
+        menu:EnableMouse(true)
+        menu:Hide()
+        FGT.AddDropShadow(menu)
+        local catcher = CreateFrame("Button", nil, main)
+        catcher:SetAllPoints(main)
+        catcher:SetFrameLevel(main:GetFrameLevel() + 55)
+        catcher:Hide()
+        dd.menu = menu
+
+        local function Close()
+            menu:Hide(); catcher:Hide()
+            dd.caret:SetTexCoord(0, 1, 0, 1)
+            dd:SetEtch(dd:IsMouseOver() and STYLE.btnHover or STYLE.button)
+        end
+        dd.Close = Close
+        function dd:LabelFor(key)
+            for _, o in ipairs(self.options) do
+                if o.key == key then return o.short or o.label, o.color end
+            end
+        end
+        function dd:SetValue(key)
+            self.value = key
+            local text, color = self:LabelFor(key)
+            local c = color and string.format("|cff%02x%02x%02x", color[1] * 255, color[2] * 255, color[3] * 255) or ""
+            self.label:SetText((self.prefix and ("|cffbdbdbd" .. self.prefix .. "|r  ") or "") .. c .. (text or "") .. (color and "|r" or ""))
+        end
+        function dd:SetOptions(options)
+            self.options = options
+            local y = 4
+            local n = 0
+            for _, o in ipairs(options) do
+                if o.divider then
+                    y = y + 7
+                else
+                    n = n + 1
+                    local row = self.rows[n]
+                    if not row then
+                        row = CreateFrame("Button", nil, menu)
+                        row:SetHeight(ROW)
+                        row.hl = row:CreateTexture(nil, "BACKGROUND")
+                        row.hl:SetTexture(SOLID)
+                        row.hl:SetAllPoints(row)
+                        ApplyHGradient(row.hl, C.ACCENT, C.ACCENT, 0.18, 0.02)
+                        row.hl:Hide()
+                        row.check = row:CreateTexture(nil, "OVERLAY")
+                        row.check:SetTexture(FGT.Icon("check"))
+                        row.check:SetSize(12, 12)
+                        row.check:SetPoint("RIGHT", row, "RIGHT", -5, 0)
+                        row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+                        row.label:SetPoint("LEFT", row, "LEFT", 4, 0)
+                        row.label:SetPoint("RIGHT", row, "RIGHT", -20, 0)
+                        row.label:SetWordWrap(false)
+                        row:SetScript("OnEnter", function(r) r.hl:Show() end)
+                        row:SetScript("OnLeave", function(r) r.hl:Hide() end)
+                        row:SetScript("OnClick", function(r)
+                            Close()
+                            dd:SetValue(r.key)
+                            if dd.onChange then dd.onChange(r.key) end
+                        end)
+                        self.rows[n] = row
+                    end
+                    row.key, row.option = o.key, o
+                    row:ClearAllPoints()
+                    row:SetPoint("TOPLEFT", menu, "TOPLEFT", 4, -y)
+                    row:SetPoint("TOPRIGHT", menu, "TOPRIGHT", -4, -y)
+                    row.label:SetText(o.label)
+                    row:Show()
+                    y = y + ROW
+                end
+            end
+            for i = n + 1, #self.rows do self.rows[i]:Hide() end
+            menu:SetHeight(y + 4)
+        end
+        local function Open()
+            for _, row in ipairs(dd.rows) do
+                if row:IsShown() then
+                    local current = row.key == dd.value
+                    row.check:SetShown(current)
+                    local c = (current and C.ACCENT) or row.option.color or C.TEXT
+                    row.label:SetTextColor(c[1], c[2], c[3])
+                end
+            end
+            menu:Show(); catcher:Show()
+            dd.caret:SetTexCoord(0, 1, 1, 0)
+            dd:SetEtch(STYLE.btnHover)
+        end
+        dd:SetScript("OnClick", function() if menu:IsShown() then Close() else Open() end end)
+        dd:SetScript("OnEnter", function(self) self:SetEtch(STYLE.btnHover) end)
+        dd:SetScript("OnLeave", function(self) if not menu:IsShown() then self:SetEtch(STYLE.button) end end)
+        catcher:SetScript("OnClick", Close)
+        main:HookScript("OnHide", Close)
+        return dd
+    end
+end
+
+-- My Goals view: every goal on the tracker, or only the ones the
+-- logged-in character can do (class, race and faction). A view only:
+-- progress still counts every character. Session-only, like the
+-- Materials drawer; it starts on All goals after each reload.
+do
+    local view = FGT.NewDropdown(listPanel, "Show:")
+    FGT.myGoalsView = view
+    view:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 6, -6)
+    view:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6, -6)
+    sortBar:ClearAllPoints()
+    sortBar:SetPoint("TOPLEFT", view, "BOTTOMLEFT", 0, -4)
+    sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 58, -32)
+    function FGT.RefreshViewOptions()
+        local p = FGT.PlayerProfile()
+        local who = "this character"
+        local race = p.race and UnitRace and UnitRace("player")
+        local class = p.class and UnitClass and UnitClass("player")
+        if race and class then who = race .. " " .. class end
+        view:SetOptions({
+            { key = "all", label = "All goals" },
+            { key = "me", label = "This character (" .. who .. ")", short = "This character" },
+        })
+        view:SetValue(view.value or "all")
+    end
+    FGT.RefreshViewOptions()
+    view.onChange = function()
+        LayoutGoalList()
+        -- keep the open goal in view; otherwise open the first one shown
+        local first
+        for _, g in ipairs(ActiveGoals()) do
+            if FGT.MyGoalsShows(g) then
+                if g.id == selectedId then first = nil break end
+                first = first or g.id
+            end
+        end
+        if first then FGT.SelectGoal(first) end
+    end
+end
+function FGT.MyGoalsShows(goal)
+    local view = FGT.myGoalsView
+    if not view or view.value ~= "me" then return true end
+    return FGT.GoalFits(goal, FGT.PlayerProfile())
+end
 -- Closing mid-drag (Escape) must not leave the window stuck to the mouse.
 main:HookScript("OnHide", function()
     if isMoving or isSizing then
@@ -3775,9 +3939,15 @@ for i, goal in ipairs(FGT.goals) do
 end
 
 LayoutGoalList = function()
-    local sorted = ActiveGoals()
+    -- the My Goals view (All goals / This character) narrows what's listed
+    local sorted = {}
+    for _, g in ipairs(ActiveGoals()) do
+        if not FGT.MyGoalsShows or FGT.MyGoalsShows(g) then sorted[#sorted + 1] = g end
+    end
+    local shown = {}
+    for _, g in ipairs(sorted) do shown[g.id] = true end
     for _, g in ipairs(FGT.goals) do
-        if goalRows[g.id] then goalRows[g.id]:SetShown(not g.libraryOnly and IsActive(g)) end
+        if goalRows[g.id] then goalRows[g.id]:SetShown(shown[g.id] and true or false) end
     end
     -- Favorites first, then the rest; each group follows the sort.
     local mode = sortModes[sortModeIndex].key
@@ -3838,6 +4008,15 @@ LayoutGoalList = function()
             y = y - (fm:GetHeight() + 10)
         end
     end
+
+    -- nothing fits this character: say so instead of an empty list
+    if not FGT.viewEmpty then
+        FGT.viewEmpty = NewFontString(listContent, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        FGT.viewEmpty:SetPoint("TOPLEFT", listContent, "TOPLEFT", 14, yStart - 10)
+        FGT.viewEmpty:SetPoint("RIGHT", listContent, "RIGHT", -14, 0)
+        FGT.viewEmpty:SetText("None of your goals fit this character. Show: All goals lists them all.")
+    end
+    FGT.viewEmpty:SetShown(#sorted == 0 and #ActiveGoals() > 0)
 
     local totalListHeight = -y
     listContent:SetHeight(math.max(totalListHeight, listScrollObj.scroll:GetHeight()))
@@ -6856,6 +7035,7 @@ function FGT.ShowEmptyTracker()
     emptyNote:Show()
     for _, p in ipairs(FGT.emptyUI.parts) do p:Show() end
     sortBar:Hide() -- nothing to sort
+    if FGT.myGoalsView then FGT.myGoalsView:Hide() end
     RefreshGoalList()
     RefreshOverall()
     -- the message, button and link fade (and rise) in when they appear
@@ -6897,6 +7077,7 @@ function FGT.HideEmptyTracker()
     emptyNote:Hide()
     for _, p in ipairs(FGT.emptyUI.parts) do p:Hide() end
     sortBar:Show()
+    if FGT.myGoalsView then FGT.myGoalsView:Show() end
     FGT.RefreshOverall()
     for _, part in ipairs(detailParts) do part:Show() end
 end
@@ -6992,20 +7173,23 @@ end
 -- Library panel
 -- ------------------------------------------------------------
 local libraryPanel = CreateFrame("Frame", nil, main, "BackdropTemplate")
-libraryPanel:SetPoint("TOPLEFT", main, "TOPLEFT", 16, PANEL_TOP)
+-- Cards sit right of a filter column that takes the goal list's place.
+libraryPanel:SetPoint("TOPLEFT", listPanel, "TOPRIGHT", 12, 0)
 libraryPanel:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -16, 16)
 Etch(libraryPanel, STYLE.panel, 12)
 FGT.AddGrime(libraryPanel, 0.18, 12, 0.13, 0, 140)
 libraryPanel:Hide()
 
--- No heading here: the Goal Library tab above already names the page.
+-- Result count over the cards ("18 goals · Druid · Item Sets").
 local libSummary = NewFontString(libraryPanel, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
 libSummary:SetPoint("LEFT", libraryPanel, "TOPLEFT", 14, -20)
+libSummary:SetPoint("RIGHT", libraryPanel, "TOPRIGHT", -14, -20)
+libSummary:SetWordWrap(false)
 
--- Category filter chips (wrap onto extra lines on narrow windows).
+-- Categories, one at a time. "added" and "new" are separate filters now
+-- (Show and New & Updated), not categories.
 local FILTERS = {
     { key = "all",        label = "All" },
-    { key = "added",      label = "Added" },
     { key = "Legendary",  label = "Legendary", match = "^Legendary" },
     { key = "Epic Weapon", label = "Weapons", match = "Weapon$" },
     { key = "Mount",      label = "Mounts", match = "^Mount" },
@@ -7018,34 +7202,129 @@ local FILTERS = {
     { key = "Milestone",  label = "Milestones" },
     { key = "Social",     label = "Social" },
 }
--- Forever client: a blue "New & Updated" chip after Added (goals new
--- in Forever or updated by it).
-if FGT.isForever then
-    table.insert(FILTERS, 3, { key = "new", label = FGT.ForeverDot(14) .. "New & Updated", forever = true })
-end
 local libFilter = "all"
-local filterChips = {}
+-- The other filters. Session-only: they start clear after each reload.
+local LF = { show = "all", newOnly = false, forWho = "any", rows = {}, labels = {} }
+FGT.libState = LF
 local libScroll = CreateScrollArea(libraryPanel)
 local LayoutLibrary -- forward
 
+-- The filter column, in the goal list's spot. A child of the Library
+-- panel, so it shows and hides with it.
+local fp = CreateFrame("Frame", nil, libraryPanel, "BackdropTemplate")
+LF.panel = fp
+fp:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 0, 0)
+fp:SetPoint("BOTTOMRIGHT", listPanel, "BOTTOMRIGHT", 0, 0)
+Etch(fp, STYLE.panel, 12)
+FGT.AddGrime(fp, 0.18, 12, 0.37, 0, 140)
+local fpScroll = CreateScrollArea(fp)
+LF.scroll = fpScroll
+local fc = fpScroll.content
+
+local function Refilter()
+    libScroll.scroll:SetVerticalScroll(0)
+    LayoutLibrary()
+end
+function LF.Label(text)
+    local fs = NewFontString(fc, 9, "", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+    fs:SetText(text)
+    LF.labels[#LF.labels + 1] = fs
+    return fs
+end
+
+-- Show: All / Added / Not added
+LF.showLabel = LF.Label("SHOW")
+LF.showButtons = {}
+for i, opt in ipairs({ { "all", "All" }, { "added", "Added" }, { "notadded", "Not added" } }) do
+    local b = CreateFrame("Button", nil, fc, "BackdropTemplate")
+    b:SetHeight(22)
+    Etch(b, STYLE.button, 8)
+    b.text = NewFontString(b, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    b.text:SetPoint("CENTER", 0, 0)
+    b.text:SetText(opt[2])
+    b.key = opt[1]
+    b:SetScript("OnClick", function() LF.show = opt[1]; Refilter() end)
+    b:SetScript("OnEnter", function(self) if LF.show ~= self.key then self:SetEtch(STYLE.btnHover) end end)
+    b:SetScript("OnLeave", function() LF.Paint() end)
+    LF.showButtons[i] = b
+end
+
+-- New & Updated (Forever): a blue toggle with the Forever dot.
+if FGT.isForever then
+    local b = CreateFrame("Button", nil, fc, "BackdropTemplate")
+    b:SetHeight(22)
+    b.foreverNew = true -- blue twin styles (STYLE.foreverTwin)
+    Etch(b, STYLE.button, 8)
+    b.text = NewFontString(b, 10, "", C.FOREVER_LIGHT[1], C.FOREVER_LIGHT[2], C.FOREVER_LIGHT[3])
+    b.text:SetPoint("LEFT", 8, 0)
+    b.text:SetText(FGT.ForeverDot(14) .. "New & Updated only")
+    b:SetScript("OnClick", function() LF.newOnly = not LF.newOnly; Refilter() end)
+    b:SetScript("OnEnter", function(self) if not LF.newOnly then self:SetEtch(STYLE.btnHover) end end)
+    b:SetScript("OnLeave", function() LF.Paint() end)
+    LF.newButton = b
+end
+
+-- For: anyone, the logged-in character, or one class.
+LF.forLabel = LF.Label("FOR")
+LF.forDrop = FGT.NewDropdown(fc)
+function LF.ForOptions()
+    local opts = { { key = "any", label = "Anyone" } }
+    local race = UnitRace and UnitRace("player")
+    local class = UnitClass and UnitClass("player")
+    opts[2] = { key = "me", label = "My character" .. ((type(race) == "string" and type(class) == "string") and (" (" .. race .. " " .. class .. ")") or ""), short = "My character" }
+    opts[3] = { divider = true }
+    for _, c in ipairs(FGT.CLASSES) do
+        local color = RAID_CLASS_COLORS and RAID_CLASS_COLORS[c.token]
+        opts[#opts + 1] = { key = c.token, label = c.name,
+            color = color and type(color.r) == "number" and { color.r, color.g, color.b } or nil }
+    end
+    LF.forDrop:SetOptions(opts)
+    LF.forDrop:SetValue(LF.forWho)
+end
+LF.forDrop.onChange = function(key) LF.forWho = key; Refilter() end
+
+-- Who the For filter means right now, or nil for anyone.
+function LF.Who()
+    if LF.forWho == "any" then return nil end
+    if LF.forWho == "me" then return FGT.PlayerProfile() end
+    return { class = LF.forWho }
+end
+
+LF.factionLabel = LF.Label("FACTION")
+LF.catLabel = LF.Label("CATEGORY")
 for i, f in ipairs(FILTERS) do
-    local chip = CreateFrame("Button", nil, libraryPanel, "BackdropTemplate")
-    chip:SetHeight(20)
-    Etch(chip, STYLE.button, 8)
-    chip.text = NewFontString(chip, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
-    chip.text:SetPoint("CENTER", 0, 0)
-    chip.text:SetText(f.label)
-    chip:SetWidth(math.ceil(chip.text:GetStringWidth()) + 18)
-    chip.filter = f
-    chip.foreverNew = f.forever -- blue twin styles (STYLE.foreverTwin)
-    chip:SetScript("OnClick", function()
-        libFilter = f.key
-        libScroll.scroll:SetVerticalScroll(0)
-        LayoutLibrary()
-    end)
-    chip:SetScript("OnEnter", function(self) if libFilter ~= f.key then self:SetEtch(STYLE.btnHover) end end)
-    chip:SetScript("OnLeave", function(self) if libFilter ~= f.key then self:SetEtch(STYLE.button) end end)
-    filterChips[i] = chip
+    local row = CreateFrame("Button", nil, fc, "BackdropTemplate")
+    row:SetHeight(24)
+    Etch(row, STYLE.row, 8)
+    row.text = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    row.text:SetPoint("LEFT", 10, 0)
+    row.text:SetText(f.label)
+    row.count = NewFontString(row, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    row.count:SetPoint("RIGHT", -10, 0)
+    row.filter = f
+    row:SetScript("OnClick", function() libFilter = f.key; Refilter() end)
+    row:SetScript("OnEnter", function(self) if libFilter ~= f.key then self:SetEtch(STYLE.rowHover) end end)
+    row:SetScript("OnLeave", function() LF.Paint() end)
+    LF.rows[i] = row
+end
+
+LF.reset = CreateFrame("Button", nil, fc)
+LF.reset:SetHeight(20)
+LF.reset.text = NewFontString(LF.reset, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+LF.reset.text:SetPoint("LEFT", 0, 0)
+LF.reset.text:SetText("Reset filters")
+LF.reset:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
+LF.reset:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
+function LF.Reset()
+    LF.show, LF.newOnly, LF.forWho, libFilter = "all", false, "any", "all"
+    if ForeverGoalTrackerDB then ForeverGoalTrackerDB.libFaction = nil end
+    if FGT.searchBox then FGT.searchBox:SetText("") end
+    LF.forDrop:SetValue("any")
+end
+LF.reset:SetScript("OnClick", function() LF.Reset(); Refilter() end)
+function LF.Active()
+    return LF.show ~= "all" or LF.newOnly or LF.forWho ~= "any" or libFilter ~= "all"
+        or (FGT.factionSeg and FGT.factionSeg.Current() ~= "Both") or (FGT.libSearch or "") ~= ""
 end
 
 -- Faction picker, shown under the chips on filters that hold faction
@@ -7063,10 +7342,10 @@ do
         return (ForeverGoalTrackerDB and ForeverGoalTrackerDB.libFaction) or "Both"
     end
     for i, opt in ipairs(OPTIONS) do
-        local b = CreateFrame("Button", nil, libraryPanel, "BackdropTemplate")
+        local b = CreateFrame("Button", nil, fc, "BackdropTemplate")
         b:SetHeight(22)
         Etch(b, STYLE.button, 8)
-        b.text = NewFontString(b, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
+        b.text = NewFontString(b, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
         b.text:SetText(opt.key)
         local w = math.ceil(b.text:GetStringWidth())
         if opt.crest then
@@ -7085,12 +7364,10 @@ do
         b.opt = opt
         b:SetScript("OnClick", function()
             ForeverGoalTrackerDB.libFaction = opt.key
-            libScroll.scroll:SetVerticalScroll(0)
-            LayoutLibrary()
+            Refilter()
         end)
         b:SetScript("OnEnter", function(self) if seg.Current() ~= opt.key then self:SetEtch(STYLE.btnHover) end end)
         b:SetScript("OnLeave", function() seg.Refresh() end)
-        b:Hide()
         seg.buttons[i] = b
     end
     function seg.Refresh()
@@ -7110,9 +7387,10 @@ end
 -- Search box, top right of the Library header. Filters as you type by
 -- goal name, short name and category, within the selected chip.
 do
-    local box = CreateFrame("EditBox", nil, libraryPanel, "BackdropTemplate")
-    box:SetSize(190, 22)
-    box:SetPoint("TOPRIGHT", libraryPanel, "TOPRIGHT", -14, -9)
+    local box = CreateFrame("EditBox", nil, fp, "BackdropTemplate")
+    box:SetHeight(22)
+    box:SetPoint("TOPLEFT", fp, "TOPLEFT", 10, -10)
+    box:SetPoint("TOPRIGHT", fp, "TOPRIGHT", -10, -10)
     Skin(box, { 0, 0, 0, 0.6 }, C.BOX_RING)
     box:SetAutoFocus(false)
     FGT.RegisterFont(box, "body", 11, "")
@@ -7170,12 +7448,14 @@ function FGT.LibraryVisible(goal)
     if goal.forever == "new" and not FGT.isForever then return false end
     if goal.needs == "stats" and not FGT.HasStats() then return false end -- no Statistics window
     if goal.needs == "forever" and not FGT.isForever then return false end -- Forever-only items
-    if goal.faction and not IsActive(goal) and libFilter ~= "all" then
-        -- All shows everything; filters with faction goals (PvP,
-        -- Reputation, Attunements) follow the Alliance / Horde / Both picker
+    if goal.faction and not IsActive(goal) then
         local want = FGT.factionSeg.Current()
         if want ~= "Both" and goal.faction ~= want then return false end
     end
+    if LF.show == "added" and not IsActive(goal) then return false end
+    if LF.show == "notadded" and IsActive(goal) then return false end
+    if LF.newOnly and not FGT.HasForeverNew(goal) then return false end
+    if not FGT.GoalFits(goal, LF.Who()) then return false end
     local q = FGT.libSearch
     if q and q ~= "" then
         local hay = (goal.name .. " " .. (goal.short or "") .. " " .. (goal.category or "") .. " " .. (goal.faction or "")):lower()
@@ -7192,9 +7472,6 @@ end
 
 local function FilterMatches(f, goal)
     if f.key == "all" then return true end
-    if f.key == "added" then return IsActive(goal) end
-    if f.key == "new" then return FGT.HasForeverNew(goal) end
-    if f.faction then return goal.faction == f.key end
     if f.match then return goal.category:find(f.match) ~= nil end
     return goal.category == f.key
 end
@@ -7210,11 +7487,101 @@ local libExpanded = {}
 -- Sets the Library view from outside (demo mode): a filter chip and,
 -- optionally, one group goal with its parts list open.
 function FGT.SetLibraryView(filterKey, expandId)
+    -- (demo scenes still name the old "added" / "new" chips)
+    LF.show, LF.newOnly, LF.forWho = "all", false, "any"
+    if filterKey == "added" then LF.show = "added"; filterKey = "all" end
+    if filterKey == "new" then LF.newOnly = true; filterKey = "all" end
     libFilter = filterKey or "all"
+    LF.forDrop:SetValue("any")
     for k in pairs(libExpanded) do libExpanded[k] = nil end
     if expandId then libExpanded[expandId] = true end
     libScroll.scroll:SetVerticalScroll(0)
 end
+
+
+-- The filter column: search on top, then Show, New & Updated (Forever),
+-- For, Faction and the categories with live counts, then Reset filters.
+function LF.Paint()
+    for _, b in ipairs(LF.showButtons) do
+        local on = LF.show == b.key
+        b:SetEtch(on and STYLE.rowSel or STYLE.button)
+        local c = on and C.TITLE or C.INK2
+        b.text:SetTextColor(c[1], c[2], c[3])
+    end
+    if LF.newButton then
+        LF.newButton:SetEtch(LF.newOnly and STYLE.rowSel or STYLE.button)
+        local c = LF.newOnly and { 1, 1, 1 } or C.FOREVER_LIGHT
+        LF.newButton.text:SetTextColor(c[1], c[2], c[3])
+    end
+    for _, row in ipairs(LF.rows) do
+        local on = libFilter == row.filter.key
+        row:SetEtch(on and STYLE.rowSel or STYLE.row)
+        local c = on and C.TITLE or C.TEXT
+        row.text:SetTextColor(c[1], c[2], c[3])
+    end
+    FGT.factionSeg.Refresh()
+    LF.reset:SetShown(LF.Active())
+end
+function LF.Layout()
+    if not LF.forDrop.options[1] then LF.ForOptions() end
+    fpScroll.scroll:ClearAllPoints()
+    fpScroll.scroll:SetPoint("TOPLEFT", fp, "TOPLEFT", 8, -40)
+    fpScroll.scroll:SetPoint("BOTTOMRIGHT", fp, "BOTTOMRIGHT", -14, 8)
+    local w = math.max(120, fp:GetWidth() - 22)
+    fc:SetWidth(w)
+    local y = 6
+    local function Label(fs)
+        fs:ClearAllPoints(); fs:SetPoint("TOPLEFT", fc, "TOPLEFT", 2, -y)
+        y = y + 15
+    end
+    local function Across(buttons)
+        local n, gap = #buttons, 4
+        local bw = (w - gap * (n - 1)) / n
+        for i, b in ipairs(buttons) do
+            b:ClearAllPoints()
+            b:SetPoint("TOPLEFT", fc, "TOPLEFT", (i - 1) * (bw + gap), -y)
+            b:SetWidth(bw)
+        end
+        y = y + 22 + 12
+    end
+    Label(LF.showLabel)
+    Across(LF.showButtons)
+    if LF.newButton then
+        y = y - 6
+        LF.newButton:ClearAllPoints()
+        LF.newButton:SetPoint("TOPLEFT", fc, "TOPLEFT", 0, -y)
+        LF.newButton:SetWidth(w)
+        y = y + 22 + 12
+    end
+    Label(LF.forLabel)
+    LF.forDrop:ClearAllPoints()
+    LF.forDrop:SetPoint("TOPLEFT", fc, "TOPLEFT", 0, -y)
+    LF.forDrop:SetWidth(w)
+    y = y + 22 + 12
+    Label(LF.factionLabel)
+    Across(FGT.factionSeg.buttons)
+    Label(LF.catLabel)
+    for _, row in ipairs(LF.rows) do
+        local n = 0
+        for _, g in ipairs(FGT.goals) do
+            if FilterMatches(row.filter, g) and FGT.LibraryVisible(g) then n = n + 1 end
+        end
+        row.count:SetText(n)
+        row:ClearAllPoints()
+        row:SetPoint("TOPLEFT", fc, "TOPLEFT", 0, -y)
+        row:SetWidth(w)
+        y = y + 24 + 3
+    end
+    y = y + 8
+    LF.reset:ClearAllPoints()
+    LF.reset:SetPoint("TOPLEFT", fc, "TOPLEFT", 2, -y)
+    LF.reset:SetWidth(w)
+    y = y + 24
+    fc:SetHeight(y)
+    fpScroll:Update()
+    LF.Paint()
+end
+fpScroll:Finalize()
 
 local function AfterSelectionChange(goal, nowActive)
     LayoutGoalList()
@@ -7741,46 +8108,9 @@ local function GetSub(card, index, part)
 end
 
 LayoutLibrary = function()
-    -- filter chips: flow left to right, wrapping to a new line as needed
-    local maxW = math.max(200, libraryPanel:GetWidth() - 28)
-    local x, y = 0, 0
-    for _, chip in ipairs(filterChips) do
-        local w = chip:GetWidth()
-        if x > 0 and x + w > maxW then x = 0; y = y - 24 end
-        chip:ClearAllPoints()
-        chip:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 14 + x, -40 + y)
-        x = x + w + 5
-        local on = (libFilter == chip.filter.key)
-        chip:SetEtch(on and STYLE.rowSel or STYLE.button)
-        if chip.filter.forever then
-            local c = on and { 1, 1, 1 } or C.FOREVER_LIGHT
-            chip.text:SetTextColor(c[1], c[2], c[3])
-        elseif on then chip.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])
-        else chip.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end
-    end
-    -- The faction picker gets its own row under the chips, on any filter
-    -- that holds faction goals (PvP, Reputation, Attunements). Not on All,
-    -- which shows both, or Added, which shows what you track.
-    local seg = FGT.factionSeg
-    local showSeg = false
-    if libFilter ~= "all" and libFilter ~= "added" then
-        for _, g in ipairs(FGT.goals) do
-            if g.faction and FilterMatches(CurrentFilter(), g) then showSeg = true break end
-        end
-    end
-    if showSeg then
-        y = y - 28
-        local sx = 0
-        for _, b in ipairs(seg.buttons) do
-            b:ClearAllPoints()
-            b:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 14 + sx, -40 + y)
-            sx = sx + b:GetWidth() + 4
-        end
-        seg.Refresh()
-    end
-    for _, b in ipairs(seg.buttons) do b:SetShown(showSeg) end
+    LF.Layout()
     libScroll.scroll:ClearAllPoints()
-    libScroll.scroll:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 10, -40 + y - 30)
+    libScroll.scroll:SetPoint("TOPLEFT", libraryPanel, "TOPLEFT", 10, -40)
     libScroll.scroll:SetPoint("BOTTOMRIGHT", libraryPanel, "BOTTOMRIGHT", -18, 10)
     libScroll.content:SetWidth(libScroll.scroll:GetWidth())
 
@@ -7848,7 +8178,9 @@ LayoutLibrary = function()
             card.pickText:SetText(open and "Hide" or "Choose")
             card.pick:SetEtch(open and STYLE.rowSel or STYLE.button)
             if open then
+                local who = LF.Who()
                 for i, part in ipairs(parts) do
+                  if FGT.PartFits(g, part, who) then -- For: only that class's version
                     local sub = GetSub(card, i, part)
                     sub:ClearAllPoints()
                     sub:SetPoint("TOPLEFT", libScroll.content, "TOPLEFT", 40, -cy)
@@ -7866,6 +8198,7 @@ LayoutLibrary = function()
                     sub.label:SetTextColor(lc[1], lc[2], lc[3])
                     sub:Show()
                     cy = cy + SUB_H + 3
+                  end
                 end
                 cy = cy + 6
             end
@@ -7884,7 +8217,17 @@ LayoutLibrary = function()
     FGT.libNoMatch:SetText((FGT.libSearch ~= "") and ("No goals match \"" .. FGT.searchBox:GetText() .. "\".") or "No goals here yet.")
     FGT.libNoMatch:SetShown(#list == 0)
 
-    libSummary:SetText(string.format("%d of %d goals on your tracker", #ActiveGoals(), FGT.CatalogGoalCount()))
+    -- the count, then what's narrowing it
+    local bits = {}
+    local who = LF.forDrop:LabelFor(LF.forWho)
+    if LF.forWho ~= "any" then bits[#bits + 1] = who end
+    if libFilter ~= "all" then bits[#bits + 1] = CurrentFilter().label end
+    if LF.show == "added" then bits[#bits + 1] = "Added" elseif LF.show == "notadded" then bits[#bits + 1] = "Not added" end
+    if LF.newOnly then bits[#bits + 1] = "New & Updated" end
+    if FGT.factionSeg.Current() ~= "Both" then bits[#bits + 1] = FGT.factionSeg.Current() end
+    local text = (#list == 1 and "1 goal" or (#list .. " goals"))
+    if #bits > 0 then text = text .. "  |cff77736a9483|r  " .. table.concat(bits, "  |cff77736a9483|r  ") end
+    libSummary:SetText(text)
 end
 libScroll:Finalize()
 FGT.LayoutLibrary = LayoutLibrary
