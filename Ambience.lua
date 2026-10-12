@@ -20,7 +20,12 @@ local fx = CreateFrame("Frame", nil, U.detail)
 A.frame = fx
 fx:SetPoint("TOPLEFT", U.detail, "TOPLEFT", 4, -4)
 fx:SetPoint("BOTTOMRIGHT", U.detail, "BOTTOMRIGHT", -4, 4)
-fx:SetFrameLevel(U.detail:GetFrameLevel())
+-- One level above the goal panel itself (so above its banner image, which
+-- the panel draws), and the goal page's scrolling body above that (so the
+-- title, steps and text stay on top of the dust).
+fx:SetFrameLevel(U.detail:GetFrameLevel() + 1)
+local body = FGT.detailViewport and FGT.detailViewport.scroll
+if body and body:GetFrameLevel() <= fx:GetFrameLevel() then body:SetFrameLevel(fx:GetFrameLevel() + 2) end
 if fx.SetClipsChildren then fx:SetClipsChildren(true) end
 fx:EnableMouse(false)
 
@@ -96,3 +101,15 @@ U.detail:HookScript("OnShow", A.Refresh)
 U.detail:HookScript("OnHide", A.Refresh)
 U.main:HookScript("OnShow", A.Refresh)
 U.main:HookScript("OnHide", A.Refresh)
+
+-- /goals dust: what the effect is doing, for checking in game.
+function A.Status()
+    local say = function(t) print("|cffffd75eForever Goal Tracker:|r " .. t) end
+    say(string.format("dust on goal page: panel level %d, dust level %d, body level %d, shown %s, celebrations %s",
+        U.detail:GetFrameLevel(), fx:GetFrameLevel(), body and body:GetFrameLevel() or -1,
+        tostring(fx:IsVisible()), tostring(FGT.Setting("celebrations"))))
+    for i, l in ipairs(A.layers) do
+        say(string.format("  layer %d: %s, playing %s, alpha %.2f, size %dx%d", i, l.steady and "clouds" or "dust",
+            tostring(l.group:IsPlaying()), l.tex:GetAlpha(), l.tex:GetWidth(), l.tex:GetHeight()))
+    end
+end

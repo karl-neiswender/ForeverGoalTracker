@@ -11062,6 +11062,10 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         if FGT.WhatsNew then FGT.WhatsNew.Command(msg == "whatsnew reset" and "reset" or nil) end
         return
     end
+    if msg == "dust" then
+        if FGT.ambience then FGT.ambience.Status() else print(TAG .. "this client has no talent-window particle art, so there is no dust.") end
+        return
+    end
     if msg == "materialsreset" then
         ForeverGoalTrackerDB.materialsSeen = nil
         print(TAG .. "Materials will slide open again the first time you view each recipe goal.")
