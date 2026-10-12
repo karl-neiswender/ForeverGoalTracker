@@ -1,0 +1,1226 @@
+[
+  {
+    "id": "ashbringer",
+    "name": "Corrupted Ashbringer",
+    "category": "Epic Weapon",
+    "path": "ashbringer-banner.blp",
+    "direct": "ashbringer-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "frostsaber",
+    "name": "Winterspring Frostsaber",
+    "category": "Mount",
+    "path": "frostsaber-banner.blp",
+    "direct": "frostsaber-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "atiesh",
+    "name": "Atiesh, Greatstaff of the Guardian",
+    "category": "Legendary Weapon",
+    "path": "atiesh-banner.blp",
+    "direct": "atiesh-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rhokdelar",
+    "name": "Rhok'delar, Longbow of the Ancient Keepers",
+    "category": "Epic Weapon",
+    "path": "rhokdelar-banner.blp",
+    "direct": "rhokdelar-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "lokdelar",
+    "name": "Lok'delar, Stave of the Ancient Keepers",
+    "category": "Epic Weapon",
+    "path": "lokdelar-banner.blp",
+    "direct": "lokdelar-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "thunderfury",
+    "name": "Thunderfury, Blessed Blade of the Windseeker",
+    "category": "Legendary Weapon",
+    "path": "thunderfury-banner.blp",
+    "direct": "thunderfury-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "benediction",
+    "name": "Benediction / Anathema",
+    "category": "Epic Weapon",
+    "path": "benediction-alliance-banner.blp",
+    "direct": "benediction-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "epicmounts",
+    "name": "Epic Racial Mounts",
+    "category": "Mount Collection",
+    "path": "epicmounts_human-banner.blp",
+    "direct": null,
+    "parent": null
+  },
+  {
+    "id": "sulfuras",
+    "name": "Sulfuras, Hand of Ragnaros",
+    "category": "Legendary Weapon",
+    "path": "sulfuras-banner.blp",
+    "direct": "sulfuras-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "allclasses",
+    "name": "Level Classes to 60",
+    "category": "Milestone",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_timbermaw",
+    "name": "Exalted: Timbermaw Hold",
+    "category": "Reputation",
+    "path": "rep_timbermaw-banner.blp",
+    "direct": "rep_timbermaw-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_thorium",
+    "name": "Exalted: Thorium Brotherhood",
+    "category": "Reputation",
+    "path": "rep_thorium-banner.blp",
+    "direct": "rep_thorium-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_argentdawn",
+    "name": "Exalted: Argent Dawn",
+    "category": "Reputation",
+    "path": "rep_argentdawn-banner.blp",
+    "direct": "rep_argentdawn-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_cenarion",
+    "name": "Exalted: Cenarion Circle",
+    "category": "Reputation",
+    "path": "rep_cenarion-banner.blp",
+    "direct": "rep_cenarion-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_zandalar",
+    "name": "Exalted: Zandalar Tribe",
+    "category": "Reputation",
+    "path": "raid_zg-banner.blp",
+    "direct": "raid_zg-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_hydraxian",
+    "name": "Exalted: Hydraxian Waterlords",
+    "category": "Reputation",
+    "path": "rep_hydraxian-banner.blp",
+    "direct": "rep_hydraxian-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_nozdormu",
+    "name": "Exalted: Brood of Nozdormu",
+    "category": "Reputation",
+    "path": "rep_nozdormu-banner.blp",
+    "direct": "rep_nozdormu-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_ambassador_ally",
+    "name": "Ambassador: Alliance Capitals",
+    "category": "Reputation",
+    "path": "rep_ambassador_ally-banner.blp",
+    "direct": "rep_ambassador_ally-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "rep_ambassador_horde",
+    "name": "Ambassador: Horde Capitals",
+    "category": "Reputation",
+    "path": "rep_ambassador_horde-banner.blp",
+    "direct": "rep_ambassador_horde-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_deathcharger",
+    "name": "Deathcharger's Reins",
+    "category": "Mount",
+    "path": "mount_deathcharger-banner.blp",
+    "direct": "mount_deathcharger-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_raptor",
+    "name": "Swift Razzashi Raptor",
+    "category": "Mount",
+    "path": "raid_zg-banner.blp",
+    "direct": "raid_zg-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_tiger",
+    "name": "Swift Zulian Tiger",
+    "category": "Mount",
+    "path": "mount_tiger-banner.blp",
+    "direct": "mount_tiger-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_qiraji",
+    "name": "Black Qiraji Resonating Crystal",
+    "category": "Mount",
+    "path": "mount_qiraji-banner.blp",
+    "direct": "mount_qiraji-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_dreadsteed",
+    "name": "Dreadsteed (Warlock Epic Mount)",
+    "category": "Mount",
+    "path": "mount_dreadsteed-banner.blp",
+    "direct": "mount_dreadsteed-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_charger",
+    "name": "Charger (Paladin Epic Mount)",
+    "category": "Mount",
+    "path": "mount_charger-banner.blp",
+    "direct": "mount_charger-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "wolfsbane",
+    "name": "Wolfsbane",
+    "category": "Rare Weapon",
+    "path": "wolfsbane-banner.blp",
+    "direct": "wolfsbane-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "quelserrar",
+    "name": "Quel'Serrar",
+    "category": "Epic Weapon",
+    "path": "quelserrar-banner.blp",
+    "direct": "quelserrar-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_mc",
+    "name": "Clear Molten Core",
+    "category": "Raid",
+    "path": "raid_mc-banner.blp",
+    "direct": "raid_mc-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_ony",
+    "name": "Slay Onyxia",
+    "category": "Raid",
+    "path": "raid_ony-banner.blp",
+    "direct": "raid_ony-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_bwl",
+    "name": "Clear Blackwing Lair",
+    "category": "Raid",
+    "path": "raid_bwl-banner.blp",
+    "direct": "raid_bwl-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_zg",
+    "name": "Clear Zul'Gurub",
+    "category": "Raid",
+    "path": "raid_zg-banner.blp",
+    "direct": "raid_zg-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_aq20",
+    "name": "Clear Ruins of Ahn'Qiraj",
+    "category": "Raid",
+    "path": "raid_aq20-banner.blp",
+    "direct": "raid_aq20-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_aq40",
+    "name": "Clear Temple of Ahn'Qiraj",
+    "category": "Raid",
+    "path": "raid_aq40-banner.blp",
+    "direct": "raid_aq40-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_naxx",
+    "name": "Clear Naxxramas",
+    "category": "Raid",
+    "path": "raid_naxx-banner.blp",
+    "direct": "raid_naxx-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_hyjal",
+    "name": "Clear Hyjal Summit",
+    "category": "Raid",
+    "path": "raid_hyjal-banner.blp",
+    "direct": "raid_hyjal-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "raid_barrow",
+    "name": "Clear the Barrow Deeps",
+    "category": "Raid",
+    "path": "raid_barrow-banner.blp",
+    "direct": "raid_barrow-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "att_mc",
+    "name": "Attunement: Molten Core",
+    "category": "Attunement",
+    "path": "att_mc-banner.blp",
+    "direct": "att_mc-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "att_ony_ally",
+    "name": "Attunement: Onyxia's Lair (Alliance)",
+    "category": "Attunement",
+    "path": null,
+    "direct": null,
+    "parent": null
+  },
+  {
+    "id": "att_ony_horde",
+    "name": "Attunement: Onyxia's Lair (Horde)",
+    "category": "Attunement",
+    "path": null,
+    "direct": null,
+    "parent": null
+  },
+  {
+    "id": "att_bwl",
+    "name": "Attunement: Blackwing Lair",
+    "category": "Attunement",
+    "path": "raid_bwl-banner.blp",
+    "direct": "raid_bwl-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "att_naxx",
+    "name": "Attunement: Naxxramas",
+    "category": "Attunement",
+    "path": "att_naxx-banner.blp",
+    "direct": "att_naxx-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "key_ubrs",
+    "name": "Key: Seal of Ascension (Upper Blackrock Spire)",
+    "category": "Attunement",
+    "path": "key_ubrs-banner.blp",
+    "direct": "key_ubrs-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "key_scholo",
+    "name": "Key: Skeleton Key (Scholomance)",
+    "category": "Attunement",
+    "path": "key_scholo-banner.blp",
+    "direct": "key_scholo-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "key_brd",
+    "name": "Key: Shadowforge Key (Blackrock Depths)",
+    "category": "Attunement",
+    "path": null,
+    "direct": null,
+    "parent": null
+  },
+  {
+    "id": "key_strat",
+    "name": "Key: Key to the City (Stratholme)",
+    "category": "Attunement",
+    "path": "key_strat-banner.blp",
+    "direct": "key_strat-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "key_dm",
+    "name": "Key: Crescent Key (Dire Maul)",
+    "category": "Attunement",
+    "path": "key_dm-banner.blp",
+    "direct": "key_dm-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "prof_secondary",
+    "name": "Max Secondary Skills",
+    "category": "Profession",
+    "path": null,
+    "direct": null,
+    "parent": null
+  },
+  {
+    "id": "prof_all",
+    "name": "Max Primary Professions",
+    "category": "Profession",
+    "path": null,
+    "direct": null,
+    "parent": null
+  },
+  {
+    "id": "fishing_extravaganza",
+    "name": "Win the Stranglethorn Fishing Extravaganza",
+    "category": "Profession",
+    "path": "fishing_extravaganza-banner.blp",
+    "direct": "fishing_extravaganza-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "gold_5k",
+    "name": "Save 5,000 Gold",
+    "category": "Milestone",
+    "path": "gold_5k-banner.blp",
+    "direct": "gold_5k-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "social_guild",
+    "name": "Join a Guild",
+    "category": "Social",
+    "path": null,
+    "direct": null,
+    "parent": null
+  },
+  {
+    "id": "social_friends",
+    "name": "Make Friends",
+    "category": "Social",
+    "path": null,
+    "direct": null,
+    "parent": null
+  },
+  {
+    "id": "mount_qiraji_blue",
+    "name": "Blue Qiraji Resonating Crystal",
+    "category": "Mount",
+    "path": "mount_qiraji_aq-banner.blp",
+    "direct": "mount_qiraji_aq-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_qiraji_green",
+    "name": "Green Qiraji Resonating Crystal",
+    "category": "Mount",
+    "path": "mount_qiraji_aq-banner.blp",
+    "direct": "mount_qiraji_aq-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_qiraji_yellow",
+    "name": "Yellow Qiraji Resonating Crystal",
+    "category": "Mount",
+    "path": "mount_qiraji_aq-banner.blp",
+    "direct": "mount_qiraji_aq-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "mount_qiraji_red",
+    "name": "Red Qiraji Resonating Crystal",
+    "category": "Mount",
+    "path": "mount_qiraji_aq-banner.blp",
+    "direct": "mount_qiraji_aq-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "set_viper",
+    "name": "Embrace of the Viper",
+    "category": "Item Set",
+    "path": "set_viper-banner.blp",
+    "direct": "set_viper-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "set_violet_sorcerer",
+    "name": "Violet Sorcerer's Vestments",
+    "category": "Item Set",
+    "path": "set_violet_sorcerer-banner.blp",
+    "direct": "set_violet_sorcerer-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_rank14_ally",
+    "name": "Grand Marshal",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_mount_ally",
+    "name": "Alliance War Mount (Rank 11)",
+    "category": "PvP",
+    "path": "pvp_mount_ally-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_avmount_ally",
+    "name": "Stormpike Battle Charger",
+    "category": "PvP",
+    "path": "pvp_mount_ally-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_wsg_ally",
+    "name": "Exalted: Silverwing Sentinels",
+    "category": "PvP",
+    "path": "pvp_wsg_ally-banner.blp",
+    "direct": "pvp_wsg_ally-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_ab_ally",
+    "name": "Exalted: League of Arathor",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_av_ally",
+    "name": "Exalted: Stormpike Guard",
+    "category": "PvP",
+    "path": "pvp_av_ally-banner.blp",
+    "direct": "pvp_av_ally-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_rank14_horde",
+    "name": "High Warlord",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_mount_horde",
+    "name": "Horde War Mount (Rank 11)",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_avmount_horde",
+    "name": "Frostwolf Howler",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_wsg_horde",
+    "name": "Exalted: Warsong Outriders",
+    "category": "PvP",
+    "path": "pvp_wsg_horde-banner.blp",
+    "direct": "pvp_wsg_horde-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_ab_horde",
+    "name": "Exalted: The Defilers",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_av_horde",
+    "name": "Exalted: Frostwolf Clan",
+    "category": "PvP",
+    "path": "pvp_av_horde-banner.blp",
+    "direct": "pvp_av_horde-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_hk",
+    "name": "Honorable Kills",
+    "category": "PvP",
+    "path": "pvp_drums_of_war-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "pvp_duelist",
+    "name": "Duelist",
+    "category": "PvP",
+    "path": "pvp_drums_of_war-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": null
+  },
+  {
+    "id": "tier3_warrior",
+    "name": "Dreadnaught's Battlegear",
+    "category": "Item Set",
+    "path": "tier3_warrior-banner.blp",
+    "direct": "tier3_warrior-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "tier3_paladin",
+    "name": "Redemption Armor",
+    "category": "Item Set",
+    "path": "tier3_paladin-banner.blp",
+    "direct": "tier3_paladin-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "tier3_hunter",
+    "name": "Cryptstalker Armor",
+    "category": "Item Set",
+    "path": "tier3_hunter-banner.blp",
+    "direct": "tier3_hunter-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "tier3_rogue",
+    "name": "Bonescythe Armor",
+    "category": "Item Set",
+    "path": "tier3_rogue-banner.blp",
+    "direct": "tier3_rogue-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "tier3_priest",
+    "name": "Vestments of Faith",
+    "category": "Item Set",
+    "path": "tier3_priest-banner.blp",
+    "direct": "tier3_priest-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "tier3_druid",
+    "name": "Dreamwalker Raiment",
+    "category": "Item Set",
+    "path": "tier3_druid-banner.blp",
+    "direct": "tier3_druid-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "tier3_mage",
+    "name": "Frostfire Regalia",
+    "category": "Item Set",
+    "path": "tier3_mage-banner.blp",
+    "direct": "tier3_mage-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "tier3_warlock",
+    "name": "Plagueheart Raiment",
+    "category": "Item Set",
+    "path": "tier3_warlock-alliance-banner.blp",
+    "direct": "tier3_warlock-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "tier3_shaman",
+    "name": "The Earthshatterer",
+    "category": "Item Set",
+    "path": "tier3_shaman-banner.blp",
+    "direct": "tier3_shaman-banner.blp",
+    "parent": "tier3"
+  },
+  {
+    "id": "set_tier1_warrior",
+    "name": "Battlegear of Might",
+    "category": "Item Set",
+    "path": "set_tier1_warrior-banner.blp",
+    "direct": "set_tier1_warrior-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier1_paladin",
+    "name": "Lawbringer Armor",
+    "category": "Item Set",
+    "path": "set_tier1_paladin-banner.blp",
+    "direct": "set_tier1_paladin-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier1_hunter",
+    "name": "Giantstalker Armor",
+    "category": "Item Set",
+    "path": "set_tier1_hunter-banner.blp",
+    "direct": "set_tier1_hunter-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier1_rogue",
+    "name": "Nightslayer Armor",
+    "category": "Item Set",
+    "path": "set_tier1_rogue-alliance-banner.blp",
+    "direct": "set_tier1_rogue-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier1_priest",
+    "name": "Vestments of Prophecy",
+    "category": "Item Set",
+    "path": "set_tier1_priest-banner.blp",
+    "direct": "set_tier1_priest-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier1_shaman",
+    "name": "The Earthfury",
+    "category": "Item Set",
+    "path": "set_tier1_shaman-banner.blp",
+    "direct": "set_tier1_shaman-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier1_mage",
+    "name": "Arcanist Regalia",
+    "category": "Item Set",
+    "path": "set_tier1_mage-banner.blp",
+    "direct": "set_tier1_mage-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier1_warlock",
+    "name": "Felheart Raiment",
+    "category": "Item Set",
+    "path": "set_tier1_warlock-alliance-banner.blp",
+    "direct": "set_tier1_warlock-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier1_druid",
+    "name": "Cenarion Raiment",
+    "category": "Item Set",
+    "path": "set_tier1_druid-banner.blp",
+    "direct": "set_tier1_druid-banner.blp",
+    "parent": "set_tier1"
+  },
+  {
+    "id": "set_tier2_warrior",
+    "name": "Battlegear of Wrath",
+    "category": "Item Set",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "set_tier2_warrior-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_tier2_paladin",
+    "name": "Judgement Armor",
+    "category": "Item Set",
+    "path": "set_tier2_paladin-banner.blp",
+    "direct": "set_tier2_paladin-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_tier2_hunter",
+    "name": "Dragonstalker Armor",
+    "category": "Item Set",
+    "path": "set_tier2_hunter-banner.blp",
+    "direct": "set_tier2_hunter-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_tier2_rogue",
+    "name": "Bloodfang Armor",
+    "category": "Item Set",
+    "path": "set_tier2_rogue-banner.blp",
+    "direct": "set_tier2_rogue-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_tier2_priest",
+    "name": "Vestments of Transcendence",
+    "category": "Item Set",
+    "path": "set_tier2_priest-banner.blp",
+    "direct": "set_tier2_priest-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_tier2_shaman",
+    "name": "The Ten Storms",
+    "category": "Item Set",
+    "path": "set_tier2_shaman-banner.blp",
+    "direct": "set_tier2_shaman-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_tier2_mage",
+    "name": "Netherwind Regalia",
+    "category": "Item Set",
+    "path": "set_tier2_mage-banner.blp",
+    "direct": "set_tier2_mage-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_tier2_warlock",
+    "name": "Nemesis Raiment",
+    "category": "Item Set",
+    "path": "set_tier2_warlock-alliance-banner.blp",
+    "direct": "set_tier2_warlock-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_tier2_druid",
+    "name": "Stormrage Raiment",
+    "category": "Item Set",
+    "path": "set_tier2_druid-banner.blp",
+    "direct": "set_tier2_druid-banner.blp",
+    "parent": "set_tier2"
+  },
+  {
+    "id": "set_dungeon1_warrior",
+    "name": "Battlegear of Valor",
+    "category": "Item Set",
+    "path": "set_dungeon1_warrior-banner.blp",
+    "direct": "set_dungeon1_warrior-banner.blp",
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon1_paladin",
+    "name": "Lightforge Armor",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon1_hunter",
+    "name": "Beaststalker Armor",
+    "category": "Item Set",
+    "path": "set_dungeon1_hunter-banner.blp",
+    "direct": "set_dungeon1_hunter-banner.blp",
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon1_rogue",
+    "name": "Shadowcraft Armor",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon1_priest",
+    "name": "Vestments of the Devout",
+    "category": "Item Set",
+    "path": "key_strat-banner.blp",
+    "direct": null,
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon1_shaman",
+    "name": "The Elements",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon1_mage",
+    "name": "Magister's Regalia",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon1_warlock",
+    "name": "Dreadmist Raiment",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon1_druid",
+    "name": "Wildheart Raiment",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon1"
+  },
+  {
+    "id": "set_dungeon2_warrior",
+    "name": "Battlegear of Heroism",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_dungeon2_paladin",
+    "name": "Soulforge Armor",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_dungeon2_hunter",
+    "name": "Beastmaster Armor",
+    "category": "Item Set",
+    "path": "set_dungeon2_hunter-banner.blp",
+    "direct": "set_dungeon2_hunter-banner.blp",
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_dungeon2_rogue",
+    "name": "Darkmantle Armor",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_dungeon2_priest",
+    "name": "Vestments of the Virtuous",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_dungeon2_shaman",
+    "name": "The Five Thunders",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_dungeon2_mage",
+    "name": "Sorcerer's Regalia",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_dungeon2_warlock",
+    "name": "Deathmist Raiment",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_dungeon2_druid",
+    "name": "Feralheart Raiment",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_dungeon2"
+  },
+  {
+    "id": "set_forever_raid_warrior",
+    "name": "Battlegear of Glory",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "set_forever_raid_paladin",
+    "name": "Justice Armor",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "set_forever_raid_hunter",
+    "name": "Wildstalker Armor",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "set_forever_raid_rogue",
+    "name": "Grimstitch Armor",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "set_forever_raid_priest",
+    "name": "Vestments of Conviction",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "set_forever_raid_shaman",
+    "name": "The Spiritcaller",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "set_forever_raid_mage",
+    "name": "Manaflare Regalia",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "set_forever_raid_warlock",
+    "name": "Demonheart Raiment",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "set_forever_raid_druid",
+    "name": "Grovekeeper Raiment",
+    "category": "Item Set",
+    "path": null,
+    "direct": null,
+    "parent": "set_forever_raid"
+  },
+  {
+    "id": "pvp_set_plate_ally_warrior",
+    "name": "Field Marshal's Battlegear",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_plate_ally"
+  },
+  {
+    "id": "pvp_set_plate_ally_paladin",
+    "name": "Field Marshal's Aegis",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_plate_ally"
+  },
+  {
+    "id": "pvp_set_mail_ally_hunter",
+    "name": "Field Marshal's Pursuit",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_mail_ally"
+  },
+  {
+    "id": "pvp_set_mail_ally_shaman",
+    "name": "Field Marshal's Earthshaker",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_mail_ally"
+  },
+  {
+    "id": "pvp_set_leather_ally_rogue",
+    "name": "Field Marshal's Vestments",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_leather_ally"
+  },
+  {
+    "id": "pvp_set_leather_ally_druid",
+    "name": "Field Marshal's Sanctuary",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_leather_ally"
+  },
+  {
+    "id": "pvp_set_cloth_ally_priest",
+    "name": "Field Marshal's Raiment",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_cloth_ally"
+  },
+  {
+    "id": "pvp_set_cloth_ally_mage",
+    "name": "Field Marshal's Regalia",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_cloth_ally"
+  },
+  {
+    "id": "pvp_set_cloth_ally_warlock",
+    "name": "Field Marshal's Threads",
+    "category": "PvP",
+    "path": "set_tier2_warrior-alliance-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_cloth_ally"
+  },
+  {
+    "id": "pvp_set_plate_horde_warrior",
+    "name": "Warlord's Battlegear",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_plate_horde"
+  },
+  {
+    "id": "pvp_set_plate_horde_paladin",
+    "name": "Warlord's Aegis",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_plate_horde"
+  },
+  {
+    "id": "pvp_set_mail_horde_hunter",
+    "name": "Warlord's Pursuit",
+    "category": "PvP",
+    "path": "pvp_set_mail_horde-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_mail_horde"
+  },
+  {
+    "id": "pvp_set_mail_horde_shaman",
+    "name": "Warlord's Earthshaker",
+    "category": "PvP",
+    "path": "pvp_set_mail_horde_shaman-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_mail_horde"
+  },
+  {
+    "id": "pvp_set_leather_horde_rogue",
+    "name": "Warlord's Vestments",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_leather_horde"
+  },
+  {
+    "id": "pvp_set_leather_horde_druid",
+    "name": "Warlord's Sanctuary",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_leather_horde"
+  },
+  {
+    "id": "pvp_set_cloth_horde_priest",
+    "name": "Warlord's Raiment",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_cloth_horde"
+  },
+  {
+    "id": "pvp_set_cloth_horde_mage",
+    "name": "Warlord's Regalia",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_cloth_horde"
+  },
+  {
+    "id": "pvp_set_cloth_horde_warlock",
+    "name": "Warlord's Threads",
+    "category": "PvP",
+    "path": "set_tier2_warrior-banner.blp",
+    "direct": "pvp_shared-banner.blp",
+    "parent": "pvp_set_cloth_horde"
+  },
+  {
+    "id": "set_tier25_druid",
+    "name": "Genesis Raiment",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  },
+  {
+    "id": "set_tier25_hunter",
+    "name": "Striker's Garb",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  },
+  {
+    "id": "set_tier25_mage",
+    "name": "Enigma Vestments",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  },
+  {
+    "id": "set_tier25_paladin",
+    "name": "Avenger's Battlegear",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  },
+  {
+    "id": "set_tier25_priest",
+    "name": "Garments of the Oracle",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  },
+  {
+    "id": "set_tier25_rogue",
+    "name": "Deathdealer's Embrace",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  },
+  {
+    "id": "set_tier25_shaman",
+    "name": "Stormcaller's Garb",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  },
+  {
+    "id": "set_tier25_warlock",
+    "name": "Doomcaller's Attire",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  },
+  {
+    "id": "set_tier25_warrior",
+    "name": "Conqueror's Battlegear",
+    "category": "Item Set",
+    "path": "set_tier25-banner.blp",
+    "direct": "set_tier25-banner.blp",
+    "parent": "set_tier25"
+  }
+]
