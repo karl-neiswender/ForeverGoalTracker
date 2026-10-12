@@ -463,5 +463,14 @@ do
         assert(B.goal, "goal exists: " .. id)
         local spec = B:GlowSpec()
         assert(spec and spec.embers, "embers on " .. id)
+        -- and they actually start (not just exist), with Celebrations on
+        local cel = STUB_NS.Setting("celebrations")
+        STUB_NS.SetSetting("celebrations", "full")
+        B.hasArt = true
+        rawset(B.art, "GetWidth", function() return 600 end)
+        B.shownArtHeight, B.uv, B.emberFor = 450, { 0, 1, 0, 1 }, nil
+        B:PlaceGlow()
+        assert(B.emberFor == spec, "embers start on " .. id)
+        STUB_NS.SetSetting("celebrations", cel)
     end
 end

@@ -5311,7 +5311,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if on then
             local x = (spec[1]-u[1])/(u[2]-u[1])*self.art:GetWidth()
             local y = (spec[2]-u[3])/(u[4]-u[3])*self.shownArtHeight
-            on = x > 0 and x < self.art:GetWidth() and y > 0 and y < self.shownArtHeight*0.8
+            -- a glow must sit on the art, clear of its faded bottom; embers-only
+            -- lights use their boxes instead, so their point isn't checked
+            on = spec.glow == false or (x > 0 and x < self.art:GetWidth() and y > 0 and y < self.shownArtHeight*0.8)
             if on then
                 self.glowColor, self.glowCX, self.glowCY = spec[4], x, y
                 self:DrawLights(0.5, 0)
