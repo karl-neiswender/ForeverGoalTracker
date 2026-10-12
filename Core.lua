@@ -4753,6 +4753,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="benediction-banner.blp", faction="Horde"},
         },
         allclasses = {
+            {path="allclasses_tauren_warrior-banner.blp", faction="Horde", class="WARRIOR", race="Tauren"},
+            {path="allclasses_alliance_warlock-banner.blp", faction="Alliance", class="WARLOCK"},
+            {path="allclasses_horde_druid-banner.blp", faction="Horde", class="DRUID"},
             {path="allclasses_dwarf_hunter-banner.blp", faction="Alliance", class="HUNTER", race="Dwarf"},
             {path="benediction-alliance-banner.blp", faction="Alliance", class="PRIEST", race="NightElf"},
             {path="tier3_hunter-banner.blp", faction="Horde", class="HUNTER", race="Troll"},
@@ -4987,6 +4990,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- classes and the account roster. Shared art covers missing variants.
     B.artPaths.allclasses = "pvp_shared-banner.blp"
     B.artAspects.allclasses, B.preprocessed.allclasses = 4/3, true
+    for _, id in ipairs({"pvp_ab_ally", "pvp_ab_horde"}) do
+        B.artPaths[id] = "pvp_arathi-banner.blp"
+        B.artAspects[id], B.preprocessed[id] = 4/3, true
+        B.artVariants[id] = {{path="pvp_arathi-banner.blp"}}
+    end
     -- Brightness tuning multiplies the existing reveal and bottom fades.
     -- Approved defaults go here; in-game overrides are saved per goal.
     B.artOpacity = {}
@@ -5045,6 +5053,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["allclasses_horde_druid-banner.blp"] = "Alex Alexandrov",
+        ["allclasses_tauren_warrior-banner.blp"] = "Adrian Smith",
+        ["pvp_arathi-banner.blp"] = "Howard Lyon",
         ["pvp_set_mail_horde_shaman-banner.blp"] = "Alex Horley",
         ["prof_mining-banner.blp"] = "Patrick McEvoy",
         ["rep_hydraxian-banner.blp"] = "Jonboy Meyers",

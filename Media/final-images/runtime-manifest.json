@@ -448,7 +448,7 @@
     "equivalent_tga_bytes": 786476
   },
   "epicmounts_undead": {
-    "source": "mounts/undead-warhorse.jpg",
+    "source": "epicmounts_undead-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -827,6 +827,34 @@
   },
   "set_dungeon2_hunter": {
     "source": "beastmaster-hunter-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_arathi": {
+    "source": "pvp_arathi-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_tauren_warrior": {
+    "source": "allclasses_tauren_warrior-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_alliance_warlock": {
+    "source": "allclasses_alliance_warlock-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_horde_druid": {
+    "source": "allclasses_horde_druid-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,

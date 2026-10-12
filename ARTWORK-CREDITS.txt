@@ -4,6 +4,11 @@ Blizzard Entertainment
 World of Warcraft and Hearthstone artwork: copyright Blizzard Entertainment.
 All rights reserved. Individual artwork may carry additional artist notices.
 
+Tauren Druid leveling: Alex Alexandrov (horde-druid.jpg); visible credit line
+removed at Karl's request, artist attribution retained in the addon.
+Tauren Warrior leveling: Adrian Smith (Adonal Brokenhoof TCG).
+Arathi Basin battleground banner: Howard Lyon (Arathi Basin TCG).
+
 Corrupted Ashbringer banner: adapted from the supplied AshbringerC.jpg,
 credited in the original image to James Ryman, copyright Blizzard Entertainment.
 
