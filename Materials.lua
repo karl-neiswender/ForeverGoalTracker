@@ -161,7 +161,7 @@ function FGT.MaterialRows(goal, includeAlts)
     return result
 end
 
-local M = { open=false, fraction=0, rows={} }
+local M = { open=false, fraction=0, bounce=0, rows={} }
 FGT.materialsPanel = M
 local clip = CreateFrame("Frame", nil, U.main)
 M.clip = clip
@@ -365,8 +365,9 @@ function FGT.RefreshMaterials()
     empty:SetShown(visible == 0)
     if M.goalId ~= goal.id then scroll.scroll:SetVerticalScroll(0); M.goalId=goal.id; options:Hide() end
     M:Place()
-    -- A real shopping list (Tier 3, AQ sets) slides the drawer open the
-    -- first time that goal is viewed with the window up, to point it out.
+    -- A real shopping list draws the eye the first time that goal is viewed
+    -- with the window up: Tier 3 and AQ sets (9+ rows) slide the drawer open,
+    -- smaller lists (3 to 8) give it a little bounce.
     -- Once per goal ever; /goals materialsreset starts over.
     if #data >= 3 and U.main:IsShown() and not DB.demoBackup then
         DB.materialsSeen = DB.materialsSeen or {}
@@ -376,8 +377,11 @@ function FGT.RefreshMaterials()
             elseif M.canOpen then
                 DB.materialsSeen[goal.id] = true
                 local id = goal.id
+                local bigList = #data >= 9
                 C_Timer.After(0.35, function()
-                    if M.goalId == id and not M.open and U.main:IsShown() then M:SetOpen(true) end
+                    if M.goalId == id and not M.open and U.main:IsShown() then
+                        if bigList then M:SetOpen(true) else M:Bounce() end
+                    end
                 end)
             end
         end
@@ -390,7 +394,9 @@ function M:Place()
     self.canOpen = self.width >= 150
     if not self.canOpen then self.open=false; self.fraction=0 end
     local hasGoal = U.goal() ~= nil
-    local span = hasGoal and (22 + (self.width-22)*self.fraction) or 0
+    -- A bounce peeks out over the guide without moving it.
+    local span = hasGoal and (22 + (self.width-22)*(self.fraction+self.bounce)) or 0
+    local guideSpan = hasGoal and (22 + (self.width-22)*self.fraction) or 0
     self.span = span
     clip:ClearAllPoints()
     clip:SetPoint("TOPRIGHT",U.list,"TOPRIGHT",U.main:GetWidth()-U.list:GetWidth()-32,0)
@@ -402,7 +408,7 @@ function M:Place()
     panel:SetWidth(self.width)
     U.detail:ClearAllPoints()
     U.detail:SetPoint("TOPLEFT",U.list,"TOPRIGHT",12,0)
-    U.detail:SetPoint("BOTTOMRIGHT",U.main,"BOTTOMRIGHT",-16-span-(hasGoal and 12 or 0),16)
+    U.detail:SetPoint("BOTTOMRIGHT",U.main,"BOTTOMRIGHT",-16-guideSpan-(hasGoal and 12 or 0),16)
     -- Center the glyph in the 12-unit gap; keep the invisible hit area wider.
     handle:ClearAllPoints(); handle:SetPoint("CENTER",clip,"LEFT",-6,0)
     -- IconButton's texture is named icon (the source glyph points down).
@@ -438,6 +444,7 @@ local driver = CreateFrame("Frame",nil,U.main)
 M.driver = driver
 function M:SetOpen(open)
     driver:SetScript("OnUpdate",nil)
+    self.bounce = 0
     self.open = open and self.canOpen or false
     options:Hide(); GameTooltip:Hide()
     local start, target = self.fraction,self.open and 1 or 0
@@ -458,11 +465,24 @@ function M:SetOpen(open)
         end
     end)
 end
+-- A friendly double "boop": the closed drawer nudges out twice, then rests.
+function M:Bounce()
+    if self.open or not self.canOpen or FGT.Setting("celebrations") ~= "full" then return end
+    driver:SetScript("OnUpdate",nil)
+    local elapsed, DURATION, REACH = 0, 0.8, 0.11
+    driver:SetScript("OnUpdate",function(_,dt)
+        elapsed=elapsed+dt
+        local p=math.min(1,elapsed/DURATION)
+        M.bounce=REACH*math.abs(math.sin(p*math.pi*2))*(1-p*0.35)
+        M:Place()
+        if p>=1 then M.bounce=0; driver:SetScript("OnUpdate",nil); M:Place() end
+    end)
+end
 handle:SetScript("OnClick",function() M:SetOpen(not M.open) end)
 U.main:HookScript("OnSizeChanged",function() M:Place() end)
 U.detail:HookScript("OnShow",function() M:Place(); FGT.RefreshMaterials() end)
-U.detail:HookScript("OnHide",function() driver:SetScript("OnUpdate",nil); M.fraction=M.open and 1 or 0; clip:Hide(); handle:Hide(); shadow:Hide(); options:Hide() end)
-U.main:HookScript("OnHide",function() driver:SetScript("OnUpdate",nil); M.fraction=M.open and 1 or 0; options:Hide() end)
+U.detail:HookScript("OnHide",function() driver:SetScript("OnUpdate",nil); M.bounce=0; M.fraction=M.open and 1 or 0; clip:Hide(); handle:Hide(); shadow:Hide(); options:Hide() end)
+U.main:HookScript("OnHide",function() driver:SetScript("OnUpdate",nil); M.bounce=0; M.fraction=M.open and 1 or 0; options:Hide() end)
 U.main:HookScript("OnShow",function() M:Place(); FGT.RefreshMaterials() end)
 local events = CreateFrame("Frame")
 events:RegisterEvent("GET_ITEM_INFO_RECEIVED")

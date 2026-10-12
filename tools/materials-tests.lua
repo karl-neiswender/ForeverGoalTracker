@@ -160,6 +160,17 @@ do
     D.active={gold_5k=true,tier3_warrior=true}; D.progress.tier3_warrior=D.progress.tier3_warrior or {}
     F.SelectGoal("gold_5k")
     assert(not M.open,"a goal without a shopping list stays closed")
+    -- A mid-size list bounces instead of opening, once.
+    F.SetSetting("celebrations","full"); D.active.sulfuras=true; D.progress.sulfuras=D.progress.sulfuras or {}
+    F.SelectGoal("sulfuras")
+    local boop=M.driver:GetScript("OnUpdate")
+    assert(boop and not M.open,"mid-size list bounces without opening")
+    boop(M.driver,0.1); assert(M.bounce>0 and M.span>22,"bounce peeks out")
+    boop(M.driver,1)
+    assert(M.bounce==0 and M.span==22 and not M.open and not M.driver:GetScript("OnUpdate"),"bounce settles closed")
+    F.SelectGoal("gold_5k"); F.SelectGoal("sulfuras")
+    assert(not M.driver:GetScript("OnUpdate"),"bounce plays once per goal")
+    F.SetSetting("celebrations","off")
     F.SelectGoal("tier3_warrior")
     assert(M.open and D.materialsSeen and D.materialsSeen.tier3_warrior,"recipe goal opens on first view rows="..#(M.data or {}).." can="..tostring(M.canOpen).." shown="..tostring(U.main:IsShown()).." goal="..tostring(M.goalId))
     M:SetOpen(false); F.SelectGoal("gold_5k"); F.SelectGoal("tier3_warrior")
