@@ -5017,7 +5017,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- gem). `glows[goalId] = { u, v, size, { r, g, b } }`: u and v are where it
     -- sits in the artwork (0 to 1 from its top left), size is a share of the
     -- art's width. The frame follows the first-open fade; the texture breathes.
-    B.glows = { thunderfury = { 0.76, 0.363, 0.30, { 0.62, 0.80, 1 } } }
+    B.glows = { thunderfury = { 0.76, 0.363, 0.30, { 1, 1, 1 } } }
     B.glowFrame = CreateFrame("Frame", nil, detailPanel)
     B.glowFrame:SetAllPoints(detailPanel)
     B.glowFrame:SetFrameLevel(detailPanel:GetFrameLevel() + 1)
