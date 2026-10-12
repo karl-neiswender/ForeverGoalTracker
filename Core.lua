@@ -5079,6 +5079,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.25, 0.95, 0.30, 0.80 }, field = { 0.20, 1.0, 0.10, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
         tier3_shaman = { 0.6, 0.55, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- The Earthshatterer
             embers = { box = { 0.25, 0.95, 0.30, 0.75 }, field = { 0.20, 1.0, 0.10, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
+        -- UBRS key: the lava splashing up around the gate's foot
+        key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
         ["pvp_drums_of_war-banner.blp"] = { 0.65, 0.75, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Honorable Kills and Duelist
             embers = { box = { 0.35, 0.95, 0.55, 0.90 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 36, blurShare = 0.22, rise = 0.30 } },
     }
