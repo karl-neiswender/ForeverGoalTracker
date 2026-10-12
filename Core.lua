@@ -3955,18 +3955,23 @@ do
     local b = CreateFrame("Button", nil, FGT.detailBody)
     b:SetSize(22, 22)
     FGT.detailNoteBtn = b
-    function FGT.StyleNoteButton()
-        b:RefreshIcon()
+    b.icon = b:CreateTexture(nil, "ARTWORK")
+    b.icon:SetTexture(FGT.Icon("note-white"))
+    b.icon:SetSize(15, 15)
+    b.icon:SetPoint("CENTER")
+    function FGT.StyleNoteButton(on)
+        local c = on and C.ACCENT or C.SUBTEXT
+        b.icon:SetVertexColor(c[1], c[2], c[3], on and 1 or 0.8)
     end
     b:SetScript("OnEnter", function(self)
-        FGT.StyleNoteButton()
+        FGT.StyleNoteButton(true)
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
         GameTooltip:AddLine(FGT.GoalNote(self.goal) ~= "" and "Edit personal note" or "Add personal note", C.TITLE[1], C.TITLE[2], C.TITLE[3])
         GameTooltip:Show()
     end)
     b:SetScript("OnLeave", function() FGT.StyleNoteButton(); GameTooltip:Hide() end)
     b:SetScript("OnClick", function(self) if self.goal then FGT.OpenNoteCard(self.goal) end end)
-    FGT.IconButton(b, "note", 15) -- same dim/rest and additive hover as Settings and Close
+    FGT.StyleNoteButton(false) -- same grey/rest and gold/hover as Edit goal
 
     function FGT.LayoutPersonalNote(goal)
         local text = FGT.GoalNote(goal)
