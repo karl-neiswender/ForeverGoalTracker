@@ -5382,7 +5382,7 @@ FGT.detailStepsScroll = stepsScrollObj
 -- once you've scrolled, the bottom one only while there's more below.
 do
     local S = stepsScrollObj
-    S.fadeTop:SetAlpha(0); S.fadeBottom:SetAlpha(0)
+    S.fadeTop:SetAlpha(0) -- the bottom band stays (Karl); only the top one smudged the art
     local TOP, BOTTOM = 34, 38
     local function Ease(x) x = math.max(0, math.min(1, x)) return x * x * (3 - 2 * x) end
     function FGT.StepsEdgeFade()
