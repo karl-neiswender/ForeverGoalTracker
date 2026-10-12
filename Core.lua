@@ -5025,10 +5025,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.glowTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\glow")
     B.glowTex:SetBlendMode("ADD")
     B.glowFrame:Hide()
-    -- Uncontrolled lightning rather than a calm pulse: a dim ember, with
-    -- sudden flashes of random strength and length, now and then two close
-    -- together, each swelling the light a little.
-    B.glowAnim = { playing = false, age = 0, dur = 0, peak = 0, t = 0, nextAt = 0.3 }
+    -- Ambient, like the drifting clouds and dust: a faint light that swells
+    -- and settles over many seconds. Two slow waves with unrelated periods
+    -- keep it from feeling like a pulse. No flashes or flicker (it must be
+    -- safe for players sensitive to flashing light).
+    B.glowAnim = { playing = false, t = 0 }
     function B.glowAnim:IsPlaying() return self.playing end
     function B.glowAnim:Play()
         self.playing = true
@@ -5037,22 +5038,17 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B.glowAnim:Stop()
         self.playing = false
         B.glowFrame:SetScript("OnUpdate", nil)
-        B.glowTex:SetAlpha(0.3)
+        B.glowTex:SetAlpha(0.2)
     end
     function B:StepGlow(dt)
         local a = self.glowAnim
         a.t = a.t + dt
-        a.age = a.age + dt
-        if a.t >= a.nextAt then
-            a.peak, a.age, a.dur = 0.45 + math.random()*0.55, 0, 0.06 + math.random()*0.22
-            local double = math.random() < 0.3
-            a.nextAt = a.t + (double and (0.07 + math.random()*0.1) or (0.25 + math.random()^2*1.9))
-        end
-        local flash = a.age < a.dur and a.peak*(1-a.age/a.dur)^2*(0.75 + math.random()*0.25) or 0
-        self.glowTex:SetAlpha(math.min(1, 0.12 + math.random()*0.06 + flash))
+        -- 0 to 1, drifting: periods of about 9 and 14 seconds
+        local n = 0.5 + 0.3*math.sin(a.t*2*math.pi/9.1) + 0.2*math.sin(a.t*2*math.pi/14.3 + 1.7)
+        self.glowTex:SetAlpha(0.12 + 0.16*n)
         local spec = self.goal and self.glows[self.goal.id]
         if spec then
-            local size = spec[3]*self.art:GetWidth()*(1 + 0.18*flash)
+            local size = spec[3]*self.art:GetWidth()*(0.96 + 0.08*n)
             self.glowTex:SetSize(size, size)
         end
     end
@@ -5075,7 +5071,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local live = on and FGT.Setting("celebrations") ~= "off"
         self.glowFrame:SetShown(on and true or false)
         if on then
-            self.glowFrame:SetAlpha((self.imageFade or 1)*0.4*self:GetArtOpacity())
+            self.glowFrame:SetAlpha((self.imageFade or 1)*0.35*self:GetArtOpacity())
             if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
             elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
         elseif self.glowAnim:IsPlaying() then
@@ -5085,7 +5081,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:SetImageFade(amount)
         self.imageFade = amount
         if self.glowFrame and self.goal and self.glows[self.goal.id] and self.glowFrame:IsShown() then
-            self.glowFrame:SetAlpha(amount*0.4*self:GetArtOpacity())
+            self.glowFrame:SetAlpha(amount*0.35*self:GetArtOpacity())
         end
         if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.
