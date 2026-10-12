@@ -203,5 +203,5 @@ do
     for _, row in ipairs(M.rows) do
         if row.entry and row.entry.need == 1 then single = row end
     end
-    assert(single and single.percent:GetText():match("/ 1$"), "single item shows a count")
+    assert(single and single.percent:GetText():match("/ 1$"), "rows show have / need counts")
 end

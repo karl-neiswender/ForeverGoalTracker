@@ -198,6 +198,10 @@ M.scroll = scroll
 scroll.scroll:SetPoint("TOPLEFT", panel, "TOPLEFT", 12, -48)
 scroll.scroll:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -18, 12)
 scroll:Finalize()
+-- Seat the scrollbar near the drawer's right edge, clear of the counts.
+scroll.trackHit:ClearAllPoints()
+scroll.trackHit:SetPoint("TOP", scroll.scroll, "TOPRIGHT", 9, 0)
+scroll.trackHit:SetPoint("BOTTOM", scroll.scroll, "BOTTOMRIGHT", 9, 0)
 local empty = U.font(scroll.content, 11, "", unpack(C.SUBTEXT))
 empty:SetPoint("TOPLEFT", 0, -10)
 empty:SetJustifyH("LEFT")
@@ -264,13 +268,13 @@ local options = CreateFrame("Frame", nil, panel, "BackdropTemplate")
 M.options = options
 options:SetPoint("TOPLEFT", 8, -40)
 options:SetPoint("TOPRIGHT", -8, -40)
-options:SetHeight(100)
+options:SetHeight(70)
 options:SetFrameLevel(panel:GetFrameLevel()+35)
 options:EnableMouse(true)
 U.etch(options, U.styles.panel, 10)
 options:Hide()
 local optionRows = {}
-for i, entry in ipairs({{"materialsCollected","Show collected"}, {"materialsCounts","Show counts"}, {"materialsAlts","Include other characters"}}) do
+for i, entry in ipairs({{"materialsCollected","Show collected"}, {"materialsAlts","Include other characters"}}) do
     local button = CreateFrame("Button", nil, options)
     button:SetHeight(30)
     button:SetPoint("TOPLEFT", 6, -5-(i-1)*30)
@@ -314,12 +318,12 @@ local function LayoutRows()
             end
             row:SetWidth(width)
             row:ClearAllPoints(); row:SetPoint("TOPLEFT", 0, -y)
-            row.name:SetWidth(math.max(1,width-52))
+            row.name:SetWidth(math.max(1,width-72))
             local textH = math.max(16,row.name:GetStringHeight())
             row.bar:ClearAllPoints(); row.bar:SetPoint("TOPLEFT",0,-textH-6); row.bar:SetWidth(width)
             row.count:ClearAllPoints(); row.count:SetPoint("TOPLEFT",row.bar,"BOTTOMLEFT",0,-5)
             row.count:SetWidth(width)
-            local countH = FGT.Setting("materialsCounts") and math.max(16,row.count:GetStringHeight()+5) or 0
+            local countH = 0
             local height = textH + 22 + countH
             row:SetHeight(height); y = y + height + 10
         end
@@ -388,7 +392,7 @@ function FGT.RefreshMaterials()
                 row:SetScript("OnEnter", function(self)
                     local e = self.entry
                     if e.id then FGT.ShowItemTip(self,e.id,nil,e.name) else GameTooltip:SetOwner(self,"ANCHOR_LEFT"); GameTooltip:AddLine(e.name) end
-                    GameTooltip:AddLine(e.unknown and "Item count unavailable" or string.format("%d collected · %d remaining",e.have,e.need-e.have),unpack(C.TEXT))
+                    GameTooltip:AddLine(e.unknown and "Item count unavailable" or string.format("%d collected · %d remaining · %d%%",e.have,e.need-e.have,e.percent),unpack(C.TEXT))
                     GameTooltip:AddLine(FGT.Setting("materialsAlts") and "Counts use tracked characters' last scans." or "Counts use this character's last scan.",unpack(C.SUBTEXT))
                     GameTooltip:Show()
                 end)
@@ -406,13 +410,13 @@ function FGT.RefreshMaterials()
             row.entry = entry
             row.name:SetText(entry.name); row.icon:SetTexture(entry.icon)
             -- A single item is either 0 or all; show the count, not 0% / 100%.
-            row.percent:SetText(entry.unknown and "—" or (entry.need == 1 and (entry.have .. " / 1") or (entry.percent .. "%")))
+            row.percent:SetText(entry.unknown and "—" or (entry.have .. " / " .. entry.need))
             local group = entry.group or 4
             row.groupLabel = (multiple and group ~= lastGroup) and GROUPS[group][1] or nil
             lastGroup = group
             row.bar.instant=true; row.bar:SetProgress(entry.have,entry.need,""); row.bar.instant=nil
             row.count:SetText(entry.unknown and "Count unavailable" or (entry.have .. " collected · " .. (entry.need-entry.have) .. " remaining"))
-            row.count:SetShown(FGT.Setting("materialsCounts")); row:EnableMouse(M.open); row:Show()
+            row.count:Hide(); row:EnableMouse(M.open); row:Show()
         end
     end
     for i=visible+1,#M.rows do M.rows[i]:Hide() end
