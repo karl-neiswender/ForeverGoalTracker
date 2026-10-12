@@ -80,6 +80,7 @@ local function Paint(k) -- k: 0 at rest .. 1 fully lit
     local r = REST[1] + (BRIGHT[1] - REST[1]) * k
     local g = REST[2] + (BRIGHT[2] - REST[2]) * k
     local b = REST[3] + (BRIGHT[3] - REST[3]) * k
+    if btn.hover then return end
     btn.text:SetTextColor(r, g, b)
     btn.glow:SetVertexColor(1, 0.82, 0.3)
     btn.glow:SetAlpha(0.16 * k)
@@ -89,8 +90,9 @@ function W.RefreshButton()
     btn:SetScript("OnUpdate", nil)
     if W.open or not IsNew() then
         btn.pulsing = false
-        Paint(btn:IsMouseOver() and 1 or (W.open and 1 or 0))
-        btn.glow:SetAlpha(0)
+        Paint(W.open and 1 or 0)
+        if btn.hover then btn.text:SetTextColor(1, 1, 1) end
+        btn.glow:SetAlpha(btn.hover and 0.07 or 0)
         return
     end
     if FGT.Setting("celebrations") == "off" then Paint(0.55); return end
@@ -100,12 +102,23 @@ function W.RefreshButton()
         Paint(0.25 + 0.4 * (0.5 - 0.5 * math.cos(t * math.pi * 2 / 2.8)))
     end)
 end
-btn:SetScript("OnEnter", function()
-    if not IsNew() or W.open then Paint(1) end
-end)
-btn:SetScript("OnLeave", function()
-    if not IsNew() or W.open then Paint(W.open and 1 or 0) end
-end)
+-- Hovering turns the text pure white with a lighter glow, glowing or not.
+local function Hover(on)
+    btn.hover = on
+    if on then
+        btn.text:SetTextColor(1, 1, 1)
+        btn.glow:SetVertexColor(1, 0.9, 0.6)
+        btn.glow:SetAlpha(0.07)
+    elseif IsNew() and not W.open then
+        -- the pulse driver repaints on its next frame (or Paint below)
+        if FGT.Setting("celebrations") == "off" then Paint(0.55) end
+    else
+        Paint(W.open and 1 or 0)
+        btn.glow:SetAlpha(0)
+    end
+end
+btn:SetScript("OnEnter", function() Hover(true) end)
+btn:SetScript("OnLeave", function() Hover(false) end)
 
 -- ------------------------------------------------------------
 -- The ledger window
@@ -119,7 +132,7 @@ pop:SetWidth(WIDTH)
 pop:EnableMouse(true)
 U.etch(pop, U.styles.panel, 12)
 FGT.AddGrime(pop, 0.18, 12, 0.61, 0, 140)
-pop.shadow = FGT.AddDropShadow(pop, 64, 0.85, 8, 10) -- broad, soft and dark, like the note card
+pop.shadow = FGT.AddDropShadow(pop, 40, 0.3, 12, 12) -- faint and soft, sitting a little low
 pop.shadow:Hide()
 pop:Hide()
 tinsert(UISpecialFrames, "ForeverGoalTrackerWhatsNew")
@@ -162,9 +175,14 @@ local function Block(i)
     b.version:SetPoint("TOPLEFT", 10, -9)
     b.date = U.font(b, 10, "", unpack(C.SUBTEXT))
     b.date:SetPoint("TOPRIGHT", -10, -11)
+    b.dot = b:CreateTexture(nil, "OVERLAY")
+    b.dot:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\dot")
+    b.dot:SetVertexColor(1, 0.82, 0.3)
+    b.dot:SetSize(18, 18)
+    b.dot:SetPoint("LEFT", b.version, "RIGHT", 4, 0)
     b.new = U.font(b, 9, "", unpack(BRIGHT))
     b.new:SetText("NEW")
-    b.new:SetPoint("LEFT", b.version, "RIGHT", 8, 0)
+    b.new:SetPoint("LEFT", b.dot, "RIGHT", -3, 0)
     b.lines = {}
     -- a faint rule under the block, fading out toward both ends
     b.ruleL = b:CreateTexture(nil, "ARTWORK"); b.ruleR = b:CreateTexture(nil, "ARTWORK")
@@ -193,7 +211,7 @@ function W.Layout(prevSeen)
         b:ClearAllPoints(); b:SetPoint("TOPLEFT", 0, -y)
         b.version:SetText(entry.version)
         b.date:SetText(entry.date)
-        b.new:SetShown(isNew)
+        b.new:SetShown(isNew); b.dot:SetShown(isNew)
         local h = 34
         for li, text in ipairs(entry.items) do
             local line = b.lines[li]
@@ -221,6 +239,10 @@ function W.Layout(prevSeen)
             b.bg:Hide()
         end
         b.version:SetTextColor(unpack(isNew and BRIGHT or C.INK2))
+        -- the rule sits right on the gold wash's bottom edge; plain blocks center it in the gap
+        local drop = isNew and 0 or -5
+        b.ruleL:ClearAllPoints(); b.ruleL:SetPoint("BOTTOMLEFT", 8, drop); b.ruleL:SetPoint("BOTTOMRIGHT", b, "BOTTOM", 0, drop)
+        b.ruleR:ClearAllPoints(); b.ruleR:SetPoint("BOTTOMLEFT", b, "BOTTOM", 0, drop); b.ruleR:SetPoint("BOTTOMRIGHT", -8, drop)
         b.ruleL:SetShown(i < #FGT.WHATS_NEW); b.ruleR:SetShown(i < #FGT.WHATS_NEW)
         b:Show()
         y = y + h + 10
@@ -232,6 +254,22 @@ function W.Layout(prevSeen)
 end
 
 -- Open/close with a short fade and rise (fades only when motion is reduced).
+local pulser = CreateFrame("Frame", nil, pop)
+local function StartPulse()
+    pulser:SetScript("OnUpdate", nil)
+    if FGT.Setting("celebrations") == "off" then
+        for _, b in ipairs(blocks) do b.dot:SetAlpha(0.9); b.dot:SetSize(18, 18) end
+        return
+    end
+    local t = 0
+    pulser:SetScript("OnUpdate", function(_, dt)
+        t = t + dt
+        local k = 0.5 - 0.5 * math.cos(t * math.pi * 2 / 2.6)
+        for _, b in ipairs(blocks) do
+            if b.dot:IsShown() then b.dot:SetAlpha(0.55 + 0.45 * k); b.dot:SetSize(16 + 4 * k, 16 + 4 * k) end
+        end
+    end)
+end
 local driver = CreateFrame("Frame", nil, pop)
 local function Place(rise)
     pop:ClearAllPoints()
@@ -253,6 +291,7 @@ function W.Open()
     W.open = true
     W.RefreshButton()
     W.Layout(prev)
+    StartPulse()
     catcher:Show(); pop:Show(); pop.shadow:Show()
     local mode = FGT.Setting("celebrations")
     if mode == "off" then Place(0); pop:SetAlpha(1); pop.shadow:SetAlpha(1); return end
@@ -270,7 +309,7 @@ end
 
 function W.Close()
     if not W.open and not pop:IsShown() then return end
-    driver:SetScript("OnUpdate", nil)
+    driver:SetScript("OnUpdate", nil); pulser:SetScript("OnUpdate", nil)
     W.open = false
     pop:Hide(); pop.shadow:Hide(); catcher:Hide()
     W.RefreshButton()
