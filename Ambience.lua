@@ -60,12 +60,36 @@ A.layers = {
     Layer(true, 800, 473, 100, 200, 36, -20, 0.14, 31),                -- far
 }
 
+-- Behind the dust, two very faint (5%) copies of "talents-animations-clouds"
+-- slide left end to end, 1612 units in 80 s, so the band never runs out.
+local CLOUDS = "talents-animations-clouds"
+local cloud = C_Texture.GetAtlasInfo(CLOUDS)
+if cloud then
+    for _, startX in ipairs({ 0, 1612 }) do
+        local t = fx:CreateTexture(nil, "BACKGROUND", nil, 6)
+        t:SetAtlas(CLOUDS)
+        t:SetSize(cloud.width, cloud.height)
+        t:SetPoint("TOPLEFT", fx, "TOPLEFT", 0, 0)
+        t:SetBlendMode("ADD")
+        t:SetAlpha(0.05)
+        local g = t:CreateAnimationGroup()
+        g:SetLooping("REPEAT")
+        local m = g:CreateAnimation("Translation")
+        m:SetOffset(startX, 0); m:SetDuration(0); m:SetOrder(1)
+        m = g:CreateAnimation("Translation")
+        m:SetOffset(-1612, 0); m:SetDuration(80); m:SetOrder(2)
+        m = g:CreateAnimation("Translation")
+        m:SetOffset(1612, 0); m:SetDuration(0); m:SetOrder(3)
+        A.layers[#A.layers + 1] = { tex = t, group = g, steady = true }
+    end
+end
+
 -- Runs only while the goal page is on screen, and not with Celebrations off.
 function A.Refresh()
     local on = U.detail:IsVisible() and FGT.Setting("celebrations") ~= "off"
     for _, l in ipairs(A.layers) do
         if on and not l.group:IsPlaying() then l.group:Play()
-        elseif not on and l.group:IsPlaying() then l.group:Stop(); l.tex:SetAlpha(0) end
+        elseif not on and l.group:IsPlaying() then l.group:Stop(); if not l.steady then l.tex:SetAlpha(0) end end
     end
 end
 U.detail:HookScript("OnShow", A.Refresh)
