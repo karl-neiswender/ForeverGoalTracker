@@ -71,3 +71,8 @@ tab/list widths now use hidden Cinzel Bold measurements at the previous size;
 visible labels remain Warcraft. Cinzel Bold/license stay packaged for those
 two startup measurements. Window bounds and anchors remain unchanged.
 Details/checks: warcraft-heading-font-2026-10-11.md.
+
+Karl requested another 22 UI units of width for the left goals list after
+reviewing truncated titles. Added beyond the restored original tab footprint;
+the right panel uses the remaining space. Overall window size is unchanged.
+Checks: checks/wider-goals-list-2026-10-11.txt. `/reload` for native review.
