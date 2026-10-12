@@ -366,6 +366,24 @@ do
     assert(#LF.shown > 0, "sorted results")
     LF.sort = "alpha"; LF.sortDrop:SetValue("alpha")
 
+    -- Progression: sets in the order you'd get them, other goals after
+    LF.sort = "progression"; LF.show = "all"; F.LayoutLibrary()
+    local lastRank = -1
+    for _, g in ipairs(LF.shown) do
+        local r = F.SetOrder(g)
+        assert(r >= lastRank, "Progression order holds at " .. g.id)
+        lastRank = r
+    end
+    assert(F.SetOrder({ id = "set_tier1" }) < F.SetOrder({ id = "set_tier2" }), "Tier 1 before Tier 2")
+    assert(F.SetOrder({ id = "set_dungeon1" }) < F.SetOrder({ id = "set_tier1" }), "Dungeon Set 1 before Tier 1")
+    assert(F.SetOrder({ id = "gold_5k" }) == 100, "non-sets come after the sets")
+    LF.sort = "alpha"; LF.sortDrop:SetValue("alpha")
+
+    -- My Goals search narrows the list and clears
+    F.listSearch:SetText("zzzz-nothing")
+    F.listSearch:SetText("")
+    assert(F.listQuery == "", "search clears")
+
     D.active = {}; D.activeParts = {}
     F.searchBox:SetText("onyxia"); F.libSearch = "onyxia"
     F.LayoutLibrary()

@@ -3369,9 +3369,59 @@ sortBar:SetScript("OnLeave", function(self)
     if not (sortMenu and sortMenu:IsShown()) then self:SetEtch(STYLE.button) end
 end)
 
+-- Search box under the sort bar: narrows My Goals as you type, by goal
+-- name, short name and category.
+FGT.listQuery = ""
+do
+    local box = CreateFrame("EditBox", nil, listPanel, "BackdropTemplate")
+    box:SetHeight(22)
+    box:SetPoint("TOPLEFT", sortBar, "BOTTOMLEFT", 0, -4)
+    box:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6, -32)
+    Etch(box, STYLE.row, 10)
+    box:SetAutoFocus(false)
+    FGT.RegisterFont(box, "body", 11, "")
+    box:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    box:SetTextInsets(22, 20, 0, 0)
+    box:SetMaxLetters(40)
+    local glass = box:CreateTexture(nil, "OVERLAY")
+    glass:SetTexture(FGT.Icon("search-white"))
+    glass:SetSize(13, 13)
+    glass:SetPoint("LEFT", 6, -1)
+    glass:SetVertexColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    local hint = NewFontString(box, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    hint:SetPoint("LEFT", 22, 0)
+    hint:SetText("Search my goals")
+    local clear = CreateFrame("Button", nil, box)
+    clear:SetSize(16, 16)
+    clear:SetPoint("RIGHT", -4, 0)
+    clear.icon = clear:CreateTexture(nil, "ARTWORK")
+    clear.icon:SetSize(10, 10)
+    clear.icon:SetPoint("CENTER", 0, 0)
+    clear.icon:SetTexture(FGT.Icon("close-white"))
+    clear.icon:SetVertexColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    clear:SetScript("OnEnter", function(self) self.icon:SetVertexColor(1, 1, 1) end)
+    clear:SetScript("OnLeave", function(self) self.icon:SetVertexColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
+    clear:SetScript("OnClick", function() box:SetText(""); box:ClearFocus() end)
+    clear:Hide()
+    box:SetScript("OnTextChanged", function(self)
+        FGT.listQuery = (self:GetText() or ""):lower():match("^%s*(.-)%s*$")
+        hint:SetShown(FGT.listQuery == "" and not self:HasFocus())
+        clear:SetShown(FGT.listQuery ~= "")
+        if FGT.LayoutGoalList then FGT.LayoutGoalList() end
+    end)
+    box:SetScript("OnEditFocusGained", function(self) hint:Hide(); self:SetBackdropBorderColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3], 1) end)
+    box:SetScript("OnEditFocusLost", function(self)
+        hint:SetShown((self:GetText() or "") == "")
+        self:SetBackdropBorderColor(STYLE.row.edge[1], STYLE.row.edge[2], STYLE.row.edge[3], 1)
+    end)
+    box:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+    box:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
+    FGT.listSearch = box
+end
+
 -- Scrollable content area inside the goal list panel
 local listScrollObj = CreateScrollArea(listPanel, true) -- softer bottom fade over bright cards
-listScrollObj.scroll:SetPoint("TOPLEFT", sortBar, "BOTTOMLEFT", 0, -4)
+listScrollObj.scroll:SetPoint("TOPLEFT", FGT.listSearch, "BOTTOMLEFT", 0, -4)
 listScrollObj.scroll:SetPoint("BOTTOMRIGHT", listPanel, "BOTTOMRIGHT", -10, 4)
 listScrollObj:Finalize()
 local listContent = listScrollObj.content
@@ -3397,6 +3447,11 @@ local function CompareGoals(mode, a, b)
     elseif mode == "duration" then
         local ra, rb = FGT.timeRank[a.timeEstimate] or 0, FGT.timeRank[b.timeEstimate] or 0
         if ra ~= rb then return ra < rb end
+    elseif mode == "progression" then
+        -- sets in the order you'd get them; everything else after, A - Z
+        local ra, rb = FGT.SetOrder(a), FGT.SetOrder(b)
+        if ra ~= rb then return ra < rb end
+        if ra < 100 and a.armorClass ~= b.armorClass then return (a.armorClass or "") < (b.armorClass or "") end
     elseif mode == "progress" then
         local da, ta = GoalProgress(a)
         local db, tb = GoalProgress(b)
@@ -3945,7 +4000,9 @@ LayoutGoalList = function()
     -- the My Goals view (All goals / This character) narrows what's listed
     local sorted = {}
     for _, g in ipairs(ActiveGoals()) do
-        if not FGT.MyGoalsShows or FGT.MyGoalsShows(g) then sorted[#sorted + 1] = g end
+        local q = FGT.listQuery or ""
+        local hay = (g.name .. " " .. (g.short or "") .. " " .. (g.category or "")):lower()
+        if (not FGT.MyGoalsShows or FGT.MyGoalsShows(g)) and (q == "" or hay:find(q, 1, true)) then sorted[#sorted + 1] = g end
     end
     local shown = {}
     for _, g in ipairs(sorted) do shown[g.id] = true end
@@ -4001,7 +4058,7 @@ LayoutGoalList = function()
     local fm = FGT.FindMoreButton and FGT.FindMoreButton()
     if fm then
         -- hidden in demos (keeps shots 1 to 4 as they are) unless the scene shows it
-        local show = #sorted > 0 and (FGT.demoFind or not (ForeverGoalTrackerDB and ForeverGoalTrackerDB.demoBackup))
+        local show = #sorted > 0 and (FGT.listQuery or "") == "" and (FGT.demoFind or not (ForeverGoalTrackerDB and ForeverGoalTrackerDB.demoBackup))
         fm:SetShown(show)
         if show then
             y = y - 8
@@ -4017,8 +4074,9 @@ LayoutGoalList = function()
         FGT.viewEmpty = NewFontString(listContent, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         FGT.viewEmpty:SetPoint("TOPLEFT", listContent, "TOPLEFT", 14, yStart - 10)
         FGT.viewEmpty:SetPoint("RIGHT", listContent, "RIGHT", -14, 0)
-        FGT.viewEmpty:SetText("None of your goals fit this character. Show: All goals lists them all.")
     end
+    FGT.viewEmpty:SetText((FGT.listQuery or "") ~= "" and "No goals match your search."
+        or "None of your goals fit this character. Show: All goals lists them all.")
     FGT.viewEmpty:SetShown(#sorted == 0 and #ActiveGoals() > 0)
 
     local totalListHeight = -y
@@ -4026,6 +4084,7 @@ LayoutGoalList = function()
     listScrollObj:Update()
 end
 
+FGT.LayoutGoalList = LayoutGoalList
 UpdateSortLabel()
 LayoutGoalList()
 
@@ -7564,6 +7623,17 @@ function LF.Tier(goal)
     if goal.armorParent and goal.armorParent:match("^pvp_set_") then return 8, "PvP Set" end
     return 0, nil
 end
+-- Where a set falls in a character's journey: Dungeon Sets, Tier 1 to 3,
+-- then Forever's raid sets and PvP; one-off sets slot in by level. Other
+-- goals are 100 (after the sets).
+function FGT.SetOrder(goal)
+    local t = LF.TIERS[goal.id]
+    if t then return t[1] end
+    local n = LF.Tier(goal)
+    if n > 0 then return n end
+    local one = { set_viper = 0.5, set_violet_sorcerer = 1.5 }
+    return one[goal.id] or 100
+end
 function LF.Flat()
     local who = LF.Who()
     return who and who.class and who or nil
@@ -8444,6 +8514,7 @@ LF.sortDrop:SetOptions({
     { key = "alpha", label = "A - Z" },
     { key = "difficulty", label = "Difficulty" },
     { key = "duration", label = "Duration" },
+    { key = "progression", label = "Progression" },
 })
 LF.sort = "alpha"
 LF.sortDrop:SetValue("alpha")
