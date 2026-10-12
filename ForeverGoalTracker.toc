@@ -20,3 +20,4 @@ Dependencies.lua
 Core.lua
 ItemTooltips.lua
 Materials.lua
+WhatsNew.lua

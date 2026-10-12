@@ -216,3 +216,19 @@ do
     end
     assert(F.Setting("materialsBars") == true, "progress bars show by default")
 end
+
+-- What's new: glows until opened, marks the newest release seen, replays on reset.
+do
+    local N = F.WhatsNew
+    assert(N and F.WHATS_NEW[1].version, "what's new module loaded")
+    D.whatsNewSeen = nil; N.RefreshButton()
+    assert(N.button:GetScript("OnUpdate") or F.Setting("celebrations") == "off", "unseen release pulses")
+    F.SetSetting("celebrations", "off")
+    N.Command()
+    assert(N.open and D.whatsNewSeen == F.WHATS_NEW[1].version, "opening marks the newest release seen")
+    assert(not N.button:GetScript("OnUpdate"), "glow stops once seen")
+    N.Close()
+    assert(not N.open, "closes")
+    N.Command("reset")
+    assert(D.whatsNewSeen == nil, "reset glows again")
+end

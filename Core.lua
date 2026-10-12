@@ -8562,6 +8562,7 @@ gear:SetScript("OnEnter", function(self)
 end)
 gear:SetScript("OnLeave", function() GameTooltip:Hide() end)
 FGT.IconButton(gear, "gear", 17) -- after SetScript: SetScript would drop its hooks
+FGT.titleBarUI = { bar = titleBar, gear = gear } -- for WhatsNew.lua
 
 function FGT.UpdateGear()
     gear.lit = panel:IsShown()
@@ -10416,6 +10417,10 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     end
     if msg == "testbanner" then
         FGT.TestBanner()
+        return
+    end
+    if msg == "whatsnew" or msg == "whatsnew reset" then
+        if FGT.WhatsNew then FGT.WhatsNew.Command(msg == "whatsnew reset" and "reset" or nil) end
         return
     end
     if msg == "materialsreset" then
