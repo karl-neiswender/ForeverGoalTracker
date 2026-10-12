@@ -374,6 +374,8 @@ if ok_all:
         ("Forever 70291 banner layout and image fades", None,
             open(os.path.join(here, "banner-tests.lua"), encoding="utf-8").read(), True),
         ("short goal window", None, open(os.path.join(here, "short-window-tests.lua"), encoding="utf-8").read()),
+        ("window size bounds", None, open(os.path.join(here, "window-size-tests.lua")).read()),
+        ("Forever window size bounds", None, open(os.path.join(here, "window-size-tests.lua")).read(), True),
         ("Forever short goal window", None, open(os.path.join(here, "short-window-tests.lua"), encoding="utf-8").read(), True),
         ("mount preview", None, open(os.path.join(here, "mount-preview-tests.lua")).read()),
         ("Forever mount preview", None, open(os.path.join(here, "mount-preview-tests.lua")).read(), True),

@@ -90,12 +90,10 @@ local Atan2 = math.atan2 or function(y, x)
 end
 
 local LIST_WIDTH   = 216
-local FRAME_WIDTH  = 1240 -- FGT.DefaultSize fits it to small screens
+local FRAME_WIDTH  = 1240 -- initial placeholder; FGT.DefaultSize uses the screen
 local FRAME_HEIGHT = 750
 local MIN_FRAME_WIDTH  = 520
 local MIN_FRAME_HEIGHT = 360
-local MAX_FRAME_WIDTH  = 1240
-local MAX_FRAME_HEIGHT = 900
 
 -- Measure in the same coordinate space as the frame's UIParent anchor.
 -- GetScreenWidth/Height can differ from UIParent under the client's UI scale.
@@ -106,17 +104,22 @@ function FGT.ScreenSize()
         (h and h > 0) and h or GetScreenHeight()
 end
 
--- Size limits follow the actual screen, with a margin that keeps the
--- resize handle reachable. Fixed pixel caps would shrink the 70% default
--- on large displays.
-local function GetEffectiveMaxSize()
-    -- measured in the window's own units, so a scaled window still fits
+-- The default is 70% of the screen. Each dimension can resize to
+-- 75–125% of that baseline. Keep the readable floor where it fits,
+-- and let screen fit win on exceptionally small screens/high scales.
+function FGT.WindowSizeBounds()
     local s = FGT.windowScale or 1
     local screenW, screenH = FGT.ScreenSize()
     screenW, screenH = screenW / s, screenH / s
-    local maxW = math.floor(screenW - 60)
-    local maxH = math.floor(screenH - 60)
-    return math.max(MIN_FRAME_WIDTH, maxW), math.max(MIN_FRAME_HEIGHT, maxH)
+    local availableW = math.max(1, math.floor(screenW - 60))
+    local availableH = math.max(1, math.floor(screenH - 60))
+    local defaultW = math.min(availableW, math.max(MIN_FRAME_WIDTH, math.floor(screenW * 0.70)))
+    local defaultH = math.min(availableH, math.max(MIN_FRAME_HEIGHT, math.floor(screenH * 0.70)))
+    local minW = math.min(defaultW, math.max(MIN_FRAME_WIDTH, math.ceil(defaultW * 0.75)))
+    local minH = math.min(defaultH, math.max(MIN_FRAME_HEIGHT, math.ceil(defaultH * 0.75)))
+    local maxW = math.min(availableW, math.floor(defaultW * 1.25))
+    local maxH = math.min(availableH, math.floor(defaultH * 1.25))
+    return minW, minH, maxW, maxH, defaultW, defaultH
 end
 
 -- Single source of truth for "is this size safe to use" - applied both
@@ -125,19 +128,16 @@ end
 -- (a client resize-bounds quirk, a stale SavedVariables entry) hands
 -- us one.
 local function ClampFrameSize(w, h)
-    local maxW, maxH = GetEffectiveMaxSize()
-    local cw = math.max(MIN_FRAME_WIDTH, math.min(maxW, w or FRAME_WIDTH))
-    local ch = math.max(MIN_FRAME_HEIGHT, math.min(maxH, h or FRAME_HEIGHT))
+    local minW, minH, maxW, maxH, defaultW, defaultH = FGT.WindowSizeBounds()
+    local cw = math.max(minW, math.min(maxW, w or defaultW))
+    local ch = math.max(minH, math.min(maxH, h or defaultH))
     return cw, ch
 end
 
 -- Start each play session at roughly 70% of the screen in both dimensions.
 function FGT.DefaultSize()
-    local scale = FGT.windowScale or 1
-    local screenW, screenH = FGT.ScreenSize()
-    local w = math.floor(screenW * 0.70 / scale)
-    local h = math.floor(screenH * 0.70 / scale)
-    return ClampFrameSize(w, h)
+    local _, _, _, _, w, h = FGT.WindowSizeBounds()
+    return w, h
 end
 
 -- ============================================================
@@ -3099,18 +3099,18 @@ main:Hide()
 -- Resizable window. SetResizeBounds is the newer unified API; older
 -- clients only have the separate Set{Min,Max}Resize pair, so try the
 -- new one first and fall back rather than assuming either exists.
--- Bounds are computed against the actual screen (see GetEffectiveMaxSize)
+-- Bounds are computed against the actual screen (see FGT.WindowSizeBounds)
 -- so the window can never be told to grow bigger than the screen itself.
 -- The screen size isn't final while the addon is still loading (the UI
 -- scale is applied later), so bounds are re-measured every time the
 -- window opens and right before every resize drag, not just once.
 main:SetResizable(true)
 local function UpdateResizeBounds()
-    local maxW, maxH = GetEffectiveMaxSize()
+    local minW, minH, maxW, maxH = FGT.WindowSizeBounds()
     if main.SetResizeBounds then
-        main:SetResizeBounds(MIN_FRAME_WIDTH, MIN_FRAME_HEIGHT, maxW, maxH)
+        main:SetResizeBounds(minW, minH, maxW, maxH)
     else
-        main:SetMinResize(MIN_FRAME_WIDTH, MIN_FRAME_HEIGHT)
+        main:SetMinResize(minW, minH)
         main:SetMaxResize(maxW, maxH)
     end
 end
@@ -3175,8 +3175,11 @@ resizeGrip:SetScript("OnMouseDown", function(self)
         -- clamped to it and would otherwise get pushed instead of sized
         local left, top = main:GetLeft(), main:GetTop()
         if left and top then
-            w = math.min(w, math.max(MIN_FRAME_WIDTH, GetScreenWidth() - left))
-            h = math.min(h, math.max(MIN_FRAME_HEIGHT, top))
+            local minW, minH = FGT.WindowSizeBounds()
+            local screenW = FGT.ScreenSize()
+            screenW = screenW / (FGT.windowScale or 1)
+            w = math.min(w, math.max(minW, screenW - left))
+            h = math.min(h, math.max(minH, top))
         end
         if math.abs(main:GetWidth() - w) > 0.5 or math.abs(main:GetHeight() - h) > 0.5 then
             main:SetSize(w, h)

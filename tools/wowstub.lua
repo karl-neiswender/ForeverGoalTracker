@@ -87,8 +87,9 @@ fmt.__index = function(t, k)
   if type(k) == "string" and k:match("^%l") then return nil end
   return mt.__index(t, k)
 end
-CreateFrame = function()
+CreateFrame = function(_, name, parent)
   local f = setmetatable({}, fmt)
+  f._stubName, f._stubParent = name, parent
   table.insert(STUB_FRAMES, f)
   return f
 end
