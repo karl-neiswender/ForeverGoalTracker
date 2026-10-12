@@ -336,6 +336,8 @@ do
     D.activeParts.epicmounts = {}
     F.LayoutLibrary()
     local card = F.libCards[part.id]
+    card:GetScript("OnEnter")(card) -- hovering a part card (crashed: no steps)
+    card:GetScript("OnLeave")(card)
     card.btn:GetScript("OnClick")(card.btn)
     assert(F.PartSelected(F.GoalById("epicmounts"), 1) and LF.On(part), "adding the card picks that part")
     card.btn:GetScript("OnClick")(card.btn)

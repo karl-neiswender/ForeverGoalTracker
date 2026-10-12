@@ -8102,7 +8102,7 @@ local function GetCard(goal)
         if goal.note then GameTooltip:AddLine(goal.note, 0.9, 0.9, 0.9, true) end
         local fnote = FGT.ForeverNote(goal, true)
         if fnote then GameTooltip:AddLine(fnote, C.FOREVER[1], C.FOREVER[2], C.FOREVER[3], true) end
-        local d, t = GoalProgress(goal)
+        local d, t = LF.Progress(goal) -- a card may stand for one part (LF.RacePart)
         GameTooltip:AddLine(string.format("%d of %d steps done", d, t), C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         GameTooltip:Show()
     end)
@@ -8211,12 +8211,9 @@ LayoutLibrary = function()
     LF.Layout()
 
     -- cards: active goals first within the filter, then alphabetical
-    for _, g in ipairs(FGT.goals) do
-        local card = libCards[g.id]
-        if card then
-            card:Hide()
-            for _, sub in ipairs(card.subs or {}) do sub:Hide() end
-        end
+    for _, card in pairs(libCards) do -- every card, part cards included
+        card:Hide()
+        for _, sub in ipairs(card.subs or {}) do sub:Hide() end
     end
     local list = LF.Results(CurrentFilter())
     local top = LF.LayoutTags(#list)
