@@ -5261,7 +5261,7 @@ function FGT.UpdateExpandAll(goal)
     b:Show()
 end
 
-local stepsScrollObj = CreateScrollArea(FGT.detailBody)
+local stepsScrollObj = CreateScrollArea(FGT.detailBody, nil, 72) -- tall, eased bottom shade, darkest at the panel edge
 stepsScrollObj.scroll:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -8)
 -- down to the panel's inner edge (its border is 3px), so the bottom
 -- gradient meets the edge with no gap (no reset button below any more)
@@ -5383,7 +5383,7 @@ FGT.detailStepsScroll = stepsScrollObj
 do
     local S = stepsScrollObj
     S.fadeTop:SetAlpha(0) -- the bottom band stays (Karl); only the top one smudged the art
-    local TOP, BOTTOM = 34, 38
+    local TOP, BOTTOM = 34, 56
     local function Ease(x) x = math.max(0, math.min(1, x)) return x * x * (3 - 2 * x) end
     function FGT.StepsEdgeFade()
         local sc = S.scroll
