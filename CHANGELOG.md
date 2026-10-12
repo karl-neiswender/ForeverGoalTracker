@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add What's new: a button beside Settings that glows after an update and opens a short release ledger
+- Materials: counts on every row, grouped by crafting materials and tokens, Show completed and progress bar options, and a gentle nudge the first time you view a goal with a shopping list
+- Fix Copy Character Name being blocked after clicking a chat link
+- Simplify item tooltips and stop offering try-on for trade goods
 - Add a sliding per-goal Materials panel with progress bars, percentages and display filters
 - Fade Materials contents with the slide and remove duplicate item-collection bars from guide steps
 - Use the standard Warcraft font for headings, preserving the original panel widths
