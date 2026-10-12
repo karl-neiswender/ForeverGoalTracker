@@ -4808,6 +4808,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.set_dungeon1_priest = {{path="key_strat-banner.blp"}}
     B.artVariants.pvp_mount_ally = {{path="pvp_mount_ally-banner.blp"}}
     B.artVariants.pvp_avmount_ally = {{path="pvp_mount_ally-banner.blp"}}
+    B.artVariants.pvp_avmount_horde = {{path="pvp_av_horde-banner.blp"}}
     function B:PlayerArtContext()
         -- Use stable file tokens, not localized class/race display names.
         local race, class
