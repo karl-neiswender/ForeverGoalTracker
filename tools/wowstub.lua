@@ -10,6 +10,19 @@ mt.__index = function(t, k)
   -- as the item-name links needs it)
   if k == "SetText" then return function(self, s) rawset(self, "_text", s) end end
   if k == "GetText" then return function(self) return rawget(self, "_text") end end
+  -- The game rejects anything but its font flag words, which caught text
+  -- passed as flags (2026-10-12: a "What's new" crash that stubs had hidden).
+  if k == "SetFont" then return function(self, file, size, flags)
+    if type(size) ~= "number" then error("bad argument #2 to 'SetFont' (size must be a number)", 2) end
+    if flags ~= nil and flags ~= "" then
+      for word in tostring(flags):gmatch("[^,%s]+") do
+        if not ({ OUTLINE = 1, THICKOUTLINE = 1, MONOCHROME = 1, FILTER = 1, FIXEDHEIGHT = 1, NEVERCULL = 1, SLUG = 1 })[word] then
+          error("bad argument #3 to 'SetFont' (supported flags: OUTLINE, THICKOUTLINE, MONOCHROME, FILTER, FIXEDHEIGHT, NEVERCULL, SLUG)", 2)
+        end
+      end
+    end
+    return true
+  end end
   if type(k) == "string" and k:match("^Get") then return function() return 0, 0, 0, 0 end end
   if type(k) == "string" and (k:match("^Is") or k:match("^Has")) then return function() return false end end
   local m = newmock(); rawset(t, k, m); return m

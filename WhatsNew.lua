@@ -67,7 +67,8 @@ btn.glow:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\glow")
 btn.glow:SetBlendMode("ADD")
 btn.glow:SetPoint("CENTER", 0, 0)
 btn.glow:SetAlpha(0)
-btn.text = U.font(btn, 11, "What's new", unpack(C.SUBTEXT))
+btn.text = U.font(btn, 11, "", unpack(C.SUBTEXT))
+btn.text:SetText("What's new")
 btn.text:SetPoint("CENTER", 0, 0)
 btn:SetWidth(btn.text:GetStringWidth() + 14)
 btn.glow:SetSize(btn:GetWidth() + 56, 40)
@@ -157,7 +158,8 @@ local function Block(i)
     b.version:SetPoint("TOPLEFT", 10, -9)
     b.date = U.font(b, 10, "", unpack(C.SUBTEXT))
     b.date:SetPoint("TOPRIGHT", -10, -11)
-    b.new = U.font(b, 9, "NEW", unpack(BRIGHT))
+    b.new = U.font(b, 9, "", unpack(BRIGHT))
+    b.new:SetText("NEW")
     b.new:SetPoint("LEFT", b.version, "RIGHT", 8, 0)
     b.lines = {}
     blocks[i] = b
@@ -186,7 +188,8 @@ function W.Layout(prevSeen)
         for li, text in ipairs(entry.items) do
             local line = b.lines[li]
             if not line then
-                line = { dot = U.font(b, 11, "•", unpack(GOLD)), text = U.font(b, 11, "", unpack(C.TEXT)) }
+                line = { dot = U.font(b, 11, "", unpack(GOLD)), text = U.font(b, 11, "", unpack(C.TEXT)) }
+                line.dot:SetText("•")
                 line.text:SetJustifyH("LEFT")
                 b.lines[li] = line
             end
