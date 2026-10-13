@@ -2823,6 +2823,33 @@ local function CreateEdgeFade(parent, isTop, soft, bottomHeight)
     return f
 end
 
+-- The bottom shade eases out when you reach the end of a list, and back in
+-- when you scroll up, instead of popping (Karl). Its strips are plain
+-- textures, so the frame's alpha fades them. Instant with Celebrations off.
+local edgeTarget = setmetatable({}, { __mode = "k" })
+local function FadeEdge(f, on)
+    local target = on and 1 or 0
+    local settled = (on and f:IsShown() and f:GetAlpha() >= 1) or (not on and not f:IsShown())
+    if settled then f:SetScript("OnUpdate", nil); edgeTarget[f] = target; return end
+    if edgeTarget[f] == target and f:GetScript("OnUpdate") then return end -- already on its way
+    edgeTarget[f] = target
+    local parent = f:GetParent()
+    if not (parent and parent:IsVisible()) or (FGT.Setting and FGT.Setting("celebrations") == "off") then
+        f:SetScript("OnUpdate", nil); f:SetAlpha(target); f:SetShown(on)
+        return
+    end
+    if on and not f:IsShown() then f:SetAlpha(0); f:Show() end
+    f:SetScript("OnUpdate", function(self, dt)
+        local a = self:GetAlpha()
+        a = target > a and math.min(target, a + dt/0.35) or math.max(target, a - dt/0.35)
+        self:SetAlpha(a)
+        if a == target then
+            self:SetScript("OnUpdate", nil)
+            if target == 0 then self:Hide() end
+        end
+    end)
+end
+
 -- A minimal mouse-wheel scroll area: a ScrollFrame + content frame, a thin
 -- flat scrollbar, and top/bottom edge fades. Call :Finalize() once the
 -- returned .scroll frame has been anchored, then use .content as the parent
@@ -2969,7 +2996,7 @@ local function CreateScrollArea(parent, softBottom, bottomHeight)
         -- (Fading each row's own alpha instead was tried and dropped: the
         -- rows looked like they vanished rather than went under.)
         fadeTop:SetShown(maxScroll > 1 and current > 1)
-        fadeBottom:SetShown(maxScroll > 1 and current < maxScroll - 1)
+        FadeEdge(fadeBottom, maxScroll > 1 and current < maxScroll - 1)
 
         if maxScroll > 1 then
             trackHit:Show()

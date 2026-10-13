@@ -90,6 +90,7 @@ for k, v in pairs(mt) do fmt[k] = v end
 fmt.__index = function(t, k)
   if k == "SetScript" then return function(self, name, fn) rawset(self, "_s_" .. name, fn) end end
   if k == "GetScript" then return function(self, name) return rawget(self, "_s_" .. name) end end
+  if k == "GetParent" then return function(self) return rawget(self, "_stubParent") end end
   if k == "HookScript" then return function(self, name, fn)
     local original = rawget(self, "_s_" .. name)
     rawset(self, "_s_" .. name, original and function(...)
