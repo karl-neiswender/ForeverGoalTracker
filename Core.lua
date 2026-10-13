@@ -5144,14 +5144,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 size = 0.07, strength = 0.8, travel = 4, rest = 10 } } },
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- Shaman Tier 2 (Alliance and Horde share the image): the storm lightning glows
-        -- ...and a few slow electric sparks where the bolts land on the armor
+        -- (Karl, 2026-10-13: the electric sparks, `embers = { { zap = true, box, count, strength } }`,
+        -- were tried here and taken off; the bloom stays)
         ["set_tier2_shaman-banner.blp"] = { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 1,
-            bloom = { "set_tier2_shaman-bloom", strength = 0.6 },
-            embers = {
-                { zap = true, box = { 0.535, 0.575, 0.14, 0.20 }, count = 3, strength = 1.8 }, -- wolf shoulder
-                { zap = true, box = { 0.665, 0.705, 0.17, 0.24 }, count = 3, strength = 1.8 }, -- spiked pauldron
-                { zap = true, box = { 0.875, 0.920, 0.27, 0.35 }, count = 3, strength = 1.8 }, -- bull shoulder
-            } },
+            bloom = { "set_tier2_shaman-bloom", strength = 0.6 } },
         -- the holy spell in his hand, with faint rays turning very slowly
         rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 2.3, strength = 1.25,
             sunrays = { 0.85, -0.10, 120, 35, 4, 0.9, strength = 0.5 } }, -- a few faint sunrays too

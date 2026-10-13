@@ -661,7 +661,12 @@ do
     B:PlaceGlow()
     assert(B.glowSpec == shaman and B.bloomOn, "Shaman Tier 2's bloom starts")
     for k = 0, 100 do B:StepBloom(k*0.3) end
-    -- the sparks where the lightning lands: nine, slow to appear, resting between
+    assert(not shaman.embers, "Shaman Tier 2 keeps only its bloom")
+    -- the spark sets (zap): nine in three spots, slow to appear, resting between
+    B.glowSpec = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, embers = {
+        { zap = true, box = { 0.535, 0.575, 0.14, 0.20 }, count = 3, strength = 1.8 },
+        { zap = true, box = { 0.665, 0.705, 0.17, 0.24 }, count = 3, strength = 1.8 },
+        { zap = true, box = { 0.875, 0.920, 0.27, 0.35 }, count = 3, strength = 1.8 } } }
     B:ResetEmbers()
     assert(B.emberCount == 9, "three sparks at each of three impact spots: " .. tostring(B.emberCount))
     local z = B.zapLimits
