@@ -4902,6 +4902,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="set_tier2_warrior-banner.blp", faction="Horde"},
     }
     -- Shared combat artwork for kills and duels on either faction.
+    B.artVariants.social_buffs = {
+        {path="social_buffs_mage-banner.blp", class="MAGE", aspect=4/3, preprocessed=true},
+        {path="social_buffs_druid-banner.blp", class="DRUID", aspect=4/3, preprocessed=true},
+        {path="social_buffs_paladin-banner.blp", class="PALADIN", aspect=4/3, preprocessed=true},
+        {path="social_buffs_priest-banner.blp", class="PRIEST", aspect=4/3, preprocessed=true},
+    }
     B.artVariants.pvp_hk = {{path="pvp_drums_of_war-banner.blp"}}
     B.artVariants.pvp_duelist = {{path="pvp_drums_of_war-banner.blp"}}
     B.artVariants.pvp_set_mail_horde = {{path="pvp_set_mail_horde-banner.blp"}}
