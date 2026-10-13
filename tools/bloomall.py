@@ -123,6 +123,12 @@ OVERRIDES = {
         ((0.77, 0.90, 0.38, 0.53), 0.7, {})]),                                     # shoulder snake mouth                                         # shoulder snake mouth
 }
 
+# Blooms baked in zones (a texture per band of the picture, each breathing on its own beat in
+# Core.lua's B.bloomParts). The listed v fractions are where one zone gives way to the next, with
+# ramps that add up to a whole, so the zones together are exactly the one bloom, seamlessly.
+ZONES = {"atiesh": [0.30, 0.50, 0.68]}
+ZONE_RAMP = 0.05
+
 TILE_W, TILE_H = 480, 360
 
 
@@ -153,7 +159,20 @@ def main():
         else:
             alpha, bloom = B.bloom_alpha(master, **opts)
         data = B.encode_blp(alpha)
-        (out_dir / f"{stem}-bloom.blp").write_bytes(data)
+        cuts = ZONES.get(stem)
+        if cuts:
+            rows = (np.arange(alpha.shape[0]) + 0.5) / alpha.shape[0]
+
+            def below(cut):  # 0 above the cut, 1 below it, smooth over the ramp
+                x = np.clip((rows - (cut - ZONE_RAMP)) / (2 * ZONE_RAMP), 0, 1)
+                return x * x * (3 - 2 * x)
+            edges = [np.ones_like(rows)] + [below(c) for c in cuts] + [np.zeros_like(rows)]
+            for k in range(len(edges) - 1):
+                weight = (edges[k] - edges[k + 1])[:, None]
+                zone = np.round(alpha.astype(np.float32) * weight).astype(np.uint8)
+                (out_dir / f"{stem}-bloom-{k + 1}.blp").write_bytes(B.encode_blp(zone))
+        else:
+            (out_dir / f"{stem}-bloom.blp").write_bytes(data)
         worst, mean = B.alpha_error(data, alpha)
         pv = out_dir / f"{stem}-preview.jpg"
         B.preview(master, alpha, 0.6, pv, size=(TILE_W * 2, TILE_H))
@@ -176,7 +195,11 @@ def main():
     print(f"{len(report)} blooms, {sum(r[2] for r in report)} KB, {(len(tiles) + per - 1) // per} sheets -> {out_dir}")
     if "--install" in sys.argv:
         for stem, *_ in report:
-            shutil.copy(out_dir / f"{stem}-bloom.blp", ROOT / "Media" / f"{stem}-bloom.blp")
+            if stem in ZONES:
+                for k in range(len(ZONES[stem]) + 1):
+                    shutil.copy(out_dir / f"{stem}-bloom-{k + 1}.blp", ROOT / "Media" / f"{stem}-bloom-{k + 1}.blp")
+            else:
+                shutil.copy(out_dir / f"{stem}-bloom.blp", ROOT / "Media" / f"{stem}-bloom.blp")
         print("installed into Media/")
 
 

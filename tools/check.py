@@ -117,7 +117,7 @@ for line_no, line in enumerate(core_src.splitlines(), 1):
     name, layer, sub = m.group(1), m.group(2), int(m.group(3) or 0)
     if name in ("B.left", "B.top", "B.bottom"):
         shading[name] = (layer, sub, line_no)
-    elif name in ("B.glowTex", "B.raysTex", "B.bloomTex") or func in ("ResetEmbers", "ResetShafts"):
+    elif name in ("B.glowTex", "B.raysTex", "B.bloomTex") or func in ("ResetEmbers", "ResetShafts", "BloomTexture"):
         effects[name or ("texture made in " + func)] = (layer, sub, line_no)
     elif name == "B.art" or name == "B.background":
         effects[name] = (layer, sub, line_no)
@@ -160,7 +160,10 @@ ok_all = ok_all and not gone
 # Every bloom a banner asks for has its texture (and its banner image) on disk.
 stems = re.findall(r'"([\w-]+)"', re.search(r"B\.bloomStems = \{(.*?)\n    \}", core_src, re.S).group(1))
 named = [n for n in re.findall(r'bloom = \{ "([\w-]+-bloom)"', core_src) if n != "name-bloom"]  # ("name-bloom" is the doc comment's example)
-missing = [m for m in [s + "-bloom" for s in stems] + named if not (os.path.exists("Media/" + m + ".blp") or os.path.exists("Media/" + m + ".tga"))]
+zoned = {m_.group(1): len(re.findall(r'"[\w-]+-bloom-\d+"', m_.group(2))) for m_ in
+         re.finditer(r'(\w+) = \{ depth = [\d.]+,(.*?)\n        \},', core_src, re.S)}
+zone_files = [s_ + "-bloom-" + str(k_) for s_, n_ in zoned.items() for k_ in range(1, n_ + 1)]
+missing = [m for m in [s + "-bloom" for s in stems if s not in zoned] + named + zone_files if not (os.path.exists("Media/" + m + ".blp") or os.path.exists("Media/" + m + ".tga"))]
 missing += [s + "-banner.blp" for s in stems if not os.path.exists("Media/" + s + "-banner.blp")]
 print(("blooms     " if not missing else "BLOOM      ") + str(len(stems) + len(named)) + " bloom textures and their banners are on disk"
       + ("" if not missing else "; MISSING: " + ", ".join(missing)))

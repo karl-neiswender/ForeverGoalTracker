@@ -5474,9 +5474,24 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         rep_ambassador_ally_darnassus = 0.5, rep_ambassador_horde_undercity = 0.5,
         social_cheers = 0.45,
     }
+    -- A bloom can be baked in zones (tools/bloomall.py ZONES): one texture per band of the
+    -- picture, each dimming and brightening on its own slow beat, so the glow ripples through
+    -- the art instead of breathing as one (Karl: Atiesh, 2026-10-13). `depth` is how far a zone
+    -- dims (0.7: down to 30%); periods are 6 to 12 s sine beats, never a flash. The first
+    -- zone's texture is the bloom's own; the others are made on demand.
+    B.bloomParts = {
+        atiesh = { depth = 0.7,
+            { "atiesh-bloom-1", period = 6.3, phase = 0.0 },
+            { "atiesh-bloom-2", period = 9.1, phase = 2.4 },
+            { "atiesh-bloom-3", period = 11.7, phase = 4.1 },
+            { "atiesh-bloom-4", period = 7.7, phase = 5.5 },
+        },
+    }
     B.blooms, B.bloomSpecs = {}, {}
     for _, stem in ipairs(B.bloomStems) do
-        B.blooms[stem .. "-banner.blp"] = { stem .. "-bloom", strength = B.bloomStrength[stem] or 0.6 }
+        local parts = B.bloomParts[stem]
+        B.blooms[stem .. "-banner.blp"] = { parts and parts[1][1] or (stem .. "-bloom"),
+            strength = B.bloomStrength[stem] or 0.6, parts = parts }
     end
     -- The light for the banner on screen: its image first, then its goal, with the image's
     -- bloom added. A banner with a bloom but no light of its own gets a light that is only
@@ -5596,26 +5611,61 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         return 0.5 + dx*cs - dy*sn, 0.5 + dx*sn + dy*cs
     end
     -- Lays the bloom over the whole shown art, cropped exactly as the art is.
+    -- The texture for the bloom's zone i: the first is the bloom's own, the rest are made on demand.
+    B.bloomExtra = {}
+    function B:BloomTexture(i)
+        if i == 1 then return self.bloomTex end
+        local t = self.bloomExtra[i]
+        if not t then
+            t = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
+            t:SetBlendMode("ADD")
+            if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
+            if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
+            if self.lightMask then t:AddMaskTexture(self.lightMask) end
+            t:Hide()
+            self.bloomExtra[i] = t
+        end
+        return t
+    end
+    -- Only the zones the current bloom has are shown.
+    function B:ShowBloomParts()
+        local bloom = self.bloomOn and self.glowSpec and self.glowSpec.bloom
+        local n = bloom and bloom.parts and #bloom.parts or 1
+        for i, t in pairs(self.bloomExtra) do t:SetShown((bloom and i <= n) and true or false) end
+    end
     function B:FitBloom(bloom)
-        local t = self.bloomTex
         local aw = math.max(1, self.art:GetWidth())
-        t:ClearAllPoints()
-        t:SetPoint("TOPLEFT", self.art, "TOPLEFT", 0, 0)
-        t:SetSize(aw, math.max(1, self.shownArtHeight or 1))
         local uv = self.uv
-        t:SetTexCoord(uv[1], uv[2], uv[3], uv[4])
-        self.lightSpan[t] = { 0, aw }
-        if self.bloomFor ~= bloom[1] then
-            t:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..bloom[1])
-            self.bloomFor = bloom[1]
+        for i = 1, bloom.parts and #bloom.parts or 1 do
+            local t = self:BloomTexture(i)
+            t:ClearAllPoints()
+            t:SetPoint("TOPLEFT", self.art, "TOPLEFT", 0, 0)
+            t:SetSize(aw, math.max(1, self.shownArtHeight or 1))
+            t:SetTexCoord(uv[1], uv[2], uv[3], uv[4])
+            self.lightSpan[t] = { 0, aw }
+            local file = bloom.parts and bloom.parts[i][1] or bloom[1]
+            if t.fgtFile ~= file then
+                t:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..file)
+                t.fgtFile = file
+            end
         end
     end
     -- breathes between about 85% and 100% of its strength, two unrelated slow beats
     function B:StepBloom(time)
         local bloom = self.glowSpec and self.glowSpec.bloom
         if not (bloom and self.bloomOn) then return end
+        local level = (self.glowLevel or 0)*(bloom.strength or 0.6)
+        if bloom.parts then
+            -- each zone dims and brightens on its own beat
+            local depth = bloom.parts.depth or 0.7
+            for i, part in ipairs(bloom.parts) do
+                local w = 0.5 + 0.5*math.sin(time*2*math.pi/part.period + part.phase)
+                self:PaintLight(self:BloomTexture(i), level*((1 - depth) + depth*w))
+            end
+            return
+        end
         local w = 0.5 + 0.3*math.sin(time*2*math.pi/7.3) + 0.2*math.sin(time*2*math.pi/11.9 + 1.3)
-        self:PaintLight(self.bloomTex, (self.glowLevel or 0)*(bloom.strength or 0.6)*(0.85 + 0.15*w))
+        self:PaintLight(self.bloomTex, level*(0.85 + 0.15*w))
     end
     -- How far a glow swells and shrinks as it drifts: `pulse` on a spec is the
     -- total swing as a share of its size (default 0.08, so 96% to 104%; at most 0.4).
@@ -6184,6 +6234,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.bloomOn = bloom and true or false
         self.bloomTex:SetShown(self.bloomOn)
         if bloom then self:FitBloom(bloom) end
+        self:ShowBloomParts()
         self.raysTex:SetShown((on and spec.rays) and true or false)
         -- `raysSoft`: the same rays, wider and much blurrier (Priest's buff banner)
         local raysArt = (on and spec.raysSoft) and "rays-soft" or "rays"
@@ -6415,7 +6466,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
         for _,t in ipairs(self.fadeStrips) do t:Hide() end
-        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.bloomTex:Hide(); self.bloomOn = false; self.glowAnim:Stop(); self:HideEmbers(); self:HideShafts(); self.emberFor = nil
+        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.bloomTex:Hide(); self.bloomOn = false; self:ShowBloomParts(); self.glowAnim:Stop(); self:HideEmbers(); self:HideShafts(); self.emberFor = nil
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()

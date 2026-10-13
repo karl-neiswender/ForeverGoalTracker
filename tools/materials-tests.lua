@@ -703,6 +703,35 @@ do
         assert(B.raysTex.fgtQ1 == bright, "and their brightness (" .. tostring(bright) .. " vs " .. tostring(B.raysTex.fgtQ1) .. ")")
         B.goal = STUB_NS.GoalById("set_tier2_shaman"); B:PlaceGlow()
     end
+    -- A zoned bloom (Atiesh): every zone on its own slow beat, all of them dimming and brightening
+    do
+        B.goal = STUB_NS.GoalById("atiesh")
+        B.hasArt, B.emberFor = true, nil
+        local spec = B:GlowSpec()
+        assert(spec and spec.bloom and spec.bloom.parts and #spec.bloom.parts == 4, "Atiesh's bloom has four zones")
+        B:PlaceGlow()
+        assert(B.bloomOn and B.bloomExtra[2] and B.bloomExtra[3] and B.bloomExtra[4], "its zones are made")
+        B.glowLevel = 0.5
+        local seen, lows, highs = {}, {}, {}
+        for k = 0, 400 do
+            B:StepBloom(k*0.25)
+            for i = 1, 4 do
+                local q = B:BloomTexture(i).fgtQ2
+                assert(q, "zone " .. i .. " is painted")
+                lows[i] = math.min(lows[i] or 255, q); highs[i] = math.max(highs[i] or 0, q)
+            end
+        end
+        for i = 1, 4 do
+            assert(highs[i] > 2*lows[i], "zone " .. i .. " dims to well under half and back (" .. lows[i] .. " to " .. highs[i] .. ")")
+        end
+        -- not in step: at a given moment the zones differ
+        B:StepBloom(3.0)
+        local a = {}
+        for i = 1, 4 do a[i] = B:BloomTexture(i).fgtQ2 end
+        assert(not (a[1] == a[2] and a[2] == a[3] and a[3] == a[4]), "the zones are at different brightness together")
+        -- a plain bloom hides the extra zones again
+        B.goal = STUB_NS.GoalById("raid_mc"); B:PlaceGlow()
+    end
     -- Druid and nature banners keep the page's windy leaves with their particles; others hide them
     do
         assert(B:IsLeafy("x", "social_buffs_druid-banner.blp") and B:IsLeafy("x", "rep_ambassador_ally_darnassus-banner.blp"), "the druid buff banner and Darnassus keep the leaves")
