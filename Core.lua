@@ -780,6 +780,21 @@ local function OwnsName(test, roster)
     return false
 end
 
+-- Counters the addon keeps itself, per character (c.counts[key]) and added up across the
+-- roster: boss kills with guildmates (ENCOUNTER_END and BOSS_KILL), completed trades, and
+-- campfires placed. A rule names one: auto = { trades = 25 }.
+FGT.COUNTERS = {
+    guildDungeonBosses = "dungeon bosses defeated with guildmates",
+    guildRaidBosses = "raid bosses defeated with guildmates",
+    trades = "trades with other players",
+    campfires = "campfires placed",
+}
+local function CounterTotal(roster, key)
+    local total = 0
+    for _, c in pairs(roster) do total = total + ((c.counts and c.counts[key]) or 0) end
+    return total
+end
+
 local function RuleMet(rule)
     if not rule then return false end
     local roster = RosterFor(rule)
@@ -843,6 +858,9 @@ local function RuleMet(rule)
     if rule.friends then
         for _, c in pairs(roster) do if (c.friends or 0) >= rule.friends then return true, "friends " .. c.friends end end
     end
+    for key in pairs(FGT.COUNTERS) do
+        if rule[key] and CounterTotal(roster, key) >= rule[key] then return true, key .. " " .. CounterTotal(roster, key) end
+    end
     if rule.stat then
         for _, c in pairs(roster) do
             local v = c.stats and c.stats[rule.stat.id] or 0
@@ -899,6 +917,12 @@ local function RuleReadout(rule)
         for _, c in pairs(roster) do best = math.max(best, c.friends or 0) end
         return string.format("%d / %d", math.min(best, rule.friends), rule.friends), math.min(best, rule.friends), rule.friends
     end
+    for key in pairs(FGT.COUNTERS) do
+        if rule[key] then
+            local total = math.min(CounterTotal(roster, key), rule[key])
+            return string.format("%d / %d", total, rule[key]), total, rule[key]
+        end
+    end
     if rule.stat then
         local best, want = 0, rule.stat.value
         for _, c in pairs(roster) do best = math.max(best, c.stats and c.stats[rule.stat.id] or 0) end
@@ -942,6 +966,9 @@ local function DescribeRule(rule)
     if rule.hk then table.insert(parts, "a character reaches " .. rule.hk .. " lifetime honorable kills") end
     if rule.guild then table.insert(parts, "a character joins a guild") end
     if rule.friends then table.insert(parts, "a character has " .. rule.friends .. " friends") end
+    for key, what in pairs(FGT.COUNTERS) do
+        if rule[key] then table.insert(parts, "your characters reach " .. rule[key] .. " " .. what) end
+    end
     if rule.stat then
         table.insert(parts, "a character's " .. (rule.stat.what or "statistic") .. " reaches " .. rule.stat.value
             .. " (Statistics)")
@@ -8779,6 +8806,7 @@ function LF.Available(goal, allowChild)
     if goal.forever == "new" and not FGT.isForever then return false end
     if goal.needs == "stats" and not FGT.HasStats() then return false end -- no Statistics window
     if goal.needs == "forever" and not FGT.isForever then return false end -- Forever-only items
+    if goal.needs == "campfire" and not (FGT.isForever and FGT.CampfireReady()) then return false end -- until we can count them
     return true
 end
 function LF.SearchMatch(goal)
@@ -12058,17 +12086,65 @@ for _, ev in ipairs({
     "BANKFRAME_OPENED", "BANKFRAME_CLOSED", "PLAYERBANKSLOTS_CHANGED",
     "UPDATE_FACTION", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "SKILL_LINES_CHANGED",
     "NEW_MOUNT_ADDED", "COMPANION_LEARNED", "PLAYER_PVP_RANK_CHANGED", "PLAYER_PVP_KILLS_CHANGED",
-    "PLAYER_GUILD_UPDATE", "FRIENDLIST_UPDATE", "DUEL_FINISHED",
+    "PLAYER_GUILD_UPDATE", "FRIENDLIST_UPDATE", "DUEL_FINISHED", "UI_INFO_MESSAGE",
 }) do
     pcall(rosterWatcher.RegisterEvent, rosterWatcher, ev) -- skip events a client lacks
 end
 -- Boss kills: ENCOUNTER_END (success) and BOSS_KILL both report the
 -- encounter's name; it's stored on the character that was there.
+-- A boss killed in a dungeon with a guildmate in the group, or in a raid with at least 5 (a
+-- guild run, not a pickup that happens to hold a guildmate). ENCOUNTER_END and BOSS_KILL both
+-- report one kill, so a name counts once a minute.
+FGT.GUILD_RAID_MIN = 5
+function FGT.CountGroupKill(me, name)
+    local kind = IsInInstance and select(2, IsInInstance())
+    if kind ~= "party" and kind ~= "raid" then return end
+    FGT.lastKill = FGT.lastKill or {}
+    local now = GetTime()
+    if FGT.lastKill[name] and now - FGT.lastKill[name] < 60 then return end
+    FGT.lastKill[name] = now
+    if not (IsInGuild and IsInGuild() and UnitIsInMyGuild) then return end
+    local prefix = (IsInRaid and IsInRaid()) and "raid" or "party"
+    local mates = 0
+    for i = 1, (GetNumGroupMembers and GetNumGroupMembers() or 0) do
+        local unit = prefix .. i
+        if UnitExists(unit) and not UnitIsUnit(unit, "player") and UnitIsInMyGuild(unit) then mates = mates + 1 end
+    end
+    me.counts = me.counts or {}
+    if kind == "party" and mates >= 1 then
+        me.counts.guildDungeonBosses = (me.counts.guildDungeonBosses or 0) + 1
+    elseif kind == "raid" and mates >= FGT.GUILD_RAID_MIN then
+        me.counts.guildRaidBosses = (me.counts.guildRaidBosses or 0) + 1
+    end
+end
+
+-- Add one to a counter on the logged-in character, then re-check the goals.
+function FGT.Count(key, quiet)
+    if not ForeverGoalTrackerDB then return end
+    RecordCharacter()
+    local me = Roster()[CharKey()]
+    if not me then return end
+    me.counts = me.counts or {}
+    me.counts[key] = (me.counts[key] or 0) + 1
+    local changed = ApplyAutoRules()
+    if changed > 0 and FGT.Setting("stepChat") and not quiet then
+        print(TAG .. string.format("%d step%s checked off.", changed, changed == 1 and "" or "s"))
+    end
+    RefreshOpenWindow()
+end
+
+-- The campfire (new in Forever) has no Statistics counter we know of: it is counted from the
+-- spell the game casts when you place one. /goals logcasts finds the spell ids; until one is
+-- listed here the campfire goal stays hidden.
+FGT.CAMPFIRE_SPELLS = {}
+function FGT.CampfireReady() return next(FGT.CAMPFIRE_SPELLS) ~= nil end
+
 local function RecordBossKill(name)
     if not (name and ForeverGoalTrackerDB) then return end
     RecordCharacter()
     local me = Roster()[CharKey()]
     if not me then return end
+    FGT.CountGroupKill(me, name)
     me.bosses = me.bosses or {}
     me.bosses[name] = true
     local changed = ApplyAutoRules()
@@ -12081,7 +12157,42 @@ end
 pcall(rosterWatcher.RegisterEvent, rosterWatcher, "ENCOUNTER_END")
 pcall(rosterWatcher.RegisterEvent, rosterWatcher, "BOSS_KILL")
 
+-- Spell casts are only watched while something needs them (a known campfire spell, or the
+-- /goals logcasts recorder), so the addon is not woken for every cast you make.
+function FGT.WatchCasts()
+    local want = FGT.CampfireReady() or (FGT.castLogUntil and GetTime() < FGT.castLogUntil)
+    if want and not FGT.watchingCasts then
+        FGT.watchingCasts = pcall(rosterWatcher.RegisterUnitEvent, rosterWatcher, "UNIT_SPELLCAST_SUCCEEDED", "player")
+    elseif not want and FGT.watchingCasts then
+        pcall(rosterWatcher.UnregisterEvent, rosterWatcher, "UNIT_SPELLCAST_SUCCEEDED")
+        FGT.watchingCasts = false
+    end
+end
+
+FGT.WatchCasts() -- (nothing to watch until a campfire spell is listed)
+
 rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, arg5)
+    if event == "UI_INFO_MESSAGE" then
+        -- "Trade complete." (the message is the second argument on current clients, the first on older ones)
+        local message = type(arg2) == "string" and arg2 or arg1
+        if ERR_TRADE_COMPLETE and message == ERR_TRADE_COMPLETE then FGT.Count("trades") end
+        return
+    end
+    if event == "UNIT_SPELLCAST_SUCCEEDED" then
+        local spell = arg3
+        if FGT.castLogUntil and GetTime() < FGT.castLogUntil then
+            local name = GetSpellInfo and GetSpellInfo(spell) or (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(spell)) or "?"
+            local DB = ForeverGoalTrackerDB
+            if DB then
+                DB.castLog = DB.castLog or {}
+                table.insert(DB.castLog, string.format("%s: %s (%s)", date and date("%H:%M:%S") or "", tostring(spell), tostring(name)))
+                while #DB.castLog > 60 do table.remove(DB.castLog, 1) end
+            end
+            print(TAG .. string.format("cast: %s (spell %s)", tostring(name), tostring(spell)))
+        end
+        if FGT.CAMPFIRE_SPELLS[spell] then FGT.Count("campfires") end
+        return
+    end
     if event == "ENCOUNTER_END" then
         if arg5 == 1 then RecordBossKill(arg2) end -- id, name, difficulty, size, success
         return
@@ -12533,6 +12644,16 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         if FGT.Audit then FGT.Audit.Command(auditArg) end
         return
     end
+    if msg == "logcasts" then
+        -- Finds spell ids: for the next 3 minutes every spell you cast is printed and kept in
+        -- ForeverGoalTrackerDB.castLog. Place a campfire (or anything else) and read the id.
+        FGT.castLogUntil = GetTime() + 180
+        ForeverGoalTrackerDB.castLog = {}
+        FGT.WatchCasts()
+        print(TAG .. "listing every spell you cast for 3 minutes. Place a campfire now.")
+        if C_Timer and C_Timer.After then C_Timer.After(182, function() FGT.WatchCasts() end) end
+        return
+    end
     if msg == "tipsdebug" then
         -- arms a recorder: the next Tips click records 2 s and prints how the
         -- Tips row, the shade and the scroll moved, for chasing flashes
@@ -12670,6 +12791,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
             local ok = not (g.forever == "new" and not FGT.isForever)
                 and not (g.needs == "stats" and not FGT.HasStats())
                 and not (g.needs == "forever" and not FGT.isForever)
+                and not (g.needs == "campfire" and not (FGT.isForever and FGT.CampfireReady()))
             if ok and not g.libraryOnly and not IsActive(g) then
                 if g.group then
                     local sel = DB.activeParts[g.id] or {}
@@ -12932,6 +13054,7 @@ local function Entry(me, id, keys, why)
     if g.forever == "new" and not FGT.isForever then return nil end
     if g.needs == "stats" and not FGT.HasStats() then return nil end
     if g.needs == "forever" and not FGT.isForever then return nil end
+    if g.needs == "campfire" and not (FGT.isForever and FGT.CampfireReady()) then return nil end
     if g.removedInForever and FGT.isForever then return nil end -- can't be finished there
     -- a profession goal is only offered to a character who practices it
     -- (and has gotten far enough with it: suggestSkill = { name, rank })
@@ -13137,6 +13260,10 @@ local function Suggest(picked)
             elseif it.key == "social" then
                 push(list, Entry(me, "social_guild", nil, tag))
                 push(list, Entry(me, "social_friends", nil, tag))
+                push(list, Entry(me, "social_guild_dungeon", nil, tag))
+                push(list, Entry(me, "social_guild_raid", nil, tag))
+                push(list, Entry(me, "social_trades", nil, tag))
+                push(list, Entry(me, "social_campfires", nil, tag))
             end
             -- goals you've already started go first
             local started, rest = {}, {}

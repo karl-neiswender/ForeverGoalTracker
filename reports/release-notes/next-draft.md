@@ -7,7 +7,7 @@ Written to `style-guide.md` from everything on `main` since 2.12.0. Bugs that ex
 - Added light to goal images: embers, snow, sunlight and a soft bloom on the brightest lights
 - You can now Ctrl-click an armor set's icon to try on the whole set
 - Added Image effects in Settings: Full, Subtle or Off
-- Added a token, idol and scarab checklist to each Tier 2.5 piece
+- Added social goals for dungeon bosses with guildmates, raiding with guildmates and trades
 - Changed goal suggestions to follow your professions
 - UI improvements and bug fixes
 
@@ -20,6 +20,7 @@ Written to `style-guide.md` from everything on `main` since 2.12.0. Bugs that ex
 - Added Image effects in Settings under Images: Full, Subtle (the drifting clouds only) or Off (the image alone).
 - Added a token, idol and scarab checklist to each Tier 2.5 armor piece, the same way Tier 3 lists its materials.
 - Added a "Learn Fishing" first step to the Stranglethorn Fishing Extravaganza.
+- Added three social goals: Dungeon Bosses with Guildmates, Raid with Guildmates and Trade with Players. They count what you do, across all your characters.
 
 ### Changes
 

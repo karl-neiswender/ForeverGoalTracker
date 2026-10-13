@@ -800,6 +800,79 @@ local library = {
             { text = "Have 25 friends.", auto = { friends = 25 } },
         },
     },
+    -- The next four count things the addon sees you do (Core.lua: FGT.COUNTERS), across all your
+    -- characters. Icons are placeholders until Karl's art arrives.
+    {
+        id = "social_guild_dungeon", library = true, forever = "confirmed",
+        icon = { "inv_misc_key_08", "inv_misc_groupneedmore" },
+        name = "Dungeon Bosses with Guildmates", short = "Guild Dungeons",
+        category = "Social", difficulty = "Moderate",
+        timeEstimate = "Weeks",
+        note = "Defeat dungeon bosses with a guildmate in your party. Progress is tracked automatically.",
+        tips = {
+            "One other guild member in your party is enough. You need to be in a guild yourself.",
+            "Only bosses defeated while the addon is enabled are counted.",
+        },
+        target = { kind = "guildDungeonBosses", default = 25, min = 5, max = 200, marks = { 0.2, 0.4, 1 },
+                   step = "Defeat %s dungeon bosses with guildmates.", unit = "bosses" },
+        steps = {
+            { text = "Defeat 5 dungeon bosses with guildmates.", auto = { guildDungeonBosses = 5 } },
+            { text = "Defeat 10 dungeon bosses with guildmates.", auto = { guildDungeonBosses = 10 } },
+            { text = "Defeat 25 dungeon bosses with guildmates.", auto = { guildDungeonBosses = 25 } },
+        },
+    },
+    {
+        id = "social_guild_raid", library = true, forever = "confirmed",
+        icon = { "inv_misc_head_dragon_black", "inv_misc_groupneedmore" },
+        name = "Raid with Guildmates", short = "Guild Raids",
+        category = "Social", difficulty = "Hard",
+        timeEstimate = "Months",
+        note = "Defeat raid bosses with your guild. Progress is tracked automatically.",
+        tips = {
+            "At least 5 guildmates in the raid group make a boss count, so a guild run counts and a pickup raid does not.",
+            "Only bosses defeated while the addon is enabled are counted.",
+        },
+        target = { kind = "guildRaidBosses", default = 25, min = 5, max = 200, marks = { 0.2, 0.4, 1 },
+                   step = "Defeat %s raid bosses with guildmates.", unit = "bosses" },
+        steps = {
+            { text = "Defeat 5 raid bosses with guildmates.", auto = { guildRaidBosses = 5 } },
+            { text = "Defeat 10 raid bosses with guildmates.", auto = { guildRaidBosses = 10 } },
+            { text = "Defeat 25 raid bosses with guildmates.", auto = { guildRaidBosses = 25 } },
+        },
+    },
+    {
+        id = "social_trades", library = true, forever = "confirmed",
+        icon = { "inv_misc_coin_01", "inv_misc_groupneedmore" },
+        name = "Trade with Players", short = "Trades",
+        category = "Social", difficulty = "Easy",
+        timeEstimate = "Days",
+        note = "Complete trades with other players. Progress is tracked automatically.",
+        tips = {
+            "A trade counts when both of you accept it.",
+        },
+        target = { kind = "trades", default = 25, min = 5, max = 200, marks = { 0.2, 0.4, 1 },
+                   step = "Complete %s trades with other players.", unit = "trades" },
+        steps = {
+            { text = "Complete 5 trades with other players.", auto = { trades = 5 } },
+            { text = "Complete 10 trades with other players.", auto = { trades = 10 } },
+            { text = "Complete 25 trades with other players.", auto = { trades = 25 } },
+        },
+    },
+    {
+        id = "social_campfires", library = true, forever = "new", needs = "campfire",
+        icon = { "spell_fire_fire", "inv_misc_groupneedmore" },
+        name = "Light Campfires", short = "Campfires",
+        category = "Social", difficulty = "Easy",
+        timeEstimate = "Days",
+        note = "Place campfires, new in Forever. Progress is tracked automatically.",
+        target = { kind = "campfires", default = 25, min = 5, max = 200, marks = { 0.2, 0.4, 1 },
+                   step = "Place %s campfires.", unit = "campfires" },
+        steps = {
+            { text = "Place 5 campfires.", auto = { campfires = 5 } },
+            { text = "Place 10 campfires.", auto = { campfires = 10 } },
+            { text = "Place 25 campfires.", auto = { campfires = 25 } },
+        },
+    },
 }
 
 for _, goal in ipairs(library) do

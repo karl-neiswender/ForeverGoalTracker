@@ -341,6 +341,26 @@ if ok_all:
             'assert(not first.set_tier1 or first.set_forever_raid < first.set_tier1, "Tier 0.5 comes before Tier 1: " .. list); '
             'assert(not first.raid_mc or first.set_forever_raid < first.raid_mc, "and before Molten Core: " .. list); '
             'STUB_NS.CloseWelcome(true); print("  Forever raids and the Tier 0.5 set lead the raiding suggestions: " .. list)', True),
+        # New social goals: boss kills with guildmates, completed trades and campfires are counted by the addon.
+        ("social counters", None,
+            'local F, D = STUB_NS, ForeverGoalTrackerDB; for _, id in ipairs({ "social_guild_dungeon", "social_guild_raid", "social_trades" }) do assert(F.GoalById(id), id); D.active[id] = true end; '
+            'local me = D.characters[next(D.characters)]; me.counts = nil; '
+            'IsInInstance = function() return true, "party" end; IsInGuild = function() return true end; IsInRaid = function() return false end; '
+            'UnitIsInMyGuild = function(u) return u == "party1" end; UnitExists = function() return true end; UnitIsUnit = function() return false end; GetNumGroupMembers = function() return 3 end; '
+            'STUB_FIRE("ENCOUNTER_END", 1, "Test Boss", 1, 5, 1); STUB_FIRE("BOSS_KILL", 1, "Test Boss"); '
+            'local c = D.characters[next(D.characters)]; '
+            'assert(c.counts and c.counts.guildDungeonBosses == 1, "a dungeon boss with one guildmate counts once, not twice for the two events: " .. tostring(c.counts and c.counts.guildDungeonBosses)); '
+            'IsInInstance = function() return true, "raid" end; GetNumGroupMembers = function() return 10 end; IsInRaid = function() return true end; UnitIsInMyGuild = function(u) return u == "raid2" or u == "raid3" end; '
+            'STUB_FIRE("ENCOUNTER_END", 2, "Raid Boss", 1, 10, 1); assert((c.counts.guildRaidBosses or 0) == 0, "two guildmates are not a guild raid"); '
+            'UnitIsInMyGuild = function(u) return u:find("^raid[2-7]$") ~= nil end; STUB_FIRE("ENCOUNTER_END", 3, "Another Raid Boss", 1, 10, 1); '
+            'assert(c.counts.guildRaidBosses == 1, "six guildmates in the raid count"); '
+            'ERR_TRADE_COMPLETE = "Trade complete."; for i = 1, 5 do STUB_FIRE("UI_INFO_MESSAGE", 0, "Trade complete.") end; STUB_FIRE("UI_INFO_MESSAGE", 0, "Something else"); '
+            'assert(c.counts.trades == 5, "five completed trades: " .. tostring(c.counts.trades)); '
+            'assert(D.progress.social_trades and D.progress.social_trades[1] and not D.progress.social_trades[2], "five trades tick the first step only"); '
+            'assert(not STUB_NS.CampfireReady() and not F.GoalById("social_campfires") == false, "no campfire spell known yet"); '
+            'STUB_NS.CAMPFIRE_SPELLS[99999] = true; STUB_NS.WatchCasts(); assert(STUB_NS.CampfireReady()); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 99999); assert(c.counts.campfires == 1, "a campfire spell counts"); '
+            'STUB_NS.CAMPFIRE_SPELLS[99999] = nil; STUB_NS.WatchCasts(); '
+            'print("  guild dungeon and raid kills, trades and campfires are counted")'),
         # /goals perf times the banner effects; without an animated banner it says how to start.
         ("perf command", None,
             'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("perf"); SlashCmdList["FOREVERGOALTRACKER"]("perf 5")'),

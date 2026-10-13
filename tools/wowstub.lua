@@ -99,6 +99,8 @@ fmt.__index = function(t, k)
   end end
   if k == "RegisterEvent" then return function(self, ev)
     local e = rawget(self, "_ev") or {}; e[ev] = true; rawset(self, "_ev", e) end end
+  if k == "RegisterUnitEvent" then return function(self, ev)
+    local e = rawget(self, "_ev") or {}; e[ev] = true; rawset(self, "_ev", e) end end
   if k == "UnregisterEvent" then return function(self, ev)
     local e = rawget(self, "_ev"); if e then e[ev] = nil end end end
   -- Lowercase keys are the addon's own fields (bar.cur, row.goal): unset
