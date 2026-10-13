@@ -87,7 +87,7 @@ local library = {
         short = "Timbermaw Hold",
         category = "Reputation", difficulty = "Hard",
         timeEstimate = "2-4 Weeks",
-        note = "The furbolgs of Felwood and Winterspring. Rewards include safe passage through the Timbermaw tunnels and leatherworking patterns.",
+        note = "The furbolgs of Felwood and Winterspring. Rewards include safe passage through the Timbermaw tunnels and Leatherworking patterns.",
         steps = RepSteps(576),
         tips = {
             "Kill Deadwood furbolgs in Felwood and Winterfall furbolgs in Winterspring for reputation.",
@@ -1288,7 +1288,7 @@ for _, f in ipairs({ "Alliance", "Horde" }) do
         short = A and "Stormpike Charger" or nil,
         category = "PvP", difficulty = "Hard",
         timeEstimate = "1-2 Months",
-        note = "Alterac Valley's exalted mount for the " .. (A and "Stormpike Guard" or "Frostwolf Clan") .. ".",
+        note = "Alterac Valley's Exalted mount for the " .. (A and "Stormpike Guard" or "Frostwolf Clan") .. ".",
         tips = { "Play Alterac Valley, and turn in armor scraps, blood and crystals between matches." },
         steps = {
             { text = "Reach Exalted with the {pvp_av_" .. key .. ":" .. (A and "Stormpike Guard" or "Frostwolf Clan") .. "}.",

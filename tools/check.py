@@ -131,6 +131,21 @@ print(("layers     " if layers_ok else "LAYER      ") + "banner lights, bloom, e
       + ", ".join(sorted(effects)) + ")")
 ok_all = ok_all and layers_ok
 
+# Language conventions (tools/copycheck.py, reports/copy-sweep/conventions.md): the enforced
+# rules fail the suite; proposed ones are only reported by running copycheck.py itself.
+sys.path.insert(0, here)
+import copycheck
+found_copy = copycheck.run()
+copy_bad = 0
+for rule_ in copycheck.RULES:
+    if rule_.status == "enforced":
+        for where, field, msg, text in found_copy[rule_.id]:
+            print("COPY       " + rule_.id + ": " + where + " / " + field + ": " + msg + "  |  " + text)
+            copy_bad += 1
+print(("language   " if not copy_bad else "COPY       ") + "player-facing text follows the enforced conventions"
+      + ("" if not copy_bad else " (" + str(copy_bad) + " broken)"))
+ok_all = ok_all and not copy_bad
+
 if ok_all:
     steps = [
         ("fresh install", None, None),
