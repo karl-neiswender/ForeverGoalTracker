@@ -70,6 +70,7 @@ STEMS = {
     "pvp_set_plate_ally": "Marshal's plate (the crest)",
     "pvp_set_plate_horde": "Warlord's plate (the halo)",
     "pvp_mount_horde": "Horde war mount (horn breath and ground burst)",
+    "allclasses_undead_paladin": "Leveling, Undead Paladin (hammer head and glowing eyes)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -83,6 +84,7 @@ REGIONS = {
     "pvp_set_plate_ally": [(0.64, 0.75, 0.30, 0.44)],                  # the lion crest
     "pvp_set_plate_horde": [(0.54, 0.76, 0.08, 0.34)],                 # behind the head, inside the halo
     "pvp_mount_horde": [(0.47, 0.58, 0.08, 0.22), (0.60, 0.90, 0.62, 0.90)],  # horn breath, ground burst
+    "allclasses_undead_paladin": [(0.66, 0.94, 0.03, 0.30), (0.66, 0.75, 0.37, 0.44)],  # hammer head, eyes
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {
