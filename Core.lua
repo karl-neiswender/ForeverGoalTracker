@@ -4897,6 +4897,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="epicmounts_skyborne-banner.blp", faction="Alliance", race="Skyborne", part=9},
         },
     }
+    -- Approved faction-specific plate art, shared by each collection's class goals.
+    for _, faction in ipairs({"ally", "horde"}) do
+        local id = "pvp_set_plate_" .. faction
+        local variants = {{path=id .. "-banner.blp", aspect=4/3, preprocessed=true}}
+        B.artVariants[id] = variants
+        for _, child in ipairs(FGT.armorCollections[id].armorChildren) do
+            B.artVariants[child.id] = variants
+        end
+    end
     B.pvpArtVariants = {
         {path="set_tier2_warrior-alliance-banner.blp", faction="Alliance"},
         {path="set_tier2_warrior-banner.blp", faction="Horde"},
@@ -6130,6 +6139,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["pvp_set_plate_horde-banner.blp"] = "Alex Horley",
         ["att_ony_ally-banner.blp"] = "Dany Orizio",
         ["att_ony_horde-banner.blp"] = "Miguel Coimbra",
         ["allclasses_dwarf_paladin-banner.blp"] = "Glenn Rane",
