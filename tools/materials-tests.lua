@@ -553,7 +553,7 @@ do
     rawset(B.art, "GetWidth", function() return 600 end)
     B.hasArt, B.shownArtHeight, B.uv, B.glowLevel = true, 450, { 0, 1, 0, 1 }, 0.5
     B.goal = STUB_NS.GoalById("mount_charger"); B.glowSpec = B:GlowSpec(); B:ResetShafts()
-    assert(B.shaftCount == 7 + 3, "charger: seven streaks and the wide layer")
+    assert(B.shaftCount == 6 + 3, "charger: six parallel streaks and the wide layer")
     B.goal = STUB_NS.GoalById("gold_5k"); B.glowSpec = B:GlowSpec(); B:ResetShafts()
     assert(B.shaftCount == 1 + 7, "gold: a beam and seven glints")
     for k = 1, 40 do B:StepShafts(k*0.2) end

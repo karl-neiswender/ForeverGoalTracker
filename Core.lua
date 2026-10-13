@@ -5052,10 +5052,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         return { float = true, box = box, count = count, blurShare = 0.12, rise = 0.06 }
     end
     -- sunlight: rays from a source plus motes drifting in the light
-    local function Sunlight(sunrays, box, motes)
+    local function Sunlight(sunrays, box, motes, extra)
         sunrays.wide, sunrays.streaks = true, true -- a faint wide layer, and visible streaks that fade in and out
-        return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.6,
+        local spec = { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.6,
             sunrays = sunrays, embers = Motes(box, motes or 20) }
+        -- extras: a soft `beam`, a bloom glow (u, v, size and glow = true), embers...
+        for k, v in pairs(extra or {}) do spec[k] = v end
+        return spec
     end
     local function SnowOnly(count)
         return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = Snow(count) }
@@ -5131,16 +5134,24 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Cooking: a campfire in the snow: snow, and a soft flame glow on the fire (no embers, Karl)
         ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, embers = Snow(90) },
         -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
-        rep_ambassador_ally = Sunlight({ 0.55, -0.10, 95, 50, 7, 1.0 }, { 0.25, 0.95, 0.10, 0.85 }),  -- through the arch
+        -- natural light from the centre top: parallel streaks and a soft beam
+        rep_ambassador_ally = Sunlight({ 0.66, -0.10, 100, 0.55, 6, 1.0, parallel = true, strength = 0.7 },
+            { 0.25, 0.95, 0.10, 0.85 }, 20, { beam = { 0.66, -0.10, 0.90, 0.90, strength = 0.5 } }),
         -- Horde capitals: a natural sun, faint rays all around it and a soft
         -- halo on the disc, not a downward spotlight (Karl)
-        rep_ambassador_horde = { 0.53, 0.33, 0.18, { 1, 1, 1 }, strength = 1.6,
-            sunrays = { 0.53, 0.33, 90, 330, 9, 0.9, strength = 1.0 },
+        rep_ambassador_horde = { 0.60, 0.33, 0.18, { 1, 1, 1 }, strength = 1.3,
+            sunrays = { 0.60, 0.33, 90, 330, 9, 0.9, strength = 0.85 },
             embers = Motes({ 0.30, 1.0, 0.20, 0.80 }, 18) },
-        mount_charger = Sunlight({ 1.02, -0.06, 135, 35, 7, 1.3 }, { 0.35, 1.0, 0.0, 0.70 }, 22),    -- from the top right corner, like the art's own rays
-        ["set_forever_raid-banner.blp"] = Sunlight({ 1.02, -0.08, 125, 45, 7, 1.3 }, { 0.40, 1.0, 0.10, 0.80 }), -- every Forever raid set: the bright sky at the top right
-        -- sun breaking through the clouds over the harbour
-        fishing_extravaganza = Sunlight({ 0.50, 0.22, 105, 80, 7, 0.9 }, { 0.30, 1.0, 0.10, 0.75 }, 16),
+        -- parallel with the art's own diagonal rays from the top right, soft and slow
+        mount_charger = Sunlight({ 0.95, -0.10, 118, 0.6, 6, 1.3, parallel = true, strength = 0.6 },
+            { 0.35, 1.0, 0.0, 0.70 }, 22),
+        -- every Forever raid set: the bright sky at the top right, slower and softer,
+        -- over a wide, soft, subtle beam
+        ["set_forever_raid-banner.blp"] = Sunlight({ 1.02, -0.08, 125, 45, 7, 1.3, strength = 0.8 },
+            { 0.40, 1.0, 0.10, 0.80 }, 20, { beam = { 0.80, -0.10, 0.90, 0.95, strength = 0.4 } }),
+        -- broad, very soft sunlight from behind the eagle at the top left, toward the harbour
+        fishing_extravaganza = Sunlight({ 0.53, 0.10, 115, 60, 6, 1.0, strength = 0.5, thin = 0.6 },
+            { 0.30, 1.0, 0.10, 0.75 }, 16, { beam = { 0.55, -0.10, 0.80, 0.80, strength = 0.35 } }),
         -- Sunbeams: Lawbringer straight down on the halo behind his head;
         -- Lok'delar a narrow slanted shaft through the forest onto the stave
         set_tier1_paladin = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
@@ -5156,23 +5167,28 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.40, 1.0, 0.50, 0.90 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
         -- Karl's second light list. Sunbeams on Rhok'delar from the forest light behind him
         -- a backlight: the sun behind him, its wide rays visible, thin ones faint
-        rhokdelar = Sunlight({ 0.66, -0.06, 100, 60, 7, 1.3 }, { 0.40, 1.0, 0.0, 0.80 }, 22),
+        -- a backlight: streaks from behind him and a soft bloom around him
+        rhokdelar = Sunlight({ 0.66, -0.06, 100, 60, 7, 1.3, strength = 0.8 }, { 0.40, 1.0, 0.0, 0.80 }, 22,
+            { glow = true, [1] = 0.64, [2] = 0.28, [3] = 0.75, strength = 0.5 }),
         -- vertical beams: onto the treasure pile, and onto the floating key and its chest
         gold_5k = { 0.62, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             beam = { 0.62, -0.10, 0.85, 1.0, strength = 1 },
             embers = Motes({ 0.35, 0.95, 0.0, 0.80 }, 24),
             -- glints on the chest and the upper coins, clear of the faded bottom
-            gleams = { boxes = { { 0.62, 0.95, 0.12, 0.38 }, { 0.35, 0.95, 0.42, 0.62 } }, count = 7, size = 0.045 } },
+            gleams = { box = { 0.30, 0.95, 0.42, 0.66 }, count = 7, size = 0.045 } }, -- glints on the coins
         key_scholo = { 0.63, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             beam = { 0.63, -0.10, 0.92, 0.85, strength = 1 },
             embers = Motes({ 0.45, 0.85, 0.0, 0.85 }, 22) },
-        set_dungeon1_warrior = Sunlight({ 1.02, -0.06, 130, 40, 7, 1.3 }, { 0.40, 1.0, 0.0, 0.75 }),        -- Valor, from the top right corner
+        -- Valor: from the top right corner, with a soft bloom at the light source
+        set_dungeon1_warrior = Sunlight({ 1.02, -0.06, 130, 40, 7, 1.3 }, { 0.40, 1.0, 0.0, 0.75 }, 20,
+            { glow = true, [1] = 0.93, [2] = 0.06, [3] = 0.65, strength = 0.55 }),
         set_violet_sorcerer = Sunlight({ 0.62, -0.12, 95, 60, 7, 1.1 }, { 0.20, 1.0, 0.0, 0.80 }, 24),   -- over Dalaran
         -- UBRS key: the lava splashing up around the gate's foot
         key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
         -- Honorable Kills and Duelist: sun through the branches from the top corner
-        ["pvp_drums_of_war-banner.blp"] = Sunlight({ 1.02, -0.08, 128, 45, 8, 1.2 }, { 0.30, 1.0, 0.0, 0.80 }, 20),
+        ["pvp_drums_of_war-banner.blp"] = Sunlight({ 1.02, -0.08, 128, 45, 8, 1.2 }, { 0.30, 1.0, 0.0, 0.80 }, 20,
+            { embers = { box = { 0.35, 0.95, 0.55, 0.90 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 36, blurShare = 0.22, rise = 0.30 } }),
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
@@ -5432,6 +5448,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     --   sunrays = { u, v, angle, spread, count, length, strength, wide }
     --     (u, v: the source, may sit just outside the art; angle in degrees,
     --     0 = right, 90 = straight down; length: share of the art's width).
+    --     `parallel` makes natural sunlight instead of a fan: the rays fall
+    --     side by side at nearly one angle across a band `spread` art widths
+    --     wide (a fan from one point reads as a spotlight, Karl).
     --     `wide` adds the visible-sunlight layer: three long, thick, very slow
     --     rays (Media/shaft-wide) that fade out toward their ends.
     --   gleams = { box, count, size }: light catching a few points (coins),
@@ -5499,13 +5518,24 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             for i = 1, sr[5] do
                 local info = Next(sr.streaks and "streak" or "ray", sr)
                 local f = sr[5] > 1 and ((i - 1)/(sr[5] - 1) - 0.5) or 0
-                info.angle = math.rad(sr[3] + sr[4]*f + (math.random()*2 - 1)*sr[4]*0.12)
+                if sr.parallel then
+                    info.angle = math.rad(sr[3] + (math.random()*2 - 1)*3)
+                    info.off = (f + (math.random()*2 - 1)*0.08)*sr[4]
+                else
+                    info.angle = math.rad(sr[3] + sr[4]*f + (math.random()*2 - 1)*sr[4]*0.12)
+                end
                 info.len = sr[6]*(0.75 + 0.5*math.random())
+                if sr.streaks then
+                    -- streaks breathe slowly: natural light, not a rave (Karl)
+                    info.period, info.swayP = 16 + 14*math.random(), 35 + 25*math.random()
+                end
             end
             if sr.wide then
                 for i = 1, 3 do
                     local info = Next("wide", sr)
-                    info.angle = math.rad(sr[3] + sr[4]*0.7*((i - 1)/2 - 0.5) + (math.random()*2 - 1)*6)
+                    info.angle = sr.parallel and math.rad(sr[3] + (math.random()*2 - 1)*4)
+                        or math.rad(sr[3] + sr[4]*0.7*((i - 1)/2 - 0.5) + (math.random()*2 - 1)*6)
+                    if sr.parallel then info.off = ((i - 1)/2 - 0.5)*sr[4]*0.8 end
                     info.len = sr[6]*(1.5 + 0.4*math.random())
                     info.period, info.swayP = 16 + 12*math.random(), 30 + 20*math.random()
                 end
@@ -5549,6 +5579,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 self:PaintLight(t, level*1.6*glint)
             else
                 local cx, cy = self:ArtPoint(cfg[1], cfg[2])
+                if info.off then
+                    -- parallel rays: each starts along a line across the light's path
+                    cx = cx - math.sin(info.angle)*info.off*aw
+                    cy = cy + math.cos(info.angle)*info.off*aw
+                end
                 local wide = info.kind == "wide"
                 local angle = info.angle + math.rad(wide and 1 or 1.5)*math.sin(time*2*math.pi/info.swayP + info.swayPh)
                 t:Show()
@@ -5558,7 +5593,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 elseif info.kind == "streak" then
                     -- a visible streak that slowly fades fully out and back in
                     local f = math.max(0, math.sin(time*2*math.pi/info.period + info.phase))^2
-                    self:PaintLight(t, level*(cfg.strength or 1)*(cfg.thin or 1)*f*0.55)
+                    self:PaintLight(t, level*(cfg.strength or 1)*(cfg.thin or 1)*f*0.4)
                 else
                     self:PaintLight(t, level*(cfg.strength or 1)*(cfg.thin or 1)*(0.25 + 0.75*breathe)*0.4)
                 end
