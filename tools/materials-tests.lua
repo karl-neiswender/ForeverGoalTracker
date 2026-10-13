@@ -635,6 +635,15 @@ do
     for k = 1, 60 do B:StepShafts(k*0.05) end
     B:HideShafts()
     assert(B.glows["prof_cooking-banner.blp"].flicker == 0.35, "Cooking's campfire flickers")
+    -- Thunderfury's baked bloom lines up with the art and breathes within a few percent
+    B.goal = STUB_NS.GoalById("thunderfury")
+    B.glowSpec = B:GlowSpec()
+    B.glowLevel = 0.5
+    assert(B.glowSpec.bloom and B.glowSpec.bloom[1] == "thunderfury-bloom", "Thunderfury asks for its bloom")
+    B:FitBloom(B.glowSpec.bloom)
+    B.bloomTex:Show()
+    for k = 0, 600 do B:StepBloom(k*0.2) end
+    B.bloomTex:Hide()
 end
 
 -- toggling tips redraws just the tips (no full goal redraw)

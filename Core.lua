@@ -5118,6 +5118,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.glows = {
         -- the gem at the crossguard, and a glint that now and then slides down the blade
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 },
+            bloom = { "thunderfury-bloom", strength = 0.6 }, -- the lightning and blade edges glow
             glides = { { path = { { 0.68, 0.385 }, { 0.60, 0.445 }, { 0.50, 0.52 }, { 0.41, 0.59 } },
                 size = 0.07, strength = 0.8, travel = 4, rest = 10 } } },
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
@@ -5264,6 +5265,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\rays", nil, nil, "TRILINEAR")
     B.raysTex:SetBlendMode("ADD")
     B.raysTex:Hide()
+    -- A baked bloom (tools/bloom.py): light spilling from the picture's own
+    -- brightest parts, drawn additively over the art with the same crop. A
+    -- spec asks for it with bloom = { "name-bloom", strength = 0.6 }, and it
+    -- breathes within a few percent on beats of 7 s or longer. Never a flash.
+    B.bloomTex = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
+    B.bloomTex:SetBlendMode("ADD")
+    if B.bloomTex.SetSnapToPixelGrid then B.bloomTex:SetSnapToPixelGrid(false) end
+    if B.bloomTex.SetTexelSnappingBias then B.bloomTex:SetTexelSnappingBias(0) end
+    B.bloomTex:Hide()
     -- The photo fades to the left, darkens at the top and fades at the
     -- bottom; this mask (Media/light-mask, tools/beams.py) gives every light
     -- the same fades, so lights sit under the art's darkening (Karl).
@@ -5272,6 +5282,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.lightMask:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\light-mask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
         B.glowTex:AddMaskTexture(B.lightMask)
         B.raysTex:AddMaskTexture(B.lightMask)
+        B.bloomTex:AddMaskTexture(B.lightMask)
     end
     -- Turned smoothly each frame (by its texture corners, see ClipLight)
     -- rather than by a Rotation animation, and kept off the pixel grid, so
@@ -5324,6 +5335,28 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local urx, ury = tc(x1, y0)
         local lrx, lry = tc(x1, y1)
         t:SetTexCoord(ulx, uly, llx, lly, urx, ury, lrx, lry)
+    end
+    -- Lays the bloom over the whole shown art, cropped exactly as the art is.
+    function B:FitBloom(bloom)
+        local t = self.bloomTex
+        local aw = math.max(1, self.art:GetWidth())
+        t:ClearAllPoints()
+        t:SetPoint("TOPLEFT", self.art, "TOPLEFT", 0, 0)
+        t:SetSize(aw, math.max(1, self.shownArtHeight or 1))
+        local uv = self.uv
+        t:SetTexCoord(uv[1], uv[2], uv[3], uv[4])
+        self.lightSpan[t] = { 0, aw }
+        if self.bloomFor ~= bloom[1] then
+            t:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..bloom[1])
+            self.bloomFor = bloom[1]
+        end
+    end
+    -- breathes between about 85% and 100% of its strength, two unrelated slow beats
+    function B:StepBloom(time)
+        local bloom = self.glowSpec and self.glowSpec.bloom
+        if not (bloom and self.bloomTex:IsShown()) then return end
+        local w = 0.5 + 0.3*math.sin(time*2*math.pi/7.3) + 0.2*math.sin(time*2*math.pi/11.9 + 1.3)
+        self:PaintLight(self.bloomTex, (self.glowLevel or 0)*(bloom.strength or 0.6)*(0.85 + 0.15*w))
     end
     function B:DrawLights(n, turn)
         local spec = self.glowSpec
@@ -5808,6 +5841,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:DrawLights(n, -(a.t % turn)/turn*2*math.pi)
         self:StepEmbers(dt)
         self:StepShafts(a.t)
+        self:StepBloom(a.t)
         self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54*(spec.raysStrength or 1))
     end
     function B:PlaceGlow()
@@ -5835,6 +5869,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local live = on
         self.glowFrame:SetShown(on and true or false)
         self.glowTex:SetShown((on and spec.glow ~= false) and true or false)
+        local bloom = on and spec.bloom
+        self.bloomTex:SetShown(bloom and true or false)
+        if bloom then self:FitBloom(bloom) end
         self.raysTex:SetShown((on and spec.rays) and true or false)
         if on then
             self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
@@ -6000,7 +6037,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
         for _,t in ipairs(self.fadeStrips) do t:Hide() end
-        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.glowAnim:Stop(); self:HideEmbers(); self:HideShafts(); self.emberFor = nil
+        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.bloomTex:Hide(); self.glowAnim:Stop(); self:HideEmbers(); self:HideShafts(); self.emberFor = nil
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
