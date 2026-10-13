@@ -5364,8 +5364,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Making Friends: soft parallel sunlight from the top right (no light source in the art for a bloom)
         ["social_friends-banner.blp"] = Sunlight({ 0.95, -0.08, 125, 0.5, 5, 1.2, parallel = true, broad = true, strength = 0.6 },
             { 0.40, 1.0, 0.05, 0.80 }, 16),
-        -- Marshal's armor: gentle sunlight from the top, a faint bloom on the crest (baked), a glint at the sword tip
-        ["pvp_set_plate_ally-banner.blp"] = Sunlight({ 0.62, -0.08, 100, 0.45, 6, 1.3, parallel = true, strength = 0.55 },
+        -- Marshal's armor: gentle sunlight from the top left corner down to the bottom right (Karl), a faint bloom on the crest (baked), a glint at the sword tip
+        ["pvp_set_plate_ally-banner.blp"] = Sunlight({ 0.0, 0.0, 38, 0.40, 6, 1.3, parallel = true, strength = 0.55 },
             { 0.40, 1.0, 0.05, 0.85 }, 18, { gleams = { box = { 0.23, 0.29, 0.22, 0.30 }, count = 2, size = 0.035 } }),
         -- Warlord's armor: embers drifting up off the battlefield behind him (the halo's bloom is baked)
         ["pvp_set_plate_horde-banner.blp"] = { 0.64, 0.2, 0.4, { 1, 1, 1 }, glow = false, strength = 0.8,
