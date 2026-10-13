@@ -38,7 +38,7 @@ if SOFT:
     from PIL import Image, ImageFilter
     img = Image.new("RGBA", (SIZE, SIZE))
     img.putdata([(255, 255, 255, pixels[i + 3]) for i in range(0, len(pixels), 4)])
-    alpha = img.getchannel("A").filter(ImageFilter.GaussianBlur(3.5))
+    alpha = img.getchannel("A").filter(ImageFilter.GaussianBlur(2))
     peak = max(alpha.getdata()) or 255
     alpha = alpha.point(lambda v: min(255, round(v * 255 / peak)))
     img.putalpha(alpha)

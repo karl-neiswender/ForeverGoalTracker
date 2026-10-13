@@ -5340,10 +5340,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             gleams = { box = { 0.62, 0.88, 0.04, 0.78 }, count = 8, size = 0.04 },
             embers = Motes({ 0.60, 0.90, 0.10, 0.80 }, 22) },
         -- the palm is already white, so a bloom would add nothing: big turning rays, a fan of long rays and rising motes
-        ["social_buffs_priest-banner.blp"] = { 0.72, 0.27, 0.40, { 1, 1, 1 }, glow = false, rays = 4.6, turn = 200, raysSoft = true,
+        ["social_buffs_priest-banner.blp"] = { 0.75, 0.32, 0.40, { 1, 1, 1 }, glow = false, rays = 4.6, turn = 200, raysSoft = true,
             raysStrength = 1.2, strength = 1.4,
             -- (Karl: much stronger) a big turning burst plus a fan of long rays from the palm
-            sunrays = { 0.72, 0.27, 90, 330, 9, 1.0, strength = 0.9 },
+            sunrays = { 0.75, 0.32, 90, 330, 9, 1.0, strength = 0.9 },
             embers = Motes({ 0.40, 0.98, 0.0, 0.85 }, 22) },
         -- Making Friends: soft parallel sunlight from the top right (no light source in the art for a bloom)
         ["social_friends-banner.blp"] = Sunlight({ 0.95, -0.08, 125, 0.5, 5, 1.2, parallel = true, broad = true, strength = 0.6 },
