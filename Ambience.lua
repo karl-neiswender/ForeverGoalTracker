@@ -14,8 +14,12 @@ if not info then return end
 local A = {}
 FGT.ambience = A
 
--- Clipped just inside the panel's etched edge, above the banner art and
--- under the goal's text and steps.
+-- The dust and clouds are textures on the goal panel itself, on its BACKGROUND layer
+-- below the banner's dark gradients (left, top and bottom shading) and the panel's inner
+-- shadows, so those darken the leaves exactly as they darken the banner's lights
+-- (Karl, 2026-10-13). A child frame would draw above all of the panel's own layers.
+-- `fx` is only the rectangle just inside the panel's etched edge that they are placed
+-- in and masked to (the mask below clips them: a region is not clipped by a frame).
 local fx = CreateFrame("Frame", nil, U.detail)
 A.frame = fx
 fx:SetPoint("TOPLEFT", U.detail, "TOPLEFT", 4, -4)
@@ -24,15 +28,20 @@ fx:SetPoint("BOTTOMRIGHT", U.detail, "BOTTOMRIGHT", -4, 4)
 -- the panel draws), and the goal page's scrolling body above that (so the
 -- title, steps and text stay on top of the dust).
 fx:SetFrameLevel(U.detail:GetFrameLevel() + 1)
+-- (the goal page's scrolling body stays above the panel's own layers, so text stays on top)
 local body = FGT.detailViewport and FGT.detailViewport.scroll
 if body and body:GetFrameLevel() <= fx:GetFrameLevel() then body:SetFrameLevel(fx:GetFrameLevel() + 2) end
-if fx.SetClipsChildren then fx:SetClipsChildren(true) end
 fx:EnableMouse(false)
+
+-- BACKGROUND sublevels on the goal panel: the banner art is -3 and its lights -2 and -1; the
+-- shading is 0 and 1, so the dust (-1) and the clouds (-2) sit under it. tools/check.py
+-- checks these numbers against Core.lua.
+local DUST_LEVEL, CLOUD_LEVEL = -1, -2
 
 -- One drifting layer (Blizzard's numbers: start offset, travel, seconds,
 -- turn, peak alpha, when the fade out starts).
 local function Layer(flip, width, height, start, travel, seconds, degrees, peak, outAt)
-    local t = fx:CreateTexture(nil, "BACKGROUND", nil, 7)
+    local t = U.detail:CreateTexture(nil, "BACKGROUND", nil, DUST_LEVEL)
     if flip then
         -- the far layer is the same art mirrored both ways
         t:SetTexture(info.file)
@@ -71,7 +80,7 @@ local CLOUDS = "talents-animations-clouds"
 local cloud = C_Texture.GetAtlasInfo(CLOUDS)
 if cloud then
     for _, startX in ipairs({ 0, 1612 }) do
-        local t = fx:CreateTexture(nil, "BACKGROUND", nil, 6)
+        local t = U.detail:CreateTexture(nil, "BACKGROUND", nil, CLOUD_LEVEL)
         t:SetAtlas(CLOUDS)
         t:SetSize(cloud.width, cloud.height)
         t:SetPoint("TOPLEFT", fx, "TOPLEFT", 0, 0)
@@ -93,7 +102,7 @@ end
 -- goal's text sits: a fixed mask over the panel (Media/fade-left: clear on
 -- the left, full from about 65% across), so the fade stays put while the
 -- dust drifts and turns underneath it.
-local mask = fx.CreateMaskTexture and fx:CreateMaskTexture()
+local mask = U.detail.CreateMaskTexture and U.detail:CreateMaskTexture()
 if mask then
     mask:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\fade-left", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
     mask:SetAllPoints(fx)
@@ -109,7 +118,7 @@ function A.SetDust(on)
     A.dust = on and true or false
     local full = FGT.EffectsLevel() == "full"
     for _, l in ipairs(A.layers) do
-        if not l.steady then l.tex:SetShown(A.dust and full) end
+        if not l.steady then l.tex:SetShown(A.dust and full and U.detail:IsVisible()) end
     end
 end
 
@@ -124,7 +133,9 @@ function A.Refresh()
         local on = visible and (level == "full" or (level == "subtle" and l.steady))
         if on and not l.group:IsPlaying() then l.group:Play()
         elseif not on and l.group:IsPlaying() then l.group:Stop(); if not l.steady then l.tex:SetAlpha(0) end end
-        if not l.steady then l.tex:SetShown(level == "full" and A.dust) end
+        -- (textures on the panel no longer hide with `fx`, so each one is shown on its own)
+        if l.steady then l.tex:SetShown(visible and level ~= "off")
+        else l.tex:SetShown(visible and level == "full" and A.dust) end
     end
 end
 U.detail:HookScript("OnShow", A.Refresh)

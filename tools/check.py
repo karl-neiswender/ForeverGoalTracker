@@ -131,6 +131,19 @@ print(("layers     " if layers_ok else "LAYER      ") + "banner lights, bloom, e
       + ", ".join(sorted(effects)) + ")")
 ok_all = ok_all and layers_ok
 
+# The windy leaves and clouds (Ambience.lua) are textures on the goal panel below the banner's
+# dark gradients, like the lights, so the shading darkens them. A child frame would draw above.
+amb_src = open("Ambience.lua", encoding="utf-8").read()
+amb_levels = {}
+m_ = re.search(r"local DUST_LEVEL, CLOUD_LEVEL = (-?\d+), (-?\d+)", amb_src)
+if m_:
+    amb_levels = {"dust": int(m_.group(1)), "clouds": int(m_.group(2))}
+amb_on_panel = amb_src.count("U.detail:CreateTexture(nil, \"BACKGROUND\", nil, ") >= 2 and "fx:CreateTexture" not in amb_src
+amb_ok = bool(amb_levels) and amb_on_panel and all(v < min(s_[1] for s_ in shading.values()) for v in amb_levels.values())
+print(("ambience  " if amb_ok else "AMBIENCE  ") + "windy leaves and clouds are panel layers below the dark gradients ("
+      + ", ".join(k_ + " " + str(v_) for k_, v_ in sorted(amb_levels.items())) + ")")
+ok_all = ok_all and amb_ok
+
 # Every banner texture registered as a variant is on disk, except those marked pending (art not
 # delivered yet; the selection code skips them). Pending ones are listed so none is forgotten.
 variant_paths, pending_paths = [], []
