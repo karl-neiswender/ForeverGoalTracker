@@ -1,6 +1,6 @@
 # Give Cheers banner review
 
-Built-in imagegen edit of unchanged Media/artwork/Party_of_Four_full.jpg (250x256 source, synced). Review saved as Media/final-images/social-cheers-review.png. Not installed; awaiting review. Intended goal social_cheers.
+Built-in imagegen edit of unchanged Media/artwork/Party_of_Four_full.jpg (250x256 source, synced). Review saved as Media/final-images/social-cheers-review.png. Approved by Karl and installed on social_cheers. Master 1200x900; runtime 512px DXT1 BLP with ten mip levels. Rebuild map and manifest updated. Full game restart required.
 
 Visual inspection: celebrating dwarves, raised tankard and foreground rifle retained, grayscale and both dark fades present. Extra detail is reconstructed from a low-resolution source. Artist unverified.
 
