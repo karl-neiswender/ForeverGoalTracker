@@ -65,6 +65,11 @@ STEMS = {
     "rep_thorium": "Thorium Brotherhood",
     "wolfsbane": "Wolfsbane",
     "prof_cooking": "Cooking and Place Campfires (the campfire)",
+    "social_buffs_mage": "Buff Others, Mage (staff crystal and sigil)",
+    "social_buffs_druid": "Buff Others, Druid (the paw)",
+    "pvp_set_plate_ally": "Marshal's plate (the crest)",
+    "pvp_set_plate_horde": "Warlord's plate (the halo)",
+    "pvp_mount_horde": "Horde war mount (horn breath and ground burst)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -73,6 +78,11 @@ REGIONS = {
     "set_tier1_mage": [(0.83, 0.98, 0.37, 0.53)],                      # the staff's gem
     "tier3_hunter": [(0.55, 0.69, 0.18, 0.40), (0.75, 0.88, 0.18, 0.42)],  # both shoulders
     "prof_cooking": [(0.60, 0.82, 0.24, 0.64)],                        # the campfire's flames
+    "social_buffs_mage": [(0.43, 0.52, 0.02, 0.22), (0.66, 0.82, 0.04, 0.28)],  # staff crystal, sigil
+    "social_buffs_druid": [(0.55, 0.82, 0.05, 0.30)],                  # the paw
+    "pvp_set_plate_ally": [(0.64, 0.75, 0.30, 0.44)],                  # the lion crest
+    "pvp_set_plate_horde": [(0.54, 0.76, 0.08, 0.34)],                 # behind the head, inside the halo
+    "pvp_mount_horde": [(0.47, 0.58, 0.08, 0.22), (0.60, 0.90, 0.62, 0.90)],  # horn breath, ground burst
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {

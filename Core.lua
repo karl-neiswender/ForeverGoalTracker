@@ -5327,6 +5327,32 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Honorable Kills and Duelist: sun through the branches from the top corner
         ["pvp_drums_of_war-banner.blp"] = Sunlight({ 1.02, -0.08, 128, 45, 8, 1.2 }, { 0.30, 1.0, 0.0, 0.80 }, 20,
             { embers = { box = { 0.35, 0.95, 0.55, 0.90 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 36, blurShare = 0.22, rise = 0.30 } }),
+        -- Codex's 2026-10-13 batch. Buff Others (one image per class): the staff crystal and the
+        -- sigil bloom, with a slow ray burst from the sigil and a few arcane motes
+        ["social_buffs_mage-banner.blp"] = { 0.74, 0.18, 0.26, { 1, 1, 1 }, glow = false, rays = 2.4, turn = 240,
+            raysStrength = 0.55, strength = 0.8, embers = Motes({ 0.45, 0.98, 0.05, 0.90 }, 24) },
+        -- the glowing paw: a soft beam falling from it onto his raised hand, fireflies in the forest
+        ["social_buffs_druid-banner.blp"] = { 0.67, 0.18, 0.30, { 1, 1, 1 }, glow = false, strength = 0.8,
+            beam = { 0.70, 0.22, 0.70, 0.35, strength = 0.5 }, embers = Motes({ 0.40, 0.98, 0.05, 0.90 }, 28) },
+        -- the curtains of holy light: a beam down them, slow glints on the painted sparkles
+        ["social_buffs_paladin-banner.blp"] = { 0.77, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            beam = { 0.77, 0.30, 0.85, 0.28, strength = 0.8 },
+            gleams = { box = { 0.62, 0.88, 0.04, 0.78 }, count = 8, size = 0.04 },
+            embers = Motes({ 0.60, 0.90, 0.10, 0.80 }, 22) },
+        -- the palm is already white, so a bloom would add nothing: faint turning rays and rising motes
+        ["social_buffs_priest-banner.blp"] = { 0.72, 0.27, 0.40, { 1, 1, 1 }, glow = false, rays = 2.6, turn = 260,
+            raysStrength = 0.55, strength = 0.5, embers = Motes({ 0.40, 0.98, 0.0, 0.85 }, 22) },
+        -- Making Friends: soft parallel sunlight from the top right (no light source in the art for a bloom)
+        ["social_friends-banner.blp"] = Sunlight({ 0.95, -0.08, 125, 0.5, 5, 1.2, parallel = true, broad = true, strength = 0.6 },
+            { 0.40, 1.0, 0.05, 0.80 }, 16),
+        -- Marshal's armor: gentle sunlight from the top, a faint bloom on the crest (baked), a glint at the sword tip
+        ["pvp_set_plate_ally-banner.blp"] = Sunlight({ 0.62, -0.08, 100, 0.45, 6, 1.3, parallel = true, strength = 0.55 },
+            { 0.40, 1.0, 0.05, 0.85 }, 18, { gleams = { box = { 0.23, 0.29, 0.22, 0.30 }, count = 2, size = 0.035 } }),
+        -- Warlord's armor: embers drifting up off the battlefield behind him (the halo's bloom is baked)
+        ["pvp_set_plate_horde-banner.blp"] = { 0.64, 0.2, 0.4, { 1, 1, 1 }, glow = false, strength = 0.8,
+            embers = { box = { 0.30, 0.65, 0.62, 0.98 }, field = { 0.20, 1.0, 0.35, 0.98 }, count = 36, blurShare = 0.22, rise = 0.30 } },
+        -- the Horde war mount: snow like the Alliance one (blooms on the horn's breath and the ground burst)
+        ["pvp_mount_horde-banner.blp"] = SnowOnly(110),
     }
     -- Banners that bloom (tools/bloomall.py bakes Media/<stem>-bloom.blp for each; Karl's list,
     -- 2026-10-13). Keyed by the banner image, so every goal that shows the image gets it, and
@@ -5340,6 +5366,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "raid_mc", "att_naxx", "set_tier2_mage", "set_tier1_rogue", "set_tier1_rogue-alliance", "raid_ony",
         "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
         "rep_thorium", "wolfsbane", "prof_cooking",
+        "social_buffs_mage", "social_buffs_druid", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5350,12 +5377,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "att_naxx", "set_tier2_mage", "set_tier1_rogue", "raid_ony", "att_ony_ally", "att_ony_horde",
         "tier3_paladin", "key_scholo", "key_strat", "set_dungeon1_priest", "sulfuras", "rep_thorium",
         "wolfsbane", "social_campfires",
+        "social_buffs", "social_friends", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
     B.bloomStrength = {
         raid_aq40 = 0.4, ashbringer = 0.4, benediction = 0.4, ["benediction-alliance"] = 0.4,
         tier3_hunter = 0.4, set_tier1_mage = 0.35, raid_ony = 0.45,
+        social_buffs_mage = 0.5, social_buffs_druid = 0.5, pvp_set_plate_ally = 0.3, pvp_set_plate_horde = 0.35,
+        pvp_mount_horde = 0.4,
     }
     B.blooms, B.bloomSpecs = {}, {}
     for _, stem in ipairs(B.bloomStems) do
