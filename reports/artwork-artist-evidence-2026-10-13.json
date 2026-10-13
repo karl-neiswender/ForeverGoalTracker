@@ -1,0 +1,458 @@
+{
+  "date": "2026-10-13",
+  "method": "Compare the actual local original with the published full illustration or exact card scan, then read the explicit artist credit for that illustration. No artist inferred from style, subject, filename, signature initials, or another printing. Names and studio/joint credits retained as credited; AI banner adaptations are documented separately in the existing image-test manifests.",
+  "verified": [
+    {
+      "banner": "social_friends",
+      "original": "The_Silver_Hand_full.jpg",
+      "artist": "Jaslynn Tham",
+      "source": "https://hearthstone.wiki.gg/wiki/The_Silver_Hand",
+      "match": "Same two gold-helmeted paladins with folded arms, blue cloaks and pale sky.",
+      "original_sha256": "f90782eb61ab4c2b754f15664eb781621cadd48bb1f769548b39e5751964104f",
+      "master_sha256": "0954d37e60d7cf0ed2f92c277ff54fe1fb12c702a38eb33dabdb08109ef60d68",
+      "runtime_sha256": "71ae3fb340d40f69ae91e190e5730630e49321cb03f3c10e227bb2da52483ece"
+    },
+    {
+      "banner": "pvp_mount_horde",
+      "original": "War_Kodo_full.jpg",
+      "artist": "Efrem Palacios",
+      "source": "https://hearthstone.wiki.gg/wiki/War_Kodo",
+      "match": "Same armored kodo charging through snow; same armor, mountains and lower-right artist mark. AT_099t, not Kodorider.",
+      "original_sha256": "68312fe2a58064d91f4dd15a82b2fe100ca8d0fff2de172c7df4232080bb02ec",
+      "master_sha256": "445c31d2e91c557da2e48da37f2bdb16cc9f45150f998de478dca2939df4d812",
+      "runtime_sha256": "2991f4359c1e7ee7ec879a53d62ba2d5aa35b6fd04f8e16f87a7537a50e4f08e"
+    },
+    {
+      "banner": "pvp_set_mail_ally",
+      "original": "Tavish,_Stormpike_Marshal_full.jpg",
+      "artist": "Anton Zemskov",
+      "source": "https://hearthstone.wiki.gg/wiki/Tavish%2C_Stormpike_Marshal",
+      "match": "Same red-bearded dwarf in gold marshal armor holding the rifle, snowy mountains and background riders. BOM_10_Tavish_001t.",
+      "original_sha256": "dcc66afafa2ac7b178831d0a87e369e5f269d1e36404b9ec4653ce9a3db1a1c6",
+      "master_sha256": "c9868f4761607c330ecc2db9fa0e0b449ef289a35736d091053e6ed14e64f9ec",
+      "runtime_sha256": "a12c365148bf3e3a5a523bb69fc4f73b9870c467e1e4a25912d529f365d83a9e"
+    },
+    {
+      "banner": "prof_blacksmithing",
+      "original": "Blacksmithing_Hammer_full.jpg",
+      "artist": "Akkapoj T.",
+      "source": "https://hearthstone.wiki.gg/wiki/Blacksmithing_Hammer",
+      "match": "Same gray hammer with gold lion inset, red grip and glowing rim.",
+      "original_sha256": "8f7a95c9876828e1bd25c598eddfcd01272d2dbd35160ed296a3717caf0152ab",
+      "master_sha256": "94e770f5e7a572712a7885e3d5fd54896c80ea83e1ad10631236cc754de50fa6",
+      "runtime_sha256": "bb2665baa605f4c46648c805c5ef6ccd37c64c50c3a461ad0cebdcf78245dab0"
+    },
+    {
+      "banner": "prof_leatherworking",
+      "original": "Leatherworking_Kit_full.jpg",
+      "artist": "Kagi",
+      "source": "https://hearthstone.wiki.gg/wiki/Leatherworking_Kit",
+      "match": "Same open brown tool case, white spool, bone, blades and green glow.",
+      "original_sha256": "2ed7798a477e14fcc3319e974e9a1225c8268d8d833e9e7f6c066fdf525c314e",
+      "master_sha256": "89256dd42b044089e050a95615506d07acd11e23075c708e186dfc5255a00cb9",
+      "runtime_sha256": "5fd19794f301d565e088f39606ad51b6915f1abe750766a6ccc705dfadb498ec"
+    },
+    {
+      "banner": "prof_enchanting",
+      "original": "Runed_Mithril_Rod_full.jpg",
+      "artist": "Akkapoj T.",
+      "source": "https://hearthstone.wiki.gg/wiki/Runed_Mithril_Rod",
+      "match": "Same diagonal silver rod, purple magic and rune-covered floor.",
+      "original_sha256": "0d04c2c0c1b499d4711c8677daf5e0b58ad309b250e0069f77512ed8acf55b2c",
+      "master_sha256": "af4ad78be608276590958c6a25a80a0fa137f8702b98c04bbb914fbb96b361ba",
+      "runtime_sha256": "977df53db7bc07798491e915285ff684936187ca63edf9ae3d1f0cdf31b5b8d7"
+    },
+    {
+      "banner": "prof_tailoring",
+      "original": "Shadowcloth_Needle_full.jpg",
+      "artist": "Kagi",
+      "source": "https://hearthstone.wiki.gg/wiki/Shadowcloth_Needle",
+      "match": "Same golden needle, looped glowing pink thread and folded purple cloth.",
+      "original_sha256": "16ac2e94742c158b29c835a114bf5b020c85f0ab32c258fc79f5b11ece39d69a",
+      "master_sha256": "f9cddebeedd60a68ea38b0490bfda196eca62c1d0745c0d8e133674c93ef758e",
+      "runtime_sha256": "aef7e02b716f55075f6ba8c8559d6c37eb14787a0475695274ea95ea81336e26"
+    },
+    {
+      "banner": "prof_first_aid",
+      "original": "First_Aid_Kit_HS.jpg",
+      "artist": "L. Chanchai",
+      "source": "https://hearthstone.wiki.gg/wiki/First_Aid_Kit",
+      "match": "Same brown bag with red cross, bandages, purple bottle and yellow glow.",
+      "original_sha256": "9717eac85c5dc672458f7cad9fb0320b4f889423f609680fb86ff8de98950dec",
+      "master_sha256": "05a3644776d192a94dc6074fabb9dfb552b06859801e24b4c03b0c738fbc1105",
+      "runtime_sha256": "a19fe122b79844b3096fa439246827ae930deb61bc123545c316b0dbc3ee45fc"
+    },
+    {
+      "banner": "prof_blacksmithing-horde",
+      "original": "Barrens_Blacksmith_full.jpg",
+      "artist": "Ursula Dorada",
+      "source": "https://hearthstone.wiki.gg/wiki/Barrens_Blacksmith",
+      "match": "Same female orc with red hair, goggles, apron and glowing metal in tongs; matched card illustration.",
+      "original_sha256": "86ddd82b212911a5754fcd001b6b259b23e8beaef78597fc9fb5a30b7122875e",
+      "master_sha256": "b86035b17b66df8abfe66d8eca6610c2dc583aa57880483f298dffc47b47e16a",
+      "runtime_sha256": "aae6894b8116c120fae42fb2c9f2dbdd3d93681ad81711caaf77e8b96959605d"
+    },
+    {
+      "banner": "social_buffs_druid",
+      "original": "Mark_of_the_Wild_full.jpg",
+      "artist": "Brad Vancata",
+      "source": "https://hearthstone.wiki.gg/wiki/Mark_of_the_Wild",
+      "match": "Same green-armored night elf raising clawed hand beneath glowing green paw.",
+      "original_sha256": "70f0d5f22776cf2924cc02e3fe163e1487c00b10c85480470f0fcc09b28e2f98",
+      "master_sha256": "8e68caff399e4030f1b35b251f27ff95976aba499e5c06bc2d951a22965746b6",
+      "runtime_sha256": "a6f948da8e3d785a6eed7ad26d14fda4424abe7f8658fa9cddc91687124d6713"
+    },
+    {
+      "banner": "social_buffs_priest",
+      "original": "Lesser_Heal_full.jpg",
+      "artist": "Cos Koniotis",
+      "source": "https://hearthstone.wiki.gg/wiki/Lesser_Heal",
+      "match": "Same golden armored hand and two floating golden fragments in orange light.",
+      "original_sha256": "86018aa74fd688df06a84aa00a7b9ba7d4d2dcde7b4777c30005441437a7e049",
+      "master_sha256": "eeb852631d2fd9739a031f07aa1f8a1174f93d2b0816a5457ca88e9992193ef4",
+      "runtime_sha256": "f2936f9769ca0805ec7ec485b2cd30394b87d1df8e2d6b1f34a6bece988e26e0"
+    },
+    {
+      "banner": "set_viper",
+      "original": "Lady_Anacondra_full.jpg",
+      "artist": "Steve Prescott",
+      "source": "https://hearthstone.wiki.gg/wiki/Lady_Anacondra",
+      "match": "Same white-haired night elf, purple robes, snakes and green spell orb.",
+      "original_sha256": "69cf44ca3514a78097d3d1e0d30a61fc53bcf71e6e6c5cf7e7c02f9d41f335a3",
+      "master_sha256": "e09ab84b642dadbe8ec2f9ad723ac68e2d67bdc82ae58e5aa51395d5e716dba6",
+      "runtime_sha256": "42b2a29a0756dcb785afcd9812b361ef51eed09f730fa64a3ffa64f9b271ac46"
+    },
+    {
+      "banner": "key_scholo",
+      "original": "The_Skeleton_Key_full.jpg",
+      "artist": "Kevin Sidharta",
+      "source": "https://hearthstone.wiki.gg/wiki/The_Skeleton_Key",
+      "match": "Same floating gold key with purple flame above purple chest in stone chamber.",
+      "original_sha256": "0bdf731d5b422c709ebfd8dc37bda719dc031b8224a6924012f3edfb02fbe4fb",
+      "master_sha256": "1bfb3024bf39f353154b150884a6ed73792c33b1d830c004636c7232cd998678",
+      "runtime_sha256": "5b7cc9c817daf1d1932ace875f79579fb073d13f03d6ff39c2d92d9334509b5b"
+    },
+    {
+      "banner": "sulfuras",
+      "original": "Sulfuras_full.jpg",
+      "artist": "James Ryman",
+      "source": "https://hearthstone.wiki.gg/wiki/Sulfuras",
+      "match": "Same upright fiery hammer, head geometry, runes, shaft and dark red background.",
+      "original_sha256": "74949ac38163f4a04769d1906faa2c8ac5da02ba1c09142e0ef7f7e730bb78a0",
+      "master_sha256": "06131c0a6a04045d82ddebdfafc8490daec601ec4a290fd6606243e2dc942686",
+      "runtime_sha256": "56f776d167cc52e7d89e23a5f4121c7c7610ed05ca2ef8544cd9f18f21b5edfb"
+    },
+    {
+      "banner": "quelserrar",
+      "original": "Quel'Delar_full.jpg",
+      "artist": "Joe Wilson",
+      "source": "https://hearthstone.wiki.gg/wiki/Quel%27Delar",
+      "match": "Same diagonal rune-inscribed curved blade and blue/gold hilt. This banner uses Quel'Delar source art; the goal name does not determine its artist.",
+      "original_sha256": "92503f8d628bf3b3b87f0afce287cdf7b7a98357ec12c519c6ca29e2512eb322",
+      "master_sha256": "4ac34189f220065f52ab6535fe22c5883815b0a63347bead6cdbe207cd7c47a1",
+      "runtime_sha256": "741eac3743049149525c7f63e7fb3aba716223de5c95a7a7f00f7380a629909e"
+    },
+    {
+      "banner": "raid_ony",
+      "original": "Hit_It_Very_Hard_full.jpg",
+      "artist": "L. Lullabi & A. Zemskov",
+      "source": "https://hearthstone.wiki.gg/wiki/Hit_It_Very_Hard",
+      "match": "Same Rokara leaping with sword at purple Onyxia in fiery stone chamber. Joint credit retained.",
+      "original_sha256": "21e2390f4a9f13a8c9877f83fe55e1907fc55b8d49e5c169ab3fe9543a3ad9d3",
+      "master_sha256": "51e899863c1417dc123c741a241bf99f71b43bbad47ab480811eae08d024dc18",
+      "runtime_sha256": "f1a380a641b2b9a936e15b0ad4acbe31f876a151d1bc003e4ec01a970f09c997"
+    },
+    {
+      "banner": "social_buffs_paladin",
+      "original": "Blessing_of_Trials_TCG.jpg",
+      "artist": "Zoltan Boros & Gabor Szikszai",
+      "source": "https://warcraft.wiki.gg/wiki/Blessing_of_Trials_%28Drums_of_War%29",
+      "match": "Same three armored figures, paladin raising hammer, red-bearded dwarf and night elf amid gold light. Drums of War 44/268, not the Chris Seaman Icecrown printing.",
+      "original_sha256": "5b26b34ea58aeb8999d4d906a2924b3d1827644b44a985266d8fbcf3d8af309d",
+      "master_sha256": "38aa027ce5ee2745fcd40e81c9f7c45b96a92092512718bf87acbb5334012831",
+      "runtime_sha256": "66ca521a3cbdee082cbd03f295c0ad4eed519e64d9d293b37d167bce91edbede"
+    },
+    {
+      "banner": "social_buffs_mage",
+      "original": "Arcane_Intellect_TCG.jpg",
+      "artist": "Dave Berggren",
+      "source": "https://warcraft.wiki.gg/wiki/File:Arcane_Intellect_TCG.jpg",
+      "corroboration": "https://hearthstone.blizzard.com/en-gb/cards/555-arcane-intellect/",
+      "match": "Same white-haired female mage, purple robes, staff and blue rune overhead; published full art includes Berggren signature.",
+      "original_sha256": "c52efe00b20ea1f865a4ed6ce7242be0f34a8d34932891a4330aa20d2082461c",
+      "master_sha256": "9c593aba816b17ee7b2e5121420011e81411c92005407d0f42dcb580b3ff7445",
+      "runtime_sha256": "ab1680970b377e0f3e2177e02a35702d42da81593fa138e152661bb32746e26d"
+    },
+    {
+      "banner": "raid_aq40",
+      "original": "C'Thun_Ahn'Qiraj_jorgejacinto.jpg",
+      "artist": "Jorge Jacinto",
+      "source": "https://jjcanvas.artstation.com/projects/OyOkWb",
+      "match": "Exact painting in artist's own portfolio: giant vertical eye above Ahn'Qiraj walls, foreground rocks, orange sky and bottom-right website credit.",
+      "original_sha256": "9ffebcd28ee0d793cf933de5c11e58d5a13ab0661eb649feeb6f7b6b86463b81",
+      "master_sha256": "04cc124917be2b2e2d058e497c254fc7c95404c0266eacd9536303116e9c208b",
+      "runtime_sha256": "230c4c47e87a232a4aba74aaeb9b25ae424ee0bfba7da4b9213c185001b099d6"
+    },
+    {
+      "banner": "epicmounts_nightelf",
+      "original": "Swift_Nightsaber_TCG.jpg",
+      "artist": "Ralph Horsley",
+      "source": "https://warcraft.wiki.gg/wiki/Swift_Nightsaber_%28Scourgewar%29",
+      "match": "Same night elf on armored white saber, green armor gems, blue forest and RCH mark. Scourgewar 156/270.",
+      "original_sha256": "2cd097b6046187314c77c38e3c3ed46af38c1e4d5db944b6350ede61293d76b1",
+      "master_sha256": "d31039b132c7bf27c01399ba56aa3a1b6c55d12ac66c969db09c03659b78fd00",
+      "runtime_sha256": "3a9892bb736cfa249cf95f31277a6cf3e5425bc593c36ae2827a647e9ec4f9d4"
+    },
+    {
+      "banner": "epicmounts_troll",
+      "original": "Swift_Raptor_TCG.jpg",
+      "artist": "Zoltan Boros & Gabor Szikszai",
+      "source": "https://warcraft.wiki.gg/wiki/Swift_Raptor_%28Scourgewar%29",
+      "match": "Same blue-green armored raptor and kneeling troll in desert. Scourgewar 190/270.",
+      "original_sha256": "f7e4b59d47bec44f1480f1c6f4d5d6496d8c423f7ff20a650be035b7016f00a0",
+      "master_sha256": "be4d2aa8a00fd02d00309645dcf635b9d9b953ebbce44559a8e18ff3295ad58a",
+      "runtime_sha256": "c470451bab4aca7430cd9994c5058eeb4d421d20600e4e6c9df853e7dbc02dcf"
+    },
+    {
+      "banner": "epicmounts_dwarf",
+      "original": "Swift_Ram_TCG.jpg",
+      "artist": "Matt Dixon",
+      "source": "https://warcraft.wiki.gg/wiki/Swift_Ram_%28Scourgewar%29",
+      "match": "Same red-bearded dwarf with rifle on white armored ram against snowy mountains and red sky.",
+      "original_sha256": "8368ec970e7de01282d6d6425ab68e8b52d0279a3030d69266904f4568e5a0af",
+      "master_sha256": "9ea672b93e5fa5e14ef967b0be3577d27e7921859c6bd5cca7e31c3f2caf27e1",
+      "runtime_sha256": "ddb32cca8cb17e177fa8e8044f48734259ce6c230a7ddc6c3c53d46da163a3f8"
+    },
+    {
+      "banner": "epicmounts_human",
+      "original": "Swift_Palomino_TCG.jpg",
+      "artist": "Ralph Horsley",
+      "source": "https://warcraft.wiki.gg/wiki/Swift_Palomino_%28Icecrown%29",
+      "match": "Same purple-maned gold/blue armored horse, human companion and leafy paddock. Icecrown 116/220.",
+      "original_sha256": "5f9558005cb2cc7e33f6c0e85af69cc3f771db79f3c081c15003b0be56016881",
+      "master_sha256": "4690447d74d4d173a0cfe02bbbd4bb9aa5b6b16f23981408f5d3182f737809ec",
+      "runtime_sha256": "955af6c33a8ac85c44e1e06fec767d9b54e295ce7e89afd9445a79d553c09f1d"
+    },
+    {
+      "banner": "epicmounts_gnome",
+      "original": "Swift_Mechanostrider_TCG.jpg",
+      "artist": "Carl Critchlow",
+      "source": "https://warcraft.wiki.gg/wiki/Swift_Mechanostrider",
+      "match": "Same brown armored mechanical bird with perforated beak, smaller bird and workshop architecture. Wrathgate 127/220.",
+      "original_sha256": "6917bd0b2ec3b71fe676e1327464ef96825b2c1d93ca3e33c47beff8d726cd11",
+      "master_sha256": "ad705affbd90d305eb56667a0d23fb763f8c85d47b9db9044b5a0e75442bad55",
+      "runtime_sha256": "d0d8e6608be99bd9ee7f676ff843ae88a58fbf837b53191c273b1687e3fa390e"
+    },
+    {
+      "banner": "tier3_paladin",
+      "original": "Guarded_by_the_Light_TCG.jpg",
+      "artist": "Chippy",
+      "source": "https://warcraft.wiki.gg/wiki/Guarded_by_the_Light_%28Fires_of_Outland%29",
+      "match": "Same kneeling paladin in black/blue tier armor with hammer and glowing raised hand. Fires of Outland 49/246. Credited alias retained without expanding it.",
+      "original_sha256": "07d6cc7d7a83fab3396ba71c23adf78ee80185feb1aa4b98a184742828881808",
+      "master_sha256": "e5e4d095e32b84f45107835f317a4135e679888e24078617868d85142fc8d742",
+      "runtime_sha256": "6ec141a1e6e76838510b7b674f062a642778e6a950f103c5a63f5f642879cb3b"
+    },
+    {
+      "banner": "rep_timbermaw",
+      "original": "Furbolg_Spiritbinder_TCG.jpg",
+      "artist": "Chris Seaman",
+      "source": "https://warcraft.wiki.gg/wiki/Furbolg_Spiritbinder",
+      "match": "Same furbolg shaman, staff, outstretched hand, beads, green cloth and misty forest.",
+      "original_sha256": "e5bd215173cfc4620a2666d169bb0f90db1be03d25f8bc39835b0c83be235741",
+      "master_sha256": "cceb11a570eb0cc92a65e7cc540746b77089e8954b37ac05adf8e0ee4a83dd33",
+      "runtime_sha256": "694c97db5296cf30e8e6a14eefcf50f1b7f0d91770776b7f0025968e0e05d829"
+    },
+    {
+      "banner": "rep_ambassador_ally_ironforge",
+      "original": "Ironforge_TCG.jpg",
+      "artist": "Zoltan Boros & Gabor Szikszai",
+      "source": "https://warcraft.wiki.gg/wiki/Ironforge_%28Fields_of_Honor%29",
+      "match": "Same enormous snowy gateway, gold anvil crest, foreground dwarf and surrounding mountains. Fields of Honor 207/208; not Hearthstone's Jakub Kasper Ironforge illustration.",
+      "original_sha256": "32d25c0e28ec8e6429f67113292184cc7d5c9d306b80091b7c50517fc8fa4403",
+      "master_sha256": "a4b8646ac89c08f0b7c0c937f24a2843309c15c54b172029c7b85fdbd5d5dbbf",
+      "runtime_sha256": "54fed086f318657a4edc5234c489453aabd332c6eab21a608ad7d0b481c5468a"
+    },
+    {
+      "banner": "allclasses_troll_mage",
+      "original": "Ice_Barrier_full.jpg",
+      "artist": "Alex Garner",
+      "source": "https://hearthstone.wiki.gg/wiki/Ice_Barrier",
+      "match": "Same red-haired troll with outstretched blue hand, ice ring and raised dark shoulders.",
+      "original_sha256": "b47880d8218ef2ce23206c2dae11e7c31cdcf813ec663b3cafc4bf328572f425",
+      "master_sha256": "7467e70106f41b10b752fd0862418ae997de6a205a5edfe2cb6205acc85d2046",
+      "runtime_sha256": "c71bb8e35233974360782c8966b8afcbe97adf0c7b307cf6e568904d4299f5ad"
+    },
+    {
+      "banner": "set_tier25",
+      "original": "Skeram_Cultist.jpg",
+      "artist": "Jaemin Kim",
+      "source": "https://hearthstone.wiki.gg/wiki/Skeram_Cultist",
+      "match": "Same red-armored, insect-helmeted cultist with black horned shoulders against sandy architecture. Banner adaptation includes subsequent armor corrections.",
+      "original_sha256": "7cf748e9b5b7d16f443a1542ba77a8abc2e7018112e8c17aa02db72d900e3595",
+      "master_sha256": "5791a76e85167e2ee17385905c5eceaba3e1d35ebeb1396617eb932e9b928b61",
+      "runtime_sha256": "494ac0879cb4790526080b4d710e1a6a98a0710e6e59cb831127a45cc8653c8e"
+    },
+    {
+      "banner": "raid_mc",
+      "original": "Ragnaros_the_Firelord_full.jpg",
+      "artist": "Greg Staples",
+      "source": "https://hearthstone.wiki.gg/wiki/Ragnaros_the_Firelord",
+      "match": "Same Ragnaros with hammer raised upper-left and huge armored hand reaching lower-right amid fire.",
+      "original_sha256": "a925276d6dd17d5edd50f12f5bd10f102de0ceb6e4821a6752eca825a2f959ac",
+      "master_sha256": "aee7b95a1d7481771a53cee2c2280b8147b3401530064245a9f74c5190c0af98",
+      "runtime_sha256": "98b0abe9bab966494324cdf3e4a5705a0602e72a2f74bef050c522100bd2b933"
+    },
+    {
+      "banner": "set_tier1",
+      "original": "Majordomo_Executus_full.jpg",
+      "artist": "Alex Horley",
+      "source": "https://hearthstone.wiki.gg/wiki/Majordomo_Executus",
+      "match": "Same orange armored naga-like Majordomo and horned headdress in flames; full original bears HORLEY signature. Page credits Alex Horley Orlandelli; existing addon uses Alex Horley.",
+      "original_sha256": "8cc26408b9eecedc380cc7d4c0af4931076d87e709e06ed356122760f14e9a90",
+      "master_sha256": "cb9680394aef3e6578579c86d3e52552c604dbcbb549963304b2de6edbdb0221",
+      "runtime_sha256": "33c2624d29022557504d211f4b57bd1cd5acedd9d1c85002d846593268e537b7"
+    },
+    {
+      "banner": "raid_zg",
+      "original": "Hakkar,_the_Soulflayer_full.jpg",
+      "artist": "Izzy Hoover",
+      "source": "https://hearthstone.wiki.gg/wiki/Hakkar%2C_the_Soulflayer",
+      "match": "Same blue/red winged serpentine Hakkar, curved scythe-like limbs and purple/turquoise sky.",
+      "original_sha256": "112d12149d4f2f7f293202f3ff5b0f2584a8273f65fe3c1e07ba26e775d9d79c",
+      "master_sha256": "a5e0a432b2b695907e2d143015dbb383780ce0888c022d106c93c07b20e87860",
+      "runtime_sha256": "a03f87444a8f94096c8a44d58ff28cb797a231f2ae61840cd47e7595a71fc6c7"
+    },
+    {
+      "banner": "mount_dreadsteed",
+      "original": "mount_dreadsteed-banner-source.jpg",
+      "artist": "Alex Horley",
+      "source": "https://hearthstone.wiki.gg/wiki/Dreadsteed",
+      "corroboration": "https://hearthstone.blizzard.com/en-us/cards/2822-dreadsteed/",
+      "match": "Exact rearing horned armored horse in purple/red mist with flames, original AlexHorleyArt.com credit and HORLEY signature. Existing addon uses Alex Horley.",
+      "original_sha256": "f0b1365bc842153873901ccd8473663118c4ced9c9ea2ce86f636e42ed38de49",
+      "master_sha256": "b1a47318cc57365f8be726ae4812079a1c280f3ea9227317b9b59a803f5383d9",
+      "runtime_sha256": "fe5fbee5a9984559839bbf1931db3af4d38b32046a054d1139ff2d5f18211f34"
+    },
+    {
+      "banner": "set_tier1_rogue",
+      "original": "Garrote_full.jpg",
+      "artist": "Konstantin Porubov",
+      "source": "https://hearthstone.wiki.gg/wiki/Garrote",
+      "match": "Same night elf rogue holding taut red garrote in both hands, skull chest armor and stone arch.",
+      "original_sha256": "ab0e9d3bd695c7e83af77961c9e9dcc93f6ccc33ba75bb9c381b8b59d17ca1c7",
+      "master_sha256": "7b04a7a207ed8d8efa71852ddba95613b199cbf16d0e030812d3324158dc1062",
+      "runtime_sha256": "6525c5f80dbc60c95dc5a6a5b1e68d8a3691d6d8a11acc70aa186c4e559fff42"
+    },
+    {
+      "banner": "set_tier2_rogue",
+      "original": "Maestra_of_the_Masquerade_full.jpg",
+      "artist": "Alex Horley",
+      "source": "https://hearthstone.wiki.gg/wiki/Maestra_of_the_Masquerade",
+      "match": "Same seated female orc in black armor, three masks behind, orange background and HORLEY signature. Existing addon uses Alex Horley.",
+      "original_sha256": "cfa0f938da6777ff350cc2c9479677ceabdae6bc99d63f7d3118fb0ce2b5532b",
+      "master_sha256": "03ae947932d2b0e9bac1c7f8113670653f2fca901c4e785f286f10707e483bbe",
+      "runtime_sha256": "f66ef4a2daf189f09f6c7022d61e9f58360ab7f27e7ef80fd00df13d39e96052"
+    },
+    {
+      "banner": "tier3_rogue",
+      "original": "Smokescreen_full.jpg",
+      "artist": "BOSi Studio",
+      "source": "https://hearthstone.wiki.gg/wiki/Smokescreen",
+      "corroboration": "https://hearthstone.blizzard.com/en-gb/cards/71293/",
+      "match": "Same blond male rogue turning inside purple smoke with orange-lit dragons at right. Studio credit retained.",
+      "original_sha256": "afb9f11d1910f0d86f6b4374451079f8fc7e620dd836a2fdebe7a62020258e4b",
+      "master_sha256": "2bfe4f339ce1fc0a617ff4cf2b5e668afc147b3770e59855bbd9322f33eb6aa3",
+      "runtime_sha256": "616a91dbe8ea20767da53cf04e3c13be537c4223349777a92742441cd60fdc30"
+    },
+    {
+      "banner": "tier3_hunter",
+      "original": "Selective_Breeder_full.jpg",
+      "artist": "Vladimir Kafanov",
+      "source": "https://hearthstone.wiki.gg/wiki/Selective_Breeder",
+      "corroboration": "https://hearthstone.blizzard.com/en-us/cards/113351/",
+      "match": "Same blue-haired troll with saber in dry savanna. Source painting matched; installed adaptation changes armor and pet using game references (hunter-tier3-cryptstalker.json). Credit acknowledges source illustration.",
+      "original_sha256": "098b2c3cf5e649e8326f744928dfc2bfe5340f71e44ae0e321161867fe6b03b8",
+      "master_sha256": "0f6c59a3f8899b31a39c3d2242493fe759cc97d9439e34e074d3c8b9a13e2267",
+      "runtime_sha256": "4e5c06dc0f29f8eedc3b0934202ed5df6bd5433c48be439977d47a63a7b0c6b2"
+    },
+    {
+      "banner": "set_dungeon1_warrior",
+      "original": "Andiss_Butcherson_TCG_Card.jpg",
+      "artist": "UDON",
+      "source": "https://warcraft.wiki.gg/wiki/Andiss_Butcherson",
+      "match": "Same exact Fires of Outland 110/246 card scan: red-bearded human in gold/steel Valor armor with weapon across table. Explicit UDON artist row; no individual identity inferred.",
+      "original_sha256": "47c4daa91da9e062dc030527dab157a513f21486d8b239d460b7c48375118a91",
+      "master_sha256": "3594528c80f376154b615e0c854de64ca5634cff01ccb5b3e9334db1c1bd8d1d",
+      "runtime_sha256": "f9896a8f3ede75e2060e88bdab705aec62a82d85fbf4ceb2a1cf86373821e6a9"
+    },
+    {
+      "banner": "mount_deathcharger",
+      "original": "Baron_Rivendare_full.jpg",
+      "artist": "Ralph Horsley",
+      "source": "https://hearthstone.wiki.gg/wiki/Baron_Rivendare",
+      "match": "Same mounted Baron with blue sword, gold-trimmed armor and blue cloak before purple masonry.",
+      "original_sha256": "0c9a0f54e303ab8b43dd903bb1cb73c147f69c8618304db83c4281e7f2e0b979",
+      "master_sha256": "4c6eb8a5a4264337e4a0d84041a87fa684d212fd6e768a97c60f06c6450cdb9b",
+      "runtime_sha256": "2b4c5d41984b6ec2cf842ac2053d7499fe5521dd43452870c904d053cad215ce"
+    },
+    {
+      "banner": "set_tier2_paladin",
+      "original": "Zealotry_TCG_card.png",
+      "artist": "Sam Nielson",
+      "source": "https://warcraft.wiki.gg/wiki/Zealotry_%28Reign_of_Fire%29",
+      "match": "Same exact Reign of Fire 32/197 scan: gold/red armored paladin with hammer down-left and radiant raised hand.",
+      "original_sha256": "41d3f4fa2f65a0258d0f65002c8f9250aa228d81e3ea35856befb1df573126d5",
+      "master_sha256": "3bc87de33e5560e663ee86525014a774bec32ae987a2d6631a719b857ebddf27",
+      "runtime_sha256": "8b2d0b266a85f5a9d1121691a21b64e703243b7de3f2392213abd551b0ec9a75"
+    }
+  ],
+  "withheld": [
+    {
+      "banner": "rep_thorium",
+      "original": "War_Golem.jpg",
+      "reason": "Hearthstone War Golem by Dave Kendall is a different image. Warcraft file page matches this original and has a historical Samwise attribution with a misspelled surname and old Sons of the Storm link; primary source was not verified in this pass. Leave blank."
+    },
+    {
+      "banner": "social_cheers",
+      "original": "Party_of_Four_full.jpg",
+      "reason": "Exact image matched, but page spells artist Sean O''Daniels. Name not independently corroborated; leave blank rather than silently normalize it."
+    },
+    {
+      "banner": "prof_cooking",
+      "original": "Campfire_full.jpg",
+      "reason": "Campfire hero-power source located but no verified explicit artist credit. Do not use Campfire Shadow or a UI artist's credit."
+    },
+    {
+      "banner": "prof_alchemy",
+      "original": "The_Alchemist_HS.jpg",
+      "reason": "The Alchemist boss hero-power records located, but no explicit verified artist field. Leave blank."
+    },
+    {
+      "banner": "prof_engineering-horde",
+      "original": "BG22_HERO_200p_art.jpg",
+      "reason": "MechGyver hero-power record located; artist field absent. Leave blank."
+    },
+    {
+      "banner": "raid_bwl",
+      "original": "Blackwing_Lair_Classic_key_art.jpg",
+      "reason": "Key art catalog located, but no verified creator credit for exact image."
+    },
+    {
+      "banner": "raid_naxx",
+      "original": "Naxxramas_TCG_key_art.jpg",
+      "reason": "Key art catalog located, but no verified creator credit for exact image."
+    },
+    {
+      "banner": "set_tier1_hunter",
+      "original": "Giantstalker_Rexxar_full.jpg",
+      "reason": "No explicit artist plus exact image match verified in this pass."
+    },
+    {
+      "banner": "mount_qiraji_aq",
+      "original": "Ultramarine_Qiraji_Battle_Tank_TCG.jpg",
+      "reason": "Exact filename appears in source gallery, but no verified artist credit found."
+    }
+  ],
+  "limitations": "This is a conservative attribution pass, not a guarantee that every remaining artist can be identified. Every unverified runtime banner retains a blank credit. A HearthstoneJSON corroboration request returned HTTP 403; no data from it was used. Existing credits were not re-audited or changed. Source artwork and installed textures were not modified."
+}

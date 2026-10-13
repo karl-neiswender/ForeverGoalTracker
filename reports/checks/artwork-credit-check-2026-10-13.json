@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-13",
+  "checker": "tools/check.py using bundled Python and lupa.lua51",
+  "checker_exit_code": 0,
+  "new_credits": 40,
+  "existing_credits_preserved": 28,
+  "unique_mapping_keys": 68,
+  "remaining_blank_manifest_entries": 79,
+  "hash_checks": "all 40 original/master/runtime triplets match retained evidence",
+  "performance": "static table entries only; no new runtime paths or main-chunk locals",
+  "release": "source sync only; no tag or live publication"
+}

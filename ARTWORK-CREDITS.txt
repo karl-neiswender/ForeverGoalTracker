@@ -30,6 +30,52 @@ Glenn Rane, copyright 2006 Blizzard Entertainment.
 Wolfsbane banner: adapted from Worgen artwork attributed to Samwise
 in the supplied source, copyright Blizzard Entertainment.
 
+Verified additional banner source artists (October 13, 2026)
+Exact-image comparisons and source URLs are retained in
+reports/artwork-artist-evidence-2026-10-13.json in the source repository.
+These credits acknowledge original illustrations adapted for addon banners.
+
+social_friends: Jaslynn Tham.
+pvp_mount_horde: Efrem Palacios.
+pvp_set_mail_ally: Anton Zemskov.
+prof_blacksmithing: Akkapoj T..
+prof_leatherworking: Kagi.
+prof_enchanting: Akkapoj T..
+prof_tailoring: Kagi.
+prof_first_aid: L. Chanchai.
+prof_blacksmithing-horde: Ursula Dorada.
+social_buffs_druid: Brad Vancata.
+social_buffs_priest: Cos Koniotis.
+set_viper: Steve Prescott.
+key_scholo: Kevin Sidharta.
+sulfuras: James Ryman.
+quelserrar: Joe Wilson.
+raid_ony: L. Lullabi & A. Zemskov.
+social_buffs_paladin: Zoltan Boros & Gabor Szikszai.
+social_buffs_mage: Dave Berggren.
+raid_aq40: Jorge Jacinto.
+epicmounts_nightelf: Ralph Horsley.
+epicmounts_troll: Zoltan Boros & Gabor Szikszai.
+epicmounts_dwarf: Matt Dixon.
+epicmounts_human: Ralph Horsley.
+epicmounts_gnome: Carl Critchlow.
+tier3_paladin: Chippy.
+rep_timbermaw: Chris Seaman.
+rep_ambassador_ally_ironforge: Zoltan Boros & Gabor Szikszai.
+allclasses_troll_mage: Alex Garner.
+set_tier25: Jaemin Kim.
+raid_mc: Greg Staples.
+set_tier1: Alex Horley.
+raid_zg: Izzy Hoover.
+mount_dreadsteed: Alex Horley.
+set_tier1_rogue: Konstantin Porubov.
+set_tier2_rogue: Alex Horley.
+tier3_rogue: BOSi Studio.
+tier3_hunter: Vladimir Kafanov.
+set_dungeon1_warrior: UDON.
+mount_deathcharger: Ralph Horsley.
+set_tier2_paladin: Sam Nielson.
+
 AI-assisted artwork
 Some original addon artwork was created with assistance from ChatGPT and
 Nano Banana, as identified by the addon author.
