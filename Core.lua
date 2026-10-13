@@ -5388,7 +5388,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- soft blooms on its lanterns and glowing orbs (baked), and drifting motes that read as leaves
         ["rep_ambassador_ally_darnassus-banner.blp"] = Sunlight(
             { 0.74, -0.08, 100, 0.35, 5, 1.2, parallel = true, strength = 0.6 },
-            { 0.35, 0.95, 0.0, 0.85 }, 30, { beam = { 0.74, -0.10, 0.80, 0.40, strength = 0.9 } }),
+            { 0.35, 0.95, 0.0, 0.85 }, 48, { beam = { 0.74, -0.10, 0.80, 0.40, strength = 0.9 },
+                dust = true }), -- (dust = true keeps the page's windy drifting leaves with the motes)
         -- Thunder Bluff (Tauren Ambassador): broad light breaking through the clouds at the top
         -- right (a soft glow at the gap), wind-blown motes across the mesas
         ["rep_ambassador_horde_thunderbluff-banner.blp"] = Sunlight(
