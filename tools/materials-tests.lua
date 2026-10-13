@@ -706,6 +706,7 @@ do
     -- Druid and nature banners keep the page's windy leaves with their particles; others hide them
     do
         assert(B:IsLeafy("x", "social_buffs_druid-banner.blp") and B:IsLeafy("x", "rep_ambassador_ally_darnassus-banner.blp"), "the druid buff banner and Darnassus keep the leaves")
+        assert(B:IsLeafy("x", "set_forever_raid-banner.blp") and B:IsLeafy("raid_hyjal", nil) == false and B:IsLeafy("x", "raid_hyjal-banner.blp"), "Forever raid sets and Hyjal keep the leaves")
         assert(B:IsLeafy("rhokdelar", nil) and B:IsLeafy("lokdelar", "anything-banner.blp"), "forest weapons keep them by goal")
         assert(not B:IsLeafy("raid_mc", "raid_mc-banner.blp") and not B:IsLeafy("social_buffs", "social_buffs_mage-banner.blp"), "other banners with particles hide the leaves")
         for path in pairs(B.leafy) do assert(path:find("-banner.blp", 1, true) or STUB_NS.GoalById(path), "leafy entry resolves: " .. path) end
