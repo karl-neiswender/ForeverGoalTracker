@@ -5,7 +5,7 @@
 
 check.py runs the enforced rules on every check, so a new tip, step or tooltip
 that breaks a convention fails the suite. Proposed rules are conventions waiting
-for Karl's yes; they are reported, never enforced. The conventions themselves are
+for Karl's yes; they are reported, never enforced (none are waiting right now). The conventions themselves are
 written up in reports/copy-sweep/conventions.md.
 
 A rule gets one string at a time: {where, field, text, client}. Item, quest and
@@ -110,9 +110,9 @@ def level_60(rec, t):
         return "Level 60 capitalized mid-sentence"
 
 
-# ---- proposed: need Karl's yes before they are enforced --------------------
+# ---- Karl said yes (2026-10-13): client names, gold, hints and sentence case -------
 
-@rule("client-names", "proposed",
+@rule("client-names", "enforced",
       "Name the client 'Classic Era' (not 'Classic') and the other client 'Forever' in short copy.")
 def client_names(rec, t):
     if re.search(r"\bClassic\b(?! Era)", t):
@@ -121,21 +121,21 @@ def client_names(rec, t):
         return "'WoW Forever' (short copy says 'Forever')"
 
 
-@rule("gold-spelled", "proposed", "Write 'gold' in full in prose ('1,200 gold'), not '1,200g'.")
+@rule("gold-spelled", "enforced", "Write 'gold' in full in prose ('1,200 gold'), not '1,200g'.")
 def gold_spelled(rec, t):
     m = re.search(r"~?\b\d[\d,]*g\b", t)
     if m:
         return "gold shorthand: " + m.group(0)
 
 
-@rule("hint-colon", "proposed", "Hints read 'Shift-click: link in chat': lowercase after the colon, except names (Wowhead).")
+@rule("hint-colon", "enforced", "Hints read 'Shift-click: link in chat': lowercase after the colon, except names (Wowhead).")
 def hint_colon(rec, t):
     m = re.search(r"-click: ([A-Z][a-z]+)\b", t)
     if m and m.group(1) not in ("Wowhead", "TomTom"):
         return "capital after the colon: " + m.group(0)
 
 
-@rule("ui-sentence-case", "proposed",
+@rule("ui-sentence-case", "enforced",
       "Buttons, headings and hints use sentence case; only named things stay capitalized (My Goals, Goal Library, Wowhead, Forever).")
 def ui_sentence_case(rec, t):
     if rec["field"] != "ui":

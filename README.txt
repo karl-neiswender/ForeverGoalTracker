@@ -98,7 +98,7 @@ WARCRAFT FOREVER
 ----------------
 Step guides are written from Classic Era, where they're known to be
 accurate. Until Wowhead's Forever database confirms a goal, its page shows
-a small "not confirmed in WoW Forever yet" notice. Content that's new in
+a small "not confirmed in Forever yet" notice. Content that's new in
 Forever is marked NEW, and Classic content Forever changed is marked
 UPDATED, both in blue; the Library's "New & Updated" filter lists them.
 

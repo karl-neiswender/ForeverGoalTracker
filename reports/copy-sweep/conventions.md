@@ -18,14 +18,12 @@ The copy was already close to consistent. Most of what follows writes down what 
 | "Turn in" is the verb, "turn-in" the noun. | "Turn in 'Master Angler'", "the turn-in wins" |
 | "level 60" is lowercase in a sentence. | |
 
-## Proposed (waiting for Karl's yes)
+## Also enforced since Karl's yes (2026-10-13)
 
-1. **Client names.** Say "Classic Era" for the old client, never bare "Classic". Say "Forever" in short copy (tips, chips, tooltips); keep "Warcraft Forever" only for the tagline and welcome text. Today the player sees "Classic", "Classic Era", "Forever", "WoW Forever" and "Warcraft Forever".
-   - 5 tips say bare "Classic" (the Fishing tip and the four AQ mounts).
-   - Three tooltips and chat lines say "WoW Forever": `Core.lua` lines 1480, 2141 and 11766 ("Not found in WoW Forever yet", "New in WoW Forever.", "Updated in WoW Forever.", "isn't revealed in WoW Forever yet").
-2. **Gold.** Write "gold" in full in prose: "1,200 gold", not "1,200g" (3 places: Frostsaber and two Epic Racial Mounts tips).
-3. **Hints.** After a hint colon, lowercase the first word unless it is a name: "Shift-click: link in chat" (2 places say "Link in chat"; every other hint is already lowercase).
-4. **UI capitalization.** Buttons and headings use sentence case: "Find your next goal", "Edit goal", "Reset this goal". Named things stay capitalized: My Goals, Goal Library, Wowhead, Forever. One heading breaks it: "Step by Step" (suggest "Step by step").
+1. **Client names.** "Classic Era" for the old client, never bare "Classic". "Forever" in short copy (tips, chips, tooltips); "Warcraft Forever" only in the tagline and welcome text. The strings "Not found in Forever yet", "New in Forever.", "Updated in Forever." and "that item isn't revealed in Forever yet" were changed, plus the Fishing and AQ mount tips.
+2. **Gold.** Write "gold" in full in prose: "1,200 gold", "about 900 gold" (Frostsaber and two Epic Racial Mounts tips changed).
+3. **Hints.** After a hint colon, lowercase the first word unless it is a name: "Shift-click: link in chat" (2 places changed).
+4. **UI capitalization.** Buttons and headings use sentence case. Named things stay capitalized: My Goals, Goal Library, Wowhead, Forever. "Step by Step" became "Step by step".
 
 ## Notes for later passes
 

@@ -731,7 +731,7 @@ local library = {
         note = "Be first to deliver 40 Speckled Tastyfish to Riggle Bassbait in Booty Bay and win a prize.",
         completeWith = { quest = 8193, item = { 19970, 19979 } },
         tips = {
-            "Classic's tournament runs on Sundays. Check your realm's schedule; Forever's timing and rules are unconfirmed.",
+            "Classic Era's tournament runs on Sundays. Check your realm's schedule; Forever's timing and rules are unconfirmed.",
             "Fish in Stranglethorn Vale's Pools of Tastyfish, outside Booty Bay. Fishing 225+ reduces escaped fish.",
             "Set your hearthstone in Booty Bay and leave bag space. Keep your hearthstone ready. Find Riggle Bassbait on the central docks near the inn.",
             "The first 'Master Angler' turn-in wins. Either prize completes the goal: {item:19970:Arcanite Fishing Pole} or {item:19979:Hook of the Master Angler}.",
@@ -830,7 +830,7 @@ do
             completeWith = { item = id, owned = { color .. " Qiraji" } },
             tips = {
                 "These crystals drop in {raid_aq40:Temple of Ahn'Qiraj} (AQ40).",
-                "Classic: level 60 required; usable only inside Temple of Ahn'Qiraj. Forever's rules are unconfirmed.",
+                "Classic Era: level 60 required; usable only inside Temple of Ahn'Qiraj. Forever's rules are unconfirmed.",
                 "Red is rarer than blue, green and yellow. These mounts do not require the {mount_qiraji:black battle tank}'s Scarab Gong event.",
             },
         })

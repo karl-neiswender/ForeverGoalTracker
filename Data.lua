@@ -296,7 +296,7 @@ FGT.goals = {
         category = "Mount",
         difficulty = "Hard",
         timeEstimate = "1-2 Months",
-        note = "Alliance-only mount, ~900g at Exalted. Non-Night Elves also need Darnassus Exalted to learn Tiger Riding.",
+        note = "Alliance-only mount, about 900 gold at Exalted. Non-Night Elves also need Darnassus Exalted to learn Tiger Riding.",
         steps = {
             { text = "Reach level 40.", auto = { level = 40 } },
             { text = "Reach 1500/3000 Neutral with the Wintersaber Trainers.", auto = { rep = { faction = 589, standing = 4, value = 1500 } } },
@@ -483,9 +483,9 @@ FGT.goals = {
         note = "Your faction's epic racial mounts. Requires level 60, Riding training and gold. Other races need Exalted with the mount's home city. Pick the mounts you want.",
         tips = {
             "Your own race's mount needs no reputation. Another race's mount needs Exalted with that race's home city (Darkspear Trolls for the raptor, Ironforge for the ram).",
-            FOREVER_CLIENT and "Journeyman Riding (100% speed): 1,000g. Epic racial mount: 200g. Total: 1,200g before faction discounts."
+            FOREVER_CLIENT and "Journeyman Riding (100% speed): 1,000 gold. Epic racial mount: 200 gold. Total: 1,200 gold before faction discounts."
                 or "Honored with the vendor's city gives a small discount.",
-            FOREVER_CLIENT and "Apprentice Riding (60% speed): 100g. Non-epic racial mount: 20g, before faction discounts."
+            FOREVER_CLIENT and "Apprentice Riding (60% speed): 100 gold. Non-epic racial mount: 20 gold, before faction discounts."
                 or "Riding training and the mount are separate purchases.",
             FOREVER_CLIENT and "Train Riding once per character. Each mount costs extra."
                 or "Each mount is a separate purchase.",

@@ -272,7 +272,7 @@ FGT.SETTING_DEFAULTS = {
     tallGoalArt = true,      -- full-height goal artwork, cropped without stretching
     imageEffects = true,     -- lights, embers, snow and drifting dust on goal artwork
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
-    hideCompletedSteps = false, -- guide filter, controlled beside Step by Step
+    hideCompletedSteps = false, -- guide filter, controlled beside Step by step
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
 }
 
@@ -1481,7 +1481,7 @@ do
     -- found in WoW Forever yet
     function FGT.NpcNote(n)
         if FGT.isForever and n.missingInForever then
-            return "Not found in WoW Forever yet. This spot is from Classic Era."
+            return "Not found in Forever yet. This spot is from Classic Era."
         end
         if not n.map then return "No map pin: inside a dungeon, where the map can't show it." end
     end
@@ -1651,7 +1651,7 @@ do
             end
         end
         GameTooltip:AddLine(" ")
-        GameTooltip:AddLine("Shift-click: Link in chat", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:AddLine("Shift-click: link in chat", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         GameTooltip:AddLine("Right-click: Wowhead", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
         GameTooltip:Show()
     end
@@ -2142,7 +2142,7 @@ function FGT.ForeverNote(goal, short)
     local s = FGT.ForeverStatus(goal)
     if s == "new" or s == "updated" then
         return (not short and goal.foreverNote)
-            or (s == "new" and "New in WoW Forever." or "Updated in WoW Forever.")
+            or (s == "new" and "New in Forever." or "Updated in Forever.")
     end
     if not FGT.isForever then return nil end
     if s == "listed" then
@@ -6238,7 +6238,7 @@ divider:SetPoint("RIGHT", -16, 0)
 
 local stepsHeader = NewTitleString(FGT.detailBody, 12)
 stepsHeader:SetPoint("TOPLEFT", divider, "BOTTOMLEFT", 0, -10)
-stepsHeader:SetText("Step by Step")
+stepsHeader:SetText("Step by step")
 
 -- A quiet guide filter. Only the layout changes; saved ticks and progress
 -- always include completed steps, even when they are hidden.
@@ -11750,7 +11750,7 @@ do
             GameTooltip:AddLine(FGT.ItemMountID(id) and "Ctrl-click: preview mount" or "Ctrl-click: try on", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         if not compare then
-            if known then GameTooltip:AddLine("Shift-click: Link in chat", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true) end
+            if known then GameTooltip:AddLine("Shift-click: link in chat", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true) end
             GameTooltip:AddLine("Right-click: Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
         end
         GameTooltip:Show()
@@ -11804,7 +11804,7 @@ do
     function FGT.InsertItemLink(id)
         local _, link = FGT.ItemInfo(id)
         if not link and Unavailable(id) then
-            print(TAG .. (FGT.isForever and "that item isn't revealed in WoW Forever yet, so it can't be linked."
+            print(TAG .. (FGT.isForever and "that item isn't revealed in Forever yet, so it can't be linked."
                 or "that item isn't in the game, so it can't be linked."))
         elseif not link then
             FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()

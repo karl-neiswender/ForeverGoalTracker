@@ -17,8 +17,8 @@ for i, section in ipairs(goal.sections) do
 end
 local text = table.concat(goal.tips, " ")
 if F.isForever then
-    assert(text:find("1,000g",1,true) and text:find("200g",1,true))
-    assert(text:find("100g",1,true) and text:find("20g",1,true))
+    assert(text:find("1,000 gold",1,true) and text:find("200 gold",1,true))
+    assert(text:find("100 gold",1,true) and text:find("20 gold",1,true))
     assert(text:find("before faction discounts",1,true))
     assert(#F.GroupParts(goal) == 9, "Skyborne still included")
 else
