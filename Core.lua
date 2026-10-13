@@ -4906,6 +4906,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             B.artVariants[child.id] = variants
         end
     end
+    B.artVariants.pvp_set_mail_ally = {{path="pvp_set_mail_ally-banner.blp", aspect=4/3, preprocessed=true}}
+    for _, child in ipairs(FGT.armorCollections.pvp_set_mail_ally.armorChildren) do
+        B.artVariants[child.id] = B.artVariants.pvp_set_mail_ally
+    end
     B.pvpArtVariants = {
         {path="set_tier2_warrior-alliance-banner.blp", faction="Alliance"},
         {path="set_tier2_warrior-banner.blp", faction="Horde"},

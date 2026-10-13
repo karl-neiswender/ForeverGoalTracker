@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "pvp_set_mail_ally": "pvp/marshal-mail-master.png",
     "rep_ambassador_horde_thunderbluff": "cities/thunderbluff-master.png",
     "rep_ambassador_horde_undercity": "cities/undercity-master.png",
     "rep_ambassador_ally_ironforge": "cities/ironforge-master.png",
