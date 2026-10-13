@@ -73,6 +73,7 @@ STEMS = {
     "allclasses_undead_paladin": "Leveling, Undead Paladin (hammer head and glowing eyes)",
     "rep_ambassador_ally_darnassus": "Darnassus (lanterns, glowing orbs and the canopy gap)",
     "rep_ambassador_horde_undercity": "Undercity (ceiling light, torches and waterfall bases)",
+    "social_cheers": "Give Cheers (the foamy tankard and the wall lantern)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -91,6 +92,7 @@ REGIONS = {
                                       (0.36, 0.46, 0.68, 0.78), (0.86, 0.94, 0.72, 0.82), (0.33, 0.44, 0.22, 0.38)],  # canopy gap, orbs, lanterns
     "rep_ambassador_horde_undercity": [(0.64, 0.78, 0.00, 0.08), (0.37, 0.44, 0.32, 0.40), (0.95, 1.00, 0.33, 0.41),
                                        (0.50, 0.60, 0.60, 0.72), (0.80, 0.90, 0.60, 0.72)],  # ceiling light, torches, waterfall bases
+    "social_cheers": [(0.82, 1.00, 0.02, 0.24), (0.38, 0.48, 0.10, 0.28)],  # tankard, lantern
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {

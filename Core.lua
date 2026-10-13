@@ -5376,6 +5376,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Warlord's armor: embers drifting up off the battlefield behind him (the halo's bloom is baked)
         ["pvp_set_plate_horde-banner.blp"] = { 0.64, 0.2, 0.4, { 1, 1, 1 }, glow = false, strength = 0.8,
             embers = { box = { 0.30, 0.65, 0.62, 0.98 }, field = { 0.20, 1.0, 0.35, 0.98 }, count = 36, blurShare = 0.22, rise = 0.30 } },
+        -- Give Cheers: the wall lantern's flame glows and flickers slowly, the foamy tankard blooms
+        -- (baked), and dust floats in the tavern's lamplight
+        ["social_cheers-banner.blp"] = { 0.43, 0.18, 0.20, { 1, 1, 1 }, strength = 0.9, flicker = 0.35,
+            embers = Motes({ 0.35, 1.0, 0.08, 0.75 }, 24) },
         -- Benediction, Horde art: soft motes floating around the mace head and its sparkles
         ["benediction-banner.blp"] = { 0.58, 0.45, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = Motes({ 0.40, 0.76, 0.24, 0.64 }, 28) },
@@ -5418,7 +5422,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
         "rep_thorium", "wolfsbane", "prof_cooking",
         "social_buffs_mage", "social_buffs_druid", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
-        "allclasses_undead_paladin", "rep_ambassador_ally_darnassus", "rep_ambassador_horde_undercity",
+        "allclasses_undead_paladin", "rep_ambassador_ally_darnassus", "rep_ambassador_horde_undercity", "social_cheers",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5430,7 +5434,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "tier3_paladin", "key_scholo", "key_strat", "set_dungeon1_priest", "sulfuras", "rep_thorium",
         "wolfsbane", "social_campfires",
         "social_buffs", "social_friends", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
-        "allclasses", "rep_ambassador_ally", "rep_ambassador_horde",
+        "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
@@ -5440,6 +5444,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         social_buffs_mage = 0.5, social_buffs_druid = 0.5, pvp_set_plate_ally = 0.3, pvp_set_plate_horde = 0.35,
         pvp_mount_horde = 0.4, allclasses_undead_paladin = 0.5,
         rep_ambassador_ally_darnassus = 0.5, rep_ambassador_horde_undercity = 0.5,
+        social_cheers = 0.45,
     }
     B.blooms, B.bloomSpecs = {}, {}
     for _, stem in ipairs(B.bloomStems) do
