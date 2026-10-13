@@ -112,9 +112,11 @@ function A.SetDust(on)
     end
 end
 
--- Runs only while the goal page is on screen, and not with Celebrations off.
+-- Runs only while the goal page is on screen, and with Image effects on.
 function A.Refresh()
-    local on = U.detail:IsVisible() and FGT.Setting("celebrations") ~= "off"
+    -- Settings > Images > Image effects (the clouds go too)
+    local on = U.detail:IsVisible() and FGT.Setting("imageEffects")
+    fx:SetShown(FGT.Setting("imageEffects") and true or false)
     for _, l in ipairs(A.layers) do
         if on and not l.group:IsPlaying() then l.group:Play()
         elseif not on and l.group:IsPlaying() then l.group:Stop(); if not l.steady then l.tex:SetAlpha(0) end end
@@ -128,9 +130,9 @@ U.main:HookScript("OnHide", A.Refresh)
 -- /goals dust: what the effect is doing, for checking in game.
 function A.Status()
     local say = function(t) print("|cffffd75eForever Goal Tracker:|r " .. t) end
-    say(string.format("dust on goal page: panel level %d, dust level %d, body level %d, shown %s, celebrations %s, dust %s",
+    say(string.format("dust on goal page: panel level %d, dust level %d, body level %d, shown %s, image effects %s, dust %s",
         U.detail:GetFrameLevel(), fx:GetFrameLevel(), body and body:GetFrameLevel() or -1,
-        tostring(fx:IsVisible()), tostring(FGT.Setting("celebrations")), A.dust and "on" or "off (embers)"))
+        tostring(fx:IsVisible()), tostring(FGT.Setting("imageEffects")), A.dust and "on" or "off (embers)"))
     for i, l in ipairs(A.layers) do
         say(string.format("  layer %d: %s, playing %s, alpha %.2f, size %dx%d", i, l.steady and "clouds" or "dust",
             tostring(l.group:IsPlaying()), l.tex:GetAlpha(), l.tex:GetWidth(), l.tex:GetHeight()))

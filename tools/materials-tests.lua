@@ -450,8 +450,18 @@ do
     B:PlaceGlow()
     assert(B.emberFor == before, "a re-layout keeps the embers in flight")
     STUB_NS.SetSetting("celebrations", cel)
+    STUB_NS.SetSetting("imageEffects", false)
     B:PlaceGlow()
-    assert(B.emberFor == nil, "Celebrations off stops the embers")
+    assert(B.emberFor == nil, "Image effects off stops the embers")
+    STUB_NS.SetSetting("imageEffects", true)
+    B:PlaceGlow()
+    assert(B.emberFor ~= nil, "Image effects on starts them again")
+    -- the Settings page lists it under Images, and Effects is renamed
+    local titles = {}
+    for _, g in ipairs(STUB_NS.SETTINGS) do titles[g.title] = g end
+    assert(titles["Images"] and titles["Celebrations and sound"] and not titles["Effects"], "settings groups")
+    assert(titles["Images"].rows[1].key == "tallGoalArt" and titles["Images"].rows[2].key == "imageEffects", "Images rows")
+    assert(STUB_NS.SETTING_DEFAULTS.imageEffects == true, "Image effects on by default")
 end
 
 -- every ember banner Karl picked resolves to embers (by image or by goal)

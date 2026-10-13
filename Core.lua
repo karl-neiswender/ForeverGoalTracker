@@ -270,6 +270,7 @@ FGT.SETTING_DEFAULTS = {
     scale = 1,               -- window scale
     alpha = 1,               -- window opacity
     tallGoalArt = true,      -- full-height goal artwork, cropped without stretching
+    imageEffects = true,     -- lights, embers, snow and drifting dust on goal artwork
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
     hideCompletedSteps = false, -- guide filter, controlled beside Step by Step
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
@@ -5378,7 +5379,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local spec = self:GlowSpec() or {}
         self.glowSpec = spec[1] and spec or nil
         local u = self.uv
-        local on = spec[1] and u and self.hasArt and self.shownArtHeight
+        -- Settings > Images > Image effects turns every banner light off
+        local on = FGT.Setting("imageEffects") and spec[1] and u and self.hasArt and self.shownArtHeight
         if on then
             local x = (spec[1]-u[1])/(u[2]-u[1])*self.art:GetWidth()
             local y = (spec[2]-u[3])/(u[4]-u[3])*self.shownArtHeight
@@ -5390,7 +5392,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 self:DrawLights(0.5, 0)
             end
         end
-        local live = on and FGT.Setting("celebrations") ~= "off"
+        local live = on
         self.glowFrame:SetShown(on and true or false)
         self.glowTex:SetShown((on and spec.glow ~= false) and true or false)
         self.raysTex:SetShown((on and spec.rays) and true or false)
@@ -9573,7 +9575,7 @@ FGT.SETTINGS = {
           desc = "Preview your enabled alerts",
           text = "Preview", onClick = function() FGT.TestBanner() end },
     } },
-    { title = "Effects", rows = {
+    { title = "Celebrations and sound", rows = {
         { type = "choice", key = "celebrations", label = "Celebrations",
           desc = "Completion effects. Subtle keeps only the checkmark pop.",
           options = { { "full", "Full" }, { "subtle", "Subtle" }, { "off", "Off" } } },
@@ -9591,10 +9593,18 @@ FGT.SETTINGS = {
           optionMuted = function(v) return FGT.ChannelMuted(v) end,
           apply = function() FGT.PlayGoalSound(FGT.Setting("sound")) end },
     } },
-    { title = "Window and minimap", rows = {
+    { title = "Images", rows = {
         { type = "toggle", key = "tallGoalArt", label = "Large goal photos",
           desc = "Turn off for smaller goal photos",
           apply = function() if FGT.goalBanner then FGT.goalBanner:Fit() end end },
+        { type = "toggle", key = "imageEffects", label = "Image effects",
+          desc = "Light, embers, snow and drifting dust on goal images",
+          apply = function()
+              if FGT.goalBanner and FGT.goalBanner:IsShown() then FGT.goalBanner:Fit() end
+              if FGT.ambience then FGT.ambience.Refresh() end
+          end },
+    } },
+    { title = "Window and minimap", rows = {
         { type = "toggle", key = "minimap", label = "Minimap button",
           apply = function(on) if FGT.minimapButton then FGT.minimapButton:SetShown(on) end end },
         { type = "toggle", key = "openOnLogin", label = "Open on login",
