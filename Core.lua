@@ -5123,8 +5123,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 size = 0.07, strength = 0.8, travel = 4, rest = 10 } } },
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- Shaman Tier 2 (Alliance and Horde share the image): the storm lightning glows
+        -- ...and a few slow electric sparks where the bolts land on the armor
         ["set_tier2_shaman-banner.blp"] = { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 1,
-            bloom = { "set_tier2_shaman-bloom", strength = 0.6 } },
+            bloom = { "set_tier2_shaman-bloom", strength = 0.6 },
+            embers = {
+                { zap = true, box = { 0.535, 0.575, 0.14, 0.20 }, count = 3, strength = 1.8 }, -- wolf shoulder
+                { zap = true, box = { 0.665, 0.705, 0.17, 0.24 }, count = 3, strength = 1.8 }, -- spiked pauldron
+                { zap = true, box = { 0.875, 0.920, 0.27, 0.35 }, count = 3, strength = 1.8 }, -- bull shoulder
+            } },
         -- the holy spell in his hand, with faint rays turning very slowly
         rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 2.3, strength = 1.25,
             sunrays = { 0.85, -0.10, 120, 35, 4, 0.9, strength = 0.5 } }, -- a few faint sunrays too
@@ -5387,7 +5393,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         spark = "Interface\\AddOns\\"..ADDON.."\\Media\\dot",
         flake = "Interface\\AddOns\\"..ADDON.."\\Media\\shadow",
         blur = "Interface\\AddOns\\"..ADDON.."\\Media\\glow",
+        zap = "Interface\\AddOns\\"..ADDON.."\\Media\\gleam",
     }
+    -- `zap = true` sets (Karl): a few tiny electric sparks that slowly appear
+    -- and fade at a spot where lightning strikes something. They don't travel:
+    -- each swells in over 0.55 s or more, fades over a second or more and
+    -- then rests 1.5 to 5 s before showing up again, so nothing ever flashes.
+    --   embers = { zap = true, box = { u0, u1, v0, v1 }, count = 3, strength = 1.8 }
+    B.zapLimits = { life = 2.2, fadeIn = 0.25, fadeOut = 0.5, rest = 1.5 } -- life: shortest, in seconds
     local function ParticleSets(spec)
         local p = spec and spec.embers
         if not p then return {} end
@@ -5411,6 +5424,17 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local x1, y1 = self:ArtPoint(area[2], area[4])
         e.x, e.y = x0 + (x1 - x0)*math.random(), y0 + (y1 - y0)*math.random()
         local blur, fall = e.blur, cfg.fall
+        if cfg.zap then
+            local z = self.zapLimits
+            e.life = z.life + 2.0*math.random()
+            e.heading, e.curve, e.speed = 0, 0, 0
+            e.sway, e.freq, e.phase = 0, 0.1, 0
+            e.size = aw*(0.014 + 0.016*math.random())
+            e.peak = 0.30 + 0.35*math.random()
+            e.age = warm and e.life*math.random() or 0
+            e.wait = nil
+            return
+        end
         if fall and not warm then
             -- new snow starts along the top of its area, then falls through it
             e.y = y0 + (y1 - y0)*0.08*math.random()
@@ -5464,7 +5488,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:ResetEmbers()
         local n = 0
         for _, cfg in ipairs(ParticleSets(self.glowSpec)) do
-            local blurs = math.floor(cfg.count*(cfg.blurShare or 0.25) + 0.5)
+            local blurs = cfg.zap and 0 or math.floor(cfg.count*(cfg.blurShare or 0.25) + 0.5)
             for k = 1, cfg.count do
                 n = n + 1
                 local e = self.emberDots[n]
@@ -5477,7 +5501,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     self.emberDots[n] = e
                 end
                 e.cfg, e.blur = cfg, k <= blurs
-                e.tex:SetTexture(e.blur and self.emberArt.blur or ((cfg.fall or cfg.float) and self.emberArt.flake or self.emberArt.spark))
+                e.tex:SetTexture(cfg.zap and self.emberArt.zap or e.blur and self.emberArt.blur
+                    or ((cfg.fall or cfg.float) and self.emberArt.flake or self.emberArt.spark))
                 self:SpawnEmber(e, true)
             end
         end
@@ -5500,7 +5525,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 e.age = e.age + dt
                 local p = e.age/e.life
                 if p >= 1 then
-                    e.wait = math.random()*2
+                    e.wait = cfg.zap and (self.zapLimits.rest + 3.5*math.random()) or math.random()*2
                     e.tex:Hide()
                 else
                     e.heading = e.heading + e.curve*dt
@@ -5514,6 +5539,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     elseif cfg.fall then
                         -- snow also melts away over the bottom 40% of the art
                         fade = math.min(1, p/0.12)*math.min(1, (1 - p)/0.25)*math.max(0, math.min(1, (ah - y)/(ah*0.4)))
+                    elseif cfg.zap then
+                        fade = math.min(1, p/self.zapLimits.fadeIn)*math.min(1, (1 - p)/self.zapLimits.fadeOut)
                     else
                         fade = math.min(1, p/0.25)*math.min(1, (1 - p)/0.5)
                     end

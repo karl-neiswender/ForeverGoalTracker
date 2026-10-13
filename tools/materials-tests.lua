@@ -652,6 +652,32 @@ do
     B:PlaceGlow()
     assert(B.glowSpec == shaman and B.bloomOn, "Shaman Tier 2's bloom starts")
     for k = 0, 100 do B:StepBloom(k*0.3) end
+    -- the sparks where the lightning lands: nine, slow to appear, resting between
+    B:ResetEmbers()
+    assert(B.emberCount == 9, "three sparks at each of three impact spots: " .. tostring(B.emberCount))
+    local z = B.zapLimits
+    assert(z.life*z.fadeIn >= 0.5 and z.life*z.fadeOut >= 1.0 and z.rest >= 1.5, "sparks swell and fade slowly")
+    local seenWait = {}
+    local shortestRest, longestLife = 99, 0
+    for k = 1, 9 do
+        local e = B.emberDots[k]
+        assert(e.cfg.zap and not e.blur and e.speed == 0 and e.life >= z.life, "a spark that stays put")
+        longestLife = math.max(longestLife, e.life)
+    end
+    for step = 1, 2000 do
+        B:StepEmbers(0.1)
+        for k = 1, 9 do
+            local e = B.emberDots[k]
+            if e.wait and not seenWait[k] then
+                seenWait[k] = true
+                shortestRest = math.min(shortestRest, e.wait)
+            elseif not e.wait then
+                seenWait[k] = nil
+            end
+        end
+    end
+    assert(shortestRest >= z.rest - 1e-9, "a spark rests before it returns: " .. shortestRest)
+    B:HideEmbers()
     B.bloomOn = false; B.bloomTex:Hide(); B:HideShafts(); B:HideEmbers(); B.emberFor = nil
 end
 
