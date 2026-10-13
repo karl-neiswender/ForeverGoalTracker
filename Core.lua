@@ -5375,6 +5375,16 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["rep_ambassador_ally_darnassus-banner.blp"] = Sunlight(
             { 0.74, -0.08, 100, 0.35, 5, 1.2, parallel = true, strength = 0.6 },
             { 0.35, 0.95, 0.0, 0.85 }, 30, { beam = { 0.74, -0.10, 0.80, 0.40, strength = 0.9 } }),
+        -- Thunder Bluff (Tauren Ambassador): broad light breaking through the clouds at the top
+        -- right (a soft glow at the gap), wind-blown motes across the mesas
+        ["rep_ambassador_horde_thunderbluff-banner.blp"] = Sunlight(
+            { 0.90, -0.06, 115, 0.5, 5, 1.3, parallel = true, broad = true, strength = 0.55 },
+            { 0.40, 1.0, 0.05, 0.75 }, 20, { glow = true, [1] = 0.90, [2] = 0.05, [3] = 0.35, strength = 0.5 }),
+        -- Undercity (Undead Ambassador): a pillar of light from the ceiling onto the throne and
+        -- the floor seal, blooms (baked) on the ceiling light, torches and waterfall bases, and
+        -- dust drifting in the hall
+        ["rep_ambassador_horde_undercity-banner.blp"] = { 0.70, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            beam = { 0.70, -0.05, 0.80, 0.34, strength = 0.9 }, embers = Motes({ 0.35, 1.0, 0.05, 0.85 }, 24) },
         -- Ironforge (Dwarf and Gnome Ambassador): snow blowing across the gate
         ["rep_ambassador_ally_ironforge-banner.blp"] = SnowOnly(100),
         -- Leveling, Undead Paladin: holy light on the raised hammer head (its eyes bloom too, baked),
@@ -5397,7 +5407,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
         "rep_thorium", "wolfsbane", "prof_cooking",
         "social_buffs_mage", "social_buffs_druid", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
-        "allclasses_undead_paladin", "rep_ambassador_ally_darnassus",
+        "allclasses_undead_paladin", "rep_ambassador_ally_darnassus", "rep_ambassador_horde_undercity",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5409,7 +5419,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "tier3_paladin", "key_scholo", "key_strat", "set_dungeon1_priest", "sulfuras", "rep_thorium",
         "wolfsbane", "social_campfires",
         "social_buffs", "social_friends", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
-        "allclasses", "rep_ambassador_ally",
+        "allclasses", "rep_ambassador_ally", "rep_ambassador_horde",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
@@ -5418,7 +5428,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         tier3_hunter = 0.4, set_tier1_mage = 0.35, raid_ony = 0.45,
         social_buffs_mage = 0.5, social_buffs_druid = 0.5, pvp_set_plate_ally = 0.3, pvp_set_plate_horde = 0.35,
         pvp_mount_horde = 0.4, allclasses_undead_paladin = 0.5,
-        rep_ambassador_ally_darnassus = 0.5,
+        rep_ambassador_ally_darnassus = 0.5, rep_ambassador_horde_undercity = 0.5,
     }
     B.blooms, B.bloomSpecs = {}, {}
     for _, stem in ipairs(B.bloomStems) do

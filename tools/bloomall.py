@@ -72,6 +72,7 @@ STEMS = {
     "pvp_mount_horde": "Horde war mount (horn breath and ground burst)",
     "allclasses_undead_paladin": "Leveling, Undead Paladin (hammer head and glowing eyes)",
     "rep_ambassador_ally_darnassus": "Darnassus (lanterns, glowing orbs and the canopy gap)",
+    "rep_ambassador_horde_undercity": "Undercity (ceiling light, torches and waterfall bases)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -88,6 +89,8 @@ REGIONS = {
     "allclasses_undead_paladin": [(0.66, 0.94, 0.03, 0.30), (0.66, 0.75, 0.37, 0.44)],  # hammer head, eyes
     "rep_ambassador_ally_darnassus": [(0.64, 0.84, 0.00, 0.14), (0.50, 0.60, 0.73, 0.83), (0.63, 0.73, 0.70, 0.80),
                                       (0.36, 0.46, 0.68, 0.78), (0.86, 0.94, 0.72, 0.82), (0.33, 0.44, 0.22, 0.38)],  # canopy gap, orbs, lanterns
+    "rep_ambassador_horde_undercity": [(0.64, 0.78, 0.00, 0.08), (0.37, 0.44, 0.32, 0.40), (0.95, 1.00, 0.33, 0.41),
+                                       (0.50, 0.60, 0.60, 0.72), (0.80, 0.90, 0.60, 0.72)],  # ceiling light, torches, waterfall bases
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {
