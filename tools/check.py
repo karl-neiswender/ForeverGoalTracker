@@ -132,7 +132,7 @@ print(("layers     " if layers_ok else "LAYER      ") + "banner lights, bloom, e
 ok_all = ok_all and layers_ok
 
 # Every bloom a banner asks for has its texture (and its banner image) on disk.
-stems = re.findall(r'"([\w-]+)"', core_src[core_src.index("B.bloomStems = {"):core_src.index("B.blooms, B.bloomSpecs")])
+stems = re.findall(r'"([\w-]+)"', re.search(r"B\.bloomStems = \{(.*?)\n    \}", core_src, re.S).group(1))
 named = [n for n in re.findall(r'bloom = \{ "([\w-]+-bloom)"', core_src) if n != "name-bloom"]  # ("name-bloom" is the doc comment's example)
 missing = [m for m in [s + "-bloom" for s in stems] + named if not (os.path.exists("Media/" + m + ".blp") or os.path.exists("Media/" + m + ".tga"))]
 missing += [s + "-banner.blp" for s in stems if not os.path.exists("Media/" + s + "-banner.blp")]
@@ -324,6 +324,12 @@ if ok_all:
             'local D = ForeverGoalTrackerDB; assert(D.audit and D.audit.items and D.audit.caps, "the answers are saved"); '
             'assert(not A.running, "the audit finished"); SlashCmdList["FOREVERGOALTRACKER"]("audit clear"); assert(D.audit == nil, "audit clear"); '
             'print("  audit: " .. n .. " items listed, answers saved and cleared")'),
+        # /goals addblooms puts every goal whose banner blooms on My Goals.
+        ("add bloom goals", None,
+            'STUB_PRINTS = {}; local D = ForeverGoalTrackerDB; SlashCmdList["FOREVERGOALTRACKER"]("addblooms"); '
+            'local n = 0; for _, id in ipairs(STUB_NS.BLOOM_GOALS) do local g = STUB_NS.GoalById(id); assert(g, "a real goal: " .. id); '
+            'if D.active[id] then n = n + 1 end end; assert(n >= 36, "most are on My Goals: " .. n); '
+            'assert(D.active.thunderfury and D.active.raid_mc and D.active.set_tier2_shaman, "key goals added"); print("  addblooms: " .. n .. " goals added")'),
         # /goals perf times the banner effects; without an animated banner it says how to start.
         ("perf command", None,
             'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("perf"); SlashCmdList["FOREVERGOALTRACKER"]("perf 5")'),

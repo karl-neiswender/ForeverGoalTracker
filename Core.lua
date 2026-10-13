@@ -5288,6 +5288,16 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
         "rep_thorium", "wolfsbane", "mount_tiger",
     }
+    -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
+    FGT.BLOOM_GOALS = {
+        "thunderfury", "set_tier2_shaman", "raid_aq20", "raid_aq40", "pvp_mount_ally", "pvp_avmount_ally",
+        "set_tier1_mage", "ashbringer", "atiesh", "att_bwl", "raid_bwl", "benediction", "set_tier1_druid",
+        "mount_charger", "tier3_hunter", "mount_deathcharger", "key_dm", "set_tier2_hunter", "mount_dreadsteed",
+        "tier3_druid", "set_tier1_shaman", "tier3_shaman", "tier3_mage", "raid_hyjal", "att_mc", "raid_mc",
+        "att_naxx", "set_tier2_mage", "set_tier1_rogue", "raid_ony", "att_ony_ally", "att_ony_horde",
+        "tier3_paladin", "key_scholo", "key_strat", "set_dungeon1_priest", "sulfuras", "rep_thorium",
+        "wolfsbane", "mount_tiger",
+    }
     B.blooms, B.bloomSpecs = {}, {}
     for _, stem in ipairs(B.bloomStems) do
         B.blooms[stem .. "-banner.blp"] = { stem .. "-bloom", strength = 0.6 }
@@ -12480,7 +12490,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
             return
         end
         local secs = math.max(3, math.min(60, tonumber(perfSeconds) or 10))
-        local timer = debugprofilestop or function() return GetTime()*1000 end
+        local timer = rawget(_G, "debugprofilestop") or function() return GetTime()*1000 end
         local original = B.StepGlow
         local ticks, total, worst = 0, 0, 0
         B.StepGlow = function(self, dt)
@@ -12667,6 +12677,35 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         FGT.RefreshOverall()
         if FGT.LayoutLibrary then FGT.LayoutLibrary() end
         print(TAG .. string.format("added %d goal%s to My Goals.", n, n == 1 and "" or "s"))
+        return
+    end
+    if msg == "addblooms" then
+        -- Testing: puts every goal whose banner has a bloom on My Goals (both factions,
+        -- skipping what this client cannot show), so each one can be looked at in turn.
+        local DB = ForeverGoalTrackerDB
+        local n, first, skipped = 0, nil, 0
+        for _, id in ipairs(FGT.BLOOM_GOALS) do
+            local g = FGT.GoalById(id)
+            if g and (g.forever == "new" and not FGT.isForever or g.needs == "forever" and not FGT.isForever) then
+                skipped = skipped + 1
+            elseif g and not g.libraryOnly and not IsActive(g) then
+                if g.group then
+                    local sel = DB.activeParts[g.id] or {}
+                    DB.activeParts[g.id] = sel
+                    for _, part in ipairs(FGT.GroupParts(g)) do sel[part.key] = true end
+                else
+                    DB.active[g.id] = true
+                end
+                n = n + 1
+                first = first or g.id
+            end
+        end
+        FGT.ShowTab("tracker")
+        FGT.SelectGoal(first or selectedId)
+        FGT.RefreshOverall()
+        if FGT.LayoutLibrary then FGT.LayoutLibrary() end
+        print(TAG .. string.format("added %d goal%s with a bloom to My Goals%s.", n, n == 1 and "" or "s",
+            skipped > 0 and (" (" .. skipped .. " only exist in Forever)") or ""))
         return
     end
     if msg == "resetall" or msg == "resetall undo" then
