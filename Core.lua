@@ -5245,7 +5245,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             bloom = { "set_tier2_shaman-bloom", strength = 0.6 } },
         -- the holy spell in his hand, with faint rays turning very slowly
         rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 2.3, strength = 1.25,
-            sunrays = { 0.85, -0.10, 120, 35, 4, 0.9, strength = 0.5 } }, -- a few faint sunrays too
+            sunrays = { 0.85, -0.10, 120, 35, 4, 0.9, strength = 0.5 }, -- a few faint sunrays too
+            -- light motes floating around him (particles hide the page's windy leaves here)
+            embers = Motes({ 0.30, 0.95, 0.05, 0.80 }, 36) },
         -- keyed by image when a goal has several: Benediction's night elf
         -- priest (Alliance art only), the gem at the head of her staff
         ["benediction-alliance-banner.blp"] = { 0.537, 0.220, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25,
