@@ -5065,6 +5065,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     -- Place Campfires shows the Cooking campfire (its flame, snow and bloom are keyed by the image).
     B.artPaths.social_campfires = "prof_cooking-banner.blp"
+    B.artPaths.social_friends = "social_friends-banner.blp"
+    B.artAspects.social_friends, B.preprocessed.social_friends = 4/3, true
     B.artAspects.social_campfires, B.preprocessed.social_campfires = 4/3, true
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
     B.artPaths.key_ubrs = "key_ubrs-banner.blp"

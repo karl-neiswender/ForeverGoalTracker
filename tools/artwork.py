@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "social_friends": "social-friends-master.png",
     "pvp_set_plate_ally": "pvp/plate/marshal-master.png",
     "pvp_set_plate_horde": "pvp/plate/warlord-master.png",
     "social_buffs_mage": "social-buffs/mage-master.png",
