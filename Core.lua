@@ -6873,13 +6873,16 @@ function FGT.RecordTips()
             S.fadeBottom:IsShown() and "" or "hidden ", S.fadeBottom:GetAlpha(), sc:GetVerticalScroll(), sc:GetVerticalScrollRange())
         if t >= 2 then
             f:SetScript("OnUpdate", nil)
-            local last
+            -- saved, not printed (too long for chat): /reload writes it to
+            -- SavedVariables, where Claude can read it
+            local kept, last = {}, nil
             for _, line in ipairs(rec) do
                 local key = line:gsub("^%S+ ", "")
-                if key ~= last then print("  " .. line) end
+                if key ~= last then kept[#kept + 1] = line end
                 last = key
             end
-            print(TAG .. "tips recording done (" .. #rec .. " frames).")
+            ForeverGoalTrackerDB.tipsDebug = kept
+            print(TAG .. "tips recording saved (" .. #kept .. " changes). Type /reload, then tell Claude.")
         end
     end)
 end
