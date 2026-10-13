@@ -5116,7 +5116,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = Snow(count) }
     end
     B.glows = {
-        thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 } }, -- the gem at the crossguard
+        -- the gem at the crossguard, and a glint that now and then slides down the blade
+        thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 },
+            glides = { { path = { { 0.68, 0.385 }, { 0.60, 0.445 }, { 0.50, 0.52 }, { 0.41, 0.59 } },
+                size = 0.07, strength = 0.8, travel = 4, rest = 10 } } },
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- the holy spell in his hand, with faint rays turning very slowly
         rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 2.3, strength = 1.25,
@@ -5184,7 +5187,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["pvp_av_ally-banner.blp"] = SnowOnly(110),             -- Stormpike Guard
         ["pvp_set_mail_horde_shaman-banner.blp"] = SnowOnly(110), -- Warlord's Earthshaker
         -- Cooking: a campfire in the snow: snow, and a soft flame glow on the fire (no embers, Karl)
-        ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, embers = Snow(90) },
+        ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, flicker = 0.35, embers = Snow(90) },
         -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
         -- wide parallel rays from the left, falling diagonally toward the bottom right
         rep_ambassador_ally = Sunlight({ 0.30, -0.10, 45, 0.6, 6, 1.2, parallel = true, broad = true, strength = 0.7 },
@@ -5515,7 +5518,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     --     breathing slowly, e.g. light catching armour.
     --   gleams = { box, count, size }: light catching a few points (coins),
     --     each a small glint (Media/gleam) that slowly swells and fades.
+    --   flames = { { u, v, size, strength, depth, speed }, ... }: a candle, torch or
+    --     brazier light that flickers slowly, like slow-motion firelight. `depth` is
+    --     how far it dims (default 0.35, at most 0.5), `speed` scales the slow beat
+    --     (default 1, kept between 0.5 and 1.5). The main glow flickers the same
+    --     way when its spec has `flicker = depth`.
+    --   glides = { { path = { { u, v }, ... }, size, strength, travel, rest } }: a
+    --     soft glint that slides along a path (a blade, a polished edge), fading in
+    --     and out, then rests dark before the next pass.
+    -- Safe by construction (never a flash, Karl): every light's brightness moves
+    -- by at most B.lightLimits.rate of its full strength per second (a hard
+    -- slew limit, whatever the waves ask for), no beat is shorter than
+    -- B.lightLimits.minBeat seconds, and a glint never travels faster than
+    -- B.lightLimits.glide art widths a second. tools/materials-tests.lua checks it.
     -- Karl's aim: natural light that sets the scene, never washing it out.
+    B.lightLimits = { rate = 0.45, minBeat = 2.0, maxDepth = 0.5, glide = 0.2 }
     B.shafts, B.shaftInfo = {}, {}
     B.shaftArt = {
         beam = "Interface\\AddOns\\"..ADDON.."\\Media\\beam",
@@ -5525,6 +5542,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         streak = "Interface\\AddOns\\"..ADDON.."\\Media\\streak",
         bloom = "Interface\\AddOns\\"..ADDON.."\\Media\\glow",
         gleam = "Interface\\AddOns\\"..ADDON.."\\Media\\gleam",
+        flame = "Interface\\AddOns\\"..ADDON.."\\Media\\glow",
+        glide = "Interface\\AddOns\\"..ADDON.."\\Media\\gleam",
     }
     function B:HideShafts()
         for _, t in ipairs(self.shafts) do t:Hide() end
@@ -5551,6 +5570,51 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local span = self.lightSpan[t] or {}
         span[1], span[2] = cx0, cx1
         self.lightSpan[t] = span
+    end
+    -- A slow, never-repeating flicker between 1 - depth and 1: three sine
+    -- beats with unrelated periods (each at least minBeat seconds), then a
+    -- hard slew limit so the level can't move faster than lightLimits.rate.
+    -- `state` holds the beats and the current level; call with the time and
+    -- the seconds since the last call.
+    function B:FlickerLevel(state, time, dt, depth, speed)
+        local lim = self.lightLimits
+        depth = math.min(lim.maxDepth, math.max(0, depth or 0.35))
+        speed = math.min(1.5, math.max(0.5, speed or 1))
+        if not state.beats then
+            state.beats = {
+                { p = 2.0 + 1.1*math.random(), ph = math.random()*2*math.pi, w = 0.5 },
+                { p = 3.7 + 1.6*math.random(), ph = math.random()*2*math.pi, w = 0.3 },
+                { p = 6.1 + 2.8*math.random(), ph = math.random()*2*math.pi, w = 0.2 },
+            }
+        end
+        local sum = 0
+        for _, b in ipairs(state.beats) do
+            sum = sum + b.w*math.sin(time*2*math.pi*speed/math.max(lim.minBeat, b.p) + b.ph)
+        end
+        local target = 1 - depth*(0.5 - 0.5*sum) -- sum is within -1..1
+        local level = state.level or target
+        local step = lim.rate*math.min(dt or 0, 0.1)
+        level = level + math.max(-step, math.min(step, target - level))
+        state.level = level
+        return level, 0.5 + 0.5*sum
+    end
+    -- Where a glint is along its path at `time` (art fractions) and how bright
+    -- (0..1, fading in and out); nil while it rests between passes.
+    function B:GlidePoint(info, time)
+        local cycle = info.travel + info.rest
+        local s = ((time + info.phase*cycle) % cycle)/info.travel
+        if s >= 1 then return nil end
+        local at = s*s*(3 - 2*s)*info.total -- eases in and out along the path
+        local pts = info.points
+        for i = 2, #pts do
+            local seg = info.segs[i - 1]
+            if at <= seg or i == #pts then
+                local f = seg > 0 and math.min(1, at/seg) or 1
+                return pts[i - 1][1] + (pts[i][1] - pts[i - 1][1])*f,
+                    pts[i - 1][2] + (pts[i][2] - pts[i - 1][2])*f, math.sin(math.pi*s)^2
+            end
+            at = at - seg
+        end
     end
     function B:ResetShafts()
         self:HideShafts()
@@ -5620,11 +5684,29 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 info.period = 4 + 4*math.random()
             end
         end
+        for _, f in ipairs(spec.flames or {}) do Next("flame", f) end
+        for _, g in ipairs(spec.glides or {}) do
+            local info = Next("glide", g)
+            -- the path is in art fractions; measure it in widths of the art, and
+            -- slow the pass if it would travel faster than lightLimits.glide
+            local ratio = 1/(self.sourceAspect or 1) -- master height per width
+            info.points, info.segs, info.total = g.path, {}, 0
+            for i = 2, #g.path do
+                local len = math.sqrt((g.path[i][1] - g.path[i - 1][1])^2 + ((g.path[i][2] - g.path[i - 1][2])*ratio)^2)
+                info.segs[i - 1] = len
+                info.total = info.total + len
+            end
+            info.travel = math.max(g.travel or 3.5, info.total/(self.uv[2] - self.uv[1])/self.lightLimits.glide)
+            info.rest = g.rest or 9
+            info.phase = math.random() -- where in its cycle each glint starts
+        end
         self.shaftCount = n
     end
     function B:StepShafts(time)
         local n = self.shaftCount or 0
         if n == 0 then return end
+        local dt = self.shaftLast and (time - self.shaftLast) or 0
+        self.shaftLast = time
         local aw = math.max(1, self.art:GetWidth())
         local level = self.glowLevel or 0
         for i = 1, n do
@@ -5643,6 +5725,22 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 t:Show()
                 self:ClipLight(t, x, y, cfg[3]*aw, 0)
                 self:PaintLight(t, level*(cfg[4] or 1)*(0.6 + 0.4*breathe)*0.3)
+            elseif info.kind == "flame" then
+                local lvl, w2 = self:FlickerLevel(info, time, dt, cfg[5], cfg[6])
+                local x, y = self:ArtPoint(cfg[1], cfg[2])
+                t:Show()
+                self:ClipLight(t, x, y, cfg[3]*aw*(0.97 + 0.06*w2), 0)
+                self:PaintLight(t, level*(cfg[4] or 1)*lvl*0.45)
+            elseif info.kind == "glide" then
+                local u, v, glow = self:GlidePoint(info, time)
+                if not u then
+                    t:Hide()
+                else
+                    local x, y = self:ArtPoint(u, v)
+                    t:Show()
+                    self:ClipLight(t, x, y, (cfg.size or 0.06)*aw, 0)
+                    self:PaintLight(t, level*(cfg.strength or 1)*glow*0.9)
+                end
             elseif info.kind == "gleam" then
                 -- swells and fades over 4 to 8 s, resting dark in between
                 local x, y = self:ArtPoint(info.u, info.v)
@@ -5694,6 +5792,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         a.t = a.t + dt
         -- 0 to 1, drifting: periods of about 9 and 14 seconds
         local n = 0.5 + 0.3*math.sin(a.t*2*math.pi/9.1) + 0.2*math.sin(a.t*2*math.pi/14.3 + 1.7)
+        local flicker = (self.glowSpec or {}).flicker
+        if flicker then
+            -- a fire or candle: the glow dims and brightens like slow firelight
+            local depth = math.min(self.lightLimits.maxDepth, math.max(0.0001, flicker))
+            self.glowFlame = self.glowFlame or {}
+            local lvl = self:FlickerLevel(self.glowFlame, a.t, dt, depth)
+            n = (lvl - (1 - depth))/depth
+        end
         -- the rays pulse on their own slow 8 s beat, from about 1% to 10%
         -- visible and back (the light's overall level is 54%)
         local w = 0.5 - 0.5*math.cos(a.t*2*math.pi/8)

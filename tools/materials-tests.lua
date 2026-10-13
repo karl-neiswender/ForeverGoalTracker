@@ -581,6 +581,62 @@ do
     assert(B.glows.rep_ambassador_ally.sunrays.broad and B.glows.set_violet_sorcerer.sunrays.broad, "wide streaks")
 end
 
+-- slow flicker and gliding glints stay inside their limits (never a flash)
+do
+    local B = STUB_NS.goalBanner
+    local lim = B.lightLimits
+    for _, dt in ipairs({ 1/60, 1/20, 0.1 }) do
+        for _, depth in ipairs({ 0.2, 0.35, 0.5, 0.9 }) do -- 0.9 is clamped to maxDepth
+            local state, lo, hi, prev, maxRate, turns, lastDir = {}, 1, 0, nil, 0, 0, 0
+            for k = 0, math.floor(120/dt) do
+                local level = B:FlickerLevel(state, k*dt, dt, depth)
+                if prev then
+                    maxRate = math.max(maxRate, math.abs(level - prev)/dt)
+                    local dir = level > prev and 1 or (level < prev and -1 or 0)
+                    if dir ~= 0 and lastDir ~= 0 and dir ~= lastDir then turns = turns + 1 end
+                    if dir ~= 0 then lastDir = dir end
+                end
+                lo, hi, prev = math.min(lo, level), math.max(hi, level), level
+            end
+            assert(maxRate <= lim.rate + 1e-6, "flicker never moves faster than the limit: " .. maxRate)
+            assert(hi <= 1 + 1e-9 and lo >= 1 - lim.maxDepth - 1e-9, "flicker stays within its depth")
+            assert(turns <= 120*0.5*3, "flicker turns around slowly: " .. turns .. " turns in 120 s")
+        end
+    end
+    -- Thunderfury's glint: a slow pass along the blade, resting in between
+    rawset(B.art, "GetWidth", function() return 600 end)
+    B.goal = STUB_NS.GoalById("thunderfury")
+    B.hasArt, B.shownArtHeight, B.uv, B.sourceAspect, B.glowLevel = true, 450, { 0, 1, 0, 1 }, 4/3, 0.5
+    B.glowSpec = B:GlowSpec(); B:ResetShafts()
+    local glide
+    for i = 1, B.shaftCount do if B.shaftInfo[i].kind == "glide" then glide = B.shaftInfo[i] end end
+    assert(glide, "Thunderfury has a gliding glint")
+    local speed = glide.total/(B.uv[2] - B.uv[1])/glide.travel
+    assert(speed <= lim.glide + 1e-9, "glint travels slowly enough: " .. speed .. " art widths a second")
+    local seen, rests, maxLevel = 0, 0, 0
+    for k = 0, 600 do
+        local u, v, level = B:GlidePoint(glide, k*0.1)
+        if u then
+            seen = seen + 1
+            assert(u >= 0.38 and u <= 0.75 and v >= 0.3 and v <= 0.65, "glint stays on the blade")
+            maxLevel = math.max(maxLevel, level)
+        else
+            rests = rests + 1
+        end
+    end
+    assert(seen > 0 and rests > seen, "the glint passes now and then and rests between: " .. seen .. "/" .. rests)
+    assert(maxLevel <= 1, "glint brightness stays within range")
+    for k = 1, 60 do B:StepShafts(k*0.2) end
+    B:HideShafts()
+    -- a flame light starts and steps
+    B.glowSpec = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, flames = { { 0.5, 0.5, 0.1, 1, 0.35 } } }
+    B:ResetShafts()
+    assert(B.shaftCount == 1, "a flame light starts")
+    for k = 1, 60 do B:StepShafts(k*0.05) end
+    B:HideShafts()
+    assert(B.glows["prof_cooking-banner.blp"].flicker == 0.35, "Cooking's campfire flickers")
+end
+
 -- toggling tips redraws just the tips (no full goal redraw)
 do
     local F = STUB_NS
