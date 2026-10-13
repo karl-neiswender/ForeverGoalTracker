@@ -15,6 +15,7 @@ import shutil
 import sys
 from pathlib import Path
 
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -74,7 +75,7 @@ STEMS = {
     "rep_ambassador_ally_darnassus": "Darnassus (lanterns, glowing orbs and the canopy gap)",
     "rep_ambassador_horde_undercity": "Undercity (ceiling light, torches and waterfall bases)",
     "social_cheers": "Give Cheers (the foamy tankard and the wall lantern)",
-    "set_tier2_warlock": "Warlock Tier 2, Nemesis (the pauldron orb, the soul-fire wisps and the eyes)",
+    "set_tier2_warlock": "Warlock Tier 2, Nemesis (helmet eyes, dragon staff mouth, shoulder snake eyes and mouth)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -94,7 +95,6 @@ REGIONS = {
     "rep_ambassador_horde_undercity": [(0.64, 0.78, 0.00, 0.08), (0.37, 0.44, 0.32, 0.40), (0.95, 1.00, 0.33, 0.41),
                                        (0.50, 0.60, 0.60, 0.72), (0.80, 0.90, 0.60, 0.72)],  # ceiling light, torches, waterfall bases
     "social_cheers": [(0.82, 1.00, 0.02, 0.24), (0.38, 0.48, 0.10, 0.28)],  # tankard, lantern
-    "set_tier2_warlock": [(0.74, 0.96, 0.32, 0.56), (0.38, 0.62, 0.66, 0.94), (0.52, 0.66, 0.25, 0.34)],  # orb, wisps, eyes
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {
@@ -111,6 +111,16 @@ OVERRIDES = {
     "tier3_paladin": dict(region=[(0.64, 0.76, 0.24, 0.34), (0.80, 1.00, 0.18, 0.44)], outside=0.3),
     # the dragon's mouth glow larger (wider, softer spread)
     "raid_ony": dict(near=8.0, far=55.0, mix=(0.60, 0.85)),
+    # Karl (2026-10-13): only the helmet's two eyes, the dragon staff's mouth, the shoulder snake's
+    # eyes and its mouth. Each spot is baked on its own and scaled alone, so a small eye is not
+    # lost beside the big glowing orb in the snake's mouth; weight sets how strongly each shows.
+    "set_tier2_warlock": dict(spots=[
+        ((0.535, 0.57, 0.285, 0.315), 0.55, dict(near=3.0, far=14.0)),            # helmet eyes
+        ((0.585, 0.63, 0.255, 0.285), 0.55, dict(near=3.0, far=14.0)),
+        ((0.43, 0.53, 0.655, 0.78), 0.6, {}),                                      # dragon staff mouth
+        ((0.70, 0.73, 0.335, 0.375), 0.55, dict(near=3.0, far=14.0)),             # shoulder snake eyes
+        ((0.752, 0.782, 0.33, 0.36), 0.55, dict(near=3.0, far=14.0)),
+        ((0.77, 0.90, 0.38, 0.53), 0.7, {})]),                                     # shoulder snake mouth                                         # shoulder snake mouth
 }
 
 TILE_W, TILE_H = 480, 360
@@ -133,8 +143,15 @@ def main():
             print("missing file", master)
             continue
         opts = dict(OVERRIDES.get(stem, {}))
+        spots = opts.pop("spots", None)
         opts.setdefault("region", REGIONS.get(stem))
-        alpha, bloom = B.bloom_alpha(master, **opts)
+        if spots:
+            opts.pop("region", None)
+            parts = [B.bloom_alpha(master, region=[box], **{**opts, **extra})[0].astype("float32") * weight
+                     for box, weight, extra in spots]
+            alpha = np.maximum.reduce(parts).astype("uint8")
+        else:
+            alpha, bloom = B.bloom_alpha(master, **opts)
         data = B.encode_blp(alpha)
         (out_dir / f"{stem}-bloom.blp").write_bytes(data)
         worst, mean = B.alpha_error(data, alpha)
