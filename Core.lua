@@ -1368,6 +1368,10 @@ do
         acc = acc + elapsed
         if acc < 0.05 and not next(FGT.itemFade) then return end
         acc = 0
+        -- nothing to repaint while the tracker is closed (every text it
+        -- paints is inside it): skip the whole scan, 20 times a second
+        local window = _G.ForeverGoalTrackerFrame
+        if window and not window:IsShown() then return end
         local center, now = Center(), GetTime()
         -- the open goal link card's title scans too (Karl)
         local L = FGT.linkCard
@@ -5306,17 +5310,27 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- horizontal gradient: its strength times the photo's own left-to-right
     -- fade (0 at the art's left edge, full at its right) under each edge.
     B.lightSpan = {} -- each light's left and right edge in the art, for PaintGlow
-    function B:PaintGlow(glowA, raysA)
-        local aw = math.max(1, self.art:GetWidth())
-        local level = self.glowLevel or 0
-        local masked = self.lightMask ~= nil
-        local function ramp(x) return masked and 1 or math.max(0, math.min(1, x/aw)) end
-        for _, pair in ipairs({ { self.glowTex, glowA }, { self.raysTex, raysA } }) do
-            local t, a = pair[1], pair[2]*level
-            local c = self.glowColor or { 1, 1, 1 }
-            local span = self.lightSpan[t] or { 0, 0 }
-            ApplyHGradient(t, c, c, a*ramp(span[1]), a*ramp(span[2]))
+    -- Every light is repainted each step, but the game only has 256 alpha
+    -- levels: a gradient whose two edge alphas are unchanged at that
+    -- precision is left alone (no colour tables made, no API calls).
+    B.lightWhite, B.lightNoSpan = { 1, 1, 1 }, { 0, 0 }
+    function B:PaintGradient(t, c, a)
+        local span = self.lightSpan[t] or self.lightNoSpan
+        local a1, a2 = a, a
+        if not self.lightMask then
+            local aw = math.max(1, self.art:GetWidth())
+            a1, a2 = a*math.max(0, math.min(1, span[1]/aw)), a*math.max(0, math.min(1, span[2]/aw))
         end
+        local q1, q2 = math.floor(a1*255 + 0.5), math.floor(a2*255 + 0.5)
+        if t.fgtQ1 == q1 and t.fgtQ2 == q2 and t.fgtQc == c then return end
+        t.fgtQ1, t.fgtQ2, t.fgtQc = q1, q2, c
+        ApplyHGradient(t, c, c, a1, a2)
+    end
+    function B:PaintGlow(glowA, raysA)
+        local level = self.glowLevel or 0
+        local c = self.glowColor or self.lightWhite
+        self:PaintGradient(self.glowTex, c, glowA*level)
+        self:PaintGradient(self.raysTex, c, raysA*level)
     end
     -- Draws a light of full size `size` centered at (cx, cy) in the art
     -- (x right, y down), turned by `turn` radians, trimmed to the artwork's
@@ -5328,22 +5342,28 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local y0, y1 = math.max(0, cy - size/2), math.min(ah, cy + size/2)
         -- (never empty: PlaceGlow only lights a point inside the art)
         x1, y1 = math.max(x1, x0 + 1), math.max(y1, y0 + 1)
+        local span = self.lightSpan[t]
+        if not span then span = {}; self.lightSpan[t] = span end
+        span[1], span[2] = x0, x1
+        turn = turn or 0
+        -- the same placement as last time (a still bloom): nothing to send
+        if t.fgtX0 == x0 and t.fgtY0 == y0 and t.fgtX1 == x1 and t.fgtY1 == y1
+            and t.fgtCx == cx and t.fgtCy == cy and t.fgtTurn == turn and t.fgtSize == size then return end
+        t.fgtX0, t.fgtY0, t.fgtX1, t.fgtY1, t.fgtCx, t.fgtCy, t.fgtTurn, t.fgtSize = x0, y0, x1, y1, cx, cy, turn, size
         t:ClearAllPoints()
         t:SetPoint("TOPLEFT", self.art, "TOPLEFT", x0, -y0)
         t:SetSize(x1 - x0, y1 - y0)
-        local span = self.lightSpan[t] or {}
-        span[1], span[2] = x0, x1
-        self.lightSpan[t] = span
-        local cs, sn = math.cos(turn or 0), math.sin(turn or 0)
-        local function tc(px, py)
-            local dx, dy = (px - cx)/size, (py - cy)/size
-            return 0.5 + dx*cs - dy*sn, 0.5 + dx*sn + dy*cs
-        end
-        local ulx, uly = tc(x0, y0)
-        local llx, lly = tc(x0, y1)
-        local urx, ury = tc(x1, y0)
-        local lrx, lry = tc(x1, y1)
+        local cs, sn = 1, 0
+        if turn ~= 0 then cs, sn = math.cos(turn), math.sin(turn) end
+        local ulx, uly = self.RotatedCoord(x0, y0, cx, cy, size, cs, sn)
+        local llx, lly = self.RotatedCoord(x0, y1, cx, cy, size, cs, sn)
+        local urx, ury = self.RotatedCoord(x1, y0, cx, cy, size, cs, sn)
+        local lrx, lry = self.RotatedCoord(x1, y1, cx, cy, size, cs, sn)
         t:SetTexCoord(ulx, uly, llx, lly, urx, ury, lrx, lry)
+    end
+    function B.RotatedCoord(px, py, cx, cy, size, cs, sn)
+        local dx, dy = (px - cx)/size, (py - cy)/size
+        return 0.5 + dx*cs - dy*sn, 0.5 + dx*sn + dy*cs
     end
     -- Lays the bloom over the whole shown art, cropped exactly as the art is.
     function B:FitBloom(bloom)
@@ -5413,7 +5433,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             (v - uv[3])/(uv[4] - uv[3])*(self.shownArtHeight or 0)
     end
     function B:HideEmbers()
-        for _, e in ipairs(self.emberDots) do e.tex:Hide() end
+        for _, e in ipairs(self.emberDots) do e.tex:Hide(); e.shownNow = false end
         self.emberCount = 0
     end
     function B:SpawnEmber(e, warm)
@@ -5501,6 +5521,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     self.emberDots[n] = e
                 end
                 e.cfg, e.blur = cfg, k <= blurs
+                e.shownNow, e.sizeNow, e.alphaNow = nil, nil, nil -- (the texture may have been another set's)
                 e.tex:SetTexture(cfg.zap and self.emberArt.zap or e.blur and self.emberArt.blur
                     or ((cfg.fall or cfg.float) and self.emberArt.flake or self.emberArt.spark))
                 self:SpawnEmber(e, true)
@@ -5520,13 +5541,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             if e.wait then
                 e.wait = e.wait - dt
                 if e.wait <= 0 then self:SpawnEmber(e) end
-                e.tex:Hide()
+                if e.shownNow ~= false then e.tex:Hide(); e.shownNow = false end
             else
                 e.age = e.age + dt
                 local p = e.age/e.life
                 if p >= 1 then
                     e.wait = cfg.zap and (self.zapLimits.rest + 3.5*math.random()) or math.random()*2
-                    e.tex:Hide()
+                    if e.shownNow ~= false then e.tex:Hide(); e.shownNow = false end
                 else
                     e.heading = e.heading + e.curve*dt
                     e.x = e.x + math.cos(e.heading)*e.speed*dt
@@ -5546,14 +5567,16 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     end
                     local inside = x > 0 and x < aw and y > 0 and y < ah
                     local t = e.tex
-                    t:SetShown(inside)
+                    if inside ~= e.shownNow then t:SetShown(inside); e.shownNow = inside end
                     if inside then
                         local size = e.size*((e.blur or cfg.fall or cfg.float) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow and motes don't
-                        t:ClearAllPoints()
+                        -- (one anchor, so SetPoint replaces it: no ClearAllPoints; the size and
+                        -- the 8-bit alpha are only sent when they change)
                         t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
-                        t:SetSize(size, size)
+                        if e.sizeNow ~= size then t:SetSize(size, size); e.sizeNow = size end
                         -- fades toward the left like the photo
-                        t:SetAlpha(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw))
+                        local alpha = math.floor(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw)*255 + 0.5)
+                        if e.alphaNow ~= alpha then t:SetAlpha(alpha/255); e.alphaNow = alpha end
                     end
                 end
             end
@@ -5609,30 +5632,37 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         glide = "Interface\\AddOns\\"..ADDON.."\\Media\\gleam",
     }
     function B:HideShafts()
-        for _, t in ipairs(self.shafts) do t:Hide() end
+        for _, t in ipairs(self.shafts) do t:Hide(); t.fgtOn = false end
         self.shaftCount = 0
     end
     function B:PaintLight(t, a)
-        local aw = math.max(1, self.art:GetWidth())
-        local span = self.lightSpan[t] or { 0, 0 }
-        local masked = self.lightMask ~= nil
-        local function ramp(x) return masked and 1 or math.max(0, math.min(1, x/aw)) end
-        ApplyHGradient(t, { 1, 1, 1 }, { 1, 1, 1 }, a*ramp(span[1]), a*ramp(span[2]))
+        self:PaintGradient(t, self.lightWhite, a)
+    end
+    -- Show and Hide only when the state really changes (an API call each)
+    function B:ShowOnce(t)
+        if not t.fgtOn then t:Show(); t.fgtOn = true end
+    end
+    function B:HideOnce(t)
+        if t.fgtOn ~= false then t:Hide(); t.fgtOn = false end
     end
     -- an upright rectangle in the art, trimmed to the artwork's edges
     function B:ClipRect(t, x0, y0, x1, y1)
         local aw, ah = self.art:GetWidth(), self.shownArtHeight or 0
         local cx0, cy0 = math.max(0, x0), math.max(0, y0)
         local cx1, cy1 = math.min(aw, x1), math.min(ah, y1)
-        if cx1 - cx0 < 1 or cy1 - cy0 < 1 then t:Hide() return end
-        t:Show()
+        if cx1 - cx0 < 1 or cy1 - cy0 < 1 then self:HideOnce(t) return end
+        self:ShowOnce(t)
+        local span = self.lightSpan[t]
+        if not span then span = {}; self.lightSpan[t] = span end
+        span[1], span[2] = cx0, cx1
+        if t.fgtX0 == cx0 and t.fgtY0 == cy0 and t.fgtX1 == cx1 and t.fgtY1 == cy1
+            and t.fgtRx0 == x0 and t.fgtRy0 == y0 and t.fgtRx1 == x1 and t.fgtRy1 == y1 then return end
+        t.fgtX0, t.fgtY0, t.fgtX1, t.fgtY1, t.fgtRx0, t.fgtRy0, t.fgtRx1, t.fgtRy1 = cx0, cy0, cx1, cy1, x0, y0, x1, y1
+        t.fgtCx = nil -- (a rotated light's cache; this texture is an upright rectangle now)
         t:ClearAllPoints()
         t:SetPoint("TOPLEFT", self.art, "TOPLEFT", cx0, -cy0)
         t:SetSize(cx1 - cx0, cy1 - cy0)
         t:SetTexCoord((cx0 - x0)/(x1 - x0), (cx1 - x0)/(x1 - x0), (cy0 - y0)/(y1 - y0), (cy1 - y0)/(y1 - y0))
-        local span = self.lightSpan[t] or {}
-        span[1], span[2] = cx0, cx1
-        self.lightSpan[t] = span
     end
     -- A slow, never-repeating flicker between 1 - depth and 1: three sine
     -- beats with unrelated periods (each at least minBeat seconds), then a
@@ -5696,6 +5726,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 self.shafts[n] = t
             end
             t:SetTexture(self.shaftArt[kind], nil, nil, "TRILINEAR")
+            -- (a texture reused for another light starts with no remembered state)
+            t.fgtX0, t.fgtCx, t.fgtRx0, t.fgtQ1, t.fgtOn = nil, nil, nil, nil, nil
             local info = { kind = kind, cfg = cfg, period = 9 + 9*math.random(), phase = math.random()*2*math.pi,
                 swayP = 20 + 15*math.random(), swayPh = math.random()*2*math.pi }
             self.shaftInfo[n] = info
@@ -5785,22 +5817,22 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 self:PaintLight(t, level*(cfg.strength or 1)*(0.55 + 0.45*breathe)*0.45)
             elseif info.kind == "bloom" then
                 local x, y = self:ArtPoint(cfg[1], cfg[2])
-                t:Show()
+                self:ShowOnce(t)
                 self:ClipLight(t, x, y, cfg[3]*aw, 0)
                 self:PaintLight(t, level*(cfg[4] or 1)*(0.6 + 0.4*breathe)*0.3)
             elseif info.kind == "flame" then
                 local lvl, w2 = self:FlickerLevel(info, time, dt, cfg[5], cfg[6])
                 local x, y = self:ArtPoint(cfg[1], cfg[2])
-                t:Show()
+                self:ShowOnce(t)
                 self:ClipLight(t, x, y, cfg[3]*aw*(0.97 + 0.06*w2), 0)
                 self:PaintLight(t, level*(cfg[4] or 1)*lvl*0.45)
             elseif info.kind == "glide" then
                 local u, v, glow = self:GlidePoint(info, time)
                 if not u then
-                    t:Hide()
+                    self:HideOnce(t)
                 else
                     local x, y = self:ArtPoint(u, v)
-                    t:Show()
+                    self:ShowOnce(t)
                     self:ClipLight(t, x, y, (cfg.size or 0.06)*aw, 0)
                     self:PaintLight(t, level*(cfg.strength or 1)*glow*0.9)
                 end
@@ -5808,7 +5840,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 -- swells and fades over 4 to 8 s, resting dark in between
                 local x, y = self:ArtPoint(info.u, info.v)
                 local glint = math.max(0, math.sin(time*2*math.pi/info.period + info.phase))^3
-                t:Show()
+                self:ShowOnce(t)
                 self:ClipLight(t, x, y, cfg.size*aw*(0.7 + 0.3*glint), time*0.15 + info.phase)
                 self:PaintLight(t, level*1.6*glint)
             else
@@ -5820,7 +5852,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 end
                 local wide = info.kind == "wide"
                 local angle = info.angle + math.rad(wide and 1 or 1.5)*math.sin(time*2*math.pi/info.swayP + info.swayPh)
-                t:Show()
+                self:ShowOnce(t)
                 self:ClipLight(t, cx, cy, 2*info.len*aw, -angle)
                 if wide then
                     self:PaintLight(t, level*(cfg.strength or 1)*(0.35 + 0.65*breathe)*0.09)
@@ -5842,13 +5874,22 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B.glowAnim:IsPlaying() return self.playing end
     function B.glowAnim:Play()
         self.playing = true
-        B.glowFrame:SetScript("OnUpdate", function(_, dt) B:StepGlow(dt) end)
+        B.glowFrame:SetScript("OnUpdate", function(_, dt) B:Tick(dt) end)
     end
     function B.glowAnim:Stop()
         self.playing = false
         B.glowFrame:SetScript("OnUpdate", nil)
         B:PaintGlow(0.2, 0.05/0.54)
         B:HideEmbers() -- embers only move; with Celebrations off there are none
+    end
+    -- The lights and particles move slowly, so they step 30 times a second
+    -- however fast the game draws: the cost no longer climbs with frame rate.
+    B.tickStep = 1/30
+    function B:Tick(dt)
+        local acc = (self.tickAcc or 0) + dt
+        if acc < self.tickStep then self.tickAcc = acc; return end
+        self.tickAcc = 0
+        self:StepGlow(acc)
     end
     function B:StepGlow(dt)
         local a = self.glowAnim
@@ -12357,6 +12398,45 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     end
     if msg == "whatsnew" or msg == "whatsnew reset" then
         if FGT.WhatsNew then FGT.WhatsNew.Command(msg == "whatsnew reset" and "reset" or nil) end
+        return
+    end
+    local perfSeconds = msg:match("^perf%s*(%d*)$")
+    if perfSeconds then
+        -- Times the banner animation (lights, particles, bloom) on the goal that is open,
+        -- for a few seconds, and prints what it cost per step and the addon's memory.
+        -- Open a goal with effects (Thunderfury, Frostsaber...) and leave the window open.
+        local B = FGT.goalBanner
+        if not (B and B.glowAnim and B.glowAnim:IsPlaying()) then
+            print(TAG .. "open a goal with light effects first (Thunderfury, Frostsaber, Sulfuras...) with the tracker open, then run /goals perf again.")
+            return
+        end
+        local secs = math.max(3, math.min(60, tonumber(perfSeconds) or 10))
+        local timer = debugprofilestop or function() return GetTime()*1000 end
+        local original = B.StepGlow
+        local ticks, total, worst = 0, 0, 0
+        B.StepGlow = function(self, dt)
+            local t0 = timer()
+            original(self, dt)
+            local took = timer() - t0
+            ticks, total = ticks + 1, total + took
+            if took > worst then worst = took end
+        end
+        local spec = B.glowSpec or {}
+        print(TAG .. "timing the banner effects for " .. secs .. " seconds. Leave the tracker open.")
+        C_Timer.After(secs, function()
+            B.StepGlow = original
+            local memory
+            if UpdateAddOnMemoryUsage and GetAddOnMemoryUsage then
+                UpdateAddOnMemoryUsage()
+                memory = GetAddOnMemoryUsage(ADDON)
+            end
+            local per = ticks > 0 and total/ticks or 0
+            print(TAG .. string.format("%d steps in %d s (%.0f a second). Average %.3f ms, slowest %.2f ms; about %.2f ms of every second.",
+                ticks, secs, ticks/secs, per, worst, per*ticks/secs))
+            print(TAG .. string.format("Lights: %d particles, %d shafts and blooms, bloom %s. Memory: %s.",
+                B.emberCount or 0, B.shaftCount or 0, B.bloomOn and "on" or "off",
+                memory and string.format("%.1f MB", memory/1024) or "unavailable on this client"))
+        end)
         return
     end
     if msg == "tipsdebug" then

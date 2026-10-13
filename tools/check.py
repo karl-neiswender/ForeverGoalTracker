@@ -280,6 +280,9 @@ if ok_all:
             'assert(STUB_NS.KnowsSkill("Fishing") and not STUB_NS.KnowsSkill("Mining") and not STUB_NS.KnowsSkill(nil), "KnowsSkill reads the roster"); '
             'mine.skills.Fishing, mine.skills.Cooking = old, oldCooking; for k, v in pairs(others) do D.characters[k].skills.Fishing = v end; '
             'print("  fishing and secondary skills suggested only when the character knows them")'),
+        # /goals perf times the banner effects; without an animated banner it says how to start.
+        ("perf command", None,
+            'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("perf"); SlashCmdList["FOREVERGOALTRACKER"]("perf 5")'),
         # Change target on the gold goal, then back to the default.
         ("change target", None,
             'STUB_PRINTS = {}; local g = STUB_NS.GoalById("gold_5k"); ForeverGoalTrackerDB.active.gold_5k = true; '
