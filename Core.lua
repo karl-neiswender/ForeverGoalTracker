@@ -3011,7 +3011,10 @@ local function CreateScrollArea(parent, softBottom, bottomHeight)
         local scrolled = obj.lastMax and math.abs(obj.lastMax - maxScroll) < 1
             and math.abs((obj.lastCurrent or current) - current) >= 0.5
         obj.lastMax, obj.lastCurrent = maxScroll, current
-        FadeEdge(fadeBottom, maxScroll > 1 and current < maxScroll - 1, not scrolled)
+        -- (`holdShade`: a glide is carrying you to the end, e.g. opening Tips,
+        -- so the shade must not snap on over the heading on the way)
+        FadeEdge(fadeBottom, maxScroll > 1 and current < maxScroll - 1 and not obj.holdShade,
+            not scrolled and not obj.holdShade)
 
         if maxScroll > 1 then
             trackHit:Show()
@@ -6257,6 +6260,7 @@ do
     local pending -- what to do when a glide ends (closing tips folds them away)
     local function Finish()
         driver:SetScript("OnUpdate", nil)
+        stepsScrollObj.holdShade, FGT.detailViewport.holdShade = nil, nil
         local done = pending
         pending = nil
         if done then done() end
@@ -6860,6 +6864,7 @@ function FGT.LayoutTips(goal, yOffset, width)
                 -- they fade in (Karl)
                 T.returnTo = { id = id, at = FGT.GuideScrollPosition() }
                 FGT.tipsOpen[id] = true
+                stepsScrollObj.holdShade, FGT.detailViewport.holdShade = true, true
                 SelectGoal(id, true)
                 FGT.FadeTips(0)
                 C_Timer.After(0.05, function()
@@ -6868,6 +6873,7 @@ function FGT.LayoutTips(goal, yOffset, width)
             else
                 -- glide back up first (to where you were, or up by the tips'
                 -- height), then fold them away, so the list never snaps
+                FGT.SetPlusMinus(T.arrow, false) -- the icon answers the click at once
                 local back = T.returnTo and T.returnTo.id == id and T.returnTo.at
                 local here = FGT.GuideScrollPosition()
                 local target = back or math.max(0, here - (T.openHeight or 0))
@@ -6885,8 +6891,10 @@ function FGT.LayoutTips(goal, yOffset, width)
     end
     local tips = goal.tips or {}
     local open = FGT.tipsOpen[goal.id]
+    -- the tips fade in as the "(3)" count fades out, and back
     function FGT.FadeTips(a)
         for _, row in ipairs(T.rows) do row:SetAlpha(a); row.dot:SetAlpha(a) end
+        T.count:SetAlpha(1 - a)
     end
     T.goalId = goal.id
     for i = (open and #tips or 0) + 1, #T.rows do
@@ -6909,7 +6917,8 @@ function FGT.LayoutTips(goal, yOffset, width)
     yOffset = yOffset + 9
     T.header:SetText("Tips")
     FGT.SetPlusMinus(T.arrow, open)
-    T.count:SetText(open and "" or ("(" .. #tips .. ")"))
+    T.count:SetText("(" .. #tips .. ")") -- always set; open tips fade it (FGT.FadeTips)
+    T.count:SetAlpha(open and 0 or 1)
     local hh = (T.header:GetStringHeight() or 12) + 6
     T.btn:ClearAllPoints()
     T.btn:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
