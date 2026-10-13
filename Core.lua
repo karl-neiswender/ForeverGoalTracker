@@ -4990,8 +4990,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         for _, step in ipairs(goal.steps or {}) do
             local skill = step.auto and step.auto.skill
             local path = skill and self.professionArt[skill.name]
-            if path and skill.name == "Engineering" and UnitFactionGroup("player") == "Horde" then
-                path = "prof_engineering-horde-banner.blp"
+            if path and UnitFactionGroup("player") == "Horde" then
+                if skill.name == "Engineering" then path = "prof_engineering-horde-banner.blp"
+                elseif skill.name == "Blacksmithing" then path = "prof_blacksmithing-horde-banner.blp" end
             end
             if path and me and me.skills and (me.skills[skill.name] or 0) > 0 then
                 pool[#pool+1] = path
@@ -5422,7 +5423,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
         "rep_thorium", "wolfsbane", "prof_cooking",
         "social_buffs_mage", "social_buffs_druid", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
-        "allclasses_undead_paladin", "rep_ambassador_ally_darnassus", "rep_ambassador_horde_undercity", "social_cheers",
+        "allclasses_undead_paladin", "rep_ambassador_ally_darnassus", "rep_ambassador_horde_undercity", "social_cheers", "set_tier2_warlock",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5434,7 +5435,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "tier3_paladin", "key_scholo", "key_strat", "set_dungeon1_priest", "sulfuras", "rep_thorium",
         "wolfsbane", "social_campfires",
         "social_buffs", "social_friends", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
-        "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers",
+        "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers", "set_tier2_warlock",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
