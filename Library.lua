@@ -81,7 +81,7 @@ local library = {
 
     -- ---------------- Reputation ----------------
     {
-        id = "rep_timbermaw", library = true,
+        id = "rep_timbermaw", library = true, forever = "confirmed",
         icon = { "achievement_reputation_timbermaw", "inv_misc_monsterclaw_04" },
         name = "Exalted: Timbermaw Hold",
         short = "Timbermaw Hold",
@@ -95,7 +95,7 @@ local library = {
         },
     },
     {
-        id = "rep_thorium", library = true,
+        id = "rep_thorium", library = true, forever = "confirmed",
         icon = { "achievement_reputation_thoriumbrotherhood", "trade_blacksmithing" },
         name = "Exalted: Thorium Brotherhood",
         short = "Thorium Brotherhood",
@@ -109,7 +109,7 @@ local library = {
         },
     },
     {
-        id = "rep_argentdawn", library = true,
+        id = "rep_argentdawn", library = true, forever = "confirmed",
         icon = { "achievement_reputation_argentcrusader", "spell_holy_holybolt" },
         name = "Exalted: Argent Dawn",
         short = "Argent Dawn",
@@ -123,7 +123,7 @@ local library = {
         },
     },
     {
-        id = "rep_cenarion", library = true,
+        id = "rep_cenarion", library = true, forever = "confirmed",
         icon = { "ability_racial_ultravision", "inv_misc_herb_01" },
         name = "Exalted: Cenarion Circle",
         short = "Cenarion Circle",
@@ -137,7 +137,7 @@ local library = {
         },
     },
     {
-        id = "rep_zandalar", library = true,
+        id = "rep_zandalar", library = true, forever = "confirmed",
         icon = { "achievement_reputation_zandalar", "inv_misc_coin_01" },
         name = "Exalted: Zandalar Tribe",
         short = "Zandalar Tribe",
@@ -151,7 +151,7 @@ local library = {
         },
     },
     {
-        id = "rep_hydraxian", library = true,
+        id = "rep_hydraxian", library = true, forever = "confirmed",
         icon = { "spell_frost_summonwaterelemental", "inv_misc_gem_pearl_04" },
         name = "Exalted: Hydraxian Waterlords",
         short = "Hydraxians",
@@ -165,7 +165,7 @@ local library = {
         },
     },
     {
-        id = "rep_nozdormu", library = true,
+        id = "rep_nozdormu", library = true, forever = "confirmed",
         icon = { "achievement_reputation_nozdormu", "inv_misc_head_dragon_bronze", "inv_misc_head_dragon_01" },
         name = "Exalted: Brood of Nozdormu",
         short = "Brood of Nozdormu",
@@ -179,7 +179,7 @@ local library = {
         },
     },
     {
-        id = "rep_ambassador_ally", library = true, faction = "Alliance",
+        id = "rep_ambassador_ally", library = true, faction = "Alliance", forever = "confirmed",
         icon = { "spell_arcane_teleportstormwind", "inv_bannerpvp_02" },
         name = "Ambassador: Alliance Capitals",
         short = "Alliance Ambassador",
@@ -197,7 +197,7 @@ local library = {
         },
     },
     {
-        id = "rep_ambassador_horde", library = true, faction = "Horde",
+        id = "rep_ambassador_horde", library = true, faction = "Horde", forever = "confirmed",
         icon = { "spell_arcane_teleportorgrimmar", "inv_bannerpvp_01" },
         name = "Ambassador: Horde Capitals",
         short = "Horde Ambassador",
@@ -696,7 +696,7 @@ local library = {
     },
     -- ---------------- Professions ----------------
     {
-        id = "prof_secondary", library = true, group = true,
+        id = "prof_secondary", library = true, forever = "confirmed", group = true,
         icon = { "trade_fishing" },
         name = "Max Secondary Skills",
         short = "Secondary Skills",
@@ -706,7 +706,7 @@ local library = {
         steps = { SkillStep("Fishing", 300), SkillStep("Cooking", 300), SkillStep("First Aid", 300) },
     },
     {
-        id = "prof_all", library = true, group = true,
+        id = "prof_all", library = true, forever = "confirmed", group = true,
         icon = { "trade_engineering" },
         name = "Max Primary Professions",
         short = "Professions",
@@ -1234,7 +1234,7 @@ local function RepGoal(id, faction, factionId, name, bg, icon, how)
                               auto = { rep = { faction = factionId, standing = st }, forFaction = faction } })
     end
     return {
-        id = id, library = true, faction = faction,
+        id = id, library = true, faction = faction, forever = "confirmed", -- the factions exist in Forever (Wowhead's Forever faction list, 2026-10-13)
         icon = icon, name = "Exalted: " .. name, short = name,
         category = "PvP", difficulty = "Hard",
         timeEstimate = "1-2 Months",

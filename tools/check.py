@@ -280,6 +280,15 @@ if ok_all:
             'assert(STUB_NS.KnowsSkill("Fishing") and not STUB_NS.KnowsSkill("Mining") and not STUB_NS.KnowsSkill(nil), "KnowsSkill reads the roster"); '
             'mine.skills.Fishing, mine.skills.Cooking = old, oldCooking; for k, v in pairs(others) do D.characters[k].skills.Fishing = v end; '
             'print("  fishing and secondary skills suggested only when the character knows them")'),
+        # Goals that are pure progress (a standing, a skill, a counter) are confirmed in Forever: no notice.
+        ("confirmed in Forever", None,
+            'local F = STUB_NS; local ids = { "rep_timbermaw", "rep_thorium", "rep_argentdawn", "rep_cenarion", "rep_zandalar", "rep_hydraxian", "rep_nozdormu", '
+            '"rep_ambassador_ally", "rep_ambassador_horde", "prof_secondary", "prof_all", "pvp_wsg_ally", "pvp_ab_ally", "pvp_av_ally", "pvp_wsg_horde", "pvp_ab_horde", "pvp_av_horde", '
+            '"gold_5k", "social_guild", "social_friends", "allclasses" }; '
+            'for _, id in ipairs(ids) do local g = F.GoalById(id); assert(g, id); assert(F.ForeverStatus(g) == "confirmed", id .. " is confirmed"); '
+            'assert(F.ForeverNote(g) == nil and F.ForeverNote(g, true) == nil, id .. " shows no notice") end; '
+            'assert(F.ForeverNote(F.GoalById("raid_mc")), "an unchecked raid still says unconfirmed"); '
+            'print("  " .. #ids .. " pure-progress goals show no unconfirmed notice; content goals still do")', True),
         # /goals audit asks the game about every item, quest, faction and map we rely on.
         ("data audit", None,
             'local A = STUB_NS.Audit; local T = A.Targets(); local n = 0; for _ in pairs(T.items) do n = n + 1 end; '
