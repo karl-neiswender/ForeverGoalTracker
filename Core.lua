@@ -5232,7 +5232,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- down the blade was tried and taken off, Karl 2026-10-13; the path was
         -- { { 0.68, 0.385 }, { 0.60, 0.445 }, { 0.50, 0.52 }, { 0.41, 0.59 } } in `glides`.)
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 }, pulse = 0.30, -- the gem swells 85% to 115% (Karl, 2026-10-13)
-            bloom = { "thunderfury-bloom", strength = 0.6 } },
+            bloom = { "thunderfury-bloom-1", strength = 0.6 } }, -- (in zones, see B.bloomParts)
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- Redemption (Paladin Tier 3): a large, slowly turning ray burst on the orb at her fingers
         -- (the orb's own glow comes from the bloom, so the soft glow is off)
@@ -5487,6 +5487,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             { "atiesh-bloom-4", period = 7.7, phase = 5.5 },
         },
     }
+    -- Thunderfury: four zones along the blade, from its tip to the gem, so the glow ripples
+    -- along the sword and through the lightning around it (its own spec names the bloom).
+    B.bloomParts.thunderfury = { depth = 0.6,
+        { "thunderfury-bloom-1", period = 5.9, phase = 0.0 },
+        { "thunderfury-bloom-2", period = 8.3, phase = 1.9 },
+        { "thunderfury-bloom-3", period = 10.7, phase = 3.8 },
+        { "thunderfury-bloom-4", period = 7.1, phase = 5.2 },
+    }
+    B.glows.thunderfury.bloom.parts = B.bloomParts.thunderfury
     B.blooms, B.bloomSpecs = {}, {}
     for _, stem in ipairs(B.bloomStems) do
         local parts = B.bloomParts[stem]

@@ -126,7 +126,12 @@ OVERRIDES = {
 # Blooms baked in zones (a texture per band of the picture, each breathing on its own beat in
 # Core.lua's B.bloomParts). The listed v fractions are where one zone gives way to the next, with
 # ramps that add up to a whole, so the zones together are exactly the one bloom, seamlessly.
-ZONES = {"atiesh": [0.30, 0.50, 0.68]}
+# A plain list cuts the picture into bands from top to bottom. A dict with an `angle` cuts it along
+# a direction instead (degrees, measured in the master's own pixels, 0 = left to right, negative =
+# up to the right), the cuts being fractions of the picture's extent along it: Thunderfury's
+# follow its blade, from the tip at the lower left up to the gem.
+ZONES = {"atiesh": [0.30, 0.50, 0.68],
+         "thunderfury": {"angle": -32, "cuts": [0.40, 0.55, 0.68]}}
 ZONE_RAMP = 0.05
 
 TILE_W, TILE_H = 480, 360
@@ -159,16 +164,26 @@ def main():
         else:
             alpha, bloom = B.bloom_alpha(master, **opts)
         data = B.encode_blp(alpha)
-        cuts = ZONES.get(stem)
-        if cuts:
-            rows = (np.arange(alpha.shape[0]) + 0.5) / alpha.shape[0]
+        zone_spec = ZONES.get(stem)
+        if zone_spec:
+            h_, w_ = alpha.shape
+            vs = ((np.arange(h_) + 0.5) / h_)[:, None] * np.ones((1, w_))
+            us = ((np.arange(w_) + 0.5) / w_)[None, :] * np.ones((h_, 1))
+            if isinstance(zone_spec, dict):
+                cuts = zone_spec["cuts"]
+                th = np.radians(zone_spec["angle"])
+                # position along the direction, in the master's pixels (1200 x 900), spread over 0 to 1
+                proj = us * 1200 * np.cos(th) + vs * 900 * np.sin(th)
+                coord = (proj - proj.min()) / (proj.max() - proj.min())
+            else:
+                cuts, coord = zone_spec, vs
 
-            def below(cut):  # 0 above the cut, 1 below it, smooth over the ramp
-                x = np.clip((rows - (cut - ZONE_RAMP)) / (2 * ZONE_RAMP), 0, 1)
+            def below(cut):  # 0 before the cut, 1 after it, smooth over the ramp
+                x = np.clip((coord - (cut - ZONE_RAMP)) / (2 * ZONE_RAMP), 0, 1)
                 return x * x * (3 - 2 * x)
-            edges = [np.ones_like(rows)] + [below(c) for c in cuts] + [np.zeros_like(rows)]
+            edges = [np.ones_like(coord)] + [below(c) for c in cuts] + [np.zeros_like(coord)]
             for k in range(len(edges) - 1):
-                weight = (edges[k] - edges[k + 1])[:, None]
+                weight = edges[k] - edges[k + 1]
                 zone = np.round(alpha.astype(np.float32) * weight).astype(np.uint8)
                 (out_dir / f"{stem}-bloom-{k + 1}.blp").write_bytes(B.encode_blp(zone))
         else:
@@ -196,7 +211,8 @@ def main():
     if "--install" in sys.argv:
         for stem, *_ in report:
             if stem in ZONES:
-                for k in range(len(ZONES[stem]) + 1):
+                zs = ZONES[stem]
+                for k in range(len(zs["cuts"] if isinstance(zs, dict) else zs) + 1):
                     shutil.copy(out_dir / f"{stem}-bloom-{k + 1}.blp", ROOT / "Media" / f"{stem}-bloom-{k + 1}.blp")
             else:
                 shutil.copy(out_dir / f"{stem}-bloom.blp", ROOT / "Media" / f"{stem}-bloom.blp")

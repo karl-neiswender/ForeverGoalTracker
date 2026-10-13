@@ -674,7 +674,7 @@ do
     B.goal = STUB_NS.GoalById("thunderfury")
     B.glowSpec = B:GlowSpec()
     B.glowLevel = 0.5
-    assert(B.glowSpec.bloom and B.glowSpec.bloom[1] == "thunderfury-bloom", "Thunderfury asks for its bloom")
+    assert(B.glowSpec.bloom and B.glowSpec.bloom[1] == "thunderfury-bloom-1" and #B.glowSpec.bloom.parts == 4, "Thunderfury asks for its bloom, in four zones")
     B:FitBloom(B.glowSpec.bloom)
     B.bloomOn = true
     for k = 0, 600 do B:StepBloom(k*0.2) end -- (its breathing is bounded by construction: 85% to 100%)
