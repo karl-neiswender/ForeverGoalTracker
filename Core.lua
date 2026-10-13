@@ -5087,6 +5087,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Place Campfires shows the Cooking campfire (its flame, snow and bloom are keyed by the image).
     B.artPaths.social_campfires = "prof_cooking-banner.blp"
     B.artPaths.social_friends = "social_friends-banner.blp"
+    B.artPaths.social_cheers = "social_cheers-banner.blp"
+    B.artAspects.social_cheers, B.preprocessed.social_cheers = 4/3, true
     B.artAspects.social_friends, B.preprocessed.social_friends = 4/3, true
     B.artAspects.social_campfires, B.preprocessed.social_campfires = 4/3, true
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
@@ -5374,6 +5376,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Warlord's armor: embers drifting up off the battlefield behind him (the halo's bloom is baked)
         ["pvp_set_plate_horde-banner.blp"] = { 0.64, 0.2, 0.4, { 1, 1, 1 }, glow = false, strength = 0.8,
             embers = { box = { 0.30, 0.65, 0.62, 0.98 }, field = { 0.20, 1.0, 0.35, 0.98 }, count = 36, blurShare = 0.22, rise = 0.30 } },
+        -- Benediction, Horde art: soft motes floating around the mace head and its sparkles
+        ["benediction-banner.blp"] = { 0.58, 0.45, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Motes({ 0.40, 0.76, 0.24, 0.64 }, 28) },
         -- Darnassus (Night Elf Ambassador): light pouring through the canopy gap onto the bridge,
         -- soft blooms on its lanterns and glowing orbs (baked), and drifting motes that read as leaves
         ["rep_ambassador_ally_darnassus-banner.blp"] = Sunlight(
