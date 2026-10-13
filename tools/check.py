@@ -100,6 +100,37 @@ for f in FILES:
         print("CONTROL    " + f + ": byte " + str(ord(src[bad[0]])) + " near " + repr(src[max(0, bad[0] - 40):bad[0] + 10]))
         ok_all = False
 
+# Banner layering (Karl, 2026-10-13): every light effect must sit below the dark
+# gradient layers (the left, top and bottom shading, BACKGROUND sublevel 0 and up)
+# and below the inner shadows (BORDER), whichever file order they are created in.
+import re
+core_src = open("Core.lua", encoding="utf-8").read()
+shading, effects = {}, {}
+func = None
+for line_no, line in enumerate(core_src.splitlines(), 1):
+    m = re.search(r"function B[:.](\w+)", line)
+    if m:
+        func = m.group(1)
+    m = re.search(r'(?:(B\.\w+)\s*=\s*)?detailPanel:CreateTexture\(nil,\s*"(\w+)"(?:,\s*nil,\s*(-?\d+))?\)', line)
+    if not m:
+        continue
+    name, layer, sub = m.group(1), m.group(2), int(m.group(3) or 0)
+    if name in ("B.left", "B.top", "B.bottom"):
+        shading[name] = (layer, sub, line_no)
+    elif name in ("B.glowTex", "B.raysTex", "B.bloomTex") or func in ("ResetEmbers", "ResetShafts"):
+        effects[name or ("texture made in " + func)] = (layer, sub, line_no)
+    elif name == "B.art" or name == "B.background":
+        effects[name] = (layer, sub, line_no)
+layers_ok = len(shading) == 3 and len(effects) >= 6
+for n, (layer, sub, line_no) in effects.items():
+    below = layer == "BACKGROUND" and sub < min(v[1] for v in shading.values())
+    layers_ok = layers_ok and below
+    if not below:
+        print("LAYER      " + n + " (line " + str(line_no) + ") is " + layer + " " + str(sub) + ", not below the shading")
+print(("layers     " if layers_ok else "LAYER      ") + "banner lights, bloom, embers and sparks sit below the dark gradients ("
+      + ", ".join(sorted(effects)) + ")")
+ok_all = ok_all and layers_ok
+
 if ok_all:
     steps = [
         ("fresh install", None, None),
