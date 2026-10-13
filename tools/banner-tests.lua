@@ -310,7 +310,7 @@ do
     local pendingFlags = {}
     for _, id in ipairs({"rep_ambassador_ally", "rep_ambassador_horde"}) do
         for i, v in ipairs(B.artVariants[id]) do
-            assert((id == "rep_ambassador_horde" and v.pending) or (id == "rep_ambassador_ally" and not v.pending), "only Horde city art is pending")
+            assert(not v.pending, "approved city art is active")
         end
     end
     assert(B:ArtPath("rep_ambassador_ally")=="rep_ambassador_ally_ironforge-banner.blp", "approved city art is active")
@@ -330,7 +330,7 @@ do
     -- the other faction's goal never takes this faction's city, whatever the race
     faction, race = "Horde", "Tauren"
     assert(B:ArtPath("rep_ambassador_ally")=="rep_ambassador_ally-banner.blp", "a Horde character viewing the Alliance goal sees the default")
-    for v in pairs(pendingFlags) do v.pending = true end
+    for v, pending in pairs(pendingFlags) do v.pending = pending or nil end
     UnitRace, UnitClass, UnitFactionGroup = nil, nil, nil
     assert(B:ArtPath("rep_ambassador_ally")=="rep_ambassador_ally-banner.blp", "no character APIs: the default image")
     assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp")
