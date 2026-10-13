@@ -6333,6 +6333,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["social_cheers-banner.blp"] = "Sean O'Daniels",
+        ["rep_thorium-banner.blp"] = "Samwise Didier",
+        ["raid_naxx-banner.blp"] = "Mike Sutfin",
+        ["set_tier1_hunter-banner.blp"] = "Tim Shevtsov",
         -- Exact-image attribution evidence: reports/artwork-artist-evidence-2026-10-13.json
         ["social_friends-banner.blp"] = "Jaslynn Tham",
         ["pvp_mount_horde-banner.blp"] = "Efrem Palacios",

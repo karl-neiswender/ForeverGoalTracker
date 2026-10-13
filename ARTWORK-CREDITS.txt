@@ -30,7 +30,7 @@ Glenn Rane, copyright 2006 Blizzard Entertainment.
 Wolfsbane banner: adapted from Worgen artwork attributed to Samwise
 in the supplied source, copyright Blizzard Entertainment.
 
-Verified additional banner source artists (October 13, 2026)
+Additional banner source artists (October 13, 2026)
 Exact-image comparisons and source URLs are retained in
 reports/artwork-artist-evidence-2026-10-13.json in the source repository.
 These credits acknowledge original illustrations adapted for addon banners.
@@ -74,6 +74,14 @@ tier3_rogue: BOSi Studio.
 set_dungeon1_warrior: UDON.
 mount_deathcharger: Ralph Horsley.
 set_tier2_paladin: Sam Nielson.
+
+Follow-up source illustration credits (October 13, 2026)
+social_cheers: Sean O'Daniels.
+rep_thorium: Samwise Didier.
+raid_naxx: Mike Sutfin.
+set_tier1_hunter: Tim Shevtsov.
+These illustrations were adapted with AI; credits identify the original artists.
+Evidence and editing records: reports/artwork-artist-followup-2026-10-13.md
 
 AI-assisted artwork
 Some original addon artwork was created with assistance from ChatGPT and

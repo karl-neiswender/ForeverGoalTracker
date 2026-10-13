@@ -1,5 +1,7 @@
 # Banner artist research â€” October 13, 2026
 
+> Historical first-pass report. Follow-up resolved four previously blank credits; see [follow-up findings](artwork-artist-followup-2026-10-13.md). Counts and withheld reasons below describe the earlier pass, not the current state. The other 39 credits have not all received a fresh lineage audit.
+
 Inventory: 147 installed manifest entries; 28 already had credits. Retained 39 attributions after Karl corrected the AI-generated Cryptstalker banner. 80 entries retain blank artist credits. Existing credits were outside this audit and were not changed.
 
 Acceptance required an actual image comparison and an explicit credit for that illustration or exact card printing. Filename/title/style matches were insufficient. Studio credits, pen names, initials and joint credits are retained; individual identities are not invented. Credits identify source artists; the existing AI banner adaptation records remain applicable.

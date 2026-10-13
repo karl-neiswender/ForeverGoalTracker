@@ -394,19 +394,63 @@
       "original_sha256": "41d3f4fa2f65a0258d0f65002c8f9250aa228d81e3ea35856befb1df573126d5",
       "master_sha256": "3bc87de33e5560e663ee86525014a774bec32ae987a2d6631a719b857ebddf27",
       "runtime_sha256": "8b2d0b266a85f5a9d1121691a21b64e703243b7de3f2392213abd551b0ec9a75"
-    }
-  ],
-  "withheld": [
-    {
-      "banner": "rep_thorium",
-      "original": "War_Golem.jpg",
-      "reason": "Hearthstone War Golem by Dave Kendall is a different image. Warcraft file page matches this original and has a historical Samwise attribution with a misspelled surname and old Sons of the Storm link; primary source was not verified in this pass. Leave blank."
     },
     {
       "banner": "social_cheers",
+      "artist": "Sean O'Daniels",
       "original": "Party_of_Four_full.jpg",
-      "reason": "Exact image matched, but page spells artist Sean O''Daniels. Name not independently corroborated; leave blank rather than silently normalize it."
+      "source": "https://hearthstone.wiki.gg/wiki/Party_of_Four",
+      "match": "Same raised tankard, standing armored dwarf with hand on seated dwarf, rifle and background companions. Both wiki pages explicitly name Sean O'Daniels. Installed master preserves this composition; AI detail reconstruction is documented.",
+      "lineage": "reports/image-tests/social-cheers-2026-10-13.md",
+      "review_pass": "follow-up",
+      "credit_scope": "Original illustration adapted with AI; not authorship of generated edits",
+      "corroboration": "https://warcraft.wiki.gg/wiki/File:Rise_and_Be_Recognized_TCG.jpg",
+      "original_sha256": "927b96bcfb4328319d413d20c6d2bfbb6bbabd67625193163c971b0a39f776ac",
+      "master_sha256": "2460268b88f30f91d44d902501db0c90e80791fb7476303b98d97f71b49afdf9",
+      "runtime_sha256": "2d625238be7d0bb2f988b9efa84b9bd233a323f9d920f9350433ddd4500aa7ed"
     },
+    {
+      "banner": "rep_thorium",
+      "artist": "Samwise Didier",
+      "original": "War_Golem.jpg",
+      "source": "https://warcraft.wiki.gg/wiki/File:War_Golem.jpg",
+      "match": "Exact published original: golem through arch, hooded spellcaster and two dwarf gunners. File summary credits Samwise Didier; original has matching Samwise signature. Historical upload-comment misspelling does not override the explicit current summary. Installed edit preserves these subjects.",
+      "lineage": "reports/image-tests/reputation-banners-2026-10-11.json",
+      "review_pass": "follow-up",
+      "credit_scope": "Original illustration adapted with AI; not authorship of generated edits",
+      "original_sha256": "fd24f5b5811eed90571864835fefaad4835b335b0deed36d90423a3178895940",
+      "master_sha256": "7bc0a13710c1160e3b86376ee41c1b42462fee2e3ca6f713cf64c031a58ee440",
+      "runtime_sha256": "c834e3f2769120ccf1592db5ac19f63f120c1cd30623a7ea1267c16b3b227832"
+    },
+    {
+      "banner": "raid_naxx",
+      "artist": "Mike Sutfin",
+      "original": "Naxxramas_TCG_key_art.jpg",
+      "source": "https://warcraft.wiki.gg/wiki/File:Naxxramas_TCG_key_art.jpg",
+      "match": "Exact composite key art with Kel'Thuzad, three abominations, ghost, foreground skeletons and skull arch. Wiki explicitly credits Mike Sutfin and identifies the original front/back files on his website. Installed edit preserves this scene. Artist website was not retrievable in this pass.",
+      "lineage": "reports/image-tests/profession-mount-raid-banners-2026-10-11.json",
+      "review_pass": "follow-up",
+      "credit_scope": "Original illustration adapted with AI; not authorship of generated edits",
+      "original_sha256": "48215b4b698b93b8eff4cccf4d9f14b91dc2fd6889bc334b4421f0a2af885b8d",
+      "master_sha256": "75dcdf8dd29c82015d9c2afbfd3e468962f23a31e90a744ea6c3053efabc090d",
+      "runtime_sha256": "a80f5db89efed4431540e4206c5624339c72fdc3e96e5878087f13826892090b"
+    },
+    {
+      "banner": "set_tier1_hunter",
+      "artist": "Tim Shevtsov",
+      "original": "Giantstalker_Rexxar_full.jpg",
+      "source": "https://www.artstation.com/artwork/28o1wg",
+      "match": "Art Tavern portfolio Hearthstone Hero tiers pt.6 displays the exact green Tier 1 painting and explicitly states Tier 1 (green) - Tim Shevtsov. Matches skull helmet, gold/blue shoulders, arrow and bow, tower and leaves. This resolves the conflicting historical Lullabi/Zemskov patch note. Installed master preserves this artwork.",
+      "lineage": "reports/image-tests/hunter-tier-pass.json",
+      "review_pass": "follow-up",
+      "credit_scope": "Original illustration adapted with AI; not authorship of generated edits",
+      "corroboration": "https://hearthstone.wiki.gg/wiki/File:Giantstalker_Rexxar_full.jpg",
+      "original_sha256": "6c2125c8a58162c101201b70bb4f325b63df80fafa920ed4c4e14b2a6ebe36bc",
+      "master_sha256": "5829f6ef71ecf49ed3c4f5c0b3b19a4fe2f71fb7c77b9abeebe1f2a2dade2f66",
+      "runtime_sha256": "19e31fa870184050288035c89243fe7a4bc227e9dec849755a67bb142adc6b3e"
+    }
+  ],
+  "withheld": [
     {
       "banner": "prof_cooking",
       "original": "Campfire_full.jpg",
@@ -425,17 +469,7 @@
     {
       "banner": "raid_bwl",
       "original": "Blackwing_Lair_Classic_key_art.jpg",
-      "reason": "Key art catalog located, but no verified creator credit for exact image."
-    },
-    {
-      "banner": "raid_naxx",
-      "original": "Naxxramas_TCG_key_art.jpg",
-      "reason": "Key art catalog located, but no verified creator credit for exact image."
-    },
-    {
-      "banner": "set_tier1_hunter",
-      "original": "Giantstalker_Rexxar_full.jpg",
-      "reason": "No explicit artist plus exact image match verified in this pass."
+      "reason": "Exact Warcraft file page explicitly says Artwork by unknown artist. Leave blank."
     },
     {
       "banner": "mount_qiraji_aq",
@@ -447,5 +481,6 @@
       "reason": "Karl confirmed on October 13 that the installed Cryptstalker banner was AI-generated. Selective Breeder was a reference, not proof that its artist created the installed banner. Artist credit removed; remains blank."
     }
   ],
-  "limitations": "This is a conservative attribution pass, not a guarantee that every remaining artist can be identified. Every unverified runtime banner retains a blank credit. A HearthstoneJSON corroboration request returned HTTP 403; no data from it was used. Existing credits were not re-audited or changed. Source artwork and installed textures were not modified."
+  "limitations": "Credits identify original illustrations used in documented adaptations; they do not attribute AI-generated edits to those artists. Cryptstalker remains blank because its source was only a pose/style reference. The legacy verified list includes 39 earlier source attributions that were not all freshly re-audited in this follow-up. Wiki file summaries are secondary evidence; inaccessible historical portfolio links are not claimed as independently verified.",
+  "follow_up_scope": "Revisited the ten named withheld candidates; four resolved, six remain blank. Also read the Skeram edit/correction prompts: they preserve the original anatomy, unlike the original-generation Cryptstalker prompt. This is not a complete fresh audit of the other 39 source credits."
 }
