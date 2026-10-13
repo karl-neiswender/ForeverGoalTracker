@@ -6052,6 +6052,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             -- (re-layouts keep the embers in flight; a new goal starts fresh)
             if not live then self:HideEmbers(); self:HideShafts(); self.emberFor = nil
             elseif self.emberFor ~= spec then self:ResetEmbers(); self:ResetShafts(); self.emberFor = spec end
+            self:PaintLightsNow()
             if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
             elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
         elseif self.glowAnim:IsPlaying() then
@@ -6062,10 +6063,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local A = FGT.ambience
         if A and A.SetDust then A.SetDust(not (on and spec.embers and not spec.dust)) end
     end
+    -- A light's texture is shown before the animation's first step, and a new texture draws at
+    -- full strength until it is painted, so the glow, rays and bloom are painted at the current
+    -- level the moment they are placed and whenever the first-open fade moves them (a bloom
+    -- flashed at full strength for a moment on a goal's first open).
+    function B:PaintLightsNow()
+        local spec = self.glowSpec
+        if not spec then return end
+        self:PaintGlow(0.2, 0.05/0.54*(spec.raysStrength or 1))
+        self:StepBloom(self.glowAnim.t)
+    end
     function B:SetImageFade(amount)
         self.imageFade = amount
         if self.glowFrame and self.glowSpec then
             self.glowLevel = amount*0.54*self:GetArtOpacity()*(self.glowSpec.strength or 1)
+            self:PaintLightsNow()
         end
         if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.

@@ -361,6 +361,11 @@ assert(B.imageFade == mid and B:GetScript("OnUpdate") == tick, "layout refresh d
 F.LayoutGoalBanner(B.goal)
 assert(B.imageFade == mid and math.abs(B.art.fgtGa2-0.18*mid)<0.0001,
     "texture refresh preserves the running gradient fade")
+-- a bloom is painted at the fade's level as soon as it is placed: never a frame at full strength
+if B.bloomOn then
+    assert(B.bloomTex.fgtQ2 and B.bloomTex.fgtQ2 <= math.floor(0.6*0.54*mid*255 + 1.5), "the bloom follows the first-open fade (" .. tostring(B.bloomTex.fgtQ2) .. ")")
+    assert(B.glowTex.fgtQ2 and B.glowTex.fgtQ2 < 0.2*255*0.54*mid + 2, "so does the glow")
+end
 tick(B, 0.9)
 assert(B.imageFade == 1 and B.imageSeen.raid_mc and not B:GetScript("OnUpdate"), "fade completes and stops its ticker")
 B:StopImageFade(); B:RevealImages()
