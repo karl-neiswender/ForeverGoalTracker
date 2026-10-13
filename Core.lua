@@ -1407,7 +1407,7 @@ do
         acc = 0
         -- nothing to repaint while the tracker is closed (every text it
         -- paints is inside it): skip the whole scan, 20 times a second
-        local window = _G.ForeverGoalTrackerFrame
+        local window = rawget(_G, "ForeverGoalTrackerFrame")
         if window and not window:IsShown() then return end
         local center, now = Center(), GetTime()
         -- the open goal link card's title scans too (Karl)
@@ -6250,7 +6250,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if self.raysFor ~= raysArt then
             self.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..raysArt, nil, nil, "TRILINEAR")
             self.raysFor = raysArt
-            self.raysTex.fgtX0 = nil -- (a new texture file: send its placement and texture corners again)
+            rawset(self.raysTex, "fgtX0", nil) -- (a new texture file: send its placement and texture corners again)
         end
         if on then
             self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
@@ -12448,10 +12448,17 @@ function FGT.CanBuff()
     return FGT.BUFF_CLASSES[class] == true
 end
 FGT.buffSpellCache = {}
+-- A spell's name on either client: the old global where it still exists (Classic Era), else
+-- C_Spell (Forever's modern engine removed GetSpellInfo; the lookup is by name so the global is
+-- read through rawget, which also keeps the API diagnostics honest).
+function FGT.SpellName(id)
+    local old = rawget(_G, "GetSpellInfo")
+    return (old and old(id)) or (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id))
+end
 function FGT.BuffSpellName(id)
     local known = FGT.buffSpellCache[id]
     if known == nil then
-        local name = (GetSpellInfo and GetSpellInfo(id)) or (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id))
+        local name = FGT.SpellName(id)
         known = (type(name) == "string" and FGT.BUFF_SPELLS[name]) and name or false
         FGT.buffSpellCache[id] = known
     end
@@ -12503,7 +12510,8 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
     if event == "UI_INFO_MESSAGE" then
         -- "Trade complete." (the message is the second argument on current clients, the first on older ones)
         local message = type(arg2) == "string" and arg2 or arg1
-        if ERR_TRADE_COMPLETE and message == ERR_TRADE_COMPLETE then FGT.Count("trades") end
+        local tradeDone = rawget(_G, "ERR_TRADE_COMPLETE")
+        if tradeDone and message == tradeDone then FGT.Count("trades") end
         return
     end
     if event == "UNIT_SPELLCAST_SENT" then
@@ -12524,7 +12532,7 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
             FGT.CountBuff(pending[1], pending[2])
         end
         if FGT.castLogUntil and GetTime() < FGT.castLogUntil then
-            local name = GetSpellInfo and GetSpellInfo(spell) or (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(spell)) or "?"
+            local name = FGT.SpellName(spell) or "?"
             local DB = ForeverGoalTrackerDB
             if DB then
                 DB.castLog = DB.castLog or {}
