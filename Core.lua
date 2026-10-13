@@ -5389,7 +5389,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["rep_ambassador_ally_ironforge-banner.blp"] = SnowOnly(100),
         -- Leveling, Undead Paladin: holy light on the raised hammer head (its eyes bloom too, baked),
         -- slow turning rays from it, and a few ash motes drifting in the storm clouds
-        ["allclasses_undead_paladin-banner.blp"] = { 0.79, 0.13, 0.40, { 1, 1, 1 }, rays = 2.6, turn = 260,
+        ["allclasses_undead_paladin-banner.blp"] = { 0.79, 0.13, 0.40, { 1, 1, 1 }, rays = 4.2, turn = 260,
             raysStrength = 0.7, strength = 1.0, embers = Motes({ 0.45, 1.0, 0.0, 0.65 }, 20) },
         -- the Horde war mount: snow like the Alliance one (blooms on the horn's breath and the ground burst)
         ["pvp_mount_horde-banner.blp"] = SnowOnly(110),
