@@ -5140,7 +5140,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- the gem at the crossguard, and the lightning and blade edges glow. (A glint that slid
         -- down the blade was tried and taken off, Karl 2026-10-13; the path was
         -- { { 0.68, 0.385 }, { 0.60, 0.445 }, { 0.50, 0.52 }, { 0.41, 0.59 } } in `glides`.)
-        thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 },
+        thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 }, pulse = 0.30, -- the gem swells 85% to 115% (Karl, 2026-10-13)
             bloom = { "thunderfury-bloom", strength = 0.6 } },
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- Shaman Tier 2 (Alliance and Horde share the image): the storm lightning glows
@@ -5400,10 +5400,16 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local w = 0.5 + 0.3*math.sin(time*2*math.pi/7.3) + 0.2*math.sin(time*2*math.pi/11.9 + 1.3)
         self:PaintLight(self.bloomTex, (self.glowLevel or 0)*(bloom.strength or 0.6)*(0.85 + 0.15*w))
     end
+    -- How far a glow swells and shrinks as it drifts: `pulse` on a spec is the
+    -- total swing as a share of its size (default 0.08, so 96% to 104%; at most 0.4).
+    function B.PulseScale(spec, n)
+        local p = math.min(0.4, math.max(0, spec.pulse or 0.08))
+        return 1 - p/2 + p*(n or 0.5)
+    end
     function B:DrawLights(n, turn)
         local spec = self.glowSpec
         if not (spec and self.glowCX) then return end
-        local size = spec[3]*self.art:GetWidth()*(0.96 + 0.08*(n or 0.5))
+        local size = spec[3]*self.art:GetWidth()*self.PulseScale(spec, n)
         self:ClipLight(self.glowTex, self.glowCX, self.glowCY, size, 0)
         if spec.rays then
             self:ClipLight(self.raysTex, self.glowCX, self.glowCY, spec[3]*self.art:GetWidth()*spec.rays, turn or 0)

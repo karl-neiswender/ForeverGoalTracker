@@ -612,6 +612,11 @@ do
             assert(turns <= 120*0.5*3, "flicker turns around slowly: " .. turns .. " turns in 120 s")
         end
     end
+    -- the glow's swell: the default is a few percent, Thunderfury's gem swells more, never past the cap
+    local plain, tf = { pulse = nil }, B.glows.thunderfury
+    assert(math.abs(B.PulseScale(plain, 0) - 0.96) < 1e-9 and math.abs(B.PulseScale(plain, 1) - 1.04) < 1e-9, "default swell 96% to 104%")
+    assert(B.PulseScale(tf, 0) < 0.9 and B.PulseScale(tf, 1) > 1.1, "Thunderfury's gem swells more")
+    assert(B.PulseScale({ pulse = 5 }, 1) - B.PulseScale({ pulse = 5 }, 0) <= 0.4 + 1e-9, "the swell is capped")
     -- a gliding glint along a blade-like path: slow, resting in between (no banner uses one now;
     -- Thunderfury's was taken off)
     rawset(B.art, "GetWidth", function() return 600 end)
