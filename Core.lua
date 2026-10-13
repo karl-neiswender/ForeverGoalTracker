@@ -6901,7 +6901,8 @@ local function GetStepRow(index)
     row.miniBar = NewBar(row, 5)
     row.miniBar.label:Hide()
     row.miniBar:Hide()
-    row.miniBar.instant = true -- pooled rows get reused across goals; no gliding
+    -- (pooled rows get reused across goals and steps: FGT.MiniProgress jumps when a row starts
+    -- showing a different step and glides when the same step's count moves)
 
     -- Set pieces with a materials list: a +/- fold toggle in the
     -- checkbox's spot and a "1 / 3" count on the right. Materials get a
@@ -7592,7 +7593,7 @@ RefreshSteps = function(goal)
             row.miniBar:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -6)
             row.miniBar:SetPoint("RIGHT", row, "RIGHT", -4, 0)
             row.miniBar:Show()
-            row.miniBar:SetProgress(math.floor(lvl * 100), MAX_LEVEL * 100)
+            FGT.MiniProgress(row, goal.id .. ":" .. i .. ":level", math.floor(lvl * 100), MAX_LEVEL * 100)
 
             local textHeight = row.text:GetStringHeight() or 14
             rowHeight2 = math.max(34, textHeight + 20)
@@ -7624,7 +7625,7 @@ RefreshSteps = function(goal)
                     row.miniBar:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -6)
                     row.miniBar:SetPoint("RIGHT", row, "RIGHT", -4, 0)
                     row.miniBar:Show()
-                    row.miniBar:SetProgress(cur, max)
+                    FGT.MiniProgress(row, goal.id .. ":" .. i, cur, max)
                     rowHeight2 = rowHeight2 + 12
                 end
             end
@@ -11454,6 +11455,17 @@ do -- scoped (200-local budget)
 -- level up, then refreshes the window if it's open. XP ticks are
 -- throttled to one redraw per second.
 local lastRedraw = 0
+-- A step row's small count bar (buffs, trades, kills, friends, a statistic, a level). It glides
+-- toward a new count when the row still shows the same step, and jumps when the pooled row has
+-- just been given another step, so a redraw never slides a bar in from another goal's value.
+function FGT.MiniProgress(row, key, cur, max)
+    local bar = row.miniBar
+    bar.instant = (bar.progressKey ~= key) or FGT.quietCelebrate or nil
+    bar.progressKey = key
+    bar:SetProgress(cur, max)
+    bar.instant = nil
+end
+
 local function RefreshOpenWindow()
     FGT.CheckGoalCompletions() -- announces goals finished while closed
     if not main:IsShown() then return end

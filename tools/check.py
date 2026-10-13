@@ -378,6 +378,17 @@ if ok_all:
             'local g = F.GoalById(id); assert(g and g.category == "Social" and g.needs == "stats", id); assert(g.steps[1].auto.stat.id == stat and #g.steps == 4, id .. " steps"); '
             'end; '
             'print("  four emote goals read Statistics 1042, 1045, 1065 and 1066")'),
+        # A step's count bar glides to a new count on the same step and jumps when its row is reused.
+        ("step count bars glide", None,
+            'local F = STUB_NS; local calls = {}; local row = { miniBar = { SetProgress = function(self, cur, max) calls[#calls + 1] = { cur = cur, instant = self.instant } end } }; '
+            'F.MiniProgress(row, "social_buffs:1", 10, 100); F.MiniProgress(row, "social_buffs:1", 30, 100); '
+            'F.MiniProgress(row, "social_trades:2", 5, 25); F.MiniProgress(row, "social_trades:2", 9, 25); '
+            'assert(calls[1].instant == true, "a row showing a step for the first time jumps"); '
+            'assert(not calls[2].instant, "the same step glides to 30"); '
+            'assert(calls[3].instant == true, "a reused row jumps to the other goal value"); '
+            'assert(not calls[4].instant and row.miniBar.instant == nil, "and then glides"); '
+            'F.quietCelebrate = true; F.MiniProgress(row, "social_trades:2", 12, 25); assert(calls[5].instant == true, "silent redraws jump"); F.quietCelebrate = nil; '
+            'print("  step count bars glide on the same step and jump on a reused row")'),
         # /goals perf times the banner effects; without an animated banner it says how to start.
         ("perf command", None,
             'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("perf"); SlashCmdList["FOREVERGOALTRACKER"]("perf 5")'),
