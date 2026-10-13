@@ -6268,16 +6268,19 @@ do
         return view.short and view or stepsScrollObj
     end
     function FGT.GuideScrollPosition() return Guide().scroll:GetVerticalScroll() end
-    -- glide to `target` (default: the end), then run `done`
-    function FGT.ScrollGuideTo(target, done)
+    -- glide to `target` (default: the end), calling `step(p)` as it goes
+    -- (p 0 to 1, eased) and `done` at the end. With a `step` it always takes
+    -- its full time, even with no distance to cover, so fades never snap.
+    function FGT.ScrollGuideTo(target, done, step)
         local obj = Guide()
         local scroll = obj.scroll
         local from, to = scroll:GetVerticalScroll(), target or scroll:GetVerticalScrollRange()
         to = math.max(0, math.min(to, scroll:GetVerticalScrollRange()))
         Finish() -- a glide already running ends first
         pending = done
-        if math.abs(to - from) < 1 or FGT.Setting("celebrations") == "off" then
+        if (math.abs(to - from) < 1 and not step) or FGT.Setting("celebrations") == "off" then
             scroll:SetVerticalScroll(to); obj:Update()
+            if step then step(1) end
             Finish()
             return
         end
@@ -6285,8 +6288,10 @@ do
         driver:SetScript("OnUpdate", function(_, dt)
             t = t + dt
             local p = math.min(1, t/0.45)
-            scroll:SetVerticalScroll(from + (to - from)*(1 - (1 - p)^3))
+            local e = 1 - (1 - p)^3
+            scroll:SetVerticalScroll(from + (to - from)*e)
             obj:Update()
+            if step then step(e) end
             if p >= 1 then Finish() end
         end)
     end
@@ -6851,11 +6856,15 @@ function FGT.LayoutTips(goal, yOffset, width)
             local id = T.goalId
             local opening = not FGT.tipsOpen[id]
             if opening then
-                -- remember where you were, then glide down to the tips (Karl)
+                -- remember where you were, then glide down to the tips as
+                -- they fade in (Karl)
                 T.returnTo = { id = id, at = FGT.GuideScrollPosition() }
                 FGT.tipsOpen[id] = true
                 SelectGoal(id, true)
-                C_Timer.After(0.05, function() FGT.ScrollGuideTo() end)
+                FGT.FadeTips(0)
+                C_Timer.After(0.05, function()
+                    FGT.ScrollGuideTo(nil, function() FGT.FadeTips(1) end, function(p) FGT.FadeTips(p) end)
+                end)
             else
                 -- glide back up first (to where you were, or up by the tips'
                 -- height), then fold them away, so the list never snaps
@@ -6863,17 +6872,22 @@ function FGT.LayoutTips(goal, yOffset, width)
                 local here = FGT.GuideScrollPosition()
                 local target = back or math.max(0, here - (T.openHeight or 0))
                 T.returnTo = nil
+                -- the tips fade out as the guide glides back up
                 FGT.ScrollGuideTo(math.min(target, here), function()
                     FGT.tipsOpen[id] = nil
+                    FGT.FadeTips(1) -- (hidden by the redraw; ready for next time)
                     -- (only redraw if you're still on that goal)
                     if T.goalId == id then SelectGoal(id, true) end
-                end)
+                end, function(p) FGT.FadeTips(1 - p) end)
             end
         end)
         FGT.tipsUI = T
     end
     local tips = goal.tips or {}
     local open = FGT.tipsOpen[goal.id]
+    function FGT.FadeTips(a)
+        for _, row in ipairs(T.rows) do row:SetAlpha(a); row.dot:SetAlpha(a) end
+    end
     T.goalId = goal.id
     for i = (open and #tips or 0) + 1, #T.rows do
         T.rows[i]:Hide()
