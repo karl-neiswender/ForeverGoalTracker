@@ -4,7 +4,7 @@ Written to `style-guide.md` from everything on `main` since 2.12.0. Bugs that ex
 
 ## What's new window (short)
 
-- Added light to goal images: embers, snow, sunlight and a soft glow on lightning
+- Added light to goal images: embers, snow, sunlight and a soft bloom on the brightest lights
 - You can now Ctrl-click an armor set's icon to try on the whole set
 - Added Image effects in Settings: Full, Subtle or Off
 - Added a token, idol and scarab checklist to each Tier 2.5 piece
@@ -15,7 +15,7 @@ Written to `style-guide.md` from everything on `main` since 2.12.0. Bugs that ex
 
 ### New
 
-- Added light to goal images: embers, snow, sunlight and a soft glow on lightning.
+- Added light to goal images: embers, snow, sunlight and a soft bloom on the brightest lights, such as flames, gems, eyes and lightning, on 39 banners.
 - You can now Ctrl-click an armor set's icon, on its goal page or its Library card, to try on every piece in the dressing room.
 - Added Image effects in Settings under Images: Full, Subtle (the drifting clouds only) or Off (the image alone).
 - Added a token, idol and scarab checklist to each Tier 2.5 armor piece, the same way Tier 3 lists its materials.
@@ -28,12 +28,13 @@ Written to `style-guide.md` from everything on `main` since 2.12.0. Bugs that ex
 - Changed Tips to glide open and closed.
 - Renamed "WoW Forever" to "Forever" and "Classic" to "Classic Era" in tips and tooltips.
 - Renamed the Social interest in the welcome window to Socializing.
+- Renamed the Ashbringer card on My Goals to Corrupted Ashbringer.
 - Changed gold amounts in tips to "1,200 gold" (was "1,200g").
 - UI improvements and bug fixes
 
 ### Developers' notes
 
-Image effects are slow by design. Lights, embers and glints change brightness by a limited amount per second, so nothing flashes. Subtle keeps only the clouds, and Off shows the image alone, for players who want less motion or lower memory use.
+Image effects are slow by design. Lights, blooms and embers change brightness by a limited amount per second, so nothing flashes. Subtle keeps only the clouds, and Off shows the image alone, for players who want less motion or lower memory use.
 
 ### Known issues
 
