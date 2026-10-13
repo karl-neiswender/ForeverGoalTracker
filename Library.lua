@@ -805,7 +805,7 @@ local library = {
     {
         id = "social_guild_dungeon", library = true, forever = "confirmed",
         icon = { "inv_misc_key_08", "inv_misc_groupneedmore" },
-        name = "Dungeon Bosses with Guildmates", short = "Guild Dungeon Bosses",
+        name = "Dungeons with Guildmates", short = "Guild Dungeons",
         category = "Social", difficulty = "Moderate",
         timeEstimate = "Weeks",
         note = "Defeat dungeon bosses with a guildmate in your party. Progress is tracked automatically.",
@@ -824,7 +824,7 @@ local library = {
     {
         id = "social_guild_raid", library = true, forever = "confirmed",
         icon = { "inv_misc_head_dragon_black", "inv_misc_groupneedmore" },
-        name = "Raid Bosses with Guildmates", short = "Guild Raid Bosses",
+        name = "Raids with Guildmates", short = "Guild Raids",
         category = "Social", difficulty = "Hard",
         timeEstimate = "Months",
         note = "Defeat raid bosses with guildmates in your raid. Progress is tracked automatically.",
