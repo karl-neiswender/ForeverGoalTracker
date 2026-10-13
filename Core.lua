@@ -6891,7 +6891,11 @@ function FGT.LayoutTips(goal, yOffset, width)
                 local here = FGT.GuideScrollPosition()
                 local target = back or math.max(0, here - (T.openHeight or 0))
                 T.returnTo = nil
-                -- the tips fade out as the guide glides back up
+                -- the tips fade out as the guide glides back up. The shade
+                -- stays off on the way: easing in over the Tips row and out
+                -- again at the end read as a flash (Karl); it settles once
+                -- the tips have folded away.
+                stepsScrollObj.holdShade, FGT.detailViewport.holdShade = true, true
                 FGT.ScrollGuideTo(math.min(target, here), function()
                     FGT.tipsOpen[id] = nil
                     FGT.FadeTips(1) -- (hidden by the redraw; ready for next time)
@@ -6908,10 +6912,8 @@ function FGT.LayoutTips(goal, yOffset, width)
     local tips = goal.tips or {}
     local open = FGT.tipsOpen[goal.id]
     T.startY, T.width = yOffset, width -- for FGT.RedrawTips
-    -- the tips fade in as the "(3)" count fades out, and back
     function FGT.FadeTips(a)
         for _, row in ipairs(T.rows) do row:SetAlpha(a); row.dot:SetAlpha(a) end
-        T.count:SetAlpha(1 - a)
     end
     T.goalId = goal.id
     for i = (open and #tips or 0) + 1, #T.rows do
@@ -6934,8 +6936,9 @@ function FGT.LayoutTips(goal, yOffset, width)
     yOffset = yOffset + 9
     T.header:SetText("Tips")
     FGT.SetPlusMinus(T.arrow, open)
-    T.count:SetText("(" .. #tips .. ")") -- always set; open tips fade it (FGT.FadeTips)
-    T.count:SetAlpha(open and 0 or 1)
+    -- the count stays put either way: changing it on a click read as a flash (Karl)
+    T.count:SetText("(" .. #tips .. ")")
+    T.count:SetAlpha(1)
     local hh = (T.header:GetStringHeight() or 12) + 6
     T.btn:ClearAllPoints()
     T.btn:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
