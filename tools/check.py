@@ -140,6 +140,16 @@ print(("blooms     " if not missing else "BLOOM      ") + str(len(stems) + len(n
       + ("" if not missing else "; MISSING: " + ", ".join(missing)))
 ok_all = ok_all and not missing
 
+# Lua quietly drops the backslash of an unknown escape ("Interface\AddOns" loses its folder
+# separators), so a texture path written that way compiles and then fails to load in game.
+sys.path.insert(0, here)
+import escapecheck
+bad_escapes = escapecheck.run()
+for name_, number_, esc_, text_ in bad_escapes:
+    print("ESCAPE     " + name_ + ":" + str(number_) + " has " + esc_ + " in a string: " + text_)
+print(("escapes    " if not bad_escapes else "ESCAPE     ") + "no invalid backslash escapes in any Lua string")
+ok_all = ok_all and not bad_escapes
+
 # Language conventions (tools/copycheck.py, reports/copy-sweep/conventions.md): the enforced
 # rules fail the suite; proposed ones are only reported by running copycheck.py itself.
 sys.path.insert(0, here)

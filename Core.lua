@@ -6100,7 +6100,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- `raysSoft`: the same rays, wider and much blurrier (Priest's buff banner)
         local raysArt = (on and spec.raysSoft) and "rays-soft" or "rays"
         if self.raysFor ~= raysArt then
-            self.raysTex:SetTexture("Interface\AddOns\\"..ADDON.."\Media\\"..raysArt, nil, nil, "TRILINEAR")
+            self.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..raysArt, nil, nil, "TRILINEAR")
             self.raysFor = raysArt
         end
         if on then
