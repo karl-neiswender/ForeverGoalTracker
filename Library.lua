@@ -1455,3 +1455,33 @@ table.insert(pvp, {
 for _, goal in ipairs(pvp) do
     table.insert(FGT.goals, goal)
 end
+
+-- Emotes from Forever's Statistics window, Social category (per character, like Duelist; hidden on
+-- Classic Era, which has no such window). Stat ids: 1042 hugs, 1045 cheers, 1065 waves, 1066 LOLs.
+-- The Social page also counts facepalms (1047) and the world's smallest violin (1067).
+for _, e in ipairs({
+    { id = "social_hugs", stat = 1042, name = "Give Hugs", what = "hugs", slash = "/hug",
+      first = "Give your first hug.", many = "Give %s hugs.", icon = { "inv_valentinescard01", "inv_misc_groupneedmore" } },
+    { id = "social_cheers", stat = 1045, name = "Give Cheers", what = "cheers", slash = "/cheer",
+      first = "Give your first cheer.", many = "Give %s cheers.", icon = { "inv_drink_05", "inv_misc_groupneedmore" } },
+    { id = "social_waves", stat = 1065, name = "Give Waves", what = "waves", slash = "/wave",
+      first = "Give your first wave.", many = "Give %s waves.", icon = { "inv_gauntlets_17", "inv_misc_groupneedmore" } },
+    { id = "social_lol", stat = 1066, name = "Say LOL", what = "LOLs", slash = "/lol",
+      first = "Say LOL for the first time.", many = "Say LOL %s times.", icon = { "inv_misc_mask_01", "inv_misc_groupneedmore" } },
+}) do
+    local function Step(n)
+        return { text = n == 1 and e.first or string.format(e.many, n), auto = { stat = { id = e.stat, value = n, what = e.what } } }
+    end
+    table.insert(FGT.goals, {
+        id = e.id, library = true, forever = "confirmed", needs = "stats",
+        icon = e.icon,
+        name = e.name,
+        category = "Social", difficulty = "Easy",
+        timeEstimate = "Days",
+        note = "Progress is tracked from your Statistics window.",
+        tips = { "Type " .. e.slash .. " in chat, or use the Emotes menu." },
+        target = { kind = "stat", stat = e.stat, what = e.what, default = 100, min = 10, max = 10000,
+                   marks = { 0.01, 0.1, 0.5, 1 }, step = e.many, one = e.first, unit = e.what },
+        steps = { Step(1), Step(10), Step(50), Step(100) },
+    })
+end

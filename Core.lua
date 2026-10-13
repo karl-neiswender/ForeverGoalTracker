@@ -13335,6 +13335,9 @@ local function Suggest(picked)
                 push(list, Entry(me, "social_guild_raid", nil, tag))
                 push(list, Entry(me, "social_trades", nil, tag))
                 push(list, Entry(me, "social_buffs", nil, tag))
+                for _, id in ipairs({ "social_hugs", "social_cheers", "social_waves", "social_lol" }) do
+                    push(list, Entry(me, id, nil, tag)) -- (Entry skips them without a Statistics window)
+                end
                 push(list, Entry(me, "social_campfires", nil, tag))
             end
             -- goals you've already started go first

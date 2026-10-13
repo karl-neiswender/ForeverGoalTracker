@@ -372,6 +372,12 @@ if ok_all:
             'GetNumGroupMembers = function() return 1 end; STUB_FIRE("UNIT_SPELLCAST_SENT", "player", "", "g5", 23028); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "g5", 23028); assert(c.counts.buffs == b0 + 1, "Arcane Brilliance alone does not"); '
             'GetNumGroupMembers = function() return 4 end; STUB_FIRE("UNIT_SPELLCAST_SENT", "player", "", "g6", 23028); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "g6", 23028); assert(c.counts.buffs == b0 + 2, "Arcane Brilliance in a group does"); '
             'print("  guild dungeon and raid kills, trades and campfires are counted")'),
+        # The emote goals read Forever's Statistics window (hugs, cheers, waves, LOLs).
+        ("emote goals", None,
+            'local F = STUB_NS; for id, stat in pairs({ social_hugs = 1042, social_cheers = 1045, social_waves = 1065, social_lol = 1066 }) do '
+            'local g = F.GoalById(id); assert(g and g.category == "Social" and g.needs == "stats", id); assert(g.steps[1].auto.stat.id == stat and #g.steps == 4, id .. " steps"); '
+            'end; '
+            'print("  four emote goals read Statistics 1042, 1045, 1065 and 1066")'),
         # /goals perf times the banner effects; without an animated banner it says how to start.
         ("perf command", None,
             'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("perf"); SlashCmdList["FOREVERGOALTRACKER"]("perf 5")'),
