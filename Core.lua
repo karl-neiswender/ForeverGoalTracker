@@ -8271,6 +8271,14 @@ do
         end
         return tex
     end
+    -- how bright the streak is at a position along the border (no closure: Draw runs every frame)
+    local function CometAlpha(pos, peak, P, tail, head, peakA)
+        local u = (pos - peak) % P
+        if u > P / 2 then u = u - P end
+        if u <= 0 and u >= -tail then return peakA * (1 + u / tail) end
+        if u > 0 and u <= head then return peakA * (1 - u / head) end
+        return 0
+    end
     local function Draw(f)
         local cm = f.comet
         T = cm.width or T_DEFAULT
@@ -8281,7 +8289,15 @@ do
         local peakA = cm.alpha * cm.vis -- fades with the on/off switch
         if lw > 0 and lh > 0 and peakA > 0.005 and FGT.Setting("celebrations") ~= "off" then
             local A = math.pi * R / 2
-            local segs = { { 1, lw }, { "tr", A }, { 2, lh }, { "br", A }, { 3, lw }, { "bl", A }, { 4, lh }, { "tl", A } }
+            -- (the segment and piece tables are kept on the comet and refilled each frame: making
+            -- them fresh was part of the garbage this made, 2026-10-13)
+            local segs = cm.segs
+            if not segs then
+                segs = { { 1, 0 }, { "tr", 0 }, { 2, 0 }, { "br", 0 }, { 3, 0 }, { "bl", 0 }, { 4, 0 }, { "tl", 0 } }
+                cm.segs = segs
+            end
+            segs[1][2], segs[2][2], segs[3][2], segs[4][2] = lw, A, lh, A
+            segs[5][2], segs[6][2], segs[7][2], segs[8][2] = lw, A, lh, A
             local P = 2 * (lw + lh) + 4 * A
             -- cm.ref: move like another button's comet (same speed and tail
             -- in pixels), so buttons of different sizes match
@@ -8298,14 +8314,14 @@ do
             x = x - 0.5 * math.sin(2 * math.pi * x) / (2 * math.pi)
             local peak = x * P
             local tail, head = Pt * 0.22, Pt * 0.08
-            local function Alpha(pos)
-                local u = (pos - peak) % P
-                if u > P / 2 then u = u - P end
-                if u <= 0 and u >= -tail then return peakA * (1 + u / tail) end
-                if u > 0 and u <= head then return peakA * (1 - u / head) end
-                return 0
+            local pieces = cm.pieces
+            if not pieces then
+                pieces = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 } }
+                cm.pieces = pieces
             end
-            local pieces = { { peak - tail, peak, 0, peakA }, { peak, peak + head, peakA, 0 } }
+            local p1, p2 = pieces[1], pieces[2]
+            p1[1], p1[2], p1[3], p1[4] = peak - tail, peak, 0, peakA
+            p2[1], p2[2], p2[3], p2[4] = peak, peak + head, peakA, 0
             local start = 0
             for _, sg in ipairs(segs) do
                 local kind, len = sg[1], sg[2]
@@ -8329,7 +8345,7 @@ do
                     local cy = (arc[2] == 1) and (h - c - R) or (c + R)
                     for k = 0, DOTS - 1 do
                         local q = (k + 0.5) / DOTS
-                        local al = Alpha(start + q * len)
+                        local al = CometAlpha(start + q * len, peak, P, tail, head, peakA)
                         if al > 0.02 then
                             local ang = math.rad(arc[3] + 90 * q)
                             local px, py = cx + R * math.cos(ang), cy + R * math.sin(ang)
