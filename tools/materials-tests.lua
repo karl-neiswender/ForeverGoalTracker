@@ -546,3 +546,16 @@ do
         B:HideShafts(); B:HideEmbers(); B.emberFor = nil
     end
 end
+
+-- sunlight banners carry the wide layer (3 more shafts); Save Gold has coin glints
+do
+    local B = STUB_NS.goalBanner
+    rawset(B.art, "GetWidth", function() return 600 end)
+    B.hasArt, B.shownArtHeight, B.uv, B.glowLevel = true, 450, { 0, 1, 0, 1 }, 0.5
+    B.goal = STUB_NS.GoalById("mount_charger"); B.glowSpec = B:GlowSpec(); B:ResetShafts()
+    assert(B.shaftCount == 5 + 3, "charger: five rays and the wide layer")
+    B.goal = STUB_NS.GoalById("gold_5k"); B.glowSpec = B:GlowSpec(); B:ResetShafts()
+    assert(B.shaftCount == 1 + 6, "gold: a beam and six glints")
+    for k = 1, 40 do B:StepShafts(k*0.2) end
+    B:HideShafts()
+end

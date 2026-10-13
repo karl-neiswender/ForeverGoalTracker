@@ -5053,6 +5053,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     -- sunlight: rays from a source plus motes drifting in the light
     local function Sunlight(sunrays, box, motes)
+        sunrays.wide = true
+        sunrays.thin = sunrays.thin or 0.75 -- thin rays a little quieter beside the wide layer
         return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             sunrays = sunrays, embers = Motes(box, motes or 20) }
     end
@@ -5131,39 +5133,46 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, embers = Snow(90) },
         -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
         rep_ambassador_ally = Sunlight({ 0.55, -0.10, 95, 50, 5, 0.9 }, { 0.25, 0.95, 0.10, 0.85 }),  -- through the arch
-        rep_ambassador_horde = Sunlight({ 0.53, 0.33, 90, 140, 6, 0.7 }, { 0.30, 1.0, 0.20, 0.80 }),  -- from the sun in the sky
-        mount_charger = Sunlight({ 0.82, -0.08, 115, 40, 5, 1.0 }, { 0.35, 1.0, 0.0, 0.70 }, 22),    -- the art's own rays
+        -- Horde capitals: a natural sun, faint rays all around it and a soft
+        -- halo on the disc, not a downward spotlight (Karl)
+        rep_ambassador_horde = { 0.53, 0.33, 0.16, { 1, 1, 1 }, strength = 0.7,
+            sunrays = { 0.53, 0.33, 90, 330, 9, 0.55, strength = 0.45, thin = 0.8 },
+            embers = Motes({ 0.30, 1.0, 0.20, 0.80 }, 18) },
+        mount_charger = Sunlight({ 1.02, -0.06, 135, 35, 5, 1.1 }, { 0.35, 1.0, 0.0, 0.70 }, 22),    -- from the top right corner
         ["set_forever_raid-banner.blp"] = Sunlight({ 0.75, -0.10, 110, 50, 5, 1.0 }, { 0.40, 1.0, 0.10, 0.80 }), -- every Forever raid set
-        fishing_extravaganza = Sunlight({ 0.30, -0.10, 60, 40, 5, 1.0 }, { 0.30, 1.0, 0.10, 0.75 }, 16), -- over the harbour
+        -- from the upper right, still falling toward the harbour; thin rays subtle
+        fishing_extravaganza = Sunlight({ 0.72, -0.12, 118, 35, 5, 1.1, thin = 0.5 }, { 0.30, 1.0, 0.10, 0.75 }, 16),
         -- Sunbeams: Lawbringer straight down on the halo behind his head;
         -- Lok'delar a narrow slanted shaft through the forest onto the stave
         set_tier1_paladin = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            beam = { 0.60, -0.10, 0.90, 0.60, strength = 1 },
+            beam = { 0.60, -0.10, 0.90, 0.70, strength = 1 },
             embers = Motes({ 0.35, 0.90, 0.0, 0.85 }, 26) },
-        lokdelar = Sunlight({ 0.45, -0.15, 70, 12, 3, 1.2 }, { 0.40, 1.0, 0.10, 0.85 }, 22),
+        lokdelar = Sunlight({ 0.45, -0.15, 70, 12, 3, 1.2, strength = 0.75 }, { 0.40, 1.0, 0.10, 0.85 }, 22),
         -- Lightforge: the glowing hammer head with turning rays (like Argent Dawn)
-        set_dungeon1_paladin = { 0.66, 0.57, 0.40, { 1, 1, 1 }, rays = 1.8, strength = 1.1, raysStrength = 0.8, turn = 240 },
+        set_dungeon1_paladin = { 0.68, 0.57, 0.40, { 1, 1, 1 }, rays = 2.6, strength = 1.1, raysStrength = 0.8, turn = 240 },
         -- Onyxia attunements: embers off her breath and the fire
         att_ony_ally = { 0.8, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.65, 1.0, 0.25, 0.75 }, field = { 0.40, 1.0, 0.20, 0.90 }, count = 50, blurShare = 0.22, rise = 0.30 } },
         att_ony_horde = { 0.8, 0.7, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.40, 1.0, 0.50, 0.90 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
         -- Karl's second light list. Sunbeams on Rhok'delar from the forest light behind him
-        rhokdelar = Sunlight({ 0.68, -0.12, 100, 30, 4, 1.1 }, { 0.40, 1.0, 0.0, 0.80 }, 22),
+        -- a backlight: the sun behind him, its wide rays visible, thin ones faint
+        rhokdelar = Sunlight({ 0.66, -0.06, 100, 70, 4, 1.2, thin = 0.4 }, { 0.40, 1.0, 0.0, 0.80 }, 22),
         -- vertical beams: onto the treasure pile, and onto the floating key and its chest
         gold_5k = { 0.62, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            beam = { 0.62, -0.10, 0.85, 0.60, strength = 1 },
-            embers = Motes({ 0.40, 0.90, 0.0, 0.80 }, 24) },
+            beam = { 0.62, -0.10, 0.85, 1.0, strength = 1 },
+            embers = Motes({ 0.35, 0.95, 0.0, 0.80 }, 24),
+            gleams = { box = { 0.35, 0.95, 0.45, 0.80 }, count = 6, size = 0.045 } }, -- light on a few coins
         key_scholo = { 0.63, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            beam = { 0.63, -0.10, 0.92, 0.45, strength = 1 },
+            beam = { 0.63, -0.10, 0.92, 0.85, strength = 1 },
             embers = Motes({ 0.45, 0.85, 0.0, 0.85 }, 22) },
-        set_dungeon1_warrior = Sunlight({ 0.85, -0.10, 115, 45, 5, 1.0 }, { 0.40, 1.0, 0.0, 0.75 }),        -- Valor
+        set_dungeon1_warrior = Sunlight({ 1.02, -0.06, 130, 40, 5, 1.1 }, { 0.40, 1.0, 0.0, 0.75 }),        -- Valor, from the top right corner
         set_violet_sorcerer = Sunlight({ 0.62, -0.12, 95, 60, 6, 1.1 }, { 0.20, 1.0, 0.0, 0.80 }, 24),   -- over Dalaran
         -- UBRS key: the lava splashing up around the gate's foot
         key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
-        ["pvp_drums_of_war-banner.blp"] = { 0.65, 0.75, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Honorable Kills and Duelist
-            embers = { box = { 0.35, 0.95, 0.55, 0.90 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 36, blurShare = 0.22, rise = 0.30 } },
+        -- Honorable Kills and Duelist: sun through the branches from the top corner
+        ["pvp_drums_of_war-banner.blp"] = Sunlight({ 1.02, -0.08, 128, 45, 8, 1.1, thin = 0.6 }, { 0.30, 1.0, 0.0, 0.80 }, 20),
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
@@ -5410,13 +5419,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- and faint, never flashing; pair them with floating motes (`embers`
     -- with `float = true`). Drawn just under the glow, over the photo.
     --   beam = { u, top, bottom, width, strength }  (width: share of the art's width)
-    --   sunrays = { u, v, angle, spread, count, length, strength }
+    --   sunrays = { u, v, angle, spread, count, length, strength, wide }
     --     (u, v: the source, may sit just outside the art; angle in degrees,
-    --     0 = right, 90 = straight down; length: share of the art's width)
+    --     0 = right, 90 = straight down; length: share of the art's width).
+    --     `wide` adds the visible-sunlight layer: three long, thick, very slow
+    --     rays (Media/shaft-wide) that fade out toward their ends.
+    --   gleams = { box, count, size }: light catching a few points (coins),
+    --     each a small glint (Media/gleam) that slowly swells and fades.
+    -- Karl's aim: natural light that sets the scene, never washing it out.
     B.shafts, B.shaftInfo = {}, {}
     B.shaftArt = {
         beam = "Interface\\AddOns\\"..ADDON.."\\Media\\beam",
         ray = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft",
+        wide = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft-wide",
+        gleam = "Interface\\AddOns\\"..ADDON.."\\Media\\gleam",
     }
     function B:HideShafts()
         for _, t in ipairs(self.shafts) do t:Hide() end
@@ -5473,6 +5489,23 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 info.angle = math.rad(sr[3] + sr[4]*f + (math.random()*2 - 1)*sr[4]*0.12)
                 info.len = sr[6]*(0.75 + 0.5*math.random())
             end
+            if sr.wide then
+                for i = 1, 3 do
+                    local info = Next("wide", sr)
+                    info.angle = math.rad(sr[3] + sr[4]*0.7*((i - 1)/2 - 0.5) + (math.random()*2 - 1)*6)
+                    info.len = sr[6]*(1.5 + 0.4*math.random())
+                    info.period, info.swayP = 16 + 12*math.random(), 30 + 20*math.random()
+                end
+            end
+        end
+        local gl = spec.gleams
+        if gl then
+            for _ = 1, gl.count do
+                local info = Next("gleam", gl)
+                info.u = gl.box[1] + (gl.box[2] - gl.box[1])*math.random()
+                info.v = gl.box[3] + (gl.box[4] - gl.box[3])*math.random()
+                info.period = 4 + 4*math.random()
+            end
         end
         self.shaftCount = n
     end
@@ -5492,12 +5525,24 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 local w = cfg[4]*aw
                 self:ClipRect(t, cx - w/2, top, cx + w/2, bottom)
                 self:PaintLight(t, level*(cfg.strength or 1)*(0.55 + 0.45*breathe)*0.45)
+            elseif info.kind == "gleam" then
+                -- swells and fades over 4 to 8 s, resting dark in between
+                local x, y = self:ArtPoint(info.u, info.v)
+                local glint = math.max(0, math.sin(time*2*math.pi/info.period + info.phase))^3
+                t:Show()
+                self:ClipLight(t, x, y, cfg.size*aw*(0.7 + 0.3*glint), time*0.15 + info.phase)
+                self:PaintLight(t, level*1.6*glint)
             else
                 local cx, cy = self:ArtPoint(cfg[1], cfg[2])
-                local angle = info.angle + math.rad(1.5)*math.sin(time*2*math.pi/info.swayP + info.swayPh)
+                local wide = info.kind == "wide"
+                local angle = info.angle + math.rad(wide and 1 or 1.5)*math.sin(time*2*math.pi/info.swayP + info.swayPh)
                 t:Show()
                 self:ClipLight(t, cx, cy, 2*info.len*aw, -angle)
-                self:PaintLight(t, level*(cfg.strength or 1)*(0.25 + 0.75*breathe)*0.4)
+                if wide then
+                    self:PaintLight(t, level*(cfg.strength or 1)*(0.35 + 0.65*breathe)*0.22)
+                else
+                    self:PaintLight(t, level*(cfg.strength or 1)*(cfg.thin or 1)*(0.25 + 0.75*breathe)*0.4)
+                end
             end
         end
     end
