@@ -5311,6 +5311,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["allclasses_dwarf_hunter-banner.blp"] = SnowOnly(90),  -- leveling, Dwarf Hunter
         ["set_tier1_rogue-alliance-banner.blp"] = SnowOnly(100), -- Nightslayer (the snowy Alliance image)
         ["pvp_av_ally-banner.blp"] = SnowOnly(110),             -- Stormpike Guard
+        ["set_dungeon1_hunter-banner.blp"] = SnowOnly(100),     -- Beaststalker (the snow hides the page's windy leaves)
         ["pvp_set_mail_horde_shaman-banner.blp"] = SnowOnly(110), -- Warlord's Earthshaker
         -- Cooking: a campfire in the snow: snow, and a soft flame glow on the fire (no embers, Karl)
         ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, flicker = 0.35, embers = Snow(90) },
@@ -6269,6 +6270,47 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        -- Exact-image attribution evidence: reports/artwork-artist-evidence-2026-10-13.json
+        ["social_friends-banner.blp"] = "Jaslynn Tham",
+        ["pvp_mount_horde-banner.blp"] = "Efrem Palacios",
+        ["pvp_set_mail_ally-banner.blp"] = "Anton Zemskov",
+        ["prof_blacksmithing-banner.blp"] = "Akkapoj T.",
+        ["prof_leatherworking-banner.blp"] = "Kagi",
+        ["prof_enchanting-banner.blp"] = "Akkapoj T.",
+        ["prof_tailoring-banner.blp"] = "Kagi",
+        ["prof_first_aid-banner.blp"] = "L. Chanchai",
+        ["prof_blacksmithing-horde-banner.blp"] = "Ursula Dorada",
+        ["social_buffs_druid-banner.blp"] = "Brad Vancata",
+        ["social_buffs_priest-banner.blp"] = "Cos Koniotis",
+        ["set_viper-banner.blp"] = "Steve Prescott",
+        ["key_scholo-banner.blp"] = "Kevin Sidharta",
+        ["sulfuras-banner.blp"] = "James Ryman",
+        ["quelserrar-banner.blp"] = "Joe Wilson",
+        ["raid_ony-banner.blp"] = "L. Lullabi & A. Zemskov",
+        ["social_buffs_paladin-banner.blp"] = "Zoltan Boros & Gabor Szikszai",
+        ["social_buffs_mage-banner.blp"] = "Dave Berggren",
+        ["raid_aq40-banner.blp"] = "Jorge Jacinto",
+        ["epicmounts_nightelf-banner.blp"] = "Ralph Horsley",
+        ["epicmounts_troll-banner.blp"] = "Zoltan Boros & Gabor Szikszai",
+        ["epicmounts_dwarf-banner.blp"] = "Matt Dixon",
+        ["epicmounts_human-banner.blp"] = "Ralph Horsley",
+        ["epicmounts_gnome-banner.blp"] = "Carl Critchlow",
+        ["tier3_paladin-banner.blp"] = "Chippy",
+        ["rep_timbermaw-banner.blp"] = "Chris Seaman",
+        ["rep_ambassador_ally_ironforge-banner.blp"] = "Zoltan Boros & Gabor Szikszai",
+        ["allclasses_troll_mage-banner.blp"] = "Alex Garner",
+        ["set_tier25-banner.blp"] = "Jaemin Kim",
+        ["raid_mc-banner.blp"] = "Greg Staples",
+        ["set_tier1-banner.blp"] = "Alex Horley",
+        ["raid_zg-banner.blp"] = "Izzy Hoover",
+        ["mount_dreadsteed-banner.blp"] = "Alex Horley",
+        ["set_tier1_rogue-banner.blp"] = "Konstantin Porubov",
+        ["set_tier2_rogue-banner.blp"] = "Alex Horley",
+        ["tier3_rogue-banner.blp"] = "BOSi Studio",
+        ["tier3_hunter-banner.blp"] = "Vladimir Kafanov",
+        ["set_dungeon1_warrior-banner.blp"] = "UDON",
+        ["mount_deathcharger-banner.blp"] = "Ralph Horsley",
+        ["set_tier2_paladin-banner.blp"] = "Sam Nielson",
         ["rep_ambassador_horde_thunderbluff-banner.blp"] = "Peter Lee",
         ["rep_ambassador_horde_undercity-banner.blp"] = "Peter Lee",
         ["rep_ambassador_ally_darnassus-banner.blp"] = "Peter Lee",
