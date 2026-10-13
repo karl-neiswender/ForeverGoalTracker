@@ -703,6 +703,13 @@ do
         assert(B.raysTex.fgtQ1 == bright, "and their brightness (" .. tostring(bright) .. " vs " .. tostring(B.raysTex.fgtQ1) .. ")")
         B.goal = STUB_NS.GoalById("set_tier2_shaman"); B:PlaceGlow()
     end
+    -- Druid and nature banners keep the page's windy leaves with their particles; others hide them
+    do
+        assert(B:IsLeafy("x", "social_buffs_druid-banner.blp") and B:IsLeafy("x", "rep_ambassador_ally_darnassus-banner.blp"), "the druid buff banner and Darnassus keep the leaves")
+        assert(B:IsLeafy("rhokdelar", nil) and B:IsLeafy("lokdelar", "anything-banner.blp"), "forest weapons keep them by goal")
+        assert(not B:IsLeafy("raid_mc", "raid_mc-banner.blp") and not B:IsLeafy("social_buffs", "social_buffs_mage-banner.blp"), "other banners with particles hide the leaves")
+        for path in pairs(B.leafy) do assert(path:find("-banner.blp", 1, true) or STUB_NS.GoalById(path), "leafy entry resolves: " .. path) end
+    end
     -- the spark sets (zap): nine in three spots, slow to appear, resting between
     B.glowSpec = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, embers = {
         { zap = true, box = { 0.535, 0.575, 0.14, 0.20 }, count = 3, strength = 1.8 },

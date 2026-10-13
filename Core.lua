@@ -5208,6 +5208,23 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     local function SnowOnly(count)
         return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = Snow(count) }
     end
+    -- Druid and nature banners keep the page's windy drifting leaves (Ambience.lua, Forever only)
+    -- in addition to whatever lights and particles they have (Karl, 2026-10-13). Any banner with
+    -- particles normally hides them; list a banner here, by image or by goal id, to keep them.
+    -- New druid or nature artwork belongs in this list.
+    B.leafy = {
+        ["social_buffs_druid-banner.blp"] = true,            -- Buff Others, Druid
+        ["rep_ambassador_ally_darnassus-banner.blp"] = true, -- Darnassus
+        ["set_tier1_druid-banner.blp"] = true, ["set_tier2_druid-banner.blp"] = true,
+        ["tier3_druid-banner.blp"] = true, ["tier3_druid-horde-banner.blp"] = true,  -- druid sets
+        ["allclasses_horde_druid-banner.blp"] = true,        -- leveling, Horde Druid
+        ["rep_cenarion-banner.blp"] = true,                  -- Cenarion Circle
+        ["set_tier2_paladin-banner.blp"] = true,             -- Judgement Armor (a forest)
+        rhokdelar = true, lokdelar = true,                    -- forest weapons
+    }
+    function B:IsLeafy(goalId, path)
+        return (path and self.leafy[path]) or self.leafy[goalId] or false
+    end
     B.glows = {
         -- the gem at the crossguard, and the lightning and blade edges glow. (A glint that slid
         -- down the blade was tried and taken off, Karl 2026-10-13; the path was
@@ -5388,8 +5405,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- soft blooms on its lanterns and glowing orbs (baked), and drifting motes that read as leaves
         ["rep_ambassador_ally_darnassus-banner.blp"] = Sunlight(
             { 0.74, -0.08, 100, 0.35, 5, 1.2, parallel = true, strength = 0.6 },
-            { 0.35, 0.95, 0.0, 0.85 }, 48, { beam = { 0.74, -0.10, 0.80, 0.40, strength = 0.9 },
-                dust = true }), -- (dust = true keeps the page's windy drifting leaves with the motes)
+            { 0.35, 0.95, 0.0, 0.85 }, 48, { beam = { 0.74, -0.10, 0.80, 0.40, strength = 0.9 } }),
         -- Thunder Bluff (Tauren Ambassador): broad light breaking through the clouds at the top
         -- right (a soft glow at the gap), wind-blown motes across the mesas
         ["rep_ambassador_horde_thunderbluff-banner.blp"] = Sunlight(
@@ -6181,7 +6197,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if not on then self:HideEmbers(); self:HideShafts(); self.emberFor = nil end
         -- floating dust (Ambience.lua, Forever only) steps aside for embers
         local A = FGT.ambience
-        if A and A.SetDust then A.SetDust(not (on and spec.embers and not spec.dust)) end
+        if A and A.SetDust then
+            local leafy = self.goal and self:IsLeafy(self.goal.id, self:ResolveArt(self.goal.id))
+            A.SetDust(not (on and spec.embers and not spec.dust and not leafy))
+        end
     end
     -- A light's texture is shown before the animation's first step, and a new texture draws at
     -- full strength until it is painted, so the glow, rays and bloom are painted at the current
