@@ -222,12 +222,18 @@ if ok_all:
         # The Fishing Extravaganza stays out of the first two asks for goals.
         ("fishing held back", None,
             'STUB_PRINTS = {}; local W = STUB_NS.welcome; local D = ForeverGoalTrackerDB; D.suggestAsks = nil; D.active.fishing_extravaganza = nil; '
+            'local mine = D.characters[next(D.characters)]; local oldFishing = mine.skills.Fishing; '
             'local function has() for _, e in ipairs(W.list) do if e.goal.id == "fishing_extravaganza" then return true end end return false end; '
-            'for ask = 1, 3 do '
-            'STUB_NS.OpenWelcome(nil, nil); W.picked = { collect = true, grind = true }; W.Show(3); W.Show(3); '
-            'assert(D.suggestAsks == ask, "asks counted once per opening: " .. tostring(D.suggestAsks)); '
-            'assert(has() == (ask >= 3), "fishing on ask " .. ask); STUB_NS.CloseWelcome(true) end; '
-            'print("  fishing absent on asks 1 and 2, offered from the third")'),
+            'local function ask(add) STUB_NS.OpenWelcome(nil, nil); W.picked = { collect = true, grind = true }; W.Show(3); W.Show(3); '
+            'local seen = has(); if add then W.AddChosen() else STUB_NS.CloseWelcome(true) end; return seen end; '
+            'mine.skills.Fishing = 150; '
+            'assert(not ask(false) and D.suggestAsks == nil, "closing without adding does not count"); '
+            'assert(not ask(true) and D.suggestAsks == 1, "first ask: " .. tostring(D.suggestAsks)); '
+            'assert(not ask(true) and D.suggestAsks == 2, "second ask"); '
+            'assert(ask(false), "third ask offers it to a fisher"); '
+            'mine.skills.Fishing = nil; assert(not ask(false), "never to someone who does not know Fishing"); '
+            'mine.skills.Fishing = oldFishing; '
+            'print("  fishing: only for characters who know it, after two asks that added goals")'),
         # Change target on the gold goal, then back to the default.
         ("change target", None,
             'STUB_PRINTS = {}; local g = STUB_NS.GoalById("gold_5k"); ForeverGoalTrackerDB.active.gold_5k = true; '

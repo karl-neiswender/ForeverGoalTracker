@@ -13281,14 +13281,12 @@ function W.Show(step)
     else
         W.title:SetText(W.find and "Your next goals" or "Goals to get started")
         local list
-        -- the Fishing Extravaganza stays out of a player's first two asks
-        -- for goals (counted once per opening, not per visit to this step)
+        -- the Fishing Extravaganza is only suggested to a character who knows
+        -- Fishing, and not until the player has added goals from two asks
         local DB = ForeverGoalTrackerDB
-        if DB and not W.counted and not W.demo then
-            W.counted = true
-            DB.suggestAsks = (DB.suggestAsks or 0) + 1
-        end
-        W.skipFishing = ((DB and DB.suggestAsks) or 0) <= 2
+        local mine = Roster()[CharKey()]
+        local fisher = mine and mine.skills and (mine.skills.Fishing or 0) > 0
+        W.skipFishing = not fisher or ((DB and DB.suggestAsks) or 0) < 2
         list, me = Suggest(W.picked)
         W.list = list
         if W.fallback then
@@ -13335,6 +13333,8 @@ function W.AddChosen()
     end
     FGT.CloseWelcome(true)
     if n == 0 then return end
+    -- an ask counts once goals were added from it (a closed window doesn't)
+    if not W.demo then DB.suggestAsks = (DB.suggestAsks or 0) + 1 end
     FGT.ShowTab("tracker")
     FGT.SelectGoal(first)
     FGT.RefreshOverall()
@@ -13367,7 +13367,6 @@ function FGT.OpenWelcome(step, find, demoPicked)
     W.picked = {} -- always starts with nothing picked
     for k, v in pairs(demoPicked or {}) do W.picked[k] = v end
     W.find = find and true or nil
-    W.counted = nil
     W.demo = demoPicked and true or nil -- demo scenes never count as an ask
     if find then
         -- your interests from last time; none saved yet: ask first
