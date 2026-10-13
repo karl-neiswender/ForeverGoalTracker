@@ -5139,20 +5139,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             { 0.25, 0.95, 0.10, 0.85 }, 20),
         -- Horde capitals: a natural sun, faint rays all around it and a soft
         -- halo on the disc, not a downward spotlight (Karl)
-        rep_ambassador_horde = { 0.57, 0.33, 0.18, { 1, 1, 1 }, strength = 1.0,
-            sunrays = { 0.57, 0.33, 90, 330, 9, 0.9, strength = 0.65 },
+        rep_ambassador_horde = { 0.55, 0.346, 0.18, { 1, 1, 1 }, strength = 1.0, -- on the sun's disc
+            sunrays = { 0.55, 0.346, 90, 330, 9, 0.9, strength = 0.65 },
             embers = Motes({ 0.30, 1.0, 0.20, 0.80 }, 18) },
-        -- one large, slow-turning ray burst centred on the very top right corner,
-        -- so about a quarter of it shows (like the paladin lights, but large)
-        mount_charger = { 0.99, 0.01, 0.55, { 1, 1, 1 }, rays = 3.6, strength = 0.8, raysStrength = 0.8, turn = 300,
-            embers = Motes({ 0.35, 1.0, 0.0, 0.70 }, 22) },
+        -- one very wide, subtle beam from the top right corner onto the horse's head
+        mount_charger = Sunlight({ 1.02, -0.06, 140, 0, 0, 1.4, wideCount = 1, strength = 1.2 },
+            { 0.35, 1.0, 0.0, 0.70 }, 22),
         -- every Forever raid set: the bright sky at the top right, slower and softer,
         -- over a wide, soft, subtle beam
         ["set_forever_raid-banner.blp"] = Sunlight({ 1.02, -0.08, 125, 45, 7, 1.3, strength = 0.8 },
             { 0.40, 1.0, 0.10, 0.80 }, 20, { beam = { 0.80, -0.10, 0.90, 0.95, strength = 0.4 } }),
-        -- broad, very soft sunlight from behind the eagle, some rays reaching the bottom right
-        fishing_extravaganza = Sunlight({ 0.58, 0.16, 92, 70, 6, 1.0, strength = 0.5, thin = 0.6 },
-            { 0.30, 1.0, 0.10, 0.75 }, 16, { beam = { 0.60, 0.0, 0.80, 0.80, strength = 0.35 } }),
+        -- broad, very soft sunlight from the flying gull's body, some rays reaching the
+        -- bottom right, and a large, slow ray burst around the bird
+        fishing_extravaganza = Sunlight({ 0.548, 0.19, 92, 70, 6, 1.0, strength = 0.5, thin = 0.6 },
+            { 0.30, 1.0, 0.10, 0.75 }, 16, { beam = { 0.548, 0.0, 0.80, 0.80, strength = 0.35 },
+                glow = true, [1] = 0.548, [2] = 0.19, [3] = 0.30, rays = 3.0, turn = 300, raysStrength = 0.6 }),
         -- Sunbeams: Lawbringer straight down on the halo behind his head;
         -- Lok'delar a narrow slanted shaft through the forest onto the stave
         set_tier1_paladin = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
@@ -5169,7 +5170,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Rhok'delar: a backlight, streaks from behind him tilted toward the
         -- bottom right, and a soft bloom around him
         rhokdelar = Sunlight({ 0.62, -0.06, 70, 60, 7, 1.3, strength = 0.8 }, { 0.40, 1.0, 0.0, 0.80 }, 22,
-            { glow = true, [1] = 0.64, [2] = 0.28, [3] = 0.75, strength = 0.5 }),
+            { glow = true, [1] = 0.64, [2] = 0.28, [3] = 0.75, strength = 0.5,
+                -- light catching both shoulder pads and under both arms
+                blooms = { { 0.715, 0.25, 0.22, 1 }, { 0.58, 0.14, 0.18, 1 }, { 0.535, 0.31, 0.16, 0.8 }, { 0.68, 0.32, 0.16, 0.8 } } }),
         -- vertical beams: onto the treasure pile, and onto the floating key and its chest
         gold_5k = { 0.62, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             beam = { 0.62, -0.10, 0.85, 1.0, strength = 1 },
@@ -5454,6 +5457,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     --     wide (a fan from one point reads as a spotlight, Karl).
     --     `wide` adds the visible-sunlight layer: three long, thick, very slow
     --     rays (Media/shaft-wide) that fade out toward their ends.
+    --     `wideCount` sets how many wide rays (3); with count 0 and wideCount 1
+    --     a single very wide, soft beam can point anywhere.
+    --   blooms = { { u, v, size, strength }, ... }: soft light pools (Media/glow)
+    --     breathing slowly, e.g. light catching armour.
     --   gleams = { box, count, size }: light catching a few points (coins),
     --     each a small glint (Media/gleam) that slowly swells and fades.
     -- Karl's aim: natural light that sets the scene, never washing it out.
@@ -5464,6 +5471,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         wide = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft-wide",
         broad = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft",
         streak = "Interface\\AddOns\\"..ADDON.."\\Media\\streak",
+        bloom = "Interface\\AddOns\\"..ADDON.."\\Media\\glow",
         gleam = "Interface\\AddOns\\"..ADDON.."\\Media\\gleam",
     }
     function B:HideShafts()
@@ -5533,15 +5541,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 end
             end
             if sr.wide then
-                for i = 1, 3 do
+                local wc = sr.wideCount or 3
+                for i = 1, wc do
                     local info = Next("wide", sr)
-                    info.angle = sr.parallel and math.rad(sr[3] + (math.random()*2 - 1)*4)
-                        or math.rad(sr[3] + sr[4]*0.7*((i - 1)/2 - 0.5) + (math.random()*2 - 1)*6)
-                    if sr.parallel then info.off = ((i - 1)/2 - 0.5)*sr[4]*0.8 end
+                    local f = wc > 1 and ((i - 1)/(wc - 1) - 0.5) or 0
+                    info.angle = (sr.parallel or wc == 1) and math.rad(sr[3] + (math.random()*2 - 1)*(wc == 1 and 0 or 4))
+                        or math.rad(sr[3] + sr[4]*0.7*f + (math.random()*2 - 1)*6)
+                    if sr.parallel then info.off = f*sr[4]*0.8 end
                     info.len = sr[6]*(1.5 + 0.4*math.random())
                     info.period, info.swayP = 16 + 12*math.random(), 30 + 20*math.random()
                 end
             end
+        end
+        for _, b in ipairs(spec.blooms or {}) do
+            local info = Next("bloom", b)
+            info.period = 10 + 8*math.random()
         end
         local gl = spec.gleams
         if gl then
@@ -5572,6 +5586,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 local w = cfg[4]*aw
                 self:ClipRect(t, cx - w/2, top, cx + w/2, bottom)
                 self:PaintLight(t, level*(cfg.strength or 1)*(0.55 + 0.45*breathe)*0.45)
+            elseif info.kind == "bloom" then
+                local x, y = self:ArtPoint(cfg[1], cfg[2])
+                t:Show()
+                self:ClipLight(t, x, y, cfg[3]*aw, 0)
+                self:PaintLight(t, level*(cfg[4] or 1)*(0.6 + 0.4*breathe)*0.3)
             elseif info.kind == "gleam" then
                 -- swells and fades over 4 to 8 s, resting dark in between
                 local x, y = self:ArtPoint(info.u, info.v)

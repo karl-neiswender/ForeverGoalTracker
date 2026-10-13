@@ -566,6 +566,17 @@ do
     local rh = B.glows.rhokdelar
     assert(rh.embers and rh.embers.box and rh.embers.box[2] == 1.0 and rh.glow == true, "Rhok'delar: motes and a bloom")
     local ch = B.glows.mount_charger
-    assert(ch.rays and not ch.sunrays, "Charger: a turning ray burst, no beams")
+    assert(ch.sunrays and ch.sunrays.wideCount == 1 and ch.sunrays[5] == 0, "Charger: one very wide beam")
+    assert(#rh.blooms == 4, "Rhok'delar: blooms on the shoulders and under the arms")
+    B.goal = STUB_NS.GoalById("rhokdelar"); B.glowSpec = B:GlowSpec()
+    rawset(B.art, "GetWidth", function() return 600 end)
+    B.hasArt, B.shownArtHeight, B.uv, B.glowLevel = true, 450, { 0, 1, 0, 1 }, 0.5
+    B:ResetShafts()
+    assert(B.shaftCount == 7 + 3 + 4, "Rhok'delar: streaks, wide layer and four blooms")
+    for k = 1, 20 do B:StepShafts(k*0.3) end
+    B.goal = STUB_NS.GoalById("mount_charger"); B.glowSpec = B:GlowSpec(); B:ResetShafts()
+    assert(B.shaftCount == 1, "Charger: just the one wide beam")
+    for k = 1, 10 do B:StepShafts(k*0.3) end
+    B:HideShafts()
     assert(B.glows.rep_ambassador_ally.sunrays.broad and B.glows.set_violet_sorcerer.sunrays.broad, "wide streaks")
 end
