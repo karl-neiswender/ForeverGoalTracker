@@ -5127,12 +5127,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["set_tier1_rogue-alliance-banner.blp"] = SnowOnly(100), -- Nightslayer (the snowy Alliance image)
         ["pvp_av_ally-banner.blp"] = SnowOnly(110),             -- Stormpike Guard
         ["pvp_set_mail_horde_shaman-banner.blp"] = SnowOnly(110), -- Warlord's Earthshaker
-        -- Cooking: a campfire in the snow, so embers off the fire and snow
-        ["prof_cooking-banner.blp"] = { 0.7, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = {
-            { box = { 0.64, 0.76, 0.28, 0.55 }, field = { 0.55, 0.85, 0.20, 0.60 }, fieldShare = 0.2,
-                count = 30, blurShare = 0.2, rise = 0.30 },
-            Snow(90),
-        } },
+        -- Cooking: a campfire in the snow: snow, and a soft flame glow on the fire (no embers, Karl)
+        ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, embers = Snow(90) },
         -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
         rep_ambassador_ally = Sunlight({ 0.55, -0.10, 95, 50, 5, 0.9 }, { 0.25, 0.95, 0.10, 0.85 }),  -- through the arch
         rep_ambassador_horde = Sunlight({ 0.53, 0.33, 90, 140, 6, 0.7 }, { 0.30, 1.0, 0.20, 0.80 }),  -- from the sun in the sky
@@ -5152,6 +5148,17 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.65, 1.0, 0.25, 0.75 }, field = { 0.40, 1.0, 0.20, 0.90 }, count = 50, blurShare = 0.22, rise = 0.30 } },
         att_ony_horde = { 0.8, 0.7, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.40, 1.0, 0.50, 0.90 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
+        -- Karl's second light list. Sunbeams on Rhok'delar from the forest light behind him
+        rhokdelar = Sunlight({ 0.68, -0.12, 100, 30, 4, 1.1 }, { 0.40, 1.0, 0.0, 0.80 }, 22),
+        -- vertical beams: onto the treasure pile, and onto the floating key and its chest
+        gold_5k = { 0.62, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            beam = { 0.62, -0.10, 0.85, 0.60, strength = 1 },
+            embers = Motes({ 0.40, 0.90, 0.0, 0.80 }, 24) },
+        key_scholo = { 0.63, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            beam = { 0.63, -0.10, 0.92, 0.45, strength = 1 },
+            embers = Motes({ 0.45, 0.85, 0.0, 0.85 }, 22) },
+        set_dungeon1_warrior = Sunlight({ 0.85, -0.10, 115, 45, 5, 1.0 }, { 0.40, 1.0, 0.0, 0.75 }),        -- Valor
+        set_violet_sorcerer = Sunlight({ 0.62, -0.12, 95, 60, 6, 1.1 }, { 0.20, 1.0, 0.0, 0.80 }, 24),   -- over Dalaran
         -- UBRS key: the lava splashing up around the gate's foot
         key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },

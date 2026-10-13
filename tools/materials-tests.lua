@@ -489,7 +489,7 @@ end
 do
     local B = STUB_NS.goalBanner
     local spec = B.glows["prof_cooking-banner.blp"]
-    assert(#B.ParticleSets(spec) == 2, "cooking has fire and snow")
+    assert(#B.ParticleSets(spec) == 1 and spec.embers.fall and spec.glow ~= false, "cooking: snow and a flame glow, no embers")
     local cel = STUB_NS.Setting("celebrations")
     STUB_NS.SetSetting("celebrations", "full")
     B.glowSpec, B.glowLevel = spec, 0.5
@@ -497,7 +497,7 @@ do
     rawset(B.art, "GetWidth", function() return 600 end)
     B.shownArtHeight, B.uv = 450, { 0, 1, 0, 1 }
     B:ResetEmbers()
-    assert(B.emberCount == 120, "30 embers and 90 flakes")
+    assert(B.emberCount == 90, "90 flakes")
     for _ = 1, 30 do B:StepEmbers(0.2) end
     STUB_NS.SetSetting("celebrations", cel)
     B:HideEmbers()
@@ -531,7 +531,9 @@ do
     for _, id in ipairs({ "rep_ambassador_ally", "rep_ambassador_horde", "mount_charger", "fishing_extravaganza",
             "set_tier1_paladin", "lokdelar", "set_dungeon1_paladin", "att_ony_ally", "att_ony_horde", "rep_argentdawn",
             "set_forever_raid_warrior", "set_forever_raid_paladin", "set_forever_raid_priest", "set_forever_raid_rogue",
-            "set_forever_raid_mage", "set_forever_raid_warlock", "set_forever_raid_druid" }) do
+            "set_forever_raid_mage", "set_forever_raid_warlock", "set_forever_raid_druid",
+            "rhokdelar", "gold_5k", "key_scholo", "set_dungeon1_warrior", "set_violet_sorcerer",
+            "set_forever_raid_shaman", "set_forever_raid_hunter" }) do
         B.goal = STUB_NS.GoalById(id)
         assert(B.goal, "goal exists: " .. id)
         B.hasArt, B.shownArtHeight, B.uv, B.emberFor = true, 450, { 0, 1, 0, 1 }, nil
