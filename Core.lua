@@ -6254,16 +6254,31 @@ FGT.detailViewport.scroll:HookScript("OnSizeChanged", FGT.UpdateDetailViewport)
 -- Celebrations off.
 do
     local driver = CreateFrame("Frame")
-    function FGT.StopGuideScroll() driver:SetScript("OnUpdate", nil) end
-    function FGT.ScrollGuideToEnd()
-        local view = FGT.detailViewport
-        local obj = view.short and view or stepsScrollObj
-        local scroll = obj.scroll
-        local from, to = scroll:GetVerticalScroll(), scroll:GetVerticalScrollRange()
+    local pending -- what to do when a glide ends (closing tips folds them away)
+    local function Finish()
         driver:SetScript("OnUpdate", nil)
-        if to - from < 1 then return end
-        if FGT.Setting("celebrations") == "off" then
+        local done = pending
+        pending = nil
+        if done then done() end
+    end
+    -- the mouse wheel stops a glide, but its follow-up still happens
+    function FGT.StopGuideScroll() Finish() end
+    local function Guide()
+        local view = FGT.detailViewport
+        return view.short and view or stepsScrollObj
+    end
+    function FGT.GuideScrollPosition() return Guide().scroll:GetVerticalScroll() end
+    -- glide to `target` (default: the end), then run `done`
+    function FGT.ScrollGuideTo(target, done)
+        local obj = Guide()
+        local scroll = obj.scroll
+        local from, to = scroll:GetVerticalScroll(), target or scroll:GetVerticalScrollRange()
+        to = math.max(0, math.min(to, scroll:GetVerticalScrollRange()))
+        Finish() -- a glide already running ends first
+        pending = done
+        if math.abs(to - from) < 1 or FGT.Setting("celebrations") == "off" then
             scroll:SetVerticalScroll(to); obj:Update()
+            Finish()
             return
         end
         local t = 0
@@ -6272,9 +6287,10 @@ do
             local p = math.min(1, t/0.45)
             scroll:SetVerticalScroll(from + (to - from)*(1 - (1 - p)^3))
             obj:Update()
-            if p >= 1 then driver:SetScript("OnUpdate", nil) end
+            if p >= 1 then Finish() end
         end)
     end
+    function FGT.ScrollGuideToEnd() FGT.ScrollGuideTo() end
 end
 stepsContainer:HookScript("OnSizeChanged", FGT.UpdateDetailViewport)
 do
@@ -6806,6 +6822,7 @@ end
 local lastRenderedGoal = nil
 local function ResetScrollIfNewGoal(goal)
     if goal.id ~= lastRenderedGoal then
+        if FGT.StopGuideScroll then FGT.StopGuideScroll() end -- a tips glide belongs to the goal you left
         stepsScrollObj.scroll:SetVerticalScroll(0)
         lastRenderedGoal = goal.id
     end
@@ -6833,10 +6850,25 @@ function FGT.LayoutTips(goal, yOffset, width)
         T.btn:SetScript("OnClick", function()
             local id = T.goalId
             local opening = not FGT.tipsOpen[id]
-            FGT.tipsOpen[id] = opening or nil
-            SelectGoal(id, true)
-            -- opening the tips glides the guide down to them (Karl)
-            if opening then C_Timer.After(0.05, function() FGT.ScrollGuideToEnd() end) end
+            if opening then
+                -- remember where you were, then glide down to the tips (Karl)
+                T.returnTo = { id = id, at = FGT.GuideScrollPosition() }
+                FGT.tipsOpen[id] = true
+                SelectGoal(id, true)
+                C_Timer.After(0.05, function() FGT.ScrollGuideTo() end)
+            else
+                -- glide back up first (to where you were, or up by the tips'
+                -- height), then fold them away, so the list never snaps
+                local back = T.returnTo and T.returnTo.id == id and T.returnTo.at
+                local here = FGT.GuideScrollPosition()
+                local target = back or math.max(0, here - (T.openHeight or 0))
+                T.returnTo = nil
+                FGT.ScrollGuideTo(math.min(target, here), function()
+                    FGT.tipsOpen[id] = nil
+                    -- (only redraw if you're still on that goal)
+                    if T.goalId == id then SelectGoal(id, true) end
+                end)
+            end
         end)
         FGT.tipsUI = T
     end
@@ -6872,6 +6904,7 @@ function FGT.LayoutTips(goal, yOffset, width)
     T.btn:Show()
     yOffset = yOffset + hh + (open and 8 or 4)
     if not open then return yOffset end
+    local tipsStart = yOffset - 4 -- where the closed list would end
 
     for i, tip in ipairs(tips) do
         local row = T.rows[i]
@@ -6899,6 +6932,7 @@ function FGT.LayoutTips(goal, yOffset, width)
         row.dot:Show()
         yOffset = yOffset + (row:GetStringHeight() or 14) + 8
     end
+    T.openHeight = yOffset - tipsStart -- what closing them takes away
     return yOffset
 end
 
