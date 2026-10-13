@@ -5134,24 +5134,25 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Cooking: a campfire in the snow: snow, and a soft flame glow on the fire (no embers, Karl)
         ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, embers = Snow(90) },
         -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
-        -- natural light from the centre top: parallel streaks and a soft beam
-        rep_ambassador_ally = Sunlight({ 0.66, -0.10, 100, 0.55, 6, 1.0, parallel = true, strength = 0.7 },
-            { 0.25, 0.95, 0.10, 0.85 }, 20, { beam = { 0.66, -0.10, 0.90, 0.90, strength = 0.5 } }),
+        -- wide parallel rays from the left, falling diagonally toward the bottom right
+        rep_ambassador_ally = Sunlight({ 0.30, -0.10, 45, 0.6, 6, 1.2, parallel = true, broad = true, strength = 0.7 },
+            { 0.25, 0.95, 0.10, 0.85 }, 20),
         -- Horde capitals: a natural sun, faint rays all around it and a soft
         -- halo on the disc, not a downward spotlight (Karl)
-        rep_ambassador_horde = { 0.60, 0.33, 0.18, { 1, 1, 1 }, strength = 1.3,
-            sunrays = { 0.60, 0.33, 90, 330, 9, 0.9, strength = 0.85 },
+        rep_ambassador_horde = { 0.57, 0.33, 0.18, { 1, 1, 1 }, strength = 1.0,
+            sunrays = { 0.57, 0.33, 90, 330, 9, 0.9, strength = 0.65 },
             embers = Motes({ 0.30, 1.0, 0.20, 0.80 }, 18) },
-        -- parallel with the art's own diagonal rays from the top right, soft and slow
-        mount_charger = Sunlight({ 0.95, -0.10, 118, 0.6, 6, 1.3, parallel = true, strength = 0.6 },
-            { 0.35, 1.0, 0.0, 0.70 }, 22),
+        -- one large, slow-turning ray burst centred on the very top right corner,
+        -- so about a quarter of it shows (like the paladin lights, but large)
+        mount_charger = { 0.99, 0.01, 0.55, { 1, 1, 1 }, rays = 3.6, strength = 0.8, raysStrength = 0.8, turn = 300,
+            embers = Motes({ 0.35, 1.0, 0.0, 0.70 }, 22) },
         -- every Forever raid set: the bright sky at the top right, slower and softer,
         -- over a wide, soft, subtle beam
         ["set_forever_raid-banner.blp"] = Sunlight({ 1.02, -0.08, 125, 45, 7, 1.3, strength = 0.8 },
             { 0.40, 1.0, 0.10, 0.80 }, 20, { beam = { 0.80, -0.10, 0.90, 0.95, strength = 0.4 } }),
-        -- broad, very soft sunlight from behind the eagle at the top left, toward the harbour
-        fishing_extravaganza = Sunlight({ 0.53, 0.10, 115, 60, 6, 1.0, strength = 0.5, thin = 0.6 },
-            { 0.30, 1.0, 0.10, 0.75 }, 16, { beam = { 0.55, -0.10, 0.80, 0.80, strength = 0.35 } }),
+        -- broad, very soft sunlight from behind the eagle, some rays reaching the bottom right
+        fishing_extravaganza = Sunlight({ 0.58, 0.16, 92, 70, 6, 1.0, strength = 0.5, thin = 0.6 },
+            { 0.30, 1.0, 0.10, 0.75 }, 16, { beam = { 0.60, 0.0, 0.80, 0.80, strength = 0.35 } }),
         -- Sunbeams: Lawbringer straight down on the halo behind his head;
         -- Lok'delar a narrow slanted shaft through the forest onto the stave
         set_tier1_paladin = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
@@ -5165,16 +5166,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.65, 1.0, 0.25, 0.75 }, field = { 0.40, 1.0, 0.20, 0.90 }, count = 50, blurShare = 0.22, rise = 0.30 } },
         att_ony_horde = { 0.8, 0.7, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.40, 1.0, 0.50, 0.90 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
-        -- Karl's second light list. Sunbeams on Rhok'delar from the forest light behind him
-        -- a backlight: the sun behind him, its wide rays visible, thin ones faint
-        -- a backlight: streaks from behind him and a soft bloom around him
-        rhokdelar = Sunlight({ 0.66, -0.06, 100, 60, 7, 1.3, strength = 0.8 }, { 0.40, 1.0, 0.0, 0.80 }, 22,
+        -- Rhok'delar: a backlight, streaks from behind him tilted toward the
+        -- bottom right, and a soft bloom around him
+        rhokdelar = Sunlight({ 0.62, -0.06, 70, 60, 7, 1.3, strength = 0.8 }, { 0.40, 1.0, 0.0, 0.80 }, 22,
             { glow = true, [1] = 0.64, [2] = 0.28, [3] = 0.75, strength = 0.5 }),
         -- vertical beams: onto the treasure pile, and onto the floating key and its chest
         gold_5k = { 0.62, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             beam = { 0.62, -0.10, 0.85, 1.0, strength = 1 },
             embers = Motes({ 0.35, 0.95, 0.0, 0.80 }, 24),
-            -- glints on the chest and the upper coins, clear of the faded bottom
             gleams = { box = { 0.30, 0.95, 0.42, 0.66 }, count = 7, size = 0.045 } }, -- glints on the coins
         key_scholo = { 0.63, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             beam = { 0.63, -0.10, 0.92, 0.85, strength = 1 },
@@ -5182,7 +5181,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Valor: from the top right corner, with a soft bloom at the light source
         set_dungeon1_warrior = Sunlight({ 1.02, -0.06, 130, 40, 7, 1.3 }, { 0.40, 1.0, 0.0, 0.75 }, 20,
             { glow = true, [1] = 0.93, [2] = 0.06, [3] = 0.65, strength = 0.55 }),
-        set_violet_sorcerer = Sunlight({ 0.62, -0.12, 95, 60, 7, 1.1 }, { 0.20, 1.0, 0.0, 0.80 }, 24),   -- over Dalaran
+        -- wide shafts from the left, heading toward the bottom centre and right
+        set_violet_sorcerer = Sunlight({ 0.35, -0.10, 55, 40, 6, 1.3, broad = true }, { 0.20, 1.0, 0.0, 0.80 }, 24),
         -- UBRS key: the lava splashing up around the gate's foot
         key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
@@ -5448,6 +5448,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     --   sunrays = { u, v, angle, spread, count, length, strength, wide }
     --     (u, v: the source, may sit just outside the art; angle in degrees,
     --     0 = right, 90 = straight down; length: share of the art's width).
+    --     `broad` draws the streaks wider (Media/shaft) for a softer, fuller light.
     --     `parallel` makes natural sunlight instead of a fan: the rays fall
     --     side by side at nearly one angle across a band `spread` art widths
     --     wide (a fan from one point reads as a spotlight, Karl).
@@ -5461,6 +5462,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         beam = "Interface\\AddOns\\"..ADDON.."\\Media\\beam",
         ray = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft",
         wide = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft-wide",
+        broad = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft",
         streak = "Interface\\AddOns\\"..ADDON.."\\Media\\streak",
         gleam = "Interface\\AddOns\\"..ADDON.."\\Media\\gleam",
     }
@@ -5516,7 +5518,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local sr = spec.sunrays
         if sr then
             for i = 1, sr[5] do
-                local info = Next(sr.streaks and "streak" or "ray", sr)
+                local info = Next(sr.streaks and (sr.broad and "broad" or "streak") or "ray", sr)
                 local f = sr[5] > 1 and ((i - 1)/(sr[5] - 1) - 0.5) or 0
                 if sr.parallel then
                     info.angle = math.rad(sr[3] + (math.random()*2 - 1)*3)
@@ -5590,7 +5592,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 self:ClipLight(t, cx, cy, 2*info.len*aw, -angle)
                 if wide then
                     self:PaintLight(t, level*(cfg.strength or 1)*(0.35 + 0.65*breathe)*0.09)
-                elseif info.kind == "streak" then
+                elseif info.kind == "streak" or info.kind == "broad" then
                     -- a visible streak that slowly fades fully out and back in
                     local f = math.max(0, math.sin(time*2*math.pi/info.period + info.phase))^2
                     self:PaintLight(t, level*(cfg.strength or 1)*(cfg.thin or 1)*f*0.4)
