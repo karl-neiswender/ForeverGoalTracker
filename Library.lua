@@ -720,6 +720,7 @@ local library = {
         id = "fishing_extravaganza", library = true,
         name = "Win the Stranglethorn Fishing Extravaganza", short = "Fishing Extravaganza",
         icon = "trade_fishing", category = "Profession", difficulty = "Very Hard",
+        knowsSkill = "Fishing", -- suggested only to a character who knows Fishing
         timeEstimate = "Varies",
         note = "Be first to deliver 40 Speckled Tastyfish to Riggle Bassbait in Booty Bay and win a prize.",
         completeWith = { quest = 8193, item = { 19970, 19979 } },

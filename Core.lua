@@ -12520,6 +12520,13 @@ end
 -- when it doesn't apply (other faction, Forever-only on Classic Era, or
 -- finished). Goals already on My Goals come back with tracked = true:
 -- they're listed (dimmed) so you can see they were considered.
+-- Whether the logged-in character knows a profession or secondary skill
+-- ("Fishing", "Cooking", "Mining"...), from the last roster snapshot.
+function FGT.KnowsSkill(name)
+    local mine = Roster()[CharKey()]
+    return mine ~= nil and mine.skills ~= nil and (mine.skills[name] or 0) > 0
+end
+
 local function Entry(me, id, keys, why)
     local parent = FGT.armorCollections[id]
     if parent then
@@ -12534,6 +12541,8 @@ local function Entry(me, id, keys, why)
     if g.needs == "stats" and not FGT.HasStats() then return nil end
     if g.needs == "forever" and not FGT.isForever then return nil end
     if g.removedInForever and FGT.isForever then return nil end -- can't be finished there
+    -- a profession goal is only offered to a character who practices it
+    if g.knowsSkill and not FGT.KnowsSkill(g.knowsSkill) then return nil end
     local set, tracked
     if g.group then
         set = {}
@@ -12679,7 +12688,7 @@ local function Suggest(picked)
                 for _, e in ipairs(weapons) do table.insert(list, e) end
                 for _, e in ipairs(sets) do table.insert(list, e) end
             elseif it.key == "collect" then
-                if not W.skipFishing then push(list, Entry(me, "fishing_extravaganza", nil, tag)) end
+                push(list, Entry(me, "fishing_extravaganza", nil, tag))
                 push(list, Entry(me, "mount_raptor", nil, tag))
                 push(list, Entry(me, "mount_tiger", nil, tag))
                 if me.faction == "Alliance" then push(list, Entry(me, "frostsaber", nil, tag)) end
@@ -12697,12 +12706,11 @@ local function Suggest(picked)
                     push(list, Entry(me, id, id == pvpSet and ClassPart(id) or nil, tag))
                 end
             elseif it.key == "grind" then
-                if not W.skipFishing then push(list, Entry(me, "fishing_extravaganza", nil, tag)) end
+                push(list, Entry(me, "fishing_extravaganza", nil, tag))
                 -- the professions this character already knows
-                local mine = Roster()[CharKey()]
                 local known = {}
                 for _, p in ipairs(PRIMARY) do
-                    if mine and mine.skills and (mine.skills[p] or 0) > 0 then table.insert(known, p) end
+                    if FGT.KnowsSkill(p) then table.insert(known, p) end
                 end
                 local profs = FGT.GoalById("prof_all")
                 if profs and #known > 0 then push(list, Entry(me, "prof_all", PartKeys(profs, known), tag)) end
@@ -12720,7 +12728,12 @@ local function Suggest(picked)
                 push(list, Entry(me, "rep_cenarion", nil, tag))
                 push(list, Entry(me, (me.faction == "Horde") and "rep_ambassador_horde" or "rep_ambassador_ally", nil, tag))
                 local sec = FGT.GoalById("prof_secondary")
-                if sec then push(list, Entry(me, "prof_secondary", PartKeys(sec, { "Fishing", "Cooking", "First Aid" }), tag)) end
+                -- the secondary skills this character already practices
+                local knownSec = {}
+                for _, p in ipairs({ "Fishing", "Cooking", "First Aid" }) do
+                    if FGT.KnowsSkill(p) then table.insert(knownSec, p) end
+                end
+                if sec and #knownSec > 0 then push(list, Entry(me, "prof_secondary", PartKeys(sec, knownSec), tag)) end
                 for _, id in ipairs({ "rep_thorium", "rep_zandalar", "rep_hydraxian", "rep_nozdormu" }) do
                     push(list, Entry(me, id, nil, tag))
                 end
@@ -13281,12 +13294,6 @@ function W.Show(step)
     else
         W.title:SetText(W.find and "Your next goals" or "Goals to get started")
         local list
-        -- the Fishing Extravaganza is only suggested to a character who knows
-        -- Fishing, and not until the player has added goals from two asks
-        local DB = ForeverGoalTrackerDB
-        local mine = Roster()[CharKey()]
-        local fisher = mine and mine.skills and (mine.skills.Fishing or 0) > 0
-        W.skipFishing = not fisher or ((DB and DB.suggestAsks) or 0) < 2
         list, me = Suggest(W.picked)
         W.list = list
         if W.fallback then
@@ -13333,8 +13340,6 @@ function W.AddChosen()
     end
     FGT.CloseWelcome(true)
     if n == 0 then return end
-    -- an ask counts once goals were added from it (a closed window doesn't)
-    if not W.demo then DB.suggestAsks = (DB.suggestAsks or 0) + 1 end
     FGT.ShowTab("tracker")
     FGT.SelectGoal(first)
     FGT.RefreshOverall()
@@ -13367,7 +13372,6 @@ function FGT.OpenWelcome(step, find, demoPicked)
     W.picked = {} -- always starts with nothing picked
     for k, v in pairs(demoPicked or {}) do W.picked[k] = v end
     W.find = find and true or nil
-    W.demo = demoPicked and true or nil -- demo scenes never count as an ask
     if find then
         -- your interests from last time; none saved yet: ask first
         for k, v in pairs(DB.interests or {}) do W.picked[k] = v end

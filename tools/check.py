@@ -219,21 +219,20 @@ if ok_all:
             'ForeverGoalTrackerDB.interests = { raid = true, loot = true }; STUB_NS.OpenWelcome(nil, true); '
             'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" }) .. (e.tracked and "  [TRACKED: wrong]" or "")) end; '
             'STUB_NS.CloseWelcome(true)'),
-        # The Fishing Extravaganza stays out of the first two asks for goals.
-        ("fishing held back", None,
-            'STUB_PRINTS = {}; local W = STUB_NS.welcome; local D = ForeverGoalTrackerDB; D.suggestAsks = nil; D.active.fishing_extravaganza = nil; '
-            'local mine = D.characters[next(D.characters)]; local oldFishing = mine.skills.Fishing; '
-            'local function has() for _, e in ipairs(W.list) do if e.goal.id == "fishing_extravaganza" then return true end end return false end; '
-            'local function ask(add) STUB_NS.OpenWelcome(nil, nil); W.picked = { collect = true, grind = true }; W.Show(3); W.Show(3); '
-            'local seen = has(); if add then W.AddChosen() else STUB_NS.CloseWelcome(true) end; return seen end; '
-            'mine.skills.Fishing = 150; '
-            'assert(not ask(false) and D.suggestAsks == nil, "closing without adding does not count"); '
-            'assert(not ask(true) and D.suggestAsks == 1, "first ask: " .. tostring(D.suggestAsks)); '
-            'assert(not ask(true) and D.suggestAsks == 2, "second ask"); '
-            'assert(ask(false), "third ask offers it to a fisher"); '
-            'mine.skills.Fishing = nil; assert(not ask(false), "never to someone who does not know Fishing"); '
-            'mine.skills.Fishing = oldFishing; '
-            'print("  fishing: only for characters who know it, after two asks that added goals")'),
+        # Profession-aware suggestions: Fishing goals only for a character who
+        # knows Fishing; secondary skills offered only when known.
+        ("suggestions follow professions", None,
+            'STUB_PRINTS = {}; local W = STUB_NS.welcome; local D = ForeverGoalTrackerDB; D.active.fishing_extravaganza = nil; D.active.prof_secondary = nil; D.activeParts.prof_secondary = nil; '
+            'local mine = D.characters[next(D.characters)]; local old = mine.skills.Fishing; local oldCooking = mine.skills.Cooking; '
+            'local function ids() STUB_NS.OpenWelcome(nil, nil); W.picked = { collect = true, grind = true }; W.Show(3); local t = {}; '
+            'for _, e in ipairs(W.list) do t[e.goal.id] = e end; STUB_NS.CloseWelcome(true); return t end; '
+            'local others = {}; for k, c in pairs(D.characters) do if c ~= mine and c.skills then others[k] = c.skills.Fishing; c.skills.Fishing = nil end end; '
+            'mine.skills.Fishing, mine.skills.Cooking = nil, nil; local t = ids(); '
+            'assert(not t.fishing_extravaganza, "no Fishing, no tournament"); assert(not t.prof_secondary, "no secondary skills known"); '
+            'mine.skills.Fishing = 150; t = ids(); assert(t.fishing_extravaganza, "a fisher is offered the tournament"); '
+            'assert(STUB_NS.KnowsSkill("Fishing") and not STUB_NS.KnowsSkill("Mining") and not STUB_NS.KnowsSkill(nil), "KnowsSkill reads the roster"); '
+            'mine.skills.Fishing, mine.skills.Cooking = old, oldCooking; for k, v in pairs(others) do D.characters[k].skills.Fishing = v end; '
+            'print("  fishing and secondary skills suggested only when the character knows them")'),
         # Change target on the gold goal, then back to the default.
         ("change target", None,
             'STUB_PRINTS = {}; local g = STUB_NS.GoalById("gold_5k"); ForeverGoalTrackerDB.active.gold_5k = true; '
