@@ -445,7 +445,7 @@ do
     STUB_NS.SetSetting("celebrations", "full")
     B:PlaceGlow()
     for _ = 1, 50 do B:StepEmbers(0.1) end
-    assert(#B.emberDots == B.glowSpec.embers.count, "one dot per ember")
+    assert(B.emberCount == B.glowSpec.embers.count, "one dot per ember")
     local before = B.emberFor
     B:PlaceGlow()
     assert(B.emberFor == before, "a re-layout keeps the embers in flight")
@@ -458,7 +458,7 @@ end
 do
     local B = STUB_NS.goalBanner
     for _, id in ipairs({ "att_bwl", "raid_bwl", "mount_dreadsteed", "pvp_duelist", "pvp_hk", "set_tier1_shaman",
-            "tier3_shaman", "att_mc", "raid_mc", "att_naxx", "raid_ony", "key_strat", "wolfsbane", "set_dungeon1_priest", "key_ubrs", "frostsaber", "rep_timbermaw", "pvp_av_horde", "tier3_mage" }) do
+            "tier3_shaman", "att_mc", "raid_mc", "att_naxx", "raid_ony", "key_strat", "wolfsbane", "set_dungeon1_priest", "key_ubrs", "frostsaber", "rep_timbermaw", "pvp_av_horde", "tier3_mage", "pvp_mount_ally", "pvp_avmount_ally", "pvp_avmount_horde", "set_tier1_hunter", "pvp_av_ally", "pvp_set_mail_horde_shaman" }) do
         B.goal = STUB_NS.GoalById(id)
         assert(B.goal, "goal exists: " .. id)
         local spec = B:GlowSpec()
@@ -473,4 +473,22 @@ do
         assert(B.emberFor == spec, "embers start on " .. id)
         STUB_NS.SetSetting("celebrations", cel)
     end
+end
+
+-- Cooking carries two particle sets (fire and snow); both start
+do
+    local B = STUB_NS.goalBanner
+    local spec = B.glows["prof_cooking-banner.blp"]
+    assert(#B.ParticleSets(spec) == 2, "cooking has fire and snow")
+    local cel = STUB_NS.Setting("celebrations")
+    STUB_NS.SetSetting("celebrations", "full")
+    B.glowSpec, B.glowLevel = spec, 0.5
+    B.hasArt = true
+    rawset(B.art, "GetWidth", function() return 600 end)
+    B.shownArtHeight, B.uv = 450, { 0, 1, 0, 1 }
+    B:ResetEmbers()
+    assert(B.emberCount == 120, "30 embers and 90 flakes")
+    for _ = 1, 30 do B:StepEmbers(0.2) end
+    STUB_NS.SetSetting("celebrations", cel)
+    B:HideEmbers()
 end

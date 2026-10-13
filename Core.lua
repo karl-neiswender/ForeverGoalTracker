@@ -5039,6 +5039,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- art's width; `strength` scales one goal's light, `raysStrength` its
     -- rays alone, `turn` the seconds per full turn of the rays (180). Both lights sit on the panel between the photo and its
     -- shading, and fade toward the left exactly as the photo does.
+    -- falling snow over the whole art (see the particles below)
+    local function Snow(count)
+        return { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = count, blurShare = 0.15, rise = 0.55 }
+    end
+    local function SnowOnly(count)
+        return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = Snow(count) }
+    end
     B.glows = {
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 } }, -- the gem at the crossguard
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
@@ -5086,14 +5093,24 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Snow: the same particles falling (`fall = true`): slow 10 to 18 s
         -- flakes fluttering down through the whole art. Like Karl's reference:
         -- dense, mostly tiny sharp flakes, a few small bright halos.
-        frostsaber = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = 90, blurShare = 0.08, rise = 0.55 } },
-        rep_timbermaw = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = 80, blurShare = 0.08, rise = 0.55 } },
-        pvp_av_horde = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Frostwolf Clan
-            embers = { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = 80, blurShare = 0.08, rise = 0.55 } },
-        tier3_mage = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Frostfire Regalia
-            embers = { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = 70, blurShare = 0.08, rise = 0.55 } },
+        frostsaber = SnowOnly(120),
+        rep_timbermaw = SnowOnly(110),
+        pvp_av_horde = SnowOnly(110),                            -- Frostwolf Clan
+        tier3_mage = SnowOnly(95),                               -- Frostfire Regalia
+        ["pvp_mount_ally-banner.blp"] = SnowOnly(110),          -- Alliance war mount, Stormpike Battle Charger
+        ["epicmounts_dwarf-banner.blp"] = SnowOnly(100),        -- the Swift Ram for a Dwarf
+        pvp_avmount_horde = SnowOnly(100),                       -- Frostwolf Howler (its image is shared, so by goal)
+        set_tier1_hunter = SnowOnly(100),                        -- Giantstalker
+        ["allclasses_dwarf_hunter-banner.blp"] = SnowOnly(90),  -- leveling, Dwarf Hunter
+        ["set_tier1_rogue-alliance-banner.blp"] = SnowOnly(100), -- Nightslayer (the snowy Alliance image)
+        ["pvp_av_ally-banner.blp"] = SnowOnly(110),             -- Stormpike Guard
+        ["pvp_set_mail_horde_shaman-banner.blp"] = SnowOnly(110), -- Warlord's Earthshaker
+        -- Cooking: a campfire in the snow, so embers off the fire and snow
+        ["prof_cooking-banner.blp"] = { 0.7, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = {
+            { box = { 0.64, 0.76, 0.28, 0.55 }, field = { 0.55, 0.85, 0.20, 0.60 }, fieldShare = 0.2,
+                count = 30, blurShare = 0.2, rise = 0.30 },
+            Snow(90),
+        } },
         -- UBRS key: the lava splashing up around the gate's foot
         key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
@@ -5176,18 +5193,30 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             self:ClipLight(self.raysTex, self.glowCX, self.glowCY, spec[3]*self.art:GetWidth()*spec.rays, turn or 0)
         end
     end
-    -- Embers: a field of rising sparks with depth (Karl's reference: a dense
-    -- bokeh ember field). Most are tiny sharp sparks (Media/dot); a share are
-    -- big, soft, dim out-of-focus ones (Media/glow) that drift slower, as if
-    -- nearer the camera. Each has its own speed, heading, gentle curve and
-    -- sway, life of 2.5 to 8 s and fades in and out slowly; most start in
-    -- `box` (the fire), the rest anywhere in `field`. No sudden changes in
-    -- brightness anywhere (photosensitivity rule).
+    -- Particles on banner art: embers rising, or snow falling (`fall`).
+    -- Embers (Karl's reference: a dense bokeh ember field): most are tiny
+    -- sharp sparks (Media/dot); a share are big, soft, dim out-of-focus ones
+    -- (Media/glow) that drift slower, as if nearer the camera. Each has its
+    -- own speed, heading, gentle curve and sway, life of 2.5 to 8 s; most
+    -- start in `box` (the fire), the rest anywhere in `field`.
+    -- Snow (Karl's reference video, slower): slightly blurred flakes
+    -- (Media/shadow, a soft round blur), some larger, plus big soft near
+    -- ones for depth; 10 to 18 s each, fluttering down and fading out
+    -- toward the bottom of the art.
+    -- `embers` is one setting or a list of them (Cooking: fire and snow).
+    -- No sudden changes in brightness anywhere (photosensitivity rule).
     B.emberDots = {}
     B.emberArt = {
         spark = "Interface\\AddOns\\"..ADDON.."\\Media\\dot",
+        flake = "Interface\\AddOns\\"..ADDON.."\\Media\\shadow",
         blur = "Interface\\AddOns\\"..ADDON.."\\Media\\glow",
     }
+    local function ParticleSets(spec)
+        local p = spec and spec.embers
+        if not p then return {} end
+        return p[1] and p or { p }
+    end
+    B.ParticleSets = ParticleSets
     function B:ArtPoint(u, v)
         local uv = self.uv
         return (u - uv[1])/(uv[2] - uv[1])*self.art:GetWidth(),
@@ -5195,8 +5224,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:HideEmbers()
         for _, e in ipairs(self.emberDots) do e.tex:Hide() end
+        self.emberCount = 0
     end
-    function B:SpawnEmber(e, cfg, warm)
+    function B:SpawnEmber(e, warm)
+        local cfg = e.cfg
         local aw = self.art:GetWidth()
         local area = (cfg.field and math.random() < (cfg.fieldShare or 0.4)) and cfg.field or cfg.box
         local x0, y0 = self:ArtPoint(area[1], area[3])
@@ -5223,13 +5254,17 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         e.age = 0
         e.phase = math.random()*2*math.pi
         e.speed = cfg.rise*aw*(0.35 + 0.9*math.random())/e.life*(blur and 0.55 or 1)
+        local r = math.random()
         if blur then
-            e.size = aw*(fall and (0.012 + 0.016*math.random()) or (0.035 + 0.045*math.random()))
-            e.peak = 0.10 + 0.16*math.random()
+            e.size = aw*(fall and (0.03 + 0.035*r) or (0.035 + 0.045*r))
+            e.peak = (fall and 0.12 or 0.10) + 0.16*math.random()
+        elseif fall then
+            -- mostly small, some clearly larger
+            e.size = aw*(0.006 + 0.022*r*r*r)
+            e.peak = 0.35 + 0.5*math.random()
         else
-            local r = math.random()
-            e.size = aw*(fall and (0.004 + 0.008*r*r) or (0.006 + 0.012*r*r)) -- mostly tiny, a few larger
-            e.peak = (fall and 0.35 or 0.45) + 0.55*math.random()
+            e.size = aw*(0.006 + 0.012*r*r) -- mostly tiny, a few larger
+            e.peak = 0.45 + 0.55*math.random()
         end
         if warm then
             -- already mid-flight, so the field is full from the first frame
@@ -5241,62 +5276,69 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         e.wait = nil
     end
     function B:ResetEmbers()
-        local cfg = self.glowSpec and self.glowSpec.embers
-        if not cfg then self:HideEmbers() return end
-        local blurs = math.floor(cfg.count*(cfg.blurShare or 0.25) + 0.5)
-        for i = 1, cfg.count do
-            local e = self.emberDots[i]
-            if not e then
-                local t = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
-                t:SetBlendMode("ADD")
-                if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
-                if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
-                e = { tex = t }
-                self.emberDots[i] = e
+        local n = 0
+        for _, cfg in ipairs(ParticleSets(self.glowSpec)) do
+            local blurs = math.floor(cfg.count*(cfg.blurShare or 0.25) + 0.5)
+            for k = 1, cfg.count do
+                n = n + 1
+                local e = self.emberDots[n]
+                if not e then
+                    local t = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
+                    t:SetBlendMode("ADD")
+                    if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
+                    if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
+                    e = { tex = t }
+                    self.emberDots[n] = e
+                end
+                e.cfg, e.blur = cfg, k <= blurs
+                e.tex:SetTexture(e.blur and self.emberArt.blur or (cfg.fall and self.emberArt.flake or self.emberArt.spark))
+                self:SpawnEmber(e, true)
             end
-            e.blur = i <= blurs
-            e.tex:SetTexture(e.blur and self.emberArt.blur or self.emberArt.spark)
-            self:SpawnEmber(e, cfg, true)
         end
-        for i = cfg.count + 1, #self.emberDots do self.emberDots[i].tex:Hide() end
+        for k = n + 1, #self.emberDots do self.emberDots[k].tex:Hide() end
+        self.emberCount = n
     end
     function B:StepEmbers(dt)
-        local cfg = self.glowSpec and self.glowSpec.embers
-        if not cfg then return end
+        local n = self.emberCount or 0
+        if n == 0 then return end
         local aw, ah = math.max(1, self.art:GetWidth()), self.shownArtHeight or 0
-        local level = (self.glowLevel or 0)*0.55*(cfg.strength or 1)
-        for i = 1, cfg.count do
-            local e = self.emberDots[i]
-            if e then
-                if e.wait then
-                    e.wait = e.wait - dt
-                    if e.wait <= 0 then self:SpawnEmber(e, cfg) end
+        local base = (self.glowLevel or 0)*0.55
+        for k = 1, n do
+            local e = self.emberDots[k]
+            local cfg = e.cfg
+            if e.wait then
+                e.wait = e.wait - dt
+                if e.wait <= 0 then self:SpawnEmber(e) end
+                e.tex:Hide()
+            else
+                e.age = e.age + dt
+                local p = e.age/e.life
+                if p >= 1 then
+                    e.wait = math.random()*2
                     e.tex:Hide()
                 else
-                    e.age = e.age + dt
-                    local p = e.age/e.life
-                    if p >= 1 then
-                        e.wait = math.random()*2
-                        e.tex:Hide()
+                    e.heading = e.heading + e.curve*dt
+                    e.x = e.x + math.cos(e.heading)*e.speed*dt
+                    e.y = e.y + math.sin(e.heading)*e.speed*dt
+                    local x = e.x + e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
+                    local y = e.y
+                    local fade
+                    if cfg.fall then
+                        -- snow also melts away over the bottom 40% of the art
+                        fade = math.min(1, p/0.12)*math.min(1, (1 - p)/0.25)*math.max(0, math.min(1, (ah - y)/(ah*0.4)))
                     else
-                        e.heading = e.heading + e.curve*dt
-                        e.x = e.x + math.cos(e.heading)*e.speed*dt
-                        e.y = e.y + math.sin(e.heading)*e.speed*dt
-                        local x = e.x + e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
-                        local y = e.y
-                        local fade = cfg.fall and math.min(1, p/0.12)*math.min(1, (1 - p)/0.25)
-                            or math.min(1, p/0.25)*math.min(1, (1 - p)/0.5)
-                        local inside = x > 0 and x < aw and y > 0 and y < ah
-                        local t = e.tex
-                        t:SetShown(inside)
-                        if inside then
-                            local size = e.size*((e.blur or cfg.fall) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow doesn't
-                            t:ClearAllPoints()
-                            t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
-                            t:SetSize(size, size)
-                            -- fades toward the left like the photo
-                            t:SetAlpha(level*e.peak*fade*math.min(1, x/aw))
-                        end
+                        fade = math.min(1, p/0.25)*math.min(1, (1 - p)/0.5)
+                    end
+                    local inside = x > 0 and x < aw and y > 0 and y < ah
+                    local t = e.tex
+                    t:SetShown(inside)
+                    if inside then
+                        local size = e.size*((e.blur or cfg.fall) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow doesn't
+                        t:ClearAllPoints()
+                        t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
+                        t:SetSize(size, size)
+                        -- fades toward the left like the photo
+                        t:SetAlpha(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw))
                     end
                 end
             end
