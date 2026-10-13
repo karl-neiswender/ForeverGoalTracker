@@ -71,7 +71,6 @@ mount_dreadsteed: Alex Horley.
 set_tier1_rogue: Konstantin Porubov.
 set_tier2_rogue: Alex Horley.
 tier3_rogue: BOSi Studio.
-tier3_hunter: Vladimir Kafanov.
 set_dungeon1_warrior: UDON.
 mount_deathcharger: Ralph Horsley.
 set_tier2_paladin: Sam Nielson.

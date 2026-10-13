@@ -8,5 +8,6 @@
   "remaining_blank_manifest_entries": 79,
   "hash_checks": "all 40 original/master/runtime triplets match retained evidence",
   "performance": "static table entries only; no new runtime paths or main-chunk locals",
-  "release": "source sync only; no tag or live publication"
+  "release": "source sync only; no tag or live publication",
+  "correction": "Karl confirmed Cryptstalker is AI-generated; incorrect attribution removed. Current totals: 39 additions, 67 unique keys, 80 blank entries. Fresh checker results: cryptstalker-credit-removal-2026-10-13.txt. Original numbers above describe the initial, superseded audit."
 }

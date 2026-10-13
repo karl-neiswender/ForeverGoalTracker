@@ -1,6 +1,6 @@
 # Banner artist research â€” October 13, 2026
 
-Inventory: 147 installed manifest entries; 28 already had credits. Added 40 exact-image attributions. 79 entries retain blank artist credits. Existing credits were outside this audit and were not changed.
+Inventory: 147 installed manifest entries; 28 already had credits. Retained 39 attributions after Karl corrected the AI-generated Cryptstalker banner. 80 entries retain blank artist credits. Existing credits were outside this audit and were not changed.
 
 Acceptance required an actual image comparison and an explicit credit for that illustration or exact card printing. Filename/title/style matches were insufficient. Studio credits, pen names, initials and joint credits are retained; individual identities are not invented. Credits identify source artists; the existing AI banner adaptation records remain applicable.
 
@@ -46,12 +46,13 @@ The JSON evidence file retains source links, distinguishing image details and SH
 | `set_tier1_rogue` | Konstantin Porubov | `Garrote_full.jpg` | [Source](https://hearthstone.wiki.gg/wiki/Garrote) |
 | `set_tier2_rogue` | Alex Horley | `Maestra_of_the_Masquerade_full.jpg` | [Source](https://hearthstone.wiki.gg/wiki/Maestra_of_the_Masquerade) |
 | `tier3_rogue` | BOSi Studio | `Smokescreen_full.jpg` | [Source](https://hearthstone.wiki.gg/wiki/Smokescreen) |
-| `tier3_hunter` | Vladimir Kafanov | `Selective_Breeder_full.jpg` | [Source](https://hearthstone.wiki.gg/wiki/Selective_Breeder) |
 | `set_dungeon1_warrior` | UDON | `Andiss_Butcherson_TCG_Card.jpg` | [Source](https://warcraft.wiki.gg/wiki/Andiss_Butcherson) |
 | `mount_deathcharger` | Ralph Horsley | `Baron_Rivendare_full.jpg` | [Source](https://hearthstone.wiki.gg/wiki/Baron_Rivendare) |
 | `set_tier2_paladin` | Sam Nielson | `Zealotry_TCG_card.png` | [Source](https://warcraft.wiki.gg/wiki/Zealotry_%28Reign_of_Fire%29) |
 
 ## Withheld candidates
+
+- `tier3_hunter`: Karl confirmed the Cryptstalker banner was AI-generated. Its reference image does not establish authorship of the installed banner. Removed the incorrect artist credit.
 
 - `rep_thorium`: Hearthstone War Golem by Dave Kendall is a different image. Warcraft file page matches this original and has a historical Samwise attribution with a misspelled surname and old Sons of the Storm link; primary source was not verified in this pass. Leave blank.
 - `social_cheers`: Exact image matched, but page spells artist Sean O''Daniels. Name not independently corroborated; leave blank rather than silently normalize it.
@@ -69,6 +70,7 @@ The failed HearthstoneJSON request returned HTTP 403. No artist credit or verifi
 
 | Banner | Installed master | Artist |
 |---|---|---|
+| `tier3_hunter` | `tier-sets/hunter/tier3.jpg` | |
 | `atiesh` | `tall-1200x900/atiesh.jpg` | |
 | `thunderfury` | `tall-1200x900/thunderfury.jpg` | |
 | `benediction` | `tall-1200x900/benediction.jpg` | |
@@ -151,4 +153,4 @@ The failed HearthstoneJSON request returned HTTP 403. No artist credit or verifi
 
 ## Validation
 
-Lua 5.1 tools/check.py passed (exit 0), including Classic Era and Forever startup/runtime scenarios. git diff --check passed. All 40 new mappings match the evidence record, all 68 keys are unique, all withheld candidates remain absent, and all recorded original/master/runtime hashes are unchanged. Recursive Media/artwork audit found no added, changed or ignored originals awaiting sync. Performance review: only 40 static table entries were added; no new locals, events, animation work or per-frame processing. No release tag or live publication was performed.
+Lua 5.1 tools/check.py passed (exit 0), including Classic Era and Forever startup/runtime scenarios. git diff --check passed. All 39 retained mappings match the evidence record, all 67 keys are unique, all withheld candidates remain absent, and all recorded original/master/runtime hashes are unchanged. Recursive Media/artwork audit found no added, changed or ignored originals awaiting sync. Performance review: only 39 static table entries were added; no new locals, events, animation work or per-frame processing. No release tag or live publication was performed.

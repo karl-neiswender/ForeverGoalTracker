@@ -366,17 +366,6 @@
       "runtime_sha256": "616a91dbe8ea20767da53cf04e3c13be537c4223349777a92742441cd60fdc30"
     },
     {
-      "banner": "tier3_hunter",
-      "original": "Selective_Breeder_full.jpg",
-      "artist": "Vladimir Kafanov",
-      "source": "https://hearthstone.wiki.gg/wiki/Selective_Breeder",
-      "corroboration": "https://hearthstone.blizzard.com/en-us/cards/113351/",
-      "match": "Same blue-haired troll with saber in dry savanna. Source painting matched; installed adaptation changes armor and pet using game references (hunter-tier3-cryptstalker.json). Credit acknowledges source illustration.",
-      "original_sha256": "098b2c3cf5e649e8326f744928dfc2bfe5340f71e44ae0e321161867fe6b03b8",
-      "master_sha256": "0f6c59a3f8899b31a39c3d2242493fe759cc97d9439e34e074d3c8b9a13e2267",
-      "runtime_sha256": "4e5c06dc0f29f8eedc3b0934202ed5df6bd5433c48be439977d47a63a7b0c6b2"
-    },
-    {
       "banner": "set_dungeon1_warrior",
       "original": "Andiss_Butcherson_TCG_Card.jpg",
       "artist": "UDON",
@@ -452,6 +441,10 @@
       "banner": "mount_qiraji_aq",
       "original": "Ultramarine_Qiraji_Battle_Tank_TCG.jpg",
       "reason": "Exact filename appears in source gallery, but no verified artist credit found."
+    },
+    {
+      "banner": "tier3_hunter",
+      "reason": "Karl confirmed on October 13 that the installed Cryptstalker banner was AI-generated. Selective Breeder was a reference, not proof that its artist created the installed banner. Artist credit removed; remains blank."
     }
   ],
   "limitations": "This is a conservative attribution pass, not a guarantee that every remaining artist can be identified. Every unverified runtime banner retains a blank credit. A HearthstoneJSON corroboration request returned HTTP 403; no data from it was used. Existing credits were not re-audited or changed. Source artwork and installed textures were not modified."
