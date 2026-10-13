@@ -4934,9 +4934,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- when the BLP lands, delete `pending=true` (tools/check.py lists any still pending).
     -- A new image has no light until its own spec is added to B.glows, keyed by the image.
     B.artVariants.rep_ambassador_ally = {
-        {path="rep_ambassador_ally_ironforge-banner.blp", faction="Alliance", race="Dwarf", pending=true},
-        {path="rep_ambassador_ally_ironforge-banner.blp", faction="Alliance", race="Gnome", pending=true},
-        {path="rep_ambassador_ally_darnassus-banner.blp", faction="Alliance", race="NightElf", pending=true},
+        {path="rep_ambassador_ally_ironforge-banner.blp", faction="Alliance", race="Dwarf", aspect=4/3, preprocessed=true},
+        {path="rep_ambassador_ally_ironforge-banner.blp", faction="Alliance", race="Gnome", aspect=4/3, preprocessed=true},
+        {path="rep_ambassador_ally_darnassus-banner.blp", faction="Alliance", race="NightElf", aspect=4/3, preprocessed=true},
     }
     B.artVariants.rep_ambassador_horde = {
         {path="rep_ambassador_horde_thunderbluff-banner.blp", faction="Horde", race="Tauren", pending=true},
@@ -6208,6 +6208,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["rep_ambassador_ally_darnassus-banner.blp"] = "Peter Lee",
         ["pvp_set_plate_horde-banner.blp"] = "Alex Horley",
         ["att_ony_ally-banner.blp"] = "Dany Orizio",
         ["att_ony_horde-banner.blp"] = "Miguel Coimbra",

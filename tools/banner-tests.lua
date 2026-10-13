@@ -310,12 +310,12 @@ do
     local pendingFlags = {}
     for _, id in ipairs({"rep_ambassador_ally", "rep_ambassador_horde"}) do
         for i, v in ipairs(B.artVariants[id]) do
-            assert(v.pending, id .. " variant " .. i .. " is pending until its texture is added")
+            assert((id == "rep_ambassador_horde" and v.pending) or (id == "rep_ambassador_ally" and not v.pending), "only Horde city art is pending")
         end
     end
-    assert(B:ArtPath("rep_ambassador_ally")=="rep_ambassador_ally-banner.blp", "pending city art is not used yet")
+    assert(B:ArtPath("rep_ambassador_ally")=="rep_ambassador_ally_ironforge-banner.blp", "approved city art is active")
     for _, id in ipairs({"rep_ambassador_ally", "rep_ambassador_horde"}) do
-        for _, v in ipairs(B.artVariants[id]) do pendingFlags[v] = true; v.pending = nil end
+        for _, v in ipairs(B.artVariants[id]) do pendingFlags[v] = v.pending or false; v.pending = nil end
     end
     local alliance = { Dwarf="rep_ambassador_ally_ironforge-banner.blp", Gnome="rep_ambassador_ally_ironforge-banner.blp",
         NightElf="rep_ambassador_ally_darnassus-banner.blp", Human="rep_ambassador_ally-banner.blp",
