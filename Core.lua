@@ -4927,6 +4927,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_mount_horde = {{path="pvp_mount_horde-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_avmount_ally = {{path="pvp_mount_ally-banner.blp"}}
     B.artVariants.pvp_avmount_horde = {{path="pvp_av_horde-banner.blp"}}
+    -- Ambassador banners follow the logged-in character's race: each capital city for its
+    -- races, the current image (Stormwind / Orgrimmar) for everyone else, including both
+    -- Skyborne and an unknown race. `pending=true` keeps a variant out of use until its
+    -- approved texture is in Media/ (a missing file would draw as a blank or green square):
+    -- when the BLP lands, delete `pending=true` (tools/check.py lists any still pending).
+    -- A new image has no light until its own spec is added to B.glows, keyed by the image.
+    B.artVariants.rep_ambassador_ally = {
+        {path="rep_ambassador_ally_ironforge-banner.blp", faction="Alliance", race="Dwarf", pending=true},
+        {path="rep_ambassador_ally_ironforge-banner.blp", faction="Alliance", race="Gnome", pending=true},
+        {path="rep_ambassador_ally_darnassus-banner.blp", faction="Alliance", race="NightElf", pending=true},
+    }
+    B.artVariants.rep_ambassador_horde = {
+        {path="rep_ambassador_horde_thunderbluff-banner.blp", faction="Horde", race="Tauren", pending=true},
+        {path="rep_ambassador_horde_undercity-banner.blp", faction="Horde", race="Scourge", pending=true},
+    }
     function B:PlayerArtContext()
         -- Use stable file tokens, not localized class/race display names.
         local race, class
@@ -4937,7 +4952,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:BestArtVariant(variants, player)
         local best, score = nil, -1
         for _, variant in ipairs(variants or {}) do
-            if (not variant.faction or variant.faction == player.faction)
+            if not variant.pending
+                and (not variant.faction or variant.faction == player.faction)
                 and (not variant.class or variant.class == player.class)
                 and (not variant.race or variant.race == player.race) then
                 local weight = (variant.class and 100 or 0) + (variant.race and 20 or 0)
@@ -5270,11 +5286,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, flicker = 0.35, embers = Snow(90) },
         -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
         -- wide parallel rays from the left, falling diagonally toward the bottom right
-        rep_ambassador_ally = Sunlight({ 0.30, -0.10, 45, 0.6, 6, 1.2, parallel = true, broad = true, strength = 0.7 },
+        ["rep_ambassador_ally-banner.blp"] = Sunlight({ 0.30, -0.10, 45, 0.6, 6, 1.2, parallel = true, broad = true, strength = 0.7 },
             { 0.25, 0.95, 0.10, 0.85 }, 20),
         -- Horde capitals: a natural sun, faint rays all around it and a soft
         -- halo on the disc, not a downward spotlight (Karl)
-        rep_ambassador_horde = { 0.55, 0.346, 0.18, { 1, 1, 1 }, strength = 1.0, -- on the sun's disc
+        ["rep_ambassador_horde-banner.blp"] = { 0.55, 0.346, 0.18, { 1, 1, 1 }, strength = 1.0, -- on the sun's disc
             sunrays = { 0.55, 0.346, 90, 330, 9, 0.9, strength = 0.65 },
             embers = Motes({ 0.30, 1.0, 0.20, 0.80 }, 18) },
         -- one very wide, subtle beam from the top right corner onto the horse's head

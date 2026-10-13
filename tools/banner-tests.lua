@@ -302,7 +302,37 @@ do
     assert(B:ArtPath("epicmounts")=="epicmounts_human-banner.blp", "opposite faction selection cannot override faction fallback")
     race = "Gnome"
     assert(B:ArtPath("epicmounts")=="epicmounts_gnome-banner.blp", "Gnome gets approved mechanostrider even with other mounts selected")
+    -- Ambassador banners by race: the city for its races, the current image for everyone else.
+    -- Variants stay pending (and so unused) until their textures exist; this turns them on in
+    -- memory to prove the selection rules.
+    class = "MAGE"
+    faction, race = "Alliance", "Dwarf"
+    local pendingFlags = {}
+    for _, id in ipairs({"rep_ambassador_ally", "rep_ambassador_horde"}) do
+        for i, v in ipairs(B.artVariants[id]) do
+            assert(v.pending, id .. " variant " .. i .. " is pending until its texture is added")
+        end
+    end
+    assert(B:ArtPath("rep_ambassador_ally")=="rep_ambassador_ally-banner.blp", "pending city art is not used yet")
+    for _, id in ipairs({"rep_ambassador_ally", "rep_ambassador_horde"}) do
+        for _, v in ipairs(B.artVariants[id]) do pendingFlags[v] = true; v.pending = nil end
+    end
+    local alliance = { Dwarf="rep_ambassador_ally_ironforge-banner.blp", Gnome="rep_ambassador_ally_ironforge-banner.blp",
+        NightElf="rep_ambassador_ally_darnassus-banner.blp", Human="rep_ambassador_ally-banner.blp",
+        Skyborne="rep_ambassador_ally-banner.blp", UnknownRace="rep_ambassador_ally-banner.blp" }
+    faction = "Alliance"
+    for r, path in pairs(alliance) do race = r; assert(B:ArtPath("rep_ambassador_ally")==path, "Alliance " .. r .. " gets " .. path) end
+    local horde = { Tauren="rep_ambassador_horde_thunderbluff-banner.blp", Scourge="rep_ambassador_horde_undercity-banner.blp",
+        Orc="rep_ambassador_horde-banner.blp", Troll="rep_ambassador_horde-banner.blp",
+        Skyborne="rep_ambassador_horde-banner.blp", UnknownRace="rep_ambassador_horde-banner.blp" }
+    faction = "Horde"
+    for r, path in pairs(horde) do race = r; assert(B:ArtPath("rep_ambassador_horde")==path, "Horde " .. r .. " gets " .. path) end
+    -- the other faction's goal never takes this faction's city, whatever the race
+    faction, race = "Horde", "Tauren"
+    assert(B:ArtPath("rep_ambassador_ally")=="rep_ambassador_ally-banner.blp", "a Horde character viewing the Alliance goal sees the default")
+    for v in pairs(pendingFlags) do v.pending = true end
     UnitRace, UnitClass, UnitFactionGroup = nil, nil, nil
+    assert(B:ArtPath("rep_ambassador_ally")=="rep_ambassador_ally-banner.blp", "no character APIs: the default image")
     assert(B:ArtPath("allclasses")=="pvp_shared-banner.blp")
     assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp", "shared combat art works without character APIs")
     assert(not B:ArtPath("epicmounts"), "unknown character cannot leak previous mount")

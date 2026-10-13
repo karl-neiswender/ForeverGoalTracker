@@ -587,7 +587,7 @@ do
     assert(B.shaftCount == 1, "Charger: just the one wide beam")
     for k = 1, 10 do B:StepShafts(k*0.3) end
     B:HideShafts()
-    assert(B.glows.rep_ambassador_ally.sunrays.broad and B.glows.set_violet_sorcerer.sunrays.broad, "wide streaks")
+    assert(B.glows["rep_ambassador_ally-banner.blp"].sunrays.broad and B.glows.set_violet_sorcerer.sunrays.broad, "wide streaks")
 end
 
 -- slow flicker and gliding glints stay inside their limits (never a flash)

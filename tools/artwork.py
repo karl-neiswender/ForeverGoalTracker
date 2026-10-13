@@ -205,10 +205,28 @@ def build_selected():
     manifest_path.write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8", newline="\n")
 
 
+# Banners that wait for their approved master (the file may not exist yet). Each is compiled the
+# moment its master is in Media/final-images, after which `pending=true` comes off its variant in
+# Core.lua (B.artVariants). Same 1200x900 monochrome treatment as the others, left and bottom
+# gradients baked in.
+PENDING_BANNERS = {
+    "rep_ambassador_ally_ironforge": "reputations/ambassador-ironforge-master.png",
+    "rep_ambassador_ally_darnassus": "reputations/ambassador-darnassus-master.png",
+    "rep_ambassador_horde_thunderbluff": "reputations/ambassador-thunderbluff-master.png",
+    "rep_ambassador_horde_undercity": "reputations/ambassador-undercity-master.png",
+}
+
+
 def build_final():
     """Compile approved masters only, without touching candidate artwork."""
     manifest = {}
-    for goal, filename in FINAL_BANNERS.items():
+    banners = dict(FINAL_BANNERS)
+    for goal, filename in PENDING_BANNERS.items():
+        if (FINAL / filename).exists():
+            banners[goal] = filename
+        else:
+            print(goal, "waiting for", filename)
+    for goal, filename in banners.items():
         source = FINAL / filename
         with Image.open(source) as image:
             assert image.size == (1200, 900), (goal, image.size)

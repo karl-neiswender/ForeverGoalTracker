@@ -131,6 +131,19 @@ print(("layers     " if layers_ok else "LAYER      ") + "banner lights, bloom, e
       + ", ".join(sorted(effects)) + ")")
 ok_all = ok_all and layers_ok
 
+# Every banner texture registered as a variant is on disk, except those marked pending (art not
+# delivered yet; the selection code skips them). Pending ones are listed so none is forgotten.
+variant_paths, pending_paths = [], []
+for line_ in core_src.splitlines():
+    for m_ in re.finditer(r'path="([\w-]+-banner\.blp)"', line_):
+        (pending_paths if "pending=true" in line_.replace(" ", "") else variant_paths).append(m_.group(1))
+gone = sorted({p for p in variant_paths if not os.path.exists("Media/" + p)})
+print(("variants   " if not gone else "VARIANT    ") + str(len(set(variant_paths))) + " registered banner variants are on disk"
+      + ("" if not gone else "; MISSING: " + ", ".join(gone)))
+if pending_paths:
+    print("pending    waiting for art: " + ", ".join(sorted(set(pending_paths))))
+ok_all = ok_all and not gone
+
 # Every bloom a banner asks for has its texture (and its banner image) on disk.
 stems = re.findall(r'"([\w-]+)"', re.search(r"B\.bloomStems = \{(.*?)\n    \}", core_src, re.S).group(1))
 named = [n for n in re.findall(r'bloom = \{ "([\w-]+-bloom)"', core_src) if n != "name-bloom"]  # ("name-bloom" is the doc comment's example)
