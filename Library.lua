@@ -861,7 +861,7 @@ local library = {
     {
         id = "social_campfires", library = true, forever = "new", needs = "campfire",
         icon = { "spell_fire_fire", "inv_misc_groupneedmore" },
-        name = "Light Campfires", short = "Campfires",
+        name = "Place Campfires", short = "Campfires",
         category = "Social", difficulty = "Easy",
         timeEstimate = "Days",
         note = "Place campfires, new in Forever. Progress is tracked automatically.",
