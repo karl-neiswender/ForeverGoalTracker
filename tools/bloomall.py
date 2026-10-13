@@ -74,8 +74,13 @@ REGIONS = {
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {
-    # the staff gem's glow larger: a wider area and a wider, softer spread
-    "set_tier1_mage": dict(region=[(0.78, 1.00, 0.30, 0.60)], near=10.0, far=50.0),
+    # the staff gem's glow larger again: a wider area and a much wider, softer spread
+    "set_tier1_mage": dict(region=[(0.74, 1.00, 0.26, 0.62)], near=14.0, far=70.0),
+    # quieter to the right of the eye (the haze Karl pointed at)
+    "raid_aq40": dict(quiet=[((0.69, 0.88, 0.20, 0.60), 0.3)]),
+    # the shoulders stay; the troll's tusks bloom less
+    "tier3_hunter": dict(region=[(0.55, 0.69, 0.18, 0.40), (0.75, 0.88, 0.18, 0.42)],
+                         quiet=[((0.74, 0.84, 0.26, 0.38), 0.25)]),
     # keep the eye in the chest at full strength, the shoulders and helmet quieter
     "set_tier2_hunter": dict(region=[(0.60, 0.74, 0.42, 0.58)], outside=0.4),
     # keep her eyes and the glow at her fingers; the chest and the background quieter

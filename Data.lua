@@ -261,7 +261,7 @@ FGT.goals = {
         completeWith = { item = { 22691, 22709 } },
         icon = "inv_sword_2h_ashbringercorrupt",
         name = "Corrupted Ashbringer",
-        short = "Ashbringer",
+        short = "Corrupted Ashbringer",
         itemQuality = 4, -- epic purple links even though the game has no details
         category = "Epic Weapon",
         difficulty = "Extreme",

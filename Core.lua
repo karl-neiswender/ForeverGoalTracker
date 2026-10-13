@@ -5146,7 +5146,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Redemption (Paladin Tier 3): a large, slowly turning ray burst on the orb at her fingers
         -- (the orb's own glow comes from the bloom, so the soft glow is off)
         ["tier3_paladin-banner.blp"] = { 0.886, 0.303, 0.35, { 1, 1, 1 }, glow = false, rays = 3.4, turn = 70,
-            raysStrength = 1.8 },
+            raysStrength = 1.1 },
         -- Shaman Tier 2 (Alliance and Horde share the image): the storm lightning glows
         -- (Karl, 2026-10-13: the electric sparks, `embers = { { zap = true, box, count, strength } }`,
         -- were tried here and taken off; the bloom stays)
@@ -5306,7 +5306,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- (The Zulian Tiger's bloom was taken off.)
     B.bloomStrength = {
         raid_aq40 = 0.4, ashbringer = 0.4, benediction = 0.4, ["benediction-alliance"] = 0.4,
-        tier3_hunter = 0.4, set_tier1_mage = 0.45, raid_ony = 0.45,
+        tier3_hunter = 0.4, set_tier1_mage = 0.35, raid_ony = 0.45,
     }
     B.blooms, B.bloomSpecs = {}, {}
     for _, stem in ipairs(B.bloomStems) do
