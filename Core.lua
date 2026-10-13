@@ -4980,6 +4980,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.set_dungeon1_paladin, B.preprocessed.set_dungeon1_paladin = 4/3, true
     B.artPaths.att_ony_horde = "att_ony_horde-banner.blp"
     B.artAspects.att_ony_horde, B.preprocessed.att_ony_horde = 4/3, true
+    B.artPaths.att_ony_ally = "att_ony_ally-banner.blp"
+    B.artAspects.att_ony_ally, B.preprocessed.att_ony_ally = 4/3, true
+    B.artPaths.att_ony_horde = "att_ony_horde-banner.blp"
+    B.artAspects.att_ony_horde, B.preprocessed.att_ony_horde = 4/3, true
     for _, id in ipairs({"set_dungeon1_mage", "set_dungeon1_rogue", "set_dungeon1_druid"}) do
         B.artPaths[id] = "set_dungeon2-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
@@ -5582,6 +5586,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["att_ony_ally-banner.blp"] = "Dany Orizio",
+        ["att_ony_horde-banner.blp"] = "Miguel Coimbra",
         ["att_ony_horde-banner.blp"] = "Miguel Coimbra",
         ["allclasses_dwarf_paladin-banner.blp"] = "Glenn Rane",
         ["set_forever_raid-banner.blp"] = "Alex Horley",

@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "att_ony_ally": "onyxia-alliance-master.png",
+    "att_ony_horde": "onyxia-horde-master.png",
     "set_dungeon1_paladin": "lightforge-master.png",
     "allclasses_dwarf_paladin": "dwarf-paladin-master.png",
     "pvp_set_cloth_ally": "marshal-cloth-master.png",
