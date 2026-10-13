@@ -12134,10 +12134,16 @@ function FGT.Count(key, quiet)
 end
 
 -- The campfire (new in Forever) has no Statistics counter we know of: it is counted from the
--- spell the game casts when you place one. /goals logcasts finds the spell ids; until one is
--- listed here the campfire goal stays hidden.
-FGT.CAMPFIRE_SPELLS = {}
-function FGT.CampfireReady() return next(FGT.CAMPFIRE_SPELLS) ~= nil end
+-- spell the game casts when you place one from a kit. The ids are Wowhead's Forever pages for the
+-- Basic (item 279981), Journeyman (279961) and Expert (279974) Campfire Kits, 2026-10-13: the
+-- "Builds a ... campfire" use spell first, then the campfire spell it links to. Crafting a kit casts
+-- a different spell and is not counted. /goals logcasts lists the spells you cast, to check them.
+FGT.CAMPFIRE_SPELLS = {
+    [1307227] = true, [1229737] = true, -- Basic Campfire
+    [1307252] = true, [1283400] = true, -- Journeyman Campfire
+    [1307237] = true, [1291341] = true, -- Expert Campfire
+}
+function FGT.CampfireReady() return FGT.isForever and next(FGT.CAMPFIRE_SPELLS) ~= nil end
 
 local function RecordBossKill(name)
     if not (name and ForeverGoalTrackerDB) then return end
@@ -12190,7 +12196,14 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
             end
             print(TAG .. string.format("cast: %s (spell %s)", tostring(name), tostring(spell)))
         end
-        if FGT.CAMPFIRE_SPELLS[spell] then FGT.Count("campfires") end
+        if FGT.CAMPFIRE_SPELLS[spell] and FGT.isForever then
+            -- one placing can report more than one of its spells: it counts once
+            local now = GetTime()
+            if not FGT.lastCampfire or now - FGT.lastCampfire >= 10 then
+                FGT.lastCampfire = now
+                FGT.Count("campfires")
+            end
+        end
         return
     end
     if event == "ENCOUNTER_END" then

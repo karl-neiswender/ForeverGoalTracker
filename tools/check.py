@@ -357,9 +357,11 @@ if ok_all:
             'ERR_TRADE_COMPLETE = "Trade complete."; for i = 1, 5 do STUB_FIRE("UI_INFO_MESSAGE", 0, "Trade complete.") end; STUB_FIRE("UI_INFO_MESSAGE", 0, "Something else"); '
             'assert(c.counts.trades == 5, "five completed trades: " .. tostring(c.counts.trades)); '
             'assert(D.progress.social_trades and D.progress.social_trades[1] and not D.progress.social_trades[2], "five trades tick the first step only"); '
-            'assert(not STUB_NS.CampfireReady() and not F.GoalById("social_campfires") == false, "no campfire spell known yet"); '
-            'STUB_NS.CAMPFIRE_SPELLS[99999] = true; STUB_NS.WatchCasts(); assert(STUB_NS.CampfireReady()); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 99999); assert(c.counts.campfires == 1, "a campfire spell counts"); '
-            'STUB_NS.CAMPFIRE_SPELLS[99999] = nil; STUB_NS.WatchCasts(); '
+            'assert(not STUB_NS.CampfireReady(), "no campfires on Classic Era"); STUB_NS.isForever = true; STUB_NS.WatchCasts(); '
+            'assert(STUB_NS.CampfireReady(), "the campfire spells are known"); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 12345); assert((c.counts.campfires or 0) == 0, "an unrelated spell does not count"); '
+            'STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 1307227); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 1229737); assert(c.counts.campfires == 1, "placing a campfire counts once: " .. tostring(c.counts.campfires)); '
+            'STUB_NS.lastCampfire = -100; STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 1307252); assert(c.counts.campfires == 2, "a later Journeyman campfire counts"); '
+            'STUB_NS.isForever = false; STUB_NS.WatchCasts(); '
             'print("  guild dungeon and raid kills, trades and campfires are counted")'),
         # /goals perf times the banner effects; without an animated banner it says how to start.
         ("perf command", None,

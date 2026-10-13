@@ -865,6 +865,10 @@ local library = {
         category = "Social", difficulty = "Easy",
         timeEstimate = "Days",
         note = "Place campfires, new in Forever. Progress is tracked automatically.",
+        tips = {
+            "A campfire counts when you place it from a Campfire Kit. Crafting a kit does not count.",
+            "Campfires cannot be placed close to another fire, so each one has to be somewhere new.",
+        },
         target = { kind = "campfires", default = 25, min = 5, max = 200, marks = { 0.2, 0.4, 1 },
                    step = "Place %s campfires.", unit = "campfires" },
         steps = {
