@@ -12439,6 +12439,11 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         end)
         return
     end
+    local auditArg = msg:match("^audit%s*(%a*)$")
+    if auditArg then
+        if FGT.Audit then FGT.Audit.Command(auditArg) end
+        return
+    end
     if msg == "tipsdebug" then
         -- arms a recorder: the next Tips click records 2 s and prints how the
         -- Tips row, the shade and the scroll moved, for chasing flashes

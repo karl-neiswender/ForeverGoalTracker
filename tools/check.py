@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "WhatsNew.lua", "Ambience.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -280,6 +280,15 @@ if ok_all:
             'assert(STUB_NS.KnowsSkill("Fishing") and not STUB_NS.KnowsSkill("Mining") and not STUB_NS.KnowsSkill(nil), "KnowsSkill reads the roster"); '
             'mine.skills.Fishing, mine.skills.Cooking = old, oldCooking; for k, v in pairs(others) do D.characters[k].skills.Fishing = v end; '
             'print("  fishing and secondary skills suggested only when the character knows them")'),
+        # /goals audit asks the game about every item, quest, faction and map we rely on.
+        ("data audit", None,
+            'local A = STUB_NS.Audit; local T = A.Targets(); local n = 0; for _ in pairs(T.items) do n = n + 1 end; '
+            'assert(n > 300, "the audit knows our items: " .. n); assert(T.items[19019] or next(T.items), "items listed"); '
+            'assert(next(T.quests) and next(T.factions) and next(T.maps), "quests, factions and maps listed"); '
+            'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("audit"); '
+            'local D = ForeverGoalTrackerDB; assert(D.audit and D.audit.items and D.audit.caps, "the answers are saved"); '
+            'assert(not A.running, "the audit finished"); SlashCmdList["FOREVERGOALTRACKER"]("audit clear"); assert(D.audit == nil, "audit clear"); '
+            'print("  audit: " .. n .. " items listed, answers saved and cleared")'),
         # /goals perf times the banner effects; without an animated banner it says how to start.
         ("perf command", None,
             'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("perf"); SlashCmdList["FOREVERGOALTRACKER"]("perf 5")'),

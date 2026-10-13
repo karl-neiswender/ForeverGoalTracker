@@ -16,6 +16,15 @@ Latest published version is **2.12.0** (tagged 2026-10-12: Library filters and P
 - SetItemRef still has the known player-name-copy taint follow-up. Do not assume a passed stub/global audit fixed it.
 - Always audit and sync artwork originals, including ignored files, at session boundaries. Check dirty status before pulling; preserve local SavedVariables and the separate older Classic Era addon.
 
+### Added 2026-10-13 (Claude, PC; all on `main`, unreleased)
+
+- **Profession-aware suggestions:** `suggestSkill = { name, rank }` on a goal limits the wizard to characters who have that skill at that rank (`FGT.KnowsSkill`); the Fishing Extravaganza uses Fishing 225 and has a "Learn Fishing" first step; secondary skills are offered only when known. The wizard's Social interest is now "Socializing".
+- **AQ40 sets** use Tier 3-style material checklists under each piece (`AQArmor.lua`, `FGT.MigrateAQMaterials`).
+- **Banner light system** (`Core.lua`, near `B.glows`): slow `flames`/`flicker`, gliding `glides`, baked `bloom` (`tools/bloom.py`, Thunderfury and Shaman Tier 2), electric `zap` sparks; hard limits in `B.lightLimits` and `B.zapLimits`, asserted in `tools/materials-tests.lua`. `tools/lightscan.py` finds candidate light spots in every master; `tools/gridview.py` reads positions. Effects sit below the dark gradient layers (static check in `tools/check.py`).
+- **Performance:** `tools/perfbench.py` measures the animation's garbage and calls per frame; lights repaint only when 8-bit alpha changes, particles skip unchanged calls, the animation steps 30 times a second (`B:Tick`), and the goal-link shimmer scan stops while the tracker is closed. `/goals perf` times it in game. Banners are 86% of the download (`tools/texpack.py` reports TGA to BLP options; nothing converted because it would risk banding for small gains).
+- **Language:** `tools/textdump.py` + `tools/copycheck.py` (enforced rules run inside `tools/check.py`); conventions and four proposals awaiting Karl's yes are in `reports/copy-sweep/conventions.md`.
+- **Data audit:** `/goals audit` (`Audit.lua`) asks the game about every item, quest, faction and map we use; `tools/auditreport.py` turns it into a report; `tools/findings.js` + `tools/findings.py` handle Wowhead's Community findings by hand once a day. **Nothing scrapes Wowhead** (see `reports/audit/README.md`); Karl is contacting Wowhead.
+
 A World of Warcraft addon for **Warcraft Forever** (beta now, live launch November 2026). Players pick long-term goals from a built-in library (legendaries, mounts, reputations, raids, item sets, professions, PvP) and follow step-by-step guides, and steps tick automatically from game state across all of the player's characters.
 
 - Author: Karl (GitHub `karl-neiswender`). Repo: https://github.com/karl-neiswender/ForeverGoalTracker

@@ -1,0 +1,115 @@
+{
+ "fetched": "2026-10-13T13:37:28.641Z",
+ "source": "https://www.wowhead.com/forever",
+ "count": 18,
+ "rows": [
+  {
+   "kind": "item",
+   "id": 286640,
+   "slug": "high-priestesss-kilt",
+   "age": "15h"
+  },
+  {
+   "kind": "item",
+   "id": 281661,
+   "slug": "well-worn-pitchfork",
+   "age": "15h"
+  },
+  {
+   "kind": "item",
+   "id": 18671,
+   "slug": "baron-charrs-sceptre",
+   "age": "15h"
+  },
+  {
+   "kind": "item",
+   "id": 9431,
+   "slug": "papal-fez",
+   "age": "15h"
+  },
+  {
+   "kind": "item",
+   "id": 284285,
+   "slug": "feardreds-gauntlets",
+   "age": "1d"
+  },
+  {
+   "kind": "item",
+   "id": 284064,
+   "slug": "cliffbreakers-pauldrons",
+   "age": "1d"
+  },
+  {
+   "kind": "item",
+   "id": 273830,
+   "slug": "blackthorne-maul",
+   "age": "1d"
+  },
+  {
+   "kind": "item",
+   "id": 9401,
+   "slug": "nordic-longshank",
+   "age": "1d"
+  },
+  {
+   "kind": "item",
+   "id": 286569,
+   "slug": "firebird-leggings",
+   "age": "1d"
+  },
+  {
+   "kind": "item",
+   "id": 283545,
+   "slug": "moonchasers-headdress",
+   "age": "1d"
+  },
+  {
+   "kind": "item",
+   "id": 281896,
+   "slug": "surveyors-gloves",
+   "age": "1d"
+  },
+  {
+   "kind": "item",
+   "id": 274432,
+   "slug": "stone-keeper-spire",
+   "age": "1d"
+  },
+  {
+   "kind": "quest",
+   "id": 98912,
+   "slug": "darkspears-advanced-care-package",
+   "age": "1d"
+  },
+  {
+   "kind": "quest",
+   "id": 98911,
+   "slug": "darkspears-standard-care-package",
+   "age": "1d"
+  },
+  {
+   "kind": "quest",
+   "id": 95788,
+   "slug": "magics-of-the-drowned-city",
+   "age": "1d"
+  },
+  {
+   "kind": "quest",
+   "id": 95787,
+   "slug": "take-two-with-water",
+   "age": "1d"
+  },
+  {
+   "kind": "quest",
+   "id": 95786,
+   "slug": "an-acquaintance-in-southshore",
+   "age": "1d"
+  },
+  {
+   "kind": "quest",
+   "id": 81570,
+   "slug": "jarl-needs-a-blade",
+   "age": "1d"
+  }
+ ]
+}
