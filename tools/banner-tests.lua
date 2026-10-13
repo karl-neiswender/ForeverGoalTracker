@@ -47,6 +47,7 @@ do
     D.characters, B.professionArt, B.professionArtChoices = characters, art, choices
 end
 assert(B:ArtPath("pvp_av_horde") == "pvp_av_horde-banner.blp", "Frostwolf-specific banner wins over shared PvP variants")
+assert(F.GoalById("pvp_avmount_horde").icon[1] == "ability_mount_whitedirewolf", "the Frostwolf Howler keeps its white wolf")
 assert(F.GoalById("pvp_av_horde").icon[1] == "achievement_pvp_h_16", "Horde PvP uses the Horde PvP rank icon (Karl, 2026-10-13)")
 assert(F.GoalById("pvp_av_ally").icon[1] == "achievement_pvp_a_a", "Alliance PvP uses the Alliance PvP rank icon")
 for _, id in ipairs({ "pvp_rank14_horde", "pvp_mount_horde", "pvp_wsg_horde", "pvp_set_plate_horde" }) do
@@ -56,7 +57,7 @@ for _, id in ipairs({ "pvp_rank14_ally", "pvp_mount_ally", "pvp_ab_ally", "pvp_s
     assert(F.GoalById(id).icon[1] == "achievement_pvp_a_a", id .. " uses the Alliance icon")
 end
 assert(F.GoalById("social_guild_dungeon").icon[1] == "inv_misc_head_dragon_green", "Dungeons with Guildmates icon")
-assert(F.GoalById("social_buffs").icon[1] == "inv_misc_rune_03", "Buff Other Players icon")
+assert(F.GoalById("social_buffs").icon[1] == "inv_misc_rune_03", "Buff Others icon")
 do
     local original, received = B.icon.tex.SetTexture
     B.icon.tex.SetTexture = function(_, value) received = value end

@@ -170,7 +170,9 @@ end
 -- Faction-only PvP goals share one thumbnail per faction (Karl, 2026-10-13: the PvP rank
 -- achievement icons; the old faction banners are the fallbacks).
 for _, goal in ipairs(FGT.goals) do
-    if goal.category == "PvP" or (goal.armorParent and goal.armorParent:match("^pvp_set_")) then
+    if goal.keepIcon then
+        -- (a goal with its own picture: the Frostwolf Howler keeps its white wolf)
+    elseif goal.category == "PvP" or (goal.armorParent and goal.armorParent:match("^pvp_set_")) then
         if goal.faction == "Horde" then
             goal.icon = { "achievement_pvp_h_16", "inv_bannerpvp_01" }
         elseif goal.faction == "Alliance" then

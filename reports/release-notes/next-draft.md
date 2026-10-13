@@ -20,7 +20,7 @@ Written to `style-guide.md` from everything on `main` since 2.12.0. Bugs that ex
 - Added Image effects in Settings under Images: Full, Subtle (the drifting clouds only) or Off (the image alone).
 - Added a token, idol and scarab checklist to each Tier 2.5 armor piece, the same way Tier 3 lists its materials.
 - Added a "Learn Fishing" first step to the Stranglethorn Fishing Extravaganza.
-- Added social goals: Dungeons with Guildmates, Raids with Guildmates, Trade with Players, Buff Other Players (Mages, Druids, Priests and Paladins) and Place Campfires (Forever). They count what you do, across all your characters.
+- Added social goals: Dungeons with Guildmates, Raids with Guildmates, Trade with Players, Buff Others (Mages, Druids, Priests and Paladins) and Place Campfires (Forever). They count what you do, across all your characters.
 - Changed the icon on Alliance and Horde PvP goals to the PvP rank achievement icons.
 
 ### Changes

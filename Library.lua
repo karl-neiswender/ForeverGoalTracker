@@ -844,7 +844,7 @@ local library = {
         id = "social_buffs", library = true, forever = "confirmed",
         classes = { MAGE = true, DRUID = true, PRIEST = true, PALADIN = true },
         icon = { "inv_misc_rune_03", "inv_misc_groupneedmore" },
-        name = "Buff Other Players", short = "Buffs",
+        name = "Buff Others",
         category = "Social", difficulty = "Easy",
         timeEstimate = "Days",
         note = "Cast buffs on other players. Mages, Druids, Priests and Paladins can. Progress is tracked automatically.",
@@ -1381,6 +1381,7 @@ for _, f in ipairs({ "Alliance", "Horde" }) do
     local avMount = A and "Stormpike Battle Charger" or "Frostwolf Howler"
     table.insert(pvp, {
         id = "pvp_avmount_" .. key, library = true, faction = f,
+        keepIcon = not A, -- the Frostwolf Howler keeps its white wolf (Karl, 2026-10-13)
         icon = A and { "ability_mount_mountainram", "inv_bannerpvp_02" } or { "ability_mount_whitedirewolf", "ability_mount_blackdirewolf" },
         name = avMount,
         short = A and "Stormpike Charger" or nil,
