@@ -10994,6 +10994,19 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         end
         ForeverGoalTrackerDB.wolfsbaneTrainingFix = true
     end
+    -- The Fishing Extravaganza gained a "Learn Fishing" first step, so its
+    -- saved ticks move down one place.
+    if not ForeverGoalTrackerDB.fishingLearnFix then
+        local old = ForeverGoalTrackerDB.progress.fishing_extravaganza
+        if old then
+            local new = {}
+            for key, value in pairs(old) do
+                new[type(key) == "number" and key + 1 or key] = value
+            end
+            ForeverGoalTrackerDB.progress.fishing_extravaganza = new
+        end
+        ForeverGoalTrackerDB.fishingLearnFix = true
+    end
     -- v2.2.0 one-time fix: Tier 3 materials were a placeholder list and are
     -- now each piece's real recipe. The token and scraps lines kept their
     -- place; the crafting materials changed, so clear their ticks (owned
@@ -12521,10 +12534,11 @@ end
 -- finished). Goals already on My Goals come back with tracked = true:
 -- they're listed (dimmed) so you can see they were considered.
 -- Whether the logged-in character knows a profession or secondary skill
--- ("Fishing", "Cooking", "Mining"...), from the last roster snapshot.
-function FGT.KnowsSkill(name)
+-- ("Fishing", "Cooking", "Mining"...) at `rank` or better (default: just
+-- knows it), from the last roster snapshot.
+function FGT.KnowsSkill(name, rank)
     local mine = Roster()[CharKey()]
-    return mine ~= nil and mine.skills ~= nil and (mine.skills[name] or 0) > 0
+    return mine ~= nil and mine.skills ~= nil and (mine.skills[name] or 0) >= (rank or 1)
 end
 
 local function Entry(me, id, keys, why)
@@ -12542,7 +12556,9 @@ local function Entry(me, id, keys, why)
     if g.needs == "forever" and not FGT.isForever then return nil end
     if g.removedInForever and FGT.isForever then return nil end -- can't be finished there
     -- a profession goal is only offered to a character who practices it
-    if g.knowsSkill and not FGT.KnowsSkill(g.knowsSkill) then return nil end
+    -- (and has gotten far enough with it: suggestSkill = { name, rank })
+    local need = g.suggestSkill
+    if need and not FGT.KnowsSkill(need.name, need.rank) then return nil end
     local set, tracked
     if g.group then
         set = {}

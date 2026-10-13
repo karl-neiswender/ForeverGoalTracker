@@ -229,7 +229,8 @@ if ok_all:
             'local others = {}; for k, c in pairs(D.characters) do if c ~= mine and c.skills then others[k] = c.skills.Fishing; c.skills.Fishing = nil end end; '
             'mine.skills.Fishing, mine.skills.Cooking = nil, nil; local t = ids(); '
             'assert(not t.fishing_extravaganza, "no Fishing, no tournament"); assert(not t.prof_secondary, "no secondary skills known"); '
-            'mine.skills.Fishing = 150; t = ids(); assert(t.fishing_extravaganza, "a fisher is offered the tournament"); '
+            'mine.skills.Fishing = 224; t = ids(); assert(not t.fishing_extravaganza, "a casual fisher is not"); '
+            'mine.skills.Fishing = 225; t = ids(); assert(t.fishing_extravaganza, "an angler is offered the tournament"); '
             'assert(STUB_NS.KnowsSkill("Fishing") and not STUB_NS.KnowsSkill("Mining") and not STUB_NS.KnowsSkill(nil), "KnowsSkill reads the roster"); '
             'mine.skills.Fishing, mine.skills.Cooking = old, oldCooking; for k, v in pairs(others) do D.characters[k].skills.Fishing = v end; '
             'print("  fishing and secondary skills suggested only when the character knows them")'),

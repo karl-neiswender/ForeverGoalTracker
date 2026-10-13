@@ -20,6 +20,11 @@ local ADDON, FGT = ...
 --   guild = true                              any character has been in a guild
 --   friends = n                               friends on a character's friends list
 --   stat = { id = n, value = n, what = text } a Statistics window counter (Forever; goal needs = "stats")
+--
+-- Goal field for suggestions (the wizard and Find your next goal):
+--   suggestSkill = { name = "Fishing", rank = 225 }   only offered to a character
+--       whose skill is at least that rank; the Library still lists it for anyone,
+--       so such a goal opens with a "Learn it" step.
 
 FGT.categoryColors["Social"]     = { 1.00, 0.56, 0.69 } -- rose #ff8fb0
 FGT.categoryColors["Reputation"] = { 0.40, 0.85, 0.55 }
@@ -720,7 +725,8 @@ local library = {
         id = "fishing_extravaganza", library = true,
         name = "Win the Stranglethorn Fishing Extravaganza", short = "Fishing Extravaganza",
         icon = "trade_fishing", category = "Profession", difficulty = "Very Hard",
-        knowsSkill = "Fishing", -- suggested only to a character who knows Fishing
+        -- Suggested only to an angler; tips put Fishing 225+ as the practical level
+        suggestSkill = { name = "Fishing", rank = 225 },
         timeEstimate = "Varies",
         note = "Be first to deliver 40 Speckled Tastyfish to Riggle Bassbait in Booty Bay and win a prize.",
         completeWith = { quest = 8193, item = { 19970, 19979 } },
@@ -732,6 +738,7 @@ local library = {
             "{item:19807:Speckled Tastyfish} expire after the event. You cannot save them for next week.",
         },
         steps = {
+            { text = "Learn Fishing from a Fishing trainer.", icon = "trade_fishing", auto = { skill = { name = "Fishing", rank = 1 } } },
             { text = "Reach Fishing 150.", icon = "trade_fishing", auto = { skill = { name = "Fishing", rank = 150 } } },
             { text = "Catch 40 Speckled Tastyfish from Pools of Tastyfish in Stranglethorn Vale.", icon = "inv_misc_fish_21", auto = { item = 19807, count = 40 } },
             { text = "Turn in 'Master Angler' to Riggle Bassbait in Booty Bay before the other anglers.", icon = "trade_fishing", auto = { quest = 8193, item = { 19970, 19979 } } },
