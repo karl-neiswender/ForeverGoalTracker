@@ -219,6 +219,15 @@ if ok_all:
             'ForeverGoalTrackerDB.interests = { raid = true, loot = true }; STUB_NS.OpenWelcome(nil, true); '
             'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" }) .. (e.tracked and "  [TRACKED: wrong]" or "")) end; '
             'STUB_NS.CloseWelcome(true)'),
+        # The Fishing Extravaganza stays out of the first two asks for goals.
+        ("fishing held back", None,
+            'STUB_PRINTS = {}; local W = STUB_NS.welcome; local D = ForeverGoalTrackerDB; D.suggestAsks = nil; D.active.fishing_extravaganza = nil; '
+            'local function has() for _, e in ipairs(W.list) do if e.goal.id == "fishing_extravaganza" then return true end end return false end; '
+            'for ask = 1, 3 do '
+            'STUB_NS.OpenWelcome(nil, nil); W.picked = { collect = true, grind = true }; W.Show(3); W.Show(3); '
+            'assert(D.suggestAsks == ask, "asks counted once per opening: " .. tostring(D.suggestAsks)); '
+            'assert(has() == (ask >= 3), "fishing on ask " .. ask); STUB_NS.CloseWelcome(true) end; '
+            'print("  fishing absent on asks 1 and 2, offered from the third")'),
         # Change target on the gold goal, then back to the default.
         ("change target", None,
             'STUB_PRINTS = {}; local g = STUB_NS.GoalById("gold_5k"); ForeverGoalTrackerDB.active.gold_5k = true; '
