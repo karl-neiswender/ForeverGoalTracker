@@ -5334,10 +5334,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- the glowing paw: a soft beam falling from it onto his raised hand, fireflies in the forest
         ["social_buffs_druid-banner.blp"] = { 0.67, 0.18, 0.30, { 1, 1, 1 }, glow = false, strength = 0.8,
             beam = { 0.70, 0.22, 0.70, 0.35, strength = 0.5 }, embers = Motes({ 0.40, 0.98, 0.05, 0.90 }, 28) },
-        -- the curtains of holy light: a beam down them, slow glints on the painted sparkles
-        ["social_buffs_paladin-banner.blp"] = { 0.77, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            beam = { 0.77, 0.30, 0.85, 0.28, strength = 0.8 },
-            gleams = { box = { 0.62, 0.88, 0.04, 0.78 }, count = 8, size = 0.04 },
+        -- the curtains of holy light: a broad holy beam pouring from the top of the picture down
+        -- them (Karl: a beam instead of the glints), with soft motes rising in it
+        ["social_buffs_paladin-banner.blp"] = { 0.77, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 1.0,
+            beam = { 0.77, -0.10, 0.88, 0.42, strength = 1.4 },
             embers = Motes({ 0.60, 0.90, 0.10, 0.80 }, 22) },
         -- the palm is already white, so a bloom would add nothing: big turning rays, a fan of long rays and rising motes
         ["social_buffs_priest-banner.blp"] = { 0.75, 0.32, 0.40, { 1, 1, 1 }, glow = false, rays = 4.6, turn = 200, raysSoft = true,
