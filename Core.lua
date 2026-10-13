@@ -270,7 +270,7 @@ FGT.SETTING_DEFAULTS = {
     scale = 1,               -- window scale
     alpha = 1,               -- window opacity
     tallGoalArt = true,      -- full-height goal artwork, cropped without stretching
-    imageEffects = true,     -- lights, embers, snow and drifting dust on goal artwork
+    imageEffects = "full",   -- "full": lights, embers, snow, bloom, dust and clouds on goal art; "subtle": the clouds only; "off": none
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
     hideCompletedSteps = false, -- guide filter, controlled beside Step by step
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
@@ -285,6 +285,15 @@ function FGT.Setting(key)
     local v = s and s[key]
     if v == nil then return FGT.SETTING_DEFAULTS[key] end
     return v
+end
+
+-- The level of image effects: "full", "subtle" or "off". (Older saves stored
+-- true or false.)
+function FGT.EffectsLevel()
+    local v = FGT.Setting("imageEffects")
+    if v == false or v == "off" then return "off" end
+    if v == "subtle" then return "subtle" end
+    return "full"
 end
 
 function FGT.SetSetting(key, value)
@@ -5928,7 +5937,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.glowSpec = spec[1] and spec or nil
         local u = self.uv
         -- Settings > Images > Image effects turns every banner light off
-        local on = FGT.Setting("imageEffects") and spec[1] and u and self.hasArt and self.shownArtHeight
+        local on = FGT.EffectsLevel() == "full" and spec[1] and u and self.hasArt and self.shownArtHeight
         if on then
             local x = (spec[1]-u[1])/(u[2]-u[1])*self.art:GetWidth()
             local y = (spec[2]-u[3])/(u[4]-u[3])*self.shownArtHeight
@@ -9301,6 +9310,18 @@ local function GetCard(goal)
     card.icon:SetPoint("LEFT", card, "LEFT", 10, 0)
     card.icon:SetIcon(FGT.GoalIcon(goal), catColor)
     card.baseRim = catColor -- finished cards swap it for grey
+    -- an armor set's thumbnail: Ctrl-click tries on the whole set (like the goal page's big icon)
+    if FGT.SetPreviewIds and FGT.SetPreviewIds(goal) then
+        card.icon:EnableMouse(true)
+        card.icon:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:AddLine(card.goal.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
+            GameTooltip:AddLine("Ctrl-click: try on the whole set", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            GameTooltip:Show()
+        end)
+        card.icon:SetScript("OnLeave", function() GameTooltip:Hide() end)
+        card.icon:SetScript("OnMouseUp", function(_, button) FGT.PreviewSetClick(card.goal, button) end)
+    end
 
     card.btn = CreateFrame("Button", nil, card, "BackdropTemplate")
     card.btn:SetSize(92, 26)
@@ -10312,8 +10333,9 @@ FGT.SETTINGS = {
         { type = "toggle", key = "tallGoalArt", label = "Large goal photos",
           desc = "Turn off for smaller goal photos",
           apply = function() if FGT.goalBanner then FGT.goalBanner:Fit() end end },
-        { type = "toggle", key = "imageEffects", label = "Image effects",
-          desc = "Light, embers, snow and drifting dust on goal images",
+        { type = "choice", key = "imageEffects", label = "Image effects",
+          desc = "Full: light, embers, snow and dust. Subtle: just the drifting clouds. Off: the image alone",
+          options = { { "full", "Full" }, { "subtle", "Subtle" }, { "off", "Off" } },
           apply = function()
               if FGT.goalBanner and FGT.goalBanner:IsShown() then FGT.goalBanner:Fit() end
               if FGT.ambience then FGT.ambience.Refresh() end
@@ -11274,6 +11296,11 @@ initFrame:SetScript("OnEvent", function(self, event, name)
     ForeverGoalTrackerDB.attuneSteps = true
     FGT.MigrateArmorSets(ForeverGoalTrackerDB)
     FGT.MigrateAQMaterials(ForeverGoalTrackerDB)
+    -- Image effects became Full / Subtle / Off (it was on or off)
+    local saved = ForeverGoalTrackerDB.settings
+    if saved and (saved.imageEffects == false or saved.imageEffects == true) then
+        saved.imageEffects = saved.imageEffects and nil or "off"
+    end
     if FGT.ApplyTargets then FGT.ApplyTargets() end -- player-set targets (gold, honorable kills)
     ApplyAutoRules() -- re-check against the saved roster from earlier sessions
 

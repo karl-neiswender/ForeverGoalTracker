@@ -201,6 +201,11 @@ function FGT.PreviewSetClick(goal, button)
     if button ~= "LeftButton" or not (IsModifiedClick and IsModifiedClick("DRESSUP")) then return false end
     local ids = FGT.SetPreviewIds(goal)
     if not ids or not DressUpItemLink then return false end
+    -- start from your own character: an open dressing room is reset first, so an
+    -- earlier preview's pieces don't stay on in slots this set doesn't cover
+    local frame = DressUpFrame
+    local reset = frame and (frame.ResetButton or _G.DressUpFrameResetButton)
+    if frame and frame.IsShown and frame:IsShown() and reset and reset.Click then pcall(reset.Click, reset) end
     local pending, tried = {}, 0
     local function Try(list)
         local missed = {}

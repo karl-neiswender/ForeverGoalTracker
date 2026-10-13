@@ -450,18 +450,27 @@ do
     B:PlaceGlow()
     assert(B.emberFor == before, "a re-layout keeps the embers in flight")
     STUB_NS.SetSetting("celebrations", cel)
-    STUB_NS.SetSetting("imageEffects", false)
+    STUB_NS.SetSetting("imageEffects", "off")
     B:PlaceGlow()
     assert(B.emberFor == nil, "Image effects off stops the embers")
-    STUB_NS.SetSetting("imageEffects", true)
+    STUB_NS.SetSetting("imageEffects", "subtle")
     B:PlaceGlow()
-    assert(B.emberFor ~= nil, "Image effects on starts them again")
+    assert(B.emberFor == nil and not B.bloomOn, "Subtle leaves the banner's own effects off (just the clouds remain)")
+    STUB_NS.SetSetting("imageEffects", "full")
+    B:PlaceGlow()
+    assert(B.emberFor ~= nil, "Image effects full starts them again")
+    -- older saves stored true or false
+    for _, case in ipairs({ { true, "full" }, { false, "off" }, { "subtle", "subtle" }, { nil, "full" }, { "off", "off" } }) do
+        ForeverGoalTrackerDB.settings.imageEffects = case[1]
+        assert(STUB_NS.EffectsLevel() == case[2], "effects level for " .. tostring(case[1]))
+    end
+    ForeverGoalTrackerDB.settings.imageEffects = nil
     -- the Settings page lists it under Images, and Effects is renamed
     local titles = {}
     for _, g in ipairs(STUB_NS.SETTINGS) do titles[g.title] = g end
     assert(titles["Images"] and titles["Celebrations and sound"] and not titles["Effects"], "settings groups")
     assert(titles["Images"].rows[1].key == "tallGoalArt" and titles["Images"].rows[2].key == "imageEffects", "Images rows")
-    assert(STUB_NS.SETTING_DEFAULTS.imageEffects == true, "Image effects on by default")
+    assert(STUB_NS.SETTING_DEFAULTS.imageEffects == "full", "Image effects full by default")
 end
 
 -- every ember banner Karl picked resolves to embers (by image or by goal)

@@ -296,11 +296,16 @@ if ok_all:
             'local dressed = {}; DressUpItemLink = function(link) dressed[#dressed + 1] = link end; IsModifiedClick = function() return true end; '
             'F.ItemInfo = function(id) return "Item" .. id, "|Hitem:" .. id .. "|h[Item]|h", 4, 0, 0, "", "", 1, "INVTYPE_CHEST" end; '
             'assert(F.PreviewSetClick(g, "LeftButton") == true and #dressed == #ids, "every piece goes on: " .. #dressed .. " of " .. #ids); '
+            'local resets = 0; DressUpFrame = { IsShown = function() return true end, ResetButton = { Click = function() resets = resets + 1 end } }; '
+            'dressed = {}; assert(F.PreviewSetClick(g, "LeftButton") and resets == 1 and #dressed == #ids, "an open dressing room is reset first"); DressUpFrame = nil; '
             'assert(not F.PreviewSetClick(g, "RightButton"), "only a left click"); IsModifiedClick = function() return false end; '
             'assert(not F.PreviewSetClick(g, "LeftButton"), "only with the Ctrl-click modifier"); IsModifiedClick = function() return true end; '
             'dressed = {}; F.ItemInfo = function(id) if id == ids[1] then return nil end return "Item" .. id, "|Hitem:" .. id .. "|h[Item]|h", 4, 0, 0, "", "", 1, "INVTYPE_CHEST" end; '
             'STUB_PRINTS = {}; assert(F.PreviewSetClick(g, "LeftButton") and #dressed == #ids - 1, "a hidden piece is skipped, the rest go on"); '
             'print("  Ctrl-click tries on every piece of a set, skips pieces the game has no details for")'),
+        # Image effects used to be on or off; an old Off is still Off.
+        ("image effects: old save", 'ForeverGoalTrackerDB.settings = ForeverGoalTrackerDB.settings or {}; ForeverGoalTrackerDB.settings.imageEffects = false',
+            'assert(ForeverGoalTrackerDB.settings.imageEffects == "off" and STUB_NS.EffectsLevel() == "off", "an old Off becomes Off"); ForeverGoalTrackerDB.settings.imageEffects = nil; print("  an old Image effects Off stays Off")'),
         # /goals audit asks the game about every item, quest, faction and map we rely on.
         ("data audit", None,
             'local A = STUB_NS.Audit; local T = A.Targets(); local n = 0; for _ in pairs(T.items) do n = n + 1 end; '
