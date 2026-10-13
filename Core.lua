@@ -5384,7 +5384,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- the floor seal, blooms (baked) on the ceiling light, torches and waterfall bases, and
         -- dust drifting in the hall
         ["rep_ambassador_horde_undercity-banner.blp"] = { 0.70, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            beam = { 0.70, -0.05, 0.80, 0.34, strength = 0.9 }, embers = Motes({ 0.35, 1.0, 0.05, 0.85 }, 24) },
+            beam = { 0.70, -0.05, 0.80, 0.46, strength = 0.9 }, embers = Motes({ 0.35, 1.0, 0.05, 0.85 }, 36),
+            -- soft breathing light around the throne and the steps below it
+            blooms = { { 0.70, 0.56, 0.34, 1 }, { 0.70, 0.70, 0.30, 0.8 } } },
         -- Ironforge (Dwarf and Gnome Ambassador): snow blowing across the gate
         ["rep_ambassador_ally_ironforge-banner.blp"] = SnowOnly(100),
         -- Leveling, Undead Paladin: holy light on the raised hammer head (its eyes bloom too, baked),
