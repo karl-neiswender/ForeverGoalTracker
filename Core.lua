@@ -5248,7 +5248,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             sunrays = { 0.85, -0.10, 120, 35, 4, 0.9, strength = 0.5 } }, -- a few faint sunrays too
         -- keyed by image when a goal has several: Benediction's night elf
         -- priest (Alliance art only), the gem at the head of her staff
-        ["benediction-alliance-banner.blp"] = { 0.537, 0.220, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
+        ["benediction-alliance-banner.blp"] = { 0.537, 0.220, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25,
+            -- more floating motes around the priestess (particles hide the page's windy leaves here)
+            embers = Motes({ 0.35, 1.0, 0.05, 0.85 }, 40) },
         -- Judgement Armor (Paladin Tier 2, also the Paladin leveling banner):
         -- the light in his raised hand, near the art's right edge
         ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.62, { 1, 1, 1 }, rays = 2.2, strength = 0.85,
