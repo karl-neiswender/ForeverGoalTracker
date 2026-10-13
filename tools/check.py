@@ -577,7 +577,9 @@ if ok_all:
         'S("demo off"); assert(LF.forWho == "any" and LF.sort == "alpha", "demo off resets the Library"); '
         'assert(D.active.raid_mc and not D.active.tier3_warrior, "demo off restores your goals"); '
         'assert(not (F.materialsPanel and F.materialsPanel.open), "demo off closes the drawer"); '
-        'assert(#F.SHOTS == 10, "ten gallery shots"); print("  materials and Library scenes ok")')
+        'S("demo 11"); assert(D.active.wolfsbane and D.progress.wolfsbane and next(D.progress.wolfsbane), "scene 11 stages Wolfsbane part way"); '
+        'S("demo off"); assert(not D.active.wolfsbane, "demo off puts Wolfsbane back"); '
+        'assert(#F.SHOTS == 11, "eleven gallery shots"); print("  materials, Library and Wolfsbane scenes ok")')
     steps += [
         ("demo scenes: materials and Library", None, demo_new),
         ("Forever demo scenes: materials and Library", None, demo_new, True),

@@ -12798,6 +12798,12 @@ local SCENES = {
                 Pieces(DB, "set_tier2_warrior", 0.5)
                 Pieces(DB, "set_dungeon1_warrior", 1)
             end },
+    -- Wolfsbane, the new Forever quest weapon for Undead Paladins: a guide part way through
+    -- its quest chain, with the banner's embers and bloom
+    [11] = { tab = "tracker", goal = "wolfsbane",
+            setup = function(DB, Flat)
+                Flat("wolfsbane", 0.45)
+            end },
 }
 
 -- /goals shots: every gallery screenshot in one go (Karl). Black photo
@@ -12817,6 +12823,7 @@ FGT.SHOTS = {
     { scene = 1, settings = true, file = "08-settings" },
     { scene = 9, file = "09-materials" },
     { scene = 10, file = "10-library-filters" },
+    { scene = 11, file = "11-wolfsbane" },
 }
 function FGT.TakeShots()
     if FGT.shooting then print(TAG .. "already taking screenshots.") return end
