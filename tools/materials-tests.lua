@@ -641,9 +641,18 @@ do
     B.glowLevel = 0.5
     assert(B.glowSpec.bloom and B.glowSpec.bloom[1] == "thunderfury-bloom", "Thunderfury asks for its bloom")
     B:FitBloom(B.glowSpec.bloom)
-    B.bloomTex:Show()
-    for k = 0, 600 do B:StepBloom(k*0.2) end
-    B.bloomTex:Hide()
+    B.bloomOn = true
+    for k = 0, 600 do B:StepBloom(k*0.2) end -- (its breathing is bounded by construction: 85% to 100%)
+    B.bloomOn = false
+    -- Shaman Tier 2: a bloom-only banner starts and steps
+    B.goal = STUB_NS.GoalById("set_tier2_shaman")
+    B.hasArt, B.emberFor = true, nil
+    local shaman = B:GlowSpec()
+    assert(shaman and shaman.bloom and shaman.bloom[1] == "set_tier2_shaman-bloom", "Shaman Tier 2 asks for its bloom")
+    B:PlaceGlow()
+    assert(B.glowSpec == shaman and B.bloomOn, "Shaman Tier 2's bloom starts")
+    for k = 0, 100 do B:StepBloom(k*0.3) end
+    B.bloomOn = false; B.bloomTex:Hide(); B:HideShafts(); B:HideEmbers(); B.emberFor = nil
 end
 
 -- toggling tips redraws just the tips (no full goal redraw)

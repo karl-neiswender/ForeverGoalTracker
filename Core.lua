@@ -5122,6 +5122,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             glides = { { path = { { 0.68, 0.385 }, { 0.60, 0.445 }, { 0.50, 0.52 }, { 0.41, 0.59 } },
                 size = 0.07, strength = 0.8, travel = 4, rest = 10 } } },
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
+        -- Shaman Tier 2 (Alliance and Horde share the image): the storm lightning glows
+        ["set_tier2_shaman-banner.blp"] = { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 1,
+            bloom = { "set_tier2_shaman-bloom", strength = 0.6 } },
         -- the holy spell in his hand, with faint rays turning very slowly
         rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 2.3, strength = 1.25,
             sunrays = { 0.85, -0.10, 120, 35, 4, 0.9, strength = 0.5 } }, -- a few faint sunrays too
@@ -5354,7 +5357,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- breathes between about 85% and 100% of its strength, two unrelated slow beats
     function B:StepBloom(time)
         local bloom = self.glowSpec and self.glowSpec.bloom
-        if not (bloom and self.bloomTex:IsShown()) then return end
+        if not (bloom and self.bloomOn) then return end
         local w = 0.5 + 0.3*math.sin(time*2*math.pi/7.3) + 0.2*math.sin(time*2*math.pi/11.9 + 1.3)
         self:PaintLight(self.bloomTex, (self.glowLevel or 0)*(bloom.strength or 0.6)*(0.85 + 0.15*w))
     end
@@ -5870,7 +5873,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.glowFrame:SetShown(on and true or false)
         self.glowTex:SetShown((on and spec.glow ~= false) and true or false)
         local bloom = on and spec.bloom
-        self.bloomTex:SetShown(bloom and true or false)
+        self.bloomOn = bloom and true or false
+        self.bloomTex:SetShown(self.bloomOn)
         if bloom then self:FitBloom(bloom) end
         self.raysTex:SetShown((on and spec.rays) and true or false)
         if on then
@@ -6037,7 +6041,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
         for _,t in ipairs(self.fadeStrips) do t:Hide() end
-        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.bloomTex:Hide(); self.glowAnim:Stop(); self:HideEmbers(); self:HideShafts(); self.emberFor = nil
+        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.bloomTex:Hide(); self.bloomOn = false; self.glowAnim:Stop(); self:HideEmbers(); self:HideShafts(); self.emberFor = nil
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
