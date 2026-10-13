@@ -5340,8 +5340,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             gleams = { box = { 0.62, 0.88, 0.04, 0.78 }, count = 8, size = 0.04 },
             embers = Motes({ 0.60, 0.90, 0.10, 0.80 }, 22) },
         -- the palm is already white, so a bloom would add nothing: big turning rays, a fan of long rays and rising motes
-        ["social_buffs_priest-banner.blp"] = { 0.72, 0.27, 0.40, { 1, 1, 1 }, glow = false, rays = 4.6, turn = 200,
-            raysStrength = 1.5, strength = 1.4,
+        ["social_buffs_priest-banner.blp"] = { 0.72, 0.27, 0.40, { 1, 1, 1 }, glow = false, rays = 4.6, turn = 200, raysSoft = true,
+            raysStrength = 1.2, strength = 1.4,
             -- (Karl: much stronger) a big turning burst plus a fan of long rays from the palm
             sunrays = { 0.72, 0.27, 90, 330, 9, 1.0, strength = 0.9 },
             embers = Motes({ 0.40, 0.98, 0.0, 0.85 }, 22) },
@@ -6097,6 +6097,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.bloomTex:SetShown(self.bloomOn)
         if bloom then self:FitBloom(bloom) end
         self.raysTex:SetShown((on and spec.rays) and true or false)
+        -- `raysSoft`: the same rays, wider and much blurrier (Priest's buff banner)
+        local raysArt = (on and spec.raysSoft) and "rays-soft" or "rays"
+        if self.raysFor ~= raysArt then
+            self.raysTex:SetTexture("Interface\AddOns\\"..ADDON.."\Media\\"..raysArt, nil, nil, "TRILINEAR")
+            self.raysFor = raysArt
+        end
         if on then
             self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
             if not live then self:DrawLights(0.5, 0); self:PaintGlow(0.2, 0.05/0.54) end
