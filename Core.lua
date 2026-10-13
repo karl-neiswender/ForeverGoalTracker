@@ -5169,7 +5169,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.40, 1.0, 0.50, 0.90 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
         -- Rhok'delar: a backlight, streaks from behind him tilted toward the
         -- bottom right, and a soft bloom around him
-        rhokdelar = Sunlight({ 0.62, -0.06, 70, 60, 7, 1.3, strength = 0.8 }, { 0.40, 1.0, 0.0, 0.80 }, 22,
+        rhokdelar = Sunlight({ 0.62, -0.06, 70, 60, 7, 1.3, strength = 0.6 }, { 0.40, 1.0, 0.0, 0.80 }, 22,
             { glow = true, [1] = 0.64, [2] = 0.28, [3] = 0.75, strength = 0.5,
                 -- light catching both shoulder pads and under both arms
                 blooms = { { 0.715, 0.25, 0.22, 1 }, { 0.58, 0.14, 0.18, 1 }, { 0.535, 0.31, 0.16, 0.8 }, { 0.68, 0.32, 0.16, 0.8 } } }),
