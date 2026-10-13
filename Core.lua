@@ -788,6 +788,7 @@ FGT.COUNTERS = {
     guildRaidBosses = "raid bosses defeated with guildmates",
     trades = "trades with other players",
     campfires = "campfires placed",
+    buffs = "buffs cast on other players",
 }
 local function CounterTotal(roster, key)
     local total = 0
@@ -12145,6 +12146,45 @@ FGT.CAMPFIRE_SPELLS = {
 }
 function FGT.CampfireReady() return FGT.isForever and next(FGT.CAMPFIRE_SPELLS) ~= nil end
 
+-- Buffs cast on other players, matched by spell name (English clients; ranks all share a name).
+-- A cast counts when it succeeds on another player (UNIT_SPELLCAST_SENT names the target, the
+-- success event confirms the cast), or, for the group versions, when you are in a group.
+FGT.BUFF_SPELLS = {}
+FGT.GROUP_BUFF_SPELLS = {}
+for _, name in ipairs({
+    "Arcane Intellect", "Mark of the Wild", "Thorns", "Power Word: Fortitude", "Divine Spirit", "Shadow Protection",
+    "Blessing of Might", "Blessing of Wisdom", "Blessing of Kings", "Blessing of Salvation", "Blessing of Light",
+    "Blessing of Sanctuary", "Blessing of Freedom", "Blessing of Protection", "Blessing of Sacrifice",
+    "Greater Blessing of Might", "Greater Blessing of Wisdom", "Greater Blessing of Kings",
+    "Greater Blessing of Salvation", "Greater Blessing of Light", "Greater Blessing of Sanctuary",
+    "Amplify Magic", "Dampen Magic",
+}) do FGT.BUFF_SPELLS[name] = true end
+for _, name in ipairs({
+    "Arcane Brilliance", "Gift of the Wild", "Prayer of Fortitude", "Prayer of Spirit", "Prayer of Shadow Protection",
+}) do FGT.BUFF_SPELLS[name] = true; FGT.GROUP_BUFF_SPELLS[name] = true end
+FGT.BUFF_CLASSES = { MAGE = true, DRUID = true, PRIEST = true, PALADIN = true }
+function FGT.CanBuff()
+    local class = select(2, UnitClass("player"))
+    return FGT.BUFF_CLASSES[class] == true
+end
+FGT.buffSpellCache = {}
+function FGT.BuffSpellName(id)
+    local known = FGT.buffSpellCache[id]
+    if known == nil then
+        local name = (GetSpellInfo and GetSpellInfo(id)) or (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id))
+        known = (type(name) == "string" and FGT.BUFF_SPELLS[name]) and name or false
+        FGT.buffSpellCache[id] = known
+    end
+    return known
+end
+function FGT.CountBuff(name, target)
+    if target and target ~= "" and target ~= UnitName("player") then
+        FGT.Count("buffs", true)
+    elseif FGT.GROUP_BUFF_SPELLS[name] and (GetNumGroupMembers and GetNumGroupMembers() or 0) > 1 then
+        FGT.Count("buffs", true)
+    end
+end
+
 local function RecordBossKill(name)
     if not (name and ForeverGoalTrackerDB) then return end
     RecordCharacter()
@@ -12166,11 +12206,13 @@ pcall(rosterWatcher.RegisterEvent, rosterWatcher, "BOSS_KILL")
 -- Spell casts are only watched while something needs them (a known campfire spell, or the
 -- /goals logcasts recorder), so the addon is not woken for every cast you make.
 function FGT.WatchCasts()
-    local want = FGT.CampfireReady() or (FGT.castLogUntil and GetTime() < FGT.castLogUntil)
+    local want = FGT.CampfireReady() or FGT.CanBuff() or (FGT.castLogUntil and GetTime() < FGT.castLogUntil)
     if want and not FGT.watchingCasts then
         FGT.watchingCasts = pcall(rosterWatcher.RegisterUnitEvent, rosterWatcher, "UNIT_SPELLCAST_SUCCEEDED", "player")
+        pcall(rosterWatcher.RegisterUnitEvent, rosterWatcher, "UNIT_SPELLCAST_SENT", "player")
     elseif not want and FGT.watchingCasts then
         pcall(rosterWatcher.UnregisterEvent, rosterWatcher, "UNIT_SPELLCAST_SUCCEEDED")
+        pcall(rosterWatcher.UnregisterEvent, rosterWatcher, "UNIT_SPELLCAST_SENT")
         FGT.watchingCasts = false
     end
 end
@@ -12184,8 +12226,23 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
         if ERR_TRADE_COMPLETE and message == ERR_TRADE_COMPLETE then FGT.Count("trades") end
         return
     end
+    if event == "UNIT_SPELLCAST_SENT" then
+        -- unit, target name, cast id, spell id: remember who a buff is for until the cast succeeds
+        local name = FGT.BuffSpellName(arg4)
+        if name then
+            FGT.pendingBuffs = FGT.pendingBuffs or {}
+            FGT.pendingBuffs[arg3] = { name, arg2 or "" }
+        end
+        return
+    end
+    if event == "PLAYER_LOGIN" then FGT.WatchCasts() end
     if event == "UNIT_SPELLCAST_SUCCEEDED" then
         local spell = arg3
+        local pending = FGT.pendingBuffs and FGT.pendingBuffs[arg2]
+        if pending then
+            FGT.pendingBuffs[arg2] = nil
+            FGT.CountBuff(pending[1], pending[2])
+        end
         if FGT.castLogUntil and GetTime() < FGT.castLogUntil then
             local name = GetSpellInfo and GetSpellInfo(spell) or (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(spell)) or "?"
             local DB = ForeverGoalTrackerDB
@@ -13068,6 +13125,7 @@ local function Entry(me, id, keys, why)
     if g.needs == "stats" and not FGT.HasStats() then return nil end
     if g.needs == "forever" and not FGT.isForever then return nil end
     if g.needs == "campfire" and not (FGT.isForever and FGT.CampfireReady()) then return nil end
+    if g.classes and not g.classes[me.class] then return nil end -- (a goal only some classes can do)
     if g.removedInForever and FGT.isForever then return nil end -- can't be finished there
     -- a profession goal is only offered to a character who practices it
     -- (and has gotten far enough with it: suggestSkill = { name, rank })
@@ -13276,6 +13334,7 @@ local function Suggest(picked)
                 push(list, Entry(me, "social_guild_dungeon", nil, tag))
                 push(list, Entry(me, "social_guild_raid", nil, tag))
                 push(list, Entry(me, "social_trades", nil, tag))
+                push(list, Entry(me, "social_buffs", nil, tag))
                 push(list, Entry(me, "social_campfires", nil, tag))
             end
             -- goals you've already started go first
@@ -13815,7 +13874,7 @@ function W.Show(step)
             t:SetPoint("TOPLEFT", W.card, "TOPLEFT", 24 + (i - 1) * (tw + gap), -110)
             local icon = t.it.icon
             if icon == "pvp" then
-                icon = (me.faction == "Horde") and { "inv_bannerpvp_01" } or { "inv_bannerpvp_02" }
+                icon = (me.faction == "Horde") and { "achievement_pvp_h_16", "inv_bannerpvp_01" } or { "achievement_pvp_a_a", "inv_bannerpvp_02" }
             end
             if t.art then t.icon:Hide() else t.icon:SetIcon(icon) end
             t.hover = false

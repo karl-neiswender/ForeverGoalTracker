@@ -362,6 +362,15 @@ if ok_all:
             'STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 1307227); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 1229737); assert(c.counts.campfires == 1, "placing a campfire counts once: " .. tostring(c.counts.campfires)); '
             'STUB_NS.lastCampfire = -100; STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "guid", 1307252); assert(c.counts.campfires == 2, "a later Journeyman campfire counts"); '
             'STUB_NS.isForever = false; STUB_NS.WatchCasts(); '
+            'UnitClass = function() return "Mage", "MAGE" end; STUB_NS.WatchCasts(); assert(STUB_NS.CanBuff(), "a Mage can buff"); '
+            'GetSpellInfo = function(id) return ({ [1459] = "Arcane Intellect", [23028] = "Arcane Brilliance", [133] = "Fireball" })[id] end; local mine = UnitName("player"); '
+            'STUB_NS.buffSpellCache = {}; local b0 = c.counts.buffs or 0; '
+            'STUB_FIRE("UNIT_SPELLCAST_SENT", "player", "Bob", "g1", 1459); assert(STUB_NS.pendingBuffs and STUB_NS.pendingBuffs.g1, "the cast is remembered when sent"); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "g1", 1459); assert(c.counts.buffs == b0 + 1, "Arcane Intellect on another player counts: buffs=" .. tostring(c.counts.buffs) .. " watching=" .. tostring(STUB_NS.watchingCasts) .. " name=" .. tostring(STUB_NS.BuffSpellName(1459)) .. " pending=" .. tostring(STUB_NS.pendingBuffs and STUB_NS.pendingBuffs.g1)); '
+            'STUB_FIRE("UNIT_SPELLCAST_SENT", "player", mine, "g2", 1459); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "g2", 1459); assert(c.counts.buffs == b0 + 1, "a buff on yourself does not"); '
+            'STUB_FIRE("UNIT_SPELLCAST_SENT", "player", "Bob", "g3", 1459); assert(c.counts.buffs == b0 + 1, "a cast that has not succeeded does not"); '
+            'STUB_FIRE("UNIT_SPELLCAST_SENT", "player", "Bob", "g4", 133); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "g4", 133); assert(c.counts.buffs == b0 + 1, "a fireball is not a buff"); '
+            'GetNumGroupMembers = function() return 1 end; STUB_FIRE("UNIT_SPELLCAST_SENT", "player", "", "g5", 23028); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "g5", 23028); assert(c.counts.buffs == b0 + 1, "Arcane Brilliance alone does not"); '
+            'GetNumGroupMembers = function() return 4 end; STUB_FIRE("UNIT_SPELLCAST_SENT", "player", "", "g6", 23028); STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "g6", 23028); assert(c.counts.buffs == b0 + 2, "Arcane Brilliance in a group does"); '
             'print("  guild dungeon and raid kills, trades and campfires are counted")'),
         # /goals perf times the banner effects; without an animated banner it says how to start.
         ("perf command", None,

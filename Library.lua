@@ -804,7 +804,7 @@ local library = {
     -- characters. Icons are placeholders until Karl's art arrives.
     {
         id = "social_guild_dungeon", library = true, forever = "confirmed",
-        icon = { "inv_misc_key_08", "inv_misc_groupneedmore" },
+        icon = { "inv_misc_head_dragon_green", "inv_misc_groupneedmore" },
         name = "Dungeons with Guildmates", short = "Guild Dungeons",
         category = "Social", difficulty = "Moderate",
         timeEstimate = "Weeks",
@@ -838,6 +838,27 @@ local library = {
             { text = "Defeat 5 raid bosses with guildmates.", auto = { guildRaidBosses = 5 } },
             { text = "Defeat 10 raid bosses with guildmates.", auto = { guildRaidBosses = 10 } },
             { text = "Defeat 25 raid bosses with guildmates.", auto = { guildRaidBosses = 25 } },
+        },
+    },
+    {
+        id = "social_buffs", library = true, forever = "confirmed",
+        classes = { MAGE = true, DRUID = true, PRIEST = true, PALADIN = true },
+        icon = { "inv_misc_rune_03", "inv_misc_groupneedmore" },
+        name = "Buff Other Players", short = "Buffs",
+        category = "Social", difficulty = "Easy",
+        timeEstimate = "Days",
+        note = "Cast buffs on other players. Mages, Druids, Priests and Paladins can. Progress is tracked automatically.",
+        tips = {
+            "Arcane Intellect, Mark of the Wild, Power Word: Fortitude, Divine Spirit, Blessings and the other buffs you can cast on a friend count.",
+            "Group buffs, like Arcane Brilliance and Gift of the Wild, count when you are in a group.",
+            "Buffs are matched by their English names, so they do not count on other game languages yet.",
+        },
+        target = { kind = "buffs", default = 100, min = 10, max = 1000, marks = { 0.1, 0.5, 1 },
+                   step = "Cast %s buffs on other players.", unit = "buffs" },
+        steps = {
+            { text = "Cast 10 buffs on other players.", auto = { buffs = 10 } },
+            { text = "Cast 50 buffs on other players.", auto = { buffs = 50 } },
+            { text = "Cast 100 buffs on other players.", auto = { buffs = 100 } },
         },
     },
     {
@@ -1297,7 +1318,7 @@ local RANKS = {
     Horde    = { [6] = "Stone Guard", [10] = "Champion", [11] = "Lieutenant General",
                  [12] = "General", [13] = "Warlord", [14] = "High Warlord" },
 }
-local BANNER = { Alliance = { "inv_bannerpvp_02", "inv_bannerpvp_01" }, Horde = { "inv_bannerpvp_01", "inv_bannerpvp_02" } }
+local BANNER = { Alliance = { "achievement_pvp_a_a", "inv_bannerpvp_02" }, Horde = { "achievement_pvp_h_16", "inv_bannerpvp_01" } }
 
 local function RankStep(faction, n)
     return { text = string.format("Reach Rank %d, %s.", n, RANKS[faction][n]),

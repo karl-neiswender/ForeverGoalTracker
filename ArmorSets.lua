@@ -167,13 +167,14 @@ function FGT.CatalogGoalCount()
     return count
 end
 
--- Faction-only PvP goals share the faction banner thumbnail.
+-- Faction-only PvP goals share one thumbnail per faction (Karl, 2026-10-13: the PvP rank
+-- achievement icons; the old faction banners are the fallbacks).
 for _, goal in ipairs(FGT.goals) do
     if goal.category == "PvP" or (goal.armorParent and goal.armorParent:match("^pvp_set_")) then
         if goal.faction == "Horde" then
-            goal.icon = { "inv_bannerpvp_01", "inv_bannerpvp_02" }
+            goal.icon = { "achievement_pvp_h_16", "inv_bannerpvp_01" }
         elseif goal.faction == "Alliance" then
-            goal.icon = { "inv_bannerpvp_02", "inv_bannerpvp_01" }
+            goal.icon = { "achievement_pvp_a_a", "inv_bannerpvp_02" }
         end
     end
 end
