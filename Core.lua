@@ -5405,6 +5405,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- (baked), and dust floats in the tavern's lamplight
         ["social_cheers-banner.blp"] = { 0.43, 0.18, 0.20, { 1, 1, 1 }, strength = 0.9, flicker = 0.35,
             embers = Motes({ 0.35, 1.0, 0.08, 0.75 }, 24) },
+        -- Dire Maul key: light motes drifting over the moonlit plaza (the bloom is baked)
+        ["key_dm-banner.blp"] = { 0.6, 0.6, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Motes({ 0.35, 1.0, 0.25, 0.92 }, 44) },
         -- Benediction, Horde art: soft motes floating around the mace head and its sparkles
         ["benediction-banner.blp"] = { 0.58, 0.45, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = Motes({ 0.40, 0.76, 0.24, 0.64 }, 28) },
@@ -6307,7 +6310,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["set_tier1_rogue-banner.blp"] = "Konstantin Porubov",
         ["set_tier2_rogue-banner.blp"] = "Alex Horley",
         ["tier3_rogue-banner.blp"] = "BOSi Studio",
-        ["tier3_hunter-banner.blp"] = "Vladimir Kafanov",
         ["set_dungeon1_warrior-banner.blp"] = "UDON",
         ["mount_deathcharger-banner.blp"] = "Ralph Horsley",
         ["set_tier2_paladin-banner.blp"] = "Sam Nielson",
