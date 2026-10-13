@@ -4978,6 +4978,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.set_dungeon1_shaman, B.preprocessed.set_dungeon1_shaman = 4/3, true
     B.artPaths.set_dungeon1_paladin = "set_dungeon1_paladin-banner.blp"
     B.artAspects.set_dungeon1_paladin, B.preprocessed.set_dungeon1_paladin = 4/3, true
+    B.artPaths.att_ony_horde = "att_ony_horde-banner.blp"
+    B.artAspects.att_ony_horde, B.preprocessed.att_ony_horde = 4/3, true
     for _, id in ipairs({"set_dungeon1_mage", "set_dungeon1_rogue", "set_dungeon1_druid"}) do
         B.artPaths[id] = "set_dungeon2-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
@@ -5065,8 +5067,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Vestments of Faith (Priest Tier 3): an angelic beam on the kneeling
         -- priestess, motes floating in it
         tier3_priest = { 0.73, 0.3, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            beam = { 0.73, -0.02, 0.80, 0.34, strength = 1 },
-            embers = { float = true, box = { 0.60, 0.86, 0.05, 0.75 }, count = 28, blurShare = 0.12, rise = 0.06 } },
+            beam = { 0.72, -0.10, 0.95, 0.75, strength = 1 },
+            embers = { float = true, box = { 0.45, 1.0, 0.0, 0.85 }, count = 40, blurShare = 0.12, rise = 0.06 } },
         -- Sulfuras: heat on the hammer head, and embers rising off the
         -- head and handle (`embers.box` = u0, u1, v0, v1 where most start;
         -- the rest rise anywhere in `field`, off the lava)
@@ -5580,6 +5582,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["att_ony_horde-banner.blp"] = "Miguel Coimbra",
         ["allclasses_dwarf_paladin-banner.blp"] = "Glenn Rane",
         ["set_forever_raid-banner.blp"] = "Alex Horley",
         ["allclasses_horde_druid-banner.blp"] = "Alex Alexandrov",
