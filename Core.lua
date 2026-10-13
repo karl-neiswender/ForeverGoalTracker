@@ -3013,8 +3013,11 @@ local function CreateScrollArea(parent, softBottom, bottomHeight)
         obj.lastMax, obj.lastCurrent = maxScroll, current
         -- (`holdShade`: a glide is carrying you to the end, e.g. opening Tips,
         -- so the shade must not snap on over the heading on the way)
+        -- (`easeShade`: the next change eases too, e.g. when folding the tips
+        -- away makes a short list stop scrolling)
         FadeEdge(fadeBottom, maxScroll > 1 and current < maxScroll - 1 and not obj.holdShade,
-            not scrolled and not obj.holdShade)
+            not scrolled and not obj.holdShade and not obj.easeShade)
+        obj.easeShade = nil
 
         if maxScroll > 1 then
             trackHit:Show()
@@ -6842,6 +6845,16 @@ end
 -- Tips fold open and closed under a "+ Tips (3)" header; closed by
 -- default, remembered per goal until /reload.
 FGT.tipsOpen = {}
+-- Opening or closing the tips redraws only the tips, not the whole goal
+-- page (a full redraw repaints every step, link and bar, which flickered).
+function FGT.RedrawTips()
+    local T = FGT.tipsUI
+    local goal = T and T.startY and FGT.GoalById(T.goalId)
+    if not goal then return end
+    if not FGT.guideLayout then SelectGoal(goal.id, true) return end -- (no page laid out yet: draw it all)
+    FGT.FinishGuideHeight(FGT.LayoutTips(goal, T.startY, T.width))
+    FGT.UpdateDetailViewport()
+end
 function FGT.LayoutTips(goal, yOffset, width)
     local T = FGT.tipsUI
     if not T then
@@ -6865,7 +6878,7 @@ function FGT.LayoutTips(goal, yOffset, width)
                 T.returnTo = { id = id, at = FGT.GuideScrollPosition() }
                 FGT.tipsOpen[id] = true
                 stepsScrollObj.holdShade, FGT.detailViewport.holdShade = true, true
-                SelectGoal(id, true)
+                FGT.RedrawTips()
                 FGT.FadeTips(0)
                 C_Timer.After(0.05, function()
                     FGT.ScrollGuideTo(nil, function() FGT.FadeTips(1) end, function(p) FGT.FadeTips(p) end)
@@ -6883,7 +6896,10 @@ function FGT.LayoutTips(goal, yOffset, width)
                     FGT.tipsOpen[id] = nil
                     FGT.FadeTips(1) -- (hidden by the redraw; ready for next time)
                     -- (only redraw if you're still on that goal)
-                    if T.goalId == id then SelectGoal(id, true) end
+                    if T.goalId == id then
+                        stepsScrollObj.easeShade, FGT.detailViewport.easeShade = true, true
+                        FGT.RedrawTips()
+                    end
                 end, function(p) FGT.FadeTips(1 - p) end)
             end
         end)
@@ -6891,6 +6907,7 @@ function FGT.LayoutTips(goal, yOffset, width)
     end
     local tips = goal.tips or {}
     local open = FGT.tipsOpen[goal.id]
+    T.startY, T.width = yOffset, width -- for FGT.RedrawTips
     -- the tips fade in as the "(3)" count fades out, and back
     function FGT.FadeTips(a)
         for _, row in ipairs(T.rows) do row:SetAlpha(a); row.dot:SetAlpha(a) end

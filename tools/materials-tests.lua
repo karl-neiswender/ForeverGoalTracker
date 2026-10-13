@@ -580,3 +580,17 @@ do
     B:HideShafts()
     assert(B.glows.rep_ambassador_ally.sunrays.broad and B.glows.set_violet_sorcerer.sunrays.broad, "wide streaks")
 end
+
+-- toggling tips redraws just the tips (no full goal redraw)
+do
+    local F = STUB_NS
+    if F.tipsUI and F.tipsUI.startY then
+        F.BeginGuideLayout(F.GoalById(F.tipsUI.goalId))
+        local calls, original = 0, F.LayoutTips
+        F.LayoutTips = function(...) calls = calls + 1; return original(...) end
+        F.RedrawTips()
+        F.LayoutTips = original
+        assert(calls == 1, "RedrawTips lays out the tips once (goal " .. tostring(F.tipsUI.goalId)
+            .. ", found " .. tostring(F.GoalById(F.tipsUI.goalId) ~= nil) .. ", layout " .. tostring(F.guideLayout ~= nil) .. ")")
+    end
+end
