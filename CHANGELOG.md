@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Living goal images: soft light, sunrays, embers and falling snow on many goal banners
+- New Images settings: Large goal photos and an Image effects switch
+
 ## 2.12.0
 
 - New Goal Library filters: search, show added or not, filter for your character or any class, faction and category, with sorting (including Progression for armor sets) and Add all
