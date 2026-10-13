@@ -4177,11 +4177,19 @@ detailIcon:SetPoint("TOPLEFT", 22, -24)
 detailIcon:EnableMouse(true)
 detailIcon:SetScript("OnEnter", function(self)
     local id = FGT.detailReward
-    if id then FGT.ShowItemTip(self, id, nil, FGT.detailRewardName, true) end
+    if id then FGT.ShowItemTip(self, id, nil, FGT.detailRewardName, true)
+    elseif FGT.detailSet then
+        -- an armor set: the icon tries on the whole set
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:AddLine(FGT.detailRewardName, C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine("Ctrl-click: try on the whole set", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+        GameTooltip:Show()
+    end
 end)
 detailIcon:SetScript("OnLeave", function() GameTooltip:Hide() end)
 detailIcon:SetScript("OnMouseUp", function(_, button)
-    FGT.PreviewItemClick(FGT.detailReward, button)
+    if FGT.detailReward then FGT.PreviewItemClick(FGT.detailReward, button)
+    elseif FGT.detailSet then FGT.PreviewSetClick(FGT.detailSet, button) end
 end)
 
 local detailTag = NewFontString(FGT.detailBody, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
@@ -7595,6 +7603,7 @@ SelectGoal = function(id, skipListRefresh)
     local cw = goal.completeWith
     FGT.detailReward = not goal.sections and (goal.rewardItem or (cw and AsList(cw.item)[1])) or nil
     FGT.detailRewardName = goal.name
+    FGT.detailSet = FGT.SetPreviewIds and FGT.SetPreviewIds(goal) and goal or nil -- an armor set: Ctrl-click tries it all on
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     detailIcon:SetIcon(FGT.GoalIcon(goal), catColor)
     detailTag:SetText(FGT.GoalEyebrow(goal))

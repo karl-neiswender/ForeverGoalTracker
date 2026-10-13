@@ -177,6 +177,64 @@ function FGT.PreviewItemClick(id, button, variants)
     return true
 end
 
+-- An armor set's pieces in order, one item id each (the first id when a piece
+-- lists several versions). Only a goal that is one set (a single section of
+-- pieces) qualifies; the Library's grouped wrappers and other goals give nil.
+function FGT.SetPreviewIds(goal)
+    local sections = goal and goal.sections
+    if not sections or #sections ~= 1 then return nil end
+    local ids = {}
+    for _, piece in ipairs(sections[1].pieces or {}) do
+        local item = piece.auto and piece.auto.item
+        local id = type(item) == "table" and item[1] or item
+        if type(id) == "number" then ids[#ids + 1] = id end
+    end
+    return #ids >= 2 and ids or nil
+end
+
+-- Ctrl-click on a set's big icon (the DRESSUP click, like the item previews):
+-- the game's dressing room opens on your character with every piece of the
+-- set on. Pieces the game has no details for (Forever hides items until a
+-- player finds one) can't be tried on: they are asked for a few times, then
+-- named in one chat line.
+function FGT.PreviewSetClick(goal, button)
+    if button ~= "LeftButton" or not (IsModifiedClick and IsModifiedClick("DRESSUP")) then return false end
+    local ids = FGT.SetPreviewIds(goal)
+    if not ids or not DressUpItemLink then return false end
+    local pending, tried = {}, 0
+    local function Try(list)
+        local missed = {}
+        for _, id in ipairs(list) do
+            local name, link = FGT.ItemInfo(id)
+            if name and link then
+                if FGT.ItemCanPreview(id) then
+                    pcall(DressUpItemLink, link)
+                    tried = tried + 1
+                end
+            else
+                missed[#missed + 1] = id
+                if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+            end
+        end
+        return missed
+    end
+    pending = Try(ids)
+    local attempts = 0
+    local function Retry()
+        attempts = attempts + 1
+        pending = Try(pending)
+        if #pending > 0 and attempts < 3 and C_Timer then
+            C_Timer.After(0.7, Retry)
+        elseif #pending > 0 then
+            print("|cffffd75eForever Goal Tracker:|r " .. string.format(
+                "%d of %d pieces of %s can't be tried on yet: the game has no details for them%s.",
+                #pending, #ids, goal.name, FGT.isForever and " (Forever shows an item once a player has found it)" or ""))
+        end
+    end
+    if #pending > 0 and C_Timer then C_Timer.After(0.7, Retry) end
+    return true
+end
+
 function FGT.ItemCanPreview(id)
     if FGT.ItemMountID(id) then return true end
     local _, _, _, _, _, _, _, _, slot = FGT.ItemInfo(id)

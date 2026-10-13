@@ -289,6 +289,18 @@ if ok_all:
             'assert(F.ForeverNote(g) == nil and F.ForeverNote(g, true) == nil, id .. " shows no notice") end; '
             'assert(F.ForeverNote(F.GoalById("raid_mc")), "an unchecked raid still says unconfirmed"); '
             'print("  " .. #ids .. " pure-progress goals show no unconfirmed notice; content goals still do")', True),
+        # Ctrl-click on an armor set's big icon tries on every piece.
+        ("try on a whole set", None,
+            'local F = STUB_NS; local g = F.GoalById("set_tier1_warrior"); local ids = F.SetPreviewIds(g); '
+            'assert(ids and #ids >= 5, "a Tier 1 set lists its pieces"); assert(F.SetPreviewIds(F.GoalById("thunderfury")) == nil, "a weapon is not a set"); '
+            'local dressed = {}; DressUpItemLink = function(link) dressed[#dressed + 1] = link end; IsModifiedClick = function() return true end; '
+            'F.ItemInfo = function(id) return "Item" .. id, "|Hitem:" .. id .. "|h[Item]|h", 4, 0, 0, "", "", 1, "INVTYPE_CHEST" end; '
+            'assert(F.PreviewSetClick(g, "LeftButton") == true and #dressed == #ids, "every piece goes on: " .. #dressed .. " of " .. #ids); '
+            'assert(not F.PreviewSetClick(g, "RightButton"), "only a left click"); IsModifiedClick = function() return false end; '
+            'assert(not F.PreviewSetClick(g, "LeftButton"), "only with the Ctrl-click modifier"); IsModifiedClick = function() return true end; '
+            'dressed = {}; F.ItemInfo = function(id) if id == ids[1] then return nil end return "Item" .. id, "|Hitem:" .. id .. "|h[Item]|h", 4, 0, 0, "", "", 1, "INVTYPE_CHEST" end; '
+            'STUB_PRINTS = {}; assert(F.PreviewSetClick(g, "LeftButton") and #dressed == #ids - 1, "a hidden piece is skipped, the rest go on"); '
+            'print("  Ctrl-click tries on every piece of a set, skips pieces the game has no details for")'),
         # /goals audit asks the game about every item, quest, faction and map we rely on.
         ("data audit", None,
             'local A = STUB_NS.Audit; local T = A.Targets(); local n = 0; for _ in pairs(T.items) do n = n + 1 end; '
