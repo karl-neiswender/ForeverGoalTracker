@@ -2823,12 +2823,23 @@ local function CreateEdgeFade(parent, isTop, soft, bottomHeight)
     return f
 end
 
--- The bottom shade eases out when you reach the end of a list, and back in
--- when you scroll up, instead of popping (Karl). Its strips are plain
--- textures, so the frame's alpha fades them. Instant with Celebrations off.
+-- The bottom shade eases out when your scrolling reaches the end of a list,
+-- and back in when you scroll up from there (Karl). Only scrolling animates
+-- it: when a page opens or re-lays out (`instant`) it is simply in place, or
+-- it would fade in over the text and read as a flash. A fade already under
+-- way is never cut short. Its strips are plain textures, so the frame's
+-- alpha fades them. Instant with Celebrations off.
 local edgeTarget = setmetatable({}, { __mode = "k" })
-local function FadeEdge(f, on)
+local function FadeEdge(f, on, instant)
     local target = on and 1 or 0
+    if instant then
+        -- already there, or easing there: keep it (but a shade hidden from
+        -- outside, as when the goal page closes, is put back)
+        if edgeTarget[f] == target and (f:GetScript("OnUpdate") or f:IsShown() == on) then return end
+        edgeTarget[f] = target
+        f:SetScript("OnUpdate", nil); f:SetAlpha(target); f:SetShown(on)
+        return
+    end
     local settled = (on and f:IsShown() and f:GetAlpha() >= 1) or (not on and not f:IsShown())
     if settled then f:SetScript("OnUpdate", nil); edgeTarget[f] = target; return end
     if edgeTarget[f] == target and f:GetScript("OnUpdate") then return end -- already on its way
@@ -2996,7 +3007,11 @@ local function CreateScrollArea(parent, softBottom, bottomHeight)
         -- (Fading each row's own alpha instead was tried and dropped: the
         -- rows looked like they vanished rather than went under.)
         fadeTop:SetShown(maxScroll > 1 and current > 1)
-        FadeEdge(fadeBottom, maxScroll > 1 and current < maxScroll - 1)
+        -- animate only when the list was scrolled (same length, new position)
+        local scrolled = obj.lastMax and math.abs(obj.lastMax - maxScroll) < 1
+            and math.abs((obj.lastCurrent or current) - current) >= 0.5
+        obj.lastMax, obj.lastCurrent = maxScroll, current
+        FadeEdge(fadeBottom, maxScroll > 1 and current < maxScroll - 1, not scrolled)
 
         if maxScroll > 1 then
             trackHit:Show()
