@@ -6233,10 +6233,39 @@ function FGT.UpdateDetailViewport()
     view.updating = nil
 end
 FGT.detailViewport.scroll:HookScript("OnSizeChanged", FGT.UpdateDetailViewport)
+
+-- Glides the goal page to its end (eased, 0.45 s): the steps list, or the
+-- whole page on short windows. The mouse wheel stops it; instant with
+-- Celebrations off.
+do
+    local driver = CreateFrame("Frame")
+    function FGT.StopGuideScroll() driver:SetScript("OnUpdate", nil) end
+    function FGT.ScrollGuideToEnd()
+        local view = FGT.detailViewport
+        local obj = view.short and view or stepsScrollObj
+        local scroll = obj.scroll
+        local from, to = scroll:GetVerticalScroll(), scroll:GetVerticalScrollRange()
+        driver:SetScript("OnUpdate", nil)
+        if to - from < 1 then return end
+        if FGT.Setting("celebrations") == "off" then
+            scroll:SetVerticalScroll(to); obj:Update()
+            return
+        end
+        local t = 0
+        driver:SetScript("OnUpdate", function(_, dt)
+            t = t + dt
+            local p = math.min(1, t/0.45)
+            scroll:SetVerticalScroll(from + (to - from)*(1 - (1 - p)^3))
+            obj:Update()
+            if p >= 1 then driver:SetScript("OnUpdate", nil) end
+        end)
+    end
+end
 stepsContainer:HookScript("OnSizeChanged", FGT.UpdateDetailViewport)
 do
     local original = stepsScrollObj.scroll:GetScript("OnMouseWheel")
     stepsScrollObj.scroll:SetScript("OnMouseWheel", function(self, delta)
+        FGT.StopGuideScroll() -- your own scrolling wins over the tips glide
         if FGT.detailViewport.short then
             local outer = FGT.detailViewport.scroll
             outer:GetScript("OnMouseWheel")(outer, delta)
@@ -6788,8 +6817,11 @@ function FGT.LayoutTips(goal, yOffset, width)
         T.btn:SetScript("OnLeave", function() T.header:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
         T.btn:SetScript("OnClick", function()
             local id = T.goalId
-            FGT.tipsOpen[id] = not FGT.tipsOpen[id] or nil
+            local opening = not FGT.tipsOpen[id]
+            FGT.tipsOpen[id] = opening or nil
             SelectGoal(id, true)
+            -- opening the tips glides the guide down to them (Karl)
+            if opening then C_Timer.After(0.05, function() FGT.ScrollGuideToEnd() end) end
         end)
         FGT.tipsUI = T
     end

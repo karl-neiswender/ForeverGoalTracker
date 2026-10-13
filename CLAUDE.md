@@ -485,3 +485,4 @@ Gnome Swift Mechanostrider approved (Karl, 2026-10-09): installed epicmounts_gno
 - Round 6 (Karl, 2026-10-12): Fishing approved (the larger burst). Rhok'delar's sunrays a quarter weaker (sunrays strength 0.8 to 0.6); blooms unchanged and approved.
 - Argent Dawn's turning rays made larger (Karl, 2026-10-12): rays 1.5 to 2.3.
 - Scroll lists' bottom shade now eases out over 0.35 s when you reach the end, and back in when you scroll up (Karl, 2026-10-12; seen on the Charger page at the Tips). `FadeEdge` in Core.lua, instant with Celebrations off; the top band is untouched (the goal page keeps it hidden with SetAlpha(0)). Stub frames now answer GetParent.
+- Opening a goal's Tips glides the guide to its end (Karl, 2026-10-12): `FGT.ScrollGuideToEnd` (eased 0.45 s; the whole page on short windows; the mouse wheel stops it via `FGT.StopGuideScroll`; instant with Celebrations off).
