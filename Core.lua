@@ -5048,6 +5048,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artPaths[id] = B.artPaths.raid_zg
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
+    -- Place Campfires shows the Cooking campfire (its flame, snow and bloom are keyed by the image).
+    B.artPaths.social_campfires = "prof_cooking-banner.blp"
+    B.artAspects.social_campfires, B.preprocessed.social_campfires = 4/3, true
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
     B.artPaths.key_ubrs = "key_ubrs-banner.blp"
     B.artAspects.key_ubrs, B.preprocessed.key_ubrs = 4/3, true
@@ -5318,7 +5321,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "tier3_druid-horde", "set_tier1_shaman", "tier3_shaman", "tier3_mage", "raid_hyjal", "att_mc",
         "raid_mc", "att_naxx", "set_tier2_mage", "set_tier1_rogue", "set_tier1_rogue-alliance", "raid_ony",
         "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
-        "rep_thorium", "wolfsbane",
+        "rep_thorium", "wolfsbane", "prof_cooking",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5328,7 +5331,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "tier3_druid", "set_tier1_shaman", "tier3_shaman", "tier3_mage", "raid_hyjal", "att_mc", "raid_mc",
         "att_naxx", "set_tier2_mage", "set_tier1_rogue", "raid_ony", "att_ony_ally", "att_ony_horde",
         "tier3_paladin", "key_scholo", "key_strat", "set_dungeon1_priest", "sulfuras", "rep_thorium",
-        "wolfsbane",
+        "wolfsbane", "social_campfires",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)

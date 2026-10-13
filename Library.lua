@@ -1467,7 +1467,7 @@ for _, e in ipairs({
     { id = "social_waves", stat = 1065, name = "Give Waves", what = "waves", slash = "/wave",
       first = "Give your first wave.", many = "Give %s waves.", icon = { "inv_gauntlets_17", "inv_misc_groupneedmore" } },
     { id = "social_lol", stat = 1066, name = "Say LOL", what = "LOLs", slash = "/lol",
-      first = "Laugh at something funny.", many = "Say LOL %s times.", icon = { "inv_misc_mask_01", "inv_misc_groupneedmore" } },
+      first = "Laugh at something funny.", many = "Say LOL %s times.", icon = { "spell_misc_emotionhappy", "inv_misc_groupneedmore" } },
 }) do
     local function Step(n)
         return { text = n == 1 and e.first or string.format(e.many, n), auto = { stat = { id = e.stat, value = n, what = e.what } } }

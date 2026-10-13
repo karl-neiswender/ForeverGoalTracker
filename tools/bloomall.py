@@ -64,6 +64,7 @@ STEMS = {
     "sulfuras": "Sulfuras",
     "rep_thorium": "Thorium Brotherhood",
     "wolfsbane": "Wolfsbane",
+    "prof_cooking": "Cooking and Place Campfires (the campfire)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -71,6 +72,7 @@ REGIONS = {
     "pvp_mount_ally": [(0.60, 0.70, 0.36, 0.47)],                      # the charger's eye
     "set_tier1_mage": [(0.83, 0.98, 0.37, 0.53)],                      # the staff's gem
     "tier3_hunter": [(0.55, 0.69, 0.18, 0.40), (0.75, 0.88, 0.18, 0.42)],  # both shoulders
+    "prof_cooking": [(0.60, 0.82, 0.24, 0.64)],                        # the campfire's flames
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {
