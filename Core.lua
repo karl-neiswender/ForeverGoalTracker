@@ -5153,7 +5153,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- bottom right, and a large, slow ray burst around the bird
         fishing_extravaganza = Sunlight({ 0.548, 0.19, 92, 70, 6, 1.0, strength = 0.5, thin = 0.6 },
             { 0.30, 1.0, 0.10, 0.75 }, 16, { beam = { 0.548, 0.0, 0.80, 0.80, strength = 0.35 },
-                glow = true, [1] = 0.548, [2] = 0.19, [3] = 0.30, rays = 3.0, turn = 300, raysStrength = 0.6 }),
+                glow = true, [1] = 0.548, [2] = 0.19, [3] = 0.30, rays = 4.5, turn = 300, raysStrength = 0.6 }),
         -- Sunbeams: Lawbringer straight down on the halo behind his head;
         -- Lok'delar a narrow slanted shaft through the forest onto the stave
         set_tier1_paladin = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
