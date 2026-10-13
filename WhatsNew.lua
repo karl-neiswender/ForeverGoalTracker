@@ -6,43 +6,48 @@ local C = U.colors
 -- A short release ledger, newest first. Add an entry here with every
 -- release (same player-facing lines as CHANGELOG.md). The newest entry's
 -- version is what makes the button glow for players who haven't seen it.
+-- Keep it short, and write every line in the same words
+-- (reports/release-notes/style-guide.md): "Added ...", "You can now ...",
+-- "Changed ... (was ...)", "Fixed ...", "Removed ...", "Renamed ...", and
+-- the closing "UI improvements and bug fixes" when small tweaks went in.
+-- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
     { version = "2.12.0", date = "Oct 12, 2026", items = {
-        "New Goal Library filters, with a Progression sort for armor sets",
-        "Armor sets and racial mounts for your class or character",
-        "Search My Goals and show only this character's goals",
-        "A Materials panel on each goal",
-        "This What's new button",
+        "Added Goal Library filters, with a Progression sort for armor sets",
+        "Added armor sets and racial mounts for your class or character",
+        "You can now search My Goals and show only this character's goals",
+        "Added a Materials panel to each goal",
+        "Added this What's new button",
         "UI improvements and bug fixes",
     } },
     { version = "2.11.1", date = "Oct 11, 2026", items = {
-        "Fix profession scanning and pick artwork from your character's professions",
-        "New profession, reputation, dungeon, raid, mount and armor-set artwork",
-        "Artist credits appear with the artwork",
-        "Ctrl-click mount items and color variants to preview them",
-        "Wolfsbane for Undead Paladins in Forever",
-        "Clearer guide milestones and item sources",
+        "Fixed profession scanning, and artwork now follows your character's professions",
+        "Added profession, reputation, dungeon, raid, mount and armor-set artwork",
+        "Added artist credits beside the artwork",
+        "You can now Ctrl-click mount items and color variants to preview them",
+        "Added Wolfsbane for Undead Paladins in Forever",
+        "Changed guide milestones and item sources to read more clearly",
     } },
     { version = "2.11.0", date = "Oct 10, 2026", items = {
-        "Needed for hints on item tooltips",
-        "Ctrl-click gear in guides to preview it on your character",
-        "Show or hide completed guide steps",
-        "Tier 2.5 armor sets, Stranglethorn Fishing Extravaganza and four AQ battle tank goals",
-        "An ancient leather book behind the empty tracker",
+        "Added Needed for hints to item tooltips",
+        "You can now Ctrl-click gear in guides to preview it on your character",
+        "You can now show or hide completed guide steps",
+        "Added Tier 2.5 armor sets, the Stranglethorn Fishing Extravaganza and four AQ battle tank goals",
+        "Added an ancient leather book behind the empty tracker",
     } },
     { version = "2.10.1", date = "Oct 9, 2026", items = {
-        "Violet Sorcerer's Vestments goal",
-        "More banner images",
+        "Added the Violet Sorcerer's Vestments goal",
+        "Added more banner images",
     } },
     { version = "2.10.0", date = "Oct 9, 2026", items = {
-        "Personal notes on goals",
-        "Individual armor set goals",
-        "Step locks on Classic Era",
-        "Goal banner artwork",
+        "You can now add personal notes to goals",
+        "Added individual armor set goals",
+        "Added step locks on Classic Era",
+        "Added goal banner artwork",
     } },
     { version = "2.9.0", date = "Oct 8, 2026", items = {
-        "More links in guides and tips",
-        "Visual improvements and guide fixes",
+        "Added more links in guides and tips",
+        "UI improvements and bug fixes",
     } },
 }
 

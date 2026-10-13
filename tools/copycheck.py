@@ -112,6 +112,19 @@ def level_60(rec, t):
 
 # ---- Karl said yes (2026-10-13): client names, gold, hints and sentence case -------
 
+@rule("whats-new-verbs", "enforced",
+      "A What's new line starts Added, You can now, Changed, Fixed, Removed or Renamed, or is the closing 'UI improvements and bug fixes'.")
+def whats_new_verbs(rec, t):
+    if not rec["where"].startswith("whatsnew "):
+        return None
+    if t == "UI improvements and bug fixes":
+        return None
+    if not re.match(r"(Added|You can now|Changed|Fixed|Removed|Renamed) ", t):
+        return "does not start with an approved verb"
+    if len(t.split()) > 24:
+        return "longer than 24 words (a What's new line is short)"
+
+
 @rule("client-names", "enforced",
       "Name the client 'Classic Era' (not 'Classic') and the other client 'Forever' in short copy.")
 def client_names(rec, t):
@@ -152,7 +165,7 @@ def ui_sentence_case(rec, t):
             return "Title Case: " + ", ".join(stray)
 
 
-RULES = [no_dashes, no_double_space, straight_quotes, standings, skill_names, click_hints, turn_in, step_shape,
+RULES = [no_dashes, whats_new_verbs, no_double_space, straight_quotes, standings, skill_names, click_hints, turn_in, step_shape,
          level_60, client_names, gold_spelled, hint_colon, ui_sentence_case]
 
 

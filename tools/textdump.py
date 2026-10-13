@@ -50,6 +50,9 @@ for _, g in ipairs(STUB_NS.goals) do
   end
   if g.target then for k, v in pairs(g.target) do if type(v) == "string" then add(id, "target " .. k, v) end end end
 end
+for _, e in ipairs(STUB_NS.WHATS_NEW or {}) do
+  for i, t in ipairs(e.items or {}) do add("whatsnew " .. e.version, "item " .. i, t) end
+end
 for _, n in pairs(STUB_NS.NPCS or {}) do
   add("npc " .. tostring(n.id or n.name), "tag", n.tag); add("npc " .. tostring(n.id or n.name), "where", n.where)
 end
