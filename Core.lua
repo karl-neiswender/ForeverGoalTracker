@@ -5067,7 +5067,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 } }, -- the gem at the crossguard
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- the holy spell in his hand, with faint rays turning very slowly
-        rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5, strength = 1.25,
+        rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 2.3, strength = 1.25,
             sunrays = { 0.85, -0.10, 120, 35, 4, 0.9, strength = 0.5 } }, -- a few faint sunrays too
         -- keyed by image when a goal has several: Benediction's night elf
         -- priest (Alliance art only), the gem at the head of her staff
