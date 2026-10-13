@@ -2830,6 +2830,7 @@ end
 -- way is never cut short. Its strips are plain textures, so the frame's
 -- alpha fades them. Instant with Celebrations off.
 local edgeTarget = setmetatable({}, { __mode = "k" })
+FGT.edgeListeners = setmetatable({}, { __mode = "k" }) -- shade frame -> called as its alpha changes
 local function FadeEdge(f, on, instant)
     local target = on and 1 or 0
     if instant then
@@ -2838,6 +2839,7 @@ local function FadeEdge(f, on, instant)
         if edgeTarget[f] == target and (f:GetScript("OnUpdate") or f:IsShown() == on) then return end
         edgeTarget[f] = target
         f:SetScript("OnUpdate", nil); f:SetAlpha(target); f:SetShown(on)
+        if FGT.edgeListeners[f] then FGT.edgeListeners[f]() end
         return
     end
     local settled = (on and f:IsShown() and f:GetAlpha() >= 1) or (not on and not f:IsShown())
@@ -2847,6 +2849,7 @@ local function FadeEdge(f, on, instant)
     local parent = f:GetParent()
     if not (parent and parent:IsVisible()) or (FGT.Setting and FGT.Setting("celebrations") == "off") then
         f:SetScript("OnUpdate", nil); f:SetAlpha(target); f:SetShown(on)
+        if FGT.edgeListeners[f] then FGT.edgeListeners[f]() end
         return
     end
     if on and not f:IsShown() then f:SetAlpha(0); f:Show() end
@@ -2854,6 +2857,7 @@ local function FadeEdge(f, on, instant)
         local a = self:GetAlpha()
         a = target > a and math.min(target, a + dt/0.35) or math.max(target, a - dt/0.35)
         self:SetAlpha(a)
+        if FGT.edgeListeners[self] then FGT.edgeListeners[self]() end
         if a == target then
             self:SetScript("OnUpdate", nil)
             if target == 0 then self:Hide() end
@@ -6212,9 +6216,16 @@ do
         if not top or not bottom then return end
         local cur = sc:GetVerticalScroll()
         local maxScroll = math.max(0, stepsContainer:GetHeight() - sc:GetHeight())
-        local topK, bottomK = math.min(1, cur / 24), math.min(1, (maxScroll - cur) / 24)
+        -- the bottom dimming follows the shade exactly (held off, eased in or
+        -- out with it), so the steps and the shade are one fade, never two
+        local shade = S.fadeBottom
+        local shadeA = shade:IsShown() and shade:GetAlpha() or 0
+        local topK, bottomK = math.min(1, cur / 24), math.min(1, (maxScroll - cur) / 24, shadeA)
         local layout = FGT.guideLayout
         local fading = {} -- rows mid "hide completed" fade keep their own alpha
+        if FGT.tipsFading and FGT.tipsUI then -- and so do tips mid fade
+            for _, row in ipairs(FGT.tipsUI.rows) do fading[row], fading[row.dot] = true, true end
+        end
         if layout and layout.pending then
             for _, node in ipairs(layout.nodes or {}) do
                 if layout.pending[node.key] then fading[node.frame] = true end
@@ -6238,6 +6249,7 @@ do
         FGT.StepsEdgeFade()
     end
     S.scroll:HookScript("OnVerticalScroll", FGT.StepsEdgeFade)
+    FGT.edgeListeners[S.fadeBottom] = FGT.StepsEdgeFade
 end
 function FGT.UpdateDetailViewport()
     local view = FGT.detailViewport
@@ -6913,6 +6925,7 @@ function FGT.LayoutTips(goal, yOffset, width)
     local open = FGT.tipsOpen[goal.id]
     T.startY, T.width = yOffset, width -- for FGT.RedrawTips
     function FGT.FadeTips(a)
+        FGT.tipsFading = a < 1 or nil -- the step edge-fade leaves them alone meanwhile
         for _, row in ipairs(T.rows) do row:SetAlpha(a); row.dot:SetAlpha(a) end
     end
     T.goalId = goal.id
