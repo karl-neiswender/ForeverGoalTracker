@@ -502,3 +502,24 @@ do
     STUB_NS.SetSetting("celebrations", cel)
     B:HideEmbers()
 end
+
+-- a beam (Priest Tier 3) and sunrays (Judgement) start with their motes, and animate
+do
+    local B = STUB_NS.goalBanner
+    rawset(B.art, "GetWidth", function() return 600 end)
+    for _, case in ipairs({ { "tier3_priest", 1 }, { "set_tier2_paladin", 5 } }) do
+        B.goal = STUB_NS.GoalById(case[1])
+        B.hasArt, B.shownArtHeight, B.uv, B.emberFor = true, 450, { 0, 1, 0, 1 }, nil
+        local spec = B:GlowSpec()
+        assert(spec and (spec.beam or spec.sunrays), "light shafts on " .. case[1])
+        B.glowSpec = spec
+        B.glowLevel = 0.5
+        B:ResetShafts()
+        assert(B.shaftCount == case[2], "shaft count on " .. case[1])
+        for k = 1, 20 do B:StepShafts(k*0.25) end
+        B:ResetEmbers()
+        assert(B.emberCount > 0, "motes on " .. case[1])
+        for _ = 1, 20 do B:StepEmbers(0.25) end
+        B:HideShafts(); B:HideEmbers()
+    end
+end

@@ -5058,7 +5058,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Judgement Armor (Paladin Tier 2, also the Paladin leveling banner):
         -- the light in his raised hand, near the art's right edge
         ["set_tier2_paladin-banner.blp"] = { 0.885, 0.322, 0.62, { 1, 1, 1 }, rays = 2.2, strength = 0.85,
-            raysStrength = 0.6, turn = 300 },
+            raysStrength = 0.6, turn = 300,
+            -- sunrays slanting down through the trees from the bright sky behind him
+            sunrays = { 0.62, -0.08, 112, 40, 5, 0.95, strength = 1 },
+            embers = { float = true, box = { 0.35, 0.85, 0.05, 0.70 }, count = 22, blurShare = 0.12, rise = 0.06 } },
+        -- Vestments of Faith (Priest Tier 3): an angelic beam on the kneeling
+        -- priestess, motes floating in it
+        tier3_priest = { 0.73, 0.3, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            beam = { 0.73, -0.02, 0.80, 0.34, strength = 1 },
+            embers = { float = true, box = { 0.60, 0.86, 0.05, 0.75 }, count = 28, blurShare = 0.12, rise = 0.06 } },
         -- Sulfuras: heat on the hammer head, and embers rising off the
         -- head and handle (`embers.box` = u0, u1, v0, v1 where most start;
         -- the rest rise anywhere in `field`, off the lava)
@@ -5239,7 +5247,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             -- new snow starts along the top of its area, then falls through it
             e.y = y0 + (y1 - y0)*0.08*math.random()
         end
-        if fall then
+        if cfg.float then
+            -- motes in light: drifting slowly any way, long-lived
+            e.life = 8 + 6*math.random()
+            e.heading = math.random()*2*math.pi
+            e.curve = (math.random()*2 - 1)*math.rad(8)
+            e.sway, e.freq = aw*0.008*(0.4 + math.random()), 0.05 + 0.10*math.random()
+        elseif fall then
             -- snow: slow, long-lived, fluttering; mostly down, give or take 25 degrees
             e.life = 10 + 8*math.random()
             e.heading = math.pi/2 + (math.random()*2 - 1)*math.rad(25)
@@ -5256,7 +5270,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         e.phase = math.random()*2*math.pi
         e.speed = cfg.rise*aw*(0.35 + 0.9*math.random())/e.life*(blur and 0.55 or 1)
         local r = math.random()
-        if blur then
+        if cfg.float then
+            e.size = aw*(blur and (0.02 + 0.02*r) or (0.004 + 0.010*r*r))
+            e.peak = blur and (0.08 + 0.10*math.random()) or (0.25 + 0.35*math.random())
+        elseif blur then
             e.size = aw*(fall and (0.03 + 0.035*r) or (0.035 + 0.045*r))
             e.peak = (fall and 0.12 or 0.10) + 0.16*math.random()
         elseif fall then
@@ -5292,7 +5309,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     self.emberDots[n] = e
                 end
                 e.cfg, e.blur = cfg, k <= blurs
-                e.tex:SetTexture(e.blur and self.emberArt.blur or (cfg.fall and self.emberArt.flake or self.emberArt.spark))
+                e.tex:SetTexture(e.blur and self.emberArt.blur or ((cfg.fall or cfg.float) and self.emberArt.flake or self.emberArt.spark))
                 self:SpawnEmber(e, true)
             end
         end
@@ -5324,7 +5341,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     local x = e.x + e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
                     local y = e.y
                     local fade
-                    if cfg.fall then
+                    if cfg.float then
+                        fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)
+                    elseif cfg.fall then
                         -- snow also melts away over the bottom 40% of the art
                         fade = math.min(1, p/0.12)*math.min(1, (1 - p)/0.25)*math.max(0, math.min(1, (ah - y)/(ah*0.4)))
                     else
@@ -5334,7 +5353,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     local t = e.tex
                     t:SetShown(inside)
                     if inside then
-                        local size = e.size*((e.blur or cfg.fall) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow doesn't
+                        local size = e.size*((e.blur or cfg.fall or cfg.float) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow and motes don't
                         t:ClearAllPoints()
                         t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
                         t:SetSize(size, size)
@@ -5342,6 +5361,104 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                         t:SetAlpha(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw))
                     end
                 end
+            end
+        end
+    end
+    -- Light shafts (Karl): `beam` is a vertical moonbeam or angelic light,
+    -- narrow at the top and broad at the bottom (Media/beam); `sunrays` are
+    -- slanting shafts fanning from a light source (Media/shaft), each
+    -- breathing on its own slow beat and swaying a degree or two. Both slow
+    -- and faint, never flashing; pair them with floating motes (`embers`
+    -- with `float = true`). Drawn just under the glow, over the photo.
+    --   beam = { u, top, bottom, width, strength }  (width: share of the art's width)
+    --   sunrays = { u, v, angle, spread, count, length, strength }
+    --     (u, v: the source, may sit just outside the art; angle in degrees,
+    --     0 = right, 90 = straight down; length: share of the art's width)
+    B.shafts, B.shaftInfo = {}, {}
+    B.shaftArt = {
+        beam = "Interface\\AddOns\\"..ADDON.."\\Media\\beam",
+        ray = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft",
+    }
+    function B:HideShafts()
+        for _, t in ipairs(self.shafts) do t:Hide() end
+        self.shaftCount = 0
+    end
+    function B:PaintLight(t, a)
+        local aw = math.max(1, self.art:GetWidth())
+        local span = self.lightSpan[t] or { 0, 0 }
+        local function ramp(x) return math.max(0, math.min(1, x/aw)) end
+        ApplyHGradient(t, { 1, 1, 1 }, { 1, 1, 1 }, a*ramp(span[1]), a*ramp(span[2]))
+    end
+    -- an upright rectangle in the art, trimmed to the artwork's edges
+    function B:ClipRect(t, x0, y0, x1, y1)
+        local aw, ah = self.art:GetWidth(), self.shownArtHeight or 0
+        local cx0, cy0 = math.max(0, x0), math.max(0, y0)
+        local cx1, cy1 = math.min(aw, x1), math.min(ah, y1)
+        if cx1 - cx0 < 1 or cy1 - cy0 < 1 then t:Hide() return end
+        t:Show()
+        t:ClearAllPoints()
+        t:SetPoint("TOPLEFT", self.art, "TOPLEFT", cx0, -cy0)
+        t:SetSize(cx1 - cx0, cy1 - cy0)
+        t:SetTexCoord((cx0 - x0)/(x1 - x0), (cx1 - x0)/(x1 - x0), (cy0 - y0)/(y1 - y0), (cy1 - y0)/(y1 - y0))
+        local span = self.lightSpan[t] or {}
+        span[1], span[2] = cx0, cx1
+        self.lightSpan[t] = span
+    end
+    function B:ResetShafts()
+        self:HideShafts()
+        local spec = self.glowSpec
+        if not spec then return end
+        local n = 0
+        local function Next(kind, cfg)
+            n = n + 1
+            local t = self.shafts[n]
+            if not t then
+                t = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
+                t:SetBlendMode("ADD")
+                if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
+                if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
+                self.shafts[n] = t
+            end
+            t:SetTexture(self.shaftArt[kind], nil, nil, "TRILINEAR")
+            local info = { kind = kind, cfg = cfg, period = 9 + 9*math.random(), phase = math.random()*2*math.pi,
+                swayP = 20 + 15*math.random(), swayPh = math.random()*2*math.pi }
+            self.shaftInfo[n] = info
+            return info
+        end
+        if spec.beam then Next("beam", spec.beam) end
+        local sr = spec.sunrays
+        if sr then
+            for i = 1, sr[5] do
+                local info = Next("ray", sr)
+                local f = sr[5] > 1 and ((i - 1)/(sr[5] - 1) - 0.5) or 0
+                info.angle = math.rad(sr[3] + sr[4]*f + (math.random()*2 - 1)*sr[4]*0.12)
+                info.len = sr[6]*(0.75 + 0.5*math.random())
+            end
+        end
+        self.shaftCount = n
+    end
+    function B:StepShafts(time)
+        local n = self.shaftCount or 0
+        if n == 0 then return end
+        local aw = math.max(1, self.art:GetWidth())
+        local level = self.glowLevel or 0
+        for i = 1, n do
+            local t, info = self.shafts[i], self.shaftInfo[i]
+            local cfg = info.cfg
+            local breathe = 0.5 + 0.5*math.sin(time*2*math.pi/info.period + info.phase)
+            if info.kind == "beam" then
+                local cx, top = self:ArtPoint(cfg[1], cfg[2])
+                local _, bottom = self:ArtPoint(cfg[1], cfg[3])
+                cx = cx + aw*0.004*math.sin(time*2*math.pi/23 + info.swayPh) -- the faintest drift
+                local w = cfg[4]*aw
+                self:ClipRect(t, cx - w/2, top, cx + w/2, bottom)
+                self:PaintLight(t, level*(cfg.strength or 1)*(0.55 + 0.45*breathe)*0.45)
+            else
+                local cx, cy = self:ArtPoint(cfg[1], cfg[2])
+                local angle = info.angle + math.rad(1.5)*math.sin(time*2*math.pi/info.swayP + info.swayPh)
+                t:Show()
+                self:ClipLight(t, cx, cy, 2*info.len*aw, -angle)
+                self:PaintLight(t, level*(cfg.strength or 1)*(0.25 + 0.75*breathe)*0.4)
             end
         end
     end
@@ -5373,6 +5490,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local turn = spec.turn or 180
         self:DrawLights(n, -(a.t % turn)/turn*2*math.pi)
         self:StepEmbers(dt)
+        self:StepShafts(a.t)
         self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54*(spec.raysStrength or 1))
     end
     function B:PlaceGlow()
@@ -5400,14 +5518,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
             if not live then self:DrawLights(0.5, 0); self:PaintGlow(0.2, 0.05/0.54) end
             -- (re-layouts keep the embers in flight; a new goal starts fresh)
-            if not live then self:HideEmbers(); self.emberFor = nil
-            elseif self.emberFor ~= spec then self:ResetEmbers(); self.emberFor = spec end
+            if not live then self:HideEmbers(); self:HideShafts(); self.emberFor = nil
+            elseif self.emberFor ~= spec then self:ResetEmbers(); self:ResetShafts(); self.emberFor = spec end
             if live and not self.glowAnim:IsPlaying() then self.glowAnim:Play()
             elseif not live and self.glowAnim:IsPlaying() then self.glowAnim:Stop() end
         elseif self.glowAnim:IsPlaying() then
             self.glowAnim:Stop()
         end
-        if not on then self:HideEmbers(); self.emberFor = nil end
+        if not on then self:HideEmbers(); self:HideShafts(); self.emberFor = nil end
         -- floating dust (Ambience.lua, Forever only) steps aside for embers
         local A = FGT.ambience
         if A and A.SetDust then A.SetDust(not (on and spec.embers and not spec.dust)) end
@@ -5558,7 +5676,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end
         for _,t in ipairs(self.fadeStrips) do t:Hide() end
-        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.glowAnim:Stop(); self:HideEmbers(); self.emberFor = nil
+        self.glowFrame:Hide(); self.glowTex:Hide(); self.raysTex:Hide(); self.glowAnim:Stop(); self:HideEmbers(); self:HideShafts(); self.emberFor = nil
     end)
     B:SetScript("OnShow", function(self)
         self.background:Show()
