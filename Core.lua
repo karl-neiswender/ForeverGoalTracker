@@ -5275,11 +5275,42 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["pvp_drums_of_war-banner.blp"] = Sunlight({ 1.02, -0.08, 128, 45, 8, 1.2 }, { 0.30, 1.0, 0.0, 0.80 }, 20,
             { embers = { box = { 0.35, 0.95, 0.55, 0.90 }, field = { 0.20, 1.0, 0.20, 0.95 }, count = 36, blurShare = 0.22, rise = 0.30 } }),
     }
-    -- The light for the banner on screen: its image first, then its goal.
+    -- Banners that bloom (tools/bloomall.py bakes Media/<stem>-bloom.blp for each; Karl's list,
+    -- 2026-10-13). Keyed by the banner image, so every goal that shows the image gets it, and
+    -- added to whatever light the banner already has. Thunderfury and Shaman Tier 2 ask for
+    -- theirs in their own specs above.
+    B.bloomStems = {
+        "raid_aq20", "raid_aq40", "pvp_mount_ally", "set_tier1_mage", "ashbringer", "atiesh", "raid_bwl",
+        "benediction", "benediction-alliance", "set_tier1_druid", "mount_charger", "tier3_hunter",
+        "mount_deathcharger", "key_dm", "set_tier2_hunter", "mount_dreadsteed", "tier3_druid",
+        "tier3_druid-horde", "set_tier1_shaman", "tier3_shaman", "tier3_mage", "raid_hyjal", "att_mc",
+        "raid_mc", "att_naxx", "set_tier2_mage", "set_tier1_rogue", "set_tier1_rogue-alliance", "raid_ony",
+        "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
+        "rep_thorium", "wolfsbane", "mount_tiger",
+    }
+    B.blooms, B.bloomSpecs = {}, {}
+    for _, stem in ipairs(B.bloomStems) do
+        B.blooms[stem .. "-banner.blp"] = { stem .. "-bloom", strength = 0.6 }
+    end
+    -- The light for the banner on screen: its image first, then its goal, with the image's
+    -- bloom added. A banner with a bloom but no light of its own gets a light that is only
+    -- the bloom (glow = false).
     function B:GlowSpec()
         if not self.goal then return nil end
         local path = self:ResolveArt(self.goal.id)
-        return (path and self.glows[path]) or self.glows[self.goal.id]
+        local spec = (path and self.glows[path]) or self.glows[self.goal.id]
+        local bloom = path and self.blooms[path]
+        if not bloom or (spec and spec.bloom) then return spec end
+        local derived = self.bloomSpecs[path]
+        if not derived or derived.baseSpec ~= (spec or false) then
+            if spec then
+                derived = setmetatable({ bloom = bloom, baseSpec = spec }, { __index = spec })
+            else
+                derived = { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 1, bloom = bloom, baseSpec = false }
+            end
+            self.bloomSpecs[path] = derived
+        end
+        return derived
     end
     B.glowFrame = CreateFrame("Frame", nil, detailPanel) -- drives the drift only
     B.glowTex = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)

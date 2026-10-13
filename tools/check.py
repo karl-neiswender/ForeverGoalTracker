@@ -131,6 +131,15 @@ print(("layers     " if layers_ok else "LAYER      ") + "banner lights, bloom, e
       + ", ".join(sorted(effects)) + ")")
 ok_all = ok_all and layers_ok
 
+# Every bloom a banner asks for has its texture (and its banner image) on disk.
+stems = re.findall(r'"([\w-]+)"', core_src[core_src.index("B.bloomStems = {"):core_src.index("B.blooms, B.bloomSpecs")])
+named = [n for n in re.findall(r'bloom = \{ "([\w-]+-bloom)"', core_src) if n != "name-bloom"]  # ("name-bloom" is the doc comment's example)
+missing = [m for m in [s + "-bloom" for s in stems] + named if not (os.path.exists("Media/" + m + ".blp") or os.path.exists("Media/" + m + ".tga"))]
+missing += [s + "-banner.blp" for s in stems if not os.path.exists("Media/" + s + "-banner.blp")]
+print(("blooms     " if not missing else "BLOOM      ") + str(len(stems) + len(named)) + " bloom textures and their banners are on disk"
+      + ("" if not missing else "; MISSING: " + ", ".join(missing)))
+ok_all = ok_all and not missing
+
 # Language conventions (tools/copycheck.py, reports/copy-sweep/conventions.md): the enforced
 # rules fail the suite; proposed ones are only reported by running copycheck.py itself.
 sys.path.insert(0, here)

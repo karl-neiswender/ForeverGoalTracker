@@ -25,6 +25,8 @@ FINAL = ROOT / "Media/final-images"
 
 # stem: (label for the sheet, per-image overrides for bloom.bake)
 STEMS = {
+    "thunderfury": "Thunderfury (already in game as a grey TGA; moves to the same BLP format)",
+    "set_tier2_shaman": "Shaman Tier 2, Ten Storms (same)",
     "raid_aq20": "Ruins of Ahn'Qiraj",
     "raid_aq40": "Temple of Ahn'Qiraj",
     "pvp_mount_ally": "Alliance war mount / Stormpike Charger (eyes)",

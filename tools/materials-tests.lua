@@ -617,6 +617,19 @@ do
     assert(math.abs(B.PulseScale(plain, 0) - 0.96) < 1e-9 and math.abs(B.PulseScale(plain, 1) - 1.04) < 1e-9, "default swell 96% to 104%")
     assert(B.PulseScale(tf, 0) < 0.9 and B.PulseScale(tf, 1) > 1.1, "Thunderfury's gem swells more")
     assert(B.PulseScale({ pulse = 5 }, 1) - B.PulseScale({ pulse = 5 }, 0) <= 0.4 + 1e-9, "the swell is capped")
+    -- Karl's bloom list: banners with their own light keep it and gain the bloom; the rest get a bloom-only light
+    do
+        local cases = { ashbringer = true, raid_aq20 = false, rep_thorium = false, sulfuras = true }
+        for id, hadLight in pairs(cases) do
+            B.goal = STUB_NS.GoalById(id)
+            local spec = B:GlowSpec()
+            assert(spec and spec.bloom and spec.bloom[1] and spec[1], "bloom on " .. id)
+            assert(B:GlowSpec() == spec, "the same light each time for " .. id)
+            if hadLight then assert(spec.baseSpec, id .. " keeps its own light too") end
+            if not hadLight then assert(spec.glow == false or spec.baseSpec, id .. " gets a bloom-only light") end
+        end
+        assert(#B.bloomStems == 38, "38 banner images in Karl's bloom list")
+    end
     -- a gliding glint along a blade-like path: slow, resting in between (no banner uses one now;
     -- Thunderfury's was taken off)
     rawset(B.art, "GetWidth", function() return 600 end)
