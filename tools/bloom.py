@@ -35,12 +35,14 @@ def smoothstep(x):
     return x * x * (3 - 2 * x)
 
 
-def bake(master, near=5.0, far=30.0, floor=0.60, power=1.7, mix=(0.70, 0.60), region=None):
+def bake(master, near=5.0, far=30.0, floor=0.60, power=1.7, mix=(0.70, 0.60), region=None, outside=0.0):
     """Returns the bloom as a float array 0..1 at the master's own size.
 
     region: optional list of (u0, u1, v0, v1) boxes (fractions of the master). When given,
-    only light inside them blooms (the boxes have soft edges), for a banner where one spot
-    should glow, such as a staff's gem, a mount's eyes or a pair of shoulders.
+    light inside them blooms in full and light outside them blooms at `outside` times its
+    strength (0 = only the boxes, the default; 0.4 = a quieter bloom everywhere else). The
+    boxes have soft edges. For a banner where one spot should glow, such as a staff's gem,
+    a mount's eyes or a pair of shoulders.
     """
     img = Image.open(master).convert("L")
     w, h = img.size
@@ -55,7 +57,7 @@ def bake(master, near=5.0, far=30.0, floor=0.60, power=1.7, mix=(0.70, 0.60), re
             keep[int(v0 * h):int(v1 * h), int(u0 * w):int(u1 * w)] = 1.0
         keep = np.asarray(Image.fromarray((keep * 255).astype(np.uint8)).filter(
             ImageFilter.GaussianBlur(0.012 * w)), dtype=np.float32) / 255.0
-        core = core * keep
+        core = core * (outside + (1.0 - outside) * keep)
     core_img = Image.fromarray((core * 255).astype(np.uint8))
     small = np.asarray(core_img.filter(ImageFilter.GaussianBlur(near * scale)), dtype=np.float32) / 255.0
     large = np.asarray(core_img.filter(ImageFilter.GaussianBlur(far * scale)), dtype=np.float32) / 255.0

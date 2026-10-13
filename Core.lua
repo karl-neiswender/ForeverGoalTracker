@@ -5143,6 +5143,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 }, pulse = 0.30, -- the gem swells 85% to 115% (Karl, 2026-10-13)
             bloom = { "thunderfury-bloom", strength = 0.6 } },
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
+        -- Redemption (Paladin Tier 3): a large, slowly turning ray burst on the orb at her fingers
+        -- (the orb's own glow comes from the bloom, so the soft glow is off)
+        ["tier3_paladin-banner.blp"] = { 0.886, 0.303, 0.35, { 1, 1, 1 }, glow = false, rays = 3.4, turn = 70,
+            raysStrength = 1.8 },
         -- Shaman Tier 2 (Alliance and Horde share the image): the storm lightning glows
         -- (Karl, 2026-10-13: the electric sparks, `embers = { { zap = true, box, count, strength } }`,
         -- were tried here and taken off; the bloom stays)
@@ -5286,7 +5290,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "tier3_druid-horde", "set_tier1_shaman", "tier3_shaman", "tier3_mage", "raid_hyjal", "att_mc",
         "raid_mc", "att_naxx", "set_tier2_mage", "set_tier1_rogue", "set_tier1_rogue-alliance", "raid_ony",
         "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
-        "rep_thorium", "wolfsbane", "mount_tiger",
+        "rep_thorium", "wolfsbane",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5296,11 +5300,17 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "tier3_druid", "set_tier1_shaman", "tier3_shaman", "tier3_mage", "raid_hyjal", "att_mc", "raid_mc",
         "att_naxx", "set_tier2_mage", "set_tier1_rogue", "raid_ony", "att_ony_ally", "att_ony_horde",
         "tier3_paladin", "key_scholo", "key_strat", "set_dungeon1_priest", "sulfuras", "rep_thorium",
-        "wolfsbane", "mount_tiger",
+        "wolfsbane",
+    }
+    -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
+    -- (The Zulian Tiger's bloom was taken off.)
+    B.bloomStrength = {
+        raid_aq40 = 0.4, ashbringer = 0.4, benediction = 0.4, ["benediction-alliance"] = 0.4,
+        tier3_hunter = 0.4, set_tier1_mage = 0.45, raid_ony = 0.45,
     }
     B.blooms, B.bloomSpecs = {}, {}
     for _, stem in ipairs(B.bloomStems) do
-        B.blooms[stem .. "-banner.blp"] = { stem .. "-bloom", strength = 0.6 }
+        B.blooms[stem .. "-banner.blp"] = { stem .. "-bloom", strength = B.bloomStrength[stem] or 0.6 }
     end
     -- The light for the banner on screen: its image first, then its goal, with the image's
     -- bloom added. A banner with a bloom but no light of its own gets a light that is only

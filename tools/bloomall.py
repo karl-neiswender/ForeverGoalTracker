@@ -64,7 +64,6 @@ STEMS = {
     "sulfuras": "Sulfuras",
     "rep_thorium": "Thorium Brotherhood",
     "wolfsbane": "Wolfsbane",
-    "mount_tiger": "Swift Zulian Tiger (eyes)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -72,7 +71,17 @@ REGIONS = {
     "pvp_mount_ally": [(0.60, 0.70, 0.36, 0.47)],                      # the charger's eye
     "set_tier1_mage": [(0.83, 0.98, 0.37, 0.53)],                      # the staff's gem
     "tier3_hunter": [(0.55, 0.69, 0.18, 0.40), (0.75, 0.88, 0.18, 0.42)],  # both shoulders
-    "mount_tiger": [(0.70, 0.80, 0.37, 0.48)],                         # the tiger's eyes
+}
+# Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
+OVERRIDES = {
+    # the staff gem's glow larger: a wider area and a wider, softer spread
+    "set_tier1_mage": dict(region=[(0.78, 1.00, 0.30, 0.60)], near=10.0, far=50.0),
+    # keep the eye in the chest at full strength, the shoulders and helmet quieter
+    "set_tier2_hunter": dict(region=[(0.60, 0.74, 0.42, 0.58)], outside=0.4),
+    # keep her eyes and the glow at her fingers; the chest and the background quieter
+    "tier3_paladin": dict(region=[(0.64, 0.76, 0.24, 0.34), (0.80, 1.00, 0.18, 0.44)], outside=0.3),
+    # the dragon's mouth glow larger (wider, softer spread)
+    "raid_ony": dict(near=8.0, far=55.0, mix=(0.60, 0.85)),
 }
 
 TILE_W, TILE_H = 480, 360
@@ -94,7 +103,9 @@ def main():
         if not master.exists():
             print("missing file", master)
             continue
-        alpha, bloom = B.bloom_alpha(master, region=REGIONS.get(stem))
+        opts = dict(OVERRIDES.get(stem, {}))
+        opts.setdefault("region", REGIONS.get(stem))
+        alpha, bloom = B.bloom_alpha(master, **opts)
         data = B.encode_blp(alpha)
         (out_dir / f"{stem}-bloom.blp").write_bytes(data)
         worst, mean = B.alpha_error(data, alpha)

@@ -628,7 +628,11 @@ do
             if hadLight then assert(spec.baseSpec, id .. " keeps its own light too") end
             if not hadLight then assert(spec.glow == false or spec.baseSpec, id .. " gets a bloom-only light") end
         end
-        assert(#B.bloomStems == 38, "38 banner images in Karl's bloom list")
+        assert(#B.bloomStems == 37, "37 banner images in Karl's bloom list (the tiger's was taken off)")
+        assert(B.blooms["raid_aq40-banner.blp"].strength == 0.4 and B.blooms["raid_aq20-banner.blp"].strength == 0.6, "per-image strength")
+        B.goal = STUB_NS.GoalById("tier3_paladin")
+        local red = B:GlowSpec()
+        assert(red.bloom and red.rays and red.glow == false, "Redemption: bloom plus a spinning ray on the orb")
     end
     -- a gliding glint along a blade-like path: slow, resting in between (no banner uses one now;
     -- Thunderfury's was taken off)
