@@ -6061,11 +6061,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local w = 0.5 - 0.5*math.cos(a.t*2*math.pi/8)
         local spec = self.glowSpec or {}
         local turn = spec.turn or 180
-        self:DrawLights(n, -(a.t % turn)/turn*2*math.pi)
+        self.lastN, self.lastTurn = n, -(a.t % turn)/turn*2*math.pi
+        self:DrawLights(self.lastN, self.lastTurn)
         self:StepEmbers(dt)
         self:StepShafts(a.t)
         self:StepBloom(a.t)
-        self:PaintGlow(0.12 + 0.16*n, (0.01 + 0.09*w)/0.54*(spec.raysStrength or 1))
+        self.lastGlowA, self.lastRaysA = 0.12 + 0.16*n, (0.01 + 0.09*w)/0.54*(spec.raysStrength or 1)
+        self:PaintGlow(self.lastGlowA, self.lastRaysA)
     end
     function B:PlaceGlow()
         local spec = self:GlowSpec() or {}
@@ -6086,7 +6088,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     self.lightMask:SetPoint("TOPLEFT", self.art, "TOPLEFT", 0, 0)
                     self.lightMask:SetSize(math.max(1, self.art:GetWidth()), math.max(1, self.shownArtHeight))
                 end
-                self:DrawLights(0.5, 0)
+                -- (a re-layout keeps the lights' swell and turn; the window settles several
+                -- times as a goal opens, and resetting them snapped the rays back each time)
+                self:DrawLights(self.lastN or 0.5, self.lastTurn or 0)
             end
         end
         local live = on
@@ -6102,6 +6106,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if self.raysFor ~= raysArt then
             self.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\"..raysArt, nil, nil, "TRILINEAR")
             self.raysFor = raysArt
+            self.raysTex.fgtX0 = nil -- (a new texture file: send its placement and texture corners again)
         end
         if on then
             self.glowLevel = (self.imageFade or 1)*0.54*self:GetArtOpacity()*(spec.strength or 1)
@@ -6127,7 +6132,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:PaintLightsNow()
         local spec = self.glowSpec
         if not spec then return end
-        self:PaintGlow(0.2, 0.05/0.54*(spec.raysStrength or 1))
+        self:PaintGlow(self.lastGlowA or 0.2, self.lastRaysA or 0.05/0.54*(spec.raysStrength or 1))
         self:StepBloom(self.glowAnim.t)
     end
     function B:SetImageFade(amount)

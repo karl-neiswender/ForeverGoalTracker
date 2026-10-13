@@ -688,6 +688,21 @@ do
     assert(B.glowSpec == shaman and B.bloomOn, "Shaman Tier 2's bloom starts")
     for k = 0, 100 do B:StepBloom(k*0.3) end
     assert(not shaman.embers, "Shaman Tier 2 keeps only its bloom")
+    -- A re-layout (the window settling when a goal opens) must not snap the turning rays back to
+    -- their starting angle and brightness: Karl saw the Priest's rays glitch for a second on open.
+    do
+        B.goal = STUB_NS.GoalById("tier3_paladin")
+        B.hasArt, B.emberFor = true, nil
+        B:PlaceGlow()
+        assert(B.glowSpec and B.glowSpec.rays, "Redemption's rays start")
+        for k = 1, 40 do B:StepGlow(1/30*7) end
+        local turned, bright = B.raysTex.fgtTurn, B.raysTex.fgtQ1
+        assert(turned and turned ~= 0, "the rays have turned")
+        B:PlaceGlow()
+        assert(B.raysTex.fgtTurn == turned, "a re-layout keeps the rays' angle (" .. tostring(turned) .. " vs " .. tostring(B.raysTex.fgtTurn) .. ")")
+        assert(B.raysTex.fgtQ1 == bright, "and their brightness (" .. tostring(bright) .. " vs " .. tostring(B.raysTex.fgtQ1) .. ")")
+        B.goal = STUB_NS.GoalById("set_tier2_shaman"); B:PlaceGlow()
+    end
     -- the spark sets (zap): nine in three spots, slow to appear, resting between
     B.glowSpec = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, embers = {
         { zap = true, box = { 0.535, 0.575, 0.14, 0.20 }, count = 3, strength = 1.8 },
