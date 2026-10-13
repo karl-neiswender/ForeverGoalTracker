@@ -1,6 +1,6 @@
 # Horde Blacksmithing banner reviews
 
-Original Barrens_Blacksmith_full.jpg remains unchanged and synced in Media/artwork. Built-in imagegen previews: Media/final-images/professions/blacksmithing-horde-review.png and blacksmithing-horde-review-v2.png. V2 removes bottom-left copyright text at Karl's explicit request. No installation yet. Intended Horde-only profession artwork; Alliance keeps current Blacksmithing art. Artist unverified.
+Original Barrens_Blacksmith_full.jpg remains unchanged and synced in Media/artwork. Built-in imagegen previews: Media/final-images/professions/blacksmithing-horde-review.png and blacksmithing-horde-review-v2.png. V2 removes bottom-left copyright text at Karl's explicit request. Approved by Karl and installed as Horde-only profession artwork; Alliance keeps current Blacksmithing art. Master 1200x900; runtime 512px DXT1 BLP, ten mip levels. Rebuild map and manifest updated. Full restart required. Artist unverified.
 
 Visual check: grayscale, prominent orc face and working tools, soft left/bottom fades, V2 contains no embedded text.
 
