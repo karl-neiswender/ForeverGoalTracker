@@ -1399,6 +1399,7 @@ do
     end
 
     local ticker = CreateFrame("Frame")
+    FGT.shimmerTicker = ticker -- (so /goals gcprobe can measure it)
     local acc = 0
     ticker:SetScript("OnUpdate", function(_, elapsed)
         -- every frame while an item link is fading (smooth), else 20 a second
@@ -1957,11 +1958,26 @@ STYLE.foreverTwin = { [STYLE.row] = STYLE.fRow, [STYLE.rowHover] = STYLE.fHover,
 -- takes (min = bottom, max = top). Falls back to a flat midpoint color.
 -- (each gradient remembers what it was given, as plain fields with no new
 -- table per call, so the wizard can grey it and put it back: W.Grey)
+-- SetGradient reads its two colour objects at once, so two are reused for every call instead of
+-- making a fresh pair each time: a colour object copies the game's whole colour mixin (about 1 KB),
+-- and the border comets and banner lights redraw gradients every frame, which made megabytes of
+-- garbage a second while the tracker was open (/goals gcprobe, 2026-10-13).
+local gradLow, gradHigh
+local function GradientColors(lo, loA, hi, hiA)
+    if not CreateColor then return nil end
+    if not gradLow then
+        local low, high = CreateColor(0, 0, 0, 1), CreateColor(0, 0, 0, 1)
+        if not (low and high) then return nil end
+        gradLow, gradHigh = low, high
+    end
+    gradLow.r, gradLow.g, gradLow.b, gradLow.a = lo[1], lo[2], lo[3], loA or 1
+    gradHigh.r, gradHigh.g, gradHigh.b, gradHigh.a = hi[1], hi[2], hi[3], hiA or 1
+    return gradLow, gradHigh
+end
 local function ApplyVGradient(tex, top, bottom, topA, bottomA)
     tex.fgtGdir, tex.fgtG1, tex.fgtG2, tex.fgtGa1, tex.fgtGa2 = "V", top, bottom, topA, bottomA
-    local ok = CreateColor and pcall(tex.SetGradient, tex, "VERTICAL",
-        CreateColor(bottom[1], bottom[2], bottom[3], bottomA or 1),
-        CreateColor(top[1], top[2], top[3], topA or 1))
+    local lo, hi = GradientColors(bottom, bottomA, top, topA)
+    local ok = lo and pcall(tex.SetGradient, tex, "VERTICAL", lo, hi)
     if not ok then
         tex:SetVertexColor((top[1] + bottom[1]) / 2, (top[2] + bottom[2]) / 2,
             (top[3] + bottom[3]) / 2, ((topA or 1) + (bottomA or 1)) / 2)
@@ -1971,9 +1987,8 @@ end
 -- Horizontal gradient (left color -> right color).
 local function ApplyHGradient(tex, left, right, leftA, rightA)
     tex.fgtGdir, tex.fgtG1, tex.fgtG2, tex.fgtGa1, tex.fgtGa2 = "H", left, right, leftA, rightA
-    local ok = CreateColor and pcall(tex.SetGradient, tex, "HORIZONTAL",
-        CreateColor(left[1], left[2], left[3], leftA or 1),
-        CreateColor(right[1], right[2], right[3], rightA or 1))
+    local lo, hi = GradientColors(left, leftA, right, rightA)
+    local ok = lo and pcall(tex.SetGradient, tex, "HORIZONTAL", lo, hi)
     if not ok then
         tex:SetVertexColor(right[1], right[2], right[3], ((leftA or 1) + (rightA or 1)) / 2)
     end
@@ -12960,6 +12975,61 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     end
     if msg == "whatsnew" or msg == "whatsnew reset" then
         if FGT.WhatsNew then FGT.WhatsNew.Command(msg == "whatsnew reset" and "reset" or nil) end
+        return
+    end
+    if msg == "gcprobe" then
+        -- Dev tool: for 5 seconds, measures the Lua garbage that each per-frame script inside the
+        -- tracker window (and the goal link shimmer) makes, and prints the biggest. Garbage is
+        -- what the game later has to clean up (it showed as memory climbing while the tracker is
+        -- open, 2026-10-13). The scripts are put back afterwards.
+        local main, tally, wrapped = FGT.MaterialsUI.main, {}, {}
+        local function Inside(frame)
+            local p, depth = frame, 0
+            while p and depth < 14 do
+                if p == main then return true end
+                p = p.GetParent and p:GetParent()
+                depth = depth + 1
+            end
+            return false
+        end
+        local function Wrap(frame, label)
+            local ok, fn = pcall(frame.GetScript, frame, "OnUpdate")
+            if not (ok and fn) then return end
+            local entry = tally[label] or { kb = 0, calls = 0 }
+            tally[label] = entry
+            wrapped[#wrapped + 1] = { frame, fn }
+            frame:SetScript("OnUpdate", function(...)
+                local before = collectgarbage("count")
+                fn(...)
+                local made = collectgarbage("count") - before
+                if made > 0 then entry.kb = entry.kb + made end
+                entry.calls = entry.calls + 1
+            end)
+        end
+        local frame = EnumerateFrames()
+        while frame do
+            if Inside(frame) then
+                local name = frame.GetName and frame:GetName()
+                local parent = frame.GetParent and frame:GetParent()
+                local pname = parent and parent.GetName and parent:GetName()
+                Wrap(frame, string.format("%s %s lvl%d %dx%d", name or ((pname or "?") .. " child"),
+                    frame.GetObjectType and frame:GetObjectType() or "?", frame:GetFrameLevel(),
+                    frame:GetWidth() or 0, frame:GetHeight() or 0))
+            end
+            frame = EnumerateFrames(frame)
+        end
+        if FGT.shimmerTicker then Wrap(FGT.shimmerTicker, "goal link shimmer") end
+        print(TAG .. "measuring garbage from " .. #wrapped .. " per-frame scripts for 5 seconds. Leave the tracker open.")
+        C_Timer.After(5, function()
+            for _, w in ipairs(wrapped) do w[1]:SetScript("OnUpdate", w[2]) end
+            local rows = {}
+            for label, entry in pairs(tally) do rows[#rows + 1] = { label = label, kb = entry.kb, calls = entry.calls } end
+            table.sort(rows, function(a, b) return a.kb > b.kb end)
+            for i = 1, math.min(8, #rows) do
+                local r = rows[i]
+                print(TAG .. string.format("%.0f KB a second, %d calls: %s", r.kb/5, r.calls, r.label))
+            end
+        end)
         return
     end
     local perfSeconds = msg:match("^perf%s*(%d*)$")
