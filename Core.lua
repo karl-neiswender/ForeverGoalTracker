@@ -6857,6 +6857,32 @@ end
 -- Tips fold open and closed under a "+ Tips (3)" header; closed by
 -- default, remembered per goal until /reload.
 FGT.tipsOpen = {}
+-- /goals tipsdebug: records 2 s from the next Tips click, printing only the
+-- frames where something changed
+function FGT.RecordTips()
+    local T, S = FGT.tipsUI, FGT.detailStepsScroll
+    local rec, t = {}, 0
+    local f = FGT.tipsDebugFrame or CreateFrame("Frame")
+    FGT.tipsDebugFrame = f
+    f:SetScript("OnUpdate", function(_, dt)
+        t = t + dt
+        local sc = S.scroll
+        local top = T.btn:GetTop() and sc:GetBottom() and math.floor(T.btn:GetTop() - sc:GetBottom()) or -1
+        rec[#rec + 1] = string.format("%.2f row %s a%.2f y%d line a%.2f hdr a%.2f cnt a%.2f shade %s%.2f scroll %d/%d",
+            t, T.btn:IsShown() and "on" or "OFF", T.btn:GetAlpha(), top, T.line:GetAlpha(), T.header:GetAlpha(), T.count:GetAlpha(),
+            S.fadeBottom:IsShown() and "" or "hidden ", S.fadeBottom:GetAlpha(), sc:GetVerticalScroll(), sc:GetVerticalScrollRange())
+        if t >= 2 then
+            f:SetScript("OnUpdate", nil)
+            local last
+            for _, line in ipairs(rec) do
+                local key = line:gsub("^%S+ ", "")
+                if key ~= last then print("  " .. line) end
+                last = key
+            end
+            print(TAG .. "tips recording done (" .. #rec .. " frames).")
+        end
+    end)
+end
 -- Opening or closing the tips redraws only the tips, not the whole goal
 -- page (a full redraw repaints every step, link and bar, which flickered).
 function FGT.RedrawTips()
@@ -6882,6 +6908,7 @@ function FGT.LayoutTips(goal, yOffset, width)
         T.btn:SetScript("OnEnter", function() T.header:SetTextColor(1, 1, 1) end)
         T.btn:SetScript("OnLeave", function() T.header:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
         T.btn:SetScript("OnClick", function()
+            if FGT.tipsDebugArmed then FGT.tipsDebugArmed = nil; FGT.RecordTips() end
             local id = T.goalId
             local opening = not FGT.tipsOpen[id]
             if opening then
@@ -12139,31 +12166,11 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         return
     end
     if msg == "tipsdebug" then
-        -- records the next 1.5 s (open or close Tips now) and prints how the
+        -- arms a recorder: the next Tips click records 2 s and prints how the
         -- Tips row, the shade and the scroll moved, for chasing flashes
-        local T, S = FGT.tipsUI, FGT.detailStepsScroll
-        if not (T and S) then print(TAG .. "open a goal with tips first.") return end
-        local rec, t = {}, 0
-        local f = FGT.tipsDebugFrame or CreateFrame("Frame")
-        FGT.tipsDebugFrame = f
-        print(TAG .. "recording: open or close Tips now.")
-        f:SetScript("OnUpdate", function(_, dt)
-            t = t + dt
-            local sc = S.scroll
-            rec[#rec + 1] = string.format("%.2f btn %.2f line %.2f shade %s%.2f scroll %d/%d",
-                t, T.btn:GetAlpha(), T.line:GetAlpha(), S.fadeBottom:IsShown() and "" or "hidden ",
-                S.fadeBottom:GetAlpha(), sc:GetVerticalScroll(), sc:GetVerticalScrollRange())
-            if t >= 1.5 then
-                f:SetScript("OnUpdate", nil)
-                -- print only the frames where something changed
-                local last
-                for _, line in ipairs(rec) do
-                    local key = line:gsub("^%S+ ", "")
-                    if key ~= last then print("  " .. line) end
-                    last = key
-                end
-            end
-        end)
+        if not FGT.tipsUI then print(TAG .. "open a goal with tips first.") return end
+        FGT.tipsDebugArmed = true
+        print(TAG .. "armed: now open or close Tips.")
         return
     end
     if msg == "dust" then
