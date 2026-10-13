@@ -1,9 +1,36 @@
 # Changelog
 
-## Unreleased
+## 2.13.0
 
-- Living goal images: soft light, sunrays, embers and falling snow on many goal banners
-- New Images settings: Large goal photos and an Image effects switch
+- Added light to goal images: embers, snow, sunlight, windy leaves and a soft bloom on the brightest lights, such as flames, gems, eyes and lightning, on many banners.
+- Added an Image effects setting under Images in Settings: Full, Subtle (the drifting clouds only) or Off (the image alone).
+- Added Ambassador banners for each race's capital: Ironforge for Dwarves and Gnomes, Darnassus for Night Elves, Thunder Bluff for Tauren and Undercity for the Undead.
+- Added banners for Buff Others (one each for Mage, Druid, Priest and Paladin), Making Friends, Give Cheers, the Marshal and Warlord plate sets and the Horde war mount.
+- You can now Ctrl-click an armor set's icon, on its goal page or its Library card, to try on every piece in the dressing room.
+- Added social goals: Dungeons with Guildmates, Raids with Guildmates, Make Trades, Buff Others (Mages, Druids, Priests and Paladins), Place Campfires, and four emote goals from the Statistics window (Give Hugs, Give Cheers, Give Waves and Say LOL), on Forever. They count what you do, across all your characters.
+- Added a token, idol and scarab checklist to each Tier 2.5 armor piece, the same way Tier 3 lists its materials.
+- Added a "Learn Fishing" first step to the Stranglethorn Fishing Extravaganza.
+- Added artist credits for more of the artwork.
+- Changed goal suggestions to follow your professions. The Fishing Extravaganza is suggested only to characters with Fishing 225 or higher (was every character), and the secondary skills goal lists only the skills you know.
+- Changed reputation, Ambassador, battleground reputation and profession goals to show no "Unconfirmed in Forever" notice. Their steps are standings and skill levels the game reports itself.
+- Changed Tips to glide open and closed.
+- Changed the icon on Alliance and Horde PvP goals to the PvP rank achievement icons.
+- Changed gold amounts in tips to "1,200 gold" (was "1,200g").
+- Renamed "WoW Forever" to "Forever" and "Classic" to "Classic Era" in tips and tooltips.
+- Renamed the Social interest in the welcome window to Socializing.
+- Renamed the Ashbringer card on My Goals to Corrupted Ashbringer.
+- Fixed the addon's memory use climbing quickly while the tracker was open.
+- UI improvements and bug fixes
+
+### Developers' notes
+
+Image effects are slow by design. Lights, blooms and particles change brightness by a limited amount per second, so nothing flashes. Subtle keeps only the clouds, and Off shows the image alone, for players who want less motion or lower memory use.
+
+The tracker used to create about 5 MB of short-lived memory a second while it was open, mostly from the border animation on goal cards, which the game cleaned up in bursts. It now creates almost none. The effects themselves cost about 1 to 6 ms of every second, measured in game.
+
+### Known issues
+
+- Subtle shows no effects on Classic Era. The clouds use art that only Forever has.
 
 ## 2.12.0
 

@@ -12,6 +12,14 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.13.0", date = "Oct 13, 2026", items = {
+        "Added light to goal images, with an Image effects setting: Full, Subtle or Off",
+        "Added Ambassador banners for each race's capital city",
+        "You can now Ctrl-click an armor set's icon to try on the whole set",
+        "Added social goals for guildmates, trades, buffs, campfires and emotes",
+        "Changed goal suggestions to follow your professions",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.12.0", date = "Oct 12, 2026", items = {
         "Added Goal Library filters, with a Progression sort for armor sets",
         "Added armor sets and racial mounts for your class or character",

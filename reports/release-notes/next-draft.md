@@ -1,4 +1,4 @@
-# Next release, draft notes (not released; no version is authorized)
+# Release notes draft (became 2.13.0 on 2026-10-13: see CHANGELOG.md; the file is kept for the style reference)
 
 Written to `style-guide.md` from everything on `main` since 2.12.0. Bugs that existed only in unreleased builds are left out. The window gets the list; CurseForge gets the list plus the Developers' notes.
 
