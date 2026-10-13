@@ -805,12 +805,12 @@ local library = {
     {
         id = "social_guild_dungeon", library = true, forever = "confirmed",
         icon = { "inv_misc_key_08", "inv_misc_groupneedmore" },
-        name = "Dungeon Bosses with Guildmates", short = "Guild Dungeons",
+        name = "Dungeon Bosses with Guildmates", short = "Guild Dungeon Bosses",
         category = "Social", difficulty = "Moderate",
         timeEstimate = "Weeks",
         note = "Defeat dungeon bosses with a guildmate in your party. Progress is tracked automatically.",
         tips = {
-            "One other guild member in your party is enough. You need to be in a guild yourself.",
+            "One guildmate in your party is enough. You need to be in a guild yourself.",
             "Only bosses defeated while the addon is enabled are counted.",
         },
         target = { kind = "guildDungeonBosses", default = 25, min = 5, max = 200, marks = { 0.2, 0.4, 1 },
@@ -824,12 +824,12 @@ local library = {
     {
         id = "social_guild_raid", library = true, forever = "confirmed",
         icon = { "inv_misc_head_dragon_black", "inv_misc_groupneedmore" },
-        name = "Raid with Guildmates", short = "Guild Raids",
+        name = "Raid Bosses with Guildmates", short = "Guild Raid Bosses",
         category = "Social", difficulty = "Hard",
         timeEstimate = "Months",
-        note = "Defeat raid bosses with your guild. Progress is tracked automatically.",
+        note = "Defeat raid bosses with guildmates in your raid. Progress is tracked automatically.",
         tips = {
-            "At least 5 guildmates in the raid group make a boss count, so a guild run counts and a pickup raid does not.",
+            "Five guildmates in your raid are enough, so a guild run counts and a pickup raid does not. You need to be in a guild yourself.",
             "Only bosses defeated while the addon is enabled are counted.",
         },
         target = { kind = "guildRaidBosses", default = 25, min = 5, max = 200, marks = { 0.2, 0.4, 1 },
