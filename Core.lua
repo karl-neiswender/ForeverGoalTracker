@@ -4977,6 +4977,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.set_dungeon1_shaman, B.preprocessed.set_dungeon1_shaman = 4/3, true
     B.artPaths.set_dungeon1_paladin = "set_dungeon1_paladin-banner.blp"
     B.artAspects.set_dungeon1_paladin, B.preprocessed.set_dungeon1_paladin = 4/3, true
+    for _, id in ipairs({"set_dungeon1_mage", "set_dungeon1_rogue", "set_dungeon1_druid"}) do
+        B.artPaths[id] = "set_dungeon2-banner.blp"
+        B.artAspects[id], B.preprocessed[id] = 4/3, true
+    end
     B.artAspects.wolfsbane, B.preprocessed.wolfsbane = 4/3, true
     B.artPaths.mount_tiger = "mount_tiger-banner.blp"
     B.artAspects.mount_tiger, B.preprocessed.mount_tiger = 4/3, true
