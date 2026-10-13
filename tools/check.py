@@ -330,6 +330,17 @@ if ok_all:
             'local n = 0; for _, id in ipairs(STUB_NS.BLOOM_GOALS) do local g = STUB_NS.GoalById(id); assert(g, "a real goal: " .. id); '
             'if D.active[id] then n = n + 1 end end; assert(n >= 36, "most are on My Goals: " .. n); '
             'assert(D.active.thunderfury and D.active.raid_mc and D.active.set_tier2_shaman, "key goals added"); print("  addblooms: " .. n .. " goals added")'),
+        # On Forever the new raids and their Tier 0.5 set lead the raiding suggestions, before Molten Core.
+        ("forever raids lead suggestions", None,
+            'STUB_PRINTS = {}; local W = STUB_NS.welcome; STUB_NS.OpenWelcome(nil, nil); W.picked = { raid = true }; W.Show(3); '
+            'local first = {}; local ids = {}; for i, e in ipairs(W.list) do local id = e.goal.id; ids[#ids + 1] = id; '
+            'for _, key in ipairs({ "raid_barrow", "raid_hyjal", "set_forever_raid", "set_tier1", "raid_mc" }) do if id:sub(1, #key) == key and not first[key] then first[key] = i end end end; '
+            'local list = table.concat(ids, ", "); '
+            'assert(first.raid_barrow and first.raid_hyjal and first.set_forever_raid, "the Forever raids and their set are suggested: " .. list); '
+            'assert(first.raid_barrow < first.raid_hyjal and first.raid_hyjal < first.set_forever_raid, "raids, then their set: " .. list); '
+            'assert(not first.set_tier1 or first.set_forever_raid < first.set_tier1, "Tier 0.5 comes before Tier 1: " .. list); '
+            'assert(not first.raid_mc or first.set_forever_raid < first.raid_mc, "and before Molten Core: " .. list); '
+            'STUB_NS.CloseWelcome(true); print("  Forever raids and the Tier 0.5 set lead the raiding suggestions: " .. list)', True),
         # /goals perf times the banner effects; without an animated banner it says how to start.
         ("perf command", None,
             'STUB_PRINTS = {}; SlashCmdList["FOREVERGOALTRACKER"]("perf"); SlashCmdList["FOREVERGOALTRACKER"]("perf 5")'),

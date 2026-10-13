@@ -13056,6 +13056,11 @@ local function Suggest(picked)
                         end
                     end
                 end
+                -- Forever's two new raids and their set (Tier 0.5) come first in the progression,
+                -- before Onyxia and Molten Core (Entry skips them on Classic Era)
+                push(list, Entry(me, "raid_barrow", nil, tag))
+                push(list, Entry(me, "raid_hyjal", nil, tag))
+                push(list, Entry(me, "set_forever_raid", ClassPart("set_forever_raid"), tag))
                 if current and tierOf[current] then
                     push(list, Entry(me, tierOf[current], ClassPart(tierOf[current]), tag))
                 end
@@ -13065,16 +13070,14 @@ local function Suggest(picked)
                 end
                 if nextRaid == "raid_mc" or nextRaid == "raid_bwl" then push(list, Entry(me, "raid_ony", nil, tag)) end
                 push(list, Entry(me, "raid_zg", nil, tag))
-                -- Forever's new raids (Entry skips them on Classic Era)
-                push(list, Entry(me, "raid_barrow", nil, tag))
-                push(list, Entry(me, "raid_hyjal", nil, tag))
-                push(list, Entry(me, "set_forever_raid", ClassPart("set_forever_raid"), tag))
                 if after then push(list, Entry(me, after, nil, tag)) end
             elseif it.key == "loot" then
                 local sets = {}
                 if me.class == "DRUID" then push(sets, Entry(me, "set_viper", nil, tag)) end
                 push(sets, Entry(me, "set_dungeon1", ClassPart("set_dungeon1"), tag))
                 push(sets, Entry(me, "set_dungeon2", ClassPart("set_dungeon2"), tag))
+                -- Tier 0.5, Forever's new raid set, comes before Tier 2.5 in the progression
+                push(sets, Entry(me, "set_forever_raid", ClassPart("set_forever_raid"), tag))
                 push(sets, Entry(me, "set_tier25", ClassPart("set_tier25"), tag))
                 local weapons = {}
                 for _, id in ipairs(WEAPONS[me.class] or {}) do push(weapons, Entry(me, id, nil, tag)) end
