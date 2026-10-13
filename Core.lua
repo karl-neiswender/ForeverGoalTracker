@@ -5053,9 +5053,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     -- sunlight: rays from a source plus motes drifting in the light
     local function Sunlight(sunrays, box, motes)
-        sunrays.wide = true
-        sunrays.thin = sunrays.thin or 0.75 -- thin rays a little quieter beside the wide layer
-        return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+        sunrays.wide, sunrays.streaks = true, true -- a faint wide layer, and visible streaks that fade in and out
+        return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.6,
             sunrays = sunrays, embers = Motes(box, motes or 20) }
     end
     local function SnowOnly(count)
@@ -5132,24 +5131,24 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Cooking: a campfire in the snow: snow, and a soft flame glow on the fire (no embers, Karl)
         ["prof_cooking-banner.blp"] = { 0.69, 0.43, 0.30, { 1, 1, 1 }, strength = 1.0, embers = Snow(90) },
         -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
-        rep_ambassador_ally = Sunlight({ 0.55, -0.10, 95, 50, 5, 0.9 }, { 0.25, 0.95, 0.10, 0.85 }),  -- through the arch
+        rep_ambassador_ally = Sunlight({ 0.55, -0.10, 95, 50, 7, 1.0 }, { 0.25, 0.95, 0.10, 0.85 }),  -- through the arch
         -- Horde capitals: a natural sun, faint rays all around it and a soft
         -- halo on the disc, not a downward spotlight (Karl)
-        rep_ambassador_horde = { 0.53, 0.33, 0.16, { 1, 1, 1 }, strength = 0.7,
-            sunrays = { 0.53, 0.33, 90, 330, 9, 0.55, strength = 0.45, thin = 0.8 },
+        rep_ambassador_horde = { 0.53, 0.33, 0.18, { 1, 1, 1 }, strength = 1.6,
+            sunrays = { 0.53, 0.33, 90, 330, 9, 0.9, strength = 1.0 },
             embers = Motes({ 0.30, 1.0, 0.20, 0.80 }, 18) },
-        mount_charger = Sunlight({ 1.02, -0.06, 135, 35, 5, 1.1 }, { 0.35, 1.0, 0.0, 0.70 }, 22),    -- from the top right corner
-        ["set_forever_raid-banner.blp"] = Sunlight({ 0.75, -0.10, 110, 50, 5, 1.0 }, { 0.40, 1.0, 0.10, 0.80 }), -- every Forever raid set
-        -- from the upper right, still falling toward the harbour; thin rays subtle
-        fishing_extravaganza = Sunlight({ 0.72, -0.12, 118, 35, 5, 1.1, thin = 0.5 }, { 0.30, 1.0, 0.10, 0.75 }, 16),
+        mount_charger = Sunlight({ 1.02, -0.06, 135, 35, 7, 1.3 }, { 0.35, 1.0, 0.0, 0.70 }, 22),    -- from the top right corner, like the art's own rays
+        ["set_forever_raid-banner.blp"] = Sunlight({ 1.02, -0.08, 125, 45, 7, 1.3 }, { 0.40, 1.0, 0.10, 0.80 }), -- every Forever raid set: the bright sky at the top right
+        -- sun breaking through the clouds over the harbour
+        fishing_extravaganza = Sunlight({ 0.50, 0.22, 105, 80, 7, 0.9 }, { 0.30, 1.0, 0.10, 0.75 }, 16),
         -- Sunbeams: Lawbringer straight down on the halo behind his head;
         -- Lok'delar a narrow slanted shaft through the forest onto the stave
         set_tier1_paladin = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             beam = { 0.60, -0.10, 0.90, 0.70, strength = 1 },
             embers = Motes({ 0.35, 0.90, 0.0, 0.85 }, 26) },
-        lokdelar = Sunlight({ 0.45, -0.15, 70, 12, 3, 1.2, strength = 0.75 }, { 0.40, 1.0, 0.10, 0.85 }, 22),
+        lokdelar = Sunlight({ 0.45, -0.15, 70, 14, 4, 1.3, strength = 0.6 }, { 0.40, 1.0, 0.10, 0.85 }, 22),
         -- Lightforge: the glowing hammer head with turning rays (like Argent Dawn)
-        set_dungeon1_paladin = { 0.68, 0.57, 0.40, { 1, 1, 1 }, rays = 2.6, strength = 1.1, raysStrength = 0.8, turn = 240 },
+        set_dungeon1_paladin = { 0.68, 0.57, 0.40, { 1, 1, 1 }, rays = 3.6, strength = 1.1, raysStrength = 0.8, turn = 240 },
         -- Onyxia attunements: embers off her breath and the fire
         att_ony_ally = { 0.8, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.65, 1.0, 0.25, 0.75 }, field = { 0.40, 1.0, 0.20, 0.90 }, count = 50, blurShare = 0.22, rise = 0.30 } },
@@ -5157,22 +5156,23 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = { box = { 0.40, 1.0, 0.50, 0.90 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
         -- Karl's second light list. Sunbeams on Rhok'delar from the forest light behind him
         -- a backlight: the sun behind him, its wide rays visible, thin ones faint
-        rhokdelar = Sunlight({ 0.66, -0.06, 100, 70, 4, 1.2, thin = 0.4 }, { 0.40, 1.0, 0.0, 0.80 }, 22),
+        rhokdelar = Sunlight({ 0.66, -0.06, 100, 60, 7, 1.3 }, { 0.40, 1.0, 0.0, 0.80 }, 22),
         -- vertical beams: onto the treasure pile, and onto the floating key and its chest
         gold_5k = { 0.62, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             beam = { 0.62, -0.10, 0.85, 1.0, strength = 1 },
             embers = Motes({ 0.35, 0.95, 0.0, 0.80 }, 24),
-            gleams = { box = { 0.35, 0.95, 0.45, 0.80 }, count = 6, size = 0.045 } }, -- light on a few coins
+            -- glints on the chest and the upper coins, clear of the faded bottom
+            gleams = { boxes = { { 0.62, 0.95, 0.12, 0.38 }, { 0.35, 0.95, 0.42, 0.62 } }, count = 7, size = 0.045 } },
         key_scholo = { 0.63, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             beam = { 0.63, -0.10, 0.92, 0.85, strength = 1 },
             embers = Motes({ 0.45, 0.85, 0.0, 0.85 }, 22) },
-        set_dungeon1_warrior = Sunlight({ 1.02, -0.06, 130, 40, 5, 1.1 }, { 0.40, 1.0, 0.0, 0.75 }),        -- Valor, from the top right corner
-        set_violet_sorcerer = Sunlight({ 0.62, -0.12, 95, 60, 6, 1.1 }, { 0.20, 1.0, 0.0, 0.80 }, 24),   -- over Dalaran
+        set_dungeon1_warrior = Sunlight({ 1.02, -0.06, 130, 40, 7, 1.3 }, { 0.40, 1.0, 0.0, 0.75 }),        -- Valor, from the top right corner
+        set_violet_sorcerer = Sunlight({ 0.62, -0.12, 95, 60, 7, 1.1 }, { 0.20, 1.0, 0.0, 0.80 }, 24),   -- over Dalaran
         -- UBRS key: the lava splashing up around the gate's foot
         key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },
         -- Honorable Kills and Duelist: sun through the branches from the top corner
-        ["pvp_drums_of_war-banner.blp"] = Sunlight({ 1.02, -0.08, 128, 45, 8, 1.1, thin = 0.6 }, { 0.30, 1.0, 0.0, 0.80 }, 20),
+        ["pvp_drums_of_war-banner.blp"] = Sunlight({ 1.02, -0.08, 128, 45, 8, 1.2 }, { 0.30, 1.0, 0.0, 0.80 }, 20),
     }
     -- The light for the banner on screen: its image first, then its goal.
     function B:GlowSpec()
@@ -5190,6 +5190,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.raysTex:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\rays", nil, nil, "TRILINEAR")
     B.raysTex:SetBlendMode("ADD")
     B.raysTex:Hide()
+    -- The photo fades to the left, darkens at the top and fades at the
+    -- bottom; this mask (Media/light-mask, tools/beams.py) gives every light
+    -- the same fades, so lights sit under the art's darkening (Karl).
+    B.lightMask = detailPanel.CreateMaskTexture and detailPanel:CreateMaskTexture()
+    if B.lightMask then
+        B.lightMask:SetTexture("Interface\\AddOns\\"..ADDON.."\\Media\\light-mask", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+        B.glowTex:AddMaskTexture(B.lightMask)
+        B.raysTex:AddMaskTexture(B.lightMask)
+    end
     -- Turned smoothly each frame (by its texture corners, see ClipLight)
     -- rather than by a Rotation animation, and kept off the pixel grid, so
     -- the slow turn doesn't step.
@@ -5206,7 +5215,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:PaintGlow(glowA, raysA)
         local aw = math.max(1, self.art:GetWidth())
         local level = self.glowLevel or 0
-        local function ramp(x) return math.max(0, math.min(1, x/aw)) end
+        local masked = self.lightMask ~= nil
+        local function ramp(x) return masked and 1 or math.max(0, math.min(1, x/aw)) end
         for _, pair in ipairs({ { self.glowTex, glowA }, { self.raysTex, raysA } }) do
             local t, a = pair[1], pair[2]*level
             local c = self.glowColor or { 1, 1, 1 }
@@ -5432,6 +5442,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         beam = "Interface\\AddOns\\"..ADDON.."\\Media\\beam",
         ray = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft",
         wide = "Interface\\AddOns\\"..ADDON.."\\Media\\shaft-wide",
+        streak = "Interface\\AddOns\\"..ADDON.."\\Media\\streak",
         gleam = "Interface\\AddOns\\"..ADDON.."\\Media\\gleam",
     }
     function B:HideShafts()
@@ -5441,7 +5452,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:PaintLight(t, a)
         local aw = math.max(1, self.art:GetWidth())
         local span = self.lightSpan[t] or { 0, 0 }
-        local function ramp(x) return math.max(0, math.min(1, x/aw)) end
+        local masked = self.lightMask ~= nil
+        local function ramp(x) return masked and 1 or math.max(0, math.min(1, x/aw)) end
         ApplyHGradient(t, { 1, 1, 1 }, { 1, 1, 1 }, a*ramp(span[1]), a*ramp(span[2]))
     end
     -- an upright rectangle in the art, trimmed to the artwork's edges
@@ -5472,6 +5484,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 t:SetBlendMode("ADD")
                 if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
                 if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
+                if self.lightMask then t:AddMaskTexture(self.lightMask) end
                 self.shafts[n] = t
             end
             t:SetTexture(self.shaftArt[kind], nil, nil, "TRILINEAR")
@@ -5484,7 +5497,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local sr = spec.sunrays
         if sr then
             for i = 1, sr[5] do
-                local info = Next("ray", sr)
+                local info = Next(sr.streaks and "streak" or "ray", sr)
                 local f = sr[5] > 1 and ((i - 1)/(sr[5] - 1) - 0.5) or 0
                 info.angle = math.rad(sr[3] + sr[4]*f + (math.random()*2 - 1)*sr[4]*0.12)
                 info.len = sr[6]*(0.75 + 0.5*math.random())
@@ -5500,10 +5513,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         local gl = spec.gleams
         if gl then
-            for _ = 1, gl.count do
+            local boxes = gl.boxes or { gl.box }
+            for k = 1, gl.count do
                 local info = Next("gleam", gl)
-                info.u = gl.box[1] + (gl.box[2] - gl.box[1])*math.random()
-                info.v = gl.box[3] + (gl.box[4] - gl.box[3])*math.random()
+                local box = boxes[(k - 1) % #boxes + 1]
+                info.u = box[1] + (box[2] - box[1])*math.random()
+                info.v = box[3] + (box[4] - box[3])*math.random()
                 info.period = 4 + 4*math.random()
             end
         end
@@ -5539,7 +5554,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 t:Show()
                 self:ClipLight(t, cx, cy, 2*info.len*aw, -angle)
                 if wide then
-                    self:PaintLight(t, level*(cfg.strength or 1)*(0.35 + 0.65*breathe)*0.22)
+                    self:PaintLight(t, level*(cfg.strength or 1)*(0.35 + 0.65*breathe)*0.09)
+                elseif info.kind == "streak" then
+                    -- a visible streak that slowly fades fully out and back in
+                    local f = math.max(0, math.sin(time*2*math.pi/info.period + info.phase))^2
+                    self:PaintLight(t, level*(cfg.strength or 1)*(cfg.thin or 1)*f*0.55)
                 else
                     self:PaintLight(t, level*(cfg.strength or 1)*(cfg.thin or 1)*(0.25 + 0.75*breathe)*0.4)
                 end
@@ -5591,6 +5610,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             on = spec.glow == false or (x > 0 and x < self.art:GetWidth() and y > 0 and y < self.shownArtHeight*0.8)
             if on then
                 self.glowColor, self.glowCX, self.glowCY = spec[4], x, y
+                if self.lightMask then
+                    self.lightMask:ClearAllPoints()
+                    self.lightMask:SetPoint("TOPLEFT", self.art, "TOPLEFT", 0, 0)
+                    self.lightMask:SetSize(math.max(1, self.art:GetWidth()), math.max(1, self.shownArtHeight))
+                end
                 self:DrawLights(0.5, 0)
             end
         end
