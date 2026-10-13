@@ -5326,7 +5326,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = Motes({ 0.30, 1.0, 0.20, 0.80 }, 18) },
         -- one very wide, subtle beam from the top right corner onto the horse's head
         mount_charger = Sunlight({ 1.02, -0.06, 140, 0, 0, 1.4, wideCount = 1, strength = 1.2 },
-            { 0.30, 1.0, 0.0, 0.85 }, 42),
+            { 0.25, 1.0, 0.0, 0.90 }, 72),
         -- every Forever raid set: the bright sky at the top right, slower and softer,
         -- over a wide, soft, subtle beam
         ["set_forever_raid-banner.blp"] = Sunlight({ 1.02, -0.08, 125, 45, 7, 1.3, strength = 0.8 },
