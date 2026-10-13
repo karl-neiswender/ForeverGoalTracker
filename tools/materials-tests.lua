@@ -612,14 +612,18 @@ do
             assert(turns <= 120*0.5*3, "flicker turns around slowly: " .. turns .. " turns in 120 s")
         end
     end
-    -- Thunderfury's glint: a slow pass along the blade, resting in between
+    -- a gliding glint along a blade-like path: slow, resting in between (no banner uses one now;
+    -- Thunderfury's was taken off)
     rawset(B.art, "GetWidth", function() return 600 end)
     B.goal = STUB_NS.GoalById("thunderfury")
+    assert(not B:GlowSpec().glides, "Thunderfury has no glint")
     B.hasArt, B.shownArtHeight, B.uv, B.sourceAspect, B.glowLevel = true, 450, { 0, 1, 0, 1 }, 4/3, 0.5
-    B.glowSpec = B:GlowSpec(); B:ResetShafts()
+    B.glowSpec = { 0.762, 0.322, 0.30, { 1, 1, 1 }, glides = { { path = { { 0.68, 0.385 }, { 0.60, 0.445 }, { 0.50, 0.52 }, { 0.41, 0.59 } },
+        size = 0.07, strength = 0.8, travel = 4, rest = 10 } } }
+    B:ResetShafts()
     local glide
     for i = 1, B.shaftCount do if B.shaftInfo[i].kind == "glide" then glide = B.shaftInfo[i] end end
-    assert(glide, "Thunderfury has a gliding glint")
+    assert(glide, "a glide spec starts a glint")
     local speed = glide.total/(B.uv[2] - B.uv[1])/glide.travel
     assert(speed <= lim.glide + 1e-9, "glint travels slowly enough: " .. speed .. " art widths a second")
     local seen, rests, maxLevel = 0, 0, 0

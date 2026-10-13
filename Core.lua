@@ -5137,11 +5137,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = Snow(count) }
     end
     B.glows = {
-        -- the gem at the crossguard, and a glint that now and then slides down the blade
+        -- the gem at the crossguard, and the lightning and blade edges glow. (A glint that slid
+        -- down the blade was tried and taken off, Karl 2026-10-13; the path was
+        -- { { 0.68, 0.385 }, { 0.60, 0.445 }, { 0.50, 0.52 }, { 0.41, 0.59 } } in `glides`.)
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 },
-            bloom = { "thunderfury-bloom", strength = 0.6 }, -- the lightning and blade edges glow
-            glides = { { path = { { 0.68, 0.385 }, { 0.60, 0.445 }, { 0.50, 0.52 }, { 0.41, 0.59 } },
-                size = 0.07, strength = 0.8, travel = 4, rest = 10 } } },
+            bloom = { "thunderfury-bloom", strength = 0.6 } },
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- Shaman Tier 2 (Alliance and Horde share the image): the storm lightning glows
         -- (Karl, 2026-10-13: the electric sparks, `embers = { { zap = true, box, count, strength } }`,
