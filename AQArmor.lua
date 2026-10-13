@@ -87,25 +87,30 @@ local bosses = {
     [20928] = "Princess Huhuran or Viscidus", [20932] = "Princess Huhuran or Viscidus",
 }
 local npcs = { "Kandrostrasz", "Andorgos", "Andorgos", "Kandrostrasz", "Vethsera" }
-local reputation = { "Neutral", "Friendly", "Neutral", "Friendly", "Honored" }
-local function item(id) return "{item:" .. id .. ":" .. items[id] .. "}" end
+-- Same shape as Tier 3: each piece lists what it is made from (the token,
+-- two idols and two kinds of scarab) as a checklist under the piece, and
+-- owning the piece completes it. Names match the game's items, which lets
+-- the Materials drawer and item tooltips count them.
+FGT.aqItemNames = items
 local sections = {}
 for _, set in ipairs(sets) do
-    local pieces, tips = {}, {
+    local pieces = {}
+    local tips = {
         "Find turn-in NPCs near C'Thun's chamber in {raid_aq40:Temple of Ahn'Qiraj}, after defeating The Prophet Skeram.",
         "Save idols and scarabs from AQ40 trash and scarab coffers for armor turn-ins.",
+        "Each turn-in needs reputation with the Brood of Nozdormu: Neutral for boots and shoulders, Friendly for helm and legs, Honored for chest.",
     }
     for pi, p in ipairs(set[3]) do
         pieces[pi] = {
             name = p[1], text = "Collect " .. p[1] .. " from " .. npcs[pi] .. " in Temple of Ahn'Qiraj.",
-            icon = p[3], materials = {}, auto = { item = p[2], owned = { p[1] } },
-            requiredItems = { { item = p[4], count = 1 }, { item = p[5], count = 2 },
-                              { item = p[6], count = 5 }, { item = p[7], count = 5 } },
+            icon = p[3], auto = { item = p[2], owned = { p[1] } },
+            materials = {
+                items[p[4]] .. " from " .. bosses[p[4]],
+                "2 " .. items[p[5]],
+                "5 " .. items[p[6]],
+                "5 " .. items[p[7]],
+            },
         }
-        tips[#tips + 1] = "{item:" .. p[2] .. ":" .. p[1] .. "}: bring 1 " .. item(p[4]) ..
-            " (from " .. bosses[p[4]] .. "), 2 " .. item(p[5]) .. ", 5 " .. item(p[6]) ..
-            " and 5 " .. item(p[7]) .. " to " .. npcs[pi] .. ". Requires " .. reputation[pi] ..
-            " with the Brood of Nozdormu."
     end
     sections[#sections + 1] = {
         name = set[1] .. " - " .. set[2], icon = "ClassIcon_" .. set[1],

@@ -8,18 +8,18 @@ for _, child in ipairs(parent.armorChildren) do
     assert(F.goalBanner.artAspects[child.id] == 4/3 and F.goalBanner.preprocessed[child.id], "approved framing and grayscale treatment")
     assert(child.armorParent == parent.id and #child.sections == 1)
     assert(not child.forever and not child.faction, "Classic set retains unverified Forever notice and both factions")
-    assert(#child.tips == 7 and #child.sections[1].pieces == 5)
-    assert(child.tips[3]:find("Neutral", 1, true) and child.tips[4]:find("Friendly", 1, true))
-    assert(child.tips[7]:find("Honored", 1, true))
+    assert(#child.tips == 3 and #child.sections[1].pieces == 5, "general tips only; reagents live under each piece")
+    assert(child.tips[3]:find("Neutral", 1, true) and child.tips[3]:find("Friendly", 1, true) and child.tips[3]:find("Honored", 1, true))
     for _, piece in ipairs(child.sections[1].pieces) do
         assert(not allItems[piece.auto.item], "45 distinct reward pieces")
         allItems[piece.auto.item] = true
-        assert(#piece.materials == 0, "collecting materials alone cannot finish armor")
+        assert(#piece.materials == 4 and not piece.requiredItems, "token, two idols and two scarabs, like Tier 3")
+        assert(piece.materials[1]:find(" from ", 1, true) and piece.materials[2]:match("^2 Idol") and piece.materials[3]:match("^5 ") and piece.materials[4]:match("^5 "))
     end
 end
 local mage = F.GoalById("set_tier25_mage")
-assert(mage.tips[4]:find("Emperor Vek'nilash", 1, true), "circlet source uses correct twin")
-assert(mage.tips[3]:find("{item:20874:Idol of the Sun}", 1, true), "materials have item links")
+assert(mage.sections[1].pieces[2].materials[1] == "Vek'nilash's Circlet from Emperor Vek'nilash", "circlet source uses correct twin")
+assert(mage.sections[1].pieces[1].materials[2] == "2 Idol of the Sun", "idols are listed under the piece")
 local rogue = F.GoalById("set_tier25_rogue")
 D.active[rogue.id] = true
 D.progress[rogue.id] = {}
@@ -41,9 +41,16 @@ for pi, piece in ipairs(rogue.sections[1].pieces) do
     local d, t = F.PieceProgress(rogue.id, 1, pi, piece)
     done, total = done + d, total + t
 end
-assert(done == 5 and total == 5, "set completes after five rewards")
+assert(done == 20 and total == 20, "set completes after five rewards, every material line included")
 F.SelectGoal(rogue.id)
 assert(F.goalBanner.title:GetText():find("Deathdealer", 1, true), "new goal page renders")
+-- pieces ticked as owned before the material checklists keep them complete
+local oldProgress, oldFix = D.progress[rogue.id], D.aqMaterialsFix
+D.progress[rogue.id], D.aqMaterialsFix = { ["1_2_piece"] = true }, nil
+F.MigrateAQMaterials(D)
+for mi = 1, 4 do assert(D.progress[rogue.id]["1_2_m" .. mi], "owned piece keeps its materials ticked") end
+assert(not D.progress[rogue.id]["1_3_m1"], "other pieces stay as they were")
+D.progress[rogue.id], D.aqMaterialsFix = oldProgress, oldFix
 D.active[rogue.id] = nil
 D.characters["AQTest-Other"] = nil
 print("  AQ40: nine class sets, 45 rewards, class guidance, roster auto ticks and sticky completion ok")

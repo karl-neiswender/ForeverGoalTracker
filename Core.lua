@@ -11049,6 +11049,7 @@ initFrame:SetScript("OnEvent", function(self, event, name)
     end
     ForeverGoalTrackerDB.attuneSteps = true
     FGT.MigrateArmorSets(ForeverGoalTrackerDB)
+    FGT.MigrateAQMaterials(ForeverGoalTrackerDB)
     if FGT.ApplyTargets then FGT.ApplyTargets() end -- player-set targets (gold, honorable kills)
     ApplyAutoRules() -- re-check against the saved roster from earlier sessions
 

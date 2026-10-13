@@ -50,6 +50,10 @@ for id, name in pairs({
 }) do
     names[name] = id; labels[id] = name
 end
+-- AQ40 tokens, idols and scarabs (AQArmor.lua), named the same way.
+for id, name in pairs(FGT.aqItemNames or {}) do
+    names[name] = id; labels[id] = name
+end
 
 -- Recipe goals group their rows: reagents you gather or craft with, the
 -- gear tokens you trade in, and (AQ) the idols and scarabs handed over.

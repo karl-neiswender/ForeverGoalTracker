@@ -122,7 +122,7 @@ function FGT.MigrateArmorSets(DB)
             for pi, piece in ipairs(child.sections[1].pieces) do
                 if #piece.materials == 0 then
                     if not progress["1_" .. pi .. "_piece"] then complete = false end
-                else
+                elseif not progress["1_" .. pi .. "_piece"] then
                     for mi in ipairs(piece.materials) do
                         if not progress["1_" .. pi .. "_m" .. mi] then complete = false end
                     end
@@ -138,6 +138,25 @@ function FGT.MigrateArmorSets(DB)
         if DB.selected == id then DB.selected = first end
     end
     DB.armorSetsSplit1 = true
+end
+
+-- AQ40 pieces gained material checklists (like Tier 3). A piece that was
+-- already ticked as owned keeps all of its materials ticked, so progress
+-- does not drop back to zero.
+function FGT.MigrateAQMaterials(DB)
+    if DB.aqMaterialsFix then return end
+    local parent = FGT.GoalById and FGT.GoalById("set_tier25")
+    for _, child in ipairs(parent and parent.armorChildren or {}) do
+        local progress = DB.progress and DB.progress[child.id]
+        if progress then
+            for pi, piece in ipairs(child.sections[1].pieces) do
+                if progress["1_" .. pi .. "_piece"] then
+                    for mi in ipairs(piece.materials) do progress["1_" .. pi .. "_m" .. mi] = true end
+                end
+            end
+        end
+    end
+    DB.aqMaterialsFix = true
 end
 
 function FGT.CatalogGoalCount()

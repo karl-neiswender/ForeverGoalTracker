@@ -25,7 +25,7 @@ D.characters = {
 }
 F.ItemInfo = function(id)
     if id == 999 then return end
-    return id == 12360 and "Arcanite Bar" or "Test helmet", "|Hitem:" .. id .. "|h[Item]|h", 4,
+    return id == 12360 and "Arcanite Bar" or F.aqItemNames[id] or "Test helmet", "|Hitem:" .. id .. "|h[Item]|h", 4,
         nil, nil, nil, nil, nil, id == 12360 and "" or "INVTYPE_HEAD"
 end
 local function need(id, goalId)
@@ -36,9 +36,9 @@ assert(need(12360, other.id) == nil, "untracked goals omitted")
 assert(need(12360, group.id) == 0, "selected recipe materials share one stock count")
 assert(need(100, goal.id) == 0, "alternative reward stock counts once")
 assert(need(20928, aq.id) == 1, "AQ boots and shoulders need separate tokens")
-D.progress[aq.id]["1_1_piece"] = true
+for mi = 1, 4 do D.progress[aq.id]["1_1_m" .. mi] = true end
 assert(need(20928, aq.id) == 0, "completed AQ piece removes its ingredients")
-D.progress[aq.id]["1_3_piece"] = true
+for mi = 1, 4 do D.progress[aq.id]["1_3_m" .. mi] = true end
 assert(need(20928, aq.id) == nil, "all related AQ pieces finished")
 D.progress[group.id]["1_1_m1"], D.progress[group.id]["1_1_m2"] = true, true
 assert(need(12360, group.id) == nil, "finished material checklist omitted")
