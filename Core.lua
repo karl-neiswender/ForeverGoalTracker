@@ -6913,8 +6913,18 @@ function FGT.LayoutTips(goal, yOffset, width)
                     FGT.FadeTips(1) -- (hidden by the redraw; ready for next time)
                     -- (only redraw if you're still on that goal)
                     if T.goalId == id then
-                        stepsScrollObj.easeShade, FGT.detailViewport.easeShade = true, true
+                        -- keep the shade held through the fold: for a frame the
+                        -- game still reports the longer list, which eased the
+                        -- shade (and the step dimming) in, then out (Karl). Once
+                        -- the new length has settled, ease to where it belongs.
+                        stepsScrollObj.holdShade, FGT.detailViewport.holdShade = true, true
                         FGT.RedrawTips()
+                        C_Timer.After(0.05, function()
+                            stepsScrollObj.holdShade, FGT.detailViewport.holdShade = nil, nil
+                            stepsScrollObj.easeShade, FGT.detailViewport.easeShade = true, true
+                            stepsScrollObj:Update()
+                            FGT.detailViewport:Update()
+                        end)
                     end
                 end, function(p) FGT.FadeTips(1 - p) end)
             end
@@ -12126,6 +12136,34 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     end
     if msg == "whatsnew" or msg == "whatsnew reset" then
         if FGT.WhatsNew then FGT.WhatsNew.Command(msg == "whatsnew reset" and "reset" or nil) end
+        return
+    end
+    if msg == "tipsdebug" then
+        -- records the next 1.5 s (open or close Tips now) and prints how the
+        -- Tips row, the shade and the scroll moved, for chasing flashes
+        local T, S = FGT.tipsUI, FGT.detailStepsScroll
+        if not (T and S) then print(TAG .. "open a goal with tips first.") return end
+        local rec, t = {}, 0
+        local f = FGT.tipsDebugFrame or CreateFrame("Frame")
+        FGT.tipsDebugFrame = f
+        print(TAG .. "recording: open or close Tips now.")
+        f:SetScript("OnUpdate", function(_, dt)
+            t = t + dt
+            local sc = S.scroll
+            rec[#rec + 1] = string.format("%.2f btn %.2f line %.2f shade %s%.2f scroll %d/%d",
+                t, T.btn:GetAlpha(), T.line:GetAlpha(), S.fadeBottom:IsShown() and "" or "hidden ",
+                S.fadeBottom:GetAlpha(), sc:GetVerticalScroll(), sc:GetVerticalScrollRange())
+            if t >= 1.5 then
+                f:SetScript("OnUpdate", nil)
+                -- print only the frames where something changed
+                local last
+                for _, line in ipairs(rec) do
+                    local key = line:gsub("^%S+ ", "")
+                    if key ~= last then print("  " .. line) end
+                    last = key
+                end
+            end
+        end)
         return
     end
     if msg == "dust" then
