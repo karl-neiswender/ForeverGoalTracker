@@ -6273,9 +6273,12 @@ FGT.detailViewport.scroll:HookScript("OnSizeChanged", FGT.UpdateDetailViewport)
 do
     local driver = CreateFrame("Frame")
     local pending -- what to do when a glide ends (closing tips folds them away)
-    local function Finish()
+    local function Finish(keepHold)
         driver:SetScript("OnUpdate", nil)
-        stepsScrollObj.holdShade, FGT.detailViewport.holdShade = nil, nil
+        -- (a new glide ending an old one keeps the hold its caller just set:
+        -- releasing it here let the shade ease in over the Tips row, Karl's
+        -- /goals tipsdebug recording showed)
+        if not keepHold then stepsScrollObj.holdShade, FGT.detailViewport.holdShade = nil, nil end
         local done = pending
         pending = nil
         if done then done() end
@@ -6295,7 +6298,7 @@ do
         local scroll = obj.scroll
         local from, to = scroll:GetVerticalScroll(), target or scroll:GetVerticalScrollRange()
         to = math.max(0, math.min(to, scroll:GetVerticalScrollRange()))
-        Finish() -- a glide already running ends first
+        Finish(true) -- a glide already running ends first
         pending = done
         if (math.abs(to - from) < 1 and not step) or FGT.Setting("celebrations") == "off" then
             scroll:SetVerticalScroll(to); obj:Update()

@@ -594,3 +594,19 @@ do
             .. ", found " .. tostring(F.GoalById(F.tipsUI.goalId) ~= nil) .. ", layout " .. tostring(F.guideLayout ~= nil) .. ")")
     end
 end
+
+-- a glide keeps the shade hold its caller set until the glide ends
+do
+    local S = STUB_NS.detailStepsScroll
+    S.holdShade = true
+    STUB_NS.ScrollGuideTo(0, function() end, function() end)
+    assert(S.holdShade == nil, "with Celebrations off or no distance the glide ends at once and releases the hold")
+    local cel = STUB_NS.Setting("celebrations")
+    STUB_NS.SetSetting("celebrations", "full")
+    S.holdShade = true
+    STUB_NS.ScrollGuideTo(0, function() end, function() end) -- stub frames never tick: still gliding
+    assert(S.holdShade == true, "starting a glide keeps the hold")
+    STUB_NS.StopGuideScroll()
+    assert(S.holdShade == nil, "ending it releases the hold")
+    STUB_NS.SetSetting("celebrations", cel)
+end
