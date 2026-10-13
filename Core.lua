@@ -5048,6 +5048,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     local function Snow(count)
         return { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = count, blurShare = 0.15, rise = 0.55 }
     end
+    local function Motes(box, count)
+        return { float = true, box = box, count = count, blurShare = 0.12, rise = 0.06 }
+    end
+    -- sunlight: rays from a source plus motes drifting in the light
+    local function Sunlight(sunrays, box, motes)
+        return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            sunrays = sunrays, embers = Motes(box, motes or 20) }
+    end
     local function SnowOnly(count)
         return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = Snow(count) }
     end
@@ -5055,7 +5063,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         thunderfury = { 0.762, 0.322, 0.30, { 1, 1, 1 } }, -- the gem at the crossguard
         ashbringer = { 0.738, 0.339, 0.28, { 1, 1, 1 } },   -- the skull on the blade
         -- the holy spell in his hand, with faint rays turning very slowly
-        rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
+        rep_argentdawn = { 0.546, 0.311, 0.40, { 1, 1, 1 }, rays = 1.5, strength = 1.25,
+            sunrays = { 0.85, -0.10, 120, 35, 4, 0.9, strength = 0.5 } }, -- a few faint sunrays too
         -- keyed by image when a goal has several: Benediction's night elf
         -- priest (Alliance art only), the gem at the head of her staff
         ["benediction-alliance-banner.blp"] = { 0.537, 0.220, 0.46, { 1, 1, 1 }, rays = 1.5, strength = 1.25 },
@@ -5124,6 +5133,25 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 count = 30, blurShare = 0.2, rise = 0.30 },
             Snow(90),
         } },
+        -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
+        rep_ambassador_ally = Sunlight({ 0.55, -0.10, 95, 50, 5, 0.9 }, { 0.25, 0.95, 0.10, 0.85 }),  -- through the arch
+        rep_ambassador_horde = Sunlight({ 0.53, 0.33, 90, 140, 6, 0.7 }, { 0.30, 1.0, 0.20, 0.80 }),  -- from the sun in the sky
+        mount_charger = Sunlight({ 0.82, -0.08, 115, 40, 5, 1.0 }, { 0.35, 1.0, 0.0, 0.70 }, 22),    -- the art's own rays
+        ["set_forever_raid-banner.blp"] = Sunlight({ 0.75, -0.10, 110, 50, 5, 1.0 }, { 0.40, 1.0, 0.10, 0.80 }), -- every Forever raid set
+        fishing_extravaganza = Sunlight({ 0.30, -0.10, 60, 40, 5, 1.0 }, { 0.30, 1.0, 0.10, 0.75 }, 16), -- over the harbour
+        -- Sunbeams: Lawbringer straight down on the halo behind his head;
+        -- Lok'delar a narrow slanted shaft through the forest onto the stave
+        set_tier1_paladin = { 0.6, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            beam = { 0.60, -0.10, 0.90, 0.60, strength = 1 },
+            embers = Motes({ 0.35, 0.90, 0.0, 0.85 }, 26) },
+        lokdelar = Sunlight({ 0.45, -0.15, 70, 12, 3, 1.2 }, { 0.40, 1.0, 0.10, 0.85 }, 22),
+        -- Lightforge: the glowing hammer head with turning rays (like Argent Dawn)
+        set_dungeon1_paladin = { 0.66, 0.57, 0.40, { 1, 1, 1 }, rays = 1.8, strength = 1.1, raysStrength = 0.8, turn = 240 },
+        -- Onyxia attunements: embers off her breath and the fire
+        att_ony_ally = { 0.8, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.65, 1.0, 0.25, 0.75 }, field = { 0.40, 1.0, 0.20, 0.90 }, count = 50, blurShare = 0.22, rise = 0.30 } },
+        att_ony_horde = { 0.8, 0.7, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.40, 1.0, 0.50, 0.90 }, field = { 0.35, 1.0, 0.30, 0.95 }, count = 56, blurShare = 0.22, rise = 0.30 } },
         -- UBRS key: the lava splashing up around the gate's foot
         key_ubrs = { 0.65, 0.8, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.48, 1.0, 0.62, 0.95 }, field = { 0.40, 1.0, 0.30, 0.95 }, count = 48, blurShare = 0.22, rise = 0.30 } },

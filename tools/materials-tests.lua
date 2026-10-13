@@ -523,3 +523,24 @@ do
         B:HideShafts(); B:HideEmbers()
     end
 end
+
+-- Karl's light list: every one resolves to a light and starts
+do
+    local B = STUB_NS.goalBanner
+    rawset(B.art, "GetWidth", function() return 600 end)
+    for _, id in ipairs({ "rep_ambassador_ally", "rep_ambassador_horde", "mount_charger", "fishing_extravaganza",
+            "set_tier1_paladin", "lokdelar", "set_dungeon1_paladin", "att_ony_ally", "att_ony_horde", "rep_argentdawn",
+            "set_forever_raid_warrior", "set_forever_raid_paladin", "set_forever_raid_priest", "set_forever_raid_rogue",
+            "set_forever_raid_mage", "set_forever_raid_warlock", "set_forever_raid_druid" }) do
+        B.goal = STUB_NS.GoalById(id)
+        assert(B.goal, "goal exists: " .. id)
+        B.hasArt, B.shownArtHeight, B.uv, B.emberFor = true, 450, { 0, 1, 0, 1 }, nil
+        local spec = B:GlowSpec()
+        assert(spec, "light on " .. id)
+        B:PlaceGlow()
+        assert(B.glowSpec == spec, "light starts on " .. id)
+        if spec.sunrays or spec.beam then assert((B.shaftCount or 0) > 0, "shafts on " .. id) end
+        for k = 1, 5 do B:StepShafts(k*0.3); B:StepEmbers(0.3) end
+        B:HideShafts(); B:HideEmbers(); B.emberFor = nil
+    end
+end
