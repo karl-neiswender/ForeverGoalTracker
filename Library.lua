@@ -864,7 +864,7 @@ local library = {
     {
         id = "social_trades", library = true, forever = "confirmed",
         icon = { "inv_misc_coin_01", "inv_misc_groupneedmore" },
-        name = "Trade with Players", short = "Trades",
+        name = "Make Trades",
         category = "Social", difficulty = "Easy",
         timeEstimate = "Days",
         note = "Complete trades with other players. Progress is tracked automatically.",
