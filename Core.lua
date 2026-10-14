@@ -6004,7 +6004,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     local y = drift and (e.y + wobble) or e.y
                     local fade
                     if drift then
-                        fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)*gustAlpha
+                        -- sand also fades out where the artwork itself fades to nothing at
+                        -- the bottom (the same eased stretch as B:Fit's tail: 35% of the shown
+                        -- art, at most 140): there is no dark layer there to sit under
+                        local tail = math.max(1, math.min(140, ah*0.35))
+                        local below = math.max(0, math.min(1, (ah - y)/tail))
+                        fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)*gustAlpha*below*below*(3 - 2*below)
                     elseif cfg.float then
                         fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)
                     elseif cfg.fall then
