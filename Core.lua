@@ -5567,8 +5567,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- beat (the bloom baked on the star field is added on top). Positions are read off
         -- brood-nozdormu-master.png with tools/gridview.py; the larger stars glint larger.
         ["rep_nozdormu-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            -- (positions snapped to each star's brightest pixel; strength 1.2: a little more opaque than the default 1)
-            gleams = { size = 0.04, strength = 1.2, points = {
+            -- (positions snapped to each star's brightest pixel; strength 0.8: softer than the default 1, Karl wants it subtle)
+            gleams = { size = 0.04, strength = 0.8, points = {
                 { 0.348, 0.053, 0.05 }, { 0.280, 0.128, 0.05 }, { 0.684, 0.036, 0.05 }, { 0.771, 0.207, 0.07 },
                 { 0.342, 0.356, 0.04 }, { 0.472, 0.368, 0.04 }, { 0.427, 0.457, 0.045 }, { 0.432, 0.596, 0.05 },
                 { 0.495, 0.631, 0.04 }, { 0.854, 0.234, 0.035 }, { 0.927, 0.290, 0.05 }, { 0.422, 0.186, 0.04 },
