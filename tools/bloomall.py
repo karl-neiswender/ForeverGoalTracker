@@ -64,6 +64,7 @@ STEMS = {
     "key_strat": "Stratholme key + The Devout",
     "sulfuras": "Sulfuras",
     "rep_thorium": "Thorium Brotherhood",
+    "rep_nozdormu": "Brood of Nozdormu (the stars and the nebula, not the pale dragon)",
     "wolfsbane": "Wolfsbane",
     "prof_cooking": "Cooking and Place Campfires (the campfire)",
     "social_buffs_mage": "Buff Others, Mage (staff crystal and sigil)",
@@ -105,6 +106,9 @@ REGIONS = {
     "social_summons": [(0.58, 0.80, 0.18, 0.86)],                      # the cloak and the eyes
     "set_partners_in_crime": [(0.40, 0.98, 0.10, 0.72)],               # the ring, gem and flames
     "social_waves": [(0.58, 0.93, 0.57, 0.79)],                        # the fuses' sparks
+    # the star field and the nebula's glow on the left, the stars beside the horns and the two on the wing
+    "rep_nozdormu": [(0.18, 0.56, 0.0, 0.70), (0.62, 0.82, 0.0, 0.32), (0.84, 0.88, 0.21, 0.26),
+                     (0.90, 0.95, 0.26, 0.33)],
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {

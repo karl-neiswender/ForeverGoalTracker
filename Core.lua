@@ -5562,6 +5562,16 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- sits at u 0.67.
         ["rep_ambassador_ally_ironforge-banner.blp"] = { 0.67, 0.68, 0.30, { 1, 1, 1 }, strength = 0.9,
             flicker = 0.3, embers = Snow(100) },
+        -- Brood of Nozdormu (Karl, 2026-10-14): stars shining in the distance. Each named star
+        -- slowly swells into a four-point glint, turns a little and fades out again, on its own
+        -- beat (the bloom baked on the star field is added on top). Positions are read off
+        -- brood-nozdormu-master.png with tools/gridview.py; the larger stars glint larger.
+        ["rep_nozdormu-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            gleams = { size = 0.04, points = {
+                { 0.347, 0.051, 0.05 }, { 0.279, 0.123, 0.05 }, { 0.682, 0.036, 0.05 }, { 0.779, 0.209, 0.07 },
+                { 0.343, 0.357, 0.04 }, { 0.471, 0.364, 0.04 }, { 0.426, 0.450, 0.045 }, { 0.432, 0.599, 0.05 },
+                { 0.527, 0.628, 0.035 }, { 0.857, 0.237, 0.035 }, { 0.922, 0.293, 0.05 }, { 0.412, 0.180, 0.04 },
+            } } },
         -- Leveling, Undead Paladin: holy light on the raised hammer head (its eyes bloom too, baked),
         -- slow turning rays from it, and a few ash motes drifting in the storm clouds
         ["allclasses_undead_paladin-banner.blp"] = { 0.79, 0.13, 0.40, { 1, 1, 1 }, rays = 4.2, turn = 260,
@@ -5586,6 +5596,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- the morning banners of 2026-10-14 (Karl approved the previews)
         "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
         "social_guild_dungeon",
+        "rep_nozdormu", -- Brood of Nozdormu: the stars and the nebula (2026-10-14)
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5599,7 +5610,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "social_buffs", "social_friends", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
         "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers", "set_tier2_warlock",
         "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
-        "social_guild_dungeon",
+        "social_guild_dungeon", "rep_nozdormu",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
@@ -6293,12 +6304,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local gl = spec.gleams
         if gl then
             local boxes = gl.boxes or { gl.box }
-            for k = 1, gl.count do
+            -- `points = { { u, v, size }, ... }` puts a glint on each named spot (stars), instead
+            -- of scattering `count` of them in a box
+            local pts = gl.points
+            for k = 1, pts and #pts or gl.count do
                 local info = Next("gleam", gl)
-                local box = boxes[(k - 1) % #boxes + 1]
-                info.u = box[1] + (box[2] - box[1])*math.random()
-                info.v = box[3] + (box[4] - box[3])*math.random()
-                info.period = 4 + 4*math.random()
+                if pts then
+                    info.u, info.v, info.size = pts[k][1], pts[k][2], pts[k][3]
+                    info.period = 5 + 5*math.random()
+                else
+                    local box = boxes[(k - 1) % #boxes + 1]
+                    info.u = box[1] + (box[2] - box[1])*math.random()
+                    info.v = box[3] + (box[4] - box[3])*math.random()
+                    info.period = 4 + 4*math.random()
+                end
             end
         end
         for _, f in ipairs(spec.flames or {}) do Next("flame", f) end
@@ -6363,7 +6382,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 local x, y = self:ArtPoint(info.u, info.v)
                 local glint = math.max(0, math.sin(time*2*math.pi/info.period + info.phase))^3
                 self:ShowOnce(t)
-                self:ClipLight(t, x, y, cfg.size*aw*(0.7 + 0.3*glint), time*0.15 + info.phase)
+                self:ClipLight(t, x, y, (info.size or cfg.size)*aw*(0.7 + 0.3*glint), time*0.15 + info.phase)
                 self:PaintLight(t, level*1.6*glint)
             else
                 local cx, cy = self:ArtPoint(cfg[1], cfg[2])
