@@ -401,7 +401,9 @@ if ok_all:
             'assert(lo >= 0 and hi <= 1 and hi > 0.5 and lo < 0.1, "gusts swell and settle between calm and strong: " .. lo .. " " .. hi); '
             'local step, prev = 0, nil; for i = 0, 3600 do B.glowAnim.t = i / 60; B:StepEmbers(0); if prev then step = math.max(step, math.abs(B.gust - prev)) end; prev = B.gust end; '
             'assert(step < 0.004, "a gust never jumps between frames (photosensitivity rule): " .. step); '
-            'print("  blown sand: 70 particles leftward, streaked, bloom kept, gusts calm to strong ok")'),
+            'local cen = B.glows["rep_cenarion-banner.blp"]; assert(cen and cen.embers and cen.embers.drift, "Cenarion Circle has blown sand"); '
+            'assert(not B:IsLeafy("rep_cenarion", "rep_cenarion-banner.blp"), "and no drifting leaves with it"); '
+            'print("  blown sand: 70 particles leftward, streaked, bloom kept, gusts calm to strong; Cenarion sand without leaves ok")'),
         # Classic Era has no talent-window atlas: the goal page's leaves and clouds use our own textures.
         ("Classic Era ambience", None,
             'local A = STUB_NS.ambience; assert(A and A.own, "Classic Era gets our own clouds and leaves"); '

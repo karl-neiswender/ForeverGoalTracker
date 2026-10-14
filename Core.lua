@@ -5259,7 +5259,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["set_tier1_druid-banner.blp"] = true, ["set_tier2_druid-banner.blp"] = true,
         ["tier3_druid-banner.blp"] = true, ["tier3_druid-horde-banner.blp"] = true,  -- druid sets
         ["allclasses_horde_druid-banner.blp"] = true,        -- leveling, Horde Druid
-        ["rep_cenarion-banner.blp"] = true,                  -- Cenarion Circle
         ["set_tier2_paladin-banner.blp"] = true,             -- Judgement Armor (a forest)
         rhokdelar = true, lokdelar = true,                    -- forest weapons
         ["set_forever_raid-banner.blp"] = true,              -- every Forever raid set (one shared image)
@@ -5475,6 +5474,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- banner, to tune before others (Karl, 2026-10-14). Its bloom is added on top.
         ["raid_aq20-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = Sand({ 0.0, 1.0, 0.42, 0.92 }, 70) },
+        -- Cenarion Circle (Cenarion Hold in Silithus): sand blowing across the hillside and the
+        -- ground below it (v 0.36-0.92), clear of the buildings and sky. Taken off the windy
+        -- leaves list: leaves and sand together were too busy (Karl, 2026-10-14).
+        ["rep_cenarion-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Sand({ 0.0, 1.0, 0.36, 0.92 }, 70) },
         -- Ironforge: firelight glowing from inside the great door, flickering slowly like the
         -- Great Forge beyond it, under the falling snow (Karl, 2026-10-14). The doorway spans
         -- about u 0.61-0.73, v 0.60-0.80 on cities/ironforge-master.png; a light column inside
