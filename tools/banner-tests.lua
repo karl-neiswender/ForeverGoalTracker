@@ -223,7 +223,7 @@ do
     assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "logged-in dwarf favors ram over selected mounts")
     assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp", "Alliance kills use shared Drums of War")
     assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp", "Alliance duels use shared Drums of War")
-    assert(B:ArtPath("pvp_rank14_ally")=="set_tier2_warrior-alliance-banner.blp", "Alliance rank retains existing faction art")
+    assert(B:ArtPath("pvp_rank14_ally")=="pvp_rank14-banner.blp", "Alliance rank uses shared backlit medallion")
     assert(B:ArtPath("pvp_mount_ally")=="pvp_mount_ally-banner.blp" and B:ArtPath("pvp_avmount_ally")=="pvp_mount_ally-banner.blp", "both Alliance PvP mounts use flipped ram")
     race = "NightElf"
     assert(B:ArtPath("allclasses")=="allclasses_nightelf_hunter-banner.blp", "Night Elf Hunter uses new leveling art")
@@ -231,7 +231,7 @@ do
     assert(B:ArtPath("pvp_set_mail_horde_hunter")=="pvp_set_mail_horde-banner.blp", "Alliance player sees Warlord mail art on Horde Hunter set")
     assert(B:ArtPath("pvp_set_mail_horde_shaman")=="pvp_set_mail_horde_shaman-banner.blp", "Horde Shaman set uses dedicated Bru'kan art")
     assert(B:ArtPath("set_dungeon1_priest")=="key_strat-banner.blp", "Devout set uses approved Stratholme art")
-    assert(B:ArtPath("pvp_rank14_horde")=="set_tier2_warrior-banner.blp", "Horde PvP goal ignores player's Alliance faction")
+    assert(B:ArtPath("pvp_rank14_horde")=="pvp_rank14-banner.blp", "Horde rank uses shared medallion even on an Alliance character")
     assert(B:ArtPath("set_tier2_warlock")=="set_tier2_warlock-alliance-banner.blp")
     assert(B:ArtPath("set_tier1_paladin")=="set_tier1_paladin-banner.blp")
     race = "Dwarf"
@@ -251,8 +251,8 @@ do
     assert(B:ArtPath("epicmounts")=="epicmounts_troll-banner.blp")
     assert(B:ArtPath("pvp_hk")=="pvp_drums_of_war-banner.blp")
     assert(B:ArtPath("pvp_duelist")=="pvp_drums_of_war-banner.blp")
-    assert(B:ArtPath("pvp_rank14_horde")=="set_tier2_warrior-banner.blp", "Horde rank retains existing faction art")
-    assert(B:ArtPath("pvp_rank14_ally")=="set_tier2_warrior-alliance-banner.blp", "Alliance PvP goal ignores player's Horde faction")
+    assert(B:ArtPath("pvp_rank14_horde")=="pvp_rank14-banner.blp", "Horde rank uses shared backlit medallion")
+    assert(B:ArtPath("pvp_rank14_ally")=="pvp_rank14-banner.blp", "Alliance rank uses shared medallion even on a Horde character")
     class = "HUNTER"
     assert(B:ArtPath("allclasses")=="tier3_hunter-banner.blp", "Troll Hunter leveling uses Cryptstalker and white lion artwork")
     race = "Orc"
