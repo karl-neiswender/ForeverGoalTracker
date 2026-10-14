@@ -5567,10 +5567,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- beat (the bloom baked on the star field is added on top). Positions are read off
         -- brood-nozdormu-master.png with tools/gridview.py; the larger stars glint larger.
         ["rep_nozdormu-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            gleams = { size = 0.04, points = {
-                { 0.347, 0.051, 0.05 }, { 0.279, 0.123, 0.05 }, { 0.682, 0.036, 0.05 }, { 0.779, 0.209, 0.07 },
-                { 0.343, 0.357, 0.04 }, { 0.471, 0.364, 0.04 }, { 0.426, 0.450, 0.045 }, { 0.432, 0.599, 0.05 },
-                { 0.527, 0.628, 0.035 }, { 0.857, 0.237, 0.035 }, { 0.922, 0.293, 0.05 }, { 0.412, 0.180, 0.04 },
+            -- (positions snapped to each star's brightest pixel; strength 1.5 = more opaque)
+            gleams = { size = 0.04, strength = 1.5, points = {
+                { 0.348, 0.053, 0.05 }, { 0.280, 0.128, 0.05 }, { 0.684, 0.036, 0.05 }, { 0.771, 0.207, 0.07 },
+                { 0.342, 0.356, 0.04 }, { 0.472, 0.368, 0.04 }, { 0.427, 0.457, 0.045 }, { 0.432, 0.596, 0.05 },
+                { 0.495, 0.631, 0.04 }, { 0.854, 0.234, 0.035 }, { 0.927, 0.290, 0.05 }, { 0.422, 0.186, 0.04 },
             } } },
         -- Leveling, Undead Paladin: holy light on the raised hammer head (its eyes bloom too, baked),
         -- slow turning rays from it, and a few ash motes drifting in the storm clouds
@@ -6383,7 +6384,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 local glint = math.max(0, math.sin(time*2*math.pi/info.period + info.phase))^3
                 self:ShowOnce(t)
                 self:ClipLight(t, x, y, (info.size or cfg.size)*aw*(0.7 + 0.3*glint), time*0.15 + info.phase)
-                self:PaintLight(t, level*1.6*glint)
+                self:PaintLight(t, level*1.6*(cfg.strength or 1)*glint)
             else
                 local cx, cy = self:ArtPoint(cfg[1], cfg[2])
                 if info.off then
