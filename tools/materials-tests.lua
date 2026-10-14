@@ -469,7 +469,7 @@ do
     local titles = {}
     for _, g in ipairs(STUB_NS.SETTINGS) do titles[g.title] = g end
     assert(titles["Images"] and titles["Celebrations and sound"] and not titles["Effects"], "settings groups")
-    assert(titles["Images"].rows[1].key == "tallGoalArt" and titles["Images"].rows[2].key == "imageEffects", "Images rows")
+    assert(#titles["Images"].rows == 1 and titles["Images"].rows[1].key == "imageEffects", "Images rows: just Image effects (Large goal photos removed)")
     assert(STUB_NS.SETTING_DEFAULTS.imageEffects == "full", "Image effects full by default")
 end
 

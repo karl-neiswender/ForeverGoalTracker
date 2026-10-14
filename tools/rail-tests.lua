@@ -55,7 +55,7 @@ end
 assert(not R.head:IsShown() and R.filter:IsShown(), "the header's controls give way to the filter button")
 assert(placed > 0, "the Materials drawer follows the list's new edge")
 
--- The rail's card tooltip is the goal's name only.
+-- The rail's card tooltip is the open list's full tooltip (name, category, difficulty...).
 local lines = {}
 -- (the stub hands out a new GameTooltip on every lookup: install a real one for the test)
 GameTooltip = setmetatable({
@@ -63,7 +63,7 @@ GameTooltip = setmetatable({
     AddLine = function(_, text) lines[#lines + 1] = text end,
 }, { __index = function() return function() end end })
 rows[1]:GetScript("OnEnter")(rows[1])
-assert(#lines == 1 and lines[1] == rows[1].goal.name, "rail tooltip: the name only")
+assert(#lines > 1 and lines[1] == rows[1].goal.name and lines[2] == rows[1].goal.category, "rail tooltip: the same full tooltip as the open list")
 
 -- The filter card holds the list's own controls; the count shows while filtering.
 R:OpenCard()
@@ -141,4 +141,4 @@ R:Toggle()
 GameTooltip = nil
 F.materialsPanel.Place = oldPlace
 F.RailMarks = makeMarks
-print("  rail: fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, name-only tooltip, filter card and count, empty tracker, saved choice, demo, Library width ok")
+print("  rail: fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, full tooltip, filter card and count, empty tracker, saved choice, demo, Library width ok")

@@ -269,7 +269,7 @@ FGT.SETTING_DEFAULTS = {
     openOnLogin = false,     -- open the window after login
     scale = 1,               -- window scale
     alpha = 1,               -- window opacity
-    tallGoalArt = true,      -- full-height goal artwork, cropped without stretching
+    tallGoalArt = true,      -- full-height goal artwork, cropped without stretching (no longer in Settings; tests flip it)
     imageEffects = "full",   -- "full": lights, embers, snow, bloom, dust and clouds on goal art; "subtle": the clouds only; "off": none
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
     hideCompletedSteps = false, -- guide filter, controlled beside Step by step
@@ -4109,8 +4109,8 @@ for i, goal in ipairs(FGT.goals) do
         end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine(self.goal.name)
-        -- folded into the icon rail: the name only, like the gear's "Settings" (Karl)
-        if FGT.ListIsRail and FGT.ListIsRail() then GameTooltip:Show(); return end
+        -- (folded into the icon rail, the card shows this same full tooltip: Karl,
+        -- 2026-10-14, replacing the earlier name-only one)
         local gc = FGT.categoryColors[self.goal.category] or C.ACCENT
         GameTooltip:AddLine(self.goal.category, gc[1], gc[2], gc[3])
         local dc = FGT.difficultyColors[self.goal.difficulty] or C.SUBTEXT
@@ -9740,7 +9740,7 @@ function FGT.OpenGoalMenu(card)
             if FGT.OpenTargetCard then FGT.OpenTargetCard(goal) end
         end)
         M.rows[4].label:SetText("Pop out steps")
-        M.rows[4].icon:SetTexture(FGT.Icon("link"))
+        M.rows[4].icon:SetTexture(FGT.Icon("pop-out")) -- the goal page's pop-out arrow, not the chain link
         M.rows[4]:SetScript("OnClick", function()
             local goal = M.goal
             FGT.CloseGoalMenu()
@@ -10994,9 +10994,6 @@ FGT.SETTINGS = {
           apply = function() FGT.PlayGoalSound(FGT.Setting("sound")) end },
     } },
     { title = "Images", rows = {
-        { type = "toggle", key = "tallGoalArt", label = "Large goal photos",
-          desc = "Turn off for smaller goal photos",
-          apply = function() if FGT.goalBanner then FGT.goalBanner:Fit() end end },
         { type = "choice", key = "imageEffects", label = "Image effects",
           desc = "Full: light, embers, snow and dust. Subtle: just the drifting clouds. Off: the image alone",
           options = { { "full", "Full" }, { "subtle", "Subtle" }, { "off", "Off" } },
@@ -11807,6 +11804,9 @@ initFrame:SetScript("OnEvent", function(self, event, name)
         end
         ForeverGoalTrackerDB.stepsFix231 = true
     end
+    -- "Large goal photos" left Settings (Karl, 2026-10-14): everyone gets the
+    -- large photos, including players who had turned them off.
+    if ForeverGoalTrackerDB.settings then ForeverGoalTrackerDB.settings.tallGoalArt = nil end
     -- One-time fix: racial mounts gained an Exalted step at position 2
     -- (any race of the faction can buy them), so steps 2-4 of the eight
     -- Classic races move down one. Skyborne (part 9) keeps its 4 steps.
