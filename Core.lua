@@ -5164,6 +5164,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.social_campfires, B.preprocessed.social_campfires = 4/3, true
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
     B.artPaths.key_ubrs = "key_ubrs-banner.blp"
+    B.artPaths.key_brd = "key_ubrs-banner.blp"
+    B.artAspects.key_brd, B.preprocessed.key_brd = 4/3, true
     B.artAspects.key_ubrs, B.preprocessed.key_ubrs = 4/3, true
     B.artPaths.key_strat = "key_strat-banner.blp"
     B.artAspects.key_strat, B.preprocessed.key_strat = 4/3, true

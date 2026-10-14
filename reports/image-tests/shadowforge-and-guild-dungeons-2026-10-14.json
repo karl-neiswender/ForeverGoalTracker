@@ -1,0 +1,18 @@
+{
+  "shadowforge": {
+    "goal": "key_brd",
+    "sharedTexture": "key_ubrs-banner.blp",
+    "aspect": "4:3",
+    "preprocessed": true,
+    "status": "Installed at Karl's request; existing approved carved dwarf stone doors"
+  },
+  "dungeons": {
+    "goal": "social_guild_dungeon",
+    "source": "Media/artwork/Gahz'rilla_full.jpg",
+    "review": "Media/final-images/morning-2026-10-14/dungeons-with-guildmates-review.png",
+    "prompt": "Edit the supplied Gahz'rilla artwork into ONE 4:3 landscape background banner for Dungeons with Guildmates in Forever Goal Tracker, intended master 1200 x 900 pixels. Preserve exact original three-headed hydra/serpent: all THREE distinct heads, jaws, teeth, eyes, horns, scale patterns and necks; preserve the existing tiny foreground fighter and curved weapon, Zul'Farrak sandstone ruins, broken architecture and stormy atmosphere. Keep original detailed painterly style and any existing artist marks. Recompose hydra heads high toward the RIGHT, with breathing room above ALL heads and no cropping of mouths or horns. Left third quiet for addon text; extend existing desert ruins and atmospheric backdrop naturally without adding buildings or figures. Strict neutral black and white grayscale, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a WIDE SMOOTH DARK LEFT gradient strongest at left edge blending gradually into scene, neutral charcoal, no hard strip or boundary. Bake a SOFT DARK BOTTOM gradient across lowest approximately 100 pixels of a 1200x900 master (11%), fading down to near-black neutral charcoal at bottom edge with natural transition and no hard horizontal strip. BOTH gradients in the image itself. No added text, UI, border, extra heads, characters, limbs or unrelated objects. Preserve monster and fighter geometry.",
+    "tool": "Built-in image_gen",
+    "status": "Preview awaiting approval",
+    "inspection": "Three heads, foreground fighter, neutral grayscale and both baked gradients retained. Original unchanged."
+  }
+}
