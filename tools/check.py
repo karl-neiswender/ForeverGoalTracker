@@ -401,6 +401,9 @@ if ok_all:
             'assert(lo >= 0 and hi <= 1 and hi > 0.5 and lo < 0.1, "gusts swell and settle between calm and strong: " .. lo .. " " .. hi); '
             'local step, prev = 0, nil; for i = 0, 3600 do B.glowAnim.t = i / 60; B:StepEmbers(0); if prev then step = math.max(step, math.abs(B.gust - prev)) end; prev = B.gust end; '
             'assert(step < 0.004, "a gust never jumps between frames (photosensitivity rule): " .. step); '
+            'local lean, n = 0, 0; for k = 1, B.emberCount do local e = B.emberDots[k]; if not e.wait then lean = lean + math.sin(e.heading); n = n + 1 end end; '
+            'assert(lean / n > 0.04, "the default wind leans down, not up (y runs down the screen): " .. lean / n); '
+            'local gz = B.glows["social_guild_dungeon-banner.blp"]; assert(gz and gz.embers.drift and gz.embers.wind == 148 and gz.embers.count == 110, "Gahz\'rilla\'s sandstorm follows the painted streaks"); '
             'local cen = B.glows["rep_cenarion-banner.blp"]; assert(cen and cen.embers and cen.embers.drift, "Cenarion Circle has blown sand"); '
             'assert(not B:IsLeafy("rep_cenarion", "rep_cenarion-banner.blp"), "and no drifting leaves with it"); '
             'print("  blown sand: 70 particles leftward, streaked, bloom kept, gusts calm to strong; Cenarion sand without leaves ok")'),

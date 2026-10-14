@@ -82,6 +82,7 @@ STEMS = {
     "social_waves": "Waves (the dynamite sparks)",
     "raid_naxx": "Naxxramas, Kel'Thuzad (the frost burst at the claw, the glow behind him quieter)",
     "social_guild": "Guild (the light flares and columns behind him, not his armor)",
+    "social_guild_dungeon": "Dungeons with Guildmates, Gahz'rilla (the sky glare behind the right head, the eye)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -136,6 +137,8 @@ OVERRIDES = {
     "raid_naxx": dict(region=[(0.74, 0.92, 0.04, 0.30)], outside=0.25),
     # the flares and the light column, with his bright shoulder plates hushed
     "social_guild": dict(region=[(0.28, 1.00, 0.00, 0.22)], quiet=[((0.36, 0.95, 0.08, 0.22), 0.3)]),
+    # the glare breaking through the storm behind the right head, and the eye; the rest quiet
+    "social_guild_dungeon": dict(region=[(0.70, 1.00, 0.04, 0.42), (0.40, 0.47, 0.48, 0.56)], outside=0.2),
 }
 
 # Blooms baked in zones (a texture per band of the picture, each breathing on its own beat in

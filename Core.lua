@@ -5281,7 +5281,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     -- Blown sand (Karl, 2026-10-14) for desert and barren banners: grains streaking sideways
     -- and faint dust puffs, quickening in slow gusts. `box` is where it blows (usually the
-    -- lower part of the art), `wind` its direction in degrees (180 = toward the left).
+    -- lower part of the art), `wind` its direction in degrees (180 = toward the left; y runs
+    -- down the screen, so below 180 leans down, above 180 leans up).
     local function Sand(box, count, wind)
         return { drift = true, box = box, count = count, blurShare = 0.12, rise = 0.55, wind = wind, strength = 1.4 }
     end
@@ -5518,6 +5519,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- leaves list: leaves and sand together were too busy (Karl, 2026-10-14).
         ["rep_cenarion-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = Sand({ 0.0, 1.0, 0.36, 0.92 }, 70) },
+        -- Dungeons with Guildmates, Gahz'rilla in the Zul'Farrak sandstorm: sand driven down and
+        -- to the left along the painted wind streaks (148 degrees), over nearly the whole picture
+        -- and denser than the other sand banners, since this one is a storm. Its bloom (the
+        -- glare behind the right head, the eye) is added on top.
+        ["social_guild_dungeon-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Sand({ 0.12, 1.0, 0.05, 0.92 }, 110, 148) },
         -- Ironforge: firelight glowing from inside the great door, flickering slowly like the
         -- Great Forge beyond it, under the falling snow (Karl, 2026-10-14). The doorway spans
         -- about u 0.61-0.73, v 0.60-0.80 on cities/ironforge-master.png; a light column inside
@@ -5547,6 +5554,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "allclasses_undead_paladin", "rep_ambassador_ally_darnassus", "rep_ambassador_horde_undercity", "social_cheers", "set_tier2_warlock",
         -- the morning banners of 2026-10-14 (Karl approved the previews)
         "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
+        "social_guild_dungeon",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5560,6 +5568,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "social_buffs", "social_friends", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
         "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers", "set_tier2_warlock",
         "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
+        "social_guild_dungeon",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
@@ -5572,6 +5581,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         social_cheers = 0.45,
         -- the ring is already bright; Kel'Thuzad's frost burst is a lighter touch (2026-10-14)
         set_partners_in_crime = 0.4, raid_naxx = 0.5,
+        social_guild_dungeon = 0.4, -- the storm's glare is already bright
+
     }
     -- A bloom can be baked in zones (tools/bloomall.py ZONES): one texture per band of the
     -- picture, each dimming and brightening on its own slow beat, so the glow ripples through
@@ -5855,9 +5866,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         local drift = cfg.drift
         if drift then
-            -- blown sand: sideways along the wind (`wind`, degrees; 180 = toward the left,
-            -- default, slightly down), tiny streaks plus a few wide, very faint dust puffs
-            local wind = math.rad(cfg.wind or 186)
+            -- blown sand: sideways along the wind (`wind`, degrees, measured with y running
+            -- down the screen: 180 = toward the left, under 180 = left and down; default 174,
+            -- slightly down), tiny streaks plus a few wide, very faint dust puffs
+            local wind = math.rad(cfg.wind or 174)
             if not warm then
                 -- new sand blows in from the upwind edge of its area
                 local fromRight = math.cos(wind) < 0
