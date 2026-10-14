@@ -5513,18 +5513,18 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- ground and low air (v 0.42-0.92), clear of the sky and the wasps; the first sand
         -- banner, to tune before others (Karl, 2026-10-14). Its bloom is added on top.
         ["raid_aq20-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = Sand({ 0.0, 1.0, 0.42, 0.92 }, 70) },
+            embers = Sand({ 0.0, 1.0, 0.42, 0.92 }, 110) },
         -- Cenarion Circle (Cenarion Hold in Silithus): sand blowing across the hillside and the
         -- ground below it (v 0.36-0.92), clear of the buildings and sky. Taken off the windy
         -- leaves list: leaves and sand together were too busy (Karl, 2026-10-14).
         ["rep_cenarion-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = Sand({ 0.0, 1.0, 0.36, 0.92 }, 70) },
+            embers = Sand({ 0.0, 1.0, 0.36, 0.92 }, 110) },
         -- Dungeons with Guildmates, Gahz'rilla in the Zul'Farrak sandstorm: sand driven down and
         -- to the left along the painted wind streaks (148 degrees), over nearly the whole picture
         -- and denser than the other sand banners, since this one is a storm. Its bloom (the
         -- glare behind the right head, the eye) is added on top.
         ["social_guild_dungeon-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = Sand({ 0.12, 1.0, 0.05, 0.92 }, 110, 148) },
+            embers = Sand({ 0.12, 1.0, 0.05, 0.92 }, 160, 148) },
         -- Ironforge: firelight glowing from inside the great door, flickering slowly like the
         -- Great Forge beyond it, under the falling snow (Karl, 2026-10-14). The doorway spans
         -- about u 0.61-0.73, v 0.60-0.80 on cities/ironforge-master.png; a light column inside
@@ -5910,11 +5910,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 e.stretch = 4 + 3*math.random()
                 e.peak = 0.10 + 0.10*math.random()
             else
-                -- grains: small, streaked a little along the wind (smaller than this
-                -- vanished into busy desert art in a still, 2026-10-14)
-                e.size = aw*(0.005 + 0.008*r*r)
-                e.stretch = 2.2 + 1.6*math.random()
-                e.peak = 0.50 + 0.45*math.random()
+                -- grains: specks, nearly round (Karl, 2026-10-14: the first, streaked
+                -- 6 to 15 px grains read as large and elongated, not sand). About
+                -- 3 to 6 px on a 1,180 px banner, the dot's bright core 1 to 2 px;
+                -- more of them (Sand's count) keeps it reading as blowing sand.
+                e.size = aw*(0.0026 + 0.0024*r*r)
+                e.stretch = 1 + 0.4*math.random()
+                e.peak = 0.55 + 0.40*math.random()
             end
         elseif cfg.float then
             e.size = aw*(blur and (0.02 + 0.02*r) or (0.004 + 0.010*r*r))
