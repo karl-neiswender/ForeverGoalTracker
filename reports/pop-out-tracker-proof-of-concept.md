@@ -59,6 +59,40 @@ Ketho/LuaLS results and annotation-loading proof are retained in
 `checks/popout-proof-api-review.md`. This is a source/API review, not native
 rendering or a completed release gate.
 
+## Latest sizing, focus and style refinement
+
+This section supersedes the first refinement's permanently-above-main ordering
+and the original flat black panel styling.
+
+- Removed the progress strip's tooltip and mouse interaction; its count is
+  already in the header.
+- Fixed the bottom rectangle: `Texture:SetAlpha` replaced each strip's varied
+  alpha with one value. The new opacity update uses the original ramp values
+  in `SetVertexColor`, keeping the fade shape at every opacity.
+- Reused What's new's etched panel, subtle grime, gold heading, forty-unit
+  soft shadow and cubic 0.2-second fade with a six-unit upward settling motion.
+  Subtle stays fade-only and Off is instant. No new ambient animation.
+- Background opacity redraws the panel and grime gradient alpha endpoints.
+  Drop shadow opacity is independent (default 30%). The shadow's center is
+  omitted so it cannot fill a transparent body with a dark rectangle.
+- Auto-fit on opening is enabled by default. It measures the checklist text,
+  fits width up to 520 UI units and height up to 70% of the screen, with
+  scrolling for larger guides. Manual resizing disables Auto-fit and preserves
+  the chosen size for future goals. Settings can fit the steps again.
+- Settings adds Fit to steps now, Auto-fit on opening, Close main on pop-out
+  (off by default), and Drop shadow opacity.
+- Opening a pop-out brings it above the main window. Subsequent clicks bring
+  the clicked window forward. Mouse-focus ancestry identifies the owner of a
+  child control, and fixed frame levels prevent escalation on repeated clicks.
+- Opting into Close main on pop-out hides the main window after opening the
+  steps. Dock still opens the main guide. The setting applies on the next pop-out.
+- Auto-fit, close-main and shadow preferences are stored alongside position,
+  manual size, background opacity and collapse state.
+
+87 two-client behavior sessions and a clean Ketho/LuaLS pass are retained in
+`checks/popout-qol-*`. Native review of this iteration remains pending. Use
+`/reload`; no new texture/font or TOC changes were added.
+
 ## Native review still required
 
 Karl reviewed the initial prototype in game and supplied a Dragonstalker Armor

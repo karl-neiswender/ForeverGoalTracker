@@ -2149,6 +2149,7 @@ do
         frame:HookScript("OnSizeChanged", Fit)
         Fit()
         frame.grime = body
+        frame.grimeParts = {body, strip, rest}
         return body
     end
 end
@@ -2855,6 +2856,8 @@ local function CreateEdgeFade(parent, isTop, soft, bottomHeight)
     -- like they slide under it; bottom: the panels' darker bottom shade
     local c = isTop and { 0.05, 0.045, 0.04 } or { 0.022, 0.022, 0.021 }
     f.strips = {}
+    f.stripAlphas = {}
+    f.stripColor = c
     local stepH = height / steps
     for i = 1, steps do
         -- i = 1 sits at the outer edge (nearly opaque panel color) and
@@ -2871,6 +2874,7 @@ local function CreateEdgeFade(parent, isTop, soft, bottomHeight)
         if soft and not isTop then alpha = alpha * 0.75 end
         local strip = Flat(f, c[1], c[2], c[3], alpha)
         f.strips[#f.strips + 1] = strip
+        f.stripAlphas[#f.strips] = alpha
         strip:ClearAllPoints()
         if isTop then
             strip:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -(i - 1) * stepH)
@@ -3621,6 +3625,7 @@ function FGT.AddDropShadow(f, spread, alpha, drop, inset)
     local TEX = "Interface\\AddOns\\" .. ADDON .. "\\Media\\shadow"
     local A, B = 0.49, 0.51 -- the center lines, stretched for edges and middle
     local R = spread
+    s.pieces = {}
     -- each piece: its top-left (point of s, x, y), its bottom-right
     -- (point of s, x, y), then texcoords left, right, top, bottom
     local pieces = {
@@ -3634,13 +3639,14 @@ function FGT.AddDropShadow(f, spread, alpha, drop, inset)
         { "TOPRIGHT", 0, 0, "BOTTOMRIGHT", R, 0,      0.5, 1, A, B },    -- right
         { "TOPLEFT", 0, 0, "BOTTOMRIGHT", 0, 0,       A, B, A, B },      -- middle
     }
-    for _, p in ipairs(pieces) do
+    for i, p in ipairs(pieces) do
         local t = s:CreateTexture(nil, "BACKGROUND")
         t:SetTexture(TEX)
         t:SetVertexColor(0, 0, 0, alpha)
         t:SetPoint("TOPLEFT", s, p[1], p[2], p[3])
         t:SetPoint("BOTTOMRIGHT", s, p[4], p[5], p[6])
         t:SetTexCoord(p[7], p[8], p[9], p[10])
+        s.pieces[i] = t
     end
     s:SetShown(f:IsShown())
     f:HookScript("OnShow", function() s:Show() end)
@@ -11868,6 +11874,7 @@ FGT.MaterialsUI = {
 }
 FGT.PopoutUI = {
     icon = NewIcon,
+    vgradient = ApplyVGradient,
     render = function(goal, view)
         local rim, quality = FGT.stepRim, FGT.stepQuality
         local ok, err = pcall(RefreshSteps, goal, view)

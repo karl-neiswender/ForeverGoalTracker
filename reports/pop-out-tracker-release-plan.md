@@ -87,6 +87,9 @@ The empty state is a visual placeholder for the steps area, preserving the layou
 - Try a thin goal progress bar immediately beneath the header in the mockup,
   keeping progress visible while scrolling without making the title bar bulky.
   Final dimensions and placement need visual review.
+- The progress strip has no tooltip; its count is already in the header.
+- Match the What's new panel's etched border, grayscale grime, gold heading
+  and soft drop shadow, with separate background and shadow opacity controls.
 - Use the existing Warcraft font, quiet dark surface, thin etched border and
   gold controls. Retain the established blue treatment for Forever content.
 - Keep section or piece names when they explain which mount, class or armor
@@ -111,6 +114,10 @@ The empty state is a visual placeholder for the steps area, preserving the layou
 - Save opacity with the pop-out preferences independently of the main window.
   Scroll-edge shadows follow background opacity too, retaining their independent
   scroll fade. The pop-out must appear above the main window.
+- Opening brings the pop-out forward; subsequent clicks bring the clicked
+  main/pop-out window forward. Close main on pop-out is optional and off by default.
+- Use What's new's cubic 0.2-second fade and six-unit rise for opening. Keep
+  the existing Subtle and Off behavior and stop transition drivers when done.
   Review the default and slider range over both bright and dark game scenes.
 - Pop out with a short eased fade and a tiny upward movement, overlapping
   the main steps fading away. Reveal the recessed placeholder as they vanish.
@@ -159,6 +166,9 @@ The empty state is a visual placeholder for the steps area, preserving the layou
   Unlock in the compact settings menu to keep the header clean.
 - Resizing changes space, wrapping and scroll bounds, not font size. Keep a
   readable minimum width/height and sensible screen-fit maximums.
+- Auto-fit on opening is on by default, bounded to a compact width and the
+  available screen height. Manual resizing turns it off and remembers the
+  chosen size. Provide Fit to steps now and a way to enable Auto-fit again.
 - Remember the chosen goal, position, size, locked state and whether the
   pop-out is open across reloads and logins, on this machine.
 - Use one shared saved position and size for the pop-out. Future goals reuse them;

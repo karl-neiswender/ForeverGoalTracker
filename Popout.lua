@@ -1,7 +1,8 @@
 local ADDON, FGT = ...
 local U, S = FGT.PopoutUI, FGT.MaterialsUI
 local C = S.colors
-local P = { open = false, rows = {}, headers = {}, fraction = 1, width = 360, height = 300 }
+local P = { open = false, rows = {}, headers = {}, fraction = 1, width = 360, height = 300,
+    autoFit = true, closeMain = false, shadowOpacity = 0.3, mainLevel = S.main:GetFrameLevel() }
 FGT.Popout = P
 
 local function Label(parent, size, text, r, g, b)
@@ -39,11 +40,39 @@ function P:Save()
     saved.width, saved.height = self.width, self.height
     saved.opacity, saved.locked = self.opacity, self.locked or nil
     saved.collapsed = self.collapsed or nil
+    saved.autoFit, saved.closeMain, saved.shadowOpacity = self.autoFit, self.closeMain or nil, self.shadowOpacity
 end
 
 function P:Raise()
+    S.main:SetFrameLevel(self.mainLevel)
     self.frame:SetFrameStrata("HIGH")
-    self.frame:SetFrameLevel(S.main:GetFrameLevel() + 100)
+    self.frame:SetFrameLevel(self.mainLevel + 100)
+    self.shadow:SetFrameStrata("HIGH")
+    self.shadow:SetFrameLevel(self.mainLevel + 99)
+end
+
+function P:FocusMain()
+    if not self.open then return end
+    S.main:SetFrameLevel(self.mainLevel + 200)
+end
+
+-- Ask the top mouse target which window owns the click; rectangle tests
+-- alone also match windows behind it.
+function P:FocusClick()
+    if not self.open then return end
+    local foci
+    if GetMouseFoci then foci = GetMouseFoci()
+    else
+        local legacy = rawget(_G, "GetMouseFocus")
+        foci = legacy and {legacy()} or {}
+    end
+    for _, focus in ipairs(foci or FGT.EMPTY) do
+        while focus do
+            if focus == self.frame then self:Raise(); return end
+            if focus == S.main then self:FocusMain(); return end
+            focus = focus.GetParent and focus:GetParent() or nil
+        end
+    end
 end
 
 function P:Place(offset)
@@ -55,7 +84,7 @@ function P:Place(offset)
     if screenH <= 0 then screenH = GetScreenHeight() end
     screenW, screenH = screenW / scale, screenH / scale
     self.width = Clamp(self.width, math.min(280, screenW - 16), math.max(100, screenW - 16))
-    self.height = Clamp(self.height, math.min(150, screenH - 16), math.max(80, screenH - 16))
+    self.height = Clamp(self.height, math.min(80, screenH - 16), math.max(80, screenH - 16))
     self.left = Clamp(self.left or (screenW - self.width - 40), 8, math.max(8, screenW - self.width - 8))
     self.top = Clamp(self.top or (screenH * 0.25), 8, math.max(8, screenH - self.height - 8))
     self.frame:SetScale(scale)
@@ -67,7 +96,7 @@ function P:Place(offset)
     self.scroll.scroll:SetSize(math.max(50, self.width - 36), math.max(1, self.height - 58))
     self.content:SetWidth(math.max(50, self.width - 36))
     self.scroll:Update()
-    self.body:SetShown(not self.collapsed)
+    self.shadow:SetScale(scale)
     self.scroll.scroll:SetShown(not self.collapsed)
     self.grip:SetShown(not self.locked and not self.collapsed)
     if self.collapsed then
@@ -81,14 +110,62 @@ end
 
 function P:SetOpacity(value)
     self.opacity = Clamp(tonumber(value) or 0.85, 0, 1)
-    self.body:SetAlpha(self.opacity)
-    self.heading:SetAlpha(self.opacity)
-    self.rim:SetAlpha(self.opacity)
+    local style = S.styles.panel
+    U.vgradient(self.chrome.etchBg, style.top, style.bottom, self.opacity, self.opacity)
+    self.chrome:SetBackdropBorderColor(style.edge[1], style.edge[2], style.edge[3], self.opacity)
+    self.chrome.etchHi:SetVertexColor(1, 0.92, 0.70, 0.07 * self.opacity)
+    local grime = self.chrome.grimeParts
+    grime[1]:SetVertexColor(1, 1, 1, 0.18 * self.opacity)
+    U.vgradient(grime[2], {1,1,1}, {1,1,1}, 0.18 * self.opacity, 0.07 * self.opacity)
+    grime[3]:SetVertexColor(1, 1, 1, 0.07 * self.opacity)
     for _, fade in ipairs({self.scroll.fadeTop, self.scroll.fadeBottom}) do
-        for _, strip in ipairs(fade.strips) do strip:SetAlpha(self.opacity) end
+        local color = fade.stripColor
+        for i, strip in ipairs(fade.strips) do
+            strip:SetVertexColor(color[1], color[2], color[3], fade.stripAlphas[i] * self.opacity)
+        end
     end
     if self.opacityText then self.opacityText:SetText(math.floor(self.opacity * 100 + 0.5) .. "%") end
     self:Save()
+end
+
+function P:SetShadowOpacity(value)
+    self.shadowOpacity = Clamp(tonumber(value) or 0.3, 0, 1)
+    self.shadow:SetAlpha(self.shadowOpacity * self.fraction)
+    self.shadowText:SetText(math.floor(self.shadowOpacity * 100 + 0.5) .. "%")
+    self:Save()
+end
+
+function P:FitSteps()
+    if not self.open or self.collapsed or self.fitting then return end
+    self.fitting = true
+    local function Measure(label)
+        local file, size, flags = label:GetFont()
+        if type(file) == "string" and type(size) == "number" then self.measure:SetFont(file, size, flags) end
+        self.measure:SetText(label:GetText() or "")
+        return self.measure:GetStringWidth()
+    end
+    local width = Measure(self.title) + 182
+    for _, node in ipairs(self.layout.nodes) do
+        local row = node.frame
+        local label = row.text or row.name
+        if label then
+            local left, rowLeft = label:GetLeft(), row:GetLeft()
+            local indent = left and rowLeft and math.max(0, left-rowLeft) or 32
+            local tail = row.levelText and row.levelText:IsShown() and 80 or
+                (row.count and row.count:IsShown() and 52 or 12)
+            width = math.max(width, Measure(label) + indent + tail + 36)
+        end
+    end
+    self.width = Clamp(math.ceil(width), 280, 520)
+    self:Place()
+    self:Refresh()
+    local screenH = UIParent:GetHeight()
+    if screenH <= 0 then screenH = GetScreenHeight() end
+    screenH = screenH / (FGT.windowScale or 1)
+    self.height = Clamp(math.ceil(self.layout.height + 58), 80, math.max(80, screenH * 0.7))
+    self:Place()
+    self:Save()
+    self.fitting = nil
 end
 
 function P:SetLocked(locked)
@@ -114,7 +191,8 @@ function P:Animate(show, done)
     local function Paint(t)
         self.fraction = from + (target - from) * t
         self.frame:SetAlpha(self.fraction)
-        self:Place(mode == "full" and -3 * (1 - self.fraction) or 0)
+        self.shadow:SetAlpha(self.shadowOpacity * self.fraction)
+        self:Place(mode == "full" and -6 * (1 - self.fraction) or 0)
         self:PaintPlaceholder()
     end
     if mode == "off" then
@@ -125,7 +203,7 @@ function P:Animate(show, done)
     self.driver:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
         local t = math.min(1, elapsed / (show and 0.20 or 0.16))
-        Paint(t * t * (3 - 2 * t))
+        Paint(show and (1 - (1 - t)^3) or (t * t * (3 - 2 * t)))
         if t == 1 then
             self.driver:SetScript("OnUpdate", nil)
             if done then done() end
@@ -160,6 +238,8 @@ function P:Refresh()
     FGT.SetPlusMinus(self.arrow, not self.collapsed)
     self.completedButton.text:SetText(FGT.Setting("hideCompletedSteps") and "Show completed steps" or "Hide completed steps")
     self.groupsButton:SetShown(goal.sections ~= nil)
+    self.autoFitButton.text:SetText("Auto-fit on opening: " .. (self.autoFit and "On" or "Off"))
+    self.closeMainButton.text:SetText("Close main on pop-out: " .. (self.closeMain and "On" or "Off"))
     self.progress = total > 0 and done / total or 0
     local color = total > 0 and done >= total and C.DONE or (FGT.ForeverWord(goal) and C.FOREVER or C.ACCENT)
     self.fill:SetColorTexture(color[1], color[2], color[3], 1)
@@ -176,7 +256,11 @@ FGT.RefreshPopout = function() P:Refresh() end
 function P:Open(id, collapsed)
     local goal = FGT.GoalById(id)
     if not goal or goal.libraryOnly or not U.active(goal) then return false end
-    if self.open and self.goalId == id then return true end
+    if self.open and self.goalId == id then
+        self:Raise()
+        if self.closeMain then S.main:Hide() end
+        return true
+    end
     local fraction = (self.open or self.closing) and self.fraction or 0
     self.driver:SetScript("OnUpdate", nil)
     self.options:Hide()
@@ -190,10 +274,13 @@ function P:Open(id, collapsed)
     self:Place()
     self:Raise()
     self.frame:SetAlpha(self.fraction)
+    self.shadow:SetAlpha(self.shadowOpacity * self.fraction)
     self.frame:Show()
     self:Refresh()
+    if self.autoFit and not self.collapsed then self:FitSteps() end
     U.redraw()
     self:Animate(true)
+    if self.closeMain then S.main:Hide() end
     self:Save()
     return true
 end
@@ -232,6 +319,7 @@ function P:Close(dock)
         self.closing, self.slotId = nil, nil
         self.fraction = 1
         self.frame:SetAlpha(1)
+        S.main:SetFrameLevel(self.mainLevel)
         self:Place()
         self.placeholder:Hide()
         U.redraw()
@@ -300,18 +388,16 @@ frame:SetClampedToScreen(true)
 frame:SetDontSavePosition(true)
 frame:EnableMouse(true)
 frame:Hide()
-P.body = Surface(frame, 0.035, 0.030, 0.025, 1)
-P.body:SetPoint("TOPLEFT", 1, -28)
-P.body:SetPoint("BOTTOMRIGHT", -1, 1)
-P.heading = Surface(frame, 0.065, 0.055, 0.04, 1)
-P.heading:SetPoint("TOPLEFT", 1, -1)
-P.heading:SetPoint("TOPRIGHT", -1, -1)
-P.heading:SetHeight(27)
-P.rim = CreateFrame("Frame", nil, frame, "BackdropTemplate")
-P.rim:SetAllPoints(frame)
-P.rim:EnableMouse(false)
-P.rim:SetBackdrop({edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border", edgeSize = 8})
-P.rim:SetBackdropBorderColor(0.30, 0.25, 0.16, 0.9)
+P.chrome = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+P.chrome:SetAllPoints(frame)
+P.chrome:EnableMouse(false)
+S.etch(P.chrome, S.styles.panel, 12)
+FGT.AddGrime(P.chrome, 0.18, 12, 0.61, 0, 140)
+P.body, P.heading, P.rim = P.chrome.etchBg, P.chrome.etchBg, P.chrome
+P.shadow = FGT.AddDropShadow(frame, 40, 1, 12, 12)
+P.shadow:EnableMouse(false)
+P.shadow.pieces[9]:Hide() -- outer shadow only; transparent body stays transparent
+P.shadow:Hide()
 
 P.header = CreateFrame("Frame", nil, frame)
 P.header:SetPoint("TOPLEFT", 3, -2)
@@ -341,7 +427,8 @@ P.headerIcon:SetScript("OnMouseUp", function(_, button)
     if type(reward) == "table" then reward = reward[1] end
     if reward and not goal.sections then FGT.PreviewItemClick(reward, button) end
 end)
-P.title = Label(P.header, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+P.title = S.title(P.header, 13)
+P.title:SetText("")
 P.title:SetPoint("LEFT", P.headerIcon, "RIGHT", 7, 0)
 P.title:SetPoint("RIGHT", -128, 0)
 P.title:SetWordWrap(false)
@@ -375,15 +462,9 @@ P.bar = CreateFrame("Frame", nil, frame)
 P.bar:SetPoint("TOPLEFT", 1, -28)
 P.bar:SetPoint("TOPRIGHT", -1, -28)
 P.bar:SetHeight(3)
-P.bar:EnableMouse(true)
+P.bar:EnableMouse(false)
 P.fill = Surface(P.bar, C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], 1)
 P.fill:SetPoint("TOPLEFT"); P.fill:SetHeight(3)
-P.bar:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP")
-    GameTooltip:AddLine(P.countText or "Progress", C.TEXT[1], C.TEXT[2], C.TEXT[3])
-    GameTooltip:Show()
-end)
-P.bar:SetScript("OnLeave", function() GameTooltip:Hide() end)
 
 P.scroll = S.scroll(frame)
 P.scroll.scroll:SetPoint("TOPLEFT", 12, -42)
@@ -394,6 +475,10 @@ FGT.EnableGoalLinks(P.content)
 P.complete = Label(frame, 12, "Complete", C.DONE[1], C.DONE[2], C.DONE[3])
 P.complete:SetPoint("TOPLEFT", 14, -45)
 P.complete:Hide()
+P.measure = Label(frame, 12, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+P.measure:SetWidth(10000)
+P.measure:SetWordWrap(false)
+P.measure:Hide()
 
 P.grip = CreateFrame("Button", nil, frame)
 P.grip:SetSize(18, 18)
@@ -410,7 +495,7 @@ end
 local function StartMotion(handle, resize)
     if P.locked or not P.open then return end
     P.driver:SetScript("OnUpdate", nil)
-    P.fraction = 1; frame:SetAlpha(1); P:Place(); P:PaintPlaceholder()
+    P.fraction = 1; frame:SetAlpha(1); P.shadow:SetAlpha(P.shadowOpacity); P:Place(); P:PaintPlaceholder()
     local x, y = GetCursorPosition()
     local left, top, width, height = P.left, P.top, P.width, P.height
     local scale = math.max(0.1, frame:GetEffectiveScale())
@@ -421,6 +506,7 @@ local function StartMotion(handle, resize)
         local cx, cy = GetCursorPosition()
         if math.abs(cx-x) + math.abs(cy-y) >= 4 * scale then self.moved = true end
         if not self.moved then return end
+        if resize then P.autoFit = false end -- actual manual resizing takes precedence
         if resize then P.width, P.height = width + (cx-x)/scale, height - (cy-y)/scale
         else P.left, P.top = left + (cx-x)/scale, top - (cy-y)/scale end
         P:Place()
@@ -448,7 +534,8 @@ frame:HookScript("OnHide", function() P.driver:SetScript("OnUpdate", nil) end)
 
 P.options = CreateFrame("Frame", nil, frame, "BackdropTemplate")
 P.options:SetFrameLevel(frame:GetFrameLevel() + 60)
-P.options:SetSize(220, 175)
+P.options:SetSize(260, 280)
+P.options:SetClampedToScreen(true)
 P.options:SetPoint("TOPRIGHT", P.header, "BOTTOMRIGHT", 0, -5)
 P.options.fgtOwn = true
 P.options:EnableMouse(true)
@@ -480,12 +567,22 @@ P.groupsButton = Option(82, "Expand / collapse groups", function()
     for si in ipairs(goal.sections) do if FGT.PartSelected(goal, si) then FGT.sectionOpen[goal.id .. "_" .. si] = expand end end
     P:Refresh()
 end)
+Option(110, "Fit to steps now", function() P:FitSteps(); P.options:Hide() end)
+P.autoFitButton = Option(134, "Auto-fit on opening: On", function()
+    P.autoFit = not P.autoFit
+    if P.autoFit then P:FitSteps() end
+    P:Refresh(); P:Save()
+end)
+Tip(P.autoFitButton, "Resizing keeps your chosen size and turns this off.")
+P.closeMainButton = Option(158, "Close main on pop-out: Off", function()
+    P.closeMain = not P.closeMain; P:Refresh(); P:Save()
+end)
 local opacityLabel = Label(P.options, 10, "Background opacity", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-opacityLabel:SetPoint("TOPLEFT", 12, -113)
+opacityLabel:SetPoint("TOPLEFT", 12, -185)
 P.opacityText = Label(P.options, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
-P.opacityText:SetPoint("TOPRIGHT", -12, -113)
+P.opacityText:SetPoint("TOPRIGHT", -12, -185)
 P.slider = CreateFrame("Slider", nil, P.options)
-P.slider:SetPoint("TOPLEFT", 12, -143); P.slider:SetPoint("TOPRIGHT", -12, -143); P.slider:SetHeight(12)
+P.slider:SetPoint("TOPLEFT", 12, -211); P.slider:SetPoint("TOPRIGHT", -12, -211); P.slider:SetHeight(12)
 P.slider:SetOrientation("HORIZONTAL"); P.slider:SetMinMaxValues(0, 100)
 P.slider:SetValueStep(1); P.slider:SetObeyStepOnDrag(true)
 local rail = Surface(P.slider, 0.2, 0.17, 0.12, 1)
@@ -495,6 +592,21 @@ thumb:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\knob")
 thumb:SetSize(12, 12)
 P.slider:SetThumbTexture(thumb)
 P.slider:SetScript("OnValueChanged", function(_, value) P:SetOpacity(value / 100) end)
+local shadowLabel = Label(P.options, 10, "Drop shadow opacity", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+shadowLabel:SetPoint("TOPLEFT", 12, -237)
+P.shadowText = Label(P.options, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+P.shadowText:SetPoint("TOPRIGHT", -12, -237)
+P.shadowSlider = CreateFrame("Slider", nil, P.options)
+P.shadowSlider:SetPoint("TOPLEFT", 12, -259); P.shadowSlider:SetPoint("TOPRIGHT", -12, -259)
+P.shadowSlider:SetHeight(12)
+P.shadowSlider:SetOrientation("HORIZONTAL"); P.shadowSlider:SetMinMaxValues(0, 100)
+P.shadowSlider:SetValueStep(1); P.shadowSlider:SetObeyStepOnDrag(true)
+local shadowRail = Surface(P.shadowSlider, 0.2, 0.17, 0.12, 1)
+shadowRail:SetPoint("LEFT"); shadowRail:SetPoint("RIGHT"); shadowRail:SetHeight(2)
+local shadowThumb = P.shadowSlider:CreateTexture(nil, "ARTWORK")
+shadowThumb:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\knob")
+shadowThumb:SetSize(12, 12); P.shadowSlider:SetThumbTexture(shadowThumb)
+P.shadowSlider:SetScript("OnValueChanged", function(_, value) P:SetShadowOpacity(value / 100) end)
 
 P.placeholder = CreateFrame("Frame", nil, U.content)
 P.placeholder.fgtPopoutTransfer = true
@@ -564,16 +676,21 @@ events:SetScript("OnEvent", function(_, event)
         local saved = Saved()
         if not saved then return end
         local open, goal, locked, opacity, collapsed = saved.open, saved.goal, saved.locked, saved.opacity, saved.collapsed
+        local shadowOpacity = saved.shadowOpacity
+        P.autoFit, P.closeMain = saved.autoFit ~= false, saved.closeMain == true
         P.width, P.height = tonumber(saved.width) or 360, tonumber(saved.height) or 300
         P.left, P.top = tonumber(saved.left), tonumber(saved.top)
         P.goalId = goal
         P:Place()
         P:SetOpacity(opacity)
+        P:SetShadowOpacity(shadowOpacity)
         P.slider:SetValue(P.opacity * 100)
+        P.shadowSlider:SetValue(P.shadowOpacity * 100)
         P:SetLocked(locked)
         if open and goal then P:Open(goal, collapsed or false) end
     elseif event == "GLOBAL_MOUSE_DOWN" then
         if P.options:IsShown() and not P.options:IsMouseOver() and not P.settings:IsMouseOver() then P.options:Hide() end
+        P:FocusClick()
     elseif event == "PLAYER_LOGOUT" then
         P:Save()
         P.driver:SetScript("OnUpdate", nil)
@@ -584,6 +701,8 @@ end)
 
 P:Place()
 P:SetOpacity(0.85)
+P:SetShadowOpacity(0.3)
 P:SetLocked(false)
-S.main:HookScript("OnShow", function() if P.open then P:Raise() end end)
-S.main:HookScript("OnMouseDown", function() if P.open then P:Raise() end end)
+frame:SetScript("OnMouseDown", function() if P.open then P:Raise() end end)
+S.main:HookScript("OnShow", function() P:FocusMain() end)
+S.main:HookScript("OnMouseDown", function() P:FocusMain() end)

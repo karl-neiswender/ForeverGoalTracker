@@ -1,5 +1,6 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local P, U = F.Popout, F.PopoutUI
+P.autoFit = false
 local function Track(frame, shown)
     frame._testShown = shown or false
     frame.Show = function(self) self._testShown = true end
@@ -71,12 +72,15 @@ STUB_FIRE("GLOBAL_MOUSE_DOWN", "RightButton")
 assert(not P.options:IsShown(), "any outside mouse down dismisses settings")
 
 for _, fade in ipairs({P.scroll.fadeTop, P.scroll.fadeBottom}) do
-    for _, strip in ipairs(fade.strips) do strip.SetAlpha=function(self,a) self._testOpacity=a end end
+    for _, strip in ipairs(fade.strips) do
+        strip.SetVertexColor=function(self,_,_,_,a) self._testOpacity=a end
+        strip.SetAlpha=function() error("setting uniform strip alpha flattens the fade") end
+    end
 end
 P:SetOpacity(0.25)
 P.scroll:Update()
 for _, fade in ipairs({P.scroll.fadeTop, P.scroll.fadeBottom}) do
-    for _, strip in ipairs(fade.strips) do assert(strip._testOpacity==0.25, "scroll shade follows body opacity") end
+    for i, strip in ipairs(fade.strips) do assert(strip._testOpacity==fade.stripAlphas[i]*0.25, "scroll shade preserves its curve at reduced opacity") end
 end
 P:SetOpacity(0)
 for _, strip in ipairs(P.scroll.fadeBottom.strips) do assert(strip._testOpacity==0, "no opaque bottom band at zero opacity") end

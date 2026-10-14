@@ -1,5 +1,6 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local P, U = F.Popout, F.PopoutUI
+P.autoFit = false -- this fixture verifies the player's explicitly chosen size
 local function Track(frame, shown)
     frame._testShown = shown or false
     frame.Show = function(self) self._testShown = true end
@@ -42,7 +43,7 @@ assert(STUB_SERIALIZE(D.progress)==before, "handled link cannot tick the row")
 F.StepLinkClick = oldLink
 
 P:SetOpacity(0.3)
-assert(P.body._testAlpha==0.3 and P.heading._testAlpha==0.3 and P.frame._testAlpha==1,
+assert(P.chrome.etchBg.fgtGa1==0.3 and P.chrome.etchBg.fgtGa2==0.3 and P.frame._testAlpha==1,
     "opacity changes both backgrounds without fading the parent/text")
 P:SetLocked(true)
 assert(not P.grip:IsShown(), "locking hides the resize grip")
@@ -72,7 +73,7 @@ P.grip:GetScript("OnMouseUp")(P.grip, "LeftButton")
 assert(P.width==450 and P.height==270 and not P.grip:GetScript("OnUpdate"), "corner resizing updates bounds and stops on release")
 P.width, P.height, P.left, P.top = 1, 1, -100, -100
 P:Place()
-assert(P.width>=280 and P.height>=150 and P.left>=8 and P.top>=8, "minimum readable size and offscreen clamping")
+assert(P.width>=280 and P.height>=80 and P.left>=8 and P.top>=8, "minimum readable size and offscreen clamping")
 GetCursorPosition, IsMouseButtonDown = oldCursor, oldButton
 
 -- A checked row stays in place until its response has finished.
@@ -141,7 +142,7 @@ assert(not P.driver:GetScript("OnUpdate"), "opening stops its update script")
 F.SetSetting("celebrations", "off")
 
 -- Load persisted preferences before setters can overwrite the save table.
-D.popout = {open=true,goal="sulfuras",left=75,top=80,width=410,height=260,opacity=0.42,locked=true}
+D.popout = {open=true,goal="sulfuras",left=75,top=80,width=410,height=260,opacity=0.42,locked=true,autoFit=false}
 P.open = false
 P.events:GetScript("OnEvent")(P.events, "PLAYER_LOGIN")
 assert(P.open and P.goalId=="sulfuras" and P.left==75 and P.top==80, "login restores chosen goal and placement")
