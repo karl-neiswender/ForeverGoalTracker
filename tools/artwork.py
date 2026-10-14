@@ -64,6 +64,7 @@ FINAL_BANNERS = {
     "social_waves": "morning-2026-10-14/social-wave-master.png",
     "social_guild": "morning-2026-10-14/social-guild-master.png",
     "social_summons": "morning-2026-10-14/warlock-summoning-master.png",
+    "set_partners_in_crime": "morning-2026-10-14/partners-in-crime-master.png",
     "set_tier1_rogue-alliance": "tier-sets/rogue/tier1-alliance-master.png",
     "allclasses_dwarf_hunter": "leveling/dwarf-hunter-master.png",
     "raid_bwl": "blackwing-lair/classic-key-art-master.png",

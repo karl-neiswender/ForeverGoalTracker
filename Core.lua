@@ -5115,6 +5115,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artPaths.social_campfires = "prof_cooking-banner.blp"
     B.artPaths.social_friends = "social_friends-banner.blp"
     B.artPaths.social_cheers = "social_cheers-banner.blp"
+    B.artPaths.set_partners_in_crime = "set_partners_in_crime-banner.blp"
+    B.artAspects.set_partners_in_crime, B.preprocessed.set_partners_in_crime = 4/3, true
     B.artAspects.social_cheers, B.preprocessed.social_cheers = 4/3, true
     B.artAspects.social_friends, B.preprocessed.social_friends = 4/3, true
     B.artAspects.social_campfires, B.preprocessed.social_campfires = 4/3, true
