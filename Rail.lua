@@ -404,7 +404,7 @@ function R:Animate(rail, instant, quiet)
     -- starts that fastest, which looked too quick (Karl, 2026-10-14). Opening is slower
     -- and eased in and out; folding keeps the Materials drawer's pace.
     local opening = self.target == 0
-    local duration = (opening and 1.0 or 0.7) * math.max(0.35, math.abs(self.target - from))
+    local duration = (opening and 1.4 or 0.7) * math.max(0.35, math.abs(self.target - from))
     driver:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
         local p = math.min(1, elapsed / duration)
