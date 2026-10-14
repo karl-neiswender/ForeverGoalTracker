@@ -164,7 +164,10 @@ function R:UpdateFilter()
         if row and row:IsShown() then shown = shown + 1 end
     end
     local on = FilterOn()
-    filter.count:SetText(on and (shown .. " of " .. total) or "")
+    -- always shown while folded (Karl, 2026-10-14): grey, gold while a filter is on
+    filter.count:SetText(shown .. " of " .. total)
+    local cc = on and C.ACCENT or C.SUBTEXT
+    filter.count:SetTextColor(cc[1], cc[2], cc[3])
     local lit = on or card:IsShown() or filter:IsMouseOver()
     local c = lit and C.ACCENT or C.SUBTEXT
     filter.icon:SetVertexColor(c[1], c[2], c[3]); filter.glow:SetVertexColor(c[1], c[2], c[3])

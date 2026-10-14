@@ -75,7 +75,7 @@ F.listQuery = "thunder"; F.LayoutGoalList(); R:UpdateFilter()
 -- (the stub's cards don't track visibility, so only the count's form is checked)
 assert(R.filter.lit and R.filter.count:GetText() and R.filter.count:GetText():find("^%d+ of %d+$"), "a filter lights the button with a count: " .. tostring(R.filter.count:GetText()))
 F.listQuery = ""; F.listSearch:SetText(""); F.LayoutGoalList(); R:UpdateFilter()
-assert(R.filter.count:GetText() == "", "no count without a filter")
+assert(R.filter.count:GetText():find("^%d+ of %d+$"), "the count stays without a filter (grey): " .. tostring(R.filter.count:GetText()))
 R.CloseCard()
 assert(not R.card:IsShown(), "the card closes")
 
