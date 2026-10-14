@@ -58,6 +58,16 @@ Latest published version is **2.13.0** (tagged 2026-10-13 on `6e68088`, approved
   - **Handle and state:** the handle sits in the gap like Materials'. The choice is saved as `DB.listRail`. The empty tracker and demo scenes always show the full list (`FGT.RailEmpty`, called from Show/HideEmptyTracker).
   - **Motion:** Materials follows each frame, the steps re-wrap every 75 ms, and there's a full redraw at the end. Full slides (0.34 s, reversible); Subtle fades out and back in; Off is instant.
   - **Other:** `/goals rail` toggles. Tests: `tools/rail-tests.lua`.
+- **Blown sand** (Karl, 2026-10-14): a `drift` mode of the banner particle pool (`Sand(box, count, wind)` in Core.lua).
+  - **What it is:** small grains streaked along the wind, plus a few wide, faint dust puffs, quickening in slow gusts (two beats, 17 and 29 s; a test checks no jump between frames).
+  - **Wind:** `wind` is in degrees with y running down the screen. 180 is left, below 180 leans down. The default is 174; it was 186 at first, which drifted up.
+  - **On:** Ruins of Ahn'Qiraj (70, ground band), Cenarion Circle (70, taken off the windy-leaves list: leaves and sand together were too busy), and Gahz'rilla / Dungeons with Guildmates (110 at 148 degrees, following the painted streaks; a sandstorm). Still to consider: Temple of Ahn'Qiraj, both Qiraji mounts.
+  - **Cost:** about 26 µs a frame, no garbage.
+- **Banner effects and the faded bottom** (Karl, 2026-10-14):
+  - **Layer order:** every light and particle sits below the dark fades. On the goal panel's BACKGROUND layer: art -3; rays, bloom, shafts and clouds -2; glows and the particle pool -1; left fade 0; top and bottom fades 1. Inner shadows are on BORDER. `tools/check.py` enforces this.
+  - **The bottom is different:** the art fades to transparent there (35% of the shown art, at most 140), with no dark layer over it. So every banner particle (sand, fire embers, motes, sparks) fades out over the same eased stretch in `B:StepEmbers`; snow keeps its own wider 40% fade. Glows, rays, bloom and shafts already carry the light mask, which includes the faded bottom.
+  - **Clouds and drifting leaves (Ambience.lua) are deliberately not part of this:** Karl wants them as they are.
+- **Blooms added 2026-10-14:** Summon Players (0.6), Partners in Crime (0.4), Waves (0.6), Naxxramas / Kel'Thuzad (0.5), Guild (0.6), Gahz'rilla (0.4). `tools/bloomall.py --only=stem,...` bakes just those. The Ironforge ambassador banner has a slow-flickering glow from inside the great door (0.67, 0.68), under its snow.
 - **Summon Players** (`social_summons`, Library.lua): Warlock-only social counter (`summons`), counted when Ritual of Summoning (spell 698, same id on Classic and Forever, icon `spell_shadow_twilight`) succeeds, once per 4 s. It counts rituals begun, since the warlock gets no event when the summon completes; the tip says so. Codex is making its banner from `Media/artwork/Summoning_Portal_full.jpg`.
 
 A World of Warcraft addon for **Warcraft Forever** (beta now, live launch November 2026). Players pick long-term goals from a built-in library (legendaries, mounts, reputations, raids, item sets, professions, PvP) and follow step-by-step guides, and steps tick automatically from game state across all of the player's characters.
