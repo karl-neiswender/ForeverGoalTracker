@@ -11,6 +11,8 @@ its My Goals card and choose Pop out steps.
 
 - The header drags the window. The bottom-right grip resizes it.
 - The dock icon brings the steps back and opens the main guide on that goal.
+- Gold diagonal arrows indicate Pop out (up-right) and Bring back (down-left),
+  with the shared icon hover and pressed treatment. Restart WoW for these new textures.
 - X restores the main steps without opening the main window.
 - Settings contains Lock position, Reset position, completed-step visibility,
   group expansion and a Background opacity slider.

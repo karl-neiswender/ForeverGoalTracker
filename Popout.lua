@@ -449,14 +449,7 @@ local function HeaderButton(offset, hint, action, icon)
 end
 P.close = HeaderButton(-1, "Close pop-out", function() P:Close(false) end, "close")
 P.settings = HeaderButton(-24, "Pop-out settings", function() P.options:SetShown(not P.options:IsShown()) end, "gear")
-P.dock = HeaderButton(-47, "Bring back to main window", function() P:Close(true) end)
--- A window outline with an arrow entering it, using native texture lines.
-for _, spec in ipairs({{2,7,12,1}, {2,-7,12,1}, {8,0,1,14}, {-4,0,8,1}}) do
-    local t = Surface(P.dock, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1)
-    t:SetSize(spec[3], spec[4]); t:SetPoint("CENTER", spec[1], spec[2])
-end
-P.dock.arrow = Label(P.dock, 13, ">", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-P.dock.arrow:SetPoint("CENTER", 0, 0)
+P.dock = HeaderButton(-47, "Bring back to main window", function() P:Close(true) end, "dock")
 
 P.bar = CreateFrame("Frame", nil, frame)
 P.bar:SetPoint("TOPLEFT", 1, -28)
@@ -645,7 +638,7 @@ FGT.popoutLaunch = P.launch
 P.launch:SetSize(20, 20)
 P.launch:SetPoint("LEFT", U.header, "RIGHT", 4, 0)
 Tip(P.launch, "Pop out steps")
-FGT.IconButton(P.launch, "link-white", 12)
+FGT.IconButton(P.launch, "pop-out", 13)
 P.launch:SetScript("OnClick", function()
     local goal = U.selected()
     if goal and U.active(goal) then P:Open(goal.id) end
