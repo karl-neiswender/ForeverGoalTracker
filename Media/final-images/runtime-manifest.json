@@ -679,7 +679,7 @@
     "equivalent_tga_bytes": 786476
   },
   "prof_blacksmithing": {
-    "source": "professions/blacksmithing-master.png",
+    "source": "morning-2026-10-14/blacksmithing-alliance-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -700,7 +700,7 @@
     "equivalent_tga_bytes": 786476
   },
   "raid_naxx": {
-    "source": "naxxramas/tcg-key-art-master.png",
+    "source": "morning-2026-10-14/naxxramas-kelthuzad-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -763,7 +763,7 @@
     "equivalent_tga_bytes": 786476
   },
   "rep_nozdormu": {
-    "source": "reputations/brood-nozdormu-master.png",
+    "source": "morning-2026-10-14/brood-nozdormu-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -1023,6 +1023,20 @@
   },
   "prof_blacksmithing-horde": {
     "source": "professions/blacksmithing-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_waves": {
+    "source": "morning-2026-10-14/social-wave-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_guild": {
+    "source": "morning-2026-10-14/social-guild-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,

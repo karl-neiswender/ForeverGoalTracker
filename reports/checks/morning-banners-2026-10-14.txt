@@ -1,0 +1,494 @@
+compiles   Data.lua
+compiles   Library.lua
+compiles   AQArmor.lua
+compiles   ArmorSets.lua
+compiles   Npcs.lua
+compiles   Quests.lua
+compiles   Dependencies.lua
+compiles   Filters.lua
+compiles   Core.lua
+compiles   ItemTooltips.lua
+compiles   Materials.lua
+compiles   Popout.lua
+compiles   WhatsNew.lua
+compiles   Ambience.lua
+compiles   Audit.lua
+layers     banner lights, bloom, embers and sparks sit below the dark gradients (B.art, B.background, B.bloomTex, B.glowTex, B.raysTex, texture made in BloomTexture, texture made in ResetEmbers, texture made in ResetShafts)
+ambience  windy leaves and clouds are panel layers below the dark gradients (clouds -2, dust -1)
+variants   53 registered banner variants are on disk
+blooms     49 bloom textures and their banners are on disk
+escapes    no invalid backslash escapes in any Lua string
+language   player-facing text follows the enforced conventions
+session    fresh install
+             chat: |cffffd75eForever Goal Tracker:|r welcome! Type |cffffffff/goals|r or click the minimap button, then add goals from the Goal Library.
+session    Forever 1.60.1 build 70291 startup
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   build 70291 startup, Forever detection, final banners and logout ok
+session    login with goals
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff36%|r of your goals. One step closer. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+session    goal finished while closed
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:atiesh|h[Atiesh, Greatstaff of the Guardian]|h|r! One for the history books.
+session    /goals testbanner
+             chat: |cffffd75eForever Goal Tracker:|r Test banner (no progress changed):
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:raid_mc|h[Clear Molten Core]|h|r! Well earned.
+session    personal notes
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Make it a legendary day. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   save, cancel, delete, literal text and separate goals ok
+session    personal notes survive reload
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Keep that momentum. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   both notes restored from SavedVariables
+session    note modal motion and gold hover
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Make it a legendary day. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   fades, pop, hover, interrupted close and motion settings ok
+session    forever personal note layout
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Make it a legendary day. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   personal note layout with and without Forever notice ok
+session    reset icon and undo countdown
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff66%|r of your goals. Nothing can stop you now. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   reset, rotation, countdown, restore, expiry and goal switching ok
+session    welcome wizard
+             chat: Swift Steed  [The Human epic mount]
+             chat: Stormpike Battle Charger  [PvP]
+             chat: Thunderfury, Blessed Blade of the Windseeker  [Epic Loot]
+             chat: Winterspring Frostsaber  [Collecting]
+             chat: Exalted: Argent Dawn  [The Grind]
+             chat: Join a Guild  [Socializing]
+             chat: |cffffd75eForever Goal Tracker:|r added 6 goals to My Goals. Good luck out there!
+session    find your next goal
+             chat: Battlegear of Might
+             chat: Sulfuras, Hand of Ragnaros
+             chat: Clear Blackwing Lair
+             chat: Quel'Serrar
+             chat: Battlegear of Wrath
+             chat: Slay Onyxia
+session    suggestions follow professions
+             chat:   fishing and secondary skills suggested only when the character knows them
+session    confirmed in Forever
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff18%|r of your goals. Fortune favors the persistent. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   21 pure-progress goals show no unconfirmed notice; content goals still do
+session    try on a whole set
+             chat: |cffffd75eForever Goal Tracker:|r 1 of 8 pieces of Battlegear of Might can't be tried on yet: the game has no details for them.
+             chat:   Ctrl-click tries on every piece of a set, skips pieces the game has no details for
+session    image effects: old save
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff18%|r of your goals. One step closer. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   an old Image effects Off stays Off
+session    data audit
+             chat: |cffffd75eForever Goal Tracker:|r auditing 806 items, 95 quests, 22 factions and 25 maps. This takes about 24 seconds.
+             chat: |cffffd75eForever Goal Tracker:|r audit done. Items: 0 revealed, 806 not revealed on this client, 0 with a different name than ours.
+             chat: |cffffd75eForever Goal Tracker:|r Quests: 0 titles found (0 differ from ours), of 95. Type |cffffffff/reload|r to save the answers, then run tools/auditreport.py.
+             chat: |cffffd75eForever Goal Tracker:|r this client cannot answer every question (see the report for which); results are partial.
+             chat: |cffffd75eForever Goal Tracker:|r the saved audit was removed.
+             chat:   audit: 806 items listed, answers saved and cleared
+session    add bloom goals
+             chat: |cffffd75eForever Goal Tracker:|r added 40 goals with a bloom to My Goals (5 only exist in Forever).
+             chat:   addblooms: 44 goals added
+session    forever raids lead suggestions
+             chat:   Forever raids and the Tier 0.5 set lead the raiding suggestions: raid_barrow, raid_hyjal, set_forever_raid_warrior, set_tier1_warrior, raid_zg, epicmounts
+session    social counters
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff7%|r of your goals. Small steps, epic loot. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r Test Boss defeated, 1 step checked off.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off.
+             chat:   guild dungeon and raid kills, trades and campfires are counted
+session    emote goals
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff8%|r of your goals. Steady hands, big rewards. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   four emote goals read Statistics 1042, 1045, 1065 and 1066
+session    step count bars glide
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff8%|r of your goals. Keep stacking those wins. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   step count bars glide on the same step and jump on a reused row
+session    perf command
+             chat: |cffffd75eForever Goal Tracker:|r timing the banner effects for 10 seconds. Leave the tracker open.
+             chat: |cffffd75eForever Goal Tracker:|r 0 steps in 10 s (0 a second). Average 0.000 ms, slowest 0.00 ms; about 0.00 ms of every second.
+             chat: |cffffd75eForever Goal Tracker:|r Lights: 0 particles, 0 shafts and blooms, bloom on. Memory: unavailable on this client.
+             chat: |cffffd75eForever Goal Tracker:|r timing the banner effects for 5 seconds. Leave the tracker open.
+             chat: |cffffd75eForever Goal Tracker:|r 0 steps in 5 s (0 a second). Average 0.000 ms, slowest 0.00 ms; about 0.00 ms of every second.
+             chat: |cffffd75eForever Goal Tracker:|r Lights: 0 particles, 0 shafts and blooms, bloom on. Memory: unavailable on this client.
+session    change target
+             chat: |cffffd75eForever Goal Tracker:|r Save 10,000 Gold: target set to 10,000 gold.
+             chat:   Hold 2,000 gold on one character. (2000g)
+             chat:   Hold 5,000 gold on one character. (5000g)
+             chat:   Hold 10,000 gold on one character. (10000g)
+             chat: |cffffd75eForever Goal Tracker:|r Save 5,000 Gold: target set to 5,000 gold.
+             chat:   back to: Save 5,000 Gold
+session    social goals and lockout
+             chat: |cffffd75eForever Goal Tracker:|r previewing a lockout for Molten Core.
+             chat: |cffffd75eForever Goal Tracker:|r lockout preview off.
+session    statistics: duelist
+             chat: |cffffd75eForever Goal Tracker:|r 2 steps checked off automatically.
+             chat:   duelist ticks: true true nil
+             chat:   money parse: 55600 copper
+             chat: |cffffd75eForever Goal Tracker:|r Duelist: target set to 200 duels.
+             chat:   Win your first duel.
+             chat:   Win 20 duels.
+             chat:   Win 100 duels.
+             chat:   Win 200 duels.
+session    forever: new sets in the wizard
+             chat: Clear the Barrow Deeps
+             chat: Clear Hyjal Summit
+             chat: Exalted: Silverwing Sentinels
+             chat: Battlegear of Glory
+             chat: Exalted: League of Arathor
+             chat: Battlegear of Might
+             chat:   goals visible on Forever: 96
+             chat:   Collect Premier Marshal's Plate Shoulderguards at PvP rank 12 (Marshal).
+             chat:   raid set parts: 9, plate PvP parts: 2
+             chat:   paladin helm ticks from: 280936, 280930, 280937
+session    logout reads no statistics
+             chat:   logout ok
+session    item and wowhead links
+             chat:   helm item: 16866, text: |cfff0dcb0|Hitem:16866|hHelm of Might|h|r from Garr.
+             chat:   https://www.wowhead.com/classic/item=16866
+             chat:   step 7: Turn in the four demon heads to Vartrus for Lok'delar and the |cfff0dcb0|Hitem:18707|hAncient Rune Etched Stave|h|r.
+             chat:   ram: Buy a |cffa335ee|Hfgtvariants:18786|hSwift Ram|h|r from Veron Amberstill (Amberstill Ranch, Dun Morogh)
+             chat:   https://www.wowhead.com/classic/npc=1261#sells
+session    npc links
+             chat:   Bring the leaf to |cff5fd4bd|Hfgtnpc:14524|hVartrus the Ancient|h|r in Felwood.
+             chat:   Turn in the sinew to |cff5fd4bd|Hfgtnpc:14524|hVartrus|h|r for the |cffcc9e29|Hfgtgoal:lokdelar|hLokdelar|h|r reward.
+             chat:   Solo |cff5fd4bd|Hfgtnpc:14535|hArtorius the Doombringer|h|r in Winterspring.
+             chat: |cffffd75eForever Goal Tracker:|r Vartrus the Ancient, Felwood 48.8, 24.2.
+             chat: |cffffd75eForever Goal Tracker:|r Lothos Riftwaker can't be shown on the map: inside Blackrock Mountain, by the Molten Core portal.
+             chat:   tomtom: 1452 0.514 0.362 Artorius the Doombringer (as Artorius the Amiable)
+             chat: |cffffd75eForever Goal Tracker:|r TomTom waypoint set: Artorius the Doombringer (as Artorius the Amiable), Winterspring 51.4, 36.2.
+             chat:   set to game map:
+             chat: |cffffd75eForever Goal Tracker:|r Artorius the Doombringer (as Artorius the Amiable), Winterspring 51.4, 36.2.
+             chat:   card: https://www.wowhead.com/classic/npc=14524
+session    npc spots on forever
+             chat: |cffffd75eForever Goal Tracker:|r Lothos Riftwaker, Burning Steppes 26.4, 24.6.
+             chat:   harb: 46.6, 62
+session    goal link gradient
+             chat:   Get |cffcc9e29|Hfgtgoal:att_naxx|h|cfff9df6aat|r|cffffe873tuned|r|cfff9df6a t|r|cfff2d660o|r|cffeccc57 |r|cffe6c34eNa|r|cffdfba45x|r|cffd9b13bx|r|cffd2a732ra|r|cffcc9e29mas|r|h|r at the chapel.
+             chat:   plain: Get attuned to Naxxramas at the chapel.
+             chat:   add comet on: false
+session    quest links
+             chat:   Pick up |TInterface\GossipFrame\AvailableQuestIcon:15:15:0:-3|t|cfffff23a|Hfgtquest:4|hA Proper String|h|r from |cff5fd4bd|Hfgtnpc:14525|hStoma the Ancient|h|r in Felwood.
+             chat:   Bring the Frame of Atiesh to |cff5fd4bd|Hfgtnpc:15192|hAnachronos|h|r.
+             chat:   Turn in |TInterface\GossipFrame\DailyQuestIcon:15:15:0:-3|t|cff5cb8ff|Hfgtquest:1|hFrostsaber Provisions|h|r daily.
+             chat:   Bring a |cfff0dcb0|Hitem:12811|hRighteous Orb|h|r to |cffcc9e29|Hfgtgoal:rep_argentdawn|hthe Argent Dawn|h|r.
+             chat:   https://www.wowhead.com/classic/quest=7635
+             chat:   https://www.wowhead.com/classic/search?q=An+Earnest+Proposition
+session    gallery screenshots
+             chat: |cffffd75eForever Goal Tracker:|r photo mode on (black). Type /goals photo again to turn it off.
+             chat: |cffffd75eForever Goal Tracker:|r taking 11 screenshots. Keep your mouse off the window.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 1 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 2 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 3 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 4 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 8 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 5 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 6 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 1 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 9 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 10 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 11 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo off. Your own goals and progress are back.
+             chat: |cffffd75eForever Goal Tracker:|r photo mode off.
+             chat: |cffffd75eForever Goal Tracker:|r done: 11 screenshots in the game's Screenshots folder. Tell Claude to process the shots.
+             chat:   screenshots: 11, format back to jpeg, demo off: true
+session    link sweep
+             chat:   Combine the |cffa335ee|Hitem:17193|hSulfuron Hammer|h|r and the |cffa335ee|Hitem:17204|hEye of Sulfuras|h|r into |cffff8000|Hitem:17182|hSulfuras|h|r.
+             chat:   Turn in |TInterface\GossipFrame\AvailableQuestIcon:15:15:0:-3|t|cfffff23a|Hfgtquest:15|hRise, Thunderfury!|h|r to receive |cffff8000|Hitem:19019|hThunderfury|h|r.
+             chat:   Attunement needs Honored with the |cffcc9e29|Hfgtgoal:rep_argentdawn|hArgent Dawn|h|r and a |cfff0dcb0|Hitem:12811|hRighteous Orb|h|r: 5 |cfff0dcb0|Hitem:12363|hArcane Crystals|h|r and 2 |cfff0dcb0|Hitem:20725|hNexus Crystals|h|r at Honored, fewer at Revered.
+session    quest starts
+             chat:   start NPCs missing from Npcs.lua: Lord Banehollow, Lord Banehollow, Ancient Equine Spirit; item starts: 6
+session    add all and reset all
+             chat: |cffffd75eForever Goal Tracker:|r added 76 goals to My Goals.
+             chat:   active: 130
+             chat: |cffffd75eForever Goal Tracker:|r this clears the ticks on every goal on My Goals. Type |cffffffff/goals resetall|r again within 10 seconds to confirm.
+             chat: |cffffd75eForever Goal Tracker:|r reset 130 goals. Steps the game can check will tick again on the next scan. Undo with |cffffffff/goals resetall undo|r.
+             chat:   gold ticks after reset: nil
+             chat: |cffffd75eForever Goal Tracker:|r progress restored.
+             chat:   gold ticks after undo: true
+session    demo scenes
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 1 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 2 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 3 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 4 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 5 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 6 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 7 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 8 of 11. Your real data is safe; /goals demo off brings it back.
+             chat:   demo gold name: Save 10,000 Gold
+             chat: |cffffd75eForever Goal Tracker:|r demo off. Your own goals and progress are back.
+             chat:   after off: Save 5,000 Gold
+session    demo scenes: materials and Library
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff4%|r of your goals. Nothing can stop you now. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 9 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 10 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo off. Your own goals and progress are back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 11 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo off. Your own goals and progress are back.
+             chat:   materials, Library and Wolfsbane scenes ok
+session    Forever demo scenes: materials and Library
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff7%|r of your goals. You got this! |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 9 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 10 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo off. Your own goals and progress are back.
+             chat: |cffffd75eForever Goal Tracker:|r demo scene 11 of 11. Your real data is safe; /goals demo off brings it back.
+             chat: |cffffd75eForever Goal Tracker:|r demo off. Your own goals and progress are back.
+             chat:   materials, Library and Wolfsbane scenes ok
+session    pop-out tracker
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff7%|r of your goals. You're on a roll. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r 25 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:gold_5k|h[Save 5,000 Gold]|h|r! Legendary.
+             chat:   pop-out: shared ticks, locks, recipes, links, hidden-window updates, placeholder, opacity, docking, interruption and saved preferences ok
+session    Forever pop-out tracker
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff31%|r of your goals. The best loot goes to the stubborn. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r 25 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:gold_5k|h[Save 5,000 Gold]|h|r! One for the history books.
+             chat:   pop-out: shared ticks, locks, recipes, links, hidden-window updates, placeholder, opacity, docking, interruption and saved preferences ok
+session    pop-out refinements
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff31%|r of your goals. You got this! |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   pop-out refinements: above-main layering, outside settings dismissal, fading shade, merged header, click versus drag, collapse restoration and full-set preview ok
+session    Forever pop-out refinements
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff24%|r of your goals. The grind is paying off. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   pop-out refinements: above-main layering, outside settings dismissal, fading shade, merged header, click versus drag, collapse restoration and full-set preview ok
+session    pop-out sizing and style
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff24%|r of your goals. Keep that momentum. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   pop-out QOL: fit sizing, manual precedence, panel style, preserved fade curve, no bar tooltip, focus switching, opt-in main close and shadow fade/persistence ok
+session    Forever pop-out sizing and style
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff7%|r of your goals. You're on a roll. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   pop-out QOL: fit sizing, manual precedence, panel style, preserved fade curve, no bar tooltip, focus switching, opt-in main close and shadow fade/persistence ok
+session    pop-out polish
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff7%|r of your goals. Today's a good day for progress. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r 7 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:gold_5k|h[Save 5,000 Gold]|h|r! What a moment.
+             chat:   pop-out polish: sliding fold with reversal, Subtle and Off, carried shadow, idle hover driver, settings card switches and finished check ok
+session    Forever pop-out polish
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff25%|r of your goals. Steady hands, big rewards. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r 3 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:gold_5k|h[Save 5,000 Gold]|h|r! Well earned.
+             chat:   pop-out polish: sliding fold with reversal, Subtle and Off, carried shadow, idle hover driver, settings card switches and finished check ok
+session    materials panel
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff25%|r of your goals. Steady hands, big rewards. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   per-goal stock, recipe sums, historical credit, scopes, alts, unknown items, slide lifecycle and narrow bounds pass
+             chat: |cffffd75eForever Goal Tracker:|r What's new will glow again.
+session    Forever materials panel
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   per-goal stock, recipe sums, historical credit, scopes, alts, unknown items, slide lifecycle and narrow bounds pass
+             chat: |cffffd75eForever Goal Tracker:|r What's new will glow again.
+session    racial mount costs
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   all racial budgets, client separation, training/mount prices, discount caveat and stable parts ok
+session    Forever racial mount costs
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   all racial budgets, client separation, training/mount prices, discount caveat and stable parts ok
+session    typography helpers
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   saved Modern retired, public choice removed, Serif restored, internal swaps/lazy widgets/fallback preserved
+session    Forever typography helpers
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   saved Modern retired, public choice removed, Serif restored, internal swaps/lazy widgets/fallback preserved
+session    empty book artwork
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   book tile scale/bounds/pooling, modular spine/bands/edges, two right fittings, empty/add/remove transitions and paired fades ok
+session    Forever empty book artwork
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   book tile scale/bounds/pooling, modular spine/bands/edges, two right fittings, empty/add/remove transitions and paired fades ok
+session    item needs and previews
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   native tooltip hooks, selected groups, finished steps, recipe totals, stock scopes and preview clicks ok
+session    Forever item needs and previews
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   native tooltip hooks, selected groups, finished steps, recipe totals, stock scopes and preview clicks ok
+session    AQ40 battle tanks
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r 22 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:mount_qiraji_red|h[Red Qiraji Resonating Crystal]|h|r! One for the history books.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:mount_qiraji_yellow|h[Yellow Qiraji Resonating Crystal]|h|r! Nicely done.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:mount_qiraji_blue|h[Blue Qiraji Resonating Crystal]|h|r! Take a bow.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:mount_qiraji_green|h[Green Qiraji Resonating Crystal]|h|r! Well earned.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat:   Qiraji: four independent colors, correct crystals, learned mounts, sticky progress and shared banner ok
+session    Forever AQ40 battle tanks
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r 22 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:mount_qiraji_red|h[Red Qiraji Resonating Crystal]|h|r! Well earned.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:mount_qiraji_yellow|h[Yellow Qiraji Resonating Crystal]|h|r! Well earned.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:mount_qiraji_blue|h[Blue Qiraji Resonating Crystal]|h|r! One for the history books.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:mount_qiraji_green|h[Green Qiraji Resonating Crystal]|h|r! One for the history books.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat:   Qiraji: four independent colors, correct crystals, learned mounts, sticky progress and shared banner ok
+session    Wolfsbane on Era
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r 19 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 3 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 18 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:wolfsbane|h[Wolfsbane]|h|r! What a moment.
+             chat: |cffffd75eForever Goal Tracker:|r 18 steps checked off automatically.
+             chat:   Wolfsbane: client visibility, quest pickup, sticky materials, reward completion and quest links ok
+session    Wolfsbane on Forever
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r 19 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 3 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 18 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:wolfsbane|h[Wolfsbane]|h|r! What a moment.
+             chat: |cffffd75eForever Goal Tracker:|r 18 steps checked off automatically.
+             chat:   Wolfsbane: client visibility, quest pickup, sticky materials, reward completion and quest links ok
+session    fishing tournament
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r 20 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 2 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:fishing_extravaganza|h[Win the Stranglethorn Fishing Extravaganza]|h|r! Well earned.
+             chat: |cffffd75eForever Goal Tracker:|r 4 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 4 steps checked off automatically.
+             chat:   fishing: skill threshold, 40 fish, sticky catch, winning quest, either prize and goal links ok
+session    Forever fishing tournament
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r 20 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 2 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:fishing_extravaganza|h[Win the Stranglethorn Fishing Extravaganza]|h|r! Well earned.
+             chat: |cffffd75eForever Goal Tracker:|r 4 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 4 steps checked off automatically.
+             chat:   fishing: skill threshold, 40 fish, sticky catch, winning quest, either prize and goal links ok
+session    AQ40 armor sets
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:set_tier25_rogue|h[Deathdealer's Embrace]|h|r! Take a bow.
+             chat:   AQ40: nine class sets, 45 rewards, class guidance, roster auto ticks and sticky completion ok
+session    Forever AQ40 armor sets
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 5 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:set_tier25_rogue|h[Deathdealer's Embrace]|h|r! Well earned.
+             chat:   AQ40: nine class sets, 45 rewards, class guidance, roster auto ticks and sticky completion ok
+session    completed step motion
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   check pause, gradual fade, consecutive completions, slide, pooled alpha, switching and motion-off behavior ok
+session    Forever completed step motion
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff14%|r of your goals. Azeroth won't conquer itself. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   check pause, gradual fade, consecutive completions, slide, pooled alpha, switching and motion-off behavior ok
+session    completed step filter
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff14%|r of your goals. Today's a good day for progress. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:tier3_rogue|h[Bonescythe Armor]|h|r! Take a bow.
+             chat:   shown default, original numbering, unchanged ticks, recipe materials, completed pieces/groups and empty state ok
+session    Forever completed step filter
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:tier3_rogue|h[Bonescythe Armor]|h|r! Take a bow.
+             chat:   shown default, original numbering, unchanged ticks, recipe materials, completed pieces/groups and empty state ok
+session    individual armor sets
+             chat: |cffffd75eForever Goal Tracker:|r 19 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff38%|r of your goals. Look at you go! |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   individual armor goals, migration, materials, notes, dates, reset/undo, Library picker and dedicated banners ok
+session    Forever individual armor sets
+             chat: |cffffd75eForever Goal Tracker:|r 19 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff38%|r of your goals. Today's a good day for progress. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   individual armor goals, migration, materials, notes, dates, reset/undo, Library picker and dedicated banners ok
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You just completed |cffffd100|Haddon:ForeverGoalTracker:goal:set_violet_sorcerer|h[Violet Sorcerer's Vestments]|h|r! Take a bow.
+             chat:   Violet set: Forever visibility, blue treatment, five roster item ticks and sticky progress ok
+session    goal banner layout
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff43%|r of your goals. Azeroth won't conquer itself. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat:   character banners: faction/class/race priority, live login, racial mounts, PvP, metadata and absent-API fallback ok
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 60%.
+             chat: |cffffd75eForever Goal Tracker:|r Use /goals banneropacity 0-100, or /goals banneropacity reset.
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 100%.
+             chat:   banner title reflow, badge wrapping, artwork switching, aspect crop and empty-state layers ok
+session    Forever 70291 banner layout and image fades
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. Keep that momentum. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   character banners: faction/class/race priority, live login, racial mounts, PvP, metadata and absent-API fallback ok
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 60%.
+             chat: |cffffd75eForever Goal Tracker:|r Use /goals banneropacity 0-100, or /goals banneropacity reset.
+             chat: |cffffd75eForever Goal Tracker:|r Clear Molten Core banner opacity: 100%.
+             chat:   banner title reflow, badge wrapping, artwork switching, aspect crop and empty-state layers ok
+session    short goal window
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. Azeroth won't conquer itself. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   minimum/tall heights, full-page wheel, content bounds, expanded recipes and long headers ok
+session    window size bounds
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. Look at you go! |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   relative bounds, small screens, UI scales, placement, both resize APIs, independent dimensions and drag clamping ok
+session    Forever window size bounds
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. Onward, hero! |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   relative bounds, small screens, UI scales, placement, both resize APIs, independent dimensions and drag clamping ok
+session    Forever short goal window
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. One step closer. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   minimum/tall heights, full-page wheel, content bounds, expanded recipes and long headers ok
+session    mount preview
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. Look at you go! |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   mount names, color variants, direct preview, cache and unsupported client guards ok
+session    Forever mount preview
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff3%|r of your goals. One step closer. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   mount names, color variants, direct preview, cache and unsupported client guards ok
+session    guide progress migration
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   removed tips, explicit levels and sparse saved tick remaps ok
+session    guide migration repeat login
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   removed tips, explicit levels and sparse saved tick remaps ok
+session    beta guide migration
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   removed tips, explicit levels and sparse saved tick remaps ok
+session    step dependencies
+             chat: |cffffd75eForever Goal Tracker:|r 17 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r your tracker is empty. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r to pick your first goal.
+             chat:   dependency references, cycles, blocked clicks, links, fan-out, fan-in, OR, evidence and motion modes ok
+session    Forever step-lock preview
+             chat: |cffffd75eForever Goal Tracker:|r 3 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff42%|r of your goals. Make it a legendary day. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r Forever step-lock preview on.
+             chat: |cffffd75eForever Goal Tracker:|r uses the audited Classic prerequisites for testing; /goals testlocks off or /reload ends it.
+             chat: |cffffd75eForever Goal Tracker:|r Atiesh, Greatstaff of the Guardian: 0 locked steps.
+             chat:   dependency references, cycles, blocked clicks, links, fan-out, fan-in, OR, evidence and motion modes ok
+             chat: |cffffd75eForever Goal Tracker:|r Forever step-lock preview on.
+             chat: |cffffd75eForever Goal Tracker:|r uses the audited Classic prerequisites for testing; /goals testlocks off or /reload ends it.
+             chat: |cffffd75eForever Goal Tracker:|r Atiesh, Greatstaff of the Guardian: 0 locked steps.
+             chat: |cffffd75eForever Goal Tracker:|r Forever step-lock preview off.
+             chat: |cffffd75eForever Goal Tracker:|r Atiesh, Greatstaff of the Guardian: 0 locked steps.
+             chat: |cffffd75eForever Goal Tracker:|r Forever step-lock preview on.
+             chat: |cffffd75eForever Goal Tracker:|r uses the audited Classic prerequisites for testing; /goals testlocks off or /reload ends it.
+             chat: |cffffd75eForever Goal Tracker:|r Atiesh, Greatstaff of the Guardian: 0 locked steps.
+             chat: |cffffd75eForever Goal Tracker:|r Forever step-lock preview off.
+             chat: |cffffd75eForever Goal Tracker:|r Atiesh, Greatstaff of the Guardian: 0 locked steps.
+session    dependency rollout and scope
+             chat: |cffffd75eForever Goal Tracker:|r 3 steps checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff42%|r of your goals. Onward, hero! |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   isolated Forever rollout, preview separation, scoped automatic evidence and historical ticks ok
+session    Forever dependency rollout and scope
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff42%|r of your goals. Your future self says thanks. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   isolated Forever rollout, preview separation, scoped automatic evidence and historical ticks ok
+session    Forever dependency quest evidence
+             chat: |cffffd75eForever Goal Tracker:|r 1 step checked off automatically.
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff48%|r of your goals. Azeroth won't conquer itself. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat: |cffffd75eForever Goal Tracker:|r Forever step-lock preview on.
+             chat: |cffffd75eForever Goal Tracker:|r uses the audited Classic prerequisites for testing; /goals testlocks off or /reload ends it.
+             chat: |cffffd75eForever Goal Tracker:|r Atiesh, Greatstaff of the Guardian: 0 locked steps.
+             chat: |cffffd75eForever Goal Tracker:|r Forever step-lock preview off.
+             chat: |cffffd75eForever Goal Tracker:|r Atiesh, Greatstaff of the Guardian: 0 locked steps.
+             chat:   C_QuestLog completed/active evidence satisfies prerequisites through normal roster scanning
+session    Forever dependency gates withheld
+             chat: |cffffd75eForever Goal Tracker:|r You've completed |cffffffff48%|r of your goals. Your future self says thanks. |cffffd100|Haddon:ForeverGoalTracker:open|h[Open tracker]|h|r
+             chat:   Classic-only gates stay off in unverified Forever builds

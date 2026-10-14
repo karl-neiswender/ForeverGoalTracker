@@ -367,6 +367,10 @@ F.SelectGoal("social_friends")
 assert(B.hasArt and B:ArtPath("social_friends") == "social_friends-banner.blp", "Making Friends uses approved artwork")
 D.active.social_guild = true
 F.SelectGoal("social_guild")
+assert(B.hasArt and B:ArtPath("social_guild") == "social_guild-banner.blp",
+    "Join a Guild uses approved artwork")
+D.active.social_lol = true
+F.SelectGoal("social_lol")
 assert(not B.hasArt, "unmapped goal clears previous artwork")
 -- Only the background artwork fades; the square goal icon remains immediate.
 B:StopImageFade()
