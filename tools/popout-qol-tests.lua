@@ -96,6 +96,17 @@ assert(math.abs(P.shadow.alphaForTest-0.35)<0.00001,"shadow fades with opening a
 assert(math.abs(P.frame.yForTest-(-P.top-6*(1-P.fraction)))<0.00001,"opening uses the same six-unit rise")
 step(P.driver,0.1)
 assert(not P.driver:GetScript("OnUpdate"),"opening leaves no idle driver")
+-- docking back: the pop-out arrow and Hide completed fade in with the steps
+for _,c in ipairs({P.launch,F.completedStepsBtn}) do c.SetAlpha=function(self,v) self.alphaForTest=v end end
+P:Close(true)
+local docking=P.driver:GetScript("OnUpdate")
+docking(P.driver,0.05)
+local mid=F.completedStepsBtn.alphaForTest
+assert(mid and mid>0 and mid<1 and P.launch.alphaForTest==mid,"docking fades the guide's controls in with the steps: "..tostring(mid))
+docking(P.driver,1)
+assert(F.completedStepsBtn.alphaForTest==1 and P.launch.alphaForTest==1,"docked controls end fully shown")
+P:Open("sulfuras")
+P.driver:GetScript("OnUpdate")(P.driver,1)
 P.autoFit=false; P.closeMain=true; P:SetShadowOpacity(0.65); P:Save()
 P.open=false
 P.events:GetScript("OnEvent")(P.events,"PLAYER_LOGIN")

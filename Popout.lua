@@ -501,6 +501,13 @@ function P:PaintPlaceholder()
     self.placeholder:SetShown(active and true or false)
     if not active then return end
     self.placeholder:SetAlpha(self.fraction)
+    -- docking back: the guide's controls (the pop-out arrow, Hide completed,
+    -- Expand all) fade in with the steps instead of popping in at the end (Karl)
+    if self.closing then
+        for _, control in ipairs({ P.launch, FGT.completedStepsBtn, FGT.expandAllBtn }) do
+            control:SetAlpha(1 - self.fraction)
+        end
+    end
     for _, row in ipairs(self.mainRows or FGT.EMPTY) do
         row.fgtPopoutTransfer = true
         row:SetAlpha(1 - self.fraction)
@@ -528,11 +535,14 @@ function FGT.UpdatePopoutPlaceholder(goal, height, width)
     -- the slot is at most the visible area, so the center is on screen.
     P.placeholder.text:ClearAllPoints()
     P.placeholder.text:SetPoint("CENTER", P.placeholder, "TOP", 0, -slot / 2 + 15)
-    P:PaintPlaceholder()
     local active = (P.open or P.closing) and goal.id == P.slotId
-    if active then FGT.completedStepsBtn:Hide(); FGT.expandAllBtn:Hide() end
-    P.launch:SetShown(U.active(goal) and not active)
-    if not active then FGT.LayoutStepControls() end
+    -- (while docking back they show, faded by PaintPlaceholder; otherwise full)
+    local docking = active and P.closing
+    for _, control in ipairs({ P.launch, FGT.completedStepsBtn, FGT.expandAllBtn }) do control:SetAlpha(1) end
+    if active and not docking then FGT.completedStepsBtn:Hide(); FGT.expandAllBtn:Hide() end
+    P.launch:SetShown(U.active(goal) and (not active or docking))
+    if not active or docking then FGT.LayoutStepControls() end
+    P:PaintPlaceholder()
 end
 
 function FGT.HidePopoutGuide()
