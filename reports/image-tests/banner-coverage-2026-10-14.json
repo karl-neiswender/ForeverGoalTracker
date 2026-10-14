@@ -1,0 +1,1351 @@
+{
+  "commit": "5021dd3d6243f70df3afcc76c6368aa2f69559a0",
+  "clients": {
+    "Era": {
+      "missing": [
+        {
+          "id": "key_brd",
+          "name": "Key: Shadowforge Key (Blackrock Depths)",
+          "category": "Attunement",
+          "paths": []
+        },
+        {
+          "id": "social_guild_dungeon",
+          "name": "Dungeons with Guildmates",
+          "category": "Social",
+          "paths": []
+        },
+        {
+          "id": "social_guild_raid",
+          "name": "Raids with Guildmates",
+          "category": "Social",
+          "paths": []
+        },
+        {
+          "id": "social_trades",
+          "name": "Make Trades",
+          "category": "Social",
+          "paths": []
+        },
+        {
+          "id": "social_hugs",
+          "name": "Give Hugs",
+          "category": "Social",
+          "paths": []
+        },
+        {
+          "id": "social_lol",
+          "name": "Say LOL",
+          "category": "Social",
+          "paths": []
+        }
+      ],
+      "conditional_professions": [
+        {
+          "id": "prof_secondary",
+          "name": "Max Secondary Skills",
+          "category": "Profession",
+          "paths": []
+        },
+        {
+          "id": "prof_all",
+          "name": "Max Primary Professions",
+          "category": "Profession",
+          "paths": []
+        }
+      ],
+      "covered": [
+        {
+          "id": "ashbringer",
+          "name": "Corrupted Ashbringer",
+          "category": "Epic Weapon",
+          "paths": [
+            "ashbringer-banner.blp"
+          ]
+        },
+        {
+          "id": "frostsaber",
+          "name": "Winterspring Frostsaber",
+          "category": "Mount",
+          "paths": [
+            "frostsaber-banner.blp"
+          ]
+        },
+        {
+          "id": "atiesh",
+          "name": "Atiesh, Greatstaff of the Guardian",
+          "category": "Legendary Weapon",
+          "paths": [
+            "atiesh-banner.blp"
+          ]
+        },
+        {
+          "id": "rhokdelar",
+          "name": "Rhok'delar, Longbow of the Ancient Keepers",
+          "category": "Epic Weapon",
+          "paths": [
+            "rhokdelar-banner.blp"
+          ]
+        },
+        {
+          "id": "lokdelar",
+          "name": "Lok'delar, Stave of the Ancient Keepers",
+          "category": "Epic Weapon",
+          "paths": [
+            "lokdelar-banner.blp"
+          ]
+        },
+        {
+          "id": "thunderfury",
+          "name": "Thunderfury, Blessed Blade of the Windseeker",
+          "category": "Legendary Weapon",
+          "paths": [
+            "thunderfury-banner.blp"
+          ]
+        },
+        {
+          "id": "benediction",
+          "name": "Benediction / Anathema",
+          "category": "Epic Weapon",
+          "paths": [
+            "benediction-alliance-banner.blp",
+            "benediction-banner.blp"
+          ]
+        },
+        {
+          "id": "epicmounts",
+          "name": "Epic Racial Mounts",
+          "category": "Mount Collection",
+          "paths": [
+            "epicmounts_dwarf-banner.blp",
+            "epicmounts_gnome-banner.blp",
+            "epicmounts_human-banner.blp",
+            "epicmounts_nightelf-banner.blp",
+            "epicmounts_orc-banner.blp",
+            "epicmounts_skyborne-banner.blp",
+            "epicmounts_tauren-banner.blp",
+            "epicmounts_troll-banner.blp",
+            "epicmounts_undead-banner.blp"
+          ]
+        },
+        {
+          "id": "sulfuras",
+          "name": "Sulfuras, Hand of Ragnaros",
+          "category": "Legendary Weapon",
+          "paths": [
+            "sulfuras-banner.blp"
+          ]
+        },
+        {
+          "id": "allclasses",
+          "name": "Level Classes to 60",
+          "category": "Milestone",
+          "paths": [
+            "allclasses_alliance_warlock-banner.blp",
+            "allclasses_dwarf_hunter-banner.blp",
+            "allclasses_dwarf_paladin-banner.blp",
+            "allclasses_dwarf_shaman-banner.blp",
+            "allclasses_horde_druid-banner.blp",
+            "allclasses_horde_hunter-banner.blp",
+            "allclasses_nightelf_hunter-banner.blp",
+            "allclasses_tauren_warrior-banner.blp",
+            "allclasses_troll_mage-banner.blp",
+            "allclasses_undead_paladin-banner.blp",
+            "benediction-alliance-banner.blp",
+            "pvp_shared-banner.blp",
+            "rhokdelar-banner.blp",
+            "set_tier1_mage-banner.blp",
+            "set_tier1_priest-banner.blp",
+            "set_tier1_shaman-banner.blp",
+            "set_tier1_warlock-banner.blp",
+            "set_tier2_druid-banner.blp",
+            "set_tier2_paladin-banner.blp",
+            "set_tier2_priest-banner.blp",
+            "set_tier2_shaman-banner.blp",
+            "set_tier2_warrior-alliance-banner.blp",
+            "set_tier2_warrior-banner.blp",
+            "tier3_hunter-banner.blp",
+            "tier3_warrior-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_timbermaw",
+          "name": "Exalted: Timbermaw Hold",
+          "category": "Reputation",
+          "paths": [
+            "rep_timbermaw-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_thorium",
+          "name": "Exalted: Thorium Brotherhood",
+          "category": "Reputation",
+          "paths": [
+            "rep_thorium-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_argentdawn",
+          "name": "Exalted: Argent Dawn",
+          "category": "Reputation",
+          "paths": [
+            "rep_argentdawn-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_cenarion",
+          "name": "Exalted: Cenarion Circle",
+          "category": "Reputation",
+          "paths": [
+            "rep_cenarion-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_zandalar",
+          "name": "Exalted: Zandalar Tribe",
+          "category": "Reputation",
+          "paths": [
+            "raid_zg-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_hydraxian",
+          "name": "Exalted: Hydraxian Waterlords",
+          "category": "Reputation",
+          "paths": [
+            "rep_hydraxian-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_nozdormu",
+          "name": "Exalted: Brood of Nozdormu",
+          "category": "Reputation",
+          "paths": [
+            "rep_nozdormu-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_ambassador_ally",
+          "name": "Ambassador: Alliance Capitals",
+          "category": "Reputation",
+          "paths": [
+            "rep_ambassador_ally-banner.blp",
+            "rep_ambassador_ally_darnassus-banner.blp",
+            "rep_ambassador_ally_ironforge-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_ambassador_horde",
+          "name": "Ambassador: Horde Capitals",
+          "category": "Reputation",
+          "paths": [
+            "rep_ambassador_horde-banner.blp",
+            "rep_ambassador_horde_thunderbluff-banner.blp",
+            "rep_ambassador_horde_undercity-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_deathcharger",
+          "name": "Deathcharger's Reins",
+          "category": "Mount",
+          "paths": [
+            "mount_deathcharger-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_raptor",
+          "name": "Swift Razzashi Raptor",
+          "category": "Mount",
+          "paths": [
+            "raid_zg-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_tiger",
+          "name": "Swift Zulian Tiger",
+          "category": "Mount",
+          "paths": [
+            "mount_tiger-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji",
+          "name": "Black Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_dreadsteed",
+          "name": "Dreadsteed (Warlock Epic Mount)",
+          "category": "Mount",
+          "paths": [
+            "mount_dreadsteed-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_charger",
+          "name": "Charger (Paladin Epic Mount)",
+          "category": "Mount",
+          "paths": [
+            "mount_charger-banner.blp"
+          ]
+        },
+        {
+          "id": "quelserrar",
+          "name": "Quel'Serrar",
+          "category": "Epic Weapon",
+          "paths": [
+            "quelserrar-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_mc",
+          "name": "Clear Molten Core",
+          "category": "Raid",
+          "paths": [
+            "raid_mc-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_ony",
+          "name": "Slay Onyxia",
+          "category": "Raid",
+          "paths": [
+            "raid_ony-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_bwl",
+          "name": "Clear Blackwing Lair",
+          "category": "Raid",
+          "paths": [
+            "raid_bwl-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_zg",
+          "name": "Clear Zul'Gurub",
+          "category": "Raid",
+          "paths": [
+            "raid_zg-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_aq20",
+          "name": "Clear Ruins of Ahn'Qiraj",
+          "category": "Raid",
+          "paths": [
+            "raid_aq20-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_aq40",
+          "name": "Clear Temple of Ahn'Qiraj",
+          "category": "Raid",
+          "paths": [
+            "raid_aq40-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_naxx",
+          "name": "Clear Naxxramas",
+          "category": "Raid",
+          "paths": [
+            "raid_naxx-banner.blp"
+          ]
+        },
+        {
+          "id": "att_mc",
+          "name": "Attunement: Molten Core",
+          "category": "Attunement",
+          "paths": [
+            "att_mc-banner.blp"
+          ]
+        },
+        {
+          "id": "att_ony_ally",
+          "name": "Attunement: Onyxia's Lair (Alliance)",
+          "category": "Attunement",
+          "paths": [
+            "att_ony_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "att_ony_horde",
+          "name": "Attunement: Onyxia's Lair (Horde)",
+          "category": "Attunement",
+          "paths": [
+            "att_ony_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "att_bwl",
+          "name": "Attunement: Blackwing Lair",
+          "category": "Attunement",
+          "paths": [
+            "raid_bwl-banner.blp"
+          ]
+        },
+        {
+          "id": "att_naxx",
+          "name": "Attunement: Naxxramas",
+          "category": "Attunement",
+          "paths": [
+            "att_naxx-banner.blp"
+          ]
+        },
+        {
+          "id": "key_ubrs",
+          "name": "Key: Seal of Ascension (Upper Blackrock Spire)",
+          "category": "Attunement",
+          "paths": [
+            "key_ubrs-banner.blp"
+          ]
+        },
+        {
+          "id": "key_scholo",
+          "name": "Key: Skeleton Key (Scholomance)",
+          "category": "Attunement",
+          "paths": [
+            "key_scholo-banner.blp"
+          ]
+        },
+        {
+          "id": "key_strat",
+          "name": "Key: Key to the City (Stratholme)",
+          "category": "Attunement",
+          "paths": [
+            "key_strat-banner.blp"
+          ]
+        },
+        {
+          "id": "key_dm",
+          "name": "Key: Crescent Key (Dire Maul)",
+          "category": "Attunement",
+          "paths": [
+            "key_dm-banner.blp"
+          ]
+        },
+        {
+          "id": "fishing_extravaganza",
+          "name": "Win the Stranglethorn Fishing Extravaganza",
+          "category": "Profession",
+          "paths": [
+            "fishing_extravaganza-banner.blp"
+          ]
+        },
+        {
+          "id": "gold_5k",
+          "name": "Save 5,000 Gold",
+          "category": "Milestone",
+          "paths": [
+            "gold_5k-banner.blp"
+          ]
+        },
+        {
+          "id": "social_guild",
+          "name": "Join a Guild",
+          "category": "Social",
+          "paths": [
+            "social_guild-banner.blp"
+          ]
+        },
+        {
+          "id": "social_friends",
+          "name": "Make Friends",
+          "category": "Social",
+          "paths": [
+            "social_friends-banner.blp"
+          ]
+        },
+        {
+          "id": "social_buffs",
+          "name": "Buff Others",
+          "category": "Social",
+          "paths": [
+            "social_buffs_druid-banner.blp",
+            "social_buffs_mage-banner.blp",
+            "social_buffs_paladin-banner.blp",
+            "social_buffs_priest-banner.blp"
+          ]
+        },
+        {
+          "id": "social_summons",
+          "name": "Summon Players",
+          "category": "Social",
+          "paths": [
+            "social_summons-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji_blue",
+          "name": "Blue Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji_aq-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji_green",
+          "name": "Green Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji_aq-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji_yellow",
+          "name": "Yellow Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji_aq-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji_red",
+          "name": "Red Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji_aq-banner.blp"
+          ]
+        },
+        {
+          "id": "set_viper",
+          "name": "Embrace of the Viper",
+          "category": "Item Set",
+          "paths": [
+            "set_viper-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_rank14_ally",
+          "name": "Grand Marshal",
+          "category": "PvP",
+          "paths": [
+            "set_tier2_warrior-alliance-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_mount_ally",
+          "name": "Alliance War Mount (Rank 11)",
+          "category": "PvP",
+          "paths": [
+            "pvp_mount_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_avmount_ally",
+          "name": "Stormpike Battle Charger",
+          "category": "PvP",
+          "paths": [
+            "pvp_mount_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_wsg_ally",
+          "name": "Exalted: Silverwing Sentinels",
+          "category": "PvP",
+          "paths": [
+            "pvp_wsg_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_ab_ally",
+          "name": "Exalted: League of Arathor",
+          "category": "PvP",
+          "paths": [
+            "pvp_arathi-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_av_ally",
+          "name": "Exalted: Stormpike Guard",
+          "category": "PvP",
+          "paths": [
+            "pvp_av_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_rank14_horde",
+          "name": "High Warlord",
+          "category": "PvP",
+          "paths": [
+            "set_tier2_warrior-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_mount_horde",
+          "name": "Horde War Mount (Rank 11)",
+          "category": "PvP",
+          "paths": [
+            "pvp_mount_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_avmount_horde",
+          "name": "Frostwolf Howler",
+          "category": "PvP",
+          "paths": [
+            "pvp_av_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_wsg_horde",
+          "name": "Exalted: Warsong Outriders",
+          "category": "PvP",
+          "paths": [
+            "pvp_wsg_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_ab_horde",
+          "name": "Exalted: The Defilers",
+          "category": "PvP",
+          "paths": [
+            "pvp_arathi-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_av_horde",
+          "name": "Exalted: Frostwolf Clan",
+          "category": "PvP",
+          "paths": [
+            "pvp_av_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_hk",
+          "name": "Honorable Kills",
+          "category": "PvP",
+          "paths": [
+            "pvp_drums_of_war-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_duelist",
+          "name": "Duelist",
+          "category": "PvP",
+          "paths": [
+            "pvp_drums_of_war-banner.blp"
+          ]
+        },
+        {
+          "id": "social_cheers",
+          "name": "Give Cheers",
+          "category": "Social",
+          "paths": [
+            "social_cheers-banner.blp"
+          ]
+        },
+        {
+          "id": "social_waves",
+          "name": "Give Waves",
+          "category": "Social",
+          "paths": [
+            "social_waves-banner.blp"
+          ]
+        }
+      ]
+    },
+    "Forever": {
+      "missing": [
+        {
+          "id": "key_brd",
+          "name": "Key: Shadowforge Key (Blackrock Depths)",
+          "category": "Attunement",
+          "paths": []
+        },
+        {
+          "id": "social_guild_dungeon",
+          "name": "Dungeons with Guildmates",
+          "category": "Social",
+          "paths": []
+        },
+        {
+          "id": "social_guild_raid",
+          "name": "Raids with Guildmates",
+          "category": "Social",
+          "paths": []
+        },
+        {
+          "id": "social_trades",
+          "name": "Make Trades",
+          "category": "Social",
+          "paths": []
+        },
+        {
+          "id": "social_hugs",
+          "name": "Give Hugs",
+          "category": "Social",
+          "paths": []
+        },
+        {
+          "id": "social_lol",
+          "name": "Say LOL",
+          "category": "Social",
+          "paths": []
+        }
+      ],
+      "conditional_professions": [
+        {
+          "id": "prof_secondary",
+          "name": "Max Secondary Skills",
+          "category": "Profession",
+          "paths": []
+        },
+        {
+          "id": "prof_all",
+          "name": "Max Primary Professions",
+          "category": "Profession",
+          "paths": []
+        }
+      ],
+      "covered": [
+        {
+          "id": "ashbringer",
+          "name": "Corrupted Ashbringer",
+          "category": "Epic Weapon",
+          "paths": [
+            "ashbringer-banner.blp"
+          ]
+        },
+        {
+          "id": "frostsaber",
+          "name": "Winterspring Frostsaber",
+          "category": "Mount",
+          "paths": [
+            "frostsaber-banner.blp"
+          ]
+        },
+        {
+          "id": "atiesh",
+          "name": "Atiesh, Greatstaff of the Guardian",
+          "category": "Legendary Weapon",
+          "paths": [
+            "atiesh-banner.blp"
+          ]
+        },
+        {
+          "id": "rhokdelar",
+          "name": "Rhok'delar, Longbow of the Ancient Keepers",
+          "category": "Epic Weapon",
+          "paths": [
+            "rhokdelar-banner.blp"
+          ]
+        },
+        {
+          "id": "lokdelar",
+          "name": "Lok'delar, Stave of the Ancient Keepers",
+          "category": "Epic Weapon",
+          "paths": [
+            "lokdelar-banner.blp"
+          ]
+        },
+        {
+          "id": "thunderfury",
+          "name": "Thunderfury, Blessed Blade of the Windseeker",
+          "category": "Legendary Weapon",
+          "paths": [
+            "thunderfury-banner.blp"
+          ]
+        },
+        {
+          "id": "benediction",
+          "name": "Benediction / Anathema",
+          "category": "Epic Weapon",
+          "paths": [
+            "benediction-alliance-banner.blp",
+            "benediction-banner.blp"
+          ]
+        },
+        {
+          "id": "epicmounts",
+          "name": "Epic Racial Mounts",
+          "category": "Mount Collection",
+          "paths": [
+            "epicmounts_dwarf-banner.blp",
+            "epicmounts_gnome-banner.blp",
+            "epicmounts_human-banner.blp",
+            "epicmounts_nightelf-banner.blp",
+            "epicmounts_orc-banner.blp",
+            "epicmounts_skyborne-banner.blp",
+            "epicmounts_tauren-banner.blp",
+            "epicmounts_troll-banner.blp",
+            "epicmounts_undead-banner.blp"
+          ]
+        },
+        {
+          "id": "sulfuras",
+          "name": "Sulfuras, Hand of Ragnaros",
+          "category": "Legendary Weapon",
+          "paths": [
+            "sulfuras-banner.blp"
+          ]
+        },
+        {
+          "id": "allclasses",
+          "name": "Level Classes to 60",
+          "category": "Milestone",
+          "paths": [
+            "allclasses_alliance_warlock-banner.blp",
+            "allclasses_dwarf_hunter-banner.blp",
+            "allclasses_dwarf_paladin-banner.blp",
+            "allclasses_dwarf_shaman-banner.blp",
+            "allclasses_horde_druid-banner.blp",
+            "allclasses_horde_hunter-banner.blp",
+            "allclasses_nightelf_hunter-banner.blp",
+            "allclasses_tauren_warrior-banner.blp",
+            "allclasses_troll_mage-banner.blp",
+            "allclasses_undead_paladin-banner.blp",
+            "benediction-alliance-banner.blp",
+            "pvp_shared-banner.blp",
+            "rhokdelar-banner.blp",
+            "set_tier1_mage-banner.blp",
+            "set_tier1_priest-banner.blp",
+            "set_tier1_shaman-banner.blp",
+            "set_tier1_warlock-banner.blp",
+            "set_tier2_druid-banner.blp",
+            "set_tier2_paladin-banner.blp",
+            "set_tier2_priest-banner.blp",
+            "set_tier2_shaman-banner.blp",
+            "set_tier2_warrior-alliance-banner.blp",
+            "set_tier2_warrior-banner.blp",
+            "tier3_hunter-banner.blp",
+            "tier3_warrior-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_timbermaw",
+          "name": "Exalted: Timbermaw Hold",
+          "category": "Reputation",
+          "paths": [
+            "rep_timbermaw-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_thorium",
+          "name": "Exalted: Thorium Brotherhood",
+          "category": "Reputation",
+          "paths": [
+            "rep_thorium-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_argentdawn",
+          "name": "Exalted: Argent Dawn",
+          "category": "Reputation",
+          "paths": [
+            "rep_argentdawn-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_cenarion",
+          "name": "Exalted: Cenarion Circle",
+          "category": "Reputation",
+          "paths": [
+            "rep_cenarion-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_zandalar",
+          "name": "Exalted: Zandalar Tribe",
+          "category": "Reputation",
+          "paths": [
+            "raid_zg-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_hydraxian",
+          "name": "Exalted: Hydraxian Waterlords",
+          "category": "Reputation",
+          "paths": [
+            "rep_hydraxian-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_nozdormu",
+          "name": "Exalted: Brood of Nozdormu",
+          "category": "Reputation",
+          "paths": [
+            "rep_nozdormu-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_ambassador_ally",
+          "name": "Ambassador: Alliance Capitals",
+          "category": "Reputation",
+          "paths": [
+            "rep_ambassador_ally-banner.blp",
+            "rep_ambassador_ally_darnassus-banner.blp",
+            "rep_ambassador_ally_ironforge-banner.blp"
+          ]
+        },
+        {
+          "id": "rep_ambassador_horde",
+          "name": "Ambassador: Horde Capitals",
+          "category": "Reputation",
+          "paths": [
+            "rep_ambassador_horde-banner.blp",
+            "rep_ambassador_horde_thunderbluff-banner.blp",
+            "rep_ambassador_horde_undercity-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_deathcharger",
+          "name": "Deathcharger's Reins",
+          "category": "Mount",
+          "paths": [
+            "mount_deathcharger-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_raptor",
+          "name": "Swift Razzashi Raptor",
+          "category": "Mount",
+          "paths": [
+            "raid_zg-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_tiger",
+          "name": "Swift Zulian Tiger",
+          "category": "Mount",
+          "paths": [
+            "mount_tiger-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji",
+          "name": "Black Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_dreadsteed",
+          "name": "Dreadsteed (Warlock Epic Mount)",
+          "category": "Mount",
+          "paths": [
+            "mount_dreadsteed-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_charger",
+          "name": "Charger (Paladin Epic Mount)",
+          "category": "Mount",
+          "paths": [
+            "mount_charger-banner.blp"
+          ]
+        },
+        {
+          "id": "wolfsbane",
+          "name": "Wolfsbane",
+          "category": "Rare Weapon",
+          "paths": [
+            "wolfsbane-banner.blp"
+          ]
+        },
+        {
+          "id": "quelserrar",
+          "name": "Quel'Serrar",
+          "category": "Epic Weapon",
+          "paths": [
+            "quelserrar-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_mc",
+          "name": "Clear Molten Core",
+          "category": "Raid",
+          "paths": [
+            "raid_mc-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_ony",
+          "name": "Slay Onyxia",
+          "category": "Raid",
+          "paths": [
+            "raid_ony-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_bwl",
+          "name": "Clear Blackwing Lair",
+          "category": "Raid",
+          "paths": [
+            "raid_bwl-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_zg",
+          "name": "Clear Zul'Gurub",
+          "category": "Raid",
+          "paths": [
+            "raid_zg-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_aq20",
+          "name": "Clear Ruins of Ahn'Qiraj",
+          "category": "Raid",
+          "paths": [
+            "raid_aq20-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_aq40",
+          "name": "Clear Temple of Ahn'Qiraj",
+          "category": "Raid",
+          "paths": [
+            "raid_aq40-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_naxx",
+          "name": "Clear Naxxramas",
+          "category": "Raid",
+          "paths": [
+            "raid_naxx-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_hyjal",
+          "name": "Clear Hyjal Summit",
+          "category": "Raid",
+          "paths": [
+            "raid_hyjal-banner.blp"
+          ]
+        },
+        {
+          "id": "raid_barrow",
+          "name": "Clear the Barrow Deeps",
+          "category": "Raid",
+          "paths": [
+            "raid_barrow-banner.blp"
+          ]
+        },
+        {
+          "id": "att_mc",
+          "name": "Attunement: Molten Core",
+          "category": "Attunement",
+          "paths": [
+            "att_mc-banner.blp"
+          ]
+        },
+        {
+          "id": "att_ony_ally",
+          "name": "Attunement: Onyxia's Lair (Alliance)",
+          "category": "Attunement",
+          "paths": [
+            "att_ony_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "att_ony_horde",
+          "name": "Attunement: Onyxia's Lair (Horde)",
+          "category": "Attunement",
+          "paths": [
+            "att_ony_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "att_bwl",
+          "name": "Attunement: Blackwing Lair",
+          "category": "Attunement",
+          "paths": [
+            "raid_bwl-banner.blp"
+          ]
+        },
+        {
+          "id": "att_naxx",
+          "name": "Attunement: Naxxramas",
+          "category": "Attunement",
+          "paths": [
+            "att_naxx-banner.blp"
+          ]
+        },
+        {
+          "id": "key_ubrs",
+          "name": "Key: Seal of Ascension (Upper Blackrock Spire)",
+          "category": "Attunement",
+          "paths": [
+            "key_ubrs-banner.blp"
+          ]
+        },
+        {
+          "id": "key_scholo",
+          "name": "Key: Skeleton Key (Scholomance)",
+          "category": "Attunement",
+          "paths": [
+            "key_scholo-banner.blp"
+          ]
+        },
+        {
+          "id": "key_strat",
+          "name": "Key: Key to the City (Stratholme)",
+          "category": "Attunement",
+          "paths": [
+            "key_strat-banner.blp"
+          ]
+        },
+        {
+          "id": "key_dm",
+          "name": "Key: Crescent Key (Dire Maul)",
+          "category": "Attunement",
+          "paths": [
+            "key_dm-banner.blp"
+          ]
+        },
+        {
+          "id": "fishing_extravaganza",
+          "name": "Win the Stranglethorn Fishing Extravaganza",
+          "category": "Profession",
+          "paths": [
+            "fishing_extravaganza-banner.blp"
+          ]
+        },
+        {
+          "id": "gold_5k",
+          "name": "Save 5,000 Gold",
+          "category": "Milestone",
+          "paths": [
+            "gold_5k-banner.blp"
+          ]
+        },
+        {
+          "id": "social_guild",
+          "name": "Join a Guild",
+          "category": "Social",
+          "paths": [
+            "social_guild-banner.blp"
+          ]
+        },
+        {
+          "id": "social_friends",
+          "name": "Make Friends",
+          "category": "Social",
+          "paths": [
+            "social_friends-banner.blp"
+          ]
+        },
+        {
+          "id": "social_buffs",
+          "name": "Buff Others",
+          "category": "Social",
+          "paths": [
+            "social_buffs_druid-banner.blp",
+            "social_buffs_mage-banner.blp",
+            "social_buffs_paladin-banner.blp",
+            "social_buffs_priest-banner.blp"
+          ]
+        },
+        {
+          "id": "social_summons",
+          "name": "Summon Players",
+          "category": "Social",
+          "paths": [
+            "social_summons-banner.blp"
+          ]
+        },
+        {
+          "id": "social_campfires",
+          "name": "Place Campfires",
+          "category": "Social",
+          "paths": [
+            "prof_cooking-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji_blue",
+          "name": "Blue Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji_aq-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji_green",
+          "name": "Green Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji_aq-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji_yellow",
+          "name": "Yellow Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji_aq-banner.blp"
+          ]
+        },
+        {
+          "id": "mount_qiraji_red",
+          "name": "Red Qiraji Resonating Crystal",
+          "category": "Mount",
+          "paths": [
+            "mount_qiraji_aq-banner.blp"
+          ]
+        },
+        {
+          "id": "set_viper",
+          "name": "Embrace of the Viper",
+          "category": "Item Set",
+          "paths": [
+            "set_viper-banner.blp"
+          ]
+        },
+        {
+          "id": "set_partners_in_crime",
+          "name": "Partners in Crime",
+          "category": "Item Set",
+          "paths": [
+            "set_partners_in_crime-banner.blp"
+          ]
+        },
+        {
+          "id": "set_violet_sorcerer",
+          "name": "Violet Sorcerer's Vestments",
+          "category": "Item Set",
+          "paths": [
+            "set_violet_sorcerer-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_rank14_ally",
+          "name": "Grand Marshal",
+          "category": "PvP",
+          "paths": [
+            "set_tier2_warrior-alliance-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_mount_ally",
+          "name": "Alliance War Mount (Rank 11)",
+          "category": "PvP",
+          "paths": [
+            "pvp_mount_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_avmount_ally",
+          "name": "Stormpike Battle Charger",
+          "category": "PvP",
+          "paths": [
+            "pvp_mount_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_wsg_ally",
+          "name": "Exalted: Silverwing Sentinels",
+          "category": "PvP",
+          "paths": [
+            "pvp_wsg_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_ab_ally",
+          "name": "Exalted: League of Arathor",
+          "category": "PvP",
+          "paths": [
+            "pvp_arathi-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_av_ally",
+          "name": "Exalted: Stormpike Guard",
+          "category": "PvP",
+          "paths": [
+            "pvp_av_ally-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_rank14_horde",
+          "name": "High Warlord",
+          "category": "PvP",
+          "paths": [
+            "set_tier2_warrior-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_mount_horde",
+          "name": "Horde War Mount (Rank 11)",
+          "category": "PvP",
+          "paths": [
+            "pvp_mount_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_avmount_horde",
+          "name": "Frostwolf Howler",
+          "category": "PvP",
+          "paths": [
+            "pvp_av_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_wsg_horde",
+          "name": "Exalted: Warsong Outriders",
+          "category": "PvP",
+          "paths": [
+            "pvp_wsg_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_ab_horde",
+          "name": "Exalted: The Defilers",
+          "category": "PvP",
+          "paths": [
+            "pvp_arathi-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_av_horde",
+          "name": "Exalted: Frostwolf Clan",
+          "category": "PvP",
+          "paths": [
+            "pvp_av_horde-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_hk",
+          "name": "Honorable Kills",
+          "category": "PvP",
+          "paths": [
+            "pvp_drums_of_war-banner.blp"
+          ]
+        },
+        {
+          "id": "pvp_duelist",
+          "name": "Duelist",
+          "category": "PvP",
+          "paths": [
+            "pvp_drums_of_war-banner.blp"
+          ]
+        },
+        {
+          "id": "social_cheers",
+          "name": "Give Cheers",
+          "category": "Social",
+          "paths": [
+            "social_cheers-banner.blp"
+          ]
+        },
+        {
+          "id": "social_waves",
+          "name": "Give Waves",
+          "category": "Social",
+          "paths": [
+            "social_waves-banner.blp"
+          ]
+        }
+      ]
+    }
+  },
+  "missing_files": [],
+  "variant_gaps": {}
+}
