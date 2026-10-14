@@ -5535,6 +5535,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- mounts/aq-battle-tanks.jpg): across the dunes it walks over.
         ["mount_qiraji_aq-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = Sand({ 0.0, 1.0, 0.5, 0.92 }, 110) },
+        -- Every AQ40 (Tier 2.5) class set, which all share the set_tier25 image: sand across
+        -- the ground below the temple.
+        ["set_tier25-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Sand({ 0.0, 1.0, 0.5, 0.92 }, 110) },
         -- Ironforge: firelight glowing from inside the great door, flickering slowly like the
         -- Great Forge beyond it, under the falling snow (Karl, 2026-10-14). The doorway spans
         -- about u 0.61-0.73, v 0.60-0.80 on cities/ironforge-master.png; a light column inside
@@ -5926,7 +5930,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 -- more of them (Sand's count) keeps it reading as blowing sand.
                 e.size = aw*(0.0026 + 0.0024*r*r)
                 e.stretch = 1 + 0.4*math.random()
-                e.peak = 0.55 + 0.40*math.random()
+                -- opacity varies a lot between grains (Karl, 2026-10-14): some faint, some
+                -- bright, and about two in three also swell and fade on their own slow beat
+                -- (2.5 to 7 s) as they fly, never flashing
+                e.peak = 0.18 + 0.77*math.random()
+                e.twDepth = math.random() < 0.65 and (0.4 + 0.5*math.random()) or 0
+                e.twFreq, e.twPhase = 0.14 + 0.26*math.random(), math.random()*2*math.pi
             end
         elseif cfg.float then
             e.size = aw*(blur and (0.02 + 0.02*r) or (0.004 + 0.010*r*r))
@@ -5988,9 +5997,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local tt = self.glowAnim.t or 0
         local g1 = 0.5 - 0.5*math.cos(tt*2*math.pi/17.3)
         local g2 = 0.5 - 0.5*math.cos(tt*2*math.pi/29.1 + 1.3)
-        local gust = 0.6*g1*g1 + 0.4*g2*g2*g2
+        -- Stronger wind (Karl, 2026-10-14): a livelier base, gusts that reach full strength
+        -- and quicken the sand to nearly three times its calm speed.
+        local gust = math.min(1, 1.3*(0.6*g1*g1 + 0.4*g2*g2*g2))
         self.gust = gust
-        local gustSpeed, gustAlpha = 1 + 0.9*gust, 0.75 + 0.35*gust
+        local gustSpeed, gustAlpha = 1.3 + 1.6*gust, 0.75 + 0.45*gust
         local tail = math.max(1, math.min(140, ah*0.35)) -- the art's faded bottom (see below)
         for k = 1, n do
             local e = self.emberDots[k]
@@ -6018,6 +6029,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     local fade
                     if drift then
                         fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)*gustAlpha
+                        local tw = e.twDepth
+                        if tw and tw > 0 then
+                            fade = fade*(1 - tw*(0.5 - 0.5*math.cos(e.twPhase + e.age*e.twFreq*2*math.pi)))
+                        end
                     elseif cfg.float then
                         fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)
                     elseif cfg.fall then

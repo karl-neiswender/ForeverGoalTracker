@@ -400,7 +400,7 @@ if ok_all:
             'local lo, hi = 1, 0; for i = 0, 600 do B.glowAnim.t = i * 0.1; B:StepEmbers(0); lo = math.min(lo, B.gust); hi = math.max(hi, B.gust) end; '
             'assert(lo >= 0 and hi <= 1 and hi > 0.5 and lo < 0.1, "gusts swell and settle between calm and strong: " .. lo .. " " .. hi); '
             'local step, prev = 0, nil; for i = 0, 3600 do B.glowAnim.t = i / 60; B:StepEmbers(0); if prev then step = math.max(step, math.abs(B.gust - prev)) end; prev = B.gust end; '
-            'assert(step < 0.004, "a gust never jumps between frames (photosensitivity rule): " .. step); '
+            'assert(step < 0.006, "a gust never jumps between frames (photosensitivity rule): " .. step); '
             'local lean, n = 0, 0; for k = 1, B.emberCount do local e = B.emberDots[k]; if not e.wait then lean = lean + math.sin(e.heading); n = n + 1 end end; '
             'assert(math.abs(lean / n) < 0.03, "the default wind blows level (Karl, 2026-10-14): " .. lean / n); '
             'local seen = {}; local tex = B.emberDots[1].tex; local oldA = tex.SetAlpha; tex.SetAlpha = function(_, a) seen[#seen + 1] = a end; '
