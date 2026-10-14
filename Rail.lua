@@ -363,6 +363,9 @@ R.driver = driver
 local function Finish(quiet)
     driver:SetScript("OnUpdate", nil)
     FGT.railBusy = false
+    -- the "Find your next goal" glow fades back in now that the list has settled
+    local fm = FGT.findMore
+    if fm and fm.comet then fm.comet.on = true end
     list:SetAlpha(1)
     R:Apply()
     R:Settle()
@@ -388,6 +391,10 @@ function R:Animate(rail, instant, quiet)
         return
     end
     local elapsed, lastReflow = 0, 0
+    -- The glow circling the "Find your next goal" button would race around its changing
+    -- border while the list moves: it fades out now and returns in Finish (Karl, 2026-10-14).
+    local fm = FGT.findMore
+    if fm and fm.comet then fm.comet.on = false end
     if mode == "subtle" then
         local switched = false
         driver:SetScript("OnUpdate", function(_, dt)

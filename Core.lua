@@ -4581,7 +4581,7 @@ end
 -- notice under the description for goals not confirmed in Forever yet.
 do
     local chip = NewChip(FGT.detailBody, 9)
-    chip:SetLabel(FGT.ForeverDot(13, false, -5) .. "NEW IN FOREVER", C.FOREVER_LIGHT)
+    chip:SetLabel(FGT.ForeverDot(12, false, -3) .. "NEW IN FOREVER", C.FOREVER_LIGHT)
     FGT.AddForeverPulse(chip, true)
     chip:SetBackdropBorderColor(C.FOREVER_DEEP[1], C.FOREVER_DEEP[2], C.FOREVER_DEEP[3], 1)
     chip:Hide()
@@ -6001,6 +6001,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     function B:ResetEmbers()
         local n = 0
+        self.embAw, self.embAh = nil, nil -- (the new particles start at the art's current size)
         for _, cfg in ipairs(ParticleSets(self.glowSpec)) do
             local blurs = cfg.zap and 0 or math.floor(cfg.count*(cfg.blurShare or 0.25) + 0.5)
             for k = 1, cfg.count do
@@ -6030,7 +6031,29 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local n = self.emberCount or 0
         if n == 0 then return end
         local aw, ah = math.max(1, self.art:GetWidth()), self.shownArtHeight or 0
-        local base = (self.glowLevel or 0)*0.55
+        -- When the art resizes (the side panels opening and closing) every particle's place,
+        -- size, sway and speed scale with it, so the particles stay put on the picture instead
+        -- of gliding behind it (Karl, 2026-10-14).
+        local pw, ph = self.embAw, self.embAh
+        if pw and (pw ~= aw or ph ~= ah) then
+            local sx = aw/pw
+            local sy = (ph and ph > 0 and ah > 0) and ah/ph or 1
+            for k = 1, n do
+                local e = self.emberDots[k]
+                e.x, e.y = e.x*sx, e.y*sy
+                e.size, e.sway, e.speed = e.size*sx, e.sway*sx, e.speed*sx
+            end
+        end
+        -- Simplest of all (Karl, 2026-10-14): while the art is resizing the particles fade out
+        -- (about 0.15 s), and once it has been still for a quarter second they fade back in.
+        local resizing = pw and (pw ~= aw or ph ~= ah)
+        self.embStill = resizing and 0 or ((self.embStill or 1) + dt)
+        local calmTarget = self.embStill < 0.25 and 0 or 1
+        local calm = self.embCalm or 1
+        calm = calm + (calmTarget - calm)*math.min(1, dt*(calmTarget == 0 and 12 or 3))
+        self.embCalm = calm
+        self.embAw, self.embAh = aw, ah
+        local base = (self.glowLevel or 0)*0.55*calm
         -- Wind for blown sand: mostly calm, swelling into a gust now and then on two slow,
         -- unrelated beats (about 17 and 29 s), each gust taking seconds to build and settle,
         -- so the sand quickens and thickens a little without anything flashing.
@@ -6840,7 +6863,7 @@ function FGT.LayoutForeverInfo(goal)
     chip:ClearAllPoints()
     chip:SetPoint("LEFT", detailTimeChip:IsShown() and detailTimeChip or detailDiffChip, "RIGHT", 6, 0)
     local word = FGT.ForeverWord(goal)
-    if word then chip:SetLabel(FGT.ForeverDot(13, false, -5) .. word .. " IN FOREVER", C.FOREVER_LIGHT) end
+    if word then chip:SetLabel(FGT.ForeverDot(12, false, -3) .. word .. " IN FOREVER", C.FOREVER_LIGHT) end
     chip:SetShown(word ~= nil)
     detailBar:SetBlue(word ~= nil)
 
@@ -7084,15 +7107,19 @@ end
 function FGT.LayoutStepControls(view)
     if view then return end
     local b = FGT.completedStepsBtn
-    local launchWidth = FGT.popoutLaunch and FGT.popoutLaunch:IsShown() and 24 or 0
+    -- Pop out sits at the far right of the row; Expand all just left of it
+    local launch = FGT.popoutLaunch
+    local launchWidth = launch and launch:IsShown() and (launch:GetWidth() + 14) or 0
     local expandWidth = FGT.expandAllBtn:IsShown() and (FGT.expandAllBtn:GetWidth() + 20) or 0
-    local narrow = stepsHeader:GetStringWidth() + 14 + launchWidth + b:GetWidth() + expandWidth > FGT.detailBody:GetWidth() - 44
+    local narrow = stepsHeader:GetStringWidth() + 14 + b:GetWidth() + expandWidth + launchWidth > FGT.detailBody:GetWidth() - 44
     b:ClearAllPoints()
     if narrow then
         b:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -6)
     else
-        b:SetPoint("LEFT", stepsHeader, "RIGHT", 14 + launchWidth, 0)
+        b:SetPoint("LEFT", stepsHeader, "RIGHT", 14, 0)
     end
+    FGT.expandAllBtn:ClearAllPoints()
+    FGT.expandAllBtn:SetPoint("TOPRIGHT", divider, "BOTTOMRIGHT", -8 - launchWidth, -10)
     stepsScrollObj.scroll:ClearAllPoints()
     stepsScrollObj.scroll:SetPoint("TOPLEFT", narrow and b or stepsHeader, "BOTTOMLEFT", 0, -8)
     stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", FGT.detailBody, "BOTTOMRIGHT", -24, 3)

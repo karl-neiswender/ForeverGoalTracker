@@ -1148,18 +1148,34 @@ back:SetScript("OnMouseDown", function() back.icon:SetPoint("LEFT", 10, -1) end)
 back:SetScript("OnMouseUp", function() back.icon:SetPoint("LEFT", 9, 0) end)
 back:SetScript("OnClick", function() P:Close(true) end)
 
-P.launch = CreateFrame("Button", nil, S.main)
+-- "Pop out" with its icon at the far right of the steps heading row (Karl, 2026-10-14):
+-- grey and still, gold on hover. Expand all (when shown) sits just to its left.
+P.launch = CreateFrame("Button", nil, FGT.detailBody)
 FGT.popoutLaunch = P.launch
-P.launch:SetSize(20, 20)
-P.launch:SetPoint("LEFT", U.header, "RIGHT", 4, 0)
+P.launch.icon = P.launch:CreateTexture(nil, "ARTWORK")
+P.launch.icon:SetSize(13, 13)
+P.launch.icon:SetPoint("RIGHT", P.launch, "RIGHT", 0, 0)
+P.launch.icon:SetTexture(FGT.Icon("pop-out"))
+P.launch.text = Label(P.launch, 10, "Pop out", C.INK2[1], C.INK2[2], C.INK2[3])
+P.launch.text:SetPoint("RIGHT", P.launch.icon, "LEFT", -5, 0)
+P.launch:SetSize(math.ceil(P.launch.text:GetStringWidth()) + 5 + 13, 16)
+P.launch:SetPoint("TOPRIGHT", FGT.stepsDivider, "BOTTOMRIGHT", -8, -9)
+local function PaintLaunch(hover)
+    -- (the icon is painted gold: desaturated and tinted grey at rest, true colors on hover)
+    P.launch.icon:SetDesaturated(not hover)
+    if hover then P.launch.icon:SetVertexColor(1, 1, 1) else P.launch.icon:SetVertexColor(C.INK2[1], C.INK2[2], C.INK2[3]) end
+    local c = hover and C.TITLE or C.INK2
+    P.launch.text:SetTextColor(c[1], c[2], c[3])
+end
+PaintLaunch(false)
+P.launch:SetScript("OnEnter", function() PaintLaunch(true) end)
+P.launch:SetScript("OnLeave", function() PaintLaunch(false) end)
 Tip(P.launch, "Pop out steps")
-FGT.IconButton(P.launch, "pop-out", 13)
 P.launch:SetScript("OnClick", function()
     local goal = U.selected()
     if goal and U.active(goal) then P:Open(goal.id) end
 end)
 P.launch:Hide()
-P.launch:SetParent(U.header:GetParent())
 
 function FGT.HandlePopoutCommand(msg)
     local command = strtrim(msg or ""):lower()
@@ -1168,6 +1184,28 @@ function FGT.HandlePopoutCommand(msg)
         if goal then P:Open(goal.id) end
     elseif command == "dock" then P:Close(true)
     elseif command == "popout reset" then P:ResetPosition()
+    elseif command == "popout motes" then
+        -- Records one particle against the art for 3 s: open and close the side panels meanwhile.
+        -- (saved to the SavedVariables for Claude; /reload afterwards)
+        local B = FGT.goalBanner
+        local log, t0 = {}, GetTime()
+        print("|cffffd75eForever Goal Tracker:|r recording 3 s: open and close the side panels now.")
+        P.traceDriver:SetScript("OnUpdate", function(driver)
+            local elapsed = GetTime() - t0
+            local e = B.emberDots and B.emberDots[1]
+            if e and e.tex then
+                local l, cx = B.art:GetLeft(), e.tex:GetCenter()
+                log[#log + 1] = string.format("%.3fs  panel %.0f  art %.1f  awShown %s  lag %s  emb %s/%s  mote x %.1f y %.1f  size %.1f  mote-from-art-left %s",
+                    elapsed, B.panel:GetWidth(), B.art:GetWidth(), tostring(B.awShown and math.floor(B.awShown + 0.5)),
+                    tostring(B.artLag), tostring(B.embAw and math.floor(B.embAw + 0.5)), tostring(B.embAh and math.floor(B.embAh + 0.5)),
+                    e.x or -1, e.y or -1, e.size or -1, (l and cx) and string.format("%.1f", cx - l) or "?")
+            end
+            if elapsed >= 3 then
+                driver:SetScript("OnUpdate", nil)
+                if ForeverGoalTrackerDB then ForeverGoalTrackerDB.popoutTrace = log end
+                print("|cffffd75eForever Goal Tracker:|r mote recording saved (" .. #log .. " frames). Type |cffffffff/reload|r, then tell Claude.")
+            end
+        end)
     elseif command == "popout trace" then
         P.traceArmed = true
         print("|cffffd75eForever Goal Tracker:|r trace armed: pop a goal out, then bring it back; the frames print when it finishes.")
