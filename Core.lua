@@ -5002,6 +5002,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     }
     B.artVariants.pvp_hk = {{path="pvp_drums_of_war-banner.blp"}}
     B.artVariants.pvp_duelist = {{path="pvp_drums_of_war-banner.blp"}}
+    B.artVariants.pvp_rank14_ally = {{path="pvp_rank14-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.pvp_rank14_horde = B.artVariants.pvp_rank14_ally
     B.artVariants.pvp_set_mail_horde = {{path="pvp_set_mail_horde-banner.blp"}}
     B.artVariants.pvp_set_mail_horde_shaman = {{path="pvp_set_mail_horde_shaman-banner.blp"}}
     B.artVariants.pvp_set_cloth_ally = {{path="pvp_set_cloth_ally-banner.blp"}}

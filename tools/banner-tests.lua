@@ -1,5 +1,10 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+for _, id in ipairs({"pvp_rank14_ally", "pvp_rank14_horde"}) do
+    local path, aspect, preprocessed = B:ResolveArt(id)
+    assert(path == "pvp_rank14-banner.blp" and aspect == 4/3 and preprocessed,
+        "both Rank 14 goals use the approved shared medallion instead of the PvP fallback")
+end
 do
     local get, info, lines, lineInfo = GetProfessions, GetProfessionInfo, GetNumSkillLines, GetSkillLineInfo
     local characters = D.characters
