@@ -114,9 +114,9 @@ local cardDriver = CreateFrame("Frame", nil, card)
 -- ------------------------------------------------------------
 local filter = CreateFrame("Button", nil, list)
 R.filter = filter
-filter:SetSize(28, 28)
+filter:SetSize(32, 32)
 filter:SetPoint("CENTER", list, "TOPLEFT", 47, -30)
-FGT.IconButton(filter, "sliders-white", 17)
+FGT.IconButton(filter, "sliders-white", 22) -- larger to fill the folded header (Karl, 2026-10-14; was 17)
 filter.count = S.font(filter, 9, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
 filter.count:SetPoint("TOP", filter, "BOTTOM", 0, -1)
 filter:SetAlpha(0)
