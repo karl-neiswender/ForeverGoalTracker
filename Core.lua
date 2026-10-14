@@ -6621,6 +6621,16 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local aw = w*0.6*0.92
         -- A wider fade gives tall artwork a gentler entrance behind the guide.
         if FGT.Setting("tallGoalArt") then aw = w*0.70 end
+        -- When the goals list opens the page narrows and the art shrinks to fit. It does so
+        -- at its own slow pace (B.artLag, set by Rail.lua), not the panel's (Karl, 2026-10-14).
+        if self.artLag and self.lagFrame and self.awShown and self.awShown > aw + 0.5 then
+            aw = self.awShown
+            self.lagFrame:Show()
+        else
+            self.awShown = aw
+            if self.lagFrame and self.lagFrame:IsShown() then self.lagFrame:Hide() end
+            if not FGT.railBusy then self.artLag = false end
+        end
         local shownHeight = math.min(h, math.max(1, detailPanel:GetHeight()-8))
         self.fullImageHeight = shownHeight
         self.shownArtHeight = shownHeight
@@ -6667,6 +6677,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.bottom:Hide()
     end
     B:SetScript("OnSizeChanged", function(self) self:Fit() end)
+    -- steps the art's width down at a slow, eased-in pace while it catches up with the page
+    B.lagFrame = CreateFrame("Frame", nil, detailPanel)
+    B.lagFrame:Hide()
+    B.lagFrame:SetScript("OnUpdate", function(f, dt)
+        f.t = (f.t or 0) + dt
+        B.awShown = B.awShown - 70*math.min(1, f.t/0.6)*dt
+        B:Fit()
+    end)
+    B.lagFrame:SetScript("OnHide", function(f) f.t = 0 end)
     B:SetScript("OnHide", function(self)
         self:StopImageFade()
         for _,t in ipairs({self.background,self.border,self.art,self.left,self.top,self.bottom}) do t:Hide() end

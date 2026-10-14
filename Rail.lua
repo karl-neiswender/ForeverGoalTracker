@@ -362,6 +362,7 @@ local driver = CreateFrame("Frame", nil, list)
 R.driver = driver
 local function Finish(quiet)
     driver:SetScript("OnUpdate", nil)
+    FGT.railBusy = false
     list:SetAlpha(1)
     R:Apply()
     R:Settle()
@@ -400,16 +401,16 @@ function R:Animate(rail, instant, quiet)
     end
     local from = self.f
     -- same pace and ease-out as the Materials drawer (0.7 s for a full slide)
-    -- Opening the list narrows the goal page, so its banner art shrinks; an ease-out
-    -- starts that fastest, which looked too quick (Karl, 2026-10-14). Opening is slower
-    -- and eased in and out; folding keeps the Materials drawer's pace.
-    local opening = self.target == 0
-    local duration = (opening and 2.0 or 0.7) * math.max(0.35, math.abs(self.target - from))
+    local duration = 0.7 * math.max(0.35, math.abs(self.target - from))
+    -- Opening the list narrows the goal page; its banner art then shrinks at its own slower
+    -- pace (B.artLag, see B:Fit in Core.lua), not the list's (Karl, 2026-10-14).
+    FGT.railBusy = true
+    if self.target == 0 and FGT.goalBanner then FGT.goalBanner.artLag = true end
     driver:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
         local p = math.min(1, elapsed / duration)
+        -- eased here, both ways, exactly like the Materials drawer
         local e = 1 - (1 - p) ^ 3
-        if opening then e = p < 0.5 and 4 * p * p * p or 1 - (2 - 2 * p) ^ 3 / 2 end
         R.f = from + (R.target - from) * e
         R:Apply()
         if p >= 1 then Finish()
