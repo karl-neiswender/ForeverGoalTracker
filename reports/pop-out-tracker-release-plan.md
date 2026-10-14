@@ -1,7 +1,9 @@
 # Next release: pop-out tracker
 
 Prepared October 13, 2026. Proposed version: 2.14.0, following 2.13.0.
-Planning only. No implementation or live publication is authorized by this document.
+Karl authorized a proof of concept after agreeing the behavior below. The
+prototype is implemented for in-game review. No live publication is authorized.
+See [prototype review](pop-out-tracker-proof-of-concept.md).
 
 ## Purpose
 

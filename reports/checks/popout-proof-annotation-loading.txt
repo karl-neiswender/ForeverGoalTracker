@@ -1,0 +1,25 @@
+Ketho library load/association records: 10531
+[21:07:10.439][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.451][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.453][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.457][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.459][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.464][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.467][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.469][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.470][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.473][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.475][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:10.476][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:40.862][info] [#0:script/workspace/loading.lua:88]: Skip loaded file: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/FrameXML/Annotations/AddOns/Blizzard_Channels/ChannelList.lua.annotated.lua
+[21:07:40.862][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:40.863][info] [#0:script/workspace/loading.lua:88]: Skip loaded file: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/FrameXML/Annotations/AddOns/Blizzard_Channels/ChannelFrame.lua.annotated.lua
+[21:07:40.863][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:40.864][info] [#0:script/workspace/loading.lua:88]: Skip loaded file: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/FrameXML/Annotations/AddOns/Blizzard_OverrideActionBar/OverrideActionBar.xml.annotated.lua
+[21:07:40.864][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:40.864][info] [#0:script/workspace/loading.lua:88]: Skip loaded file: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/FrameXML/Annotations/AddOns/Blizzard_OverrideActionBar/OverrideActionBar.lua.annotated.lua
+[21:07:40.865][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:40.865][info] [#0:script/workspace/loading.lua:88]: Skip loaded file: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/FrameXML/Annotations/_enums.lua.annotated.lua
+[21:07:40.865][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:07:40.866][info] [#0:script/workspace/loading.lua:88]: Skip loaded file: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/FrameXML/Annotations/_templates.lua.annotated.lua
+[21:07:40.866][info] [#0:script/workspace/loading.lua:112]: ++++As library of:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations

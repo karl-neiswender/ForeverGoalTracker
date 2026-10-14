@@ -1409,7 +1409,7 @@ do
         -- nothing to repaint while the tracker is closed (every text it
         -- paints is inside it): skip the whole scan, 20 times a second
         local window = rawget(_G, "ForeverGoalTrackerFrame")
-        if window and not window:IsShown() then return end
+        if window and not window:IsShown() and not (FGT.Popout and FGT.Popout.open) then return end
         local center, now = Center(), GetTime()
         -- the open goal link card's title scans too (Karl)
         local L = FGT.linkCard
@@ -2589,6 +2589,8 @@ end
 FGT.doneSeen = {}
 
 function FGT.CheckCelebration(row, key, complete, play)
+    if FGT.Popout and FGT.Popout.open and not row.popoutView and row.guideIdentity
+        and row.guideIdentity:sub(1, #FGT.Popout.goalId + 1) == FGT.Popout.goalId .. "|" then return end
     local was = FGT.doneSeen[key]
     if FGT.quietCelebrate then was = complete end -- silent redraws: no fanfare
     FGT.doneSeen[key] = complete
@@ -2740,6 +2742,7 @@ end
 -- A step's checkbox pops when you tick it. ToggleStep notes what was
 -- just ticked; the row drawing that step calls this.
 function FGT.MaybePopTick(row, goalId, key)
+    if FGT.Popout and FGT.Popout.open and FGT.Popout.goalId == goalId and not row.popoutView then return end
     if row.isDone and (FGT.justTicked == goalId .. "|" .. key or FGT.restoringReset == goalId) then
         FGT.justTicked = nil
         if FGT.Setting("celebrations") == "off" then return end
@@ -6641,10 +6644,10 @@ do
     FGT.completedStepsBtn = b
 end
 
-function FGT.ShowStepSection(goal, si, section)
+function FGT.ShowStepSection(goal, si, section, view)
     if not PartSelected(goal, si) then return false end
     local done, total = SectionProgress(goal, si, section)
-    return not FGT.HideGuideEntry("section:" .. si, total > 0 and done == total)
+    return not FGT.HideGuideEntry("section:" .. si, total > 0 and done == total, view)
 end
 
 -- "Expand all" / "Collapse all" on the right of the heading, for goals
@@ -6663,7 +6666,8 @@ end
 
 -- Shows the button for a goal and labels it: "Expand all" while any
 -- chosen group is closed, otherwise "Collapse all".
-function FGT.UpdateExpandAll(goal)
+function FGT.UpdateExpandAll(goal, view)
+    if view then return end
     local b = FGT.expandAllBtn
     if not goal.sections then b:Hide() return end
     local visible = 0
@@ -6709,7 +6713,13 @@ function FGT.CancelGuideMotion()
     end
 end
 
-function FGT.FinishGuideHeight(height)
+function FGT.FinishGuideHeight(height, view)
+    if view then
+        view.layout.height = math.max(1, height)
+        view.content:SetHeight(view.layout.height)
+        view.scroll:Update()
+        return
+    end
     height = math.max(1, height)
     FGT.guideLayout.height = height
     -- Keep the scroll bounds large enough for the old row positions until
@@ -6718,7 +6728,16 @@ function FGT.FinishGuideHeight(height)
     stepsScrollObj:Update()
 end
 
-function FGT.BeginGuideLayout(goal)
+function FGT.BeginGuideLayout(goal, view)
+    if view then
+        local old = view.layout
+        local same = old and old.goal == goal.id
+        view.layout = {goal = goal.id, nodes = {}, byKey = {},
+            previous = same and not view.skipPrevious and old.byKey or {},
+            pending = same and old.pending or {}}
+        view.skipPrevious = nil
+        return
+    end
     FGT.CancelGuideMotion()
     local old = FGT.guideLayout
     local same = old and old.goal == goal.id
@@ -6730,7 +6749,14 @@ function FGT.BeginGuideLayout(goal)
     end
 end
 
-function FGT.HideGuideEntry(key, done)
+function FGT.HideGuideEntry(key, done, view)
+    if view then
+        if not FGT.Setting("hideCompletedSteps") or not done then return false end
+        local layout = view.layout
+        local prior = layout and layout.previous[key]
+        if prior and not prior.done and FGT.Setting("celebrations") ~= "off" then layout.pending[key] = true end
+        return not (layout and layout.pending[key])
+    end
     if not FGT.Setting("hideCompletedSteps") or not done then
         if FGT.guideLayout then FGT.guideLayout.pending[key] = nil end
         return false
@@ -6741,8 +6767,8 @@ function FGT.HideGuideEntry(key, done)
     return not (layout and layout.pending[key])
 end
 
-function FGT.PlaceGuideEntry(frame, key, y, done, x)
-    local layout = FGT.guideLayout
+function FGT.PlaceGuideEntry(frame, key, y, done, x, view)
+    local layout = view and view.layout or FGT.guideLayout
     local identity = layout.goal .. "|" .. key
     if frame.guideIdentity ~= identity and frame.fxT then FGT.EndCelebration(frame) end
     frame.guideIdentity = identity
@@ -6751,7 +6777,23 @@ function FGT.PlaceGuideEntry(frame, key, y, done, x)
     frame:SetAlpha(1)
 end
 
-function FGT.EndGuideLayout(goal)
+function FGT.EndGuideLayout(goal, view)
+    if view then
+        if next(view.layout.pending) and not view.hidePending then
+            local ticket = {}
+            view.hidePending = ticket
+            local id = goal.id
+            C_Timer.After(0.55, function()
+                if view.hidePending ~= ticket then return end
+                view.hidePending = nil
+                if view.goalId ~= id or not view.layout then return end
+                view.layout.pending = {}
+                view.skipPrevious = true
+                view.refresh()
+            end)
+        end
+        return
+    end
     local layout, W = FGT.guideLayout, FGT.welcome
     if not next(layout.pending) or not W or not W.Tween then return end
     W.Tween("guideExit", 0.28, function(p)
@@ -6781,15 +6823,17 @@ function FGT.EndGuideLayout(goal)
     end, 0.55)
 end
 
-function FGT.LayoutStepControls()
+function FGT.LayoutStepControls(view)
+    if view then return end
     local b = FGT.completedStepsBtn
+    local launchWidth = FGT.popoutLaunch and FGT.popoutLaunch:IsShown() and 24 or 0
     local expandWidth = FGT.expandAllBtn:IsShown() and (FGT.expandAllBtn:GetWidth() + 20) or 0
-    local narrow = stepsHeader:GetStringWidth() + 14 + b:GetWidth() + expandWidth > FGT.detailBody:GetWidth() - 44
+    local narrow = stepsHeader:GetStringWidth() + 14 + launchWidth + b:GetWidth() + expandWidth > FGT.detailBody:GetWidth() - 44
     b:ClearAllPoints()
     if narrow then
         b:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -6)
     else
-        b:SetPoint("LEFT", stepsHeader, "RIGHT", 14, 0)
+        b:SetPoint("LEFT", stepsHeader, "RIGHT", 14 + launchWidth, 0)
     end
     stepsScrollObj.scroll:ClearAllPoints()
     stepsScrollObj.scroll:SetPoint("TOPLEFT", narrow and b or stepsHeader, "BOTTOMLEFT", 0, -8)
@@ -6832,7 +6876,7 @@ do
             end
         end
         local function Fade(r)
-            if type(r) ~= "table" or fading[r] or not r:IsShown() then return end
+            if type(r) ~= "table" or r.fgtPopoutTransfer or fading[r] or not r:IsShown() then return end
             local t, b = r:GetTop(), r:GetBottom()
             if not t or not b or t - b > 80 then r:SetAlpha(1) return end
             local c = (t + b) / 2
@@ -7034,11 +7078,14 @@ end)
 -- ============================================================
 local stepRowPool = {}
 
-local function GetStepRow(index)
+local function GetStepRow(index, view)
+    local stepRowPool = view and view.rows or stepRowPool
+    local stepsContainer = view and view.content or stepsContainer
     local row = stepRowPool[index]
     if row then return row end
 
     row = CreateFrame("Button", nil, stepsContainer)
+    row.popoutView = view
     row:RegisterForClicks("LeftButtonUp", "RightButtonUp") -- right-click: Wowhead link
     row:SetPoint("LEFT", stepsContainer, "LEFT", 0, 0)
     row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
@@ -7251,7 +7298,7 @@ local function GetStepRow(index)
     return row
 end
 
-local function ToggleStep(goalId, index)
+local function ToggleStep(goalId, index, view)
     if FGT.overLink then return end -- the click was on a goal link in the step
     if FGT.StepLocked(FGT.GoalById(goalId), index) then return end
     local nowDone = not IsStepDone(goalId, index)
@@ -7270,7 +7317,14 @@ local function ToggleStep(goalId, index)
         end
     end
     FGT.justTicked = nowDone and (goalId .. "|" .. index) or nil
-    SelectGoal(goalId, true)
+    if view then
+        FGT.CheckGoalCompletions()
+        if selectedId then SelectGoal(selectedId, true) end
+        if FGT.RefreshOverall then FGT.RefreshOverall() end
+        if FGT.RefreshPopout then FGT.RefreshPopout() end
+    else
+        SelectGoal(goalId, true)
+    end
 end
 
 -- Shared checked/unchecked visual state for any pooled checkbox row
@@ -7340,11 +7394,14 @@ function FGT.SectionIsOpen(goal, si)
 end
 FGT.pieceExpanded = {} -- "goalId_section_piece" -> true while its materials are shown
 
-local function GetHeaderRow(index)
+local function GetHeaderRow(index, view)
+    local headerRowPool = view and view.headers or headerRowPool
+    local stepsContainer = view and view.content or stepsContainer
     local row = headerRowPool[index]
     if row then return row end
 
     row = CreateFrame("Button", nil, stepsContainer, "BackdropTemplate")
+    row.popoutView = view
     row.twin = { [STYLE.rowSel] = STYLE.fOpen } -- softer blue when open (Forever goals)
     row:SetPoint("LEFT", stepsContainer, "LEFT", 0, 0)
     row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
@@ -7448,7 +7505,14 @@ end
 -- Only jump back to the top when a different goal is opened; ticking a
 -- step or expanding a section keeps your place in the list.
 local lastRenderedGoal = nil
-local function ResetScrollIfNewGoal(goal)
+local function ResetScrollIfNewGoal(goal, view)
+    if view then
+        if view.goalId ~= goal.id then
+            view.scroll.scroll:SetVerticalScroll(0)
+            view.goalId = goal.id
+        end
+        return
+    end
     if goal.id ~= lastRenderedGoal then
         if FGT.StopGuideScroll then FGT.StopGuideScroll() end -- a tips glide belongs to the goal you left
         stepsScrollObj.scroll:SetVerticalScroll(0)
@@ -7636,17 +7700,20 @@ function FGT.LayoutTips(goal, yOffset, width)
     return yOffset
 end
 
-local function RefreshTierSections(goal)
-    ResetScrollIfNewGoal(goal)
+local function RefreshTierSections(goal, view)
+    local stepsContainer = view and view.content or stepsContainer
+    local stepRowPool = view and view.rows or stepRowPool
+    local headerRowPool = view and view.headers or headerRowPool
+    ResetScrollIfNewGoal(goal, view)
     local width = stepsContainer:GetWidth()
     local yOffset = 0
     local rowIndex = 0
     local headerIndex = 0
 
     for si, section in ipairs(goal.sections) do
-        if FGT.ShowStepSection(goal, si, section) then
+        if FGT.ShowStepSection(goal, si, section, view) then
         headerIndex = headerIndex + 1
-        local header = GetHeaderRow(headerIndex)
+        local header = GetHeaderRow(headerIndex, view)
         header:SetParent(stepsContainer)
         header:ClearAllPoints()
         header:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
@@ -7663,7 +7730,7 @@ local function RefreshTierSections(goal)
 
         local sd, st = SectionProgress(goal, si, section)
         header.complete = st > 0 and sd == st
-        FGT.PlaceGuideEntry(header, "section:" .. si, yOffset, header.complete)
+        FGT.PlaceGuideEntry(header, "section:" .. si, yOffset, header.complete, nil, view)
         header.count:SetText(sd .. " / " .. st)
         header.count:SetShown(not header.complete)
         header.doneCheck:SetShown(header.complete)
@@ -7672,19 +7739,20 @@ local function RefreshTierSections(goal)
         -- An open group that finishes just now folds itself closed once
         -- its celebration has played, so its quiet finished look shows.
         local justDone = header.complete and FGT.doneSeen[openKey] == false and not FGT.quietCelebrate
+            and (view or not (FGT.Popout and FGT.Popout.open and FGT.Popout.goalId == goal.id))
         FGT.CheckCelebration(header, openKey, header.complete, FGT.CelebrateRow)
         if justDone and expanded and not FGT.Setting("hideCompletedSteps") then
             C_Timer.After(1.4, function()
-                if FGT.SectionIsOpen(goal, si) and selectedId == goal.id then
+                if FGT.SectionIsOpen(goal, si) and (view and view.goalId == goal.id or not view and selectedId == goal.id) then
                     FGT.sectionOpen[openKey] = false
-                    RefreshSteps(goal)
+                    FGT.RefreshStepView(goal, view)
                 end
             end)
         end
 
         header:SetScript("OnClick", function()
             FGT.sectionOpen[openKey] = not FGT.SectionIsOpen(goal, si)
-            RefreshSteps(goal)
+            FGT.RefreshStepView(goal, view)
         end)
         header:Show()
         yOffset = yOffset + header:GetHeight() + 4
@@ -7692,9 +7760,9 @@ local function RefreshTierSections(goal)
         if expanded then
             for pi, piece in ipairs(section.pieces) do
                 local md, mt = FGT.PieceProgress(goal.id, si, pi, piece)
-                if not FGT.PieceSkipped(piece) and not FGT.HideGuideEntry("piece:" .. si .. ":" .. pi, md == mt) then -- (closes after the materials)
+                if not FGT.PieceSkipped(piece) and not FGT.HideGuideEntry("piece:" .. si .. ":" .. pi, md == mt, view) then -- (closes after the materials)
                 rowIndex = rowIndex + 1
-                local row = GetStepRow(rowIndex)
+                local row = GetStepRow(rowIndex, view)
                 row:SetParent(stepsContainer)
                 row:ClearAllPoints()
                 row:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
@@ -7715,7 +7783,7 @@ local function RefreshTierSections(goal)
                 FGT.LinkItemName(row) -- the piece's name as an item link
                 row.text:SetWidth(math.max(50, width - 18 - 44 - (hasMats and 44 or 0) - (piece.icon and 14 or 0)))
                 StyleCheckRow(row, md == mt)
-                FGT.PlaceGuideEntry(row, "piece:" .. si .. ":" .. pi, yOffset, md == mt)
+                FGT.PlaceGuideEntry(row, "piece:" .. si .. ":" .. pi, yOffset, md == mt, nil, view)
                 if not hasMats then FGT.MaybePopTick(row, goal.id, PieceKey(si, pi)) end
 
                 if hasMats then
@@ -7741,9 +7809,9 @@ local function RefreshTierSections(goal)
                     if FGT.StepLinkClick(self, button) then return end
                     if self.pieceKey then
                         FGT.pieceExpanded[self.pieceKey] = not FGT.pieceExpanded[self.pieceKey]
-                        RefreshSteps(goal)
+                        FGT.RefreshStepView(goal, view)
                     else
-                        ToggleStep(goal.id, PieceKey(si, pi)) -- mount tasks: the row is the checkbox
+                        ToggleStep(goal.id, PieceKey(si, pi), view) -- mount tasks: the row is the checkbox
                     end
                 end)
                 row:Show()
@@ -7751,9 +7819,9 @@ local function RefreshTierSections(goal)
 
                 if open then
                     for mi, materialText in ipairs(piece.materials) do
-                        if not FGT.HideGuideEntry("material:" .. si .. ":" .. pi .. ":" .. mi, IsStepDone(goal.id, MaterialKey(si, pi, mi))) then
+                        if not FGT.HideGuideEntry("material:" .. si .. ":" .. pi .. ":" .. mi, IsStepDone(goal.id, MaterialKey(si, pi, mi)), view) then
                         rowIndex = rowIndex + 1
-                        local mrow = GetStepRow(rowIndex)
+                        local mrow = GetStepRow(rowIndex, view)
                         mrow:SetParent(stepsContainer)
                         mrow:ClearAllPoints()
                         mrow:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
@@ -7766,7 +7834,7 @@ local function RefreshTierSections(goal)
                         mrow.text:SetText(FGT.StepText(materialText))
                         mrow.text:SetWidth(math.max(50, width - 40 - 44))
                         StyleCheckRow(mrow, IsStepDone(goal.id, MaterialKey(si, pi, mi)))
-                        FGT.PlaceGuideEntry(mrow, "material:" .. si .. ":" .. pi .. ":" .. mi, yOffset, mrow.isDone)
+                        FGT.PlaceGuideEntry(mrow, "material:" .. si .. ":" .. pi .. ":" .. mi, yOffset, mrow.isDone, nil, view)
                         FGT.MaybePopTick(mrow, goal.id, MaterialKey(si, pi, mi))
                         if not mrow.isDone then
                             mrow.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
@@ -7782,7 +7850,7 @@ local function RefreshTierSections(goal)
                         mrow.guide:Show()
                         mrow:SetScript("OnClick", function(self, button)
                             if FGT.StepLinkClick(self, button) then return end
-                            ToggleStep(goal.id, MaterialKey(si, pi, mi))
+                            ToggleStep(goal.id, MaterialKey(si, pi, mi), view)
                         end)
                         mrow:Show()
                         yOffset = yOffset + mRowHeight + 3
@@ -7803,42 +7871,44 @@ local function RefreshTierSections(goal)
         stepRowPool[i]:Hide()
     end
 
-    FGT.UpdateExpandAll(goal)
-    FGT.LayoutStepControls()
-    yOffset = FGT.LayoutTips(goal, yOffset, width)
-    FGT.FinishGuideHeight(yOffset)
+    FGT.UpdateExpandAll(goal, view)
+    FGT.LayoutStepControls(view)
+    FGT.FinishStepView(goal, yOffset, width, view)
 end
 
-RefreshSteps = function(goal)
-    FGT.BeginGuideLayout(goal)
+RefreshSteps = function(goal, view)
+    local stepsContainer = view and view.content or stepsContainer
+    local stepRowPool = view and view.rows or stepRowPool
+    local headerRowPool = view and view.headers or headerRowPool
+    FGT.BeginGuideLayout(goal, view)
     local filter = FGT.completedStepsBtn
-    filter.text:SetText(FGT.Setting("hideCompletedSteps") and "Show completed" or "Hide completed")
-    filter:SetSize(math.ceil(filter.text:GetStringWidth()) + 4, 16)
-    filter:Show()
+    if not view then filter.text:SetText(FGT.Setting("hideCompletedSteps") and "Show completed" or "Hide completed")
+    filter:SetSize(math.ceil(filter.text:GetStringWidth()) + 4, 16) end
+    if not view then filter:Show() end
     -- icon frames on this goal's steps: blue on Forever-new goals
     FGT.stepRim = FGT.ForeverWord(goal) and C.FOREVER or C.GOLD2
     FGT.stepQuality = goal.itemQuality -- item name color when the game doesn't know
     if goal.sections then
-        RefreshTierSections(goal)
-        FGT.EndGuideLayout(goal)
+        RefreshTierSections(goal, view)
+        FGT.EndGuideLayout(goal, view)
         return
     end
 
-    ResetScrollIfNewGoal(goal)
+    ResetScrollIfNewGoal(goal, view)
     local width = stepsContainer:GetWidth()
     local yOffset = 0
     local shown = 0
     for i, entry in ipairs(goal.steps) do
         local stepText = FGT.StepText(type(entry) == "table" and entry.text or entry)
         local stepIcon = type(entry) == "table" and entry.icon or nil
-        local row = GetStepRow(i)
+        local row = GetStepRow(i, view)
         if not PartSelected(goal, i) or FGT.PieceSkipped(entry) then
             row:Hide() -- part of a group you haven't added, or a step your race skips
         else
         shown = shown + 1
         local complete = IsAutoStep(entry) and AutoStepFraction(entry) >= 1 or
             (not IsAutoStep(entry) and IsStepDone(goal.id, i))
-        if FGT.HideGuideEntry("step:" .. i, complete) then
+        if FGT.HideGuideEntry("step:" .. i, complete, view) then
             row:Hide()
         else
         row:SetParent(stepsContainer)
@@ -7925,12 +7995,12 @@ RefreshSteps = function(goal)
                     FGT.ShowStepLockTip(self)
                     return
                 end
-                ToggleStep(goal.id, i)
+                ToggleStep(goal.id, i, view)
             end)
         end
 
         row:Show()
-        FGT.PlaceGuideEntry(row, "step:" .. i, yOffset, complete)
+        FGT.PlaceGuideEntry(row, "step:" .. i, yOffset, complete, nil, view)
         yOffset = yOffset + rowHeight2 + 6
         end
         end
@@ -7945,11 +8015,25 @@ RefreshSteps = function(goal)
         headerRowPool[i]:Hide()
     end
 
-    FGT.UpdateExpandAll(goal)
-    FGT.LayoutStepControls()
-    yOffset = FGT.LayoutTips(goal, yOffset, width)
-    FGT.FinishGuideHeight(yOffset)
-    FGT.EndGuideLayout(goal)
+    FGT.UpdateExpandAll(goal, view)
+    FGT.LayoutStepControls(view)
+    FGT.FinishStepView(goal, yOffset, width, view)
+    FGT.EndGuideLayout(goal, view)
+end
+
+function FGT.RefreshStepView(goal, view)
+    if view then view.refresh() else RefreshSteps(goal) end
+end
+
+function FGT.FinishStepView(goal, height, width, view)
+    if view then
+        FGT.FinishGuideHeight(height, view)
+    else
+        if FGT.PopoutStepHeight then height = FGT.PopoutStepHeight(goal, height, width) end
+        local tipsHeight = FGT.LayoutTips(goal, height, width)
+        FGT.FinishGuideHeight(tipsHeight)
+        if FGT.UpdatePopoutPlaceholder then FGT.UpdatePopoutPlaceholder(goal, height, width) end
+    end
 end
 
 SelectGoal = function(id, skipListRefresh)
@@ -8028,6 +8112,7 @@ SelectGoal = function(id, skipListRefresh)
     overallBar:SetProgress(d2, t2, string.format("%d%% overall", math.floor(d2 / math.max(1, t2) * 100 + 0.5)))
     goalsCompleteText:SetText(string.format("%d of %d goals fully complete", CountGoalsComplete(), #ActiveGoals()))
     if FGT.RefreshMaterials then FGT.RefreshMaterials() end
+    if FGT.RefreshPopout then FGT.RefreshPopout() end
 end
 
 do -- scoped: keeps these locals out of the file's 200-local budget
@@ -8669,6 +8754,7 @@ end
 
 local detailParts -- every detail-panel element hidden by the empty state
 function FGT.ShowEmptyTracker()
+    if FGT.HidePopoutGuide then FGT.HidePopoutGuide() end
     FGT.CancelGuideMotion()
     FGT.guideLayout = nil
     FGT.CloseNoteCard(true)
@@ -9356,6 +9442,7 @@ local function AfterSelectionChange(goal, nowActive)
     end
     RefreshOverall()
     LayoutLibrary()
+    if FGT.RefreshPopout then FGT.RefreshPopout() end
 end
 
 local function SetPartActive(goal, key, on)
@@ -9404,6 +9491,7 @@ local function SetGoalActive(goal, on)
     end
     RefreshOverall()
     LayoutLibrary()
+    if FGT.RefreshPopout then FGT.RefreshPopout() end
 end
 
 -- ============================================================
@@ -9434,7 +9522,7 @@ function FGT.OpenGoalMenu(card)
         M.catcher:RegisterForClicks("AnyUp")
         M.catcher:SetScript("OnClick", FGT.CloseGoalMenu)
         M.rows = {}
-        for i = 1, 3 do
+        for i = 1, 4 do
             local row = CreateFrame("Button", nil, M)
             row:SetHeight(MENU_ROW)
             row.hl = row:CreateTexture(nil, "BACKGROUND")
@@ -9479,6 +9567,13 @@ function FGT.OpenGoalMenu(card)
             FGT.CloseGoalMenu()
             if FGT.OpenTargetCard then FGT.OpenTargetCard(goal) end
         end)
+        M.rows[4].label:SetText("Pop out steps")
+        M.rows[4].icon:SetTexture(FGT.Icon("link"))
+        M.rows[4]:SetScript("OnClick", function()
+            local goal = M.goal
+            FGT.CloseGoalMenu()
+            if FGT.Popout then FGT.Popout:Open(goal.id) end
+        end)
         -- new frames start shown
         M:Hide()
         M.catcher:Hide()
@@ -9489,7 +9584,7 @@ function FGT.OpenGoalMenu(card)
     local fav = ForeverGoalTrackerDB.favorites[card.goal.id]
     M.rows[1].label:SetText(fav and "Remove from favorites" or "Add to favorites")
     -- favorite, edit goal (when the goal has a target), remove last
-    local order = { M.rows[1] }
+    local order = { M.rows[1], M.rows[4] }
     if card.goal.target then table.insert(order, M.rows[3]) end
     table.insert(order, M.rows[2])
     M.rows[3]:SetShown(card.goal.target ~= nil)
@@ -9573,6 +9668,7 @@ function FGT.OpenLinkCard(id)
             local g = L.goal
             if IsActive(g) then
                 -- already tracked: take you to it
+                main:Show()
                 FGT.CloseLinkCard()
                 if FGT.ShowTab then FGT.ShowTab("tracker") end
                 SelectGoal(g.id)
@@ -9596,6 +9692,12 @@ function FGT.OpenLinkCard(id)
         FGT.linkCard = L
     end
 
+    local popupParent = FGT.Popout and FGT.Popout.open and not main:IsShown() and FGT.Popout.frame or main
+    L:SetParent(popupParent)
+    L:SetFrameLevel(popupParent:GetFrameLevel() + 60)
+    L.catcher:SetParent(popupParent)
+    L.catcher:ClearAllPoints(); L.catcher:SetAllPoints(popupParent)
+    L.catcher:SetFrameLevel(popupParent:GetFrameLevel() + 55)
     L.goal = goal
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
     L.icon:SetIcon(FGT.GoalIcon(goal), catColor)
@@ -11747,6 +11849,18 @@ FGT.MaterialsUI = {
         if goal then RefreshSteps(goal); FGT.UpdateDetailViewport() end
     end,
 }
+FGT.PopoutUI = {
+    render = function(goal, view)
+        local rim, quality = FGT.stepRim, FGT.stepQuality
+        local ok, err = pcall(RefreshSteps, goal, view)
+        FGT.stepRim, FGT.stepQuality = rim, quality
+        if not ok then error(err) end
+    end,
+    active = IsActive, progress = GoalProgress,
+    selected = function() return FGT.GoalById(selectedId) end,
+    redraw = function() if ForeverGoalTrackerDB then SelectGoal(selectedId, true) end end,
+    content = stepsContainer, header = stepsHeader, rows = stepRowPool, headers = headerRowPool,
+}
 FGT.headerRows = headerRowPool
 FGT.stepRows = stepRowPool
 
@@ -11771,6 +11885,7 @@ end
 
 local function RefreshOpenWindow()
     FGT.CheckGoalCompletions() -- announces goals finished while closed
+    if FGT.RefreshPopout then FGT.RefreshPopout() end
     if not main:IsShown() then return end
     if ForeverGoalTrackerDB and ForeverGoalTrackerDB.tab == "library" and FGT.LayoutLibrary then
         FGT.LayoutLibrary()
@@ -12127,6 +12242,7 @@ do
         C_Timer.After(0.3, function() -- several items often arrive together
             f.pending = nil
             if main:IsShown() and selectedId then SelectGoal(selectedId, true) end
+            if FGT.RefreshPopout then FGT.RefreshPopout() end
         end)
     end)
 
@@ -12344,6 +12460,12 @@ do
             K.catcher:Hide()
             FGT.wowheadCard = K
         end
+        local popupParent = FGT.Popout and FGT.Popout.open and not main:IsShown() and FGT.Popout.frame or main
+        K:SetParent(popupParent)
+        K:SetFrameLevel(popupParent:GetFrameLevel() + 60)
+        K.catcher:SetParent(popupParent)
+        K.catcher:ClearAllPoints(); K.catcher:SetAllPoints(popupParent)
+        K.catcher:SetFrameLevel(popupParent:GetFrameLevel() + 55)
         local site = FGT.isForever and "forever" or "classic"
         if kind == "search" then -- (per-class quests have no single page)
             K.url = string.format("https://www.wowhead.com/%s/search?q=%s", site, (label or ""):gsub(" ", "+"))
@@ -12949,6 +13071,7 @@ SLASH_FOREVERGOALTRACKER1 = "/goals"
 SLASH_FOREVERGOALTRACKER2 = "/fgt"
 SLASH_FOREVERGOALTRACKER3 = "/forevergoals"
 SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
+    if FGT.HandlePopoutCommand and FGT.HandlePopoutCommand(msg) then return end
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
     local opacity = msg:match("^banneropacity%s*(.*)$")
     if opacity then

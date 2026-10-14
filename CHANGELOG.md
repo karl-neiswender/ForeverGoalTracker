@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added a pop-out steps tracker prototype for in-game review
+
 ## 2.13.0
 
 - Added light to goal images: embers, snow, sunlight, windy leaves and a soft bloom on the brightest lights, such as flames, gems, eyes and lightning, on many banners.
