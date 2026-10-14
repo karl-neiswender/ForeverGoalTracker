@@ -4107,7 +4107,11 @@ for i, goal in ipairs(FGT.goals) do
             self:SetEtch(STYLE.rowHover)
             self.name:SetTextColor(1, 1, 1)
         end
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        -- level with the hovered card's top, not above it (ANCHOR_RIGHT sat beside
+        -- the card above, Karl 2026-10-14)
+        GameTooltip:SetOwner(self, "ANCHOR_NONE")
+        GameTooltip:ClearAllPoints()
+        GameTooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 8, 0)
         GameTooltip:AddLine(self.goal.name)
         -- (folded into the icon rail, the card shows this same full tooltip: Karl,
         -- 2026-10-14, replacing the earlier name-only one)
