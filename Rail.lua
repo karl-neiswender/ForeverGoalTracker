@@ -364,11 +364,12 @@ function R:Animate(rail, instant, quiet)
         return
     end
     local from = self.f
-    local duration = 0.34 * math.max(0.35, math.abs(self.target - from))
+    -- same pace and ease-out as the Materials drawer (0.7 s for a full slide)
+    local duration = 0.7 * math.max(0.35, math.abs(self.target - from))
     driver:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
         local p = math.min(1, elapsed / duration)
-        R.f = from + (R.target - from) * p
+        R.f = from + (R.target - from) * (1 - (1 - p) ^ 3)
         R:Apply()
         if p >= 1 then Finish()
         elseif elapsed - lastReflow >= 0.075 then

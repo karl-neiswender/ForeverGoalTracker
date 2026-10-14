@@ -460,7 +460,7 @@ function FGT.RefreshMaterials()
                 local bigList = #data >= 9
                 C_Timer.After(0.35, function()
                     if M.goalId == id and not M.open and U.main:IsShown() then
-                        if bigList then M:SetOpen(true, 0.7) else M:Bounce() end
+                        if bigList then M:SetOpen(true) else M:Bounce() end
                     end
                 end)
             end
@@ -542,6 +542,9 @@ end
 
 local driver = CreateFrame("Frame",nil,U.main)
 M.driver = driver
+-- One pace for every slide (Karl, 2026-10-14): clicking the handle, the
+-- automatic first open, and the goals list folding (Rail.lua) all take 0.7 s.
+M.SLIDE_TIME = 0.7
 function M:SetOpen(open, duration)
     driver:SetScript("OnUpdate",nil)
     self.bounce = 0
@@ -554,7 +557,7 @@ function M:SetOpen(open, duration)
     local elapsed, lastReflow = 0, 0
     driver:SetScript("OnUpdate",function(_,dt)
         elapsed=elapsed+dt
-        local p=math.min(1,elapsed/(duration or 0.26))
+        local p=math.min(1,elapsed/(duration or M.SLIDE_TIME))
         M.fraction=start+(target-start)*(1-(1-p)^3)
         M:Place()
         if p>=1 then
