@@ -3,6 +3,8 @@
 October 13, 2026. Source changes for review, version remains 2.13.0.
 No tag or publication.
 
+Latest continuation notes: [October 13 pop-out handoff](Session-handoff-2026-10-13-popout.md).
+
 ## Try it
 
 Restart WoW to load the new TOC-listed module. Open a goal and type
@@ -142,8 +144,10 @@ on refresh; dragging/resizing and transfer drivers stop when finished.
 
 ## Remaining design polish
 
-The dock control uses a small native texture outline and arrow for now; its
-final visual should be reviewed at actual size. Opening/docking timing and
+The pop-out and dock controls now use image-generated painted gold diagonal
+arrows, matching the original UI icon sheet. They replace the temporary native
+outline and programmatic arrows. A full WoW restart is needed to review the
+new textures at actual size. Opening/docking timing and
 opacity defaults are prototype values. Progress updates are immediate in the
 thin strip; a subtle progress glide and a small main-step settling movement
 remain possible refinements after the first native review.
