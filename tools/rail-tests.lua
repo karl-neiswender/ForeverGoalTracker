@@ -132,8 +132,13 @@ assert(R.f == 0, "demo scenes show the full list")
 D.demoBackup = nil
 R:Sync(true)
 assert(R.f == 1, "and the rail returns after")
+-- The Library's filters share the list's frame: full width there, rail back on My Goals.
+F.ShowTab("library")
+assert(list.widthForTest == 258, "the Library's filters get the full width: " .. tostring(list.widthForTest))
+F.ShowTab("tracker")
+assert(list.widthForTest == 98 and R.f == 1, "back on My Goals the list is folded again: " .. tostring(list.widthForTest))
 R:Toggle()
 GameTooltip = nil
 F.materialsPanel.Place = oldPlace
 F.RailMarks = makeMarks
-print("  rail: fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, name-only tooltip, filter card and count, empty tracker, saved choice, demo ok")
+print("  rail: fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, name-only tooltip, filter card and count, empty tracker, saved choice, demo, Library width ok")

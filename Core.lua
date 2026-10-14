@@ -10487,8 +10487,8 @@ end
 FGT.ShowTab = ShowTab
 -- for the Settings page (built in its own block below)
 FGT.trackerTab, FGT.libraryTab, FGT.libraryPanel = trackerTab, libraryTab, libraryPanel
-trackerTab:SetScript("OnClick", function() ShowTab("tracker") end)
-libraryTab:SetScript("OnClick", function() ShowTab("library") end)
+trackerTab:SetScript("OnClick", function() FGT.ShowTab("tracker") end)
+libraryTab:SetScript("OnClick", function() FGT.ShowTab("library") end)
 libraryPanel:SetScript("OnSizeChanged", function() if libraryPanel:IsShown() then LayoutLibrary() end end)
 
 end

@@ -443,6 +443,21 @@ S.main:HookScript("OnShow", function() R:Sync(true) end)
 S.main:HookScript("OnHide", function() CloseCard(); driver:SetScript("OnUpdate", nil) end)
 list:HookScript("OnHide", CloseCard)
 
+-- The Goal Library's filter panel fills this same frame, so it gets the full
+-- open width while the Library shows (Karl saw its filters squeezed into the
+-- rail, 2026-10-14); back on My Goals the folded width returns. A slide under
+-- way is finished first.
+local showTab = FGT.ShowTab
+FGT.ShowTab = function(which, ...)
+    if driver:GetScript("OnUpdate") then R.f = R.target; Finish(true) end
+    if which == "library" then
+        CloseCard()
+        list:SetWidth(OPEN)
+    end
+    showTab(which, ...)
+    if which ~= "library" then R:Apply() end
+end
+
 R:Apply()
 
 -- /goals rail: fold or open the list (same as the handle)
