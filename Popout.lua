@@ -479,6 +479,8 @@ function P:GlideTips(before)
     end
     if #nodes == 0 then return end
     local delta, elapsed = before - after, 0
+    -- back up (docking) is quicker than down (Karl, 2026-10-14)
+    local duration = delta > 0 and 0.2 or 0.34
     local function Put(offset)
         for _, node in ipairs(nodes) do
             node.frame:SetPoint("TOPLEFT", U.content, "TOPLEFT", node.x, -(node.y + offset))
@@ -488,7 +490,7 @@ function P:GlideTips(before)
     self.tipsDriver:SetScript("OnUpdate", function(driver, dt)
         elapsed = elapsed + dt
         -- (a new layout, another goal or a redraw mid-glide: settle at once)
-        local p = FGT.guideLayout == layout and math.min(1, elapsed / 0.34) or 1
+        local p = FGT.guideLayout == layout and math.min(1, elapsed / duration) or 1
         Put(delta * (1 - EaseOut(p)))
         if p >= 1 then driver:SetScript("OnUpdate", nil) end
     end)
