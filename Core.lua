@@ -5286,8 +5286,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     local function Snow(count)
         return { fall = true, box = { 0.0, 1.0, 0.0, 1.0 }, count = count, blurShare = 0.15, rise = 0.55 }
     end
-    local function Motes(box, count)
-        return { float = true, box = box, count = count, blurShare = 0.12, rise = 0.06 }
+    local function Motes(box, count, scale)
+        return { float = true, box = box, count = count, blurShare = 0.12, rise = 0.06, scale = scale }
     end
     -- sunlight: rays from a source plus motes drifting in the light
     local function Sunlight(sunrays, box, motes, extra)
@@ -5568,7 +5568,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- motes around the helm. Having particles hides the page's floating leaves, so they are
         -- gone here; a subtle bloom is baked on the halo (see B.bloomStems).
         ["pvp_rank14-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = Motes({ 0.30, 1.0, 0.0, 0.88 }, 80) },
+            embers = Motes({ 0.30, 1.0, 0.0, 0.88 }, 80, 1.6) }, -- motes 60% larger (Karl)
         -- Brood of Nozdormu (Karl, 2026-10-14): stars shining in the distance. Each named star
         -- slowly swells into a four-point glint, turns a little and fades out again, on its own
         -- beat (the bloom baked on the star field is added on top). Positions are read off
@@ -5976,7 +5976,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 e.twFreq, e.twPhase = 0.14 + 0.26*math.random(), math.random()*2*math.pi
             end
         elseif cfg.float then
-            e.size = aw*(blur and (0.02 + 0.02*r) or (0.004 + 0.010*r*r))
+            e.size = aw*(blur and (0.02 + 0.02*r) or (0.004 + 0.010*r*r))*(cfg.scale or 1) -- (`scale` on a spec makes its motes larger)
             e.peak = blur and (0.08 + 0.10*math.random()) or (0.25 + 0.35*math.random())
         elseif blur then
             e.size = aw*(fall and (0.03 + 0.035*r) or (0.035 + 0.045*r))
