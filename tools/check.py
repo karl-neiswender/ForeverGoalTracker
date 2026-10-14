@@ -380,6 +380,27 @@ if ok_all:
             'assert(not first.set_tier1 or first.set_forever_raid < first.set_tier1, "Tier 0.5 comes before Tier 1: " .. list); '
             'assert(not first.raid_mc or first.set_forever_raid < first.raid_mc, "and before Molten Core: " .. list); '
             'STUB_NS.CloseWelcome(true); print("  Forever raids and the Tier 0.5 set lead the raiding suggestions: " .. list)', True),
+        # Classic Era has no talent-window atlas: the goal page's leaves and clouds use our own textures.
+        ("Classic Era ambience", None,
+            'local A = STUB_NS.ambience; assert(A and A.own, "Classic Era gets our own clouds and leaves"); '
+            'assert(#A.layers == 4, "two leaf layers and two cloud layers: " .. #A.layers); '
+            'local steady = 0; for _, l in ipairs(A.layers) do if l.steady then steady = steady + 1 end end; '
+            'assert(steady == 2, "both cloud copies scroll end to end"); '
+            'print("  Classic Era ambience: our clouds and leaves, four layers ok")'),
+        # Ritual of Summoning (spell 698) counts for Warlocks, once per ritual.
+        ("summon counter", None,
+            'local F, D = STUB_NS, ForeverGoalTrackerDB; local g = F.GoalById("social_summons"); '
+            'assert(g and g.classes.WARLOCK and g.icon[1] == "spell_shadow_twilight" and g.forever == "confirmed", "Summon Players goal"); '
+            'D.active.social_summons = true; local c = D.characters[next(D.characters)]; c.counts = nil; '
+            'assert(not F.CanSummon(), "a Warrior cannot summon"); UnitClass = function() return "Warlock", "WARLOCK" end; '
+            'assert(F.CanSummon(), "a Warlock can"); F.WatchCasts(); assert(F.watchingCasts, "casts are watched for a Warlock"); '
+            'local now = 100; GetTime = function() return now end; '
+            'STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "a", 133); assert(((c.counts or {}).summons or 0) == 0, "another spell does not count"); '
+            'STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "b", 698); now = 101; STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "c", 698); '
+            'assert(c.counts.summons == 1, "one ritual counts once: " .. tostring(c.counts.summons)); '
+            'for i = 1, 4 do now = now + 6; STUB_FIRE("UNIT_SPELLCAST_SUCCEEDED", "player", "d" .. i, 698) end; '
+            'assert(c.counts.summons == 5, "five rituals"); assert(D.progress.social_summons and D.progress.social_summons[1] and not D.progress.social_summons[2], "five summons tick the first step only"); '
+            'print("  summons: Warlock only, one count per ritual, first step at five ok")'),
         # New social goals: boss kills with guildmates, completed trades and campfires are counted by the addon.
         ("social counters", None,
             'local F, D = STUB_NS, ForeverGoalTrackerDB; for _, id in ipairs({ "social_guild_dungeon", "social_guild_raid", "social_trades" }) do assert(F.GoalById(id), id); D.active[id] = true end; '
@@ -592,6 +613,8 @@ if ok_all:
         ("Forever pop-out refinements", None, open(os.path.join(here, "popout-refinement-tests.lua"), encoding="utf-8").read(), True),
         ("pop-out sizing and style", None, open(os.path.join(here, "popout-qol-tests.lua"), encoding="utf-8").read()),
         ("Forever pop-out sizing and style", None, open(os.path.join(here, "popout-qol-tests.lua"), encoding="utf-8").read(), True),
+        ("pop-out polish", None, open(os.path.join(here, "popout-polish-tests.lua"), encoding="utf-8").read()),
+        ("Forever pop-out polish", None, open(os.path.join(here, "popout-polish-tests.lua"), encoding="utf-8").read(), True),
         ("materials panel", None, open(os.path.join(here, "materials-tests.lua"), encoding="utf-8").read()),
         ("Forever materials panel", None, open(os.path.join(here, "materials-tests.lua"), encoding="utf-8").read(), True),
         ("racial mount costs", None, open(os.path.join(here, "mount-cost-tests.lua")).read()),

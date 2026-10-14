@@ -32,7 +32,7 @@ P:Refresh()
 local expandedHeight = P.height
 P.header:GetScript("OnMouseDown")(P.header, "LeftButton")
 P.header:GetScript("OnMouseUp")(P.header, "LeftButton")
-assert(P.collapsed and P.frame._testHeight==32 and P.height==expandedHeight,
+assert(P.collapsed and P.frame._testHeight==P.COLLAPSED and P.height==expandedHeight,
     "header click collapses to header and retains expanded size")
 assert(not P.scroll.scroll:IsShown() and not P.grip:IsShown(), "collapsed body and resize grip are hidden")
 assert(not F.SectionIsOpen(goal, 1), "merged heading uses the real group expansion state")

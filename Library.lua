@@ -861,6 +861,29 @@ local library = {
             { text = "Cast 100 buffs on other players.", auto = { buffs = 100 } },
         },
     },
+    -- Ritual of Summoning, spell 698 on Wowhead Classic and Forever (2026-10-14): Warlock, level 20,
+    -- one Soul Shard, icon spell_shadow_twilight. Counted when the ritual's cast succeeds (Core.lua:
+    -- FGT.SUMMON_SPELL); the game gives the warlock no event when the summon itself completes.
+    {
+        id = "social_summons", library = true, forever = "confirmed",
+        classes = { WARLOCK = true },
+        icon = { "spell_shadow_twilight", "inv_misc_groupneedmore" },
+        name = "Summon Players", short = "Summon Players",
+        category = "Social", difficulty = "Easy",
+        timeEstimate = "Weeks",
+        note = "Summon group members with Ritual of Summoning. Only Warlocks can. Progress is tracked automatically.",
+        tips = {
+            "Warlocks learn Ritual of Summoning at level 20. Each ritual uses a {item:6265:Soul Shard}.",
+            "A summon counts when your ritual begins. Two more group members click the portal to finish it.",
+        },
+        target = { kind = "summons", default = 50, min = 5, max = 500, marks = { 0.1, 0.5, 1 },
+                   step = "Summon %s players.", unit = "summons" },
+        steps = {
+            { text = "Summon 5 players.", auto = { summons = 5 } },
+            { text = "Summon 25 players.", auto = { summons = 25 } },
+            { text = "Summon 50 players.", auto = { summons = 50 } },
+        },
+    },
     {
         id = "social_trades", library = true, forever = "confirmed",
         icon = { "inv_misc_coin_01", "inv_misc_groupneedmore" },

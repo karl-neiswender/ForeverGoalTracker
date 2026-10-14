@@ -6,12 +6,28 @@ local U = FGT.MaterialsUI
 -- additive layers of "talents-animations-particles" drifting sideways while
 -- they slowly turn, each fading in over 5 s, holding, fading out over 5 s.
 -- Built on the game's own animation groups, so it costs almost nothing.
--- Clients without that art (Classic Era) simply get none.
+-- Classic Era doesn't have that art, so it gets look-alikes of our own,
+-- drawn by tools/ambience.py to the sizes, counts and brightness measured
+-- from Blizzard's sheets (Karl, 2026-10-14: 95% as close as Forever's).
+-- Forever keeps Blizzard's.
+local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
 local ATLAS = "talents-animations-particles"
-local info = C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(ATLAS)
-if not info then return end
+local function AtlasInfo(name)
+    return C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(name)
+end
+local info = AtlasInfo(ATLAS)
+local own = not info -- (our own textures, shown at the atlas's size)
+if own then
+    info = { file = MEDIA .. "ambience-leaves.blp", width = 1308, height = 774,
+             leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1 }
+end
+-- An atlas by name on Forever, or our file on Classic Era.
+local function Art(t, atlas, art)
+    if own then t:SetTexture(art.file); t:SetTexCoord(0, 1, 0, 1)
+    else t:SetAtlas(atlas) end
+end
 
-local A = {}
+local A = { own = own } -- own: our Classic Era look-alikes, not Blizzard's atlas
 FGT.ambience = A
 
 -- The dust and clouds are textures on the goal panel itself, on its BACKGROUND layer
@@ -47,7 +63,7 @@ local function Layer(flip, width, height, start, travel, seconds, degrees, peak,
         t:SetTexture(info.file)
         t:SetTexCoord(info.rightTexCoord, info.leftTexCoord, info.bottomTexCoord, info.topTexCoord)
     else
-        t:SetAtlas(ATLAS)
+        Art(t, ATLAS, info)
     end
     t:SetSize(width, height)
     t:SetPoint("CENTER", fx, "CENTER", 0, 0)
@@ -77,11 +93,12 @@ A.layers = {
 -- Behind the dust, two very faint (5%) copies of "talents-animations-clouds"
 -- slide left end to end, 1612 units in 80 s, so the band never runs out.
 local CLOUDS = "talents-animations-clouds"
-local cloud = C_Texture.GetAtlasInfo(CLOUDS)
+local cloud = AtlasInfo(CLOUDS)
+if not cloud and own then cloud = { file = MEDIA .. "ambience-clouds.blp", width = 1612, height = 774 } end
 if cloud then
     for _, startX in ipairs({ 0, 1612 }) do
         local t = U.detail:CreateTexture(nil, "BACKGROUND", nil, CLOUD_LEVEL)
-        t:SetAtlas(CLOUDS)
+        Art(t, CLOUDS, cloud)
         t:SetSize(cloud.width, cloud.height)
         t:SetPoint("TOPLEFT", fx, "TOPLEFT", 0, 0)
         t:SetBlendMode("ADD")

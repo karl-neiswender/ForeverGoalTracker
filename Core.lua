@@ -789,6 +789,7 @@ FGT.COUNTERS = {
     trades = "trades with other players",
     campfires = "campfires placed",
     buffs = "buffs cast on other players",
+    summons = "summoning rituals begun",
 }
 local function CounterTotal(roster, key)
     local total = 0
@@ -6205,9 +6206,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B:PaintGlow(0.2, 0.05/0.54)
         B:HideEmbers() -- embers only move; with Celebrations off there are none
     end
-    -- The lights and particles move slowly, so they step 30 times a second
-    -- however fast the game draws: the cost no longer climbs with frame rate.
-    B.tickStep = 1/30
+    -- The lights and particles step every frame (tickStep 0). Stepping 30
+    -- times a second (2.13) saved little and stuttered whenever the frame
+    -- rate didn't divide evenly into 30 steps (Karl on the Mac, 2026-10-14):
+    -- motion landed on uneven frames. Measured with tools/perfbench.py, the
+    -- busiest banner (90 snowflakes) costs about 50 microseconds a step, so
+    -- every frame at 120 fps is under 1% of a core. /goals lightrate compares.
+    B.tickStep = 0
     function B:Tick(dt)
         local acc = (self.tickAcc or 0) + dt
         if acc < self.tickStep then self.tickAcc = acc; return end
@@ -10591,6 +10596,9 @@ local function NewSlider(row, spec)
     hit:SetPoint("TOPLEFT", track, "TOPLEFT", -6, 8)
     hit:SetPoint("BOTTOMRIGHT", track, "BOTTOMRIGHT", 6, -8)
     local lo, hi, step = spec.min, spec.max, spec.step -- whole percents
+    -- spec.get / spec.set: a value that isn't a saved setting (the pop-out's)
+    local Get = spec.get or function() return FGT.Setting(spec.key) end
+    local Set = spec.set or function(v) FGT.SetSetting(spec.key, v) end
     local function Draw(pct)
         local p = (pct - lo) / (hi - lo)
         fill:SetWidth(math.max(0.01, 98 * p))
@@ -10613,15 +10621,16 @@ local function NewSlider(row, spec)
     end)
     hit:SetScript("OnMouseUp", function(self)
         self:SetScript("OnUpdate", nil)
-        local pct = f.pending or math.floor(FGT.Setting(spec.key) * 100 + 0.5)
+        local pct = f.pending or math.floor(Get() * 100 + 0.5)
         f.pending = nil
-        FGT.SetSetting(spec.key, pct / 100)
+        Set(pct / 100)
         Draw(pct)
         if spec.apply then spec.apply(pct / 100) end
     end)
-    function f:Refresh() Draw(math.floor(FGT.Setting(spec.key) * 100 + 0.5)) end
+    function f:Refresh() Draw(math.floor(Get() * 100 + 0.5)) end
     return f
 end
+FGT.NewSlider = NewSlider -- also the pop-out's opacity sliders
 
 local function NewButton(parent, text, onClick)
     local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
@@ -12639,6 +12648,10 @@ function FGT.SpellName(id)
     local old = rawget(_G, "GetSpellInfo")
     return (old and old(id)) or (C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id))
 end
+-- Ritual of Summoning (Warlock): the same spell id on Classic Era and Forever. A summon counts
+-- when the ritual's cast succeeds; the game tells the warlock nothing when it completes.
+FGT.SUMMON_SPELL = 698
+function FGT.CanSummon() return select(2, UnitClass("player")) == "WARLOCK" end
 function FGT.BuffSpellName(id)
     local known = FGT.buffSpellCache[id]
     if known == nil then
@@ -12677,7 +12690,7 @@ pcall(rosterWatcher.RegisterEvent, rosterWatcher, "BOSS_KILL")
 -- Spell casts are only watched while something needs them (a known campfire spell, or the
 -- /goals logcasts recorder), so the addon is not woken for every cast you make.
 function FGT.WatchCasts()
-    local want = FGT.CampfireReady() or FGT.CanBuff() or (FGT.castLogUntil and GetTime() < FGT.castLogUntil)
+    local want = FGT.CampfireReady() or FGT.CanBuff() or FGT.CanSummon() or (FGT.castLogUntil and GetTime() < FGT.castLogUntil)
     if want and not FGT.watchingCasts then
         FGT.watchingCasts = pcall(rosterWatcher.RegisterUnitEvent, rosterWatcher, "UNIT_SPELLCAST_SUCCEEDED", "player")
         pcall(rosterWatcher.RegisterUnitEvent, rosterWatcher, "UNIT_SPELLCAST_SENT", "player")
@@ -12724,6 +12737,14 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
                 while #DB.castLog > 60 do table.remove(DB.castLog, 1) end
             end
             print(TAG .. string.format("cast: %s (spell %s)", tostring(name), tostring(spell)))
+        end
+        if spell == FGT.SUMMON_SPELL then
+            -- the cast takes 5 seconds, so a second report within 4 is the same ritual
+            local now = GetTime()
+            if not FGT.lastSummon or now - FGT.lastSummon >= 4 then
+                FGT.lastSummon = now
+                FGT.Count("summons")
+            end
         end
         if FGT.CAMPFIRE_SPELLS[spell] and FGT.isForever then
             -- one placing can report more than one of its spells: it counts once
@@ -13148,6 +13169,19 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     end
     if msg == "whatsnew" or msg == "whatsnew reset" then
         if FGT.WhatsNew then FGT.WhatsNew.Command(msg == "whatsnew reset" and "reset" or nil) end
+        return
+    end
+    local rate = msg:match("^lightrate%s*(%S*)$")
+    if rate then
+        -- Dev tool: how often the banner lights and particles step, to compare
+        -- smoothness in game. "frame" (the default), or a number per second.
+        -- Until /reload.
+        local B = FGT.goalBanner
+        if rate == "frame" or rate == "0" then B.tickStep = 0
+        elseif tonumber(rate) and tonumber(rate) > 0 then B.tickStep = 1 / tonumber(rate) end
+        B.tickAcc = 0
+        print(TAG .. "banner lights step " .. (B.tickStep > 0 and string.format("%d times a second", math.floor(1 / B.tickStep + 0.5))
+            or "every frame") .. ". Try /goals lightrate 30, 60 or frame.")
         return
     end
     if msg == "gcprobe" then
@@ -13870,6 +13904,7 @@ local function Suggest(picked)
                 push(list, Entry(me, "social_guild_raid", nil, tag))
                 push(list, Entry(me, "social_trades", nil, tag))
                 push(list, Entry(me, "social_buffs", nil, tag))
+                push(list, Entry(me, "social_summons", nil, tag))
                 for _, id in ipairs({ "social_hugs", "social_cheers", "social_waves", "social_lol" }) do
                     push(list, Entry(me, id, nil, tag)) -- (Entry skips them without a Statistics window)
                 end
