@@ -61,7 +61,7 @@ Latest published version is **2.13.0** (tagged 2026-10-13 on `6e68088`, approved
 - **Blown sand** (Karl, 2026-10-14): a `drift` mode of the banner particle pool (`Sand(box, count, wind)` in Core.lua).
   - **What it is:** small grains streaked along the wind, plus a few wide, faint dust puffs, quickening in slow gusts (two beats, 17 and 29 s; a test checks no jump between frames).
   - **Wind:** `wind` is in degrees with y running down the screen. 180 is left, below 180 leans down. The default is 174; it was 186 at first, which drifted up.
-  - **On:** Ruins of Ahn'Qiraj (70, ground band), Cenarion Circle (70, taken off the windy-leaves list: leaves and sand together were too busy), and Gahz'rilla / Dungeons with Guildmates (110 at 148 degrees, following the painted streaks; a sandstorm). Still to consider: Temple of Ahn'Qiraj, both Qiraji mounts.
+  - **On:** Ruins of Ahn'Qiraj, Cenarion Circle (taken off the windy-leaves list: leaves and sand together were too busy), the Black Qiraji and the four colored Qiraji mounts (110 each), and Gahz'rilla / Dungeons with Guildmates (140, a sandstorm). All blow level (180) along the bottom half (v 0.5-0.92) (Karl, 2026-10-14). Grains are near-round specks about 3 to 6 px (Karl: the first streaked grains were too large and elongated). Still to consider: Temple of Ahn'Qiraj.
   - **Cost:** about 26 µs a frame, no garbage.
 - **Banner effects and the faded bottom** (Karl, 2026-10-14):
   - **Layer order:** every light and particle sits below the dark fades. On the goal panel's BACKGROUND layer: art -3; rays, bloom, shafts and clouds -2; glows and the particle pool -1; left fade 0; top and bottom fades 1. Inner shadows are on BORDER. `tools/check.py` enforces this.

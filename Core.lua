@@ -5281,8 +5281,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     end
     -- Blown sand (Karl, 2026-10-14) for desert and barren banners: grains streaking sideways
     -- and faint dust puffs, quickening in slow gusts. `box` is where it blows (usually the
-    -- lower part of the art), `wind` its direction in degrees (180 = toward the left; y runs
-    -- down the screen, so below 180 leans down, above 180 leans up).
+    -- lower part of the art), `wind` its direction in degrees (default 180, straight toward
+    -- the left; y runs down the screen, so below 180 leans down, above 180 leans up).
     local function Sand(box, count, wind)
         return { drift = true, box = box, count = count, blurShare = 0.12, rise = 0.55, wind = wind, strength = 1.4 }
     end
@@ -5509,22 +5509,28 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             -- soft breathing light around the throne and the steps below it
             blooms = { { 0.70, 0.56, 0.34, 1 }, { 0.70, 0.70, 0.30, 0.8 } } },
         -- Ironforge (Dwarf and Gnome Ambassador): snow blowing across the gate
-        -- Ruins of Ahn'Qiraj: sand blowing across the battlefield toward the left, over the
-        -- ground and low air (v 0.42-0.92), clear of the sky and the wasps; the first sand
-        -- banner, to tune before others (Karl, 2026-10-14). Its bloom is added on top.
+        -- Sand banners (Karl, 2026-10-14): every one blows straight across toward the left
+        -- (wind 180) along the bottom half of the art (v 0.5-0.92). Blooms are added on top.
+        -- Ruins of Ahn'Qiraj: across the battlefield.
         ["raid_aq20-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = Sand({ 0.0, 1.0, 0.42, 0.92 }, 110) },
-        -- Cenarion Circle (Cenarion Hold in Silithus): sand blowing across the hillside and the
-        -- ground below it (v 0.36-0.92), clear of the buildings and sky. Taken off the windy
-        -- leaves list: leaves and sand together were too busy (Karl, 2026-10-14).
+            embers = Sand({ 0.0, 1.0, 0.5, 0.92 }, 110) },
+        -- Cenarion Circle (Cenarion Hold in Silithus): across the hillside below the buildings.
+        -- Taken off the windy leaves list: leaves and sand together were too busy.
         ["rep_cenarion-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = Sand({ 0.0, 1.0, 0.36, 0.92 }, 110) },
-        -- Dungeons with Guildmates, Gahz'rilla in the Zul'Farrak sandstorm: sand driven down and
-        -- to the left along the painted wind streaks (148 degrees), over nearly the whole picture
-        -- and denser than the other sand banners, since this one is a storm. Its bloom (the
-        -- glare behind the right head, the eye) is added on top.
+            embers = Sand({ 0.0, 1.0, 0.5, 0.92 }, 110) },
+        -- Dungeons with Guildmates, Gahz'rilla in the Zul'Farrak sandstorm: denser, since
+        -- this one is a storm (it followed the painted diagonal at 148 degrees until Karl
+        -- asked for level sand everywhere).
         ["social_guild_dungeon-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
-            embers = Sand({ 0.12, 1.0, 0.05, 0.92 }, 160, 148) },
+            embers = Sand({ 0.12, 1.0, 0.5, 0.92 }, 140) },
+        -- Black Qiraji (the Scarab Lord's mount, mounts/scarab-lord-review.png): across the
+        -- churned ground the tank tears through.
+        ["mount_qiraji-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Sand({ 0.0, 1.0, 0.5, 0.92 }, 110) },
+        -- Blue, Green, Yellow and Red Qiraji (the shared lone battle tank,
+        -- mounts/aq-battle-tanks.jpg): across the dunes it walks over.
+        ["mount_qiraji_aq-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Sand({ 0.0, 1.0, 0.5, 0.92 }, 110) },
         -- Ironforge: firelight glowing from inside the great door, flickering slowly like the
         -- Great Forge beyond it, under the falling snow (Karl, 2026-10-14). The doorway spans
         -- about u 0.61-0.73, v 0.60-0.80 on cities/ironforge-master.png; a light column inside
@@ -5867,9 +5873,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local drift = cfg.drift
         if drift then
             -- blown sand: sideways along the wind (`wind`, degrees, measured with y running
-            -- down the screen: 180 = toward the left, under 180 = left and down; default 174,
-            -- slightly down), tiny streaks plus a few wide, very faint dust puffs
-            local wind = math.rad(cfg.wind or 174)
+            -- down the screen: 180 = toward the left, under 180 = left and down; default 180,
+            -- level, Karl 2026-10-14), tiny specks plus a few wide, very faint dust puffs
+            local wind = math.rad(cfg.wind or 180)
             if not warm then
                 -- new sand blows in from the upwind edge of its area
                 local fromRight = math.cos(wind) < 0

@@ -402,7 +402,7 @@ if ok_all:
             'local step, prev = 0, nil; for i = 0, 3600 do B.glowAnim.t = i / 60; B:StepEmbers(0); if prev then step = math.max(step, math.abs(B.gust - prev)) end; prev = B.gust end; '
             'assert(step < 0.004, "a gust never jumps between frames (photosensitivity rule): " .. step); '
             'local lean, n = 0, 0; for k = 1, B.emberCount do local e = B.emberDots[k]; if not e.wait then lean = lean + math.sin(e.heading); n = n + 1 end end; '
-            'assert(lean / n > 0.04, "the default wind leans down, not up (y runs down the screen): " .. lean / n); '
+            'assert(math.abs(lean / n) < 0.03, "the default wind blows level (Karl, 2026-10-14): " .. lean / n); '
             'local seen = {}; local tex = B.emberDots[1].tex; local oldA = tex.SetAlpha; tex.SetAlpha = function(_, a) seen[#seen + 1] = a end; '
             'local e1 = B.emberDots[1]; e1.wait, e1.age, e1.life, e1.alphaNow, e1.shownNow = nil, 1, 10, nil, nil; e1.x, e1.y, e1.sway = 600, 519, 0; e1.heading, e1.curve, e1.speed = math.pi, 0, 0; '
             'B:StepEmbers(0); tex.SetAlpha = oldA; '
@@ -410,7 +410,7 @@ if ok_all:
             'local drift = e1.cfg.drift; e1.cfg.drift = nil; seen = {}; tex.SetAlpha = function(_, a) seen[#seen + 1] = a end; e1.alphaNow, e1.shownNow, e1.heading = nil, nil, -math.pi/2; '
             'B:StepEmbers(0); tex.SetAlpha = oldA; e1.cfg.drift = drift; '
             'assert(seen[#seen] == 0, "so is a fire ember there (every particle shares the bottom fade): " .. tostring(seen[#seen])); '
-            'local gz = B.glows["social_guild_dungeon-banner.blp"]; assert(gz and gz.embers.drift and gz.embers.wind == 148 and gz.embers.count == 160, "Gahz\'rilla\'s sandstorm follows the painted streaks"); '
+            'local gz = B.glows["social_guild_dungeon-banner.blp"]; assert(gz and gz.embers.drift and (gz.embers.wind or 180) == 180 and gz.embers.count == 140, "Gahz\'rilla\'s sandstorm blows level"); '
             'local cen = B.glows["rep_cenarion-banner.blp"]; assert(cen and cen.embers and cen.embers.drift, "Cenarion Circle has blown sand"); '
             'assert(not B:IsLeafy("rep_cenarion", "rep_cenarion-banner.blp"), "and no drifting leaves with it"); '
             'print("  blown sand: 70 particles leftward, streaked, bloom kept, gusts calm to strong; Cenarion sand without leaves ok")'),
