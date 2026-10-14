@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-14",
+  "source": "Media/final-images/morning-2026-10-14/rank14-victory-minimal-review.png",
+  "review": "Media/final-images/morning-2026-10-14/rank14-victory-backlit-review.png",
+  "tool": "Built-in image_gen",
+  "prompt": "Refine this minimalist floating Classic Rank 14 medallion banner with a targeted LIGHTING change. Keep the exact medallion design, geometry, proportions, size, position, neutral silver metal, dark T-shaped opening and the lovely smooth smoky charcoal background unchanged. Greatly REDUCE the visible diagonal sun rays at upper right: make them barely perceptible, diffuse and soft, without prominent streaks from the corner. Instead BACKLIGHT the medallion: a soft luminous glow directly behind its outer edges, gently outlining its silhouette with a subtle rim and softly illuminating the nearby smoke. Add more floating magical LIGHT MOTES around the medallion, roughly 20 scattered points concentrated near it and trailing a little below, varied tiny sizes, most faint and slightly out of focus, a few softly brighter, creating depth; no star-shaped glitter, no dense spray, no ring of evenly spaced dots. Keep it restrained, smoky, elegant and minimalist, with the medallion floating quietly in magical backlight. Preserve quiet dark empty space over the left third to half for addon text. Strict neutral black and white grayscale, controlled highlights, no warm tint. Preserve 4:3 landscape, intended 1200x900 master, wide baked smooth LEFT darkening gradient and soft baked BOTTOM gradient across lowest 11% ending near-black charcoal. No new symbols, objects, text, UI, border or dramatic cloud formations.",
+  "inspection": "Smoky background retained; prominent rays replaced by soft backlight around badge; more varied light motes; neutral grayscale and both fades retained.",
+  "status": "Preview awaiting approval. Earlier variants preserved; no runtime changes."
+}
