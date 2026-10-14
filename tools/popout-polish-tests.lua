@@ -147,15 +147,16 @@ F.SetSetting("hideCompletedSteps",false)
 P:Close(false)
 P:Open("gold_5k")
 
--- The main guide's empty slot is never taller than the visible guide.
+-- The main guide's empty slot fills the visible guide, less room for the Tips row.
 local viewport = F.PopoutUI.content:GetParent()
 local oldHeight = viewport.GetHeight
 viewport.GetHeight = function() return 200 end
 local gold = F.GoalById("gold_5k")
+local reserve = (gold.tips and #gold.tips > 0) and 40 or 0
 P.slotHeight, P.slotWidth = nil, nil
-assert(F.PopoutStepHeight(gold, 600, 300) == 200, "a long guide's slot fills just the visible area")
+assert(F.PopoutStepHeight(gold, 600, 300) == 200 - reserve, "a long guide's slot fills just the visible area")
 P.slotHeight, P.slotWidth = nil, nil
-assert(F.PopoutStepHeight(gold, 120, 300) == 120, "a short guide keeps its own height, so Tips stay put")
+assert(F.PopoutStepHeight(gold, 120, 300) == 200 - reserve, "a short guide's slot also fills the visible area (Karl, 2026-10-14)")
 -- Short windows scroll the whole page and the list is as tall as its
 -- content, so the visible part is measured on screen: list top (as if the
 -- page were at its top) down to the page's bottom edge.
@@ -166,7 +167,7 @@ viewport.GetTop = function() return 500 end
 page.GetBottom = function() return 300 end
 page.GetVerticalScroll = function() return 50 end
 P.slotHeight, P.slotWidth = nil, nil
-assert(F.PopoutStepHeight(gold, 600, 300) == 150, "short page: the slot fits what shows below the header: " .. tostring(P.slotDebug.used))
+assert(F.PopoutStepHeight(gold, 600, 300) == math.max(60, 150 - reserve), "short page: the slot fits what shows below the header: " .. tostring(P.slotDebug.used))
 viewport.GetTop, page.GetBottom, page.GetVerticalScroll = oldTop, oldBottom, oldScroll
 viewport.GetHeight = oldHeight
 P.slotHeight, P.slotWidth = nil, nil

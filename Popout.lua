@@ -458,12 +458,10 @@ function P:Close(dock)
     end)
 end
 
--- Keep Tips at their original position. A width change remeasures the
--- slot; ticks and recipe expansion in the pop-out do not collapse it.
--- The slot is never taller than the guide's visible area (Karl): a long
--- guide shows one framed empty state with Tips just below, not a tall
--- empty field to scroll past. Tips only move on guides longer than the
--- view, where they were below the fold anyway, so nothing visibly jumps.
+-- The slot fills the guide's visible area (less the closed Tips row, so
+-- Tips show just below): one framed empty state, never a bare page under a
+-- short slot, nor a tall empty field to scroll past (Karl). A width change
+-- remeasures it; ticks and recipe expansion in the pop-out do not.
 -- How much of the steps area shows without scrolling: from the top of the
 -- steps list (with the page scrolled to its top) down to the bottom of the
 -- goal page's visible area. Measured on screen, because the list's own
@@ -488,7 +486,14 @@ function FGT.PopoutStepHeight(goal, height, width)
         if not P.slotHeight or P.slotWidth ~= width then P.slotHeight, P.slotWidth = height, width end
         local visible, short = VisibleSteps()
         local used = P.slotHeight
-        if type(visible) == "number" and visible > 0 then used = math.min(used, math.max(60, visible)) end
+        if type(visible) == "number" and visible > 0 then
+            -- Fill the visible page down to its bottom (Karl, 2026-10-14: on a short
+            -- guide the slot only covered the few steps and the rest stood bare),
+            -- leaving room for the closed Tips row (divider and heading, about 40)
+            -- so it still shows just below.
+            local reserve = (goal.tips and #goal.tips > 0) and 40 or 0
+            used = math.max(60, visible - reserve)
+        end
         P.slotDebug = { raw = P.slotHeight, visible = visible, short = short, used = used }
         return used
     end
