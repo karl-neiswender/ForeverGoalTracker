@@ -437,8 +437,12 @@ function P:Close(dock)
     if FGT.linkCard and FGT.linkCard:GetParent() == self.frame then FGT.CloseLinkCard() end
     if FGT.wowheadCard and FGT.wowheadCard:GetParent() == self.frame then FGT.CloseWowheadCard() end
     local id = self.goalId
+    local tipsWere = FGT.tipsUI and FGT.tipsUI.startY
     self.open, self.closing = false, true
     self:Save()
+    -- The guide lays out at its real size from the first moment of docking (the slot no
+    -- longer holds it open), and the Tips glide up while the steps fade back in, not
+    -- after them (Karl, 2026-10-14).
     if dock and id and U.active(FGT.GoalById(id)) then
         if FGT.ShowTab then FGT.ShowTab("tracker") end
         FGT.SelectGoal(id)
@@ -446,6 +450,7 @@ function P:Close(dock)
     else
         U.redraw()
     end
+    self:GlideTips(tipsWere)
     self:Animate(false, function()
         self.frame:Hide()
         self.closing, self.slotId = nil, nil
@@ -480,7 +485,7 @@ function P:GlideTips(before)
     if #nodes == 0 then return end
     local delta, elapsed = before - after, 0
     -- back up (docking) is quicker than down (Karl, 2026-10-14)
-    local duration = delta > 0 and 0.2 or 0.34
+    local duration = delta > 0 and 0.16 or 0.34 -- (docking matches the steps' 0.16 s fade in)
     local function Put(offset)
         for _, node in ipairs(nodes) do
             node.frame:SetPoint("TOPLEFT", U.content, "TOPLEFT", node.x, -(node.y + offset))
@@ -528,6 +533,7 @@ end
 
 function FGT.PopoutStepHeight(goal, height, width)
     if (P.open or P.closing) and P.slotId == goal.id then
+        if P.closing then return height end -- docking: the steps' own height, so the Tips can rise with them
         if not P.slotHeight or P.slotWidth ~= width then P.slotHeight, P.slotWidth = height, width end
         local visible, short = VisibleSteps()
         local used = P.slotHeight
