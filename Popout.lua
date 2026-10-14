@@ -269,17 +269,6 @@ function P:Animate(show, done)
         self:PaintShadow()
         self:Place(mode == "full" and -6 * (1 - self.fraction) or 0)
         self:PaintPlaceholder()
-        local log = self.traceLog
-        if log then
-            -- /goals popout trace: what the slot's message and button look like each frame
-            local row = (self.mainRows or FGT.EMPTY)[1]
-            -- (a font string has no GetEffectiveAlpha: its own alpha times the slot's)
-            local slot = self.placeholder:GetAlpha()
-            log[#log + 1] = string.format("%.3fs  fraction %.2f  slot %.2f  text %.2f  button %.2f  shown %s  first step %.2f",
-                GetTime() - self.traceT0, self.fraction, slot,
-                slot * self.placeholder.text:GetAlpha(), slot * self.placeholder.back:GetAlpha(),
-                tostring(self.placeholder:IsShown()), row and row:GetAlpha() or -1)
-        end
     end
     if mode == "off" then
         Paint(1)
@@ -438,6 +427,32 @@ function P:ToggleCollapsed()
     self:Refresh()
 end
 
+-- /goals popout trace: watches the slot's message and button every frame for 1.5 s after
+-- docking starts and logs each change (chat can't be copied, so the log is saved to the
+-- SavedVariables for Claude to read after /reload).
+P.traceDriver = CreateFrame("Frame")
+function P:StartTrace()
+    self.traceArmed = nil
+    local log, t0, last = {}, GetTime(), nil
+    local ph = self.placeholder
+    self.traceDriver:SetScript("OnUpdate", function(driver)
+        local elapsed = GetTime() - t0
+        local slot = ph:GetAlpha()
+        local row = (self.mainRows or FGT.EMPTY)[1]
+        local sig = string.format("closing %s  fraction %.2f  slot %s/%s alpha %.2f  text %s/%s %.2f  button %s/%s %.2f  first step %s  main %s",
+            tostring(self.closing), self.fraction, tostring(ph:IsShown()), tostring(ph:IsVisible()), slot,
+            tostring(ph.text:IsShown()), tostring(ph.text:IsVisible()), slot * ph.text:GetAlpha(),
+            tostring(ph.back:IsShown()), tostring(ph.back:IsVisible()), slot * ph.back:GetAlpha(),
+            row and string.format("%.2f", row:GetAlpha()) or "none", tostring(S.main:IsShown()))
+        if sig ~= last then log[#log + 1] = string.format("%.3fs  %s", elapsed, sig); last = sig end
+        if elapsed >= 1.5 then
+            driver:SetScript("OnUpdate", nil)
+            if ForeverGoalTrackerDB then ForeverGoalTrackerDB.popoutTrace = log end
+            print("|cffffd75eForever Goal Tracker:|r popout trace saved (" .. #log .. " changes). Type |cffffffff/reload|r, then tell Claude.")
+        end
+    end)
+end
+
 function P:Close(dock)
     if not self.open and not self.closing then return end
     self.header:SetScript("OnUpdate", nil)
@@ -462,14 +477,8 @@ function P:Close(dock)
         U.redraw()
     end
     self:GlideTips(tipsWere)
-    if self.traceArmed then self.traceArmed, self.traceLog, self.traceT0 = nil, {}, GetTime() end
+    if self.traceArmed then self:StartTrace() end
     self:Animate(false, function()
-        if self.traceLog then
-            -- (chat can't be copied: saved for Claude to read from the SavedVariables after /reload)
-            if ForeverGoalTrackerDB then ForeverGoalTrackerDB.popoutTrace = self.traceLog end
-            print("|cffffd75eForever Goal Tracker:|r popout trace saved (" .. #self.traceLog .. " frames). Type |cffffffff/reload|r, then tell Claude.")
-            self.traceLog = nil
-        end
         self.frame:Hide()
         self.closing, self.slotId = nil, nil
         self.fraction = 1
@@ -579,7 +588,8 @@ function P:PaintPlaceholder()
     -- steps while the eased fade is still near its start (Karl, 2026-10-14). A recording of
     -- the first version showed the text gone by 0.19 s, so the dark recess was the slow part.
     self.placeholder:SetAlpha(self.closing and self.fraction * self.fraction or self.fraction)
-    local ahead = self.closing and self.fraction or 1
+    -- (the message and button are gone by the time the dock is a third done, about 0.1 s)
+    local ahead = self.closing and math.max(0, (self.fraction - 0.65) / 0.35) or 1
     self.placeholder.text:SetAlpha(ahead)
     self.placeholder.back:SetAlpha(ahead)
     -- Full motion: the message rises 6 into place as it fades in (sinks as it
