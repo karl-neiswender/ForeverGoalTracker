@@ -588,8 +588,10 @@ function P:PaintPlaceholder()
     -- steps while the eased fade is still near its start (Karl, 2026-10-14). A recording of
     -- the first version showed the text gone by 0.19 s, so the dark recess was the slow part.
     self.placeholder:SetAlpha(self.closing and self.fraction * self.fraction or self.fraction)
-    -- (the message and button are gone by the time the dock is a third done, about 0.1 s)
-    local ahead = self.closing and math.max(0, (self.fraction - 0.65) / 0.35) or 1
+    -- The click's own frame is the heavy one (the guide redraws, about 48 ms in the trace),
+    -- so a fade would sit at full strength through the stall and then snap. The message and
+    -- button are simply gone from the first frame of docking; the slot behind them fades.
+    local ahead = self.closing and 0 or 1
     self.placeholder.text:SetAlpha(ahead)
     self.placeholder.back:SetAlpha(ahead)
     -- Full motion: the message rises 6 into place as it fades in (sinks as it
