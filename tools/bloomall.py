@@ -65,6 +65,7 @@ STEMS = {
     "sulfuras": "Sulfuras",
     "rep_thorium": "Thorium Brotherhood",
     "rep_nozdormu": "Brood of Nozdormu (the stars and the nebula, not the pale dragon)",
+    "pvp_rank14": "Grand Marshal / High Warlord (the halo around the helm, a subtle touch)",
     "wolfsbane": "Wolfsbane",
     "prof_cooking": "Cooking and Place Campfires (the campfire)",
     "social_buffs_mage": "Buff Others, Mage (staff crystal and sigil)",
@@ -107,6 +108,7 @@ REGIONS = {
     "set_partners_in_crime": [(0.40, 0.98, 0.10, 0.72)],               # the ring, gem and flames
     "social_waves": [(0.58, 0.93, 0.57, 0.79)],                        # the fuses' sparks
     # the star field and the nebula's glow on the left, the stars beside the horns and the two on the wing
+    "pvp_rank14": [(0.46, 0.96, 0.06, 0.72)],                          # the halo and the helm's rim light
     "rep_nozdormu": [(0.18, 0.56, 0.0, 0.70), (0.62, 0.82, 0.0, 0.32), (0.84, 0.88, 0.21, 0.26),
                      (0.90, 0.95, 0.26, 0.33)],
 }

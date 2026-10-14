@@ -5564,6 +5564,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- sits at u 0.67.
         ["rep_ambassador_ally_ironforge-banner.blp"] = { 0.67, 0.68, 0.30, { 1, 1, 1 }, strength = 0.9,
             flicker = 0.3, embers = Snow(100) },
+        -- Grand Marshal and High Warlord (one shared image, Karl 2026-10-14): a lot of light
+        -- motes around the helm. Having particles hides the page's floating leaves, so they are
+        -- gone here; a subtle bloom is baked on the halo (see B.bloomStems).
+        ["pvp_rank14-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Motes({ 0.30, 1.0, 0.0, 0.88 }, 80) },
         -- Brood of Nozdormu (Karl, 2026-10-14): stars shining in the distance. Each named star
         -- slowly swells into a four-point glint, turns a little and fades out again, on its own
         -- beat (the bloom baked on the star field is added on top). Positions are read off
@@ -5600,6 +5605,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
         "social_guild_dungeon",
         "rep_nozdormu", -- Brood of Nozdormu: the stars and the nebula (2026-10-14)
+        "pvp_rank14", -- Grand Marshal / High Warlord: the halo, subtle (2026-10-14)
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5613,7 +5619,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "social_buffs", "social_friends", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
         "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers", "set_tier2_warlock",
         "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
-        "social_guild_dungeon", "rep_nozdormu",
+        "social_guild_dungeon", "rep_nozdormu", "pvp_rank14_ally", "pvp_rank14_horde",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
@@ -5627,6 +5633,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- the ring is already bright; Kel'Thuzad's frost burst is a lighter touch (2026-10-14)
         set_partners_in_crime = 0.4, raid_naxx = 0.5,
         social_guild_dungeon = 0.4, -- the storm's glare is already bright
+        pvp_rank14 = 0.3, -- the helm's halo is already baked into the art: a light touch
 
     }
     -- A bloom can be baked in zones (tools/bloomall.py ZONES): one texture per band of the
