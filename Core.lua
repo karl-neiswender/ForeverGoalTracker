@@ -5979,6 +5979,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local gust = 0.6*g1*g1 + 0.4*g2*g2*g2
         self.gust = gust
         local gustSpeed, gustAlpha = 1 + 0.9*gust, 0.75 + 0.35*gust
+        local tail = math.max(1, math.min(140, ah*0.35)) -- the art's faded bottom (see below)
         for k = 1, n do
             local e = self.emberDots[k]
             local cfg = e.cfg
@@ -6004,12 +6005,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     local y = drift and (e.y + wobble) or e.y
                     local fade
                     if drift then
-                        -- sand also fades out where the artwork itself fades to nothing at
-                        -- the bottom (the same eased stretch as B:Fit's tail: 35% of the shown
-                        -- art, at most 140): there is no dark layer there to sit under
-                        local tail = math.max(1, math.min(140, ah*0.35))
-                        local below = math.max(0, math.min(1, (ah - y)/tail))
-                        fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)*gustAlpha*below*below*(3 - 2*below)
+                        fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)*gustAlpha
                     elseif cfg.float then
                         fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)
                     elseif cfg.fall then
@@ -6019,6 +6015,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                         fade = math.min(1, p/self.zapLimits.fadeIn)*math.min(1, (1 - p)/self.zapLimits.fadeOut)
                     else
                         fade = math.min(1, p/0.25)*math.min(1, (1 - p)/0.5)
+                    end
+                    -- Every particle fades out where the artwork itself fades to nothing at the
+                    -- bottom (the same eased stretch as B:Fit's tail: 35% of the shown art, at
+                    -- most 140). There is no dark layer there to sit under (Karl, 2026-10-14).
+                    -- Snow already melts away over its bottom 40%, so it keeps its own fade.
+                    if not cfg.fall then
+                        local below = math.max(0, math.min(1, (ah - y)/tail))
+                        fade = fade*below*below*(3 - 2*below)
                     end
                     local inside = x > 0 and x < aw and y > 0 and y < ah
                     local t = e.tex
