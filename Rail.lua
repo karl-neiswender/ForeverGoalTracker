@@ -122,6 +122,37 @@ filter.count:SetPoint("TOP", filter, "BOTTOM", 0, -1)
 filter:SetAlpha(0)
 filter:Hide()
 
+-- The folded header's floor (Karl, 2026-10-14, to make the bare space read as a
+-- header): the goal page's embossed bronze groove (FGT.NewEmbossLine: a black
+-- shadow over the panels' edge brown), shortened to the rail and fading in from
+-- both ends, centered under the sliders icon. Gradients ignore SetAlpha, so it
+-- is repainted with the rail's fade (PaintDivider, from R:Apply).
+local DIVIDER_Y, DIVIDER_HALF = -70, 34
+local divider = {}
+R.divider = divider
+for i, c in ipairs({ { 0, 0, 0, 0.75 }, { 0.19, 0.16, 0.11, 0.55 } }) do
+    for side = 1, 2 do
+        local t = list:CreateTexture(nil, "ARTWORK")
+        t:SetTexture("Interface\\Buttons\\WHITE8x8")
+        t:SetSize(DIVIDER_HALF, 1)
+        t:SetPoint(side == 1 and "TOPRIGHT" or "TOPLEFT", list, "TOPLEFT", 47, DIVIDER_Y - (i - 1))
+        t:Hide()
+        divider[#divider + 1] = { tex = t, color = c, side = side }
+    end
+end
+local dividerA
+local function PaintDivider(a)
+    if a == dividerA then return end
+    dividerA = a
+    for _, d in ipairs(divider) do
+        local c = d.color
+        local col, peak = { c[1], c[2], c[3] }, c[4] * a
+        -- left half fades in toward the middle, right half fades back out
+        if d.side == 1 then S.gradient(d.tex, col, col, 0, peak) else S.gradient(d.tex, col, col, peak, 0) end
+        d.tex:SetShown(a > 0)
+    end
+end
+
 local function FilterOn()
     return (FGT.listQuery or "") ~= "" or (view.value or "all") ~= "all"
 end
@@ -294,6 +325,7 @@ function R:Apply()
     head:SetAlpha(headA)
     head:SetShown(headA > 0)
     filter:SetAlpha(railA)
+    PaintDivider(railA)
     filter:SetShown(railA > 0)
     local b = FindMore()
     if b then

@@ -13,6 +13,7 @@ end
 list.SetWidth = function(self, w) self.widthForTest = w end
 list.GetWidth = function(self) return self.widthForTest or 258 end
 Track(list, true); Track(R.head); Track(R.filter); Track(R.card); Track(R.handle, true)
+for _, d in ipairs(R.divider) do Track(d.tex) end
 -- (the stub doesn't remember SetParent: track where the controls are)
 R.inner.parentForTest = R.head
 R.inner.SetParent = function(self, p) self.parentForTest = p end
@@ -47,6 +48,7 @@ F.SetSetting("celebrations", "off")
 R:Toggle()
 assert(R.f == 1 and F.ListIsRail() and D.listRail == true, "the handle folds the list and remembers it")
 assert(list.widthForTest == 98, "the rail is the icons' width: " .. tostring(list.widthForTest))
+for _, d in ipairs(R.divider) do assert(d.tex:IsShown(), "the folded header has its bronze divider") end
 for _, row in ipairs(rows) do
     assert(row.rail and row.railBar and row.railStar, "folding makes the card's rail marks")
     assert(not row.body:IsShown() and row.rail:IsShown(), "cards show their icon marks, not their text")
@@ -91,6 +93,7 @@ assert(R.f == 1 and R.handle:IsShown(), "goals back: the rail again")
 -- Opening again (motion off).
 R:Toggle()
 assert(R.f == 0 and not F.ListIsRail() and D.listRail == nil and list.widthForTest == 258, "the handle opens the list")
+for _, d in ipairs(R.divider) do assert(not d.tex:IsShown(), "the open list has no rail divider") end
 for _, row in ipairs(rows) do
     assert(row.body:IsShown() and not row.rail:IsShown() and row.body.sizeForTest == nil, "text back, filling the card again")
 end
@@ -141,4 +144,4 @@ R:Toggle()
 GameTooltip = nil
 F.materialsPanel.Place = oldPlace
 F.RailMarks = makeMarks
-print("  rail: fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, full tooltip, filter card and count, empty tracker, saved choice, demo, Library width ok")
+print("  rail: fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, full tooltip, filter card and count, empty tracker, saved choice, demo, Library width, divider ok")
