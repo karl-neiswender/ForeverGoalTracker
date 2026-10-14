@@ -1,0 +1,10 @@
+{
+  "sourceUrl": "https://hearthstone.wiki.gg/images/BG28_168_art.jpg?6ceb9d=&format=original",
+  "original": "Media/artwork/BG28_168_art.jpg",
+  "review": "Media/final-images/morning-2026-10-14/partners-in-crime-review.png",
+  "goal": "set_partners_in_crime",
+  "tool": "Built-in image_gen",
+  "prompt": "Edit the supplied magical ring artwork into ONE 4:3 landscape background banner for the Partners in Crime two-ring collection goal in Forever Goal Tracker, intended master 1200 x 900 pixels. Preserve the EXACT single ring from the source: elongated faceted diamond-shaped gemstone, its points, setting/prongs, engraved metal shoulders and continuous oval band geometry, surrounding magical flame-like aura and subtle dark wooden backdrop. Do NOT add a second ring or extra objects. Preserve original painterly style and existing small artist mark. Reframe the complete ring high toward the RIGHT with breathing room around gemstone, band and aura; leave LEFT third quiet for addon text by naturally extending the existing background. Strictly neutral black and white grayscale, moderately increased contrast, detailed painterly midtones, controlled gemstone and magic highlights. Bake a WIDE SMOOTH DARK LEFT gradient strongest at left edge, blending gradually into scene with neutral charcoal and no hard strip or visible boundary. Bake a SOFT DARK BOTTOM gradient across approximately lowest 100 pixels of a 1200 x 900 master (11%), fading downward to near-black neutral charcoal at bottom edge, naturally with no hard horizontal strip. BOTH gradients must be in image itself. No added text, UI, border, unrelated objects or extra characters. This is thematic banner artwork, not a claim that this ring depicts either actual collectible item.",
+  "status": "Preview for Karl's review; not installed",
+  "inspection": "Neutral grayscale, complete single ring at right, both baked fades. Existing artist mark retained. Exact artist attribution not yet verified."
+}
