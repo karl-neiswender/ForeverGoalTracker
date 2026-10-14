@@ -478,7 +478,14 @@ local function VisibleSteps()
         visible = (top - (page.scroll:GetVerticalScroll() or 0)) - bottom
     end
     if not visible or visible <= 0 then visible = steps and steps:GetHeight() or 0 end
-    return visible, page and page.short
+    -- On a normal window the list's own scroll frame is the exact room: it stops
+    -- a few units above the page's bottom edge, and filling to that edge drew a
+    -- scroll bar (Karl, 2026-10-14). Short windows keep the on-screen measure.
+    if page and not page.short and steps then
+        local own = steps:GetHeight()
+        if type(own) == "number" and own > 0 then visible = math.min(visible, own) end
+    end
+    return math.floor(visible), page and page.short
 end
 
 function FGT.PopoutStepHeight(goal, height, width)

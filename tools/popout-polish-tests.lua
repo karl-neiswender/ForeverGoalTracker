@@ -168,6 +168,17 @@ page.GetBottom = function() return 300 end
 page.GetVerticalScroll = function() return 50 end
 P.slotHeight, P.slotWidth = nil, nil
 assert(F.PopoutStepHeight(gold, 600, 300) == math.max(60, 150 - reserve), "short page: the slot fits what shows below the header: " .. tostring(P.slotDebug.used))
+-- A normal window: the list's frame stops above the page's bottom edge, and the
+-- slot fits the frame, not the edge (a few units more drew a scroll bar).
+local oldShort = F.detailViewport.short
+F.detailViewport.short = false
+viewport.GetHeight = function() return 197 end
+viewport.GetTop = function() return 500 end
+page.GetBottom = function() return 300 end
+page.GetVerticalScroll = function() return 0 end
+P.slotHeight, P.slotWidth = nil, nil
+assert(F.PopoutStepHeight(gold, 120, 300) == 197 - reserve, "normal window: the slot fits the list's own frame, so no scroll bar: " .. tostring(P.slotDebug.used))
+F.detailViewport.short = oldShort
 viewport.GetTop, page.GetBottom, page.GetVerticalScroll = oldTop, oldBottom, oldScroll
 viewport.GetHeight = oldHeight
 P.slotHeight, P.slotWidth = nil, nil
