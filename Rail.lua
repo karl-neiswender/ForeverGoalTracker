@@ -400,12 +400,17 @@ function R:Animate(rail, instant, quiet)
     end
     local from = self.f
     -- same pace and ease-out as the Materials drawer (0.7 s for a full slide)
-    local duration = 0.7 * math.max(0.35, math.abs(self.target - from))
+    -- Opening the list narrows the goal page, so its banner art shrinks; an ease-out
+    -- starts that fastest, which looked too quick (Karl, 2026-10-14). Opening is slower
+    -- and eased in and out; folding keeps the Materials drawer's pace.
+    local opening = self.target == 0
+    local duration = (opening and 1.0 or 0.7) * math.max(0.35, math.abs(self.target - from))
     driver:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
         local p = math.min(1, elapsed / duration)
-        -- eased here, both ways, exactly like the Materials drawer
-        R.f = from + (R.target - from) * (1 - (1 - p) ^ 3)
+        local e = 1 - (1 - p) ^ 3
+        if opening then e = p < 0.5 and 4 * p * p * p or 1 - (2 - 2 * p) ^ 3 / 2 end
+        R.f = from + (R.target - from) * e
         R:Apply()
         if p >= 1 then Finish()
         elseif elapsed - lastReflow >= 0.075 then
