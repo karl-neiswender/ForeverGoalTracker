@@ -277,7 +277,7 @@ function P:Animate(show, done)
     end
     self.driver:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
-        local t = math.min(1, elapsed / (show and 0.20 or 0.16))
+        local t = math.min(1, elapsed / (show and 0.20 or 0.26))
         Paint(show and EaseOut(t) or Smooth(t))
         if t == 1 then
             self.driver:SetScript("OnUpdate", nil)
@@ -485,7 +485,7 @@ function P:GlideTips(before)
     if #nodes == 0 then return end
     local delta, elapsed = before - after, 0
     -- back up (docking) is quicker than down (Karl, 2026-10-14)
-    local duration = delta > 0 and 0.16 or 0.34 -- (docking matches the steps' 0.16 s fade in)
+    local duration = delta > 0 and 0.26 or 0.34 -- (docking matches the steps' 0.26 s fade in)
     local function Put(offset)
         for _, node in ipairs(nodes) do
             node.frame:SetPoint("TOPLEFT", U.content, "TOPLEFT", node.x, -(node.y + offset))
