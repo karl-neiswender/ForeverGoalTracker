@@ -1251,6 +1251,27 @@ local sets = {
         sections = ForeverSections(FOREVER_RAID),
     },
     {
+        -- Wowhead Forever item-set 2131 and item pages 284715/284716, 2026-10-14.
+        id = "set_partners_in_crime", library = true, forever = "new", needs = "forever",
+        icon = "inv_jewelry_ring_54",
+        name = "Partners in Crime", short = "Partners in Crime",
+        category = "Item Set", difficulty = "Hard",
+        timeEstimate = "Weeks",
+        note = "Collect both rings. Owned pieces complete automatically.",
+        foreverNote = "A new two-ring set that grants Strength and a chance to become Angry on melee swings.",
+        steps = {
+            { text = "Loot First Mate Band from Mr. Smite in the Deadmines.", icon = "inv_jewelry_ring_01",
+              auto = { item = 284715, owned = { "First Mate Band" } } },
+            { text = "Collect Band of the Better Half  |cff888888Source unknown|r", icon = "inv_jewelry_ring_54",
+              auto = { item = 284716, owned = { "Band of the Better Half" } } },
+        },
+        tips = {
+            "{item:284715:First Mate Band} requires level 17. {item:284716:Band of the Better Half} requires level 60. Both bind on pickup.",
+            "Equip both rings for the set bonus. Angry increases Strength by 50 for 10 seconds.",
+            "{item:284715:First Mate Band} is a rare drop. Expect repeat Deadmines runs.",
+        },
+    },
+    {
         -- Wowhead Forever item-set 2134 and all five item pages, 2026-10-09.
         -- Only the Mantle and Robes have revealed drop sources so far.
         id = "set_violet_sorcerer", library = true, forever = "new", needs = "forever",

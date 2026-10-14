@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Partners in Crime, a Forever-only goal to collect both rings.
 - Added a pop-out steps tracker prototype for in-game review
 
 ## 2.13.0

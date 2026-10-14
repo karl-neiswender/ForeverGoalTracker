@@ -87,6 +87,27 @@ for _, child in ipairs(F.GoalById("tier3").armorChildren) do
 end
 
 local violet = F.GoalById("set_violet_sorcerer")
+local partners = F.GoalById("set_partners_in_crime")
+assert(partners and #partners.steps == 2 and not partners.faction and not partners.classes)
+assert(F.LibraryVisible(partners) == F.isForever, "Partners in Crime is available only on Forever")
+if F.isForever then
+    local frame = {}
+    assert(F.ApplyForeverLook(frame, partners) == "NEW" and frame.foreverNew)
+    D.active[partners.id] = true
+    D.characters["PartnersTest-Other"] = { name="PartnersTest", faction="Horde", items={} }
+    local items = D.characters["PartnersTest-Other"].items
+    items[284715] = 1
+    STUB_FIRE("BAG_UPDATE_DELAYED")
+    assert(D.progress[partners.id][1] and not D.progress[partners.id][2],
+        "the first ring alone cannot complete the pair")
+    items[284716] = 1
+    STUB_FIRE("BAG_UPDATE_DELAYED")
+    assert(D.progress[partners.id][1] and D.progress[partners.id][2], "both rings tick automatically")
+    items[284715], items[284716] = nil, nil
+    STUB_FIRE("BAG_UPDATE_DELAYED")
+    assert(D.progress[partners.id][1] and D.progress[partners.id][2], "collection credit stays after rings leave bags")
+    print("  Partners in Crime: Forever visibility, separate ring credit and sticky collection ok")
+end
 assert(violet and #violet.steps == 5 and not violet.faction)
 assert(F.LibraryVisible(violet) == F.isForever, "Violet set is available only on Forever")
 if F.isForever then
