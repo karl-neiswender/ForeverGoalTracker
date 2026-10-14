@@ -24,7 +24,6 @@ local HEAD = 84 -- the header: view, sort and search rows (22 each, 4 apart, 6 i
 local function Motion() return FGT.Setting("celebrations") or "full" end
 local function Clamp01(x) return math.max(0, math.min(1, x)) end
 local function Smooth(x) x = Clamp01(x); return x * x * (3 - 2 * x) end
-local function InOut(x) return x < 0.5 and 4 * x * x * x or 1 - (-2 * x + 2) ^ 3 / 2 end
 
 -- ------------------------------------------------------------
 -- Header: the list's controls move into a clipped holder, so they wipe
@@ -270,7 +269,8 @@ end
 
 function R:Apply()
     local f = self.f
-    local e = InOut(f)
+    -- width follows f directly: the slide timer eases it like the Materials drawer
+    local e = f
     list:SetWidth(OPEN + (RAIL - OPEN) * e)
     -- card text and marks: trimmed by the narrowing card and fading a little ahead of it
     local textA = 1 - Smooth(f / 0.6)
@@ -369,6 +369,7 @@ function R:Animate(rail, instant, quiet)
     driver:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
         local p = math.min(1, elapsed / duration)
+        -- eased here, both ways, exactly like the Materials drawer
         R.f = from + (R.target - from) * (1 - (1 - p) ^ 3)
         R:Apply()
         if p >= 1 then Finish()
