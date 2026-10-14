@@ -9,10 +9,10 @@ FGT.Popout = P
 -- Window geometry (UI units). The header and its progress bar stay put;
 -- the steps sit in a body that slides open and shut beneath them.
 local HEADER_H = 26   -- the title strip, 3 in from the etched rim
-local BAR_Y = -32     -- top of the thin progress bar under the title
-local BODY_TOP = 42   -- where the steps start
-local CHROME_H = 58   -- header plus bottom margin around the steps
-local COLLAPSED = 42  -- header and bar only
+local BAR_Y = -32     -- top of the progress bar under the title (8 tall, Karl 2026-10-14; was 4)
+local BODY_TOP = 46   -- where the steps start
+local CHROME_H = 62   -- header plus bottom margin around the steps
+local COLLAPSED = 46  -- header and bar only
 P.COLLAPSED = COLLAPSED
 
 local function Label(parent, size, text, r, g, b)
@@ -679,7 +679,7 @@ P.header:SetScript("OnEnter", function() P:WakeFx() end)
 
 -- Thin progress bar under the title: the My Goals card's bar, so it
 -- glides, glints and turns green with the rest of the tracker.
-P.bar = S.bar(frame, 4)
+P.bar = S.bar(frame, 8)
 P.bar:SetPoint("TOPLEFT", 12, BAR_Y)
 P.bar:SetPoint("TOPRIGHT", -12, BAR_Y)
 P.bar.label:Hide()

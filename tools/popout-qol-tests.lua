@@ -27,7 +27,7 @@ D.active.gold_5k=true; D.active.sulfuras=true
 D.progress.gold_5k={}; D.progress.sulfuras={}; D.characters={}
 P.autoFit=true; P.closeMain=false; P.width=500; P.height=600
 P:Open("gold_5k")
-assert(P.width<500 and P.height<600 and P.height==math.max(80,math.ceil(P.layout.height+58)), "opening fits the steps instead of leaving a large empty body")
+assert(P.width<500 and P.height<600 and P.height==math.max(80,math.ceil(P.layout.height+62)), "opening fits the steps instead of leaving a large empty body")
 assert(S.main:IsShown(),"main remains open by default")
 assert(not P.bar:GetScript("OnEnter") and not P.bar:GetScript("OnLeave"),"progress strip has no redundant tooltip")
 assert(P.chrome.etchBg and P.chrome.grimeParts and P.shadow,"What’s new etched panel, grime and shadow are reused")
