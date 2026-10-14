@@ -5116,8 +5116,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artPaths.social_campfires = "prof_cooking-banner.blp"
     B.artPaths.social_friends = "social_friends-banner.blp"
     B.artPaths.social_cheers = "social_cheers-banner.blp"
+    B.artPaths.social_waves = "social_waves-banner.blp"
+    B.artPaths.social_guild = "social_guild-banner.blp"
+    B.artPaths.social_summons = "social_summons-banner.blp"
     B.artPaths.set_partners_in_crime = "set_partners_in_crime-banner.blp"
     B.artAspects.set_partners_in_crime, B.preprocessed.set_partners_in_crime = 4/3, true
+    B.artAspects.social_summons, B.preprocessed.social_summons = 4/3, true
+    B.artAspects.social_waves, B.preprocessed.social_waves = 4/3, true
+    B.artAspects.social_guild, B.preprocessed.social_guild = 4/3, true
     B.artAspects.social_cheers, B.preprocessed.social_cheers = 4/3, true
     B.artAspects.social_friends, B.preprocessed.social_friends = 4/3, true
     B.artAspects.social_campfires, B.preprocessed.social_campfires = 4/3, true
@@ -6368,13 +6374,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artArtists = {
         ["social_cheers-banner.blp"] = "Sean O'Daniels",
         ["rep_thorium-banner.blp"] = "Samwise Didier",
-        ["raid_naxx-banner.blp"] = "Mike Sutfin",
         ["set_tier1_hunter-banner.blp"] = "Tim Shevtsov",
         -- Exact-image attribution evidence: reports/artwork-artist-evidence-2026-10-13.json
         ["social_friends-banner.blp"] = "Jaslynn Tham",
         ["pvp_mount_horde-banner.blp"] = "Efrem Palacios",
         ["pvp_set_mail_ally-banner.blp"] = "Anton Zemskov",
-        ["prof_blacksmithing-banner.blp"] = "Akkapoj T.",
         ["prof_leatherworking-banner.blp"] = "Kagi",
         ["prof_enchanting-banner.blp"] = "Akkapoj T.",
         ["prof_tailoring-banner.blp"] = "Kagi",
@@ -6424,7 +6428,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["pvp_set_mail_horde_shaman-banner.blp"] = "Alex Horley",
         ["prof_mining-banner.blp"] = "Patrick McEvoy",
         ["rep_hydraxian-banner.blp"] = "Jonboy Meyers",
-        ["rep_nozdormu-banner.blp"] = "Zoltan Boros",
         ["rep_cenarion-banner.blp"] = "Eugene Dlinnov",
         ["prof_herbalism-banner.blp"] = "Romain De Santi",
         ["prof_fishing-banner.blp"] = "Steve Prescott",
