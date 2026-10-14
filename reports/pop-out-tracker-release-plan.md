@@ -14,6 +14,10 @@ the same saved progress, selected parts and prerequisite rules.
 - One goal at a time in one pop-out window.
 - Players can check off steps directly, using the same rules as the main guide.
 - The pop-out tracker is the proposed next release's headline feature.
+- Pop out the goal's steps area, preserving its existing checklist behavior.
+- Use a thin text header with settings and close controls. The header is the
+  drag handle; a corner grip resizes the open window.
+- Include the ability to lock the window in place.
 
 ## Proposed first version
 
@@ -24,7 +28,10 @@ These details are recommendations for design review, not additional confirmed de
 - Right-click a My Goals card and choose `Pop out`.
 - Opening another goal replaces the goal in the existing pop-out.
 - Browsing a different goal in the main window does not change the popped-out goal.
-- Clicking the pop-out title opens that goal in the main guide.
+- Offer `Bring back` through the pop-out settings menu. The header/title is
+  the drag handle, so a normal header click should not unexpectedly dock it.
+- Add a small pop-out action beside the main guide's Step by step heading,
+  as well as the My Goals right-click entry, subject to visual review.
 - Closing the main window leaves the pop-out visible. Escape may close the
   main guide but should not dismiss the persistent pop-out.
 - Closing the pop-out keeps the goal and all its progress on My Goals.
@@ -34,26 +41,35 @@ These details are recommendations for design review, not additional confirmed de
 Karl suggested an empty state for the main window while a goal is popped out.
 Proposed treatment for review:
 
-- Replace only that goal's guide area with a calm `This goal is popped out`
-  message, its icon/name and a `Bring back` action. Keep the My Goals list usable.
+- Replace that goal's steps area with a calm `Steps are popped out` message
+  and a `Bring back` action. Keep its main title, artwork, Tips, Materials and
+  the My Goals list usable. Review the placeholder's spacing in the mockup.
 - Selecting another goal shows its normal guide without changing the pop-out.
 - `Bring back` closes the pop-out and restores that goal's full guide. Closing
   the pop-out also restores its guide if that goal is currently selected.
-- Clicking the pop-out title performs the same Bring back action and opens
-  the main window. This supersedes the earlier proposal to open a duplicate guide.
+- The pop-out settings menu's `Bring back` action also opens the main window
+  on that goal. This replaces the earlier title-click proposal.
 - The popped-out goal remains on My Goals with its live progress.
 
 ### Content and appearance
 
-- Small goal icon, goal name, overall goal progress and unfinished steps.
-- Start with roughly three visible steps; allow scrolling through the rest.
-  Measure width and height in the first in-game prototype before fixing dimensions.
+- A slim header with the goal name in simple text, a settings control and a
+  close control; the body is the goal's scrollable steps area.
+- Preserve section headers, expand/collapse behavior, recipe ingredient rows,
+  counts and the existing completed-step visibility preference. This replaces
+  the earlier proposal for a separate three-step unfinished summary.
+- Resize width and height from the bottom-right grip. Text wraps and the
+  scroll viewport refits to the available size. Review practical minimum and
+  maximum bounds in game before fixing dimensions.
+- Review whether a compact goal progress bar is useful without making the
+  thin header taller. It is optional in this revised steps-first design.
 - Use the existing Warcraft font, quiet dark surface, thin etched border and
   gold controls. Retain the established blue treatment for Forever content.
 - Keep section or piece names when they explain which mount, class or armor
   recipe a step belongs to. Only selected and client-visible parts appear.
-- For armor recipes, show unfinished ingredient checklist lines beneath their
-  piece name. Do not invent a new piece checkbox or count ingredients twice.
+- For armor recipes, preserve the ingredient checklist beneath each piece
+  name and its expansion state. Do not invent a new piece checkbox or count
+  ingredients twice.
 - Show useful live readouts, such as reputation, skill and collection counts,
   using the same stock and progress meaning as the main guide.
 - Keep locked steps visible with their prerequisite explanation. Guide order
@@ -67,7 +83,10 @@ Karl suggested adjustable opacity and light opening/closing interactions.
 Proposed treatment for review:
 
 - Provide a `Background opacity` slider in a small pop-out options menu.
-  Change the backing surface, retaining readable text, checks and progress.
+  Proposed default behavior: affect both the body background and the header
+  background together, retaining readable text, checks, icons and progress.
+  Avoid fading the entire parent frame. Review any subtle header contrast
+  treatment on bright scenery before adding separate opacity controls.
 - Save opacity with the pop-out preferences independently of the main window.
   Review the default and slider range over both bright and dark game scenes.
 - Open with a short eased fade and a small settling movement; close with a
@@ -91,18 +110,23 @@ Proposed treatment for review:
 - Preserve item/quest/NPC tooltips and the existing applicable click actions,
   including chat links, Wowhead, map pins and gear or mount previews.
 - Clicking a link must never also check off its row.
-- A finished row briefly shows its check before leaving the unfinished list.
-  The next row must not move into place while the click is still being handled.
+- A finished row follows the existing completed-step visibility preference.
+  When hidden, let its check response finish before reflowing the rows. The
+  next row must not move into place while the click is still being handled.
 - When the whole goal finishes, leave a quiet `Complete` state visible until
   the player closes the pop-out or chooses another goal.
 - Reuse the existing goal-complete announcement; do not add another toast or sound.
 
 ### Placement and saved state
 
-- Drag using the header; provide a lock-position control and a close control.
-- Remember the chosen goal, position, locked state and whether the pop-out is
-  open across reloads and logins, on this machine.
-- Use one shared saved position for the pop-out window. Future goals reuse it;
+- Drag using the header, excluding its settings and close buttons. Use a
+  bottom-right corner grip for width/height resizing.
+- Proposed lock behavior: disable both movement and resizing, hide the resize
+  grip, and keep checkboxes, scrolling, settings and close working. Put Lock /
+  Unlock in the compact settings menu to keep the header clean.
+- Remember the chosen goal, position, size, locked state and whether the
+  pop-out is open across reloads and logins, on this machine.
+- Use one shared saved position and size for the pop-out. Future goals reuse them;
   replacing a goal, restoring it to the main guide or reopening the pop-out
   must not reset that position. Keep animation offsets out of saved coordinates.
 - Clamp the window to the screen after resolution or UI-scale changes.
@@ -147,8 +171,9 @@ Proposed treatment for review:
 4. Verify shared/manual ticks, automatic completion with the main window
    closed, locked steps, selected parts, links, reset/undo, target changes,
    removal, completion, reload restoration, screen bounds and combat behavior.
-   Also review the main-panel placeholder/Bring back flow, saved opacity,
-   shared placement across goals and sessions, and interrupted animations.
+   Also review the steps-area placeholder/Bring back flow, saved opacity,
+   resizing and wrapping, lock/unlock, shared position/size across goals and
+   sessions, completed-step preferences and interrupted animations.
 5. Run `python3 tools/check.py`, including meaningful pop-out regressions.
 6. Run Ketho/LuaLS diagnostics for supported clients, prove annotation loading,
    retain results, and fix actionable diagnostics. Review native performance.
