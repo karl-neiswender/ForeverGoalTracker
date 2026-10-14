@@ -557,6 +557,12 @@ function P:PaintPlaceholder()
     self.placeholder:SetShown(active and true or false)
     if not active then return end
     self.placeholder:SetAlpha(self.fraction)
+    -- Docking back: the message and button clear well ahead of the slot itself (their
+    -- alpha multiplies the slot's, so f*f*f), instead of lingering over the returning
+    -- steps while the eased fade is still near its start (Karl, 2026-10-14).
+    local ahead = self.closing and self.fraction * self.fraction or 1
+    self.placeholder.text:SetAlpha(ahead)
+    self.placeholder.back:SetAlpha(ahead)
     -- Full motion: the message rises 6 into place as it fades in (sinks as it
     -- fades out), and the steps drift 6 down as they leave and rise back as
     -- they return, like the pop-out window's own 6-unit rise (Karl, 2026-10-14).
