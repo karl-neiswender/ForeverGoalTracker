@@ -190,4 +190,26 @@ assert(P.progress==1 and P.doneCheck:IsShown(), "finished goal swaps its count f
 GetMoney=function() return 0 end
 F.SetSetting("celebrations","off")
 P:Close(false)
-print("  pop-out polish: sliding fold with reversal, Subtle and Off, carried shadow, idle hover driver, settings card switches, fit following the steps and finished check ok")
+-- Tips glide from where they were to the fresh layout's spot (popping out, docking).
+do
+    local oldTips, oldLayout = F.tipsUI, F.guideLayout
+    local placedY
+    local tipFrame = { SetPoint = function(_, _, _, _, _, y) placedY = y end }
+    F.SetSetting("celebrations","full")
+    F.tipsUI = { startY = 100 }
+    F.guideLayout = { nodes = { { key = "tips:line", frame = tipFrame, x = 0, y = 108 },
+        { key = "step:1", frame = { SetPoint = function() error("steps are not glided here") end }, x = 0, y = 0 } } }
+    P:GlideTips(160)
+    assert(placedY == -168, "tips start where they were: " .. tostring(placedY))
+    local glide = P.tipsDriver:GetScript("OnUpdate")
+    glide(P.tipsDriver, 0.1)
+    assert(placedY < -108 and placedY > -168, "tips ease toward their new spot: " .. tostring(placedY))
+    glide(P.tipsDriver, 1)
+    assert(placedY == -108 and not P.tipsDriver:GetScript("OnUpdate"), "tips settle and the glide stops")
+    F.SetSetting("celebrations","off")
+    placedY = nil
+    P:GlideTips(160)
+    assert(placedY == nil, "no glide with motion off")
+    F.tipsUI, F.guideLayout = oldTips, oldLayout
+end
+print("  pop-out polish: sliding fold with reversal, Subtle and Off, carried shadow, idle hover driver, settings card switches, fit following the steps, finished check and tips glide ok")

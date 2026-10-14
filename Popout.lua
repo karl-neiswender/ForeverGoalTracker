@@ -262,6 +262,7 @@ function P:Animate(show, done)
     self.driver:SetScript("OnUpdate", nil)
     local mode = Motion()
     local from, target, elapsed = self.fraction, show and 1 or 0, 0
+    self.glide = mode == "full" -- the steps and the slot's message drift as they fade
     local function Paint(t)
         self.fraction = from + (target - from) * t
         self.frame:SetAlpha(self.fraction)
@@ -405,7 +406,9 @@ function P:Open(id, collapsed)
     self:Refresh()
     self.instantBody = nil
     if self.autoFit and not self.collapsed then self:FitSteps() end
+    local tipsWere = FGT.tipsUI and FGT.tipsUI.startY
     U.redraw()
+    self:GlideTips(tipsWere)
     self:Animate(true)
     if self.closeMain then S.main:Hide() end
     self:Save()
@@ -454,7 +457,40 @@ function P:Close(dock)
         S.main:SetFrameLevel(self.mainLevel)
         self:Place()
         self.placeholder:Hide()
+        local tipsWere = FGT.tipsUI and FGT.tipsUI.startY
         U.redraw()
+        self:GlideTips(tipsWere)
+    end)
+end
+
+-- Tips glide to their new place when the slot changes size (popping out
+-- pushes them down to the slot's bottom; docking brings them back up),
+-- instead of jumping there (Karl, 2026-10-14). They start where they were
+-- and ease into the fresh layout's spots; nothing else is touched.
+P.tipsDriver = CreateFrame("Frame")
+function P:GlideTips(before)
+    self.tipsDriver:SetScript("OnUpdate", nil)
+    local T, layout = FGT.tipsUI, FGT.guideLayout
+    local after = T and T.startY
+    if not (before and after and layout) or before == after or Motion() == "off" then return end
+    local nodes = {}
+    for _, node in ipairs(layout.nodes or FGT.EMPTY) do
+        if type(node.key) == "string" and node.key:sub(1, 5) == "tips:" then nodes[#nodes + 1] = node end
+    end
+    if #nodes == 0 then return end
+    local delta, elapsed = before - after, 0
+    local function Put(offset)
+        for _, node in ipairs(nodes) do
+            node.frame:SetPoint("TOPLEFT", U.content, "TOPLEFT", node.x, -(node.y + offset))
+        end
+    end
+    Put(delta)
+    self.tipsDriver:SetScript("OnUpdate", function(driver, dt)
+        elapsed = elapsed + dt
+        -- (a new layout, another goal or a redraw mid-glide: settle at once)
+        local p = FGT.guideLayout == layout and math.min(1, elapsed / 0.34) or 1
+        Put(delta * (1 - EaseOut(p)))
+        if p >= 1 then driver:SetScript("OnUpdate", nil) end
     end)
 end
 
@@ -513,6 +549,18 @@ function P:PaintPlaceholder()
     self.placeholder:SetShown(active and true or false)
     if not active then return end
     self.placeholder:SetAlpha(self.fraction)
+    -- Full motion: the message rises 6 into place as it fades in (sinks as it
+    -- fades out), and the steps drift 6 down as they leave and rise back as
+    -- they return, like the pop-out window's own 6-unit rise (Karl, 2026-10-14).
+    local drift = self.glide and 6 or 0
+    self.placeholder.text:SetPoint("CENTER", self.placeholder, "TOP", 0,
+        (self.placeholder.textY or -12) - drift * (1 - self.fraction))
+    local layout = FGT.guideLayout
+    for _, node in ipairs(layout and layout.nodes or FGT.EMPTY) do
+        if node.frame.fgtPopoutTransfer then
+            node.frame:SetPoint("TOPLEFT", U.content, "TOPLEFT", node.x, -(node.y + drift * self.fraction))
+        end
+    end
     -- docking back: the guide's controls (the pop-out arrow, Hide completed,
     -- Expand all) fade in with the steps instead of popping in at the end (Karl)
     if self.closing then
@@ -546,7 +594,8 @@ function FGT.UpdatePopoutPlaceholder(goal, height, width)
     -- The message and button sit centered as one group (about 42 tall);
     -- the slot is at most the visible area, so the center is on screen.
     P.placeholder.text:ClearAllPoints()
-    P.placeholder.text:SetPoint("CENTER", P.placeholder, "TOP", 0, -slot / 2 + 15)
+    P.placeholder.textY = -slot / 2 + 15
+    P.placeholder.text:SetPoint("CENTER", P.placeholder, "TOP", 0, P.placeholder.textY)
     local active = (P.open or P.closing) and goal.id == P.slotId
     -- (while docking back they show, faded by PaintPlaceholder; otherwise full)
     local docking = active and P.closing
