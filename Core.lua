@@ -5415,7 +5415,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Sunlight (Karl's list, 2026-10-12). sunrays = { u, v, angle, spread, count, length }
         -- wide parallel rays from the left, falling diagonally toward the bottom right
         ["rep_ambassador_ally-banner.blp"] = Sunlight({ 0.30, -0.10, 45, 0.6, 6, 1.2, parallel = true, broad = true, strength = 0.7 },
-            { 0.25, 0.95, 0.10, 0.85 }, 20),
+            { 0.25, 0.95, 0.10, 0.85 }, 70), -- a lot more motes of light (Karl, 2026-10-14; was 20)
         -- Horde capitals: a natural sun, faint rays all around it and a soft
         -- halo on the disc, not a downward spotlight (Karl)
         ["rep_ambassador_horde-banner.blp"] = { 0.55, 0.346, 0.18, { 1, 1, 1 }, strength = 1.0, -- on the sun's disc
@@ -5530,6 +5530,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- (wind 180) along the bottom half of the art (v 0.5-0.92). Blooms are added on top.
         -- Ruins of Ahn'Qiraj: across the battlefield.
         ["raid_aq20-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Sand({ 0.0, 1.0, 0.5, 0.92 }, 110) },
+        -- Temple of Ahn'Qiraj: the same blown sand. (A banner with particles hides the page's
+        -- drifting leaves, so they are gone here too, Karl 2026-10-14.)
+        ["raid_aq40-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = Sand({ 0.0, 1.0, 0.5, 0.92 }, 110) },
         -- Cenarion Circle (Cenarion Hold in Silithus): across the hillside below the buildings.
         -- Taken off the windy leaves list: leaves and sand together were too busy.
