@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-14",
+  "goal": "social_summons",
+  "source": "Media/artwork/Summoning_Portal_full.jpg",
+  "review": "Media/final-images/morning-2026-10-14/warlock-summoning-review.png",
+  "master": "Media/final-images/morning-2026-10-14/warlock-summoning-master.png",
+  "runtime": "Media/social_summons-banner.blp",
+  "tool": "Built-in image_gen",
+  "prompt": "Edit the supplied Summoning Portal artwork into ONE 4:3 landscape background banner for the warlock summoning goal in Forever Goal Tracker, intended approved master 1200 x 900 pixels. Preserve the exact original horned hood-like portal frame, both skeletal hands holding its sides, flowing magical portal opening, draped dark material, twisted forest trunks and roots, original pose and painterly style. Reframe the portal high toward the RIGHT with breathing room above both curled horns and hands, leave the LEFT third quiet for addon text by naturally extending the existing dark forest. Keep the portal opening and its flowing lower portion readable. Strict neutral black and white grayscale, moderately increased contrast, detailed painterly midtones and controlled magical highlights, no colored tint. Bake a WIDE SMOOTH DARK LEFT gradient strongest at the left edge blending gradually into the scene, neutral charcoal without a hard strip or visible boundary. Bake a SOFT DARK BOTTOM gradient across approximately the lowest 100 pixels of a 1200x900 master (11%), fading downward to near-black neutral charcoal at the bottom edge with no hard horizontal strip. BOTH gradients must be in the image itself. Preserve any existing artist marks. No added text, UI, border, unrelated objects or extra characters. Preserve hand and horn geometry, do not invent a warlock figure or alter the portal design.",
+  "approval": "Karl: good",
+  "inspection": "Neutral grayscale; both baked gradients; complete horns and skeletal hands with breathing room; original unchanged.",
+  "credit": "Exact source artist not yet verified; no credit inferred.",
+  "status": "Approved and installed locally. Goal definition is concurrent work in Library.lua."
+}
