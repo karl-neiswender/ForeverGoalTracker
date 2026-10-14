@@ -6,7 +6,7 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Next up
 
-- **Materials panel (in testing):** a compact drawer beside the active goal, with ingredient progress, exact counts on hover and filters for collected items, counts and tracked alts.
+- **Pop-out tracker (planned):** keep one goal's steps on screen while you play, and check them off using the same rules as the main guide.
 - **Feedback from inside the game:** write a suggestion or report a wrong step in the addon and get a link to send it.
 - **Welcome / What's new after an update:** a modal window when a player enters the game after an addon update, introducing the new features. Each feature gets a snapshot in the background with a subtle gradient vignette and text over it explaining the feature. Include a way to skip, pagination when there are multiple features, and subtle text animations or treatments as each page loads in and out.
 
@@ -18,7 +18,6 @@ New tools that take more building.
 
 - **Custom goals:** create your own goals with a title, difficulty, icon and your own steps, from serious to silly ("Give Billy five high fives"). Steps the game can track tick themselves; the rest you check off by hand. Or copy any Library goal and make it your own.
 - **Toasts:** a small note when a step ticks itself while the window is closed, and milestone cheers along the way ("50 down, keep going!").
-- **Pop-out tracker:** keep one goal's steps on screen while you play, like the quest tracker.
 - **Character overview:** see which of your characters is furthest along on reputation and leveling goals.
 - **Guild announcements:** guildmates who use the addon see when you finish a goal, with an optional line in guild chat (off by default).
 - **Share your wins:** a "Copy for Discord" button when you finish a goal.
