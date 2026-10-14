@@ -555,12 +555,17 @@ function M:SetOpen(open, duration)
         self.fraction=target; self:Place(); U.redraw(); return
     end
     local elapsed, lastReflow = 0, 0
+    -- Opening narrows the goal page; its banner art shrinks at its own eased pace
+    -- (B.artLag, see B:Fit in Core.lua), not the drawer's (Karl, 2026-10-14).
+    FGT.railBusy = true
+    if target == 1 and FGT.goalBanner then FGT.goalBanner.artLag = true end
     driver:SetScript("OnUpdate",function(_,dt)
         elapsed=elapsed+dt
         local p=math.min(1,elapsed/(duration or M.SLIDE_TIME))
         M.fraction=start+(target-start)*(1-(1-p)^3)
         M:Place()
         if p>=1 then
+            FGT.railBusy = false
             driver:SetScript("OnUpdate",nil); U.redraw()
         elseif elapsed-lastReflow >= 0.075 then
             lastReflow=elapsed
