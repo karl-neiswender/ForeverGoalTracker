@@ -29,6 +29,20 @@ These details are recommendations for design review, not additional confirmed de
   main guide but should not dismiss the persistent pop-out.
 - Closing the pop-out keeps the goal and all its progress on My Goals.
 
+### Main-window state while popped out
+
+Karl suggested an empty state for the main window while a goal is popped out.
+Proposed treatment for review:
+
+- Replace only that goal's guide area with a calm `This goal is popped out`
+  message, its icon/name and a `Bring back` action. Keep the My Goals list usable.
+- Selecting another goal shows its normal guide without changing the pop-out.
+- `Bring back` closes the pop-out and restores that goal's full guide. Closing
+  the pop-out also restores its guide if that goal is currently selected.
+- Clicking the pop-out title performs the same Bring back action and opens
+  the main window. This supersedes the earlier proposal to open a duplicate guide.
+- The popped-out goal remains on My Goals with its live progress.
+
 ### Content and appearance
 
 - Small goal icon, goal name, overall goal progress and unfinished steps.
@@ -46,6 +60,29 @@ These details are recommendations for design review, not additional confirmed de
   does not mean every goal must be completed sequentially.
 - Keep artwork, Tips and the Materials drawer in the full guide. The compact
   window needs to stay easy to read over gameplay.
+
+### Opacity and micro-interactions
+
+Karl suggested adjustable opacity and light opening/closing interactions.
+Proposed treatment for review:
+
+- Provide a `Background opacity` slider in a small pop-out options menu.
+  Change the backing surface, retaining readable text, checks and progress.
+- Save opacity with the pop-out preferences independently of the main window.
+  Review the default and slider range over both bright and dark game scenes.
+- Open with a short eased fade and a small settling movement; close with a
+  shorter fade. Review roughly 0.15 to 0.2 seconds in game before fixing timing.
+- Add a restrained checkbox response and smooth progress changes. Match the
+  existing grey-rest/gold-hover controls; avoid permanent ambient animation.
+- Honor Celebrations: Full uses the small movement and fades, Subtle uses
+  fades only, and Off changes instantly. Stop animation drivers when finished.
+- Handle rapid open/close and goal replacement without jumps, ghost windows,
+  position drift or accidental clicks during a closing transition.
+- True live blur of the game behind the window is not a committed feature.
+  The inspected Blizzard backdrop implementation supports texture layers and
+  alpha, not a live scene blur. No supported addon backdrop-blur API was found
+  in this review. Use translucency and soft edges for the proposed treatment.
+  Source: https://github.com/Gethe/wow-ui-source/blob/forever/Interface/AddOns/Blizzard_SharedXML/Backdrop.lua
 
 ### Interaction
 
@@ -65,6 +102,9 @@ These details are recommendations for design review, not additional confirmed de
 - Drag using the header; provide a lock-position control and a close control.
 - Remember the chosen goal, position, locked state and whether the pop-out is
   open across reloads and logins, on this machine.
+- Use one shared saved position for the pop-out window. Future goals reuse it;
+  replacing a goal, restoring it to the main guide or reopening the pop-out
+  must not reset that position. Keep animation offsets out of saved coordinates.
 - Clamp the window to the screen after resolution or UI-scale changes.
 - Provide a reset-position action for recovering the window.
 - Removing the popped-out goal from My Goals closes its pop-out. Resetting or
@@ -107,6 +147,8 @@ These details are recommendations for design review, not additional confirmed de
 4. Verify shared/manual ticks, automatic completion with the main window
    closed, locked steps, selected parts, links, reset/undo, target changes,
    removal, completion, reload restoration, screen bounds and combat behavior.
+   Also review the main-panel placeholder/Bring back flow, saved opacity,
+   shared placement across goals and sessions, and interrupted animations.
 5. Run `python3 tools/check.py`, including meaningful pop-out regressions.
 6. Run Ketho/LuaLS diagnostics for supported clients, prove annotation loading,
    retain results, and fix actionable diagnostics. Review native performance.
