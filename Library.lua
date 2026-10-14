@@ -1394,7 +1394,9 @@ for _, f in ipairs({ "Alliance", "Horde" }) do
     table.insert(pvp, {
         id = "pvp_rank14_" .. key, library = true, faction = f,
         -- the Grand Marshal (Wowhead cata achievement 5343) and High Warlord (443) icons; the
-        -- faction banner is the fallback
+        -- faction banner is the fallback. keepIcon: ArmorSets.lua gives every other faction PvP
+        -- goal the shared rank icon, and would have replaced these.
+        keepIcon = true,
         icon = A and { "achievement_pvp_a_14", BANNER[f][1], BANNER[f][2] }
                   or { "achievement_pvp_h_14", BANNER[f][1], BANNER[f][2] },
         name = A and "Grand Marshal" or "High Warlord",
