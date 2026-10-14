@@ -269,6 +269,17 @@ function P:Animate(show, done)
         self:PaintShadow()
         self:Place(mode == "full" and -6 * (1 - self.fraction) or 0)
         self:PaintPlaceholder()
+        local log = self.traceLog
+        if log then
+            -- /goals popout trace: what the slot's message and button look like each frame
+            local row = (self.mainRows or FGT.EMPTY)[1]
+            -- (a font string has no GetEffectiveAlpha: its own alpha times the slot's)
+            local slot = self.placeholder:GetAlpha()
+            log[#log + 1] = string.format("%.3fs  fraction %.2f  slot %.2f  text %.2f  button %.2f  shown %s  first step %.2f",
+                GetTime() - self.traceT0, self.fraction, slot,
+                slot * self.placeholder.text:GetAlpha(), slot * self.placeholder.back:GetAlpha(),
+                tostring(self.placeholder:IsShown()), row and row:GetAlpha() or -1)
+        end
     end
     if mode == "off" then
         Paint(1)
@@ -451,7 +462,14 @@ function P:Close(dock)
         U.redraw()
     end
     self:GlideTips(tipsWere)
+    if self.traceArmed then self.traceArmed, self.traceLog, self.traceT0 = nil, {}, GetTime() end
     self:Animate(false, function()
+        if self.traceLog then
+            -- (chat can't be copied: saved for Claude to read from the SavedVariables after /reload)
+            if ForeverGoalTrackerDB then ForeverGoalTrackerDB.popoutTrace = self.traceLog end
+            print("|cffffd75eForever Goal Tracker:|r popout trace saved (" .. #self.traceLog .. " frames). Type |cffffffff/reload|r, then tell Claude.")
+            self.traceLog = nil
+        end
         self.frame:Hide()
         self.closing, self.slotId = nil, nil
         self.fraction = 1
@@ -556,11 +574,12 @@ function P:PaintPlaceholder()
     local active = (self.open or self.closing) and selected and selected.id == self.slotId
     self.placeholder:SetShown(active and true or false)
     if not active then return end
-    self.placeholder:SetAlpha(self.fraction)
-    -- Docking back: the message and button clear well ahead of the slot itself (their
-    -- alpha multiplies the slot's, so f*f*f), instead of lingering over the returning
-    -- steps while the eased fade is still near its start (Karl, 2026-10-14).
-    local ahead = self.closing and self.fraction * self.fraction or 1
+    -- Docking back: the slot (its dark recess and edge shadow too) clears quickly, f*f, and
+    -- the message and button faster still, f*f*f, instead of lingering over the returning
+    -- steps while the eased fade is still near its start (Karl, 2026-10-14). A recording of
+    -- the first version showed the text gone by 0.19 s, so the dark recess was the slow part.
+    self.placeholder:SetAlpha(self.closing and self.fraction * self.fraction or self.fraction)
+    local ahead = self.closing and self.fraction or 1
     self.placeholder.text:SetAlpha(ahead)
     self.placeholder.back:SetAlpha(ahead)
     -- Full motion: the message rises 6 into place as it fades in (sinks as it
@@ -1137,6 +1156,9 @@ function FGT.HandlePopoutCommand(msg)
         if goal then P:Open(goal.id) end
     elseif command == "dock" then P:Close(true)
     elseif command == "popout reset" then P:ResetPosition()
+    elseif command == "popout trace" then
+        P.traceArmed = true
+        print("|cffffd75eForever Goal Tracker:|r trace armed: pop a goal out, then bring it back; the frames print when it finishes.")
     elseif command == "popout debug" then
         -- the main guide's empty slot: raw step height, visible area, height used
         local d = P.slotDebug or {}
