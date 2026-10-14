@@ -3241,17 +3241,30 @@ end)
 local resizeGrip = CreateFrame("Button", nil, main)
 resizeGrip:SetSize(16, 16)
 resizeGrip:SetPoint("BOTTOMRIGHT", -2, 2)
+resizeGrip.dots = {}
 local function GripDot(x, y, size)
     local dot = Flat(resizeGrip, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 0.6)
     dot:SetSize(size, size)
     dot:SetPoint("BOTTOMRIGHT", resizeGrip, "BOTTOMRIGHT", x, y)
+    resizeGrip.dots[#resizeGrip.dots + 1] = dot
     return dot
 end
 GripDot(-2, 2, 2)
 GripDot(-2, 7, 2)
 GripDot(-7, 2, 2)
-resizeGrip:SetScript("OnEnter", function() GameTooltip:SetOwner(resizeGrip, "ANCHOR_LEFT"); GameTooltip:AddLine("Drag to resize"); GameTooltip:Show() end)
-resizeGrip:SetScript("OnLeave", function() GameTooltip:Hide() end)
+-- gold on hover and while dragging, like the pop-out's grip (Karl, 2026-10-14)
+function FGT.LightResizeGrip(on)
+    local c = on and C.ACCENT or C.SUBTEXT
+    for _, dot in ipairs(resizeGrip.dots) do dot:SetVertexColor(c[1], c[2], c[3], on and 0.95 or 0.6) end
+end
+resizeGrip:SetScript("OnEnter", function()
+    FGT.LightResizeGrip(true)
+    GameTooltip:SetOwner(resizeGrip, "ANCHOR_LEFT"); GameTooltip:AddLine("Drag to resize"); GameTooltip:Show()
+end)
+resizeGrip:SetScript("OnLeave", function()
+    if not resizeGrip:GetScript("OnUpdate") then FGT.LightResizeGrip(false) end
+    GameTooltip:Hide()
+end)
 -- Sizing is done by hand instead of the game's StartSizing, which
 -- re-measured the window on mouse-down and could snap the height before
 -- the mouse even moved. Here the size changes only by how far the
@@ -5978,6 +5991,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 end
                 e.cfg, e.blur = cfg, k <= blurs
                 e.shownNow, e.sizeNow, e.alphaNow = nil, nil, nil -- (the texture may have been another set's)
+                e.tl, e.tr, e.tt, e.tb = nil, nil, nil, nil
+                e.tex:SetTexCoord(0, 1, 0, 1) -- (sand trims its own coordinates at the art's edges)
                 e.tex:SetTexture(cfg.zap and self.emberArt.zap or e.blur and self.emberArt.blur
                     or ((cfg.fall or cfg.float) and self.emberArt.flake or self.emberArt.spark))
                 self:SpawnEmber(e, true)
@@ -6052,14 +6067,31 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                         fade = fade*below*below*(3 - 2*below)
                     end
                     local inside = x > 0 and x < aw and y > 0 and y < ah
+                    local size = e.size*((e.blur or cfg.fall or cfg.float or drift) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow, motes and sand don't
+                    -- Sand is trimmed to the art's own rectangle (the wide dust puffs used to hang
+                    -- over the edge into the Materials drawer, Karl 2026-10-14): the part inside
+                    -- is drawn, with its texture coordinates cut to match.
+                    local cx, cy, cw, ch, tl, tr, tt2, tb = x, y, size*(e.stretch or 1), size, 0, 1, 0, 1
+                    if inside and drift then
+                        local l, r, tp, bt = x - cw/2, x + cw/2, y - ch/2, y + ch/2
+                        local l2, r2, tp2, bt2 = math.max(0, l), math.min(aw, r), math.max(0, tp), math.min(ah, bt)
+                        if r2 <= l2 or bt2 <= tp2 then
+                            inside = false
+                        else
+                            cx, cy, cw, ch = (l2 + r2)/2, (tp2 + bt2)/2, r2 - l2, bt2 - tp2
+                            tl, tr, tt2, tb = (l2 - l)/(r - l), (r2 - l)/(r - l), (tp2 - tp)/(bt - tp), (bt2 - tp)/(bt - tp)
+                        end
+                    end
                     local t = e.tex
                     if inside ~= e.shownNow then t:SetShown(inside); e.shownNow = inside end
                     if inside then
-                        local size = e.size*((e.blur or cfg.fall or cfg.float or drift) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow, motes and sand don't
                         -- (one anchor, so SetPoint replaces it: no ClearAllPoints; the size and
                         -- the 8-bit alpha are only sent when they change; sand is stretched along the wind)
-                        t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
-                        if e.sizeNow ~= size then t:SetSize(size*(e.stretch or 1), size); e.sizeNow = size end
+                        t:SetPoint("CENTER", self.art, "TOPLEFT", cx, -cy)
+                        if e.sizeNow ~= cw or e.sizeH ~= ch then t:SetSize(cw, ch); e.sizeNow, e.sizeH = cw, ch end
+                        if drift and (e.tl ~= tl or e.tr ~= tr or e.tt ~= tt2 or e.tb ~= tb) then
+                            t:SetTexCoord(tl, tr, tt2, tb); e.tl, e.tr, e.tt, e.tb = tl, tr, tt2, tb
+                        end
                         -- fades toward the left like the photo
                         local alpha = math.floor(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw)*255 + 0.5)
                         if e.alphaNow ~= alpha then t:SetAlpha(alpha/255); e.alphaNow = alpha end
@@ -6682,7 +6714,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.lagFrame:Hide()
     B.lagFrame:SetScript("OnUpdate", function(f, dt)
         f.t = (f.t or 0) + dt
-        B.awShown = B.awShown - 70*math.min(1, f.t/0.6)*dt
+        B.awShown = B.awShown - 85*math.min(1, f.t/0.6)*dt
         B:Fit()
     end)
     B.lagFrame:SetScript("OnHide", function(f) f.t = 0 end)
@@ -11634,6 +11666,7 @@ end
 resizeGrip:SetScript("OnMouseUp", function(self)
     if not isSizing then return end
     self:SetScript("OnUpdate", nil)
+    FGT.LightResizeGrip(self:IsMouseOver())
     FGT.sizeStart = nil
     isSizing = false
     NormalizeAnchor()
