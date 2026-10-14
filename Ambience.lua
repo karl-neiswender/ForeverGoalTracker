@@ -15,12 +15,14 @@ local ATLAS = "talents-animations-particles"
 local function AtlasInfo(name)
     return C_Texture and C_Texture.GetAtlasInfo and C_Texture.GetAtlasInfo(name)
 end
-local info = AtlasInfo(ATLAS)
-local own = not info -- (our own textures, shown at the atlas's size)
-if own then
-    info = { file = MEDIA .. "ambience-leaves.blp", width = 1308, height = 774,
+-- Our stand-in for an atlas's description: the file, the size shown and the whole texture.
+local function OwnArt(file, width, height)
+    return { file = MEDIA .. file, width = width, height = height,
              leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1 }
 end
+local info = AtlasInfo(ATLAS)
+local own = not info -- (our own textures, shown at the atlas's size)
+if own then info = OwnArt("ambience-leaves.blp", 1308, 774) end
 -- An atlas by name on Forever, or our file on Classic Era.
 local function Art(t, atlas, art)
     if own then t:SetTexture(art.file); t:SetTexCoord(0, 1, 0, 1)
@@ -94,7 +96,7 @@ A.layers = {
 -- slide left end to end, 1612 units in 80 s, so the band never runs out.
 local CLOUDS = "talents-animations-clouds"
 local cloud = AtlasInfo(CLOUDS)
-if not cloud and own then cloud = { file = MEDIA .. "ambience-clouds.blp", width = 1612, height = 774 } end
+if not cloud and own then cloud = OwnArt("ambience-clouds.blp", 1612, 774) end
 if cloud then
     for _, startX in ipairs({ 0, 1612 }) do
         local t = U.detail:CreateTexture(nil, "BACKGROUND", nil, CLOUD_LEVEL)

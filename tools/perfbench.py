@@ -25,7 +25,7 @@ from lupa import lua51
 ROOT = os.path.dirname(here)
 os.chdir(ROOT)
 FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua",
-         "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua"]
+         "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua"]
 STUB = open(os.path.join(here, "wowstub.lua"), encoding="utf-8").read()
 
 BENCH = r'''

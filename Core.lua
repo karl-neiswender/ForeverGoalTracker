@@ -2050,10 +2050,12 @@ end
 
 -- Soft monochrome faction artwork cropped into the upper-right corner.
 -- White alpha cutouts share one tint and fade across both factions.
-function FGT.AddFactionCardEtch(row, faction)
+-- (layer: the frame that draws it, when not the card itself: My Goals cards
+-- draw it in their clipped text layer, so it wipes away with the text)
+function FGT.AddFactionCardEtch(row, faction, layer)
     if faction ~= "Alliance" and faction ~= "Horde" then return end
     local path = "Interface\\AddOns\\" .. ADDON .. "\\Media\\faction-soft-" .. string.lower(faction)
-    local tex = row:CreateTexture(nil, "ARTWORK", nil, -4)
+    local tex = (layer or row):CreateTexture(nil, "ARTWORK", nil, -4)
     tex:SetTexture(path)
     -- Sample an enlarged 98x103 emblem inside the card's etched rim.
     -- Crop the top/right without painting over the border.
@@ -3926,11 +3928,21 @@ end
 local function RefreshGoalList()
     -- first, so a goal finished just now already has its date below
     if FGT.CheckGoalCompletions then FGT.CheckGoalCompletions() end
+    -- (a card that appears while the list is folded gets its rail marks now)
+    local railed = FGT.ListIsRail and FGT.ListIsRail()
     for _, row in pairs(goalRows) do
+        if railed and not row.rail and row:IsShown() then
+            FGT.RailMarks(row); row.rail:SetAlpha(1); row.rail:Show()
+            row.body:SetAlpha(0); row.body:Hide()
+        end
         local done, total = GoalProgress(row.goal)
         row.bar:SetProgress(done, total)
         local isSelected = (row.goal.id == selectedId)
         local isNew = FGT.ApplyForeverLook(row, row.goal)
+        if row.railBar then
+            row.railBar:SetProgress(done, total)
+            row.railBar:SetBlue(isNew and true or false)
+        end
         if isNew then row.newChip:SetLabel(FGT.ForeverDot(12) .. isNew, C.FOREVER_LIGHT) end
         local finished = total > 0 and done == total
         local on = finished and FGT.CompletedOn(row.goal)
@@ -3963,10 +3975,11 @@ local function RefreshGoalList()
         local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
         local fav = favs[row.goal.id] and true or false
         row.star:SetShown(fav)
+        if row.railStar then row.railStar:SetShown(fav); row.railStarShadow:SetShown(fav) end
         local showNew = isNew and not fav
         row.newChip:SetShown(showNew and true or false)
         row.newChip:ClearAllPoints()
-        row.newChip:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
+        row.newChip:SetPoint("TOPRIGHT", row.body, "TOPRIGHT", -8, -8)
         local rightInset = fav and 28 or (showNew and (row.newChip:GetWidth() + 14) or 8)
         row.eyebrow:SetPoint("RIGHT", -rightInset, 0)
         row.name:SetPoint("RIGHT", -8, 0)
@@ -3999,7 +4012,19 @@ for i, goal in ipairs(FGT.goals) do
     row:SetHeight(rowHeight)
     row.goal = goal
     Etch(row, STYLE.row, 12)
-    FGT.AddFactionCardEtch(row, goal.faction)
+    -- Everything right of the icon (text, bar, star, NEW chip, faction mark)
+    -- lives in `body`, inside a clip frame at the card's edge. When the list
+    -- folds to its icon rail (Rail.lua), the card narrows, body keeps its open
+    -- width, and the clip trims it from the right as it fades: the card
+    -- closes like a lid instead of squeezing its text.
+    row.clip = CreateFrame("Frame", nil, row)
+    row.clip:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
+    row.clip:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", -3, 0)
+    if row.clip.SetClipsChildren then row.clip:SetClipsChildren(true) end
+    row.body = CreateFrame("Frame", nil, row.clip)
+    row.body:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
+    row.body:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", 0, 0)
+    FGT.AddFactionCardEtch(row, goal.faction, row.body)
 
     -- Item icon, rimmed in the category's quality color.
     local catColor = FGT.categoryColors[goal.category] or C.ACCENT
@@ -4007,7 +4032,7 @@ for i, goal in ipairs(FGT.goals) do
     row.icon:SetPoint("TOPLEFT", row, "TOPLEFT", 10, -11)
     row.icon:SetIcon(FGT.GoalIcon(goal), catColor)
 
-    row.eyebrow = NewFontString(row, 9, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    row.eyebrow = NewFontString(row.body, 9, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
     row.eyebrow:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 9, 0)
     row.eyebrow:SetPoint("RIGHT", -8, 0)
     row.eyebrow:SetJustifyH("LEFT")
@@ -4015,7 +4040,7 @@ for i, goal in ipairs(FGT.goals) do
     row.eyebrow:SetWordWrap(false)
     row.eyebrow:SetNonSpaceWrap(false)
 
-    row.name = NewFontString(row, 13, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    row.name = NewFontString(row.body, 13, "", C.INK2[1], C.INK2[2], C.INK2[3])
     row.name:SetPoint("TOPLEFT", row.eyebrow, "BOTTOMLEFT", 0, -7)
     row.name:SetPoint("RIGHT", -8, 0)
     row.name:SetJustifyH("LEFT")
@@ -4027,8 +4052,8 @@ for i, goal in ipairs(FGT.goals) do
     row.name:SetShadowOffset(1, -1)
 
     -- Forever-only goals: a blue NEW chip with the Forever logo.
-    row.newChip = NewChip(row, 8)
-    row.newChip:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
+    row.newChip = NewChip(row.body, 8)
+    row.newChip:SetPoint("TOPRIGHT", row.body, "TOPRIGHT", -8, -8)
     row.newChip:SetLabel(FGT.ForeverDot(12) .. "NEW", C.FOREVER_LIGHT)
     row.newChip:SetBackdrop(nil)
     FGT.AddForeverPulse(row.newChip)
@@ -4061,18 +4086,21 @@ for i, goal in ipairs(FGT.goals) do
     FGT.AddCelebrationFX(row, 3, 64)
 
     -- gold star in the top-right corner of favorited goals
-    row.star = row:CreateTexture(nil, "OVERLAY")
+    row.star = row.body:CreateTexture(nil, "OVERLAY")
     row.star:SetTexture(FGT.Icon("star")) -- Karl's painted gold star
     row.star:SetSize(15, 15)
-    row.star:SetPoint("TOPRIGHT", row, "TOPRIGHT", -8, -8)
+    row.star:SetPoint("TOPRIGHT", row.body, "TOPRIGHT", -8, -8)
     row.star:Hide()
 
     -- Last line, level with the icon's bottom: progress, including the
     -- full bar on completed goals. Their date replaces the eyebrow.
-    row.bar = NewBar(row, 4)
+    row.bar = NewBar(row.body, 4)
     row.bar:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, 1)
-    row.bar:SetPoint("RIGHT", row, "RIGHT", -10, 0)
+    row.bar:SetPoint("RIGHT", row.body, "RIGHT", -10, 0)
     row.bar.label:Hide()
+
+    -- (the icon rail's own marks, row.rail, are made by Rail.lua the first
+    -- time a card folds: most cards in the catalog are never shown)
 
     row:SetScript("OnEnter", function(self)
         if self.goal.id ~= selectedId then
@@ -4081,6 +4109,8 @@ for i, goal in ipairs(FGT.goals) do
         end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine(self.goal.name)
+        -- folded into the icon rail: the name only, like the gear's "Settings" (Karl)
+        if FGT.ListIsRail and FGT.ListIsRail() then GameTooltip:Show(); return end
         local gc = FGT.categoryColors[self.goal.category] or C.ACCENT
         GameTooltip:AddLine(self.goal.category, gc[1], gc[2], gc[3])
         local dc = FGT.difficultyColors[self.goal.difficulty] or C.SUBTEXT
@@ -4207,6 +4237,11 @@ LayoutGoalList = function()
 end
 
 FGT.LayoutGoalList = LayoutGoalList
+-- Narrow bridge for Rail.lua (the goals list folding to its icon rail).
+FGT.RailUI = {
+    list = listPanel, scroll = listScrollObj, content = listContent, rows = goalRows,
+    sortBar = sortBar, sortMenu = sortMenu, layout = LayoutGoalList, refresh = RefreshGoalList,
+}
 UpdateSortLabel()
 LayoutGoalList()
 
@@ -8857,6 +8892,7 @@ end
 local detailParts -- every detail-panel element hidden by the empty state
 function FGT.ShowEmptyTracker()
     if FGT.HidePopoutGuide then FGT.HidePopoutGuide() end
+    if FGT.RailEmpty then FGT.RailEmpty(true) end -- the empty tracker shows the full list
     FGT.CancelGuideMotion()
     FGT.guideLayout = nil
     FGT.CloseNoteCard(true)
@@ -8906,6 +8942,7 @@ main:HookScript("OnShow", function()
 end)
 function FGT.HideEmptyTracker()
     if not emptyNote:IsShown() then return end
+    if FGT.RailEmpty then FGT.RailEmpty(false) end
     emptyNote:Hide()
     for _, p in ipairs(FGT.emptyUI.parts) do p:Hide() end
     sortBar:Show()
@@ -13192,6 +13229,7 @@ SLASH_FOREVERGOALTRACKER2 = "/fgt"
 SLASH_FOREVERGOALTRACKER3 = "/forevergoals"
 SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     if FGT.HandlePopoutCommand and FGT.HandlePopoutCommand(msg) then return end
+    if FGT.HandleRailCommand and FGT.HandleRailCommand(msg) then return end
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
     local opacity = msg:match("^banneropacity%s*(.*)$")
     if opacity then

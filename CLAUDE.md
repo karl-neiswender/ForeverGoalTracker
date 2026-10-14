@@ -50,6 +50,14 @@ Latest published version is **2.13.0** (tagged 2026-10-13 on `6e68088`, approved
   - **Leaves:** 145 pieces against Blizzard's 147, with matching size and brightness spread and 60% in the bottom third.
   - **Download:** about 87 KB zipped. Full restart to load.
 - **Banner lights step every frame** (`B.tickStep = 0`, was 1/30 since 2.13). Karl saw stutter on the Mac's Classic Era: 30 steps a second lands unevenly when the frame rate doesn't divide into it. `tools/perfbench.py` puts the busiest banner at about 48 µs a frame at 60 fps, with no new garbage. `/goals lightrate 30|60|frame` compares the rates until /reload.
+- **Goals list icon rail** (`Rail.lua`, spec `reports/collapsed-goals-rail-spec.md`; built 2026-10-14, awaiting Karl's in-game check):
+  - **Cards:** each card's text, bar, star, NEW chip and faction mark live in `row.body` inside a clip frame (`row.clip`). Folding narrows the cards, `row.body` keeps its open width (230), and the clip trims it from the right as it fades.
+  - **Rail marks:** `row.rail` holds the sliver bar and the corner star with its shadow. It's made by `FGT.RailMarks` the first time a card folds, to save memory on the ~200 catalog cards.
+  - **Header:** the controls (Show, Sort and Clear, Search) live in a clipped `head`/`inner`, which moves into the filter card (`R.card`, main+50, under the dropdown menus) while folded. The list's scroll now starts at a fixed depth (84), so cards never move vertically.
+  - **Widths:** open is the list's own width (from the tabs, about 258); the rail is 98 (70-unit cards).
+  - **Handle and state:** the handle sits in the gap like Materials'. The choice is saved as `DB.listRail`. The empty tracker and demo scenes always show the full list (`FGT.RailEmpty`, called from Show/HideEmptyTracker).
+  - **Motion:** Materials follows each frame, the steps re-wrap every 75 ms, and there's a full redraw at the end. Full slides (0.34 s, reversible); Subtle fades out and back in; Off is instant.
+  - **Other:** `/goals rail` toggles. Tests: `tools/rail-tests.lua`.
 - **Summon Players** (`social_summons`, Library.lua): Warlock-only social counter (`summons`), counted when Ritual of Summoning (spell 698, same id on Classic and Forever, icon `spell_shadow_twilight`) succeeds, once per 4 s. It counts rituals begun, since the warlock gets no event when the summon completes; the tip says so. Codex is making its banner from `Media/artwork/Summoning_Portal_full.jpg`.
 
 A World of Warcraft addon for **Warcraft Forever** (beta now, live launch November 2026). Players pick long-term goals from a built-in library (legendaries, mounts, reputations, raids, item sets, professions, PvP) and follow step-by-step guides, and steps tick automatically from game state across all of the player's characters.
