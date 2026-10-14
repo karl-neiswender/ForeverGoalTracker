@@ -5240,6 +5240,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         for k, v in pairs(extra or {}) do spec[k] = v end
         return spec
     end
+    -- Blown sand (Karl, 2026-10-14) for desert and barren banners: grains streaking sideways
+    -- and faint dust puffs, quickening in slow gusts. `box` is where it blows (usually the
+    -- lower part of the art), `wind` its direction in degrees (180 = toward the left).
+    local function Sand(box, count, wind)
+        return { drift = true, box = box, count = count, blurShare = 0.12, rise = 0.55, wind = wind, strength = 1.4 }
+    end
     local function SnowOnly(count)
         return { 0.5, 0.4, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, embers = Snow(count) }
     end
@@ -5464,6 +5470,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             -- soft breathing light around the throne and the steps below it
             blooms = { { 0.70, 0.56, 0.34, 1 }, { 0.70, 0.70, 0.30, 0.8 } } },
         -- Ironforge (Dwarf and Gnome Ambassador): snow blowing across the gate
+        -- Ruins of Ahn'Qiraj: sand blowing across the battlefield toward the left, over the
+        -- ground and low air (v 0.42-0.92), clear of the sky and the wasps; the first sand
+        -- banner, to tune before others (Karl, 2026-10-14). Its bloom is added on top.
+        ["raid_aq20-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = Sand({ 0.0, 1.0, 0.42, 0.92 }, 70) },
         -- Ironforge: firelight glowing from inside the great door, flickering slowly like the
         -- Great Forge beyond it, under the falling snow (Karl, 2026-10-14). The doorway spans
         -- about u 0.61-0.73, v 0.60-0.80 on cities/ironforge-master.png; a light column inside
@@ -5799,7 +5810,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             -- new snow starts along the top of its area, then falls through it
             e.y = y0 + (y1 - y0)*0.08*math.random()
         end
-        if cfg.float then
+        local drift = cfg.drift
+        if drift then
+            -- blown sand: sideways along the wind (`wind`, degrees; 180 = toward the left,
+            -- default, slightly down), tiny streaks plus a few wide, very faint dust puffs
+            local wind = math.rad(cfg.wind or 186)
+            if not warm then
+                -- new sand blows in from the upwind edge of its area
+                local fromRight = math.cos(wind) < 0
+                e.x = fromRight and (x1 - (x1 - x0)*0.06*math.random()) or (x0 + (x1 - x0)*0.06*math.random())
+            end
+            e.life = blur and (10 + 6*math.random()) or (3 + 3*math.random())
+            e.heading = wind + (math.random()*2 - 1)*math.rad(6)
+            e.curve = (math.random()*2 - 1)*math.rad(3)
+            e.sway, e.freq = aw*(blur and 0.006 or 0.004)*(0.4 + math.random()), 0.15 + 0.35*math.random()
+        elseif cfg.float then
             -- motes in light: drifting slowly any way, long-lived
             e.life = 8 + 6*math.random()
             e.heading = math.random()*2*math.pi
@@ -5822,7 +5847,21 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         e.phase = math.random()*2*math.pi
         e.speed = cfg.rise*aw*(0.35 + 0.9*math.random())/e.life*(blur and 0.55 or 1)
         local r = math.random()
-        if cfg.float then
+        e.stretch = 1
+        if drift then
+            if blur then
+                -- dust haze: wide, flat and faint
+                e.size = aw*(0.06 + 0.05*r)
+                e.stretch = 4 + 3*math.random()
+                e.peak = 0.10 + 0.10*math.random()
+            else
+                -- grains: small, streaked a little along the wind (smaller than this
+                -- vanished into busy desert art in a still, 2026-10-14)
+                e.size = aw*(0.005 + 0.008*r*r)
+                e.stretch = 2.2 + 1.6*math.random()
+                e.peak = 0.50 + 0.45*math.random()
+            end
+        elseif cfg.float then
             e.size = aw*(blur and (0.02 + 0.02*r) or (0.004 + 0.010*r*r))
             e.peak = blur and (0.08 + 0.10*math.random()) or (0.25 + 0.35*math.random())
         elseif blur then
@@ -5844,6 +5883,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             e.age = skip
         end
         e.wait = nil
+        e.sizeNow = nil -- (a new shape: sand's stretch differs from one grain to the next)
     end
     function B:ResetEmbers()
         local n = 0
@@ -5875,6 +5915,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         if n == 0 then return end
         local aw, ah = math.max(1, self.art:GetWidth()), self.shownArtHeight or 0
         local base = (self.glowLevel or 0)*0.55
+        -- Wind for blown sand: mostly calm, swelling into a gust now and then on two slow,
+        -- unrelated beats (about 17 and 29 s), each gust taking seconds to build and settle,
+        -- so the sand quickens and thickens a little without anything flashing.
+        local tt = self.glowAnim.t or 0
+        local g1 = 0.5 - 0.5*math.cos(tt*2*math.pi/17.3)
+        local g2 = 0.5 - 0.5*math.cos(tt*2*math.pi/29.1 + 1.3)
+        local gust = 0.6*g1*g1 + 0.4*g2*g2*g2
+        self.gust = gust
+        local gustSpeed, gustAlpha = 1 + 0.9*gust, 0.75 + 0.35*gust
         for k = 1, n do
             local e = self.emberDots[k]
             local cfg = e.cfg
@@ -5890,12 +5939,18 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     if e.shownNow ~= false then e.tex:Hide(); e.shownNow = false end
                 else
                     e.heading = e.heading + e.curve*dt
-                    e.x = e.x + math.cos(e.heading)*e.speed*dt
-                    e.y = e.y + math.sin(e.heading)*e.speed*dt
-                    local x = e.x + e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
-                    local y = e.y
+                    local drift = cfg.drift
+                    local step = e.speed*dt*(drift and gustSpeed or 1)
+                    e.x = e.x + math.cos(e.heading)*step
+                    e.y = e.y + math.sin(e.heading)*step
+                    local wobble = e.sway*math.sin(e.phase + e.age*e.freq*2*math.pi)
+                    -- (sand flutters up and down across its path; the rest sway sideways)
+                    local x = drift and e.x or (e.x + wobble)
+                    local y = drift and (e.y + wobble) or e.y
                     local fade
-                    if cfg.float then
+                    if drift then
+                        fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)*gustAlpha
+                    elseif cfg.float then
                         fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)
                     elseif cfg.fall then
                         -- snow also melts away over the bottom 40% of the art
@@ -5909,11 +5964,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     local t = e.tex
                     if inside ~= e.shownNow then t:SetShown(inside); e.shownNow = inside end
                     if inside then
-                        local size = e.size*((e.blur or cfg.fall or cfg.float) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow and motes don't
+                        local size = e.size*((e.blur or cfg.fall or cfg.float or drift) and 1 or (1 - 0.4*p)) -- sparks burn smaller; snow, motes and sand don't
                         -- (one anchor, so SetPoint replaces it: no ClearAllPoints; the size and
-                        -- the 8-bit alpha are only sent when they change)
+                        -- the 8-bit alpha are only sent when they change; sand is stretched along the wind)
                         t:SetPoint("CENTER", self.art, "TOPLEFT", x, -y)
-                        if e.sizeNow ~= size then t:SetSize(size, size); e.sizeNow = size end
+                        if e.sizeNow ~= size then t:SetSize(size*(e.stretch or 1), size); e.sizeNow = size end
                         -- fades toward the left like the photo
                         local alpha = math.floor(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw)*255 + 0.5)
                         if e.alphaNow ~= alpha then t:SetAlpha(alpha/255); e.alphaNow = alpha end

@@ -380,6 +380,28 @@ if ok_all:
             'assert(not first.set_tier1 or first.set_forever_raid < first.set_tier1, "Tier 0.5 comes before Tier 1: " .. list); '
             'assert(not first.raid_mc or first.set_forever_raid < first.raid_mc, "and before Molten Core: " .. list); '
             'STUB_NS.CloseWelcome(true); print("  Forever raids and the Tier 0.5 set lead the raiding suggestions: " .. list)', True),
+        # Blown sand (Ruins of Ahn'Qiraj): grains travel with the wind, streaked along it, and gusts stay gentle.
+        ("blown sand", None,
+            'local F = STUB_NS; local B = F.goalBanner; '
+            'rawset(B.art, "GetWidth", function() return 700 end); '
+            'B.goal = F.GoalById("raid_aq20"); B.hasArt, B.shownArtHeight, B.uv, B.sourceAspect, B.imageFade = true, 520, { 0, 1, 0, 1 }, 4/3, 1; '
+            'B.glowLevel = 0.5; B.emberFor = nil; B:PlaceGlow(); '
+            'assert(B.glowSpec and B.glowSpec.embers and B.glowSpec.embers.drift, "Ruins of Ahn\'Qiraj has blown sand"); '
+            'assert(B.glowSpec.bloom, "and keeps its bloom"); '
+            'B:ResetEmbers(); assert(B.emberCount == 70, "70 sand particles: " .. tostring(B.emberCount)); '
+            'local grains, haze, wide = 0, 0, 0; for k = 1, B.emberCount do local e = B.emberDots[k]; '
+            '  if e.blur then haze = haze + 1 else grains = grains + 1 end; if (e.stretch or 1) > 2 then wide = wide + 1 end end; '
+            'assert(haze >= 6 and haze <= 10 and wide == 70, "grains and dust puffs, all streaked along the wind: " .. haze .. " " .. wide); '
+            'local x0 = {}; for k = 1, B.emberCount do x0[k] = B.emberDots[k].x end; '
+            'B.glowAnim.t = 0; for _ = 1, 30 do B.glowAnim.t = B.glowAnim.t + 1/30; B:StepEmbers(1/30) end; '
+            'local left, moved = 0, 0; for k = 1, B.emberCount do local e = B.emberDots[k]; '
+            '  if not e.wait and e.age > 1 then moved = moved + 1; if e.x < x0[k] then left = left + 1 end end end; '
+            'assert(moved > 20 and left / moved > 0.9, "the wind carries sand to the left: " .. left .. " of " .. moved); '
+            'local lo, hi = 1, 0; for i = 0, 600 do B.glowAnim.t = i * 0.1; B:StepEmbers(0); lo = math.min(lo, B.gust); hi = math.max(hi, B.gust) end; '
+            'assert(lo >= 0 and hi <= 1 and hi > 0.5 and lo < 0.1, "gusts swell and settle between calm and strong: " .. lo .. " " .. hi); '
+            'local step, prev = 0, nil; for i = 0, 3600 do B.glowAnim.t = i / 60; B:StepEmbers(0); if prev then step = math.max(step, math.abs(B.gust - prev)) end; prev = B.gust end; '
+            'assert(step < 0.004, "a gust never jumps between frames (photosensitivity rule): " .. step); '
+            'print("  blown sand: 70 particles leftward, streaked, bloom kept, gusts calm to strong ok")'),
         # Classic Era has no talent-window atlas: the goal page's leaves and clouds use our own textures.
         ("Classic Era ambience", None,
             'local A = STUB_NS.ambience; assert(A and A.own, "Classic Era gets our own clouds and leaves"); '

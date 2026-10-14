@@ -75,6 +75,7 @@ local CASES = {
   { "Rhok'delar (sunlight, blooms)", "rhokdelar" },
   { "Judgement (rays, sunlight)", "set_tier2_paladin" },
   { "Save Gold (beam, glints)", "gold_5k" },
+  { "Ruins of Ahn'Qiraj (sand 70, bloom)", "raid_aq20" },
 }
 for _, c in ipairs(CASES) do Run(c[1], c[2], 1800) end
 print(string.format("%-36s %10s %12s %10s %8s %8s", "banner", "us/frame", "garbage B/f", "api calls", "embers", "shafts"))
