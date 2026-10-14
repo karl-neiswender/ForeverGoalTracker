@@ -5464,7 +5464,12 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             -- soft breathing light around the throne and the steps below it
             blooms = { { 0.70, 0.56, 0.34, 1 }, { 0.70, 0.70, 0.30, 0.8 } } },
         -- Ironforge (Dwarf and Gnome Ambassador): snow blowing across the gate
-        ["rep_ambassador_ally_ironforge-banner.blp"] = SnowOnly(100),
+        -- Ironforge: firelight glowing from inside the great door, flickering slowly like the
+        -- Great Forge beyond it, under the falling snow (Karl, 2026-10-14). The doorway spans
+        -- about u 0.61-0.73, v 0.60-0.80 on cities/ironforge-master.png; a light column inside
+        -- sits at u 0.67.
+        ["rep_ambassador_ally_ironforge-banner.blp"] = { 0.67, 0.68, 0.30, { 1, 1, 1 }, strength = 0.9,
+            flicker = 0.3, embers = Snow(100) },
         -- Leveling, Undead Paladin: holy light on the raised hammer head (its eyes bloom too, baked),
         -- slow turning rays from it, and a few ash motes drifting in the storm clouds
         ["allclasses_undead_paladin-banner.blp"] = { 0.79, 0.13, 0.40, { 1, 1, 1 }, rays = 4.2, turn = 260,
@@ -5486,6 +5491,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "rep_thorium", "wolfsbane", "prof_cooking",
         "social_buffs_mage", "social_buffs_druid", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
         "allclasses_undead_paladin", "rep_ambassador_ally_darnassus", "rep_ambassador_horde_undercity", "social_cheers", "set_tier2_warlock",
+        -- the morning banners of 2026-10-14 (Karl approved the previews)
+        "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5498,6 +5505,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "wolfsbane", "social_campfires",
         "social_buffs", "social_friends", "pvp_set_plate_ally", "pvp_set_plate_horde", "pvp_mount_horde",
         "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers", "set_tier2_warlock",
+        "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
@@ -5508,6 +5516,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         pvp_mount_horde = 0.4, allclasses_undead_paladin = 0.5,
         rep_ambassador_ally_darnassus = 0.5, rep_ambassador_horde_undercity = 0.5,
         social_cheers = 0.45,
+        -- the ring is already bright; Kel'Thuzad's frost burst is a lighter touch (2026-10-14)
+        set_partners_in_crime = 0.4, raid_naxx = 0.5,
     }
     -- A bloom can be baked in zones (tools/bloomall.py ZONES): one texture per band of the
     -- picture, each dimming and brightening on its own slow beat, so the glow ripples through

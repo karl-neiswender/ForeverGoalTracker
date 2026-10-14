@@ -76,6 +76,12 @@ STEMS = {
     "rep_ambassador_horde_undercity": "Undercity (ceiling light, torches and waterfall bases)",
     "social_cheers": "Give Cheers (the foamy tankard and the wall lantern)",
     "set_tier2_warlock": "Warlock Tier 2, Nemesis (helmet eyes, dragon staff mouth, shoulder snake eyes and mouth)",
+    # the morning banners of 2026-10-14 (Karl approved the previews)
+    "social_summons": "Summon Players (the starry cloak and the eyes)",
+    "set_partners_in_crime": "Partners in Crime (the gem and its white flames)",
+    "social_waves": "Waves (the dynamite sparks)",
+    "raid_naxx": "Naxxramas, Kel'Thuzad (the frost burst at the claw, the glow behind him quieter)",
+    "social_guild": "Guild (the light flares and columns behind him, not his armor)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -95,6 +101,9 @@ REGIONS = {
     "rep_ambassador_horde_undercity": [(0.64, 0.78, 0.00, 0.08), (0.37, 0.44, 0.32, 0.40), (0.95, 1.00, 0.33, 0.41),
                                        (0.50, 0.60, 0.60, 0.72), (0.80, 0.90, 0.60, 0.72)],  # ceiling light, torches, waterfall bases
     "social_cheers": [(0.82, 1.00, 0.02, 0.24), (0.38, 0.48, 0.10, 0.28)],  # tankard, lantern
+    "social_summons": [(0.58, 0.80, 0.18, 0.86)],                      # the cloak and the eyes
+    "set_partners_in_crime": [(0.40, 0.98, 0.10, 0.72)],               # the ring, gem and flames
+    "social_waves": [(0.58, 0.93, 0.57, 0.79)],                        # the fuses' sparks
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {
@@ -121,6 +130,12 @@ OVERRIDES = {
         ((0.70, 0.73, 0.335, 0.375), 0.55, dict(near=3.0, far=14.0)),             # shoulder snake eyes
         ((0.752, 0.782, 0.33, 0.36), 0.55, dict(near=3.0, far=14.0)),
         ((0.77, 0.90, 0.38, 0.53), 0.7, {})]),                                     # shoulder snake mouth                                         # shoulder snake mouth
+    # sparks are small: a tighter halo
+    "social_waves": dict(region=[(0.58, 0.93, 0.57, 0.79)], near=3.0, far=18.0),
+    # the frost burst at the claw; the bright streaks everywhere else at a quarter
+    "raid_naxx": dict(region=[(0.74, 0.92, 0.04, 0.30)], outside=0.25),
+    # the flares and the light column, with his bright shoulder plates hushed
+    "social_guild": dict(region=[(0.28, 1.00, 0.00, 0.22)], quiet=[((0.36, 0.95, 0.08, 0.22), 0.3)]),
 }
 
 # Blooms baked in zones (a texture per band of the picture, each breathing on its own beat in
@@ -144,7 +159,14 @@ def main():
     manifest = json.loads((FINAL / "runtime-manifest.json").read_text(encoding="utf-8"))
     font = ImageFont.load_default()
     tiles, report = [], []
+    # --only a,b,c bakes just those stems (the others are left as they are)
+    only = None
+    for a in sys.argv[1:]:
+        if a.startswith("--only="):
+            only = set(a.split("=", 1)[1].split(","))
     for stem, label in STEMS.items():
+        if only and stem not in only:
+            continue
         info = manifest.get(stem)
         if not info:
             print("no master for", stem)
