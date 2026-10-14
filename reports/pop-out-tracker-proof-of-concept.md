@@ -61,8 +61,36 @@ rendering or a completed release gate.
 
 ## Native review still required
 
-The computer-control connection timed out while attempting to inspect WoW.
-No native screenshot, interaction pass or CPU measurements are claimed.
+Karl reviewed the initial prototype in game and supplied a Dragonstalker Armor
+screenshot. His feedback led to the refinement below. The computer-control
+connection timed out during the original attempt to inspect WoW, so no agent
+native interaction pass or CPU measurements are claimed.
+
+## Refinement after Karl's first in-game review
+
+- The pop-out uses HIGH strata, 100 frame levels above the main window. Its
+  layer is refreshed on opening and when the main window is shown or clicked.
+- A global mouse-down listener dismisses Settings outside its panel. The gear
+  keeps its normal toggle, and clicks inside Settings continue to work.
+- The existing scroll-fade strips now have an opacity multiplier, independent
+  of their normal scroll animation. Both fades disappear at zero background opacity.
+- For one selected section, the pop-out header replaces its group heading.
+  It shows the section name, count, expansion control and one goal preview icon.
+  Several selected groups keep their independent headings.
+- Clicking the header collapses the body to a 32-unit header; clicking again
+  restores the saved expanded height. Dragging has a movement threshold and
+  does not toggle expansion. Position lock still allows header clicks.
+- Collapsed state is retained on reload. The corner grip hides while collapsed.
+- Checklist rows and internal group headings omit item icons in the pop-out.
+  The one header icon uses the existing whole-set Ctrl-click preview. Item
+  names retain their links and individual preview actions.
+- Single-section recipe rows have smaller indents so ingredient text and
+  expansion controls still align after the duplicate heading and icons are removed.
+
+The new two-client refinement tests cover these behaviors; retained results
+are in `checks/popout-refinement-check.txt` and
+`checks/popout-refinement-api-review.md`. This iteration still needs Karl's
+native check with `/reload`; no new texture or TOC change was added.
 
 Review first with a simple weapon guide, then an expanded Tier 3/Tier 2.5
 recipe. Check the thin header, long names, dock icon, smallest size, wrapping,

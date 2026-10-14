@@ -19,6 +19,9 @@ the same saved progress, selected parts and prerequisite rules.
 - Pop out the goal's steps area, preserving its existing checklist behavior.
 - Use a thin text header with settings and close controls. The header is the
   drag handle; a corner grip resizes the open window.
+- After the first native review, merge a single group's heading into the
+  window header. Click to collapse/expand; drag to move. Keep one header icon
+  with Ctrl-click whole-set preview, and omit icons from the pop-out rows.
 - Include the ability to lock the window in place.
 - Keep a recessed placeholder where the main steps were, preserving their
   layout footprint so Tips do not slide up.
@@ -76,6 +79,8 @@ The empty state is a visual placeholder for the steps area, preserving the layou
 - Preserve section headers, expand/collapse behavior, recipe ingredient rows,
   counts and the existing completed-step visibility preference. This replaces
   the earlier proposal for a separate three-step unfinished summary.
+- A single selected group's heading lives in the window header. Multiple
+  selected groups retain their individual headings in the body.
 - Resize width and height from the bottom-right grip. Text wraps and the
   scroll viewport refits to the available size. Review practical minimum and
   maximum bounds in game before fixing dimensions.
@@ -104,6 +109,8 @@ The empty state is a visual placeholder for the steps area, preserving the layou
   Avoid fading the entire parent frame. Review any subtle header contrast
   treatment on bright scenery before adding separate opacity controls.
 - Save opacity with the pop-out preferences independently of the main window.
+  Scroll-edge shadows follow background opacity too, retaining their independent
+  scroll fade. The pop-out must appear above the main window.
   Review the default and slider range over both bright and dark game scenes.
 - Pop out with a short eased fade and a tiny upward movement, overlapping
   the main steps fading away. Reveal the recessed placeholder as they vanish.
@@ -145,6 +152,8 @@ The empty state is a visual placeholder for the steps area, preserving the layou
 
 - Drag using the header, excluding its dock, settings and close buttons. Use a
   bottom-right corner grip for width/height resizing.
+- A header click toggles collapse; movement past the drag threshold prevents
+  that click action. Collapsing preserves the expanded size and hides the grip.
 - Lock disables both movement and resizing, hides the resize
   grip, and keeps checkboxes, scrolling, dock, settings and close working. Put Lock /
   Unlock in the compact settings menu to keep the header clean.
@@ -210,7 +219,7 @@ The empty state is a visual placeholder for the steps area, preserving the layou
 
 ## Later possibilities
 
-Multiple goals, multiple windows, collapse-to-header, automatic fading on
+Multiple goals, multiple windows, automatic fading on
 mouse leave, custom goals, guild announcements and the illustrated update
 welcome are outside this first pop-out release plan.
 

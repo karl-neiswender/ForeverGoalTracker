@@ -588,6 +588,8 @@ if ok_all:
     steps.extend([
         ("pop-out tracker", None, open(os.path.join(here, "popout-tests.lua"), encoding="utf-8").read()),
         ("Forever pop-out tracker", None, open(os.path.join(here, "popout-tests.lua"), encoding="utf-8").read(), True),
+        ("pop-out refinements", None, open(os.path.join(here, "popout-refinement-tests.lua"), encoding="utf-8").read()),
+        ("Forever pop-out refinements", None, open(os.path.join(here, "popout-refinement-tests.lua"), encoding="utf-8").read(), True),
         ("materials panel", None, open(os.path.join(here, "materials-tests.lua"), encoding="utf-8").read()),
         ("Forever materials panel", None, open(os.path.join(here, "materials-tests.lua"), encoding="utf-8").read(), True),
         ("racial mount costs", None, open(os.path.join(here, "mount-cost-tests.lua")).read()),

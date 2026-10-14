@@ -38,6 +38,12 @@ function P:Save()
     saved.left, saved.top = self.left, self.top
     saved.width, saved.height = self.width, self.height
     saved.opacity, saved.locked = self.opacity, self.locked or nil
+    saved.collapsed = self.collapsed or nil
+end
+
+function P:Raise()
+    self.frame:SetFrameStrata("HIGH")
+    self.frame:SetFrameLevel(S.main:GetFrameLevel() + 100)
 end
 
 function P:Place(offset)
@@ -55,9 +61,22 @@ function P:Place(offset)
     self.frame:SetScale(scale)
     self.frame:ClearAllPoints()
     self.frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", self.left, -self.top + (offset or 0))
-    self.frame:SetSize(self.width, self.height)
+    self.frame:SetSize(self.width, self.collapsed and 32 or self.height)
+    self.scroll.scroll:ClearAllPoints()
+    self.scroll.scroll:SetPoint("TOPLEFT", 12, -42)
+    self.scroll.scroll:SetSize(math.max(50, self.width - 36), math.max(1, self.height - 58))
     self.content:SetWidth(math.max(50, self.width - 36))
     self.scroll:Update()
+    self.body:SetShown(not self.collapsed)
+    self.scroll.scroll:SetShown(not self.collapsed)
+    self.grip:SetShown(not self.locked and not self.collapsed)
+    if self.collapsed then
+        self.scroll.trackHit:Hide()
+        self.scroll.fadeTop:Hide()
+        self.scroll.fadeBottom:SetScript("OnUpdate", nil)
+        self.scroll.fadeBottom:Hide()
+        self.complete:Hide()
+    end
 end
 
 function P:SetOpacity(value)
@@ -65,6 +84,9 @@ function P:SetOpacity(value)
     self.body:SetAlpha(self.opacity)
     self.heading:SetAlpha(self.opacity)
     self.rim:SetAlpha(self.opacity)
+    for _, fade in ipairs({self.scroll.fadeTop, self.scroll.fadeBottom}) do
+        for _, strip in ipairs(fade.strips) do strip:SetAlpha(self.opacity) end
+    end
     if self.opacityText then self.opacityText:SetText(math.floor(self.opacity * 100 + 0.5) .. "%") end
     self:Save()
 end
@@ -73,7 +95,7 @@ function P:SetLocked(locked)
     self.locked = locked and true or false
     self.header:SetScript("OnUpdate", nil)
     self.grip:SetScript("OnUpdate", nil)
-    self.grip:SetShown(not self.locked)
+    self.grip:SetShown(not self.locked and not self.collapsed)
     self.lockText:SetText(self.locked and "Unlock position" or "Lock position")
     self:Save()
 end
@@ -116,11 +138,26 @@ function P:Refresh()
     local goal = FGT.GoalById(self.goalId)
     if not goal or goal.libraryOnly or not U.active(goal) then self:Close(false); return end
     self.refreshing = true
+    local count, single = 0, nil
+    for si in ipairs(goal.sections or FGT.EMPTY) do
+        if FGT.PartSelected(goal, si) then count, single = count + 1, si end
+    end
+    self.singleSection = count == 1 and single or nil
+    if self.restoreCollapsed ~= nil then
+        self.collapsed = self.restoreCollapsed
+        if self.singleSection then FGT.sectionOpen[goal.id .. "_" .. self.singleSection] = not self.collapsed end
+        self.restoreCollapsed = nil
+    elseif self.singleSection then
+        self.collapsed = not FGT.SectionIsOpen(goal, self.singleSection)
+    end
     local ok, err = pcall(U.render, goal, self)
-    self.refreshing = nil
-    if not ok then error(err) end
+    if not ok then self.refreshing = nil; error(err) end
     local done, total = U.progress(goal)
-    self.title:SetText(goal.name .. (total > 0 and done >= total and " · Complete" or ""))
+    local section = self.singleSection and goal.sections[self.singleSection]
+    self.title:SetText((section and section.name or goal.name) .. (total > 0 and done >= total and " · Complete" or ""))
+    self.headerCount:SetText(done .. " / " .. total)
+    self.headerIcon:SetIcon(FGT.GoalIcon(goal), FGT.ForeverWord(goal) and C.FOREVER or C.GOLD2)
+    FGT.SetPlusMinus(self.arrow, not self.collapsed)
     self.completedButton.text:SetText(FGT.Setting("hideCompletedSteps") and "Show completed steps" or "Hide completed steps")
     self.groupsButton:SetShown(goal.sections ~= nil)
     self.progress = total > 0 and done / total or 0
@@ -129,12 +166,14 @@ function P:Refresh()
     self.fill:SetWidth(math.max(0.1, (self.width - 2) * self.progress))
     self.complete:SetShown(total > 0 and done >= total and #self.layout.nodes == 0)
     self.countText = done .. " / " .. total
+    self:Place()
     self:Save()
+    self.refreshing = nil
 end
 P.refresh = function() P:Refresh() end
 FGT.RefreshPopout = function() P:Refresh() end
 
-function P:Open(id)
+function P:Open(id, collapsed)
     local goal = FGT.GoalById(id)
     if not goal or goal.libraryOnly or not U.active(goal) then return false end
     if self.open and self.goalId == id then return true end
@@ -143,11 +182,13 @@ function P:Open(id)
     self.options:Hide()
     self.slotHeight, self.slotWidth, self.layout, self.hidePending = nil, nil, nil, nil
     self.skipPrevious = nil
+    self.singleSection, self.collapsed, self.restoreCollapsed = nil, false, collapsed
     self.goalId, self.open, self.closing = id, true, nil
     self.slotId = id
     self.scroll.scroll:SetVerticalScroll(0)
     self.fraction = fraction
     self:Place()
+    self:Raise()
     self.frame:SetAlpha(self.fraction)
     self.frame:Show()
     self:Refresh()
@@ -155,6 +196,18 @@ function P:Open(id)
     self:Animate(true)
     self:Save()
     return true
+end
+
+function P:ToggleCollapsed()
+    if not self.open then return end
+    self.options:Hide()
+    local goal = FGT.GoalById(self.goalId)
+    if not goal then return end
+    if self.singleSection then
+        local key = goal.id .. "_" .. self.singleSection
+        FGT.sectionOpen[key] = not FGT.SectionIsOpen(goal, self.singleSection)
+    else self.collapsed = not self.collapsed end
+    self:Refresh()
 end
 
 function P:Close(dock)
@@ -241,8 +294,8 @@ end
 local frame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
 P.frame = frame
 frame.fgtOwn = true
-frame:SetFrameStrata("MEDIUM")
-frame:SetFrameLevel(30)
+frame:SetFrameStrata("HIGH")
+frame:SetFrameLevel(S.main:GetFrameLevel() + 100)
 frame:SetClampedToScreen(true)
 frame:SetDontSavePosition(true)
 frame:EnableMouse(true)
@@ -265,11 +318,38 @@ P.header:SetPoint("TOPLEFT", 3, -2)
 P.header:SetPoint("TOPRIGHT", -3, -2)
 P.header:SetHeight(25)
 P.header:EnableMouse(true)
+P.arrow = Label(P.header, 10, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
+P.arrow:SetWidth(10)
+P.arrow:SetPoint("LEFT", 5, 0)
+P.headerIcon = U.icon(P.header, 18)
+P.headerIcon:SetPoint("LEFT", P.arrow, "RIGHT", 7, 0)
+P.headerIcon:EnableMouse(true)
+P.headerIcon:SetScript("OnEnter", function(self)
+    local goal = FGT.GoalById(P.goalId)
+    if not goal then return end
+    GameTooltip:SetOwner(self, "ANCHOR_TOP")
+    GameTooltip:AddLine(goal.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
+    if FGT.SetPreviewIds(goal) then GameTooltip:AddLine("Ctrl-click: Try on the whole set", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end
+    GameTooltip:Show()
+end)
+P.headerIcon:SetScript("OnLeave", function() GameTooltip:Hide() end)
+P.headerIcon:SetScript("OnMouseUp", function(_, button)
+    local goal = FGT.GoalById(P.goalId)
+    if not goal then return end
+    if FGT.PreviewSetClick(goal, button) then return end
+    local reward = goal.rewardItem or (goal.completeWith and goal.completeWith.item)
+    if type(reward) == "table" then reward = reward[1] end
+    if reward and not goal.sections then FGT.PreviewItemClick(reward, button) end
+end)
 P.title = Label(P.header, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
-P.title:SetPoint("LEFT", 8, 0)
-P.title:SetPoint("RIGHT", -76, 0)
+P.title:SetPoint("LEFT", P.headerIcon, "RIGHT", 7, 0)
+P.title:SetPoint("RIGHT", -128, 0)
 P.title:SetWordWrap(false)
 P.title:SetJustifyH("LEFT")
+P.headerCount = Label(P.header, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+P.headerCount:SetPoint("RIGHT", -77, 0)
+P.headerCount:SetWidth(44)
+P.headerCount:SetJustifyH("RIGHT")
 
 local function HeaderButton(offset, hint, action, icon)
     local b = CreateFrame("Button", nil, P.header)
@@ -335,9 +415,12 @@ local function StartMotion(handle, resize)
     local left, top, width, height = P.left, P.top, P.width, P.height
     local scale = math.max(0.1, frame:GetEffectiveScale())
     local elapsed = 0
+    handle.moved = false
     handle:SetScript("OnUpdate", function(self, dt)
         if not IsMouseButtonDown("LeftButton") then StopMotion(self); return end
         local cx, cy = GetCursorPosition()
+        if math.abs(cx-x) + math.abs(cy-y) >= 4 * scale then self.moved = true end
+        if not self.moved then return end
         if resize then P.width, P.height = width + (cx-x)/scale, height - (cy-y)/scale
         else P.left, P.top = left + (cx-x)/scale, top - (cy-y)/scale end
         P:Place()
@@ -345,9 +428,18 @@ local function StartMotion(handle, resize)
         if resize and elapsed >= 0.075 then elapsed = 0; P:Refresh() end
     end)
 end
-P.header:SetScript("OnMouseDown", function(self, button) if button == "LeftButton" then StartMotion(self, false) end end)
-P.header:SetScript("OnMouseUp", function(self) StopMotion(self) end)
-P.header:SetScript("OnHide", function(self) StopMotion(self) end)
+P.header:SetScript("OnMouseDown", function(self, button)
+    if button ~= "LeftButton" then return end
+    self.pressed, self.moved = true, false
+    StartMotion(self, false)
+end)
+P.header:SetScript("OnMouseUp", function(self, button)
+    local click = self.pressed and not self.moved and button == "LeftButton"
+    self.pressed = nil
+    StopMotion(self)
+    if click then P:ToggleCollapsed() end
+end)
+P.header:SetScript("OnHide", function(self) self.pressed = nil; StopMotion(self) end)
 P.grip:SetScript("OnMouseDown", function(self, button) if button == "LeftButton" then StartMotion(self, true) end end)
 P.grip:SetScript("OnMouseUp", function(self) StopMotion(self); P:Refresh() end)
 P.grip:SetScript("OnHide", function(self) StopMotion(self) end)
@@ -466,11 +558,12 @@ events:RegisterEvent("PLAYER_LOGIN")
 events:RegisterEvent("DISPLAY_SIZE_CHANGED")
 events:RegisterEvent("UI_SCALE_CHANGED")
 events:RegisterEvent("PLAYER_LOGOUT")
+events:RegisterEvent("GLOBAL_MOUSE_DOWN")
 events:SetScript("OnEvent", function(_, event)
     if event == "PLAYER_LOGIN" then
         local saved = Saved()
         if not saved then return end
-        local open, goal, locked, opacity = saved.open, saved.goal, saved.locked, saved.opacity
+        local open, goal, locked, opacity, collapsed = saved.open, saved.goal, saved.locked, saved.opacity, saved.collapsed
         P.width, P.height = tonumber(saved.width) or 360, tonumber(saved.height) or 300
         P.left, P.top = tonumber(saved.left), tonumber(saved.top)
         P.goalId = goal
@@ -478,7 +571,9 @@ events:SetScript("OnEvent", function(_, event)
         P:SetOpacity(opacity)
         P.slider:SetValue(P.opacity * 100)
         P:SetLocked(locked)
-        if open and goal then P:Open(goal) end
+        if open and goal then P:Open(goal, collapsed or false) end
+    elseif event == "GLOBAL_MOUSE_DOWN" then
+        if P.options:IsShown() and not P.options:IsMouseOver() and not P.settings:IsMouseOver() then P.options:Hide() end
     elseif event == "PLAYER_LOGOUT" then
         P:Save()
         P.driver:SetScript("OnUpdate", nil)
@@ -490,3 +585,5 @@ end)
 P:Place()
 P:SetOpacity(0.85)
 P:SetLocked(false)
+S.main:HookScript("OnShow", function() if P.open then P:Raise() end end)
+S.main:HookScript("OnMouseDown", function() if P.open then P:Raise() end end)

@@ -2854,6 +2854,7 @@ local function CreateEdgeFade(parent, isTop, soft, bottomHeight)
     -- averages about #1e160f), a touch darker than the panel so rows feel
     -- like they slide under it; bottom: the panels' darker bottom shade
     local c = isTop and { 0.05, 0.045, 0.04 } or { 0.022, 0.022, 0.021 }
+    f.strips = {}
     local stepH = height / steps
     for i = 1, steps do
         -- i = 1 sits at the outer edge (nearly opaque panel color) and
@@ -2869,6 +2870,7 @@ local function CreateEdgeFade(parent, isTop, soft, bottomHeight)
         end
         if soft and not isTop then alpha = alpha * 0.75 end
         local strip = Flat(f, c[1], c[2], c[3], alpha)
+        f.strips[#f.strips + 1] = strip
         strip:ClearAllPoints()
         if isTop then
             strip:SetPoint("TOPLEFT", f, "TOPLEFT", 0, -(i - 1) * stepH)
@@ -7713,6 +7715,7 @@ local function RefreshTierSections(goal, view)
     for si, section in ipairs(goal.sections) do
         if FGT.ShowStepSection(goal, si, section, view) then
         headerIndex = headerIndex + 1
+        if not (view and view.singleSection == si) then
         local header = GetHeaderRow(headerIndex, view)
         header:SetParent(stepsContainer)
         header:ClearAllPoints()
@@ -7726,6 +7729,12 @@ local function RefreshTierSections(goal, view)
         local partNew = FGT.ApplyPartLook(header, section, goal)
         header.name:SetText(partNew and (section.name .. "   " .. FGT.NewTag(partNew)) or section.name)
         header.icon:SetIcon(section.icon or goal.icon, header.foreverNew and C.FOREVER or C.GOLD2)
+        if view then
+            header.icon:Hide()
+            header.name:ClearAllPoints()
+            header.name:SetPoint("LEFT", header.arrow, "RIGHT", 8, 0)
+            header.name:SetPoint("RIGHT", header, "RIGHT", -60, 0)
+        end
         header.expanded = expanded and true or false
 
         local sd, st = SectionProgress(goal, si, section)
@@ -7756,8 +7765,9 @@ local function RefreshTierSections(goal, view)
         end)
         header:Show()
         yOffset = yOffset + header:GetHeight() + 4
+        elseif headerRowPool[headerIndex] then headerRowPool[headerIndex]:Hide() end
 
-        if expanded then
+        if FGT.SectionIsOpen(goal, si) then
             for pi, piece in ipairs(section.pieces) do
                 local md, mt = FGT.PieceProgress(goal.id, si, pi, piece)
                 if not FGT.PieceSkipped(piece) and not FGT.HideGuideEntry("piece:" .. si .. ":" .. pi, md == mt, view) then -- (closes after the materials)
@@ -7767,8 +7777,9 @@ local function RefreshTierSections(goal, view)
                 row:ClearAllPoints()
                 row:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
                 row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
-                SetRowIndent(row, 18)
-                row:SetStepIcon(piece.icon) -- item icon when the set data has one
+                local indent = view and view.singleSection and 2 or 18
+                SetRowIndent(row, indent)
+                row:SetStepIcon(not view and piece.icon or nil) -- compact pop-out keeps one header icon
                 FGT.ClearStepLock(row) -- grouped collection rows are independent in this pass
                 FGT.SetStepLinks(row, piece.auto, piece)
 
@@ -7781,7 +7792,7 @@ local function RefreshTierSections(goal, view)
                 row.num:SetText("")
                 row.text:SetText(FGT.StepText(piece.text or piece.name))
                 FGT.LinkItemName(row) -- the piece's name as an item link
-                row.text:SetWidth(math.max(50, width - 18 - 44 - (hasMats and 44 or 0) - (piece.icon and 14 or 0)))
+                row.text:SetWidth(math.max(50, width - indent - 44 - (hasMats and 44 or 0) - (not view and piece.icon and 14 or 0)))
                 StyleCheckRow(row, md == mt)
                 FGT.PlaceGuideEntry(row, "piece:" .. si .. ":" .. pi, yOffset, md == mt, nil, view)
                 if not hasMats then FGT.MaybePopTick(row, goal.id, PieceKey(si, pi)) end
@@ -7791,7 +7802,7 @@ local function RefreshTierSections(goal, view)
                     -- The +/- takes the checkbox's spot, like the class headers.
                     row.box:Hide()
                     row.toggle:ClearAllPoints()
-                    row.toggle:SetPoint("TOPLEFT", row, "TOPLEFT", 20, -3)
+                    row.toggle:SetPoint("TOPLEFT", row, "TOPLEFT", indent + 2, -3)
                     FGT.SetPlusMinus(row.toggle, open)
                     row.toggle:Show()
                     row.count:SetText(md .. " / " .. mt)
@@ -7826,13 +7837,14 @@ local function RefreshTierSections(goal, view)
                         mrow:ClearAllPoints()
                         mrow:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
                         mrow:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
-                        SetRowIndent(mrow, 40)
+                        local materialIndent = view and view.singleSection and 24 or 40
+                        SetRowIndent(mrow, materialIndent)
                         mrow:SetStepIcon(nil)
                         FGT.ClearStepLock(mrow)
 
                         mrow.num:SetText("")
                         mrow.text:SetText(FGT.StepText(materialText))
-                        mrow.text:SetWidth(math.max(50, width - 40 - 44))
+                        mrow.text:SetWidth(math.max(50, width - materialIndent - 44))
                         StyleCheckRow(mrow, IsStepDone(goal.id, MaterialKey(si, pi, mi)))
                         FGT.PlaceGuideEntry(mrow, "material:" .. si .. ":" .. pi .. ":" .. mi, yOffset, mrow.isDone, nil, view)
                         FGT.MaybePopTick(mrow, goal.id, MaterialKey(si, pi, mi))
@@ -7845,8 +7857,8 @@ local function RefreshTierSections(goal, view)
                         mrow:SetHeight(mRowHeight)
                         -- guide line under the piece's checkbox, joining its materials
                         mrow.guide:ClearAllPoints()
-                        mrow.guide:SetPoint("TOPLEFT", mrow, "TOPLEFT", 26, (mi == 1) and 2 or 3)
-                        mrow.guide:SetPoint("BOTTOMLEFT", mrow, "BOTTOMLEFT", 26, (mi == #piece.materials) and 8 or 0)
+                        mrow.guide:SetPoint("TOPLEFT", mrow, "TOPLEFT", materialIndent - 14, (mi == 1) and 2 or 3)
+                        mrow.guide:SetPoint("BOTTOMLEFT", mrow, "BOTTOMLEFT", materialIndent - 14, (mi == #piece.materials) and 8 or 0)
                         mrow.guide:Show()
                         mrow:SetScript("OnClick", function(self, button)
                             if FGT.StepLinkClick(self, button) then return end
@@ -7900,7 +7912,7 @@ RefreshSteps = function(goal, view)
     local shown = 0
     for i, entry in ipairs(goal.steps) do
         local stepText = FGT.StepText(type(entry) == "table" and entry.text or entry)
-        local stepIcon = type(entry) == "table" and entry.icon or nil
+        local stepIcon = not view and type(entry) == "table" and entry.icon or nil
         local row = GetStepRow(i, view)
         if not PartSelected(goal, i) or FGT.PieceSkipped(entry) then
             row:Hide() -- part of a group you haven't added, or a step your race skips
@@ -7943,7 +7955,12 @@ RefreshSteps = function(goal, view)
             row.box:Hide()
             row.icon:ClearAllPoints()
             row.icon:SetPoint("TOPLEFT", row, "TOPLEFT", 2, -2)
-            row.text:SetWidth(math.max(50, width - 32 - 70))
+            if view then
+                row.num:Hide()
+                row.text:ClearAllPoints()
+                row.text:SetPoint("TOPLEFT", row, "TOPLEFT", 2, -2)
+            end
+            row.text:SetWidth(math.max(50, width - (view and 4 or 32) - 70))
             if not best then row.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end
 
             row.miniBar:ClearAllPoints()
@@ -11850,6 +11867,7 @@ FGT.MaterialsUI = {
     end,
 }
 FGT.PopoutUI = {
+    icon = NewIcon,
     render = function(goal, view)
         local rim, quality = FGT.stepRim, FGT.stepQuality
         local ok, err = pcall(RefreshSteps, goal, view)
