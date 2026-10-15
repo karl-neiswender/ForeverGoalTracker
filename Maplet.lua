@@ -225,6 +225,7 @@ function M:Layout()
     self.dot:ClearAllPoints()
     self.dot:SetPoint("CENTER", B.art, "TOPLEFT", self.pinX, -self.pinY)
     if self.PlaceSlider then self:PlaceSlider() end
+    self:PaintPin()
 end
 
 -- the pin: a gold dot over everything on the page's top right, a ring that pings out of it
@@ -254,9 +255,16 @@ dot.rim:SetPoint("CENTER")
 dot.rim:SetSize(14, 14)
 dot.rim:SetVertexColor(1, 1, 1, 0.65)
 local GOLD = C.GOLD2 or { 1, 0.82, 0.3 }
-dot.tex:SetVertexColor(GOLD[1], GOLD[2], GOLD[3])
-dot.glow:SetVertexColor(GOLD[1], GOLD[2], GOLD[3])
-dot.ring:SetVertexColor(GOLD[1], GOLD[2], GOLD[3])
+-- A pin is gold; a place that is new in Forever (an entry with bluePin = true, such as the new raids'
+-- entrances once their spots are known) gets a Forever blue pin that pings in blue.
+local BLUE = C.FOREVER or { 0.25, 0.55, 1 }
+function M:PaintPin()
+    local c = (self.forceBlue or (self.npc and self.npc.bluePin)) and BLUE or GOLD
+    dot.tex:SetVertexColor(c[1], c[2], c[3])
+    dot.glow:SetVertexColor(c[1], c[2], c[3])
+    dot.ring:SetVertexColor(c[1], c[2], c[3])
+end
+M:PaintPin()
 
 dot:SetScript("OnEnter", function(self)
     local n = M.npc
@@ -693,6 +701,13 @@ function FGT.HandleMapCommand(msg)
         print(string.format("%smix %.2f target %d, zoom in %.0f%%, tiles %d + %d, art %.0fx%.0f, mapMix %.2f, tile alpha %.2f, pin %s",
             TAG, M.mix, M.target, M.zoomIn * 100, M.used, M.usedOver, aw, ah,
             B.mapMix or 0, M:TileAlpha(), M.dot:IsShown() and "shown" or "hidden"))
+        return true
+    end
+    if rest == "blue" then
+        -- a preview of the Forever blue pin on whatever map is showing
+        M.forceBlue = not M.forceBlue
+        M:PaintPin()
+        print(TAG .. "Forever blue pin preview " .. (M.forceBlue and "on" or "off") .. ".")
         return true
     end
     if rest == "off" then M:Hide(); return true end
