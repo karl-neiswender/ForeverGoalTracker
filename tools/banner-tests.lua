@@ -3,6 +3,17 @@ local B = F.goalBanner
 do
     local originalContext = B.PlayerArtContext
     for _, faction in ipairs({"Alliance", "Horde"}) do
+        B.PlayerArtContext = function() return {faction=faction, class="WARLOCK", race="Scourge"} end
+        local path, aspect, preprocessed = B:ResolveArt("tier3_warlock")
+        local expected = faction == "Horde" and "tier3_warlock-horde-banner.blp" or "tier3_warlock-alliance-banner.blp"
+        assert(path == expected and aspect == 4/3 and preprocessed,
+            "Horde Warlock Tier 3 uses Pagatha; Alliance retains approved variant")
+    end
+    B.PlayerArtContext = originalContext
+end
+do
+    local originalContext = B.PlayerArtContext
+    for _, faction in ipairs({"Alliance", "Horde"}) do
         B.PlayerArtContext = function() return {faction=faction, class="HUNTER", race="NightElf"} end
         local path, aspect, preprocessed = B:ResolveArt("set_tier2_hunter")
         local expected = faction == "Alliance" and "set_tier2_hunter-alliance-banner.blp" or "set_tier2_hunter-banner.blp"
@@ -285,7 +296,7 @@ do
     race = "Orc"
     assert(B:ArtPath("allclasses")=="allclasses_horde_hunter-banner.blp", "Horde Hunter uses new leveling art")
     assert(B:ArtPath("tier3_druid")=="tier3_druid-horde-banner.blp")
-    assert(B:ArtPath("tier3_warlock")=="tier3_warlock-banner.blp", "Horde Warlock retains existing artwork")
+    assert(B:ArtPath("tier3_warlock")=="tier3_warlock-horde-banner.blp", "Horde Warlock uses approved Pagatha artwork")
     race, class = "Troll", "MAGE"
     F.SelectGoal("allclasses")
     assert(B:ArtPath("allclasses")=="allclasses_troll_mage-banner.blp", "troll mage leveling uses approved troll portrait")

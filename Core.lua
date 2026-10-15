@@ -4920,7 +4920,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Faction variants share their goal's aspect ratio and monochrome treatment.
     -- Choose from the logged-in character, independent of Library filters/roster.
     B.factionArtPaths = {
-        tier3_warlock = {Alliance = "tier3_warlock-alliance-banner.blp"},
+        tier3_warlock = {Alliance = "tier3_warlock-alliance-banner.blp", Horde = "tier3_warlock-horde-banner.blp"},
         set_tier2_hunter = {Alliance = "set_tier2_hunter-alliance-banner.blp"},
         set_tier2_warlock = {Alliance = "set_tier2_warlock-alliance-banner.blp"},
         tier3_druid = {Horde = "tier3_druid-horde-banner.blp"},
