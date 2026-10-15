@@ -5626,6 +5626,34 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             raysStrength = 0.7, strength = 1.0, embers = Motes({ 0.45, 1.0, 0.0, 0.65 }, 20) },
         -- the Horde war mount: snow like the Alliance one (blooms on the horn's breath and the ground burst)
         ["pvp_mount_horde-banner.blp"] = SnowOnly(110),
+        -- The banners of 2026-10-15 (Karl asked for a bloom and effect pass; blooms are baked separately).
+        -- Zin'rokh: sparks thrown off the burst where the blade meets the ground
+        ["zinrokh-banner.blp"] = { 0.58, 0.80, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.46, 0.72, 0.68, 0.88 }, field = { 0.35, 0.95, 0.30, 0.90 }, fieldShare = 0.35,
+                count = 38, blurShare = 0.22, rise = 0.30 } },
+        -- Warlord's cloth: sparkles drifting off the spell at each hand
+        ["pvp_set_cloth_horde-banner.blp"] = { 0.7, 0.3, 0.3, { 1, 1, 1 }, glow = false, strength = 0.8,
+            embers = { Motes({ 0.50, 0.70, 0.08, 0.34 }, 16), Motes({ 0.78, 0.98, 0.08, 0.34 }, 16) } },
+        -- Marshal's cloth: arcane dust in the streams
+        ["pvp_set_cloth_ally-banner.blp"] = { 0.7, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.8,
+            embers = Motes({ 0.45, 1.0, 0.25, 0.95 }, 34) },
+        -- Marshal's leather: the full moon's light (the glow sits at the art's right edge, clipped to it)
+        ["pvp_set_leather_ally-banner.blp"] = { 0.894, 0.15, 0.34, { 1, 1, 1 }, strength = 0.8,
+            embers = Motes({ 0.30, 1.0, 0.05, 0.85 }, 14) },
+        -- Raids with Guildmates: dust in the light at the dragon's feet
+        ["social_guild_raid-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.8,
+            embers = Motes({ 0.40, 0.95, 0.25, 0.78 }, 24) },
+        -- the Undead epic mount: ghost-fire sparks off the hooves and the grass
+        ["epicmounts_undead-banner.blp"] = { 0.5, 0.6, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.30, 0.82, 0.40, 0.76 }, field = { 0.25, 0.95, 0.10, 0.95 }, fieldShare = 0.3,
+                count = 36, blurShare = 0.22, rise = 0.30 } },
+        -- Striker's Garb and Dragonstalker (Alliance art): daylight through the trees and over the valley
+        ["set_tier25_hunter-banner.blp"] = Sunlight({ 0.58, -0.10, 100, 30, 5, 1.3, strength = 0.55 },
+            { 0.30, 1.0, 0.0, 0.80 }, 20),
+        ["set_tier2_hunter-alliance-banner.blp"] = Sunlight({ 0.42, -0.10, 100, 40, 5, 1.2, strength = 0.5 },
+            { 0.30, 1.0, 0.0, 0.80 }, 18),
+        -- Make Trades: the snow falling in the clearing
+        ["social_trades-banner.blp"] = SnowOnly(90),
     }
     -- Banners that bloom (tools/bloomall.py bakes Media/<stem>-bloom.blp for each; Karl's list,
     -- 2026-10-13). Keyed by the banner image, so every goal that shows the image gets it, and
@@ -5646,6 +5674,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "social_guild_dungeon",
         "rep_nozdormu", -- Brood of Nozdormu: the stars and the nebula (2026-10-14)
         "pvp_rank14", -- Grand Marshal / High Warlord: the halo, subtle (2026-10-14)
+        -- 2026-10-15
+        "zinrokh", "pvp_set_cloth_horde", "pvp_set_cloth_ally", "pvp_set_leather_ally", "tier3_warlock-horde",
+        "social_guild_raid", "tier3_warrior_koringar", "epicmounts_undead",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5660,6 +5691,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers", "set_tier2_warlock",
         "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
         "social_guild_dungeon", "rep_nozdormu", "pvp_rank14_ally", "pvp_rank14_horde",
+        "zinrokh", "social_guild_raid", "tier3_warlock", "tier3_warrior", "epicmounts",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
@@ -5674,6 +5706,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         set_partners_in_crime = 0.4, raid_naxx = 0.5,
         social_guild_dungeon = 0.4, -- the storm's glare is already bright
         pvp_rank14 = 0.3, -- the helm's halo is already baked into the art: a light touch
+        -- 2026-10-15: the arcane streams and the glare are already bright; the rest a medium touch
+        pvp_set_cloth_ally = 0.4, social_guild_raid = 0.4, pvp_set_leather_ally = 0.5,
+        ["tier3_warlock-horde"] = 0.5, tier3_warrior_koringar = 0.5, epicmounts_undead = 0.5,
 
     }
     -- A bloom can be baked in zones (tools/bloomall.py ZONES): one texture per band of the

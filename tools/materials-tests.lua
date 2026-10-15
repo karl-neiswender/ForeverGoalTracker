@@ -628,7 +628,7 @@ do
             if hadLight then assert(spec.baseSpec, id .. " keeps its own light too") end
             if not hadLight then assert(spec.glow == false or spec.baseSpec, id .. " gets a bloom-only light") end
         end
-        assert(#B.bloomStems == 56, "56 banner images in the bloom list (the tiger's was taken off; Cooking, Mage and Druid buffs, both plate sets and the Horde war mount added; the six morning banners of 2026-10-14, Brood of Nozdormu and the rank 14 banner)")
+        assert(#B.bloomStems == 64, "64 banner images in the bloom list (the tiger's was taken off; Cooking, Mage and Druid buffs, both plate sets and the Horde war mount added; the six morning banners of 2026-10-14, Brood of Nozdormu and the rank 14 banner; the eight banners of 2026-10-15)")
         assert(B.blooms["raid_aq40-banner.blp"].strength == 0.4 and B.blooms["raid_aq20-banner.blp"].strength == 0.6, "per-image strength")
         B.goal = STUB_NS.GoalById("tier3_paladin")
         local red = B:GlowSpec()

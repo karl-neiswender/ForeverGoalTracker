@@ -85,6 +85,15 @@ STEMS = {
     "raid_naxx": "Naxxramas, Kel'Thuzad (the frost burst at the claw, the glow behind him quieter)",
     "social_guild": "Guild (the light flares and columns behind him, not his armor)",
     "social_guild_dungeon": "Dungeons with Guildmates, Gahz'rilla (the sky glare behind the right head, the eye)",
+    # the banners of 2026-10-15
+    "zinrokh": "Zin'rokh (the burst at the blade's tip and the eye in the guard)",
+    "pvp_set_cloth_horde": "Warlord's cloth (the spell sparks at both hands)",
+    "pvp_set_cloth_ally": "Marshal's cloth (the arcane streams and the lightning)",
+    "pvp_set_leather_ally": "Marshal's leather (the full moon)",
+    "tier3_warlock-horde": "Warlock Tier 3, Horde art (the mask's eyes, the succubus's eyes, the shoulder gem)",
+    "social_guild_raid": "Raids with Guildmates (the glare behind the dragon's head)",
+    "tier3_warrior_koringar": "Warrior Tier 3 (the visor's glow and the mace's lightning)",
+    "epicmounts_undead": "Undead epic mount (the ghost flames and the moon)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -111,6 +120,15 @@ REGIONS = {
     "pvp_rank14": [(0.46, 0.96, 0.06, 0.72)],                          # the halo and the helm's rim light
     "rep_nozdormu": [(0.18, 0.56, 0.0, 0.70), (0.62, 0.82, 0.0, 0.32), (0.84, 0.88, 0.21, 0.26),
                      (0.90, 0.95, 0.26, 0.33)],
+    # the banners of 2026-10-15 (boxes read off gridded masters)
+    "zinrokh": [(0.46, 0.74, 0.60, 0.90), (0.78, 0.86, 0.24, 0.31)],
+    "pvp_set_cloth_horde": [(0.53, 0.67, 0.11, 0.29), (0.82, 0.94, 0.11, 0.29)],
+    "pvp_set_cloth_ally": [(0.28, 1.00, 0.00, 0.20), (0.45, 1.00, 0.28, 0.95)],
+    "pvp_set_leather_ally": [(0.80, 0.98, 0.05, 0.28)],
+    "social_guild_raid": [(0.58, 0.90, 0.04, 0.34)],
+    "tier3_warrior_koringar": [(0.40, 0.50, 0.10, 0.19), (0.60, 1.00, 0.50, 0.82)],
+    "epicmounts_undead": [(0.30, 0.40, 0.54, 0.66), (0.44, 0.58, 0.60, 0.74), (0.66, 0.82, 0.30, 0.50),
+                          (0.82, 0.98, 0.04, 0.24)],
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {
@@ -145,6 +163,17 @@ OVERRIDES = {
     "social_guild": dict(region=[(0.28, 1.00, 0.00, 0.22)], quiet=[((0.36, 0.95, 0.08, 0.22), 0.3)]),
     # the glare breaking through the storm behind the right head, and the eye; the rest quiet
     "social_guild_dungeon": dict(region=[(0.70, 1.00, 0.04, 0.42), (0.40, 0.47, 0.48, 0.56)], outside=0.2),
+    # 2026-10-15: the rest of the picture quieter, so only the lights bloom
+    "pvp_set_cloth_ally": dict(region=[(0.28, 1.00, 0.00, 0.20), (0.45, 1.00, 0.28, 0.95)], outside=0.15),
+    "social_guild_raid": dict(region=[(0.58, 0.90, 0.04, 0.34)], outside=0.2),
+    "tier3_warrior_koringar": dict(region=[(0.40, 0.50, 0.10, 0.19), (0.60, 1.00, 0.50, 0.82)], outside=0.15),
+    "epicmounts_undead": dict(region=[(0.30, 0.40, 0.54, 0.66), (0.44, 0.58, 0.60, 0.74), (0.66, 0.82, 0.30, 0.50),
+                                      (0.82, 0.98, 0.04, 0.24)], outside=0.15),
+    # small bright eyes and a gem, each baked on its own like Warlock Tier 2
+    "tier3_warlock-horde": dict(spots=[
+        ((0.50, 0.565, 0.435, 0.48), 0.55, dict(near=3.0, far=14.0)),   # the succubus's eyes
+        ((0.70, 0.76, 0.185, 0.23), 0.55, dict(near=3.0, far=14.0)),    # the mask's eyes
+        ((0.775, 0.83, 0.285, 0.335), 0.5, dict(near=3.0, far=14.0))]), # the shoulder gem
 }
 
 # Blooms baked in zones (a texture per band of the picture, each breathing on its own beat in
