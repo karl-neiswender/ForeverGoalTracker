@@ -301,32 +301,20 @@ M.button = btn
 btn:SetSize(22, 22)
 btn:SetPoint("TOPRIGHT", FGT.detailBody or panel, "TOPRIGHT", -20 - 26 * 2, -22)
 FGT.IconButton(btn, "map-location", 16)
+-- the icons are painted gold: greyed and tinted to silver here
+local SILVER = { 0.86, 0.88, 0.92 }
+local function Silver()
+    for _, t in ipairs({ btn.icon, btn.glow }) do
+        t:SetDesaturated(true)
+        t:SetVertexColor(SILVER[1], SILVER[2], SILVER[3])
+    end
+end
+Silver()
 btn:Hide()
 
--- Drawing the eye to it when a step first has a place to go: the button fades in, then a soft gold
--- halo breathes behind it and a ring pings out of it, a few times. Once per goal and person per
--- session, and it stops the moment the pointer touches the button.
-btn.halo = btn:CreateTexture(nil, "BACKGROUND")
-btn.halo:SetTexture(MEDIA .. "glow")
-btn.halo:SetBlendMode("ADD")
-btn.halo:SetPoint("CENTER")
-btn.halo:SetSize(44, 44)
-btn.halo:SetVertexColor(GOLD[1], GOLD[2], GOLD[3])
-btn.halo:SetAlpha(0)
-btn.ring = btn:CreateTexture(nil, "OVERLAY")
-btn.ring:SetTexture(MEDIA .. "ring")
-btn.ring:SetBlendMode("ADD")
-btn.ring:SetPoint("CENTER")
-btn.ring:SetVertexColor(GOLD[1], GOLD[2], GOLD[3])
-btn.ring:SetAlpha(0)
-local FADE_BTN, ATTN_DELAY, ATTN_PERIOD, ATTN_CYCLES = 1.2, 0.9, 3.0, 3
-M.notified = {}
-
-function btn:StopAttention()
-    self.attnT = nil
-    self.halo:SetAlpha(0)
-    self.ring:SetAlpha(0)
-end
+-- It fades in when a step first has a place to go, and out when it goes (no halo or ping).
+local FADE_BTN = 1.2
+function btn:StopAttention() end -- (kept: the handlers below call it)
 
 btn:SetScript("OnUpdate", function(self, dt)
     if self.fadeT then
@@ -340,21 +328,6 @@ btn:SetScript("OnUpdate", function(self, dt)
         local p = Smooth(self.fadeOutT / 0.45)
         self:SetAlpha(self.fadeOutFrom * (1 - p))
         if p >= 1 then self.fadeOutT = nil; self:Hide() end
-    end
-    if self.attnT then
-        self.attnT = self.attnT + dt
-        local t = self.attnT - ATTN_DELAY - FADE_BTN
-        if (FGT.EffectsLevel and FGT.EffectsLevel() == "off") or t >= ATTN_PERIOD * ATTN_CYCLES then
-            self:StopAttention()
-        elseif t >= 0 then
-            local p = (t % ATTN_PERIOD) / ATTN_PERIOD
-            -- the halo swells and settles; the ring leaves it and fades
-            self.halo:SetAlpha(0.45 * math.sin(math.pi * math.min(1, p * 1.3)) )
-            local q = Clamp01(p / 0.8)
-            local size = 18 + 34 * (1 - (1 - q) * (1 - q))
-            self.ring:SetSize(size, size)
-            self.ring:SetAlpha(0.5 * (1 - q) * (1 - q))
-        end
     end
 end)
 
@@ -393,6 +366,7 @@ function M:SyncButton()
         btn.icon:SetTexture(icon)
         btn.glow:SetTexture(icon)
         btn.shownIcon = icon
+        Silver()
     end
     btn:RefreshIcon()
     local want = self.target == 1 or self.available ~= nil
@@ -418,15 +392,6 @@ function M:SyncButton()
             btn.fadeOutFrom, btn.fadeOutT = btn:GetAlpha(), 0
         end
     end
-end
-
--- the first time a step offers a place to go on this goal, call the eye to the button
-function M:Attract(n)
-    local key = (B.goal and B.goal.id or "?") .. ":" .. n.id
-    if self.notified[key] or self.target == 1 then return end
-    self.notified[key] = true
-    if FGT.EffectsLevel and FGT.EffectsLevel() == "off" then return end
-    btn.attnT = 0
 end
 
 -- ------------------------------------------------------------
@@ -661,7 +626,6 @@ watch:SetScript("OnUpdate", function(f, dt)
     f.t = 0
     local n = B:IsShown() and B.goal and NextStepNpc(B.goal) or nil
     M.available = n
-    if n then M:Attract(n) end
     if M.target == 1 and not M.manual then
         if not n then
             M:Hide()
@@ -745,7 +709,7 @@ function FGT.MapLinkText(text, done, skip)
     local n = NpcInLinkedText(text)
     if not n then return text end
     return text .. "  |cff" .. LINK_HEX .. "|Hfgtmap:" .. n.id .. "|h|T" .. FGT.Icon("map-location")
-        .. ":11:11:0:-1|t Show on map|h|r"
+        .. ":13:13:0:-1|t Show on map|h|r"
 end
 
 function FGT.ShowMapLinkTip(owner, id)
