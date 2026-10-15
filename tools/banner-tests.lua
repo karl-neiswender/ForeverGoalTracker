@@ -1,5 +1,10 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+for _, goal in ipairs(F.armorCollections.pvp_set_leather_ally.armorChildren) do
+    local path, aspect, preprocessed = B:ResolveArt(goal.id)
+    assert(path == "pvp_set_leather_ally-banner.blp" and aspect == 4/3 and preprocessed,
+        "Alliance leather class sets use approved Moonshadow art")
+end
 for id, expected in pairs({tier3_warrior="tier3_warrior_koringar-banner.blp", social_trades="social_trades-banner.blp"}) do
     local path, aspect, preprocessed = B:ResolveArt(id)
     assert(path == expected and aspect == 4/3 and preprocessed, "approved Warrior Tier 3 and Make Trades artwork")
