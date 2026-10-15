@@ -58,7 +58,7 @@ FGT.difficultyColors = {
 local VENDOR_NPC = { ["Katie Hunter"] = 384, ["Veron Amberstill"] = 1261, ["Lelanai"] = 4730,
     ["Milli Featherwhistle"] = 7955, ["Ogunaro Wolfrunner"] = 3362, ["Harb Clawhoof"] = 3685,
     ["Zachariah Post"] = 4731, ["Zjolnir"] = 7952, ["Genn Fairweather"] = 265756 }
-local function BuildMountTasks(race, mountName, vendor, location, raceFile, ownedPatterns, gold, home, items)
+local function BuildMountTasks(race, mountName, vendor, location, raceFile, ownedPatterns, gold, home, items, mapZoom)
     gold = gold or (FOREVER_CLIENT and { "1,200", 1200 } or { "800-1,000", 800 })
     local savings = (FOREVER_CLIENT and "Save " or "Save about ") .. gold[1] .. " gold on that character"
     local ids = {}
@@ -80,7 +80,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
               auto = { money = gold[2] * 10000, forFaction = side } },
             { name = "Buy " .. article .. mountName .. " from " .. vendor, materials = {},
               auto = { ownedPattern = ownedPatterns, item = ids, forFaction = side },
-              links = link },
+              links = link, mapZoom = mapZoom },
         }
     end
     return {
@@ -94,7 +94,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
           auto = { money = gold[2] * 10000, forRace = raceFile } },
         { name = "Buy " .. article .. mountName .. " from " .. vendor, materials = {},
           auto = { ownedPattern = ownedPatterns, item = ids, forRace = raceFile },
-          links = link },
+          links = link, mapZoom = mapZoom },
     }
 end
 
@@ -506,7 +506,7 @@ FGT.goals = {
             {
                 icon = "ability_mount_whitetiger",
                 name = "Night Elf - Swift Saber",
-                pieces = BuildMountTasks("Night Elf", "Swift Saber", "Lelanai", "Cenarion Enclave, Darnassus", "NightElf", { "Swift Frostsaber", "Swift Mistsaber", "Swift Stormsaber" }, nil, { "Alliance", 69, "Darnassus", "Night Elves" }, { { 18766, "Reins of the Swift Frostsaber" }, { 18767, "Reins of the Swift Mistsaber" }, { 18902, "Reins of the Swift Stormsaber" } }),
+                pieces = BuildMountTasks("Night Elf", "Swift Saber", "Lelanai", "Cenarion Enclave, Darnassus", "NightElf", { "Swift Frostsaber", "Swift Mistsaber", "Swift Stormsaber" }, nil, { "Alliance", 69, "Darnassus", "Night Elves" }, { { 18766, "Reins of the Swift Frostsaber" }, { 18767, "Reins of the Swift Mistsaber" }, { 18902, "Reins of the Swift Stormsaber" } }, 44),
             },
             {
                 icon = "ability_mount_mechastrider",
