@@ -6030,6 +6030,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function B:StepEmbers(dt)
         local n = self.emberCount or 0
         if n == 0 then return end
+        dt = math.min(dt or 0, 0.05) -- (a long frame must not make the particles jump)
         local aw, ah = math.max(1, self.art:GetWidth()), self.shownArtHeight or 0
         -- When the art resizes (the side panels opening and closing) every particle's place,
         -- size, sway and speed scale with it, so the particles stay put on the picture instead
@@ -6046,7 +6047,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         -- Simplest of all (Karl, 2026-10-14): while the art is resizing the particles fade out
         -- (about 0.15 s), and once it has been still for a quarter second they fade back in.
-        local resizing = pw and (pw ~= aw or ph ~= ah)
+        -- (a size that wobbles by a fraction of a pixel is not resizing)
+        local resizing = pw and (math.abs(pw - aw) > 0.75 or math.abs((ph or ah) - ah) > 0.75)
         self.embStill = resizing and 0 or ((self.embStill or 1) + dt)
         local calmTarget = self.embStill < 0.25 and 0 or 1
         local calm = self.embCalm or 1
@@ -6054,21 +6056,22 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         self.embCalm = calm
         self.embAw, self.embAh = aw, ah
         local base = (self.glowLevel or 0)*0.55*calm
-        -- Wind for blown sand: mostly calm, swelling into a gust now and then on two slow,
-        -- unrelated beats (about 17 and 29 s), each gust taking seconds to build and settle,
-        -- so the sand quickens and thickens a little without anything flashing.
-        local tt = self.glowAnim.t or 0
-        local g1 = 0.5 - 0.5*math.cos(tt*2*math.pi/17.3)
-        local g2 = 0.5 - 0.5*math.cos(tt*2*math.pi/29.1 + 1.3)
-        -- Stronger wind (Karl, 2026-10-14): a livelier base, gusts that reach full strength
-        -- and quicken the sand to nearly three times its calm speed.
-        local gust = math.min(1, 1.3*(0.6*g1*g1 + 0.4*g2*g2*g2))
-        self.gust = gust
-        local gustSpeed, gustAlpha = 1.3 + 1.6*gust, 0.75 + 0.45*gust
+        -- Wind for blown sand: a steady, strong wind. The slow gusts were taken out (Karl,
+        -- 2026-10-14: a steady wind is cheaper and read as choppy when it changed speed).
+        local gustSpeed, gustAlpha = 1.9, 1
+        self.gust = 0
         local tail = math.max(1, math.min(140, ah*0.35)) -- the art's faded bottom (see below)
         for k = 1, n do
             local e = self.emberDots[k]
             local cfg = e.cfg
+            -- Each particle moves at most about 80 times a second, whatever the frame rate: the
+            -- extra frames of a fast machine (190 fps measured, 61 ms of every second) are
+            -- skipped and the time carried over, so the motion is the same and costs a third.
+            local acc = (e.acc or 0) + dt
+            if acc < 0.012 then e.acc = acc else e.acc = 0 end
+            local dt = acc
+            repeat
+            if acc < 0.012 then break end
             if e.wait then
                 e.wait = e.wait - dt
                 if e.wait <= 0 then self:SpawnEmber(e) end
@@ -6146,6 +6149,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     end
                 end
             end
+            until true
         end
     end
     -- Light shafts (Karl): `beam` is a vertical moonbeam or angelic light,
@@ -13120,6 +13124,8 @@ local SAVED = { "active", "activeParts", "progress", "favorites", "goalsDone", "
 local function ClearExtras()
     if FGT.demoLock then FGT.lockouts[FGT.demoLock] = nil; FGT.demoLock = nil end
     FGT.demoFind = nil
+    FGT.demoRail = nil -- the goals list unfolds again (or goes back to the player's own choice)
+    if FGT.RailSync then FGT.RailSync(true) end
     if FGT.CloseWelcome then FGT.CloseWelcome(true) end
     -- the Materials drawer closes, My Goals shows everything, unsearched
     local M = FGT.materialsPanel
@@ -13212,7 +13218,7 @@ local SCENES = {
     [2] = { tab = "library", filter = "new", expand = "epicmounts" },    -- New & Updated, Skyborne row
     [3] = { tab = "tracker", goal = "epicmounts",                        -- groups: finished, counts, NEW open
             open = { "epicmounts_9" } },
-    [4] = { tab = "tracker", goal = "ashbringer" },                      -- links, tips, Forever notice
+    [4] = { tab = "tracker", goal = "ashbringer", rail = true },         -- links, tips, Forever notice, the goals list folded
     -- welcome wizard over an empty tracker, as a new player sees it
     [5] = { tab = "tracker", welcome = 2, interests = { raid = true, loot = true },   -- interests, two picked
             setup = function(DB) DB.active, DB.activeParts = {}, {} end },
@@ -13262,18 +13268,21 @@ local SCENES = {
 -- in its Screenshots folder; tools/shots.py crops them to the window and
 -- names them (Screenshots/01-my-goals.png ...). Lossless TGA for the run,
 -- the player's format and quality put back after.
+-- The list is in upload order (Karl, 2026-10-14): the hero, the banner effects (Wolfsbane) early,
+-- the guide with the goals list folded (Corrupted Ashbringer), then the features.
+-- tools/shots.py names the files in this same order.
 FGT.SHOTS = {
     { scene = 1, file = "01-my-goals" },
-    { scene = 2, file = "02-new-and-updated" },
-    { scene = 3, file = "03-epic-mounts" },
-    { scene = 4, file = "04-links-and-tips" },
-    { scene = 8, file = "05-find-your-next-goal" },
-    { scene = 5, file = "06-welcome" },
-    { scene = 6, file = "07-suggestions" },
-    { scene = 1, settings = true, file = "08-settings" },
-    { scene = 9, file = "09-materials" },
-    { scene = 10, file = "10-library-filters" },
-    { scene = 11, file = "11-wolfsbane" },
+    { scene = 11, file = "02-wolfsbane" },
+    { scene = 4, file = "03-links-and-tips" },
+    { scene = 9, file = "04-materials" },
+    { scene = 10, file = "05-library-filters" },
+    { scene = 2, file = "06-new-and-updated" },
+    { scene = 3, file = "07-epic-mounts" },
+    { scene = 8, file = "08-find-your-next-goal" },
+    { scene = 5, file = "09-welcome" },
+    { scene = 6, file = "10-suggestions" },
+    { scene = 1, settings = true, file = "11-settings" },
 }
 function FGT.TakeShots()
     if FGT.shooting then print(TAG .. "already taking screenshots.") return end
@@ -13375,6 +13384,9 @@ function FGT.Demo(arg)
     if FGT.ShowTab then FGT.ShowTab(scene.tab) end
     FGT.quietCelebrate = nil
     Redraw()
+    -- a scene can fold the goals list to its icon rail (the gallery's Corrupted Ashbringer shot)
+    FGT.demoRail = scene.rail
+    if FGT.RailSync then FGT.RailSync(true) end
     if scene.materials and FGT.materialsPanel then
         -- once the goal page is laid out, so the drawer knows its room
         C_Timer.After(0.1, function()

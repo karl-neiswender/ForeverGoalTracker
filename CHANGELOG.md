@@ -6,7 +6,7 @@
 - Added a goals list that folds to a slim icon rail, so the goal page gets more room. The handle sits on the list's edge, and the choice is remembered.
 - Added Partners in Crime, a Forever-only goal to collect both rings.
 - Added Summon Players, a Warlock goal that counts the Ritual of Summoning rituals you begin.
-- Added blown sand, with gusts of wind, to the Ahn'Qiraj, Cenarion Circle and Qiraji mount banners, all Tier 2.5 sets and Dungeons with Guildmates.
+- Added blown sand, with a steady wind, to the Ahn'Qiraj, Cenarion Circle and Qiraji mount banners, all Tier 2.5 sets and Dungeons with Guildmates.
 - Added glints to the stars on the Brood of Nozdormu banner, and more light motes to the Stormwind Ambassador and the Grand Marshal and High Warlord banners.
 - Added banners for Partners in Crime, Summon Players, Waves, Guild, Dungeons with Guildmates and the Grand Marshal and High Warlord goals.
 - Changed the main window's resize grip to light up gold on hover.
@@ -20,7 +20,7 @@
 
 The pop-out is a single interactive window. It always sits in front of the main window, and clicking either window does not change which is on top. Banner particles are clipped to the artwork's edges and scale with it as the side panels open and close.
 
-Sand and wind follow the same limits as the other image effects: slow gusts, no flashing. Image effects Subtle and Off still apply.
+Sand and wind follow the same limits as the other image effects: nothing flashes. Image effects Subtle and Off still apply. Each particle moves at most about 80 times a second, so a fast frame rate does not raise the cost. A banner with 110 particles measured about 25 ms of every second at 192 frames a second, in game.
 
 ## 2.13.0
 

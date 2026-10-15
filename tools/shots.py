@@ -7,10 +7,10 @@ and saves them as Screenshots/01-my-goals.png ... in the repo.
 Needs Pillow (Mac: pip3 install pillow; PC: pip install --target tools/.py pillow)."""
 import glob, os, sys
 
-# same order as FGT.SHOTS in Core.lua
-NAMES = ["01-my-goals", "02-new-and-updated", "03-epic-mounts", "04-links-and-tips",
-         "05-find-your-next-goal", "06-welcome", "07-suggestions", "08-settings",
-         "09-materials", "10-library-filters", "11-wolfsbane"]
+# same order as FGT.SHOTS in Core.lua (the order to upload them in)
+NAMES = ["01-my-goals", "02-wolfsbane", "03-links-and-tips", "04-materials",
+         "05-library-filters", "06-new-and-updated", "07-epic-mounts",
+         "08-find-your-next-goal", "09-welcome", "10-suggestions", "11-settings"]
 
 here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))

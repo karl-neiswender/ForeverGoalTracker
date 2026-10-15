@@ -380,7 +380,7 @@ if ok_all:
             'assert(not first.set_tier1 or first.set_forever_raid < first.set_tier1, "Tier 0.5 comes before Tier 1: " .. list); '
             'assert(not first.raid_mc or first.set_forever_raid < first.raid_mc, "and before Molten Core: " .. list); '
             'STUB_NS.CloseWelcome(true); print("  Forever raids and the Tier 0.5 set lead the raiding suggestions: " .. list)', True),
-        # Blown sand (Ruins of Ahn'Qiraj): grains travel with the wind, streaked along it, and gusts stay gentle.
+        # Blown sand (Ruins of Ahn'Qiraj): grains travel with the wind, streaked along it, and the wind is steady.
         ("blown sand", None,
             'local F = STUB_NS; local B = F.goalBanner; '
             'rawset(B.art, "GetWidth", function() return 700 end); '
@@ -397,23 +397,19 @@ if ok_all:
             'local left, moved = 0, 0; for k = 1, B.emberCount do local e = B.emberDots[k]; '
             '  if not e.wait and e.age > 1 then moved = moved + 1; if e.x < x0[k] then left = left + 1 end end end; '
             'assert(moved > 20 and left / moved > 0.9, "the wind carries sand to the left: " .. left .. " of " .. moved); '
-            'local lo, hi = 1, 0; for i = 0, 600 do B.glowAnim.t = i * 0.1; B:StepEmbers(0); lo = math.min(lo, B.gust); hi = math.max(hi, B.gust) end; '
-            'assert(lo >= 0 and hi <= 1 and hi > 0.5 and lo < 0.1, "gusts swell and settle between calm and strong: " .. lo .. " " .. hi); '
-            'local step, prev = 0, nil; for i = 0, 3600 do B.glowAnim.t = i / 60; B:StepEmbers(0); if prev then step = math.max(step, math.abs(B.gust - prev)) end; prev = B.gust end; '
-            'assert(step < 0.006, "a gust never jumps between frames (photosensitivity rule): " .. step); '
             'local lean, n = 0, 0; for k = 1, B.emberCount do local e = B.emberDots[k]; if not e.wait then lean = lean + math.sin(e.heading); n = n + 1 end end; '
             'assert(math.abs(lean / n) < 0.03, "the default wind blows level (Karl, 2026-10-14): " .. lean / n); '
             'local seen = {}; local tex = B.emberDots[1].tex; local oldA = tex.SetAlpha; tex.SetAlpha = function(_, a) seen[#seen + 1] = a end; '
             'local e1 = B.emberDots[1]; e1.wait, e1.age, e1.life, e1.alphaNow, e1.shownNow = nil, 1, 10, nil, nil; e1.x, e1.y, e1.sway = 600, 519, 0; e1.heading, e1.curve, e1.speed = math.pi, 0, 0; '
-            'B:StepEmbers(0); tex.SetAlpha = oldA; '
+            'B:StepEmbers(1/60); tex.SetAlpha = oldA; '
             'assert(seen[#seen] == 0, "sand at the very bottom, where the art has faded away, is invisible: " .. tostring(seen[#seen])); '
             'local drift = e1.cfg.drift; e1.cfg.drift = nil; seen = {}; tex.SetAlpha = function(_, a) seen[#seen + 1] = a end; e1.alphaNow, e1.shownNow, e1.heading = nil, nil, -math.pi/2; '
-            'B:StepEmbers(0); tex.SetAlpha = oldA; e1.cfg.drift = drift; '
+            'B:StepEmbers(1/60); tex.SetAlpha = oldA; e1.cfg.drift = drift; '
             'assert(seen[#seen] == 0, "so is a fire ember there (every particle shares the bottom fade): " .. tostring(seen[#seen])); '
             'local gz = B.glows["social_guild_dungeon-banner.blp"]; assert(gz and gz.embers.drift and (gz.embers.wind or 180) == 180 and gz.embers.count == 140, "Gahz\'rilla\'s sandstorm blows level"); '
             'local cen = B.glows["rep_cenarion-banner.blp"]; assert(cen and cen.embers and cen.embers.drift, "Cenarion Circle has blown sand"); '
             'assert(not B:IsLeafy("rep_cenarion", "rep_cenarion-banner.blp"), "and no drifting leaves with it"); '
-            'print("  blown sand: 70 particles leftward, streaked, bloom kept, gusts calm to strong; Cenarion sand without leaves ok")'),
+            'print("  blown sand: 70 particles leftward, streaked, bloom kept, steady wind; Cenarion sand without leaves ok")'),
         # Classic Era has no talent-window atlas: the goal page's leaves and clouds use our own textures.
         ("Classic Era ambience", None,
             'local A = STUB_NS.ambience; assert(A and A.own, "Classic Era gets our own clouds and leaves"); '

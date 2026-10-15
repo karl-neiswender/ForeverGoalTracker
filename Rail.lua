@@ -433,9 +433,13 @@ end
 -- tracker, and never in a demo scene (the gallery shows the full list).
 local function Wanted()
     local DB = ForeverGoalTrackerDB
-    if not DB or DB.demoBackup or R.empty then return false end
+    if not DB or R.empty then return false end
+    -- (a demo scene shows the full list, unless the scene asks for the folded one: the gallery's
+    -- Corrupted Ashbringer shot, FGT.demoRail)
+    if DB.demoBackup then return FGT.demoRail and true or false end
     return R.saved
 end
+function FGT.RailSync(instant) R:Sync(instant) end
 function R:Sync(instant, quiet)
     local want = Wanted()
     handle:SetShown(not self.empty)
