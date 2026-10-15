@@ -123,7 +123,7 @@ FINAL_BANNERS = {
     "raid_zg": "zul-gurub/hakkar.jpg",
     "tier3_shaman": "tier-sets/shaman/tier3.jpg",
     "epicmounts_orc": "mounts/orc-wolf.jpg",
-    "epicmounts_tauren": "mounts/tauren-kodo.jpg",
+    "epicmounts_tauren": "mounts/swift-kodo-master.png",
     "epicmounts_dwarf": "mounts/dwarf-ram.jpg",
     "epicmounts_gnome": "mounts/gnome-mechanostrider.jpg",
     "rep_argentdawn": "reputation/rep_argentdawn.jpg",
