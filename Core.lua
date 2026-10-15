@@ -5633,7 +5633,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 count = 38, blurShare = 0.22, rise = 0.30 } },
         -- Warlord's cloth: sparkles drifting off the spell at each hand
         ["pvp_set_cloth_horde-banner.blp"] = { 0.7, 0.3, 0.3, { 1, 1, 1 }, glow = false, strength = 0.8,
-            embers = { Motes({ 0.50, 0.70, 0.08, 0.34 }, 16), Motes({ 0.78, 0.98, 0.08, 0.34 }, 16) } },
+            -- (Karl: much more fire as well: embers rising off each hand and over the battlefield)
+            embers = { Motes({ 0.50, 0.70, 0.08, 0.34 }, 16), Motes({ 0.78, 0.98, 0.08, 0.34 }, 16),
+                { box = { 0.50, 0.70, 0.10, 0.36 }, field = { 0.30, 1.0, 0.05, 0.90 }, fieldShare = 0.3,
+                    count = 44, blurShare = 0.22, rise = 0.30 },
+                { box = { 0.78, 0.98, 0.10, 0.36 }, field = { 0.30, 1.0, 0.05, 0.90 }, fieldShare = 0.3,
+                    count = 44, blurShare = 0.22, rise = 0.30 },
+                { box = { 0.05, 1.0, 0.55, 0.85 }, count = 36, blurShare = 0.22, rise = 0.30 } } },
         -- Marshal's cloth: arcane dust in the streams
         ["pvp_set_cloth_ally-banner.blp"] = { 0.7, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.8,
             embers = Motes({ 0.45, 1.0, 0.25, 0.95 }, 34) },
@@ -5642,7 +5648,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             embers = Motes({ 0.30, 1.0, 0.05, 0.85 }, 14) },
         -- Raids with Guildmates: dust in the light at the dragon's feet
         ["social_guild_raid-banner.blp"] = { 0.5, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.8,
-            embers = Motes({ 0.40, 0.95, 0.25, 0.78 }, 24) },
+            -- (Karl: much more fire as well: embers rising from the burning ground and over the whole hall)
+            embers = { Motes({ 0.40, 0.95, 0.25, 0.78 }, 24),
+                { box = { 0.30, 0.95, 0.58, 0.82 }, field = { 0.15, 1.0, 0.20, 0.90 }, fieldShare = 0.4,
+                    count = 80, blurShare = 0.22, rise = 0.30 },
+                { box = { 0.45, 0.85, 0.30, 0.75 }, count = 40, blurShare = 0.22, rise = 0.30 } } },
         -- the Undead epic mount: ghost-fire sparks off the hooves and the grass
         ["epicmounts_undead-banner.blp"] = { 0.5, 0.6, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.30, 0.82, 0.40, 0.76 }, field = { 0.25, 0.95, 0.10, 0.95 }, fieldShare = 0.3,
