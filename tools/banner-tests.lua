@@ -1,5 +1,10 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+do
+    local path, aspect, preprocessed = B:ResolveArt("arcanite_reaper")
+    assert(F.GoalById("arcanite_reaper") and path == "arcanite_reaper-banner.blp"
+        and aspect == 4/3 and preprocessed, "Arcanite Reaper uses approved weapon artwork")
+end
 for _, goal in ipairs(F.armorCollections.pvp_set_cloth_horde.armorChildren) do
     local path, aspect, preprocessed = B:ResolveArt(goal.id)
     assert(path == "pvp_set_cloth_horde-banner.blp" and aspect == 4/3 and preprocessed,

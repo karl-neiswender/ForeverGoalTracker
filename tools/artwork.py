@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "arcanite_reaper": "weapons/arcanite-reaper-master.png",
     "pvp_set_cloth_horde": "pvp/warlord-cloth-thysta-clean-master.png",
     "set_tier25_leather": "tier-sets/aq40/leather-telrander-master.png",
     "set_tier25_plate": "tier-sets/aq40/plate-savin-master.png",
