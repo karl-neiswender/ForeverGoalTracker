@@ -1,0 +1,88 @@
+Era 133 goals; blank: [('prof_secondary', 'Max Secondary Skills'), ('prof_all', 'Max Primary Professions'), ('social_lol', 'Say LOL')]
+Forever 166 goals; blank: [('prof_secondary', 'Max Secondary Skills'), ('prof_all', 'Max Primary Professions'), ('social_lol', 'Say LOL')]
+Missing files: []
+epicmounts Epic Racial Mounts {'Alliance': ['epicmounts_dwarf-banner.blp', 'epicmounts_gnome-banner.blp', 'epicmounts_human-banner.blp', 'epicmounts_nightelf-banner.blp', 'epicmounts_skyborne-banner.blp'], 'Horde': ['epicmounts_orc-banner.blp', 'epicmounts_tauren-banner.blp', 'epicmounts_troll-banner.blp', 'epicmounts_undead-banner.blp']}
+allclasses Level Classes to 60 {'Alliance': ['allclasses_alliance_warlock-banner.blp', 'allclasses_dwarf_hunter-banner.blp', 'allclasses_dwarf_paladin-banner.blp', 'allclasses_dwarf_shaman-banner.blp', 'allclasses_nightelf_hunter-banner.blp', 'benediction-alliance-banner.blp', 'pvp_shared-banner.blp', 'rhokdelar-banner.blp', 'set_tier1_mage-banner.blp', 'set_tier1_priest-banner.blp', 'set_tier2_druid-banner.blp', 'set_tier2_paladin-banner.blp', 'set_tier2_priest-banner.blp', 'set_tier2_warrior-alliance-banner.blp', 'tier3_warrior-banner.blp'], 'Horde': ['allclasses_horde_druid-banner.blp', 'allclasses_horde_hunter-banner.blp', 'allclasses_tauren_warrior-banner.blp', 'allclasses_troll_mage-banner.blp', 'allclasses_undead_paladin-banner.blp', 'pvp_shared-banner.blp', 'set_tier1_shaman-banner.blp', 'set_tier1_warlock-banner.blp', 'set_tier2_shaman-banner.blp', 'set_tier2_warrior-banner.blp', 'tier3_hunter-banner.blp']}
+social_buffs Buff Others {'Alliance': ['social_buffs_druid-banner.blp', 'social_buffs_mage-banner.blp', 'social_buffs_paladin-banner.blp', 'social_buffs_priest-banner.blp'], 'Horde': ['social_buffs_druid-banner.blp', 'social_buffs_mage-banner.blp', 'social_buffs_paladin-banner.blp', 'social_buffs_priest-banner.blp']}
+social_lol Say LOL {'Alliance': [], 'Horde': []}
+tier3_warrior Dreadnaught's Battlegear {'Alliance': ['tier3_warrior_koringar-banner.blp'], 'Horde': ['tier3_warrior_koringar-banner.blp']}
+tier3_paladin Redemption Armor {'Alliance': ['tier3_paladin-banner.blp'], 'Horde': ['tier3_paladin-banner.blp']}
+tier3_hunter Cryptstalker Armor {'Alliance': ['tier3_hunter-banner.blp'], 'Horde': ['tier3_hunter-banner.blp']}
+tier3_rogue Bonescythe Armor {'Alliance': ['tier3_rogue-banner.blp'], 'Horde': ['tier3_rogue-banner.blp']}
+tier3_priest Vestments of Faith {'Alliance': ['tier3_priest-banner.blp'], 'Horde': ['tier3_priest-banner.blp']}
+tier3_druid Dreamwalker Raiment {'Alliance': ['tier3_druid-banner.blp'], 'Horde': ['tier3_druid-banner.blp']}
+tier3_mage Frostfire Regalia {'Alliance': ['tier3_mage-banner.blp'], 'Horde': ['tier3_mage-banner.blp']}
+tier3_warlock Plagueheart Raiment {'Alliance': ['tier3_warlock-alliance-banner.blp'], 'Horde': ['tier3_warlock-horde-banner.blp']}
+tier3_shaman The Earthshatterer {'Alliance': ['tier3_shaman-banner.blp'], 'Horde': ['tier3_shaman-banner.blp']}
+set_tier1_warrior Battlegear of Might {'Alliance': ['set_tier1_warrior-banner.blp'], 'Horde': ['set_tier1_warrior-banner.blp']}
+set_tier1_paladin Lawbringer Armor {'Alliance': ['set_tier1_paladin-banner.blp'], 'Horde': ['set_tier1_paladin-banner.blp']}
+set_tier1_hunter Giantstalker Armor {'Alliance': ['set_tier1_hunter-banner.blp'], 'Horde': ['set_tier1_hunter-banner.blp']}
+set_tier1_rogue Nightslayer Armor {'Alliance': ['set_tier1_rogue-alliance-banner.blp'], 'Horde': ['set_tier1_rogue-banner.blp']}
+set_tier1_priest Vestments of Prophecy {'Alliance': ['set_tier1_priest-banner.blp'], 'Horde': ['set_tier1_priest-banner.blp']}
+set_tier1_shaman The Earthfury {'Alliance': ['set_tier1_shaman-banner.blp'], 'Horde': ['set_tier1_shaman-banner.blp']}
+set_tier1_mage Arcanist Regalia {'Alliance': ['set_tier1_mage-banner.blp'], 'Horde': ['set_tier1_mage-banner.blp']}
+set_tier1_warlock Felheart Raiment {'Alliance': ['set_tier1_warlock-alliance-banner.blp'], 'Horde': ['set_tier1_warlock-banner.blp']}
+set_tier1_druid Cenarion Raiment {'Alliance': ['set_tier1_druid-banner.blp'], 'Horde': ['set_tier1_druid-banner.blp']}
+set_tier2_warrior Battlegear of Wrath {'Alliance': ['set_tier2_warrior-alliance-banner.blp'], 'Horde': ['set_tier2_warrior-banner.blp']}
+set_tier2_paladin Judgement Armor {'Alliance': ['set_tier2_paladin-banner.blp'], 'Horde': ['set_tier2_paladin-banner.blp']}
+set_tier2_hunter Dragonstalker Armor {'Alliance': ['set_tier2_hunter-alliance-banner.blp'], 'Horde': ['set_tier2_hunter-banner.blp']}
+set_tier2_rogue Bloodfang Armor {'Alliance': ['set_tier2_rogue-banner.blp'], 'Horde': ['set_tier2_rogue-banner.blp']}
+set_tier2_priest Vestments of Transcendence {'Alliance': ['set_tier2_priest-banner.blp'], 'Horde': ['set_tier2_priest-banner.blp']}
+set_tier2_shaman The Ten Storms {'Alliance': ['set_tier2_shaman-banner.blp'], 'Horde': ['set_tier2_shaman-banner.blp']}
+set_tier2_mage Netherwind Regalia {'Alliance': ['set_tier2_mage-banner.blp'], 'Horde': ['set_tier2_mage-banner.blp']}
+set_tier2_warlock Nemesis Raiment {'Alliance': ['set_tier2_warlock-alliance-banner.blp'], 'Horde': ['set_tier2_warlock-banner.blp']}
+set_tier2_druid Stormrage Raiment {'Alliance': ['set_tier2_druid-banner.blp'], 'Horde': ['set_tier2_druid-horde-banner.blp']}
+set_dungeon1_warrior Battlegear of Valor {'Alliance': ['set_dungeon1_warrior-banner.blp'], 'Horde': ['set_dungeon1_warrior-banner.blp']}
+set_dungeon1_paladin Lightforge Armor {'Alliance': ['set_dungeon1_paladin-banner.blp'], 'Horde': ['set_dungeon1_paladin-banner.blp']}
+set_dungeon1_hunter Beaststalker Armor {'Alliance': ['set_dungeon1_hunter-banner.blp'], 'Horde': ['set_dungeon1_hunter-banner.blp']}
+set_dungeon1_rogue Shadowcraft Armor {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon1_priest Vestments of the Devout {'Alliance': ['key_strat-banner.blp'], 'Horde': ['key_strat-banner.blp']}
+set_dungeon1_shaman The Elements {'Alliance': ['set_dungeon1_shaman-banner.blp'], 'Horde': ['set_dungeon1_shaman-banner.blp']}
+set_dungeon1_mage Magister's Regalia {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon1_warlock Dreadmist Raiment {'Alliance': ['set_dungeon1_warlock-banner.blp'], 'Horde': ['set_dungeon1_warlock-banner.blp']}
+set_dungeon1_druid Wildheart Raiment {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_warrior Battlegear of Heroism {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_paladin Soulforge Armor {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_hunter Beastmaster Armor {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_rogue Darkmantle Armor {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_priest Vestments of the Virtuous {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_shaman The Five Thunders {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_mage Sorcerer's Regalia {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_warlock Deathmist Raiment {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_dungeon2_druid Feralheart Raiment {'Alliance': ['set_dungeon2-banner.blp'], 'Horde': ['set_dungeon2-banner.blp']}
+set_forever_raid_warrior Battlegear of Glory {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+set_forever_raid_paladin Justice Armor {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+set_forever_raid_hunter Wildstalker Armor {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+set_forever_raid_rogue Grimstitch Armor {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+set_forever_raid_priest Vestments of Conviction {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+set_forever_raid_shaman The Spiritcaller {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+set_forever_raid_mage Manaflare Regalia {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+set_forever_raid_warlock Demonheart Raiment {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+set_forever_raid_druid Grovekeeper Raiment {'Alliance': ['set_forever_raid-banner.blp'], 'Horde': ['set_forever_raid-banner.blp']}
+pvp_set_plate_ally_warrior Field Marshal's Battlegear {'Alliance': ['pvp_set_plate_ally-banner.blp']}
+pvp_set_plate_ally_paladin Field Marshal's Aegis {'Alliance': ['pvp_set_plate_ally-banner.blp']}
+pvp_set_mail_ally_hunter Field Marshal's Pursuit {'Alliance': ['pvp_set_mail_ally-banner.blp']}
+pvp_set_mail_ally_shaman Field Marshal's Earthshaker {'Alliance': ['pvp_set_mail_ally-banner.blp']}
+pvp_set_leather_ally_rogue Field Marshal's Vestments {'Alliance': ['pvp_set_leather_ally-banner.blp']}
+pvp_set_leather_ally_druid Field Marshal's Sanctuary {'Alliance': ['pvp_set_leather_ally-banner.blp']}
+pvp_set_cloth_ally_priest Field Marshal's Raiment {'Alliance': ['pvp_set_cloth_ally-banner.blp']}
+pvp_set_cloth_ally_mage Field Marshal's Regalia {'Alliance': ['pvp_set_cloth_ally-banner.blp']}
+pvp_set_cloth_ally_warlock Field Marshal's Threads {'Alliance': ['pvp_set_cloth_ally-banner.blp']}
+pvp_set_plate_horde_warrior Warlord's Battlegear {'Horde': ['pvp_set_plate_horde-banner.blp']}
+pvp_set_plate_horde_paladin Warlord's Aegis {'Horde': ['pvp_set_plate_horde-banner.blp']}
+pvp_set_mail_horde_hunter Warlord's Pursuit {'Horde': ['pvp_set_mail_horde-banner.blp']}
+pvp_set_mail_horde_shaman Warlord's Earthshaker {'Horde': ['pvp_set_mail_horde_shaman-banner.blp']}
+pvp_set_leather_horde_rogue Warlord's Vestments {'Horde': ['set_tier2_warrior-banner.blp']}
+pvp_set_leather_horde_druid Warlord's Sanctuary {'Horde': ['set_tier2_warrior-banner.blp']}
+pvp_set_cloth_horde_priest Warlord's Raiment {'Horde': ['pvp_set_cloth_horde-banner.blp']}
+pvp_set_cloth_horde_mage Warlord's Regalia {'Horde': ['pvp_set_cloth_horde-banner.blp']}
+pvp_set_cloth_horde_warlock Warlord's Threads {'Horde': ['pvp_set_cloth_horde-banner.blp']}
+set_tier25_druid Genesis Raiment {'Alliance': ['set_tier25_leather-banner.blp'], 'Horde': ['set_tier25_leather-banner.blp']}
+set_tier25_hunter Striker's Garb {'Alliance': ['set_tier25_hunter-banner.blp'], 'Horde': ['set_tier25_hunter-banner.blp']}
+set_tier25_mage Enigma Vestments {'Alliance': ['set_tier25-banner.blp'], 'Horde': ['set_tier25-banner.blp']}
+set_tier25_paladin Avenger's Battlegear {'Alliance': ['set_tier25_plate-banner.blp'], 'Horde': ['set_tier25_plate-banner.blp']}
+set_tier25_priest Garments of the Oracle {'Alliance': ['set_tier25-banner.blp'], 'Horde': ['set_tier25-banner.blp']}
+set_tier25_rogue Deathdealer's Embrace {'Alliance': ['set_tier25_leather-banner.blp'], 'Horde': ['set_tier25_leather-banner.blp']}
+set_tier25_shaman Stormcaller's Garb {'Alliance': ['set_tier25-banner.blp'], 'Horde': ['set_tier25-banner.blp']}
+set_tier25_warlock Doomcaller's Attire {'Alliance': ['set_tier25-banner.blp'], 'Horde': ['set_tier25-banner.blp']}
+set_tier25_warrior Conqueror's Battlegear {'Alliance': ['set_tier25_plate-banner.blp'], 'Horde': ['set_tier25_plate-banner.blp']}
