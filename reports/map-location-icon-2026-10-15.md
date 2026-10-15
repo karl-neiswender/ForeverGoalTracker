@@ -27,7 +27,13 @@ Created with built-in imagegen, converted and palette matched with the same tool
 
 Edit prompt: Preserve the original pin design, framing, transparent background,
 hammered gold texture, chiseled bevels and upper-left lighting. Add one bold
-straight diagonal gold strike-through from upper left to lower right, extending
+straight diagonal gold strike-through from upper right to lower left, extending
 slightly past the pin edges. Give the slash matching gold bevels, amber facets
 and a thin dark brown contour for readability at 16–32 px. No text, red, extra
 circle, glow or other icons.
+
+Direction corrected at Karl's request: slash descends from upper right to bottom
+left (`/`). The first version's original is preserved unchanged in
+`Media/artwork/icons/map-location-off-first-direction-source.png`. The corrected
+variant keeps the same runtime name. Edit used built-in imagegen to change only
+the slash orientation, preserving the pin, lighting, framing and transparency.
