@@ -78,7 +78,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
               auto = { skill = { name = "Riding", rank = 150 }, forFaction = side } },
             { name = savings, materials = {},
               auto = { money = gold[2] * 10000, forFaction = side } },
-            { name = "Buy " .. article .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
+            { name = "Buy " .. article .. mountName .. " from " .. vendor, materials = {},
               auto = { ownedPattern = ownedPatterns, item = ids, forFaction = side },
               links = link },
         }
@@ -92,7 +92,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
           auto = { skill = { name = "Riding", rank = 150 }, forRace = raceFile } },
         { name = savings, materials = {},
           auto = { money = gold[2] * 10000, forRace = raceFile } },
-        { name = "Buy " .. article .. mountName .. " from " .. vendor .. " (" .. location .. ")", materials = {},
+        { name = "Buy " .. article .. mountName .. " from " .. vendor, materials = {},
           auto = { ownedPattern = ownedPatterns, item = ids, forRace = raceFile },
           links = link },
     }
@@ -270,7 +270,7 @@ FGT.goals = {
         steps = {
             -- (v2.3.1: "Join a raid team" moved to tips; see stepsFix231 in Core.lua)
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Get {att_naxx:attuned to Naxxramas} from Archmage Angela Dosantos at Light's Hope Chapel.", auto = { quest = { 9121, 9122, 9123 } } },
+            { text = "Get {att_naxx:attuned to Naxxramas} from Archmage Angela Dosantos.", auto = { quest = { 9121, 9122, 9123 } } },
             { text = "Clear the Military Wing of {raid_naxx:Naxxramas} up to the Four Horsemen.", auto = { boss = "Gothik the Harvester" } },
             { text = "Defeat the Four Horsemen.", auto = { boss = "Four Horsemen" } },
             -- the game has no details for 22691 (Wowhead: removed from the game), so the name links from here
@@ -331,7 +331,7 @@ FGT.goals = {
             { text = "Collect 40 Splinters of Atiesh from Naxxramas bosses.", auto = { item = 22726, count = 40 },
               links = { { 22726, "Splinters of Atiesh" } } }, -- the game says "Splinter of Atiesh"
             { text = "Combine the 40 splinters into the Frame of Atiesh.", auto = { item = 22727, quest = 9250 } },
-            { text = "Bring the Frame of Atiesh to Anachronos at the Caverns of Time in Tanaris.", auto = { quest = 9250 },
+            { text = "Bring the Frame of Atiesh to Anachronos.", auto = { quest = 9250 },
               links = { { 22727, "Frame of Atiesh" } } },
             { text = "Loot the Staff Head of Atiesh from Kel'Thuzad in Naxxramas.", auto = { item = 22733 } },
             { text = "Loot the Base of Atiesh from C'Thun in Ahn'Qiraj.", auto = { item = 22734 } },
@@ -358,9 +358,9 @@ FGT.goals = {
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Earn the Ancient Rune Etched Stave from 'Stave of the Ancients' in the {lokdelar:Lok'delar} chain.", auto = { item = 18707, quest = 7636 } },
-            { text = "Pick up 'A Proper String' from Stoma the Ancient in Felwood.", auto = { questTaken = 7635 } },
+            { text = "Pick up 'A Proper String' from Stoma the Ancient.", auto = { questTaken = 7635 } },
             { text = "Loot the Mature Black Dragon Sinew from {raid_ony:Onyxia}.", auto = { item = 18705, quest = 7635 } },
-            { text = "Turn in the sinew to Stoma the Ancient in Felwood for the Enchanted Black Dragon Sinew.", auto = { item = 18724, quest = 7635 } },
+            { text = "Turn in the sinew to Stoma the Ancient for the Enchanted Black Dragon Sinew.", auto = { item = 18724, quest = 7635 } },
             { text = "Combine the stave and the Enchanted Black Dragon Sinew into Rhok'delar.", auto = { item = { 18713, 20488 } },
               links = { { 18724, "Enchanted Black Dragon Sinew" } } },
         },
@@ -382,11 +382,11 @@ FGT.goals = {
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Loot the Ancient Petrified Leaf from the Cache of the Firelord in {raid_mc:Molten Core}.", auto = { item = 18703, quest = 7632 } },
-            { text = "Accept 'Stave of the Ancients' from Vartrus the Ancient in Felwood.", auto = { quest = 7632, questTaken = 7636 } },
-            { text = "Solo Artorius the Doombringer in Winterspring.", auto = { owned = { "Artorius's Head" }, quest = 7636 } },
-            { text = "Solo Klinfran the Crazed in Burning Steppes.", auto = { owned = { "Klinfran's Head" }, quest = 7636 } },
-            { text = "Solo Solenor the Slayer in Silithus.", auto = { owned = { "Solenor's Head" }, quest = 7636 } },
-            { text = "Solo Simone the Seductress in Un'Goro Crater.", auto = { owned = { "Simone's Head" }, quest = 7636 } },
+            { text = "Accept 'Stave of the Ancients' from Vartrus the Ancient.", auto = { quest = 7632, questTaken = 7636 } },
+            { text = "Solo Artorius the Doombringer.", auto = { owned = { "Artorius's Head" }, quest = 7636 } },
+            { text = "Solo Klinfran the Crazed.", auto = { owned = { "Klinfran's Head" }, quest = 7636 } },
+            { text = "Solo Solenor the Slayer.", auto = { owned = { "Solenor's Head" }, quest = 7636 } },
+            { text = "Solo Simone the Seductress.", auto = { owned = { "Simone's Head" }, quest = 7636 } },
             { text = "Turn in the four demon heads to Vartrus for Lok'delar and the Ancient Rune Etched Stave.", auto = { item = { 18715, 20487 }, quest = 7636 },
               links = { { 18707, "Ancient Rune Etched Stave" } } }, -- other items the step names (shown as item links)
         },
@@ -410,7 +410,7 @@ FGT.goals = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Loot the Bindings of the Windseeker (left) from Baron Geddon in Molten Core.", auto = { item = 18563, quest = 7785 } },
             { text = "Loot the Bindings of the Windseeker (right) from Garr in Molten Core.", auto = { item = 18564, quest = 7785 } },
-            { text = "Complete 'Examine the Vessel' with Highlord Demitrian in Silithus.", auto = { quest = 7785 } },
+            { text = "Complete 'Examine the Vessel' with Highlord Demitrian.", auto = { quest = 7785 } },
             { text = "Gather 10 Elementium Bars.", auto = { item = 17771, count = 10 } },
             { text = "Gather 100 Arcanite Bars.", auto = { item = 12360, count = 100 } },
             { text = "Gather 10 Fiery Cores (Molten Core).", auto = { item = 17010, count = 10 } },
@@ -459,7 +459,7 @@ FGT.goals = {
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Loot The Eye of Divinity from Majordomo Executus in {raid_mc:Molten Core}.", auto = { item = 18646, quest = 7622 } },
-            { text = "Start 'The Balance of Light and Shadow' with Eris Havenfire near Stratholme.", auto = { questTaken = 7622 } },
+            { text = "Start 'The Balance of Light and Shadow' with Eris Havenfire.", auto = { questTaken = 7622 } },
             { text = "Save 50 peasants (fewer than 15 deaths) to earn the Splinter of Nordrassil.", auto = { item = 18659, quest = 7622 } },
             { text = "Loot The Eye of Shadow from demons in southern Winterspring, or buy one.", auto = { item = 18665 } },
             { text = "Combine the Splinter of Nordrassil, the Eye of Shadow and the Eye of Divinity into Benediction.", auto = { item = { 18608, 18609 } },
