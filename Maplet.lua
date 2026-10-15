@@ -669,6 +669,17 @@ watch:SetScript("OnUpdate", function(f, dt)
     M:SyncButton()
 end)
 
+-- The gallery's map scene (Core.lua, demo scene 12): the open goal's next step's map, at once and
+-- with no fade, so a screenshot can be taken a moment later.
+function FGT.ShowMapForDemo()
+    local n, zoom = NextStepNpc(B.goal)
+    if n and M:Show(n, true, false, zoom) then
+        M.mix = 1
+        M:Apply()
+        M:Layout()
+    end
+end
+
 -- ------------------------------------------------------------
 -- /goals map ...
 -- ------------------------------------------------------------

@@ -13224,6 +13224,7 @@ local function ClearExtras()
     if FGT.demoLock then FGT.lockouts[FGT.demoLock] = nil; FGT.demoLock = nil end
     FGT.demoFind = nil
     FGT.demoRail = nil -- the goals list unfolds again (or goes back to the player's own choice)
+    if FGT.Maplet then FGT.Maplet:Reset() end -- the map scene's map fades back to the art at once
     if FGT.RailSync then FGT.RailSync(true) end
     if FGT.CloseWelcome then FGT.CloseWelcome(true) end
     -- the Materials drawer closes, My Goals shows everything, unsearched
@@ -13312,6 +13313,7 @@ end
 --   bottom = true    scrolls the goal list to the end
 --   materials = true opens the goal's Materials drawer
 --   libFor, libSort  the Library's For and Sort choices
+--   map = true       shows the goal's next step on the map (Maplet.lua)
 local SCENES = {
     [1] = { tab = "tracker", goal = "thunderfury" },                     -- hero: My Goals + a guide
     [2] = { tab = "library", filter = "new", expand = "epicmounts" },    -- New & Updated, Skyborne row
@@ -13359,6 +13361,12 @@ local SCENES = {
             setup = function(DB, Flat)
                 Flat("wolfsbane", 0.45)
             end },
+    -- the map view (2.15.0): the Dreadsteed's quest chain, four steps done, the next one sends you to
+    -- Gorzeeki Wildeyes in the Burning Steppes, with the Show on map link in the step and the map on the banner
+    [12] = { tab = "tracker", goal = "mount_dreadsteed", map = true,
+            setup = function(DB, Flat)
+                Flat("mount_dreadsteed", 4 / 13)
+            end },
 }
 
 -- /goals shots: every gallery screenshot in one go (Karl). Black photo
@@ -13373,15 +13381,16 @@ local SCENES = {
 FGT.SHOTS = {
     { scene = 1, file = "01-my-goals" },
     { scene = 11, file = "02-wolfsbane" },
-    { scene = 4, file = "03-links-and-tips" },
-    { scene = 9, file = "04-materials" },
-    { scene = 10, file = "05-library-filters" },
-    { scene = 2, file = "06-new-and-updated" },
-    { scene = 3, file = "07-epic-mounts" },
-    { scene = 8, file = "08-find-your-next-goal" },
-    { scene = 5, file = "09-welcome" },
-    { scene = 6, file = "10-suggestions" },
-    { scene = 1, settings = true, file = "11-settings" },
+    { scene = 12, file = "03-map-view" },
+    { scene = 4, file = "04-links-and-tips" },
+    { scene = 9, file = "05-materials" },
+    { scene = 10, file = "06-library-filters" },
+    { scene = 2, file = "07-new-and-updated" },
+    { scene = 3, file = "08-epic-mounts" },
+    { scene = 8, file = "09-find-your-next-goal" },
+    { scene = 5, file = "10-welcome" },
+    { scene = 6, file = "11-suggestions" },
+    { scene = 1, settings = true, file = "12-settings" },
 }
 function FGT.TakeShots()
     if FGT.shooting then print(TAG .. "already taking screenshots.") return end
@@ -13500,6 +13509,10 @@ function FGT.Demo(arg)
             s:SetVerticalScroll(s:GetVerticalScrollRange())
             listScrollObj:Update()
         end)
+    end
+    if scene.map and FGT.ShowMapForDemo then
+        -- once the goal page is laid out, so the map knows the banner's size
+        C_Timer.After(0.3, FGT.ShowMapForDemo)
     end
     if scene.welcome and FGT.OpenWelcome then FGT.OpenWelcome(scene.welcome, nil, scene.interests) end
     print(TAG .. "demo scene " .. (tonumber(arg) or 1) .. " of " .. #SCENES .. ". Your real data is safe; /goals demo off brings it back.")

@@ -630,7 +630,9 @@ if ok_all:
         'assert(not (F.materialsPanel and F.materialsPanel.open), "demo off closes the drawer"); '
         'S("demo 11"); assert(D.active.wolfsbane and D.progress.wolfsbane and next(D.progress.wolfsbane), "scene 11 stages Wolfsbane part way"); '
         'S("demo off"); assert(not D.active.wolfsbane, "demo off puts Wolfsbane back"); '
-        'assert(#F.SHOTS == 11, "eleven gallery shots"); print("  materials, Library and Wolfsbane scenes ok")')
+        'S("demo 12"); assert(D.active.mount_dreadsteed and D.progress.mount_dreadsteed and D.progress.mount_dreadsteed[4] and not D.progress.mount_dreadsteed[5], "scene 12 stages the Dreadsteed four steps in, the Gorzeeki step next"); '
+        'S("demo off"); assert(not D.active.mount_dreadsteed, "demo off puts the Dreadsteed back"); '
+        'assert(#F.SHOTS == 12, "twelve gallery shots"); print("  materials, Library, Wolfsbane and map scenes ok")')
     steps += [
         ("demo scenes: materials and Library", None, demo_new),
         ("Forever demo scenes: materials and Library", None, demo_new, True),
