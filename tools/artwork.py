@@ -103,6 +103,7 @@ FINAL_BANNERS = {
     "rep_timbermaw": "reputation/timbermaw.jpg",
     "mount_qiraji": "mounts/scarab-lord-review.png",
     "allclasses_dwarf_shaman": "leveling/dwarf-shaman.jpg",
+    "zinrokh": "weapons/zinrokh-master.png",
     "pvp_drums_of_war": "pvp/drums-of-war.jpg",
     "epicmounts_undead": "mounts/skeletal-warhorse-master.png",
     "pvp_arathi": "pvp_arathi-master.png",

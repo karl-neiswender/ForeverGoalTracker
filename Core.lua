@@ -4870,6 +4870,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         rhokdelar = "rhokdelar-banner.blp",
         raid_ony = "raid_ony-banner.blp",
         raid_bwl = "raid_bwl-banner.blp",
+        zinrokh = "zinrokh-banner.blp",
         mount_dreadsteed = "mount_dreadsteed-banner.blp",
         mount_charger = "mount_charger-banner.blp",
 
@@ -4900,6 +4901,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         rhokdelar = 4/3,
         raid_ony = 4/3,
         raid_bwl = 4/3,
+        zinrokh = 4/3,
         mount_dreadsteed = 4/3,
         mount_charger = 0.7501831501831502,
 
@@ -5159,7 +5161,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         epicmounts=true,
         ashbringer=true, atiesh=true, sulfuras=true, thunderfury=true,
         rhokdelar=true, raid_ony=true, mount_dreadsteed=true,
-        quelserrar=true, benediction=true, raid_bwl=true,
+        quelserrar=true, benediction=true, raid_bwl=true, zinrokh=true,
         raid_mc=true, att_mc=true, set_tier1=true,
         lokdelar=true, frostsaber=true, set_viper=true, rep_cenarion=true, key_scholo=true,
     }
