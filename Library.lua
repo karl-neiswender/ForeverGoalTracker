@@ -357,7 +357,7 @@ local library = {
         steps = {
             { text = "Reach level 18.", auto = { level = 18 } },
             { text = "Learn Two-Handed Swords from Archibald.", auto = { skill = { name = "Two-Handed Swords", rank = 1 }, forRace = "Scourge", forFaction = "Horde", forClass = "PALADIN", description = "an Undead Paladin learns Two-Handed Swords" } },
-            { text = "Complete 'Diplomatic Incident' from Danitha Morr.", auto = { quest = 91858 } },
+            { text = "Complete 'Diplomatic Incident' from Danitha Morr.", auto = { quest = 91858 }, mapZoom = 73 },
             { text = "Complete 'A Curious Pair' from Trevan Rol.", auto = { quest = 91859 } },
             { text = "Complete 'A Grim Fate' from Deathguard Baldren.", auto = { quest = 91860 } },
             { text = "Complete 'Into Fenris Keep' in the keep's basement.", auto = { quest = 91861 } },
@@ -367,7 +367,7 @@ local library = {
             { text = "Accept 'A Moon-Kissed Blade' from Lumina Windsinger.", auto = { questTaken = 95036 } },
             { text = "Loot Whitestone Oak Lumber from goblins in the Deadmines.", auto = { item = 6994, quest = 95036, forRace = "Scourge", forFaction = "Horde" } },
             { text = "Collect Enchanted Silver Ingot beside Archmage Arugal in Shadowfang Keep.", auto = { item = 267361, quest = 95036, forRace = "Scourge", forFaction = "Horde" } },
-            { text = "Complete 'Seeking the Kor Gem' for Ulric Frostveil.", auto = { quest = 95042 } },
+            { text = "Complete 'Seeking the Kor Gem' for Ulric Frostveil.", auto = { quest = 95042 }, mapZoom = 258 },
             { text = "Complete 'A Moon-Kissed Blade' with Trevan Rol.", auto = { quest = 95036 } },
             { text = "Complete 'An Underrated Talent' from Trevan Rol to Ott.", auto = { quest = 95111 } },
             { text = "Complete 'Ott's Masterwork' with Ott.", auto = { quest = 95125 } },
