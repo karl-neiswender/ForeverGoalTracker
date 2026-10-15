@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Fixed Alliance Warrior Tier 3 to use its Dwarf artwork and Beastmaster to use its dedicated background.
+
 ## 2.15.0
 
 - Added a map view to goal pages: a pin button fades the banner to the zone map, with a gold pin on the person your next step needs.

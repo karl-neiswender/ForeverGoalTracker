@@ -1,5 +1,13 @@
 # Background image coverage — October 15, 2026
 
+Follow-up: Karl authorized both wiring fixes after this audit. Alliance Warrior
+Tier 3 now selects the existing Dwarf image; Horde retains Koringar. Beastmaster
+now selects its dedicated texture after the collection-wide fallback assignment.
+All other Dungeon Set 2 classes retain their shared image. Full Era/Forever
+checks passed, including both factions and every Dungeon Set 2 class;
+evidence: `checks/warrior-beastmaster-art-fix-2026-10-15.txt`.
+The inventory and JSON below retain the pre-fix audit snapshot.
+
 Audit source: `f5303fe190603b9a11d44a25331d6639a0a11e67`. Real runtime resolver loaded under Lua 5.1/WoW stubs
 for Era and Forever, including independent class-set goals accessed through their
 collection pickers. Synthetic faction/race/class contexts test artwork routing;

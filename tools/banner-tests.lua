@@ -47,7 +47,24 @@ for _, goal in ipairs(F.armorCollections.pvp_set_leather_ally.armorChildren) do
     assert(path == "pvp_set_leather_ally-banner.blp" and aspect == 4/3 and preprocessed,
         "Alliance leather class sets use approved Moonshadow art")
 end
-for id, expected in pairs({tier3_warrior="tier3_warrior_koringar-banner.blp", social_trades="social_trades-banner.blp"}) do
+do
+    local originalContext = B.PlayerArtContext
+    for _, faction in ipairs({"Alliance", "Horde"}) do
+        B.PlayerArtContext = function() return {faction=faction, class="WARRIOR", race="Human"} end
+        local path, aspect, preprocessed = B:ResolveArt("tier3_warrior")
+        local expected = faction == "Alliance" and "tier3_warrior-banner.blp" or "tier3_warrior_koringar-banner.blp"
+        assert(path == expected and aspect == 4/3 and preprocessed,
+            "Warrior Tier 3 uses Dwarf for Alliance and Koringar for Horde")
+        for _, child in ipairs(F.armorCollections.set_dungeon2.armorChildren) do
+            path, aspect, preprocessed = B:ResolveArt(child.id)
+            expected = child.id == "set_dungeon2_hunter" and "set_dungeon2_hunter-banner.blp" or "set_dungeon2-banner.blp"
+            assert(path == expected and aspect == 4/3 and preprocessed,
+                "Beastmaster keeps dedicated art after collection fallback assignment")
+        end
+    end
+    B.PlayerArtContext = originalContext
+end
+for id, expected in pairs({social_trades="social_trades-banner.blp"}) do
     local path, aspect, preprocessed = B:ResolveArt(id)
     assert(path == expected and aspect == 4/3 and preprocessed, "approved Warrior Tier 3 and Make Trades artwork")
 end

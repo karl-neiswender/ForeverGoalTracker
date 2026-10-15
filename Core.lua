@@ -4922,6 +4922,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Faction variants share their goal's aspect ratio and monochrome treatment.
     -- Choose from the logged-in character, independent of Library filters/roster.
     B.factionArtPaths = {
+        tier3_warrior = {Alliance = "tier3_warrior-banner.blp", Horde = "tier3_warrior_koringar-banner.blp"},
         tier3_warlock = {Alliance = "tier3_warlock-alliance-banner.blp", Horde = "tier3_warlock-horde-banner.blp"},
         set_tier2_hunter = {Alliance = "set_tier2_hunter-alliance-banner.blp"},
         set_tier2_warlock = {Alliance = "set_tier2_warlock-alliance-banner.blp"},
@@ -5242,14 +5243,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
     B.artAspects.set_dungeon1_hunter, B.preprocessed.set_dungeon1_hunter = 4/3, true
-    B.artPaths.set_dungeon2_hunter = "set_dungeon2_hunter-banner.blp"
-    B.artAspects.set_dungeon2_hunter, B.preprocessed.set_dungeon2_hunter = 4/3, true
     B.artPaths.set_dungeon2 = "set_dungeon2-banner.blp"
     B.artAspects.set_dungeon2, B.preprocessed.set_dungeon2 = 4/3, true
     for _, child in ipairs(FGT.armorCollections.set_dungeon2.armorChildren) do
         B.artPaths[child.id] = "set_dungeon2-banner.blp"
         B.artAspects[child.id], B.preprocessed[child.id] = 4/3, true
     end
+    B.artPaths.set_dungeon2_hunter = "set_dungeon2_hunter-banner.blp"
+    B.artAspects.set_dungeon2_hunter, B.preprocessed.set_dungeon2_hunter = 4/3, true
     B.artPaths.set_dungeon1_warrior = "set_dungeon1_warrior-banner.blp"
     B.artAspects.set_dungeon1_warrior, B.preprocessed.set_dungeon1_warrior = 4/3, true
     B.artPaths.set_dungeon1_warlock = "set_dungeon1_warlock-banner.blp"
