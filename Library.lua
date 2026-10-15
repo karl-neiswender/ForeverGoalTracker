@@ -424,6 +424,33 @@ local library = {
         },
     },
 
+    {
+        -- Wowhead Classic spell 16994 (item 12784, plans item 12838), checked 2026-10-15. Ingredients
+        -- are counted in the Materials drawer from the "Gather" steps.
+        id = "arcanite_reaper", library = true, itemQuality = 3,
+        icon = "inv_axe_09",
+        name = "Arcanite Reaper",
+        short = "Arcanite Reaper",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Weeks",
+        note = "A two-handed axe made by a Blacksmith. It needs Blacksmithing 300, the plans from Blackrock Spire and 20 Arcanite Bars.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Reach Blacksmithing 300.", icon = "trade_blacksmithing", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
+            { text = "Loot Plans: Arcanite Reaper from Bannok Grimaxe in Blackrock Spire.", auto = { item = 12838 } },
+            { text = "Gather 20 Arcanite Bars.", auto = { item = 12360, count = 20 } },
+            { text = "Gather 6 Enchanted Leather.", auto = { item = 12810, count = 6 } },
+            { text = "Gather 2 Dense Grinding Stones.", auto = { item = 12644, count = 2 } },
+            { text = "Craft the Arcanite Reaper at an anvil.", auto = { item = 12784, owned = { "Arcanite Reaper" } } },
+        },
+        completeWith = { item = 12784, owned = { "Arcanite Reaper" } },
+        tips = {
+            "{item:12838:Plans: Arcanite Reaper} drop from Bannok Grimaxe in Blackrock Spire.",
+            "Alchemists make {item:12360:Arcanite Bars} from {item:12359:Thorium Bars} and {item:12363:Arcane Crystals}.",
+            "Equipping the axe takes level 58 and the Two-Handed Axes skill: Warriors, Paladins, Hunters and Shamans can use it.",
+        },
+    },
+
     -- ---------------- Raids ----------------
     {
         id = "raid_mc", library = true, instance = { 409, "Molten Core" },
