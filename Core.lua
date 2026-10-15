@@ -1130,7 +1130,7 @@ function FGT.NextStep(goal)
                     if d < t then
                         local text = FGT.StepText(piece.text or piece.name)
                         if chosen > 1 then text = section.name:gsub(" %- .*", "") .. ": " .. text end
-                        return text
+                        return text, piece -- (the step itself too: Maplet.lua reads its mapZoom)
                     end
                 end
             end
@@ -1141,9 +1141,9 @@ function FGT.NextStep(goal)
         if PartSelected(goal, i) and not FGT.PieceSkipped(entry) then
             local text = type(entry) == "table" and entry.text or entry
             if IsAutoStep(entry) then
-                if AutoStepFraction(entry) < 1 then return text .. " to level " .. MAX_LEVEL end
+                if AutoStepFraction(entry) < 1 then return text .. " to level " .. MAX_LEVEL, entry end
             elseif not IsStepDone(goal.id, i) then
-                return FGT.StepText(text)
+                return FGT.StepText(text), entry
             end
         end
     end
@@ -1778,7 +1778,8 @@ function FGT.EnableGoalLinks(f)
         GameTooltip:Hide()
         local mapNpc = tonumber(link:match("^fgtmap:(%d+)") or "")
         if mapNpc then
-            if FGT.MapLinkClick then FGT.MapLinkClick(mapNpc) end
+            -- (the link may carry the step's own starting zoom: fgtmap:<npc>:<percent>)
+            if FGT.MapLinkClick then FGT.MapLinkClick(mapNpc, tonumber(link:match("^fgtmap:%d+:(%d+)") or "")) end
             return
         end
         local npcId = tonumber(link:match("^fgtnpc:(%d+)") or "")
@@ -8102,7 +8103,7 @@ local function RefreshTierSections(goal, view)
                 local open = hasMats and FGT.pieceExpanded[pieceKey]
 
                 row.num:SetText("")
-                row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(FGT.StepText(piece.text or piece.name), md == mt, hasMats)
+                row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(FGT.StepText(piece.text or piece.name), md == mt, hasMats, piece.mapZoom)
                     or FGT.StepText(piece.text or piece.name))
                 FGT.LinkItemName(row) -- the piece's name as an item link
                 row.text:SetWidth(math.max(50, width - indent - 44 - (hasMats and 44 or 0) - (not view and piece.icon and 14 or 0)))
@@ -8287,7 +8288,7 @@ RefreshSteps = function(goal, view)
             row:SetHeight(rowHeight2)
             row:SetScript("OnClick", nil)
         else
-            row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(stepText, IsStepDone(goal.id, i)) or stepText)
+            row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(stepText, IsStepDone(goal.id, i), nil, type(entry) == "table" and entry.mapZoom or nil) or stepText)
             row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46)))
             -- item links first, so a finished step fades them too (Karl)
             FGT.SetStepLinks(row, type(entry) == "table" and entry.auto or nil, entry)

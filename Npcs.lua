@@ -18,7 +18,15 @@ local ADDON, FGT = ...
 -- Checked 2026-10-07: every Classic NPC below is in the Forever database.
 FGT.NPCS = {
     -- Weapon trainer listed in Wowhead Forever, checked 2026-10-11.
-    { id = 11870, name = "Archibald", tag = "Weapon Master", where = "Undercity, in the War Quarter" },
+    -- Archibald walks the War Quarter (Wowhead puts him within a few units of 57, 32).
+    { id = 11870, name = "Archibald", tag = "Weapon Master", where = "Undercity, in the War Quarter", map = 1458, zone = "Undercity", x = 57.0, y = 32.4 },
+    -- Wolfsbane's quest chain (Wowhead Forever, checked 2026-10-15): the giver of each step.
+    { id = 246378, name = "Danitha Morr", forever = true, map = 1420, zone = "Tirisfal Glades", x = 22.0, y = 44.6, where = "At Bandarion Keep" },
+    { id = 248840, name = "Trevan Rol", forever = true, map = 1421, zone = "Silverpine Forest", x = 43.4, y = 41.0, where = "At the Sepulcher" },
+    { id = 259611, name = "Deathguard Baldren", forever = true, map = 1421, zone = "Silverpine Forest", x = 45.6, y = 41.8, where = "At the Sepulcher" },
+    { id = 259620, name = "Lumina Windsinger", forever = true, map = 1421, zone = "Silverpine Forest", x = 43.2, y = 41.0, where = "At the Sepulcher (another Lumina is in Fenris Keep)" },
+    { id = 259649, name = "Ulric Frostveil", forever = true, map = 1440, zone = "Ashenvale", x = 11.8, y = 34.5, where = "At the Zoram Strand" },
+    { id = 3539, name = "Ott", forever = true, map = 1424, zone = "Hillsbrad Foothills", x = 60.4, y = 26.0, where = "In Tarren Mill" },
     -- Classic fishing tournament guide, Wowhead, 2026-10-10.
     { id = 15077, name = "Riggle Bassbait", tag = "Fishmaster", where = "Booty Bay, on the central docks near the inn during the fishing tournament" },
     -- AQ40 turn-ins: Classic IDs and instance location checked on Wowhead's

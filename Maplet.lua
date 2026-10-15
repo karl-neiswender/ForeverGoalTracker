@@ -72,10 +72,15 @@ local function NpcInText(text)
     end
 end
 
+-- the next step's person, and the zoom that step starts the map at (its mapZoom, a percent in)
 local function NextStepNpc(goal)
     if not (goal and FGT.NextStep) then return nil end
-    local ok, n = pcall(function() return NpcInText(FGT.NextStep(goal)) end)
-    return ok and n or nil
+    local ok, n, zoom = pcall(function()
+        local text, entry = FGT.NextStep(goal)
+        return NpcInText(text), type(entry) == "table" and entry.mapZoom or nil
+    end)
+    if not ok then return nil end
+    return n, zoom
 end
 
 local function FindNpc(query)
@@ -355,7 +360,7 @@ btn:SetScript("OnLeave", function() GameTooltip:Hide() end)
 btn:SetScript("OnClick", function(self)
     self:StopAttention()
     GameTooltip:Hide()
-    if M.target == 1 then M:Hide() elseif M.available then M:Show(M.available, true) end
+    if M.target == 1 then M:Hide() elseif M.available then M:Show(M.available, true, false, M.availableZoom) end
 end)
 
 -- Core's layout puts the page's icons in a row from the right (edit, reset, note); the map pin
@@ -592,12 +597,13 @@ function M:Load(n)
     return true
 end
 
-function M:Show(n, quiet, manual)
+function M:Show(n, quiet, manual, zoom)
     if not (B:IsShown() and B.shownArtHeight and B.art:GetWidth() > 20) then
         print(TAG .. "Open a goal with banner artwork first.")
         return false
     end
     if not self:Load(n) then return false end
+    self.zoomIn, self.zoomTarget = math.max(0, math.min(ZMAX, (zoom or 0) / 100)), nil -- (a step's own starting zoom)
     self.goalId = B.goal and B.goal.id
     self.target = 1
     self.fast = false
@@ -639,13 +645,16 @@ watch:SetScript("OnUpdate", function(f, dt)
     f.t = f.t + dt
     if f.t < 0.5 then return end
     f.t = 0
-    local n = B:IsShown() and B.goal and NextStepNpc(B.goal) or nil
-    M.available = n
+    local n, zoom
+    if B:IsShown() and B.goal then n, zoom = NextStepNpc(B.goal) end
+    M.available, M.availableZoom = n, zoom
     if M.target == 1 and not M.manual then
         if not n then
             M:Hide()
         elseif n ~= M.npc and M:Load(n) then
+            M.zoomIn, M.zoomTarget = math.max(0, math.min(ZMAX, (zoom or 0) / 100)), nil
             M:Layout()
+            M:SyncSlider()
         end
     end
     M:SyncButton()
@@ -719,12 +728,12 @@ local function NpcInLinkedText(text)
     end
 end
 
-function FGT.MapLinkText(text, done, skip)
+function FGT.MapLinkText(text, done, skip, zoom)
     if done or skip or type(text) ~= "string" or not C_Map then return text end
     local n = NpcInLinkedText(text)
     if not n then return text end
     -- the icon is set like the quest "!" (15 px, 3 down) and touches its text, one space after the step
-    return text .. " |cff" .. LINK_HEX .. "|Hfgtmap:" .. n.id .. "|h|T" .. FGT.Icon("map-location")
+    return text .. " |cff" .. LINK_HEX .. "|Hfgtmap:" .. n.id .. (zoom and (":" .. zoom) or "") .. "|h|T" .. FGT.Icon("map-location")
         .. ":15:15:0:-3|tShow on map|h|r"
 end
 
@@ -737,13 +746,13 @@ function FGT.ShowMapLinkTip(owner, id)
     GameTooltip:Show()
 end
 
-function FGT.MapLinkClick(id)
+function FGT.MapLinkClick(id, zoom)
     local n = FGT.NpcById(id)
     if not n then return end
     if M.target == 1 and M.npc == n then
         return -- already showing: only the pin button at the top turns the map off
     elseif B:IsShown() and B.shownArtHeight then
-        M:Show(n, true, true)
+        M:Show(n, true, true, zoom)
     else
         FGT.ShowNpcOnMap(id) -- no banner to draw on (the pop-out alone): the game's own map
     end
