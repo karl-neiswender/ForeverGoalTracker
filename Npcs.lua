@@ -112,5 +112,13 @@ FGT.HUBS = {
     rep_argentdawn = { id = "hub:rep_argentdawn", name = "Light's Hope Chapel", npcId = 16116, map = 1423, zone = "Eastern Plaguelands", x = 81.4, y = 58.2 },
     rep_cenarion = { id = "hub:rep_cenarion", name = "Cenarion Hold", npcId = 15181, map = 1451, zone = "Silithus", x = 49.2, y = 34.2 },
     rep_hydraxian = { id = "hub:rep_hydraxian", name = "Duke Hydraxis", npcId = 13278, map = 1447, zone = "Azshara", x = 79.2, y = 73.4 },
+    -- Raid entrances (raid goals, the same link). World positions are the game's own dungeon entrance
+    -- data (wago.tools JournalInstanceEntrance), turned into map spots with Classic Era's map bounds
+    -- (UiMapAssignment, build 1.15.9.70003, 2026-10-15). The method reproduces the Zul'Gurub entrance
+    -- Karl knows; Forever hasn't confirmed them. Left out: Molten Core and Blackwing Lair (the door
+    -- is inside Blackrock Mountain, not clearly on one zone map), both Ahn'Qiraj raids (their gates
+    -- lie just south of Classic's Silithus map) and Naxxramas (the game lists only Northrend's).
+    raid_ony = { id = "hub:raid_ony", name = "Onyxia's Lair", unverifiedInForever = true, map = 1445, zone = "Dustwallow Marsh", x = 52.9, y = 78.1 },
+    raid_zg = { id = "hub:raid_zg", name = "Zul'Gurub", unverifiedInForever = true, map = 1434, zone = "Stranglethorn Vale", x = 53.9, y = 17.6 },
     rep_nozdormu = { id = "hub:rep_nozdormu", name = "Caverns of Time", npcId = 15192, map = 1446, zone = "Tanaris", x = 65.2, y = 50.0 },
 }

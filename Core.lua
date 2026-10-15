@@ -1480,7 +1480,7 @@ do
         -- longest first, so "Vartrus the Ancient" wins over "Vartrus"
         table.sort(names, function(a, b) return #a[1] > #b[1] end)
     end
-    function FGT.NpcById(id) Index(); return byId[id] end
+        function FGT.NpcById(id) Index(); return byId[id] end
 
     local function Word(c) return c ~= "" and c:find("[%w']") ~= nil end
     function FGT.LinkNpcs(text)
@@ -1524,10 +1524,12 @@ do
         if FGT.isForever and n.missingInForever then
             return "Not found in Forever yet. This spot is from Classic Era."
         end
+        -- a spot read from Classic Era's own map data that Forever hasn't confirmed (raid entrances)
+        if FGT.isForever and n.unverifiedInForever then return "Unverified in Forever. This spot is from Classic Era." end
         if not n.map then return "No map pin: inside a dungeon, where the map can't show it." end
     end
     function FGT.NpcNoteColor(n)
-        if FGT.isForever and n.missingInForever then return C.FOREVER_LIGHT[1], C.FOREVER_LIGHT[2], C.FOREVER_LIGHT[3], true end
+        if FGT.isForever and (n.missingInForever or n.unverifiedInForever) then return C.FOREVER_LIGHT[1], C.FOREVER_LIGHT[2], C.FOREVER_LIGHT[3], true end
         return 1, 0.62, 0.45, true
     end
 

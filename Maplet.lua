@@ -266,6 +266,7 @@ dot:SetScript("OnEnter", function(self)
     if n.tag then GameTooltip:AddLine("<" .. n.tag .. ">", 0.7, 0.66, 0.58) end
     GameTooltip:AddLine((n.zone or "?") .. "  " .. string.format("%.1f, %.1f", n.x, n.y), 1, 0.9, 0.55)
     if n.where then GameTooltip:AddLine(n.where, 0.7, 0.66, 0.58, true) end
+    if FGT.NpcNote and FGT.NpcNote(n) then GameTooltip:AddLine(FGT.NpcNote(n), FGT.NpcNoteColor(n)) end
     GameTooltip:AddLine(" ")
     GameTooltip:AddLine(FGT.UseTomTom and FGT.UseTomTom() and "Click: TomTom waypoint" or "Click: show on the map",
         1, 0.82, 0.3)
@@ -277,7 +278,7 @@ dot:SetScript("OnMouseUp", function(_, button)
     local n = M.npc
     if not n then return end
     if button == "RightButton" then
-        FGT.OpenWowheadCard("npc", n.npcId or n.id, n.name, nil, n)
+        if n.npcId or type(n.id) == "number" then FGT.OpenWowheadCard("npc", n.npcId or n.id, n.name, nil, n) end
     else
         FGT.ShowNpcOnMap(n.id)
     end
@@ -743,6 +744,7 @@ function FGT.ShowMapLinkTip(owner, id)
     GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
     GameTooltip:AddLine("Show on the map", 1, 0.93, 0.62) -- (only the pin button at the top turns the map off)
     GameTooltip:AddLine(n.name .. ", " .. (n.zone or "?"), 0.7, 0.66, 0.58)
+    if FGT.NpcNote and FGT.NpcNote(n) then GameTooltip:AddLine(FGT.NpcNote(n), FGT.NpcNoteColor(n)) end
     GameTooltip:Show()
 end
 
@@ -792,7 +794,7 @@ do
     -- called while the goal page is laid out (Core.lua, with the chips)
     function FGT.UpdateMapChip(goal)
         FGT.NpcById(0) -- (builds the index, which holds the hubs)
-        local hub = goal and FGT.HUBS and FGT.HUBS[goal.id]
+        local hub = goal and ((FGT.HUBS and FGT.HUBS[goal.id]))
         if hub and hub.map and hub.x and hub.y and C_Map then
             chip.hubId = hub.id
             chip:SetWidth(4 + 15 + math.ceil(chip.text:GetStringWidth()) + 6)
@@ -802,4 +804,26 @@ do
             chip:Hide()
         end
     end
+end
+
+-- ------------------------------------------------------------
+-- /goals here: where you stand on the map, to write a spot down exactly
+-- ------------------------------------------------------------
+local mapCommand = FGT.HandleMapCommand
+function FGT.HandleMapCommand(msg)
+    if strtrim(msg or ""):lower() == "here" then
+        -- where you stand, to write a map spot down exactly (stand at a raid entrance and type it)
+        local id = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+        local pos = id and C_Map.GetPlayerMapPosition and C_Map.GetPlayerMapPosition(id, "player")
+        local x, y
+        if pos and pos.GetXY then x, y = pos:GetXY() end
+        local info = id and C_Map.GetMapInfo and C_Map.GetMapInfo(id)
+        if x and y then
+            print(string.format("%syou are at %s %.1f, %.1f (map %d)", TAG, info and info.name or "?", x * 100, y * 100, id))
+        else
+            print(TAG .. "the game gives no position here (inside an instance, or the map has none).")
+        end
+        return true
+    end
+    return mapCommand(msg)
 end
