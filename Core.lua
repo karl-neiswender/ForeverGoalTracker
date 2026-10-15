@@ -5216,6 +5216,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artPaths.att_bwl = "raid_bwl-banner.blp"
     B.artAspects.att_bwl, B.preprocessed.att_bwl = 4/3, true
     B.artPaths.set_dungeon1_hunter = "set_dungeon1_hunter-banner.blp"
+    B.artPaths.set_tier25_hunter = "set_tier25_hunter-banner.blp"
+    B.artAspects.set_tier25_hunter, B.preprocessed.set_tier25_hunter = 4/3, true
     B.artAspects.set_dungeon1_hunter, B.preprocessed.set_dungeon1_hunter = 4/3, true
     B.artPaths.set_dungeon2_hunter = "set_dungeon2_hunter-banner.blp"
     B.artAspects.set_dungeon2_hunter, B.preprocessed.set_dungeon2_hunter = 4/3, true

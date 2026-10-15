@@ -2,10 +2,22 @@
 
 Source: `Media/artwork/Azarak_Wolfsblood_TCG.jpg` (unchanged).
 Review: `Media/final-images/strikers-garb-review-2026-10-15.png`.
-Built-in imagegen edit. Pending Karl's visual approval; not installed.
+Built-in imagegen edit. Karl approved the preview with "good"; installed.
 Inspected: neutral grayscale, right-side hunter and wolf, quiet left side,
 soft baked left and bottom gradients. Technical 1200 x 900 master conversion
-and runtime encoding remain for installation after approval.
+and runtime encoding completed after approval.
+
+Approved master: `Media/final-images/tier-sets/hunter/strikers-garb-master.png`
+(1200 x 900). Runtime: `Media/set_tier25_hunter-banner.blp` (512px DXT1,
+10 mip levels, 175948 bytes). Mapped to `set_tier25_hunter` at 4:3 with
+`preprocessed=true`; other AQ40 class sets retain their shared background.
+Rebuild mapping and runtime manifest updated. No recurring computation added;
+only a static texture mapping changes at load. Full WoW restart required.
+
+Validation: full `tools/check.py` passed under bundled Python with the PC's
+Python 3.12 Lua 5.1 bindings preloaded; includes Era/Forever and updated AQ
+artwork assertions. Output: `reports/checks/strikers-garb-2026-10-15.txt`.
+Runtime BLP decoded independently inside the existing compressor.
 
 Exact prompt:
 
