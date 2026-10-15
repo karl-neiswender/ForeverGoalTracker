@@ -708,8 +708,9 @@ function FGT.MapLinkText(text, done, skip)
     if done or skip or type(text) ~= "string" or not C_Map then return text end
     local n = NpcInLinkedText(text)
     if not n then return text end
-    return text .. "  |cff" .. LINK_HEX .. "|Hfgtmap:" .. n.id .. "|h|T" .. FGT.Icon("map-location")
-        .. ":13:13:0:-1|t Show on map|h|r"
+    -- the icon is set like the quest "!" (15 px, 3 down) and touches its text, one space after the step
+    return text .. " |cff" .. LINK_HEX .. "|Hfgtmap:" .. n.id .. "|h|T" .. FGT.Icon("map-location")
+        .. ":15:15:0:-3|tShow on map|h|r"
 end
 
 function FGT.ShowMapLinkTip(owner, id)
