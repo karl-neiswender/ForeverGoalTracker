@@ -17,3 +17,17 @@ facets, warm upper-left highlights, subtle hammered texture, dark brown outline,
 simple silhouette readable at 16–32 px. Front view, centered on transparent
 square canvas with padding. No text, map, frame, glow, extra objects or ground
 shadow.
+
+## Location off variant
+
+Use `FGT.Icon("map-location-off")` for the disabled-location state.
+Runtime texture: `Media/icons/map-location-off.tga` (64 x 64, RGBA).
+Untouched original: `Media/icons/map-location-off-source.png`.
+Created with built-in imagegen, converted and palette matched with the same tools.
+
+Edit prompt: Preserve the original pin design, framing, transparent background,
+hammered gold texture, chiseled bevels and upper-left lighting. Add one bold
+straight diagonal gold strike-through from upper left to lower right, extending
+slightly past the pin edges. Give the slash matching gold bevels, amber facets
+and a thin dark brown contour for readability at 16–32 px. No text, red, extra
+circle, glow or other icons.
