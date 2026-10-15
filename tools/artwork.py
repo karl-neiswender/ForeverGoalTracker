@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "social_trades": "social/make-trades-master.png",
     "set_tier25_hunter": "tier-sets/hunter/strikers-garb-master.png",
     "pvp_rank14": "morning-2026-10-14/rank14-victory-backlit-master.png",
     "prof_blacksmithing-horde": "professions/blacksmithing-horde-master.png",
@@ -151,6 +152,7 @@ FINAL_BANNERS = {
     "set_tier1_warlock-alliance": "tier-sets/warlock/tier1-alliance.jpg",
     "set_tier2_warlock": "tier-sets/warlock/tier2.jpg",
     "tier3_warrior": "tier-sets/warrior/tier3.jpg",
+    "tier3_warrior_koringar": "tier-sets/warrior/tier3-koringar-master.png",
     "tier3_mage": "tier-sets/mage/tier3.jpg",
     "tier3_priest": "tier-sets/priest/tier3.jpg",
     "set_tier2_priest": "tier-sets/priest/tier2.jpg",
