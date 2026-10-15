@@ -5,7 +5,7 @@ Karl approved all seven reviews in seven-banner-contact-sheet.jpg for installati
 - Elven_Archer_full.jpg: Alliance Night Elf Hunter leveling, allclasses_nightelf_hunter.
 - horde-orc-hunter.jpg: Horde Hunter leveling, allclasses_horde_hunter.
 - Mias_the_Fair_TCG.jpg: Alliance Warlock Tier 2, set_tier2_warlock-alliance.
-- Morova_of_the_Sands_TCG.jpg: Horde Druid Tier 3, tier3_druid-horde.
+- Morova_of_the_Sands_TCG.jpg: Horde Druid Tier 2 (Stormrage), set_tier2_druid-horde (was filed as Tier 3 until 2026-10-15).
 - pvp-alliance-ram-dwarf.jpg: horizontally flipped ram for pvp_mount_ally and pvp_avmount_ally.
 - Ring_of_Courage_full.jpg: Human Paladin Tier 1, set_tier1_paladin.
 

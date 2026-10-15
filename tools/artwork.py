@@ -96,7 +96,7 @@ FINAL_BANNERS = {
     "tier3_hunter": "tier-sets/hunter/tier3.jpg",
     "tier3_warlock-alliance": "tier-sets/warlock/tier3-alliance.jpg",
     "set_tier2_warlock-alliance": "tier-sets/warlock/tier2-alliance.jpg",
-    "tier3_druid-horde": "tier-sets/druid/tier3-horde.jpg",
+    "set_tier2_druid-horde": "tier-sets/druid/tier2-horde.jpg",
     "set_tier1_paladin": "tier-sets/paladin/tier1.jpg",
     "allclasses_nightelf_hunter": "leveling/nightelf-hunter.jpg",
     "allclasses_horde_hunter": "leveling/horde-hunter.jpg",

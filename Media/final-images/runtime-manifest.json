@@ -545,8 +545,8 @@
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "tier3_druid-horde": {
-    "source": "tier-sets/druid/tier3-horde.jpg",
+  "set_tier2_druid-horde": {
+    "source": "tier-sets/druid/tier2-horde.jpg",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,

@@ -300,7 +300,8 @@ do
     assert(B:ArtPath("allclasses")=="tier3_hunter-banner.blp", "Troll Hunter leveling uses Cryptstalker and white lion artwork")
     race = "Orc"
     assert(B:ArtPath("allclasses")=="allclasses_horde_hunter-banner.blp", "Horde Hunter uses new leveling art")
-    assert(B:ArtPath("tier3_druid")=="tier3_druid-horde-banner.blp")
+    assert(B:ArtPath("tier3_druid")=="tier3_druid-banner.blp", "Horde Dreamwalker uses the shared Tier 3 Druid art")
+    assert(B:ArtPath("set_tier2_druid")=="set_tier2_druid-horde-banner.blp", "Horde Stormrage has its own art")
     assert(B:ArtPath("tier3_warlock")=="tier3_warlock-horde-banner.blp", "Horde Warlock uses approved Pagatha artwork")
     race, class = "Troll", "MAGE"
     F.SelectGoal("allclasses")

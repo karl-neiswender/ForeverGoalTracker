@@ -4925,7 +4925,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         tier3_warlock = {Alliance = "tier3_warlock-alliance-banner.blp", Horde = "tier3_warlock-horde-banner.blp"},
         set_tier2_hunter = {Alliance = "set_tier2_hunter-alliance-banner.blp"},
         set_tier2_warlock = {Alliance = "set_tier2_warlock-alliance-banner.blp"},
-        tier3_druid = {Horde = "tier3_druid-horde-banner.blp"},
+        set_tier2_druid = {Horde = "set_tier2_druid-horde-banner.blp"}, -- (this Horde art is Stormrage, Tier 2; Tier 3 uses the shared art)
         set_tier1_warlock = {
             Alliance = "set_tier1_warlock-alliance-banner.blp",
             Horde = "set_tier1_warlock-banner.blp",
@@ -5354,7 +5354,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["social_buffs_druid-banner.blp"] = true,            -- Buff Others, Druid
         ["rep_ambassador_ally_darnassus-banner.blp"] = true, -- Darnassus
         ["set_tier1_druid-banner.blp"] = true, ["set_tier2_druid-banner.blp"] = true,
-        ["tier3_druid-banner.blp"] = true, ["tier3_druid-horde-banner.blp"] = true,  -- druid sets
+        ["tier3_druid-banner.blp"] = true, ["set_tier2_druid-horde-banner.blp"] = true,  -- druid sets
         ["allclasses_horde_druid-banner.blp"] = true,        -- leveling, Horde Druid
         ["set_tier2_paladin-banner.blp"] = true,             -- Judgement Armor (a forest)
         rhokdelar = true, lokdelar = true,                    -- forest weapons
@@ -5633,7 +5633,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "raid_aq20", "raid_aq40", "pvp_mount_ally", "set_tier1_mage", "ashbringer", "atiesh", "raid_bwl",
         "benediction", "benediction-alliance", "set_tier1_druid", "mount_charger", "tier3_hunter",
         "mount_deathcharger", "key_dm", "set_tier2_hunter", "mount_dreadsteed", "tier3_druid",
-        "tier3_druid-horde", "set_tier1_shaman", "tier3_shaman", "tier3_mage", "raid_hyjal", "att_mc",
+        "set_tier2_druid-horde", "set_tier1_shaman", "tier3_shaman", "tier3_mage", "raid_hyjal", "att_mc",
         "raid_mc", "att_naxx", "set_tier2_mage", "set_tier1_rogue", "set_tier1_rogue-alliance", "raid_ony",
         "att_ony_ally", "att_ony_horde", "tier3_paladin", "key_scholo", "key_strat", "sulfuras",
         "rep_thorium", "wolfsbane", "prof_cooking",

@@ -45,7 +45,7 @@ STEMS = {
     "set_tier2_hunter": "Dragonstalker",
     "mount_dreadsteed": "Dreadsteed",
     "tier3_druid": "Dreamwalker Raiment",
-    "tier3_druid-horde": "Dreamwalker Raiment (Horde art)",
+    "set_tier2_druid-horde": "Stormrage Raiment (Horde art)",
     "set_tier1_shaman": "Earthfury",
     "tier3_shaman": "Earthshatter",
     "tier3_mage": "Frostfire Regalia",
