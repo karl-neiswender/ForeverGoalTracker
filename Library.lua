@@ -315,7 +315,7 @@ local library = {
         },
     },
     {
-        id = "mount_charger", library = true,
+        id = "mount_charger", library = true, faction = "Alliance", -- (Forever's Undead Paladins have their own way to a mount)
         icon = "ability_mount_charger",
         name = "Charger (Paladin Epic Mount)",
         short = "Charger",

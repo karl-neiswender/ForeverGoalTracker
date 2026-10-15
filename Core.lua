@@ -9649,6 +9649,8 @@ end
 local function FilterMatches(f, goal)
     if f.key == "all" then return true end
     if f.match then return goal.category:find(f.match) ~= nil end
+    -- the Field Marshal and Warlord armor sets are PvP goals that also read as item sets (Karl, 2026-10-15)
+    if f.key == "Item Set" and goal.id:find("^pvp_set_") then return true end
     return goal.category == f.key
 end
 
@@ -9657,8 +9659,6 @@ function LF.Results(f)
     local flat = LF.Flat()
     local out = {}
     for _, g in ipairs(FGT.goals) do
-    -- the Field Marshal and Warlord armor sets are PvP goals that also read as item sets (Karl, 2026-10-15)
-    if f.key == "Item Set" and goal.id:find("^pvp_set_") then return true end
         local part = flat and flat.race and LF.RacePart(g, flat.race)
         if part then
             if FilterMatches(f, g) and LF.Available(g) and #LF.Blockers(part) == 0 and LF.SearchMatch(part) then
@@ -14114,7 +14114,7 @@ local function Suggest(picked)
     end
     if me.class == "WARLOCK" then
         push(fixed, Entry(me, "mount_dreadsteed", nil, "The Warlock's own epic mount"))
-    elseif me.class == "PALADIN" then
+    elseif me.class == "PALADIN" and me.faction == "Alliance" then
         push(fixed, Entry(me, "mount_charger", nil, "The Paladin's own epic mount"))
     else
         local mounts = FGT.GoalById("epicmounts")
