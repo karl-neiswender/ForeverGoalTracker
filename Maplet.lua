@@ -421,8 +421,8 @@ slider.track:SetPoint("TOP", slider, "TOP", 0, 0)
 slider.track:SetPoint("BOTTOM", slider, "BOTTOM", 0, 0)
 slider.track:SetVertexColor(0.62, 0.62, 0.60, 0.40) -- grey
 slider.thumb = slider:CreateTexture(nil, "OVERLAY")
-slider.thumb:SetTexture(MEDIA .. "disc") -- crisp, no glow (tools/disc.py)
-slider.thumb:SetSize(8, 8)
+slider.thumb:SetTexture("Interface\\Buttons\\WHITE8X8") -- a short crisp bar across the line, so it is never taken for a pin
+slider.thumb:SetSize(13, 2)
 slider.thumb:SetVertexColor(0.95, 0.96, 0.98) -- a bright silver, so it never competes with the gold pin
 
 -- its top is level with the top of the page's icons (the map button's icon is 3 down in its box)
