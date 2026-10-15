@@ -25,7 +25,7 @@ from lupa import lua51
 ROOT = os.path.dirname(here)
 os.chdir(ROOT)
 FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua",
-         "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua"]
+         "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua"]
 STUB = open(os.path.join(here, "wowstub.lua"), encoding="utf-8").read()
 
 BENCH = r'''
@@ -76,6 +76,8 @@ local CASES = {
   { "Judgement (rays, sunlight)", "set_tier2_paladin" },
   { "Save Gold (beam, glints)", "gold_5k" },
   { "Ruins of Ahn'Qiraj (sand 70, bloom)", "raid_aq20" },
+  { "Raids with Guildmates (fire 144, bloom)", "social_guild_raid" },
+  { "Warlord's cloth (fire 156, bloom)", "pvp_set_cloth_horde" },
 }
 for _, c in ipairs(CASES) do Run(c[1], c[2], 1800) end
 print(string.format("%-36s %10s %12s %10s %8s %8s", "banner", "us/frame", "garbage B/f", "api calls", "embers", "shafts"))

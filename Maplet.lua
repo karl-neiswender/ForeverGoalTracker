@@ -674,6 +674,21 @@ end)
 -- ------------------------------------------------------------
 function FGT.HandleMapCommand(msg)
     local cmd = strtrim(msg or ""):lower()
+    -- /goals here: where you stand on the map, to write a spot down exactly
+    if cmd == "here" then
+        -- where you stand, to write a map spot down exactly (stand at a raid entrance and type it)
+        local id = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+        local pos = id and C_Map.GetPlayerMapPosition and C_Map.GetPlayerMapPosition(id, "player")
+        local x, y
+        if pos and pos.GetXY then x, y = pos:GetXY() end
+        local info = id and C_Map.GetMapInfo and C_Map.GetMapInfo(id)
+        if x and y then
+            print(string.format("%syou are at %s %.1f, %.1f (map %d)", TAG, info and info.name or "?", x * 100, y * 100, id))
+        else
+            print(TAG .. "the game gives no position here (inside an instance, or the map has none).")
+        end
+        return true
+    end
     local rest = cmd == "map" and "" or cmd:match("^map%s+(.*)$")
     if not rest then return false end
     local percent = tonumber(rest:match("^zoom%s+(%d+)$") or "")
@@ -819,26 +834,4 @@ do
             chip:Hide()
         end
     end
-end
-
--- ------------------------------------------------------------
--- /goals here: where you stand on the map, to write a spot down exactly
--- ------------------------------------------------------------
-local mapCommand = FGT.HandleMapCommand
-function FGT.HandleMapCommand(msg)
-    if strtrim(msg or ""):lower() == "here" then
-        -- where you stand, to write a map spot down exactly (stand at a raid entrance and type it)
-        local id = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
-        local pos = id and C_Map.GetPlayerMapPosition and C_Map.GetPlayerMapPosition(id, "player")
-        local x, y
-        if pos and pos.GetXY then x, y = pos:GetXY() end
-        local info = id and C_Map.GetMapInfo and C_Map.GetMapInfo(id)
-        if x and y then
-            print(string.format("%syou are at %s %.1f, %.1f (map %d)", TAG, info and info.name or "?", x * 100, y * 100, id))
-        else
-            print(TAG .. "the game gives no position here (inside an instance, or the map has none).")
-        end
-        return true
-    end
-    return mapCommand(msg)
 end

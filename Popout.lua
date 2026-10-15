@@ -92,6 +92,7 @@ function P:FocusClick()
         foci = legacy and {legacy()} or {}
     end
     for _, top in ipairs(foci or FGT.EMPTY) do
+        ---@type ScriptRegion?
         local focus = top
         while focus do
             if focus == self.frame then self:Raise(); return end

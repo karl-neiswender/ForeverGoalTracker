@@ -12,6 +12,14 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.15.0", date = "Oct 15, 2026", items = {
+        "Added a map view for goal pages, with Show on map links for steps, reputations and two raids",
+        "Added the Zin'rokh and Arcanite Reaper goals",
+        "Added banners, blooms, fire and sunlight for more goals",
+        "Changed the faction filter to hide the other faction's goals, even ones you added",
+        "Changed the Charger to an Alliance goal (was both factions)",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.14.0", date = "Oct 14, 2026", items = {
         "Added a pop-out window for a goal's steps",
         "Added a goals list that folds to a slim icon rail",

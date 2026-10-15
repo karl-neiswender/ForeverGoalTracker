@@ -1,8 +1,32 @@
 # Changelog
 
-## Unreleased
+## 2.15.0
 
-- Added Zin'rokh, Destroyer of Worlds, an epic weapon goal from Zul'Gurub with automatic item tracking.
+- Added a map view to goal pages: a pin button fades the banner to the zone map, with a gold pin on the person your next step needs.
+- Added Show on map links to steps, to the Exalted reputation goals and to the Onyxia and Zul'Gurub raid goals.
+- You can now zoom the map with the mouse wheel or the slider, always around the pin.
+- Added the Zin'rokh, Destroyer of Worlds and Arcanite Reaper goals, with the Reaper's ingredients in the Materials panel.
+- Added banners for the new goals, the Marshal and Warlord cloth and leather sets, Make Trades and Raids with Guildmates.
+- Added blooms, fire, snow and sunlight to more goal images.
+- Changed the Goal Library's faction filter to hide the other faction's goals, even ones you have added.
+- Changed the Field Marshal and Warlord sets to also show under Item Sets.
+- Changed the Charger to an Alliance goal (was both factions).
+- Changed steps to drop place names that the Show on map link now covers.
+- Changed the Wolfsbane steps to name the quest givers, so they link to the map.
+- Fixed the Horde Druid's Stormrage banner, which was filed under Dreamwalker.
+- UI improvements and bug fixes
+
+### Developers' notes
+
+The map uses the game's own zone map tiles, with the areas your character has discovered drawn over them, so no map art ships with the addon. The map keeps the pin near the upper right of the banner and never shows past the bottom of the zone map; zoom starts from the widest view and each step can set its own starting zoom.
+
+Raid entrance spots come from the game's dungeon entrance data, turned into zone-map coordinates with Classic Era's map bounds. They are not yet confirmed in Forever, and the tooltip says so there. Onyxia's Lair and Zul'Gurub are the two raids with a clear spot on one zone map.
+
+The busiest new banners (Raids with Guildmates and Warlord's cloth, each with about 150 particles) cost about 0.1 ms per frame at 60 frames a second, with no new memory use.
+
+### Known issues
+
+- Molten Core, Blackwing Lair, Ruins and Temple of Ahn'Qiraj, Naxxramas, Hyjal Summit and the Barrow Deeps have no Show on map link, because their entrances are not on one clear zone map yet.
 
 ## 2.14.0
 

@@ -31,11 +31,14 @@ Larger updates with lots of new content.
 
 ## Maybe someday
 
+- **Pop-out map:** a small, draggable map window for the next step, so the art comes back to the goal page while you travel.
+- **Map entrances for more raids:** Molten Core, Blackwing Lair, Ahn'Qiraj, Naxxramas and Forever's new raids once their entrances are clear.
 - **Reveal steps as you progress:** optionally hide locked step details until their prerequisites are complete. The full guide stays visible by default.
 - **Discord companion app:** a small desktop app that posts your finished goals to a Discord channel.
 
 ## Recently shipped
 
+- **2.15.0:** A map view for goal pages with Show on map links and zoom, the Zin'rokh and Arcanite Reaper goals, more banners with blooms and effects, a stricter faction filter, UI improvements and bug fixes.
 - **2.14.0:** A pop-out window for a goal's steps, a goals list that folds to an icon rail, Partners in Crime and Summon Players goals, blown sand, star glints and more light on goal images, UI improvements and bug fixes.
 - **2.13.0:** Light on goal images with an Image effects setting, Ambassador banners for each race's capital, a try-on for whole armor sets, social goals for guildmates, trades, buffs, campfires and emotes, profession-aware suggestions, UI improvements and bug fixes.
 - **2.12.0:** New Goal Library filters with a Progression sort, a Materials panel on each goal, My Goals search, What's new, UI improvements and bug fixes.
