@@ -332,8 +332,14 @@ btn:SetScript("OnUpdate", function(self, dt)
     if self.fadeT then
         self.fadeT = self.fadeT + dt
         local p = Smooth(self.fadeT / FADE_BTN)
-        self:SetAlpha(p)
+        self:SetAlpha((self.fadeFrom or 0) + (1 - (self.fadeFrom or 0)) * p)
         if p >= 1 then self.fadeT = nil end
+    end
+    if self.fadeOutT then
+        self.fadeOutT = self.fadeOutT + dt
+        local p = Smooth(self.fadeOutT / 0.45)
+        self:SetAlpha(self.fadeOutFrom * (1 - p))
+        if p >= 1 then self.fadeOutT = nil; self:Hide() end
     end
     if self.attnT then
         self.attnT = self.attnT + dt
@@ -390,19 +396,27 @@ function M:SyncButton()
     end
     btn:RefreshIcon()
     local want = self.target == 1 or self.available ~= nil
-    if want and not btn:IsShown() then
-        -- it fades in rather than appearing (and does not, with Celebrations off)
-        if (FGT.Setting("celebrations") or "full") == "off" then
+    local still = (FGT.Setting("celebrations") or "full") == "off"
+    if want and (not btn:IsShown() or btn.fadeOutT) then
+        -- it fades in rather than appearing (and does not, with Celebrations off); from where it
+        -- was, if it was on its way out
+        btn.fadeFrom = btn.fadeOutT and btn:GetAlpha() or 0
+        btn.fadeOutT = nil
+        if still then
             btn:SetAlpha(1)
         else
-            btn:SetAlpha(0)
+            btn:SetAlpha(btn.fadeFrom)
             btn.fadeT = 0
         end
         btn:Show()
-    elseif not want and btn:IsShown() then
+    elseif not want and btn:IsShown() and not btn.fadeOutT then
         btn:StopAttention()
         btn.fadeT = nil
-        btn:Hide()
+        if still then
+            btn:Hide()
+        else
+            btn.fadeOutFrom, btn.fadeOutT = btn:GetAlpha(), 0
+        end
     end
 end
 
@@ -543,14 +557,17 @@ M.driver = driver
 driver:Hide()
 driver:SetScript("OnUpdate", function(f, dt)
     -- a different goal opened: back to its art at once
-    if M.goalId and B.goal and B.goal.id ~= M.goalId then M:Reset(); return end
+    if M.goalId and B.goal and B.goal.id ~= M.goalId and M.target == 1 then
+        M.target, M.fast = 0, true -- the map fades out quickly while the new goal's art fades in
+        M:SyncButton()
+    end
     if M.mix ~= M.target then
         if (FGT.Setting("celebrations") or "full") == "off" then
             M.mix = M.target
         elseif M.target > M.mix then
             M.mix = math.min(M.target, M.mix + dt / M.FADE_IN)
         else
-            M.mix = math.max(M.target, M.mix - dt / M.FADE_OUT)
+            M.mix = math.max(M.target, M.mix - dt / (M.fast and 0.45 or M.FADE_OUT))
         end
         M:Apply()
     end
@@ -567,6 +584,7 @@ end)
 
 function M:Release()
     self.npc, self.info, self.ids, self.explored, self.goalId = nil, nil, nil, nil, nil
+    self.manual, self.fast = false, false
     self.used, self.usedOver = 0, 0
     self:HideTiles()
     dot:Hide()
@@ -594,7 +612,7 @@ function M:Load(n)
     return true
 end
 
-function M:Show(n, quiet)
+function M:Show(n, quiet, manual)
     if not (B:IsShown() and B.shownArtHeight and B.art:GetWidth() > 20) then
         print(TAG .. "Open a goal with banner artwork first.")
         return false
@@ -602,6 +620,8 @@ function M:Show(n, quiet)
     if not self:Load(n) then return false end
     self.goalId = B.goal and B.goal.id
     self.target = 1
+    self.fast = false
+    self.manual = manual and true or false -- picked by name or from a step: the next step doesn't move it
     self:Layout()
     driver:Show()
     self:SyncButton()
@@ -616,6 +636,8 @@ end
 function M:Hide()
     if self.target == 0 then return end
     self.target = 0
+    self.fast = false
+    self.manual = false
     driver:Show()
     self:SyncButton()
 end
@@ -640,7 +662,7 @@ watch:SetScript("OnUpdate", function(f, dt)
     local n = B:IsShown() and B.goal and NextStepNpc(B.goal) or nil
     M.available = n
     if n then M:Attract(n) end
-    if M.target == 1 then
+    if M.target == 1 and not M.manual then
         if not n then
             M:Hide()
         elseif n ~= M.npc and M:Load(n) then
@@ -689,7 +711,7 @@ function FGT.HandleMapCommand(msg)
         if M.target == 1 then M:Hide(); return true end
         local n = NextStepNpc(B.goal)
         if n then
-            M:Show(n)
+            M:Show(n, false, true)
         else
             print(TAG .. "This goal's next step doesn't name anyone with a map spot. Try /goals map vartrus (a name or an NPC id), "
                 .. "or /goals map off.")
@@ -701,6 +723,48 @@ function FGT.HandleMapCommand(msg)
         print(TAG .. "No NPC with a map spot matches '" .. rest .. "'.")
         return true
     end
-    M:Show(n)
+    M:Show(n, false, true)
     return true
+end
+
+-- ------------------------------------------------------------
+-- "Show on map" after a step that names someone with a map spot: a link in the step text that does
+-- what the pin button does, for that person (Core.lua draws the step text; this adds the tail).
+-- ------------------------------------------------------------
+local LINK_HEX = "c9b37a"
+
+local function NpcInLinkedText(text)
+    for id in text:gmatch("Hfgtnpc:(%d+)") do
+        local n = FGT.NpcById(tonumber(id))
+        if n and n.map and n.x and n.y then return n end
+    end
+end
+
+function FGT.MapLinkText(text, done, skip)
+    if done or skip or type(text) ~= "string" or not C_Map then return text end
+    local n = NpcInLinkedText(text)
+    if not n then return text end
+    return text .. "  |cff" .. LINK_HEX .. "|Hfgtmap:" .. n.id .. "|h|T" .. FGT.Icon("map-location")
+        .. ":11:11:0:-1|t Show on map|h|r"
+end
+
+function FGT.ShowMapLinkTip(owner, id)
+    local n = FGT.NpcById(id)
+    if not n then return end
+    GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
+    GameTooltip:AddLine((M.target == 1 and M.npc == n) and "Back to the goal art" or "Show on the map", 1, 0.93, 0.62)
+    GameTooltip:AddLine(n.name .. ", " .. (n.zone or "?"), 0.7, 0.66, 0.58)
+    GameTooltip:Show()
+end
+
+function FGT.MapLinkClick(id)
+    local n = FGT.NpcById(id)
+    if not n then return end
+    if M.target == 1 and M.npc == n then
+        M:Hide()
+    elseif B:IsShown() and B.shownArtHeight then
+        M:Show(n, true, true)
+    else
+        FGT.ShowNpcOnMap(id) -- no banner to draw on (the pop-out alone): the game's own map
+    end
 end

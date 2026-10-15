@@ -1735,6 +1735,12 @@ function FGT.EnableGoalLinks(f)
             FGT.ShowItemTip(self, itemId, self.ruleEntry, name)
             return
         end
+        local mapNpc = tonumber(link:match("^fgtmap:(%d+)") or "")
+        if mapNpc then
+            FGT.overLink = "map" -- Maplet.lua's "show on map" after a step that names someone
+            if FGT.ShowMapLinkTip then FGT.ShowMapLinkTip(self, mapNpc) end
+            return
+        end
         local npcId = tonumber(link:match("^fgtnpc:(%d+)") or "")
         if npcId then
             FGT.overLink = "npc"
@@ -1768,6 +1774,11 @@ function FGT.EnableGoalLinks(f)
     end)
     f:SetScript("OnHyperlinkClick", function(self, link, text, button)
         GameTooltip:Hide()
+        local mapNpc = tonumber(link:match("^fgtmap:(%d+)") or "")
+        if mapNpc then
+            if FGT.MapLinkClick then FGT.MapLinkClick(mapNpc) end
+            return
+        end
         local npcId = tonumber(link:match("^fgtnpc:(%d+)") or "")
         if npcId then
             local n = FGT.NpcById(npcId)
@@ -8088,7 +8099,8 @@ local function RefreshTierSections(goal, view)
                 local open = hasMats and FGT.pieceExpanded[pieceKey]
 
                 row.num:SetText("")
-                row.text:SetText(FGT.StepText(piece.text or piece.name))
+                row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(FGT.StepText(piece.text or piece.name), md == mt, hasMats)
+                    or FGT.StepText(piece.text or piece.name))
                 FGT.LinkItemName(row) -- the piece's name as an item link
                 row.text:SetWidth(math.max(50, width - indent - 44 - (hasMats and 44 or 0) - (not view and piece.icon and 14 or 0)))
                 StyleCheckRow(row, md == mt)
@@ -8272,7 +8284,7 @@ RefreshSteps = function(goal, view)
             row:SetHeight(rowHeight2)
             row:SetScript("OnClick", nil)
         else
-            row.text:SetText(stepText)
+            row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(stepText, IsStepDone(goal.id, i)) or stepText)
             row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46)))
             -- item links first, so a finished step fades them too (Karl)
             FGT.SetStepLinks(row, type(entry) == "table" and entry.auto or nil, entry)
