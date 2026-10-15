@@ -1150,29 +1150,37 @@ back:SetScript("OnMouseDown", function() back.icon:SetPoint("LEFT", 10, -1) end)
 back:SetScript("OnMouseUp", function() back.icon:SetPoint("LEFT", 9, 0) end)
 back:SetScript("OnClick", function() P:Close(true) end)
 
--- "Pop out" with its icon at the far right of the steps heading row (Karl, 2026-10-14):
--- grey and still, gold on hover. Expand all (when shown) sits just to its left.
-P.launch = CreateFrame("Button", nil, FGT.detailBody)
+-- "Pop out" with its icon at the far right of the steps heading row (Karl, 2026-10-14): a
+-- small dark pill like the difficulty chips, so it reads over the banner art. Grey and still
+-- at rest, gold on hover. Expand all (when shown) sits just to its left.
+P.launch = CreateFrame("Button", nil, FGT.detailBody, "BackdropTemplate")
 FGT.popoutLaunch = P.launch
+P.launch:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+    edgeSize = 8, insets = { left = 2, right = 2, top = 2, bottom = 2 } })
 P.launch.icon = P.launch:CreateTexture(nil, "ARTWORK")
 P.launch.icon:SetSize(13, 13)
-P.launch.icon:SetPoint("RIGHT", P.launch, "RIGHT", 0, 0)
+P.launch.icon:SetPoint("RIGHT", P.launch, "RIGHT", -8, 0)
 P.launch.icon:SetTexture(FGT.Icon("pop-out"))
-P.launch.text = Label(P.launch, 10, "Pop out", C.INK2[1], C.INK2[2], C.INK2[3])
+P.launch.text = Label(P.launch, 10, "Pop out", 0.80, 0.78, 0.72)
 P.launch.text:SetPoint("RIGHT", P.launch.icon, "LEFT", -5, 0)
-P.launch:SetSize(math.ceil(P.launch.text:GetStringWidth()) + 5 + 13, 16)
-P.launch:SetPoint("TOPRIGHT", FGT.stepsDivider, "BOTTOMRIGHT", -8, -9)
+P.launch:SetSize(math.ceil(P.launch.text:GetStringWidth()) + 5 + 13 + 18, 22)
+P.launch:SetPoint("RIGHT", FGT.stepsRow, "RIGHT", 0, FGT.STEPS_ROW_DROP)
 local function PaintLaunch(hover)
     -- (the icon is painted gold: desaturated and tinted grey at rest, true colors on hover)
     P.launch.icon:SetDesaturated(not hover)
-    if hover then P.launch.icon:SetVertexColor(1, 1, 1) else P.launch.icon:SetVertexColor(C.INK2[1], C.INK2[2], C.INK2[3]) end
-    local c = hover and C.TITLE or C.INK2
-    P.launch.text:SetTextColor(c[1], c[2], c[3])
+    if hover then P.launch.icon:SetVertexColor(1, 1, 1) else P.launch.icon:SetVertexColor(0.80, 0.78, 0.72) end
+    P.launch:SetBackdropColor(0.02, 0.02, 0.015, hover and 0.88 or 0.78)
+    if hover then
+        P.launch:SetBackdropBorderColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3], 1)
+        P.launch.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])
+    else
+        P.launch:SetBackdropBorderColor(0.34, 0.30, 0.20, 1)
+        P.launch.text:SetTextColor(0.80, 0.78, 0.72)
+    end
 end
 PaintLaunch(false)
 P.launch:SetScript("OnEnter", function() PaintLaunch(true) end)
 P.launch:SetScript("OnLeave", function() PaintLaunch(false) end)
-Tip(P.launch, "Pop out steps")
 P.launch:SetScript("OnClick", function()
     local goal = U.selected()
     if goal and U.active(goal) then P:Open(goal.id) end

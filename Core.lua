@@ -6906,8 +6906,15 @@ divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -10)
 divider:SetPoint("RIGHT", -16, 0)
 
 local stepsHeader = NewTitleString(FGT.detailBody, 12)
-stepsHeader:SetPoint("TOPLEFT", divider, "BOTTOMLEFT", 0, -10)
+stepsHeader:SetPoint("TOPLEFT", divider, "BOTTOMLEFT", 0, -6)
 stepsHeader:SetText("Step by step")
+-- The heading's own row: its height and left edge, running to the page's right edge, so the
+-- controls beside it (Show completed, Expand all, Pop out) share its centre line.
+FGT.stepsRow = CreateFrame("Frame", nil, FGT.detailBody)
+FGT.stepsRow:SetPoint("TOPLEFT", stepsHeader, "TOPLEFT")
+FGT.stepsRow:SetPoint("BOTTOMLEFT", stepsHeader, "BOTTOMLEFT")
+FGT.stepsRow:SetPoint("RIGHT", divider, "RIGHT", -8, 0)
+FGT.STEPS_ROW_DROP = -1 -- the 10 pt controls sit 1 lower than centre to share the 12 pt heading's baseline
 
 -- A quiet guide filter. Only the layout changes; saved ticks and progress
 -- always include completed steps, even when they are hidden.
@@ -6972,7 +6979,7 @@ function FGT.UpdateExpandAll(goal, view)
 end
 
 local stepsScrollObj = CreateScrollArea(FGT.detailBody, nil, 72) -- tall, eased bottom shade, darkest at the panel edge
-stepsScrollObj.scroll:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -8)
+stepsScrollObj.scroll:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -12)
 -- down to the panel's inner edge (its border is 3px), so the bottom
 -- gradient meets the edge with no gap (no reset button below any more)
 stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", FGT.detailBody, "BOTTOMRIGHT", -24, 3)
@@ -7116,12 +7123,12 @@ function FGT.LayoutStepControls(view)
     if narrow then
         b:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -6)
     else
-        b:SetPoint("LEFT", stepsHeader, "RIGHT", 14, 0)
+        b:SetPoint("LEFT", stepsHeader, "RIGHT", 14, FGT.STEPS_ROW_DROP)
     end
     FGT.expandAllBtn:ClearAllPoints()
-    FGT.expandAllBtn:SetPoint("TOPRIGHT", divider, "BOTTOMRIGHT", -8 - launchWidth, -10)
+    FGT.expandAllBtn:SetPoint("RIGHT", FGT.stepsRow, "RIGHT", -launchWidth, FGT.STEPS_ROW_DROP)
     stepsScrollObj.scroll:ClearAllPoints()
-    stepsScrollObj.scroll:SetPoint("TOPLEFT", narrow and b or stepsHeader, "BOTTOMLEFT", 0, -8)
+    stepsScrollObj.scroll:SetPoint("TOPLEFT", narrow and b or stepsHeader, "BOTTOMLEFT", 0, -12)
     stepsScrollObj.scroll:SetPoint("BOTTOMRIGHT", FGT.detailBody, "BOTTOMRIGHT", -24, 3)
 end
 -- Tips are drawn straight on the list, so it carries their goal links.
