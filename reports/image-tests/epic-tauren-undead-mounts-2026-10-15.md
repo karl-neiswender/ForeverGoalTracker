@@ -12,7 +12,12 @@ Inspected grayscale, mount/handler framing, baked left/bottom fades.
 
 Undead source: `Media/artwork/Skeletal_Warhorse_TCG.jpg`.
 Review: `Media/final-images/epic-undead-mount-review-2026-10-15.png`.
-Undead pending visual approval; not installed.
+Karl approved Undead with "yes good" after viewing the saved preview; installed.
+Master: `Media/final-images/mounts/skeletal-warhorse-master.png` (1200x900).
+Runtime: `Media/epicmounts_undead-banner.blp`, 512px DXT1, 10 mip levels.
+Previous master preserved; existing racial mappings retained. Runtime decoded
+independently by existing compressor. Full Era/Forever `tools/check.py` passed;
+output retained in `reports/checks/epic-undead-mount-2026-10-15.txt`.
 
 Tauren validation: runtime independently decoded by existing compressor.
 Full Era/Forever `tools/check.py` passed, including racial artwork selection.

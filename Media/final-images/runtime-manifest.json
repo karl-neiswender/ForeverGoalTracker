@@ -448,7 +448,7 @@
     "equivalent_tga_bytes": 786476
   },
   "epicmounts_undead": {
-    "source": "epicmounts_undead-master.png",
+    "source": "mounts/skeletal-warhorse-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,

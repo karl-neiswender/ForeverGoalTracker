@@ -104,7 +104,7 @@ FINAL_BANNERS = {
     "mount_qiraji": "mounts/scarab-lord-review.png",
     "allclasses_dwarf_shaman": "leveling/dwarf-shaman.jpg",
     "pvp_drums_of_war": "pvp/drums-of-war.jpg",
-    "epicmounts_undead": "epicmounts_undead-master.png",
+    "epicmounts_undead": "mounts/skeletal-warhorse-master.png",
     "pvp_arathi": "pvp_arathi-master.png",
     "allclasses_tauren_warrior": "allclasses_tauren_warrior-master.png",
     "allclasses_alliance_warlock": "allclasses_alliance_warlock-master.png",
