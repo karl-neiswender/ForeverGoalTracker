@@ -1,9 +1,26 @@
 # Changelog
 
-## Unreleased
+## 2.14.0
 
+- Added a pop-out window for a goal's steps. Pop it out from the guide, keep it on screen while you play, resize it, change its opacity and bring it back with one click.
+- Added a goals list that folds to a slim icon rail, so the goal page gets more room. The handle sits on the list's edge, and the choice is remembered.
 - Added Partners in Crime, a Forever-only goal to collect both rings.
-- Added a pop-out steps tracker prototype for in-game review
+- Added Summon Players, a Warlock goal that counts the Ritual of Summoning rituals you begin.
+- Added blown sand, with gusts of wind, to the Ahn'Qiraj, Cenarion Circle and Qiraji mount banners, all Tier 2.5 sets and Dungeons with Guildmates.
+- Added glints to the stars on the Brood of Nozdormu banner, and more light motes to the Stormwind Ambassador and the Grand Marshal and High Warlord banners.
+- Added banners for Partners in Crime, Summon Players, Waves, Guild, Dungeons with Guildmates and the Grand Marshal and High Warlord goals.
+- Changed the main window's resize grip to light up gold on hover.
+- Changed Classic Era to show the drifting clouds and leaves, using art made for the addon.
+- Changed the Grand Marshal and High Warlord goals to use their achievement icons.
+- Changed goal images to fade their light effects while a panel opens or closes, so nothing lags behind the art.
+- Removed the Large goal photos setting. Goal images are always large.
+- UI improvements and bug fixes
+
+### Developers' notes
+
+The pop-out is a single interactive window. It always sits in front of the main window, and clicking either window does not change which is on top. Banner particles are clipped to the artwork's edges and scale with it as the side panels open and close.
+
+Sand and wind follow the same limits as the other image effects: slow gusts, no flashing. Image effects Subtle and Off still apply.
 
 ## 2.13.0
 

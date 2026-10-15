@@ -6,7 +6,6 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Next up
 
-- **Pop-out tracker (planned):** keep one goal's steps on screen while you play, and check them off using the same rules as the main guide.
 - **Feedback from inside the game:** write a suggestion or report a wrong step in the addon and get a link to send it.
 - **Welcome / What's new after an update:** a modal window when a player enters the game after an addon update, introducing the new features. Each feature gets a snapshot in the background with a subtle gradient vignette and text over it explaining the feature. Include a way to skip, pagination when there are multiple features, and subtle text animations or treatments as each page loads in and out.
 
@@ -37,6 +36,7 @@ Larger updates with lots of new content.
 
 ## Recently shipped
 
+- **2.14.0:** A pop-out window for a goal's steps, a goals list that folds to an icon rail, Partners in Crime and Summon Players goals, blown sand, star glints and more light on goal images, UI improvements and bug fixes.
 - **2.13.0:** Light on goal images with an Image effects setting, Ambassador banners for each race's capital, a try-on for whole armor sets, social goals for guildmates, trades, buffs, campfires and emotes, profession-aware suggestions, UI improvements and bug fixes.
 - **2.12.0:** New Goal Library filters with a Progression sort, a Materials panel on each goal, My Goals search, What's new, UI improvements and bug fixes.
 - **2.11.1:** Profession scanning fixes, mount previews, Wolfsbane, clearer guides, artwork credits and refreshed banners.

@@ -91,7 +91,8 @@ function P:FocusClick()
         local legacy = rawget(_G, "GetMouseFocus")
         foci = legacy and {legacy()} or {}
     end
-    for _, focus in ipairs(foci or FGT.EMPTY) do
+    for _, top in ipairs(foci or FGT.EMPTY) do
+        local focus = top
         while focus do
             if focus == self.frame then self:Raise(); return end
             if focus == S.main then self:FocusMain(); return end

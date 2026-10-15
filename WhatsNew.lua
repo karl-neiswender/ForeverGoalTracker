@@ -12,6 +12,14 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.14.0", date = "Oct 14, 2026", items = {
+        "Added a pop-out window for a goal's steps",
+        "Added a goals list that folds to a slim icon rail",
+        "Added the Partners in Crime and Summon Players goals",
+        "Added blown sand, star glints and more light to goal images",
+        "Removed the Large goal photos setting",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.13.0", date = "Oct 13, 2026", items = {
         "Added light to goal images, with an Image effects setting: Full, Subtle or Off",
         "Added Ambassador banners for each race's capital city",
