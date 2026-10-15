@@ -74,9 +74,11 @@ function P:Raise()
     self:Stack()
 end
 
+-- Click-to-front is off (Karl, 2026-10-14: more annoying than helpful): the pop-out always
+-- stays in front of the main window, and clicking either window changes nothing.
 function P:FocusMain()
     if not self.open then return end
-    S.main:SetFrameLevel(self.mainLevel + 200)
+    S.main:SetFrameLevel(self.mainLevel)
 end
 
 -- Ask the top mouse target which window owns the click; rectangle tests

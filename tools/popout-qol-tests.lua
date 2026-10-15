@@ -52,10 +52,10 @@ for i,strip in ipairs(fade.strips) do assert(strip.alphaForTest==fade.stripAlpha
 local oldFoci=GetMouseFoci
 GetMouseFoci=function() return {S.detail} end
 STUB_FIRE("GLOBAL_MOUSE_DOWN","LeftButton")
-assert(S.main.levelForTest>P.frame.levelForTest,"clicking main content brings main forward")
+assert(P.frame.levelForTest>S.main.levelForTest,"clicking main content does not bring main in front of the pop-out (Karl, 2026-10-14)")
 GetMouseFoci=function() return {P.scroll.scroll} end
 STUB_FIRE("GLOBAL_MOUSE_DOWN","LeftButton")
-assert(P.frame.levelForTest>S.main.levelForTest,"clicking pop-out content brings pop-out forward")
+assert(P.frame.levelForTest>S.main.levelForTest,"the pop-out stays in front")
 for _=1,20 do
     P:FocusMain(); P:Raise()
 end
