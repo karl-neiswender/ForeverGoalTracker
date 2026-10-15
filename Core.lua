@@ -5228,6 +5228,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artPaths.set_dungeon1_hunter = "set_dungeon1_hunter-banner.blp"
     B.artPaths.set_tier25_hunter = "set_tier25_hunter-banner.blp"
     B.artAspects.set_tier25_hunter, B.preprocessed.set_tier25_hunter = 4/3, true
+    for _, id in ipairs({"set_tier25_paladin", "set_tier25_warrior"}) do
+        B.artPaths[id] = "set_tier25_plate-banner.blp"
+        B.artAspects[id], B.preprocessed[id] = 4/3, true
+    end
     B.artAspects.set_dungeon1_hunter, B.preprocessed.set_dungeon1_hunter = 4/3, true
     B.artPaths.set_dungeon2_hunter = "set_dungeon2_hunter-banner.blp"
     B.artAspects.set_dungeon2_hunter, B.preprocessed.set_dungeon2_hunter = 4/3, true

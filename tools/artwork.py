@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "set_tier25_plate": "tier-sets/aq40/plate-savin-master.png",
     "tier3_warlock-horde": "tier-sets/warlock/tier3-horde-pagatha-master.png",
     "set_tier2_hunter-alliance": "tier-sets/hunter/tier2-alliance-nordrassil-master.png",
     "social_guild_raid": "social/raids-with-guildmates-master.png",
@@ -102,8 +103,8 @@ FINAL_BANNERS = {
     "pvp_set_mail_horde": "pvp/warlord-mail.jpg",
     "rep_timbermaw": "reputation/timbermaw.jpg",
     "mount_qiraji": "mounts/scarab-lord-review.png",
-    "allclasses_dwarf_shaman": "leveling/dwarf-shaman.jpg",
     "zinrokh": "weapons/zinrokh-master.png",
+    "allclasses_dwarf_shaman": "leveling/dwarf-shaman.jpg",
     "pvp_drums_of_war": "pvp/drums-of-war.jpg",
     "epicmounts_undead": "mounts/skeletal-warhorse-master.png",
     "pvp_arathi": "pvp_arathi-master.png",

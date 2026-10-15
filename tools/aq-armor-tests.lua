@@ -5,7 +5,8 @@ assert(#parent.sections == 9 and #parent.armorChildren == 9)
 local allItems = {}
 for _, child in ipairs(parent.armorChildren) do
     local art = child.id == "set_tier25_hunter" and "set_tier25_hunter-banner.blp" or "set_tier25-banner.blp"
-    assert(F.goalBanner:ArtPath(child.id) == art, "Hunter uses approved Striker's Garb art; other sets retain shared AQ40 art")
+    if child.id == "set_tier25_paladin" or child.id == "set_tier25_warrior" then art = "set_tier25_plate-banner.blp" end
+    assert(F.goalBanner:ArtPath(child.id) == art, "AQ sets use approved plate, leather, Hunter or shared artwork")
     assert(F.goalBanner.artAspects[child.id] == 4/3 and F.goalBanner.preprocessed[child.id], "approved framing and grayscale treatment")
     assert(child.armorParent == parent.id and #child.sections == 1)
     assert(not child.forever and not child.faction, "Classic set retains unverified Forever notice and both factions")
