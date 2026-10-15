@@ -1,6 +1,17 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    local originalContext = B.PlayerArtContext
+    for _, faction in ipairs({"Alliance", "Horde"}) do
+        B.PlayerArtContext = function() return {faction=faction, class="HUNTER", race="NightElf"} end
+        local path, aspect, preprocessed = B:ResolveArt("set_tier2_hunter")
+        local expected = faction == "Alliance" and "set_tier2_hunter-alliance-banner.blp" or "set_tier2_hunter-banner.blp"
+        assert(path == expected and aspect == 4/3 and preprocessed,
+            "Alliance Hunter Tier 2 uses Nordrassil Scout; Horde keeps existing art")
+    end
+    B.PlayerArtContext = originalContext
+end
+do
     local path, aspect, preprocessed = B:ResolveArt("social_guild_raid")
     assert(path == "social_guild_raid-banner.blp" and aspect == 4/3 and preprocessed,
         "Raids with Guildmates uses approved Nefarian group artwork")
