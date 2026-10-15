@@ -242,6 +242,12 @@ dot.tex = dot:CreateTexture(nil, "OVERLAY")
 dot.tex:SetTexture(MEDIA .. "dot")
 dot.tex:SetPoint("CENTER")
 dot.tex:SetSize(20, 20)
+-- a thin white ring around the gold core (Media/pin-ring, tools/pinring.py), so the pin reads on any map
+dot.rim = dot:CreateTexture(nil, "OVERLAY", nil, 2)
+dot.rim:SetTexture(MEDIA .. "pin-ring")
+dot.rim:SetPoint("CENTER")
+dot.rim:SetSize(14, 14)
+dot.rim:SetVertexColor(1, 1, 1, 0.95)
 local GOLD = C.GOLD2 or { 1, 0.82, 0.3 }
 dot.tex:SetVertexColor(GOLD[1], GOLD[2], GOLD[3])
 dot.glow:SetVertexColor(GOLD[1], GOLD[2], GOLD[3])
@@ -417,7 +423,7 @@ slider.track:SetVertexColor(0.62, 0.62, 0.60, 0.40) -- grey
 slider.thumb = slider:CreateTexture(nil, "OVERLAY")
 slider.thumb:SetTexture(MEDIA .. "dot")
 slider.thumb:SetSize(11, 11)
-slider.thumb:SetVertexColor(0.62, 0.80, 0.98) -- a soft blue, so it never competes with the gold pin
+slider.thumb:SetVertexColor(0.95, 0.96, 0.98) -- a bright silver, so it never competes with the gold pin
 
 -- its top is level with the top of the page's icons (the map button's icon is 3 down in its box)
 function M:PlaceSlider()
