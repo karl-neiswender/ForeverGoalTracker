@@ -1,5 +1,10 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+do
+    local path, aspect, preprocessed = B:ResolveArt("social_guild_raid")
+    assert(path == "social_guild_raid-banner.blp" and aspect == 4/3 and preprocessed,
+        "Raids with Guildmates uses approved Nefarian group artwork")
+end
 for _, goal in ipairs(F.armorCollections.pvp_set_leather_ally.armorChildren) do
     local path, aspect, preprocessed = B:ResolveArt(goal.id)
     assert(path == "pvp_set_leather_ally-banner.blp" and aspect == 4/3 and preprocessed,
