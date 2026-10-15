@@ -35,7 +35,7 @@ FINAL_BANNERS = {
     "att_ony_horde": "onyxia-horde-master.png",
     "set_dungeon1_paladin": "lightforge-master.png",
     "allclasses_dwarf_paladin": "dwarf-paladin-master.png",
-    "pvp_set_cloth_ally": "marshal-cloth-master.png",
+    "pvp_set_cloth_ally": "pvp/marshal-cloth-durgle-master.png",
     "set_dungeon1_shaman": "elements-master.png",
     "set_dungeon1_warlock": "dreadmist-master.png",
     "set_dungeon2": "set_dungeon2-scholomance-master.png",

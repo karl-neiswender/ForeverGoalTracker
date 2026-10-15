@@ -2,10 +2,29 @@
 
 Source: `Media/artwork/Durgle_Wizzledab_TCG.jpg` (unchanged).
 Review: `Media/final-images/alliance-pvp-cloth-review-2026-10-15.png`.
-Built-in imagegen edit, pending Karl's visual approval; not installed.
+Built-in imagegen edit. Karl requested removal of the lower-left mark, then
+approved the revised preview with "good". Installed after approval.
 Intended replacement: `pvp_set_cloth_ally-banner.blp`, retaining the existing
 Alliance cloth collection and child mappings. Preserve previous master.
 Inspected grayscale, right-side subject, left/bottom fades and artist mark.
+
+Revised review: `Media/final-images/alliance-pvp-cloth-review-v2-2026-10-15.png`.
+Master: `Media/final-images/pvp/marshal-cloth-durgle-master.png` (1200 x 900).
+Runtime: `Media/pvp_set_cloth_ally-banner.blp` (512px DXT1, 10 mip levels).
+Existing collection/child mappings retained. Previous master preserved.
+No Lua or per-frame processing changes. Restart WoW fully to refresh texture.
+
+Validation: existing compressor independently decoded the runtime BLP; 4:3
+master and 10 mip levels verified. Full Era/Forever `tools/check.py` passed;
+output saved in `reports/checks/alliance-pvp-cloth-2026-10-15.txt`.
+
+Exact revision prompt: Precise localized edit: remove ONLY the small handwritten
+signature/watermark in the extreme lower-left corner of this grayscale fantasy
+banner. Seamlessly fill that small area with the surrounding dark rocky ground
+and neutral charcoal bottom fade. Keep all other image content unchanged: exact
+mage, face, helmet, armor, magic streams, floating rocks, landscape, grayscale
+contrast, framing, dimensions, wide left darkening and bottom darkening gradients.
+Do not add text or any mark. Do not change or regenerate the rest of the scene.
 
 Exact prompt:
 
