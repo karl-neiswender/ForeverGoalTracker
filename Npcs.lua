@@ -91,3 +91,18 @@ FGT.NPCS = {
     { id = 7952, name = "Zjolnir", tag = "Raptor Handler", map = 1411, zone = "Durotar", x = 55.2, y = 75.4 },
     { id = 265756, name = "Genn Fairweather", tag = "Stablemaster and Riding Trainer", forever = true, map = 2521, zone = "Zephras Isle", x = 53.8, y = 81.2 },
 }
+
+-- Where a reputation's goal page points its "Show on map" link: the faction's main hub, for the
+-- Exalted goals that have one clear place (Karl, 2026-10-15). Keyed by goal id. They are not
+-- people in steps, so they are never linked by name; npcId is the person whose spot it is (the
+-- Wowhead link). Spots from Wowhead Classic and Forever (same on both, checked 2026-10-15):
+-- Archmage Angela Dosantos stands in Light's Hope Chapel, Commander Mar'alith in Cenarion Hold.
+-- Left out on purpose, no single place on a map: Timbermaw Hold (Felwood and Winterspring),
+-- Thorium Brotherhood and Zandalar Tribe (inside Blackrock Depths and Zul'Gurub), the
+-- Ambassador goals (four capitals).
+FGT.HUBS = {
+    rep_argentdawn = { id = "hub:rep_argentdawn", name = "Light's Hope Chapel", npcId = 16116, map = 1423, zone = "Eastern Plaguelands", x = 81.4, y = 58.2 },
+    rep_cenarion = { id = "hub:rep_cenarion", name = "Cenarion Hold", npcId = 15181, map = 1451, zone = "Silithus", x = 49.2, y = 34.2 },
+    rep_hydraxian = { id = "hub:rep_hydraxian", name = "Duke Hydraxis", npcId = 13278, map = 1447, zone = "Azshara", x = 79.2, y = 73.4 },
+    rep_nozdormu = { id = "hub:rep_nozdormu", name = "Caverns of Time", npcId = 15192, map = 1446, zone = "Tanaris", x = 65.2, y = 50.0 },
+}

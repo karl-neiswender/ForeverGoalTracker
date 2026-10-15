@@ -1475,6 +1475,8 @@ do
                 for _, a in ipairs(n.alias or {}) do table.insert(names, { a, n.id }) end
             end
         end
+        -- reputation hubs (Npcs.lua FGT.HUBS): found by id for the map, never linked by name
+        for _, hub in pairs(FGT.HUBS or {}) do byId[hub.id] = hub end
         -- longest first, so "Vartrus the Ancient" wins over "Vartrus"
         table.sort(names, function(a, b) return #a[1] > #b[1] end)
     end
@@ -6826,7 +6828,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Completion/Forever/lockout badges wrap instead of entering the description.
         local firstX = 22 + DETAIL_ICON + 12
         local x, y = firstX, 24+rowHeight-22
-        for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip,FGT.detailLockChip}) do
+        if FGT.UpdateMapChip then FGT.UpdateMapChip(goal) end -- Maplet.lua: "Show on map" on reputation goals
+        for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip,FGT.detailLockChip,FGT.detailMapChip}) do
             if chip:IsShown() then
                 local width = chip:GetWidth()
                 if x > firstX and x+width > FGT.detailBody:GetWidth()-22 then x,y = firstX,y+30 end

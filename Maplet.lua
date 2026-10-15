@@ -272,7 +272,7 @@ dot:SetScript("OnMouseUp", function(_, button)
     local n = M.npc
     if not n then return end
     if button == "RightButton" then
-        FGT.OpenWowheadCard("npc", n.id, n.name, nil, n)
+        FGT.OpenWowheadCard("npc", n.npcId or n.id, n.name, nil, n)
     else
         FGT.ShowNpcOnMap(n.id)
     end
@@ -746,5 +746,51 @@ function FGT.MapLinkClick(id)
         M:Show(n, true, true)
     else
         FGT.ShowNpcOnMap(id) -- no banner to draw on (the pop-out alone): the game's own map
+    end
+end
+
+-- ------------------------------------------------------------
+-- "Show on map" beside the chips on an Exalted reputation goal: the faction's main hub (Npcs.lua
+-- FGT.HUBS). Set like the step link: the pin, then the words, in the same soft gold-grey.
+-- ------------------------------------------------------------
+do
+    local chip = CreateFrame("Button", nil, FGT.detailBody)
+    FGT.detailMapChip = chip
+    chip:SetHeight(22)
+    chip:Hide()
+    chip.icon = chip:CreateTexture(nil, "ARTWORK")
+    chip.icon:SetTexture(FGT.Icon("map-location"))
+    chip.icon:SetSize(15, 15)
+    chip.icon:SetPoint("LEFT", chip, "LEFT", 4, -1)
+    chip.text = chip:CreateFontString(nil, "OVERLAY")
+    FGT.RegisterFont(chip.text, "body", 11, "")
+    chip.text:SetPoint("LEFT", chip.icon, "RIGHT", 0, 1)
+    chip.text:SetText("Show on map")
+    local function Paint(on)
+        if on then chip.text:SetTextColor(1, 0.93, 0.62) else chip.text:SetTextColor(0.79, 0.70, 0.48) end
+    end
+    Paint(false)
+    chip:SetScript("OnEnter", function(self)
+        Paint(true)
+        if self.hubId then FGT.ShowMapLinkTip(self, self.hubId) end
+    end)
+    chip:SetScript("OnLeave", function() Paint(false); GameTooltip:Hide() end)
+    chip:SetScript("OnClick", function(self)
+        GameTooltip:Hide()
+        if self.hubId then FGT.MapLinkClick(self.hubId) end
+    end)
+
+    -- called while the goal page is laid out (Core.lua, with the chips)
+    function FGT.UpdateMapChip(goal)
+        FGT.NpcById(0) -- (builds the index, which holds the hubs)
+        local hub = goal and FGT.HUBS and FGT.HUBS[goal.id]
+        if hub and hub.map and hub.x and hub.y and C_Map then
+            chip.hubId = hub.id
+            chip:SetWidth(4 + 15 + math.ceil(chip.text:GetStringWidth()) + 6)
+            chip:Show()
+        else
+            chip.hubId = nil
+            chip:Hide()
+        end
     end
 end
