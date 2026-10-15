@@ -17,9 +17,10 @@ read on a 0.1 grid (see `tools/gridview.py`); lights were placed from that, bloo
 | Striker's Garb (AQ40 Hunter) | none | daylight through the trees, motes |
 | Dragonstalker, Alliance art | none | daylight over the valley, motes |
 | Make Trades | none | falling snow |
+| Arcanite Reaper (added later, Karl: just the axe top and sunlight) | the axe head, skull and crescent edges (0.4) | daylight from the upper right |
 
 Skipped on purpose (no light source in the picture, or nothing that would not read as noise):
-Arcanite Reaper, AQ40 plate and leather, Tauren epic mount. Stormrage (Horde art) already had its bloom
+AQ40 plate and leather, Tauren epic mount. Stormrage (Horde art) already had its bloom
 from the 2026-10-13 pass; only its name changed.
 
 Needs a full game restart (eight new bloom textures). Not yet seen in game.

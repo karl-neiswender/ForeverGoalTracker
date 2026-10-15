@@ -5652,6 +5652,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             { 0.30, 1.0, 0.0, 0.80 }, 20),
         ["set_tier2_hunter-alliance-banner.blp"] = Sunlight({ 0.42, -0.10, 100, 40, 5, 1.2, strength = 0.5 },
             { 0.30, 1.0, 0.0, 0.80 }, 18),
+        -- Arcanite Reaper: daylight breaking over the axe from the upper right (its head blooms, baked)
+        ["arcanite_reaper-banner.blp"] = Sunlight({ 1.02, -0.06, 128, 45, 6, 1.3, strength = 0.7 },
+            { 0.30, 1.0, 0.0, 0.75 }, 18),
         -- Make Trades: the snow falling in the clearing
         ["social_trades-banner.blp"] = SnowOnly(90),
     }
@@ -5676,7 +5679,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "pvp_rank14", -- Grand Marshal / High Warlord: the halo, subtle (2026-10-14)
         -- 2026-10-15
         "zinrokh", "pvp_set_cloth_horde", "pvp_set_cloth_ally", "pvp_set_leather_ally", "tier3_warlock-horde",
-        "social_guild_raid", "tier3_warrior_koringar", "epicmounts_undead",
+        "social_guild_raid", "tier3_warrior_koringar", "epicmounts_undead", "arcanite_reaper",
     }
     -- The goals those banners (and Thunderfury's and Shaman Tier 2's) belong to, for /goals addblooms.
     FGT.BLOOM_GOALS = {
@@ -5691,7 +5694,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         "allclasses", "rep_ambassador_ally", "rep_ambassador_horde", "social_cheers", "set_tier2_warlock",
         "social_summons", "set_partners_in_crime", "social_waves", "raid_naxx", "social_guild",
         "social_guild_dungeon", "rep_nozdormu", "pvp_rank14_ally", "pvp_rank14_horde",
-        "zinrokh", "social_guild_raid", "tier3_warlock", "tier3_warrior", "epicmounts",
+        "zinrokh", "social_guild_raid", "tier3_warlock", "tier3_warrior", "epicmounts", "arcanite_reaper",
     }
     -- Strength per image after Karl's first look in game (2026-10-13); the rest are 0.6.
     -- (The Zulian Tiger's bloom was taken off.)
@@ -5709,6 +5712,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- 2026-10-15: the arcane streams and the glare are already bright; the rest a medium touch
         pvp_set_cloth_ally = 0.4, social_guild_raid = 0.4, pvp_set_leather_ally = 0.5,
         ["tier3_warlock-horde"] = 0.5, tier3_warrior_koringar = 0.5, epicmounts_undead = 0.5,
+        arcanite_reaper = 0.4, -- the axe head is already bright
 
     }
     -- A bloom can be baked in zones (tools/bloomall.py ZONES): one texture per band of the

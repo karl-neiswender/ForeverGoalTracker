@@ -94,6 +94,7 @@ STEMS = {
     "social_guild_raid": "Raids with Guildmates (the glare behind the dragon's head)",
     "tier3_warrior_koringar": "Warrior Tier 3 (the visor's glow and the mace's lightning)",
     "epicmounts_undead": "Undead epic mount (the ghost flames and the moon)",
+    "arcanite_reaper": "Arcanite Reaper (the axe head, the skull and the crescent edges)",
 }
 
 # Where only one spot should glow (Karl's notes in the list): boxes in fractions of the master
@@ -129,6 +130,7 @@ REGIONS = {
     "tier3_warrior_koringar": [(0.40, 0.50, 0.10, 0.19), (0.60, 1.00, 0.50, 0.82)],
     "epicmounts_undead": [(0.30, 0.40, 0.54, 0.66), (0.44, 0.58, 0.60, 0.74), (0.66, 0.82, 0.30, 0.50),
                           (0.82, 0.98, 0.04, 0.24)],
+    "arcanite_reaper": [(0.54, 0.93, 0.03, 0.52)],   # the axe top (Karl: just the top, plus sunlight)
 }
 # Other changes after Karl's first look in game (2026-10-13), passed to bloom.bake
 OVERRIDES = {
