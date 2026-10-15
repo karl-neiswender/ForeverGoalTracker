@@ -5362,6 +5362,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         rhokdelar = true, lokdelar = true,                    -- forest weapons
         ["set_forever_raid-banner.blp"] = true,              -- every Forever raid set (one shared image)
         ["raid_hyjal-banner.blp"] = true,                    -- Hyjal Summit
+        ["set_tier2_hunter-alliance-banner.blp"] = true,     -- Dragonstalker, Alliance art (a forest valley)
     }
     function B:IsLeafy(goalId, path)
         return (path and self.leafy[path]) or self.leafy[goalId] or false
