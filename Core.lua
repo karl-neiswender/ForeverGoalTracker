@@ -5027,6 +5027,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_set_mail_horde = {{path="pvp_set_mail_horde-banner.blp"}}
     B.artVariants.pvp_set_mail_horde_shaman = {{path="pvp_set_mail_horde_shaman-banner.blp"}}
     B.artVariants.pvp_set_cloth_ally = {{path="pvp_set_cloth_ally-banner.blp"}}
+    B.artVariants.pvp_set_cloth_horde = {{path="pvp_set_cloth_horde-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_set_leather_ally = {{path="pvp_set_leather_ally-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.set_dungeon1_priest = {{path="key_strat-banner.blp"}}
     B.artVariants.pvp_mount_ally = {{path="pvp_mount_ally-banner.blp"}}

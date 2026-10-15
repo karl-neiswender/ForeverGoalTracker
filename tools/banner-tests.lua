@@ -1,5 +1,10 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+for _, goal in ipairs(F.armorCollections.pvp_set_cloth_horde.armorChildren) do
+    local path, aspect, preprocessed = B:ResolveArt(goal.id)
+    assert(path == "pvp_set_cloth_horde-banner.blp" and aspect == 4/3 and preprocessed,
+        "Horde cloth class goals inherit approved Thysta artwork")
+end
 do
     local originalContext = B.PlayerArtContext
     for _, faction in ipairs({"Alliance", "Horde"}) do
