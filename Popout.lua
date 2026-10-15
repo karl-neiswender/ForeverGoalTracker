@@ -637,7 +637,7 @@ function FGT.UpdatePopoutPlaceholder(goal, height, width)
         end
     end
     local slot = math.max(36, height - 6)
-    P.placeholder:SetSize(math.max(50, width), slot)
+    P.placeholder:SetHeight(slot)
     -- The message and button sit centered as one group (about 42 tall);
     -- the slot is at most the visible area, so the center is on screen.
     P.placeholder.text:ClearAllPoints()
@@ -1090,6 +1090,10 @@ end)
 P.placeholder = CreateFrame("Frame", nil, U.content)
 P.placeholder.fgtPopoutTransfer = true
 P.placeholder:SetPoint("TOPLEFT")
+-- Its right edge is glued to the steps list, which follows the panel every frame, so the slot
+-- stays smooth while the side panels slide (its width used to be set only when the steps
+-- re-wrapped, a few times a second, and jumped). Only its height is set by the layout.
+P.placeholder:SetPoint("TOPRIGHT", U.content, "TOPRIGHT", 0, 0)
 P.placeholder:EnableMouse(false)
 P.placeholder:Hide()
 local recess = S.flat(P.placeholder, 0, 0, 0, 0.22)
