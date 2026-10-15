@@ -4729,6 +4729,7 @@ do
         FGT.detailNoteBtn:ClearAllPoints()
         FGT.detailNoteBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20 - 26 * icons, -22)
         icons = icons + 1
+        if FGT.PlaceMapButton then FGT.PlaceMapButton(icons) end -- Maplet.lua: the map pin, left of the note
         -- The title begins below the action icons and can use the full width.
         detailTitle:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22, 0)
         b:ClearAllPoints(); b:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20, -22)
@@ -5731,6 +5732,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- precision is left alone (no colour tables made, no API calls).
     B.lightWhite, B.lightNoSpan = { 1, 1, 1 }, { 0, 0 }
     function B:PaintGradient(t, c, a)
+        a = a*(1 - (self.mapMix or 0)) -- the map (Maplet.lua) fades every light out with the art
         local span = self.lightSpan[t] or self.lightNoSpan
         local a1, a2 = a, a
         if not self.lightMask then
@@ -6144,7 +6146,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                             t:SetTexCoord(tl, tr, tt2, tb); e.tl, e.tr, e.tt, e.tb = tl, tr, tt2, tb
                         end
                         -- fades toward the left like the photo
-                        local alpha = math.floor(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw)*255 + 0.5)
+                        local alpha = math.floor(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw)*(1 - (self.mapMix or 0))*255 + 0.5)
                         if e.alphaNow ~= alpha then t:SetAlpha(alpha/255); e.alphaNow = alpha end
                     end
                 end
@@ -6575,6 +6577,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             self.glowLevel = amount*0.54*self:GetArtOpacity()*(self.glowSpec.strength or 1)
             self:PaintLightsNow()
         end
+        -- the map crossfade (Maplet.lua) fades the art out as it fades in; imageFade stays the reveal alone
+        amount = amount*(1 - (self.mapMix or 0))
         if self.credit then self.credit:SetAlpha((self.creditSizeAlpha or 0)*amount) end
         -- Keep art on the panel's working background layer, below text.
         local alpha = 0.18*amount*self:GetArtOpacity()
@@ -6701,7 +6705,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         self.creditSizeAlpha = fade(detailPanel:GetWidth(), 350, 520)
             *fade(detailPanel:GetHeight(), 280, 430)*0.90
-        self.credit:SetAlpha(self.creditSizeAlpha*(self.imageFade or 1))
+        self.credit:SetAlpha(self.creditSizeAlpha*(self.imageFade or 1)*(1 - (self.mapMix or 0)))
         local w = math.max(1, detailPanel:GetWidth()-8)
         -- Let artwork continue beneath the compact header before fading out.
         local h = math.max(math.max(1, self:GetHeight())*0.92,
@@ -13413,6 +13417,7 @@ SLASH_FOREVERGOALTRACKER3 = "/forevergoals"
 SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     if FGT.HandlePopoutCommand and FGT.HandlePopoutCommand(msg) then return end
     if FGT.HandleRailCommand and FGT.HandleRailCommand(msg) then return end
+    if FGT.HandleMapCommand and FGT.HandleMapCommand(msg) then return end
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
     local opacity = msg:match("^banneropacity%s*(.*)$")
     if opacity then

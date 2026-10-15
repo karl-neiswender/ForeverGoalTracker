@@ -23,6 +23,7 @@ ItemTooltips.lua
 Materials.lua
 Popout.lua
 Rail.lua
+Maplet.lua
 WhatsNew.lua
 Ambience.lua
 Audit.lua

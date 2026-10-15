@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
