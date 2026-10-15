@@ -717,7 +717,7 @@ function FGT.ShowMapLinkTip(owner, id)
     local n = FGT.NpcById(id)
     if not n then return end
     GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
-    GameTooltip:AddLine((M.target == 1 and M.npc == n) and "Back to the goal art" or "Show on the map", 1, 0.93, 0.62)
+    GameTooltip:AddLine("Show on the map", 1, 0.93, 0.62) -- (only the pin button at the top turns the map off)
     GameTooltip:AddLine(n.name .. ", " .. (n.zone or "?"), 0.7, 0.66, 0.58)
     GameTooltip:Show()
 end
@@ -726,7 +726,7 @@ function FGT.MapLinkClick(id)
     local n = FGT.NpcById(id)
     if not n then return end
     if M.target == 1 and M.npc == n then
-        M:Hide()
+        return -- already showing: only the pin button at the top turns the map off
     elseif B:IsShown() and B.shownArtHeight then
         M:Show(n, true, true)
     else
