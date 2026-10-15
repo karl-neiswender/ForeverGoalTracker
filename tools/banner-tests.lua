@@ -1,6 +1,11 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    local path, aspect, preprocessed = B:ResolveArt("social_hugs")
+    assert(F.GoalById("social_hugs") and path == "social_hugs-banner.blp"
+        and aspect == 4/3 and preprocessed, "Give Hugs uses approved group embrace artwork")
+end
+do
     local path, aspect, preprocessed = B:ResolveArt("arcanite_reaper")
     assert(F.GoalById("arcanite_reaper") and path == "arcanite_reaper-banner.blp"
         and aspect == 4/3 and preprocessed, "Arcanite Reaper uses approved weapon artwork")
