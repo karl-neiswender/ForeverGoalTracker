@@ -418,11 +418,20 @@ slider.track = slider:CreateTexture(nil, "ARTWORK")
 slider.track:SetTexture("Interface\\Buttons\\WHITE8X8")
 slider.track:SetWidth(2)
 slider.track:SetPoint("TOP", slider, "TOP", 0, 0)
-slider.track:SetPoint("BOTTOM", slider, "BOTTOM", 0, 0)
+slider.track:SetPoint("BOTTOM", slider, "BOTTOM", 0, 28)
 slider.track:SetVertexColor(0.62, 0.62, 0.60, 0.40) -- grey
+-- the line's last stretch fades out to nothing
+slider.tail = slider:CreateTexture(nil, "ARTWORK")
+slider.tail:SetTexture("Interface\\Buttons\\WHITE8X8")
+slider.tail:SetSize(2, 28)
+slider.tail:SetPoint("BOTTOM", slider, "BOTTOM", 0, 0)
+if not (CreateColor and pcall(slider.tail.SetGradient, slider.tail, "VERTICAL",
+    CreateColor(0.62, 0.62, 0.60, 0), CreateColor(0.62, 0.62, 0.60, 0.40))) then
+    slider.tail:SetVertexColor(0.62, 0.62, 0.60, 0.2) -- (no gradients on this client: half strength)
+end
 slider.thumb = slider:CreateTexture(nil, "OVERLAY")
 slider.thumb:SetTexture("Interface\\Buttons\\WHITE8X8") -- a short crisp bar across the line, so it is never taken for a pin
-slider.thumb:SetSize(13, 2)
+slider.thumb:SetSize(9, 2)
 slider.thumb:SetVertexColor(0.95, 0.96, 0.98) -- a bright silver, so it never competes with the gold pin
 
 -- its top is level with the top of the page's icons (the map button's icon is 3 down in its box)
