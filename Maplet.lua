@@ -19,7 +19,7 @@ local M = {
     zoomIn = 0,          -- how far in from the widest the map can be (0.5 = 50% in); /goals map zoom N
     peak = 0.40,         -- how strong the map is at its brightest, like the art's 0.18
     dotU = 0.75, dotV = 0.25, -- where the pin sits in the art, from its top left
-    FADE_IN = 2.4, FADE_OUT = 1.8, -- seconds
+    FADE_IN = 1.6, FADE_OUT = 1.8, -- seconds
     PERIOD = 3.6,        -- seconds per ping
     t = 0,
     tiles = {},          -- the plain map (below the art's sublevel)
