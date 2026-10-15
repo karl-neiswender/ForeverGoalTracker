@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "set_tier25_leather": "tier-sets/aq40/leather-telrander-master.png",
     "set_tier25_plate": "tier-sets/aq40/plate-savin-master.png",
     "tier3_warlock-horde": "tier-sets/warlock/tier3-horde-pagatha-master.png",
     "set_tier2_hunter-alliance": "tier-sets/hunter/tier2-alliance-nordrassil-master.png",

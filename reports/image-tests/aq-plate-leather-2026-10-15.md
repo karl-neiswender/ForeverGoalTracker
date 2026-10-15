@@ -9,7 +9,7 @@ Leather intended for `set_tier25_druid` and `set_tier25_rogue`.
 Karl approved both with "both good", then requested a shoulder overlap fix.
 Plate approved for Paladin/Warrior. Leather rejected after shoulder correction:
 Karl noted it did not match the original. Leather mapping withdrawn; new faithful
-edit in progress. Druid/Rogue retain existing artwork until approved.
+edit completed. Karl approved v3 with "good"; installed for Druid/Rogue.
 Existing Hunter image and other AQ classes remain unchanged.
 Initial leather generation failed with network error; retried with built-in tool.
 
@@ -30,6 +30,17 @@ Mapped at 4:3 with preprocessed=true. No new per-frame work.
 Full Era/Forever checks passed after withdrawing leather, including all nine AQ class image mappings;
 results in `reports/checks/aq-plate-leather-2026-10-15.txt`. Compressor
 independently decoded both runtime textures. Full WoW restart required.
+
+## Final approved leather version
+
+Review: `Media/final-images/aq-leather-review-v3-2026-10-15.png`.
+Master: `Media/final-images/tier-sets/aq40/leather-telrander-master.png` (1200x900).
+Runtime: `Media/set_tier25_leather-banner.blp` (512px DXT1, 10 mip levels).
+4:3 preprocessed mapping for Genesis and Deathdealer's; other AQ sets unchanged.
+Compressor independently decoded texture. Full Era/Forever checks passed;
+final output: `reports/checks/aq-plate-leather-final-2026-10-15.txt`.
+
+Exact final prompt: Preserve this exact painting, character, cat, armor, shoulder spike geometry and original overlaps without redrawing or redesigning them. In particular retain the long thin shoulder spike IN FRONT of the cat exactly as in this original. Convert to neutral grayscale. Fit original on right of a 4:3 landscape banner, extend matching dark forest only on left for text space. Bake broad soft charcoal darkening at left edge and soft darkening across bottom 100px ending near-black. Keep original brushwork, proportions, hands, hammer, pose and artist mark unchanged. No added text, borders or new objects. Faithful source conversion and canvas extension only.
 
 ## Exact plate prompt
 
