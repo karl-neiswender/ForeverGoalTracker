@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added Zin'rokh, Destroyer of Worlds, an epic weapon goal from Zul'Gurub with automatic item tracking.
+
 ## 2.14.0
 
 - Added a pop-out window for a goal's steps. Pop it out from the guide, keep it on screen while you play, resize it, change its opacity and bring it back with one click.

@@ -405,6 +405,25 @@ local library = {
         completeWith = { item = 18348 },
     },
 
+    {
+        id = "zinrokh", library = true, instance = { 309, "Zul'Gurub" },
+        icon = "inv_sword_01",
+        name = "Zin'rokh, Destroyer of Worlds",
+        short = "Zin'rokh",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed sword dropped by Hakkar in Zul'Gurub.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Zin'rokh, Destroyer of Worlds from Hakkar in Zul'Gurub.", auto = { item = 19854 } },
+        },
+        completeWith = { item = 19854 },
+        tips = {
+            "Defeat Hakkar in {raid_zg:Zul'Gurub} for a chance at {item:19854:Zin'rokh, Destroyer of Worlds}.",
+            "Warriors, Paladins and Hunters can use this sword. Learn Two-Handed Swords before equipping it.",
+        },
+    },
+
     -- ---------------- Raids ----------------
     {
         id = "raid_mc", library = true, instance = { 409, "Molten Core" },

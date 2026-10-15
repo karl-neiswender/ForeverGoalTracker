@@ -20,6 +20,7 @@ FGT.GOAL_CLASSES = {
     quelserrar = ONE_HAND_SWORD,
     sulfuras = { "WARRIOR", "PALADIN", "SHAMAN", "DRUID" },
     ashbringer = { "WARRIOR", "PALADIN", "HUNTER" },
+    zinrokh = { "WARRIOR", "PALADIN", "HUNTER" },
     atiesh = { "MAGE", "WARLOCK", "PRIEST", "DRUID" }, -- one version per class
     benediction = { "PRIEST" },
     rhokdelar = { "HUNTER" },
