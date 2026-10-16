@@ -116,9 +116,45 @@ FGT.HUBS = {
     -- data (wago.tools JournalInstanceEntrance), turned into map spots with Classic Era's map bounds
     -- (UiMapAssignment, build 1.15.9.70003, 2026-10-15). The method reproduces the Zul'Gurub entrance
     -- Karl knows; Forever hasn't confirmed them. Left out: Molten Core and Blackwing Lair (the door
-    -- is inside Blackrock Mountain, not clearly on one zone map), both Ahn'Qiraj raids (their gates
-    -- lie just south of Classic's Silithus map) and Naxxramas (the game lists only Northrend's).
+    -- is inside Blackrock Mountain, not clearly on one zone map) and Naxxramas
+    -- (the game lists only Northrend's). Ahn'Qiraj positions below were supplied by Karl.
     raid_ony = { id = "hub:raid_ony", name = "Onyxia's Lair", unverifiedInForever = true, map = 1445, zone = "Dustwallow Marsh", x = 52.9, y = 78.1 },
     raid_zg = { id = "hub:raid_zg", name = "Zul'Gurub", unverifiedInForever = true, map = 1434, zone = "Stranglethorn Vale", x = 53.9, y = 17.6 },
+    -- Shared entrance location confirmed by Karl, 2026-10-16.
+    raid_aq20 = { id = "hub:raid_aq20", name = "Ruins of Ahn'Qiraj", map = 1451, zone = "Silithus", x = 29, y = 92.8 },
+    raid_aq40 = { id = "hub:raid_aq40", name = "Temple of Ahn'Qiraj", alias = { "Ahn'Qiraj Temple" }, map = 1451, zone = "Silithus", x = 29, y = 92.8 },
     rep_nozdormu = { id = "hub:rep_nozdormu", name = "Caverns of Time", npcId = 15192, map = 1446, zone = "Tanaris", x = 65.2, y = 50.0 },
+}
+
+-- Outdoor approaches, not boss positions. Coordinate facts checked 2026-10-16 against
+-- https://github.com/callie-g/HandyNotes_DungeonLocations-classic/blob/main/classic.lua
+-- Cave and mountain entrances still require travelling inside to reach the portal.
+-- Classic reference positions remain Unconfirmed on Forever.
+FGT.DUNGEONS = {
+    { id = "dungeon:bfd", name = "Blackfathom Deeps", map = 1440, zone = "Ashenvale", x = 14, y = 13.1, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:uldaman", name = "Uldaman", map = 1418, zone = "Badlands", x = 44.53, y = 12.12, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:rfd", name = "Razorfen Downs", map = 1413, zone = "The Barrens", x = 49.13, y = 93.48, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:rfk", name = "Razorfen Kraul", map = 1413, zone = "The Barrens", x = 41.89, y = 89.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:wc", name = "Wailing Caverns", map = 1413, zone = "The Barrens", x = 47.7, y = 35, unverifiedInForever = false, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:brd", name = "Blackrock Depths", map = 1428, zone = "Burning Steppes", x = 29.94, y = 47.78, unverifiedInForever = true, where = "Enter Blackrock Mountain, then follow the route down to Blackrock Depths." },
+    { id = "dungeon:brs", name = "Blackrock Spire", map = 1428, zone = "Burning Steppes", x = 29.94, y = 47.78, unverifiedInForever = true, where = "Enter Blackrock Mountain, then follow the route up to Blackrock Spire.", alias = { "Upper Blackrock Spire", "Lower Blackrock Spire" } },
+    { id = "dungeon:mara", name = "Maraudon", map = 1443, zone = "Desolace", x = 29.1, y = 62.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:gnomer", name = "Gnomeregan", map = 1426, zone = "Dun Morogh", x = 24.46, y = 39.81, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:strat", name = "Stratholme", mapZoom = 44, map = 1423, zone = "Eastern Plaguelands", x = 30.85, y = 17, unverifiedInForever = true, where = "Shows the main entrance. The service entrance is separate." },
+    { id = "dungeon:dm", name = "Dire Maul", map = 1444, zone = "Feralas", x = 59.11, y = 43.28, unverifiedInForever = true, where = "Shows the outdoor approach to Dire Maul. Follow the route to your wing." },
+    { id = "dungeon:rfc", name = "Ragefire Chasm", map = 1454, zone = "Orgrimmar", x = 51.6, y = 49.83, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:sfk", name = "Shadowfang Keep", map = 1421, zone = "Silverpine Forest", x = 44.8, y = 67.8, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:stock", name = "The Stockade", map = 1453, zone = "Stormwind City", x = 40.28, y = 55.21, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal.", alias = { "Stockades", "Stockade" } },
+    { id = "dungeon:st", name = "Sunken Temple", map = 1435, zone = "Swamp of Sorrows", x = 69.5, y = 52.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal.", alias = { "The Temple of Atal'hakkar", "Temple of Atal'Hakkar" } },
+    { id = "dungeon:zf", name = "Zul'Farrak", map = 1446, zone = "Tanaris", x = 38.72, y = 20, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:sm", name = "Scarlet Monastery", map = 1420, zone = "Tirisfal Glades", x = 85.3, y = 32.2, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:scholo", name = "Scholomance", map = 1422, zone = "Western Plaguelands", x = 69, y = 72.9, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:deadmines", name = "Deadmines", map = 1436, zone = "Westfall", x = 42.57, y = 71.71, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    -- Entrance supplied by Karl during native review, 2026-10-16.
+    { id = "dungeon:dalaran", name = "City of Dalaran", forever = true, map = 1421, zone = "Silverpine Forest", x = 69, y = 45.5, where = "Dungeon entrance." },
+    -- Reuse the existing hub positions for named location links.
+    FGT.HUBS.rep_argentdawn,
+    FGT.HUBS.raid_zg,
+    FGT.HUBS.raid_aq20,
+    FGT.HUBS.raid_aq40,
 }

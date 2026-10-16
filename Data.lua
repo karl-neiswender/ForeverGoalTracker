@@ -563,7 +563,7 @@ FGT.goals = {
         note = "Legendary two-handed mace. Combine Ragnaros's Eye of Sulfuras with a crafted Sulfuron Hammer. No quest turn-in needed.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot the Eye of Sulfuras from Ragnaros in Molten Core.", auto = { item = 17204 } },
+            { text = "Loot the Eye of Sulfuras from Ragnaros in {raid_mc:Molten Core}.", auto = { item = 17204 } },
             { text = "Get the Plans: Sulfuron Hammer from Lokhtos Darkbargainer in Blackrock Depths ('A Binding Contract').", auto = { item = 18592, quest = 7604 } },
             { text = "Collect 8 Sulfuron Ingots from Golemagg the Incinerator in Molten Core.", auto = { item = 17203, count = 8 } },
             { text = "Smelt 20 Dark Iron Bars at the Black Forge in Blackrock Depths.", auto = { item = 11371, count = 20 } },

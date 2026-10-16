@@ -1269,6 +1269,9 @@ function FGT.LinkText(s)
     s = (s:gsub("{item:(%d+):([^}]+)}", function(id, label)
         return FGT.ItemTag and FGT.ItemTag(tonumber(id), label) or label
     end))
+    s = (s:gsub("{map:([%w_]+):([^}]+)}", function(id, label)
+        return FGT.LocationTag and FGT.LocationTag("dungeon:" .. id, label) or label
+    end))
     s = (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
         local alias = FGT.LINK_ALIAS[id]
         if alias then id = alias() end
@@ -1279,7 +1282,8 @@ function FGT.LinkText(s)
     end))
     -- then quest names, then NPC names (below)
     if FGT.LinkQuests then s = FGT.LinkQuests(s) end
-    return FGT.LinkNpcs and FGT.LinkNpcs(s) or s
+    if FGT.LinkNpcs then s = FGT.LinkNpcs(s) end
+    return FGT.LinkDungeons and FGT.LinkDungeons(s) or s
 end
 
 -- ============================================================
@@ -1477,6 +1481,7 @@ do
         end
         -- reputation hubs (Npcs.lua FGT.HUBS): found by id for the map, never linked by name
         for _, hub in pairs(FGT.HUBS or {}) do byId[hub.id] = hub end
+        for _, entrance in ipairs(FGT.DUNGEONS or {}) do byId[entrance.id] = entrance end
         -- longest first, so "Vartrus the Ancient" wins over "Vartrus"
         table.sort(names, function(a, b) return #a[1] > #b[1] end)
     end
@@ -1739,7 +1744,8 @@ function FGT.EnableGoalLinks(f)
             FGT.ShowItemTip(self, itemId, self.ruleEntry, name)
             return
         end
-        local mapNpc = tonumber(link:match("^fgtmap:(%d+)") or "")
+        local mapNpc = link:match("^fgtentrance:([%w_:]+)$")
+        mapNpc = mapNpc and (mapNpc:find(":", 1, true) and mapNpc or ("dungeon:" .. mapNpc)) or tonumber(link:match("^fgtmap:(%d+)") or "")
         if mapNpc then
             FGT.overLink = "map" -- Maplet.lua's "show on map" after a step that names someone
             if FGT.ShowMapLinkTip then FGT.ShowMapLinkTip(self, mapNpc) end
@@ -1778,7 +1784,8 @@ function FGT.EnableGoalLinks(f)
     end)
     f:SetScript("OnHyperlinkClick", function(self, link, text, button)
         GameTooltip:Hide()
-        local mapNpc = tonumber(link:match("^fgtmap:(%d+)") or "")
+        local mapNpc = link:match("^fgtentrance:([%w_:]+)$")
+        mapNpc = mapNpc and (mapNpc:find(":", 1, true) and mapNpc or ("dungeon:" .. mapNpc)) or tonumber(link:match("^fgtmap:(%d+)") or "")
         if mapNpc then
             -- (the link may carry the step's own starting zoom: fgtmap:<npc>:<percent>)
             if FGT.MapLinkClick then FGT.MapLinkClick(mapNpc, tonumber(link:match("^fgtmap:%d+:(%d+)") or "")) end

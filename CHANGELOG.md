@@ -1,8 +1,14 @@
 # Changelog
 
-## Unreleased
+## 2.15.1
 
+- Added clickable dungeon names with entrance pins in guides.
+- Added map links for Light's Hope Chapel, City of Dalaran and both Ahn'Qiraj raids.
+- Added Darkspear Islands reputation goals and Teebu's Blazing Longsword.
+- Added more goal artwork and corrected several background selections.
+- Changed Stratholme map links to start at 44% zoom and clarified dungeon locations in several guides.
 - Fixed Alliance Warrior Tier 3 to use its Dwarf artwork and Beastmaster to use its dedicated background.
+- UI improvements and bug fixes.
 
 ## 2.15.0
 

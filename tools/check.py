@@ -679,6 +679,8 @@ if ok_all:
         ("Forever completed step filter", None, open(os.path.join(here, "completed-step-tests.lua"), encoding="utf-8").read(), True),
         ("individual armor sets", armor_fixture, open(os.path.join(here, "armor-tests.lua"), encoding="utf-8").read()),
         ("Forever individual armor sets", armor_fixture, open(os.path.join(here, "armor-tests.lua"), encoding="utf-8").read(), True),
+        ("dungeon entrance links", None, open(os.path.join(here, "dungeon-link-tests.lua")).read()),
+        ("Forever dungeon entrance links", None, open(os.path.join(here, "dungeon-link-tests.lua")).read(), True),
         ("goal banner layout", None, open(os.path.join(here, "banner-tests.lua"), encoding="utf-8").read()),
         ("Forever 70291 banner layout and image fades", None,
             open(os.path.join(here, "banner-tests.lua"), encoding="utf-8").read(), True),

@@ -274,6 +274,7 @@ dot:SetScript("OnEnter", function(self)
     if n.tag then GameTooltip:AddLine("<" .. n.tag .. ">", 0.7, 0.66, 0.58) end
     GameTooltip:AddLine((n.zone or "?") .. "  " .. string.format("%.1f, %.1f", n.x, n.y), 1, 0.9, 0.55)
     if n.where then GameTooltip:AddLine(n.where, 0.7, 0.66, 0.58, true) end
+        if FGT.isForever and n.unverifiedInForever then GameTooltip:AddLine("Unconfirmed in Forever. Classic reference location.", 0.7, 0.66, 0.58, true) end
     if FGT.NpcNote and FGT.NpcNote(n) then GameTooltip:AddLine(FGT.NpcNote(n), FGT.NpcNoteColor(n)) end
     GameTooltip:AddLine(" ")
     GameTooltip:AddLine(FGT.UseTomTom and FGT.UseTomTom() and "Click: TomTom waypoint" or "Click: show on the map",
@@ -796,6 +797,64 @@ end
 -- ------------------------------------------------------------
 local LINK_HEX = "c9b37a"
 
+
+function FGT.LocationTag(id, label)
+    return "|cff" .. LINK_HEX .. "|Hfgtentrance:" .. id:gsub("^dungeon:", "") .. "|h|T" .. FGT.Icon("map-location")
+        .. ":15:15:0:-3|t" .. label .. "|h|r"
+end
+
+-- Link outdoor dungeon approaches through the existing banner map and fallback map route.
+do
+    local names
+    function FGT.LinkDungeons(text)
+        if not names then
+            names = {}
+            for _, n in ipairs(FGT.DUNGEONS or {}) do
+                if not n.forever or FGT.isForever then
+                    names[#names + 1] = { n.name, n.id }
+                    for _, alias in ipairs(n.alias or {}) do names[#names + 1] = { alias, n.id } end
+                end
+            end
+            table.sort(names, function(a, b) return #a[1] > #b[1] end)
+        end
+        -- Work only on plain spans. Existing item, quest, goal and NPC links stay intact.
+        local function Plain(span)
+            local parts, from = {}, 1
+            while from <= #span do
+                local bestFirst, bestLast, best
+                for _, entry in ipairs(names) do
+                    local search = from
+                    while true do
+                        local first, last = span:find(entry[1], search, true)
+                        if not first then break end
+                        local before, after = span:sub(first - 1, first - 1), span:sub(last + 1, last + 1)
+                        if not before:find("[%w]") and not after:find("[%w]")
+                            and not (entry[1] == "Gnomeregan" and span:sub(last + 1):match("^ Exiles")) then
+                            if not bestFirst or first < bestFirst then bestFirst, bestLast, best = first, last, entry end
+                            break
+                        end
+                        search = last + 1
+                    end
+                end
+                if not best then parts[#parts + 1] = span:sub(from); break end
+                parts[#parts + 1] = span:sub(from, bestFirst - 1)
+                parts[#parts + 1] = FGT.LocationTag(best[2], best[1])
+                from = bestLast + 1
+            end
+            return table.concat(parts)
+        end
+        local out, from = {}, 1
+        while true do
+            local first, last = text:find("|H.-|h.-|h", from)
+            if not first then out[#out + 1] = Plain(text:sub(from)); break end
+            out[#out + 1] = Plain(text:sub(from, first - 1))
+            out[#out + 1] = text:sub(first, last)
+            from = last + 1
+        end
+        return table.concat(out)
+    end
+end
+
 local function NpcInLinkedText(text)
     for id in text:gmatch("Hfgtnpc:(%d+)") do
         local n = FGT.NpcById(tonumber(id))
@@ -818,13 +877,21 @@ function FGT.ShowMapLinkTip(owner, id)
     GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
     GameTooltip:AddLine("Show on the map", 1, 0.93, 0.62) -- (only the pin button at the top turns the map off)
     GameTooltip:AddLine(n.name .. ", " .. (n.zone or "?"), 0.7, 0.66, 0.58)
-    if FGT.NpcNote and FGT.NpcNote(n) then GameTooltip:AddLine(FGT.NpcNote(n), FGT.NpcNoteColor(n)) end
+    if type(id) == "string" and id:match("^dungeon:") then
+        GameTooltip:AddLine("Dungeon entrance", 0.79, 0.70, 0.48)
+        if n.where then GameTooltip:AddLine(n.where, 0.7, 0.66, 0.58, true) end
+        if FGT.isForever and n.unverifiedInForever then GameTooltip:AddLine("Unconfirmed in Forever. Classic reference location.", 0.7, 0.66, 0.58, true) end
+        GameTooltip:AddLine("Click: Show on map", 0.79, 0.70, 0.48)
+    elseif FGT.NpcNote and FGT.NpcNote(n) then
+        GameTooltip:AddLine(FGT.NpcNote(n), FGT.NpcNoteColor(n))
+    end
     GameTooltip:Show()
 end
 
 function FGT.MapLinkClick(id, zoom)
     local n = FGT.NpcById(id)
     if not n then return end
+    zoom = zoom or n.mapZoom
     if M.target == 1 and M.npc == n then
         return -- already showing: only the pin button at the top turns the map off
     elseif B:IsShown() and B.shownArtHeight then

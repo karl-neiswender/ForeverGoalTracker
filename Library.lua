@@ -226,7 +226,7 @@ local library = {
         note = "Rare mount from Baron Rivendare on Stratholme's undead side.",
         steps = { -- (v2.3.1: the "get a group" step moved to tips; see stepsFix231 in Core.lua)
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Deathcharger's Reins from Baron Rivendare.", auto = { item = 13335, owned = { "Deathcharger" } } },
+            { text = "Loot Deathcharger's Reins from Baron Rivendare in Stratholme.", auto = { item = 13335, owned = { "Deathcharger" } } },
         },
         completeWith = { item = 13335, owned = { "Deathcharger" } },
         tips = {
@@ -243,7 +243,7 @@ local library = {
         timeEstimate = "1-2 Months",
         note = "Rare drop from Bloodlord Mandokir in Zul'Gurub.",
         steps = { -- (v2.3.1: "Join a raid" moved to tips; see stepsFix231 in Core.lua)
-            { text = "Loot the Swift Razzashi Raptor from Bloodlord Mandokir.", auto = { item = 19872, owned = { "Swift Razzashi Raptor" } } },
+            { text = "Loot the Swift Razzashi Raptor from Bloodlord Mandokir in Zul'Gurub.", auto = { item = 19872, owned = { "Swift Razzashi Raptor" } } },
         },
         completeWith = { item = 19872, owned = { "Swift Razzashi Raptor" } },
         tips = {
@@ -259,7 +259,7 @@ local library = {
         timeEstimate = "1-2 Months",
         note = "Rare drop from High Priest Thekal in Zul'Gurub.",
         steps = { -- (v2.3.1: "Join a raid" moved to tips; see stepsFix231 in Core.lua)
-            { text = "Loot the Swift Zulian Tiger from High Priest Thekal.", auto = { item = 19902, owned = { "Swift Zulian Tiger" } } },
+            { text = "Loot the Swift Zulian Tiger from High Priest Thekal in Zul'Gurub.", auto = { item = 19902, owned = { "Swift Zulian Tiger" } } },
         },
         completeWith = { item = 19902, owned = { "Swift Zulian Tiger" } },
         tips = {
@@ -511,7 +511,7 @@ local library = {
         timeEstimate = "2-4 Weeks",
         note = "Boss kills are tracked while you're in the raid with the addon enabled.",
         steps = BossSteps({
-            { text = "Complete {att_bwl:Blackhand's Command} in {key_ubrs:Upper Blackrock Spire}.", auto = { quest = 7761 } },
+            { text = "Complete {att_bwl:Blackhand's Command} in {key_ubrs:Upper Blackrock Spire} {map:brs:Show on map}.", auto = { quest = 7761 } },
         }, { "Razorgore the Untamed", "Vaelastrasz the Corrupt", "Broodlord Lashlayer", "Firemaw",
              "Ebonroc", "Flamegor", "Chromaggus", "Nefarian" }),
     },
@@ -710,7 +710,7 @@ local library = {
         timeEstimate = "Days",
         note = "Opens Upper Blackrock Spire. Collect the gems in Lower Blackrock Spire.",
         steps = {
-            { text = "Pick up 'Seal of Ascension'.", auto = { questTaken = { 4742, 4743 }, quest = { 4742, 4743 }, item = 12344 } },
+            { text = "Pick up 'Seal of Ascension' inside Blackrock Spire.", auto = { questTaken = { 4742, 4743 }, quest = { 4742, 4743 }, item = 12344 } },
             { text = "Forge the Seal of Ascension.", auto = { item = 12344, quest = 4743, owned = { "Seal of Ascension" } } },
         },
     },
@@ -748,7 +748,7 @@ local library = {
         timeEstimate = "Days",
         note = "Opens the locked gates in Stratholme.",
         steps = {
-            { text = "Loot the Key to the City from Magistrate Barthilas.", auto = { item = 12382, owned = { "Key to the City" } } },
+            { text = "Loot the Key to the City from Magistrate Barthilas in Stratholme.", auto = { item = 12382, owned = { "Key to the City" } } },
         },
     },
     {
@@ -1318,13 +1318,13 @@ local sets = {
         timeEstimate = "Days",
         note = "A five-piece leather set from Wailing Caverns.",
         foreverNote = "New Forever set bonus: transform into a snake.",
-        tips = { "{item:10413:Gloves of the Fang} are a rare drop from Druids of the Fang." },
+        tips = { "{item:10413:Gloves of the Fang} are a rare drop from Druids of the Fang in Wailing Caverns." },
         steps = {
-            { text = "Loot Armor of the Fang from Lord Pythas.", icon = "inv_shirt_16", auto = { item = 6473, owned = { "Armor of the Fang" } } },
-            { text = "Loot Leggings of the Fang from Lord Cobrahn.", icon = "inv_pants_11", auto = { item = 10410, owned = { "Leggings of the Fang" } } },
-            { text = "Loot Footpads of the Fang from Lord Serpentis.", icon = "inv_boots_04", auto = { item = 10411, owned = { "Footpads of the Fang" } } },
-            { text = "Loot Belt of the Fang from Lady Anacondra.", icon = "inv_belt_30", auto = { item = 10412, owned = { "Belt of the Fang" } } },
-            { text = "Loot Gloves of the Fang from Druids of the Fang.", icon = "inv_gauntlets_18", auto = { item = 10413, owned = { "Gloves of the Fang" } } },
+            { text = "Loot Armor of the Fang from Lord Pythas in Wailing Caverns.", icon = "inv_shirt_16", auto = { item = 6473, owned = { "Armor of the Fang" } } },
+            { text = "Loot Leggings of the Fang from Lord Cobrahn in Wailing Caverns.", icon = "inv_pants_11", auto = { item = 10410, owned = { "Leggings of the Fang" } } },
+            { text = "Loot Footpads of the Fang from Lord Serpentis in Wailing Caverns.", icon = "inv_boots_04", auto = { item = 10411, owned = { "Footpads of the Fang" } } },
+            { text = "Loot Belt of the Fang from Lady Anacondra in Wailing Caverns.", icon = "inv_belt_30", auto = { item = 10412, owned = { "Belt of the Fang" } } },
+            { text = "Loot Gloves of the Fang from Druids of the Fang in Wailing Caverns.", icon = "inv_gauntlets_18", auto = { item = 10413, owned = { "Gloves of the Fang" } } },
         },
     },
     {

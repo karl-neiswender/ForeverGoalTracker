@@ -12,6 +12,13 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.15.1", date = "Oct 16, 2026", items = {
+        "Added clickable dungeon names with entrance pins in guides",
+        "Added map links for Light's Hope Chapel, City of Dalaran and both Ahn'Qiraj raids",
+        "Added Darkspear Islands reputation goals and Teebu's Blazing Longsword",
+        "Added more goal artwork and corrected several background selections",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.15.0", date = "Oct 15, 2026", items = {
         "Added a map view for goal pages, with Show on map links for steps, reputations and two raids",
         "Added the Zin'rokh and Arcanite Reaper goals",
