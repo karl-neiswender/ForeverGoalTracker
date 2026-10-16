@@ -1,0 +1,170 @@
+[
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211619.tga",
+    "output": "Screenshots/01-my-goals.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "2480be752aa54f2e159a0a33bbe93f3bad6a487dd7153ebb14410048f16e541d",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211623.tga",
+    "output": "Screenshots/02-wolfsbane.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "5f29120d758de9c074f9700abc4253984b3e4470d5da2dc2dfdc3f89d545ce88",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211626.tga",
+    "output": "Screenshots/03-map-view.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "be202bc484cf35179dbb9c6831256505284c2aa0a14e939ac2fb6f58cbdbfa5d",
+    "review": "retake map view"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211630.tga",
+    "output": "Screenshots/04-links-and-tips.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "a5e2380585699976a216fdf36c3f3ffaa9454704f730bdda19aed9230ecbd69f",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211633.tga",
+    "output": "Screenshots/05-materials.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "e5b384cdfce5f4b4375204db7cb755bc80a123ffd6711eca9b5f32d250174922",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211636.tga",
+    "output": "Screenshots/06-library-filters.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "b551ba78b25c9715cf5553372e9a2654984e1978438f426ec08ff81e027558d1",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211640.tga",
+    "output": "Screenshots/07-new-and-updated.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "fb6952dba52609e70766f261f871b2fb7fba4ebfc64e3ada976e8aaba4df1054",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211643.tga",
+    "output": "Screenshots/08-epic-mounts.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "920916937e4d9eca8ed4567c7389b7efbf565b7d8a1b3bf86cc32b904b942082",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211647.tga",
+    "output": "Screenshots/09-find-your-next-goal.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "c83f3057570b79739accab5d10078a7db304a897ab404d20a1dc0173943f10a7",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211650.tga",
+    "output": "Screenshots/10-welcome.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "93ab5a2803f8f985b6eff1626bdb99c4ab1c53d30e154417179cab5cd889c1c9",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211653.tga",
+    "output": "Screenshots/11-suggestions.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "c4a8627d6da1571ccb8de858568cbd16cf7eb9636df5678afffc8b1b74efc9ba",
+    "review": "processed"
+  },
+  {
+    "raw": "C:\\Program Files (x86)\\World of Warcraft\\_classic_beta_\\Screenshots\\WoWScrnShot_101526_211657.tga",
+    "output": "Screenshots/12-settings.png",
+    "raw_size": [
+      2560,
+      1440
+    ],
+    "size": [
+      1785,
+      1000
+    ],
+    "sha256": "7999e6287d74f6cc112812220ab79c8a3fe418eb45881e5449d6e718594f2732",
+    "review": "processed"
+  }
+]
