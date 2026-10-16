@@ -560,7 +560,7 @@
     "equivalent_tga_bytes": 786476
   },
   "set_tier1_paladin": {
-    "source": "tier-sets/paladin/tier1.jpg",
+    "source": "tier-sets/paladin/lawbringer-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -882,7 +882,7 @@
     "equivalent_tga_bytes": 786476
   },
   "set_dungeon1_shaman": {
-    "source": "elements-master.png",
+    "source": "tier-sets/shaman/elements-five-thunders-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -1184,6 +1184,20 @@
   },
   "pvp_darkspear_raiders": {
     "source": "reputations/darkspear-raiders-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_hunter-alliance": {
+    "source": "tier-sets/hunter/giantstalker-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_shaman": {
+    "source": "tier-sets/shaman/elements-five-thunders-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,

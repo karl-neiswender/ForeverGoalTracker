@@ -39,6 +39,26 @@ do
     assert(F.GoalById("raid_barrow") and path == "raid_barrow-banner.blp"
         and aspect == 4/3 and preprocessed, "Burrow Deeps uses approved Timbermaw artwork")
 end
+do
+    local originalContext = B.PlayerArtContext
+    for _, entry in ipairs({
+        { faction="Alliance", expected="set_tier1_hunter-alliance-banner.blp" },
+        { faction="Horde", expected="set_tier1_hunter-banner.blp" },
+    }) do
+        B.PlayerArtContext = function() return {faction=entry.faction, class="HUNTER", race="Dwarf"} end
+        local path, aspect, preprocessed = B:ResolveArt("set_tier1_hunter")
+        assert(path == entry.expected and aspect == 4/3 and preprocessed,
+            "Giantstalker uses the Alliance-only approved variant")
+    end
+    B.PlayerArtContext = originalContext
+end
+do
+    for _, id in ipairs({"set_dungeon1_shaman", "set_dungeon2_shaman"}) do
+        local path, aspect, preprocessed = B:ResolveArt(id)
+        assert(F.GoalById(id) and path == id .. "-banner.blp" and aspect == 4/3 and preprocessed,
+            "Elements and Five Thunders use approved Shaman artwork")
+    end
+end
 for _, goal in ipairs(F.armorCollections.pvp_set_cloth_horde.armorChildren) do
     local path, aspect, preprocessed = B:ResolveArt(goal.id)
     assert(path == "pvp_set_cloth_horde-banner.blp" and aspect == 4/3 and preprocessed,
@@ -86,9 +106,12 @@ do
             "Warrior Tier 3 uses Dwarf for Alliance and Koringar for Horde")
         for _, child in ipairs(F.armorCollections.set_dungeon2.armorChildren) do
             path, aspect, preprocessed = B:ResolveArt(child.id)
-            expected = child.id == "set_dungeon2_hunter" and "set_dungeon2_hunter-banner.blp" or "set_dungeon2-banner.blp"
+            expected = ({
+                set_dungeon2_hunter = "set_dungeon2_hunter-banner.blp",
+                set_dungeon2_shaman = "set_dungeon2_shaman-banner.blp",
+            })[child.id] or "set_dungeon2-banner.blp"
             assert(path == expected and aspect == 4/3 and preprocessed,
-                "Beastmaster keeps dedicated art after collection fallback assignment")
+                "dedicated Dungeon Set 2 art overrides the collection fallback")
         end
     end
     B.PlayerArtContext = originalContext
