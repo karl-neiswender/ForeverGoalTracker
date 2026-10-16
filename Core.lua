@@ -5289,7 +5289,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artPaths.pvp_av_horde = "pvp_av_horde-banner.blp"
     B.artAspects.pvp_av_horde, B.preprocessed.pvp_av_horde = 4/3, true
     -- Dedicated reputation banners take precedence over shared PvP art.
-    for _, id in ipairs({"rep_thorium", "pvp_wsg_ally", "pvp_wsg_horde", "pvp_av_ally"}) do
+    for _, id in ipairs({"rep_thorium", "pvp_wsg_ally", "pvp_wsg_horde", "pvp_av_ally", "pvp_theramore_expedition"}) do
         local path = id .. "-banner.blp"
         B.artPaths[id] = path
         B.artAspects[id], B.preprocessed[id] = 4/3, true
