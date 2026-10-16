@@ -1,0 +1,19 @@
+{
+  "version": "v2.15.1",
+  "commit": "bd1a39d13f6964c35ecb6cc1c1a70eae6e281ad9",
+  "workflow": "https://github.com/karl-neiswender/ForeverGoalTracker/actions/runs/38979514763",
+  "workflow_result": "success",
+  "curseforge_upload": "Success reported at 2026-10-16 23:06:00 UTC",
+  "github_release": "https://github.com/karl-neiswender/ForeverGoalTracker/releases/tag/v2.15.1",
+  "zip_bytes": 23464700,
+  "zip_entries": 357,
+  "files": 352,
+  "sha256": "a77a13884dbeecea13718e99c2f4830d43237475ad7155beff9548900db60f8b",
+  "integrity": "passed",
+  "runtime_matches_tag": "passed",
+  "flavors": [
+    "Classic Era 11509",
+    "Forever 16001"
+  ],
+  "public_listing": "Not yet visible on public listing at post-upload check; do not call it publicly live."
+}
