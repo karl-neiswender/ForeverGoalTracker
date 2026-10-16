@@ -34,6 +34,11 @@ do
     assert(F.GoalById("teebus") and path == "teebus-banner.blp"
         and aspect == 4/3 and preprocessed, "Teebu's Blazing Longsword uses approved weapon artwork")
 end
+do
+    local path, aspect, preprocessed = B:ResolveArt("raid_barrow")
+    assert(F.GoalById("raid_barrow") and path == "raid_barrow-banner.blp"
+        and aspect == 4/3 and preprocessed, "Burrow Deeps uses approved Timbermaw artwork")
+end
 for _, goal in ipairs(F.armorCollections.pvp_set_cloth_horde.armorChildren) do
     local path, aspect, preprocessed = B:ResolveArt(goal.id)
     assert(path == "pvp_set_cloth_horde-banner.blp" and aspect == 4/3 and preprocessed,
