@@ -1537,7 +1537,7 @@ table.insert(pvp, RepGoal("pvp_darkspear_raiders", "Horde", 2798,
     "Darkspear Raiders", "Darkspear Islands",
     { "inv_misc_head_troll_01", BANNER.Horde[1] },
     { "Play Darkspear Islands. Hold capture points and return the center flag to a controlled point for your team." },
-    "forever"))
+    "forever", "new"))
 table.insert(pvp, RepGoal("pvp_theramore_expedition", "Alliance", 2799,
     "Theramore Expeditionary Force", "Darkspear Islands",
     { "inv_misc_map_02", BANNER.Alliance[1] },

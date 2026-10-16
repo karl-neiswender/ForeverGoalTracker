@@ -11,5 +11,11 @@ if F.isForever then
 end
 
 local darkspear = assert(F.GoalById("pvp_darkspear_raiders"))
-assert(darkspear.forever == "confirmed" and darkspear.needs == "forever")
-print("  Darkspear Islands reputations: Theramore compact title and New in Forever treatment ok")
+assert(darkspear.forever == "new" and darkspear.needs == "forever")
+assert(F.LibraryVisible(darkspear) == F.isForever, "Darkspear Raiders is Forever-only")
+if F.isForever then
+    local frame = {}
+    assert(F.ApplyForeverLook(frame, darkspear) == "NEW" and frame.foreverNew,
+        "Darkspear Raiders uses the New in Forever treatment")
+end
+print("  Darkspear Islands reputations: compact title and New in Forever treatment ok")

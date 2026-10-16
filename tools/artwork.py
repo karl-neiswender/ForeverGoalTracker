@@ -15,6 +15,7 @@ ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
     "pvp_theramore_expedition": "reputations/theramore-expeditionary-force-master.png",
+    "pvp_darkspear_raiders": "reputations/darkspear-raiders-master.png",
     "social_lol": "social/say-lol-master.png",
     "social_hugs": "social/give-hugs-master.png",
     "arcanite_reaper": "weapons/arcanite-reaper-master.png",
