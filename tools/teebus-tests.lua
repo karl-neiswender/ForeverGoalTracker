@@ -1,6 +1,7 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local g = F.GoalById("teebus")
 assert(g and F.LibraryVisible(g) and g.category == "Epic Weapon" and g.forever == "confirmed")
+assert(g.icon == "inv_sword_22", "Teebu uses its fiery sword thumbnail")
 assert(g.completeWith.item == 1728 and #g.steps == 2 and not g.faction)
 for _, class in ipairs({"WARRIOR", "PALADIN", "HUNTER", "ROGUE", "MAGE", "WARLOCK"}) do
     assert(F.GoalFits(g, {class=class}), "one-handed sword users see Teebu's")

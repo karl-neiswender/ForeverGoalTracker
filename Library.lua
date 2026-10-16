@@ -428,7 +428,7 @@ local library = {
         -- Wowhead Forever item 1728, checked 2026-10-15. The item page does
         -- not list a source, so leave its acquisition source unknown.
         id = "teebus", library = true, forever = "confirmed", itemQuality = 4,
-        icon = "inv_sword_39",
+        icon = "inv_sword_22",
         name = "Teebu's Blazing Longsword",
         short = "Teebu's Longsword",
         category = "Epic Weapon", difficulty = "Very Hard",
