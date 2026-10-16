@@ -1415,14 +1415,14 @@ local function RankStep(faction, n)
              auto = { pvpRank = n, forFaction = faction } }
 end
 
-local function RepGoal(id, faction, factionId, name, bg, icon, how)
+local function RepGoal(id, faction, factionId, name, bg, icon, how, needs)
     local steps = {}
     for st = 5, 8 do
         table.insert(steps, { text = "Reach " .. ({ [5] = "Friendly", [6] = "Honored", [7] = "Revered", [8] = "Exalted" })[st] .. ".",
                               auto = { rep = { faction = factionId, standing = st }, forFaction = faction } })
     end
     return {
-        id = id, library = true, faction = faction, forever = "confirmed", -- the factions exist in Forever (Wowhead's Forever faction list, 2026-10-13)
+        id = id, library = true, faction = faction, forever = "confirmed", needs = needs,
         icon = icon, name = "Exalted: " .. name, short = name,
         category = "PvP", difficulty = "Hard",
         timeEstimate = "1-2 Months",
@@ -1507,6 +1507,19 @@ for _, f in ipairs({ "Alliance", "Horde" }) do
         { A and "inv_jewelry_necklace_21" or "inv_shirt_guildtabard_01", BANNER[f][1] },
         { "Play Alterac Valley and do its turn-in quests between matches." }))
 end
+
+-- Forever's 15v15 Darkspear Islands battleground has one faction per side.
+-- The factions do not exist on Classic Era, so these goals stay Forever-only.
+table.insert(pvp, RepGoal("pvp_darkspear_raiders", "Horde", 2798,
+    "Darkspear Raiders", "Darkspear Islands",
+    { "inv_misc_head_troll_01", BANNER.Horde[1] },
+    { "Play Darkspear Islands. Hold capture points and return the center flag to a controlled point for your team." },
+    "forever"))
+table.insert(pvp, RepGoal("pvp_theramore_expedition", "Alliance", 2799,
+    "Theramore Expeditionary Force", "Darkspear Islands",
+    { "inv_misc_map_02", BANNER.Alliance[1] },
+    { "Play Darkspear Islands. Hold capture points and return the center flag to a controlled point for your team." },
+    "forever"))
 
 table.insert(pvp, {
     id = "pvp_hk", library = true,
