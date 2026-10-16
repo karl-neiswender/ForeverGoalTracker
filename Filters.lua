@@ -21,6 +21,7 @@ FGT.GOAL_CLASSES = {
     sulfuras = { "WARRIOR", "PALADIN", "SHAMAN", "DRUID" },
     ashbringer = { "WARRIOR", "PALADIN", "HUNTER" },
     zinrokh = { "WARRIOR", "PALADIN", "HUNTER" },
+    teebus = ONE_HAND_SWORD,
     arcanite_reaper = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" }, -- two-handed axe users
     atiesh = { "MAGE", "WARLOCK", "PRIEST", "DRUID" }, -- one version per class
     benediction = { "PRIEST" },

@@ -425,6 +425,29 @@ local library = {
     },
 
     {
+        -- Wowhead Forever item 1728, checked 2026-10-15. The item page does
+        -- not list a source, so leave its acquisition source unknown.
+        id = "teebus", library = true, forever = "confirmed", itemQuality = 4,
+        icon = "inv_sword_39",
+        name = "Teebu's Blazing Longsword",
+        short = "Teebu's Longsword",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A unique level-60 main-hand sword. Source unknown.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Collect Teebu's Blazing Longsword.  |cff888888Source unknown|r",
+              auto = { item = 1728, owned = { "Teebu's Blazing Longsword" } } },
+        },
+        completeWith = { item = 1728, owned = { "Teebu's Blazing Longsword" } },
+        tips = {
+            "It is Bind on Equip and Unique-Equipped.",
+            "Equipping it takes level 60 and One-Handed Swords. Warriors, Paladins, Hunters, Rogues, Mages and Warlocks can use it.",
+            "Its chance on hit blasts a target for 140 Fire damage.",
+        },
+    },
+
+    {
         -- Wowhead Classic spell 16994 (item 12784, plans item 12838), checked 2026-10-15. Ingredients
         -- are counted in the Materials drawer from the "Gather" steps.
         id = "arcanite_reaper", library = true, itemQuality = 3,
@@ -1415,15 +1438,15 @@ local function RankStep(faction, n)
              auto = { pvpRank = n, forFaction = faction } }
 end
 
-local function RepGoal(id, faction, factionId, name, bg, icon, how, needs)
+local function RepGoal(id, faction, factionId, name, bg, icon, how, needs, forever, short)
     local steps = {}
     for st = 5, 8 do
         table.insert(steps, { text = "Reach " .. ({ [5] = "Friendly", [6] = "Honored", [7] = "Revered", [8] = "Exalted" })[st] .. ".",
                               auto = { rep = { faction = factionId, standing = st }, forFaction = faction } })
     end
     return {
-        id = id, library = true, faction = faction, forever = "confirmed", needs = needs,
-        icon = icon, name = "Exalted: " .. name, short = name,
+        id = id, library = true, faction = faction, forever = forever or "confirmed", needs = needs,
+        icon = icon, name = "Exalted: " .. name, short = short or name,
         category = "PvP", difficulty = "Hard",
         timeEstimate = "1-2 Months",
         note = string.format("The %s %s battleground faction. Exalted unlocks its best rewards.", faction, bg),
@@ -1519,7 +1542,7 @@ table.insert(pvp, RepGoal("pvp_theramore_expedition", "Alliance", 2799,
     "Theramore Expeditionary Force", "Darkspear Islands",
     { "inv_misc_map_02", BANNER.Alliance[1] },
     { "Play Darkspear Islands. Hold capture points and return the center flag to a controlled point for your team." },
-    "forever"))
+    "forever", "new", "Theramore Expedition"))
 
 table.insert(pvp, {
     id = "pvp_hk", library = true,

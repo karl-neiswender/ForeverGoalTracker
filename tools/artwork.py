@@ -18,6 +18,7 @@ FINAL_BANNERS = {
     "social_lol": "social/say-lol-master.png",
     "social_hugs": "social/give-hugs-master.png",
     "arcanite_reaper": "weapons/arcanite-reaper-master.png",
+    "teebus": "weapons/teebus-longsword-master.png",
     "pvp_set_cloth_horde": "pvp/warlord-cloth-thysta-clean-master.png",
     "set_tier25_leather": "tier-sets/aq40/leather-telrander-master.png",
     "set_tier25_plate": "tier-sets/aq40/plate-savin-master.png",

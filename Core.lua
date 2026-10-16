@@ -5202,6 +5202,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.social_hugs, B.preprocessed.social_hugs = 4/3, true
     B.artPaths.arcanite_reaper = "arcanite_reaper-banner.blp"
     B.artAspects.arcanite_reaper, B.preprocessed.arcanite_reaper = 4/3, true
+    B.artPaths.teebus = "teebus-banner.blp"
+    B.artAspects.teebus, B.preprocessed.teebus = 4/3, true
     B.artPaths.social_guild_raid = "social_guild_raid-banner.blp"
     B.artAspects.social_guild_raid, B.preprocessed.social_guild_raid = 4/3, true
     B.artPaths.social_trades = "social_trades-banner.blp"
