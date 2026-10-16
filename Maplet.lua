@@ -685,6 +685,39 @@ end
 -- ------------------------------------------------------------
 function FGT.HandleMapCommand(msg)
     local cmd = strtrim(msg or ""):lower()
+    -- /goals entrances: every dungeon and raid entrance the game itself lists on its zone maps (name,
+    -- zone, spot), to read a raid's entrance off the game's own data. Classic Era may have them where
+    -- Forever's client lists none.
+    if cmd == "entrances" then
+        if not (C_EncounterJournal and C_EncounterJournal.GetDungeonEntrancesForMap and C_Map and C_Map.GetMapInfo) then
+            print(TAG .. "this client has no dungeon entrance data (C_EncounterJournal.GetDungeonEntrancesForMap).")
+            return true
+        end
+        local zones, seen = {}, {}
+        for _, continent in ipairs({ 1414, 1415 }) do -- Kalimdor, Eastern Kingdoms
+            local ok, kids = pcall(C_Map.GetMapChildrenInfo, continent, 3, true)
+            for _, z in ipairs(ok and type(kids) == "table" and kids or {}) do
+                if z.mapID and not seen[z.mapID] then seen[z.mapID] = true; zones[#zones + 1] = z end
+            end
+        end
+        if #zones == 0 then -- the continents gave no zones: walk the map ids
+            for id = 1, 3000 do
+                local ok, info = pcall(C_Map.GetMapInfo, id)
+                if ok and info and info.mapType == 3 then zones[#zones + 1] = { mapID = id, name = info.name } end
+            end
+        end
+        local found = 0
+        for _, z in ipairs(zones) do
+            local ok, list = pcall(C_EncounterJournal.GetDungeonEntrancesForMap, z.mapID)
+            for _, e in ipairs(ok and type(list) == "table" and list or {}) do
+                found = found + 1
+                print(string.format("%s%s: %s %.1f, %.1f (map %d)", TAG, tostring(e.name), z.name or "?",
+                    e.position and e.position.x * 100 or -1, e.position and e.position.y * 100 or -1, z.mapID))
+            end
+        end
+        print(string.format("%ssearched %d zone maps and found %d entrances.", TAG, #zones, found))
+        return true
+    end
     -- /goals here: where you stand on the map, to write a spot down exactly
     if cmd == "here" then
         -- where you stand, to write a map spot down exactly (stand at a raid entrance and type it)
