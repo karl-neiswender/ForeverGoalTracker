@@ -1,5 +1,15 @@
 # Unused artwork candidates — October 15, 2026
 
+## Karl's selections and corrections
+
+After viewing four previews inline:
+- Raul (#1): Karl identified this as Undead Rogue Tier 2, already covered. Do not use for Horde PvP leather.
+- Tinker (#2): selected for Say LOL. Earlier description as Goblin was unverified; use the character name.
+- Omedus (#3): Karl identified it as Undead Rogue Tier 1; do not use for leveling. Horde Rogue Tier 1 already has its own artwork, so leave this unused.
+- Barador (#4): selected for Alliance Dwarf Shaman leveling.
+
+The earlier candidate table below is historical and superseded by these selections.
+
 Compared 389 top-level source images in `Media/artwork` with exact filename
 references in local reports and tools. Found 44 candidates with no recorded
 exact filename reference after excluding UI studies, logos and obvious generated
