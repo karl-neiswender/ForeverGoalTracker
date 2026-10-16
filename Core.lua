@@ -5197,6 +5197,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artPaths.social_guild = "social_guild-banner.blp"
     B.artPaths.social_guild_dungeon = "social_guild_dungeon-banner.blp"
     B.artPaths.social_hugs = "social_hugs-banner.blp"
+    B.artPaths.social_lol = "social_lol-banner.blp"
+    B.artAspects.social_lol, B.preprocessed.social_lol = 4/3, true
     B.artAspects.social_hugs, B.preprocessed.social_hugs = 4/3, true
     B.artPaths.arcanite_reaper = "arcanite_reaper-banner.blp"
     B.artAspects.arcanite_reaper, B.preprocessed.arcanite_reaper = 4/3, true

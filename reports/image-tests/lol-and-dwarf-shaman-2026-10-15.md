@@ -1,7 +1,7 @@
 # Say LOL and Alliance Dwarf Shaman previews
 
 Karl selected source #2 for Say LOL and #4 for Alliance Dwarf Shaman leveling.
-Built-in imagegen edits, pending visual approval; not installed.
+Built-in imagegen edits. Karl approved with "Both are good"; installed.
 
 LOL source: `Media/artwork/Tinker_Burnfizzle_TCG.jpg` (unchanged).
 Review: `Media/final-images/say-lol-review-2026-10-15.png`.
@@ -13,6 +13,19 @@ Intended replacement: `allclasses_dwarf_shaman-banner.blp`; existing mapping
 matches faction Alliance, class SHAMAN, race Dwarf. Other profiles unchanged.
 
 Inspected grayscale, right-side framing, subject/hand geometry and baked fades.
+
+Installed 1200x900 masters: `Media/final-images/social/say-lol-master.png` and
+`Media/final-images/leveling/dwarf-shaman-barador-master.png`.
+Runtime textures: `Media/social_lol-banner.blp` and
+`Media/allclasses_dwarf_shaman-banner.blp`, each 512px DXT1 with 10 mip levels.
+4:3 preprocessed artwork, existing Dwarf/Alliance/Shaman mapping retained.
+Previous Dwarf master preserved. Static mapping, no new per-frame work.
+Both textures independently decoded by existing compressor. Restart WoW fully.
+
+Full Era/Forever tools/check.py passed, including LOL mapping, Dwarf Shaman
+selection and exclusions for other profiles. Missing-art fallback test now
+temporarily removes the LOL mapping instead of assuming it remains blank.
+Results: `reports/checks/lol-dwarf-shaman-art-2026-10-15.txt`.
 
 ## Exact LOL prompt
 

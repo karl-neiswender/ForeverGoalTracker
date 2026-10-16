@@ -1,6 +1,25 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    local path, aspect, preprocessed = B:ResolveArt("social_lol")
+    assert(path == "social_lol-banner.blp" and aspect == 4/3 and preprocessed,
+        "Say LOL uses approved Tinker artwork")
+    local originalContext = B.PlayerArtContext
+    B.PlayerArtContext = function() return {faction="Alliance", class="SHAMAN", race="Dwarf"} end
+    path, aspect, preprocessed = B:ResolveArt("allclasses")
+    assert(path == "allclasses_dwarf_shaman-banner.blp" and aspect == 4/3 and preprocessed,
+        "Alliance Dwarf Shaman leveling uses approved Barador artwork")
+    for _, profile in ipairs({
+        {faction="Horde", class="SHAMAN", race="Tauren"},
+        {faction="Alliance", class="HUNTER", race="Dwarf"},
+    }) do
+        B.PlayerArtContext = function() return profile end
+        assert(B:ArtPath("allclasses") ~= "allclasses_dwarf_shaman-banner.blp",
+            "Dwarf Shaman art does not override other race/class/faction profiles")
+    end
+    B.PlayerArtContext = originalContext
+end
+do
     local path, aspect, preprocessed = B:ResolveArt("social_hugs")
     assert(F.GoalById("social_hugs") and path == "social_hugs-banner.blp"
         and aspect == 4/3 and preprocessed, "Give Hugs uses approved group embrace artwork")
@@ -446,8 +465,11 @@ F.SelectGoal("social_guild")
 assert(B.hasArt and B:ArtPath("social_guild") == "social_guild-banner.blp",
     "Join a Guild uses approved artwork")
 D.active.social_lol = true
+local lolArt = B.artPaths.social_lol
+B.artPaths.social_lol = nil -- exercise the fallback even now that every content goal has art
 F.SelectGoal("social_lol")
 assert(not B.hasArt, "unmapped goal clears previous artwork")
+B.artPaths.social_lol = lolArt
 -- Only the background artwork fades; the square goal icon remains immediate.
 B:StopImageFade()
 B.imageSeen = {}

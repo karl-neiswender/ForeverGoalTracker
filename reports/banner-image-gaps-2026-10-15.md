@@ -1,5 +1,11 @@
 # Background image coverage — October 15, 2026
 
+Latest follow-up: approved Say LOL artwork is now installed, filling the last
+blank content-goal background in this snapshot. Alliance Dwarf Shaman leveling
+also has the approved Barador replacement. Profession group images remain
+intentionally conditional on learned skills. Evidence:
+`checks/lol-dwarf-shaman-art-2026-10-15.txt`.
+
 Follow-up: Karl authorized both wiring fixes after this audit. Alliance Warrior
 Tier 3 now selects the existing Dwarf image; Horde retains Koringar. Beastmaster
 now selects its dedicated texture after the collection-wide fallback assignment.

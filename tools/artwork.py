@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "social_lol": "social/say-lol-master.png",
     "social_hugs": "social/give-hugs-master.png",
     "arcanite_reaper": "weapons/arcanite-reaper-master.png",
     "pvp_set_cloth_horde": "pvp/warlord-cloth-thysta-clean-master.png",
@@ -108,7 +109,7 @@ FINAL_BANNERS = {
     "rep_timbermaw": "reputation/timbermaw.jpg",
     "mount_qiraji": "mounts/scarab-lord-review.png",
     "zinrokh": "weapons/zinrokh-master.png",
-    "allclasses_dwarf_shaman": "leveling/dwarf-shaman.jpg",
+    "allclasses_dwarf_shaman": "leveling/dwarf-shaman-barador-master.png",
     "pvp_drums_of_war": "pvp/drums-of-war.jpg",
     "epicmounts_undead": "mounts/skeletal-warhorse-master.png",
     "pvp_arathi": "pvp_arathi-master.png",
