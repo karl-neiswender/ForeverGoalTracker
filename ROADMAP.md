@@ -4,7 +4,13 @@ What's coming to Forever Goal Tracker, from small touches to big updates. Nothin
 
 Have an idea or found a bug? Leave a comment on [CurseForge](https://www.curseforge.com/wow/addons/forever-goal-tracker) or open an issue on [GitHub](https://github.com/karl-neiswender/ForeverGoalTracker/issues).
 
-## Next: fixes and clearer guides
+## Next big feature: Gear Planner
+
+Build a named target gear set by equipment slot, see where each item comes from and add the set to My Goals. The intended experience includes slot-specific item search, a rotatable character preview and dressing-room artwork. Start by verifying item and source coverage, then build the core planner and expand the preview and search.
+
+The fixes and refinements below will ship in small patches as they are ready. They do not all need to be finished before Gear Planner.
+
+## Patch improvements: fixes and clearer guides
 
 - **Goals that fit your character:** review class, race, faction and profession filtering, including hiding Buff Other Players from characters who cannot cast the supported buffs.
 - **Only New & Updated results:** show the matching Forever mounts and sets directly, without unrelated entries inside their collection groups.
@@ -12,7 +18,7 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 - **Simpler item set pages:** remove redundant single-section headers, especially for Tier 1 and Tier 2, and use a heading that fits a collection of items.
 - **Small guide fixes:** use a step number for Arcanite Reaper’s Blacksmithing step and remove the redundant single-step bars from Hyjal Summit and the Barrow Deeps.
 
-## Finding goals and understanding progress
+## Patch improvements: finding goals and understanding progress
 
 - **More My Goals filters:** filter by category, hide completed goals and remember your chosen view.
 - **Clear tracking scope:** show whether progress comes from your current character or your recorded characters, and which character contributes. Filtering a list should stay separate from changing how progress counts.
@@ -20,7 +26,7 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 - **Reputation progress:** show progress toward Friendly, Honored, Revered and Exalted, with the contributing character clearly identified.
 - **Quieter completed Library goals:** keep completion easy to recognize without a distracting full-card color treatment.
 
-## Better guides and progress feedback
+## Patch improvements: guides and progress feedback
 
 - **Dungeon level ranges:** add recommended levels to dungeon location tooltips, distinguishing recommendations from entry requirements.
 - **Boss links:** give dungeon and raid bosses their own links with useful source and location information. Explore loot and model previews later.
@@ -30,7 +36,6 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 ## Larger tools and ideas to explore
 
-- **Gear Planner:** build a named target gear set by item slot, see where each item comes from and add the set to My Goals. Explore slot-specific search, a rotatable character preview and dressing-room artwork after the basic planner works.
 - **Custom goals:** create your own goals or copy a Library goal and edit it. Steps the game can track complete automatically; other steps can be checked manually.
 - **Character overview:** compare reputation, leveling and profession progress across your recorded characters.
 - **Usage dashboard research:** investigate whether voluntary, opt-in sharing could help us understand popular goals and progress. Data collection is an exploration, with no collection planned until feasibility, consent and privacy choices are settled.

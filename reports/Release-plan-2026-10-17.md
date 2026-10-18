@@ -4,16 +4,17 @@ Planning only, based on Karl’s review of 2.15.1. No implementation or live rel
 
 ## Proposed sequence
 
+Karl’s priority: **Gear Planner is the next big feature.** The remaining fixes and refinements belong in small patches as they are ready, without becoming a sequence of major releases that delays the planner.
+
 | Release | Focus | Scope |
 | --- | --- | --- |
-| 2.15.2 | Small corrections | Character eligibility, New & Updated results, faction war mount guidance, Arcanite Reaper step marker, redundant Forever raid bars |
-| 2.16.0 | Finding goals and trusting progress | My Goals filters, tracking-scope labels, safer manual completion, simpler set pages, quieter completed Library cards |
-| 2.17.0 | Better guides and feedback | Reputation bars, dungeon level ranges, boss links, optional material loot messages |
-| 2.18.0 | Progress display design | Overall progress header and goal-page/pop-out bar placement, after visual review |
-| Later milestone | Gear Planner | Basic named gear sets first; item search and character preview follow feasibility work |
-| Research backlog | Usage dashboard | Establish voluntary sharing and technical feasibility before scheduling a product release |
+| 2.15.x patches | Fixes and refinements | Character and Forever filters, guide cleanup, My Goals filters, completion safeguards, scope labels, reputation bars, links, material messages and visual refinements, in small reviewable batches |
+| 2.16.0, next feature release | Gear Planner | Named gear sets, equipment-slot targets, item sources and adding the set to My Goals; slot search and the character preview developed toward the intended experience |
+| Later research | Usage dashboard | Investigate feasibility and voluntary sharing separately from the planner |
 
-Keep the first patch small. Move any filter change needing saved-data migration or a substantial Library layout redesign into 2.16.0 rather than delaying all corrections. Existing feedback, update welcome and content work can join a suitable release once ready; they do not block these fixes.
+The patch list is a backlog, not a prerequisite checklist for Gear Planner. Fix urgent correctness issues first, then develop the planner while releasing small batches of ready improvements. Do not wait for every filter, link or progress-bar refinement to finish. Patch numbering is tentative; split out work that proves larger than expected without automatically giving it priority over the planner.
+
+Existing custom goals, feedback, update welcome and content ideas remain on the roadmap. General-purpose custom goals do not need to ship before Gear Planner. Reuse internal pieces where helpful without expanding the planner into a full custom-goal editor.
 
 ## 1. Filtering and discovery
 
@@ -53,7 +54,7 @@ Review: missing item data, unavailable map APIs, both clients, pop-out guide, na
 - Overall progress header: explore a stronger hierarchy and meaningful label/count before adding visual effects. Establish exactly what its denominator counts and how filters affect it. Review completed, empty and partially filtered lists.
 - Goal progress bar: prototype above the icon/name/eyebrow cluster, then use the same hierarchy at the top of the pop-out tracker. Review long names, Materials open, resize limits and minimal pop-out widths. Avoid repeated bars that communicate the same progress.
 
-## 5. Gear Planner
+## 5. Gear Planner: next major feature
 
 Desired experience: a Gear Planner tab with a named target set, clickable equipment slots, slot-specific item search, source information and a rotatable 3-D character. Selecting an item can focus its preview. Use dressing-room-style artwork with side and bottom fades.
 
