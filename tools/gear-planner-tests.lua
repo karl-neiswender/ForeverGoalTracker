@@ -51,9 +51,8 @@ assert(not F.GearPlanner:IsShown() and F.libraryPanel:IsShown())
 UnitName = oldName
 F.ShowTab("tracker")
 print("  per-character named autosave, stable IDs, item replacement, open picker and tab switching ok")
--- Wide and tall windows must preserve background proportions and leave body margins.
-local mw, mh
-T.model.SetSize = function(_, w, h) mw, mh = w, h end
+-- Wide and tall windows preserve background proportions without shrinking the model drawing area.
+T.model.SetSize = function() error("resizing must not reintroduce an interior model clipping frame") end
 for _, size in ipairs({ {800, 400}, {400, 650} }) do
     local tiles = {}
     for i = 1, 4 do
@@ -63,10 +62,9 @@ for _, size in ipairs({ {800, 400}, {400, 650} }) do
     T.modelArea:GetScript("OnSizeChanged")(T.modelArea, size[1], size[2])
     assert(math.abs(tiles[1][1] / tiles[1][2] - 256/255) < 0.0001, "background keeps native aspect")
     assert(math.abs(tiles[2][1] / tiles[1][1] - 62/256) < 0.0001, "right background strip is not stretched")
-    assert(mh < size[2] and mw <= size[1] and mw / mh <= 0.85 + 0.0001, "portrait model fits inside viewport")
 end
 T.model.SetSize = nil
-print("  wide/tall preview keeps native background proportions and model margins")
+print("  wide/tall preview keeps native background proportions and full-panel model drawing")
 -- Wheel zoom uses the same safe portrait limit as head focus.
 local portraitZoom
 T.model.SetPortraitZoom = function(_, value) portraitZoom = value end

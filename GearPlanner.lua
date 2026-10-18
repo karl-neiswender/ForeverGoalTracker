@@ -113,19 +113,18 @@ for i = 1, 4 do
 end
 local model = CreateFrame("DressUpModel", nil, modelArea)
 if model.SetAutoDress then model:SetAutoDress(false) end
-model:SetPoint("CENTER", modelArea, "CENTER", 0, -20)
-model:SetSize(260, 340)
+model:SetAllPoints(modelArea)
 model:EnableMouse(true); model:EnableMouseWheel(true)
 local zoom, facing, dragX = 0, 0, nil
+local cameraAspect = 1
 local MAX_ZOOM, FOCUS_ZOOM = 1, 0.75
 local selectedSlot
 local slotButtons = {}
 local camera = CreateFrame("Frame", nil, P)
 local function ApplyZoom(value)
     zoom = value
-    -- A portrait-shaped viewport avoids the wide panel magnifying the body.
-    -- Leave extra distance for helmets and feet in the full-character view.
-    if model.SetCamDistanceScale then model:SetCamDistanceScale(1.3 - math.max(0, value - 0.8) * 2) end
+    -- Fit the wide drawing area through camera distance, not a smaller frame.
+    if model.SetCamDistanceScale then model:SetCamDistanceScale((1.3 - math.max(0, value - 0.8) * 2) * cameraAspect) end
     if model.SetPortraitZoom then model:SetPortraitZoom(math.min(0.8, value)) end
 end
 local function Focus(on)
@@ -189,8 +188,9 @@ local function LayoutPreview(self, w, h)
         b.texture:SetPoint("TOPLEFT", self, "TOPLEFT", x + r[1] * scale, -y - r[2] * scale)
         b.texture:SetSize(r[3] * scale, r[4] * scale)
     end
-    local height = math.max(1, h - 140)
-    model:SetSize(math.min(w, height * 0.85), height)
+    -- Draw across the full panel: a narrow model frame slices enlarged geometry.
+    -- Compensate camera distance for its wider aspect instead of clipping the model.
+    cameraAspect = math.max(1, w / h / 0.85)
     ApplyZoom(zoom)
 end
 modelArea:SetScript("OnSizeChanged", LayoutPreview)

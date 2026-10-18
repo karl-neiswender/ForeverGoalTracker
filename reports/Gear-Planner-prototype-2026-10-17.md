@@ -79,3 +79,11 @@ Clicking outside the selected slot and its open picker/menu deselects it and clo
 The earlier conservative 0.55 portrait cap is superseded: automatic head focus uses 0.75. Wheel zoom reaches native portrait zoom 0.8, then reduces camera-distance scale from 1.3 toward 0.9 for an additional close-up. Full view remains portrait zoom 0 with distance 1.3. Players can zoom out again with the wheel or Full character. Extreme close-ups intentionally allow the body to leave the viewport; native review of framing across races remains necessary.
 
 Validation: full `python3 tools/check.py` passed (exit 0), including Era/Forever planner regressions, click-away dismissal, the placeholder count and extended wheel zoom. [Retained output](checks/gear-planner-slots-lua.txt). The new slot layout and deeper zoom still need native visual review. No fresh LuaLS diagnostics or release publication are claimed for this iteration.
+
+## Model-frame clipping root cause
+
+Karl's close-up screenshot showed straight horizontal/vertical cuts at the interior portrait frame. The earlier narrower viewport was the clipping boundary, not a solution to the camera framing. Removed that internal model rectangle: DressUpModel now anchors to the entire modelArea/right-panel interior. Layout never shrinks the model frame. Camera distance compensates for the panel aspect ratio, preserving the full-character view while retaining the closer focus and wheel zoom.
+
+Native Forever review on Swagrid confirmed complete helmet and shoulder geometry at portrait zoom 0.75, then at portrait zoom 0.8 with the maximum wheel-distance reduction (0.9 times the aspect compensation). The previous straight cuts inside the panel were absent. The enlarged body can extend beyond the outer panel at close zoom, as intended; the entire model remains clipped to the outer panel. Name and control overlays remain above the model. No item, build or goal progress changed. This native check covers the observed dwarf/client, not every race or viewport size.
+
+Validation: `python3 tools/check.py` passed (exit 0), including Era/Forever planner tests updated to reject a smaller interior model frame during resize. [Retained output](checks/gear-planner-drawing-area-lua.txt). No fresh LuaLS run or live release is claimed for this correction.
