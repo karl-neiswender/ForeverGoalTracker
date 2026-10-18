@@ -8240,7 +8240,17 @@ local function RefreshTierSections(goal, view)
                 row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(FGT.StepText(piece.text or piece.name), md == mt, hasMats, piece.mapZoom)
                     or FGT.StepText(piece.text or piece.name))
                 FGT.LinkItemName(row) -- the piece's name as an item link
-                row.text:SetWidth(math.max(50, width - indent - 44 - (hasMats and 44 or 0) - (not view and piece.icon and 14 or 0)))
+                -- Top-align wrapped labels and use one horizontal anchor: a RIGHT
+                -- anchor would override SetWidth and let text run into the count.
+                local textLeft = indent + (not view and piece.icon and 52 or 28)
+                local textRight = 6
+                if hasMats then
+                    row.count:SetText(md .. " / " .. mt)
+                    textRight = math.max(44, row.count:GetStringWidth() + 20)
+                end
+                row.text:ClearAllPoints()
+                row.text:SetPoint("TOPLEFT", row, "TOPLEFT", textLeft, -2)
+                row.text:SetWidth(math.max(1, width - textLeft - textRight))
                 StyleCheckRow(row, md == mt)
                 FGT.PlaceGuideEntry(row, "piece:" .. si .. ":" .. pi, yOffset, md == mt, nil, view)
                 if not hasMats then FGT.MaybePopTick(row, goal.id, PieceKey(si, pi)) end
@@ -8253,7 +8263,6 @@ local function RefreshTierSections(goal, view)
                     row.toggle:SetPoint("TOPLEFT", row, "TOPLEFT", indent + 2, -3)
                     FGT.SetPlusMinus(row.toggle, open)
                     row.toggle:Show()
-                    row.count:SetText(md .. " / " .. mt)
                     row.count:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
                     row.count:SetShown(md < mt)
                     row.doneCheck:SetShown(md == mt)

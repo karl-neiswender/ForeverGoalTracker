@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fixed wrapped item set rows clipping above their icons or overlapping completion counts in narrow guides.
+
 - Removed redundant outer headers from Tier 3 and Tier 2.5 set pages while keeping each item’s expandable requirements.
 
 - Removed redundant Show on map actions from steps that already contain a location link.

@@ -136,3 +136,35 @@ else
 end
 LF.Reset()
 print("  Library polish: completed-goal filter, stable item keys, recipe sections, quiet completion and direct Forever results pass")
+
+-- Narrow recipe guides must reserve the count column and grow downward.
+do
+    local guide = F.PopoutUI.content
+    local oldWidth = guide.GetWidth
+    local recipe = F.GoalById("set_tier25_paladin")
+    D.active[recipe.id], D.progress[recipe.id] = true, {}
+    F.SelectGoal(recipe.id)
+    local row = F.stepRows[1]
+    local oldClear, oldPoint, oldTextWidth = row.text.ClearAllPoints, row.text.SetPoint, row.text.SetWidth
+    local oldTextHeight, oldCountWidth, oldHeight = row.text.GetStringHeight, row.count.GetStringWidth, row.SetHeight
+    local points, labelWidth, rowHeight
+    row.text.ClearAllPoints = function(self) points = {}; return oldClear(self) end
+    row.text.SetPoint = function(self, ...) points[#points + 1] = {...}; return oldPoint(self, ...) end
+    row.text.SetWidth = function(self, w) labelWidth = w; return oldTextWidth(self, w) end
+    row.text.GetStringHeight = function() return labelWidth < 300 and 42 or 14 end
+    row.count.GetStringWidth = function() return 75 end -- reserve a wider-than-normal count
+    row.SetHeight = function(self, h) rowHeight = h; return oldHeight(self, h) end
+    for _, width in ipairs({220, 360, 620}) do
+        guide.GetWidth = function() return width end
+        F.SelectGoal(recipe.id)
+        assert(#points == 1 and points[1][1] == "TOPLEFT" and points[1][5] == -2,
+            "wrapped recipe text has one top anchor, without a conflicting right anchor")
+        assert(labelWidth > 0 and points[1][4] + labelWidth + 95 == width,
+            "text stays left of the count plus its gap")
+        assert(rowHeight >= (labelWidth < 300 and 50 or 22), "row grows down to contain wrapped text")
+    end
+    guide.GetWidth = oldWidth
+    row.text.ClearAllPoints, row.text.SetPoint, row.text.SetWidth = oldClear, oldPoint, oldTextWidth
+    row.text.GetStringHeight, row.count.GetStringWidth, row.SetHeight = oldTextHeight, oldCountWidth, oldHeight
+    print("  recipe rows: top-aligned wrapping, reserved count column and narrow/wide row height pass")
+end
