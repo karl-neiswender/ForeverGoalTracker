@@ -8,6 +8,8 @@ Have an idea or found a bug? Leave a comment on [CurseForge](https://www.cursefo
 
 Build a named target gear set by equipment slot, see where each item comes from and add the set to My Goals. The intended experience includes slot-specific item search, a rotatable character preview and dressing-room artwork. Start by verifying item and source coverage, then build the core planner and expand the preview and search.
 
+The [Gear Planner build plan](reports/Gear-Planner-build-plan.md) records the agreed behavior, phased implementation and open decisions.
+
 The fixes and refinements below will ship in small patches as they are ready. They do not all need to be finished before Gear Planner.
 
 ### Gear Planner follow-up: enchants and enhancements

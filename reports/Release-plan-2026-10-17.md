@@ -56,6 +56,8 @@ Review: missing item data, unavailable map APIs, both clients, pop-out guide, na
 
 ## 5. Gear Planner: next major feature
 
+See the [Gear Planner specification and build plan](Gear-Planner-build-plan.md) for Karl's subsequent decisions, the detailed implementation phases and remaining questions. It supersedes the broader staging below where those decisions differ.
+
 Desired experience: a Gear Planner tab with a named target set, clickable equipment slots, slot-specific item search, source information and a rotatable 3-D character. Selecting an item can focus its preview. Use dressing-room-style artwork with side and bottom fades.
 
 Stage 1: prove item/source availability on both clients. Decide how items not cached by the game can be found and how Forever-only items are covered. Do not promise a complete searchable catalogue until this is verified.
