@@ -8142,12 +8142,9 @@ function FGT.LayoutTips(goal, yOffset, width)
     return yOffset
 end
 
--- Plain item lists need no repeated section heading. Recipes keep their groups.
-function FGT.SimpleItemCollection(goal)
+-- A standalone set needs no repeated outer heading; each recipe still expands.
+function FGT.FlatItemCollection(goal)
     if goal.group or not (goal.category == "Item Set" or goal.armorClass) or not goal.sections or #goal.sections ~= 1 then return false end
-    for _, piece in ipairs(goal.sections[1].pieces) do
-        if #(piece.materials or FGT.EMPTY) > 0 then return false end
-    end
     return true
 end
 
@@ -8160,7 +8157,7 @@ local function RefreshTierSections(goal, view)
     local yOffset = 0
     local rowIndex = 0
     local headerIndex = 0
-    local simple = FGT.SimpleItemCollection(goal)
+    local simple = FGT.FlatItemCollection(goal)
 
     for si, section in ipairs(goal.sections) do
         if FGT.ShowStepSection(goal, si, section, view) then
@@ -8288,7 +8285,7 @@ local function RefreshTierSections(goal, view)
                         mrow:ClearAllPoints()
                         mrow:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
                         mrow:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
-                        local materialIndent = view and view.singleSection and 24 or 40
+                        local materialIndent = (simple or view and view.singleSection) and 24 or 40
                         SetRowIndent(mrow, materialIndent)
                         mrow:SetStepIcon(nil)
                         FGT.ClearStepLock(mrow)

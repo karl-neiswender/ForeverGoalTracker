@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Removed redundant outer headers from Tier 3 and Tier 2.5 set pages while keeping each item’s expandable requirements.
+
 - Removed redundant Show on map actions from steps that already contain a location link.
 
 - Matched completed My Goals card backgrounds to the darker Library treatment, keeping the green check, completion date and full progress bar.

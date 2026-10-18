@@ -46,14 +46,29 @@ for _, h in ipairs(F.headerRows) do watch(h) end
 for _, r in ipairs(F.stepRows) do watch(r) end
 F.sectionOpen[set.id .. "_1"] = false
 F.SelectGoal(set.id)
-assert(F.SimpleItemCollection(set) and not F.SimpleItemCollection(recipe))
-assert(not F.headerRows[1].testShown, "simple set omits the redundant header")
+assert(F.FlatItemCollection(set) and F.FlatItemCollection(recipe))
+assert(not F.headerRows[1] or not F.headerRows[1].testShown, "simple set omits the redundant header")
 assert(F.stepRows[1].testShown, "old collapsed state cannot hide the simple item list")
 assert(F.PopoutUI.header:GetText() == "Items to collect", "collection heading fits the content")
 F.stepRows[1]:GetScript("OnClick")(F.stepRows[1], "LeftButton")
 assert(D.progress[set.id]["1_1_piece"], "flat display keeps the original progress address")
 F.SelectGoal(recipe.id)
-assert(F.headerRows[1].testShown, "recipes keep their collapsible section")
+assert(not F.headerRows[1] or not F.headerRows[1].testShown, "recipe sets omit the redundant outer header")
+local beforeRecipe = STUB_SERIALIZE(D.progress[recipe.id])
+F.stepRows[1]:GetScript("OnClick")(F.stepRows[1], "LeftButton")
+assert(F.pieceExpanded[recipe.id .. "_1_1"], "recipe piece still expands")
+assert(STUB_SERIALIZE(D.progress[recipe.id]) == beforeRecipe, "opening a recipe never completes it")
+F.stepRows[2]:GetScript("OnClick")(F.stepRows[2], "LeftButton")
+assert(D.progress[recipe.id]["1_1_m1"], "recipe material keeps its original progress key")
+local aq = F.GoalById("set_tier25_rogue")
+D.active[aq.id], D.progress[aq.id] = true, {}
+F.sectionOpen[aq.id .. "_1"] = false
+F.SelectGoal(aq.id)
+assert(F.FlatItemCollection(aq), "Tier 2.5 uses the same outer-header treatment")
+F.stepRows[1]:GetScript("OnClick")(F.stepRows[1], "LeftButton")
+assert(F.pieceExpanded[aq.id .. "_1_1"], "AQ item expands despite the old outer collapsed state")
+F.stepRows[2]:GetScript("OnClick")(F.stepRows[2], "LeftButton")
+assert(D.progress[aq.id]["1_1_m1"], "AQ material keeps its original progress key")
 F.SelectGoal(g.id)
 assert(F.PopoutUI.header:GetText() == "Steps", "ordinary guides restore their heading")
 

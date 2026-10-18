@@ -18,7 +18,7 @@ The fixes and refinements below will ship in small patches as they are ready. Th
 - War mount guides name each faction’s vendor and link the city to its PvP hall approach. Forever positions remain unconfirmed.
 
 - My Goals can hide completed goals and remember that choice.
-- Plain item set pages show their items directly under Items to collect; recipe sections remain expandable.
+- Item set pages show their pieces directly under Items to collect, including Tier 3 and Tier 2.5; each item’s requirements remain expandable.
 - Completed Library cards use a quieter completion treatment.
 - New & Updated lists matching individual sets and mounts directly.
 

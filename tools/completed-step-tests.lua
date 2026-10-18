@@ -57,10 +57,10 @@ for pi, piece in ipairs(set.sections[1].pieces) do
     else D.progress[set.id]["1_" .. pi .. "_piece"] = true end
 end
 F.SelectGoal(set.id)
-assert(not F.headerRows[1].visible and count() == 0, "finished section disappears")
+assert((not F.headerRows[1] or not F.headerRows[1].visible) and count() == 0, "finished item list disappears")
 assert(F.completedStepsBtn.visible, "show completed remains available on a finished goal")
 click()
-assert(F.headerRows[1].visible, "finished section returns")
+assert(count() > 0, "finished item list returns without an outer header")
 click()
 F.SelectGoal(flat.id)
 assert(not F.stepRows[1].visible, "choice carries across goals")
