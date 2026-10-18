@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Changed Gear Planner to turn the character around for the Back slot and forward for other slots.
+
 - Refined dwarf male armor framing, switched one-sided previews to the viewer’s left, and softened camera and gear-change transitions.
 
 - Added Add to Goals for planned gear sets. Only added sets appear in My Gear Sets and My Goals, with collection progress specific to their character.

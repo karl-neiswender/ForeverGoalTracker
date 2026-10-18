@@ -258,7 +258,26 @@ local function MoveCamera(target, y, z, duration)
         if t == 1 then camera:SetScript("OnUpdate", nil) end
     end)
 end
+local turn = CreateFrame("Frame", nil, P)
+local function TurnTo(target)
+    turn:SetScript("OnUpdate", nil)
+    -- Choose the shortest arc even after several manual rotations.
+    local start = facing
+    local delta = (target - start + math.pi) % (2 * math.pi) - math.pi
+    if FGT.Setting("celebrations") == "off" then
+        facing = target; model:SetFacing(facing); return
+    end
+    local elapsed = 0
+    turn:SetScript("OnUpdate", function(_, dt)
+        elapsed = elapsed + dt
+        local t = math.min(1, elapsed / 0.65)
+        facing = start + delta * Ease(t)
+        model:SetFacing(facing)
+        if t == 1 then turn:SetScript("OnUpdate", nil) end
+    end)
+end
 local function Focus(slot)
+    TurnTo(slot == "BackSlot" and math.pi or 0)
     local _, currentRace = UnitRace("player")
     local profile = currentRace == "Dwarf" and UnitSex("player") == 2 and dwarfMaleFocus[slot]
         or focusProfiles[slot] or {0, 0, 0}
@@ -303,7 +322,7 @@ local function Dress(animate)
         if elapsed >= 0.40 then appearance:SetScript("OnUpdate", nil) end
     end)
 end
-model:SetScript("OnModelLoaded", function() PaintGear(); ApplyZoom(zoom) end)
+model:SetScript("OnModelLoaded", function() PaintGear(); ApplyZoom(zoom); model:SetFacing(facing) end)
 local function Rotate()
     if not dragX then return end
     if not IsMouseButtonDown("LeftButton") then dragX = nil; model:SetScript("OnUpdate", nil); return end
@@ -311,7 +330,10 @@ local function Rotate()
     facing = facing + (x - dragX) * 0.01; dragX = x; model:SetFacing(facing)
 end
 model:SetScript("OnMouseDown", function(_, button)
-    if button == "LeftButton" then dragX = GetCursorPosition(); model:SetScript("OnUpdate", Rotate) end
+    if button == "LeftButton" then
+        turn:SetScript("OnUpdate", nil)
+        dragX = GetCursorPosition(); model:SetScript("OnUpdate", Rotate)
+    end
 end)
 model:SetScript("OnMouseUp", function() dragX = nil; model:SetScript("OnUpdate", nil) end)
 model:SetScript("OnMouseWheel", function(_, delta)
@@ -405,6 +427,7 @@ for _, spec in ipairs(slots) do
     local button = Button(controls, "", 44, 44)
     button.icon = button:CreateTexture(nil, "ARTWORK")
     button.icon:SetPoint("TOPLEFT", 3, -3); button.icon:SetPoint("BOTTOMRIGHT", -3, 3)
+    button.plannerSlot = spec[1]
     button.icon:SetTexture(FGT.GearPlannerSlotTexture(spec[1]))
     button.itemName = U.font(button, 11)
     button.itemName:SetText(""); button.itemName:SetWordWrap(false)
@@ -667,6 +690,7 @@ P:HookScript("OnShow", function()
 end)
 P:HookScript("OnHide", function()
     camera:SetScript("OnUpdate", nil); model:SetScript("OnUpdate", nil); model:SetAlpha(1); dragX = nil
+    turn:SetScript("OnUpdate", nil)
     appearance:SetScript("OnUpdate", nil); appearanceAlpha = 1
     status:SetScript("OnUpdate", nil)
     picker:SetScript("OnUpdate", nil); menu:SetScript("OnUpdate", nil)
@@ -674,5 +698,5 @@ P:HookScript("OnHide", function()
 end)
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
-    name = name, add = add, camera = camera, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,
+    name = name, add = add, camera = camera, turn = turn, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,
     modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons, catalogue = catalogue }

@@ -38,3 +38,11 @@ Artwork audit found no pending added, modified, deleted or ignored files in Medi
 Karl also requested wrists. Native review showed the existing general profile placed the viewer-left cuff high and slightly right of center. Added a male-dwarf override `{0.68, 0.32, 0.30}` (zoom, lateral, vertical), replacing the inherited `{0.68, 0.40, 0.65}` for this body only. Reloaded and selected Cryptstalker Wristguards through the same local command. The cuff now sits near the center; the action menu remains clear at the lower left. Left the wrist preview selected for Karl to review. No planned items were changed.
 
 Full Lua suite retained in `checks/gear-planner-native-wrists-lua.txt`; no new API or animation changes. Artwork audit remains clean.
+
+## Back-slot rotation
+
+Karl requested turning the character around for Back armor. Back now eases to the rear view over 650 ms; selecting another slot returns to the front. Rotation takes the shortest arc from the current facing, including after manual spins. It has an independent driver so wheel zoom does not interrupt the turn. Dragging the model cancels the automatic turn, and hiding the planner cancels its driver. Celebrations Off turns immediately. OnModelLoaded reapplies the current facing.
+
+Native verification after reload: selected Back through the slot's click handler and observed Swagrid facing away; then selected Head and observed him facing forward. No planned items were changed. Back has no catalogue entries yet, so its picker correctly reports no available items.
+
+The full Lua suite passed, with added regressions for intermediate rotation, final rear/front facing, independent wheel zoom, manual takeover and hidden-driver cleanup. Retained output: `checks/gear-planner-back-view-lua.txt`. Existing SetFacing and frame APIs are unchanged; no fresh LuaLS release gate is claimed. Performance: one bounded scalar interpolation driver runs only during a turn, with no inventory or catalogue work. Artwork audit remains clean.

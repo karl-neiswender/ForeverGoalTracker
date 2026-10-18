@@ -231,3 +231,28 @@ T.model.SetPosition, T.model.Undress, T.model.SetAlpha = nil, nil, nil
 F.ShowTab("tracker")
 assert(not T.camera:GetScript("OnUpdate") and not T.appearance:GetScript("OnUpdate"), "hidden planner stops both drivers")
 print("  dwarf male profile isolation, opposite-side focus, continuous camera retargets and independent gear fades ok")
+
+-- Back selection turns the model without interfering with wheel zoom or manual rotation.
+UnitName = function() return "PlannerOwner" end
+F.ShowTab("gear")
+local angle
+T.model.SetFacing = function(_, value) angle = value end
+click(T.slots.BackSlot)
+T.turn:GetScript("OnUpdate")(T.turn, 0.2)
+assert(angle and math.abs(angle) > 0 and math.abs(angle) < math.pi, "back view eases through a partial turn")
+T.model:GetScript("OnMouseWheel")(T.model, 1)
+assert(T.turn:GetScript("OnUpdate"), "wheel zoom does not interrupt rotation")
+T.turn:GetScript("OnUpdate")(T.turn, 1)
+assert(math.abs(math.abs(angle) - math.pi) < 0.00001, "back view finishes facing away")
+click(T.head)
+T.turn:GetScript("OnUpdate")(T.turn, 1)
+assert(math.abs(angle % (2 * math.pi)) < 0.00001, "another slot restores front view")
+click(T.slots.BackSlot)
+T.model:GetScript("OnMouseDown")(T.model, "LeftButton")
+assert(not T.turn:GetScript("OnUpdate"), "manual rotation takes over immediately")
+T.model:GetScript("OnMouseUp")(T.model)
+F.ShowTab("tracker")
+assert(not T.turn:GetScript("OnUpdate"), "hidden planner stops rotation")
+T.model.SetFacing = nil
+UnitName = oldName
+print("  eased back/front views, independent wheel zoom and manual rotation takeover ok")
