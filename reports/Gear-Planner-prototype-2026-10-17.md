@@ -59,3 +59,13 @@ Framing-check evidence: [full Lua output](checks/gear-planner-framing-lua.txt), 
 At Karl's request, empty Head now uses the native character-panel thumbnail from `GetInventorySlotInfo("HeadSlot")`. Selecting a helm replaces it with the item icon; Unequip restores the thumbnail. `FGT.GearPlannerSlotTexture(slotName)` provides the same convention for future equipment slots. Head remains the only implemented equipment slot in this prototype.
 
 Validation: `python3 tools/check.py` passed (exit 0), including both client planner regressions. [Retained output](checks/gear-planner-slot-icons-lua.txt).
+
+## Full-panel background and safe focus range
+
+Karl's next screenshot established that the earlier focus setting still clipped the helm. Background/modelArea now fills the entire right panel inside its border, including behind the name field and bottom controls. The name, label and Saved status sit on a raised transparent header layer. The model retains its own inset viewport, reserving header/footer room independently of the background.
+
+Head focus and mouse-wheel zoom now share a maximum portrait zoom of 0.55, replacing 0.9/1.0, with camera-distance scale held at 1.3. The previous zoom-dependent distance reduction compounded the close-up. Model height reserves 140 units within the full-panel background; center is offset down 20 units. This is a conservative initial framing, not a verified fit for every race.
+
+Native review succeeded by selecting the exact beta application path rather than the ambiguous WoW application name. After reloading and opening `/goals`, Swagrid's complete body, helmet and feet were visible in full view, and the race background extended behind the name field. A subsequent native focused view showed the entire helm with clearance at the top and intact shoulders; lower-body cropping during focus is intentional. Saved build/items were unchanged. Other races, resize extremes and final desired close-up strength remain review items. No release was published.
+
+Validation: `python3 tools/check.py` passed (exit 0), including Era/Forever planner regressions and bounded wheel zoom. [Retained output](checks/gear-planner-full-panel-lua.txt). No fresh LuaLS run was made for this unreleased visual adjustment.

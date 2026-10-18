@@ -78,19 +78,21 @@ local list = U.scroll(left, 0, 0, 0, 0)
 list.scroll:ClearAllPoints(); list.scroll:SetPoint("TOPLEFT", 12, -108)
 list.scroll:SetPoint("BOTTOMRIGHT", -20, 16)
 local rows, selected, draft, changing = {}, nil, nil, false
-local name = CreateFrame("EditBox", nil, right, "InputBoxTemplate")
+local header = CreateFrame("Frame", nil, right)
+header:SetAllPoints(); header:SetFrameLevel(right:GetFrameLevel() + 12)
+local name = CreateFrame("EditBox", nil, header, "InputBoxTemplate")
 name:SetAutoFocus(false); name:SetMaxLetters(60); name:SetHeight(28)
 name:SetPoint("TOP", right, "TOP", 0, -24)
 name:SetWidth(340)
 name:SetFontObject("GameFontHighlight")
-local nameLabel = Label(right, "Set name", 10, 22, -6)
+local nameLabel = Label(header, "Set name", 10, 22, -6)
 nameLabel:ClearAllPoints(); nameLabel:SetPoint("BOTTOMLEFT", name, "TOPLEFT", 0, 4)
-local status = U.font(right, 10)
+local status = U.font(header, 10)
 status:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -6)
 right:SetScript("OnSizeChanged", function(_, w) name:SetWidth(math.min(340, math.max(120, w - 48))) end)
-local empty = Label(right, "Create a build to begin.", 14, 20, -100)
+local empty = Label(header, "Create a build to begin.", 14, 20, -100)
 local modelArea = CreateFrame("Frame", nil, right)
-modelArea:SetPoint("TOPLEFT", 16, -88); modelArea:SetPoint("BOTTOMRIGHT", -16, 62)
+modelArea:SetPoint("TOPLEFT", 4, -4); modelArea:SetPoint("BOTTOMRIGHT", -4, 4)
 modelArea:SetClipsChildren(true)
 -- Blizzard Classic DressUpFrames.xml assembles a 318 x 383 background.
 -- The right column is only 62 wide; equal quarters stretch its artwork.
@@ -111,20 +113,21 @@ for i = 1, 4 do
 end
 local model = CreateFrame("DressUpModel", nil, modelArea)
 if model.SetAutoDress then model:SetAutoDress(false) end
-model:SetPoint("CENTER", modelArea, "CENTER", 0, 0)
+model:SetPoint("CENTER", modelArea, "CENTER", 0, -20)
 model:SetSize(260, 340)
 model:EnableMouse(true); model:EnableMouseWheel(true)
 local zoom, facing, dragX = 0, 0, nil
+local MAX_ZOOM = 0.55 -- leave clearance for tall helmets; native player zoom tops out at 0.8
 local camera = CreateFrame("Frame", nil, P)
 local function ApplyZoom(value)
     zoom = value
     -- A portrait-shaped viewport avoids the wide panel magnifying the body.
     -- Leave extra distance for helmets and feet in the full-character view.
-    if model.SetCamDistanceScale then model:SetCamDistanceScale(1.3 - value * 0.3) end
+    if model.SetCamDistanceScale then model:SetCamDistanceScale(1.3) end
     if model.SetPortraitZoom then model:SetPortraitZoom(value) end
 end
 local function Focus(on)
-    local start, target, elapsed = zoom, on and 0.9 or 0, 0
+    local start, target, elapsed = zoom, on and MAX_ZOOM or 0, 0
     camera:SetScript("OnUpdate", nil)
     if FGT.Setting("celebrations") == "off" then ApplyZoom(target); model:SetAlpha(1); return end
     camera:SetScript("OnUpdate", function(_, dt)
@@ -154,7 +157,7 @@ end)
 model:SetScript("OnMouseUp", function() dragX = nil; model:SetScript("OnUpdate", nil) end)
 model:SetScript("OnMouseWheel", function(_, delta)
     camera:SetScript("OnUpdate", nil); model:SetAlpha(1)
-    ApplyZoom(math.max(0, math.min(1, zoom + delta * 0.1)))
+    ApplyZoom(math.max(0, math.min(MAX_ZOOM, zoom + delta * 0.1)))
 end)
 -- Soft masks cover all four background edges without masking slot controls.
 local masks = CreateFrame("Frame", nil, modelArea)
@@ -184,7 +187,7 @@ local function LayoutPreview(self, w, h)
         b.texture:SetPoint("TOPLEFT", self, "TOPLEFT", x + r[1] * scale, -y - r[2] * scale)
         b.texture:SetSize(r[3] * scale, r[4] * scale)
     end
-    local height = math.max(1, h - 36)
+    local height = math.max(1, h - 140)
     model:SetSize(math.min(w, height * 0.85), height)
     ApplyZoom(zoom)
 end

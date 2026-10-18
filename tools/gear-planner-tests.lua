@@ -67,3 +67,11 @@ for _, size in ipairs({ {800, 400}, {400, 650} }) do
 end
 T.model.SetSize = nil
 print("  wide/tall preview keeps native background proportions and model margins")
+-- Wheel zoom uses the same safe portrait limit as head focus.
+local portraitZoom
+T.model.SetPortraitZoom = function(_, value) portraitZoom = value end
+T.model:GetScript("OnMouseWheel")(T.model, 100)
+assert(portraitZoom == 0.55, "wheel zoom cannot exceed helmet-safe focus")
+T.model:GetScript("OnMouseWheel")(T.model, -100)
+assert(portraitZoom == 0, "wheel zoom returns to full-character view")
+T.model.SetPortraitZoom = nil
