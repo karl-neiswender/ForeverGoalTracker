@@ -95,3 +95,11 @@ Karl requested inward-facing item labels: populated left-column slots show the n
 Replaced Full character / Focus head buttons with native empty Main Hand, Off Hand and Ranged slots at the bottom center. All 19 equipment positions are now represented. These three slots remain placeholders with no weapon picker yet. Clicking Head focuses it (including when populated); mouse-wheel zoom remains the way to zoom out or move closer. Rotation, zoom limits, click-away behavior and build data are otherwise unchanged. The rotation/zoom hint sits above the weapon row.
 
 Validation: full `python3 tools/check.py` passed (exit 0); final targeted planner regressions passed on simulated Era and Forever after adding focus-on-populated-slot behavior. Tests check populated/cleared name text and all 19 slots. [Retained full check](checks/gear-planner-item-labels-lua.txt). Native label overlap and bottom-row sizing still need visual review; no fresh LuaLS run or release is claimed.
+
+## Desaturated racial artwork and goal-style shading
+
+Karl requested the same visual family as the goal-view background art. All four native racial background tiles are now desaturated. The backdrop uses the goal panel's actual top/bottom palette, the same 65%-to-transparent top veil over 28% of the image height, broad fades from both sides, and a smooth eased bottom blend over up to 140 units/35% of height. Bottom alpha follows the same smoothstep easing used by goal-art fades, using 24 gradient strips created once and laid out only on resize.
+
+All shading belongs to the background frame; the character has an explicitly higher frame level. This replaces the old edge-mask frame above the character, so the art treatment leaves model and equipment colors intact. No raster assets, item selections or saved progress were changed. Native visual strength still needs Karl's review.
+
+Validation: full `python3 tools/check.py` passed (exit 0); final targeted planner checks passed on simulated Era and Forever after the explicit background/model layer ordering. [Retained full output](checks/gear-planner-background-style-lua.txt). No fresh LuaLS run or release is claimed.

@@ -106,12 +106,14 @@ background:SetAllPoints() -- child frame lets modelArea clip the cropped texture
 for i = 1, 4 do
     local bg = background:CreateTexture(nil, "BACKGROUND")
     bg:SetTexture("Interface\\DressUpFrame\\DressUpBackground-" .. (race or "Orc") .. i)
+    bg:SetDesaturated(true)
     bg:SetAlpha(0.18)
     bg:SetPoint("TOPLEFT", modelArea, "TOPLEFT", 0, 0)
     -- Layout is set on resize so the quadrants remain a continuous background.
     modelArea["bg" .. i] = { texture = bg, rect = backgroundTiles[i] }
 end
 local model = CreateFrame("DressUpModel", nil, modelArea)
+model:SetFrameLevel(background:GetFrameLevel() + 1)
 if model.SetAutoDress then model:SetAutoDress(false) end
 model:SetAllPoints(modelArea)
 model:EnableMouse(true); model:EnableMouseWheel(true)
@@ -160,20 +162,42 @@ model:SetScript("OnMouseWheel", function(_, delta)
     camera:SetScript("OnUpdate", nil); model:SetAlpha(1)
     ApplyZoom(math.max(0, math.min(MAX_ZOOM, zoom + delta * 0.1)))
 end)
--- Soft masks cover all four background edges without masking slot controls.
-local masks = CreateFrame("Frame", nil, modelArea)
-masks:SetAllPoints(); masks:SetFrameLevel(model:GetFrameLevel() + 1)
-for side = 1, 4 do
-    local t = masks:CreateTexture(nil, "OVERLAY")
-    t:SetColorTexture(0.05, 0.045, 0.04, 1)
-    if side <= 2 then
-        t:SetWidth(100); t:SetPoint(side == 1 and "TOPLEFT" or "TOPRIGHT")
-        t:SetPoint(side == 1 and "BOTTOMLEFT" or "BOTTOMRIGHT")
-        U.gradient(t, {0.05,0.045,0.04}, {0.05,0.045,0.04}, side == 1 and 1 or 0, side == 1 and 0 or 1)
-    else
-        t:SetHeight(70); t:SetPoint(side == 3 and "TOPLEFT" or "BOTTOMLEFT")
-        t:SetPoint(side == 3 and "TOPRIGHT" or "BOTTOMRIGHT")
-        FGT.PopoutUI.vgradient(t, {0.05,0.045,0.04}, {0.05,0.045,0.04}, side == 3 and 1 or 0, side == 3 and 0 or 1)
+-- Goal-art treatment belongs below the character and equipment controls.
+-- Keep the same panel colors/top veil, with broad side fades and an eased bottom.
+local shades = {}
+for i = 1, 27 do
+    shades[i] = background:CreateTexture(nil, "OVERLAY")
+    shades[i]:SetColorTexture(1, 1, 1, 1)
+end
+local function ShadeBackground(w, h)
+    local panel = U.styles.panel
+    local function Color(y)
+        local p = math.min(1, math.max(0, y / h))
+        local c = {}
+        for i = 1, 3 do c[i] = panel.top[i] + (panel.bottom[i] - panel.top[i]) * p end
+        return c
+    end
+    for i = 1, 2 do
+        local t = shades[i]
+        t:ClearAllPoints(); t:SetWidth(w * 0.28)
+        t:SetPoint(i == 1 and "TOPLEFT" or "TOPRIGHT", modelArea)
+        t:SetPoint(i == 1 and "BOTTOMLEFT" or "BOTTOMRIGHT", modelArea)
+        U.gradient(t, panel.top, panel.top, i == 1 and 1 or 0, i == 1 and 0 or 1)
+    end
+    local top = shades[3]
+    top:ClearAllPoints(); top:SetPoint("TOPLEFT", modelArea); top:SetPoint("TOPRIGHT", modelArea)
+    top:SetHeight(h * 0.28)
+    FGT.PopoutUI.vgradient(top, panel.top, Color(h * 0.28), 0.65, 0)
+    local height = math.min(140, h * 0.35)
+    for i = 1, 24 do
+        local t = shades[i + 3]
+        local p1, p2 = (i - 1) / 24, i / 24
+        local y = h - height + height * p1
+        t:ClearAllPoints(); t:SetPoint("TOPLEFT", modelArea, "TOPLEFT", 0, -y)
+        t:SetPoint("TOPRIGHT", modelArea, "TOPRIGHT", 0, -y)
+        t:SetHeight(height / 24)
+        FGT.PopoutUI.vgradient(t, Color(y), Color(y + height / 24),
+            p1 * p1 * (3 - 2 * p1), p2 * p2 * (3 - 2 * p2))
     end
 end
 local function LayoutPreview(self, w, h)
@@ -191,11 +215,12 @@ local function LayoutPreview(self, w, h)
     -- Draw across the full panel: a narrow model frame slices enlarged geometry.
     -- Compensate camera distance for its wider aspect instead of clipping the model.
     cameraAspect = math.max(1, w / h / 0.85)
+    ShadeBackground(w, h)
     ApplyZoom(zoom)
 end
 modelArea:SetScript("OnSizeChanged", LayoutPreview)
 local controls = CreateFrame("Frame", nil, right)
-controls:SetAllPoints(); controls:SetFrameLevel(masks:GetFrameLevel() + 2)
+controls:SetAllPoints(); controls:SetFrameLevel(model:GetFrameLevel() + 3)
 local slots = {
     {"HeadSlot", "Head", "LEFT", 1}, {"NeckSlot", "Neck", "LEFT", 2},
     {"ShoulderSlot", "Shoulders", "LEFT", 3}, {"BackSlot", "Back", "LEFT", 4},
