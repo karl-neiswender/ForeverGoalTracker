@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Removed redundant Show on map actions from steps that already contain a location link.
+
 - Matched completed My Goals card backgrounds to the darker Library treatment, keeping the green check, completion date and full progress bar.
 
 - Added a remembered Hide completed goals filter to My Goals, including the folded goals rail.

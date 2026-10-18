@@ -864,6 +864,8 @@ end
 
 function FGT.MapLinkText(text, done, skip, zoom)
     if done or skip or type(text) ~= "string" or not C_Map then return text end
+    -- A named location link already opens the map; avoid a second map action.
+    if text:find("|Hfgtentrance:", 1, true) or text:find("|Hfgtmap:", 1, true) then return text end
     local n = NpcInLinkedText(text)
     if not n then return text end
     -- the icon is set like the quest "!" (15 px, 3 down) and touches its text, one space after the step
