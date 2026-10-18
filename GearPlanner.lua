@@ -264,6 +264,8 @@ local function TurnTo(target)
     -- Choose the shortest arc even after several manual rotations.
     local start = facing
     local delta = (target - start + math.pi) % (2 * math.pi) - math.pi
+    -- Half-turns are equally short either way; use Karl's preferred direction.
+    if math.abs(delta + math.pi) < 0.000001 then delta = math.pi end
     if FGT.Setting("celebrations") == "off" then
         facing = target; model:SetFacing(facing); return
     end

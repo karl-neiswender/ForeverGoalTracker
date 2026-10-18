@@ -46,3 +46,5 @@ Karl requested turning the character around for Back armor. Back now eases to th
 Native verification after reload: selected Back through the slot's click handler and observed Swagrid facing away; then selected Head and observed him facing forward. No planned items were changed. Back has no catalogue entries yet, so its picker correctly reports no available items.
 
 The full Lua suite passed, with added regressions for intermediate rotation, final rear/front facing, independent wheel zoom, manual takeover and hidden-driver cleanup. Retained output: `checks/gear-planner-back-view-lua.txt`. Existing SetFacing and frame APIs are unchanged; no fresh LuaLS release gate is claimed. Performance: one bounded scalar interpolation driver runs only during a turn, with no inventory or catalogue work. Artwork audit remains clean.
+
+Karl subsequently requested the opposite spin direction. Exact half-turns now choose positive rotation instead of negative rotation; other angles retain their shortest arc. The regression explicitly checks the intermediate angle is positive.

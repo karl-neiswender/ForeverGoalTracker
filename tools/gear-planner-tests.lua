@@ -239,7 +239,7 @@ local angle
 T.model.SetFacing = function(_, value) angle = value end
 click(T.slots.BackSlot)
 T.turn:GetScript("OnUpdate")(T.turn, 0.2)
-assert(angle and math.abs(angle) > 0 and math.abs(angle) < math.pi, "back view eases through a partial turn")
+assert(angle and angle > 0 and angle < math.pi, "back view eases in the preferred positive direction")
 T.model:GetScript("OnMouseWheel")(T.model, 1)
 assert(T.turn:GetScript("OnUpdate"), "wheel zoom does not interrupt rotation")
 T.turn:GetScript("OnUpdate")(T.turn, 1)
