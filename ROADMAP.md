@@ -4,37 +4,56 @@ What's coming to Forever Goal Tracker, from small touches to big updates. Nothin
 
 Have an idea or found a bug? Leave a comment on [CurseForge](https://www.curseforge.com/wow/addons/forever-goal-tracker) or open an issue on [GitHub](https://github.com/karl-neiswender/ForeverGoalTracker/issues).
 
-## Next up
+## Next: fixes and clearer guides
 
-- **Feedback from inside the game:** write a suggestion or report a wrong step in the addon and get a link to send it.
-- **Welcome / What's new after an update:** a modal window when a player enters the game after an addon update, introducing the new features. Each feature gets a snapshot in the background with a subtle gradient vignette and text over it explaining the feature. Include a way to skip, pagination when there are multiple features, and subtle text animations or treatments as each page loads in and out.
+- **Goals that fit your character:** review class, race, faction and profession filtering, including hiding Buff Other Players from characters who cannot cast the supported buffs.
+- **Only New & Updated results:** show the matching Forever mounts and sets directly, without unrelated entries inside their collection groups.
+- **Clearer war mount steps:** name each faction’s vendor and city, with NPC and location links and a map pin.
+- **Simpler item set pages:** remove redundant single-section headers, especially for Tier 1 and Tier 2, and use a heading that fits a collection of items.
+- **Small guide fixes:** use a step number for Arcanite Reaper’s Blacksmithing step and remove the redundant single-step bars from Hyjal Summit and the Barrow Deeps.
 
-## Bigger features
+## Finding goals and understanding progress
 
-- **More prerequisite checks (next session):** verify dependent steps on the current Warcraft Forever build, enable the appropriate locks and test their animations, including one prerequisite unlocking several steps. Extend Classic Era coverage as guides are verified.
+- **More My Goals filters:** filter by category, hide completed goals and remember your chosen view.
+- **Clear tracking scope:** show whether progress comes from your current character or your recorded characters, and which character contributes. Filtering a list should stay separate from changing how progress counts.
+- **Fewer accidental completions:** strengthen verified prerequisite locks and explore a deliberate manual override for steps the addon cannot reliably verify.
+- **Reputation progress:** show progress toward Friendly, Honored, Revered and Exalted, with the contributing character clearly identified.
+- **Quieter completed Library goals:** keep completion easy to recognize without a distracting full-card color treatment.
 
-New tools that take more building.
+## Better guides and progress feedback
 
-- **Custom goals:** create your own goals with a title, difficulty, icon and your own steps, from serious to silly ("Give Billy five high fives"). Steps the game can track tick themselves; the rest you check off by hand. Or copy any Library goal and make it your own.
-- **Toasts:** a small note when a step ticks itself while the window is closed, and milestone cheers along the way ("50 down, keep going!").
-- **Character overview:** see which of your characters is furthest along on reputation and leveling goals.
-- **Guild announcements:** guildmates who use the addon see when you finish a goal, with an optional line in guild chat (off by default).
-- **Share your wins:** a "Copy for Discord" button when you finish a goal.
+- **Dungeon level ranges:** add recommended levels to dungeon location tooltips, distinguishing recommendations from entry requirements.
+- **Boss links:** give dungeon and raid bosses their own links with useful source and location information. Explore loot and model previews later.
+- **Material loot messages:** optional chat updates when you collect a needed material, showing how many remain.
+- **Progress bar design:** explore a stronger overall progress display and a goal bar above the title and icon, including the pop-out step tracker.
+- **Toasts:** optional step-complete notices while the window is closed and milestone celebrations.
 
-## Big updates
+## Larger tools and ideas to explore
 
-Larger updates with lots of new content.
+- **Gear Planner:** build a named target gear set by item slot, see where each item comes from and add the set to My Goals. Explore slot-specific search, a rotatable character preview and dressing-room artwork after the basic planner works.
+- **Custom goals:** create your own goals or copy a Library goal and edit it. Steps the game can track complete automatically; other steps can be checked manually.
+- **Character overview:** compare reputation, leveling and profession progress across your recorded characters.
+- **Usage dashboard research:** investigate whether voluntary, opt-in sharing could help us understand popular goals and progress. Data collection is an exploration, with no collection planned until feasibility, consent and privacy choices are settled.
 
-- **More Warcraft Forever content:** the new raids' bosses and loot sources as they're revealed, Forever's own items and mounts, and updated steps for Classic goals as Forever confirms them.
-- **More goals from your character stats:** Warcraft Forever's Statistics window counts things like gold earned, quests completed and emotes. More goals that track themselves from it, like Duelist does.
-- **More goals:** Darkmoon Faire decks, Steamwheedle Cartel, Ravenholdt and Shen'dralar reputations, Bloodsail Admiral, and more class sets.
+## Other planned improvements
+
+- **Feedback from inside the game:** write a suggestion or report a wrong step and get a link to send it.
+- **Welcome after an update:** a skippable introduction with feature snapshots, short explanations and pages for larger updates.
+- **More prerequisite checks:** verify dependent steps on Warcraft Forever before enabling locks; extend Classic Era coverage as guides are verified.
+- **More Warcraft Forever content:** new raid bosses, loot sources, items, mounts and verified changes to existing guides.
+- **More statistics goals:** expand goals based on the game’s tracked statistics.
+- **More goals:** Darkmoon Faire decks, Steamwheedle Cartel, Ravenholdt and Shen’dralar reputations, Bloodsail Admiral and more class sets.
+- **Guild announcements:** optional completion sharing with guildmates who use the addon, with guild chat off by default.
+- **Share your wins:** copy a completion message for Discord.
 
 ## Maybe someday
 
-- **Pop-out map:** a small, draggable map window for the next step, so the art comes back to the goal page while you travel.
-- **Map entrances for more raids:** Molten Core, Blackwing Lair, Naxxramas and Forever's new raids once their entrances are clear.
-- **Reveal steps as you progress:** optionally hide locked step details until their prerequisites are complete. The full guide stays visible by default.
-- **Discord companion app:** a small desktop app that posts your finished goals to a Discord channel.
+- **Pop-out map:** a small, draggable map window for the next step.
+- **Map entrances for more raids:** add entrances as locations are verified.
+- **Reveal steps as you progress:** optionally hide locked step details. The full guide stays visible by default.
+- **Discord companion app:** explore posting completed goals to a Discord channel.
+
+The [release planning notes](reports/Release-plan-2026-10-17.md) describe the proposed order, design decisions and review checks. Version numbers are tentative; dates and publication are not committed.
 
 ## Recently shipped
 
