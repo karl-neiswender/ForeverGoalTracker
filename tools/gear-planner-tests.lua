@@ -33,11 +33,11 @@ assert(T.picker:IsShown(), "selection keeps picker open")
 local item = store.builds[1].slots[1]
 assert(item == 16866, "Warrior head target saved")
 click(T.results[2])
-assert(store.builds[1].slots[1] == 16963 and store.builds[1].id == id)
+assert(store.builds[1].slots[1] == 22418 and store.builds[1].id == id)
 text(T.name, "Renamed")
 assert(#store.builds == 1 and store.builds[1].id == id)
 F.ShowTab("tracker"); F.ShowTab("gear")
-assert(T.name:GetText() == "Renamed" and store.builds[1].slots[1] == 16963)
+assert(T.name:GetText() == "Renamed" and store.builds[1].slots[1] == 22418)
 UnitName = function() return "OtherPlannerOwner" end
 F.ShowTab("tracker"); F.ShowTab("gear")
 assert(#T.store().builds == 0, "other character cannot see owner builds")

@@ -19,15 +19,15 @@ local catalogue = {
     { class = "MAGE", name = "Arcanist Crown", id = 16795, icon = "Interface\\Icons\\inv_helmet_53", source = "Garr — Molten Core" },
     { class = "WARLOCK", name = "Felheart Horns", id = 16808, icon = "Interface\\Icons\\inv_helmet_08", source = "Garr — Molten Core" },
     { class = "DRUID", name = "Cenarion Helm", id = 16834, icon = "Interface\\Icons\\inv_helmet_09", source = "Garr — Molten Core" },
-    { class = "WARRIOR", name = "Helm of Wrath", id = 16963, icon = "Interface\\Icons\\inv_helmet_71", source = "Onyxia — Onyxia’s Lair" },
-    { class = "PALADIN", name = "Judgement Crown", id = 16955, icon = "Interface\\Icons\\inv_helmet_74", source = "Onyxia — Onyxia’s Lair" },
-    { class = "HUNTER", name = "Dragonstalker's Helm", id = 16939, icon = "Interface\\Icons\\inv_helmet_05", source = "Onyxia — Onyxia’s Lair" },
-    { class = "ROGUE", name = "Bloodfang Hood", id = 16908, icon = "Interface\\Icons\\inv_helmet_41", source = "Onyxia — Onyxia’s Lair" },
-    { class = "PRIEST", name = "Halo of Transcendence", id = 16921, icon = "Interface\\Icons\\inv_helmet_24", source = "Onyxia — Onyxia’s Lair" },
-    { class = "SHAMAN", name = "Helmet of Ten Storms", id = 16947, icon = "Interface\\Icons\\inv_helmet_69", source = "Onyxia — Onyxia’s Lair" },
-    { class = "MAGE", name = "Netherwind Crown", id = 16914, icon = "Interface\\Icons\\inv_helmet_70", source = "Onyxia — Onyxia’s Lair" },
-    { class = "WARLOCK", name = "Nemesis Skullcap", id = 16929, icon = "Interface\\Icons\\inv_helmet_08", source = "Onyxia — Onyxia’s Lair" },
-    { class = "DRUID", name = "Stormrage Cover", id = 16900, icon = "Interface\\Icons\\inv_helmet_09", source = "Onyxia — Onyxia’s Lair" },
+    { class = "WARRIOR", name = "Dreadnaught Helmet", id = 22418, icon = "Interface\\Icons\\inv_helmet_58", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "PALADIN", name = "Redemption Headpiece", id = 22428, icon = "Interface\\Icons\\inv_helmet_15", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "HUNTER", name = "Cryptstalker Headpiece", id = 22438, icon = "Interface\\Icons\\inv_helmet_15", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "ROGUE", name = "Bonescythe Helmet", id = 22478, icon = "Interface\\Icons\\inv_helmet_58", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "PRIEST", name = "Circlet of Faith", id = 22514, icon = "Interface\\Icons\\inv_crown_01", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "DRUID", name = "Dreamwalker Headpiece", id = 22490, icon = "Interface\\Icons\\inv_helmet_15", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "MAGE", name = "Frostfire Circlet", id = 22498, icon = "Interface\\Icons\\inv_crown_01", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "WARLOCK", name = "Plagueheart Circlet", id = 22506, icon = "Interface\\Icons\\inv_crown_01", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "SHAMAN", name = "Earthshatter Headpiece", id = 22466, icon = "Interface\\Icons\\inv_helmet_15", source = "Tier 3 turn-in — Light's Hope Chapel" },
 }
 local function Store()
     local db = ForeverGoalTrackerDB
@@ -169,7 +169,7 @@ picker:SetWidth(244); picker:SetHeight(176); U.etch(picker, U.styles.panel); pic
 local search = CreateFrame("EditBox", nil, picker, "InputBoxTemplate")
 search:SetAutoFocus(false); search:SetSize(208, 26); search:SetPoint("TOPLEFT", 16, -12)
 search:SetFontObject("GameFontHighlight")
-Label(picker, "Tier 1–2 helm test list", 10, 12, -150)
+Label(picker, "Tier 1 + 3 helm test list", 10, 12, -150)
 local noResults = Label(picker, "", 11, 12, -48)
 local resultRows = {}
 local menu = CreateFrame("Frame", nil, controls, "BackdropTemplate")

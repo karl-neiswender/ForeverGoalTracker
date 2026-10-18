@@ -8,7 +8,7 @@ Unreleased source prototype, implemented at Karl's request. No release tag or pu
 - Current-character builds in `ForeverGoalTrackerDB.gearPlanner.characters[Name-Realm]`, version 1. Stable numeric IDs and a per-character selected-build ID.
 - New builds start as empty, session-only drafts. Naming a draft saves it automatically; subsequent name/item changes autosave. No separate Save button in this prototype.
 - Current-character DressUpModel, undressed initially; native race dressing-room background quadrants with four edge fades.
-- Head-only picker containing two sample helms for each of the nine supported classes: Tier 1 and Tier 2 entries copied from existing Library tuples. This is not a full catalogue or newly verified Forever loot data. Sources are Classic-based and carry an Unconfirmed in Forever tooltip notice on Forever.
+- Head-only picker containing two sample helms for each of the nine supported classes: Tier 1 and Tier 3 entries copied from existing Library/Data tuples. This is not a full catalogue or newly verified Forever loot data. Sources are Classic-based and carry an Unconfirmed in Forever tooltip notice on Forever.
 - Result clicks immediately try on/save the target and keep the picker open. Populated Head slot offers Replace and Unequip. Unequip affects only the build.
 - Full character and Focus head controls, eased portrait zoom with a temporary model fade, mouse-wheel zoom and drag rotation. Celebrations Off uses an immediate transition.
 - Independent planner width avoids inheriting the collapsed goals rail or Materials drawer allocation. Settings and existing tabs hide the planner.
@@ -37,3 +37,9 @@ No My Goals activation, ownership completion, crafting recipes, other equipment 
 Camera tuning across race/body proportions, texture quadrant fitting, missing-item/model behavior and narrow-window layout are the next native review priorities. The public version remains 2.15.2 until an authorized release.
 
 See the [full build plan](Gear-Planner-build-plan.md) for confirmed scope and subsequent phases.
+
+## Catalogue correction
+
+At Karl's request, replaced all nine Tier 2 sample helms with Tier 3 helms because Tier 2 is not yet available in Forever. Tier 1 remains included. Existing saved targets are not rewritten; use Replace to choose a supported test helm. Native asset availability remains to be checked in game.
+
+Validation after the catalogue correction: `python3 tools/check.py` passed (exit 0), including both client planner regressions updated for Dreadnaught Helmet. [Retained output](checks/gear-planner-tier3-lua.txt). The earlier LuaLS report applies to the initial prototype snapshot; this catalogue-only correction did not receive a fresh annotation pass.
