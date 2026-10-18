@@ -4013,7 +4013,11 @@ local function RefreshGoalList()
             or (isSelected and (isNew and C.FOREVER_LIGHT or C.SELECTED_EYEBROW))
             or C.SUBTEXT
         row.eyebrow:SetTextColor(eyebrowColor[1], eyebrowColor[2], eyebrowColor[3])
-        if isSelected then
+        row.complete = finished
+        if finished then
+            row:SetEtch(STYLE.doneCard)
+            row.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
+        elseif isSelected then
             row:SetEtch(STYLE.rowSel)
             row.name:SetTextColor(1, 1, 1)
         else
@@ -4046,7 +4050,7 @@ local function RefreshGoalList()
         row.eyebrow:SetPoint("RIGHT", -rightInset, 0)
         row.name:SetPoint("RIGHT", -8, 0)
         local complete = finished
-        row.doneGlow:SetShown(complete)
+        row.doneGlow:Hide()
         row.bigCheck:SetShown(complete)
         row.icon.tex:SetDesaturated(complete)
         row.icon.tex:SetAlpha(complete and 0.45 or 1)
@@ -4167,7 +4171,7 @@ for i, goal in ipairs(FGT.goals) do
 
     row:SetScript("OnEnter", function(self)
         if self.goal.id ~= selectedId then
-            self:SetEtch(STYLE.rowHover)
+            self:SetEtch(self.complete and STYLE.doneCard or STYLE.rowHover)
             self.name:SetTextColor(1, 1, 1)
         end
         -- level with the hovered card's top, not above it (ANCHOR_RIGHT sat beside
