@@ -87,3 +87,11 @@ Karl's close-up screenshot showed straight horizontal/vertical cuts at the inter
 Native Forever review on Swagrid confirmed complete helmet and shoulder geometry at portrait zoom 0.75, then at portrait zoom 0.8 with the maximum wheel-distance reduction (0.9 times the aspect compensation). The previous straight cuts inside the panel were absent. The enlarged body can extend beyond the outer panel at close zoom, as intended; the entire model remains clipped to the outer panel. Name and control overlays remain above the model. No item, build or goal progress changed. This native check covers the observed dwarf/client, not every race or viewport size.
 
 Validation: `python3 tools/check.py` passed (exit 0), including Era/Forever planner tests updated to reject a smaller interior model frame during resize. [Retained output](checks/gear-planner-drawing-area-lua.txt). No fresh LuaLS run or live release is claimed for this correction.
+
+## Item names and bottom weapon slots
+
+Karl requested inward-facing item labels: populated left-column slots show the name to their right, and populated right-column slots show it to their left. Added a shared itemName label to every slot with the appropriate anchoring/alignment, bounded width and no wrapping. The implemented Head picker fills its label in item-quality purple; Unequip clears it. Other slots remain empty and therefore have no item-name text.
+
+Replaced Full character / Focus head buttons with native empty Main Hand, Off Hand and Ranged slots at the bottom center. All 19 equipment positions are now represented. These three slots remain placeholders with no weapon picker yet. Clicking Head focuses it (including when populated); mouse-wheel zoom remains the way to zoom out or move closer. Rotation, zoom limits, click-away behavior and build data are otherwise unchanged. The rotation/zoom hint sits above the weapon row.
+
+Validation: full `python3 tools/check.py` passed (exit 0); final targeted planner regressions passed on simulated Era and Forever after adding focus-on-populated-slot behavior. Tests check populated/cleared name text and all 19 slots. [Retained full check](checks/gear-planner-item-labels-lua.txt). Native label overlap and bottom-row sizing still need visual review; no fresh LuaLS run or release is claimed.

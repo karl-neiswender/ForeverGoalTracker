@@ -205,12 +205,26 @@ local slots = {
     {"LegsSlot", "Legs", "RIGHT", 3}, {"FeetSlot", "Feet", "RIGHT", 4},
     {"Finger0Slot", "Finger 1", "RIGHT", 5}, {"Finger1Slot", "Finger 2", "RIGHT", 6},
     {"Trinket0Slot", "Trinket 1", "RIGHT", 7}, {"Trinket1Slot", "Trinket 2", "RIGHT", 8},
+    {"MainHandSlot", "Main Hand", "BOTTOM", 1},
+    {"SecondaryHandSlot", "Off Hand", "BOTTOM", 2},
+    {"RangedSlot", "Ranged", "BOTTOM", 3},
 }
 for _, spec in ipairs(slots) do
     local button = Button(controls, "", 44, 44)
     button.icon = button:CreateTexture(nil, "ARTWORK")
     button.icon:SetPoint("TOPLEFT", 3, -3); button.icon:SetPoint("BOTTOMRIGHT", -3, 3)
     button.icon:SetTexture(FGT.GearPlannerSlotTexture(spec[1]))
+    button.itemName = U.font(button, 11)
+    button.itemName:SetText(""); button.itemName:SetWordWrap(false)
+    if spec[3] == "LEFT" then
+        button.itemName:SetPoint("LEFT", button, "RIGHT", 8, 0)
+    elseif spec[3] == "RIGHT" then
+        button.itemName:SetPoint("RIGHT", button, "LEFT", -8, 0)
+        button.itemName:SetJustifyH("RIGHT")
+    else
+        button.itemName:SetPoint("BOTTOM", button, "TOP", 0, 6)
+        button.itemName:SetJustifyH("CENTER")
+    end
     button:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText(spec[2], 1, 1, 1)
         GameTooltip:AddLine("Item selection coming later", 0.7, 0.7, 0.7); GameTooltip:Show()
@@ -225,20 +239,20 @@ local function LayoutSlots()
     for _, spec in ipairs(slots) do
         local button = slotButtons[spec[1]]
         button:SetSize(size, size); button:ClearAllPoints()
-        button:SetPoint("TOP" .. spec[3], right, "TOP" .. spec[3],
-            spec[3] == "LEFT" and 22 or -22, -88 - (spec[4] - 1) * (size + 4))
+        button.itemName:SetWidth(math.max(90, math.min(180, right:GetWidth() * 0.23)))
+        if spec[3] == "BOTTOM" then
+            button:SetPoint("BOTTOM", right, "BOTTOM", (spec[4] - 2) * (size + 12), 18)
+        else
+            button:SetPoint("TOP" .. spec[3], right, "TOP" .. spec[3],
+                spec[3] == "LEFT" and 22 or -22, -88 - (spec[4] - 1) * (size + 4))
+        end
     end
 end
 right:HookScript("OnSizeChanged", LayoutSlots)
 local head = slotButtons.HeadSlot
 
-local toggle = Button(controls, "Full character", 126)
-toggle:SetPoint("BOTTOM", -65, 18)
-local refocus = Button(controls, "Focus head", 116); refocus:SetPoint("LEFT", toggle, "RIGHT", 8, 0)
-toggle:SetScript("OnClick", function() Focus(false) end)
-refocus:SetScript("OnClick", function() Focus(true) end)
 local hint = U.font(controls, 10)
-hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", 0, 52)
+hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", 0, 76)
 local picker = CreateFrame("Frame", nil, controls, "BackdropTemplate")
 picker:SetPoint("TOPLEFT", head, "TOPRIGHT", 10, 0)
 picker:SetFrameLevel(controls:GetFrameLevel() + 5)
@@ -316,6 +330,8 @@ Refresh = function()
     local item
     for _, entry in ipairs(catalogue) do if selected and entry.id == selected.slots[1] then item = entry end end
     head.icon:SetTexture(item and item.icon or emptyHeadTexture); head.text:SetText("")
+    head.itemName:SetText(item and item.name or "")
+    head.itemName:SetTextColor(0.75, 0.45, 1)
 end
 Results = function()
     local _, class = UnitClass("player")
@@ -358,7 +374,7 @@ local function OpenPicker()
 end
 head:SetScript("OnClick", function()
     selectedSlot = "HeadSlot"; head:SetEtch(U.styles.rowSel)
-    if selected and selected.slots[1] then menu:SetShown(not menu:IsShown()); picker:Hide()
+    if selected and selected.slots[1] then Focus(true); menu:SetShown(not menu:IsShown()); picker:Hide()
     else OpenPicker() end
 end)
 head:SetScript("OnEnter", function(self)

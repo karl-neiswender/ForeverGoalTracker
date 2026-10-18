@@ -32,6 +32,7 @@ click(T.results[1])
 assert(T.picker:IsShown(), "selection keeps picker open")
 local item = store.builds[1].slots[1]
 assert(item == 16866, "Warrior head target saved")
+assert(T.head.itemName:GetText() == "Helm of Might", "filled head shows its name")
 click(T.results[2])
 assert(store.builds[1].slots[1] == 22418 and store.builds[1].id == id)
 text(T.name, "Renamed")
@@ -46,6 +47,7 @@ F.ShowTab("tracker"); F.ShowTab("gear")
 assert(T.name:GetText() == "Renamed")
 click(T.unequip)
 assert(not store.builds[1].slots[1], "unequip clears only the planned target")
+assert(T.head.itemName:GetText() == "", "unequip removes item label")
 F.ShowTab("library")
 assert(not F.GearPlanner:IsShown() and F.libraryPanel:IsShown())
 UnitName = oldName
@@ -80,4 +82,4 @@ T.clickAway:GetScript("OnEvent")()
 assert(not T.picker:IsShown(), "outside click closes picker")
 local count = 0
 for _ in pairs(T.slots) do count = count + 1 end
-assert(count == 16, "armor and accessory placeholders are present")
+assert(count == 19, "armor, accessory and weapon placeholders are present")
