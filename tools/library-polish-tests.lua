@@ -70,7 +70,7 @@ LF.SetFor("ROGUE"); F.LayoutLibrary()
 card = F.libCards[set.id]
 watch(card.doneGlow)
 F.LayoutLibrary()
-assert(not card.doneGlow.testShown and card.restStyle == F.MaterialsUI.styles.row, "completed card retains its normal surface")
+assert(not card.doneGlow.testShown and card.restStyle == F.MaterialsUI.styles.doneCard, "completed card uses its darker surface")
 assert(card.btnText:GetText() == "Complete" and card.meta:GetText():find("Complete"), "completion remains explicit")
 card.btn:GetScript("OnClick")(card.btn)
 assert(not D.active[set.id] and D.progress[set.id]["1_1_piece"], "quiet completed card still removes without losing progress")

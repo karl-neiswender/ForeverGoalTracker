@@ -1962,8 +1962,9 @@ local STYLE = {
     forever  = { top = { 0.040, 0.120, 0.200 }, bottom = { 0.015, 0.040, 0.075 }, edge = { 0.09, 0.36, 0.55, 1 } },
     -- finished goals and parts in the Library ("Complete" button)
     done     = { top = { 0.130, 0.300, 0.080 }, bottom = { 0.040, 0.110, 0.030 }, edge = { 0.31, 0.75, 0.23, 1 } },
-    -- a finished goal's Library card: neutral grey under its green wash (Karl)
-    doneCard = { top = { 0.115, 0.115, 0.112 }, bottom = { 0.040, 0.040, 0.040 }, edge = { 0.30, 0.30, 0.29, 1 } },
+    -- Completed Library cards sit back; the button and icon check stay bright.
+    doneCard = { top = { 0.055, 0.052, 0.048 }, bottom = { 0.018, 0.017, 0.016 }, edge = { 0.16, 0.15, 0.13, 1 } },
+    fDoneCard = { top = { 0.018, 0.040, 0.065 }, bottom = { 0.008, 0.016, 0.028 }, edge = { 0.08, 0.18, 0.29, 1 } },
     -- Settings choices you won't hear (game sound or that channel off)
     muted    = { top = { 0.120, 0.118, 0.115 }, bottom = { 0.050, 0.050, 0.050 }, edge = { 0.24, 0.24, 0.23, 1 } },
     mutedSel = { top = { 0.190, 0.180, 0.160 }, bottom = { 0.070, 0.066, 0.060 }, edge = { 0.52, 0.46, 0.32, 1 } },
@@ -1976,7 +1977,7 @@ local STYLE = {
     fOpen    = { top = { 0.045, 0.135, 0.260 }, bottom = { 0.012, 0.042, 0.095 }, edge = { 0.40, 0.66, 1.00, 1 } },
 }
 -- Which blue twin replaces each gold state.
-STYLE.foreverTwin = { [STYLE.row] = STYLE.fRow, [STYLE.rowHover] = STYLE.fHover, [STYLE.rowSel] = STYLE.fSel,
+STYLE.foreverTwin = { [STYLE.doneCard] = STYLE.fDoneCard, [STYLE.row] = STYLE.fRow, [STYLE.rowHover] = STYLE.fHover, [STYLE.rowSel] = STYLE.fSel,
     [STYLE.panel] = STYLE.fRow, [STYLE.button] = STYLE.fRow, [STYLE.btnHover] = STYLE.fHover }
 
 -- Vertical gradient on a texture (top color -> bottom color). SetGradient
@@ -10257,9 +10258,9 @@ local function StyleCardButtonInner(card)
         card.btnCheck:SetVertexColor(1, 1, 1)
     end
     if done and not hover then
-        card.btn:SetEtch(STYLE.button)
+        card.btn:SetEtch(STYLE.done)
         card.btnText:SetText("Complete")
-        card.btnText:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        card.btnText:SetTextColor(0.62, 0.95, 0.50)
         card.btnCheck:Show()
     elseif on then
         card.btn:SetEtch(hover and STYLE.dangerHv or STYLE.rowSel)
@@ -10292,6 +10293,12 @@ local function GetCard(goal)
     card.icon:SetPoint("LEFT", card, "LEFT", 10, 0)
     card.icon:SetIcon(FGT.GoalIcon(goal), catColor)
     card.baseRim = catColor -- finished cards swap it for grey
+    card.iconCheck = card.icon:CreateTexture(nil, "OVERLAY", nil, 7)
+    card.iconCheck:SetTexture(FGT.Icon("check-white"))
+    card.iconCheck:SetSize(26, 26)
+    card.iconCheck:SetPoint("CENTER", card.icon, "CENTER", 0, 0)
+    card.iconCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
+    card.iconCheck:Hide()
     -- an armor set's thumbnail: Ctrl-click tries on the whole set (like the goal page's big icon)
     if FGT.SetPreviewIds and FGT.SetPreviewIds(goal) then
         card.icon:EnableMouse(true)
@@ -10435,9 +10442,9 @@ local function StyleSubButton(sub)
     local d, t = PartProgress(sub.goal, sub.key)
     if on and t > 0 and d >= t and not hover then
         -- finished part: Complete in green (hover still offers Remove)
-        sub.btn:SetEtch(STYLE.button)
+        sub.btn:SetEtch(STYLE.done)
         sub.btnText:SetText("Complete")
-        sub.btnText:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        sub.btnText:SetTextColor(0.62, 0.95, 0.50)
     elseif on then
         sub.btn:SetEtch(hover and STYLE.dangerHv or STYLE.rowSel)
         sub.btnText:SetText(hover and "Remove" or "Added")
@@ -10523,14 +10530,16 @@ LayoutLibrary = function()
         card:SetEtch(STYLE.row)
         card.restStyle = STYLE.row
         card.metaBase = isNew and (FGT.NewTag(isNew) .. "  ·  " .. card.metaPlain) or card.metaPlain
-        -- Finished cards keep their normal surface and Forever identity.
-        -- A muted icon, small check and completion text replace the progress bar.
+        -- Finished cards use a darker surface while keeping their Forever identity.
+        -- The green button and icon check stay bright above the dimmed content.
         local gd, gt = LF.Progress(g)
         local finished = LF.On(g) and gt > 0 and gd >= gt
         if finished then
             local sourceGoal = g.partOf or g
             local on = FGT.CompletedOn(sourceGoal)
             local plain = card.metaPlain:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+            card:SetEtch(STYLE.doneCard)
+            card.restStyle = STYLE.doneCard
             card.metaBase = (isNew and (FGT.NewTag(isNew) .. "  ·  ") or "")
                 .. "|cff7d7d78" .. plain .. "  ·  " .. (on and ("Completed " .. on) or "Complete") .. "|r"
 
@@ -10538,7 +10547,10 @@ LayoutLibrary = function()
         card.icon:SetIcon(FGT.GoalIcon(g), isNew and C.FOREVER or finished and { 0.40, 0.40, 0.39 } or card.baseRim)
         card.doneGlow:Hide()
         card.icon.tex:SetDesaturated(finished)
-        card.icon.tex:SetAlpha(finished and 0.6 or 1)
+        card.icon.tex:SetAlpha(finished and 0.35 or 1)
+        card.iconCheck:SetShown(finished)
+        card.name:SetAlpha(finished and 0.65 or 1)
+        card.meta:SetAlpha(finished and 0.65 or 1)
         local nc = finished and C.SUBTEXT or C.TEXT
         card.name:SetTextColor(nc[1], nc[2], nc[3])
         card.meta:SetText(card.metaBase)
