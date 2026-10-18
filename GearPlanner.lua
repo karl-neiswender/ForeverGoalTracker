@@ -226,6 +226,7 @@ local focusProfiles = {
 -- Dwarf male has a shorter torso and lower hands than the general profile.
 -- Tuned on Swagrid in the Forever beta; independent of other bodies.
 local dwarfMaleFocus = {
+    WristSlot = {0.68, 0.32, 0.30},
     HandsSlot = {0.64, 0.32, 0.31}, WaistSlot = {0.60, 0, 0.20},
     LegsSlot = {0.48, 0, 0.40}, FeetSlot = {0.66, 0.18, 0.66},
 }
