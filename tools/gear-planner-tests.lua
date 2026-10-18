@@ -93,7 +93,7 @@ local names = {"HeadSlot","ShoulderSlot","ChestSlot","HandsSlot","LegsSlot","Wai
 local ids = {1,3,5,10,7,6,9,8}
 local oldClass = UnitClass
 local counts = {}
-for _, item in ipairs(T.catalogue) do counts[item.class] = (counts[item.class] or 0) + 1 end
+for _, item in ipairs(T.catalogue) do if not item.preRaid then counts[item.class] = (counts[item.class] or 0) + 1 end end
 for _, class in ipairs(classes) do
     assert(counts[class] == 10, "each class has Tier 1 head plus complete nine-piece Tier 3")
     UnitClass = function() return class, class end
@@ -278,3 +278,31 @@ T.name:GetScript("OnEditFocusLost")()
 assert(T.name:GetText() == "Workflow actions", "blank rename restores the saved name")
 UnitName = oldName
 print("  clear undo, remove/re-add and invalid rename preserve set identity and credit")
+
+-- Explicit Hunter import covers all meaningful slots and counts duplicate rings.
+local preRaidClass, preRaidFaction = UnitClass, UnitFactionGroup
+UnitClass = function() return "Hunter", "HUNTER" end
+UnitFactionGroup = function() return "Alliance" end
+UnitName = function() return "PreRaidOwner" end
+D.characters[F.MaterialsUI.charKey()] = {items = {}}
+local imported, importedGoal = F.CreateHunterPreRaidBuild()
+assert(imported and importedGoal and D.active[importedGoal.id], "test import saves and adds a Hunter goal")
+assert(#importedGoal.steps == 16 and imported.slots[16] == 22314 and not imported.slots[17], "16 item slots with a two-handed melee weapon")
+assert(imported.slots[11] == 18500 and imported.slots[12] == 18500, "both non-unique rings are selected")
+local ringSteps = {}
+for i, step in ipairs(importedGoal.steps) do
+    assert(step.tip and step.tip ~= "", "every item carries its acquisition route")
+    if step.auto.item == 18500 then ringSteps[#ringSteps + 1] = i end
+end
+local preRaidKey = F.MaterialsUI.charKey()
+D.characters[preRaidKey] = {items = {[18500] = 1}}
+F.RefreshPlannerGoals(importedGoal)
+assert(D.progress[importedGoal.id][ringSteps[1]] and not D.progress[importedGoal.id][ringSteps[2]], "one ring cannot credit both planned slots")
+D.characters[preRaidKey].items[18500] = 2
+F.RefreshPlannerGoals(importedGoal)
+assert(D.progress[importedGoal.id][ringSteps[2]], "second ring needs two owned copies")
+local importedCount = #T.store().builds
+local again = F.CreateHunterPreRaidBuild()
+assert(again == imported and #T.store().builds == importedCount, "repeated import reopens without duplicates")
+UnitClass, UnitFactionGroup, UnitName = preRaidClass, preRaidFaction, oldName
+print("  Hunter pre-raid import: all 16 slots, sources, duplicate ring quantities and idempotence ok")

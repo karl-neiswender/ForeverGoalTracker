@@ -60,9 +60,35 @@ for _, ring in ipairs(rings) do
         icon = "Interface\\Icons\\inv_jewelry_ring_51naxxramas", unique = true,
         source = "Kel'Thuzad — Naxxramas" }
 end
+-- Top-ranked choices from the linked Wowhead SoM pre-raid guide (reviewed 2026-10-18).
+-- Classic acquisition routes; Forever availability remains unconfirmed.
+local hunterPreRaid = {
+    {1, 18421, "Backwood Helm", "HeadSlot", "The Treasure of the Shen'dralar — Dire Maul library chest; complete The Madness Within first"},
+    {2, 22340, "Pendant of Celerity", "NeckSlot", "Lord Valthalak — Upper Blackrock Spire; summon in The Beast's room with a Tier 0.5 brazier"},
+    {3, 12927, "Truestrike Shoulders", "ShoulderSlot", "Pyroguard Emberseer — Upper Blackrock Spire"},
+    {5, 11726, "Savage Gladiator Chain", "ChestSlot", "Gorosh the Dervish — Blackrock Depths, Ring of Law"},
+    {6, 22232, "Marksman's Girdle", "WaistSlot", "Urok Doomhowl — Lower Blackrock Spire; summon with Omokk's Head and a Roughshod Pike"},
+    {7, 15062, "Devilsaur Leggings", "LegsSlot", "Leatherworking — craft or buy from another player"},
+    {8, 22061, "Beastmaster's Boots", "FeetSlot", "Anthion's Parting Words — Deliana, Ironforge; requires the Dungeon Set 2 upgrade chain"},
+    {9, 18375, "Bracers of the Eclipse", "WristSlot", "Prince Tortheldrin — Dire Maul West"},
+    {10, 15063, "Devilsaur Gauntlets", "HandsSlot", "Leatherworking — craft or buy from another player"},
+    {11, 18500, "Tarnished Elven Ring", "FingerSlot", "Gordok Tribute chest — Dire Maul North"},
+    {13, 13965, "Blackhand's Breadth", "TrinketSlot", "General Drakkisath's Demise — Marshal Maxwell, Morgan's Vigil, Burning Steppes"},
+    {14, 18473, "Royal Seal of Eldre'Thalas", "TrinketSlot", "The Greatest Race of Hunters — turn in the book to Lorekeeper Mykos, Dire Maul library"},
+    {15, 13340, "Cape of the Black Baron", "BackSlot", "Baron Rivendare — Stratholme, undead side"},
+    {16, 22314, "Huntsman's Harpoon", "MainHandSlot", "Isalien — Dire Maul East; summon in Alzzin's room with a Tier 0.5 brazier"},
+    {18, 19107, "Bloodseeker", "RangedSlot", "Hero of the Stormpike — Alterac Valley victory quest; turn in to Prospector Stonehewer, Alterac Mountains"},
+}
+for _, entry in ipairs(hunterPreRaid) do
+    catalogue[#catalogue + 1] = { class = "HUNTER", id = entry[2], name = entry[3], slot = entry[4],
+        icon = (C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(entry[2]))
+            or (GetItemIcon and GetItemIcon(entry[2])) or "Interface\\Icons\\INV_Misc_QuestionMark",
+        source = entry[5], twoHand = entry[2] == 22314, unique = entry[4] == "TrinketSlot", quality = entry[2] == 11726 and 4 or 3, preRaid = true }
+end
 for _, item in ipairs(catalogue) do byId[item.id] = item end
 local function SlotMatches(item, slot)
     return item.slot == slot or (item.slot == "FingerSlot" and (slot == "Finger0Slot" or slot == "Finger1Slot"))
+        or (item.slot == "TrinketSlot" and (slot == "Trinket0Slot" or slot == "Trinket1Slot"))
 end
 local function Store()
     local db = ForeverGoalTrackerDB
@@ -92,12 +118,14 @@ local function SyncGoal(build, ownerKey)
     end
     goal.name = build.name
     goal.steps, goal.tips, build.goalItems = {}, {}, {}
-    local nextProgress = {}
+    local nextProgress, copies = {}, {}
     for slot = 1, 19 do
         local item = byId[build.slots[slot]]
         if item then
-            local step = { text = "Collect " .. item.name,
-                auto = { item = item.id, forCharacter = ownerKey }, plannerSlot = slot,
+            copies[item.id] = (copies[item.id] or 0) + 1
+            local step = { text = "Collect " .. item.name .. (item.slot == "FingerSlot" and
+                    (slot == 11 and " (Finger 1)" or " (Finger 2)") or ""),
+                auto = { item = item.id, count = copies[item.id], forCharacter = ownerKey }, plannerSlot = slot,
                 tip = item.source }
             goal.steps[#goal.steps + 1] = step
             build.goalItems[#build.goalItems + 1] = { slot = slot, id = item.id }
@@ -105,6 +133,10 @@ local function SyncGoal(build, ownerKey)
             if credit[slot .. ":" .. item.id] then nextProgress[#goal.steps] = true end
             U.watch[item.id] = true
         end
+    end
+    if build.preset == "hunter_preraid_wowhead" then
+        goal.tips[#goal.tips + 1] = "Use both Devilsaur pieces for the set bonus. Collect two Tarnished Elven Rings."
+        if FGT.isForever then goal.tips[#goal.tips + 1] = "Classic sources shown. Availability in Forever is Unconfirmed." end
     end
     DB.progress[id] = nextProgress
     goal.icon = goal.steps[1] and byId[goal.steps[1].auto.item].icon or "Interface\\Icons\\INV_Misc_QuestionMark"
@@ -322,7 +354,10 @@ local function PaintGear()
     model:Undress()
     for id = 1, 19 do
         local item = selected and byId[selected.slots[id]]
-        if item and item.slot ~= "FingerSlot" then model:TryOn("item:" .. item.id) end
+        if item and item.slot ~= "FingerSlot" and item.slot ~= "TrinketSlot" and item.slot ~= "NeckSlot" then
+            FGT.ItemInfo(item.id) -- request uncached item data before trying its appearance
+            model:TryOn("item:" .. item.id)
+        end
     end
 end
 local appearance = CreateFrame("Frame", nil, P)
@@ -346,6 +381,21 @@ local function Dress(animate)
     end)
 end
 model:SetScript("OnModelLoaded", function() PaintGear(); ApplyZoom(zoom); model:SetFacing(facing) end)
+P:HookScript("OnShow", function() P:RegisterEvent("GET_ITEM_INFO_RECEIVED") end)
+P:HookScript("OnHide", function() P:UnregisterEvent("GET_ITEM_INFO_RECEIVED") end)
+P:SetScript("OnEvent", function(_, _, itemId, ok)
+    if ok == false or not P:IsShown() or not selected or P.itemRefreshPending then return end
+    for _, id in pairs(selected.slots) do
+        if id == itemId then
+            P.itemRefreshPending = true
+            C_Timer.After(0.1, function()
+                P.itemRefreshPending = nil
+                if P:IsShown() then Dress(false) end
+            end)
+            return
+        end
+    end
+end)
 local function Rotate()
     if not dragX then return end
     if not IsMouseButtonDown("LeftButton") then dragX = nil; model:SetScript("OnUpdate", nil); return end
@@ -599,7 +649,8 @@ Refresh = function()
         local item = selected and byId[selected.slots[slotIds[slot]]]
         button.icon:SetTexture(item and item.icon or FGT.GearPlannerSlotTexture(slot))
         button.itemName:SetText(item and item.name or "")
-        button.itemName:SetTextColor(0.75, 0.45, 1)
+        if item and item.quality == 3 then button.itemName:SetTextColor(0, 0.44, 0.87)
+        else button.itemName:SetTextColor(0.75, 0.45, 1) end
         button.icon:SetAlpha((item or button.chosen) and 1 or 0.50)
     end
 end
@@ -619,7 +670,8 @@ Results = function()
             end
             row:SetPoint("TOPLEFT", 10, -42 - (count - 1) * 50)
             row.icon:SetTexture(entry.icon); row.text:SetText(entry.name)
-            row.text:SetTextColor(0.75, 0.45, 1)
+            if entry.quality == 3 then row.text:SetTextColor(0, 0.44, 0.87)
+            else row.text:SetTextColor(0.75, 0.45, 1) end
             row.chosen = selected and selected.slots[slotIds[selectedSlot]] == entry.id
             row:SetEtch(row.chosen and U.styles.rowSel or U.styles.button)
             row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "") .. entry.source)
@@ -632,8 +684,10 @@ Results = function()
                         if other ~= id and itemId == entry.id then selected.slots[other] = nil; moved = true end
                     end
                 end
+                if entry.twoHand then selected.slots[17] = nil end
+                if id == 17 and byId[selected.slots[16]] and byId[selected.slots[16]].twoHand then selected.slots[16] = nil end
                 selected.slots[id] = entry.id; Dress(true); Save(); Refresh(); Results()
-                if moved then status:SetText("Moved ring to the selected slot.") end
+                if moved then status:SetText("Moved item to the selected slot.") end
             end)
             row:SetScript("OnEnter", function(self)
                 GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetHyperlink("item:" .. entry.id)
@@ -757,6 +811,31 @@ P:HookScript("OnHide", function()
     picker:SetScript("OnUpdate", nil); menu:SetScript("OnUpdate", nil)
     actions:Hide(); Deselect(); name:ClearFocus(); GameTooltip:Hide()
 end)
+-- Explicit test-build import; never changes another character or an existing set.
+function FGT.CreateHunterPreRaidBuild()
+    local _, class = UnitClass("player")
+    if class ~= "HUNTER" or UnitFactionGroup("player") ~= "Alliance" then
+        print("Forever Goal Tracker: This test build is for an Alliance Hunter."); return
+    end
+    local store = Store()
+    local build
+    for _, existing in ipairs(store.builds) do
+        if existing.preset == "hunter_preraid_wowhead" then build = existing; break end
+    end
+    if not build then
+        build = { id = store.nextId, name = "Hunter Pre-Raid BiS", slots = {}, preset = "hunter_preraid_wowhead" }
+        store.nextId = store.nextId + 1
+        for _, entry in ipairs(hunterPreRaid) do build.slots[entry[1]] = entry[2] end
+        build.slots[12] = 18500
+        store.builds[#store.builds + 1] = build
+    end
+    build.tracked = true
+    local goal = SyncGoal(build, U.charKey())
+    if not goal then return end
+    ForeverGoalTrackerDB.active[goal.id] = true; store.selected = build.id
+    FGT.RefreshPlannerGoals(goal); FGT.ShowTab("gear"); Choose(build)
+    return build, goal
+end
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
     name = name, add = add, options = options, actions = actions, clear = clear, remove = remove, rename = rename, camera = camera, turn = turn, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,

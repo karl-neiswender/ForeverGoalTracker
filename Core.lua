@@ -13649,6 +13649,9 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     if FGT.HandleRailCommand and FGT.HandleRailCommand(msg) then return end
     if FGT.HandleMapCommand and FGT.HandleMapCommand(msg) then return end
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
+    if msg == "testhunterpreraid" and FGT.CreateHunterPreRaidBuild then
+        FGT.CreateHunterPreRaidBuild(); return
+    end
     local opacity = msg:match("^banneropacity%s*(.*)$")
     if opacity then
         local banner, db = FGT.goalBanner, ForeverGoalTrackerDB

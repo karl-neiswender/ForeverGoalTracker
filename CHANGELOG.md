@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added a Hunter pre-raid test build with 16 tracked item slots and acquisition notes. Duplicate rings now require the correct number of owned copies.
+
 - Simplified Gear Planner’s set list and moved Add to Goals beside the name. Added set options for renaming, clearing with Undo, and removing from Goals without losing the set.
 
 - Tightened Gear Planner’s back view and dwarf male chest, shirt, tabard and leg framing. Necklaces use the full-character view.
