@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added a remembered Hide completed goals filter to My Goals, including the folded goals rail.
+- Simplified plain item set pages and changed collection headings to Items to collect.
+- Made completed Library cards quieter while keeping their completion check, date and Forever status.
+- Changed New & Updated to show matching sets and mounts directly instead of collection wrappers.
+
 - Fixed Buff Other Players appearing for unsupported classes in character-filtered views.
 - Changed Arcanite Reaper’s Blacksmithing step to use its step number.
 - Removed redundant objective bars from Hyjal Summit and the Barrow Deeps.

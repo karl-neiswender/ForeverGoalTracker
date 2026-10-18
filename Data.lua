@@ -542,6 +542,7 @@ FGT.goals = {
             {
                 icon = "inv_craneskyborneswiftmount_c60_blue",
                 name = "Skyborne - Swift Galestrider",
+                faction = "Alliance", -- eligibility for its standalone Library card
                 forever = "new",
                 -- 1,200 gold = Journeyman Riding (1,000) + the mount (200).
                 -- Genn Fairweather is also the riding trainer there.

@@ -19,7 +19,7 @@ local OPEN = list:GetWidth()
 if not OPEN or OPEN < 150 then OPEN = 258 end
 local RAIL = 98
 local CARD_OPEN = OPEN - 28
-local HEAD = 84 -- the header: view, sort and search rows (22 each, 4 apart, 6 in)
+local HEAD = 104 -- view, sort, search, then the completed-goals filter
 
 local function Motion() return FGT.Setting("celebrations") or "full" end
 local function Clamp01(x) return math.max(0, math.min(1, x)) end
@@ -154,7 +154,7 @@ local function PaintDivider(a)
 end
 
 local function FilterOn()
-    return (FGT.listQuery or "") ~= "" or (view.value or "all") ~= "all"
+    return (FGT.listQuery or "") ~= "" or (view.value or "all") ~= "all" or FGT.Setting("hideCompletedGoals")
 end
 function R:UpdateFilter()
     local shown, total = 0, 0

@@ -272,7 +272,8 @@ FGT.SETTING_DEFAULTS = {
     tallGoalArt = true,      -- full-height goal artwork, cropped without stretching (no longer in Settings; tests flip it)
     imageEffects = "full",   -- "full": lights, embers, snow, bloom, dust and clouds on goal art; "subtle": the clouds only; "off": none
     mapPins = "auto",        -- NPC map pins: "auto" (TomTom if installed), "tomtom", "game"
-    hideCompletedSteps = false, -- guide filter, controlled beside Step by step
+    hideCompletedGoals = false, -- My Goals list filter; progress stays intact
+    hideCompletedSteps = false, -- guide filter, controlled beside the steps heading
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
 }
 
@@ -3914,6 +3915,27 @@ do
         view:SetValue(view.value or "all")
     end
     FGT.RefreshViewOptions()
+    local completed = CreateFrame("Button", nil, FGT.listSearch)
+    FGT.completedGoalsBtn = completed
+    completed:SetPoint("TOPLEFT", FGT.listSearch, "BOTTOMLEFT", 2, -3)
+    completed:SetPoint("TOPRIGHT", FGT.listSearch, "BOTTOMRIGHT", -2, -3)
+    completed:SetHeight(16)
+    completed.text = NewFontString(completed, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    completed.text:SetPoint("LEFT")
+    function FGT.RefreshCompletedGoalsButton()
+        completed.text:SetText(FGT.Setting("hideCompletedGoals") and "Show completed goals" or "Hide completed goals")
+    end
+    completed:SetScript("OnEnter", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
+    completed:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
+    completed:SetScript("OnClick", function()
+        FGT.SetSetting("hideCompletedGoals", not FGT.Setting("hideCompletedGoals"))
+        FGT.RefreshCompletedGoalsButton()
+        listScrollObj.scroll:SetVerticalScroll(0)
+        LayoutGoalList()
+    end)
+    listScrollObj.scroll:ClearAllPoints()
+    listScrollObj.scroll:SetPoint("TOPLEFT", completed, "BOTTOMLEFT", -2, -4)
+    listScrollObj.scroll:SetPoint("BOTTOMRIGHT", listPanel, "BOTTOMRIGHT", -10, 4)
     view.onChange = function()
         LayoutGoalList()
         -- keep the open goal in view; otherwise open the first one shown
@@ -3929,8 +3951,11 @@ do
 end
 function FGT.MyGoalsShows(goal)
     local view = FGT.myGoalsView
-    if not view or view.value ~= "me" then return true end
-    return FGT.GoalFits(goal, FGT.PlayerProfile())
+    if FGT.Setting("hideCompletedGoals") then
+        local done, total = GoalProgress(goal)
+        if total > 0 and done >= total then return false end
+    end
+    return not view or view.value ~= "me" or FGT.GoalFits(goal, FGT.PlayerProfile())
 end
 -- Closing mid-drag (Escape) must not leave the window stuck to the mouse.
 main:HookScript("OnHide", function()
@@ -4034,6 +4059,7 @@ local function RefreshGoalList()
         row.bar:Show()
         FGT.CheckCelebration(row, "card_" .. row.goal.id, complete, FGT.CelebrateRow)
     end
+    if FGT.Setting("hideCompletedGoals") and LayoutGoalList then LayoutGoalList() end
 end
 
 local SelectGoal -- forward declare
@@ -4188,6 +4214,7 @@ for i, goal in ipairs(FGT.goals) do
 end
 
 LayoutGoalList = function()
+    if FGT.RefreshCompletedGoalsButton then FGT.RefreshCompletedGoalsButton() end
     -- the My Goals view (All goals / This character) narrows what's listed
     local sorted = {}
     for _, g in ipairs(ActiveGoals()) do
@@ -4268,12 +4295,14 @@ LayoutGoalList = function()
         FGT.viewEmpty:SetPoint("RIGHT", listContent, "RIGHT", -14, 0)
     end
     FGT.viewEmpty:SetText((FGT.listQuery or "") ~= "" and "No goals match your search."
+        or FGT.Setting("hideCompletedGoals") and "No goals match this view. Try Show completed goals or Show: All goals."
         or "None of your goals fit this character. Show: All goals lists them all.")
     FGT.viewEmpty:SetShown(#sorted == 0 and #ActiveGoals() > 0)
 
     local totalListHeight = -y
     listContent:SetHeight(math.max(totalListHeight, listScrollObj.scroll:GetHeight()))
     listScrollObj:Update()
+    if FGT.Rail then FGT.Rail:UpdateFilter() end
 end
 
 FGT.LayoutGoalList = LayoutGoalList
@@ -8108,6 +8137,15 @@ function FGT.LayoutTips(goal, yOffset, width)
     return yOffset
 end
 
+-- Plain item lists need no repeated section heading. Recipes keep their groups.
+function FGT.SimpleItemCollection(goal)
+    if goal.group or not (goal.category == "Item Set" or goal.armorClass) or not goal.sections or #goal.sections ~= 1 then return false end
+    for _, piece in ipairs(goal.sections[1].pieces) do
+        if #(piece.materials or FGT.EMPTY) > 0 then return false end
+    end
+    return true
+end
+
 local function RefreshTierSections(goal, view)
     local stepsContainer = view and view.content or stepsContainer
     local stepRowPool = view and view.rows or stepRowPool
@@ -8117,11 +8155,12 @@ local function RefreshTierSections(goal, view)
     local yOffset = 0
     local rowIndex = 0
     local headerIndex = 0
+    local simple = FGT.SimpleItemCollection(goal)
 
     for si, section in ipairs(goal.sections) do
         if FGT.ShowStepSection(goal, si, section, view) then
         headerIndex = headerIndex + 1
-        if not (view and view.singleSection == si) then
+        if not simple and not (view and view.singleSection == si) then
         local header = GetHeaderRow(headerIndex, view)
         header:SetParent(stepsContainer)
         header:ClearAllPoints()
@@ -8173,7 +8212,7 @@ local function RefreshTierSections(goal, view)
         yOffset = yOffset + header:GetHeight() + 4
         elseif headerRowPool[headerIndex] then headerRowPool[headerIndex]:Hide() end
 
-        if FGT.SectionIsOpen(goal, si) then
+        if simple or FGT.SectionIsOpen(goal, si) then
             for pi, piece in ipairs(section.pieces) do
                 local md, mt = FGT.PieceProgress(goal.id, si, pi, piece)
                 if not FGT.PieceSkipped(piece) and not FGT.HideGuideEntry("piece:" .. si .. ":" .. pi, md == mt, view) then -- (closes after the materials)
@@ -8183,7 +8222,7 @@ local function RefreshTierSections(goal, view)
                 row:ClearAllPoints()
                 row:SetPoint("TOPLEFT", stepsContainer, "TOPLEFT", 0, -yOffset)
                 row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
-                local indent = view and view.singleSection and 2 or 18
+                local indent = (simple or view and view.singleSection) and 2 or 18
                 SetRowIndent(row, indent)
                 row:SetStepIcon(not view and piece.icon or nil) -- compact pop-out keeps one header icon
                 FGT.ClearStepLock(row) -- grouped collection rows are independent in this pass
@@ -8300,6 +8339,7 @@ RefreshSteps = function(goal, view)
     local stepRowPool = view and view.rows or stepRowPool
     local headerRowPool = view and view.headers or headerRowPool
     FGT.BeginGuideLayout(goal, view)
+    if not view then stepsHeader:SetText((goal.category == "Item Set" or goal.armorClass) and "Items to collect" or "Steps") end
     local filter = FGT.completedStepsBtn
     if not view then filter.text:SetText(FGT.Setting("hideCompletedSteps") and "Show completed" or "Hide completed")
     filter:SetSize(math.ceil(filter.text:GetStringWidth()) + 4, 16) end
@@ -9630,6 +9670,11 @@ function LF.SearchMatch(goal)
     local q = FGT.libSearch
     if not q or q == "" then return true end
     local hay = (goal.name .. " " .. (goal.short or "") .. " " .. (goal.category or "") .. " " .. (goal.faction or "")):lower()
+    if goal.armorParent then
+        local parent = FGT.GoalById(goal.armorParent)
+        if parent then hay = hay .. " " .. parent.name:lower() end
+    end
+    if goal.partOf then hay = hay .. " " .. goal.partOf.name:lower() end
     for _, child in ipairs(goal.armorChildren or {}) do hay = hay .. " " .. child.name:lower() end
     return hay:find(q, 1, true) ~= nil
 end
@@ -9692,24 +9737,30 @@ end
 -- card for My character. The card stands for that part: adding it picks
 -- the part, just like its row under Choose.
 LF.partGoals = {}
+function LF.PartGoal(goal, si)
+    local section = goal.sections[si]
+    local key = goal.id .. "#" .. si
+    if not LF.partGoals[key] then
+        local faction = section.faction or goal.faction
+        for _, piece in ipairs(section.pieces or {}) do
+            faction = faction or (piece.auto and piece.auto.forFaction)
+        end
+        LF.partGoals[key] = { id = key, partOf = goal, partKey = si, icon = section.icon,
+            name = section.name:match(" %- (.+)$") or section.name,
+            partLabel = (section.name:match("^(.-) %- ") or "") .. " epic mount",
+            category = goal.category, difficulty = goal.difficulty, faction = faction, needs = goal.needs,
+            timeEstimate = goal.timeEstimate, forever = section.forever or goal.forever,
+            itemQuality = goal.itemQuality }
+    end
+    return LF.partGoals[key]
+end
 function LF.RacePart(goal, race)
     if not (race and goal.group and goal.sections) then return nil end
     for si, section in ipairs(goal.sections) do
         if section.forever ~= "new" or FGT.isForever then
             for _, piece in ipairs(section.pieces or {}) do
                 if piece.skipIfRace == race or (piece.auto and piece.auto.forRace == race) then
-                    local key = goal.id .. "#" .. si
-                    local pg = LF.partGoals[key]
-                    if not pg then
-                        pg = { id = key, partOf = goal, partKey = si, icon = section.icon,
-                            name = section.name:match(" %- (.+)$") or section.name,
-                            partLabel = (section.name:match("^(.-) %- ") or "") .. " epic mount",
-                            category = goal.category, difficulty = goal.difficulty,
-                            timeEstimate = goal.timeEstimate, forever = section.forever,
-                            itemQuality = goal.itemQuality }
-                        LF.partGoals[key] = pg
-                    end
-                    return pg
+                    return LF.PartGoal(goal, si)
                 end
             end
         end
@@ -9730,7 +9781,20 @@ function LF.Results(f)
     local out = {}
     for _, g in ipairs(FGT.goals) do
         local part = flat and flat.race and LF.RacePart(g, flat.race)
-        if part then
+        if LF.newOnly and g.armorChildren then
+            for _, child in ipairs(g.armorChildren) do
+                if FilterMatches(f, child) and LF.Available(child, true)
+                    and #LF.Blockers(child) == 0 and LF.SearchMatch(child) then out[#out + 1] = child end
+            end
+        elseif LF.newOnly and g.group and g.sections then
+            for si, section in ipairs(g.sections) do
+                if FGT.ForeverWord(section) or FGT.ForeverWord(g) then
+                    local pg = LF.PartGoal(g, si)
+                    if FilterMatches(f, pg) and LF.Available(pg, true)
+                        and #LF.Blockers(pg) == 0 and LF.SearchMatch(pg) then out[#out + 1] = pg end
+                end
+            end
+        elseif part then
             if FilterMatches(f, g) and LF.Available(g) and #LF.Blockers(part) == 0 and LF.SearchMatch(part) then
                 out[#out + 1] = part
             end
@@ -10193,9 +10257,9 @@ local function StyleCardButtonInner(card)
         card.btnCheck:SetVertexColor(1, 1, 1)
     end
     if done and not hover then
-        card.btn:SetEtch(STYLE.done)
+        card.btn:SetEtch(STYLE.button)
         card.btnText:SetText("Complete")
-        card.btnText:SetTextColor(0.62, 0.95, 0.50)
+        card.btnText:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         card.btnCheck:Show()
     elseif on then
         card.btn:SetEtch(hover and STYLE.dangerHv or STYLE.rowSel)
@@ -10315,7 +10379,7 @@ local function GetCard(goal)
     card.bar:SetPoint("BOTTOMLEFT", card.icon, "BOTTOMRIGHT", 10, 1)
     card.bar:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -10, 0)
     card.bar.label:Hide()
-    -- finished goals: green wash like the My Goals cards (shown in LayoutLibrary)
+    -- Reuse the completion overlay frame; Library cards keep its wash hidden.
     FGT.AddCelebrationFX(card, 3, 56)
 
     -- hover the card for the full description
@@ -10371,9 +10435,9 @@ local function StyleSubButton(sub)
     local d, t = PartProgress(sub.goal, sub.key)
     if on and t > 0 and d >= t and not hover then
         -- finished part: Complete in green (hover still offers Remove)
-        sub.btn:SetEtch(STYLE.done)
+        sub.btn:SetEtch(STYLE.button)
         sub.btnText:SetText("Complete")
-        sub.btnText:SetTextColor(0.62, 0.95, 0.50)
+        sub.btnText:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
     elseif on then
         sub.btn:SetEtch(hover and STYLE.dangerHv or STYLE.rowSel)
         sub.btnText:SetText(hover and "Remove" or "Added")
@@ -10411,8 +10475,7 @@ local function GetSub(card, index, part)
         sub.bar:SetPoint("BOTTOMLEFT", sub.icon, "BOTTOMRIGHT", 8, -3)
         sub.bar:SetPoint("RIGHT", sub.btn, "LEFT", -10, 0)
         sub.bar.label:Hide()
-        -- Finished parts: the same quiet look as finished group rows on
-        -- the goal page (green wash, green check, grey icon, no bar).
+        -- Finished Library parts use a small check and muted icon, without a wash.
         FGT.AddCelebrationFX(sub, 3, 26)
         sub.doneCheck = sub:CreateTexture(nil, "OVERLAY")
         sub.doneCheck:SetTexture(FGT.Icon("check-white"))
@@ -10460,24 +10523,20 @@ LayoutLibrary = function()
         card:SetEtch(STYLE.row)
         card.restStyle = STYLE.row
         card.metaBase = isNew and (FGT.NewTag(isNew) .. "  ·  " .. card.metaPlain) or card.metaPlain
-        -- Finished goals: the quiet finished look (green wash, grey icon,
-        -- softer name, no bar) and the completion date on the info line.
+        -- Finished cards keep their normal surface and Forever identity.
+        -- A muted icon, small check and completion text replace the progress bar.
         local gd, gt = LF.Progress(g)
         local finished = LF.On(g) and gt > 0 and gd >= gt
         if finished then
-            -- the whole card goes grey (Karl): no blue, grey border, grey
-            -- icon and frame, one grey info line without its colors or the
-            -- NEW dot; the green wash and the green Complete button stay
-            local on = FGT.CompletedOn(g)
+            local sourceGoal = g.partOf or g
+            local on = FGT.CompletedOn(sourceGoal)
             local plain = card.metaPlain:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
-            card.metaBase = (isNew and FGT.ForeverDot(14, true) or "") .. "|cff7d7d78" .. (isNew and (isNew .. "  ·  ") or "") .. plain
-                .. "  ·  " .. (on and ("Completed " .. on) or "Complete") .. "|r"
-            card.foreverNew = false
-            card:SetEtch(STYLE.doneCard)
-            card.restStyle = STYLE.doneCard
+            card.metaBase = (isNew and (FGT.NewTag(isNew) .. "  ·  ") or "")
+                .. "|cff7d7d78" .. plain .. "  ·  " .. (on and ("Completed " .. on) or "Complete") .. "|r"
+
         end
-        card.icon:SetIcon(FGT.GoalIcon(g), finished and { 0.40, 0.40, 0.39 } or card.baseRim)
-        card.doneGlow:SetShown(finished)
+        card.icon:SetIcon(FGT.GoalIcon(g), isNew and C.FOREVER or finished and { 0.40, 0.40, 0.39 } or card.baseRim)
+        card.doneGlow:Hide()
         card.icon.tex:SetDesaturated(finished)
         card.icon.tex:SetAlpha(finished and 0.6 or 1)
         local nc = finished and C.SUBTEXT or C.TEXT
@@ -10512,7 +10571,7 @@ LayoutLibrary = function()
                     local finished = chosen and pt > 0 and pd >= pt
                     sub.bar:SetProgress(pd, pt)
                     sub.bar:SetShown(chosen and not finished)
-                    sub.doneGlow:SetShown(finished)
+                    sub.doneGlow:Hide()
                     sub.doneCheck:SetShown(finished)
                     sub.icon.tex:SetDesaturated(finished)
                     sub.icon.tex:SetAlpha(finished and 0.6 or 1)
@@ -10535,7 +10594,7 @@ LayoutLibrary = function()
         for _, g in ipairs(list) do shownSet[g] = true end
         for _, g in ipairs(FGT.goals) do
             if not shownSet[g] and LF.Available(g) and LF.SearchMatch(g)
-                and not (LF.Flat() and (g.armorChildren or LF.RacePart(g, LF.Flat().race))) then hidden[#hidden + 1] = g end
+                and not (LF.newOnly and g.group) and not (LF.Flat() and (g.armorChildren or LF.RacePart(g, LF.Flat().race))) then hidden[#hidden + 1] = g end
         end
         table.sort(hidden, function(a, b) return a.name < b.name end)
     end

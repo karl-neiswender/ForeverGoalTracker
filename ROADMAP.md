@@ -17,19 +17,21 @@ The fixes and refinements below will ship in small patches as they are ready. Th
 - Hyjal Summit and the Barrow Deeps no longer repeat their binary objective as a small progress bar.
 - War mount guides name each faction’s vendor and link the city to its PvP hall approach. Forever positions remain unconfirmed.
 
+- My Goals can hide completed goals and remember that choice.
+- Plain item set pages show their items directly under Items to collect; recipe sections remain expandable.
+- Completed Library cards use a quieter completion treatment.
+- New & Updated lists matching individual sets and mounts directly.
+
 ## Patch improvements: fixes and clearer guides
 
 - **Goals that fit your character:** continue reviewing class, race, faction and profession filtering.
-- **Only New & Updated results:** show the matching Forever mounts and sets directly, without unrelated entries inside their collection groups.
-- **Simpler item set pages:** remove redundant single-section headers, especially for Tier 1 and Tier 2, and use a heading that fits a collection of items.
 
 ## Patch improvements: finding goals and understanding progress
 
-- **More My Goals filters:** filter by category, hide completed goals and remember your chosen view.
+- **More My Goals filters:** filter by category and remember your chosen character view.
 - **Clear tracking scope:** show whether progress comes from your current character or your recorded characters, and which character contributes. Filtering a list should stay separate from changing how progress counts.
 - **Fewer accidental completions:** strengthen verified prerequisite locks and explore a deliberate manual override for steps the addon cannot reliably verify.
 - **Reputation progress:** show progress toward Friendly, Honored, Revered and Exalted, with the contributing character clearly identified.
-- **Quieter completed Library goals:** keep completion easy to recognize without a distracting full-card color treatment.
 
 ## Patch improvements: guides and progress feedback
 
