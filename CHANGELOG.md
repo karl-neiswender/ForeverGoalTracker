@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Added an early Gear Planner prototype with character-specific named builds, a head-item picker and a character preview. Full item search, crafting guides and My Goals integration are still planned.
+- Expanded Gear Planner with complete Tier 3 sets for every class, slot-specific selection, item names and unique ring placement.
 
 ## 2.15.2
 

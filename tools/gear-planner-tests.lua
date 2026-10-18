@@ -45,6 +45,7 @@ assert(#T.store().builds == 0, "other character cannot see owner builds")
 UnitName = function() return "PlannerOwner" end
 F.ShowTab("tracker"); F.ShowTab("gear")
 assert(T.name:GetText() == "Renamed")
+click(T.head)
 click(T.unequip)
 assert(not store.builds[1].slots[1], "unequip clears only the planned target")
 assert(T.head.itemName:GetText() == "", "unequip removes item label")
@@ -83,3 +84,38 @@ assert(not T.picker:IsShown(), "outside click closes picker")
 local count = 0
 for _ in pairs(T.slots) do count = count + 1 end
 assert(count == 19, "armor, accessory and weapon placeholders are present")
+
+-- Every class has its eight canonical Tier 3 armor pieces plus its unique ring.
+local classes = {"WARRIOR","PALADIN","HUNTER","ROGUE","PRIEST","SHAMAN","MAGE","WARLOCK","DRUID"}
+local names = {"HeadSlot","ShoulderSlot","ChestSlot","HandsSlot","LegsSlot","WaistSlot","WristSlot","FeetSlot"}
+local ids = {1,3,5,10,7,6,9,8}
+local oldClass = UnitClass
+local counts = {}
+for _, item in ipairs(T.catalogue) do counts[item.class] = (counts[item.class] or 0) + 1 end
+for _, class in ipairs(classes) do
+    assert(counts[class] == 10, "each class has Tier 1 head plus complete nine-piece Tier 3")
+    UnitClass = function() return class, class end
+    F.ShowTab("gear"); T.new(); text(T.name, class .. " full Tier 3")
+    local build = T.store().builds[#T.store().builds]
+    for i, slot in ipairs(names) do
+        click(T.slots[slot])
+        if slot == "HeadSlot" then click(T.results[2]) else click(T.results[1]) end
+        local item = build.slots[ids[i]]
+        assert(item, "slot selection saves its target")
+        for _, entry in ipairs(T.catalogue) do
+            if entry.id == item then assert(entry.class == class and entry.slot == slot, "picker restricts class and slot") end
+        end
+        assert(T.picker:IsShown(), "armor selection keeps picker open")
+        assert(T.head.itemName:GetText() ~= "", "equipping armor preserves head label")
+    end
+    click(T.slots.Finger0Slot); click(T.results[1])
+    local ring = build.slots[11]
+    assert(ring)
+    click(T.slots.Finger1Slot); click(T.results[1])
+    assert(build.slots[12] == ring and not build.slots[11], "unique ring moves instead of duplicating")
+    click(T.slots.ShoulderSlot); click(T.unequip)
+    assert(not build.slots[3] and build.slots[1] and build.slots[5], "unequip only clears chosen slot")
+end
+UnitClass = oldClass
+F.ShowTab("tracker")
+print("  all nine classes: full Tier 3, class/slot filtering, independent targets and unique ring placement ok")

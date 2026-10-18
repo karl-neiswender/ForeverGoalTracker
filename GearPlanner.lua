@@ -18,28 +18,52 @@ function FGT.GearPlannerSlotTexture(slotName)
     end
     return "Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. slotName:gsub("%d", ""):gsub("Slot$", "")
 end
-local emptyHeadTexture = FGT.GearPlannerSlotTexture("HeadSlot")
+local slotIds = { HeadSlot=1, NeckSlot=2, ShoulderSlot=3, ShirtSlot=4, ChestSlot=5,
+    WaistSlot=6, LegsSlot=7, FeetSlot=8, WristSlot=9, HandsSlot=10,
+    Finger0Slot=11, Finger1Slot=12, Trinket0Slot=13, Trinket1Slot=14,
+    BackSlot=15, MainHandSlot=16, SecondaryHandSlot=17, RangedSlot=18, TabardSlot=19 }
+local byId = {}
 
 local catalogue = {
-    { class = "WARRIOR", name = "Helm of Might", id = 16866, icon = "Interface\\Icons\\inv_helmet_09", source = "Garr — Molten Core" },
-    { class = "PALADIN", name = "Lawbringer Helm", id = 16854, icon = "Interface\\Icons\\inv_helmet_05", source = "Garr — Molten Core" },
-    { class = "HUNTER", name = "Giantstalker's Helmet", id = 16846, icon = "Interface\\Icons\\inv_helmet_05", source = "Garr — Molten Core" },
-    { class = "ROGUE", name = "Nightslayer Cover", id = 16821, icon = "Interface\\Icons\\inv_helmet_41", source = "Garr — Molten Core" },
-    { class = "PRIEST", name = "Circlet of Prophecy", id = 16813, icon = "Interface\\Icons\\inv_helmet_34", source = "Garr — Molten Core" },
-    { class = "SHAMAN", name = "Earthfury Helmet", id = 16842, icon = "Interface\\Icons\\inv_helmet_09", source = "Garr — Molten Core" },
-    { class = "MAGE", name = "Arcanist Crown", id = 16795, icon = "Interface\\Icons\\inv_helmet_53", source = "Garr — Molten Core" },
-    { class = "WARLOCK", name = "Felheart Horns", id = 16808, icon = "Interface\\Icons\\inv_helmet_08", source = "Garr — Molten Core" },
-    { class = "DRUID", name = "Cenarion Helm", id = 16834, icon = "Interface\\Icons\\inv_helmet_09", source = "Garr — Molten Core" },
-    { class = "WARRIOR", name = "Dreadnaught Helmet", id = 22418, icon = "Interface\\Icons\\inv_helmet_58", source = "Tier 3 turn-in — Light's Hope Chapel" },
-    { class = "PALADIN", name = "Redemption Headpiece", id = 22428, icon = "Interface\\Icons\\inv_helmet_15", source = "Tier 3 turn-in — Light's Hope Chapel" },
-    { class = "HUNTER", name = "Cryptstalker Headpiece", id = 22438, icon = "Interface\\Icons\\inv_helmet_15", source = "Tier 3 turn-in — Light's Hope Chapel" },
-    { class = "ROGUE", name = "Bonescythe Helmet", id = 22478, icon = "Interface\\Icons\\inv_helmet_58", source = "Tier 3 turn-in — Light's Hope Chapel" },
-    { class = "PRIEST", name = "Circlet of Faith", id = 22514, icon = "Interface\\Icons\\inv_crown_01", source = "Tier 3 turn-in — Light's Hope Chapel" },
-    { class = "DRUID", name = "Dreamwalker Headpiece", id = 22490, icon = "Interface\\Icons\\inv_helmet_15", source = "Tier 3 turn-in — Light's Hope Chapel" },
-    { class = "MAGE", name = "Frostfire Circlet", id = 22498, icon = "Interface\\Icons\\inv_crown_01", source = "Tier 3 turn-in — Light's Hope Chapel" },
-    { class = "WARLOCK", name = "Plagueheart Circlet", id = 22506, icon = "Interface\\Icons\\inv_crown_01", source = "Tier 3 turn-in — Light's Hope Chapel" },
-    { class = "SHAMAN", name = "Earthshatter Headpiece", id = 22466, icon = "Interface\\Icons\\inv_helmet_15", source = "Tier 3 turn-in — Light's Hope Chapel" },
+    { class = "WARRIOR", name = "Helm of Might", id = 16866, icon = "Interface\\Icons\\inv_helmet_09", slot = "HeadSlot", source = "Garr — Molten Core" },
+    { class = "PALADIN", name = "Lawbringer Helm", id = 16854, icon = "Interface\\Icons\\inv_helmet_05", slot = "HeadSlot", source = "Garr — Molten Core" },
+    { class = "HUNTER", name = "Giantstalker's Helmet", id = 16846, icon = "Interface\\Icons\\inv_helmet_05", slot = "HeadSlot", source = "Garr — Molten Core" },
+    { class = "ROGUE", name = "Nightslayer Cover", id = 16821, icon = "Interface\\Icons\\inv_helmet_41", slot = "HeadSlot", source = "Garr — Molten Core" },
+    { class = "PRIEST", name = "Circlet of Prophecy", id = 16813, icon = "Interface\\Icons\\inv_helmet_34", slot = "HeadSlot", source = "Garr — Molten Core" },
+    { class = "SHAMAN", name = "Earthfury Helmet", id = 16842, icon = "Interface\\Icons\\inv_helmet_09", slot = "HeadSlot", source = "Garr — Molten Core" },
+    { class = "MAGE", name = "Arcanist Crown", id = 16795, icon = "Interface\\Icons\\inv_helmet_53", slot = "HeadSlot", source = "Garr — Molten Core" },
+    { class = "WARLOCK", name = "Felheart Horns", id = 16808, icon = "Interface\\Icons\\inv_helmet_08", slot = "HeadSlot", source = "Garr — Molten Core" },
+    { class = "DRUID", name = "Cenarion Helm", id = 16834, icon = "Interface\\Icons\\inv_helmet_09", slot = "HeadSlot", source = "Garr — Molten Core" },
+
 }
+-- Reuse the Library's Tier 3 armor tuples; one canonical item/icon source.
+local tier3Slots = { "HeadSlot", "ShoulderSlot", "ChestSlot", "HandsSlot", "LegsSlot", "WaistSlot", "WristSlot", "FeetSlot" }
+local tier3 = FGT.armorCollections and FGT.armorCollections.tier3
+for _, section in ipairs(tier3 and tier3.sections or {}) do
+    local class = section.name:match("^(.-) %- ")
+    for i, piece in ipairs(section.pieces or {}) do
+        catalogue[#catalogue + 1] = { class = class:upper(), name = piece.name,
+            id = piece.auto.item, icon = "Interface\\Icons\\" .. piece.icon,
+            slot = tier3Slots[i], source = "Tier 3 turn-in — Light's Hope Chapel" }
+    end
+end
+-- Classic item tooltip IDs/names/icons verified against Wowhead; Forever sources unconfirmed.
+local rings = {
+    { "WARRIOR", 23059, "Ring of the Dreadnaught" }, { "ROGUE", 23060, "Bonescythe Ring" },
+    { "PRIEST", 23061, "Ring of Faith" }, { "MAGE", 23062, "Frostfire Ring" },
+    { "WARLOCK", 23063, "Plagueheart Ring" }, { "DRUID", 23064, "Ring of the Dreamwalker" },
+    { "SHAMAN", 23065, "Ring of the Earthshatterer" }, { "PALADIN", 23066, "Ring of Redemption" },
+    { "HUNTER", 23067, "Ring of the Cryptstalker" },
+}
+for _, ring in ipairs(rings) do
+    catalogue[#catalogue + 1] = { class = ring[1], id = ring[2], name = ring[3], slot = "FingerSlot",
+        icon = "Interface\\Icons\\inv_jewelry_ring_51naxxramas", unique = true,
+        source = "Kel'Thuzad — Naxxramas" }
+end
+for _, item in ipairs(catalogue) do byId[item.id] = item end
+local function SlotMatches(item, slot)
+    return item.slot == slot or (item.slot == "FingerSlot" and (slot == "Finger0Slot" or slot == "Finger1Slot"))
+end
 local function Store()
     local db = ForeverGoalTrackerDB
     db.gearPlanner = db.gearPlanner or { version = 1, characters = {} }
@@ -145,7 +169,10 @@ end
 local function Dress()
     if not model.TryOn then return end
     model:Undress()
-    if selected and selected.slots[1] then model:TryOn("item:" .. selected.slots[1]) end
+    for id = 1, 19 do
+        local item = selected and byId[selected.slots[id]]
+        if item and item.slot ~= "FingerSlot" then model:TryOn("item:" .. item.id) end
+    end
 end
 model:SetScript("OnModelLoaded", function() Dress(); ApplyZoom(zoom) end)
 local function Rotate()
@@ -250,11 +277,6 @@ for _, spec in ipairs(slots) do
         button.itemName:SetPoint("BOTTOM", button, "TOP", 0, 6)
         button.itemName:SetJustifyH("CENTER")
     end
-    button:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText(spec[2], 1, 1, 1)
-        GameTooltip:AddLine("Item selection coming later", 0.7, 0.7, 0.7); GameTooltip:Show()
-    end)
-    button:SetScript("OnLeave", function() GameTooltip:Hide() end)
     slotButtons[spec[1]] = button
 end
 local function LayoutSlots()
@@ -286,7 +308,7 @@ picker:SetWidth(244); picker:SetHeight(176); U.etch(picker, U.styles.panel); pic
 local search = CreateFrame("EditBox", nil, picker, "InputBoxTemplate")
 search:SetAutoFocus(false); search:SetSize(208, 26); search:SetPoint("TOPLEFT", 16, -12)
 search:SetFontObject("GameFontHighlight")
-Label(picker, "Tier 1 + 3 helm test list", 10, 12, -150)
+local pickerNote = Label(picker, "Tier 3 test list", 10, 12, -150)
 local noResults = Label(picker, "", 11, 12, -48)
 local resultRows = {}
 local menu = CreateFrame("Frame", nil, controls, "BackdropTemplate")
@@ -307,11 +329,6 @@ clickAway:SetScript("OnEvent", function()
     if slotButtons[selectedSlot] and slotButtons[selectedSlot]:IsMouseOver() then return end
     Deselect()
 end)
-for slotName, button in pairs(slotButtons) do
-    button:SetScript("OnClick", function()
-        Deselect(); selectedSlot = slotName; button:SetEtch(U.styles.rowSel)
-    end)
-end
 local replace = Button(menu, "Replace", 130); replace:SetPoint("TOPLEFT", 10, -8)
 local unequip = Button(menu, "Unequip", 130); unequip:SetPoint("TOPLEFT", 10, -40)
 local Refresh, Results
@@ -352,18 +369,19 @@ Refresh = function()
     modelArea:SetShown(selected ~= nil); controls:SetShown(selected ~= nil)
     status:SetText(not selected and "Create a build to begin."
         or (selected and selected.name == "") and "Name your set to save it." or "Saved")
-    local item
-    for _, entry in ipairs(catalogue) do if selected and entry.id == selected.slots[1] then item = entry end end
-    head.icon:SetTexture(item and item.icon or emptyHeadTexture); head.text:SetText("")
-    head.itemName:SetText(item and item.name or "")
-    head.itemName:SetTextColor(0.75, 0.45, 1)
+    for slot, button in pairs(slotButtons) do
+        local item = selected and byId[selected.slots[slotIds[slot]]]
+        button.icon:SetTexture(item and item.icon or FGT.GearPlannerSlotTexture(slot))
+        button.itemName:SetText(item and item.name or "")
+        button.itemName:SetTextColor(0.75, 0.45, 1)
+    end
 end
 Results = function()
     local _, class = UnitClass("player")
     local query = (search:GetText() or ""):lower(); local count = 0
     for _, row in ipairs(resultRows) do row:Hide() end
     for _, entry in ipairs(catalogue) do
-        if entry.class == class and entry.name:lower():find(query, 1, true) then
+        if entry.class == class and SlotMatches(entry, selectedSlot) and entry.name:lower():find(query, 1, true) then
             count = count + 1
             local row = resultRows[count]
             if not row then
@@ -377,8 +395,16 @@ Results = function()
             row.text:SetTextColor(0.75, 0.45, 1)
             row.source:SetText(entry.source)
             row:SetScript("OnClick", function()
-                if not selected then return end
-                selected.slots[1] = entry.id; Dress(); Save(); Refresh()
+                if not selected or not selectedSlot or not SlotMatches(entry, selectedSlot) then return end
+                local id = slotIds[selectedSlot]
+                local moved = false
+                if entry.unique then
+                    for other, itemId in pairs(selected.slots) do
+                        if other ~= id and itemId == entry.id then selected.slots[other] = nil; moved = true end
+                    end
+                end
+                selected.slots[id] = entry.id; Dress(); Save(); Refresh()
+                if moved then status:SetText("Moved ring to the selected slot.") end
             end)
             row:SetScript("OnEnter", function(self)
                 GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetHyperlink("item:" .. entry.id)
@@ -389,29 +415,53 @@ Results = function()
             row:SetScript("OnLeave", function() GameTooltip:Hide() end); row:Show()
         end
     end
-    noResults:SetText(count == 0 and "No matching helms in this test list." or "")
+    noResults:SetText(count == 0 and "No matching items in this slot." or "")
 end
 search:SetScript("OnTextChanged", Results)
 search:SetScript("OnEscapePressed", Deselect)
-local function OpenPicker()
-    selectedSlot = "HeadSlot"; head:SetEtch(U.styles.rowSel)
-    menu:Hide(); picker:Show(); search:SetText(""); Results(); Focus(true)
+local function PositionPopup(frame)
+    local button = slotButtons[selectedSlot]
+    if not button then return end
+    local spec
+    for _, value in ipairs(slots) do if value[1] == selectedSlot then spec = value; break end end
+    frame:ClearAllPoints()
+    local edge = spec[4] >= 5 and "BOTTOM" or "TOP"
+    if spec[3] == "BOTTOM" then
+        frame:SetPoint("BOTTOM", button, "TOP", 0, 8)
+    elseif spec[3] == "RIGHT" then
+        frame:SetPoint(edge .. "RIGHT", button, edge .. "LEFT", -10, 0)
+    else
+        frame:SetPoint(edge .. "LEFT", button, edge .. "RIGHT", 10, 0)
+    end
 end
-head:SetScript("OnClick", function()
-    selectedSlot = "HeadSlot"; head:SetEtch(U.styles.rowSel)
-    if selected and selected.slots[1] then Focus(true); menu:SetShown(not menu:IsShown()); picker:Hide()
-    else OpenPicker() end
-end)
-head:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    if selected and selected.slots[1] then GameTooltip:SetHyperlink("item:" .. selected.slots[1])
-    else GameTooltip:SetText("Head", 1, 1, 1); GameTooltip:AddLine("Choose a helm", 1, 1, 1) end
-    GameTooltip:Show()
-end)
-head:SetScript("OnLeave", function() GameTooltip:Hide() end)
+local function OpenPicker()
+    if not selectedSlot then return end
+    slotButtons[selectedSlot]:SetEtch(U.styles.rowSel)
+    menu:Hide(); PositionPopup(picker); picker:Show(); search:SetText("")
+    pickerNote:SetText(selectedSlot == "HeadSlot" and "Tier 1 + 3 test list" or "Tier 3 test list")
+    Results(); Focus(selectedSlot == "HeadSlot")
+end
+for _, spec in ipairs(slots) do
+    local slot, label = spec[1], spec[2]
+    local button = slotButtons[slot]
+    button:SetScript("OnClick", function()
+        Deselect(); selectedSlot = slot; button:SetEtch(U.styles.rowSel)
+        if selected and selected.slots[slotIds[slot]] then
+            PositionPopup(menu); menu:Show(); Focus(slot == "HeadSlot")
+        else OpenPicker() end
+    end)
+    button:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        local item = selected and byId[selected.slots[slotIds[slot]]]
+        if item then GameTooltip:SetHyperlink("item:" .. item.id)
+        else GameTooltip:SetText(label, 1, 1, 1); GameTooltip:AddLine("Choose an item", 1, 1, 1) end
+        GameTooltip:Show()
+    end)
+    button:SetScript("OnLeave", function() GameTooltip:Hide() end)
+end
 replace:SetScript("OnClick", OpenPicker)
 unequip:SetScript("OnClick", function()
-    if selected then selected.slots[1] = nil; Dress(); Save(); Refresh() end
+    if selected and selectedSlot then selected.slots[slotIds[selectedSlot]] = nil; Dress(); Save(); Refresh() end
     menu:Hide()
 end)
 new:SetScript("OnClick", function() draft = { name = "", slots = {} }; Choose(draft); name:SetFocus() end)
@@ -430,4 +480,4 @@ end)
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
     name = name, head = head, picker = picker, results = resultRows, unequip = unequip,
-    modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons }
+    modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons, catalogue = catalogue }
