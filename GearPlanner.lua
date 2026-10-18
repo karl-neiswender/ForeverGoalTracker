@@ -117,17 +117,19 @@ model:SetPoint("CENTER", modelArea, "CENTER", 0, -20)
 model:SetSize(260, 340)
 model:EnableMouse(true); model:EnableMouseWheel(true)
 local zoom, facing, dragX = 0, 0, nil
-local MAX_ZOOM = 0.55 -- leave clearance for tall helmets; native player zoom tops out at 0.8
+local MAX_ZOOM, FOCUS_ZOOM = 1, 0.75
+local selectedSlot
+local slotButtons = {}
 local camera = CreateFrame("Frame", nil, P)
 local function ApplyZoom(value)
     zoom = value
     -- A portrait-shaped viewport avoids the wide panel magnifying the body.
     -- Leave extra distance for helmets and feet in the full-character view.
-    if model.SetCamDistanceScale then model:SetCamDistanceScale(1.3) end
-    if model.SetPortraitZoom then model:SetPortraitZoom(value) end
+    if model.SetCamDistanceScale then model:SetCamDistanceScale(1.3 - math.max(0, value - 0.8) * 2) end
+    if model.SetPortraitZoom then model:SetPortraitZoom(math.min(0.8, value)) end
 end
 local function Focus(on)
-    local start, target, elapsed = zoom, on and MAX_ZOOM or 0, 0
+    local start, target, elapsed = zoom, on and FOCUS_ZOOM or 0, 0
     camera:SetScript("OnUpdate", nil)
     if FGT.Setting("celebrations") == "off" then ApplyZoom(target); model:SetAlpha(1); return end
     camera:SetScript("OnUpdate", function(_, dt)
@@ -194,16 +196,53 @@ end
 modelArea:SetScript("OnSizeChanged", LayoutPreview)
 local controls = CreateFrame("Frame", nil, right)
 controls:SetAllPoints(); controls:SetFrameLevel(masks:GetFrameLevel() + 2)
-local head = Button(controls, "Head", 54, 54); head:SetPoint("TOPLEFT", 22, -96)
-head.icon = head:CreateTexture(nil, "ARTWORK"); head.icon:SetAllPoints()
+local slots = {
+    {"HeadSlot", "Head", "LEFT", 1}, {"NeckSlot", "Neck", "LEFT", 2},
+    {"ShoulderSlot", "Shoulders", "LEFT", 3}, {"BackSlot", "Back", "LEFT", 4},
+    {"ChestSlot", "Chest", "LEFT", 5}, {"ShirtSlot", "Shirt", "LEFT", 6},
+    {"TabardSlot", "Tabard", "LEFT", 7}, {"WristSlot", "Wrists", "LEFT", 8},
+    {"HandsSlot", "Hands", "RIGHT", 1}, {"WaistSlot", "Waist", "RIGHT", 2},
+    {"LegsSlot", "Legs", "RIGHT", 3}, {"FeetSlot", "Feet", "RIGHT", 4},
+    {"Finger0Slot", "Finger 1", "RIGHT", 5}, {"Finger1Slot", "Finger 2", "RIGHT", 6},
+    {"Trinket0Slot", "Trinket 1", "RIGHT", 7}, {"Trinket1Slot", "Trinket 2", "RIGHT", 8},
+}
+for _, spec in ipairs(slots) do
+    local button = Button(controls, "", 44, 44)
+    button.icon = button:CreateTexture(nil, "ARTWORK")
+    button.icon:SetPoint("TOPLEFT", 3, -3); button.icon:SetPoint("BOTTOMRIGHT", -3, 3)
+    button.icon:SetTexture(FGT.GearPlannerSlotTexture(spec[1]))
+    button:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText(spec[2], 1, 1, 1)
+        GameTooltip:AddLine("Item selection coming later", 0.7, 0.7, 0.7); GameTooltip:Show()
+    end)
+    button:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    slotButtons[spec[1]] = button
+end
+local function LayoutSlots()
+    local available = math.max(1, right:GetHeight() - 152)
+    local size = math.min(44, available / 8 - 4)
+    size = math.max(20, size)
+    for _, spec in ipairs(slots) do
+        local button = slotButtons[spec[1]]
+        button:SetSize(size, size); button:ClearAllPoints()
+        button:SetPoint("TOP" .. spec[3], right, "TOP" .. spec[3],
+            spec[3] == "LEFT" and 22 or -22, -88 - (spec[4] - 1) * (size + 4))
+    end
+end
+right:HookScript("OnSizeChanged", LayoutSlots)
+local head = slotButtons.HeadSlot
+
 local toggle = Button(controls, "Full character", 126)
 toggle:SetPoint("BOTTOM", -65, 18)
 local refocus = Button(controls, "Focus head", 116); refocus:SetPoint("LEFT", toggle, "RIGHT", 8, 0)
 toggle:SetScript("OnClick", function() Focus(false) end)
 refocus:SetScript("OnClick", function() Focus(true) end)
-local hint = Label(controls, "Drag to rotate · Scroll to zoom", 10, 20, -160)
+local hint = U.font(controls, 10)
+hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", 0, 52)
 local picker = CreateFrame("Frame", nil, controls, "BackdropTemplate")
-picker:SetPoint("TOPLEFT", head, "BOTTOMLEFT", 0, -40)
+picker:SetPoint("TOPLEFT", head, "TOPRIGHT", 10, 0)
+picker:SetFrameLevel(controls:GetFrameLevel() + 5)
+picker:EnableMouse(true)
 picker:SetWidth(244); picker:SetHeight(176); U.etch(picker, U.styles.panel); picker:Hide()
 local search = CreateFrame("EditBox", nil, picker, "InputBoxTemplate")
 search:SetAutoFocus(false); search:SetSize(208, 26); search:SetPoint("TOPLEFT", 16, -12)
@@ -214,6 +253,26 @@ local resultRows = {}
 local menu = CreateFrame("Frame", nil, controls, "BackdropTemplate")
 menu:SetSize(150, 76); menu:SetPoint("TOPLEFT", head, "TOPRIGHT", 8, 0)
 U.etch(menu, U.styles.panel); menu:Hide()
+menu:SetFrameLevel(controls:GetFrameLevel() + 5); menu:EnableMouse(true)
+local function Deselect()
+    selectedSlot = nil; picker:Hide(); menu:Hide(); search:ClearFocus()
+    for _, button in pairs(slotButtons) do button:SetEtch(U.styles.button) end
+end
+local clickAway = CreateFrame("Frame", nil, P)
+P:HookScript("OnShow", function() clickAway:RegisterEvent("GLOBAL_MOUSE_DOWN") end)
+P:HookScript("OnHide", function() clickAway:UnregisterEvent("GLOBAL_MOUSE_DOWN") end)
+clickAway:SetScript("OnEvent", function()
+    if not selectedSlot then return end
+    if picker:IsShown() and picker:IsMouseOver() then return end
+    if menu:IsShown() and menu:IsMouseOver() then return end
+    if slotButtons[selectedSlot] and slotButtons[selectedSlot]:IsMouseOver() then return end
+    Deselect()
+end)
+for slotName, button in pairs(slotButtons) do
+    button:SetScript("OnClick", function()
+        Deselect(); selectedSlot = slotName; button:SetEtch(U.styles.rowSel)
+    end)
+end
 local replace = Button(menu, "Replace", 130); replace:SetPoint("TOPLEFT", 10, -8)
 local unequip = Button(menu, "Unequip", 130); unequip:SetPoint("TOPLEFT", 10, -40)
 local Refresh, Results
@@ -229,7 +288,8 @@ local function Save()
 end
 local function Choose(build)
     selected = build; changing = true; name:SetText(build and build.name or ""); changing = false
-    picker:Hide(); menu:Hide(); Focus(false)
+    Deselect(); Focus(false)
+    LayoutSlots()
     model:SetUnit("player"); model:SetFacing(facing); Dress()
     LayoutPreview(modelArea, modelArea:GetWidth(), modelArea:GetHeight())
     Refresh()
@@ -291,11 +351,13 @@ Results = function()
     noResults:SetText(count == 0 and "No matching helms in this test list." or "")
 end
 search:SetScript("OnTextChanged", Results)
-search:SetScript("OnEscapePressed", function(self) self:ClearFocus(); picker:Hide() end)
+search:SetScript("OnEscapePressed", Deselect)
 local function OpenPicker()
+    selectedSlot = "HeadSlot"; head:SetEtch(U.styles.rowSel)
     menu:Hide(); picker:Show(); search:SetText(""); Results(); Focus(true)
 end
 head:SetScript("OnClick", function()
+    selectedSlot = "HeadSlot"; head:SetEtch(U.styles.rowSel)
     if selected and selected.slots[1] then menu:SetShown(not menu:IsShown()); picker:Hide()
     else OpenPicker() end
 end)
@@ -315,16 +377,16 @@ new:SetScript("OnClick", function() draft = { name = "", slots = {} }; Choose(dr
 name:SetScript("OnTextChanged", function() if not changing then Save(); Refresh() end end)
 name:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
 name:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
-P:SetScript("OnShow", function()
+P:HookScript("OnShow", function()
     local store = Store(); selected = nil
     for _, build in ipairs(store.builds) do if build.id == store.selected then selected = build end end
     Choose(draft or selected or store.builds[1])
 end)
-P:SetScript("OnHide", function()
+P:HookScript("OnHide", function()
     camera:SetScript("OnUpdate", nil); model:SetScript("OnUpdate", nil); model:SetAlpha(1); dragX = nil
-    name:ClearFocus(); search:ClearFocus(); GameTooltip:Hide()
+    Deselect(); name:ClearFocus(); GameTooltip:Hide()
 end)
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
     name = name, head = head, picker = picker, results = resultRows, unequip = unequip,
-    modelArea = modelArea, model = model }
+    modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons }

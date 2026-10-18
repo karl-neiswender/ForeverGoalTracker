@@ -71,7 +71,15 @@ print("  wide/tall preview keeps native background proportions and model margins
 local portraitZoom
 T.model.SetPortraitZoom = function(_, value) portraitZoom = value end
 T.model:GetScript("OnMouseWheel")(T.model, 100)
-assert(portraitZoom == 0.55, "wheel zoom cannot exceed helmet-safe focus")
+assert(portraitZoom == 0.8, "wheel zoom reaches native portrait limit")
 T.model:GetScript("OnMouseWheel")(T.model, -100)
 assert(portraitZoom == 0, "wheel zoom returns to full-character view")
 T.model.SetPortraitZoom = nil
+
+click(T.head)
+assert(T.picker:IsShown())
+T.clickAway:GetScript("OnEvent")()
+assert(not T.picker:IsShown(), "outside click closes picker")
+local count = 0
+for _ in pairs(T.slots) do count = count + 1 end
+assert(count == 16, "armor and accessory placeholders are present")

@@ -69,3 +69,13 @@ Head focus and mouse-wheel zoom now share a maximum portrait zoom of 0.55, repla
 Native review succeeded by selecting the exact beta application path rather than the ambiguous WoW application name. After reloading and opening `/goals`, Swagrid's complete body, helmet and feet were visible in full view, and the race background extended behind the name field. A subsequent native focused view showed the entire helm with clearance at the top and intact shoulders; lower-body cropping during focus is intentional. Saved build/items were unchanged. Other races, resize extremes and final desired close-up strength remain review items. No release was published.
 
 Validation: `python3 tools/check.py` passed (exit 0), including Era/Forever planner regressions and bounded wheel zoom. [Retained output](checks/gear-planner-full-panel-lua.txt). No fresh LuaLS run was made for this unreleased visual adjustment.
+
+## Armor placeholders, deeper zoom and click-away dismissal
+
+At Karl's request, expanded the layout to the native 16 armor/accessory positions: Head, Neck, Shoulders, Back, Chest, Shirt, Tabard, Wrists, Hands, Waist, Legs, Feet, two Fingers and two Trinkets. Each uses GetInventorySlotInfo artwork; only Head has item choices. Other positions remain empty, selectable placeholders with a tooltip explaining that item selection comes later. Columns shrink with panel height to keep all eight rows above the bottom controls. The Head picker opens beside its slot rather than covering the placeholder column.
+
+Clicking outside the selected slot and its open picker/menu deselects it and closes the panel, without changing its saved item or forcing the camera to full view. Picker result clicks still keep the picker open. Escape also deselects. A GLOBAL_MOUSE_DOWN listener is registered only while the planner is shown; no idle polling was added.
+
+The earlier conservative 0.55 portrait cap is superseded: automatic head focus uses 0.75. Wheel zoom reaches native portrait zoom 0.8, then reduces camera-distance scale from 1.3 toward 0.9 for an additional close-up. Full view remains portrait zoom 0 with distance 1.3. Players can zoom out again with the wheel or Full character. Extreme close-ups intentionally allow the body to leave the viewport; native review of framing across races remains necessary.
+
+Validation: full `python3 tools/check.py` passed (exit 0), including Era/Forever planner regressions, click-away dismissal, the placeholder count and extended wheel zoom. [Retained output](checks/gear-planner-slots-lua.txt). The new slot layout and deeper zoom still need native visual review. No fresh LuaLS diagnostics or release publication are claimed for this iteration.

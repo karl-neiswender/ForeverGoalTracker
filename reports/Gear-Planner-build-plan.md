@@ -10,6 +10,8 @@ Karl subsequently authorized the first prototype. See the [prototype implementat
 - Builds are per character. Swagrid sees only Swagrid's builds; Barthalemew sees only Barthalemew's. No viewing or editing alt builds in the first iteration.
 - A new build starts with no gear on the preview model. Do not fill unused slots with current equipment.
 - Use the current character's in-game model and appearance. Use the character's race background, faded on all sides.
+- Clicking outside the selected slot and its picker/menu deselects the slot and closes the panel; choosing an item inside the picker keeps it open.
+- Allow close zoom into the focused slot area, with wheel control beyond the default focused view.
 - Selecting an empty slot opens item search restricted to that equipment slot. Head search shows head items, for example.
 - Clicking a search result immediately equips that target on the preview while keeping the picker open for comparison. This edits the plan, never actual equipment.
 - Smoothly focus the camera on the selected gear area. Allow zooming out to the full character and returning to that selected area. Fade the model during zoom transitions. Support rotation.
