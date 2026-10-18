@@ -2,6 +2,8 @@
 
 Recorded October 17, 2026 from Karl's planning discussion and mockup. Planning only: this document does not authorize implementation or publication. Gear Planner remains the next major feature; patch backlog work is not a prerequisite. Version numbers and dates are not committed.
 
+Karl subsequently authorized the first prototype. See the [prototype implementation and test report](Gear-Planner-prototype-2026-10-17.md) for what is built and what still needs native review. The broader feature and release scope below remain a plan.
+
 ## Confirmed product decisions
 
 - Add a Gear Planner tab using the existing two-column layout. The left column lists the current character's gear builds; the right contains the name, equipment slots, model and item picker.

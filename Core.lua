@@ -8777,6 +8777,7 @@ local function NewTab(label)
     return tab
 end
 
+FGT.NewPlannerTab = NewTab
 local trackerTab = NewTab("My Goals")
 trackerTab:SetPoint("TOPLEFT", main, "TOPLEFT", 16, TABS_TOP)
 local libraryTab = NewTab("Goal Library")
@@ -10811,14 +10812,17 @@ local function ShowTab(which)
     ForeverGoalTrackerDB.tab = which
     if FGT.CloseSettings then FGT.CloseSettings() end -- a tab click leaves Settings
     local lib = (which == "library")
-    trackerTab:SetActive(not lib)
+    local gear = which == "gear"
+    trackerTab:SetActive(not lib and not gear)
+    if FGT.GearPlanner then FGT.GearPlanner:SetShown(gear) end
+    if FGT.gearTab then FGT.gearTab:SetActive(gear) end
     libraryTab:SetActive(lib)
-    listPanel:SetShown(not lib)
-    detailPanel:SetShown(not lib)
+    listPanel:SetShown(not lib and not gear)
+    detailPanel:SetShown(not lib and not gear)
     libraryPanel:SetShown(lib)
     if lib then
         LayoutLibrary()
-    else
+    elseif not gear then
         LayoutGoalList()
         SelectGoal(selectedId or ForeverGoalTrackerDB.selected, true)
     end
@@ -11514,6 +11518,8 @@ function FGT.OpenSettings()
     listPanel:Hide()
     detailPanel:Hide()
     FGT.libraryPanel:Hide()
+    if FGT.GearPlanner then FGT.GearPlanner:Hide() end
+    if FGT.gearTab then FGT.gearTab:SetActive(false) end
     FGT.trackerTab:SetActive(false)
     FGT.libraryTab:SetActive(false)
     panel:Show()

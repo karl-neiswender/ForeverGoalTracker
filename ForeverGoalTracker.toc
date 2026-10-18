@@ -27,3 +27,4 @@ Maplet.lua
 WhatsNew.lua
 Ambience.lua
 Audit.lua
+GearPlanner.lua

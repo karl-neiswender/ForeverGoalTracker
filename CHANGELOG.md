@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added an early Gear Planner prototype with character-specific named builds, a head-item picker and a character preview. Full item search, crafting guides and My Goals integration are still planned.
+
 ## 2.15.2
 
 - Added Hide completed goals to My Goals, with the choice remembered after reloads.
