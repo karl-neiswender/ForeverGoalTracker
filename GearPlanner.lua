@@ -224,10 +224,10 @@ local focusProfiles = {
     FeetSlot = {0.68, 0.18, 1.35}, BackSlot = {0.48, 0, 0.30},
 }
 -- Dwarf male has a shorter torso and lower hands than the general profile.
--- These are initial native-review tuning values, independent of other bodies.
+-- Tuned on Swagrid in the Forever beta; independent of other bodies.
 local dwarfMaleFocus = {
-    HandsSlot = {0.64, 0.32, 0.46}, WaistSlot = {0.60, 0, 0.42},
-    LegsSlot = {0.48, 0, 0.70}, FeetSlot = {0.66, 0.18, 0.99},
+    HandsSlot = {0.64, 0.32, 0.31}, WaistSlot = {0.60, 0, 0.20},
+    LegsSlot = {0.48, 0, 0.40}, FeetSlot = {0.66, 0.18, 0.66},
 }
 local offsetY, offsetZ, targetZoom, targetY, targetZ = 0, 0, 0, 0, 0
 local function Ease(t)

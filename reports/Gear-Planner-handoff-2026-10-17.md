@@ -1,6 +1,8 @@
 # Gear Planner handoff: October 17, 2026
 
-Latest October 18 refinement: [dwarf male focus and smoother transitions](Gear-Planner-dwarf-camera-2026-10-18.md). Native centering remains pending.
+Latest native review: [male dwarf camera correction](Gear-Planner-native-camera-2026-10-18.md) — verified the four corrected views in World of Warcraft Beta after reload.
+
+Earlier October 18 refinement: [dwarf male focus and smoother transitions](Gear-Planner-dwarf-camera-2026-10-18.md). Native centering remains pending.
 
 Continued October 18: [polish, slot focus and explicit goal tracking](Gear-Planner-polish-2026-10-18.md) supersedes the tracking and camera descriptions below. Native review of that pass remains pending.
 

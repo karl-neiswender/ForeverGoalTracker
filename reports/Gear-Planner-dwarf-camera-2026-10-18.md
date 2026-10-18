@@ -19,6 +19,8 @@ Performance review: the model is redressed once at the transition midpoint, not 
 
 ## Native review limitation
 
+Subsequently resolved: [native review and corrected offsets](Gear-Planner-native-camera-2026-10-18.md). The account below records the earlier tool failure.
+
 The running process was verified as `_classic_beta_/World of Warcraft Beta.app/Contents/MacOS/World of Warcraft -launcherlogin -uid wow_classic_beta`. The computer-use app resolver selected another client initially, then attempted a duplicate beta launch instead of attaching to the existing window; the duplicate reported a locked CAS container. No native screenshots or framing verification were obtained. The original beta process remained running. Do not infer that Karl closed the game from the tool's “App quit” error.
 
 The new dwarf values are a tuning pass for Karl to review after `/reload`, not verified anatomical centers. Review hands, belt, legs and boots, the chosen shoulder/wrist side, rapid slot changes, and switching between saved sets. No texture restart is needed.
