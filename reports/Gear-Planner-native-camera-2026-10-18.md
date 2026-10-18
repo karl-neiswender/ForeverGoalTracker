@@ -48,3 +48,18 @@ Native verification after reload: selected Back through the slot's click handler
 The full Lua suite passed, with added regressions for intermediate rotation, final rear/front facing, independent wheel zoom, manual takeover and hidden-driver cleanup. Retained output: `checks/gear-planner-back-view-lua.txt`. Existing SetFacing and frame APIs are unchanged; no fresh LuaLS release gate is claimed. Performance: one bounded scalar interpolation driver runs only during a turn, with no inventory or catalogue work. Artwork audit remains clean.
 
 Karl subsequently requested the opposite spin direction. Exact half-turns now choose positive rotation instead of negative rotation; other angles retain their shortest arc. The regression explicitly checks the intermediate angle is positive.
+
+## Slot zoom review
+
+Karl authorized a closer Back view and a review of the other slot zoom amounts. Native review used Swagrid (male dwarf Hunter) in the running World of Warcraft Beta, selecting slots through chat commands without changing saved gear.
+
+- Back: dwarf zoom 0.74, Y 0, Z 0.10; general fallback zoom 0.68. Reloaded and checked the final rear view: shoulders and torso fill the preview, with hips below center. The planned set has no cloak, so long cloak hems remain unverified.
+- Chest and shirt: dwarf zoom 0.70, Z 0.12. Chest reviewed with Cryptstalker armor; shirt shares that framing.
+- Tabard: dwarf zoom 0.62, Z 0.16; reviewed the body framing, without an available tabard item.
+- Legs: dwarf zoom 0.64, Z 0.48; native review shows more useful leg armor detail.
+- Shoulder framing remains 0.70 with viewer-left offset 0.32; reviewed and retained. Head, wrists, hands, waist and boots retain the preceding native-tuned profiles.
+- Neck now uses full-character framing, matching rings, trinkets and weapons. Native Neck and Main Hand selection confirmed the full view and return to front. Weapons are unavailable in this prototype catalogue, so weapon silhouettes were not tested.
+
+These are body-specific tuning observations, not validation of every race, robe or cloak. Generic chest/leg profiles remain unchanged. Existing eased movement and reversed Back rotation are retained. Only profile constants changed; no additional per-frame work, scanning or API calls were introduced.
+
+Validation: `python3 tools/check.py` exited 0; full output retained in [slot zoom Lua checks](checks/gear-planner-slot-zoom-review-lua.txt). No release/tag. Artwork audit found no pending or ignored changes under Media/artwork.

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Tightened Gear Planner’s back view and dwarf male chest, shirt, tabard and leg framing. Necklaces use the full-character view.
+
 - Changed Gear Planner to turn the character around for the Back slot and forward for other slots.
 
 - Refined dwarf male armor framing, switched one-sided previews to the viewer’s left, and softened camera and gear-change transitions.

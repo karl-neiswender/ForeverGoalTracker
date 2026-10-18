@@ -216,19 +216,21 @@ local camera = CreateFrame("Frame", nil, P)
 -- Model-space offsets keep the drawing frame full-panel, avoiding clipped armor.
 -- Positive Z raises the model; a small negative offset lowers focused armor.
 local focusProfiles = {
-    HeadSlot = {0.75, 0, -0.08}, NeckSlot = {0.68, 0, 0.05},
+    HeadSlot = {0.75, 0, -0.08},
     ShoulderSlot = {0.70, 0.32, 0.02}, ChestSlot = {0.58, 0, 0.28},
     ShirtSlot = {0.58, 0, 0.28}, TabardSlot = {0.50, 0, 0.35},
     WristSlot = {0.68, 0.40, 0.65}, HandsSlot = {0.68, 0.40, 0.78},
     WaistSlot = {0.60, 0, 0.65}, LegsSlot = {0.48, 0, 0.95},
-    FeetSlot = {0.68, 0.18, 1.35}, BackSlot = {0.48, 0, 0.30},
+    FeetSlot = {0.68, 0.18, 1.35}, BackSlot = {0.68, 0, 0.30},
 }
 -- Dwarf male has a shorter torso and lower hands than the general profile.
 -- Tuned on Swagrid in the Forever beta; independent of other bodies.
 local dwarfMaleFocus = {
+    ChestSlot = {0.70, 0, 0.12}, ShirtSlot = {0.70, 0, 0.12},
+    TabardSlot = {0.62, 0, 0.16}, BackSlot = {0.74, 0, 0.10},
     WristSlot = {0.68, 0.32, 0.30},
     HandsSlot = {0.64, 0.32, 0.31}, WaistSlot = {0.60, 0, 0.20},
-    LegsSlot = {0.48, 0, 0.40}, FeetSlot = {0.66, 0.18, 0.66},
+    LegsSlot = {0.64, 0, 0.48}, FeetSlot = {0.66, 0.18, 0.66},
 }
 local offsetY, offsetZ, targetZoom, targetY, targetZ = 0, 0, 0, 0, 0
 local function Ease(t)
