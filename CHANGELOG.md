@@ -2,7 +2,11 @@
 
 ## Unreleased
 
-- Added an early Gear Planner prototype with character-specific named builds, a head-item picker and a character preview. Full item search, crafting guides and My Goals integration are still planned.
+- Added Add to Goals for planned gear sets. Only added sets appear in My Gear Sets and My Goals, with collection progress specific to their character.
+- Added focused armor views and smoother zoom in Gear Planner, clearer selections, softer popup transitions and quieter empty slots.
+- Fixed equipped-item tooltips covering Gear Planner's Replace and Unequip actions.
+
+- Added an early Gear Planner prototype with character-specific named builds, a head-item picker and a character preview. Full item search and crafting guides are still planned.
 - Expanded Gear Planner with complete Tier 3 sets for every class, slot-specific selection, item names and unique ring placement.
 
 ## 2.15.2

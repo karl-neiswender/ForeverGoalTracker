@@ -72,8 +72,10 @@ print("  wide/tall preview keeps native background proportions and full-panel mo
 local portraitZoom
 T.model.SetPortraitZoom = function(_, value) portraitZoom = value end
 T.model:GetScript("OnMouseWheel")(T.model, 100)
+T.camera:GetScript("OnUpdate")(T.camera, 1)
 assert(portraitZoom == 0.8, "wheel zoom reaches native portrait limit")
 T.model:GetScript("OnMouseWheel")(T.model, -100)
+T.camera:GetScript("OnUpdate")(T.camera, 1)
 assert(portraitZoom == 0, "wheel zoom returns to full-character view")
 T.model.SetPortraitZoom = nil
 
@@ -119,3 +121,61 @@ end
 UnitClass = oldClass
 F.ShowTab("tracker")
 print("  all nine classes: full Tier 3, class/slot filtering, independent targets and unique ring placement ok")
+
+-- Explicit tracking, character scope, stable item credit and menu/camera behavior.
+UnitName = function() return "PlannerOwner" end
+F.ShowTab("gear"); T.new(); text(T.name, "Tracked polish")
+local build = T.store().builds[#T.store().builds]
+assert(not build.tracked and not build.goalId and #T.rows == 0, "naming alone never lists or tracks a goal")
+click(T.head); click(T.results[1])
+assert(T.head.chosen and T.results[1].chosen and not T.results[2].chosen, "selection survives refresh")
+local key = F.MaterialsUI.charKey()
+local foreign = "Foreign-" .. GetRealmName()
+local previousOwner, previousForeign = D.characters[key], D.characters[foreign]
+D.characters[key] = {items = {}}
+D.characters[foreign] = {items = {[16866] = 1}}
+local catalogueCount = F.CatalogGoalCount()
+click(T.add)
+assert(build.tracked and D.active[build.goalId] and #T.rows == 1, "explicit add lists and activates a stable goal")
+local goal = F.GoalById(build.goalId)
+assert(goal and goal.name == "Tracked polish" and #goal.steps == 1)
+assert(not F.LibraryVisible(goal) and F.CatalogGoalCount() == catalogueCount, "personal sets stay out of Library")
+assert(not D.progress[goal.id][1], "another character's item never completes the build")
+D.characters[key].items[16866] = 1
+F.RefreshPlannerGoals()
+assert(D.progress[goal.id][1], "owner's existing item completes automatically")
+D.characters[key].items = {}
+local goalId = goal.id
+text(T.name, "Tracked renamed")
+assert(build.goalId == goalId and goal.name == "Tracked renamed" and D.progress[goalId][1], "rename preserves identity and credit")
+click(T.slots.ShoulderSlot); click(T.results[1])
+D.progress[goalId][2] = true
+click(T.head)
+local tooltipCalls = 0
+local oldTip = GameTooltip.SetHyperlink
+GameTooltip.SetHyperlink = function() tooltipCalls = tooltipCalls + 1 end
+T.head:GetScript("OnEnter")(T.head)
+assert(tooltipCalls == 0, "active slot tooltip cannot cover its action menu")
+GameTooltip.SetHyperlink = oldTip
+click(T.replace); click(T.results[2])
+assert(not D.progress[goalId][1] and D.progress[goalId][2], "replacing head clears only head credit")
+assert(T.results[2].chosen and not T.results[1].chosen, "picker marks the replacement")
+click(T.head); click(T.unequip)
+assert(#goal.steps == 1 and D.progress[goalId][1], "removing an earlier slot moves shoulder credit with its item")
+click(T.head); click(T.results[2])
+assert(#goal.steps == 2 and not D.progress[goalId][1] and D.progress[goalId][2], "inserting an earlier slot preserves shoulder credit")
+local position
+T.model.SetPosition = function(_, x, y, z) position = {x,y,z} end
+for _, slot in ipairs({"HeadSlot", "ShoulderSlot", "HandsSlot", "WristSlot", "FeetSlot"}) do
+    click(T.slots[slot])
+    local update = T.camera:GetScript("OnUpdate")
+    if update then update(T.camera, 1) end
+    assert(position and position[3] ~= 0, "armor focus repositions the full-panel model")
+    assert(not T.camera:GetScript("OnUpdate"), "camera stops after settling")
+end
+T.model.SetPosition = nil
+D.plannerPolishSmoke = { goalId = goalId, key = key, buildId = build.id }
+D.characters[key], D.characters[foreign] = previousOwner, previousForeign
+UnitName = oldName
+F.ShowTab("tracker")
+print("  explicit add, Library exclusion, character scope, replacement credit, tooltip suppression and camera settling ok")

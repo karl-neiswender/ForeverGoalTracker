@@ -641,7 +641,7 @@ if ok_all:
     steps.extend([
         ("Gear Planner prototype", None, open(os.path.join(here, "gear-planner-tests.lua")).read()),
         ("Forever Gear Planner prototype", None, open(os.path.join(here, "gear-planner-tests.lua")).read(), True),
-        ("Gear Planner saved-build reload", None, 'local d=ForeverGoalTrackerDB.gearPlanner.characters["PlannerOwner-"..GetRealmName()]; assert(d.builds[1].name == "Renamed"); assert(d.builds[1].id == d.selected); print("  named gear build survives reload")'),
+        ("Gear Planner saved-build reload", None, 'local d=ForeverGoalTrackerDB.gearPlanner.characters["PlannerOwner-"..GetRealmName()]; assert(d.builds[1].name == "Renamed"); assert(d.builds[1].id); local smoke=ForeverGoalTrackerDB.plannerPolishSmoke; local g=STUB_NS.GoalById(smoke.goalId); assert(g and g.name == "Tracked renamed" and #g.steps == 2); assert(not ForeverGoalTrackerDB.progress[g.id][1] and ForeverGoalTrackerDB.progress[g.id][2], "item credit survives fresh Lua reload"); print("  named gear build and tracked item credit survive reload")'),
         ("pop-out tracker", None, open(os.path.join(here, "popout-tests.lua"), encoding="utf-8").read()),
         ("Forever pop-out tracker", None, open(os.path.join(here, "popout-tests.lua"), encoding="utf-8").read(), True),
         ("pop-out refinements", None, open(os.path.join(here, "popout-refinement-tests.lua"), encoding="utf-8").read()),

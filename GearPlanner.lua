@@ -72,6 +72,52 @@ local function Store()
     chars[key] = chars[key] or { nextId = 1, builds = {} }
     return chars[key]
 end
+-- Planner goals stay out of the Library; their stable IDs survive renames and reloads.
+local function SyncGoal(build, ownerKey)
+    if not build.tracked or not build.id then return end
+    local DB = ForeverGoalTrackerDB
+    local ownerId = ownerKey:gsub(".", function(c) return string.format("%02x", string.byte(c)) end)
+    local id = "planner_" .. ownerId .. "_" .. build.id
+    local goal = FGT.GoalById(id)
+    local old, credit = build.goalItems or {}, {}
+    local progress = DB.progress[id] or {}
+    for i, item in ipairs(old) do
+        if progress[i] then credit[item.slot .. ":" .. item.id] = true end
+    end
+    if not goal then
+        goal = { id = id, category = "Item Set", plannerOwner = ownerKey,
+            difficulty = "Varies", duration = "Varies", steps = {} }
+        FGT.goals[#FGT.goals + 1] = goal
+        FGT.goalIndex = nil
+    end
+    goal.name = build.name
+    goal.steps, goal.tips, build.goalItems = {}, {}, {}
+    local nextProgress = {}
+    for slot = 1, 19 do
+        local item = byId[build.slots[slot]]
+        if item then
+            local step = { text = "Collect " .. item.name,
+                auto = { item = item.id, forCharacter = ownerKey }, plannerSlot = slot,
+                tip = item.source }
+            goal.steps[#goal.steps + 1] = step
+            build.goalItems[#build.goalItems + 1] = { slot = slot, id = item.id }
+            goal.tips[#goal.tips + 1] = "{item:" .. item.id .. ":" .. item.name .. "}: " .. step.tip
+            if credit[slot .. ":" .. item.id] then nextProgress[#goal.steps] = true end
+            U.watch[item.id] = true
+        end
+    end
+    DB.progress[id] = nextProgress
+    goal.icon = goal.steps[1] and byId[goal.steps[1].auto.item].icon or "Interface\\Icons\\INV_Misc_QuestionMark"
+    build.goalId = id
+    FGT.EnsureGoalRow(goal)
+    return goal
+end
+function FGT.LoadPlannerGoals()
+    local DB = ForeverGoalTrackerDB
+    for key, store in pairs(DB.gearPlanner and DB.gearPlanner.characters or {}) do
+        for _, build in ipairs(store.builds or {}) do SyncGoal(build, key) end
+    end
+end
 local function Label(parent, text, size, x, y)
     local f = U.font(parent, size or 12)
     f:SetPoint("TOPLEFT", x, y); f:SetText(text)
@@ -81,8 +127,8 @@ local function Button(parent, text, width, height)
     local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
     b:SetSize(width, height or 28); U.etch(b, U.styles.button)
     b.text = U.font(b, 12); b.text:SetPoint("CENTER"); b.text:SetText(text)
-    b:SetScript("OnEnter", function() b:SetEtch(U.styles.btnHover) end)
-    b:SetScript("OnLeave", function() b:SetEtch(U.styles.button) end)
+    b:SetScript("OnEnter", function() b:SetEtch(b.chosen and U.styles.rowSel or U.styles.btnHover) end)
+    b:SetScript("OnLeave", function() b:SetEtch(b.chosen and U.styles.rowSel or U.styles.button) end)
     return b
 end
 local left = CreateFrame("Frame", nil, P, "BackdropTemplate")
@@ -99,9 +145,11 @@ local owner = Label(left, "", 11, 16, -40)
 local new = Button(left, "+ New build", 140); new:SetPoint("TOPLEFT", 16, -66)
 local list = U.scroll(left, 0, 0, 0, 0)
 -- Use an independent clipped viewport; no dependency on the guide layout.
-list.scroll:ClearAllPoints(); list.scroll:SetPoint("TOPLEFT", 12, -108)
+list.scroll:ClearAllPoints(); list.scroll:SetPoint("TOPLEFT", 12, -146)
 list.scroll:SetPoint("BOTTOMRIGHT", -20, 16)
+local add = Button(left, "Add to Goals", 140); add:SetPoint("TOPLEFT", 16, -102)
 local rows, selected, draft, changing = {}, nil, nil, false
+local draftOwner
 local header = CreateFrame("Frame", nil, right)
 header:SetAllPoints(); header:SetFrameLevel(right:GetFrameLevel() + 12)
 local name = CreateFrame("EditBox", nil, header, "InputBoxTemplate")
@@ -161,28 +209,59 @@ local function PaintTextVeil(value)
 end
 local zoom, facing, dragX = 0, 0, nil
 local cameraAspect = 1
-local MAX_ZOOM, FOCUS_ZOOM = 1, 0.75
+local MAX_ZOOM = 1
 local selectedSlot
 local slotButtons = {}
 local camera = CreateFrame("Frame", nil, P)
+-- Model-space offsets keep the drawing frame full-panel, avoiding clipped armor.
+-- Positive Z raises the model; a small negative offset lowers focused armor.
+local focusProfiles = {
+    HeadSlot = {0.75, 0, -0.08}, NeckSlot = {0.68, 0, 0.05},
+    ShoulderSlot = {0.70, -0.32, 0.02}, ChestSlot = {0.58, 0, 0.28},
+    ShirtSlot = {0.58, 0, 0.28}, TabardSlot = {0.50, 0, 0.35},
+    WristSlot = {0.68, -0.40, 0.65}, HandsSlot = {0.68, -0.40, 0.78},
+    WaistSlot = {0.60, 0, 0.65}, LegsSlot = {0.48, 0, 0.95},
+    FeetSlot = {0.68, -0.18, 1.35}, BackSlot = {0.48, 0, 0.30},
+}
+local offsetY, offsetZ, targetZoom = 0, 0, 0
 local function ApplyZoom(value)
     zoom = value
     PaintTextVeil(value)
-    -- Fit the wide drawing area through camera distance, not a smaller frame.
     if model.SetCamDistanceScale then model:SetCamDistanceScale((1.3 - math.max(0, value - 0.8) * 2) * cameraAspect) end
     if model.SetPortraitZoom then model:SetPortraitZoom(math.min(0.8, value)) end
+    if model.SetPosition then model:SetPosition(0, offsetY, offsetZ) end
 end
-local function Focus(on)
-    local start, target, elapsed = zoom, on and FOCUS_ZOOM or 0, 0
+local function MoveCamera(target, y, z, duration, fade)
+    local start, startY, startZ, elapsed = zoom, offsetY, offsetZ, 0
+    targetZoom = target
     camera:SetScript("OnUpdate", nil)
-    if FGT.Setting("celebrations") == "off" then ApplyZoom(target); model:SetAlpha(1); return end
+    if FGT.Setting("celebrations") == "off" then
+        offsetY, offsetZ = y, z; ApplyZoom(target); model:SetAlpha(1); return
+    end
     camera:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
-        local t = math.min(1, elapsed / 0.4)
+        local t = math.min(1, elapsed / duration)
         local eased = t * t * (3 - 2 * t)
+        offsetY = startY + (y - startY) * eased
+        offsetZ = startZ + (z - startZ) * eased
         ApplyZoom(start + (target - start) * eased)
-        model:SetAlpha(1 - 0.28 * math.sin(math.pi * t))
+        model:SetAlpha(fade and (1 - 0.18 * math.sin(math.pi * t)) or 1)
         if t == 1 then camera:SetScript("OnUpdate", nil); model:SetAlpha(1) end
+    end)
+end
+local function Focus(slot)
+    local profile = focusProfiles[slot] or {0, 0, 0}
+    MoveCamera(profile[1], profile[2], profile[3], 0.32, true)
+end
+local function FadeIn(frame)
+    frame:SetScript("OnUpdate", nil); frame:SetAlpha(1); frame:Show()
+    if FGT.Setting("celebrations") == "off" then return end
+    local elapsed = 0
+    frame:SetAlpha(0)
+    frame:SetScript("OnUpdate", function(self, dt)
+        elapsed = elapsed + dt
+        self:SetAlpha(math.min(1, elapsed / 0.12))
+        if elapsed >= 0.12 then self:SetScript("OnUpdate", nil) end
     end)
 end
 local function Dress()
@@ -205,8 +284,7 @@ model:SetScript("OnMouseDown", function(_, button)
 end)
 model:SetScript("OnMouseUp", function() dragX = nil; model:SetScript("OnUpdate", nil) end)
 model:SetScript("OnMouseWheel", function(_, delta)
-    camera:SetScript("OnUpdate", nil); model:SetAlpha(1)
-    ApplyZoom(math.max(0, math.min(MAX_ZOOM, zoom + delta * 0.1)))
+    MoveCamera(math.max(0, math.min(MAX_ZOOM, targetZoom + delta * 0.1)), offsetY, offsetZ, 0.14, false)
 end)
 -- Goal-art treatment belongs below the character and equipment controls.
 -- Keep the same panel colors/top veil, with broad side fades and an eased bottom.
@@ -318,7 +396,7 @@ local function LayoutSlots()
     for _, spec in ipairs(slots) do
         local button = slotButtons[spec[1]]
         button:SetSize(size, size); button:ClearAllPoints()
-        button.itemName:SetWidth(math.max(90, math.min(180, right:GetWidth() * 0.23)))
+        button.itemName:SetWidth(math.max(40, math.min(160, (right:GetWidth() - size * 2 - 100) / 3)))
         if spec[3] == "BOTTOM" then
             button:SetPoint("BOTTOM", right, "BOTTOM", (spec[4] - 2) * (size + 12), 18)
         else
@@ -348,8 +426,9 @@ menu:SetSize(150, 76); menu:SetPoint("TOPLEFT", head, "TOPRIGHT", 8, 0)
 U.etch(menu, U.styles.panel); menu:Hide()
 menu:SetFrameLevel(controls:GetFrameLevel() + 5); menu:EnableMouse(true)
 local function Deselect()
+    GameTooltip:Hide()
     selectedSlot = nil; picker:Hide(); menu:Hide(); search:ClearFocus()
-    for _, button in pairs(slotButtons) do button:SetEtch(U.styles.button) end
+    for _, button in pairs(slotButtons) do button.chosen = false; button:SetEtch(U.styles.button) end
 end
 local clickAway = CreateFrame("Frame", nil, P)
 P:HookScript("OnShow", function() clickAway:RegisterEvent("GLOBAL_MOUSE_DOWN") end)
@@ -367,12 +446,25 @@ local Refresh, Results
 local function Save()
     if not selected then return end
     local value = (name:GetText() or ""):match("^%s*(.-)%s*$")
+    if value == "" and selected.tracked then
+        status:SetText("Enter a set name."); status:SetAlpha(1); return
+    end
     selected.name = value
     if value ~= "" and draft == selected then
         local store = Store(); selected.id = store.nextId; store.nextId = store.nextId + 1
         store.builds[#store.builds + 1] = selected; store.selected = selected.id; draft = nil
     end
+    if selected.tracked then
+        local goal = SyncGoal(selected, U.charKey()); FGT.RefreshPlannerGoals(goal)
+    end
     status:SetText(value == "" and "Name your set to save it." or "Saved")
+    status:SetAlpha(1)
+    local elapsed = 0
+    status:SetScript("OnUpdate", value ~= "" and function(self, dt)
+        elapsed = elapsed + dt
+        self:SetAlpha(math.max(0, 1 - math.max(0, elapsed - 1.5) / 0.4))
+        if elapsed >= 1.9 then self:SetScript("OnUpdate", nil) end
+    end or nil)
 end
 local function Choose(build)
     selected = build; changing = true; name:SetText(build and build.name or ""); changing = false
@@ -380,32 +472,45 @@ local function Choose(build)
     LayoutSlots()
     model:SetUnit("player"); model:SetFacing(facing); Dress()
     LayoutPreview(modelArea, modelArea:GetWidth(), modelArea:GetHeight())
+    status:SetText(""); status:SetAlpha(1)
     Refresh()
 end
 Refresh = function()
     local store = Store()
     owner:SetText(UnitName("player") or "")
     for _, row in ipairs(rows) do row:Hide() end
-    for i, build in ipairs(store.builds) do
-        local row = rows[i]
-        if not row then row = Button(list.content, "", 180, 34); rows[i] = row end
-        row:ClearAllPoints(); row:SetPoint("TOPLEFT", 2, -(i - 1) * 40)
-        row:SetWidth(math.max(120, left:GetWidth() - 40))
-        row.text:SetWidth(math.max(100, left:GetWidth() - 60))
-        row.text:SetText(build.name ~= "" and build.name or "Name your set")
-        row:SetEtch(build == selected and U.styles.rowSel or U.styles.button)
-        row:SetScript("OnClick", function() store.selected = build.id; Choose(build) end); row:Show()
+    local visible = 0
+    for _, build in ipairs(store.builds) do
+        if build.tracked and ForeverGoalTrackerDB.active[build.goalId] then
+            visible = visible + 1
+            local i = visible
+            local row = rows[i]
+            if not row then row = Button(list.content, "", 180, 34); rows[i] = row end
+            row:ClearAllPoints(); row:SetPoint("TOPLEFT", 2, -(i - 1) * 40)
+            row:SetWidth(math.max(120, left:GetWidth() - 40))
+            row.text:SetWidth(math.max(100, left:GetWidth() - 60))
+            row.text:SetText(build.name ~= "" and build.name or "Name your set")
+            row.chosen = build == selected
+            row:SetEtch(row.chosen and U.styles.rowSel or U.styles.button)
+            row:SetScript("OnClick", function() store.selected = build.id; Choose(build) end); row:Show()
+        end
     end
-    list.content:SetHeight(math.max(1, #store.builds * 40)); list:Finalize(); list:Update()
+    list.content:SetHeight(math.max(1, visible * 40)); list:Finalize(); list:Update()
     empty:SetShown(not selected); name:SetShown(selected ~= nil)
     modelArea:SetShown(selected ~= nil); controls:SetShown(selected ~= nil)
-    status:SetText(not selected and "Create a build to begin."
-        or (selected and selected.name == "") and "Name your set to save it." or "Saved")
+    if not selected or selected.name == "" then
+        status:SetScript("OnUpdate", nil); status:SetAlpha(1)
+        status:SetText(not selected and "Create a build to begin." or "Name your set to save it.")
+    end
+    local tracked = selected and selected.goalId and ForeverGoalTrackerDB.active[selected.goalId]
+    add.text:SetText(tracked and "Added to Goals" or "Add to Goals")
+    add:SetEnabled(selected ~= nil and selected.name ~= "" and next(selected.slots) ~= nil and not tracked)
     for slot, button in pairs(slotButtons) do
         local item = selected and byId[selected.slots[slotIds[slot]]]
         button.icon:SetTexture(item and item.icon or FGT.GearPlannerSlotTexture(slot))
         button.itemName:SetText(item and item.name or "")
         button.itemName:SetTextColor(0.75, 0.45, 1)
+        button.icon:SetAlpha((item or button.chosen) and 1 or 0.50)
     end
 end
 Results = function()
@@ -425,7 +530,9 @@ Results = function()
             row:SetPoint("TOPLEFT", 10, -42 - (count - 1) * 50)
             row.icon:SetTexture(entry.icon); row.text:SetText(entry.name)
             row.text:SetTextColor(0.75, 0.45, 1)
-            row.source:SetText(entry.source)
+            row.chosen = selected and selected.slots[slotIds[selectedSlot]] == entry.id
+            row:SetEtch(row.chosen and U.styles.rowSel or U.styles.button)
+            row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "") .. entry.source)
             row:SetScript("OnClick", function()
                 if not selected or not selectedSlot or not SlotMatches(entry, selectedSlot) then return end
                 local id = slotIds[selectedSlot]
@@ -435,7 +542,7 @@ Results = function()
                         if other ~= id and itemId == entry.id then selected.slots[other] = nil; moved = true end
                     end
                 end
-                selected.slots[id] = entry.id; Dress(); Save(); Refresh()
+                selected.slots[id] = entry.id; Dress(); Save(); Refresh(); Results()
                 if moved then status:SetText("Moved ring to the selected slot.") end
             end)
             row:SetScript("OnEnter", function(self)
@@ -447,7 +554,7 @@ Results = function()
             row:SetScript("OnLeave", function() GameTooltip:Hide() end); row:Show()
         end
     end
-    noResults:SetText(count == 0 and "No matching items in this slot." or "")
+    noResults:SetText(count == 0 and (query == "" and "No items available for this slot yet." or "No matching items.") or "")
 end
 search:SetScript("OnTextChanged", Results)
 search:SetScript("OnEscapePressed", Deselect)
@@ -469,47 +576,66 @@ end
 local function OpenPicker()
     if not selectedSlot then return end
     slotButtons[selectedSlot]:SetEtch(U.styles.rowSel)
-    menu:Hide(); PositionPopup(picker); picker:Show(); search:SetText("")
-    pickerNote:SetText(selectedSlot == "HeadSlot" and "Tier 1 + 3 test list" or "Tier 3 test list")
-    Results(); Focus(selectedSlot == "HeadSlot")
+    GameTooltip:Hide(); menu:Hide(); PositionPopup(picker); FadeIn(picker); search:SetText("")
+    local label = selectedSlot
+    for _, spec in ipairs(slots) do if spec[1] == selectedSlot then label = spec[2]; break end end
+    pickerNote:SetText(label .. (selectedSlot == "HeadSlot" and " · Tier 1 & Tier 3" or " · Tier 3"))
+    Results(); Focus(selectedSlot)
 end
 for _, spec in ipairs(slots) do
     local slot, label = spec[1], spec[2]
     local button = slotButtons[slot]
     button:SetScript("OnClick", function()
-        Deselect(); selectedSlot = slot; button:SetEtch(U.styles.rowSel)
+        Deselect(); selectedSlot = slot; button.chosen = true; button:SetEtch(U.styles.rowSel)
         if selected and selected.slots[slotIds[slot]] then
-            PositionPopup(menu); menu:Show(); Focus(slot == "HeadSlot")
+            PositionPopup(menu); FadeIn(menu); Focus(slot)
         else OpenPicker() end
     end)
     button:SetScript("OnEnter", function(self)
+        self.icon:SetAlpha(1)
+        self:SetEtch(self.chosen and U.styles.rowSel or U.styles.btnHover)
+        if selectedSlot == slot and (menu:IsShown() or picker:IsShown()) then return end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         local item = selected and byId[selected.slots[slotIds[slot]]]
         if item then GameTooltip:SetHyperlink("item:" .. item.id)
         else GameTooltip:SetText(label, 1, 1, 1); GameTooltip:AddLine("Choose an item", 1, 1, 1) end
         GameTooltip:Show()
     end)
-    button:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    button:SetScript("OnLeave", function(self)
+        self:SetEtch(self.chosen and U.styles.rowSel or U.styles.button)
+        self.icon:SetAlpha(selected and selected.slots[slotIds[slot]] and 1 or 0.50)
+        GameTooltip:Hide()
+    end)
 end
 replace:SetScript("OnClick", OpenPicker)
 unequip:SetScript("OnClick", function()
     if selected and selectedSlot then selected.slots[slotIds[selectedSlot]] = nil; Dress(); Save(); Refresh() end
-    menu:Hide()
+    Deselect()
 end)
-new:SetScript("OnClick", function() draft = { name = "", slots = {} }; Choose(draft); name:SetFocus() end)
+add:SetScript("OnClick", function()
+    if not selected or selected.name == "" or not next(selected.slots) then return end
+    selected.tracked = true
+    local goal = SyncGoal(selected, U.charKey())
+    if not goal then return end
+    ForeverGoalTrackerDB.active[goal.id] = true
+    FGT.RefreshPlannerGoals(goal); Refresh()
+end)
+new:SetScript("OnClick", function() draft = { name = "", slots = {} }; draftOwner = U.charKey(); Choose(draft); name:SetFocus() end)
 name:SetScript("OnTextChanged", function() if not changing then Save(); Refresh() end end)
 name:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
 name:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
 P:HookScript("OnShow", function()
     local store = Store(); selected = nil
     for _, build in ipairs(store.builds) do if build.id == store.selected then selected = build end end
-    Choose(draft or selected or store.builds[1])
+    Choose((draftOwner == U.charKey() and draft) or selected or store.builds[1])
 end)
 P:HookScript("OnHide", function()
     camera:SetScript("OnUpdate", nil); model:SetScript("OnUpdate", nil); model:SetAlpha(1); dragX = nil
+    status:SetScript("OnUpdate", nil)
+    picker:SetScript("OnUpdate", nil); menu:SetScript("OnUpdate", nil)
     Deselect(); name:ClearFocus(); GameTooltip:Hide()
 end)
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
-    name = name, head = head, picker = picker, results = resultRows, unequip = unequip,
+    name = name, add = add, camera = camera, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,
     modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons, catalogue = catalogue }

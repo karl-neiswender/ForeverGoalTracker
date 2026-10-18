@@ -1,5 +1,7 @@
 # Gear Planner handoff: October 17, 2026
 
+Continued October 18: [polish, slot focus and explicit goal tracking](Gear-Planner-polish-2026-10-18.md) supersedes the tracking and camera descriptions below. Native review of that pass remains pending.
+
 Karl approved this as a useful first pass and asked to commit/push to main, then continue tomorrow. No release was requested or published. Public version remains 2.15.2.
 
 ## Read first

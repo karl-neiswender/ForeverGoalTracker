@@ -731,10 +731,11 @@ end
 -- A rule with forRace only looks at characters of that race (epic
 -- racial mounts: the Dwarf trains, saves and buys the ram).
 local function RosterFor(rule)
-    if not (rule and (rule.forRace or rule.forFaction or rule.forClass)) then return Roster() end
+    if not (rule and (rule.forRace or rule.forFaction or rule.forClass or rule.forCharacter)) then return Roster() end
     local out = {}
     for k, c in pairs(Roster()) do
-        if (not rule.forRace or c.race == rule.forRace)
+        if (not rule.forCharacter or k == rule.forCharacter)
+            and (not rule.forRace or c.race == rule.forRace)
             and (not rule.forFaction or c.faction == rule.forFaction)
             and (not rule.forClass or c.class == rule.forClass) then
             out[k] = c
@@ -989,7 +990,7 @@ end
 -- consumed (the Eye of Sulfuras disappears into the mace), so once a
 -- step has been seen done it stays done. A goal's completeWith rule
 -- (owning the final reward) ticks the whole goal.
-local function ApplyAutoRules()
+local function ApplyAutoRules(onlyGoal)
     if not ForeverGoalTrackerDB then return 0 end
     if ForeverGoalTrackerDB.demoBackup then return 0 end -- demo mode: keep the staged progress as is
     local changed = 0
@@ -1004,7 +1005,7 @@ local function ApplyAutoRules()
                 (why or "?") .. " | " .. (date and date("%Y-%m-%d %H:%M:%S") or "")
         end
     end
-    for _, goal in ipairs(FGT.goals) do
+    for _, goal in ipairs(onlyGoal and {onlyGoal} or FGT.goals) do
         if not goal.libraryOnly then
         local all = goal.completeWith and (RuleMet(goal.completeWith)) or false
         -- Steps already ticked are skipped: they can never untick, and
@@ -4072,7 +4073,9 @@ local SelectGoal -- forward declare
 local yStart = -8
 FGT.ROW_H = 72 -- eyebrow/completion date, name, then progress bar
 local rowHeight = FGT.ROW_H
-for i, goal in ipairs(FGT.goals) do
+function FGT.EnsureGoalRow(goal, i)
+    if goalRows[goal.id] then return goalRows[goal.id] end
+    i = i or 1
     local row = CreateFrame("Button", nil, listContent, "BackdropTemplate")
     row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, yStart - (i - 1) * (rowHeight + 4))
     row:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
@@ -4216,7 +4219,9 @@ for i, goal in ipairs(FGT.goals) do
     end)
 
     goalRows[goal.id] = row
+    return row
 end
+for i, goal in ipairs(FGT.goals) do FGT.EnsureGoalRow(goal, i) end
 
 LayoutGoalList = function()
     if FGT.RefreshCompletedGoalsButton then FGT.RefreshCompletedGoalsButton() end
@@ -9670,6 +9675,7 @@ end
 -- Search and faction rules, applied on top of the chip filter.
 -- Goals this client can show at all (before any filter).
 function LF.Available(goal, allowChild)
+    if goal.plannerOwner then return false end
     if goal.libraryChild and not allowChild then return false end
     -- Forever-only goals can't be earned on Classic Era.
     if goal.forever == "new" and not FGT.isForever then return false end
@@ -12061,6 +12067,7 @@ initFrame:RegisterEvent("ADDON_LOADED")
 initFrame:SetScript("OnEvent", function(self, event, name)
     if name ~= ADDON then return end
     EnsureDB()
+    if FGT.LoadPlannerGoals then FGT.LoadPlannerGoals() end
     BuildWatchList()
     -- v1.6 one-time fix: v1.5 counted any character for the epic mount
     -- riding/gold/purchase tasks, so clear those ticks and let the new
@@ -12385,6 +12392,16 @@ FGT.PopoutUI = {
     redraw = function() if ForeverGoalTrackerDB then SelectGoal(selectedId, true) end end,
     content = stepsContainer, header = stepsHeader, rows = stepRowPool, headers = headerRowPool,
 }
+-- Narrow refresh bridge for runtime planner goals (also rechecks already-owned items).
+function FGT.RefreshPlannerGoals(goal)
+    ApplyAutoRules(goal)
+    FGT.CheckGoalCompletions()
+    LayoutGoalList()
+    RefreshGoalList()
+    FGT.RefreshOverall()
+    if selectedId then SelectGoal(selectedId, true) end
+    if FGT.RefreshPopout then FGT.RefreshPopout() end
+end
 FGT.headerRows = headerRowPool
 FGT.stepRows = stepRowPool
 

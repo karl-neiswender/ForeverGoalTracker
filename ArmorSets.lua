@@ -162,7 +162,7 @@ end
 function FGT.CatalogGoalCount()
     local count = 0
     for _, goal in ipairs(FGT.goals) do
-        if not goal.libraryOnly then count = count + 1 end
+        if not goal.libraryOnly and not goal.plannerOwner then count = count + 1 end
     end
     return count
 end
