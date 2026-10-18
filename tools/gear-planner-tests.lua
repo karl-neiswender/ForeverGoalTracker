@@ -256,3 +256,25 @@ assert(not T.turn:GetScript("OnUpdate"), "hidden planner stops rotation")
 T.model.SetFacing = nil
 UnitName = oldName
 print("  eased back/front views, independent wheel zoom and manual rotation takeover ok")
+
+-- Set actions preserve identity and collection credit through clear/remove/restore.
+UnitName = function() return "PlannerOwner" end
+F.ShowTab("tracker"); F.ShowTab("gear")
+T.new(); text(T.name, "Workflow actions")
+click(T.head); click(T.results[1]); click(T.add)
+local actionBuild = T.store().builds[#T.store().builds]
+local actionId = actionBuild.goalId
+D.progress[actionId][1] = true
+click(T.clear)
+assert(not next(actionBuild.slots), "clear empties planned items")
+click(T.clear)
+assert(actionBuild.slots[1] and D.progress[actionId][1], "undo clear restores items and collection credit")
+click(T.remove)
+assert(not D.active[actionId] and actionBuild.slots[1], "remove untracks without deleting the set")
+click(T.add)
+assert(D.active[actionId] and actionBuild.goalId == actionId and D.progress[actionId][1], "re-add restores the same goal and credit")
+text(T.name, "")
+T.name:GetScript("OnEditFocusLost")()
+assert(T.name:GetText() == "Workflow actions", "blank rename restores the saved name")
+UnitName = oldName
+print("  clear undo, remove/re-add and invalid rename preserve set identity and credit")

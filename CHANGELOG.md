@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Simplified Gear Planner’s set list and moved Add to Goals beside the name. Added set options for renaming, clearing with Undo, and removing from Goals without losing the set.
+
 - Tightened Gear Planner’s back view and dwarf male chest, shirt, tabard and leg framing. Necklaces use the full-character view.
 
 - Changed Gear Planner to turn the character around for the Back slot and forward for other slots.

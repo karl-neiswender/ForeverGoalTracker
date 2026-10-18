@@ -1,5 +1,7 @@
 # Gear Planner handoff: October 17, 2026
 
+Latest workflow: [set actions and sidebar refinement](Gear-Planner-workflow-2026-10-18.md).
+
 Latest native review: [male dwarf camera correction](Gear-Planner-native-camera-2026-10-18.md) — verified the four corrected views in World of Warcraft Beta after reload.
 
 Earlier October 18 refinement: [dwarf male focus and smoother transitions](Gear-Planner-dwarf-camera-2026-10-18.md). Native centering remains pending.
