@@ -141,6 +141,24 @@ model:SetFrameLevel(background:GetFrameLevel() + 1)
 if model.SetAutoDress then model:SetAutoDress(false) end
 model:SetAllPoints(modelArea)
 model:EnableMouse(true); model:EnableMouseWheel(true)
+-- A separate veil above the model protects labels without dimming the controls.
+local textVeil = CreateFrame("Frame", nil, modelArea)
+textVeil:SetAllPoints(); textVeil:SetFrameLevel(model:GetFrameLevel() + 1)
+local textShades = {}
+for i = 1, 4 do
+    local t = textVeil:CreateTexture(nil, "OVERLAY")
+    t:SetColorTexture(1, 1, 1, 1)
+    textShades[i] = t
+end
+local veilColor = {0.025, 0.022, 0.018}
+local function PaintTextVeil(value)
+    local color = veilColor
+    local strength = 0.55 + value * 0.3
+    U.gradient(textShades[1], color, color, strength, 0)
+    U.gradient(textShades[2], color, color, 0, strength)
+    FGT.PopoutUI.vgradient(textShades[3], color, color, strength, 0)
+    FGT.PopoutUI.vgradient(textShades[4], color, color, 0, strength * 0.85)
+end
 local zoom, facing, dragX = 0, 0, nil
 local cameraAspect = 1
 local MAX_ZOOM, FOCUS_ZOOM = 1, 0.75
@@ -149,6 +167,7 @@ local slotButtons = {}
 local camera = CreateFrame("Frame", nil, P)
 local function ApplyZoom(value)
     zoom = value
+    PaintTextVeil(value)
     -- Fit the wide drawing area through camera distance, not a smaller frame.
     if model.SetCamDistanceScale then model:SetCamDistanceScale((1.3 - math.max(0, value - 0.8) * 2) * cameraAspect) end
     if model.SetPortraitZoom then model:SetPortraitZoom(math.min(0.8, value)) end
@@ -243,6 +262,18 @@ local function LayoutPreview(self, w, h)
     -- Compensate camera distance for its wider aspect instead of clipping the model.
     cameraAspect = math.max(1, w / h / 0.85)
     ShadeBackground(w, h)
+    for i = 1, 2 do
+        local t = textShades[i]
+        t:ClearAllPoints(); t:SetWidth(w * 0.42)
+        t:SetPoint(i == 1 and "TOPLEFT" or "TOPRIGHT", modelArea)
+        t:SetPoint(i == 1 and "BOTTOMLEFT" or "BOTTOMRIGHT", modelArea)
+    end
+    for i = 3, 4 do
+        local t = textShades[i]
+        t:ClearAllPoints(); t:SetHeight(math.min(i == 3 and 140 or 110, h * 0.23))
+        t:SetPoint(i == 3 and "TOPLEFT" or "BOTTOMLEFT", modelArea)
+        t:SetPoint(i == 3 and "TOPRIGHT" or "BOTTOMRIGHT", modelArea)
+    end
     ApplyZoom(zoom)
 end
 modelArea:SetScript("OnSizeChanged", LayoutPreview)
@@ -268,6 +299,7 @@ for _, spec in ipairs(slots) do
     button.icon:SetTexture(FGT.GearPlannerSlotTexture(spec[1]))
     button.itemName = U.font(button, 11)
     button.itemName:SetText(""); button.itemName:SetWordWrap(false)
+    button.itemName:SetShadowColor(0, 0, 0, 1); button.itemName:SetShadowOffset(1, -1)
     if spec[3] == "LEFT" then
         button.itemName:SetPoint("LEFT", button, "RIGHT", 8, 0)
     elseif spec[3] == "RIGHT" then

@@ -115,3 +115,11 @@ Existing numeric slot keys and saved Head targets are preserved. Selecting a uni
 Validation: the full `python3 tools/check.py` suite passed; all nine classes were exercised on simulated Era and Forever for class/slot filtering, every armor piece, ring placement and independent unequip behavior. Final targeted checks also serialized/reloaded the mixed-slot build. LuaLS returned zero diagnostics with 3,506 Ketho annotation files loaded during this pass; final cleanup removed superseded placeholder handlers/unused locals afterward. Native visual review of full sets and right-column pickers is still pending. This is an unreleased source change, not a completed release gate.
 
 Evidence: [full Lua check](checks/gear-planner-tier3-full-lua.txt), [final regression/reload check](checks/gear-planner-tier3-reload.txt), [LuaLS results](checks/gear-planner-tier3-full-luals.json), [annotation-loading proof](checks/gear-planner-tier3-annotations.txt).
+
+## Text-readability veil above the character
+
+Karl requested a gradient over the enlarged character to keep item names readable. Added a separate noninteractive frame above DressUpModel but below slot icons, labels, pickers and the name header. Warm dark gradients extend inward from both sides across 42% of the panel width, with a top veil behind the name/status and a shorter bottom veil behind the hint/weapon row. The center of the character stays clear.
+
+Strength increases with zoom (55% at full view to 85% at maximum) using the existing zoom updates; there is no new idle ticker or inventory/model scan. The four textures are allocated once, their bounds update on resize, and their shared color is reused. Added a small black shadow to item labels. Background desaturation/shading stays separate below the model. No saved builds, targets or goal progress changed. Final gradient strength needs Karl's native review.
+
+Validation: `python3 tools/check.py` passed (exit 0), including all-class Era/Forever planner and resize/zoom checks. [Retained output](checks/gear-planner-text-veil-lua.txt). No fresh LuaLS run or release is claimed for this visual adjustment.
