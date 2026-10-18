@@ -9,6 +9,17 @@ FGT.gearTab = tab
 tab:SetPoint("LEFT", FGT.libraryTab, "RIGHT", 6, 0)
 tab:SetScript("OnClick", function() FGT.ShowTab("gear") end)
 
+-- Match the native character panel for every empty equipment slot.
+-- Use slot names (HeadSlot, Finger0Slot, etc.) when adding planner slots.
+function FGT.GearPlannerSlotTexture(slotName)
+    local _, texture = GetInventorySlotInfo(slotName)
+    if (type(texture) == "string" and texture ~= "") or (type(texture) == "number" and texture > 0) then
+        return texture
+    end
+    return "Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. slotName:gsub("%d", ""):gsub("Slot$", "")
+end
+local emptyHeadTexture = FGT.GearPlannerSlotTexture("HeadSlot")
+
 local catalogue = {
     { class = "WARRIOR", name = "Helm of Might", id = 16866, icon = "Interface\\Icons\\inv_helmet_09", source = "Garr — Molten Core" },
     { class = "PALADIN", name = "Lawbringer Helm", id = 16854, icon = "Interface\\Icons\\inv_helmet_05", source = "Garr — Molten Core" },
@@ -241,7 +252,7 @@ Refresh = function()
         or (selected and selected.name == "") and "Name your set to save it." or "Saved")
     local item
     for _, entry in ipairs(catalogue) do if selected and entry.id == selected.slots[1] then item = entry end end
-    head.icon:SetTexture(item and item.icon or nil); head.text:SetText(item and "" or "Head")
+    head.icon:SetTexture(item and item.icon or emptyHeadTexture); head.text:SetText("")
 end
 Results = function()
     local _, class = UnitClass("player")

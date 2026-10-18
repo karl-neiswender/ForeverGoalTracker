@@ -53,3 +53,9 @@ The model now uses a centered portrait-shaped viewport with top/bottom margins, 
 Geometry regressions cover wide and tall windows, native tile aspect ratios, the narrow right column and model margins. Full Lua suite passed before the final clipping-frame adjustment; targeted Era/Forever planner regressions passed again after that adjustment. Native review is still required for final helm/feet framing, texture joins and the focus transition; the computer-use screenshot attempt timed out during this pass.
 
 Framing-check evidence: [full Lua output](checks/gear-planner-framing-lua.txt), [LuaLS zero-diagnostic results](checks/gear-planner-framing-luals.json), and [loaded-annotation proof](checks/gear-planner-framing-annotations.txt). LuaLS ran during this pass; the final clipping change adds only a child Frame for the already-checked textures. No release gate or native validation is claimed.
+
+## Native empty-slot thumbnails
+
+At Karl's request, empty Head now uses the native character-panel thumbnail from `GetInventorySlotInfo("HeadSlot")`. Selecting a helm replaces it with the item icon; Unequip restores the thumbnail. `FGT.GearPlannerSlotTexture(slotName)` provides the same convention for future equipment slots. Head remains the only implemented equipment slot in this prototype.
+
+Validation: `python3 tools/check.py` passed (exit 0), including both client planner regressions. [Retained output](checks/gear-planner-slot-icons-lua.txt).

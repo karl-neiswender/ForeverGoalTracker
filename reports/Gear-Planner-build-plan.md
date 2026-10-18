@@ -13,6 +13,7 @@ Karl subsequently authorized the first prototype. See the [prototype implementat
 - Selecting an empty slot opens item search restricted to that equipment slot. Head search shows head items, for example.
 - Clicking a search result immediately equips that target on the preview while keeping the picker open for comparison. This edits the plan, never actual equipment.
 - Smoothly focus the camera on the selected gear area. Allow zooming out to the full character and returning to that selected area. Fade the model during zoom transitions. Support rotation.
+- Empty equipment slots use the game's native character-panel thumbnails, resolved with GetInventorySlotInfo. Selected targets replace the placeholder with their item icon; Unequip restores the native placeholder.
 - Clicking a populated slot offers Replace and Unequip. Unequip clears the planned target and removes its preview appearance.
 - Builds can be saved without tracking them. Only the explicit Add to My Goals action adds a build to My Goals.
 - A set name is required before adding a build to My Goals.
