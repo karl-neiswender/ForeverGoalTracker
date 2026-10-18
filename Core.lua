@@ -1530,7 +1530,7 @@ do
             return "Not found in Forever yet. This spot is from Classic Era."
         end
         -- a spot read from Classic Era's own map data that Forever hasn't confirmed (raid entrances)
-        if FGT.isForever and n.unverifiedInForever then return "Unverified in Forever. This spot is from Classic Era." end
+        if FGT.isForever and n.unverifiedInForever then return "Unconfirmed in Forever. This spot is from Classic Era." end
         if not n.map then return "No map pin: inside a dungeon, where the map can't show it." end
     end
     function FGT.NpcNoteColor(n)
@@ -8400,7 +8400,7 @@ RefreshSteps = function(goal, view)
             row.ruleEntry = rule
             if rule then
                 local _, cur, max = RuleReadout(rule)
-                if cur and max and not (rule.item and rule.count and rule.count > 1)
+                if cur and max and not entry.hideProgressBar and not (rule.item and rule.count and rule.count > 1)
                     and not IsStepDone(goal.id, i) then
                     row.miniBar:ClearAllPoints()
                     row.miniBar:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -6)

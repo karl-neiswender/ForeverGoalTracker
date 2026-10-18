@@ -16,6 +16,7 @@ FGT.CLASSES = {
 
 local ONE_HAND_SWORD = { "WARRIOR", "PALADIN", "ROGUE", "HUNTER", "MAGE", "WARLOCK" }
 FGT.GOAL_CLASSES = {
+    social_buffs = { "MAGE", "DRUID", "PRIEST", "PALADIN" }, -- supported by FGT.BUFF_CLASSES
     thunderfury = ONE_HAND_SWORD,
     quelserrar = ONE_HAND_SWORD,
     sulfuras = { "WARRIOR", "PALADIN", "SHAMAN", "DRUID" },

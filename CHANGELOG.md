@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Fixed Buff Other Players appearing for unsupported classes in character-filtered views.
+- Changed Arcanite Reaper’s Blacksmithing step to use its step number.
+- Removed redundant objective bars from Hyjal Summit and the Barrow Deeps.
+- Added faction-specific war mount vendors, city links and PvP hall approach pins. Forever locations remain unconfirmed.
+
 ## 2.15.1
 
 - Added clickable dungeon names with entrance pins in guides.

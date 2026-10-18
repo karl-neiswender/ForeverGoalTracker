@@ -459,7 +459,7 @@ local library = {
         note = "A two-handed axe made by a Blacksmith. It needs Blacksmithing 300, the plans from Blackrock Spire and 20 Arcanite Bars.",
         steps = {
             { text = "Reach level 58.", auto = { level = 58 } },
-            { text = "Reach Blacksmithing 300.", icon = "trade_blacksmithing", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
+            { text = "Reach Blacksmithing 300.", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
             { text = "Loot Plans: Arcanite Reaper from Bannok Grimaxe in Blackrock Spire.", auto = { item = 12838 } },
             { text = "Gather 20 Arcanite Bars.", auto = { item = 12360, count = 20 } },
             { text = "Gather 6 Enchanted Leather.", auto = { item = 12810, count = 6 } },
@@ -584,7 +584,7 @@ local library = {
         note = "New 20-player raid in Mount Hyjal. Opens December 9, 2026.",
         foreverNote = "Full boss list, entrance and loot are unconfirmed.",
         steps = {
-            { text = "Defeat The Wild King in Hyjal Summit.",
+            { text = "Defeat The Wild King in Hyjal Summit.", hideProgressBar = true,
               auto = { boss = "The Wild King", stat = { id = 63580, value = 1, what = "Wild King kills" } } },
         },
     },
@@ -598,7 +598,7 @@ local library = {
         note = "New 10-player prison raid with three entrances, including Mount Hyjal. Opens December 9, 2026.",
         foreverNote = "Full boss list, entrance locations and loot are unconfirmed.",
         steps = {
-            { text = "Defeat Sonya Darkhallow in the Barrow Deeps.",
+            { text = "Defeat Sonya Darkhallow in the Barrow Deeps.", hideProgressBar = true,
               auto = { boss = "Sonya Darkhallow", stat = { id = 63581, value = 1, what = "Sonya Darkhallow kills" } } },
         },
     },
@@ -1490,7 +1490,9 @@ for _, f in ipairs({ "Alliance", "Horde" }) do
         note = "The epic PvP mount, sold to " .. RANKS[f][11] .. "s and above: " .. table.concat(mounts, ", ") .. ".",
         steps = {
             RankStep(f, 11),
-            { text = "Buy a war mount from your faction's PvP quartermaster.", auto = { owned = mounts, forFaction = f } },
+            { text = A and "Buy a war mount from Lieutenant Karter in {map:pvp_alliance:Stormwind City}."
+                       or "Buy a war mount from Raider Bork in {map:pvp_horde:Orgrimmar}.",
+              auto = { owned = mounts, forFaction = f } },
         },
         tips = { "Earn honor every week in battlegrounds and world PvP. Rank depends on your honor compared with everyone else's." },
         completeWith = { owned = mounts, forFaction = f },

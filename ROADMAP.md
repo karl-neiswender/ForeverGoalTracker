@@ -10,13 +10,18 @@ Build a named target gear set by equipment slot, see where each item comes from 
 
 The fixes and refinements below will ship in small patches as they are ready. They do not all need to be finished before Gear Planner.
 
+## Implemented, awaiting in-game review and release
+
+- Buff Other Players follows the supported classes in character-filtered views.
+- Arcanite Reaper’s Blacksmithing step uses its step number.
+- Hyjal Summit and the Barrow Deeps no longer repeat their binary objective as a small progress bar.
+- War mount guides name each faction’s vendor and link the city to its PvP hall approach. Forever positions remain unconfirmed.
+
 ## Patch improvements: fixes and clearer guides
 
-- **Goals that fit your character:** review class, race, faction and profession filtering, including hiding Buff Other Players from characters who cannot cast the supported buffs.
+- **Goals that fit your character:** continue reviewing class, race, faction and profession filtering.
 - **Only New & Updated results:** show the matching Forever mounts and sets directly, without unrelated entries inside their collection groups.
-- **Clearer war mount steps:** name each faction’s vendor and city, with NPC and location links and a map pin.
 - **Simpler item set pages:** remove redundant single-section headers, especially for Tier 1 and Tier 2, and use a heading that fits a collection of items.
-- **Small guide fixes:** use a step number for Arcanite Reaper’s Blacksmithing step and remove the redundant single-step bars from Hyjal Summit and the Barrow Deeps.
 
 ## Patch improvements: finding goals and understanding progress
 

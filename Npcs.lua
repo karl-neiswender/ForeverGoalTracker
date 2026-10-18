@@ -85,6 +85,12 @@ FGT.NPCS = {
     { id = 14534, name = "Klinfran the Crazed", disguise = "Franklin the Friendly", map = 1428, zone = "Burning Steppes", x = 17.0, y = 54.0 },
     { id = 14530, name = "Solenor the Slayer", disguise = "Nelson the Nice", map = 1451, zone = "Silithus", x = 18.2, y = 78.2, f = { 1451, 20.2, 79.6 } },
     { id = 14533, name = "Simone the Seductress", disguise = "Simone the Inconspicuous", wanders = true, map = 1449, zone = "Un'Goro Crater", x = 24.2, y = 54.6 },
+    -- Classic PvP halls, researched 2026-10-17; pins show the hall approach, not an
+    -- exact indoor vendor position. Forever positions still need native confirmation.
+    { id = 12783, name = "Lieutenant Karter", tag = "Mount Vendor", map = 1453, zone = "Stormwind City", x = 72.4, y = 50.8,
+      where = "Inside Champions' Hall in Old Town. The pin shows the hall approach.", unverifiedInForever = true },
+    { id = 12796, name = "Raider Bork", tag = "Mount Quartermaster", map = 1454, zone = "Orgrimmar", x = 39.9, y = 69.1,
+      where = "Inside the Hall of Legends. The pin shows the hall approach.", unverifiedInForever = true },
     -- Alterac Valley mount vendors, outside the battleground
     { id = 13217, name = "Thanthaldis Snowgleam", tag = "Stormpike Supply Officer", map = 1416, zone = "Alterac Mountains", x = 39.4, y = 81.4 },
     { id = 13219, name = "Jekyll Flandring", tag = "Frostwolf Supply Officer", map = 1416, zone = "Alterac Mountains", x = 62.8, y = 59.4 },
@@ -131,6 +137,11 @@ FGT.HUBS = {
 -- Cave and mountain entrances still require travelling inside to reach the portal.
 -- Classic reference positions remain Unconfirmed on Forever.
 FGT.DUNGEONS = {
+    -- Explicit {map:} tags in war-mount guides; do not auto-link city names elsewhere.
+    { id = "dungeon:pvp_alliance", name = "Champions' Hall", map = 1453, zone = "Stormwind City", x = 72.4, y = 50.8,
+      unverifiedInForever = true, where = "Hall approach in Old Town. Lieutenant Karter is inside." },
+    { id = "dungeon:pvp_horde", name = "Hall of Legends", map = 1454, zone = "Orgrimmar", x = 39.9, y = 69.1,
+      unverifiedInForever = true, where = "Hall approach. Raider Bork is inside." },
     { id = "dungeon:bfd", name = "Blackfathom Deeps", map = 1440, zone = "Ashenvale", x = 14, y = 13.1, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
     { id = "dungeon:uldaman", name = "Uldaman", map = 1418, zone = "Badlands", x = 44.53, y = 12.12, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
     { id = "dungeon:rfd", name = "Razorfen Downs", map = 1413, zone = "The Barrens", x = 49.13, y = 93.48, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },

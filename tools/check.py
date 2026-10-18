@@ -663,6 +663,8 @@ if ok_all:
         ("Forever AQ40 battle tanks", None, open(os.path.join(here, "qiraji-tests.lua"), encoding="utf-8").read(), True),
         ("Zin'rokh on Era", None, open(os.path.join(here, "zinrokh-tests.lua"), encoding="utf-8").read()),
         ("Zin'rokh on Forever", None, open(os.path.join(here, "zinrokh-tests.lua"), encoding="utf-8").read(), True),
+        ("guide fixes on Era", None, open(os.path.join(here, "guide-fixes-tests.lua"), encoding="utf-8").read()),
+        ("guide fixes on Forever", None, open(os.path.join(here, "guide-fixes-tests.lua"), encoding="utf-8").read(), True),
         ("Teebu's on Era", None, open(os.path.join(here, "teebus-tests.lua"), encoding="utf-8").read()),
         ("Teebu's on Forever", None, open(os.path.join(here, "teebus-tests.lua"), encoding="utf-8").read(), True),
         ("Darkspear Islands reputations on Era", None, open(os.path.join(here, "darkspear-rep-tests.lua"), encoding="utf-8").read()),

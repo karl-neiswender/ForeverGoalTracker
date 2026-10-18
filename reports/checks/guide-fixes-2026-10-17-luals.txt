@@ -1,0 +1,29 @@
+LuaLS 3.19.2, Ketho WoW API 0.22.3, Lua 5.1
+Config: reports/checks/release-2.11.1-luals-config.json
+Initializing ...
+                                                                                
+>>================== 01/17
+                                                                                
+>>>>>>============== 05/17
+                                                                                
+>>>>>>>>============ 06/17
+                                                                                
+>>>>>>>>>>>>======== 10/17
+                                                                                
+>>>>>>>>>>>>>======= 11/17
+                                                                                
+>>>>>>>>>>>>>>>===== 12/17
+                                                                                
+>>>>>>>>>>>>>>>>>=== 14/17
+                                                                                
+>>>>>>>>>>>>>>>>>>>= 16/17
+                                                                                
+>>>>>>>>>>>>>>>>>>>> 17/17
+                                                                                
+Diagnosis completed, no problems found
+
+Annotation log lines containing ketho.wow-api: 14027
+Samples:
+  ["workspace.library"] = { "/Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations" }
+[21:04:18.989][info] [#0:script/workspace/workspace.lua:369]: Scan library at:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[21:04:19.598][info] [#0:script/workspace/workspace.lua:369]: Scan library at:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
