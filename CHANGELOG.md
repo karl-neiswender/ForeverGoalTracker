@@ -1,24 +1,19 @@
 # Changelog
 
-## Unreleased
+## 2.15.2
 
-- Fixed wrapped item set rows clipping above their icons or overlapping completion counts in narrow guides.
+- Added Hide completed goals to My Goals, with the choice remembered after reloads.
+- Changed New & Updated to list matching sets and mounts individually.
+- Changed item set guides to show pieces directly, with expandable requirements for Tier 3 and Tier 2.5.
+- Changed completed goal cards to use darker backgrounds and green completion markers.
+- Fixed character filtering for Buff Other Players and wrapping in narrow item set guides.
+- UI improvements and bug fixes.
 
-- Removed redundant outer headers from Tier 3 and Tier 2.5 set pages while keeping each item’s expandable requirements.
+### Developers' notes
 
-- Removed redundant Show on map actions from steps that already contain a location link.
+War mount guides now name each faction’s vendor and link its capital city to the PvP hall approach. Forever positions remain unconfirmed. Steps with a location link no longer repeat Show on map.
 
-- Matched completed My Goals card backgrounds to the darker Library treatment, keeping the green check, completion date and full progress bar.
-
-- Added a remembered Hide completed goals filter to My Goals, including the folded goals rail.
-- Simplified plain item set pages and changed collection headings to Items to collect.
-- Darkened completed Library cards and faded their text and icons, with a green Complete button, an icon checkmark and their completion date. Forever cards retain a subtle blue surface.
-- Changed New & Updated to show matching sets and mounts directly instead of collection wrappers.
-
-- Fixed Buff Other Players appearing for unsupported classes in character-filtered views.
-- Changed Arcanite Reaper’s Blacksmithing step to use its step number.
-- Removed redundant objective bars from Hyjal Summit and the Barrow Deeps.
-- Added faction-specific war mount vendors, city links and PvP hall approach pins. Forever locations remain unconfirmed.
+Arcanite Reaper’s Blacksmithing step now shows its step number. Hyjal Summit and the Barrow Deeps no longer repeat their single objective as a small progress bar. Goal progress and item requirements are preserved.
 
 ## 2.15.1
 

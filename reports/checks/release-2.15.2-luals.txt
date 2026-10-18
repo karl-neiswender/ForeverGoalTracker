@@ -1,0 +1,40 @@
+LuaLS 3.19.2, Ketho WoW API 0.22.3, Lua 5.1
+Config: reports/checks/release-2.11.1-luals-config.json
+Initializing ...
+                                                                                
+>>================== 01/17
+                                                                                
+>>>>>=============== 04/17
+                                                                                
+>>>>>>============== 05/17
+                                                                                
+>>>>>>>>>=========== 07/17
+                                                                                
+>>>>>>>>>>>>======== 10/17
+                                                                                
+>>>>>>>>>>>>>======= 11/17
+                                                                                
+>>>>>>>>>>>>>>>===== 12/17
+                                                                                
+>>>>>>>>>>>>>>>>>=== 14/17
+                                                                                
+>>>>>>>>>>>>>>>>>>>= 16/17
+                                                                                
+>>>>>>>>>>>>>>>>>>>> 17/17
+                                                                                
+Diagnosis completed, no problems found
+
+Annotation log references: 14027
+Samples:
+  ["workspace.library"] = { "/Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations" }
+[22:34:29.982][info] [#0:script/workspace/workspace.lua:369]: Scan library at:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+[22:34:30.607][info] [#0:script/workspace/workspace.lua:369]: Scan library at:	file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+
+Relevant loaded annotation: Core/Widget/Font/FontString.lua
+[22:34:31.771][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/Font/FontString.lua , size = 8.935 KB
+
+Relevant loaded annotation: Core/Widget/Frame/Frame.lua
+[22:34:31.710][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/Frame/Frame.lua , size = 20.208 KB
+
+Relevant loaded annotation: Core/Widget/Base/ScriptRegionResizing.lua
+[22:34:31.882][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/Base/ScriptRegionResizing.lua , size = 3.152 KB

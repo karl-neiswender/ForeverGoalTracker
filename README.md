@@ -7,11 +7,11 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 ## Features
 
 - **Goal suggestions:** a short welcome asks what interests you (Raiding, PvP, Epic Loot, Collecting, The Grind, Social) and picks starting goals for the character you're on: its class, race, faction and level. **Find your next goal**, at the end of My Goals, suggests what to chase next.
-- **Goal Library with 166 goals:** legendary and epic weapons, rare and class mounts, reputations, raid clears (including Forever's new Hyjal Summit and Barrow Deeps), raid attunements and dungeon keys, item sets (Dungeon Sets 1 and 2, Tier 1, 2, 2.5 and 3, Forever's raid sets and Violet Sorcerer's Vestments), PvP ranks and sets, professions, the Stranglethorn Fishing Extravaganza, social goals and milestones. Filter by search, your character or any class, faction and category; sort by name, difficulty, duration or Progression (armor sets in the order you'd earn them), and add everything listed at once.
-- **Step-by-step guides** for every goal.
+- **Goal Library:** legendary and epic weapons, rare and class mounts, reputations, raid clears (including Forever's new Hyjal Summit and Barrow Deeps), raid attunements and dungeon keys, item sets (Dungeon Sets 1 and 2, Tier 1, 2, 2.5 and 3, Forever's raid sets and Violet Sorcerer's Vestments), PvP ranks and sets, professions, the Stranglethorn Fishing Extravaganza, social goals and milestones. Filter by search, your character or any class, faction and category; sort by name, difficulty, duration or Progression (armor sets in the order you'd earn them), and add everything listed at once.
+- **Guides for every goal:** item sets list their pieces directly, with expandable materials and turn-in requirements where needed.
 - **Map view:** a pin button on a goal page fades the banner to the zone map with a gold pin on the person your next step needs. Zoom with the mouse wheel or the slider. Dungeon names in guides have clickable entrance pins. Steps, Exalted reputations and the Onyxia, Zul'Gurub and Ahn'Qiraj raid goals have **Show on map** links.
 - **Materials panel:** a drawer beside each goal lists the materials and tokens it still needs, counted across your characters.
-- **Search My Goals,** or show only the goals the character you're on can do.
+- **Search My Goals,** show only goals for your character, or hide completed goals. The completed-goals choice is remembered.
 - **Automatic tracking across your characters:** level and XP, items in bags, gear and bank, quests, reputation, professions, gold, mounts, PvP rank, honorable kills, raid boss kills, guild and friends, and WoW Forever's Statistics window (like duels won).
 - **Edit goal:** change the number on goals like Save 5,000 Gold.
 - **Personal notes:** click the note icon on a goal page to save a reminder above its description. Use the note icon to edit it; use Delete note to remove it, or the close X to discard unsaved edits.
@@ -19,7 +19,7 @@ A goal tracker addon for **Warcraft Forever**. Choose long-term goals from a bui
 - **Goal artwork:** monochrome banners with soft fades and individual class-set artwork. Leveling banners favor your logged-in character's class and faction, racial mounts and Ambassador banners favor your race, Buff Others follows your class, and PvP banners follow your faction. Profession banners use the logged-in character’s skills, choosing one image when several apply. Artist credits fade in with the artwork. Shared artwork fills gaps where a matching image is unavailable.
 - **Prerequisite locks on Classic Era:** dependent steps unlock as you finish their prerequisites.
 - **Raid lockouts:** raid goals show when the character you're on is saved this week.
-- **Pick the parts you want** of multi-part goals: individual classes, professions or mount races. Armor sets stay grouped in the Library, but each selected class set becomes its own goal with separate progress, notes and artwork.
+- **Pick the parts you want** of multi-part goals: individual classes, professions or mount races. Armor sets can be browsed as collections or individual class sets. New & Updated lists matching sets and mounts directly. Each selected class set has separate progress, notes and artwork.
 - **Separate Alliance and Horde goals**, with faction filters.
 - **Favorites:** right-click a goal to star it and keep it at the top of your list, or to remove it.
 - **Built for Warcraft Forever:** NEW and UPDATED markers in Forever blue, a "New & Updated" filter, and a notice on guides not yet confirmed in Forever.
@@ -50,7 +50,7 @@ Download the latest release from CurseForge, or copy this repository's files int
 
 A key binding is available under Options > Keybindings > AddOns.
 
-Click **Help me get started** for suggestions, or open the **Goal Library** tab and click **+ Add** on the goals you want, then follow them on **My Goals**. Steps tick themselves as you play; you can also click any step to tick it by hand.
+Click **Help me get started** for suggestions, or open the **Goal Library** tab and click **+ Add** on the goals you want, then follow them on **My Goals**. Steps complete automatically as you play; you can also click any step to tick it by hand.
 
 ## Project layout
 

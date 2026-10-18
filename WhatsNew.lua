@@ -12,6 +12,14 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.15.2", date = "Oct 17, 2026", items = {
+        "Added Hide completed goals to My Goals, with the choice remembered after reloads",
+        "Changed New & Updated to list matching sets and mounts individually",
+        "Changed item set guides to show pieces directly, with expandable requirements for Tier 3 and Tier 2.5",
+        "Changed completed goal cards to use darker backgrounds and green completion markers",
+        "Fixed character filtering for Buff Other Players and wrapping in narrow item set guides",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.15.1", date = "Oct 16, 2026", items = {
         "Added clickable dungeon names with entrance pins in guides",
         "Added map links for Light's Hope Chapel, City of Dalaran and both Ahn'Qiraj raids",

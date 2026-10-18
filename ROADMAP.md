@@ -10,18 +10,6 @@ Build a named target gear set by equipment slot, see where each item comes from 
 
 The fixes and refinements below will ship in small patches as they are ready. They do not all need to be finished before Gear Planner.
 
-## Implemented, awaiting in-game review and release
-
-- Buff Other Players follows the supported classes in character-filtered views.
-- Arcanite Reaper’s Blacksmithing step uses its step number.
-- Hyjal Summit and the Barrow Deeps no longer repeat their binary objective as a small progress bar.
-- War mount guides name each faction’s vendor and link the city to its PvP hall approach. Forever positions remain unconfirmed.
-
-- My Goals can hide completed goals and remember that choice.
-- Item set pages show their pieces directly under Items to collect, including Tier 3 and Tier 2.5; each item’s requirements remain expandable.
-- Completed Library cards use a quieter completion treatment.
-- New & Updated lists matching individual sets and mounts directly.
-
 ## Patch improvements: fixes and clearer guides
 
 - **Goals that fit your character:** continue reviewing class, race, faction and profession filtering.
@@ -68,6 +56,8 @@ The fixes and refinements below will ship in small patches as they are ready. Th
 The [release planning notes](reports/Release-plan-2026-10-17.md) describe the proposed order, design decisions and review checks. Version numbers are tentative; dates and publication are not committed.
 
 ## Recently shipped
+
+- **2.15.2:** Hide completed goals, direct New & Updated results, simpler item set guides, darker completed cards, clearer war mount guidance and fixes for character filtering and wrapped text.
 
 - **2.15.1:** Clickable dungeon entrance links, map links for Light's Hope Chapel, City of Dalaran and Ahn'Qiraj, Darkspear reputation goals, Teebu's Blazing Longsword, artwork updates and bug fixes.
 

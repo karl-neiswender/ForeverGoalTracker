@@ -48,6 +48,10 @@ My Goals
   its description. Use the note icon to edit it. Use Delete note to remove
   it, or the close X to discard edits. Resetting or removing a goal
   keeps its note.
+  Search My Goals or show only goals for your character. Hide completed
+  goals keeps finished goals out of the list without removing their progress;
+  this choice is remembered. Item set pages list pieces directly, with
+  expandable requirements for each item where needed.
   The bar at the top shows your overall progress, averaged across your
   goals.
   Right-click a goal on the left to add it to your favorites (they get a
@@ -55,17 +59,14 @@ My Goals
   tracker. Removing keeps its progress in case you add it back.
 
 Goal Library
-  Every goal the addon knows (153 and counting). Search by name, or use
-  the filter chips to browse by type; PvP, Reputation and Attunements
-  also have a Both / Alliance / Horde picker. Click "+ Add" to put a
-  goal on your tracker. Goals with several parts (classes, professions, mount races,
-  set classes) have a "Choose" button so you can add only the parts you
-  want. Each chosen armor set becomes its own goal with separate progress,
-  notes and artwork.
+  Search the catalog or filter by class, faction and category. New & Updated
+  lists matching Forever sets and mounts directly. Click "+ Add" to track a
+  goal. Collection goals have a "Choose" button for picking individual parts.
+  Each chosen armor set has separate progress, notes and artwork.
 
 AUTOMATIC TRACKING
 ------------------
-Each character you log into is remembered. Steps tick themselves when a
+Each character you log into is remembered. Steps complete automatically when a
 rule is met on any of your characters:
   - Level and XP (per class and per race)
   - Items in your bags, gear, keyring and bank (open your bank once per
