@@ -1,0 +1,43 @@
+{
+  "version": "v2.15.2",
+  "commit": "a9f879e204b8b8b2ec447710cbc951eba6840b78",
+  "workflow": "https://github.com/karl-neiswender/ForeverGoalTracker/actions/runs/39090669757",
+  "workflow_result": "success",
+  "curseforge_upload": "Success reported at 2026-10-18 02:36:38 UTC",
+  "github_release": "https://github.com/karl-neiswender/ForeverGoalTracker/releases/tag/v2.15.2",
+  "zip_bytes": 23466596,
+  "zip_entries": 357,
+  "files": 352,
+  "sha256": "aa1d234bc642daf0054bd1df264035ac8a8fb756c59ff0dc7838c76ac05aef38",
+  "integrity": "passed",
+  "runtime_matches_tag": "passed with packager CRLF text normalization",
+  "text_files_normalized": [
+    "AQArmor.lua",
+    "ARTWORK-CREDITS.txt",
+    "Ambience.lua",
+    "ArmorSets.lua",
+    "Audit.lua",
+    "Bindings.xml",
+    "CHANGELOG.md",
+    "Core.lua",
+    "Data.lua",
+    "Dependencies.lua",
+    "Filters.lua",
+    "Fonts/OFL.txt",
+    "ForeverGoalTracker.toc",
+    "LICENSE.txt",
+    "Library.lua",
+    "Maplet.lua",
+    "Npcs.lua",
+    "Popout.lua",
+    "Quests.lua",
+    "README.txt",
+    "Rail.lua",
+    "WhatsNew.lua"
+  ],
+  "flavors": [
+    "Classic Era 11509",
+    "Forever 16001"
+  ],
+  "public_listing": "Public CurseForge feed still shows v2.15.1 at post-upload check. Upload succeeded; public availability not yet verified."
+}

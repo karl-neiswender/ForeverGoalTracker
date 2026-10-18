@@ -1,0 +1,6 @@
+2026-10-18T02:36:36.8471190Z Uploading ForeverGoalTracker-v2.15.2.zip (1.60.1,1.15.9 release) to https://wow.curseforge.com/projects/1728528
+2026-10-18T02:36:38.4327495Z Success!
+2026-10-18T02:36:38.6724695Z Creating GitHub release: https://github.com/karl-neiswender/ForeverGoalTracker/releases/tag/v2.15.2
+2026-10-18T02:36:41.0942238Z Uploading ForeverGoalTracker-v2.15.2.zip... Success!
+2026-10-18T02:36:41.8279461Z Uploading release.json... Success!
+2026-10-18T02:36:41.8307264Z Packaging complete.

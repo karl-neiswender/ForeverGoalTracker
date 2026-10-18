@@ -25,3 +25,7 @@ Local package simulation: 352 runtime files, modules and licenses present, 2.15.
 Changelog and in-game What's new share six concise release lines; explanatory notes preserve guide details and uncertainty. README documents the filter and direct item lists. Roadmap moves this batch into 2.15.2 and keeps Gear Planner next. The exact bottom AI disclaimer is unchanged. Existing gallery was reviewed as prior-version imagery; no newly captured release gallery or author-console description update is claimed.
 
 Artwork audit: 445 original files under Media/artwork, including an ignored/untracked check. No local artwork changes or deletions. Existing originals are already on main.
+
+## Publication verified
+
+Release commit a9f879e, tag v2.15.2. Workflow 39090669757 succeeded; packager logs explicitly confirm the CurseForge upload and GitHub release asset uploads. Retained upload lines: `release-2.15.2-upload.txt`. The downloaded published ZIP passes integrity and file-by-file comparison to the release tag after the packager's expected LF-to-CRLF text normalization; binary assets match exactly. No development files or artwork originals are included. Details and SHA-256: `release-2.15.2-publication.json`. The public CurseForge feed still reports 2.15.1 at this check, so public availability of 2.15.2 is not yet verified.
