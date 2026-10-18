@@ -69,36 +69,51 @@ list.scroll:SetPoint("BOTTOMRIGHT", -20, 16)
 local rows, selected, draft, changing = {}, nil, nil, false
 local name = CreateFrame("EditBox", nil, right, "InputBoxTemplate")
 name:SetAutoFocus(false); name:SetMaxLetters(60); name:SetHeight(28)
-name:SetPoint("TOPLEFT", 26, -20); name:SetPoint("TOPRIGHT", -24, -20)
+name:SetPoint("TOP", right, "TOP", 0, -24)
+name:SetWidth(340)
 name:SetFontObject("GameFontHighlight")
-Label(right, "Set name", 10, 22, -6)
-local status = Label(right, "", 11, 20, -56)
+local nameLabel = Label(right, "Set name", 10, 22, -6)
+nameLabel:ClearAllPoints(); nameLabel:SetPoint("BOTTOMLEFT", name, "TOPLEFT", 0, 4)
+local status = U.font(right, 10)
+status:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -6)
+right:SetScript("OnSizeChanged", function(_, w) name:SetWidth(math.min(340, math.max(120, w - 48))) end)
 local empty = Label(right, "Create a build to begin.", 14, 20, -100)
 local modelArea = CreateFrame("Frame", nil, right)
 modelArea:SetPoint("TOPLEFT", 16, -88); modelArea:SetPoint("BOTTOMRIGHT", -16, 62)
 modelArea:SetClipsChildren(true)
--- Native dressing-room background quadrants, from Blizzard DressUpFrames.lua.
+-- Blizzard Classic DressUpFrames.xml assembles a 318 x 383 background.
+-- The right column is only 62 wide; equal quarters stretch its artwork.
+local backgroundTiles = {
+    { 0, 0, 256, 255 }, { 256, 0, 62, 255 },
+    { 0, 255, 256, 128 }, { 256, 255, 62, 128 },
+}
 local _, race = UnitRace("player")
+local background = CreateFrame("Frame", nil, modelArea)
+background:SetAllPoints() -- child frame lets modelArea clip the cropped texture regions
 for i = 1, 4 do
-    local bg = modelArea:CreateTexture(nil, "BACKGROUND")
+    local bg = background:CreateTexture(nil, "BACKGROUND")
     bg:SetTexture("Interface\\DressUpFrame\\DressUpBackground-" .. (race or "Orc") .. i)
-    bg:SetAlpha(0.28)
-    local col, row = (i - 1) % 2, math.floor((i - 1) / 2)
+    bg:SetAlpha(0.18)
     bg:SetPoint("TOPLEFT", modelArea, "TOPLEFT", 0, 0)
     -- Layout is set on resize so the quadrants remain a continuous background.
-    modelArea["bg" .. i] = { texture = bg, col = col, row = row }
+    modelArea["bg" .. i] = { texture = bg, rect = backgroundTiles[i] }
 end
 local model = CreateFrame("DressUpModel", nil, modelArea)
 if model.SetAutoDress then model:SetAutoDress(false) end
-model:SetAllPoints(); model:EnableMouse(true); model:EnableMouseWheel(true)
+model:SetPoint("CENTER", modelArea, "CENTER", 0, 0)
+model:SetSize(260, 340)
+model:EnableMouse(true); model:EnableMouseWheel(true)
 local zoom, facing, dragX = 0, 0, nil
 local camera = CreateFrame("Frame", nil, P)
 local function ApplyZoom(value)
     zoom = value
+    -- A portrait-shaped viewport avoids the wide panel magnifying the body.
+    -- Leave extra distance for helmets and feet in the full-character view.
+    if model.SetCamDistanceScale then model:SetCamDistanceScale(1.3 - value * 0.3) end
     if model.SetPortraitZoom then model:SetPortraitZoom(value) end
 end
 local function Focus(on)
-    local start, target, elapsed = zoom, on and 0.85 or 0, 0
+    local start, target, elapsed = zoom, on and 0.9 or 0, 0
     camera:SetScript("OnUpdate", nil)
     if FGT.Setting("celebrations") == "off" then ApplyZoom(target); model:SetAlpha(1); return end
     camera:SetScript("OnUpdate", function(_, dt)
@@ -137,22 +152,32 @@ for side = 1, 4 do
     local t = masks:CreateTexture(nil, "OVERLAY")
     t:SetColorTexture(0.05, 0.045, 0.04, 1)
     if side <= 2 then
-        t:SetWidth(60); t:SetPoint(side == 1 and "TOPLEFT" or "TOPRIGHT")
+        t:SetWidth(100); t:SetPoint(side == 1 and "TOPLEFT" or "TOPRIGHT")
         t:SetPoint(side == 1 and "BOTTOMLEFT" or "BOTTOMRIGHT")
         U.gradient(t, {0.05,0.045,0.04}, {0.05,0.045,0.04}, side == 1 and 1 or 0, side == 1 and 0 or 1)
     else
-        t:SetHeight(50); t:SetPoint(side == 3 and "TOPLEFT" or "BOTTOMLEFT")
+        t:SetHeight(70); t:SetPoint(side == 3 and "TOPLEFT" or "BOTTOMLEFT")
         t:SetPoint(side == 3 and "TOPRIGHT" or "BOTTOMRIGHT")
         FGT.PopoutUI.vgradient(t, {0.05,0.045,0.04}, {0.05,0.045,0.04}, side == 3 and 1 or 0, side == 3 and 0 or 1)
     end
 end
-modelArea:SetScript("OnSizeChanged", function(self, w, h)
+local function LayoutPreview(self, w, h)
+    if w <= 0 or h <= 0 then return end
+    -- One uniform scale for every tile; crop the assembled picture as a unit.
+    local scale = math.max(w / 318, h / 383)
+    local x, y = (w - 318 * scale) / 2, (h - 383 * scale) / 2
     for i = 1, 4 do
         local b = self["bg" .. i]
-        b.texture:ClearAllPoints(); b.texture:SetPoint("TOPLEFT", b.col * w / 2, -b.row * h / 2)
-        b.texture:SetSize(w / 2, h / 2)
+        local r = b.rect
+        b.texture:ClearAllPoints()
+        b.texture:SetPoint("TOPLEFT", self, "TOPLEFT", x + r[1] * scale, -y - r[2] * scale)
+        b.texture:SetSize(r[3] * scale, r[4] * scale)
     end
-end)
+    local height = math.max(1, h - 36)
+    model:SetSize(math.min(w, height * 0.85), height)
+    ApplyZoom(zoom)
+end
+modelArea:SetScript("OnSizeChanged", LayoutPreview)
 local controls = CreateFrame("Frame", nil, right)
 controls:SetAllPoints(); controls:SetFrameLevel(masks:GetFrameLevel() + 2)
 local head = Button(controls, "Head", 54, 54); head:SetPoint("TOPLEFT", 22, -96)
@@ -186,12 +211,13 @@ local function Save()
         local store = Store(); selected.id = store.nextId; store.nextId = store.nextId + 1
         store.builds[#store.builds + 1] = selected; store.selected = selected.id; draft = nil
     end
-    status:SetText(value == "" and "Name your set to save it." or "Saved automatically")
+    status:SetText(value == "" and "Name your set to save it." or "Saved")
 end
 local function Choose(build)
     selected = build; changing = true; name:SetText(build and build.name or ""); changing = false
     picker:Hide(); menu:Hide(); Focus(false)
     model:SetUnit("player"); model:SetFacing(facing); Dress()
+    LayoutPreview(modelArea, modelArea:GetWidth(), modelArea:GetHeight())
     Refresh()
 end
 Refresh = function()
@@ -211,8 +237,8 @@ Refresh = function()
     list.content:SetHeight(math.max(1, #store.builds * 40)); list:Finalize(); list:Update()
     empty:SetShown(not selected); name:SetShown(selected ~= nil)
     modelArea:SetShown(selected ~= nil); controls:SetShown(selected ~= nil)
-    status:SetText(not selected and "Head-slot prototype · Sets stay out of My Goals."
-        or (selected and selected.name == "") and "Name your set to save it." or "Saved automatically · Head-slot prototype")
+    status:SetText(not selected and "Create a build to begin."
+        or (selected and selected.name == "") and "Name your set to save it." or "Saved")
     local item
     for _, entry in ipairs(catalogue) do if selected and entry.id == selected.slots[1] then item = entry end end
     head.icon:SetTexture(item and item.icon or nil); head.text:SetText(item and "" or "Head")
@@ -286,4 +312,5 @@ P:SetScript("OnHide", function()
 end)
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
-    name = name, head = head, picker = picker, results = resultRows, unequip = unequip }
+    name = name, head = head, picker = picker, results = resultRows, unequip = unequip,
+    modelArea = modelArea, model = model }

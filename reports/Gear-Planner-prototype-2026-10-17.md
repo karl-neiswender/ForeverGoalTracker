@@ -43,3 +43,13 @@ See the [full build plan](Gear-Planner-build-plan.md) for confirmed scope and su
 At Karl's request, replaced all nine Tier 2 sample helms with Tier 3 helms because Tier 2 is not yet available in Forever. Tier 1 remains included. Existing saved targets are not rewritten; use Replace to choose a supported test helm. Native asset availability remains to be checked in game.
 
 Validation after the catalogue correction: `python3 tools/check.py` passed (exit 0), including both client planner regressions updated for Dreadnaught Helmet. [Retained output](checks/gear-planner-tier3-lua.txt). The earlier LuaLS report applies to the initial prototype snapshot; this catalogue-only correction did not receive a fresh annotation pass.
+
+## First screenshot review: preview framing correction
+
+Karl's screenshot showed the race background stretched at its right-hand join and the character/helm clipped by the wide model viewport. Corrected the native background assembly using [Blizzard Classic DressUpFrames.xml](https://github.com/Gethe/wow-ui-source/blob/classic/Interface/AddOns/Blizzard_CharacterFrame/Classic/DressUpFrames.xml): left/right widths 256/62, top/bottom heights 255/128. All tiles share one uniform cover scale, centered and cropped inside a child frame; wider, darker edge fades blend the image into the panel. No raster assets were changed.
+
+The model now uses a centered portrait-shaped viewport with top/bottom margins, rather than filling the entire wide panel. Full view adds camera distance; head focus eases toward portrait zoom. The set-name field is centered and capped at 340 units, and the save status is a small Saved label. These changes preserve build data and selected items.
+
+Geometry regressions cover wide and tall windows, native tile aspect ratios, the narrow right column and model margins. Full Lua suite passed before the final clipping-frame adjustment; targeted Era/Forever planner regressions passed again after that adjustment. Native review is still required for final helm/feet framing, texture joins and the focus transition; the computer-use screenshot attempt timed out during this pass.
+
+Framing-check evidence: [full Lua output](checks/gear-planner-framing-lua.txt), [LuaLS zero-diagnostic results](checks/gear-planner-framing-luals.json), and [loaded-annotation proof](checks/gear-planner-framing-annotations.txt). LuaLS ran during this pass; the final clipping change adds only a child Frame for the already-checked textures. No release gate or native validation is claimed.

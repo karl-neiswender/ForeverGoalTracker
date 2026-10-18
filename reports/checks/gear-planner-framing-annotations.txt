@@ -1,0 +1,5 @@
+LuaLS 3.19.2; Ketho WoW API 0.22.3
+Configuration: reports/checks/release-2.11.1-luals-config.json
+Loaded annotation files: 3506
+[23:16:17.021][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/UIType/UIType.lua , size = 2.251 KB
+[23:16:36.013][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/FrameXML/Annotations/_templates.lua.annotated.lua , size = 122.494 KB
