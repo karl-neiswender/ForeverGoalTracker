@@ -64,6 +64,8 @@ Stage 2: a small working planner with named sets, slot targets and verified sour
 
 Stage 3: expand slot-filtered search and the character preview after performance and API review. Check unavailable models, preview equipment versus actual equipment, source uncertainty and cache misses. Reuse the custom-goal foundation where useful, but allow either feature to ship independently.
 
+Follow-up after the core planner: enchants and other verified item enhancements, including armor kits where supported. A populated slot can offer Add enchant (or the specific enhancement type), opening the picker with compatible options. Show a chosen enhancement as a small icon beside its equipment slot, with replace/remove actions. Plan the saved slot records to accommodate enhancements, but keep their implementation outside the first release. The follow-up includes source and material information and a defined application-completion rule; collecting materials alone must not imply an enchant was applied. Verify Forever support, restrictions and tracking APIs before committing to individual systems. Embellishments remain unconfirmed. Replacing a target item should clear its enhancement unless the player explicitly keeps a compatible selection.
+
 ## 6. Usage dashboard discovery
 
 Karl wants download/user totals, selected goals and progress trends. Treat these as separate questions. Downloads must not be presented as unique active users. No feasibility claim has been verified in this planning pass.

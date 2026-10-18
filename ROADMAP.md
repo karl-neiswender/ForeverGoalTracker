@@ -10,6 +10,10 @@ Build a named target gear set by equipment slot, see where each item comes from 
 
 The fixes and refinements below will ship in small patches as they are ready. They do not all need to be finished before Gear Planner.
 
+### Gear Planner follow-up: enchants and enhancements
+
+Plan enchants and other verified item enhancements, such as armor kits, after the core Gear Planner ships. Choose an enhancement from a populated equipment slot, search options compatible with that item, and show the selection with a small icon beside the slot. Include sources, materials and application tracking. Verify which enhancement systems Warcraft Forever supports before including them; embellishments are not confirmed scope.
+
 ## Patch improvements: fixes and clearer guides
 
 - **Goals that fit your character:** continue reviewing class, race, faction and profession filtering.
