@@ -179,3 +179,55 @@ D.characters[key], D.characters[foreign] = previousOwner, previousForeign
 UnitName = oldName
 F.ShowTab("tracker")
 print("  explicit add, Library exclusion, character scope, replacement credit, tooltip suppression and camera settling ok")
+
+-- Dwarf male focus differs from the general body profile; retargeting stays continuous.
+local oldRace, oldSex = UnitRace, UnitSex
+UnitName = function() return "PlannerOwner" end
+UnitRace = function() return "Dwarf", "Dwarf" end
+UnitSex = function() return 2 end
+F.ShowTab("gear")
+local focused
+T.model.SetPosition = function(_, x, y, z) focused = {x, y, z} end
+local function settle(slot)
+    click(T.slots[slot])
+    local update = T.camera:GetScript("OnUpdate")
+    if update then update(T.camera, 1) end
+    return focused
+end
+for _, slot in ipairs({"ShoulderSlot", "HandsSlot", "WristSlot", "FeetSlot"}) do
+    assert(settle(slot)[2] > 0, "one-sided focus uses the opposite lateral offset")
+end
+local dwarfHands = settle("HandsSlot")[3]
+UnitSex = function() return 3 end
+assert(settle("HandsSlot")[3] ~= dwarfHands, "dwarf male calibration leaves female profile unchanged")
+UnitSex = function() return 2 end
+settle("WaistSlot")
+local from = focused[3]
+click(T.slots.FeetSlot)
+local update = T.camera:GetScript("OnUpdate")
+update(T.camera, 0.1)
+assert(focused[3] > from and focused[3] < 0.99, "camera eases through intermediate positions")
+local intermediate = focused[3]
+click(T.slots.HandsSlot)
+T.camera:GetScript("OnUpdate")(T.camera, 0)
+assert(focused[3] == intermediate, "retarget begins at the displayed position")
+T.camera:GetScript("OnUpdate")(T.camera, 1)
+-- Gear swaps are delayed until the fade, coalesced, and independent of camera alpha.
+local swaps, alpha = 0, 1
+T.model.Undress = function() swaps = swaps + 1 end
+T.model.SetAlpha = function(_, value) alpha = value end
+click(T.head); click(T.replace); click(T.results[1]); click(T.results[2])
+assert(swaps == 0, "rapid comparisons keep the old preview until the fade")
+T.appearance:GetScript("OnUpdate")(T.appearance, 0.08)
+local faded = alpha
+assert(faded < 1 and faded > 0.30, "appearance eases down before replacement")
+local cameraUpdate = T.camera:GetScript("OnUpdate")
+if cameraUpdate then cameraUpdate(T.camera, 0.1) end
+assert(alpha == faded, "camera never overwrites the gear fade")
+T.appearance:GetScript("OnUpdate")(T.appearance, 0.32)
+assert(swaps == 1 and alpha == 1 and not T.appearance:GetScript("OnUpdate"), "latest preview paints once and fade stops")
+UnitRace, UnitSex, UnitName = oldRace, oldSex, oldName
+T.model.SetPosition, T.model.Undress, T.model.SetAlpha = nil, nil, nil
+F.ShowTab("tracker")
+assert(not T.camera:GetScript("OnUpdate") and not T.appearance:GetScript("OnUpdate"), "hidden planner stops both drivers")
+print("  dwarf male profile isolation, opposite-side focus, continuous camera retargets and independent gear fades ok")

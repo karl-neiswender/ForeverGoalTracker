@@ -217,13 +217,22 @@ local camera = CreateFrame("Frame", nil, P)
 -- Positive Z raises the model; a small negative offset lowers focused armor.
 local focusProfiles = {
     HeadSlot = {0.75, 0, -0.08}, NeckSlot = {0.68, 0, 0.05},
-    ShoulderSlot = {0.70, -0.32, 0.02}, ChestSlot = {0.58, 0, 0.28},
+    ShoulderSlot = {0.70, 0.32, 0.02}, ChestSlot = {0.58, 0, 0.28},
     ShirtSlot = {0.58, 0, 0.28}, TabardSlot = {0.50, 0, 0.35},
-    WristSlot = {0.68, -0.40, 0.65}, HandsSlot = {0.68, -0.40, 0.78},
+    WristSlot = {0.68, 0.40, 0.65}, HandsSlot = {0.68, 0.40, 0.78},
     WaistSlot = {0.60, 0, 0.65}, LegsSlot = {0.48, 0, 0.95},
-    FeetSlot = {0.68, -0.18, 1.35}, BackSlot = {0.48, 0, 0.30},
+    FeetSlot = {0.68, 0.18, 1.35}, BackSlot = {0.48, 0, 0.30},
 }
-local offsetY, offsetZ, targetZoom = 0, 0, 0
+-- Dwarf male has a shorter torso and lower hands than the general profile.
+-- These are initial native-review tuning values, independent of other bodies.
+local dwarfMaleFocus = {
+    HandsSlot = {0.64, 0.32, 0.46}, WaistSlot = {0.60, 0, 0.42},
+    LegsSlot = {0.48, 0, 0.70}, FeetSlot = {0.66, 0.18, 0.99},
+}
+local offsetY, offsetZ, targetZoom, targetY, targetZ = 0, 0, 0, 0, 0
+local function Ease(t)
+    return t * t * t * (t * (t * 6 - 15) + 10)
+end
 local function ApplyZoom(value)
     zoom = value
     PaintTextVeil(value)
@@ -231,27 +240,28 @@ local function ApplyZoom(value)
     if model.SetPortraitZoom then model:SetPortraitZoom(math.min(0.8, value)) end
     if model.SetPosition then model:SetPosition(0, offsetY, offsetZ) end
 end
-local function MoveCamera(target, y, z, duration, fade)
+local function MoveCamera(target, y, z, duration)
     local start, startY, startZ, elapsed = zoom, offsetY, offsetZ, 0
-    targetZoom = target
+    targetZoom, targetY, targetZ = target, y, z
     camera:SetScript("OnUpdate", nil)
     if FGT.Setting("celebrations") == "off" then
-        offsetY, offsetZ = y, z; ApplyZoom(target); model:SetAlpha(1); return
+        offsetY, offsetZ = y, z; ApplyZoom(target); return
     end
     camera:SetScript("OnUpdate", function(_, dt)
         elapsed = elapsed + dt
         local t = math.min(1, elapsed / duration)
-        local eased = t * t * (3 - 2 * t)
+        local eased = Ease(t)
         offsetY = startY + (y - startY) * eased
         offsetZ = startZ + (z - startZ) * eased
         ApplyZoom(start + (target - start) * eased)
-        model:SetAlpha(fade and (1 - 0.18 * math.sin(math.pi * t)) or 1)
-        if t == 1 then camera:SetScript("OnUpdate", nil); model:SetAlpha(1) end
+        if t == 1 then camera:SetScript("OnUpdate", nil) end
     end)
 end
 local function Focus(slot)
-    local profile = focusProfiles[slot] or {0, 0, 0}
-    MoveCamera(profile[1], profile[2], profile[3], 0.32, true)
+    local _, currentRace = UnitRace("player")
+    local profile = currentRace == "Dwarf" and UnitSex("player") == 2 and dwarfMaleFocus[slot]
+        or focusProfiles[slot] or {0, 0, 0}
+    MoveCamera(profile[1], profile[2], profile[3], 0.55)
 end
 local function FadeIn(frame)
     frame:SetScript("OnUpdate", nil); frame:SetAlpha(1); frame:Show()
@@ -264,7 +274,7 @@ local function FadeIn(frame)
         if elapsed >= 0.12 then self:SetScript("OnUpdate", nil) end
     end)
 end
-local function Dress()
+local function PaintGear()
     if not model.TryOn then return end
     model:Undress()
     for id = 1, 19 do
@@ -272,7 +282,27 @@ local function Dress()
         if item and item.slot ~= "FingerSlot" then model:TryOn("item:" .. item.id) end
     end
 end
-model:SetScript("OnModelLoaded", function() Dress(); ApplyZoom(zoom) end)
+local appearance = CreateFrame("Frame", nil, P)
+local appearanceAlpha, modelOwner = 1, nil
+local function Dress(animate)
+    appearance:SetScript("OnUpdate", nil)
+    if not animate or FGT.Setting("celebrations") == "off" then
+        PaintGear(); appearanceAlpha = 1; model:SetAlpha(1); return
+    end
+    local elapsed, swapped, startAlpha = 0, false, appearanceAlpha
+    appearance:SetScript("OnUpdate", function(_, dt)
+        elapsed = elapsed + dt
+        if elapsed < 0.16 then
+            appearanceAlpha = startAlpha + (0.30 - startAlpha) * Ease(elapsed / 0.16)
+        else
+            if not swapped then swapped = true; PaintGear() end
+            appearanceAlpha = 0.30 + 0.70 * Ease(math.min(1, (elapsed - 0.16) / 0.24))
+        end
+        model:SetAlpha(appearanceAlpha)
+        if elapsed >= 0.40 then appearance:SetScript("OnUpdate", nil) end
+    end)
+end
+model:SetScript("OnModelLoaded", function() PaintGear(); ApplyZoom(zoom) end)
 local function Rotate()
     if not dragX then return end
     if not IsMouseButtonDown("LeftButton") then dragX = nil; model:SetScript("OnUpdate", nil); return end
@@ -284,7 +314,7 @@ model:SetScript("OnMouseDown", function(_, button)
 end)
 model:SetScript("OnMouseUp", function() dragX = nil; model:SetScript("OnUpdate", nil) end)
 model:SetScript("OnMouseWheel", function(_, delta)
-    MoveCamera(math.max(0, math.min(MAX_ZOOM, targetZoom + delta * 0.1)), offsetY, offsetZ, 0.14, false)
+    MoveCamera(math.max(0, math.min(MAX_ZOOM, targetZoom + delta * 0.1)), targetY, targetZ, 0.20)
 end)
 -- Goal-art treatment belongs below the character and equipment controls.
 -- Keep the same panel colors/top veil, with broad side fades and an eased bottom.
@@ -470,7 +500,12 @@ local function Choose(build)
     selected = build; changing = true; name:SetText(build and build.name or ""); changing = false
     Deselect(); Focus(false)
     LayoutSlots()
-    model:SetUnit("player"); model:SetFacing(facing); Dress()
+    local ownerKey = U.charKey()
+    if modelOwner ~= ownerKey then
+        modelOwner = ownerKey; model:SetUnit("player"); model:SetFacing(facing); Dress()
+    else
+        Dress(true)
+    end
     LayoutPreview(modelArea, modelArea:GetWidth(), modelArea:GetHeight())
     status:SetText(""); status:SetAlpha(1)
     Refresh()
@@ -542,7 +577,7 @@ Results = function()
                         if other ~= id and itemId == entry.id then selected.slots[other] = nil; moved = true end
                     end
                 end
-                selected.slots[id] = entry.id; Dress(); Save(); Refresh(); Results()
+                selected.slots[id] = entry.id; Dress(true); Save(); Refresh(); Results()
                 if moved then status:SetText("Moved ring to the selected slot.") end
             end)
             row:SetScript("OnEnter", function(self)
@@ -609,7 +644,7 @@ for _, spec in ipairs(slots) do
 end
 replace:SetScript("OnClick", OpenPicker)
 unequip:SetScript("OnClick", function()
-    if selected and selectedSlot then selected.slots[slotIds[selectedSlot]] = nil; Dress(); Save(); Refresh() end
+    if selected and selectedSlot then selected.slots[slotIds[selectedSlot]] = nil; Dress(true); Save(); Refresh() end
     Deselect()
 end)
 add:SetScript("OnClick", function()
@@ -631,11 +666,12 @@ P:HookScript("OnShow", function()
 end)
 P:HookScript("OnHide", function()
     camera:SetScript("OnUpdate", nil); model:SetScript("OnUpdate", nil); model:SetAlpha(1); dragX = nil
+    appearance:SetScript("OnUpdate", nil); appearanceAlpha = 1
     status:SetScript("OnUpdate", nil)
     picker:SetScript("OnUpdate", nil); menu:SetScript("OnUpdate", nil)
     Deselect(); name:ClearFocus(); GameTooltip:Hide()
 end)
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
-    name = name, add = add, camera = camera, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,
+    name = name, add = add, camera = camera, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,
     modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons, catalogue = catalogue }

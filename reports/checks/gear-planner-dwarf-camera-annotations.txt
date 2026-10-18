@@ -1,0 +1,34 @@
+LuaLS 3.19.2; Ketho WoW API 0.22.3
+Config: reports/checks/release-2.11.1-luals-config.json
+Unique annotation paths loaded: 3506
+
+[16:08:48.245][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/UIType/UIType.lua , size = 2.251 KB
+[16:08:48.248][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/UIType/Font.lua , size = 29.297 KB
+[16:08:48.263][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/UIType/FrameType.lua , size = 1.791 KB
+[16:08:48.267][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/UIType/ScriptType.lua , size = 4.119 KB
+[16:08:48.271][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/UIType/Template.lua , size = 1.180 KB
+[16:08:48.275][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/Animation/Translation.lua , size = 0.649 KB
+[16:08:48.278][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/Animation/Scale.lua , size = 1.505 KB
+[16:08:48.283][info] [#0:script/workspace/loading.lua:100]: Preload file at: file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Widget/Animation/Rotation.lua , size = 1.104 KB
+
+Initializing ...
+                                                                                
+>>================== 01/18
+                                                                                
+>>>>>>============== 05/18
+                                                                                
+>>>>>>>>>>========== 09/18
+                                                                                
+>>>>>>>>>>>>>======= 11/18
+                                                                                
+>>>>>>>>>>>>>>====== 12/18
+                                                                                
+>>>>>>>>>>>>>>>===== 13/18
+                                                                                
+>>>>>>>>>>>>>>>>>=== 15/18
+                                                                                
+>>>>>>>>>>>>>>>>>>>= 17/18
+                                                                                
+>>>>>>>>>>>>>>>>>>>> 18/18
+                                                                                
+Diagnosis completed, no problems found
