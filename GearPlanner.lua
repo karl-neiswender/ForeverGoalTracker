@@ -720,7 +720,7 @@ Results = function()
                 row = Button(picker, "", 220, 44); resultRows[count] = row
                 row.icon = row:CreateTexture(nil, "ARTWORK"); row.icon:SetSize(28, 28); row.icon:SetPoint("LEFT", 5, 0)
                 row.text:ClearAllPoints(); row.text:SetPoint("LEFT", 40, 7); row.text:SetWidth(174)
-                row.source = U.font(row, 9); row.source:SetPoint("LEFT", 40, -10); row.source:SetWidth(174)
+                row.source = U.font(row, 9); row.source:SetPoint("LEFT", 40, -10); row.source:SetWidth(174); row.source:SetWordWrap(false)
             end
             row:SetPoint("TOPLEFT", 10, -42 - (count - 1) * 50)
             row.icon:SetTexture(entry.icon); row.text:SetText(entry.name)
@@ -728,7 +728,7 @@ Results = function()
             else row.text:SetTextColor(0.75, 0.45, 1) end
             row.chosen = selected and selected.slots[slotIds[selectedSlot]] == entry.id
             row:SetEtch(row.chosen and U.styles.rowSel or U.styles.button)
-            row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "") .. entry.source)
+            row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "") .. entry.source:match("^[^;]+"))
             row:SetScript("OnClick", function()
                 if not selected or not selectedSlot or not SlotMatches(entry, selectedSlot) then return end
                 local id = slotIds[selectedSlot]
