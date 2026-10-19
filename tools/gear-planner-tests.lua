@@ -291,7 +291,15 @@ assert(#importedGoal.steps == 16 and imported.slots[16] == 22314 and not importe
 assert(imported.slots[11] == 18500 and imported.slots[12] == 18500, "both non-unique rings are selected")
 local ringSteps = {}
 for i, step in ipairs(importedGoal.steps) do
-    assert(step.tip and step.tip ~= "", "every item carries its acquisition route")
+    if step.auto.item == 12927 then
+        assert(step.text == "Loot Truestrike Shoulders from Pyroguard Emberseer in Upper Blackrock Spire")
+        assert(not step.tip, "plain drop sources need no repeated tip")
+        assert(F.LinkText(step.text):find("|Hfgtentrance:", 1, true), "dungeon stays clickable")
+    elseif step.auto.item == 22340 then
+        assert(step.tip and step.tip:find("summon", 1, true), "summoning advice is preserved")
+    elseif step.auto.item == 15062 then
+        assert(step.text == "Craft Devilsaur Leggings with Leatherworking, or buy it", "crafted gear is not described as a drop")
+    end
     if step.auto.item == 18500 then ringSteps[#ringSteps + 1] = i end
 end
 local preRaidKey = F.MaterialsUI.charKey()
@@ -306,3 +314,25 @@ local again = F.CreateHunterPreRaidBuild()
 assert(again == imported and #T.store().builds == importedCount, "repeated import reopens without duplicates")
 UnitClass, UnitFactionGroup, UnitName = preRaidClass, preRaidFaction, oldName
 print("  Hunter pre-raid import: all 16 slots, sources, duplicate ring quantities and idempotence ok")
+
+-- Hover drivers are bounded and respect the existing reduced-motion preference.
+F.SetSetting("celebrations", "on")
+T.head:GetScript("OnEnter")(T.head)
+local wash = T.head.hoverWash
+assert(wash and wash:GetScript("OnUpdate"))
+local hoverAlpha = 0
+wash.SetAlpha = function(_, value) hoverAlpha = value end
+wash.GetAlpha = function() return hoverAlpha end
+wash:GetScript("OnUpdate")(wash, 0.2)
+assert(wash:GetAlpha() == 1 and not wash:GetScript("OnUpdate"))
+T.head:GetScript("OnLeave")(T.head)
+wash:GetScript("OnUpdate")(wash, 0.2)
+assert(wash:GetAlpha() == 0 and not wash:GetScript("OnUpdate"))
+F.SetSetting("celebrations", "off")
+T.head:GetScript("OnEnter")(T.head)
+assert(wash:GetAlpha() == 1 and not wash:GetScript("OnUpdate"))
+T.head:GetScript("OnHide")(T.head)
+assert(wash:GetAlpha() == 0 and not wash:GetScript("OnUpdate"))
+wash.SetAlpha, wash.GetAlpha = nil, nil
+F.SetSetting("celebrations", "on")
+print("  hover settles, cleans up on hide and respects Celebrations Off")

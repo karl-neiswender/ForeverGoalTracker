@@ -98,6 +98,37 @@ local function Store()
     chars[key] = chars[key] or { nextId = 1, builds = {} }
     return chars[key]
 end
+-- Acquisition copy stays separate from ownership rules and stable slot credit.
+local function Acquisition(item)
+    local source, advice = (item.source or "Source unknown"):match("^([^;]+);?%s*(.*)$")
+    local who, where = source:match("^(.-) — (.+)$")
+    local text
+    if item.id == 18421 then
+        text = "Complete 'The Treasure of the Shen'dralar' in Dire Maul"
+        advice = "Complete 'The Madness Within' first; collect the reward from the Dire Maul library chest."
+    elseif item.id == 22061 then
+        text = "Complete 'Anthion's Parting Words' with Deliana in Ironforge"
+    elseif item.id == 13965 then
+        text = "Complete 'General Drakkisath's Demise' with Marshal Maxwell at Morgan's Vigil in Burning Steppes"
+    elseif item.id == 18473 then
+        text = "Complete 'The Greatest Race of Hunters' with Lorekeeper Mykos in the Dire Maul library"
+        advice = "Turn in the hunter book."
+    elseif item.id == 19107 then
+        text = "Complete 'Hero of the Stormpike' in Alterac Valley"
+        advice = "Win Alterac Valley, then turn in to Prospector Stonehewer in Alterac Mountains."
+    elseif who == "Leatherworking" then
+        text = "Craft " .. item.name .. " with Leatherworking, or buy it"
+    elseif who == "Tier 3 turn-in" then
+        text = "Obtain " .. item.name .. " from a Tier 3 turn-in at " .. where
+    elseif who and where then
+        text = "Loot " .. item.name .. " from " .. who .. " in " .. where
+    else
+        text = "Collect " .. item.name .. " (Source unknown)"
+    end
+    -- Quest steps must name the reward too, so it remains an item link.
+    if text:sub(1, 9) == "Complete " then text = text .. " for " .. item.name end
+    return text, advice ~= "" and advice or nil
+end
 -- Planner goals stay out of the Library; their stable IDs survive renames and reloads.
 local function SyncGoal(build, ownerKey)
     if not build.tracked or not build.id then return end
@@ -123,19 +154,20 @@ local function SyncGoal(build, ownerKey)
         local item = byId[build.slots[slot]]
         if item then
             copies[item.id] = (copies[item.id] or 0) + 1
-            local step = { text = "Collect " .. item.name .. (item.slot == "FingerSlot" and
+            local acquisition, advice = Acquisition(item)
+            local step = { text = acquisition .. (item.slot == "FingerSlot" and
                     (slot == 11 and " (Finger 1)" or " (Finger 2)") or ""),
                 auto = { item = item.id, count = copies[item.id], forCharacter = ownerKey }, plannerSlot = slot,
-                tip = item.source }
+                tip = advice }
             goal.steps[#goal.steps + 1] = step
             build.goalItems[#build.goalItems + 1] = { slot = slot, id = item.id }
-            goal.tips[#goal.tips + 1] = "{item:" .. item.id .. ":" .. item.name .. "}: " .. step.tip
+            if advice then goal.tips[#goal.tips + 1] = "{item:" .. item.id .. ":" .. item.name .. "}: " .. advice end
             if credit[slot .. ":" .. item.id] then nextProgress[#goal.steps] = true end
             U.watch[item.id] = true
         end
     end
     if build.preset == "hunter_preraid_wowhead" then
-        goal.tips[#goal.tips + 1] = "Use both Devilsaur pieces for the set bonus. Collect two Tarnished Elven Rings."
+        goal.tips[#goal.tips + 1] = "Use both Devilsaur pieces for the set bonus."
         if FGT.isForever then goal.tips[#goal.tips + 1] = "Classic sources shown. Availability in Forever is Unconfirmed." end
     end
     DB.progress[id] = nextProgress
@@ -155,12 +187,34 @@ local function Label(parent, text, size, x, y)
     f:SetPoint("TOPLEFT", x, y); f:SetText(text)
     return f
 end
+local function Hover(button, on)
+    local wash = button.hoverWash
+    if not wash then
+        wash = CreateFrame("Frame", nil, button)
+        wash:SetAllPoints(button)
+        local texture = wash:CreateTexture(nil, "BACKGROUND")
+        texture:SetAllPoints(); texture:SetColorTexture(0.80, 0.62, 0.16, 0.13)
+        wash:SetAlpha(0); button.hoverWash = wash
+        button:HookScript("OnHide", function()
+            wash:SetScript("OnUpdate", nil); wash:SetAlpha(0)
+        end)
+    end
+    local start, target, elapsed = wash:GetAlpha(), on and 1 or 0, 0
+    wash:SetScript("OnUpdate", nil)
+    if FGT.Setting("celebrations") == "off" then wash:SetAlpha(target); return end
+    wash:SetScript("OnUpdate", function(self, dt)
+        elapsed = elapsed + dt
+        local t = math.min(1, elapsed / 0.12)
+        self:SetAlpha(start + (target - start) * t)
+        if t == 1 then self:SetScript("OnUpdate", nil) end
+    end)
+end
 local function Button(parent, text, width, height)
     local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
     b:SetSize(width, height or 28); U.etch(b, U.styles.button)
     b.text = U.font(b, 12); b.text:SetPoint("CENTER"); b.text:SetText(text)
-    b:SetScript("OnEnter", function() b:SetEtch(b.chosen and U.styles.rowSel or U.styles.btnHover) end)
-    b:SetScript("OnLeave", function() b:SetEtch(b.chosen and U.styles.rowSel or U.styles.button) end)
+    b:SetScript("OnEnter", function() Hover(b, true); b:SetEtch(b.chosen and U.styles.rowSel or U.styles.btnHover) end)
+    b:SetScript("OnLeave", function() Hover(b, false); b:SetEtch(b.chosen and U.styles.rowSel or U.styles.button) end)
     return b
 end
 local left = CreateFrame("Frame", nil, P, "BackdropTemplate")
@@ -690,12 +744,16 @@ Results = function()
                 if moved then status:SetText("Moved item to the selected slot.") end
             end)
             row:SetScript("OnEnter", function(self)
+                Hover(self, true); self:SetEtch(self.chosen and U.styles.rowSel or U.styles.btnHover)
                 GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetHyperlink("item:" .. entry.id)
                 GameTooltip:AddLine(entry.source, 0.8, 0.75, 0.65, true)
                 if FGT.isForever then GameTooltip:AddLine("Unconfirmed in Forever", 0.4, 0.65, 1) end
                 GameTooltip:Show()
             end)
-            row:SetScript("OnLeave", function() GameTooltip:Hide() end); row:Show()
+            row:SetScript("OnLeave", function(self)
+                Hover(self, false); self:SetEtch(self.chosen and U.styles.rowSel or U.styles.button)
+                GameTooltip:Hide()
+            end); row:Show()
         end
     end
     noResults:SetText(count == 0 and (query == "" and "No items available for this slot yet." or "No matching items.") or "")
@@ -736,6 +794,7 @@ for _, spec in ipairs(slots) do
         else OpenPicker() end
     end)
     button:SetScript("OnEnter", function(self)
+        Hover(self, true)
         self.icon:SetAlpha(1)
         self:SetEtch(self.chosen and U.styles.rowSel or U.styles.btnHover)
         if selectedSlot == slot and (menu:IsShown() or picker:IsShown()) then return end
@@ -746,6 +805,7 @@ for _, spec in ipairs(slots) do
         GameTooltip:Show()
     end)
     button:SetScript("OnLeave", function(self)
+        Hover(self, false)
         self:SetEtch(self.chosen and U.styles.rowSel or U.styles.button)
         self.icon:SetAlpha(selected and selected.slots[slotIds[slot]] and 1 or 0.50)
         GameTooltip:Hide()

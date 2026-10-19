@@ -1,0 +1,30 @@
+Initializing ...
+                                                                                
+>>================== 01/18
+                                                                                
+>>>>>>============== 05/18
+                                                                                
+>>>>>>>>>=========== 08/18
+                                                                                
+>>>>>>>>>>========== 09/18
+                                                                                
+>>>>>>>>>>>>>======= 11/18
+                                                                                
+>>>>>>>>>>>>>>====== 12/18
+                                                                                
+>>>>>>>>>>>>>>>===== 13/18
+                                                                                
+>>>>>>>>>>>>>>>>>=== 15/18
+                                                                                
+>>>>>>>>>>>>>>>>>>>= 17/18
+                                                                                
+>>>>>>>>>>>>>>>>>>>> 18/18
+                                                                                
+Diagnosis completed, no problems found
+
+Loaded Ketho annotation file URIs: 3506
+file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations
+file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Blizzard_APIDocumentationGenerated/AccountInfoDocumentation.lua
+file:///Users/karlneiswender/.vscode/extensions/ketho.wow-api-0.22.3/Annotations/Core/Blizzard_APIDocumentationGenerated/AccountStoreDocumentation.lua
+Config: reports/checks/release-2.11.1-luals-config.json
+LuaLS 3.19.2, shared annotation workspace check.
