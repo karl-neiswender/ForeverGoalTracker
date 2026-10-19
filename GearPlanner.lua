@@ -233,10 +233,11 @@ local list = U.scroll(left, 0, 0, 0, 0)
 -- Use an independent clipped viewport; no dependency on the guide layout.
 list.scroll:ClearAllPoints(); list.scroll:SetPoint("TOPLEFT", 12, -76)
 list.scroll:SetPoint("BOTTOMRIGHT", -20, 16)
-local listEmpty = Label(left, "No gear goals yet.\nBuild a set, then add it to Goals.", 11, 16, -84)
+local listEmpty = Label(left, "No gear sets yet.\nChoose + New to start a set.", 11, 16, -84)
 listEmpty:SetWidth(left:GetWidth() - 32); listEmpty:SetJustifyH("LEFT")
 local rows, selected, draft, changing = {}, nil, nil, false
 local draftOwner
+local editingName = false
 local header = CreateFrame("Frame", nil, right)
 header:SetAllPoints(); header:SetFrameLevel(right:GetFrameLevel() + 12)
 local name = CreateFrame("EditBox", nil, header, "InputBoxTemplate")
@@ -254,6 +255,22 @@ local add = Button(header, "Add to Goals", 132)
 add:SetPoint("RIGHT", options, "LEFT", -8, 0)
 name:ClearAllPoints(); name:SetPoint("TOPLEFT", right, "TOPLEFT", 24, -24)
 name:SetPoint("RIGHT", add, "LEFT", -16, 0)
+local setTitle = U.font(header, 18)
+setTitle:SetPoint("LEFT", name, "LEFT", 0, 0)
+setTitle:SetPoint("RIGHT", add, "LEFT", -48, 0)
+setTitle:SetWordWrap(false)
+local editName = CreateFrame("Button", nil, header)
+editName:SetSize(24, 28); editName:SetPoint("RIGHT", add, "LEFT", -16, 0)
+FGT.IconButton(editName, "pencil-white", 14)
+editName.icon:SetVertexColor(0.65, 0.65, 0.65)
+editName:HookScript("OnEnter", function(self)
+    self.icon:SetVertexColor(0.80, 0.62, 0.16)
+    GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Rename set", 1, 1, 1); GameTooltip:Show()
+end)
+editName:HookScript("OnLeave", function(self)
+    self.icon:SetVertexColor(0.65, 0.65, 0.65); GameTooltip:Hide()
+end)
+
 local actions = CreateFrame("Frame", nil, header, "BackdropTemplate")
 actions:SetSize(176, 112); actions:SetPoint("TOPRIGHT", options, "BOTTOMRIGHT", 0, -6)
 actions:SetFrameLevel(header:GetFrameLevel() + 20); actions:EnableMouse(true)
@@ -628,7 +645,7 @@ local Refresh, Results
 local function Save()
     if not selected then return end
     local value = (name:GetText() or ""):match("^%s*(.-)%s*$")
-    if value == "" and selected.tracked then
+    if value == "" and selected.id then
         status:SetText("Enter a set name."); status:SetAlpha(1); return
     end
     selected.name = value
@@ -644,6 +661,7 @@ end
 local function Choose(build)
     actions:Hide(); cleared, clearedBuild, clearedItems, clearedProgress = nil, nil, nil, nil
     selected = build; changing = true; name:SetText(build and build.name or ""); changing = false
+    editingName = false
     Deselect(); Focus(false)
     LayoutSlots()
     local ownerKey = U.charKey()
@@ -662,23 +680,32 @@ Refresh = function()
     for _, row in ipairs(rows) do row:Hide() end
     local visible = 0
     for _, build in ipairs(store.builds) do
-        if build.tracked and ForeverGoalTrackerDB.active[build.goalId] then
+        if build.name ~= "" then
             visible = visible + 1
             local i = visible
             local row = rows[i]
-            if not row then row = Button(list.content, "", 180, 34); rows[i] = row end
-            row:ClearAllPoints(); row:SetPoint("TOPLEFT", 2, -(i - 1) * 40)
+            if not row then row = Button(list.content, "", 180, 48); rows[i] = row
+                row.text:ClearAllPoints(); row.text:SetPoint("TOPLEFT", 10, -7)
+                row.state = U.font(row, 9); row.state:SetPoint("TOPLEFT", 10, -28)
+            end
+            row:ClearAllPoints(); row:SetPoint("TOPLEFT", 2, -(i - 1) * 54)
             row:SetWidth(math.max(120, left:GetWidth() - 40))
             row.text:SetWidth(math.max(100, left:GetWidth() - 60))
             row.text:SetText(build.name ~= "" and build.name or "Name your set")
+            row.state:SetText(build.goalId and ForeverGoalTrackerDB.active[build.goalId] and "In My Goals" or "Draft")
             row.chosen = build == selected
             row:SetEtch(row.chosen and U.styles.rowSel or U.styles.button)
             row:SetScript("OnClick", function() store.selected = build.id; Choose(build) end); row:Show()
         end
     end
     listEmpty:SetShown(visible == 0)
-    list.content:SetHeight(math.max(1, visible * 40)); list:Finalize(); list:Update()
-    empty:SetShown(not selected); name:SetShown(selected ~= nil)
+    list.content:SetHeight(math.max(1, visible * 54)); list:Finalize(); list:Update()
+    empty:SetShown(not selected)
+    local editing = selected ~= nil and (editingName or selected.name == "")
+    name:SetShown(editing); nameLabel:SetShown(editing)
+    setTitle:SetText(selected and selected.name or "")
+    setTitle:SetShown(selected ~= nil and not editing)
+    editName:SetShown(selected ~= nil and not editing)
     modelArea:SetShown(selected ~= nil); controls:SetShown(selected ~= nil)
     local tracked = selected and selected.goalId and ForeverGoalTrackerDB.active[selected.goalId]
     status:SetAlpha(1)
@@ -687,7 +714,7 @@ Refresh = function()
     elseif tracked then
         status:SetText("In My Goals · Changes saved")
     else
-        status:SetText(selected.name ~= "" and "Draft · Not in Goals" or "Draft · Name your set before adding it")
+        status:SetText(not next(selected.slots) and "Choose a slot to start building your set." or (selected.name ~= "" and "Draft · Not in Goals" or "Name your set before adding it."))
     end
     add:SetShown(selected ~= nil and not tracked)
     local canAdd = selected ~= nil and next(selected.slots) ~= nil
@@ -705,7 +732,7 @@ Refresh = function()
         button.itemName:SetText(item and item.name or "")
         if item and item.quality == 3 then button.itemName:SetTextColor(0, 0.44, 0.87)
         else button.itemName:SetTextColor(0.75, 0.45, 1) end
-        button.icon:SetAlpha((item or button.chosen) and 1 or 0.50)
+        button.icon:SetAlpha((item or button.chosen) and 1 or 0.65)
     end
 end
 Results = function()
@@ -801,13 +828,17 @@ for _, spec in ipairs(slots) do
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         local item = selected and byId[selected.slots[slotIds[slot]]]
         if item then GameTooltip:SetHyperlink("item:" .. item.id)
-        else GameTooltip:SetText(label, 1, 1, 1); GameTooltip:AddLine("Choose an item", 1, 1, 1) end
+        else
+            self.itemName:SetText(label); self.itemName:SetTextColor(0.8, 0.75, 0.65)
+            GameTooltip:SetText(label, 1, 1, 1); GameTooltip:AddLine("Choose item", 1, 1, 1)
+        end
         GameTooltip:Show()
     end)
     button:SetScript("OnLeave", function(self)
         Hover(self, false)
         self:SetEtch(self.chosen and U.styles.rowSel or U.styles.button)
-        self.icon:SetAlpha(selected and selected.slots[slotIds[slot]] and 1 or 0.50)
+        self.icon:SetAlpha(selected and selected.slots[slotIds[slot]] and 1 or 0.65)
+        if not (selected and selected.slots[slotIds[slot]]) then self.itemName:SetText("") end
         GameTooltip:Hide()
     end)
 end
@@ -826,8 +857,12 @@ add:SetScript("OnClick", function()
     ForeverGoalTrackerDB.active[goal.id] = true
     FGT.RefreshPlannerGoals(goal); Refresh()
 end)
-new:SetScript("OnClick", function() draft = { name = "", slots = {} }; draftOwner = U.charKey(); Choose(draft); name:SetFocus() end)
-rename:SetScript("OnClick", function() actions:Hide(); name:SetFocus(); name:HighlightText() end)
+new:SetScript("OnClick", function() draft = { name = "", slots = {} }; draftOwner = U.charKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
+local function RenameSet()
+    actions:Hide(); editingName = true; Refresh(); name:SetFocus(); name:HighlightText()
+end
+rename:SetScript("OnClick", RenameSet)
+editName:SetScript("OnClick", RenameSet)
 clear:SetScript("OnClick", function()
     if not selected then return end
     if clearedBuild == selected then
@@ -852,9 +887,11 @@ remove:SetScript("OnClick", function()
     actions:Hide(); FGT.RefreshPlannerGoals(); Refresh()
 end)
 name:SetScript("OnEditFocusLost", function()
-    if selected and selected.tracked and (name:GetText() or ""):match("^%s*$") then
-        changing = true; name:SetText(selected.name); changing = false; Refresh()
+    editingName = false
+    if selected and selected.id and (name:GetText() or ""):match("^%s*$") then
+        changing = true; name:SetText(selected.name); changing = false
     end
+    Refresh()
 end)
 name:SetScript("OnTextChanged", function() if not changing then Save(); Refresh() end end)
 name:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
@@ -898,5 +935,5 @@ function FGT.CreateHunterPreRaidBuild()
 end
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
-    name = name, add = add, options = options, actions = actions, clear = clear, remove = remove, rename = rename, camera = camera, turn = turn, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,
+    name = name, setTitle = setTitle, editName = editName, add = add, options = options, actions = actions, clear = clear, remove = remove, rename = rename, camera = camera, turn = turn, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,
     modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons, catalogue = catalogue }

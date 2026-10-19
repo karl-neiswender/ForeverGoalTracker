@@ -126,7 +126,12 @@ print("  all nine classes: full Tier 3, class/slot filtering, independent target
 UnitName = function() return "PlannerOwner" end
 F.ShowTab("gear"); T.new(); text(T.name, "Tracked polish")
 local build = T.store().builds[#T.store().builds]
-assert(not build.tracked and not build.goalId and #T.rows == 0, "naming alone never lists or tracks a goal")
+local function SelectedRowState()
+    for _, row in ipairs(T.rows) do
+        if row.text:GetText() == build.name then return row.state:GetText() end
+    end
+end
+assert(not build.tracked and not build.goalId and SelectedRowState() == "Draft", "named drafts list without tracking a goal")
 click(T.head); click(T.results[1])
 assert(T.head.chosen and T.results[1].chosen and not T.results[2].chosen, "selection survives refresh")
 local key = F.MaterialsUI.charKey()
@@ -136,7 +141,7 @@ D.characters[key] = {items = {}}
 D.characters[foreign] = {items = {[16866] = 1}}
 local catalogueCount = F.CatalogGoalCount()
 click(T.add)
-assert(build.tracked and D.active[build.goalId] and #T.rows == 1, "explicit add lists and activates a stable goal")
+assert(build.tracked and D.active[build.goalId] and SelectedRowState() == "In My Goals", "explicit add lists and activates a stable goal")
 local goal = F.GoalById(build.goalId)
 assert(goal and goal.name == "Tracked polish" and #goal.steps == 1)
 assert(not F.LibraryVisible(goal) and F.CatalogGoalCount() == catalogueCount, "personal sets stay out of Library")
