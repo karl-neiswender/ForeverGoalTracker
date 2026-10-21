@@ -100,7 +100,7 @@ T.clickAway:GetScript("OnEvent")()
 assert(not T.picker:IsShown(), "outside click closes picker")
 local count = 0
 for _ in pairs(T.slots) do count = count + 1 end
-assert(count == 19, "armor, accessory and weapon placeholders are present")
+assert(count == 20, "armor, accessory, weapon and ammo placeholders are present")
 
 -- Every class can plan its full Tier 3 set: eight armor pieces plus its unique ring, found by class.
 local classes = {"WARRIOR","PALADIN","HUNTER","ROGUE","PRIEST","SHAMAN","MAGE","WARLOCK","DRUID"}
@@ -654,3 +654,37 @@ assert(T.store().builds[#T.store().builds].slots[1] and not T.picker:IsShown(), 
 UnitName = oldName
 F.ShowTab("tracker")
 print("  thumbnail-only tooltips beside the picker; thumbnail clicks plan the item")
+
+-- Ammo for classes that shoot, matched to the planned ranged weapon; relics in the ranged slot.
+assert(Cat.SLOT_INDEX.AmmoSlot == 0 and Cat.SLOT_NAMES[0] == "AmmoSlot")
+assert(Cat.UsesAmmo("HUNTER") and Cat.UsesAmmo("ROGUE") and not Cat.UsesAmmo("MAGE") and not Cat.UsesAmmo("PALADIN"))
+assert(Cat.UsesRelic("SHAMAN") and Cat.UsesRelic("DRUID") and Cat.UsesRelic("PALADIN") and not Cat.UsesRelic("HUNTER"))
+local arrows = Cat.Search("AmmoSlot", { usable = true, class = "HUNTER", ammo = 602 })
+assert(#arrows > 3, "arrows for bows")
+for _, item in ipairs(arrows) do assert(item.sub == 602 and item.inv == 24, "only arrows") end
+assert(#Cat.Search("AmmoSlot", { usable = true, class = "MAGE" }) == 0, "casters have no ammo")
+assert(Cat.AmmoFor(Cat.Get(21272)) == 603 and Cat.AmmoFor(Cat.Get(19107)) == 602 and Cat.AmmoFor(Cat.Get(22812)) == 602, "guns take bullets; bows and crossbows take arrows")
+UnitName = function() return "AmmoOwner" end
+UnitClass = function() return "Hunter", "HUNTER" end
+F.ShowTab("gear"); T.new(); text(T.name, "Ammo test")
+Pick("RangedSlot", 21272) -- Blessed Qiraji Musket, a gun
+click(T.slots.AmmoSlot)
+local ammoList = T.found()
+assert(#ammoList > 0, "ammo picker lists bullets")
+for _, item in ipairs(ammoList) do assert(item.sub == 603, "a gun gets bullets only") end
+click(T.results[1])
+local ammoBuild = T.store().builds[#T.store().builds]
+assert(ammoBuild.slots[0] == ammoList[1].id, "ammo saves in slot 0")
+click(T.add)
+local ammoGoal = F.GoalById(ammoBuild.goalId)
+assert(ammoGoal.steps[#ammoGoal.steps].auto.item == ammoList[1].id and ammoGoal.steps[#ammoGoal.steps - 1].auto.item == 21272,
+    "the ammo step follows the ranged weapon")
+UnitClass = function() return "Druid", "DRUID" end
+F.ShowTab("tracker"); F.ShowTab("gear"); T.new()
+click(T.slots.RangedSlot)
+assert(#T.found() > 0)
+for _, item in ipairs(T.found()) do assert(item.sub == 408, "a Druid's ranged slot lists idols") end
+UnitClass = oldClass
+UnitName = oldName
+F.ShowTab("tracker")
+print("  ammo slot for classes that shoot, matched to the ranged weapon; relics for Druids, Paladins and Shamans")

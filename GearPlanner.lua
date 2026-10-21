@@ -23,7 +23,7 @@ end
 local slotIds = Cat.SLOT_INDEX
 local colors, styles = U.colors, U.styles
 -- Inventory types with no model to show: neck, rings, trinkets and relics.
-local NO_MODEL = { [2] = true, [11] = true, [12] = true, [28] = true }
+local NO_MODEL = { [2] = true, [11] = true, [12] = true, [24] = true, [28] = true }
 local ROW_H = 46
 local POOL_ROWS = 12 -- enough to fill the tallest picker (460) without measuring a frame before it is laid out
 local PICKER_MAX, PICKER_MIN = 460, 200
@@ -70,7 +70,7 @@ local function SyncGoal(build, ownerKey)
     goal.name = build.name
     goal.steps, goal.tips, build.goalItems = {}, {}, {}
     local nextProgress, copies, firstIcon, classic, unrevealed = {}, {}, nil, false, false
-    for slot = 1, 19 do
+    for _, slot in ipairs(Cat.SLOT_ORDER) do
         local item = Cat.Get(build.slots[slot])
         if item then
             copies[item.id] = (copies[item.id] or 0) + 1
@@ -417,7 +417,7 @@ end
 local function PaintGear()
     if not model.TryOn then return end
     model:Undress()
-    for id = 1, 19 do
+    for _, id in ipairs(Cat.SLOT_ORDER) do
         local item = selected and Cat.Get(selected.slots[id])
         if item and not NO_MODEL[item.inv] then
             FGT.ItemInfo(item.id) -- request uncached item data before trying its appearance
@@ -566,7 +566,20 @@ local slots = {
     {"MainHandSlot", "Main Hand", "BOTTOM", 1},
     {"SecondaryHandSlot", "Off Hand", "BOTTOM", 2},
     {"RangedSlot", "Ranged", "BOTTOM", 3},
+    {"AmmoSlot", "Ammo", "BOTTOM", 4},
 }
+-- Paladins, Druids and Shamans keep a relic (Libram, Idol, Totem) in the ranged slot.
+local function SlotLabel(slot)
+    local _, class = UnitClass("player")
+    if slot == "RangedSlot" and Cat.UsesRelic(class) then return "Relic" end
+    for _, spec in ipairs(slots) do if spec[1] == slot then return spec[2] end end
+    return slot
+end
+local function SlotTexture(slot)
+    local _, class = UnitClass("player")
+    if slot == "RangedSlot" and Cat.UsesRelic(class) then return "Interface\\PaperDoll\\UI-PaperDoll-Slot-Relic" end
+    return FGT.GearPlannerSlotTexture(slot)
+end
 local slotSpec = {}
 for _, spec in ipairs(slots) do
     slotSpec[spec[1]] = spec
@@ -592,14 +605,19 @@ local function LayoutSlots()
     local available = math.max(1, right:GetHeight() - 152)
     local size = math.min(44, available / 8 - 4)
     size = math.max(20, size)
+    -- The bottom row has three or four cells: ammo only for classes that shoot.
+    local _, class = UnitClass("player")
+    local ammo = Cat.UsesAmmo(class)
+    slotButtons.AmmoSlot:SetShown(ammo)
+    local cells = ammo and 4 or 3
     for _, spec in ipairs(slots) do
         local button = slotButtons[spec[1]]
         button:SetSize(size, size); button:ClearAllPoints()
         if spec[3] == "BOTTOM" then
             -- Three equal cells across the bottom; each holds the icon and its name, shortened with "..." if long.
-            local cell = math.max(120, math.min(240, ((right:GetWidth() or 600) - 44) / 3))
+            local cell = math.max(110, math.min(240, ((right:GetWidth() or 600) - 44) / cells))
             button.itemName:SetWidth(cell - size - 20)
-            button:SetPoint("BOTTOMLEFT", right, "BOTTOM", (spec[4] - 2.5) * cell + 8, 18)
+            button:SetPoint("BOTTOMLEFT", right, "BOTTOM", (spec[4] - 1 - cells / 2) * cell + 8, 18)
         else
             button.itemName:SetWidth(math.max(40, math.min(160, (right:GetWidth() - size * 2 - 100) / 3)))
             button:SetPoint("TOP" .. spec[3], right, "TOP" .. spec[3],
@@ -675,13 +693,20 @@ local Refresh, Results, PickSet
 
 -- A short line for the set: how much of it is planned, and the average item level.
 local function Summary(build)
-    local count, total = 0, 0
-    for slot = 1, 19 do
+    local count, scored, total = 0, 0, 0
+    for _, slot in ipairs(Cat.SLOT_ORDER) do
         local item = Cat.Get(build.slots[slot])
-        if item then count = count + 1; total = total + item.ilvl end
+        if item then
+            count = count + 1
+            -- shirts, tabards and ammo say nothing about a set's strength
+            if slot ~= 0 and slot ~= 4 and slot ~= 19 then scored = scored + 1; total = total + item.ilvl end
+        end
     end
     if count == 0 then return nil end
-    return string.format("%d of 19 slots · average item level %d", count, math.floor(total / count + 0.5))
+    local _, class = UnitClass("player")
+    local slotsShown = Cat.UsesAmmo(class) and 20 or 19
+    return string.format("%d of %d slots", count, slotsShown)
+        .. (scored > 0 and string.format(" · average item level %d", math.floor(total / scored + 0.5)) or "")
 end
 local function GoalProgressText(build)
     local goal = build.goalId and FGT.GoalById(build.goalId)
@@ -900,7 +925,8 @@ Results = function(keepScroll)
     local pref = Prefs()
     local _, class = UnitClass("player")
     local _, count = Cat.Search(selectedSlot, { class = class, faction = UnitFactionGroup("player"),
-        usable = pref.usable, level = UnitLevel("player"), minQuality = pref.quality, sort = pref.sort, text = search:GetText(),
+        usable = pref.usable, level = UnitLevel("player"), minQuality = pref.quality,
+        ammo = selectedSlot == "AmmoSlot" and selected and Cat.AmmoFor(Cat.Get(selected.slots[18])) or nil, sort = pref.sort, text = search:GetText(),
         revealedOnly = FGT.isForever and pref.revealed }, found)
     foundCount = count
     pickerList.content:SetHeight(math.max(1, count * ROW_H))
@@ -986,7 +1012,7 @@ end
 -- Slot buttons
 -- ------------------------------------------------------------
 for _, spec in ipairs(slots) do
-    local slot, label = spec[1], spec[2]
+    local slot = spec[1]
     local button = slotButtons[slot]
     button:SetScript("OnClick", function()
         Deselect(); selectedSlot = slot; button.chosen = true; PaintButton(button)
@@ -1006,8 +1032,9 @@ for _, spec in ipairs(slots) do
             end)
         else
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            self.itemName:SetText(label); self.itemName:SetTextColor(0.8, 0.75, 0.65)
-            GameTooltip:SetText(label, 1, 1, 1); GameTooltip:AddLine("Choose item", 1, 1, 1)
+            local shown = SlotLabel(slot)
+            self.itemName:SetText(shown); self.itemName:SetTextColor(0.8, 0.75, 0.65)
+            GameTooltip:SetText(shown, 1, 1, 1); GameTooltip:AddLine("Choose item", 1, 1, 1)
             GameTooltip:Show()
         end
     end)
@@ -1107,7 +1134,7 @@ Refresh = function()
     actions:SetHeight(menuY + 4)
     for slot, button in pairs(slotButtons) do
         local item = selected and Cat.Get(selected.slots[slotIds[slot]])
-        button.icon:SetTexture(item and item.icon or FGT.GearPlannerSlotTexture(slot))
+        button.icon:SetTexture(item and item.icon or SlotTexture(slot))
         button.itemName:SetText(item and item.name or "")
         local c = item and QUALITY[item.q]
         if c then button.itemName:SetTextColor(c[1], c[2], c[3]) end
@@ -1163,7 +1190,7 @@ end)
 fill:SetScript("OnClick", function()
     if not selected then return end
     local count = 0
-    for slot = 1, 19 do
+    for _, slot in ipairs(Cat.SLOT_ORDER) do
         local id = GetInventoryItemID and GetInventoryItemID("player", slot)
         if id and Cat.Get(id) then selected.slots[slot] = id; count = count + 1 end
     end

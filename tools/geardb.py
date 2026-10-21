@@ -42,10 +42,10 @@ era_sets, for_sets = table("era", "ItemSet"), table("forever", "ItemSet")
 era_fac, for_fac = table("era", "Faction"), table("forever", "Faction")
 
 # Inventory types the planner can show (bags, ammo and quivers are not gear).
-INV_OK = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 25, 26, 28}
+INV_OK = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 28}  # 24 = ammo
 JUNK = re.compile(
     r"^(\(?(old|deprecated|test|dep|unused|zz)\b|\[(PH|TMP|DNT)\]|monster\b|npc\b|qa\b|\*\*|\d+ )"
-    r"|\((old|test)\)|deprecated|\bunused\b|^hidden |\bdnd\b|\bPH\b", re.I)
+    r"|\((old|test)\)|deprecated|depricated|\bunused\b|^hidden |\bdnd\b|\bPH\b", re.I)
 REP = {4: "Friendly", 5: "Honored", 6: "Revered", 7: "Exalted"}
 SKILL = {164: "Blacksmithing", 165: "Leatherworking", 197: "Tailoring", 171: "Alchemy",
          202: "Engineering", 333: "Enchanting", 755: "Jewelcrafting", 185: "Cooking",
@@ -115,17 +115,18 @@ items, sets_used = {}, {}
 
 def consider(item_id, sparse, item, source_flag):
     row, meta = sparse[item_id], item.get(item_id)
-    if not meta or meta["ClassID"] not in ("2", "4"):
+    if not meta:
         return
     inv = num(meta, "InventoryType")
-    if inv not in INV_OK:
+    # gear is weapons (2) and armor (4); arrows and bullets are projectiles (6)
+    if inv not in INV_OK or meta["ClassID"] not in (("6",) if inv == 24 else ("2", "4")):
         return
     name = clean(row["Display_lang"])
     if not name or JUNK.search(name) or num(row, "Flags_0") & 0x10:
         return
     quality, ilvl, req = num(row, "OverallQualityID"), num(row, "ItemLevel"), num(row, "RequiredLevel")
     set_id = num(row, "ItemSet")
-    cosmetic = inv in (4, 19)  # shirts and tabards are about looks, any quality
+    cosmetic = inv in (4, 19, 24)  # shirts, tabards and ammo: any quality
     if quality > 5 or quality < (1 if cosmetic else 2) or (ilvl <= 0 and not cosmetic):
         return
     if quality == 2 and not (req >= 35 or set_id or cosmetic):

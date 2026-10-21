@@ -17,7 +17,7 @@ C.SLOT_INV = {
     WaistSlot = { 6 }, LegsSlot = { 7 }, FeetSlot = { 8 }, WristSlot = { 9 }, HandsSlot = { 10 },
     Finger0Slot = { 11 }, Finger1Slot = { 11 }, Trinket0Slot = { 12 }, Trinket1Slot = { 12 },
     BackSlot = { 16 }, MainHandSlot = { 13, 17, 21 }, SecondaryHandSlot = { 13, 14, 22, 23 },
-    RangedSlot = { 15, 25, 26, 28 }, TabardSlot = { 19 },
+    RangedSlot = { 15, 25, 26, 28 }, TabardSlot = { 19 }, AmmoSlot = { 24 },
 }
 -- Slot number (as saved in a build) -> slot name, and back.
 C.SLOT_NAMES = { "HeadSlot", "NeckSlot", "ShoulderSlot", "ShirtSlot", "ChestSlot", "WaistSlot",
@@ -25,6 +25,10 @@ C.SLOT_NAMES = { "HeadSlot", "NeckSlot", "ShoulderSlot", "ShirtSlot", "ChestSlot
     "Trinket1Slot", "BackSlot", "MainHandSlot", "SecondaryHandSlot", "RangedSlot", "TabardSlot" }
 C.SLOT_INDEX = {}
 for i, name in ipairs(C.SLOT_NAMES) do C.SLOT_INDEX[name] = i end
+-- Ammo is the game's inventory slot 0.
+C.SLOT_NAMES[0], C.SLOT_INDEX.AmmoSlot = "AmmoSlot", 0
+-- The order a set is listed in (ammo right after the ranged weapon).
+C.SLOT_ORDER = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0, 19 }
 
 -- ------------------------------------------------------------
 -- Records
@@ -124,6 +128,7 @@ function C.SlotFor(item, taken)
     if inv == 11 then return (taken and taken[11]) and 12 or 11 end
     if inv == 12 then return (taken and taken[13]) and 14 or 13 end
     if inv == 13 then return (taken and taken[16]) and 17 or 16 end
+    if inv == 24 then return 0 end
     return SLOT_OF_INV[inv]
 end
 
@@ -151,6 +156,17 @@ local CAN = {
 local DUAL_WIELD = Set { "WARRIOR", "ROGUE", "HUNTER", "SHAMAN" }
 local SHIELDS = Set { "WARRIOR", "PALADIN", "SHAMAN" }
 local HELD = Set { "PRIEST", "MAGE", "WARLOCK", "DRUID", "SHAMAN", "PALADIN" }
+-- Bows, crossbows and guns need ammo; these classes' ranged slot holds a relic instead.
+local AMMO = Set { "HUNTER", "WARRIOR", "ROGUE" }
+local RELIC = Set { "PALADIN", "DRUID", "SHAMAN" }
+function C.UsesAmmo(class) return AMMO[class] or false end
+function C.UsesRelic(class) return RELIC[class] or false end
+-- 602 arrows (bows, crossbows), 603 bullets (guns); thrown weapons need none.
+function C.AmmoFor(ranged)
+    if not ranged then return nil end
+    if ranged.sub == 202 or ranged.sub == 218 then return 602 end
+    if ranged.sub == 203 then return 603 end
+end
 
 local function HasBit(mask, bit) return math.floor(mask / bit) % 2 == 1 end
 -- The armor a class actually wears: its heaviest type (mail and plate need level 40).
@@ -170,6 +186,7 @@ function C.Usable(item, class, slot, faction, level)
     if item.mask ~= 0 and not HasBit(item.mask, bit) then return false end
     if item.fac ~= "" and faction and ((item.fac == "A") ~= (faction == "Alliance")) then return false end
     local sub, inv = item.sub, item.inv
+    if inv == 24 then return AMMO[class] or false end
     if sub == 400 then return inv ~= 23 or HELD[class] or false end -- jewelry, shirts, tabards, held items
     if inv == 16 then return true end -- cloaks are cloth for everyone
     if sub >= 401 and sub <= 404 then return sub == C.MainArmor(class, level) end
@@ -221,7 +238,8 @@ function C.Search(slot, opts, out)
             if item.q >= minQ
                 and (item.forever < 2 or FGT.isForever) -- Forever-only items do not exist on Classic Era
                 and (not opts.usable or C.Usable(item, opts.class, slot, opts.faction, opts.level))
-                and (not opts.revealedOnly or item.forever == 1 or item.forever == 2) then
+                and (not opts.revealedOnly or item.forever == 1 or item.forever == 2)
+                and (not opts.ammo or item.sub == opts.ammo) then
                 local ok = true
                 if wantId then ok = item.id == wantId
                 elseif tokens then
