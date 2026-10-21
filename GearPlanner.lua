@@ -987,24 +987,23 @@ local function PositionPopup(frame)
         frame:SetPoint(edge .. "LEFT", button, edge .. "RIGHT", 10, 0)
     end
 end
--- As tall as the room allows from the selected slot, so the picker never leaves the panel.
-local function PickerHeight()
-    local button, spec = slotButtons[selectedSlot], slotSpec[selectedSlot]
-    local top, bottom = right:GetTop(), right:GetBottom()
-    local edge = button and (spec[3] == "BOTTOM" and button:GetTop() or (spec[4] >= 5 and button:GetBottom() or button:GetTop()))
-    if not (top and bottom and edge) then return PICKER_MAX end
-    local room
-    if spec[3] == "BOTTOM" then room = (top - 84) - (edge + 8)       -- grows upward from the weapon row
-    elseif spec[4] >= 5 then room = (top - 84) - edge                -- lower slots: grows upward
-    else room = edge - (bottom + 12) end                             -- upper slots: grows downward
-    return math.max(PICKER_MIN, math.min(PICKER_MAX, room))
+-- One size and place for every slot: from under the set header down to just above the weapon
+-- row. Only the side changes, so the list never shrinks because of where a slot sits.
+local PICKER_TOP = 84
+local function PlacePicker()
+    local spec, size = slotSpec[selectedSlot], slotButtons[selectedSlot]:GetWidth() or 44
+    local room = (right:GetHeight() or 600) - PICKER_TOP - (18 + size + 16)
+    picker:SetHeight(math.max(PICKER_MIN, math.min(PICKER_MAX, room)))
+    picker:ClearAllPoints()
+    if spec[3] == "LEFT" then picker:SetPoint("TOPLEFT", right, "TOPLEFT", 22 + size + 10, -PICKER_TOP)
+    elseif spec[3] == "RIGHT" then picker:SetPoint("TOPRIGHT", right, "TOPRIGHT", -(22 + size + 10), -PICKER_TOP)
+    else picker:SetPoint("TOP", right, "TOP", 0, -PICKER_TOP) end
 end
 local function OpenPicker()
     if not selectedSlot then return end
     slotButtons[selectedSlot].chosen = true; PaintButton(slotButtons[selectedSlot])
     GameTooltip:Hide(); menu:Hide()
-    picker:SetHeight(PickerHeight())
-    PositionPopup(picker); FadeIn(picker); search:SetText("")
+    PlacePicker(); FadeIn(picker); search:SetText("")
     PaintFilters(); Results(); Focus(selectedSlot)
 end
 

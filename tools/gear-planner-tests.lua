@@ -688,3 +688,18 @@ UnitClass = oldClass
 UnitName = oldName
 F.ShowTab("tracker")
 print("  ammo slot for classes that shoot, matched to the ranged weapon; relics for Druids, Paladins and Shamans")
+
+-- The picker is the same height for every slot, wherever the slot sits.
+UnitName = function() return "SizeOwner" end
+F.ShowTab("gear"); T.new(); text(T.name, "Size test")
+local heights, oldSetHeight = {}, T.picker.SetHeight
+T.picker.SetHeight = function(_, h) heights[#heights + 1] = h end
+for _, slot in ipairs({ "HeadSlot", "ChestSlot", "WristSlot", "FeetSlot", "Finger0Slot", "Trinket1Slot", "MainHandSlot" }) do
+    click(T.slots[slot]); T.clickAway:GetScript("OnEvent")()
+end
+T.picker.SetHeight = oldSetHeight
+assert(#heights == 7, "every slot sized the picker")
+for i = 2, #heights do assert(heights[i] == heights[1], "same picker height for every slot") end
+UnitName = oldName
+F.ShowTab("tracker")
+print("  one picker size and place for every slot")
