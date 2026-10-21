@@ -46,7 +46,7 @@ Regenerate with `python3 tools/geardb.py` (delete `tools/.cache/*.csv` first to 
 
 `python3 tools/check.py` passes (both clients). New coverage in `tools/gear-planner-tests.lua`: every Library set piece is in the database, preset slots fit, lookup and release, class and faction eligibility, search and sort, sources and pins, the recycled list and scroll rebinding, filter persistence, whole sets, set actions, edit button ownership, and the debounce. The dungeon-link test now expects manual entrances to stay plain in guides.
 
-Not run: Ketho/LuaLS (the PC runs `tools/run-luals.sh`), and nothing here has been seen in the game. The layout numbers (picker 304 wide, filter row, row 46 tall) are unverified until Karl looks.
+Ketho/LuaLS (3.19.2 with Ketho 0.22.3, run on the Mac from the installed VS Code extensions): no problems, 14,028 annotation load events confirmed. [Results](checks/gear-planner-database-luals.json), [proof](checks/gear-planner-database-luals.txt), [Lua suite output](checks/gear-planner-database-lua.txt). This is the shared workspace diagnostic, not native testing, and the generated `GearData.lua` is excluded from it. Nothing here has been seen in the game. The layout numbers (picker 304 wide, filter row, row 46 tall) are unverified until Karl looks.
 
 ## Native review checklist
 
