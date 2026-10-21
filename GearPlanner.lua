@@ -25,6 +25,8 @@ local colors, styles = U.colors, U.styles
 -- Inventory types with no model to show: neck, rings, trinkets and relics.
 local NO_MODEL = { [2] = true, [11] = true, [12] = true, [28] = true }
 local ROW_H = 46
+local POOL_ROWS = 12 -- enough to fill the tallest picker (460) without measuring a frame before it is laid out
+local PICKER_MAX, PICKER_MIN = 460, 200
 
 -- ------------------------------------------------------------
 -- Saved data
@@ -891,7 +893,7 @@ Results = function(keepScroll)
     foundCount = count
     pickerList.content:SetHeight(math.max(1, count * ROW_H))
     if not keepScroll then pickerList.scroll:SetVerticalScroll(0) end
-    EnsureRows(math.max(8, math.ceil((pickerList.scroll:GetHeight() or 0) / ROW_H) + 2))
+    EnsureRows(POOL_ROWS)
     pickerList:Finalize(); pickerList:Update(); Rebind()
     local text = search:GetText() or ""
     noResults:SetText(count == 0 and (text == "" and "No items for this slot." or "No matching items.")
@@ -947,12 +949,23 @@ local function PositionPopup(frame)
         frame:SetPoint(edge .. "LEFT", button, edge .. "RIGHT", 10, 0)
     end
 end
+-- As tall as the room allows from the selected slot, so the picker never leaves the panel.
+local function PickerHeight()
+    local button, spec = slotButtons[selectedSlot], slotSpec[selectedSlot]
+    local top, bottom = right:GetTop(), right:GetBottom()
+    local edge = button and (spec[3] == "BOTTOM" and button:GetTop() or (spec[4] >= 5 and button:GetBottom() or button:GetTop()))
+    if not (top and bottom and edge) then return PICKER_MAX end
+    local room
+    if spec[3] == "BOTTOM" then room = (top - 84) - (edge + 8)       -- grows upward from the weapon row
+    elseif spec[4] >= 5 then room = (top - 84) - edge                -- lower slots: grows upward
+    else room = edge - (bottom + 12) end                             -- upper slots: grows downward
+    return math.max(PICKER_MIN, math.min(PICKER_MAX, room))
+end
 local function OpenPicker()
     if not selectedSlot then return end
     slotButtons[selectedSlot].chosen = true; PaintButton(slotButtons[selectedSlot])
     GameTooltip:Hide(); menu:Hide()
-    -- Tall enough to show a good list, short enough to stay inside the panel.
-    picker:SetHeight(math.max(260, math.min(460, (right:GetHeight() or 460) - 150)))
+    picker:SetHeight(PickerHeight())
     PositionPopup(picker); FadeIn(picker); search:SetText("")
     PaintFilters(); Results(); Focus(selectedSlot)
 end

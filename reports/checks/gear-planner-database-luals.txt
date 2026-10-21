@@ -1,0 +1,5 @@
+Fresh LuaLS 3.19.2 (sumneko.lua, macOS arm64) with Ketho wow-api 0.22.3 annotations, 2026-10-19, Mac.
+Command: lua-language-server --check <repo> --configpath gear-planner-database-luals-config-mac.json
+Result: "Diagnosis completed, no problems found" over 19 Lua files (the generated GearData.lua is ignored: it is one long string).
+Annotation proof: 14,028 annotation load events from the Ketho extension in the LuaLS log (expected about 14,028).
+Scope: the shared workspace diagnostic for both clients, not native testing. Config is the October 12 PC config with the library path moved to the Mac extension.
