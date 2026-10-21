@@ -810,7 +810,7 @@ do
         if not names then
             names = {}
             for _, n in ipairs(FGT.DUNGEONS or {}) do
-                if not n.forever or FGT.isForever then
+                if not n.manual and (not n.forever or FGT.isForever) then
                     names[#names + 1] = { n.name, n.id }
                     for _, alias in ipairs(n.alias or {}) do names[#names + 1] = { alias, n.id } end
                 end

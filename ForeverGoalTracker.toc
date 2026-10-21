@@ -27,4 +27,6 @@ Maplet.lua
 WhatsNew.lua
 Ambience.lua
 Audit.lua
+GearData.lua
+GearCatalog.lua
 GearPlanner.lua

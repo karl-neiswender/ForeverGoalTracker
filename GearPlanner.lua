@@ -1,5 +1,7 @@
 local ADDON, FGT = ...
 local U = FGT.MaterialsUI
+local Cat = FGT.GearCatalog
+local QUALITY = Cat.QUALITY
 local P = CreateFrame("Frame", nil, U.main)
 FGT.GearPlanner = P
 P:SetAllPoints(U.main)
@@ -18,117 +20,33 @@ function FGT.GearPlannerSlotTexture(slotName)
     end
     return "Interface\\PaperDoll\\UI-PaperDoll-Slot-" .. slotName:gsub("%d", ""):gsub("Slot$", "")
 end
-local slotIds = { HeadSlot=1, NeckSlot=2, ShoulderSlot=3, ShirtSlot=4, ChestSlot=5,
-    WaistSlot=6, LegsSlot=7, FeetSlot=8, WristSlot=9, HandsSlot=10,
-    Finger0Slot=11, Finger1Slot=12, Trinket0Slot=13, Trinket1Slot=14,
-    BackSlot=15, MainHandSlot=16, SecondaryHandSlot=17, RangedSlot=18, TabardSlot=19 }
-local byId = {}
+local slotIds = Cat.SLOT_INDEX
+local colors, styles = U.colors, U.styles
+-- Inventory types with no model to show: neck, rings, trinkets and relics.
+local NO_MODEL = { [2] = true, [11] = true, [12] = true, [28] = true }
+local ROW_H = 46
 
-local catalogue = {
-    { class = "WARRIOR", name = "Helm of Might", id = 16866, icon = "Interface\\Icons\\inv_helmet_09", slot = "HeadSlot", source = "Garr — Molten Core" },
-    { class = "PALADIN", name = "Lawbringer Helm", id = 16854, icon = "Interface\\Icons\\inv_helmet_05", slot = "HeadSlot", source = "Garr — Molten Core" },
-    { class = "HUNTER", name = "Giantstalker's Helmet", id = 16846, icon = "Interface\\Icons\\inv_helmet_05", slot = "HeadSlot", source = "Garr — Molten Core" },
-    { class = "ROGUE", name = "Nightslayer Cover", id = 16821, icon = "Interface\\Icons\\inv_helmet_41", slot = "HeadSlot", source = "Garr — Molten Core" },
-    { class = "PRIEST", name = "Circlet of Prophecy", id = 16813, icon = "Interface\\Icons\\inv_helmet_34", slot = "HeadSlot", source = "Garr — Molten Core" },
-    { class = "SHAMAN", name = "Earthfury Helmet", id = 16842, icon = "Interface\\Icons\\inv_helmet_09", slot = "HeadSlot", source = "Garr — Molten Core" },
-    { class = "MAGE", name = "Arcanist Crown", id = 16795, icon = "Interface\\Icons\\inv_helmet_53", slot = "HeadSlot", source = "Garr — Molten Core" },
-    { class = "WARLOCK", name = "Felheart Horns", id = 16808, icon = "Interface\\Icons\\inv_helmet_08", slot = "HeadSlot", source = "Garr — Molten Core" },
-    { class = "DRUID", name = "Cenarion Helm", id = 16834, icon = "Interface\\Icons\\inv_helmet_09", slot = "HeadSlot", source = "Garr — Molten Core" },
-
-}
--- Reuse the Library's Tier 3 armor tuples; one canonical item/icon source.
-local tier3Slots = { "HeadSlot", "ShoulderSlot", "ChestSlot", "HandsSlot", "LegsSlot", "WaistSlot", "WristSlot", "FeetSlot" }
-local tier3 = FGT.armorCollections and FGT.armorCollections.tier3
-for _, section in ipairs(tier3 and tier3.sections or {}) do
-    local class = section.name:match("^(.-) %- ")
-    for i, piece in ipairs(section.pieces or {}) do
-        catalogue[#catalogue + 1] = { class = class:upper(), name = piece.name,
-            id = piece.auto.item, icon = "Interface\\Icons\\" .. piece.icon,
-            slot = tier3Slots[i], source = "Tier 3 turn-in — Light's Hope Chapel" }
-    end
-end
--- Classic item tooltip IDs/names/icons verified against Wowhead; Forever sources unconfirmed.
-local rings = {
-    { "WARRIOR", 23059, "Ring of the Dreadnaught" }, { "ROGUE", 23060, "Bonescythe Ring" },
-    { "PRIEST", 23061, "Ring of Faith" }, { "MAGE", 23062, "Frostfire Ring" },
-    { "WARLOCK", 23063, "Plagueheart Ring" }, { "DRUID", 23064, "Ring of the Dreamwalker" },
-    { "SHAMAN", 23065, "Ring of the Earthshatterer" }, { "PALADIN", 23066, "Ring of Redemption" },
-    { "HUNTER", 23067, "Ring of the Cryptstalker" },
-}
-for _, ring in ipairs(rings) do
-    catalogue[#catalogue + 1] = { class = ring[1], id = ring[2], name = ring[3], slot = "FingerSlot",
-        icon = "Interface\\Icons\\inv_jewelry_ring_51naxxramas", unique = true,
-        source = "Kel'Thuzad — Naxxramas" }
-end
--- Top-ranked choices from the linked Wowhead SoM pre-raid guide (reviewed 2026-10-18).
--- Classic acquisition routes; Forever availability remains unconfirmed.
-local hunterPreRaid = {
-    {1, 18421, "Backwood Helm", "HeadSlot", "The Treasure of the Shen'dralar — Dire Maul library chest; complete The Madness Within first"},
-    {2, 22340, "Pendant of Celerity", "NeckSlot", "Lord Valthalak — Upper Blackrock Spire; summon in The Beast's room with a Tier 0.5 brazier"},
-    {3, 12927, "Truestrike Shoulders", "ShoulderSlot", "Pyroguard Emberseer — Upper Blackrock Spire"},
-    {5, 11726, "Savage Gladiator Chain", "ChestSlot", "Gorosh the Dervish — Blackrock Depths, Ring of Law"},
-    {6, 22232, "Marksman's Girdle", "WaistSlot", "Urok Doomhowl — Lower Blackrock Spire; summon with Omokk's Head and a Roughshod Pike"},
-    {7, 15062, "Devilsaur Leggings", "LegsSlot", "Leatherworking — craft or buy from another player"},
-    {8, 22061, "Beastmaster's Boots", "FeetSlot", "Anthion's Parting Words — Deliana, Ironforge; requires the Dungeon Set 2 upgrade chain"},
-    {9, 18375, "Bracers of the Eclipse", "WristSlot", "Prince Tortheldrin — Dire Maul West"},
-    {10, 15063, "Devilsaur Gauntlets", "HandsSlot", "Leatherworking — craft or buy from another player"},
-    {11, 18500, "Tarnished Elven Ring", "FingerSlot", "Gordok Tribute chest — Dire Maul North"},
-    {13, 13965, "Blackhand's Breadth", "TrinketSlot", "General Drakkisath's Demise — Marshal Maxwell, Morgan's Vigil, Burning Steppes"},
-    {14, 18473, "Royal Seal of Eldre'Thalas", "TrinketSlot", "The Greatest Race of Hunters — turn in the book to Lorekeeper Mykos, Dire Maul library"},
-    {15, 13340, "Cape of the Black Baron", "BackSlot", "Baron Rivendare — Stratholme, undead side"},
-    {16, 22314, "Huntsman's Harpoon", "MainHandSlot", "Isalien — Dire Maul East; summon in Alzzin's room with a Tier 0.5 brazier"},
-    {18, 19107, "Bloodseeker", "RangedSlot", "Hero of the Stormpike — Alterac Valley victory quest; turn in to Prospector Stonehewer, Alterac Mountains"},
-}
-for _, entry in ipairs(hunterPreRaid) do
-    catalogue[#catalogue + 1] = { class = "HUNTER", id = entry[2], name = entry[3], slot = entry[4],
-        icon = (C_Item and C_Item.GetItemIconByID and C_Item.GetItemIconByID(entry[2]))
-            or (GetItemIcon and GetItemIcon(entry[2])) or "Interface\\Icons\\INV_Misc_QuestionMark",
-        source = entry[5], twoHand = entry[2] == 22314, unique = entry[4] == "TrinketSlot", quality = entry[2] == 11726 and 4 or 3, preRaid = true }
-end
-for _, item in ipairs(catalogue) do byId[item.id] = item end
-local function SlotMatches(item, slot)
-    return item.slot == slot or (item.slot == "FingerSlot" and (slot == "Finger0Slot" or slot == "Finger1Slot"))
-        or (item.slot == "TrinketSlot" and (slot == "Trinket0Slot" or slot == "Trinket1Slot"))
+-- ------------------------------------------------------------
+-- Saved data
+-- ------------------------------------------------------------
+-- ForeverGoalTrackerDB.gearPlanner = { version, prefs, characters[charKey] = { nextId, selected, builds } }
+-- A build is { id, name, slots = { [slot number] = item id }, tracked, goalId, goalItems, preset }.
+local function Root()
+    local db = ForeverGoalTrackerDB
+    db.gearPlanner = db.gearPlanner or { version = 2, characters = {} }
+    db.gearPlanner.prefs = db.gearPlanner.prefs or { usable = true, quality = 0, sort = "ilvl", revealed = false }
+    return db.gearPlanner
 end
 local function Store()
-    local db = ForeverGoalTrackerDB
-    db.gearPlanner = db.gearPlanner or { version = 1, characters = {} }
-    local key = U.charKey()
-    local chars = db.gearPlanner.characters
+    local chars, key = Root().characters, U.charKey()
     chars[key] = chars[key] or { nextId = 1, builds = {} }
     return chars[key]
 end
--- Acquisition copy stays separate from ownership rules and stable slot credit.
-local function Acquisition(item)
-    local source, advice = (item.source or "Source unknown"):match("^([^;]+);?%s*(.*)$")
-    local who, where = source:match("^(.-) — (.+)$")
-    local text
-    if item.id == 18421 then
-        text = "Complete 'The Treasure of the Shen'dralar' in Dire Maul"
-        advice = "Complete 'The Madness Within' first; collect the reward from the Dire Maul library chest."
-    elseif item.id == 22061 then
-        text = "Complete 'Anthion's Parting Words' with Deliana in Ironforge"
-    elseif item.id == 13965 then
-        text = "Complete 'General Drakkisath's Demise' with Marshal Maxwell at Morgan's Vigil in Burning Steppes"
-    elseif item.id == 18473 then
-        text = "Complete 'The Greatest Race of Hunters' with Lorekeeper Mykos in the Dire Maul library"
-        advice = "Turn in the hunter book."
-    elseif item.id == 19107 then
-        text = "Complete 'Hero of the Stormpike' in Alterac Valley"
-        advice = "Win Alterac Valley, then turn in to Prospector Stonehewer in Alterac Mountains."
-    elseif who == "Leatherworking" then
-        text = "Craft " .. item.name .. " with Leatherworking, or buy it"
-    elseif who == "Tier 3 turn-in" then
-        text = "Obtain " .. item.name .. " from a Tier 3 turn-in at " .. where
-    elseif who and where then
-        text = "Loot " .. item.name .. " from " .. who .. " in " .. where
-    else
-        text = "Collect " .. item.name .. " (Source unknown)"
-    end
-    -- Quest steps must name the reward too, so it remains an item link.
-    if text:sub(1, 9) == "Complete " then text = text .. " for " .. item.name end
-    return text, advice ~= "" and advice or nil
-end
+local function Prefs() return Root().prefs end
+
+-- ------------------------------------------------------------
+-- Goals for tracked sets
+-- ------------------------------------------------------------
 -- Planner goals stay out of the Library; their stable IDs survive renames and reloads.
 local function SyncGoal(build, ownerKey)
     if not build.tracked or not build.id then return end
@@ -149,29 +67,35 @@ local function SyncGoal(build, ownerKey)
     end
     goal.name = build.name
     goal.steps, goal.tips, build.goalItems = {}, {}, {}
-    local nextProgress, copies = {}, {}
+    local nextProgress, copies, firstIcon = {}, {}, nil
     for slot = 1, 19 do
-        local item = byId[build.slots[slot]]
+        local item = Cat.Get(build.slots[slot])
         if item then
             copies[item.id] = (copies[item.id] or 0) + 1
-            local acquisition, advice = Acquisition(item)
-            local step = { text = acquisition .. (item.slot == "FingerSlot" and
-                    (slot == 11 and " (Finger 1)" or " (Finger 2)") or ""),
+            local acquisition, advice = Cat.Acquisition(item)
+            local finger = Cat.SLOT_NAMES[slot]:match("^Finger(%d)")
+            local trinket = Cat.SLOT_NAMES[slot]:match("^Trinket(%d)")
+            local suffix = finger and (finger == "0" and " (Finger 1)" or " (Finger 2)")
+                or trinket and (trinket == "0" and " (Trinket 1)" or " (Trinket 2)") or ""
+            -- A step per planned slot; the same item twice needs two owned copies.
+            local step = { text = acquisition .. suffix,
                 auto = { item = item.id, count = copies[item.id], forCharacter = ownerKey }, plannerSlot = slot,
                 tip = advice }
             goal.steps[#goal.steps + 1] = step
             build.goalItems[#build.goalItems + 1] = { slot = slot, id = item.id }
             if advice then goal.tips[#goal.tips + 1] = "{item:" .. item.id .. ":" .. item.name .. "}: " .. advice end
             if credit[slot .. ":" .. item.id] then nextProgress[#goal.steps] = true end
-            U.watch[item.id] = true
+            if U.watch then U.watch[item.id] = true end
+            firstIcon = firstIcon or item.icon
         end
     end
-    if build.preset == "hunter_preraid_wowhead" then
-        goal.tips[#goal.tips + 1] = "Use both Devilsaur pieces for the set bonus."
-        if FGT.isForever then goal.tips[#goal.tips + 1] = "Classic sources shown. Availability in Forever is Unconfirmed." end
+    local preset = build.preset and Cat.PRESETS[build.preset]
+    if preset and preset.note then goal.tips[#goal.tips + 1] = preset.note end
+    if #goal.steps > 0 and FGT.isForever then
+        goal.tips[#goal.tips + 1] = "Sources are from Classic Era. Availability in Forever is Unconfirmed."
     end
     DB.progress[id] = nextProgress
-    goal.icon = goal.steps[1] and byId[goal.steps[1].auto.item].icon or "Interface\\Icons\\INV_Misc_QuestionMark"
+    goal.icon = firstIcon or "Interface\\Icons\\INV_Misc_QuestionMark"
     build.goalId = id
     FGT.EnsureGoalRow(goal)
     return goal
@@ -182,6 +106,10 @@ function FGT.LoadPlannerGoals()
         for _, build in ipairs(store.builds or {}) do SyncGoal(build, key) end
     end
 end
+
+-- ------------------------------------------------------------
+-- Small controls in the addon's own style
+-- ------------------------------------------------------------
 local function Label(parent, text, size, x, y)
     local f = U.font(parent, size or 12)
     f:SetPoint("TOPLEFT", x, y); f:SetText(text)
@@ -209,23 +137,66 @@ local function Hover(button, on)
         if t == 1 then self:SetScript("OnUpdate", nil) end
     end)
 end
-local function Button(parent, text, width, height)
+-- One place decides how a button looks, so hover, selection and quality never fight.
+local function PaintButton(b)
+    b:SetEtch(b.chosen and styles.rowSel or (b.hovered and styles.btnHover or styles.button))
+    local q = b.quality and QUALITY[b.quality]
+    if q and b.SetBackdropBorderColor then b:SetBackdropBorderColor(q[1], q[2], q[3], b.chosen and 1 or 0.85) end
+end
+local function Button(parent, text, width, height, size)
     local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
-    b:SetSize(width, height or 28); U.etch(b, U.styles.button)
-    b.text = U.font(b, 12); b.text:SetPoint("CENTER"); b.text:SetText(text)
-    b:SetScript("OnEnter", function() Hover(b, true); b:SetEtch(b.chosen and U.styles.rowSel or U.styles.btnHover) end)
-    b:SetScript("OnLeave", function() Hover(b, false); b:SetEtch(b.chosen and U.styles.rowSel or U.styles.button) end)
+    b:SetSize(width, height or 28); U.etch(b, styles.button)
+    b.text = U.font(b, size or 12); b.text:SetPoint("CENTER"); b.text:SetText(text)
+    b:SetScript("OnEnter", function() b.hovered = true; Hover(b, true); PaintButton(b) end)
+    b:SetScript("OnLeave", function() b.hovered = false; Hover(b, false); PaintButton(b) end)
     return b
 end
+-- The Library's search field: etched box, magnifier, hint text and a clear X.
+local function SearchBox(parent, hintText)
+    local box = CreateFrame("EditBox", nil, parent, "BackdropTemplate")
+    box:SetHeight(24); U.etch(box, styles.row, 10)
+    box:SetAutoFocus(false)
+    FGT.RegisterFont(box, "body", 11, "")
+    box:SetTextColor(colors.TEXT[1], colors.TEXT[2], colors.TEXT[3])
+    box:SetTextInsets(24, 20, 0, 0); box:SetMaxLetters(40)
+    local glass = box:CreateTexture(nil, "OVERLAY")
+    glass:SetTexture(FGT.Icon("search-white")); glass:SetSize(13, 13); glass:SetPoint("LEFT", 7, -1)
+    glass:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+    box.hint = U.font(box, 11); box.hint:SetPoint("LEFT", 24, 0)
+    box.hint:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3]); box.hint:SetText(hintText)
+    box.clear = CreateFrame("Button", nil, box)
+    box.clear:SetSize(16, 16); box.clear:SetPoint("RIGHT", -4, 0)
+    local x = box.clear:CreateTexture(nil, "ARTWORK")
+    x:SetTexture(FGT.Icon("close-white")); x:SetSize(10, 10); x:SetPoint("CENTER")
+    x:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+    box.clear:SetScript("OnClick", function() box:SetText(""); box:ClearFocus() end)
+    box.clear:Hide()
+    box:HookScript("OnTextChanged", function(self)
+        local text = self:GetText() or ""
+        self.hint:SetShown(text == "" and not self:HasFocus()); self.clear:SetShown(text ~= "")
+    end)
+    box:SetScript("OnEditFocusGained", function(self)
+        self.hint:Hide(); self:SetBackdropBorderColor(colors.GOLD2[1], colors.GOLD2[2], colors.GOLD2[3], 1)
+    end)
+    box:SetScript("OnEditFocusLost", function(self)
+        self.hint:SetShown((self:GetText() or "") == "")
+        self:SetBackdropBorderColor(styles.row.edge[1], styles.row.edge[2], styles.row.edge[3], 1)
+    end)
+    return box
+end
+
+-- ------------------------------------------------------------
+-- Layout: set list on the left, editor on the right
+-- ------------------------------------------------------------
 local left = CreateFrame("Frame", nil, P, "BackdropTemplate")
 left:SetPoint("TOPLEFT", U.list, "TOPLEFT")
 left:SetPoint("BOTTOMLEFT", U.list, "BOTTOMLEFT")
 left:SetWidth(FGT.trackerTab:GetWidth() + FGT.libraryTab:GetWidth() + 56)
-U.etch(left, U.styles.panel)
+U.etch(left, styles.panel)
 local right = CreateFrame("Frame", nil, P, "BackdropTemplate")
 right:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
 right:SetPoint("BOTTOMRIGHT", U.main, "BOTTOMRIGHT", -16, 16)
-U.etch(right, U.styles.panel)
+U.etch(right, styles.panel)
 Label(left, "My Gear Sets", 16, 16, -16)
 local owner = Label(left, "", 11, 16, -40)
 local new = Button(left, "+ New", 68, 24); new:SetPoint("TOPRIGHT", -14, -14)
@@ -238,13 +209,16 @@ listEmpty:SetWidth(left:GetWidth() - 32); listEmpty:SetJustifyH("LEFT")
 local rows, selected, draft, changing = {}, nil, nil, false
 local draftOwner
 local editingName = false
+
 local header = CreateFrame("Frame", nil, right)
 header:SetAllPoints(); header:SetFrameLevel(right:GetFrameLevel() + 12)
-local name = CreateFrame("EditBox", nil, header, "InputBoxTemplate")
+local name = CreateFrame("EditBox", nil, header, "BackdropTemplate")
 name:SetAutoFocus(false); name:SetMaxLetters(60); name:SetHeight(28)
+U.etch(name, styles.row, 10)
+FGT.RegisterFont(name, "body", 12, "")
+name:SetTextColor(colors.TEXT[1], colors.TEXT[2], colors.TEXT[3]); name:SetTextInsets(8, 8, 0, 0)
 name:SetPoint("TOPLEFT", right, "TOPLEFT", 24, -24)
 name:SetWidth(340)
-name:SetFontObject("GameFontHighlight")
 local nameLabel = Label(header, "Set name", 10, 22, -6)
 nameLabel:ClearAllPoints(); nameLabel:SetPoint("BOTTOMLEFT", name, "TOPLEFT", 0, 4)
 local status = U.font(header, 10)
@@ -253,6 +227,8 @@ local options = Button(header, "...", 30, 28)
 options:SetPoint("TOPRIGHT", right, "TOPRIGHT", -16, -24)
 local add = Button(header, "Add to Goals", 132)
 add:SetPoint("RIGHT", options, "LEFT", -8, 0)
+local viewGoal = Button(header, "View in Goals", 132)
+viewGoal:SetPoint("RIGHT", options, "LEFT", -8, 0)
 name:ClearAllPoints(); name:SetPoint("TOPLEFT", right, "TOPLEFT", 24, -24)
 name:SetPoint("RIGHT", add, "LEFT", -16, 0)
 local setTitle = U.font(header, 18)
@@ -271,20 +247,29 @@ editName:HookScript("OnLeave", function(self)
     self.icon:SetVertexColor(0.65, 0.65, 0.65); GameTooltip:Hide()
 end)
 
+-- The "..." menu: one button per action, laid out from what applies to the open set.
 local actions = CreateFrame("Frame", nil, header, "BackdropTemplate")
 actions:SetSize(176, 112); actions:SetPoint("TOPRIGHT", options, "BOTTOMRIGHT", 0, -6)
 actions:SetFrameLevel(header:GetFrameLevel() + 20); actions:EnableMouse(true)
-U.etch(actions, U.styles.panel); actions:Hide()
-local rename = Button(actions, "Rename", 156); rename:SetPoint("TOPLEFT", 10, -8)
-local clear = Button(actions, "Clear items", 156); clear:SetPoint("TOPLEFT", 10, -42)
-local remove = Button(actions, "Remove from Goals", 156); remove:SetPoint("TOPLEFT", 10, -76)
+U.etch(actions, styles.panel); actions:Hide()
+local rename = Button(actions, "Rename", 156)
+local clear = Button(actions, "Clear items", 156)
+local fill = Button(actions, "Fill from equipped", 156)
+local duplicate = Button(actions, "Duplicate", 156)
+local remove = Button(actions, "Remove from Goals", 156)
+local delete = Button(actions, "Delete set", 156)
 local cleared, clearedBuild, clearedItems, clearedProgress
-options:SetScript("OnClick", function() actions:SetShown(not actions:IsShown()) end)
+local deleteArmed
+options:SetScript("OnClick", function() deleteArmed = nil; actions:SetShown(not actions:IsShown()) end)
 options:HookScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Set options", 1, 1, 1); GameTooltip:Show()
 end)
 options:HookScript("OnLeave", function() GameTooltip:Hide() end)
 local empty = Label(header, "Create a set to begin.", 14, 20, -100)
+
+-- ------------------------------------------------------------
+-- The character
+-- ------------------------------------------------------------
 local modelArea = CreateFrame("Frame", nil, right)
 modelArea:SetPoint("TOPLEFT", 4, -4); modelArea:SetPoint("BOTTOMRIGHT", -4, 4)
 modelArea:SetClipsChildren(true)
@@ -420,14 +405,15 @@ local function FadeIn(frame)
         if elapsed >= 0.12 then self:SetScript("OnUpdate", nil) end
     end)
 end
+-- Dress the model with the planned items. Undress first, so removed items disappear.
 local function PaintGear()
     if not model.TryOn then return end
     model:Undress()
     for id = 1, 19 do
-        local item = selected and byId[selected.slots[id]]
-        if item and item.slot ~= "FingerSlot" and item.slot ~= "TrinketSlot" and item.slot ~= "NeckSlot" then
+        local item = selected and Cat.Get(selected.slots[id])
+        if item and not NO_MODEL[item.inv] then
             FGT.ItemInfo(item.id) -- request uncached item data before trying its appearance
-            model:TryOn("item:" .. item.id)
+            pcall(model.TryOn, model, "item:" .. item.id)
         end
     end
 end
@@ -452,6 +438,7 @@ local function Dress(animate)
     end)
 end
 model:SetScript("OnModelLoaded", function() PaintGear(); ApplyZoom(zoom); model:SetFacing(facing) end)
+-- Items the client had not loaded arrive later; repaint once for a burst of them.
 P:HookScript("OnShow", function() P:RegisterEvent("GET_ITEM_INFO_RECEIVED") end)
 P:HookScript("OnHide", function() P:UnregisterEvent("GET_ITEM_INFO_RECEIVED") end)
 P:SetScript("OnEvent", function(_, _, itemId, ok)
@@ -483,6 +470,7 @@ model:SetScript("OnMouseUp", function() dragX = nil; model:SetScript("OnUpdate",
 model:SetScript("OnMouseWheel", function(_, delta)
     MoveCamera(math.max(0, math.min(MAX_ZOOM, targetZoom + delta * 0.1)), targetY, targetZ, 0.20)
 end)
+
 -- Goal-art treatment belongs below the character and equipment controls.
 -- Keep the same panel colors/top veil, with broad side fades and an eased bottom.
 local shades = {}
@@ -491,7 +479,7 @@ for i = 1, 27 do
     shades[i]:SetColorTexture(1, 1, 1, 1)
 end
 local function ShadeBackground(w, h)
-    local panel = U.styles.panel
+    local panel = styles.panel
     local function Color(y)
         local p = math.min(1, math.max(0, y / h))
         local c = {}
@@ -552,6 +540,10 @@ local function LayoutPreview(self, w, h)
     ApplyZoom(zoom)
 end
 modelArea:SetScript("OnSizeChanged", LayoutPreview)
+
+-- ------------------------------------------------------------
+-- Equipment slots
+-- ------------------------------------------------------------
 local controls = CreateFrame("Frame", nil, right)
 controls:SetAllPoints(); controls:SetFrameLevel(model:GetFrameLevel() + 3)
 local slots = {
@@ -567,7 +559,9 @@ local slots = {
     {"SecondaryHandSlot", "Off Hand", "BOTTOM", 2},
     {"RangedSlot", "Ranged", "BOTTOM", 3},
 }
+local slotSpec = {}
 for _, spec in ipairs(slots) do
+    slotSpec[spec[1]] = spec
     local button = Button(controls, "", 44, 44)
     button.icon = button:CreateTexture(nil, "ARTWORK")
     button.icon:SetPoint("TOPLEFT", 3, -3); button.icon:SetPoint("BOTTOMRIGHT", -3, 3)
@@ -605,28 +599,51 @@ local function LayoutSlots()
 end
 right:HookScript("OnSizeChanged", LayoutSlots)
 local head = slotButtons.HeadSlot
-
 local hint = U.font(controls, 10)
 hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", 0, 76)
+
+-- ------------------------------------------------------------
+-- The item picker: search, filters and a recycled list
+-- ------------------------------------------------------------
+local PICKER_W = 304
 local picker = CreateFrame("Frame", nil, controls, "BackdropTemplate")
 picker:SetPoint("TOPLEFT", head, "TOPRIGHT", 10, 0)
 picker:SetFrameLevel(controls:GetFrameLevel() + 5)
 picker:EnableMouse(true)
-picker:SetWidth(244); picker:SetHeight(176); U.etch(picker, U.styles.panel); picker:Hide()
-local search = CreateFrame("EditBox", nil, picker, "InputBoxTemplate")
-search:SetAutoFocus(false); search:SetSize(208, 26); search:SetPoint("TOPLEFT", 16, -12)
-search:SetFontObject("GameFontHighlight")
-local pickerNote = Label(picker, "Tier 3 test list", 10, 12, -150)
-local noResults = Label(picker, "", 11, 12, -48)
-local resultRows = {}
+picker:SetWidth(PICKER_W); picker:SetHeight(400); U.etch(picker, styles.panel); picker:Hide()
+local search = SearchBox(picker, "Search items or sets")
+search:SetPoint("TOPLEFT", 12, -12); search:SetPoint("TOPRIGHT", -12, -12)
+local function FilterButton(width)
+    return Button(picker, "", width, 22, 10)
+end
+local usableBtn, qualityBtn, sortBtn, revealBtn = FilterButton(62), FilterButton(64), FilterButton(86), FilterButton(56)
+usableBtn:SetPoint("TOPLEFT", search, "BOTTOMLEFT", 0, -6)
+qualityBtn:SetPoint("LEFT", usableBtn, "RIGHT", 4, 0)
+sortBtn:SetPoint("LEFT", qualityBtn, "RIGHT", 4, 0)
+revealBtn:SetPoint("LEFT", sortBtn, "RIGHT", 4, 0)
+local pickerList = U.scroll(picker, 0, 0, 0, 0)
+pickerList.scroll:ClearAllPoints()
+pickerList.scroll:SetPoint("TOPLEFT", usableBtn, "BOTTOMLEFT", 0, -8)
+pickerList.scroll:SetPoint("BOTTOMRIGHT", picker, "BOTTOMRIGHT", -20, 30)
+local pickerNote = Label(picker, "", 10, 12, -380)
+pickerNote:ClearAllPoints(); pickerNote:SetPoint("BOTTOMLEFT", picker, "BOTTOMLEFT", 12, 10)
+pickerNote:SetPoint("BOTTOMRIGHT", picker, "BOTTOMRIGHT", -12, 10)
+pickerNote:SetJustifyH("LEFT"); pickerNote:SetWordWrap(false)
+pickerNote:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+local noResults = Label(picker, "", 11, 14, -96)
+noResults:SetWidth(PICKER_W - 40); noResults:SetJustifyH("LEFT")
+noResults:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
+local found, foundCount, resultRows = {}, 0, {}
+local QUALITY_STEPS = { { 0, "All" }, { 3, "Rare+" }, { 4, "Epic+" } }
+local SORT_STEPS = { { "ilvl", "Item level" }, { "name", "Name" }, { "level", "Level" } }
 local menu = CreateFrame("Frame", nil, controls, "BackdropTemplate")
 menu:SetSize(150, 76); menu:SetPoint("TOPLEFT", head, "TOPRIGHT", 8, 0)
-U.etch(menu, U.styles.panel); menu:Hide()
+U.etch(menu, styles.panel); menu:Hide()
 menu:SetFrameLevel(controls:GetFrameLevel() + 5); menu:EnableMouse(true)
 local function Deselect()
     GameTooltip:Hide()
     selectedSlot = nil; picker:Hide(); menu:Hide(); search:ClearFocus()
-    for _, button in pairs(slotButtons) do button.chosen = false; button:SetEtch(U.styles.button) end
+    for _, button in pairs(slotButtons) do button.chosen = false; PaintButton(button) end
 end
 local clickAway = CreateFrame("Frame", nil, P)
 P:HookScript("OnShow", function() clickAway:RegisterEvent("GLOBAL_MOUSE_DOWN") end)
@@ -642,7 +659,38 @@ end)
 local replace = Button(menu, "Replace", 130); replace:SetPoint("TOPLEFT", 10, -8)
 local unequip = Button(menu, "Unequip", 130); unequip:SetPoint("TOPLEFT", 10, -40)
 local Refresh, Results
-local function Save()
+
+-- A short line for the set: how much of it is planned, and the average item level.
+local function Summary(build)
+    local count, total = 0, 0
+    for slot = 1, 19 do
+        local item = Cat.Get(build.slots[slot])
+        if item then count = count + 1; total = total + item.ilvl end
+    end
+    if count == 0 then return nil end
+    return string.format("%d of 19 slots · average item level %d", count, math.floor(total / count + 0.5))
+end
+local function GoalProgressText(build)
+    local goal = build.goalId and FGT.GoalById(build.goalId)
+    if not (goal and ForeverGoalTrackerDB.active[build.goalId]) then return nil end
+    local done, progress = 0, ForeverGoalTrackerDB.progress[build.goalId] or {}
+    for i = 1, #goal.steps do if progress[i] then done = done + 1 end end
+    return done, #goal.steps
+end
+
+local pendingGoal
+-- Typing a name should not rebuild the goals list on every letter.
+local function RefreshGoalSoon(goal)
+    if pendingGoal then pendingGoal = goal or pendingGoal; return end
+    pendingGoal = goal or true
+    C_Timer.After(0.35, function()
+        local g = pendingGoal ~= true and pendingGoal or nil
+        pendingGoal = nil
+        FGT.RefreshPlannerGoals(g)
+    end)
+end
+-- immediate: item changes refresh the goal list now; renames can wait for a pause in typing.
+local function Save(immediate)
     if not selected then return end
     local value = (name:GetText() or ""):match("^%s*(.-)%s*$")
     if value == "" and selected.id then
@@ -654,7 +702,8 @@ local function Save()
         store.builds[#store.builds + 1] = selected; store.selected = selected.id; draft = nil
     end
     if selected.tracked then
-        local goal = SyncGoal(selected, U.charKey()); FGT.RefreshPlannerGoals(goal)
+        local goal = SyncGoal(selected, U.charKey())
+        if immediate then FGT.RefreshPlannerGoals(goal) else RefreshGoalSoon(goal) end
     end
     status:SetAlpha(1)
 end
@@ -674,6 +723,252 @@ local function Choose(build)
     status:SetText(""); status:SetAlpha(1)
     Refresh()
 end
+
+-- ------------------------------------------------------------
+-- Picker rows (a small pool rebound as the list scrolls)
+-- ------------------------------------------------------------
+local FOREVER_BLUE = { 0.40, 0.65, 1 }
+local function PickItem(item)
+    if not selected or not selectedSlot or not item then return end
+    local id = slotIds[selectedSlot]
+    local moved = false
+    if item.unique then
+        for other, itemId in pairs(selected.slots) do
+            if other ~= id and itemId == item.id then selected.slots[other] = nil; moved = true end
+        end
+    end
+    if item.twoHand then selected.slots[17] = nil end
+    if id == 17 then
+        local main = Cat.Get(selected.slots[16])
+        if main and main.twoHand then selected.slots[16] = nil end
+    end
+    selected.slots[id] = item.id
+    Dress(true); Save(true); Refresh(); Results(true)
+    if moved then status:SetText("Moved item to the selected slot.") end
+end
+local function BindRow(row, item, index)
+    row.item = item
+    row:ClearAllPoints(); row:SetPoint("TOPLEFT", pickerList.content, "TOPLEFT", 0, -(index - 1) * ROW_H)
+    row:SetPoint("TOPRIGHT", pickerList.content, "TOPRIGHT", 0, -(index - 1) * ROW_H)
+    row.icon:SetTexture(item.icon)
+    row.text:SetText(item.name)
+    local c = QUALITY[item.q] or QUALITY[1]
+    row.text:SetTextColor(c[1], c[2], c[3])
+    row.quality = item.q
+    row.chosen = selected and selectedSlot and selected.slots[slotIds[selectedSlot]] == item.id
+    local state = FGT.isForever and Cat.ForeverStatus(item)
+    local line = (item.forever == 3 and "" or ("iLvl " .. item.ilvl .. " · ")) .. (item.req > 1 and ("Req " .. item.req) or "Any level")
+    local sourceLine = Cat.SourceLabel(item)
+    if state == "hidden" or item.forever == 3 then sourceLine = sourceLine .. " · Not revealed yet" end
+    row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "") .. line .. " · " .. sourceLine)
+    local source = Cat.Source(item)
+    local entrance = source and source.place and Cat.EntranceFor(source.place)
+    row.entrance = entrance
+    row.pin:SetShown(entrance ~= nil)
+    row.new:SetShown(state == "new")
+    PaintButton(row)
+    row:Show()
+end
+local function Rebind()
+    local first = math.floor((pickerList.scroll:GetVerticalScroll() or 0) / ROW_H)
+    for i, row in ipairs(resultRows) do
+        local item = found[first + i]
+        if item then BindRow(row, item, first + i) else row.item = nil; row:Hide() end
+    end
+end
+local function EnsureRows(count)
+    for i = #resultRows + 1, count do
+        local row = Button(pickerList.content, "", 200, ROW_H - 2)
+        resultRows[i] = row
+        row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+        row.icon = row:CreateTexture(nil, "ARTWORK"); row.icon:SetSize(30, 30); row.icon:SetPoint("LEFT", 6, 0)
+        row.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+        row.text:ClearAllPoints(); row.text:SetPoint("TOPLEFT", 44, -7); row.text:SetPoint("RIGHT", row, "RIGHT", -28, 0)
+        row.text:SetJustifyH("LEFT"); row.text:SetWordWrap(false)
+        row.source = U.font(row, 9); row.source:SetPoint("TOPLEFT", 44, -25); row.source:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        row.source:SetJustifyH("LEFT"); row.source:SetWordWrap(false)
+        row.source:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
+        row.new = U.font(row, 8); row.new:SetPoint("TOPRIGHT", -8, -8)
+        row.new:SetTextColor(FOREVER_BLUE[1], FOREVER_BLUE[2], FOREVER_BLUE[3]); row.new:SetText("NEW"); row.new:Hide()
+        -- Entrance pin: sets the map pin for the dungeon or raid the item comes from.
+        row.pin = CreateFrame("Button", nil, row)
+        row.pin:SetSize(18, 18); row.pin:SetPoint("TOPRIGHT", -6, -4)
+        row.pin.tex = row.pin:CreateTexture(nil, "ARTWORK")
+        row.pin.tex:SetAllPoints(); row.pin.tex:SetTexture(FGT.Icon("map-location-white") or FGT.Icon("map-location"))
+        row.pin.tex:SetVertexColor(0.65, 0.65, 0.65)
+        row.pin:SetScript("OnEnter", function(self)
+            self.tex:SetVertexColor(0.80, 0.62, 0.16)
+            GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Show entrance on map", 1, 1, 1)
+            if row.entrance then GameTooltip:AddLine(row.entrance.name .. ", " .. (row.entrance.zone or ""), 0.8, 0.75, 0.65) end
+            GameTooltip:Show()
+        end)
+        row.pin:SetScript("OnLeave", function(self) self.tex:SetVertexColor(0.65, 0.65, 0.65); GameTooltip:Hide() end)
+        row.pin:SetScript("OnClick", function() if row.entrance then FGT.ShowNpcOnMap(row.entrance.id) end end)
+        row.pin:Hide()
+        row:SetScript("OnClick", function(self, button)
+            local item = self.item
+            if not item then return end
+            -- Shift-click links, right-click opens Wowhead, Ctrl-click tries it on: same as step items.
+            if FGT.StepLinkClick({ itemId = item.id, text = { GetText = function() return item.name end } }, button) then return end
+            PickItem(item)
+        end)
+        row:SetScript("OnEnter", function(self)
+            self.hovered = true; Hover(self, true); PaintButton(self)
+            local item = self.item
+            if not item then return end
+            FGT.ShowItemTip(self, item.id, nil, item.name, false, function(tip)
+                tip:AddLine(" ")
+                tip:AddLine(Cat.SourceLabel(item), 0.8, 0.75, 0.65, true)
+                local set = Cat.SetName(item.set)
+                if set then tip:AddLine("Part of " .. set, 0.8, 0.75, 0.65) end
+                if FGT.isForever and Cat.ForeverStatus(item) == "hidden" then
+                    tip:AddLine("Not revealed in Forever yet", 1.00, 0.50, 0.42)
+                end
+                tip:AddLine("Click: plan this item", colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
+            end)
+        end)
+        row:SetScript("OnLeave", function(self)
+            self.hovered = false; Hover(self, false); PaintButton(self); GameTooltip:Hide()
+        end)
+        row:Hide()
+    end
+end
+
+local function PaintFilters()
+    local pref = Prefs()
+    usableBtn.text:SetText("Usable"); usableBtn.chosen = pref.usable; PaintButton(usableBtn)
+    for _, step in ipairs(QUALITY_STEPS) do if step[1] == pref.quality then qualityBtn.text:SetText(step[2]) end end
+    qualityBtn.chosen = pref.quality > 0; PaintButton(qualityBtn)
+    for _, step in ipairs(SORT_STEPS) do if step[1] == pref.sort then sortBtn.text:SetText(step[2]) end end
+    revealBtn.text:SetText("Revealed"); revealBtn.chosen = pref.revealed; PaintButton(revealBtn)
+    revealBtn:SetShown(FGT.isForever and true or false)
+end
+Results = function(keepScroll)
+    if not selectedSlot then return end
+    local pref = Prefs()
+    local _, class = UnitClass("player")
+    local _, count = Cat.Search(selectedSlot, { class = class, faction = UnitFactionGroup("player"),
+        usable = pref.usable, minQuality = pref.quality, sort = pref.sort, text = search:GetText(),
+        revealedOnly = FGT.isForever and pref.revealed }, found)
+    foundCount = count
+    pickerList.content:SetHeight(math.max(1, count * ROW_H))
+    if not keepScroll then pickerList.scroll:SetVerticalScroll(0) end
+    EnsureRows(math.max(8, math.ceil((pickerList.scroll:GetHeight() or 0) / ROW_H) + 2))
+    pickerList:Finalize(); pickerList:Update(); Rebind()
+    local text = search:GetText() or ""
+    noResults:SetText(count == 0 and (text == "" and "No items for this slot." or "No matching items.")
+        .. (pref.usable and "\nTurn off Usable to see everything." or "") or "")
+    pickerNote:SetText(count == 0 and "" or (count .. (count == 1 and " item" or " items")
+        .. " · Sources are shown where known"))
+end
+-- Keep rows bound while scrolling (the scroll area calls Update on every move).
+do
+    local baseUpdate = pickerList.Update
+    local lastFirst
+    function pickerList:Update()
+        baseUpdate(self)
+        local first = math.floor((self.scroll:GetVerticalScroll() or 0) / ROW_H)
+        if first ~= lastFirst then lastFirst = first; Rebind() end
+    end
+end
+search:HookScript("OnTextChanged", function() Results(false) end)
+search:SetScript("OnEscapePressed", Deselect)
+usableBtn:SetScript("OnClick", function() Prefs().usable = not Prefs().usable; PaintFilters(); Results() end)
+revealBtn:SetScript("OnClick", function() Prefs().revealed = not Prefs().revealed; PaintFilters(); Results() end)
+qualityBtn:SetScript("OnClick", function()
+    local pref, nextIndex = Prefs(), 1
+    for i, step in ipairs(QUALITY_STEPS) do if step[1] == pref.quality then nextIndex = i % #QUALITY_STEPS + 1 end end
+    pref.quality = QUALITY_STEPS[nextIndex][1]; PaintFilters(); Results()
+end)
+sortBtn:SetScript("OnClick", function()
+    local pref, nextIndex = Prefs(), 1
+    for i, step in ipairs(SORT_STEPS) do if step[1] == pref.sort then nextIndex = i % #SORT_STEPS + 1 end end
+    pref.sort = SORT_STEPS[nextIndex][1]; PaintFilters(); Results()
+end)
+for button, text in pairs({ [usableBtn] = "Show only items your class can equip",
+    [qualityBtn] = "Lowest item quality shown", [sortBtn] = "Sort the list",
+    [revealBtn] = "Hide items Forever has not revealed yet" }) do
+    button:HookScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText(text, 1, 1, 1); GameTooltip:Show()
+    end)
+    button:HookScript("OnLeave", function() GameTooltip:Hide() end)
+end
+
+local function PositionPopup(frame)
+    local button = slotButtons[selectedSlot]
+    if not button then return end
+    local spec = slotSpec[selectedSlot]
+    frame:ClearAllPoints()
+    local edge = spec[4] >= 5 and "BOTTOM" or "TOP"
+    if spec[3] == "BOTTOM" then
+        frame:SetPoint("BOTTOM", button, "TOP", 0, 8)
+    elseif spec[3] == "RIGHT" then
+        frame:SetPoint(edge .. "RIGHT", button, edge .. "LEFT", -10, 0)
+    else
+        frame:SetPoint(edge .. "LEFT", button, edge .. "RIGHT", 10, 0)
+    end
+end
+local function OpenPicker()
+    if not selectedSlot then return end
+    slotButtons[selectedSlot].chosen = true; PaintButton(slotButtons[selectedSlot])
+    GameTooltip:Hide(); menu:Hide()
+    -- Tall enough to show a good list, short enough to stay inside the panel.
+    picker:SetHeight(math.max(260, math.min(460, (right:GetHeight() or 460) - 150)))
+    PositionPopup(picker); FadeIn(picker); search:SetText("")
+    PaintFilters(); Results(); Focus(selectedSlot)
+end
+
+-- ------------------------------------------------------------
+-- Slot buttons
+-- ------------------------------------------------------------
+for _, spec in ipairs(slots) do
+    local slot, label = spec[1], spec[2]
+    local button = slotButtons[slot]
+    button:SetScript("OnClick", function()
+        Deselect(); selectedSlot = slot; button.chosen = true; PaintButton(button)
+        if selected and selected.slots[slotIds[slot]] then
+            PositionPopup(menu); FadeIn(menu); Focus(slot)
+        else OpenPicker() end
+    end)
+    button:SetScript("OnEnter", function(self)
+        self.hovered = true; Hover(self, true)
+        self.icon:SetAlpha(1)
+        PaintButton(self)
+        if selectedSlot == slot and (menu:IsShown() or picker:IsShown()) then return end
+        local item = selected and Cat.Get(selected.slots[slotIds[slot]])
+        if item then
+            FGT.ShowItemTip(self, item.id, nil, item.name, false, function(tip)
+                tip:AddLine(" "); tip:AddLine(Cat.SourceLabel(item), 0.8, 0.75, 0.65, true)
+            end)
+        else
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            self.itemName:SetText(label); self.itemName:SetTextColor(0.8, 0.75, 0.65)
+            GameTooltip:SetText(label, 1, 1, 1); GameTooltip:AddLine("Choose item", 1, 1, 1)
+            GameTooltip:Show()
+        end
+    end)
+    button:SetScript("OnLeave", function(self)
+        self.hovered = false; Hover(self, false)
+        PaintButton(self)
+        self.icon:SetAlpha(selected and selected.slots[slotIds[slot]] and 1 or 0.65)
+        if not (selected and selected.slots[slotIds[slot]]) then self.itemName:SetText("") end
+        GameTooltip:Hide()
+    end)
+end
+replace:SetScript("OnClick", OpenPicker)
+unequip:SetScript("OnClick", function()
+    if selected and selectedSlot then selected.slots[slotIds[selectedSlot]] = nil; Dress(true); Save(true); Refresh() end
+    Deselect()
+end)
+
+-- ------------------------------------------------------------
+-- Set list and header state
+-- ------------------------------------------------------------
+local menuY
+local function Place(button, show)
+    button:SetShown(show)
+    if show then button:ClearAllPoints(); button:SetPoint("TOPLEFT", 10, -menuY); menuY = menuY + 34 end
+end
 Refresh = function()
     local store = Store()
     owner:SetText(UnitName("player") or "")
@@ -692,9 +987,10 @@ Refresh = function()
             row:SetWidth(math.max(120, left:GetWidth() - 40))
             row.text:SetWidth(math.max(100, left:GetWidth() - 60))
             row.text:SetText(build.name ~= "" and build.name or "Name your set")
-            row.state:SetText(build.goalId and ForeverGoalTrackerDB.active[build.goalId] and "In My Goals" or "Draft")
+            local done, total = GoalProgressText(build)
+            row.state:SetText(done and ("In My Goals · " .. done .. "/" .. total) or "Draft")
             row.chosen = build == selected
-            row:SetEtch(row.chosen and U.styles.rowSel or U.styles.button)
+            PaintButton(row)
             row:SetScript("OnClick", function() store.selected = build.id; Choose(build) end); row:Show()
         end
     end
@@ -711,142 +1007,51 @@ Refresh = function()
     status:SetAlpha(1)
     if not selected then
         status:SetText("Create a set to begin.")
-    elseif tracked then
-        status:SetText("In My Goals · Changes saved")
     else
-        status:SetText(not next(selected.slots) and "Choose a slot to start building your set." or (selected.name ~= "" and "Draft · Not in Goals" or "Name your set before adding it."))
+        local summary = Summary(selected)
+        local done, total = GoalProgressText(selected)
+        if tracked then
+            status:SetText("In My Goals · " .. (done or 0) .. " of " .. (total or 0) .. " collected" .. (summary and (" · " .. summary) or ""))
+        elseif not summary then
+            status:SetText("Choose a slot to start building your set.")
+        else
+            status:SetText((selected.name ~= "" and "Draft · Not in Goals" or "Name your set before adding it.") .. " · " .. summary)
+        end
     end
     add:SetShown(selected ~= nil and not tracked)
+    viewGoal:SetShown(tracked and true or false)
     local canAdd = selected ~= nil and next(selected.slots) ~= nil
     add:SetEnabled(canAdd)
     add.chosen = canAdd
-    add:SetEtch(canAdd and U.styles.rowSel or U.styles.button)
+    PaintButton(add)
     add.text:SetAlpha(canAdd and 1 or 0.4)
     options:SetShown(selected ~= nil)
-    remove:SetShown(tracked and true or false)
-    actions:SetHeight(tracked and 112 or 78)
+    -- menu: only what applies, stacked from the top
+    menuY = 8
+    Place(rename, true)
     clear.text:SetText(clearedBuild == selected and "Undo clear" or "Clear items")
+    Place(clear, true)
+    Place(fill, true)
+    Place(duplicate, selected ~= nil and selected.id ~= nil)
+    Place(remove, tracked and true or false)
+    delete.text:SetText(deleteArmed and "Click again to delete" or "Delete set")
+    Place(delete, selected ~= nil and selected.id ~= nil)
+    actions:SetHeight(menuY + 4)
     for slot, button in pairs(slotButtons) do
-        local item = selected and byId[selected.slots[slotIds[slot]]]
+        local item = selected and Cat.Get(selected.slots[slotIds[slot]])
         button.icon:SetTexture(item and item.icon or FGT.GearPlannerSlotTexture(slot))
         button.itemName:SetText(item and item.name or "")
-        if item and item.quality == 3 then button.itemName:SetTextColor(0, 0.44, 0.87)
-        else button.itemName:SetTextColor(0.75, 0.45, 1) end
+        local c = item and QUALITY[item.q]
+        if c then button.itemName:SetTextColor(c[1], c[2], c[3]) end
+        button.quality = item and item.q or nil
         button.icon:SetAlpha((item or button.chosen) and 1 or 0.65)
+        PaintButton(button)
     end
 end
-Results = function()
-    local _, class = UnitClass("player")
-    local query = (search:GetText() or ""):lower(); local count = 0
-    for _, row in ipairs(resultRows) do row:Hide() end
-    for _, entry in ipairs(catalogue) do
-        if entry.class == class and SlotMatches(entry, selectedSlot) and entry.name:lower():find(query, 1, true) then
-            count = count + 1
-            local row = resultRows[count]
-            if not row then
-                row = Button(picker, "", 220, 44); resultRows[count] = row
-                row.icon = row:CreateTexture(nil, "ARTWORK"); row.icon:SetSize(28, 28); row.icon:SetPoint("LEFT", 5, 0)
-                row.text:ClearAllPoints(); row.text:SetPoint("LEFT", 40, 7); row.text:SetWidth(174)
-                row.source = U.font(row, 9); row.source:SetPoint("LEFT", 40, -10); row.source:SetWidth(174); row.source:SetWordWrap(false)
-            end
-            row:SetPoint("TOPLEFT", 10, -42 - (count - 1) * 50)
-            row.icon:SetTexture(entry.icon); row.text:SetText(entry.name)
-            if entry.quality == 3 then row.text:SetTextColor(0, 0.44, 0.87)
-            else row.text:SetTextColor(0.75, 0.45, 1) end
-            row.chosen = selected and selected.slots[slotIds[selectedSlot]] == entry.id
-            row:SetEtch(row.chosen and U.styles.rowSel or U.styles.button)
-            row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "") .. entry.source:match("^[^;]+"))
-            row:SetScript("OnClick", function()
-                if not selected or not selectedSlot or not SlotMatches(entry, selectedSlot) then return end
-                local id = slotIds[selectedSlot]
-                local moved = false
-                if entry.unique then
-                    for other, itemId in pairs(selected.slots) do
-                        if other ~= id and itemId == entry.id then selected.slots[other] = nil; moved = true end
-                    end
-                end
-                if entry.twoHand then selected.slots[17] = nil end
-                if id == 17 and byId[selected.slots[16]] and byId[selected.slots[16]].twoHand then selected.slots[16] = nil end
-                selected.slots[id] = entry.id; Dress(true); Save(); Refresh(); Results()
-                if moved then status:SetText("Moved item to the selected slot.") end
-            end)
-            row:SetScript("OnEnter", function(self)
-                Hover(self, true); self:SetEtch(self.chosen and U.styles.rowSel or U.styles.btnHover)
-                GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetHyperlink("item:" .. entry.id)
-                GameTooltip:AddLine(entry.source, 0.8, 0.75, 0.65, true)
-                if FGT.isForever then GameTooltip:AddLine("Unconfirmed in Forever", 0.4, 0.65, 1) end
-                GameTooltip:Show()
-            end)
-            row:SetScript("OnLeave", function(self)
-                Hover(self, false); self:SetEtch(self.chosen and U.styles.rowSel or U.styles.button)
-                GameTooltip:Hide()
-            end); row:Show()
-        end
-    end
-    noResults:SetText(count == 0 and (query == "" and "No items available for this slot yet." or "No matching items.") or "")
-end
-search:SetScript("OnTextChanged", Results)
-search:SetScript("OnEscapePressed", Deselect)
-local function PositionPopup(frame)
-    local button = slotButtons[selectedSlot]
-    if not button then return end
-    local spec
-    for _, value in ipairs(slots) do if value[1] == selectedSlot then spec = value; break end end
-    frame:ClearAllPoints()
-    local edge = spec[4] >= 5 and "BOTTOM" or "TOP"
-    if spec[3] == "BOTTOM" then
-        frame:SetPoint("BOTTOM", button, "TOP", 0, 8)
-    elseif spec[3] == "RIGHT" then
-        frame:SetPoint(edge .. "RIGHT", button, edge .. "LEFT", -10, 0)
-    else
-        frame:SetPoint(edge .. "LEFT", button, edge .. "RIGHT", 10, 0)
-    end
-end
-local function OpenPicker()
-    if not selectedSlot then return end
-    slotButtons[selectedSlot]:SetEtch(U.styles.rowSel)
-    GameTooltip:Hide(); menu:Hide(); PositionPopup(picker); FadeIn(picker); search:SetText("")
-    local label = selectedSlot
-    for _, spec in ipairs(slots) do if spec[1] == selectedSlot then label = spec[2]; break end end
-    pickerNote:SetText(label .. (selectedSlot == "HeadSlot" and " · Tier 1 & Tier 3" or " · Tier 3"))
-    Results(); Focus(selectedSlot)
-end
-for _, spec in ipairs(slots) do
-    local slot, label = spec[1], spec[2]
-    local button = slotButtons[slot]
-    button:SetScript("OnClick", function()
-        Deselect(); selectedSlot = slot; button.chosen = true; button:SetEtch(U.styles.rowSel)
-        if selected and selected.slots[slotIds[slot]] then
-            PositionPopup(menu); FadeIn(menu); Focus(slot)
-        else OpenPicker() end
-    end)
-    button:SetScript("OnEnter", function(self)
-        Hover(self, true)
-        self.icon:SetAlpha(1)
-        self:SetEtch(self.chosen and U.styles.rowSel or U.styles.btnHover)
-        if selectedSlot == slot and (menu:IsShown() or picker:IsShown()) then return end
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        local item = selected and byId[selected.slots[slotIds[slot]]]
-        if item then GameTooltip:SetHyperlink("item:" .. item.id)
-        else
-            self.itemName:SetText(label); self.itemName:SetTextColor(0.8, 0.75, 0.65)
-            GameTooltip:SetText(label, 1, 1, 1); GameTooltip:AddLine("Choose item", 1, 1, 1)
-        end
-        GameTooltip:Show()
-    end)
-    button:SetScript("OnLeave", function(self)
-        Hover(self, false)
-        self:SetEtch(self.chosen and U.styles.rowSel or U.styles.button)
-        self.icon:SetAlpha(selected and selected.slots[slotIds[slot]] and 1 or 0.65)
-        if not (selected and selected.slots[slotIds[slot]]) then self.itemName:SetText("") end
-        GameTooltip:Hide()
-    end)
-end
-replace:SetScript("OnClick", OpenPicker)
-unequip:SetScript("OnClick", function()
-    if selected and selectedSlot then selected.slots[slotIds[selectedSlot]] = nil; Dress(true); Save(); Refresh() end
-    Deselect()
-end)
+
+-- ------------------------------------------------------------
+-- Set actions
+-- ------------------------------------------------------------
 add:SetScript("OnClick", function()
     if not selected or not next(selected.slots) then return end
     if selected.name == "" then name:SetFocus(); return end
@@ -856,6 +1061,10 @@ add:SetScript("OnClick", function()
     if not goal then return end
     ForeverGoalTrackerDB.active[goal.id] = true
     FGT.RefreshPlannerGoals(goal); Refresh()
+end)
+viewGoal:SetScript("OnClick", function()
+    if not (selected and selected.goalId) then return end
+    FGT.ShowTab("tracker"); FGT.SelectGoal(selected.goalId)
 end)
 new:SetScript("OnClick", function() draft = { name = "", slots = {} }; draftOwner = U.charKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
 local function RenameSet()
@@ -878,13 +1087,48 @@ clear:SetScript("OnClick", function()
         clearedProgress = selected.goalId and ForeverGoalTrackerDB.progress[selected.goalId]
         selected.slots = {}
     end
-    Deselect(); Dress(true); Save(); Refresh()
+    Deselect(); Dress(true); Save(true); Refresh()
+end)
+-- Start from what the character is wearing now: only items the database knows.
+fill:SetScript("OnClick", function()
+    if not selected then return end
+    local count = 0
+    for slot = 1, 19 do
+        local id = GetInventoryItemID and GetInventoryItemID("player", slot)
+        if id and Cat.Get(id) then selected.slots[slot] = id; count = count + 1 end
+    end
+    actions:Hide(); Deselect(); Dress(true); Save(true); Refresh()
+    status:SetText(count > 0 and ("Added " .. count .. " equipped items.") or "No equipped items found in the database.")
+end)
+duplicate:SetScript("OnClick", function()
+    if not (selected and selected.id) then return end
+    local store = Store()
+    local copy = { id = store.nextId, name = selected.name .. " copy", slots = {} }
+    store.nextId = store.nextId + 1
+    for slot, id in pairs(selected.slots) do copy.slots[slot] = id end
+    store.builds[#store.builds + 1] = copy; store.selected = copy.id
+    actions:Hide(); Choose(copy)
 end)
 remove:SetScript("OnClick", function()
     if not selected or not selected.goalId then return end
     ForeverGoalTrackerDB.active[selected.goalId] = nil
     -- Keep the set and its credit so Add to Goals can restore it without loss.
     actions:Hide(); FGT.RefreshPlannerGoals(); Refresh()
+end)
+delete:SetScript("OnClick", function()
+    if not (selected and selected.id) then return end
+    if not deleteArmed then deleteArmed = true; Refresh(); return end
+    deleteArmed = nil
+    local store, DB = Store(), ForeverGoalTrackerDB
+    if selected.goalId then
+        DB.active[selected.goalId] = nil; DB.progress[selected.goalId] = nil
+        local goal = FGT.GoalById(selected.goalId)
+        if goal then goal.steps = {} end
+    end
+    for i, build in ipairs(store.builds) do if build == selected then table.remove(store.builds, i); break end end
+    store.selected = store.builds[1] and store.builds[1].id or nil
+    actions:Hide(); FGT.RefreshPlannerGoals()
+    Choose(store.builds[1])
 end)
 name:SetScript("OnEditFocusLost", function()
     editingName = false
@@ -896,6 +1140,12 @@ end)
 name:SetScript("OnTextChanged", function() if not changing then Save(); Refresh() end end)
 name:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
 name:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+name:HookScript("OnEditFocusGained", function()
+    name:SetBackdropBorderColor(colors.GOLD2[1], colors.GOLD2[2], colors.GOLD2[3], 1)
+end)
+name:HookScript("OnEditFocusLost", function()
+    name:SetBackdropBorderColor(styles.row.edge[1], styles.row.edge[2], styles.row.edge[3], 1)
+end)
 P:HookScript("OnShow", function()
     local store = Store(); selected = nil
     for _, build in ipairs(store.builds) do if build.id == store.selected then selected = build end end
@@ -907,23 +1157,29 @@ P:HookScript("OnHide", function()
     appearance:SetScript("OnUpdate", nil); appearanceAlpha = 1
     picker:SetScript("OnUpdate", nil); menu:SetScript("OnUpdate", nil)
     actions:Hide(); Deselect(); name:ClearFocus(); GameTooltip:Hide()
+    Cat.Release() -- the slot lists are rebuilt on demand
 end)
+
+-- ------------------------------------------------------------
+-- Ready-made sets
+-- ------------------------------------------------------------
 -- Explicit test-build import; never changes another character or an existing set.
 function FGT.CreateHunterPreRaidBuild()
+    local presetId = "hunter_preraid_wowhead"
+    local preset = Cat.PRESETS[presetId]
     local _, class = UnitClass("player")
-    if class ~= "HUNTER" or UnitFactionGroup("player") ~= "Alliance" then
+    if class ~= preset.class or UnitFactionGroup("player") ~= preset.faction then
         print("Forever Goal Tracker: This test build is for an Alliance Hunter."); return
     end
     local store = Store()
     local build
     for _, existing in ipairs(store.builds) do
-        if existing.preset == "hunter_preraid_wowhead" then build = existing; break end
+        if existing.preset == presetId then build = existing; break end
     end
     if not build then
-        build = { id = store.nextId, name = "Hunter Pre-Raid BiS", slots = {}, preset = "hunter_preraid_wowhead" }
+        build = { id = store.nextId, name = preset.name, slots = {}, preset = presetId }
         store.nextId = store.nextId + 1
-        for _, entry in ipairs(hunterPreRaid) do build.slots[entry[1]] = entry[2] end
-        build.slots[12] = 18500
+        for slot, id in pairs(preset.slots) do build.slots[slot] = id end
         store.builds[#store.builds + 1] = build
     end
     build.tracked = true
@@ -935,5 +1191,9 @@ function FGT.CreateHunterPreRaidBuild()
 end
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
-    name = name, setTitle = setTitle, editName = editName, add = add, options = options, actions = actions, clear = clear, remove = remove, rename = rename, camera = camera, turn = turn, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head, picker = picker, results = resultRows, unequip = unequip,
-    modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons, catalogue = catalogue }
+    name = name, setTitle = setTitle, editName = editName, add = add, viewGoal = viewGoal, options = options, actions = actions,
+    clear = clear, remove = remove, rename = rename, fill = fill, duplicate = duplicate, delete = delete,
+    camera = camera, turn = turn, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head,
+    picker = picker, results = resultRows, unequip = unequip, search = search, filters = { usable = usableBtn,
+        quality = qualityBtn, sort = sortBtn, reveal = revealBtn }, list = pickerList, found = function() return found, foundCount end,
+    modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons }

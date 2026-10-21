@@ -161,6 +161,14 @@ FGT.DUNGEONS = {
     { id = "dungeon:sm", name = "Scarlet Monastery", map = 1420, zone = "Tirisfal Glades", x = 85.3, y = 32.2, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
     { id = "dungeon:scholo", name = "Scholomance", map = 1422, zone = "Western Plaguelands", x = 69, y = 72.9, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
     { id = "dungeon:deadmines", name = "Deadmines", map = 1436, zone = "Westfall", x = 42.57, y = 71.71, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    -- Raid entrances for the Gear Planner's source links. `manual` keeps them out of the automatic
+    -- name linking in other guides; the planner tags them itself. Positions checked 2026-10-19 against
+    -- the same HandyNotes_DungeonLocations-classic file as above (Onyxia 52.9/77.7, Naxxramas 39.0/26.0,
+    -- Blackrock Mountain 29.94/47.78). Molten Core and Blackwing Lair are reached through Blackrock Mountain.
+    { id = "dungeon:mc", name = "Molten Core", manual = true, map = 1428, zone = "Burning Steppes", x = 29.94, y = 47.78, unverifiedInForever = true, where = "Enter Blackrock Mountain, then follow the route down through Blackrock Depths to Molten Core." },
+    { id = "dungeon:bwl", name = "Blackwing Lair", manual = true, map = 1428, zone = "Burning Steppes", x = 29.94, y = 47.78, unverifiedInForever = true, where = "Enter Blackrock Mountain, then follow the route up through Blackrock Spire to Blackwing Lair." },
+    { id = "dungeon:ony", name = "Onyxia's Lair", manual = true, map = 1445, zone = "Dustwallow Marsh", x = 52.9, y = 77.7, unverifiedInForever = true, where = "Shows the cave entrance in the Wyrmbog." },
+    { id = "dungeon:naxx", name = "Naxxramas", manual = true, map = 1423, zone = "Eastern Plaguelands", x = 39, y = 26, unverifiedInForever = true, where = "Shows the floating necropolis. Enter at the portal in its base." },
     -- Entrance supplied by Karl during native review, 2026-10-16.
     { id = "dungeon:dalaran", name = "City of Dalaran", forever = true, map = 1421, zone = "Silverpine Forest", x = 69, y = 45.5, where = "Dungeon entrance." },
     -- Reuse the existing hub positions for named location links.

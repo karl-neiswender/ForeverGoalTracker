@@ -13,7 +13,11 @@ local source = "|Hfgtquest:1|hThe Key to Scholomance|h"
 assert(F.LinkDungeons(source) == source, "quest links preserved")
 for _, n in ipairs(F.DUNGEONS) do
     assert(F.NpcById(n.id) == n and n.x > 0 and n.x < 100 and n.y > 0 and n.y < 100)
-    if not n.forever or F.isForever then
+    if n.manual then
+        -- Planner-only entrances: guides never auto-link them, but the planner's own tag opens the same route.
+        assert(not F.LinkText("Visit " .. n.name .. "."):find("fgtentrance", 1, true), n.name .. " stays plain in guides")
+        assert(F.LocationTag(n.id, n.name):find("Hfgtentrance:" .. n.id:gsub("^dungeon:", ""), 1, true), n.name)
+    elseif not n.forever or F.isForever then
         assert(F.LinkText("Visit " .. n.name .. "."):find("|Hfgtentrance:", 1, true), n.name)
     end
 end
