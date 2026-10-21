@@ -585,7 +585,8 @@ for _, spec in ipairs(slots) do
         button.itemName:SetJustifyH("RIGHT")
     else
         button.itemName:SetPoint("BOTTOM", button, "TOP", 0, 6)
-        button.itemName:SetJustifyH("CENTER")
+        button.itemName:SetJustifyH("CENTER"); button.itemName:SetJustifyV("BOTTOM")
+        button.itemName:SetWordWrap(true)
     end
     slotButtons[spec[1]] = button
 end
@@ -596,10 +597,13 @@ local function LayoutSlots()
     for _, spec in ipairs(slots) do
         local button = slotButtons[spec[1]]
         button:SetSize(size, size); button:ClearAllPoints()
-        button.itemName:SetWidth(math.max(40, math.min(160, (right:GetWidth() - size * 2 - 100) / 3)))
         if spec[3] == "BOTTOM" then
-            button:SetPoint("BOTTOM", right, "BOTTOM", (spec[4] - 2) * (size + 12), 18)
+            -- Each weapon gets its own column, wide enough for a two-line name above its icon.
+            local column = math.max(90, math.min(170, ((right:GetWidth() or 600) - 2 * (size + 120)) / 3))
+            button.itemName:SetWidth(column - 10); button.itemName:SetHeight(26)
+            button:SetPoint("BOTTOM", right, "BOTTOM", (spec[4] - 2) * column, 18)
         else
+            button.itemName:SetWidth(math.max(40, math.min(160, (right:GetWidth() - size * 2 - 100) / 3)))
             button:SetPoint("TOP" .. spec[3], right, "TOP" .. spec[3],
                 spec[3] == "LEFT" and 22 or -22, -88 - (spec[4] - 1) * (size + 4))
         end
@@ -611,7 +615,7 @@ right:HookScript("OnSizeChanged", function(self)
 end)
 local head = slotButtons.HeadSlot
 local hint = U.font(controls, 10)
-hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", 0, 76)
+hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", 0, 100)
 
 -- ------------------------------------------------------------
 -- The item picker: search, filters and a recycled list
