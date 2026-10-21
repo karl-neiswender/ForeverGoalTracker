@@ -388,8 +388,11 @@ assert(direct and direct.name == "Helm of Might" and direct.q == 4 and direct.ma
 assert(Cat.Get(99999999) == nil and Cat.Get("x") == nil, "unknown ids return nothing")
 local both = Cat.Search("HeadSlot", { text = "helm of might" })
 assert(both[1] == direct, "search and lookup share one record")
+Cat.Release({ 16866 })
+assert(Cat.Search("HeadSlot", { text = "helm of might" })[1] == direct, "planned items stay known across a release")
 Cat.Release()
-assert(Cat.Search("HeadSlot", { text = "helm of might" })[1] == direct, "released lists rebuild without losing known items")
+local reparsed = Cat.Search("HeadSlot", { text = "helm of might" })[1]
+assert(reparsed ~= direct and reparsed.id == 16866 and reparsed.name == "Helm of Might", "a full release rebuilds records on demand")
 print("  database: every Library set piece present, preset slots fit, lookup and release ok")
 
 -- Eligibility by class, faction, hands and armor type.
@@ -567,3 +570,52 @@ C_Timer.After, F.RefreshPlannerGoals = oldAfter, oldRefresh
 UnitName = oldName
 F.ShowTab("tracker")
 print("  renaming a tracked set debounces the goals refresh")
+
+-- Whole sets, jumping between the planner and the goal page, and Enter to pick.
+local drag = Cat.Get(16939)
+assert(drag and drag.set > 0 and Cat.SetName(drag.set) == "Dragonstalker Armor", "Dragonstalker's helm belongs to its set")
+local dragSet = Cat.SetItems(drag.set)
+assert(#dragSet == 8, "Dragonstalker has eight pieces, found " .. #dragSet)
+local taken = {}
+for _, piece in ipairs(dragSet) do
+    local slot = Cat.SlotFor(piece, taken)
+    assert(slot and not taken[slot], piece.name .. " gets its own slot"); taken[slot] = true
+end
+assert(Cat.SlotFor(Cat.Get(18500), { [11] = true }) == 12 and Cat.SlotFor(Cat.Get(18500), {}) == 11, "second ring takes the second finger")
+assert(Cat.SlotFor(Cat.Get(22314), {}) == 16 and Cat.SlotFor(Cat.Get(13965), { [13] = true }) == 14, "weapons and trinkets")
+UnitName = function() return "SetOwner" end
+UnitClass = function() return "Hunter", "HUNTER" end
+F.ShowTab("gear"); T.new(); text(T.name, "Dragonstalker plan")
+local setBuild = T.store().builds[#T.store().builds]
+click(T.slots.HeadSlot)
+text(T.search, "dragonstalker's helm")
+assert(T.results[1].item.id == 16939, "set piece found")
+click(T.results[1].setBtn)
+local count = 0
+for _ in pairs(setBuild.slots) do count = count + 1 end
+assert(count == 8 and setBuild.slots[1] == 16939, "one click plans all eight pieces")
+assert(T.picker:IsShown(), "picker survives")
+-- Enter takes the first result for the open slot
+click(T.slots.NeckSlot)
+text(T.search, "")
+local firstNeck = T.found()[1]
+T.search:GetScript("OnEnterPressed")(T.search)
+assert(setBuild.slots[2] == firstNeck.id, "Enter plans the top result")
+-- A planner goal's pencil opens its set, only for the owning character.
+click(T.add)
+local setGoal = F.GoalById(setBuild.goalId)
+Track(F.detailEditBtn)
+F.UpdateEditButton(setGoal)
+assert(F.detailEditBtn:IsShown(), "gear set goals get an edit button on their owner")
+F.ShowTab("tracker")
+assert(F.OpenGearSet(setGoal) == true and F.GearPlanner:IsShown(), "opens the planner on that set")
+assert(T.setTitle:GetText() == "Dragonstalker plan", "and selects it")
+UnitName = function() return "SomeoneElse" end
+F.UpdateEditButton(setGoal)
+assert(not F.detailEditBtn:IsShown() and F.OpenGearSet(setGoal) == false, "other characters cannot open it")
+F.UpdateEditButton(F.GoalById("raid_mc"))
+assert(not F.detailEditBtn:IsShown(), "ordinary goals are unaffected")
+UnitName = oldName
+UnitClass = oldClass
+F.ShowTab("tracker")
+print("  whole sets, slot assignment, Enter to pick and the goal-page edit button ok")

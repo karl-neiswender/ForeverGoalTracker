@@ -4767,19 +4767,22 @@ do
     b:SetScript("OnEnter", function(self)
         Tint(true)
         GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-        GameTooltip:AddLine("Edit goal", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine(self.goal and self.goal.plannerOwner and "Edit in Gear Planner" or "Edit goal", C.TITLE[1], C.TITLE[2], C.TITLE[3])
         GameTooltip:Show()
     end)
     b:SetScript("OnLeave", function() Tint(false); GameTooltip:Hide() end)
     b:SetScript("OnClick", function(self)
         GameTooltip:Hide()
-        if self.goal and FGT.OpenTargetCard then FGT.OpenTargetCard(self.goal) end
+        if not self.goal then return end
+        if self.goal.plannerOwner then if FGT.OpenGearSet then FGT.OpenGearSet(self.goal) end
+        elseif FGT.OpenTargetCard then FGT.OpenTargetCard(self.goal) end
     end)
     b:Hide()
     FGT.detailEditBtn = b
     function FGT.UpdateEditButton(goal)
         b.goal = goal
-        b:SetShown(goal and goal.target ~= nil)
+        -- gear sets open their planner page, and only on the character they belong to
+        b:SetShown(goal and (goal.target ~= nil or (goal.plannerOwner ~= nil and goal.plannerOwner == CharKey())) or false)
         -- the reset arrow sits left of the pencil (or in its place), and a
         -- long title stays clear of both
         local resetShown = goal and not goal.autoLevels

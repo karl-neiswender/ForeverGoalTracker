@@ -223,6 +223,7 @@ local nameLabel = Label(header, "Set name", 10, 22, -6)
 nameLabel:ClearAllPoints(); nameLabel:SetPoint("BOTTOMLEFT", name, "TOPLEFT", 0, 4)
 local status = U.font(header, 10)
 status:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -6)
+status:SetJustifyH("LEFT"); status:SetWordWrap(false)
 local options = Button(header, "...", 30, 28)
 options:SetPoint("TOPRIGHT", right, "TOPRIGHT", -16, -24)
 local add = Button(header, "Add to Goals", 132)
@@ -266,6 +267,9 @@ options:HookScript("OnEnter", function(self)
 end)
 options:HookScript("OnLeave", function() GameTooltip:Hide() end)
 local empty = Label(header, "Create a set to begin.", 14, 20, -100)
+-- First visit: a way in that does not need the + New button on the other side of the screen.
+local startNew = Button(header, "Create a set", 150); startNew:SetPoint("TOPLEFT", empty, "BOTTOMLEFT", 0, -12)
+local startHunter = Button(header, "Hunter Pre-Raid BiS", 150); startHunter:SetPoint("LEFT", startNew, "RIGHT", 8, 0)
 
 -- ------------------------------------------------------------
 -- The character
@@ -597,7 +601,10 @@ local function LayoutSlots()
         end
     end
 end
-right:HookScript("OnSizeChanged", LayoutSlots)
+right:HookScript("OnSizeChanged", function(self)
+    LayoutSlots()
+    status:SetWidth(math.max(80, (self:GetWidth() or 0) - 48))
+end)
 local head = slotButtons.HeadSlot
 local hint = U.font(controls, 10)
 hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", 0, 76)
@@ -658,7 +665,7 @@ clickAway:SetScript("OnEvent", function()
 end)
 local replace = Button(menu, "Replace", 130); replace:SetPoint("TOPLEFT", 10, -8)
 local unequip = Button(menu, "Unequip", 130); unequip:SetPoint("TOPLEFT", 10, -40)
-local Refresh, Results
+local Refresh, Results, PickSet
 
 -- A short line for the set: how much of it is planned, and the average item level.
 local function Summary(build)
@@ -746,6 +753,22 @@ local function PickItem(item)
     Dress(true); Save(true); Refresh(); Results(true)
     if moved then status:SetText("Moved item to the selected slot.") end
 end
+-- Plan every piece of a game item set at once; pieces that do not fit are skipped.
+PickSet = function(anchor)
+    if not selected or not anchor or anchor.set <= 0 then return end
+    local taken, count = {}, 0
+    for _, item in ipairs(Cat.SetItems(anchor.set)) do
+        local slot = Cat.SlotFor(item, taken)
+        if slot and not taken[slot] then
+            taken[slot] = true; count = count + 1
+            selected.slots[slot] = item.id
+            if item.twoHand then selected.slots[17] = nil; taken[17] = true end
+        end
+    end
+    Dress(true); Save(true); Refresh(); Results(true)
+    status:SetText(count > 0 and ("Added " .. count .. " pieces of " .. (Cat.SetName(anchor.set) or "the set") .. ".")
+        or "That set has no pieces for this planner yet.")
+end
 local function BindRow(row, item, index)
     row.item = item
     row:ClearAllPoints(); row:SetPoint("TOPLEFT", pickerList.content, "TOPLEFT", 0, -(index - 1) * ROW_H)
@@ -760,12 +783,13 @@ local function BindRow(row, item, index)
     local line = (item.forever == 3 and "" or ("iLvl " .. item.ilvl .. " · ")) .. (item.req > 1 and ("Req " .. item.req) or "Any level")
     local sourceLine = Cat.SourceLabel(item)
     if state == "hidden" or item.forever == 3 then sourceLine = sourceLine .. " · Not revealed yet" end
-    row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "") .. line .. " · " .. sourceLine)
+    row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "")
+        .. (state == "new" and "|cff66a6ffNew in Forever|r · " or "") .. line .. " · " .. sourceLine)
     local source = Cat.Source(item)
     local entrance = source and source.place and Cat.EntranceFor(source.place)
     row.entrance = entrance
     row.pin:SetShown(entrance ~= nil)
-    row.new:SetShown(state == "new")
+    row.setBtn:SetShown(item.set > 0 and Cat.SetName(item.set) ~= nil)
     PaintButton(row)
     row:Show()
 end
@@ -785,11 +809,23 @@ local function EnsureRows(count)
         row.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
         row.text:ClearAllPoints(); row.text:SetPoint("TOPLEFT", 44, -7); row.text:SetPoint("RIGHT", row, "RIGHT", -28, 0)
         row.text:SetJustifyH("LEFT"); row.text:SetWordWrap(false)
-        row.source = U.font(row, 9); row.source:SetPoint("TOPLEFT", 44, -25); row.source:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+        row.source = U.font(row, 9); row.source:SetPoint("TOPLEFT", 44, -25); row.source:SetPoint("RIGHT", row, "RIGHT", -48, 0)
         row.source:SetJustifyH("LEFT"); row.source:SetWordWrap(false)
         row.source:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
-        row.new = U.font(row, 8); row.new:SetPoint("TOPRIGHT", -8, -8)
-        row.new:SetTextColor(FOREVER_BLUE[1], FOREVER_BLUE[2], FOREVER_BLUE[3]); row.new:SetText("NEW"); row.new:Hide()
+        -- Fills every piece of the item's set (Dragonstalker, Lightforge, ...) in one click.
+        row.setBtn = Button(row, "+ Set", 38, 16, 9)
+        row.setBtn:SetPoint("BOTTOMRIGHT", -6, 5)
+        row.setBtn:SetScript("OnClick", function() if row.item then PickSet(row.item) end end)
+        row.setBtn:HookScript("OnEnter", function()
+            local item = row.item
+            if not item then return end
+            GameTooltip:SetOwner(row.setBtn, "ANCHOR_TOP")
+            GameTooltip:SetText("Add the whole set", 1, 1, 1)
+            GameTooltip:AddLine(Cat.SetName(item.set) or "", 0.8, 0.75, 0.65)
+            GameTooltip:Show()
+        end)
+        row.setBtn:HookScript("OnLeave", function() GameTooltip:Hide() end)
+        row.setBtn:Hide()
         -- Entrance pin: sets the map pin for the dungeon or raid the item comes from.
         row.pin = CreateFrame("Button", nil, row)
         row.pin:SetSize(18, 18); row.pin:SetPoint("TOPRIGHT", -6, -4)
@@ -873,6 +909,7 @@ do
 end
 search:HookScript("OnTextChanged", function() Results(false) end)
 search:SetScript("OnEscapePressed", Deselect)
+search:SetScript("OnEnterPressed", function() if found[1] then PickItem(found[1]) end end)
 usableBtn:SetScript("OnClick", function() Prefs().usable = not Prefs().usable; PaintFilters(); Results() end)
 revealBtn:SetScript("OnClick", function() Prefs().revealed = not Prefs().revealed; PaintFilters(); Results() end)
 qualityBtn:SetScript("OnClick", function()
@@ -997,6 +1034,10 @@ Refresh = function()
     listEmpty:SetShown(visible == 0)
     list.content:SetHeight(math.max(1, visible * 54)); list:Finalize(); list:Update()
     empty:SetShown(not selected)
+    startNew:SetShown(not selected)
+    local _, class = UnitClass("player")
+    local preset = Cat.PRESETS.hunter_preraid_wowhead
+    startHunter:SetShown(not selected and class == preset.class and UnitFactionGroup("player") == preset.faction)
     local editing = selected ~= nil and (editingName or selected.name == "")
     name:SetShown(editing); nameLabel:SetShown(editing)
     setTitle:SetText(selected and selected.name or "")
@@ -1067,6 +1108,8 @@ viewGoal:SetScript("OnClick", function()
     FGT.ShowTab("tracker"); FGT.SelectGoal(selected.goalId)
 end)
 new:SetScript("OnClick", function() draft = { name = "", slots = {} }; draftOwner = U.charKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
+startNew:SetScript("OnClick", function() new:GetScript("OnClick")() end)
+startHunter:SetScript("OnClick", function() FGT.CreateHunterPreRaidBuild() end)
 local function RenameSet()
     actions:Hide(); editingName = true; Refresh(); name:SetFocus(); name:HighlightText()
 end
@@ -1157,8 +1200,23 @@ P:HookScript("OnHide", function()
     appearance:SetScript("OnUpdate", nil); appearanceAlpha = 1
     picker:SetScript("OnUpdate", nil); menu:SetScript("OnUpdate", nil)
     actions:Hide(); Deselect(); name:ClearFocus(); GameTooltip:Hide()
-    Cat.Release() -- the slot lists are rebuilt on demand
+    Cat.Release(selected and selected.slots) -- the slot lists are rebuilt on demand
 end)
+
+-- From a planner goal's page: open the set it came from (only on the character that owns it).
+function FGT.OpenGearSet(goal)
+    if not (goal and goal.plannerOwner == U.charKey()) then return false end
+    local store = Store()
+    for _, build in ipairs(store.builds) do
+        if build.goalId == goal.id then
+            store.selected = build.id; draft = nil
+            FGT.ShowTab("gear")
+            if P:IsShown() then Choose(build) end
+            return true
+        end
+    end
+    return false
+end
 
 -- ------------------------------------------------------------
 -- Ready-made sets

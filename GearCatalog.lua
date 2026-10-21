@@ -82,12 +82,50 @@ function C.Get(id)
     end
 end
 
--- Frees the parsed slot lists. Items on a saved set stay known.
-function C.Release()
+-- Frees the parsed slot lists. Only the ids in `keep` (a set's planned items) stay known;
+-- everything else is looked up or parsed again when it is next needed.
+function C.Release(keep)
     parsed = {}
+    local kept = {}
+    for _, id in pairs(keep or {}) do kept[id] = known[id] end
+    known = kept
 end
 
+local setLower = {}
 function C.SetName(set) return set and set > 0 and DB.sets[set] or nil end
+local function SetLower(set)
+    local lowered = setLower[set]
+    if lowered == nil then lowered = DB.sets[set] and DB.sets[set]:lower() or false; setLower[set] = lowered end
+    return lowered
+end
+
+-- Every item of a game item set that the database has. Reads the raw lines, so a whole set
+-- never needs the full item list parsed.
+function C.SetItems(set)
+    local out = {}
+    if not set or set <= 0 then return out end
+    local pattern = "(%d+)|%d+|%d+|%d+|%d+|%d+|[^|]*|%d+|" .. set .. "|"
+    for _, text in pairs(DB.blocks) do
+        for id in text:gmatch(pattern) do
+            local item = C.Get(tonumber(id))
+            if item and item.set == set then out[#out + 1] = item end
+        end
+    end
+    table.sort(out, function(a, b) return a.id < b.id end)
+    return out
+end
+
+-- The planner slot number an item belongs in, given the slots a set already uses.
+local SLOT_OF_INV = { [1] = 1, [2] = 2, [3] = 3, [4] = 4, [5] = 5, [20] = 5, [6] = 6, [7] = 7, [8] = 8, [9] = 9,
+    [10] = 10, [16] = 15, [17] = 16, [21] = 16, [14] = 17, [22] = 17, [23] = 17, [15] = 18, [25] = 18, [26] = 18,
+    [28] = 18, [19] = 19 }
+function C.SlotFor(item, taken)
+    local inv = item.inv
+    if inv == 11 then return (taken and taken[11]) and 12 or 11 end
+    if inv == 12 then return (taken and taken[13]) and 14 or 13 end
+    if inv == 13 then return (taken and taken[16]) and 17 or 16 end
+    return SLOT_OF_INV[inv]
+end
 
 -- ------------------------------------------------------------
 -- Who can use what
@@ -178,8 +216,8 @@ function C.Search(slot, opts, out)
                 local ok = true
                 if wantId then ok = item.id == wantId
                 elseif tokens then
-                    local set = C.SetName(item.set)
-                    local hay = set and (item.lname .. " " .. set:lower()) or item.lname
+                    local set = item.set > 0 and SetLower(item.set)
+                    local hay = set and (item.lname .. " " .. set) or item.lname
                     for _, token in ipairs(tokens) do
                         if not hay:find(token, 1, true) then ok = false; break end
                     end
