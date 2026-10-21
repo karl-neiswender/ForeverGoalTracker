@@ -153,10 +153,18 @@ local SHIELDS = Set { "WARRIOR", "PALADIN", "SHAMAN" }
 local HELD = Set { "PRIEST", "MAGE", "WARLOCK", "DRUID", "SHAMAN", "PALADIN" }
 
 local function HasBit(mask, bit) return math.floor(mask / bit) % 2 == 1 end
+-- The armor a class actually wears: its heaviest type (mail and plate need level 40).
+local MAIN_ARMOR = { WARRIOR = { 403, 404 }, PALADIN = { 403, 404 }, HUNTER = { 402, 403 }, SHAMAN = { 402, 403 },
+    ROGUE = { 402, 402 }, DRUID = { 402, 402 }, PRIEST = { 401, 401 }, MAGE = { 401, 401 }, WARLOCK = { 401, 401 } }
+function C.MainArmor(class, level)
+    local pair = MAIN_ARMOR[class]
+    return pair and pair[(level or 60) >= 40 and 2 or 1]
+end
 
 -- Can this class use the item in this slot? `race` is not checked (Classic has few
 -- race-locked items), but faction is, through the item's own Alliance/Horde mark.
-function C.Usable(item, class, slot, faction)
+-- Body armor is limited to the class's main type (no cloth for a Hunter).
+function C.Usable(item, class, slot, faction, level)
     local bit = BIT[class]
     if not bit then return true end
     if item.mask ~= 0 and not HasBit(item.mask, bit) then return false end
@@ -164,6 +172,7 @@ function C.Usable(item, class, slot, faction)
     local sub, inv = item.sub, item.inv
     if sub == 400 then return inv ~= 23 or HELD[class] or false end -- jewelry, shirts, tabards, held items
     if inv == 16 then return true end -- cloaks are cloth for everyone
+    if sub >= 401 and sub <= 404 then return sub == C.MainArmor(class, level) end
     if slot == "SecondaryHandSlot" then
         if inv == 13 or inv == 22 then if not DUAL_WIELD[class] then return false end end
         if inv == 14 and not SHIELDS[class] then return false end
@@ -211,7 +220,7 @@ function C.Search(slot, opts, out)
         for _, item in ipairs(Block(inv)) do
             if item.q >= minQ
                 and (item.forever < 2 or FGT.isForever) -- Forever-only items do not exist on Classic Era
-                and (not opts.usable or C.Usable(item, opts.class, slot, opts.faction))
+                and (not opts.usable or C.Usable(item, opts.class, slot, opts.faction, opts.level))
                 and (not opts.revealedOnly or item.forever == 1 or item.forever == 2) then
                 local ok = true
                 if wantId then ok = item.id == wantId

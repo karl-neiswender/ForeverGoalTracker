@@ -756,7 +756,7 @@ local function PickItem(item)
         if main and main.twoHand then selected.slots[16] = nil end
     end
     selected.slots[id] = item.id
-    Dress(true); Save(true); Refresh(); Results(true)
+    Dress(true); Save(true); Deselect(); Refresh()
     if moved then status:SetText("Moved item to the selected slot.") end
 end
 -- Plan every piece of a game item set at once; pieces that do not fit are skipped.
@@ -771,9 +771,15 @@ PickSet = function(anchor)
             if item.twoHand then selected.slots[17] = nil; taken[17] = true end
         end
     end
-    Dress(true); Save(true); Refresh(); Results(true)
+    Dress(true); Save(true); Deselect(); Refresh()
     status:SetText(count > 0 and ("Added " .. count .. " pieces of " .. (Cat.SetName(anchor.set) or "the set") .. ".")
         or "That set has no pieces for this planner yet.")
+end
+-- The item tooltip goes on whichever side of the picker faces away from the character.
+local function PlaceBesidePicker(tip)
+    local px, rx = picker:GetCenter(), right:GetCenter()
+    if px and rx and px > rx then tip:SetPoint("TOPRIGHT", picker, "TOPLEFT", -8, 0)
+    else tip:SetPoint("TOPLEFT", picker, "TOPRIGHT", 8, 0) end
 end
 local function BindRow(row, item, index)
     row.item = item
@@ -854,11 +860,18 @@ local function EnsureRows(count)
             if FGT.StepLinkClick({ itemId = item.id, text = { GetText = function() return item.name end } }, button) then return end
             PickItem(item)
         end)
-        row:SetScript("OnEnter", function(self)
-            self.hovered = true; Hover(self, true); PaintButton(self)
-            local item = self.item
+        row:SetScript("OnEnter", function(self) self.hovered = true; Hover(self, true); PaintButton(self) end)
+        row:SetScript("OnLeave", function(self) self.hovered = false; Hover(self, false); PaintButton(self) end)
+        -- Only the thumbnail opens the item tooltip, beside the picker so it never covers the list.
+        row.thumb = CreateFrame("Frame", nil, row)
+        row.thumb:SetAllPoints(row.icon); row.thumb:EnableMouse(true)
+        row.thumb:SetScript("OnMouseUp", function(_, button) row:GetScript("OnClick")(row, button) end)
+        row.thumb:SetScript("OnLeave", function() row:GetScript("OnLeave")(row); GameTooltip:Hide() end)
+        row.thumb:SetScript("OnEnter", function()
+            row:GetScript("OnEnter")(row)
+            local item = row.item
             if not item then return end
-            FGT.ShowItemTip(self, item.id, nil, item.name, false, function(tip)
+            FGT.ShowItemTip(row.thumb, item.id, nil, item.name, false, function(tip)
                 tip:AddLine(" ")
                 tip:AddLine(Cat.SourceLabel(item), 0.8, 0.75, 0.65, true)
                 local set = Cat.SetName(item.set)
@@ -867,10 +880,7 @@ local function EnsureRows(count)
                     tip:AddLine("Not revealed in Forever yet", 1.00, 0.50, 0.42)
                 end
                 tip:AddLine("Click: plan this item", colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
-            end)
-        end)
-        row:SetScript("OnLeave", function(self)
-            self.hovered = false; Hover(self, false); PaintButton(self); GameTooltip:Hide()
+            end, PlaceBesidePicker)
         end)
         row:Hide()
     end
@@ -890,7 +900,7 @@ Results = function(keepScroll)
     local pref = Prefs()
     local _, class = UnitClass("player")
     local _, count = Cat.Search(selectedSlot, { class = class, faction = UnitFactionGroup("player"),
-        usable = pref.usable, minQuality = pref.quality, sort = pref.sort, text = search:GetText(),
+        usable = pref.usable, level = UnitLevel("player"), minQuality = pref.quality, sort = pref.sort, text = search:GetText(),
         revealedOnly = FGT.isForever and pref.revealed }, found)
     foundCount = count
     pickerList.content:SetHeight(math.max(1, count * ROW_H))
@@ -928,7 +938,7 @@ sortBtn:SetScript("OnClick", function()
     for i, step in ipairs(SORT_STEPS) do if step[1] == pref.sort then nextIndex = i % #SORT_STEPS + 1 end end
     pref.sort = SORT_STEPS[nextIndex][1]; PaintFilters(); Results()
 end)
-for button, text in pairs({ [usableBtn] = "Show only items your class can equip",
+for button, text in pairs({ [usableBtn] = "Show only your armor type and the weapons your class can use",
     [qualityBtn] = "Lowest item quality shown", [sortBtn] = "Sort the list",
     [revealBtn] = "Hide items Forever has not revealed yet" }) do
     button:HookScript("OnEnter", function(self)

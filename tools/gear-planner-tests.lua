@@ -38,17 +38,17 @@ local id = store.builds[1].id
 click(T.head)
 assert(T.picker:IsShown(), "empty slot opens the picker")
 local headList, headCount = T.found()
-assert(headCount > 100, "the head database is searchable, not a short list")
+assert(headCount > 40, "the head database is searchable, not a short list")
+for _, entry in ipairs(headList) do assert(entry.sub == 404 or entry.sub == 400, "a level 60 Warrior sees plate heads only") end
 for _, entry in ipairs(headList) do assert(entry.inv == 1, "head search shows head items only") end
 text(T.search, "helm of might")
 assert(T.found()[1].id == 16866, "name search finds the Warrior Tier 1 helm")
 click(T.results[1])
-assert(T.picker:IsShown(), "selection keeps picker open")
+assert(not T.picker:IsShown(), "choosing an item closes the picker")
 local item = store.builds[1].slots[1]
 assert(item == 16866, "Warrior head target saved")
 assert(T.head.itemName:GetText() == "Helm of Might", "filled head shows its name")
-text(T.search, "#22418")
-click(T.results[1])
+Pick("HeadSlot", 22418)
 assert(store.builds[1].slots[1] == 22418 and store.builds[1].id == id, "id search finds Dreadnaught Helmet")
 text(T.name, "Renamed")
 assert(#store.builds == 1 and store.builds[1].id == id)
@@ -119,7 +119,7 @@ for _, section in ipairs(tier3.sections) do
         local piece = section.pieces[i].auto.item
         Pick(slot, piece)
         assert(build.slots[ids[i]] == piece, "slot selection saves its target")
-        assert(T.picker:IsShown(), "armor selection keeps picker open")
+        assert(not T.picker:IsShown(), "armor selection closes the picker")
         assert(T.head.itemName:GetText() ~= "" or slot == "HeadSlot", "equipping armor preserves head label")
     end
     -- a piece for another class never shows under Usable (the Tier 1 helms are class-locked)
@@ -150,7 +150,9 @@ local function SelectedRowState()
 end
 assert(not build.tracked and not build.goalId and SelectedRowState() == "Draft", "named drafts list without tracking a goal")
 Pick("HeadSlot", 16866)
-assert(T.head.chosen and T.results[1].chosen, "selection survives refresh")
+click(T.head); click(T.replace); text(T.search, "#16866")
+assert(T.head.chosen and T.results[1].chosen, "the planned item is marked when the picker reopens")
+T.clickAway:GetScript("OnEvent")()
 local key = F.MaterialsUI.charKey()
 local foreign = "Foreign-" .. GetRealmName()
 local previousOwner, previousForeign = D.characters[key], D.characters[foreign]
@@ -181,7 +183,6 @@ assert(tooltipCalls == 0, "active slot tooltip cannot cover its action menu")
 GameTooltip.SetHyperlink = oldTip
 click(T.replace); text(T.search, "#22418"); click(T.results[1])
 assert(not D.progress[goalId][1] and D.progress[goalId][2], "replacing head clears only head credit")
-assert(T.results[1].chosen, "picker marks the replacement")
 click(T.head); click(T.unequip)
 assert(#goal.steps == 1 and D.progress[goalId][1], "removing an earlier slot moves shoulder credit with its item")
 Pick("HeadSlot", 22418)
@@ -238,7 +239,7 @@ T.camera:GetScript("OnUpdate")(T.camera, 1)
 local swaps, alpha = 0, 1
 T.model.Undress = function() swaps = swaps + 1 end
 T.model.SetAlpha = function(_, value) alpha = value end
-click(T.head); click(T.replace); text(T.search, "#16866"); click(T.results[1]); text(T.search, "#22418"); click(T.results[1])
+click(T.head); click(T.replace); text(T.search, "#16866"); click(T.results[1]); Pick("HeadSlot", 22418)
 assert(swaps == 0, "rapid comparisons keep the old preview until the fade")
 T.appearance:GetScript("OnUpdate")(T.appearance, 0.08)
 local faded = alpha
@@ -482,7 +483,7 @@ F.ShowTab("gear"); T.new(); text(T.name, "List test")
 click(T.head)
 text(T.search, "")
 local list, total = T.found()
-assert(total > 100 and #T.results < total, "few rows for many items")
+assert(total > 40 and #T.results < total, "few rows for many items")
 assert(T.results[1].item == list[1] and T.results[2].item == list[2], "rows start at the top of the list")
 local scrolled = 20 * 46 + 5
 T.list.scroll.GetVerticalScroll = function() return scrolled end
@@ -594,7 +595,7 @@ click(T.results[1].setBtn)
 local count = 0
 for _ in pairs(setBuild.slots) do count = count + 1 end
 assert(count == 8 and setBuild.slots[1] == 16939, "one click plans all eight pieces")
-assert(T.picker:IsShown(), "picker survives")
+assert(not T.picker:IsShown(), "adding a set closes the picker")
 -- Enter takes the first result for the open slot
 click(T.slots.NeckSlot)
 text(T.search, "")
@@ -619,3 +620,37 @@ UnitName = oldName
 UnitClass = oldClass
 F.ShowTab("tracker")
 print("  whole sets, slot assignment, Enter to pick and the goal-page edit button ok")
+
+-- Armor type follows the class (and level 40 for mail and plate); cloaks stay open to all.
+local function subs(list) local out = {} for _, item in ipairs(list) do out[item.sub] = true end return out end
+local hunter60 = subs(Cat.Search("ChestSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 60 }))
+assert(hunter60[403] and not hunter60[402] and not hunter60[401], "a level 60 Hunter sees mail chests only")
+local hunter30 = subs(Cat.Search("ChestSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 30 }))
+assert(hunter30[402] and not hunter30[403], "before 40 a Hunter sees leather")
+local warrior30 = subs(Cat.Search("LegsSlot", { usable = true, class = "WARRIOR", faction = "Alliance", level = 30 }))
+assert(warrior30[403] and not warrior30[404], "before 40 a Warrior sees mail")
+local druid = subs(Cat.Search("HandsSlot", { usable = true, class = "DRUID", faction = "Alliance" }))
+assert(druid[402] and not druid[401], "Druids see leather, not cloth")
+assert(#Cat.Search("BackSlot", { usable = true, class = "WARRIOR", faction = "Alliance" }) > 50, "cloaks are for everyone")
+local allChests = subs(Cat.Search("ChestSlot", { usable = false, class = "HUNTER" }))
+assert(allChests[401] and allChests[402] and allChests[403] and allChests[404], "Usable off shows every armor type")
+print("  armor type by class and level, cloaks for all, Usable off shows everything")
+
+-- Only the thumbnail opens the item tooltip; the row itself just highlights.
+UnitName = function() return "TipOwner" end
+F.ShowTab("gear"); T.new(); text(T.name, "Tip test")
+click(T.head)
+local shown = 0
+local oldTip = F.ShowItemTip
+F.ShowItemTip = function(_, _, _, _, _, _, place) shown = shown + 1; assert(place, "the tooltip is placed beside the picker") end
+T.results[1]:GetScript("OnEnter")(T.results[1])
+assert(shown == 0, "hovering the row does not open the tooltip")
+T.results[1].thumb:GetScript("OnEnter")(T.results[1].thumb)
+assert(shown == 1, "hovering the thumbnail does")
+F.ShowItemTip = oldTip
+local before = T.store().builds[#T.store().builds].slots[1]
+T.results[1].thumb:GetScript("OnMouseUp")(T.results[1].thumb, "LeftButton")
+assert(T.store().builds[#T.store().builds].slots[1] and not T.picker:IsShown(), "clicking the thumbnail plans the item too")
+UnitName = oldName
+F.ShowTab("tracker")
+print("  thumbnail-only tooltips beside the picker; thumbnail clicks plan the item")

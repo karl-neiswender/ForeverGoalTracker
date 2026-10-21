@@ -12794,10 +12794,12 @@ do
     -- step tracks it and what clicks do.
     -- name: the item's name from our data, shown when the game doesn't have it
     -- compare: also show the game's comparison with what you're wearing
-    function FGT.ShowItemTip(owner, id, rule, name, compare, extra)
+    -- place: optional function(tip) that positions the tooltip instead of following the cursor
+    function FGT.ShowItemTip(owner, id, rule, name, compare, extra, place)
         FGT.tip = { owner = owner, id = id, rule = rule, name = name, compare = compare }
         GameTooltip.fgtNeedsItem = nil
-        GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
+        if place then GameTooltip:SetOwner(owner, "ANCHOR_NONE"); place(GameTooltip)
+        else GameTooltip:SetOwner(owner, "ANCHOR_CURSOR") end
         local known = FGT.ItemInfo(id)
         if known then
             GameTooltip:SetHyperlink("item:" .. id)
@@ -12824,7 +12826,7 @@ do
                 GameTooltip:AddLine("Loading item...", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
                 C_Timer.After(2.1, function() -- still hovering? show the outcome
                     if FGT.tip and FGT.tip.id == id and GameTooltip:IsOwned(owner) then
-                        FGT.ShowItemTip(owner, id, rule, name, compare, extra)
+                        FGT.ShowItemTip(owner, id, rule, name, compare, extra, place)
                     end
                 end)
             end
