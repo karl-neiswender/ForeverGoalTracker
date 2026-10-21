@@ -67,7 +67,7 @@ local function SyncGoal(build, ownerKey)
     end
     goal.name = build.name
     goal.steps, goal.tips, build.goalItems = {}, {}, {}
-    local nextProgress, copies, firstIcon = {}, {}, nil
+    local nextProgress, copies, firstIcon, classic, unrevealed = {}, {}, nil, false, false
     for slot = 1, 19 do
         local item = Cat.Get(build.slots[slot])
         if item then
@@ -87,12 +87,14 @@ local function SyncGoal(build, ownerKey)
             if credit[slot .. ":" .. item.id] then nextProgress[#goal.steps] = true end
             if U.watch then U.watch[item.id] = true end
             firstIcon = firstIcon or item.icon
+            if item.forever < 2 then classic = true else unrevealed = unrevealed or item.forever == 3 end
         end
     end
     local preset = build.preset and Cat.PRESETS[build.preset]
     if preset and preset.note then goal.tips[#goal.tips + 1] = preset.note end
-    if #goal.steps > 0 and FGT.isForever then
-        goal.tips[#goal.tips + 1] = "Sources are from Classic Era. Availability in Forever is Unconfirmed."
+    if FGT.isForever then
+        if classic then goal.tips[#goal.tips + 1] = "Sources shown are from Classic Era. Availability in Forever is Unconfirmed." end
+        if unrevealed then goal.tips[#goal.tips + 1] = "Some of these items are not revealed in Forever yet." end
     end
     DB.progress[id] = nextProgress
     goal.icon = firstIcon or "Interface\\Icons\\INV_Misc_QuestionMark"

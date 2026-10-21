@@ -1,5 +1,7 @@
 # Gear Planner handoff: October 17, 2026
 
+Latest (October 19): [generated item database, filterable picker, whole sets, entrance pins and set tools](Gear-Planner-database-2026-10-19.md). Supersedes the catalogue, picker and Hunter-list descriptions below; the camera, model and tracking notes still apply. Native review of this pass is pending.
+
 Latest test build: [Hunter pre-raid set, tracking, sources and beta limitations](Gear-Planner-hunter-preraid-2026-10-18.md).
 
 Latest workflow: [set actions and sidebar refinement](Gear-Planner-workflow-2026-10-18.md).

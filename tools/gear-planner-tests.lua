@@ -456,7 +456,7 @@ print("  search: tokens, set names, ids, quality, sort and revealed filter ok")
 local garr = Cat.Get(16866)
 local text1, advice1 = Cat.Acquisition(garr)
 assert(text1:find("Loot Helm of Might from Garr in ", 1, true) and text1:find("|Hfgtentrance:mc|h", 1, true), "Tier 1 helm: Garr, Molten Core pin")
-assert(Cat.SourceLabel(garr) == "Garr — Molten Core", "short label")
+assert(Cat.SourceLabel(garr) == "Garr · Molten Core", "short label")
 local nef = Cat.Get(16963) -- Helm of Wrath, Onyxia
 assert(Cat.Acquisition(nef):find("|Hfgtentrance:ony|h", 1, true), "Onyxia's Lair pin")
 local quest = Cat.Acquisition(Cat.Get(21999))

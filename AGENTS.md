@@ -19,6 +19,10 @@ Karl's priority: SIMPLE, HELPFUL, CLEAR. Players should focus on playing.
 - Use `completes automatically` or `tracked automatically`, rather than `ticks itself`. Keep exact quest names and item/goal link tags intact.
 - When editing wording, preserve goal IDs, step order, rules and material strings used by item-needs parsing. No progress migration is needed for wording alone.
 
+## Gear Planner (2026-10-19)
+
+The planner's item list is generated: `python3 tools/geardb.py` builds `GearData.lua` from the game's client tables (see [the report](reports/Gear-Planner-database-2026-10-19.md)). Do not hand-edit it; add hand-checked sources to `GearCatalog.lua` (`curated`), and keep class limits in sync with the game's skill table. Native review of the picker, set tools and goal-page link is pending.
+
 ## Current handoff (2026-10-12)
 
 Read [the October 8–11 context for Claude and Codex](reports/Claude-context-2026-10-12.md) before continuing. It consolidates code changes, final UI/data behavior, superseded experiments, native evidence and open risks, with an exhaustive Git inventory. The older [October 11 handoff](reports/Session-handoff-2026-10-11.md) retains detailed session history. v2.11.1 is shipped and verified; subsequent Materials/font/window/copy/dependency-preview/mount-cost work is Unreleased on main. Current Lua checks passed October 12; fresh Ketho/LuaLS diagnostics and native review are still required before a new authorized release. Description preferences and the exact bottom AI disclaimer are recorded at the end of this file.

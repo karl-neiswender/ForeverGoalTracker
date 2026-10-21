@@ -237,18 +237,18 @@ end
 --               advice = "optional tip", place = "instance name" }. Hand-checked entries win,
 -- then the Library's set data, then what the game's tables say (a reputation or PvP rank).
 local function Loot(who, place, advice)
-    return { step = "Loot %s from " .. who .. " in " .. place, label = who .. " — " .. place, advice = advice, place = place }
+    return { step = "Loot %s from " .. who .. " in " .. place, label = who .. " · " .. place, advice = advice, place = place }
 end
 local function Quest(step, label, advice, place)
     return { step = step, label = label, advice = advice, place = place, quest = true }
 end
 local function Craft(skill)
-    return { step = "Craft %s with " .. skill .. ", or buy it", label = skill .. " — craft or buy" }
+    return { step = "Craft %s with " .. skill .. ", or buy it", label = skill .. " · craft or buy" }
 end
 
 local curated = {
     -- Hunter pre-raid choices from the linked Wowhead guide, reviewed 2026-10-18 (Classic routes).
-    [18421] = Quest("Complete 'The Treasure of the Shen'dralar' in Dire Maul for %s", "Quest — Dire Maul",
+    [18421] = Quest("Complete 'The Treasure of the Shen'dralar' in Dire Maul for %s", "Quest · Dire Maul",
         "Complete 'The Madness Within' first; collect the reward from the Dire Maul library chest.", "Dire Maul"),
     [22340] = Loot("Lord Valthalak", "Upper Blackrock Spire", "Summon him in The Beast's room with a Tier 0.5 brazier."),
     [12927] = Loot("Pyroguard Emberseer", "Upper Blackrock Spire"),
@@ -256,17 +256,17 @@ local curated = {
     [22232] = Loot("Urok Doomhowl", "Lower Blackrock Spire", "Summon him with Omokk's Head and a Roughshod Pike."),
     [15062] = Craft("Leatherworking"),
     [15063] = Craft("Leatherworking"),
-    [22061] = Quest("Complete 'Anthion's Parting Words' with Deliana in Ironforge for %s", "Quest — Ironforge",
+    [22061] = Quest("Complete 'Anthion's Parting Words' with Deliana in Ironforge for %s", "Quest · Ironforge",
         "Requires the Dungeon Set 2 upgrade chain."),
     [18375] = Loot("Prince Tortheldrin", "Dire Maul West"),
     [18500] = Loot("Gordok Tribute chest", "Dire Maul North"),
     [13965] = Quest("Complete 'General Drakkisath's Demise' with Marshal Maxwell at Morgan's Vigil in Burning Steppes for %s",
-        "Quest — Burning Steppes"),
+        "Quest · Burning Steppes"),
     [18473] = Quest("Complete 'The Greatest Race of Hunters' with Lorekeeper Mykos in the Dire Maul library for %s",
-        "Quest — Dire Maul", "Turn in the hunter book.", "Dire Maul"),
+        "Quest · Dire Maul", "Turn in the hunter book.", "Dire Maul"),
     [13340] = Loot("Baron Rivendare", "Stratholme, undead side"),
     [22314] = Loot("Isalien", "Dire Maul East", "Summon him in Alzzin's room with a Tier 0.5 brazier."),
-    [19107] = Quest("Complete 'Hero of the Stormpike' in Alterac Valley for %s", "Quest — Alterac Valley",
+    [19107] = Quest("Complete 'Hero of the Stormpike' in Alterac Valley for %s", "Quest · Alterac Valley",
         "Win Alterac Valley, then turn in to Prospector Stonehewer in Alterac Mountains."),
 }
 
@@ -282,7 +282,7 @@ BOSS_PLACE["Onyxia"] = "Onyxia's Lair"
 -- "the quest 'X'", "Molten Core trash", "PvP rank 13") into a source.
 local function FromLibrary(text)
     local quest = text:match("^the quest '(.+)'$")
-    if quest then return Quest("Complete '" .. quest .. "' for %s", "Quest — " .. quest) end
+    if quest then return Quest("Complete '" .. quest .. "' for %s", "Quest · " .. quest) end
     if text:match("^PvP rank") then return { step = "Earn %s at " .. text, label = text } end
     local who, place = text:match("^(.-) %((.+)%)$")
     if who then
@@ -323,7 +323,7 @@ local function Harvest()
         for _, piece in ipairs(section.pieces or {}) do
             local id = piece.auto and piece.auto.item
             if type(id) == "number" and not harvested[id] then
-                harvested[id] = { step = "Obtain %s from a Tier 3 turn-in at Light's Hope Chapel", label = "Tier 3 turn-in — Light's Hope Chapel" }
+                harvested[id] = { step = "Obtain %s from a Tier 3 turn-in at Light's Hope Chapel", label = "Tier 3 turn-in · Light's Hope Chapel" }
             end
         end
     end

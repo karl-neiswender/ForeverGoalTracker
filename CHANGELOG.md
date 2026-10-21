@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Added a searchable item database to Gear Planner: every slot lists the items your class can equip, with search by name, set or item ID, and quality and sort filters.
+- Added Add whole set, Fill from equipped, Duplicate and Delete to Gear Planner, and View in Goals once a set is added.
+- Added map pins for dungeon and raid sources in Gear Planner, including Molten Core, Blackwing Lair, Onyxia's Lair and Naxxramas.
+- Added Edit in Gear Planner to a gear set's goal page.
+- Changed Gear Planner items to show their source, item level and Forever status.
+
 - Added a Hunter pre-raid test build with 16 tracked item slots and acquisition notes. Duplicate rings now require the correct number of owned copies.
 
 - Simplified Gear Planner’s set list and moved Add to Goals beside the name. Added set options for renaming, clearing with Undo, and removing from Goals without losing the set.
