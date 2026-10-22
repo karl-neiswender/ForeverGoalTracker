@@ -635,6 +635,7 @@ local function RecordCharacter()
     c.realm    = GetRealmName and GetRealmName() or ""
     c.class    = classFile
     c.race     = raceFile
+    c.sex      = UnitSex and UnitSex("player") or c.sex -- 2 male, 3 female (the planner's model)
     c.level    = UnitLevel("player") or 1
     c.xp       = UnitXP and UnitXP("player") or 0
     c.xpMax    = UnitXPMax and UnitXPMax("player") or 0
@@ -4803,7 +4804,7 @@ do
     function FGT.UpdateEditButton(goal)
         b.goal = goal
         -- gear sets open their planner page, and only on the character they belong to
-        b:SetShown(goal and (goal.target ~= nil or (goal.plannerOwner ~= nil and goal.plannerOwner == CharKey())) or false)
+        b:SetShown(goal and (goal.target ~= nil or goal.plannerOwner ~= nil) or false)
         -- the reset arrow sits left of the pencil (or in its place), and a
         -- long title stays clear of both
         local resetShown = goal and not goal.autoLevels

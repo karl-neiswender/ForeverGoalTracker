@@ -41,8 +41,26 @@ local function Root()
     db.gearPlanner.prefs = db.gearPlanner.prefs or { usable = true, quality = 0, sort = "ilvl", revealed = false }
     return db.gearPlanner
 end
+-- Whose sets are open: the logged-in character unless another one is picked
+-- (any character on the roster; sets, goals and credit stay with that character).
+local planFor
+local function PlanKey() return planFor or U.charKey() end
+local RACE_IDS = { Human = 1, Orc = 2, Dwarf = 3, NightElf = 4, Scourge = 5, Tauren = 6, Gnome = 7, Troll = 8, Skyborne = 95 }
+-- The planned character's class, race, faction, level and sex (UnitSex numbering).
+local function Who()
+    local key = PlanKey()
+    if key == U.charKey() then
+        local _, class = UnitClass("player")
+        local _, race = UnitRace("player")
+        return { key = key, me = true, name = UnitName("player"), class = class, race = race,
+            faction = UnitFactionGroup("player"), level = UnitLevel("player"), sex = UnitSex and UnitSex("player") }
+    end
+    local c = (ForeverGoalTrackerDB.characters or {})[key] or {}
+    return { key = key, me = false, name = c.name or key, class = c.class, race = c.race,
+        faction = c.faction, level = c.level, sex = c.sex }
+end
 local function Store()
-    local chars, key = Root().characters, U.charKey()
+    local chars, key = Root().characters, PlanKey()
     chars[key] = chars[key] or { nextId = 1, builds = {} }
     return chars[key]
 end
@@ -204,7 +222,17 @@ right:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
 right:SetPoint("BOTTOMRIGHT", U.main, "BOTTOMRIGHT", -16, 16)
 U.etch(right, styles.panel)
 Label(left, "My Gear Sets", 16, 16, -16)
-local owner = Label(left, "", 11, 16, -40)
+-- Whose sets these are: a picker over every character on the roster.
+local ownerBtn = CreateFrame("Button", nil, left)
+ownerBtn:SetPoint("TOPLEFT", 12, -36); ownerBtn:SetHeight(22)
+local owner = U.font(ownerBtn, 11); owner:SetPoint("LEFT", 4, 0)
+local ownerCaret = ownerBtn:CreateTexture(nil, "OVERLAY")
+ownerCaret:SetTexture(FGT.Icon("chevron")); ownerCaret:SetSize(12, 12); ownerCaret:SetPoint("LEFT", owner, "RIGHT", 4, 0)
+local charMenu = CreateFrame("Frame", nil, left, "BackdropTemplate")
+charMenu:SetPoint("TOPLEFT", ownerBtn, "BOTTOMLEFT", 0, -4)
+charMenu:SetFrameLevel(left:GetFrameLevel() + 30); charMenu:EnableMouse(true)
+U.etch(charMenu, styles.panel); charMenu:Hide()
+local charRows = {}
 local new = Button(left, "+ New", 68, 24); new:SetPoint("TOPRIGHT", -14, -14)
 local list = U.scroll(left, 0, 0, 0, 0)
 -- Use an independent clipped viewport; no dependency on the guide layout.
@@ -291,6 +319,7 @@ local backgroundTiles = {
 }
 local _, race = UnitRace("player")
 local background = CreateFrame("Frame", nil, modelArea)
+background.race = race
 background:SetAllPoints() -- child frame lets modelArea clip the cropped texture regions
 for i = 1, 4 do
     local bg = background:CreateTexture(nil, "BACKGROUND")
@@ -399,8 +428,8 @@ local function TurnTo(target)
 end
 local function Focus(slot)
     TurnTo(slot == "BackSlot" and math.pi or 0)
-    local _, currentRace = UnitRace("player")
-    local profile = currentRace == "Dwarf" and UnitSex("player") == 2 and dwarfMaleFocus[slot]
+    local who = Who()
+    local profile = who.race == "Dwarf" and who.sex ~= 3 and dwarfMaleFocus[slot]
         or focusProfiles[slot] or {0, 0, 0}
     MoveCamera(profile[1], profile[2], profile[3], 0.55)
 end
@@ -573,13 +602,13 @@ local slots = {
 }
 -- Paladins, Druids and Shamans keep a relic (Libram, Idol, Totem) in the ranged slot.
 local function SlotLabel(slot)
-    local _, class = UnitClass("player")
+    local class = Who().class
     if slot == "RangedSlot" and Cat.UsesRelic(class) then return "Relic" end
     for _, spec in ipairs(slots) do if spec[1] == slot then return spec[2] end end
     return slot
 end
 local function SlotTexture(slot)
-    local _, class = UnitClass("player")
+    local class = Who().class
     if slot == "RangedSlot" and Cat.UsesRelic(class) then return "Interface\\PaperDoll\\UI-PaperDoll-Slot-Relic" end
     return FGT.GearPlannerSlotTexture(slot)
 end
@@ -609,7 +638,7 @@ local function LayoutSlots()
     local size = math.min(44, available / 8 - 4)
     size = math.max(20, size)
     -- The bottom row has three to five cells: ammo only for classes that shoot, a quiver only for Hunters.
-    local _, class = UnitClass("player")
+    local class = Who().class
     local ammo, quiver = Cat.UsesAmmo(class), Cat.UsesQuiver(class)
     slotButtons.AmmoSlot:SetShown(ammo)
     slotButtons.QuiverSlot:SetShown(quiver)
@@ -686,6 +715,7 @@ P:HookScript("OnShow", function() clickAway:RegisterEvent("GLOBAL_MOUSE_DOWN") e
 P:HookScript("OnHide", function() clickAway:UnregisterEvent("GLOBAL_MOUSE_DOWN") end)
 clickAway:SetScript("OnEvent", function()
     if actions:IsShown() and not actions:IsMouseOver() and not options:IsMouseOver() then actions:Hide() end
+    if charMenu:IsShown() and not charMenu:IsMouseOver() and not ownerBtn:IsMouseOver() then charMenu:Hide() end
     if not selectedSlot then return end
     if picker:IsShown() and picker:IsMouseOver() then return end
     if menu:IsShown() and menu:IsMouseOver() then return end
@@ -708,7 +738,7 @@ local function Summary(build)
         end
     end
     if count == 0 then return nil end
-    local _, class = UnitClass("player")
+    local class = Who().class
     local slotsShown = 19 + (Cat.UsesAmmo(class) and 1 or 0) + (Cat.UsesQuiver(class) and 1 or 0)
     return string.format("%d of %d slots", count, slotsShown)
         .. (scored > 0 and string.format(" · average item level %d", math.floor(total / scored + 0.5)) or "")
@@ -745,7 +775,7 @@ local function Save(immediate)
         store.builds[#store.builds + 1] = selected; store.selected = selected.id; draft = nil
     end
     if selected.tracked then
-        local goal = SyncGoal(selected, U.charKey())
+        local goal = SyncGoal(selected, PlanKey())
         if immediate then FGT.RefreshPlannerGoals(goal) else RefreshGoalSoon(goal) end
     end
     status:SetAlpha(1)
@@ -756,9 +786,19 @@ local function Choose(build)
     editingName = false
     Deselect(); Focus(false)
     LayoutSlots()
-    local ownerKey = U.charKey()
-    if modelOwner ~= ownerKey then
-        modelOwner = ownerKey; model:SetUnit("player"); model:SetFacing(facing); Dress()
+    local who = Who()
+    if modelOwner ~= who.key then
+        modelOwner = who.key; model:SetUnit("player")
+        -- another character: their race on the model where the game allows it (SetCustomRace
+        -- takes 0 male, 1 female); otherwise this character's model wears their gear
+        if not who.me and model.SetCustomRace and RACE_IDS[who.race or ""] then
+            pcall(model.SetCustomRace, model, RACE_IDS[who.race], who.sex == 3 and 1 or 0)
+        end
+        if background.race ~= who.race and who.race then
+            background.race = who.race
+            for i = 1, 4 do modelArea["bg" .. i].texture:SetTexture("Interface\\DressUpFrame\\DressUpBackground-" .. who.race .. i) end
+        end
+        model:SetFacing(facing); Dress()
     else
         Dress(true)
     end
@@ -928,9 +968,9 @@ end
 Results = function(keepScroll)
     if not selectedSlot then return end
     local pref = Prefs()
-    local _, class = UnitClass("player")
-    local _, count = Cat.Search(selectedSlot, { class = class, faction = UnitFactionGroup("player"),
-        usable = pref.usable, level = UnitLevel("player"), minQuality = pref.quality,
+    local who = Who()
+    local _, count = Cat.Search(selectedSlot, { class = who.class, faction = who.faction,
+        usable = pref.usable, level = who.level, minQuality = pref.quality,
         ammo = selected and (selectedSlot == "AmmoSlot" and Cat.AmmoFor(Cat.Get(selected.slots[18]))
             or selectedSlot == "QuiverSlot" and Cat.QuiverFor(Cat.Get(selected.slots[18]))) or nil, sort = pref.sort, text = search:GetText(),
         revealedOnly = FGT.isForever and pref.revealed }, found)
@@ -1067,7 +1107,10 @@ local function Place(button, show)
 end
 Refresh = function()
     local store = Store()
-    owner:SetText(UnitName("player") or "")
+    local who = Who()
+    local color = who.class and RAID_CLASS_COLORS and RAID_CLASS_COLORS[who.class]
+    owner:SetText((color and color.colorStr and ("|c" .. color.colorStr) or "") .. (who.name or "") .. "|r")
+    ownerBtn:SetWidth(owner:GetStringWidth() + 26)
     for _, row in ipairs(rows) do row:Hide() end
     local visible = 0
     for _, build in ipairs(store.builds) do
@@ -1094,9 +1137,9 @@ Refresh = function()
     list.content:SetHeight(math.max(1, visible * 54)); list:Finalize(); list:Update()
     empty:SetShown(not selected)
     startNew:SetShown(not selected)
-    local _, class = UnitClass("player")
+    local who = Who()
     local preset = Cat.PRESETS.hunter_preraid_wowhead
-    startHunter:SetShown(not selected and class == preset.class and UnitFactionGroup("player") == preset.faction)
+    startHunter:SetShown(not selected and who.class == preset.class and who.faction == preset.faction)
     local editing = selected ~= nil and (editingName or selected.name == "")
     name:SetShown(editing); nameLabel:SetShown(editing)
     setTitle:SetText(selected and selected.name or "")
@@ -1131,7 +1174,7 @@ Refresh = function()
     Place(rename, true)
     clear.text:SetText(clearedBuild == selected and "Undo clear" or "Clear items")
     Place(clear, true)
-    Place(fill, true)
+    Place(fill, Who().me) -- only the logged-in character's worn gear can be read
     Place(duplicate, selected ~= nil and selected.id ~= nil)
     Place(remove, tracked and true or false)
     delete.text:SetText(deleteArmed and "Click again to delete" or "Delete set")
@@ -1157,7 +1200,7 @@ add:SetScript("OnClick", function()
     if selected.name == "" then name:SetFocus(); return end
     name:ClearFocus(); actions:Hide()
     selected.tracked = true
-    local goal = SyncGoal(selected, U.charKey())
+    local goal = SyncGoal(selected, PlanKey())
     if not goal then return end
     ForeverGoalTrackerDB.active[goal.id] = true
     FGT.RefreshPlannerGoals(goal); Refresh()
@@ -1166,7 +1209,7 @@ viewGoal:SetScript("OnClick", function()
     if not (selected and selected.goalId) then return end
     FGT.ShowTab("tracker"); FGT.SelectGoal(selected.goalId)
 end)
-new:SetScript("OnClick", function() draft = { name = "", slots = {} }; draftOwner = U.charKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
+new:SetScript("OnClick", function() draft = { name = "", slots = {} }; draftOwner = PlanKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
 startNew:SetScript("OnClick", function() new:GetScript("OnClick")() end)
 startHunter:SetScript("OnClick", function() FGT.CreateHunterPreRaidBuild() end)
 local function RenameSet()
@@ -1260,7 +1303,7 @@ end)
 P:HookScript("OnShow", function()
     local store = Store(); selected = nil
     for _, build in ipairs(store.builds) do if build.id == store.selected then selected = build end end
-    Choose((draftOwner == U.charKey() and draft) or selected or store.builds[1])
+    Choose((draftOwner == PlanKey() and draft) or selected or store.builds[1])
 end)
 P:HookScript("OnHide", function()
     camera:SetScript("OnUpdate", nil); model:SetScript("OnUpdate", nil); model:SetAlpha(1); dragX = nil
@@ -1271,9 +1314,57 @@ P:HookScript("OnHide", function()
     Cat.Release(selected and selected.slots) -- the slot lists are rebuilt on demand
 end)
 
--- From a planner goal's page: open the set it came from (only on the character that owns it).
+-- Plan for another character on the roster (nil or the logged-in key: yourself).
+local function PlanFor(key)
+    if key == U.charKey() then key = nil end
+    if key == planFor then return end
+    if P:IsShown() then Cat.Release(selected and selected.slots) end
+    planFor, draft, selected = key, nil, nil
+    if P:IsShown() then
+        local store = Store()
+        for _, build in ipairs(store.builds) do if build.id == store.selected then selected = build end end
+        Choose(selected or store.builds[1])
+    end
+end
+FGT.GearPlannerFor = PlanFor
+local function CharacterList()
+    local list = {}
+    for key, c in pairs(ForeverGoalTrackerDB.characters or {}) do
+        if c.class then list[#list + 1] = { key = key, c = c } end
+    end
+    table.sort(list, function(a, b) return (a.c.lastSeen or 0) > (b.c.lastSeen or 0) end)
+    return list
+end
+ownerBtn:SetScript("OnClick", function()
+    if charMenu:IsShown() then charMenu:Hide(); return end
+    local list, y = CharacterList(), 8
+    for _, row in ipairs(charRows) do row:Hide() end
+    for i, entry in ipairs(list) do
+        local row = charRows[i]
+        if not row then row = Button(charMenu, "", 200, 24, 11); charRows[i] = row
+            row.text:ClearAllPoints(); row.text:SetPoint("LEFT", 8, 0)
+        end
+        local c, color = entry.c, RAID_CLASS_COLORS and RAID_CLASS_COLORS[entry.c.class]
+        row.text:SetText((color and color.colorStr and ("|c" .. color.colorStr) or "") .. (c.name or entry.key) .. "|r"
+            .. "  |cff9a8f78" .. (c.level or "?") .. "|r")
+        row.chosen = entry.key == PlanKey(); PaintButton(row)
+        row:ClearAllPoints(); row:SetPoint("TOPLEFT", 8, -y); row:Show(); y = y + 28
+        row:SetScript("OnClick", function() charMenu:Hide(); PlanFor(entry.key) end)
+    end
+    charMenu:SetSize(216, y + 6); charMenu:Show()
+end)
+ownerBtn:SetScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText("Plan for another character", 1, 1, 1)
+    GameTooltip:AddLine("Sets, goals and progress stay with that character.", 0.8, 0.8, 0.8, true); GameTooltip:Show()
+end)
+ownerBtn:SetScript("OnLeave", function() GameTooltip:Hide() end)
+P:HookScript("OnHide", function() charMenu:Hide() end)
+
+-- From a planner goal's page: open the set it came from, on whichever character owns it.
 function FGT.OpenGearSet(goal)
-    if not (goal and goal.plannerOwner == U.charKey()) then return false end
+    local owner = goal and goal.plannerOwner
+    if not (owner and (owner == U.charKey() or (ForeverGoalTrackerDB.characters or {})[owner])) then return false end
+    PlanFor(goal.plannerOwner)
     local store = Store()
     for _, build in ipairs(store.builds) do
         if build.goalId == goal.id then
@@ -1293,8 +1384,8 @@ end
 function FGT.CreateHunterPreRaidBuild()
     local presetId = "hunter_preraid_wowhead"
     local preset = Cat.PRESETS[presetId]
-    local _, class = UnitClass("player")
-    if class ~= preset.class or UnitFactionGroup("player") ~= preset.faction then
+    local who = Who()
+    if who.class ~= preset.class or who.faction ~= preset.faction then
         print("Forever Goal Tracker: This test build is for an Alliance Hunter."); return
     end
     local store = Store()
@@ -1309,7 +1400,7 @@ function FGT.CreateHunterPreRaidBuild()
         store.builds[#store.builds + 1] = build
     end
     build.tracked = true
-    local goal = SyncGoal(build, U.charKey())
+    local goal = SyncGoal(build, PlanKey())
     if not goal then return end
     ForeverGoalTrackerDB.active[goal.id] = true; store.selected = build.id
     FGT.RefreshPlannerGoals(goal); FGT.ShowTab("gear"); Choose(build)

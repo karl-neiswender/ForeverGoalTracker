@@ -611,9 +611,18 @@ assert(F.detailEditBtn:IsShown(), "gear set goals get an edit button on their ow
 F.ShowTab("tracker")
 assert(F.OpenGearSet(setGoal) == true and F.GearPlanner:IsShown(), "opens the planner on that set")
 assert(T.setTitle:GetText() == "Dragonstalker plan", "and selects it")
+-- From another character: the pencil opens the owner's set, planning for the owner.
+local ownerKey = setGoal.plannerOwner
+ForeverGoalTrackerDB.characters[ownerKey] = ForeverGoalTrackerDB.characters[ownerKey] or {}
+ForeverGoalTrackerDB.characters[ownerKey].class = ForeverGoalTrackerDB.characters[ownerKey].class or "HUNTER"
 UnitName = function() return "SomeoneElse" end
 F.UpdateEditButton(setGoal)
-assert(not F.detailEditBtn:IsShown() and F.OpenGearSet(setGoal) == false, "other characters cannot open it")
+assert(F.detailEditBtn:IsShown(), "any character can edit a roster character's set")
+F.ShowTab("tracker")
+assert(F.OpenGearSet(setGoal) == true and T.setTitle:GetText() == "Dragonstalker plan", "opens the owner's set from another character")
+assert(not T.fill:IsShown(), "Fill from equipped is only for the logged-in character")
+F.GearPlannerFor(nil)
+assert(F.OpenGearSet({ id = "x", plannerOwner = "Nobody-Nowhere" }) == false, "a character not on the roster cannot be opened")
 F.UpdateEditButton(F.GoalById("raid_mc"))
 assert(not F.detailEditBtn:IsShown(), "ordinary goals are unaffected")
 UnitName = oldName
@@ -768,4 +777,24 @@ do
     assert(Cat.SourceLabel(Cat.Get(12624)):find("craft or buy", 1, true), "a crafted item says so without a hand-written source")
     assert(Cat.Recipe(19389) == nil, "dropped items have no recipe")
     print("  recipes from the game's tables, per client")
+end
+
+-- Planning for another character uses their class, faction and level, and keeps their sets apart.
+do
+    local D = ForeverGoalTrackerDB
+    D.characters["Altlock-Realm"] = { name = "Altlock", class = "WARLOCK", race = "Gnome", faction = "Alliance", level = 60, lastSeen = 1 }
+    F.ShowTab("gear")
+    F.GearPlannerFor("Altlock-Realm")
+    T.new(); text(T.name, "Altlock plan")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    click(T.slots.RangedSlot)
+    local wands = T.found()
+    assert(#wands > 0, "the alt's ranged slot lists items")
+    for _, item in ipairs(wands) do assert(item.sub == 219, "a Warlock alt sees wands only") end
+    local altStore = D.gearPlanner.characters["Altlock-Realm"]
+    assert(altStore and altStore.builds[1] and altStore.builds[1].name == "Altlock plan", "the set is saved under the alt")
+    F.GearPlannerFor(nil)
+    for _, build in ipairs(T.store().builds) do assert(build.name ~= "Altlock plan", "the alt's set stays off your own list") end
+    F.ShowTab("tracker")
+    print("  planning for another character on the roster")
 end
