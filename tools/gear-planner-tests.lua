@@ -743,3 +743,17 @@ do
     F.ItemInfo = oldInfo
     print("  unrevealed items stay links from the planner database")
 end
+
+-- Recipes come from the game's own tables, per client.
+do
+    local legs = Cat.Recipe(15062)
+    assert(legs and legs.skill == "Leatherworking", "Devilsaur Leggings are Leatherworking")
+    local want = { [8170] = 30, [15417] = 14, [15407] = 1, [14341] = 1 }
+    for _, r in ipairs(legs.reagents) do assert(want[r[1]] == r[2], "Devilsaur Leggings reagent " .. r[1]) ; want[r[1]] = nil end
+    assert(next(want) == nil, "every Devilsaur Leggings reagent")
+    -- Forever moved Wildthorn Mail from Blacksmithing to Leatherworking
+    assert(Cat.Recipe(12624).skill == (F.isForever and "Leatherworking" or "Blacksmithing"), "each client keeps its own recipe")
+    assert(Cat.SourceLabel(Cat.Get(12624)):find("craft or buy", 1, true), "a crafted item says so without a hand-written source")
+    assert(Cat.Recipe(19389) == nil, "dropped items have no recipe")
+    print("  recipes from the game's tables, per client")
+end

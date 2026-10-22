@@ -84,7 +84,7 @@ local function SyncGoal(build, ownerKey)
             -- A step per planned slot; the same item twice needs two owned copies.
             local step = { text = acquisition .. suffix,
                 auto = { item = item.id, count = copies[item.id], forCharacter = ownerKey }, plannerSlot = slot,
-                tip = advice, reagents = Cat.RECIPES[item.id] }
+                tip = advice, reagents = Cat.Reagents(item.id) }
             goal.steps[#goal.steps + 1] = step
             build.goalItems[#build.goalItems + 1] = { slot = slot, id = item.id }
             if advice then goal.tips[#goal.tips + 1] = "{item:" .. item.id .. ":" .. item.name .. "}: " .. advice end

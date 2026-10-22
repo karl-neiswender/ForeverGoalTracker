@@ -368,13 +368,32 @@ local curated = {
     [18714] = Quest("Complete 'Ancient Sinew Wrapped Lamina' for %s", "Quest · Hunter epic quiver"),
 }
 
--- What a crafted item costs to make: { item id, count } pairs. The client has no
--- recipe tables, so these are hand-checked (wowclassicdatabase.com patterns, 2026-10-21).
--- A planner step for one of these feeds its reagents to the Materials drawer.
-C.RECIPES = {
-    [15062] = { { 8170, 30 }, { 15417, 14 }, { 15407, 1 }, { 14341, 1 } }, -- Devilsaur Leggings
-    [15063] = { { 8170, 30 }, { 15417, 8 }, { 14341, 1 } }, -- Devilsaur Gauntlets
-}
+-- What a crafted item costs to make, from the game's own recipe tables (GearData.lua,
+-- tools/geardb.py): the profession and { item id, count } pairs. Forever has its own
+-- recipes where they differ. A planner step for one feeds the Materials drawer.
+local PROFESSIONS = { [164] = "Blacksmithing", [165] = "Leatherworking", [197] = "Tailoring",
+    [202] = "Engineering", [333] = "Enchanting", [171] = "Alchemy", [755] = "Jewelcrafting",
+    [185] = "Cooking", [129] = "First Aid", [356] = "Fishing", [186] = "Mining" }
+local recipeCache = {}
+function C.Recipe(id)
+    local cached = recipeCache[id]
+    if cached ~= nil then return cached or nil end
+    local line = (FGT.isForever and DB.foreverRecipes and DB.foreverRecipes[id]) or (DB.recipes and DB.recipes[id])
+    local recipe = false
+    if line then
+        local skill, list = line:match("^(%d+)|(.+)$")
+        recipe = { skill = PROFESSIONS[tonumber(skill)] or "a profession", reagents = {} }
+        for item, count in list:gmatch("(%d+):(%d+)") do
+            recipe.reagents[#recipe.reagents + 1] = { tonumber(item), tonumber(count) }
+        end
+    end
+    recipeCache[id] = recipe
+    return recipe or nil
+end
+function C.Reagents(id)
+    local recipe = C.Recipe(id)
+    return recipe and recipe.reagents
+end
 
 -- Bosses the Library names without their instance (Tier 1 and Tier 2 sets).
 local BOSS_PLACE = {}
@@ -441,6 +460,8 @@ function C.Source(item)
     if curated[item.id] then return curated[item.id] end
     if not harvested then Harvest() end
     if harvested[item.id] then return harvested[item.id] end
+    local recipe = C.Recipe(item.id)
+    if recipe then return Craft(recipe.skill) end
     -- The game's own tables say when an item is a PvP reward.
     local rank = item.note and item.note:match("^Requires (PvP rank %d+)$")
     if rank then return { step = "Earn %s at " .. rank, label = rank, pvp = true } end
