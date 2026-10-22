@@ -84,3 +84,4 @@ Fixed after Karl's screenshots, all on `main` and synced to the Mac's Era test c
 
 - Usable before level 40 also shows the armor the class wears from 40 (a level 20 Hunter lost Cryptstalker).
 - Ammo sources: all 26 items on Wowhead Forever's projectiles list now have hand-checked sources from their item pages (vendors, Alterac Valley quartermasters, Engineering, Baelog in Uldaman, Lord Roccor in Blackrock Depths, quests, the Thorium Shells trade, which Forever's Fizzlefuse also offers). Swiftfeather Arrow and Swiftstrike Shot are new Forever Engineering crafts at 300. Doomshot and Miniature Cannon Balls are not on Forever's list and still say Source unknown.
+- Materials: a goal's own gear pieces (planner slots, set pieces) no longer count as materials. Crafted planner pieces show nothing until recipe data exists (Karl: not now, 2026-10-21).
