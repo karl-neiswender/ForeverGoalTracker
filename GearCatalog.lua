@@ -17,7 +17,7 @@ C.SLOT_INV = {
     WaistSlot = { 6 }, LegsSlot = { 7 }, FeetSlot = { 8 }, WristSlot = { 9 }, HandsSlot = { 10 },
     Finger0Slot = { 11 }, Finger1Slot = { 11 }, Trinket0Slot = { 12 }, Trinket1Slot = { 12 },
     BackSlot = { 16 }, MainHandSlot = { 13, 17, 21 }, SecondaryHandSlot = { 13, 14, 22, 23 },
-    RangedSlot = { 15, 25, 26, 28 }, TabardSlot = { 19 }, AmmoSlot = { 24 },
+    RangedSlot = { 15, 25, 26, 28 }, TabardSlot = { 19 }, AmmoSlot = { 24 }, QuiverSlot = { 27 },
 }
 -- Slot number (as saved in a build) -> slot name, and back.
 C.SLOT_NAMES = { "HeadSlot", "NeckSlot", "ShoulderSlot", "ShirtSlot", "ChestSlot", "WaistSlot",
@@ -27,8 +27,10 @@ C.SLOT_INDEX = {}
 for i, name in ipairs(C.SLOT_NAMES) do C.SLOT_INDEX[name] = i end
 -- Ammo is the game's inventory slot 0.
 C.SLOT_NAMES[0], C.SLOT_INDEX.AmmoSlot = "AmmoSlot", 0
--- The order a set is listed in (ammo right after the ranged weapon).
-C.SLOT_ORDER = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 0, 19 }
+-- A Hunter's quiver or ammo pouch sits in a bag slot; 20 is the game's first one.
+C.SLOT_NAMES[20], C.SLOT_INDEX.QuiverSlot = "QuiverSlot", 20
+-- The order a set is listed in (quiver and ammo right after the ranged weapon).
+C.SLOT_ORDER = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 0, 19 }
 
 -- ------------------------------------------------------------
 -- Records
@@ -161,11 +163,17 @@ local AMMO = Set { "HUNTER", "WARRIOR", "ROGUE" }
 local RELIC = Set { "PALADIN", "DRUID", "SHAMAN" }
 function C.UsesAmmo(class) return AMMO[class] or false end
 function C.UsesRelic(class) return RELIC[class] or false end
+function C.UsesQuiver(class) return class == "HUNTER" end
 -- 602 arrows (bows, crossbows), 603 bullets (guns); thrown weapons need none.
 function C.AmmoFor(ranged)
     if not ranged then return nil end
     if ranged.sub == 202 or ranged.sub == 218 then return 602 end
     if ranged.sub == 203 then return 603 end
+end
+-- 1102 quivers (arrows), 1103 ammo pouches (bullets), matched to the ranged weapon.
+function C.QuiverFor(ranged)
+    local ammo = C.AmmoFor(ranged)
+    return ammo == 602 and 1102 or ammo == 603 and 1103 or nil
 end
 
 local function HasBit(mask, bit) return math.floor(mask / bit) % 2 == 1 end
@@ -194,6 +202,7 @@ function C.Usable(item, class, slot, faction, level)
     if item.fac ~= "" and faction and ((item.fac == "A") ~= (faction == "Alliance")) then return false end
     local sub, inv = item.sub, item.inv
     if inv == 24 then return AMMO[class] or false end
+    if inv == 27 then return class == "HUNTER" end
     if sub == 400 then return inv ~= 23 or HELD[class] or false end -- jewelry, shirts, tabards, held items
     if inv == 16 then return true end -- cloaks are cloth for everyone
     if sub >= 401 and sub <= 404 then return ArmorFits(sub, class, level) end
@@ -225,6 +234,7 @@ local SORT = {
 }
 
 -- opts: class, faction, usable (bool), minQuality, text, sort ("ilvl"|"name"|"level"),
+--       ammo (an item sub: arrows or bullets, quivers or pouches, to match the ranged weapon),
 --       revealedOnly (Forever client only: hide items Forever has not revealed).
 -- Fills and returns `out` (cleared first) with item records, and the number that matched.
 function C.Search(slot, opts, out)
@@ -334,6 +344,27 @@ local curated = {
     [4960] = Quest("Complete 'Sharing the Land' for %s", "Quest · Sharing the Land"),
     [3464] = Quest("Complete 'Stealing Supplies' or 'Scramble' for %s", "Quest · Stealing Supplies"),
     [3465] = Quest("Complete 'Stealing Supplies' or 'Scramble' for %s", "Quest · Stealing Supplies"),
+
+    -- Quivers and ammo pouches, from their Wowhead Forever pages (Classic for Ribbly's, 2026-10-21).
+    [2101] = Vendor("Buy %s from a bowyer or ammo vendor", "Vendor · capital cities"),
+    [5439] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [5441] = Vendor("Buy %s from a gunsmith or ammo vendor", "Vendor · most towns"),
+    [11362] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [7278] = Craft("Leatherworking"),
+    [7279] = Craft("Leatherworking"),
+    [7371] = Craft("Leatherworking"),
+    [7372] = Craft("Leatherworking"),
+    [8217] = Craft("Leatherworking"),
+    [8218] = Craft("Leatherworking"),
+    [19319] = Vendor("Buy %s from an Alterac Valley quartermaster", "Vendor · Alterac Valley"),
+    [19320] = Vendor("Buy %s from an Alterac Valley quartermaster", "Vendor · Alterac Valley"),
+    [3573] = Quest("Complete 'Vyrin's Revenge' for %s", "Quest · Vyrin's Revenge"),
+    [3574] = Quest("Complete 'Vyrin's Revenge' for %s", "Quest · Vyrin's Revenge"),
+    [3604] = Quest("Complete 'The Night Watch' for %s", "Quest · The Night Watch"),
+    [3605] = Quest("Complete 'The Night Watch' for %s", "Quest · The Night Watch"),
+    [2662] = Loot("Ribbly Screwspigot", "Blackrock Depths"),
+    [2663] = Loot("Ribbly Screwspigot", "Blackrock Depths"),
+    [18714] = Quest("Complete 'Ancient Sinew Wrapped Lamina' for %s", "Quest · Hunter epic quiver"),
 }
 
 -- Bosses the Library names without their instance (Tier 1 and Tier 2 sets).

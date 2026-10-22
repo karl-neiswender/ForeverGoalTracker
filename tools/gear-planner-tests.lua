@@ -100,7 +100,7 @@ T.clickAway:GetScript("OnEvent")()
 assert(not T.picker:IsShown(), "outside click closes picker")
 local count = 0
 for _ in pairs(T.slots) do count = count + 1 end
-assert(count == 20, "armor, accessory, weapon and ammo placeholders are present")
+assert(count == 21, "armor, accessory, weapon, quiver and ammo placeholders are present")
 
 -- Every class can plan its full Tier 3 set: eight armor pieces plus its unique ring, found by class.
 local classes = {"WARRIOR","PALADIN","HUNTER","ROGUE","PRIEST","SHAMAN","MAGE","WARLOCK","DRUID"}
@@ -690,6 +690,22 @@ click(T.add)
 local ammoGoal = F.GoalById(ammoBuild.goalId)
 assert(ammoGoal.steps[#ammoGoal.steps].auto.item == ammoList[1].id and ammoGoal.steps[#ammoGoal.steps - 1].auto.item == 21272,
     "the ammo step follows the ranged weapon")
+-- Hunters also plan a quiver (bows) or ammo pouch (guns), listed between the ranged weapon and the ammo.
+assert(Cat.SLOT_INDEX.QuiverSlot == 20 and Cat.UsesQuiver("HUNTER") and not Cat.UsesQuiver("ROGUE"))
+assert(#Cat.Search("QuiverSlot", { usable = true, class = "WARRIOR" }) == 0, "only Hunters see quivers")
+local ammoId = ammoBuild.slots[0] -- the picker reuses its result list, so keep the id
+click(T.slots.QuiverSlot)
+local pouches = T.found()
+assert(#pouches > 0, "quiver picker lists ammo pouches for a gun")
+for _, item in ipairs(pouches) do assert(item.sub == 1103 and item.inv == 27, "a gun gets ammo pouches only") end
+click(T.results[1])
+local pouchId = pouches[1].id
+assert(ammoBuild.slots[20] == pouchId, "the quiver saves in slot 20")
+ammoGoal = F.GoalById(ammoBuild.goalId)
+local n = #ammoGoal.steps
+assert(ammoGoal.steps[n - 2].auto.item == 21272 and ammoGoal.steps[n - 1].auto.item == pouchId
+    and ammoGoal.steps[n].auto.item == ammoId, "steps run ranged, quiver, ammo")
+assert(Cat.QuiverFor(Cat.Get(19107)) == 1102, "bows take quivers")
 UnitClass = function() return "Druid", "DRUID" end
 F.ShowTab("tracker"); F.ShowTab("gear"); T.new()
 click(T.slots.RangedSlot)

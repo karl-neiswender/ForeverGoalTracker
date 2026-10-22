@@ -14,6 +14,8 @@ tab:SetScript("OnClick", function() FGT.ShowTab("gear") end)
 -- Match the native character panel for every empty equipment slot.
 -- Use slot names (HeadSlot, Finger0Slot, etc.) when adding planner slots.
 function FGT.GearPlannerSlotTexture(slotName)
+    -- not a real inventory slot name, so the game would reject it
+    if slotName == "QuiverSlot" then return "Interface\\PaperDoll\\UI-PaperDoll-Slot-Bag" end
     local _, texture = GetInventorySlotInfo(slotName)
     if (type(texture) == "string" and texture ~= "") or (type(texture) == "number" and texture > 0) then
         return texture
@@ -23,7 +25,7 @@ end
 local slotIds = Cat.SLOT_INDEX
 local colors, styles = U.colors, U.styles
 -- Inventory types with no model to show: neck, rings, trinkets and relics.
-local NO_MODEL = { [2] = true, [11] = true, [12] = true, [24] = true, [28] = true }
+local NO_MODEL = { [2] = true, [11] = true, [12] = true, [24] = true, [27] = true, [28] = true }
 local ROW_H = 46
 local POOL_ROWS = 12 -- enough to fill the tallest picker (460) without measuring a frame before it is laid out
 local PICKER_MAX, PICKER_MIN = 460, 200
@@ -566,7 +568,8 @@ local slots = {
     {"MainHandSlot", "Main Hand", "BOTTOM", 1},
     {"SecondaryHandSlot", "Off Hand", "BOTTOM", 2},
     {"RangedSlot", "Ranged", "BOTTOM", 3},
-    {"AmmoSlot", "Ammo", "BOTTOM", 4},
+    {"QuiverSlot", "Quiver", "BOTTOM", 4},
+    {"AmmoSlot", "Ammo", "BOTTOM", 5},
 }
 -- Paladins, Druids and Shamans keep a relic (Libram, Idol, Totem) in the ranged slot.
 local function SlotLabel(slot)
@@ -605,11 +608,12 @@ local function LayoutSlots()
     local available = math.max(1, right:GetHeight() - 152)
     local size = math.min(44, available / 8 - 4)
     size = math.max(20, size)
-    -- The bottom row has three or four cells: ammo only for classes that shoot.
+    -- The bottom row has three to five cells: ammo only for classes that shoot, a quiver only for Hunters.
     local _, class = UnitClass("player")
-    local ammo = Cat.UsesAmmo(class)
+    local ammo, quiver = Cat.UsesAmmo(class), Cat.UsesQuiver(class)
     slotButtons.AmmoSlot:SetShown(ammo)
-    local cells = ammo and 4 or 3
+    slotButtons.QuiverSlot:SetShown(quiver)
+    local cells = 3 + (ammo and 1 or 0) + (quiver and 1 or 0)
     for _, spec in ipairs(slots) do
         local button = slotButtons[spec[1]]
         button:SetSize(size, size); button:ClearAllPoints()
@@ -617,7 +621,8 @@ local function LayoutSlots()
             -- Three equal cells across the bottom; each holds the icon and its name, shortened with "..." if long.
             local cell = math.max(110, math.min(240, ((right:GetWidth() or 600) - 44) / cells))
             button.itemName:SetWidth(cell - size - 20)
-            button:SetPoint("BOTTOMLEFT", right, "BOTTOM", (spec[4] - 1 - cells / 2) * cell + 8, 18)
+            local at = spec[4] - ((spec[1] == "AmmoSlot" and not quiver) and 1 or 0)
+            button:SetPoint("BOTTOMLEFT", right, "BOTTOM", (at - 1 - cells / 2) * cell + 8, 18)
         else
             button.itemName:SetWidth(math.max(40, math.min(160, (right:GetWidth() - size * 2 - 100) / 3)))
             button:SetPoint("TOP" .. spec[3], right, "TOP" .. spec[3],
@@ -698,13 +703,13 @@ local function Summary(build)
         local item = Cat.Get(build.slots[slot])
         if item then
             count = count + 1
-            -- shirts, tabards and ammo say nothing about a set's strength
-            if slot ~= 0 and slot ~= 4 and slot ~= 19 then scored = scored + 1; total = total + item.ilvl end
+            -- shirts, tabards, quivers and ammo say nothing about a set's strength
+            if slot ~= 0 and slot ~= 4 and slot ~= 19 and slot ~= 20 then scored = scored + 1; total = total + item.ilvl end
         end
     end
     if count == 0 then return nil end
     local _, class = UnitClass("player")
-    local slotsShown = Cat.UsesAmmo(class) and 20 or 19
+    local slotsShown = 19 + (Cat.UsesAmmo(class) and 1 or 0) + (Cat.UsesQuiver(class) and 1 or 0)
     return string.format("%d of %d slots", count, slotsShown)
         .. (scored > 0 and string.format(" · average item level %d", math.floor(total / scored + 0.5)) or "")
 end
@@ -926,7 +931,8 @@ Results = function(keepScroll)
     local _, class = UnitClass("player")
     local _, count = Cat.Search(selectedSlot, { class = class, faction = UnitFactionGroup("player"),
         usable = pref.usable, level = UnitLevel("player"), minQuality = pref.quality,
-        ammo = selectedSlot == "AmmoSlot" and selected and Cat.AmmoFor(Cat.Get(selected.slots[18])) or nil, sort = pref.sort, text = search:GetText(),
+        ammo = selected and (selectedSlot == "AmmoSlot" and Cat.AmmoFor(Cat.Get(selected.slots[18]))
+            or selectedSlot == "QuiverSlot" and Cat.QuiverFor(Cat.Get(selected.slots[18]))) or nil, sort = pref.sort, text = search:GetText(),
         revealedOnly = FGT.isForever and pref.revealed }, found)
     foundCount = count
     pickerList.content:SetHeight(math.max(1, count * ROW_H))
@@ -1191,6 +1197,15 @@ fill:SetScript("OnClick", function()
     local count = 0
     for _, slot in ipairs(Cat.SLOT_ORDER) do
         local id = GetInventoryItemID and GetInventoryItemID("player", slot)
+        if slot == 20 then
+            -- the quiver can sit in any of the four bag slots
+            id = nil
+            for bag = 20, 23 do
+                local bagId = GetInventoryItemID and GetInventoryItemID("player", bag)
+                local item = bagId and Cat.Get(bagId)
+                if item and item.inv == 27 then id = bagId; break end
+            end
+        end
         if id and Cat.Get(id) then selected.slots[slot] = id; count = count + 1 end
     end
     actions:Hide(); Deselect(); Dress(true); Save(true); Refresh()
