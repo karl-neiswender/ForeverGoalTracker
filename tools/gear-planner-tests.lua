@@ -638,6 +638,15 @@ local allChests = subs(Cat.Search("ChestSlot", { usable = false, class = "HUNTER
 assert(allChests[401] and allChests[402] and allChests[403] and allChests[404], "Usable off shows every armor type")
 print("  armor type by class and level, cloaks for all, Usable off shows everything")
 
+-- Every ammo item on Wowhead Forever's projectiles list has a source (Doomshot and the cannon balls are not on it).
+for _, item in ipairs(Cat.Search("AmmoSlot", { usable = false })) do
+    if item.id ~= 12654 and item.id ~= 13377 then
+        assert(Cat.Source(item), "ammo has a source: " .. item.name)
+    end
+end
+assert(Cat.SourceLabel(Cat.Get(9399)):find("Uldaman", 1, true), "Precision Arrow drops in Uldaman")
+print("  ammo sources ok")
+
 -- Only the thumbnail opens the item tooltip; the row itself just highlights.
 UnitName = function() return "TipOwner" end
 F.ShowTab("gear"); T.new(); text(T.name, "Tip test")

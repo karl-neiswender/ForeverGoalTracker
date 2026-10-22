@@ -79,3 +79,8 @@ Fixed after Karl's screenshots, all on `main` and synced to the Mac's Era test c
 - Ammo slot (inventory slot 0) for Hunters, Warriors and Rogues, matched to the planned ranged weapon (arrows or bullets); 28 ammo items added to the database. Paladins, Druids and Shamans see the Ranged slot as **Relic**.
 
 **Open, Karl to decide next session:** most items say "Source unknown" because the client has no loot tables (sources are known in Classic, just not to the addon). Options: import an item-to-boss dataset (Questie or AtlasLootClassic, both GPL), ask Wowhead, or curate raid by raid. Interim idea: change the wording to "Source not added yet · Right-click: Wowhead" (needs Karl's OK, since "Source unknown" is the house wording). Also still pending: removing short-lived conjured items like Andonisus from the database (generator filter on items with an expiry timer).
+
+## October 21 (Karl, Forever beta)
+
+- Usable before level 40 also shows the armor the class wears from 40 (a level 20 Hunter lost Cryptstalker).
+- Ammo sources: all 26 items on Wowhead Forever's projectiles list now have hand-checked sources from their item pages (vendors, Alterac Valley quartermasters, Engineering, Baelog in Uldaman, Lord Roccor in Blackrock Depths, quests, the Thorium Shells trade, which Forever's Fizzlefuse also offers). Swiftfeather Arrow and Swiftstrike Shot are new Forever Engineering crafts at 300. Doomshot and Miniature Cannon Balls are not on Forever's list and still say Source unknown.

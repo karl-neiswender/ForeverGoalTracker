@@ -276,8 +276,11 @@ end
 local function Quest(step, label, advice, place)
     return { step = step, label = label, advice = advice, place = place, quest = true }
 end
-local function Craft(skill)
-    return { step = "Craft %s with " .. skill .. ", or buy it", label = skill .. " · craft or buy" }
+local function Craft(skill, advice)
+    return { step = "Craft %s with " .. skill .. ", or buy it", label = skill .. " · craft or buy", advice = advice }
+end
+local function Vendor(step, label, advice)
+    return { step = step, label = label, advice = advice }
 end
 
 local curated = {
@@ -302,6 +305,35 @@ local curated = {
     [22314] = Loot("Isalien", "Dire Maul East", "Summon him in Alzzin's room with a Tier 0.5 brazier."),
     [19107] = Quest("Complete 'Hero of the Stormpike' in Alterac Valley for %s", "Quest · Alterac Valley",
         "Win Alterac Valley, then turn in to Prospector Stonehewer in Alterac Mountains."),
+
+    -- Ammo, from Wowhead Forever's projectiles list and item pages (2026-10-21).
+    [2512] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [2515] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [3030] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [11285] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [2516] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [2519] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [3033] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [11284] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),
+    [19316] = Vendor("Buy %s from an Alterac Valley quartermaster", "Vendor · Alterac Valley"),
+    [19317] = Vendor("Buy %s from an Alterac Valley quartermaster", "Vendor · Alterac Valley"),
+    [18042] = Quest("Trade Thorium Shells for %s", "Quest · Thorium Shells trade",
+        "Turn in Thorium Shells for 'Arrows Are For Sissies' or 'A Fair Trade'. In WoW Forever, Fizzlefuse also trades them."),
+    [15997] = Craft("Engineering"),
+    [274387] = Craft("Engineering", "Needs Engineering 300."),
+    [274388] = Craft("Engineering", "Needs Engineering 300."),
+    [10579] = Craft("Engineering"),
+    [10512] = Craft("Engineering"),
+    [10513] = Craft("Engineering"),
+    [8067] = Craft("Engineering"),
+    [8068] = Craft("Engineering"),
+    [8069] = Craft("Engineering"),
+    [9399] = Loot("Baelog", "Uldaman"),
+    [11630] = Loot("Lord Roccor", "Blackrock Depths"),
+    [5568] = Vendor("Loot %s from golems in Darkshore", "Golems · Darkshore"),
+    [4960] = Quest("Complete 'Sharing the Land' for %s", "Quest · Sharing the Land"),
+    [3464] = Quest("Complete 'Stealing Supplies' or 'Scramble' for %s", "Quest · Stealing Supplies"),
+    [3465] = Quest("Complete 'Stealing Supplies' or 'Scramble' for %s", "Quest · Stealing Supplies"),
 }
 
 -- Bosses the Library names without their instance (Tier 1 and Tier 2 sets).
