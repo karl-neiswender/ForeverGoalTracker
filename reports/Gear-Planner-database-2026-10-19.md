@@ -75,7 +75,7 @@ Ketho/LuaLS (3.19.2 with Ketho 0.22.3, run on the Mac from the installed VS Code
 Fixed after Karl's screenshots, all on `main` and synced to the Mac's Era test copy (`_classic_era_/Interface/AddOns/ForeverGoalTracker`, a plain copy, not a symlink; copy changed files again after edits):
 - Weapon row: icon then name on one line, in equal cells (three, or four with ammo); long names shorten with "...".
 - Picker: one size and place for every slot (under the header, above the weapon row); picking an item or **+ Set** closes it; the item tooltip opens only from the thumbnail, beside the picker.
-- Usable filter shows the class's main armor type only (mail and plate from level 40).
+- Usable filter shows the class's main armor type only. Before level 40 it also shows the type the class wears from 40 (Karl, 2026-10-21, Forever beta: a level 20 Hunter lost Cryptstalker), so leveling characters can plan endgame sets.
 - Ammo slot (inventory slot 0) for Hunters, Warriors and Rogues, matched to the planned ranged weapon (arrows or bullets); 28 ammo items added to the database. Paladins, Druids and Shamans see the Ranged slot as **Relic**.
 
 **Open, Karl to decide next session:** most items say "Source unknown" because the client has no loot tables (sources are known in Classic, just not to the addon). Options: import an item-to-boss dataset (Questie or AtlasLootClassic, both GPL), ask Wowhead, or curate raid by raid. Interim idea: change the wording to "Source not added yet · Right-click: Wowhead" (needs Karl's OK, since "Source unknown" is the house wording). Also still pending: removing short-lived conjured items like Andonisus from the database (generator filter on items with an expiry timer).

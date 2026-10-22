@@ -176,6 +176,13 @@ function C.MainArmor(class, level)
     local pair = MAIN_ARMOR[class]
     return pair and pair[(level or 60) >= 40 and 2 or 1]
 end
+-- A plan looks ahead: before 40 a class also sees the armor it wears from 40
+-- (a level 20 Hunter plans Cryptstalker mail), so both types pass until then.
+local function ArmorFits(sub, class, level)
+    local pair = MAIN_ARMOR[class]
+    if not pair then return true end
+    return sub == pair[2] or ((level or 60) < 40 and sub == pair[1])
+end
 
 -- Can this class use the item in this slot? `race` is not checked (Classic has few
 -- race-locked items), but faction is, through the item's own Alliance/Horde mark.
@@ -189,7 +196,7 @@ function C.Usable(item, class, slot, faction, level)
     if inv == 24 then return AMMO[class] or false end
     if sub == 400 then return inv ~= 23 or HELD[class] or false end -- jewelry, shirts, tabards, held items
     if inv == 16 then return true end -- cloaks are cloth for everyone
-    if sub >= 401 and sub <= 404 then return sub == C.MainArmor(class, level) end
+    if sub >= 401 and sub <= 404 then return ArmorFits(sub, class, level) end
     if slot == "SecondaryHandSlot" then
         if inv == 13 or inv == 22 then if not DUAL_WIELD[class] then return false end end
         if inv == 14 and not SHIELDS[class] then return false end
