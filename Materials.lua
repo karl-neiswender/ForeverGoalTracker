@@ -113,6 +113,11 @@ local function Requirements(goal, visit, allParts)
             and (allParts or FGT.PartSelected(goal, i)) and not FGT.PieceSkipped(step) then
             visit(List(rule.item), rule.count or 1, i, "max", nil, rule)
         end
+        -- a crafted item (Gear Planner): what it takes to make, done once the item is owned
+        if type(step) == "table" and step.reagents and (allParts or FGT.PartSelected(goal, i))
+            and not FGT.PieceSkipped(step) then
+            for _, reagent in ipairs(step.reagents) do visit({ reagent[1] }, reagent[2], i, "sum") end
+        end
     end
     for si, section in ipairs(goal.sections or {}) do
         if allParts or FGT.PartSelected(goal, si) then

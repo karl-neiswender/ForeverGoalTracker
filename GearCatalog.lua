@@ -301,8 +301,8 @@ local curated = {
     [12927] = Loot("Pyroguard Emberseer", "Upper Blackrock Spire"),
     [11726] = Loot("Gorosh the Dervish", "Blackrock Depths", "He appears during the Ring of Law event."),
     [22232] = Loot("Urok Doomhowl", "Lower Blackrock Spire", "Summon him with Omokk's Head and a Roughshod Pike."),
-    [15062] = Craft("Leatherworking"),
-    [15063] = Craft("Leatherworking"),
+    [15062] = Craft("Leatherworking", "Pattern drops in Un'Goro Crater. Needs Leatherworking 300 (Tribal)."),
+    [15063] = Craft("Leatherworking", "Pattern from Nergal in Un'Goro Crater. Needs Leatherworking 290 (Tribal)."),
     [22061] = Quest("Complete 'Anthion's Parting Words' with Deliana in Ironforge for %s", "Quest · Ironforge",
         "Requires the Dungeon Set 2 upgrade chain."),
     [18375] = Loot("Prince Tortheldrin", "Dire Maul West"),
@@ -366,6 +366,14 @@ local curated = {
     [2662] = Loot("Ribbly Screwspigot", "Blackrock Depths"),
     [2663] = Loot("Ribbly Screwspigot", "Blackrock Depths"),
     [18714] = Quest("Complete 'Ancient Sinew Wrapped Lamina' for %s", "Quest · Hunter epic quiver"),
+}
+
+-- What a crafted item costs to make: { item id, count } pairs. The client has no
+-- recipe tables, so these are hand-checked (wowclassicdatabase.com patterns, 2026-10-21).
+-- A planner step for one of these feeds its reagents to the Materials drawer.
+C.RECIPES = {
+    [15062] = { { 8170, 30 }, { 15417, 14 }, { 15407, 1 }, { 14341, 1 } }, -- Devilsaur Leggings
+    [15063] = { { 8170, 30 }, { 15417, 8 }, { 14341, 1 } }, -- Devilsaur Gauntlets
 }
 
 -- Bosses the Library names without their instance (Tier 1 and Tier 2 sets).

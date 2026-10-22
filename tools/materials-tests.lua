@@ -813,3 +813,15 @@ do
     assert(S.holdShade == nil, "ending it releases the hold")
     STUB_NS.SetSetting("celebrations", cel)
 end
+
+-- Crafted planner pieces list their reagents; the same reagent across two pieces adds up.
+local crafted = {id="materials_crafted", category="Item Set", steps={
+    {text="Craft Devilsaur Leggings",auto={item=15062},plannerSlot=7,reagents={{8170,30},{15417,14},{15407,1},{14341,1}}},
+    {text="Craft Devilsaur Gauntlets",auto={item=15063},plannerSlot=10,reagents={{8170,30},{15417,8},{14341,1}}},
+}}
+D.progress[crafted.id]={}
+local craftedRows = F.MaterialRows(crafted,true)
+assert(#craftedRows==4,"four reagents, no gear pieces")
+assert(Find(craftedRows,15417).need==22 and Find(craftedRows,8170).need==60,"reagents add up across pieces")
+D.progress[crafted.id][1]=true
+assert(Find(F.MaterialRows(crafted,true),15417).have>=14,"an owned piece pays its reagents")
