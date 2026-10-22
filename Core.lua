@@ -422,6 +422,12 @@ local function ItemCount(id)
     local n = fn and fn(id, true) or 0
     local equipped = (C_Item and C_Item.IsEquippedItem) or IsEquippedItem
     if (n or 0) == 0 and equipped and equipped(id) then n = 1 end
+    -- a quiver or bag worn in a bag slot (20-23) is not in a bag, so look there too
+    if (n or 0) == 0 and GetInventoryItemID then
+        for slot = 20, 23 do
+            if GetInventoryItemID("player", slot) == id then n = (n or 0) + 1 end
+        end
+    end
     return n or 0
 end
 

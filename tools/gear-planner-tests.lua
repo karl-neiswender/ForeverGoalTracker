@@ -701,6 +701,15 @@ for _, item in ipairs(pouches) do assert(item.sub == 1103 and item.inv == 27, "a
 click(T.results[1])
 local pouchId = pouches[1].id
 assert(ammoBuild.slots[20] == pouchId, "the quiver saves in slot 20")
+-- A quiver worn in a bag slot is in no bag, yet it is owned.
+do
+    local oldInv = GetInventoryItemID
+    GetInventoryItemID = function(_, slot) if slot == 22 then return pouchId end end
+    F.Count("trades", true)
+    local me = ForeverGoalTrackerDB.characters[F.MaterialsUI.charKey()]
+    assert(me and me.items[pouchId] == 1, "an equipped quiver counts as owned")
+    GetInventoryItemID = oldInv
+end
 ammoGoal = F.GoalById(ammoBuild.goalId)
 local n = #ammoGoal.steps
 assert(ammoGoal.steps[n - 2].auto.item == 21272 and ammoGoal.steps[n - 1].auto.item == pouchId
