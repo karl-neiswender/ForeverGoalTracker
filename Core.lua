@@ -12695,6 +12695,13 @@ do
             ---@type string?
             local name, _, quality = FGT.ItemInfo(id)
             if variants then name = nil end -- "Swift Ram", not "Swift Brown Ram"
+            if not name and not variants then
+                -- an item Forever hasn't revealed: the planner's database still
+                -- knows its name and quality, so it stays a link (its tooltip
+                -- says "Not revealed yet")
+                local gear = FGT.GearCatalog and FGT.GearCatalog.Get(id)
+                if gear then table.insert(names, 1, gear.name); quality = quality or gear.q end
+            end
             if not name then
                 -- (never ask again for an item the game said it doesn't have:
                 -- its "no" answer redrew the list, which asked again, in a loop)
@@ -12757,7 +12764,11 @@ do
     -- links); asks the game for the item so the page redraws when it comes
     function FGT.ItemTag(id, label)
         local _, _, q = FGT.ItemInfo(id)
-        if not q and not FGT.itemMissing[id] then
+        if not q then
+            local gear = FGT.GearCatalog and FGT.GearCatalog.Get(id)
+            q = gear and gear.q -- unrevealed in Forever: our database's quality
+        end
+        if not FGT.ItemInfo(id) and not FGT.itemMissing[id] then
             waiting[id] = true
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
         end

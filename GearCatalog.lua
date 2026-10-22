@@ -315,6 +315,7 @@ local curated = {
     [22314] = Loot("Isalien", "Dire Maul East", "Summon him in Alzzin's room with a Tier 0.5 brazier."),
     [19107] = Quest("Complete 'Hero of the Stormpike' in Alterac Valley for %s", "Quest · Alterac Valley",
         "Win Alterac Valley, then turn in to Prospector Stonehewer in Alterac Mountains."),
+    [12654] = Loot("Shadow Hunter Vosh'gajin", "Lower Blackrock Spire"),
 
     -- Ammo, from Wowhead Forever's projectiles list and item pages (2026-10-21).
     [2512] = Vendor("Buy %s from a general goods or ammo vendor", "Vendor · most towns"),

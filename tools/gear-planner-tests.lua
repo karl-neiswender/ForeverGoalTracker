@@ -730,3 +730,16 @@ for i = 2, #heights do assert(heights[i] == heights[1], "same picker height for 
 UnitName = oldName
 F.ShowTab("tracker")
 print("  one picker size and place for every slot")
+
+-- An item the game cannot name (unrevealed in Forever) still becomes a link in its quality color.
+do
+    local oldInfo = F.ItemInfo
+    F.ItemInfo = function() return nil end
+    local shown = "Complete 'The Treasure of the Shen'dralar' in Dire Maul for Backwood Helm"
+    local row = { itemId = 18421, text = { GetText = function() return shown end, SetText = function(_, t) shown = t end } }
+    F.LinkItemName(row)
+    assert(shown:find("|cff0070dd|Hitem:18421|hBackwood Helm|h|r", 1, true), "unrevealed planner item is a blue link: " .. shown)
+    assert(F.ItemTag(18421, "Backwood Helm"):find("|cff0070dd", 1, true), "tips use the database quality too")
+    F.ItemInfo = oldInfo
+    print("  unrevealed items stay links from the planner database")
+end

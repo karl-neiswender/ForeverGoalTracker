@@ -56,6 +56,8 @@ FGT.NPCS = {
     -- Forever 2026-10-07: same spots on both
     { id = 14526, name = "Hastat the Ancient", map = 1448, zone = "Felwood", x = 48.2, y = 24.2 },
     { id = 14368, name = "Lorekeeper Lydros", where = "Inside Dire Maul, in the library" },
+    { id = 14358, name = "Shen'dralar Ancient", where = "Inside Dire Maul, in the library" },
+    { id = 13816, name = "Prospector Stonehewer", map = 1416, zone = "Alterac Mountains", x = 40.6, y = 79.6 },
     { id = 14436, name = "Mor'zul Bloodbringer", map = 1428, zone = "Burning Steppes", x = 12.6, y = 31.4 },
     { id = 14437, name = "Gorzeeki Wildeyes", map = 1428, zone = "Burning Steppes", x = 12.4, y = 31.4 },
     { id = 14470, name = "Impsy", tag = "Niby's Minion", map = 1448, zone = "Felwood", x = 41.4, y = 44.8 },

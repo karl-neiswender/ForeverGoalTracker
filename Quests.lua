@@ -34,6 +34,11 @@ FGT.QUESTS = {
     { "Saving the Best for Last", {}, perClass = true },
     -- Thunderfury
     { "Examine the Vessel", { 7785 } },
+    -- Gear Planner sources (Hunter pre-raid), Wowhead Classic 2026-10-21
+    { "The Treasure of the Shen'dralar", { 7462, 7877 }, start = 14358, startName = "Shen'dralar Ancient" },
+    { "The Greatest Race of Hunters", { 7503 } },
+    { "General Drakkisath's Demise", { 5102 }, start = 9560, startName = "Marshal Maxwell" },
+    { "Hero of the Stormpike", { 8271 }, start = 13816, startName = "Prospector Stonehewer" },
     { "Thunderaan the Windseeker", { 7786 }, start = 14347, startName = "Highlord Demitrian" },
     { "Rise, Thunderfury!", { 7787 } },
     -- Benediction, Sulfuras, Quel'Serrar
