@@ -1346,7 +1346,7 @@ ownerBtn:SetScript("OnClick", function()
         end
         local c, color = entry.c, RAID_CLASS_COLORS and RAID_CLASS_COLORS[entry.c.class]
         row.text:SetText((color and color.colorStr and ("|c" .. color.colorStr) or "") .. (c.name or entry.key) .. "|r"
-            .. "  |cff9a8f78" .. (c.level or "?") .. "|r")
+            .. (c.level and ("  |cff9a8f78· Level " .. c.level .. "|r") or ""))
         row.chosen = entry.key == PlanKey(); PaintButton(row)
         row:ClearAllPoints(); row:SetPoint("TOPLEFT", 8, -y); row:Show(); y = y + 28
         row:SetScript("OnClick", function() charMenu:Hide(); PlanFor(entry.key) end)
