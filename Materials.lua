@@ -79,12 +79,35 @@ local function Resolve(name)
     return id
 end
 
+-- Gear a goal asks you to collect is the reward, not a material (Karl, 2026-10-21:
+-- a set's dropped pieces filled the drawer). Known from the planner's database or
+-- the game's own equip slot; cached, since misses scan every gear block.
+local gearCache = {}
+local function IsGear(id)
+    local known = gearCache[id]
+    if known ~= nil then return known end
+    local gear = FGT.GearCatalog and FGT.GearCatalog.Get(id) and true or false
+    if not gear then
+        local instant = C_Item and C_Item.GetItemInfoInstant or GetItemInfoInstant
+        local equip = instant and select(4, instant(id))
+        gear = type(equip) == "string" and equip ~= "" and equip ~= "INVTYPE_NON_EQUIP_IGNORE"
+            and equip ~= "INVTYPE_BAG" or false
+    end
+    gearCache[id] = gear
+    return gear
+end
+local function AnyGear(ids)
+    for _, id in ipairs(ids) do if type(id) == "number" and IsGear(id) then return true end end
+    return false
+end
+
 -- Explicit recipe ingredients and countable collection steps only. Tips
 -- contribute names/IDs, never quantities. No goal ticks are changed here.
 local function Requirements(goal, visit, allParts)
     for i, step in ipairs(goal.steps or {}) do
         local rule = type(step) == "table" and step.auto
         if rule and rule.item and not rule.owned and not rule.ownedPattern
+            and not step.plannerSlot and not AnyGear(List(rule.item))
             and ((rule.count or 1) > 1 or (step.text or ""):match("^Gather ")
                 or (step.text or ""):match("^Collect "))
             and (allParts or FGT.PartSelected(goal, i)) and not FGT.PieceSkipped(step) then

@@ -24,6 +24,17 @@ D.progress[goal.id][2]=true
 D.characters[current].items={}; D.characters.Alt.items={}
 assert(Find(F.MaterialRows(goal,true),12360).have==20,"historical completed milestone stays collected")
 
+-- A set's own gear is the reward, never a material (dropped pieces, planner slots, duplicate rings).
+local set = {id="materials_set", category="Item Set", steps={
+    {text="Collect Taut Dragonhide Shoulderpads (Source unknown)",auto={item=19389}},
+    {text="Collect Handguards of Glory",auto={item=280905}},
+    {text="Loot a ring twice",auto={item=23067,count=2},plannerSlot=12},
+    {text="Gather 10 Sample Bars.",auto={item=12360,count=10}},
+}}
+D.progress[set.id]={}
+local setRows = F.MaterialRows(set,true)
+assert(#setRows==1 and setRows[1].id==12360,"set pieces stay out of Materials; real reagents stay in")
+
 local recipe = {id="materials_recipe",group=true,sections={
     {pieces={
         {materials={},requiredItems={{item=12360,count=3}}},
