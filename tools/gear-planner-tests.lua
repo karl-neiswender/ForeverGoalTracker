@@ -704,11 +704,14 @@ assert(ammoBuild.slots[20] == pouchId, "the quiver saves in slot 20")
 -- A quiver worn in a bag slot is in no bag, yet it is owned.
 do
     local oldInv = GetInventoryItemID
-    GetInventoryItemID = function(_, slot) if slot == 22 then return pouchId end end
+    GetInventoryItemID = function(_, slot) if slot == 33 then return pouchId end end
+    local oldConvert = ContainerIDToInventoryID
+    ContainerIDToInventoryID = function(bag) return 30 + bag end -- Forever-style numbering
+    F.bagSlots = nil
     F.Count("trades", true)
     local me = ForeverGoalTrackerDB.characters[F.MaterialsUI.charKey()]
     assert(me and me.items[pouchId] == 1, "an equipped quiver counts as owned")
-    GetInventoryItemID = oldInv
+    GetInventoryItemID = oldInv; ContainerIDToInventoryID = oldConvert; F.bagSlots = nil
 end
 ammoGoal = F.GoalById(ammoBuild.goalId)
 local n = #ammoGoal.steps

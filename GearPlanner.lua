@@ -1200,7 +1200,7 @@ fill:SetScript("OnClick", function()
         if slot == 20 then
             -- the quiver can sit in any of the four bag slots
             id = nil
-            for bag = 20, 23 do
+            for _, bag in ipairs(FGT.BagSlots()) do
                 local bagId = GetInventoryItemID and GetInventoryItemID("player", bag)
                 local item = bagId and Cat.Get(bagId)
                 if item and item.inv == 27 then id = bagId; break end

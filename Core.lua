@@ -417,6 +417,21 @@ end
 -- Version-safe wrappers (Era 1.15 and the Forever client expose some
 -- of these under C_ namespaces, some as old globals).
 -- ------------------------------------------------------------
+-- The inventory slots that hold the four bags: 20-23 on Classic Era, higher on
+-- Forever's modern engine (Karl, 2026-10-21: slot 20 was empty there), so ask the game.
+function FGT.BagSlots()
+    if FGT.bagSlots then return FGT.bagSlots end
+    local slots = {}
+    local convert = (C_Container and C_Container.ContainerIDToInventoryID) or ContainerIDToInventoryID
+    for bag = 1, 4 do
+        local ok, slot = false, nil
+        if convert then ok, slot = pcall(convert, bag) end
+        slots[bag] = (ok and type(slot) == "number") and slot or (19 + bag)
+    end
+    if convert then FGT.bagSlots = slots end -- the numbering never changes in a session
+    return slots
+end
+
 local function ItemCount(id)
     local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
     local n = fn and fn(id, true) or 0
@@ -424,7 +439,7 @@ local function ItemCount(id)
     if (n or 0) == 0 and equipped and equipped(id) then n = 1 end
     -- a quiver or bag worn in a bag slot (20-23) is not in a bag, so look there too
     if (n or 0) == 0 and GetInventoryItemID then
-        for slot = 20, 23 do
+        for _, slot in ipairs(FGT.BagSlots()) do
             if GetInventoryItemID("player", slot) == id then n = (n or 0) + 1 end
         end
     end
