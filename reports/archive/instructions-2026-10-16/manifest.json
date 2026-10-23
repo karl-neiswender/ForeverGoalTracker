@@ -1,0 +1,20 @@
+[
+  {
+    "Original": "AGENTS.md",
+    "Archive": "reports/archive/instructions-2026-10-16/AGENTS.snapshot.md",
+    "Bytes": 116574,
+    "SHA256": "370648284E8E0E6121A7E9DBB0EA3DE5D88D1FE405E802AF7CDA488F5867879C"
+  },
+  {
+    "Original": "CLAUDE.md",
+    "Archive": "reports/archive/instructions-2026-10-16/CLAUDE.snapshot.md",
+    "Bytes": 206819,
+    "SHA256": "7044AAABF54F96F5F0BE0011DACDAE8D28FA4F1B1737A7A9A9398CC4258E24A8"
+  },
+  {
+    "Original": "reports/Claude-context-2026-10-12.md",
+    "Archive": "reports/archive/instructions-2026-10-16/Claude-context-2026-10-12.md",
+    "Bytes": 29254,
+    "SHA256": "2006AE314D93BA116915329DDFFA2122F3C21E51D37A5D50B2B2E243201D28EB"
+  }
+]

@@ -1,5 +1,11 @@
 # Claude handoff: October 8–11, 2026
 
+> Historical reference only, superseded as a startup handoff on 2026-10-16.
+> Use CURRENT.md for present state and the root AGENTS.md for active rules.
+> Instructions, approvals and "current" claims below belong to this dated record;
+> do not execute its reading chains or session tasks automatically. The complete
+> original is preserved byte-for-byte in archive/instructions-2026-10-16.
+
 Prepared October 12 at Karl's request. This is the current context for Claude
 to continue refinement and, if Karl decides to proceed, prepare another update.
 Read this and AGENTS.md before relying on older notes in CLAUDE.md. Historical
