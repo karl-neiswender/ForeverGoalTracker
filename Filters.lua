@@ -48,7 +48,8 @@ function FGT.PlayerProfile()
     local class = UnitClass and select(2, UnitClass("player"))
     local race = UnitRace and select(2, UnitRace("player"))
     local faction = UnitFactionGroup and UnitFactionGroup("player")
-    return { class = class, race = race, faction = faction }
+    local key = FGT.MaterialsUI and FGT.MaterialsUI.charKey and FGT.MaterialsUI.charKey()
+    return { class = class, race = race, faction = faction, key = key }
 end
 
 -- The goal's thumbnail. Epic Racial Mounts wears the logged-in character's
@@ -83,6 +84,8 @@ FGT.SectionClass = SectionClass
 -- any field may be nil to skip that check.
 function FGT.GoalFits(goal, who)
     if not who then return true end
+    -- a Gear Planner set belongs to the character it was planned for
+    if goal.plannerOwner then return not who.key or who.key == goal.plannerOwner end
     if who.faction and goal.faction and goal.faction ~= who.faction then return false end
     local class = who.class
     if class then

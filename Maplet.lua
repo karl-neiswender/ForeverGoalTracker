@@ -686,6 +686,108 @@ end
 -- ------------------------------------------------------------
 function FGT.HandleMapCommand(msg)
     local cmd = strtrim(msg or ""):lower()
+    -- /goals ejprobe: dev tool (2026-10-23, last Forever beta day). Asks the client's Encounter
+    -- Journal for every tier, instance, boss and loot item and saves the answers in
+    -- ForeverGoalTrackerDB.devCapture (written to disk on /reload), to learn whether Forever
+    -- can supply boss drop sources at runtime. Read-only: it changes nothing a player sees.
+    -- /goals gearprobe: dev tool (2026-10-23). Forever sends some items (e.g. 288924 Seal of the
+    -- Archmagus) only from the server, so the client tables that build GearData.lua lack them.
+    -- Saves every worn or bagged weapon/armor item the planner database lacks, with the game's
+    -- own info and tooltip lines, in ForeverGoalTrackerDB.devCapture (written on /reload).
+    if cmd == "gearprobe" then
+        local DB, Cat = ForeverGoalTrackerDB, FGT.GearCatalog
+        if type(DB) ~= "table" or not Cat then print(TAG .. "saves or planner not loaded yet."); return true end
+        DB.devCapture = DB.devCapture or {}
+        local out, seen, found = DB.devCapture, {}, 0
+        out[#out + 1] = "gearprobe " .. date("%Y-%m-%d %H:%M") .. " " .. tostring(UnitName("player")) .. " " .. tostring((select(2, UnitClass("player"))))
+        local function Record(id, where)
+            if not id or seen[id] then return end
+            seen[id] = true
+            if Cat.Get(id) then return end
+            local name, _, q, ilvl, req, _, _, _, loc, icon, _, classID, subID, bind, _, setID = FGT.ItemInfo(id)
+            if classID ~= 2 and classID ~= 4 and classID ~= 6 and classID ~= 11 then return end
+            local lines = {}
+            if C_TooltipInfo and C_TooltipInfo.GetItemByID then
+                local ok, data = pcall(C_TooltipInfo.GetItemByID, id)
+                for _, l in ipairs(ok and type(data) == "table" and data.lines or {}) do
+                    if l.leftText and l.leftText ~= "" then lines[#lines + 1] = l.leftText .. (l.rightText and l.rightText ~= "" and (" [" .. l.rightText .. "]") or "") end
+                end
+            end
+            found = found + 1
+            out[#out + 1] = table.concat({ id, tostring(q), tostring(ilvl), tostring(req), tostring(loc), tostring(classID),
+                tostring(subID), tostring(icon), tostring(setID), tostring(bind), where, tostring(name) }, "|")
+                .. " :: " .. table.concat(lines, " / ")
+        end
+        for slot = 0, 19 do Record(GetInventoryItemID("player", slot), "worn" .. slot) end
+        for _, inv in ipairs(FGT.BagSlots()) do Record(GetInventoryItemID("player", inv), "bagslot" .. inv) end
+        local numSlots = (C_Container and C_Container.GetContainerNumSlots) or rawget(_G, "GetContainerNumSlots")
+        local itemID = (C_Container and C_Container.GetContainerItemID) or rawget(_G, "GetContainerItemID")
+        for bag = 0, 4 do
+            for s = 1, (numSlots and numSlots(bag) or 0) do
+                Record(itemID and itemID(bag, s), "bag" .. bag)
+            end
+        end
+        print(string.format("%s%d gear items not in the planner database saved. /reload to write them to disk.", TAG, found))
+        return true
+    end
+    if cmd == "ejprobe" then
+        local DB = ForeverGoalTrackerDB
+        if type(DB) ~= "table" then print(TAG .. "saves not loaded yet."); return true end
+        DB.devCapture = DB.devCapture or {}
+        local out = DB.devCapture
+        local function Add(s) out[#out + 1] = s end
+        local function Try(f, ...)
+            if type(f) ~= "function" then return false end
+            return pcall(f, ...)
+        end
+        Add("ejprobe " .. date("%Y-%m-%d %H:%M") .. " build " .. tostring((select(1, GetBuildInfo()))) .. " " .. tostring((select(4, GetBuildInfo()))))
+        local CEJ = C_EncounterJournal or {}
+        Add(string.format("api tiers=%s selTier=%s inst=%s selInst=%s enc=%s selEnc=%s numLoot=%s lootInfo=%s diff=%s",
+            type(EJ_GetNumTiers), type(EJ_SelectTier), type(EJ_GetInstanceByIndex), type(EJ_SelectInstance),
+            type(EJ_GetEncounterInfoByIndex), type(EJ_SelectEncounter), type(EJ_GetNumLoot),
+            type(CEJ.GetLootInfoByIndex), type(EJ_GetDifficulty)))
+        local okT, nTiers = Try(EJ_GetNumTiers)
+        nTiers = okT and tonumber(nTiers) or 1
+        Add("tiers " .. tostring(nTiers))
+        local instances, bosses, items = 0, 0, 0
+        for tier = 1, math.max(1, nTiers) do
+            Try(EJ_SelectTier, tier)
+            for _, isRaid in ipairs({ false, true }) do
+                for i = 1, 200 do
+                    local ok, instID, instName = Try(EJ_GetInstanceByIndex, i, isRaid)
+                    if not ok or not instID then
+                        if i == 1 then Add(string.format("tier %d %s: none (%s)", tier, isRaid and "raids" or "dungeons", ok and "nil" or "error")) end
+                        break
+                    end
+                    instances = instances + 1
+                    Try(EJ_SelectInstance, instID)
+                    Try(EJ_ResetLootFilter)
+                    if CEJ.ResetSlotFilter then pcall(CEJ.ResetSlotFilter) end
+                    local okD, diff = Try(EJ_GetDifficulty)
+                    Add(string.format("T%d %s %d %s diff=%s", tier, isRaid and "raid" or "dungeon", instID, tostring(instName), okD and tostring(diff) or "?"))
+                    for j = 1, 60 do
+                        local okE, encName, _, encID = Try(EJ_GetEncounterInfoByIndex, j, instID)
+                        if not okE or not encName then break end
+                        bosses = bosses + 1
+                        Try(EJ_SelectEncounter, encID)
+                        local okN, nLoot = Try(EJ_GetNumLoot)
+                        nLoot = okN and tonumber(nLoot) or 0
+                        local ids = {}
+                        for k = 1, nLoot do
+                            local okL, info = false, nil
+                            if CEJ.GetLootInfoByIndex then okL, info = pcall(CEJ.GetLootInfoByIndex, k) end
+                            if okL and type(info) == "table" and info.itemID then ids[#ids + 1] = info.itemID end
+                        end
+                        items = items + #ids
+                        Add(string.format("  boss %s %s loot=%d: %s", tostring(encID), tostring(encName), nLoot, table.concat(ids, ",")))
+                    end
+                end
+            end
+        end
+        Add(string.format("total instances=%d bosses=%d items=%d", instances, bosses, items))
+        print(string.format("%sEncounter Journal: %d instances, %d bosses, %d loot items saved. /reload to write them to disk.", TAG, instances, bosses, items))
+        return true
+    end
     -- /goals entrances: every dungeon and raid entrance the game itself lists on its zone maps (name,
     -- zone, spot), to read a raid's entrance off the game's own data. Classic Era may have them where
     -- Forever's client lists none.

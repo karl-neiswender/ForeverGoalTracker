@@ -28,5 +28,6 @@ WhatsNew.lua
 Ambience.lua
 Audit.lua
 GearData.lua
+GearSources.lua
 GearCatalog.lua
 GearPlanner.lua

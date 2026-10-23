@@ -1,0 +1,29 @@
+#!/bin/sh
+# One-way copy of the addon's runtime files from this checkout into Classic Era on the PC, for
+# testing there. Run it after edits; then /reload in game.
+#
+# Never a link: the CurseForge app recognises the addon by the X-Curse-Project-ID in its TOC and
+# "updates" it by deleting the folder's contents. On 2026-10-23 a directory junction made that
+# delete the checkout's own Media and Fonts (restored from Git). A copy can only lose itself.
+#
+# Mirrors the .pkgmeta ignore list (development files, artwork originals, unused fonts).
+export MSYS_NO_PATHCONV=1
+SRC="$(cd "$(dirname "$0")/.." && pwd -W | sed 's#/#\\#g')"
+DST='C:\Program Files (x86)\World of Warcraft\_classic_era_\Interface\AddOns\ForeverGoalTracker'
+
+link=$(powershell -NoProfile -Command "if (Test-Path -LiteralPath '$DST') { (Get-Item -LiteralPath '$DST' -Force).LinkType }" | tr -d '\r')
+if [ -n "$link" ]; then
+    echo "Refusing: the Era folder is a $link. Remove only the link (cmd /c rmdir), never its contents."
+    exit 1
+fi
+
+robocopy "$SRC" "$DST" /MIR /NFL /NDL /NJH /NP /R:1 /W:1 \
+    /XD .git .agents .github .claude tools reports research_notes Screenshots \
+        "$SRC\\Media\\artwork" "$SRC\\Media\\final-images" \
+    /XF README.md .gitignore .pkgmeta ROADMAP.md CLAUDE.md AGENTS.md "*-source.*" \
+        Cinzel-Regular.ttf OpenSans-Regular.ttf OpenSans-Bold.ttf OpenSans-OFL.txt logo.png
+code=$?
+# robocopy: 0-7 are success (8 and up are failures)
+if [ "$code" -ge 8 ]; then echo "robocopy failed ($code)"; exit "$code"; fi
+grep -m1 "## Version" "$DST\\ForeverGoalTracker.toc"
+echo "Era copy updated from $SRC"

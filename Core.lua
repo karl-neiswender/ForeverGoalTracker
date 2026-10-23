@@ -422,7 +422,7 @@ end
 function FGT.BagSlots()
     if FGT.bagSlots then return FGT.bagSlots end
     local slots = {}
-    local convert = (C_Container and C_Container.ContainerIDToInventoryID) or ContainerIDToInventoryID
+    local convert = (C_Container and C_Container.ContainerIDToInventoryID) or rawget(_G, "ContainerIDToInventoryID")
     for bag = 1, 4 do
         local ok, slot = false, nil
         if convert then ok, slot = pcall(convert, bag) end
@@ -667,6 +667,17 @@ local function RecordCharacter()
         end
     end
     c.skills = SkillRanks()
+    -- Worn enchants for Gear Planner enchant steps: "itemId:enchantId" per equipment slot.
+    -- Item links carry the enchant id in their second field (empty on newer clients when none).
+    -- Worn items too: a Bind on Equip item someone wears is soulbound, so it can't be mailed.
+    c.enchants, c.worn = {}, {}
+    for slot = 1, 19 do
+        local link, id, enchant = GetInventoryItemLink and GetInventoryItemLink("player", slot), nil, nil
+        if link then id, enchant = link:match("item:(%d+):(%d+)") end
+        if id and enchant ~= "0" then c.enchants[slot] = id .. ":" .. enchant end
+        local worn = link and tonumber(link:match("item:(%d+)"))
+        if worn then c.worn[slot] = worn end
+    end
 
     -- PvP: best of current and highest-ever rank (1..14), lifetime HKs.
     local ok = pcall(function()
@@ -836,6 +847,16 @@ local function RuleMet(rule)
         for _, c in pairs(roster) do if c.race == rule.race then return true, "race " .. c.race end end
     end
     if rule.item and ItemTotal(AsList(rule.item), roster) >= (rule.count or 1) then return true, "item x" .. ItemTotal(AsList(rule.item), roster) end
+    -- a planned enchant, worn in its slot (on the planned item when the rule names one)
+    if rule.enchant then
+        for _, c in pairs(roster) do
+            local worn, id, enchant = c.enchants and c.enchants[rule.slot], nil, nil
+            if worn then id, enchant = worn:match("^(%d+):(%d+)$") end
+            if tonumber(enchant) == rule.enchant and (not rule.onItem or tonumber(id) == rule.onItem) then
+                return true, "enchant " .. enchant
+            end
+        end
+    end
     for _, id in ipairs(AsList(rule.quest)) do
         for _, c in pairs(roster) do if c.quests and c.quests[id] then return true, "quest " .. id end end
     end
@@ -3997,6 +4018,15 @@ end)
 
 -- Shared context line on the goal page and on its My Goals card.
 function FGT.GoalEyebrow(goal, card)
+    -- A Gear Planner set is the player's own, not a Library set: "GEAR SET · NAME", the name in
+    -- the owner's class color, so sets for different characters read apart.
+    if goal.plannerOwner then
+        local c = ForeverGoalTrackerDB and ForeverGoalTrackerDB.characters and ForeverGoalTrackerDB.characters[goal.plannerOwner]
+        local color = c and RAID_CLASS_COLORS and RAID_CLASS_COLORS[c.class or ""]
+        local who = c and c.name and string.upper(c.name)
+        if who and color and color.colorStr then who = "|c" .. color.colorStr .. who .. "|r" end
+        return "GEAR SET" .. (who and ("  |cff77736a\194\183|r  " .. who) or "")
+    end
     if card and goal.armorClass then
         return string.upper(goal.armorClass) .. " SET"
     end
@@ -4216,6 +4246,8 @@ function FGT.EnsureGoalRow(goal, i)
         end
         local fnote = FGT.ForeverNote(self.goal, true)
         if fnote then GameTooltip:AddLine(fnote, C.FOREVER[1], C.FOREVER[2], C.FOREVER[3], true) end
+        local fresh = FGT.PlannerFreshness and FGT.PlannerFreshness(self.goal)
+        if fresh then GameTooltip:AddLine(fresh, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true) end
         local d, t = GoalProgress(self.goal)
         if t > 0 and d == t then
             local on = FGT.CompletedOn(self.goal)
@@ -4259,37 +4291,48 @@ LayoutGoalList = function()
     for _, g in ipairs(FGT.goals) do
         if goalRows[g.id] then goalRows[g.id]:SetShown(shown[g.id] and true or false) end
     end
-    -- Favorites first, then the rest; each group follows the sort.
+    -- Favorites first, then your Gear Planner sets, then the rest; each group follows the sort.
+    -- A favorited gear set stays with the favorites: the star is the player's own choice.
     local mode = sortModes[sortModeIndex].key
     -- (this also runs once at load, before the saved variables exist)
     local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites or {}
+    local function Group(g) return favs[g.id] and 1 or (g.plannerOwner and 2 or 3) end
     table.sort(sorted, function(a, b)
-        local fa, fb = favs[a.id] and true or false, favs[b.id] and true or false
-        if fa ~= fb then return fa end
+        local ga, gb = Group(a), Group(b)
+        if ga ~= gb then return ga < gb end
         return CompareGoals(mode, a, b)
     end)
 
-    -- A thin gold divider between the two groups, brightest in the
-    -- middle and fading out toward both ends.
-    local divider = FGT.favDivider
-    if not divider then
-        divider = CreateFrame("Frame", nil, listContent)
-        divider:SetHeight(1)
-        local l, r = divider:CreateTexture(nil, "ARTWORK"), divider:CreateTexture(nil, "ARTWORK")
-        for _, t in ipairs({ l, r }) do t:SetTexture(SOLID); t:SetHeight(1) end
-        l:SetPoint("LEFT"); l:SetPoint("RIGHT", divider, "CENTER")
-        r:SetPoint("LEFT", divider, "CENTER"); r:SetPoint("RIGHT")
-        ApplyHGradient(l, C.GOLD2, C.GOLD2, 0, 0.45)
-        ApplyHGradient(r, C.GOLD2, C.GOLD2, 0.45, 0)
-        FGT.favDivider = divider
+    -- A thin gold divider between groups, brightest in the middle and fading out toward both
+    -- ends. One per boundary (favorites | gear sets | the rest).
+    FGT.favDividers = FGT.favDividers or {}
+    local dividers = FGT.favDividers
+    for _, d in ipairs(dividers) do d:Hide() end
+    local used = 0
+    local function NextDivider()
+        used = used + 1
+        local divider = dividers[used]
+        if not divider then
+            divider = CreateFrame("Frame", nil, listContent)
+            divider:SetHeight(1)
+            local l, r = divider:CreateTexture(nil, "ARTWORK"), divider:CreateTexture(nil, "ARTWORK")
+            for _, t in ipairs({ l, r }) do t:SetTexture(SOLID); t:SetHeight(1) end
+            l:SetPoint("LEFT"); l:SetPoint("RIGHT", divider, "CENTER")
+            r:SetPoint("LEFT", divider, "CENTER"); r:SetPoint("RIGHT")
+            ApplyHGradient(l, C.GOLD2, C.GOLD2, 0, 0.45)
+            ApplyHGradient(r, C.GOLD2, C.GOLD2, 0.45, 0)
+            dividers[used] = divider
+        end
+        return divider
     end
-    divider:Hide()
+    FGT.favDivider = dividers[1]
 
     local y = yStart
     for i, g in ipairs(sorted) do
         local row = goalRows[g.id]
-        if i > 1 and favs[sorted[i - 1].id] and not favs[g.id] then
+        if i > 1 and Group(sorted[i - 1]) ~= Group(g) then
             y = y - 6
+            local divider = NextDivider()
             divider:ClearAllPoints()
             divider:SetPoint("TOPLEFT", listContent, "TOPLEFT", 16, y)
             divider:SetPoint("RIGHT", listContent, "RIGHT", -16, 0)
@@ -5189,6 +5232,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         local goal = FGT.GoalById(id)
         local professionPath, professionAspect, professionProcessed = self:ProfessionArt(goal)
         if professionPath then return professionPath, professionAspect, professionProcessed end
+        -- A Gear Planner set shows the leveling art of the character it was planned for (an alt's
+        -- set keeps the alt's art whoever is logged in); shared art covers missing variants.
+        if goal and goal.plannerOwner then
+            local c = Roster()[goal.plannerOwner]
+            local owner = c and { faction = c.faction, class = c.class, race = c.race } or player
+            local pick = self:BestArtVariant(self.artVariants.allclasses, owner)
+            if pick then return pick.path, pick.aspect or (4/3), pick.preprocessed ~= false end
+            return self.artPaths.allclasses, self.artAspects.allclasses or 1, self.preprocessed.allclasses or false
+        end
         local pvp = goal and goal.category == "PvP"
         if pvp then
             player = {faction=goal.faction}
@@ -8462,6 +8514,9 @@ RefreshSteps = function(goal, view)
             row:SetHeight(rowHeight2)
             row:SetScript("OnClick", nil)
         else
+            -- a gear set's item that another character holds: where it is, and whether it can be mailed
+            local elsewhere = not IsStepDone(goal.id, i) and FGT.PlannerElsewhere and FGT.PlannerElsewhere(goal, entry)
+            if elsewhere then stepText = stepText .. "\n|cff8f897c" .. elsewhere .. "|r" end
             row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(stepText, IsStepDone(goal.id, i), nil, type(entry) == "table" and entry.mapZoom or nil) or stepText)
             row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46)))
             -- item links first, so a finished step fades them too (Karl)
@@ -9741,6 +9796,9 @@ end
 function FGT.LibraryVisible(goal)
     return LF.Available(goal) and #LF.Blockers(goal) == 0 and LF.SearchMatch(goal)
 end
+-- Can this client offer the goal at all (class sets included, search ignored)? The Gear Planner
+-- links items to Library goals with it.
+function FGT.LibraryAvailable(goal) return LF.Available(goal, true) end
 
 local function CurrentFilter()
     for _, f in ipairs(FILTERS) do if f.key == libFilter then return f end end
@@ -10030,6 +10088,8 @@ local function SetGoalActive(goal, on)
     LayoutLibrary()
     if FGT.RefreshPopout then FGT.RefreshPopout() end
 end
+-- The Gear Planner adds and checks Library goals the same way the Library and goal links do.
+FGT.SetGoalActive, FGT.IsGoalActive = SetGoalActive, IsActive
 
 -- ============================================================
 -- Right-click menu on a My Goals card: favorite / unfavorite the goal,
@@ -13107,6 +13167,24 @@ for _, ev in ipairs({
 }) do
     pcall(rosterWatcher.RegisterEvent, rosterWatcher, ev) -- skip events a client lacks
 end
+-- Applying an enchant to a worn item changes the item, not the equipment, so it needs this.
+if not pcall(rosterWatcher.RegisterUnitEvent, rosterWatcher, "UNIT_INVENTORY_CHANGED", "player") then
+    pcall(rosterWatcher.RegisterEvent, rosterWatcher, "UNIT_INVENTORY_CHANGED")
+end
+-- Does any worn item's enchant differ from this character's saved record?
+function FGT.WornEnchantsChanged()
+    local c = ForeverGoalTrackerDB and ForeverGoalTrackerDB.characters and ForeverGoalTrackerDB.characters[CharKey()]
+    if not (c and GetInventoryItemLink) then return false end
+    local saved = c.enchants or {}
+    for slot = 1, 19 do
+        local link, enchant = GetInventoryItemLink("player", slot), nil
+        if link then enchant = link:match("item:%d+:(%d+)") end
+        if enchant == "0" then enchant = nil end
+        local had = saved[slot] and saved[slot]:match(":(%d+)$")
+        if had ~= enchant then return true end
+    end
+    return false
+end
 -- Boss kills: ENCOUNTER_END (success) and BOSS_KILL both report the
 -- encounter's name; it's stored on the character that was there.
 -- A boss killed in a dungeon with a guildmate in the group, or in a raid with at least 5 (a
@@ -13247,6 +13325,10 @@ end
 FGT.WatchCasts() -- (nothing to watch until a campfire spell is listed)
 
 rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, arg5)
+    if event == "UNIT_INVENTORY_CHANGED" then
+        -- also fires for every arrow shot: rescan only when a worn enchant really changed
+        if arg1 ~= "player" or not FGT.WornEnchantsChanged() then return end
+    end
     if event == "UI_INFO_MESSAGE" then
         -- "Trade complete." (the message is the second argument on current clients, the first on older ones)
         local message = type(arg2) == "string" and arg2 or arg1
@@ -13689,6 +13771,9 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
     if msg == "testhunterpreraid" and FGT.CreateHunterPreRaidBuild then
         FGT.CreateHunterPreRaidBuild(); return
+    end
+    if msg == "plannerlight" and FGT.TogglePlannerLight then
+        FGT.TogglePlannerLight(); return
     end
     local opacity = msg:match("^banneropacity%s*(.*)$")
     if opacity then

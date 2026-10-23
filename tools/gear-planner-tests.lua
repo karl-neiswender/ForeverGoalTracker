@@ -12,7 +12,16 @@ local function Track(frame)
     end
     frame.SetShown = function(self, on) if on then self:Show() else self:Hide() end end
 end
-Track(F.GearPlanner); Track(F.libraryPanel); Track(T.picker)
+Track(F.GearPlanner); Track(F.libraryPanel); Track(T.picker); Track(T.filters.showAll); Track(T.filters.kind)
+-- Pick a dropdown choice by its value, the way a player clicks it in the popup.
+local function Choose(drop, value)
+    drop:GetScript("OnClick")(drop)
+    for i = 1, #drop.choices do
+        local row = T.filters.rows[i]
+        if row.value == value then row:GetScript("OnClick")(row); return end
+    end
+    error("no choice " .. tostring(value))
+end
 local function click(b) b:GetScript("OnClick")(b) end
 local function text(box, value) box:SetText(value); box:GetScript("OnTextChanged")(box) end
 -- Open a slot, find an item by id in its picker and click it.
@@ -38,8 +47,16 @@ local id = store.builds[1].id
 click(T.head)
 assert(T.picker:IsShown(), "empty slot opens the picker")
 local headList, headCount = T.found()
-assert(headCount > 40, "the head database is searchable, not a short list")
-for _, entry in ipairs(headList) do assert(entry.sub == 404 or entry.sub == 400, "a level 60 Warrior sees plate heads only") end
+assert(headCount == 25 and T.filters.showAll:IsShown(), "an unsearched slot starts with its best 25")
+T.filters.showAll:GetScript("OnClick")(T.filters.showAll)
+headList, headCount = T.found()
+assert(headCount > 40 and not T.filters.showAll:IsShown(), "Show all reaches the whole head database")
+local sawPlate, sawLighter = false, false
+for _, entry in ipairs(headList) do
+    assert(entry.sub >= 400 and entry.sub <= 404, "a level 60 Warrior sees the armor it can wear")
+    if entry.sub == 404 then sawPlate = true elseif entry.sub < 404 then sawLighter = true end
+end
+assert(sawPlate and sawLighter, "lighter armor stays plannable when plate is wearable")
 for _, entry in ipairs(headList) do assert(entry.inv == 1, "head search shows head items only") end
 text(T.search, "helm of might")
 assert(T.found()[1].id == 16866, "name search finds the Warrior Tier 1 helm")
@@ -86,12 +103,21 @@ print("  wide/tall preview keeps native background proportions and full-panel mo
 -- Wheel zoom uses the same safe portrait limit as head focus.
 local portraitZoom
 T.model.SetPortraitZoom = function(_, value) portraitZoom = value end
+-- (the wheel glides: run frames until the camera settles)
+local function SettleCamera()
+    for _ = 1, 300 do
+        local f = T.camera:GetScript("OnUpdate")
+        if not f then return end
+        f(T.camera, 0.05)
+    end
+    error("the camera never settled")
+end
 T.model:GetScript("OnMouseWheel")(T.model, 100)
-T.camera:GetScript("OnUpdate")(T.camera, 1)
-assert(portraitZoom == 0.8, "wheel zoom reaches native portrait limit")
+SettleCamera()
+assert(math.abs(portraitZoom - 0.8) < 1e-9, "wheel zoom reaches native portrait limit")
 T.model:GetScript("OnMouseWheel")(T.model, -100)
-T.camera:GetScript("OnUpdate")(T.camera, 1)
-assert(portraitZoom == 0, "wheel zoom returns to full-character view")
+SettleCamera()
+assert(math.abs(portraitZoom) < 1e-9, "wheel zoom returns to full-character view")
 T.model.SetPortraitZoom = nil
 
 click(T.head)
@@ -476,12 +502,64 @@ assert(Cat.EntranceFor("Upper Blackrock Spire").id == "dungeon:brs" and Cat.Entr
 assert(Cat.EntranceFor("Nowhere in particular") == nil)
 print("  sources: boss pins, quests, crafted items, PvP ranks and honest unknowns ok")
 
+-- Imported sources (GearSources.lua): bosses with their instance, world drops, quartermasters.
+local coif = Cat.Get(19875)
+assert(Cat.SourceLabel(coif) == "Jin'do the Hexxer · Zul'Gurub", "imported boss and raid")
+assert(select(1, Cat.Acquisition(coif)) == "Loot Bloodstained Coif from Jin'do the Hexxer in Zul'Gurub", "imported boss step")
+assert(Cat.EntranceFor(Cat.Source(coif).place).id == "hub:raid_zg", "imported raid gets a map pin")
+assert(Cat.SourceLabel(Cat.Get(22718)) == "Bosses · Zul'Gurub", "several bosses in one raid")
+assert(Cat.SourceLabel(Cat.Get(2244)) == "World drop" and Cat.Source(Cat.Get(2244)).place == nil, "world drops have no pin")
+local insignia = Cat.Get(18443)
+local _, insigniaTip = Cat.Acquisition(insignia)
+assert(Cat.SourceLabel(insignia) == "PvP rank 4" and insigniaTip:find("Sold by Officer Areyn.", 1, true), "PvP rank keeps the game's wording, names the quartermaster")
+local _, coifTip = Cat.Acquisition(coif)
+local hogger = select(1, Cat.Acquisition(Cat.Get(6085)))
+assert(hogger:find(F.isForever and "'WANTED: \"Hogger\"'" or "'Wanted: \"Hogger\"'", 1, true), "each client names its own quest")
+assert(Cat.SourceLabel(Cat.Get(4614)) == "World drop", "a creature or two seen in the beta does not replace a world drop")
+do -- a drop the site cannot place, from a boss we know, gets its raid and pin
+    local saved = F.GEARSOURCES
+    F.GEARSOURCES = "999001|N|Ragnaros||"
+    Cat.ReleaseSources()
+    local source = Cat.Source({ id = 999001, name = "Test Item" })
+    assert(source.label == "Ragnaros · Molten Core" and Cat.EntranceFor(source.place).id == "dungeon:mc", "known boss gets its raid")
+    F.GEARSOURCES = saved
+    Cat.ReleaseSources()
+end
+if F.isForever then
+    assert(coifTip and coifTip:find("Unconfirmed in WoW Forever", 1, true), "Classic sources are Unconfirmed on Forever")
+else
+    assert(coifTip == nil, "no Forever note on Classic Era")
+end
+print("  imported sources: bosses, raids, world drops, quartermasters ok")
+
+-- Each client its own item: same, updated in Forever, or new in Forever.
+local dawn = Cat.Get(19057)
+local dawnListed
+for _, item in ipairs(Cat.Search("HandsSlot", { text = "gloves of the dawn" })) do
+    if item.id == 19057 then assert(not dawnListed, "an updated item is listed once"); dawnListed = item end
+end
+local helm = Cat.Get(16465)
+if F.isForever then
+    assert(dawn.ilvl == 61 and dawn.req == 56 and dawn.updated and Cat.ForeverStatus(dawn) == "updated", "Forever's version of an updated item")
+    assert(helm.set == 0 and Cat.ForeverStatus(helm) == "updated", "Forever's PvP pieces leave the old set")
+    local ring = Cat.Get(272409)
+    assert(ring and ring.stats:find("t10", 1, true), "Forever-only items have stats from the item-level budget")
+else
+    assert(dawn.ilvl == 64 and dawn.req == 59 and not dawn.updated, "Classic Era keeps Classic's item")
+    assert(helm.set == 395, "Classic Era keeps the Classic set")
+    assert(Cat.Get(272409).forever == 2, "Forever-only items stay marked")
+end
+assert(dawnListed == dawn, "search and lookup agree")
+print("  Forever versions: same, updated and new items per client ok")
+
 -- Picker: filters persist, the list recycles a few rows over thousands of items, scrolling rebinds them.
 UnitName = function() return "ListOwner" end
 UnitClass = function() return "Warrior", "WARRIOR" end
 F.ShowTab("gear"); T.new(); text(T.name, "List test")
 click(T.head)
 text(T.search, "")
+assert(select(2, T.found()) == 25, "the list starts with the best 25")
+T.filters.showAll:GetScript("OnClick")(T.filters.showAll)
 local list, total = T.found()
 assert(total > 40 and #T.results < total, "few rows for many items")
 assert(T.results[1].item == list[1] and T.results[2].item == list[2], "rows start at the top of the list")
@@ -490,25 +568,52 @@ T.list.scroll.GetVerticalScroll = function() return scrolled end
 T.list:Update()
 assert(T.results[1].item == list[21], "scrolling rebinds the same rows to later items")
 T.list.scroll.GetVerticalScroll = nil
-click(T.filters.quality)
-local _, rare = T.found()
-assert(rare < total and F.Setting and T.store and true, "quality filter narrows the list")
-click(T.filters.quality); click(T.filters.quality)
-assert(select(2, T.found()) == total, "quality cycles back to all")
-click(T.filters.usable)
-assert(select(2, T.found()) > total, "turning Usable off shows everything")
-click(T.filters.usable)
-click(T.filters.sort)
-local byname = T.found()
-assert(byname[1].name <= byname[2].name, "sort button cycles to name")
-click(T.filters.sort); click(T.filters.sort)
-assert(D.gearPlanner.prefs.usable == true and D.gearPlanner.prefs.sort == "ilvl", "filter choices persist in the saved data")
+-- quality: one dropdown, game terms
+Choose(T.filters.quality, 4)
+for _, entry in ipairs(T.found()) do assert(entry.q >= 4, "Epic+ shows epics and legendaries") end
+Choose(T.filters.quality, 0)
+-- stat: only items with it, best first, and the row says how much
+Choose(T.filters.stat, "s")
+local strong = T.found()
+assert(#strong > 1, "strength heads exist")
+for i, entry in ipairs(strong) do
+    assert(Cat.Stat(entry, "s") > 0, "the stat filter keeps items with that stat")
+    if i > 1 then assert(Cat.Stat(strong[i - 1], "s") >= Cat.Stat(entry, "s"), "best first by the chosen stat") end
+end
+assert((T.results[1].source:GetText() or ""):find("Strength", 1, true), "rows show the stat value")
+-- type: the slot's armor types, remembered per slot
+local kinds = {}
+for _, c in ipairs(T.filters.kind.choices) do kinds[c[1]] = c[2] end
+assert(T.filters.kind:IsShown() and kinds[404] == "Plate" and kinds[401] == "Cloth" and kinds[false] == "Any armor", "armor types to choose from")
+Choose(T.filters.kind, 404)
+for _, entry in ipairs(T.found()) do assert(entry.sub == 404, "Plate shows plate only") end
+assert(D.gearPlanner.prefs.stat == "s" and D.gearPlanner.prefs.kinds.HeadSlot == 404, "filter choices persist in the saved data")
+T.clickAway:GetScript("OnEvent")(); click(T.head)
+assert(T.filters.kind.value == 404, "the type choice is remembered for the slot")
+Choose(T.filters.kind, false); Choose(T.filters.stat, false)
+T.clickAway:GetScript("OnEvent")()
+click(T.slots.Finger0Slot)
+assert(not T.filters.kind:IsShown(), "rings have no type to choose")
+T.clickAway:GetScript("OnEvent")()
+-- target level: a ceiling; heavier armor waits for its level
+local listBuild = T.store().builds[#T.store().builds]
+T.level:SetText("20"); T.level:GetScript("OnEnterPressed")(T.level)
+assert(listBuild.level == 20, "the set keeps its target level")
+click(T.head)
+T.filters.showAll:GetScript("OnClick")(T.filters.showAll)
+for _, entry in ipairs(T.found()) do assert(entry.req <= 20 and entry.sub ~= 404, "a level 20 Warrior set lists what it can wear at 20") end
+for _, c in ipairs(T.filters.kind.choices) do assert(c[1] ~= 404, "no plate choice before 40") end
+T.clickAway:GetScript("OnEvent")()
+T.level:GetScript("OnMouseWheel")(T.level, 1)
+assert(listBuild.level == 21, "scrolling raises the level")
+T.level:SetText("99"); T.level:GetScript("OnEnterPressed")(T.level)
+assert(listBuild.level == 60, "levels stop at 60")
 Pick("HeadSlot", 22418)
 T.list.scroll.GetVerticalScroll = function() return scrolled end
 click(T.slots.HeadSlot)
 T.list.scroll.GetVerticalScroll = nil
 F.ShowTab("tracker")
-print("  picker: recycled rows, scroll rebinding, quality/usable/sort filters and persistence ok")
+print("  picker: best 25 then Show all, recycled rows, stat/type/quality dropdowns, target level and persistence ok")
 
 -- Set actions: fill from equipped, duplicate, view, delete.
 F.ShowTab("gear")
@@ -632,20 +737,33 @@ print("  whole sets, slot assignment, Enter to pick and the goal-page edit butto
 
 -- Armor type follows the class (and level 40 for mail and plate); cloaks stay open to all.
 local function subs(list) local out = {} for _, item in ipairs(list) do out[item.sub] = true end return out end
-local hunter60 = subs(Cat.Search("ChestSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 60 }))
-assert(hunter60[403] and not hunter60[402] and not hunter60[401], "a level 60 Hunter sees mail chests only")
-local hunter30 = subs(Cat.Search("ChestSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 30 }))
-assert(hunter30[402] and hunter30[403] and not hunter30[401], "before 40 a Hunter sees leather and the mail it plans for")
-local hunter20 = Cat.Search("HeadSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 20, text = "cryptstalker" })
-assert(#hunter20 == 1 and hunter20[1].id == 22438, "a level 20 Hunter still finds the Cryptstalker Headpiece")
+local hunter60 = Cat.Search("ChestSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 60 })
+local h60 = subs(hunter60)
+assert(h60[403] and h60[402] and h60[401] and not h60[404], "a level 60 Hunter can still pick leather or cloth")
+local lowest = 60
+for _, item in ipairs(hunter60) do lowest = math.min(lowest, item.req) end
+assert(lowest < 20, "a level 60 set still lists low-level items")
+local hunter30 = Cat.Search("ChestSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 30 })
+local h30 = subs(hunter30)
+assert(h30[402] and h30[401] and not h30[403], "mail waits for level 40")
+for _, item in ipairs(hunter30) do assert(item.req <= 30, "the target level is a ceiling") end
+assert(#Cat.Search("HeadSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 20, text = "cryptstalker" }) == 0,
+    "a level 20 set leaves out what it cannot wear yet")
+local crypt = Cat.Search("HeadSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 60, text = "cryptstalker" })
+assert(#crypt == 1 and crypt[1].id == 22438, "a level 60 set finds the Cryptstalker Headpiece")
 local warrior30 = subs(Cat.Search("LegsSlot", { usable = true, class = "WARRIOR", faction = "Alliance", level = 30 }))
-assert(warrior30[403] and warrior30[404] and not warrior30[402], "before 40 a Warrior sees mail and plate")
+assert(warrior30[403] and warrior30[402] and not warrior30[404], "Warriors wear mail from the start and plate at 40")
 local druid = subs(Cat.Search("HandsSlot", { usable = true, class = "DRUID", faction = "Alliance" }))
-assert(druid[402] and not druid[401], "Druids see leather, not cloth")
+assert(druid[402] and druid[401] and not druid[403], "Druids see leather and cloth, never mail")
 assert(#Cat.Search("BackSlot", { usable = true, class = "WARRIOR", faction = "Alliance" }) > 50, "cloaks are for everyone")
 local allChests = subs(Cat.Search("ChestSlot", { usable = false, class = "HUNTER" }))
 assert(allChests[401] and allChests[402] and allChests[403] and allChests[404], "Usable off shows every armor type")
-print("  armor type by class and level, cloaks for all, Usable off shows everything")
+-- stats come from the game: the item's own and its Equip: spells
+local helm, legs = Cat.Get(16846), Cat.Get(15062)
+assert(Cat.Stat(helm, "a") == 23 and Cat.Stat(helm, "t") == 23 and Cat.Stat(helm, "c") == 1, "Giantstalker's Helmet stats")
+assert(Cat.Stat(legs, "A") == 46 and Cat.StatText(legs, "c") == "+1% Crit", "Devilsaur Leggings attack power and crit")
+assert(#Cat.Search("HeadSlot", { level = 25, text = "" }) > #Cat.Search("HeadSlot", { level = 25, minQuality = 3 }), "leveling greens are in the database")
+print("  armor by class and target level, lighter armor kept, low-level items kept, stats from the game")
 
 -- Every ammo item on Wowhead Forever's projectiles list has a source (Doomshot and the cannon balls are not on it).
 for _, item in ipairs(Cat.Search("AmmoSlot", { usable = false })) do
@@ -797,4 +915,389 @@ do
     for _, build in ipairs(T.store().builds) do assert(build.name ~= "Altlock plan", "the alt's set stays off your own list") end
     F.ShowTab("tracker")
     print("  planning for another character on the roster")
+end
+
+-- Enchants: a smaller square beside each item that can take one; planned, tracked and costed.
+do
+    local D = ForeverGoalTrackerDB
+    local bracers, ring, sword, polearm, crossbow, neck = 16861, 18500, 19019, 22314, 19107, 22340
+    -- which enchants fit is the game's own data, per client
+    local function Names(id)
+        local out = {}
+        for _, e in ipairs(Cat.EnchantsFor(Cat.Get(id))) do out[#out + 1] = e.name end
+        return table.concat(out, "; ")
+    end
+    assert(Names(ring) == "", "rings take no enchant")
+    assert(Names(sword):find("Crusader", 1, true) and not Names(sword):find("2H", 1, true), "one-handers get weapon enchants, not 2H ones")
+    assert(Names(polearm):find("2H Weapon", 1, true), "two-handers get 2H enchants")
+    assert(Names(crossbow):find("Scope", 1, true) and not Names(crossbow):find("Crusader", 1, true), "ranged weapons get scopes")
+    assert((Names(neck) ~= "") == (F.isForever and true or false), "necklace enchants exist only on Forever")
+
+    F.ShowTab("gear")
+    T.new(); text(T.name, "Enchant test")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    local build = T.store().builds[#T.store().builds]
+    assert(not T.slots.WristSlot.enchant.planned, "no enchant square without an item")
+    Pick("WristSlot", bracers)
+    local square = T.slots.WristSlot.enchant
+    assert(square.planned, "a bracer shows the enchant square")
+    Pick("Finger0Slot", ring)
+    assert(not T.slots.Finger0Slot.enchant.planned, "a ring shows none")
+    click(square)
+    assert(T.picker:IsShown(), "the square opens the picker")
+    text(T.search, "superior strength")
+    local list = T.found()
+    assert(list[1] and list[1].spell, "the picker lists enchants")
+    for _, e in ipairs(list) do assert(Cat.EnchantFits(e.spell, Cat.Get(bracers)), "only enchants that fit the bracer") end
+    local chosen = list[1]
+    click(T.results[1])
+    assert(build.enchants and build.enchants[9] == chosen.spell and not T.picker:IsShown(), "picking plans the enchant and closes")
+    -- removing the item drops its enchant; right-click removes just the enchant
+    click(T.slots.WristSlot); click(T.unequip)
+    assert(not (build.enchants and build.enchants[9]), "an enchant never outlives its item")
+    Pick("WristSlot", bracers); click(square); text(T.search, "superior strength"); click(T.results[1])
+    square:GetScript("OnClick")(square, "RightButton")
+    assert(not (build.enchants and build.enchants[9]), "right-click removes the enchant")
+    click(square); text(T.search, "superior strength"); click(T.results[1])
+
+    -- the goal gets an enchant step with its materials, done when the owner wears it
+    local key = F.MaterialsUI.charKey()
+    local previous = D.characters[key]
+    D.characters[key] = { items = {} }
+    click(T.add)
+    local goal = F.GoalById(build.goalId)
+    local index
+    for i, step in ipairs(goal.steps) do if step.auto and step.auto.enchant then index = i end end
+    assert(index and goal.steps[index].auto.enchant == chosen.effect and goal.steps[index].auto.slot == 9, "an enchant step for the bracer")
+    assert(goal.steps[index].text:find("Superior Strength", 1, true) and #goal.steps[index].reagents > 0, "the step names the enchant and costs its materials")
+    assert(not D.progress[goal.id][index], "not done before it is worn")
+    D.characters[key].enchants = { [9] = "1:" .. chosen.effect }
+    F.RefreshPlannerGoals()
+    assert(not D.progress[goal.id][index], "the enchant on a different item does not count")
+    D.characters[key].enchants = { [9] = bracers .. ":" .. chosen.effect }
+    F.RefreshPlannerGoals()
+    assert(D.progress[goal.id][index], "wearing the enchanted bracer completes the step")
+    Pick("HeadSlot", 16866)
+    local moved
+    for i, step in ipairs(goal.steps) do if step.auto and step.auto.enchant then moved = i end end
+    assert(moved and D.progress[goal.id][moved], "enchant credit moves with its step")
+    D.characters[key] = previous
+
+    -- Fill from equipped copies worn enchants and names what it skipped
+    local oldGet, oldLink, oldInfo = GetInventoryItemID, GetInventoryItemLink, F.ItemInfo
+    local worn = { [9] = bracers, [2] = 1 }
+    GetInventoryItemID = function(_, slot) return worn[slot] end
+    GetInventoryItemLink = function(_, slot)
+        if slot == 9 then return "|cffa335ee|Hitem:" .. bracers .. ":" .. chosen.effect .. ":0:0|h[Bracers]|h|r" end
+    end
+    F.ItemInfo = function(id) if id == 1 then return "Mystery Necklace" end return oldInfo(id) end
+    T.new(); text(T.name, "Enchant fill")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    local filled = T.store().builds[#T.store().builds]
+    click(T.fill)
+    assert(filled.slots[9] == bracers and filled.enchants and filled.enchants[9] == chosen.spell, "fill copies the worn enchant")
+    assert((T.status:GetText() or ""):find("Not in the planner's list: Mystery Necklace", 1, true), "fill names what it skipped")
+    GetInventoryItemID, GetInventoryItemLink, F.ItemInfo = oldGet, oldLink, oldInfo
+    click(T.duplicate)
+    local copy = T.store().builds[#T.store().builds]
+    assert(copy.enchants and copy.enchants[9] == chosen.spell and copy.enchants ~= filled.enchants, "duplicate copies enchants")
+    F.ShowTab("tracker")
+    print("  enchants: fit rules, square, picker, goal step, credit, fill and duplicate")
+end
+
+-- A gear set goal shows its owner's leveling art and says whose set it is.
+do
+    local D, B = ForeverGoalTrackerDB, F.goalBanner
+    D.characters["Dwarfhunt-Realm"] = { name = "Dwarfhunt", class = "HUNTER", race = "Dwarf", faction = "Alliance", level = 60 }
+    D.characters["Sneaky-Realm"] = { name = "Sneaky", class = "ROGUE", race = "Human", faction = "Alliance", level = 60 }
+    local dwarfSet = { id = "planner_test_dwarf", name = "Dwarf set", category = "Item Set", plannerOwner = "Dwarfhunt-Realm", steps = {} }
+    local rogueSet = { id = "planner_test_rogue", name = "Rogue set", category = "Item Set", plannerOwner = "Sneaky-Realm", steps = {} }
+    F.goals[#F.goals + 1] = dwarfSet; F.goals[#F.goals + 1] = rogueSet; F.goalIndex = nil
+    assert(B:ResolveArt(dwarfSet.id) == "allclasses_dwarf_hunter-banner.blp", "a Dwarf Hunter's set shows the Dwarf Hunter leveling art")
+    assert(B:ResolveArt(rogueSet.id) == B.artPaths.allclasses, "a class without its own art gets the shared leveling art")
+    local eyebrow = F.GoalEyebrow(dwarfSet, true)
+    assert(eyebrow:find("^GEAR SET") and eyebrow:find("DWARFHUNT", 1, true), "the card says it is that character's gear set: " .. eyebrow)
+    assert(not F.GoalEyebrow(F.GoalById("set_tier1") or { category = "Item Set" }, true):find("GEAR SET", 1, true), "Library sets keep their own label")
+    table.remove(F.goals); table.remove(F.goals); F.goalIndex = nil
+    D.characters["Dwarfhunt-Realm"], D.characters["Sneaky-Realm"] = nil, nil
+    print("  gear set goals: owner's leveling art and a GEAR SET label")
+end
+
+-- Library goals: items that a Library goal rewards or that belong to a Library set link to it.
+do
+    local D = ForeverGoalTrackerDB
+    local thunder, kind = Cat.GoalFor(19019, "Alliance")
+    assert(thunder and thunder.id == "thunderfury" and kind == "reward", "Thunderfury links to its legendary goal")
+    local setGoal, setKind = Cat.GoalFor(16866, "Alliance")
+    assert(setGoal and setKind == "set", "a Tier 1 piece links to its Library set goal")
+    assert(Cat.GoalFor(1, "Alliance") == nil, "other items have no Library goal")
+    local oldName, oldClass = UnitName, UnitClass
+    UnitName = function() return "LibraryOwner" end
+    UnitClass = function() return "Warrior", "WARRIOR" end
+    F.ShowTab("gear"); T.new(); text(T.name, "Library links")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    local build = T.store().builds[#T.store().builds]
+    -- the picker row carries the gold goal mark
+    click(T.slots.MainHandSlot); text(T.search, "#19019")
+    assert(T.results[1].goal == thunder and T.results[1].goalBtn and T.found()[1].id == 19019, "the picker row marks Thunderfury's goal")
+    click(T.results[1])
+    Pick("HeadSlot", 16866); Pick("ShoulderSlot", 16868)
+    -- the header names the Library set behind two or more pieces
+    assert(T.libraryHeader.goal == setGoal and (T.libraryHeader.text:GetText() or ""):find("Library goal", 1, true), "the header links the Library set")
+    -- the slot menu adds the goal, then opens it
+    D.active.thunderfury = nil
+    click(T.slots.MainHandSlot)
+    assert(T.goalMenu.text:GetText() == "+ Add Thunderfury goal", "the menu offers to add the goal: " .. tostring(T.goalMenu.text:GetText()))
+    click(T.goalMenu)
+    assert(D.active.thunderfury, "Add goal adds Thunderfury to My Goals")
+    click(T.slots.MainHandSlot)
+    assert(T.goalMenu.text:GetText() == "Open Thunderfury goal", "then it offers to open it")
+    T.clickAway:GetScript("OnEvent")()
+    -- in the gear set goal, the step is the Library goal (no doubled materials), the set is a tip
+    click(T.add)
+    local goal = F.GoalById(build.goalId)
+    local thunderStep, setTip
+    for _, step in ipairs(goal.steps) do if step.auto and step.auto.item == 19019 then thunderStep = step end end
+    for _, tip in ipairs(goal.tips) do if tip:find("Library goal for these pieces", 1, true) then setTip = tip end end
+    assert(thunderStep and thunderStep.text:find("{thunderfury:Thunderfury} goal", 1, true) and not thunderStep.reagents,
+        "the step is Complete the Thunderfury goal")
+    assert(setTip and setTip:find("{" .. setGoal.id .. ":", 1, true), "a tip links the Library set goal")
+    -- any other item can become its own goal
+    D.active.thunderfury = nil
+    Pick("Finger0Slot", 18500)
+    assert(Cat.GoalFor(18500, "Alliance") == nil)
+    click(T.slots.Finger0Slot)
+    assert(T.goalMenu.text:GetText() == "Track this item", "items without a Library goal can be tracked on their own")
+    local before = #T.store().builds
+    click(T.goalMenu)
+    local solo = T.store().builds[before + 1]
+    assert(solo and solo.single == 18500 and solo.slots[11] == 18500 and solo.level == build.level and D.active[solo.goalId],
+        "its own goal: a one-item set, tracked at once")
+    assert(F.GoalById(solo.goalId).plannerOwner, "it is a gear set goal (owner art, GEAR SET label)")
+    click(T.slots.Finger0Slot)
+    assert(T.goalMenu.text:GetText() == "View in Goals", "then the menu opens it")
+    T.clickAway:GetScript("OnEvent")()
+    UnitName, UnitClass = oldName, oldClass
+    F.ShowTab("tracker")
+    print("  Library goals: picker mark, header link, add or open from the slot menu, linked steps, track on its own")
+end
+
+-- Across characters: a gear set is its owner's; other characters' copies are hints, never credit.
+do
+    local D = ForeverGoalTrackerDB
+    assert(Cat.Get(16846).bind == 1 and Cat.Get(15062).bind == 2, "bind types come from the game (pickup, equip)")
+    assert(F.GoalFits({ plannerOwner = "Swagrid-Realm" }, { key = "Frostbolt-Realm", class = "MAGE" }) == false,
+        "This character hides another character's gear sets")
+    assert(F.GoalFits({ plannerOwner = "Swagrid-Realm" }, { key = "Swagrid-Realm", class = "HUNTER" }), "and shows your own")
+    local saved = { D.characters["Swagrid-Realm"], D.characters["Frostbolt-Realm"] }
+    D.characters["Swagrid-Realm"] = { name = "Swagrid", class = "HUNTER", items = {}, lastSeen = (time and time() or 0) - 2 * 86400 }
+    local mage = { name = "Frostbolt", class = "MAGE", items = { [15062] = 1 }, worn = {} }
+    D.characters["Frostbolt-Realm"] = mage
+    local goal = { id = "planner_cross_test", plannerOwner = "Swagrid-Realm" }
+    local legs = { auto = { item = 15062, forCharacter = "Swagrid-Realm" } }
+    assert(F.PlannerElsewhere(goal, legs) == "On Frostbolt: mail it to Swagrid", "a Bind on Equip piece in another character's bags can be mailed")
+    mage.worn = { [7] = 15062 }
+    assert((F.PlannerElsewhere(goal, legs) or ""):find("soulbound", 1, true), "a worn Bind on Equip piece is soulbound")
+    mage.worn, mage.items = {}, { [16846] = 1 }
+    local helm = { auto = { item = 16846, forCharacter = "Swagrid-Realm" } }
+    assert(F.PlannerElsewhere(goal, helm) == "Frostbolt has one, but it's soulbound. Swagrid needs their own",
+        "a Bind on Pickup piece on another character is soulbound")
+    mage.items = {}
+    assert(F.PlannerElsewhere(goal, helm) == nil, "no hint when nobody else has it")
+    assert(not (F.PlannerElsewhere(goal, { auto = { enchant = 1, slot = 9, forCharacter = "Swagrid-Realm" } })), "enchants are not mailed")
+    assert((F.PlannerFreshness(goal) or ""):find("Swagrid's gear, saved", 1, true), "another character's set says how fresh it is")
+    D.characters["Swagrid-Realm"], D.characters["Frostbolt-Realm"] = saved[1], saved[2]
+    print("  across characters: This character view, mail or soulbound hints, freshness")
+end
+
+-- The planner light: on by default, /goals plannerlight switches it and remembers the choice.
+do
+    local D = ForeverGoalTrackerDB
+    D.gearPlanner.prefs.light = nil
+    assert(D.gearPlanner.prefs.light ~= false, "the light starts on")
+    F.TogglePlannerLight()
+    assert(D.gearPlanner.prefs.light == false, "the toggle turns it off and saves that")
+    F.TogglePlannerLight()
+    assert(D.gearPlanner.prefs.light == true, "and back on")
+    print("  planner light toggle")
+end
+
+-- The resting camera is two wheel steps in; opening or switching a set returns there after a focused slot.
+do
+    local portrait
+    T.model.SetPortraitZoom = function(_, v) portrait = v end
+    F.ShowTab("gear"); T.new(); text(T.name, "Camera rest")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    click(T.slots.HeadSlot)
+    local settle = T.camera:GetScript("OnUpdate"); if settle then settle(T.camera, 1) end
+    T.clickAway:GetScript("OnEvent")()
+    T.new() -- a new (or another) set
+    settle = T.camera:GetScript("OnUpdate"); if settle then settle(T.camera, 1) end
+    assert(portrait and math.abs(portrait - 0.2) < 1e-6, "the camera rests two wheel steps in: " .. tostring(portrait))
+    T.model.SetPortraitZoom = nil
+    F.ShowTab("tracker")
+    print("  camera rests at the closer default view")
+end
+
+-- The wheel glides: quick clicks add up into one continuous move that settles on its target.
+do
+    local portrait
+    T.model.SetPortraitZoom = function(_, v) portrait = v end
+    F.ShowTab("gear"); T.new(); text(T.name, "Glide")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    local settle = T.camera:GetScript("OnUpdate"); if settle then settle(T.camera, 1) end
+    local wheel, frames = T.model:GetScript("OnMouseWheel"), {}
+    local function Frame() local f = T.camera:GetScript("OnUpdate"); if f then f(T.camera, 0.016) end; frames[#frames + 1] = portrait end
+    wheel(T.model, 1); Frame(); Frame()
+    wheel(T.model, 1); Frame() -- a second click mid-move
+    for _ = 1, 120 do Frame() end
+    for i = 2, #frames do assert(frames[i] >= frames[i - 1] - 1e-9, "the zoom never steps back while gliding") end
+    assert(frames[3] > frames[2], "a second click keeps the move going, no restart from a standstill")
+    assert(math.abs(portrait - 0.4) < 1e-6 and not T.camera:GetScript("OnUpdate"), "it settles exactly two steps in and stops")
+    T.model.SetPortraitZoom = nil
+    F.ShowTab("tracker")
+    print("  wheel zoom glides and settles")
+end
+
+-- Dual wielding: each weapon is tried on in its own hand (the off hand no longer replaces the main).
+do
+    local oldName, oldClass = UnitName, UnitClass
+    UnitName = function() return "DualOwner" end
+    UnitClass = function() return "Rogue", "ROGUE" end
+    local hands = {}
+    T.model.TryOn = function(_, link, hand) hands[tonumber(link:match("item:(%d+)"))] = hand end
+    F.ShowTab("gear"); T.new(); text(T.name, "Dual wield")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    Pick("MainHandSlot", 19019); Pick("SecondaryHandSlot", 18832)
+    local fade = T.appearance:GetScript("OnUpdate"); if fade then fade(T.appearance, 1) end -- the gear swap mid-fade
+    assert(hands[19019] == "MAINHANDSLOT" and hands[18832] == "SECONDARYHANDSLOT", "each weapon goes in its own hand")
+    T.model.TryOn = nil
+    UnitName, UnitClass = oldName, oldClass
+    F.ShowTab("tracker")
+    print("  dual wield: main and off hand both on the model")
+end
+
+-- No level requirement: planned by the level of its content; requirements above the set show red.
+do
+    local helm = Cat.Get(18421) -- Backwood Helm: item level 63, no requirement
+    assert(helm.req <= 1 and Cat.PlanLevel(helm) == 58, "a no-requirement item plans at its content level")
+    local function Has(list, id) for _, item in ipairs(list) do if item.id == id then return true end end return false end
+    assert(not Has(Cat.Search("HeadSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 30 }), 18421),
+        "a level 30 plan leaves out level-60 rewards without a requirement")
+    assert(Has(Cat.Search("HeadSlot", { usable = true, class = "HUNTER", faction = "Alliance", level = 60 }), 18421), "a level 60 plan keeps them")
+    local oldName, oldClass = UnitName, UnitClass
+    UnitName = function() return "LevelOwner" end
+    UnitClass = function() return "Warrior", "WARRIOR" end
+    F.ShowTab("gear"); T.new(); text(T.name, "Level flags")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    T.level:SetText("60"); T.level:GetScript("OnEnterPressed")(T.level)
+    click(T.head); text(T.search, "#13216") -- Crown of the Penitent: no requirement
+    assert((T.results[1].source:GetText() or ""):find("No level requirement", 1, true), "the row says what the game says")
+    T.clickAway:GetScript("OnEvent")()
+    Pick("HeadSlot", 16866) -- Helm of Might: requires 60
+    T.level:SetText("10"); T.level:GetScript("OnEnterPressed")(T.level)
+    local label = T.slots.HeadSlot.itemName:GetText() or ""
+    assert(label:find("|cffff5a4aLv 60|r", 1, true) and label:find("Helm of Might", 1, true), "a planned item above the set's level shows its level in red")
+    T.level:SetText("60"); T.level:GetScript("OnEnterPressed")(T.level)
+    assert(not (T.slots.HeadSlot.itemName:GetText() or ""):find("Lv 60", 1, true), "no flag once the set's level allows it")
+    UnitName, UnitClass = oldName, oldClass
+    F.ShowTab("tracker")
+    print("  level: no-requirement items by content level, honest wording, red flags above the set's level")
+end
+
+-- "Showing gear for level [min] – [max]": a floor and a ceiling, typed or scrolled, empty = any.
+do
+    local oldName, oldClass = UnitName, UnitClass
+    UnitName = function() return "RangeOwner" end
+    UnitClass = function() return "Warrior", "WARRIOR" end
+    F.ShowTab("gear"); T.new(); text(T.name, "Range")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    local build = T.store().builds[#T.store().builds]
+    local function Type(box, value) box:SetText(value); box:GetScript("OnEnterPressed")(box) end
+    local function Wheel(box, delta) box:GetScript("OnMouseWheel")(box, delta) end
+    Type(T.level, "60"); Type(T.minLevel, "55")
+    assert(build.minLevel == 55 and build.level == 60, "the set keeps its range")
+    click(T.head); T.filters.showAll:GetScript("OnClick")(T.filters.showAll)
+    for _, item in ipairs(T.found()) do assert(Cat.PlanLevel(item) >= 55 and Cat.PlanLevel(item) <= 60, "only gear for levels 55 to 60") end
+    T.clickAway:GetScript("OnEvent")()
+    Type(T.minLevel, "")
+    assert(build.minLevel == nil, "an empty min is any")
+    -- the box being changed stops at the other one: min never passes max
+    Type(T.level, "10"); Type(T.minLevel, "30")
+    assert(build.minLevel == 10 and build.level == 10, "a min above the max stops at the max")
+    Type(T.minLevel, "5"); Type(T.level, "3")
+    assert(build.minLevel == 5 and build.level == 5, "a max below the min stops at the min")
+    Type(T.level, "20")
+    for _ = 1, 30 do Wheel(T.minLevel, 1) end
+    assert(build.minLevel == 20, "scrolling the min up stops at the max")
+    assert(T.minLevel.any:GetText() == "Min" and T.level.any:GetText() == "Max", "empty boxes say Min and Max")
+    Type(T.minLevel, "")
+    -- an empty max is any level; armor and red flags treat it as 60
+    Type(T.level, "")
+    assert(build.level == false, "an empty max is any")
+    click(T.head)
+    local plate = false
+    for _, c in ipairs(T.filters.kind.choices) do if c[1] == 404 then plate = true end end
+    assert(plate, "with any max, a Warrior plans plate")
+    T.clickAway:GetScript("OnEvent")()
+    -- scrolling past the ends reaches any
+    Wheel(T.level, -1); assert(build.level == 60, "scrolling down from any max gives 60")
+    Wheel(T.level, 1); assert(build.level == false, "scrolling up from 60 gives any")
+    Wheel(T.minLevel, 1); assert(build.minLevel == 1, "scrolling up from any min gives 1")
+    Wheel(T.minLevel, -1); assert(build.minLevel == nil, "scrolling down from 1 gives any")
+    UnitName, UnitClass = oldName, oldClass
+    F.ShowTab("tracker")
+    print("  level range: floor and ceiling, any at either end, scrolling past the ends, min never passes max")
+end
+
+-- First visit: the welcome card over the character's scene, with a gold way in.
+do
+    local W = T.welcome
+    Track(W.card); Track(W.current); Track(W.preset)
+    local oldName, oldClass, oldFaction = UnitName, UnitClass, UnitFactionGroup
+    UnitName = function() return "WelcomeOwner" end
+    UnitClass = function() return "Warrior", "WARRIOR" end
+    local unit
+    T.model.SetUnit = function(_, u) unit = u end
+    F.ShowTab("gear")
+    assert(#T.store().builds == 0 and W.card:IsShown(), "a first visit shows the welcome card")
+    assert(unit == "player", "the scene shows your own character")
+    assert(W.current:IsShown() and not W.preset:IsShown(), "start from current gear; no preset for a Warrior")
+    -- start from current gear: a named set, filled and saved at once
+    local oldGet = GetInventoryItemID
+    GetInventoryItemID = function(_, slot) if slot == 1 then return 16866 end end
+    local seen = {}
+    for _, slot in ipairs({ "HeadSlot", "Trinket1Slot" }) do
+        local b = T.slots[slot]
+        b.SetAlpha = function(self, a) seen[slot] = a end
+        b.GetAlpha = function() return seen[slot] or 1 end
+    end
+    W.current:GetScript("OnClick")(W.current)
+    GetInventoryItemID = oldGet
+    local made = T.store().builds[#T.store().builds]
+    assert(made and made.name == "Current gear" and made.slots[1] == 16866, "it makes a set from the worn gear")
+    -- the card fades out while the slots fade in, one after another
+    local head = T.slots.HeadSlot
+    assert(W.card:IsShown() and head:GetAlpha() < 0.01, "the slots start hidden as the set opens")
+    local fade, alphas = W.driver:GetScript("OnUpdate"), {}
+    for _ = 1, 100 do
+        if not W.driver:GetScript("OnUpdate") then break end
+        fade(W.driver, 0.02); alphas[#alphas + 1] = head:GetAlpha()
+    end
+    for i = 2, #alphas do assert(alphas[i] >= alphas[i - 1] - 1e-9, "the fade only rises") end
+    assert(not W.driver:GetScript("OnUpdate") and head:GetAlpha() == 1 and T.slots.Trinket1Slot:GetAlpha() == 1,
+        "every slot ends fully shown and the fade stops")
+    assert(not W.card:IsShown(), "the card leaves once a set is open")
+    T.slots.HeadSlot.SetAlpha, T.slots.HeadSlot.GetAlpha, T.slots.Trinket1Slot.SetAlpha, T.slots.Trinket1Slot.GetAlpha = nil, nil, nil, nil
+    -- a fitting preset is offered
+    UnitName = function() return "WelcomeHunter" end
+    UnitClass = function() return "Hunter", "HUNTER" end
+    UnitFactionGroup = function() return "Alliance", "Alliance" end
+    F.ShowTab("tracker"); F.ShowTab("gear")
+    assert(W.card:IsShown() and W.preset:IsShown() and (W.preset.text:GetText() or ""):find("Hunter Pre-Raid BiS", 1, true),
+        "an Alliance Hunter is offered the Hunter preset")
+    T.model.SetUnit = nil
+    UnitName, UnitClass, UnitFactionGroup = oldName, oldClass, oldFaction
+    F.ShowTab("tracker")
+    print("  welcome card: character scene, current gear start, fitting preset")
 end

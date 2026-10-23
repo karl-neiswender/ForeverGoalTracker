@@ -35,15 +35,31 @@ C.SLOT_ORDER = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 
 -- ------------------------------------------------------------
 -- Records
 -- ------------------------------------------------------------
-local REST = "(%d+)|(%d+)|(%d+)|(%d+)|(%d+)|([^|]*)|(%d+)|(%d+)|([AH]?)|(%d)|([^|\n]*)|([^\n]*)"
+local REST = "(%d+)|(%d+)|(%d+)|(%d+)|(%d+)|([^|]*)|(%d+)|(%d+)|([AH]?)|(%d)|([^|\n]*)|([^|\n]*)|([^|\n]*)|(%d)"
 local FIELDS = "(%d+)|" .. REST
 local parsed, known = {}, {}
 
-local function Record(inv, id, q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note)
+local function Record(inv, id, q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note, stats, bind)
+    forever = tonumber(forever)
     return { id = tonumber(id), q = tonumber(q), ilvl = tonumber(ilvl), req = tonumber(req),
-        mask = tonumber(mask), sub = tonumber(sub), icon = tonumber(icon) or icon, forever = tonumber(forever),
-        set = tonumber(set), fac = fac, unique = uniq == "1", name = name, note = note ~= "" and note or nil,
-        lname = name:lower(), inv = inv, twoHand = inv == 17 }
+        mask = tonumber(mask), sub = tonumber(sub), icon = tonumber(icon) or icon, forever = forever == 4 and 1 or forever,
+        updated = forever == 4 or nil, set = tonumber(set), fac = fac, unique = uniq == "1", name = name,
+        note = note ~= "" and note or nil, stats = stats or "", bind = tonumber(bind) or 0, lname = name:lower(),
+        inv = inv, twoHand = inv == 17 }
+end
+
+-- Classic Era reads Classic's items; Forever reads its own version of the items it changed
+-- (DB.foreverBlocks) in place of the Classic line. Unchanged items share one line.
+local FOREVER_BLOCKS = FGT.isForever and DB.foreverBlocks or {}
+local replaced
+local function Replaced(id)
+    if not replaced then
+        replaced = {}
+        for _, text in pairs(FOREVER_BLOCKS) do
+            for line in ("\n" .. text):gmatch("\n(%d+)|") do replaced[tonumber(line)] = true end
+        end
+    end
+    return replaced[id]
 end
 
 -- A whole inventory type, parsed the first time a slot needs it.
@@ -51,12 +67,14 @@ local function Block(inv)
     local list = parsed[inv]
     if list then return list end
     list = {}
-    local text = DB.blocks[inv]
-    if text then
-        for id, q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note in text:gmatch(FIELDS) do
-            local record = known[tonumber(id)] or Record(inv, id, q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note)
-            known[record.id] = record
-            list[#list + 1] = record
+    for pass, text in ipairs({ DB.blocks[inv] or "", FOREVER_BLOCKS[inv] or "" }) do
+        for id, q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note, stats, bind in text:gmatch(FIELDS) do
+            local n = tonumber(id)
+            if pass == 2 or not Replaced(n) then
+                local record = known[n] or Record(inv, id, q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note, stats, bind)
+                known[record.id] = record
+                list[#list + 1] = record
+            end
         end
     end
     parsed[inv] = list
@@ -69,7 +87,7 @@ function C.Get(id)
     local record = known[id]
     if record then return record end
     local key = id .. "|"
-    for inv, text in pairs(DB.blocks) do
+    for inv, text in pairs(Replaced(id) and FOREVER_BLOCKS or DB.blocks) do
         local from
         if text:sub(1, #key) == key then from = 1
         else
@@ -78,9 +96,9 @@ function C.Get(id)
         end
         if from then
             local line = text:match("^[^\n]*", from)
-            local q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note = line:match("^%d+|" .. REST)
+            local q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note, stats, bind = line:match("^%d+|" .. REST)
             if name then
-                record = Record(inv, id, q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note)
+                record = Record(inv, id, q, ilvl, req, mask, sub, icon, forever, set, fac, uniq, name, note, stats, bind)
                 known[id] = record
                 return record
             end
@@ -95,6 +113,7 @@ function C.Release(keep)
     local kept = {}
     for _, id in pairs(keep or {}) do kept[id] = known[id] end
     known = kept
+    C.ReleaseSources()
 end
 
 local setLower = {}
@@ -177,25 +196,35 @@ function C.QuiverFor(ranged)
 end
 
 local function HasBit(mask, bit) return math.floor(mask / bit) % 2 == 1 end
--- The armor a class actually wears: its heaviest type (mail and plate need level 40).
+-- The armor a class wears at a level: its heaviest type (Hunters and Shamans train mail at 40,
+-- Warriors and Paladins plate at 40).
 local MAIN_ARMOR = { WARRIOR = { 403, 404 }, PALADIN = { 403, 404 }, HUNTER = { 402, 403 }, SHAMAN = { 402, 403 },
     ROGUE = { 402, 402 }, DRUID = { 402, 402 }, PRIEST = { 401, 401 }, MAGE = { 401, 401 }, WARLOCK = { 401, 401 } }
 function C.MainArmor(class, level)
     local pair = MAIN_ARMOR[class]
     return pair and pair[(level or 60) >= 40 and 2 or 1]
 end
--- A plan looks ahead: before 40 a class also sees the armor it wears from 40
--- (a level 20 Hunter plans Cryptstalker mail), so both types pass until then.
+-- Every armor type up to the heaviest one the class wears at that level: a Hunter at 41 can still
+-- pick leather (or cloth) when its stats are better, so lighter types are never hidden.
 local function ArmorFits(sub, class, level)
-    local pair = MAIN_ARMOR[class]
-    if not pair then return true end
-    return sub == pair[2] or ((level or 60) < 40 and sub == pair[1])
+    local heaviest = C.MainArmor(class, level)
+    return heaviest == nil or sub <= heaviest
 end
 
 -- Can this class use the item in this slot? `race` is not checked (Classic has few
 -- race-locked items), but faction is, through the item's own Alliance/Horde mark.
--- Body armor is limited to the class's main type (no cloth for a Hunter).
+-- The level an item belongs to for planning: its requirement, or for the many Classic rewards with
+-- none (raid drops, dungeon sets, quest rewards like Backwood Helm) the level of the content it
+-- comes from, about its item level minus 5 (capped at 60). Without this, a level 10 plan listed
+-- level-60 raid rewards, since "no requirement" let them through.
+function C.PlanLevel(item)
+    if item.req > 1 then return item.req end
+    return math.max(1, math.min(60, item.ilvl - 5))
+end
+-- `level` is the set's target level: a ceiling, never a floor. Items above it are left out;
+-- low-level items always stay (a level 60 Druid may still want a level 40 helm).
 function C.Usable(item, class, slot, faction, level)
+    if level and C.PlanLevel(item) > level then return false end
     local bit = BIT[class]
     if not bit then return true end
     if item.mask ~= 0 and not HasBit(item.mask, bit) then return false end
@@ -233,7 +262,53 @@ local SORT = {
     end,
 }
 
--- opts: class, faction, usable (bool), minQuality, text, sort ("ilvl"|"name"|"level"),
+-- Stats, from GearData's codes: what the stat filter offers, in menu order.
+C.STATS = { { "a", "Agility" }, { "s", "Strength" }, { "t", "Stamina" }, { "i", "Intellect" }, { "p", "Spirit" },
+    { "A", "Attack power" }, { "S", "Spell power" }, { "H", "Healing" }, { "h", "Hit" }, { "c", "Crit" },
+    { "d", "Defense" } }
+local STAT_NAME, PERCENT = {}, { h = true, c = true }
+for _, s in ipairs(C.STATS) do STAT_NAME[s[1]] = s[2] end
+function C.Stat(item, code)
+    local values = item.statValues
+    if not values then
+        values = {}
+        for c, n in (item.stats or ""):gmatch("(%a)(%d+)") do values[c] = tonumber(n) end
+        item.statValues = values
+    end
+    return values[code] or 0
+end
+-- "+23 Agility", "+1% Crit"; nil when the item has none of it.
+function C.StatText(item, code)
+    local n = C.Stat(item, code)
+    if n <= 0 then return nil end
+    return "+" .. n .. (PERCENT[code] and "% " or " ") .. STAT_NAME[code]
+end
+
+-- Armor and weapon types, for the type filter.
+C.TYPE_NAMES = { [401] = "Cloth", [402] = "Leather", [403] = "Mail", [404] = "Plate", [406] = "Shield",
+    [407] = "Libram", [408] = "Idol", [409] = "Totem", [400] = "Held in off-hand",
+    [200] = "Axe", [201] = "Two-handed axe", [202] = "Bow", [203] = "Gun", [204] = "Mace",
+    [205] = "Two-handed mace", [206] = "Polearm", [207] = "Sword", [208] = "Two-handed sword", [210] = "Staff",
+    [213] = "Fist weapon", [215] = "Dagger", [216] = "Thrown", [218] = "Crossbow", [219] = "Wand" }
+
+local function Ranked(stat, first)
+    return function(a, b)
+        if first then
+            local fa, fb = first[a.id] and 1 or 0, first[b.id] and 1 or 0
+            if fa ~= fb then return fa > fb end
+        end
+        if stat then
+            local sa, sb = C.Stat(a, stat), C.Stat(b, stat)
+            if sa ~= sb then return sa > sb end
+        end
+        return ByItemLevel(a, b)
+    end
+end
+
+-- opts: class, faction, usable (bool), level (the set's target level: a ceiling only), minQuality,
+--       minLevel (a floor: hides gear for lower levels, by the same plan level), text, stat (a stat code: only items with it, best first), kind (an item sub: one armor or
+--       weapon type), first (item ids listed before the rest, e.g. your other sets' items),
+--       sort ("name" or "level" for an explicit order; otherwise best first),
 --       ammo (an item sub: arrows or bullets, quivers or pouches, to match the ranged weapon),
 --       revealedOnly (Forever client only: hide items Forever has not revealed).
 -- Fills and returns `out` (cleared first) with item records, and the number that matched.
@@ -256,7 +331,10 @@ function C.Search(slot, opts, out)
                 and (item.forever < 2 or FGT.isForever) -- Forever-only items do not exist on Classic Era
                 and (not opts.usable or C.Usable(item, opts.class, slot, opts.faction, opts.level))
                 and (not opts.revealedOnly or item.forever == 1 or item.forever == 2)
-                and (not opts.ammo or item.sub == opts.ammo) then
+                and (not opts.ammo or item.sub == opts.ammo)
+                and (not opts.kind or item.sub == opts.kind)
+                and (not opts.minLevel or C.PlanLevel(item) >= opts.minLevel)
+                and (not opts.stat or C.Stat(item, opts.stat) > 0) then
                 local ok = true
                 if wantId then ok = item.id == wantId
                 elseif tokens then
@@ -270,8 +348,26 @@ function C.Search(slot, opts, out)
             end
         end
     end
-    table.sort(out, SORT[opts.sort] or SORT.ilvl)
+    table.sort(out, (opts.sort == "name" or opts.sort == "level") and SORT[opts.sort] or Ranked(opts.stat, opts.first))
     return out, #out
+end
+
+-- The armor or weapon types among what this slot offers (before a type is chosen), by name.
+-- Empty when there is nothing to choose between (rings, necks, cloaks).
+function C.TypesFor(slot, opts)
+    local kind, stat, text = opts.kind, opts.stat, opts.text
+    opts.kind, opts.stat, opts.text = nil, nil, nil
+    local list = C.Search(slot, opts, {})
+    opts.kind, opts.stat, opts.text = kind, stat, text
+    local seen, out = {}, {}
+    for _, item in ipairs(list) do
+        -- 400 is "miscellaneous": a held item only in the off hand, otherwise not a type to pick
+        local named = C.TYPE_NAMES[item.sub] and (item.sub ~= 400 or slot == "SecondaryHandSlot")
+        if named and not seen[item.sub] then seen[item.sub] = true; out[#out + 1] = item.sub end
+    end
+    if #out < 2 then return {} end
+    table.sort(out, function(a, b) return C.TYPE_NAMES[a] < C.TYPE_NAMES[b] end)
+    return out
 end
 
 -- ------------------------------------------------------------
@@ -379,7 +475,7 @@ function C.Recipe(id)
     local cached = recipeCache[id]
     if cached ~= nil then return cached or nil end
     local line = (FGT.isForever and DB.foreverRecipes and DB.foreverRecipes[id]) or (DB.recipes and DB.recipes[id])
-    local recipe = false
+    local recipe = false ---@type table|false
     if line then
         local skill, list = line:match("^(%d+)|(.+)$")
         recipe = { skill = PROFESSIONS[tonumber(skill)] or "a profession", reagents = {} }
@@ -395,7 +491,103 @@ function C.Reagents(id)
     return recipe and recipe.reagents
 end
 
--- Bosses the Library names without their instance (Tier 1 and Tier 2 sets).
+-- ------------------------------------------------------------
+-- Enchants
+-- ------------------------------------------------------------
+-- GearData's enchant lines for this client (Forever has its own list): the spell, the enchant id
+-- item links carry, what it fits (item class, inventory-type and subclass masks) and how it is
+-- applied, by Enchanting or by an item (arcanums, armor kits, scopes, shoulder signets).
+local ENCHANT_LINE = "(%d+)|(%d+)|(%d+)|(%d+)|(%d+)|([EI])|(%d+)|([^|\n]*)|([^|\n]*)|([^\n]*)"
+local enchantList, enchantBySpell, enchantFits = nil, nil, {}
+local function Enchants()
+    if enchantList then return enchantList end
+    enchantList, enchantBySpell = {}, {}
+    local text = (FGT.isForever and DB.foreverEnchants) or DB.enchants or ""
+    for spell, effect, class, inv, sub, source, item, name, effectText, cost in text:gmatch(ENCHANT_LINE) do
+        local e = { spell = tonumber(spell), effect = tonumber(effect), class = tonumber(class), invMask = tonumber(inv),
+            subMask = tonumber(sub), enchanting = source == "E", item = tonumber(item), name = name,
+            text = effectText, reagents = {} }
+        e.short = e.enchanting and (name:match("^Enchant [^%-]+ %- (.+)$") or name) or name
+        e.lname = (name .. " " .. effectText):lower()
+        for id, count in cost:gmatch("(%d+):(%d+)") do e.reagents[#e.reagents + 1] = { tonumber(id), tonumber(count) } end
+        enchantList[#enchantList + 1] = e
+        enchantBySpell[e.spell] = e
+    end
+    table.sort(enchantList, function(a, b) if a.short ~= b.short then return a.short < b.short end return a.name < b.name end)
+    return enchantList
+end
+
+-- Can this enchant go on this item? The masks are bit sets: inventory types, item subclasses.
+local function EnchantFits(e, item)
+    local class, sub = math.floor(item.sub / 100), item.sub % 100
+    if e.class ~= class then return false end
+    if e.invMask > 0 and not HasBit(e.invMask, 2 ^ item.inv) then return false end
+    if e.subMask > 0 and not HasBit(e.subMask, 2 ^ sub) then return false end
+    return true
+end
+
+-- Every enchant that fits the item, by name; empty when the item takes none.
+function C.EnchantsFor(item)
+    if not item or not item.sub then return {} end
+    local key = item.inv .. ":" .. item.sub
+    local list = enchantFits[key]
+    if list then return list end
+    list = {}
+    for _, e in ipairs(Enchants()) do
+        if EnchantFits(e, item) then list[#list + 1] = e end
+    end
+    enchantFits[key] = list
+    return list
+end
+function C.CanEnchant(item) return #C.EnchantsFor(item) > 0 end
+function C.Enchant(spell)
+    Enchants()
+    return spell and enchantBySpell and enchantBySpell[spell] or nil
+end
+-- An item link's enchant id back to a plannable enchant for that item (Fill from equipped).
+function C.EnchantByEffect(effect, item)
+    if not (effect and effect > 0 and item) then return nil end
+    for _, e in ipairs(C.EnchantsFor(item)) do
+        if e.effect == effect then return e end
+    end
+end
+function C.EnchantFits(spell, item)
+    local e = C.Enchant(spell)
+    return e ~= nil and item ~= nil and item.sub ~= nil and EnchantFits(e, item)
+end
+-- Enchanting shows the enchant spell's icon; an applied item shows the item's own.
+function C.EnchantIcon(e)
+    local icon
+    if e.item and e.item > 0 then
+        local f = (C_Item and C_Item.GetItemIconByID) or GetItemIcon
+        if f then local ok, value = pcall(f, e.item); icon = ok and value or nil end
+    else
+        local f = (C_Spell and C_Spell.GetSpellTexture) or rawget(_G, "GetSpellTexture") -- Classic Era's global
+        if f then local ok, value = pcall(f, e.spell); icon = ok and value or nil end
+    end
+    return icon or "Interface\\Icons\\Trade_Engraving"
+end
+function C.EnchantSource(e) return e.enchanting and "Enchanting" or "Applied from the item" end
+-- The goal step for an enchant on a planned item.
+function C.EnchantStep(e, item)
+    local effect = (e.text ~= "" and e.text ~= e.short) and (" (" .. e.text .. ")") or ""
+    if e.enchanting then return "Enchant " .. item.name .. " with " .. e.short .. effect end
+    return "Apply " .. e.name .. " to " .. item.name .. effect
+end
+-- Searching enchants: name or effect, like the item search.
+function C.SearchEnchants(item, text, out)
+    out = out or {}
+    for i = #out, 1, -1 do out[i] = nil end
+    local q = text and text:lower():gsub("^%s+", ""):gsub("%s+$", "") or ""
+    for _, e in ipairs(C.EnchantsFor(item)) do
+        if q == "" or e.lname:find(q, 1, true) then out[#out + 1] = e end
+    end
+    return out
+end
+
+-- Bosses named without their instance: the Library's Tier 1 and Tier 2 sets, and drops the
+-- Forever site saw players loot (it knows no creature locations). Forever's new raids (open
+-- 2026-12-09) need their bosses here, hand-checked, and an entrance in FGT.DUNGEONS for the pin.
 local BOSS_PLACE = {}
 for _, boss in ipairs({ "Lucifron", "Magmadar", "Gehennas", "Garr", "Shazzrah", "Baron Geddon", "Sulfuron Harbinger",
     "Golemagg the Incinerator", "Majordomo Executus", "Ragnaros" }) do BOSS_PLACE[boss] = "Molten Core" end
@@ -455,16 +647,93 @@ local function Harvest()
     for id = 23059, 23067 do harvested[id] = Loot("Kel'Thuzad", "Naxxramas") end
 end
 
+-- Sources from warcraftdb (GearSources.lua, tools/sourcedb.py): "id|kind|who|place|detail".
+-- Classic Era's list, and Forever's for the items it has revealed. Looked up one item at a
+-- time; results are kept until Release.
+local texts, imported = {}, {}
+local function Quoted(list)
+    local out = {}
+    for name in list:gmatch("[^;]+") do out[#out + 1] = "'" .. name .. "'" end
+    return table.concat(out, " or ")
+end
+local function Line(key, id)
+    texts[key] = texts[key] or ("\n" .. (FGT[key] or ""))
+    local first = texts[key]:find("\n" .. id .. "|", 1, true)
+    if first then return texts[key]:match("^\n%d+|(%a)|([^|\n]*)|([^|\n]*)|([^|\n]*)", first) end
+end
+local function Parse(kind, who, place, detail)
+    if place == "" then place = nil end
+    if kind == "B" then
+        local boss = who == "several bosses" and "a boss" or who
+        if place then
+            return { step = "Loot %s from " .. boss .. " in " .. place .. (detail ~= "" and (" (" .. detail .. ")") or ""),
+                label = (who == "several bosses" and "Bosses" or who) .. " · " .. place, place = place }
+        end
+        return { step = "Loot %s from " .. boss, label = who }
+    elseif kind == "Q" then
+        local quests = who ~= "" and Quoted(who)
+        return { step = "Complete " .. (quests or "a quest") .. (place and (" in " .. place) or "") .. " for %s",
+            label = "Quest · " .. (place or (quests and not who:find(";", 1, true) and who) or "several quests"),
+            place = place, quest = true }
+    elseif kind == "N" then
+        -- A creature the site cannot place, but a boss we know (BOSS_PLACE), gets its raid.
+        if BOSS_PLACE[who] then
+            local source = Loot(who, BOSS_PLACE[who])
+            source.seen = detail == "beta"
+            return source
+        end
+        return { step = "Loot %s from " .. who, label = "Drop · " .. who, seen = detail == "beta" }
+    elseif kind == "W" then
+        return { step = "Find %s as a world drop", label = "World drop", seen = detail == "beta",
+            advice = "Drops at random from creatures around its level." }
+    elseif kind == "V" then
+        return { step = "Buy %s from " .. (who ~= "" and who or "a vendor") .. (place and (" in " .. place) or ""),
+            label = "Vendor · " .. (place or (who ~= "" and who) or "several vendors"), vendor = who ~= "" and who or nil }
+    elseif kind == "O" and who ~= "" then
+        return { step = "Loot %s from " .. who, label = who }
+    end
+end
+local function Note(source, text)
+    source.advice = (source.advice and (source.advice .. " ") or "") .. text
+    return source
+end
+local function Imported(id)
+    local cached = imported[id]
+    if cached ~= nil then return cached or nil end
+    -- Forever's quests and vendors come first there. Its drops are loot players saw in the beta,
+    -- a creature or two, so a Classic source (usually a world drop) wins over them.
+    local source = FGT.isForever and Parse(Line("GEARSOURCES_FOREVER", id)) or nil
+    local classic = (not source or source.seen) and Parse(Line("GEARSOURCES", id)) or nil
+    if classic then
+        source = classic
+        -- Forever keeps most Classic loot, but not every drop is confirmed there.
+        if FGT.isForever then Note(source, "Classic Era source; Unconfirmed in WoW Forever.") end
+    elseif source and source.seen then
+        Note(source, "Seen by WoW Forever players; Unconfirmed in the game's own data.")
+    end
+    imported[id] = source or false
+    return source
+end
+function C.ReleaseSources() imported, texts = {}, {} end
+
 function C.Source(item)
     if not item then return nil end
     if curated[item.id] then return curated[item.id] end
     if not harvested then Harvest() end
     if harvested[item.id] then return harvested[item.id] end
+    -- A boss or quest beats a recipe (quest rewards the game also lists as made by a spell);
+    -- a recipe beats a world drop or vendor, since its step carries the materials.
+    local found = Imported(item.id)
+    if found and (found.place or found.quest) then return found end
     local recipe = C.Recipe(item.id)
     if recipe then return Craft(recipe.skill) end
-    -- The game's own tables say when an item is a PvP reward.
+    -- The game's own tables say when an item is a PvP reward; the site may name its quartermaster.
     local rank = item.note and item.note:match("^Requires (PvP rank %d+)$")
-    if rank then return { step = "Earn %s at " .. rank, label = rank, pvp = true } end
+    if rank then
+        return { step = "Earn %s at " .. rank, label = rank, pvp = true,
+            advice = found and found.vendor and ("Sold by " .. found.vendor .. ".") or nil }
+    end
+    return found
 end
 
 -- Dungeon and raid names the planner tags itself (the ones the guides do not auto-link).
@@ -517,12 +786,59 @@ function C.Acquisition(item)
     return TagPlaces(text), advice
 end
 
+-- ------------------------------------------------------------
+-- Library goals for items
+-- ------------------------------------------------------------
+-- The goal that rewards an item (Thunderfury, Atiesh, Arcanite Reaper) or the Library set it is a
+-- piece of. Built once from the goals themselves, so new Library goals link on their own.
+local goalIndex
+local function GoalIndex()
+    if goalIndex then return goalIndex end
+    goalIndex = {}
+    local function Add(id, goal, kind)
+        if type(id) ~= "number" then return end
+        local list = goalIndex[id] or {}
+        goalIndex[id] = list
+        list[#list + 1] = { goal = goal, kind = kind }
+    end
+    local function Each(ids, fn)
+        if type(ids) == "table" then for _, id in ipairs(ids) do fn(id) end else fn(ids) end
+    end
+    for _, goal in ipairs(FGT.goals or {}) do
+        if not goal.plannerOwner and (not FGT.LibraryAvailable or FGT.LibraryAvailable(goal)) then
+            local cw = goal.completeWith
+            Each(cw and cw.item, function(id) Add(id, goal, "reward") end)
+            Each(goal.rewardItem, function(id) Add(id, goal, "reward") end)
+            for _, section in ipairs(goal.sections or {}) do
+                for _, piece in ipairs(section.pieces or {}) do
+                    Each(piece.auto and piece.auto.item, function(id) Add(id, goal, "set") end)
+                end
+            end
+        end
+    end
+    return goalIndex
+end
+-- The best Library goal for an item, for a character of `faction`: a reward goal before a set,
+-- a class's own set before its collection. Returns goal, kind ("reward" or "set").
+function C.GoalFor(id, faction)
+    local best, bestScore
+    for _, entry in ipairs(GoalIndex()[id] or {}) do
+        local goal = entry.goal
+        if not goal.faction or not faction or goal.faction == faction then
+            local score = (entry.kind == "reward" and 2 or 0) + (goal.armorParent and 1 or 0)
+            if not best or score > bestScore then best, bestScore = entry, score end
+        end
+    end
+    if best then return best.goal, best.kind end
+end
+function C.ResetGoalIndex() goalIndex = nil end
+
 -- Is this item known to the Forever client? nil on Classic Era.
 function C.ForeverStatus(item)
     if not FGT.isForever then return nil end
     if item.forever >= 2 then return "new" end
     if item.forever == 0 then return "hidden" end
-    return "known"
+    return item.updated and "updated" or "known"
 end
 
 -- ------------------------------------------------------------

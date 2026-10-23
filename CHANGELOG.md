@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Gear Planner on WoW Forever now uses Forever's own item data: items Forever changed show their Forever item level, stats and set, marked Updated in Forever, and items new to Forever show their stats.
+- Gear Planner now shows where most items come from: the boss and dungeon or raid, the quest, the vendor, or World drop. Dungeon and raid sources get a map pin, and their names link to the map in goal steps.
+- My Goals' This character view now shows only that character's gear sets. A gear set step says when another character holds the item, and whether it can be mailed or is soulbound. Another character's set says when its progress was last saved.
+- Gear Planner links items to their Library goals. Legendaries like Thunderfury and Atiesh, and pieces of Library sets, show a gold goal mark; open or add the goal from the item's menu, and the set's step points to it.
+- Added Track on its own to Gear Planner: any planned item can become its own goal in My Goals.
+- Gear sets in My Goals now show the leveling artwork for their character's race and class, say GEAR SET with the character's name, and sit in their own group between favorites and the rest.
+- Added a target level to each Gear Planner set. The picker lists gear you can wear at that level, and lower-level items always stay available.
+- Changed Gear Planner's filters to three clear dropdowns: stat, armor or weapon type, and quality. Each slot starts with its best 25 items, with Show all.
+- Gear Planner now lists every armor type your class can wear, and green items at every level.
+
+- Added enchants to Gear Planner: a smaller square beside each item that can take one, including scopes for ranged weapons. Planned enchants become goal steps that complete when worn, and their materials appear in Materials.
+- Changed Fill from equipped to copy your enchants and to name any items it could not add.
+
 - Added a searchable item database to Gear Planner: every slot lists the items your class can equip, with search by name, set or item ID, and quality and sort filters.
 - Added Add whole set, Fill from equipped, Duplicate and Delete to Gear Planner, and View in Goals once a set is added.
 - Added map pins for dungeon and raid sources in Gear Planner, including Molten Core, Blackwing Lair, Onyxia's Lair and Naxxramas.
