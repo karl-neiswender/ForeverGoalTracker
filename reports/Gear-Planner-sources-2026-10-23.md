@@ -89,6 +89,10 @@ Neither site publishes terms of use (warcraftdb.com has only a privacy policy) a
 files allow everything. This differs from wowclassicdatabase.com, ruled out for its personal-use
 terms. Suggestion: credit warcraftdb in the CurseForge description, or ask them, before 2.16.0.
 
+**Decision (Karl, 2026-10-23):** the terms are fine and allow us to continue; the bundled source
+data is cleared for release. Crediting warcraftdb in the description remains a courtesy, not a
+blocker.
+
 ## Checks
 
 `python3 tools/check.py` passes on both clients. New coverage in `tools/gear-planner-tests.lua`:

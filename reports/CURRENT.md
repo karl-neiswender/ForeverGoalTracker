@@ -34,7 +34,8 @@ its October 21 notes.
   budget table ([sources report](Gear-Planner-sources-2026-10-23.md), 2026-10-23).
 - Sources: hand-checked, Library sets, then imported from classic/forever.warcraftdb.com
   (`tools/sourcedb.py` builds `GearSources.lua`; [sources report](Gear-Planner-sources-2026-10-23.md),
-  Karl's choice 2026-10-23), recipes, PvP rank, else Source unknown. The client has no
+  Karl's choice 2026-10-23; he confirmed its terms allow bundling, so it is cleared for release),
+  recipes, PvP rank, else Source unknown. The client has no
   loot tables; wowclassicdatabase.com and nexus-devs wow-classic-items are not usable.
   Forever's Encounter Journal is empty (probe 2026-10-23),
   so it is not a runtime source; rerun `/goals ejprobe` once on live Forever.
