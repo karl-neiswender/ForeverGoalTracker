@@ -4,17 +4,13 @@ What's coming to Forever Goal Tracker, from small touches to big updates. Nothin
 
 Have an idea or found a bug? Leave a comment on [CurseForge](https://www.curseforge.com/wow/addons/forever-goal-tracker) or open an issue on [GitHub](https://github.com/karl-neiswender/ForeverGoalTracker/issues).
 
-## Next big feature: Gear Planner
+## Next: Gear Planner follow-ups
 
-Build a named target gear set by equipment slot, see where each item comes from and add the set to My Goals. The intended experience includes slot-specific item search, a rotatable character preview and dressing-room artwork. Start by verifying item and source coverage, then build the core planner and expand the preview and search.
+Gear Planner has shipped. Next steps, in no fixed order: ready-made sets for more classes and for the Horde, a Source filter in the picker (boss, quest, vendor, crafted), share a set as a short text string, nested recipe materials, crafting patterns as steps, and Forever sources and items as Warcraft Forever reveals them. Armor kits and other enhancements beyond enchants stay planned once Forever's rules are verified.
 
-The [Gear Planner build plan](reports/Gear-Planner-build-plan.md) records the agreed behavior, phased implementation and open decisions.
+The [Gear Planner build plan](reports/Gear-Planner-build-plan.md) records the agreed behavior and open decisions.
 
-The fixes and refinements below will ship in small patches as they are ready. They do not all need to be finished before Gear Planner.
-
-### Gear Planner follow-up: enchants and enhancements
-
-Plan enchants and other verified item enhancements, such as armor kits, after the core Gear Planner ships. Choose an enhancement from a populated equipment slot, search options compatible with that item, and show the selection with a small icon beside the slot. Include sources, materials and application tracking. Verify which enhancement systems Warcraft Forever supports before including them; embellishments are not confirmed scope.
+The fixes and refinements below will ship in small patches as they are ready.
 
 ## Patch improvements: fixes and clearer guides
 
@@ -62,6 +58,8 @@ Plan enchants and other verified item enhancements, such as armor kits, after th
 The [release planning notes](reports/Release-plan-2026-10-17.md) describe the proposed order, design decisions and review checks. Version numbers are tentative; dates and publication are not committed.
 
 ## Recently shipped
+
+- **2.16.0:** Gear Planner: plan gear sets slot by slot on your character with item search, filters and sources, enchants and scopes, level ranges, links to Library goals, and gear set goals with your character's artwork.
 
 - **2.15.2:** Hide completed goals, direct New & Updated results, simpler item set guides, darker completed cards, clearer war mount guidance and fixes for character filtering and wrapped text.
 

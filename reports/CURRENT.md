@@ -61,6 +61,12 @@ its October 21 notes.
   item stats in `GearData.lua`. Checks pass; native review in Era pending.
 - Library links and Track on its own (2026-10-23, PC, unreleased): see the filters
   report's last section. Checks pass; native review in Era pending.
+- 2.16.0 prep (2026-10-23): TOC, CHANGELOG, What's new (placeholder date "Oct 23, 2026":
+  set the real day), ROADMAP and README are ready; nothing is tagged. Out-of-date reminder
+  (`VersionCheck.lua`, prefix FGTVER, shares the version with guild and group, warns once;
+  Karl confirmed the message in game with a self-whisper). Still open for release: native
+  review of the planner changes, fresh checks on the final commit, performance read,
+  gallery and description (publishing reference, items 10 to 14), Karl's authorization.
 - Next: more presets (Horde Hunter, other classes), leveling greens under 35,
   nested recipe materials, patterns as steps.
 

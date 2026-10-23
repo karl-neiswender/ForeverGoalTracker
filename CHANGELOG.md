@@ -2,41 +2,26 @@
 
 ## Unreleased
 
-- Gear Planner on WoW Forever now uses Forever's own item data: items Forever changed show their Forever item level, stats and set, marked Updated in Forever, and items new to Forever show their stats.
-- Gear Planner now shows where most items come from: the boss and dungeon or raid, the quest, the vendor, or World drop. Dungeon and raid sources get a map pin, and their names link to the map in goal steps.
-- My Goals' This character view now shows only that character's gear sets. A gear set step says when another character holds the item, and whether it can be mailed or is soulbound. Another character's set says when its progress was last saved.
-- Gear Planner links items to their Library goals. Legendaries like Thunderfury and Atiesh, and pieces of Library sets, show a gold goal mark; open or add the goal from the item's menu, and the set's step points to it.
-- Added Track on its own to Gear Planner: any planned item can become its own goal in My Goals.
-- Gear sets in My Goals now show the leveling artwork for their character's race and class, say GEAR SET with the character's name, and sit in their own group between favorites and the rest.
-- Added a target level to each Gear Planner set. The picker lists gear you can wear at that level, and lower-level items always stay available.
-- Changed Gear Planner's filters to three clear dropdowns: stat, armor or weapon type, and quality. Each slot starts with its best 25 items, with Show all.
-- Gear Planner now lists every armor type your class can wear, and green items at every level.
+## 2.16.0
 
-- Added enchants to Gear Planner: a smaller square beside each item that can take one, including scopes for ranged weapons. Planned enchants become goal steps that complete when worn, and their materials appear in Materials.
-- Changed Fill from equipped to copy your enchants and to name any items it could not add.
+- Added Gear Planner: plan a gear set slot by slot on your character, with item search, filters and where each item comes from.
+- Added enchants and scopes to Gear Planner, tracked as goal steps with their materials.
+- Added a level range to each gear set, and gear set goals with your character's leveling artwork.
+- Added Library goal links in Gear Planner: legendaries and sets open or add their goal.
+- Added Start from my current gear, and hints when another character holds a piece of your set.
+- UI improvements and bug fixes.
 
-- Added a searchable item database to Gear Planner: every slot lists the items your class can equip, with search by name, set or item ID, and quality and sort filters.
-- Added Add whole set, Fill from equipped, Duplicate and Delete to Gear Planner, and View in Goals once a set is added.
-- Added map pins for dungeon and raid sources in Gear Planner, including Molten Core, Blackwing Lair, Onyxia's Lair and Naxxramas.
-- Added Edit in Gear Planner to a gear set's goal page.
-- Changed Gear Planner items to show their source, item level and Forever status.
+### Developers' notes
 
-- Added a Hunter pre-raid test build with 16 tracked item slots and acquisition notes. Duplicate rings now require the correct number of owned copies.
+Gear Planner item lists are generated from the game's own client tables for Classic Era 1.15.9 and Warcraft Forever 1.60.1. Where an item comes from is imported from classic.warcraftdb.com and forever.warcraftdb.com; Forever's drops are loot players saw in the beta and remain Unconfirmed. Items Forever has changed show Forever's version, marked Updated in Forever.
 
-- Simplified Gear Planner’s set list and moved Add to Goals beside the name. Added set options for renaming, clearing with Undo, and removing from Goals without losing the set.
+Each set plans for a level range: gear above the set's highest level is left out, lower-level items always stay available, and every armor type your class can wear at that level is listed. Items with no level requirement are planned at the level of the content they come from.
 
-- Tightened Gear Planner’s back view and dwarf male chest, shirt, tabard and leg framing. Necklaces use the full-character view.
+A gear set counts only its own character's items. Items held by another character show where they are, and whether they can be mailed or are soulbound.
 
-- Changed Gear Planner to turn the character around for the Back slot and forward for other slots.
+The addon now says once in chat when a newer version is out. It learns this from guildmates and group members who run the addon, since an addon cannot look anything up online; only the version number is shared, and Settings > Chat and alerts > Version reminders turns it off.
 
-- Refined dwarf male armor framing, switched one-sided previews to the viewer’s left, and softened camera and gear-change transitions.
-
-- Added Add to Goals for planned gear sets. Only added sets appear in My Gear Sets and My Goals, with collection progress specific to their character.
-- Added focused armor views and smoother zoom in Gear Planner, clearer selections, softer popup transitions and quieter empty slots.
-- Fixed equipped-item tooltips covering Gear Planner's Replace and Unequip actions.
-
-- Added an early Gear Planner prototype with character-specific named builds, a head-item picker and a character preview. Full item search and crafting guides are still planned.
-- Expanded Gear Planner with complete Tier 3 sets for every class, slot-specific selection, item names and unique ring placement.
+Known issues: when you plan for another character, the preview may show your character's race instead of theirs. Items Forever has not revealed yet are listed from Classic data and marked Not revealed yet.
 
 ## 2.15.2
 
