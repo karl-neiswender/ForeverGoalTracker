@@ -258,6 +258,7 @@ end
 -- ============================================================
 FGT.SETTING_DEFAULTS = {
     greeting = true,         -- login check-in in chat
+    versionReminder = true,  -- share the version with your guild and group, and say once when a newer one is out
     completeChat = true,     -- "You just completed ..." chat line
     completeBanner = true,   -- goal-complete banner
     screenshot = false,      -- game screenshot when a goal finishes (Karl: off by default)
@@ -11405,6 +11406,8 @@ FGT.SETTINGS = {
           desc = "Save to the game's Screenshots folder" },
         { type = "toggle", key = "stepChat", label = "Step updates in chat",
           desc = "\"3 steps checked off\", boss kills and characters reaching 60" },
+        { type = "toggle", key = "versionReminder", label = "Version reminders",
+          desc = "Say once when a newer version is out. Shares only the version number with your guild and group" },
         { type = "button", label = "Try the goal-complete alerts",
           desc = "Preview your enabled alerts",
           text = "Preview", onClick = function() FGT.TestBanner() end },

@@ -1301,3 +1301,54 @@ do
     F.ShowTab("tracker")
     print("  welcome card: character scene, current gear start, fitting preset")
 end
+
+-- Out-of-date reminder: a higher version heard from another player says so once, nothing else does.
+do
+    local V = F.VersionCheck
+    local D = ForeverGoalTrackerDB
+    local lines, oldPrint = {}, print
+    print = function(...) lines[#lines + 1] = table.concat({ tostring((...)) }, " ") end
+    local oldMeta = C_AddOns and C_AddOns.GetAddOnMetadata
+    C_AddOns = C_AddOns or {}
+    C_AddOns.GetAddOnMetadata = function() return "2.16.0" end
+    V.warned, D.outdatedWarned = nil, nil
+    D.settings = D.settings or {}
+    D.settings.versionReminder = nil
+    assert(V.Number("2.16.0") == 2016000 and V.Number("10.0.1") == 10000001 and V.Number("2.16") == nil
+        and V.Number("2.16.0 beta") == nil and V.Number("x") == nil, "versions compare by number and reject anything else")
+    assert(not V.Receive("OTHER", "9.9.9") and not V.Receive(V.PREFIX, "2.16.0") and not V.Receive(V.PREFIX, "2.15.2")
+        and not V.Receive(V.PREFIX, "garbage") and #lines == 0, "equal, older, unrelated and malformed versions say nothing")
+    assert(V.Receive(V.PREFIX, "2.17.0") and #lines == 1, "a newer version speaks")
+    assert(lines[1]:find("Forever Goal Tracker", 1, true) and lines[1]:find("out of date", 1, true)
+        and lines[1]:find("CurseForge", 1, true) and not lines[1]:find("you have", 1, true), "the message: " .. lines[1])
+    assert(not V.Receive(V.PREFIX, "2.18.0") and #lines == 1, "once per session")
+    V.warned = nil
+    assert(not V.Receive(V.PREFIX, "2.17.0") and #lines == 1 and D.outdatedWarned == "2.17.0", "not again for a version it already named")
+    V.warned = nil
+    assert(V.Receive(V.PREFIX, "2.18.0") and #lines == 2, "a still newer version speaks again")
+    D.settings.versionReminder = false
+    V.warned, D.outdatedWarned = nil, nil
+    assert(not V.Receive(V.PREFIX, "9.0.0") and #lines == 2, "the Settings switch turns it off")
+    D.settings.versionReminder = nil
+    -- sharing: guild and group, throttled, never in combat
+    local sent = {}
+    C_ChatInfo = C_ChatInfo or {}
+    local oldSend = C_ChatInfo.SendAddonMessage
+    C_ChatInfo.SendAddonMessage = function(prefix, text, channel) sent[#sent + 1] = prefix .. ":" .. text .. ":" .. channel end
+    V.sent = {}
+    V.Send("GUILD"); V.Send("GUILD")
+    assert(#sent == 1 and sent[1] == "FGTVER:2.16.0:GUILD", "the version goes to the guild, once within the throttle: " .. tostring(sent[1]))
+    local oldCombat = InCombatLockdown
+    InCombatLockdown = function() return true end
+    V.Send("PARTY")
+    InCombatLockdown = oldCombat
+    assert(#sent == 1, "nothing is sent in combat")
+    D.settings.versionReminder = false
+    V.Send("RAID")
+    assert(#sent == 1, "nothing is sent with reminders off")
+    D.settings.versionReminder = nil
+    C_ChatInfo.SendAddonMessage = oldSend
+    C_AddOns.GetAddOnMetadata = oldMeta
+    print = oldPrint
+    print("  version reminder: newer versions speak once, sharing is throttled and quiet")
+end
