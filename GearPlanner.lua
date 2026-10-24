@@ -677,27 +677,21 @@ SD.onToggle = function() actions:Hide(); charMenu:Hide() end
 local modelArea = CreateFrame("Frame", nil, right)
 modelArea:SetPoint("TOPLEFT", 4, -4); modelArea:SetPoint("BOTTOMRIGHT", -4, 4)
 modelArea:SetClipsChildren(true)
--- Blizzard Classic DressUpFrames.xml assembles a 318 x 383 background.
--- The right column is only 62 wide; equal quarters stretch its artwork.
-local backgroundTiles = {
-    { 0, 0, 256, 255 }, { 256, 0, 62, 255 },
-    { 0, 255, 256, 128 }, { 256, 255, 62, 128 },
-}
+-- One high-resolution racial backdrop; layout restores the original portrait aspect.
 local _, race = UnitRace("player")
 local background = CreateFrame("Frame", nil, modelArea)
-background.race = race
-background:SetAllPoints() -- child frame lets modelArea clip the cropped texture regions
-for i = 1, 4 do
-    local bg = background:CreateTexture(nil, "BACKGROUND")
-    bg:SetTexture("Interface\\DressUpFrame\\DressUpBackground-" .. (race or "Orc") .. i)
-    -- Strictly black and white, like the goal art: no colour from the scenery.
-    if bg.SetDesaturation then bg:SetDesaturation(1) end
-    bg:SetDesaturated(true); bg:SetVertexColor(1, 1, 1)
-    bg:SetAlpha(0.18)
-    bg:SetPoint("TOPLEFT", modelArea, "TOPLEFT", 0, 0)
-    -- Layout is set on resize so the quadrants remain a continuous background.
-    modelArea["bg" .. i] = { texture = bg, rect = backgroundTiles[i] }
+background:SetAllPoints()
+background.texture = background:CreateTexture(nil, "BACKGROUND")
+background.texture:SetAlpha(0.18)
+background.races = { Human = true, Dwarf = true, Gnome = true, NightElf = true,
+    Orc = true, Tauren = true, Troll = true, Scourge = true }
+function background:SetRace(raceFile)
+    raceFile = self.races[raceFile] and raceFile or "Orc"
+    if self.race == raceFile then return end
+    self.race = raceFile
+    self.texture:SetTexture("Interface\\AddOns\\ForeverGoalTracker\\Media\\dressing-room\\" .. raceFile)
 end
+background:SetRace(race)
 local model = CreateFrame("DressUpModel", nil, modelArea)
 model:SetFrameLevel(background:GetFrameLevel() + 1)
 if model.SetAutoDress then model:SetAutoDress(false) end
@@ -1022,16 +1016,12 @@ local function ShadeBackground(w, h)
 end
 local function LayoutPreview(self, w, h)
     if w <= 0 or h <= 0 then return end
-    -- One uniform scale for every tile; crop the assembled picture as a unit.
+    -- Cover the panel without stretching the portrait composition.
     local scale = math.max(w / 318, h / 383)
     local x, y = (w - 318 * scale) / 2, (h - 383 * scale) / 2
-    for i = 1, 4 do
-        local b = self["bg" .. i]
-        local r = b.rect
-        b.texture:ClearAllPoints()
-        b.texture:SetPoint("TOPLEFT", self, "TOPLEFT", x + r[1] * scale, -y - r[2] * scale)
-        b.texture:SetSize(r[3] * scale, r[4] * scale)
-    end
+    background.texture:ClearAllPoints()
+    background.texture:SetPoint("TOPLEFT", self, "TOPLEFT", x, -y)
+    background.texture:SetSize(318 * scale, 383 * scale)
     -- Draw across the full panel: a narrow model frame slices enlarged geometry.
     -- Compensate camera distance for its wider aspect instead of clipping the model.
     cameraAspect = math.max(1, (model.frozenW or w) / h / 0.85)
@@ -1541,10 +1531,7 @@ local function Choose(build)
         if not who.me and model.SetCustomRace and RACE_IDS[who.race or ""] then
             pcall(model.SetCustomRace, model, RACE_IDS[who.race], who.sex == 3 and 1 or 0)
         end
-        if background.race ~= who.race and who.race then
-            background.race = who.race
-            for i = 1, 4 do modelArea["bg" .. i].texture:SetTexture("Interface\\DressUpFrame\\DressUpBackground-" .. who.race .. i) end
-        end
+        background:SetRace(who.race)
         model:SetFacing(facing); Dress()
     else
         Dress(true)
@@ -2727,10 +2714,7 @@ function ES.Scene()
         end
         model:Undress() -- another character's gear is not known to the model
     end
-    if background.race ~= who.race and who.race then
-        background.race = who.race
-        for i = 1, 4 do modelArea["bg" .. i].texture:SetTexture("Interface\\DressUpFrame\\DressUpBackground-" .. who.race .. i) end
-    end
+    background:SetRace(who.race)
     appearance:SetScript("OnUpdate", nil); appearanceAlpha = 1; model:SetAlpha(1)
     model:SetFacing(facing)
     -- the welcome opens close in on the character with the scenery not yet there (FadeIn brings both)
@@ -3048,7 +3032,7 @@ FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")
     picker = picker, results = resultRows, unequip = unequip, search = search, filters = { stat = FL.stat,
         kind = FL.kind, quality = FL.quality, revealed = FL.revealed, showAll = FL.showAll, popup = FL.popup, rows = FL.rows },
     list = pickerList, found = function() return found, foundCount end,
-    modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons, status = status, level = LV.box, minLevel = LV.min,
+    modelArea = modelArea, background = background, model = model, clickAway = clickAway, slots = slotButtons, status = status, level = LV.box, minLevel = LV.min,
     goalMenu = LG.menuBtn, libraryHeader = LG.header, welcome = ES,
     drawer = SD, slotList = slotList, switch = switch, switchMenu = switchMenu, subline = subline, band = band,
     newSet = newSet, newWorn = newWorn, usePreset = usePreset, removeAll = removeAll, deleteAll = deleteAll,

@@ -89,16 +89,27 @@ print("  per-character named autosave, stable IDs, item replacement, open picker
 -- Wide and tall windows preserve background proportions without shrinking the model drawing area.
 T.model.SetSize = function() error("resizing must not reintroduce an interior model clipping frame") end
 for _, size in ipairs({ {800, 400}, {400, 650} }) do
-    local tiles = {}
-    for i = 1, 4 do
-        local index = i
-        T.modelArea["bg" .. i].texture.SetSize = function(_, w, h) tiles[index] = {w, h} end
-    end
+    local width, height
+    T.background.texture.SetSize = function(_, w, h) width, height = w, h end
     T.modelArea:GetScript("OnSizeChanged")(T.modelArea, size[1], size[2])
-    assert(math.abs(tiles[1][1] / tiles[1][2] - 256/255) < 0.0001, "background keeps native aspect")
-    assert(math.abs(tiles[2][1] / tiles[1][1] - 62/256) < 0.0001, "right background strip is not stretched")
+    assert(math.abs(width / height - 318/383) < 0.0001, "background keeps portrait aspect")
+    assert(width >= size[1] and height >= size[2], "background covers wide and tall panels")
 end
 T.model.SetSize = nil
+T.background.texture.SetSize = nil
+do
+    local selected
+    T.background.race = nil
+    T.background.texture.SetTexture = function(_, path) selected = path end
+    for _, raceFile in ipairs({"Human", "Dwarf", "Gnome", "NightElf", "Orc", "Tauren", "Troll", "Scourge"}) do
+        T.background:SetRace(raceFile)
+        assert(selected == "Interface\\AddOns\\ForeverGoalTracker\\Media\\dressing-room\\" .. raceFile,
+            "race selects its installed backdrop")
+    end
+    T.background:SetRace("UnknownRace")
+    assert(T.background.race == "Orc", "unknown race has a supported fallback")
+    T.background.texture.SetTexture = nil
+end
 print("  wide/tall preview keeps native background proportions and full-panel model drawing")
 -- Wheel zoom uses the same safe portrait limit as head focus.
 local portraitZoom
