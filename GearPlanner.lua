@@ -209,8 +209,11 @@ local function Hover(button, on)
     if not wash then
         wash = CreateFrame("Frame", nil, button)
         wash:SetAllPoints(button)
+        -- inside the etched border, so the chiseled corners stay clean
+        local inset = (button.etchInset or 3) + 1
         local texture = wash:CreateTexture(nil, "BACKGROUND")
-        texture:SetAllPoints(); texture:SetColorTexture(0.80, 0.62, 0.16, 0.13)
+        texture:SetPoint("TOPLEFT", inset, -inset); texture:SetPoint("BOTTOMRIGHT", -inset, inset)
+        texture:SetColorTexture(0.80, 0.62, 0.16, 0.13)
         wash:SetAlpha(0); button.hoverWash = wash
         button:HookScript("OnHide", function()
             wash:SetScript("OnUpdate", nil); wash:SetAlpha(0)
@@ -218,19 +221,34 @@ local function Hover(button, on)
     end
     local start, target, elapsed = wash:GetAlpha(), on and 1 or 0, 0
     wash:SetScript("OnUpdate", nil)
-    if FGT.Setting("celebrations") == "off" then wash:SetAlpha(target); return end
+    if FGT.Setting("celebrations") == "off" then wash:SetAlpha(target); if button.EdgeAt then button:EdgeAt(target) end; return end
     wash:SetScript("OnUpdate", function(self, dt)
         elapsed = elapsed + dt
         local t = math.min(1, elapsed / 0.12)
         self:SetAlpha(start + (target - start) * t)
+        if button.EdgeAt then button:EdgeAt(self:GetAlpha()) end
         if t == 1 then self:SetScript("OnUpdate", nil) end
     end)
 end
 -- One place decides how a button looks, so hover, selection and quality never fight.
+-- The border and the inside warm up together: the fill stays put and the gold wash fades in over it
+-- (Hover), while the border colour follows the same fade (EdgeAt), so neither snaps ahead of the other.
 local function PaintButton(b)
-    b:SetEtch(b.chosen and styles.rowSel or (b.hovered and styles.btnHover or styles.button))
+    b:SetEtch(b.chosen and styles.rowSel or styles.button)
     local q = b.quality and QUALITY[b.quality]
-    if q and b.SetBackdropBorderColor then b:SetBackdropBorderColor(q[1], q[2], q[3], b.chosen and 1 or 0.85) end
+    if q and b.SetBackdropBorderColor then b:SetBackdropBorderColor(q[1], q[2], q[3], b.chosen and 1 or 0.85)
+    elseif not b.chosen and b.SetBackdropBorderColor then
+        if not b.EdgeAt then
+            function b:EdgeAt(t)
+                local from, to = styles.button.edge, styles.btnHover.edge
+                if self.chosen or (self.quality and QUALITY[self.quality]) then return end
+                self:SetBackdropBorderColor(from[1] + (to[1] - from[1]) * t, from[2] + (to[2] - from[2]) * t,
+                    from[3] + (to[3] - from[3]) * t, (from[4] or 1) + ((to[4] or 1) - (from[4] or 1)) * t)
+            end
+        end
+        local wash = b.hoverWash
+        b:EdgeAt(wash and wash:GetAlpha() or (b.hovered and 1 or 0))
+    end
 end
 local function Button(parent, text, width, height, size)
     local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
@@ -281,6 +299,18 @@ local left = CreateFrame("Frame", nil, P, "BackdropTemplate")
 left:SetPoint("TOPLEFT", U.list, "TOPLEFT")
 left:SetPoint("BOTTOMLEFT", U.list, "BOTTOMLEFT")
 left:SetWidth(FGT.trackerTab:GetWidth() + FGT.libraryTab:GetWidth() + 56)
+-- Small windows: the set list slims down so the character gets the room.
+left.natural = left:GetWidth()
+function left.Fit()
+    local main = U.main:GetWidth() or 0
+    local width = main > 0 and math.max(210, math.min(left.natural, main * 0.22)) or left.natural
+    if math.abs(width - left:GetWidth()) < 0.5 then return end
+    left:SetWidth(width)
+    if left.empty then left.empty:SetWidth(width - 32) end
+    for _, row in ipairs(left.rows or {}) do
+        row:SetWidth(math.max(120, width - 28)); row.text:SetWidth(math.max(100, width - 48))
+    end
+end
 U.etch(left, styles.panel)
 local right = CreateFrame("Frame", nil, P, "BackdropTemplate")
 right:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
@@ -302,11 +332,12 @@ local new = Button(left, "+ New", 68, 24); new:SetPoint("TOPRIGHT", -14, -14)
 local list = U.scroll(left, 0, 0, 0, 0)
 -- Use an independent clipped viewport; no dependency on the guide layout.
 list.scroll:ClearAllPoints(); list.scroll:SetPoint("TOPLEFT", 12, -76)
-list.scroll:SetPoint("BOTTOMRIGHT", -20, 16)
+list.scroll:SetPoint("BOTTOMRIGHT", -12, 16) -- (the rows end at -14, level with + New)
 local listEmpty = Label(left, "No sets yet.", 11, 16, -84)
-listEmpty:SetWidth(left:GetWidth() - 32); listEmpty:SetJustifyH("LEFT")
+listEmpty:SetWidth(left:GetWidth() - 32); listEmpty:SetJustifyH("LEFT"); left.empty = listEmpty
 listEmpty:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
 local rows, selected, draft, changing = {}, nil, nil, false
+left.rows = rows
 local ES -- the first-visit welcome card (built further down)
 local draftOwner
 local editingName = false
@@ -623,6 +654,7 @@ end
 model:SetScript("OnMouseDown", function(_, button)
     if button == "LeftButton" then
         turn:SetScript("OnUpdate", nil)
+        if camera.onUse then camera.onUse() end
         dragX = GetCursorPosition(); model:SetScript("OnUpdate", Rotate)
     end
 end)
@@ -647,6 +679,7 @@ function camera.Glide(_, dt)
     end
 end
 model:SetScript("OnMouseWheel", function(_, delta)
+    if camera.onUse then camera.onUse() end
     targetZoom = math.max(0, math.min(MAX_ZOOM, targetZoom + delta * 0.1))
     if FGT.Setting("celebrations") == "off" then
         camera:SetScript("OnUpdate", nil); offsetY, offsetZ = targetY, targetZ; ApplyZoom(targetZoom); return
@@ -857,6 +890,7 @@ local function LayoutSlots()
     local available = math.max(1, right:GetHeight() - 152)
     local size = math.min(44, available / 8 - 4)
     size = math.max(20, size)
+    if controls.hint then controls.hint:ClearAllPoints(); controls.hint:SetPoint("BOTTOM", right, "BOTTOM", 0, 18 + size + 12) end
     -- The bottom row has three to five cells: ammo only for classes that shoot, a quiver only for Hunters.
     local class = Who().class
     local ammo, quiver = Cat.UsesAmmo(class), Cat.UsesQuiver(class)
@@ -905,13 +939,24 @@ function textVeil.Place()
     bottom:SetHeight(math.min(18 + size + 34, h * 0.25)) -- the weapon row and its hint
 end
 right:HookScript("OnSizeChanged", function(self)
+    left.Fit()
     LayoutSlots()
     -- 64: the level label and box; the Library goal link takes its own room
     if LG.PaintHeader then LG.PaintHeader() else status:SetWidth(math.max(80, (self:GetWidth() or 0) - 48 - LV.Width())) end
 end)
 local head = slotButtons.HeadSlot
 local hint = U.font(controls, 10)
-hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", 0, 76)
+hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", right, "BOTTOM", 0, 76)
+-- One line of stage help above the weapon row, clear of the character: the next step while the set
+-- is empty, otherwise how to turn and zoom, until the first drag or scroll.
+controls.hint = hint
+function hint.Paint(prompt)
+    hint.prompt = prompt
+    if prompt then hint:SetText("Choose a slot to start building your set.")
+    else hint:SetText("Drag to rotate · Scroll to zoom") end
+    hint:SetShown(prompt or not camera.used)
+end
+function camera.onUse() camera.used = true; hint:SetShown(hint.prompt or false) end
 -- helper text, muted like the goal pages' hints so it never competes with the character
 hint:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
 
@@ -1691,8 +1736,9 @@ Refresh = function()
                 row.state = U.font(row, 9); row.state:SetPoint("TOPLEFT", 10, -28)
             end
             row:ClearAllPoints(); row:SetPoint("TOPLEFT", 2, -(i - 1) * 54)
-            row:SetWidth(math.max(120, left:GetWidth() - 40))
-            row.text:SetWidth(math.max(100, left:GetWidth() - 60))
+            -- as wide as the + New button above, to its right edge
+            row:SetWidth(math.max(120, left:GetWidth() - 28))
+            row.text:SetWidth(math.max(100, left:GetWidth() - 48))
             row.text:SetText(build.name ~= "" and build.name or "Name your set")
             local done, total = GoalProgressText(build)
             row.state:SetText(done and ("In My Goals · " .. done .. "/" .. total) or "Draft")
@@ -1721,11 +1767,12 @@ Refresh = function()
         if tracked then
             status:SetText("In My Goals · " .. (done or 0) .. " of " .. (total or 0) .. " collected" .. (summary and (" · " .. summary) or ""))
         elseif not summary then
-            status:SetText("Choose a slot to start building your set.")
+            status:SetText("")
         else
             status:SetText((selected.name ~= "" and "Draft · Not in Goals" or "Name your set before adding it.") .. " · " .. summary)
         end
     end
+    if hint.Paint then hint.Paint(selected ~= nil and not tracked and not Summary(selected)) end
     add:SetShown(selected ~= nil and not tracked)
     viewGoal:SetShown(tracked and true or false)
     local canAdd = selected ~= nil and next(selected.slots) ~= nil
@@ -1975,39 +2022,40 @@ function ES.Scene()
     end
     appearance:SetScript("OnUpdate", nil); appearanceAlpha = 1; model:SetAlpha(1)
     model:SetFacing(facing)
+    -- the welcome opens close in on the character with the scenery not yet there (FadeIn brings both)
+    camera:SetScript("OnUpdate", nil)
+    offsetY, offsetZ, targetZoom, targetY, targetZ = 0, 0, MAX_ZOOM, 0, 0
+    ApplyZoom(MAX_ZOOM); background:SetAlpha(0)
     LayoutPreview(modelArea, modelArea:GetWidth(), modelArea:GetHeight())
 end
--- Opening the first set from the welcome brings the planner to life: the card fades out, then the
--- slot squares fade in one after another (left column top to bottom, the right column, the weapon
--- row), each with its enchant square, and the set's header with them. Under a second; instant
--- with animations off.
+-- Opening the first set from the welcome brings the planner to life, all on one clock: the card
+-- fades out while the camera pulls back to the resting view, the scenery fades in, and the slot
+-- squares (with their enchant squares) and the set's header fade in together. Instant with
+-- animations off.
+ES.DURATION = 0.9
 ES.driver = CreateFrame("Frame", nil, right)
 function ES.FadeIn()
     local order = {}
     for _, spec in ipairs(slots) do order[#order + 1] = slotButtons[spec[1]] end -- (hidden ammo or quiver: harmless)
-    local function Set(b, a) b:SetAlpha(a); b.enchant:SetAlpha(a) end
+    local function Set(a)
+        for _, b in ipairs(order) do b:SetAlpha(a); b.enchant:SetAlpha(a) end
+        header:SetAlpha(a); background:SetAlpha(a)
+    end
+    MoveCamera(REST_ZOOM, 0, 0, ES.DURATION)
     if FGT.Setting("celebrations") == "off" then
-        for _, b in ipairs(order) do Set(b, 1) end
-        header:SetAlpha(1); ES.card:Hide(); ES.card:SetAlpha(1)
+        Set(1); ES.card:Hide(); ES.card:SetAlpha(1)
         return
     end
-    for _, b in ipairs(order) do Set(b, 0) end
-    header:SetAlpha(0)
+    Set(0)
     ES.card:Show(); ES.card:SetAlpha(1)
-    local elapsed, OUT, STEP, EACH = 0, 0.18, 0.02, 0.3 -- about 0.8 s in all
+    local elapsed, OUT = 0, 0.3
     ES.driver:SetScript("OnUpdate", function(self, dt)
         elapsed = elapsed + dt
         ES.card:SetAlpha(1 - Ease(math.min(1, elapsed / OUT)))
         if elapsed >= OUT then ES.card:Hide() end
-        header:SetAlpha(Ease(math.min(1, math.max(0, (elapsed - OUT * 0.5) / EACH))))
-        local done = elapsed >= OUT
-        for i, b in ipairs(order) do
-            local t = math.min(1, math.max(0, (elapsed - OUT * 0.6 - (i - 1) * STEP) / EACH))
-            Set(b, Ease(t))
-            if t < 1 then done = false end
-        end
-        if done then
-            header:SetAlpha(1); ES.card:SetAlpha(1)
+        Set(Ease(math.min(1, elapsed / ES.DURATION)))
+        if elapsed >= ES.DURATION then
+            Set(1); ES.card:SetAlpha(1)
             self:SetScript("OnUpdate", nil)
         end
     end)
@@ -2017,6 +2065,7 @@ function ES.Paint()
     if welcome then
         ES.driver:SetScript("OnUpdate", nil); header:SetAlpha(1)
         ES.card:SetAlpha(1); ES.card:Show()
+        if ES.state == nil then background:SetAlpha(0) end
         ES.Layout()
         if ES.state ~= Who().key then ES.state = Who().key; ES.Scene() end
     elseif ES.state then
@@ -2024,6 +2073,7 @@ function ES.Paint()
         ES.FadeIn()
     elseif not ES.driver:GetScript("OnUpdate") then
         ES.card:Hide() -- (a refresh during the fade leaves it running)
+        background:SetAlpha(1)
     end
 end
 local function RenameSet()
@@ -2122,9 +2172,23 @@ name:SetScript("OnEditFocusLost", function()
     end
     Refresh()
 end)
-name:SetScript("OnTextChanged", function() if not changing then Save(); Refresh() end end)
+-- The first letter turns the draft into a saved set and redraws the planner; the box must keep
+-- the cursor through that, so you can finish typing the name.
+name:SetScript("OnTextChanged", function()
+    if changing then return end
+    local typing = name:HasFocus()
+    Save(); Refresh()
+    if typing and not name:HasFocus() then
+        editingName = true; Refresh(); name:SetFocus()
+    end
+end)
 name:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
 name:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+name.hint = U.font(name, 11); name.hint:SetPoint("LEFT", 8, 0)
+name.hint:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3]); name.hint:SetText("Name your set")
+function name.PaintHint() name.hint:SetShown((name:GetText() or "") == "" and not name:HasFocus()) end
+name:HookScript("OnTextChanged", name.PaintHint); name:HookScript("OnEditFocusGained", name.PaintHint)
+name:HookScript("OnEditFocusLost", name.PaintHint); name:HookScript("OnShow", name.PaintHint)
 name:HookScript("OnEditFocusGained", function()
     name:SetBackdropBorderColor(colors.GOLD2[1], colors.GOLD2[2], colors.GOLD2[3], 1)
 end)

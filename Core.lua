@@ -2070,6 +2070,7 @@ end
 local function Etch(frame, style, edgeSize)
     edgeSize = edgeSize or 12
     local inset = math.floor(edgeSize / 4)
+    frame.etchInset = inset
     frame:SetBackdrop({ edgeFile = ETCH_EDGE, edgeSize = edgeSize,
         insets = { left = inset, right = inset, top = inset, bottom = inset } })
 
