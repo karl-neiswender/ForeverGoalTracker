@@ -3110,6 +3110,41 @@ function FGT.CreateHunterPreRaidBuild()
     FGT.RefreshPlannerGoals(goal); FGT.ShowTab("gear"); Choose(build)
     return build, goal
 end
+-- The gallery's Gear Planner shot (demo scene 13, see Core.lua): a pretend roster character with a
+-- ready-made set open, on the stage. Nothing of it is kept: the character and the set are removed
+-- when the demo ends or another scene begins, so the player's own sets and roster are never touched.
+--   spec = { key, name, class, race, faction, level, sex, preset (a Cat.PRESETS id), totals }
+function FGT.GearPlannerDemo(spec)
+    local db = ForeverGoalTrackerDB
+    local preset = db and Cat.PRESETS[spec.preset]
+    if not preset then return false end
+    FGT.GearPlannerDemoOff()
+    db.characters = db.characters or {}
+    db.characters[spec.key] = { name = spec.name, class = spec.class, race = spec.race, faction = spec.faction,
+        level = spec.level, sex = spec.sex, lastSeen = time() }
+    FGT.demoPlannerKey = spec.key
+    PlanFor(spec.key)
+    local store = Store()
+    local build = { id = 1, name = preset.name, slots = {}, preset = spec.preset, level = spec.level or 60 }
+    for slot, id in pairs(preset.slots) do build.slots[slot] = id end
+    store.builds, store.nextId, store.selected = { build }, 2, 1
+    FGT.ShowTab("gear")
+    if P:IsShown() then Choose(build) end
+    band.SetOpen(spec.totals and true or false)
+    return true
+end
+-- Puts the player's own planner back and removes the pretend character and its set.
+function FGT.GearPlannerDemoOff()
+    local key = FGT.demoPlannerKey
+    if not key then return end
+    FGT.demoPlannerKey = nil
+    PlanFor(nil)
+    local db = ForeverGoalTrackerDB
+    if db.characters then db.characters[key] = nil end
+    local root = db.gearPlanner
+    if root and root.characters then root.characters[key] = nil end
+    band.SetOpen(false)
+end
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
     name = name, setTitle = setTitle, editName = editName, add = add, viewGoal = viewGoal, options = options, actions = actions,

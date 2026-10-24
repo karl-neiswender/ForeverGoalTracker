@@ -6,6 +6,9 @@
 # "updates" it by deleting the folder's contents. On 2026-10-23 a directory junction made that
 # delete the checkout's own Media and Fonts (restored from Git). A copy can only lose itself.
 #
+# The copy also drops the TOC's X-Curse-Project-ID line, so the app has nothing to recognise: the
+# checkout keeps it (the release packager needs it), the game does not read it.
+#
 # Mirrors the .pkgmeta ignore list (development files, artwork originals, unused fonts).
 export MSYS_NO_PATHCONV=1
 SRC="$(cd "$(dirname "$0")/.." && pwd -W | sed 's#/#\\#g')"
@@ -25,5 +28,6 @@ robocopy "$SRC" "$DST" /MIR /NFL /NDL /NJH /NP /R:1 /W:1 \
 code=$?
 # robocopy: 0-7 are success (8 and up are failures)
 if [ "$code" -ge 8 ]; then echo "robocopy failed ($code)"; exit "$code"; fi
+sed -i '/^## X-Curse-Project-ID/d' "$(cygpath -u "$DST")/ForeverGoalTracker.toc"
 grep -m1 "## Version" "$DST\\ForeverGoalTracker.toc"
 echo "Era copy updated from $SRC"

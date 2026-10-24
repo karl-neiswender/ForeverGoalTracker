@@ -13483,6 +13483,7 @@ local SAVED = { "active", "activeParts", "progress", "favorites", "goalsDone", "
 
 -- scene extras that live outside the saved data: undo them between scenes
 local function ClearExtras()
+    if FGT.GearPlannerDemoOff then FGT.GearPlannerDemoOff() end -- the planner scene's pretend character
     if FGT.demoLock then FGT.lockouts[FGT.demoLock] = nil; FGT.demoLock = nil end
     FGT.demoFind = nil
     FGT.demoRail = nil -- the goals list unfolds again (or goes back to the player's own choice)
@@ -13629,6 +13630,11 @@ local SCENES = {
             setup = function(DB, Flat)
                 Flat("mount_dreadsteed", 4 / 13)
             end },
+    -- the Gear Planner (2.16.0): a Dwarf Hunter at level 60 with the pre-raid best in slot set, on the dwarf's
+    -- snowy backdrop, the Set totals open. The character and set are pretend (GearPlannerDemo) and go away after.
+    [13] = { tab = "gear",
+            planner = { key = "Demo Dwarf Hunter-Demo", name = "Thurgrim", class = "HUNTER", race = "Dwarf",
+                faction = "Alliance", level = 60, sex = 2, preset = "hunter_preraid_wowhead", totals = true } },
 }
 
 -- /goals shots: every gallery screenshot in one go (Karl). Black photo
@@ -13640,21 +13646,30 @@ local SCENES = {
 -- The list is in upload order (Karl, 2026-10-14): the hero, the banner effects (Wolfsbane) early,
 -- the guide with the goals list folded (Corrupted Ashbringer), then the features.
 -- tools/shots.py names the files in this same order.
+-- `forever = true`: the shot is about Forever-only content (Wolfsbane, the NEW and UPDATED labels,
+-- Embrace of the Viper); `/goals shots era` leaves those out, so the Forever ones are kept as they are
+-- when the rest are retaken on Classic Era (Karl, 2026-10-24). `wait` is the seconds before the shot
+-- (the Gear Planner needs time for its model, its items and the snow to settle).
 FGT.SHOTS = {
     { scene = 1, file = "01-my-goals" },
-    { scene = 11, file = "02-wolfsbane" },
+    { scene = 11, file = "02-wolfsbane", forever = true },
     { scene = 12, file = "03-map-view" },
     { scene = 4, file = "04-links-and-tips" },
     { scene = 9, file = "05-materials" },
     { scene = 10, file = "06-library-filters" },
-    { scene = 2, file = "07-new-and-updated" },
+    { scene = 2, file = "07-new-and-updated", forever = true },
     { scene = 3, file = "08-epic-mounts" },
-    { scene = 8, file = "09-find-your-next-goal" },
+    { scene = 8, file = "09-find-your-next-goal", forever = true },
     { scene = 5, file = "10-welcome" },
     { scene = 6, file = "11-suggestions" },
     { scene = 1, settings = true, file = "12-settings" },
+    { scene = 13, file = "13-gear-planner", wait = 12 },
 }
-function FGT.TakeShots()
+function FGT.TakeShots(era)
+    local shots = {}
+    for _, s in ipairs(FGT.SHOTS) do
+        if not (era and s.forever) then shots[#shots + 1] = s end
+    end
     if FGT.shooting then print(TAG .. "already taking screenshots.") return end
     if not Screenshot then print(TAG .. "this client can't take screenshots from an addon.") return end
     local getCVar = (C_CVar and C_CVar.GetCVar) or GetCVar
@@ -13663,7 +13678,7 @@ function FGT.TakeShots()
     if setCVar then pcall(setCVar, "screenshotFormat", "tga"); pcall(setCVar, "screenshotQuality", "10") end
     FGT.shooting = true
     SlashCmdList["FOREVERGOALTRACKER"]("photo black")
-    print(TAG .. "taking " .. #FGT.SHOTS .. " screenshots. Keep your mouse off the window.")
+    print(TAG .. "taking " .. #shots .. " screenshots" .. (era and " (Classic Era ones only)" or "") .. ". Keep your mouse off the window.")
     local function Finish(stopped)
         FGT.shooting = nil
         if FGT.CloseSettings then FGT.CloseSettings() end
@@ -13674,17 +13689,17 @@ function FGT.TakeShots()
             if saved[2] then pcall(setCVar, "screenshotQuality", saved[2]) end
         end
         print(TAG .. (stopped and "screenshots stopped (the window closed)." or
-            ("done: " .. #FGT.SHOTS .. " screenshots in the game's Screenshots folder. Tell Claude to process the shots.")))
+            ("done: " .. #shots .. " screenshots in the game's Screenshots folder. Tell Claude to process the shots" .. (era and " (era)." or "."))))
     end
     local function Step(i)
         if not main:IsShown() then Finish(true) return end
-        local shot = FGT.SHOTS[i]
+        local shot = shots[i]
         if not shot then Finish() return end
         if FGT.CloseSettings then FGT.CloseSettings() end
         FGT.Demo(tostring(shot.scene))
         if shot.settings and FGT.OpenSettings then FGT.OpenSettings() end
         -- let tabs, fades and the wizard settle, then shoot
-        C_Timer.After(i == 1 and 3 or 2.2, function()
+        C_Timer.After(shot.wait or (i == 1 and 3 or 2.2), function()
             if not main:IsShown() then Finish(true) return end
             -- no stray tooltip (the mouse resting on a character in the world)
             GameTooltip:Hide()
@@ -13752,6 +13767,7 @@ function FGT.Demo(arg)
         if scene.libSort then LF.sort = scene.libSort; LF.sortDrop:SetValue(scene.libSort) end
     end
     if FGT.ShowTab then FGT.ShowTab(scene.tab) end
+    if scene.planner and FGT.GearPlannerDemo then FGT.GearPlannerDemo(scene.planner) end
     FGT.quietCelebrate = nil
     Redraw()
     -- a scene can fold the goals list to its icon rail (the gallery's Corrupted Ashbringer shot)
@@ -13988,8 +14004,9 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         FGT.OpenSettings()
         return
     end
-    if msg == "shots" then
-        FGT.TakeShots()
+    local shotsArg = msg:match("^shots%s*(%w*)$")
+    if shotsArg then
+        FGT.TakeShots(shotsArg == "era")
         return
     end
     local demo = msg:match("^demo%s*(%w*)$")
