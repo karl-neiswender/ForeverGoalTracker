@@ -82,6 +82,8 @@ its October 21 notes.
   review in Era pending; Ketho/LuaLS not rerun. Karl: build and test it in Era before 2.16.0.
 - Next: more presets (Horde Hunter, other classes), leveling greens under 35,
   nested recipe materials, patterns as steps.
+  Karl's weekend idea list, checked against what has shipped, with a suggested order before November 4:
+  [backlog](Backlog-brainstorm-2026-10-24.md).
 
 ## Current invariants and open work
 
