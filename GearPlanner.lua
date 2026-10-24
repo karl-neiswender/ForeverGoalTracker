@@ -841,6 +841,13 @@ function VIEW.Signature()
     for _, id in ipairs({ 1, 15, 16, 17, 18 }) do s = s .. (VIEW.Skip(id) and "0" or "1") end
     return s
 end
+-- The sheathe key (the game's own, Z by default) puts the character's weapons away on the back or
+-- hips, as in game. Kept across sessions in the planner's preferences, and reapplied after every
+-- repaint, since a new set or character reloads the model.
+local function Sheathed() return ForeverGoalTrackerDB and Prefs() and Prefs().sheathed or false end
+local function ApplySheath()
+    if model.SetSheathed then pcall(model.SetSheathed, model, Sheathed() and true or false) end
+end
 -- Dress the model with the planned items. Undress first, so removed items disappear.
 local function PaintGear()
     if not model.TryOn then return end
@@ -860,6 +867,7 @@ local function PaintGear()
             end
         end
     end
+    ApplySheath()
 end
 local appearance = CreateFrame("Frame", nil, P)
 local appearanceAlpha, modelOwner = 1, nil
@@ -883,9 +891,30 @@ local function Dress(animate)
 end
 model:SetScript("OnModelLoaded", function() PaintGear(); ApplyZoom(zoom); model:SetFacing(facing) end)
 -- Items the client had not loaded arrive later; repaint once for a burst of them.
-P:HookScript("OnShow", function() P:RegisterEvent("GET_ITEM_INFO_RECEIVED") end)
-P:HookScript("OnHide", function() P:UnregisterEvent("GET_ITEM_INFO_RECEIVED") end)
-P:SetScript("OnEvent", function(_, _, itemId, ok)
+-- While the planner is open, the game's sheathe key toggles the character's weapons. An override
+-- binding is the way to catch one key without taking the keyboard: typing in a text box is
+-- unaffected (the game fires no bindings then) and every other key keeps its meaning. The
+-- window's own owner frame is not protected, so this is allowed in combat too.
+local sheathButton = CreateFrame("Button", "FGTGearPlannerSheath", P)
+sheathButton:SetScript("OnClick", function()
+    if not ForeverGoalTrackerDB or not Prefs() then return end
+    Prefs().sheathed = not Sheathed() or nil
+    ApplySheath()
+end)
+local function BindSheath()
+    if not (SetOverrideBindingClick and ClearOverrideBindings) then return end
+    pcall(ClearOverrideBindings, P)
+    if not P:IsShown() then return end
+    local first, second = "Z", nil
+    if GetBindingKey then first, second = GetBindingKey("TOGGLESHEATH") end
+    for _, key in ipairs({ first or false, second or false }) do
+        if key then pcall(SetOverrideBindingClick, P, true, key, "FGTGearPlannerSheath", "LeftButton") end
+    end
+end
+P:HookScript("OnShow", function() P:RegisterEvent("GET_ITEM_INFO_RECEIVED"); P:RegisterEvent("UPDATE_BINDINGS"); BindSheath() end)
+P:HookScript("OnHide", function() P:UnregisterEvent("GET_ITEM_INFO_RECEIVED"); P:UnregisterEvent("UPDATE_BINDINGS"); BindSheath() end)
+P:SetScript("OnEvent", function(_, event, itemId, ok)
+    if event == "UPDATE_BINDINGS" then BindSheath(); return end
     if ok == false or not P:IsShown() or not selected or P.itemRefreshPending then return end
     for _, id in pairs(selected.slots) do
         if id == itemId then
@@ -3083,7 +3112,7 @@ FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")
     picker = picker, results = resultRows, unequip = unequip, search = search, filters = { stat = FL.stat,
         kind = FL.kind, quality = FL.quality, revealed = FL.revealed, showAll = FL.showAll, popup = FL.popup, rows = FL.rows },
     list = pickerList, found = function() return found, foundCount end,
-    modelArea = modelArea, background = background, model = model, clickAway = clickAway, slots = slotButtons, status = status, level = LV.box, minLevel = LV.min,
+    modelArea = modelArea, background = background, model = model, sheathButton = sheathButton, bindSheath = BindSheath, clickAway = clickAway, slots = slotButtons, status = status, level = LV.box, minLevel = LV.min,
     goalMenu = LG.menuBtn, libraryHeader = LG.header, welcome = ES,
     drawer = SD, slotList = slotList, switch = switch, switchMenu = switchMenu, subline = subline, band = band,
     newSet = newSet, newWorn = newWorn, usePreset = usePreset, removeAll = removeAll, deleteAll = deleteAll,

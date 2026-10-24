@@ -86,6 +86,35 @@ assert(not F.GearPlanner:IsShown() and F.libraryPanel:IsShown())
 UnitName = oldName
 F.ShowTab("tracker")
 print("  per-character named autosave, stable IDs, item replacement, open picker and tab switching ok")
+-- The game's sheathe key toggles the character's weapons while the planner is open, and only then.
+do
+    local bound, sheathed = {}, nil
+    SetOverrideBindingClick = function(_, _, key, button) bound[#bound + 1] = key .. ">" .. button end
+    ClearOverrideBindings = function() bound = {} end
+    GetBindingKey = function(action) assert(action == "TOGGLESHEATH"); return "Z", "SHIFT-Z" end
+    T.model.SetSheathed = function(_, value) sheathed = value end
+    F.ShowTab("gear")
+    assert(#bound == 2 and bound[1] == "Z>FGTGearPlannerSheath" and bound[2] == "SHIFT-Z>FGTGearPlannerSheath",
+        "both sheathe keys open the planner's sheathe button")
+    click(T.sheathButton)
+    assert(sheathed == true and D.gearPlanner.prefs.sheathed == true, "the key sheathes the weapons and the choice is kept")
+    T.model.SetSheathed = function(_, value) sheathed = value end
+    T.sheathButton:GetScript("OnClick")(T.sheathButton)
+    assert(sheathed == false and D.gearPlanner.prefs.sheathed == nil, "the key draws them again")
+    D.gearPlanner.prefs.sheathed = true
+    T.model:GetScript("OnModelLoaded")()
+    assert(sheathed == true, "a repaint keeps the weapons sheathed")
+    D.gearPlanner.prefs.sheathed = nil
+    GetBindingKey = function() return nil end
+    T.bindSheath()
+    assert(#bound == 0, "a sheathe key the player has unbound is not taken over")
+    GetBindingKey = function() return "Z" end
+    T.bindSheath()
+    assert(#bound == 1, "bound again once the key is back")
+    F.ShowTab("tracker")
+    assert(#bound == 0, "the key is the game's again once the planner closes")
+    SetOverrideBindingClick, ClearOverrideBindings, GetBindingKey, T.model.SetSheathed = nil, nil, nil, nil
+end
 -- Wide and tall windows preserve background proportions without shrinking the model drawing area.
 T.model.SetSize = function() error("resizing must not reintroduce an interior model clipping frame") end
 for _, size in ipairs({ {800, 400}, {400, 650} }) do
