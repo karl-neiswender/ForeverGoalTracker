@@ -29,6 +29,7 @@ The fixes and refinements below will ship in small patches as they are ready.
 
 - **Dungeon level ranges:** add recommended levels to dungeon location tooltips, distinguishing recommendations from entry requirements.
 - **Boss links:** give dungeon and raid bosses their own links with useful source and location information. Explore loot and model previews later.
+- **Your position on the map view:** a silver marker for your character on a goal's map, so you can see where you are in relation to the gold pin on an NPC or dungeon entrance.
 - **Material loot messages:** optional chat updates when you collect a needed material, showing how many remain.
 - **Progress bar design:** explore a stronger overall progress display and a goal bar above the title and icon, including the pop-out step tracker.
 - **Toasts:** optional step-complete notices while the window is closed and milestone celebrations.

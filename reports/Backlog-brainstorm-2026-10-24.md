@@ -68,6 +68,12 @@ Wording in the note was interpreted as: "Forever aids" = the Forever raids Hyjal
 - The addon already has a "Needed for" system and step updates in chat. Make it optional, throttled (one line per item per few seconds, not per stack), and off or quiet by default so it never floods the chat.
 - Small and Era-verifiable.
 
+**20. Show where your character is on the map view** (added by Karl, October 24).
+- The idea: a silver circle for the character on the goal map, next to the gold pin that pulses for the NPC or dungeon entrance, so you can see the distance at a glance.
+- What exists: the map layer draws a zone map under the banner with a gold pin; `/goals here` already reads your position with `C_Map.GetBestMapForUnit` and `C_Map.GetPlayerMapPosition`. The silver tint in `Maplet.lua` is only the map button's style so far, so this is new.
+- Brainstorm: show it only when you are in the same zone as the pin (otherwise nothing, or a small edge arrow toward it); the zoomed view may not contain you, so an edge indicator may be needed; how often to update (a few times a second, only while the map is visible); the look (a steady silver ring, no ping, so it never competes with the gold pin); a facing arrow from `GetPlayerFacing`; instances and other places where the game gives no position; whether Forever's map API behaves the same (unverified until launch).
+- Not scheduled: later, after the Era-verifiable list below.
+
 ## Suggested order before November 4 (eleven days)
 
 Everything below can be built and checked in Classic Era, with no dependency on Forever data. Freeze new features around October 31 so the week of the launch is for testing Forever and shipping 2.16.1.
