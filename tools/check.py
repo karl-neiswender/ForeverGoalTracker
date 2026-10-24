@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua", "GearData.lua", "GearSources.lua", "GearCatalog.lua", "GearPlanner.lua", "VersionCheck.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua", "GearData.lua", "GearSources.lua", "GearCatalog.lua", "GearPlanner.lua", "PlannerEffects.lua", "VersionCheck.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -111,7 +111,8 @@ for line_no, line in enumerate(core_src.splitlines(), 1):
     m = re.search(r"function B[:.](\w+)", line)
     if m:
         func = m.group(1)
-    m = re.search(r'(?:(B\.\w+)\s*=\s*)?detailPanel:CreateTexture\(nil,\s*"(\w+)"(?:,\s*nil,\s*(-?\d+))?\)', line)
+    # (the particles and shafts may draw on another host, the Gear Planner's backdrop; their default level is the goal panel's)
+    m = re.search(r'(?:(B\.\w+)\s*=\s*)?(?:detailPanel|\(self\.host or detailPanel\)):CreateTexture\(nil,\s*"(\w+)"(?:,\s*nil,\s*(?:self\.\w+ or )?(-?\d+))?\)', line)
     if not m:
         continue
     name, layer, sub = m.group(1), m.group(2), int(m.group(3) or 0)
@@ -138,7 +139,7 @@ amb_levels = {}
 m_ = re.search(r"local DUST_LEVEL, CLOUD_LEVEL = (-?\d+), (-?\d+)", amb_src)
 if m_:
     amb_levels = {"dust": int(m_.group(1)), "clouds": int(m_.group(2))}
-amb_on_panel = amb_src.count("U.detail:CreateTexture(nil, \"BACKGROUND\", nil, ") >= 2 and "fx:CreateTexture" not in amb_src
+amb_on_panel = amb_src.count("CreateTexture(nil, \"BACKGROUND\", nil, ") >= 2 and "fx:CreateTexture" not in amb_src
 amb_ok = bool(amb_levels) and amb_on_panel and all(v < min(s_[1] for s_ in shading.values()) for v in amb_levels.values())
 print(("ambience  " if amb_ok else "AMBIENCE  ") + "windy leaves and clouds are panel layers below the dark gradients ("
       + ", ".join(k_ + " " + str(v_) for k_, v_ in sorted(amb_levels.items())) + ")")

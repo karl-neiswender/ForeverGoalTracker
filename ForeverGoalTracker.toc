@@ -31,4 +31,5 @@ GearData.lua
 GearSources.lua
 GearCatalog.lua
 GearPlanner.lua
+PlannerEffects.lua
 VersionCheck.lua

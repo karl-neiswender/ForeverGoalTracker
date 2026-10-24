@@ -86,6 +86,51 @@ assert(not F.GearPlanner:IsShown() and F.libraryPanel:IsShown())
 UnitName = oldName
 F.ShowTab("tracker")
 print("  per-character named autosave, stable IDs, item replacement, open picker and tab switching ok")
+-- The goal pages' weather on the racial backdrops: every race gets its own particles, no lights;
+-- the setting (Full / Subtle / Off) and the planner closing stop them.
+do
+    local PE = F.PlannerEffects
+    assert(PE and PE.engine and PE.driver, "planner effects are built")
+    local visible, setting = true, nil
+    T.modelArea.IsVisible = function() return visible end
+    local art = T.background.texture
+    art.GetWidth, art.GetHeight = function() return 1000 end, function() return 1204 end
+    local oldSetting = F.Setting
+    F.Setting = function(key) if key == "imageEffects" then return setting end return oldSetting(key) end
+    for _, race in ipairs({ "Dwarf", "Gnome", "NightElf", "Scourge", "Orc", "Tauren", "Troll", "Human" }) do
+        setting = nil
+        T.background.race = nil
+        T.background:SetRace(race)
+        PE.Refresh()
+        local tick = PE.driver:GetScript("OnUpdate")
+        assert(tick, race .. " plays its effects")
+        tick(PE.driver, 0.016)
+        -- the field builds up over a few seconds, each particle fading in where it starts
+        local waiting = 0
+        for _, e in ipairs(PE.engine.emberDots) do if e.wait then waiting = waiting + 1 end end
+        assert(PE.engine.emberCount == 0 or waiting > PE.engine.emberCount * 0.8, race .. " does not start with a full field")
+        for _ = 1, 400 do tick(PE.driver, 0.016) end -- (about 6 s)
+        -- (the troll, the tauren and the human have only the clouds and leaves, no particles of their own)
+        local bare = race == "Troll" or race == "Tauren" or race == "Human"
+        assert(bare and PE.engine.emberCount == 0 or not bare and PE.engine.emberCount > 0, race .. " has its own particles or none")
+        assert(PE.engine.shaftCount == 0, race .. " has no lights, only weather")
+        setting = "subtle"; PE.Refresh()
+        assert(not PE.driver:GetScript("OnUpdate") and PE.engine.emberCount == 0, race .. " stops its particles on Subtle")
+        setting = "off"; PE.Refresh()
+        assert(not PE.driver:GetScript("OnUpdate"), race .. " stops on Off")
+        setting = nil; PE.Refresh()
+        assert(PE.driver:GetScript("OnUpdate"), race .. " plays again on Full")
+        visible = false; PE.Refresh()
+        assert(not PE.driver:GetScript("OnUpdate"), race .. " stops with the planner closed")
+        local kept = PE.engine.emberCount
+        visible = true; PE.Refresh()
+        assert(PE.engine.emberCount == kept, race .. " keeps its particles while the planner is closed")
+    end
+    F.Setting = oldSetting
+    T.modelArea.IsVisible, art.GetWidth, art.GetHeight = nil, nil, nil
+    T.background.race = nil
+    T.background:SetRace("Orc")
+end
 -- The game's sheathe key toggles the character's weapons while the planner is open, and only then.
 do
     local bound, sheathed = {}, nil

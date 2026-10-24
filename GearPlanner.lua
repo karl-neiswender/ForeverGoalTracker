@@ -698,7 +698,11 @@ function background:SetRace(raceFile)
     self.race = raceFile
     self.texture:SetTexture("Interface\\AddOns\\ForeverGoalTracker\\Media\\dressing-room\\" .. raceFile)
     if self.Layout then self.Layout() end
+    if FGT.PlannerEffects then FGT.PlannerEffects.SetRace(raceFile) end
 end
+-- What PlannerEffects.lua (loaded after this file) draws on: the backdrop's frame and picture, and
+-- the stage it sits in.
+FGT.plannerBackdrop = { frame = background, texture = background.texture, area = modelArea }
 background:SetRace(race)
 local model = CreateFrame("DressUpModel", nil, modelArea)
 model:SetFrameLevel(background:GetFrameLevel() + 1)

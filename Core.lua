@@ -5958,7 +5958,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         a = a*(1 - (self.mapMix or 0)) -- the map (Maplet.lua) fades every light out with the art
         local span = self.lightSpan[t] or self.lightNoSpan
         local a1, a2 = a, a
-        if not self.lightMask then
+        if not self.lightMask and not self.flat then
             local aw = math.max(1, self.art:GetWidth())
             a1, a2 = a*math.max(0, math.min(1, span[1]/aw)), a*math.max(0, math.min(1, span[2]/aw))
         end
@@ -6214,6 +6214,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             e.size = aw*(0.006 + 0.012*r*r) -- mostly tiny, a few larger
             e.peak = 0.45 + 0.55*math.random()
         end
+        if cfg.sizeScale then e.size = e.size*cfg.sizeScale end -- (a spec may make its particles smaller or larger)
         if warm then
             -- already mid-flight, so the field is full from the first frame
             local skip = e.life*math.random()
@@ -6233,7 +6234,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 n = n + 1
                 local e = self.emberDots[n]
                 if not e then
-                    local t = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -1)
+                    -- (the Gear Planner runs a second copy of this engine on its backdrop: its own host
+                    -- frame and draw level, see PlannerEffects.lua)
+                    local t = (self.host or detailPanel):CreateTexture(nil, "BACKGROUND", nil, self.emberLevel or -1)
                     t:SetBlendMode("ADD")
                     if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
                     if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
@@ -6246,7 +6249,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                 e.tex:SetTexCoord(0, 1, 0, 1) -- (sand trims its own coordinates at the art's edges)
                 e.tex:SetTexture(cfg.zap and self.emberArt.zap or e.blur and self.emberArt.blur
                     or ((cfg.fall or cfg.float) and self.emberArt.flake or self.emberArt.spark))
-                self:SpawnEmber(e, true)
+                if self.coldStart then
+                    -- (the Gear Planner: the field builds up over `coldStart` seconds, each particle
+                    -- fading in where it starts, instead of the whole field appearing at once)
+                    self:SpawnEmber(e)
+                    e.wait = math.random()*self.coldStart
+                    e.tex:Hide(); e.shownNow = false
+                else
+                    self:SpawnEmber(e, true)
+                end
             end
         end
         for k = n + 1, #self.emberDots do self.emberDots[k].tex:Hide() end
@@ -6275,7 +6286,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- (a size that wobbles by a fraction of a pixel is not resizing)
         local resizing = pw and (math.abs(pw - aw) > 0.75 or math.abs((ph or ah) - ah) > 0.75)
         self.embStill = resizing and 0 or ((self.embStill or 1) + dt)
-        local calmTarget = self.embStill < 0.25 and 0 or 1
+        local calmTarget = (self.embStill < 0.25 and not self.flat) and 0 or 1 -- (`flat`, the planner: they scale with the art instead)
         local calm = self.embCalm or 1
         calm = calm + (calmTarget - calm)*math.min(1, dt*(calmTarget == 0 and 12 or 3))
         self.embCalm = calm
@@ -6325,10 +6336,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                             fade = fade*(1 - tw*(0.5 - 0.5*math.cos(e.twPhase + e.age*e.twFreq*2*math.pi)))
                         end
                     elseif cfg.float then
-                        fade = math.min(1, p/0.2)*math.min(1, (1 - p)/0.3)
+                        -- (`fadeIn`: the share of its life it takes to appear; 0.2 unless a spec says)
+                        fade = math.min(1, p/(cfg.fadeIn or 0.2))*math.min(1, (1 - p)/0.3)
                     elseif cfg.fall then
                         -- snow also melts away over the bottom 40% of the art
-                        fade = math.min(1, p/0.12)*math.min(1, (1 - p)/0.25)*math.max(0, math.min(1, (ah - y)/(ah*0.4)))
+                        fade = math.min(1, p/(cfg.fadeIn or 0.12))*math.min(1, (1 - p)/0.25)*math.max(0, math.min(1, (ah - y)/(ah*0.4)))
                     elseif cfg.zap then
                         fade = math.min(1, p/self.zapLimits.fadeIn)*math.min(1, (1 - p)/self.zapLimits.fadeOut)
                     else
@@ -6338,7 +6350,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                     -- bottom (the same eased stretch as B:Fit's tail: 35% of the shown art, at
                     -- most 140). There is no dark layer there to sit under (Karl, 2026-10-14).
                     -- Snow already melts away over its bottom 40%, so it keeps its own fade.
-                    if not cfg.fall then
+                    if not cfg.fall and not self.flat then
                         local below = math.max(0, math.min(1, (ah - y)/tail))
                         fade = fade*below*below*(3 - 2*below)
                     end
@@ -6369,7 +6381,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
                             t:SetTexCoord(tl, tr, tt2, tb); e.tl, e.tr, e.tt, e.tb = tl, tr, tt2, tb
                         end
                         -- fades toward the left like the photo
-                        local alpha = math.floor(base*(cfg.strength or 1)*e.peak*fade*math.min(1, x/aw)*(1 - (self.mapMix or 0))*255 + 0.5)
+                        local alpha = math.floor(base*(cfg.strength or 1)*e.peak*fade*(self.flat and 1 or math.min(1, x/aw))*(1 - (self.mapMix or 0))*255 + 0.5)
                         if e.alphaNow ~= alpha then t:SetAlpha(alpha/255); e.alphaNow = alpha end
                     end
                 end
@@ -6513,7 +6525,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             n = n + 1
             local t = self.shafts[n]
             if not t then
-                t = detailPanel:CreateTexture(nil, "BACKGROUND", nil, -2)
+                t = (self.host or detailPanel):CreateTexture(nil, "BACKGROUND", nil, self.shaftLevel or -2)
                 t:SetBlendMode("ADD")
                 if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
                 if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
@@ -11438,6 +11450,7 @@ FGT.SETTINGS = {
           apply = function()
               if FGT.goalBanner and FGT.goalBanner:IsShown() then FGT.goalBanner:Fit() end
               if FGT.ambience then FGT.ambience.Refresh() end
+              if FGT.PlannerEffects then FGT.PlannerEffects.Refresh() end
           end },
     } },
     { title = "Window and minimap", rows = {

@@ -58,8 +58,9 @@ local DUST_LEVEL, CLOUD_LEVEL = -1, -2
 
 -- One drifting layer (Blizzard's numbers: start offset, travel, seconds,
 -- turn, peak alpha, when the fade out starts).
-local function Layer(flip, width, height, start, travel, seconds, degrees, peak, outAt)
-    local t = U.detail:CreateTexture(nil, "BACKGROUND", nil, DUST_LEVEL)
+-- (`host`, `anchor` and `level` place a copy elsewhere: the Gear Planner's backdrop.)
+local function Layer(flip, width, height, start, travel, seconds, degrees, peak, outAt, host, anchor, level)
+    local t = (host or U.detail):CreateTexture(nil, "BACKGROUND", nil, level or DUST_LEVEL)
     if flip then
         -- the far layer is the same art mirrored both ways
         t:SetTexture(info.file)
@@ -68,7 +69,7 @@ local function Layer(flip, width, height, start, travel, seconds, degrees, peak,
         Art(t, ATLAS, info)
     end
     t:SetSize(width, height)
-    t:SetPoint("CENTER", fx, "CENTER", 0, 0)
+    t:SetPoint("CENTER", anchor or fx, "CENTER", 0, 0)
     t:SetBlendMode("ADD")
     t:SetAlpha(0)
     local g = t:CreateAnimationGroup()
@@ -81,12 +82,19 @@ local function Layer(flip, width, height, start, travel, seconds, degrees, peak,
     a:SetDegrees(degrees); a:SetDuration(seconds); a:SetOrder(2)
     a = g:CreateAnimation("Alpha")
     a:SetFromAlpha(0); a:SetToAlpha(peak); a:SetDuration(5); a:SetOrder(2)
+    local fadeIn = a
     a = g:CreateAnimation("Alpha")
     a:SetFromAlpha(peak); a:SetToAlpha(0); a:SetStartDelay(outAt); a:SetDuration(5); a:SetOrder(2)
+    local fadeOut = a
     a = g:CreateAnimation("Translation")
     a:SetOffset(travel, 0); a:SetDuration(0); a:SetOrder(3) -- as Blizzard's order 3
-    return { tex = t, group = g }
+    return { tex = t, group = g, fadeIn = fadeIn, fadeOut = fadeOut, peak = peak }
 end
+-- The two dust layers, as numbers: the close and the far one.
+local DUST = {
+    { false, nil, nil, 300, 600, 27, 20, 0.15, 22 }, -- close (art and size are filled in below)
+    { true, 800, 473, 100, 200, 36, -20, 0.14, 31 }, -- far
+}
 A.layers = {
     Layer(false, info.width, info.height, 300, 600, 27, 20, 0.15, 22), -- close
     Layer(true, 800, 473, 100, 200, 36, -20, 0.14, 31),                -- far
@@ -97,12 +105,12 @@ A.layers = {
 local CLOUDS = "talents-animations-clouds"
 local cloud = AtlasInfo(CLOUDS)
 if not cloud and own then cloud = OwnArt("ambience-clouds.blp", 1612, 774) end
-if cloud then
+local function CloudLayers(host, anchor, level, into)
     for _, startX in ipairs({ 0, 1612 }) do
-        local t = U.detail:CreateTexture(nil, "BACKGROUND", nil, CLOUD_LEVEL)
+        local t = host:CreateTexture(nil, "BACKGROUND", nil, level)
         Art(t, CLOUDS, cloud)
         t:SetSize(cloud.width, cloud.height)
-        t:SetPoint("TOPLEFT", fx, "TOPLEFT", 0, 0)
+        t:SetPoint("TOPLEFT", anchor, "TOPLEFT", 0, 0)
         t:SetBlendMode("ADD")
         t:SetAlpha(0.05)
         local g = t:CreateAnimationGroup()
@@ -113,7 +121,44 @@ if cloud then
         m:SetOffset(-1612, 0); m:SetDuration(80); m:SetOrder(2)
         m = g:CreateAnimation("Translation")
         m:SetOffset(1612, 0); m:SetDuration(0); m:SetOrder(3)
-        A.layers[#A.layers + 1] = { tex = t, group = g, steady = true }
+        into[#into + 1] = { tex = t, group = g, steady = true }
+    end
+end
+if cloud then CloudLayers(U.detail, fx, CLOUD_LEVEL, A.layers) end
+
+-- The same dust and clouds for another surface (the Gear Planner's backdrop): `host` makes the
+-- textures, `anchor` is the rectangle they drift across, and the two levels are their draw
+-- order on the host. Returns the layers, each with `steady` (the clouds) or not (the dust).
+-- No fade toward the left: the surface does its own shading. Greyscale, like everything here.
+function A.Build(host, anchor, dustLevel, cloudLevel)
+    local layers = {}
+    for _, d in ipairs(DUST) do
+        local flip, w, h = d[1], d[2] or info.width, d[3] or info.height
+        layers[#layers + 1] = Layer(flip, w, h, d[4], d[5], d[6], d[7], d[8], d[9], host, anchor, dustLevel)
+    end
+    if cloud then CloudLayers(host, anchor, cloudLevel, layers) end
+    for _, l in ipairs(layers) do l.tex:SetDesaturated(true) end
+    return layers
+end
+-- Plays or stops a built set: `level` is FGT.EffectsLevel() (Full both, Subtle the clouds only,
+-- Off neither), `visible` whether the surface is on screen, `dust` whether the dust is wanted.
+function A.Apply(layers, level, visible, dust)
+    for _, l in ipairs(layers) do
+        local on = visible and (level == "full" or (level == "subtle" and l.steady))
+        if not l.steady and not dust then on = false end
+        if on and not l.group:IsPlaying() then l.group:Play()
+        elseif not on and l.group:IsPlaying() then l.group:Stop(); if not l.steady then l.tex:SetAlpha(0) end end
+        l.tex:SetShown(on and true or false)
+    end
+end
+-- The dust's strength (1 = the goal page's): a different peak for each fade, then a fresh pass.
+function A.SetDustStrength(layers, scale)
+    for _, l in ipairs(layers) do
+        if not l.steady and l.fadeIn then
+            local peak = l.peak*scale
+            l.fadeIn:SetToAlpha(peak); l.fadeOut:SetFromAlpha(peak)
+            if l.group:IsPlaying() then l.group:Stop(); l.group:Play() end
+        end
     end
 end
 
