@@ -131,6 +131,16 @@ do
     T.background.race = nil
     T.background:SetRace("Orc")
 end
+-- The character picker's menu opens inside the drawer (which clips what runs past its edge).
+do
+    local width
+    local setSize = T.charMenu.SetSize
+    T.charMenu.SetSize = function(self, w, h) width = w; if setSize then setSize(self, w, h) end end
+    T.ownerButton:GetScript("OnClick")(T.ownerButton)
+    T.charMenu.SetSize = setSize
+    assert(width and width + 12 <= T.drawer.width, "the character menu fits inside the drawer")
+    T.charMenu:Hide()
+end
 -- The game's sheathe key toggles the character's weapons while the planner is open, and only then.
 do
     local bound, sheathed = {}, nil

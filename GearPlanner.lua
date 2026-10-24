@@ -373,7 +373,9 @@ local owner = U.font(ownerBtn, 11); owner:SetPoint("LEFT", 4, 0)
 local ownerCaret = ownerBtn:CreateTexture(nil, "OVERLAY")
 ownerCaret:SetTexture(FGT.Icon("chevron")); ownerCaret:SetSize(12, 12); ownerCaret:SetPoint("LEFT", owner, "RIGHT", 4, 0)
 local charMenu = CreateFrame("Frame", nil, SD.body, "BackdropTemplate")
-charMenu:SetPoint("TOPLEFT", ownerBtn, "BOTTOMLEFT", 0, -4)
+-- (from the drawer's own left edge, under the picker: the picker starts well in, and a menu from there ran past
+-- the drawer, which clips it)
+charMenu:SetPoint("TOPLEFT", SD.body, "TOPLEFT", 12, -68)
 charMenu:SetFrameLevel(drawer:GetFrameLevel() + 30); charMenu:EnableMouse(true)
 U.etch(charMenu, styles.panel); charMenu:Hide()
 local charRows = {}
@@ -3043,7 +3045,7 @@ ownerBtn:SetScript("OnClick", function()
     for _, row in ipairs(charRows) do row:Hide() end
     for i, entry in ipairs(list) do
         local row = charRows[i]
-        if not row then row = Button(charMenu, "", 200, 24, 11); charRows[i] = row
+        if not row then row = Button(charMenu, "", SD.width - 40, 24, 11); charRows[i] = row
             row.text:ClearAllPoints(); row.text:SetPoint("LEFT", 8, 0)
         end
         local c, color = entry.c, RAID_CLASS_COLORS and RAID_CLASS_COLORS[entry.c.class]
@@ -3053,7 +3055,7 @@ ownerBtn:SetScript("OnClick", function()
         row:ClearAllPoints(); row:SetPoint("TOPLEFT", 8, -y); row:Show(); y = y + 28
         row:SetScript("OnClick", function() charMenu:Hide(); PlanFor(entry.key) end)
     end
-    charMenu:SetSize(216, y + 6); charMenu:Show()
+    charMenu:SetSize(SD.width - 24, y + 6); charMenu:Show()
 end)
 ownerBtn:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText("Plan for another character", 1, 1, 1)
@@ -3118,6 +3120,6 @@ FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")
     list = pickerList, found = function() return found, foundCount end,
     modelArea = modelArea, background = background, model = model, sheathButton = sheathButton, bindSheath = BindSheath, clickAway = clickAway, slots = slotButtons, status = status, level = LV.box, minLevel = LV.min,
     goalMenu = LG.menuBtn, libraryHeader = LG.header, welcome = ES,
-    drawer = SD, slotList = slotList, switch = switch, switchMenu = switchMenu, subline = subline, band = band,
+    drawer = SD, charMenu = charMenu, ownerButton = ownerBtn, slotList = slotList, switch = switch, switchMenu = switchMenu, subline = subline, band = band,
     newSet = newSet, newWorn = newWorn, usePreset = usePreset, removeAll = removeAll, deleteAll = deleteAll,
     enhancement = EN }
