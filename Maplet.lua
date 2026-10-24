@@ -672,9 +672,11 @@ end)
 
 -- The gallery's map scene (Core.lua, demo scene 12): the open goal's next step's map, at once and
 -- with no fade, so a screenshot can be taken a moment later.
-function FGT.ShowMapForDemo()
+-- `zoomOverride` (a percent) replaces the step's own starting zoom: the Dreadsteed's step starts at 199%, a close-up
+-- of Flame Crest that reads as a dark texture in the gallery, so that scene asks for the whole zone.
+function FGT.ShowMapForDemo(zoomOverride)
     local n, zoom = NextStepNpc(B.goal)
-    if n and M:Show(n, true, false, zoom) then
+    if n and M:Show(n, true, false, zoomOverride or zoom) then
         M.mix = 1
         M:Apply()
         M:Layout()
@@ -834,6 +836,34 @@ function FGT.HandleMapCommand(msg)
         else
             print(TAG .. "the game gives no position here (inside an instance, or the map has none).")
         end
+        return true
+    end
+    -- /goals map status: what the map layer is doing right now, for finding out why a map does not show
+    -- (the gallery's map shot came out without the zone map twice, 2026-10-24).
+    if cmd == "map status" then
+        local say = function(t) print(TAG .. t) end
+        local n = M.npc
+        say(string.format("map: npc %s, map id %s, goal %s (page shows %s), mix %.2f, target %s, peak %.2f, tile alpha %.2f",
+            n and n.name or "none", n and tostring(n.map) or "-", tostring(M.goalId), tostring(B.goal and B.goal.id),
+            M.mix or 0, tostring(M.target), M.peak or 0, M:TileAlpha()))
+        say(string.format("art: %.0f x %s, banner map mix %.2f, art alpha %.2f, page shown %s",
+            B.art:GetWidth() or 0, tostring(B.shownArtHeight), B.mapMix or 0, B.art:GetAlpha() or 0, tostring(B:IsShown())))
+        say(string.format("tiles: %d from the game, %d placed, %d discovered areas placed; layer %s x %s",
+            M.ids and #M.ids or 0, M.used or 0, M.usedOver or 0, M.info and tostring(M.info.layerWidth) or "-",
+            M.info and tostring(M.info.layerHeight) or "-"))
+        local shown = 0
+        for i = 1, M.used or 0 do
+            local t = M.tiles[i]
+            if t and t:IsShown() then
+                shown = shown + 1
+                if shown <= 3 then
+                    say(string.format("  tile %d: texture %s, alpha %.2f, %.0f x %.0f, drawn %s", i, tostring(t:GetTexture()),
+                        t:GetAlpha() or 0, t:GetWidth() or 0, t:GetHeight() or 0, tostring(t:IsVisible())))
+                end
+            end
+        end
+        say(string.format("tiles shown: %d. The game has the map art: %s", shown,
+            tostring(C_Map and C_Map.GetMapArtLayers ~= nil)))
         return true
     end
     local rest = cmd == "map" and "" or cmd:match("^map%s+(.*)$")

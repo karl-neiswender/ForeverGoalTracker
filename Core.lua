@@ -13576,7 +13576,7 @@ end
 --   bottom = true    scrolls the goal list to the end
 --   materials = true opens the goal's Materials drawer
 --   libFor, libSort  the Library's For and Sort choices
---   map = true       shows the goal's next step on the map (Maplet.lua)
+--   map = true       shows the goal's next step on the map (Maplet.lua); mapZoom = percent to start at (the step's own if absent)
 local SCENES = {
     [1] = { tab = "tracker", goal = "thunderfury" },                     -- hero: My Goals + a guide
     [2] = { tab = "library", filter = "new", expand = "epicmounts" },    -- New & Updated, Skyborne row
@@ -13626,15 +13626,18 @@ local SCENES = {
             end },
     -- the map view (2.15.0): the Dreadsteed's quest chain, four steps done, the next one sends you to
     -- Gorzeeki Wildeyes in the Burning Steppes, with the Show on map link in the step and the map on the banner
-    [12] = { tab = "tracker", goal = "mount_dreadsteed", map = true,
+    [12] = { tab = "tracker", goal = "mount_dreadsteed", map = true, mapZoom = 0,
             setup = function(DB, Flat)
                 Flat("mount_dreadsteed", 4 / 13)
             end },
-    -- the Gear Planner (2.16.0): a Dwarf Hunter at level 60 with the pre-raid best in slot set, on the dwarf's
+    -- the Gear Planner (2.16.0): a Dwarf Rogue at level 60 with the pre-raid best in slot set, on the dwarf's
     -- snowy backdrop, the Set totals open. The character and set are pretend (GearPlannerDemo) and go away after.
+    -- `ownLook`: when the logged-in character is also a Dwarf, the model keeps that character's own look (hair
+    -- and all) instead of the game's default Dwarf, which has no hair colour the addon can choose.
     [13] = { tab = "gear",
-            planner = { key = "Demo Dwarf Hunter-Demo", name = "Thurgrim", class = "HUNTER", race = "Dwarf",
-                faction = "Alliance", level = 60, sex = 2, preset = "hunter_preraid_wowhead", totals = true } },
+            planner = { key = "Demo Dwarf Rogue-Demo", name = "Thurgrim", class = "ROGUE", race = "Dwarf",
+                faction = "Alliance", level = 60, sex = 2, preset = "rogue_preraid_wowhead", totals = true,
+                ownLook = true } },
 }
 
 -- /goals shots: every gallery screenshot in one go (Karl). Black photo
@@ -13653,7 +13656,7 @@ local SCENES = {
 FGT.SHOTS = {
     { scene = 1, file = "01-my-goals" },
     { scene = 11, file = "02-wolfsbane", forever = true },
-    { scene = 12, file = "03-map-view" },
+    { scene = 12, file = "03-map-view", wait = 8 }, -- (the zone map needs time to fade in over the artwork)
     { scene = 4, file = "04-links-and-tips" },
     { scene = 9, file = "05-materials" },
     { scene = 10, file = "06-library-filters" },
@@ -13665,11 +13668,18 @@ FGT.SHOTS = {
     { scene = 1, settings = true, file = "12-settings" },
     { scene = 13, file = "13-gear-planner", wait = 12 },
 }
-function FGT.TakeShots(era)
+-- era: leave out the Forever-only shots. only: just the shot whose file starts with that ("03" or
+-- "03-map-view"), for retaking one.
+function FGT.TakeShots(era, only)
     local shots = {}
     for _, s in ipairs(FGT.SHOTS) do
-        if not (era and s.forever) then shots[#shots + 1] = s end
+        if only then
+            if s.file:sub(1, #only) == only then shots[#shots + 1] = s end
+        elseif not (era and s.forever) then
+            shots[#shots + 1] = s
+        end
     end
+    if #shots == 0 then print(TAG .. "no gallery shot starts with \"" .. tostring(only) .. "\".") return end
     if FGT.shooting then print(TAG .. "already taking screenshots.") return end
     if not Screenshot then print(TAG .. "this client can't take screenshots from an addon.") return end
     local getCVar = (C_CVar and C_CVar.GetCVar) or GetCVar
@@ -13790,7 +13800,7 @@ function FGT.Demo(arg)
     end
     if scene.map and FGT.ShowMapForDemo then
         -- once the goal page is laid out, so the map knows the banner's size
-        C_Timer.After(0.3, FGT.ShowMapForDemo)
+        C_Timer.After(0.3, function() FGT.ShowMapForDemo(scene.mapZoom) end)
     end
     if scene.welcome and FGT.OpenWelcome then FGT.OpenWelcome(scene.welcome, nil, scene.interests) end
     print(TAG .. "demo scene " .. (tonumber(arg) or 1) .. " of " .. #SCENES .. ". Your real data is safe; /goals demo off brings it back.")
@@ -14006,7 +14016,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     end
     local shotsArg = msg:match("^shots%s*(%w*)$")
     if shotsArg then
-        FGT.TakeShots(shotsArg == "era")
+        FGT.TakeShots(shotsArg == "era", shotsArg ~= "" and shotsArg ~= "era" and shotsArg or nil)
         return
     end
     local demo = msg:match("^demo%s*(%w*)$")

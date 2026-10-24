@@ -131,6 +131,28 @@ do
     T.background.race = nil
     T.background:SetRace("Orc")
 end
+-- The gallery scene's Dwarf keeps the logged-in Dwarf's own look; any other race still gets the game's default.
+do
+    local calls = 0
+    T.model.SetCustomRace = function() calls = calls + 1 end
+    local oldRace, oldSex = UnitRace, UnitSex
+    UnitRace = function() return "Dwarf", "Dwarf" end
+    UnitSex = function() return 2 end
+    local spec = { key = "Demo Look-Demo", name = "Thurgrim", class = "ROGUE", race = "Dwarf", faction = "Alliance",
+        level = 60, sex = 2, preset = "rogue_preraid_wowhead" }
+    spec.ownLook = true
+    F.GearPlannerDemo(spec); F.GearPlannerDemoOff()
+    assert(calls == 0, "an own-look Dwarf keeps the player's model")
+    spec.ownLook = nil
+    F.GearPlannerDemo(spec); F.GearPlannerDemoOff()
+    assert(calls > 0, "without own look the game's default Dwarf is used")
+    calls = 0
+    spec.ownLook, spec.race = true, "Human"
+    F.GearPlannerDemo(spec); F.GearPlannerDemoOff()
+    assert(calls > 0, "another race never keeps the player's model")
+    T.model.SetCustomRace, UnitRace, UnitSex = nil, oldRace, oldSex
+    F.ShowTab("tracker") -- (the demo opened the planner; leave it as it was found)
+end
 -- The character picker's menu opens inside the drawer (which clips what runs past its edge).
 do
     local width
@@ -515,13 +537,17 @@ for _, parent in pairs(F.armorCollections) do
     end
 end
 assert(missing == 0, missing .. " Library set pieces are missing from the database")
-for slot, id in pairs(Cat.PRESETS.hunter_preraid_wowhead.slots) do
-    local item = Cat.Get(id)
-    assert(item, "preset item " .. id .. " exists")
-    local fits = false
-    for _, inv in ipairs(Cat.SLOT_INV[Cat.SLOT_NAMES[slot]]) do if inv == item.inv then fits = true end end
-    assert(fits, item.name .. " fits its preset slot")
+for presetId, preset in pairs(Cat.PRESETS) do
+    for slot, id in pairs(preset.slots) do
+        local item = Cat.Get(id)
+        assert(item, presetId .. " item " .. id .. " exists")
+        local fits = false
+        for _, inv in ipairs(Cat.SLOT_INV[Cat.SLOT_NAMES[slot]]) do if inv == item.inv then fits = true end end
+        assert(fits, item.name .. " fits its slot in " .. presetId)
+        assert(Cat.Usable(item, preset.class, Cat.SLOT_NAMES[slot], "Alliance", 60), item.name .. " is usable by a level 60 " .. preset.class .. " in " .. presetId)
+    end
 end
+assert(Cat.PRESETS.rogue_preraid_wowhead.slots[16] == 12590 and Cat.PRESETS.rogue_preraid_wowhead.slots[17] == 12783, "the Rogue set dual wields Felstriker and Heartseeker")
 -- Items are found without parsing a slot, and parse to the same record afterwards.
 local direct = Cat.Get(16866)
 assert(direct and direct.name == "Helm of Might" and direct.q == 4 and direct.mask == 1 and direct.inv == 1, "single lookup")

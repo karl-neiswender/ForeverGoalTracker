@@ -1603,6 +1603,13 @@ local function Save(immediate)
     end
     status:SetAlpha(1)
 end
+-- The gallery's Gear Planner shot keeps the logged-in character's own model when the pretend character
+-- shares their race and sex, so its hair and face are the player's, not the game's default (FGT.GearPlannerDemo).
+local function OwnLook(who)
+    if not FGT.demoOwnLook then return false end
+    local _, race = UnitRace("player")
+    return race == who.race and UnitSex ~= nil and UnitSex("player") == who.sex
+end
 local function Choose(build)
     actions:Hide(); cleared, clearedBuild, clearedItems, clearedProgress = nil, nil, nil, nil
     selected = build; changing = true; name:SetText(build and build.name or ""); changing = false
@@ -1614,7 +1621,7 @@ local function Choose(build)
         modelOwner = who.key; model:SetUnit("player")
         -- another character: their race on the model where the game allows it (SetCustomRace
         -- takes 0 male, 1 female); otherwise this character's model wears their gear
-        if not who.me and model.SetCustomRace and RACE_IDS[who.race or ""] then
+        if not who.me and model.SetCustomRace and RACE_IDS[who.race or ""] and not OwnLook(who) then
             pcall(model.SetCustomRace, model, RACE_IDS[who.race], who.sex == 3 and 1 or 0)
         end
         background:SetRace(who.race)
@@ -3123,6 +3130,12 @@ function FGT.GearPlannerDemo(spec)
     db.characters[spec.key] = { name = spec.name, class = spec.class, race = spec.race, faction = spec.faction,
         level = spec.level, sex = spec.sex, lastSeen = time() }
     FGT.demoPlannerKey = spec.key
+    FGT.demoOwnLook = spec.ownLook or nil
+    if spec.ownLook then
+        -- the same race as the player: take their sex too, so the model matches the label
+        local _, race = UnitRace("player")
+        if race == spec.race and UnitSex then db.characters[spec.key].sex = UnitSex("player") end
+    end
     PlanFor(spec.key)
     local store = Store()
     local build = { id = 1, name = preset.name, slots = {}, preset = spec.preset, level = spec.level or 60 }
@@ -3137,7 +3150,7 @@ end
 function FGT.GearPlannerDemoOff()
     local key = FGT.demoPlannerKey
     if not key then return end
-    FGT.demoPlannerKey = nil
+    FGT.demoPlannerKey, FGT.demoOwnLook = nil, nil
     PlanFor(nil)
     local db = ForeverGoalTrackerDB
     if db.characters then db.characters[key] = nil end

@@ -636,9 +636,9 @@ if ok_all:
         'assert(#F.SHOTS == 13, "thirteen gallery shots"); '
         'local forever = 0; for _, s in ipairs(F.SHOTS) do if s.forever then forever = forever + 1 end end; '
         'assert(forever == 3, "Wolfsbane, New and Updated and Embrace of the Viper are the Forever-only shots"); '
-        'S("demo 13"); local key = "Demo Dwarf Hunter-Demo"; '
-        'assert(F.demoPlannerKey == key and D.characters[key] and D.characters[key].race == "Dwarf" and D.characters[key].class == "HUNTER", "scene 13 stages a Dwarf Hunter"); '
-        'local build = D.gearPlanner.characters[key].builds[1]; assert(build.preset == "hunter_preraid_wowhead" and build.level == 60 and build.slots[16] and build.slots[18], "scene 13 opens the pre-raid set at level 60"); '
+        'S("demo 13"); local key = "Demo Dwarf Rogue-Demo"; '
+        'assert(F.demoPlannerKey == key and D.characters[key] and D.characters[key].race == "Dwarf" and D.characters[key].class == "ROGUE", "scene 13 stages a Dwarf Rogue"); '
+        'local build = D.gearPlanner.characters[key].builds[1]; assert(build.preset == "rogue_preraid_wowhead" and build.level == 60 and build.slots[16] and build.slots[18], "scene 13 opens the pre-raid set at level 60"); '
         'S("demo 1"); assert(not D.characters[key] and not F.demoPlannerKey and not D.gearPlanner.characters[key], "the next scene removes the pretend character and set"); '
         'S("demo 13"); S("demo off"); assert(not D.characters[key] and not D.gearPlanner.characters[key], "demo off removes the pretend character and set"); '
         'print("  materials, Library, Wolfsbane, map and Gear Planner scenes ok")')

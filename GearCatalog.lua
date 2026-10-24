@@ -853,6 +853,16 @@ C.PRESETS = {
             [16] = 22314, [18] = 19107 },
         note = "Use both Devilsaur pieces for the set bonus.",
     },
+    -- Wowhead's "[Classic] Dagger Rogue pre-raid *REALISTIC* BiS (Phase 1)" gear set (no gear under a 1%
+    -- drop chance), read 2026-10-24: the 17 items, not its enchants. Used by the gallery's Gear Planner shot;
+    -- the planner's "Use ..." menu entry is still the Hunter's alone.
+    rogue_preraid_wowhead = {
+        class = "ROGUE", name = "Rogue Pre-Raid BiS",
+        slots = { [1] = 13404, [2] = 15411, [3] = 12927, [5] = 14637, [6] = 13252, [7] = 15062, [8] = 12553,
+            [9] = 13120, [10] = 15063, [11] = 17713, [12] = 13098, [13] = 13965, [14] = 11815, [15] = 13340,
+            [16] = 12590, [17] = 12783, [18] = 12651 },
+        note = "Use both Devilsaur pieces for the set bonus.",
+    },
 }
 
 -- Quality colors for item names (the game's own).
