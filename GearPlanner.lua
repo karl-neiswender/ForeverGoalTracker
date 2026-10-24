@@ -2589,7 +2589,7 @@ Refresh = function()
         button.owned:SetAlpha(item and LG.Has(item.id) and 1 or 0)
         local ench = button.enchant
         local can = item ~= nil and Cat.CanEnchant(item)
-        local e = can and selected.enchants and Cat.Enchant(selected.enchants[slotIds[slot]])
+        local e = can and selected and selected.enchants and Cat.Enchant(selected.enchants[slotIds[slot]])
         ench.planned = can and true or false
         ench:SetShown(can and not e or false)
         ench.applied:SetShown(e and true or false)

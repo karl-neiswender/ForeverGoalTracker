@@ -61,6 +61,13 @@ its October 21 notes.
   item stats in `GearData.lua`. Checks pass; native review in Era pending.
 - Library links and Track on its own (2026-10-23, PC, unreleased): see the filters
   report's last section. Checks pass; native review in Era pending.
+- 2.16.0 release candidate (2026-10-24, PC): Karl asked to release and confirmed Era is ready; the
+  Forever beta is closed, so Forever was not tested (stated in the CHANGELOG). Evidence, the
+  LuaLS fix and the package check are in [the candidate record](checks/release-2.16.0-candidate.md).
+  Since the planner review: backdrops grounded per race with a drop shadow, the Z sheathe key
+  (override binding while the planner is open), weather and ambience on every backdrop
+  (`PlannerEffects.lua`, a second copy of the banner particle engine), Set totals and character
+  menu fixes. Waiting only on Karl's go-ahead to push `main` and the `v2.16.0` tag.
 - 2.16.0 prep (2026-10-23): TOC, CHANGELOG, What's new (placeholder date "Oct 23, 2026":
   set the real day), ROADMAP and README are ready; nothing is tagged. Out-of-date reminder
   (`VersionCheck.lua`, prefix FGTVER, shares the version with guild and group, warns once;

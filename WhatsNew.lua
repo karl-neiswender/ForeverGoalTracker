@@ -12,12 +12,13 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
-    { version = "2.16.0", date = "Oct 23, 2026", items = {
+    { version = "2.16.0", date = "Oct 24, 2026", items = {
         "Added Gear Planner: plan a gear set slot by slot on your character, with item search, filters and where each item comes from",
         "Added enchants and scopes to Gear Planner, tracked as goal steps with their materials",
         "Added a level range to each gear set, and gear set goals with your character's leveling artwork",
         "Added Library goal links in Gear Planner: legendaries and sets open or add their goal",
         "Added Start from my current gear, and hints when another character holds a piece of your set",
+        "Added a character preview with racial backdrops and weather, and Z to sheathe weapons in Gear Planner",
         "UI improvements and bug fixes",
     } },
     { version = "2.15.2", date = "Oct 17, 2026", items = {

@@ -9,6 +9,7 @@
 - Added a level range to each gear set, and gear set goals with your character's leveling artwork.
 - Added Library goal links in Gear Planner: legendaries and sets open or add their goal.
 - Added Start from my current gear, and hints when another character holds a piece of your set.
+- Added a character preview with racial backdrops and weather, and Z to sheathe weapons in Gear Planner.
 - UI improvements and bug fixes.
 
 ### Developers' notes
@@ -22,6 +23,8 @@ A gear set counts only its own character's items. Items held by another characte
 The addon now says once in chat when a newer version is out. It learns this from guildmates and group members who run the addon, since an addon cannot look anything up online; only the version number is shared, and Settings > Chat and alerts > Version reminders turns it off.
 
 Known issues: when you plan for another character, the preview may show your character's race instead of theirs. Items Forever has not revealed yet are listed from Classic data and marked Not revealed yet.
+
+This release was tested in Classic Era. The Warcraft Forever beta closed before the final round of testing, so how Gear Planner behaves on Forever, including its racial backdrops, weather effects and the sheathe key, is unconfirmed.
 
 ## 2.15.2
 
