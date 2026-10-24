@@ -213,55 +213,31 @@ click(T.head); click(T.unequip)
 assert(#goal.steps == 1 and D.progress[goalId][1], "removing an earlier slot moves shoulder credit with its item")
 Pick("HeadSlot", 22418)
 assert(#goal.steps == 2 and not D.progress[goalId][1] and D.progress[goalId][2], "inserting an earlier slot preserves shoulder credit")
-local position
-T.model.SetPosition = function(_, x, y, z) position = {x,y,z} end
-for _, slot in ipairs({"HeadSlot", "ShoulderSlot", "HandsSlot", "WristSlot", "FeetSlot"}) do
-    click(T.slots[slot])
-    local update = T.camera:GetScript("OnUpdate")
-    if update then update(T.camera, 1) end
-    assert(position and position[3] ~= 0, "armor focus repositions the full-panel model")
-    assert(not T.camera:GetScript("OnUpdate"), "camera stops after settling")
+-- choosing a slot leaves the camera where the player put it (no slot zoom since 2026-10-24)
+do
+    local settle = T.camera:GetScript("OnUpdate"); if settle then settle(T.camera, 1) end
+    settle = T.turn:GetScript("OnUpdate"); if settle then settle(T.turn, 1) end
+    local moved = false
+    T.model.SetPosition = function() moved = true end
+    for _, slot in ipairs({"HeadSlot", "ShoulderSlot", "HandsSlot", "WristSlot", "FeetSlot", "BackSlot"}) do
+        click(T.slots[slot])
+        assert(not T.camera:GetScript("OnUpdate") and not T.turn:GetScript("OnUpdate"), "a slot neither zooms nor turns the character")
+        T.clickAway:GetScript("OnEvent")()
+    end
+    assert(not moved, "the character stays put")
+    T.model.SetPosition = nil
 end
-T.model.SetPosition = nil
 D.plannerPolishSmoke = { goalId = goalId, key = key, buildId = build.id }
 D.characters[key], D.characters[foreign] = previousOwner, previousForeign
 UnitName = oldName
 F.ShowTab("tracker")
 print("  explicit add, Library exclusion, character scope, replacement credit, tooltip suppression and camera settling ok")
 
--- Dwarf male focus differs from the general body profile; retargeting stays continuous.
+-- Gear swaps are delayed until the fade, coalesced, and independent of camera alpha.
 local oldRace, oldSex = UnitRace, UnitSex
 UnitName = function() return "PlannerOwner" end
-UnitRace = function() return "Dwarf", "Dwarf" end
-UnitSex = function() return 2 end
 F.ShowTab("gear")
-local focused
-T.model.SetPosition = function(_, x, y, z) focused = {x, y, z} end
-local function settle(slot)
-    click(T.slots[slot])
-    local update = T.camera:GetScript("OnUpdate")
-    if update then update(T.camera, 1) end
-    return focused
-end
-for _, slot in ipairs({"ShoulderSlot", "HandsSlot", "WristSlot", "FeetSlot"}) do
-    assert(settle(slot)[2] > 0, "one-sided focus uses the opposite lateral offset")
-end
-local dwarfHands = settle("HandsSlot")[3]
-UnitSex = function() return 3 end
-assert(settle("HandsSlot")[3] ~= dwarfHands, "dwarf male calibration leaves female profile unchanged")
-UnitSex = function() return 2 end
-settle("WaistSlot")
-local from = focused[3]
-click(T.slots.FeetSlot)
-local update = T.camera:GetScript("OnUpdate")
-update(T.camera, 0.1)
-assert(focused[3] > from and focused[3] < 0.99, "camera eases through intermediate positions")
-local intermediate = focused[3]
-click(T.slots.HandsSlot)
-T.camera:GetScript("OnUpdate")(T.camera, 0)
-assert(focused[3] == intermediate, "retarget begins at the displayed position")
-T.camera:GetScript("OnUpdate")(T.camera, 1)
--- Gear swaps are delayed until the fade, coalesced, and independent of camera alpha.
+T.model:GetScript("OnMouseWheel")(T.model, 1) -- a camera move under way during the fade
 local swaps, alpha = 0, 1
 T.model.Undress = function() swaps = swaps + 1 end
 T.model.SetAlpha = function(_, value) alpha = value end
@@ -279,24 +255,17 @@ UnitRace, UnitSex, UnitName = oldRace, oldSex, oldName
 T.model.SetPosition, T.model.Undress, T.model.SetAlpha = nil, nil, nil
 F.ShowTab("tracker")
 assert(not T.camera:GetScript("OnUpdate") and not T.appearance:GetScript("OnUpdate"), "hidden planner stops both drivers")
-print("  dwarf male profile isolation, opposite-side focus, continuous camera retargets and independent gear fades ok")
+print("  independent gear fades ok")
 
--- Back selection turns the model without interfering with wheel zoom or manual rotation.
+-- Another set faces the character front again; dragging takes over a turn at once.
 UnitName = function() return "PlannerOwner" end
 F.ShowTab("gear")
 local angle
 T.model.SetFacing = function(_, value) angle = value end
-click(T.slots.BackSlot)
+T.new()
 T.turn:GetScript("OnUpdate")(T.turn, 0.2)
-assert(angle and angle > 0 and angle < math.pi, "back view eases in the preferred positive direction")
 T.model:GetScript("OnMouseWheel")(T.model, 1)
-assert(T.turn:GetScript("OnUpdate"), "wheel zoom does not interrupt rotation")
-T.turn:GetScript("OnUpdate")(T.turn, 1)
-assert(math.abs(math.abs(angle) - math.pi) < 0.00001, "back view finishes facing away")
-click(T.head)
-T.turn:GetScript("OnUpdate")(T.turn, 1)
-assert(math.abs(angle % (2 * math.pi)) < 0.00001, "another slot restores front view")
-click(T.slots.BackSlot)
+assert(T.turn:GetScript("OnUpdate"), "wheel zoom does not interrupt the turn")
 T.model:GetScript("OnMouseDown")(T.model, "LeftButton")
 assert(not T.turn:GetScript("OnUpdate"), "manual rotation takes over immediately")
 T.model:GetScript("OnMouseUp")(T.model)
@@ -304,7 +273,7 @@ F.ShowTab("tracker")
 assert(not T.turn:GetScript("OnUpdate"), "hidden planner stops rotation")
 T.model.SetFacing = nil
 UnitName = oldName
-print("  eased back/front views, independent wheel zoom and manual rotation takeover ok")
+print("  front view on another set, independent wheel zoom and manual rotation takeover ok")
 
 -- Set actions preserve identity and collection credit through clear/remove/restore.
 UnitName = function() return "PlannerOwner" end
@@ -998,7 +967,7 @@ do
     local filled = T.store().builds[#T.store().builds]
     click(T.fill)
     assert(filled.slots[9] == bracers and filled.enchants and filled.enchants[9] == chosen.spell, "fill copies the worn enchant")
-    assert((T.status:GetText() or ""):find("Not in the planner's list: Mystery Necklace", 1, true), "fill names what it skipped")
+    assert((T.status:GetText() or "") == "", "fill leaves out what the database doesn't know, without a message")
     GetInventoryItemID, GetInventoryItemLink, F.ItemInfo = oldGet, oldLink, oldInfo
     click(T.duplicate)
     local copy = T.store().builds[#T.store().builds]
@@ -1167,16 +1136,63 @@ do
     UnitName = function() return "DualOwner" end
     UnitClass = function() return "Rogue", "ROGUE" end
     local hands = {}
-    T.model.TryOn = function(_, link, hand) hands[tonumber(link:match("item:(%d+)"))] = hand end
+    T.model.TryOn = function(_, link, hand) hands[tonumber(link:match("item:(%d+)"))] = hand or true end
     F.ShowTab("gear"); T.new(); text(T.name, "Dual wield")
     T.name:GetScript("OnEnterPressed")(T.name)
     Pick("MainHandSlot", 19019); Pick("SecondaryHandSlot", 18832)
     local fade = T.appearance:GetScript("OnUpdate"); if fade then fade(T.appearance, 1) end -- the gear swap mid-fade
     assert(hands[19019] == "MAINHANDSLOT" and hands[18832] == "SECONDARYHANDSLOT", "each weapon goes in its own hand")
+    -- with a gun too, a Rogue holds the daggers; the toggle swaps to the gun, per class
+    local D = ForeverGoalTrackerDB
+    local function Worn() -- what the model wears once any fade has finished
+        local f = T.appearance:GetScript("OnUpdate"); if f then f(T.appearance, 1) end
+        hands = {}
+        T.model:GetScript("OnModelLoaded")(T.model)
+        return hands
+    end
+    local band = T.band
+    Track(band.weapons)
+    Pick("RangedSlot", 21272)
+    local worn = Worn()
+    assert(worn[19019] and worn[18832] and not worn[21272], "a Rogue shows the melee weapons over the gun")
+    assert(band.weapons:IsShown(), "the weapons toggle shows when the set has both")
+    click(band.weapons); worn = Worn()
+    assert(worn[21272] and not worn[19019] and not worn[18832], "the toggle shows the gun instead")
+    assert(D.gearPlanner.prefs.weapons.ROGUE == "ranged", "remembered for Rogues")
+    click(band.weapons); worn = Worn()
+    assert(worn[19019] and not worn[21272], "and back")
+    -- choosing the ranged slot shows the gun while its picker is open
+    hands = {}
+    click(T.slots.RangedSlot)
+    assert(hands[21272], "the slot being chosen shows")
+    T.clickAway:GetScript("OnEvent")()
+    -- a Hunter holds the ranged weapon unless the toggle says otherwise
+    UnitClass = function() return "Hunter", "HUNTER" end
+    T.new(); text(T.name, "Hunter weapons"); T.name:GetScript("OnEnterPressed")(T.name)
+    Pick("MainHandSlot", 19019); Pick("RangedSlot", 21272)
+    worn = Worn()
+    assert(worn[21272] and not worn[19019], "a Hunter shows the ranged weapon")
+    -- helm and cloak: hidden from the model, back when their slot is chosen
+    Pick("HeadSlot", 16846)
+    local struck
+    band.helm.slash.SetShown = function(_, on) struck = on end
+    click(band.helm); worn = Worn()
+    assert(D.gearPlanner.prefs.hideHelm and not worn[16846], "a hidden helm stays off the model")
+    assert(struck, "its button is struck through")
+    hands = {}
+    click(T.slots.HeadSlot)
+    assert(hands[16846], "choosing the head slot shows the helm")
+    T.clickAway:GetScript("OnEvent")()
+    click(band.helm); worn = Worn()
+    assert(not D.gearPlanner.prefs.hideHelm and worn[16846] and not struck, "shown again, no stroke")
+    click(band.cloak)
+    assert(D.gearPlanner.prefs.hideCloak, "the cloak toggle is saved")
+    click(band.cloak)
+    D.gearPlanner.prefs.weapons = nil
     T.model.TryOn = nil
     UnitName, UnitClass = oldName, oldClass
     F.ShowTab("tracker")
-    print("  dual wield: main and off hand both on the model")
+    print("  dual wield: main and off hand both on the model; melee or ranged by class and toggle; helm and cloak toggles")
 end
 
 -- No level requirement: planned by the level of its content; requirements above the set show red.
@@ -1325,6 +1341,16 @@ do
     assert(D.gearPlanner.prefs.setsClosed, "closed is remembered")
     F.ShowTab("tracker"); F.ShowTab("gear")
     assert(not SD.open and SD.fraction == 0, "the drawer comes back closed")
+    -- one width always; with no room beside the stage it opens over it instead of refusing
+    assert(SD.Beside(1, 1200) == SD.width, "a wide window: the drawer sits beside the stage")
+    assert(SD.Beside(1, SD.STAGE + 100) == 100, "a narrow one: the stage keeps its least width and the drawer covers the rest")
+    assert(SD.Beside(0, 200) == 22, "closed, it is the strip")
+    -- the character holds one size through the slide and fills the stage again after
+    SD.SetOpen(true)
+    assert(T.model.frozenW, "the character's frame holds still while the drawer slides")
+    SD.driver:GetScript("OnUpdate")(SD.driver, 1)
+    assert(not T.model.frozenW and not SD.driver:GetScript("OnUpdate"), "and fills the stage when the slide ends")
+    SD.SetOpen(false); SD.driver:GetScript("OnUpdate")(SD.driver, 1)
     F.SetSetting("celebrations", "off")
     SD.SetOpen(true)
     assert(SD.open and SD.fraction == 1 and not D.gearPlanner.prefs.setsClosed and not SD.driver:GetScript("OnUpdate"),
@@ -1358,31 +1384,62 @@ do
     assert(T.results[1].tag:GetText() == "Selected" and T.results[1].worn:GetText() == "EQUIPPED", "the worn, planned helm says both")
     T.clickAway:GetScript("OnEvent")()
     GetInventoryItemID = oldInv
-    -- an enhancement shows its effect in green; the band adds them up; right-click removes it
+    -- an enhancement shows its icon in a green frame; the totals add it to the stat; right-click removes it
+    local band = T.band
+    local function TotalsRow(label)
+        for i = 1, band.count or 0 do
+            if band.rows[i].name:GetText() == label then return band.rows[i] end
+        end
+    end
     Pick("WristSlot", 16861)
     local square = T.slots.WristSlot.enchant
-    Track(square.plannedText); Track(square)
+    Track(square.applied); Track(square)
     F.ShowTab("tracker"); F.ShowTab("gear")
-    assert(square:IsShown() and not square.plannedText:IsShown(), "a bracer with nothing planned shows the square")
+    assert(square:IsShown() and not square.applied:IsShown(), "a bracer with nothing planned shows the square")
     click(square); text(T.search, "superior strength"); click(T.results[1])
-    assert(square.plannedText:IsShown() and not square:IsShown(), "a planned enhancement replaces the square")
-    assert(square.plannedText.text:GetText() == "+9 Str", "its effect, short: " .. tostring(square.plannedText.text:GetText()))
-    assert((T.band.enh:GetText() or ""):find("+9 Strength", 1, true), "the band adds up the enhancements")
-    square.plannedText:GetScript("OnClick")(square.plannedText, "RightButton")
-    assert(not (one.enchants and one.enchants[9]) and square:IsShown() and not square.plannedText:IsShown(),
-        "right-clicking the effect removes it and the square returns")
+    assert(square.applied:IsShown() and not square:IsShown(), "a planned enhancement replaces the square")
+    assert(square.applied.icon:GetTexture(), "it shows the enhancement's icon")
+    local strength = TotalsRow("Strength")
+    assert(strength and strength.bonus:GetText() == "+9" and (tonumber(strength.value:GetText()) or 0) > 0,
+        "the Strength row has the items' total and the enhancement's +9 beside it")
+    square.applied:GetScript("OnClick")(square.applied, "RightButton")
+    assert(not (one.enchants and one.enchants[9]) and square:IsShown() and not square.applied:IsShown(),
+        "right-clicking the icon removes it and the square returns")
+    assert(TotalsRow("Strength").bonus:GetText() == "", "and its bonus leaves the totals")
     -- effects written either way round, joined or not
     local E = T.enhancement
-    assert(E.Short({ text = "+3% Hit" }) == "+3% Hit" and E.Short({ text = "Agility +7" }) == "+7 Agi", "both ways round")
+    local hit, agi = E.Effects({ text = "+3% Hit" })[1], E.Effects({ text = "Agility +7" })[1]
+    assert(hit[1] == 3 and hit[2] == "%" and agi[1] == 7 and agi[3] == "Agility", "both ways round")
     local both = E.Effects({ text = "Attack Power +10 and Armor +40" })
     assert(#both == 2 and both[1][3] == "Attack Power" and both[2][1] == 40, "joined effects split")
     assert(#E.Effects({ text = "+18 Spell Damage and Healing" }) == 1, "a stat with 'and' in its name stays whole")
-    assert(#E.Effects({ text = "Crusader" }) == 0 and E.Short({ text = "Crusader", short = "Crusader" }) == "Crusader", "named effects keep their name")
+    assert(#E.Effects({ text = "Crusader" }) == 0, "named effects add nothing to the totals")
     assert(E.Kind({ name = "Rugged Armor Kit" }) == "Armor kit" and E.Kind({ name = "Sniper Scope" }) == "Scope"
         and E.Kind({ name = "Lesser Arcanum of Voracity" }) == "Arcanum" and E.Kind({ name = "x", enchanting = true }) == "Enchant",
         "every kind of enhancement is named")
-    -- the band's item totals
-    assert((T.band.stats:GetText() or ""):find("Strength", 1, true), "the band lists the items' stats")
+    -- the totals: closed until the tab opens them, closed again the next time the planner opens
+    Track(band.panel)
+    assert(not band.panel:IsShown() and not band.open, "the totals start closed")
+    click(band.tab)
+    assert(band.panel:IsShown() and band.open, "the tab opens them")
+    assert((band.summary:GetText() or ""):find("slots filled", 1, true), "the summary line sits under the stats")
+    click(band.tab)
+    assert(not band.panel:IsShown(), "and closes them")
+    click(band.tab); F.ShowTab("tracker"); F.ShowTab("gear")
+    assert(not band.panel:IsShown() and not band.open, "reopening the planner starts them closed")
+    -- an empty set says so once, briefly, with no summary line under it
+    band.Paint({ slots = {} }, nil)
+    assert(band.count == 1 and band.rows[1].name:GetText() == "No items added yet." and (band.summary:GetText() or "") == "",
+        "the empty totals say so once")
+    -- a stat only an enhancement gives gets its own row, with no item total
+    local fake = { text = "+40 Armor" }
+    local oldEnchant = Cat.Enchant
+    Cat.Enchant = function(spell) if spell == -1 then return fake end; return oldEnchant(spell) end
+    band.Paint({ slots = {}, enchants = { [5] = -1 } }, "")
+    local armor = TotalsRow("Armor")
+    assert(armor and armor.value:GetText() == "" and armor.bonus:GetText() == "+40", "an enhancement-only stat")
+    Cat.Enchant = oldEnchant
+    F.ShowTab("tracker"); F.ShowTab("gear")
     -- set cards: hovering shows Rename and Delete; delete takes two clicks
     T.new(); text(T.name, "Layout two")
     local two = T.store().builds[#T.store().builds]
@@ -1407,25 +1464,21 @@ do
     click(target)
     assert(T.setTitle:GetText() == "Layout one" and not T.switchMenu:IsShown(), "picking a set switches to it")
     -- Remove all from My Goals keeps the sets; Delete all takes two clicks and clears them
+    for _, row in ipairs(T.rows) do Track(row.bar) end
     click(T.add)
     assert(D.active[one.goalId], "added")
+    local tracked
+    for _, row in ipairs(T.rows) do if row.build == one then tracked = row end end
+    assert(tracked and tracked.bar:IsShown(), "a set in My Goals shows its progress on its card")
+    assert(T.band.goal:GetParent() == T.slotList.scroll:GetParent(), "In My Goals sits in the Equipment panel")
     click(T.removeAll)
     assert(not D.active[one.goalId] and #T.store().builds > 0, "every set leaves My Goals and stays planned")
     click(T.deleteAll)
     assert(#T.store().builds > 0, "delete all asks again")
     click(T.deleteAll)
     assert(#T.store().builds == 0 and not D.progress[one.goalId], "the second click deletes every set and its progress")
-    -- the stage: turn buttons turn an eighth at a time; right-drag moves the character
+    -- the stage: right-drag moves the character
     T.new(); text(T.name, "Layout three"); Pick("HeadSlot", 16866)
-    local angle
-    T.model.SetFacing = function(_, value) angle = value end
-    click(T.turnRight); T.turn:GetScript("OnUpdate")(T.turn, 1)
-    local first = angle
-    click(T.turnRight); T.turn:GetScript("OnUpdate")(T.turn, 1)
-    assert(first and math.abs(angle - first - math.pi / 4) < 1e-6, "the right button turns an eighth")
-    click(T.turnLeft); T.turn:GetScript("OnUpdate")(T.turn, 1)
-    assert(math.abs(angle - first) < 1e-6, "the left button turns back")
-    T.model.SetFacing = nil
     local moved
     T.model.SetPosition = function(_, x, y, z) moved = { y, z } end
     local cx, cy = 0, 0
@@ -1448,10 +1501,21 @@ do
     T.name:GetScript("OnEnterPressed")(T.name)
     T.name:GetScript("OnEditFocusLost")(T.name)
     assert(T.store().builds[#T.store().builds].name == "Layout renamed" and T.setTitle:GetText() == "Layout renamed", "Enter renames the set")
+    -- a set in My Goals: renaming it renames its card in the My Goals list too
+    local oldAfter = C_Timer.After
+    C_Timer.After = function(_, fn) fn() end
+    click(T.add)
+    local renamed = T.store().builds[#T.store().builds]
+    click(T.editName); text(T.name, "Layout renamed again")
+    T.name:GetScript("OnEnterPressed")(T.name); T.name:GetScript("OnEditFocusLost")(T.name)
+    local card = F.RailUI.rows[renamed.goalId]
+    assert(card and card.name:GetText() == "Layout renamed again", "the My Goals card shows the new name: "
+        .. tostring(card and card.name:GetText()))
+    C_Timer.After = oldAfter
     UnitClass, GetItemCount = oldClassL, oldCount
     UnitName = oldName
     F.ShowTab("tracker")
-    print("  layout: drawer slide, slot rows, blocked off hand, owned and equipped marks, green enhancements and totals, cards, switcher, delete all, turn and move")
+    print("  layout: drawer slide, slot rows, blocked off hand, owned and equipped marks, enhancement icons, totals tab, cards, switcher, delete all, move")
 end
 
 -- Out-of-date reminder: a higher version heard from another player says so once, nothing else does.

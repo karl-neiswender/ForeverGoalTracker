@@ -68,7 +68,8 @@ its October 21 notes.
   review of the planner changes, fresh checks on the final commit, performance read,
   gallery and description (publishing reference, items 10 to 14), Karl's authorization.
 - [Layout redesign](Gear-Planner-layout-2026-10-23.md) (2026-10-23, locked by Karl; built
-  the same day, uncommitted): slot list left, model stage center, My Gear Sets as a
+  the same day, committed `a64878a`; Karl's live review changes of 2026-10-24 are in its
+  last section, committed the same day, not pushed): slot list left, model stage center, My Gear Sets as a
   Materials-style drawer right, item and enhancement pop-outs beside the list. `tools/check.py`
   passes (109 sessions, new layout tests in `gear-planner-tests.lua`); synced to Era. Native
   review in Era pending; Ketho/LuaLS not rerun. Karl: build and test it in Era before 2.16.0.

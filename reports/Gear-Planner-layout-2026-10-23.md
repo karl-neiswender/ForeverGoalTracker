@@ -155,6 +155,48 @@ Choices made while building, for Karl's review:
   joined ("Attack Power +10 and Armor +40"); rows show one short effect, or the enchant's name
   when there are several.
 
+## Live review changes (Karl, 2026-10-24, Era)
+
+These replace the matching parts of the spec above.
+- Planned enhancement: its icon in a green 1px frame (brighter on hover, gold while its
+  pop-out is open); the effect lives in the tooltip. The empty "+" square is unchanged.
+  Enchanting enhancements mostly share one spell icon in Classic; kits, scopes and arcanums
+  show their item's icon.
+- No slot zoom: choosing a slot leaves the camera alone. Another set still returns to the
+  resting view. Turn buttons, "Drag to turn" and "Scroll to zoom · Right-drag to move" are
+  gone; only the empty-set prompt remains under the character.
+- Set totals: a "Set totals" tab at the stage's bottom left (tooltip Show/Hide set totals)
+  opens a 220px panel upward, one row per stat (name, items' total in white, enhancements'
+  bonus in green), then the summary line. Closed each time the planner opens. Status messages
+  sit beside the tab.
+- In My Goals: top right of the stage, right-aligned, against the drawer's edge.
+- Sets drawer: 260px always (no flexing), always opens. When the stage would drop under
+  380px, the drawer opens over the stage's right edge with a shadow instead of closing.
+- While the drawer slides, the character's frame keeps one width and only moves; it fills the
+  stage again when the slide ends (Karl: smooth in Era, 2026-10-24).
+- Second pass: the planned enhancement is 18px like the "+" square, icon inside the frame.
+  The slot list, sets list and picker results now have their bottom fade (they passed a 0
+  fade height). The model holds the melee weapons or the ranged one, never both: Hunters
+  ranged by default, everyone else melee; a stage toggle (bottom right, with Hide/Show helm
+  and Hide/Show cloak) changes it per class. The slot being chosen always shows on the model.
+  Saved in `prefs.hideHelm`, `prefs.hideCloak`, `prefs.weapons[class]`.
+- Third pass: no empty-set prompt on the stage. In My Goals moved to the top of the Equipment
+  panel under its heading (status and Add button, or count, "View in My Goals ›" and a bar
+  spanning the column), with a rule above the slot groups. Tracked set cards show a 4px progress
+  bar along their foot. A hidden helm or cloak gets a red diagonal stroke over its dimmed icon.
+- Fourth pass: while the drawer opens over the stage, the name, character line and Library link
+  slide with it (`SD.cover`, 0 to 1) from centred to left-aligned 28px in. The stage toggles sit
+  16px from the visible edge, like the Set totals tab. Empty totals read "No items added yet."
+  with no summary line. Karl will draw `eye-white` / `eye-off-white` for the helm and cloak
+  toggles (paths in the artwork reference); the stroke stays until then.
+- Fifth pass: the title cluster jumped left as soon as the drawer touched the stage; it now
+  moves only as far as keeps its widest line 16px clear of the drawer (`SD.cover` from
+  `band.FitTitle`). Bug: renaming a tracked set left its My Goals list card on the old name
+  (cards set their name once when built); `FGT.RefreshPlannerGoals` now renames the card.
+- Sixth pass: no tooltip on "Start from my current gear"; filling from worn gear no longer
+  shows a message (the list of skipped grey items was cut off). Karl confirmed the rename fix
+  in Era and approved committing the session.
+
 ## Open
 
 - Pop-out minimum width on very narrow windows: pick it in game.

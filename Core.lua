@@ -12483,6 +12483,9 @@ FGT.PopoutUI = {
 }
 -- Narrow refresh bridge for runtime planner goals (also rechecks already-owned items).
 function FGT.RefreshPlannerGoals(goal)
+    -- list cards set their name once when built: a renamed gear set renames its card too
+    local row = goal and goalRows[goal.id]
+    if row then row.name:SetText(goal.short or goal.name) end
     ApplyAutoRules(goal)
     FGT.CheckGoalCompletions()
     LayoutGoalList()
