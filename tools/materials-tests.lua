@@ -1,4 +1,5 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
+STUB_NS.noRequirementLocks = true -- these tests tick steps by clicking; locks have their own tests (dependency-tests.lua)
 local function Find(rows,id)
     for _,row in ipairs(rows) do if row.id==id then return row end end
 end

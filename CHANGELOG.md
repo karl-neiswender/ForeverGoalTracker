@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added locks on steps that need a level, reputation, skill or quest you have not reached. A click says what is needed, and Shift-click unlocks the step for the session.
+
 ## 2.16.0
 
 - Added Gear Planner: plan a gear set slot by slot on your character, with item search, filters and where each item comes from.

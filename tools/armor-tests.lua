@@ -1,4 +1,5 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
+STUB_NS.noRequirementLocks = true -- these tests tick steps by clicking; locks have their own tests (dependency-tests.lua)
 local rogue, hunter = F.GoalById("set_tier1_rogue"), F.GoalById("set_tier1_hunter")
 assert(rogue and hunter and not rogue.group and not hunter.group)
 assert(D.active[rogue.id] and D.active[hunter.id], "both selected sets migrate independently")

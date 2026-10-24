@@ -23,6 +23,10 @@ A step can be ticked by clicking anywhere on its row, whether or not the charact
 - **Completion guard.** The celebration, chat message, toast and screenshot fire only when every step was earned. A goal finished through unlocked steps still completes, quietly. There is no "checked by hand" line, label or marker anywhere (Karl, 2026-10-24: he does not want that wording). Whether that quiet completion should ask first is still open.
 - **Order rules.** Gates such as "bindings need level 60" come from the dependency table in `Dependencies.lua` (10 goals today, Classic Era only). Proposed pattern: an explicit "Reach level N" first step gates the rest of the goal except steps marked parallel (gathering materials). A goal-by-goal review decides the parallel steps, released in batches, starting from the dependency audit in `reports/`.
 
+## Status
+
+Build 1 is done and Karl confirmed it works in Classic Era (2026-10-24): requirement locks for level, reputation, skill and quest steps, the one-line message, the hint after the first blocked click, Shift-click unlock, and unlocks that last a session (kept on reload, cleared at login). Code in `Dependencies.lua` and the step row click in `Core.lua`; tests in `dependency-tests.lua`. Unreleased. Builds 2 and 3 below are not started.
+
 ## Build order
 
 1. The lock for the Phase 1 rule types: explanation, hint, Shift-click unlock, session-only unlock memory. Era only.

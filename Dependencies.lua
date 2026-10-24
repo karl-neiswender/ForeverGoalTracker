@@ -76,27 +76,93 @@ function FGT.StepPrerequisites(goal, key)
     return rules and rules[key]
 end
 
+-- Requirement locks (Karl, 2026-10-24): a step the addon can always verify, and the character does not
+-- meet, cannot be ticked by hand. Only rules the game itself can answer at any moment count: level,
+-- reputation standing, skill rank and a quest flagged complete. Rules that depend on the addon having
+-- watched it happen (boss kills, counters, statistics) are not locked, because a kill made before the
+-- addon was installed cannot be seen. A rule with any other key is never locked. Like the order locks,
+-- these apply on Classic Era only until Forever's rules are verified.
+local LOCKABLE = { level = true, rep = true, skill = true, quest = true }
+local RULE_SCOPE = { forFaction = true, forClass = true, forRace = true } -- who the step is for, not a requirement
+local STANDINGS = { "Hated", "Hostile", "Unfriendly", "Neutral", "Friendly", "Honored", "Revered", "Exalted" }
+
+-- The unlocks Karl's players make with Shift-click last for the game session: they survive /reload and
+-- are cleared at the next login (see the event at the end of this file).
+FGT.lockTried = {} -- steps whose lock was clicked once this session: their tooltip then shows the hint
+function FGT.StepUnlocked(goal, key)
+    local DB = ForeverGoalTrackerDB
+    local per = DB and DB.unlocked and goal and DB.unlocked[goal.id]
+    return per and per[key] == true or false
+end
+function FGT.UnlockStep(goal, key)
+    local DB = ForeverGoalTrackerDB
+    if not (DB and goal) then return end
+    DB.unlocked = DB.unlocked or {}
+    DB.unlocked[goal.id] = DB.unlocked[goal.id] or {}
+    DB.unlocked[goal.id][key] = true
+end
+
+local function FactionName(id)
+    local ok, name = pcall(GetFactionInfoByID, id)
+    return ok and name or "that faction"
+end
+
+-- One short line for what the step needs, point blank.
+function FGT.RequirementText(rule)
+    if rule.level then return "Requires level " .. rule.level .. "." end
+    if rule.rep then
+        local faction = type(rule.rep.faction) == "table" and rule.rep.faction[1] or rule.rep.faction
+        local standing = STANDINGS[rule.rep.standing or 0] or "a higher standing"
+        local value = (rule.rep.value or 0) > 0 and (" " .. rule.rep.value) or ""
+        return "Requires " .. standing .. value .. " with " .. FactionName(faction) .. "."
+    end
+    if rule.skill then return "Requires " .. tostring(rule.skill.name) .. " " .. tostring(rule.skill.rank) .. "." end
+    if rule.quest then return "Quest not completed." end
+end
+
+-- The text above when this step is requirement-locked (verifiable, unmet, not unlocked), else nil.
+function FGT.StepRequirement(goal, key)
+    if FGT.noRequirementLocks then return nil end -- (a switch for tests that tick steps by clicking and are not about locks)
+    if FGT.isForever and not FGT.testDependencies then return nil end
+    local entry = FGT.DependencyEntry(goal, key)
+    local rule = type(entry) == "table" and entry.auto
+    if type(rule) ~= "table" then return nil end
+    local lockable = false
+    for k in pairs(rule) do
+        if LOCKABLE[k] then lockable = true elseif not RULE_SCOPE[k] then return nil end
+    end
+    if not lockable or (FGT.StepRuleMet and FGT.StepRuleMet(rule)) then return nil end
+    return FGT.RequirementText(rule)
+end
+
 function FGT.StepLocked(goal, key)
     local missing = { all = {}, any = {} }
-    if not goal or FGT.DependencyMet(goal, key) then return false, missing end
+    if not goal or FGT.DependencyMet(goal, key) or FGT.StepUnlocked(goal, key) then return false, missing end
     local rule = FGT.StepPrerequisites(goal, key)
-    if not rule then return false, missing end
-    for _, prior in ipairs(rule.all or {}) do
-        if not FGT.DependencyMet(goal, prior) then missing.all[#missing.all+1] = prior end
+    if rule then
+        for _, prior in ipairs(rule.all or {}) do
+            if not FGT.DependencyMet(goal, prior) then missing.all[#missing.all+1] = prior end
+        end
+        local anyMet = false
+        for _, prior in ipairs(rule.any or {}) do
+            if FGT.DependencyMet(goal, prior) then anyMet = true; break end
+        end
+        if not anyMet then for _, prior in ipairs(rule.any or {}) do missing.any[#missing.any+1] = prior end end
     end
-    local anyMet = false
-    for _, prior in ipairs(rule.any or {}) do
-        if FGT.DependencyMet(goal, prior) then anyMet = true; break end
-    end
-    if not anyMet then for _, prior in ipairs(rule.any or {}) do missing.any[#missing.any+1] = prior end end
-    return #missing.all > 0 or #missing.any > 0, missing
+    if #missing.all > 0 or #missing.any > 0 then return true, missing end
+    missing.requirement = FGT.StepRequirement(goal, key)
+    return missing.requirement ~= nil, missing
 end
 
 function FGT.ShowStepLockTip(row)
     if FGT.overLink then return end
     local _, missing = FGT.StepLocked(row.depGoal, row.depKey)
     GameTooltip:SetOwner(row, "ANCHOR_RIGHT")
-    GameTooltip:AddLine("Locked", 1, 0.84, 0.4)
+    if missing.requirement then
+        GameTooltip:AddLine(missing.requirement, 1, 0.84, 0.4, true)
+    else
+        GameTooltip:AddLine("Locked", 1, 0.84, 0.4)
+    end
     local function lines(keys, heading)
         if #keys == 0 then return end
         GameTooltip:AddLine(heading, 0.9, 0.48, 0.43, true)
@@ -108,6 +174,13 @@ function FGT.ShowStepLockTip(row)
     end
     lines(missing.all, "Complete first:")
     lines(missing.any, "Complete one:")
+    -- after the first blocked click on this step, a small hint at the bottom (not advertised before that)
+    if FGT.lockTried[tostring(row.depGoal and row.depGoal.id) .. "|" .. tostring(row.depKey)] then
+        GameTooltip:AddLine("Shift-click to unlock", 0.6, 0.6, 0.6)
+        local n = GameTooltip:NumLines()
+        local line = n and _G and _G["GameTooltipTextLeft" .. n]
+        if line and line.SetFontObject and GameFontNormalSmall then line:SetFontObject(GameFontNormalSmall) end
+    end
     GameTooltip:Show()
 end
 
@@ -202,3 +275,12 @@ function FGT.ClearStepLock(row)
     row.depIdentity, row.depGoal, row.depKey, row.depLocked = nil, nil, nil, nil
     FGT.EndLockMotion(row)
 end
+
+-- The session ends at the next login, not at a reload: PLAYER_ENTERING_WORLD says which (isInitialLogin is
+-- true for a login, character switch or new game start, isReloadingUi for /reload).
+local session = CreateFrame("Frame")
+session:RegisterEvent("PLAYER_ENTERING_WORLD")
+session:SetScript("OnEvent", function(_, _, isInitialLogin)
+    if isInitialLogin and ForeverGoalTrackerDB then ForeverGoalTrackerDB.unlocked = nil end
+end)
+FGT.unlockSession = session

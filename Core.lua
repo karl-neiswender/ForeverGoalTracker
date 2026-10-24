@@ -8565,8 +8565,20 @@ RefreshSteps = function(goal, view)
             row:SetScript("OnClick", function(self, button)
                 if FGT.StepLinkClick(self, button) then return end
                 if FGT.StepLocked(goal, i) then
+                    if IsShiftKeyDown() then
+                        -- the escape (Karl, 2026-10-24): Shift-click removes the lock for this session; it does not tick
+                        FGT.UnlockStep(goal, i)
+                        if view then
+                            if selectedId then SelectGoal(selectedId, true) end
+                            if FGT.RefreshPopout then FGT.RefreshPopout() end
+                        else
+                            SelectGoal(goal.id, true)
+                        end
+                        return
+                    end
                     FGT.PlayLockMotion(self, "jiggle")
                     FGT.ShowStepLockTip(self)
+                    FGT.lockTried[goal.id .. "|" .. tostring(i)] = true -- (so the next tooltip carries the hint)
                     return
                 end
                 ToggleStep(goal.id, i, view)

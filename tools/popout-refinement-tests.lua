@@ -1,4 +1,5 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
+STUB_NS.noRequirementLocks = true -- these tests tick steps by clicking; locks have their own tests (dependency-tests.lua)
 local P, U = F.Popout, F.PopoutUI
 P.autoFit = false
 local function Track(frame, shown)

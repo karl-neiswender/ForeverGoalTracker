@@ -1,4 +1,5 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
+STUB_NS.noRequirementLocks = true -- these tests tick steps by clicking; locks have their own tests (dependency-tests.lua)
 D.active, D.activeParts, D.characters = {}, {}, {}
 local g, other = F.GoalById("ashbringer"), F.GoalById("atiesh")
 D.active[g.id], D.active[other.id] = true, true

@@ -1,4 +1,5 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
+STUB_NS.noRequirementLocks = true -- these tests tick steps by clicking; locks have their own tests (dependency-tests.lua)
 local saved = { goals = F.goals, active = D.active, parts = D.activeParts,
     progress = D.progress, characters = D.characters, info = F.ItemInfo }
 local goal = { id = "tooltip_test", name = "Test gear", steps = {

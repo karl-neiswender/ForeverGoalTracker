@@ -26,7 +26,18 @@ assert(P:Open("sulfuras"), "active goal can be popped out")
 assert(P.open and P.frame:IsShown() and P.placeholder:IsShown(), "pop-out and recessed placeholder are shown")
 assert(STUB_SERIALIZE(D.progress)==before, "opening never changes progress")
 local height = P.slotHeight
+-- On Classic Era, Sulfuras begins with "Reach level 60", which this level 1 test character does not meet: the step
+-- is locked, a click is blocked, and Shift-click unlocks it for the session before the checkbox ticks (Karl,
+-- 2026-10-24). Forever has no requirement locks until its rules are verified: the click ticks.
 P.rows[1]:GetScript("OnClick")(P.rows[1], "LeftButton")
+if not (F.isForever and not F.testDependencies) then
+    assert(not D.progress.sulfuras[1], "a locked pop-out step is not ticked by a click")
+    local shift = IsShiftKeyDown; IsShiftKeyDown = function() return true end
+    P.rows[1]:GetScript("OnClick")(P.rows[1], "LeftButton")
+    IsShiftKeyDown = shift
+    assert(not D.progress.sulfuras[1], "Shift-click unlocks without ticking")
+    P.rows[1]:GetScript("OnClick")(P.rows[1], "LeftButton")
+end
 assert(D.progress.sulfuras[1], "pop-out checkbox writes the authoritative progress")
 assert(P.slotHeight==height, "progress does not move Tips up")
 F.SelectGoal("thunderfury")
