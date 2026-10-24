@@ -19,8 +19,8 @@ A step can be ticked by clicking anywhere on its row, whether or not the charact
 ## Proposed, awaiting Karl's yes
 
 - **Phase 1 covers only rules the game can always verify:** level, reputation standing, skill rank, quest flagged complete, and collection items such as mounts. Rules that depend on the addon having watched it happen (boss kills, counters like buffs or summons, statistics) stay unlocked for now, because a kill made before the addon was installed cannot be seen and would wrongly lock the player out.
-- **Earned ticks.** Record how each tick happened (earned from evidence or by hand) and lock the earned ones. Ticks already in saves have no record: a step that is verifiably met today is treated as earned, and the rest stay as they are. Earned progress is never unticked automatically.
-- **Completion guard.** The celebration, chat message, toast and screenshot fire only when every step was earned. A goal finished through unlocked steps still completes but is marked "completed by hand" and stays quiet. Karl has not yet said whether it should stay quiet or ask first.
+- **Earned ticks.** Record how each tick happened (earned from evidence or not), internally only: nothing about it is shown to the player, and lock the earned ones. Ticks already in saves have no record: a step that is verifiably met today is treated as earned, and the rest stay as they are. Earned progress is never unticked automatically.
+- **Completion guard.** The celebration, chat message, toast and screenshot fire only when every step was earned. A goal finished through unlocked steps still completes, quietly. There is no "checked by hand" line, label or marker anywhere (Karl, 2026-10-24: he does not want that wording). Whether that quiet completion should ask first is still open.
 - **Order rules.** Gates such as "bindings need level 60" come from the dependency table in `Dependencies.lua` (10 goals today, Classic Era only). Proposed pattern: an explicit "Reach level N" first step gates the rest of the goal except steps marked parallel (gathering materials). A goal-by-goal review decides the parallel steps, released in batches, starting from the dependency audit in `reports/`.
 
 ## Build order
@@ -33,6 +33,6 @@ Steps 1 and 2 are the candidates for before November 4. Test with the existing p
 
 ## Open questions
 
-- Completion guard: quiet "completed by hand", or ask first?
+- Completion guard: finish quietly with no label, or ask first?
 - Phase 1 scope: confirm the always-verifiable rule types only.
 - The exact one-line wording for each rule type (level, reputation, skill, quest, mount); the proposed lines above follow Karl's rule of simple and point blank.
