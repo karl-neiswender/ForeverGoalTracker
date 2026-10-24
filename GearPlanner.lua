@@ -27,8 +27,7 @@ local colors, styles = U.colors, U.styles
 -- Inventory types with no model to show: neck, rings, trinkets and relics.
 local NO_MODEL = { [2] = true, [11] = true, [12] = true, [24] = true, [27] = true, [28] = true }
 local ROW_H = 46
-local POOL_ROWS = 12 -- enough to fill the tallest picker (460) without measuring a frame before it is laid out
-local PICKER_MAX, PICKER_MIN = 460, 200
+local POOL_ROWS = 12 -- grows to fill the picker's height when it opens (PlacePicker)
 
 -- ------------------------------------------------------------
 -- Saved data
@@ -293,77 +292,197 @@ local function SearchBox(parent, hintText)
 end
 
 -- ------------------------------------------------------------
--- Layout: set list on the left, editor on the right
+-- Layout: slots on the left, the character in the middle, the sets in a drawer on the right
 -- ------------------------------------------------------------
+-- (the 2026-10-23 redesign: reports/Gear-Planner-layout-2026-10-23.md)
 local left = CreateFrame("Frame", nil, P, "BackdropTemplate")
 left:SetPoint("TOPLEFT", U.list, "TOPLEFT")
 left:SetPoint("BOTTOMLEFT", U.list, "BOTTOMLEFT")
-left:SetWidth(FGT.trackerTab:GetWidth() + FGT.libraryTab:GetWidth() + 56)
--- Small windows: the set list slims down so the character gets the room.
-left.natural = left:GetWidth()
-function left.Fit()
-    local main = U.main:GetWidth() or 0
-    local width = main > 0 and math.max(210, math.min(left.natural, main * 0.22)) or left.natural
-    if math.abs(width - left:GetWidth()) < 0.5 then return end
-    left:SetWidth(width)
-    if left.empty then left.empty:SetWidth(width - 32) end
-    for _, row in ipairs(left.rows or {}) do
-        row:SetWidth(math.max(120, width - 28)); row.text:SetWidth(math.max(100, width - 48))
-    end
-end
+left.natural = 300
+left:SetWidth(left.natural)
 U.etch(left, styles.panel)
+-- My Gear Sets: a drawer on the right edge that slides like Materials (same handle, pace and
+-- 22-unit strip when closed); the stage widens as it closes.
+local SD = { open = true, fraction = 1, width = 300, canOpen = true, MAX = 300, STAGE = 380 }
+SD.clip = CreateFrame("Frame", nil, P)
+SD.clip:SetPoint("TOP", left, "TOP"); SD.clip:SetPoint("BOTTOM", left, "BOTTOM")
+SD.clip:SetPoint("RIGHT", U.main, "RIGHT", -16, 0)
+if SD.clip.SetClipsChildren then SD.clip:SetClipsChildren(true) end
+local drawer = CreateFrame("Frame", nil, SD.clip, "BackdropTemplate")
+drawer:SetPoint("TOPLEFT", SD.clip, "TOPLEFT"); drawer:SetPoint("BOTTOMLEFT", SD.clip, "BOTTOMLEFT")
+drawer:SetWidth(SD.width)
+U.etch(drawer, styles.panel, 12)
+if FGT.AddGrime then FGT.AddGrime(drawer, 0.18, 12, 0.37, 0, 140) end
+drawer:EnableMouse(true)
+-- the window edge's shadow while the drawer is tucked beneath it (Materials' edge shade)
+SD.shadow = drawer:CreateTexture(nil, "OVERLAY", nil, 3)
+SD.shadow:SetTexture("Interface\\Buttons\\WHITE8X8")
+SD.shadow:SetPoint("TOPRIGHT", SD.clip, "TOPRIGHT"); SD.shadow:SetPoint("BOTTOMRIGHT", SD.clip, "BOTTOMRIGHT")
+SD.shadow:SetWidth(22)
+-- everything in the drawer fades with the slide
+SD.body = CreateFrame("Frame", nil, drawer)
+SD.body:SetPoint("TOPLEFT"); SD.body:SetPoint("BOTTOMLEFT"); SD.body:SetWidth(SD.width)
+SD.handle = CreateFrame("Button", nil, P)
+SD.handle:SetSize(24, 48)
+FGT.IconButton(SD.handle, "chevron-white", 10)
+SD.handle.icon:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+SD.handle.glow:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+SD.handle:SetScript("OnEnter", function(self)
+    self.icon:SetVertexColor(colors.ACCENT[1], colors.ACCENT[2], colors.ACCENT[3])
+    self.glow:SetVertexColor(colors.ACCENT[1], colors.ACCENT[2], colors.ACCENT[3])
+    GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+    GameTooltip:AddLine(SD.canOpen and (SD.open and "Hide gear sets" or "Show gear sets") or "Widen the window to show gear sets")
+    GameTooltip:Show()
+end)
+SD.handle:SetScript("OnLeave", function(self)
+    self.icon:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+    self.glow:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+    GameTooltip:Hide()
+end)
 local right = CreateFrame("Frame", nil, P, "BackdropTemplate")
 right:SetPoint("TOPLEFT", left, "TOPRIGHT", 12, 0)
-right:SetPoint("BOTTOMRIGHT", U.main, "BOTTOMRIGHT", -16, 16)
+right:SetPoint("BOTTOMRIGHT", SD.clip, "BOTTOMLEFT", -12, 0)
 U.etch(right, styles.panel)
-Label(left, "My Gear Sets", 16, 16, -16)
+SD.handle:SetFrameLevel(math.max(right:GetFrameLevel(), drawer:GetFrameLevel()) + 45)
+-- Small windows: the slot column slims a little, then the drawer gives way to the character.
+function left.Fit()
+    local main = U.main:GetWidth() or 0
+    local width = main > 0 and math.max(240, math.min(left.natural, main * 0.24)) or left.natural
+    if math.abs(width - left:GetWidth()) >= 0.5 then left:SetWidth(width); if left.Layout then left.Layout() end end
+    if SD.Place then SD.Place() end
+end
+Label(SD.body, "My Gear Sets", 16, 16, -16)
 -- Whose sets these are: a picker over every character on the roster.
-local ownerBtn = CreateFrame("Button", nil, left)
-ownerBtn:SetPoint("TOPLEFT", 12, -36); ownerBtn:SetHeight(22)
+local ownerBtn = CreateFrame("Button", nil, SD.body)
+ownerBtn:SetPoint("TOPLEFT", 12, -42); ownerBtn:SetHeight(22)
+local ownerLead = U.font(SD.body, 11); ownerLead:SetPoint("TOPLEFT", 16, -46); ownerLead:SetText("Plans for")
+ownerLead:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+ownerBtn:ClearAllPoints(); ownerBtn:SetPoint("LEFT", ownerLead, "RIGHT", 2, 0)
 local owner = U.font(ownerBtn, 11); owner:SetPoint("LEFT", 4, 0)
 local ownerCaret = ownerBtn:CreateTexture(nil, "OVERLAY")
 ownerCaret:SetTexture(FGT.Icon("chevron")); ownerCaret:SetSize(12, 12); ownerCaret:SetPoint("LEFT", owner, "RIGHT", 4, 0)
-local charMenu = CreateFrame("Frame", nil, left, "BackdropTemplate")
+local charMenu = CreateFrame("Frame", nil, SD.body, "BackdropTemplate")
 charMenu:SetPoint("TOPLEFT", ownerBtn, "BOTTOMLEFT", 0, -4)
-charMenu:SetFrameLevel(left:GetFrameLevel() + 30); charMenu:EnableMouse(true)
+charMenu:SetFrameLevel(drawer:GetFrameLevel() + 30); charMenu:EnableMouse(true)
 U.etch(charMenu, styles.panel); charMenu:Hide()
 local charRows = {}
-local new = Button(left, "+ New", 68, 24); new:SetPoint("TOPRIGHT", -14, -14)
-local list = U.scroll(left, 0, 0, 0, 0)
+-- the drawer's "..." menu: what applies to every set (and the open one)
+local options = Button(SD.body, "...", 30, 24); options:SetPoint("TOPRIGHT", -14, -14)
+options.text:ClearAllPoints(); options.text:SetPoint("CENTER", 0, 3) -- the dots sit on the baseline
+local new = Button(SD.body, "+ New", 68, 24); new:SetPoint("RIGHT", options, "LEFT", -6, 0)
+local list = U.scroll(SD.body, 0, 0, 0, 0)
 -- Use an independent clipped viewport; no dependency on the guide layout.
 list.scroll:ClearAllPoints(); list.scroll:SetPoint("TOPLEFT", 12, -76)
-list.scroll:SetPoint("BOTTOMRIGHT", -12, 16) -- (the rows end at -14, level with + New)
-local listEmpty = Label(left, "No sets yet.", 11, 16, -84)
-listEmpty:SetWidth(left:GetWidth() - 32); listEmpty:SetJustifyH("LEFT"); left.empty = listEmpty
+list.scroll:SetPoint("BOTTOMRIGHT", -12, 16)
+local listEmpty = Label(SD.body, "No sets yet.", 11, 16, -84)
+listEmpty:SetWidth(SD.width - 32); listEmpty:SetJustifyH("LEFT")
 listEmpty:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
 local rows, selected, draft, changing = {}, nil, nil, false
-left.rows = rows
+-- Place the drawer for its slide (fraction 0 closed, 1 open) and the window's room.
+function SD.Place()
+    local area = (U.main:GetWidth() or 0) - left:GetWidth() - 44
+    SD.width = math.min(SD.MAX, math.max(22, area - SD.STAGE))
+    SD.canOpen = SD.width >= 220
+    local fraction = SD.canOpen and SD.fraction or 0
+    SD.clip:SetWidth(math.max(1, 22 + (SD.width - 22) * fraction))
+    drawer:SetWidth(SD.width); SD.body:SetWidth(SD.width)
+    listEmpty:SetWidth(SD.width - 32)
+    for _, row in ipairs(rows) do row:SetWidth(math.max(120, SD.width - 28)) end
+    SD.handle:ClearAllPoints(); SD.handle:SetPoint("CENTER", SD.clip, "LEFT", -6, 0)
+    -- IconButton's glyph points down: open points right (tuck it away), closed points left
+    local rotation = (SD.open and SD.canOpen) and math.pi / 2 or -math.pi / 2
+    SD.handle.icon:SetRotation(rotation); SD.handle.glow:SetRotation(rotation)
+    -- Gradient alpha is encoded in its colors on these clients.
+    U.gradient(SD.shadow, { 0, 0, 0 }, { 0, 0, 0 }, 0, 0.65 * (1 - fraction))
+    SD.shadow:SetShown(fraction < 1)
+    SD.body:SetAlpha(fraction); SD.body:SetShown(fraction > 0)
+end
+SD.driver = CreateFrame("Frame", nil, P)
+-- One pace with Materials: 0.7 s, easing out.
+function SD.SetOpen(open)
+    SD.driver:SetScript("OnUpdate", nil)
+    SD.open = open and true or false
+    Prefs().setsClosed = (not SD.open) or nil
+    GameTooltip:Hide()
+    if SD.onToggle then SD.onToggle() end
+    local start, target = SD.fraction, SD.open and 1 or 0
+    if FGT.Setting("celebrations") == "off" then SD.fraction = target; SD.Place(); return end
+    local elapsed, slide = 0, (FGT.materialsPanel and FGT.materialsPanel.SLIDE_TIME) or 0.7
+    SD.driver:SetScript("OnUpdate", function(self, dt)
+        elapsed = elapsed + dt
+        local p = math.min(1, elapsed / slide)
+        SD.fraction = start + (target - start) * (1 - (1 - p) ^ 3)
+        SD.Place()
+        if p >= 1 then self:SetScript("OnUpdate", nil) end
+    end)
+end
+SD.handle:SetScript("OnClick", function() if SD.canOpen then SD.SetOpen(not SD.open) end end)
+P:HookScript("OnShow", function()
+    SD.driver:SetScript("OnUpdate", nil)
+    SD.open = not Prefs().setsClosed
+    SD.fraction = SD.open and 1 or 0
+    SD.Place()
+end)
+P:HookScript("OnHide", function() SD.driver:SetScript("OnUpdate", nil) end)
 local ES -- the first-visit welcome card (built further down)
 local draftOwner
 local editingName = false
 
 local header = CreateFrame("Frame", nil, right)
 header:SetAllPoints(); header:SetFrameLevel(right:GetFrameLevel() + 12)
+-- small gold-grey capitals over the band's two halves
+local EYEBROW = { 0.66, 0.60, 0.45 }
+-- The set's name, centred over the character. Hovering shows a pencil on its left and a faint
+-- underline; a click turns it into the name box (Enter or clicking away keeps the name).
+local setTitle = U.title(header, 20)
+setTitle:SetPoint("TOP", right, "TOP", 0, -24); setTitle:SetJustifyH("CENTER"); setTitle:SetWordWrap(false)
+local editName = CreateFrame("Button", nil, header)
+editName:SetPoint("TOPLEFT", setTitle, "TOPLEFT", -4, 4); editName:SetPoint("BOTTOMRIGHT", setTitle, "BOTTOMRIGHT", 4, -4)
+editName.pencil = editName:CreateTexture(nil, "OVERLAY")
+editName.pencil:SetTexture(FGT.Icon("pencil-white")); editName.pencil:SetSize(15, 15)
+editName.pencil:SetPoint("RIGHT", editName, "LEFT", -4, 0)
+editName.pencil:SetVertexColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3]); editName.pencil:Hide()
+editName.line = editName:CreateTexture(nil, "OVERLAY")
+editName.line:SetColorTexture(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3], 0.35); editName.line:SetHeight(1)
+editName.line:SetPoint("TOPLEFT", setTitle, "BOTTOMLEFT", 0, -3); editName.line:SetPoint("TOPRIGHT", setTitle, "BOTTOMRIGHT", 0, -3)
+editName.line:Hide()
+editName:SetScript("OnEnter", function(self)
+    self.pencil:Show(); self.line:Show()
+    GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Rename set", 1, 1, 1); GameTooltip:Show()
+end)
+editName:SetScript("OnLeave", function(self) self.pencil:Hide(); self.line:Hide(); GameTooltip:Hide() end)
 local name = CreateFrame("EditBox", nil, header, "BackdropTemplate")
-name:SetAutoFocus(false); name:SetMaxLetters(60); name:SetHeight(28)
+name:SetAutoFocus(false); name:SetMaxLetters(60); name:SetSize(320, 30)
 U.etch(name, styles.row, 10)
-FGT.RegisterFont(name, "body", 12, "")
-name:SetTextColor(colors.TEXT[1], colors.TEXT[2], colors.TEXT[3]); name:SetTextInsets(8, 8, 0, 0)
-name:SetPoint("TOPLEFT", right, "TOPLEFT", 24, -24)
-name:SetWidth(340)
-local nameLabel = Label(header, "Set name", 10, 22, -6)
-nameLabel:ClearAllPoints(); nameLabel:SetPoint("BOTTOMLEFT", name, "TOPLEFT", 0, 4)
--- The set's target level, under its name: the picker lists gear the character can wear at that
--- level (a ceiling: lower-level items always show). Type it, or scroll over it.
--- "Showing gear for level [min] – [max]": the set's level range. Max is the level the set plans
--- for (build.level; false = any, missing = 60 for older sets); min (build.minLevel) hides older
--- gear and is empty (any) by default. An empty box shows a muted "Min" or "Max".
+FGT.RegisterFont(name, "body", 14, "")
+name:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3]); name:SetTextInsets(8, 8, 0, 0)
+name:SetJustifyH("CENTER")
+name:SetPoint("TOP", right, "TOP", 0, -20)
+-- The chevron beside the name switches to another of this character's sets.
+local switch = CreateFrame("Button", nil, header)
+switch:SetSize(24, 24); switch:SetPoint("LEFT", setTitle, "RIGHT", 8, 0)
+FGT.IconButton(switch, "chevron-white", 11)
+switch.icon:SetVertexColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
+switch.glow:SetVertexColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
+local switchMenu = CreateFrame("Frame", nil, header, "BackdropTemplate")
+switchMenu:SetPoint("TOP", setTitle, "BOTTOM", 0, -8)
+switchMenu:SetFrameLevel(header:GetFrameLevel() + 30); switchMenu:EnableMouse(true)
+U.etch(switchMenu, styles.panel); switchMenu:Hide()
+switchMenu.rows = {}
+-- Under the name: the character, their race and class, and a Library set when the pieces share one.
+local subline = U.font(header, 11)
+subline:SetPoint("TOP", setTitle, "BOTTOM", 0, -9); subline:SetJustifyH("CENTER")
+subline:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
+-- The set's level range, in the item picker under its filters: the picker lists gear the
+-- character can wear at that level (a ceiling: lower-level items always show). Type it, or scroll.
+-- "Gear for levels [min] – [max]": max is the level the set plans for (build.level; false = any,
+-- missing = 60 for older sets); min (build.minLevel) hides older gear and is empty (any) by
+-- default. An empty box shows a muted "Min" or "Max". (The picker parents these once it exists.)
 local LV = {}
-LV.label = U.font(header, 10); LV.label:SetText("Showing gear for level")
+LV.label = U.font(P, 10); LV.label:SetText("Gear for levels")
 LV.label:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
-LV.label:SetPoint("TOPLEFT", name, "BOTTOMLEFT", 0, -11)
 function LV.Box(hint)
-    local box = CreateFrame("EditBox", nil, header, "BackdropTemplate")
+    local box = CreateFrame("EditBox", nil, P, "BackdropTemplate")
     box:SetAutoFocus(false); box:SetNumeric(true); box:SetMaxLetters(2); box:SetSize(34, 20)
     U.etch(box, styles.row, 10)
     FGT.RegisterFont(box, "body", 11, "")
@@ -377,60 +496,83 @@ function LV.Box(hint)
     return box
 end
 LV.min = LV.Box("Min"); LV.min:SetPoint("LEFT", LV.label, "RIGHT", 6, 0)
-LV.dash = U.font(header, 10); LV.dash:SetText("–"); LV.dash:SetPoint("LEFT", LV.min, "RIGHT", 6, 0)
+LV.dash = U.font(P, 10); LV.dash:SetText("–"); LV.dash:SetPoint("LEFT", LV.min, "RIGHT", 6, 0)
 LV.dash:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
 LV.box = LV.Box("Max"); LV.box:SetPoint("LEFT", LV.dash, "RIGHT", 6, 0)
--- the room the sentence takes before the status line
-function LV.Width() return (LV.label:GetStringWidth() or 120) + 34 + 6 + 12 + 6 + 34 + 6 end
-local status = U.font(header, 10)
-status:SetPoint("LEFT", LV.box, "RIGHT", 12, 0)
-status:SetJustifyH("LEFT"); status:SetWordWrap(false)
-local options = Button(header, "...", 30, 28)
-options:SetPoint("TOPRIGHT", right, "TOPRIGHT", -16, -24)
-local add = Button(header, "Add to Goals", 132)
-add:SetPoint("RIGHT", options, "LEFT", -8, 0)
-local viewGoal = Button(header, "View in Goals", 132)
-viewGoal:SetPoint("RIGHT", options, "LEFT", -8, 0)
-name:ClearAllPoints(); name:SetPoint("TOPLEFT", right, "TOPLEFT", 24, -24)
-name:SetPoint("RIGHT", add, "LEFT", -16, 0)
-local setTitle = U.font(header, 18)
-setTitle:SetPoint("LEFT", name, "LEFT", 0, 0)
-setTitle:SetPoint("RIGHT", add, "LEFT", -48, 0)
-setTitle:SetWordWrap(false)
-local editName = CreateFrame("Button", nil, header)
-editName:SetSize(24, 28); editName:SetPoint("RIGHT", add, "LEFT", -16, 0)
-FGT.IconButton(editName, "pencil-white", 14)
-editName.icon:SetVertexColor(0.65, 0.65, 0.65)
-editName:HookScript("OnEnter", function(self)
-    self.icon:SetVertexColor(0.80, 0.62, 0.16)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Rename set", 1, 1, 1); GameTooltip:Show()
-end)
-editName:HookScript("OnLeave", function(self)
-    self.icon:SetVertexColor(0.65, 0.65, 0.65); GameTooltip:Hide()
-end)
 
--- The "..." menu: one button per action, laid out from what applies to the open set.
-local actions = CreateFrame("Frame", nil, header, "BackdropTemplate")
-actions:SetSize(176, 112); actions:SetPoint("TOPRIGHT", options, "BOTTOMRIGHT", 0, -6)
-actions:SetFrameLevel(header:GetFrameLevel() + 20); actions:EnableMouse(true)
+-- The bottom band: the set's totals on the left, its goal on the right, on matching rows.
+local band = CreateFrame("Frame", nil, header)
+band.GOAL_W = 180
+band:SetPoint("BOTTOMLEFT", right, "BOTTOMLEFT", 24, 18); band:SetPoint("BOTTOMRIGHT", right, "BOTTOMRIGHT", -24, 18)
+band:SetHeight(100)
+band.rule = band:CreateTexture(nil, "ARTWORK")
+band.rule:SetColorTexture(styles.row.edge[1], styles.row.edge[2], styles.row.edge[3], 0.7); band.rule:SetHeight(1)
+band.rule:SetPoint("TOPLEFT"); band.rule:SetPoint("TOPRIGHT")
+local function Eyebrow(parent, text)
+    local f = U.font(parent, 9); f:SetText(text)
+    f:SetTextColor(EYEBROW[1], EYEBROW[2], EYEBROW[3])
+    return f
+end
+band.totalsLabel = Eyebrow(band, "SET TOTALS"); band.totalsLabel:SetPoint("TOPLEFT", 0, -14)
+band.goalLabel = Eyebrow(band, "IN MY GOALS"); band.goalLabel:SetPoint("TOPLEFT", band, "TOPRIGHT", -band.GOAL_W, -14)
+-- item stats in white, enhancements in green: "187 Agility   96 Stamina"
+band.stats = U.font(band, 13); band.stats:SetPoint("TOPLEFT", band.totalsLabel, "BOTTOMLEFT", 0, -7)
+band.stats:SetPoint("RIGHT", band, "RIGHT", -(band.GOAL_W + 28), 0); band.stats:SetJustifyH("LEFT")
+band.enh = U.font(band, 13); band.enh:SetPoint("TOPLEFT", band.stats, "BOTTOMLEFT", 0, -5)
+band.enh:SetPoint("RIGHT", band.stats, "RIGHT"); band.enh:SetJustifyH("LEFT")
+-- the summary line, which also carries short messages ("Added 9 equipped items.")
+local status = U.font(band, 10)
+status:SetPoint("TOPLEFT", band.enh, "BOTTOMLEFT", 0, -7); status:SetPoint("RIGHT", band.stats, "RIGHT")
+status:SetJustifyH("LEFT"); status:SetWordWrap(false)
+status:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+band.goalText = U.font(band, 13); band.goalText:SetPoint("TOPLEFT", band.goalLabel, "BOTTOMLEFT", 0, -7)
+band.goalText:SetWidth(band.GOAL_W); band.goalText:SetWordWrap(false)
+band.bar = U.bar(band, 6); band.bar:SetPoint("TOPLEFT", band.goalText, "BOTTOMLEFT", 0, -8); band.bar:SetWidth(band.GOAL_W)
+band.bar.label:Hide()
+-- Tracked: the count, the bar and a link to the goal. Not yet: a gold Add button.
+local viewGoal = CreateFrame("Button", nil, band)
+viewGoal:SetSize(band.GOAL_W, 18); viewGoal:SetPoint("TOPLEFT", band.bar, "BOTTOMLEFT", 0, -6)
+viewGoal.text = U.font(viewGoal, 11); viewGoal.text:SetPoint("LEFT"); viewGoal.text:SetText("View in My Goals ›")
+viewGoal.text:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
+viewGoal:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 0.93, 0.6) end)
+viewGoal:SetScript("OnLeave", function(self) self.text:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3]) end)
+local add = Button(band, "Add to My Goals", 150, 26)
+add:SetPoint("TOPLEFT", band.goalText, "BOTTOMLEFT", 0, -8)
+
+-- The drawer's "..." menu: one button per action, laid out from what applies.
+local actions = CreateFrame("Frame", nil, SD.body, "BackdropTemplate")
+actions:SetSize(206, 112); actions:SetPoint("TOPRIGHT", options, "BOTTOMRIGHT", 0, -6)
+actions:SetFrameLevel(drawer:GetFrameLevel() + 30); actions:EnableMouse(true)
 U.etch(actions, styles.panel); actions:Hide()
-local rename = Button(actions, "Rename", 156)
-local clear = Button(actions, "Clear items", 156)
-local fill = Button(actions, "Fill from equipped", 156)
-local duplicate = Button(actions, "Duplicate", 156)
-local remove = Button(actions, "Remove from Goals", 156)
-local delete = Button(actions, "Delete set", 156)
+local MENU_W = 186
+local newSet = Button(actions, "New set", MENU_W)
+local newWorn = Button(actions, "New from what I'm wearing", MENU_W)
+local rename = Button(actions, "Rename", MENU_W)
+local fill = Button(actions, "Fill from equipped", MENU_W)
+local duplicate = Button(actions, "Duplicate selected set", MENU_W)
+local clear = Button(actions, "Clear selected set", MENU_W)
+local usePreset = Button(actions, "", MENU_W)
+local remove = Button(actions, "Remove from My Goals", MENU_W)
+local removeAll = Button(actions, "Remove all sets from My Goals", MENU_W)
+local delete = Button(actions, "Delete set", MENU_W)
+local deleteAll = Button(actions, "Delete all sets...", MENU_W)
+deleteAll.text:SetTextColor(1, 0.48, 0.40)
+actions.rule = actions:CreateTexture(nil, "ARTWORK")
+actions.rule:SetColorTexture(styles.row.edge[1], styles.row.edge[2], styles.row.edge[3], 0.8); actions.rule:SetHeight(1)
+for _, b in ipairs({ newSet, newWorn, rename, fill, duplicate, clear, usePreset, remove, removeAll, delete, deleteAll }) do
+    b.text:ClearAllPoints(); b.text:SetPoint("LEFT", 10, 0); b.text:SetJustifyH("LEFT")
+end
 local cleared, clearedBuild, clearedItems, clearedProgress
-local deleteArmed
-options:SetScript("OnClick", function() deleteArmed = nil; actions:SetShown(not actions:IsShown()) end)
+local deleteArmed, deleteAllArmed
+options:SetScript("OnClick", function()
+    deleteArmed, deleteAllArmed = nil, nil
+    if actions:IsShown() then actions:Hide() else if SD.PaintMenu then SD.PaintMenu() end; actions:Show() end
+end)
 options:HookScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Set options", 1, 1, 1); GameTooltip:Show()
+    GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Gear set options", 1, 1, 1); GameTooltip:Show()
 end)
 options:HookScript("OnLeave", function() GameTooltip:Hide() end)
-local empty = Label(header, "Create a set to begin.", 14, 20, -100)
--- First visit: a way in that does not need the + New button on the other side of the screen.
-local startNew = Button(header, "Create a set", 150); startNew:SetPoint("TOPLEFT", empty, "BOTTOMLEFT", 0, -12)
-local startHunter = Button(header, "Hunter Pre-Raid BiS", 150); startHunter:SetPoint("LEFT", startNew, "RIGHT", 8, 0)
+SD.onToggle = function() actions:Hide(); charMenu:Hide() end
 
 -- ------------------------------------------------------------
 -- The character
@@ -651,14 +793,32 @@ local function Rotate()
     local x = GetCursorPosition()
     facing = facing + (x - dragX) * 0.01; dragX = x; model:SetFacing(facing)
 end
+-- Right-drag moves the character, as in Blizzard's dressing room: the model follows the cursor,
+-- a little less far when zoomed in. A slot focus or another set puts it back in place.
+local panX, panY
+local function Pan()
+    if not panX then return end
+    if not IsMouseButtonDown("RightButton") then panX = nil; model:SetScript("OnUpdate", nil); return end
+    local x, y = GetCursorPosition()
+    local k = 1.6 / (math.max(1, modelArea:GetHeight()) * model:GetEffectiveScale()) * (1 - (zoom or 0) * 0.6)
+    offsetY = math.max(-1.5, math.min(1.5, offsetY + (x - panX) * k))
+    offsetZ = math.max(-1.5, math.min(1.5, offsetZ + (y - panY) * k))
+    targetY, targetZ = offsetY, offsetZ
+    panX, panY = x, y
+    ApplyZoom(zoom)
+end
 model:SetScript("OnMouseDown", function(_, button)
     if button == "LeftButton" then
         turn:SetScript("OnUpdate", nil)
         if camera.onUse then camera.onUse() end
         dragX = GetCursorPosition(); model:SetScript("OnUpdate", Rotate)
+    elseif button == "RightButton" then
+        camera:SetScript("OnUpdate", nil)
+        if camera.onUse then camera.onUse() end
+        panX, panY = GetCursorPosition(); model:SetScript("OnUpdate", Pan)
     end
 end)
-model:SetScript("OnMouseUp", function() dragX = nil; model:SetScript("OnUpdate", nil) end)
+model:SetScript("OnMouseUp", function() dragX, panX = nil, nil; model:SetScript("OnUpdate", nil) end)
 -- The wheel glides: each frame the camera closes part of the remaining distance to where you have
 -- scrolled (exponential ease-out), so quick clicks add up into one continuous move instead of
 -- restarting a tween from a standstill each time. A slot focus in progress hands over without a
@@ -779,22 +939,20 @@ modelArea:SetScript("OnSizeChanged", LayoutPreview)
 -- ------------------------------------------------------------
 -- Equipment slots
 -- ------------------------------------------------------------
+-- Stage controls above the character: the turn buttons and their hints.
 local controls = CreateFrame("Frame", nil, right)
 controls:SetAllPoints(); controls:SetFrameLevel(model:GetFrameLevel() + 3)
+-- The slot column, top to bottom, in four groups.
+local GROUPS = { { "Armor", "ARMOR" }, { "Jewelry", "JEWELRY" }, { "Weapons", "WEAPONS" }, { "Extras", "EXTRAS" } }
 local slots = {
-    {"HeadSlot", "Head", "LEFT", 1}, {"NeckSlot", "Neck", "LEFT", 2},
-    {"ShoulderSlot", "Shoulders", "LEFT", 3}, {"BackSlot", "Back", "LEFT", 4},
-    {"ChestSlot", "Chest", "LEFT", 5}, {"ShirtSlot", "Shirt", "LEFT", 6},
-    {"TabardSlot", "Tabard", "LEFT", 7}, {"WristSlot", "Wrists", "LEFT", 8},
-    {"HandsSlot", "Hands", "RIGHT", 1}, {"WaistSlot", "Waist", "RIGHT", 2},
-    {"LegsSlot", "Legs", "RIGHT", 3}, {"FeetSlot", "Feet", "RIGHT", 4},
-    {"Finger0Slot", "Finger 1", "RIGHT", 5}, {"Finger1Slot", "Finger 2", "RIGHT", 6},
-    {"Trinket0Slot", "Trinket 1", "RIGHT", 7}, {"Trinket1Slot", "Trinket 2", "RIGHT", 8},
-    {"MainHandSlot", "Main Hand", "BOTTOM", 1},
-    {"SecondaryHandSlot", "Off Hand", "BOTTOM", 2},
-    {"RangedSlot", "Ranged", "BOTTOM", 3},
-    {"QuiverSlot", "Quiver", "BOTTOM", 4},
-    {"AmmoSlot", "Ammo", "BOTTOM", 5},
+    {"HeadSlot", "Head", "Armor"}, {"ShoulderSlot", "Shoulders", "Armor"}, {"BackSlot", "Back", "Armor"},
+    {"ChestSlot", "Chest", "Armor"}, {"WristSlot", "Wrists", "Armor"}, {"HandsSlot", "Hands", "Armor"},
+    {"WaistSlot", "Waist", "Armor"}, {"LegsSlot", "Legs", "Armor"}, {"FeetSlot", "Feet", "Armor"},
+    {"NeckSlot", "Neck", "Jewelry"}, {"Finger0Slot", "Finger 1", "Jewelry"}, {"Finger1Slot", "Finger 2", "Jewelry"},
+    {"Trinket0Slot", "Trinket 1", "Jewelry"}, {"Trinket1Slot", "Trinket 2", "Jewelry"},
+    {"MainHandSlot", "Main Hand", "Weapons"}, {"SecondaryHandSlot", "Off Hand", "Weapons"},
+    {"RangedSlot", "Ranged", "Weapons"}, {"AmmoSlot", "Ammo", "Weapons"}, {"QuiverSlot", "Quiver", "Weapons"},
+    {"ShirtSlot", "Shirt", "Extras"}, {"TabardSlot", "Tabard", "Extras"},
 }
 -- Paladins, Druids and Shamans keep a relic (Libram, Idol, Totem) in the ranged slot.
 local function SlotLabel(slot)
@@ -841,14 +999,39 @@ function LG.ReqText(item)
     return LG.TooHigh(item) and ("|cffff5a4aReq " .. item.req .. "|r") or ("Req " .. item.req)
 end
 function LG.Open(goal) if goal and FGT.OpenLinkCard then GameTooltip:Hide(); FGT.OpenLinkCard(goal.id) end end
--- The name sits past the enchant square when it shows.
+-- What the set's character wears and has: the logged-in character asks the game (bags, bank and
+-- worn); another character shows what was saved at their last login.
+function LG.Wears(itemId)
+    local who = Who()
+    if who.me and GetInventoryItemID then
+        for slot = 1, 19 do if GetInventoryItemID("player", slot) == itemId then return true end end
+        return false
+    end
+    local c = (ForeverGoalTrackerDB.characters or {})[who.key]
+    for _, id in pairs(c and c.worn or {}) do if id == itemId then return true end end
+    return false
+end
+function LG.Has(itemId)
+    if LG.Wears(itemId) then return true end
+    local who = Who()
+    if who.me then
+        local count = (C_Item and C_Item.GetItemCount) or rawget(_G, "GetItemCount")
+        if count then
+            local ok, n = pcall(count, itemId, true)
+            if ok and (n or 0) > 0 then return true end
+        end
+    end
+    local c = (ForeverGoalTrackerDB.characters or {})[who.key]
+    return ((c and c.items and c.items[itemId]) or 0) > 0
+end
+-- A row reads: icon, name, the enhancement, the owned check. The name ends where the
+-- enhancement begins (a "+" square, or the planned effect in green).
 function EN.Anchor(button)
-    local spec, ench = slotSpec[button.plannerSlot], button.enchant
-    local gap = ench.planned and (ench:GetWidth() + 4) or 0
+    local ench = button.enchant
+    local stop = (ench.plannedText:IsShown() and ench.plannedText) or (ench:IsShown() and ench) or button.owned
     button.itemName:ClearAllPoints()
-    if spec[3] == "RIGHT" then button.itemName:SetPoint("RIGHT", button, "LEFT", -8 - gap, 0)
-    else button.itemName:SetPoint("LEFT", button, "RIGHT", 8 + gap, 0) end
-    if button.nameWidth then button.itemName:SetWidth(math.max(30, button.nameWidth - gap)) end
+    button.itemName:SetPoint("LEFT", button.icon, "RIGHT", 7, 0)
+    button.itemName:SetPoint("RIGHT", stop, "LEFT", -6, 0)
 end
 -- Enchants only stay on a planned item that can take them.
 function EN.Prune(build)
@@ -858,119 +1041,167 @@ function EN.Prune(build)
     end
     if next(build.enchants) == nil then build.enchants = nil end
 end
+-- The slot column: "Equipment" and how many slots are filled, then the groups' rows in a scroll
+-- area with the shared scroll bar and edge fades (short windows scroll; nothing is cut off).
+local SLOT_ROW, GROUP_H = 26, 24
+left.title = Label(left, "Equipment", 16, 16, -16)
+left.count = U.font(left, 11); left.count:SetPoint("TOPRIGHT", left, "TOPRIGHT", -16, -19)
+left.count:SetJustifyH("RIGHT"); left.count:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+local slotList = U.scroll(left, 0, 0, 0, 0)
+slotList.scroll:ClearAllPoints(); slotList.scroll:SetPoint("TOPLEFT", 10, -42)
+slotList.scroll:SetPoint("BOTTOMRIGHT", -16, 12)
+slotList:Finalize()
+slotList.trackHit:ClearAllPoints()
+slotList.trackHit:SetPoint("TOP", slotList.scroll, "TOPRIGHT", 8, 0)
+slotList.trackHit:SetPoint("BOTTOM", slotList.scroll, "BOTTOMRIGHT", 8, 0)
+local groupLabels = {}
+for _, g in ipairs(GROUPS) do groupLabels[g[1]] = Eyebrow(slotList.content, g[2]) end
+-- A planned enhancement shows its effect in green ("+7 Agi"); the frame is bare text until it is
+-- hovered (brighter) or open (the gold selected frame).
+function EN.PaintText(t)
+    if t.chosen then t:SetEtch(styles.rowSel); t.etchBg:Show() else t.etchBg:Hide(); t:SetBackdropBorderColor(0, 0, 0, 0) end
+    t.etchHi:Hide()
+    if t.hovered then t.text:SetTextColor(0.55, 1, 0.48) else t.text:SetTextColor(0.12, 1, 0) end
+end
 for _, spec in ipairs(slots) do
     slotSpec[spec[1]] = spec
-    local button = Button(controls, "", 44, 44)
+    local button = Button(slotList.content, "", 200, SLOT_ROW - 2)
+    button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     button.icon = button:CreateTexture(nil, "ARTWORK")
-    button.icon:SetPoint("TOPLEFT", 3, -3); button.icon:SetPoint("BOTTOMRIGHT", -3, 3)
+    button.icon:SetSize(18, 18); button.icon:SetPoint("LEFT", 4, 0); button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
     button.plannerSlot = spec[1]
     button.icon:SetTexture(FGT.GearPlannerSlotTexture(spec[1]))
     button.itemName = U.font(button, 11)
-    button.itemName:SetText(""); button.itemName:SetWordWrap(false)
-    button.itemName:SetShadowColor(0, 0, 0, 1); button.itemName:SetShadowOffset(1, -1)
-    if spec[3] == "LEFT" or spec[3] == "BOTTOM" then
-        -- every slot reads the same way: icon, then its name on one line
-        button.itemName:SetPoint("LEFT", button, "RIGHT", 8, 0)
-        button.itemName:SetJustifyH("LEFT")
-    elseif spec[3] == "RIGHT" then
-        button.itemName:SetPoint("RIGHT", button, "LEFT", -8, 0)
-        button.itemName:SetJustifyH("RIGHT")
-    end
+    button.itemName:SetText(""); button.itemName:SetWordWrap(false); button.itemName:SetJustifyH("LEFT")
+    -- an empty slot shows its name instead, smaller and grey
+    button.slotName = U.font(button, 9); button.slotName:SetWordWrap(false); button.slotName:SetJustifyH("LEFT")
+    button.slotName:SetPoint("LEFT", button.itemName, "LEFT"); button.slotName:SetPoint("RIGHT", button.itemName, "RIGHT")
+    -- the owned check sits at the far right; its place is kept so the checks line up
+    button.owned = button:CreateTexture(nil, "OVERLAY")
+    button.owned:SetTexture(FGT.Icon("check")); button.owned:SetSize(12, 12); button.owned:SetPoint("RIGHT", -6, 0)
+    button.owned:SetVertexColor(colors.DONE[1], colors.DONE[2], colors.DONE[3]); button.owned:SetAlpha(0)
     slotButtons[spec[1]] = button
-    local ench = Button(controls, "", 27, 27)
-    ench.icon = ench:CreateTexture(nil, "ARTWORK")
-    ench.icon:SetPoint("TOPLEFT", 2, -2); ench.icon:SetPoint("BOTTOMRIGHT", -2, 2)
-    ench.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    -- the "+" square: this item can take an enhancement and none is planned
+    local ench = Button(button, "+", 18, 18, 12)
+    ench:SetFrameLevel(button:GetFrameLevel() + 2)
+    ench.text:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
     ench:RegisterForClicks("LeftButtonUp", "RightButtonUp")
     ench.plannerSlot, ench.planned = spec[1], false
+    ench:SetPoint("RIGHT", button.owned, "LEFT", -6, 0)
     ench:Hide()
     button.enchant = ench
+    -- the planned enhancement, in green
+    local planned = CreateFrame("Button", nil, button, "BackdropTemplate")
+    planned:SetHeight(18); planned:SetFrameLevel(button:GetFrameLevel() + 2)
+    U.etch(planned, styles.button, 10)
+    planned.text = U.font(planned, 11); planned.text:SetPoint("CENTER")
+    planned:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    planned.plannerSlot = spec[1]
+    planned:SetPoint("RIGHT", button.owned, "LEFT", -6, 0)
+    planned:Hide(); EN.PaintText(planned)
+    ench.plannedText = planned
 end
+-- Stack the groups: rows the character has (ammo only for classes that shoot, a quiver only for
+-- Hunters), each group under its small heading.
 local function LayoutSlots()
-    local available = math.max(1, right:GetHeight() - 152)
-    local size = math.min(44, available / 8 - 4)
-    size = math.max(20, size)
-    if controls.hint then controls.hint:ClearAllPoints(); controls.hint:SetPoint("BOTTOM", right, "BOTTOM", 0, 18 + size + 12) end
-    -- The bottom row has three to five cells: ammo only for classes that shoot, a quiver only for Hunters.
     local class = Who().class
     local ammo, quiver = Cat.UsesAmmo(class), Cat.UsesQuiver(class)
     slotButtons.AmmoSlot:SetShown(ammo)
     slotButtons.QuiverSlot:SetShown(quiver)
-    local cells = 3 + (ammo and 1 or 0) + (quiver and 1 or 0)
-    for _, spec in ipairs(slots) do
-        local button = slotButtons[spec[1]]
-        button:SetSize(size, size); button:ClearAllPoints()
-        if spec[3] == "BOTTOM" then
-            -- Three equal cells across the bottom; each holds the icon and its name, shortened with "..." if long.
-            local cell = math.max(110, math.min(240, ((right:GetWidth() or 600) - 44) / cells))
-            button.nameWidth = cell - size - 20
-            local at = spec[4] - ((spec[1] == "AmmoSlot" and not quiver) and 1 or 0)
-            button:SetPoint("BOTTOMLEFT", right, "BOTTOM", (at - 1 - cells / 2) * cell + 8, 18)
-        else
-            button.nameWidth = math.max(40, math.min(160, (right:GetWidth() - size * 2 - 100) / 3))
-            button:SetPoint("TOP" .. spec[3], right, "TOP" .. spec[3],
-                spec[3] == "LEFT" and 22 or -22, -88 - (spec[4] - 1) * (size + 4))
+    local width = math.max(120, (slotList.scroll:GetWidth() or 260))
+    local y = 0
+    for _, g in ipairs(GROUPS) do
+        local label = groupLabels[g[1]]
+        label:ClearAllPoints(); label:SetPoint("TOPLEFT", slotList.content, "TOPLEFT", 4, -(y + 8))
+        y = y + GROUP_H
+        for _, spec in ipairs(slots) do
+            local button = slotButtons[spec[1]]
+            if spec[3] == g[1] and button:IsShown() then
+                button:ClearAllPoints(); button:SetPoint("TOPLEFT", slotList.content, "TOPLEFT", 0, -y)
+                button:SetWidth(width)
+                EN.Anchor(button)
+                y = y + SLOT_ROW
+            end
         end
-        local ench, small = button.enchant, math.floor(size * EN.SCALE + 0.5)
-        ench:SetSize(small, small); ench:ClearAllPoints()
-        if spec[3] == "RIGHT" then ench:SetPoint("RIGHT", button, "LEFT", -4, 0)
-        else ench:SetPoint("LEFT", button, "RIGHT", 4, 0) end
-        EN.Anchor(button)
+        y = y + 4
     end
-    if textVeil.Place then textVeil.Place() end
+    slotList.content:SetWidth(width)
+    slotList.content:SetHeight(math.max(1, y))
+    slotList:Update()
 end
--- The label lanes follow the slot layout: icon, enchant square and name, then a short fade.
+left.Layout = LayoutSlots
+slotList.scroll:HookScript("OnSizeChanged", LayoutSlots)
+-- Over the scenery: a darker band behind the name at the top and behind the totals at the bottom.
 function textVeil.Place()
-    local w, h = modelArea:GetWidth() or 0, modelArea:GetHeight() or 0
-    local head = slotButtons.HeadSlot
-    local size = head and head:GetWidth() or 44
-    local lane = 22 + size + 4 + math.floor(size * EN.SCALE + 0.5) + 8 + (head and head.nameWidth or 120) + 16
-    lane = math.max(60, math.min(lane, w * 0.45))
-    for i = 1, 2 do
-        local t = textShades[i]
-        t:ClearAllPoints(); t:SetWidth(lane)
-        t:SetPoint(i == 1 and "TOPLEFT" or "TOPRIGHT", modelArea)
-        t:SetPoint(i == 1 and "BOTTOMLEFT" or "BOTTOMRIGHT", modelArea)
-    end
+    local h = modelArea:GetHeight() or 0
+    for i = 1, 2 do textShades[i]:Hide() end
     local top, bottom = textShades[3], textShades[4]
     top:ClearAllPoints(); top:SetPoint("TOPLEFT", modelArea); top:SetPoint("TOPRIGHT", modelArea)
-    top:SetHeight(math.min(92, h * 0.2)) -- the set name and level row
+    top:SetHeight(math.min(96, h * 0.2)) -- the set name and its line
     bottom:ClearAllPoints(); bottom:SetPoint("BOTTOMLEFT", modelArea); bottom:SetPoint("BOTTOMRIGHT", modelArea)
-    bottom:SetHeight(math.min(18 + size + 34, h * 0.25)) -- the weapon row and its hint
+    bottom:SetHeight(math.min(190, h * 0.36)) -- the turn buttons and the band
 end
-right:HookScript("OnSizeChanged", function(self)
+right:HookScript("OnSizeChanged", function()
     left.Fit()
-    LayoutSlots()
-    -- 64: the level label and box; the Library goal link takes its own room
-    if LG.PaintHeader then LG.PaintHeader() else status:SetWidth(math.max(80, (self:GetWidth() or 0) - 48 - LV.Width())) end
+    if textVeil.Place then textVeil.Place() end
 end)
 local head = slotButtons.HeadSlot
+-- Under the character: the turn buttons around "Drag to turn", and a smaller line for zoom and move.
+local turnLeft = Button(controls, "‹", 26, 26, 13)
+local turnRight = Button(controls, "›", 26, 26, 13)
+for _, b in ipairs({ turnLeft, turnRight }) do b.text:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3]) end
+local turnText = U.font(controls, 12); turnText:SetText("Drag to turn")
+turnText:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+turnText:SetPoint("BOTTOM", right, "BOTTOM", 0, 18 + 100 + 44)
+turnLeft:SetPoint("RIGHT", turnText, "LEFT", -12, 0); turnRight:SetPoint("LEFT", turnText, "RIGHT", 12, 0)
 local hint = U.font(controls, 10)
-hint:SetText("Drag to rotate · Scroll to zoom"); hint:SetPoint("BOTTOM", right, "BOTTOM", 0, 76)
--- One line of stage help above the weapon row, clear of the character: the next step while the set
--- is empty, otherwise how to turn and zoom, until the first drag or scroll.
+hint:SetPoint("TOP", turnText, "BOTTOM", 0, -14)
+-- The next step while the set is empty; otherwise how to zoom and move the character.
 controls.hint = hint
 function hint.Paint(prompt)
     hint.prompt = prompt
-    if prompt then hint:SetText("Choose a slot to start building your set.")
-    else hint:SetText("Drag to rotate · Scroll to zoom") end
-    hint:SetShown(prompt or not camera.used)
+    if prompt then hint:SetText("Choose a slot on the left to start building your set.")
+    else hint:SetText("Scroll to zoom · Right-drag to move") end
+    hint:Show()
 end
-function camera.onUse() camera.used = true; hint:SetShown(hint.prompt or false) end
+function camera.onUse() camera.used = true end
+-- each press turns an eighth of the way round
+turnLeft:SetScript("OnClick", function() camera.onUse(); TurnTo(facing - math.pi / 4) end)
+turnRight:SetScript("OnClick", function() camera.onUse(); TurnTo(facing + math.pi / 4) end)
+for b, tip in pairs({ [turnLeft] = "Turn left", [turnRight] = "Turn right" }) do
+    b:HookScript("OnEnter", function(self) GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText(tip, 1, 1, 1); GameTooltip:Show() end)
+    b:HookScript("OnLeave", function() GameTooltip:Hide() end)
+end
 -- helper text, muted like the goal pages' hints so it never competes with the character
 hint:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
 
 -- ------------------------------------------------------------
 -- The item picker: search, filters and a recycled list
 -- ------------------------------------------------------------
-local PICKER_W = 304
-local picker = CreateFrame("Frame", nil, controls, "BackdropTemplate")
-picker:SetPoint("TOPLEFT", head, "TOPRIGHT", 10, 0)
-picker:SetFrameLevel(controls:GetFrameLevel() + 5)
+-- It pops out flush against the slot column, as tall as the column, over the edge of the stage.
+-- It never reaches past the window: on a narrow window it narrows (to PICKER_MIN_W at the least).
+local PICKER_W, PICKER_MIN_W = 340, 250
+local picker = CreateFrame("Frame", nil, P, "BackdropTemplate")
+picker:SetPoint("TOPLEFT", left, "TOPRIGHT", 0, 0); picker:SetPoint("BOTTOMLEFT", left, "BOTTOMRIGHT", 0, 0)
+picker:SetFrameLevel(math.max(right:GetFrameLevel(), drawer:GetFrameLevel()) + 50)
 picker:EnableMouse(true)
-picker:SetWidth(PICKER_W); picker:SetHeight(400); U.etch(picker, styles.panel); picker:Hide()
+picker:SetWidth(PICKER_W); U.etch(picker, { top = { 0.08, 0.072, 0.062 }, bottom = { 0.022, 0.022, 0.022 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
+picker:Hide()
+-- a soft shadow on the stage beside it
+picker.shade = picker:CreateTexture(nil, "BACKGROUND", nil, -8)
+picker.shade:SetTexture("Interface\\Buttons\\WHITE8X8")
+picker.shade:SetPoint("TOPLEFT", picker, "TOPRIGHT", -2, -4); picker.shade:SetPoint("BOTTOMLEFT", picker, "BOTTOMRIGHT", -2, 4)
+picker.shade:SetWidth(18)
+U.gradient(picker.shade, { 0, 0, 0 }, { 0, 0, 0 }, 0.55, 0)
+picker.title = U.title(picker, 15); picker.title:SetPoint("TOPLEFT", 16, -16)
+picker.close = CreateFrame("Button", nil, picker)
+picker.close:SetSize(24, 24); picker.close:SetPoint("TOPRIGHT", -10, -11)
+FGT.IconButton(picker.close, "close-white", 11)
+picker.close.icon:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+picker.close:SetScript("OnEnter", function(self) self.icon:SetVertexColor(colors.ACCENT[1], colors.ACCENT[2], colors.ACCENT[3]) end)
+picker.close:SetScript("OnLeave", function(self) self.icon:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3]) end)
 local search = SearchBox(picker, "Search items or sets")
-search:SetPoint("TOPLEFT", 12, -12); search:SetPoint("TOPRIGHT", -12, -12)
+search:SetPoint("TOPLEFT", 12, -46); search:SetPoint("TOPRIGHT", -12, -46)
 -- Filters: labeled dropdowns that say what they show (a stat, an armor or weapon type, a
 -- quality). The list is always best first and always what the set's character can wear at its
 -- target level, so there is no Usable or Sort switch. Choices use false for "any".
@@ -1031,17 +1262,6 @@ FL.stat = FL.Dropdown("Only items with this stat, best first")
 FL.kind = FL.Dropdown("Armor or weapon type")
 FL.quality = FL.Dropdown("Lowest item quality shown")
 FL.stat.choices, FL.quality.choices = FL.STAT, FL.QUALITY
--- The visible dropdowns share the row evenly.
-function FL.Layout()
-    local shown = {}
-    for _, b in ipairs({ FL.stat, FL.kind, FL.quality }) do if b:IsShown() then shown[#shown + 1] = b end end
-    local width = (PICKER_W - 24 - 4 * (#shown - 1)) / math.max(1, #shown)
-    for i, b in ipairs(shown) do
-        b:SetWidth(width); b:ClearAllPoints()
-        if i == 1 then b:SetPoint("TOPLEFT", search, "BOTTOMLEFT", 0, -6)
-        else b:SetPoint("LEFT", shown[i - 1], "RIGHT", 4, 0) end
-    end
-end
 -- Footer: Forever's Revealed only on the left; the count or Show all on the right.
 FL.revealed = Button(picker, "Revealed only", 104, 18, 9)
 FL.revealed:SetPoint("BOTTOMLEFT", 12, 8)
@@ -1054,8 +1274,11 @@ FL.showAll = Button(picker, "", 110, 18, 9)
 FL.showAll:SetPoint("BOTTOMRIGHT", -12, 8)
 local pickerList = U.scroll(picker, 0, 0, 0, 0)
 pickerList.scroll:ClearAllPoints()
-pickerList.scroll:SetPoint("TOPLEFT", FL.stat, "BOTTOMLEFT", 0, -8)
+pickerList.scroll:SetPoint("TOPLEFT", picker, "TOPLEFT", 12, -112)
 pickerList.scroll:SetPoint("BOTTOMRIGHT", picker, "BOTTOMRIGHT", -20, 30)
+-- the level range lives here, under the filters (item mode only)
+for _, part in ipairs({ LV.label, LV.min, LV.dash, LV.box }) do part:SetParent(picker) end
+LV.min:SetFrameLevel(picker:GetFrameLevel() + 3); LV.box:SetFrameLevel(picker:GetFrameLevel() + 3)
 local pickerNote = Label(picker, "", 10, 12, -380)
 pickerNote:ClearAllPoints(); pickerNote:SetPoint("BOTTOMLEFT", picker, "BOTTOMLEFT", 12, 10)
 pickerNote:SetPoint("BOTTOMRIGHT", picker, "BOTTOMRIGHT", -12, 10)
@@ -1065,18 +1288,53 @@ local noResults = Label(picker, "", 11, 14, -96)
 noResults:SetWidth(PICKER_W - 40); noResults:SetJustifyH("LEFT")
 noResults:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
 local found, foundCount, resultRows = {}, 0, {}
-local menu = CreateFrame("Frame", nil, controls, "BackdropTemplate")
-menu:SetSize(170, 108); menu:SetPoint("TOPLEFT", head, "TOPRIGHT", 8, 0)
-U.etch(menu, styles.panel); menu:Hide()
-menu:SetFrameLevel(controls:GetFrameLevel() + 5); menu:EnableMouse(true)
+-- A filled slot's picker starts with its planned item: Remove, and its goal (a Library goal to
+-- open or add, or its own goal).
+local menu = CreateFrame("Frame", nil, picker)
+menu:SetHeight(58); menu:Hide()
+menu.item = U.font(menu, 12); menu.item:SetPoint("TOPLEFT", 2, -4); menu.item:SetPoint("RIGHT", menu, "RIGHT", -76, 0)
+menu.item:SetJustifyH("LEFT"); menu.item:SetWordWrap(false)
+-- Everything in the picker stacks from the top: title, planned item, search, filters, level range,
+-- then the list. Widths follow the picker's own width.
+function FL.Layout()
+    local w = picker:GetWidth() or PICKER_W
+    local y = 44
+    if menu:IsShown() then
+        menu:ClearAllPoints(); menu:SetPoint("TOPLEFT", 12, -y); menu:SetPoint("TOPRIGHT", -12, -y)
+        y = y + menu:GetHeight() + 6
+    end
+    search:ClearAllPoints(); search:SetPoint("TOPLEFT", 12, -y); search:SetPoint("TOPRIGHT", -12, -y)
+    y = y + 24 + 6
+    local shown = {}
+    for _, b in ipairs({ FL.stat, FL.kind, FL.quality }) do if b:IsShown() then shown[#shown + 1] = b end end
+    local width = (w - 24 - 4 * (#shown - 1)) / math.max(1, #shown)
+    for i, b in ipairs(shown) do
+        b:SetWidth(width); b:ClearAllPoints()
+        b:SetPoint("TOPLEFT", picker, "TOPLEFT", 12 + (i - 1) * (width + 4), -y)
+    end
+    if #shown > 0 then y = y + 22 + 8 end
+    local level = not EN.mode
+    for _, part in ipairs({ LV.label, LV.min, LV.dash, LV.box }) do part:SetShown(level) end
+    if level then
+        LV.label:ClearAllPoints(); LV.label:SetPoint("TOPLEFT", picker, "TOPLEFT", 14, -(y + 4))
+        y = y + 20 + 8
+    end
+    pickerList.scroll:ClearAllPoints()
+    pickerList.scroll:SetPoint("TOPLEFT", picker, "TOPLEFT", 12, -y)
+    pickerList.scroll:SetPoint("BOTTOMRIGHT", picker, "BOTTOMRIGHT", -20, 30)
+    noResults:ClearAllPoints(); noResults:SetPoint("TOPLEFT", picker, "TOPLEFT", 14, -(y + 8)); noResults:SetWidth(w - 40)
+    if LG.menuBtn then LG.menuBtn.text:SetWidth(math.max(80, w - 60)) end
+end
 local function Deselect()
     GameTooltip:Hide()
     selectedSlot = nil; EN.mode = false; picker:Hide(); menu:Hide(); search:ClearFocus()
     for _, button in pairs(slotButtons) do
         button.chosen = false; PaintButton(button)
         button.enchant.chosen = false; PaintButton(button.enchant)
+        button.enchant.plannedText.chosen = false; EN.PaintText(button.enchant.plannedText)
     end
 end
+picker.close:SetScript("OnClick", function() Deselect() end)
 local clickAway = CreateFrame("Frame", nil, P)
 P:HookScript("OnShow", function() clickAway:RegisterEvent("GLOBAL_MOUSE_DOWN") end)
 P:HookScript("OnHide", function() clickAway:UnregisterEvent("GLOBAL_MOUSE_DOWN") end)
@@ -1086,25 +1344,33 @@ clickAway:SetScript("OnEvent", function()
         FL.popup:Hide()
     end
     if charMenu:IsShown() and not charMenu:IsMouseOver() and not ownerBtn:IsMouseOver() then charMenu:Hide() end
+    if switchMenu:IsShown() and not switchMenu:IsMouseOver() and not switch:IsMouseOver() then switchMenu:Hide() end
     if not selectedSlot then return end
     if picker:IsShown() and picker:IsMouseOver() then return end
-    if menu:IsShown() and menu:IsMouseOver() then return end
-    if slotButtons[selectedSlot] and slotButtons[selectedSlot]:IsMouseOver() then return end
-    if slotButtons[selectedSlot] and slotButtons[selectedSlot].enchant:IsMouseOver() then return end
+    local row = slotButtons[selectedSlot]
+    if row and (row:IsMouseOver() or row.enchant:IsMouseOver() or row.enchant.plannedText:IsMouseOver()) then return end
+    -- the scenery stays usable while choosing: turning, zooming and moving keep the picker open
+    if model:IsMouseOver() or controls:IsMouseOver() then return end
     Deselect()
 end)
-local replace = Button(menu, "Replace", 150); replace:SetPoint("TOPLEFT", 10, -8)
-local unequip = Button(menu, "Unequip", 150); unequip:SetPoint("TOPLEFT", 10, -40)
--- Third action: the item's Library goal (open or add it), or, for any other item, its own goal.
-LG.menuBtn = Button(menu, "", 150, 28, 11); LG.menuBtn:SetPoint("TOPLEFT", 10, -72)
-LG.menuBtn.text:SetWidth(140); LG.menuBtn.text:SetWordWrap(false); LG.menuBtn.text:SetJustifyH("CENTER")
+local replace = Button(menu, "Replace", 66, 22, 10); replace:SetPoint("TOPRIGHT", 0, -2); replace:Hide()
+local unequip = Button(menu, "Remove", 66, 22, 10); unequip:SetPoint("TOPRIGHT", 0, -2)
+unequip:HookScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Empty this slot", 1, 1, 1); GameTooltip:Show()
+end)
+unequip:HookScript("OnLeave", function() GameTooltip:Hide() end)
+-- The item's Library goal (open or add it), or, for any other item, its own goal.
+LG.menuBtn = Button(menu, "", 150, 24, 10)
+LG.menuBtn:SetPoint("TOPLEFT", 0, -30); LG.menuBtn:SetPoint("TOPRIGHT", 0, -30)
+LG.menuBtn.text:SetWidth(240); LG.menuBtn.text:SetWordWrap(false); LG.menuBtn.text:SetJustifyH("CENTER")
 -- A Library goal gets the guides' gold: gold text and border, and the picker's goal mark.
 LG.menuBtn.mark = LG.menuBtn:CreateTexture(nil, "OVERLAY")
 LG.menuBtn.mark:SetTexture(LG.ICON); LG.menuBtn.mark:SetSize(12, 12); LG.menuBtn.mark:Hide()
 local Refresh, Results, PickSet
 
--- A short line for the set: how much of it is planned, and the average item level.
-local function Summary(build)
+-- A short line for the set: how much of it is filled, and the average item level
+-- (countOnly: just "17 of 21 filled", for the set cards).
+local function Summary(build, countOnly)
     local count, scored, total = 0, 0, 0
     for _, slot in ipairs(Cat.SLOT_ORDER) do
         local item = Cat.Get(build.slots[slot])
@@ -1117,7 +1383,8 @@ local function Summary(build)
     if count == 0 then return nil end
     local class = Who().class
     local slotsShown = 19 + (Cat.UsesAmmo(class) and 1 or 0) + (Cat.UsesQuiver(class) and 1 or 0)
-    return string.format("%d of %d slots", count, slotsShown)
+    if countOnly then return string.format("%d of %d filled", count, slotsShown) end
+    return string.format("%d of %d slots filled", count, slotsShown)
         .. (scored > 0 and string.format(" · average item level %d", math.floor(total / scored + 0.5)) or "")
 end
 local function GoalProgressText(build)
@@ -1237,27 +1504,70 @@ local function PlaceBesidePicker(tip)
     if px and rx and px > rx then tip:SetPoint("TOPRIGHT", picker, "TOPLEFT", -8, 0)
     else tip:SetPoint("TOPLEFT", picker, "TOPRIGHT", 8, 0) end
 end
--- An enchant row: its short name, then what it does and how it is applied.
+-- What kind of enhancement it is, by its name: not every effect is an enchant.
+function EN.Kind(e)
+    local n = e.name or ""
+    if e.enchanting then return "Enchant" end
+    if n:find("Armor Kit") or n:find("Armor Patch") then return "Armor kit" end
+    if n:find("Scope") or n:find("Accurascope") then return "Scope" end
+    if n:find("Arcanum") then return "Arcanum" end
+    if n:find("Libram") then return "Libram" end
+    return "Enhancement"
+end
+-- "Enchant · Enchanting", "Armor kit · Applied from the item"
+function EN.KindLine(e) return EN.Kind(e) .. " · " .. Cat.EnchantSource(e) end
+-- The game writes effects both ways round ("Strength +9", "+3% Hit") and joins some
+-- ("Attack Power +10 and Armor +40", "Defense +7/Stamina +10"): each part as { number, "%" or "", stat }.
+function EN.Effects(e)
+    local out, chunks = {}, {}
+    for chunk in ((e and e.text) or ""):gmatch("[^/]+") do
+        local a, b = chunk:match("^(.-) and (.+)$")
+        if a and a:find("%d") and b:find("%d") then chunks[#chunks + 1] = a; chunks[#chunks + 1] = b
+        else chunks[#chunks + 1] = chunk end
+    end
+    for _, chunk in ipairs(chunks) do
+        chunk = chunk:match("^%s*(.-)%s*$")
+        local n, pct, what = chunk:match("^%+(%d+)(%%?)%s+(.+)$")
+        if not n then what, n, pct = chunk:match("^(.-)%s+%+(%d+)(%%?)$") end
+        if n and what and what ~= "" then out[#out + 1] = { tonumber(n), pct, what } end
+    end
+    return out
+end
+-- The effect alone, short enough for the slot row: "+7 Agi", "+3% Hit", "+40 Armor".
+EN.SHORT = { Agility = "Agi", Strength = "Str", Stamina = "Sta", Intellect = "Int", Spirit = "Spi",
+    ["All Stats"] = "Stats", ["Attack Power"] = "AP", ["Spell Power"] = "SP", ["Critical Strike"] = "Crit" }
+function EN.Short(e)
+    local parts = EN.Effects(e)
+    if #parts == 1 then
+        local p = parts[1]
+        return "+" .. p[1] .. p[2] .. " " .. (EN.SHORT[p[3]] or p[3])
+    end
+    return e.short or e.text or ""
+end
+-- An enhancement row: its short name, then what it does, its kind and how it is applied.
 function EN.BindRow(row, e)
     row.icon:SetTexture(Cat.EnchantIcon(e))
-    row.text:SetText(e.short); row.text:SetTextColor(1, 1, 1)
+    row.text:SetText(e.short); row.text:SetTextColor(0.12, 1, 0)
     row.quality = nil
     row.chosen = selected and selectedSlot and selected.enchants
         and selected.enchants[slotIds[selectedSlot]] == e.spell or false
     local effect = (e.text ~= "" and e.text ~= e.short) and (e.text .. " · ") or ""
-    row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "") .. effect .. Cat.EnchantSource(e))
+    row.source:SetText(effect .. EN.KindLine(e))
+    row.tag:SetText(row.chosen and "Selected" or ""); row.worn:SetText("")
+    row.tags:SetWidth(math.max(1, row.tag:GetStringWidth() or 0))
     row.entrance = nil; row.pin:Hide(); row.setBtn:Hide(); row.goal = nil; row.goalBtn:Hide()
-    row.text:SetPoint("RIGHT", row, "RIGHT", -8, 0)
+    row.tags:ClearAllPoints(); row.tags:SetPoint("TOPRIGHT", -8, -5)
+    row.text:SetPoint("RIGHT", row.tags, "LEFT", -6, 0)
     PaintButton(row)
     row:Show()
 end
--- Enchant tooltip: name, effect, how it is applied and what it costs.
+-- Enhancement tooltip: name, effect, kind, how it is applied and what it costs.
 function EN.Tooltip(owner, e, hint, place)
     GameTooltip:SetOwner(owner, place and "ANCHOR_NONE" or "ANCHOR_RIGHT")
     if place then GameTooltip:ClearAllPoints(); place(GameTooltip) end
     GameTooltip:SetText(e.name, 1, 1, 1)
     if e.text ~= "" and e.text ~= e.short then GameTooltip:AddLine(e.text, 0.12, 1, 0, true) end
-    GameTooltip:AddLine(Cat.EnchantSource(e), 0.8, 0.75, 0.65)
+    GameTooltip:AddLine(EN.KindLine(e), 0.8, 0.75, 0.65)
     if e.enchanting then
         for _, r in ipairs(e.reagents) do
             local itemName = FGT.ItemInfo(r[1])
@@ -1284,20 +1594,25 @@ local function BindRow(row, item, index)
         .. (item.forever == 3 and "" or ("iLvl " .. item.ilvl .. " · ")) .. LG.ReqText(item)
     local sourceLine = Cat.SourceLabel(item)
     if state == "hidden" or item.forever == 3 then sourceLine = sourceLine .. " · Not revealed yet" end
-    row.source:SetText((row.chosen and "|T" .. FGT.Icon("check") .. ":10:10|t " or "")
-        .. (state == "new" and "|cff66a6ffNew in Forever|r · " or state == "updated" and "|cff66a6ffUpdated in Forever|r · " or "")
+    row.source:SetText((state == "new" and "|cff66a6ffNew in Forever|r · " or state == "updated" and "|cff66a6ffUpdated in Forever|r · " or "")
         .. line .. " · " .. sourceLine)
+    -- gold "Selected" for the set's item; grey "EQUIPPED" for what the character wears
+    row.tag:SetText(row.chosen and "Selected" or "")
+    row.worn:SetText(LG.Wears(item.id) and "EQUIPPED" or "")
+    row.tags:SetWidth(math.max(1, row.tag:GetStringWidth() or 0, row.worn:GetStringWidth() or 0))
     local source = Cat.Source(item)
     local entrance = source and source.place and Cat.EntranceFor(source.place)
     row.entrance = entrance
     row.pin:SetShown(entrance ~= nil)
     row.setBtn:SetShown(item.set > 0 and Cat.SetName(item.set) ~= nil)
-    -- the goal mark sits left of the map pin; the name makes room for whichever show
+    -- the goal mark sits left of the map pin; the tags left of both; the name makes room
     row.goal, row.goalKind = LG.For(item.id)
     row.goalBtn:SetShown(row.goal ~= nil)
     row.goalBtn:ClearAllPoints()
     row.goalBtn:SetPoint("TOPRIGHT", entrance and -28 or -6, -4)
-    row.text:SetPoint("RIGHT", row, "RIGHT", -8 - (entrance and 22 or 0) - (row.goal and 22 or 0), 0)
+    row.tags:ClearAllPoints()
+    row.tags:SetPoint("TOPRIGHT", -8 - (entrance and 22 or 0) - (row.goal and 22 or 0), -5)
+    row.text:SetPoint("RIGHT", row.tags, "LEFT", -6, 0)
     PaintButton(row)
     row:Show()
 end
@@ -1320,6 +1635,12 @@ local function EnsureRows(count)
         row.source = U.font(row, 9); row.source:SetPoint("TOPLEFT", 44, -25); row.source:SetPoint("RIGHT", row, "RIGHT", -48, 0)
         row.source:SetJustifyH("LEFT"); row.source:SetWordWrap(false)
         row.source:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
+        -- tags beside the name: "Selected" (gold) over "EQUIPPED" (grey)
+        row.tags = CreateFrame("Frame", nil, row); row.tags:SetSize(1, 30)
+        row.tag = U.font(row.tags, 10); row.tag:SetPoint("TOPRIGHT"); row.tag:SetJustifyH("RIGHT")
+        row.tag:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
+        row.worn = U.font(row.tags, 8); row.worn:SetPoint("TOPRIGHT", row.tag, "BOTTOMRIGHT", 0, -2); row.worn:SetJustifyH("RIGHT")
+        row.worn:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
         -- Fills every piece of the item's set (Dragonstalker, Lightforge, ...) in one click.
         row.setBtn = Button(row, "+ Set", 38, 16, 9)
         row.setBtn:SetPoint("BOTTOMRIGHT", -6, 5)
@@ -1456,27 +1777,34 @@ function EN.Results(keepScroll)
     EnsureRows(POOL_ROWS)
     pickerList:Finalize(); pickerList:Update(); Rebind()
     local text = search:GetText() or ""
-    noResults:SetText(count == 0 and (text == "" and "No enchants for this item." or "No matching enchants.") or "")
-    pickerNote:SetText(count == 0 and "" or (count .. (count == 1 and " enchant" or " enchants") .. " · Right-click the square to remove"))
+    noResults:SetText(count == 0 and (text == "" and "No enhancements for this item." or "No matching enhancements.") or "")
+    pickerNote:SetText(count == 0 and "" or (count .. (count == 1 and " enhancement" or " enhancements")))
 end
--- Filters belong to items; the enchant list starts right under the search.
+-- Enhancements: the search and the list only (no filters, no level range). Items: the planned
+-- item first when the slot has one, then the search, filters and level range.
 function EN.PaintMode()
     FL.stat:SetShown(not EN.mode); FL.quality:SetShown(not EN.mode)
     if EN.mode then FL.kind:Hide() end
     FL.revealed:SetShown(not EN.mode and FGT.isForever and true or false)
     FL.showAll:Hide(); FL.popup:Hide()
+    local label = selectedSlot and SlotLabel(selectedSlot) or ""
+    picker.title:SetText(EN.mode and (label .. " enhancement") or label)
+    local planned = not EN.mode and LG.Item()
+    menu:SetShown(planned and true or false)
+    if planned then
+        local c = QUALITY[planned.q] or QUALITY[1]
+        menu.item:SetText(planned.name); menu.item:SetTextColor(c[1], c[2], c[3])
+        LG.PaintMenu()
+    end
     FL.Layout()
-    search.hint:SetText(EN.mode and "Search enchants" or "Search items or sets")
-    pickerList.scroll:ClearAllPoints()
-    pickerList.scroll:SetPoint("TOPLEFT", EN.mode and search or FL.stat, "BOTTOMLEFT", 0, -8)
-    pickerList.scroll:SetPoint("BOTTOMRIGHT", picker, "BOTTOMRIGHT", -20, 30)
+    search.hint:SetText(EN.mode and ("Search " .. label:lower() .. " enhancements") or "Search items or sets")
     pickerNote:ClearAllPoints()
     if EN.mode then
         pickerNote:SetPoint("BOTTOMLEFT", picker, "BOTTOMLEFT", 12, 10); pickerNote:SetJustifyH("LEFT")
     else
         pickerNote:SetPoint("BOTTOMRIGHT", picker, "BOTTOMRIGHT", -12, 10); pickerNote:SetJustifyH("RIGHT")
     end
-    pickerNote:SetWidth(PICKER_W - (EN.mode and 24 or 140))
+    pickerNote:SetWidth((picker:GetWidth() or PICKER_W) - (EN.mode and 24 or 140))
 end
 Results = function(keepScroll)
     if not selectedSlot then return end
@@ -1526,41 +1854,29 @@ FL.revealed:SetScript("OnClick", function()
 end)
 FL.showAll:SetScript("OnClick", function() FL.expanded = true; Results(true) end)
 
-local function PositionPopup(frame)
-    local button = slotButtons[selectedSlot]
-    if not button then return end
-    local spec = slotSpec[selectedSlot]
-    frame:ClearAllPoints()
-    local edge = spec[4] >= 5 and "BOTTOM" or "TOP"
-    if spec[3] == "BOTTOM" then
-        frame:SetPoint("BOTTOM", button, "TOP", 0, 8)
-    elseif spec[3] == "RIGHT" then
-        frame:SetPoint(edge .. "RIGHT", button, edge .. "LEFT", -10, 0)
-    else
-        frame:SetPoint(edge .. "LEFT", button, edge .. "RIGHT", 10, 0)
-    end
-end
--- One size and place for every slot: from under the set header down to just above the weapon
--- row. Only the side changes, so the list never shrinks because of where a slot sits.
-local PICKER_TOP = 84
+-- Flush against the slot column, as tall as it; as wide as the window allows (never past its edge).
 local function PlacePicker()
-    local spec, size = slotSpec[selectedSlot], slotButtons[selectedSlot]:GetWidth() or 44
-    local room = (right:GetHeight() or 600) - PICKER_TOP - (18 + size + 16)
-    picker:SetHeight(math.max(PICKER_MIN, math.min(PICKER_MAX, room)))
-    picker:ClearAllPoints()
-    if spec[3] == "LEFT" then picker:SetPoint("TOPLEFT", right, "TOPLEFT", 22 + size + 10, -PICKER_TOP)
-    elseif spec[3] == "RIGHT" then picker:SetPoint("TOPRIGHT", right, "TOPRIGHT", -(22 + size + 10), -PICKER_TOP)
-    else picker:SetPoint("TOP", right, "TOP", 0, -PICKER_TOP) end
+    local room = (U.main:GetRight() and left:GetRight()) and ((U.main:GetRight() - 16) - left:GetRight()) or PICKER_W
+    picker:SetWidth(math.max(PICKER_MIN_W, math.min(PICKER_W, room)))
+    -- enough recycled rows to fill the column's height
+    POOL_ROWS = math.max(POOL_ROWS, math.ceil((left:GetHeight() or 460) / ROW_H) + 1)
 end
 local function OpenPicker()
     if not selectedSlot then return end
-    if not EN.mode then slotButtons[selectedSlot].chosen = true; PaintButton(slotButtons[selectedSlot]) end
-    GameTooltip:Hide(); menu:Hide()
+    local row = slotButtons[selectedSlot]
+    row.chosen = true; PaintButton(row)
+    if EN.mode then
+        local planned = row.enchant.plannedText
+        if planned:IsShown() then planned.chosen = true; EN.PaintText(planned)
+        else row.enchant.chosen = true; PaintButton(row.enchant) end
+    end
+    GameTooltip:Hide()
     FL.expanded = false
     if not EN.mode then FL.SetupKind() end
     PlacePicker(); FadeIn(picker); search:SetText("")
     PaintFilters(); EN.PaintMode(); Results(); Focus(selectedSlot)
 end
+P:HookScript("OnSizeChanged", function() if picker:IsShown() then PlacePicker(); FL.Layout(); EN.PaintMode() end end)
 
 -- ------------------------------------------------------------
 -- Slot buttons
@@ -1568,20 +1884,19 @@ end
 for _, spec in ipairs(slots) do
     local slot = spec[1]
     local button = slotButtons[slot]
+    -- A row opens the item picker beside the column (a filled slot shows its item first there).
+    -- Off hand under a two-hand weapon has nothing to choose.
     button:SetScript("OnClick", function()
-        Deselect(); selectedSlot = slot; button.chosen = true; PaintButton(button)
-        if selected and selected.slots[slotIds[slot]] then
-            LG.PaintMenu(); PositionPopup(menu); FadeIn(menu); Focus(slot)
-        else OpenPicker() end
+        if button.blocked then return end
+        Deselect(); selectedSlot = slot; OpenPicker()
     end)
     button:SetScript("OnEnter", function(self)
         self.hovered = true; Hover(self, true)
-        self.icon:SetAlpha(1)
         PaintButton(self)
-        if selectedSlot == slot and (menu:IsShown() or picker:IsShown()) then return end
         local item = selected and Cat.Get(selected.slots[slotIds[slot]])
         if item then
             FGT.ShowItemTip(self, item.id, nil, item.name, false, function(tip)
+                tip:AddLine(SlotLabel(slot), 0.8, 0.75, 0.65)
                 tip:AddLine(" "); tip:AddLine(Cat.SourceLabel(item), 0.8, 0.75, 0.65, true)
                 if LG.TooHigh(item) then
                     tip:AddLine("Requires level " .. item.req .. ". This set plans for level " .. (selected and selected.level or 60) .. ".", 1, 0.35, 0.29, true)
@@ -1591,25 +1906,25 @@ for _, spec in ipairs(slots) do
                     local A = FGT.GOAL_RGB or { 0.95, 0.75, 0.30 }
                     tip:AddLine("Library goal: " .. goal.name .. (LG.Active(goal) and " (in My Goals)" or ""), A[1], A[2], A[3], true)
                 end
-            end)
+                if self.owned:GetAlpha() > 0 then tip:AddLine("You have it", colors.DONE[1], colors.DONE[2], colors.DONE[3]) end
+                tip:AddLine("Click: change item", colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
+            end, function(t) t:SetPoint("TOPLEFT", left, "TOPRIGHT", 8, 0) end)
         else
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            local shown = SlotLabel(slot)
-            self.itemName:SetText(shown); self.itemName:SetTextColor(0.8, 0.75, 0.65)
-            GameTooltip:SetText(shown, 1, 1, 1); GameTooltip:AddLine("Choose item", 1, 1, 1)
+            GameTooltip:SetText(SlotLabel(slot), 1, 1, 1)
+            GameTooltip:AddLine(self.blocked and "The two-hand weapon fills both hands" or "Choose item", 0.8, 0.75, 0.65)
             GameTooltip:Show()
         end
     end)
     button:SetScript("OnLeave", function(self)
         self.hovered = false; Hover(self, false)
         PaintButton(self)
-        self.icon:SetAlpha(selected and selected.slots[slotIds[slot]] and 1 or 0.65)
-        if not (selected and selected.slots[slotIds[slot]]) then self.itemName:SetText("") end
         GameTooltip:Hide()
     end)
-    -- Click: choose the enchant; right-click: remove it.
+    -- The enhancement: the "+" square (none planned) or the green effect. Click: choose one;
+    -- right-click the effect: remove it.
     local ench = button.enchant
-    ench:SetScript("OnClick", function(self, mouse)
+    local function Choose(self, mouse)
         if not selected then return end
         if mouse == "RightButton" then
             if selected.enchants and selected.enchants[slotIds[slot]] then
@@ -1619,23 +1934,27 @@ for _, spec in ipairs(slots) do
             return
         end
         Deselect(); selectedSlot = slot; EN.mode = true
-        self.chosen = true; PaintButton(self)
         OpenPicker()
-    end)
+    end
+    ench:SetScript("OnClick", Choose)
+    ench.plannedText:SetScript("OnClick", Choose)
     ench:SetScript("OnEnter", function(self)
         self.hovered = true; Hover(self, true); PaintButton(self)
-        if EN.mode and selectedSlot == slot and picker:IsShown() then return end
-        local e = selected and selected.enchants and Cat.Enchant(selected.enchants[slotIds[slot]])
-        if e then
-            EN.Tooltip(self, e, "Click: change · Right-click: remove")
-        else
-            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-            GameTooltip:SetText("Enchant", 1, 1, 1); GameTooltip:AddLine("Choose enchant", 1, 1, 1)
-            GameTooltip:Show()
-        end
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText("Add enhancement", 1, 1, 1)
+        GameTooltip:AddLine("An enchant, armor kit, scope or arcanum for this item", 0.8, 0.75, 0.65, true)
+        GameTooltip:Show()
     end)
     ench:SetScript("OnLeave", function(self)
         self.hovered = false; Hover(self, false); PaintButton(self); GameTooltip:Hide()
+    end)
+    ench.plannedText:SetScript("OnEnter", function(self)
+        self.hovered = true; EN.PaintText(self)
+        local e = selected and selected.enchants and Cat.Enchant(selected.enchants[slotIds[slot]])
+        if e then EN.Tooltip(self, e, "Click: change · Right-click: remove") end
+    end)
+    ench.plannedText:SetScript("OnLeave", function(self)
+        self.hovered = false; EN.PaintText(self); GameTooltip:Hide()
     end)
 end
 -- The slot's planned item: its Library goal, or a gear set of its own made from it (build.single).
@@ -1716,61 +2035,227 @@ end)
 local menuY
 local function Place(button, show)
     button:SetShown(show)
-    if show then button:ClearAllPoints(); button:SetPoint("TOPLEFT", 10, -menuY); menuY = menuY + 34 end
+    if show then button:ClearAllPoints(); button:SetPoint("TOPLEFT", 10, -menuY); menuY = menuY + 30 end
+end
+-- The drawer's "..." menu: new sets, the open set's actions, then the ones for every set.
+function SD.PaintMenu()
+    local store, who = Store(), Who()
+    local tracked = selected and selected.goalId and ForeverGoalTrackerDB.active[selected.goalId]
+    local anyTracked = false
+    for _, build in ipairs(store.builds) do
+        if build.goalId and ForeverGoalTrackerDB.active[build.goalId] then anyTracked = true end
+    end
+    local preset = Cat.PRESETS.hunter_preraid_wowhead
+    menuY = 8
+    Place(newSet, true)
+    Place(newWorn, who.me and true or false) -- only the logged-in character's worn gear can be read
+    Place(fill, (who.me and selected ~= nil) and true or false)
+    Place(duplicate, selected ~= nil and selected.id ~= nil)
+    clear.text:SetText(clearedBuild == selected and "Undo clear" or "Clear selected set")
+    Place(clear, selected ~= nil)
+    usePreset.text:SetText("Use " .. preset.name)
+    Place(usePreset, who.class == preset.class and who.faction == preset.faction)
+    Place(remove, tracked and true or false)
+    Place(rename, false); Place(delete, false) -- on the set cards
+    actions.rule:ClearAllPoints()
+    actions.rule:SetPoint("TOPLEFT", 14, -(menuY + 2)); actions.rule:SetPoint("TOPRIGHT", -14, -(menuY + 2))
+    menuY = menuY + 6
+    Place(removeAll, anyTracked)
+    deleteAll.text:SetText(deleteAllArmed and "Click again to delete all" or "Delete all sets...")
+    Place(deleteAll, #store.builds > 0)
+    actions:SetHeight(menuY + 6)
+end
+-- A set card: its name and how far along it is; hovering shows Rename and Delete on its right.
+function SD.Card(i)
+    if rows[i] then return rows[i] end
+    local row = Button(list.content, "", 180, 48); rows[i] = row
+    row.text:ClearAllPoints(); row.text:SetPoint("TOPLEFT", 10, -8); row.text:SetPoint("RIGHT", row, "RIGHT", -64, 0)
+    row.text:SetJustifyH("LEFT"); row.text:SetWordWrap(false)
+    row.state = U.font(row, 9); row.state:SetPoint("TOPLEFT", 10, -28); row.state:SetPoint("RIGHT", row, "RIGHT", -64, 0)
+    row.state:SetJustifyH("LEFT"); row.state:SetWordWrap(false)
+    row.state:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
+    row:SetScript("OnClick", function(self) Store().selected = self.build.id; Choose(self.build) end)
+    local function Action(icon, danger)
+        local b = CreateFrame("Button", nil, row)
+        b:SetSize(24, 24); b:SetFrameLevel(row:GetFrameLevel() + 3)
+        FGT.IconButton(b, icon, 13)
+        b.icon:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+        b:SetScript("OnLeave", function(self)
+            self.icon:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+            GameTooltip:Hide(); row.ShowActions(row:IsMouseOver())
+        end)
+        b.hot = danger and { 1, 0.48, 0.40 } or colors.ACCENT
+        b:Hide()
+        return b
+    end
+    row.ren, row.del = Action("pencil-white"), Action("trash-white", true)
+    row.del:SetPoint("RIGHT", -8, 0); row.ren:SetPoint("RIGHT", row.del, "LEFT", -2, 0)
+    function row.ShowActions(on)
+        row.ren:SetShown(on); row.del:SetShown(on)
+        if not on then row.del.armed = nil end
+    end
+    for b, tip in pairs({ [row.ren] = "Rename", [row.del] = "Delete" }) do
+        b:SetScript("OnEnter", function(self)
+            self.icon:SetVertexColor(self.hot[1], self.hot[2], self.hot[3]); row.ShowActions(true)
+            GameTooltip:SetOwner(self, "ANCHOR_TOP")
+            GameTooltip:SetText(self.armed and "Click again to delete" or tip, 1, 1, 1); GameTooltip:Show()
+        end)
+    end
+    row:HookScript("OnEnter", function() row.ShowActions(true) end)
+    row:HookScript("OnLeave", function() row.ShowActions(row:IsMouseOver()) end)
+    row.ren:SetScript("OnClick", function()
+        local build = row.build
+        Store().selected = build.id
+        if build ~= selected then Choose(build) end
+        if SD.Rename then SD.Rename() end
+    end)
+    row.del:SetScript("OnClick", function(self)
+        if not self.armed then
+            self.armed = true
+            GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Click again to delete", 1, 1, 1); GameTooltip:Show()
+            return
+        end
+        self.armed = nil; GameTooltip:Hide()
+        if SD.Delete then SD.Delete(row.build) end
+    end)
+    return row
+end
+-- The chevron beside the set name: every set, the open one checked; "Manage gear sets..." opens the drawer.
+function SD.PaintSwitch()
+    local store, y, width = Store(), 6, 270
+    for _, r in ipairs(switchMenu.rows) do r:Hide() end
+    local i = 0
+    for _, build in ipairs(store.builds) do
+        if build.name ~= "" then
+            i = i + 1
+            local r = switchMenu.rows[i]
+            if not r then
+                r = Button(switchMenu, "", width - 12, 26, 11); switchMenu.rows[i] = r
+                r.text:ClearAllPoints(); r.text:SetPoint("LEFT", 26, 0); r.text:SetPoint("RIGHT", -8, 0)
+                r.text:SetJustifyH("LEFT"); r.text:SetWordWrap(false)
+                r.check = r:CreateTexture(nil, "OVERLAY"); r.check:SetTexture(FGT.Icon("check"))
+                r.check:SetSize(11, 11); r.check:SetPoint("LEFT", 9, 0)
+                r.check:SetVertexColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
+                r:SetScript("OnClick", function(self) switchMenu:Hide(); Store().selected = self.build.id; Choose(self.build) end)
+            end
+            r.build = build; r.text:SetText(build.name); r.check:SetShown(build == selected)
+            r.chosen = build == selected; PaintButton(r)
+            r:ClearAllPoints(); r:SetPoint("TOPLEFT", 6, -y); r:Show(); y = y + 28
+        end
+    end
+    if not switchMenu.manage then
+        switchMenu.manage = Button(switchMenu, "Manage gear sets...", width - 12, 24, 10)
+        switchMenu.manage.text:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
+        switchMenu.manage:SetScript("OnClick", function()
+            switchMenu:Hide()
+            if SD.canOpen and not SD.open then SD.SetOpen(true) end
+        end)
+    end
+    switchMenu.manage:ClearAllPoints(); switchMenu.manage:SetPoint("TOPLEFT", 6, -(y + 4))
+    switchMenu:SetSize(width, y + 4 + 24 + 8)
+end
+switch:SetScript("OnClick", function()
+    if switchMenu:IsShown() then switchMenu:Hide() else SD.PaintSwitch(); switchMenu:Show() end
+end)
+switch:HookScript("OnEnter", function(self)
+    GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Switch gear set", 1, 1, 1); GameTooltip:Show()
+end)
+switch:HookScript("OnLeave", function() GameTooltip:Hide() end)
+-- Race and class as the game names them.
+local RACE_NAMES = { NightElf = "Night Elf", Scourge = "Undead" }
+local function RaceClass(who)
+    local race = who.race and (RACE_NAMES[who.race] or who.race) or ""
+    local class = who.class and ((LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE[who.class])
+        or (who.class:sub(1, 1) .. who.class:sub(2):lower())) or ""
+    return (race .. " " .. class):match("^%s*(.-)%s*$")
+end
+-- The band's two lines of totals: the items' stats in white, the enhancements' in green.
+local PERCENT_STATS = { h = true, c = true }
+function band.Paint(build)
+    local totals = {}
+    for _, slot in ipairs(Cat.SLOT_ORDER) do
+        local item = Cat.Get(build.slots[slot])
+        if item then for _, st in ipairs(Cat.STATS) do totals[st[1]] = (totals[st[1]] or 0) + Cat.Stat(item, st[1]) end end
+    end
+    local parts = {}
+    for _, st in ipairs(Cat.STATS) do
+        local n = totals[st[1]] or 0
+        if n > 0 then parts[#parts + 1] = "|cffe8e8e8" .. n .. (PERCENT_STATS[st[1]] and "%" or "") .. "|r |cff8a8a8a" .. st[2] .. "|r" end
+    end
+    band.stats:SetText(#parts > 0 and table.concat(parts, "     ") or "|cff8a8a8aChoose items to see the set's stats.|r")
+    local sums, order = {}, {}
+    for _, spell in pairs(build.enchants or {}) do
+        for _, p in ipairs(EN.Effects(Cat.Enchant(spell))) do
+            local key = p[3] .. p[2]
+            if not sums[key] then sums[key] = { 0, p[2], p[3] }; order[#order + 1] = key end
+            sums[key][1] = sums[key][1] + p[1]
+        end
+    end
+    table.sort(order)
+    parts = {}
+    for _, key in ipairs(order) do local s = sums[key]; parts[#parts + 1] = "+" .. s[1] .. s[2] .. " " .. s[3] end
+    band.enh:SetText(table.concat(parts, "     ")); band.enh:SetTextColor(0.12, 1, 0)
 end
 Refresh = function()
     local store = Store()
     local who = Who()
     local color = who.class and RAID_CLASS_COLORS and RAID_CLASS_COLORS[who.class]
-    owner:SetText((color and color.colorStr and ("|c" .. color.colorStr) or "") .. (who.name or "") .. "|r")
+    local whoText = (color and color.colorStr and ("|c" .. color.colorStr) or "") .. (who.name or "") .. "|r"
+    owner:SetText(whoText)
     ownerBtn:SetWidth(owner:GetStringWidth() + 26)
+    -- the set cards
     for _, row in ipairs(rows) do row:Hide() end
     local visible = 0
     for _, build in ipairs(store.builds) do
         if build.name ~= "" then
             visible = visible + 1
-            local i = visible
-            local row = rows[i]
-            if not row then row = Button(list.content, "", 180, 48); rows[i] = row
-                row.text:ClearAllPoints(); row.text:SetPoint("TOPLEFT", 10, -7)
-                row.state = U.font(row, 9); row.state:SetPoint("TOPLEFT", 10, -28)
-            end
-            row:ClearAllPoints(); row:SetPoint("TOPLEFT", 2, -(i - 1) * 54)
-            -- as wide as the + New button above, to its right edge
-            row:SetWidth(math.max(120, left:GetWidth() - 28))
-            row.text:SetWidth(math.max(100, left:GetWidth() - 48))
-            row.text:SetText(build.name ~= "" and build.name or "Name your set")
+            local row = SD.Card(visible)
+            if row.build ~= build then row.del.armed = nil end
+            row.build = build
+            row:ClearAllPoints(); row:SetPoint("TOPLEFT", 2, -(visible - 1) * 54)
+            row:SetWidth(math.max(120, SD.width - 28))
+            row.text:SetText(build.name)
+            local filled = Summary(build, true)
             local done, total = GoalProgressText(build)
-            row.state:SetText(done and ("In My Goals · " .. done .. "/" .. total) or "Draft")
+            row.state:SetText((filled or "Empty") .. (done and (" · In My Goals " .. done .. "/" .. total) or ""))
             row.chosen = build == selected
             PaintButton(row)
-            row:SetScript("OnClick", function() store.selected = build.id; Choose(build) end); row:Show()
+            row:Show()
         end
     end
     listEmpty:SetShown(visible == 0)
     list.content:SetHeight(math.max(1, visible * 54)); list:Finalize(); list:Update()
-    empty:Hide(); startNew:Hide(); startHunter:Hide() -- replaced by the welcome card
     if ES.Paint then ES.Paint() end
+    -- the stage: the name (or the box while naming), the switcher and the line under the name
     local editing = selected ~= nil and (editingName or selected.name == "")
-    name:SetShown(editing); nameLabel:SetShown(editing)
+    name:SetShown(editing)
     setTitle:SetText(selected and selected.name or "")
     setTitle:SetShown(selected ~= nil and not editing)
     editName:SetShown(selected ~= nil and not editing)
-    modelArea:Show(); controls:SetShown(selected ~= nil)
+    switch:SetShown(selected ~= nil and not editing and visible > 1)
+    if not switch:IsShown() then switchMenu:Hide() end
+    subline:SetText(whoText .. "  |cff8a8a8a·|r  " .. RaceClass(who))
+    subline:SetShown(selected ~= nil)
+    modelArea:Show(); controls:SetShown(selected ~= nil); band:SetShown(selected ~= nil)
     local tracked = selected and selected.goalId and ForeverGoalTrackerDB.active[selected.goalId]
     status:SetAlpha(1)
-    if not selected then
-        status:SetText("")
-    else
+    if selected then
         local summary = Summary(selected)
-        local done, total = GoalProgressText(selected)
+        local count = 0
+        for _ in pairs(selected.enchants or {}) do count = count + 1 end
+        status:SetText((summary or "No items yet")
+            .. (count > 0 and (" · " .. count .. (count == 1 and " enhancement" or " enhancements")) or ""))
+        band.Paint(selected)
         if tracked then
-            status:SetText("In My Goals · " .. (done or 0) .. " of " .. (total or 0) .. " collected" .. (summary and (" · " .. summary) or ""))
-        elseif not summary then
-            status:SetText("")
+            local done, total = GoalProgressText(selected)
+            band.goalText:SetText((done or 0) .. " of " .. (total or 0) .. " collected")
+            band.bar:Show(); band.bar:SetProgress(done or 0, total or 0, "")
         else
-            status:SetText((selected.name ~= "" and "Draft · Not in Goals" or "Name your set before adding it.") .. " · " .. summary)
+            band.goalText:SetText(selected.name ~= "" and "Not in My Goals yet" or "Name your set first")
+            band.bar:Hide()
         end
+    else
+        status:SetText("")
     end
     if hint.Paint then hint.Paint(selected ~= nil and not tracked and not Summary(selected)) end
     add:SetShown(selected ~= nil and not tracked)
@@ -1780,48 +2265,57 @@ Refresh = function()
     add.chosen = canAdd
     PaintButton(add)
     add.text:SetAlpha(canAdd and 1 or 0.4)
-    options:SetShown(selected ~= nil)
+    options:SetShown(true)
     if LG.PaintHeader then LG.PaintHeader() end
-    for _, part in ipairs({ LV.label, LV.min, LV.dash, LV.box }) do part:SetShown(selected ~= nil) end
     LV.Show()
-    -- menu: only what applies, stacked from the top
-    menuY = 8
-    Place(rename, true)
-    clear.text:SetText(clearedBuild == selected and "Undo clear" or "Clear items")
-    Place(clear, true)
-    Place(fill, Who().me) -- only the logged-in character's worn gear can be read
-    Place(duplicate, selected ~= nil and selected.id ~= nil)
-    Place(remove, tracked and true or false)
-    delete.text:SetText(deleteArmed and "Click again to delete" or "Delete set")
-    Place(delete, selected ~= nil and selected.id ~= nil)
-    actions:SetHeight(menuY + 4)
+    SD.PaintMenu()
+    -- the slot rows
+    local main = selected and Cat.Get(selected.slots[16])
+    local filled, shown = 0, 0
     for slot, button in pairs(slotButtons) do
         local item = selected and Cat.Get(selected.slots[slotIds[slot]])
+        button.blocked = (slot == "SecondaryHandSlot" and not item and main and main.twoHand) and true or false
         button.icon:SetTexture(item and item.icon or SlotTexture(slot))
-        -- a planned item this set's level can't wear yet: its level in red before the name
-        button.itemName:SetText(item and ((LG.TooHigh(item) and ("|cffff5a4aLv " .. item.req .. "|r  ") or "") .. item.name) or "")
-        local c = item and QUALITY[item.q]
-        if c then button.itemName:SetTextColor(c[1], c[2], c[3]) end
+        button.icon:SetAlpha(item and 1 or 0.5)
+        if item then
+            -- a planned item this set's level can't wear yet: its level in red before the name
+            button.itemName:SetText((LG.TooHigh(item) and ("|cffff5a4aLv " .. item.req .. "|r  ") or "") .. item.name)
+            local c = QUALITY[item.q] or QUALITY[1]
+            button.itemName:SetTextColor(c[1], c[2], c[3])
+            button.itemName:Show(); button.slotName:Hide()
+        else
+            -- an empty slot says which slot it is, in small grey capitals
+            button.slotName:SetText(SlotLabel(slot):upper() .. (button.blocked and " · TWO-HAND WEAPON" or ""))
+            button.slotName:SetTextColor(button.blocked and 0.42 or colors.SUBTEXT[1], button.blocked and 0.42 or colors.SUBTEXT[2],
+                button.blocked and 0.42 or colors.SUBTEXT[3])
+            button.itemName:SetText(""); button.itemName:Hide(); button.slotName:Show()
+        end
         button.quality = item and item.q or nil
-        button.icon:SetAlpha((item or button.chosen) and 1 or 0.65)
         PaintButton(button)
+        button.owned:SetAlpha(item and LG.Has(item.id) and 1 or 0)
         local ench = button.enchant
         local can = item ~= nil and Cat.CanEnchant(item)
-        local e = can and selected and selected.enchants and Cat.Enchant(selected.enchants[slotIds[slot]])
+        local e = can and selected.enchants and Cat.Enchant(selected.enchants[slotIds[slot]])
         ench.planned = can and true or false
-        ench:SetShown(ench.planned)
-        ench.icon:SetTexture(e and Cat.EnchantIcon(e) or EN.EMPTY)
-        ench.icon:SetAlpha(e and 1 or 0.55)
+        ench:SetShown(can and not e or false)
+        ench.plannedText:SetShown(e and true or false)
+        if e then
+            ench.plannedText.text:SetText(EN.Short(e))
+            ench.plannedText:SetWidth((ench.plannedText.text:GetStringWidth() or 30) + 10)
+            EN.PaintText(ench.plannedText)
+        end
         PaintButton(ench)
         EN.Anchor(button)
+        if button:IsShown() then shown = shown + 1; if item then filled = filled + 1 end end
     end
+    left.count:SetText(selected and (filled .. " of " .. shown .. " filled") or "")
 end
 
--- The Library set behind the planned pieces (two or more from one set): a gold link at the right
--- of the level row, opening that set's goal card (Open goal, or + Add to My Goals).
+-- The Library set behind the planned pieces (two or more from one set): a gold link under the
+-- character's line, opening that set's goal card (Open goal, or + Add to My Goals).
 LG.header = CreateFrame("Button", nil, header)
-LG.header:SetHeight(20); LG.header:SetPoint("RIGHT", right, "TOPRIGHT", -16, -68)
-LG.header.text = U.font(LG.header, 10); LG.header.text:SetPoint("RIGHT")
+LG.header:SetHeight(18); LG.header:SetPoint("TOP", subline, "BOTTOM", 0, -5)
+LG.header.text = U.font(LG.header, 10); LG.header.text:SetPoint("CENTER")
 do
     local A = FGT.GOAL_RGB or { 0.95, 0.75, 0.30 }
     LG.header.text:SetTextColor(A[1], A[2], A[3])
@@ -1840,14 +2334,11 @@ function LG.PaintHeader()
         end
     end
     LG.header.goal = best
-    LG.header:SetShown(best ~= nil)
-    local room = 0
+    LG.header:SetShown(best ~= nil and subline:IsShown())
     if best then
         LG.header.text:SetText("Library goal: " .. LG.Label(best))
-        local width = (LG.header.text:GetStringWidth() or 120) + 4
-        LG.header:SetWidth(width); room = width + 12
+        LG.header:SetWidth((LG.header.text:GetStringWidth() or 120) + 4)
     end
-    status:SetWidth(math.max(80, (right:GetWidth() or 0) - 48 - LV.Width() - room))
 end
 
 -- The level range: typed (Enter or leaving the box keeps it, an empty box is any) or scrolled.
@@ -1939,9 +2430,9 @@ viewGoal:SetScript("OnClick", function()
     if not (selected and selected.goalId) then return end
     FGT.ShowTab("tracker"); FGT.SelectGoal(selected.goalId)
 end)
-new:SetScript("OnClick", function() draft = { name = "", slots = {}, level = math.max(1, math.min(60, Who().level or 60)) }; draftOwner = PlanKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
-startNew:SetScript("OnClick", function() new:GetScript("OnClick")() end)
-startHunter:SetScript("OnClick", function() FGT.CreateHunterPreRaidBuild() end)
+new:SetScript("OnClick", function() actions:Hide(); draft = { name = "", slots = {}, level = math.max(1, math.min(60, Who().level or 60)) }; draftOwner = PlanKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
+newSet:SetScript("OnClick", function() new:GetScript("OnClick")() end)
+usePreset:SetScript("OnClick", function() actions:Hide(); FGT.CreateHunterPreRaidBuild() end)
 
 -- ------------------------------------------------------------
 -- First visit: the welcome card
@@ -1979,6 +2470,7 @@ ES.current:SetScript("OnClick", function()
     fill:GetScript("OnClick")()
 end)
 ES.preset:SetScript("OnClick", function() FGT.CreateHunterPreRaidBuild() end)
+newWorn:SetScript("OnClick", function() actions:Hide(); ES.current:GetScript("OnClick")() end)
 for b, tip in pairs({ [ES.current] = "A new set filled with the items you are wearing now",
     [ES.preset] = "A ready-made set you can change" }) do
     b:HookScript("OnEnter", function(self)
@@ -2079,10 +2571,12 @@ end
 local function RenameSet()
     actions:Hide(); editingName = true; Refresh(); name:SetFocus(); name:HighlightText()
 end
+SD.Rename = RenameSet
 rename:SetScript("OnClick", RenameSet)
 editName:SetScript("OnClick", RenameSet)
 clear:SetScript("OnClick", function()
     if not selected then return end
+    actions:Hide()
     if clearedBuild == selected then
         selected.slots, selected.enchants = cleared, EN.cleared
         if selected.goalId then
@@ -2150,20 +2644,51 @@ remove:SetScript("OnClick", function()
     -- Keep the set and its credit so Add to Goals can restore it without loss.
     actions:Hide(); FGT.RefreshPlannerGoals(); Refresh()
 end)
+-- Deleting a set takes its goal and progress with it; the next set opens (or the welcome).
+local function DropBuild(build)
+    local store, DB = Store(), ForeverGoalTrackerDB
+    if build.goalId then
+        DB.active[build.goalId] = nil; DB.progress[build.goalId] = nil
+        local goal = FGT.GoalById(build.goalId)
+        if goal then goal.steps = {} end
+    end
+    for i, b in ipairs(store.builds) do if b == build then table.remove(store.builds, i); break end end
+    if clearedBuild == build then cleared, clearedBuild, clearedItems, clearedProgress = nil, nil, nil, nil end
+end
+function SD.Delete(build)
+    if not (build and build.id) then return end
+    DropBuild(build)
+    local store = Store()
+    actions:Hide(); FGT.RefreshPlannerGoals()
+    if build == selected then
+        store.selected = store.builds[1] and store.builds[1].id or nil
+        Choose(store.builds[1])
+    else
+        Refresh()
+    end
+end
 delete:SetScript("OnClick", function()
     if not (selected and selected.id) then return end
     if not deleteArmed then deleteArmed = true; Refresh(); return end
     deleteArmed = nil
-    local store, DB = Store(), ForeverGoalTrackerDB
-    if selected.goalId then
-        DB.active[selected.goalId] = nil; DB.progress[selected.goalId] = nil
-        local goal = FGT.GoalById(selected.goalId)
-        if goal then goal.steps = {} end
-    end
-    for i, build in ipairs(store.builds) do if build == selected then table.remove(store.builds, i); break end end
-    store.selected = store.builds[1] and store.builds[1].id or nil
+    SD.Delete(selected)
+end)
+-- Every set for this character: two clicks, like a single delete.
+deleteAll:SetScript("OnClick", function()
+    if not deleteAllArmed then deleteAllArmed = true; SD.PaintMenu(); return end
+    deleteAllArmed = nil
+    local store = Store()
+    for i = #store.builds, 1, -1 do DropBuild(store.builds[i]) end
+    store.selected = nil; draft = nil
     actions:Hide(); FGT.RefreshPlannerGoals()
-    Choose(store.builds[1])
+    Choose(nil)
+end)
+-- Takes every set off My Goals; the sets and their credit stay, so Add to My Goals restores them.
+removeAll:SetScript("OnClick", function()
+    for _, build in ipairs(Store().builds) do
+        if build.goalId then ForeverGoalTrackerDB.active[build.goalId] = nil end
+    end
+    actions:Hide(); FGT.RefreshPlannerGoals(); Refresh()
 end)
 name:SetScript("OnEditFocusLost", function()
     editingName = false
@@ -2310,4 +2835,7 @@ FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")
         kind = FL.kind, quality = FL.quality, revealed = FL.revealed, showAll = FL.showAll, popup = FL.popup, rows = FL.rows },
     list = pickerList, found = function() return found, foundCount end,
     modelArea = modelArea, model = model, clickAway = clickAway, slots = slotButtons, status = status, level = LV.box, minLevel = LV.min,
-    goalMenu = LG.menuBtn, libraryHeader = LG.header, welcome = ES }
+    goalMenu = LG.menuBtn, libraryHeader = LG.header, welcome = ES,
+    drawer = SD, slotList = slotList, switch = switch, switchMenu = switchMenu, subline = subline, band = band,
+    newSet = newSet, newWorn = newWorn, usePreset = usePreset, removeAll = removeAll, deleteAll = deleteAll,
+    turnLeft = turnLeft, turnRight = turnRight, enhancement = EN }

@@ -67,6 +67,11 @@ its October 21 notes.
   Karl confirmed the message in game with a self-whisper). Still open for release: native
   review of the planner changes, fresh checks on the final commit, performance read,
   gallery and description (publishing reference, items 10 to 14), Karl's authorization.
+- [Layout redesign](Gear-Planner-layout-2026-10-23.md) (2026-10-23, locked by Karl; built
+  the same day, uncommitted): slot list left, model stage center, My Gear Sets as a
+  Materials-style drawer right, item and enhancement pop-outs beside the list. `tools/check.py`
+  passes (109 sessions, new layout tests in `gear-planner-tests.lua`); synced to Era. Native
+  review in Era pending; Ketho/LuaLS not rerun. Karl: build and test it in Era before 2.16.0.
 - Next: more presets (Horde Hunter, other classes), leveling greens under 35,
   nested recipe materials, patterns as steps.
 

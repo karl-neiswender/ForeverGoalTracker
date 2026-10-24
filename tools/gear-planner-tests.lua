@@ -174,7 +174,7 @@ local function SelectedRowState()
         if row.text:GetText() == build.name then return row.state:GetText() end
     end
 end
-assert(not build.tracked and not build.goalId and SelectedRowState() == "Draft", "named drafts list without tracking a goal")
+assert(not build.tracked and not build.goalId and SelectedRowState() == "Empty", "named drafts list without tracking a goal")
 Pick("HeadSlot", 16866)
 click(T.head); click(T.replace); text(T.search, "#16866")
 assert(T.head.chosen and T.results[1].chosen, "the planned item is marked when the picker reopens")
@@ -186,7 +186,7 @@ D.characters[key] = {items = {}}
 D.characters[foreign] = {items = {[16866] = 1}}
 local catalogueCount = F.CatalogGoalCount()
 click(T.add)
-assert(build.tracked and D.active[build.goalId] and (SelectedRowState() or ""):find("^In My Goals"), "explicit add lists and activates a stable goal")
+assert(build.tracked and D.active[build.goalId] and (SelectedRowState() or ""):find("In My Goals", 1, true), "explicit add lists and activates a stable goal")
 local goal = F.GoalById(build.goalId)
 assert(goal and goal.name == "Tracked polish" and #goal.steps == 1)
 assert(not F.LibraryVisible(goal) and F.CatalogGoalCount() == catalogueCount, "personal sets stay out of Library")
@@ -855,20 +855,22 @@ UnitName = oldName
 F.ShowTab("tracker")
 print("  ammo slot for classes that shoot, matched to the ranged weapon; relics for Druids, Paladins and Shamans")
 
--- The picker is the same height for every slot, wherever the slot sits.
+-- The picker pops out beside the slot column for every slot, the same width, never past the window.
 UnitName = function() return "SizeOwner" end
 F.ShowTab("gear"); T.new(); text(T.name, "Size test")
-local heights, oldSetHeight = {}, T.picker.SetHeight
-T.picker.SetHeight = function(_, h) heights[#heights + 1] = h end
+local widths, oldSetWidth = {}, T.picker.SetWidth
+T.picker.SetWidth = function(_, w) widths[#widths + 1] = w end
 for _, slot in ipairs({ "HeadSlot", "ChestSlot", "WristSlot", "FeetSlot", "Finger0Slot", "Trinket1Slot", "MainHandSlot" }) do
     click(T.slots[slot]); T.clickAway:GetScript("OnEvent")()
 end
-T.picker.SetHeight = oldSetHeight
-assert(#heights == 7, "every slot sized the picker")
-for i = 2, #heights do assert(heights[i] == heights[1], "same picker height for every slot") end
+T.picker.SetWidth = oldSetWidth
+assert(#widths == 7, "every slot placed the picker")
+for i = 1, #widths do
+    assert(widths[i] == widths[1] and widths[i] >= 250 and widths[i] <= 340, "same picker width for every slot, within its bounds")
+end
 UnitName = oldName
 F.ShowTab("tracker")
-print("  one picker size and place for every slot")
+print("  one picker size and place for every slot, beside the slot column")
 
 -- An item the game cannot name (unrevealed in Forever) still becomes a link in its quality color.
 do
@@ -1300,6 +1302,156 @@ do
     UnitName, UnitClass, UnitFactionGroup = oldName, oldClass, oldFaction
     F.ShowTab("tracker")
     print("  welcome card: character scene, current gear start, fitting preset")
+end
+
+-- The 2026-10-23 layout: slot rows, the sets drawer and its cards, the switcher, the band, stage controls.
+do
+    local D = ForeverGoalTrackerDB
+    local Cat = F.GearCatalog
+    local SD = T.drawer
+    local oldClassL, oldCount, oldInv = UnitClass, GetItemCount, GetInventoryItemID
+    UnitName = function() return "LayoutOwner" end
+    UnitClass = function() return "Warrior", "WARRIOR" end
+    F.ShowTab("gear")
+    -- the drawer slides at Materials' pace and remembers being closed
+    F.SetSetting("celebrations", "on")
+    SD.SetOpen(false)
+    local step = SD.driver:GetScript("OnUpdate")
+    assert(step, "closing the drawer slides")
+    step(SD.driver, 0.2)
+    assert(SD.fraction > 0 and SD.fraction < 1, "part way through the slide")
+    step(SD.driver, 1)
+    assert(SD.fraction == 0 and not SD.driver:GetScript("OnUpdate"), "the slide ends closed and stops")
+    assert(D.gearPlanner.prefs.setsClosed, "closed is remembered")
+    F.ShowTab("tracker"); F.ShowTab("gear")
+    assert(not SD.open and SD.fraction == 0, "the drawer comes back closed")
+    F.SetSetting("celebrations", "off")
+    SD.SetOpen(true)
+    assert(SD.open and SD.fraction == 1 and not D.gearPlanner.prefs.setsClosed and not SD.driver:GetScript("OnUpdate"),
+        "instant with Celebrations off")
+    F.SetSetting("celebrations", "on")
+    -- rows: an empty slot names itself; a filled one shows its item
+    T.new(); text(T.name, "Layout one")
+    local one = T.store().builds[#T.store().builds]
+    assert(T.slots.WaistSlot.slotName:GetText() == "WAIST" and T.slots.WaistSlot.itemName:GetText() == "", "an empty row names its slot")
+    Pick("HeadSlot", 16866)
+    assert(T.slots.HeadSlot.itemName:GetText() == "Helm of Might", "a filled row shows the item")
+    -- a two-hand weapon fills both hands: the off hand says so and opens nothing
+    Pick("MainHandSlot", 22314)
+    local off = T.slots.SecondaryHandSlot
+    assert(off.blocked and (off.slotName:GetText() or ""):find("TWO-HAND WEAPON", 1, true), "the off hand under a two-hander is blocked")
+    click(off)
+    assert(not T.picker:IsShown(), "a blocked off hand opens nothing")
+    -- the owned check: in bags, bank or worn
+    local seen
+    T.slots.HeadSlot.owned.SetAlpha = function(_, a) seen = a end
+    GetItemCount = function(id) return id == 16866 and 1 or 0 end
+    F.ShowTab("tracker"); F.ShowTab("gear")
+    assert(seen == 1, "an item you have gets the check")
+    GetItemCount = function() return 0 end
+    F.ShowTab("tracker"); F.ShowTab("gear")
+    assert(seen == 0, "an item you don't have does not")
+    T.slots.HeadSlot.owned.SetAlpha = nil
+    -- the picker marks the set's item and what the character wears
+    GetInventoryItemID = function(_, slot) if slot == 1 then return 16866 end end
+    click(T.slots.HeadSlot); text(T.search, "#16866")
+    assert(T.results[1].tag:GetText() == "Selected" and T.results[1].worn:GetText() == "EQUIPPED", "the worn, planned helm says both")
+    T.clickAway:GetScript("OnEvent")()
+    GetInventoryItemID = oldInv
+    -- an enhancement shows its effect in green; the band adds them up; right-click removes it
+    Pick("WristSlot", 16861)
+    local square = T.slots.WristSlot.enchant
+    Track(square.plannedText); Track(square)
+    F.ShowTab("tracker"); F.ShowTab("gear")
+    assert(square:IsShown() and not square.plannedText:IsShown(), "a bracer with nothing planned shows the square")
+    click(square); text(T.search, "superior strength"); click(T.results[1])
+    assert(square.plannedText:IsShown() and not square:IsShown(), "a planned enhancement replaces the square")
+    assert(square.plannedText.text:GetText() == "+9 Str", "its effect, short: " .. tostring(square.plannedText.text:GetText()))
+    assert((T.band.enh:GetText() or ""):find("+9 Strength", 1, true), "the band adds up the enhancements")
+    square.plannedText:GetScript("OnClick")(square.plannedText, "RightButton")
+    assert(not (one.enchants and one.enchants[9]) and square:IsShown() and not square.plannedText:IsShown(),
+        "right-clicking the effect removes it and the square returns")
+    -- effects written either way round, joined or not
+    local E = T.enhancement
+    assert(E.Short({ text = "+3% Hit" }) == "+3% Hit" and E.Short({ text = "Agility +7" }) == "+7 Agi", "both ways round")
+    local both = E.Effects({ text = "Attack Power +10 and Armor +40" })
+    assert(#both == 2 and both[1][3] == "Attack Power" and both[2][1] == 40, "joined effects split")
+    assert(#E.Effects({ text = "+18 Spell Damage and Healing" }) == 1, "a stat with 'and' in its name stays whole")
+    assert(#E.Effects({ text = "Crusader" }) == 0 and E.Short({ text = "Crusader", short = "Crusader" }) == "Crusader", "named effects keep their name")
+    assert(E.Kind({ name = "Rugged Armor Kit" }) == "Armor kit" and E.Kind({ name = "Sniper Scope" }) == "Scope"
+        and E.Kind({ name = "Lesser Arcanum of Voracity" }) == "Arcanum" and E.Kind({ name = "x", enchanting = true }) == "Enchant",
+        "every kind of enhancement is named")
+    -- the band's item totals
+    assert((T.band.stats:GetText() or ""):find("Strength", 1, true), "the band lists the items' stats")
+    -- set cards: hovering shows Rename and Delete; delete takes two clicks
+    T.new(); text(T.name, "Layout two")
+    local two = T.store().builds[#T.store().builds]
+    local card
+    for _, row in ipairs(T.rows) do if row.build == two then card = row end end
+    assert(card, "the new set has a card")
+    Track(card.ren); Track(card.del)
+    card:GetScript("OnEnter")(card)
+    assert(card.ren:IsShown() and card.del:IsShown(), "hovering a card shows Rename and Delete")
+    local count = #T.store().builds
+    click(card.del)
+    assert(#T.store().builds == count and card.del.armed, "delete asks again")
+    click(card.del)
+    assert(#T.store().builds == count - 1, "the second click deletes the set")
+    -- the switcher lists every set and switches
+    Track(T.switchMenu)
+    click(T.switch)
+    assert(T.switchMenu:IsShown(), "the chevron opens the set list")
+    local target
+    for _, r in ipairs(T.switchMenu.rows) do if r.build == one then target = r end end
+    assert(target, "the list holds the other set")
+    click(target)
+    assert(T.setTitle:GetText() == "Layout one" and not T.switchMenu:IsShown(), "picking a set switches to it")
+    -- Remove all from My Goals keeps the sets; Delete all takes two clicks and clears them
+    click(T.add)
+    assert(D.active[one.goalId], "added")
+    click(T.removeAll)
+    assert(not D.active[one.goalId] and #T.store().builds > 0, "every set leaves My Goals and stays planned")
+    click(T.deleteAll)
+    assert(#T.store().builds > 0, "delete all asks again")
+    click(T.deleteAll)
+    assert(#T.store().builds == 0 and not D.progress[one.goalId], "the second click deletes every set and its progress")
+    -- the stage: turn buttons turn an eighth at a time; right-drag moves the character
+    T.new(); text(T.name, "Layout three"); Pick("HeadSlot", 16866)
+    local angle
+    T.model.SetFacing = function(_, value) angle = value end
+    click(T.turnRight); T.turn:GetScript("OnUpdate")(T.turn, 1)
+    local first = angle
+    click(T.turnRight); T.turn:GetScript("OnUpdate")(T.turn, 1)
+    assert(first and math.abs(angle - first - math.pi / 4) < 1e-6, "the right button turns an eighth")
+    click(T.turnLeft); T.turn:GetScript("OnUpdate")(T.turn, 1)
+    assert(math.abs(angle - first) < 1e-6, "the left button turns back")
+    T.model.SetFacing = nil
+    local moved
+    T.model.SetPosition = function(_, x, y, z) moved = { y, z } end
+    local cx, cy = 0, 0
+    local oldCursor, oldDown = GetCursorPosition, IsMouseButtonDown
+    GetCursorPosition = function() return cx, cy end
+    IsMouseButtonDown = function() return true end
+    T.model.GetEffectiveScale = function() return 1 end
+    T.modelArea.GetHeight = function() return 500 end
+    T.model:GetScript("OnMouseDown")(T.model, "RightButton")
+    cx, cy = 50, 30
+    T.model:GetScript("OnUpdate")(T.model, 0.02)
+    assert(moved and moved[1] > 0 and moved[2] > 0, "right-drag moves the character with the cursor")
+    T.model:GetScript("OnMouseUp")(T.model)
+    assert(not T.model:GetScript("OnUpdate"), "letting go stops moving")
+    GetCursorPosition, IsMouseButtonDown = oldCursor, oldDown
+    T.model.SetPosition, T.model.GetEffectiveScale, T.modelArea.GetHeight = nil, nil, nil
+    -- rename from the title: Enter keeps the name
+    click(T.editName)
+    text(T.name, "Layout renamed")
+    T.name:GetScript("OnEnterPressed")(T.name)
+    T.name:GetScript("OnEditFocusLost")(T.name)
+    assert(T.store().builds[#T.store().builds].name == "Layout renamed" and T.setTitle:GetText() == "Layout renamed", "Enter renames the set")
+    UnitClass, GetItemCount = oldClassL, oldCount
+    UnitName = oldName
+    F.ShowTab("tracker")
+    print("  layout: drawer slide, slot rows, blocked off hand, owned and equipped marks, green enhancements and totals, cards, switcher, delete all, turn and move")
 end
 
 -- Out-of-date reminder: a higher version heard from another player says so once, nothing else does.
