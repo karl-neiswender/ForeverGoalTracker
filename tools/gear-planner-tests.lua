@@ -95,6 +95,32 @@ for _, size in ipairs({ {800, 400}, {400, 650} }) do
     assert(math.abs(width / height - 318/383) < 0.0001, "background keeps portrait aspect")
     assert(width >= size[1] and height >= size[2], "background covers wide and tall panels")
 end
+-- The orc's rock and the night elf's path stay under the character's feet at every width,
+-- without uncovering the panel.
+do
+    local oldRace, top, frozen = T.background.race, nil, T.model.frozenW
+    T.model.frozenW = nil -- (the width held while the drawer slides)
+    T.background.texture.SetPoint = function(_, _, _, _, _, y) top = y end
+    for raceFile, ground in pairs({ Orc = 0.70, NightElf = 0.77, Dwarf = 0.69, Scourge = 0.77, Tauren = 0.64 }) do
+        T.background.race = raceFile
+        for _, size in ipairs({ {1225, 745}, {825, 720}, {800, 400}, {400, 650} }) do
+            local w, h = size[1], size[2]
+            local imageH = 383 * math.max(w / 318, h / 383)
+            T.modelArea:GetScript("OnSizeChanged")(T.modelArea, w, h)
+            assert(top >= 0 and top <= imageH - h + 0.001, raceFile .. " backdrop still covers the panel")
+            if imageH - h > 200 then
+                -- (narrower windows bring the camera closer, so the feet sit lower)
+                local feetLine = 0.78 + 0.157 * (1 / math.max(1, w / h / 0.85) - 1 / 1.93)
+                assert(math.abs(imageH * ground - top - h * feetLine) < 0.001, raceFile .. " ground sits at the character's feet " .. w .. "x" .. h)
+            end
+        end
+    end
+    T.background.race = "Human"
+    T.modelArea:GetScript("OnSizeChanged")(T.modelArea, 800, 400)
+    assert(math.abs(top - (800 / 318 * 383 - 400) * 0.5) < 0.001, "other backdrops still crop evenly")
+    T.background.race, T.model.frozenW = oldRace, frozen
+    T.background.texture.SetPoint = nil
+end
 T.model.SetSize = nil
 T.background.texture.SetSize = nil
 do
@@ -126,9 +152,32 @@ end
 T.model:GetScript("OnMouseWheel")(T.model, 100)
 SettleCamera()
 assert(math.abs(portraitZoom - 0.8) < 1e-9, "wheel zoom reaches native portrait limit")
+local shadowShown, shadowAlpha
+T.modelArea.GetWidth = function() return 1225 end
+T.modelArea.GetHeight = function() return 745 end
+T.background.shadow.SetShown = function(_, shown) shadowShown = shown end
+T.background.shadow.SetAlpha = function(_, a) shadowAlpha = a end
+T.background.PaintLight()
+assert(shadowShown == false, "feet shadow fades out once zoomed in")
 T.model:GetScript("OnMouseWheel")(T.model, -100)
 SettleCamera()
 assert(math.abs(portraitZoom) < 1e-9, "wheel zoom returns to full-character view")
+assert(shadowShown and shadowAlpha > 0.5, "feet shadow grounds the full-character view")
+do
+    -- pulled all the way back the orc's feet reach 69.5% (the 0.78 line less the shadow's rise), and its rock rises with them
+    local oldRace, top = T.background.race, nil
+    T.background.race = "Orc"
+    T.background.texture.SetPoint = function(_, _, _, _, _, y) top = y end
+    local frozen = T.model.frozenW
+    T.model.frozenW = nil
+    T.modelArea:GetScript("OnSizeChanged")(T.modelArea, 1225, 745)
+    local imageH = 383 * math.max(1225 / 318, 745 / 383)
+    local shift = 0.157 * (1 / math.max(1, 1225 / 745 / 0.85) - 1 / 1.93)
+    assert(math.abs(imageH * 0.70 - top - 745 * (0.695 + shift)) < 0.001, "orc ground follows the feet when zoomed out")
+    T.background.race, T.background.texture.SetPoint, T.model.frozenW = oldRace, nil, frozen
+end
+T.modelArea.GetWidth, T.modelArea.GetHeight = nil, nil
+T.background.shadow.SetShown, T.background.shadow.SetAlpha = nil, nil
 T.model.SetPortraitZoom = nil
 
 click(T.head)

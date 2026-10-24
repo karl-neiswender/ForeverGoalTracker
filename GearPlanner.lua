@@ -685,11 +685,19 @@ background.texture = background:CreateTexture(nil, "BACKGROUND")
 background.texture:SetAlpha(0.18)
 background.races = { Human = true, Dwarf = true, Gnome = true, NightElf = true,
     Orc = true, Tauren = true, Troll = true, Scourge = true }
+-- Backdrops with a set place to stand that an even crop would miss: the height (0 top, 1 bottom)
+-- of that ground in the image, placed where the character's feet rest (FEET of the panel's height) as far
+-- as covering the panel allows. Others crop evenly. The orc stands on the crest of its rock,
+-- the night elf on its path, low enough to keep the treeline and the arch, the dwarf on the
+-- cobbles rather than the snow beside them, the undead on the open path in front of the headstones. The tauren's grass has no single
+-- spot: its ground is where the even crop already put the feet, so zooming out can follow them.
+background.ground, background.FEET = { Orc = 0.70, NightElf = 0.77, Dwarf = 0.69, Scourge = 0.77, Tauren = 0.64 }, 0.78
 function background:SetRace(raceFile)
     raceFile = self.races[raceFile] and raceFile or "Orc"
     if self.race == raceFile then return end
     self.race = raceFile
     self.texture:SetTexture("Interface\\AddOns\\ForeverGoalTracker\\Media\\dressing-room\\" .. raceFile)
+    if self.Layout then self.Layout() end
 end
 background:SetRace(race)
 local model = CreateFrame("DressUpModel", nil, modelArea)
@@ -950,30 +958,47 @@ end)
 -- Goal-art treatment belongs below the character and equipment controls.
 -- Keep the same panel colors/top veil, with broad side fades and an eased bottom.
 -- A soft light behind the character (the goal banners' Media/glow, additive, neutral white so the
--- scenery stays black and white): one behind the body, a faint pool at the feet. Drawn above the
+-- scenery stays black and white), behind the body. Drawn above the
 -- scenery and under the shading, so the edges stay dark; still, never animated. When zoomed, the
--- camera centres what is focused, so the light grows there and the floor pool fades with the feet.
+-- camera centres what is focused, so the light grows there. (A second faint pool at the feet was
+-- dropped when the feet got their drop shadow: over dark ground it read as a stray white patch.)
 -- On by default; /goals plannerlight switches it (Prefs().light == false is off).
 background.light = background:CreateTexture(nil, "BORDER")
-background.pool = background:CreateTexture(nil, "BORDER")
-for _, t in ipairs({ background.light, background.pool }) do
+do
+    local t = background.light
     t:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\glow")
     t:SetBlendMode("ADD"); t:SetVertexColor(1, 1, 1)
 end
+-- A drop shadow under the feet, in the edge shading's colour, over the light: it grounds the
+-- character on any backdrop, and fades away as zooming takes the feet out of view. The feet rest
+-- 78.5% down the panel and drop about half the zoom's change as the camera closes in. Pulled all
+-- the way back, every race's feet reach about 70%, so zooming out rises from the resting line to
+-- that. The resting line varies by race (short races stand higher).
+background.shadowFeet = { Gnome = 0.755, Human = 0.80 }
+background.shadow = background:CreateTexture(nil, "ARTWORK")
+background.shadow:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\glow")
+background.shadow:SetVertexColor(textVeil.SIDE[1], textVeil.SIDE[2], textVeil.SIDE[3])
 function background.PaintLight()
     -- (layout can run before the saved data loads: the light is on until a saved choice says off)
     local on = not ForeverGoalTrackerDB or Prefs().light ~= false
     local w, h = modelArea:GetWidth() or 0, modelArea:GetHeight() or 0
-    background.light:SetShown(on and h > 0); background.pool:SetShown(on and h > 0)
-    if not on or h <= 0 then return end
     local closer = math.max(0, (zoom or REST_ZOOM) - REST_ZOOM) -- measured from the resting view
+    local feet = math.max(0, 1 - closer * 2.5)
+    if background.ground[background.race] and w > 0 then background.Place(w, h) end
+    background.shadow:SetShown(h > 0 and feet > 0)
+    if h > 0 then
+        background.shadow:ClearAllPoints()
+        local rest = background.shadowFeet[background.race] or 0.785
+        background.shadow:SetPoint("CENTER", model, "CENTER", 0, -h * (rest + background.FeetMove() - 0.5))
+        background.shadow:SetSize(math.min(w, h * 0.56), h * 0.105)
+        background.shadow:SetAlpha(0.9 * feet)
+    end
+    background.light:SetShown(on and h > 0)
+    if not on or h <= 0 then return end
     local grow = 1 + closer * 0.6
     background.light:ClearAllPoints(); background.light:SetPoint("CENTER", model, "CENTER", 0, h * 0.06)
     background.light:SetSize(math.min(w, h * 0.62 * grow), h * 0.85 * grow)
     background.light:SetAlpha(0.09)
-    background.pool:ClearAllPoints(); background.pool:SetPoint("CENTER", model, "CENTER", 0, -h * 0.22)
-    background.pool:SetSize(math.min(w, h * 0.42), h * 0.09)
-    background.pool:SetAlpha(math.max(0, 0.07 * (1 - closer * 2)))
 end
 function FGT.TogglePlannerLight()
     local pref = Prefs()
@@ -1014,23 +1039,49 @@ local function ShadeBackground(w, h)
         FGT.PopoutUI.vgradient(t, floor, floor, 0.92 * p1 * p1 * (3 - 2 * p1), 0.92 * p2 * p2 * (3 - 2 * p2))
     end
 end
-local function LayoutPreview(self, w, h)
+-- How far the feet have moved from the resting line (a share of the panel's height, down is
+-- positive): in with the camera 0.5 of the zoom, out to 70% when pulled all the way back, and
+-- lower in narrower windows, where the camera comes closer (its distance scales with the aspect,
+-- down to 1). The resting lines were measured at the default size (aspect 1.93). The backdrop
+-- (`outOnly`) leaves the zooming in alone: the feet are out of view by then.
+function background.FeetMove(outOnly)
+    local rest = background.shadowFeet[background.race] or 0.785
+    local fromRest = (zoom or REST_ZOOM) - REST_ZOOM
+    if outOnly then fromRest = math.min(0, fromRest) end
+    local zoomed = fromRest * (fromRest > 0 and 0.5 or (rest - 0.70) / REST_ZOOM)
+    return zoomed + 0.157 * (1 / cameraAspect - 1 / 1.93)
+end
+-- Cover the panel without stretching the portrait composition. A backdrop with a set place to
+-- stand is placed at the feet; pulling the camera back lifts the feet, so the ground follows them
+-- up (the shadow's line, see PaintLight) instead of leaving the character over the sky.
+function background.Place(w, h)
     if w <= 0 or h <= 0 then return end
-    -- Cover the panel without stretching the portrait composition.
     local scale = math.max(w / 318, h / 383)
     local x, y = (w - 318 * scale) / 2, (h - 383 * scale) / 2
+    local ground = background.ground[background.race]
+    if ground then
+        y = math.max(h - 383 * scale, math.min(0, (background.FEET + background.FeetMove(true)) * h - ground * 383 * scale))
+    end
     background.texture:ClearAllPoints()
-    background.texture:SetPoint("TOPLEFT", self, "TOPLEFT", x, -y)
+    background.texture:SetPoint("TOPLEFT", modelArea, "TOPLEFT", x, -y)
     background.texture:SetSize(318 * scale, 383 * scale)
+end
+local function LayoutPreview(self, w, h)
+    if w <= 0 or h <= 0 then return end
     -- Draw across the full panel: a narrow model frame slices enlarged geometry.
     -- Compensate camera distance for its wider aspect instead of clipping the model.
     cameraAspect = math.max(1, (model.frozenW or w) / h / 0.85)
+    background.Place(w, h)
     ShadeBackground(w, h)
     background.PaintLight()
     if textVeil.Place then textVeil.Place() end
     ApplyZoom(zoom)
 end
 modelArea:SetScript("OnSizeChanged", LayoutPreview)
+function background.Layout()
+    local w, h = modelArea:GetWidth() or 0, modelArea:GetHeight() or 0
+    if w > 0 and h > 0 then LayoutPreview(modelArea, w, h) end
+end
 -- While the sets drawer slides, the character's frame holds one width and follows the stage's
 -- centre, instead of being resized every frame; it fills the stage again when the slide ends.
 function SD.onSlide(stageW)
