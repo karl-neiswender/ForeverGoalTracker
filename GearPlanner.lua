@@ -563,7 +563,7 @@ function band.Row(i)
     band.rows[i] = row
     return row
 end
--- "17 of 21 slots filled · average item level 63 · 6 enhancements"
+-- "17 of 21 slots filled", then on its own line "Average item level 63 · 6 enhancements"
 band.summary = U.font(band.panel, 10); band.summary:SetWidth(band.W - 24); band.summary:SetJustifyH("LEFT")
 band.summary:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
 -- short messages ("Added 9 equipped items.") beside the tab, open or closed
@@ -1561,7 +1561,7 @@ local function Summary(build, countOnly)
     local slotsShown = 19 + (Cat.UsesAmmo(class) and 1 or 0) + (Cat.UsesQuiver(class) and 1 or 0)
     if countOnly then return string.format("%d of %d filled", count, slotsShown) end
     return string.format("%d of %d slots filled", count, slotsShown)
-        .. (scored > 0 and string.format(" · average item level %d", math.floor(total / scored + 0.5)) or "")
+        .. (scored > 0 and string.format("\nAverage item level %d", math.floor(total / scored + 0.5)) or "")
 end
 local function GoalProgressText(build)
     local goal = build.goalId and FGT.GoalById(build.goalId)

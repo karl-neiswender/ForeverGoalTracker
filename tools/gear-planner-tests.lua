@@ -1563,6 +1563,7 @@ do
     click(band.tab)
     assert(band.panel:IsShown() and band.open, "the tab opens them")
     assert((band.summary:GetText() or ""):find("slots filled", 1, true), "the summary line sits under the stats")
+    assert((band.summary:GetText() or ""):find("slots filled\nAverage item level %d+"), "the average item level is on its own line")
     click(band.tab)
     assert(not band.panel:IsShown(), "and closes them")
     click(band.tab); F.ShowTab("tracker"); F.ShowTab("gear")
