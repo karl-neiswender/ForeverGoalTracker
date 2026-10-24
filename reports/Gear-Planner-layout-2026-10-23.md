@@ -196,6 +196,9 @@ These replace the matching parts of the spec above.
 - Sixth pass: no tooltip on "Start from my current gear"; filling from worn gear no longer
   shows a message (the list of skipped grey items was cut off). Karl confirmed the rename fix
   in Era and approved committing the session.
+- Eye icons (after `91cff7f`): Codex's `eye-white` / `eye-off-white` replace the red stroke.
+  Helm and cloak toggles stay 26px; hovering swaps the piece's icon for the eye of what a click
+  does (Karl chose hover-only; [report](eye-icons-2026-10-24.md)).
 
 ## Open
 

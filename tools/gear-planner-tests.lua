@@ -1174,17 +1174,23 @@ do
     assert(worn[21272] and not worn[19019], "a Hunter shows the ranged weapon")
     -- helm and cloak: hidden from the model, back when their slot is chosen
     Pick("HeadSlot", 16846)
-    local struck
-    band.helm.slash.SetShown = function(_, on) struck = on end
     click(band.helm); worn = Worn()
     assert(D.gearPlanner.prefs.hideHelm and not worn[16846], "a hidden helm stays off the model")
-    assert(struck, "its button is struck through")
+    assert(band.helm.hidden, "its button is greyed")
+    local eyeShown, eyeTexture
+    band.helm.eye.SetShown = function(_, on) eyeShown = on end
+    band.helm.eye.SetTexture = function(_, path) eyeTexture = path end
+    band.helm:GetScript("OnEnter")(band.helm)
+    assert(eyeShown and eyeTexture:find("eye%-white$"), "hovering a hidden helm previews showing it: the open eye")
+    band.helm:GetScript("OnLeave")(band.helm)
+    assert(not eyeShown, "the eye goes when the cursor leaves")
+    band.helm.eye.SetShown, band.helm.eye.SetTexture = nil, nil
     hands = {}
     click(T.slots.HeadSlot)
     assert(hands[16846], "choosing the head slot shows the helm")
     T.clickAway:GetScript("OnEvent")()
     click(band.helm); worn = Worn()
-    assert(not D.gearPlanner.prefs.hideHelm and worn[16846] and not struck, "shown again, no stroke")
+    assert(not D.gearPlanner.prefs.hideHelm and worn[16846] and not band.helm.hidden, "shown again, the open eye")
     click(band.cloak)
     assert(D.gearPlanner.prefs.hideCloak, "the cloak toggle is saved")
     click(band.cloak)

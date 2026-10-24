@@ -2350,51 +2350,55 @@ end
 band.PlaceView()
 SD.afterPlace = function() band.FitTitle(); band.PlaceView() end
 status:SetPoint("RIGHT", band.view, "LEFT", -10, 0)
-function band.ViewButton(slot, tip)
+-- (eye: the helm and cloak buttons show the piece's icon, greyed while hidden; hovering swaps it
+-- for an eye that previews the click: slashed to hide, open to show (Karl, 2026-10-24))
+function band.ViewButton(slot, tip, eye)
     local b = Button(band.view, "", 26, 26)
     b.icon = b:CreateTexture(nil, "ARTWORK")
-    b.icon:SetSize(18, 18); b.icon:SetPoint("CENTER"); b.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+    b.icon:SetSize(18, 18); b.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92); b.icon:SetPoint("CENTER")
     b.icon:SetTexture(FGT.GearPlannerSlotTexture(slot))
-    -- hidden: a diagonal stroke through the dimmed icon, the usual "off" sign
-    if b.CreateLine then
-        b.slash = b:CreateLine(nil, "OVERLAY")
-        b.slash:SetStartPoint("TOPRIGHT", -4, -4); b.slash:SetEndPoint("BOTTOMLEFT", 4, 4)
-        b.slash:SetThickness(2)
-    else -- (a client without line regions: a rotated bar)
-        b.slash = b:CreateTexture(nil, "OVERLAY")
-        b.slash:SetSize(2, 24); b.slash:SetPoint("CENTER")
-        if b.slash.SetRotation then b.slash:SetRotation(-math.pi / 4) end
+    if eye then
+        b.eye = b:CreateTexture(nil, "ARTWORK")
+        b.eye:SetSize(20, 20); b.eye:SetPoint("CENTER")
+        b.eye:SetVertexColor(colors.TEXT[1], colors.TEXT[2], colors.TEXT[3])
+        b.eye:Hide()
     end
-    b.slash:SetColorTexture(1, 0.48, 0.40, 0.95)
-    b.slash:Hide()
     b.tip = tip
     b:HookScript("OnEnter", function(self)
+        self.over = true; band.PaintEye(self)
         local title, line = self.tip()
         GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText(title, 1, 1, 1)
         if line then GameTooltip:AddLine(line, 0.8, 0.75, 0.65, true) end
         GameTooltip:Show()
     end)
-    b:HookScript("OnLeave", function() GameTooltip:Hide() end)
+    b:HookScript("OnLeave", function(self) self.over = false; band.PaintEye(self); GameTooltip:Hide() end)
     return b
 end
-band.helm = band.ViewButton("HeadSlot", function() return Prefs().hideHelm and "Show helm" or "Hide helm" end)
-band.cloak = band.ViewButton("BackSlot", function() return Prefs().hideCloak and "Show cloak" or "Hide cloak" end)
+-- at rest the piece's icon (greyed while hidden); under the cursor, the eye for what a click does
+function band.PaintEye(b)
+    if not b.eye then return end
+    b.eye:SetTexture(FGT.Icon(b.hidden and "eye-white" or "eye-off-white"))
+    b.eye:SetShown(b.over and true or false); b.icon:SetShown(not b.over)
+end
+band.helm = band.ViewButton("HeadSlot", function() return Prefs().hideHelm and "Show helm" or "Hide helm" end, true)
+band.cloak = band.ViewButton("BackSlot", function() return Prefs().hideCloak and "Show cloak" or "Hide cloak" end, true)
 band.weapons = band.ViewButton("MainHandSlot", function()
     if VIEW.Ranged() then return "Show melee weapons", "The character holds the ranged weapon." end
     return "Show ranged weapon", "The character holds the melee weapons."
 end)
--- a hidden piece's button is dimmed; the weapons button shows what is held now
+-- a hidden piece's icon is greyed (the eye comes on hover); the weapons button shows what is held now
 function band.PaintView()
     local hasWeapons = selected ~= nil and VIEW.Both()
     band.weapons:SetShown(hasWeapons)
     local x = 0
     for _, b in ipairs({ band.weapons, band.cloak, band.helm }) do
-        if b:IsShown() then b:ClearAllPoints(); b:SetPoint("RIGHT", band.view, "RIGHT", -x, 0); x = x + 30 end
+        if b:IsShown() then b:ClearAllPoints(); b:SetPoint("RIGHT", band.view, "RIGHT", -x, 0); x = x + b:GetWidth() + 4 end
     end
     band.view:SetWidth(math.max(1, x - 4))
     local prefs = Prefs()
     for b, hidden in pairs({ [band.helm] = prefs.hideHelm or false, [band.cloak] = prefs.hideCloak or false }) do
-        b.icon:SetDesaturated(hidden); b.icon:SetAlpha(hidden and 0.35 or 1); b.slash:SetShown(hidden)
+        b.icon:SetDesaturated(hidden); b.icon:SetAlpha(hidden and 0.35 or 1)
+        b.hidden = hidden; band.PaintEye(b)
     end
     band.weapons.icon:SetTexture(FGT.GearPlannerSlotTexture(VIEW.Ranged() and "RangedSlot" or "MainHandSlot"))
 end

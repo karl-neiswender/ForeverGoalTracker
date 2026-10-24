@@ -27,9 +27,8 @@ by opening this reference.
   Tintable icons are white or light grey on transparent, end in `-white` and take their color
   in code (`SetVertexColor`); match `Media/icons/sheet-white-source.webp`. Gold icons skip
   `-white` and go through `tools/gold.py`.
-  Requested 2026-10-24 for the Gear Planner's helm and cloak toggles: `eye-white` (shown) and
-  `eye-off-white` (hidden: the same eye with a diagonal slash). Until they exist the planner
-  draws a red stroke over the slot icon.
+  Example (2026-10-24): `eye-white` and `eye-off-white`, the Gear Planner's helm and cloak
+  toggles (`reports/eye-icons-2026-10-24.md`).
 - Gold icon processing uses `tools/gold.py` after sheet slicing or interest-art
   conversion; the white/grey tintable set needs no gold processing. Retain originals
   and license files. Packaging excludes originals/review material via `.pkgmeta`.
