@@ -800,6 +800,31 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 7723, checked 2026-10-25: rare (blue) Bind on Pickup two-hand mace, item level
+        -- 44, requires level 39, +17 Stamina, +16 Spirit. Dropped by Scarlet Commander Mograine in the Scarlet
+        -- Monastery Cathedral (GearSources lists Mograine and High Inquisitor Whitemane; Wowhead lists
+        -- Mograine, from a sample of 38 kills, so no rate is given). The Forever item page exists with different
+        -- stats (+8 Strength, +14 Stamina, +16 Intellect, 105 to 159 damage).
+        id = "mograines_might", library = true, forever = "confirmed", itemQuality = 3, instance = { 189, "Scarlet Monastery" },
+        icon = "inv_mace_13",
+        name = "Mograine's Might",
+        short = "Mograine's Might",
+        category = "Rare Weapon", difficulty = "Moderate",
+        timeEstimate = "Varies",
+        note = "A two-handed mace dropped by Scarlet Commander Mograine in the Scarlet Monastery Cathedral.",
+        steps = {
+            { text = "Reach level 39.", auto = { level = 39 } },
+            { text = "Loot Mograine's Might from Scarlet Commander Mograine in the Scarlet Monastery Cathedral.", auto = { item = 7723, owned = { "Mograine's Might" } } },
+        },
+        completeWith = { item = 7723, owned = { "Mograine's Might" } },
+        tips = {
+            "Defeat Scarlet Commander Mograine in the Cathedral wing of the Scarlet Monastery for a chance at {item:7723:Mograine's Might} {map:sm:Show on map}.",
+            "It binds when picked up. On Classic Era it adds 17 Stamina and 16 Spirit. Forever changed it to 8 Strength, 14 Stamina and 16 Intellect with higher damage, so check the tooltip there.",
+            "Warriors, Paladins, Shamans and Druids can use this mace. Learn Two-Handed Maces before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

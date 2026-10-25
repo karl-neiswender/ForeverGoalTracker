@@ -38,6 +38,7 @@ FGT.GOAL_CLASSES = {
     krol_blade = ONE_HAND_SWORD,
     will_of_arlokk = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     mandokirs_sting = { "WARRIOR", "HUNTER", "ROGUE" },
+    mograines_might = { "WARRIOR", "PALADIN", "SHAMAN", "DRUID" },
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },
