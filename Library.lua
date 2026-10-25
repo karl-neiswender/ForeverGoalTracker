@@ -728,6 +728,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 2244, checked 2026-10-25: epic Bind on Equip one-hand sword, item level 56,
+        -- requires level 51, +7 Strength, +5 Stamina, equip: +1% crit. A world drop with no boss: 102
+        -- creatures of level 53 to 60 are listed, mostly in Stratholme, Blackrock Spire and Depths, Dire
+        -- Maul and Scholomance, a few in the open world. Not in Forever's tables yet, so not marked confirmed.
+        id = "krol_blade", library = true, itemQuality = 4,
+        icon = "inv_sword_18",
+        name = "Krol Blade",
+        short = "Krol Blade",
+        category = "Epic Weapon", difficulty = "Extreme",
+        timeEstimate = "Varies",
+        note = "A rare one-handed sword that any level 53 to 60 creature can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 51.", auto = { level = 51 } },
+            { text = "Loot Krol Blade, a rare drop from level 53 to 60 creatures.", auto = { item = 2244, owned = { "Krol Blade" } } },
+        },
+        completeWith = { item = 2244, owned = { "Krol Blade" } },
+        tips = {
+            "Wowhead lists about 100 creatures of level 53 to 60 that have dropped it, none of them bosses. Each drop is rare. Most reports are from Stratholme, Blackrock Spire, Blackrock Depths, Dire Maul and Scholomance, where you kill the most creatures at that level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "Equipping it takes level 51 and One-Handed Swords. It adds 7 Strength, 5 Stamina and 1% crit. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Krol Blade, a rare epic one-handed sword that level 53 to 60 creatures can drop, to the Goal Library.
 - Added Jin'do's Judgement, a Zul'Gurub staff dropped by Jin'do the Hexxer, to the Goal Library.
 - Added Inventor's Focal Sword, a Maraudon sword dropped by Tinkerer Gizlock, to the Goal Library.
 - Added Illusionary Rod, a Scarlet Monastery staff dropped by Arcanist Doan, to the Goal Library.

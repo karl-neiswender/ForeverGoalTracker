@@ -35,6 +35,7 @@ FGT.GOAL_CLASSES = {
     illusionary_rod = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     inventors_focal_sword = ONE_HAND_SWORD,
     jindos_judgement = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
+    krol_blade = ONE_HAND_SWORD,
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },
