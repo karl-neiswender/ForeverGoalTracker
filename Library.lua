@@ -557,6 +557,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 13360, checked 2026-10-25: rare (blue) Bind on Pickup one-hand dagger, item
+        -- level 63, requires level 58, +5 Stamina, +10 Intellect, +6 Spirit. Wowhead lists Grand Crusader
+        -- Dathrohan (707 of 4,029 kills, about 17%) and Balnazzar, the one boss fight in Stratholme's living
+        -- side; GearSources names Balnazzar. Not in Forever's tables yet, so not marked confirmed.
+        id = "gift_of_the_elven_magi", library = true, itemQuality = 3, instance = { 329, "Stratholme" },
+        icon = "inv_weapon_shortblade_15",
+        name = "Gift of the Elven Magi",
+        short = "Elven Magi",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed dagger for casters, dropped by Balnazzar in Stratholme.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Gift of the Elven Magi from Balnazzar in Stratholme.", auto = { item = 13360, owned = { "Gift of the Elven Magi" } } },
+        },
+        completeWith = { item = 13360, owned = { "Gift of the Elven Magi" } },
+        tips = {
+            "Defeat Balnazzar in the living side of Stratholme for a chance at {item:13360:Gift of the Elven Magi} {map:strat:Show on map}. Wowhead counts about 1 drop in 6 kills.",
+            "It binds when picked up. It adds 5 Stamina, 10 Intellect and 6 Spirit.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
