@@ -51,6 +51,9 @@ FGT.NPCS = {
     { id = 9077, name = "Warlord Goretooth", tag = "Kargath Expeditionary Force", map = 1418, zone = "Badlands", x = 5.8, y = 47.6 },
     -- named in tips (2026-10-07 sweep): out in the world, same spot on Forever
     { id = 6109, name = "Azuregos", map = 1447, zone = "Azshara", x = 48.0, y = 75.4 },
+    -- World boss, Wowhead Classic 2026-10-25: sightings span x 32 to 44, y 62 to 80; the pin is their centre.
+    { id = 12397, name = "Lord Kazzak", tag = "World Boss", map = 1419, zone = "Blasted Lands", x = 37.3, y = 72.6,
+      where = "In the Tainted Scar. He roams the south-west of the zone.", unverifiedInForever = true },
     { id = 13278, name = "Duke Hydraxis", map = 1447, zone = "Azshara", x = 79.2, y = 73.4 },
     -- quest givers (Quests.lua starts), checked on Wowhead Classic and
     -- Forever 2026-10-07: same spots on both

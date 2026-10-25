@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Slay Lord Kazzak, the Blasted Lands world boss, to the Goal Library, with a map pin to the Tainted Scar.
 - Added Headmaster's Charge, a Scholomance staff dropped by Darkmaster Gandling, to the Goal Library.
 - Added Aurastone Hammer, a Molten Core mace dropped by Garr, to the Goal Library.
 - Added Destiny, a rare epic two-handed sword that level 52 to 60 creatures can drop, to the Goal Library.

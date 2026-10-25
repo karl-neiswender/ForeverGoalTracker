@@ -576,6 +576,29 @@ local library = {
         },
     },
     {
+        -- Wowhead Classic npc 12397, checked 2026-10-25: Lord Kazzak, the Blasted Lands world boss (a 40-player
+        -- raid fight in the open). Wowhead's sightings cover x 32 to 44, y 62 to 80, centred near 37, 73. His
+        -- loot includes The Eye of Shadow, the Infernal Headcage, the Empyrean Demolisher and the Core Felcloth
+        -- Bag pattern. Whether the game reports his kill to the addon (ENCOUNTER_END) is unverified, so the
+        -- note says to tick it by hand if it does not tick. Not marked confirmed in Forever.
+        id = "raid_kazzak", library = true,
+        icon = "spell_shadow_summoninfernal",
+        name = "Slay Lord Kazzak",
+        short = "Lord Kazzak",
+        category = "Raid", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A world boss in the Blasted Lands that needs a full raid. If the kill does not tick on its own, tick it by hand.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Defeat Lord Kazzak in the Tainted Scar in the Blasted Lands.", auto = { boss = "Lord Kazzak" } },
+        },
+        tips = {
+            "Lord Kazzak stands in the open in the Tainted Scar, in the south-west of the Blasted Lands. No attunement or instance is needed, but he is a raid-sized fight: bring a full raid.",
+            "He drops {item:18665:The Eye of Shadow}, {item:18546:Infernal Headcage}, {item:17112:Empyrean Demolisher}, {item:19134:Flayed Doomguard Belt} and other epics, plus the {item:21371:Pattern: Core Felcloth Bag}.",
+            "Anyone in the raid who is eligible can loot, so you do not need a drop for the goal: the kill is what counts.",
+        },
+    },
+    {
         id = "raid_bwl", library = true, instance = { 469, "Blackwing Lair" },
         icon = { "achievement_boss_nefarion", "inv_misc_head_dragon_black", "inv_misc_head_dragon_01" },
         name = "Clear Blackwing Lair",
