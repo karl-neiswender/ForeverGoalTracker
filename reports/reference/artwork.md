@@ -88,18 +88,18 @@ publish step adds them), starts at its `claude:viewport-fit-sides` meta, and set
 To republish, copy the repo file, make those changes, and publish it to the artifact URL. Every new goal
 needs a row in `GOALS` and, while it has no banner, a line in `FIRST`, in both copies.
 
-## Naming and indexing source art (Media/artwork, 2026-10-25)
+## Naming source art (Media/artwork, 2026-10-25)
 
-Files in `Media/artwork` are candidates for empty banner slots, so a name says what the picture shows,
-not what it will be used for: `<faction>-<race>-<class>-<what it shows>`, lowercase and hyphenated,
-leaving out any part that does not apply. Faction only when there is no race (`horde-priest-temple-kneeling`).
-Art with no character uses `place-`, `boss-` or `item-` (`place-ashenvale-night`, `item-frostguard-sword`).
-Race tokens: `human`, `dwarf`, `nightelf`, `gnome`, `orc`, `undead`, `tauren`, `troll`, `skyborne`.
-The artist, source and the slot it might fill stay out of the name.
+Karl renames candidate images so the folder can be scanned without opening anything: the name says what
+the picture shows and the slot he would use it for. Pattern: `<race>-<class>-<slot>`, lowercase and
+hyphenated, for example `orc-rogue-leveling`, `nightelf-hunter-t3`. Slots: `leveling`, `t1`, `t2`, `t25`,
+`t3` and so on. Faction (`horde-priest-leveling`) only when the picture shows no particular race. A second
+candidate for the same slot adds `-2`. Art that is not a race and class uses the goal: `weapon-frostguard`,
+`raid-molten-core`, `place-ashenvale`. Race tokens: `human`, `dwarf`, `nightelf`, `gnome`, `orc`, `undead`,
+`tauren`, `troll`, `skyborne`.
 
-`Media/artwork/INDEX.csv` has one row per file: `file`, `fits` (the slot it could fill, free text),
-`status` (blank, then `candidate`, `used` or `rejected`), `original_name` and `sha1`. Rename files freely,
-then run `python3 tools/artwork-index.py`: a renamed file is recognised by its content, and its row keeps
-its `fits`, `status` and `original_name`. New files get a row; rows with no file are reported, never deleted.
-Subfolders are not indexed. Rename in a batch with the index in step, since reports and `tools/artwork.py`
-name some originals.
+Do not keep a separate index. The files are committed, so a rename is recognised by its content:
+`git log --follow -- Media/artwork/<new name>` shows the name an image arrived with, and the artist or
+source stays in the reports. Codex finds the picked file by name and makes a new final image from it;
+originals stay untouched. Some reports and `tools/artwork.py` name originals, so say when a renamed file
+is one of them and update the reference in the same commit.
