@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goal Art Checklist</title>
+<style>
+  :root {
+    --bg: #f6f4ef; --card: #ffffff; --text: #23211c; --muted: #6b665c; --line: #e2ddd0;
+    --need: #d94b4b; --need-bg: #fbe3e3;
+    --borrow: #d9a21b; --borrow-bg: #fcf0cc;
+    --share: #3b7dd8; --share-bg: #dfeafa;
+    --done: #3a9d5d; --done-bg: #dcf1e3;
+    --na-bg: #eceae4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17160f; --card: #211f17; --text: #eee9da; --muted: #a39d8b; --line: #38342a;
+      --need: #ef7070; --need-bg: #4a2323;
+      --borrow: #f0c04a; --borrow-bg: #4a3b14;
+      --share: #6fa5ee; --share-bg: #1f3350;
+      --done: #62c585; --done-bg: #1c3d29;
+      --na-bg: #2c2a22;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 900px; margin: 0 auto; padding: 24px 16px 56px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  h2 { font-size: 1.15rem; margin: 32px 0 10px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+  .chip { border: 2px solid var(--line); background: var(--card); color: var(--text);
+          border-radius: 999px; padding: 6px 14px; font: inherit; cursor: pointer; }
+  .chip[aria-pressed="true"] { border-color: var(--text); font-weight: 600; }
+  .chip i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .need i { background: var(--need); } .borrow i { background: var(--borrow); }
+  .share i { background: var(--share); } .done i { background: var(--done); }
+  .first { background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--need);
+           border-radius: 8px; padding: 12px 16px; }
+  .first ol { margin: 6px 0 0; padding-left: 22px; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+  th { text-align: left; font-size: .85rem; color: var(--muted); font-weight: 600; padding: 0 10px; }
+  td { background: var(--card); padding: 9px 10px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  td:first-child { border-left: 1px solid var(--line); border-radius: 8px 0 0 8px; font-weight: 600; }
+  td:last-child { border-right: 1px solid var(--line); border-radius: 0 8px 8px 0; color: var(--muted); font-size: .92rem; }
+  td.s { width: 112px; text-align: center; font-weight: 600; font-size: .9rem; border-left: 1px solid var(--line); }
+  td.s.need { background: var(--need-bg); color: var(--need); }
+  td.s.borrow { background: var(--borrow-bg); color: var(--borrow); }
+  td.s.share { background: var(--share-bg); color: var(--share); }
+  td.s.done { background: var(--done-bg); color: var(--done); }
+  td.s.na { background: var(--na-bg); color: var(--muted); }
+  tr.hide { display: none; }
+  .found li { margin: 4px 0; }
+  .limits { color: var(--muted); font-size: .92rem; margin-top: 32px; }
+  @media (max-width: 560px) {
+    td:last-child { display: none; } th:last-child { display: none; }
+    td.s { width: auto; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Goal art checklist</h1>
+  <p class="sub">Faction and class combos for Forever Goal Tracker. Last updated 2026-10-25.</p>
+
+  <div class="bar" id="filters" role="group" aria-label="Filter by status">
+    <button class="chip" data-f="all" aria-pressed="true">Show all</button>
+    <button class="chip need" data-f="need" aria-pressed="false"><i></i>Needed</button>
+    <button class="chip borrow" data-f="borrow" aria-pressed="false"><i></i>Borrowed</button>
+    <button class="chip share" data-f="share" aria-pressed="false"><i></i>Shared</button>
+    <button class="chip done" data-f="done" aria-pressed="false"><i></i>Done</button>
+  </div>
+  <p class="sub" id="counts"></p>
+
+  <div class="first">
+    <strong>Find these first</strong>
+    <ol id="first"></ol>
+  </div>
+
+  <div id="tables"></div>
+
+  <h2>Found</h2>
+  <ul class="found" id="found"></ul>
+
+  <p class="limits">Needed = no image. Borrowed = using another goal's or the other faction's image.
+    Shared = one image for both factions, a faction version is optional. Done = art made for that
+    faction and class. Built from the banner code and file names, not from screenshots of each goal
+    in game; check any cell that looks wrong.</p>
+</main>
+
+<script>
+/* To update: change a status below (need, borrow, share, done, na) and add a line to FOUND.
+   Row format: [name, Alliance status, Horde status, note] */
+var UPDATED = "2026-10-25";
+
+var FIRST = [
+  "Level Classes to 60: Alliance Rogue",
+  "Level Classes to 60: Horde Priest",
+  "Level Classes to 60: Horde Rogue"
+];
+
+var FOUND = [
+  /* "2026-10-26: Horde Priest leveling, file name, source" */
+];
+
+var TABLES = [
+  ["Level Classes to 60", [
+    ["Druid",   "borrow", "done",   "Alliance borrows the Tier 2 Druid image. Horde has its own"],
+    ["Hunter",  "done",   "done",   "Alliance has Dwarf and Night Elf versions"],
+    ["Mage",    "borrow", "done",   "Alliance borrows the Tier 1 Human Mage. Horde is a Troll Mage"],
+    ["Paladin", "done",   "done",   "Alliance is a Dwarf. Horde is an Undead"],
+    ["Priest",  "borrow", "need",   "Alliance borrows Benediction and Tier 1 and 2 art. Horde has none"],
+    ["Rogue",   "need",   "need",   "No leveling image for either faction"],
+    ["Shaman",  "done",   "borrow", "Alliance is a Dwarf. Horde borrows Tier 1 and 2 Shaman"],
+    ["Warlock", "done",   "borrow", "Horde borrows the Tier 1 Warlock"],
+    ["Warrior", "borrow", "done",   "Alliance borrows Tier 2 and 3 art. Horde is a Tauren"]
+  ]],
+  ["Tier 1 sets", [
+    ["Druid",   "share", "share",  "Cenarion Raiment, one image"],
+    ["Hunter",  "done",  "done",   "Giantstalker, separate images"],
+    ["Mage",    "share", "share",  "Arcanist Regalia, one image"],
+    ["Paladin", "share", "share",  "Lawbringer, one image"],
+    ["Priest",  "done",  "borrow", "Prophecy. The Alliance image is used on Horde too"],
+    ["Rogue",   "done",  "done",   "Nightslayer, separate images"],
+    ["Shaman",  "share", "share",  "The Earthfury, one image"],
+    ["Warlock", "done",  "done",   "Felheart, separate images"],
+    ["Warrior", "share", "share",  "Battlegear of Might, one image"]
+  ]],
+  ["Tier 2 sets", [
+    ["Druid",   "done",  "done",   "Stormrage, separate images"],
+    ["Hunter",  "done",  "done",   "Dragonstalker, separate images"],
+    ["Mage",    "share", "share",  "Netherwind, one image"],
+    ["Paladin", "share", "share",  "Judgement, one image"],
+    ["Priest",  "done",  "borrow", "Transcendence. The Alliance image is used on Horde too"],
+    ["Rogue",   "share", "share",  "Bloodfang, one image"],
+    ["Shaman",  "share", "share",  "The Ten Storms, one image"],
+    ["Warlock", "done",  "done",   "Nemesis, separate images"],
+    ["Warrior", "done",  "done",   "Battlegear of Wrath, separate images"]
+  ]],
+  ["Tier 3 sets", [
+    ["Druid",   "share", "share",  "Dreamwalker, one image"],
+    ["Hunter",  "share", "share",  "Cryptstalker, one image"],
+    ["Mage",    "share", "share",  "Frostfire, one image"],
+    ["Paladin", "share", "share",  "Redemption, one image"],
+    ["Priest",  "done",  "borrow", "Vestments of Faith. The Alliance image is used on Horde too"],
+    ["Rogue",   "share", "share",  "Bonescythe, one image"],
+    ["Shaman",  "share", "share",  "The Earthshatterer, one image"],
+    ["Warlock", "done",  "done",   "Plagueheart, separate images"],
+    ["Warrior", "done",  "done",   "Dreadnaught's. Alliance is a Dwarf, Horde is a Tauren"]
+  ]],
+  ["Other class art that is borrowed", [
+    ["PvP leather (Sanctuary, Vestments)", "done",   "borrow", "Horde borrows the Tier 2 Warrior image"],
+    ["Dungeon Set 2 (all nine classes)",   "borrow", "borrow", "One shared dungeon scene"],
+    ["Dungeon Set 1: Shadowcraft, Magister, Wildheart", "borrow", "borrow", "Borrow the Dungeon Set 2 scene"],
+    ["Dungeon Set 1: Devout",              "borrow", "borrow", "Borrows the Stratholme key scene"],
+    ["AQ cloth and mail",                  "borrow", "borrow", "Generic AQ scene"],
+    ["Forever Hyjal sets (all nine classes)", "borrow", "borrow", "Shared raid-set scene"]
+  ]]
+];
+
+var LABEL = { need: "Needed", borrow: "Borrowed", share: "Shared", done: "Done", na: "n/a" };
+
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+
+function render() {
+  var html = "", counts = { need: 0, borrow: 0, share: 0, done: 0 };
+  TABLES.forEach(function (t) {
+    html += "<h2>" + esc(t[0]) + "</h2><table><thead><tr><th>Class</th><th>Alliance</th><th>Horde</th><th>Notes</th></tr></thead><tbody>";
+    t[1].forEach(function (r) {
+      counts[r[1]]++; counts[r[2]]++;
+      html += '<tr data-a="' + r[1] + '" data-h="' + r[2] + '"><td>' + esc(r[0]) + "</td>" +
+        '<td class="s ' + r[1] + '">' + LABEL[r[1]] + "</td>" +
+        '<td class="s ' + r[2] + '">' + LABEL[r[2]] + "</td>" +
+        "<td>" + esc(r[3]) + "</td></tr>";
+    });
+    html += "</tbody></table>";
+  });
+  document.getElementById("tables").innerHTML = html;
+  document.getElementById("first").innerHTML = FIRST.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("");
+  document.getElementById("found").innerHTML = FOUND.length
+    ? FOUND.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("")
+    : "<li>Nothing logged yet</li>";
+  document.getElementById("counts").textContent =
+    counts.need + " needed, " + counts.borrow + " borrowed, " + counts.share + " shared, " + counts.done + " done";
+}
+
+function filter(f) {
+  document.querySelectorAll("#filters .chip").forEach(function (b) {
+    b.setAttribute("aria-pressed", b.dataset.f === f ? "true" : "false");
+  });
+  document.querySelectorAll("#tables tbody tr").forEach(function (tr) {
+    tr.classList.toggle("hide", f !== "all" && tr.dataset.a !== f && tr.dataset.h !== f);
+  });
+  document.querySelectorAll("#tables table").forEach(function (t) {
+    var any = t.querySelector("tbody tr:not(.hide)");
+    t.style.display = any ? "" : "none";
+    t.previousElementSibling.style.display = any ? "" : "none";
+  });
+}
+
+render();
+document.getElementById("filters").addEventListener("click", function (e) {
+  var b = e.target.closest(".chip");
+  if (b) filter(b.dataset.f);
+});
+</script>
+</body>
+</html>
