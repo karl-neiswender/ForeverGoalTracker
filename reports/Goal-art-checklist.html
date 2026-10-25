@@ -12,6 +12,7 @@
     --share: #3b7dd8; --share-bg: #dfeafa;
     --done: #3a9d5d; --done-bg: #dcf1e3;
     --na-bg: #eceae4;
+    --forever: #1f6fe0; --forever-bg: #e3eefd;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -21,7 +22,18 @@
       --share: #6fa5ee; --share-bg: #1f3350;
       --done: #62c585; --done-bg: #1c3d29;
       --na-bg: #2c2a22;
+      --forever: #6aa8ff; --forever-bg: #1b2c47;
     }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17160f; --card: #211f17; --text: #eee9da; --muted: #a39d8b; --line: #38342a;
+    --need: #ef7070; --need-bg: #4a2323;
+    --borrow: #f0c04a; --borrow-bg: #4a3b14;
+    --share: #6fa5ee; --share-bg: #1f3350;
+    --done: #62c585; --done-bg: #1c3d29;
+    --na-bg: #2c2a22;
+    --forever: #6aa8ff; --forever-bg: #1b2c47;
+    color-scheme: dark;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
@@ -68,6 +80,29 @@
   #preview figcaption { padding: 3px 2px 0; font-size: .75rem; color: var(--muted); word-break: break-all; }
   .found li { margin: 4px 0; }
   .limits { color: var(--muted); font-size: .92rem; margin-top: 32px; }
+  /* race and class grid */
+  .rc-wrap { overflow-x: auto; max-width: 100%; }
+  table.rc { min-width: 760px; border-spacing: 4px; }
+  table.rc th { text-align: center; padding: 4px 2px; font-size: .78rem; }
+  table.rc th.race, table.rc td.race { text-align: left; white-space: nowrap; }
+  table.rc td { padding: 7px 4px; border: 1px solid var(--line); border-radius: 6px; text-align: center;
+                font-size: .78rem; font-weight: 600; }
+  table.rc td.race { background: var(--card); font-size: .9rem; padding: 7px 10px; }
+  table.rc td.s { width: auto; border-left: 1px solid var(--line); }
+  table.rc td.fo { box-shadow: inset 0 0 0 2px var(--forever); position: relative; }
+  table.rc td.fo::after { content: "NEW"; position: absolute; top: 1px; right: 3px; font-size: .55rem; letter-spacing: .04em;
+                          color: var(--forever); font-weight: 700; }
+  table.rc td.race.fo::after { content: "FOREVER"; }
+  table.rc tr.band td { background: none; border: 0; padding: 8px 2px 0; font-size: .8rem; color: var(--muted);
+                        text-align: left; text-transform: uppercase; letter-spacing: .06em; box-shadow: none; }
+  .rc-key { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--muted); font-size: .9rem; margin: 8px 0; }
+  .rc-key b { color: var(--forever); }
+  .rc-key span.sw { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px;
+                    margin-right: 5px; box-shadow: inset 0 0 0 2px var(--forever); background: var(--card); }
+  .rc-sum { background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--forever);
+            border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
+  .rc-sum ul { margin: 6px 0 0; padding-left: 20px; }
+  .rc-sum li { margin: 3px 0; }
   @media (max-width: 560px) {
     td:last-child { display: none; } th:last-child { display: none; }
     td.s { width: auto; }
@@ -94,6 +129,7 @@
     <ol id="first"></ol>
   </div>
 
+  <div id="racegrid"></div>
   <div id="tables"></div>
   <div id="preview" role="tooltip" hidden></div>
 
@@ -1753,6 +1789,112 @@ function section(title, rows, head, group, counts) {
   return html + "</tbody></table>";
 }
 
+
+// ---- Race and class grid ----
+// Combos are the game's own CharBaseInfo table (wago.tools, Era 1.15.9.70003 and Forever 1.60.1.70532,
+// read 2026-10-25). Art comes from the allclasses list in Core.lua (B.artVariants.allclasses), scored the
+// way B:BestArtVariant scores it: class 100, race 20, faction 10.
+var CLASS_ORDER = ["Warrior", "Paladin", "Hunter", "Rogue", "Priest", "Shaman", "Mage", "Warlock", "Druid"];
+var RACES = [
+  { name: "Human", token: "Human", side: "Alliance", era: ["Warrior", "Paladin", "Rogue", "Mage", "Warlock", "Priest"], fnew: ["Hunter"] },
+  { name: "Dwarf", token: "Dwarf", side: "Alliance", era: ["Warrior", "Paladin", "Hunter", "Rogue", "Priest"], fnew: ["Shaman"] },
+  { name: "Night Elf", token: "NightElf", side: "Alliance", era: ["Warrior", "Hunter", "Rogue", "Priest", "Druid"], fnew: [] },
+  { name: "Gnome", token: "Gnome", side: "Alliance", era: ["Warrior", "Rogue", "Mage", "Warlock"], fnew: ["Priest"] },
+  { name: "High Order Skyborne", token: "Skyborne", side: "Alliance", forever: true, era: [], fnew: ["Warrior", "Hunter", "Rogue", "Mage", "Druid"] },
+  { name: "Orc", token: "Orc", side: "Horde", era: ["Warrior", "Hunter", "Rogue", "Shaman", "Warlock"], fnew: ["Mage"] },
+  { name: "Undead", token: "Scourge", side: "Horde", era: ["Warrior", "Rogue", "Mage", "Warlock", "Priest"], fnew: ["Paladin"] },
+  { name: "Tauren", token: "Tauren", side: "Horde", era: ["Warrior", "Hunter", "Shaman", "Druid"], fnew: [] },
+  { name: "Troll", token: "Troll", side: "Horde", era: ["Warrior", "Hunter", "Rogue", "Priest", "Mage", "Shaman"], fnew: ["Warlock"] },
+  { name: "Windshaper Skyborne", token: "Skyborne", side: "Horde", forever: true, era: [], fnew: ["Warrior", "Hunter", "Rogue", "Shaman", "Druid"] }
+];
+// f = faction, c = class, r = race token (none = any race), k = image key, shows = the race the image pictures
+var RC_ART = [
+  { f: "Alliance", c: "Paladin", r: "Dwarf", k: "allclasses_dwarf_paladin" },
+  { f: "Horde", c: "Warrior", r: "Tauren", k: "allclasses_tauren_warrior" },
+  { f: "Alliance", c: "Warlock", k: "allclasses_alliance_warlock" },
+  { f: "Horde", c: "Druid", k: "allclasses_horde_druid" },
+  { f: "Alliance", c: "Hunter", r: "Dwarf", k: "allclasses_dwarf_hunter" },
+  { f: "Alliance", c: "Priest", r: "NightElf", k: "benediction-alliance" },
+  { f: "Horde", c: "Hunter", r: "Troll", k: "tier3_hunter" },
+  { f: "Alliance", c: "Hunter", r: "NightElf", k: "allclasses_nightelf_hunter" },
+  { f: "Horde", c: "Hunter", k: "allclasses_horde_hunter" },
+  { f: "Alliance", c: "Shaman", r: "Dwarf", k: "allclasses_dwarf_shaman" },
+  { f: "Horde", c: "Paladin", r: "Scourge", k: "allclasses_undead_paladin" },
+  { f: "Horde", c: "Mage", r: "Troll", k: "allclasses_troll_mage" },
+  { f: "Horde", c: "Mage", k: "allclasses_troll_mage", shows: "Troll" },
+  { f: "Alliance", c: "Priest", r: "Human", k: "set_tier1_priest" },
+  { f: "Alliance", c: "Priest", r: "Dwarf", k: "set_tier2_priest" },
+  { f: "Alliance", c: "Hunter", k: "rhokdelar" },
+  { f: "Alliance", c: "Mage", r: "Human", k: "set_tier1_mage" },
+  { f: "Alliance", c: "Mage", k: "set_tier1_mage" },
+  { f: "Alliance", c: "Warrior", r: "Dwarf", k: "tier3_warrior" },
+  { f: "Alliance", c: "Warrior", r: "NightElf", k: "set_tier2_warrior-alliance" },
+  { f: "Alliance", c: "Warrior", k: "set_tier2_warrior-alliance" },
+  { f: "Horde", c: "Warrior", k: "set_tier2_warrior" },
+  { f: "Alliance", c: "Druid", k: "set_tier2_druid" },
+  { f: "Alliance", c: "Paladin", k: "set_tier2_paladin" },
+  { f: "Horde", c: "Shaman", r: "Tauren", k: "set_tier2_shaman" },
+  { f: "Horde", c: "Shaman", k: "set_tier1_shaman" },
+  { f: "Horde", c: "Warlock", k: "set_tier1_warlock" }
+];
+function rcPick(race, cls) {
+  var best = null, score = -1;
+  RC_ART.forEach(function (v) {
+    if (v.f !== race.side || v.c !== cls || (v.r && v.r !== race.token)) return;
+    var w = 100 + (v.r ? 20 : 0) + 10;
+    if (w > score) { best = v; score = w; }
+  });
+  if (!best) return { st: "need", k: "" };
+  var own = best.k.indexOf("allclasses_") === 0;
+  if (own && best.r) return { st: "done", k: best.k };
+  if (own && !best.shows) return { st: "share", k: best.k };
+  return { st: "borrow", k: best.k };
+}
+function raceGrid() {
+  var n = { need: 0, borrow: 0, share: 0, done: 0 }, fnew = [], needed = {};
+  var html = '<h2 class="part">Race and class</h2>' +
+    '<p class="sub">Every race and class combo the game allows, Classic Era against Forever. Era has 40 combos. ' +
+    'Forever keeps all 40 and adds 16: six new combos for existing races and the two Skyborne races. ' +
+    'A <b style="color:var(--forever)">blue outline marked NEW</b> is a combo that exists only on Forever. ' +
+    'The color is the leveling banner a character of that race and class gets now.</p>' +
+    '<div class="rc-wrap"><table class="rc"><thead><tr><th class="race">Race</th>' +
+    CLASS_ORDER.map(function (c) { return "<th>" + c + "</th>"; }).join("") + "</tr></thead><tbody>";
+  var side = "";
+  RACES.forEach(function (race) {
+    if (race.side !== side) {
+      side = race.side;
+      html += '<tr class="band"><td colspan="' + (CLASS_ORDER.length + 1) + '">' + side + "</td></tr>";
+    }
+    html += '<tr><td class="race' + (race.forever ? " fo" : "") + '">' + esc(race.name) + "</td>";
+    CLASS_ORDER.forEach(function (c) {
+      var isEra = race.era.indexOf(c) >= 0, isNew = race.fnew.indexOf(c) >= 0;
+      if (!isEra && !isNew) { html += '<td class="s na">n/a</td>'; return; }
+      var a = rcPick(race, c);
+      n[a.st]++;
+      if (isNew) fnew.push({ race: race.name, cls: c, st: a.st });
+      if (a.st === "need") (needed[c] = needed[c] || []).push(race.name + (isNew ? " (Forever)" : ""));
+      var has = a.k && typeof IMG !== "undefined" && IMG[a.k];
+      html += '<td class="s ' + a.st + (isNew ? " fo" : "") + (has ? " has" : "") + '"' +
+        (has ? ' tabindex="0" data-k="' + a.k + '"' : "") + ">" + LABEL[a.st] + "</td>";
+    });
+    html += "</tr>";
+  });
+  html += "</tbody></table></div>";
+  html += '<div class="rc-key"><span><span class="sw"></span><b>NEW</b> only on Forever</span>' +
+    "<span>Needed: no banner, the default image shows</span><span>Borrowed: another goal's image</span>" +
+    "<span>Shared: one image for the faction and class</span><span>Done: art for that race</span></div>";
+  var total = n.need + n.borrow + n.share + n.done;
+  html += '<div class="rc-sum"><strong>What needs artwork</strong> (' + total + " combos: " + n.need + " needed, " +
+    n.borrow + " borrowed, " + n.share + " shared, " + n.done + " done)<ul>";
+  CLASS_ORDER.forEach(function (c) {
+    if (needed[c]) html += "<li><strong>" + c + ":</strong> " + needed[c].map(esc).join(", ") + "</li>";
+  });
+  html += "</ul>";
+  html += '<p style="margin:10px 0 0"><strong>Forever-only combos (' + fnew.length + "):</strong> " +
+    fnew.map(function (x) { return esc(x.race + " " + x.cls) + " (" + LABEL[x.st].toLowerCase() + ")"; }).join(", ") + ".</p></div>";
+  return html;
+}
+
 function line(c) {
   return c.need + " needed, " + c.borrow + " borrowed, " + c.share + " shared, " + c.done + " done";
 }
@@ -1766,6 +1908,7 @@ function render() {
   TABLES.forEach(function (t) { html += section(t[0], t[1], "Class", "grid", counts); });
   html += '<h2 class="part">Every goal (' + GOALS.reduce(function (n, g) { return n + g[1].length; }, 0) + ')</h2>';
   GOALS.forEach(function (g) { html += section(g[0], g[1], "Goal", "goals", counts); });
+  document.getElementById("racegrid").innerHTML = raceGrid();
   document.getElementById("tables").innerHTML = html;
   document.getElementById("first").innerHTML = FIRST.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("");
   document.getElementById("found").innerHTML = FOUND.length
@@ -1812,7 +1955,10 @@ function init() {
   }
   function hide() { pv.hidden = true; pinned = null; }
   var SEL = ".thumb, td.has";
-  var tb = document.getElementById("tables");
+  // the race and class grid shares the hover preview with the tables
+  var tb = { addEventListener: function (type, fn) {
+    ["tables", "racegrid"].forEach(function (id) { document.getElementById(id).addEventListener(type, fn); });
+  } };
   function hover(e) {
     var a = e.target.closest(SEL);
     if (a && !pinned) show(a, e.clientX, e.clientY);

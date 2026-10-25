@@ -75,3 +75,12 @@ Keep it current whenever artwork or goals change (artwork closeout, a new banner
 Source of the first data: the [October 15 coverage report](../banner-image-gaps-2026-10-15.md),
 with the Say LOL, Beastmaster and Dreadnaught's fixes and Teebu's Blazing Longsword applied
 on 2026-10-25.
+
+Race and class grid (top of the page, 2026-10-25): `RACES` lists each race's Classic Era combos (`era`)
+and the ones only Forever allows (`fnew`), read from the game's CharBaseInfo table on wago.tools (Era
+1.15.9.70003, Forever 1.60.1.70532): 40 combos on Era, 56 on Forever, the extra 16 being six new combos
+and the two Skyborne races. `RC_ART` copies `B.artVariants.allclasses` in Core.lua; the cell status is
+computed from it (class beats race beats faction, like `B:BestArtVariant`). When a leveling banner is
+added or changed in Core.lua, edit `RC_ART` to match. Because the published artifact differs slightly
+from the repo file (it has its own page wrapper), republish by patching the live copy, not by uploading
+the repo file.
