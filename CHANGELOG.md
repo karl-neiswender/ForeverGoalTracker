@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Inventor's Focal Sword, a Maraudon sword dropped by Tinkerer Gizlock, to the Goal Library.
 - Added Illusionary Rod, a Scarlet Monastery staff dropped by Arcanist Doan, to the Goal Library.
 - Added Halberd of Smiting, a Zul'Gurub polearm dropped by Bloodlord Mandokir, to the Goal Library.
 - Added Gutgore Ripper, a Molten Core dagger dropped by Garr, to the Goal Library.

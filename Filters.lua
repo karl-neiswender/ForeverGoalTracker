@@ -33,6 +33,7 @@ FGT.GOAL_CLASSES = {
     gutgore_ripper = { "WARRIOR", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" },
     halberd_of_smiting = { "WARRIOR", "PALADIN", "HUNTER", "DRUID" },
     illusionary_rod = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
+    inventors_focal_sword = ONE_HAND_SWORD,
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },

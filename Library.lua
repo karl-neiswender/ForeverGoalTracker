@@ -680,6 +680,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 17719, checked 2026-10-25: rare (blue) Bind on Pickup one-hand sword, item level
+        -- 53, requires level 48, equip: +1% spell crit. Dropped by Tinkerer Gizlock in Maraudon (GearSources
+        -- agrees; Wowhead's sample is only five kills, so no drop rate is given). Not in Forever's tables yet,
+        -- so not marked confirmed.
+        id = "inventors_focal_sword", library = true, itemQuality = 3, instance = { 349, "Maraudon" },
+        icon = "inv_sword_14",
+        name = "Inventor's Focal Sword",
+        short = "Focal Sword",
+        category = "Rare Weapon", difficulty = "Moderate",
+        timeEstimate = "Varies",
+        note = "A one-handed sword for casters, dropped by Tinkerer Gizlock in Maraudon.",
+        steps = {
+            { text = "Reach level 48.", auto = { level = 48 } },
+            { text = "Loot Inventor's Focal Sword from Tinkerer Gizlock in Maraudon.", auto = { item = 17719, owned = { "Inventor's Focal Sword" } } },
+        },
+        completeWith = { item = 17719, owned = { "Inventor's Focal Sword" } },
+        tips = {
+            "Defeat Tinkerer Gizlock in Maraudon for a chance at {item:17719:Inventor's Focal Sword} {map:mara:Show on map}.",
+            "It binds when picked up. Equipping it improves your chance to crit with spells by 1%.",
+            "Equipping it takes level 48 and One-Handed Swords. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
