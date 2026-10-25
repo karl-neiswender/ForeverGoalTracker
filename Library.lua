@@ -581,6 +581,34 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19099, checked 2026-10-25: rare (blue) Bind on Pickup, Unique one-hand dagger,
+        -- item level 65, requires level 60, +10 Agility, chance on hit for 45 Frost damage. Sold for gold by
+        -- the Frostwolf Supply Officers, Jekyll Flandring (outside Alterac Valley, in Alterac Mountains) and
+        -- Grunnda Wolfheart (inside the battleground); both are Horde vendors. Wowhead's price is 31 gold
+        -- 53 silver. The standing is not on the item page; a 2006 Wowhead comment says Revered with the
+        -- Frostwolf Clan, which matches the Frostwolf gear, so verify in game. Not in Forever's tables yet.
+        id = "glacial_blade", library = true, itemQuality = 3, faction = "Horde",
+        icon = "inv_weapon_shortblade_06",
+        name = "Glacial Blade",
+        short = "Glacial Blade",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "1-2 Months",
+        note = "A Horde one-handed dagger bought with gold from the Frostwolf Supply Officer, once you are Revered with the Frostwolf Clan.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Reach Revered with the {pvp_av_horde:Frostwolf Clan}.", auto = { rep = { faction = 729, standing = 7 } } },
+            { text = "Buy Glacial Blade from Jekyll Flandring, the Frostwolf Supply Officer outside Alterac Valley.", auto = { item = 19099, owned = { "Glacial Blade" } } },
+        },
+        completeWith = { item = 19099, owned = { "Glacial Blade" } },
+        tips = {
+            "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn Frostwolf Clan reputation.",
+            "Jekyll Flandring sells it for about 31 gold 53 silver. Grunnda Wolfheart, inside Alterac Valley, sells it too.",
+            "It binds when picked up and is Unique. It adds 10 Agility and its chance on hit blasts the target for 45 Frost damage.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
