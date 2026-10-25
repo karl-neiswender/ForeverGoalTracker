@@ -425,6 +425,32 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
+        -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
+        -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
+        -- Scholomance, Blackrock Spire and Dire Maul). Not in Forever's tables yet, so not marked confirmed.
+        id = "destiny", library = true, itemQuality = 4,
+        icon = "inv_sword_19",
+        name = "Destiny",
+        short = "Destiny",
+        category = "Epic Weapon", difficulty = "Extreme",
+        timeEstimate = "Varies",
+        note = "A rare two-handed sword that any level 52 to 60 creature can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 52.", auto = { level = 52 } },
+            { text = "Loot Destiny, a rare drop from level 52 to 60 creatures.",
+              auto = { item = 647, owned = { "Destiny" } } },
+        },
+        completeWith = { item = 647, owned = { "Destiny" } },
+        tips = {
+            "Wowhead lists over 100 creatures of level 52 to 60 that have dropped it, none of them bosses. Each drop is rare. Most reports are from Stratholme, Scholomance, Blackrock Spire and Dire Maul, where you kill the most creatures at that level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "Its chance on hit increases your Strength by 200 for 10 seconds. Equipping it takes level 52 and Two-Handed Swords.",
+            "Warriors, Paladins and Hunters can use it.",
+        },
+    },
+
+    {
         -- Wowhead Forever item 1728, checked 2026-10-15. The item page does
         -- not list a source, so leave its acquisition source unknown.
         id = "teebus", library = true, forever = "confirmed", itemQuality = 4,
