@@ -425,6 +425,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 17076, checked 2026-10-25: epic Bind on Pickup two-hand sword, item level 77,
+        -- requires level 60, +16 Stamina, +1% crit, chance on hit to ignore 700 armor for 10 sec (stacks to 3).
+        -- Dropped by Ragnaros in Molten Core, about 5% (GearSources agrees). Not in Forever's tables yet,
+        -- so not marked confirmed.
+        id = "bonereavers_edge", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_sword_12",
+        name = "Bonereaver's Edge",
+        short = "Bonereaver's Edge",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed sword dropped by Ragnaros in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Bonereaver's Edge from Ragnaros in Molten Core.", auto = { item = 17076, owned = { "Bonereaver's Edge" } } },
+        },
+        completeWith = { item = 17076, owned = { "Bonereaver's Edge" } },
+        tips = {
+            "Defeat Ragnaros, the last boss of {raid_mc:Molten Core}, for a chance at {item:17076:Bonereaver's Edge}. Wowhead's drop rate is about 5%.",
+            "It binds when picked up. Its chance on hit ignores 700 of your target's armor for 10 seconds, stacking up to 3 times.",
+            "Warriors, Paladins and Hunters can use this sword. Learn Two-Handed Swords before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
