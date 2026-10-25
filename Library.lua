@@ -609,6 +609,29 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 17071, checked 2026-10-25: epic Bind on Pickup one-hand dagger, item level 69,
+        -- requires level 60, chance on hit for 75 Shadow damage and -25 to all stats for 30 sec. Dropped by
+        -- Garr in Molten Core (GearSources agrees). Not in Forever's tables yet, so not marked confirmed.
+        id = "gutgore_ripper", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_weapon_shortblade_18",
+        name = "Gutgore Ripper",
+        short = "Gutgore Ripper",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed dagger dropped by Garr in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Gutgore Ripper from Garr in Molten Core.", auto = { item = 17071, owned = { "Gutgore Ripper" } } },
+        },
+        completeWith = { item = 17071, owned = { "Gutgore Ripper" } },
+        tips = {
+            "Defeat Garr in {raid_mc:Molten Core} for a chance at {item:17071:Gutgore Ripper}.",
+            "It binds when picked up. Its chance on hit sends a shadow bolt for 75 Shadow damage and lowers the target's stats by 25 for 30 seconds.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

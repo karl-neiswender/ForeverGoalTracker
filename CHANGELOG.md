@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Gutgore Ripper, a Molten Core dagger dropped by Garr, to the Goal Library.
 - Added Glacial Blade, a Frostwolf Clan dagger for the Horde, to the Goal Library.
 - Added Gift of the Elven Magi, a Stratholme dagger dropped by Balnazzar, to the Goal Library.
 - Added Frostguard, a Blacksmithing sword for Master Swordsmiths, to the Goal Library.
