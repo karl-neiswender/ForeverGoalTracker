@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Halberd of Smiting, a Zul'Gurub polearm dropped by Bloodlord Mandokir, to the Goal Library.
 - Added Gutgore Ripper, a Molten Core dagger dropped by Garr, to the Goal Library.
 - Added Glacial Blade, a Frostwolf Clan dagger for the Horde, to the Goal Library.
 - Added Gift of the Elven Magi, a Stratholme dagger dropped by Balnazzar, to the Goal Library.

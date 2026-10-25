@@ -632,6 +632,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19874, checked 2026-10-25: epic Bind on Pickup two-hand polearm, item level 66,
+        -- requires level 60, equip: chance to decapitate on a melee swing for 452 to 676 damage. Dropped by
+        -- Bloodlord Mandokir in Zul'Gurub (GearSources agrees; Wowhead lists no drop chance). Not in Forever's
+        -- tables yet, so not marked confirmed.
+        id = "halberd_of_smiting", library = true, itemQuality = 4, instance = { 309, "Zul'Gurub" },
+        icon = "inv_weapon_halberd_12",
+        name = "Halberd of Smiting",
+        short = "Halberd of Smiting",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed polearm dropped by Bloodlord Mandokir in Zul'Gurub.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Halberd of Smiting from Bloodlord Mandokir in Zul'Gurub.", auto = { item = 19874, owned = { "Halberd of Smiting" } } },
+        },
+        completeWith = { item = 19874, owned = { "Halberd of Smiting" } },
+        tips = {
+            "Defeat Bloodlord Mandokir in {raid_zg:Zul'Gurub} for a chance at {item:19874:Halberd of Smiting}.",
+            "It binds when picked up. Its equip effect gives a chance on a melee swing to decapitate the target for 452 to 676 damage.",
+            "Warriors, Paladins, Hunters and Druids can use this polearm. Learn Polearms before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
