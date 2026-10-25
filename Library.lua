@@ -898,6 +898,31 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 18534, checked 2026-10-25: rare (blue) Bind on Pickup two-hand staff, item level
+        -- 63, requires level 58, +11 Stamina, +14 Intellect, +7 Spirit, equip: +1% spell crit and +23 spell
+        -- power. Wowhead lists Mizzle the Crafty (no drop chance) and the Gordok Tribute chest (1 of 8
+        -- opened) in Dire Maul North; GearSources names the Gordok Tribute. Not in Forever's tables yet
+        -- (Wowhead Forever has no page), so not marked confirmed.
+        id = "rod_of_the_ogre_magi", library = true, itemQuality = 3, instance = { 429, "Dire Maul" },
+        icon = "inv_staff_32",
+        name = "Rod of the Ogre Magi",
+        short = "Ogre Magi Rod",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed caster staff from the Gordok Tribute chest in Dire Maul North.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Rod of the Ogre Magi from the Gordok Tribute in Dire Maul North.", auto = { item = 18534, owned = { "Rod of the Ogre Magi" } } },
+        },
+        completeWith = { item = 18534, owned = { "Rod of the Ogre Magi" } },
+        tips = {
+            "The Gordok Tribute chest appears in Dire Maul North after you defeat King Gordok. {item:18534:Rod of the Ogre Magi} is one of its rare rewards: Wowhead saw it in 1 of 8 chests opened, a small sample. Mizzle the Crafty also lists it, with no drop chance given.",
+            "It binds when picked up. It adds 11 Stamina, 14 Intellect, 7 Spirit, 1% spell crit and 23 spell power {map:dm:Show on map}.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
