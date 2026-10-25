@@ -81,6 +81,7 @@ and the ones only Forever allows (`fnew`), read from the game's CharBaseInfo tab
 1.15.9.70003, Forever 1.60.1.70532): 40 combos on Era, 56 on Forever, the extra 16 being six new combos
 and the two Skyborne races. `RC_ART` copies `B.artVariants.allclasses` in Core.lua; the cell status is
 computed from it (class beats race beats faction, like `B:BestArtVariant`). When a leveling banner is
-added or changed in Core.lua, edit `RC_ART` to match. Because the published artifact differs slightly
-from the repo file (it has its own page wrapper), republish by patching the live copy, not by uploading
-the repo file.
+added or changed in Core.lua, edit `RC_ART` to match. The published artifact differs slightly from the repo file: it has no doctype, head or body tags (the
+publish step adds them), starts at its `claude:viewport-fit-sides` meta, and sets its page gutter on `body`.
+To republish, copy the repo file, make those changes, and publish it to the artifact URL. Every new goal
+needs a row in `GOALS` and, while it has no banner, a line in `FIRST`, in both copies.
