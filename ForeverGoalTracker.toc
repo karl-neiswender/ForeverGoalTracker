@@ -19,6 +19,7 @@ Quests.lua
 Dependencies.lua
 Filters.lua
 Core.lua
+Tallies.lua
 ItemTooltips.lua
 Materials.lua
 Popout.lua

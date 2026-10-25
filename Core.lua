@@ -8531,6 +8531,10 @@ RefreshSteps = function(goal, view)
             -- a gear set's item that another character holds: where it is, and whether it can be mailed
             local elsewhere = not IsStepDone(goal.id, i) and FGT.PlannerElsewhere and FGT.PlannerElsewhere(goal, entry)
             if elsewhere then stepText = stepText .. "\n|cff8f897c" .. elsewhere .. "|r" end
+            -- a step that shows its goal's tally (Tallies.lua): "1,284 fish caught so far" under the step
+            if type(entry) == "table" and entry.tally and FGT.TallyLine then
+                stepText = stepText .. "\n|cff8f897c" .. FGT.TallyLine(goal) .. "|r"
+            end
             row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(stepText, IsStepDone(goal.id, i), nil, type(entry) == "table" and entry.mapZoom or nil) or stepText)
             row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46)))
             -- item links first, so a finished step fades them too (Karl)
@@ -9520,6 +9524,7 @@ local FILTERS = {
     { key = "Profession", label = "Professions" },
     { key = "PvP",        label = "PvP" },
     { key = "Milestone",  label = "Milestones" },
+    { key = "Collectible", label = "Collectibles" },
     { key = "Social",     label = "Social" },
 }
 local libFilter = "all"
@@ -10097,6 +10102,12 @@ local function SetGoalActive(goal, on)
         AfterSelectionChange(goal, on)
         return
     end
+    -- a goal that keeps a tally (Tallies.lua) starts it at zero when added and drops it when removed
+    if on and not ForeverGoalTrackerDB.active[goal.id] then
+        if FGT.TallyStart then FGT.TallyStart(goal) end
+    elseif not on and FGT.TallyStop then
+        FGT.TallyStop(goal)
+    end
     ForeverGoalTrackerDB.active[goal.id] = on or nil
     if LF.batch then
         LF.batch.first = LF.batch.first or (on and goal) or nil
@@ -10116,6 +10127,11 @@ local function SetGoalActive(goal, on)
 end
 -- The Gear Planner adds and checks Library goals the same way the Library and goal links do.
 FGT.SetGoalActive, FGT.IsGoalActive = SetGoalActive, IsActive
+-- a new catch (Tallies.lua): the open goal's page shows the new count
+function FGT.RefreshTallies()
+    local g = selectedId and FGT.GoalById(selectedId)
+    if g and g.tally and main:IsShown() then SelectGoal(selectedId, true) end
+end
 
 -- ============================================================
 -- Right-click menu on a My Goals card: favorite / unfavorite the goal,

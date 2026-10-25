@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua", "GearData.lua", "GearSources.lua", "GearCatalog.lua", "GearPlanner.lua", "PlannerEffects.lua", "VersionCheck.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Core.lua", "Tallies.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua", "GearData.lua", "GearSources.lua", "GearCatalog.lua", "GearPlanner.lua", "PlannerEffects.lua", "VersionCheck.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -687,6 +687,8 @@ if ok_all:
         ("Wolfsbane on Forever", None, open(os.path.join(here, "wolfsbane-tests.lua"), encoding="utf-8").read(), True),
         ("fishing tournament", None, open(os.path.join(here, "fishing-tests.lua"), encoding="utf-8").read()),
         ("Forever fishing tournament", None, open(os.path.join(here, "fishing-tests.lua"), encoding="utf-8").read(), True),
+        ("tally goals", None, open(os.path.join(here, "tally-tests.lua"), encoding="utf-8").read()),
+        ("Forever tally goals", None, open(os.path.join(here, "tally-tests.lua"), encoding="utf-8").read(), True),
         ("AQ40 armor sets", None, open(os.path.join(here, "aq-armor-tests.lua"), encoding="utf-8").read()),
         ("Forever AQ40 armor sets", None, open(os.path.join(here, "aq-armor-tests.lua"), encoding="utf-8").read(), True),
         ("completed step motion", None, open(os.path.join(here, "completed-step-motion-tests.lua"), encoding="utf-8").read()),

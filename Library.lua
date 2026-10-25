@@ -814,6 +814,31 @@ local library = {
         },
     },
 
+    -- The 1 Ring: Wowhead Classic item 8350, a joke ring ("Not quite as good as the 2 Ring") with +1 to every
+    -- stat, bind when equipped, level 10. Only fishing drops it, very rarely: Wowhead's catch counts (read
+    -- 2026-10-24) are about 0.19% of catches in Westfall and 0.02% or less in the capital cities, the
+    -- Barrens, Silverpine and Darkshore. Karl's request. Counts the fish caught since the goal was added
+    -- (Tallies.lua). Not marked confirmed in Forever.
+    {
+        id = "collect_the_1_ring", library = true,
+        icon = "inv_jewelry_ring_03",
+        name = "The 1 Ring", short = "The 1 Ring",
+        category = "Collectible", difficulty = "Extreme",
+        timeEstimate = "Ongoing",
+        note = "A joke ring with +1 to every stat, caught only by fishing. Very rare. Progress is tracked automatically.",
+        completeWith = { item = 8350 },
+        tally = { event = "fishing", label = "fish caught so far" },
+        tips = {
+            "Only fishing drops it. Wowhead's catch counts put it at roughly 1 in 500 catches in Westfall and far rarer, about 1 in 5,000 or worse, in the capital cities, the Barrens and Darkshore. Treat these as rough.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "You need level 10 to wear it. Its flavor text reads 'Not quite as good as the 2 Ring'.",
+        },
+        steps = {
+            { text = "Learn Fishing from a Fishing trainer and get a Fishing Pole.", icon = "trade_fishing", auto = { skill = { name = "Fishing", rank = 1 } } },
+            { text = "Catch {item:8350:The 1 Ring} while fishing.", icon = "inv_jewelry_ring_03", auto = { item = 8350 }, tally = true },
+        },
+    },
+
     -- ---------------- Milestones ----------------
     {
         id = "gold_5k", library = true, forever = "confirmed",
