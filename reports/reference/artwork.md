@@ -87,3 +87,19 @@ added or changed in Core.lua, edit `RC_ART` to match. The published artifact dif
 publish step adds them), starts at its `claude:viewport-fit-sides` meta, and sets its page gutter on `body`.
 To republish, copy the repo file, make those changes, and publish it to the artifact URL. Every new goal
 needs a row in `GOALS` and, while it has no banner, a line in `FIRST`, in both copies.
+
+## Naming and indexing source art (Media/artwork, 2026-10-25)
+
+Files in `Media/artwork` are candidates for empty banner slots, so a name says what the picture shows,
+not what it will be used for: `<faction>-<race>-<class>-<what it shows>`, lowercase and hyphenated,
+leaving out any part that does not apply. Faction only when there is no race (`horde-priest-temple-kneeling`).
+Art with no character uses `place-`, `boss-` or `item-` (`place-ashenvale-night`, `item-frostguard-sword`).
+Race tokens: `human`, `dwarf`, `nightelf`, `gnome`, `orc`, `undead`, `tauren`, `troll`, `skyborne`.
+The artist, source and the slot it might fill stay out of the name.
+
+`Media/artwork/INDEX.csv` has one row per file: `file`, `fits` (the slot it could fill, free text),
+`status` (blank, then `candidate`, `used` or `rejected`), `original_name` and `sha1`. Rename files freely,
+then run `python3 tools/artwork-index.py`: a renamed file is recognised by its content, and its row keeps
+its `fits`, `status` and `original_name`. New files get a row; rows with no file are reported, never deleted.
+Subfolders are not indexed. Rename in a batch with the index in step, since reports and `tools/artwork.py`
+name some originals.
