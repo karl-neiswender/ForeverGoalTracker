@@ -472,6 +472,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 18803, checked 2026-10-25: epic Bind on Pickup two-hand mace, item level 70,
+        -- requires level 60, +25 Stamina, +24 Intellect, +15 Fire Resistance, 9 mana per 5 sec. It comes from
+        -- the Cache of the Firelord, the chest that appears after Majordomo Executus in Molten Core
+        -- (GearSources lists Majordomo). Not in Forever's tables yet, so not marked confirmed.
+        id = "lava_dredger", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_gizmo_02",
+        name = "Hyperthermically Insulated Lava Dredger",
+        short = "Lava Dredger",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed mace from the Cache of the Firelord, the chest after Majordomo Executus in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Hyperthermically Insulated Lava Dredger from the Cache of the Firelord in Molten Core.", auto = { item = 18803, owned = { "Hyperthermically Insulated Lava Dredger" } } },
+        },
+        completeWith = { item = 18803, owned = { "Hyperthermically Insulated Lava Dredger" } },
+        tips = {
+            "Defeat Majordomo Executus in {raid_mc:Molten Core} to spawn the Cache of the Firelord. The {item:18803:Lava Dredger} is one of its possible drops.",
+            "It binds when picked up. It adds 25 Stamina, 24 Intellect, 15 Fire Resistance and 9 mana per 5 seconds.",
+            "Warriors, Paladins, Shamans and Druids can use this mace. Learn Two-Handed Maces before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

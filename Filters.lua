@@ -25,6 +25,7 @@ FGT.GOAL_CLASSES = {
     teebus = ONE_HAND_SWORD,
     bonereavers_edge = { "WARRIOR", "PALADIN", "HUNTER" },
     deathbringer = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" },
+    lava_dredger = { "WARRIOR", "PALADIN", "SHAMAN", "DRUID" },
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },
