@@ -474,6 +474,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 13937, checked 2026-10-25: epic Bind on Pickup two-hand staff, item level 62,
+        -- requires level 57, +30 Stamina, +20 Spirit, use: +20 Intellect to party members within 30 yards
+        -- (10 min cooldown). Dropped by Darkmaster Gandling in Scholomance (GearSources agrees). Not in
+        -- Forever's tables yet, so not marked confirmed.
+        id = "headmasters_charge", library = true, itemQuality = 4, instance = { 289, "Scholomance" },
+        icon = "inv_jewelry_talisman_12",
+        name = "Headmaster's Charge",
+        short = "Headmaster's Charge",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed staff that buffs your party's Intellect, dropped by Darkmaster Gandling in Scholomance.",
+        steps = {
+            { text = "Reach level 57.", auto = { level = 57 } },
+            { text = "Loot Headmaster's Charge from Darkmaster Gandling in Scholomance.", auto = { item = 13937, owned = { "Headmaster's Charge" } } },
+        },
+        completeWith = { item = 13937, owned = { "Headmaster's Charge" } },
+        tips = {
+            "Defeat Darkmaster Gandling, the last boss of {key_scholo:Scholomance}, for a chance at {item:13937:Headmaster's Charge} {map:scholo:Show on map}.",
+            "It binds when picked up. Using it gives 20 Intellect to party members within 30 yards (10 minute cooldown), and it adds 30 Stamina and 20 Spirit.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Forever item 1728, checked 2026-10-15. The item page does
         -- not list a source, so leave its acquisition source unknown.
         id = "teebus", library = true, forever = "confirmed", itemQuality = 4,

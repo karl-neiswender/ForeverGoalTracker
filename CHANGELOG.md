@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Headmaster's Charge, a Scholomance staff dropped by Darkmaster Gandling, to the Goal Library.
 - Added Aurastone Hammer, a Molten Core mace dropped by Garr, to the Goal Library.
 - Added Destiny, a rare epic two-handed sword that level 52 to 60 creatures can drop, to the Goal Library.
 - Added The 1 Ring, a very rare fishing catch, to the Goal Library in a new Collectibles category, with a count of the fish you have caught since you added the goal.
