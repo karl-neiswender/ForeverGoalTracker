@@ -618,3 +618,33 @@ do
     B.panel.GetWidth, B.panel.GetHeight = ow, oh
     B.credit.SetAlpha, B.credit.SetText, B.goal = oa, ot, goal
 end
+
+-- The twenty weapon goal backgrounds (2026-10-25) keep the page's drifting leaves and clouds: none has a
+-- light or particle spec, so nothing turns the leaves off, and the ambience layers exist (two leaf layers
+-- and two clouds). Settings > Images > Image effects decides whether they play.
+do
+    local A = F.ambience
+    assert(A and #A.layers == 4, "the goal page has its leaf and cloud layers")
+    local steady = 0
+    for _, l in ipairs(A.layers) do if l.steady then steady = steady + 1 end end
+    assert(steady == 2, "two cloud layers, two leaf layers")
+    local ids = {
+        "bonereavers_edge", "deathbringer", "flame_wrath", "frostguard", "gift_of_the_elven_magi",
+        "glacial_blade", "gutgore_ripper", "halberd_of_smiting", "illusionary_rod", "inventors_focal_sword",
+        "jindos_judgement", "krol_blade", "mograines_might", "obsidian_edged_blade", "headmasters_charge",
+        "aurastone_hammer", "lava_dredger", "will_of_arlokk", "mandokirs_sting", "perditions_blade",
+    }
+    local originalContext, originalGoal = B.PlayerArtContext, B.goal
+    B.PlayerArtContext = function() return {faction="Horde", class="WARRIOR", race="Orc"} end
+    for _, id in ipairs(ids) do
+        local goal = F.GoalById(id)
+        assert(goal, id .. " is a goal")
+        local path, aspect, preprocessed = B:ResolveArt(id)
+        assert(path == id .. "-banner.blp" and aspect == 4/3 and preprocessed, id .. " resolves to its own banner")
+        B.goal = goal
+        local spec = B:GlowSpec()
+        assert(not (spec and spec.embers and not spec.dust), id .. " has no particles that would hide the drifting leaves")
+    end
+    B.PlayerArtContext, B.goal = originalContext, originalGoal
+    print("  weapon backgrounds: twenty banners resolve and keep the drifting leaves and clouds ok")
+end
