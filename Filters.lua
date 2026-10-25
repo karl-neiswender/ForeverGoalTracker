@@ -40,6 +40,7 @@ FGT.GOAL_CLASSES = {
     mandokirs_sting = { "WARRIOR", "HUNTER", "ROGUE" },
     mograines_might = { "WARRIOR", "PALADIN", "SHAMAN", "DRUID" },
     obsidian_edged_blade = { "WARRIOR", "PALADIN", "HUNTER" },
+    perditions_blade = { "WARRIOR", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" },
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },

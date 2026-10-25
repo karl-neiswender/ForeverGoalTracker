@@ -850,6 +850,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 18816, checked 2026-10-25: epic Bind on Pickup, Unique one-hand dagger, item
+        -- level 77, requires level 60, chance on hit for 40 to 56 Fire damage. Dropped by Ragnaros in Molten
+        -- Core, 12.6% on Wowhead's tooltip (a sample of 119 kills; GearSources agrees). Not in Forever's
+        -- tables yet (Wowhead Forever has no page), so not marked confirmed.
+        id = "perditions_blade", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_sword_48",
+        name = "Perdition's Blade",
+        short = "Perdition's Blade",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed dagger dropped by Ragnaros in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Perdition's Blade from Ragnaros in Molten Core.", auto = { item = 18816, owned = { "Perdition's Blade" } } },
+        },
+        completeWith = { item = 18816, owned = { "Perdition's Blade" } },
+        tips = {
+            "Defeat Ragnaros, the last boss of {raid_mc:Molten Core}, for a chance at {item:18816:Perdition's Blade}. Wowhead's drop rate is about 12%, roughly 1 kill in 8.",
+            "It binds when picked up and is Unique. Its chance on hit blasts the target for 40 to 56 Fire damage.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

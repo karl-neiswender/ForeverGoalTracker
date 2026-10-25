@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Perdition's Blade, a Molten Core dagger dropped by Ragnaros, to the Goal Library.
 - Added Obsidian Edged Blade, a Molten Core sword dropped by four of its bosses, to the Goal Library.
 - Added Mograine's Might, a Scarlet Monastery mace dropped by Scarlet Commander Mograine, to the Goal Library.
 - Added Mandokir's Sting, a Zul'Gurub bow dropped by Bloodlord Mandokir, to the Goal Library.
