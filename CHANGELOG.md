@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Silent Fang, a Scholomance sword dropped by Darkmaster Gandling, to the Goal Library.
 - Added Shadowstrike, a Molten Core polearm dropped by Sulfuron Harbinger, to the Goal Library.
 - Added Rod of the Ogre Magi, a Dire Maul North staff from the Gordok Tribute chest, to the Goal Library.
 - Added Ashkandi, Greatsword of the Brotherhood, a Blackwing Lair sword dropped by Nefarian, to the Goal Library.

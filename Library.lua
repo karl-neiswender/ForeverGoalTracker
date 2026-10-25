@@ -948,6 +948,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 13953, checked 2026-10-25: rare (blue) Bind on Pickup main-hand sword, item level
+        -- 62, requires level 57, chance on hit to silence the target for 6 sec. Dropped by Darkmaster Gandling
+        -- in Scholomance (GearSources agrees; the sample is 15 kills, so no rate is given). Not in Forever's
+        -- tables yet (Wowhead Forever has no page), so not marked confirmed.
+        id = "silent_fang", library = true, itemQuality = 3, instance = { 289, "Scholomance" },
+        icon = "inv_sword_41",
+        name = "Silent Fang",
+        short = "Silent Fang",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed sword that silences its target, dropped by Darkmaster Gandling in Scholomance.",
+        steps = {
+            { text = "Reach level 57.", auto = { level = 57 } },
+            { text = "Loot Silent Fang from Darkmaster Gandling in Scholomance.", auto = { item = 13953, owned = { "Silent Fang" } } },
+        },
+        completeWith = { item = 13953, owned = { "Silent Fang" } },
+        tips = {
+            "Defeat Darkmaster Gandling, the last boss of {key_scholo:Scholomance}, for a chance at {item:13953:Silent Fang} {map:scholo:Show on map}.",
+            "It binds when picked up. Its chance on hit silences the target for 6 seconds, so it cannot cast spells.",
+            "It is a main-hand sword. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it. Learn One-Handed Swords before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
