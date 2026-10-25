@@ -27,6 +27,7 @@ FGT.GOAL_CLASSES = {
     deathbringer = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" },
     lava_dredger = { "WARRIOR", "PALADIN", "SHAMAN", "DRUID" },
     flame_wrath = { "WARRIOR", "PALADIN", "HUNTER", "DRUID" },
+    frostguard = ONE_HAND_SWORD,
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },

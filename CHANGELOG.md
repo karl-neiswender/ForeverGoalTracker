@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Frostguard, a Blacksmithing sword for Master Swordsmiths, to the Goal Library.
 - Added Flame Wrath, a Blackrock Depths polearm dropped by Ambassador Flamelash, to the Goal Library.
 - Added the Lava Dredger, a Molten Core mace from the Cache of the Firelord, to the Goal Library.
 - Added Deathbringer, an Onyxia's Lair axe dropped by Onyxia, to the Goal Library.

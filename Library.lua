@@ -520,6 +520,43 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 12797 and its plans, item 12836, checked 2026-10-25. Rare (blue) Bind on Equip
+        -- one-hand sword, item level 63, requires level 58; chance on hit slows the target's movement 30% and
+        -- its attacks 25% for 5 sec. The plans need Blacksmithing 300 and Master Swordsmith (Wowhead's
+        -- tooltip) and drop from Foreman Marcrid, a level 58 rare in Western Plaguelands (drop chance not
+        -- listed; his sightings span x 44 to 50, y 30 to 42). Reagents are in GearData: 18 Arcanite Bar, 8 Blue
+        -- Sapphire, 8 Azerothian Diamond, 4 Essence of Water, 2 Dense Grinding Stone, 4 Enchanted Leather.
+        -- The Forever item page exists (also Unique-Equipped there); its plans' source is unchecked.
+        id = "frostguard", library = true, forever = "confirmed", itemQuality = 3,
+        icon = "inv_sword_11",
+        name = "Frostguard",
+        short = "Frostguard",
+        category = "Rare Weapon", difficulty = "Very Hard",
+        timeEstimate = "Weeks",
+        note = "A one-handed sword made by a Master Swordsmith. It needs Blacksmithing 300 and the plans from Foreman Marcrid in Western Plaguelands.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Reach Blacksmithing 300.", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
+            { text = "Learn the Master Swordsmith specialization." },
+            { text = "Loot Plans: Frostguard from Foreman Marcrid in Western Plaguelands.", auto = { item = 12836 } },
+            { text = "Gather 18 Arcanite Bars.", auto = { item = 12360, count = 18 } },
+            { text = "Gather 8 Blue Sapphires.", auto = { item = 12361, count = 8 } },
+            { text = "Gather 8 Azerothian Diamonds.", auto = { item = 12800, count = 8 } },
+            { text = "Gather 4 Essence of Water.", auto = { item = 7080, count = 4 } },
+            { text = "Gather 4 Enchanted Leather.", auto = { item = 12810, count = 4 } },
+            { text = "Gather 2 Dense Grinding Stones.", auto = { item = 12644, count = 2 } },
+            { text = "Craft Frostguard at an anvil.", auto = { item = 12797, owned = { "Frostguard" } } },
+        },
+        completeWith = { item = 12797, owned = { "Frostguard" } },
+        tips = {
+            "{item:12836:Plans: Frostguard} drop from Foreman Marcrid, a rare level 58 creature in Western Plaguelands, who walks the area east of Lake Mereldar. Wowhead does not list a drop chance.",
+            "The plans need Blacksmithing 300 and the Master Swordsmith specialization.",
+            "Alchemists make {item:12360:Arcanite Bars} from {item:12359:Thorium Bars} and {item:12363:Arcane Crystals}.",
+            "Equipping it takes level 58 and One-Handed Swords. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it. It is Bind on Equip, and on Forever it is also Unique-Equipped.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

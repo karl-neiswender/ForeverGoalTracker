@@ -51,6 +51,10 @@ FGT.NPCS = {
     { id = 9077, name = "Warlord Goretooth", tag = "Kargath Expeditionary Force", map = 1418, zone = "Badlands", x = 5.8, y = 47.6 },
     -- named in tips (2026-10-07 sweep): out in the world, same spot on Forever
     { id = 6109, name = "Azuregos", map = 1447, zone = "Azshara", x = 48.0, y = 75.4 },
+    -- Rare level 58 who drops Plans: Frostguard, Wowhead Classic 2026-10-25: sightings span x 44 to 50,
+    -- y 30 to 42 (east of Lake Mereldar); the pin is their centre.
+    { id = 1844, name = "Foreman Marcrid", tag = "Rare", map = 1422, zone = "Western Plaguelands", x = 46.6, y = 34.5,
+      where = "He walks the area east of Lake Mereldar.", unverifiedInForever = true },
     -- World boss, Wowhead Classic 2026-10-25: sightings span x 32 to 44, y 62 to 80; the pin is their centre.
     { id = 12397, name = "Lord Kazzak", tag = "World Boss", map = 1419, zone = "Blasted Lands", x = 37.3, y = 72.6,
       where = "In the Tainted Scar. He roams the south-west of the zone.", unverifiedInForever = true },
