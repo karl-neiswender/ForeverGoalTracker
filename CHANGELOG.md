@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Flame Wrath, a Blackrock Depths polearm dropped by Ambassador Flamelash, to the Goal Library.
 - Added the Lava Dredger, a Molten Core mace from the Cache of the Firelord, to the Goal Library.
 - Added Deathbringer, an Onyxia's Lair axe dropped by Onyxia, to the Goal Library.
 - Added Bonereaver's Edge, a Molten Core sword dropped by Ragnaros, to the Goal Library.

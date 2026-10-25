@@ -496,6 +496,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 11809, checked 2026-10-25: rare (blue) Bind on Pickup two-hand polearm, item
+        -- level 56, requires level 51, chance on hit for a fire shield and a ring of fire (130 to 170 damage).
+        -- Dropped by Ambassador Flamelash in Blackrock Depths (GearSources agrees). Not in Forever's tables
+        -- yet, so not marked confirmed.
+        id = "flame_wrath", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        icon = "inv_spear_01",
+        name = "Flame Wrath",
+        short = "Flame Wrath",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed polearm dropped by Ambassador Flamelash in Blackrock Depths.",
+        steps = {
+            { text = "Reach level 51.", auto = { level = 51 } },
+            { text = "Loot Flame Wrath from Ambassador Flamelash in Blackrock Depths.", auto = { item = 11809, owned = { "Flame Wrath" } } },
+        },
+        completeWith = { item = 11809, owned = { "Flame Wrath" } },
+        tips = {
+            "Defeat Ambassador Flamelash in Blackrock Depths for a chance at {item:11809:Flame Wrath} {map:brd:Show on map}.",
+            "It binds when picked up. Its chance on hit wraps you in a fire shield for 15 seconds and shoots a ring of fire for 130 to 170 damage to nearby enemies.",
+            "Warriors, Paladins, Hunters and Druids can use this polearm. Learn Polearms before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
