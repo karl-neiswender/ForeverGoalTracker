@@ -1585,12 +1585,20 @@ do
     end
 
     function FGT.ShowNpcTip(owner, id)
+    -- a dungeon's usual level range, shown beside its location (not the entry requirement)
+    function FGT.AddLevelLine(n)
+        if n and n.levels then
+            GameTooltip:AddLine("Level " .. n.levels, C.TEXT[1], C.TEXT[2], C.TEXT[3])
+        end
+    end
+
         local n = FGT.NpcById(id)
         if not n then return end
         GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
         GameTooltip:AddLine(n.name, 0.37, 0.83, 0.74)
         if n.tag then GameTooltip:AddLine("<" .. n.tag .. ">", C.INK2[1], C.INK2[2], C.INK2[3]) end
         if n.map then
+        FGT.AddLevelLine(n)
             GameTooltip:AddLine(n.zone .. "  " .. Coords(n), C.TEXT[1], C.TEXT[2], C.TEXT[3])
             if n.where then GameTooltip:AddLine(n.where, C.INK2[1], C.INK2[2], C.INK2[3], true) end
         elseif n.where then

@@ -272,6 +272,7 @@ dot:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_LEFT")
     GameTooltip:AddLine(n.name, 0.37, 0.83, 0.74)
     if n.tag then GameTooltip:AddLine("<" .. n.tag .. ">", 0.7, 0.66, 0.58) end
+    if n.levels then GameTooltip:AddLine("Level " .. n.levels, 1, 0.9, 0.55) end
     GameTooltip:AddLine((n.zone or "?") .. "  " .. string.format("%.1f, %.1f", n.x, n.y), 1, 0.9, 0.55)
     if n.where then GameTooltip:AddLine(n.where, 0.7, 0.66, 0.58, true) end
         if FGT.isForever and n.unverifiedInForever then GameTooltip:AddLine("Unconfirmed in Forever. Classic reference location.", 0.7, 0.66, 0.58, true) end
@@ -1013,6 +1014,7 @@ function FGT.ShowMapLinkTip(owner, id)
     GameTooltip:AddLine(n.name .. ", " .. (n.zone or "?"), 0.7, 0.66, 0.58)
     if type(id) == "string" and id:match("^dungeon:") then
         GameTooltip:AddLine("Dungeon entrance", 0.79, 0.70, 0.48)
+        if n.levels then GameTooltip:AddLine("Level " .. n.levels, 0.7, 0.66, 0.58) end
         if n.where then GameTooltip:AddLine(n.where, 0.7, 0.66, 0.58, true) end
         if FGT.isForever and n.unverifiedInForever then GameTooltip:AddLine("Unconfirmed in Forever. Classic reference location.", 0.7, 0.66, 0.58, true) end
         GameTooltip:AddLine("Click: Show on map", 0.79, 0.70, 0.48)

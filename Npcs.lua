@@ -138,31 +138,33 @@ FGT.HUBS = {
 -- https://github.com/callie-g/HandyNotes_DungeonLocations-classic/blob/main/classic.lua
 -- Cave and mountain entrances still require travelling inside to reach the portal.
 -- Classic reference positions remain Unconfirmed on Forever.
+-- levels = the usual Classic Era level range as text (warcrafttavern.com dungeon table, checked 2026-10-25;
+-- wings share one range). Not the entry requirement. Forever ranges are unverified.
 FGT.DUNGEONS = {
     -- Explicit {map:} tags in war-mount guides; do not auto-link city names elsewhere.
     { id = "dungeon:pvp_alliance", name = "Champions' Hall", map = 1453, zone = "Stormwind City", x = 72.4, y = 50.8,
       unverifiedInForever = true, where = "Hall approach in Old Town. Lieutenant Karter is inside." },
     { id = "dungeon:pvp_horde", name = "Hall of Legends", map = 1454, zone = "Orgrimmar", x = 39.9, y = 69.1,
       unverifiedInForever = true, where = "Hall approach. Raider Bork is inside." },
-    { id = "dungeon:bfd", name = "Blackfathom Deeps", map = 1440, zone = "Ashenvale", x = 14, y = 13.1, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:uldaman", name = "Uldaman", map = 1418, zone = "Badlands", x = 44.53, y = 12.12, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:rfd", name = "Razorfen Downs", map = 1413, zone = "The Barrens", x = 49.13, y = 93.48, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:rfk", name = "Razorfen Kraul", map = 1413, zone = "The Barrens", x = 41.89, y = 89.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:wc", name = "Wailing Caverns", map = 1413, zone = "The Barrens", x = 47.7, y = 35, unverifiedInForever = false, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:brd", name = "Blackrock Depths", map = 1428, zone = "Burning Steppes", x = 29.94, y = 47.78, unverifiedInForever = true, where = "Enter Blackrock Mountain, then follow the route down to Blackrock Depths." },
-    { id = "dungeon:brs", name = "Blackrock Spire", map = 1428, zone = "Burning Steppes", x = 29.94, y = 47.78, unverifiedInForever = true, where = "Enter Blackrock Mountain, then follow the route up to Blackrock Spire.", alias = { "Upper Blackrock Spire", "Lower Blackrock Spire" } },
-    { id = "dungeon:mara", name = "Maraudon", map = 1443, zone = "Desolace", x = 29.1, y = 62.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:gnomer", name = "Gnomeregan", map = 1426, zone = "Dun Morogh", x = 24.46, y = 39.81, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:strat", name = "Stratholme", mapZoom = 44, map = 1423, zone = "Eastern Plaguelands", x = 30.85, y = 17, unverifiedInForever = true, where = "Shows the main entrance. The service entrance is separate." },
-    { id = "dungeon:dm", name = "Dire Maul", map = 1444, zone = "Feralas", x = 59.11, y = 43.28, unverifiedInForever = true, where = "Shows the outdoor approach to Dire Maul. Follow the route to your wing." },
-    { id = "dungeon:rfc", name = "Ragefire Chasm", map = 1454, zone = "Orgrimmar", x = 51.6, y = 49.83, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:sfk", name = "Shadowfang Keep", map = 1421, zone = "Silverpine Forest", x = 44.8, y = 67.8, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:stock", name = "The Stockade", map = 1453, zone = "Stormwind City", x = 40.28, y = 55.21, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal.", alias = { "Stockades", "Stockade" } },
-    { id = "dungeon:st", name = "Sunken Temple", map = 1435, zone = "Swamp of Sorrows", x = 69.5, y = 52.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal.", alias = { "The Temple of Atal'hakkar", "Temple of Atal'Hakkar" } },
-    { id = "dungeon:zf", name = "Zul'Farrak", map = 1446, zone = "Tanaris", x = 38.72, y = 20, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:sm", name = "Scarlet Monastery", map = 1420, zone = "Tirisfal Glades", x = 85.3, y = 32.2, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:scholo", name = "Scholomance", map = 1422, zone = "Western Plaguelands", x = 69, y = 72.9, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
-    { id = "dungeon:deadmines", name = "Deadmines", map = 1436, zone = "Westfall", x = 42.57, y = 71.71, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:bfd", name = "Blackfathom Deeps", levels = "22-28", map = 1440, zone = "Ashenvale", x = 14, y = 13.1, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:uldaman", name = "Uldaman", levels = "36-45", map = 1418, zone = "Badlands", x = 44.53, y = 12.12, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:rfd", name = "Razorfen Downs", levels = "38-42", map = 1413, zone = "The Barrens", x = 49.13, y = 93.48, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:rfk", name = "Razorfen Kraul", levels = "29-34", map = 1413, zone = "The Barrens", x = 41.89, y = 89.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:wc", name = "Wailing Caverns", levels = "17-24", map = 1413, zone = "The Barrens", x = 47.7, y = 35, unverifiedInForever = false, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:brd", name = "Blackrock Depths", levels = "52-60", map = 1428, zone = "Burning Steppes", x = 29.94, y = 47.78, unverifiedInForever = true, where = "Enter Blackrock Mountain, then follow the route down to Blackrock Depths." },
+    { id = "dungeon:brs", name = "Blackrock Spire", levels = "57-60", map = 1428, zone = "Burning Steppes", x = 29.94, y = 47.78, unverifiedInForever = true, where = "Enter Blackrock Mountain, then follow the route up to Blackrock Spire.", alias = { "Upper Blackrock Spire", "Lower Blackrock Spire" } },
+    { id = "dungeon:mara", name = "Maraudon", levels = "45-51", map = 1443, zone = "Desolace", x = 29.1, y = 62.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:gnomer", name = "Gnomeregan", levels = "30-35", map = 1426, zone = "Dun Morogh", x = 24.46, y = 39.81, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:strat", name = "Stratholme", levels = "58-60", mapZoom = 44, map = 1423, zone = "Eastern Plaguelands", x = 30.85, y = 17, unverifiedInForever = true, where = "Shows the main entrance. The service entrance is separate." },
+    { id = "dungeon:dm", name = "Dire Maul", levels = "58-60", map = 1444, zone = "Feralas", x = 59.11, y = 43.28, unverifiedInForever = true, where = "Shows the outdoor approach to Dire Maul. Follow the route to your wing." },
+    { id = "dungeon:rfc", name = "Ragefire Chasm", levels = "13-18", map = 1454, zone = "Orgrimmar", x = 51.6, y = 49.83, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:sfk", name = "Shadowfang Keep", levels = "20-26", map = 1421, zone = "Silverpine Forest", x = 44.8, y = 67.8, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:stock", name = "The Stockade", levels = "25-29", map = 1453, zone = "Stormwind City", x = 40.28, y = 55.21, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal.", alias = { "Stockades", "Stockade" } },
+    { id = "dungeon:st", name = "Sunken Temple", levels = "50-55", map = 1435, zone = "Swamp of Sorrows", x = 69.5, y = 52.5, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal.", alias = { "The Temple of Atal'hakkar", "Temple of Atal'Hakkar" } },
+    { id = "dungeon:zf", name = "Zul'Farrak", levels = "40-47", map = 1446, zone = "Tanaris", x = 38.72, y = 20, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:sm", name = "Scarlet Monastery", levels = "30-45", map = 1420, zone = "Tirisfal Glades", x = 85.3, y = 32.2, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:scholo", name = "Scholomance", levels = "58-60", map = 1422, zone = "Western Plaguelands", x = 69, y = 72.9, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
+    { id = "dungeon:deadmines", name = "Deadmines", levels = "15-22", map = 1436, zone = "Westfall", x = 42.57, y = 71.71, unverifiedInForever = true, where = "Shows the outdoor approach. Continue inside to reach the instance portal." },
     -- Raid entrances for the Gear Planner's source links. `manual` keeps them out of the automatic
     -- name linking in other guides; the planner tags them itself. Positions checked 2026-10-19 against
     -- the same HandyNotes_DungeonLocations-classic file as above (Onyxia 52.9/77.7, Naxxramas 39.0/26.0,
