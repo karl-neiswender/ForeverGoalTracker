@@ -825,6 +825,31 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 18822, checked 2026-10-25: epic Bind on Pickup two-hand sword, item level 68,
+        -- requires level 60, +42 Strength, equip: +8 Two-Handed Swords skill. Dropped by four Molten Core
+        -- bosses, per Wowhead's kill counts: Garr about 6.3%, Magmadar about 6.5%, Baron Geddon about 3.7% and
+        -- Golemagg about 2.8% (GearSources says "several bosses"). Not in Forever's tables yet (Wowhead
+        -- Forever has no page), so not marked confirmed.
+        id = "obsidian_edged_blade", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_sword_28",
+        name = "Obsidian Edged Blade",
+        short = "Obsidian Edged Blade",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed sword dropped by Magmadar, Garr, Baron Geddon and Golemagg the Incinerator in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Obsidian Edged Blade from a Molten Core boss.", auto = { item = 18822, owned = { "Obsidian Edged Blade" } } },
+        },
+        completeWith = { item = 18822, owned = { "Obsidian Edged Blade" } },
+        tips = {
+            "Four bosses in {raid_mc:Molten Core} drop {item:18822:Obsidian Edged Blade}: Magmadar, Garr, Baron Geddon and Golemagg the Incinerator. Wowhead's kill counts put each at roughly 3% to 6.5%.",
+            "It binds when picked up. It adds 42 Strength and 8 Two-Handed Swords skill.",
+            "Warriors, Paladins and Hunters can use this sword. Learn Two-Handed Swords before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
