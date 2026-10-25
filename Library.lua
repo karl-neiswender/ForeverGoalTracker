@@ -656,6 +656,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 7713, checked 2026-10-25: rare (blue) Bind on Pickup two-hand staff, item level
+        -- 39, requires level 34, +7 Stamina, +15 Intellect, +10 Spirit. Dropped by Arcanist Doan, the last boss
+        -- of the Scarlet Monastery Library (GearSources agrees; Wowhead's drop count is a single kill, so no
+        -- rate is given). Not in Forever's tables yet, so not marked confirmed.
+        id = "illusionary_rod", library = true, itemQuality = 3, instance = { 189, "Scarlet Monastery" },
+        icon = "inv_wand_04",
+        name = "Illusionary Rod",
+        short = "Illusionary Rod",
+        category = "Rare Weapon", difficulty = "Moderate",
+        timeEstimate = "Varies",
+        note = "A two-handed caster staff dropped by Arcanist Doan in the Scarlet Monastery Library.",
+        steps = {
+            { text = "Reach level 34.", auto = { level = 34 } },
+            { text = "Loot Illusionary Rod from Arcanist Doan in the Scarlet Monastery Library.", auto = { item = 7713, owned = { "Illusionary Rod" } } },
+        },
+        completeWith = { item = 7713, owned = { "Illusionary Rod" } },
+        tips = {
+            "Defeat Arcanist Doan, the last boss of the Library wing of the Scarlet Monastery, for a chance at {item:7713:Illusionary Rod} {map:sm:Show on map}.",
+            "It binds when picked up. It adds 7 Stamina, 15 Intellect and 10 Spirit.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
