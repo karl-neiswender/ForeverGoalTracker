@@ -24,6 +24,7 @@ FGT.GOAL_CLASSES = {
     zinrokh = { "WARRIOR", "PALADIN", "HUNTER" },
     teebus = ONE_HAND_SWORD,
     bonereavers_edge = { "WARRIOR", "PALADIN", "HUNTER" },
+    deathbringer = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" },
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },

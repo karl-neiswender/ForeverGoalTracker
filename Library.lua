@@ -449,6 +449,29 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 17068, checked 2026-10-25: epic Bind on Pickup one-hand axe, item level 75,
+        -- requires level 60, chance on hit for 110 to 140 Shadow damage. Dropped by Onyxia in Onyxia's Lair
+        -- (GearSources agrees). Not in Forever's tables yet, so not marked confirmed.
+        id = "deathbringer", library = true, itemQuality = 4, instance = { 249, "Onyxia's Lair" },
+        icon = "inv_axe_09",
+        name = "Deathbringer",
+        short = "Deathbringer",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed axe dropped by Onyxia in Onyxia's Lair.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Deathbringer from Onyxia in Onyxia's Lair.", auto = { item = 17068, owned = { "Deathbringer" } } },
+        },
+        completeWith = { item = 17068, owned = { "Deathbringer" } },
+        tips = {
+            "Defeat Onyxia in {raid_ony:Onyxia's Lair} for a chance at {item:17068:Deathbringer}. You need the Drakefire Amulet to enter.",
+            "It binds when picked up. Its chance on hit sends a shadow bolt for 110 to 140 Shadow damage.",
+            "Warriors, Paladins, Hunters and Shamans can use this axe. Learn One-Handed Axes before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

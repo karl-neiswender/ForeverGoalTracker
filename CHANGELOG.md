@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Deathbringer, an Onyxia's Lair axe dropped by Onyxia, to the Goal Library.
 - Added Bonereaver's Edge, a Molten Core sword dropped by Ragnaros, to the Goal Library.
 - Added Slay Lord Kazzak, the Blasted Lands world boss, to the Goal Library, with a map pin to the Tainted Scar.
 - Added Headmaster's Charge, a Scholomance staff dropped by Darkmaster Gandling, to the Goal Library.
