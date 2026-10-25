@@ -752,6 +752,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19909, checked 2026-10-25: epic Bind on Pickup, Unique two-hand staff, item
+        -- level 65, requires level 60, +15 Stamina, +19 Intellect, +35 Spirit, equip: +46 healing. Dropped by
+        -- High Priestess Arlokk in Zul'Gurub (GearSources agrees; the sample is 14 kills, so no rate is
+        -- given). Not in Forever's tables yet (Wowhead Forever has no page), so not marked confirmed.
+        id = "will_of_arlokk", library = true, itemQuality = 4, instance = { 309, "Zul'Gurub" },
+        icon = "inv_staff_35",
+        name = "Will of Arlokk",
+        short = "Will of Arlokk",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed healing staff dropped by High Priestess Arlokk in Zul'Gurub.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Will of Arlokk from High Priestess Arlokk in Zul'Gurub.", auto = { item = 19909, owned = { "Will of Arlokk" } } },
+        },
+        completeWith = { item = 19909, owned = { "Will of Arlokk" } },
+        tips = {
+            "Defeat High Priestess Arlokk in {raid_zg:Zul'Gurub} for a chance at {item:19909:Will of Arlokk}.",
+            "It binds when picked up and is Unique. It adds 15 Stamina, 19 Intellect, 35 Spirit and up to 46 healing.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
