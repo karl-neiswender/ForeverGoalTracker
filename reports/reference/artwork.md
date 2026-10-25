@@ -11,8 +11,10 @@ by opening this reference.
 - For banner work, load the project's
   [banner skill](../../.agents/skills/forever-goal-tracker-banners/SKILL.md).
   Follow approved grayscale framing and baked left/bottom gradients. Preserve
-  source attribution and licenses, even if an approved derivative omits a visible
-  signature. Never invent artist credits or infer approval from a filename.
+  source attribution and licenses. Karl's preference (2026-10-25): remove visible
+  watermarks and artist signatures from goal backgrounds; put verified artist
+  credit on the goal itself. Keep originals untouched. Never invent artist credits
+  or infer approval from a filename.
 - Inspect the affected source/master/runtime manifests and goal mapping. Validate
   dimensions, alpha, aspect, format and in-game appearance for changed assets only.
   Native caching requires a full game restart for new/replaced textures or fonts.

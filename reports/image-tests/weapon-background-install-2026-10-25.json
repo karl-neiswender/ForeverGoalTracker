@@ -1,0 +1,162 @@
+[
+  {
+    "id": "bonereavers_edge",
+    "name": "Bonereaver's Edge",
+    "slug": "bonereavers-edge",
+    "review": "bonereavers-edge-review-v1.png",
+    "source": "Bonereaver's_Edge_TCG_Card.jpg",
+    "artist": null
+  },
+  {
+    "id": "deathbringer",
+    "name": "Deathbringer",
+    "slug": "deathbringer",
+    "review": "deathbringer-review-v1.png",
+    "source": "Deathbringer_TCG_Card.jpg",
+    "artist": null
+  },
+  {
+    "id": "flame_wrath",
+    "name": "Flame Wrath",
+    "slug": "flame-wrath",
+    "review": "flame-wrath-review-v1.png",
+    "source": "Flame_Wrath_TCG_Card.jpg",
+    "artist": null
+  },
+  {
+    "id": "frostguard",
+    "name": "Frostguard",
+    "slug": "frostguard",
+    "review": "frostguard-review-v1.png",
+    "source": "Frostguard_TCG_Card.png",
+    "artist": "Bob Eggleton"
+  },
+  {
+    "id": "gift_of_the_elven_magi",
+    "name": "Gift of the Elven Magi",
+    "slug": "gift-of-the-elven-magi",
+    "review": "gift-of-the-elven-magi-review-v1.png",
+    "source": "Gift_of_the_Elven_Magi_TC_Card.jpg",
+    "artist": null
+  },
+  {
+    "id": "glacial_blade",
+    "name": "Glacial Blade",
+    "slug": "glacial-blade",
+    "review": "glacial-blade-review-v2.png",
+    "source": "Glacial_Blade_TCG_Card.png",
+    "artist": "Luca Zontini"
+  },
+  {
+    "id": "gutgore_ripper",
+    "name": "Gutgore Ripper",
+    "slug": "gutgore-ripper",
+    "review": "gutgore-ripper-review-v1.png",
+    "source": "Gutgore_Ripper_TCG_Card.jpg",
+    "artist": null
+  },
+  {
+    "id": "halberd_of_smiting",
+    "name": "Halberd of Smiting",
+    "slug": "halberd-of-smiting",
+    "review": "halberd-of-smiting-review-v1.png",
+    "source": "Halberd_of_Smiting_TCG_Card.png",
+    "artist": "Glenn Fabry"
+  },
+  {
+    "id": "illusionary_rod",
+    "name": "Illusionary Rod",
+    "slug": "illusionary-rod",
+    "review": "illusionary-rod-review-v1.png",
+    "source": "Illusionary_Rod_TCG.jpg",
+    "artist": null
+  },
+  {
+    "id": "inventors_focal_sword",
+    "name": "Inventor's Focal Sword",
+    "slug": "inventors-focal-sword",
+    "review": "inventors-focal-sword-review-v1.png",
+    "source": "Inventor's_Focal_Sword_TCG_Card.png",
+    "artist": "Patrick McEvoy"
+  },
+  {
+    "id": "jindos_judgement",
+    "name": "Jin'do's Judgement",
+    "slug": "jindos-judgement",
+    "review": "jindos-judgement-review-v1.png",
+    "source": "Jin'do's_Judgement_TCG_Card.png",
+    "artist": "Glenn Fabry"
+  },
+  {
+    "id": "krol_blade",
+    "name": "Krol Blade",
+    "slug": "krol-blade",
+    "review": "krol-blade-review-v1.png",
+    "source": "Krol_Blade_TCG_card.jpg",
+    "artist": null
+  },
+  {
+    "id": "mograines_might",
+    "name": "Mograine's Might",
+    "slug": "mograines-might",
+    "review": "mograines-might-review-v1.png",
+    "source": "Mograine's_Might_TCG_Card.jpg",
+    "artist": null
+  },
+  {
+    "id": "obsidian_edged_blade",
+    "name": "Obsidian Edged Blade",
+    "slug": "obsidian-edged-blade",
+    "review": "obsidian-edged-blade-review-v1.png",
+    "source": "Obsidian_Edged_Blade_TCG_Card.jpg",
+    "artist": null
+  },
+  {
+    "id": "headmasters_charge",
+    "name": "Headmaster's Charge",
+    "slug": "headmasters-charge",
+    "review": "headmasters-charge-review-v1.png",
+    "source": "Headmaster's_Charge_TCG.jpg",
+    "artist": null
+  },
+  {
+    "id": "aurastone_hammer",
+    "name": "Aurastone Hammer",
+    "slug": "aurastone-hammer",
+    "review": "aurastone-hammer-review-v1.png",
+    "source": "Devout_Aurastone_Hammer_TCG_Card.png",
+    "artist": "Zoltan Boros & Gabor Szikszai"
+  },
+  {
+    "id": "lava_dredger",
+    "name": "Lava Dredger",
+    "slug": "lava-dredger",
+    "review": "lava-dredger-review-v1.png",
+    "source": "Finkle's_Lava_Dredger_TCG_Card.jpg",
+    "artist": null
+  },
+  {
+    "id": "will_of_arlokk",
+    "name": "Will of Arlokk",
+    "slug": "will-of-arlokk",
+    "review": "will-of-arlokk-review-v3.png",
+    "source": "Legacy_of_Arlokk.jpg",
+    "artist": "Matt Gaser"
+  },
+  {
+    "id": "mandokirs_sting",
+    "name": "Mandokir's Sting",
+    "slug": "mandokirs-sting",
+    "review": "mandokirs-sting-review-v1.png",
+    "source": "Mandokir's_Tribute_TCG_Card.png",
+    "artist": "Zoltan Boros"
+  },
+  {
+    "id": "perditions_blade",
+    "name": "Perdition's Blade",
+    "slug": "perditions-blade",
+    "review": "perditions-blade-review-v1.png",
+    "source": "human-rogue-alliance-perditionblade.jpg",
+    "artist": null
+  }
+]

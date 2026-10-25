@@ -1,6 +1,14 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    local goal = F.GoalById("glacial_blade")
+    local path, aspect, preprocessed = B:ResolveArt("glacial_blade")
+    assert(goal and goal.category == "PvP" and goal.faction == "Horde",
+        "Glacial Blade retains its Horde PvP scope")
+    assert(path == "glacial_blade-banner.blp" and aspect == 4/3 and preprocessed,
+        "dedicated PvP weapon art takes precedence over the shared PvP fallback")
+end
+do
     local path, aspect, preprocessed = B:ResolveArt("social_lol")
     assert(path == "social_lol-banner.blp" and aspect == 4/3 and preprocessed,
         "Say LOL uses approved Tinker artwork")

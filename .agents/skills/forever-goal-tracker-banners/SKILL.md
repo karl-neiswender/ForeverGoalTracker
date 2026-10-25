@@ -9,7 +9,8 @@ Use the built-in imagegen workflow for artistic edits. Apply these requirements 
 
 - One 4:3 landscape banner; approved master 1200 x 900 pixels.
 - Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights.
-- Preserve the source's subjects, identity, armor, hands, weapons, architecture, pose and artist marks.
+- Preserve the source's subjects, identity, armor, hands, weapons, architecture and pose.
+- Remove visible watermarks and artist signatures from generated goal backgrounds (Karl's preference, 2026-10-25). Preserve untouched originals and attribution records; carry verified artist credits separately on the goal itself. Do not invent credits.
 - Place the main subject high and toward the right, with breathing room. Keep the left third quiet for addon text.
 - **Bake a wide, smooth dark gradient into the LEFT side of the image**, strongest at the left edge and blending gradually into the scene. Use neutral charcoal without a hard vertical strip or visible boundary.
 - **Bake a soft dark gradient into the BOTTOM of the image**, across approximately the lowest 100 pixels of the 1200 x 900 master, fading downward to near-black neutral charcoal at the bottom edge. Preserve a natural transition with no hard horizontal strip.

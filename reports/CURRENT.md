@@ -87,6 +87,12 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Weapon backgrounds installed 2026-10-25: twenty approved weapon banners, exact
+  grayscale masters, BLPs, goal mappings and eight verified artist credits. Glacial
+  Blade has a dedicated PvP art override. [Installation record](image-tests/weapon-background-reviews-2026-10-25.md).
+  Native appearance awaits a full game restart. Artwork preference: remove visible
+  watermarks/signatures from derivatives and credit verified artists on the goal.
+
 - Safe chat links are implemented: EventRegistry plus secure legacy post-hook,
   no replacement of SetItemRef. The earlier replacement bug is not an open code
   task; native behavior still needs review when related code changes.

@@ -1202,5 +1202,145 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "bonereavers_edge": {
+    "source": "weapons/bonereavers-edge-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "deathbringer": {
+    "source": "weapons/deathbringer-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "flame_wrath": {
+    "source": "weapons/flame-wrath-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "frostguard": {
+    "source": "weapons/frostguard-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "gift_of_the_elven_magi": {
+    "source": "weapons/gift-of-the-elven-magi-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "glacial_blade": {
+    "source": "weapons/glacial-blade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "gutgore_ripper": {
+    "source": "weapons/gutgore-ripper-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "halberd_of_smiting": {
+    "source": "weapons/halberd-of-smiting-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "illusionary_rod": {
+    "source": "weapons/illusionary-rod-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "inventors_focal_sword": {
+    "source": "weapons/inventors-focal-sword-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "jindos_judgement": {
+    "source": "weapons/jindos-judgement-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "krol_blade": {
+    "source": "weapons/krol-blade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mograines_might": {
+    "source": "weapons/mograines-might-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "obsidian_edged_blade": {
+    "source": "weapons/obsidian-edged-blade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "headmasters_charge": {
+    "source": "weapons/headmasters-charge-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "aurastone_hammer": {
+    "source": "weapons/aurastone-hammer-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "lava_dredger": {
+    "source": "weapons/lava-dredger-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "will_of_arlokk": {
+    "source": "weapons/will-of-arlokk-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mandokirs_sting": {
+    "source": "weapons/mandokirs-sting-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "perditions_blade": {
+    "source": "weapons/perditions-blade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }
