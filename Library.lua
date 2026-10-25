@@ -972,6 +972,31 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 17104, checked 2026-10-25: epic Bind on Pickup two-hand axe, item level 76,
+        -- requires level 60, equip: +34 attack power and 150 mana or 20 rage on a kill that gives experience
+        -- (10 sec cooldown). Dropped by Ragnaros in Molten Core, 2.52% on Wowhead's tooltip (a sample of 119
+        -- kills; GearSources agrees). Not in Forever's tables yet (Wowhead Forever has no page), so not marked
+        -- confirmed.
+        id = "spinal_reaper", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_axe_09",
+        name = "Spinal Reaper",
+        short = "Spinal Reaper",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed axe dropped by Ragnaros in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Spinal Reaper from Ragnaros in Molten Core.", auto = { item = 17104, owned = { "Spinal Reaper" } } },
+        },
+        completeWith = { item = 17104, owned = { "Spinal Reaper" } },
+        tips = {
+            "Defeat Ragnaros, the last boss of {raid_mc:Molten Core}, for a chance at {item:17104:Spinal Reaper}. Wowhead's drop rate is about 2.5%, roughly 1 kill in 40.",
+            "It binds when picked up. It adds 34 attack power, and killing a target that gives experience restores 150 mana or 20 rage (once every 10 seconds).",
+            "Warriors, Paladins, Hunters and Shamans can use this axe. Learn Two-Handed Axes before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
