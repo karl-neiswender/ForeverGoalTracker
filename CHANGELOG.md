@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Shadowstrike, a Molten Core polearm dropped by Sulfuron Harbinger, to the Goal Library.
 - Added Rod of the Ogre Magi, a Dire Maul North staff from the Gordok Tribute chest, to the Goal Library.
 - Added Ashkandi, Greatsword of the Brotherhood, a Blackwing Lair sword dropped by Nefarian, to the Goal Library.
 - Added Perdition's Blade, a Molten Core dagger dropped by Ragnaros, to the Goal Library.

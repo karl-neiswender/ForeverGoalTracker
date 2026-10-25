@@ -43,6 +43,7 @@ FGT.GOAL_CLASSES = {
     perditions_blade = { "WARRIOR", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" },
     ashkandi = { "WARRIOR", "PALADIN", "HUNTER" },
     rod_of_the_ogre_magi = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
+    shadowstrike = { "WARRIOR", "PALADIN", "HUNTER", "DRUID" },
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },

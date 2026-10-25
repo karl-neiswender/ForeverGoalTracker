@@ -923,6 +923,31 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 17074, checked 2026-10-25: epic Bind on Pickup two-hand polearm, item level 63,
+        -- requires level 58, chance on hit to steal 100 to 180 life, use: transforms into Thunderstrike
+        -- (1 min cooldown). Dropped by Sulfuron Harbinger in Molten Core (GearSources agrees; the sample is 22
+        -- kills, so no rate is given). Not in Forever's tables yet (Wowhead Forever has no page), so not marked
+        -- confirmed.
+        id = "shadowstrike", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_spear_08",
+        name = "Shadowstrike",
+        short = "Shadowstrike",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed polearm dropped by Sulfuron Harbinger in Molten Core.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Shadowstrike from Sulfuron Harbinger in Molten Core.", auto = { item = 17074, owned = { "Shadowstrike" } } },
+        },
+        completeWith = { item = 17074, owned = { "Shadowstrike" } },
+        tips = {
+            "Defeat Sulfuron Harbinger in {raid_mc:Molten Core} for a chance at {item:17074:Shadowstrike}.",
+            "It binds when picked up. Its chance on hit steals 100 to 180 life from the target, and using it transforms it into Thunderstrike (1 minute cooldown).",
+            "Warriors, Paladins, Hunters and Druids can use this polearm. Learn Polearms before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
