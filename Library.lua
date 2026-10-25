@@ -776,6 +776,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 20038, checked 2026-10-25: epic Bind on Pickup bow, item level 66, requires
+        -- level 60, +11 Agility, +8 Stamina. Dropped by Bloodlord Mandokir in Zul'Gurub (GearSources agrees;
+        -- Wowhead lists no drop chance). The icon file name keeps Blizzard's own spelling ("waepon"). Not in
+        -- Forever's tables yet (Wowhead Forever has no page), so not marked confirmed.
+        id = "mandokirs_sting", library = true, itemQuality = 4, instance = { 309, "Zul'Gurub" },
+        icon = "inv_waepon_bow_zulgrub_d_01",
+        name = "Mandokir's Sting",
+        short = "Mandokir's Sting",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A bow dropped by Bloodlord Mandokir in Zul'Gurub.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Mandokir's Sting from Bloodlord Mandokir in Zul'Gurub.", auto = { item = 20038, owned = { "Mandokir's Sting" } } },
+        },
+        completeWith = { item = 20038, owned = { "Mandokir's Sting" } },
+        tips = {
+            "Defeat Bloodlord Mandokir in {raid_zg:Zul'Gurub} for a chance at {item:20038:Mandokir's Sting}.",
+            "It binds when picked up. It adds 11 Agility and 8 Stamina.",
+            "Warriors, Hunters and Rogues can use a bow. Learn Bows before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

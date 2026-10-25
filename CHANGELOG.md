@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Mandokir's Sting, a Zul'Gurub bow dropped by Bloodlord Mandokir, to the Goal Library.
 - Added Will of Arlokk, a Zul'Gurub healing staff dropped by High Priestess Arlokk, to the Goal Library.
 - Added Krol Blade, a rare epic one-handed sword that level 53 to 60 creatures can drop, to the Goal Library.
 - Added Jin'do's Judgement, a Zul'Gurub staff dropped by Jin'do the Hexxer, to the Goal Library.
