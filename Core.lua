@@ -263,6 +263,7 @@ FGT.SETTING_DEFAULTS = {
     completeBanner = true,   -- goal-complete banner
     screenshot = false,      -- game screenshot when a goal finishes (Karl: off by default)
     stepChat = true,         -- "3 steps checked off", boss kills, level 60
+    lootChat = false,        -- "Looted Arcanite Bar, 7 to go" for items a tracked goal needs
     celebrations = "full",   -- "full" / "subtle" / "off"
     sound = "off",           -- sound when a goal completes: a key of FGT.SOUNDS
     soundChannel = "SFX",    -- the game volume slider it follows: Master, SFX, Ambience, Music, Dialog
@@ -1584,7 +1585,6 @@ do
         return 1, 0.62, 0.45, true
     end
 
-    function FGT.ShowNpcTip(owner, id)
     -- a dungeon's usual level range, shown beside its location (not the entry requirement)
     function FGT.AddLevelLine(n)
         if n and n.levels then
@@ -1592,13 +1592,14 @@ do
         end
     end
 
+    function FGT.ShowNpcTip(owner, id)
         local n = FGT.NpcById(id)
         if not n then return end
         GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
         GameTooltip:AddLine(n.name, 0.37, 0.83, 0.74)
         if n.tag then GameTooltip:AddLine("<" .. n.tag .. ">", C.INK2[1], C.INK2[2], C.INK2[3]) end
-        if n.map then
         FGT.AddLevelLine(n)
+        if n.map then
             GameTooltip:AddLine(n.zone .. "  " .. Coords(n), C.TEXT[1], C.TEXT[2], C.TEXT[3])
             if n.where then GameTooltip:AddLine(n.where, C.INK2[1], C.INK2[2], C.INK2[3], true) end
         elseif n.where then
@@ -11455,6 +11456,8 @@ FGT.SETTINGS = {
           desc = "Save to the game's Screenshots folder" },
         { type = "toggle", key = "stepChat", label = "Step updates in chat",
           desc = "\"3 steps checked off\", boss kills and characters reaching 60" },
+        { type = "toggle", key = "lootChat", label = "Needed loot in chat",
+          desc = "When you loot an item a tracked goal needs, say how many are still to go" },
         { type = "toggle", key = "versionReminder", label = "Version reminders",
           desc = "Say once when a newer version is out. Shares only the version number with your guild and group" },
         { type = "button", label = "Try the goal-complete alerts",
@@ -12579,8 +12582,29 @@ end
 
 -- Full scan + rule pass. Bag and money events can fire in bursts, so
 -- they're coalesced into one scan half a second after the last one.
+local lootPending, lootSaid = {}, {}
 local function ScanNow(announce)
     RecordCharacter()
+    -- Items looted since the last scan: say what the goals still need, once per item every few seconds.
+    if next(lootPending) then
+        local now = GetTime and GetTime() or 0
+        for id in pairs(lootPending) do
+            lootPending[id] = nil
+            if FGT.Setting("lootChat") and (not lootSaid[id] or now - lootSaid[id] >= 5) then
+                local needs = FGT.ItemNeeds and FGT.ItemNeeds(id) or {}
+                local most
+                for _, entry in ipairs(needs) do
+                    if not most or entry.remaining > most then most = entry.remaining end
+                end
+                if most then
+                    lootSaid[id] = now
+                    local name, link = FGT.ItemInfo(id)
+                    print(TAG .. "Looted " .. (link or name or ("item " .. id)) .. ", " ..
+                        (most > 0 and (most .. " to go") or "you have enough") .. ".")
+                end
+            end
+        end
+    end
     local changed = ApplyAutoRules()
     if changed > 0 and announce and not FGT.firstRun and FGT.Setting("stepChat") then
         print(TAG .. string.format("%d step%s checked off automatically.",
@@ -13217,7 +13241,7 @@ for _, ev in ipairs({
     "PLAYER_LOGIN", "PLAYER_LEVEL_UP", "PLAYER_XP_UPDATE", "PLAYER_LOGOUT",
     "BAG_UPDATE_DELAYED", "PLAYER_EQUIPMENT_CHANGED", "PLAYER_MONEY",
     "BANKFRAME_OPENED", "BANKFRAME_CLOSED", "PLAYERBANKSLOTS_CHANGED",
-    "UPDATE_FACTION", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "SKILL_LINES_CHANGED",
+    "CHAT_MSG_LOOT", "UPDATE_FACTION", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "SKILL_LINES_CHANGED",
     "NEW_MOUNT_ADDED", "COMPANION_LEARNED", "PLAYER_PVP_RANK_CHANGED", "PLAYER_PVP_KILLS_CHANGED",
     "PLAYER_GUILD_UPDATE", "FRIENDLIST_UPDATE", "DUEL_FINISHED", "UI_INFO_MESSAGE",
 }) do
@@ -13380,7 +13404,15 @@ end
 
 FGT.WatchCasts() -- (nothing to watch until a campfire spell is listed)
 
-rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, arg5)
+rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
+    if event == "CHAT_MSG_LOOT" then
+        -- only your own loot (arg12 is the looter's GUID); the next bag scan reports it
+        if FGT.Setting("lootChat") and type(arg1) == "string" and arg12 and arg12 == UnitGUID("player") then
+            local id = tonumber(arg1:match("|Hitem:(%d+)"))
+            if id then lootPending[id] = true; ScanSoon() end
+        end
+        return
+    end
     if event == "UNIT_INVENTORY_CHANGED" then
         -- also fires for every arrow shot: rescan only when a worn enchant really changed
         if arg1 ~= "player" or not FGT.WornEnchantsChanged() then return end
