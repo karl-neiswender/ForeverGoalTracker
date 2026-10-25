@@ -41,3 +41,37 @@ by opening this reference.
 Historical treatments, rejected variants, prompts, exact prior approvals and
 technical experiments remain in the archived instructions and existing reports.
 Load the relevant record when resolving a mapping or regression, not every session.
+
+## Goal art checklist (maintained table)
+
+[Goal-art-checklist.html](../Goal-art-checklist.html) lists every goal's banner by faction
+and class, with squares for Needed, Borrowed, Shared and Done, and a hover or click
+preview of the installed image. Open it in a browser (it works offline). A private
+copy is published as a Claude artifact and pinned in Karl's sidebar:
+https://claude.ai/artifact/3K3FJyrdc3NHb3v7dfJciM. The file in the repo is the source;
+the artifact is a copy that only changes when it is republished.
+
+Keep it current whenever artwork or goals change (artwork closeout, a new banner, a new goal):
+
+1. Statuses: edit the rows in the page's `<script>`. Class grid rows are `TABLES`, the full
+   goal list is `GOALS`. A row is `[name, Alliance, Horde, note]` with `need`, `borrow`,
+   `share`, `done` or `na`. Put a goal's banner file names (without `-banner.blp`) in the note;
+   the page links them and builds the faction previews from them. Class grid previews come
+   from `CLASSIMG`. Update the header date and the "Find these first" list.
+2. Found log: add a dated line to `FOUND` for each image added or approved.
+3. New goals: run `python3 tools/art-checklist.py goals`. It loads the addon and lists goals
+   that have no row. Add a row (usually `GOALS`, under the matching category) and, for class
+   and faction art, the class grid. A renamed goal shows up here too.
+4. Thumbnails: run `python3 tools/art-checklist.py thumbs` after any banner changes. It rebuilds
+   the embedded images from `Media/*-banner.blp`. A banner that has no file yet is reported.
+5. Statuses must come from the resolver in `Core.lua` (`artPaths`, `artVariants`), not from
+   file names alone. For a full re-audit use the
+   [October 15 coverage audit](../image-tests/audit-banner-coverage-2026-10-15.py).
+6. Republish the artifact copy when Karl wants it refreshed. It is the same page with the
+   document, head and body tags removed, a `data-theme="dark"` palette block and side padding
+   added (see the Artifact tool's page contract).
+7. Do not install, rename or delete banners as a side effect of editing the checklist.
+
+Source of the first data: the [October 15 coverage report](../banner-image-gaps-2026-10-15.md),
+with the Say LOL, Beastmaster and Dreadnaught's fixes and Teebu's Blazing Longsword applied
+on 2026-10-25.
