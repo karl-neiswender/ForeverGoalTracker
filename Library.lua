@@ -704,6 +704,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19884, checked 2026-10-25: epic Bind on Pickup two-hand staff, item level 66,
+        -- requires level 60, +10 Stamina, +10 Intellect, +2% spell hit, 14 mana per 5 sec, 27 spell power.
+        -- Dropped by Jin'do the Hexxer in Zul'Gurub (GearSources agrees; the sample is 16 kills, so no rate
+        -- is given). The Forever item page exists with different numbers (94 spell power, lower damage).
+        id = "jindos_judgement", library = true, forever = "confirmed", itemQuality = 4, instance = { 309, "Zul'Gurub" },
+        icon = "inv_staff_33",
+        name = "Jin'do's Judgement",
+        short = "Jin'do's Judgement",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed caster staff dropped by Jin'do the Hexxer in Zul'Gurub.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Jin'do's Judgement from Jin'do the Hexxer in Zul'Gurub.", auto = { item = 19884, owned = { "Jin'do's Judgement" } } },
+        },
+        completeWith = { item = 19884, owned = { "Jin'do's Judgement" } },
+        tips = {
+            "Defeat Jin'do the Hexxer in {raid_zg:Zul'Gurub} for a chance at {item:19884:Jin'do's Judgement}.",
+            "It binds when picked up. On Classic Era it adds 10 Stamina, 10 Intellect, 2% spell hit, 14 mana per 5 seconds and 27 spell power. Forever changed its numbers, so check the tooltip there.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
