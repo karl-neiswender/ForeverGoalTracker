@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Ashkandi, Greatsword of the Brotherhood, a Blackwing Lair sword dropped by Nefarian, to the Goal Library.
 - Added Perdition's Blade, a Molten Core dagger dropped by Ragnaros, to the Goal Library.
 - Added Obsidian Edged Blade, a Molten Core sword dropped by four of its bosses, to the Goal Library.
 - Added Mograine's Might, a Scarlet Monastery mace dropped by Scarlet Commander Mograine, to the Goal Library.

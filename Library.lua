@@ -874,6 +874,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19364, checked 2026-10-25: epic Bind on Pickup two-hand sword, item level 81,
+        -- requires level 60, +33 Stamina, equip: +86 attack power. Dropped by Nefarian in Blackwing Lair
+        -- (GearSources agrees; Wowhead's sample is 39 kills, so no rate is given). Not in Forever's tables
+        -- yet (Wowhead Forever has no page), so not marked confirmed.
+        id = "ashkandi", library = true, itemQuality = 4, instance = { 469, "Blackwing Lair" },
+        icon = "inv_sword_50",
+        name = "Ashkandi, Greatsword of the Brotherhood",
+        short = "Ashkandi",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed sword dropped by Nefarian in Blackwing Lair.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Ashkandi from Nefarian in Blackwing Lair.", auto = { item = 19364, owned = { "Ashkandi, Greatsword of the Brotherhood" } } },
+        },
+        completeWith = { item = 19364, owned = { "Ashkandi, Greatsword of the Brotherhood" } },
+        tips = {
+            "Defeat Nefarian, the last boss of {raid_bwl:Blackwing Lair}, for a chance at {item:19364:Ashkandi}.",
+            "It binds when picked up. It adds 33 Stamina and 86 attack power.",
+            "Warriors, Paladins and Hunters can use this sword. Learn Two-Handed Swords before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
