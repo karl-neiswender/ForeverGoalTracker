@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Added locks on steps that need a level, reputation, skill or quest you have not reached. A click says what is needed, and Shift-click unlocks the step for the session.
+- Updated the Onyxia's Lair attunement and raid notes with Blizzard's Forever route, and a reminder to keep the Drakefire Amulet in your inventory (it does not need to be equipped).
 
 ## 2.16.0
 
