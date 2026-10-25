@@ -495,7 +495,7 @@ local library = {
         short = "Onyxia",
         category = "Raid", difficulty = "Hard",
         timeEstimate = "1-2 Weeks",
-        note = "Needs the Drakefire Amulet from the faction-specific attunement chain.",
+        note = "Needs the Drakefire Amulet from the faction-specific attunement chain. Keep it in your inventory when you enter; it does not need to be equipped. Bring fire resistance.",
         steps = {
             { text = "Earn the Drakefire Amulet from the {att_ony:Onyxia attunement}.", auto = { item = 16309 } },
             { text = "Defeat Onyxia in Onyxia's Lair.", auto = { boss = "Onyxia" } },
@@ -628,7 +628,7 @@ local library = {
         short = "Onyxia Attunement",
         category = "Attunement", difficulty = "Hard",
         timeEstimate = "1-2 Weeks",
-        note = "Alliance quest chain for the Drakefire Amulet. Visit Blackrock Spire, Blackrock Depths and Stormwind to unlock Onyxia's Lair.",
+        note = "Alliance quest chain for the Drakefire Amulet. Starts in the Burning Steppes, then Blackrock Depths, Stormwind and Upper Blackrock Spire. 'The True Masters' is a series of six quests, tracked here as one step. Keep the amulet in your inventory to enter Onyxia's Lair.",
         steps = {
             { text = "Complete 'Dragonkin Menace' from Helendis Riverhorn.", auto = { quest = 4182 } },
             { text = "Complete 'The True Masters'.", auto = { quest = 4224 } },
@@ -651,7 +651,7 @@ local library = {
         short = "Onyxia Attunement",
         category = "Attunement", difficulty = "Hard",
         timeEstimate = "1-2 Weeks",
-        note = "Horde quest chain for the Drakefire Amulet. Complete the Test of Skulls and Blackrock Spire quests to unlock Onyxia's Lair.",
+        note = "Horde quest chain for the Drakefire Amulet. Starts with 'Blood and Thunder' from Warlord Goretooth in Kargath (Badlands), then Lower Blackrock Spire, Orgrimmar, Desolace, the Western Plaguelands and Dustwallow Marsh (Emberstrife's four Test of Skulls quests), and ends in Upper Blackrock Spire. Keep the amulet in your inventory to enter Onyxia's Lair.",
         steps = {
             { text = "Turn in 'Warlord's Command' to Warlord Goretooth.", auto = { quest = 4903 }, mapZoom = 317 },
             { text = "Complete 'Eitrigg's Wisdom'.", auto = { quest = 4941 } },
