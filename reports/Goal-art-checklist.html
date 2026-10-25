@@ -29,6 +29,7 @@
   main { max-width: 900px; margin: 0 auto; padding: 24px 16px 56px; }
   h1 { font-size: 1.7rem; margin: 0 0 4px; }
   h2 { font-size: 1.15rem; margin: 32px 0 10px; }
+  h2.part { font-size: 1.4rem; margin-top: 48px; padding-bottom: 6px; border-bottom: 2px solid var(--line); }
   .sub { color: var(--muted); margin: 0 0 20px; }
   .bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
   .chip { border: 2px solid var(--line); background: var(--card); color: var(--text);
@@ -63,7 +64,7 @@
 <body>
 <main>
   <h1>Goal art checklist</h1>
-  <p class="sub">Faction and class combos for Forever Goal Tracker. Last updated 2026-10-25.</p>
+  <p class="sub">Faction and class combos for Forever Goal Tracker. Last updated 2026-10-25. The goal list comes from the October 15 coverage audit, with later fixes applied.</p>
 
   <div class="bar" id="filters" role="group" aria-label="Filter by status">
     <button class="chip" data-f="all" aria-pressed="true">Show all</button>
@@ -160,30 +161,1086 @@ var TABLES = [
   ]]
 ];
 
+var GOALS = [
+ [
+  "Attunements and keys",
+  [
+   [
+    "Attunement: Blackwing Lair",
+    "share",
+    "share",
+    "raid_bwl"
+   ],
+   [
+    "Attunement: Molten Core",
+    "share",
+    "share",
+    "att_mc"
+   ],
+   [
+    "Attunement: Naxxramas",
+    "share",
+    "share",
+    "att_naxx"
+   ],
+   [
+    "Attunement: Onyxia's Lair (Alliance)",
+    "done",
+    "na",
+    "Alliance: att_ony_ally"
+   ],
+   [
+    "Attunement: Onyxia's Lair (Horde)",
+    "na",
+    "done",
+    "Horde: att_ony_horde"
+   ],
+   [
+    "Key: Crescent Key (Dire Maul)",
+    "share",
+    "share",
+    "key_dm"
+   ],
+   [
+    "Key: Key to the City (Stratholme)",
+    "share",
+    "share",
+    "key_strat"
+   ],
+   [
+    "Key: Seal of Ascension (Upper Blackrock Spire)",
+    "share",
+    "share",
+    "key_ubrs"
+   ],
+   [
+    "Key: Shadowforge Key (Blackrock Depths)",
+    "share",
+    "share",
+    "key_ubrs"
+   ],
+   [
+    "Key: Skeleton Key (Scholomance)",
+    "share",
+    "share",
+    "key_scholo"
+   ]
+  ]
+ ],
+ [
+  "Legendary and epic weapons",
+  [
+   [
+    "Benediction / Anathema",
+    "done",
+    "done",
+    "Alliance: benediction-alliance / Horde: benediction"
+   ],
+   [
+    "Corrupted Ashbringer",
+    "share",
+    "share",
+    "ashbringer"
+   ],
+   [
+    "Lok'delar, Stave of the Ancient Keepers",
+    "share",
+    "share",
+    "lokdelar"
+   ],
+   [
+    "Quel'Serrar",
+    "share",
+    "share",
+    "quelserrar"
+   ],
+   [
+    "Rhok'delar, Longbow of the Ancient Keepers",
+    "share",
+    "share",
+    "rhokdelar"
+   ],
+   [
+    "Zin'rokh, Destroyer of Worlds",
+    "share",
+    "share",
+    "zinrokh"
+   ],
+   [
+    "Atiesh, Greatstaff of the Guardian",
+    "share",
+    "share",
+    "atiesh"
+   ],
+   [
+    "Sulfuras, Hand of Ragnaros",
+    "share",
+    "share",
+    "sulfuras"
+   ],
+   [
+    "Thunderfury, Blessed Blade of the Windseeker",
+    "share",
+    "share",
+    "thunderfury"
+   ],
+   [
+    "Arcanite Reaper",
+    "share",
+    "share",
+    "arcanite_reaper"
+   ],
+   [
+    "Wolfsbane",
+    "na",
+    "done",
+    "Horde: wolfsbane"
+   ]
+  ]
+ ],
+ [
+  "Armor sets",
+  [
+   [
+    "Arcanist Regalia",
+    "share",
+    "share",
+    "set_tier1_mage"
+   ],
+   [
+    "Avenger's Battlegear",
+    "share",
+    "share",
+    "set_tier25_plate"
+   ],
+   [
+    "Battlegear of Glory",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ],
+   [
+    "Battlegear of Heroism",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Battlegear of Might",
+    "share",
+    "share",
+    "set_tier1_warrior"
+   ],
+   [
+    "Battlegear of Valor",
+    "share",
+    "share",
+    "set_dungeon1_warrior"
+   ],
+   [
+    "Battlegear of Wrath",
+    "done",
+    "done",
+    "Alliance: set_tier2_warrior-alliance / Horde: set_tier2_warrior"
+   ],
+   [
+    "Beastmaster Armor",
+    "done",
+    "done",
+    "set_dungeon2_hunter, fixed after the report"
+   ],
+   [
+    "Beaststalker Armor",
+    "share",
+    "share",
+    "set_dungeon1_hunter"
+   ],
+   [
+    "Bloodfang Armor",
+    "share",
+    "share",
+    "set_tier2_rogue"
+   ],
+   [
+    "Bonescythe Armor",
+    "share",
+    "share",
+    "tier3_rogue"
+   ],
+   [
+    "Cenarion Raiment",
+    "share",
+    "share",
+    "set_tier1_druid"
+   ],
+   [
+    "Conqueror's Battlegear",
+    "share",
+    "share",
+    "set_tier25_plate"
+   ],
+   [
+    "Cryptstalker Armor",
+    "share",
+    "share",
+    "tier3_hunter"
+   ],
+   [
+    "Darkmantle Armor",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Deathdealer's Embrace",
+    "share",
+    "share",
+    "set_tier25_leather"
+   ],
+   [
+    "Deathmist Raiment",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Demonheart Raiment",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ],
+   [
+    "Doomcaller's Attire",
+    "borrow",
+    "borrow",
+    "set_tier25"
+   ],
+   [
+    "Dragonstalker Armor",
+    "done",
+    "done",
+    "Alliance: set_tier2_hunter-alliance / Horde: set_tier2_hunter"
+   ],
+   [
+    "Dreadmist Raiment",
+    "share",
+    "share",
+    "set_dungeon1_warlock"
+   ],
+   [
+    "Dreadnaught's Battlegear",
+    "done",
+    "done",
+    "tier3_warrior_koringar"
+   ],
+   [
+    "Dreamwalker Raiment",
+    "share",
+    "share",
+    "tier3_druid"
+   ],
+   [
+    "Embrace of the Viper",
+    "share",
+    "share",
+    "set_viper"
+   ],
+   [
+    "Enigma Vestments",
+    "borrow",
+    "borrow",
+    "set_tier25"
+   ],
+   [
+    "Felheart Raiment",
+    "done",
+    "done",
+    "Alliance: set_tier1_warlock-alliance / Horde: set_tier1_warlock"
+   ],
+   [
+    "Feralheart Raiment",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Frostfire Regalia",
+    "share",
+    "share",
+    "tier3_mage"
+   ],
+   [
+    "Garments of the Oracle",
+    "borrow",
+    "borrow",
+    "set_tier25"
+   ],
+   [
+    "Genesis Raiment",
+    "share",
+    "share",
+    "set_tier25_leather"
+   ],
+   [
+    "Giantstalker Armor",
+    "share",
+    "share",
+    "set_tier1_hunter"
+   ],
+   [
+    "Grimstitch Armor",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ],
+   [
+    "Grovekeeper Raiment",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ],
+   [
+    "Judgement Armor",
+    "share",
+    "share",
+    "set_tier2_paladin"
+   ],
+   [
+    "Justice Armor",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ],
+   [
+    "Lawbringer Armor",
+    "share",
+    "share",
+    "set_tier1_paladin"
+   ],
+   [
+    "Lightforge Armor",
+    "share",
+    "share",
+    "set_dungeon1_paladin"
+   ],
+   [
+    "Magister's Regalia",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Manaflare Regalia",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ],
+   [
+    "Nemesis Raiment",
+    "done",
+    "done",
+    "Alliance: set_tier2_warlock-alliance / Horde: set_tier2_warlock"
+   ],
+   [
+    "Netherwind Regalia",
+    "share",
+    "share",
+    "set_tier2_mage"
+   ],
+   [
+    "Nightslayer Armor",
+    "done",
+    "done",
+    "Alliance: set_tier1_rogue-alliance / Horde: set_tier1_rogue"
+   ],
+   [
+    "Partners in Crime",
+    "share",
+    "share",
+    "set_partners_in_crime"
+   ],
+   [
+    "Plagueheart Raiment",
+    "done",
+    "done",
+    "Alliance: tier3_warlock-alliance / Horde: tier3_warlock-horde"
+   ],
+   [
+    "Redemption Armor",
+    "share",
+    "share",
+    "tier3_paladin"
+   ],
+   [
+    "Shadowcraft Armor",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Sorcerer's Regalia",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Soulforge Armor",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Stormcaller's Garb",
+    "borrow",
+    "borrow",
+    "set_tier25"
+   ],
+   [
+    "Stormrage Raiment",
+    "done",
+    "done",
+    "Alliance: set_tier2_druid / Horde: set_tier2_druid-horde"
+   ],
+   [
+    "Striker's Garb",
+    "share",
+    "share",
+    "set_tier25_hunter"
+   ],
+   [
+    "The Earthfury",
+    "share",
+    "share",
+    "set_tier1_shaman"
+   ],
+   [
+    "The Earthshatterer",
+    "share",
+    "share",
+    "tier3_shaman"
+   ],
+   [
+    "The Elements",
+    "share",
+    "share",
+    "set_dungeon1_shaman"
+   ],
+   [
+    "The Five Thunders",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "The Spiritcaller",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ],
+   [
+    "The Ten Storms",
+    "share",
+    "share",
+    "set_tier2_shaman"
+   ],
+   [
+    "Vestments of Conviction",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ],
+   [
+    "Vestments of Faith",
+    "share",
+    "share",
+    "tier3_priest"
+   ],
+   [
+    "Vestments of Prophecy",
+    "share",
+    "share",
+    "set_tier1_priest"
+   ],
+   [
+    "Vestments of Transcendence",
+    "share",
+    "share",
+    "set_tier2_priest"
+   ],
+   [
+    "Vestments of the Devout",
+    "borrow",
+    "borrow",
+    "key_strat"
+   ],
+   [
+    "Vestments of the Virtuous",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Violet Sorcerer's Vestments",
+    "share",
+    "share",
+    "set_violet_sorcerer"
+   ],
+   [
+    "Wildheart Raiment",
+    "borrow",
+    "borrow",
+    "set_dungeon2"
+   ],
+   [
+    "Wildstalker Armor",
+    "borrow",
+    "borrow",
+    "set_forever_raid"
+   ]
+  ]
+ ],
+ [
+  "Leveling, gold, professions and fishing",
+  [
+   [
+    "Level Classes to 60",
+    "borrow",
+    "borrow",
+    "Mixed. See the Level Classes to 60 table above"
+   ],
+   [
+    "Save 5,000 Gold",
+    "share",
+    "share",
+    "gold_5k"
+   ],
+   [
+    "Max Primary Professions",
+    "na",
+    "na",
+    "Learned-skill choice"
+   ],
+   [
+    "Max Secondary Skills",
+    "na",
+    "na",
+    "Learned-skill choice"
+   ],
+   [
+    "Win the Stranglethorn Fishing Extravaganza",
+    "share",
+    "share",
+    "fishing_extravaganza"
+   ]
+  ]
+ ],
+ [
+  "Mounts",
+  [
+   [
+    "Black Qiraji Resonating Crystal",
+    "share",
+    "share",
+    "mount_qiraji"
+   ],
+   [
+    "Blue Qiraji Resonating Crystal",
+    "share",
+    "share",
+    "mount_qiraji_aq"
+   ],
+   [
+    "Charger (Paladin Epic Mount)",
+    "done",
+    "na",
+    "Alliance: mount_charger"
+   ],
+   [
+    "Deathcharger's Reins",
+    "share",
+    "share",
+    "mount_deathcharger"
+   ],
+   [
+    "Dreadsteed (Warlock Epic Mount)",
+    "share",
+    "share",
+    "mount_dreadsteed"
+   ],
+   [
+    "Green Qiraji Resonating Crystal",
+    "share",
+    "share",
+    "mount_qiraji_aq"
+   ],
+   [
+    "Red Qiraji Resonating Crystal",
+    "share",
+    "share",
+    "mount_qiraji_aq"
+   ],
+   [
+    "Swift Razzashi Raptor",
+    "share",
+    "share",
+    "raid_zg"
+   ],
+   [
+    "Swift Zulian Tiger",
+    "share",
+    "share",
+    "mount_tiger"
+   ],
+   [
+    "Winterspring Frostsaber",
+    "share",
+    "share",
+    "frostsaber"
+   ],
+   [
+    "Yellow Qiraji Resonating Crystal",
+    "share",
+    "share",
+    "mount_qiraji_aq"
+   ],
+   [
+    "Epic Racial Mounts",
+    "done",
+    "done",
+    "Alliance: epicmounts_dwarf, epicmounts_gnome / Horde: epicmounts_orc, epicmounts_tauren"
+   ]
+  ]
+ ],
+ [
+  "PvP",
+  [
+   [
+    "Alliance War Mount (Rank 11)",
+    "done",
+    "na",
+    "Alliance: pvp_mount_ally"
+   ],
+   [
+    "Duelist",
+    "share",
+    "share",
+    "pvp_drums_of_war"
+   ],
+   [
+    "Exalted: Frostwolf Clan",
+    "na",
+    "done",
+    "Horde: pvp_av_horde"
+   ],
+   [
+    "Exalted: League of Arathor",
+    "done",
+    "na",
+    "Alliance: pvp_arathi"
+   ],
+   [
+    "Exalted: Silverwing Sentinels",
+    "done",
+    "na",
+    "Alliance: pvp_wsg_ally"
+   ],
+   [
+    "Exalted: Stormpike Guard",
+    "done",
+    "na",
+    "Alliance: pvp_av_ally"
+   ],
+   [
+    "Exalted: The Defilers",
+    "na",
+    "done",
+    "Horde: pvp_arathi"
+   ],
+   [
+    "Exalted: Warsong Outriders",
+    "na",
+    "done",
+    "Horde: pvp_wsg_horde"
+   ],
+   [
+    "Field Marshal's Aegis",
+    "done",
+    "na",
+    "Alliance: pvp_set_plate_ally"
+   ],
+   [
+    "Field Marshal's Battlegear",
+    "done",
+    "na",
+    "Alliance: pvp_set_plate_ally"
+   ],
+   [
+    "Field Marshal's Earthshaker",
+    "done",
+    "na",
+    "Alliance: pvp_set_mail_ally"
+   ],
+   [
+    "Field Marshal's Pursuit",
+    "done",
+    "na",
+    "Alliance: pvp_set_mail_ally"
+   ],
+   [
+    "Field Marshal's Raiment",
+    "done",
+    "na",
+    "Alliance: pvp_set_cloth_ally"
+   ],
+   [
+    "Field Marshal's Regalia",
+    "done",
+    "na",
+    "Alliance: pvp_set_cloth_ally"
+   ],
+   [
+    "Field Marshal's Sanctuary",
+    "done",
+    "na",
+    "Alliance: pvp_set_leather_ally"
+   ],
+   [
+    "Field Marshal's Threads",
+    "done",
+    "na",
+    "Alliance: pvp_set_cloth_ally"
+   ],
+   [
+    "Field Marshal's Vestments",
+    "done",
+    "na",
+    "Alliance: pvp_set_leather_ally"
+   ],
+   [
+    "Frostwolf Howler",
+    "na",
+    "done",
+    "Horde: pvp_av_horde"
+   ],
+   [
+    "Grand Marshal",
+    "done",
+    "na",
+    "Alliance: pvp_rank14"
+   ],
+   [
+    "High Warlord",
+    "na",
+    "done",
+    "Horde: pvp_rank14"
+   ],
+   [
+    "Honorable Kills",
+    "share",
+    "share",
+    "pvp_drums_of_war"
+   ],
+   [
+    "Horde War Mount (Rank 11)",
+    "na",
+    "done",
+    "Horde: pvp_mount_horde"
+   ],
+   [
+    "Stormpike Battle Charger",
+    "done",
+    "na",
+    "Alliance: pvp_mount_ally"
+   ],
+   [
+    "Warlord's Aegis",
+    "na",
+    "done",
+    "Horde: pvp_set_plate_horde"
+   ],
+   [
+    "Warlord's Battlegear",
+    "na",
+    "done",
+    "Horde: pvp_set_plate_horde"
+   ],
+   [
+    "Warlord's Earthshaker",
+    "na",
+    "done",
+    "Horde: pvp_set_mail_horde_shaman"
+   ],
+   [
+    "Warlord's Pursuit",
+    "na",
+    "done",
+    "Horde: pvp_set_mail_horde"
+   ],
+   [
+    "Warlord's Raiment",
+    "na",
+    "done",
+    "Horde: pvp_set_cloth_horde"
+   ],
+   [
+    "Warlord's Regalia",
+    "na",
+    "done",
+    "Horde: pvp_set_cloth_horde"
+   ],
+   [
+    "Warlord's Sanctuary",
+    "na",
+    "borrow",
+    "Horde: set_tier2_warrior"
+   ],
+   [
+    "Warlord's Threads",
+    "na",
+    "done",
+    "Horde: pvp_set_cloth_horde"
+   ],
+   [
+    "Warlord's Vestments",
+    "na",
+    "borrow",
+    "Horde: set_tier2_warrior"
+   ]
+  ]
+ ],
+ [
+  "Raids",
+  [
+   [
+    "Clear Blackwing Lair",
+    "share",
+    "share",
+    "raid_bwl"
+   ],
+   [
+    "Clear Hyjal Summit",
+    "share",
+    "share",
+    "raid_hyjal"
+   ],
+   [
+    "Clear Molten Core",
+    "share",
+    "share",
+    "raid_mc"
+   ],
+   [
+    "Clear Naxxramas",
+    "share",
+    "share",
+    "raid_naxx"
+   ],
+   [
+    "Clear Ruins of Ahn'Qiraj",
+    "share",
+    "share",
+    "raid_aq20"
+   ],
+   [
+    "Clear Temple of Ahn'Qiraj",
+    "share",
+    "share",
+    "raid_aq40"
+   ],
+   [
+    "Clear Zul'Gurub",
+    "share",
+    "share",
+    "raid_zg"
+   ],
+   [
+    "Clear the Barrow Deeps",
+    "share",
+    "share",
+    "raid_barrow"
+   ],
+   [
+    "Slay Onyxia",
+    "share",
+    "share",
+    "raid_ony"
+   ]
+  ]
+ ],
+ [
+  "Reputation",
+  [
+   [
+    "Ambassador: Alliance Capitals",
+    "done",
+    "na",
+    "Alliance: rep_ambassador_ally, rep_ambassador_ally_darnassus"
+   ],
+   [
+    "Ambassador: Horde Capitals",
+    "na",
+    "done",
+    "Horde: rep_ambassador_horde, rep_ambassador_horde_thunderbluff"
+   ],
+   [
+    "Exalted: Argent Dawn",
+    "share",
+    "share",
+    "rep_argentdawn"
+   ],
+   [
+    "Exalted: Brood of Nozdormu",
+    "share",
+    "share",
+    "rep_nozdormu"
+   ],
+   [
+    "Exalted: Cenarion Circle",
+    "share",
+    "share",
+    "rep_cenarion"
+   ],
+   [
+    "Exalted: Hydraxian Waterlords",
+    "share",
+    "share",
+    "rep_hydraxian"
+   ],
+   [
+    "Exalted: Thorium Brotherhood",
+    "share",
+    "share",
+    "rep_thorium"
+   ],
+   [
+    "Exalted: Timbermaw Hold",
+    "share",
+    "share",
+    "rep_timbermaw"
+   ],
+   [
+    "Exalted: Zandalar Tribe",
+    "share",
+    "share",
+    "raid_zg"
+   ]
+  ]
+ ],
+ [
+  "Social",
+  [
+   [
+    "Buff Others",
+    "share",
+    "share",
+    "social_buffs_druid, social_buffs_mage, social_buffs_paladin and 1 more"
+   ],
+   [
+    "Dungeons with Guildmates",
+    "share",
+    "share",
+    "social_guild_dungeon"
+   ],
+   [
+    "Give Cheers",
+    "share",
+    "share",
+    "social_cheers"
+   ],
+   [
+    "Give Hugs",
+    "share",
+    "share",
+    "social_hugs"
+   ],
+   [
+    "Give Waves",
+    "share",
+    "share",
+    "social_waves"
+   ],
+   [
+    "Join a Guild",
+    "share",
+    "share",
+    "social_guild"
+   ],
+   [
+    "Make Friends",
+    "share",
+    "share",
+    "social_friends"
+   ],
+   [
+    "Make Trades",
+    "share",
+    "share",
+    "social_trades"
+   ],
+   [
+    "Place Campfires",
+    "share",
+    "share",
+    "prof_cooking"
+   ],
+   [
+    "Raids with Guildmates",
+    "share",
+    "share",
+    "social_guild_raid"
+   ],
+   [
+    "Say LOL",
+    "done",
+    "done",
+    "Art installed after the October 15 report"
+   ],
+   [
+    "Summon Players",
+    "share",
+    "share",
+    "social_summons"
+   ]
+  ]
+ ]
+];
+
 var LABEL = { need: "Needed", borrow: "Borrowed", share: "Shared", done: "Done", na: "n/a" };
 
 function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
 
-function render() {
-  var html = "", counts = { need: 0, borrow: 0, share: 0, done: 0 };
-  TABLES.forEach(function (t) {
-    html += "<h2>" + esc(t[0]) + "</h2><table><thead><tr><th>Class</th><th>Alliance</th><th>Horde</th><th>Notes</th></tr></thead><tbody>";
-    t[1].forEach(function (r) {
-      counts[r[1]]++; counts[r[2]]++;
-      html += '<tr data-a="' + r[1] + '" data-h="' + r[2] + '"><td>' + esc(r[0]) + "</td>" +
-        '<td class="s ' + r[1] + '">' + LABEL[r[1]] + "</td>" +
-        '<td class="s ' + r[2] + '">' + LABEL[r[2]] + "</td>" +
-        "<td>" + esc(r[3]) + "</td></tr>";
-    });
-    html += "</tbody></table>";
+function section(title, rows, head, group, counts) {
+  var html = "<h2>" + esc(title) + "</h2><table><thead><tr><th>" + head + "</th><th>Alliance</th><th>Horde</th><th>Notes</th></tr></thead><tbody>";
+  rows.forEach(function (r) {
+    counts[group][r[1]]++; counts[group][r[2]]++;
+    html += '<tr data-a="' + r[1] + '" data-h="' + r[2] + '"><td>' + esc(r[0]) + "</td>" +
+      '<td class="s ' + r[1] + '">' + LABEL[r[1]] + "</td>" +
+      '<td class="s ' + r[2] + '">' + LABEL[r[2]] + "</td>" +
+      "<td>" + esc(r[3]) + "</td></tr>";
   });
+  return html + "</tbody></table>";
+}
+
+function line(c) {
+  return c.need + " needed, " + c.borrow + " borrowed, " + c.share + " shared, " + c.done + " done";
+}
+
+function render() {
+  var html = "", counts = {
+    grid: { need: 0, borrow: 0, share: 0, done: 0, na: 0 },
+    goals: { need: 0, borrow: 0, share: 0, done: 0, na: 0 }
+  };
+  html += '<h2 class="part">Class and faction grid</h2>';
+  TABLES.forEach(function (t) { html += section(t[0], t[1], "Class", "grid", counts); });
+  html += '<h2 class="part">Every goal (' + GOALS.reduce(function (n, g) { return n + g[1].length; }, 0) + ')</h2>';
+  GOALS.forEach(function (g) { html += section(g[0], g[1], "Goal", "goals", counts); });
   document.getElementById("tables").innerHTML = html;
   document.getElementById("first").innerHTML = FIRST.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("");
   document.getElementById("found").innerHTML = FOUND.length
     ? FOUND.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("")
     : "<li>Nothing logged yet</li>";
-  document.getElementById("counts").textContent =
-    counts.need + " needed, " + counts.borrow + " borrowed, " + counts.share + " shared, " + counts.done + " done";
+  document.getElementById("counts").innerHTML =
+    "Class grid: " + line(counts.grid) + "<br>All goals: " + line(counts.goals);
 }
 
 function filter(f) {
@@ -198,6 +1255,7 @@ function filter(f) {
     t.style.display = any ? "" : "none";
     t.previousElementSibling.style.display = any ? "" : "none";
   });
+  document.querySelectorAll("#tables h2.part").forEach(function (h) { h.style.display = f === "all" ? "" : "none"; });
 }
 
 render();
