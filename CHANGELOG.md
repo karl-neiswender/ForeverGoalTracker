@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Aurastone Hammer, a Molten Core mace dropped by Garr, to the Goal Library.
 - Added Destiny, a rare epic two-handed sword that level 52 to 60 creatures can drop, to the Goal Library.
 - Added The 1 Ring, a very rare fishing catch, to the Goal Library in a new Collectibles category, with a count of the fish you have caught since you added the goal.
 - Added locks on steps that need a level, reputation, skill or quest you have not reached. A click says what is needed, and Shift-click unlocks the step for the session.

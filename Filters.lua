@@ -24,6 +24,7 @@ FGT.GOAL_CLASSES = {
     zinrokh = { "WARRIOR", "PALADIN", "HUNTER" },
     teebus = ONE_HAND_SWORD,
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
+    aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },
     arcanite_reaper = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" }, -- two-handed axe users
     atiesh = { "MAGE", "WARLOCK", "PRIEST", "DRUID" }, -- one version per class
     benediction = { "PRIEST" },

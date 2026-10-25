@@ -451,6 +451,29 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 17105, checked 2026-10-25: epic Bind on Pickup one-hand mace, item level 69,
+        -- requires level 60, +10 Stamina, +10 Intellect, 5 mana per 5 sec, 25 spell power. Dropped by Garr
+        -- in Molten Core (GearSources agrees). Not in Forever's tables yet, so not marked confirmed.
+        id = "aurastone_hammer", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_hammer_05",
+        name = "Aurastone Hammer",
+        short = "Aurastone Hammer",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed mace for healers and casters, dropped by Garr in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Aurastone Hammer from Garr in Molten Core.", auto = { item = 17105, owned = { "Aurastone Hammer" } } },
+        },
+        completeWith = { item = 17105, owned = { "Aurastone Hammer" } },
+        tips = {
+            "Defeat Garr in {raid_mc:Molten Core} for a chance at {item:17105:Aurastone Hammer}.",
+            "It binds when picked up. It adds 25 spell power, 10 Stamina, 10 Intellect and 5 mana per 5 seconds.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use it. Learn One-Handed Maces before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Forever item 1728, checked 2026-10-15. The item page does
         -- not list a source, so leave its acquisition source unknown.
         id = "teebus", library = true, forever = "confirmed", itemQuality = 4,
