@@ -61,6 +61,7 @@ function P:Stack()
     self.clip:SetFrameLevel(level + 3)
     self.header:SetFrameLevel(level + 4)
     self.bar:SetFrameLevel(level + 4)
+    self.segs:SetFrameLevel(level + 4)
     self.grip:SetFrameLevel(level + 6)
     self.options:SetFrameLevel(level + 60)
 end
@@ -364,7 +365,22 @@ function P:Refresh()
     self:PaintHeader()
     self.progress = total > 0 and done / total or 0
     self.bar:SetBlue(forever)
-    self.bar:SetProgress(done, total)
+    local list, steps
+    if not section then list, steps = FGT.SegmentData(goal) end
+    self.bar.noLight = list and true or nil
+    self.bar:SetAlpha(list and 0 or 1)
+    if section then
+        self.bar:SetProgress(done, total)
+    else
+        self.bar:SetProgress(math.floor(FGT.GoalFraction(goal) * 1000 + 0.5), 1000)
+    end
+    self.segs:SetShown(list ~= nil)
+    if list then
+        local jump = self.segs.goalId ~= goal.id
+        self.segs.goalId, self.segs.steps = goal.id, steps
+        self.segs:SetBlue(forever)
+        self.segs:Set(list, jump)
+    end
     self.complete:SetShown(finished and #self.layout.nodes == 0 and self.unfold > 0)
     self.countText = done .. " / " .. total
     -- (unfolding: take the fitted size at once; the unfold slide carries the edge there)
@@ -797,13 +813,31 @@ end
 function P:WakeFx() self.fx:SetScript("OnUpdate", FxStep) end
 P.header:SetScript("OnEnter", function() P:WakeFx() end)
 
--- Thin progress bar under the title: the My Goals card's bar, so it
--- glides, glints and turns green with the rest of the tracker.
-P.bar = S.bar(frame, 8)
+-- Thin progress bar under the title: the tracker's bar, so it glides,
+-- glints and turns green with the rest of the tracker. Goals of up to 12
+-- steps show one segment per step in its place, like the goal page (Karl's
+-- progress bar redesign, 2026-10-26; Bars.lua).
+P.bar = S.bar(frame, 10)
 P.bar:SetPoint("TOPLEFT", 12, BAR_Y)
 P.bar:SetPoint("TOPRIGHT", -12, BAR_Y)
 P.bar.label:Hide()
 P.bar:EnableMouse(false)
+P.bar.pulse = true
+P.segs = FGT.Bars.NewSegments(frame, 10, S.bar)
+P.segs:SetPoint("TOPLEFT", P.bar, "TOPLEFT", 0, 0)
+P.segs:SetPoint("BOTTOMRIGHT", P.bar, "BOTTOMRIGHT", 0, 0)
+P.segs:Hide()
+P.segs.onEnter = function(segs, k, bar)
+    local goal = FGT.GoalById(P.goalId)
+    local i = segs.steps and segs.steps[k]
+    if not (goal and i) then return end
+    segs:Light(k)
+    FGT.ShowSegmentTip(bar, goal, i)
+end
+P.segs.onLeave = function(segs, _, bar)
+    segs:Light(nil)
+    FGT.Bars.TipOut(bar) -- fades out with the segment's border
+end
 
 -- ------------------------------------------------------------
 -- Body: the steps, clipped so the window can fold them away smoothly

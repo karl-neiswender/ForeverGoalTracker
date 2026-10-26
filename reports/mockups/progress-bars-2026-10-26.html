@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress bar mockups</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070605; --panel:#110e0b; --rim:#3a2f1f; --rim2:#5c4a2c;
+  --gold:#ffd84d; --title:#f4c94a; --ink:#e9dcc0; --ink2:#a89878; --sub:#7d705a;
+  --fillA:#4a2a03; --fillB:#ffd54a; --tipA:rgba(255,216,102,.85);
+  --doneA:#143f08; --doneB:#8cff66; --blueA:#03204f; --blueB:#66b3ff;
+  --p:42%;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.45 "Segoe UI",system-ui,sans-serif;padding:24px 16px 64px}
+main{max-width:940px;margin:0 auto}
+h1{font:700 22px Cinzel,serif;color:var(--title);margin:0 0 4px}
+h2{font:700 15px Cinzel,serif;color:var(--title);margin:40px 0 4px;letter-spacing:.02em}
+p.note{color:var(--ink2);margin:0 0 14px;max-width:760px}
+.ctlwrap{position:sticky;top:0;z-index:5;background:rgba(7,6,5,.95);border-bottom:1px solid var(--rim);padding:8px 0}
+.controls{padding:4px 0;display:flex;gap:10px 16px;align-items:center;flex-wrap:wrap}
+.controls label{color:var(--ink2)}
+.controls input[type=range]{width:260px;accent-color:#d9a628}
+.controls button{background:#1a150f;color:var(--ink);border:1px solid var(--rim2);border-radius:3px;padding:4px 10px;cursor:pointer}
+.controls button.on{border-color:var(--gold);color:var(--gold)}
+
+/* window slice */
+.win{position:relative;background:var(--panel);border:1px solid var(--rim);border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,220,150,.04);overflow:visible}
+.win .budget{position:absolute;right:-74px;top:0;width:64px;font-size:11px;color:var(--sub)}
+.strip{display:flex;align-items:center;gap:10px;padding:0 14px;border-bottom:1px solid rgba(255,210,120,.12)}
+.ttl{font:700 20px Cinzel,serif;color:var(--title);letter-spacing:.01em;white-space:nowrap}
+.tag{color:var(--sub);font-size:11px;white-space:nowrap}
+.icons{margin-left:auto;display:flex;gap:12px;color:var(--ink2);font-size:15px}
+.tabs{display:flex;gap:4px;padding:0 16px;height:30px;align-items:flex-end}
+.tabs span{font:700 12px Cinzel,serif;color:var(--ink2);padding:6px 14px;border:1px solid var(--rim);border-bottom:none;border-radius:4px 4px 0 0;background:#0c0a08}
+.tabs span.on{color:var(--title);background:#17120c}
+.cap{font-size:11px;color:var(--ink2)}
+
+/* the one bar component, every size */
+.bar{position:relative;height:var(--h,10px);border-radius:var(--r,2px);
+  background:linear-gradient(#060504,#15110b);
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.9),inset 0 0 0 1px rgba(0,0,0,.9),0 1px 0 rgba(255,225,150,.07)}
+.bar .groove{position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,215,120,.05),rgba(255,215,120,.015) 60%,transparent)}
+.bar .fill{position:absolute;left:1px;top:1px;bottom:1px;width:calc(var(--p) - 2px);max-width:calc(100% - 2px);border-radius:inherit;
+  background:linear-gradient(90deg,var(--fa,var(--fillA)),var(--fb,var(--fillB)));transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.bar .fill::before{content:"";position:absolute;inset:0;border-radius:inherit;
+  background:linear-gradient(rgba(255,250,220,.35),rgba(255,255,255,.05) 40%,rgba(0,0,0,.05) 55%,rgba(0,0,0,.4))}
+.bar .fill::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,250,215,.85))}
+.bar .tip{position:absolute;top:50%;left:calc(var(--p) - 1px);width:3px;height:calc(var(--h,10px) + var(--spill,0px));transform:translate(-100%,-50%);
+  background:#fff7d0;border-radius:2px;box-shadow:0 0 var(--bloom,6px) calc(var(--bloom,6px)/3) var(--tipA);
+  animation:breathe 3.2s ease-in-out infinite;transition:left .5s cubic-bezier(.2,.8,.2,1)}
+.bar .sheen{position:absolute;left:1px;top:1px;bottom:1px;width:calc(var(--p) - 2px);overflow:hidden;border-radius:inherit;pointer-events:none}
+.bar .sheen::after{content:"";position:absolute;top:0;bottom:0;width:30%;left:-30%;
+  background:linear-gradient(90deg,transparent,rgba(255,250,225,.35),transparent);animation:glint 4.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.75;filter:brightness(.9)}50%{opacity:1;filter:brightness(1.25)}}
+@keyframes glint{0%,55%{left:-30%}100%{left:110%}}
+.bar.done{--fa:var(--doneA);--fb:var(--doneB);--tipA:rgba(140,255,102,.0)}
+.bar.done .tip{display:none}
+.bar.blue{--fa:var(--blueA);--fb:var(--blueB);--tipA:rgba(102,179,255,.85)}
+.bar.empty .tip,.bar.empty .fill{opacity:0}
+.static .tip,.static .sheen::after{animation:none}
+
+/* milestone ticks */
+.ticks i{position:absolute;top:2px;bottom:2px;width:1px;background:rgba(255,215,120,.14)}
+.ticks i.lit{background:rgba(255,248,210,.75);box-shadow:0 0 4px rgba(255,220,120,.8)}
+
+/* two-tone label inside a bar: dark over the fill, light over the track */
+.inl{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 10px;
+  font-weight:600;white-space:nowrap;pointer-events:none;z-index:2}
+.inl.dark{color:#2b1800;clip-path:inset(0 calc(100% - var(--p)) 0 0);text-shadow:0 1px 0 rgba(255,240,180,.35)}
+.inl.light{color:var(--ink);clip-path:inset(0 0 0 var(--p));text-shadow:0 1px 1px #000}
+.bar.done .inl.dark{color:#0d2905}
+.bar:has(.inl){--fa:#a06a14}
+.rep{display:flex;gap:3px}
+.rep .seg{flex:1;position:relative}
+.rep .seg .bar{--r:2px;--spill:5px;--bloom:7px}
+.rep .seg.lead{flex:.8}
+.rep .seg:last-child .tt{left:auto;right:0;transform:translateY(-4px)}
+.rep .seg:last-child:hover .tt{transform:none}
+body{overflow-x:hidden}
+.rep .seg .tip{display:none}
+.rep .seg.cur .tip{display:block}
+.rep .seg .tt{min-width:170px;transition-delay:0s!important;top:calc(100% + 6px)}
+.rep .seg:hover .tt{opacity:1;transform:translateX(-50%)}
+.rep .seg:hover .bar{box-shadow:inset 0 1px 2px rgba(0,0,0,.9),0 0 0 1px rgba(255,215,120,.45)}
+.lbl{display:flex;gap:3px;margin-top:5px;font-size:11px;color:var(--sub)}
+.lbl span{text-align:center}
+.tt .big{font-weight:600;font-size:13px}
+.tt .stk{display:block;margin-top:1px}
+.tk{position:absolute;inset:0;pointer-events:none;z-index:1}
+.tk i{position:absolute;top:2px;bottom:2px;width:1px;background:rgba(255,215,120,.12)}
+.tk i.lit{background:rgba(60,30,0,.45);box-shadow:1px 0 0 rgba(255,245,200,.35)}
+.tk.mile i.lit{background:rgba(255,248,210,.75);box-shadow:0 0 4px rgba(255,220,120,.8)}
+body.lb-hover .bar[data-lbl] .inl{opacity:0;transition:opacity .35s ease}
+body.lb-hover .bar[data-lbl]:hover .inl,body.lb-hover .bar[data-lbl].flash .inl{opacity:1;transition-duration:.12s}
+.tt{transition-delay:0s}
+.hov:hover .tt{transition-delay:.7s}
+.bar.done:has(.inl){--fa:#3f8a1c}
+.bar.blue:has(.inl){--fa:#1d5aa8}
+.bar.blue .inl.dark{color:#04203f;text-shadow:0 1px 0 rgba(200,230,255,.35)}
+.num{font:700 1em Cinzel,serif;letter-spacing:.02em}
+
+/* hover readout */
+.hov{position:relative}
+.tt{position:absolute;z-index:4;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);opacity:0;pointer-events:none;
+  min-width:280px;background:rgba(8,7,6,.97);border:1px solid #6b5a3a;border-radius:4px;padding:8px 11px;box-shadow:0 8px 24px rgba(0,0,0,.7);
+  transition:opacity .15s,transform .15s}
+.hov:hover .tt,.hov.pin .tt{opacity:1;transform:translateX(-50%)}
+.tt b{color:#fff;font-weight:600}.tt .g{color:var(--title)}.tt .s{color:var(--ink2)}.tt .gr{color:#8cff66}
+.tt div{display:flex;justify-content:space-between;gap:18px}
+
+/* family */
+.fam{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--rim);border-radius:6px;padding:12px}
+.goalrow{display:flex;gap:9px;align-items:flex-end;background:#16120d;border:1px solid var(--rim);border-radius:4px;padding:8px}
+.ico{width:36px;height:36px;border:1px solid #6b5a3a;border-radius:3px;background:linear-gradient(135deg,#5b3a12,#1d140a);flex:none}
+.eyebrow{font-size:10px;color:var(--ink2);text-transform:uppercase;letter-spacing:.08em}
+.gname{font-weight:600;color:var(--ink)}
+.pophead{display:flex;align-items:center;gap:8px;font:700 13px Cinzel,serif;color:var(--title);height:26px}
+.pophead .ct{margin-left:auto;font:11px "Segoe UI",sans-serif;color:var(--ink2)}
+.verdict{margin-top:6px;font-size:12px;color:var(--ink2)}
+.verdict b{color:var(--title);font-weight:600}
+ul.pros{margin:6px 0 0 18px;padding:0;color:var(--ink2)}
+</style>
+</head>
+<body class="lb-hover">
+<main>
+<h1>Progress bars: weight, not width</h1>
+<p class="note">Light mockups for the four bars. The header keeps its footprint: the 102 px from the top edge to the tabs. Only how that space is split changes. Drag the slider to see empty, partial and complete. Hover each bar.</p>
+
+<div class="ctlwrap">
+<div class="controls">
+  <label for="p">Progress</label>
+  <input id="p" type="range" min="0" max="100" step="1" value="42">
+  <span id="pv" class="num" style="color:var(--title);min-width:44px">42%</span>
+  <button data-p="0">Empty</button><button data-p="7">7%</button><button data-p="42">42%</button><button data-p="100">Complete</button>
+  <button id="blue">Forever blue</button>
+  <button id="motion" class="on">Motion on</button>
+</div>
+<div class="controls">
+  <label>Tick marks</label>
+  <button data-tk="on" class="on">On</button><button data-tk="off">Off</button>
+  <label style="margin-left:12px">Numbers</label>
+  <button data-lb="hover" class="on">On hover</button><button data-lb="always">Always</button>
+</div>
+</div>
+
+<!-- TODAY -->
+<h2>Today</h2>
+<p class="note">56 px masthead, a 10 px bar, and the two labels underneath. The bar is the thinnest thing in the band, and when it's empty it reads as a black slot.</p>
+<div class="win" style="height:132px">
+  <div class="strip" style="height:56px;flex-direction:column;align-items:flex-start;justify-content:center;gap:2px;position:relative">
+    <span class="ttl">Forever Goal Tracker</span><span class="tag">Long-term goals for Warcraft Forever</span>
+    <span class="icons" style="position:absolute;right:14px;top:16px"><i>⚙</i><i>✕</i></span>
+  </div>
+  <div style="padding:13px 16px 0">
+    <div class="bar" data-b style="--h:10px"><div class="groove"></div><div class="fill"></div><div class="sheen"></div><div class="tip" style="--bloom:5px"></div></div>
+    <div style="display:flex;justify-content:space-between;margin-top:4px" class="cap"><span data-goals>4 of 9 goals complete</span><span data-pct>42% overall</span></div>
+  </div>
+  <div class="tabs" style="position:absolute;bottom:0;left:0"><span class="on">My Goals</span><span>Library</span><span>Materials</span></div>
+</div>
+
+<!-- A -->
+<h2>A. Slim masthead, quiet bar</h2>
+<p class="note">Title, gear and close in a 32 px strip, then a 22 px bar. At rest it shows no words. Hover it, or change your progress, and the percentage and goal count fade in inside the bar for a few seconds. Keep the pointer there and the breakdown appears below it. Each bar uses the ticks that are true for it: 25, 50 and 75 here, since this is an average; one per step on goal bars (25, 50 and 75 again past 12 steps); none on the small My Goals card bar. The only setting is ticks on or off.</p>
+<div class="win" style="height:132px">
+  <div class="strip" style="height:32px"><span class="ttl" style="font-size:16px">Forever Goal Tracker</span><span class="icons"><i>⚙</i><i>✕</i></span></div>
+  <div style="padding:16px 16px 0" class="hov">
+    <div class="bar ticks" data-b data-steps="0" data-lbl style="--h:22px;--r:3px;--spill:6px;--bloom:9px;font-size:12px">
+      <div class="groove"></div><div class="fill"></div><div class="sheen"></div><div class="tk"></div>
+      <div class="inl dark"><span class="num" data-n>42%</span><span data-short="goals">4 / 9 goals</span></div>
+      <div class="inl light"><span class="num" data-n>42%</span><span data-short="goals">4 / 9 goals</span></div>
+      <div class="tip"></div>
+    </div>
+    <div class="tt">
+      <div><b>Overall progress</b></div>
+      <div><span class="s">Nearest to done</span><span>Arcanite Reaper, 86%</span></div>
+      <div><span class="s">Next milestone</span><span class="g">50%</span></div>
+      <div><span class="s">This week</span><span class="gr">+6%</span></div>
+    </div>
+  </div>
+  <div class="tabs" style="position:absolute;bottom:0;left:0"><span class="on">My Goals</span><span>Library</span><span>Materials</span></div>
+</div>
+
+<!-- B -->
+<h2>B. Headline number beside the bar</h2>
+<p class="note">Same slim strip. A large Cinzel percentage gives the band its weight, and the 14 px bar beside it stays sleek. The goal count sits small under the number. This is the Apple Fitness and Steam achievements pattern: the number is the headline and the bar is supporting evidence.</p>
+<div class="win" style="height:132px">
+  <div class="strip" style="height:32px"><span class="ttl" style="font-size:16px">Forever Goal Tracker</span><span class="icons"><i>⚙</i><i>✕</i></span></div>
+  <div style="display:flex;align-items:center;gap:16px;padding:10px 16px 0" class="hov">
+    <div style="flex:none;text-align:left;line-height:1">
+      <div class="num" style="font-size:30px;color:var(--title);text-shadow:0 0 12px rgba(255,200,80,.25)" data-n>42%</div>
+      <div class="cap" style="margin-top:3px" data-goals>4 of 9 goals complete</div>
+    </div>
+    <div class="bar ticks" data-b data-ticks style="flex:1;--h:14px;--r:3px;--spill:6px;--bloom:8px">
+      <div class="groove"></div><div class="fill"></div><div class="sheen"></div>
+      <i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i><div class="tip"></div>
+    </div>
+    <div class="tt" style="left:60%">
+      <div><b>Overall progress</b><span class="g" data-pct>42%</span></div>
+      <div><span class="s">Nearest to done</span><span>Arcanite Reaper, 86%</span></div>
+      <div><span class="s">Next milestone</span><span class="g">50%</span></div>
+    </div>
+  </div>
+  <div class="tabs" style="position:absolute;bottom:0;left:0"><span class="on">My Goals</span><span>Library</span><span>Materials</span></div>
+</div>
+
+<!-- C -->
+<h2>C. The Warcraft XP bar</h2>
+<p class="note">Blizzard's own pattern: a 20-segment bar that every player already reads as "progress that matters". The text sits centered inside, and the hover detail comes from the game's own convention: the XP bar shows its numbers on mouseover.</p>
+<div class="win" style="height:132px">
+  <div class="strip" style="height:32px"><span class="ttl" style="font-size:16px">Forever Goal Tracker</span><span class="icons"><i>⚙</i><i>✕</i></span></div>
+  <div style="padding:16px 16px 0" class="hov">
+    <div class="bar seg" data-b style="--h:20px;--r:2px;--spill:6px;--bloom:9px;font-size:12px">
+      <div class="groove"></div><div class="fill"></div><div class="sheen"></div>
+      <div class="segs" style="position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 calc(5% - 1px),rgba(0,0,0,.75) calc(5% - 1px) 5%)"></div>
+      <div class="inl dark" style="justify-content:center"><span><span class="num" data-n>42%</span> &nbsp;·&nbsp; <span data-goals>4 of 9 goals complete</span></span></div>
+      <div class="inl light" style="justify-content:center"><span><span class="num" data-n>42%</span> &nbsp;·&nbsp; <span data-goals>4 of 9 goals complete</span></span></div>
+      <div class="tip"></div>
+    </div>
+    <div class="tt">
+      <div><b>Overall progress</b><span class="g" data-pct>42%</span></div>
+      <div><span class="s">Nearest to done</span><span>Arcanite Reaper, 86%</span></div>
+    </div>
+  </div>
+  <div class="tabs" style="position:absolute;bottom:0;left:0"><span class="on">My Goals</span><span>Library</span><span>Materials</span></div>
+</div>
+
+<!-- FAMILY -->
+<h2>The family, built on A</h2>
+<p class="note">One component in four sizes. They share the same track, fill, tip and glint, so they read as siblings. Only the big ones carry text. The small ones get weight from a deeper track and a tip that glows a little past the bar's edge.</p>
+<div class="fam">
+  <div class="card">
+    <div class="eyebrow">Goal page · 13 → 18 px</div>
+    <div style="font:700 17px Cinzel,serif;color:var(--title);margin:6px 0 10px">Arcanite Reaper</div>
+    <div class="hov">
+      <div class="bar ticks" data-b data-goal data-steps="7" data-lbl style="--h:18px;--r:3px;--spill:5px;--bloom:8px;font-size:11px">
+        <div class="groove"></div><div class="fill"></div><div class="sheen"></div><div class="tk"></div>
+        <div class="inl dark"><span class="num" data-n>42%</span><span><span data-step>3</span> / 7 steps</span></div>
+        <div class="inl light"><span class="num" data-n>42%</span><span><span data-step>3</span> / 7 steps</span></div>
+        <div class="tip"></div>
+      </div>
+      <div class="tt"><div><b>Arcanite Reaper</b><span class="g" data-pct>42%</span></div><div><span class="s">Next</span><span>Reach Blacksmithing 300</span></div><div><span class="s">Counting</span><span>This character</span></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="eyebrow">Pop-out · 8 → 10 px</div>
+    <div class="pophead">Arcanite Reaper<span class="ct"><span data-step>3</span> / 7</span></div>
+    <div class="hov">
+      <div class="bar ticks" data-b data-steps="7" style="--h:10px;--r:2px;--spill:4px;--bloom:6px"><div class="groove"></div><div class="fill"></div><div class="sheen"></div><div class="tk"></div><div class="tip"></div></div>
+      <div class="tt"><div><b>3 of 7 steps</b><span class="g" data-pct>42%</span></div><div><span class="s">Next</span><span>Reach Blacksmithing 300</span></div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="eyebrow">My Goals card · 4 → 6 px</div>
+    <div class="goalrow" style="margin-top:8px;width:216px">
+      <div class="ico"></div>
+      <div style="flex:1;min-width:0">
+        <div class="eyebrow" style="font-size:9.5px">Profession</div>
+        <div class="gname" style="margin-bottom:6px">Arcanite Reaper</div>
+        <div class="bar" data-b style="--h:6px;--r:2px;--spill:4px;--bloom:5px"><div class="groove"></div><div class="fill"></div><div class="sheen"></div><div class="tip" style="width:2px"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Reputation goals: one segment per standing</h2>
+<p class="note">Each segment is one gate, the same width whatever it costs in points, so the bar moves at the pace players think in. Only the stage you're in fills partway. Hover a segment for its numbers. Factions that start below Neutral get a lead-in segment up to Neutral, with its own stages listed in the hover. Drag the reputation slider; the main slider doesn't drive these.</p>
+<div class="controls" style="padding:0 0 12px">
+  <label for="rp">Reputation</label>
+  <input id="rp" type="range" min="0" max="1000" step="1" value="430" style="width:260px;accent-color:#d9a628">
+  <span id="rpv" class="cap" style="min-width:160px"></span>
+</div>
+<div class="fam" style="grid-template-columns:1fr">
+  <div class="card">
+    <div class="eyebrow">Goal page · starts at Neutral</div>
+    <div style="font:700 17px Cinzel,serif;color:var(--title);margin:6px 0 12px">Exalted: Argent Dawn</div>
+    <div class="rep" data-rep="argent" style="--h:18px"></div>
+  </div>
+  <div class="card">
+    <div class="eyebrow">Goal page · starts at Hostile</div>
+    <div style="font:700 17px Cinzel,serif;color:var(--title);margin:6px 0 12px">Exalted: Timbermaw Hold</div>
+    <div class="rep" data-rep="timber" style="--h:18px"></div>
+  </div>
+  <div class="card" style="display:flex;gap:24px;flex-wrap:wrap">
+    <div style="flex:1;min-width:240px">
+      <div class="eyebrow">Pop-out · 10 px</div>
+      <div class="pophead">Timbermaw Hold<span class="ct" data-repct></span></div>
+      <div class="rep" data-rep="timber" style="--h:10px"></div>
+    </div>
+    <div style="flex:none">
+      <div class="eyebrow">My Goals card · stays one plain bar</div>
+      <div class="goalrow" style="margin-top:8px;width:216px">
+        <div class="ico"></div>
+        <div style="flex:1;min-width:0">
+          <div class="eyebrow" style="font-size:9.5px">Reputation</div>
+          <div class="gname" style="margin-bottom:6px">Timbermaw Hold</div>
+          <div class="bar" id="repcard" style="--h:6px;--r:2px;--spill:4px;--bloom:5px"><div class="groove"></div><div class="fill"></div><div class="sheen"></div><div class="tip" style="width:2px"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+<script>
+const root=document.documentElement, r=document.getElementById('p'), pv=document.getElementById('pv');
+let blue=false;
+function set(v){
+  v=Math.round(v); r.value=v; pv.textContent=v+'%';
+  root.style.setProperty('--p',v+'%');
+  const goals=Math.round(v/100*9), step=Math.round(v/100*7);
+  document.querySelectorAll('[data-n]').forEach(e=>e.textContent=v+'%');
+  document.querySelectorAll('[data-pct]').forEach(e=>e.textContent=e.closest('.tt')?v+'%':v+'% overall');
+  document.querySelectorAll('[data-goals]').forEach(e=>e.textContent=v===0?'Pick a goal to begin':goals+' of 9 goals complete');
+  document.querySelectorAll('[data-goals2]').forEach(e=>e.textContent=goals+' of 9');
+  document.querySelectorAll('[data-step]').forEach(e=>e.textContent=step);
+  document.querySelectorAll('[data-b]').forEach(b=>{
+    b.classList.toggle('done',v>=100); b.classList.toggle('empty',v===0); b.classList.toggle('blue',blue&&v<100);
+    b.querySelectorAll('.ticks i, i').forEach(t=>{const at=parseFloat(t.style.left);if(!isNaN(at))t.classList.toggle('lit',v>=at)});
+  });
+}
+r.addEventListener('input',()=>set(+r.value));
+document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>set(+b.dataset.p));
+let tkMode='on', flashT;
+function ticks(){
+  document.querySelectorAll('.bar[data-steps]').forEach(b=>{
+    const tk=b.querySelector('.tk'), n=+b.dataset.steps, v=+r.value;
+    const kind=tkMode==='off'?'off':(n>0&&n<=12?'steps':'mile');
+    const at=kind==='off'?[]:kind==='mile'?[25,50,75]:Array.from({length:n-1},(_,i)=>(i+1)/n*100);
+    tk.className='tk '+kind;
+    tk.innerHTML=at.map(a=>`<i style="left:${a}%" class="${v>=a?'lit':''}"></i>`).join('');
+  });
+}
+function flash(){
+  document.querySelectorAll('.bar[data-lbl]').forEach(b=>b.classList.add('flash'));
+  clearTimeout(flashT); flashT=setTimeout(()=>document.querySelectorAll('.flash').forEach(b=>b.classList.remove('flash')),2500);
+}
+r.addEventListener('change',flash);
+document.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',flash));
+document.querySelectorAll('[data-tk]').forEach(b=>b.onclick=()=>{tkMode=b.dataset.tk;document.querySelectorAll('[data-tk]').forEach(x=>x.classList.toggle('on',x===b));ticks()});
+document.querySelectorAll('[data-lb]').forEach(b=>b.onclick=()=>{document.body.classList.toggle('lb-hover',b.dataset.lb==='hover');document.querySelectorAll('[data-lb]').forEach(x=>x.classList.toggle('on',x===b))});
+r.addEventListener('input',ticks);
+document.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',ticks));
+document.getElementById('blue').onclick=e=>{blue=!blue;e.target.classList.toggle('on',blue);set(+r.value)};
+document.getElementById('motion').onclick=e=>{const on=document.body.classList.toggle('static');e.target.classList.toggle('on',!on);e.target.textContent=on?'Motion off':'Motion on'};
+set(42); ticks();
+
+const STAND={hostile:'#e0583a',unfriendly:'#e08a3a',neutral:'#e6c84a',friendly:'#46c43a',honored:'#3ad08a',revered:'#3ac4c4',exalted:'#5ab4ff'};
+const REPS={
+  argent:[
+    {to:'Friendly',from:'Neutral',max:3000},{to:'Honored',from:'Friendly',max:6000},
+    {to:'Revered',from:'Honored',max:12000},{to:'Exalted',from:'Revered',max:21000}],
+  timber:[
+    {to:'Neutral',from:'Hostile',max:6000,lead:true,parts:[['Unfriendly',3000],['Neutral',3000]]},
+    {to:'Friendly',from:'Neutral',max:3000},{to:'Honored',from:'Friendly',max:6000},
+    {to:'Revered',from:'Honored',max:12000},{to:'Exalted',from:'Revered',max:21000}]
+};
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+function seg(){return '<div class="seg"><div class="bar"><div class="groove"></div><div class="fill"></div><div class="sheen"></div><div class="tip"></div></div><div class="tt"></div></div>'}
+document.querySelectorAll('.rep').forEach(el=>{
+  const def=REPS[el.dataset.rep];
+  el.innerHTML=def.map(seg).join('');
+  el.querySelectorAll('.seg').forEach((s,i)=>s.classList.toggle('lead',!!def[i].lead));
+  if(el.style.getPropertyValue('--h')!=='10px'){
+    const l=document.createElement('div');l.className='lbl';
+    l.innerHTML=def.map(d=>`<span style="flex:${d.lead?.8:1}">${d.to}</span>`).join('');
+    el.after(l);
+  }
+});
+function rep(){
+  const t=+document.getElementById('rp').value/1000;
+  document.querySelectorAll('.rep').forEach(el=>{
+    const def=REPS[el.dataset.rep], n=def.length, pos=t*n;
+    el.querySelectorAll('.seg').forEach((s,i)=>{
+      const d=def[i], f=Math.max(0,Math.min(1,pos-i)), pts=f*d.max, bar=s.querySelector('.bar');
+      bar.style.setProperty('--p',(f*100)+'%');
+      bar.classList.toggle('done',f>=1); bar.classList.toggle('empty',f<=0);
+      s.classList.toggle('cur',f>0&&f<1);
+      const c=STAND[d.to.toLowerCase()];
+      let h=`<span class="stk big" style="color:${c}">${d.to}</span>`;
+      if(f>=1) h+=`<span class="stk gr">Reached</span>`;
+      else if(f<=0) h+=`<span class="stk s">${fmt(d.max)} points from ${d.from}</span>`;
+      else{
+        h+=`<span class="stk">${fmt(pts)} / ${fmt(d.max)}</span>`;
+        if(d.parts){let acc=0;d.parts.forEach(([nm,mx])=>{const got=Math.max(0,Math.min(mx,pts-acc));acc+=mx;h+=`<span class="stk s">${nm}: ${fmt(got)} / ${fmt(mx)}</span>`});}
+        h+=`<span class="stk s">Best: this character</span>`;
+      }
+      s.querySelector('.tt').innerHTML=h;
+    });
+  });
+  const tdef=REPS.timber, tpos=t*tdef.length, ti=Math.min(tdef.length-1,Math.floor(tpos)), done=Math.floor(tpos);
+  document.querySelectorAll('[data-repct]').forEach(e=>e.textContent=done+' / '+tdef.length);
+  const cur=t>=1?'Exalted':tdef[ti].from, curPts=t>=1?0:(tpos-ti)*tdef[ti].max;
+  document.getElementById('rpv').textContent='Timbermaw: '+(t>=1?'Exalted':cur+' '+fmt(curPts)+' / '+fmt(tdef[ti].max));
+  const card=document.getElementById('repcard');
+  card.style.setProperty('--p',(t*100)+'%'); card.classList.toggle('done',t>=1); card.classList.toggle('empty',t<=0);
+}
+document.getElementById('rp').addEventListener('input',rep);
+rep();
+r.addEventListener('input',()=>{const g=Math.round(+r.value/100*9);document.querySelectorAll('[data-short=goals]').forEach(e=>e.textContent=g+' / 9 goals')});
+</script>
+</body>
+</html>

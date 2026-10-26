@@ -154,26 +154,37 @@ function FGT.StepLocked(goal, key)
     return missing.requirement ~= nil, missing
 end
 
-function FGT.ShowStepLockTip(row)
-    if FGT.overLink then return end
-    local _, missing = FGT.StepLocked(row.depGoal, row.depKey)
-    GameTooltip:SetOwner(row, "ANCHOR_RIGHT")
+-- What a locked step needs, as tooltip lines: the requirement, or the steps to complete first,
+-- named rather than pointed at. Shared by the step row and its progress bar segment; the
+-- segment (plain) skips the "Locked" heading and shows the step names as plain text, since
+-- links in a tooltip look clickable but are not.
+local function Plain(s)
+    return (s:gsub("|H.-|h(.-)|h", "%1"):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
+end
+function FGT.AddStepLockLines(goal, key, plain)
+    local _, missing = FGT.StepLocked(goal, key)
     if missing.requirement then
         GameTooltip:AddLine(missing.requirement, 1, 0.84, 0.4, true)
-    else
+    elseif not plain then
         GameTooltip:AddLine("Locked", 1, 0.84, 0.4)
     end
     local function lines(keys, heading)
         if #keys == 0 then return end
         GameTooltip:AddLine(heading, 0.9, 0.48, 0.43, true)
-        for _, key in ipairs(keys) do
-            local entry = FGT.DependencyEntry(row.depGoal, key)
-            local text = type(entry) == "table" and (entry.text or entry.name) or entry
-            GameTooltip:AddLine("• " .. FGT.StepText(text or tostring(key)), 0.88, 0.66, 0.61, true)
+        for _, k in ipairs(keys) do
+            local entry = FGT.DependencyEntry(goal, k)
+            local text = FGT.StepText(type(entry) == "table" and (entry.text or entry.name) or entry or tostring(k))
+            GameTooltip:AddLine("• " .. (plain and Plain(text) or text), 0.88, 0.66, 0.61, true)
         end
     end
     lines(missing.all, "Complete first:")
     lines(missing.any, "Complete one:")
+end
+
+function FGT.ShowStepLockTip(row)
+    if FGT.overLink then return end
+    GameTooltip:SetOwner(row, "ANCHOR_RIGHT")
+    FGT.AddStepLockLines(row.depGoal, row.depKey)
     -- after the first blocked click on this step, a small hint at the bottom (not advertised before that)
     if FGT.lockTried[tostring(row.depGoal and row.depGoal.id) .. "|" .. tostring(row.depKey)] then
         GameTooltip:AddLine("Shift-click to unlock", 0.6, 0.6, 0.6)

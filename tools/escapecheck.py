@@ -12,7 +12,7 @@ import re
 import sys
 
 FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua",
-         "Dependencies.lua", "Filters.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua",
+         "Dependencies.lua", "Filters.lua", "Bars.lua", "Core.lua", "ItemTooltips.lua", "Materials.lua",
          "WhatsNew.lua", "Ambience.lua", "Audit.lua"]
 VALID = "\\\"'abfnrtv0123456789"
 LITERAL = re.compile(r'"((?:[^"\\\n]|\\.)*)"' + "|" + r"'((?:[^'\\\n]|\\.)*)'")

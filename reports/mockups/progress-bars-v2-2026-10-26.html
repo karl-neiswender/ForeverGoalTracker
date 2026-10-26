@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress bars v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070605;--panel:#110e0b;--rim:#3a2f1f;--rim2:#5c4a2c;
+  --title:#f4c94a;--ink:#e9dcc0;--ink2:#a89878;--sub:#7d705a;
+  --gA:#7a4c0c;--gB:#ffd54a;--sealA:#6a4a14;--sealB:#c99a2e;
+  --dA:#1c5410;--dB:#8cff66;--bA:#0a3570;--bB:#66b3ff;
+  --body:"Friz Quadrata TT","Palatino Linotype",Georgia,serif;
+  --num:"Arial Narrow","Roboto Condensed",Arial,sans-serif;
+  --cycle:4.5s;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.45 var(--body);padding:24px 16px 80px;overflow-x:hidden}
+main{max-width:900px;margin:0 auto}
+h1{font:700 22px Cinzel,serif;color:var(--title);margin:0 0 4px}
+h2{font:700 15px Cinzel,serif;color:var(--title);margin:36px 0 4px}
+p.note{color:var(--ink2);margin:0 0 14px;max-width:740px}
+.ctl{position:sticky;top:0;z-index:20;background:rgba(7,6,5,.95);border-bottom:1px solid var(--rim);padding:10px 0;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.ctl label{color:var(--ink2)}
+.ctl button{background:#1a150f;color:var(--ink);border:1px solid var(--rim2);border-radius:3px;padding:4px 10px;cursor:pointer;font:12px var(--body)}
+.ctl button.on{border-color:var(--title);color:var(--title)}
+.win{position:relative;background:var(--panel);border:1px solid var(--rim);border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.strip{height:32px;display:flex;align-items:center;padding:0 14px;border-bottom:1px solid rgba(255,210,120,.10)}
+.ttl{font:700 16px Cinzel,serif;color:var(--title)}
+.icons{margin-left:auto;display:flex;gap:12px;color:var(--ink2)}
+.tabs{position:absolute;left:16px;bottom:0;display:flex;gap:4px}
+.tabs span{font:700 12px Cinzel,serif;color:var(--ink2);padding:6px 14px;border:1px solid var(--rim);border-bottom:none;border-radius:4px 4px 0 0;background:#0c0a08}
+.tabs span.on{color:var(--title);background:#17120c}
+.card{background:var(--panel);border:1px solid var(--rim);border-radius:6px;padding:14px}
+.eyebrow{font-size:10px;color:var(--ink2);text-transform:uppercase;letter-spacing:.08em}
+.gtitle{font:700 17px Cinzel,serif;color:var(--title);margin:4px 0 12px}
+
+/* track + fill: one component */
+.trk{position:relative;height:var(--h);border-radius:3px;background:linear-gradient(#060504,#14100b);
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.95),inset 0 0 0 1px #000,0 1px 0 rgba(255,225,150,.06);transition:box-shadow .2s}
+.trk::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(90deg,rgba(255,215,120,.05),transparent 70%)}
+.hot:hover .trk,.hot.hov .trk{box-shadow:inset 0 1px 2px rgba(0,0,0,.95),inset 0 0 0 1px #000,0 0 0 1px rgba(255,215,120,.35)}
+.fill{position:absolute;left:1px;top:1px;bottom:1px;width:calc((100% - 2px) * var(--p) / 100);border-radius:2px;
+  background:linear-gradient(90deg,var(--fa,var(--gA)),var(--fb,var(--gB)));transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.fill::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(rgba(255,250,220,.32),rgba(255,255,255,.04) 42%,rgba(0,0,0,.05) 55%,rgba(0,0,0,.42))}
+.fill::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,250,215,.8))}
+.glint{position:absolute;left:1px;top:1px;bottom:1px;width:calc((100% - 2px) * var(--p) / 100);overflow:hidden;border-radius:2px;pointer-events:none;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+.glint::after{content:"";position:absolute;top:0;bottom:0;width:40px;left:-40px;background:linear-gradient(90deg,transparent,rgba(255,250,225,.4),transparent);animation:flow var(--cycle) ease-in infinite}
+@keyframes flow{0%,50%{left:-40px;opacity:0}55%{opacity:1}92%{left:calc(100% - 20px);opacity:1}100%{left:100%;opacity:0}}
+.tip{position:absolute;top:50%;left:calc((100% - 2px) * var(--p) / 100 + 1px);width:3px;height:calc(var(--h) + 6px);transform:translate(-100%,-50%);border-radius:2px;
+  background:#fff6cc;box-shadow:0 0 7px 2px var(--tc,rgba(255,214,100,.8));animation:arrive var(--cycle) ease-out infinite;transition:left .55s cubic-bezier(.2,.8,.2,1);z-index:2}
+@keyframes arrive{0%,90%{opacity:.8;box-shadow:0 0 7px 2px var(--tc,rgba(255,214,100,.8))}95%{opacity:1;box-shadow:0 0 14px 5px var(--tc,rgba(255,226,130,.95))}100%{opacity:.8}}
+.ghost{position:absolute;top:1px;bottom:1px;border-radius:2px;background:rgba(255,248,215,.85);pointer-events:none;mix-blend-mode:screen;opacity:0}
+.ghost.go{animation:ghost 1.1s ease-out forwards}
+@keyframes ghost{0%{opacity:.95}100%{opacity:0}}
+.still .glint::after,.still .tip,.still .ghost.go{animation:none}
+.zero .fill,.zero .tip,.zero .glint{opacity:0}
+.done{--fa:var(--dA);--fb:var(--dB)}
+.done .tip{display:none}
+.blue{--fa:var(--bA);--fb:var(--bB);--tc:rgba(102,179,255,.85)}
+
+/* main bar ticks */
+.tick{position:absolute;top:3px;bottom:3px;width:1px;background:rgba(255,215,120,.13);z-index:1}
+.tick.lit{background:rgba(70,35,0,.5);box-shadow:1px 0 0 rgba(255,245,200,.3)}
+.tick.spark{animation:spark .7s ease-out}
+@keyframes spark{0%{background:#fff;box-shadow:0 0 10px 3px rgba(255,230,140,.95)}100%{}}
+
+/* numbers inside, two tone */
+.inl{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font:700 var(--fs,12px) var(--num);letter-spacing:.02em;white-space:nowrap;pointer-events:none;z-index:3;transition:opacity .35s}
+.inl.dk{color:#2a1700;clip-path:inset(0 calc(100% - var(--p) * 1%) 0 0);text-shadow:0 1px 0 rgba(255,240,180,.35)}
+.inl.lt{color:var(--ink);clip-path:inset(0 0 0 calc(var(--p) * 1%));text-shadow:0 1px 1px #000}
+.done .inl.dk{color:#0d2905}
+.hover-nums .hot .inl{opacity:0}
+.hover-nums .hot:hover .inl,.hover-nums .hot.flash .inl,.hover-nums .hot.hov .inl{opacity:1;transition-duration:.12s}
+
+/* segmented goal bar */
+.segs{position:relative;display:flex;gap:3px}
+.seg{position:relative;flex:1;cursor:default}
+.seg .tip{display:none}.seg.cur .tip{display:block}
+.seg .glint{display:none}.seg.cur .glint{display:block}
+.seg.sealed{--fa:var(--sealA);--fb:var(--sealB)}
+.seg.sealed .fill::after{opacity:.35}
+.seg.lit .trk{box-shadow:inset 0 1px 2px rgba(0,0,0,.95),inset 0 0 0 1px #000,0 0 0 1px rgba(255,215,120,.55)}
+.seg.seal-now .fill{animation:seal .9s ease-out}
+@keyframes seal{0%{filter:brightness(2.2)}100%{filter:brightness(1)}}
+.done .seg{--fa:var(--dA);--fb:var(--dB)}
+.segs .inl{inset:0;position:absolute}
+
+/* step list */
+.steps{margin-top:12px;display:grid;gap:2px}
+.step{display:flex;gap:10px;align-items:center;padding:4px 8px;border-radius:3px;color:var(--ink2);transition:background .15s,color .15s}
+.step .bx{width:12px;height:12px;border:1px solid var(--rim2);border-radius:2px;flex:none}
+.step.ok{color:#9fbf8a}.step.ok .bx{background:#3d8a22;border-color:#5fc23a}
+.step.now{color:var(--ink)}.step.now .bx{border-color:var(--title)}
+.step .ct{margin-left:auto;font:12px var(--num);color:var(--sub)}
+.step{flex-wrap:wrap;row-gap:3px}
+.step .mini{flex-basis:100%;margin-left:22px;height:4px}
+.step .mini .fill::after{display:none}
+.step.lit{background:rgba(255,215,120,.07);color:#fff}
+.step.lock{color:#6a604f}.step.lock .bx{border-style:dashed;border-color:#4a3f2c}
+.seg.locked .trk{background:repeating-linear-gradient(135deg,#0a0907 0 4px,#120f0a 4px 8px)}
+.seg.locked .trk::before{opacity:0}
+
+/* tooltip */
+.tt{position:absolute;z-index:10;top:calc(100% + 8px);left:50%;transform:translate(-50%,-3px);opacity:0;pointer-events:none;min-width:180px;
+  background:rgba(8,7,6,.97);border:1px solid #6b5a3a;border-radius:4px;padding:7px 10px;box-shadow:0 8px 24px rgba(0,0,0,.7);transition:opacity .15s,transform .15s;white-space:nowrap}
+.tt span{display:block}
+.tt .h{font-weight:700;color:#fff}.tt .s{color:var(--ink2)}.tt .g{color:var(--title)}.tt .n{font-family:var(--num)}
+.seg:hover .tt{opacity:1;transform:translate(-50%,0)}
+.seg:first-child .tt{left:0;transform:translateY(-3px)}.seg:first-child:hover .tt{transform:none}
+.seg:last-child .tt{left:auto;right:0;transform:translateY(-3px)}.seg:last-child:hover .tt{transform:none}
+.hot .tt.delay{transition-delay:0s}.hot:hover .tt.delay{opacity:1;transform:translate(-50%,0);transition-delay:.7s}
+.curlbl{position:absolute;top:calc(100% + 4px);font-size:11px;color:var(--ink2);white-space:nowrap;transform:translateX(-50%);transition:left .4s}
+
+.row2{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:16px;margin-top:16px}
+html,body{overflow-x:clip}
+@media (max-width:760px){.row2{grid-template-columns:minmax(0,1fr)}}
+.goalrow{display:flex;gap:9px;align-items:flex-end;background:#16120d;border:1px solid var(--rim);border-radius:4px;padding:8px;margin-top:8px}
+.ico{width:36px;height:36px;border:1px solid #6b5a3a;border-radius:3px;background:linear-gradient(135deg,#5b3a12,#1d140a);flex:none}
+.pophead{display:flex;align-items:center;gap:8px;font:700 13px Cinzel,serif;color:var(--title);height:26px}
+.pophead .ct{margin-left:auto;font:12px var(--num);color:var(--ink2)}
+</style>
+</head>
+<body class="hover-nums">
+<main>
+<h1>Progress bars, second pass</h1>
+<p class="note">Changes from the first pass: one light per bar (the glint now flows into the tip and makes it flare), a bright trail showing what you just earned, ticks that spark as you pass them, goal bars split into one segment per step, completed segments settled into a quieter gold (green now only means the whole goal is done), the game's own fonts, and the step list and bar lighting each other up on hover.</p>
+
+<div class="ctl">
+  <label>Overall</label><button id="o-dn">−6%</button><button id="o-up">+6%</button>
+  <label style="margin-left:8px">Goal</label><button id="g-part">Some progress</button><button id="g-step">Finish step</button><button id="g-later">Progress a later step</button><button id="g-undo">Reset goal</button>
+  <label style="margin-left:8px">Numbers</label><button data-nums="hover" class="on">On hover</button><button data-nums="always">Always</button>
+  <button id="motion" class="on">Motion on</button><button id="blue">Forever blue</button>
+</div>
+
+<h2>Main bar</h2>
+<p class="note">The bar sits centered in its band, with equal space above and below. Hovering lights the rim, which is the hint that there's more to see. Numbers appear inside, and a short summary follows after a pause. When progress goes up, the new stretch flashes and fades into the fill, and any 25/50/75 tick you cross sparks once.</p>
+<div class="win" style="height:132px">
+  <div class="strip"><span class="ttl">Forever Goal Tracker</span><span class="icons"><span>⚙</span><span>✕</span></span></div>
+  <div class="hot" id="main" style="position:absolute;left:16px;right:16px;top:52px">
+    <div class="trk" style="--h:24px">
+      <div class="fill"></div><div class="glint"></div><div class="ghost"></div>
+      <div class="tick" style="left:25%"></div><div class="tick" style="left:50%"></div><div class="tick" style="left:75%"></div>
+      <div class="inl dk" style="--fs:13px"><span data-o-pct></span><span data-o-goals></span></div>
+      <div class="inl lt" style="--fs:13px"><span data-o-pct></span><span data-o-goals></span></div>
+      <div class="tip"></div>
+    </div>
+    <div class="tt delay" style="min-width:250px">
+      <span class="h">Overall progress</span>
+      <span class="s">Nearest to done: <span style="color:var(--ink)">Arcanite Reaper, 86%</span></span>
+      <span class="s">Next milestone: <span class="g" data-o-next></span></span>
+    </div>
+  </div>
+  <div class="tabs"><span class="on">My Goals</span><span>Library</span><span>Materials</span></div>
+</div>
+
+<h2>Goal page: one segment per step</h2>
+<p class="note">The same rule now covers every goal: one segment per step, filled partway when the step has a count (skill, levels, reputation, items). Hover a segment for its step, or hover a step row to light its segment. Finished segments settle into a quieter gold, so the eye goes to the stage you're in. Past 12 steps the bar would become a comb, so it falls back to one continuous bar with 25/50/75 ticks. Out of order: segments always stay in the step list's position, so a later step can fill before an earlier one, leaving a gap. The glowing tip follows the step you last made progress on, not the leftmost one. Steps you can't do yet (the addon's existing requirement locks) are hatched. Try "Progress a later step". Tooltips never point anywhere ("above", "left"): they name the steps instead.</p>
+<div class="row2">
+  <div class="card">
+    <div class="eyebrow">Profession</div>
+    <div class="gtitle">Arcanite Reaper</div>
+    <div class="hot" id="goal" style="position:relative">
+      <div class="segs" data-goal="reaper" style="--h:18px"></div>
+    </div>
+    <div class="steps" data-steps="reaper"></div>
+  </div>
+  <div style="display:grid;gap:16px;align-content:start">
+    <div class="card">
+      <div class="eyebrow">Pop-out · 10 px</div>
+      <div class="pophead">Arcanite Reaper<span class="ct" data-pop-ct></span></div>
+      <div class="segs" data-goal="reaper" data-small style="--h:10px"></div>
+    </div>
+    <div class="card">
+      <div class="eyebrow">My Goals card · one plain bar</div>
+      <div class="goalrow">
+        <div class="ico"></div>
+        <div style="flex:1;min-width:0">
+          <div class="eyebrow" style="font-size:9.5px">Profession</div>
+          <div style="font-weight:700;margin-bottom:6px">Arcanite Reaper</div>
+          <div class="trk" id="cardbar" style="--h:6px"><div class="fill"></div><div class="glint"></div><div class="ghost"></div><div class="tip" style="width:2px"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>Reputation, as a goal like any other</h2>
+<p class="note">Each segment is a standing, like the reputation bar on the character sheet: you are in Friendly, so the Friendly segment is filling. No words at rest: hover a segment and one tooltip names that standing, its points, and what it unlocks. Filling the last segment, Revered, is reaching Exalted, and the whole bar turns green. Timbermaw starts at Hostile, so it simply has six segments; a Neutral-start faction has four. Hover any segment for its numbers.</p>
+<div class="card">
+  <div class="eyebrow">Reputation</div>
+  <div class="gtitle">Exalted: Timbermaw Hold</div>
+  <div class="hot" style="position:relative">
+    <div class="segs" data-goal="timber" style="--h:18px"></div>
+  </div>
+</div>
+
+<h2>Several things moving at once</h2>
+<p class="note">Ambassador: Alliance Capitals is four reputations climbing side by side. No new visual language: each segment fills partway on its own, the step list gives every moving step a thin bar of its own, and the one glowing tip sits on whichever you last advanced. One action that moves two steps flashes both trails; the tip goes to the one that moved most. A segment never splits into a bar inside a bar: Stormwind's four standings are one segment, filled a quarter per standing, with the details in its tooltip.</p>
+<div class="ctl" style="position:static;border:none;padding:0 0 12px"><button id="a-one">Turn in cloth: Stormwind</button><button id="a-two">Quest for Ironforge and Gnomeregan</button><button id="a-reset">Reset</button></div>
+<div class="card">
+  <div class="eyebrow">Reputation</div>
+  <div class="gtitle">Ambassador: Alliance Capitals</div>
+  <div class="hot" style="position:relative">
+    <div class="segs" data-goal="amb" style="--h:18px"></div>
+  </div>
+  <div class="steps" data-steps="amb"></div>
+</div>
+</main>
+
+<script>
+const FBC={Hostile:'#cc4d38',Unfriendly:'#bf4500',Neutral:'#e6b300',Friendly:'#2bad3a',Honored:'#2bad3a',Revered:'#2bad3a',Exalted:'#2bad3a'};
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+const GOALS={
+  reaper:{steps:[
+    {name:'Learn Blacksmithing',max:1,unit:''},
+    {name:'Reach Blacksmithing 300',max:300,unit:'skill',start:0},
+    {name:'Learn Weaponsmith',max:1,req:[[1,250]],needs:'Blacksmithing 250'},
+    {name:'Collect 12 Arcanite Bars',max:12,unit:'bars'},
+    {name:'Collect 2 Thorium Bars',max:2,unit:'bars'},
+    {name:'Craft Arcanite Reaper',max:1,req:[[1,300],[2,1],[3,12],[4,2]],needs:'all other steps'}],
+    val:[1,272,0,0,0,0]},
+  timber:{rep:true,steps:[
+    {name:'Hostile',next:'Unfriendly',max:3000},{name:'Unfriendly',next:'Neutral',max:3000},
+    {name:'Neutral',next:'Friendly',max:3000},{name:'Friendly',next:'Honored',max:6000},
+    {name:'Honored',next:'Revered',max:12000},{name:'Revered',next:'Exalted',max:21000}],
+    val:[3000,3000,3000,4200,0,0]}
+};
+const BANDS=[['Neutral',3000],['Friendly',6000],['Honored',12000],['Revered',21000]];
+GOALS.amb={chain:true,steps:[
+  {name:'Exalted with Stormwind',short:'Stormwind',max:42000},{name:'Exalted with Ironforge',short:'Ironforge',max:42000},
+  {name:'Exalted with Darnassus',short:'Darnassus',max:42000},{name:'Exalted with Gnomeregan Exiles',short:'Gnomeregan',max:42000}],
+  val:[13200,5400,42000,0]};
+function band(v){let acc=0;for(const [nm,mx] of BANDS){if(v<acc+mx)return {nm,got:v-acc,mx,done:BANDS.findIndex(b=>b[0]===nm)};acc+=mx}return {nm:'Exalted',got:0,mx:0,done:4}}
+function fracV(g,s,v){if(!g.chain)return Math.min(1,v/s.max);const b=band(v);return b.done>=4?1:(b.done+b.got/b.mx)/4}
+const startVals={reaper:[...GOALS.reaper.val],timber:[...GOALS.timber.val],amb:[...GOALS.amb.val]};
+const segHTML='<div class="seg"><div class="trk"><div class="fill"></div><div class="glint"></div><div class="ghost"></div><div class="tip"></div></div><div class="tt"></div></div>';
+
+function pctOf(g){return g.steps.reduce((a,s,i)=>a+fracV(g,s,g.val[i]),0)/g.steps.length*100}
+function locked(g,i){return (g.steps[i].req||[]).some(([k,at])=>g.val[k]<at)}
+function curIdx(g){const i=g.steps.findIndex((s,k)=>g.val[k]<s.max&&!locked(g,k));return i<0?g.steps.length:i}
+function tipIdx(g){if(g.chain&&g.last!=null)return g.val[g.last]<g.steps[g.last].max?g.last:curIdx(g);return g.last!=null&&g.val[g.last]<g.steps[g.last].max?g.last:curIdx(g)}
+
+function ghost(trk,from,to){
+  if(to<=from) return;
+  const gh=trk.querySelector('.ghost'); if(!gh) return;
+  gh.style.left=`calc((100% - 2px) * ${from} / 100 + 1px)`;
+  gh.style.width=`calc((100% - 2px) * ${to-from} / 100)`;
+  gh.classList.remove('go'); void gh.offsetWidth; gh.classList.add('go');
+}
+function flash(hot){if(!hot)return;hot.classList.add('flash');clearTimeout(hot._t);hot._t=setTimeout(()=>hot.classList.remove('flash'),2500)}
+
+document.querySelectorAll('.segs').forEach(el=>{
+  const g=GOALS[el.dataset.goal];
+  el.innerHTML=g.steps.map(()=>segHTML).join('');
+});
+document.querySelectorAll('[data-steps]').forEach(el=>{
+  const g=GOALS[el.dataset.steps];
+  el.innerHTML=g.steps.map((s,i)=>`<div class="step" data-i="${i}"><span class="bx"></span><span>${s.name}</span><span class="ct"></span><div class="mini trk" style="--h:4px"><div class="fill"></div></div></div>`).join('');
+});
+
+function renderGoal(key,prev){
+  const g=GOALS[key], ci=curIdx(g), ti=tipIdx(g), pct=pctOf(g), complete=g.steps.every((s,k)=>g.val[k]>=s.max);
+  document.querySelectorAll(`.segs[data-goal=${key}]`).forEach(el=>{
+    el.classList.toggle('done',complete);
+    el.style.setProperty('--p',pct);
+    el.querySelectorAll('.seg').forEach((sg,i)=>{
+      const s=g.steps[i], f=fracV(g,s,g.val[i])*100, pf=prev?fracV(g,s,prev[i])*100:f;
+      const trk=sg.querySelector('.trk');
+      trk.style.setProperty('--p',f);
+      sg.classList.toggle('zero',f<=0);
+      sg.classList.toggle('sealed',f>=100&&!complete);
+      sg.classList.toggle('cur',i===ti);
+      sg.classList.toggle('locked',f<100&&locked(g,i));
+      if(prev&&f>pf){ghost(trk,pf,f); if(f>=100){sg.classList.remove('seal-now');void sg.offsetWidth;sg.classList.add('seal-now')}}
+      const tt=sg.querySelector('.tt');
+      if(g.rep){
+        let h=`<span class="h" style="color:${FBC[s.name]}">${s.name}</span>`;
+        if(f>=100) h+=`<span class="s">Done · ${s.next} reached</span>`;
+        else if(i===ci) h+=`<span class="n">${fmt(g.val[i])} / ${fmt(s.max)}</span><span class="s">${fmt(s.max-g.val[i])} to ${s.next}</span>`;
+        else h+=`<span class="s n">${fmt(s.max)} points</span>`;
+        tt.innerHTML=h+`<span class="s n" style="margin-top:4px;border-top:1px solid #3a2f1f;padding-top:4px">Goal ${Math.round(pct)}%</span>`;
+      }else if(g.chain){
+        const b=band(g.val[i]);
+        let h=`<span class="h">${s.short}</span>`;
+        if(b.done>=4) h+=`<span style="color:${FBC.Exalted}">Exalted</span>`;
+        else h+=`<span style="color:${FBC[b.nm]}">${b.nm}</span><span class="n">${fmt(b.got)} / ${fmt(b.mx)}</span>`;
+        tt.innerHTML=h+`<span class="s n" style="margin-top:4px;border-top:1px solid #3a2f1f;padding-top:4px">Goal ${Math.round(pct)}%</span>`;
+      }else{
+        let h=`<span class="h">${s.name}</span>`;
+        if(f>=100) h+='<span class="s">Done</span>';
+        else if(s.max>1) h+=`<span class="n">${fmt(g.val[i])} / ${fmt(s.max)} ${s.unit||''}</span>`;
+        else if(locked(g,i)) h+=`<span class="s">Needs ${s.needs}</span>`;
+        else h+=`<span class="s">${i===ci?'Next':'Ready'}</span>`;
+        tt.innerHTML=h+`<span class="s n" style="margin-top:4px;border-top:1px solid #3a2f1f;padding-top:4px">Goal ${Math.round(pct)}%</span>`;
+      }
+    });
+    const a=Math.round(pct)+'%', b=g.rep?(complete?'Exalted':g.steps[ci].name):(Math.min(ci,g.steps.length)+' / '+g.steps.length+' steps');
+    el.querySelectorAll('[data-g-a]').forEach(e=>e.textContent=a);
+    el.querySelectorAll('[data-g-b]').forEach(e=>e.textContent=b);
+    const cl=el.querySelector('.curlbl');
+    if(cl){const n=g.steps.length,c=Math.min(ci,n-1);cl.style.left=((c+.5)/n*100)+'%';
+      cl.innerHTML=complete?'<span style="color:#8cff66">Exalted</span>':`<span style="color:${FBC[g.steps[c].name]}">${g.steps[c].name}</span>  <span class="n" style="font-family:var(--num)">${fmt(g.val[c])} / ${fmt(g.steps[c].max)}</span>`;}
+  });
+  document.querySelectorAll(`[data-steps=${key}] .step`).forEach((r,i)=>{
+    const s=g.steps[i];r.classList.toggle('ok',g.val[i]>=s.max);r.classList.toggle('now',i===ti&&g.val[i]<s.max);r.classList.toggle('lock',g.val[i]<s.max&&locked(g,i));
+    const moving=s.max>1&&g.val[i]<s.max&&g.val[i]>0;
+    r.querySelector('.ct').textContent=!moving?'':g.chain?band(g.val[i]).nm:fmt(g.val[i])+' / '+fmt(s.max);
+    const mb=r.querySelector('.mini');mb.style.display=moving?'block':'none';mb.style.setProperty('--p',fracV(g,s,g.val[i])*100);
+  });
+  if(key==='reaper'){
+    document.querySelectorAll('[data-pop-ct]').forEach(e=>e.textContent=g.steps.filter((s,k)=>g.val[k]>=s.max).length+' / '+g.steps.length);
+    const cb=document.getElementById('cardbar'), old=parseFloat(cb.style.getPropertyValue('--p'))||0;
+    cb.style.setProperty('--p',pct); cb.classList.toggle('done',complete); cb.classList.toggle('zero',pct<=0);
+    if(prev) ghost(cb,old,pct);
+  }
+}
+
+/* cross highlight */
+document.querySelectorAll('[data-steps] .step').forEach(r=>{
+  const key=r.parentElement.dataset.steps,i=+r.dataset.i;
+  r.addEventListener('mouseenter',()=>document.querySelectorAll(`.segs[data-goal=${key}]`).forEach(el=>el.children[i].classList.add('lit')));
+  r.addEventListener('mouseleave',()=>document.querySelectorAll('.seg.lit').forEach(s=>s.classList.remove('lit')));
+});
+document.querySelectorAll('.segs[data-goal]').forEach(el=>{
+  const key=el.dataset.goal;
+  [...el.querySelectorAll('.seg')].forEach((sg,i)=>{
+    sg.addEventListener('mouseenter',()=>{const r=document.querySelector(`[data-steps=${key}] .step[data-i="${i}"]`);if(r)r.classList.add('lit')});
+    sg.addEventListener('mouseleave',()=>document.querySelectorAll('.step.lit').forEach(s=>s.classList.remove('lit')));
+  });
+});
+
+/* main bar */
+let overall=42;
+function renderMain(prev){
+  const m=document.getElementById('main'), trk=m.querySelector('.trk');
+  trk.style.setProperty('--p',overall);
+  trk.classList.toggle('done',overall>=100); trk.classList.toggle('zero',overall<=0);
+  const goals=Math.round(overall/100*9);
+  m.querySelectorAll('[data-o-pct]').forEach(e=>e.textContent=overall+'%');
+  m.querySelectorAll('[data-o-goals]').forEach(e=>e.textContent=overall===0?'Pick a goal to begin':goals+' / 9 goals');
+  const next=[25,50,75,100].find(t=>t>overall); m.querySelector('[data-o-next]').textContent=next?next+'%':'All done';
+  m.querySelectorAll('.tick').forEach(t=>{const at=parseFloat(t.style.left);const was=t.classList.contains('lit');t.classList.toggle('lit',overall>=at);
+    if(prev!=null&&!was&&overall>=at){t.classList.remove('spark');void t.offsetWidth;t.classList.add('spark')}});
+  if(prev!=null){ghost(trk,prev,overall);flash(m)}
+}
+document.getElementById('o-up').onclick=()=>{const p=overall;overall=Math.min(100,overall+6);renderMain(p)};
+document.getElementById('o-dn').onclick=()=>{const p=overall;overall=Math.max(0,overall-6);renderMain(p)};
+
+function bump(key,mode){
+  const g=GOALS[key],prev=[...g.val],ci=curIdx(g);
+  if(mode==='reset'){g.val=[...startVals[key]];g.last=null;renderGoal(key);return}
+  let i=ci;
+  if(mode==='later'){i=-1;for(let k=g.steps.length-1;k>=0;k--){if(k!==ci&&g.val[k]<g.steps[k].max&&!locked(g,k)){i=k;break}}if(i<0)i=ci}
+  if(i>=g.steps.length) return;
+  const s=g.steps[i]; g.last=i;
+  g.val[i]=mode==='step'?s.max:Math.min(s.max,g.val[i]+Math.max(1,Math.round(s.max*.25)));
+  renderGoal(key,prev); flash(document.getElementById('goal'));
+}
+document.getElementById('g-part').onclick=()=>{bump('reaper','part');bump('timber','part')};
+document.getElementById('g-step').onclick=()=>{bump('reaper','step');bump('timber','step')};
+document.getElementById('g-later').onclick=()=>bump('reaper','later');
+function ambGain(list){const g=GOALS.amb,prev=[...g.val];let best=-1,bi=null;
+  list.forEach(([i,pts])=>{const before=fracV(g,g.steps[i],g.val[i]);g.val[i]=Math.min(g.steps[i].max,g.val[i]+pts);const d=fracV(g,g.steps[i],g.val[i])-before;if(d>best){best=d;bi=i}});
+  g.last=bi;renderGoal('amb',prev)}
+document.getElementById('a-one').onclick=()=>ambGain([[0,2400]]);
+document.getElementById('a-two').onclick=()=>ambGain([[1,1500],[3,1500]]);
+document.getElementById('a-reset').onclick=()=>bump('amb','reset');
+document.getElementById('g-undo').onclick=()=>{bump('reaper','reset');bump('timber','reset')};
+document.querySelectorAll('[data-nums]').forEach(b=>b.onclick=()=>{document.body.classList.toggle('hover-nums',b.dataset.nums==='hover');document.querySelectorAll('[data-nums]').forEach(x=>x.classList.toggle('on',x===b))});
+document.getElementById('motion').onclick=e=>{const s=document.body.classList.toggle('still');e.target.classList.toggle('on',!s);e.target.textContent=s?'Motion off':'Motion on'};
+document.getElementById('blue').onclick=e=>{const on=e.target.classList.toggle('on');document.querySelectorAll('.trk,.segs').forEach(t=>t.classList.toggle('blue',on))};
+renderMain(); renderGoal('reaper'); renderGoal('timber'); renderGoal('amb');
+</script>
+</body>
+</html>

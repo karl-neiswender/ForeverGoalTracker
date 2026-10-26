@@ -18,6 +18,7 @@ Npcs.lua
 Quests.lua
 Dependencies.lua
 Filters.lua
+Bars.lua
 Core.lua
 Tallies.lua
 ItemTooltips.lua

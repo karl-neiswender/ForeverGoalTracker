@@ -277,6 +277,8 @@ FGT.SETTING_DEFAULTS = {
     hideCompletedGoals = false, -- My Goals list filter; progress stays intact
     hideCompletedSteps = false, -- guide filter, controlled beside the steps heading
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
+    barNumbers = "hover",    -- the main bar's numbers: "hover" (and briefly when progress moves) or "always"
+    barTicks = true,         -- 25, 50 and 75 marks on the main bar and long goal bars
 }
 
 ---@overload fun(key: "scale"|"alpha"): number
@@ -989,6 +991,69 @@ local function RuleReadout(rule)
     return nil
 end
 
+-- Partial progress for the step segments (Karl's progress bar redesign, 2026-10-26). Each
+-- standing is an equal share of a reputation step, whatever its points, so the bar moves at the
+-- pace players think in. Points per standing, Hated to Exalted.
+FGT.REP_BAND = { 36000, 3000, 3000, 3000, 6000, 12000, 21000, 1000 }
+FGT.STANDING = STANDING
+
+-- How far a reputation rule has climbed from the standing `base` toward its target: 0..1, plus
+-- the best character's standing, points into it, that standing's size and the character's name.
+function FGT.RepProgress(rule, base)
+    local target = rule.rep.standing or 8
+    local st, val, who
+    for _, fid in ipairs(AsList(rule.rep.faction)) do
+        for _, c in pairs(RosterFor(rule)) do
+            local r = c.reps and c.reps[fid]
+            if r and (not st or r.standing > st or (r.standing == st and (r.value or 0) > val)) then
+                st, val, who = r.standing, r.value or 0, c.name
+            end
+        end
+    end
+    if not st then return 0 end
+    local size = FGT.REP_BAND[st] or 1
+    if st >= target then return 1, st, val, size, who end
+    base = math.min(base or 4, target - 1)
+    if st < base then return 0, st, val, size, who end
+    return ((st - base) + math.min(1, val / size)) / (target - base), st, val, size, who
+end
+
+-- Where a reputation step's climb starts: the previous step's standing when that step is for the
+-- same faction (Friendly, then Honored...), else Neutral.
+function FGT.RepBase(goal, i)
+    local rep = goal.steps[i].auto.rep
+    for k = i - 1, 1, -1 do
+        local prev = goal.steps[k]
+        local pr = type(prev) == "table" and prev.auto and prev.auto.rep
+        if pr then
+            if pr.faction == rep.faction then return pr.standing or 4 end
+            return 4
+        end
+    end
+    return 4
+end
+
+-- A step's fill, 0..1: 1 once it is ticked, else its count (skill, items, kills, gold, levels,
+-- reputation) when the step has one, else 0. Never 1 before the step is ticked.
+function FGT.StepFraction(goal, i)
+    if IsStepDone(goal.id, i) then return 1 end
+    local entry = goal.steps[i]
+    local rule = type(entry) == "table" and entry.auto
+    if type(rule) ~= "table" or entry.autoClass then return 0 end
+    local f = 0
+    if rule.rep then
+        f = FGT.RepProgress(rule, FGT.RepBase(goal, i))
+    elseif rule.level then
+        local best = 0
+        for _, c in pairs(RosterFor(rule)) do best = math.max(best, c.level or 0) end
+        f = best / rule.level
+    else
+        local _, cur, max = RuleReadout(rule)
+        if cur and max and max > 0 then f = cur / max end
+    end
+    return math.max(0, math.min(0.999, f))
+end
+
 local function DescribeRule(rule)
     if rule.description then return rule.description end
     local parts = {}
@@ -1132,6 +1197,46 @@ end
 
 FGT.GoalProgress = GoalProgress
 
+-- The steps a goal's bar shows as segments, in guide order (skipped and unchosen steps left
+-- out), or nil when the bar stays one continuous bar: set goals with pieces, the leveling goal,
+-- and goals with more than 12 steps (Karl, 2026-10-26: more would read as a comb).
+function FGT.SegmentSteps(goal)
+    if goal.autoLevels or goal.sections or not goal.steps then return nil end
+    local list = {}
+    for i = 1, #goal.steps do
+        if PartSelected(goal, i) and not FGT.PieceSkipped(goal.steps[i]) then list[#list + 1] = i end
+    end
+    if #list < 1 or #list > 12 then return nil end
+    return list
+end
+
+-- A goal's share done, 0..1, counting how far each unfinished step has come (a skill at 272 of
+-- 300 counts most of its step). What every bar and the overall percentage show; finishing and
+-- celebrating still go by ticked steps (GoalProgress).
+-- Within one redraw (FGT.fracPass, set by SelectGoal and RefreshOverall) each goal is worked
+-- out once: the list, the main bar and the goal page all ask, and progress can't change mid-draw.
+function FGT.GoalFraction(goal)
+    local pass = FGT.fracPass
+    if pass and pass.stamp ~= GetTime() then pass, FGT.fracPass = nil, nil end -- (a redraw that stopped early)
+    if pass and pass[goal] then return pass[goal] end
+    local f
+    if goal.autoLevels or goal.sections or not goal.steps then
+        local d, t = GoalProgress(goal)
+        f = t > 0 and d / t or 0
+    else
+        local sum, n = 0, 0
+        for i = 1, #goal.steps do
+            if PartSelected(goal, i) and not FGT.PieceSkipped(goal.steps[i]) then
+                n = n + 1
+                sum = sum + FGT.StepFraction(goal, i)
+            end
+        end
+        f = n > 0 and sum / n or 0
+    end
+    if pass then pass[goal] = f end
+    return f
+end
+
 -- Section-level (one class's set) progress, used by the Tier 3 header rows.
 local function SectionProgress(goal, si, section)
     local done, total = 0, 0
@@ -1146,12 +1251,14 @@ end
 -- 540-level goal doesn't drown out a 7-step one. Returned as
 -- (points, 1000 * goals) to keep the bar math simple.
 local function OverallProgress()
-    local sum, count = 0, 0
+    local sum, count, each = 0, 0, {}
     for _, g in ipairs(ActiveGoals()) do
-        local d, t = GoalProgress(g)
-        if t > 0 then sum = sum + d / t end
+        local f = FGT.GoalFraction(g) -- partial steps count (progress bar redesign, 2026-10-26)
+        each[g] = f
+        sum = sum + f
         count = count + 1
     end
+    FGT.lastFractions = each -- (the main bar's tooltip reads these instead of working them out again)
     return math.floor(sum * 1000 + 0.5), count * 1000
 end
 
@@ -2456,7 +2563,9 @@ local function NewBar(parent, height)
     bar.tip:SetBlendMode("ADD")
     bar.tip:SetPoint("TOPRIGHT", bar.fill, "TOPRIGHT", 0, 0)
     bar.tip:SetPoint("BOTTOMRIGHT", bar.fill, "BOTTOMRIGHT", 0, 0)
-    ApplyHGradient(bar.tip, { 1.00, 0.85, 0.40 }, { 1.00, 0.95, 0.70 }, 0, 0.75)
+    -- (softer on the taller bars, where the light has more room: Karl, 2026-10-26)
+    bar.softTipAlpha = height >= 13 and 0.5 or 0.75
+    ApplyHGradient(bar.tip, { 1.00, 0.85, 0.40 }, { 1.00, 0.95, 0.70 }, 0, bar.softTipAlpha)
 
     bar.label = NewFontString(parent, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
     bar.label:SetPoint("TOPRIGHT", bar, "BOTTOMRIGHT", 0, -4)
@@ -2468,6 +2577,8 @@ local function NewBar(parent, height)
         -- new in Forever: deep Forever blue building to light blue
         blue = { { 0.01, 0.12, 0.36 }, { 0.40, 0.70, 1.00 }, { 0.40, 0.70, 1.00 }, { 0.80, 0.92, 1.00 } },
         gold = { { 0.32, 0.18, 0.01 }, { 1.00, 0.86, 0.30 }, { 1.00, 0.85, 0.40 }, { 1.00, 0.95, 0.70 } },
+        -- a finished step's segment while its goal is still open: a quieter, settled gold
+        seal = { { 0.30, 0.20, 0.05 }, { 0.78, 0.60, 0.20 } },
     }
     local function Mix(a, b, p) return { a[1] + (b[1] - a[1]) * p, a[2] + (b[2] - a[2]) * p, a[3] + (b[3] - a[3]) * p } end
 
@@ -2511,9 +2622,10 @@ local function NewBar(parent, height)
         self.fill:SetShown(on)
         self.shade:SetShown(on)
         self.sheen:SetShown(on and height >= 6)
-        self.tip:SetWidth(math.min(self.softTipWidth or 24, fillW))
+        -- the hot tip covers at most half the fill, so a short fill never turns one bright block
+        self.tip:SetWidth(math.max(0.01, math.min(self.softTipWidth or math.max(24, height * 2), fillW * 0.5)))
         self.tip:SetShown(on and (not complete or self.fading ~= nil))
-        local look = complete and "done" or (self.blue and "blue" or "gold")
+        local look = complete and (self.sealed and "seal" or "done") or (self.blue and "blue" or "gold")
         if look ~= self.look then
             local from = self.look
             self.look = look
@@ -2525,11 +2637,12 @@ local function NewBar(parent, height)
             else
                 self.fading = nil
                 if self.fader then self.fader:SetScript("OnUpdate", nil) end
-                ApplyHGradient(self.fill, L[1], L[2])
-                if L[3] then ApplyHGradient(self.tip, L[3], L[4], 0, 0.75) end
-                if look == "done" then self.tip:Hide() end
+                ApplyHGradient(self.fill, (look == "gold" and self.fillStart) or L[1], L[2])
+                if L[3] then ApplyHGradient(self.tip, L[3], L[4], 0, self.softTipAlpha or 0.75) end
+                if look == "done" or look == "seal" then self.tip:Hide() end
             end
         end
+        FGT.Bars.Update(self, pct, complete)
     end
 
     -- The fill is drawn in pixels, so it re-fits whenever the bar's width
@@ -2565,7 +2678,9 @@ local function NewBar(parent, height)
     function bar:SetProgress(done, total, customLabel)
         local pct = total > 0 and math.min(1, done / total) or 0
         self.label:SetText(customLabel or string.format("%d / %d  ·  %d%%", done, total, math.floor(pct * 100 + 0.5)))
+        local from = self.target or self.cur
         self.target = pct
+        if from and not self.instant then FGT.Bars.Gain(self, from, pct) end
         if self.shineL then -- a finished shine never lingers into a new glide
             self.shineL:Hide(); self.shineC:Hide(); self.shineR:Hide()
         end
@@ -2584,11 +2699,13 @@ local function NewBar(parent, height)
     end
     FGT.allBars = FGT.allBars or {}
     table.insert(FGT.allBars, bar) -- for the idle glint below
+    FGT.Bars.Attach(bar, height) -- the bright tip, its pulse and the earned trail (Bars.lua)
     return bar
 end
 
--- Idle glint: every few seconds a faint light sweeps across the filled
--- part of each visible progress bar, top to bottom as a gentle wave.
+-- Idle glint: every few seconds a faint light travels along the filled
+-- part of each visible progress bar and ends at its tip, which flares
+-- (Bars.lua), top to bottom as a gentle wave.
 -- It stays inside the fill (a clip frame on it), skips empty and
 -- finished bars, and only plays with Celebrations on Full. Its own
 -- driver, so it never takes over a bar's glide or 100% shine.
@@ -2626,7 +2743,8 @@ do
             if FGT.Setting and FGT.Setting("celebrations") == "full" then
                 local list = {}
                 for _, bar in ipairs(FGT.allBars or {}) do
-                    if bar:IsVisible() and bar.fill:IsShown() and bar.look ~= "done" and (bar.cur or 0) > 0.02 then
+                    if bar:IsVisible() and bar.fill:IsShown() and bar.look ~= "done" and bar.look ~= "seal"
+                        and not bar.noLight and (bar.cur or 0) > 0.02 then
                         table.insert(list, bar)
                     end
                 end
@@ -2644,11 +2762,13 @@ do
                 if p >= 1 or not bar:IsVisible() then
                     g.l:Hide(); g.r:Hide()
                     active[bar] = nil
+                    if p >= 1 then FGT.Bars.Flare(bar) end -- the light arrives at the tip
                 else
-                    -- a wide, soft band gliding at an even pace (like a text shimmer)
+                    -- a wide, soft band gliding at an even pace toward the tip, where it ends
+                    -- and the tip flares (one light per bar: Karl, 2026-10-26)
                     local half = math.max(8, math.min(70, fw * 0.35))
-                    local x = -2 * half + (fw + 2 * half) * p
-                    local a = 0.22 * math.sin(math.pi * p) -- fades in, then out
+                    local x = -2 * half + (fw + half) * p
+                    local a = 0.22 * math.min(1, p / 0.2) * math.min(1, (1 - p) / 0.15)
                     g.l:SetWidth(half)
                     g.r:SetWidth(half)
                     g.l:ClearAllPoints()
@@ -3386,21 +3506,18 @@ end)
 local titleBar = CreateFrame("Frame", nil, main)
 titleBar:SetPoint("TOPLEFT", 0, 0)
 titleBar:SetPoint("TOPRIGHT", 0, 0)
-titleBar:SetHeight(56)
+titleBar:SetHeight(40)
 titleBar:EnableMouse(true)
 titleBar:RegisterForDrag("LeftButton")
 titleBar:SetScript("OnDragStart", BeginMove)
 titleBar:SetScript("OnDragStop", EndMove)
 
--- Masthead: Warcraft title in gold, a muted tagline under it, and a gold
--- underline that fades out to the right.
-local title = NewTitleString(titleBar, 20)
+-- Masthead: a slim strip with the Warcraft title in gold and a gold
+-- underline that fades out to the right. (The tagline went with the
+-- progress bar redesign, Karl 2026-10-26: the bar below has the room.)
+local title = NewTitleString(titleBar, 18)
 title:SetText(FGT.NAME)
-title:SetPoint("TOPLEFT", 16, -14)
-
-local tagline = NewFontString(titleBar, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-tagline:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -3)
-tagline:SetText(FGT.isForever and "Long-term goals for Warcraft Forever" or "Long-term goals for Classic Era")
+title:SetPoint("LEFT", 16, 0)
 
 local titleLine = NewFadeLine(titleBar)
 titleLine:SetPoint("BOTTOMLEFT", titleBar, "BOTTOMLEFT", 16, 0)
@@ -3498,18 +3615,68 @@ end
 
 local closeBtn = CreateFrame("Button", nil, titleBar)
 closeBtn:SetSize(22, 22)
-closeBtn:SetPoint("TOPRIGHT", -12, -12)
+closeBtn:SetPoint("RIGHT", -12, 0)
 FGT.IconButton(closeBtn, "close", 16)
 closeBtn:SetScript("OnClick", function() main:Hide() end)
 
--- Overall progress bar
-local overallBar = NewBar(main, 10)
-overallBar:SetPoint("TOPLEFT", 16, -70)
-overallBar:SetPoint("TOPRIGHT", -16, -70)
-
--- "N of 9 goals complete" summary line under the overall bar
-local goalsCompleteText = NewFontString(main, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
-goalsCompleteText:SetPoint("TOPLEFT", overallBar, "BOTTOMLEFT", 0, -4)
+-- Overall progress bar: the window's headline (Karl's redesign, 2026-10-26;
+-- reports/Progress-bars-2026-10-26.md). 24 tall, centered between the title
+-- strip and the tabs. At rest it shows no words: hovering lights its rim and
+-- fades the percentage and goal count in, inside the bar, and after a pause a
+-- tooltip adds what the bar can't show. When progress moves, the numbers show
+-- for a few seconds. Settings, Progress bars, Numbers: Always keeps them on.
+local overallBar = NewBar(main, 24)
+overallBar:SetPoint("TOPLEFT", 16, -59)
+overallBar:SetPoint("TOPRIGHT", -16, -59)
+overallBar.label:Hide()
+overallBar.pulse = true
+overallBar.fillStart = { 0.62, 0.40, 0.08 } -- a lighter start, so the dark numbers over the fill read
+do
+    local O = { shown = 0, want = 0 }
+    FGT.overallUI = O
+    O.nums = FGT.Bars.InsideNumbers(overallBar, function(parent, size) return NewFontString(parent, size, "") end, 12)
+    O.nums:SetAlpha(0)
+    FGT.Bars.SetTicks(overallBar, { 0.25, 0.5, 0.75 })
+    local fader = CreateFrame("Frame", nil, overallBar)
+    -- the same quick speed in and out (Karl, 2026-10-26); Celebrations Off just switches
+    local function Fade(self, elapsed)
+        if FGT.Setting("celebrations") == "off" then
+            O.shown = O.want
+        elseif O.want > O.shown then
+            O.shown = math.min(O.want, O.shown + elapsed / FGT.Bars.HOVER_FADE)
+        else
+            O.shown = math.max(O.want, O.shown - elapsed / FGT.Bars.HOVER_FADE)
+        end
+        O.nums:SetAlpha(O.shown)
+        if O.shown == O.want then self:SetScript("OnUpdate", nil) end
+    end
+    function O.Want()
+        local on = FGT.Setting("barNumbers") == "always" or O.hover
+            or (O.flashUntil and GetTime() < O.flashUntil)
+        O.want = (on and FGT.overallPopulated) and 1 or 0
+        if O.want ~= O.shown then fader:SetScript("OnUpdate", Fade) end
+    end
+    function O.Flash()
+        O.flashUntil = GetTime() + 2.5
+        O.Want()
+        C_Timer.After(2.6, O.Want)
+    end
+    overallBar:EnableMouse(true)
+    -- The tooltip fades in and out with the rim, on the same curve (Karl, 2026-10-26: it lagged
+    -- behind the border). A quick sweep across the window only brushes it, since it fades.
+    overallBar:SetScript("OnEnter", function(self)
+        O.hover = true
+        FGT.Bars.Ring(self, true)
+        O.Want()
+        if FGT.ShowOverallTip then FGT.ShowOverallTip(self) end
+    end)
+    overallBar:SetScript("OnLeave", function(self)
+        O.hover = nil
+        FGT.Bars.Ring(self, false)
+        O.Want()
+        FGT.Bars.TipOut(self)
+    end)
+end
 
 -- Tabs sit between the overall bar and the panels.
 local TABS_TOP = -102
@@ -4065,11 +4232,12 @@ local function RefreshGoalList()
             row.body:SetAlpha(0); row.body:Hide()
         end
         local done, total = GoalProgress(row.goal)
-        row.bar:SetProgress(done, total)
+        local share = math.floor(FGT.GoalFraction(row.goal) * 1000 + 0.5) -- partial steps count
+        row.bar:SetProgress(share, 1000)
         local isSelected = (row.goal.id == selectedId)
         local isNew = FGT.ApplyForeverLook(row, row.goal)
         if row.railBar then
-            row.railBar:SetProgress(done, total)
+            row.railBar:SetProgress(share, 1000)
             row.railBar:SetBlue(isNew and true or false)
         end
         if isNew then row.newChip:SetLabel(FGT.ForeverDot(12) .. isNew, C.FOREVER_LIGHT) end
@@ -4230,7 +4398,7 @@ function FGT.EnsureGoalRow(goal, i)
 
     -- Last line, level with the icon's bottom: progress, including the
     -- full bar on completed goals. Their date replaces the eyebrow.
-    row.bar = NewBar(row.body, 4)
+    row.bar = NewBar(row.body, 6) -- 6 tall, one plain bar (progress bar redesign, 2026-10-26)
     row.bar:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, 1)
     row.bar:SetPoint("RIGHT", row.body, "RIGHT", -10, 0)
     row.bar.label:Hide()
@@ -4880,44 +5048,14 @@ do
     end
 end
 
-local detailBar = NewBar(FGT.detailBody, 13)
-do -- A soft breathing highlight stays entirely inside the guide's fill.
-    detailBar.softTipWidth = 70
-    local render = detailBar.Render
-    local elapsedTotal = 0
-    local pulseElapsed = 0
-    local goldLeft, goldRight = {1,0.85,0.40}, {1,0.95,0.70}
-    local blueLeft, blueRight = {0.40,0.70,1}, {0.80,0.92,1}
-    local function PaintTip(self)
-        local pulse = FGT.Setting("celebrations") ~= "off"
-            and (0.5-0.5*math.cos(elapsedTotal*2*math.pi/5.5)) or 0.5
-        local left = self.blue and blueLeft or goldLeft
-        local right = self.blue and blueRight or goldRight
-        self.softTipAlpha = 0.22+0.04*pulse
-        ApplyHGradient(self.tip, left, right, 0, self.softTipAlpha)
-    end
-    function detailBar:Render(pct)
-        render(self, pct)
-        self.softTipActive = pct > 0.0005 and pct < 0.9995
-        if self.softTipActive then
-            self.tip:SetWidth(math.min(70, math.max(0.01, (self:GetWidth()-2)*pct)))
-            PaintTip(self)
-        end
-    end
-    local driver = CreateFrame("Frame", nil, detailBar)
-    driver:SetScript("OnUpdate", function(_, elapsed)
-        if not detailBar.softTipActive then return end
-        elapsedTotal = elapsedTotal + elapsed
-        pulseElapsed = pulseElapsed + elapsed
-        if pulseElapsed < 0.05 then return end
-        pulseElapsed = 0
-        PaintTip(detailBar)
-    end)
-end
+-- The goal page's bar: one continuous bar for set goals, the leveling goal and goals with more
+-- than 12 steps; other goals show their steps as segments (FGT.detailSegs, below) in its place.
+-- No words on it: hovering gives the count. Its light pulses (Bars.lua).
+local detailBar = NewBar(FGT.detailBody, 18)
+detailBar.pulse = true
 detailBar.celebrate = true -- gold shine when it glides to 100%
-detailBar.label:ClearAllPoints()
-detailBar.label:SetPoint("BOTTOMLEFT", detailBar, "TOPLEFT", 0, 4)
-detailBar.label:SetJustifyH("LEFT")
+detailBar.label:Hide()
+FGT.Bars.SetTicks(detailBar, { 0.25, 0.5, 0.75 })
 do -- The banner track keeps its bevel inside the bar, without an extra line underneath.
     detailBar.lip:Hide()
     detailBar:SetBackdrop({edgeFile=ETCH_EDGE, edgeSize=8,
@@ -4955,6 +5093,158 @@ do -- The banner track keeps its bevel inside the bar, without an extra line und
 end
 detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
 detailBar:SetPoint("RIGHT", -22, 0)
+
+do -- scoped (200-local budget)
+-- The goal page's step segments (Karl's progress bar redesign, 2026-10-26; Bars.lua draws them).
+-- One segment per step in guide order, filled as far as the step has come. Steps done out of
+-- order fill in place. The light sits on the step you last moved; once that one is done, on the
+-- first step you can do. Steps that can't be done yet are hatched. Hover a segment for its step;
+-- hovering a step row rings its segment.
+local segs = FGT.Bars.NewSegments(FGT.detailBody, 18, NewBar)
+segs:SetPoint("TOPLEFT", detailBar, "TOPLEFT", 0, 0)
+segs:SetPoint("BOTTOMRIGHT", detailBar, "BOTTOMRIGHT", 0, 0)
+segs:Hide()
+FGT.detailSegs = segs
+local memory = {} -- per goal: last seen fill per step, and the step last moved (this session)
+
+-- A step that needs other steps finished first (the order locks). Requirement locks (a level or
+-- standing not reached) only stop a hand tick: that step is the one you are working on, so it is
+-- not hatched (Karl saw a level step hatched while levelling, 2026-10-26).
+function FGT.SegmentBlocked(goal, i)
+    local locked, missing = FGT.StepLocked(goal, i)
+    return locked and (#missing.all > 0 or #missing.any > 0) or false
+end
+
+-- The segments for a goal: (data list for segs:Set, step indexes), or nil for a continuous bar.
+function FGT.SegmentData(goal)
+    local steps = FGT.SegmentSteps(goal)
+    if not steps then return nil end
+    local mem = memory[goal.id] or { fill = {} }
+    memory[goal.id] = mem
+    local d, t = GoalProgress(goal)
+    local complete = t > 0 and d >= t
+    local list, best, bestGain = {}, nil, 0
+    for k, i in ipairs(steps) do
+        local done = IsStepDone(goal.id, i)
+        local f = done and 1 or FGT.StepFraction(goal, i)
+        local before = mem.fill[i]
+        if before and f - before > bestGain then best, bestGain = i, f - before end
+        mem.fill[i] = f
+        list[k] = { frac = f, done = done, sealed = done and not complete,
+            locked = not done and FGT.SegmentBlocked(goal, i) }
+    end
+    if best then mem.last = best end
+    -- the light: the step last moved while it is unfinished, else the first step you can do
+    local tip
+    for k, i in ipairs(steps) do
+        if i == mem.last and not list[k].done then tip = k end
+    end
+    if not tip then
+        for k in ipairs(steps) do
+            if not list[k].done and not list[k].locked then tip = k; break end
+        end
+    end
+    if tip then list[tip].tip = true end
+    return list, steps
+end
+
+local function Commas(n)
+    local s = tostring(math.floor(n + 0.5)):reverse():gsub("(%d%d%d)", "%1,"):reverse()
+    return (s:gsub("^,", ""))
+end
+local SUB = C.SUBTEXT
+local REP_COLORS = { { 0.80, 0.30, 0.22 }, { 0.80, 0.30, 0.22 }, { 0.75, 0.27, 0.00 }, { 0.90, 0.70, 0.00 },
+    { 0.00, 0.60, 0.10 }, { 0.00, 0.60, 0.10 }, { 0.00, 0.60, 0.10 }, { 0.00, 0.60, 0.10 } } -- the game's own
+
+-- One segment's tooltip: how far its step has come, then the goal's share done. The step's own
+-- text stays in the step row, which lights up alongside (its links only work there: Karl,
+-- 2026-10-26). Steps it needs are named, never pointed at ("above", "left").
+function FGT.ShowSegmentTip(owner, goal, i)
+    local entry = goal.steps[i]
+    local rule = type(entry) == "table" and entry.auto or nil
+    local done = IsStepDone(goal.id, i)
+    local share = string.format("Goal %d%%", math.floor(FGT.GoalFraction(goal) * 100 + 0.5))
+    GameTooltip:SetOwner(owner, "ANCHOR_NONE")
+    GameTooltip:AddLine(share, 1, 1, 1)
+    if done then
+        GameTooltip:AddLine("Step done", C.DONE[1], C.DONE[2], C.DONE[3])
+    elseif FGT.SegmentBlocked(goal, i) then
+        FGT.AddStepLockLines(goal, i, true)
+    elseif rule and rule.level then
+        local best = 0
+        for _, c in pairs(RosterFor(rule)) do best = math.max(best, c.level or 0) end
+        GameTooltip:AddLine(string.format("Level %d / %d", math.min(best, rule.level), rule.level), SUB[1], SUB[2], SUB[3])
+    elseif rule and rule.rep then
+        local _, st, val, size, who = FGT.RepProgress(rule)
+        if st then
+            local c = REP_COLORS[st] or SUB
+            GameTooltip:AddLine(FGT.STANDING[st], c[1], c[2], c[3])
+            if st < 8 then
+                GameTooltip:AddLine(Commas(val) .. " / " .. Commas(size), SUB[1], SUB[2], SUB[3])
+                GameTooltip:AddLine(Commas(size - val) .. " to " .. FGT.STANDING[st + 1], SUB[1], SUB[2], SUB[3])
+            end
+            if who and who ~= UnitName("player") then GameTooltip:AddLine("Best: " .. who, SUB[1], SUB[2], SUB[3]) end
+        end
+    elseif rule then
+        local readout = RuleReadout(rule)
+        if readout then GameTooltip:AddLine(readout, SUB[1], SUB[2], SUB[3]) end
+    end
+    GameTooltip:Show()
+    FGT.Bars.TipIn(owner, 8, true) -- above the bar: the step row below lights up with it
+end
+
+segs.onEnter = function(self, k, bar)
+    local goal = FGT.GoalById(selectedId)
+    local i = self.steps and self.steps[k]
+    if not (goal and i) then return end
+    self:Light(k)
+    FGT.ShowSegmentTip(bar, goal, i)
+    if FGT.LightStepRow then FGT.LightStepRow(i) end
+end
+segs.onLeave = function(self, _, bar)
+    self:Light(nil)
+    FGT.Bars.TipOut(bar)
+    if FGT.LightStepRow then FGT.LightStepRow(nil) end
+end
+
+-- A step row is hovered (or left: nil): ring its segment.
+function FGT.LightSegment(i)
+    if not segs:IsShown() then return end
+    local k
+    for n, step in ipairs(segs.steps or {}) do if step == i then k = n end end
+    segs:Light(k)
+end
+
+-- Draws the goal page's bar: segments, or the continuous bar. Opening another goal jumps.
+function FGT.RefreshGoalBar(goal)
+    local list, steps = FGT.SegmentData(goal)
+    local jump = segs.goalId ~= goal.id or FGT.quietCelebrate
+    segs.goalId = goal.id
+    if list then
+        segs.steps = steps
+        segs:Show()
+        detailBar:SetAlpha(0)
+        detailBar:EnableMouse(false)
+        segs:Set(list, jump)
+    else
+        segs:Hide()
+        detailBar:SetAlpha(1)
+        detailBar:EnableMouse(true)
+    end
+end
+
+-- The continuous bar's hover: the count it no longer prints.
+detailBar:SetScript("OnEnter", function(self)
+    local goal = FGT.GoalById(selectedId)
+    if not goal then return end
+    GameTooltip:SetOwner(self, "ANCHOR_NONE")
+    GameTooltip:AddLine(string.format("Goal %d%%", math.floor(FGT.GoalFraction(goal) * 100 + 0.5)), 1, 1, 1)
+    GameTooltip:AddLine(FGT.StepCountText(goal), SUB[1], SUB[2], SUB[3])
+    GameTooltip:Show()
+    FGT.Bars.TipIn(self, 6)
+end)
+detailBar:SetScript("OnLeave", function(self) FGT.Bars.TipOut(self) end)
+end
 
 do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     local B = CreateFrame("Frame", nil, detailPanel)
@@ -7233,6 +7523,7 @@ function FGT.LayoutForeverInfo(goal)
     if word then chip:SetLabel(FGT.ForeverDot(12, false, -3) .. word .. " IN FOREVER", C.FOREVER_LIGHT) end
     chip:SetShown(word ~= nil)
     detailBar:SetBlue(word ~= nil)
+    FGT.detailSegs:SetBlue(word ~= nil)
 
     local dc = FGT.detailDoneChip
     if FGT.CheckGoalCompletions then FGT.CheckGoalCompletions() end -- date a goal finished just now
@@ -7737,6 +8028,16 @@ end)
 -- ============================================================
 local stepRowPool = {}
 
+-- A progress bar segment is hovered (or left: nil): light its step row the way hovering does.
+function FGT.LightStepRow(i)
+    for _, row in ipairs(stepRowPool) do
+        if row.hover and row:IsShown() then
+            -- (row.hover is a small object with Show and Hide only)
+            if (i ~= nil and row.segStep == i) or row:IsMouseOver() then row.hover:Show() else row.hover:Hide() end
+        end
+    end
+end
+
 local function GetStepRow(index, view)
     local stepRowPool = view and view.rows or stepRowPool
     local stepsContainer = view and view.content or stepsContainer
@@ -7840,6 +8141,11 @@ local function GetStepRow(index, view)
             self.box:SetBackdropBorderColor(C.BOX_RING[1], C.BOX_RING[2], C.BOX_RING[3], 1)
         end
     end)
+    -- a step row and its progress bar segment light each other (progress bar redesign)
+    if not view then
+        row:HookScript("OnEnter", function(self) if self.segStep then FGT.LightSegment(self.segStep) end end)
+        row:HookScript("OnLeave", function(self) if self.segStep then FGT.LightSegment(nil) end end)
+    end
 
     -- The game's own gold checkmark, so a checked step looks exactly
     -- like a ticked Blizzard checkbox.
@@ -8589,6 +8895,7 @@ RefreshSteps = function(goal, view)
         local stepText = FGT.StepText(type(entry) == "table" and entry.text or entry)
         local stepIcon = not view and type(entry) == "table" and entry.icon or nil
         local row = GetStepRow(i, view)
+        row.segStep = i -- (hovering the row rings its progress bar segment)
         if not PartSelected(goal, i) or FGT.PieceSkipped(entry) then
             row:Hide() -- part of a group you haven't added, or a step your race skips
         else
@@ -8675,6 +8982,12 @@ RefreshSteps = function(goal, view)
             row.ruleEntry = rule
             if rule then
                 local _, cur, max = RuleReadout(rule)
+                if rule.rep and not cur then
+                    -- reputation: the points into the standing the character is in, once the
+                    -- climb has reached this step (progress bar redesign, 2026-10-26)
+                    local f, _, val, size = FGT.RepProgress(rule, FGT.RepBase(goal, i))
+                    if f > 0 and f < 1 then cur, max = val, size end
+                end
                 if cur and max and not entry.hideProgressBar and not (rule.item and rule.count and rule.count > 1)
                     and not IsStepDone(goal.id, i) then
                     row.miniBar:ClearAllPoints()
@@ -8771,6 +9084,7 @@ SelectGoal = function(id, skipListRefresh)
     FGT.HideEmptyTracker()
     selectedId = id
     ForeverGoalTrackerDB.selected = id
+    FGT.fracPass = { stamp = GetTime() } -- one redraw: each goal's share is worked out once
 
     detailTitle:SetText(goal.name)
     local cw = goal.completeWith
@@ -8799,18 +9113,16 @@ SelectGoal = function(id, skipListRefresh)
     resetBtn:SetShown(not goal.autoLevels)
     if FGT.resetUndo and FGT.resetUndo.id ~= goal.id then FGT.resetUndo = nil end -- undo is per goal
     FGT.StyleResetButton()
-    local done, total = GoalProgress(goal)
     -- The bar is shared by every goal: opening a different goal jumps
     -- straight to its value, so it only glides when progress changes.
-    detailBar.instant = detailBar.goalId ~= goal.id or FGT.quietCelebrate or nil
+    -- Goals of up to 12 steps show segments in its place (FGT.RefreshGoalBar).
+    local segmented = FGT.SegmentSteps(goal) ~= nil
+    detailBar.noLight = segmented or nil
+    detailBar.instant = detailBar.goalId ~= goal.id or FGT.quietCelebrate or segmented or nil
     detailBar.goalId = goal.id
-    if goal.autoLevels then
-        detailBar:SetProgress(done, total, string.format("%d / %d levels  ·  %d%%",
-            done, total, math.floor(done / math.max(1, total) * 100 + 0.5)))
-    else
-        detailBar:SetProgress(done, total)
-    end
+    detailBar:SetProgress(math.floor(FGT.GoalFraction(goal) * 1000 + 0.5), 1000)
     detailBar.instant = nil
+    FGT.RefreshGoalBar(goal)
 
     RefreshSteps(goal)
     if FGT.detailViewport.goalId ~= goal.id then
@@ -8819,49 +9131,68 @@ SelectGoal = function(id, skipListRefresh)
     end
     FGT.UpdateDetailViewport()
     RefreshGoalList()
-    local d2, t2 = OverallProgress()
-    overallBar:SetProgress(d2, t2, string.format("%d%% overall", math.floor(d2 / math.max(1, t2) * 100 + 0.5)))
-    goalsCompleteText:SetText(string.format("%d of %d goals fully complete", CountGoalsComplete(), #ActiveGoals()))
+    if FGT.RefreshOverall then FGT.RefreshOverall() end
     if FGT.RefreshMaterials then FGT.RefreshMaterials() end
     if FGT.RefreshPopout then FGT.RefreshPopout() end
+    FGT.fracPass = nil
 end
 
 do -- scoped: keeps these locals out of the file's 200-local budget
 -- ============================================================
 -- Tabs: My Goals | Goal Library
 -- ============================================================
+-- The main bar and its numbers (built with the bar, near the title strip). The numbers only
+-- flash when the percentage moves while the window shows it, or when the first goal arrives.
 local function RefreshOverall()
     local populated = #ActiveGoals() > 0
     local wasPopulated = FGT.overallPopulated
     FGT.overallPopulated = populated
     overallBar:Show()
-    overallBar.label:SetShown(populated)
-    goalsCompleteText:SetShown(populated)
-    local W = FGT.welcome
-    if not populated then
-        if W and W.Tween then W.Tween("overallSummary", nil) end
-        overallBar.label:SetAlpha(0)
-        goalsCompleteText:SetAlpha(0)
-    elseif wasPopulated == false and W and W.Tween and W.Motion() ~= "off" then
-        overallBar.label:SetAlpha(0)
-        goalsCompleteText:SetAlpha(0)
-        W.Tween("overallSummary", 1.2, function(p)
-            local alpha = W.EaseOut(p)
-            overallBar.label:SetAlpha(alpha)
-            goalsCompleteText:SetAlpha(alpha)
-        end, function()
-            overallBar.label:SetAlpha(1)
-            goalsCompleteText:SetAlpha(1)
-        end)
-    elseif wasPopulated ~= true then
-        overallBar.label:SetAlpha(1)
-        goalsCompleteText:SetAlpha(1)
-    end
+    local own = not FGT.fracPass
+    if own then FGT.fracPass = { stamp = GetTime() } end
     local d, t = OverallProgress()
-    overallBar:SetProgress(d, t, string.format("%d%% overall", math.floor(d / math.max(1, t) * 100 + 0.5)))
-    goalsCompleteText:SetText(string.format("%d of %d goals fully complete", CountGoalsComplete(), #ActiveGoals()))
+    if own then FGT.fracPass = nil end
+    local pct = math.floor(d / math.max(1, t) * 100 + 0.5)
+    overallBar:SetProgress(d, t)
+    local O = FGT.overallUI
+    O.nums:SetText(pct .. "%", string.format("%d / %d goals", CountGoalsComplete(), #ActiveGoals()))
+    if populated and main:IsVisible() and ((O.lastPct and O.lastPct ~= pct) or wasPopulated == false) then
+        O.Flash()
+    end
+    O.lastPct = populated and pct or nil
+    O.Want()
 end
 FGT.RefreshOverall = RefreshOverall
+
+-- The main bar's tooltip, opened with its hover rim: what the bar itself can't show. It reads the
+-- numbers the last redraw worked out, so it opens at once even with many goals (Karl saw a lag
+-- with 167 goals when it worked them all out again, 2026-10-26).
+function FGT.ShowOverallTip(owner)
+    GameTooltip:SetOwner(owner, "ANCHOR_NONE")
+    GameTooltip:AddLine("Overall progress")
+    local each = FGT.overallPopulated and FGT.lastFractions
+    if not each then
+        GameTooltip:AddLine("Track goals from the Goal Library to see your progress here.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+    else
+        local best, bestF
+        for g, f in pairs(each) do
+            if f < 1 and (not bestF or f > bestF) then best, bestF = g, f end
+        end
+        if best then
+            GameTooltip:AddDoubleLine("Nearest to done", string.format("%s, %d%%", best.short or best.name, math.floor(bestF * 100 + 0.5)),
+                C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 1, 1)
+        end
+        local pct = FGT.overallUI.lastPct or 0
+        local next = (pct < 25 and 25) or (pct < 50 and 50) or (pct < 75 and 75) or (pct < 100 and 100) or nil
+        if next then
+            GameTooltip:AddDoubleLine("Next milestone", next .. "%", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        else
+            GameTooltip:AddLine("Every goal complete", C.DONE[1], C.DONE[2], C.DONE[3])
+        end
+    end
+    GameTooltip:Show()
+    FGT.Bars.TipIn(owner, 6)
+end
 
 -- Folder tabs: the active tab is a box with rounded top corners, a gold
 -- glow along its top edge and no bottom edge. Its sides curve outward
@@ -9527,7 +9858,7 @@ function FGT.HideEmptyTracker()
     for _, part in ipairs(detailParts) do part:Show() end
 end
 detailParts = { FGT.detailViewport.scroll, detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
-    detailBar, detailBar.label, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
+    detailBar, FGT.detailSegs, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
     FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip, FGT.detailEditBtn,
     FGT.personalNote, FGT.detailNoteBtn, FGT.goalBanner, FGT.completedStepsBtn }
 
@@ -11595,6 +11926,15 @@ FGT.SETTINGS = {
           optionMuted = function(v) return FGT.ChannelMuted(v) end,
           apply = function() FGT.PlayGoalSound(FGT.Setting("sound")) end },
     } },
+    { title = "Progress bars", rows = {
+        { type = "choice", key = "barNumbers", label = "Numbers",
+          desc = "Show the overall percentage and goal count on hover, or keep them on the bar",
+          options = { { "hover", "On hover" }, { "always", "Always" } },
+          apply = function() if FGT.overallUI then FGT.overallUI.Want() end end },
+        { type = "toggle", key = "barTicks", label = "Tick marks",
+          desc = "Marks at 25, 50 and 75 percent",
+          apply = function() if selectedId then SelectGoal(selectedId, true) end; FGT.RefreshOverall() end },
+    } },
     { title = "Images", rows = {
         { type = "choice", key = "imageEffects", label = "Image effects",
           desc = "Full: light, embers, snow and dust. Subtle: just the drifting clouds. Off: the image alone",
@@ -12599,8 +12939,7 @@ initFrame:SetScript("OnEvent", function(self, event, name)
 
     SelectGoal(ForeverGoalTrackerDB.selected)
     FGT.ShowTab(ForeverGoalTrackerDB.tab)
-    local d, t = OverallProgress()
-    overallBar:SetProgress(d, t, string.format("%d%% overall", math.floor(d / math.max(1, t) * 100 + 0.5)))
+    FGT.RefreshOverall()
 
     UpdateMinimapButtonPosition()
     minimapButton:SetShown(FGT.Setting("minimap"))

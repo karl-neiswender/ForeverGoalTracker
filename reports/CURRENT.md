@@ -91,6 +91,11 @@ its October 21 notes.
   matches for the goals added that day are in [the mapping](Artwork-goal-mapping-2026-10-26.md): Codex can use
   the named file as the source for each goal's banner. Nothing is installed; unmatched files are listed there.
 
+- Progress bar redesign (2026-10-26, PC, locked by Karl, unreleased, committed 2026-10-26):
+  [decision record and build status](Progress-bars-2026-10-26.md). New `Bars.lua` before Core.lua.
+  Karl reviewed the bars in Era and approved the depth, tip, hover and tooltip passes. Checks pass;
+  LuaLS last run before those passes. `/goals perf` with several goals open is still pending.
+
 - Horde Prophecy installed 2026-10-26 from approved `horde-prophecy-review-v1.png`.
   Dedicated Horde Priest Tier 1 texture rebuilt; existing faction mapping retained.
   Alliance keeps its portrait. Full game restart needed; native review pending.
