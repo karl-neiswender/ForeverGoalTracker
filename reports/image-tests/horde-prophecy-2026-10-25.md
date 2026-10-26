@@ -1,0 +1,7 @@
+# Horde Prophecy review
+
+Karl selected `Media/artwork/undead-priest-horde-tier1.jpg` for Horde Prophecy. Original preserved. Built-in imagegen output: `Media/final-images/horde-prophecy-review-v1.png`. Pending visual approval, not installed. Artist not yet verified; do not infer from filename.
+
+## Exact prompt
+
+Edit the supplied undead priest painting into ONE 4:3 landscape Forever Goal Tracker background for Horde Prophecy (Tier 1 Priest). Intended approved master 1200x900. Preserve the undead priest's identity, face, long hair, exact distinctive Prophecy armor including the large square shoulder structures, pose, hands, orb and stone interior architecture. Reframe the priest high toward the RIGHT with breathing room and keep the LEFT third quiet for addon text. Extend the existing setting naturally as needed; no extra characters or unrelated objects. Strictly neutral black and white grayscale, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a wide smooth neutral charcoal dark gradient into the LEFT side, strongest at the edge and gradually blending into the scene with no hard vertical strip. ALSO bake a soft dark BOTTOM gradient across approximately the lowest 100px of the 1200x900 composition, fading downward to near-black charcoal without a hard horizontal boundary. Both gradients must be part of the artwork. Remove any visible watermark or artist signature from the derivative; credits are kept separately. No added text, UI or frame. Preserve anatomically correct hands and original armor geometry.
