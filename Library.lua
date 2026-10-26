@@ -2252,6 +2252,66 @@ local library = {
     },
 
     {
+        -- Item 19334: epic Bind on Pickup two-hand sword, item level 73, requires level 60, +22 Agility, +16
+        -- Stamina, chance on hit for +300 Strength for 8 sec. Dropped by Razorgore the Untamed in Blackwing
+        -- Lair (warcraftdb and GearSources; no drop chance listed). Not in Forever's tables yet, so not marked
+        -- confirmed.
+        id = "the_untamed_blade", library = true, itemQuality = 4, instance = { 469, "Blackwing Lair" },
+        icon = "inv_sword_50",
+        name = "The Untamed Blade",
+        short = "Untamed Blade",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed sword dropped by Razorgore the Untamed in Blackwing Lair.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot The Untamed Blade from Razorgore the Untamed in Blackwing Lair.", auto = { item = 19334, owned = { "The Untamed Blade" } } },
+        },
+        completeWith = { item = 19334, owned = { "The Untamed Blade" } },
+        tips = {
+            "Defeat Razorgore the Untamed, the first boss of {raid_bwl:Blackwing Lair}, for a chance at {item:19334:The Untamed Blade}. No drop chance is listed.",
+            "It binds when picked up. It adds 22 Agility and 16 Stamina, and its chance on hit raises your Strength by 300 for 8 seconds.",
+            "Warriors, Paladins and Hunters can use a two-handed sword. Learn Two-Handed Swords before equipping it.",
+        },
+    },
+
+    {
+        -- Item 7954 and spell 10003: rare (blue) Bind on Equip main-hand mace, item level 47, requires level 42,
+        -- no stats; chance on hit disarms the target for 10 sec. Crafted by a Blacksmith: the Warcraft Wiki's
+        -- weaponsmithing table lists it at skill 235, taught by a trainer, under the Weaponsmith specialty
+        -- (that table is not the client data; the client tables give no required rank). Reagents are in
+        -- GearData: 24 Mithril Bar, 4 Core of Earth, 6 Truesilver Bar, 5 Citrine, 5 Jade, 4 Solid Grinding
+        -- Stone, 4 Thick Leather. Needs a Blacksmith Hammer. Forever: named in its tables, not confirmed.
+        id = "the_shatterer", library = true, itemQuality = 3,
+        icon = "inv_hammer_18",
+        name = "The Shatterer",
+        short = "The Shatterer",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Weeks",
+        note = "A main-hand mace made by a Weaponsmith. It needs Blacksmithing 235 and a lot of Mithril and Truesilver.",
+        steps = {
+            { text = "Reach level 42.", auto = { level = 42 } },
+            { text = "Reach Blacksmithing 235.", auto = { skill = { name = "Blacksmithing", rank = 235 } } },
+            { text = "Learn the Weaponsmith specialization." },
+            { text = "Learn The Shatterer from a Blacksmithing trainer." },
+            { text = "Gather 24 Mithril Bars.", auto = { item = 3860, count = 24 } },
+            { text = "Gather 6 Truesilver Bars.", auto = { item = 6037, count = 6 } },
+            { text = "Gather 4 Cores of Earth.", auto = { item = 7075, count = 4 } },
+            { text = "Gather 5 Citrine.", auto = { item = 3864, count = 5 } },
+            { text = "Gather 5 Jade.", auto = { item = 1529, count = 5 } },
+            { text = "Gather 4 Solid Grinding Stones.", auto = { item = 7966, count = 4 } },
+            { text = "Gather 4 Thick Leather.", auto = { item = 4304, count = 4 } },
+            { text = "Craft The Shatterer at an anvil.", auto = { item = 7954, owned = { "The Shatterer" } } },
+        },
+        completeWith = { item = 7954, owned = { "The Shatterer" } },
+        tips = {
+            "The recipe comes from a Blacksmithing trainer once you have the Weaponsmith specialization and 235 skill. Check your trainer for the exact skill.",
+            "You craft it with a Blacksmith Hammer at an anvil. It binds when equipped, so you can also buy one on the Auction House.",
+            "Its chance on hit disarms the target's weapon for 10 seconds. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+        },
+    },
+
+    {
         -- Item 18832: epic Bind on Pickup, Unique one-hand sword, item level 70, requires level 60, +9 Strength,
         -- +9 Agility, equip: +1% crit. Dropped by Garr in Molten Core, 20% (warcraftdb). Not in Forever's
         -- tables yet, so not marked confirmed.
@@ -2838,10 +2898,139 @@ local library = {
             { text = "Place 25 campfires.", auto = { campfires = 25 } },
         },
     },
+    -- Dances are counted from the emote itself (Core.lua hooks DoEmote); the Statistics window has no dance
+    -- counter. Not checked on Forever, so not marked confirmed.
+    {
+        id = "social_dances", library = true,
+        icon = { "inv_misc_note_01", "inv_misc_groupneedmore" },
+        name = "Dance", short = "Dance",
+        category = "Social", difficulty = "Easy",
+        timeEstimate = "Days",
+        note = "Dance with /dance. Progress is tracked automatically.",
+        tips = {
+            "Type /dance in chat, or choose Dance from the Emotes menu. Every dance counts, alone or not.",
+            "Only dances made while the addon is enabled are counted.",
+        },
+        target = { kind = "dances", default = 25, min = 5, max = 500, marks = { 0.2, 0.4, 1 },
+                   step = "Dance %s times.", one = "Dance for the first time.", unit = "dances" },
+        steps = {
+            { text = "Dance 5 times.", auto = { dances = 5 } },
+            { text = "Dance 10 times.", auto = { dances = 10 } },
+            { text = "Dance 25 times.", auto = { dances = 25 } },
+        },
+    },
+    -- Chests are counted from the "Opening" cast on an object named like a chest (Core.lua: FGT.IsChestCast), only
+    -- while this goal is added. Not checked on Forever, so not marked confirmed.
+    {
+        id = "social_chests", library = true,
+        icon = { "inv_box_01", "inv_misc_groupneedmore" },
+        name = "Open Treasure Chests", short = "Treasure Chests",
+        category = "Social", difficulty = "Moderate",
+        timeEstimate = "Weeks",
+        note = "Open treasure chests in the world and in dungeons. Progress is tracked automatically.",
+        tips = {
+            "Right-click a chest such as a Solid Chest, Large Iron Bound Chest or Dark Coffer. It counts when the opening finishes.",
+            "Locked chests need a key or Lockpicking first. Chests that open without a cast, which includes some raid chests, may not be counted.",
+            "Only chests opened while this goal is added and the addon is enabled are counted, on any of your characters.",
+        },
+        target = { kind = "chests", default = 25, min = 5, max = 500, marks = { 0.2, 0.4, 1 },
+                   step = "Open %s treasure chests.", one = "Open your first treasure chest.", unit = "chests" },
+        steps = {
+            { text = "Open 5 treasure chests.", auto = { chests = 5 } },
+            { text = "Open 10 treasure chests.", auto = { chests = 10 } },
+            { text = "Open 25 treasure chests.", auto = { chests = 25 } },
+        },
+    },
+    {
+        id = "social_dance_partners", library = true,
+        icon = { "inv_misc_note_03", "inv_misc_groupneedmore" },
+        name = "Dance With Others", short = "Dance Partners",
+        category = "Social", difficulty = "Easy",
+        timeEstimate = "Days",
+        note = "Dance with other players. Progress is tracked automatically.",
+        tips = {
+            "Target another player and type /dance, or type /dance and their name. It counts as a dance with them.",
+            "Only dances made while the addon is enabled are counted.",
+        },
+        target = { kind = "dancesWithOthers", default = 10, min = 3, max = 200, marks = { 0.3, 0.5, 1 },
+                   step = "Dance with other players %s times.", one = "Dance with another player.", unit = "dances" },
+        steps = {
+            { text = "Dance with another player 3 times.", auto = { dancesWithOthers = 3 } },
+            { text = "Dance with other players 5 times.", auto = { dancesWithOthers = 5 } },
+            { text = "Dance with other players 10 times.", auto = { dancesWithOthers = 10 } },
+        },
+    },
 }
 
 for _, goal in ipairs(library) do
     table.insert(FGT.goals, goal)
+end
+
+-- Cloth donations to the capitals (Classic Era 1.12). Each capital's cloth quartermaster takes 60 Wool, Silk,
+-- Mageweave and Runecloth once (minimum levels 12, 26, 40 and 50), then repeats "Additional Runecloth" (20
+-- Runecloth, about 50 reputation). Quest ids, faction ids and reputation values are from the Questie database
+-- bundled in research_notes; the quartermasters' names and places are from the Warcraft Wiki's Cloth
+-- Quartermaster page. Faction ids are the Ambassador goals' (72, 47, 69, 54, 76, 81, 68, 530).
+do
+    local CITIES = {
+        { key = "stormwind", name = "Stormwind", faction = "Alliance", rep = 72,
+          npc = "Clavicus Knavingham", where = "the Mage Quarter of Stormwind City",
+          quests = { 7791, 7793, 7794, 7795 }, icon = "spell_arcane_teleportstormwind" },
+        { key = "ironforge", name = "Ironforge", faction = "Alliance", rep = 47,
+          npc = "Mistina Steelshield", where = "the Great Forge in Ironforge",
+          quests = { 7802, 7803, 7804, 7805 }, icon = "spell_arcane_teleportironforge" },
+        { key = "darnassus", name = "Darnassus", faction = "Alliance", rep = 69,
+          npc = "Raedon Duskstriker", where = "Craftsmen's Terrace in Darnassus",
+          quests = { 7792, 7798, 7799, 7800 }, icon = "spell_arcane_teleportdarnassus" },
+        { key = "gnomeregan", name = "Gnomeregan Exiles", short = "Gnomeregan", faction = "Alliance", rep = 54,
+          npc = "Bubulo Acerbus", where = "Tinker Town in Ironforge",
+          quests = { 7807, 7808, 7809, 7811 }, icon = "inv_misc_gear_01" },
+        { key = "orgrimmar", name = "Orgrimmar", faction = "Horde", rep = 76,
+          npc = "Rashona Straglash", where = "the Drag in Orgrimmar",
+          quests = { 7826, 7827, 7831, 7824 }, icon = "spell_arcane_teleportorgrimmar" },
+        { key = "undercity", name = "Undercity", faction = "Horde", rep = 68,
+          npc = "Ralston Farnsley", where = "the Magic Quarter in Undercity",
+          quests = { 7813, 7814, 7817, 7818 }, icon = "spell_arcane_teleportundercity" },
+        { key = "thunderbluff", name = "Thunder Bluff", faction = "Horde", rep = 81,
+          npc = "Rumstag Proudstrider", where = "the Middle Rise in Thunder Bluff",
+          quests = { 7820, 7821, 7822, 7823 }, icon = "spell_arcane_teleportthunderbluff" },
+        { key = "darkspear", name = "Darkspear Trolls", short = "Darkspear", faction = "Horde", rep = 530,
+          npc = "Vehena", where = "the Valley of Spirits in Orgrimmar",
+          quests = { 7833, 7834, 7835, 7836 }, icon = "inv_misc_head_troll_01" },
+    }
+    local TIERS = { { "Wool Cloth", "wool" }, { "Silk Cloth", "silk" }, { "Mageweave Cloth", "mageweave" }, { "Runecloth", "runecloth" } }
+    for _, c in ipairs(CITIES) do
+        local steps = {}
+        for i, cloth in ipairs(TIERS) do
+            steps[#steps + 1] = {
+                text = string.format("Turn in 60 %s to %s in %s.", cloth[1], c.npc, c.where),
+                icon = "inv_fabric_" .. cloth[2] .. "_01",
+                auto = { quest = c.quests[i], forFaction = c.faction },
+            }
+        end
+        for _, level in ipairs({ { 6, "Honored" }, { 7, "Revered" }, { 8, "Exalted" } }) do
+            steps[#steps + 1] = {
+                text = string.format("Reach %s with %s.", level[2], c.name),
+                icon = c.icon,
+                auto = { rep = { faction = c.rep, standing = level[1] }, forFaction = c.faction },
+            }
+        end
+        table.insert(FGT.goals, {
+            id = "cloth_" .. c.key, library = true, faction = c.faction,
+            icon = { c.icon, "inv_fabric_runecloth_01" },
+            name = "Cloth Donations: " .. c.name,
+            short = (c.short or c.name) .. " Cloth",
+            category = "Reputation", difficulty = "Hard",
+            timeEstimate = "3+ Months",
+            note = "Donate cloth to " .. c.npc .. " in " .. c.where .. ", then repeat Runecloth turn-ins up to Exalted with " .. c.name .. ".",
+            steps = steps,
+            tips = {
+                "The one-time donations unlock at levels 12 (Wool), 26 (Silk), 40 (Mageweave) and 50 (Runecloth).",
+                "After the Runecloth donation, " .. c.npc .. " offers the repeatable quest Additional Runecloth: 20 Runecloth for about 50 reputation. Repeat it to climb to Exalted.",
+                "Each capital has its own quartermaster and its own reputation. The Ambassador goal needs all of them.",
+            },
+        })
+    end
 end
 
 -- AQ40 trash mounts: Classic names, IDs, icons and sources checked on

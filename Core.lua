@@ -827,6 +827,9 @@ FGT.COUNTERS = {
     campfires = "campfires placed",
     buffs = "buffs cast on other players",
     summons = "summoning rituals begun",
+    dances = "dances",
+    dancesWithOthers = "dances with other players",
+    chests = "treasure chests opened",
 }
 local function CounterTotal(roster, key)
     local total = 0
@@ -10227,6 +10230,7 @@ local function SetGoalActive(goal, on)
         FGT.TallyStop(goal)
     end
     ForeverGoalTrackerDB.active[goal.id] = on or nil
+    if goal.id == "social_chests" then FGT.WatchCasts() end -- the cast watcher runs only while it is added
     if LF.batch then
         LF.batch.first = LF.batch.first or (on and goal) or nil
         return
@@ -13471,6 +13475,21 @@ function FGT.BuffSpellName(id)
     end
     return known
 end
+-- Treasure chests: opening one casts "Opening" on it, so that spell aimed at a target named like a chest
+-- counts when the cast succeeds (English names, like the buff list). Watched only while the goal is added.
+FGT.CHEST_WORDS = { "chest", "coffer", "strongbox", "footlocker", "safe", "cache", "trunk" }
+function FGT.ChestsWanted()
+    local DB = ForeverGoalTrackerDB
+    return (DB and DB.active and DB.active.social_chests) and true or false
+end
+function FGT.IsChestCast(spell, target)
+    if type(target) ~= "string" or target == "" or FGT.SpellName(spell) ~= "Opening" then return false end
+    local lower = target:lower()
+    for _, word in ipairs(FGT.CHEST_WORDS) do
+        if lower:find(word, 1, true) then return true end
+    end
+    return false
+end
 function FGT.CountBuff(name, target)
     if target and target ~= "" and target ~= UnitName("player") then
         FGT.Count("buffs", true)
@@ -13500,7 +13519,8 @@ pcall(rosterWatcher.RegisterEvent, rosterWatcher, "BOSS_KILL")
 -- Spell casts are only watched while something needs them (a known campfire spell, or the
 -- /goals logcasts recorder), so the addon is not woken for every cast you make.
 function FGT.WatchCasts()
-    local want = FGT.CampfireReady() or FGT.CanBuff() or FGT.CanSummon() or (FGT.castLogUntil and GetTime() < FGT.castLogUntil)
+    local want = FGT.CampfireReady() or FGT.CanBuff() or FGT.CanSummon() or FGT.ChestsWanted()
+        or (FGT.castLogUntil and GetTime() < FGT.castLogUntil)
     if want and not FGT.watchingCasts then
         FGT.watchingCasts = pcall(rosterWatcher.RegisterUnitEvent, rosterWatcher, "UNIT_SPELLCAST_SUCCEEDED", "player")
         pcall(rosterWatcher.RegisterUnitEvent, rosterWatcher, "UNIT_SPELLCAST_SENT", "player")
@@ -13512,6 +13532,19 @@ function FGT.WatchCasts()
 end
 
 FGT.WatchCasts() -- (nothing to watch until a campfire spell is listed)
+
+-- /dance and the Emotes menu both end in DoEmote (the Statistics window has no dance counter). A dance
+-- counts as "with someone" when it names a player or you have another player targeted.
+if type(DoEmote) == "function" then
+    hooksecurefunc("DoEmote", function(token, target)
+        if token ~= "DANCE" then return end
+        FGT.Count("dances")
+        if (type(target) == "string" and target ~= "")
+            or (UnitExists("target") and UnitIsPlayer("target") and not UnitIsUnit("target", "player")) then
+            FGT.Count("dancesWithOthers")
+        end
+    end)
+end
 
 rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
     if event == "CHAT_MSG_LOOT" then
@@ -13540,6 +13573,10 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
             FGT.pendingBuffs = FGT.pendingBuffs or {}
             FGT.pendingBuffs[arg3] = { name, arg2 or "" }
         end
+        if FGT.ChestsWanted() and FGT.IsChestCast(arg4, arg2) then
+            FGT.pendingChests = FGT.pendingChests or {}
+            FGT.pendingChests[arg3] = true
+        end
         return
     end
     if event == "PLAYER_LOGIN" then FGT.WatchCasts() end
@@ -13549,6 +13586,10 @@ rosterWatcher:SetScript("OnEvent", function(_, event, arg1, arg2, arg3, arg4, ar
         if pending then
             FGT.pendingBuffs[arg2] = nil
             FGT.CountBuff(pending[1], pending[2])
+        end
+        if FGT.pendingChests and FGT.pendingChests[arg2] then
+            FGT.pendingChests[arg2] = nil
+            FGT.Count("chests")
         end
         if FGT.castLogUntil and GetTime() < FGT.castLogUntil then
             local name = FGT.SpellName(spell) or "?"
@@ -14787,6 +14828,9 @@ local function Suggest(picked)
                     push(list, Entry(me, id, nil, tag)) -- (Entry skips them without a Statistics window)
                 end
                 push(list, Entry(me, "social_campfires", nil, tag))
+                push(list, Entry(me, "social_dances", nil, tag))
+                push(list, Entry(me, "social_dance_partners", nil, tag))
+                push(list, Entry(me, "social_chests", nil, tag))
             end
             -- goals you've already started go first
             local started, rest = {}, {}
