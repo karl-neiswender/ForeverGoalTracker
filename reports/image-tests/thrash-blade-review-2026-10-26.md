@@ -1,0 +1,5 @@
+# Thrash Blade banner, 2026-10-26
+
+Source: `Media/artwork/weapon-thrash-blade.jpg`. Review: `Media/final-images/thrash-blade-review-v1.png`. Master: `Media/final-images/weapons/thrash-blade-master.png`. Runtime: `Media/thrash_blade-banner.blp`. Approved by Karl. Artist unconfirmed.
+
+Prompt: Create a 4:3 landscape Forever Goal Tracker banner based on the illustration in this reference card. Preserve the green-skinned warrior's identity, spiked hair, armor, crouching pose, hands and distinctive curved Thrash Blade, as well as the large stone creature behind him; extend the scene naturally. Place the warrior and blade high toward the right with breathing room, keeping the left third quiet for addon text. Remove the card frame, printed words, icons and signatures. Use strictly neutral black and white, moderately increased contrast, painterly midtones and controlled highlights. Bake a broad smooth dark charcoal gradient into the left edge and a soft bottom gradient fading to near-black, without hard edges. No added text, UI, border, unrelated objects or extra characters.

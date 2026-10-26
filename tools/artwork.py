@@ -16,6 +16,13 @@ FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
     "pvp_theramore_expedition": "reputations/theramore-expeditionary-force-master.png",
     "pvp_darkspear_raiders": "reputations/darkspear-raiders-master.png",
+    "touch_of_chaos": "weapons/touch-of-chaos-master.png",
+    "thrash_blade": "weapons/thrash-blade-master.png",
+    "wand_of_eternal_light": "weapons/wand-of-eternal-light-master.png",
+    "wraith_scythe": "weapons/wraith-scythe-master.png",
+    "hammer_of_grace": "weapons/hammer-of-grace-master.png",
+    "cruel_hand_of_timmy": "weapons/cruel-hand-of-timmy-master.png",
+    "raid_kazzak": "raids/lord-kazzak-master.png",
     "raid_barrow": "raids/burrow-deeps-master.png",
     "social_lol": "social/say-lol-master.png",
     "social_hugs": "social/give-hugs-master.png",

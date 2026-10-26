@@ -1,0 +1,5 @@
+# Wand of Eternal Light banner, 2026-10-26
+
+Source: `Media/artwork/weapon-wand-of-eternal-light.jpg`. Review: `Media/final-images/wand-of-eternal-light-review-v1.png`. Master: `Media/final-images/weapons/wand-of-eternal-light-master.png`. Runtime: `Media/wand_of_eternal_light-banner.blp`. Approved by Karl. Artist unconfirmed.
+
+Prompt: Create a 4:3 landscape Forever Goal Tracker banner based on the illustration in the reference card. Preserve the robed spellcaster, their pose and hands, and the slender wand with its luminous star-shaped tip. Extend the shadowy scene naturally and compose the character and wand high toward the right, keeping the left third quiet for addon text. Remove the card frame, lettering, icons and signatures. Render in strictly neutral black and white with moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a wide smooth dark charcoal gradient into the left edge and a soft dark gradient across the bottom fading to near-black, with natural transitions. No hard boundaries, added text, UI, border, extra characters or unrelated objects.

@@ -1,0 +1,5 @@
+# The Hammer of Grace banner, 2026-10-26
+
+Source: `Media/artwork/weapon-the-hammer-of-grace.jpg`. Review: `Media/final-images/hammer-of-grace-review-v1.png`. Master: `Media/final-images/weapons/hammer-of-grace-master.png`. Runtime: `Media/hammer_of_grace-banner.blp`. Approved by Karl. Artist unconfirmed.
+
+Imagegen prompt: Create a 4:3 landscape Forever Goal Tracker banner from the illustration on this card. Faithfully preserve the distinctive square-headed glowing hammer, its luminous ornamental pattern, handle, two armored hands clasping it, armor and central upright pose. Expand the scene naturally while placing the hammer and hands high toward the right with breathing room and keeping the left third quiet for overlay text. Remove card frame, text, icons and signatures. Strictly neutral black and white, moderately increased contrast, painterly midtones and controlled highlights. Bake a wide smooth dark charcoal gradient along the left edge blending gradually into the scene and a soft bottom gradient fading to near-black. No hard gradient boundaries, added text, UI, border, extra characters or unrelated objects.

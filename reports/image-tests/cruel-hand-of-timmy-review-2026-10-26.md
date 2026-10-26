@@ -1,0 +1,5 @@
+# The Cruel Hand of Timmy banner, 2026-10-26
+
+Source: `Media/artwork/weapon-the-cruel-hand-of-timmy.jpg`. Review: `Media/final-images/cruel-hand-of-timmy-review-v1.png`. Master: `Media/final-images/weapons/cruel-hand-of-timmy-master.png`. Runtime: `Media/cruel_hand_of_timmy-banner.blp`. Approved by Karl. Artist unconfirmed.
+
+Imagegen prompt: Create a 4:3 landscape Forever Goal Tracker banner based on the card's illustration. Faithfully preserve the distinctive skull-headed mace, its handle and the figure holding it; extend the scene naturally as needed. Remove card frame, printed text, symbols and signatures. Strictly neutral black and white with moderately increased contrast, painterly midtones and controlled highlights. Place the main subject high toward the right with breathing room; keep the left third quiet for text. Bake a broad smooth dark charcoal gradient into the left edge blending gradually into the scene and a soft dark bottom gradient fading to near-black. No hard boundaries, added text, UI, border, extra characters or unrelated objects.

@@ -1,0 +1,5 @@
+# Touch of Chaos banner, 2026-10-26
+
+Source: `Media/artwork/weapon-touch-of-chaos.png`. Review: `Media/final-images/touch-of-chaos-review-v1.png`. Master: `Media/final-images/weapons/touch-of-chaos-master.png`. Runtime: `Media/touch_of_chaos-banner.blp`. Approved by Karl. The source card credits Tom Baxa.
+
+Prompt: Create a 4:3 landscape Forever Goal Tracker banner based on this card's illustration. Faithfully preserve the hooded skeletal spellcaster, grasping hand and diagonal wand with its distinctive bony claw gripping a pentagram orb, and the swirling magical background; extend the scene naturally. Place the wand and figure high toward the right with breathing room and keep the left third quiet for text. Remove the card frame, lettering, icons and signatures. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a broad smooth charcoal gradient into the left edge and a soft dark bottom gradient fading to near-black, without hard boundaries. No added text, UI, border, unrelated objects or extra characters.
