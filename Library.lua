@@ -1243,6 +1243,471 @@ local library = {
         },
     },
 
+    -- Added 2026-10-26 from Karl's list. Stats come from the Wowhead Classic tooltips, sources from
+    -- GearSources and its warcraftdb cache (tools/.cache/warcraftdb). None is marked confirmed for Forever.
+    {
+        -- Item 13401: rare (blue) Bind on Pickup one-hand mace, item level 61, requires level 56, chance on
+        -- hit lowers all attributes of the target by 15 for 1 min. Dropped by Timmy the Cruel in Stratholme's
+        -- living side (no drop chance listed).
+        id = "cruel_hand_of_timmy", library = true, itemQuality = 3, instance = { 329, "Stratholme" },
+        icon = "inv_misc_bone_elfskull_01",
+        name = "The Cruel Hand of Timmy",
+        short = "Hand of Timmy",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed mace dropped by Timmy the Cruel in Stratholme.",
+        steps = {
+            { text = "Reach level 56.", auto = { level = 56 } },
+            { text = "Loot The Cruel Hand of Timmy from Timmy the Cruel in Stratholme.", auto = { item = 13401, owned = { "The Cruel Hand of Timmy" } } },
+        },
+        completeWith = { item = 13401, owned = { "The Cruel Hand of Timmy" } },
+        tips = {
+            "Defeat Timmy the Cruel on the living side of Stratholme for a chance at {item:13401:The Cruel Hand of Timmy} {map:strat:Show on map}.",
+            "It binds when picked up. Its chance on hit lowers all of the target's attributes by 15 for 1 minute.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a one-handed mace. Learn Maces before equipping it.",
+        },
+    },
+
+    {
+        -- Item 11923: rare (blue) Bind on Pickup main-hand mace, item level 57, requires level 52, equip: +31
+        -- healing. From the Chest of The Seven in Blackrock Depths.
+        id = "hammer_of_grace", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        icon = "inv_hammer_07",
+        name = "The Hammer of Grace",
+        short = "Hammer of Grace",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A healer's main-hand mace from the Chest of The Seven in Blackrock Depths.",
+        steps = {
+            { text = "Reach level 52.", auto = { level = 52 } },
+            { text = "Loot The Hammer of Grace from the Chest of The Seven in Blackrock Depths.", auto = { item = 11923, owned = { "The Hammer of Grace" } } },
+        },
+        completeWith = { item = 11923, owned = { "The Hammer of Grace" } },
+        tips = {
+            "Defeat The Seven in Blackrock Depths and open their chest for a chance at {item:11923:The Hammer of Grace} {map:brd:Show on map}.",
+            "It binds when picked up. It adds up to 31 healing.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+        },
+    },
+
+    {
+        -- Item 11920: rare (blue) Bind on Pickup main-hand axe, item level 56, requires level 51, chance on
+        -- hit steals 45 life. From the Chest of The Seven in Blackrock Depths.
+        id = "wraith_scythe", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        icon = "inv_axe_13",
+        name = "Wraith Scythe",
+        short = "Wraith Scythe",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A main-hand axe from the Chest of The Seven in Blackrock Depths.",
+        steps = {
+            { text = "Reach level 51.", auto = { level = 51 } },
+            { text = "Loot Wraith Scythe from the Chest of The Seven in Blackrock Depths.", auto = { item = 11920, owned = { "Wraith Scythe" } } },
+        },
+        completeWith = { item = 11920, owned = { "Wraith Scythe" } },
+        tips = {
+            "Defeat The Seven in Blackrock Depths and open their chest for a chance at {item:11920:Wraith Scythe} {map:brd:Show on map}.",
+            "It binds when picked up. Its chance on hit steals 45 life from the target.",
+            "Warriors, Paladins, Hunters and Shamans can use a main-hand axe. Learn Axes before equipping it.",
+        },
+    },
+
+    {
+        -- Item 22254: rare (blue) Bind on Pickup wand, item level 57, requires level 52, +6 Intellect, equip:
+        -- 2 mana per 5 sec and +9 healing. Watchman Doomgrip in Blackrock Depths 0.75%, Warbringer Construct
+        -- 0.09%, Dark Coffer 0.3%, Secret Safe (warcraftdb).
+        id = "wand_of_eternal_light", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        icon = "inv_wand_02",
+        name = "Wand of Eternal Light",
+        short = "Eternal Light",
+        category = "Rare Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A healer's wand dropped by Watchman Doomgrip in Blackrock Depths.",
+        steps = {
+            { text = "Reach level 52.", auto = { level = 52 } },
+            { text = "Loot Wand of Eternal Light from Watchman Doomgrip in Blackrock Depths.", auto = { item = 22254, owned = { "Wand of Eternal Light" } } },
+        },
+        completeWith = { item = 22254, owned = { "Wand of Eternal Light" } },
+        tips = {
+            "Defeat Watchman Doomgrip in Blackrock Depths for a chance at {item:22254:Wand of Eternal Light} {map:brd:Show on map}. The listed drop chance is under 1%.",
+            "Warbringer Constructs, Dark Coffers and the Secret Safe in Blackrock Depths can also hold it, even more rarely.",
+            "It binds when picked up. It adds 6 Intellect, 2 mana per 5 seconds and up to 9 healing.",
+            "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
+        },
+    },
+
+    {
+        -- Item 17705: rare (blue) Bind on Pickup, Unique-Equipped one-hand sword, item level 53, chance on hit
+        -- grants an extra attack. A choice reward from Corruption of Earth and Seed (quests 7064 and 7065),
+        -- the Princess Theradras quest for Maraudon.
+        id = "thrash_blade", library = true, itemQuality = 3, instance = { 349, "Maraudon" },
+        icon = "inv_sword_36",
+        name = "Thrash Blade",
+        short = "Thrash Blade",
+        category = "Rare Weapon", difficulty = "Moderate",
+        timeEstimate = "Varies",
+        note = "A one-handed sword you choose as the reward for Corruption of Earth and Seed in Maraudon.",
+        steps = {
+            { text = "Complete Corruption of Earth and Seed and choose Thrash Blade.", auto = { item = 17705, owned = { "Thrash Blade" } } },
+        },
+        completeWith = { item = 17705, owned = { "Thrash Blade" } },
+        tips = {
+            "Defeat Princess Theradras, the last boss of Maraudon {map:mara:Show on map}, then turn in Corruption of Earth and Seed in Desolace.",
+            "It binds when picked up and is Unique-Equipped. Its chance on hit grants an extra attack on your next swing.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn Swords before equipping it.",
+        },
+    },
+
+    {
+        -- Item 19861: epic Bind on Pickup wand, item level 68, requires level 60, equip: +18 spell power.
+        -- Dropped by Hakkar in Zul'Gurub (no drop chance listed).
+        id = "touch_of_chaos", library = true, itemQuality = 4, instance = { 309, "Zul'Gurub" },
+        icon = "inv_wand_09",
+        name = "Touch of Chaos",
+        short = "Touch of Chaos",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A wand dropped by Hakkar in Zul'Gurub.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Touch of Chaos from Hakkar in Zul'Gurub.", auto = { item = 19861, owned = { "Touch of Chaos" } } },
+        },
+        completeWith = { item = 19861, owned = { "Touch of Chaos" } },
+        tips = {
+            "Defeat Hakkar, the last boss of {raid_zg:Zul'Gurub}, for a chance at {item:19861:Touch of Chaos}.",
+            "It binds when picked up. It deals Shadow damage and adds up to 18 spell power.",
+            "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
+        },
+    },
+
+    {
+        -- Item 17075: epic Bind on Pickup, Unique one-hand sword, item level 74, requires level 60, chance on
+        -- hit deals a fatal wound for 240 damage. Dropped by Onyxia, 8% (warcraftdb).
+        id = "viskag", library = true, itemQuality = 4, instance = { 249, "Onyxia's Lair" },
+        icon = "inv_sword_18",
+        name = "Vis'kag the Bloodletter",
+        short = "Vis'kag",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed sword dropped by Onyxia.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Vis'kag the Bloodletter from Onyxia in Onyxia's Lair.", auto = { item = 17075, owned = { "Vis'kag the Bloodletter" } } },
+        },
+        completeWith = { item = 17075, owned = { "Vis'kag the Bloodletter" } },
+        tips = {
+            "Defeat Onyxia in {raid_ony:Onyxia's Lair} for a chance at {item:17075:Vis'kag the Bloodletter}. The listed drop chance is about 8%, roughly 1 kill in 12.",
+            "It binds when picked up and is Unique. Its chance on hit deals a fatal wound for 240 damage.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn Swords before equipping it.",
+        },
+    },
+
+    {
+        -- Item 19321: epic Bind on Pickup, Unique shield, item level 65, requires level 60, 2468 armor, 44
+        -- block, +15 Stamina, equip: +27 block value. Sold for gold by both factions' Alterac Valley supply
+        -- officers (79 gold 53 silver): Thanthaldis Snowgleam and Gaelden Hammersmith (Alliance), Jekyll
+        -- Flandring and Grunnda Wolfheart (Horde). The standing is not in the source data; Exalted is from
+        -- memory, so verify in game. Forever's tables list an updated version (item level 60, +14 Stamina).
+        id = "immovable_object", library = true, itemQuality = 4,
+        icon = "spell_frost_chillingarmor",
+        name = "The Immovable Object",
+        short = "Immovable Object",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "1-2 Months",
+        note = "A tanking shield bought with gold from the Alterac Valley supply officer, once you are Exalted.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Reach Exalted with the {pvp_av_alliance:Stormpike Guard} or {pvp_av_horde:Frostwolf Clan}.", auto = { rep = { faction = { 730, 729 }, standing = 8 } } },
+            { text = "Buy The Immovable Object from your faction's Alterac Valley supply officer.", auto = { item = 19321, owned = { "The Immovable Object" } } },
+        },
+        completeWith = { item = 19321, owned = { "The Immovable Object" } },
+        tips = {
+            "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn reputation.",
+            "It costs about 79 gold 53 silver. Alliance buy it from Thanthaldis Snowgleam outside Alterac Valley or Gaelden Hammersmith inside. Horde buy it from Jekyll Flandring outside or Grunnda Wolfheart inside.",
+            "It binds when picked up and is Unique. It adds 15 Stamina and 27 block value. Forever changed its numbers, so check the tooltip there.",
+            "Warriors, Paladins and Shamans can use a shield.",
+        },
+    },
+
+    {
+        -- Item 19324: epic Bind on Pickup, Unique one-hand dagger, item level 65, requires level 60, chance on
+        -- hit wounds for 200 to 300 damage and lowers Intellect by 25 for 30 sec. Sold by the same four Alterac
+        -- Valley supply officers (125 gold 66 silver). Exalted is from memory, so verify in game. Forever's
+        -- tables list an updated version (item level 60, requires level 55).
+        id = "lobotomizer", library = true, itemQuality = 4,
+        icon = "inv_sword_29",
+        name = "The Lobotomizer",
+        short = "Lobotomizer",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "1-2 Months",
+        note = "A one-handed dagger bought with gold from the Alterac Valley supply officer, once you are Exalted.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Reach Exalted with the {pvp_av_alliance:Stormpike Guard} or {pvp_av_horde:Frostwolf Clan}.", auto = { rep = { faction = { 730, 729 }, standing = 8 } } },
+            { text = "Buy The Lobotomizer from your faction's Alterac Valley supply officer.", auto = { item = 19324, owned = { "The Lobotomizer" } } },
+        },
+        completeWith = { item = 19324, owned = { "The Lobotomizer" } },
+        tips = {
+            "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn reputation.",
+            "It costs about 125 gold 66 silver. Alliance buy it from Thanthaldis Snowgleam outside Alterac Valley or Gaelden Hammersmith inside. Horde buy it from Jekyll Flandring outside or Grunnda Wolfheart inside.",
+            "It binds when picked up and is Unique. Its chance on hit deals 200 to 300 damage and lowers the target's Intellect by 25 for 30 seconds. Forever changed its numbers, so check the tooltip there.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
+        -- Item 19108: rare (blue) Bind on Pickup wand, item level 63, equip: +16 Frost spell damage. A choice
+        -- reward from Hero of the Stormpike (8271), Hero of the Frostwolf (8272), The Legend of Korrak (7181)
+        -- and Korrak the Bloodrager (7202), all in Alterac Valley (warcraftdb). Named in Forever's tables.
+        id = "wand_of_biting_cold", library = true, itemQuality = 3,
+        icon = "inv_wand_01",
+        name = "Wand of Biting Cold",
+        short = "Biting Cold",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A Frost wand you choose as a quest reward in Alterac Valley.",
+        steps = {
+            { text = "Complete an Alterac Valley quest that offers Wand of Biting Cold and choose it.", auto = { item = 19108, owned = { "Wand of Biting Cold" } } },
+        },
+        completeWith = { item = 19108, owned = { "Wand of Biting Cold" } },
+        tips = {
+            "It is a choice reward from Hero of the Stormpike (Alliance), Hero of the Frostwolf (Horde), The Legend of Korrak and Korrak the Bloodrager.",
+            "It binds when picked up. It deals Frost damage and adds up to 16 Frost spell damage.",
+            "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
+        },
+    },
+
+    {
+        -- Item 13047: rare (blue) Bind on Equip two-hand mace, item level 58, requires level 53, +14 Strength,
+        -- +21 Stamina, +12 Spirit. A world drop: 675 creatures listed, no boss (warcraftdb).
+        id = "twig_of_the_world_tree", library = true, itemQuality = 3,
+        icon = "inv_mace_13",
+        name = "Twig of the World Tree",
+        short = "World Tree Twig",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A rare two-handed mace that many high-level creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 53.", auto = { level = 53 } },
+            { text = "Loot Twig of the World Tree, a rare world drop.", auto = { item = 13047, owned = { "Twig of the World Tree" } } },
+        },
+        completeWith = { item = 13047, owned = { "Twig of the World Tree" } },
+        tips = {
+            "Hundreds of high-level creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "It adds 14 Strength, 21 Stamina and 12 Spirit. Warriors, Paladins, Shamans and Druids can use a two-handed mace. Learn Two-Handed Maces before equipping it.",
+        },
+    },
+
+    {
+        -- Item 13006: rare (blue) Bind on Equip main-hand mace, item level 62, requires level 57, +10 Strength,
+        -- +10 Stamina. A world drop: 402 creatures listed, no boss (warcraftdb).
+        id = "mass_of_mcgowan", library = true, itemQuality = 3,
+        icon = "inv_hammer_17",
+        name = "Mass of McGowan",
+        short = "Mass of McGowan",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A rare main-hand mace that many high-level creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 57.", auto = { level = 57 } },
+            { text = "Loot Mass of McGowan, a rare world drop.", auto = { item = 13006, owned = { "Mass of McGowan" } } },
+        },
+        completeWith = { item = 13006, owned = { "Mass of McGowan" } },
+        tips = {
+            "Hundreds of high-level creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "It adds 10 Strength and 10 Stamina. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+        },
+    },
+
+    {
+        -- Item 1721: rare (blue) Bind on Equip main-hand mace, item level 54, requires level 49, +5 Strength,
+        -- +11 Stamina. A world drop: 573 creatures listed, no boss (warcraftdb).
+        id = "viking_warhammer", library = true, itemQuality = 3,
+        icon = "inv_hammer_09",
+        name = "Viking Warhammer",
+        short = "Viking Warhammer",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A rare main-hand mace that many creatures around level 50 can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 49.", auto = { level = 49 } },
+            { text = "Loot Viking Warhammer, a rare world drop.", auto = { item = 1721, owned = { "Viking Warhammer" } } },
+        },
+        completeWith = { item = 1721, owned = { "Viking Warhammer" } },
+        tips = {
+            "Hundreds of creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "It adds 5 Strength and 11 Stamina. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+        },
+    },
+
+    {
+        -- Item 1979: epic Bind on Equip shield, item level 50, requires level 45, 1937 armor, 34 block, +10
+        -- Strength, +15 Stamina, 3% chance when struck to add 150 armor for 20 sec. A world drop: 429
+        -- creatures listed, no boss (warcraftdb).
+        id = "wall_of_the_dead", library = true, itemQuality = 4,
+        icon = "inv_shield_02",
+        name = "Wall of the Dead",
+        short = "Wall of the Dead",
+        category = "Epic Weapon", difficulty = "Extreme",
+        timeEstimate = "Varies",
+        note = "A rare epic shield that many creatures around level 45 to 50 can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 45.", auto = { level = 45 } },
+            { text = "Loot Wall of the Dead, a rare world drop.", auto = { item = 1979, owned = { "Wall of the Dead" } } },
+        },
+        completeWith = { item = 1979, owned = { "Wall of the Dead" } },
+        tips = {
+            "Hundreds of creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "It adds 10 Strength and 15 Stamina. When you are struck it has a 3% chance to encase you in bone for 150 armor over 20 seconds. Warriors, Paladins and Shamans can use a shield.",
+        },
+    },
+
+    {
+        -- Item 1168: epic Bind on Equip shield, item level 59, requires level 54, 2256 armor, 40 block, +10
+        -- Fire and Shadow resistance; when struck, 3% chance to steal 35 life and 1% chance for 75 to 125
+        -- Fire damage to nearby enemies. A world drop: 629 creatures listed, no boss (warcraftdb).
+        id = "skullflame_shield", library = true, itemQuality = 4,
+        icon = "inv_shield_01",
+        name = "Skullflame Shield",
+        short = "Skullflame Shield",
+        category = "Epic Weapon", difficulty = "Extreme",
+        timeEstimate = "Varies",
+        note = "A rare epic shield that many high-level creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 54.", auto = { level = 54 } },
+            { text = "Loot Skullflame Shield, a rare world drop.", auto = { item = 1168, owned = { "Skullflame Shield" } } },
+        },
+        completeWith = { item = 1168, owned = { "Skullflame Shield" } },
+        tips = {
+            "Hundreds of high-level creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "It adds 10 Fire and 10 Shadow resistance. When you are struck it can steal 35 life (3%) or burn nearby enemies for 75 to 125 Fire damage (1%). Warriors, Paladins and Shamans can use a shield.",
+        },
+    },
+
+    {
+        -- Item 18680: rare (blue) Bind on Pickup bow, item level 61, requires level 56, +11 Agility. Shared
+        -- loot of six Scholomance bosses: Doctor Theolen Krastinov, Instructor Malicia, Lady Illucia Barov,
+        -- Lord Alexei Barov, Lorekeeper Polkelt and The Ravenian (warcraftdb, no drop chances listed).
+        id = "ancient_bone_bow", library = true, itemQuality = 3, instance = { 289, "Scholomance" },
+        icon = "inv_weapon_bow_08",
+        name = "Ancient Bone Bow",
+        short = "Ancient Bone Bow",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A bow that several bosses in Scholomance can drop.",
+        steps = {
+            { text = "Reach level 56.", auto = { level = 56 } },
+            { text = "Loot Ancient Bone Bow from a boss in Scholomance.", auto = { item = 18680, owned = { "Ancient Bone Bow" } } },
+        },
+        completeWith = { item = 18680, owned = { "Ancient Bone Bow" } },
+        tips = {
+            "Six bosses in {key_scholo:Scholomance} can drop {item:18680:Ancient Bone Bow}: Doctor Theolen Krastinov, Instructor Malicia, Lady Illucia Barov, Lord Alexei Barov, Lorekeeper Polkelt and The Ravenian {map:scholo:Show on map}.",
+            "It binds when picked up. It adds 11 Agility.",
+            "Warriors, Hunters and Rogues can use a bow. Learn Bows before equipping it.",
+        },
+    },
+
+    {
+        -- Item 12798: rare (blue) Bind on Equip main-hand axe, item level 63, requires level 58, chance on hit
+        -- reduces the target's armor by 200, stacking 3 times. Plans: Annihilator (item 12835) need
+        -- Blacksmithing 300 and Master Axesmith (spell 17041, from ItemSparse) and drop from Quartermaster
+        -- Zigris in Lower Blackrock Spire, 10% (warcraftdb). Reagents are in GearData. Forever's tables list
+        -- an updated version (+14 attack power).
+        id = "annihilator", library = true, itemQuality = 3,
+        icon = "inv_axe_12",
+        name = "Annihilator",
+        short = "Annihilator",
+        category = "Rare Weapon", difficulty = "Very Hard",
+        timeEstimate = "Weeks",
+        note = "A main-hand axe made by a Master Axesmith. It needs Blacksmithing 300 and the plans from Quartermaster Zigris in Lower Blackrock Spire.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Reach Blacksmithing 300.", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
+            { text = "Learn the Master Axesmith specialization." },
+            { text = "Loot Plans: Annihilator from Quartermaster Zigris in Lower Blackrock Spire.", auto = { item = 12835 } },
+            { text = "Gather 40 Thorium Bars.", auto = { item = 12359, count = 40 } },
+            { text = "Gather 12 Arcanite Bars.", auto = { item = 12360, count = 12 } },
+            { text = "Gather 10 Essence of Undeath.", auto = { item = 12808, count = 10 } },
+            { text = "Gather 8 Huge Emeralds.", auto = { item = 12364, count = 8 } },
+            { text = "Gather 4 Enchanted Leather.", auto = { item = 12810, count = 4 } },
+            { text = "Gather 2 Dense Grinding Stones.", auto = { item = 12644, count = 2 } },
+            { text = "Craft the Annihilator at an anvil.", auto = { item = 12798, owned = { "Annihilator" } } },
+        },
+        completeWith = { item = 12798, owned = { "Annihilator" } },
+        tips = {
+            "{item:12835:Plans: Annihilator} drop from Quartermaster Zigris in Lower Blackrock Spire {map:brs:Show on map}, about 1 kill in 10.",
+            "The plans need Blacksmithing 300 and the Master Axesmith specialization.",
+            "Alchemists make {item:12360:Arcanite Bars} from {item:12359:Thorium Bars} and {item:12363:Arcane Crystals}.",
+            "It is Bind on Equip. Its chance on hit lowers the target's armor by 200, stacking up to 3 times. Forever changed its numbers, so check the tooltip there.",
+            "Warriors, Paladins, Hunters and Shamans can use a main-hand axe. Learn Axes before equipping it.",
+        },
+    },
+
+    {
+        -- Item 17103: epic Bind on Pickup main-hand sword, item level 71, requires level 60, +7 Stamina,
+        -- +12 Intellect, equip: +1% spell crit and +40 spell power. Dropped by Golemagg the Incinerator in
+        -- Molten Core, 25% (warcraftdb). Not in Forever's tables yet, so not marked confirmed.
+        id = "azuresong_mageblade", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_sword_39",
+        name = "Azuresong Mageblade",
+        short = "Azuresong",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A caster's main-hand sword dropped by Golemagg the Incinerator in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Azuresong Mageblade from Golemagg the Incinerator in Molten Core.", auto = { item = 17103, owned = { "Azuresong Mageblade" } } },
+        },
+        completeWith = { item = 17103, owned = { "Azuresong Mageblade" } },
+        tips = {
+            "Defeat Golemagg the Incinerator in {raid_mc:Molten Core} for a chance at {item:17103:Azuresong Mageblade}. The listed drop chance is about 25%, roughly 1 kill in 4.",
+            "It binds when picked up. It adds 7 Stamina, 12 Intellect, 1% spell crit and up to 40 spell power.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a main-hand sword. Learn Swords before equipping it.",
+        },
+    },
+
+    {
+        -- Item 12783: rare (blue) Bind on Equip, Unique one-hand dagger, item level 63, requires level 58, +4
+        -- Strength, equip: +1% crit. Plans: Heartseeker (item 12839) need Blacksmithing 300 and Weaponsmith
+        -- (spell 9787, from ItemSparse) and drop from Cannon Master Willey in Stratholme's living side, 6%
+        -- (warcraftdb). Reagents are in GearData. Forever's tables list an updated version (+4 Agility in
+        -- place of Strength, not Unique).
+        id = "heartseeker", library = true, itemQuality = 3,
+        icon = "inv_sword_17",
+        name = "Heartseeker",
+        short = "Heartseeker",
+        category = "Rare Weapon", difficulty = "Very Hard",
+        timeEstimate = "Weeks",
+        note = "A one-handed dagger made by a Weaponsmith. It needs Blacksmithing 300 and the plans from Cannon Master Willey in Stratholme.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Reach Blacksmithing 300.", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
+            { text = "Learn the Weaponsmith specialization." },
+            { text = "Loot Plans: Heartseeker from Cannon Master Willey in Stratholme.", auto = { item = 12839 } },
+            { text = "Gather 10 Arcanite Bars.", auto = { item = 12360, count = 10 } },
+            { text = "Gather 10 Enchanted Thorium Bars.", auto = { item = 12655, count = 10 } },
+            { text = "Gather 6 Star Rubies.", auto = { item = 7910, count = 6 } },
+            { text = "Gather 6 Azerothian Diamonds.", auto = { item = 12800, count = 6 } },
+            { text = "Gather 6 Large Opals.", auto = { item = 12799, count = 6 } },
+            { text = "Gather 2 Enchanted Leather.", auto = { item = 12810, count = 2 } },
+            { text = "Gather 4 Dense Grinding Stones.", auto = { item = 12644, count = 4 } },
+            { text = "Craft Heartseeker at an anvil.", auto = { item = 12783, owned = { "Heartseeker" } } },
+        },
+        completeWith = { item = 12783, owned = { "Heartseeker" } },
+        tips = {
+            "{item:12839:Plans: Heartseeker} drop from Cannon Master Willey on the living side of Stratholme {map:strat:Show on map}, about 1 kill in 17.",
+            "The plans need Blacksmithing 300 and the Weaponsmith specialization. Axesmiths, Hammersmiths and Swordsmiths are Weaponsmiths too.",
+            "Alchemists make {item:12360:Arcanite Bars} from {item:12359:Thorium Bars} and {item:12363:Arcane Crystals}.",
+            "It is Bind on Equip and Unique. It adds 4 Strength and 1% crit. Forever changed its numbers, so check the tooltip there.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
     -- ---------------- Raids ----------------
     {
         id = "raid_mc", library = true, instance = { 409, "Molten Core" },
