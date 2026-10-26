@@ -1790,6 +1790,98 @@ local library = {
         },
     },
 
+    {
+        -- Item 19107: rare (blue) Bind on Pickup crossbow, item level 63, no required level, +8 Strength, +7
+        -- Agility. A choice reward from Hero of the Stormpike (8271), Hero of the Frostwolf (8272), The Legend
+        -- of Korrak (7181) and Korrak the Bloodrager (7202), all in Alterac Valley (warcraftdb), the same
+        -- quests as Wand of Biting Cold. Named in Forever's tables, not confirmed.
+        id = "bloodseeker", library = true, itemQuality = 3,
+        icon = "inv_weapon_crossbow_07",
+        name = "Bloodseeker",
+        short = "Bloodseeker",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A crossbow you choose as a quest reward in Alterac Valley.",
+        steps = {
+            { text = "Complete an Alterac Valley quest that offers Bloodseeker and choose it.", auto = { item = 19107, owned = { "Bloodseeker" } } },
+        },
+        completeWith = { item = 19107, owned = { "Bloodseeker" } },
+        tips = {
+            "It is a choice reward from Hero of the Stormpike (Alliance), Hero of the Frostwolf (Horde), The Legend of Korrak and Korrak the Bloodrager.",
+            "It binds when picked up. It adds 8 Strength and 7 Agility.",
+            "Warriors, Hunters and Rogues can use a crossbow. Learn Crossbows before equipping it.",
+        },
+    },
+
+    {
+        -- Item 22806: epic Bind on Pickup, Unique one-hand sword, item level 81, requires level 60, 100 armor,
+        -- +17 Stamina, equip: +1% hit. Dropped by Grand Widow Faerlina in Naxxramas (no drop chance listed).
+        -- Not in Forever's tables yet, so not marked confirmed.
+        id = "widows_remorse", library = true, itemQuality = 4, instance = { 533, "Naxxramas" },
+        icon = "inv_sword_60",
+        name = "Widow's Remorse",
+        short = "Widow's Remorse",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed sword dropped by Grand Widow Faerlina in Naxxramas.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Widow's Remorse from Grand Widow Faerlina in Naxxramas.", auto = { item = 22806, owned = { "Widow's Remorse" } } },
+        },
+        completeWith = { item = 22806, owned = { "Widow's Remorse" } },
+        tips = {
+            "Defeat Grand Widow Faerlina in the Arachnid Quarter of {raid_naxx:Naxxramas} for a chance at {item:22806:Widow's Remorse}.",
+            "It binds when picked up and is Unique. It adds 17 Stamina, 100 armor and 1% hit.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
+        },
+    },
+
+    {
+        -- Item 1263: epic Bind on Equip two-hand axe, item level 60, requires level 55, chance on hit wounds
+        -- for 200 to 300 damage and lowers Intellect by 25 for 30 sec. A world drop: 518 creatures listed, no
+        -- boss (warcraftdb). Not in Forever's tables yet, so not marked confirmed.
+        id = "brain_hacker", library = true, itemQuality = 4,
+        icon = "inv_weapon_halberd_10",
+        name = "Brain Hacker",
+        short = "Brain Hacker",
+        category = "Epic Weapon", difficulty = "Extreme",
+        timeEstimate = "Varies",
+        note = "A rare two-handed axe that many high-level creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 55.", auto = { level = 55 } },
+            { text = "Loot Brain Hacker, a rare world drop.", auto = { item = 1263, owned = { "Brain Hacker" } } },
+        },
+        completeWith = { item = 1263, owned = { "Brain Hacker" } },
+        tips = {
+            "Hundreds of high-level creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "Its chance on hit wounds the target for 200 to 300 damage and lowers its Intellect by 25 for 30 seconds. Warriors, Paladins, Hunters and Shamans can use a two-handed axe. Learn Two-Handed Axes before equipping it.",
+        },
+    },
+
+    {
+        -- Item 18832: epic Bind on Pickup, Unique one-hand sword, item level 70, requires level 60, +9 Strength,
+        -- +9 Agility, equip: +1% crit. Dropped by Garr in Molten Core, 20% (warcraftdb). Not in Forever's
+        -- tables yet, so not marked confirmed.
+        id = "brutality_blade", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_sword_15",
+        name = "Brutality Blade",
+        short = "Brutality Blade",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed sword dropped by Garr in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Brutality Blade from Garr in Molten Core.", auto = { item = 18832, owned = { "Brutality Blade" } } },
+        },
+        completeWith = { item = 18832, owned = { "Brutality Blade" } },
+        tips = {
+            "Defeat Garr in {raid_mc:Molten Core} for a chance at {item:18832:Brutality Blade}. The listed drop chance is about 20%, roughly 1 kill in 5.",
+            "It binds when picked up and is Unique. It adds 9 Strength, 9 Agility and 1% crit.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
+        },
+    },
+
     -- ---------------- Raids ----------------
     {
         id = "raid_mc", library = true, instance = { 409, "Molten Core" },
@@ -2689,6 +2781,37 @@ local sets = {
             { text = "Loot Footpads of the Fang from Lord Serpentis in Wailing Caverns.", icon = "inv_boots_04", auto = { item = 10411, owned = { "Footpads of the Fang" } } },
             { text = "Loot Belt of the Fang from Lady Anacondra in Wailing Caverns.", icon = "inv_belt_30", auto = { item = 10412, owned = { "Belt of the Fang" } } },
             { text = "Loot Gloves of the Fang from Druids of the Fang in Wailing Caverns.", icon = "inv_gauntlets_18", auto = { item = 10413, owned = { "Gloves of the Fang" } } },
+        },
+    },
+    {
+        -- Wowhead Classic item-set 163 (Chain of the Scarlet Crusade), checked 2026-10-26: six mail pieces,
+        -- levels 30 to 38, set bonuses +10 armor (2), +1 defense (3), +5 Shadow resistance (4), +15 attack power
+        -- against Undead (5), +1% hit (6). Sources from warcraftdb: Chestpiece 0.5% from Scarlet Champions,
+        -- Belt 2% from Scarlet Defenders and Myrmidons, Leggings 15% from Herod or Scarlet Commander Mograine,
+        -- Gauntlets 2% from Scarlet Centurions, Boots a rare drop from about 40 Scarlet Monastery creatures,
+        -- Wristguards 2% from Scarlet Guardsmen and Protectors. Herod's Shoulder (7718) and Raging Berserker's
+        -- Helm (7719) are not in the set; both are Bind on Pickup mail from Herod, listed in tips only because
+        -- steps cannot be optional. Not in Forever's tables yet, so not marked confirmed.
+        id = "set_scarlet_crusade", library = true, itemQuality = 3, instance = { 189, "Scarlet Monastery" },
+        icon = "inv_chest_chain_07",
+        name = "Chain of the Scarlet Crusade",
+        short = "Scarlet Crusade",
+        category = "Item Set", difficulty = "Hard",
+        timeEstimate = "Weeks",
+        note = "A six-piece mail set from the Scarlet Monastery. Herod's Shoulder and Raging Berserker's Helm are optional extras.",
+        steps = {
+            { text = "Loot Scarlet Chestpiece from a Scarlet Champion in the Scarlet Monastery.", icon = "inv_chest_chain_07", auto = { item = 10328, owned = { "Scarlet Chestpiece" } } },
+            { text = "Loot Scarlet Belt from a Scarlet Defender or Scarlet Myrmidon in the Scarlet Monastery.", icon = "inv_belt_06", auto = { item = 10329, owned = { "Scarlet Belt" } } },
+            { text = "Loot Scarlet Leggings from Herod or Scarlet Commander Mograine in the Scarlet Monastery.", icon = "inv_pants_03", auto = { item = 10330, owned = { "Scarlet Leggings" } } },
+            { text = "Loot Scarlet Gauntlets from a Scarlet Centurion in the Scarlet Monastery.", icon = "inv_gauntlets_19", auto = { item = 10331, owned = { "Scarlet Gauntlets" } } },
+            { text = "Loot Scarlet Boots, a rare drop from creatures in the Scarlet Monastery.", icon = "inv_boots_02", auto = { item = 10332, owned = { "Scarlet Boots" } } },
+            { text = "Loot Scarlet Wristguards from a Scarlet Guardsman or Scarlet Protector in the Scarlet Monastery.", icon = "inv_bracer_03", auto = { item = 10333, owned = { "Scarlet Wristguards" } } },
+        },
+        tips = {
+            "Set bonuses: 2 pieces add 10 armor, 3 add 1 defense, 4 add 5 Shadow resistance, 5 add 15 attack power against Undead and 6 add 1% hit.",
+            "Optional: {item:7718:Herod's Shoulder} and {item:7719:Raging Berserker's Helm} drop from Herod in the Armory wing {map:sm:Show on map}. They are not part of the set but match it, and both bind when picked up.",
+            "The pieces need levels 30 to 38. Warriors and Paladins can wear mail at once; Hunters and Shamans wear it from level 40.",
+            "Drop chances are low: about 0.5% for the chestpiece, 2% for the belt, gauntlets and wristguards, and 15% for the leggings.",
         },
     },
     {
