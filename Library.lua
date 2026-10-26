@@ -1708,6 +1708,88 @@ local library = {
         },
     },
 
+    {
+        -- Item 19166: epic Bind on Equip one-hand dagger, item level 66, requires level 60, chance on hit
+        -- reduces your threat to the current target. Plans: Black Amnesty (item 19208) need Blacksmithing 300
+        -- and Weaponsmith (spell 9787, from ItemSparse) and are sold by Lokhtos Darkbargainer for 7 gold
+        -- (warcraftdb). The standing is in neither source; Revered with the Thorium Brotherhood is from
+        -- memory, so verify in game. Reagents are in GearData. Named in Forever's tables, not confirmed.
+        id = "black_amnesty", library = true, itemQuality = 4,
+        icon = "inv_weapon_shortblade_12",
+        name = "Black Amnesty",
+        short = "Black Amnesty",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "3+ Months",
+        note = "A one-handed dagger made by a Weaponsmith, from plans sold by the Thorium Brotherhood in Blackrock Depths.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Reach Blacksmithing 300.", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
+            { text = "Learn the Weaponsmith specialization." },
+            { text = "Reach Revered with the {rep_thorium:Thorium Brotherhood}.", auto = { rep = { faction = 59, standing = 7 } } },
+            { text = "Buy Plans: Black Amnesty from Lokhtos Darkbargainer in Blackrock Depths.", auto = { item = 19208 } },
+            { text = "Gather 12 Arcanite Bars.", auto = { item = 12360, count = 12 } },
+            { text = "Gather 6 Fiery Cores.", auto = { item = 17010, count = 6 } },
+            { text = "Gather 3 Lava Cores.", auto = { item = 17011, count = 3 } },
+            { text = "Gather 4 Dark Iron Bars.", auto = { item = 11371, count = 4 } },
+            { text = "Gather 1 Blood of the Mountain.", auto = { item = 11382, count = 1 } },
+            { text = "Craft Black Amnesty at an anvil.", auto = { item = 19166, owned = { "Black Amnesty" } } },
+        },
+        completeWith = { item = 19166, owned = { "Black Amnesty" } },
+        tips = {
+            "Lokhtos Darkbargainer stands in the Grim Guzzler in Blackrock Depths {map:brd:Show on map}. He sells {item:19208:Plans: Black Amnesty} for about 7 gold.",
+            "The plans need Blacksmithing 300 and the Weaponsmith specialization. Axesmiths, Hammersmiths and Swordsmiths are Weaponsmiths too.",
+            "{item:17010:Fiery Cores} and {item:17011:Lava Cores} come from Molten Core. {item:11382:Blood of the Mountain} drops in Blackrock Depths.",
+            "It is Bind on Equip. Its chance on hit lowers your threat on the current target.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
+        -- Item 12651: rare (blue) Bind on Pickup crossbow, item level 59, requires level 54, +3 Agility, equip:
+        -- +1% hit. Dropped by Shadow Hunter Vosh'gajin in Lower Blackrock Spire, 8% (warcraftdb). Not in
+        -- Forever's tables yet, so not marked confirmed.
+        id = "blackcrow", library = true, itemQuality = 3, instance = { 229, "Blackrock Spire" },
+        icon = "inv_weapon_crossbow_04",
+        name = "Blackcrow",
+        short = "Blackcrow",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A crossbow dropped by Shadow Hunter Vosh'gajin in Lower Blackrock Spire.",
+        steps = {
+            { text = "Reach level 54.", auto = { level = 54 } },
+            { text = "Loot Blackcrow from Shadow Hunter Vosh'gajin in Lower Blackrock Spire.", auto = { item = 12651, owned = { "Blackcrow" } } },
+        },
+        completeWith = { item = 12651, owned = { "Blackcrow" } },
+        tips = {
+            "Defeat Shadow Hunter Vosh'gajin in Lower Blackrock Spire for a chance at {item:12651:Blackcrow} {map:brs:Show on map}. The listed drop chance is about 8%, roughly 1 kill in 12.",
+            "It binds when picked up. It adds 3 Agility and 1% hit.",
+            "Warriors, Hunters and Rogues can use a crossbow. Learn Crossbows before equipping it.",
+        },
+    },
+
+    {
+        -- Item 17072: epic Bind on Pickup gun, item level 70, requires level 60, +6 Stamina, equip: +1% crit.
+        -- Dropped by Golemagg the Incinerator in Molten Core, 25% (warcraftdb). GearSources_Forever also lists
+        -- Golemagg from beta loot, but the client tables do not name it, so not marked confirmed.
+        id = "blastershot_launcher", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_weapon_rifle_09",
+        name = "Blastershot Launcher",
+        short = "Blastershot",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A gun dropped by Golemagg the Incinerator in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Blastershot Launcher from Golemagg the Incinerator in Molten Core.", auto = { item = 17072, owned = { "Blastershot Launcher" } } },
+        },
+        completeWith = { item = 17072, owned = { "Blastershot Launcher" } },
+        tips = {
+            "Defeat Golemagg the Incinerator in {raid_mc:Molten Core} for a chance at {item:17072:Blastershot Launcher}. The listed drop chance is about 25%, roughly 1 kill in 4.",
+            "It binds when picked up. It adds 6 Stamina and 1% crit.",
+            "Warriors, Hunters and Rogues can use a gun. Learn Guns before equipping it.",
+        },
+    },
+
     -- ---------------- Raids ----------------
     {
         id = "raid_mc", library = true, instance = { 409, "Molten Core" },
