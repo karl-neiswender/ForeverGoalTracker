@@ -1860,6 +1860,398 @@ local library = {
     },
 
     {
+        -- Item 3475: epic Bind on Equip cloak, item level 65, requires level 60, 50 armor, +15 Fire
+        -- resistance, equip: deals 5 Fire damage to melee attackers. A world drop with no single source: 68
+        -- creatures are listed, no drop chances (warcraftdb), mostly level 60 elites and bosses in Molten
+        -- Core, Blackwing Lair and Ahn'Qiraj plus Azuregos. Not in Forever's tables yet, so not marked
+        -- confirmed.
+        id = "cloak_of_flames", library = true, itemQuality = 4,
+        icon = "inv_misc_cape_08",
+        name = "Cloak of Flames",
+        short = "Cloak of Flames",
+        category = "Epic Weapon", difficulty = "Extreme",
+        timeEstimate = "Varies",
+        note = "A rare fire resistance cloak that level 60 elites and bosses can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Cloak of Flames, a rare world drop.", auto = { item = 3475, owned = { "Cloak of Flames" } } },
+        },
+        completeWith = { item = 3475, owned = { "Cloak of Flames" } },
+        tips = {
+            "About 70 level 60 creatures have dropped it, mostly in {raid_mc:Molten Core}, Blackwing Lair and Ahn'Qiraj, plus world bosses such as Azuregos. Each drop is rare and no drop chances are listed.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "It adds 15 Fire resistance and 50 armor, and deals 5 Fire damage to anyone who strikes you in melee. Any class can wear it.",
+        },
+    },
+
+    {
+        -- Item 17102: epic Bind on Pickup cloak, item level 74, requires level 60, 57 armor, +22 Agility, +12
+        -- Stamina, +6 Fire and +6 Nature resistance. Dropped by Ragnaros in Molten Core (no drop chance
+        -- listed; GearSources agrees). Not in Forever's tables yet, so not marked confirmed.
+        id = "cloak_of_the_shrouded_mists", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_misc_cape_17",
+        name = "Cloak of the Shrouded Mists",
+        short = "Shrouded Mists",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A cloak dropped by Ragnaros in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Cloak of the Shrouded Mists from Ragnaros in Molten Core.", auto = { item = 17102, owned = { "Cloak of the Shrouded Mists" } } },
+        },
+        completeWith = { item = 17102, owned = { "Cloak of the Shrouded Mists" } },
+        tips = {
+            "Defeat Ragnaros, the last boss of {raid_mc:Molten Core}, for a chance at {item:17102:Cloak of the Shrouded Mists}.",
+            "It binds when picked up. It adds 22 Agility, 12 Stamina, 57 armor and 6 Fire and Nature resistance. Any class can wear it.",
+        },
+    },
+
+    {
+        -- Item 20648: rare (blue) Bind on Pickup, Unique main-hand mace, item level 63, no required level, +5
+        -- Stamina, +9 Intellect, equip: 3 mana per 5 sec. A choice reward from Hero of the Stormpike (8271)
+        -- and Hero of the Frostwolf (8272) in Alterac Valley (GearSources). Named in Forever's tables, not
+        -- confirmed. The client spells the name without a hyphen.
+        id = "cold_forged_hammer", library = true, itemQuality = 3,
+        icon = "inv_hammer_22",
+        name = "Cold Forged Hammer",
+        short = "Cold Forged Hammer",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A healer's mace you choose as a quest reward in Alterac Valley.",
+        steps = {
+            { text = "Complete Hero of the Stormpike or Hero of the Frostwolf and choose Cold Forged Hammer.", auto = { item = 20648, owned = { "Cold Forged Hammer" } } },
+        },
+        completeWith = { item = 20648, owned = { "Cold Forged Hammer" } },
+        tips = {
+            "It is a choice reward from Hero of the Stormpike (Alliance) and Hero of the Frostwolf (Horde), quests from Alterac Valley.",
+            "It binds when picked up and is Unique. It adds 5 Stamina, 9 Intellect and 3 mana per 5 seconds.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+        },
+    },
+
+    {
+        -- Item 18805: epic Bind on Pickup, Unique one-hand dagger, item level 70, requires level 60, +9
+        -- Stamina, equip: +1% crit and +20 attack power. Comes from the Cache of the Firelord, Majordomo
+        -- Executus's chest in Molten Core, and drops from Flamewaker Elites (0.36%) and Healers (0.26%)
+        -- (warcraftdb; GearSources names Majordomo). Not in Forever's tables yet, so not marked confirmed.
+        id = "core_hound_tooth", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_weapon_shortblade_11",
+        name = "Core Hound Tooth",
+        short = "Core Hound Tooth",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed dagger from the Cache of the Firelord, Majordomo Executus's chest in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Core Hound Tooth from the Cache of the Firelord in Molten Core.", auto = { item = 18805, owned = { "Core Hound Tooth" } } },
+        },
+        completeWith = { item = 18805, owned = { "Core Hound Tooth" } },
+        tips = {
+            "Defeat Majordomo Executus in {raid_mc:Molten Core} and open the Cache of the Firelord for a chance at {item:18805:Core Hound Tooth}.",
+            "Flamewaker Elites and Healers can also drop it, but only about 1 time in 300.",
+            "It binds when picked up and is Unique. It adds 9 Stamina, 20 attack power and 1% crit.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
+        -- Item 19102: rare (blue) Bind on Pickup, Unique two-hand staff, item level 65, requires level 60, +25
+        -- Stamina, +16 Intellect, equip: up to 15 spell power. Sold for gold by the Stormpike Supply Officers,
+        -- Thanthaldis Snowgleam (outside Alterac Valley, in Alterac Mountains) and Gaelden Hammersmith (inside
+        -- the battleground); both are Alliance vendors. Price 39 gold 85 silver (warcraftdb). The standing is
+        -- not in the source data; Revered with the Stormpike Guard is from memory (the same pattern as Glacial
+        -- Blade), so verify in game. Forever's tables list an updated version (+25 Intellect, 25 spell power,
+        -- 25 healing, no Stamina).
+        id = "crackling_staff", library = true, itemQuality = 3, faction = "Alliance",
+        icon = "inv_staff_20",
+        name = "Crackling Staff",
+        short = "Crackling Staff",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "1-2 Months",
+        note = "An Alliance two-handed caster staff bought with gold from the Stormpike Supply Officer, once you are Revered with the Stormpike Guard.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Reach Revered with the {pvp_av_alliance:Stormpike Guard}.", auto = { rep = { faction = 730, standing = 7 } } },
+            { text = "Buy Crackling Staff from Thanthaldis Snowgleam, the Stormpike Supply Officer outside Alterac Valley.", auto = { item = 19102, owned = { "Crackling Staff" } } },
+        },
+        completeWith = { item = 19102, owned = { "Crackling Staff" } },
+        tips = {
+            "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn Stormpike Guard reputation.",
+            "Thanthaldis Snowgleam sells it for about 39 gold 85 silver. Gaelden Hammersmith, inside Alterac Valley, sells it too.",
+            "It binds when picked up and is Unique. It adds 25 Stamina, 16 Intellect and up to 15 spell power. Forever changed its numbers, so check the tooltip there.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use a staff. Learn Staves before equipping it.",
+        },
+    },
+
+    {
+        -- Item 17077: epic Bind on Pickup wand, item level 63, requires level 58, 102 to 191 Fire damage, +10
+        -- Intellect, +10 Fire resistance. Dropped by Lucifron, Gehennas, Shazzrah and Sulfuron Harbinger in
+        -- Molten Core (warcraftdb, no drop chances listed). Not in Forever's tables yet, so not marked confirmed.
+        id = "crimson_shocker", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_staff_13",
+        name = "Crimson Shocker",
+        short = "Crimson Shocker",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A Fire wand dropped by four bosses in Molten Core.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Crimson Shocker from a boss in Molten Core.", auto = { item = 17077, owned = { "Crimson Shocker" } } },
+        },
+        completeWith = { item = 17077, owned = { "Crimson Shocker" } },
+        tips = {
+            "Lucifron, Gehennas, Shazzrah and Sulfuron Harbinger in {raid_mc:Molten Core} can drop {item:17077:Crimson Shocker}. No drop chance is listed.",
+            "It binds when picked up. It deals Fire damage and adds 10 Intellect and 10 Fire resistance.",
+            "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
+        },
+    },
+
+    {
+        -- Item 18526: rare (blue) Bind on Pickup cloth helm, item level 63, requires level 58, 73 armor, +16
+        -- Stamina, +18 Intellect, +11 Spirit, equip: +1% spell crit. Dropped by King Gordok in Dire Maul North
+        -- (warcraftdb and GearSources; no drop chance listed). Not in Forever's tables yet, so not marked
+        -- confirmed.
+        id = "crown_of_the_ogre_king", library = true, itemQuality = 3, instance = { 429, "Dire Maul" },
+        icon = "inv_crown_01",
+        name = "Crown of the Ogre King",
+        short = "Ogre King's Crown",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A cloth caster helm dropped by King Gordok in Dire Maul North.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Crown of the Ogre King from King Gordok in Dire Maul North.", auto = { item = 18526, owned = { "Crown of the Ogre King" } } },
+        },
+        completeWith = { item = 18526, owned = { "Crown of the Ogre King" } },
+        tips = {
+            "Defeat King Gordok, the last boss of Dire Maul North, for a chance at {item:18526:Crown of the Ogre King} {map:dm:Show on map}. No drop chance is listed.",
+            "It binds when picked up. It adds 16 Stamina, 18 Intellect, 11 Spirit, 73 armor and 1% spell crit.",
+            "It is a cloth helm, so any class can wear it.",
+        },
+    },
+
+    {
+        -- Item 19365: epic Bind on Pickup, Unique main-hand fist weapon, item level 75, requires level 60, +13
+        -- Strength, +7 Stamina, equip: +1% crit. Dropped by Firemaw in Blackwing Lair (warcraftdb and
+        -- GearSources; no drop chance listed). Not in Forever's tables yet, so not marked confirmed.
+        id = "claw_of_the_black_drake", library = true, itemQuality = 4, instance = { 469, "Blackwing Lair" },
+        icon = "inv_weapon_shortblade_27",
+        name = "Claw of the Black Drake",
+        short = "Black Drake Claw",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A main-hand fist weapon dropped by Firemaw in Blackwing Lair.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Claw of the Black Drake from Firemaw in Blackwing Lair.", auto = { item = 19365, owned = { "Claw of the Black Drake" } } },
+        },
+        completeWith = { item = 19365, owned = { "Claw of the Black Drake" } },
+        tips = {
+            "Defeat Firemaw in {raid_bwl:Blackwing Lair} for a chance at {item:19365:Claw of the Black Drake}. No drop chance is listed.",
+            "It binds when picked up and is Unique. It adds 13 Strength, 7 Stamina and 1% crit.",
+            "Warriors, Rogues, Hunters, Shamans and Druids can use a fist weapon. Learn Fist Weapons before equipping it.",
+        },
+    },
+
+    {
+        -- Item 13044: rare (blue) Bind on Equip two-hand sword, item level 57, requires level 52, equip: +99
+        -- attack power against Demons. A world drop: 711 creatures are listed, no boss, the best chance 0.1%
+        -- from Darkmaster Gandling in Scholomance, plus three chests at 0.01% (warcraftdb). Not in Forever's
+        -- tables yet, so not marked confirmed.
+        id = "demonslayer", library = true, itemQuality = 3,
+        icon = "inv_sword_03",
+        name = "Demonslayer",
+        short = "Demonslayer",
+        category = "Rare Weapon", difficulty = "Extreme",
+        timeEstimate = "Varies",
+        note = "A rare two-handed sword that hundreds of creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 52.", auto = { level = 52 } },
+            { text = "Loot Demonslayer, a rare world drop.", auto = { item = 13044, owned = { "Demonslayer" } } },
+        },
+        completeWith = { item = 13044, owned = { "Demonslayer" } },
+        tips = {
+            "Over 700 creatures have dropped it, none of them with a real chance: the best listed is Darkmaster Gandling in Scholomance at about 0.1%, and a few chests at 0.01%. Expect to kill a great many creatures near its level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "Equipping it takes level 52 and Two-Handed Swords. It adds 99 attack power against Demons. Warriors, Paladins and Hunters can use it.",
+        },
+    },
+
+    {
+        -- Item 12602: rare (blue) Bind on Pickup shield, item level 63, requires level 58, 2153 armor, 40
+        -- block, +7 Stamina, +10 Fire resistance, equip: +10 defense. Dropped by General Drakkisath in Upper
+        -- Blackrock Spire (warcraftdb and GearSources; no drop chance listed). Not in Forever's tables yet, so
+        -- not marked confirmed.
+        id = "draconian_deflector", library = true, itemQuality = 3, instance = { 229, "Blackrock Spire" },
+        icon = "inv_shield_20",
+        name = "Draconian Deflector",
+        short = "Draconian Deflector",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A tanking shield dropped by General Drakkisath in Upper Blackrock Spire.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Draconian Deflector from General Drakkisath in Upper Blackrock Spire.", auto = { item = 12602, owned = { "Draconian Deflector" } } },
+        },
+        completeWith = { item = 12602, owned = { "Draconian Deflector" } },
+        tips = {
+            "Defeat General Drakkisath, the last boss of {key_ubrs:Upper Blackrock Spire}, for a chance at {item:12602:Draconian Deflector} {map:brs:Show on map}. No drop chance is listed.",
+            "It binds when picked up. It adds 7 Stamina, 10 Fire resistance, 10 defense and 40 block.",
+            "Warriors, Paladins and Shamans can use a shield.",
+        },
+    },
+
+    {
+        -- Item 17066: epic Bind on Pickup shield, item level 67, requires level 60, 2539 armor, 46 block, +10
+        -- Stamina, equip: 3 Arcane damage to melee attackers, +2% block chance, +23 block value. Dropped by
+        -- Garr in Molten Core (warcraftdb and GearSources; no drop chance listed). Not in Forever's tables yet,
+        -- so not marked confirmed.
+        id = "drillborer_disk", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_shield_10",
+        name = "Drillborer Disk",
+        short = "Drillborer Disk",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A tanking shield dropped by Garr in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Drillborer Disk from Garr in Molten Core.", auto = { item = 17066, owned = { "Drillborer Disk" } } },
+        },
+        completeWith = { item = 17066, owned = { "Drillborer Disk" } },
+        tips = {
+            "Defeat Garr in {raid_mc:Molten Core} for a chance at {item:17066:Drillborer Disk}. No drop chance is listed.",
+            "It binds when picked up. It adds 10 Stamina, 2% block chance and 23 block value, and deals 3 Arcane damage to anyone who strikes you.",
+            "Warriors, Paladins and Shamans can use a shield.",
+        },
+    },
+
+    {
+        -- Item 2099: epic Bind on Equip gun, item level 58, requires level 53, equip: a chance to strike the
+        -- ranged target with a Flaming Cannonball for 33 to 49 Fire damage. A world drop: 580 creatures are
+        -- listed, no boss, no drop chances (warcraftdb). Not in Forever's tables yet, so not marked confirmed.
+        id = "dwarven_hand_cannon", library = true, itemQuality = 4,
+        icon = "inv_weapon_rifle_09",
+        name = "Dwarven Hand Cannon",
+        short = "Hand Cannon",
+        category = "Epic Weapon", difficulty = "Extreme",
+        timeEstimate = "Varies",
+        note = "A rare gun that hundreds of creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 53.", auto = { level = 53 } },
+            { text = "Loot Dwarven Hand Cannon, a rare world drop.", auto = { item = 2099, owned = { "Dwarven Hand Cannon" } } },
+        },
+        completeWith = { item = 2099, owned = { "Dwarven Hand Cannon" } },
+        tips = {
+            "About 580 creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "It has a chance to hit your ranged target with a Flaming Cannonball for 33 to 49 Fire damage. Warriors, Hunters and Rogues can use a gun.",
+        },
+    },
+
+    {
+        -- Item 19100: rare (blue) Bind on Pickup, Unique one-hand dagger, item level 65, requires level 60, +10
+        -- Agility, chance on hit for 45 Nature damage. The Alliance counterpart of Glacial Blade: sold for gold
+        -- by the Stormpike Supply Officers, Thanthaldis Snowgleam (outside Alterac Valley, in Alterac
+        -- Mountains) and Gaelden Hammersmith (inside the battleground), 31 gold 65 silver (warcraftdb). The
+        -- standing is not in the source data; Revered with the Stormpike Guard is from memory (the same
+        -- pattern as Glacial Blade), so verify in game. Named in Forever's tables, not confirmed.
+        id = "electrified_dagger", library = true, itemQuality = 3, faction = "Alliance",
+        icon = "inv_weapon_shortblade_15",
+        name = "Electrified Dagger",
+        short = "Electrified Dagger",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "1-2 Months",
+        note = "An Alliance one-handed dagger bought with gold from the Stormpike Supply Officer, once you are Revered with the Stormpike Guard.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Reach Revered with the {pvp_av_alliance:Stormpike Guard}.", auto = { rep = { faction = 730, standing = 7 } } },
+            { text = "Buy Electrified Dagger from Thanthaldis Snowgleam, the Stormpike Supply Officer outside Alterac Valley.", auto = { item = 19100, owned = { "Electrified Dagger" } } },
+        },
+        completeWith = { item = 19100, owned = { "Electrified Dagger" } },
+        tips = {
+            "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn Stormpike Guard reputation.",
+            "Thanthaldis Snowgleam sells it for about 31 gold 65 silver. Gaelden Hammersmith, inside Alterac Valley, sells it too.",
+            "It binds when picked up and is Unique. It adds 10 Agility and its chance on hit blasts the target for 45 Nature damage.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
+        -- Item 18203: epic Bind on Pickup, Unique main-hand fist weapon, item level 66, requires level 60, +4
+        -- Agility, chance on hit to raise attack speed 30% for 5 sec. Dropped by Magmadar in Molten Core, 20%
+        -- (warcraftdb and GearSources). Part of the four-piece set Spirit of Eskhandar: Left Claw from
+        -- Azuregos, Pelt from Lord Kazzak, Collar from Onyxia (GearSources). Not in Forever's tables yet, so
+        -- not marked confirmed.
+        id = "eskhandars_right_claw", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_misc_monsterclaw_04",
+        name = "Eskhandar's Right Claw",
+        short = "Eskhandar's Claw",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A main-hand fist weapon dropped by Magmadar in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Eskhandar's Right Claw from Magmadar in Molten Core.", auto = { item = 18203, owned = { "Eskhandar's Right Claw" } } },
+        },
+        completeWith = { item = 18203, owned = { "Eskhandar's Right Claw" } },
+        tips = {
+            "Defeat Magmadar in {raid_mc:Molten Core} for a chance at {item:18203:Eskhandar's Right Claw}. The listed drop chance is about 20%, roughly 1 kill in 5.",
+            "It binds when picked up and is Unique. It adds 4 Agility, and its chance on hit raises your attack speed by 30% for 5 seconds.",
+            "It belongs to the four-piece Spirit of Eskhandar set. The Left Claw drops from Azuregos, the Pelt from Lord Kazzak and the Collar from Onyxia. Wearing all four adds a chance to call forth the spirit of Eskhandar.",
+            "Warriors, Rogues, Hunters, Shamans and Druids can use a fist weapon. Learn Fist Weapons before equipping it.",
+        },
+    },
+
+    {
+        -- Item 13218: rare (blue) Bind on Pickup, Unique one-hand dagger, item level 61, requires level 56, no
+        -- stats; chance on hit slows the target's casting and attack speed 10% for 10 sec. Dropped by Crystal
+        -- Fang in Lower Blackrock Spire (warcraftdb and GearSources; no drop chance listed). Pairs with
+        -- Venomspitter (Mother Smolderweb, same dungeon) as the set Spider's Kiss. Not in Forever's tables
+        -- yet, so not marked confirmed.
+        id = "fang_of_the_crystal_spider", library = true, itemQuality = 3, instance = { 229, "Blackrock Spire" },
+        icon = "inv_weapon_shortblade_16",
+        name = "Fang of the Crystal Spider",
+        short = "Crystal Spider Fang",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed dagger dropped by Crystal Fang in Lower Blackrock Spire.",
+        steps = {
+            { text = "Reach level 56.", auto = { level = 56 } },
+            { text = "Loot Fang of the Crystal Spider from Crystal Fang in Lower Blackrock Spire.", auto = { item = 13218, owned = { "Fang of the Crystal Spider" } } },
+        },
+        completeWith = { item = 13218, owned = { "Fang of the Crystal Spider" } },
+        tips = {
+            "Defeat Crystal Fang in Lower Blackrock Spire for a chance at {item:13218:Fang of the Crystal Spider} {map:brs:Show on map}. No drop chance is listed.",
+            "It binds when picked up and is Unique. Its chance on hit slows the target's casting speed and attack speed by 10% for 10 seconds.",
+            "It forms the two-piece Spider's Kiss set with {item:13183:Venomspitter}, which drops from Mother Smolderweb in the same dungeon. Wearing both adds a chance to immobilize the target and cut its armor by 100.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
+        -- Item 12590: epic Bind on Pickup one-hand dagger, item level 63, requires level 58, no stats; chance on
+        -- hit makes all attacks land and crit for 3 sec. Dropped by Warchief Rend Blackhand in Upper Blackrock
+        -- Spire, 1% (warcraftdb and GearSources). Not in Forever's tables yet, so not marked confirmed.
+        id = "felstriker", library = true, itemQuality = 4, instance = { 229, "Blackrock Spire" },
+        icon = "inv_weapon_shortblade_25",
+        name = "Felstriker",
+        short = "Felstriker",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed dagger dropped by Warchief Rend Blackhand in Upper Blackrock Spire.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Felstriker from Warchief Rend Blackhand in Upper Blackrock Spire.", auto = { item = 12590, owned = { "Felstriker" } } },
+        },
+        completeWith = { item = 12590, owned = { "Felstriker" } },
+        tips = {
+            "Defeat Warchief Rend Blackhand in {key_ubrs:Upper Blackrock Spire} for a chance at {item:12590:Felstriker} {map:brs:Show on map}. The listed drop chance is about 1%, roughly 1 kill in 100.",
+            "It binds when picked up. Its chance on hit makes all your attacks land and crit for 3 seconds.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
         -- Item 18832: epic Bind on Pickup, Unique one-hand sword, item level 70, requires level 60, +9 Strength,
         -- +9 Agility, equip: +1% crit. Dropped by Garr in Molten Core, 20% (warcraftdb). Not in Forever's
         -- tables yet, so not marked confirmed.
