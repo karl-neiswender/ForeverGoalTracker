@@ -93,6 +93,30 @@ its October 21 notes.
   Native appearance awaits a full game restart. Artwork preference: remove visible
   watermarks/signatures from derivatives and credit verified artists on the goal.
 
+- **For Codex (Karl, 2026-10-26): build 11 weapon banners.** These goals have no
+  banner yet. Karl confirmed the image for each (all in `Media/artwork`, which is
+  untracked and renamed to lowercase-hyphen names on 2026-10-25). Follow the weapon
+  workflow in [the installation record](image-tests/weapon-background-reviews-2026-10-25.md):
+  grayscale master, BLP, goal mapping, watermark/artist check. Karl approves each
+  review before install.
+
+  | Goal id | Image |
+  |---|---|
+  | `ashkandi` | `weapon-ashkandi.png` |
+  | `destiny` | `weapon-destiny.jpg` |
+  | `maladath` | `weapon-maladath.jpg` |
+  | `hungering_cold` | `weapon-hungering-cold.jpg` (alternate `weapon-hungering-cold-2.png`) |
+  | `rod_of_the_ogre_magi` | `weapon-rod-of-the-ogre-magi.jpg` |
+  | `shadowstrike` | `weapon-shadowstrike.jpg` |
+  | `silent_fang` | `weapon-silent-fang.png` |
+  | `spinal_reaper` | `weapon-spinal-reaper.jpg` |
+  | `staff_of_dominance` | `weapon-staff-of-dominance.png` |
+  | `staff_of_the_ruins` | `weapon-staff-of-the-ruins.jpg` |
+  | `sword_of_zeal` | `weapon-sword-of-zeal.jpg` |
+
+  `maladath` and `hungering_cold` are new Library goals added 2026-10-25 (Library.lua,
+  Filters.lua).
+
 - Safe chat links are implemented: EventRegistry plus secure legacy post-hook,
   no replacement of SetItemRef. The earlier replacement bug is not an open code
   task; native behavior still needs review when related code changes.

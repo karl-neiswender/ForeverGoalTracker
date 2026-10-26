@@ -898,6 +898,54 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19351, checked 2026-10-25: epic Bind on Pickup, Unique one-hand sword, item
+        -- level 75, requires level 60, 86 to 162 damage, equip: +1% parry and +4 Swords skill. Dropped by
+        -- Broodlord Lashlayer in Blackwing Lair (GearSources agrees; Wowhead shows no drop chance). Not
+        -- confirmed in Forever's tables yet, so not marked confirmed.
+        id = "maladath", library = true, itemQuality = 4, instance = { 469, "Blackwing Lair" },
+        icon = "inv_sword_49",
+        name = "Maladath, Runed Blade of the Black Flight",
+        short = "Maladath",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed sword dropped by Broodlord Lashlayer in Blackwing Lair.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Maladath from Broodlord Lashlayer in Blackwing Lair.", auto = { item = 19351, owned = { "Maladath, Runed Blade of the Black Flight" } } },
+        },
+        completeWith = { item = 19351, owned = { "Maladath, Runed Blade of the Black Flight" } },
+        tips = {
+            "Defeat Broodlord Lashlayer, the second boss of {raid_bwl:Blackwing Lair}, for a chance at {item:19351:Maladath}.",
+            "It binds when picked up and is Unique. It adds 1% parry and 4 Swords skill.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use this sword. Learn One-Handed Swords before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 23577, checked 2026-10-25: epic Bind on Pickup, Unique one-hand sword, item
+        -- level 89, requires level 60, 76 to 143 damage, 140 armor, +14 Stamina, equip: +6 Swords skill.
+        -- Dropped by Kel'Thuzad in Naxxramas, 1 in 5 kills on Wowhead (a sample of 5; GearSources agrees, so no
+        -- rate is given). Not confirmed in Forever's tables yet, so not marked confirmed.
+        id = "hungering_cold", library = true, itemQuality = 4, instance = { 533, "Naxxramas" },
+        icon = "inv_sword_62",
+        name = "The Hungering Cold",
+        short = "Hungering Cold",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed sword dropped by Kel'Thuzad in Naxxramas.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot The Hungering Cold from Kel'Thuzad in Naxxramas.", auto = { item = 23577, owned = { "The Hungering Cold" } } },
+        },
+        completeWith = { item = 23577, owned = { "The Hungering Cold" } },
+        tips = {
+            "Defeat Kel'Thuzad, the last boss of {raid_naxx:Naxxramas}, for a chance at {item:23577:The Hungering Cold}.",
+            "It binds when picked up and is Unique. It adds 14 Stamina and 6 Swords skill.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use this sword. Learn One-Handed Swords before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 18534, checked 2026-10-25: rare (blue) Bind on Pickup two-hand staff, item level
         -- 63, requires level 58, +11 Stamina, +14 Intellect, +7 Spirit, equip: +1% spell crit and +23 spell
         -- power. Wowhead lists Mizzle the Crafty (no drop chance) and the Gordok Tribute chest (1 of 8
