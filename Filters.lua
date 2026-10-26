@@ -48,6 +48,7 @@ FGT.GOAL_CLASSES = {
     spinal_reaper = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" },
     staff_of_dominance = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     staff_of_the_ruins = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
+    sword_of_zeal = ONE_HAND_SWORD,
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },

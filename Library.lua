@@ -1047,6 +1047,32 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 6622, checked 2026-10-25: rare (blue) Bind on Equip main-hand sword, item level
+        -- 63, requires level 58, chance on hit for +10 damage and +150 armor for 15 sec. A world drop with no
+        -- single source: 102 creatures of level 56 to 63 are listed, with the best counts from the big bosses
+        -- (kills seen on Wowhead: Onyxia 975 of 37,824, about 2.6%; Nefarian about 2.9%; Lord Kazzak about 4.3%;
+        -- Azuregos about 1.8%), many Molten Core creatures, and the Sack and Chest of Spoils. The Forever item
+        -- page exists with the same numbers.
+        id = "sword_of_zeal", library = true, forever = "confirmed", itemQuality = 3,
+        icon = "inv_sword_39",
+        name = "Sword of Zeal",
+        short = "Sword of Zeal",
+        category = "Rare Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A rare one-handed sword that high-level raid bosses and elites can drop.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Sword of Zeal, a rare drop from level 56 to 63 creatures.", auto = { item = 6622, owned = { "Sword of Zeal" } } },
+        },
+        completeWith = { item = 6622, owned = { "Sword of Zeal" } },
+        tips = {
+            "Wowhead lists about 100 creatures that have dropped it. The best known sources are Onyxia (about 2.6%), Nefarian (about 2.9%), Lord Kazzak (about 4.3%) and Azuregos (about 1.8%), plus many Molten Core creatures and the Sack of Spoils.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "Equipping it takes level 58 and One-Handed Swords. Its chance on hit adds 10 damage and 150 armor for 15 seconds. It is a main-hand sword: Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
