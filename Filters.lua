@@ -46,6 +46,7 @@ FGT.GOAL_CLASSES = {
     shadowstrike = { "WARRIOR", "PALADIN", "HUNTER", "DRUID" },
     silent_fang = ONE_HAND_SWORD,
     spinal_reaper = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" },
+    staff_of_dominance = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     destiny = { "WARRIOR", "PALADIN", "HUNTER" },
     headmasters_charge = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" },
     aurastone_hammer = { "WARRIOR", "PALADIN", "ROGUE", "PRIEST", "SHAMAN", "DRUID" },

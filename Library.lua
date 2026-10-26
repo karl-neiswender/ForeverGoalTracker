@@ -997,6 +997,31 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 18842, checked 2026-10-25: epic Bind on Pickup two-hand staff, item level 70,
+        -- requires level 60, +16 Stamina, +37 Intellect, +14 Spirit, equip: +1% spell crit and +40 spell
+        -- power. Dropped by Golemagg the Incinerator in Molten Core (GearSources agrees; the sample is 22
+        -- kills, so no rate is given). Not in Forever's tables yet (Wowhead Forever has no page), so not marked
+        -- confirmed.
+        id = "staff_of_dominance", library = true, itemQuality = 4, instance = { 409, "Molten Core" },
+        icon = "inv_staff_13",
+        name = "Staff of Dominance",
+        short = "Staff of Dominance",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed caster staff dropped by Golemagg the Incinerator in Molten Core.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Staff of Dominance from Golemagg the Incinerator in Molten Core.", auto = { item = 18842, owned = { "Staff of Dominance" } } },
+        },
+        completeWith = { item = 18842, owned = { "Staff of Dominance" } },
+        tips = {
+            "Defeat Golemagg the Incinerator in {raid_mc:Molten Core} for a chance at {item:18842:Staff of Dominance}.",
+            "It binds when picked up. It adds 16 Stamina, 37 Intellect, 14 Spirit, 1% spell crit and 40 spell power.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
