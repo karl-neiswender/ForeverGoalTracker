@@ -194,6 +194,7 @@ FINAL_BANNERS = {
     "tier3_priest": "tier-sets/priest/tier3.jpg",
     "set_tier2_priest": "tier-sets/priest/tier2.jpg",
     "set_tier1_priest": "tier-sets/priest/tier1.jpg",
+    "set_tier1_priest-horde": "tier-sets/priest/tier1-horde-master.png",
     "set_violet_sorcerer": "tall-1200x900/set_violet_sorcerer.jpg",
     "raid_hyjal": "tall-1200x900/raid_hyjal.jpg",
     "raid_barrow": "tall-1200x900/raid_barrow.jpg",

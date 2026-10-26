@@ -5098,6 +5098,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         },
         set_tier1_priest = {
             Alliance = "set_tier1_priest-banner.blp",
+            Horde = "set_tier1_priest-horde-banner.blp",
         },
         set_tier2_priest = {
             Alliance = "set_tier2_priest-banner.blp",
