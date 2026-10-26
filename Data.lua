@@ -70,7 +70,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
     if home then
         local side, repId, repName, races = home[1], home[2], home[3], home[4]
         return {
-            { name = "Level a " .. side .. " character to level 60", materials = {}, shared = "level60",
+            { name = "Level " .. (side == "Alliance" and "an " or "a ") .. side .. " character to level 60", materials = {}, shared = "level60",
               auto = { level = 60, forFaction = side } },
             { name = "Reach Exalted with " .. repName .. " (optional for " .. races .. ")", materials = {},
               auto = { rep = { faction = repId, standing = 8 }, forFaction = side },
@@ -85,7 +85,7 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
         }
     end
     return {
-        { name = "Level a " .. race .. " character to level 60", materials = {},
+        { name = "Level " .. (race:match("^[AEIOU]") and "an " or "a ") .. race .. " character to level 60", materials = {},
           auto = { raceLevel = { race = raceFile, level = 60 } } },
         -- Warcraft Forever renamed the skill: Journeyman Riding is what
         -- teaches swift mounts there. Same skill rank, 150.

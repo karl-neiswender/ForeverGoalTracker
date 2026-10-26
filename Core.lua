@@ -8292,6 +8292,27 @@ local function ToggleStep(goalId, index, view)
     end
 end
 
+-- A click on a locked step (ordinary steps and group pieces alike): Shift-click removes the lock for
+-- the session without ticking (Karl, 2026-10-24); a plain click jiggles the lock and explains it.
+-- Returns true when the step was locked, so the caller does not tick it.
+function FGT.LockedStepClick(row, goal, key, view)
+    if not FGT.StepLocked(goal, key) then return false end
+    if IsShiftKeyDown() then
+        FGT.UnlockStep(goal, key)
+        if view then
+            if selectedId then SelectGoal(selectedId, true) end
+            if FGT.RefreshPopout then FGT.RefreshPopout() end
+        else
+            SelectGoal(goal.id, true)
+        end
+        return true
+    end
+    FGT.PlayLockMotion(row, "jiggle")
+    FGT.ShowStepLockTip(row)
+    FGT.lockTried[goal.id .. "|" .. tostring(key)] = true -- (so the next tooltip carries the hint)
+    return true
+end
+
 -- Shared checked/unchecked visual state for any pooled checkbox row
 -- (flat steps, Tier 3 pieces, and Tier 3 materials all use this).
 local function StyleCheckRow(row, done)
@@ -8750,7 +8771,11 @@ local function RefreshTierSections(goal, view)
                 local indent = (simple or view and view.singleSection) and 2 or 18
                 SetRowIndent(row, indent)
                 row:SetStepIcon(not view and piece.icon or nil) -- compact pop-out keeps one header icon
-                FGT.ClearStepLock(row) -- grouped collection rows are independent in this pass
+                -- A piece the game can check (level, reputation, skill, quest) is locked until met, like an
+                -- ordinary step, and now shows it: the lock used to be enforced on click but hidden here,
+                -- so the click did nothing (Karl, 2026-10-26, Epic Racial Mounts). Pieces with materials
+                -- have no checkbox and are never locked.
+                if #piece.materials > 0 then FGT.ClearStepLock(row) else FGT.StyleStepLock(row, goal, PieceKey(si, pi)) end
                 FGT.SetStepLinks(row, piece.auto, piece)
 
                 -- Pieces with materials fold open individually (closed by
@@ -8801,7 +8826,7 @@ local function RefreshTierSections(goal, view)
                     if self.pieceKey then
                         FGT.pieceExpanded[self.pieceKey] = not FGT.pieceExpanded[self.pieceKey]
                         FGT.RefreshStepView(goal, view)
-                    else
+                    elseif not FGT.LockedStepClick(self, goal, PieceKey(si, pi), view) then
                         ToggleStep(goal.id, PieceKey(si, pi), view) -- mount tasks: the row is the checkbox
                     end
                 end)
@@ -9002,23 +9027,7 @@ RefreshSteps = function(goal, view)
 
             row:SetScript("OnClick", function(self, button)
                 if FGT.StepLinkClick(self, button) then return end
-                if FGT.StepLocked(goal, i) then
-                    if IsShiftKeyDown() then
-                        -- the escape (Karl, 2026-10-24): Shift-click removes the lock for this session; it does not tick
-                        FGT.UnlockStep(goal, i)
-                        if view then
-                            if selectedId then SelectGoal(selectedId, true) end
-                            if FGT.RefreshPopout then FGT.RefreshPopout() end
-                        else
-                            SelectGoal(goal.id, true)
-                        end
-                        return
-                    end
-                    FGT.PlayLockMotion(self, "jiggle")
-                    FGT.ShowStepLockTip(self)
-                    FGT.lockTried[goal.id .. "|" .. tostring(i)] = true -- (so the next tooltip carries the hint)
-                    return
-                end
+                if FGT.LockedStepClick(self, goal, i, view) then return end
                 ToggleStep(goal.id, i, view)
             end)
         end
