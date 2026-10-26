@@ -1,0 +1,15 @@
+{
+  "goal": "rod_of_the_ogre_magi",
+  "source": "Media/artwork/weapon-rod-of-the-ogre-magi.jpg",
+  "review": "Media/final-images/rod-of-the-ogre-magi-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Rod of the Ogre Magi weapon goal banner. Input image is the edit target, a small trading card. Extract and faithfully preserve the illustration only: the green-skinned tusked spellcaster in dark robes holding a tall ornate golden staff, with an angular flame-like carved head surrounding a large dark blue oval gem and a short strip of red wrapping immediately below the head. Preserve the character's face, tusks, silhouette, robe, hand gripping the staff, pose and weapon design. Preserve the shadowy smoky magical background. Do not invent additional characters, limbs or objects. Remove the entire trading card frame, all text, rules, numbers, symbols, icons and printed credits. Adapt the artwork into one 4:3 landscape detailed painterly banner, target 1200 x 900. Place the character and prominent staff high and toward the right with breathing room; staff head and gripping hand fully visible, left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights, all colored skin, staff and magical effects converted to neutral grayscale. Bake a wide smooth dark LEFT gradient into the image, strongest neutral charcoal at the left edge gradually blending into the scene without a hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition and no hard horizontal strip. Both gradients must be present in the generated artwork itself. No added text, UI, border, watermark or signature.",
+  "status": "Approved by Karl (good), installed 2026-10-26",
+  "artist": "Unverified",
+  "attributionEvidence": "Printed source card artist credit too small to reliably read. Original preserved.",
+  "visualReview": "Staff head, inset gem and gripping hand readable; character placed right; quiet left third and soft bottom fade; grayscale appearance. Small source details have been interpreted by imagegen.",
+  "master": "Media/final-images/weapons/rod-of-the-ogre-magi-master.png",
+  "runtime": "Media/rod_of_the_ogre_magi-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "tools/check.py rerun with real Lua 5.1; stopped at the same Horde Priest Tier 1 portrait assertion seen before this installation. No priest mappings changed."
+}

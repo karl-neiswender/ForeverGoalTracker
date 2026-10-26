@@ -317,7 +317,8 @@ for _, faction in ipairs({"Alliance", "Horde", "Neutral"}) do
     assert(B:ArtPath("set_tier1_warlock")==warlockArt, "Warlock Tier 1 selects approved faction artwork for "..faction)
     assert(not desaturated and B.sourceAspect==4/3, "Felheart faction artwork keeps approved treatment and proportions")
     F.SelectGoal("set_tier1_priest")
-    assert(B:ArtPath("set_tier1_priest")=="set_tier1_priest-banner.blp", "Priest Tier 1 uses approved portrait for "..faction)
+    local priestArt = faction=="Horde" and "set_tier1_priest-horde-banner.blp" or "set_tier1_priest-banner.blp"
+    assert(B:ArtPath("set_tier1_priest")==priestArt, "Priest Tier 1 uses approved faction portrait for "..faction)
     assert(not desaturated and B.sourceAspect==4/3, "Priest Tier 1 keeps approved treatment and proportions")
     F.SelectGoal("tier3_priest")
     assert(B:ArtPath("tier3_priest")=="tier3_priest-banner.blp", "Priest Tier 3 keeps approved Alliance/default art for "..faction)

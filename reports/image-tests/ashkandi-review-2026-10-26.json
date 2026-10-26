@@ -1,0 +1,16 @@
+{
+  "goal": "ashkandi",
+  "date": "2026-10-26",
+  "source": "Media/artwork/weapon-ashkandi.png",
+  "review": "Media/final-images/ashkandi-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker weapon goal banner, Ashkandi. Input image is the edit target: the supplied Reclaimed Ashkandi card. Extract and faithfully preserve the illustrated sword and volcanic chamber only, removing the entire card frame, all printed text, icons, numbers, copyright, and signatures. Preserve the sword's exact distinctive silhouette, ornate dragon-shaped crossguard, round inset gem, wrapped handle, full pommel, broad intricate blade and diagonal pose from lower left to upper right. Do not add characters or objects. Create one 4:3 landscape painterly banner, target 1200 x 900. Compose the complete sword high and toward the right with breathing room, fitting the whole weapon within the canvas; keep the left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Retain the volcanic chamber and lava streams as grayscale environment. Bake a wide smooth dark LEFT gradient into the artwork, strongest neutral charcoal at the left edge, gradually blending with no strip or boundary. Also bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition and no hard horizontal strip. Both gradients must be present in the image. No added text, UI, border, watermark or signature.",
+  "artist": "Gonzalo Ordonez",
+  "artistEvidence": "Printed source card credit: Art by: Gonzalo Ordonez",
+  "status": "Approved by Karl (good), installed 2026-10-26",
+  "visualReview": "Complete sword visible, quiet dark left third, soft bottom fade, neutral grayscale appearance, no card text or signature.",
+  "master": "Media/final-images/weapons/ashkandi-master.png",
+  "runtime": "Media/ashkandi-banner.blp",
+  "validation": "1200 x 900 exactly neutral RGB master; 512px DXT1 BLP, ten mip levels; independent decode passed. Native appearance not tested.",
+  "luaCheck": "tools/check.py ran using isolated Mac Lua 5.1 dependency. Failed at goal banner layout assertion: Priest Tier 1 uses approved portrait for Horde. This check concerns a different banner; no priest mapping changed."
+}

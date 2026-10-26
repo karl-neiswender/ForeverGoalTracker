@@ -1,0 +1,15 @@
+{
+  "goal": "maladath",
+  "source": "Media/artwork/weapon-maladath.jpg",
+  "review": "Media/final-images/maladath-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Maladath goal background. Input image is the edit target. Faithfully adapt this exact illustration into one 4:3 landscape painterly banner, target 1200 x 900. Preserve the lone armored rogue's identity, concealed face, angular dark helmet, shoulder armor, scarf, crouched pose, hands and weapons. Especially preserve the prominent large curved silver sword with its ornate dragon-shaped gold hilt spanning the foreground, and the smaller claw-like weapon in the other hand. Preserve the industrial ruined city atmosphere with cables, scaffolds and ground mist. Do not add subjects or objects. Recompose the armored figure high and toward the right with breathing room, keeping the prominent sword and hands intact and readable; leave the left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a wide smooth dark LEFT gradient into the image, strongest neutral charcoal at the left edge blending gradually into the scene, no hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition, no hard horizontal strip. BOTH gradients must be in the generated image. Remove the visible bottom-right signature from the derivative. No text, UI, border, watermark, signature, extra characters or unrelated objects.",
+  "status": "Approved by Karl (good), installed 2026-10-26",
+  "artist": "Unverified",
+  "attributionEvidence": "Source has a bottom-right monogram. Artist identity not verified; signed original preserved.",
+  "visualReview": "Armored figure and curved foreground sword retained, quiet dark left third, soft bottom fade, grayscale appearance, signature removed.",
+  "master": "Media/final-images/weapons/maladath-master.png",
+  "runtime": "Media/maladath-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "tools/check.py rerun with real Lua 5.1; stopped at the same Horde Priest Tier 1 portrait assertion seen before this installation. No priest mappings changed."
+}

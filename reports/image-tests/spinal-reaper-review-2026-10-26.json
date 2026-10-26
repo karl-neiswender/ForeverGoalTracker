@@ -1,0 +1,15 @@
+{
+  "goal": "spinal_reaper",
+  "source": "Media/artwork/weapon-spinal-reaper.jpg",
+  "review": "Media/final-images/spinal-reaper-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Spinal Reaper weapon goal banner. Input image is the edit target, a small trading card. Extract and faithfully preserve only the illustration: the standing armored green-skinned tusked warrior holding a massive upright double-bladed axe in front of him, hands on its long shaft, the distinctive spine/bone-like central shaft ornament, two broad outward-curving blue steel axe blades low on the shaft, and the battlefield foreground with fallen armored figures and equipment already present. Preserve the warrior's identity, pose, armor, hands and axe geometry. Preserve the smoky battlefield sky and distant stakes. Remove the entire trading card frame, all text, numbers, rules, icons, copyright and signatures. Adapt into one 4:3 landscape detailed painterly banner, target 1200 x 900. Recompose warrior and full axe high and toward the right with breathing room, prominent axe head and gripping hands clearly readable; keep left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights and atmospheric shadows. Bake a wide smooth dark LEFT gradient into the artwork, strongest neutral charcoal at the left edge blending gradually with no hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition and no hard horizontal strip. Both gradients must be in the artwork itself. No added characters or objects, text, UI, border, watermark or signature.",
+  "status": "Approved by Karl (good), installed 2026-10-26",
+  "artist": "Unverified",
+  "attributionEvidence": "Source card printed credit too small to reliably read. Original preserved.",
+  "visualReview": "Warrior and prominent double axe framed right, battlefield retained, quiet left third and soft bottom fade, grayscale appearance. Small source details interpreted by imagegen.",
+  "master": "Media/final-images/weapons/spinal-reaper-master.png",
+  "runtime": "Media/spinal_reaper-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "Full tools/check.py passed using real Lua 5.1 after updating obsolete Priest Tier 1 faction expectation to match dedicated Horde art."
+}

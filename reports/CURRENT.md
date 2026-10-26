@@ -87,32 +87,35 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Horde Prophecy installed 2026-10-26 from approved `horde-prophecy-review-v1.png`.
+  Dedicated Horde Priest Tier 1 texture rebuilt; existing faction mapping retained.
+  Alliance keeps its portrait. Full game restart needed; native review pending.
+
 - Weapon backgrounds installed 2026-10-25: twenty approved weapon banners, exact
   grayscale masters, BLPs, goal mappings and eight verified artist credits. Glacial
   Blade has a dedicated PvP art override. [Installation record](image-tests/weapon-background-reviews-2026-10-25.md).
   Native appearance awaits a full game restart. Artwork preference: remove visible
   watermarks/signatures from derivatives and credit verified artists on the goal.
 
-- **For Codex (Karl, 2026-10-26): build 11 weapon banners.** These goals have no
-  banner yet. Karl confirmed the image for each (all in `Media/artwork`, which is
-  untracked and renamed to lowercase-hyphen names on 2026-10-25). Follow the weapon
-  workflow in [the installation record](image-tests/weapon-background-reviews-2026-10-25.md):
-  grayscale master, BLP, goal mapping, watermark/artist check. Karl approves each
-  review before install.
+- **Completed 2026-10-26: all 11 weapon banners approved and installed.**
+  Full game restart and native visual review remain pending. All originals are
+  tracked in `Media/artwork`. Reviews, prompts and installation records are in
+  `reports/image-tests/*-review-2026-10-26*.json`. Exact neutral masters, runtime
+  textures and the full Lua 5.1 suite passed. Included in the authorized session sync.
 
   | Goal id | Image |
   |---|---|
-  | `ashkandi` | `weapon-ashkandi.png` |
-  | `destiny` | `weapon-destiny.jpg` |
-  | `maladath` | `weapon-maladath.jpg` |
-  | `hungering_cold` | `weapon-hungering-cold.jpg` (alternate `weapon-hungering-cold-2.png`) |
-  | `rod_of_the_ogre_magi` | `weapon-rod-of-the-ogre-magi.jpg` |
-  | `shadowstrike` | `weapon-shadowstrike.jpg` |
-  | `silent_fang` | `weapon-silent-fang.png` |
-  | `spinal_reaper` | `weapon-spinal-reaper.jpg` |
-  | `staff_of_dominance` | `weapon-staff-of-dominance.png` |
-  | `staff_of_the_ruins` | `weapon-staff-of-the-ruins.jpg` |
-  | `sword_of_zeal` | `weapon-sword-of-zeal.jpg` |
+  | `ashkandi` | `weapon-ashkandi.png` (approved and installed 2026-10-26) |
+  | `destiny` | `weapon-destiny.jpg` (approved and installed 2026-10-26) |
+  | `maladath` | `weapon-maladath.jpg` (approved and installed 2026-10-26) |
+  | `hungering_cold` | `weapon-hungering-cold.jpg` (approved and installed 2026-10-26; alternate `weapon-hungering-cold-2.png` preserved) |
+  | `rod_of_the_ogre_magi` | `weapon-rod-of-the-ogre-magi.jpg` (approved and installed 2026-10-26) |
+  | `shadowstrike` | `weapon-shadowstrike.jpg` (approved and installed 2026-10-26) |
+  | `silent_fang` | `weapon-silent-fang.png` (version 3 approved and installed 2026-10-26) |
+  | `spinal_reaper` | `weapon-spinal-reaper.jpg` (approved and installed 2026-10-26) |
+  | `staff_of_dominance` | `weapon-staff-of-dominance.png` (approved and installed 2026-10-26) |
+  | `staff_of_the_ruins` | `weapon-staff-of-the-ruins.jpg` (approved and installed 2026-10-26) |
+  | `sword_of_zeal` | `weapon-sword-of-zeal.jpg` (approved and installed 2026-10-26) |
 
   `maladath` and `hungering_cold` are new Library goals added 2026-10-25 (Library.lua,
   Filters.lua).

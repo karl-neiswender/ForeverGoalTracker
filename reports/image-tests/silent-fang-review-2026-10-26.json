@@ -1,0 +1,11 @@
+{
+  "goal": "silent_fang",
+  "source": "Media/artwork/weapon-silent-fang.png",
+  "review": "Media/final-images/silent-fang-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Silent Fang weapon goal banner. Input image is the edit target, a trading card. Extract and faithfully preserve the illustration only: an elegant slender slightly curved sword displayed horizontally on a two-post wooden stand atop a tabletop, grip and small guard at the left, long bright blade extending toward the right; behind it a large shadowed purple-skinned elf-like male face with long pointed ears, glowing eyes, long dark hair, pronounced nose and faint sly smile. Preserve this exact face, expression, ears, hair, sword design, stand and arrangement. The face is part of the existing scene, do not add characters. Remove the entire card frame, all text, numbers, rules, symbols, icons, printed credits and signatures. Adapt into one 4:3 landscape detailed painterly banner, target 1200 x 900. Recompose the displayed sword and shadowed face toward the right and high, keeping the full sword tip, grip and both stand posts visible with breathing room, tabletop naturally extending along the bottom. Left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights and atmospheric dark background. Bake a wide smooth dark LEFT gradient into the image, strongest neutral charcoal at the left edge blending gradually into the scene without a hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition and no hard horizontal strip. Both gradients must be present in the artwork itself. No added text, UI, border, watermark, signature, extra objects or extra characters.",
+  "status": "Awaiting Karl approval; not installed",
+  "artist": "Milivoj Ceran",
+  "attributionEvidence": "Printed source card credit: Art by: Milivoj Ceran. Original preserved.",
+  "visualReview": "Full horizontal sword and stand visible, shadowed elf face retained behind it, quiet dark left third, soft bottom fade, grayscale appearance; no card frame or text."
+}

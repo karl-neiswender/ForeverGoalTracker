@@ -1,0 +1,14 @@
+{
+  "goal": "silent_fang",
+  "editTarget": "Media/final-images/silent-fang-review-2026-10-26-v2.png",
+  "review": "Media/final-images/silent-fang-review-2026-10-26-v3.png",
+  "mode": "built-in imagegen",
+  "prompt": "Edit the supplied Silent Fang grayscale banner, targeting only the mouth-cloth, jaw and neck integration. The cloth currently looks pasted on and the exposed chin/neck below the sword looks like a separate patch. Repaint these regions cohesively in the same painterly brushwork, texture scale, lighting and soft shadow treatment as the rest of the face and hair. Keep a dark cloth band fully covering and silencing his mouth, but make it naturally conform to the curved face, wrap around the cheeks, disappear behind hair at both sides, and cast subtle believable contact shadows. Simplify its overly crisp layered bandage edges and fine woven detail into natural cloth folds consistent with the painting. Integrate the chin under the gag into one continuous anatomically coherent jaw and neck, including the small exposed neck patch below the sword. Remove the conspicuous horizontal seam/crease across that patch, avoid a separate floating chin or disconnected skin island, and blend its outer edges naturally into the surrounding hair and dark clothing. Preserve face identity, eyes, nose, ears, head pose and scale. Preserve the sword exactly, its stand, tabletop, all composition and dimensions, strictly neutral grayscale and the baked dark left and bottom fades. No text or marks. This is a localized integration polish, not a redesign.",
+  "status": "Approved by Karl (okay good), installed 2026-10-26",
+  "artist": "Milivoj Ceran",
+  "visualReview": "Cloth folds softened and conformed to cheeks; jaw and neck repainted with continuous shadows and brushwork. Sword, stand, composition and both fades retained.",
+  "master": "Media/final-images/weapons/silent-fang-master.png",
+  "runtime": "Media/silent_fang-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "tools/check.py rerun with real Lua 5.1; stopped at the same Horde Priest Tier 1 portrait assertion seen before this installation. No priest mappings changed."
+}

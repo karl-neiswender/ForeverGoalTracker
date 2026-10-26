@@ -1,0 +1,15 @@
+{
+  "goal": "hungering_cold",
+  "source": "Media/artwork/weapon-hungering-cold.jpg",
+  "review": "Media/final-images/hungering-cold-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker The Hungering Cold weapon goal banner. Input image is the edit target. Faithfully preserve the exact source sword: upright grip at the top, downward-pointing broad blade, prominent fang-toothed skull crossguard with four curved dark horn-like projections, central inset gem, bright eye sockets, the exact decorative runic markings down the blade, angular silver edges and side spikes. Preserve this orientation, silhouette, proportions and all weapon geometry. Retain the arched stone chamber and flowing magical energy ribbons as the background. Reframe into one 4:3 landscape painterly banner, target 1200 x 900. Place the complete sword high and toward the right, with breathing room above grip and below blade tip; keep the left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights; convert all colored magical glow to neutral luminous grayscale. Bake a wide smooth dark LEFT gradient into the image, strongest neutral charcoal at the left edge gradually blending into the scene without a hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition and no hard horizontal strip. Both gradients must be present in the generated artwork. No added text, UI, border, watermark, signature, characters, hands or unrelated objects. Keep the existing blade runes as weapon decoration.",
+  "status": "Approved by Karl (good), installed 2026-10-26",
+  "artist": "Unverified",
+  "attributionEvidence": "No visible signature or printed artist credit on supplied source. Original preserved.",
+  "visualReview": "Complete downward-pointing sword, skull guard, runes and magical chamber retained; quiet dark left third and soft bottom fade; grayscale appearance.",
+  "master": "Media/final-images/weapons/hungering-cold-master.png",
+  "runtime": "Media/hungering_cold-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "tools/check.py rerun with real Lua 5.1; stopped at the same Horde Priest Tier 1 portrait assertion seen before this installation. No priest mappings changed."
+}

@@ -1,0 +1,15 @@
+{
+  "goal": "shadowstrike",
+  "source": "Media/artwork/weapon-shadowstrike.jpg",
+  "review": "Media/final-images/shadowstrike-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Shadowstrike weapon goal banner. Input image is the edit target, a small trading card. Extract and faithfully preserve the illustration only: a shadowed armored figure on the left side of the source art, wearing the same spiked curved helmet and shoulder armor, gripping the glowing long polearm angled from lower left toward upper right, with its distinctive broad jagged spearhead and branching magical lightning. Preserve the helmet silhouette, pose, gripping hands, armor and weapon geometry. Retain the dark forest and pointed shadowy tree backdrop. Remove all trading card frame, text, numbers, icons, rules, copyright and signatures. Adapt into one 4:3 landscape painterly banner, target 1200 x 900. Recompose the figure and polearm toward the right, with the subject high, breathing room, the whole prominent spearhead visible and hands readable. Left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Convert green magic and lightning into neutral luminous grayscale. Bake a wide smooth dark LEFT gradient into the artwork, strongest neutral charcoal at the left edge blending gradually into the scene without a hard vertical strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition, no hard horizontal strip. BOTH gradients must be in the image. No added text, UI, border, watermark, extra characters, limbs or unrelated objects.",
+  "status": "Approved by Karl (good), installed 2026-10-26",
+  "artist": "Unverified",
+  "attributionEvidence": "Source card printed credit too small to reliably read. Original preserved.",
+  "visualReview": "Armored figure and diagonal glowing polearm retained, quiet dark left third, soft bottom fade, grayscale appearance. Small source details interpreted by imagegen.",
+  "master": "Media/final-images/weapons/shadowstrike-master.png",
+  "runtime": "Media/shadowstrike-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "tools/check.py rerun with real Lua 5.1; stopped at the same Horde Priest Tier 1 portrait assertion seen before this installation. No priest mappings changed."
+}

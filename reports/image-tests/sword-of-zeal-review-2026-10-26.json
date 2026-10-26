@@ -1,0 +1,15 @@
+{
+  "goal": "sword_of_zeal",
+  "source": "Media/artwork/weapon-sword-of-zeal.jpg",
+  "review": "Media/final-images/sword-of-zeal-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Sword of Zeal weapon goal banner. Input image is the edit target, a small trading card. Extract and faithfully preserve only the illustration: one upright slender straight sword centered in a dark magical field, long luminous blade with the source's distinctive pointed tip, elongated central inset/detail and angular blade contour, small straight crossguard and dark wrapped grip below it. Preserve the exact sword design, proportions and upright orientation. Preserve the source's branching magical energy radiating outward around the blade in a dark atmospheric backdrop. Remove the entire trading card frame, all text, numbers, rules, symbols, icons, copyright and signatures. Adapt into one 4:3 landscape detailed painterly banner, target 1200 x 900. Place the complete sword high and toward the right with breathing room above the tip and below the pommel, all sword geometry intact. Left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights; all purple magic becomes neutral luminous grayscale. Bake a wide smooth dark LEFT gradient into the artwork, strongest neutral charcoal at the left edge gradually blending with no hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition and no hard horizontal strip. Both gradients must be in the generated image itself. No characters, hands, added objects, text, UI, border, watermark or signature.",
+  "status": "Approved by Karl (ok), installed 2026-10-26",
+  "artist": "Unverified",
+  "attributionEvidence": "Source card printed credit too small to reliably read. Original preserved.",
+  "visualReview": "Complete upright luminous sword and branching magical field visible; quiet dark left third and soft bottom fade; grayscale appearance. Small source details interpreted by imagegen.",
+  "master": "Media/final-images/weapons/sword-of-zeal-master.png",
+  "runtime": "Media/sword_of_zeal-banner.blp",
+  "validation": "All 11 weapon banners plus Horde Prophecy passed 1200 x 900 exact neutral grayscale master, 512px RGB BLP decode, 4:3 aspect and ten mip manifest checks. Native appearance not tested.",
+  "luaCheck": "Full tools/check.py passed using real Lua 5.1 after final runtime edits."
+}

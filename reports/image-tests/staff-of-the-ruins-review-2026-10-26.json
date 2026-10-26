@@ -1,0 +1,15 @@
+{
+  "goal": "staff_of_the_ruins",
+  "source": "Media/artwork/weapon-staff-of-the-ruins.jpg",
+  "review": "Media/final-images/staff-of-the-ruins-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Staff of the Ruins weapon goal banner. Input image is the edit target, a small trading card. Extract and faithfully preserve only the illustration: one long dark ornate staff leaning diagonally from upper left to lower right in desert ruins, with a distinctive branching crescent-like horned head, central gem, open oval loop below the head, slender long shaft and decorated lower ferrule resting in sand. Preserve exact staff silhouette, orientation, proportions and ornament geometry. Preserve the wind-shaped sand dunes, broken stone blocks, monumental ruined stone architecture and scattered rubble already in the illustration. Remove the entire card frame, all text, numbers, rules, symbols, icons, copyright and signatures. Adapt into one 4:3 landscape detailed painterly banner, target 1200 x 900. Place the full staff high and toward the right, fitting both the horned head and the lower tip within the canvas with breathing room. Keep left third quiet for addon text. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights and atmospheric shadows. Bake a wide smooth dark LEFT gradient into the artwork, strongest neutral charcoal at the left edge blending gradually into the ruins without a hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition and no hard horizontal strip. BOTH gradients must be in the generated artwork itself. No characters, hands, added objects, text, UI, border, watermark or signature.",
+  "status": "Approved by Karl (good), installed 2026-10-26",
+  "artist": "Unverified",
+  "attributionEvidence": "Source card printed credit too small to reliably read. Original preserved.",
+  "visualReview": "Complete diagonal staff, horned head and lower tip visible amid desert ruins; quiet dark left third and soft bottom fade; grayscale appearance. Small source details interpreted by imagegen.",
+  "master": "Media/final-images/weapons/staff-of-the-ruins-master.png",
+  "runtime": "Media/staff_of_the_ruins-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "Full tools/check.py passed using real Lua 5.1."
+}

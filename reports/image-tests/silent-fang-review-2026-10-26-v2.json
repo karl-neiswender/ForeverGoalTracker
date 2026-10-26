@@ -1,0 +1,13 @@
+{
+  "goal": "silent_fang",
+  "source": "Media/artwork/weapon-silent-fang.png",
+  "supportingReference": "Media/final-images/silent-fang-source-detail-2026-10-26.png",
+  "editTarget": "Media/final-images/silent-fang-review-2026-10-26-v1.png",
+  "review": "Media/final-images/silent-fang-review-2026-10-26-v2.png",
+  "mode": "built-in imagegen",
+  "prompt": "Edit image 1, the grayscale Silent Fang banner. Image 2 is a supporting reference showing the source face detail. Make one targeted correction: the elf's mouth is silenced shut by a broad dark cloth gag wrapped horizontally across his mouth and cheeks, as in image 2. Replace the exposed smiling lips in image 1 with that clearly readable taut fabric band, with subtle woven texture and folds extending around the sides of his face behind his hair. No lips, teeth or smile visible through the cloth. Keep his nose above the band and chin below it, matching the source. Preserve everything else in image 1: face identity, eyes, expression in the eyes, hair, ears, sword, stand, tabletop, exact composition, 4:3 aspect, neutral grayscale painterly treatment, broad smooth dark LEFT gradient and soft dark BOTTOM gradient. No added text, border, watermark or unrelated changes.",
+  "status": "Awaiting Karl approval; not installed",
+  "artist": "Milivoj Ceran",
+  "attributionEvidence": "Printed source card credit: Art by: Milivoj Ceran.",
+  "visualReview": "Cloth now fully covers mouth with no exposed lips; sword, stand, framing and dark fades retained. Version 1 retained as superseded incorrect interpretation."
+}

@@ -1,0 +1,15 @@
+{
+  "goal": "destiny",
+  "source": "Media/artwork/weapon-destiny.jpg",
+  "review": "Media/final-images/destiny-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Destiny weapon goal banner. Input image is the edit target. Preserve the source illustration's distinctive full straight sword, narrow silver blade, angular shoulders, ornate curved crossguard, central gem, wrapped grip and the armored skeletal-looking gauntlet holding it, plus its dramatic radiant cloudy backdrop. Preserve identity, design and hand geometry. Reframe to one 4:3 landscape painterly banner, target 1200 x 900. Keep the upright sword and holding hand high and toward the right, with the entire sword tip and crossguard visible and breathing room; the forearm may naturally leave the bottom edge. Left third quiet for addon text. Convert the gold scene to strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled radiant highlights. Bake a wide smooth dark gradient into the LEFT side, strongest neutral charcoal at the left edge blending gradually with no boundary or strip. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with no hard horizontal strip. Both gradients must be in the artwork itself. Remove the visible lower-right signature from the derivative. No text, UI, border, watermark, added characters or unrelated objects.",
+  "status": "Approved by Karl (good), installed 2026-10-26",
+  "artist": "Unverified",
+  "attributionEvidence": "Source has a lower-right signature resembling SOOK. Identity not verified; original retained.",
+  "visualReview": "Upright sword and gauntlet preserved, quiet dark left third, soft bottom fade, grayscale appearance, signature removed.",
+  "master": "Media/final-images/weapons/destiny-master.png",
+  "runtime": "Media/destiny-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "tools/check.py rerun with real Lua 5.1; stopped at the same Horde Priest Tier 1 portrait assertion seen before this installation. No priest mappings changed."
+}

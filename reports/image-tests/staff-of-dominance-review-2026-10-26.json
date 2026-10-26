@@ -1,0 +1,15 @@
+{
+  "goal": "staff_of_dominance",
+  "source": "Media/artwork/weapon-staff-of-dominance.png",
+  "review": "Media/final-images/staff-of-dominance-review-2026-10-26-v1.png",
+  "mode": "built-in imagegen",
+  "prompt": "Use case: style-transfer. Asset type: Forever Goal Tracker Staff of Dominance goal banner. Input image is the edit target, a trading card. Extract and faithfully preserve only the illustration: a stern human male spellcaster with short light hair and facial hair, wearing elaborate high angular collar, layered ornate robes, broad shoulders and a flowing cape, kneeling on one knee in a stone interior while gripping a long horizontal staff with both gloved hands at chest height. Preserve the exact face, kneeling pose, both hands, garments and staff. The staff has a long slender shaft and a prominent ornate angular claw-like head on the right enclosing a large faceted crystal orb; preserve its distinctive silhouette. Remove the entire card frame, all printed text, numbers, rules, icons, copyright and signatures. Adapt into one 4:3 landscape detailed painterly banner, target 1200 x 900. Place the spellcaster high and toward the right, with breathing room and enough room to show the complete staff head and gripping hands. Keep the left third quiet for addon text. Retain the stone floor and shadowed architectural setting, extending naturally without extra objects or characters. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a wide smooth dark LEFT gradient into the image, strongest neutral charcoal at the left edge blending gradually without a hard strip or boundary. Bake a soft dark BOTTOM gradient across approximately the lowest 100 pixels of a 900px-high master, fading downward to near-black neutral charcoal with a natural transition and no hard horizontal strip. BOTH gradients must be in the artwork itself. No added text, UI, border, watermark or signature.",
+  "status": "Approved by Karl (ok), installed 2026-10-26",
+  "artist": "Greg Hildebrandt",
+  "attributionEvidence": "Printed source card credit: Art by: Greg Hildebrandt. Original preserved.",
+  "visualReview": "Kneeling spellcaster, both hands and complete horizontal staff retained; subject right, quiet dark left third and soft bottom fade; grayscale appearance.",
+  "master": "Media/final-images/weapons/staff-of-dominance-master.png",
+  "runtime": "Media/staff_of_dominance-banner.blp",
+  "validation": "Exactly neutral RGB 1200 x 900 master; 512px DXT1 BLP with ten mip levels and independent decode passed. Native appearance not tested.",
+  "luaCheck": "Full tools/check.py passed using real Lua 5.1."
+}
