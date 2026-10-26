@@ -1022,6 +1022,31 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 21452, checked 2026-10-25: epic Bind on Pickup two-hand staff, item level 72,
+        -- requires level 60, +24 Stamina, +23 Intellect, +14 Spirit, equip: +60 spell power, +1% spell crit
+        -- and +1% spell hit. Dropped by Ossirian the Unscarred in the Ruins of Ahn'Qiraj (GearSources agrees;
+        -- the sample is 37 kills, so no rate is given). Not in Forever's tables yet (Wowhead Forever has no
+        -- page), so not marked confirmed.
+        id = "staff_of_the_ruins", library = true, itemQuality = 4, instance = { 509, "Ruins of Ahn'Qiraj" },
+        icon = "inv_staff_12",
+        name = "Staff of the Ruins",
+        short = "Staff of the Ruins",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed caster staff dropped by Ossirian the Unscarred in the Ruins of Ahn'Qiraj.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Staff of the Ruins from Ossirian the Unscarred in the Ruins of Ahn'Qiraj.", auto = { item = 21452, owned = { "Staff of the Ruins" } } },
+        },
+        completeWith = { item = 21452, owned = { "Staff of the Ruins" } },
+        tips = {
+            "Defeat Ossirian the Unscarred, the last boss of the {raid_aq20:Ruins of Ahn'Qiraj}, for a chance at {item:21452:Staff of the Ruins}.",
+            "It binds when picked up. It adds 24 Stamina, 23 Intellect, 14 Spirit, 60 spell power, 1% spell crit and 1% spell hit.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 647, checked 2026-10-25: epic Bind on Equip two-hand sword, item level 57,
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,

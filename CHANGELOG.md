@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Added Staff of the Ruins, a Ruins of Ahn'Qiraj staff dropped by Ossirian the Unscarred, to the Goal Library.
 - Added Staff of Dominance, a Molten Core staff dropped by Golemagg the Incinerator, to the Goal Library.
 - Added Spinal Reaper, a Molten Core axe dropped by Ragnaros, to the Goal Library.
 - Added Silent Fang, a Scholomance sword dropped by Darkmaster Gandling, to the Goal Library.
