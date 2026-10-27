@@ -2420,16 +2420,16 @@ band.SetOpen(false)
 -- the game does, and, when the set has both, which weapons the character holds.
 band.view = CreateFrame("Frame", nil, band)
 band.view:SetSize(1, 26)
--- 16 in from the edge you can see, like the Set totals tab on the left: the stage's own edge, or
--- the drawer's while it covers the stage
+-- 16 in from the stage's own edge, like the Set totals tab on the left. While the drawer covers
+-- the stage they stay put, under it (Karl, 2026-10-26: following the drawer's edge pushed them
+-- over Set totals on a small window); the status line then stops at the drawer instead.
 function band.PlaceView()
     band.view:ClearAllPoints()
-    if SD.covering then band.view:SetPoint("BOTTOMRIGHT", SD.clip, "BOTTOMLEFT", -16, 15)
-    else band.view:SetPoint("BOTTOMRIGHT", right, "BOTTOMRIGHT", -16, 15) end
+    band.view:SetPoint("BOTTOMRIGHT", right, "BOTTOMRIGHT", -16, 15)
+    status:SetPoint("RIGHT", SD.covering and SD.clip or band.view, "LEFT", SD.covering and -16 or -10, 0)
 end
 band.PlaceView()
 SD.afterPlace = function() band.FitTitle(); band.PlaceView() end
-status:SetPoint("RIGHT", band.view, "LEFT", -10, 0)
 -- (eye: the helm and cloak buttons show the piece's icon, greyed while hidden; hovering swaps it
 -- for an eye that previews the click: slashed to hide, open to show (Karl, 2026-10-24))
 function band.ViewButton(slot, tip, eye)
@@ -2466,10 +2466,10 @@ band.weapons = band.ViewButton("MainHandSlot", function()
     if VIEW.Ranged() then return "Show melee weapons", "The character holds the ranged weapon." end
     return "Show ranged weapon", "The character holds the melee weapons."
 end)
--- Reset view (Karl, 2026-10-26): after turning, zooming or moving the character, one click
+-- Reset position (Karl, 2026-10-26; renamed from Reset view, no description): after turning, zooming or moving the character, one click
 -- glides it back to the resting view, facing front, as choosing another set does.
 band.reset = band.ViewButton("HeadSlot", function()
-    return "Reset view", "Turn the character to face front and put the zoom and position back."
+    return "Reset position"
 end)
 band.reset.icon:SetTexture(FGT.Icon("refresh-white"))
 band.reset.icon:SetTexCoord(1, 0, 0, 1) -- mirrored, like the goal page's reset arrow
