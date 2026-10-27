@@ -2466,12 +2466,24 @@ band.weapons = band.ViewButton("MainHandSlot", function()
     if VIEW.Ranged() then return "Show melee weapons", "The character holds the ranged weapon." end
     return "Show ranged weapon", "The character holds the melee weapons."
 end)
+-- Reset view (Karl, 2026-10-26): after turning, zooming or moving the character, one click
+-- glides it back to the resting view, facing front, as choosing another set does.
+band.reset = band.ViewButton("HeadSlot", function()
+    return "Reset view", "Turn the character to face front and put the zoom and position back."
+end)
+band.reset.icon:SetTexture(FGT.Icon("refresh-white"))
+band.reset.icon:SetTexCoord(1, 0, 0, 1) -- mirrored, like the goal page's reset arrow
+band.reset.icon:SetSize(15, 15)
+band.reset.icon:SetVertexColor(colors.TEXT[1], colors.TEXT[2], colors.TEXT[3])
+band.reset:SetScript("OnClick", function() RestCamera() end)
 -- a hidden piece's icon is greyed (the eye comes on hover); the weapons button shows what is held now
 function band.PaintView()
     local hasWeapons = selected ~= nil and VIEW.Both()
     band.weapons:SetShown(hasWeapons)
     local x = 0
-    for _, b in ipairs({ band.weapons, band.cloak, band.helm }) do
+    -- the reset sits apart, at the left end: it moves the camera, the others change what is worn
+    for _, b in ipairs({ band.weapons, band.cloak, band.helm, band.reset }) do
+        if b == band.reset then x = x + 8 end
         if b:IsShown() then b:ClearAllPoints(); b:SetPoint("RIGHT", band.view, "RIGHT", -x, 0); x = x + b:GetWidth() + 4 end
     end
     band.view:SetWidth(math.max(1, x - 4))
