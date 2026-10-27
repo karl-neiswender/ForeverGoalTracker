@@ -137,8 +137,9 @@
   <ul class="found" id="found"></ul>
 
   <p class="limits">Needed = no image. Borrowed = using another goal's or the other faction's image.
-    Shared = one image for both factions, a faction version is optional. Done = art made for that
-    faction and class. Built from the banner code and file names, not from screenshots of each goal
+    Shared = one class or race image used by both factions, a faction version is optional. Done = art
+    made for that faction and class, or the goal's own image when it only ever needs one (weapons,
+    raids, keys, mounts, reputation, social and the like). Built from the banner code and file names, not from screenshots of each goal
     in game; check any cell that looks wrong.</p>
 </main>
 
@@ -187,6 +188,8 @@ var FIRST = [
 ];
 
 var FOUND = [
+  "2026-10-27: Single-image goals (attunements and keys, gold, fishing, mounts, PvP, raids, reputation, social) are now Done when their own image is in, not Shared (Karl). Five that reuse another goal's image are now Borrowed: Attunement: Blackwing Lair, Shadowforge Key, Swift Razzashi Raptor, Exalted: Zandalar Tribe, Place Campfires. No art changed.",
+  "2026-10-27: Weapons need one image for both factions, so an installed weapon banner is now Done, not Shared (Karl). 40 weapon rows changed; no art changed.",
   "2026-10-27: Approved and installed ancient_bone_bow, annihilator (axe head upward), azuresong_mageblade. Mageblade card credit retained: Donato Giancola.",
   "2026-10-27: Approved and installed set_scarlet_crusade from v4, smooth ivory pointed spikes on image-left shoulder only.",
   "2026-10-27: Approved and installed widows_remorse, lobotomizer, demonslayer, claw_of_the_black_drake. Card credits retained: Craig Elliott and Michael Sutfin.",
@@ -322,20 +325,20 @@ var GOALS = [
   [
    [
     "Attunement: Blackwing Lair",
-    "share",
-    "share",
-    "raid_bwl"
+    "borrow",
+    "borrow",
+    "raid_bwl. Borrows the Clear Blackwing Lair image"
    ],
    [
     "Attunement: Molten Core",
-    "share",
-    "share",
+    "done",
+    "done",
     "att_mc"
    ],
    [
     "Attunement: Naxxramas",
-    "share",
-    "share",
+    "done",
+    "done",
     "att_naxx"
    ],
    [
@@ -352,32 +355,32 @@ var GOALS = [
    ],
    [
     "Key: Crescent Key (Dire Maul)",
-    "share",
-    "share",
+    "done",
+    "done",
     "key_dm"
    ],
    [
     "Key: Key to the City (Stratholme)",
-    "share",
-    "share",
+    "done",
+    "done",
     "key_strat"
    ],
    [
     "Key: Seal of Ascension (Upper Blackrock Spire)",
-    "share",
-    "share",
+    "done",
+    "done",
     "key_ubrs"
    ],
    [
     "Key: Shadowforge Key (Blackrock Depths)",
-    "share",
-    "share",
-    "key_ubrs"
+    "borrow",
+    "borrow",
+    "key_ubrs. Borrows the Seal of Ascension image"
    ],
    [
     "Key: Skeleton Key (Scholomance)",
-    "share",
-    "share",
+    "done",
+    "done",
     "key_scholo"
    ]
   ]
@@ -393,56 +396,56 @@ var GOALS = [
    ],
    [
     "Corrupted Ashbringer",
-    "share",
-    "share",
+    "done",
+    "done",
     "ashbringer"
    ],
    [
     "Lok'delar, Stave of the Ancient Keepers",
-    "share",
-    "share",
+    "done",
+    "done",
     "lokdelar"
    ],
    [
     "Quel'Serrar",
-    "share",
-    "share",
+    "done",
+    "done",
     "quelserrar"
    ],
    [
     "Rhok'delar, Longbow of the Ancient Keepers",
-    "share",
-    "share",
+    "done",
+    "done",
     "rhokdelar"
    ],
    [
     "Zin'rokh, Destroyer of Worlds",
-    "share",
-    "share",
+    "done",
+    "done",
     "zinrokh"
    ],
    [
     "Atiesh, Greatstaff of the Guardian",
-    "share",
-    "share",
+    "done",
+    "done",
     "atiesh"
    ],
    [
     "Sulfuras, Hand of Ragnaros",
-    "share",
-    "share",
+    "done",
+    "done",
     "sulfuras"
    ],
    [
     "Thunderfury, Blessed Blade of the Windseeker",
-    "share",
-    "share",
+    "done",
+    "done",
     "thunderfury"
    ],
    [
     "Arcanite Reaper",
-    "share",
-    "share",
+    "done",
+    "done",
     "arcanite_reaper"
    ],
    [
@@ -453,62 +456,62 @@ var GOALS = [
    ],
    [
     "Teebu's Blazing Longsword",
-    "share",
-    "share",
+    "done",
+    "done",
     "teebus"
    ],
    [
     "Destiny",
-    "share",
-    "share",
+    "done",
+    "done",
     "destiny"
    ],
    [
     "Maladath, Runed Blade of the Black Flight",
-    "share",
-    "share",
+    "done",
+    "done",
     "maladath"
    ],
    [
     "The Hungering Cold",
-    "share",
-    "share",
+    "done",
+    "done",
     "hungering_cold"
    ],
    [
     "Bonereaver's Edge",
-    "share",
-    "share",
+    "done",
+    "done",
     "bonereavers_edge"
    ],
    [
     "Deathbringer",
-    "share",
-    "share",
+    "done",
+    "done",
     "deathbringer"
    ],
    [
     "Hyperthermically Insulated Lava Dredger",
-    "share",
-    "share",
+    "done",
+    "done",
     "lava_dredger"
    ],
    [
     "Flame Wrath",
-    "share",
-    "share",
+    "done",
+    "done",
     "flame_wrath"
    ],
    [
     "Frostguard",
-    "share",
-    "share",
+    "done",
+    "done",
     "frostguard"
    ],
    [
     "Gift of the Elven Magi",
-    "share",
-    "share",
+    "done",
+    "done",
     "gift_of_the_elven_magi"
    ],
    [
@@ -519,128 +522,128 @@ var GOALS = [
    ],
    [
     "Gutgore Ripper",
-    "share",
-    "share",
+    "done",
+    "done",
     "gutgore_ripper"
    ],
    [
     "Halberd of Smiting",
-    "share",
-    "share",
+    "done",
+    "done",
     "halberd_of_smiting"
    ],
    [
     "Illusionary Rod",
-    "share",
-    "share",
+    "done",
+    "done",
     "illusionary_rod"
    ],
    [
     "Inventor's Focal Sword",
-    "share",
-    "share",
+    "done",
+    "done",
     "inventors_focal_sword"
    ],
    [
     "Jin'do's Judgement",
-    "share",
-    "share",
+    "done",
+    "done",
     "jindos_judgement"
    ],
    [
     "Krol Blade",
-    "share",
-    "share",
+    "done",
+    "done",
     "krol_blade"
    ],
    [
     "Will of Arlokk",
-    "share",
-    "share",
+    "done",
+    "done",
     "will_of_arlokk"
    ],
    [
     "Mandokir's Sting",
-    "share",
-    "share",
+    "done",
+    "done",
     "mandokirs_sting"
    ],
    [
     "Mograine's Might",
-    "share",
-    "share",
+    "done",
+    "done",
     "mograines_might"
    ],
    [
     "Obsidian Edged Blade",
-    "share",
-    "share",
+    "done",
+    "done",
     "obsidian_edged_blade"
    ],
    [
     "Perdition's Blade",
-    "share",
-    "share",
+    "done",
+    "done",
     "perditions_blade"
    ],
    [
     "Shadowstrike",
-    "share",
-    "share",
+    "done",
+    "done",
     "shadowstrike"
    ],
    [
     "Silent Fang",
-    "share",
-    "share",
+    "done",
+    "done",
     "silent_fang"
    ],
    [
     "Spinal Reaper",
-    "share",
-    "share",
+    "done",
+    "done",
     "spinal_reaper"
    ],
    [
     "Staff of Dominance",
-    "share",
-    "share",
+    "done",
+    "done",
     "staff_of_dominance"
    ],
    [
     "Staff of the Ruins",
-    "share",
-    "share",
+    "done",
+    "done",
     "staff_of_the_ruins"
    ],
    [
     "Sword of Zeal",
-    "share",
-    "share",
+    "done",
+    "done",
     "sword_of_zeal"
    ],
    [
     "Ashkandi, Greatsword of the Brotherhood",
-    "share",
-    "share",
+    "done",
+    "done",
     "ashkandi"
    ],
    [
     "Rod of the Ogre Magi",
-    "share",
-    "share",
+    "done",
+    "done",
     "rod_of_the_ogre_magi"
    ],
    [
     "Aurastone Hammer",
-    "share",
-    "share",
+    "done",
+    "done",
     "aurastone_hammer"
    ],
    [
     "Headmaster's Charge",
-    "share",
-    "share",
+    "done",
+    "done",
     "headmasters_charge"
    ],
    [
@@ -1327,8 +1330,8 @@ var GOALS = [
    ],
    [
     "Save 5,000 Gold",
-    "share",
-    "share",
+    "done",
+    "done",
     "gold_5k"
    ],
    [
@@ -1345,8 +1348,8 @@ var GOALS = [
    ],
    [
     "Win the Stranglethorn Fishing Extravaganza",
-    "share",
-    "share",
+    "done",
+    "done",
     "fishing_extravaganza"
    ],
    [
@@ -1362,14 +1365,14 @@ var GOALS = [
   [
    [
     "Black Qiraji Resonating Crystal",
-    "share",
-    "share",
+    "done",
+    "done",
     "mount_qiraji"
    ],
    [
     "Blue Qiraji Resonating Crystal",
-    "share",
-    "share",
+    "done",
+    "done",
     "mount_qiraji_aq"
    ],
    [
@@ -1380,50 +1383,50 @@ var GOALS = [
    ],
    [
     "Deathcharger's Reins",
-    "share",
-    "share",
+    "done",
+    "done",
     "mount_deathcharger"
    ],
    [
     "Dreadsteed (Warlock Epic Mount)",
-    "share",
-    "share",
+    "done",
+    "done",
     "mount_dreadsteed"
    ],
    [
     "Green Qiraji Resonating Crystal",
-    "share",
-    "share",
+    "done",
+    "done",
     "mount_qiraji_aq"
    ],
    [
     "Red Qiraji Resonating Crystal",
-    "share",
-    "share",
+    "done",
+    "done",
     "mount_qiraji_aq"
    ],
    [
     "Swift Razzashi Raptor",
-    "share",
-    "share",
-    "raid_zg"
+    "borrow",
+    "borrow",
+    "raid_zg. Borrows the Clear Zul'Gurub image"
    ],
    [
     "Swift Zulian Tiger",
-    "share",
-    "share",
+    "done",
+    "done",
     "mount_tiger"
    ],
    [
     "Winterspring Frostsaber",
-    "share",
-    "share",
+    "done",
+    "done",
     "frostsaber"
    ],
    [
     "Yellow Qiraji Resonating Crystal",
-    "share",
-    "share",
+    "done",
+    "done",
     "mount_qiraji_aq"
    ],
    [
@@ -1445,8 +1448,8 @@ var GOALS = [
    ],
    [
     "Duelist",
-    "share",
-    "share",
+    "done",
+    "done",
     "pvp_drums_of_war"
    ],
    [
@@ -1559,8 +1562,8 @@ var GOALS = [
    ],
    [
     "Honorable Kills",
-    "share",
-    "share",
+    "done",
+    "done",
     "pvp_drums_of_war"
    ],
    [
@@ -1636,56 +1639,56 @@ var GOALS = [
   [
    [
     "Clear Blackwing Lair",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_bwl"
    ],
    [
     "Clear Hyjal Summit",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_hyjal"
    ],
    [
     "Clear Molten Core",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_mc"
    ],
    [
     "Clear Naxxramas",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_naxx"
    ],
    [
     "Clear Ruins of Ahn'Qiraj",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_aq20"
    ],
    [
     "Clear Temple of Ahn'Qiraj",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_aq40"
    ],
    [
     "Clear Zul'Gurub",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_zg"
    ],
    [
     "Clear the Barrow Deeps",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_barrow"
    ],
    [
     "Slay Onyxia",
-    "share",
-    "share",
+    "done",
+    "done",
     "raid_ony"
    ],
    [
@@ -1713,92 +1716,92 @@ var GOALS = [
    ],
    [
     "Exalted: Argent Dawn",
-    "share",
-    "share",
+    "done",
+    "done",
     "rep_argentdawn"
    ],
    [
     "Exalted: Brood of Nozdormu",
-    "share",
-    "share",
+    "done",
+    "done",
     "rep_nozdormu"
    ],
    [
     "Exalted: Cenarion Circle",
-    "share",
-    "share",
+    "done",
+    "done",
     "rep_cenarion"
    ],
    [
     "Exalted: Hydraxian Waterlords",
-    "share",
-    "share",
+    "done",
+    "done",
     "rep_hydraxian"
    ],
    [
     "Exalted: Thorium Brotherhood",
-    "share",
-    "share",
+    "done",
+    "done",
     "rep_thorium"
    ],
    [
     "Exalted: Timbermaw Hold",
-    "share",
-    "share",
+    "done",
+    "done",
     "rep_timbermaw"
    ],
    [
     "Exalted: Zandalar Tribe",
-    "share",
-    "share",
-    "raid_zg"
+    "borrow",
+    "borrow",
+    "raid_zg. Borrows the Clear Zul'Gurub image"
    ],
    [
     "Cloth Donations: Stormwind",
-    "share",
+    "done",
     "na",
     "cloth_donations (shared across all cloth donation goals)"
    ],
    [
     "Cloth Donations: Ironforge",
-    "share",
+    "done",
     "na",
     "cloth_donations (shared across all cloth donation goals)"
    ],
    [
     "Cloth Donations: Darnassus",
-    "share",
+    "done",
     "na",
     "cloth_donations (shared across all cloth donation goals)"
    ],
    [
     "Cloth Donations: Gnomeregan Exiles",
-    "share",
+    "done",
     "na",
     "cloth_donations (shared across all cloth donation goals)"
    ],
    [
     "Cloth Donations: Orgrimmar",
     "na",
-    "share",
+    "done",
     "cloth_donations (shared across all cloth donation goals)"
    ],
    [
     "Cloth Donations: Undercity",
     "na",
-    "share",
+    "done",
     "cloth_donations (shared across all cloth donation goals)"
    ],
    [
     "Cloth Donations: Thunder Bluff",
     "na",
-    "share",
+    "done",
     "cloth_donations (shared across all cloth donation goals)"
    ],
    [
     "Cloth Donations: Darkspear Trolls",
     "na",
-    "share",
+    "done",
     "cloth_donations (shared across all cloth donation goals)"
    ]
   ]
@@ -1808,74 +1811,74 @@ var GOALS = [
   [
    [
     "Buff Others",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_buffs_druid, social_buffs_mage, social_buffs_paladin, social_buffs_priest; Horde default and Mage: social_buffs_horde"
    ],
    [
     "Dungeons with Guildmates",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_guild_dungeon"
    ],
    [
     "Give Cheers",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_cheers"
    ],
    [
     "Give Hugs",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_hugs"
    ],
    [
     "Give Waves",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_waves"
    ],
    [
     "Join a Guild",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_guild"
    ],
    [
     "Make Friends",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_friends"
    ],
    [
     "Make Trades",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_trades"
    ],
    [
     "Place Campfires",
-    "share",
-    "share",
-    "prof_cooking"
+    "borrow",
+    "borrow",
+    "prof_cooking. Borrows the Cooking image"
    ],
    [
     "Raids with Guildmates",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_guild_raid"
    ],
    [
     "Say LOL",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_lol"
    ],
    [
     "Summon Players",
-    "share",
-    "share",
+    "done",
+    "done",
     "social_summons"
    ],
    [

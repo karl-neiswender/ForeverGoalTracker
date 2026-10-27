@@ -57,7 +57,11 @@ Keep it current whenever artwork or goals change (artwork closeout, a new banner
 
 1. Statuses: edit the rows in the page's `<script>`. Class grid rows are `TABLES`, the full
    goal list is `GOALS`. A row is `[name, Alliance, Horde, note]` with `need`, `borrow`,
-   `share`, `done` or `na`. Put a goal's banner file names (without `-banner.blp`) in the note;
+   `share`, `done` or `na`. A goal that only ever needs one image (weapons, raids, keys, mounts,
+   reputation, social and the like) is `done` once its own image is in, never `share`; one image made
+   for a family of goals (the Qiraji crystals, the cloth donations) counts as their own. If it uses
+   another goal's image it is `borrow`. `share` is for class and race art that could get a faction
+   version (Karl, 2026-10-27). Put a goal's banner file names (without `-banner.blp`) in the note;
    the page links them and builds the faction previews from them. Class grid previews come
    from `CLASSIMG`. Update the header date and the "Find these first" list.
 2. Found log: add a dated line to `FOUND` for each image added or approved.
