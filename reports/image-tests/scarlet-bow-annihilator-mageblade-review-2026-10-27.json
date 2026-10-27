@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-27",
+  "mode": "built-in image_gen",
+  "status": "All previews approved by Karl; Scarlet Crusade installed separately from v4. Remaining three weapons approved: the other images are good too. Installed 2026-10-27. Full game restart and native visual review pending.",
+  "inspection": "Four grayscale landscape reviews with left and bottom fades; no card text or frames. Annihilator axe head at top, handle down as requested. Complete bow and Mageblade tip visible. Native appearance not tested.",
+  "attribution": {
+    "scarletCrusade": "Individual artist not verified from supplied low resolution card",
+    "ancientBoneBow": "Individual artist not verified from supplied low resolution card",
+    "annihilator": "Individual artist not verified from supplied low resolution card",
+    "azuresongMageblade": "Donato Giancola, printed on supplied source card"
+  },
+  "images": [
+    {
+      "id": "scarlet-crusade",
+      "file": "set-chain-of-the-scarlet-crusade.jpg",
+      "prompt": "Use case: style-transfer. Edit the supplied trading card's illustration into one 4:3 landscape Forever Goal Tracker banner, target 1200x900. Remove all card frame, text, numbers, symbols, signatures and watermarks from this derivative. Faithfully preserve the source subjects, identity, equipment, detailed shapes, hands, armor and pose except for the explicit rotation requested below. Detailed Warcraft painterly illustration; strictly neutral black and white, moderately increased contrast, rich midtones and controlled highlights. Main subject high and toward the RIGHT with breathing room; left third quiet for addon text. Expand the source scene naturally to landscape; no extra characters or unrelated objects. BAKE a wide smooth charcoal gradient into the LEFT, strongest at left edge and blending gradually with no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading downward to near-black neutral charcoal at bottom edge. BOTH gradients must be present in the artwork. Keep weapon tips and hands complete. No added text, UI or border. Preserve the imposing closed-helmet Scarlet Crusade armored figure, exact symmetrical helmet crest, riveted pauldrons and flame emblem on the tabard against the stone wall. The flame emblem is part of the armor and must remain; remove only the card UI symbols.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-e62a3cd7-1df1-464a-9fa3-5e529fed4ec8.png",
+      "review": "Media/final-images/scarlet-crusade-review-v1.png"
+    },
+    {
+      "id": "ancient-bone-bow",
+      "file": "weapon-ancient-bone-bow.jpg",
+      "prompt": "Use case: style-transfer. Edit the supplied trading card's illustration into one 4:3 landscape Forever Goal Tracker banner, target 1200x900. Remove all card frame, text, numbers, symbols, signatures and watermarks from this derivative. Faithfully preserve the source subjects, identity, equipment, detailed shapes, hands, armor and pose except for the explicit rotation requested below. Detailed Warcraft painterly illustration; strictly neutral black and white, moderately increased contrast, rich midtones and controlled highlights. Main subject high and toward the RIGHT with breathing room; left third quiet for addon text. Expand the source scene naturally to landscape; no extra characters or unrelated objects. BAKE a wide smooth charcoal gradient into the LEFT, strongest at left edge and blending gradually with no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading downward to near-black neutral charcoal at bottom edge. BOTH gradients must be present in the artwork. Keep weapon tips and hands complete. No added text, UI or border. Preserve the upright ornate skeletal bow with its distinctive curved limbs and bone details, skull, spikes and quiver of arrows in the foreground, and the clouded sky. Keep the full bow and bowstring visible and geometrically coherent.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-f79c4e57-787f-4641-844d-8cb319de432f.png",
+      "review": "Media/final-images/ancient-bone-bow-review-v1.png"
+    },
+    {
+      "id": "annihilator",
+      "file": "weapon-annihilator.jpg",
+      "prompt": "Use case: style-transfer. Edit the supplied trading card's illustration into one 4:3 landscape Forever Goal Tracker banner, target 1200x900. Remove all card frame, text, numbers, symbols, signatures and watermarks from this derivative. Faithfully preserve the source subjects, identity, equipment, detailed shapes, hands, armor and pose except for the explicit rotation requested below. Detailed Warcraft painterly illustration; strictly neutral black and white, moderately increased contrast, rich midtones and controlled highlights. Main subject high and toward the RIGHT with breathing room; left third quiet for addon text. Expand the source scene naturally to landscape; no extra characters or unrelated objects. BAKE a wide smooth charcoal gradient into the LEFT, strongest at left edge and blending gradually with no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading downward to near-black neutral charcoal at bottom edge. BOTH gradients must be present in the artwork. Keep weapon tips and hands complete. No added text, UI or border. REQUIRED CHANGE: rotate ONLY THE AXE WEAPON exactly 180 degrees relative to its orientation in the supplied card: its heavy angular axe head must be at the TOP and the long wrapped handle must extend DOWNWARD. This is a half-turn rotation, not a mirror flip. Preserve the same axe head silhouette, blade points, shaft proportions and metal ornamentation. Keep the surrounding dark armored background upright; no rotation of the whole scene. Show the complete axe, including the lower handle end, high toward the right with margin.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-ebe6d2d6-75ff-4131-a3f5-6b702f996b21.png",
+      "review": "Media/final-images/annihilator-review-v1.png"
+    },
+    {
+      "id": "azuresong-mageblade",
+      "file": "weapon-azuresong-mageblade.png",
+      "prompt": "Use case: style-transfer. Edit the supplied trading card's illustration into one 4:3 landscape Forever Goal Tracker banner, target 1200x900. Remove all card frame, text, numbers, symbols, signatures and watermarks from this derivative. Faithfully preserve the source subjects, identity, equipment, detailed shapes, hands, armor and pose except for the explicit rotation requested below. Detailed Warcraft painterly illustration; strictly neutral black and white, moderately increased contrast, rich midtones and controlled highlights. Main subject high and toward the RIGHT with breathing room; left third quiet for addon text. Expand the source scene naturally to landscape; no extra characters or unrelated objects. BAKE a wide smooth charcoal gradient into the LEFT, strongest at left edge and blending gradually with no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading downward to near-black neutral charcoal at bottom edge. BOTH gradients must be present in the artwork. Keep weapon tips and hands complete. No added text, UI or border. Preserve the same dark-haired female mage, face, robes and raised arms, her hand gripping the sword hilt above her head and the other hand below the horizontal blade. Preserve the exact distinctive hilt, crossguard and long straight glowing blade extending to the right. Expand framing to show the COMPLETE sword tip inside the image with margin, no cropped hand, tip or hilt. Render blade glow in neutral grayscale.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-4c782349-1803-44b0-8cb8-481fbb7b608c.png",
+      "review": "Media/final-images/azuresong-mageblade-review-v1.png"
+    }
+  ],
+  "runtime": {
+    "ancient_bone_bow": {
+      "source": "ancient-bone-bow-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    },
+    "annihilator": {
+      "source": "annihilator-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    },
+    "azuresong_mageblade": {
+      "source": "azuresong-mageblade-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    },
+    "set_scarlet_crusade": {
+      "source": "scarlet-crusade-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    }
+  },
+  "validation": "tools/check.py passed with native Windows Python 3.14 and Lua 5.1; evidence: bow-annihilator-mageblade-check-2026-10-27.txt. Three neutral RGB 1200x900 weapon masters, independently decoded 512px RGB DXT1 BLPs, ten mip levels. Checklist thumbnails rebuilt. Scoped git diff --check passed. Native appearance not tested; full game restart required."
+}

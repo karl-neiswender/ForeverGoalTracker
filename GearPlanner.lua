@@ -60,6 +60,10 @@ local function Who()
     return { key = key, me = false, name = c.name or key, class = c.class, race = c.race,
         faction = c.faction, level = c.level, sex = c.sex }
 end
+-- The level a new set plans for: the character's own. With no set open (the welcome) the picker
+-- already lists gear for it, so a pick there starts a set that fits it (Karl, 2026-10-27: the
+-- welcome listed level 60 gear, then flagged it on the level 10 set the pick started).
+local function NewSetLevel() return math.max(1, math.min(60, Who().level or 60)) end
 local function Store()
     local chars, key = Root().characters, PlanKey()
     chars[key] = chars[key] or { nextId = 1, builds = {} }
@@ -646,6 +650,7 @@ U.etch(actions, styles.panel); actions:Hide()
 local MENU_W = 186
 local newSet = Button(actions, "New set", MENU_W)
 local newWorn = Button(actions, "New from what I'm wearing", MENU_W)
+local WI = { menu = Button(actions, "Import from Wowhead", MENU_W) } -- the Wowhead import (built further down)
 local rename = Button(actions, "Rename", MENU_W)
 local fill = Button(actions, "Fill from equipped", MENU_W)
 local duplicate = Button(actions, "Duplicate selected set", MENU_W)
@@ -658,7 +663,7 @@ local deleteAll = Button(actions, "Delete all sets...", MENU_W)
 deleteAll.text:SetTextColor(1, 0.48, 0.40)
 actions.rule = actions:CreateTexture(nil, "ARTWORK")
 actions.rule:SetColorTexture(styles.row.edge[1], styles.row.edge[2], styles.row.edge[3], 0.8); actions.rule:SetHeight(1)
-for _, b in ipairs({ newSet, newWorn, rename, fill, duplicate, clear, usePreset, remove, removeAll, delete, deleteAll }) do
+for _, b in ipairs({ newSet, newWorn, WI.menu, rename, fill, duplicate, clear, usePreset, remove, removeAll, delete, deleteAll }) do
     b.text:ClearAllPoints(); b.text:SetPoint("LEFT", 10, 0); b.text:SetJustifyH("LEFT")
 end
 local cleared, clearedBuild, clearedItems, clearedProgress
@@ -1191,7 +1196,7 @@ function LG.Tooltip(owner, goal, kind)
     GameTooltip:Show()
 end
 -- The requirement as the game states it, red when it is above the set's level.
-function LG.TooHigh(item) return item.req > 1 and item.req > (selected and selected.level or 60) end
+function LG.TooHigh(item) return item.req > 1 and item.req > (LV.Target().level or 60) end
 function LG.ReqText(item)
     if item.req <= 1 then return "No level requirement" end
     return LG.TooHigh(item) and ("|cffff5a4aReq " .. item.req .. "|r") or ("Req " .. item.req)
@@ -1647,6 +1652,7 @@ function EN.Pick(e)
 end
 local function PickItem(item)
     if item and item.spell then return EN.Pick(item) end
+    if item and not selected and selectedSlot then ES.StartFor() end -- the welcome: the pick starts a set
     if not selected or not selectedSlot or not item then return end
     local id = slotIds[selectedSlot]
     local moved = false
@@ -1666,6 +1672,7 @@ local function PickItem(item)
 end
 -- Plan every piece of a game item set at once; pieces that do not fit are skipped.
 PickSet = function(anchor)
+    if anchor and anchor.set > 0 and not selected and selectedSlot then ES.StartFor() end
     if not selected or not anchor or anchor.set <= 0 then return end
     local taken, count = {}, 0
     for _, item in ipairs(Cat.SetItems(anchor.set)) do
@@ -1893,9 +1900,9 @@ end
 -- The set's target level: a ceiling for what it plans (sets from before levels were added are 60).
 -- The set's max level as a number (60 for "any" and for older sets: armor types and red flags
 -- compare against it), the ceiling for the picker (nil for any) and its floor (nil for any).
-function FL.Level() return selected and selected.level or 60 end
-function FL.MaxLevel() if selected and selected.level == false then return nil end return FL.Level() end
-function FL.MinLevel() return selected and selected.minLevel or nil end
+function FL.Level() return LV.Target().level or 60 end
+function FL.MaxLevel() if LV.Target().level == false then return nil end return FL.Level() end
+function FL.MinLevel() return LV.Target().minLevel end
 -- Items already planned in this character's sets come first in an unsearched list.
 function FL.First()
     local first = {}
@@ -2032,7 +2039,9 @@ local function PlacePicker()
     -- enough recycled rows to fill the column's height
     POOL_ROWS = math.max(POOL_ROWS, math.ceil((left:GetHeight() or 460) / ROW_H) + 1)
 end
-local function OpenPicker()
+-- stay: the picker was already open for another slot, so it stays solid rather than fading in
+-- again from nothing (the welcome card showed through for a moment; Karl's recording, 2026-10-27)
+local function OpenPicker(stay)
     if not selectedSlot then return end
     local row = slotButtons[selectedSlot]
     row.chosen = true; PaintButton(row)
@@ -2044,8 +2053,9 @@ local function OpenPicker()
     GameTooltip:Hide()
     FL.expanded = false
     if not EN.mode then FL.SetupKind() end
-    PlacePicker(); FadeIn(picker); search:SetText("")
-    PaintFilters(); EN.PaintMode(); Results()
+    PlacePicker(); search:SetText("")
+    if stay == true then picker:SetScript("OnUpdate", nil); picker:SetAlpha(1); picker:Show() else FadeIn(picker) end
+    PaintFilters(); EN.PaintMode(); LV.Show(); Results() -- (the level box: the welcome's level can change)
     -- the slot being chosen shows on the model even when hidden (helm, cloak, the other weapons)
     if VIEW.painted ~= VIEW.Signature() then PaintGear() end
 end
@@ -2061,7 +2071,8 @@ for _, spec in ipairs(slots) do
     -- Off hand under a two-hand weapon has nothing to choose.
     button:SetScript("OnClick", function()
         if button.blocked then return end
-        Deselect(); selectedSlot = slot; OpenPicker()
+        local open = picker:IsShown()
+        Deselect(); selectedSlot = slot; OpenPicker(open)
     end)
     button:SetScript("OnEnter", function(self)
         self.hovered = true; Hover(self, true)
@@ -2222,6 +2233,7 @@ function SD.PaintMenu()
     menuY = 8
     Place(newSet, true)
     Place(newWorn, who.me and true or false) -- only the logged-in character's worn gear can be read
+    Place(WI.menu, true)
     Place(fill, (who.me and selected ~= nil) and true or false)
     Place(duplicate, selected ~= nil and selected.id ~= nil)
     clear.text:SetText(clearedBuild == selected and "Undo clear" or "Clear selected set")
@@ -2657,8 +2669,19 @@ end
 -- the other one (Karl: min can never pass max): min 30 with max 10 becomes 10, and the max can't
 -- drop below the min. Only the edited box changes, so clicking from one box to the other never
 -- leaves a stale number behind.
+-- Whose level range the boxes show and change: the open set's, or with no set open (the welcome) a
+-- range of its own that a pick there hands to the set it starts (ES.StartFor). It follows the
+-- character's level until changed, and is forgotten when the welcome is shown afresh (Karl,
+-- 2026-10-27: the boxes would not scroll on the welcome).
+function LV.Target()
+    if selected then return selected end
+    local range = LV.pending or {}
+    LV.pending = range
+    if not range.changed then range.level = NewSetLevel() end
+    return range
+end
 function LV.Show()
-    if not LV.min:HasFocus() then LV.min:SetText(selected and selected.minLevel and tostring(selected.minLevel) or "") end
+    if not LV.min:HasFocus() then LV.min:SetText(FL.MinLevel() and tostring(FL.MinLevel()) or "") end
     if not LV.box:HasFocus() then LV.box:SetText(FL.MaxLevel() and tostring(FL.MaxLevel()) or "") end
     for _, box in ipairs({ LV.min, LV.box }) do box.any:SetShown((box:GetText() or "") == "" and not box:HasFocus()) end
 end
@@ -2672,17 +2695,18 @@ end
 local function Clamp(n) return n and math.max(1, math.min(60, math.floor(n))) or nil end
 -- min, max: numbers or nil (any)
 function LV.Apply(low, high)
-    if not selected then return end
+    local target = LV.Target()
     low, high = Clamp(low), Clamp(high)
     if low and high and low > high then
         if LV.changing == "min" then low = high else high = low end
     end
     local level = high or false
-    local changed = selected.minLevel ~= low or selected.level ~= level
-    selected.minLevel, selected.level = low, level
+    local changed = target.minLevel ~= low or target.level ~= level
+    target.minLevel, target.level = low, level
+    if not selected then target.changed = true end
     LV.Show()
     if not changed then return end
-    Save(true); Refresh()
+    if selected then Save(true); Refresh() end
     if selectedSlot and picker:IsShown() and not EN.mode then
         FL.expanded = false; FL.SetupKind(); PaintFilters(); FL.Layout(); Results()
     end
@@ -2699,7 +2723,6 @@ for which, box in pairs({ min = LV.min, max = LV.box }) do
     box:SetScript("OnEscapePressed", function(self) self:ClearFocus(); LV.Show() end)
     box:SetScript("OnEditFocusLost", function() LV.Commit(which) end)
     box:SetScript("OnMouseWheel", function(_, delta)
-        if not selected then return end
         LV.changing = which
         if which == "min" then
             local n = (FL.MinLevel() or 0) + (delta > 0 and 1 or -1)
@@ -2741,7 +2764,7 @@ viewGoal:SetScript("OnClick", function()
     if not (selected and selected.goalId) then return end
     FGT.ShowTab("tracker"); FGT.SelectGoal(selected.goalId)
 end)
-new:SetScript("OnClick", function() actions:Hide(); draft = { name = "", slots = {}, level = math.max(1, math.min(60, Who().level or 60)) }; draftOwner = PlanKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
+new:SetScript("OnClick", function() actions:Hide(); draft = { name = "", slots = {}, level = NewSetLevel() }; draftOwner = PlanKey(); Choose(draft); editingName = true; Refresh(); name:SetFocus() end)
 newSet:SetScript("OnClick", function() new:GetScript("OnClick")() end)
 usePreset:SetScript("OnClick", function() actions:Hide(); FGT.CreateHunterPreRaidBuild() end)
 
@@ -2751,7 +2774,7 @@ usePreset:SetScript("OnClick", function() actions:Hide(); FGT.CreateHunterPreRai
 -- With no set open, the planner leads with the character: the same lit, black-and-white scene,
 -- wearing what they wear now (the logged-in character; another character shows their race).
 -- A card on the left side (free of slots, already on the dark side fade) says what the planner
--- does once, and offers one gold way in, plus starting from current gear and a fitting preset.
+-- does once, and offers one gold way in, plus importing from Wowhead and a fitting preset.
 ES = ES or {}
 ES.card = CreateFrame("Frame", nil, right, "BackdropTemplate")
 ES.card:SetFrameLevel(header:GetFrameLevel() + 6); ES.card:EnableMouse(true)
@@ -2768,21 +2791,206 @@ ES.body:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
 ES.create = Button(ES.card, "Create a gear set", 256, 32, 12)
 ES.create.chosen = true; PaintButton(ES.create) -- the gold border: the one obvious way in
 ES.create.text:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
-ES.current = Button(ES.card, "Start from my current gear", 256, 28, 11)
+-- the second way in: a set from Wowhead (Karl, 2026-10-27; starting from worn gear stays in the "..." menu)
+ES.import = Button(ES.card, "Import from Wowhead", 256, 28, 11)
 ES.preset = Button(ES.card, "", 256, 24, 10)
 ES.preset.text:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
 ES.create:SetScript("OnClick", function() new:GetScript("OnClick")() end)
 -- a set already filled from what you wear, named so it saves at once (rename it any time)
-ES.current:SetScript("OnClick", function()
+function ES.StartWorn()
     new:GetScript("OnClick")()
     name:SetText("Current gear"); name:ClearFocus()
     editingName = false
     Save(true)
     fill:GetScript("OnClick")()
-end)
+end
 ES.preset:SetScript("OnClick", function() FGT.CreateHunterPreRaidBuild() end)
-newWorn:SetScript("OnClick", function() actions:Hide(); ES.current:GetScript("OnClick")() end)
--- (Start from my current gear says what it does; Karl, 2026-10-24: no tooltip)
+newWorn:SetScript("OnClick", function() actions:Hide(); ES.StartWorn() end)
+-- Picking an item (or a whole item set) in the picker with no set open starts one, so the slots
+-- work from the welcome too (Karl, 2026-10-27: the picker opened but nothing in it could be chosen).
+-- Named so it saves at once; rename it any time. The slot being chosen carries over.
+function ES.StartFor()
+    local slot, range = selectedSlot, LV.pending
+    new:GetScript("OnClick")()
+    if range then selected.level, selected.minLevel = range.level, range.minLevel end
+    LV.pending = nil
+    name:SetText("New gear set"); name:ClearFocus()
+    editingName = false
+    Save(true)
+    selectedSlot = slot
+end
+
+-- Import from Wowhead: paste a Classic Gear Planner link, see what it holds, and make it a new set
+-- (never into the open one, so a paste can't overwrite a set in progress). Items and enchants the
+-- planner doesn't know are named and left out. Reading the link: Cat.ReadWowheadLink.
+WI.frame = CreateFrame("Frame", nil, P, "BackdropTemplate")
+WI.frame:SetWidth(420); WI.frame:SetPoint("CENTER", right, "CENTER", 0, 40)
+-- the window and the welcome card share one timeline (WI.Go, further down)
+WI.FADE, WI.RISE, WI.Y = 0.45, 6, 40
+WI.CARD_OUT, WI.CARD_LEAD = 0.55, 0.3 -- the card's share of the timeline; where the window starts
+WI.frame:SetFrameLevel(header:GetFrameLevel() + 40); WI.frame:EnableMouse(true)
+U.etch(WI.frame, styles.panel); WI.frame:Hide()
+WI.title = U.title(WI.frame, 16); WI.title:SetText("Import from Wowhead"); WI.title:SetPoint("TOPLEFT", 20, -20)
+WI.body = U.font(WI.frame, 11); WI.body:SetWidth(380); WI.body:SetJustifyH("LEFT"); WI.body:SetWordWrap(true)
+WI.body:SetText("In Wowhead's Classic Gear Planner, choose Link and copy the Classic Gear Planner address. Paste it here with Ctrl+V.")
+WI.body:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
+WI.box = CreateFrame("EditBox", nil, WI.frame, "BackdropTemplate")
+WI.box:SetSize(380, 26); WI.box:SetAutoFocus(false); WI.box:SetMaxLetters(2000)
+U.etch(WI.box, styles.row, 10)
+FGT.RegisterFont(WI.box, "body", 11, "")
+WI.box:SetTextColor(colors.TEXT[1], colors.TEXT[2], colors.TEXT[3]); WI.box:SetTextInsets(8, 8, 0, 0)
+WI.box.hint = U.font(WI.box, 11); WI.box.hint:SetPoint("LEFT", 8, 0); WI.box.hint:SetText("Wowhead link")
+WI.box.hint:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+WI.preview = U.font(WI.frame, 11); WI.preview:SetWidth(380); WI.preview:SetJustifyH("LEFT"); WI.preview:SetWordWrap(true)
+WI.import = Button(WI.frame, "Import as a new set", 180, 28, 12)
+WI.cancel = Button(WI.frame, "Cancel", 100, 28, 12)
+function WI.Layout()
+    local y = 20 + (WI.title:GetStringHeight() or 18) + 8
+    WI.body:ClearAllPoints(); WI.body:SetPoint("TOPLEFT", 20, -y)
+    y = y + (WI.body:GetStringHeight() or 28) + 12
+    WI.box:ClearAllPoints(); WI.box:SetPoint("TOPLEFT", 20, -y)
+    y = y + 26 + 10
+    WI.preview:ClearAllPoints(); WI.preview:SetPoint("TOPLEFT", 20, -y)
+    local text = WI.preview:GetText() or ""
+    y = y + (text ~= "" and (WI.preview:GetStringHeight() or 14) + 14 or 4)
+    WI.import:ClearAllPoints(); WI.import:SetPoint("TOPLEFT", 20, -y)
+    WI.cancel:ClearAllPoints(); WI.cancel:SetPoint("LEFT", WI.import, "RIGHT", 8, 0)
+    WI.frame:SetHeight(y + 28 + 20)
+end
+local function ClassName(class)
+    if not class then return nil end
+    local localized = LOCALIZED_CLASS_NAMES_MALE and LOCALIZED_CLASS_NAMES_MALE[class]
+    return type(localized) == "string" and localized or (class:sub(1, 1) .. class:sub(2):lower())
+end
+-- Reads the box and says what an import would bring; Import works only on a link it can read.
+function WI.Read()
+    local result, problem = Cat.ReadWowheadLink(WI.box:GetText())
+    WI.result = result
+    local lines = {}
+    if result then
+        local items, enchants = 0, 0
+        for _ in pairs(result.slots) do items = items + 1 end
+        for _ in pairs(result.enchants) do enchants = enchants + 1 end
+        local head = {}
+        if result.class then head[#head + 1] = ClassName(result.class) end
+        if result.level then head[#head + 1] = "Level " .. result.level end
+        head[#head + 1] = items .. (items == 1 and " item" or " items")
+        if enchants > 0 then head[#head + 1] = enchants .. (enchants == 1 and " enchant" or " enchants") end
+        lines[1] = table.concat(head, " · ")
+        if #result.missing > 0 then
+            local names = {}
+            for _, id in ipairs(result.missing) do
+                local itemName = FGT.ItemInfo(id)
+                names[#names + 1] = type(itemName) == "string" and itemName or ("item " .. id)
+            end
+            lines[#lines + 1] = "|cffd9b38cNot in the planner's list: " .. table.concat(names, ", ") .. "|r"
+        end
+        if result.skipped > 0 then
+            lines[#lines + 1] = "|cffd9b38c" .. result.skipped .. (result.skipped == 1 and " enchant" or " enchants")
+                .. " the planner doesn't know will be left out.|r"
+        end
+        local who = Who()
+        if result.class and who.class and result.class ~= who.class then
+            lines[#lines + 1] = "|cffd9b38cThis set is for a " .. ClassName(result.class) .. ". " .. (who.name or "This character")
+                .. " is a " .. ClassName(who.class) .. ".|r"
+        end
+        if items == 0 then WI.result = nil end
+    elseif problem then
+        lines[1] = "|cffff7a66" .. problem .. "|r"
+    end
+    WI.preview:SetText(table.concat(lines, "\n"))
+    WI.import:SetEnabled(WI.result ~= nil); WI.import:SetAlpha(WI.result and 1 or 0.45)
+    WI.Layout()
+end
+-- Opening and closing are one timeline, WI.p from 0 (closed) to 1 (open) over WI.FADE, run
+-- backward to close, so a reversal mid-way just turns around. Over the welcome the card fades out
+-- first and the window follows, overlapping a little, so the two never sit on top of each other
+-- (Karl's recording, 2026-10-27: the window jumped in on its own curve while the card was still
+-- there, and Cancel dropped it in one frame). The window rises WI.RISE into place like the bars'
+-- tooltips. WI.hidCard: true while the card is part of it; "keep" when an import opens its set
+-- and the card stays away. Instant with animations off.
+WI.p, WI.target = 0, 0
+WI.driver = CreateFrame("Frame", nil, right)
+function WI.Apply()
+    local p = WI.p
+    local lead = WI.lead or 0 -- the window waits for the card only when there is one
+    local w = math.max(0, math.min(1, (p - lead) / (1 - lead)))
+    local e = 1 - (1 - w) ^ 3
+    WI.frame:ClearAllPoints(); WI.frame:SetPoint("CENTER", right, "CENTER", 0, WI.Y - WI.RISE * (1 - e))
+    WI.frame:SetAlpha(e)
+    if WI.hidCard == true then
+        local c = 1 - Ease(math.min(1, p / WI.CARD_OUT))
+        ES.card:SetAlpha(c); ES.card:SetShown(c > 0)
+    end
+end
+function WI.Finish()
+    WI.driver:SetScript("OnUpdate", nil)
+    WI.p = WI.target; WI.Apply()
+    if WI.target == 0 then
+        WI.box:ClearFocus(); WI.frame:Hide(); WI.frame:SetAlpha(1)
+        if WI.hidCard == true then ES.card:SetAlpha(1); ES.card:SetShown(selected == nil) end
+        WI.hidCard = nil
+    end
+end
+function WI.Go(target, instant)
+    WI.target = target
+    if instant or FGT.Setting("celebrations") == "off" then WI.Finish(); return end
+    WI.driver:SetScript("OnUpdate", function(_, dt)
+        local step = dt / WI.FADE
+        WI.p = WI.target > WI.p and math.min(WI.target, WI.p + step) or math.max(WI.target, WI.p - step)
+        if WI.p == WI.target then WI.Finish() else WI.Apply() end
+    end)
+end
+function WI.Open()
+    actions:Hide()
+    WI.box:SetText(""); WI.Read()
+    if selected == nil and (ES.card:IsShown() or WI.hidCard) then WI.hidCard = true end
+    WI.lead = WI.hidCard and WI.CARD_LEAD or 0
+    WI.Apply(); WI.frame:Show(); WI.box:SetFocus()
+    WI.Go(1)
+end
+-- keepCard: an import is opening its set, so the card stays away; instant: the planner closed
+function WI.Close(keepCard, instant)
+    WI.box:ClearFocus()
+    if keepCard == true and WI.hidCard then WI.hidCard = "keep" end
+    if WI.frame:IsShown() then WI.Go(0, instant) end
+end
+-- The new set takes the link's class in its name ("Wowhead Rogue"), its level, items and enchants.
+function WI.Import()
+    local result = WI.result
+    if not result then return end
+    local store = Store()
+    local build = { id = store.nextId, name = "Wowhead" .. (result.class and (" " .. ClassName(result.class)) or " set"),
+        slots = {}, level = result.level or 60 }
+    store.nextId = store.nextId + 1
+    for slot, id in pairs(result.slots) do build.slots[slot] = id end
+    if next(result.enchants) then
+        build.enchants = {}
+        for slot, spell in pairs(result.enchants) do build.enchants[slot] = spell end
+    end
+    store.builds[#store.builds + 1] = build; store.selected = build.id
+    WI.Close(true); Choose(build)
+    return build
+end
+WI.menu:SetScript("OnClick", WI.Open)
+ES.import:SetScript("OnClick", WI.Open)
+WI.import:SetScript("OnClick", WI.Import)
+WI.cancel:SetScript("OnClick", function() WI.Close() end)
+WI.box:SetScript("OnTextChanged", function(self)
+    self.hint:SetShown((self:GetText() or "") == ""); WI.Read()
+end)
+WI.box:SetScript("OnEnterPressed", WI.Import)
+WI.box:SetScript("OnEscapePressed", function() WI.Close() end)
+WI.box:SetScript("OnEditFocusGained", function(self)
+    self:SetBackdropBorderColor(colors.GOLD2[1], colors.GOLD2[2], colors.GOLD2[3], 1)
+end)
+WI.box:SetScript("OnEditFocusLost", function(self)
+    self:SetBackdropBorderColor(styles.row.edge[1], styles.row.edge[2], styles.row.edge[3], 1)
+end)
+WI.import.chosen = true; PaintButton(WI.import)
+WI.import.text:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
+P:HookScript("OnHide", function() WI.Close(false, true) end)
+-- (the buttons say what they do; Karl, 2026-10-24: no tooltip)
 for b, tip in pairs({ [ES.preset] = "A ready-made set you can change" }) do
     b:HookScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText(tip, 1, 1, 1); GameTooltip:Show()
@@ -2790,16 +2998,46 @@ for b, tip in pairs({ [ES.preset] = "A ready-made set you can change" }) do
     b:HookScript("OnLeave", function() GameTooltip:Hide() end)
 end
 ES.card:Hide()
--- Lay out what applies: the current-gear start for your own character, a preset when one fits.
+-- With no set open, the item picker opens over the card: the card fades away while it is open and
+-- back when it closes (Karl's recording, 2026-10-27: closing the picker dropped it back in one frame).
+-- The import window runs its own timeline (WI.hidCard), which takes over.
+ES.hold = CreateFrame("Frame", nil, right)
+function ES.Away(away)
+    away = away and true or false
+    if WI.hidCard then ES.away = nil; return end
+    if selected ~= nil then return end -- a set is opening: ES.FadeIn sees ES.away and keeps the card away
+    if (ES.away or false) == away then return end
+    ES.away = away or nil
+    local card = ES.card
+    local from, to = card:IsShown() and card:GetAlpha() or 0, away and 0 or 1
+    ES.hold:SetScript("OnUpdate", nil)
+    -- (switching slots hides and shows the picker in one go: the card never got going)
+    if FGT.Setting("celebrations") == "off" or (away and from <= 0) then card:SetAlpha(1); card:SetShown(not away); return end
+    card:SetAlpha(from); card:Show()
+    local elapsed, DURATION = 0, away and 0.2 or 0.3
+    ES.hold:SetScript("OnUpdate", function(self, dt)
+        if WI.hidCard or selected ~= nil then self:SetScript("OnUpdate", nil); return end
+        elapsed = elapsed + dt
+        local t = math.min(1, elapsed / DURATION)
+        card:SetAlpha(from + (to - from) * Ease(t))
+        if t >= 1 then
+            self:SetScript("OnUpdate", nil)
+            if away then card:Hide(); card:SetAlpha(1) end
+        end
+    end)
+end
+picker:HookScript("OnShow", function() ES.Away(true) end)
+picker:HookScript("OnHide", function() ES.Away(false) end)
+-- Lay out what applies: create, import, and a preset when one fits.
 function ES.Layout()
     local who = Who()
     local preset = Cat.PRESETS.hunter_preraid_wowhead
     local showPreset = who.class == preset.class and who.faction == preset.faction
-    ES.current:SetShown(who.me and true or false)
+    ES.import:Show() -- any character: a Wowhead set needs nothing worn
     ES.preset:SetShown(showPreset)
     ES.preset.text:SetText("Use " .. preset.name)
     local y = 22 + (ES.title:GetStringHeight() or 20) + 10 + (ES.body:GetStringHeight() or 30) + 18
-    for _, b in ipairs({ ES.create, ES.current, ES.preset }) do
+    for _, b in ipairs({ ES.create, ES.import, ES.preset }) do
         if b:IsShown() then
             b:ClearAllPoints(); b:SetPoint("TOPLEFT", 22, -y)
             y = y + b:GetHeight() + 8
@@ -2811,6 +3049,7 @@ end
 -- The scene for the welcome: the character in their own gear, once per visit to the empty state.
 function ES.Scene()
     local who = Who()
+    LV.pending = nil -- a fresh welcome starts again at the character's level
     modelOwner = nil -- the next set dresses the model as its own character
     model:SetUnit("player")
     if not who.me then
@@ -2842,12 +3081,14 @@ function ES.FadeIn()
         header:SetAlpha(a); background:SetAlpha(a)
     end
     MoveCamera(REST_ZOOM, 0, 0, ES.DURATION)
+    local cardGone = WI.hidCard or ES.away -- the import window or the picker already faded it out: it stays away
+    WI.hidCard, ES.away = nil, nil; ES.hold:SetScript("OnUpdate", nil)
     if FGT.Setting("celebrations") == "off" then
         Set(1); ES.card:Hide(); ES.card:SetAlpha(1)
         return
     end
     Set(0)
-    ES.card:Show(); ES.card:SetAlpha(1)
+    if cardGone then ES.card:Hide() else ES.card:Show(); ES.card:SetAlpha(1) end
     local elapsed, OUT = 0, 0.3
     ES.driver:SetScript("OnUpdate", function(self, dt)
         elapsed = elapsed + dt
@@ -2864,7 +3105,7 @@ function ES.Paint()
     local welcome = selected == nil
     if welcome then
         ES.driver:SetScript("OnUpdate", nil); header:SetAlpha(1)
-        ES.card:SetAlpha(1); ES.card:Show()
+        if not WI.hidCard and not ES.away then ES.card:SetAlpha(1); ES.card:Show() end
         if ES.state == nil then background:SetAlpha(0) end
         ES.Layout()
         if ES.state ~= Who().key then ES.state = Who().key; ES.Scene() end
@@ -3182,4 +3423,4 @@ FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")
     goalMenu = LG.menuBtn, libraryHeader = LG.header, welcome = ES,
     drawer = SD, charMenu = charMenu, ownerButton = ownerBtn, slotList = slotList, switch = switch, switchMenu = switchMenu, subline = subline, band = band,
     newSet = newSet, newWorn = newWorn, usePreset = usePreset, removeAll = removeAll, deleteAll = deleteAll,
-    enhancement = EN }
+    enhancement = EN, wowhead = WI }

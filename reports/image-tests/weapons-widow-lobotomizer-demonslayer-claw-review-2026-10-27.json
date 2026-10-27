@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-27",
+  "mode": "built-in image_gen",
+  "status": "All four approved by Karl: all good. Installed 2026-10-27. Full game restart and native visual review pending.",
+  "inspection": "Four landscape grayscale reviews with left and bottom fades and no card text or frames. Native appearance not tested.",
+  "attribution": {
+    "widowsRemorse": "Craig Elliott, printed on source card",
+    "lobotomizer": "Michael Sutfin, printed on source card",
+    "demonslayer": "Individual artist not verified from supplied low resolution card",
+    "claw": "Individual artist not verified from supplied low resolution card"
+  },
+  "images": [
+    {
+      "id": "widows-remorse",
+      "file": "weapon-widows-remorse.png",
+      "prompt": "Use case: style-transfer. Edit only the supplied trading-card illustration into one 4:3 landscape Forever Goal Tracker weapon goal banner, target 1200x900. Remove all card frame, text, numbers, icons, signatures and watermarks from the derivative. Preserve the source weapon's exact silhouette, blade geometry, hilt, grip, ornamentation, pose and surrounding scene. Detailed Warcraft painterly illustration, strictly neutral black and white, moderately increased contrast, rich midtones and controlled highlights. Place the complete main weapon high and toward the right, with breathing room and no cropped tips; left third quiet for addon text. Expand the scene naturally to landscape without extra characters or unrelated objects. BAKE a wide smooth dark charcoal gradient into the LEFT, strongest at the left edge blending gradually with no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading down to near-black charcoal at bottom edge. BOTH gradients are part of the artwork. No text or border. Preserve the upright skull-adorned sword planted among skulls and bones, and its spectral energy.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-c791ea08-7557-40c5-9193-20c8f8dbcf1e.png",
+      "review": "Media/final-images/widows-remorse-review-v1.png"
+    },
+    {
+      "id": "the-lobotomizer",
+      "file": "weapon-the-lobotomizer.png",
+      "prompt": "Use case: style-transfer. Edit only the supplied trading-card illustration into one 4:3 landscape Forever Goal Tracker weapon goal banner, target 1200x900. Remove all card frame, text, numbers, icons, signatures and watermarks from the derivative. Preserve the source weapon's exact silhouette, blade geometry, hilt, grip, ornamentation, pose and surrounding scene. Detailed Warcraft painterly illustration, strictly neutral black and white, moderately increased contrast, rich midtones and controlled highlights. Place the complete main weapon high and toward the right, with breathing room and no cropped tips; left third quiet for addon text. Expand the scene naturally to landscape without extra characters or unrelated objects. BAKE a wide smooth dark charcoal gradient into the LEFT, strongest at the left edge blending gradually with no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading down to near-black charcoal at bottom edge. BOTH gradients are part of the artwork. No text or border. Preserve the broad pointed dagger in front of the cracked skull, the angular ornate guard and curled grip; keep all blade edges and the tip complete.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-fbcb3f9b-bb17-40b9-8f57-7538e35a4185.png",
+      "review": "Media/final-images/the-lobotomizer-review-v1.png"
+    },
+    {
+      "id": "demonslayer",
+      "file": "weapon-demonslayer.jpg",
+      "prompt": "Use case: style-transfer. Edit only the supplied trading-card illustration into one 4:3 landscape Forever Goal Tracker weapon goal banner, target 1200x900. Remove all card frame, text, numbers, icons, signatures and watermarks from the derivative. Preserve the source weapon's exact silhouette, blade geometry, hilt, grip, ornamentation, pose and surrounding scene. Detailed Warcraft painterly illustration, strictly neutral black and white, moderately increased contrast, rich midtones and controlled highlights. Place the complete main weapon high and toward the right, with breathing room and no cropped tips; left third quiet for addon text. Expand the scene naturally to landscape without extra characters or unrelated objects. BAKE a wide smooth dark charcoal gradient into the LEFT, strongest at the left edge blending gradually with no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading down to near-black charcoal at bottom edge. BOTH gradients are part of the artwork. No text or border. Preserve the upright sword with its distinctive horned guard and glowing blade, the demonic hands holding it and surrounding dark atmosphere. Render glow in neutral grayscale.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-60e28158-9188-45a1-827b-81afc17fd8bb.png",
+      "review": "Media/final-images/demonslayer-review-v1.png"
+    },
+    {
+      "id": "claw-of-the-black-drake",
+      "file": "weapon-claw-of-the-black-drake.jpg",
+      "prompt": "Use case: style-transfer. Edit only the supplied trading-card illustration into one 4:3 landscape Forever Goal Tracker weapon goal banner, target 1200x900. Remove all card frame, text, numbers, icons, signatures and watermarks from the derivative. Preserve the source weapon's exact silhouette, blade geometry, hilt, grip, ornamentation, pose and surrounding scene. Detailed Warcraft painterly illustration, strictly neutral black and white, moderately increased contrast, rich midtones and controlled highlights. Place the complete main weapon high and toward the right, with breathing room and no cropped tips; left third quiet for addon text. Expand the scene naturally to landscape without extra characters or unrelated objects. BAKE a wide smooth dark charcoal gradient into the LEFT, strongest at the left edge blending gradually with no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading down to near-black charcoal at bottom edge. BOTH gradients are part of the artwork. No text or border. Preserve the hand gripping the wrapped fist weapon and its two long curved flaming blades, exact curve and silhouette. Keep both complete tips, hand and wrist; render flames in neutral grayscale.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-bcc632c0-2f37-4a9c-a741-e54571c80f7c.png",
+      "review": "Media/final-images/claw-of-the-black-drake-review-v1.png"
+    }
+  ],
+  "runtime": {
+    "widows_remorse": {
+      "source": "widows-remorse-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    },
+    "lobotomizer": {
+      "source": "the-lobotomizer-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    },
+    "demonslayer": {
+      "source": "demonslayer-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    },
+    "claw_of_the_black_drake": {
+      "source": "claw-of-the-black-drake-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    }
+  },
+  "validation": "Lua 5.1 tools/check.py passed using Windows Python 3.14; retained evidence: four-weapons-check-2026-10-27.txt. All four neutral RGB 1200x900 masters encoded to independently decoded 512px RGB DXT1 BLPs with ten mip levels. Checklist thumbnails rebuilt. Scoped diff whitespace checks passed. Native appearance not tested; full game restart required."
+}

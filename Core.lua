@@ -5188,39 +5188,92 @@ local SUB = C.SUBTEXT
 local REP_COLORS = { { 0.80, 0.30, 0.22 }, { 0.80, 0.30, 0.22 }, { 0.75, 0.27, 0.00 }, { 0.90, 0.70, 0.00 },
     { 0.00, 0.60, 0.10 }, { 0.00, 0.60, 0.10 }, { 0.00, 0.60, 0.10 }, { 0.00, 0.60, 0.10 } } -- the game's own
 
--- One segment's tooltip: how far its step has come, then the goal's share done. The step's own
--- text stays in the step row, which lights up alongside (its links only work there: Karl,
--- 2026-10-26). Steps it needs are named, never pointed at ("above", "left").
+-- A step's short name for its progress bar tooltip (Karl, 2026-10-27): the step's own wording as
+-- plain text (links and colours stripped, since a link in a tooltip looks clickable but is not),
+-- no trailing full stop, and no leading quantity when the progress line carries the count
+-- ("Collect 20 Sulfuron Ingots" becomes "Collect Sulfuron Ingots"). A step can set `short`
+-- to say it its own way; anything longer than STEP_TITLE_MAX is cut at a word.
+local STEP_TITLE_MAX = 40
+local ACTION_VERBS = { Defeat = true, Kill = true, Slay = true, Loot = true, Collect = true, Gather = true,
+    Buy = true, Get = true, Obtain = true, Purchase = true, Craft = true, Make = true }
+function FGT.StepTitle(entry, hasCount, keepWith)
+    local text = type(entry) == "table" and (entry.short or entry.text or entry.name) or entry
+    -- a step that links an attunement goal is that attunement, however its text is worded
+    if type(entry) == "table" and not entry.short and tostring(text):find("{att_", 1, true) then
+        return "Complete Attunement"
+    end
+    text = FGT.StepText(text)
+    text = text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|T.-|t", ""):gsub("|H.-|h(.-)|h", "%1")
+    text = text:gsub("%[(.-)%]", "%1"):gsub("%s+", " ")
+    text = strtrim(text):gsub("[%.:;,]+$", "")
+    if hasCount then text = text:gsub("^(%a+) [%d,]+x? ", "%1 ") end
+    -- "Defeat X in Y's Lair", "Loot X from Y", "Loot X and turn it in": the title is the verb and
+    -- its object; where and who from stay in the step row (Karl, 2026-10-27)
+    -- "Reach Exalted with the Stormpike Guard" is "Reach Exalted": the faction is in the step row
+    -- (keepWith: another step in the goal would then share the title, so the faction stays)
+    if not keepWith and not (type(entry) == "table" and entry.short) and text:match("^Reach %a+ with ") then
+        text = text:gsub(" with .*$", "")
+    end
+    if not (type(entry) == "table" and entry.short) and ACTION_VERBS[text:match("^(%a+) ")] then
+        for _, cut in ipairs({ " in ", " inside ", " from ", " at ", " near ", " on ", ", " }) do
+            local at = text:find(cut, 6, true)
+            if at then text = text:sub(1, at - 1) end
+        end
+        for _, verb in ipairs({ "turn", "bring", "hand", "deliver", "return", "take", "give", "use" }) do
+            local at = text:find(" and " .. verb .. " ", 1, true)
+            if at then text = text:sub(1, at - 1) end
+        end
+    end
+    if #text > STEP_TITLE_MAX then
+        text = text:sub(1, STEP_TITLE_MAX):gsub("%s+%S*$", "") .. "..."
+    end
+    return text
+end
+
+-- One segment's tooltip: the step's short name, how far it has come (count and percent, or just
+-- whether it is done when it has no count), then the goal's share done. Steps it needs are
+-- named, never pointed at ("above", "left"). The percent is the segment's own fill.
 function FGT.ShowSegmentTip(owner, goal, i, above)
     local entry = goal.steps[i]
     local rule = type(entry) == "table" and entry.auto or nil
     local done = IsStepDone(goal.id, i)
-    local share = string.format("Goal %d%%", math.floor(FGT.GoalFraction(goal) * 100 + 0.5))
+    local blocked = not done and FGT.SegmentBlocked(goal, i)
+    local readout, cur, max
+    if rule and not rule.rep and not rule.level then readout, cur, max = RuleReadout(rule) end
+    local pct = string.format("%d%%", math.floor(FGT.StepFraction(goal, i) * 100))
     GameTooltip:SetOwner(owner, "ANCHOR_NONE")
-    GameTooltip:AddLine(share, 1, 1, 1)
+    local title = FGT.StepTitle(entry, (max or 0) > 0)
+    for k, other in ipairs(goal.steps) do -- a title another step shares keeps its full wording
+        if k ~= i and FGT.StepTitle(other) == FGT.StepTitle(entry) then
+            title = FGT.StepTitle(entry, (max or 0) > 0, true)
+            break
+        end
+    end
+    GameTooltip:AddLine(title, 1, 1, 1)
     if done then
-        GameTooltip:AddLine("Step done", C.DONE[1], C.DONE[2], C.DONE[3])
-    elseif FGT.SegmentBlocked(goal, i) then
-        FGT.AddStepLockLines(goal, i, true)
+        GameTooltip:AddLine("Done", C.DONE[1], C.DONE[2], C.DONE[3])
     elseif rule and rule.level then
         local best = 0
         for _, c in pairs(RosterFor(rule)) do best = math.max(best, c.level or 0) end
-        GameTooltip:AddLine(string.format("Level %d / %d", math.min(best, rule.level), rule.level), SUB[1], SUB[2], SUB[3])
+        GameTooltip:AddLine(string.format("Level %d / %d  \194\183  %s", math.min(best, rule.level), rule.level, pct),
+            SUB[1], SUB[2], SUB[3])
     elseif rule and rule.rep then
-        local _, st, val, size, who = FGT.RepProgress(rule)
-        if st then
+        local _, st, val, size, who = FGT.RepProgress(rule, FGT.RepBase(goal, i))
+        if st and st < (rule.rep.standing or 8) then
             local c = REP_COLORS[st] or SUB
-            GameTooltip:AddLine(FGT.STANDING[st], c[1], c[2], c[3])
-            if st < 8 then
-                GameTooltip:AddLine(Commas(val) .. " / " .. Commas(size), SUB[1], SUB[2], SUB[3])
-                GameTooltip:AddLine(Commas(size - val) .. " to " .. FGT.STANDING[st + 1], SUB[1], SUB[2], SUB[3])
-            end
+            GameTooltip:AddLine(FGT.STANDING[st] .. ":  " .. Commas(val) .. " / " .. Commas(size) .. "  \194\183  " .. pct,
+                c[1], c[2], c[3])
             if who and who ~= UnitName("player") then GameTooltip:AddLine("Best: " .. who, SUB[1], SUB[2], SUB[3]) end
+        else
+            GameTooltip:AddLine(pct, SUB[1], SUB[2], SUB[3])
         end
-    elseif rule then
-        local readout = RuleReadout(rule)
-        if readout then GameTooltip:AddLine(readout, SUB[1], SUB[2], SUB[3]) end
+    elseif (max or 0) > 0 then
+        GameTooltip:AddLine(string.format("%s  \194\183  %s", readout, pct), SUB[1], SUB[2], SUB[3])
+    elseif not blocked then
+        GameTooltip:AddLine("Not done", SUB[1], SUB[2], SUB[3]) -- no count: a yes or no step
     end
+    if blocked then FGT.AddStepLockLines(goal, i, true) end
+    GameTooltip:AddLine(string.format("Goal %d%%", math.floor(FGT.GoalFraction(goal) * 100 + 0.5)), 0.6, 0.6, 0.6)
     GameTooltip:Show()
     -- above the pop-out's bar (its step rows sit under it); under the goal page's, which runs
     -- along the page's top edge
@@ -5612,6 +5665,22 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         for _, child in ipairs(FGT.armorCollections[id].armorChildren) do
             B.artVariants[child.id] = variants
         end
+    end
+    B.artVariants.widows_remorse = {{path="widows_remorse-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.lobotomizer = {{path="lobotomizer-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.demonslayer = {{path="demonslayer-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.claw_of_the_black_drake = {{path="claw_of_the_black_drake-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_scarlet_crusade = {{path="set_scarlet_crusade-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.ancient_bone_bow = {{path="ancient_bone_bow-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.annihilator = {{path="annihilator-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.azuresong_mageblade = {{path="azuresong_mageblade-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.social_chests = {{path="social_chests-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.social_dances = {
+        {path="social_dances_alliance-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true},
+        {path="social_dances_horde-banner.blp", faction="Horde", aspect=4/3, preprocessed=true},
+    }
+    for _, city in ipairs({"stormwind", "ironforge", "darnassus", "gnomeregan", "orgrimmar", "undercity", "thunderbluff", "darkspear"}) do
+        B.artVariants["cloth_" .. city] = {{path="cloth_donations-banner.blp", aspect=4/3, preprocessed=true}}
     end
     B.artVariants.tier3_rogue = {{path="tier3_rogue_human-banner.blp", faction="Alliance", race="Human", aspect=4/3, preprocessed=true}}
     B.artVariants.tier3_priest = {{path="tier3_priest_gnome-banner.blp", faction="Alliance", race="Gnome", aspect=4/3, preprocessed=true}}
@@ -7399,6 +7468,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["azuresong_mageblade-banner.blp"] = "Donato Giancola",
+        ["widows_remorse-banner.blp"] = "Craig Elliott",
+        ["lobotomizer-banner.blp"] = "Michael Sutfin",
+        ["cloth_donations-banner.blp"] = "Matt Cavotta",
+        ["social_dances_horde-banner.blp"] = "Mauro Cascioli",
         ["allclasses_troll_hunter_female-banner.blp"] = "Christopher Moeller",
         ["set_tier1_shaman_troll-banner.blp"] = "RK Post",
         ["allclasses_troll_priest-banner.blp"] = "Warren Mahy",

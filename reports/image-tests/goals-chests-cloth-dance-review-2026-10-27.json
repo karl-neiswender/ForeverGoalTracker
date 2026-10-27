@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-27",
+  "mode": "built-in image_gen",
+  "status": "Approved by Karl: all good. Installed 2026-10-27; native review pending a full game restart.",
+  "inspection": "All three have grayscale treatment, left and bottom fades, and removed card frames and text. Native appearance not tested.",
+  "creditsFromCards": {
+    "cloth": "Matt Cavotta",
+    "dance": "Mauro Cascioli",
+    "chests": "Not verified"
+  },
+  "images": [
+    {
+      "id": "chests",
+      "file": "goal-treasure-chest.jpg",
+      "prompt": "Use case: style-transfer. Edit the supplied trading card's illustration into one 4:3 landscape Forever Goal Tracker banner, target master 1200x900. Remove ALL card frame, lettering, numbers, logos, signatures and UI. Faithfully preserve the illustrated subjects, identity, armor, hands, objects and poses. Expand the illustration naturally to landscape without adding characters. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Main subjects high and toward the right with breathing room; left third quiet for addon text. BAKE a wide smooth dark charcoal gradient into the LEFT, strongest at the edge and blending naturally with no hard strip. BAKE a soft dark gradient across the lowest approximately 100px fading downward to near-black charcoal. BOTH gradients must be present in the artwork. No added text or border. Preserve the open metal-bound chest, coins, jewels, sword and cobbled setting.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-734613e3-778a-4914-9470-e9fdd1c1fa68.png",
+      "review": "Media/final-images/chests-review-v1.png"
+    },
+    {
+      "id": "donate-cloth",
+      "file": "goal-donate-cloth.png",
+      "prompt": "Use case: style-transfer. Edit the supplied trading card's illustration into one 4:3 landscape Forever Goal Tracker banner, target master 1200x900. Remove ALL card frame, lettering, numbers, logos, signatures and UI. Faithfully preserve the illustrated subjects, identity, armor, hands, objects and poses. Expand the illustration naturally to landscape without adding characters. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Main subjects high and toward the right with breathing room; left third quiet for addon text. BAKE a wide smooth dark charcoal gradient into the LEFT, strongest at the edge and blending naturally with no hard strip. BAKE a soft dark gradient across the lowest approximately 100px fading downward to near-black charcoal. BOTH gradients must be present in the artwork. No added text or border. Preserve the cloth donation scene, enormous stack of folded fabric and the small carrier almost hidden underneath it. This banner serves all cloth donation goals.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-b2f1adbc-bfa6-493a-84ae-38c9316920e4.png",
+      "review": "Media/final-images/donate-cloth-review-v1.png"
+    },
+    {
+      "id": "dance-horde",
+      "file": "goal-dance.png",
+      "prompt": "Use case: style-transfer. Edit the supplied trading card's illustration into one 4:3 landscape Forever Goal Tracker banner, target master 1200x900. Remove ALL card frame, lettering, numbers, logos, signatures and UI. Faithfully preserve the illustrated subjects, identity, armor, hands, objects and poses. Expand the illustration naturally to landscape without adding characters. Strictly neutral black and white, moderately increased contrast, detailed painterly midtones, controlled highlights. Main subjects high and toward the right with breathing room; left third quiet for addon text. BAKE a wide smooth dark charcoal gradient into the LEFT, strongest at the edge and blending naturally with no hard strip. BAKE a soft dark gradient across the lowest approximately 100px fading downward to near-black charcoal. BOTH gradients must be present in the artwork. No added text or border. Preserve the same four Horde dancers: tauren left, orc foreground, undead center rear and troll right, their exuberant dancing poses and equipment.",
+      "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-58a448fc-b1a7-4cfd-83d7-2a23317ba593.png",
+      "review": "Media/final-images/dance-horde-review-v1.png"
+    }
+  ],
+  "runtime": {
+    "social_chests": {
+      "source": "chests-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    },
+    "cloth_donations": {
+      "source": "donate-cloth-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    },
+    "social_dances_horde": {
+      "source": "dance-horde-master.png",
+      "aspect": 1.3333333333333333,
+      "bytes": 175948,
+      "mips": 10,
+      "equivalent_tga_bytes": 786476
+    }
+  },
+  "validation": "tools/check.py passed with native Windows Python 3.14 and Lupa Lua 5.1. Three 1200x900 neutral masters; three independently decoded 512px RGB DXT1 BLPs with ten mip levels. Checklist thumbnails rebuilt. Scoped git diff --check passed. Native appearance not tested; full WoW restart required."
+}

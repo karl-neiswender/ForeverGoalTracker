@@ -865,5 +865,87 @@ C.PRESETS = {
     },
 }
 
+-- ------------------------------------------------------------
+-- Wowhead's Classic Gear Planner links
+-- ------------------------------------------------------------
+-- A planner link (wowhead.com/classic/gear-planner/<class>/<race>/<code>) carries the whole set in
+-- its code, base64url bytes. Read from Karl's Rogue link, 2026-10-27 (format 4): version, level,
+-- talent byte count and the talent bytes, a zero byte, then one record per item: the game's
+-- inventory slot (+128 when enchanted), the item id (3 bytes) and the enchant's spell (3 bytes).
+-- Wowhead does not document it, so anything else (another version, other flags, bytes left over)
+-- is refused rather than guessed at.
+local B64 = {}
+do
+    local abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
+    for i = 1, 64 do B64[abc:sub(i, i)] = i - 1 end
+    B64["+"], B64["/"] = 62, 63
+end
+local function Base64Bytes(code)
+    local out, acc, bits = {}, 0, 0
+    for i = 1, #code do
+        local v = B64[code:sub(i, i)]
+        if not v then return nil end
+        acc, bits = acc * 64 + v, bits + 6
+        if bits >= 8 then
+            bits = bits - 8
+            local p = 2 ^ bits
+            out[#out + 1] = math.floor(acc / p)
+            acc = acc % p
+        end
+    end
+    return out
+end
+C.WOWHEAD_CLASSES = { warrior = "WARRIOR", paladin = "PALADIN", hunter = "HUNTER", rogue = "ROGUE",
+    priest = "PRIEST", shaman = "SHAMAN", mage = "MAGE", warlock = "WARLOCK", druid = "DRUID" }
+C.WOWHEAD_NOT_A_LINK = "Paste a link from Wowhead's Classic Gear Planner."
+C.WOWHEAD_UNKNOWN = "This Wowhead link uses a format the planner can't read yet."
+-- Read a pasted planner link, or just its code. Returns nil for empty text; nil and a message for
+-- text it can't read; otherwise { class, level, records, slots, enchants, missing, skipped }:
+-- records is every item the link holds ({ slot, item, spell }), slots and enchants only what the
+-- planner knows (enchants that fit their item), missing the item ids it doesn't, skipped the
+-- number of enchants left out.
+function C.ReadWowheadLink(text)
+    text = (text or ""):match("^%s*(.-)%s*$")
+    if text == "" then return nil end
+    local classPart, code = text:match("gear%-planner/([%a%-]+)/[%a%-]+/([%w_%-]+)")
+    if not code then
+        if text:find("gear-planner/", 1, true) then return nil, "This link has no gear in it." end
+        code = text:match("^([%w_%-]+)=*$") -- a code alone: one long word (the shortest set is 16 letters)
+        if not code or #code < 16 then return nil, C.WOWHEAD_NOT_A_LINK end
+    end
+    local b = Base64Bytes(code)
+    if not b or #b < 4 or b[1] ~= 4 then return nil, C.WOWHEAD_UNKNOWN end
+    local pos = 4 + b[3]
+    if b[pos] ~= 0 then return nil, C.WOWHEAD_UNKNOWN end
+    pos = pos + 1
+    local result = { class = classPart and C.WOWHEAD_CLASSES[classPart:lower()],
+        level = (b[2] >= 1 and b[2] <= 60) and b[2] or nil,
+        records = {}, slots = {}, enchants = {}, missing = {}, skipped = 0 }
+    local function Int3(at) return b[at] * 65536 + b[at + 1] * 256 + b[at + 2] end
+    local seen = {}
+    while pos <= #b do
+        local slot, enchanted = b[pos] % 128, b[pos] >= 128
+        local size = enchanted and 7 or 4
+        if slot > 19 or pos + size - 1 > #b or seen[slot] then return nil, C.WOWHEAD_UNKNOWN end
+        seen[slot] = true
+        local record = { slot = slot, item = Int3(pos + 1), spell = enchanted and Int3(pos + 4) or nil }
+        result.records[#result.records + 1] = record
+        local item = C.Get(record.item)
+        if item then
+            result.slots[slot] = record.item
+            if record.spell then
+                if C.EnchantFits(record.spell, item) then result.enchants[slot] = record.spell
+                else result.skipped = result.skipped + 1 end
+            end
+        else
+            result.missing[#result.missing + 1] = record.item
+            if record.spell then result.skipped = result.skipped + 1 end
+        end
+        pos = pos + size
+    end
+    if #result.records == 0 then return nil, "This link has no gear in it." end
+    return result
+end
+
 -- Quality colors for item names (the game's own).
 C.QUALITY = { [1] = { 1, 1, 1 }, [2] = { 0.12, 1, 0 }, [3] = { 0, 0.44, 0.87 }, [4] = { 0.64, 0.21, 0.93 }, [5] = { 1, 0.5, 0 } }

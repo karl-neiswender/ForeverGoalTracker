@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-27",
+  "source": "Media/artwork/goal-dancing-alliance.jpg",
+  "output": "Media/final-images/dance-alliance-review-v1.png",
+  "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-21172b6a-0844-4d6e-9d08-c65eb2b9fefa.png",
+  "mode": "built-in image_gen",
+  "prompt": "Use case: style-transfer. Edit the supplied illustration into one 4:3 landscape Forever Goal Tracker banner, target 1200x900. Preserve this same smiling human male dancer, face, beard, horned helmet, armor, gloves, pointing hand gesture, stance, boots, fish at his belt, coins and metal-bound chest beneath his feet. Preserve the timber-and-stone Warcraft town setting. Recompose the complete character high and toward the RIGHT, with breathing room and no cropped hands or boots, expanding the quiet setting toward the left third for addon text. Strict neutral black and white, moderately increased contrast, detailed painterly midtones and controlled highlights. BAKE a wide smooth dark charcoal gradient into the LEFT, strongest at the edge, blending gradually without a hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels of the 1200x900 image, fading downward to near-black neutral charcoal. Both gradients must be present in the artwork itself. Remove visible copyright lettering, watermarks and signatures from this derivative; no text, UI, frame, extra characters or unrelated objects. Keep the original's character identity, equipment and dancing pose.",
+  "status": "Approved by Karl: good. Installed 2026-10-27; full game restart and native review pending.",
+  "inspection": "Left and bottom gradients present; grayscale; complete dancer, pointing hand and boots; no lettering. Native appearance not tested.",
+  "attribution": "Source bears Blizzard Entertainment copyright. Individual artist unverified.",
+  "runtime": {
+    "source": "dance-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "validation": "Lua 5.1 tools/check.py passed using Windows Python 3.14; evidence in dance-alliance-check-2026-10-27.txt. Master normalized to neutral RGB 1200x900. BLP independently decoded: 512px RGB DXT1, ten mip levels. Checklist thumbnails rebuilt; scoped diff whitespace checks passed. Native appearance not tested."
+}

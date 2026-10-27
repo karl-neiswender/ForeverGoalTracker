@@ -14,6 +14,18 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "ancient_bone_bow": "ancient-bone-bow-master.png",
+    "annihilator": "annihilator-master.png",
+    "azuresong_mageblade": "azuresong-mageblade-master.png",
+    "set_scarlet_crusade": "scarlet-crusade-master.png",
+    "widows_remorse": "widows-remorse-master.png",
+    "lobotomizer": "the-lobotomizer-master.png",
+    "demonslayer": "demonslayer-master.png",
+    "claw_of_the_black_drake": "claw-of-the-black-drake-master.png",
+    "social_dances_alliance": "dance-alliance-master.png",
+    "social_dances_horde": "dance-horde-master.png",
+    "cloth_donations": "donate-cloth-master.png",
+    "social_chests": "chests-master.png",
     "allclasses_troll_hunter_female": "leveling/troll-hunter-female-master.png",
     "allclasses_troll_warlock": "leveling/troll-warlock-master.png",
     "set_tier1_shaman_troll": "tier-sets/shaman/tier1-troll-master.png",

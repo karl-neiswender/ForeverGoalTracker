@@ -80,12 +80,30 @@ its October 21 notes.
   Materials-style drawer right, item and enhancement pop-outs beside the list. `tools/check.py`
   passes (109 sessions, new layout tests in `gear-planner-tests.lua`); synced to Era. Native
   review in Era pending; Ketho/LuaLS not rerun. Karl: build and test it in Era before 2.16.0.
+- Import from Wowhead (2026-10-27, PC, unreleased; Karl reviewed it in Era): sets "..." menu and the
+  welcome card's second button (it replaced Start from my current gear, still in the menu as New from
+  what I'm wearing). Paste a Classic Gear Planner link, preview, Import as a new set (never into the
+  open set). `Cat.ReadWowheadLink` decodes format 4 (read from Karl's Rogue link; layout in its
+  comment) and refuses anything else. Window and welcome card share one reversible fade timeline
+  (`WI.Go`). Unverified: a random-suffix item and a link with runes or other flags (need sample links).
+- Welcome slots (2026-10-27, Karl reviewed in Era): with no set open the picker sets the card aside
+  (`ES.Away`), lists gear for the character's level (`NewSetLevel`; the boxes keep their own range,
+  `LV.pending`), and a pick starts a "New gear set" with that range (`ES.StartFor`). Switching slots
+  keeps the picker solid. WhatsNew.lua's 2.16.0 line still names Start from my current gear.
 - Next: more presets (Horde Hunter, other classes), leveling greens under 35,
   nested recipe materials, patterns as steps.
   Karl's weekend idea list, checked against what has shipped, with a suggested order before November 4:
   [backlog](Backlog-brainstorm-2026-10-24.md).
 
 ## Current invariants and open work
+
+- Scarlet Crusade banner v4 approved and installed 2026-10-27: smooth ivory pointed spikes on image-left shoulder only. Full game restart and native review pending. [Record](image-tests/scarlet-crusade-ivory-review-2026-10-27.json). Ancient Bone Bow, Annihilator (axe head upward) and Azuresong Mageblade also approved and installed 2026-10-27; full restart and native review pending.
+
+- Four weapon banners approved and installed 2026-10-27: Widow's Remorse, The Lobotomizer, Demonslayer, and Claw of the Black Drake. Neutral masters and runtime textures validated; full game restart and native review pending. [Record](image-tests/weapons-widow-lobotomizer-demonslayer-claw-review-2026-10-27.json).
+
+- Alliance Dance banner approved and installed 2026-10-27; Dance now has dedicated artwork for both factions. Full game restart and native visual review pending. [Record](image-tests/dance-alliance-review-2026-10-27.json).
+
+- Approved and installed 2026-10-27: treasure chests, all eight cloth donation goals, and Horde Dance banners. Source card credits retained for cloth and dance. Lua 5.1 checks passed; full game restart and native visual review pending. Record: [installation](image-tests/goals-chests-cloth-dance-review-2026-10-27.json).
 
 - New goal artwork (2026-10-26, PC): Karl's renamed source images are in `Media/artwork`. The high-confidence
   matches for the goals added that day are in [the mapping](Artwork-goal-mapping-2026-10-26.md): Codex can use

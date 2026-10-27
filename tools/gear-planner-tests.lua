@@ -1447,7 +1447,7 @@ end
 -- First visit: the welcome card over the character's scene, with a gold way in.
 do
     local W = T.welcome
-    Track(W.card); Track(W.current); Track(W.preset)
+    Track(W.card); Track(W.import); Track(W.preset)
     local oldName, oldClass, oldFaction = UnitName, UnitClass, UnitFactionGroup
     UnitName = function() return "WelcomeOwner" end
     UnitClass = function() return "Warrior", "WARRIOR" end
@@ -1456,8 +1456,9 @@ do
     F.ShowTab("gear")
     assert(#T.store().builds == 0 and W.card:IsShown(), "a first visit shows the welcome card")
     assert(unit == "player", "the scene shows your own character")
-    assert(W.current:IsShown() and not W.preset:IsShown(), "start from current gear; no preset for a Warrior")
-    -- start from current gear: a named set, filled and saved at once
+    assert(W.import:IsShown() and not W.preset:IsShown(), "Import from Wowhead; no preset for a Warrior")
+    assert(W.import:GetScript("OnClick") == T.wowhead.Open, "the card's import opens the Wowhead window")
+    -- start from current gear (the "..." menu): a named set, filled and saved at once
     local oldGet = GetInventoryItemID
     GetInventoryItemID = function(_, slot) if slot == 1 then return 16866 end end
     local seen = {}
@@ -1466,7 +1467,7 @@ do
         b.SetAlpha = function(self, a) seen[slot] = a end
         b.GetAlpha = function() return seen[slot] or 1 end
     end
-    W.current:GetScript("OnClick")(W.current)
+    click(T.newWorn)
     GetInventoryItemID = oldGet
     local made = T.store().builds[#T.store().builds]
     assert(made and made.name == "Current gear" and made.slots[1] == 16866, "it makes a set from the worn gear")
@@ -1490,10 +1491,88 @@ do
     F.ShowTab("tracker"); F.ShowTab("gear")
     assert(W.card:IsShown() and W.preset:IsShown() and (W.preset.text:GetText() or ""):find("Hunter Pre-Raid BiS", 1, true),
         "an Alliance Hunter is offered the Hunter preset")
+    -- the import window fades the card away, Cancel brings it back, and an import opens without it
+    local WI = T.wowhead
+    Track(WI.frame)
+    local cardAlpha = 1
+    W.card.SetAlpha = function(_, a) cardAlpha = a end
+    W.card.GetAlpha = function() return cardAlpha end
+    local function Run(driver)
+        for _ = 1, 60 do
+            local fn = driver:GetScript("OnUpdate")
+            if not fn then return end
+            fn(driver, 0.05)
+        end
+    end
+    -- the slots work from the welcome: the picker sets the card aside, and a pick starts a set
+    click(T.slots.HeadSlot); Run(W.hold)
+    assert(T.picker:IsShown() and not W.card:IsShown() and W.away, "the picker sets the welcome card aside")
+    click(T.slots.ShoulderSlot)
+    assert(T.picker:IsShown() and W.away and not W.card:IsShown(), "another slot keeps the picker open, the card away")
+    T.clickAway:GetScript("OnEvent")(T.clickAway); Run(W.hold)
+    assert(not T.picker:IsShown() and W.card:IsShown() and cardAlpha == 1 and not W.away, "closing the picker brings the card back")
+    -- the welcome's picker lists gear for the character's level, the level the set it starts gets
+    local oldLevel = UnitLevel
+    UnitLevel = function() return 45 end
+    click(T.slots.HeadSlot)
+    local low = T.found()
+    assert(#low > 0, "a level 45 Hunter has helms to choose")
+    for _, entry in ipairs(low) do assert(F.GearCatalog.PlanLevel(entry) <= 45, "no gear above level 45: " .. entry.name) end
+    assert(T.level:GetText() == "45", "the level box says 45")
+    -- the boxes scroll on the welcome too, and the set the pick starts keeps that range
+    T.level:GetScript("OnMouseWheel")(T.level, -1)
+    T.minLevel:GetScript("OnMouseWheel")(T.minLevel, 1)
+    assert(T.level:GetText() == "44" and T.minLevel:GetText() == "1", "scrolling changes the welcome's range")
+    assert(#T.store().builds == 0, "changing the range starts no set")
+    low = T.found()
+    for _, entry in ipairs(low) do assert(F.GearCatalog.PlanLevel(entry) <= 44, "no gear above level 44: " .. entry.name) end
+    click(low[1] and T.results[1])
+    local lowSet = T.store().builds[#T.store().builds]
+    assert(lowSet.level == 44 and lowSet.minLevel == 1 and lowSet.slots[1] == low[1].id, "the set it starts keeps the range")
+    UnitLevel = oldLevel
+    T.store().builds, T.store().selected = {}, nil
+    F.ShowTab("tracker"); F.ShowTab("gear")
+    local hunterStore = T.store()
+    Pick("HeadSlot", 18421)
+    local started = hunterStore.builds[#hunterStore.builds]
+    assert(started and started.name == "New gear set" and started.slots[1] == 18421 and hunterStore.selected == started.id,
+        "picking an item from the welcome starts a set with it")
+    assert(not W.card:IsShown(), "the set opens without the card flashing back")
+    Run(W.driver)
+    assert(not W.card:IsShown() and not W.away, "and the card stays away")
+    hunterStore.builds, hunterStore.selected = {}, nil
+    F.ShowTab("tracker"); F.ShowTab("gear")
+    assert(W.card:IsShown() and cardAlpha == 1, "back on the welcome for the import checks")
+    local frameAlpha = 1
+    WI.frame.SetAlpha = function(_, a) frameAlpha = a end
+    local function Step(share) WI.driver:GetScript("OnUpdate")(WI.driver, WI.FADE * share) end
+    click(W.import)
+    assert(frameAlpha < 0.01 and cardAlpha == 1 and WI.driver:GetScript("OnUpdate"), "the window starts faded out, the card still there")
+    Step(0.2)
+    assert(frameAlpha < 0.01 and cardAlpha < 1, "the card leaves first")
+    Step(0.4)
+    assert(frameAlpha > 0 and frameAlpha < 1 and not W.card:IsShown(), "the window follows once the card is nearly gone")
+    Run(WI.driver)
+    assert(frameAlpha == 1 and WI.p == 1 and WI.frame:IsShown(), "the window ends fully shown")
+    click(WI.cancel)
+    Step(0.4)
+    assert(WI.frame:IsShown() and frameAlpha > 0 and frameAlpha < 1 and not W.card:IsShown(), "Cancel fades the window out first")
+    Run(WI.driver)
+    assert(not WI.frame:IsShown() and W.card:IsShown() and cardAlpha == 1 and not WI.hidCard, "then the welcome comes back")
+    click(W.import); Step(0.3); click(WI.cancel); click(W.import)
+    Run(WI.driver)
+    assert(WI.p == 1 and frameAlpha == 1 and not W.card:IsShown(), "reopening mid-way turns the same timeline around")
+    text(WI.box, "BDwRAFAjEE8CMwUgAFUBACIfBfAAgQBV9QA8KgIAV0SDAFX4AFhHhQBV-QBOOQYAVfKHADrWADwqiABV8wA2QokAVfQATiqKADrXAE4sCwBIRAwASEQNAC4nDgA2jY8ANBwANjqQADEuAE5CkQBH2ABOQpIACDQAMKw")
+    click(WI.import)
+    assert(not W.card:IsShown(), "the imported set opens without the welcome flashing back")
+    Run(WI.driver); Run(W.driver)
+    assert(not W.card:IsShown() and not WI.frame:IsShown() and not WI.hidCard, "it stays away once the set is open")
+    W.card.SetAlpha, W.card.GetAlpha, WI.frame.SetAlpha = nil, nil, nil
+    hunterStore.builds, hunterStore.selected = {}, nil
     T.model.SetUnit = nil
     UnitName, UnitClass, UnitFactionGroup = oldName, oldClass, oldFaction
     F.ShowTab("tracker")
-    print("  welcome card: character scene, current gear start, fitting preset")
+    print("  welcome card: character scene, Wowhead import, current gear start, fitting preset")
 end
 
 -- The 2026-10-23 layout: slot rows, the sets drawer and its cards, the switcher, the band, stage controls.
@@ -1744,4 +1823,73 @@ do
     C_AddOns.GetAddOnMetadata = oldMeta
     print = oldPrint
     print("  version reminder: newer versions speak once, sharing is throttled and quiet")
+end
+
+-- Import from Wowhead: Karl's Rogue link (2026-10-27) is read record by record and becomes a new set.
+do
+    local Cat, WI = F.GearCatalog, T.wowhead
+    local CODE = "BDwRAFAjEE8CMwUgAFUBACIfBfAAgQBV9QA8KgIAV0SDAFX4AFhHhQBV-QBOOQYAVfKHADrWADwqiABV8wA2QokAVfQATiqKADrXAE4sCwBIRAwASEQNAC4nDgA2jY8ANBwANjqQADEuAE5CkQBH2ABOQpIACDQAMKw"
+    local URL = "https://www.wowhead.com/classic/gear-planner/rogue/human/" .. CODE
+    local expected = { { 1, 22005, 15402 }, { 2, 22340 }, { 3, 22008, 22599 }, { 5, 22009, 20025 }, { 6, 22002 },
+        { 7, 15062, 15402 }, { 8, 22003, 13890 }, { 9, 22004, 20010 }, { 10, 15063, 20012 }, { 11, 18500 }, { 12, 18500 },
+        { 13, 11815 }, { 14, 13965 }, { 15, 13340, 13882 }, { 16, 12590, 20034 }, { 17, 18392, 20034 }, { 18, 2100, 12460 } }
+    local r = assert(Cat.ReadWowheadLink(URL))
+    assert(r.class == "ROGUE" and r.level == 60 and #r.records == #expected, "the link's class, level and 17 items")
+    for i, e in ipairs(expected) do
+        local got = r.records[i]
+        assert(got.slot == e[1] and got.item == e[2] and got.spell == e[3],
+            "record " .. i .. ": slot " .. got.slot .. " item " .. got.item .. " enchant " .. tostring(got.spell))
+    end
+    assert(r.slots[16] == 12590 and r.enchants[16] == 20034, "Felstriker comes across with Crusader")
+    local bare = assert(Cat.ReadWowheadLink("  " .. CODE .. "\n"))
+    assert(#bare.records == 17 and bare.class == nil, "the code alone works too, without a class")
+    -- what it can't read is refused with a reason, never guessed at
+    assert(Cat.ReadWowheadLink("") == nil and select(2, Cat.ReadWowheadLink("")) == nil, "an empty box says nothing")
+    assert(select(2, Cat.ReadWowheadLink("hello there")) == Cat.WOWHEAD_NOT_A_LINK, "plain text is not a link")
+    assert(select(2, Cat.ReadWowheadLink("C" .. CODE:sub(2))) == Cat.WOWHEAD_UNKNOWN, "another format version is refused")
+    assert(select(2, Cat.ReadWowheadLink(CODE:sub(1, -5))) == Cat.WOWHEAD_UNKNOWN, "a cut-off link is refused")
+    assert(select(2, Cat.ReadWowheadLink("https://www.wowhead.com/classic/gear-planner/rogue/human")) == "This link has no gear in it.",
+        "an empty planner link says so")
+    -- items the planner doesn't know are listed, and their enchants left out
+    local oldGet = Cat.Get
+    Cat.Get = function(id) if id == 22005 then return nil end return oldGet(id) end
+    local partial = assert(Cat.ReadWowheadLink(URL))
+    Cat.Get = oldGet
+    assert(partial.missing[1] == 22005 and not partial.slots[1] and partial.skipped >= 1, "an unknown item is named, not imported")
+
+    -- the window: a preview first, then a new set (the open set is left alone)
+    Track(WI.frame)
+    F.ShowTab("gear")
+    local store = T.store()
+    local before, open = #store.builds, store.selected
+    local openBuild
+    for _, b in ipairs(store.builds) do if b.id == open then openBuild = b end end
+    local openSlots = openBuild and openBuild.slots[1]
+    local windowAlpha
+    WI.frame.SetAlpha = function(_, a) windowAlpha = a end
+    click(WI.menu)
+    assert(WI.frame:IsShown(), "the menu entry opens the import window")
+    WI.driver:GetScript("OnUpdate")(WI.driver, WI.FADE * 0.1)
+    assert(WI.lead == 0 and windowAlpha > 0, "with no welcome card the window starts at once")
+    WI.frame.SetAlpha = nil
+    text(WI.box, "hello there")
+    assert(WI.result == nil and (WI.preview:GetText() or ""):find(Cat.WOWHEAD_NOT_A_LINK, 1, true), "a bad paste explains itself")
+    click(WI.import)
+    assert(#store.builds == before, "Import does nothing until the link reads")
+    text(WI.box, URL)
+    local preview = WI.preview:GetText() or ""
+    assert(preview:find("Rogue · Level 60 · 17 items", 1, true), "the preview counts what comes across: " .. preview)
+    assert(preview:find("This set is for a Rogue", 1, true), "a Warrior is told the set is for a Rogue")
+    click(WI.import)
+    local made = store.builds[#store.builds]
+    assert(#store.builds == before + 1 and made.name == "Wowhead Rogue" and made.level == 60, "a new set named for the class")
+    assert(made.slots[16] == 12590 and made.enchants and made.enchants[16] == 20034, "items and enchants are in the new set")
+    assert(store.selected == made.id, "the new set opens")
+    for _ = 1, 60 do local fn = WI.driver:GetScript("OnUpdate"); if not fn then break end; fn(WI.driver, 0.05) end
+    assert(not WI.frame:IsShown(), "the window fades away")
+    if openBuild then assert(openBuild.slots[1] == openSlots, "the set that was open is untouched") end
+    for i, b in ipairs(store.builds) do if b == made then table.remove(store.builds, i) end end
+    store.selected = open
+    F.ShowTab("tracker")
+    print("  Wowhead import: reads the link, refuses what it can't, previews and makes a new set")
 end

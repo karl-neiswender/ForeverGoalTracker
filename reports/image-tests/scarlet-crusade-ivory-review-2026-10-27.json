@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-27",
+  "mode": "built-in image_gen",
+  "target": "Media/final-images/scarlet-crusade-review-v3.png",
+  "reference": "Media/artwork/scarlet-crusade-ivory-material-reference.png",
+  "output": "Media/final-images/scarlet-crusade-review-v4.png",
+  "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-d485a4c4-4e8a-4bc1-ace1-f2b6b8bfbd3c.png",
+  "prompt": "Use case: precise-object-edit. Image 1 is the target banner, Image 2 is a material reference only. Make ONE localized change to Image 1: the TWO projecting pointed spikes on the LEFT SIDE OF THE IMAGE (character's right shoulder, at approximately x 420-650 y 340-540 in the 1448x1086 image). Change their material from faceted shiny metal/crystal to smooth ivory/bone as seen in image 2. Preserve their length, outward direction and very SHARP pointed tips, but give the spikes naturally rounded continuous cross-sections with smooth softly curved surfaces tapering into acute claw tips. Remove angular flat facets, polygonal edges, cracks and bright metallic reflection lines on ONLY those two spikes. Use soft diffuse ivory/bone shading, subtle organic grain, gentle highlights and no metallic shine. Render ivory in STRICTLY NEUTRAL GRAYSCALE to match this banner, no cream/yellow coloration. CRITICAL: change ONLY these two spikes, not the metal sockets or the shoulder plate beneath them. Preserve the opposite shoulder on IMAGE RIGHT exactly as it is, including its original rounded ornaments. Preserve all other parts of Image 1: helmet, crest, faceplate, tabard flame emblem, chainmail, armor trim and rivets, background stone wall, framing, pose, lighting, painterly texture and baked left and bottom dark gradients. Do not recompose or redesign anything else. No text, annotations, circles, logos, watermark or border. 4:3 landscape.",
+  "status": "Approved by Karl: yes good. Installed 2026-10-27. Full restart and native visual review pending.",
+  "inspection": "Image-left two shoulder spikes have smooth ivory shading and sharp tips; image-right shoulder retains rounded ornaments. Grayscale and baked gradients retained.",
+  "attribution": "Individual artist unverified from low resolution source card.",
+  "runtime": {
+    "source": "scarlet-crusade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "validation": "tools/check.py passed with Lua 5.1 using Windows Python 3.14; evidence: scarlet-crusade-check-2026-10-27.txt. Neutral RGB 1200x900 master, independently decoded 512px RGB DXT1 BLP with ten mip levels. Checklist thumbnails rebuilt. Scoped git diff --check passed. Native appearance not tested."
+}

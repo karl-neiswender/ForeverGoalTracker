@@ -659,6 +659,8 @@ if ok_all:
         ("Forever pop-out sizing and style", None, open(os.path.join(here, "popout-qol-tests.lua"), encoding="utf-8").read(), True),
         ("goals rail", None, open(os.path.join(here, "rail-tests.lua"), encoding="utf-8").read()),
         ("Forever goals rail", None, open(os.path.join(here, "rail-tests.lua"), encoding="utf-8").read(), True),
+        ("segment tooltips", None, open(os.path.join(here, "segment-tip-tests.lua"), encoding="utf-8").read()),
+        ("Forever segment tooltips", None, open(os.path.join(here, "segment-tip-tests.lua"), encoding="utf-8").read(), True),
         ("pop-out polish", None, open(os.path.join(here, "popout-polish-tests.lua"), encoding="utf-8").read()),
         ("Forever pop-out polish", None, open(os.path.join(here, "popout-polish-tests.lua"), encoding="utf-8").read(), True),
         ("materials panel", None, open(os.path.join(here, "materials-tests.lua"), encoding="utf-8").read()),

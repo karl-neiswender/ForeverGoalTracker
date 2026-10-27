@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Gear Planner: Import from Wowhead. Paste a link from Wowhead's Classic Gear Planner to make it a new gear set, items and enchants included.
 - Added Sword of Zeal, a rare one-handed sword that raid bosses and high-level elites can drop, to the Goal Library.
 - Added Staff of the Ruins, a Ruins of Ahn'Qiraj staff dropped by Ossirian the Unscarred, to the Goal Library.
 - Added Staff of Dominance, a Molten Core staff dropped by Golemagg the Incinerator, to the Goal Library.

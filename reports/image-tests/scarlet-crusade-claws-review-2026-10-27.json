@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-27",
+  "mode": "built-in image_gen",
+  "target": "Media/final-images/scarlet-crusade-review-v1.png",
+  "reference": "Media/artwork/scarlet-crusade-shoulder-item-reference.png",
+  "output": "Media/final-images/scarlet-crusade-review-v2.png",
+  "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-531398bd-0d6f-41df-9084-083e0e1327c4.png",
+  "prompt": "Use case: precise-object-edit. Image 1 is the edit target: grayscale Scarlet Crusade banner. Image 2 is a supporting reference for the actual shoulder item geometry ONLY. Correct the shoulder ornaments on BOTH pauldrons in image 1, especially the prominent left shoulder. Replace the smooth rounded oval teardrop ornaments with two distinct long sharp projecting claw/fang-like metal spikes on each shoulder matching the reference: broad faceted bases, planar tapering surfaces, very acute pointed tips, jutting outward away from the armor. These are substantial three-dimensional claws projecting from the shoulder plate, not rounded embossed oval decorations. Follow image 2's paired pointed claw silhouette and angular geometry. Keep the shoulder plates, trim and rivets in place beneath them. Preserve EVERYTHING else in image 1: same helmet and crest, featureless closed faceplate, tabard flame emblem, chainmail, stone wall, character framing and exact pose, grayscale painterly style, lighting, contrast, and baked wide LEFT and soft BOTTOM dark gradients. Maintain 4:3 landscape. No added text, watermark, annotations, circles or UI; do not include the reference screenshot background or logos. Only change the shoulder claw geometry.",
+  "status": "Revised shoulder geometry awaiting Karl approval; not installed",
+  "inspection": "Paired sharp projecting faceted claws replace rounded shoulder ornaments. Grayscale and left/bottom fades retained."
+}

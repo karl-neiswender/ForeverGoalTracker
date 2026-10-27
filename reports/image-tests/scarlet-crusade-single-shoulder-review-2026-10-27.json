@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-27",
+  "mode": "built-in image_gen",
+  "output": "Media/final-images/scarlet-crusade-review-v3.png",
+  "generated": "C:\\Users\\kneis\\.codex\\generated_images\\01a17dbf-a146-7690-9f87-bb0a08800358\\exec-c6f24372-a303-40b7-b037-5434b495bdbe.png",
+  "prompt": "Use case: precise-object-edit. Image 1 is the ORIGINAL v1 banner. Image 2 is v2 with pointed claws but it wrongly changed BOTH shoulders. Produce corrected v3. Use IMAGE 1 as the base, preserving its entire composition and ALL details. Change ONLY the shoulder on the LEFT SIDE OF THE IMAGE (the character's right shoulder, large foreground pauldron at image x approximately 400-780). On ONLY that shoulder, replace its two rounded oval ornaments with the two sharp faceted projecting claw points shown on that same left-side shoulder in IMAGE 2. CRITICAL: the shoulder on the RIGHT SIDE OF THE IMAGE, at x approximately 1250-1448, MUST REMAIN EXACTLY AS IN IMAGE 1: its original smooth rounded teardrop ornaments and curved plate, no new sharp claws on it. Do not mirror or propagate the left shoulder edit to the right. Preserve image 1's helmet, crest, tabard emblem, chainmail, trim, rivets, stone wall, lighting, exact framing, strictly neutral grayscale, painterly texture, baked left gradient and bottom gradient. Only the two ornaments on the circled/left image shoulder are to change. No annotations, text, borders or watermarks. 4:3 landscape.",
+  "status": "Awaiting review; not installed. v2 rejected because it changed both shoulders.",
+  "inspection": "Pointed claws only on image-left pauldron. Image-right pauldron retains original rounded ornament. Grayscale and left/bottom fades retained."
+}
