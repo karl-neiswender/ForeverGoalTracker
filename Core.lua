@@ -8223,7 +8223,14 @@ function FGT.LightStepRow(i)
     for _, row in ipairs(stepRowPool) do
         if row.hover and row:IsShown() then
             -- (row.hover is a small object with Show and Hide only)
-            if (i ~= nil and row.segStep == i) or row:IsMouseOver() then row.hover:Show() else row.hover:Hide() end
+            local on = (i ~= nil and row.segStep == i) or row:IsMouseOver()
+            if on then row.hover:Show() else row.hover:Hide() end
+            -- the checkbox ring takes the hover style too, as it does under the pointer
+            -- (done boxes keep their gold; tracked and locked rows never turn white)
+            if not row.isDone and not row.autoEntry and not row.depLocked then
+                local ring = on and { 1, 1, 1 } or C.BOX_RING
+                row.box:SetBackdropBorderColor(ring[1], ring[2], ring[3], 1)
+            end
         end
     end
 end
