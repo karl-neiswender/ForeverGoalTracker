@@ -832,7 +832,7 @@ P.segs.onEnter = function(segs, k, bar)
     local i = segs.steps and segs.steps[k]
     if not (goal and i) then return end
     segs:Light(k)
-    FGT.ShowSegmentTip(bar, goal, i)
+    FGT.ShowSegmentTip(bar, goal, i, true)
 end
 P.segs.onLeave = function(segs, _, bar)
     segs:Light(nil)

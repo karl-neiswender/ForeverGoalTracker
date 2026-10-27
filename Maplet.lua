@@ -378,7 +378,7 @@ end)
 -- takes the next place along. `taken` is how many places are used.
 function FGT.PlaceMapButton(taken)
     btn:ClearAllPoints()
-    btn:SetPoint("TOPRIGHT", FGT.detailBody or panel, "TOPRIGHT", -20 - 26 * taken, -22)
+    btn:SetPoint("TOPRIGHT", FGT.detailBody or panel, "TOPRIGHT", -20 - 26 * taken, -((FGT.DETAIL_TOP or 24) - 2))
 end
 
 function M:SyncButton()

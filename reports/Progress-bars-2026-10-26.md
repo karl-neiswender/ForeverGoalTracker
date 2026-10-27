@@ -72,6 +72,35 @@ Hover motion (Karl: the border still felt instant, and the main bar's tooltip la
 
 Unseen in game; a `/reload` shows it.
 
+## Goal page bar at the top, glass track (option D, 2026-10-26, Mac, unreviewed)
+
+Karl saw the goal page segments as black slabs over the art and picked option D from a new round of mockups (four options over his screenshot: glass in place, thin glass in place, thin glass under the tags, and the bar at the top of the page). Built:
+
+- The goal page bar (segments and the continuous bar) runs along the top of the page, above the icon and title: 10 from the top, 9 tall (half the old 18), 22 in from each side. Segment gaps are 4.
+- The title block starts 43 from the top (was 24), so the gap from the bar to it is 24; the edit, reset, note and map icons move down with it. The steps sit the same 24 under the title block (or under the Forever notice when shown). The old band where the bar sat is gone, so the steps start higher than before. One number, `FGT.GOAL_HEAD_GAP`, sets both gaps (`FGT.GOAL_BAR_TOP`, `FGT.GOAL_BAR_HEIGHT` beside it).
+- Glass track (`FGT.Bars.Glass`): the empty track is black at 40% with a warm 1 px hairline edge (28%); the top shadow stays, the bottom shadow is lighter and the far-end shade is off. The fill is unchanged. Hovering brightens the hairline (to 70%) instead of the muted gold ring. The continuous bar's old etched track and its 64 gradient strips are gone.
+- "· 2 / 6" (steps done of the bar's steps) beside Hide completed, on segmented goals only; it hides and fades with that button.
+- Segment tooltips open under the goal page bar (it is at the page's top edge now); the pop-out's stay above its bar.
+- Step rows and segments still light each other on hover.
+
+Karl's first look (2026-10-26, Mac): liked it. Two changes, unseen in game:
+- A finished goal shows one bar instead of its segments: a single green gradient end to end, with no tick marks (`plainWhenDone`). The count beside Hide completed stays.
+- The Completed chip uses the same plain frame and size as Hard and 1-2 Weeks, so it lines up with that row; its text is plain case in green ("Completed Oct 26, 2026"). The "Saved until" lockout chip still has the older caps style.
+- Finishing a goal while you watch (Karl: "elegant and smooth" as it turns green): the last segment glides full and every segment settles to the quieter gold (0.6 s), the segments cross-fade into the one bar in the same gold so only the gaps fill in (0.4 s, eased), then the bar fades to green (the existing 0.6 s fade, now also from settled gold) and the 100% shine runs along it. Opening another goal or unticking mid-way ends it where things stand. Celebrations Off: straight to the green bar. Pop-out segments that were settled gold now also fade to green instead of snapping.
+
+Bar style, second round (Karl second-guessed the segments; mockup over Thunderfury compared per-segment gradients, one gradient, one gradient with lighter empties, a solid bar with step marks and a plain bar). Karl chose B with tighter gaps:
+- The goal page's segments share one gradient across the whole bar (`segs.wholeGradient`, `bar.span`): each segment takes the colours of its stretch, so the bar reads as one fill seen through gaps, not a row of separate gold pills. Finished steps use the same gold (no settled gold on the goal page; the pop-out keeps it).
+- No hairline on each segment (`FGT.Bars.Glass(bar, true)`; hovering still draws it); one faint outline (16%) around all the segments instead. Gaps 2 (were 4; Karl compared 3 and 2 in the mockup).
+- In game the segments still read as separate pills next to the mockup (Karl's side-by-side screenshots). Cause: shading each bar repeats along its own length. On the goal page's segments (`bar.flatFill`, set by `FGT.Bars.Glass(bar, true)`) the bright 1 px top line and the shaded start of each fill are off, the 1 px dark line under the track's top edge is off, the bottom shade is lighter (30%, was 45%) and the glass is 34% (was 40%), as in the mockup. The contact shadow and highlight band stay. Gaps between the gold pieces measure the same as the mockup's (about 4 units, gap 2 plus each fill's 1-unit inset), so they are unchanged.
+- Karl liked it in game (2026-10-26) and asked for a shine loop, a brighter tip, and the same size for every goal page bar:
+  - The idle glint (every 4.5 s, Celebrations on Full) now crosses a segmented bar as one band from its left end to the end of its furthest fill (`bar.glintGroup`, `glintOff`, `glintSpan`); every filled segment shows its part, finished steps included, and the tip flares when it arrives. On goal page bars it is 40% brighter.
+  - Brighter tip on goal page bars (`bar.brightTip`, set by `FGT.Bars.Glass`): a 2 px core breaking the bar's edges by 3, a wider glow drawn at 55 to 95% (was 30 to 85%).
+  - The continuous goal bar (sets, leveling, goals over 12 steps) now uses the segments' flat glass and the same outline 2 outside it (`FGT.Bars.Outline`), so both are the same size on the page; before, the outline made segmented bars look taller.
+- Karl saw no shine and no tip on a segmented bar (4 of 6 done). Two causes, fixed: the segments were never put in the shine group (`bar.glintGroup` is now set in `NewSegments` for `wholeGradient` bars), so the glint skipped them; and with no step partly done the light sat on the next, empty segment, where it is hidden. Now, when the step you can do next has not started, the light sits at the end of the gold just before it (`tipEnd` in `FGT.SegmentData`, `bar.tipAtEnd` lets `B.Update` light a full segment). This also applies to the pop-out's segments.
+- The finish animation holds the one bar in the same whole-bar gold (`holdGold`) while the segments melt into it, then fades to green.
+
+Checks: `tools/check.py` passes. Not checked: long titles that wrap, a goal with a personal note and the Forever notice, the narrow window, and how the 9 px bar's tip glow and ticks read at that height.
+
 ## Engineering notes
 
 - All bar animation runs on one shared, throttled driver that touches only visible bars and stops when idle. No per-frame allocation.

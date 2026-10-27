@@ -2602,7 +2602,7 @@ local function NewBar(parent, height)
             local p = math.min(1, self.fading / FADE)
             local e = 1 - (1 - p) ^ 2 -- ease out
             ApplyHGradient(self.fill, Mix(f[1], d[1], e), Mix(f[2], d[2], e))
-            ApplyHGradient(self.tip, f[3], f[4], 0, tipAlpha * (1 - e))
+            if f[3] then ApplyHGradient(self.tip, f[3], f[4], 0, tipAlpha * (1 - e)) end -- (settled gold has no tip)
             if p >= 1 then
                 self.fading = nil
                 self.tip:Hide()
@@ -2610,6 +2610,8 @@ local function NewBar(parent, height)
             end
         end)
     end
+
+    local spanLo, spanHi = { 0, 0, 0 }, { 0, 0, 0 } -- (reused: Render runs every frame of a glide)
 
     -- Draws the fill at a fraction (0..1). The green "complete" look
     -- only kicks in once the fill has actually arrived at 100%.
@@ -2621,19 +2623,23 @@ local function NewBar(parent, height)
         local complete = pct >= 0.9995
         self.fill:SetShown(on)
         self.shade:SetShown(on)
-        self.sheen:SetShown(on and height >= 6)
+        self.sheen:SetShown(on and height >= 6 and not self.flatFill)
         -- the hot tip covers at most half the fill, so a short fill never turns one bright block
         self.tip:SetWidth(math.max(0.01, math.min(self.softTipWidth or math.max(24, height * 2), fillW * 0.5)))
         self.tip:SetShown(on and (not complete or self.fading ~= nil))
-        local look = complete and (self.sealed and "seal" or "done") or (self.blue and "blue" or "gold")
+        -- held: a goal page segment (its goal turns green as one bar, not segment by segment), or
+        -- the goal page bar while the segments melt into it (FGT.RefreshGoalBar)
+        local held = self.span or self.holdGold
+        local look = (complete and not held) and (self.sealed and "seal" or "done") or (self.blue and "blue" or "gold")
         if look ~= self.look then
             local from = self.look
             self.look = look
             local L = LOOKS[look]
-            if look == "done" and (from == "gold" or from == "blue") and self:IsVisible()
+            -- (from settled gold too: the goal page's segments merging into one bar, FGT.RefreshGoalBar)
+            if look == "done" and (from == "gold" or from == "blue" or from == "seal") and self:IsVisible()
                 and not self.instant and FGT.Setting("celebrations") ~= "off" then
                 FadeToDone(self, from)
-                self.tip:Show()
+                self.tip:SetShown(LOOKS[from][3] ~= nil)
             else
                 self.fading = nil
                 if self.fader then self.fader:SetScript("OnUpdate", nil) end
@@ -2641,6 +2647,17 @@ local function NewBar(parent, height)
                 if L[3] then ApplyHGradient(self.tip, L[3], L[4], 0, self.softTipAlpha or 0.75) end
                 if look == "done" or look == "seal" then self.tip:Hide() end
             end
+        end
+        -- The goal page's segments share one gradient across the whole bar (Karl, 2026-10-26,
+        -- option B): each takes the colours of its own stretch of it, up to where its fill ends.
+        if self.span and (look == "gold" or look == "blue") then
+            local L, a, b = LOOKS[look], self.span[1], self.span[2]
+            local e = a + (b - a) * pct
+            for k = 1, 3 do
+                spanLo[k] = L[1][k] + (L[2][k] - L[1][k]) * a
+                spanHi[k] = L[1][k] + (L[2][k] - L[1][k]) * e
+            end
+            ApplyHGradient(self.fill, spanLo, spanHi)
         end
         FGT.Bars.Update(self, pct, complete)
     end
@@ -2743,13 +2760,28 @@ do
             if FGT.Setting and FGT.Setting("celebrations") == "full" then
                 local list = {}
                 for _, bar in ipairs(FGT.allBars or {}) do
+                    -- a goal page segment (bar.glintGroup) joins one sweep along its whole bar,
+                    -- light or not; finished steps shine too, in the bar's one gold
+                    local grp = bar.glintGroup
                     if bar:IsVisible() and bar.fill:IsShown() and bar.look ~= "done" and bar.look ~= "seal"
-                        and not bar.noLight and (bar.cur or 0) > 0.02 then
+                        and (grp or not bar.noLight) and (bar.cur or 0) > 0.02 then
                         table.insert(list, bar)
+                        if grp then grp.glintSpan = 0 end
                     end
                 end
                 table.sort(list, function(a, b) return (a:GetTop() or 0) > (b:GetTop() or 0) end)
-                for i, bar in ipairs(list) do active[bar] = -(i - 1) * WAVE end
+                -- one delay per bar, or per segmented bar; each segment's place along it
+                local i, seen = 0, nil
+                for _, bar in ipairs(list) do
+                    local grp = bar.glintGroup
+                    if not grp or grp ~= seen then i = i + 1 end
+                    seen = grp
+                    active[bar] = -(i - 1) * WAVE
+                    if grp then
+                        bar.glintOff = (bar.fill:GetLeft() or 0) - (grp:GetLeft() or 0)
+                        grp.glintSpan = math.max(grp.glintSpan, bar.glintOff + bar.fill:GetWidth())
+                    end
+                end
             end
         end
         for bar, t in pairs(active) do
@@ -2768,7 +2800,14 @@ do
                     -- and the tip flares (one light per bar: Karl, 2026-10-26)
                     local half = math.max(8, math.min(70, fw * 0.35))
                     local x = -2 * half + (fw + half) * p
+                    local grp = bar.glintGroup
+                    if grp then -- the band crosses the whole segmented bar; each segment shows its part
+                        local span = grp.glintSpan or fw
+                        half = math.max(8, math.min(90, span * 0.2))
+                        x = -2 * half + (span + half) * p - (bar.glintOff or 0)
+                    end
                     local a = 0.22 * math.min(1, p / 0.2) * math.min(1, (1 - p) / 0.15)
+                    if bar.brightTip then a = a * 1.4 end -- (the goal page bar: a clearer shine, Karl 2026-10-26)
                     g.l:SetWidth(half)
                     g.r:SetWidth(half)
                     g.l:ClearAllPoints()
@@ -4594,8 +4633,13 @@ do
 end
 
 local DETAIL_ICON = 70
+-- The goal's bar runs along the top of the page, above the icon and title, with the same gap
+-- above the title block (to the bar) and below it (to the steps). Karl chose this from the
+-- segment mockups (option D, 2026-10-26); the title block used to start 24 from the top.
+FGT.GOAL_BAR_TOP, FGT.GOAL_BAR_HEIGHT, FGT.GOAL_HEAD_GAP = 10, 9, 24
+FGT.DETAIL_TOP = FGT.GOAL_BAR_TOP + FGT.GOAL_BAR_HEIGHT + FGT.GOAL_HEAD_GAP
 local detailIcon = NewIcon(FGT.detailBody, DETAIL_ICON)
-detailIcon:SetPoint("TOPLEFT", 22, -24)
+detailIcon:SetPoint("TOPLEFT", 22, -FGT.DETAIL_TOP)
 -- Goals with one final reward (weapons, mounts): hovering the big icon
 -- shows that item, compared with what you're wearing (Karl). The reward
 -- is the goal's `rewardItem`, or the first item of its `completeWith`.
@@ -4896,9 +4940,9 @@ do
     chip:Hide()
     FGT.detailNewChip = chip
 
-    -- "COMPLETED OCT 6, 2026" on finished goals
+    -- "Completed Oct 6, 2026" on finished goals: the same plain chip as Hard and 1-2 Weeks
+    -- (LayoutGoalBanner sizes and frames it), with green text
     local done = NewChip(FGT.detailBody, 9)
-    done:SetBackdropBorderColor(0.16, 0.35, 0.10, 1)
     done:Hide()
     FGT.detailDoneChip = done
 
@@ -5035,63 +5079,33 @@ do
         local resetShown = goal and not goal.autoLevels
         if FGT.resetBtn then
             FGT.resetBtn:ClearAllPoints()
-            FGT.resetBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", b:IsShown() and -46 or -20, -22)
+            FGT.resetBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", b:IsShown() and -46 or -20, -(FGT.DETAIL_TOP - 2))
         end
         local icons = (b:IsShown() and 1 or 0) + (resetShown and 1 or 0)
         FGT.detailNoteBtn:ClearAllPoints()
-        FGT.detailNoteBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20 - 26 * icons, -22)
+        FGT.detailNoteBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20 - 26 * icons, -(FGT.DETAIL_TOP - 2))
         icons = icons + 1
         if FGT.PlaceMapButton then FGT.PlaceMapButton(icons) end -- Maplet.lua: the map pin, left of the note
         -- The title begins below the action icons and can use the full width.
         detailTitle:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22, 0)
-        b:ClearAllPoints(); b:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20, -22)
+        b:ClearAllPoints(); b:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20, -(FGT.DETAIL_TOP - 2))
     end
 end
 
 -- The goal page's bar: one continuous bar for set goals, the leveling goal and goals with more
 -- than 12 steps; other goals show their steps as segments (FGT.detailSegs, below) in its place.
--- No words on it: hovering gives the count. Its light pulses (Bars.lua).
-local detailBar = NewBar(FGT.detailBody, 18)
+-- No words on it: hovering gives the count. Its light pulses (Bars.lua). It runs along the top
+-- of the page (FGT.GOAL_BAR_TOP), and its empty track is glass so the goal's art shows through.
+local detailBar = NewBar(FGT.detailBody, FGT.GOAL_BAR_HEIGHT)
 detailBar.pulse = true
 detailBar.celebrate = true -- gold shine when it glides to 100%
 detailBar.label:Hide()
 FGT.Bars.SetTicks(detailBar, { 0.25, 0.5, 0.75 })
-do -- The banner track keeps its bevel inside the bar, without an extra line underneath.
-    detailBar.lip:Hide()
-    detailBar:SetBackdrop({edgeFile=ETCH_EDGE, edgeSize=8,
-        insets={left=2,right=2,top=2,bottom=2}})
-    detailBar:SetBackdropBorderColor(0.22,0.19,0.13,0.7)
-    local tracks = {}
-    for i=1,64 do
-        local track = detailBar:CreateTexture(nil, "BACKGROUND", nil, 1)
-        track:SetTexture(SOLID)
-        local p = (i-0.5)/64
-        local alpha = 1-0.5*p*p*(3-2*p)
-        ApplyVGradient(track, {0.045,0.042,0.035}, {0.10,0.09,0.065}, alpha,alpha)
-        tracks[i]=track
-    end
-    detailBar:HookScript("OnSizeChanged", function(self,w,h)
-        local span=math.max(1,w-4)
-        for i,track in ipairs(tracks) do
-            track:ClearAllPoints()
-            track:SetPoint("TOPLEFT",self,"TOPLEFT",2+span*(i-1)/64,-2)
-            track:SetSize(span/64,math.max(1,h-4))
-        end
-    end)
-    local shadow = detailBar:CreateTexture(nil, "BORDER")
-    shadow:SetTexture(SOLID)
-    shadow:SetHeight(2)
-    shadow:SetPoint("TOPLEFT", 1,-1)
-    shadow:SetPoint("TOPRIGHT", -1,-1)
-    ApplyVGradient(shadow, {0,0,0}, {0,0,0}, 0.75,0)
-    local bevel = detailBar:CreateTexture(nil, "BORDER")
-    bevel:SetTexture(SOLID)
-    bevel:SetHeight(1)
-    bevel:SetPoint("BOTTOMLEFT", 1,1)
-    bevel:SetPoint("BOTTOMRIGHT", -1,1)
-    bevel:SetVertexColor(0.28,0.24,0.16,0.8)
-end
-detailBar:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12)
+-- the same look and size as the segments (option B): flat glass, one outline 2 outside it
+FGT.Bars.Glass(detailBar, true)
+FGT.Bars.Outline(detailBar)
+detailBar.plainWhenDone = true -- no tick marks once the goal is finished
+detailBar:SetPoint("TOPLEFT", 22, -FGT.GOAL_BAR_TOP)
 detailBar:SetPoint("RIGHT", -22, 0)
 
 do -- scoped (200-local budget)
@@ -5099,8 +5113,18 @@ do -- scoped (200-local budget)
 -- One segment per step in guide order, filled as far as the step has come. Steps done out of
 -- order fill in place. The light sits on the step you last moved; once that one is done, on the
 -- first step you can do. Steps that can't be done yet are hatched. Hover a segment for its step;
--- hovering a step row rings its segment.
-local segs = FGT.Bars.NewSegments(FGT.detailBody, 18, NewBar)
+-- hovering a step row rings its segment. Glass tracks, like the continuous bar.
+-- Option B (Karl, 2026-10-26): one gradient across the whole bar instead of one per segment, no
+-- edge on each segment but one faint outline around them all, and tighter gaps (2; was 4).
+local segs = FGT.Bars.NewSegments(FGT.detailBody, FGT.GOAL_BAR_HEIGHT, function(parent, height)
+    local bar = NewBar(parent, height)
+    FGT.Bars.Glass(bar, true)
+    return bar
+end)
+segs.gap = 2
+segs.wholeGradient = true
+FGT.Bars.Outline(segs)
+local merge = CreateFrame("Frame") -- the finish animation (FGT.RefreshGoalBar); no parent, so it always ends
 segs:SetPoint("TOPLEFT", detailBar, "TOPLEFT", 0, 0)
 segs:SetPoint("BOTTOMRIGHT", detailBar, "BOTTOMRIGHT", 0, 0)
 segs:Hide()
@@ -5144,6 +5168,13 @@ function FGT.SegmentData(goal)
             if not list[k].done and not list[k].locked then tip = k; break end
         end
     end
+    -- The step you can do next has not started: the light sits at the end of the gold just before
+    -- it, where the eye looks for it, instead of hiding at the start of an empty segment (Karl,
+    -- 2026-10-26: no tip once a step is ticked).
+    if tip and (list[tip].frac or 0) <= 0.0005 and tip > 1 and list[tip - 1].done then
+        tip = tip - 1
+        list[tip].tipEnd = true
+    end
     if tip then list[tip].tip = true end
     return list, steps
 end
@@ -5159,7 +5190,7 @@ local REP_COLORS = { { 0.80, 0.30, 0.22 }, { 0.80, 0.30, 0.22 }, { 0.75, 0.27, 0
 -- One segment's tooltip: how far its step has come, then the goal's share done. The step's own
 -- text stays in the step row, which lights up alongside (its links only work there: Karl,
 -- 2026-10-26). Steps it needs are named, never pointed at ("above", "left").
-function FGT.ShowSegmentTip(owner, goal, i)
+function FGT.ShowSegmentTip(owner, goal, i, above)
     local entry = goal.steps[i]
     local rule = type(entry) == "table" and entry.auto or nil
     local done = IsStepDone(goal.id, i)
@@ -5190,7 +5221,9 @@ function FGT.ShowSegmentTip(owner, goal, i)
         if readout then GameTooltip:AddLine(readout, SUB[1], SUB[2], SUB[3]) end
     end
     GameTooltip:Show()
-    FGT.Bars.TipIn(owner, 8, true) -- above the bar: the step row below lights up with it
+    -- above the pop-out's bar (its step rows sit under it); under the goal page's, which runs
+    -- along the page's top edge
+    FGT.Bars.TipIn(owner, 8, above)
 end
 
 segs.onEnter = function(self, k, bar)
@@ -5220,17 +5253,73 @@ function FGT.RefreshGoalBar(goal)
     local list, steps = FGT.SegmentData(goal)
     local jump = segs.goalId ~= goal.id or FGT.quietCelebrate
     segs.goalId = goal.id
-    if list then
+    local count = FGT.completedStepsBtn and FGT.completedStepsBtn.count
+    if count then
+        local done = 0
+        for _, d in ipairs(list or FGT.EMPTY) do if d.done then done = done + 1 end end
+        count:SetText(list and ("·  " .. done .. " / " .. #list) or "")
+        count:SetShown(list ~= nil)
+    end
+    -- A finished goal shows one bar, a single green gradient end to end, not six green segments
+    -- (Karl, 2026-10-26); the count beside Hide completed stays.
+    local whole = list ~= nil
+    for _, d in ipairs(list or FGT.EMPTY) do if not d.done then whole = false end end
+    if merge.goalId then
+        if merge.goalId == goal.id and whole then return end -- already finishing: let it play
+        FGT.StopGoalBarMerge()
+    end
+    if list and not whole then
         segs.steps = steps
         segs:Show()
         detailBar:SetAlpha(0)
         detailBar:EnableMouse(false)
         segs:Set(list, jump)
+    elseif whole and not jump and segs:IsVisible() and FGT.Setting("celebrations") ~= "off" then
+        -- Finished while you watch: the last segment fills, the segments melt into one bar (the
+        -- same whole-bar gold, so only the gaps fill in), then it turns green and the shine runs.
+        segs:Set(list, false)
+        detailBar.holdGold = true
+        detailBar:Render(1)
+        merge.goalId, merge.t = goal.id, 0
+        merge:Show()
     else
         segs:Hide()
         detailBar:SetAlpha(1)
         detailBar:EnableMouse(true)
     end
+end
+
+-- The finish, in three beats (Karl, 2026-10-26: "elegant and smooth"): HOLD lets the last
+-- segment glide full; MELT cross-fades the segments into the one bar (both in the same gold
+-- gradient across the bar, so only the gaps fill in); then the bar's own fade to green (0.6 s)
+-- and its shine.
+merge.HOLD, merge.MELT = 0.6, 0.4
+merge:Hide()
+merge:SetScript("OnUpdate", function(self, elapsed)
+    self.t = self.t + elapsed
+    local p = math.min(1, math.max(0, (self.t - self.HOLD) / self.MELT))
+    local e = p * p * (3 - 2 * p) -- ease in and out
+    segs:SetAlpha(1 - e)
+    detailBar:SetAlpha(e)
+    if p >= 1 then
+        self.goalId = nil
+        self:Hide()
+        segs:Hide()
+        segs:SetAlpha(1)
+        detailBar:EnableMouse(true)
+        detailBar.holdGold = nil
+        detailBar:Render(1) -- gold to green (FadeToDone)
+        FGT.BarShine(detailBar)
+    end
+end)
+
+-- Another goal opened, or the goal reopened, mid-finish: end it where things stand.
+function FGT.StopGoalBarMerge()
+    merge.goalId = nil
+    merge:Hide()
+    segs:SetAlpha(1)
+    detailBar.holdGold = nil
+    if detailBar.cur then detailBar:Render(detailBar.cur) end
 end
 
 -- The continuous bar's hover: the count it no longer prints.
@@ -7474,7 +7563,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     function FGT.LayoutGoalBanner(goal)
         B.goal = goal
         local rowHeight = math.max(DETAIL_ICON, (detailTag:GetStringHeight() or 12) + 8 + (detailTitle:GetStringHeight() or 24) + 8 + 22)
-        for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip}) do
+        -- (the Completed chip shares the plain frame and size, so it lines up with the row: Karl, 2026-10-26)
+        for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip}) do
             chip:SetSize(math.ceil(chip.text:GetStringWidth())+24,22)
             chip:SetBackdrop({bgFile=SOLID,edgeFile=ETCH_EDGE,edgeSize=8,insets={left=2,right=2,top=2,bottom=2}})
             chip:SetBackdropColor(0.02,0.02,0.015,0.75)
@@ -7485,7 +7575,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         -- Completion/Forever/lockout badges wrap instead of entering the description.
         local firstX = 22 + DETAIL_ICON + 12
-        local x, y = firstX, 24+rowHeight-22
+        local x, y = firstX, FGT.DETAIL_TOP+rowHeight-22
         if FGT.UpdateMapChip then FGT.UpdateMapChip(goal) end -- Maplet.lua: "Show on map" on reputation goals
         for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip,FGT.detailLockChip,FGT.detailMapChip}) do
             if chip:IsShown() then
@@ -7510,7 +7600,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             + (FGT.GoalNote(goal) ~= "" and personal:GetHeight() + 14 or 0)
             + math.max(12, detailNote:GetStringHeight() or 12)
             + (FGT.foreverNotice:IsShown() and FGT.foreverNotice:GetHeight() + 12 or 0)
-            + 32 + 8 + 10 + 2 + 10 + 14 + 8
+            + FGT.GOAL_HEAD_GAP - (FGT.foreverNotice:IsShown() and 4 or 12) -- to the steps divider (LayoutForeverInfo)
+            + 2 + 6 + 14 + 12 -- divider, heading, the list's top gap
         B:SetHeight(FGT.detailHeaderHeight + 68)
         if FGT.UpdateDetailViewport then FGT.UpdateDetailViewport() end
         local art, aspect, preprocessed = B:ResolveArt(goal.id)
@@ -7554,7 +7645,7 @@ function FGT.LayoutForeverInfo(goal)
     local on = t > 0 and d == t and FGT.CompletedOn(goal)
     dc:ClearAllPoints()
     dc:SetPoint("LEFT", word and chip or (detailTimeChip:IsShown() and detailTimeChip or detailDiffChip), "RIGHT", 6, 0)
-    if on then dc:SetLabel("COMPLETED " .. string.upper(on), C.DONE) end
+    if on then dc:SetLabel("Completed " .. on, C.DONE) end
     dc:SetShown(on and true or false)
     FGT.LayoutLockout(goal, on and dc or (word and chip) or (detailTimeChip:IsShown() and detailTimeChip or detailDiffChip))
 
@@ -7564,18 +7655,22 @@ function FGT.LayoutForeverInfo(goal)
     n:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22, 0)
     -- New goals only get the notice when there's something to explain.
     local note = (not word or goal.foreverNote) and FGT.ForeverNote(goal)
-    detailBar:ClearAllPoints()
-    detailBar:SetPoint("RIGHT", -22, 0)
+    -- The steps hang under whichever is last, FGT.GOAL_HEAD_GAP below it, the same as the gap
+    -- between the bar and the title block. (The steps row's controls reach 4 above its divider;
+    -- the empty description line sits 8 under the chips.)
+    local divider = FGT.stepsDivider
+    divider:ClearAllPoints()
+    divider:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -16, 0)
     if note then
         local w = math.max(120, FGT.detailBody:GetWidth() - 44)
         n.text:SetWidth(w - 20)
         n.text:SetText(note)
         n:SetHeight(math.max(30, math.ceil(n.text:GetStringHeight()) + 18))
         n:Show()
-        detailBar:SetPoint("TOPLEFT", n, "BOTTOMLEFT", 0, -32)
+        divider:SetPoint("TOPLEFT", n, "BOTTOMLEFT", 0, -(FGT.GOAL_HEAD_GAP - 4))
     else
         n:Hide()
-        detailBar:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -32)
+        divider:SetPoint("TOPLEFT", descriptionEnd, "BOTTOMLEFT", 0, -(FGT.GOAL_HEAD_GAP - 12))
     end
     FGT.LayoutGoalBanner(goal)
 end
@@ -7583,7 +7678,7 @@ end
 local divider = CreateFrame("Frame", nil, FGT.detailBody) -- invisible layout anchor above the steps
 divider:SetHeight(2)
 FGT.stepsDivider = divider -- (the tips line ends where this one does)
-divider:SetPoint("TOPLEFT", detailBar, "BOTTOMLEFT", 0, -10)
+divider:SetPoint("TOPLEFT", detailNote, "BOTTOMLEFT", 0, -12) -- (placed per goal: LayoutForeverInfo)
 divider:SetPoint("RIGHT", -16, 0)
 
 local stepsHeader = NewTitleString(FGT.detailBody, 12)
@@ -7611,6 +7706,11 @@ do
         if selectedId then SelectGoal(selectedId, true) end
     end)
     FGT.completedStepsBtn = b
+    -- How many of the bar's steps are done ("· 2 / 6"): the segments carry no numbers, and the
+    -- bar is far from the steps now (option D). A child of the button, so it hides and fades
+    -- with it; FGT.RefreshGoalBar fills it in.
+    b.count = NewFontString(b, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    b.count:SetPoint("LEFT", b.text, "RIGHT", 8, 0)
 end
 
 function FGT.ShowStepSection(goal, si, section, view)
@@ -7799,7 +7899,8 @@ function FGT.LayoutStepControls(view)
     local launch = FGT.popoutLaunch
     local launchWidth = launch and launch:IsShown() and (launch:GetWidth() + 14) or 0
     local expandWidth = FGT.expandAllBtn:IsShown() and (FGT.expandAllBtn:GetWidth() + 20) or 0
-    local narrow = stepsHeader:GetStringWidth() + 14 + b:GetWidth() + expandWidth + launchWidth > FGT.detailBody:GetWidth() - 44
+    local countWidth = b.count:IsShown() and (b.count:GetStringWidth() + 8) or 0
+    local narrow = stepsHeader:GetStringWidth() + 14 + b:GetWidth() + countWidth + expandWidth + launchWidth > FGT.detailBody:GetWidth() - 44
     b:ClearAllPoints()
     if narrow then
         b:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -6)

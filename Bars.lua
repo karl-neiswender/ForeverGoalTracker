@@ -52,8 +52,13 @@ local function PaintLight(bar, s, t)
     if s.pulse and Motion() ~= "off" then k = 0.5 - 0.5 * math.cos(t * 2 * math.pi / PULSE) end
     local f = s.flare and math.max(0, 1 - s.flare / FLARE) or 0
     local glow = bar.blue and BLUE_GLOW or GLOW
-    s.core:SetAlpha(math.min(1, 0.78 + 0.16 * k + 0.3 * f))
-    s.glow:SetVertexColor(glow[1], glow[2], glow[3], math.min(0.85, 0.30 + 0.15 * k + 0.4 * f))
+    if bar.brightTip then -- the goal page bar (B.Glass): a tip that stands out on the art
+        s.core:SetAlpha(1)
+        s.glow:SetVertexColor(glow[1], glow[2], glow[3], math.min(0.95, 0.55 + 0.20 * k + 0.3 * f))
+    else
+        s.core:SetAlpha(math.min(1, 0.78 + 0.16 * k + 0.3 * f))
+        s.glow:SetVertexColor(glow[1], glow[2], glow[3], math.min(0.85, 0.30 + 0.15 * k + 0.4 * f))
+    end
     if s.bloom then s.bloom:SetVertexColor(glow[1], glow[2], glow[3], math.min(0.6, 0.24 + 0.10 * k + 0.3 * f)) end
 end
 
@@ -162,12 +167,64 @@ function B.Attach(bar, height)
     bar:HookScript("OnShow", function(self) if lit[self] then B.Wake() end end)
 end
 
+-- Glass track (Karl, 2026-10-26, option D of the segment mockups): the goal page's bar sits on
+-- the goal's art, so its empty track is translucent black with a warm hairline edge instead of a
+-- solid carved groove. The top shadow stays (it still reads as inset); the bottom and far-end
+-- shading are lighter. The fill is unchanged. Call after NewBar, before the bar is first ringed
+-- (B.Ring reads the edge colour it rests at the first time).
+local GLASS_BACKDROP = { bgFile = SOLID, edgeFile = SOLID, edgeSize = 1 }
+local GLASS_RING = { 1.00, 0.85, 0.55, 0.70 } -- hover: the hairline brightens
+-- noEdge: the goal page's segments (option B), which share one outline and one gradient. No
+-- hairline at rest (hovering still draws it), lighter glass, and none of the shading that each
+-- bar repeats along its own length (the bright top line, the shaded start of the fill, the dark
+-- line under the track's top edge): on twelve segments those read as twelve separate pills, where
+-- the mockup Karl chose reads as one bar seen through gaps (2026-10-26). The fill keeps a soft
+-- highlight band and a lighter shade toward the bottom.
+function B.Glass(bar, noEdge)
+    bar:SetBackdrop(GLASS_BACKDROP)
+    bar:SetBackdropColor(0, 0, 0, noEdge and 0.34 or 0.4)
+    bar:SetBackdropBorderColor(1.00, 0.85, 0.55, noEdge and 0 or 0.28)
+    bar.ringOn = GLASS_RING
+    if bar.lip then bar.lip:Hide() end
+    local s = B[bar]
+    if s then
+        -- A brighter tip (Karl, 2026-10-26): a 2 px core that breaks the bar's edges a little
+        -- further, a wider glow drawn stronger (PaintLight), and a clearer idle shine (Core).
+        bar.brightTip = true
+        s.core:SetSize(2, s.height + 2 * s.spill)
+        s.glow:SetSize(math.max(10, s.height * 1.6), s.height + 2 * s.spill + 8)
+    end
+    if s and s.under then
+        Gradient(s.under, "VERTICAL", BLACK, 0.15, BLACK, 0)
+        s.endShade:Hide()
+        if noEdge then
+            bar.flatFill = true -- (Render leaves the sheen off; B.Update the start shade)
+            s.edge:Hide()
+            Gradient(bar.shade, "VERTICAL", BLACK, 0.3, BLACK, 0)
+        end
+    end
+end
+
+-- One faint outline around a goal page bar, 2 outside it (option B): the segments share one, and
+-- the continuous bar gets the same so both are the same size on the page (Karl, 2026-10-26).
+-- A child of the frame, so it hides and fades with it.
+function B.Outline(frame)
+    local outline = CreateFrame("Frame", nil, frame, "BackdropTemplate")
+    outline:SetPoint("TOPLEFT", -2, 2)
+    outline:SetPoint("BOTTOMRIGHT", 2, -2)
+    outline:SetBackdrop({ edgeFile = SOLID, edgeSize = 1 })
+    outline:SetBackdropBorderColor(1.00, 0.85, 0.55, 0.16)
+    outline:EnableMouse(false)
+    return outline
+end
+
 -- Called at the end of every Render: shows the light where the fill ends, while the bar is
 -- partly filled and allowed a light (segments other than the active one have none).
 function B.Update(bar, pct, complete)
     local s = B[bar]
     if not s then return end
-    local on = pct > 0.0005 and not complete and not bar.noLight
+    -- (tipAtEnd: a finished segment whose next step has not started holds the light at its end)
+    local on = pct > 0.0005 and (not complete or bar.tipAtEnd) and not bar.noLight
     s.core:SetShown(on); s.glow:SetShown(on)
     if s.rim then
         local filled = pct > 0.0005
@@ -175,7 +232,7 @@ function B.Update(bar, pct, complete)
         s.spec:SetShown(filled)
         -- the start shade never covers more than a third of a short fill
         s.start:SetWidth(math.max(1, math.min(s.startW, (bar.fill:GetWidth() or 0) / 3)))
-        s.start:SetShown(filled)
+        s.start:SetShown(filled and not bar.flatFill)
     end
     if s.bloom then
         -- reaches back about five bar heights, never past the start of the fill
@@ -251,6 +308,7 @@ function B.PlaceTicks(bar, pct, quiet)
     if not (s and s.ticks) then return end
     local inner = math.max(0, (bar:GetWidth() or 0) - 2)
     local hidden = not (FGT.Setting and FGT.Setting("barTicks") ~= false)
+        or (bar.plainWhenDone and pct >= 0.9995) -- a finished goal's bar is one clean gradient
     for _, t in ipairs(s.ticks) do
         if t.at then
             t.tex:SetShown(not hidden)
@@ -290,7 +348,7 @@ local function EaseOut(p) return 1 - (1 - p) ^ 3 end
 local function PaintRing(frame, r)
     -- r.a runs 0..1 toward the hover look; either way the visible change starts fast and settles
     local q = r.to == 1 and EaseOut(r.a) or r.a ^ 3
-    local c, o = r.rest, RING_ON
+    local c, o = r.rest, frame.ringOn or RING_ON
     local a = c[4] + (o[4] - c[4]) * q
     if a <= 0.001 then frame:SetBackdropBorderColor(o[1], o[2], o[3], 0) return end
     local ca, oa = c[4], o[4]
@@ -541,6 +599,8 @@ function B.NewSegments(parent, height, makeBar)
         bar.hatch:SetVertexColor(1.00, 0.86, 0.55, 0.07)
         bar.hatch:Hide()
         bar.segIndex = i
+        -- the goal page's segments share one idle shine along the whole bar (Core's glint)
+        if segs.wholeGradient then bar.glintGroup = segs end
         bar:EnableMouse(true)
         bar:SetScript("OnEnter", function(self) if segs.onEnter then segs.onEnter(segs, self.segIndex, self) end end)
         bar:SetScript("OnLeave", function(self) if segs.onLeave then segs.onLeave(segs, self.segIndex, self) end end)
@@ -557,9 +617,15 @@ function B.NewSegments(parent, height, makeBar)
             local bar = self.bars[i]
             local x = math.floor((i - 1) * (each + self.gap) + 0.5)
             local right = math.floor(i * each + (i - 1) * self.gap + 0.5)
+            if self.wholeGradient and w > 0 then
+                -- where this segment's fill starts and ends along the whole bar (NewBar's Render)
+                bar.span = bar.span or {}
+                bar.span[1], bar.span[2] = (x + 1) / w, (right - 1) / w
+            end
             bar:ClearAllPoints()
             bar:SetPoint("TOPLEFT", self, "TOPLEFT", x, 0)
             bar:SetSize(math.max(1, right - x), height)
+            if bar.span and bar.cur and not bar.fading then bar:Render(bar.cur) end
         end
     end
     segs:SetScript("OnSizeChanged", function(self) self:Layout() end)
@@ -573,6 +639,7 @@ function B.NewSegments(parent, height, makeBar)
             local d = list[i]
             bar:Show()
             bar.noLight = not d.tip
+            bar.tipAtEnd = d.tipEnd and true or nil
             bar.pulse = d.tip and true or nil
             bar.sealed = d.sealed and true or nil
             bar.hatch:SetShown(d.locked and not d.done and true or false)
