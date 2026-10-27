@@ -8,7 +8,7 @@
 -- (only equip bonuses read differently). The Forever client uses them in place of blocks.
 local _, FGT = ...
 FGT.GEARDB = {
-    builds = { era = '1.15.9.70003', forever = '1.60.1.70532' },
+    builds = { era = '1.15.9.70003', forever = '1.60.1.70634' },
     sets = {
         [1] = "The Gladiator",
         [41] = "Dal'Rend's Arms",
@@ -7706,7 +7706,7 @@ FGT.GEARDB = {
 3651|2|15|10|0|406|134955|0|0||0|Veteran Shield||s2|2
 3654|2|14|9|0|406|134955|0|0||0|Brackwater Shield||a1,t1|2
 3652|2|14|9|0|406|134955|0|0||0|Hunting Buckler||t1,i1|2
-246265|2|14|0|0|406|134957|2|0||0|Salvaged Wooden Tower Shield|||1
+246265|2|14|0|0|406|134957|2|0||0|Salvaged Wooden Tower Shield||t2|1
 9764|2|13|8|0|406|134955|0|0||0|Cadet Shield|||2
 15298|2|13|8|0|406|134956|0|0||0|Grizzly Buckler|||2
 9753|2|12|7|0|406|134956|0|0||0|Gypsy Buckler|||2
@@ -8127,7 +8127,6 @@ FGT.GEARDB = {
 14198|2|31|26|0|401|133754|0|0||0|Thistlefur Cloak|||2
 2902|2|30|0|0|401|133758|1|0||0|Cloak of the Faith||t4,p4|1
 271720|3|30|25|0|401|134304|2|0||1|Crocolisk Skin Gaiter||a4,s5,t5|1
-273654|2|30|0|0|401|133759|2|0||0|Crystal Thread Cloak||t4|1
 15135|2|30|25|0|401|133760|0|0||0|Cutthroat's Cape|||2
 7356|2|30|25|0|401|133754|0|0||0|Elder's Cloak|||2
 3749|2|30|0|0|401|133765|1|0||0|High Apothecary Cloak||t2,p5|1
@@ -8136,6 +8135,7 @@ FGT.GEARDB = {
 9605|2|30|0|0|401|133758|0|0||0|Repairman's Cape||i1,p6|1
 16315|3|30|25|0|401|133773|1|0|A|1|Sergeant Major's Cape|Requires PvP rank 5|a4,s4,t4,i4,p4|1
 9838|2|29|24|0|401|133758|0|0||0|Banded Cloak|||2
+273654|2|29|0|0|401|133759|2|0||0|Crystal Thread Cloak||t4|1
 9822|2|29|24|0|401|133762|0|0||0|Durable Cape|||2
 6901|3|29|24|0|401|134305|0|0||0|Glowing Thresher Cape||s3,p8|1
 14400|2|29|24|0|401|133766|0|0||0|Resilient Cape||i6|2
@@ -8186,7 +8186,7 @@ FGT.GEARDB = {
 15519|2|23|18|0|401|133772|0|0||0|Spiked Chain Cloak|||2
 4792|2|23|18|0|401|133763|1|0||0|Spirit Cloak||p4|2
 6629|2|23|18|0|401|133769|0|0||0|Sporid Cape||t3,p2|1
-277289|3|23|1|0|401|0|2|0||0|Traveler's Shawl||t4,p5|1
+277289|2|23|1|0|401|0|2|0||0|Traveler's Shawl||t2,p3|1
 4710|2|22|17|0|401|133761|0|0||0|Forest Cloak||t3,i2|2
 9812|2|22|17|0|401|133766|0|0||0|Fortified Cloak|||2
 6449|3|22|17|0|401|132656|0|0||0|Glowing Lizardscale Cloak||a6,p2|1
@@ -8725,7 +8725,7 @@ FGT.GEARDB = {
 20425|3|23|18|0|210|135162|1|0||0|Advisor's Gnarled Staff||t8,i4|1
 3198|2|23|18|0|205|133053|0|0||0|Battering Hammer|||2
 5201|3|23|18|0|210|135150|0|0||0|Emberstone Staff||t5,i8,p5|1
-277286|3|23|1|0|201|132408|2|0||0|Encroacher's Claim||s6,p9|1
+277286|2|23|1|0|201|132408|2|0||0|Encroacher's Claim||s4,p6|1
 20434|3|23|18|0|210|135165|1|0||0|Lorekeeper's Staff||t8,i4|1
 1318|3|23|18|0|201|135424|0|0||0|Night Reaver|||2
 3227|2|23|18|0|210|135149|0|0||0|Nightbane Staff|||2
@@ -8776,7 +8776,6 @@ FGT.GEARDB = {
 2823|2|19|14|0|201|132397|0|0||0|Mo'grosh Can Opener||s6|2
 1473|2|19|14|0|210|135145|0|0||0|Riverside Staff||p6|2
 11854|2|19|0|0|208|135356|1|0||0|Samophlange Screwdriver||p6|1
-269717|2|19|0|0|208|135350|2|0||0|Wildgore Greatsword||s6|1
 15424|2|18|0|0|201|132395|0|0||0|Axe of Orgrimmar||s3,t3|1
 3195|2|18|13|0|201|132401|0|0||0|Barbaric Battle Axe|||2
 3196|2|18|13|0|208|135324|0|0||0|Edged Bastard Sword|||2
@@ -8787,6 +8786,7 @@ FGT.GEARDB = {
 3902|2|18|13|0|210|135466|0|0||0|Staff of Nobles||t2,p4|2
 15444|2|18|0|0|210|135225|0|0||0|Staff of Orgrimmar||i4,p2|1
 6186|2|18|0|0|208|135356|1|0||0|Trogg Slicer||p5|1
+269717|2|18|0|0|208|135350|2|0||0|Wildgore Greatsword||s5|1
 2204|2|17|12|0|208|135321|0|0||0|Brashclaw's Skewer||t5|2
 1959|2|17|12|0|201|134707|0|0||0|Cold Iron Pick||t2,p4|2
 1566|2|17|0|0|208|135326|1|0||0|Edge of the People's Militia||t5|1
@@ -9333,7 +9333,7 @@ FGT.GEARDB = {
 4445|2|23|18|0|200|132407|0|0||0|Flesh Carver||a2,t2|2
 790|2|23|18|0|200|132405|0|0||0|Forester's Axe|||2
 2807|3|23|18|0|200|132418|0|0||0|Guillotine Axe||a3,s3|2
-277288|3|23|1|0|200|0|2|0||0|Pathfinder's Clearway||t3,i4|1
+277288|2|23|1|0|200|0|2|0||0|Pathfinder's Clearway||t2,i2|1
 1938|2|22|17|0|204|133052|0|0||0|Block Mallet||t3|2
 4439|2|22|17|0|204|133485|0|0||0|Bruiser Club||s2,t2|2
 1457|2|22|17|0|204|133476|0|0||0|Shadowhide Mace||t3|2
@@ -9343,10 +9343,10 @@ FGT.GEARDB = {
 5757|2|20|0|0|204|133486|1|0||0|Hardwood Cudgel||s2,t2|1
 15222|2|19|14|0|204|133045|0|0||0|Barbed Club|||2
 1440|2|19|14|0|204|133048|0|0||0|Gnoll Skull Basher||s2,t2|2
-269716|2|19|0|0|215|135641|2|0||0|Keen Skinning Knife||i2|1
 1469|2|19|14|0|207|135325|0|0||0|Scimitar of Atun||a2|2
 14145|2|18|13|0|207|135648|0|0||0|Cursed Felblade|||1
 15445|2|18|0|0|204|133060|0|0||0|Hammer of Orgrimmar||s1,t1|1
+269716|2|18|0|0|215|135641|2|0||0|Keen Skinning Knife||i2|1
 2821|2|18|13|0|204|133052|0|0||0|Mo'grosh Masher||s2|2
 3154|2|18|0|0|200|132402|1|0||0|Thelsamar Axe||a2|1
 1480|2|17|0|0|204|133057|1|0||0|Fist of the People's Militia||s2|1
@@ -9853,13 +9853,13 @@ FGT.GEARDB = {
 5207|2|20|15|0|219|135469|0|0||0|Opaque Wand|||2
 15205|2|20|0|0|203|135613|1|0||0|Owlsight Rifle|||1
 5309|2|20|0|0|203|135613|1|0||0|Privateer Musket|||1
-269742|2|20|0|0|203|135614|2|0||0|Walton's Second-Favorite Gun||a2|1
 3567|2|19|0|0|203|135610|1|0||0|Dwarven Fishing Pole|||1
 6255|2|19|14|0|203|135614|0|0||0|Fishing Pole (JEFFTEST)|||2
 3040|2|19|14|0|203|135610|0|0||0|Hunter's Muzzle Loader|||2
 5241|2|18|0|0|219|135139|1|0||0|Dwarven Flamestick|||1
 5326|2|18|0|0|219|135139|1|0||0|Flaring Baton|||1
 15204|2|18|0|0|219|135469|1|0||0|Moonstone Wand|||1
+269742|2|18|0|0|203|135614|2|0||0|Walton's Second-Favorite Gun||a2|1
 5212|2|17|12|0|219|135139|0|0||0|Blazing Wand|||2
 12296|2|17|0|0|219|135139|1|0||0|Spark of the People's Militia|||1
 5242|2|16|0|0|219|135139|1|0||0|Cinder Wand|||1
