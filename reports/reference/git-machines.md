@@ -21,8 +21,16 @@ small change; do that on explicit request or an agreed session closeout.
   testable client until live Forever opens. Era saves (account `KDN`) and the old 2.15.1 copy are
   backed up in `_classic_era_/ForeverGoalTracker-backups/2026-10-23`; beta saves in
   `_classic_beta_/ForeverGoalTracker-backups/2026-10-23`.
-- On live launch, relocation of the addon and saves on both machines is a separate
-  planned operation. Do not move files automatically based on a date.
+- Mac live Forever (`_forever_`, migrated 2026-10-26 at Karl's request): the other beta
+  addons were copied from `_classic_beta_/Interface`; this addon is a plain copy, refreshed one
+  way by `sh tools/sync-forever.sh` (then `/reload`), never a link, for the same CurseForge
+  reason. The Mac had no beta `WTF`, so there were no saves to bring. The beta symlink is left
+  as it was.
+- PC live launch: relocating the addon and saves is still a separate planned operation.
+  Do not move files automatically based on a date. `sh tools/sync-forever.sh` from Git Bash
+  copies into `_forever_` (robocopy, like Era); untested on the PC so far. When copying the beta
+  `Interface` folder per the guide, leave out `AddOns/ForeverGoalTracker` (it is the checkout,
+  with `.git`); the script refuses a destination holding `.git`.
 
 ## Session operations
 
