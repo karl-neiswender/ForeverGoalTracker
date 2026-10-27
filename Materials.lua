@@ -488,7 +488,8 @@ function FGT.RefreshMaterials()
                 local bigList = #data >= 9
                 C_Timer.After(0.35, function()
                     if M.goalId == id and not M.open and U.main:IsShown() then
-                        if bigList then M:SetOpen(true) else M:Bounce() end
+                        -- (over the guide, a long list would hide the steps: just nudge)
+                        if bigList and not M.overlay then M:SetOpen(true) else M:Bounce() end
                     end
                 end)
             end
@@ -496,15 +497,22 @@ function FGT.RefreshMaterials()
     end
 end
 
+-- The guide never narrows below GUIDE_MIN to make room for the drawer (it was
+-- unreadable on a laptop at the smallest window, Karl, 2026-10-26). When the
+-- drawer can't sit beside the guide at that width, it slides over it instead
+-- (M.overlay), like the bounce's peek, and a click outside closes it.
+M.GUIDE_MIN = 380
 function M:Place()
     local area = math.max(0,U.main:GetWidth()-U.list:GetWidth()-44)
-    self.width = math.min(280,math.max(22,area-160))
+    self.width = math.min(280,math.max(22,area-60))
     self.canOpen = self.width >= 150
+    -- (12: the gap between the guide and the open drawer)
+    self.overlay = area - 12 - self.width < M.GUIDE_MIN
     if not self.canOpen then self.open=false; self.fraction=0 end
     local hasGoal = U.goal() ~= nil
-    -- A bounce peeks out over the guide without moving it.
+    -- A bounce peeks out over the guide without moving it; so does the overlay.
     local span = hasGoal and (22 + (self.width-22)*(self.fraction+self.bounce)) or 0
-    local guideSpan = hasGoal and (22 + (self.width-22)*self.fraction) or 0
+    local guideSpan = hasGoal and (22 + (self.width-22)*(self.overlay and 0 or self.fraction)) or 0
     self.span = span
     clip:ClearAllPoints()
     clip:SetPoint("TOPRIGHT",U.list,"TOPRIGHT",U.main:GetWidth()-U.list:GetWidth()-32,0)
@@ -525,10 +533,12 @@ function M:Place()
     handle.glow:SetRotation(rotation)
     local visible = U.detail:IsShown() and hasGoal
     -- While peeking out over the guide, sit above it.
-    clip:SetFrameLevel(U.detail:GetFrameLevel()+(self.bounce>0 and 30 or 0))
+    local over = self.bounce>0 or (self.overlay and self.fraction>0)
+    clip:SetFrameLevel(U.detail:GetFrameLevel()+(over and 30 or 0))
     peek:SetFrameLevel(clip:GetFrameLevel()+1)
-    if self.bounce>0 and hasGoal then
-        U.gradient(peekTex, {0,0,0}, {0,0,0}, 0, 0.55*math.min(1,self.bounce/0.025))
+    if over and hasGoal then
+        local lift = math.max(self.bounce/0.025, self.overlay and self.fraction*4 or 0)
+        U.gradient(peekTex, {0,0,0}, {0,0,0}, 0, 0.55*math.min(1,lift))
         peek:Show()
     else
         peek:Hide()
@@ -586,7 +596,7 @@ function M:SetOpen(open, duration)
     -- Opening narrows the goal page; its banner art shrinks at its own eased pace
     -- (B.artLag, see B:Fit in Core.lua), not the drawer's (Karl, 2026-10-14).
     FGT.railBusy = true
-    if target == 1 and FGT.goalBanner then FGT.goalBanner.artLag = true end
+    if target == 1 and not self.overlay and FGT.goalBanner then FGT.goalBanner.artLag = true end
     driver:SetScript("OnUpdate",function(_,dt)
         elapsed=elapsed+dt
         local p=math.min(1,elapsed/(duration or M.SLIDE_TIME))
@@ -595,7 +605,7 @@ function M:SetOpen(open, duration)
         if p>=1 then
             FGT.railBusy = false
             driver:SetScript("OnUpdate",nil); U.redraw()
-        elseif elapsed-lastReflow >= 0.075 then
+        elseif elapsed-lastReflow >= 0.075 and not M.overlay then -- (over the guide, nothing re-wraps)
             lastReflow=elapsed
             U.reflow()
         end
@@ -635,8 +645,14 @@ U.main:HookScript("OnHide",function() driver:SetScript("OnUpdate",nil); M.bounce
 U.main:HookScript("OnShow",function() M:Place(); FGT.RefreshMaterials() end)
 local events = CreateFrame("Frame")
 events:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+-- Over the guide, a click anywhere else closes the drawer (not on its own handle).
+events:RegisterEvent("GLOBAL_MOUSE_DOWN")
 local refreshQueued = false
-events:SetScript("OnEvent",function(_,_,id,success)
+events:SetScript("OnEvent",function(_,event,id,success)
+    if event == "GLOBAL_MOUSE_DOWN" then
+        if M.open and M.overlay and clip:IsVisible() and not clip:IsMouseOver() and not handle:IsMouseOver() then M:SetOpen(false) end
+        return
+    end
     local relevant = false
     for _, row in ipairs(M.data or {}) do
         if row.unknown then relevant=true; break end

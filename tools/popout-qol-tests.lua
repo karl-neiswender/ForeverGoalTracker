@@ -112,4 +112,21 @@ P.open=false
 P.events:GetScript("OnEvent")(P.events,"PLAYER_LOGIN")
 assert(P.open and not P.autoFit and P.closeMain and P.shadowOpacity==0.65,"new preferences survive login restoration")
 F.SetSetting("celebrations","off"); P:Close(false)
-print("  pop-out QOL: fit sizing, manual precedence, panel style, preserved fade curve, no bar tooltip, focus switching, opt-in main close and shadow fade/persistence ok")
+-- a narrow page: Pop out keeps only its icon before Show completed leaves the heading row
+do
+    local body, launch = F.detailBody, P.launch
+    local getWidth = body.GetWidth
+    -- (stub frames have no size or visibility of their own)
+    Track(launch, true); Track(launch.text, true)
+    launch.SetWidth = function(self, w) self.widthForTest = w end
+    launch.GetWidth = function(self) return self.widthForTest or self.fullWidth end
+    launch.fullWidth = 90
+    body.GetWidth = function() return 900 end; F.LayoutStepControls()
+    assert(launch.text:IsShown() and launch:GetWidth() == launch.fullWidth, "a wide page keeps the Pop out word")
+    body.GetWidth = function() return 44 + 14 + F.completedStepsBtn:GetWidth() + launch.fullWidth end; F.LayoutStepControls() -- (the word's last 14 don't fit)
+    assert(not launch.text:IsShown() and launch:GetWidth() == launch.iconWidth, "a narrow page shows only the Pop out icon")
+    body.GetWidth = function() return 900 end; F.LayoutStepControls()
+    assert(launch.text:IsShown() and launch:GetWidth() == launch.fullWidth, "widening brings the word back")
+    body.GetWidth = getWidth; F.LayoutStepControls()
+end
+print("  pop-out QOL: compact Pop out on narrow pages, fit sizing, manual precedence, panel style, preserved fade curve, no bar tooltip, focus switching, opt-in main close and shadow fade/persistence ok")

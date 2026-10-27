@@ -1204,6 +1204,14 @@ P.launch.icon:SetTexture(FGT.Icon("pop-out"))
 P.launch.text = Label(P.launch, 10, "Pop out", 0.80, 0.78, 0.72)
 P.launch.text:SetPoint("RIGHT", P.launch.icon, "LEFT", -5, 0)
 P.launch:SetSize(math.ceil(P.launch.text:GetStringWidth()) + 5 + 13 + 18, 22)
+-- On a narrow page it drops its word and shows only the icon (FGT.LayoutStepControls, 2026-10-26).
+P.launch.fullWidth, P.launch.iconWidth = P.launch:GetWidth(), 13 + 16
+function P.launch:SetCompact(compact)
+    self.text:SetShown(not compact)
+    self.icon:ClearAllPoints()
+    if compact then self.icon:SetPoint("CENTER") else self.icon:SetPoint("RIGHT", self, "RIGHT", -8, 0) end
+    self:SetWidth(compact and self.iconWidth or self.fullWidth)
+end
 P.launch:SetPoint("RIGHT", FGT.stepsRow, "RIGHT", 0, FGT.STEPS_ROW_DROP)
 local function PaintLaunch(hover)
     -- (the icon is painted gold: desaturated and tinted grey at rest, true colors on hover)
@@ -1219,8 +1227,15 @@ local function PaintLaunch(hover)
     end
 end
 PaintLaunch(false)
-P.launch:SetScript("OnEnter", function() PaintLaunch(true) end)
-P.launch:SetScript("OnLeave", function() PaintLaunch(false) end)
+P.launch:SetScript("OnEnter", function(self)
+    PaintLaunch(true)
+    if not self.text:IsShown() then -- (icon only: the word comes back as a tooltip)
+        GameTooltip:SetOwner(self, "ANCHOR_TOP")
+        GameTooltip:AddLine("Pop out")
+        GameTooltip:Show()
+    end
+end)
+P.launch:SetScript("OnLeave", function() PaintLaunch(false); GameTooltip:Hide() end)
 P.launch:SetScript("OnClick", function()
     local goal = U.selected()
     if goal and U.active(goal) then P:Open(goal.id) end

@@ -437,8 +437,30 @@ local function Wanted()
     -- (a demo scene shows the full list, unless the scene asks for the folded one: the gallery's
     -- Corrupted Ashbringer shot, FGT.demoRail)
     if DB.demoBackup then return FGT.demoRail and true or false end
-    return R.saved
+    return R.saved or (R.narrow and not R.handOpen)
 end
+
+-- A narrow window folds the list on its own, so the goal page keeps room to read
+-- (Karl, 2026-10-26: unusable on a laptop at the smallest size). The player's own
+-- choice is still saved; opening the list by hand on a narrow window holds until
+-- the window widens again. Measured against the open list's width, so the fold
+-- itself never changes the answer.
+local function Narrow()
+    local w = S.main:GetWidth() or 0
+    -- the page beside the open list and the closed Materials strip (34)
+    local page = w - OPEN - 44 - 34
+    local need = ((FGT.materialsPanel and FGT.materialsPanel.GUIDE_MIN) or 380) + 60
+    -- (20 of slack once folded, so a window right at the edge doesn't flip back and forth)
+    return page < need + (R.narrow and 20 or 0)
+end
+function R:Fit(instant)
+    local narrow = Narrow()
+    if narrow == (self.narrow or false) then return end
+    self.narrow = narrow
+    if not narrow then self.handOpen = false end
+    self:Sync(instant)
+end
+function FGT.RailFit(instant) R:Fit(instant) end
 function FGT.RailSync(instant) R:Sync(instant) end
 function R:Sync(instant, quiet)
     local want = Wanted()
@@ -450,10 +472,17 @@ end
 
 -- Handle click, or /goals rail: switch and remember.
 function R:Toggle()
-    self.saved = self.target < 1
+    local rail = self.target < 1
+    -- (on a narrow window a fold may be automatic: opening by hand holds, and clears the saved fold)
+    if self.narrow then
+        self.handOpen = not rail
+        if not rail then self.saved = false end
+    else
+        self.saved = rail
+    end
     local DB = ForeverGoalTrackerDB
     if DB then DB.listRail = self.saved or nil end
-    self:Animate(self.saved)
+    self:Animate(rail)
 end
 handle:SetScript("OnClick", function() R:Toggle() end)
 
@@ -491,7 +520,10 @@ events:SetScript("OnEvent", function(_, event)
         if not menuOpen then CloseCard() end
     end
 end)
-S.main:HookScript("OnShow", function() R:Sync(true) end)
+S.main:HookScript("OnShow", function() R.narrow = Narrow(); if not R.narrow then R.handOpen = false end; R:Sync(true) end)
+-- Sizes set by code (scale, reset, the clamp) refold at once; a resize drag waits
+-- for mouse-up (Core.lua's grip calls FGT.RailFit).
+S.main:HookScript("OnSizeChanged", function() if not FGT.sizeStart and S.main:IsShown() then R:Fit() end end)
 S.main:HookScript("OnHide", function() CloseCard(); driver:SetScript("OnUpdate", nil) end)
 list:HookScript("OnHide", CloseCard)
 

@@ -4633,6 +4633,7 @@ do
 end
 
 local DETAIL_ICON = 70
+FGT.DETAIL_NARROW = 400 -- below this page width the header stacks (FGT.LayoutGoalBanner)
 -- The goal's bar runs along the top of the page, above the icon and title, with the same gap
 -- above the title block (to the bar) and below it (to the steps). Karl chose this from the
 -- segment mockups (option D, 2026-10-26); the title block used to start 24 from the top.
@@ -7605,7 +7606,22 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.difficulty, B.duration = detailDiffChip, detailTimeChip
     function FGT.LayoutGoalBanner(goal)
         B.goal = goal
-        local rowHeight = math.max(DETAIL_ICON, (detailTag:GetStringHeight() or 12) + 8 + (detailTitle:GetStringHeight() or 24) + 8 + 22)
+        -- A narrow page stacks the header: the tag and title go under the icon, at the
+        -- page's full width, and the chips follow them (Karl, 2026-10-26: on a laptop
+        -- the title had no room beside the icon and the tag ran under the action icons).
+        local bodyW = FGT.detailBody:GetWidth() or 0
+        local narrow = bodyW > 1 and bodyW < FGT.DETAIL_NARROW
+        FGT.detailNarrow = narrow
+        detailTag:ClearAllPoints()
+        if narrow then
+            detailTag:SetPoint("TOPLEFT", detailIcon, "BOTTOMLEFT", 0, -14)
+            detailTag:SetPoint("RIGHT", FGT.detailBody, "RIGHT", -22, 0)
+        else
+            detailTag:SetPoint("TOPLEFT", detailIcon, "TOPRIGHT", 12, -1)
+        end
+        local textHeight = (detailTag:GetStringHeight() or 12) + 8 + (detailTitle:GetStringHeight() or 24)
+        local rowHeight = narrow and (DETAIL_ICON + 14 + textHeight + 14 + 22)
+            or math.max(DETAIL_ICON, textHeight + 8 + 22)
         -- (the Completed chip shares the plain frame and size, so it lines up with the row: Karl, 2026-10-26)
         for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip}) do
             chip:SetSize(math.ceil(chip.text:GetStringWidth())+24,22)
@@ -7617,7 +7633,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             end
         end
         -- Completion/Forever/lockout badges wrap instead of entering the description.
-        local firstX = 22 + DETAIL_ICON + 12
+        local firstX = narrow and 22 or (22 + DETAIL_ICON + 12)
         local x, y = firstX, FGT.DETAIL_TOP+rowHeight-22
         if FGT.UpdateMapChip then FGT.UpdateMapChip(goal) end -- Maplet.lua: "Show on map" on reputation goals
         for _,chip in ipairs({detailDiffChip,detailTimeChip,FGT.detailNewChip,FGT.detailDoneChip,FGT.detailLockChip,FGT.detailMapChip}) do
@@ -7940,10 +7956,17 @@ function FGT.LayoutStepControls(view)
     local b = FGT.completedStepsBtn
     -- Pop out sits at the far right of the row; Expand all just left of it
     local launch = FGT.popoutLaunch
-    local launchWidth = launch and launch:IsShown() and (launch:GetWidth() + 14) or 0
     local expandWidth = FGT.expandAllBtn:IsShown() and (FGT.expandAllBtn:GetWidth() + 20) or 0
     local countWidth = b.count:IsShown() and (b.count:GetStringWidth() + 8) or 0
-    local narrow = stepsHeader:GetStringWidth() + 14 + b:GetWidth() + countWidth + expandWidth + launchWidth > FGT.detailBody:GetWidth() - 44
+    local room = FGT.detailBody:GetWidth() - 44
+    local rowWidth = stepsHeader:GetStringWidth() + 14 + b:GetWidth() + countWidth + expandWidth
+    -- When the whole row doesn't fit with its word, Pop out keeps only its icon first;
+    -- only if that still doesn't fit does Show completed drop below the heading (2026-10-26).
+    if launch and launch.SetCompact then
+        launch:SetCompact(launch:IsShown() and rowWidth + launch.fullWidth + 14 > room)
+    end
+    local launchWidth = launch and launch:IsShown() and (launch:GetWidth() + 14) or 0
+    local narrow = rowWidth + launchWidth > room
     b:ClearAllPoints()
     if narrow then
         b:SetPoint("TOPLEFT", stepsHeader, "BOTTOMLEFT", 0, -6)
@@ -12729,6 +12752,7 @@ resizeGrip:SetScript("OnMouseUp", function(self)
     if ForeverGoalTrackerDB then
         FGT.sessionWidth, FGT.sessionHeight = cw, ch
     end
+    if FGT.RailFit then FGT.RailFit() end -- Rail.lua: a narrow window folds the goals list
     LayoutGoalList()
     if selectedId then
         SelectGoal(selectedId, true)
