@@ -29,6 +29,10 @@ its October 21 notes.
   `Cat.Recipe`/`Cat.Reagents`. `GearPlanner.lua`: the UI (picker, filters, + Set,
   entrance pins, Fill from equipped, Duplicate, Delete, View in Goals, Edit in
   Gear Planner on the goal page).
+- Live Forever launch build 1.60.1.70634 (interface 16001, matches the TOC). 2026-10-27, PC:
+  `GearData.lua` rebuilt from it (was beta 70532): 8 Forever items changed item level or
+  quality, nothing added or removed. `tools/check.py` passes (113 sessions); synced to `_forever_`.
+  Native review in live Forever pending.
 - Each client uses its own item data: `GearData.lua` `foreverBlocks` hold Forever's version
   of items it changed (flag 4 Updated in Forever), and Forever stats come from its item-level
   budget table ([sources report](Gear-Planner-sources-2026-10-23.md), 2026-10-23).
@@ -96,6 +100,8 @@ its October 21 notes.
   [backlog](Backlog-brainstorm-2026-10-24.md).
 
 ## Current invariants and open work
+
+- Forever Hyjal faction banners approved and installed 2026-10-27: set_forever_raid_alliance retains the existing image; set_forever_raid_horde uses the mirrored Horde scene, shared by all nine class goals. Original 34.4 MB source preserved; 722 KB working copy succeeded after two network failures. Full restart and native review pending. [Record](image-tests/forever-hyjal-factions-2026-10-27.json).
 
 - Scarlet Crusade banner v4 approved and installed 2026-10-27: smooth ivory pointed spikes on image-left shoulder only. Full game restart and native review pending. [Record](image-tests/scarlet-crusade-ivory-review-2026-10-27.json). Ancient Bone Bow, Annihilator (axe head upward) and Azuresong Mageblade also approved and installed 2026-10-27; full restart and native review pending.
 

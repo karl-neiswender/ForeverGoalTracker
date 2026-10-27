@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-27",
+  "source": "Media/artwork/horde-foreversets-dungeons.jpg",
+  "workingCopy": "Media/artwork/horde-foreversets-dungeons-working-1920.jpg",
+  "sourceBytes": 34383747,
+  "workingBytes": 721602,
+  "workingSize": [
+    1920,
+    1274
+  ],
+  "review": "Media/final-images/forever-hyjal-horde-review-v1.png",
+  "master": "Media/final-images/forever-hyjal-horde-master.png",
+  "mode": "built-in image_gen",
+  "prompt": "Use case: style-transfer. Edit the supplied Warcraft painting into a Forever Goal Tracker banner. FIRST horizontally FLIP/MIRROR the ENTIRE scene: the large tauren bowman and orc move from the left to the RIGHT, and the distant city tower moves to the LEFT. Preserve all four original Horde adventurers, races, faces, equipment, armor, hands, weapons and poses; preserve mountains, lake, architecture and trees. Do not add/remove characters or substitute their gear. Reframe naturally into one 4:3 landscape banner, target master 1200x900. Keep the group toward the right and high enough to read, with breathing room; left third quiet for addon text. Preserve the detailed painterly brushwork. Strictly neutral black and white with moderately increased contrast, detailed midtones, controlled highlights. BAKE a wide smooth dark neutral charcoal gradient into the LEFT, strongest at the left edge and blending gradually into scene, no hard strip. BAKE a soft dark gradient across approximately the lowest 100 pixels, fading downward to near-black charcoal at the bottom edge. Both gradients must be present in artwork. Remove the visible artist signature from the derivative; preserve original source separately. No added text, UI, borders, watermark, unrelated objects or extra characters. The horizontal mirror is mandatory.",
+  "status": "Approved by Karl: good. Installed both faction variants for collection and all class children.",
+  "attribution": "Alex Horley: source signature Horley; original preserved.",
+  "inspection": "Horizontal mirror confirmed: tauren and orc at right, city tower left. Four characters retained, neutral grayscale, left and bottom fades present. Original Alliance master retained and re-encoded as set_forever_raid_alliance. Old assets retained.",
+  "native": "Full WoW restart required; native appearance untested.",
+  "validation": "Lua 5.1 tools/check.py passed after retaining legacy and both faction leaf-animation registrations. Evidence: forever-hyjal-check-2026-10-27.txt. Both textures independently decoded as 512px RGB DXT1, ten mip levels. Alliance texture is byte-identical to old shared texture. Checklist thumbnails rebuilt. Native appearance not tested."
+}

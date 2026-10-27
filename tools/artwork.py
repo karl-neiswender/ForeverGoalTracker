@@ -14,6 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "set_forever_raid_alliance": "set_forever_raid-master.png",
+    "set_forever_raid_horde": "forever-hyjal-horde-master.png",
     "ancient_bone_bow": "ancient-bone-bow-master.png",
     "annihilator": "annihilator-master.png",
     "azuresong_mageblade": "azuresong-mageblade-master.png",

@@ -6046,10 +6046,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- classes and the account roster. Shared art covers missing variants.
     B.artPaths.allclasses = "pvp_shared-banner.blp"
     B.artAspects.allclasses, B.preprocessed.allclasses = 4/3, true
-    B.artPaths.set_forever_raid = "set_forever_raid-banner.blp"
+    B.artVariants.set_forever_raid = {
+        {path="set_forever_raid_alliance-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true},
+        {path="set_forever_raid_horde-banner.blp", faction="Horde", aspect=4/3, preprocessed=true},
+    }
+    B.artPaths.set_forever_raid = "set_forever_raid_alliance-banner.blp"
     B.artAspects.set_forever_raid, B.preprocessed.set_forever_raid = 4/3, true
     for _, child in ipairs(FGT.armorCollections.set_forever_raid.armorChildren) do
-        B.artPaths[child.id] = "set_forever_raid-banner.blp"
+        B.artVariants[child.id] = B.artVariants.set_forever_raid
+        B.artPaths[child.id] = "set_forever_raid_alliance-banner.blp"
         B.artAspects[child.id], B.preprocessed[child.id] = 4/3, true
     end
     for _, id in ipairs({"pvp_ab_ally", "pvp_ab_horde"}) do
@@ -6112,7 +6117,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["allclasses_horde_druid-banner.blp"] = true,        -- leveling, Horde Druid
         ["set_tier2_paladin-banner.blp"] = true,             -- Judgement Armor (a forest)
         rhokdelar = true, lokdelar = true,                    -- forest weapons
-        ["set_forever_raid-banner.blp"] = true,              -- every Forever raid set (one shared image)
+        ["set_forever_raid-banner.blp"] = true,
+        ["set_forever_raid_horde-banner.blp"] = true,
+        ["set_forever_raid_alliance-banner.blp"] = true,              -- every Forever raid set (one shared image)
         ["raid_hyjal-banner.blp"] = true,                    -- Hyjal Summit
         ["set_tier2_hunter-alliance-banner.blp"] = true,     -- Dragonstalker, Alliance art (a forest valley)
     }
@@ -6221,7 +6228,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             { 0.25, 1.0, 0.0, 0.90 }, 72),
         -- every Forever raid set: the bright sky at the top right, slower and softer,
         -- over a wide, soft, subtle beam
-        ["set_forever_raid-banner.blp"] = Sunlight({ 1.02, -0.08, 125, 45, 7, 1.3, strength = 0.8 },
+        ["set_forever_raid_alliance-banner.blp"] = Sunlight({ 1.02, -0.08, 125, 45, 7, 1.3, strength = 0.8 },
             { 0.40, 1.0, 0.10, 0.80 }, 20, { beam = { 0.80, -0.10, 0.90, 0.95, strength = 0.4 } }),
         -- broad, very soft sunlight from the flying gull's body, some rays reaching the
         -- bottom right, and a large, slow ray burst around the bird
@@ -7477,6 +7484,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["set_forever_raid_horde-banner.blp"] = "Alex Horley",
         ["azuresong_mageblade-banner.blp"] = "Donato Giancola",
         ["widows_remorse-banner.blp"] = "Craig Elliott",
         ["lobotomizer-banner.blp"] = "Michael Sutfin",
@@ -7558,7 +7566,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["att_ony_ally-banner.blp"] = "Dany Orizio",
         ["att_ony_horde-banner.blp"] = "Miguel Coimbra",
         ["allclasses_dwarf_paladin-banner.blp"] = "Glenn Rane",
-        ["set_forever_raid-banner.blp"] = "Alex Horley",
+        ["set_forever_raid_alliance-banner.blp"] = "Alex Horley",
         ["allclasses_horde_druid-banner.blp"] = "Alex Alexandrov",
         ["allclasses_tauren_warrior-banner.blp"] = "Adrian Smith",
         ["pvp_arathi-banner.blp"] = "Howard Lyon",
