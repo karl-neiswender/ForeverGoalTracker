@@ -3665,6 +3665,7 @@ closeBtn:SetScript("OnClick", function() main:Hide() end)
 -- tooltip adds what the bar can't show. When progress moves, the numbers show
 -- for a few seconds. Settings, Progress bars, Numbers: Always keeps them on.
 local overallBar = NewBar(main, 24)
+overallBar.ringOn = FGT.Bars.GLASS_RING -- hovers with the same bright hairline as the goal page's segments (Karl, 2026-10-27)
 overallBar:SetPoint("TOPLEFT", 16, -59)
 overallBar:SetPoint("TOPRIGHT", -16, -59)
 overallBar.label:Hide()
@@ -3701,17 +3702,25 @@ do
         C_Timer.After(2.6, O.Want)
     end
     overallBar:EnableMouse(true)
+    -- The goal page's bars show their ring inside a faint outline; this one has none at rest, so
+    -- on hover the same outline fades in and out with its ring and the ring reads as inside it
+    -- (Karl, 2026-10-27).
+    local outline = FGT.Bars.Outline(overallBar)
+    outline:SetBackdropBorderColor(1.00, 0.85, 0.55, 0)
+    outline.ringOn = { 1.00, 0.85, 0.55, 0.16 }
     -- The tooltip fades in and out with the rim, on the same curve (Karl, 2026-10-26: it lagged
     -- behind the border). A quick sweep across the window only brushes it, since it fades.
     overallBar:SetScript("OnEnter", function(self)
         O.hover = true
         FGT.Bars.Ring(self, true)
+        FGT.Bars.Ring(outline, true)
         O.Want()
         if FGT.ShowOverallTip then FGT.ShowOverallTip(self) end
     end)
     overallBar:SetScript("OnLeave", function(self)
         O.hover = nil
         FGT.Bars.Ring(self, false)
+        FGT.Bars.Ring(outline, false)
         O.Want()
         FGT.Bars.TipOut(self)
     end)
@@ -5195,7 +5204,7 @@ local REP_COLORS = { { 0.80, 0.30, 0.22 }, { 0.80, 0.30, 0.22 }, { 0.75, 0.27, 0
 -- to say it its own way; anything longer than STEP_TITLE_MAX is cut at a word.
 local STEP_TITLE_MAX = 40
 local ACTION_VERBS = { Defeat = true, Kill = true, Slay = true, Loot = true, Collect = true, Gather = true,
-    Buy = true, Get = true, Obtain = true, Purchase = true, Craft = true, Make = true }
+    Buy = true, Get = true, Obtain = true, Purchase = true, Craft = true, Make = true, Pick = true }
 function FGT.StepTitle(entry, hasCount, keepWith)
     local text = type(entry) == "table" and (entry.short or entry.text or entry.name) or entry
     -- a step that links an attunement goal is that attunement, however its text is worded

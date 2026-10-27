@@ -24,6 +24,8 @@ assert(T({ text = "Defeat Onyxia in Onyxia's Lair." }) == "Defeat Onyxia", "a ki
 assert(T({ text = "Defeat Lord Kazzak in the Tainted Scar in the Blasted Lands." }) == "Defeat Lord Kazzak", "all of the place goes")
 assert(T({ text = "Loot the Head of Onyxia and turn it in at Stormwind Keep." }) == "Loot the Head of Onyxia", "a loot step drops the turn-in")
 assert(T({ text = "Loot Plans: Frostguard from Foreman Marcrid in Western Plaguelands." }) == "Loot Plans: Frostguard", "and who it drops from")
+local pick = T({ text = "Pick up 'Seal of Ascension' inside Blackrock Spire." })
+assert(pick == "Pick up Seal of Ascension", "a pick-up step drops its place: " .. pick)
 assert(T({ text = "Defeat Thaddius and Feugen." }) == "Defeat Thaddius and Feugen", "two bosses stay together")
 assert(T({ text = "Speak with the elder in the city." }) == "Speak with the elder in the city", "only action and Reach steps are trimmed")
 assert(T({ text = "Defeat Onyxia in Onyxia's Lair.", short = "Kill Onyxia now" }) == "Kill Onyxia now", "short still wins")

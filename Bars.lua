@@ -174,6 +174,7 @@ end
 -- (B.Ring reads the edge colour it rests at the first time).
 local GLASS_BACKDROP = { bgFile = SOLID, edgeFile = SOLID, edgeSize = 1 }
 local GLASS_RING = { 1.00, 0.85, 0.55, 0.70 } -- hover: the hairline brightens
+B.GLASS_RING = GLASS_RING -- (the overall bar at the top of the window hovers the same way)
 -- noEdge: the goal page's segments (option B), which share one outline and one gradient. No
 -- hairline at rest (hovering still draws it), lighter glass, and none of the shading that each
 -- bar repeats along its own length (the bright top line, the shaded start of the fill, the dark
