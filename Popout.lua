@@ -1217,7 +1217,7 @@ local function PaintLaunch(hover)
     -- (the icon is painted gold: desaturated and tinted grey at rest, true colors on hover)
     P.launch.icon:SetDesaturated(not hover)
     if hover then P.launch.icon:SetVertexColor(1, 1, 1) else P.launch.icon:SetVertexColor(0.80, 0.78, 0.72) end
-    P.launch:SetBackdropColor(0.02, 0.02, 0.015, hover and 0.88 or 0.78)
+    P.launch:SetBackdropColor(0.02, 0.02, 0.015, hover and 0.68 or 0.56)
     if hover then
         P.launch:SetBackdropBorderColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3], 1)
         P.launch.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3])

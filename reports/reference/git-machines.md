@@ -26,11 +26,13 @@ small change; do that on explicit request or an agreed session closeout.
   way by `sh tools/sync-forever.sh` (then `/reload`), never a link, for the same CurseForge
   reason. The Mac had no beta `WTF`, so there were no saves to bring. The beta symlink is left
   as it was.
-- PC live launch: relocating the addon and saves is still a separate planned operation.
-  Do not move files automatically based on a date. `sh tools/sync-forever.sh` from Git Bash
-  copies into `_forever_` (robocopy, like Era); untested on the PC so far. When copying the beta
-  `Interface` folder per the guide, leave out `AddOns/ForeverGoalTracker` (it is the checkout,
-  with `.git`); the script refuses a destination holding `.git`.
+- PC live Forever (`_forever_`, set up 2026-10-27 at Karl's request): the 22 other beta addons
+  were copied from `_classic_beta_/Interface/AddOns` (robocopy, leaving out this checkout); this
+  addon is a plain copy, refreshed one way by `sh tools/sync-forever.sh` from Git Bash (then
+  `/reload`). First run verified: not a link, no `.git`, TOC identical minus the CurseForge ID,
+  every TOC file byte-identical, development folders left out; a rerun is safe. `_forever_` had
+  not been launched, so it has no `WTF`; beta saves (`52647669#1`) were not copied. Bringing
+  them over is a separate step on request. The beta checkout stays where it is.
 
 ## Session operations
 
