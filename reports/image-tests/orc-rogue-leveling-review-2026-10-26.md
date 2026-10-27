@@ -1,0 +1,17 @@
+# orc-rogue-leveling review
+
+## Approved correction and installation
+
+Karl approved version 2 restoring the rear sword previously mistaken for hair. Review: `Media/final-images/orc-rogue-leveling-review-v2.png`. Reference: `Media/artwork/orc-rogue-rear-sword-reference.png`. Both swords now have continuous distinct metal blades. Master: `Media/final-images/leveling/orc-rogue-master.png`, 1200 x 900 neutral RGB. Runtime: `Media/allclasses_orc_rogue-banner.blp`, 512px DXT1 with ten mip levels. Installed for Horde Orc Rogue leveling only. Full restart and native review pending.
+
+Exact correction prompt: Precise localized correction to image 1, the grayscale Orc Rogue banner. Image 2 is reference showing the SECOND REAR SWORD, which was incorrectly turned into hair. Restore that second curved metal sword, held by the rear hand at image coordinates approximately (700,555) on the 1448x1086 banner. Its blade must continue diagonally up-right from that hilt, passing BEHIND the large front sword at their crossing around (810,430), then continuing behind the left side of his head and curving to a sharp tip above his head around (1120,125). The long black swept shape currently mistaken for a giant hair crest is actually this rear curved blade: replace that shape with solid polished dark steel with a crisp bevel and reflective cutting edge, clearly distinct from his short swept-back hair. Show a continuous rigid metal blade from hilt to tip except where naturally occluded by front sword or head. Exactly two swords held, retain the large bright foreground sword unchanged. Keep face, hands, armor, pose, forest, framing, grayscale palette, wide left dark gradient and soft bottom fade unchanged. Do not add new weapons or alter other objects. No annotations, red lines, text or UI. Preserve all other pixels as closely as possible.
+
+Source: `Media/artwork/horde-orc-male-rogue-dungeonset.jpg`, untouched.
+Review: `Media/final-images/orc-rogue-leveling-review-v1.png`.
+Built-in imagegen. Pending Karl's approval; not installed.
+Artist: Unverified. Named credits are printed on source cards.
+Inspection: grayscale and both fades present; source subject and setting retained, card text/frame removed.
+
+## Exact prompt
+
+Use case: identity-preserve. Edit target: supplied artwork. Uglund Duskrider male orc Rogue leveling: preserve tusks, swept dark hair, silver layered shoulder armor, dark leather, forward combat stance, both hands and large curved sword held across front, forest backdrop. Create ONE 4:3 landscape Forever Goal Tracker banner, intended master 1200x900. Preserve source character identity, face, armor details, pose, hands, weapons, architecture and existing companions. Place main subject high toward RIGHT with breathing room and complete hands/weapon geometry. Extend the source environment naturally into quiet LEFT third for addon text. Strictly neutral black and white grayscale, moderately increased contrast, detailed painterly midtones, controlled highlights. Bake a wide smooth dark neutral charcoal gradient into LEFT edge blending gradually across left third without visible boundary. ALSO bake soft dark BOTTOM gradient across approximately lowest 100 pixels of 1200x900 master fading downward to near-black charcoal, no hard strip. Both gradients within artwork itself. Remove card frame, text, logos, numbers and signatures from derivative only. No added characters, objects, text, UI or borders.

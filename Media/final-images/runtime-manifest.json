@@ -427,7 +427,7 @@
     "equivalent_tga_bytes": 786476
   },
   "set_tier1_priest": {
-    "source": "tier-sets/priest/tier1.jpg",
+    "source": "tier-sets/priest/tier1-alliance-new-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -1471,6 +1471,167 @@
   },
   "touch_of_chaos": {
     "source": "weapons/touch-of-chaos-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_dwarf_rogue": {
+    "source": "leveling/dwarf-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_dwarf_warrior": {
+    "source": "leveling/dwarf-warrior-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_nightelf_rogue": {
+    "source": "leveling/nightelf-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_nightelf_warrior_female": {
+    "source": "leveling/nightelf-warrior-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_nightelf_warrior_male": {
+    "source": "leveling/nightelf-warrior-male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_gnome_rogue": {
+    "source": "leveling/gnome-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_priest_gnome": {
+    "source": "tier-sets/priest/tier3-gnome-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_gnome_caster": {
+    "source": "leveling/gnome-caster-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_rogue_human": {
+    "source": "tier-sets/rogue/tier3-human-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_warrior_male": {
+    "source": "leveling/human-warrior-male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_warrior_female": {
+    "source": "leveling/human-warrior-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_paladin": {
+    "source": "leveling/human-paladin-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_hunter": {
+    "source": "leveling/human-hunter-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_orc_rogue": {
+    "source": "leveling/orc-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_hunter_male": {
+    "source": "leveling/troll-hunter-male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_troll_hunter_mail": {
+    "source": "pvp/troll-hunter-mail-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_buffs_horde": {
+    "source": "social/buffs-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_rogue": {
+    "source": "leveling/troll-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_rogue_troll": {
+    "source": "tier-sets/rogue/tier3-troll-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_priest": {
+    "source": "leveling/troll-priest-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_shaman_troll": {
+    "source": "tier-sets/shaman/tier1-troll-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_warlock": {
+    "source": "leveling/troll-warlock-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_hunter_female": {
+    "source": "leveling/troll-hunter-female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,

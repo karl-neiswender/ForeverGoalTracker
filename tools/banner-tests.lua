@@ -359,7 +359,7 @@ do
     race = "NightElf"
     assert(B:ArtPath("allclasses")=="allclasses_nightelf_hunter-banner.blp", "Night Elf Hunter uses new leveling art")
     assert(B:ArtPath("tier3_warlock")=="tier3_warlock-alliance-banner.blp")
-    assert(B:ArtPath("pvp_set_mail_horde_hunter")=="pvp_set_mail_horde-banner.blp", "Alliance player sees Warlord mail art on Horde Hunter set")
+    assert(B:ArtPath("pvp_set_mail_horde_hunter")=="pvp_troll_hunter_mail-banner.blp", "Alliance player sees approved Troll Warlord mail art on Horde Hunter set")
     assert(B:ArtPath("pvp_set_mail_horde_shaman")=="pvp_set_mail_horde_shaman-banner.blp", "Horde Shaman set uses dedicated Bru'kan art")
     assert(B:ArtPath("set_dungeon1_priest")=="key_strat-banner.blp", "Devout set uses approved Stratholme art")
     assert(B:ArtPath("pvp_rank14_horde")=="pvp_rank14-banner.blp", "Horde rank uses shared medallion even on an Alliance character")
@@ -429,7 +429,7 @@ do
     local dmPath, dmAspect, dmProcessed = B:ResolveArt("key_dm")
     assert(dmPath=="key_dm-banner.blp" and dmAspect==4/3 and dmProcessed, "Dire Maul has approved preprocessed banner")
     race, class, faction = "Dwarf", "WARRIOR", "Alliance"
-    assert(B:ArtPath("allclasses")=="tier3_warrior-banner.blp", "available dwarf warrior is more specific than Alliance warrior")
+    assert(B:ArtPath("allclasses")=="allclasses_dwarf_warrior-banner.blp", "dedicated dwarf warrior is more specific than Alliance warrior")
     race = "Skyborne"
     assert(B:ArtPath("epicmounts")=="epicmounts_skyborne-banner.blp", "Skyborne gets approved island location")
     race = "UnknownRace"
@@ -648,4 +648,17 @@ do
     end
     B.PlayerArtContext, B.goal = originalContext, originalGoal
     print("  weapon backgrounds: twenty banners resolve and keep the drifting leaves and clouds ok")
+end
+
+-- Sex-specific artwork must not leak across characters or override another race.
+do
+    local variants = B.artVariants.allclasses
+    for sex, suffix in pairs({[2]="male", [3]="female"}) do
+        local pick = B:BestArtVariant(variants, {faction="Alliance", class="WARRIOR", race="NightElf", sex=sex})
+        assert(pick and pick.path == "allclasses_nightelf_warrior_" .. suffix .. "-banner.blp", "Night Elf Warrior sex-specific banner")
+    end
+    local dwarf = B:BestArtVariant(variants, {faction="Alliance", class="WARRIOR", race="Dwarf", sex=3})
+    assert(dwarf and dwarf.path == "allclasses_dwarf_warrior-banner.blp", "Night Elf sex variants preserve Dwarf artwork")
+    local unknown = B:BestArtVariant(variants, {faction="Alliance", class="WARRIOR", race="NightElf"})
+    assert(unknown and not unknown.sex, "missing saved sex keeps shared fallback")
 end

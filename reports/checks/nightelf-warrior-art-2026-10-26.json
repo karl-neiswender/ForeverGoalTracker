@@ -1,0 +1,43 @@
+{
+  "lua51": "tools/check.py passed",
+  "LuaLS": "3.19.2 darwin-arm64",
+  "Ketho": "0.22.3 packaged annotations",
+  "annotation_log_mentions": 14028,
+  "diagnostics": {
+    "file:///Users/karlneiswender/Projects/ForeverGoalTracker/Bars.lua": [
+      {
+        "code": "undefined-field",
+        "message": "Undefined field `fgtShadow`.",
+        "range": {
+          "end": {
+            "character": 28,
+            "line": 328
+          },
+          "start": {
+            "character": 19,
+            "line": 328
+          }
+        },
+        "severity": 2,
+        "source": "Lua Diagnostics."
+      },
+      {
+        "code": "undefined-field",
+        "message": "Undefined field `fgtShadow`.",
+        "range": {
+          "end": {
+            "character": 55,
+            "line": 328
+          },
+          "start": {
+            "character": 46,
+            "line": 328
+          }
+        },
+        "severity": 2,
+        "source": "Lua Diagnostics."
+      }
+    ]
+  },
+  "assessment": "No findings in changed Core.lua. Two existing undefined-field warnings in unchanged Bars.lua:329, fgtShadow. No suppression or unrelated fixes. Native Era/Forever rendering not tested; full restart required."
+}

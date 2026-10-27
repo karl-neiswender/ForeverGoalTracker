@@ -5545,6 +5545,24 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="benediction-banner.blp", faction="Horde"},
         },
         allclasses = {
+            {path="allclasses_troll_hunter_male-banner.blp", faction="Horde", class="HUNTER", race="Troll", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_troll_hunter_female-banner.blp", faction="Horde", class="HUNTER", race="Troll", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_troll_rogue-banner.blp", faction="Horde", class="ROGUE", race="Troll", aspect=4/3, preprocessed=true},
+            {path="allclasses_troll_priest-banner.blp", faction="Horde", class="PRIEST", race="Troll", aspect=4/3, preprocessed=true},
+            {path="allclasses_troll_warlock-banner.blp", faction="Horde", class="WARLOCK", race="Troll", aspect=4/3, preprocessed=true},
+            {path="allclasses_orc_rogue-banner.blp", faction="Horde", class="ROGUE", race="Orc", aspect=4/3, preprocessed=true},
+            {path="allclasses_human_warrior_male-banner.blp", faction="Alliance", class="WARRIOR", race="Human", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="Human", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_paladin-banner.blp", faction="Alliance", class="PALADIN", race="Human", aspect=4/3, preprocessed=true},
+            {path="allclasses_human_hunter-banner.blp", faction="Alliance", class="HUNTER", race="Human", aspect=4/3, preprocessed=true},
+            {path="allclasses_gnome_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Gnome", aspect=4/3, preprocessed=true},
+            {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="PRIEST", race="Gnome", aspect=4/3, preprocessed=true},
+            {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="MAGE", race="Gnome", aspect=4/3, preprocessed=true},
+            {path="allclasses_nightelf_warrior_male-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_nightelf_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_nightelf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="NightElf", aspect=4/3, preprocessed=true},
+            {path="allclasses_dwarf_warrior-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf", aspect=4/3, preprocessed=true},
+            {path="allclasses_dwarf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Dwarf", aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_paladin-banner.blp", faction="Alliance", class="PALADIN", race="Dwarf"},
             {path="allclasses_tauren_warrior-banner.blp", faction="Horde", class="WARRIOR", race="Tauren"},
             {path="allclasses_alliance_warlock-banner.blp", faction="Alliance", class="WARLOCK"},
@@ -5594,6 +5612,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             B.artVariants[child.id] = variants
         end
     end
+    B.artVariants.tier3_rogue = {{path="tier3_rogue_human-banner.blp", faction="Alliance", race="Human", aspect=4/3, preprocessed=true}}
+    B.artVariants.tier3_priest = {{path="tier3_priest_gnome-banner.blp", faction="Alliance", race="Gnome", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_set_mail_ally = {{path="pvp_set_mail_ally-banner.blp", aspect=4/3, preprocessed=true}}
     for _, child in ipairs(FGT.armorCollections.pvp_set_mail_ally.armorChildren) do
         B.artVariants[child.id] = B.artVariants.pvp_set_mail_ally
@@ -5640,12 +5660,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="rep_ambassador_horde_thunderbluff-banner.blp", faction="Horde", race="Tauren", aspect=4/3, preprocessed=true},
         {path="rep_ambassador_horde_undercity-banner.blp", faction="Horde", race="Scourge", aspect=4/3, preprocessed=true},
     }
+    table.insert(B.artVariants.tier3_rogue, {path="tier3_rogue_troll-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true})
+    B.artVariants.set_tier1_shaman = {{path="set_tier1_shaman_troll-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true}}
+    for _, id in ipairs({"set_dungeon1_warlock", "set_dungeon2_warlock"}) do
+        B.artVariants[id] = {{path="allclasses_troll_warlock-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true}}
+    end
+    table.insert(B.artVariants.social_buffs, 1, {path="social_buffs_horde-banner.blp", faction="Horde", class="MAGE", aspect=4/3, preprocessed=true})
+    table.insert(B.artVariants.social_buffs, {path="social_buffs_horde-banner.blp", faction="Horde", aspect=4/3, preprocessed=true})
+    B.artVariants.pvp_set_mail_horde = {{path="pvp_troll_hunter_mail-banner.blp", aspect=4/3, preprocessed=true}}
     function B:PlayerArtContext()
         -- Use stable file tokens, not localized class/race display names.
         local race, class
         if UnitRace then race = select(2, UnitRace("player")) end
         if UnitClass then class = select(2, UnitClass("player")) end
-        return {race=race, class=class, faction=UnitFactionGroup and UnitFactionGroup("player")}
+        return {race=race, class=class, sex=UnitSex and UnitSex("player"), faction=UnitFactionGroup and UnitFactionGroup("player")}
     end
     function B:BestArtVariant(variants, player)
         local best, score = nil, -1
@@ -5653,9 +5681,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             if not variant.pending
                 and (not variant.faction or variant.faction == player.faction)
                 and (not variant.class or variant.class == player.class)
-                and (not variant.race or variant.race == player.race) then
+                and (not variant.race or variant.race == player.race)
+                and (not variant.sex or variant.sex == player.sex) then
                 local weight = (variant.class and 100 or 0) + (variant.race and 20 or 0)
-                    + (variant.faction and 10 or 0)
+                    + (variant.faction and 10 or 0) + (variant.sex and 1 or 0)
                 if weight > score then best, score = variant, weight end
             end
         end
@@ -5710,7 +5739,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- set keeps the alt's art whoever is logged in); shared art covers missing variants.
         if goal and goal.plannerOwner then
             local c = Roster()[goal.plannerOwner]
-            local owner = c and { faction = c.faction, class = c.class, race = c.race } or player
+            local owner = c and { faction = c.faction, class = c.class, race = c.race, sex = c.sex } or player
             local pick = self:BestArtVariant(self.artVariants.allclasses, owner)
             if pick then return pick.path, pick.aspect or (4/3), pick.preprocessed ~= false end
             return self.artPaths.allclasses, self.artAspects.allclasses or 1, self.preprocessed.allclasses or false
@@ -7369,6 +7398,20 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["allclasses_troll_hunter_female-banner.blp"] = "Christopher Moeller",
+        ["set_tier1_shaman_troll-banner.blp"] = "RK Post",
+        ["allclasses_troll_priest-banner.blp"] = "Warren Mahy",
+        ["tier3_rogue_troll-banner.blp"] = "Bill Ruan",
+        ["social_buffs_horde-banner.blp"] = "Steven Belledin",
+        ["allclasses_human_paladin-banner.blp"] = "Jakub Kasper",
+        ["allclasses_human_warrior_female-banner.blp"] = "James Ryman",
+        ["allclasses_human_warrior_male-banner.blp"] = "Adam Byrne",
+        ["tier3_rogue_human-banner.blp"] = "Nacho Molina Parra",
+        ["tier3_priest_gnome-banner.blp"] = "Milivoj Ceran",
+        ["allclasses_nightelf_warrior_male-banner.blp"] = "Wayne Reynolds",
+        ["allclasses_nightelf_warrior_female-banner.blp"] = "Kim Demulder",
+        ["allclasses_nightelf_rogue-banner.blp"] = "Paolo Parente",
+        ["allclasses_dwarf_warrior-banner.blp"] = "Karl Richardson",
         ["social_cheers-banner.blp"] = "Sean O'Daniels",
         ["frostguard-banner.blp"] = "Bob Eggleton",
         ["staff_of_dominance-banner.blp"] = "Greg Hildebrandt",
