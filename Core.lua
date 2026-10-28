@@ -9814,251 +9814,211 @@ do
     end
 end
 
--- Empty tracker (first open, or every goal removed): cobwebs in the
--- goal list's top corners like an empty quest log, a quiet "Empty"
--- label, and on the right a short note with a button to the Library.
-local emptyNote = NewFontString(detailPanel, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
-emptyNote:SetPoint("CENTER", detailPanel, "CENTER", 0, 24)
-emptyNote:SetWidth(380)
-emptyNote:SetJustifyH("CENTER")
--- Lines are broken by hand (no single word left on a line); the box is
--- wide enough that none of them wraps on its own.
-emptyNote:SetText("No goals on your tracker yet.\n\nGet a few picked for your character,\nor choose your own.")
+-- Empty tracker (first open, or every goal removed): the goal page with
+-- nothing on it yet (Karl, 2026-10-27, replacing the leather book). On the
+-- right, the character's banner fades in behind a greeting and "Help me get
+-- started"; in the list, a "+" card to the Goal Library where the first goal
+-- will go, and a faint card under it.
+local emptyNote = NewFontString(detailPanel, 13, "", C.INK2[1], C.INK2[2], C.INK2[3])
+emptyNote:SetJustifyH("LEFT")
+emptyNote:SetSpacing(3)
+emptyNote:SetText("Pick a few long-term goals. Steps tick themselves off as you play.")
 emptyNote:Hide()
 
 do
-    local E = {}
-    -- Modular book: fixed spine ends, cropped/mirrored strips, separate
-    -- raised bands and two right-side fittings. Grain never stretches.
-    local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
-    local function BookSurface(panel, fittings)
-        local art = CreateFrame("Frame", nil, panel)
-        art:SetPoint("TOPLEFT", panel, "TOPLEFT", 3, -3)
-        art:SetPoint("BOTTOMRIGHT", panel, "BOTTOMRIGHT", -3, 3)
-        art:EnableMouse(false)
-        art.leather = art:CreateTexture(nil, "BACKGROUND")
-        art.leather:SetTexture(MEDIA .. "empty-book-leather")
-        art.leather:SetDesaturated(true)
-        art.leather:SetVertexColor(1, 0.72, 0.48)
-        art.tiles = { art.leather }
-        art.corners = {}
-        if fittings then
-            local function piece(name, layer)
-                local t = art:CreateTexture(nil, "ARTWORK", nil, layer or -2)
-                t:SetTexture(MEDIA .. "empty-book-" .. name)
-                t:SetDesaturated(true)
-                t:SetVertexColor(0.68, 0.49, 0.33)
-                return t
-            end
-            art.spine = { top = piece("spine"), bottom = piece("spine"), tiles = {}, bands = {} }
-            art.edges = { top = {}, bottom = {} }
-            for i = 1, 5 do art.spine.bands[i] = piece("band", -1) end
-            art.NewBookPiece = piece
-            -- The source is a top-left fitting. Mirror its texture instead
-            -- of rotating the sampling rectangle, keeping both edge arms
-            -- flush and the inward flourish facing the leather field.
-            for _, spec in ipairs({ { "TOPRIGHT", 0, 1, -4 },
-                                    { "BOTTOMRIGHT", 1, 0, 4 } }) do
-                local corner = art:CreateTexture(nil, "ARTWORK", nil, 1)
-                corner:SetTexture(MEDIA .. "empty-book-corner")
-                corner:SetDesaturated(true)
-                corner:SetVertexColor(0.72, 0.51, 0.32)
-                corner:SetPoint(spec[1], art, spec[1], -4, spec[4])
-                corner:SetTexCoord(1, 0, spec[2], spec[3])
-                -- Separate contact shadow stays down/right on every corner.
-                local shadow = art:CreateTexture(nil, "ARTWORK", nil, 0)
-                shadow:SetTexture(MEDIA .. "empty-book-corner")
-                shadow:SetPoint(spec[1], art, spec[1], -1, spec[4] - 3)
-                shadow:SetTexCoord(1, 0, spec[2], spec[3])
-                shadow:SetVertexColor(0, 0, 0, 0.62)
-                art.corners[#art.corners + 1] = { metal = corner, shadow = shadow }
-            end
-        end
-        -- All artwork sits below this darkness, keeping the empty-state
-        -- copy/buttons readable. Plain alpha also follows the frame fade.
-        art.darkness = art:CreateTexture(nil, "ARTWORK", nil, -4)
-        art.darkness:SetAllPoints(art)
-        art.darkness:SetColorTexture(0.025, 0.022, 0.019, fittings and 0.68 or 0.77)
-        if fittings then
-            art.focusWash = art:CreateTexture(nil, "ARTWORK", nil, -3)
-            art.focusWash:SetTexture(MEDIA .. "shadow")
-            art.focusWash:SetVertexColor(0, 0, 0, 0.38)
-            art.focusWash:SetPoint("CENTER", art, "CENTER", 0, 24)
-            -- Soft upper-left light unifies leather and metal without
-            -- competing with the welcome copy drawn above the artwork.
-            art.coverLight = art:CreateTexture(nil, "ARTWORK", nil, 2)
-            art.coverLight:SetTexture(MEDIA .. "shadow")
-            art.coverLight:SetBlendMode("ADD")
-            art.coverLight:SetVertexColor(0.72, 0.46, 0.22, 0.07)
-            art.spineShade = art:CreateTexture(nil, "ARTWORK", nil, -3)
-            art.spineShade:SetColorTexture(1, 1, 1)
-            art.spineShade:SetPoint("TOPLEFT", art.spine.top, "TOPRIGHT", -4, 0)
-            art.spineShade:SetPoint("BOTTOMLEFT", art.spine.bottom, "BOTTOMRIGHT", -4, 0)
-            art.spineShade:SetWidth(40)
-            ApplyHGradient(art.spineShade, {0, 0, 0}, {0, 0, 0}, 0.95, 0)
-            for _, side in ipairs({"TOP", "BOTTOM"}) do
-                local shade = art:CreateTexture(nil, "ARTWORK", nil, -4)
-                shade:SetColorTexture(1, 1, 1)
-                shade:SetPoint(side .. "LEFT", art, side .. "LEFT", 0, side == "TOP" and -8 or 8)
-                shade:SetPoint(side .. "RIGHT", art, side .. "RIGHT", 0, side == "TOP" and -8 or 8)
-                shade:SetHeight(20)
-                ApplyVGradient(shade, {0, 0, 0}, {0, 0, 0},
-                    side == "TOP" and 0.7 or 0, side == "TOP" and 0 or 0.7)
-            end
-        end
-        function art:Fit()
-            local w, h = self:GetWidth(), self:GetHeight()
-            if w <= 0 or h <= 0 then return end
-            if self.focusWash then self.focusWash:SetSize(w * 0.9, h * 0.8) end
-            if self.coverLight then
-                self.coverLight:ClearAllPoints()
-                self.coverLight:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-                self.coverLight:SetSize(w * 0.9, h * 0.72)
-            end
-            -- Mirror alternate tiles so the generated edge pixels meet
-            -- exactly. Crop the final tiles; never stretch the grain.
-            local used = 0
-            for y = 0, math.ceil(h / 512) - 1 do
-                for x = 0, math.ceil(w / 512) - 1 do
-                    used = used + 1
-                    local tile = self.tiles[used]
-                    if not tile then
-                        tile = self:CreateTexture(nil, "BACKGROUND")
-                        tile:SetTexture(MEDIA .. "empty-book-leather")
-                        tile:SetDesaturated(true)
-                        tile:SetVertexColor(1, 0.72, 0.48)
-                        self.tiles[used] = tile
-                    end
-                    local tw, th = math.min(512, w - x * 512), math.min(512, h - y * 512)
-                    local u, v = x % 2, y % 2
-                    tile:ClearAllPoints()
-                    tile:SetPoint("TOPLEFT", self, "TOPLEFT", x * 512, -y * 512)
-                    tile:SetSize(tw, th)
-                    tile:SetTexCoord(u, u + (u == 0 and 1 or -1) * tw / 512,
-                        v, v + (v == 0 and 1 or -1) * th / 512)
-                    tile:Show()
-                end
-            end
-            for i = used + 1, #self.tiles do self.tiles[i]:Hide() end
-            if self.spine then
-                local spine = self.spine
-                local sw = math.min(48, w * 0.16)
-                local scale = sw / 48
-                local cap = math.min(16 * scale, h / 2)
-                self.spineWidth = sw
-                -- Sample the central silhouette, excluding transparent
-                -- source margins. End folds retain their proportions.
-                spine.top:ClearAllPoints()
-                spine.top:SetPoint("TOPLEFT", self, "TOPLEFT", 2, 0)
-                spine.top:SetSize(sw, cap)
-                spine.top:SetTexCoord(0.31, 0.69, 0, cap / (192 * scale))
-                spine.bottom:ClearAllPoints()
-                spine.bottom:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 2, 0)
-                spine.bottom:SetSize(sw, cap)
-                spine.bottom:SetTexCoord(0.31, 0.69, 1 - cap / (192 * scale), 1)
-                local remaining, unit, count = h - 2 * cap, 160 * scale, 0
-                while remaining > 0.001 do
-                    count = count + 1
-                    local t = spine.tiles[count]
-                    if not t then t = self.NewBookPiece("spine"); spine.tiles[count] = t end
-                    local th = math.min(unit, remaining)
-                    local v = count % 2 == 1 and 1 / 12 or 11 / 12
-                    t:ClearAllPoints()
-                    t:SetPoint("TOPLEFT", self, "TOPLEFT", 2, -cap - (count - 1) * unit)
-                    t:SetSize(sw, th)
-                    t:SetTexCoord(0.31, 0.69, v, v + (count % 2 == 1 and 1 or -1) * th / (192 * scale))
-                    t:Show()
-                    remaining = remaining - th
-                end
-                for i = count + 1, #spine.tiles do spine.tiles[i]:Hide() end
-                -- Short books lose bands rather than crowding the folds.
-                local bands = math.max(0, math.min(5, math.floor((h - 2 * cap) / (90 * scale))))
-                for i, t in ipairs(spine.bands) do
-                    t:SetShown(i <= bands)
-                    if i <= bands then
-                        t:ClearAllPoints()
-                        t:SetPoint("TOPLEFT", self, "TOPLEFT", 0,
-                            -cap - (h - 2 * cap) * i / (bands + 1) + 6 * scale)
-                        t:SetSize(sw + 4 * scale, 12 * scale)
-                        t:SetTexCoord(0.055, 0.945, 0.28, 0.72)
-                    end
-                end
-                -- Thin rolled cover edges repeat horizontally at a fixed
-                -- scale, under the spine and right metal caps.
-                for _, side in ipairs({ "top", "bottom" }) do
-                    local pool, n, span = self.edges[side], 0, math.max(0, w - sw - 6)
-                    while span > 0.001 do
-                        n = n + 1
-                        local t = pool[n]
-                        if not t then t = self.NewBookPiece("edge", -3); pool[n] = t end
-                        local tw, u = math.min(128, span), (n - 1) % 2
-                        t:ClearAllPoints()
-                        local anchor = side == "top" and "TOPLEFT" or "BOTTOMLEFT"
-                        t:SetPoint(anchor, self, anchor, sw + (n - 1) * 128,
-                            side == "top" and -2 or 2)
-                        t:SetSize(tw, math.min(12, h / 4))
-                        t:SetTexCoord(u, u + (u == 0 and 1 or -1) * tw / 128,
-                            side == "top" and 0.36 or 0.62, side == "top" and 0.62 or 0.36)
-                        t:Show()
-                        span = span - tw
-                    end
-                    for i = n + 1, #pool do pool[i]:Hide() end
-                end
-            end
-            -- Normally 88px. Only shrink in exceptionally tiny bounds so
-            -- opposing corners cannot collide or escape the panel.
-            local size = math.max(1, math.min(88, (w - 16) / 2, (h - 16) / 2))
-            for _, corner in ipairs(self.corners) do
-                corner.metal:SetSize(size, size)
-                corner.shadow:SetSize(size, size)
-            end
-        end
-        art:SetScript("OnSizeChanged", function(self) self:Fit() end)
-        art:Fit()
-        return art
+    local E = { ART_ALPHA = 0.45 } -- the art's strength, as the welcome hero's
+    local WHITE = { 1, 1, 1 }
+
+    -- The banner: full height on the right, cropped from its right edge,
+    -- faded in from the left, with the panel's own color over its top and
+    -- bottom (as the welcome hero and the goal page).
+    local hero = CreateFrame("Frame", nil, detailPanel)
+    hero:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 4, -4)
+    hero:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -4, 4)
+    hero:EnableMouse(false)
+    hero.art = hero:CreateTexture(nil, "BACKGROUND", nil, 1)
+    hero.shade = hero:CreateTexture(nil, "BACKGROUND", nil, 3)
+    hero.shade:SetTexture(SOLID)
+    hero.shade:SetPoint("BOTTOMLEFT", hero, "BOTTOMLEFT", 0, 0)
+    hero.shade:SetPoint("BOTTOMRIGHT", hero, "BOTTOMRIGHT", 0, 0)
+    ApplyVGradient(hero.shade, STYLE.panel.bottom, STYLE.panel.bottom, 0, 1)
+    hero.top = hero:CreateTexture(nil, "BACKGROUND", nil, 3)
+    hero.top:SetTexture(SOLID)
+    hero.top:SetPoint("TOPLEFT", hero, "TOPLEFT", 0, 0)
+    hero.top:SetPoint("TOPRIGHT", hero, "TOPRIGHT", 0, 0)
+    ApplyVGradient(hero.top, STYLE.panel.top, STYLE.panel.top, 0.9, 0)
+    hero.credit = NewFontString(hero, 8, "", 0.48, 0.48, 0.48)
+    hero.credit:SetPoint("BOTTOMRIGHT", hero, "BOTTOMRIGHT", -12, 6)
+    E.hero = hero
+
+    -- Up to 62% of the panel's width, cropped to the source's proportions
+    function hero:Fit()
+        local w, h = self:GetWidth(), self:GetHeight()
+        if not E.artPath or w <= 0 or h <= 0 then return end
+        local aw = math.min(math.floor(w * 0.62), math.floor(h * E.artAspect))
+        self.art:ClearAllPoints()
+        self.art:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+        self.art:SetSize(aw, h)
+        self.art:SetTexCoord(1 - math.min(1, (aw / h) / E.artAspect), 1, 0, 1)
+        self.shade:SetHeight(math.floor(h * 0.5))
+        self.top:SetHeight(math.floor(h * 0.22))
     end
-    E.art = BookSurface(listPanel, false)
-    E.art.webs = E.art:CreateTexture(nil, "ARTWORK", nil, -3)
-    E.art.webs:SetTexture(MEDIA .. "empty-bg")
-    E.art.webs:SetDesaturated(false)
-    E.art.webs:SetVertexColor(0.55, 0.55, 0.55)
-    E.art.webs:SetAllPoints(E.art)
-    E.bg = E.art.leather
-    E.detailArt = BookSurface(detailPanel, true)
 
-    E.label = NewTitleString(E.art, 13)
-    E.label:SetDrawLayer("OVERLAY")
-    E.label:SetPoint("CENTER", listPanel, "CENTER", 0, 0)
-    E.label:SetText("Empty")
-    E.label:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    E.label:SetShadowColor(0, 0, 0, 1)
+    -- The character's leveling banner, as the welcome's first load
+    function E.SetArt()
+        local B = FGT.goalBanner
+        local path, aspect, preprocessed = B:ResolveArt("allclasses")
+        E.artPath, E.artAspect = path, aspect or 1
+        hero.art:SetShown(path ~= nil)
+        hero.credit:SetText("")
+        if not path then return end
+        hero.art:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\" .. path)
+        hero.art:SetDesaturated(not preprocessed)
+        local artist = B.artArtists and B.artArtists[path]
+        if artist then hero.credit:SetText("Artwork by " .. artist) end
+        E.SetArtAlpha(E.artP or 1) -- a new texture keeps the current strength
+        hero:Fit()
+    end
+    -- 0 to 1 of its strength; a gradient, so it fades by redrawing, not SetAlpha
+    function E.SetArtAlpha(p)
+        E.artP = p
+        ApplyHGradient(hero.art, WHITE, WHITE, 0, E.ART_ALPHA * p)
+        hero.credit:SetAlpha(0.6 * p)
+    end
 
-    -- Primary: the welcome wizard's suggestions, straight to "What interests you?"
-    E.help = CreateFrame("Button", nil, detailPanel, "BackdropTemplate")
+    -- The text column, left-aligned like the goal page's header: who, a
+    -- greeting, one line on what the addon does, and the suggestions button.
+    local column = CreateFrame("Frame", nil, detailPanel)
+    column:SetSize(1, 1)
+    E.column = column
+    E.eyebrow = NewFontString(column, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    E.eyebrow:SetJustifyH("LEFT")
+    E.title = NewTitleString(column, 24)
+    E.title:SetJustifyH("LEFT")
+    emptyNote:SetParent(column)
+
+    -- The welcome wizard's suggestions, straight to "What interests you?"
+    E.help = CreateFrame("Button", nil, column, "BackdropTemplate")
     E.help:SetHeight(36)
     Etch(E.help, STYLE.rowSel, 12)
     E.help.text = NewTitleString(E.help, 14)
     E.help.text:SetPoint("CENTER", 0, 0)
     E.help.text:SetText("Help me get started")
     E.help:SetWidth(math.ceil(E.help.text:GetStringWidth()) + 64)
-    E.help:SetPoint("TOP", emptyNote, "BOTTOM", 0, -20)
     E.help:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
     E.help:SetScript("OnLeave", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
     E.help:SetScript("OnClick", function() if FGT.OpenWelcome then FGT.OpenWelcome(2) end end)
     FGT.AddBorderComet(E.help, 2, 0.9)
 
-    -- Secondary: a quiet text link under it
-    E.button = CreateFrame("Button", nil, detailPanel)
-    E.button.text = NewFontString(E.button, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
-    E.button.text:SetPoint("CENTER", 0, 0)
-    E.button.text:SetText("or browse the Goal Library")
-    E.button:SetSize(math.ceil(E.button.text:GetStringWidth()) + 12, 22)
-    E.button:SetPoint("TOP", E.help, "BOTTOM", 0, -10)
-    E.button:SetScript("OnEnter", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
-    E.button:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
-    E.button:SetScript("OnClick", function() if FGT.ShowTab then FGT.ShowTab("library") end end)
+    -- Places the column a little above the panel's middle (reads as centered,
+    -- as the welcome hero); `rise` lowers it for the entrance.
+    function E.Layout(rise)
+        local pw, ph = detailPanel:GetWidth(), detailPanel:GetHeight()
+        if pw <= 0 or ph <= 0 then return end
+        local colW = math.max(220, math.min(380, math.floor(pw * 0.46)))
+        E.title:SetWidth(colW)
+        emptyNote:SetWidth(colW)
+        local total = 12 + 8 + math.ceil(E.title:GetStringHeight()) + 12
+            + math.ceil(emptyNote:GetStringHeight()) + 24 + E.help:GetHeight()
+        E.columnY = math.max(24, math.floor((ph - total) / 2) - 12)
+        column:SetSize(colW, total)
+        column:ClearAllPoints()
+        column:SetPoint("TOPLEFT", detailPanel, "TOPLEFT", 44, -E.columnY - (rise or 0))
+        E.eyebrow:ClearAllPoints()
+        E.eyebrow:SetPoint("TOPLEFT", column, "TOPLEFT", 0, 0)
+        E.title:ClearAllPoints()
+        E.title:SetPoint("TOPLEFT", column, "TOPLEFT", 0, -20)
+        emptyNote:ClearAllPoints()
+        emptyNote:SetPoint("TOPLEFT", E.title, "BOTTOMLEFT", 0, -12)
+        E.help:ClearAllPoints()
+        E.help:SetPoint("TOPLEFT", emptyNote, "BOTTOMLEFT", 0, -24)
+    end
+    hero:SetScript("OnSizeChanged", function(self)
+        self:Fit()
+        if column:IsShown() then E.Layout() end
+    end)
 
-    E.parts = { E.art, E.detailArt, E.label, E.button, E.help }
+    -- Fresh words and art each time the empty tracker opens (level, race art)
+    function E.Refresh()
+        local name = UnitName("player") or ""
+        local raceName, className = UnitRace("player"), UnitClass("player")
+        local who = (raceName or "") .. " " .. (className or "")
+        local level = UnitLevel("player") or 1
+        -- the level only once it says something (a new character is level 1)
+        E.eyebrow:SetText(level >= 10 and string.format("%s · Level %d", who, level) or who)
+        E.title:SetText(name ~= "" and (name .. ", what's next?") or "What's next?")
+        E.SetArt()
+        E.Layout()
+    end
+
+    -- Where the first goal will go: a card like a goal's, with a "+" for its
+    -- thumbnail, to the Goal Library (Karl). The whole card is the button.
+    local add = CreateFrame("Button", nil, listPanel, "BackdropTemplate")
+    add:SetHeight(FGT.ROW_H)
+    add:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 12, -12)
+    add:SetPoint("RIGHT", listPanel, "RIGHT", -16, 0)
+    Etch(add, STYLE.row, 12)
+    local function Slot(card)
+        local slot = CreateFrame("Frame", nil, card, "BackdropTemplate")
+        slot:SetSize(50, 50) -- a goal card's icon
+        slot:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -11)
+        Etch(slot, STYLE.panel, 8)
+        return slot
+    end
+    add.slot = Slot(add)
+    add.plus = {}
+    for i, size in ipairs({ { 20, 2 }, { 2, 20 } }) do
+        local t = add.slot:CreateTexture(nil, "ARTWORK")
+        t:SetTexture(SOLID)
+        t:SetSize(size[1], size[2])
+        t:SetPoint("CENTER", add.slot, "CENTER", 0, 0)
+        add.plus[i] = t
+    end
+    add.eyebrow = NewFontString(add, 9, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    add.eyebrow:SetText("GOAL LIBRARY")
+    add.eyebrow:SetPoint("TOPLEFT", add.slot, "TOPRIGHT", 9, 0)
+    add.name = NewFontString(add, 13, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    add.name:SetText("Choose your own goal")
+    add.name:SetPoint("TOPLEFT", add.eyebrow, "BOTTOMLEFT", 0, -7)
+    add.name:SetShadowColor(0, 0, 0, 1)
+    add.name:SetShadowOffset(1, -1)
+    -- At rest a quiet card with a gold "+"; hovered, a goal card's hover with
+    -- the "+" and the name brightening.
+    function add:Paint(hover)
+        self:SetEtch(hover and STYLE.rowHover or STYLE.row)
+        for _, t in ipairs(self.plus) do t:SetVertexColor(C.TITLE[1], C.TITLE[2], C.TITLE[3], hover and 1 or 0.7) end
+        if hover then self.name:SetTextColor(1, 1, 1)
+        else self.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end
+    end
+    add:SetScript("OnEnter", function(self)
+        self:Paint(true)
+        GameTooltip:SetOwner(self, "ANCHOR_NONE")
+        GameTooltip:ClearAllPoints()
+        GameTooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 8, 0) -- as the goal cards'
+        GameTooltip:AddLine("Goal Library", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine("Browse every goal and add the ones you want.", C.INK2[1], C.INK2[2], C.INK2[3], true)
+        GameTooltip:Show()
+    end)
+    add:SetScript("OnLeave", function(self) self:Paint(false); GameTooltip:Hide() end)
+    add:SetScript("OnClick", function()
+        GameTooltip:Hide()
+        if FGT.ShowTab then FGT.ShowTab("library") end
+    end)
+    add:Paint(false)
+    E.add = add
+
+    -- A faint empty card under it, so the panel reads as a list
+    local ghost = CreateFrame("Frame", nil, listPanel, "BackdropTemplate")
+    ghost:SetHeight(FGT.ROW_H)
+    ghost:SetPoint("TOPLEFT", add, "BOTTOMLEFT", 0, -4)
+    ghost:SetPoint("TOPRIGHT", add, "BOTTOMRIGHT", 0, -4)
+    ghost:EnableMouse(false)
+    Etch(ghost, STYLE.row, 12)
+    ghost.slot = Slot(ghost)
+    E.GHOST_ALPHA = 0.3
+    E.ghost = ghost
+
+    E.parts = { hero, column, add, ghost }
     for _, p in ipairs(E.parts) do p:Hide() end
     FGT.emptyUI = E
 end
@@ -10109,44 +10069,38 @@ function FGT.ShowEmptyTracker()
     for _, part in ipairs(detailParts) do part:Hide() end
     emptyNote:Show()
     for _, p in ipairs(FGT.emptyUI.parts) do p:Show() end
+    FGT.emptyUI.Refresh()
     sortBar:Hide() -- nothing to sort
     if FGT.myGoalsView then FGT.myGoalsView:Hide() end
     if FGT.listSearch then FGT.listSearch:SetText(""); FGT.listSearch:ClearFocus(); FGT.listSearch:Hide() end -- nothing to search
     RefreshGoalList()
     RefreshOverall()
-    -- the message, button and link fade (and rise) in when they appear
     if appearing then FGT.AnimateEmpty() end
 end
--- The message, button and link sit in one container that fades in while
--- growing from 94% (no slide), when they appear and when the window
--- opens on an empty tracker. Subtle: fade only. Off: instant.
-do
-    local cluster = CreateFrame("Frame", nil, detailPanel)
-    cluster:SetSize(1, 1)
-    cluster:SetPoint("CENTER", detailPanel, "CENTER", 0, 24)
-    emptyNote:SetParent(cluster)
-    emptyNote:ClearAllPoints()
-    emptyNote:SetPoint("CENTER", cluster, "CENTER", 0, 0)
-    FGT.emptyUI.help:SetParent(cluster)
-    FGT.emptyUI.button:SetParent(cluster)
-    FGT.emptyCluster = cluster
-end
+-- When the empty tracker appears (and when the window opens on it): the
+-- text column and the list's cards fade in, the column rising 8px, then
+-- the banner fades in behind, as the welcome hero's art does. Subtle:
+-- fades only. Off: instant.
 function FGT.AnimateEmpty()
-    local W, cl, art = FGT.welcome, FGT.emptyCluster, FGT.emptyUI.art
+    local W, E = FGT.welcome, FGT.emptyUI
     if not (W and W.Tween) then return end
     local full = W.Motion() == "full"
     W.Tween("empty", 0.7, function(p)
         local e = W.EaseOut(p)
-        cl:SetAlpha(e)
-        art:SetAlpha(e) -- the painted panel fades in with the message
-        FGT.emptyUI.detailArt:SetAlpha(e)
-        cl:SetScale(full and (0.94 + 0.06 * e) or 1)
+        E.column:SetAlpha(e)
+        E.add:SetAlpha(e)
+        E.ghost:SetAlpha(E.GHOST_ALPHA * e)
+        E.Layout(full and 8 * (1 - e) or 0)
     end, function()
-        cl:SetAlpha(1); art:SetAlpha(1); FGT.emptyUI.detailArt:SetAlpha(1); cl:SetScale(1)
+        E.column:SetAlpha(1); E.add:SetAlpha(1); E.ghost:SetAlpha(E.GHOST_ALPHA); E.Layout()
     end)
+    W.Tween("emptyArt", 1.1, function(p) E.SetArtAlpha(p * p * (3 - 2 * p)) end, nil, 0.25)
 end
 main:HookScript("OnShow", function()
-    if emptyNote:IsShown() then FGT.AnimateEmpty() end
+    if emptyNote:IsShown() then
+        FGT.emptyUI.Refresh() -- the level may have changed while the window was closed
+        FGT.AnimateEmpty()
+    end
 end)
 function FGT.HideEmptyTracker()
     if not emptyNote:IsShown() then return end

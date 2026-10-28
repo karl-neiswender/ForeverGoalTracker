@@ -101,6 +101,14 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Empty My Goals redesign (2026-10-27, PC, Claude, committed, unreleased): the leather book and cobwebs
+  are gone. Right panel: the character's `allclasses` banner at 45% (as the welcome hero), left-aligned
+  "Race Class · Level N", "Name, what's next?", one line, Help me get started (comet). List: a "+" card
+  (Goal Library) where the first goal goes and one faint card. `FGT.emptyUI` in Core.lua; test
+  `tools/empty-tracker-tests.lua` replaced `empty-book-tests.lua`. The overall bar stays visible when empty
+  (Karl's earlier decision, `71641d9`). `Media/empty-book-*` and `empty-bg` are now unused but kept until
+  Karl approves deleting them. check.py passes; synced to Era; native review pending.
+
 - Welcome redesign (2026-10-27/28, PC, Claude, committed, unreleased; mockups on Karl's "Welcome Pop-up
   Concepts" canvas, concepts A and E). Core.lua welcome wizard: step 1 is the first-load hero (the
   character's `allclasses` banner via `FGT.goalBanner:ResolveArt`, greeting, Help me get started with the
