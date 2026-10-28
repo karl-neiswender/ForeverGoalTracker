@@ -5638,6 +5638,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         tier3_warrior = {Alliance = "tier3_warrior-banner.blp", Horde = "tier3_warrior_koringar-banner.blp"},
         tier3_warlock = {Alliance = "tier3_warlock-alliance-banner.blp", Horde = "tier3_warlock-horde-banner.blp"},
         set_tier2_hunter = {Alliance = "set_tier2_hunter-alliance-banner.blp"},
+        set_tier2_rogue = {Alliance = "set_tier2_rogue-alliance-banner.blp"},
         set_tier2_warlock = {Alliance = "set_tier2_warlock-alliance-banner.blp"},
         set_tier2_druid = {Horde = "set_tier2_druid-horde-banner.blp"}, -- (this Horde art is Stormrage, Tier 2; Tier 3 uses the shared art)
         set_tier1_warlock = {
@@ -7695,6 +7696,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["mount_dreadsteed-banner.blp"] = "Alex Horley",
         ["set_tier1_rogue-banner.blp"] = "Konstantin Porubov",
         ["set_tier2_rogue-banner.blp"] = "Alex Horley",
+        ["set_tier2_rogue-alliance-banner.blp"] = "Guangjian Huang",
         ["tier3_rogue-banner.blp"] = "BOSi Studio",
         ["set_dungeon1_warrior-banner.blp"] = "UDON",
         ["mount_deathcharger-banner.blp"] = "Ralph Horsley",

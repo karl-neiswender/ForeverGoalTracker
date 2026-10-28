@@ -18,6 +18,7 @@ FINAL_BANNERS = {
     "bloodseeker": "bloodseeker-master.png",
     "blackcrow": "blackcrow-master.png",
     "brutality_blade": "brutality-blade-master.png",
+    "set_tier2_rogue-alliance": "tier-sets/rogue/tier2-alliance-nightelf-master.png",
     "might_of_menethil": "might-of-menethil-master.png",
     "sulthraze": "sulthraze-master.png",
     "fiery_war_axe": "fiery-war-axe-master.png",
