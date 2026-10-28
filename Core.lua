@@ -5691,6 +5691,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="PRIEST", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="MAGE", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_warlock_female-banner.blp", faction="Alliance", class="WARLOCK", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_gnome_warrior_male-banner.blp", faction="Alliance", class="WARRIOR", race="Gnome", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_warrior_male-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="NightElf", aspect=4/3, preprocessed=true},
@@ -5749,9 +5750,6 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_set_plate_ally_warrior = {
         {path="pvp_set_plate_ally_warrior_gnome_female-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
         {path="pvp_set_plate_ally-banner.blp", aspect=4/3, preprocessed=true},
-    }
-    B.artVariants.set_tier2_warrior = {
-        {path="set_tier2_warrior_gnome_male-banner.blp", faction="Alliance", race="Gnome", sex=2, aspect=4/3, preprocessed=true},
     }
     B.artVariants.widows_remorse = {{path="widows_remorse-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.lobotomizer = {{path="lobotomizer-banner.blp", aspect=4/3, preprocessed=true}}
