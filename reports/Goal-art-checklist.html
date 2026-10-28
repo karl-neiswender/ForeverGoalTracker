@@ -103,6 +103,16 @@
             border-radius: 8px; padding: 12px 16px; margin: 12px 0; }
   .rc-sum ul { margin: 6px 0 0; padding-left: 20px; }
   .rc-sum li { margin: 3px 0; }
+  /* male and female halves of a race and class cell */
+  table.rc td.sx { padding: 3px; background: var(--card); white-space: nowrap; }
+  .hx { display: inline-block; width: calc(50% - 2px); padding: 4px 0; border-radius: 4px; margin: 0 1px; text-align: center; }
+  .hx.key { width: 24px; margin-right: 6px; }
+  .hx.need { background: var(--need-bg); color: var(--need); } .hx.borrow { background: var(--borrow-bg); color: var(--borrow); }
+  .hx.share { background: var(--share-bg); color: var(--share); } .hx.done { background: var(--done-bg); color: var(--done); }
+  .hx.own { box-shadow: inset 0 -3px 0 var(--borrow); }
+  .hx.alt { outline: 1.5px dashed currentColor; outline-offset: -3px; }
+  .hx.has { cursor: zoom-in; }
+  .rc-sum.sxs { border-left-color: var(--borrow); }
   @media (max-width: 560px) {
     td:last-child { display: none; } th:last-child { display: none; }
     td.s { width: auto; }
@@ -2597,69 +2607,86 @@ var RACES = [
   { name: "Troll", token: "Troll", side: "Horde", era: ["Warrior", "Hunter", "Rogue", "Priest", "Mage", "Shaman"], fnew: ["Warlock"] },
   { name: "Windshaper Skyborne", token: "Skyborne", side: "Horde", forever: true, era: [], fnew: ["Warrior", "Hunter", "Rogue", "Shaman", "Druid"] }
 ];
-// f = faction, c = class, r = race token (none = any race), k = image key, shows = the race the image pictures
+// f = faction, c = class, r = race token (none = any race), k = image key, shows = the race the image pictures,
+// only = the sex a split image is for (Core's sex=2 male, sex=3 female), pic = who it pictures: m, f or mf (both)
 var RC_ART = [
-  { f: "Horde", c: "Warlock", r: "Troll", k: "allclasses_troll_warlock" },
-  { f: "Horde", c: "Priest", r: "Troll", k: "allclasses_troll_priest" },
-  { f: "Horde", c: "Rogue", r: "Troll", k: "allclasses_troll_rogue" },
-  { f: "Horde", c: "Hunter", r: "Troll", k: "allclasses_troll_hunter_male,allclasses_troll_hunter_female" },
-  { f: "Horde", c: "Rogue", r: "Orc", k: "allclasses_orc_rogue" },
-  { f: "Alliance", c: "Hunter", r: "Human", k: "allclasses_human_hunter" },
-  { f: "Alliance", c: "Paladin", r: "Human", k: "allclasses_human_paladin" },
-  { f: "Alliance", c: "Warrior", r: "Human", k: "allclasses_human_warrior_male,allclasses_human_warrior_female" },
-  { f: "Alliance", c: "Mage", r: "Gnome", k: "allclasses_gnome_caster" },
-  { f: "Alliance", c: "Priest", r: "Gnome", k: "allclasses_gnome_caster" },
-  { f: "Alliance", c: "Rogue", r: "Gnome", k: "allclasses_gnome_rogue" },
-  { f: "Alliance", c: "Rogue", r: "NightElf", k: "allclasses_nightelf_rogue" },
-  { f: "Alliance", c: "Warrior", r: "Dwarf", k: "allclasses_dwarf_warrior" },
-  { f: "Alliance", c: "Rogue", r: "Dwarf", k: "allclasses_dwarf_rogue" },
-  { f: "Alliance", c: "Paladin", r: "Dwarf", k: "allclasses_dwarf_paladin" },
-  { f: "Horde", c: "Warrior", r: "Tauren", k: "allclasses_tauren_warrior" },
-  { f: "Alliance", c: "Warlock", k: "allclasses_alliance_warlock" },
-  { f: "Horde", c: "Druid", k: "allclasses_horde_druid" },
-  { f: "Alliance", c: "Hunter", r: "Dwarf", k: "allclasses_dwarf_hunter" },
-  { f: "Alliance", c: "Priest", r: "NightElf", k: "benediction-alliance" },
-  { f: "Horde", c: "Hunter", r: "Troll", k: "tier3_hunter" },
-  { f: "Alliance", c: "Hunter", r: "NightElf", k: "allclasses_nightelf_hunter" },
-  { f: "Horde", c: "Hunter", k: "allclasses_horde_hunter" },
-  { f: "Alliance", c: "Shaman", r: "Dwarf", k: "allclasses_dwarf_shaman" },
-  { f: "Horde", c: "Paladin", r: "Scourge", k: "allclasses_undead_paladin" },
-  { f: "Horde", c: "Mage", r: "Troll", k: "allclasses_troll_mage" },
-  { f: "Horde", c: "Mage", k: "allclasses_troll_mage", shows: "Troll" },
-  { f: "Alliance", c: "Priest", r: "Human", k: "set_tier1_priest" },
-  { f: "Alliance", c: "Priest", r: "Dwarf", k: "set_tier2_priest" },
-  { f: "Alliance", c: "Hunter", k: "rhokdelar" },
-  { f: "Alliance", c: "Mage", r: "Human", k: "set_tier1_mage" },
-  { f: "Alliance", c: "Mage", k: "set_tier1_mage" },
-  { f: "Alliance", c: "Warrior", r: "NightElf", k: "allclasses_nightelf_warrior_male,allclasses_nightelf_warrior_female" },
-  { f: "Alliance", c: "Warrior", k: "set_tier2_warrior-alliance" },
-  { f: "Horde", c: "Warrior", k: "set_tier2_warrior" },
-  { f: "Alliance", c: "Druid", k: "set_tier2_druid" },
-  { f: "Alliance", c: "Paladin", k: "set_tier2_paladin" },
-  { f: "Horde", c: "Shaman", r: "Tauren", k: "set_tier2_shaman" },
-  { f: "Horde", c: "Shaman", k: "set_tier1_shaman" },
-  { f: "Horde", c: "Warlock", k: "set_tier1_warlock" }
+  { f: "Horde", c: "Warlock", r: "Troll", k: "allclasses_troll_warlock", pic: "f" },
+  { f: "Horde", c: "Priest", r: "Troll", k: "allclasses_troll_priest", pic: "m" },
+  { f: "Horde", c: "Rogue", r: "Troll", k: "allclasses_troll_rogue", pic: "m" },
+  { f: "Horde", c: "Hunter", r: "Troll", k: "allclasses_troll_hunter_male", only: "m", pic: "m" },
+  { f: "Horde", c: "Hunter", r: "Troll", k: "allclasses_troll_hunter_female", only: "f", pic: "f" },
+  { f: "Horde", c: "Rogue", r: "Orc", k: "allclasses_orc_rogue", pic: "m" },
+  { f: "Alliance", c: "Hunter", r: "Human", k: "allclasses_human_hunter", pic: "f" },
+  { f: "Alliance", c: "Paladin", r: "Human", k: "allclasses_human_paladin", pic: "f" },
+  { f: "Alliance", c: "Warrior", r: "Human", k: "allclasses_human_warrior_male", only: "m", pic: "m" },
+  { f: "Alliance", c: "Warrior", r: "Human", k: "allclasses_human_warrior_female", only: "f", pic: "f" },
+  { f: "Alliance", c: "Mage", r: "Gnome", k: "allclasses_gnome_caster", pic: "f" },
+  { f: "Alliance", c: "Priest", r: "Gnome", k: "allclasses_gnome_caster", pic: "f" },
+  { f: "Alliance", c: "Rogue", r: "Gnome", k: "allclasses_gnome_rogue", pic: "m" },
+  { f: "Alliance", c: "Rogue", r: "NightElf", k: "allclasses_nightelf_rogue", pic: "f" },
+  { f: "Alliance", c: "Warrior", r: "Dwarf", k: "allclasses_dwarf_warrior", pic: "m" },
+  { f: "Alliance", c: "Rogue", r: "Dwarf", k: "allclasses_dwarf_rogue", pic: "m" },
+  { f: "Alliance", c: "Paladin", r: "Dwarf", k: "allclasses_dwarf_paladin", pic: "m" },
+  { f: "Horde", c: "Warrior", r: "Tauren", k: "allclasses_tauren_warrior", pic: "m" },
+  { f: "Alliance", c: "Warlock", k: "allclasses_alliance_warlock", pic: "f" },
+  { f: "Horde", c: "Druid", k: "allclasses_horde_druid", pic: "m" },
+  { f: "Alliance", c: "Hunter", r: "Dwarf", k: "allclasses_dwarf_hunter", pic: "m" },
+  { f: "Alliance", c: "Priest", r: "NightElf", k: "benediction-alliance", pic: "f" },
+  { f: "Horde", c: "Hunter", r: "Troll", k: "tier3_hunter", pic: "m" },
+  { f: "Alliance", c: "Hunter", r: "NightElf", k: "allclasses_nightelf_hunter", pic: "f" },
+  { f: "Horde", c: "Hunter", k: "allclasses_horde_hunter", pic: "mf" },
+  { f: "Alliance", c: "Shaman", r: "Dwarf", k: "allclasses_dwarf_shaman", pic: "m" },
+  { f: "Horde", c: "Paladin", r: "Scourge", k: "allclasses_undead_paladin", pic: "m" },
+  { f: "Horde", c: "Mage", r: "Troll", k: "allclasses_troll_mage", pic: "m" },
+  { f: "Horde", c: "Mage", k: "allclasses_troll_mage", shows: "Troll", pic: "m" },
+  { f: "Alliance", c: "Priest", r: "Human", k: "set_tier1_priest", pic: "f" },
+  { f: "Alliance", c: "Priest", r: "Dwarf", k: "set_tier2_priest", pic: "m" },
+  { f: "Alliance", c: "Hunter", k: "rhokdelar", pic: "m" },
+  { f: "Alliance", c: "Mage", r: "Human", k: "set_tier1_mage", pic: "f" },
+  { f: "Alliance", c: "Mage", k: "set_tier1_mage", pic: "f" },
+  { f: "Alliance", c: "Warrior", r: "NightElf", k: "allclasses_nightelf_warrior_male", only: "m", pic: "m" },
+  { f: "Alliance", c: "Warrior", r: "NightElf", k: "allclasses_nightelf_warrior_female", only: "f", pic: "f" },
+  { f: "Alliance", c: "Warrior", k: "set_tier2_warrior-alliance", pic: "m" },
+  { f: "Horde", c: "Warrior", k: "set_tier2_warrior", pic: "m" },
+  { f: "Alliance", c: "Druid", k: "set_tier2_druid", pic: "m" },
+  { f: "Alliance", c: "Paladin", k: "set_tier2_paladin", pic: "m" },
+  { f: "Horde", c: "Shaman", r: "Tauren", k: "set_tier2_shaman", pic: "m" },
+  { f: "Horde", c: "Shaman", k: "set_tier1_shaman", pic: "m" },
+  { f: "Horde", c: "Warlock", k: "set_tier1_warlock", pic: "m" }
 ];
-function rcPick(race, cls) {
+function rcPick(race, cls, sex) {
   var best = null, score = -1;
   RC_ART.forEach(function (v) {
     if (v.f !== race.side || v.c !== cls || (v.r && v.r !== race.token)) return;
-    var w = 100 + (v.r ? 20 : 0) + 10;
+    if (sex && v.only && v.only !== sex) return;
+    var w = 100 + (v.r ? 20 : 0) + 10 + (v.only ? 1 : 0);
     if (w > score) { best = v; score = w; }
   });
   if (!best) return { st: "need", k: "" };
   var own = best.k.indexOf("allclasses_") === 0;
+  if (sex) return { st: !own ? "borrow" : (best.r ? "done" : (best.shows ? "borrow" : "share")), k: best.k,
+    other: !!(best.pic && best.pic.indexOf(sex) < 0), split: !!best.only, pic: best.pic };
   if (own && best.r) return { st: "done", k: best.k };
   if (own && !best.shows) return { st: "share", k: best.k };
   return { st: "borrow", k: best.k };
 }
+// One half of a race and class cell: that sex's status. Gold rule: its own image. Dashed: it uses
+// an image of the other sex.
+function half(p, letter, word) {
+  var has = p.k && typeof IMG !== "undefined" && IMG[p.k];
+  var tip = word + ": " + LABEL[p.st] + (p.k ? (p.split ? ", its own image" : p.other ? ", uses an image of the other sex"
+    : p.pic === "mf" ? ", an image of both" : "") : "");
+  return '<span class="hx ' + p.st + (p.other ? " alt" : "") + (p.split ? " own" : "") + (has ? " has" : "") +
+    '" title="' + esc(tip) + '"' + (has ? ' tabindex="0" data-k="' + p.k + '"' : "") + ">" + letter + "</span>";
+}
 function raceGrid() {
   var n = { need: 0, borrow: 0, share: 0, done: 0 }, fnew = [], needed = {};
+  var sx = { split: [], mOnly: [], fOnly: [], both: [], none: [] };
   var html = '<h2 class="part">Race and class</h2>' +
     '<p class="sub">Every race and class combo the game allows, Classic Era against Forever. Era has 40 combos. ' +
     'Forever keeps all 40 and adds 16: six new combos for existing races and the two Skyborne races. ' +
     'A <b style="color:var(--forever)">blue outline marked NEW</b> is a combo that exists only on Forever. ' +
-    'The color is the leveling banner a character of that race and class gets now.</p>' +
+    'The color is the leveling banner a character of that race and class gets now, for a male (M) and a female (F) character.</p>' +
     '<div class="rc-wrap"><table class="rc"><thead><tr><th class="race">Race</th>' +
     CLASS_ORDER.map(function (c) { return "<th>" + c + "</th>"; }).join("") + "</tr></thead><tbody>";
   var side = "";
@@ -2672,20 +2699,32 @@ function raceGrid() {
     CLASS_ORDER.forEach(function (c) {
       var isEra = race.era.indexOf(c) >= 0, isNew = race.fnew.indexOf(c) >= 0;
       if (!isEra && !isNew) { html += '<td class="s na">n/a</td>'; return; }
-      var a = rcPick(race, c);
+      var a = rcPick(race, c), am = rcPick(race, c, "m"), af = rcPick(race, c, "f");
       n[a.st]++;
+      var combo = race.name + " " + c + (isNew ? " (Forever)" : "");
+      if (!am.k) sx.none.push(combo);
+      else if (am.split || af.split) sx.split.push(combo);
+      else if (am.other) sx.fOnly.push(combo);
+      else if (af.other) sx.mOnly.push(combo);
+      else sx.both.push(combo);
       if (isNew) fnew.push({ race: race.name, cls: c, st: a.st });
       if (a.st === "need") (needed[c] = needed[c] || []).push(race.name + (isNew ? " (Forever)" : ""));
-      var has = a.k && typeof IMG !== "undefined" && a.k.split(",").some(function (k) { return IMG[k]; });
-      html += '<td class="s ' + a.st + (isNew ? " fo" : "") + (has ? " has" : "") + '"' +
-        (has ? ' tabindex="0" data-k="' + a.k + '"' : "") + ">" + LABEL[a.st] + "</td>";
+      html += '<td class="s sx' + (isNew ? " fo" : "") + '">' + half(am, "M", "Male") + half(af, "F", "Female") + "</td>";
     });
     html += "</tr>";
   });
   html += "</tbody></table></div>";
   html += '<div class="rc-key"><span><span class="sw"></span><b>NEW</b> only on Forever</span>' +
     "<span>Needed: no banner, the default image shows</span><span>Borrowed: another goal's image</span>" +
-    "<span>Shared: one image for the faction and class</span><span>Done: art for that race</span></div>";
+    "<span>Shared: one image for the faction and class</span><span>Done: art for that race</span>" +
+    '<span><span class="hx done own key">M</span>gold rule: its own male or female image</span>' +
+    '<span><span class="hx done alt key">F</span>dashed: uses an image of the other sex</span></div>';
+  html += '<div class="rc-sum sxs"><strong>Male and female art</strong> (each combo above is split M and F)<ul>' +
+    "<li><strong>Own image for each (" + sx.split.length + "):</strong> " + sx.split.map(esc).join(", ") + "</li>" +
+    "<li><strong>Male image only, women use it (" + sx.mOnly.length + "):</strong> " + sx.mOnly.map(esc).join(", ") + "</li>" +
+    "<li><strong>Female image only, men use it (" + sx.fOnly.length + "):</strong> " + sx.fOnly.map(esc).join(", ") + "</li>" +
+    (sx.both.length ? "<li><strong>One image showing both (" + sx.both.length + "):</strong> " + sx.both.map(esc).join(", ") + "</li>" : "") +
+    "<li><strong>No image yet (" + sx.none.length + "):</strong> " + sx.none.map(esc).join(", ") + "</li></ul></div>";
   var total = n.need + n.borrow + n.share + n.done;
   html += '<div class="rc-sum"><strong>What needs artwork</strong> (' + total + " combos: " + n.need + " needed, " +
     n.borrow + " borrowed, " + n.share + " shared, " + n.done + " done)<ul>";
@@ -2757,7 +2796,7 @@ function init() {
     pv.style.left = left + "px"; pv.style.top = top + "px";
   }
   function hide() { pv.hidden = true; pinned = null; }
-  var SEL = ".thumb, td.has";
+  var SEL = ".thumb, td.has, .hx.has";
   // the race and class grid shares the hover preview with the tables
   var tb = { addEventListener: function (type, fn) {
     ["tables", "racegrid"].forEach(function (id) { document.getElementById(id).addEventListener(type, fn); });
@@ -2772,7 +2811,7 @@ function init() {
     if (e.target.closest(SEL) && !pinned) pv.hidden = true;
   });
   tb.addEventListener("keydown", function (e) {
-    var a = e.target.closest("td.has");
+    var a = e.target.closest("td.has, .hx.has");
     if (a && (e.key === "Enter" || e.key === " ")) {
       e.preventDefault();
       var r = a.getBoundingClientRect();
