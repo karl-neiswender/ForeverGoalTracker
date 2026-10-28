@@ -1847,6 +1847,13 @@
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
+  "allclasses_gnome_warrior_female": {
+    "source": "pvp/gnome-warrior-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
   "allclasses_human_rogue_male": {
     "source": "leveling/human-rogue-male-master.png",
     "aspect": 1.3333333333333333,

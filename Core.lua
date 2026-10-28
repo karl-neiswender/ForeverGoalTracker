@@ -5700,6 +5700,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="MAGE", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_warlock_female-banner.blp", faction="Alliance", class="WARLOCK", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_warrior_male-banner.blp", faction="Alliance", class="WARRIOR", race="Gnome", sex=2, aspect=4/3, preprocessed=true},
+            -- (the approved female Gnome PvP Warrior art, also her leveling banner: Karl, 2026-10-28)
+            {path="allclasses_gnome_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_warrior_male-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="NightElf", aspect=4/3, preprocessed=true},
@@ -7652,6 +7654,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["allclasses_undead_rogue_male-banner.blp"] = "Dave Allsop",
         ["allclasses_undead_rogue_female-banner.blp"] = "Gonzalo Ordonez",
         ["pvp_set_plate_ally_warrior_gnome_female-banner.blp"] = "Alex Horley Orlandelli",
+        ["allclasses_gnome_warrior_female-banner.blp"] = "Alex Horley Orlandelli",
         ["set_tier1_rogue_dwarf_female-banner.blp"] = "Ralph Horsley",
         ["core_hound_tooth-banner.blp"] = "Michael Sutfin",
         ["bloodseeker-banner.blp"] = "Ralph Horsley",

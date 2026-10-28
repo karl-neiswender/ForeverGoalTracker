@@ -12,7 +12,7 @@ do
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="WARRIOR", race="Gnome", sex=2})
         == "allclasses_gnome_warrior_male-banner.blp", "male Gnome Warrior leveling uses approved Fillet art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="WARRIOR", race="Gnome", sex=3})
-        ~= "allclasses_gnome_warrior_male-banner.blp", "female Gnome Warrior keeps existing leveling art")
+        == "allclasses_gnome_warrior_female-banner.blp", "female Gnome Warrior leveling uses her approved PvP Warrior art")
     assert(B:ResolveArt("set_tier2_warrior", {faction="Alliance", class="WARRIOR", race="Gnome", sex=2})
         == "set_tier2_warrior-alliance-banner.blp", "male Gnome Warrior keeps Alliance Tier 2 art")
     assert(B:ResolveArt("set_tier2_warrior", {faction="Horde", class="WARRIOR", race="Orc", sex=2})

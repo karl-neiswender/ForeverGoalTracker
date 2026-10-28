@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "allclasses_gnome_warrior_female": "pvp/gnome-warrior-female-master.png",
     "collect_the_1_ring": "collect_the_1_ring-master.png",
     "allclasses_undead_priest_male": "allclasses_undead_priest_male-master.png",
     "allclasses_undead_priest_female": "allclasses_undead_priest_female-master.png",
