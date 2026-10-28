@@ -5669,6 +5669,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="glacial_blade-banner.blp", faction="Horde", aspect=4/3, preprocessed=true},
         },
         set_tier1_rogue = {
+            {path="set_tier1_rogue_dwarf_female-banner.blp", faction="Alliance", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
             {path="set_tier1_rogue-alliance-banner.blp", faction="Alliance"},
         },
         benediction = {
@@ -5689,6 +5690,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_gnome_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="PRIEST", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="MAGE", race="Gnome", aspect=4/3, preprocessed=true},
+            {path="allclasses_gnome_warlock_female-banner.blp", faction="Alliance", class="WARLOCK", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_warrior_male-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="NightElf", aspect=4/3, preprocessed=true},
@@ -5699,6 +5701,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_alliance_warlock-banner.blp", faction="Alliance", class="WARLOCK"},
             {path="allclasses_horde_druid-banner.blp", faction="Horde", class="DRUID"},
             {path="allclasses_dwarf_hunter-banner.blp", faction="Alliance", class="HUNTER", race="Dwarf"},
+            {path="allclasses_dwarf_hunter_female-banner.blp", faction="Alliance", class="HUNTER", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
             {path="benediction-alliance-banner.blp", faction="Alliance", class="PRIEST", race="NightElf"},
             {path="tier3_hunter-banner.blp", faction="Horde", class="HUNTER", race="Troll"},
             {path="allclasses_nightelf_hunter-banner.blp", faction="Alliance", class="HUNTER", race="NightElf"},
@@ -5743,6 +5746,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             B.artVariants[child.id] = variants
         end
     end
+    B.artVariants.pvp_set_plate_ally_warrior = {
+        {path="pvp_set_plate_ally_warrior_gnome_female-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
+        {path="pvp_set_plate_ally-banner.blp", aspect=4/3, preprocessed=true},
+    }
     B.artVariants.widows_remorse = {{path="widows_remorse-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.lobotomizer = {{path="lobotomizer-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.demonslayer = {{path="demonslayer-banner.blp", aspect=4/3, preprocessed=true}}
@@ -5962,7 +5969,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         local pvp = goal and goal.category == "PvP"
         if pvp then
-            player = {faction=goal.faction}
+            -- A PvP goal keeps its own faction, while a matching character
+            -- can select approved race and sex artwork for that faction.
+            local ownFaction = player.faction == goal.faction
+            player = {faction=goal.faction, race=ownFaction and player.race or nil,
+                sex=ownFaction and player.sex or nil}
         end
         local choices = self.artVariants[id]
             or (pvp and goal.armorParent and self.artVariants[goal.armorParent])
@@ -7621,6 +7632,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["pvp_set_plate_ally_warrior_gnome_female-banner.blp"] = "Alex Horley Orlandelli",
+        ["set_tier1_rogue_dwarf_female-banner.blp"] = "Ralph Horsley",
         ["core_hound_tooth-banner.blp"] = "Michael Sutfin",
         ["bloodseeker-banner.blp"] = "Ralph Horsley",
         ["blackcrow-banner.blp"] = "Bob Eggleton",

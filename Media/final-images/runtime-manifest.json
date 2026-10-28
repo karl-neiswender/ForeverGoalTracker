@@ -1811,5 +1811,33 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "allclasses_gnome_warlock_female": {
+    "source": "leveling/gnome-warlock-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_dwarf_hunter_female": {
+    "source": "leveling/dwarf-hunter-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_plate_ally_warrior_gnome_female": {
+    "source": "pvp/gnome-warrior-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_rogue_dwarf_female": {
+    "source": "tier-sets/rogue/tier1-dwarf-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

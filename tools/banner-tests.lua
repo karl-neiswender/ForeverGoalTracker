@@ -1,6 +1,30 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    local femaleDwarf = {faction="Alliance", class="HUNTER", race="Dwarf", sex=3}
+    local maleDwarf = {faction="Alliance", class="HUNTER", race="Dwarf", sex=2}
+    assert(B:ResolveArt("allclasses", femaleDwarf) == "allclasses_dwarf_hunter_female-banner.blp",
+        "female Dwarf Hunter leveling uses her own approved art")
+    assert(B:ResolveArt("allclasses", maleDwarf) == "allclasses_dwarf_hunter-banner.blp",
+        "male Dwarf Hunter keeps the existing art")
+    assert(B:ResolveArt("set_tier1_rogue", {faction="Alliance", class="ROGUE", race="Dwarf", sex=3})
+        == "set_tier1_rogue_dwarf_female-banner.blp", "female Dwarf Rogue Nightslayer uses her own art")
+    assert(B:ResolveArt("set_tier1_rogue", {faction="Alliance", class="ROGUE", race="Dwarf", sex=2})
+        == "set_tier1_rogue-alliance-banner.blp", "male Dwarf Rogue keeps Alliance Nightslayer art")
+    local pvp = "pvp_set_plate_ally_warrior"
+    assert(F.GoalById(pvp) and F.GoalById(pvp).category == "PvP", "Alliance PvP Warrior child exists")
+    assert(B:ResolveArt(pvp, {faction="Alliance", class="WARRIOR", race="Gnome", sex=3})
+        == "pvp_set_plate_ally_warrior_gnome_female-banner.blp", "female Gnome PvP Warrior uses her own art")
+    for _, context in ipairs({
+        {faction="Alliance", class="WARRIOR", race="Gnome", sex=2},
+        {faction="Alliance", class="WARRIOR", race="Human", sex=3},
+        {faction="Horde", class="WARRIOR", race="Gnome", sex=3},
+    }) do
+        assert(B:ResolveArt(pvp, context) == "pvp_set_plate_ally-banner.blp",
+            "other PvP Warrior characters keep the collection art")
+    end
+end
+do
     local goal = F.GoalById("glacial_blade")
     local path, aspect, preprocessed = B:ResolveArt("glacial_blade")
     assert(goal and goal.category == "PvP" and goal.faction == "Horde",
