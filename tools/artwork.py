@@ -15,7 +15,6 @@ ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
     "allclasses_gnome_warrior_male": "tier-sets/warrior/tier2-gnome-male-master.png",
-    "set_tier2_warrior_gnome_male": "tier-sets/warrior/tier2-gnome-male-master.png",
     "core_hound_tooth": "core-hound-tooth-master.png",
     "bloodseeker": "bloodseeker-master.png",
     "blackcrow": "blackcrow-master.png",
