@@ -11143,6 +11143,81 @@ function FGT.OpenGoalMenu(card)
     M.catcher:Show()
 end
 
+-- A right-click menu like the goal cards' for other lists (the Gear Planner's set cards):
+-- items are { label, icon, color, onClick, confirm }. An item with `confirm` asks once ("Click
+-- again to delete") before it runs. Any click outside closes it.
+function FGT.CloseListMenu()
+    local M = FGT.listMenu
+    if M then M:Hide(); M.catcher:Hide() end
+end
+function FGT.OpenListMenu(items)
+    local M = FGT.listMenu
+    if not M then
+        M = CreateFrame("Frame", nil, main, "BackdropTemplate")
+        M:SetFrameLevel(main:GetFrameLevel() + 60)
+        M:SetClampedToScreen(true)
+        M:SetWidth(180)
+        Etch(M, { top = { 0.10, 0.09, 0.08 }, bottom = { 0.03, 0.03, 0.03 }, edge = { 0.78, 0.61, 0.10, 1 } }, 12)
+        M:EnableMouse(true)
+        M.catcher = CreateFrame("Button", nil, main)
+        M.catcher:SetAllPoints(main)
+        M.catcher:SetFrameLevel(main:GetFrameLevel() + 55)
+        M.catcher:RegisterForClicks("AnyUp")
+        M.catcher:SetScript("OnClick", FGT.CloseListMenu)
+        M.rows = {}
+        FGT.listMenu = M
+    end
+    for i, item in ipairs(items) do
+        local row = M.rows[i]
+        if not row then
+            row = CreateFrame("Button", nil, M)
+            row:SetHeight(MENU_ROW)
+            row.hl = row:CreateTexture(nil, "BACKGROUND")
+            row.hl:SetTexture(SOLID)
+            row.hl:SetAllPoints(row)
+            ApplyHGradient(row.hl, C.ACCENT, C.ACCENT, 0.18, 0.02)
+            row.hl:Hide()
+            row.icon = row:CreateTexture(nil, "ARTWORK")
+            row.icon:SetSize(13, 13)
+            row.icon:SetPoint("LEFT", row, "LEFT", 7, 0)
+            row.label = NewFontString(row, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+            row.label:SetPoint("LEFT", row, "LEFT", 27, 0)
+            row:SetScript("OnEnter", function(self) self.hl:Show() end)
+            row:SetScript("OnLeave", function(self) self.hl:Hide() end)
+            row:SetScript("OnClick", function(self)
+                local it = self.item
+                if it.confirm and not self.armed then
+                    self.armed = true
+                    self.label:SetText(it.confirm)
+                    return
+                end
+                FGT.CloseListMenu()
+                if it.onClick then it.onClick() end
+            end)
+            M.rows[i] = row
+        end
+        row.item, row.armed = item, nil
+        row.label:SetText(item.label)
+        local c = item.color or C.TEXT
+        row.label:SetTextColor(c[1], c[2], c[3])
+        row.icon:SetTexture(FGT.Icon(item.icon))
+        row:ClearAllPoints()
+        row:SetPoint("TOPLEFT", M, "TOPLEFT", 4, -4 - (i - 1) * MENU_ROW)
+        row:SetPoint("TOPRIGHT", M, "TOPRIGHT", -4, -4 - (i - 1) * MENU_ROW)
+        row:Show()
+    end
+    for i = #items + 1, #M.rows do M.rows[i]:Hide() end
+    M.count = #items
+    M:SetHeight(#items * MENU_ROW + 8)
+    local x, y = GetCursorPosition()
+    local scale = M:GetEffectiveScale()
+    M:ClearAllPoints()
+    M:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", x / scale, y / scale)
+    M:Show()
+    M.catcher:Show()
+end
+FGT.MENU_DANGER = { 1.00, 0.50, 0.42 } -- the goal menu's red for Remove and Delete
+
 -- ============================================================
 -- Goal link card: clicking a goal link in a step or tip opens a small
 -- card for that goal (icon, name, what it is) with "+ Add to My Goals",

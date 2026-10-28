@@ -75,11 +75,15 @@ local function Prefs() return Root().prefs end
 -- Goals for tracked sets
 -- ------------------------------------------------------------
 -- Planner goals stay out of the Library; their stable IDs survive renames and reloads.
+-- (known before a set is tracked, so a favorite set is already a favorite goal once it is)
+local function GoalIdFor(build, ownerKey)
+    local ownerId = ownerKey:gsub(".", function(c) return string.format("%02x", string.byte(c)) end)
+    return "planner_" .. ownerId .. "_" .. build.id
+end
 local function SyncGoal(build, ownerKey)
     if not build.tracked or not build.id then return end
     local DB = ForeverGoalTrackerDB
-    local ownerId = ownerKey:gsub(".", function(c) return string.format("%02x", string.byte(c)) end)
-    local id = "planner_" .. ownerId .. "_" .. build.id
+    local id = GoalIdFor(build, ownerKey)
     local goal = FGT.GoalById(id)
     local old, credit = build.goalItems or {}, {}
     local progress = DB.progress[id] or {}
@@ -2250,61 +2254,49 @@ function SD.PaintMenu()
     Place(deleteAll, #store.builds > 0)
     actions:SetHeight(menuY + 6)
 end
--- A set card: its name and how far along it is; hovering shows Rename and Delete on its right.
+-- A set card: its name and how far along it is, a gold star when it is a favorite. Its actions
+-- are in a right-click menu like the My Goals cards' (Karl, 2026-10-28: they were hover icons).
+function SD.Menu(build)
+    local fav = SD.IsFavorite(build)
+    FGT.OpenListMenu({
+        { label = "Edit", icon = "pencil", onClick = function()
+            Store().selected = build.id
+            if build ~= selected then Choose(build) end
+            if SD.Rename then SD.Rename() end
+        end },
+        { label = fav and "Remove from favorites" or "Add to favorites", icon = "star",
+          onClick = function() SD.ToggleFavorite(build) end },
+        { label = "Duplicate", icon = "plus", onClick = function() SD.Duplicate(build) end },
+        -- one click, as Remove from My Goals (Karl, 2026-10-28: asking twice was clunky)
+        { label = "Delete", icon = "trash", color = FGT.MENU_DANGER, onClick = function() SD.Delete(build) end },
+    })
+end
 function SD.Card(i)
     if rows[i] then return rows[i] end
     local row = Button(list.content, "", 180, 48); rows[i] = row
-    row.text:ClearAllPoints(); row.text:SetPoint("TOPLEFT", 10, -8); row.text:SetPoint("RIGHT", row, "RIGHT", -64, 0)
+    row.text:ClearAllPoints(); row.text:SetPoint("TOPLEFT", 10, -8); row.text:SetPoint("RIGHT", row, "RIGHT", -28, 0)
     row.text:SetJustifyH("LEFT"); row.text:SetWordWrap(false)
-    row.state = U.font(row, 9); row.state:SetPoint("TOPLEFT", 10, -28); row.state:SetPoint("RIGHT", row, "RIGHT", -64, 0)
+    row.state = U.font(row, 9); row.state:SetPoint("TOPLEFT", 10, -28); row.state:SetPoint("RIGHT", row, "RIGHT", -10, 0)
     row.state:SetJustifyH("LEFT"); row.state:SetWordWrap(false)
     row.state:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
     -- a set in My Goals shows its goal's progress along the card's foot
     row.bar = U.bar(row, 4); row.bar:SetPoint("TOPLEFT", 10, -39); row.bar.label:Hide(); row.bar:Hide()
-    row:SetScript("OnClick", function(self) Store().selected = self.build.id; Choose(self.build) end)
-    local function Action(icon, danger)
-        local b = CreateFrame("Button", nil, row)
-        b:SetSize(24, 24); b:SetFrameLevel(row:GetFrameLevel() + 3)
-        FGT.IconButton(b, icon, 13)
-        b.icon:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
-        b:SetScript("OnLeave", function(self)
-            self.icon:SetVertexColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
-            GameTooltip:Hide(); row.ShowActions(row:IsMouseOver())
-        end)
-        b.hot = danger and { 1, 0.48, 0.40 } or colors.ACCENT
-        b:Hide()
-        return b
-    end
-    row.ren, row.del = Action("pencil-white"), Action("trash-white", true)
-    row.del:SetPoint("RIGHT", -8, 0); row.ren:SetPoint("RIGHT", row.del, "LEFT", -2, 0)
-    function row.ShowActions(on)
-        row.ren:SetShown(on); row.del:SetShown(on)
-        if not on then row.del.armed = nil end
-    end
-    for b, tip in pairs({ [row.ren] = "Rename", [row.del] = "Delete" }) do
-        b:SetScript("OnEnter", function(self)
-            self.icon:SetVertexColor(self.hot[1], self.hot[2], self.hot[3]); row.ShowActions(true)
-            GameTooltip:SetOwner(self, "ANCHOR_TOP")
-            GameTooltip:SetText(self.armed and "Click again to delete" or tip, 1, 1, 1); GameTooltip:Show()
-        end)
-    end
-    row:HookScript("OnEnter", function() row.ShowActions(true) end)
-    row:HookScript("OnLeave", function() row.ShowActions(row:IsMouseOver()) end)
-    row.ren:SetScript("OnClick", function()
-        local build = row.build
-        Store().selected = build.id
-        if build ~= selected then Choose(build) end
-        if SD.Rename then SD.Rename() end
+    -- the goal cards' gold star, in the same corner
+    row.star = row:CreateTexture(nil, "OVERLAY")
+    row.star:SetTexture(FGT.Icon("star")); row.star:SetSize(15, 15)
+    row.star:SetPoint("TOPRIGHT", -8, -8); row.star:Hide()
+    row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+    row:SetScript("OnClick", function(self, button)
+        if button == "RightButton" then GameTooltip:Hide(); SD.Menu(self.build); return end
+        Store().selected = self.build.id; Choose(self.build)
     end)
-    row.del:SetScript("OnClick", function(self)
-        if not self.armed then
-            self.armed = true
-            GameTooltip:SetOwner(self, "ANCHOR_TOP"); GameTooltip:SetText("Click again to delete", 1, 1, 1); GameTooltip:Show()
-            return
-        end
-        self.armed = nil; GameTooltip:Hide()
-        if SD.Delete then SD.Delete(row.build) end
+    row:HookScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(self.build and self.build.name or "", 1, 1, 1)
+        GameTooltip:AddLine("Right-click for options", colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+        GameTooltip:Show()
     end)
+    row:HookScript("OnLeave", function() GameTooltip:Hide() end)
     return row
 end
 -- The chevron beside the set name: every set, the open one checked; "Manage gear sets..." opens the drawer.
@@ -2532,8 +2524,8 @@ Refresh = function()
         if build.name ~= "" then
             visible = visible + 1
             local row = SD.Card(visible)
-            if row.build ~= build then row.del.armed = nil end
             row.build = build
+            row.star:SetShown(SD.IsFavorite(build))
             row:ClearAllPoints(); row:SetPoint("TOPLEFT", 2, -(visible - 1) * 54)
             row:SetWidth(math.max(120, SD.width - 28))
             row.text:SetText(build.name)
@@ -3158,19 +3150,34 @@ fill:SetScript("OnClick", function()
     end
     actions:Hide(); Deselect(); Dress(true); Save(true); Refresh()
 end)
-duplicate:SetScript("OnClick", function()
-    if not (selected and selected.id) then return end
+-- A copy of any set (the "..." menu's copies the open one; a set card's right-click menu, its own).
+function SD.Duplicate(build)
+    if not (build and build.id) then return end
     local store = Store()
-    local copy = { id = store.nextId, name = selected.name .. " copy", slots = {}, level = selected.level }
+    local copy = { id = store.nextId, name = build.name .. " copy", slots = {}, level = build.level }
     store.nextId = store.nextId + 1
-    for slot, id in pairs(selected.slots) do copy.slots[slot] = id end
-    if selected.enchants then
+    for slot, id in pairs(build.slots) do copy.slots[slot] = id end
+    if build.enchants then
         copy.enchants = {}
-        for slot, spell in pairs(selected.enchants) do copy.enchants[slot] = spell end
+        for slot, spell in pairs(build.enchants) do copy.enchants[slot] = spell end
     end
     store.builds[#store.builds + 1] = copy; store.selected = copy.id
     actions:Hide(); Choose(copy)
-end)
+end
+duplicate:SetScript("OnClick", function() SD.Duplicate(selected) end)
+-- A favorite set is a favorite goal (Karl, 2026-10-28): one flag, the goal's, so the star in My
+-- Goals and on the set card always agree. An untracked set keeps it until it is added.
+function SD.IsFavorite(build)
+    local favs = ForeverGoalTrackerDB and ForeverGoalTrackerDB.favorites
+    return build and build.id and favs and favs[GoalIdFor(build, PlanKey())] and true or false
+end
+function SD.ToggleFavorite(build)
+    if not (build and build.id) then return end
+    local favs = ForeverGoalTrackerDB.favorites
+    local id = GoalIdFor(build, PlanKey())
+    favs[id] = (not favs[id]) or nil
+    FGT.RefreshPlannerGoals(); Refresh()
+end
 remove:SetScript("OnClick", function()
     if not selected or not selected.goalId then return end
     ForeverGoalTrackerDB.active[selected.goalId] = nil
@@ -3180,6 +3187,7 @@ end)
 -- Deleting a set takes its goal and progress with it; the next set opens (or the welcome).
 local function DropBuild(build)
     local store, DB = Store(), ForeverGoalTrackerDB
+    if build.id and DB.favorites then DB.favorites[GoalIdFor(build, PlanKey())] = nil end
     if build.goalId then
         DB.active[build.goalId] = nil; DB.progress[build.goalId] = nil
         local goal = FGT.GoalById(build.goalId)
@@ -3401,7 +3409,7 @@ function FGT.GearPlannerDemoOff()
     band.SetOpen(false)
 end
 -- Expose only prototype operations needed by regression checks.
-FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end,
+FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end, isFavorite = SD.IsFavorite,
     name = name, setTitle = setTitle, editName = editName, add = add, viewGoal = viewGoal, options = options, actions = actions,
     clear = clear, remove = remove, rename = rename, fill = fill, duplicate = duplicate, delete = delete,
     camera = camera, turn = turn, appearance = appearance, menu = menu, replace = replace, rows = rows, head = head,

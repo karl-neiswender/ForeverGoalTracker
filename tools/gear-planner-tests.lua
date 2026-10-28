@@ -1722,20 +1722,45 @@ do
     assert(armor and armor.value:GetText() == "" and armor.bonus:GetText() == "+40", "an enhancement-only stat")
     Cat.Enchant = oldEnchant
     F.ShowTab("tracker"); F.ShowTab("gear")
-    -- set cards: hovering shows Rename and Delete; delete takes two clicks
+    -- set cards: a right-click menu (Edit, favorite, Duplicate, Delete); delete takes one click
     T.new(); text(T.name, "Layout two")
     local two = T.store().builds[#T.store().builds]
-    local card
-    for _, row in ipairs(T.rows) do if row.build == two then card = row end end
+    local function CardFor(build)
+        for _, row in ipairs(T.rows) do if row.build == build then return row end end
+    end
+    local card = CardFor(two)
     assert(card, "the new set has a card")
-    Track(card.ren); Track(card.del)
-    card:GetScript("OnEnter")(card)
-    assert(card.ren:IsShown() and card.del:IsShown(), "hovering a card shows Rename and Delete")
+    assert(not card.ren and not card.del, "no hover buttons on the card")
+    local function Menu(c)
+        c:GetScript("OnClick")(c, "RightButton")
+        local labels, rowsByLabel = {}, {}
+        for i = 1, F.listMenu.count do
+            local r = F.listMenu.rows[i]
+            labels[#labels + 1] = r.label:GetText(); rowsByLabel[r.item.label] = r
+        end
+        return labels, rowsByLabel
+    end
+    local labels, items = Menu(card)
+    assert(labels[1] == "Edit" and labels[2] == "Add to favorites" and labels[3] == "Duplicate" and labels[4] == "Delete",
+        "the menu: Edit, Add to favorites, Duplicate, Delete")
+    items["Add to favorites"]:GetScript("OnClick")(items["Add to favorites"])
+    assert(T.isFavorite(two), "Add to favorites stars the set")
+    local favId
+    for id in pairs(D.favorites) do if id:find("^planner_") and id:find("_" .. two.id .. "$") then favId = id end end
+    assert(favId, "the favorite is the set's goal, so My Goals stars it too")
+    labels = Menu(CardFor(two))
+    assert(labels[2] == "Remove from favorites", "a favorite offers Remove from favorites")
     local count = #T.store().builds
-    click(card.del)
-    assert(#T.store().builds == count and card.del.armed, "delete asks again")
-    click(card.del)
-    assert(#T.store().builds == count - 1, "the second click deletes the set")
+    _, items = Menu(CardFor(two))
+    items["Duplicate"]:GetScript("OnClick")(items["Duplicate"])
+    assert(#T.store().builds == count + 1 and T.store().builds[count + 1].name == "Layout two copy", "Duplicate copies the set")
+    local copy = T.store().builds[count + 1]
+    _, items = Menu(CardFor(copy))
+    items["Delete"]:GetScript("OnClick")(items["Delete"])
+    assert(#T.store().builds == count, "Delete removes the set in one click, as Remove from My Goals")
+    _, items = Menu(CardFor(two))
+    items["Delete"]:GetScript("OnClick")(items["Delete"])
+    assert(#T.store().builds == count - 1 and not D.favorites[favId], "deleting a favorite set drops its star")
     -- the switcher lists every set and switches
     Track(T.switchMenu)
     click(T.switch)
