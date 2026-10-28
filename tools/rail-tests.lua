@@ -47,6 +47,7 @@ F.materialsPanel.Place = function(self, ...) placed = placed + 1; return oldPlac
 F.SetSetting("celebrations", "off")
 local controls = { F.myGoalsView, U.sortBar, F.listSearch }
 for _, c in ipairs(controls) do Track(c, true) end
+Track(R.bar, true)
 R.head.SetHeight = function(self, h) self.heightForTest = h end
 local function Shown() for _, c in ipairs(controls) do if not c:IsShown() then return false end end; return true end
 local function Hidden() for _, c in ipairs(controls) do if c:IsShown() then return false end end; return true end
@@ -104,6 +105,7 @@ assert(R.card:IsShown() and R.inner:GetParent() == R.card, "the filter card carr
 assert(not R.filtersOpen and Shown(), "the card shows every control, even with the list's filters folded")
 R.bar:GetScript("OnClick")(R.bar)
 assert(not R.filtersOpen, "the bar does nothing inside the card")
+assert(not R.bar:IsShown(), "the card has no Filters bar: the rail shows the count")
 F.listSearch:SetText("thunder")
 F.listQuery = "thunder"; F.LayoutGoalList(); R:UpdateFilter()
 -- (the stub's cards don't track visibility, so only the count's form is checked)
@@ -133,6 +135,7 @@ for _, row in ipairs(rows) do
 end
 assert(R.head:IsShown() and R.inner:GetParent() == R.head, "the controls are back in the list")
 assert(Hidden() and R.head.heightForTest == 28, "and the folded filters fold again")
+assert(R.bar:IsShown(), "the open list has its Filters bar back")
 
 -- Full motion: one finite slide that can reverse.
 F.SetSetting("celebrations", "full")
@@ -175,6 +178,11 @@ F.ShowTab("library")
 assert(list.widthForTest == 258, "the Library's filters get the full width: " .. tostring(list.widthForTest))
 F.ShowTab("tracker")
 assert(list.widthForTest == 98 and R.f == 1, "back on My Goals the list is folded again: " .. tostring(list.widthForTest))
+-- Compact cards (a 32px icon) fold to a narrower rail; comfortable ones back to 98.
+F.SetSetting("cardDensity", "compact"); F.ApplyCardDensity()
+assert(list.widthForTest == 80, "compact cards fold to a narrower rail: " .. tostring(list.widthForTest))
+F.SetSetting("cardDensity", "comfortable"); F.ApplyCardDensity()
+assert(list.widthForTest == 98, "comfortable cards fold back to the full rail")
 R:Toggle()
 GameTooltip = nil
 F.materialsPanel.Place = oldPlace

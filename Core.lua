@@ -279,6 +279,7 @@ FGT.SETTING_DEFAULTS = {
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
     barNumbers = "hover",    -- the main bar's numbers: "hover" (and briefly when progress moves) or "always"
     barTicks = true,         -- 25, 50 and 75 marks on the main bar and long goal bars
+    cardDensity = "comfortable", -- My Goals cards: "comfortable" (icon, label, name, bar) or "compact" (slim rows)
 }
 
 ---@overload fun(key: "scale"|"alpha"): number
@@ -4291,7 +4292,12 @@ local function RefreshGoalList()
         if isNew then row.newChip:SetLabel(FGT.ForeverDot(12) .. isNew, C.FOREVER_LIGHT) end
         local finished = total > 0 and done == total
         local on = finished and FGT.CompletedOn(row.goal)
-        row.eyebrow:SetText(finished and (on and ("Completed " .. on) or "Completed") or FGT.GoalEyebrow(row.goal, true))
+        local label = finished and (on and ("Completed " .. on) or "Completed") or FGT.GoalEyebrow(row.goal, true)
+        -- a compact card carries the percentage on this line (its bar is a hairline)
+        if row.compact and not finished and share > 0 then
+            label = label .. "  |cff77736a\194\183|r  " .. math.max(1, math.floor(share / 10)) .. "%"
+        end
+        row.eyebrow:SetText(label)
         local eyebrowColor = finished and C.DONE
             or (isSelected and (isNew and C.FOREVER_LIGHT or C.SELECTED_EYEBROW))
             or C.SUBTEXT
@@ -4330,8 +4336,9 @@ local function RefreshGoalList()
         row.newChip:ClearAllPoints()
         row.newChip:SetPoint("TOPRIGHT", row.body, "TOPRIGHT", -8, -8)
         local rightInset = fav and 28 or (showNew and (row.newChip:GetWidth() + 14) or 8)
-        row.eyebrow:SetPoint("RIGHT", -rightInset, 0)
-        row.name:SetPoint("RIGHT", -8, 0)
+        -- the star and NEW chip sit on the top line: the label on a comfortable card, the name on a compact one
+        row.eyebrow:SetPoint("RIGHT", row.compact and -8 or -rightInset, 0)
+        row.name:SetPoint("RIGHT", row.compact and -rightInset or -8, 0)
         local complete = finished
         row.doneGlow:Hide()
         row.bigCheck:SetShown(complete)
@@ -4344,7 +4351,13 @@ local function RefreshGoalList()
         else
             row.icon:SetBackdropBorderColor(rim[1], rim[2], rim[3], 1)
         end
-        row.bar:Show()
+        -- no empty track on a goal not started yet (Karl, 2026-10-28): a quiet line on a
+        -- comfortable card, nothing on a compact one
+        local started = share > 0 or finished
+        row.bar:SetShown(started)
+        row.notStarted:SetShown(not started and not row.compact)
+        -- the faction mark only on the card you are on or pointing at
+        if row.factionWatermark then row.factionWatermark:SetShown(isSelected or row.hovered or false) end
         FGT.CheckCelebration(row, "card_" .. row.goal.id, complete, FGT.CelebrateRow)
     end
     if FGT.Setting("hideCompletedGoals") and LayoutGoalList then LayoutGoalList() end
@@ -4354,14 +4367,49 @@ local SelectGoal -- forward declare
 
 local yStart = -8
 FGT.ROW_H = 72 -- eyebrow/completion date, name, then progress bar
-local rowHeight = FGT.ROW_H
+FGT.ROW_H_COMPACT = 48 -- name, then the label with the percentage (Settings: Goal cards)
+local function RowH() return FGT.Setting("cardDensity") == "compact" and FGT.ROW_H_COMPACT or FGT.ROW_H end
+-- Lays a card out for the chosen density (Karl, 2026-10-28). Comfortable: a 50px icon, the
+-- label, the name, and the bar level with the icon's bottom. Compact: a 32px icon, the name,
+-- the label with the percentage under it, and the bar as a thin line along the card's bottom.
+function FGT.StyleGoalRow(row)
+    local compact = FGT.Setting("cardDensity") == "compact"
+    local size = compact and 32 or 50
+    row.compact = compact
+    row:SetHeight(RowH())
+    row.icon:SetSize(size, size)
+    row.icon.shade:SetHeight(math.floor(size * 0.45))
+    row.icon:ClearAllPoints()
+    row.icon:SetPoint("TOPLEFT", row, "TOPLEFT", 10, compact and -8 or -11)
+    row.bigCheck:SetScale(size / 50)
+    row.name:ClearAllPoints(); row.eyebrow:ClearAllPoints(); row.bar:ClearAllPoints()
+    -- a step smaller on compact cards (Karl's in-game review, 2026-10-28)
+    FGT.RegisterFont(row.name, "body", compact and 12 or 13, "", true)
+    FGT.RegisterFont(row.eyebrow, "body", compact and 8 or 9, "", true)
+    local barH = compact and 4 or 6 -- compact: a 2px fill inside the track's 1px rim
+    row.bar:SetHeight(barH)
+    if FGT.Bars and FGT.Bars.Resize then FGT.Bars.Resize(row.bar, barH) end
+    if compact then
+        row.name:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 9, -3)
+        row.eyebrow:SetPoint("TOPLEFT", row.name, "BOTTOMLEFT", 0, -5)
+        row.bar:SetPoint("BOTTOMLEFT", row.body, "BOTTOMLEFT", 3, 3)
+        row.bar:SetPoint("RIGHT", row.body, "RIGHT", -3, 0)
+    else
+        row.eyebrow:SetPoint("TOPLEFT", row.icon, "TOPRIGHT", 9, 0)
+        row.name:SetPoint("TOPLEFT", row.eyebrow, "BOTTOMLEFT", 0, -7)
+        row.bar:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, 1)
+        row.bar:SetPoint("RIGHT", row.body, "RIGHT", -10, 0)
+    end
+    row.eyebrow:SetPoint("RIGHT", -8, 0)
+    row.name:SetPoint("RIGHT", -8, 0)
+end
 function FGT.EnsureGoalRow(goal, i)
     if goalRows[goal.id] then return goalRows[goal.id] end
     i = i or 1
     local row = CreateFrame("Button", nil, listContent, "BackdropTemplate")
-    row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, yStart - (i - 1) * (rowHeight + 4))
+    row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, yStart - (i - 1) * (RowH() + 4))
     row:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
-    row:SetHeight(rowHeight)
+    row:SetHeight(RowH())
     row.goal = goal
     Etch(row, STYLE.row, 12)
     -- Everything right of the icon (text, bar, star, NEW chip, faction mark)
@@ -4450,11 +4498,18 @@ function FGT.EnsureGoalRow(goal, i)
     row.bar:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, 1)
     row.bar:SetPoint("RIGHT", row.body, "RIGHT", -10, 0)
     row.bar.label:Hide()
+    -- in the bar's place until the goal is started (a comfortable card only)
+    row.notStarted = NewFontString(row.body, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    row.notStarted:SetPoint("BOTTOMLEFT", row.icon, "BOTTOMRIGHT", 9, -1)
+    row.notStarted:SetText("Not started")
+    row.notStarted:Hide()
 
     -- (the icon rail's own marks, row.rail, are made by Rail.lua the first
     -- time a card folds: most cards in the catalog are never shown)
 
     row:SetScript("OnEnter", function(self)
+        self.hovered = true
+        if self.factionWatermark then self.factionWatermark:Show() end
         if self.goal.id ~= selectedId then
             self:SetEtch(self.complete and STYLE.doneCard or STYLE.rowHover)
             self.name:SetTextColor(1, 1, 1)
@@ -4489,6 +4544,7 @@ function FGT.EnsureGoalRow(goal, i)
         GameTooltip:Show()
     end)
     row:SetScript("OnLeave", function(self)
+        self.hovered = false
         RefreshGoalList()
         GameTooltip:Hide()
     end)
@@ -4502,6 +4558,7 @@ function FGT.EnsureGoalRow(goal, i)
         end
     end)
 
+    FGT.StyleGoalRow(row)
     goalRows[goal.id] = row
     return row
 end
@@ -4575,7 +4632,7 @@ LayoutGoalList = function()
             row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, y)
             row:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
         end
-        y = y - (rowHeight + 4)
+        y = y - (RowH() + 4)
     end
 
     -- "Find your next goal" after the last card (built after this runs at load)
@@ -4611,6 +4668,13 @@ LayoutGoalList = function()
 end
 
 FGT.LayoutGoalList = LayoutGoalList
+-- Settings: Goal cards, and once at login with the saved choice.
+function FGT.ApplyCardDensity()
+    for _, row in pairs(goalRows) do FGT.StyleGoalRow(row) end
+    if FGT.Rail and FGT.Rail.Density then FGT.Rail:Density() end
+    LayoutGoalList()
+    RefreshGoalList()
+end
 -- Narrow bridge for Rail.lua (the goals list folding to its icon rail).
 FGT.RailUI = {
     list = listPanel, scroll = listScrollObj, content = listContent, rows = goalRows,
@@ -12267,6 +12331,12 @@ FGT.SETTINGS = {
           muted = function() return FGT.SoundOff() end,
           optionMuted = function(v) return FGT.ChannelMuted(v) end,
           apply = function() FGT.PlayGoalSound(FGT.Setting("sound")) end },
+    } },
+    { title = "My Goals list", rows = {
+        { type = "choice", key = "cardDensity", label = "Goal cards",
+          desc = "Compact fits about twice as many goals on screen",
+          options = { { "comfortable", "Comfortable" }, { "compact", "Compact" } },
+          apply = function() FGT.ApplyCardDensity() end },
     } },
     { title = "Progress bars", rows = {
         { type = "choice", key = "barNumbers", label = "Numbers",

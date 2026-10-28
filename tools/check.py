@@ -681,6 +681,8 @@ if ok_all:
         ("Forever racial mount costs", None, open(os.path.join(here, "mount-cost-tests.lua")).read(), True),
         ("typography helpers", 'ForeverGoalTrackerDB.settings = ForeverGoalTrackerDB.settings or {}; ForeverGoalTrackerDB.settings.typeStyle = "modern"', open(os.path.join(here, "type-style-tests.lua")).read()),
         ("Forever typography helpers", 'ForeverGoalTrackerDB.settings = ForeverGoalTrackerDB.settings or {}; ForeverGoalTrackerDB.settings.typeStyle = "modern"', open(os.path.join(here, "type-style-tests.lua")).read(), True),
+        ("card density", None, open(os.path.join(here, "card-density-tests.lua"), encoding="utf-8").read()),
+        ("Forever card density", None, open(os.path.join(here, "card-density-tests.lua"), encoding="utf-8").read(), True),
         ("empty tracker", None, open(os.path.join(here, "empty-tracker-tests.lua"), encoding="utf-8").read()),
         ("Forever empty tracker", None, open(os.path.join(here, "empty-tracker-tests.lua"), encoding="utf-8").read(), True),
         ("item needs and previews", None, open(os.path.join(here, "item-tooltip-tests.lua"), encoding="utf-8").read()),

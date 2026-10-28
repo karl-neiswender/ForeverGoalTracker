@@ -167,6 +167,24 @@ function B.Attach(bar, height)
     bar:HookScript("OnShow", function(self) if lit[self] then B.Wake() end end)
 end
 
+-- A bar that changes height after Attach (a compact goal card's 4 tall line, Core's
+-- FGT.StyleGoalRow): the light follows, so its core never stands taller than a thin bar
+-- (Karl, 2026-10-28: the tip looked too tall). Under 5 tall it stays within the bar.
+function B.Resize(bar, height)
+    local s = B[bar]
+    if not s then return end
+    s.height = height
+    if height < 5 then
+        s.core:SetSize(1, height)
+        s.glow:SetSize(6, height + 2)
+        return
+    end
+    local spill = height >= 16 and 4 or (height >= 9 and 3 or 2)
+    s.spill = spill
+    s.core:SetSize(height >= 13 and 2 or 1, height + 2 * math.min(2, spill - 1))
+    s.glow:SetSize(math.max(6, math.floor(height * 0.8)), height + 2 * spill + 4)
+end
+
 -- Glass track (Karl, 2026-10-26, option D of the segment mockups): the goal page's bar sits on
 -- the goal's art, so its empty track is translucent black with a warm hairline edge instead of a
 -- solid carved groove. The top shadow stays (it still reads as inset); the bottom and far-end

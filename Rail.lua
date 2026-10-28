@@ -17,9 +17,12 @@ FGT.Rail = R
 -- is the icon with 10 units each side (70), plus the list's insets (6 + 10 + 12).
 local OPEN = list:GetWidth()
 if not OPEN or OPEN < 150 then OPEN = 258 end
-local RAIL = 98
+local RAIL = 98 -- 80 with compact cards (a 32px icon): R:Density
+local function RailCenter() return 12 + (RAIL - 28) / 2 end -- the rail card's middle, from the list's left
 local CARD_OPEN = OPEN - 28
-local HEAD = 104 -- the folded rail's header: its filter button and divider
+-- the folded rail's header: its filter button, count and divider (-70), then the cards
+-- (was 104, when the open list's controls set it; Karl, 2026-10-28: too much space under it)
+local HEAD = 84
 -- The open list's header (Karl, 2026-10-28: fold the filters away to simplify the
 -- list): the Filters bar, and under it, while open, the view, sort, search and
 -- completed-goals controls. The filter card beside the rail always shows them all.
@@ -68,12 +71,24 @@ bar.caret:SetPoint("RIGHT", bar, "RIGHT", -6, 0)
 bar.count = S.font(bar, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
 bar.count:SetPoint("RIGHT", bar.caret, "LEFT", -6, 0)
 
-view:ClearAllPoints()
-view:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", 0, -4)
-view:SetPoint("TOPRIGHT", bar, "BOTTOMRIGHT", 0, -4)
 sortBar:ClearAllPoints()
 sortBar:SetPoint("TOPLEFT", view, "BOTTOMLEFT", 0, -4)
-sortBar:SetPoint("TOPRIGHT", inner, "TOPRIGHT", -2 - 58, -2 - BAR - 4 - 26) -- room for Clear
+sortBar:SetPoint("TOPRIGHT", view, "BOTTOMRIGHT", -58, -4) -- room for Clear
+-- The Filters bar heads the open list; the rail's filter card has no use for it (the rail
+-- shows the count already, Karl 2026-10-28), so there the Show menu starts the card.
+local function BarShown(on)
+    bar:SetShown(on)
+    view:ClearAllPoints()
+    if on then
+        view:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", 0, -4)
+        view:SetPoint("TOPRIGHT", bar, "BOTTOMRIGHT", 0, -4)
+    else
+        view:SetPoint("TOPLEFT", inner, "TOPLEFT", 2, -2)
+        view:SetPoint("TOPRIGHT", inner, "TOPRIGHT", -2, -2)
+    end
+end
+BarShown(true)
+local CARD_INNER = HEAD_OPEN - 4 - BAR - 4 -- the card's controls, without the bar
 
 -- How open the filters are (R.p, 0 to 1) and how folded the list is (R.f) set the
 -- header's height; the cards start under it.
@@ -134,7 +149,7 @@ end
 local function BodyFreeze(row)
     row.body:ClearAllPoints()
     row.body:SetPoint("TOPLEFT", row, "TOPLEFT", 0, 0)
-    row.body:SetSize(CARD_OPEN, FGT.ROW_H)
+    row.body:SetSize(CARD_OPEN, row:GetHeight())
 end
 
 -- ------------------------------------------------------------
@@ -144,7 +159,7 @@ end
 local card = CreateFrame("Frame", nil, S.main, "BackdropTemplate")
 R.card = card
 card:SetFrameLevel(S.main:GetFrameLevel() + 50)
-card:SetSize(OPEN - 8 + 16, HEAD_OPEN - 4 + 16)
+card:SetSize(OPEN - 8 + 16, CARD_INNER + 16)
 S.etch(card, STYLE.panel, 12)
 FGT.AddGrime(card, 0.18, 12, 0.53, 0, 90)
 card.drop = FGT.AddDropShadow(card, 30, 0.5, 6, 10)
@@ -186,7 +201,7 @@ for i, c in ipairs({ { 0, 0, 0, 0.75 }, { 0.19, 0.16, 0.11, 0.55 } }) do
         t:SetSize(DIVIDER_HALF, 1)
         t:SetPoint(side == 1 and "TOPRIGHT" or "TOPLEFT", list, "TOPLEFT", 47, DIVIDER_Y - (i - 1))
         t:Hide()
-        divider[#divider + 1] = { tex = t, color = c, side = side }
+        divider[#divider + 1] = { tex = t, color = c, side = side, drop = i - 1 }
     end
 end
 local dividerA
@@ -305,11 +320,11 @@ function R:OpenCard()
     inner:SetParent(card)
     inner:ClearAllPoints()
     inner:SetPoint("TOPLEFT", card, "TOPLEFT", 8, -8)
-    inner:SetSize(OPEN - 8, HEAD_OPEN - 4)
+    inner:SetSize(OPEN - 8, CARD_INNER)
     Raise(inner, card:GetFrameLevel() + 2)
     inner:SetAlpha(1)
     ControlsAt(1) -- the card always shows every control
-    bar.caret:Hide()
+    BarShown(false)
     card:Show(); card.drop:Show()
     local mode = Motion()
     if mode == "off" then PlaceCard(0); card:SetAlpha(1); card.drop:SetAlpha(1)
@@ -366,14 +381,29 @@ PointHandle()
 -- favorite star on the icon's top-right corner with a soft shadow (Karl).
 -- ------------------------------------------------------------
 local railA = 0
+-- The progress sliver: under the icon on a comfortable card; on a compact one there is no room
+-- under its 32px icon (it broke out of the card), so it is the card's own thin bottom line,
+-- as on the open compact card (Karl, 2026-10-28).
+function R.PlaceRailBar(row)
+    local bar = row.railBar
+    bar:ClearAllPoints()
+    if row.compact then
+        bar:SetHeight(4)
+        bar:SetPoint("BOTTOMLEFT", row, "BOTTOMLEFT", 3, 3)
+        bar:SetPoint("BOTTOMRIGHT", row, "BOTTOMRIGHT", -3, 3)
+    else
+        bar:SetHeight(3)
+        bar:SetPoint("TOPLEFT", row.icon, "BOTTOMLEFT", 1, -4)
+        bar:SetPoint("TOPRIGHT", row.icon, "BOTTOMRIGHT", -1, -4)
+    end
+end
 function FGT.RailMarks(row)
     if row.rail then return end
     row.rail = CreateFrame("Frame", nil, row)
     row.rail:SetAllPoints(row)
     row.rail:SetFrameLevel(row.icon:GetFrameLevel() + 4) -- over the icon and its finished check
     row.railBar = S.bar(row.rail, 3)
-    row.railBar:SetPoint("TOPLEFT", row.icon, "BOTTOMLEFT", 1, -4)
-    row.railBar:SetPoint("TOPRIGHT", row.icon, "BOTTOMRIGHT", -1, -4)
+    R.PlaceRailBar(row)
     row.railBar.label:Hide()
     row.railStarShadow = row.rail:CreateTexture(nil, "ARTWORK")
     row.railStarShadow:SetTexture(FGT.Icon("star"))
@@ -468,7 +498,7 @@ function R:Settle()
         InnerFill()
         CloseCard()
         ControlsAt(R.p) -- back to the bar's own choice
-        bar.caret:Show()
+        BarShown(not R.empty)
     end
     PlaceHead()
     self:UpdateFilter()
@@ -497,7 +527,7 @@ function R:Animate(rail, instant, quiet)
     self.target = rail and 1 or 0
     PointHandle()
     CloseCard()
-    if not rail then ControlsAt(R.p); bar.caret:Show() end -- the card showed them all
+    if not rail then ControlsAt(R.p); BarShown(not R.empty) end -- the card showed them all, without the bar
     driver:SetScript("OnUpdate", nil)
     for _, row in pairs(rows) do BodyFreeze(row) end
     InnerFreeze()
@@ -605,6 +635,21 @@ handle:SetScript("OnClick", function() R:Toggle() end)
 
 function FGT.ListIsRail() return R.f >= 0.5 end
 
+-- Card density (Core's FGT.ApplyCardDensity): the rail is the icon with 10 each side, so
+-- compact cards fold to a narrower rail; its filter button and divider stay centered on it.
+function R:Density()
+    RAIL = FGT.Setting("cardDensity") == "compact" and 80 or 98
+    local c = RailCenter()
+    filter:ClearAllPoints()
+    filter:SetPoint("CENTER", list, "TOPLEFT", c, -30)
+    for _, d in ipairs(divider) do
+        d.tex:ClearAllPoints()
+        d.tex:SetPoint(d.side == 1 and "TOPRIGHT" or "TOPLEFT", list, "TOPLEFT", c, DIVIDER_Y - d.drop)
+    end
+    for _, row in pairs(rows) do if row.railBar then R.PlaceRailBar(row) end end
+    if self.f > 0 then self:Apply(); self:Settle() end
+end
+
 -- The empty tracker always shows the full list (its welcome lives there).
 -- Core's ShowEmptyTracker and HideEmptyTracker call this.
 function FGT.RailEmpty(empty)
@@ -635,6 +680,7 @@ events:SetScript("OnEvent", function(_, event)
     if event == "PLAYER_LOGIN" then
         local DB = ForeverGoalTrackerDB
         R.saved = DB and DB.listRail and true or false
+        FGT.ApplyCardDensity() -- the saved Goal cards choice (cards are built before it loads)
         R:SetFilters(DB and DB.listFiltersOpen, true)
         R:Sync(true)
     elseif card:IsShown() and not card:IsMouseOver() and not filter:IsMouseOver() then
