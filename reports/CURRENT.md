@@ -101,6 +101,19 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Welcome redesign (2026-10-27/28, PC, Claude, committed, unreleased; mockups on Karl's "Welcome Pop-up
+  Concepts" canvas, concepts A and E). Core.lua welcome wizard: step 1 is the first-load hero (the
+  character's `allclasses` banner via `FGT.goalBanner:ResolveArt`, greeting, Help me get started with the
+  comet, Browse N goals, Plan my gear); step `"back"` is Welcome back (progress, the three goals closest
+  to done over the first of them with a banner, Keep going with the comet, Find my next goal; "Up next"
+  wording when nothing has progress; Next lines are plain text). Art at 45%, fading in after the card,
+  with top and bottom shades, the goal page's clouds (Ambience `A.Build`, fade-left mask, 9%) and the
+  artist credit. Icons (Codex): `help-get-started`, `browse-goals`, `plan-my-gear-helm`; hover lift,
+  grow and tilt (`W.IconMotion`). Welcome back opens once per feature version (`DB.welcomeBackVersion`,
+  major.minor) for players with goals; new players get only the first load. Test: `/goals welcome`,
+  `/goals welcome back`. Karl reviewed both in Era 2026-10-28. check.py passes (new scenario); LuaLS
+  clean for Core.lua. Not in CHANGELOG/What's new yet.
+
 - Forever Hyjal faction banners approved and installed 2026-10-27: set_forever_raid_alliance retains the existing image; set_forever_raid_horde uses the mirrored Horde scene, shared by all nine class goals. Original 34.4 MB source preserved; 722 KB working copy succeeded after two network failures. Full restart and native review pending. [Record](image-tests/forever-hyjal-factions-2026-10-27.json).
 
 - Scarlet Crusade banner v4 approved and installed 2026-10-27: smooth ivory pointed spikes on image-left shoulder only. Full game restart and native review pending. [Record](image-tests/scarlet-crusade-ivory-review-2026-10-27.json). Ancient Bone Bow, Annihilator (axe head upward) and Azuresong Mageblade also approved and installed 2026-10-27; full restart and native review pending.

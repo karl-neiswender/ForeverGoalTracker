@@ -5703,6 +5703,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     }
     -- Shared combat artwork for kills and duels on either faction.
     B.artVariants.social_buffs = {
+        {path="social_buffs_alliance-banner.blp", faction="Alliance", class="PRIEST", aspect=4/3, preprocessed=true},
+        {path="social_buffs_alliance-banner.blp", faction="Alliance", class="WARRIOR", aspect=4/3, preprocessed=true},
+        {path="social_buffs_alliance-banner.blp", faction="Alliance", class="SHAMAN", aspect=4/3, preprocessed=true},
+        {path="social_buffs_alliance-banner.blp", faction="Alliance", class="WARLOCK", aspect=4/3, preprocessed=true},
+        {path="social_buffs_alliance-banner.blp", faction="Alliance", class="HUNTER", aspect=4/3, preprocessed=true},
         {path="social_buffs_mage-banner.blp", class="MAGE", aspect=4/3, preprocessed=true},
         {path="social_buffs_druid-banner.blp", class="DRUID", aspect=4/3, preprocessed=true},
         {path="social_buffs_paladin-banner.blp", class="PALADIN", aspect=4/3, preprocessed=true},
@@ -14334,7 +14339,7 @@ end
 -- ============================================================
 do
 local SAVED = { "active", "activeParts", "progress", "favorites", "goalsDone", "goalDates", "selected", "tab", "targets",
-    "interests", "welcomeSeen" } -- the wizard scenes save interests on close
+    "interests", "welcomeSeen", "welcomeBackVersion" } -- the wizard scenes save interests on close
 
 -- scene extras that live outside the saved data: undo them between scenes
 local function ClearExtras()
@@ -14916,6 +14921,10 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         FGT.OpenWelcome(1) -- the welcome wizard again; your goals stay as they are
         return
     end
+    if msg == "welcome back" or msg == "welcomeback" then
+        FGT.OpenWelcome("back") -- what players with goals see after a feature update
+        return
+    end
     if msg == "stats" then
         -- Saves every statistic the game tracks (Forever's Statistics
         -- window: categories, stat IDs, names, values) into the saved
@@ -15111,8 +15120,10 @@ do -- scoped (200-local budget)
 -- ============================================================
 -- Pops over the darkened window the first time it opens, for everyone,
 -- once (DB.welcomeSeen; existing players see it after updating too).
---   1. Two choices: pick your own goals / get help (for players who
---      already track goals: keep my goals / help me find more).
+--   1. First load: the character's banner, a greeting and three ways in:
+--      Help me get started (or find more), Browse the Library, Plan my gear.
+--   "back": after a feature update (DB.welcomeBackVersion), players with
+--      goals get Welcome back: progress and the goals closest to done.
 --   2. What do you like to do? Six interests, pick any number.
 --   3. Goals to get started: suggestions for the logged-in character,
 --      ticked, then "Add N goals".
@@ -15676,6 +15687,178 @@ function W.TileMotion(t, elapsed)
     end
 end
 
+-- Welcome button icons, the same feel as the interest tiles: hover lifts
+-- the icon, grows it ~10% and tips it slightly; a click pops it. Full: all
+-- of it. Subtle: the glow only. Off: still. Idle buttons skip the work.
+function W.IconMotion(b, elapsed)
+    local motion = W.Motion()
+    local k = math.min(1, elapsed * 12)
+    local want = (motion == "full" and b.hover) and 1 or 0
+    local glowWant = (motion ~= "off" and b.hover) and 0.42 or 0.2
+    if not b.popT and math.abs(want - b.h) < 0.002 and math.abs(glowWant - b.g) < 0.002 then return end
+    b.h = b.h + (want - b.h) * k
+    b.g = b.g + (glowWant - b.g) * k
+    local pop, rot = 0, 0
+    if b.popT then
+        b.popT = b.popT + elapsed
+        if b.popT > 0.7 then
+            b.popT = nil
+        elseif motion == "full" then
+            local d = math.exp(-b.popT * 7)
+            pop = 0.16 * d * math.cos(b.popT * 18)
+            rot = 0.13 * d * math.sin(b.popT * 24)
+        end
+    end
+    local size = b.iconSize * (1 + (b.primary and 0.10 or 0.15) * b.h + pop) -- small icons grow more, so it reads
+    b.iconTex:SetSize(size, size)
+    b.iconTex:SetPoint("CENTER", b.slot, "CENTER", 0, 2 * b.h)
+    if b.iconTex.SetRotation then b.iconTex:SetRotation(rot - 0.09 * b.h) end
+    b.glow:SetVertexColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], b.g)
+end
+
+-- Welcome button looks: a calmer gold than rowSel (the comet already says
+-- "start here"), and dark outlines for the other two, one step quieter.
+local HERO_GOLD = { top = { 0.300, 0.228, 0.050 }, bottom = { 0.090, 0.066, 0.014 }, edge = { 0.86, 0.69, 0.12, 1 } }
+local HERO_GHOST = { top = { 0.062, 0.058, 0.052 }, bottom = { 0.030, 0.029, 0.027 }, edge = { 0.40, 0.35, 0.25, 1 } }
+
+-- A welcome button with an icon (Media/icons/<icon>.tga): primary is the
+-- big gold one with a line of description, the others a dark outline.
+local function HeroButton(parent, icon, iconSize, primary)
+    local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    Etch(b, primary and HERO_GOLD or HERO_GHOST, 12)
+    b.primary, b.iconSize, b.h, b.g = primary, iconSize, 0, 0.2
+    b.slot = CreateFrame("Frame", nil, b)
+    b.slot:SetSize(iconSize, iconSize)
+    b.slot:SetPoint("LEFT", b, "LEFT", primary and 18 or 12, 0)
+    b.glow = b:CreateTexture(nil, "ARTWORK", nil, 1)
+    b.glow:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\glow")
+    b.glow:SetBlendMode("ADD")
+    b.glow:SetSize(iconSize * 1.9, iconSize * 1.9)
+    b.glow:SetPoint("CENTER", b.slot, "CENTER", 0, 0)
+    b.glow:SetVertexColor(C.ACCENT[1], C.ACCENT[2], C.ACCENT[3], 0.2)
+    b.iconTex = b:CreateTexture(nil, "ARTWORK", nil, 2)
+    b.iconTex:SetTexture(FGT.Icon(icon))
+    b.iconTex:SetSize(iconSize, iconSize)
+    b.iconTex:SetPoint("CENTER", b.slot, "CENTER", 0, 0)
+    b.name = NewTitleString(b, primary and 17 or 13)
+    if primary then
+        -- name and description are placed as one block, centered on the button's height (ShowFirstLoad)
+        b.desc = NewFontString(b, 11, "", 0.85, 0.78, 0.60)
+        b.desc:SetPoint("TOPLEFT", b.name, "BOTTOMLEFT", 0, -4)
+    else
+        b.name:SetPoint("LEFT", b.slot, "RIGHT", 10, 0)
+        b.name:SetPoint("RIGHT", b, "RIGHT", -10, 0)
+        b.name:SetWordWrap(false)
+        b.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) -- quieter than the gold way in
+    end
+    b:SetScript("OnEnter", function(self)
+        self.hover = true
+        self:SetEtch(self.primary and STYLE.rowSel or STYLE.rowHover)
+        if not self.primary then self.name:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end
+    end)
+    b:SetScript("OnLeave", function(self)
+        self.hover = false
+        self:SetEtch(self.primary and HERO_GOLD or HERO_GHOST)
+        if not self.primary then self.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end
+    end)
+    b:SetScript("OnClick", function(self)
+        self.popT = 0
+        if self.onClick then self.onClick() end
+    end)
+    b:SetScript("OnUpdate", W.IconMotion)
+    return b
+end
+
+-- One "closest to done" row on the welcome-back screen: icon, name,
+-- percent, a thin bar and the next step. Forever goals keep their blue.
+local function BackRow(parent)
+    local r = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    r:SetHeight(50)
+    Etch(r, STYLE.row, 10)
+    r.icon = NewIcon(r, 36)
+    r.icon:SetPoint("LEFT", r, "LEFT", 10, 0)
+    r.name = NewFontString(r, 12, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    r.name:SetPoint("TOPLEFT", r, "TOPLEFT", 58, -8)
+    r.name:SetPoint("RIGHT", r, "RIGHT", -12, 0)
+    r.name:SetWordWrap(false)
+    r.pct = NewFontString(r, 12, "", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+    r.pct:SetPoint("RIGHT", r, "TOPRIGHT", -12, -26) -- level with its bar
+    r.barBg = r:CreateTexture(nil, "ARTWORK")
+    r.barBg:SetTexture(SOLID)
+    r.barBg:SetVertexColor(0, 0, 0, 0.85)
+    r.barBg:SetHeight(5)
+    r.barBg:SetPoint("TOPLEFT", r, "TOPLEFT", 58, -24)
+    r.barBg:SetPoint("RIGHT", r, "RIGHT", -56, 0)
+    r.bar = r:CreateTexture(nil, "ARTWORK", nil, 1)
+    r.bar:SetTexture(SOLID)
+    r.bar:SetHeight(5)
+    r.bar:SetPoint("TOPLEFT", r.barBg, "TOPLEFT", 0, 0)
+    r.next = NewFontString(r, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    r.next:SetPoint("TOPLEFT", r, "TOPLEFT", 58, -33)
+    r.next:SetPoint("RIGHT", r, "RIGHT", -12, 0)
+    r.next:SetWordWrap(false)
+    r:SetScript("OnEnter", function(self) self:SetEtch(self.forever and STYLE.fHover or STYLE.rowHover) end)
+    r:SetScript("OnLeave", function(self) self:SetEtch(self.forever and STYLE.fRow or STYLE.row) end)
+    r:SetScript("OnClick", function(self) W.OpenGoal(self.goal) end)
+    return r
+end
+
+function W.OpenGoal(goal)
+    FGT.CloseWelcome(true)
+    FGT.ShowTab("tracker")
+    if goal then FGT.SelectGoal(goal.id) end
+end
+
+-- path, aspect, preprocessed: as the goal page's banner resolver returns them
+function W.SetArt(path, aspect, preprocessed)
+    W.artPath, W.artAspect = path, aspect or 1
+    if not path then return end
+    W.art:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\" .. path)
+    W.art:SetDesaturated(not preprocessed)
+    local artist = FGT.goalBanner.artArtists[path]
+    local prefix = path == "set_tier1_rogue-alliance-banner.blp" and "Art by " or "Artwork by " -- as the goal page
+    W.credit:SetText(artist and (prefix .. artist) or "")
+end
+
+-- The art's strength (0 to 1 of its 45%): the reveal fades it in after the card
+local ART_ALPHA, WHITE = 0.45, { 1, 1, 1 }
+function W.SetArtAlpha(p)
+    ApplyHGradient(W.art, WHITE, WHITE, 0, ART_ALPHA * p)
+    W.credit:SetAlpha(0.6 * p) -- quieter than the goal page's, over brighter art
+end
+
+-- The clouds drift while a welcome screen with art is up: Full and Subtle
+-- image effects, as on the goal page; Off keeps them away.
+function W.Clouds(on)
+    local A = FGT.ambience
+    if A and A.Apply and W.clouds then A.Apply(W.clouds, FGT.EffectsLevel(), on and true or false, false) end
+end
+
+-- Sizes the art to the card: full height, up to 62% of the width, cropped
+-- to the source's proportions from its right edge (like the goal page).
+function W.LayoutArt(cw, ch)
+    local show = W.artPath ~= nil
+    W.art:SetShown(show)
+    W.artShade:SetShown(show)
+    W.artTop:SetShown(show)
+    W.credit:SetShown(show)
+    W.Clouds(show)
+    if not show then return end
+    local h = ch - 8
+    local w = math.min(math.floor(cw * 0.62), math.floor(h * W.artAspect))
+    W.art:ClearAllPoints()
+    W.art:SetPoint("TOPRIGHT", W.card, "TOPRIGHT", -4, -4)
+    W.art:SetSize(w, h)
+    -- alpha fade at the left edge, on top of the banner's own; it fades in
+    -- over about a second once the card has arrived, like goal page art
+    W.SetArtAlpha(0)
+    W.Tween("art", 1.1, function(p) W.SetArtAlpha(p * p * (3 - 2 * p)) end, nil, 0.25)
+    W.artShade:SetHeight(math.floor(ch * 0.5))
+    W.artTop:SetHeight(math.floor(ch * 0.22))
+    local ratio = math.min(1, (w / h) / W.artAspect)
+    W.art:SetTexCoord(1 - ratio, 1, 0, 1)
+end
+
 local ROW_H = 54
 
 local function Build()
@@ -15714,29 +15897,85 @@ local function Build()
     W.sub:SetPoint("TOP", W.title, "BOTTOM", 0, -10)
     W.sub:SetJustifyH("CENTER")
 
-    -- Step 1: two big choice cards
-    W.choices = {}
-    for i = 1, 2 do
-        local c = CreateFrame("Button", nil, card, "BackdropTemplate")
-        Etch(c, STYLE.row, 12)
-        c.icon = NewIcon(c, 40)
-        c.icon:SetPoint("TOP", c, "TOP", 0, -20)
-        c.name = NewTitleString(c, 14)
-        c.name:SetPoint("TOP", c.icon, "BOTTOM", 0, -12)
-        c.desc = NewFontString(c, 11, "", C.INK2[1], C.INK2[2], C.INK2[3])
-        c.desc:SetPoint("TOP", c.name, "BOTTOM", 0, -8)
-        c.desc:SetJustifyH("CENTER")
-        c:SetScript("OnEnter", function(self) self:SetEtch(STYLE.rowSel) end)
-        c:SetScript("OnLeave", function(self) self:SetEtch(STYLE.row) end)
-        c:SetScript("OnClick", function(self) if self.onClick then self.onClick() end end)
-        W.choices[i] = c
+    -- Banner art for the first-load and welcome-back screens (W.SetArt):
+    -- an approved goal banner on the right, faded into the card at its
+    -- left and bottom edges, with the goal page's slow clouds over it
+    -- (Ambience.lua), masked to the card and faded out toward the text.
+    W.art = card:CreateTexture(nil, "BACKGROUND", nil, 1)
+    W.artShade = card:CreateTexture(nil, "BACKGROUND", nil, 3)
+    W.artShade:SetTexture(SOLID)
+    W.artShade:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 4, 4)
+    W.artShade:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -4, 4)
+    ApplyVGradient(W.artShade, STYLE.window.bottom, STYLE.window.bottom, 0, 1)
+    -- a shorter shade under the gold top edge, so the art doesn't meet it hard
+    W.artTop = card:CreateTexture(nil, "BACKGROUND", nil, 3)
+    W.artTop:SetTexture(SOLID)
+    W.artTop:SetPoint("TOPLEFT", card, "TOPLEFT", 4, -4)
+    W.artTop:SetPoint("TOPRIGHT", card, "TOPRIGHT", -4, -4)
+    ApplyVGradient(W.artTop, STYLE.window.top, STYLE.window.top, 0.9, 0)
+    -- "Artwork by ...", as on the goal page, for banners with a verified artist
+    W.credit = NewFontString(card, 8, "", 0.48, 0.48, 0.48)
+    W.credit:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", -16, 10)
+    local A = FGT.ambience
+    -- The clouds start at the card's left edge, so no edge of theirs crosses the art; the
+    -- mask covers just the art and fades them in across it (clear at its left edge).
+    W.clouds = (A and A.Build) and A.Build(card, card, 2, 2) or {}
+    local mask = card.CreateMaskTexture and card:CreateMaskTexture()
+    if mask then
+        mask:SetTexture("Interface\\AddOns\\" .. ADDON .. "\\Media\\fade-left", "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+        mask:SetPoint("TOPLEFT", W.art, "TOPLEFT", 0, 0)
+        mask:SetPoint("BOTTOMRIGHT", W.art, "BOTTOMRIGHT", 0, 0)
     end
-    -- the suggested path: moving gold border and a label
-    local help = W.choices[2]
-    FGT.AddBorderComet(help, 2, 0.9)
-    help.tag = NewChip(help, 9)
-    help.tag:SetPoint("TOP", help.desc, "BOTTOM", 0, -12)
-    help.tag:SetLabel("RECOMMENDED", C.TITLE)
+    for _, l in ipairs(W.clouds) do
+        if mask then l.tex:AddMaskTexture(mask) end
+        if l.steady then l.tex:SetAlpha(0.09) end -- a touch stronger than the goal page's 5%
+    end
+
+    -- Shared text column of both screens
+    W.heroEyebrow = NewFontString(card, 11, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    W.heroTitle = NewTitleString(card, 28)
+    W.heroSub = NewFontString(card, 13, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    W.heroSub:SetSpacing(3)
+
+    -- First load (A): the suggested path big, with the gold comet; the
+    -- Library and Gear Planner as two smaller buttons
+    W.help = HeroButton(card, "help-get-started", 44, true)
+    FGT.AddBorderComet(W.help, 2, 0.9)
+    W.help.onClick = function() W.Show(2) end
+    -- sizes by the art's visible shape: the wide book a little bigger, the tall helm smaller
+    W.browse = HeroButton(card, "browse-goals", 33)
+    W.browse.onClick = function()
+        FGT.CloseWelcome(true)
+        FGT.ShowTab("library")
+    end
+    W.gear = HeroButton(card, "plan-my-gear-helm", 28)
+    W.gear.name:SetText("Plan my gear")
+    W.gear.onClick = function()
+        FGT.CloseWelcome(true)
+        FGT.ShowTab("gear")
+    end
+
+    -- Welcome back (E): overall progress, the goals closest to done,
+    -- Keep going (comet) and Find my next goal
+    W.backLabel = NewFontString(card, 11, "", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+    W.backLabel:SetText("Closest to done")
+    W.backRows = {}
+    for i = 1, 3 do W.backRows[i] = BackRow(card) end
+    W.keep = Button(card, "Keep going", true)
+    W.keep:SetHeight(34)
+    FGT.AddBorderComet(W.keep, 2, 0.9)
+    W.keep.onClick = function() W.OpenGoal(W.closest and W.closest[1] and W.closest[1].goal) end
+    W.findNext = Button(card, "Find my next goal", false)
+    W.findNext:SetHeight(34)
+    W.findNext.onClick = function()
+        -- the same as "Find your next goal" under My Goals, without closing first
+        W.find = true
+        W.picked = {}
+        for k, v in pairs(ForeverGoalTrackerDB.interests or {}) do W.picked[k] = v end
+        W.Show(next(W.picked) and 3 or 2)
+    end
+    W.heroParts = { W.art, W.artShade, W.artTop, W.credit, W.heroEyebrow, W.heroTitle, W.heroSub,
+        W.help, W.browse, W.gear, W.backLabel, W.keep, W.findNext }
 
     -- Step 2: interest tiles
     W.tiles = {}
@@ -15930,24 +16169,188 @@ local function FillRows(me)
     W.scroll:Update()
 end
 
--- Shows one step. The card is at most 640 x 520 and shrinks with the window.
+-- First load (step 1): the character's leveling banner, a greeting and
+-- the three ways in, as one column centered on the card's height.
+local function ShowFirstLoad(cw, ch, me, who)
+    local n = #ActiveGoals()
+    local name = UnitName("player") or ""
+    W.SetArt(FGT.goalBanner:ResolveArt("allclasses"))
+    W.LayoutArt(cw, ch)
+    local colW = math.floor(cw * 0.44) -- room between the buttons and the art's figure
+    -- the level only once it says something (a new character is level 1)
+    W.heroEyebrow:SetText(me.level >= 10 and string.format("%s · Level %d", who, me.level) or who)
+    W.heroTitle:SetText(string.format(n > 0 and "Welcome back, %s!" or "Welcome, %s!", name))
+    W.heroSub:SetWidth(colW)
+    W.heroSub:SetText("Forever Goal Tracker keeps your long-term goals in one place and checks off steps as you play.")
+    W.help.name:SetText(n > 0 and "Help me find more" or "Help me get started")
+    W.help.desc:SetText("Tell us what you enjoy and get goals picked for your " .. who .. ".")
+    W.browse.name:SetText(string.format("Browse %d goals", FGT.CatalogGoalCount()))
+    local helpH, smallH, smallW = 78, 46, math.floor((colW - 10) / 2)
+    local subH = math.ceil(W.heroSub:GetStringHeight())
+    local total = 12 + 8 + 30 + 12 + subH + 26 + helpH + 10 + smallH
+    -- optical center: a little above the true middle, which reads as centered
+    local x, y = 44, math.max(24, math.floor((ch - total) / 2) - 12)
+    W.heroEyebrow:ClearAllPoints()
+    W.heroEyebrow:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    y = y + 12 + 8
+    W.heroTitle:ClearAllPoints()
+    W.heroTitle:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    y = y + 30 + 12
+    W.heroSub:ClearAllPoints()
+    W.heroSub:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    y = y + subH + 26
+    W.help:ClearAllPoints()
+    W.help:SetSize(colW, helpH)
+    W.help:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    -- the title and its line of description centered together on the button's height
+    local textX = 18 + W.help.iconSize + 16
+    W.help.desc:SetWidth(colW - textX - 16)
+    local block = math.ceil(W.help.name:GetStringHeight()) + 4 + math.ceil(W.help.desc:GetStringHeight())
+    W.help.name:ClearAllPoints()
+    W.help.name:SetPoint("TOPLEFT", W.help, "TOPLEFT", textX, -math.floor((helpH - block) / 2))
+    y = y + helpH + 10
+    W.browse:ClearAllPoints()
+    W.browse:SetSize(smallW, smallH)
+    W.browse:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    W.gear:ClearAllPoints()
+    W.gear:SetSize(smallW, smallH)
+    W.gear:SetPoint("TOPLEFT", W.browse, "TOPRIGHT", 10, 0)
+    local items = { W.heroEyebrow, W.heroTitle, W.heroSub, W.help, W.browse, W.gear }
+    for _, f in ipairs(items) do f:Show() end
+    W.Enter(items)
+end
+
+-- Welcome back (after a feature update): overall progress and the three
+-- goals closest to done, over the closest goal's own banner.
+local function ShowWelcomeBack(cw, ch)
+    local list = {}
+    for _, g in ipairs(ActiveGoals()) do
+        local f = FGT.GoalFraction(g)
+        if f < 1 then table.insert(list, { goal = g, f = f }) end
+    end
+    table.sort(list, function(a, b)
+        if a.f ~= b.f then return a.f > b.f end
+        return (a.goal.name or "") < (b.goal.name or "")
+    end)
+    W.closest = list
+    -- art: the first of the listed goals that has a banner, else the character's
+    local path, aspect, pre
+    for i = 1, math.min(3, #list) do
+        path, aspect, pre = FGT.goalBanner:ResolveArt(list[i].goal.id)
+        if path then break end
+    end
+    if not path then path, aspect, pre = FGT.goalBanner:ResolveArt("allclasses") end
+    W.SetArt(path, aspect, pre)
+    W.LayoutArt(cw, ch)
+
+    local colW = math.floor(cw * 0.55)
+    local total, complete = #ActiveGoals(), CountGoalsComplete()
+    local d, t = OverallProgress()
+    W.heroTitle:SetText(string.format("Welcome back, %s!", UnitName("player") or ""))
+    W.heroSub:SetWidth(colW)
+    -- nothing started yet: no report card of zeros
+    local started = complete > 0 or (list[1] and list[1].f > 0)
+    W.backLabel:SetText(started and "Closest to done" or "Up next")
+    if total == 0 then
+        W.heroSub:SetText("Nothing on My Goals yet. Find something to chase.")
+    elseif not started then
+        W.heroSub:SetText(string.format("%d goal%s on My Goals", total, total == 1 and "" or "s"))
+    else
+        W.heroSub:SetText(string.format("%d of %d goal%s complete  ·  %d%% overall", complete, total,
+            total == 1 and "" or "s", t > 0 and math.floor(d / t * 100) or 0))
+    end
+    local rows = math.min(3, #list)
+    local rowH, gap = 50, 8
+    local subH = math.ceil(W.heroSub:GetStringHeight())
+    local listH = rows > 0 and (14 + 10 + rows * rowH + (rows - 1) * gap + 24) or 24
+    local sum = 30 + 10 + subH + 24 + listH + 34
+    local x, y = 44, math.max(24, math.floor((ch - sum) / 2))
+    W.heroTitle:ClearAllPoints()
+    W.heroTitle:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    y = y + 30 + 10
+    W.heroSub:ClearAllPoints()
+    W.heroSub:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    y = y + subH + 24
+    local items = { W.heroTitle, W.heroSub }
+    if rows > 0 then
+        W.backLabel:ClearAllPoints()
+        W.backLabel:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+        table.insert(items, W.backLabel)
+        y = y + 14 + 10
+    end
+    for i, r in ipairs(W.backRows) do
+        local e = list[i]
+        if i <= rows then
+            local g = e.goal
+            r.goal = g
+            r.forever = FGT.ForeverWord(g) ~= nil
+            r:SetEtch(r.forever and STYLE.fRow or STYLE.row)
+            r.icon:SetIcon(g.icon, r.forever and C.FOREVER or C.GOLD2)
+            r.name:SetText(g.name)
+            r.pct:SetText(math.floor(e.f * 100) .. "%")
+            r:ClearAllPoints()
+            r:SetSize(colW, rowH)
+            r:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+            -- at 0% only the dark track: a sliver reads as a glitch
+            r.bar:SetWidth(math.max(1, (colW - 114) * e.f))
+            r.bar:SetShown(e.f > 0)
+            if r.forever then
+                ApplyHGradient(r.bar, C.FOREVER_DEEP, C.FOREVER, 1, 1)
+            else
+                ApplyHGradient(r.bar, { 0.42, 0.31, 0.05 }, C.TITLE, 1, 1)
+            end
+            -- plain text: links and markers can't be used from here (Karl)
+            local step = FGT.NextStep(g)
+            if step then
+                step = step:gsub("|H.-|h(.-)|h", "%1"):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+                    :gsub("|T.-|t", ""):gsub("|A.-|a", ""):gsub("%[(.-)%]", "%1"):gsub("^%s+", "")
+            end
+            r.next:SetText(step and ("Next: " .. step) or "")
+            r:Show()
+            table.insert(items, r)
+            y = y + rowH + gap
+        else
+            r:Hide()
+        end
+    end
+    if rows > 0 then y = y - gap + 24 end
+    -- the same width, so Keep going doesn't look like the lesser choice
+    W.keep:SetLabel("Keep going"); W.findNext:SetLabel("Find my next goal")
+    local bw = math.max(W.keep:GetWidth(), W.findNext:GetWidth())
+    W.keep:SetWidth(bw); W.findNext:SetWidth(bw)
+    W.keep:ClearAllPoints()
+    W.keep:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    W.keep:SetShown(rows > 0)
+    W.findNext:ClearAllPoints()
+    if rows > 0 then
+        W.findNext:SetPoint("LEFT", W.keep, "RIGHT", 10, 0)
+        table.insert(items, W.keep)
+    else
+        W.findNext:SetPoint("TOPLEFT", W.card, "TOPLEFT", x, -y)
+    end
+    table.insert(items, W.findNext)
+    W.heroTitle:Show(); W.heroSub:Show(); W.backLabel:SetShown(rows > 0); W.findNext:Show()
+    W.Enter(items)
+end
+
+-- Shows one step: 1 (first load), "back" (welcome back), 2 (interests) or
+-- 3 (suggestions). The card shrinks with the window.
 function W.Show(step)
     Build()
     W.step = step
     local mw, mh = main:GetWidth(), main:GetHeight()
-    local cw = math.min(step == 2 and 720 or 640, mw - 40) -- step 2: room for six tiles
-    local ch = (step == 3) and math.min(520, mh - 40) or math.min(330, mh - 40)
-    W.sub:SetWidth(cw - 60)
-    if step == 1 then
-        -- just tall enough: title, intro line, the cards
-        W.sub:SetText("Forever Goal Tracker keeps your long-term goals in one place and checks off steps as you play.")
-        ch = math.min(26 + 26 + 10 + math.ceil(W.sub:GetStringHeight()) + 24 + 170 + 26, mh - 40)
-    end
+    local hero = step == 1 or step == "back"
+    local cw = math.min(hero and 900 or (step == 2 and 720 or 640), mw - 40) -- step 2: room for six tiles
+    local ch = math.min(hero and 440 or (step == 3 and 520 or 330), mh - 40)
     W.card:ClearAllPoints()
     W.card:SetSize(cw, ch)
     W.card:SetPoint("CENTER", W.frame, "CENTER", 0, 0)
 
-    for _, c in ipairs(W.choices) do c:Hide() end
+    for _, f in ipairs(W.heroParts) do f:Hide() end
+    W.Clouds(false)
+    for _, r in ipairs(W.backRows) do r:Hide() end
+    W.title:SetShown(not hero)
+    W.sub:SetShown(not hero)
     for _, t in ipairs(W.tiles) do t:Hide() end
     for _, r in ipairs(W.rows) do r:Hide() end
     W.scroll.scroll:Hide()
@@ -15960,40 +16363,9 @@ function W.Show(step)
     local me = Me()
     local who = me.raceName .. " " .. me.className
     if step == 1 then
-        local n = #ActiveGoals()
-        W.title:SetText(n > 0 and "Welcome back!" or "Welcome!")
-        W.sub:SetText("Forever Goal Tracker keeps your long-term goals in one place and checks off steps as you play.")
-        local gap = 16
-        local w = math.floor((cw - 48 - gap) / 2)
-        local own, help = W.choices[1], W.choices[2]
-        for i, c in ipairs(W.choices) do
-            c:SetSize(w, 170)
-            c:ClearAllPoints()
-            c:SetPoint("TOPLEFT", W.sub, "BOTTOM", -(cw - 48) / 2 + (i - 1) * (w + gap), -24)
-            c.desc:SetWidth(w - 30)
-            c:SetEtch(STYLE.row)
-            c:Show()
-        end
-        if n > 0 then
-            own.icon:SetIcon({ "inv_misc_book_09", "inv_misc_book_07" })
-            own.name:SetText("Keep my goals")
-            own.desc:SetText(string.format("Carry on with the %d goal%s on your tracker.", n, n == 1 and "" or "s"))
-            own.onClick = function() FGT.CloseWelcome() end
-            help.name:SetText("Help me find more")
-        else
-            own.icon:SetIcon({ "inv_misc_book_09", "inv_misc_book_07" })
-            own.name:SetText("I'll pick my own")
-            own.desc:SetText(string.format("Browse all %d goals in the Goal Library.", FGT.CatalogGoalCount()))
-            own.onClick = function()
-                FGT.CloseWelcome(true)
-                FGT.ShowTab("library")
-            end
-            help.name:SetText("Help me get started")
-        end
-        help.icon:SetIcon({ "inv_misc_map_01", "inv_misc_map02" })
-        help.desc:SetText("Tell us what you enjoy and get goals picked for your " .. who .. ".")
-        help.onClick = function() W.Show(2) end
-        W.Enter(W.choices)
+        ShowFirstLoad(cw, ch, me, who)
+    elseif step == "back" then
+        ShowWelcomeBack(cw, ch)
     elseif step == 2 then
         W.title:SetText("What interests you?")
         W.sub:SetText("Pick as many as you like.")
@@ -16134,7 +16506,7 @@ function FGT.CloseWelcome(instant)
     W.closing = nil
     W.Tween("open", nil)
     W.Tween("close", nil)
-    if W.frame then W.frame:Hide() end
+    if W.frame then W.frame:Hide(); W.Clouds(false) end
     W.Grey(false)
     if ForeverGoalTrackerDB and next(W.picked) then
         local keep = {}
@@ -16296,11 +16668,26 @@ end
 -- Escape (or any close of the window) closes the wizard for good.
 main:HookScript("OnHide", function() if W.frame and W.frame:IsShown() then FGT.CloseWelcome(true) end end)
 
--- First time the window opens (fresh installs and updates alike).
+-- The release's feature version ("2.16" for 2.16.x): patches don't count.
+function W.FeatureVersion()
+    local getMeta = (C_AddOns and C_AddOns.GetAddOnMetadata) or rawget(_G, "GetAddOnMetadata")
+    local version = getMeta and getMeta(ADDON, "Version")
+    return version and version:match("^(%d+%.%d+)")
+end
+
+-- First time the window opens: the first-load welcome. After that, once
+-- per feature release (2.17, not 2.16.1), welcome back for players with
+-- goals (DB.welcomeBackVersion). A new player doesn't get both.
 main:HookScript("OnShow", function()
     local DB = ForeverGoalTrackerDB
-    if DB and not DB.welcomeSeen and not DB.demoBackup and not (W.frame and W.frame:IsShown()) then
+    if not DB or DB.demoBackup or (W.frame and W.frame:IsShown()) then return end
+    local feature = W.FeatureVersion()
+    if not DB.welcomeSeen then
+        DB.welcomeBackVersion = feature
         FGT.OpenWelcome(1)
+    elseif feature and DB.welcomeBackVersion ~= feature then
+        DB.welcomeBackVersion = feature
+        if #ActiveGoals() > 0 then FGT.OpenWelcome("back") end
     end
 end)
 end

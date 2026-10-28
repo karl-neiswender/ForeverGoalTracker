@@ -314,6 +314,18 @@ if ok_all:
             'ForeverGoalTrackerDB.interests = { raid = true, loot = true }; STUB_NS.OpenWelcome(nil, true); '
             'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" }) .. (e.tracked and "  [TRACKED: wrong]" or "")) end; '
             'STUB_NS.CloseWelcome(true)'),
+        # First load and welcome back: art, greeting, the closest goals.
+        ("welcome first load and welcome back", None,
+            'STUB_PRINTS = {}; local W = STUB_NS.welcome; STUB_NS.OpenWelcome(1); '
+            'assert(W.step == 1 and W.gear.name:GetText() == "Plan my gear", "first load shows its three buttons"); '
+            'assert(W.artPath, "first load has banner art"); '
+            'print("  first load: " .. W.heroTitle:GetText() .. " / " .. W.help.name:GetText() .. " / art " .. W.artPath); '
+            'STUB_NS.CloseWelcome(true); local D = ForeverGoalTrackerDB; D.active.thunderfury = true; '
+            'STUB_NS.OpenWelcome("back"); assert(W.step == "back" and #W.closest > 0, "welcome back lists the closest goals"); '
+            'for i = 1, math.min(3, #W.closest) do local r = W.backRows[i]; local nx = r.next:GetText(); assert(not nx:find("|", 1, true), "next step is plain text"); print("  closest " .. i .. ": " .. r.name:GetText() .. " " .. r.pct:GetText() .. " / " .. nx) end; '
+            'print("  welcome back: " .. W.heroSub:GetText() .. " / art " .. tostring(W.artPath)); '
+            'W.findNext.onClick(); STUB_NS.CloseWelcome(true); '
+            'D.welcomeSeen, D.welcomeBackVersion = true, "0.1"; print("  feature version " .. tostring(W.FeatureVersion()))'),
         # Profession-aware suggestions: Fishing goals only for a character who
         # knows Fishing; secondary skills offered only when known.
         ("suggestions follow professions", None,
