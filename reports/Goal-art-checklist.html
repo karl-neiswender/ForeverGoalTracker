@@ -2816,11 +2816,11 @@ function raceGrid() {
       var a = rcPick(race, c), am = rcPick(race, c, "m"), af = rcPick(race, c, "f");
       n[a.st]++;
       var combo = race.name + " " + c + (isNew ? " (Forever)" : "");
+      // by the image each sex actually gets: a male-only image (Gnome Warrior) leaves women on another image
       if (!am.k) sx.none.push(combo);
-      else if (am.split || af.split) sx.split.push(combo);
+      else if (!am.other && !af.other) (am.k !== af.k ? sx.split : sx.both).push(combo);
       else if (am.other) sx.fOnly.push(combo);
-      else if (af.other) sx.mOnly.push(combo);
-      else sx.both.push(combo);
+      else sx.mOnly.push(combo);
       if (isNew) fnew.push({ race: race.name, cls: c, st: a.st });
       if (a.st === "need") (needed[c] = needed[c] || []).push(race.name + (isNew ? " (Forever)" : ""));
       html += '<td class="s sx' + (isNew ? " fo" : "") + '">' + half(am, "M", "Male") + half(af, "F", "Female") + "</td>";
@@ -2834,9 +2834,9 @@ function raceGrid() {
     '<span><span class="hx done own key">M</span>gold rule: its own male or female image</span>' +
     '<span><span class="hx done alt key">F</span>dashed: uses an image of the other sex</span></div>';
   html += '<div class="rc-sum sxs"><strong>Male and female art</strong> (each combo above is split M and F)<ul>' +
-    "<li><strong>Own image for each (" + sx.split.length + "):</strong> " + sx.split.map(esc).join(", ") + "</li>" +
-    "<li><strong>Male image only, women use it (" + sx.mOnly.length + "):</strong> " + sx.mOnly.map(esc).join(", ") + "</li>" +
-    "<li><strong>Female image only, men use it (" + sx.fOnly.length + "):</strong> " + sx.fOnly.map(esc).join(", ") + "</li>" +
+    "<li><strong>An image of each sex (" + sx.split.length + "):</strong> " + sx.split.map(esc).join(", ") + "</li>" +
+    "<li><strong>Male image only, women use one of a man (" + sx.mOnly.length + "):</strong> " + sx.mOnly.map(esc).join(", ") + "</li>" +
+    "<li><strong>Female image only, men use one of a woman (" + sx.fOnly.length + "):</strong> " + sx.fOnly.map(esc).join(", ") + "</li>" +
     (sx.both.length ? "<li><strong>One image showing both (" + sx.both.length + "):</strong> " + sx.both.map(esc).join(", ") + "</li>" : "") +
     "<li><strong>No image yet (" + sx.none.length + "):</strong> " + sx.none.map(esc).join(", ") + "</li></ul></div>";
   var total = n.need + n.borrow + n.share + n.done;
