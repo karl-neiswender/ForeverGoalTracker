@@ -946,6 +946,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 22798, checked 2026-10-28: epic Bind on Pickup two-hand mace, item level 89,
+        -- requires level 60, 289 to 435 damage, +20 Strength, +46 Stamina, equip: +2% critical strike.
+        -- Dropped by Kel'Thuzad in Naxxramas, 2 in 10 kills on Wowhead (a sample of 10; GearSources agrees,
+        -- so no rate is given). Not in Forever's tables yet, so not marked confirmed.
+        id = "might_of_menethil", library = true, itemQuality = 4, instance = { 533, "Naxxramas" },
+        icon = "inv_mace_25",
+        name = "Might of Menethil",
+        short = "Might of Menethil",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed mace dropped by Kel'Thuzad in Naxxramas.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Might of Menethil from Kel'Thuzad in Naxxramas.", auto = { item = 22798, owned = { "Might of Menethil" } } },
+        },
+        completeWith = { item = 22798, owned = { "Might of Menethil" } },
+        tips = {
+            "Defeat Kel'Thuzad, the last boss of {raid_naxx:Naxxramas}, for a chance at {item:22798:Might of Menethil}.",
+            "It binds when picked up. It adds 20 Strength, 46 Stamina and 2% critical strike.",
+            "Warriors, Paladins, Shamans and Druids can use a two-handed mace. Learn Two-Handed Maces before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 18534, checked 2026-10-25: rare (blue) Bind on Pickup two-hand staff, item level
         -- 63, requires level 58, +11 Stamina, +14 Intellect, +7 Spirit, equip: +1% spell crit and +23 spell
         -- power. Wowhead lists Mizzle the Crafty (no drop chance) and the Gordok Tribute chest (1 of 8
@@ -1091,6 +1115,35 @@ local library = {
             "Defeat Ossirian the Unscarred, the last boss of the {raid_aq20:Ruins of Ahn'Qiraj}, for a chance at {item:21452:Staff of the Ruins}.",
             "It binds when picked up. It adds 24 Stamina, 23 Intellect, 14 Spirit, 60 spell power, 1% spell crit and 1% spell hit.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 9372, checked 2026-10-28: epic Bind on Pickup, Unique two-hand sword, item level
+        -- 55, requires level 50, 108 to 163 damage, chance on hit: -15 Strength and 90 to 210 Shadow damage plus
+        -- 125 over 15 sec. Created by Call of Sul'thraze, the Use of Jang'thraze the Protector (11086, Chief Ukorz
+        -- Sandscalp, 10 of 60 kills on Wowhead) with Sang'thraze the Deflector (9379, Antu'sul, 14 of 97); both
+        -- are Bind on Pickup and GearSources agrees on the bosses. The halves are used up when combined, so
+        -- their steps also accept the finished sword. Not in Forever's tables yet, so not marked confirmed.
+        id = "sulthraze", library = true, itemQuality = 4, instance = { 209, "Zul'Farrak" },
+        icon = "inv_sword_40",
+        name = "Sul'thraze the Lasher",
+        short = "Sul'thraze",
+        category = "Epic Weapon", difficulty = "Moderate",
+        timeEstimate = "Varies",
+        note = "A two-handed sword forged from two blades dropped in Zul'Farrak.",
+        steps = {
+            { text = "Reach level 50.", auto = { level = 50 } },
+            { text = "Loot Sang'thraze the Deflector from Antu'sul in Zul'Farrak.", auto = { item = { 9379, 9372 }, owned = { "Sang'thraze the Deflector", "Sul'thraze the Lasher" } } },
+            { text = "Loot Jang'thraze the Protector from Chief Ukorz Sandscalp in Zul'Farrak.", auto = { item = { 11086, 9372 }, owned = { "Jang'thraze the Protector", "Sul'thraze the Lasher" } } },
+            { text = "Use Jang'thraze to combine the two blades into Sul'thraze the Lasher.", auto = { item = 9372, owned = { "Sul'thraze the Lasher" } } },
+        },
+        completeWith = { item = 9372, owned = { "Sul'thraze the Lasher" } },
+        tips = {
+            "Both blades drop in {map:zf:Zul'Farrak}: {item:9379:Sang'thraze the Deflector} from Antu'sul (about 1 kill in 7) and {item:11086:Jang'thraze the Protector} from Chief Ukorz Sandscalp, the last boss (about 1 in 6).",
+            "Both bind when picked up, so the same character has to loot both. Keep them in your bags, then use Jang'thraze.",
+            "It binds when picked up and is Unique. Its chance on hit lowers the target's Strength by 15 and deals 90 to 210 Shadow damage, plus 125 more over 15 seconds.",
+            "Warriors, Paladins and Hunters can use a two-handed sword. Learn Two-Handed Swords before equipping it.",
         },
     },
 
@@ -1452,6 +1505,33 @@ local library = {
             "It costs about 125 gold 66 silver. Alliance buy it from Thanthaldis Snowgleam outside Alterac Valley or Gaelden Hammersmith inside. Horde buy it from Jekyll Flandring outside or Grunnda Wolfheart inside.",
             "It binds when picked up and is Unique. Its chance on hit deals 200 to 300 damage and lowers the target's Intellect by 25 for 30 seconds. Forever changed its numbers, so check the tooltip there.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 19323, checked 2026-10-28: epic Bind on Pickup, Unique two-hand mace, item level
+        -- 65, requires level 60, 175 to 292 damage, +19 Strength, +15 Stamina, equip: +2% critical strike,
+        -- chance on hit: stuns for 1 sec. Sold by the same four Alterac Valley supply officers (156 gold 49
+        -- silver). Exalted is from memory, so verify in game. Forever's tables list an updated version (item
+        -- level 60, requires level 55, +18 Strength, +17 Stamina).
+        id = "unstoppable_force", library = true, itemQuality = 4,
+        icon = "inv_hammer_13",
+        name = "The Unstoppable Force",
+        short = "Unstoppable Force",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "1-2 Months",
+        note = "A two-handed mace bought with gold from the Alterac Valley supply officer, once you are Exalted.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Reach Exalted with the {pvp_av_alliance:Stormpike Guard} or {pvp_av_horde:Frostwolf Clan}.", auto = { rep = { faction = { 730, 729 }, standing = 8 } } },
+            { text = "Buy The Unstoppable Force from your faction's Alterac Valley supply officer.", auto = { item = 19323, owned = { "The Unstoppable Force" } } },
+        },
+        completeWith = { item = 19323, owned = { "The Unstoppable Force" } },
+        tips = {
+            "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn reputation.",
+            "It costs about 156 gold 49 silver. Alliance buy it from Thanthaldis Snowgleam outside Alterac Valley or Gaelden Hammersmith inside. Horde buy it from Jekyll Flandring outside or Grunnda Wolfheart inside.",
+            "It binds when picked up and is Unique. It adds 19 Strength, 15 Stamina and 2% critical strike, and its chance on hit stuns the target for 1 second. Forever changed its numbers, so check the tooltip there.",
+            "Warriors, Paladins, Shamans and Druids can use a two-handed mace. Learn Two-Handed Maces before equipping it.",
         },
     },
 
