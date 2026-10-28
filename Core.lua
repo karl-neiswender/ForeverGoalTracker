@@ -4382,6 +4382,8 @@ function FGT.StyleGoalRow(row)
     row.icon:ClearAllPoints()
     row.icon:SetPoint("TOPLEFT", row, "TOPLEFT", 10, compact and -8 or -11)
     row.bigCheck:SetScale(size / 50)
+    -- the faction mark a little smaller on the slimmer card (Karl, 2026-10-28; same crop, scaled)
+    if row.factionWatermark then row.factionWatermark:SetSize(compact and 62 or 73, compact and 56 or 66) end
     row.name:ClearAllPoints(); row.eyebrow:ClearAllPoints(); row.bar:ClearAllPoints()
     -- a step smaller on compact cards (Karl's in-game review, 2026-10-28)
     FGT.RegisterFont(row.name, "body", compact and 12 or 13, "", true)
