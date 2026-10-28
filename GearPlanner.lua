@@ -2826,7 +2826,7 @@ end
 WI.frame = CreateFrame("Frame", nil, P, "BackdropTemplate")
 WI.frame:SetWidth(420); WI.frame:SetPoint("CENTER", right, "CENTER", 0, 40)
 -- the window and the welcome card share one timeline (WI.Go, further down)
-WI.FADE, WI.RISE, WI.Y = 0.45, 6, 40
+WI.FADE, WI.RISE, WI.Y = 0.45, 6, 0 -- dead center of the stage (Karl, 2026-10-28)
 WI.CARD_OUT, WI.CARD_LEAD = 0.55, 0.3 -- the card's share of the timeline; where the window starts
 WI.frame:SetFrameLevel(header:GetFrameLevel() + 40); WI.frame:EnableMouse(true)
 U.etch(WI.frame, styles.panel); WI.frame:Hide()
@@ -3044,7 +3044,8 @@ function ES.Layout()
         end
     end
     ES.card:SetHeight(y + 14)
-    ES.card:ClearAllPoints(); ES.card:SetPoint("LEFT", right, "LEFT", 36, 10)
+    -- pinned to the stage's bottom-left corner, the same gap from both edges (Karl, 2026-10-28)
+    ES.card:ClearAllPoints(); ES.card:SetPoint("BOTTOMLEFT", right, "BOTTOMLEFT", 36, 36)
 end
 -- The scene for the welcome: the character in their own gear, once per visit to the empty state.
 function ES.Scene()
