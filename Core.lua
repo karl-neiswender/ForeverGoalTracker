@@ -5738,7 +5738,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="epicmounts_troll-banner.blp", faction="Horde", race="Troll", part=8},
             {path="epicmounts_tauren-banner.blp", faction="Horde", race="Tauren", part=6},
             {path="epicmounts_undead-banner.blp", faction="Horde", race="Scourge", part=7},
-            {path="epicmounts_skyborne-banner.blp", faction="Alliance", race="Skyborne", part=9},
+            {path="epicmounts_skyborne-banner.blp", faction="Alliance", race="Skyborne", part=9, aspect=4/3, preprocessed=true},
         },
     }
     -- Approved faction-specific plate art, shared by each collection's class goals.

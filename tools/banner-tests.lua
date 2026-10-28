@@ -471,7 +471,7 @@ do
     race, class, faction = "Dwarf", "WARRIOR", "Alliance"
     assert(B:ArtPath("allclasses")=="allclasses_dwarf_warrior-banner.blp", "dedicated dwarf warrior is more specific than Alliance warrior")
     race = "Skyborne"
-    assert(B:ArtPath("epicmounts")=="epicmounts_skyborne-banner.blp", "Skyborne gets approved island location")
+    assert(B:ArtPath("epicmounts")=="epicmounts_skyborne-banner.blp", "Skyborne gets approved mount illustration")
     race = "UnknownRace"
     D.activeParts.epicmounts = {[2]=true}
     assert(B:ArtPath("epicmounts")=="epicmounts_dwarf-banner.blp", "missing race art can use sole same-faction selected mount")

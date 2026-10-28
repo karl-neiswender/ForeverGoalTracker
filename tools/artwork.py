@@ -217,7 +217,7 @@ FINAL_BANNERS = {
     "allclasses_tauren_warrior": "allclasses_tauren_warrior-master.png",
     "allclasses_alliance_warlock": "allclasses_alliance_warlock-master.png",
     "allclasses_horde_druid": "allclasses_horde_druid-master.png",
-    "epicmounts_skyborne": "mounts/skyborne-location.jpg",
+    "epicmounts_skyborne": "mounts/skyborne-mount-master.png",
     "key_dm": "additional-goals/key_dm.jpg",
     "allclasses_undead_paladin": "leveling/undead-paladin.jpg",
     "allclasses_troll_mage": "leveling/troll-mage.jpg",
