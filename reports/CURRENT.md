@@ -116,8 +116,19 @@ its October 21 notes.
   Hide completed fold under it (`R:SetFilters`, saved as `DB.listFiltersOpen`, folded by default, 0.22 s ease in
   Full). Header height: HEAD_SHUT 32, HEAD_OPEN 130; the rail keeps HEAD 104 (folding the list now also eases the
   cards' top). The rail's filter card always shows every control. Native review pending.
+- Goal card density (2026-10-28, PC, Claude, uncommitted): Settings > My Goals list > Goal cards (`cardDensity`,
+  "comfortable" default or "compact"; Karl chose Settings over the Filters bar). `FGT.StyleGoalRow` lays a card out:
+  compact is 48 tall (`FGT.ROW_H_COMPACT`), 32px icon, name, then the label with " · N%", the bar a 4px line on the
+  card's bottom. Both: no empty bar before a goal starts (comfortable shows "Not started"), the faction watermark only
+  on the selected or hovered card. Rail.lua `R:Density` narrows the folded rail to 80 for compact. No automatic tip
+  (Karl: Compact is about height, the rail about width); announce it in What's new. Native review pending.
 - New Library goals (2026-10-28, PC, uncommitted): `unstoppable_force` (AV Exalted, unverified in game),
-  `might_of_menethil` (Kel'Thuzad), `sulthraze` (Zul'Farrak, combine step). No banner art yet.
+  `might_of_menethil` (Kel'Thuzad), `sulthraze` (Zul'Farrak, combine step).
+- Five weapon banners approved and installed 2026-10-28: Might of Menethil, Sul'thraze,
+  Fiery War Axe, Vis'kag the Bloodletter (Karl chose the first review with the person),
+  and The Unstoppable Force. Masters, BLPs, resolver, manifest and artwork checklist
+  updated and synced to Era. Offline checks pass; full game restart and native visual review pending.
+  [Record](image-tests/five-weapons-review-2026-10-28.md).
 
 - Empty My Goals redesign (2026-10-27, PC, Claude, committed, unreleased): the leather book and cobwebs
   are gone. Right panel: the character's `allclasses` banner at 45% (as the welcome hero), left-aligned

@@ -14,6 +14,15 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "core_hound_tooth": "core-hound-tooth-master.png",
+    "bloodseeker": "bloodseeker-master.png",
+    "blackcrow": "blackcrow-master.png",
+    "brutality_blade": "brutality-blade-master.png",
+    "might_of_menethil": "might-of-menethil-master.png",
+    "sulthraze": "sulthraze-master.png",
+    "fiery_war_axe": "fiery-war-axe-master.png",
+    "viskag": "viskag-bloodletter-master.png",
+    "unstoppable_force": "unstoppable-force-master.png",
     "set_forever_raid_alliance": "set_forever_raid-master.png",
     "set_forever_raid_horde": "forever-hyjal-horde-master.png",
     "ancient_bone_bow": "ancient-bone-bow-master.png",

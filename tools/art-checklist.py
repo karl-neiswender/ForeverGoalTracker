@@ -46,7 +46,7 @@ def thumbs():
         img[k] = 'data:image/jpeg;base64,' + base64.b64encode(buf.getvalue()).decode()
     block = re.search(r'var IMG = \{.*?\};\n</script>', text, re.S)
     text = text.replace(block.group(0), 'var IMG = ' + json.dumps(img) + ';\n</script>')
-    page.write_text(text, encoding='utf-8')
+    page.write_text(text, encoding='utf-8', newline='\n')
     print(len(img), 'thumbnails written;', 'no banner file for:', missing or 'none')
 
 

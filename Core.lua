@@ -5743,6 +5743,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.lobotomizer = {{path="lobotomizer-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.demonslayer = {{path="demonslayer-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.claw_of_the_black_drake = {{path="claw_of_the_black_drake-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.might_of_menethil = {{path="might_of_menethil-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.sulthraze = {{path="sulthraze-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.fiery_war_axe = {{path="fiery_war_axe-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.viskag = {{path="viskag-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.unstoppable_force = {{path="unstoppable_force-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.core_hound_tooth = {{path="core_hound_tooth-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.bloodseeker = {{path="bloodseeker-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.blackcrow = {{path="blackcrow-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.brutality_blade = {{path="brutality_blade-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.set_scarlet_crusade = {{path="set_scarlet_crusade-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.ancient_bone_bow = {{path="ancient_bone_bow-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.annihilator = {{path="annihilator-banner.blp", aspect=4/3, preprocessed=true}}
@@ -7608,6 +7617,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["core_hound_tooth-banner.blp"] = "Michael Sutfin",
+        ["bloodseeker-banner.blp"] = "Ralph Horsley",
+        ["blackcrow-banner.blp"] = "Bob Eggleton",
+        ["brutality_blade-banner.blp"] = "Jim Nelson",
         ["set_forever_raid_horde-banner.blp"] = "Alex Horley",
         ["azuresong_mageblade-banner.blp"] = "Donato Giancola",
         ["widows_remorse-banner.blp"] = "Craig Elliott",
