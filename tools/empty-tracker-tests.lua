@@ -46,26 +46,44 @@ for _, frame in ipairs(watched) do
     frame.IsShown = function(self) return self.visible == true end
     frame.IsVisible = frame.IsShown
 end
-D.active, D.activeParts, D.progress = {}, {}, {}
+local savedHad = D.hadGoals
+D.active, D.activeParts, D.progress, D.hadGoals = {}, {}, {}, nil
 F.SetSetting("celebrations", "off")
 F.ShowEmptyTracker()
 assert(E.hero.visible and E.column.visible, "the banner hero shows on the empty goal page")
 assert(E.add.visible and E.ghost.visible, "the + card and its faint card show in the list")
-assert(E.title:GetText():find("what's next?", 1, true), "greeting")
+assert(E.title:GetText():find("first goal", 1, true) and E.help.text:GetText() == "Help me get started",
+    "a player who never picked a goal is invited to start")
+assert(E.add.name:GetText() == "Choose your first goal", "the + card invites a first pick, without a count")
 D.active.thunderfury = true
 F.SelectGoal("thunderfury")
 assert(not E.hero.visible and not E.column.visible and not E.add.visible and not E.ghost.visible,
     "adding a goal hides the empty state")
+assert(D.hadGoals, "having a goal is remembered")
 D.active = {}
 F.ShowEmptyTracker()
 assert(E.hero.visible and E.add.visible, "removing the last goal brings it back")
+assert(E.title:GetText():find("list is clear", 1, true) and E.help.text:GetText() == "Find my next goal"
+    and E.cleared and E.add.name:GetText() == "Choose your next goal", "a cleared list says so and offers the next goal")
 
--- The + card opens the Goal Library.
+-- The + card opens the Goal Library; the text link opens the Gear Planner;
+-- the button opens the suggestions (skipping tracked goals once cleared).
 local oldShowTab, opened = F.ShowTab, nil
 F.ShowTab = function(tab) opened = tab end
 E.add:GetScript("OnClick")(E.add)
 assert(opened == "library", "+ card opens the Goal Library")
+E.gear:GetScript("OnClick")(E.gear)
+assert(opened == "gear", "the text link opens the Gear Planner")
 F.ShowTab = oldShowTab
+local oldOpen, args = F.OpenWelcome, nil
+F.OpenWelcome = function(...) args = { ... } end
+E.help:GetScript("OnClick")(E.help)
+assert(args and args[1] == nil and args[2] == true, "a cleared list opens Find my next goal")
+E.cleared = false
+E.help:GetScript("OnClick")(E.help)
+assert(args[1] == 2, "a first visit opens the suggestions")
+F.OpenWelcome = oldOpen
+D.hadGoals = savedHad
 
 -- The entrance settles every part at full strength (the faint card at its own).
 local W, oldTween = F.welcome, F.welcome.Tween
@@ -90,4 +108,4 @@ for frame, old in pairs(methods) do
 end
 D.active, D.activeParts, D.selected, D.progress = saved.active, saved.parts, saved.selected, saved.progress
 F.SetSetting("celebrations", saved.celebrations)
-print("  banner crop/bounds, empty/add/remove transitions, + card to the Library and settled fades ok")
+print("  banner crop/bounds, first-visit and cleared copy, + card, Gear Planner link and settled fades ok")

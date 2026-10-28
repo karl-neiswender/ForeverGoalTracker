@@ -9438,6 +9438,8 @@ SelectGoal = function(id, skipListRefresh)
         end
         id = goal.id
     end
+    -- remembered, so an emptied list reads as cleared, not as a first visit
+    ForeverGoalTrackerDB.hadGoals = true
     FGT.HideEmptyTracker()
     selectedId = id
     ForeverGoalTrackerDB.selected = id
@@ -9962,8 +9964,22 @@ do
     E.help:SetWidth(math.ceil(E.help.text:GetStringWidth()) + 64)
     E.help:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
     E.help:SetScript("OnLeave", function(self) self.text:SetTextColor(C.TITLE[1], C.TITLE[2], C.TITLE[3]) end)
-    E.help:SetScript("OnClick", function() if FGT.OpenWelcome then FGT.OpenWelcome(2) end end)
+    E.help:SetScript("OnClick", function()
+        if not FGT.OpenWelcome then return end
+        if E.cleared then FGT.OpenWelcome(nil, true) else FGT.OpenWelcome(2) end
+    end)
     FGT.AddBorderComet(E.help, 2, 0.9)
+
+    -- A quiet text link to the Gear Planner, not a second button (Karl: the
+    -- welcome's buttons copied here were too much). The + card covers the Library.
+    E.gear = CreateFrame("Button", nil, column)
+    E.gear.text = NewFontString(E.gear, 12, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    E.gear.text:SetPoint("LEFT", E.gear, "LEFT", 0, 0)
+    E.gear.text:SetText("Plan my gear") -- the welcome's words for it
+    E.gear:SetSize(math.ceil(E.gear.text:GetStringWidth()) + 4, 20)
+    E.gear:SetScript("OnEnter", function(self) self.text:SetTextColor(1, 1, 1) end)
+    E.gear:SetScript("OnLeave", function(self) self.text:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end)
+    E.gear:SetScript("OnClick", function() if FGT.ShowTab then FGT.ShowTab("gear") end end)
 
     -- Places the column a little above the panel's middle (reads as centered,
     -- as the welcome hero); `rise` lowers it for the entrance.
@@ -9974,7 +9990,7 @@ do
         E.title:SetWidth(colW)
         emptyNote:SetWidth(colW)
         local total = 12 + 8 + math.ceil(E.title:GetStringHeight()) + 12
-            + math.ceil(emptyNote:GetStringHeight()) + 24 + E.help:GetHeight()
+            + math.ceil(emptyNote:GetStringHeight()) + 24 + E.help:GetHeight() + 14 + E.gear:GetHeight()
         E.columnY = math.max(24, math.floor((ph - total) / 2) - 12)
         column:SetSize(colW, total)
         column:ClearAllPoints()
@@ -9987,21 +10003,38 @@ do
         emptyNote:SetPoint("TOPLEFT", E.title, "BOTTOMLEFT", 0, -12)
         E.help:ClearAllPoints()
         E.help:SetPoint("TOPLEFT", emptyNote, "BOTTOMLEFT", 0, -24)
+        E.gear:ClearAllPoints()
+        E.gear:SetPoint("TOPLEFT", E.help, "BOTTOMLEFT", 2, -14)
     end
     hero:SetScript("OnSizeChanged", function(self)
         self:Fit()
         if column:IsShown() then E.Layout() end
     end)
 
-    -- Fresh words and art each time the empty tracker opens (level, race art)
+    -- Fresh words and art each time the empty tracker opens (level, race art).
+    -- Only two kinds of player see it (Karl, 2026-10-28): one who closed the
+    -- welcome before picking anything, and one who cleared their list. The first
+    -- gets the welcome's start; the second is told their progress is safe.
     function E.Refresh()
         local name = UnitName("player") or ""
         local raceName, className = UnitRace("player"), UnitClass("player")
         local who = (raceName or "") .. " " .. (className or "")
         local level = UnitLevel("player") or 1
+        E.cleared = ForeverGoalTrackerDB and ForeverGoalTrackerDB.hadGoals or false
         -- the level only once it says something (a new character is level 1)
         E.eyebrow:SetText(level >= 10 and string.format("%s · Level %d", who, level) or who)
-        E.title:SetText(name ~= "" and (name .. ", what's next?") or "What's next?")
+        if E.cleared then
+            E.title:SetText(name ~= "" and (name .. ", your list is clear") or "Your list is clear")
+            emptyNote:SetText("Your progress is saved. Add a goal back and it picks up where you left off.")
+            E.help.text:SetText("Find my next goal")
+        else
+            E.title:SetText(name ~= "" and (name .. ", let's find your first goal") or "Let's find your first goal")
+            emptyNote:SetText("A mount, a weapon, a raid set, a reputation: pick what you're working toward. Steps check off as you play.")
+            E.help.text:SetText("Help me get started")
+        end
+        E.help:SetWidth(math.ceil(E.help.text:GetStringWidth()) + 64)
+        -- an invitation, not a count: a big number reads as homework (Karl)
+        E.add.name:SetText(E.cleared and "Choose your next goal" or "Choose your first goal")
         E.SetArt()
         E.Layout()
     end
@@ -10021,14 +10054,11 @@ do
         return slot
     end
     add.slot = Slot(add)
-    add.plus = {}
-    for i, size in ipairs({ { 20, 2 }, { 2, 20 } }) do
-        local t = add.slot:CreateTexture(nil, "ARTWORK")
-        t:SetTexture(SOLID)
-        t:SetSize(size[1], size[2])
-        t:SetPoint("CENTER", add.slot, "CENTER", 0, 0)
-        add.plus[i] = t
-    end
+    -- the UI kit's chiseled gold "+", as the rail's and the section toggles' (Karl)
+    add.plus = add.slot:CreateTexture(nil, "ARTWORK")
+    add.plus:SetTexture(FGT.Icon("plus"))
+    add.plus:SetSize(22, 22)
+    add.plus:SetPoint("CENTER", add.slot, "CENTER", 0, 0)
     add.eyebrow = NewFontString(add, 9, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
     add.eyebrow:SetText("GOAL LIBRARY")
     add.eyebrow:SetPoint("TOPLEFT", add.slot, "TOPRIGHT", 9, 0)
@@ -10041,7 +10071,7 @@ do
     -- the "+" and the name brightening.
     function add:Paint(hover)
         self:SetEtch(hover and STYLE.rowHover or STYLE.row)
-        for _, t in ipairs(self.plus) do t:SetVertexColor(C.TITLE[1], C.TITLE[2], C.TITLE[3], hover and 1 or 0.7) end
+        self.plus:SetAlpha(hover and 1 or 0.7)
         if hover then self.name:SetTextColor(1, 1, 1)
         else self.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3]) end
     end
@@ -14348,7 +14378,7 @@ end
 -- ============================================================
 do
 local SAVED = { "active", "activeParts", "progress", "favorites", "goalsDone", "goalDates", "selected", "tab", "targets",
-    "interests", "welcomeSeen", "welcomeBackVersion" } -- the wizard scenes save interests on close
+    "interests", "welcomeSeen", "welcomeBackVersion", "hadGoals" } -- the wizard scenes save interests on close
 
 -- scene extras that live outside the saved data: undo them between scenes
 local function ClearExtras()

@@ -101,6 +101,19 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Gear set goal art (2026-10-28, PC, Claude, uncommitted, unreleased; Karl's order): `B:GearSetArt` in Core.lua picks
+  the weapon's Library reward goal art (Hunters: ranged first), then the Library armor set with the most pieces (2+),
+  then the owner's race/class leveling art, then `B.factionArt` (the Hyjal faction banners, Karl approved 2026-10-28), then shared
+  art. Only a goal's own banner counts (`B:OwnArt`; the shared PvP/leveling art is skipped). `ResolveArt(id, who)`
+  takes an optional character context. check.py passes; synced to Era; native review pending.
+- Empty My Goals copy (2026-10-28, PC, Claude, uncommitted): two states keyed by `DB.hadGoals` (set in SelectGoal,
+  saved by demo mode). First visit: "Name, let's find your first goal", Help me get started. Cleared list: "Name, your
+  list is clear", progress-is-saved line, Find my next goal. Both get a quiet "Plan my gear" text link; the + card
+  uses the UI kit's `plus.tga` and reads "Choose your first goal" (cleared: "Choose your next goal"); no goal count
+  (Karl: a big number feels overwhelming). Existing players with an empty list today see first-visit copy once. Native review pending.
+- New Library goals (2026-10-28, PC, uncommitted): `unstoppable_force` (AV Exalted, unverified in game),
+  `might_of_menethil` (Kel'Thuzad), `sulthraze` (Zul'Farrak, combine step). No banner art yet.
+
 - Empty My Goals redesign (2026-10-27, PC, Claude, committed, unreleased): the leather book and cobwebs
   are gone. Right panel: the character's `allclasses` banner at 45% (as the welcome hero), left-aligned
   "Race Class · Level N", "Name, what's next?", one line, Help me get started (comet). List: a "+" card
