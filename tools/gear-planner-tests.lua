@@ -1146,22 +1146,46 @@ do
     print("  enchants: fit rules, square, picker, goal step, credit, fill and duplicate")
 end
 
--- A gear set goal shows its owner's leveling art and says whose set it is.
+-- A gear set goal shows the art of what it is built around (weapon, then armor set, then the
+-- owner's race and class, then faction) and says whose set it is.
 do
     local D, B = ForeverGoalTrackerDB, F.goalBanner
     D.characters["Dwarfhunt-Realm"] = { name = "Dwarfhunt", class = "HUNTER", race = "Dwarf", faction = "Alliance", level = 60 }
     D.characters["Sneaky-Realm"] = { name = "Sneaky", class = "ROGUE", race = "Human", faction = "Alliance", level = 60 }
+    D.characters["Mightwar-Realm"] = { name = "Mightwar", class = "WARRIOR", race = "Human", faction = "Alliance", level = 60 }
     local dwarfSet = { id = "planner_test_dwarf", name = "Dwarf set", category = "Item Set", plannerOwner = "Dwarfhunt-Realm", steps = {} }
     local rogueSet = { id = "planner_test_rogue", name = "Rogue set", category = "Item Set", plannerOwner = "Sneaky-Realm", steps = {} }
-    F.goals[#F.goals + 1] = dwarfSet; F.goals[#F.goals + 1] = rogueSet; F.goalIndex = nil
-    assert(B:ResolveArt(dwarfSet.id) == "allclasses_dwarf_hunter-banner.blp", "a Dwarf Hunter's set shows the Dwarf Hunter leveling art")
-    assert(B:ResolveArt(rogueSet.id) == B.artPaths.allclasses, "a class without its own art gets the shared leveling art")
+    local warSet = { id = "planner_test_war", name = "Warrior set", category = "Item Set", plannerOwner = "Mightwar-Realm", steps = {} }
+    F.goals[#F.goals + 1] = dwarfSet; F.goals[#F.goals + 1] = rogueSet; F.goals[#F.goals + 1] = warSet; F.goalIndex = nil
+    local function Wear(goal, pieces)
+        goal.steps = {}
+        for slot, id in pairs(pieces) do
+            goal.steps[#goal.steps + 1] = { text = "x", plannerSlot = slot, auto = { item = id, forCharacter = goal.plannerOwner } }
+        end
+    end
+    local warrior = { faction = "Alliance", class = "WARRIOR", race = "Human" }
+    -- Three Tier 1 Warrior pieces (Helm, Pauldrons, Breastplate of Might) from the Library's set.
+    local might, mightKind = Cat.GoalFor(16866, "Alliance")
+    assert(might and mightKind == "set", "Helm of Might belongs to a Library set")
+    local mightArt = B:OwnArt(might.id, warrior)
+    assert(mightArt, "that set has its own banner")
+    assert(B:ResolveArt(dwarfSet.id) == "allclasses_dwarf_hunter-banner.blp", "an empty Dwarf Hunter set shows the Dwarf Hunter leveling art")
+    assert(B:ResolveArt(rogueSet.id) == B.factionArt.Alliance, "a race and class without art falls back to the faction's art")
+    Wear(warSet, { [1] = 16866, [3] = 16868, [5] = 16865 })
+    assert(B:ResolveArt(warSet.id) == mightArt, "most of the armor from one Library set shows that set's art")
+    Wear(warSet, { [1] = 16866 })
+    assert(B:ResolveArt(warSet.id) ~= mightArt, "one stray piece does not take over")
+    Wear(warSet, { [1] = 16866, [3] = 16868, [5] = 16865, [16] = 19019 })
+    assert(B:ResolveArt(warSet.id) == B:OwnArt("thunderfury", warrior), "a weapon with its own art comes first")
+    Wear(warSet, { [1] = 16866, [3] = 16868, [5] = 16865, [16] = 19323 })
+    assert(B:ResolveArt(warSet.id) == mightArt, "a weapon with only the shared PvP art falls back to the armor set")
+    Wear(warSet, {})
     local eyebrow = F.GoalEyebrow(dwarfSet, true)
     assert(eyebrow:find("^GEAR SET") and eyebrow:find("DWARFHUNT", 1, true), "the card says it is that character's gear set: " .. eyebrow)
     assert(not F.GoalEyebrow(F.GoalById("set_tier1") or { category = "Item Set" }, true):find("GEAR SET", 1, true), "Library sets keep their own label")
-    table.remove(F.goals); table.remove(F.goals); F.goalIndex = nil
-    D.characters["Dwarfhunt-Realm"], D.characters["Sneaky-Realm"] = nil, nil
-    print("  gear set goals: owner's leveling art and a GEAR SET label")
+    table.remove(F.goals); table.remove(F.goals); table.remove(F.goals); F.goalIndex = nil
+    D.characters["Dwarfhunt-Realm"], D.characters["Sneaky-Realm"], D.characters["Mightwar-Realm"] = nil, nil, nil
+    print("  gear set goals: weapon, armor set, race and class, faction art and a GEAR SET label")
 end
 
 -- Library goals: items that a Library goal rewards or that belong to a Library set link to it.

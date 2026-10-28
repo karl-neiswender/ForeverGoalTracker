@@ -5814,19 +5814,74 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         end
         return choice.path, 4/3, true
     end
-    function B:ResolveArt(id)
-        local player = self:PlayerArtContext()
+    -- A Library goal's own banner for `who`, or nil when it only has the shared art.
+    function B:OwnArt(id, who)
+        local path, aspect, preprocessed = self:ResolveArt(id, who)
+        if path and path ~= self.artPaths.allclasses then return path, aspect, preprocessed end
+    end
+    -- A Gear Planner set shows the art of what it is built around, for the character it was planned
+    -- for (an alt's set keeps the alt's art whoever is logged in). Karl, 2026-10-28: its weapon first
+    -- (a Hunter's ranged weapon before the others), then the Library set most of its armor comes from
+    -- (two pieces or more, so one stray piece does not take over), then the owner's race and class,
+    -- then the owner's faction. Only goals with their own banner count; shared art is the last resort.
+    local SET_WEAPONS, HUNTER_WEAPONS = { 16, 17, 18 }, { 18, 16, 17 }
+    B.factionArt = {
+        Alliance = "set_forever_raid_alliance-banner.blp",
+        Horde = "set_forever_raid_horde-banner.blp",
+    }
+    function B:GearSetArt(goal, owner)
+        local Cat, bySlot = FGT.GearCatalog, {}
+        for _, step in ipairs(goal.steps or {}) do
+            local item = step.plannerSlot and step.auto and step.auto.item
+            if type(item) == "number" then bySlot[step.plannerSlot] = item end
+        end
+        if Cat and Cat.GoalFor then
+            for _, slot in ipairs(owner.class == "HUNTER" and HUNTER_WEAPONS or SET_WEAPONS) do
+                local library, kind = nil, nil
+                if bySlot[slot] then library, kind = Cat.GoalFor(bySlot[slot], owner.faction) end
+                if library and kind == "reward" then
+                    local path, aspect, preprocessed = self:OwnArt(library.id, owner)
+                    if path then return path, aspect, preprocessed end
+                end
+            end
+            local sets, order = {}, {}
+            for _, slot in ipairs(Cat.SLOT_ORDER) do
+                local library, kind = nil, nil
+                if bySlot[slot] then library, kind = Cat.GoalFor(bySlot[slot], owner.faction) end
+                if library and kind == "set" then
+                    if not sets[library.id] then sets[library.id] = 0; order[#order + 1] = library end
+                    sets[library.id] = sets[library.id] + 1
+                end
+            end
+            -- most pieces first; a tie keeps the set worn highest on the body (slot order)
+            local rank = {}
+            for i, library in ipairs(order) do rank[library.id] = i end
+            table.sort(order, function(a, b)
+                if sets[a.id] ~= sets[b.id] then return sets[a.id] > sets[b.id] end
+                return rank[a.id] < rank[b.id]
+            end)
+            for _, library in ipairs(order) do
+                if sets[library.id] < 2 then break end
+                local path, aspect, preprocessed = self:OwnArt(library.id, owner)
+                if path then return path, aspect, preprocessed end
+            end
+        end
+        local pick = self:BestArtVariant(self.artVariants.allclasses, owner)
+        if pick then return pick.path, pick.aspect or (4/3), pick.preprocessed ~= false end
+        local faction = owner.faction and self.factionArt[owner.faction]
+        if faction then return faction, 4/3, true end
+        return self.artPaths.allclasses, self.artAspects.allclasses or 1, self.preprocessed.allclasses or false
+    end
+    -- `who` (optional) chooses variants for another character; the logged-in one by default.
+    function B:ResolveArt(id, who)
+        local player = who or self:PlayerArtContext()
         local goal = FGT.GoalById(id)
         local professionPath, professionAspect, professionProcessed = self:ProfessionArt(goal)
         if professionPath then return professionPath, professionAspect, professionProcessed end
-        -- A Gear Planner set shows the leveling art of the character it was planned for (an alt's
-        -- set keeps the alt's art whoever is logged in); shared art covers missing variants.
         if goal and goal.plannerOwner then
             local c = Roster()[goal.plannerOwner]
             local owner = c and { faction = c.faction, class = c.class, race = c.race, sex = c.sex } or player
-            local pick = self:BestArtVariant(self.artVariants.allclasses, owner)
-            if pick then return pick.path, pick.aspect or (4/3), pick.preprocessed ~= false end
-            return self.artPaths.allclasses, self.artAspects.allclasses or 1, self.preprocessed.allclasses or false
+            return self:GearSetArt(goal, owner)
         end
         local pvp = goal and goal.category == "PvP"
         if pvp then
