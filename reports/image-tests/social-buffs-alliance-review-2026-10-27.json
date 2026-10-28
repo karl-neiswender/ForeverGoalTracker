@@ -1,0 +1,14 @@
+{
+  "status": "approved and installed for specified Alliance classes",
+  "source": "Media/artwork/alliance-dwarf-male-priest-buff.jpg",
+  "review": "Media/final-images/social-buffs/alliance-buff-others-review-v2.png",
+  "previous_review": "Media/final-images/social-buffs/alliance-buff-others-review-v1.png",
+  "goal": "social_buffs",
+  "approved_scope": "Alliance Priest, Warrior, Shaman, Warlock, and Hunter; retain existing Mage, Druid, Paladin, and Horde variants",
+  "master": "Media/final-images/social-buffs/alliance-buff-others-master.png",
+  "runtime": "Media/social_buffs_alliance-banner.blp",
+  "eligibility_note": "Only Priest among the approved classes currently has social_buffs goal eligibility. Artwork mappings for the other four classes do not change goal rules.",
+  "prompt": "Edit the attached Prayer of Fortitude fantasy card artwork into ONE 4:3 LANDSCAPE banner for the Forever Goal Tracker 'Buff Others' goal. Use the illustration only, removing the card frame, numbers, spell title, rules text, logos and all lettering. Preserve the central red-bearded dwarf priest's identity, blue armor and robe design, both raised armored arms and intact hands, jubilant blessing pose, and the blue magical rune atmosphere with supporting figures. Expand the scene naturally to landscape, placing the dwarf high and toward the RIGHT with his complete upper-body pose visible; keep the LEFT THIRD calm and low-detail for addon text. Render strictly NEUTRAL BLACK AND WHITE with moderately increased contrast, detailed painterly midtones and controlled highlights. Bake a WIDE SMOOTH dark neutral-charcoal gradient into the LEFT side, strongest at the left edge and blending gradually without a vertical boundary. Bake a SOFT dark neutral-charcoal gradient into the BOTTOM across approximately the lowest 11 percent, fading to near black at the bottom edge without a horizontal boundary. No added text, UI, border, unrelated objects, extra characters, artist signature or watermark. Maintain plausible complete hand and armor geometry.",
+  "correction_prompt": "Technical color correction of Image 1 ONLY. Preserve the scene, dwarf identity, armor, pose, both hands, supporting figures, 4:3 crop, left-side dark gradient, bottom dark gradient, painterly detail and contrast exactly. Remove every trace of color tint so every pixel is truly neutral grayscale with equal red, green and blue channels. Do not change composition, brightness, subject geometry, or add anything. No text, border, UI, signature or watermark.",
+  "technical_note": "Review is visually grayscale; source still had up to 13 levels of channel difference. The 1200 x 900 approved master was forced to exact neutral RGB before 512px DXT1 BLP encoding with ten mip levels. Native visual review requires a full restart."
+}

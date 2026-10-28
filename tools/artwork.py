@@ -35,6 +35,7 @@ FINAL_BANNERS = {
     "tier3_rogue_troll": "tier-sets/rogue/tier3-troll-master.png",
     "allclasses_troll_rogue": "leveling/troll-rogue-master.png",
     "social_buffs_horde": "social/buffs-horde-master.png",
+    "social_buffs_alliance": "social-buffs/alliance-buff-others-master.png",
     "pvp_troll_hunter_mail": "pvp/troll-hunter-mail-master.png",
     "allclasses_troll_hunter_male": "leveling/troll-hunter-male-master.png",
     "allclasses_orc_rogue": "leveling/orc-rogue-master.png",
