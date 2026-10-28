@@ -279,7 +279,7 @@ FGT.SETTING_DEFAULTS = {
     itemNeeds = true,        -- tracked goals on native bag, loot and AH item tooltips
     barNumbers = "hover",    -- the main bar's numbers: "hover" (and briefly when progress moves) or "always"
     barTicks = true,         -- 25, 50 and 75 marks on the main bar and long goal bars
-    cardDensity = "comfortable", -- My Goals cards: "comfortable" (icon, label, name, bar) or "compact" (slim rows)
+    cardDensity = "compact", -- My Goals cards: "compact" (slim rows; Karl, 2026-10-28) or "comfortable" (icon, label, name, bar)
 }
 
 ---@overload fun(key: "scale"|"alpha"): number
@@ -4673,6 +4673,7 @@ FGT.LayoutGoalList = LayoutGoalList
 -- Settings: Goal cards, and once at login with the saved choice.
 function FGT.ApplyCardDensity()
     for _, row in pairs(goalRows) do FGT.StyleGoalRow(row) end
+    if FGT.emptyUI and FGT.emptyUI.StyleCards then FGT.emptyUI.StyleCards() end
     if FGT.Rail and FGT.Rail.Density then FGT.Rail:Density() end
     LayoutGoalList()
     RefreshGoalList()
@@ -10114,6 +10115,7 @@ do
         E.help:SetWidth(math.ceil(E.help.text:GetStringWidth()) + 64)
         -- an invitation, not a count: a big number reads as homework (Karl)
         E.add.name:SetText(E.cleared and "Choose your next goal" or "Choose your first goal")
+        E.StyleCards()
         E.SetArt()
         E.Layout()
     end
@@ -10181,6 +10183,30 @@ do
     ghost.slot = Slot(ghost)
     E.GHOST_ALPHA = 0.3
     E.ghost = ghost
+
+    -- Both cards follow Settings > Goal cards, laid out like a goal card of that density
+    -- (FGT.StyleGoalRow): compact puts the name first and the label under it (Karl, 2026-10-28).
+    function E.StyleCards()
+        local compact = FGT.Setting("cardDensity") == "compact"
+        local size = compact and 32 or 50
+        for _, card in ipairs({ add, ghost }) do
+            card:SetHeight(compact and FGT.ROW_H_COMPACT or FGT.ROW_H)
+            card.slot:SetSize(size, size)
+            card.slot:ClearAllPoints()
+            card.slot:SetPoint("TOPLEFT", card, "TOPLEFT", 10, compact and -8 or -11)
+        end
+        add.plus:SetSize(compact and 16 or 22, compact and 16 or 22)
+        FGT.RegisterFont(add.name, "body", compact and 12 or 13, "", true)
+        FGT.RegisterFont(add.eyebrow, "body", compact and 8 or 9, "", true)
+        add.name:ClearAllPoints(); add.eyebrow:ClearAllPoints()
+        if compact then
+            add.name:SetPoint("TOPLEFT", add.slot, "TOPRIGHT", 9, -3)
+            add.eyebrow:SetPoint("TOPLEFT", add.name, "BOTTOMLEFT", 0, -5)
+        else
+            add.eyebrow:SetPoint("TOPLEFT", add.slot, "TOPRIGHT", 9, 0)
+            add.name:SetPoint("TOPLEFT", add.eyebrow, "BOTTOMLEFT", 0, -7)
+        end
+    end
 
     E.parts = { hero, column, add, ghost }
     for _, p in ipairs(E.parts) do p:Hide() end
@@ -12350,7 +12376,7 @@ FGT.SETTINGS = {
     { title = "My Goals list", rows = {
         { type = "choice", key = "cardDensity", label = "Goal cards",
           desc = "Compact fits about twice as many goals on screen",
-          options = { { "comfortable", "Comfortable" }, { "compact", "Compact" } },
+          options = { { "compact", "Compact" }, { "comfortable", "Comfortable" } },
           apply = function() FGT.ApplyCardDensity() end },
     } },
     { title = "Progress bars", rows = {

@@ -18,6 +18,9 @@ for _, d in ipairs(R.divider) do Track(d.tex) end
 R.inner.parentForTest = R.head
 R.inner.SetParent = function(self, p) self.parentForTest = p end
 R.inner.GetParent = function(self) return self.parentForTest end
+-- (these widths are the comfortable rail's; compact's 80 is checked near the end)
+local savedDensity = F.Setting("cardDensity")
+F.SetSetting("cardDensity", "comfortable"); F.ApplyCardDensity()
 D.active = { thunderfury = true, sulfuras = true, gold_5k = true }
 D.progress = { thunderfury = {}, sulfuras = {}, gold_5k = {} }
 D.favorites = { sulfuras = true }
@@ -185,6 +188,7 @@ F.SetSetting("cardDensity", "comfortable"); F.ApplyCardDensity()
 assert(list.widthForTest == 98, "comfortable cards fold back to the full rail")
 R:Toggle()
 GameTooltip = nil
+F.SetSetting("cardDensity", savedDensity); F.ApplyCardDensity()
 F.materialsPanel.Place = oldPlace
 F.RailMarks = makeMarks
 print("  rail: Filters bar (fold, open, saved, count, ease, card), fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, full tooltip, filter card and count, empty tracker, saved choice, demo, Library width, divider ok")

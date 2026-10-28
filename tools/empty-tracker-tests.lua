@@ -66,6 +66,14 @@ assert(E.hero.visible and E.add.visible, "removing the last goal brings it back"
 assert(E.title:GetText():find("list is clear", 1, true) and E.help.text:GetText() == "Find my next goal"
     and E.cleared and E.add.name:GetText() == "Choose your next goal", "a cleared list says so and offers the next goal")
 
+-- The + card and its faint card follow Settings > Goal cards.
+local density = F.Setting("cardDensity")
+F.SetSetting("cardDensity", "compact"); F.ApplyCardDensity()
+assert(F.fontWidgets[E.add.name].size == 12 and F.fontWidgets[E.add.eyebrow].size == 8, "compact: the + card is a compact card")
+F.SetSetting("cardDensity", "comfortable"); F.ApplyCardDensity()
+assert(F.fontWidgets[E.add.name].size == 13, "comfortable: a comfortable card")
+F.SetSetting("cardDensity", density); F.ApplyCardDensity()
+
 -- The + card opens the Goal Library; the text link opens the Gear Planner;
 -- the button opens the suggestions (skipping tracked goals once cleared).
 local oldShowTab, opened = F.ShowTab, nil

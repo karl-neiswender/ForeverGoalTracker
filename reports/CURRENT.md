@@ -117,7 +117,7 @@ its October 21 notes.
   Full). Header height: HEAD_SHUT 32, HEAD_OPEN 130; the rail keeps HEAD 104 (folding the list now also eases the
   cards' top). The rail's filter card always shows every control. Native review pending.
 - Goal card density (2026-10-28, PC, Claude, uncommitted): Settings > My Goals list > Goal cards (`cardDensity`,
-  "comfortable" default or "compact"; Karl chose Settings over the Filters bar). `FGT.StyleGoalRow` lays a card out:
+  "compact", the default since Karl's 2026-10-28 review, or "comfortable"; Karl chose Settings over the Filters bar; the empty view's + card follows it). `FGT.StyleGoalRow` lays a card out:
   compact is 48 tall (`FGT.ROW_H_COMPACT`), 32px icon, name, then the label with " · N%", the bar a 4px line on the
   card's bottom. Both: no empty bar before a goal starts (comfortable shows "Not started"), the faction watermark only
   on the selected or hovered card. Rail.lua `R:Density` narrows the folded rail to 80 for compact. No automatic tip
