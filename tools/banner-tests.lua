@@ -1,6 +1,14 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="Human", sex=2})
+        == "allclasses_human_rogue_male-banner.blp", "male Human Rogue leveling uses approved art")
+    assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="Human", sex=3})
+        ~= "allclasses_human_rogue_male-banner.blp", "female Human Rogue keeps existing leveling art")
+    assert(B:ResolveArt("allclasses", {faction="Horde", class="ROGUE", race="Scourge", sex=2})
+        == "allclasses_undead_rogue_male-banner.blp", "male Undead Rogue leveling uses approved art")
+    assert(B:ResolveArt("allclasses", {faction="Horde", class="ROGUE", race="Scourge", sex=3})
+        == "allclasses_undead_rogue_female-banner.blp", "female Undead Rogue leveling uses approved art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="WARRIOR", race="Gnome", sex=2})
         == "allclasses_gnome_warrior_male-banner.blp", "male Gnome Warrior leveling uses approved Fillet art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="WARRIOR", race="Gnome", sex=3})

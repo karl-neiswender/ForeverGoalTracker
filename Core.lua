@@ -5680,6 +5680,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_troll_hunter_male-banner.blp", faction="Horde", class="HUNTER", race="Troll", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_hunter_female-banner.blp", faction="Horde", class="HUNTER", race="Troll", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_rogue-banner.blp", faction="Horde", class="ROGUE", race="Troll", aspect=4/3, preprocessed=true},
+            {path="allclasses_undead_rogue_male-banner.blp", faction="Horde", class="ROGUE", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_undead_rogue_female-banner.blp", faction="Horde", class="ROGUE", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_priest-banner.blp", faction="Horde", class="PRIEST", race="Troll", aspect=4/3, preprocessed=true},
             {path="allclasses_troll_warlock-banner.blp", faction="Horde", class="WARLOCK", race="Troll", aspect=4/3, preprocessed=true},
             {path="allclasses_orc_rogue-banner.blp", faction="Horde", class="ROGUE", race="Orc", aspect=4/3, preprocessed=true},
@@ -5687,6 +5689,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_human_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="Human", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_human_paladin-banner.blp", faction="Alliance", class="PALADIN", race="Human", aspect=4/3, preprocessed=true},
             {path="allclasses_human_hunter-banner.blp", faction="Alliance", class="HUNTER", race="Human", aspect=4/3, preprocessed=true},
+            {path="allclasses_human_rogue_male-banner.blp", faction="Alliance", class="ROGUE", race="Human", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="PRIEST", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="MAGE", race="Gnome", aspect=4/3, preprocessed=true},
@@ -7633,6 +7636,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["allclasses_human_rogue_male-banner.blp"] = "Ralph Horsley",
+        ["allclasses_undead_rogue_male-banner.blp"] = "Dave Allsop",
+        ["allclasses_undead_rogue_female-banner.blp"] = "Gonzalo Ordonez",
         ["pvp_set_plate_ally_warrior_gnome_female-banner.blp"] = "Alex Horley Orlandelli",
         ["set_tier1_rogue_dwarf_female-banner.blp"] = "Ralph Horsley",
         ["core_hound_tooth-banner.blp"] = "Michael Sutfin",

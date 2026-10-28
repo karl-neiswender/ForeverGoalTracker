@@ -14,6 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "allclasses_undead_rogue_female": "leveling/undead-rogue-female-master.png",
+    "allclasses_undead_rogue_male": "leveling/undead-rogue-male-master.png",
+    "allclasses_human_rogue_male": "leveling/human-rogue-male-master.png",
     "allclasses_gnome_warrior_male": "tier-sets/warrior/tier2-gnome-male-master.png",
     "core_hound_tooth": "core-hound-tooth-master.png",
     "bloodseeker": "bloodseeker-master.png",
