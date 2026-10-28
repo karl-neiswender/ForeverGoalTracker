@@ -5750,6 +5750,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="pvp_set_plate_ally_warrior_gnome_female-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
         {path="pvp_set_plate_ally-banner.blp", aspect=4/3, preprocessed=true},
     }
+    B.artVariants.set_tier2_warrior = {
+        {path="set_tier2_warrior_gnome_male-banner.blp", faction="Alliance", race="Gnome", sex=2, aspect=4/3, preprocessed=true},
+    }
     B.artVariants.widows_remorse = {{path="widows_remorse-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.lobotomizer = {{path="lobotomizer-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.demonslayer = {{path="demonslayer-banner.blp", aspect=4/3, preprocessed=true}}

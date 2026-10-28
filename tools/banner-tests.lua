@@ -1,6 +1,12 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    assert(B:ResolveArt("set_tier2_warrior", {faction="Alliance", class="WARRIOR", race="Gnome", sex=2})
+        == "set_tier2_warrior_gnome_male-banner.blp", "male Gnome Warrior Tier 2 uses approved Fillet art")
+    assert(B:ResolveArt("set_tier2_warrior", {faction="Alliance", class="WARRIOR", race="Gnome", sex=3})
+        == "set_tier2_warrior-alliance-banner.blp", "female Gnome Warrior retains Alliance Tier 2 art")
+    assert(B:ResolveArt("set_tier2_warrior", {faction="Horde", class="WARRIOR", race="Orc", sex=2})
+        == "set_tier2_warrior-banner.blp", "Horde Warrior retains Tier 2 art")
     local femaleDwarf = {faction="Alliance", class="HUNTER", race="Dwarf", sex=3}
     local maleDwarf = {faction="Alliance", class="HUNTER", race="Dwarf", sex=2}
     assert(B:ResolveArt("allclasses", femaleDwarf) == "allclasses_dwarf_hunter_female-banner.blp",
