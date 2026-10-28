@@ -101,6 +101,13 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
+  in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
+  loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,
+  `SETPIC`, statuses), so the two drift. Plan: one declarative table per goal (images with faction, race, class and
+  sex, or "borrows X") read by both the resolver and the checklist. Until then add art the usual way. Art priority
+  for borrowed rows: the leveling classes first (now shown by the welcome hero, the empty view and gear sets), not
+  the 16 armor sets sharing a dungeon, AQ or Hyjal scene.
 - Gear set goal art (2026-10-28, PC, Claude, uncommitted, unreleased; Karl's order): `B:GearSetArt` in Core.lua picks
   the weapon's Library reward goal art (Hunters: ranged first), then the Library armor set with the most pieces (2+),
   then the owner's race/class leveling art, then `B.factionArt` (the Hyjal faction banners, Karl approved 2026-10-28), then shared
