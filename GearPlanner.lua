@@ -2774,7 +2774,8 @@ usePreset:SetScript("OnClick", function() actions:Hide(); FGT.CreateHunterPreRai
 -- With no set open, the planner leads with the character: the same lit, black-and-white scene,
 -- wearing what they wear now (the logged-in character; another character shows their race).
 -- A card on the left side (free of slots, already on the dark side fade) says what the planner
--- does once, and offers one gold way in, plus importing from Wowhead and a fitting preset.
+-- does once, and offers one gold way in, plus importing from Wowhead. Only those two, ever
+-- (Karl, 2026-10-27: no preset button here).
 ES = ES or {}
 ES.card = CreateFrame("Frame", nil, right, "BackdropTemplate")
 ES.card:SetFrameLevel(header:GetFrameLevel() + 6); ES.card:EnableMouse(true)
@@ -2784,7 +2785,7 @@ ES.card:SetWidth(ES.WIDTH)
 ES.title = U.title(ES.card, 18); ES.title:SetText("Plan your gear")
 ES.title:SetPoint("TOPLEFT", 22, -22)
 ES.body = U.font(ES.card, 11)
-ES.body:SetText("Choose the items you want for each slot, see them on your character, and track them as a goal.")
+ES.body:SetText("Pick items for each slot, see them on your character, and track them as a goal.")
 ES.body:SetPoint("TOPLEFT", ES.title, "BOTTOMLEFT", 0, -10); ES.body:SetWidth(256)
 ES.body:SetJustifyH("LEFT"); ES.body:SetWordWrap(true)
 ES.body:SetTextColor(colors.INK2[1], colors.INK2[2], colors.INK2[3])
@@ -2792,9 +2793,7 @@ ES.create = Button(ES.card, "Create a gear set", 256, 32, 12)
 ES.create.chosen = true; PaintButton(ES.create) -- the gold border: the one obvious way in
 ES.create.text:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
 -- the second way in: a set from Wowhead (Karl, 2026-10-27; starting from worn gear stays in the "..." menu)
-ES.import = Button(ES.card, "Import from Wowhead", 256, 28, 11)
-ES.preset = Button(ES.card, "", 256, 24, 10)
-ES.preset.text:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+ES.import = Button(ES.card, "Import from Wowhead", 256, 32, 11) -- as tall as Create (Karl, 2026-10-27)
 ES.create:SetScript("OnClick", function() new:GetScript("OnClick")() end)
 -- a set already filled from what you wear, named so it saves at once (rename it any time)
 function ES.StartWorn()
@@ -2804,7 +2803,6 @@ function ES.StartWorn()
     Save(true)
     fill:GetScript("OnClick")()
 end
-ES.preset:SetScript("OnClick", function() FGT.CreateHunterPreRaidBuild() end)
 newWorn:SetScript("OnClick", function() actions:Hide(); ES.StartWorn() end)
 -- Picking an item (or a whole item set) in the picker with no set open starts one, so the slots
 -- work from the welcome too (Karl, 2026-10-27: the picker opened but nothing in it could be chosen).
@@ -2991,12 +2989,6 @@ WI.import.chosen = true; PaintButton(WI.import)
 WI.import.text:SetTextColor(colors.TITLE[1], colors.TITLE[2], colors.TITLE[3])
 P:HookScript("OnHide", function() WI.Close(false, true) end)
 -- (the buttons say what they do; Karl, 2026-10-24: no tooltip)
-for b, tip in pairs({ [ES.preset] = "A ready-made set you can change" }) do
-    b:HookScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText(tip, 1, 1, 1); GameTooltip:Show()
-    end)
-    b:HookScript("OnLeave", function() GameTooltip:Hide() end)
-end
 ES.card:Hide()
 -- With no set open, the item picker opens over the card: the card fades away while it is open and
 -- back when it closes (Karl's recording, 2026-10-27: closing the picker dropped it back in one frame).
@@ -3028,16 +3020,11 @@ function ES.Away(away)
 end
 picker:HookScript("OnShow", function() ES.Away(true) end)
 picker:HookScript("OnHide", function() ES.Away(false) end)
--- Lay out what applies: create, import, and a preset when one fits.
+-- Lay out the two ways in: create and import.
 function ES.Layout()
-    local who = Who()
-    local preset = Cat.PRESETS.hunter_preraid_wowhead
-    local showPreset = who.class == preset.class and who.faction == preset.faction
     ES.import:Show() -- any character: a Wowhead set needs nothing worn
-    ES.preset:SetShown(showPreset)
-    ES.preset.text:SetText("Use " .. preset.name)
     local y = 22 + (ES.title:GetStringHeight() or 20) + 10 + (ES.body:GetStringHeight() or 30) + 18
-    for _, b in ipairs({ ES.create, ES.import, ES.preset }) do
+    for _, b in ipairs({ ES.create, ES.import }) do
         if b:IsShown() then
             b:ClearAllPoints(); b:SetPoint("TOPLEFT", 22, -y)
             y = y + b:GetHeight() + 8

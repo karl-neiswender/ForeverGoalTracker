@@ -1447,7 +1447,7 @@ end
 -- First visit: the welcome card over the character's scene, with a gold way in.
 do
     local W = T.welcome
-    Track(W.card); Track(W.import); Track(W.preset)
+    Track(W.card); Track(W.import)
     local oldName, oldClass, oldFaction = UnitName, UnitClass, UnitFactionGroup
     UnitName = function() return "WelcomeOwner" end
     UnitClass = function() return "Warrior", "WARRIOR" end
@@ -1456,7 +1456,8 @@ do
     F.ShowTab("gear")
     assert(#T.store().builds == 0 and W.card:IsShown(), "a first visit shows the welcome card")
     assert(unit == "player", "the scene shows your own character")
-    assert(W.import:IsShown() and not W.preset:IsShown(), "Import from Wowhead; no preset for a Warrior")
+    assert(W.import:IsShown() and W.preset == nil, "Import from Wowhead, and no third button")
+    assert(W.import:GetHeight() == W.create:GetHeight(), "the two buttons are the same height")
     assert(W.import:GetScript("OnClick") == T.wowhead.Open, "the card's import opens the Wowhead window")
     -- start from current gear (the "..." menu): a named set, filled and saved at once
     local oldGet = GetInventoryItemID
@@ -1484,13 +1485,12 @@ do
         "every slot ends fully shown and the fade stops")
     assert(not W.card:IsShown(), "the card leaves once a set is open")
     T.slots.HeadSlot.SetAlpha, T.slots.HeadSlot.GetAlpha, T.slots.Trinket1Slot.SetAlpha, T.slots.Trinket1Slot.GetAlpha = nil, nil, nil, nil
-    -- a fitting preset is offered
+    -- an Alliance Hunter still gets only the two ways in (Karl, 2026-10-27: no preset button)
     UnitName = function() return "WelcomeHunter" end
     UnitClass = function() return "Hunter", "HUNTER" end
     UnitFactionGroup = function() return "Alliance", "Alliance" end
     F.ShowTab("tracker"); F.ShowTab("gear")
-    assert(W.card:IsShown() and W.preset:IsShown() and (W.preset.text:GetText() or ""):find("Hunter Pre-Raid BiS", 1, true),
-        "an Alliance Hunter is offered the Hunter preset")
+    assert(W.card:IsShown() and W.preset == nil, "an Alliance Hunter sees only Create and Import")
     -- the import window fades the card away, Cancel brings it back, and an import opens without it
     local WI = T.wowhead
     Track(WI.frame)
@@ -1572,7 +1572,7 @@ do
     T.model.SetUnit = nil
     UnitName, UnitClass, UnitFactionGroup = oldName, oldClass, oldFaction
     F.ShowTab("tracker")
-    print("  welcome card: character scene, Wowhead import, current gear start, fitting preset")
+    print("  welcome card: character scene, Wowhead import, current gear start, two buttons only")
 end
 
 -- The 2026-10-23 layout: slot rows, the sets drawer and its cards, the switcher, the band, stage controls.
