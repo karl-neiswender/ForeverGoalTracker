@@ -578,7 +578,7 @@ status:SetPoint("LEFT", band.tab, "RIGHT", 10, 0); status:SetPoint("RIGHT", righ
 status:SetJustifyH("LEFT"); status:SetWordWrap(false)
 status:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
 -- In My Goals, at the top of the Equipment panel under its heading (Karl, 2026-10-24: it took
--- room from the character). Not yet: "Not in My Goals yet" and a gold Add button on one line.
+-- room from the character). Not yet: "Not tracked" and a gold Add button on one line.
 -- Tracked: "3 of 17 collected" and "View in My Goals ›", the bar under them.
 band.GOAL_H = 46
 band.goal = CreateFrame("Frame", nil, left)
@@ -2578,7 +2578,8 @@ Refresh = function()
             band.goalText:SetText((done or 0) .. " of " .. (total or 0) .. " collected")
             band.bar:Show(); band.bar:SetProgress(done or 0, total or 0, "")
         else
-            band.goalText:SetText(selected.name ~= "" and "Not in My Goals yet" or "Name your set first")
+            -- short, to fit beside the Add button, which already names My Goals (Karl, 2026-10-28: cut off)
+            band.goalText:SetText(selected.name ~= "" and "Not tracked" or "Name it first")
             band.bar:Hide()
         end
     end
