@@ -10195,6 +10195,7 @@ function FGT.HideEmptyTracker()
     sortBar:Show()
     if FGT.myGoalsView then FGT.myGoalsView:Show() end
     if FGT.listSearch then FGT.listSearch:Show() end
+    if FGT.RailFilters then FGT.RailFilters() end -- folded filters stay folded
     FGT.RefreshOverall()
     for _, part in ipairs(detailParts) do part:Show() end
 end

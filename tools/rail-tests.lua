@@ -43,6 +43,37 @@ local placed = 0
 local oldPlace = F.materialsPanel.Place
 F.materialsPanel.Place = function(self, ...) placed = placed + 1; return oldPlace(self, ...) end
 
+-- The Filters bar folds the view, sort, search and completed controls away (folded by default).
+F.SetSetting("celebrations", "off")
+local controls = { F.myGoalsView, U.sortBar, F.listSearch }
+for _, c in ipairs(controls) do Track(c, true) end
+R.head.SetHeight = function(self, h) self.heightForTest = h end
+local function Shown() for _, c in ipairs(controls) do if not c:IsShown() then return false end end; return true end
+local function Hidden() for _, c in ipairs(controls) do if c:IsShown() then return false end end; return true end
+R:SetFilters(false, true)
+assert(not R.filtersOpen and Hidden() and R.head.heightForTest == 28, "folded: only the Filters bar: " .. tostring(R.head.heightForTest))
+assert(R.bar.count:GetText():find("^%d+ goals$"), "the bar counts the goals: " .. tostring(R.bar.count:GetText()))
+R.bar:GetScript("OnClick")(R.bar)
+assert(R.filtersOpen and D.listFiltersOpen and Shown() and R.head.heightForTest == 126, "the bar opens the filters and remembers it")
+R.bar:GetScript("OnClick")(R.bar)
+assert(not R.filtersOpen and D.listFiltersOpen == nil and Hidden(), "and folds them again")
+F.listQuery = "thunder"; F.LayoutGoalList()
+assert(R.bar.count:GetText():find("^%d+ of %d+$"),"a filter left on while folded still shows: " .. tostring(R.bar.count:GetText()))
+F.listQuery = ""; F.LayoutGoalList()
+F.SetSetting("celebrations", "full")
+local oldVisible = list.IsVisible
+list.IsVisible = function() return true end
+R.bar:GetScript("OnClick")(R.bar)
+local ease = R.fdriver:GetScript("OnUpdate")
+assert(ease and Shown(), "Full motion eases the filters open")
+ease(R.fdriver, 0.05)
+assert(R.p > 0 and R.p < 1 and R.head.heightForTest > 28 and R.head.heightForTest < 126, "mid-ease height")
+ease(R.fdriver, 1)
+assert(R.p == 1 and not R.fdriver:GetScript("OnUpdate") and R.head.heightForTest == 126, "settles open")
+R:SetFilters(false, true)
+list.IsVisible = oldVisible
+F.SetSetting("celebrations", "off")
+
 -- Folding at once (motion off): the rail, saved.
 F.SetSetting("celebrations", "off")
 R:Toggle()
@@ -70,6 +101,9 @@ assert(#lines > 1 and lines[1] == rows[1].goal.name and lines[2] == rows[1].goal
 -- The filter card holds the list's own controls; the count shows while filtering.
 R:OpenCard()
 assert(R.card:IsShown() and R.inner:GetParent() == R.card, "the filter card carries the real search, sort and view")
+assert(not R.filtersOpen and Shown(), "the card shows every control, even with the list's filters folded")
+R.bar:GetScript("OnClick")(R.bar)
+assert(not R.filtersOpen, "the bar does nothing inside the card")
 F.listSearch:SetText("thunder")
 F.listQuery = "thunder"; F.LayoutGoalList(); R:UpdateFilter()
 -- (the stub's cards don't track visibility, so only the count's form is checked)
@@ -98,6 +132,7 @@ for _, row in ipairs(rows) do
     assert(row.body:IsShown() and not row.rail:IsShown() and row.body.sizeForTest == nil, "text back, filling the card again")
 end
 assert(R.head:IsShown() and R.inner:GetParent() == R.head, "the controls are back in the list")
+assert(Hidden() and R.head.heightForTest == 28, "and the folded filters fold again")
 
 -- Full motion: one finite slide that can reverse.
 F.SetSetting("celebrations", "full")
@@ -144,4 +179,4 @@ R:Toggle()
 GameTooltip = nil
 F.materialsPanel.Place = oldPlace
 F.RailMarks = makeMarks
-print("  rail: fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, full tooltip, filter card and count, empty tracker, saved choice, demo, Library width, divider ok")
+print("  rail: Filters bar (fold, open, saved, count, ease, card), fold and open (Off, Full with reversal, Subtle), clipped card text, rail marks, full tooltip, filter card and count, empty tracker, saved choice, demo, Library width, divider ok")

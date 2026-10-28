@@ -19,7 +19,11 @@ local OPEN = list:GetWidth()
 if not OPEN or OPEN < 150 then OPEN = 258 end
 local RAIL = 98
 local CARD_OPEN = OPEN - 28
-local HEAD = 104 -- view, sort, search, then the completed-goals filter
+local HEAD = 104 -- the folded rail's header: its filter button and divider
+-- The open list's header (Karl, 2026-10-28: fold the filters away to simplify the
+-- list): the Filters bar, and under it, while open, the view, sort, search and
+-- completed-goals controls. The filter card beside the rail always shows them all.
+local BAR, HEAD_SHUT, HEAD_OPEN = 22, 32, 130
 
 local function Motion() return FGT.Setting("celebrations") or "full" end
 local function Clamp01(x) return math.max(0, math.min(1, x)) end
@@ -34,21 +38,66 @@ local function Smooth(x) x = Clamp01(x); return x * x * (3 - 2 * x) end
 local head = CreateFrame("Frame", nil, list)
 head:SetPoint("TOPLEFT", list, "TOPLEFT", 4, -4)
 head:SetPoint("TOPRIGHT", list, "TOPRIGHT", -4, -4)
-head:SetHeight(HEAD - 4)
+head:SetHeight(HEAD_SHUT - 4)
 if head.SetClipsChildren then head:SetClipsChildren(true) end
 local inner = CreateFrame("Frame", nil, head)
 R.head, R.inner = head, inner
 local view, sortBar, search = FGT.myGoalsView, U.sortBar, FGT.listSearch
 for _, control in ipairs({ view, sortBar, search }) do control:SetParent(inner) end
+
+-- The Filters bar: a disclosure row like the Sort and Show menus, the sliders icon
+-- and a count (gold while a filter is on, so folded filters never hide silently),
+-- and the gold chevron pointing down while folded, up while open.
+local bar = CreateFrame("Button", nil, inner, "BackdropTemplate")
+R.bar = bar
+bar:SetHeight(BAR)
+bar:SetPoint("TOPLEFT", inner, "TOPLEFT", 2, -2)
+bar:SetPoint("TOPRIGHT", inner, "TOPRIGHT", -2, -2)
+S.etch(bar, STYLE.button, 10)
+bar.icon = bar:CreateTexture(nil, "ARTWORK")
+bar.icon:SetTexture(FGT.Icon("sliders-white"))
+bar.icon:SetSize(14, 14)
+bar.icon:SetPoint("LEFT", bar, "LEFT", 7, 0)
+bar.label = S.font(bar, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
+bar.label:SetPoint("LEFT", bar.icon, "RIGHT", 6, 0)
+bar.label:SetText("Filters")
+bar.caret = bar:CreateTexture(nil, "OVERLAY")
+bar.caret:SetTexture(FGT.Icon("chevron"))
+bar.caret:SetSize(14, 14)
+bar.caret:SetPoint("RIGHT", bar, "RIGHT", -6, 0)
+bar.count = S.font(bar, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+bar.count:SetPoint("RIGHT", bar.caret, "LEFT", -6, 0)
+
 view:ClearAllPoints()
-view:SetPoint("TOPLEFT", inner, "TOPLEFT", 2, -2)
-view:SetPoint("TOPRIGHT", inner, "TOPRIGHT", -2, -2)
+view:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", 0, -4)
+view:SetPoint("TOPRIGHT", bar, "BOTTOMRIGHT", 0, -4)
 sortBar:ClearAllPoints()
 sortBar:SetPoint("TOPLEFT", view, "BOTTOMLEFT", 0, -4)
-sortBar:SetPoint("TOPRIGHT", inner, "TOPRIGHT", -2 - 58, -28) -- room for Clear
-U.scroll.scroll:ClearAllPoints()
-U.scroll.scroll:SetPoint("TOPLEFT", list, "TOPLEFT", 6, -HEAD)
-U.scroll.scroll:SetPoint("BOTTOMRIGHT", list, "BOTTOMRIGHT", -10, 4)
+sortBar:SetPoint("TOPRIGHT", inner, "TOPRIGHT", -2 - 58, -2 - BAR - 4 - 26) -- room for Clear
+
+-- How open the filters are (R.p, 0 to 1) and how folded the list is (R.f) set the
+-- header's height; the cards start under it.
+R.p = 0
+local function PlaceHead()
+    local listH = HEAD_SHUT + (HEAD_OPEN - HEAD_SHUT) * R.p
+    local h = listH + (HEAD - listH) * Smooth(R.f)
+    head:SetHeight(h - 4)
+    U.scroll.scroll:ClearAllPoints()
+    U.scroll.scroll:SetPoint("TOPLEFT", list, "TOPLEFT", 6, -h)
+    U.scroll.scroll:SetPoint("BOTTOMRIGHT", list, "BOTTOMRIGHT", -10, 4)
+end
+R.PlaceHead = PlaceHead
+-- The controls under the bar at strength `a` (hidden at 0, so nothing folded takes clicks).
+-- The empty tracker hides them itself (Core's ShowEmptyTracker).
+local function ControlsAt(a)
+    if R.empty then return end
+    for _, control in ipairs({ view, sortBar, search }) do
+        control:SetAlpha(a)
+        control:SetShown(a > 0)
+    end
+end
+PlaceHead()
+ControlsAt(0) -- folded until the saved choice arrives (PLAYER_LOGIN)
 
 -- Moving the controls between the list and the card: raise the whole group
 -- above its new holder, or it could draw under the card's background (a
@@ -71,7 +120,7 @@ local function InnerFreeze() -- open width, so the controls never squeeze mid-mo
     Raise(inner, head:GetFrameLevel() + 1)
     inner:ClearAllPoints()
     inner:SetPoint("TOPLEFT", head, "TOPLEFT", 0, 0)
-    inner:SetSize(OPEN - 8, HEAD - 4)
+    inner:SetSize(OPEN - 8, HEAD_OPEN - 4)
 end
 InnerFill()
 
@@ -95,7 +144,7 @@ end
 local card = CreateFrame("Frame", nil, S.main, "BackdropTemplate")
 R.card = card
 card:SetFrameLevel(S.main:GetFrameLevel() + 50)
-card:SetSize(OPEN - 8 + 16, HEAD - 4 + 16)
+card:SetSize(OPEN - 8 + 16, HEAD_OPEN - 4 + 16)
 S.etch(card, STYLE.panel, 12)
 FGT.AddGrime(card, 0.18, 12, 0.53, 0, 90)
 card.drop = FGT.AddDropShadow(card, 30, 0.5, 6, 10)
@@ -173,7 +222,68 @@ function R:UpdateFilter()
     filter.icon:SetVertexColor(c[1], c[2], c[3]); filter.glow:SetVertexColor(c[1], c[2], c[3])
     filter.lit = on or card:IsShown()
     filter:RefreshIcon()
+    -- the Filters bar: the same count, "N goals" while nothing is filtered
+    bar.count:SetText(on and (shown .. " of " .. total) or (total .. (total == 1 and " goal" or " goals")))
+    bar.count:SetTextColor(cc[1], cc[2], cc[3])
+    local ic = on and C.ACCENT or (bar:IsMouseOver() and C.TEXT) or C.SUBTEXT
+    bar.icon:SetVertexColor(ic[1], ic[2], ic[3])
 end
+
+-- Opening and folding the filters: remembered; a short ease in Full motion,
+-- at once in Subtle and Off (Subtle never slides).
+local fdriver = CreateFrame("Frame", nil, list)
+R.fdriver = fdriver
+local function PointCaret()
+    local open = R.filtersOpen
+    bar.caret:SetTexCoord(0, 1, open and 1 or 0, open and 0 or 1)
+end
+function R:SetFilters(open, instant)
+    self.filtersOpen = open and true or false
+    local DB = ForeverGoalTrackerDB
+    if DB then DB.listFiltersOpen = self.filtersOpen or nil end
+    if not open and search:HasFocus() then search:ClearFocus() end
+    PointCaret()
+    fdriver:SetScript("OnUpdate", nil)
+    local target = open and 1 or 0
+    local function Done()
+        R.p = target
+        PlaceHead()
+        if R.f == 0 then ControlsAt(target) end
+        U.layout() -- the cards' scroll changed height
+    end
+    if instant or Motion() ~= "full" or R.f > 0 or not list:IsVisible() then Done(); return end
+    local from, t = R.p, 0
+    local duration = 0.22 * math.max(0.35, math.abs(target - from))
+    if open then ControlsAt(math.max(from, 0.01)) end
+    fdriver:SetScript("OnUpdate", function(driver, dt)
+        t = t + dt
+        local p = math.min(1, t / duration)
+        R.p = from + (target - from) * (1 - (1 - p) ^ 3)
+        PlaceHead()
+        ControlsAt(math.max(R.p, 0.01))
+        if p >= 1 then driver:SetScript("OnUpdate", nil); Done() end
+    end)
+end
+bar:SetScript("OnClick", function()
+    if R.f > 0 then return end -- in the rail's card the filters are always open
+    R:SetFilters(not R.filtersOpen)
+end)
+bar:SetScript("OnEnter", function(self)
+    self:SetEtch(STYLE.btnHover)
+    self.label:SetTextColor(1, 1, 1)
+    R:UpdateFilter()
+    if R.f > 0 then return end
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+    GameTooltip:AddLine(R.filtersOpen and "Hide filters" or "Show, sort and search")
+    GameTooltip:Show()
+end)
+bar:SetScript("OnLeave", function(self)
+    self:SetEtch(STYLE.button)
+    self.label:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3])
+    R:UpdateFilter()
+    GameTooltip:Hide()
+end)
+PointCaret()
 filter:HookScript("OnEnter", function(self)
     R:UpdateFilter()
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -195,9 +305,11 @@ function R:OpenCard()
     inner:SetParent(card)
     inner:ClearAllPoints()
     inner:SetPoint("TOPLEFT", card, "TOPLEFT", 8, -8)
-    inner:SetSize(OPEN - 8, HEAD - 4)
+    inner:SetSize(OPEN - 8, HEAD_OPEN - 4)
     Raise(inner, card:GetFrameLevel() + 2)
     inner:SetAlpha(1)
+    ControlsAt(1) -- the card always shows every control
+    bar.caret:Hide()
     card:Show(); card.drop:Show()
     local mode = Motion()
     if mode == "off" then PlaceCard(0); card:SetAlpha(1); card.drop:SetAlpha(1)
@@ -324,6 +436,7 @@ function R:Apply()
         end
     end
     if made then U.refresh() end -- new marks take their card's progress and star
+    PlaceHead() -- the folded header is the rail's own height
     local headA = 1 - Smooth(f / 0.45)
     head:SetAlpha(headA)
     head:SetShown(headA > 0)
@@ -354,7 +467,10 @@ function R:Settle()
     else
         InnerFill()
         CloseCard()
+        ControlsAt(R.p) -- back to the bar's own choice
+        bar.caret:Show()
     end
+    PlaceHead()
     self:UpdateFilter()
 end
 
@@ -381,6 +497,7 @@ function R:Animate(rail, instant, quiet)
     self.target = rail and 1 or 0
     PointHandle()
     CloseCard()
+    if not rail then ControlsAt(R.p); bar.caret:Show() end -- the card showed them all
     driver:SetScript("OnUpdate", nil)
     for _, row in pairs(rows) do BodyFreeze(row) end
     InnerFreeze()
@@ -493,7 +610,12 @@ function FGT.ListIsRail() return R.f >= 0.5 end
 function FGT.RailEmpty(empty)
     if R.empty == empty then return end
     R.empty = empty
+    bar:SetShown(not empty) -- nothing to filter
     R:Sync(true, true)
+end
+-- Core's HideEmptyTracker shows every control again: put the folded ones back.
+function FGT.RailFilters()
+    if R.f == 0 then ControlsAt(R.p) end
 end
 
 -- The filter count follows the search box and the view.
@@ -513,6 +635,7 @@ events:SetScript("OnEvent", function(_, event)
     if event == "PLAYER_LOGIN" then
         local DB = ForeverGoalTrackerDB
         R.saved = DB and DB.listRail and true or false
+        R:SetFilters(DB and DB.listFiltersOpen, true)
         R:Sync(true)
     elseif card:IsShown() and not card:IsMouseOver() and not filter:IsMouseOver() then
         local menuOpen = (view.menu and view.menu:IsShown()) or (U.sortMenu and U.sortMenu:IsShown())

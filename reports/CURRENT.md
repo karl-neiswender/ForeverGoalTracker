@@ -111,6 +111,11 @@ its October 21 notes.
   list is clear", progress-is-saved line, Find my next goal. Both get a quiet "Plan my gear" text link; the + card
   uses the UI kit's `plus.tga` and reads "Choose your first goal" (cleared: "Choose your next goal"); no goal count
   (Karl: a big number feels overwhelming). Existing players with an empty list today see first-visit copy once. Native review pending.
+- My Goals Filters bar (2026-10-28, PC, Claude, uncommitted; Karl chose "everything folds"): Rail.lua `R.bar`
+  (sliders icon, "Filters", count "N goals" or gold "N of M", chevron) heads the list; Show, Sort/Clear, Search and
+  Hide completed fold under it (`R:SetFilters`, saved as `DB.listFiltersOpen`, folded by default, 0.22 s ease in
+  Full). Header height: HEAD_SHUT 32, HEAD_OPEN 130; the rail keeps HEAD 104 (folding the list now also eases the
+  cards' top). The rail's filter card always shows every control. Native review pending.
 - New Library goals (2026-10-28, PC, uncommitted): `unstoppable_force` (AV Exalted, unverified in game),
   `might_of_menethil` (Kel'Thuzad), `sulthraze` (Zul'Farrak, combine step). No banner art yet.
 
