@@ -1,0 +1,72 @@
+{
+  "approved": true,
+  "jobs": [
+    [
+      "collect_the_1_ring",
+      "12141cd1-081c-4d38-b9a1-a33f553aa29e",
+      "",
+      "",
+      "",
+      0
+    ],
+    [
+      "allclasses_undead_priest_male",
+      "93193a92-af7b-44d6-a8da-465b06db7942",
+      "Horde",
+      "PRIEST",
+      "Scourge",
+      2
+    ],
+    [
+      "allclasses_undead_priest_female",
+      "f19f96df-9a37-44b8-88b4-79c3e151ccb7",
+      "Horde",
+      "PRIEST",
+      "Scourge",
+      3
+    ],
+    [
+      "allclasses_human_rogue_female",
+      "a7797d21-00a1-4af8-b62d-29b08013c3f5",
+      "Alliance",
+      "ROGUE",
+      "Human",
+      3
+    ],
+    [
+      "allclasses_human_hunter_male",
+      "f84611a1-0618-4dc9-8f0a-f8953a94a084",
+      "Alliance",
+      "HUNTER",
+      "Human",
+      2
+    ],
+    [
+      "dungeon_hunter_human_male",
+      "233422e5-3fd2-4584-97de-c1771e86a803",
+      "Alliance",
+      "HUNTER",
+      "Human",
+      2
+    ],
+    [
+      "allclasses_human_paladin_male",
+      "e7f1dbf8-abec-44df-a872-c5f367ab4efb",
+      "Alliance",
+      "PALADIN",
+      "Human",
+      2
+    ]
+  ],
+  "note": "All seven explicitly approved. Character art is leveling; Hunter armor art serves both dungeon sets. Native appearance pending.",
+  "sources": [
+    "item-ring-3.jpg",
+    "horde-undead-male-priest-tier2-weapon-anathema-shadow.png",
+    "horde-undead-female-priest-pvp-cloth.png",
+    "alliance-human-female-rogue-tier3-2.jpg",
+    "alliance-human-male-hunter-leveling.png",
+    "alliance-human-male-hunter-dungeonset.png",
+    "alliance-human-male-warrior-leveling-2.jpg"
+  ],
+  "validation": "tools/check.py passed; 255 checklist previews, none missing; 1200x900 RGB masters, 512px DXT1 BLPs with ten mips; native rendering pending, full restart required."
+}

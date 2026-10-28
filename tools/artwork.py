@@ -14,6 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "collect_the_1_ring": "collect_the_1_ring-master.png",
+    "allclasses_undead_priest_male": "allclasses_undead_priest_male-master.png",
+    "allclasses_undead_priest_female": "allclasses_undead_priest_female-master.png",
+    "allclasses_human_rogue_female": "allclasses_human_rogue_female-master.png",
+    "allclasses_human_hunter_male": "allclasses_human_hunter_male-master.png",
+    "dungeon_hunter_human_male": "dungeon_hunter_human_male-master.png",
+    "allclasses_human_paladin_male": "allclasses_human_paladin_male-master.png",
     "allclasses_undead_rogue_female": "leveling/undead-rogue-female-master.png",
     "allclasses_undead_rogue_male": "leveling/undead-rogue-male-master.png",
     "allclasses_human_rogue_male": "leveling/human-rogue-male-master.png",

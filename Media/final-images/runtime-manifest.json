@@ -1867,5 +1867,54 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "collect_the_1_ring": {
+    "source": "collect_the_1_ring-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_undead_priest_male": {
+    "source": "allclasses_undead_priest_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_undead_priest_female": {
+    "source": "allclasses_undead_priest_female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_rogue_female": {
+    "source": "allclasses_human_rogue_female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_hunter_male": {
+    "source": "allclasses_human_hunter_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "dungeon_hunter_human_male": {
+    "source": "dungeon_hunter_human_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_paladin_male": {
+    "source": "allclasses_human_paladin_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

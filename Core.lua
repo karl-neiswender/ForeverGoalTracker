@@ -5677,6 +5677,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="benediction-banner.blp", faction="Horde"},
         },
         allclasses = {
+            {path="allclasses_undead_priest_male-banner.blp", faction="Horde", class="PRIEST", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_undead_priest_female-banner.blp", faction="Horde", class="PRIEST", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_rogue_female-banner.blp", faction="Alliance", class="ROGUE", race="Human", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_hunter_male-banner.blp", faction="Alliance", class="HUNTER", race="Human", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_paladin_male-banner.blp", faction="Alliance", class="PALADIN", race="Human", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_hunter_male-banner.blp", faction="Horde", class="HUNTER", race="Troll", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_hunter_female-banner.blp", faction="Horde", class="HUNTER", race="Troll", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_rogue-banner.blp", faction="Horde", class="ROGUE", race="Troll", aspect=4/3, preprocessed=true},
@@ -5750,6 +5755,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             B.artVariants[child.id] = variants
         end
     end
+    B.artVariants.collect_the_1_ring = {{path="collect_the_1_ring-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon1_hunter = {{path="dungeon_hunter_human_male-banner.blp", faction="Alliance", race="Human", sex=2, aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon2_hunter = {{path="dungeon_hunter_human_male-banner.blp", faction="Alliance", race="Human", sex=2, aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_set_plate_ally_warrior = {
         {path="pvp_set_plate_ally_warrior_gnome_female-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
         {path="pvp_set_plate_ally-banner.blp", aspect=4/3, preprocessed=true},
@@ -7636,6 +7644,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["allclasses_undead_priest_male-banner.blp"] = "Bob Larkin",
+        ["allclasses_undead_priest_female-banner.blp"] = "Triston Elwell",
+        ["allclasses_human_hunter_male-banner.blp"] = "Jim Nelson",
+        ["dungeon_hunter_human_male-banner.blp"] = "Leo Che (Concept Art House)",
         ["allclasses_human_rogue_male-banner.blp"] = "Ralph Horsley",
         ["allclasses_undead_rogue_male-banner.blp"] = "Dave Allsop",
         ["allclasses_undead_rogue_female-banner.blp"] = "Gonzalo Ordonez",
