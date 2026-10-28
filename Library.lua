@@ -1580,6 +1580,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 870, checked 2026-10-28: epic Bind on Equip two-hand axe, item level 40, requires
+        -- level 35, 93 to 141 damage, chance on hit: 155 to 197 Fire damage plus 24 over 6 sec. A world drop from
+        -- level 40 to 43 creatures: 33 listed, no boss, each at a tiny rate (Grimtotem Naturalist in Feralas, 1 of
+        -- 321 kills). Not in Forever's tables yet, so not marked confirmed.
+        id = "fiery_war_axe", library = true, itemQuality = 4,
+        icon = "inv_axe_02",
+        name = "Fiery War Axe",
+        short = "Fiery War Axe",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "An epic two-handed axe that level 40 to 43 creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 35.", auto = { level = 35 } },
+            { text = "Loot Fiery War Axe, a rare world drop from level 40 to 43 creatures.", auto = { item = 870, owned = { "Fiery War Axe" } } },
+        },
+        completeWith = { item = 870, owned = { "Fiery War Axe" } },
+        tips = {
+            "About 30 creatures of level 40 to 43 have dropped it, none of them bosses, such as the Grimtotem in Feralas and the scalebanes in Swamp of Sorrows. Each drop is very rare.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "Its chance on hit hurls a fireball for 155 to 197 Fire damage, plus 24 more over 6 seconds. Warriors, Paladins, Hunters and Shamans can use a two-handed axe. Learn Two-Handed Axes before equipping it.",
+        },
+    },
+
+    {
         -- Item 13006: rare (blue) Bind on Equip main-hand mace, item level 62, requires level 57, +10 Strength,
         -- +10 Stamina. A world drop: 402 creatures listed, no boss (warcraftdb).
         id = "mass_of_mcgowan", library = true, itemQuality = 3,

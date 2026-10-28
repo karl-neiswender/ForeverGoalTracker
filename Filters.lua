@@ -62,6 +62,7 @@ FGT.GOAL_CLASSES = {
     mass_of_mcgowan = ONE_HAND_MACE,
     viking_warhammer = ONE_HAND_MACE,
     twig_of_the_world_tree = { "WARRIOR", "PALADIN", "SHAMAN", "DRUID" },
+    fiery_war_axe = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" }, -- two-handed axe users
     wraith_scythe = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" }, -- one-handed axe users
     thrash_blade = ONE_HAND_SWORD,
     viskag = ONE_HAND_SWORD,
