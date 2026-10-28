@@ -90,7 +90,9 @@ computed from it (class beats race beats faction, like `B:BestArtVariant`). When
 added or changed in Core.lua, edit `RC_ART` to match. Each grid cell is split into a male (M) and a
 female (F) half (Karl, 2026-10-28): every `RC_ART` entry has `pic` (who the image pictures: `m`, `f` or `mf`,
 judged by looking at it), and a male or female only image has `only` (Core's `sex=2` or `sex=3`). Tag both
-when adding a leveling banner. The published artifact differs slightly from the repo file: it has no doctype, head or body tags (the
+when adding a leveling banner. Armor set rows (the tier tables, Armor sets, the borrowed class sets and the PvP
+Marshal's and Warlord's sets) are split the same way from `SETPIC`, which tags each set image `m`, `f`, `mf` or
+`n` (no person); add a new set banner's key there. The published artifact differs slightly from the repo file: it has no doctype, head or body tags (the
 publish step adds them), starts at its `claude:viewport-fit-sides` meta, and sets its page gutter on `body`.
 To republish, copy the repo file, make those changes, and publish it to the artifact URL. Every new goal
 needs a row in `GOALS` and, while it has no banner, a line in `FIRST`, in both copies.

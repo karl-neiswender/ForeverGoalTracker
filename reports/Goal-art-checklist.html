@@ -113,6 +113,7 @@
   .hx.alt { outline: 1.5px dashed currentColor; outline-offset: -3px; }
   .hx.has { cursor: zoom-in; }
   .rc-sum.sxs { border-left-color: var(--borrow); }
+  td.s.sx { padding: 4px; white-space: nowrap; }
   @media (max-width: 560px) {
     td:last-child { display: none; } th:last-child { display: none; }
     td.s { width: auto; }
@@ -140,6 +141,7 @@
   </div>
 
   <div id="racegrid"></div>
+  <div id="setsex"></div>
   <div id="tables"></div>
   <div id="preview" role="tooltip" hidden></div>
 
@@ -2573,6 +2575,108 @@ function notesKeys(note, side, status) {
   return found;
 }
 
+// Who each armor set image pictures (Karl, 2026-10-28: track male and female art for sets too),
+// judged by looking at it: m, f, mf (both) or n (no person: a scene, a ring, armor alone).
+var SETPIC = {
+  "set_tier1_druid": "m",
+  "set_tier1_hunter-alliance": "m",
+  "set_tier1_hunter": "m",
+  "set_tier1_mage": "f",
+  "set_tier1_paladin": "m",
+  "set_tier1_priest": "f",
+  "set_tier1_priest-horde": "m",
+  "set_tier1_rogue-alliance": "m",
+  "set_tier1_rogue": "m",
+  "set_tier1_shaman": "m",
+  "set_tier1_shaman_troll": "m",
+  "set_tier1_warlock-alliance": "m",
+  "set_tier1_warlock": "m",
+  "set_tier1_warrior": "m",
+  "set_tier2_druid": "m",
+  "set_tier2_druid-horde": "m",
+  "set_tier2_hunter-alliance": "f",
+  "set_tier2_hunter": "m",
+  "set_tier2_mage": "m",
+  "set_tier2_paladin": "m",
+  "set_tier2_priest": "m",
+  "set_tier2_rogue-alliance": "f",
+  "set_tier2_rogue": "mf",
+  "set_tier2_shaman": "m",
+  "set_tier2_warlock-alliance": "f",
+  "set_tier2_warlock": "m",
+  "set_tier2_warrior-alliance": "m",
+  "set_tier2_warrior": "m",
+  "tier3_druid": "m",
+  "tier3_hunter": "m",
+  "tier3_mage": "m",
+  "tier3_paladin": "m",
+  "tier3_priest": "f",
+  "tier3_priest_gnome": "m",
+  "tier3_rogue": "m",
+  "tier3_rogue_human": "f",
+  "tier3_rogue_troll": "m",
+  "tier3_shaman": "f",
+  "tier3_warlock-alliance": "f",
+  "tier3_warlock-horde": "f",
+  "tier3_warrior": "m",
+  "tier3_warrior_koringar": "m",
+  "pvp_set_leather_ally": "f",
+  "set_dungeon2": "n",
+  "key_strat": "n",
+  "set_tier25": "n",
+  "set_forever_raid_alliance": "mf",
+  "set_forever_raid_horde": "mf",
+  "set_tier25_plate": "m",
+  "set_dungeon1_warrior": "m",
+  "set_dungeon2_hunter": "mf",
+  "set_dungeon1_hunter": "m",
+  "set_scarlet_crusade": "n",
+  "set_tier25_leather": "m",
+  "allclasses_troll_warlock": "f",
+  "set_dungeon1_warlock": "m",
+  "set_viper": "f",
+  "set_dungeon1_paladin": "f",
+  "set_tier1_rogue_dwarf_female": "f",
+  "set_partners_in_crime": "n",
+  "set_tier25_hunter": "m",
+  "set_dungeon1_shaman": "n",
+  "set_violet_sorcerer": "n",
+  "pvp_set_plate_ally": "f",
+  "pvp_set_plate_ally_warrior_gnome_female": "f",
+  "pvp_set_mail_ally": "m",
+  "pvp_set_cloth_ally": "m",
+  "pvp_set_plate_horde": "m",
+  "pvp_set_mail_horde_shaman": "m",
+  "pvp_troll_hunter_mail": "m",
+  "pvp_set_cloth_horde": "f"
+};
+function isSetRow(title, group, r) {
+  if (group === "grid") return title.indexOf("sets") >= 0 || title.indexOf("Other class") === 0;
+  return title === "Armor sets" || (title === "PvP" && /Marshal's|Warlord's/.test(r[0]));
+}
+var SETSEX = null; // filled while the tables draw: { both, m, f, mixed, none } row names
+// A set's status cell split into M and F; a half is dashed when no image for that faction pictures that sex.
+function splitCell(r, side, keys) {
+  var st = r[side === "a" ? 1 : 2];
+  if (st === "na") return '<td class="s na">' + LABEL.na + "</td>";
+  var pics = keys.map(function (k) { return SETPIC[k] || ""; }).join("");
+  var person = /[mf]/.test(pics), has = keys.length && st !== "need";
+  function h(sex, letter, word) {
+    var other = st !== "need" && person && pics.indexOf(sex) < 0;
+    var tip = word + ": " + LABEL[st] + (st === "need" ? "" : !person ? ", the image shows no one" :
+      other ? ", the image pictures the other sex" : "");
+    return '<span class="hx ' + st + (other ? " alt" : "") + (has ? " has" : "") + '" title="' + esc(tip) + '"' +
+      (has ? ' tabindex="0" data-k="' + keys.join(",") + '"' : "") + ">" + letter + "</span>";
+  }
+  return '<td class="s sx">' + h("m", "M", "Male") + h("f", "F", "Female") + "</td>";
+}
+function noteSetSex(name, ka, kh, r) {
+  if (!SETSEX) return;
+  var pics = (r[1] === "na" || r[1] === "need" ? [] : ka).concat(r[2] === "na" || r[2] === "need" ? [] : kh)
+    .map(function (k) { return SETPIC[k] || ""; }).join("");
+  var m = pics.indexOf("m") >= 0, f = pics.indexOf("f") >= 0;
+  (m && f ? SETSEX.both : m ? SETSEX.m : f ? SETSEX.f : SETSEX.none).push(name);
+}
 function statusCell(r, side, keys) {
   var st = r[side === "a" ? 1 : 2], has = keys.length && st !== "na" && st !== "need";
   return '<td class="s ' + st + (has ? " has" : "") + '"' + (has ? ' tabindex="0" data-k="' + keys.join(",") + '"' : "") + ">" + LABEL[st] + "</td>";
@@ -2584,8 +2688,10 @@ function section(title, rows, head, group, counts) {
     counts[group][r[1]]++; counts[group][r[2]]++;
     var ci = (typeof CLASSIMG !== "undefined" && CLASSIMG[title] && CLASSIMG[title][r[0]]) || null;
     var ka = ci ? ci[0] : notesKeys(r[3], "a", r[1]), kh = ci ? ci[1] : notesKeys(r[3], "h", r[2]);
+    var split = isSetRow(title, group, r);
+    if (split) noteSetSex(/ sets$/.test(title) ? title.replace(/ sets$/, "") + " " + r[0] : r[0], ka, kh, r);
     html += '<tr data-a="' + r[1] + '" data-h="' + r[2] + '"><td>' + esc(r[0]) + "</td>" +
-      statusCell(r, "a", ka) + statusCell(r, "h", kh) +
+      (split ? splitCell(r, "a", ka) + splitCell(r, "h", kh) : statusCell(r, "a", ka) + statusCell(r, "h", kh)) +
       "<td>" + noteHtml(r[3]) + "</td></tr>";
   });
   return html + "</tbody></table>";
@@ -2746,6 +2852,7 @@ function line(c) {
 }
 
 function render() {
+  SETSEX = { both: [], m: [], f: [], none: [] };
   var html = "", counts = {
     grid: { need: 0, borrow: 0, share: 0, done: 0, na: 0 },
     goals: { need: 0, borrow: 0, share: 0, done: 0, na: 0 }
@@ -2762,6 +2869,13 @@ function render() {
     : "<li>Nothing logged yet</li>";
   document.getElementById("counts").innerHTML =
     "Class grid: " + line(counts.grid) + "<br>All goals: " + line(counts.goals);
+  var L = function (label, list) { return "<li><strong>" + label + " (" + list.length + "):</strong> " + list.map(esc).join(", ") + "</li>"; };
+  document.getElementById("setsex").innerHTML = '<h2 class="part">Armor sets: male and female</h2>' +
+    '<p class="sub">Every armor set row below is split M and F for each faction. A dashed half means that faction\'s ' +
+    "image pictures the other sex. Judged by looking at each image.</p>" +
+    '<div class="rc-sum sxs"><strong>Who the set images picture</strong><ul>' +
+    L("Men and women (an image of each, or one showing both)", SETSEX.both) + L("Men only", SETSEX.m) +
+    L("Women only", SETSEX.f) + L("No one, or no image yet", SETSEX.none) + "</ul></div>";
 }
 
 function filter(f) {
