@@ -1,0 +1,6034 @@
+{
+ "date": "2026-10-29",
+ "lowpx": 350,
+ "batch_size": 8,
+ "rows": [
+  {
+   "file": "weapon-black-amnesty.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Black Amnesty",
+   "targets": [
+    {
+     "label": "Black Amnesty",
+     "goal": "black_amnesty",
+     "resolve": {
+      "goal": "black_amnesty"
+     },
+     "key": "black_amnesty"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A001",
+   "state": "queued",
+   "batch": 1
+  },
+  {
+   "file": "weapon-blastershot-launcher.jpg",
+   "group": "needed",
+   "priority": 1,
+   "title": "Blastershot Launcher",
+   "targets": [
+    {
+     "label": "Blastershot Launcher",
+     "goal": "blastershot_launcher",
+     "resolve": {
+      "goal": "blastershot_launcher"
+     },
+     "key": "blastershot_launcher"
+    }
+   ],
+   "alt": null,
+   "w": 220,
+   "h": 308,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A002",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "weapon-brain-hacker.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Brain Hacker",
+   "targets": [
+    {
+     "label": "Brain Hacker",
+     "goal": "brain_hacker",
+     "resolve": {
+      "goal": "brain_hacker"
+     },
+     "key": "brain_hacker"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A003",
+   "state": "queued",
+   "batch": 1
+  },
+  {
+   "file": "item-cloak-of-flame.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Cloak of Flames",
+   "targets": [
+    {
+     "label": "Cloak of Flames",
+     "goal": "cloak_of_flames",
+     "resolve": {
+      "goal": "cloak_of_flames"
+     },
+     "key": "cloak_of_flames"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A004",
+   "state": "queued",
+   "batch": 1
+  },
+  {
+   "file": "item-cloak-of-the-shrouded-mists.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Cloak of the Shrouded Mists",
+   "targets": [
+    {
+     "label": "Cloak of the Shrouded Mists",
+     "goal": "cloak_of_the_shrouded_mists",
+     "resolve": {
+      "goal": "cloak_of_the_shrouded_mists"
+     },
+     "key": "cloak_of_the_shrouded_mists"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A005",
+   "state": "queued",
+   "batch": 1
+  },
+  {
+   "file": "weapon-cold-forged-hammer.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Cold Forged Hammer",
+   "targets": [
+    {
+     "label": "Cold Forged Hammer",
+     "goal": "cold_forged_hammer",
+     "resolve": {
+      "goal": "cold_forged_hammer"
+     },
+     "key": "cold_forged_hammer"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A006",
+   "state": "queued",
+   "batch": 1
+  },
+  {
+   "file": "weapon-Crackling_Staff.jpg",
+   "group": "needed",
+   "priority": 1,
+   "title": "Crackling Staff (Alliance)",
+   "targets": [
+    {
+     "label": "Crackling Staff (Alliance)",
+     "goal": "crackling_staff",
+     "resolve": {
+      "goal": "crackling_staff"
+     },
+     "key": "crackling_staff"
+    }
+   ],
+   "alt": null,
+   "w": 1024,
+   "h": 921,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A007",
+   "state": "queued",
+   "batch": 1
+  },
+  {
+   "file": "weapon-crimson-shocker.jpg",
+   "group": "needed",
+   "priority": 1,
+   "title": "Crimson Shocker",
+   "targets": [
+    {
+     "label": "Crimson Shocker",
+     "goal": "crimson_shocker",
+     "resolve": {
+      "goal": "crimson_shocker"
+     },
+     "key": "crimson_shocker"
+    }
+   ],
+   "alt": null,
+   "w": 220,
+   "h": 308,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A008",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "item-crown-of-the-ogre-king.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Crown of the Ogre King",
+   "targets": [
+    {
+     "label": "Crown of the Ogre King",
+     "goal": "crown_of_the_ogre_king",
+     "resolve": {
+      "goal": "crown_of_the_ogre_king"
+     },
+     "key": "crown_of_the_ogre_king"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A009",
+   "state": "queued",
+   "batch": 1
+  },
+  {
+   "file": "goal-dance.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Dance With Others",
+   "targets": [
+    {
+     "label": "Dance With Others",
+     "goal": "social_dance_partners",
+     "resolve": {
+      "goal": "social_dance_partners"
+     },
+     "key": "social_dance_partners"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A010",
+   "state": "queued",
+   "batch": 1
+  },
+  {
+   "file": "item-draconian-deflector.jpg",
+   "group": "needed",
+   "priority": 1,
+   "title": "Draconian Deflector",
+   "targets": [
+    {
+     "label": "Draconian Deflector",
+     "goal": "draconian_deflector",
+     "resolve": {
+      "goal": "draconian_deflector"
+     },
+     "key": "draconian_deflector"
+    }
+   ],
+   "alt": null,
+   "w": 200,
+   "h": 279,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A011",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "item-drillborer-disk.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Drillborer Disk",
+   "targets": [
+    {
+     "label": "Drillborer Disk",
+     "goal": "drillborer_disk",
+     "resolve": {
+      "goal": "drillborer_disk"
+     },
+     "key": "drillborer_disk"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A012",
+   "state": "queued",
+   "batch": 2
+  },
+  {
+   "file": "weapon-dwarven-hand-cannon.jpg",
+   "group": "needed",
+   "priority": 1,
+   "title": "Dwarven Hand Cannon",
+   "targets": [
+    {
+     "label": "Dwarven Hand Cannon",
+     "goal": "dwarven_hand_cannon",
+     "resolve": {
+      "goal": "dwarven_hand_cannon"
+     },
+     "key": "dwarven_hand_cannon"
+    }
+   ],
+   "alt": null,
+   "w": 200,
+   "h": 279,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A013",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "weapon-electrified-dagger.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Electrified Dagger (Alliance)",
+   "targets": [
+    {
+     "label": "Electrified Dagger (Alliance)",
+     "goal": "electrified_dagger",
+     "resolve": {
+      "goal": "electrified_dagger"
+     },
+     "key": "electrified_dagger"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A014",
+   "state": "queued",
+   "batch": 2
+  },
+  {
+   "file": "weapon-eskhandars-right-claw-tooth.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Eskhandar's Right Claw",
+   "targets": [
+    {
+     "label": "Eskhandar's Right Claw",
+     "goal": "eskhandars_right_claw",
+     "resolve": {
+      "goal": "eskhandars_right_claw"
+     },
+     "key": "eskhandars_right_claw"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A015",
+   "state": "queued",
+   "batch": 2
+  },
+  {
+   "file": "weapon-fang-of-the-crystal-spider.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Fang of the Crystal Spider",
+   "targets": [
+    {
+     "label": "Fang of the Crystal Spider",
+     "goal": "fang_of_the_crystal_spider",
+     "resolve": {
+      "goal": "fang_of_the_crystal_spider"
+     },
+     "key": "fang_of_the_crystal_spider"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A016",
+   "state": "queued",
+   "batch": 2
+  },
+  {
+   "file": "weapon-felstriker.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Felstriker",
+   "targets": [
+    {
+     "label": "Felstriker",
+     "goal": "felstriker",
+     "resolve": {
+      "goal": "felstriker"
+     },
+     "key": "felstriker"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A017",
+   "state": "queued",
+   "batch": 2
+  },
+  {
+   "file": "weapon-heartseeker.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Heartseeker",
+   "targets": [
+    {
+     "label": "Heartseeker",
+     "goal": "heartseeker",
+     "resolve": {
+      "goal": "heartseeker"
+     },
+     "key": "heartseeker"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A018",
+   "state": "queued",
+   "batch": 2
+  },
+  {
+   "file": "item-skullflame-shield.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Skullflame Shield",
+   "targets": [
+    {
+     "label": "Skullflame Shield",
+     "goal": "skullflame_shield",
+     "resolve": {
+      "goal": "skullflame_shield"
+     },
+     "key": "skullflame_shield"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A019",
+   "state": "queued",
+   "batch": 2
+  },
+  {
+   "file": "weapon-the-shatterer.jpg",
+   "group": "needed",
+   "priority": 1,
+   "title": "The Shatterer",
+   "targets": [
+    {
+     "label": "The Shatterer",
+     "goal": "the_shatterer",
+     "resolve": {
+      "goal": "the_shatterer"
+     },
+     "key": "the_shatterer"
+    }
+   ],
+   "alt": null,
+   "w": 200,
+   "h": 279,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A020",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "alliance-human-female-paladin-tier3-weapon-untamed-blade.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "The Untamed Blade",
+   "targets": [
+    {
+     "label": "The Untamed Blade",
+     "goal": "the_untamed_blade",
+     "resolve": {
+      "goal": "the_untamed_blade"
+     },
+     "key": "the_untamed_blade"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A021",
+   "state": "queued",
+   "batch": 2
+  },
+  {
+   "file": "weapon-viking-warhammer.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Viking Warhammer",
+   "targets": [
+    {
+     "label": "Viking Warhammer",
+     "goal": "viking_warhammer",
+     "resolve": {
+      "goal": "viking_warhammer"
+     },
+     "key": "viking_warhammer"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A022",
+   "state": "queued",
+   "batch": 3
+  },
+  {
+   "file": "item-wall-of-the-dead.jpg",
+   "group": "needed",
+   "priority": 1,
+   "title": "Wall of the Dead",
+   "targets": [
+    {
+     "label": "Wall of the Dead",
+     "goal": "wall_of_the_dead",
+     "resolve": {
+      "goal": "wall_of_the_dead"
+     },
+     "key": "wall_of_the_dead"
+    }
+   ],
+   "alt": null,
+   "w": 200,
+   "h": 279,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A023",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "weapon-Barman_Shanker.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Barman Shanker",
+   "targets": [
+    {
+     "label": "Barman Shanker",
+     "goal": "barman_shanker",
+     "resolve": {
+      "goal": "barman_shanker"
+     },
+     "key": "barman_shanker"
+    }
+   ],
+   "alt": null,
+   "w": 1042,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A024",
+   "state": "queued",
+   "batch": 3
+  },
+  {
+   "file": "weapon-claw-frost-wyrm.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Claw of the Frost Wyrm",
+   "targets": [
+    {
+     "label": "Claw of the Frost Wyrm",
+     "goal": "claw_of_the_frost_wyrm",
+     "resolve": {
+      "goal": "claw_of_the_frost_wyrm"
+     },
+     "key": "claw_of_the_frost_wyrm"
+    }
+   ],
+   "alt": null,
+   "w": 1024,
+   "h": 1001,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A025",
+   "state": "queued",
+   "batch": 3
+  },
+  {
+   "file": "weapon-doomfinger-wand.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Doomfinger",
+   "targets": [
+    {
+     "label": "Doomfinger",
+     "goal": "doomfinger",
+     "resolve": {
+      "goal": "doomfinger"
+     },
+     "key": "doomfinger"
+    }
+   ],
+   "alt": null,
+   "w": 348,
+   "h": 310,
+   "card": false,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A026",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "weapon-Gurubashi_Dwarf_Destroyer.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Gurubashi Dwarf Destroyer",
+   "targets": [
+    {
+     "label": "Gurubashi Dwarf Destroyer",
+     "goal": "gurubashi_dwarf_destroyer",
+     "resolve": {
+      "goal": "gurubashi_dwarf_destroyer"
+     },
+     "key": "gurubashi_dwarf_destroyer"
+    }
+   ],
+   "alt": null,
+   "w": 1371,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A027",
+   "state": "queued",
+   "batch": 3
+  },
+  {
+   "file": "weapon-hand-edward-odd.png",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Hand of Edward the Odd",
+   "targets": [
+    {
+     "label": "Hand of Edward the Odd",
+     "goal": "hand_of_edward_the_odd",
+     "resolve": {
+      "goal": "hand_of_edward_the_odd"
+     },
+     "key": "hand_of_edward_the_odd"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "The card is titled Scepter of the Unholy. Confirm it is the right art for this mace.",
+   "id": "A028",
+   "state": "queued",
+   "batch": 3
+  },
+  {
+   "file": "weapon-Hypnotic_Blade.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Hypnotic Blade",
+   "targets": [
+    {
+     "label": "Hypnotic Blade",
+     "goal": "hypnotic_blade",
+     "resolve": {
+      "goal": "hypnotic_blade"
+     },
+     "key": "hypnotic_blade"
+    }
+   ],
+   "alt": null,
+   "w": 1371,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A029",
+   "state": "queued",
+   "batch": 3
+  },
+  {
+   "file": "weapon-ice-barbed-spear.png",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Ice Barbed Spear",
+   "targets": [
+    {
+     "label": "Ice Barbed Spear",
+     "goal": "ice_barbed_spear",
+     "resolve": {
+      "goal": "ice_barbed_spear"
+     },
+     "key": "ice_barbed_spear"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A030",
+   "state": "queued",
+   "batch": 3
+  },
+  {
+   "file": "weapon-staff-of-command.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Lord Valthalak's Staff of Command",
+   "targets": [
+    {
+     "label": "Lord Valthalak's Staff of Command",
+     "goal": "lord_valthalaks_staff_of_command",
+     "resolve": {
+      "goal": "lord_valthalaks_staff_of_command"
+     },
+     "key": "lord_valthalaks_staff_of_command"
+    }
+   ],
+   "alt": null,
+   "w": 1337,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A031",
+   "state": "queued",
+   "batch": 3
+  },
+  {
+   "file": "weapon-Masterwork_Stormhammer.png",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Masterwork Stormhammer",
+   "targets": [
+    {
+     "label": "Masterwork Stormhammer",
+     "goal": "masterwork_stormhammer",
+     "resolve": {
+      "goal": "masterwork_stormhammer"
+     },
+     "key": "masterwork_stormhammer"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A032",
+   "state": "queued",
+   "batch": 4
+  },
+  {
+   "file": "weapon-phantom-blade.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Phantom Blade",
+   "targets": [
+    {
+     "label": "Phantom Blade",
+     "goal": "phantom_blade",
+     "resolve": {
+      "goal": "phantom_blade"
+     },
+     "key": "phantom_blade"
+    }
+   ],
+   "alt": null,
+   "w": 682,
+   "h": 615,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A033",
+   "state": "queued",
+   "batch": 4
+  },
+  {
+   "file": "item-red-dragonscale-protector.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Red Dragonscale Protector",
+   "targets": [
+    {
+     "label": "Red Dragonscale Protector",
+     "goal": "red_dragonscale_protector",
+     "resolve": {
+      "goal": "red_dragonscale_protector"
+     },
+     "key": "red_dragonscale_protector"
+    }
+   ],
+   "alt": null,
+   "w": 504,
+   "h": 576,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "Older source with a dwarf holding it: alliance-dwarf-male-warrior-paladin-red-dragonscale-protector.jpg.",
+   "id": "A034",
+   "state": "queued",
+   "batch": 4
+  },
+  {
+   "file": "weapon-skuls-ghastly-touch-wand.png",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Skul's Ghastly Touch",
+   "targets": [
+    {
+     "label": "Skul's Ghastly Touch",
+     "goal": "skuls_ghastly_touch",
+     "resolve": {
+      "goal": "skuls_ghastly_touch"
+     },
+     "key": "skuls_ghastly_touch"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "The card is titled Vengeful Gladiator's Piercing Touch. Confirm it is the right art for this wand.",
+   "id": "A035",
+   "state": "queued",
+   "batch": 4
+  },
+  {
+   "file": "weapon-staff-of-jordan.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Staff of Jordan",
+   "targets": [
+    {
+     "label": "Staff of Jordan",
+     "goal": "staff_of_jordan",
+     "resolve": {
+      "goal": "staff_of_jordan"
+     },
+     "key": "staff_of_jordan"
+    }
+   ],
+   "alt": null,
+   "w": 704,
+   "h": 541,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A036",
+   "state": "queued",
+   "batch": 4
+  },
+  {
+   "file": "weapon-wand-of-fates.jpg",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Wand of Fates",
+   "targets": [
+    {
+     "label": "Wand of Fates",
+     "goal": "wand_of_fates",
+     "resolve": {
+      "goal": "wand_of_fates"
+     },
+     "key": "wand_of_fates"
+    }
+   ],
+   "alt": null,
+   "w": 1024,
+   "h": 795,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "",
+   "id": "A037",
+   "state": "queued",
+   "batch": 4
+  },
+  {
+   "file": "boss-nefarius.jpg",
+   "group": "borrowed",
+   "priority": 1,
+   "title": "Attunement: Blackwing Lair (both)",
+   "targets": [
+    {
+     "label": "Attunement: Blackwing Lair (both)",
+     "goal": "att_bwl",
+     "resolve": {
+      "goal": "att_bwl"
+     },
+     "key": "att_bwl"
+    }
+   ],
+   "alt": null,
+   "w": 3000,
+   "h": 4000,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "",
+   "notes": "Karl's pick. Lord Victor Nefarius; goal inferred. My earlier pick, now the alternate: boss-nefarian-raid.jpg. Today it borrows the Clear Blackwing Lair image. Alt: raid-blackwinglair-boss-neltharion.jpg.",
+   "id": "A038",
+   "state": "queued",
+   "batch": 4
+  },
+  {
+   "file": "boss-hakkar.jpg",
+   "group": "borrowed",
+   "priority": 1,
+   "title": "Exalted: Zandalar Tribe (both)",
+   "targets": [
+    {
+     "label": "Exalted: Zandalar Tribe (both)",
+     "goal": "rep_zandalar",
+     "resolve": {
+      "goal": "rep_zandalar"
+     },
+     "key": "rep_zandalar"
+    }
+   ],
+   "alt": null,
+   "w": 2500,
+   "h": 3277,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence.",
+   "id": "A039",
+   "state": "queued",
+   "batch": 4
+  },
+  {
+   "file": "location-blackrock-mountain-gates.jpg",
+   "group": "borrowed",
+   "priority": 1,
+   "title": "Key: Shadowforge Key (both)",
+   "targets": [
+    {
+     "label": "Key: Shadowforge Key (both)",
+     "goal": "key_brd",
+     "resolve": {
+      "goal": "key_brd"
+     },
+     "key": "key_brd"
+    }
+   ],
+   "alt": null,
+   "w": 872,
+   "h": 981,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "Today it borrows the Seal of Ascension image. The Dark Iron gate face suits the Shadowforge gate. Alt: location-blackrock-spire-2.jpg.",
+   "id": "A040",
+   "state": "queued",
+   "batch": 5
+  },
+  {
+   "file": "alliance-dwarf-human-male-plate-campfire-2.jpg",
+   "group": "borrowed",
+   "priority": 1,
+   "title": "Place Campfires (both)",
+   "targets": [
+    {
+     "label": "Place Campfires (both)",
+     "goal": "social_campfires",
+     "resolve": {
+      "goal": "social_campfires"
+     },
+     "key": "social_campfires"
+    }
+   ],
+   "alt": null,
+   "w": 1024,
+   "h": 1024,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "",
+   "notes": "Karl's pick. Image of two plate-armored characters at a fire; goal inferred from the name. My earlier pick, now the alternate: goal-campfire.jpg. Today it borrows the Cooking image. Alt: alliance-dwarf-human-male-plate-campfire.jpg (two characters at a fire).",
+   "id": "A041",
+   "state": "queued",
+   "batch": 5
+  },
+  {
+   "file": "mount-raptor.jpg",
+   "group": "borrowed",
+   "priority": 1,
+   "title": "Swift Razzashi Raptor (both)",
+   "targets": [
+    {
+     "label": "Swift Razzashi Raptor (both)",
+     "goal": "mount_raptor",
+     "resolve": {
+      "goal": "mount_raptor"
+     },
+     "key": "mount_raptor"
+    }
+   ],
+   "alt": null,
+   "w": 1520,
+   "h": 1190,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "Today it borrows the Clear Zul'Gurub image. Not mount-swift-raptor.jpg, which is the Troll epic mount banner.",
+   "id": "A042",
+   "state": "queued",
+   "batch": 5
+  },
+  {
+   "file": "alliance-dwarf-female-paladin-generic-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Dwarf Paladin F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Dwarf Paladin F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "PALADIN",
+      "race": "Dwarf",
+      "sex": 3
+     },
+     "key": "allclasses_dwarf_paladin_female"
+    }
+   ],
+   "alt": "alliance-dwarf-female-warrior-paladin-generic-leveling.jpg",
+   "w": 1050,
+   "h": 1400,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_dwarf_paladin",
+   "notes": "",
+   "id": "A043",
+   "state": "queued",
+   "batch": 5
+  },
+  {
+   "file": "alliance-dwarf-female-priest-generic-leveling-3.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Dwarf Priest F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Dwarf Priest F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "Dwarf",
+      "sex": 3
+     },
+     "key": "allclasses_dwarf_priest_female"
+    }
+   ],
+   "alt": "alliance-dwarf-female-priest-generic-leveling-2.jpg",
+   "w": 1280,
+   "h": 1700,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier2_priest",
+   "notes": "",
+   "id": "A044",
+   "state": "queued",
+   "batch": 5
+  },
+  {
+   "file": "alliance-dwarf-male-priest-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Dwarf Priest M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Dwarf Priest M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "Dwarf",
+      "sex": 2
+     },
+     "key": "allclasses_dwarf_priest_male"
+    }
+   ],
+   "alt": "alliance-dwarf-male-priest-tier3.png",
+   "w": 4642,
+   "h": 3756,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier2_priest",
+   "notes": "",
+   "id": "A045",
+   "state": "queued",
+   "batch": 5
+  },
+  {
+   "file": "alliance-dwarf-female-rogue-tier1.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Dwarf Rogue F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Dwarf Rogue F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "Dwarf",
+      "sex": 3
+     },
+     "key": "allclasses_dwarf_rogue_female"
+    }
+   ],
+   "alt": null,
+   "w": 312,
+   "h": 440,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_dwarf_rogue",
+   "notes": "",
+   "id": "A046",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "alliance-dwarf-female-shaman-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Dwarf Shaman F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Dwarf Shaman F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "SHAMAN",
+      "race": "Dwarf",
+      "sex": 3
+     },
+     "key": "allclasses_dwarf_shaman_female"
+    }
+   ],
+   "alt": null,
+   "w": 1800,
+   "h": 1461,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_dwarf_shaman",
+   "notes": "",
+   "id": "A047",
+   "state": "queued",
+   "batch": 5
+  },
+  {
+   "file": "alliance-dwarf-female-warrior-paladin-generic-leveling-2.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Dwarf Warrior F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Dwarf Warrior F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "WARRIOR",
+      "race": "Dwarf",
+      "sex": 3
+     },
+     "key": "allclasses_dwarf_warrior_female"
+    }
+   ],
+   "alt": "alliance-dwarf-female-warrior-paladin-generic-leveling.jpg",
+   "w": 798,
+   "h": 1024,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_dwarf_warrior",
+   "notes": "",
+   "id": "A048",
+   "state": "queued",
+   "batch": 5
+  },
+  {
+   "file": "alliance-gnome-male-mage-generic.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Gnome Mage M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Gnome Mage M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "MAGE",
+      "race": "Gnome",
+      "sex": 2
+     },
+     "key": "allclasses_gnome_mage_male"
+    }
+   ],
+   "alt": "alliance-gnome-male-mage-tier2.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_gnome_caster",
+   "notes": "",
+   "id": "A049",
+   "state": "queued",
+   "batch": 6
+  },
+  {
+   "file": "alliance-gnome-male-priest-tier3.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Gnome Priest M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Gnome Priest M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "Gnome",
+      "sex": 2
+     },
+     "key": "allclasses_gnome_priest_male"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_gnome_caster",
+   "notes": "",
+   "id": "A050",
+   "state": "queued",
+   "batch": 6
+  },
+  {
+   "file": "alliance-skyborne-female-mage-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "High Order Skyborne Mage F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: High Order Skyborne Mage F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "MAGE",
+      "race": "Skyborne",
+      "sex": 3
+     },
+     "key": "allclasses_skyborne_mage_female"
+    }
+   ],
+   "alt": null,
+   "w": 1548,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_mage",
+   "notes": "",
+   "id": "A051",
+   "state": "queued",
+   "batch": 6
+  },
+  {
+   "file": "alliance-human-female-mage-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Human Mage F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Human Mage F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "MAGE",
+      "race": "Human",
+      "sex": 3
+     },
+     "key": "allclasses_human_mage_female"
+    }
+   ],
+   "alt": "alliance-human-female-mage-generic.png",
+   "w": 2850,
+   "h": 3661,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_mage",
+   "notes": "",
+   "id": "A052",
+   "state": "queued",
+   "batch": 6
+  },
+  {
+   "file": "alliance-human-male-mage-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Human Mage M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Human Mage M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "MAGE",
+      "race": "Human",
+      "sex": 2
+     },
+     "key": "allclasses_human_mage_male"
+    }
+   ],
+   "alt": "alliance-human-male-mage-tier2.jpg",
+   "w": 1012,
+   "h": 812,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_mage",
+   "notes": "",
+   "id": "A053",
+   "state": "queued",
+   "batch": 6
+  },
+  {
+   "file": "alliance-human-female-priest-generic-leveling.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Human Priest F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Human Priest F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "Human",
+      "sex": 3
+     },
+     "key": "allclasses_human_priest_female"
+    }
+   ],
+   "alt": "alliance-human-female-priest-tier1.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_priest",
+   "notes": "",
+   "id": "A054",
+   "state": "queued",
+   "batch": 6
+  },
+  {
+   "file": "alliance-human-male-priest-tier2.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Human Priest M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Human Priest M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "Human",
+      "sex": 2
+     },
+     "key": "allclasses_human_priest_male"
+    }
+   ],
+   "alt": null,
+   "w": 1189,
+   "h": 1379,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_priest",
+   "notes": "",
+   "id": "A055",
+   "state": "queued",
+   "batch": 6
+  },
+  {
+   "file": "alliance-human-female-warlock-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Human Warlock F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Human Warlock F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "WARLOCK",
+      "race": "Human",
+      "sex": 3
+     },
+     "key": "allclasses_human_warlock_female"
+    }
+   ],
+   "alt": "alliance-human-female-warlock-tier2.jpg",
+   "w": 1000,
+   "h": 1143,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_alliance_warlock",
+   "notes": "",
+   "id": "A056",
+   "state": "queued",
+   "batch": 6
+  },
+  {
+   "file": "alliance-human-male-warlock-tier1-2.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Human Warlock M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Human Warlock M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "WARLOCK",
+      "race": "Human",
+      "sex": 2
+     },
+     "key": "allclasses_human_warlock_male"
+    }
+   ],
+   "alt": "alliance-human-male-warlock-tier1.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_alliance_warlock",
+   "notes": "",
+   "id": "A057",
+   "state": "queued",
+   "batch": 7
+  },
+  {
+   "file": "alliance-nightelf-female-druid-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Night Elf Druid F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Night Elf Druid F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "DRUID",
+      "race": "NightElf",
+      "sex": 3
+     },
+     "key": "allclasses_nightelf_druid_female"
+    }
+   ],
+   "alt": "alliance-nightelf-female-druid-leather-dungeonset.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier2_druid",
+   "notes": "",
+   "id": "A058",
+   "state": "queued",
+   "batch": 7
+  },
+  {
+   "file": "alliance-nightelf-male-druid-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Night Elf Druid M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Night Elf Druid M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "DRUID",
+      "race": "NightElf",
+      "sex": 2
+     },
+     "key": "allclasses_nightelf_druid_male"
+    }
+   ],
+   "alt": "alliance-nightelf-male-druid-dungeonset.png",
+   "w": 200,
+   "h": 279,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier2_druid",
+   "notes": "",
+   "id": "A059",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "alliance-nightelf-male-hunter-generic-2.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Night Elf Hunter M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Night Elf Hunter M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "HUNTER",
+      "race": "NightElf",
+      "sex": 2
+     },
+     "key": "allclasses_nightelf_hunter_male"
+    }
+   ],
+   "alt": "alliance-nightelf-male-hunter-generic-leveling-2.png",
+   "w": 2000,
+   "h": 1624,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_nightelf_hunter",
+   "notes": "",
+   "id": "A060",
+   "state": "queued",
+   "batch": 7
+  },
+  {
+   "file": "alliance-nightelf-female-priest-leveling.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Night Elf Priest F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Night Elf Priest F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "NightElf",
+      "sex": 3
+     },
+     "key": "allclasses_nightelf_priest_female"
+    }
+   ],
+   "alt": "a-nightelf-female-priest-shadow.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "benediction-alliance",
+   "notes": "",
+   "id": "A061",
+   "state": "queued",
+   "batch": 7
+  },
+  {
+   "file": "alliance-nightelf-male-priest-leveling.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Night Elf Priest M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Night Elf Priest M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "NightElf",
+      "sex": 2
+     },
+     "key": "allclasses_nightelf_priest_male"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "benediction-alliance",
+   "notes": "",
+   "id": "A062",
+   "state": "queued",
+   "batch": 7
+  },
+  {
+   "file": "alliance-nightelf-male-rogue-generic.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Night Elf Rogue M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Night Elf Rogue M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "NightElf",
+      "sex": 2
+     },
+     "key": "allclasses_nightelf_rogue_male"
+    }
+   ],
+   "alt": "alliance-nightelf-male-rogue-tier1.jpg",
+   "w": 621,
+   "h": 500,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_nightelf_rogue",
+   "notes": "",
+   "id": "A063",
+   "state": "queued",
+   "batch": 7
+  },
+  {
+   "file": "horde-orc-male-hunter-tier1.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Hunter M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Hunter M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "allclasses_orc_hunter_male"
+    }
+   ],
+   "alt": "horde-orc-male-hunter-tier2.jpg",
+   "w": 1758,
+   "h": 2048,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_horde_hunter",
+   "notes": "",
+   "id": "A064",
+   "state": "queued",
+   "batch": 7
+  },
+  {
+   "file": "horde-orc-female-mage-generic-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Mage F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Mage F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "allclasses_orc_mage_female"
+    }
+   ],
+   "alt": null,
+   "w": 4367,
+   "h": 3545,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_troll_mage",
+   "notes": "",
+   "id": "A065",
+   "state": "queued",
+   "batch": 7
+  },
+  {
+   "file": "horde-orc-male-mage-warlock-generic-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Mage M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Mage M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "allclasses_orc_mage_male"
+    }
+   ],
+   "alt": null,
+   "w": 4367,
+   "h": 3545,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_troll_mage",
+   "notes": "",
+   "id": "A066",
+   "state": "queued",
+   "batch": 8
+  },
+  {
+   "file": "horde-orc-female-rogue-tier2.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Rogue F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Rogue F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "ROGUE",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "allclasses_orc_rogue_female"
+    }
+   ],
+   "alt": null,
+   "w": 1024,
+   "h": 1325,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_orc_rogue",
+   "notes": "",
+   "id": "A067",
+   "state": "queued",
+   "batch": 8
+  },
+  {
+   "file": "horde-orc-female-shaman-tier2.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Shaman F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Shaman F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "allclasses_orc_shaman_female"
+    }
+   ],
+   "alt": "horde-orc-female-shaman-tier1.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_shaman",
+   "notes": "",
+   "id": "A068",
+   "state": "queued",
+   "batch": 8
+  },
+  {
+   "file": "h-orc-male-shaman-generic-leveling.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Shaman M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Shaman M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "allclasses_orc_shaman_male"
+    }
+   ],
+   "alt": "horde-orc-male-shaman-generic.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_shaman",
+   "notes": "",
+   "id": "A069",
+   "state": "queued",
+   "batch": 8
+  },
+  {
+   "file": "horde-orc-female-warlock-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Warlock F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Warlock F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "allclasses_orc_warlock_female"
+    }
+   ],
+   "alt": null,
+   "w": 742,
+   "h": 650,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_warlock",
+   "notes": "",
+   "id": "A070",
+   "state": "queued",
+   "batch": 8
+  },
+  {
+   "file": "horde-orc-male-warlock-tier1.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Warlock M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Warlock M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "allclasses_orc_warlock_male"
+    }
+   ],
+   "alt": "horde-orc-male-warlock-tier2.jpg",
+   "w": 862,
+   "h": 1000,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_warlock",
+   "notes": "",
+   "id": "A071",
+   "state": "queued",
+   "batch": 8
+  },
+  {
+   "file": "horde-orc-female-warrior-leveling-2.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Warrior F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Warrior F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "allclasses_orc_warrior_female"
+    }
+   ],
+   "alt": "horde-orc-female-warrior-generic-leveling-2.png",
+   "w": 2500,
+   "h": 3445,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "set_tier2_warrior",
+   "notes": "",
+   "id": "A072",
+   "state": "queued",
+   "batch": 8
+  },
+  {
+   "file": "horde-orc-male-warrior-generic-leveling-3.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Warrior M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Orc Warrior M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "allclasses_orc_warrior_male"
+    }
+   ],
+   "alt": "horde-orc-male-warrior-generic-leveling-2.jpg",
+   "w": 984,
+   "h": 1384,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "set_tier2_warrior",
+   "notes": "",
+   "id": "A073",
+   "state": "queued",
+   "batch": 8
+  },
+  {
+   "file": "horde-tauren-female-druid-leather-leveling-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Tauren Druid F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Tauren Druid F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "allclasses_tauren_druid_female"
+    }
+   ],
+   "alt": "horde-tauren-female-druid-leather-wailingcaverns-2.jpg",
+   "w": 312,
+   "h": 440,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_horde_druid",
+   "notes": "",
+   "id": "A074",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "horde-tauren-male-druid-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Tauren Druid M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Tauren Druid M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Tauren",
+      "sex": 2
+     },
+     "key": "allclasses_tauren_druid_male"
+    }
+   ],
+   "alt": "horde-tauren-male-shaman-druid-generic-leveling.png",
+   "w": 1200,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_horde_druid",
+   "notes": "",
+   "id": "A075",
+   "state": "queued",
+   "batch": 9
+  },
+  {
+   "file": "horde-tauren-female-hunter-generic-leveling.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Tauren Hunter F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Tauren Hunter F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "allclasses_tauren_hunter_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_horde_hunter",
+   "notes": "",
+   "id": "A076",
+   "state": "queued",
+   "batch": 9
+  },
+  {
+   "file": "horde-tauren-male-hunter-generic-2.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Tauren Hunter M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Tauren Hunter M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Tauren",
+      "sex": 2
+     },
+     "key": "allclasses_tauren_hunter_male"
+    }
+   ],
+   "alt": "horde-tauren-male-hunter-generic-leveling.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_horde_hunter",
+   "notes": "",
+   "id": "A077",
+   "state": "queued",
+   "batch": 9
+  },
+  {
+   "file": "h-tauren-female-shaman-generic-leveling.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Tauren Shaman F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Tauren Shaman F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "allclasses_tauren_shaman_female"
+    }
+   ],
+   "alt": "horde-tauren-female-shaman-leveling-2.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier2_shaman",
+   "notes": "",
+   "id": "A078",
+   "state": "queued",
+   "batch": 9
+  },
+  {
+   "file": "horde-tauren-male-shaman-leveling-2.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Tauren Shaman M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Tauren Shaman M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Tauren",
+      "sex": 2
+     },
+     "key": "allclasses_tauren_shaman_male"
+    }
+   ],
+   "alt": "horde-tauren-male-shaman-leveling.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier2_shaman",
+   "notes": "",
+   "id": "A079",
+   "state": "queued",
+   "batch": 9
+  },
+  {
+   "file": "horde-tauren-female-warrior-generic-leveling.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Tauren Warrior F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Tauren Warrior F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "allclasses_tauren_warrior_female"
+    }
+   ],
+   "alt": "horde-tauren-female-warrior-generic-leveling-reaper.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_tauren_warrior",
+   "notes": "",
+   "id": "A080",
+   "state": "queued",
+   "batch": 9
+  },
+  {
+   "file": "horde-troll-female-mage.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Troll Mage F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Troll Mage F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Troll",
+      "sex": 3
+     },
+     "key": "allclasses_troll_mage_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_troll_mage",
+   "notes": "",
+   "id": "A081",
+   "state": "queued",
+   "batch": 9
+  },
+  {
+   "file": "horde-troll-female-priest-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Troll Priest F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Troll Priest F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "PRIEST",
+      "race": "Troll",
+      "sex": 3
+     },
+     "key": "allclasses_troll_priest_female"
+    }
+   ],
+   "alt": null,
+   "w": 1024,
+   "h": 831,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_troll_priest",
+   "notes": "",
+   "id": "A082",
+   "state": "queued",
+   "batch": 9
+  },
+  {
+   "file": "horde-troll-female-rogue-generic-leveling-2.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Troll Rogue F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Troll Rogue F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "ROGUE",
+      "race": "Troll",
+      "sex": 3
+     },
+     "key": "allclasses_troll_rogue_female"
+    }
+   ],
+   "alt": "horde-troll-female-rogue-generic-leveling.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_troll_rogue",
+   "notes": "",
+   "id": "A083",
+   "state": "queued",
+   "batch": 10
+  },
+  {
+   "file": "horde-troll-male-shaman-generic.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Troll Shaman M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Troll Shaman M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Troll",
+      "sex": 2
+     },
+     "key": "allclasses_troll_shaman_male"
+    }
+   ],
+   "alt": "horde-troll-male-shaman-leveling.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_shaman",
+   "notes": "",
+   "id": "A084",
+   "state": "queued",
+   "batch": 10
+  },
+  {
+   "file": "horde-troll-male-warlock-generic.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Troll Warlock M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Troll Warlock M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Troll",
+      "sex": 2
+     },
+     "key": "allclasses_troll_warlock_male"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_troll_warlock",
+   "notes": "",
+   "id": "A085",
+   "state": "queued",
+   "batch": 10
+  },
+  {
+   "file": "horde-troll-male-warrior-leveling-2.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Troll Warrior M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Troll Warrior M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Troll",
+      "sex": 2
+     },
+     "key": "allclasses_troll_warrior_male"
+    }
+   ],
+   "alt": "horde-troll-male-warrior-generic-2.jpg",
+   "w": 843,
+   "h": 650,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "set_tier2_warrior",
+   "notes": "",
+   "id": "A086",
+   "state": "queued",
+   "batch": 10
+  },
+  {
+   "file": "horde-undead-female-mage-tier3.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Undead Mage F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Undead Mage F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Scourge",
+      "sex": 3
+     },
+     "key": "allclasses_undead_mage_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_troll_mage",
+   "notes": "",
+   "id": "A087",
+   "state": "queued",
+   "batch": 10
+  },
+  {
+   "file": "horde-undead-male-mage-tier2.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Undead Mage M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Undead Mage M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Scourge",
+      "sex": 2
+     },
+     "key": "allclasses_undead_mage_male"
+    }
+   ],
+   "alt": null,
+   "w": 500,
+   "h": 675,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "allclasses_troll_mage",
+   "notes": "",
+   "id": "A088",
+   "state": "queued",
+   "batch": 10
+  },
+  {
+   "file": "horde-undead-female-warlock-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Undead Warlock F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Undead Warlock F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Scourge",
+      "sex": 3
+     },
+     "key": "allclasses_undead_warlock_female"
+    }
+   ],
+   "alt": "horde-undead-female-warlock-tier3.jpg",
+   "w": 1024,
+   "h": 831,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_warlock",
+   "notes": "",
+   "id": "A089",
+   "state": "queued",
+   "batch": 10
+  },
+  {
+   "file": "horde-undead-male-warlock-generic.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Undead Warlock M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Undead Warlock M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Scourge",
+      "sex": 2
+     },
+     "key": "allclasses_undead_warlock_male"
+    }
+   ],
+   "alt": null,
+   "w": 220,
+   "h": 308,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "set_tier1_warlock",
+   "notes": "",
+   "id": "A090",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "horde-undead-female-warrior-paladin-generic-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Undead Warrior F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Undead Warrior F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Scourge",
+      "sex": 3
+     },
+     "key": "allclasses_undead_warrior_female"
+    },
+    {
+     "label": "Level Classes to 60: Undead Paladin F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "PALADIN",
+      "race": "Scourge",
+      "sex": 3
+     },
+     "key": "allclasses_undead_paladin_female"
+    }
+   ],
+   "alt": null,
+   "w": 4367,
+   "h": 3545,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "set_tier2_warrior",
+   "notes": "",
+   "id": "A091",
+   "state": "queued",
+   "batch": 10
+  },
+  {
+   "file": "horde-undead-male-warrior-paladin-generic-leveling.jpg",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Undead Warrior M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Undead Warrior M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Scourge",
+      "sex": 2
+     },
+     "key": "allclasses_undead_warrior_male"
+    },
+    {
+     "label": "Level Classes to 60: Undead Paladin M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Scourge",
+      "sex": 2
+     },
+     "key": "allclasses_undead_warrior_male"
+    }
+   ],
+   "alt": "horde-undead-male-warrior-leveling-generic-pvp.jpg",
+   "w": 2500,
+   "h": 3333,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "set_tier2_warrior",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A092",
+   "state": "queued",
+   "batch": 11
+  },
+  {
+   "file": "alliance-nightelf-female-druid-tier1-2.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Druid A F",
+   "targets": [
+    {
+     "label": "Tier 1 Druid A F",
+     "goal": "set_tier1_druid",
+     "resolve": {
+      "goal": "set_tier1_druid",
+      "faction": "Alliance",
+      "class": "DRUID",
+      "race": "NightElf",
+      "sex": 3
+     },
+     "key": "set_tier1_druid_nightelf_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A093",
+   "state": "queued",
+   "batch": 11
+  },
+  {
+   "file": "horde-tauren-druid-female-tier1.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Druid H F",
+   "targets": [
+    {
+     "label": "Tier 1 Druid H F",
+     "goal": "set_tier1_druid",
+     "resolve": {
+      "goal": "set_tier1_druid",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "set_tier1_druid_tauren_female"
+    }
+   ],
+   "alt": "horde-tauren-female-druid-tier1-2.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A094",
+   "state": "queued",
+   "batch": 11
+  },
+  {
+   "file": "alliance-human-female-hunter-tier1.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Hunter A F",
+   "targets": [
+    {
+     "label": "Tier 1 Hunter A F",
+     "goal": "set_tier1_hunter",
+     "resolve": {
+      "goal": "set_tier1_hunter",
+      "faction": "Alliance",
+      "class": "HUNTER",
+      "race": "Human",
+      "sex": 3
+     },
+     "key": "set_tier1_hunter_human_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A095",
+   "state": "queued",
+   "batch": 11
+  },
+  {
+   "file": "alliance-human-male-priest-benediction-tier1.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Priest A M",
+   "targets": [
+    {
+     "label": "Tier 1 Priest A M",
+     "goal": "set_tier1_priest",
+     "resolve": {
+      "goal": "set_tier1_priest",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "Human",
+      "sex": 2
+     },
+     "key": "set_tier1_priest_human_male"
+    }
+   ],
+   "alt": null,
+   "w": 862,
+   "h": 1000,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A096",
+   "state": "queued",
+   "batch": 11
+  },
+  {
+   "file": "horde-tauren-female-priest-shadow-tier1.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Priest H F",
+   "targets": [
+    {
+     "label": "Tier 1 Priest H F",
+     "goal": "set_tier1_priest",
+     "resolve": {
+      "goal": "set_tier1_priest",
+      "faction": "Horde",
+      "class": "PRIEST",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "set_tier1_priest_tauren_female"
+    }
+   ],
+   "alt": "horde-undead-female-priest-tier1-2.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A097",
+   "state": "queued",
+   "batch": 11
+  },
+  {
+   "file": "alliance-human-female-rogue-tier1.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Rogue A F",
+   "targets": [
+    {
+     "label": "Tier 1 Rogue A F",
+     "goal": "set_tier1_rogue",
+     "resolve": {
+      "goal": "set_tier1_rogue",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "Human",
+      "sex": 3
+     },
+     "key": "set_tier1_rogue_human_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A098",
+   "state": "queued",
+   "batch": 11
+  },
+  {
+   "file": "h-orc-female-shaman-tier1-hero.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Shaman H F",
+   "targets": [
+    {
+     "label": "Tier 1 Shaman H F",
+     "goal": "set_tier1_shaman",
+     "resolve": {
+      "goal": "set_tier1_shaman",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "set_tier1_shaman_orc_female"
+    }
+   ],
+   "alt": "horde-orc-female-shaman-tier1.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A099",
+   "state": "queued",
+   "batch": 11
+  },
+  {
+   "file": "horde-troll-female-warlock-tier1.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Warlock H F",
+   "targets": [
+    {
+     "label": "Tier 1 Warlock H F",
+     "goal": "set_tier1_warlock",
+     "resolve": {
+      "goal": "set_tier1_warlock",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Troll",
+      "sex": 3
+     },
+     "key": "set_tier1_warlock_troll_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A100",
+   "state": "queued",
+   "batch": 12
+  },
+  {
+   "file": "horde-orc-female-warrior-tier1.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Warrior H F",
+   "targets": [
+    {
+     "label": "Tier 1 Warrior H F",
+     "goal": "set_tier1_warrior",
+     "resolve": {
+      "goal": "set_tier1_warrior",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "set_tier1_warrior_orc_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A101",
+   "state": "queued",
+   "batch": 12
+  },
+  {
+   "file": "horde-tauren-female-druid-tier2.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Druid H F",
+   "targets": [
+    {
+     "label": "Tier 2 Druid H F",
+     "goal": "set_tier2_druid",
+     "resolve": {
+      "goal": "set_tier2_druid",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "set_tier2_druid_tauren_female"
+    }
+   ],
+   "alt": null,
+   "w": 862,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A102",
+   "state": "queued",
+   "batch": 12
+  },
+  {
+   "file": "alliance-nightelf-male-hunter-tier2-2.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Hunter A M",
+   "targets": [
+    {
+     "label": "Tier 2 Hunter A M",
+     "goal": "set_tier2_hunter",
+     "resolve": {
+      "goal": "set_tier2_hunter",
+      "faction": "Alliance",
+      "class": "HUNTER",
+      "race": "NightElf",
+      "sex": 2
+     },
+     "key": "set_tier2_hunter_nightelf_male"
+    }
+   ],
+   "alt": "alliance-nightelf-male-hunter-tier2.jpg",
+   "w": 312,
+   "h": 440,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A103",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "horde-orc-female-hunter-tier2-rhokdalar.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Hunter H F",
+   "targets": [
+    {
+     "label": "Tier 2 Hunter H F",
+     "goal": "set_tier2_hunter",
+     "resolve": {
+      "goal": "set_tier2_hunter",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "set_tier2_hunter_orc_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A104",
+   "state": "queued",
+   "batch": 12
+  },
+  {
+   "file": "alliance-human-female-mage-tier2.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Mage A F",
+   "targets": [
+    {
+     "label": "Tier 2 Mage A F",
+     "goal": "set_tier2_mage",
+     "resolve": {
+      "goal": "set_tier2_mage",
+      "faction": "Alliance",
+      "class": "MAGE",
+      "race": "Human",
+      "sex": 3
+     },
+     "key": "set_tier2_mage_human_female"
+    }
+   ],
+   "alt": null,
+   "w": 1238,
+   "h": 1437,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A105",
+   "state": "queued",
+   "batch": 12
+  },
+  {
+   "file": "alliance-nightelf-female-priest-tier2-shadow.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Priest A F",
+   "targets": [
+    {
+     "label": "Tier 2 Priest A F",
+     "goal": "set_tier2_priest",
+     "resolve": {
+      "goal": "set_tier2_priest",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "NightElf",
+      "sex": 3
+     },
+     "key": "set_tier2_priest_nightelf_female"
+    }
+   ],
+   "alt": "alliance-human-female-priest-tier2.jpg",
+   "w": 4000,
+   "h": 3259,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A106",
+   "state": "queued",
+   "batch": 12
+  },
+  {
+   "file": "alliance-human-male-rogue-tier2-2.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Rogue A M",
+   "targets": [
+    {
+     "label": "Tier 2 Rogue A M",
+     "goal": "set_tier2_rogue",
+     "resolve": {
+      "goal": "set_tier2_rogue",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "Human",
+      "sex": 2
+     },
+     "key": "set_tier2_rogue_human_male"
+    }
+   ],
+   "alt": "alliance-dwarf-male-rogue-tier2.jpg",
+   "w": 747,
+   "h": 600,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A107",
+   "state": "queued",
+   "batch": 12
+  },
+  {
+   "file": "horde-orc-female-shaman-tier2-2.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Shaman H F",
+   "targets": [
+    {
+     "label": "Tier 2 Shaman H F",
+     "goal": "set_tier2_shaman",
+     "resolve": {
+      "goal": "set_tier2_shaman",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "set_tier2_shaman_orc_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A108",
+   "state": "queued",
+   "batch": 12
+  },
+  {
+   "file": "alliance-human-male-warlock-tier2-2.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Warlock A M",
+   "targets": [
+    {
+     "label": "Tier 2 Warlock A M",
+     "goal": "set_tier2_warlock",
+     "resolve": {
+      "goal": "set_tier2_warlock",
+      "faction": "Alliance",
+      "class": "WARLOCK",
+      "race": "Human",
+      "sex": 2
+     },
+     "key": "set_tier2_warlock_human_male"
+    }
+   ],
+   "alt": "alliance-human-male-warlock-tier2.png",
+   "w": 800,
+   "h": 1067,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A109",
+   "state": "queued",
+   "batch": 13
+  },
+  {
+   "file": "alliance-nightelf-female-warrior-tier2.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 2 Warrior A F",
+   "targets": [
+    {
+     "label": "Tier 2 Warrior A F",
+     "goal": "set_tier2_warrior",
+     "resolve": {
+      "goal": "set_tier2_warrior",
+      "faction": "Alliance",
+      "class": "WARRIOR",
+      "race": "NightElf",
+      "sex": 3
+     },
+     "key": "set_tier2_warrior_nightelf_female"
+    }
+   ],
+   "alt": "alliance-nightelf-female-warrior-tier2.png",
+   "w": 1024,
+   "h": 1365,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "",
+   "id": "A110",
+   "state": "queued",
+   "batch": 13
+  },
+  {
+   "file": "alliance-nightelf-female-druid-tier3.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Druid A F",
+   "targets": [
+    {
+     "label": "Tier 3 Druid A F",
+     "goal": "tier3_druid",
+     "resolve": {
+      "goal": "tier3_druid",
+      "faction": "Alliance",
+      "class": "DRUID",
+      "race": "NightElf",
+      "sex": 3
+     },
+     "key": "tier3_druid_nightelf_female"
+    }
+   ],
+   "alt": "alliance-nightelf-female-druid-tier3-3.png",
+   "w": 559,
+   "h": 800,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A111",
+   "state": "queued",
+   "batch": 13
+  },
+  {
+   "file": "horde-tauren-female-druid-tier3-2.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Druid H F",
+   "targets": [
+    {
+     "label": "Tier 3 Druid H F",
+     "goal": "tier3_druid",
+     "resolve": {
+      "goal": "tier3_druid",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "tier3_druid_tauren_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A112",
+   "state": "queued",
+   "batch": 13
+  },
+  {
+   "file": "horde-orc-female-hunter-tier3.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Hunter H F",
+   "targets": [
+    {
+     "label": "Tier 3 Hunter H F",
+     "goal": "tier3_hunter",
+     "resolve": {
+      "goal": "tier3_hunter",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "tier3_hunter_orc_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A113",
+   "state": "queued",
+   "batch": 13
+  },
+  {
+   "file": "alliance-gnome-female-mage-tier3.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Mage A F",
+   "targets": [
+    {
+     "label": "Tier 3 Mage A F",
+     "goal": "tier3_mage",
+     "resolve": {
+      "goal": "tier3_mage",
+      "faction": "Alliance",
+      "class": "MAGE",
+      "race": "Gnome",
+      "sex": 3
+     },
+     "key": "tier3_mage_gnome_female"
+    }
+   ],
+   "alt": "alliance-gnome-female-mage-tier3.png",
+   "w": 1517,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A114",
+   "state": "queued",
+   "batch": 13
+  },
+  {
+   "file": "horde-orc-female-mage-tier3.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Mage H F",
+   "targets": [
+    {
+     "label": "Tier 3 Mage H F",
+     "goal": "tier3_mage",
+     "resolve": {
+      "goal": "tier3_mage",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "tier3_mage_orc_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A115",
+   "state": "queued",
+   "batch": 13
+  },
+  {
+   "file": "alliance-dwarf-female-paladin-tier3-2.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Paladin A F",
+   "targets": [
+    {
+     "label": "Tier 3 Paladin A F",
+     "goal": "tier3_paladin",
+     "resolve": {
+      "goal": "tier3_paladin",
+      "faction": "Alliance",
+      "class": "PALADIN",
+      "race": "Dwarf",
+      "sex": 3
+     },
+     "key": "tier3_paladin_dwarf_female"
+    }
+   ],
+   "alt": "alliance-dwarf-female-paladin-tier3.jpg",
+   "w": 1024,
+   "h": 1024,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A116",
+   "state": "queued",
+   "batch": 13
+  },
+  {
+   "file": "horde-troll-male-priest-tier3.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Priest H M",
+   "targets": [
+    {
+     "label": "Tier 3 Priest H M",
+     "goal": "tier3_priest",
+     "resolve": {
+      "goal": "tier3_priest",
+      "faction": "Horde",
+      "class": "PRIEST",
+      "race": "Troll",
+      "sex": 2
+     },
+     "key": "tier3_priest_troll_male"
+    }
+   ],
+   "alt": "horde-undead-male-priest-tier3.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrow",
+   "notes": "",
+   "id": "A117",
+   "state": "queued",
+   "batch": 14
+  },
+  {
+   "file": "horde-orc-female-rogue-tier3.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Rogue H F",
+   "targets": [
+    {
+     "label": "Tier 3 Rogue H F",
+     "goal": "tier3_rogue",
+     "resolve": {
+      "goal": "tier3_rogue",
+      "faction": "Horde",
+      "class": "ROGUE",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "tier3_rogue_orc_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A118",
+   "state": "queued",
+   "batch": 14
+  },
+  {
+   "file": "horde-orc-male-shaman-tier3-2.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Shaman H M",
+   "targets": [
+    {
+     "label": "Tier 3 Shaman H M",
+     "goal": "tier3_shaman",
+     "resolve": {
+      "goal": "tier3_shaman",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "tier3_shaman_orc_male"
+    }
+   ],
+   "alt": "horde-orc-male-shaman-tier3.jpg",
+   "w": 1280,
+   "h": 749,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "share",
+   "notes": "",
+   "id": "A119",
+   "state": "queued",
+   "batch": 14
+  },
+  {
+   "file": "alliance-nightelf-female-druid-dungeonset-2.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Druid A",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Druid A",
+     "goal": "set_dungeon1_druid",
+     "resolve": {
+      "goal": "set_dungeon1_druid",
+      "faction": "Alliance",
+      "class": "DRUID",
+      "race": "NightElf",
+      "sex": null
+     },
+     "key": "set_dungeon1_druid_nightelf"
+    }
+   ],
+   "alt": "alliance-nightelf-female-druid-leather-dungeonset.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A120",
+   "state": "queued",
+   "batch": 14
+  },
+  {
+   "file": "horde-tauren-male-druid-dungeonset.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Druid H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Druid H",
+     "goal": "set_dungeon1_druid",
+     "resolve": {
+      "goal": "set_dungeon1_druid",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Tauren",
+      "sex": null
+     },
+     "key": "set_dungeon1_druid_tauren"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A121",
+   "state": "queued",
+   "batch": 14
+  },
+  {
+   "file": "alliance-nightelf-female-hunter-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Hunter A",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Hunter A",
+     "goal": "set_dungeon1_hunter",
+     "resolve": {
+      "goal": "set_dungeon1_hunter",
+      "faction": "Alliance",
+      "class": "HUNTER",
+      "race": "NightElf",
+      "sex": null
+     },
+     "key": "set_dungeon1_hunter_nightelf"
+    }
+   ],
+   "alt": "alliance-human-male-hunter-dungeonset.png",
+   "w": 600,
+   "h": 471,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A122",
+   "state": "queued",
+   "batch": 14
+  },
+  {
+   "file": "horde-tauren-male-hunter-generic-leveling-dungeonset.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Hunter H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Hunter H",
+     "goal": "set_dungeon1_hunter",
+     "resolve": {
+      "goal": "set_dungeon1_hunter",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Tauren",
+      "sex": null
+     },
+     "key": "set_dungeon1_hunter_tauren"
+    },
+    {
+     "label": "Dungeon Set 2 Hunter H",
+     "goal": "set_dungeon2_hunter",
+     "resolve": {
+      "goal": "set_dungeon2_hunter",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Tauren",
+      "sex": null
+     },
+     "key": "set_dungeon2_hunter_tauren"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A123",
+   "state": "queued",
+   "batch": 14
+  },
+  {
+   "file": "alliance-human-male-mage-generic-dungeonset.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Mage A",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Mage A",
+     "goal": "set_dungeon1_mage",
+     "resolve": {
+      "goal": "set_dungeon1_mage",
+      "faction": "Alliance",
+      "class": "MAGE",
+      "race": "Human",
+      "sex": null
+     },
+     "key": "set_dungeon1_mage_human"
+    },
+    {
+     "label": "Dungeon Set 2 Mage A",
+     "goal": "set_dungeon2_mage",
+     "resolve": {
+      "goal": "set_dungeon2_mage",
+      "faction": "Alliance",
+      "class": "MAGE",
+      "race": "Human",
+      "sex": null
+     },
+     "key": "set_dungeon2_mage_human"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A124",
+   "state": "queued",
+   "batch": 14
+  },
+  {
+   "file": "horde-troll-male-mage-dungeonset-2.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Mage H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Mage H",
+     "goal": "set_dungeon1_mage",
+     "resolve": {
+      "goal": "set_dungeon1_mage",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Troll",
+      "sex": null
+     },
+     "key": "set_dungeon1_mage_troll"
+    }
+   ],
+   "alt": "horde-troll-male-mage-dungeonset.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A125",
+   "state": "queued",
+   "batch": 15
+  },
+  {
+   "file": "alliance-human-male-paladin-dungeonset-2.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Paladin A",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Paladin A",
+     "goal": "set_dungeon1_paladin",
+     "resolve": {
+      "goal": "set_dungeon1_paladin",
+      "faction": "Alliance",
+      "class": "PALADIN",
+      "race": "Human",
+      "sex": null
+     },
+     "key": "set_dungeon1_paladin_human"
+    }
+   ],
+   "alt": "alliance-human-male-dungeonset-plate.jpg",
+   "w": 220,
+   "h": 308,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A126",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "alliance-dwarf-male-priest-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Priest A",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Priest A",
+     "goal": "set_dungeon1_priest",
+     "resolve": {
+      "goal": "set_dungeon1_priest",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "Dwarf",
+      "sex": null
+     },
+     "key": "set_dungeon1_priest_dwarf"
+    }
+   ],
+   "alt": null,
+   "w": 1024,
+   "h": 837,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A127",
+   "state": "queued",
+   "batch": 15
+  },
+  {
+   "file": "horde-undead-male-cloth-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Priest H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Priest H",
+     "goal": "set_dungeon1_priest",
+     "resolve": {
+      "goal": "set_dungeon1_priest",
+      "faction": "Horde",
+      "class": "PRIEST",
+      "race": "Scourge",
+      "sex": null
+     },
+     "key": "set_dungeon1_priest_undead"
+    },
+    {
+     "label": "Dungeon Set 2 Priest H",
+     "goal": "set_dungeon2_priest",
+     "resolve": {
+      "goal": "set_dungeon2_priest",
+      "faction": "Horde",
+      "class": "PRIEST",
+      "race": "Scourge",
+      "sex": null
+     },
+     "key": "set_dungeon2_priest_undead"
+    }
+   ],
+   "alt": null,
+   "w": 1051,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A128",
+   "state": "queued",
+   "batch": 15
+  },
+  {
+   "file": "alliance-gnome-male-rogue-dungeonset-ashtongue-blade.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Rogue A",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Rogue A",
+     "goal": "set_dungeon1_rogue",
+     "resolve": {
+      "goal": "set_dungeon1_rogue",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "Gnome",
+      "sex": null
+     },
+     "key": "set_dungeon1_rogue_gnome"
+    },
+    {
+     "label": "Dungeon Set 2 Rogue A",
+     "goal": "set_dungeon2_rogue",
+     "resolve": {
+      "goal": "set_dungeon2_rogue",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "Gnome",
+      "sex": null
+     },
+     "key": "set_dungeon2_rogue_gnome"
+    }
+   ],
+   "alt": null,
+   "w": 312,
+   "h": 440,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A129",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "horde-orc-male-rogue-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Rogue H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Rogue H",
+     "goal": "set_dungeon1_rogue",
+     "resolve": {
+      "goal": "set_dungeon1_rogue",
+      "faction": "Horde",
+      "class": "ROGUE",
+      "race": "Orc",
+      "sex": null
+     },
+     "key": "set_dungeon1_rogue_orc"
+    },
+    {
+     "label": "Dungeon Set 2 Rogue H",
+     "goal": "set_dungeon2_rogue",
+     "resolve": {
+      "goal": "set_dungeon2_rogue",
+      "faction": "Horde",
+      "class": "ROGUE",
+      "race": "Orc",
+      "sex": null
+     },
+     "key": "set_dungeon2_rogue_orc"
+    }
+   ],
+   "alt": null,
+   "w": 220,
+   "h": 308,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A130",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "horde-orc-female-shaman-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Shaman H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Shaman H",
+     "goal": "set_dungeon1_shaman",
+     "resolve": {
+      "goal": "set_dungeon1_shaman",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Orc",
+      "sex": null
+     },
+     "key": "set_dungeon1_shaman_orc"
+    }
+   ],
+   "alt": "horde-tauren-female-shaman-dungeonset.png",
+   "w": 1024,
+   "h": 795,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A131",
+   "state": "queued",
+   "batch": 15
+  },
+  {
+   "file": "alliance-gnome-female-warlock-generic-leveling-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Warlock A",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Warlock A",
+     "goal": "set_dungeon1_warlock",
+     "resolve": {
+      "goal": "set_dungeon1_warlock",
+      "faction": "Alliance",
+      "class": "WARLOCK",
+      "race": "Gnome",
+      "sex": null
+     },
+     "key": "set_dungeon1_warlock_gnome"
+    }
+   ],
+   "alt": null,
+   "w": 1125,
+   "h": 1500,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A132",
+   "state": "queued",
+   "batch": 15
+  },
+  {
+   "file": "horde-orc-male-warlock-dungeonset.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Warlock H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Warlock H",
+     "goal": "set_dungeon1_warlock",
+     "resolve": {
+      "goal": "set_dungeon1_warlock",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Orc",
+      "sex": null
+     },
+     "key": "set_dungeon1_warlock_orc"
+    }
+   ],
+   "alt": "horde-orc-male-warlock-dungeonset.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A133",
+   "state": "queued",
+   "batch": 15
+  },
+  {
+   "file": "alliance-dwarf-male-warrior-dungeonset-plate.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Warrior A",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Warrior A",
+     "goal": "set_dungeon1_warrior",
+     "resolve": {
+      "goal": "set_dungeon1_warrior",
+      "faction": "Alliance",
+      "class": "WARRIOR",
+      "race": "Dwarf",
+      "sex": null
+     },
+     "key": "set_dungeon1_warrior_dwarf"
+    }
+   ],
+   "alt": "alliance-human-male-dungeonset-plate.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A134",
+   "state": "queued",
+   "batch": 15
+  },
+  {
+   "file": "horde-tauren-female-warrior-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Warrior H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Warrior H",
+     "goal": "set_dungeon1_warrior",
+     "resolve": {
+      "goal": "set_dungeon1_warrior",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Tauren",
+      "sex": null
+     },
+     "key": "set_dungeon1_warrior_tauren"
+    },
+    {
+     "label": "Dungeon Set 2 Warrior H",
+     "goal": "set_dungeon2_warrior",
+     "resolve": {
+      "goal": "set_dungeon2_warrior",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Tauren",
+      "sex": null
+     },
+     "key": "set_dungeon2_warrior_tauren"
+    }
+   ],
+   "alt": null,
+   "w": 312,
+   "h": 440,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A135",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "alliance-nightelf-female-druid-dungeonset.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Druid A",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Druid A",
+     "goal": "set_dungeon2_druid",
+     "resolve": {
+      "goal": "set_dungeon2_druid",
+      "faction": "Alliance",
+      "class": "DRUID",
+      "race": "NightElf",
+      "sex": null
+     },
+     "key": "set_dungeon2_druid_nightelf"
+    }
+   ],
+   "alt": "alliance-nightelf-female-druid-leather-dungeonset.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A136",
+   "state": "queued",
+   "batch": 15
+  },
+  {
+   "file": "horde-troll-female-leather-dungeonset1.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Druid H",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Druid H",
+     "goal": "set_dungeon2_druid",
+     "resolve": {
+      "goal": "set_dungeon2_druid",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Troll",
+      "sex": null
+     },
+     "key": "set_dungeon2_druid_troll"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A137",
+   "state": "queued",
+   "batch": 16
+  },
+  {
+   "file": "alliance-dwarf-male-hunter-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Hunter A",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Hunter A",
+     "goal": "set_dungeon2_hunter",
+     "resolve": {
+      "goal": "set_dungeon2_hunter",
+      "faction": "Alliance",
+      "class": "HUNTER",
+      "race": "Dwarf",
+      "sex": null
+     },
+     "key": "set_dungeon2_hunter_dwarf"
+    }
+   ],
+   "alt": "alliance-human-male-hunter-dungeonset.png",
+   "w": 4200,
+   "h": 5409,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A138",
+   "state": "queued",
+   "batch": 16
+  },
+  {
+   "file": "horde-troll-male-mage-dungeonset-4.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Mage H",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Mage H",
+     "goal": "set_dungeon2_mage",
+     "resolve": {
+      "goal": "set_dungeon2_mage",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Troll",
+      "sex": null
+     },
+     "key": "set_dungeon2_mage_troll"
+    }
+   ],
+   "alt": "horde-troll-male-mage-dungeonset.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A139",
+   "state": "queued",
+   "batch": 16
+  },
+  {
+   "file": "alliance-human-male-paladin-dungeonset.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Paladin A",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Paladin A",
+     "goal": "set_dungeon2_paladin",
+     "resolve": {
+      "goal": "set_dungeon2_paladin",
+      "faction": "Alliance",
+      "class": "PALADIN",
+      "race": "Human",
+      "sex": null
+     },
+     "key": "set_dungeon2_paladin_human"
+    }
+   ],
+   "alt": "alliance-human-male-dungeonset-plate.jpg",
+   "w": 220,
+   "h": 308,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A140",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "alliance-nightelf-female-priest-dungeonset.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Priest A",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Priest A",
+     "goal": "set_dungeon2_priest",
+     "resolve": {
+      "goal": "set_dungeon2_priest",
+      "faction": "Alliance",
+      "class": "PRIEST",
+      "race": "NightElf",
+      "sex": null
+     },
+     "key": "set_dungeon2_priest_nightelf"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A141",
+   "state": "queued",
+   "batch": 16
+  },
+  {
+   "file": "horde-orc-male-shaman-dungeonset.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Shaman H",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Shaman H",
+     "goal": "set_dungeon2_shaman",
+     "resolve": {
+      "goal": "set_dungeon2_shaman",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Orc",
+      "sex": null
+     },
+     "key": "set_dungeon2_shaman_orc"
+    }
+   ],
+   "alt": "horde-tauren-female-shaman-dungeonset.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A142",
+   "state": "queued",
+   "batch": 16
+  },
+  {
+   "file": "alliance-gnome-male-warlock-dungeonset1.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Warlock A",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Warlock A",
+     "goal": "set_dungeon2_warlock",
+     "resolve": {
+      "goal": "set_dungeon2_warlock",
+      "faction": "Alliance",
+      "class": "WARLOCK",
+      "race": "Gnome",
+      "sex": null
+     },
+     "key": "set_dungeon2_warlock_gnome"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A143",
+   "state": "queued",
+   "batch": 16
+  },
+  {
+   "file": "horde-orc-male-warlock-dungeonset-2.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Warlock H",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Warlock H",
+     "goal": "set_dungeon2_warlock",
+     "resolve": {
+      "goal": "set_dungeon2_warlock",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Orc",
+      "sex": null
+     },
+     "key": "set_dungeon2_warlock_orc"
+    }
+   ],
+   "alt": "horde-orc-male-warlock-dungeonset.jpg",
+   "w": 312,
+   "h": 440,
+   "card": true,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A144",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "alliance-nightelf-male-warrior-dungeonset.png",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Warrior A",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Warrior A",
+     "goal": "set_dungeon2_warrior",
+     "resolve": {
+      "goal": "set_dungeon2_warrior",
+      "faction": "Alliance",
+      "class": "WARRIOR",
+      "race": "NightElf",
+      "sex": null
+     },
+     "key": "set_dungeon2_warrior_nightelf"
+    }
+   ],
+   "alt": "alliance-human-male-dungeonset-plate.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "",
+   "id": "A145",
+   "state": "queued",
+   "batch": 16
+  },
+  {
+   "file": "horde-undead-female-aqset-cloth.jpg",
+   "group": "aq",
+   "priority": 3,
+   "title": "Cloth: Enigma Vestments (Mage), Doomcaller's Attire (Warlock), Garments of the Oracle (Priest)",
+   "targets": [
+    {
+     "label": "Cloth: Enigma Vestments (Mage), Doomcaller's Attire (Warlock), Garments of the Oracle (Priest)",
+     "goal": "set_tier25",
+     "resolve": null,
+     "key": "set_tier25_cloth"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "One image per armor type; map it to the goals in the title.",
+   "id": "A146",
+   "state": "queued",
+   "batch": 16
+  },
+  {
+   "file": "alliance-nightelf-male-druid-aqset-leather.jpg",
+   "group": "aq",
+   "priority": 3,
+   "title": "Leather: Deathdealer's Embrace (Rogue), Genesis Raiment (Druid)",
+   "targets": [
+    {
+     "label": "Leather: Deathdealer's Embrace (Rogue), Genesis Raiment (Druid)",
+     "goal": "set_tier25",
+     "resolve": null,
+     "key": "set_tier25_leather"
+    }
+   ],
+   "alt": null,
+   "w": 918,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "One image per armor type; map it to the goals in the title.",
+   "id": "A147",
+   "state": "queued",
+   "batch": 17
+  },
+  {
+   "file": "horde-orc-male-hunter-aqset-mail.jpg",
+   "group": "aq",
+   "priority": 3,
+   "title": "Mail: Striker's Garb (Hunter), Stormcaller's Garb (Shaman)",
+   "targets": [
+    {
+     "label": "Mail: Striker's Garb (Hunter), Stormcaller's Garb (Shaman)",
+     "goal": "set_tier25",
+     "resolve": null,
+     "key": "set_tier25_mail"
+    }
+   ],
+   "alt": null,
+   "w": 861,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "One image per armor type; map it to the goals in the title.",
+   "id": "A148",
+   "state": "queued",
+   "batch": 17
+  },
+  {
+   "file": "alliance-dwarf-male-aqset-plate.jpg",
+   "group": "aq",
+   "priority": 3,
+   "title": "Plate: Conqueror's Battlegear (Warrior), Avenger's Battlegear (Paladin)",
+   "targets": [
+    {
+     "label": "Plate: Conqueror's Battlegear (Warrior), Avenger's Battlegear (Paladin)",
+     "goal": "set_tier25",
+     "resolve": null,
+     "key": "set_tier25_plate"
+    }
+   ],
+   "alt": null,
+   "w": 861,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "",
+   "notes": "One image per armor type; map it to the goals in the title.",
+   "id": "A149",
+   "state": "queued",
+   "batch": 17
+  },
+  {
+   "file": "alliance-dwarf-male-paladin-pvpset-plate.png",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Field Marshal's Aegis (Paladin) M",
+   "targets": [
+    {
+     "label": "Field Marshal's Aegis (Paladin) M",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_field_marshal_s_aegis_paladin_m"
+    }
+   ],
+   "alt": "alliance-human-male-paladin-pvpset-plate.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A150",
+   "state": "queued",
+   "batch": 17
+  },
+  {
+   "file": "alliance-human-female-priest-pvpset-cloth.png",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Field Marshal's Raiment (Priest) F",
+   "targets": [
+    {
+     "label": "Field Marshal's Raiment (Priest) F",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_field_marshal_s_raiment_priest_f"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A151",
+   "state": "queued",
+   "batch": 17
+  },
+  {
+   "file": "alliance-human-female-mage-pvpset-cloth.jpg",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Field Marshal's Regalia (Mage) F",
+   "targets": [
+    {
+     "label": "Field Marshal's Regalia (Mage) F",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_field_marshal_s_regalia_mage_f"
+    }
+   ],
+   "alt": "alliance-human-female-mage-pvpset-cloth-2.jpg",
+   "w": 929,
+   "h": 750,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A152",
+   "state": "queued",
+   "batch": 17
+  },
+  {
+   "file": "alliance-nightelf-male-druid-pvpset-leather.jpg",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Field Marshal's Sanctuary (Druid) M",
+   "targets": [
+    {
+     "label": "Field Marshal's Sanctuary (Druid) M",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_field_marshal_s_sanctuary_druid_m"
+    }
+   ],
+   "alt": null,
+   "w": 200,
+   "h": 285,
+   "card": false,
+   "low": true,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A153",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "alliance-gnome-female-warlock-pvpset-cloth.png",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Field Marshal's Threads (Warlock) F",
+   "targets": [
+    {
+     "label": "Field Marshal's Threads (Warlock) F",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_field_marshal_s_threads_warlock_f"
+    }
+   ],
+   "alt": "alliance-human-female-warlock-pvpset-cloth.jpg",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A154",
+   "state": "queued",
+   "batch": 17
+  },
+  {
+   "file": "alliance-nightelf-male-rogue-pvpset-leather-2.png",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Field Marshal's Vestments (Rogue) M",
+   "targets": [
+    {
+     "label": "Field Marshal's Vestments (Rogue) M",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_field_marshal_s_vestments_rogue_m"
+    }
+   ],
+   "alt": "alliance-nightelf-male-rogue-pvpset-leather-3.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A155",
+   "state": "queued",
+   "batch": 17
+  },
+  {
+   "file": "horde-troll-female-warrior-plate-pvpset.png",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Warlord's Battlegear (Warrior) F",
+   "targets": [
+    {
+     "label": "Warlord's Battlegear (Warrior) F",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_warlord_s_battlegear_warrior_f"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A156",
+   "state": "queued",
+   "batch": 18
+  },
+  {
+   "file": "horde-tauren-female-shaman-pvpset-mail.jpg",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Warlord's Earthshaker (Shaman) F",
+   "targets": [
+    {
+     "label": "Warlord's Earthshaker (Shaman) F",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_warlord_s_earthshaker_shaman_f"
+    }
+   ],
+   "alt": null,
+   "w": 500,
+   "h": 442,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A157",
+   "state": "queued",
+   "batch": 18
+  },
+  {
+   "file": "horde-tauren-female-druid-pvpset-leather.jpg",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Warlord's Sanctuary (Druid) F",
+   "targets": [
+    {
+     "label": "Warlord's Sanctuary (Druid) F",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_warlord_s_sanctuary_druid_f"
+    }
+   ],
+   "alt": null,
+   "w": 700,
+   "h": 530,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrow",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A158",
+   "state": "queued",
+   "batch": 18
+  },
+  {
+   "file": "horde-tauren-male-druid-pvpset-leather.jpg",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Warlord's Sanctuary (Druid) M",
+   "targets": [
+    {
+     "label": "Warlord's Sanctuary (Druid) M",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_warlord_s_sanctuary_druid_m"
+    }
+   ],
+   "alt": null,
+   "w": 1041,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "borrow",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A159",
+   "state": "queued",
+   "batch": 18
+  },
+  {
+   "file": "horde-orc-male-warlock-pvpset-cloth.jpg",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Warlord's Threads (Warlock) M",
+   "targets": [
+    {
+     "label": "Warlord's Threads (Warlock) M",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_warlord_s_threads_warlock_m"
+    }
+   ],
+   "alt": "horde-orc-male-warlock-pvpset-cloth-2.jpg",
+   "w": 550,
+   "h": 788,
+   "card": false,
+   "low": false,
+   "karl": false,
+   "inferred": false,
+   "now": "done",
+   "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A160",
+   "state": "queued",
+   "batch": 18
+  },
+  {
+   "file": "alliance-gnome-male-warlock-generic-leveling.png",
+   "group": "leveling",
+   "priority": 4,
+   "title": "Gnome Warlock M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Gnome Warlock M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "WARLOCK",
+      "race": "Gnome",
+      "sex": 2
+     },
+     "key": "allclasses_gnome_warlock_male"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "already has art",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A161",
+   "state": "queued",
+   "batch": 18
+  },
+  {
+   "file": "horde-undead-male-rogue-generic-leveling-3.jpg",
+   "group": "leveling",
+   "priority": 4,
+   "title": "Undead Rogue M",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Undead Rogue M",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "ROGUE",
+      "race": "Scourge",
+      "sex": 2
+     },
+     "key": "allclasses_undead_rogue_male"
+    }
+   ],
+   "alt": null,
+   "w": 1024,
+   "h": 867,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "already has art",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A162",
+   "state": "queued",
+   "batch": 18
+  },
+  {
+   "file": "alliance-nightelf-male-hunter-tier1.jpg",
+   "group": "tier",
+   "priority": 4,
+   "title": "Tier 1 Hunter A M",
+   "targets": [
+    {
+     "label": "Tier 1 Hunter A M",
+     "goal": "set_tier1_hunter",
+     "resolve": {
+      "goal": "set_tier1_hunter",
+      "faction": "Alliance",
+      "class": "HUNTER",
+      "race": "NightElf",
+      "sex": 2
+     },
+     "key": "set_tier1_hunter_nightelf_male"
+    }
+   ],
+   "alt": null,
+   "w": 1050,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A163",
+   "state": "queued",
+   "batch": 18
+  },
+  {
+   "file": "horde-tauren-male-hunter-tier1.png",
+   "group": "tier",
+   "priority": 4,
+   "title": "Tier 1 Hunter H M",
+   "targets": [
+    {
+     "label": "Tier 1 Hunter H M",
+     "goal": "set_tier1_hunter",
+     "resolve": {
+      "goal": "set_tier1_hunter",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Tauren",
+      "sex": 2
+     },
+     "key": "set_tier1_hunter_tauren_male"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A164",
+   "state": "queued",
+   "batch": 19
+  },
+  {
+   "file": "horde-orc-male-warrior-tier1-2.jpg",
+   "group": "tier",
+   "priority": 4,
+   "title": "Tier 1 Warrior H M",
+   "targets": [
+    {
+     "label": "Tier 1 Warrior H M",
+     "goal": "set_tier1_warrior",
+     "resolve": {
+      "goal": "set_tier1_warrior",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "set_tier1_warrior_orc_male"
+    }
+   ],
+   "alt": null,
+   "w": 1494,
+   "h": 1200,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A165",
+   "state": "queued",
+   "batch": 19
+  },
+  {
+   "file": "alliance-nightelf-female-hunter-tier2.jpg",
+   "group": "tier",
+   "priority": 4,
+   "title": "Tier 2 Hunter A F",
+   "targets": [
+    {
+     "label": "Tier 2 Hunter A F",
+     "goal": "set_tier2_hunter",
+     "resolve": {
+      "goal": "set_tier2_hunter",
+      "faction": "Alliance",
+      "class": "HUNTER",
+      "race": "NightElf",
+      "sex": 3
+     },
+     "key": "set_tier2_hunter_nightelf_female"
+    }
+   ],
+   "alt": null,
+   "w": 900,
+   "h": 698,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A166",
+   "state": "queued",
+   "batch": 19
+  },
+  {
+   "file": "horde-tauren-male-shaman-tier2-2.png",
+   "group": "tier",
+   "priority": 4,
+   "title": "Tier 2 Shaman H M",
+   "targets": [
+    {
+     "label": "Tier 2 Shaman H M",
+     "goal": "set_tier2_shaman",
+     "resolve": {
+      "goal": "set_tier2_shaman",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Tauren",
+      "sex": 2
+     },
+     "key": "set_tier2_shaman_tauren_male"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A167",
+   "state": "queued",
+   "batch": 19
+  },
+  {
+   "file": "alliance-dwarf-male-rogue-tier3.jpg",
+   "group": "tier",
+   "priority": 4,
+   "title": "Tier 3 Rogue A M",
+   "targets": [
+    {
+     "label": "Tier 3 Rogue A M",
+     "goal": "tier3_rogue",
+     "resolve": {
+      "goal": "tier3_rogue",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "Dwarf",
+      "sex": 2
+     },
+     "key": "tier3_rogue_dwarf_male"
+    }
+   ],
+   "alt": null,
+   "w": 220,
+   "h": 308,
+   "card": true,
+   "low": true,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A168",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "horde-orc-male-rogue-tier3.png",
+   "group": "tier",
+   "priority": 4,
+   "title": "Tier 3 Rogue H M",
+   "targets": [
+    {
+     "label": "Tier 3 Rogue H M",
+     "goal": "tier3_rogue",
+     "resolve": {
+      "goal": "tier3_rogue",
+      "faction": "Horde",
+      "class": "ROGUE",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "tier3_rogue_orc_male"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A169",
+   "state": "queued",
+   "batch": 19
+  },
+  {
+   "file": "horde-tauren-female-shaman-tier3.jpg",
+   "group": "tier",
+   "priority": 4,
+   "title": "Tier 3 Shaman H F",
+   "targets": [
+    {
+     "label": "Tier 3 Shaman H F",
+     "goal": "tier3_shaman",
+     "resolve": {
+      "goal": "tier3_shaman",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Tauren",
+      "sex": 3
+     },
+     "key": "tier3_shaman_tauren_female"
+    }
+   ],
+   "alt": null,
+   "w": 1000,
+   "h": 775,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A170",
+   "state": "queued",
+   "batch": 19
+  },
+  {
+   "file": "alliance-nightelf-female-druid-pvpset-leather.jpg",
+   "group": "pvp",
+   "priority": 4,
+   "title": "Field Marshal's Sanctuary (Druid) F",
+   "targets": [
+    {
+     "label": "Field Marshal's Sanctuary (Druid) F",
+     "goal": null,
+     "resolve": null,
+     "key": "pvp_field_marshal_s_sanctuary_druid_f"
+    }
+   ],
+   "alt": null,
+   "w": 900,
+   "h": 787,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "done",
+   "notes": "replacement proposal: slot already has art",
+   "id": "A171",
+   "state": "queued",
+   "batch": 19
+  },
+  {
+   "file": "set-herod-the-scarlet-champion.jpg",
+   "group": "extra",
+   "priority": 4,
+   "title": "Chain of the Scarlet Crusade",
+   "targets": [
+    {
+     "label": "Chain of the Scarlet Crusade",
+     "goal": null,
+     "resolve": null,
+     "key": null
+    }
+   ],
+   "alt": null,
+   "w": 312,
+   "h": 440,
+   "card": true,
+   "low": true,
+   "karl": true,
+   "inferred": true,
+   "now": "",
+   "notes": "The set already has its own banner; this card is 312x440.",
+   "id": "A172",
+   "state": "skipped_lowres",
+   "batch": null
+  },
+  {
+   "file": "goal-gold-horde.jpg",
+   "group": "extra",
+   "priority": 4,
+   "title": "Save 5,000 Gold (Horde)",
+   "targets": [
+    {
+     "label": "Save 5,000 Gold (Horde)",
+     "goal": null,
+     "resolve": null,
+     "key": null
+    }
+   ],
+   "alt": null,
+   "w": 1000,
+   "h": 842,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": true,
+   "now": "",
+   "notes": "Renamed from Cutpurse_full.jpg; the gold goal is done with one shared image.",
+   "id": "A173",
+   "state": "blocked",
+   "batch": null
+  },
+  {
+   "file": "profession-tailoring-2.jpg",
+   "group": "extra",
+   "priority": 4,
+   "title": "Tailoring profession banner",
+   "targets": [
+    {
+     "label": "Tailoring profession banner",
+     "goal": null,
+     "resolve": null,
+     "key": null
+    }
+   ],
+   "alt": null,
+   "w": 512,
+   "h": 512,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": true,
+   "now": "",
+   "notes": "Profession banners are done; this would be an addition.",
+   "id": "A174",
+   "state": "blocked",
+   "batch": null
+  },
+  {
+   "file": "horde-tauren-druid-cat-3.jpg",
+   "group": "extra",
+   "priority": 4,
+   "title": "Tauren Druid (sex not in name)",
+   "targets": [
+    {
+     "label": "Tauren Druid (sex not in name)",
+     "goal": null,
+     "resolve": null,
+     "key": null
+    }
+   ],
+   "alt": null,
+   "w": 220,
+   "h": 308,
+   "card": true,
+   "low": true,
+   "karl": true,
+   "inferred": true,
+   "now": "",
+   "notes": "No sex in the file name, and 220x308.",
+   "id": "A175",
+   "state": "skipped_lowres",
+   "batch": null
+  }
+ ],
+ "gaps": [
+  {
+   "group": "newgoal",
+   "slot": "Cruel Barb",
+   "goal": "cruel_barb",
+   "why": "No source in the folder. It needs the Cruel Barb card or other art.",
+   "id": "G001"
+  },
+  {
+   "group": "leveling",
+   "slot": "Gnome Rogue F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G002"
+  },
+  {
+   "group": "leveling",
+   "slot": "High Order Skyborne Warrior M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G003"
+  },
+  {
+   "group": "leveling",
+   "slot": "High Order Skyborne Warrior F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G004"
+  },
+  {
+   "group": "leveling",
+   "slot": "High Order Skyborne Hunter M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G005"
+  },
+  {
+   "group": "leveling",
+   "slot": "High Order Skyborne Hunter F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G006"
+  },
+  {
+   "group": "leveling",
+   "slot": "High Order Skyborne Mage M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G007"
+  },
+  {
+   "group": "leveling",
+   "slot": "High Order Skyborne Druid M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G008"
+  },
+  {
+   "group": "leveling",
+   "slot": "High Order Skyborne Druid F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G009"
+  },
+  {
+   "group": "leveling",
+   "slot": "Orc Hunter F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G010"
+  },
+  {
+   "group": "leveling",
+   "slot": "Troll Warrior F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G011"
+  },
+  {
+   "group": "leveling",
+   "slot": "Troll Shaman F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G012"
+  },
+  {
+   "group": "leveling",
+   "slot": "Windshaper Skyborne Warrior M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G013"
+  },
+  {
+   "group": "leveling",
+   "slot": "Windshaper Skyborne Warrior F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G014"
+  },
+  {
+   "group": "leveling",
+   "slot": "Windshaper Skyborne Hunter M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G015"
+  },
+  {
+   "group": "leveling",
+   "slot": "Windshaper Skyborne Hunter F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G016"
+  },
+  {
+   "group": "leveling",
+   "slot": "Windshaper Skyborne Shaman M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G017"
+  },
+  {
+   "group": "leveling",
+   "slot": "Windshaper Skyborne Shaman F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G018"
+  },
+  {
+   "group": "leveling",
+   "slot": "Windshaper Skyborne Druid M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G019"
+  },
+  {
+   "group": "leveling",
+   "slot": "Windshaper Skyborne Druid F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G020"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Hunter H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G021"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Mage A M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G022"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Mage H M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G023"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Paladin A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G024"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Paladin H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G025"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Rogue H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G026"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Shaman A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G027"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Warlock A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G028"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 1 Warrior A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G029"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Druid A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G030"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Mage H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G031"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Paladin A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G032"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Paladin H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G033"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Priest H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G034"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Shaman A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G035"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Warlock H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G036"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Warrior H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G037"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 3 Hunter A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G038"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 3 Paladin H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G039"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 3 Shaman A M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G040"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 3 Warlock A M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G041"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 3 Warlock H M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G042"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 3 Warrior A F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G043"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 3 Warrior H F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G044"
+  },
+  {
+   "group": "pvp",
+   "slot": "Field Marshal's Battlegear (Warrior) M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G045"
+  },
+  {
+   "group": "pvp",
+   "slot": "Field Marshal's Earthshaker (Shaman) F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G046"
+  },
+  {
+   "group": "pvp",
+   "slot": "Field Marshal's Pursuit (Hunter) F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G047"
+  },
+  {
+   "group": "pvp",
+   "slot": "Warlord's Aegis (Paladin) F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G048"
+  },
+  {
+   "group": "pvp",
+   "slot": "Warlord's Pursuit (Hunter) F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G049"
+  },
+  {
+   "group": "pvp",
+   "slot": "Warlord's Raiment (Priest) M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G050"
+  },
+  {
+   "group": "pvp",
+   "slot": "Warlord's Regalia (Mage) M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G051"
+  },
+  {
+   "group": "pvp",
+   "slot": "Warlord's Vestments (Rogue) M",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G052"
+  },
+  {
+   "group": "pvp",
+   "slot": "Warlord's Vestments (Rogue) F",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G053"
+  },
+  {
+   "group": "dungeon",
+   "slot": "Dungeon Set 1 Paladin H",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G054"
+  },
+  {
+   "group": "dungeon",
+   "slot": "Dungeon Set 2 Paladin H",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G055"
+  },
+  {
+   "group": "dungeon",
+   "slot": "Dungeon Set 1 Shaman A",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G056"
+  },
+  {
+   "group": "dungeon",
+   "slot": "Dungeon Set 2 Shaman A",
+   "goal": null,
+   "why": "No image in the folder for this slot.",
+   "id": "G057"
+  }
+ ],
+ "corrections": [
+  {
+   "file": "alliance-human-female-paladin-tier1.jpg",
+   "kinds": [
+    "dungeonset"
+   ],
+   "installed": true,
+   "why": "Karl, 2026-10-29: she wears the Paladin dungeon set, not Tier 1. The checklist already shows Lightforge Armor (set_dungeon1_paladin) with a female image, so this is probably its source. Never pick it for another slot."
+  }
+ ],
+ "renames": {
+  "a-dwarf-male-paladin-generic-heal-4.png": "alliance-dwarf-male-paladin-generic-heal-4.png",
+  "a-nightelf-female-priest-shadow.png": "alliance-nightelf-female-priest-shadow.png",
+  "h-orc-female-shaman-tier1-hero.png": "horde-orc-female-shaman-tier1-hero.png",
+  "h-orc-male-shaman-generic-leveling.png": "horde-orc-male-shaman-generic-leveling.png",
+  "h-tauren-female-shaman-generic-leveling.png": "horde-tauren-female-shaman-generic-leveling.png",
+  "h-undead-female-rogue-generic-leveling.png": "horde-undead-female-rogue-generic-leveling-2.png",
+  "weapon-Argent_Crusader.jpg": "weapon-argent-crusader.jpg",
+  "weapon-Barman_Shanker.jpg": "weapon-barman-shanker.jpg",
+  "weapon-Benediction.png": "weapon-benediction-2.png",
+  "weapon-Crackling_Staff.jpg": "weapon-crackling-staff-2.jpg",
+  "weapon-Gurubashi_Dwarf_Destroyer.jpg": "weapon-gurubashi-dwarf-destroyer.jpg",
+  "weapon-Hypnotic_Blade.jpg": "weapon-hypnotic-blade.jpg",
+  "weapon-Masterwork_Stormhammer.png": "weapon-masterwork-stormhammer.png",
+  "weapon-The_Bringer_of_Death.png": "weapon-the-bringer-of-death.png",
+  "weapon-The_Unstoppable_Force_2.jpg": "weapon-the-unstoppable-force-2.jpg",
+  "weapon-claw-frost-wyrm.jpg": "weapon-claw-of-the-frost-wyrm.jpg",
+  "weapon-doomfinger-wand.jpg": "weapon-doomfinger.jpg",
+  "weapon-hand-edward-odd.png": "weapon-hand-of-edward-the-odd.png",
+  "weapon-skuls-ghastly-touch-wand.png": "weapon-skuls-ghastly-touch.png",
+  "weapon-staff-of-command.jpg": "weapon-lord-valthalaks-staff-of-command.jpg"
+ },
+ "stage": {
+  "tot": 92,
+  "cov": [
+   73,
+   26,
+   58
+  ],
+  "full": [
+   [
+    "Alliance",
+    "Human",
+    "Mage",
+    "m",
+    [
+     2,
+     1,
+     2
+    ]
+   ],
+   [
+    "Alliance",
+    "Dwarf",
+    "Warrior",
+    "m",
+    [
+     5,
+     1,
+     1
+    ]
+   ],
+   [
+    "Alliance",
+    "Dwarf",
+    "Priest",
+    "m",
+    [
+     1,
+     1,
+     1
+    ]
+   ],
+   [
+    "Alliance",
+    "Night Elf",
+    "Warrior",
+    "m",
+    [
+     1,
+     1,
+     1
+    ]
+   ],
+   [
+    "Alliance",
+    "Night Elf",
+    "Hunter",
+    "m",
+    [
+     4,
+     2,
+     6
+    ]
+   ],
+   [
+    "Alliance",
+    "Night Elf",
+    "Hunter",
+    "f",
+    [
+     3,
+     2,
+     1
+    ]
+   ],
+   [
+    "Alliance",
+    "Night Elf",
+    "Priest",
+    "f",
+    [
+     1,
+     1,
+     3
+    ]
+   ],
+   [
+    "Alliance",
+    "Night Elf",
+    "Druid",
+    "m",
+    [
+     1,
+     1,
+     4
+    ]
+   ],
+   [
+    "Alliance",
+    "Night Elf",
+    "Druid",
+    "f",
+    [
+     1,
+     3,
+     5
+    ]
+   ],
+   [
+    "Alliance",
+    "Gnome",
+    "Rogue",
+    "m",
+    [
+     5,
+     1,
+     3
+    ]
+   ],
+   [
+    "Horde",
+    "Orc",
+    "Shaman",
+    "m",
+    [
+     2,
+     1,
+     6
+    ]
+   ],
+   [
+    "Horde",
+    "Orc",
+    "Warlock",
+    "m",
+    [
+     1,
+     3,
+     2
+    ]
+   ],
+   [
+    "Horde",
+    "Tauren",
+    "Hunter",
+    "m",
+    [
+     6,
+     1,
+     2
+    ]
+   ],
+   [
+    "Horde",
+    "Tauren",
+    "Shaman",
+    "m",
+    [
+     7,
+     1,
+     5
+    ]
+   ],
+   [
+    "Horde",
+    "Tauren",
+    "Shaman",
+    "f",
+    [
+     4,
+     1,
+     1
+    ]
+   ],
+   [
+    "Horde",
+    "Troll",
+    "Shaman",
+    "m",
+    [
+     3,
+     2,
+     2
+    ]
+   ]
+  ]
+ }
+}

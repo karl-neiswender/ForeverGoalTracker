@@ -101,11 +101,16 @@ its October 21 notes.
 
 ## Current invariants and open work
 
-- Art matching plan (2026-10-29, PC, Claude, planning only, uncommitted): one picked image per Needed, Borrowed
-  or Shared goal, per leveling race/class/sex half, per missing Tier set sex, plus a stage idea for leveling art that
-  follows the character's level ([plan](Art-matching-plan-2026-10-29.md), thumbnails in its `.html`). **Codex: skip
-  the 19 low-res picks in its section 6** (short side under 350 px; do not generate, upscale or install from them).
-  **Karl** will find larger copies of those files and tell Codex which slot each is for. Nothing from the plan is installed.
+- Art matching plan and work order (2026-10-29, PC, Claude; Karl locked the picks in commit `5abd851`): **Codex, start
+  with [the plan](Art-matching-plan-2026-10-29.md) (or its `.html`, which has thumbnails): "Codex: start here" is the
+  work order.** 151 banners in 19 batches of 8, P1 goal banners first, all to be installed before Nov 4 (live Forever test;
+  new textures need a full restart). Karl approves each batch's review sheet before install; Claude verifies each batch
+  (`python tools/art-plan.py verify <ids>`, then `python tools/check.py`) and is the only one to mark a row `verified`.
+  Skip the 22 low-res rows and 2 blocked rows; Karl is finding larger files (`art-plan.py swap`). Progress is
+  `reports/art-plan/status.json`, changed only through `tools/art-plan.py`; the page rebuilds with `art-plan.py build`.
+  [Goal-art-checklist.html](Goal-art-checklist.html) stays the record of what is installed and mapped: it now has rows for
+  the 15 new Library goals and shows each planned source image; update it per banner as `reports/reference/artwork.md` says.
+  Nothing from the plan is installed yet.
 
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared

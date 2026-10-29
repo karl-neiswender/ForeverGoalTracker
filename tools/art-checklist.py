@@ -1,6 +1,7 @@
 """Maintain reports/Goal-art-checklist.html.
 
-  python3 tools/art-checklist.py thumbs   rebuild the embedded thumbnails from Media/*-banner.blp
+  python3 tools/art-checklist.py thumbs   rebuild the embedded thumbnails from Media/*-banner.blp and from the
+                                          planned source images named in notes (`Planned: file.png`)
   python3 tools/art-checklist.py goals    list goals in the addon that have no row in the checklist
 
 Run from the repository root. Needs Pillow (thumbs) and lupa (goals).
@@ -33,7 +34,7 @@ def referenced_keys(text):
 def thumbs():
     from PIL import Image
     text = page.read_text(encoding='utf-8')
-    keys, _ = referenced_keys(text)
+    keys, listed = referenced_keys(text)
     img, missing = {}, []
     for k in sorted(keys):
         src = root / 'Media' / (k + '-banner.blp')
@@ -44,6 +45,25 @@ def thumbs():
         buf = io.BytesIO()
         im.save(buf, 'JPEG', quality=68, optimize=True)
         img[k] = 'data:image/jpeg;base64,' + base64.b64encode(buf.getvalue()).decode()
+    # Planned source images (a note says `Planned: file.png` or `Source image: file.png`) get a thumbnail too,
+    # on a 4:3 dark card so a portrait scan is not stretched by the preview.
+    planned = set()
+    for _, rows in listed:
+        for row in rows:
+            planned.update(m.group(1) for m in re.finditer(r'(?:Planned|Source image): ([^\s;,()]+\.(?:jpe?g|png|webp))', row[3]))
+    for f in sorted(planned):
+        src = root / 'Media/artwork' / f
+        if not src.exists():
+            missing.append(f)
+            continue
+        Image.MAX_IMAGE_PIXELS = None
+        im = Image.open(src).convert('RGB')
+        im.thumbnail((320, 240), Image.LANCZOS)
+        card = Image.new('RGB', (320, 240), (20, 20, 20))
+        card.paste(im, ((320 - im.width) // 2, (240 - im.height) // 2))
+        buf = io.BytesIO()
+        card.save(buf, 'JPEG', quality=68, optimize=True)
+        img[Path(f).stem] = 'data:image/jpeg;base64,' + base64.b64encode(buf.getvalue()).decode()
     block = re.search(r'var IMG = \{.*?\};\n</script>', text, re.S)
     text = text.replace(block.group(0), 'var IMG = ' + json.dumps(img) + ';\n</script>')
     page.write_text(text, encoding='utf-8', newline='\n')
