@@ -5797,6 +5797,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.heartseeker = {{path="heartseeker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.skullflame_shield = {{path="skullflame_shield-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.the_untamed_blade = {{path="the_untamed_blade-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.viking_warhammer = {{path="viking_warhammer-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.barman_shanker = {{path="barman_shanker-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.claw_of_the_frost_wyrm = {{path="claw_of_the_frost_wyrm-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.gurubashi_dwarf_destroyer = {{path="gurubashi_dwarf_destroyer-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.hand_of_edward_the_odd = {{path="hand_of_edward_the_odd-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.hypnotic_blade = {{path="hypnotic_blade-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.ice_barbed_spear = {{path="ice_barbed_spear-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.lord_valthalaks_staff_of_command = {{path="lord_valthalaks_staff_of_command-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.core_hound_tooth = {{path="core_hound_tooth-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.bloodseeker = {{path="bloodseeker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.blackcrow = {{path="blackcrow-banner.blp", aspect=4/3, preprocessed=true}}

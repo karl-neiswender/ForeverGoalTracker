@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 16 of 150 workable banners verified.** Queued 134, Verified 16, Blocked 3, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 16 of 151 workable banners verified.** Queued 127, Installed 8, Verified 16, Blocked 2, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 150 workable banners; P1 is 34, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 151 workable banners; P1 is 35, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -112,14 +112,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A022 | P1 | `weapon-viking-warhammer.png` 745x1040 |  | Viking Warhammer: `viking_warhammer` / `viking_warhammer` | Queued | card scan, crop first  |
-| ☐ | A024 | P1 | `weapon-Barman_Shanker.jpg` 1042x1200 |  | Barman Shanker: `barman_shanker` / `barman_shanker` | Queued |   |
-| ☐ | A025 | P1 | `weapon-claw-frost-wyrm.jpg` 1024x1001 |  | Claw of the Frost Wyrm: `claw_of_the_frost_wyrm` / `claw_of_the_frost_wyrm` | Queued |   |
-| ☐ | A027 | P1 | `weapon-Gurubashi_Dwarf_Destroyer.jpg` 1371x1200 |  | Gurubashi Dwarf Destroyer: `gurubashi_dwarf_destroyer` / `gurubashi_dwarf_destroyer` | Queued |   |
-| ☐ | A028 | P1 | `weapon-hand-edward-odd.png` 745x1040 |  | Hand of Edward the Odd: `hand_of_edward_the_odd` / `hand_of_edward_the_odd` | Blocked | card scan, crop first The card is titled Scepter of the Unholy. Confirm it is the right art for this mace. |
-| ☐ | A029 | P1 | `weapon-Hypnotic_Blade.jpg` 1371x1200 |  | Hypnotic Blade: `hypnotic_blade` / `hypnotic_blade` | Queued |   |
-| ☐ | A030 | P1 | `weapon-ice-barbed-spear.png` 745x1040 |  | Ice Barbed Spear: `ice_barbed_spear` / `ice_barbed_spear` | Queued | card scan, crop first  |
-| ☐ | A031 | P1 | `weapon-staff-of-command.jpg` 1337x1200 |  | Lord Valthalak's Staff of Command: `lord_valthalaks_staff_of_command` / `lord_valthalaks_staff_of_command` | Queued |   |
+| ☐ | A022 | P1 | `weapon-viking-warhammer.png` 745x1040 |  | Viking Warhammer: `viking_warhammer` / `viking_warhammer` | Installed | card scan, crop first  |
+| ☐ | A024 | P1 | `weapon-Barman_Shanker.jpg` 1042x1200 |  | Barman Shanker: `barman_shanker` / `barman_shanker` | Installed |   |
+| ☐ | A025 | P1 | `weapon-claw-frost-wyrm.jpg` 1024x1001 |  | Claw of the Frost Wyrm: `claw_of_the_frost_wyrm` / `claw_of_the_frost_wyrm` | Installed |   |
+| ☐ | A027 | P1 | `weapon-Gurubashi_Dwarf_Destroyer.jpg` 1371x1200 |  | Gurubashi Dwarf Destroyer: `gurubashi_dwarf_destroyer` / `gurubashi_dwarf_destroyer` | Installed |   |
+| ☐ | A028 | P1 | `weapon-hand-edward-odd.png` 745x1040 |  | Hand of Edward the Odd: `hand_of_edward_the_odd` / `hand_of_edward_the_odd` | Installed | card scan, crop first The card is titled Scepter of the Unholy. Confirm it is the right art for this mace. |
+| ☐ | A029 | P1 | `weapon-Hypnotic_Blade.jpg` 1371x1200 |  | Hypnotic Blade: `hypnotic_blade` / `hypnotic_blade` | Installed |   |
+| ☐ | A030 | P1 | `weapon-ice-barbed-spear.png` 745x1040 |  | Ice Barbed Spear: `ice_barbed_spear` / `ice_barbed_spear` | Installed | card scan, crop first  |
+| ☐ | A031 | P1 | `weapon-staff-of-command.jpg` 1337x1200 |  | Lord Valthalak's Staff of Command: `lord_valthalaks_staff_of_command` / `lord_valthalaks_staff_of_command` | Installed |   |
 
 ### Batch 4
 
@@ -341,7 +341,6 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A020 | Skipped (low-res) | `weapon-the-shatterer.jpg` | 200x279 | The Shatterer  |
 | A023 | Skipped (low-res) | `item-wall-of-the-dead.jpg` | 200x279 | Wall of the Dead  |
 | A026 | Skipped (low-res) | `weapon-doomfinger-wand.jpg` | 348x310 | Doomfinger  |
-| A028 | Blocked | `weapon-hand-edward-odd.png` | 745x1040 | Hand of Edward the Odd The card is titled Scepter of the Unholy. Confirm it is the right art for this mace. |
 | A046 | Skipped (low-res) | `alliance-dwarf-female-rogue-tier1.jpg` | 312x440 | Level Classes to 60: Dwarf Rogue F  |
 | A059 | Skipped (low-res) | `alliance-nightelf-male-druid-generic.jpg` | 200x279 | Level Classes to 60: Night Elf Druid M  |
 | A074 | Skipped (low-res) | `horde-tauren-female-druid-leather-leveling-generic.jpg` | 312x440 | Level Classes to 60: Tauren Druid F  |

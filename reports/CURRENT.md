@@ -115,6 +115,8 @@ its October 21 notes.
 
 - Art batch 2 (2026-10-29): Karl approved A012, A014, A015, A016, A017, A018, A019 and A021; eight banners installed and synced to Era, with checklist and Lua checks updated. The duplicate raid_barrow build entry was removed to preserve its approved source. Claude verification and full-restart native review remain pending.
 
+- Art batch 3 (2026-10-29): Karl approved A022, A024, A025, A027, A028, A029, A030 and A031; eight banners installed, including the corrected second Ice Barbed Spear review. Karl confirmed A028's selected card art despite its printed title. Claude verification and full-restart native review remain pending.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,

@@ -95,9 +95,45 @@
   "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
   "state": "verified"
  },
- "A028": {
+ "A022": {
+  "banner": "viking_warhammer",
   "date": "2026-10-29",
-  "note": "Selected source card is titled Scepter of the Unholy, not Hand of Edward the Odd; needs Karl's corrected source pick.",
-  "state": "blocked"
+  "state": "installed"
+ },
+ "A024": {
+  "banner": "barman_shanker",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A025": {
+  "banner": "claw_of_the_frost_wyrm",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A027": {
+  "banner": "gurubashi_dwarf_destroyer",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A028": {
+  "banner": "hand_of_edward_the_odd",
+  "date": "2026-10-29",
+  "note": "Karl confirmed the selected Scepter of the Unholy card art is the correct source for Hand of Edward the Odd on 2026-10-29.",
+  "state": "installed"
+ },
+ "A029": {
+  "banner": "hypnotic_blade",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A030": {
+  "banner": "ice_barbed_spear",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A031": {
+  "banner": "lord_valthalaks_staff_of_command",
+  "date": "2026-10-29",
+  "state": "installed"
  }
 }
