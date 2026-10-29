@@ -1080,6 +1080,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 22820, checked 2026-10-29: epic Bind on Pickup wand, item level 83, requires level
+        -- 60, 119 to 222 Shadow damage, speed 1.50, +7 Stamina, +7 Intellect, equip: +12 spell damage and healing
+        -- and +1% spell hit. Dropped by Patchwerk (creature 16028) in Naxxramas; Wowhead gives no drop chance and
+        -- GearSources agrees. Not in Forever's tables yet, so not marked confirmed.
+        id = "wand_of_fates", library = true, itemQuality = 4, instance = { 533, "Naxxramas" },
+        icon = "inv_wand_1h_stratholme_d_01",
+        name = "Wand of Fates",
+        short = "Wand of Fates",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A caster's wand dropped by Patchwerk in Naxxramas.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Wand of Fates from Patchwerk in Naxxramas.", auto = { item = 22820, owned = { "Wand of Fates" } } },
+        },
+        completeWith = { item = 22820, owned = { "Wand of Fates" } },
+        tips = {
+            "Defeat Patchwerk in the Military Quarter of {raid_naxx:Naxxramas} for a chance at {item:22820:Wand of Fates}.",
+            "It binds when picked up. It deals 119 to 222 Shadow damage and adds 7 Stamina, 7 Intellect, up to 12 spell damage and healing and 1% spell hit.",
+            "Players weigh it against Doomfinger: this one has more stats and spell hit, and Doomfinger has more damage and spell crit. Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 23242, checked 2026-10-29: epic Bind on Pickup, Unique off-hand fist weapon, item
         -- level 88, requires level 60, 75 to 140 damage, speed 1.50, +8 Stamina, +22 attack power, equip: +1%
         -- crit and +1% hit. Dropped by Sapphiron (creature 15989) in Naxxramas, 20.90% on Wowhead (GearSources
@@ -1457,6 +1481,31 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 13396, checked 2026-10-29: rare (blue) Bind on Pickup wand, item level 57, requires
+        -- level 52, 70 to 131 Shadow damage, speed 1.80, equip: +14 shadow damage. Dropped by Skul (creature
+        -- 10393), a level 58 rare elite on Stratholme's living side (GearSources agrees); Wowhead's sample is 1 drop
+        -- in 3 kills, too small for a rate. Spawn spots are from a Wowhead comment: Festival Lane and by Fras
+        -- Siabi's shop near the living-side entrance. Not in Forever's tables yet, so not marked confirmed.
+        id = "skuls_ghastly_touch", library = true, itemQuality = 3, instance = { 329, "Stratholme" },
+        icon = "inv_misc_bone_elfskull_01",
+        name = "Skul's Ghastly Touch",
+        short = "Skul's Touch",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A shadow wand dropped by Skul, a rare creature on Stratholme's living side.",
+        steps = {
+            { text = "Reach level 52.", auto = { level = 52 } },
+            { text = "Loot Skul's Ghastly Touch from Skul on the living side of Stratholme.", auto = { item = 13396, owned = { "Skul's Ghastly Touch" } } },
+        },
+        completeWith = { item = 13396, owned = { "Skul's Ghastly Touch" } },
+        tips = {
+            "Skul is a rare level 58 elite on the living side of {key_strat:Stratholme} {map:strat:Show on map}, so he is not always there. Players say he spawns in Festival Lane or by Fras Siabi's shop, left of the living-side entrance.",
+            "It binds when picked up. It deals 70 to 131 Shadow damage and adds up to 14 shadow damage. Players rate it highly for Warlocks and Shadow Priests.",
+            "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
+        },
+    },
+
+    {
         -- Item 11923: rare (blue) Bind on Pickup main-hand mace, item level 57, requires level 52, equip: +31
         -- healing. From the Chest of The Seven in Blackrock Depths.
         id = "hammer_of_grace", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
@@ -1735,6 +1784,58 @@ local library = {
             "About 30 creatures of level 40 to 43 have dropped it, none of them bosses, such as the Grimtotem in Feralas and the scalebanes in Swamp of Sorrows. Each drop is very rare.",
             "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
             "Its chance on hit hurls a fireball for 155 to 197 Fire damage, plus 24 more over 6 seconds. Warriors, Paladins, Hunters and Shamans can use a two-handed axe. Learn Two-Handed Axes before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 2243, checked 2026-10-29: epic Bind on Equip, Unique one-hand mace, item level 62,
+        -- requires level 57, 50 to 94 damage, speed 1.60, +13 Intellect, +10 Spirit, chance on hit: the next spell
+        -- cast within 4 sec is instant. A world drop: Wowhead lists no creature and GearSources agrees. Comments
+        -- report it from trash in Molten Core and Stratholme and from a Chillwind in Winterspring, with no rate.
+        -- Not in Forever's tables yet, so not marked confirmed.
+        id = "hand_of_edward_the_odd", library = true, itemQuality = 4,
+        icon = "inv_mace_14",
+        name = "Hand of Edward the Odd",
+        short = "Hand of Edward",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "An epic one-handed mace that high-level creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 57.", auto = { level = 57 } },
+            { text = "Loot Hand of Edward the Odd, a very rare world drop.", auto = { item = 2243, owned = { "Hand of Edward the Odd" } } },
+        },
+        completeWith = { item = 2243, owned = { "Hand of Edward the Odd" } },
+        tips = {
+            "It is a world drop with no listed source. Players have found it on trash in Molten Core and Stratholme and on a Chillwind in Winterspring. Each drop is very rare.",
+            "It binds when equipped and is Unique, so you can also buy one on the Auction House until someone wears it.",
+            "It adds 13 Intellect and 10 Spirit. Its chance on hit makes your next spell within 4 seconds instant, even a Hearthstone. Players say it procs rarely.",
+            "Equipping it takes level 57 and One-Handed Maces. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use it. Players rate it highest for Paladins and Shamans.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 873, checked 2026-10-29: epic Bind on Equip two-hand staff, item level 40, requires
+        -- level 35, 119 to 180 damage, speed 3.70, +11 Intellect, +11 Spirit, equip: +26 spell damage and healing.
+        -- A world drop: Wowhead lists 28 creatures of level 28 to 43 (all but a few between 39 and 43), a dozen of
+        -- them in Stranglethorn Vale, the rest in Scarlet Monastery, Gnomeregan, Razorfen Downs, Badlands, Desolace,
+        -- Tanaris, Ashenvale and others; each is one drop in hundreds of kills. GearSources calls it a world drop.
+        -- Wowhead has no comments. Not in Forever's tables yet, so not marked confirmed.
+        id = "staff_of_jordan", library = true, itemQuality = 4,
+        icon = "inv_staff_13",
+        name = "Staff of Jordan",
+        short = "Staff of Jordan",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "An epic two-handed caster staff that level 39 to 43 creatures can drop. No boss has it.",
+        steps = {
+            { text = "Reach level 35.", auto = { level = 35 } },
+            { text = "Loot Staff of Jordan, a very rare world drop.", auto = { item = 873, owned = { "Staff of Jordan" } } },
+        },
+        completeWith = { item = 873, owned = { "Staff of Jordan" } },
+        tips = {
+            "About 28 creatures have dropped it, mostly level 39 to 43. Wowhead's list leans on Stranglethorn Vale (Skullsplitters, Bloodsail pirates, Elder Mistvale Gorillas), and Scarlet Monastery, Gnomeregan and Razorfen Downs add some. Each drop is very rare.",
+            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
+            "It adds 11 Intellect, 11 Spirit and up to 26 spell damage and healing. Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use a staff. Learn Staves before equipping it.",
         },
     },
 
