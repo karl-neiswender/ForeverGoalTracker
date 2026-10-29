@@ -38,5 +38,45 @@
   "banner": "social_dance_partners",
   "date": "2026-10-29",
   "state": "installed"
+ },
+ "A012": {
+  "banner": "drillborer_disk",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A014": {
+  "banner": "electrified_dagger",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A015": {
+  "banner": "eskhandars_right_claw",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A016": {
+  "banner": "fang_of_the_crystal_spider",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A017": {
+  "banner": "felstriker",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A018": {
+  "banner": "heartseeker",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A019": {
+  "banner": "skullflame_shield",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A021": {
+  "banner": "the_untamed_blade",
+  "date": "2026-10-29",
+  "state": "installed"
  }
 }

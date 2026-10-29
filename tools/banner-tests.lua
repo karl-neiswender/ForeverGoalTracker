@@ -2,6 +2,23 @@ local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
     for _, entry in ipairs({
+        {"drillborer_disk", "drillborer_disk-banner.blp"},
+        {"electrified_dagger", "electrified_dagger-banner.blp"},
+        {"eskhandars_right_claw", "eskhandars_right_claw-banner.blp"},
+        {"fang_of_the_crystal_spider", "fang_of_the_crystal_spider-banner.blp"},
+        {"felstriker", "felstriker-banner.blp"},
+        {"heartseeker", "heartseeker-banner.blp"},
+        {"skullflame_shield", "skullflame_shield-banner.blp"},
+        {"the_untamed_blade", "the_untamed_blade-banner.blp"},
+    }) do
+        local goal, path = entry[1], entry[2]
+        local resolved, aspect, preprocessed = B:ResolveArt(goal, {faction="Alliance", class="PALADIN", race="Human", sex=3})
+        assert(F.GoalById(goal) and resolved == path and aspect == 4/3 and preprocessed,
+            goal .. " uses its approved banner")
+    end
+end
+do
+    for _, entry in ipairs({
         {"black_amnesty", "black_amnesty-banner.blp"},
         {"brain_hacker", "brain_hacker-banner.blp"},
         {"cloak_of_flames", "cloak_of_flames-banner.blp"},

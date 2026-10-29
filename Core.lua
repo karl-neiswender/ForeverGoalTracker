@@ -5789,6 +5789,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.crackling_staff = {{path="crackling_staff-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true}}
     B.artVariants.crown_of_the_ogre_king = {{path="crown_of_the_ogre_king-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.social_dance_partners = {{path="social_dance_partners-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.drillborer_disk = {{path="drillborer_disk-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.electrified_dagger = {{path="electrified_dagger-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true}}
+    B.artVariants.eskhandars_right_claw = {{path="eskhandars_right_claw-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.fang_of_the_crystal_spider = {{path="fang_of_the_crystal_spider-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.felstriker = {{path="felstriker-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.heartseeker = {{path="heartseeker-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.skullflame_shield = {{path="skullflame_shield-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.the_untamed_blade = {{path="the_untamed_blade-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.core_hound_tooth = {{path="core_hound_tooth-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.bloodseeker = {{path="bloodseeker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.blackcrow = {{path="blackcrow-banner.blp", aspect=4/3, preprocessed=true}}
