@@ -533,7 +533,7 @@ def thumb(f, cache={}):
     return cache[f]
 
 
-PAGE_SCRIPT = "<script>(function(){var k='artplan-batches',st={};try{st=JSON.parse(localStorage.getItem(k)||'{}')}catch(e){}var ds=document.querySelectorAll('details.batch');ds.forEach(function(d){var b=d.dataset.b;if(b in st){d.open=!!st[b]}var sm=d.querySelector('summary');sm.addEventListener('click',function(){setTimeout(function(){st[b]=d.open;try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}},0)})});document.getElementById('collapseDone').onclick=function(){ds.forEach(function(d){if(d.dataset.done==='1'){d.open=false;st[d.dataset.b]=false}});try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}};document.getElementById('expandAll').onclick=function(){ds.forEach(function(d){d.open=true;st[d.dataset.b]=true});try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}};})();</script>"
+PAGE_SCRIPT = "<script>(function(){var k='artplan-batches',st={};try{st=JSON.parse(localStorage.getItem(k)||'{}')}catch(e){}function save(){try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}}var all=document.querySelectorAll('details.batch,details.sec');all.forEach(function(d){var id=d.dataset.k||('b'+d.dataset.b);if(id in st){d.open=!!st[id]}d.querySelector('summary').addEventListener('click',function(){setTimeout(function(){st[id]=d.open;save()},0)})});var bs=document.querySelectorAll('details.batch');document.getElementById('collapseDone').onclick=function(){bs.forEach(function(d){if(d.dataset.done==='1'){d.open=false;st['b'+d.dataset.b]=false}});save()};document.getElementById('expandAll').onclick=function(){bs.forEach(function(d){d.open=true;st['b'+d.dataset.b]=true});save()};})();</script>"
 
 
 def build():
@@ -604,7 +604,7 @@ def build():
          ".st{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.78rem;font-weight:600;border:1px solid var(--line)}"
          ".st.verified{background:var(--ok);color:#fff;border-color:var(--ok)}.st.installed,.st.approved{color:var(--ok);border-color:var(--ok)}.st.review{color:var(--info);border-color:var(--info)}"
          ".st.rejected,.st.blocked{color:var(--bad);border-color:var(--bad)}.st.skipped_lowres{color:var(--warn);border-color:var(--warn)}"
-         "details.batch{margin:10px 0}details.batch>summary{cursor:pointer;font-size:1.05rem;padding:6px 2px;list-style:revert}button{font:inherit;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}"
+         "details.batch{margin:10px 0}details.batch>summary,details.sec>summary{cursor:pointer;font-size:1.05rem;padding:6px 2px;list-style:revert}details.sec{margin:6px 0}button{font:inherit;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}"
          "tr.skip{background:rgba(192,57,43,.10)}.f{font-size:.82rem;color:var(--muted)}.tg{font-size:.85rem}"
          "</style></head><body><main>"]
     H.append(f"<h1>Art matching plan and work order</h1><p class='sub'>Built {today} {now}; this page reloads itself every 30 seconds. Locked by Karl on 2026-10-29 (commit 5abd851). Companion to "
@@ -618,15 +618,22 @@ def build():
             v = sum(1 for r in rs if state_of(r, status) == "verified")
             H.append(f"<div class='f'>{PRI[pr]}: {v} of {len(rs)} verified</div>")
     H.append("<h2>Codex: start here</h2><div class='start'>")
+    opened = False
     for kind, val in sec:
         if kind == "h3":
-            H.append(f"<h3>{html.escape(val)}</h3>")
+            if opened:
+                H.append("</details>")
+            slug = re.sub(r"[^a-z0-9]+", "-", val.lower()).strip("-")
+            H.append(f"<details class='sec' data-k='sec-{slug}'{'' if val == 'Goal' else ' open'}><summary><b>{html.escape(val)}</b></summary>")
+            opened = True
         elif kind == "p":
             H.append(f"<p>{md_inline(val)}</p>")
         elif kind == "ul":
             H.append("<ul>" + "".join(f"<li>{md_inline(x)}</li>" for x in val) + "</ul>")
         else:
             H.append("<ol>" + "".join(f"<li>{md_inline(x)}</li>" for x in val) + "</ol>")
+    if opened:
+        H.append("</details>")
     H.append("</div><h2>Work queue</h2><p class='sub'>☑ means verified by Claude. Batches go in order. A row keeps its id for good.</p>")
     H.append("<p><button id='collapseDone'>Collapse completed batches</button> <button id='expandAll'>Expand all</button></p>")
     for b in sorted({r["batch"] for r in rows if r["batch"]}):
