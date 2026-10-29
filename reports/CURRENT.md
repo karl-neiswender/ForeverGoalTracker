@@ -123,6 +123,8 @@ its October 21 notes.
 
 - Art batch 6 (2026-10-29): Karl approved A049 through A055; seven class banners installed. A056 needs no new banner because female Human Warlock already uses the Alliance Warlock image. Claude verification and full-restart native review remain pending.
 
+- Art batch 7 (2026-10-29): Karl approved all eight class banners, selecting A058 v1 and A063 v2. A057, A058 and A060 through A065 are installed. Claude verification and full-restart native review remain pending.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,

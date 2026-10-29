@@ -283,5 +283,47 @@
   "date": "2026-10-29",
   "note": "Karl approved Batch 6 but confirmed female Human Warlock already uses allclasses_alliance_warlock-banner.blp; no new A056 banner should be installed.",
   "state": "blocked"
+ },
+ "A057": {
+  "banner": "allclasses_human_warlock_male",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A058": {
+  "banner": "allclasses_nightelf_druid_female",
+  "date": "2026-10-29",
+  "note": "Karl approved review v1 for installation. The v2 painterly revision remains a review only.",
+  "state": "installed"
+ },
+ "A060": {
+  "banner": "allclasses_nightelf_hunter_male",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A061": {
+  "banner": "allclasses_nightelf_priest_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A062": {
+  "banner": "allclasses_nightelf_priest_male",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A063": {
+  "banner": "allclasses_nightelf_rogue_male",
+  "date": "2026-10-29",
+  "note": "Karl approved review v2 for installation. The v1 draft remains a review only.",
+  "state": "installed"
+ },
+ "A064": {
+  "banner": "allclasses_orc_hunter_male",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A065": {
+  "banner": "allclasses_orc_mage_female",
+  "date": "2026-10-29",
+  "state": "installed"
  }
 }
