@@ -136,6 +136,7 @@ its October 21 notes.
   and The Unstoppable Force. Masters, BLPs, resolver, manifest and artwork checklist
   updated and synced to Era. Offline checks pass; full game restart and native visual review pending.
   [Record](image-tests/five-weapons-review-2026-10-28.md).
+- Approved and installed 2026-10-29: The Immovable Object, Wand of Biting Cold, Mass of McGowan and Twig of the World Tree. Karl approved Twig v4 with spikes added to the original wrapped wooden head. [Record](image-tests/four-items-review-2026-10-29.md). Full game restart and native review pending.
 
 - Empty My Goals redesign (2026-10-27, PC, Claude, committed, unreleased): the leather book and cobwebs
   are gone. Right panel: the character's `allclasses` banner at 45% (as the welcome hero), left-aligned

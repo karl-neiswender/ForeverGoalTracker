@@ -5777,6 +5777,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.fiery_war_axe = {{path="fiery_war_axe-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.viskag = {{path="viskag-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.unstoppable_force = {{path="unstoppable_force-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.immovable_object = {{path="immovable_object-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.wand_of_biting_cold = {{path="wand_of_biting_cold-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.mass_of_mcgowan = {{path="mass_of_mcgowan-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.twig_of_the_world_tree = {{path="twig_of_the_world_tree-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.core_hound_tooth = {{path="core_hound_tooth-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.bloodseeker = {{path="bloodseeker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.blackcrow = {{path="blackcrow-banner.blp", aspect=4/3, preprocessed=true}}
@@ -7665,6 +7669,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["bloodseeker-banner.blp"] = "Ralph Horsley",
         ["blackcrow-banner.blp"] = "Bob Eggleton",
         ["brutality_blade-banner.blp"] = "Jim Nelson",
+        ["immovable_object-banner.blp"] = "Stefan Kopinski",
+        ["wand_of_biting_cold-banner.blp"] = "Lucio Parrillo",
+        ["mass_of_mcgowan-banner.blp"] = "Ron Lemen",
         ["set_forever_raid_horde-banner.blp"] = "Alex Horley",
         ["azuresong_mageblade-banner.blp"] = "Donato Giancola",
         ["widows_remorse-banner.blp"] = "Craig Elliott",
