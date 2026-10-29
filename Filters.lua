@@ -82,6 +82,7 @@ FGT.GOAL_CLASSES = {
     blackcrow = { "WARRIOR", "HUNTER", "ROGUE" },
     blastershot_launcher = { "WARRIOR", "HUNTER", "ROGUE" },
     bloodseeker = { "WARRIOR", "HUNTER", "ROGUE" },
+    ice_barbed_spear = { "WARRIOR", "PALADIN", "HUNTER" }, -- polearm users
     widows_remorse = ONE_HAND_SWORD,
     brain_hacker = { "WARRIOR", "PALADIN", "HUNTER", "SHAMAN" }, -- two-handed axe users
     brutality_blade = ONE_HAND_SWORD,

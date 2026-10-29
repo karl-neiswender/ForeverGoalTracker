@@ -1918,6 +1918,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19106, checked 2026-10-28: rare (blue) Bind on Pickup polearm, item level 63, no
+        -- required level, 155 to 233 damage, speed 3.60, +13 Strength, +21 Agility, +20 Stamina. A choice reward
+        -- from Hero of the Stormpike (8271), Hero of the Frostwolf (8272), The Legend of Korrak (7181) and Korrak
+        -- the Bloodrager (7202), all in Alterac Valley, the same quests as Bloodseeker. Named in Forever's
+        -- tables, not confirmed.
+        id = "ice_barbed_spear", library = true, itemQuality = 3,
+        icon = "inv_spear_04",
+        name = "Ice Barbed Spear",
+        short = "Ice Barbed Spear",
+        category = "PvP", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A polearm you choose as a quest reward in Alterac Valley.",
+        steps = {
+            { text = "Complete an Alterac Valley quest that offers Ice Barbed Spear and choose it.", auto = { item = 19106, owned = { "Ice Barbed Spear" } } },
+        },
+        completeWith = { item = 19106, owned = { "Ice Barbed Spear" } },
+        tips = {
+            "It is a choice reward from Hero of the Stormpike (Alliance), Hero of the Frostwolf (Horde), The Legend of Korrak and Korrak the Bloodrager.",
+            "It binds when picked up. It adds 13 Strength, 21 Agility and 20 Stamina.",
+            "Warriors, Paladins and Hunters can use a polearm. Learn Polearms before equipping it.",
+        },
+    },
+
+    {
         -- Item 22806: epic Bind on Pickup, Unique one-hand sword, item level 81, requires level 60, 100 armor,
         -- +17 Stamina, equip: +1% hit. Dropped by Grand Widow Faerlina in Naxxramas (no drop chance listed).
         -- Not in Forever's tables yet, so not marked confirmed.
