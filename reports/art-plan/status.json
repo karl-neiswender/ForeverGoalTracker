@@ -335,42 +335,42 @@
  "A066": {
   "banner": "allclasses_orc_mage_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "state": "verified"
  },
  "A067": {
   "banner": "allclasses_orc_rogue_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "state": "verified"
  },
  "A068": {
   "banner": "allclasses_orc_shaman_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "state": "verified"
  },
  "A069": {
   "banner": "allclasses_orc_shaman_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "state": "verified"
  },
  "A070": {
   "banner": "allclasses_orc_warlock_female",
   "date": "2026-10-29",
   "note": "Karl approved the v2 female Orc Warlock review shown on the Batch 8 sheet; v1 is retained as a draft.",
-  "state": "installed"
+  "state": "verified"
  },
  "A071": {
   "banner": "allclasses_orc_warlock_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "state": "verified"
  },
  "A072": {
   "banner": "allclasses_orc_warrior_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "state": "verified"
  },
  "A073": {
   "banner": "allclasses_orc_warrior_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "state": "verified"
  }
 }
