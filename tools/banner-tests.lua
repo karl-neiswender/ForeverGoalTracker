@@ -9,6 +9,10 @@ do
         == "allclasses_undead_rogue_male-banner.blp", "male Undead Rogue leveling uses approved art")
     assert(B:ResolveArt("allclasses", {faction="Horde", class="ROGUE", race="Scourge", sex=3})
         == "allclasses_undead_rogue_female-banner.blp", "female Undead Rogue leveling uses approved art")
+    for _, side in ipairs({"Alliance", "Horde"}) do
+        assert(B:ResolveArt("allclasses", {faction=side, class="ROGUE", race="Skyborne", sex=2})
+            == "allclasses_skyborne_rogue-banner.blp", side .. " Skyborne Rogue leveling uses the Skyborne location art")
+    end
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="WARRIOR", race="Gnome", sex=2})
         == "allclasses_gnome_warrior_male-banner.blp", "male Gnome Warrior leveling uses approved Fillet art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="WARRIOR", race="Gnome", sex=3})

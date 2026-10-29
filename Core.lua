@@ -5708,6 +5708,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_nightelf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="NightElf", aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_warrior-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf", aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Dwarf", aspect=4/3, preprocessed=true},
+            -- Skyborne Rogues use the earlier Skyborne location image (Karl, 2026-10-29).
+            {path="allclasses_skyborne_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Skyborne"},
+            {path="allclasses_skyborne_rogue-banner.blp", faction="Horde", class="ROGUE", race="Skyborne"},
             {path="allclasses_dwarf_paladin-banner.blp", faction="Alliance", class="PALADIN", race="Dwarf"},
             {path="allclasses_tauren_warrior-banner.blp", faction="Horde", class="WARRIOR", race="Tauren"},
             {path="allclasses_alliance_warlock-banner.blp", faction="Alliance", class="WARLOCK"},

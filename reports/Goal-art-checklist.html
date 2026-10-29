@@ -165,11 +165,9 @@
 <script>
 /* To update: change a status below (need, borrow, share, done, na) and add a line to FOUND.
    Row format: [name, Alliance status, Horde status, note] */
-var UPDATED = "2026-10-28";
+var UPDATED = "2026-10-29";
 
 var FIRST = [
-  "Level Classes to 60: Alliance Rogue (High Order Skyborne, Forever only)",
-  "Level Classes to 60: Horde Rogue (Windshaper Skyborne, Forever only)",
   "The Immovable Object (both factions)",
   "Wand of Biting Cold (both factions)",
   "Twig of the World Tree (both factions)",
@@ -200,6 +198,7 @@ var FIRST = [
 ];
 
 var FOUND = [
+  "2026-10-29: Level Classes to 60: High Order and Windshaper Skyborne Rogues use the earlier Skyborne location image (allclasses_skyborne_rogue, from mounts/skyborne-location.jpg).",
   "2026-10-28: Installed approved male Gnome Warlock leveling art with Headmaster's Charge and deeper shadow/dust. Source card credits Phil Gonzales.",
   "2026-10-28: Installed seven approved banners: The 1 Ring, male and female Undead Priest leveling, female Human Rogue leveling, male Human Hunter and Paladin leveling, and Human Hunter dungeon sets.",
   "2026-10-28: Replaced the Epic Racial Mounts Skyborne location image with Karl's approved painted Skyborne mount (v2).",
@@ -311,7 +310,7 @@ var TABLES = [
    ],
    ["Paladin", "done", "done", "Alliance has Dwarf and Human versions; Human has both sexes (allclasses_human_paladin_male, allclasses_human_paladin for women). Horde is an Undead"],
    ["Priest", "borrow", "done", "Alliance Gnome has allclasses_gnome_caster; other races borrow Benediction and Tier 1 and 2 art. Horde Troll has allclasses_troll_priest; Undead has both sexes (allclasses_undead_priest_male, allclasses_undead_priest_female)"],
-   ["Rogue", "done", "done", "Alliance Dwarf, Night Elf and Gnome have art; Human has both sexes (allclasses_human_rogue_male, allclasses_human_rogue_female). High Order Skyborne (Forever) still needs art. Horde Orc and Troll have art; Undead has both sexes (allclasses_undead_rogue_male, allclasses_undead_rogue_female). Windshaper Skyborne (Forever) still needs art"],
+   ["Rogue", "done", "done", "Alliance Dwarf, Night Elf and Gnome have art; Human has both sexes (allclasses_human_rogue_male, allclasses_human_rogue_female). High Order Skyborne (Forever) uses the Skyborne location image (allclasses_skyborne_rogue). Horde Orc and Troll have art; Undead has both sexes (allclasses_undead_rogue_male, allclasses_undead_rogue_female). Windshaper Skyborne (Forever) shares it"],
    [
     "Shaman",
     "done",
@@ -2750,6 +2749,8 @@ var RC_ART = [
   { f: "Alliance", c: "Rogue", r: "NightElf", k: "allclasses_nightelf_rogue", pic: "f" },
   { f: "Alliance", c: "Warrior", r: "Dwarf", k: "allclasses_dwarf_warrior", pic: "m" },
   { f: "Alliance", c: "Rogue", r: "Dwarf", k: "allclasses_dwarf_rogue", pic: "m" },
+  { f: "Alliance", c: "Rogue", r: "Skyborne", k: "allclasses_skyborne_rogue" },
+  { f: "Horde", c: "Rogue", r: "Skyborne", k: "allclasses_skyborne_rogue" },
   { f: "Alliance", c: "Paladin", r: "Dwarf", k: "allclasses_dwarf_paladin", pic: "m" },
   { f: "Horde", c: "Warrior", r: "Tauren", k: "allclasses_tauren_warrior", pic: "m" },
   { f: "Alliance", c: "Warlock", k: "allclasses_alliance_warlock", pic: "f" },
