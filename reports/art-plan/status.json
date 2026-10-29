@@ -98,78 +98,92 @@
  "A022": {
   "banner": "viking_warhammer",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A024": {
   "banner": "barman_shanker",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A025": {
   "banner": "claw_of_the_frost_wyrm",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A027": {
   "banner": "gurubashi_dwarf_destroyer",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A028": {
   "banner": "hand_of_edward_the_odd",
   "date": "2026-10-29",
-  "note": "Karl confirmed the selected Scepter of the Unholy card art is the correct source for Hand of Edward the Odd on 2026-10-29.",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A029": {
   "banner": "hypnotic_blade",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A030": {
   "banner": "ice_barbed_spear",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A031": {
   "banner": "lord_valthalaks_staff_of_command",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A032": {
   "banner": "masterwork_stormhammer",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A033": {
   "banner": "phantom_blade",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A034": {
   "banner": "red_dragonscale_protector",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A035": {
   "banner": "skuls_ghastly_touch",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A036": {
   "banner": "staff_of_jordan",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A037": {
   "banner": "wand_of_fates",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A038": {
   "banner": "att_bwl",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A039": {
   "date": "2026-10-29",
@@ -184,36 +198,43 @@
  "A041": {
   "banner": "social_campfires",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A042": {
   "banner": "mount_raptor",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A043": {
   "banner": "allclasses_dwarf_paladin_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A044": {
   "banner": "allclasses_dwarf_priest_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A045": {
   "banner": "allclasses_dwarf_priest_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A047": {
   "banner": "allclasses_dwarf_shaman_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  },
  "A048": {
   "banner": "allclasses_dwarf_warrior_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
+  "state": "verified"
  }
 }

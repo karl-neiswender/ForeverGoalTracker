@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 16 of 149 workable banners verified.** Queued 111, Installed 22, Verified 16, Blocked 4, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 38 of 149 workable banners verified.** Queued 111, Verified 38, Blocked 4, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -112,26 +112,26 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A022 | P1 | `weapon-viking-warhammer.png` 745x1040 |  | Viking Warhammer: `viking_warhammer` / `viking_warhammer` | Installed | card scan, crop first  |
-| ☐ | A024 | P1 | `weapon-Barman_Shanker.jpg` 1042x1200 |  | Barman Shanker: `barman_shanker` / `barman_shanker` | Installed |   |
-| ☐ | A025 | P1 | `weapon-claw-frost-wyrm.jpg` 1024x1001 |  | Claw of the Frost Wyrm: `claw_of_the_frost_wyrm` / `claw_of_the_frost_wyrm` | Installed |   |
-| ☐ | A027 | P1 | `weapon-Gurubashi_Dwarf_Destroyer.jpg` 1371x1200 |  | Gurubashi Dwarf Destroyer: `gurubashi_dwarf_destroyer` / `gurubashi_dwarf_destroyer` | Installed |   |
-| ☐ | A028 | P1 | `weapon-hand-edward-odd.png` 745x1040 |  | Hand of Edward the Odd: `hand_of_edward_the_odd` / `hand_of_edward_the_odd` | Installed | card scan, crop first The card is titled Scepter of the Unholy. Confirm it is the right art for this mace. |
-| ☐ | A029 | P1 | `weapon-Hypnotic_Blade.jpg` 1371x1200 |  | Hypnotic Blade: `hypnotic_blade` / `hypnotic_blade` | Installed |   |
-| ☐ | A030 | P1 | `weapon-ice-barbed-spear.png` 745x1040 |  | Ice Barbed Spear: `ice_barbed_spear` / `ice_barbed_spear` | Installed | card scan, crop first  |
-| ☐ | A031 | P1 | `weapon-staff-of-command.jpg` 1337x1200 |  | Lord Valthalak's Staff of Command: `lord_valthalaks_staff_of_command` / `lord_valthalaks_staff_of_command` | Installed |   |
+| ☑ | A022 | P1 | `weapon-viking-warhammer.png` 745x1040 |  | Viking Warhammer: `viking_warhammer` / `viking_warhammer` | Verified | card scan, crop first  |
+| ☑ | A024 | P1 | `weapon-Barman_Shanker.jpg` 1042x1200 |  | Barman Shanker: `barman_shanker` / `barman_shanker` | Verified |   |
+| ☑ | A025 | P1 | `weapon-claw-frost-wyrm.jpg` 1024x1001 |  | Claw of the Frost Wyrm: `claw_of_the_frost_wyrm` / `claw_of_the_frost_wyrm` | Verified |   |
+| ☑ | A027 | P1 | `weapon-Gurubashi_Dwarf_Destroyer.jpg` 1371x1200 |  | Gurubashi Dwarf Destroyer: `gurubashi_dwarf_destroyer` / `gurubashi_dwarf_destroyer` | Verified |   |
+| ☑ | A028 | P1 | `weapon-hand-edward-odd.png` 745x1040 |  | Hand of Edward the Odd: `hand_of_edward_the_odd` / `hand_of_edward_the_odd` | Verified | card scan, crop first The card is titled Scepter of the Unholy. Confirm it is the right art for this mace. |
+| ☑ | A029 | P1 | `weapon-Hypnotic_Blade.jpg` 1371x1200 |  | Hypnotic Blade: `hypnotic_blade` / `hypnotic_blade` | Verified |   |
+| ☑ | A030 | P1 | `weapon-ice-barbed-spear.png` 745x1040 |  | Ice Barbed Spear: `ice_barbed_spear` / `ice_barbed_spear` | Verified | card scan, crop first  |
+| ☑ | A031 | P1 | `weapon-staff-of-command.jpg` 1337x1200 |  | Lord Valthalak's Staff of Command: `lord_valthalaks_staff_of_command` / `lord_valthalaks_staff_of_command` | Verified |   |
 
 ### Batch 4
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A032 | P1 | `weapon-Masterwork_Stormhammer.png` 745x1040 |  | Masterwork Stormhammer: `masterwork_stormhammer` / `masterwork_stormhammer` | Installed | card scan, crop first  |
-| ☐ | A033 | P1 | `weapon-phantom-blade.jpg` 682x615 |  | Phantom Blade: `phantom_blade` / `phantom_blade` | Installed |   |
-| ☐ | A034 | P1 | `item-red-dragonscale-protector.jpg` 504x576 |  | Red Dragonscale Protector: `red_dragonscale_protector` / `red_dragonscale_protector` | Installed |  Older source with a dwarf holding it: alliance-dwarf-male-warrior-paladin-red-dragonscale-protector.jpg. |
-| ☐ | A035 | P1 | `weapon-skuls-ghastly-touch-wand.png` 745x1040 |  | Skul's Ghastly Touch: `skuls_ghastly_touch` / `skuls_ghastly_touch` | Installed | card scan, crop first The card is titled Vengeful Gladiator's Piercing Touch. Confirm it is the right art for this wand. |
-| ☐ | A036 | P1 | `weapon-staff-of-jordan.jpg` 704x541 |  | Staff of Jordan: `staff_of_jordan` / `staff_of_jordan` | Installed |   |
-| ☐ | A037 | P1 | `weapon-wand-of-fates.jpg` 1024x795 |  | Wand of Fates: `wand_of_fates` / `wand_of_fates` | Installed |   |
-| ☐ | A038 | P1 | `boss-nefarius.jpg` 3000x4000 |  | Attunement: Blackwing Lair (both): `att_bwl` / `att_bwl` | Installed | Karl's pick Karl's pick. Lord Victor Nefarius; goal inferred. My earlier pick, now the alternate: boss-nefarian-raid.jpg. Today it borrows the Clear Blackwing Lair image. Alt: raid-blackwinglair-boss-neltharion.jpg. |
+| ☑ | A032 | P1 | `weapon-Masterwork_Stormhammer.png` 745x1040 |  | Masterwork Stormhammer: `masterwork_stormhammer` / `masterwork_stormhammer` | Verified | card scan, crop first  |
+| ☑ | A033 | P1 | `weapon-phantom-blade.jpg` 682x615 |  | Phantom Blade: `phantom_blade` / `phantom_blade` | Verified |   |
+| ☑ | A034 | P1 | `item-red-dragonscale-protector.jpg` 504x576 |  | Red Dragonscale Protector: `red_dragonscale_protector` / `red_dragonscale_protector` | Verified |  Older source with a dwarf holding it: alliance-dwarf-male-warrior-paladin-red-dragonscale-protector.jpg. |
+| ☑ | A035 | P1 | `weapon-skuls-ghastly-touch-wand.png` 745x1040 |  | Skul's Ghastly Touch: `skuls_ghastly_touch` / `skuls_ghastly_touch` | Verified | card scan, crop first The card is titled Vengeful Gladiator's Piercing Touch. Confirm it is the right art for this wand. |
+| ☑ | A036 | P1 | `weapon-staff-of-jordan.jpg` 704x541 |  | Staff of Jordan: `staff_of_jordan` / `staff_of_jordan` | Verified |   |
+| ☑ | A037 | P1 | `weapon-wand-of-fates.jpg` 1024x795 |  | Wand of Fates: `wand_of_fates` / `wand_of_fates` | Verified |   |
+| ☑ | A038 | P1 | `boss-nefarius.jpg` 3000x4000 |  | Attunement: Blackwing Lair (both): `att_bwl` / `att_bwl` | Verified | Karl's pick Karl's pick. Lord Victor Nefarius; goal inferred. My earlier pick, now the alternate: boss-nefarian-raid.jpg. Today it borrows the Clear Blackwing Lair image. Alt: raid-blackwinglair-boss-neltharion.jpg. |
 | ☐ | A039 | P1 | `boss-hakkar.jpg` 2500x3277 |  | Exalted: Zandalar Tribe (both): `rep_zandalar` / `rep_zandalar` | Blocked |  Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence. |
 
 ### Batch 5
@@ -139,13 +139,13 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
 | ☐ | A040 | P1 | `location-blackrock-mountain-gates.jpg` 872x981 |  | Key: Shadowforge Key (both): `key_brd` / `key_brd` | Blocked |  Today it borrows the Seal of Ascension image. The Dark Iron gate face suits the Shadowforge gate. Alt: location-blackrock-spire-2.jpg. |
-| ☐ | A041 | P1 | `alliance-dwarf-human-male-plate-campfire-2.jpg` 1024x1024 |  | Place Campfires (both): `social_campfires` / `social_campfires` | Installed | Karl's pick Karl's pick. Image of two plate-armored characters at a fire; goal inferred from the name. My earlier pick, now the alternate: goal-campfire.jpg. Today it borrows the Cooking image. Alt: alliance-dwarf-human-male-plate-campfire.jpg (two characters at a fire). |
-| ☐ | A042 | P1 | `mount-raptor.jpg` 1520x1190 |  | Swift Razzashi Raptor (both): `mount_raptor` / `mount_raptor` | Installed |  Today it borrows the Clear Zul'Gurub image. Not mount-swift-raptor.jpg, which is the Troll epic mount banner. |
-| ☐ | A043 | P2 | `alliance-dwarf-female-paladin-generic-leveling.jpg` 1050x1400 | `alliance-dwarf-female-warrior-paladin-generic-leveling.jpg` | Level Classes to 60: Dwarf Paladin F: `allclasses` / `allclasses_dwarf_paladin_female` | Installed |   |
-| ☐ | A044 | P2 | `alliance-dwarf-female-priest-generic-leveling-3.jpg` 1280x1700 | `alliance-dwarf-female-priest-generic-leveling-2.jpg` | Level Classes to 60: Dwarf Priest F: `allclasses` / `allclasses_dwarf_priest_female` | Installed |   |
-| ☐ | A045 | P2 | `alliance-dwarf-male-priest-leveling.jpg` 4642x3756 | `alliance-dwarf-male-priest-tier3.png` | Level Classes to 60: Dwarf Priest M: `allclasses` / `allclasses_dwarf_priest_male` | Installed |   |
-| ☐ | A047 | P2 | `alliance-dwarf-female-shaman-generic.jpg` 1800x1461 |  | Level Classes to 60: Dwarf Shaman F: `allclasses` / `allclasses_dwarf_shaman_female` | Installed |   |
-| ☐ | A048 | P2 | `alliance-dwarf-female-warrior-paladin-generic-leveling-2.jpg` 798x1024 | `alliance-dwarf-female-warrior-paladin-generic-leveling.jpg` | Level Classes to 60: Dwarf Warrior F: `allclasses` / `allclasses_dwarf_warrior_female` | Installed |   |
+| ☑ | A041 | P1 | `alliance-dwarf-human-male-plate-campfire-2.jpg` 1024x1024 |  | Place Campfires (both): `social_campfires` / `social_campfires` | Verified | Karl's pick Karl's pick. Image of two plate-armored characters at a fire; goal inferred from the name. My earlier pick, now the alternate: goal-campfire.jpg. Today it borrows the Cooking image. Alt: alliance-dwarf-human-male-plate-campfire.jpg (two characters at a fire). |
+| ☑ | A042 | P1 | `mount-raptor.jpg` 1520x1190 |  | Swift Razzashi Raptor (both): `mount_raptor` / `mount_raptor` | Verified |  Today it borrows the Clear Zul'Gurub image. Not mount-swift-raptor.jpg, which is the Troll epic mount banner. |
+| ☑ | A043 | P2 | `alliance-dwarf-female-paladin-generic-leveling.jpg` 1050x1400 | `alliance-dwarf-female-warrior-paladin-generic-leveling.jpg` | Level Classes to 60: Dwarf Paladin F: `allclasses` / `allclasses_dwarf_paladin_female` | Verified |   |
+| ☑ | A044 | P2 | `alliance-dwarf-female-priest-generic-leveling-3.jpg` 1280x1700 | `alliance-dwarf-female-priest-generic-leveling-2.jpg` | Level Classes to 60: Dwarf Priest F: `allclasses` / `allclasses_dwarf_priest_female` | Verified |   |
+| ☑ | A045 | P2 | `alliance-dwarf-male-priest-leveling.jpg` 4642x3756 | `alliance-dwarf-male-priest-tier3.png` | Level Classes to 60: Dwarf Priest M: `allclasses` / `allclasses_dwarf_priest_male` | Verified |   |
+| ☑ | A047 | P2 | `alliance-dwarf-female-shaman-generic.jpg` 1800x1461 |  | Level Classes to 60: Dwarf Shaman F: `allclasses` / `allclasses_dwarf_shaman_female` | Verified |   |
+| ☑ | A048 | P2 | `alliance-dwarf-female-warrior-paladin-generic-leveling-2.jpg` 798x1024 | `alliance-dwarf-female-warrior-paladin-generic-leveling.jpg` | Level Classes to 60: Dwarf Warrior F: `allclasses` / `allclasses_dwarf_warrior_female` | Verified |   |
 
 ### Batch 6
 
