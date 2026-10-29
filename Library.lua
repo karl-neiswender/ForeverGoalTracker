@@ -557,6 +557,42 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 12794 and its plans, item 12837, checked 2026-10-29. Rare (blue) Bind on Equip
+        -- one-hand mace, item level 63, requires level 57, 58 to 108 damage, speed 2.00; chance on hit blasts up
+        -- to 3 targets for 105 to 145 Nature damage. The plans need Blacksmithing 300 and Master Hammersmith and
+        -- drop from Goraluk Anvilcrack, a level 61 elite in Upper Blackrock Spire (1 plan in 32 kills on
+        -- Wowhead, a sample too small for a rate). Reagents (GearData agrees): 20 Enchanted Thorium Bar, 8 Huge
+        -- Emerald, 8 Large Opal, 6 Essence of Earth, 4 Enchanted Leather. Forever: named in its tables, and
+        -- Forever lists an updated version, but the change is not known. Not confirmed.
+        id = "masterwork_stormhammer", library = true, itemQuality = 3,
+        icon = "inv_hammer_04",
+        name = "Masterwork Stormhammer",
+        short = "Stormhammer",
+        category = "Rare Weapon", difficulty = "Very Hard",
+        timeEstimate = "Weeks",
+        note = "A one-handed mace made by a Master Hammersmith. It needs Blacksmithing 300 and the plans from Goraluk Anvilcrack in Upper Blackrock Spire.",
+        steps = {
+            { text = "Reach level 57.", auto = { level = 57 } },
+            { text = "Reach Blacksmithing 300.", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
+            { text = "Learn the Master Hammersmith specialization." },
+            { text = "Loot Plans: Masterwork Stormhammer from Goraluk Anvilcrack in Upper Blackrock Spire.", auto = { item = 12837 } },
+            { text = "Gather 20 Enchanted Thorium Bars.", auto = { item = 12655, count = 20 } },
+            { text = "Gather 8 Huge Emeralds.", auto = { item = 12364, count = 8 } },
+            { text = "Gather 8 Large Opals.", auto = { item = 12799, count = 8 } },
+            { text = "Gather 6 Essence of Earth.", auto = { item = 7076, count = 6 } },
+            { text = "Gather 4 Enchanted Leather.", auto = { item = 12810, count = 4 } },
+            { text = "Craft Masterwork Stormhammer at an anvil.", auto = { item = 12794, owned = { "Masterwork Stormhammer" } } },
+        },
+        completeWith = { item = 12794, owned = { "Masterwork Stormhammer" } },
+        tips = {
+            "{item:12837:Plans: Masterwork Stormhammer} drop from Goraluk Anvilcrack, a level 61 elite in {key_ubrs:Upper Blackrock Spire} {map:brs:Show on map}. Wowhead does not give a reliable drop chance.",
+            "The plans need Blacksmithing 300 and the Master Hammersmith specialization.",
+            "Its chance on hit blasts up to 3 targets for 105 to 145 Nature damage. It binds when equipped, so you can also buy one on the Auction House.",
+            "Equipping it takes level 57 and One-Handed Maces. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 13360, checked 2026-10-25: rare (blue) Bind on Pickup one-hand dagger, item
         -- level 63, requires level 58, +5 Stamina, +10 Intellect, +6 Spirit. Wowhead lists Grand Crusader
         -- Dathrohan (707 of 4,029 kills, about 17%) and Balnazzar, the one boss fight in Stratholme's living
@@ -676,6 +712,32 @@ local library = {
             "Defeat Arcanist Doan, the last boss of the Library wing of the Scarlet Monastery, for a chance at {item:7713:Illusionary Rod} {map:sm:Show on map}.",
             "It binds when picked up. It adds 7 Stamina, 15 Intellect and 10 Spirit.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 7714, checked 2026-10-29: rare (blue) Bind on Pickup main-hand dagger, item level
+        -- 39, requires level 34, 26 to 49 damage, speed 1.40, +8 Intellect, +3 Spirit, equip: +9 spell damage and
+        -- healing. Dropped by Arcanist Doan, the last boss of the Scarlet Monastery Library (GearSources agrees;
+        -- Wowhead lists no drop chance). Every comment calls it a caster dagger, so the class list is the casters
+        -- who can use a dagger, not Warriors, Hunters or Rogues. Not in Forever's tables yet, so not marked
+        -- confirmed.
+        id = "hypnotic_blade", library = true, itemQuality = 3, instance = { 189, "Scarlet Monastery" },
+        icon = "inv_weapon_shortblade_07",
+        name = "Hypnotic Blade",
+        short = "Hypnotic Blade",
+        category = "Rare Weapon", difficulty = "Moderate",
+        timeEstimate = "Varies",
+        note = "A caster's dagger dropped by Arcanist Doan in the Scarlet Monastery Library.",
+        steps = {
+            { text = "Reach level 34.", auto = { level = 34 } },
+            { text = "Loot Hypnotic Blade from Arcanist Doan in the Scarlet Monastery Library.", auto = { item = 7714, owned = { "Hypnotic Blade" } } },
+        },
+        completeWith = { item = 7714, owned = { "Hypnotic Blade" } },
+        tips = {
+            "Defeat Arcanist Doan, the last boss of the Library wing of the Scarlet Monastery, for a chance at {item:7714:Hypnotic Blade} {map:sm:Show on map}.",
+            "It binds when picked up. It adds 8 Intellect, 3 Spirit and up to 9 spell damage and healing.",
+            "Players call it a strong caster dagger for its level, especially for Mages and Warlocks, and not a Rogue weapon. Priests, Shamans, Mages, Warlocks and Druids can use a dagger. Learn Daggers before equipping it.",
         },
     },
 
@@ -1014,6 +1076,31 @@ local library = {
             "Defeat Kel'Thuzad, the last boss of {raid_naxx:Naxxramas}, for a chance at {item:22821:Doomfinger}.",
             "It binds when picked up. It deals 146 to 271 Shadow damage and adds 1% spell critical strike and up to 16 spell damage and healing.",
             "Players point out it is the rare wand that adds spell crit. Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 23242, checked 2026-10-29: epic Bind on Pickup, Unique off-hand fist weapon, item
+        -- level 88, requires level 60, 75 to 140 damage, speed 1.50, +8 Stamina, +22 attack power, equip: +1%
+        -- crit and +1% hit. Dropped by Sapphiron (creature 15989) in Naxxramas, 20.90% on Wowhead (GearSources
+        -- agrees). An off-hand weapon needs Dual Wield, so the class list is the fist users who dual wield.
+        -- Not in Forever's tables yet, so not marked confirmed.
+        id = "claw_of_the_frost_wyrm", library = true, itemQuality = 4, instance = { 533, "Naxxramas" },
+        icon = "inv_weapon_hand_03",
+        name = "Claw of the Frost Wyrm",
+        short = "Frost Wyrm Claw",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "An off-hand fist weapon dropped by Sapphiron in Naxxramas.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Claw of the Frost Wyrm from Sapphiron in Naxxramas.", auto = { item = 23242, owned = { "Claw of the Frost Wyrm" } } },
+        },
+        completeWith = { item = 23242, owned = { "Claw of the Frost Wyrm" } },
+        tips = {
+            "Defeat Sapphiron in the Frostwyrm Lair of {raid_naxx:Naxxramas} for a chance at {item:23242:Claw of the Frost Wyrm}. The listed drop chance is about 21%, roughly 1 kill in 5.",
+            "It binds when picked up and is Unique. It adds 8 Stamina, 22 attack power, 1% critical strike and 1% hit.",
+            "It goes in the off hand, so you need Dual Wield. Warriors, Rogues and Hunters can use a fist weapon there. Learn Fist Weapons before equipping it.",
         },
     },
 
