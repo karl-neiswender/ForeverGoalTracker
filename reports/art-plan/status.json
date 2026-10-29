@@ -2,81 +2,102 @@
  "A001": {
   "banner": "black_amnesty",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A003": {
   "banner": "brain_hacker",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A004": {
   "banner": "cloak_of_flames",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A005": {
   "banner": "cloak_of_the_shrouded_mists",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A006": {
   "banner": "cold_forged_hammer",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A007": {
   "banner": "crackling_staff",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A009": {
   "banner": "crown_of_the_ogre_king",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A010": {
   "banner": "social_dance_partners",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A012": {
   "banner": "drillborer_disk",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A014": {
   "banner": "electrified_dagger",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A015": {
   "banner": "eskhandars_right_claw",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A016": {
   "banner": "fang_of_the_crystal_spider",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A017": {
   "banner": "felstriker",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A018": {
   "banner": "heartseeker",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A019": {
   "banner": "skullflame_shield",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
  },
  "A021": {
   "banner": "the_untamed_blade",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
+  "state": "verified"
+ },
+ "A028": {
+  "date": "2026-10-29",
+  "note": "Selected source card is titled Scepter of the Unholy, not Hand of Edward the Odd; needs Karl's corrected source pick.",
+  "state": "blocked"
  }
 }

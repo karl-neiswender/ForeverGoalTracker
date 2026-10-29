@@ -17,7 +17,7 @@ Run from the repo root. Needs Pillow and lupa (tools/.py, see check.py). The pla
 reports/art-plan/plan.json; progress lives in reports/art-plan/status.json. Only `swap` changes the plan.
 """
 import base64, html, io, json, re, struct, sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 root = Path(__file__).resolve().parent.parent
@@ -61,7 +61,7 @@ def write_text(path, text):
 
 
 def save_status(status):
-    STATUS.write_text(json.dumps(status, indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+    write_text(STATUS, json.dumps(status, indent=1, sort_keys=True) + chr(10))
 
 
 # ---------------------------------------------------------------- checks
@@ -310,6 +310,14 @@ def cmd_batch(args):
     return 0
 
 
+def rebuild_quietly():
+    """Keep the plan pages current: every status change rebuilds them (about 3 seconds)."""
+    try:
+        build()
+    except Exception as e:
+        print("could not rebuild the pages:", e, "- run `python tools/art-plan.py build`")
+
+
 def cmd_set(args):
     plan, status = load()
     opts = {}
@@ -354,6 +362,7 @@ def cmd_set(args):
             entry["note"] = opts["note"]
         print(rid, cur, "->", state)
     save_status(status)
+    rebuild_quietly()
     return 0
 
 
@@ -379,8 +388,9 @@ def cmd_swap(args):
         last = max(r["batch"] or 0 for r in plan["rows"])
         size = sum(1 for r in plan["rows"] if r["batch"] == last)
         row["batch"] = last if size < plan["batch_size"] else last + 1
-    PLAN.write_text(json.dumps(plan, indent=1) + "\n", encoding="utf-8", newline="\n")
+    write_text(PLAN, json.dumps(plan, indent=1) + chr(10))
     save_status(status)
+    rebuild_quietly()
     print(rid, "now uses", newfile, f"({w}x{h})", "batch", row["batch"])
     return 0
 
@@ -531,6 +541,7 @@ def build():
     work = [r for r in rows if state_of(r, status) not in ("skipped_lowres", "blocked")]
     verified = sum(1 for r in work if state_of(r, status) == "verified")
     today = date.today().isoformat()
+    now = datetime.now().strftime("%H:%M")
     sec = sections_md(plan, status)
 
     # ---------- markdown
@@ -576,7 +587,7 @@ def build():
     MD.write_text("\n".join(md), encoding="utf-8", newline="\n")
 
     # ---------- html
-    H = ["<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Art matching plan and work order</title><style>"
+    H = ["<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'><meta http-equiv='refresh' content='30'><title>Art matching plan and work order</title><style>"
          ":root{--bg:#f6f4ef;--card:#fff;--text:#23211c;--muted:#6b665c;--line:#e2ddd0;--ok:#3a9d5d;--warn:#b8860b;--bad:#c0392b;--info:#3b7dd8}"
          "@media (prefers-color-scheme:dark){:root{--bg:#17160f;--card:#211f17;--text:#eee9da;--muted:#a39d8b;--line:#38342a;--ok:#62c585;--warn:#e0b64a;--bad:#ef7070;--info:#6fa5ee}}"
          "body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,'Segoe UI',sans-serif}main{max-width:1150px;margin:0 auto;padding:22px 16px 70px}"
@@ -592,7 +603,7 @@ def build():
          ".st.rejected,.st.blocked{color:var(--bad);border-color:var(--bad)}.st.skipped_lowres{color:var(--warn);border-color:var(--warn)}"
          "tr.skip{background:rgba(192,57,43,.10)}.f{font-size:.82rem;color:var(--muted)}.tg{font-size:.85rem}"
          "</style></head><body><main>"]
-    H.append(f"<h1>Art matching plan and work order</h1><p class='sub'>Built {today}. Locked by Karl on 2026-10-29 (commit 5abd851). Companion to "
+    H.append(f"<h1>Art matching plan and work order</h1><p class='sub'>Built {today} {now}; this page reloads itself every 30 seconds. Locked by Karl on 2026-10-29 (commit 5abd851). Companion to "
              "<a href='Goal-art-checklist.html'>Goal-art-checklist.html</a>, which stays the record of what is mapped where. Rebuild with <code>python tools/art-plan.py build</code>.</p>")
     pct = round(100 * verified / max(len(work), 1))
     H.append(f"<div class='sum'><div><b>{verified}/{len(work)}</b>verified</div>" + "".join(f"<div><b>{counts[s]}</b>{LABEL[s]}</div>" for s in STATES[:-1] + SIDE if counts[s]) +

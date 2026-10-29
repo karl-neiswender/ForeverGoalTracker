@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 0 of 151 workable banners verified.** Queued 151, Blocked 2, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 16 of 150 workable banners verified.** Queued 134, Verified 16, Blocked 3, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 151 workable banners; P1 is 35, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 150 workable banners; P1 is 34, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -86,27 +86,27 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A001 | P1 | `weapon-black-amnesty.png` 745x1040 |  | Black Amnesty: `black_amnesty` / `black_amnesty` | Queued | card scan, crop first  |
-| ☐ | A003 | P1 | `weapon-brain-hacker.png` 745x1040 |  | Brain Hacker: `brain_hacker` / `brain_hacker` | Queued | card scan, crop first  |
-| ☐ | A004 | P1 | `item-cloak-of-flame.png` 745x1040 |  | Cloak of Flames: `cloak_of_flames` / `cloak_of_flames` | Queued | card scan, crop first  |
-| ☐ | A005 | P1 | `item-cloak-of-the-shrouded-mists.png` 745x1040 |  | Cloak of the Shrouded Mists: `cloak_of_the_shrouded_mists` / `cloak_of_the_shrouded_mists` | Queued | card scan, crop first  |
-| ☐ | A006 | P1 | `weapon-cold-forged-hammer.png` 745x1040 |  | Cold Forged Hammer: `cold_forged_hammer` / `cold_forged_hammer` | Queued | card scan, crop first  |
-| ☐ | A007 | P1 | `weapon-Crackling_Staff.jpg` 1024x921 |  | Crackling Staff (Alliance): `crackling_staff` / `crackling_staff` | Queued |   |
-| ☐ | A009 | P1 | `item-crown-of-the-ogre-king.png` 745x1040 |  | Crown of the Ogre King: `crown_of_the_ogre_king` / `crown_of_the_ogre_king` | Queued | card scan, crop first  |
-| ☐ | A010 | P1 | `goal-dance.png` 745x1040 |  | Dance With Others: `social_dance_partners` / `social_dance_partners` | Queued | card scan, crop first  |
+| ☑ | A001 | P1 | `weapon-black-amnesty.png` 745x1040 |  | Black Amnesty: `black_amnesty` / `black_amnesty` | Verified | card scan, crop first  |
+| ☑ | A003 | P1 | `weapon-brain-hacker.png` 745x1040 |  | Brain Hacker: `brain_hacker` / `brain_hacker` | Verified | card scan, crop first  |
+| ☑ | A004 | P1 | `item-cloak-of-flame.png` 745x1040 |  | Cloak of Flames: `cloak_of_flames` / `cloak_of_flames` | Verified | card scan, crop first  |
+| ☑ | A005 | P1 | `item-cloak-of-the-shrouded-mists.png` 745x1040 |  | Cloak of the Shrouded Mists: `cloak_of_the_shrouded_mists` / `cloak_of_the_shrouded_mists` | Verified | card scan, crop first  |
+| ☑ | A006 | P1 | `weapon-cold-forged-hammer.png` 745x1040 |  | Cold Forged Hammer: `cold_forged_hammer` / `cold_forged_hammer` | Verified | card scan, crop first  |
+| ☑ | A007 | P1 | `weapon-Crackling_Staff.jpg` 1024x921 |  | Crackling Staff (Alliance): `crackling_staff` / `crackling_staff` | Verified |   |
+| ☑ | A009 | P1 | `item-crown-of-the-ogre-king.png` 745x1040 |  | Crown of the Ogre King: `crown_of_the_ogre_king` / `crown_of_the_ogre_king` | Verified | card scan, crop first  |
+| ☑ | A010 | P1 | `goal-dance.png` 745x1040 |  | Dance With Others: `social_dance_partners` / `social_dance_partners` | Verified | card scan, crop first  |
 
 ### Batch 2
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A012 | P1 | `item-drillborer-disk.png` 745x1040 |  | Drillborer Disk: `drillborer_disk` / `drillborer_disk` | Queued | card scan, crop first  |
-| ☐ | A014 | P1 | `weapon-electrified-dagger.png` 745x1040 |  | Electrified Dagger (Alliance): `electrified_dagger` / `electrified_dagger` | Queued | card scan, crop first  |
-| ☐ | A015 | P1 | `weapon-eskhandars-right-claw-tooth.png` 745x1040 |  | Eskhandar's Right Claw: `eskhandars_right_claw` / `eskhandars_right_claw` | Queued | card scan, crop first  |
-| ☐ | A016 | P1 | `weapon-fang-of-the-crystal-spider.png` 745x1040 |  | Fang of the Crystal Spider: `fang_of_the_crystal_spider` / `fang_of_the_crystal_spider` | Queued | card scan, crop first  |
-| ☐ | A017 | P1 | `weapon-felstriker.png` 745x1040 |  | Felstriker: `felstriker` / `felstriker` | Queued | card scan, crop first  |
-| ☐ | A018 | P1 | `weapon-heartseeker.png` 745x1040 |  | Heartseeker: `heartseeker` / `heartseeker` | Queued | card scan, crop first  |
-| ☐ | A019 | P1 | `item-skullflame-shield.png` 745x1040 |  | Skullflame Shield: `skullflame_shield` / `skullflame_shield` | Queued | card scan, crop first  |
-| ☐ | A021 | P1 | `alliance-human-female-paladin-tier3-weapon-untamed-blade.png` 745x1040 |  | The Untamed Blade: `the_untamed_blade` / `the_untamed_blade` | Queued | card scan, crop first  |
+| ☑ | A012 | P1 | `item-drillborer-disk.png` 745x1040 |  | Drillborer Disk: `drillborer_disk` / `drillborer_disk` | Verified | card scan, crop first  |
+| ☑ | A014 | P1 | `weapon-electrified-dagger.png` 745x1040 |  | Electrified Dagger (Alliance): `electrified_dagger` / `electrified_dagger` | Verified | card scan, crop first  |
+| ☑ | A015 | P1 | `weapon-eskhandars-right-claw-tooth.png` 745x1040 |  | Eskhandar's Right Claw: `eskhandars_right_claw` / `eskhandars_right_claw` | Verified | card scan, crop first  |
+| ☑ | A016 | P1 | `weapon-fang-of-the-crystal-spider.png` 745x1040 |  | Fang of the Crystal Spider: `fang_of_the_crystal_spider` / `fang_of_the_crystal_spider` | Verified | card scan, crop first  |
+| ☑ | A017 | P1 | `weapon-felstriker.png` 745x1040 |  | Felstriker: `felstriker` / `felstriker` | Verified | card scan, crop first  |
+| ☑ | A018 | P1 | `weapon-heartseeker.png` 745x1040 |  | Heartseeker: `heartseeker` / `heartseeker` | Verified | card scan, crop first  |
+| ☑ | A019 | P1 | `item-skullflame-shield.png` 745x1040 |  | Skullflame Shield: `skullflame_shield` / `skullflame_shield` | Verified | card scan, crop first  |
+| ☑ | A021 | P1 | `alliance-human-female-paladin-tier3-weapon-untamed-blade.png` 745x1040 |  | The Untamed Blade: `the_untamed_blade` / `the_untamed_blade` | Verified | card scan, crop first  |
 
 ### Batch 3
 
@@ -116,7 +116,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A024 | P1 | `weapon-Barman_Shanker.jpg` 1042x1200 |  | Barman Shanker: `barman_shanker` / `barman_shanker` | Queued |   |
 | ☐ | A025 | P1 | `weapon-claw-frost-wyrm.jpg` 1024x1001 |  | Claw of the Frost Wyrm: `claw_of_the_frost_wyrm` / `claw_of_the_frost_wyrm` | Queued |   |
 | ☐ | A027 | P1 | `weapon-Gurubashi_Dwarf_Destroyer.jpg` 1371x1200 |  | Gurubashi Dwarf Destroyer: `gurubashi_dwarf_destroyer` / `gurubashi_dwarf_destroyer` | Queued |   |
-| ☐ | A028 | P1 | `weapon-hand-edward-odd.png` 745x1040 |  | Hand of Edward the Odd: `hand_of_edward_the_odd` / `hand_of_edward_the_odd` | Queued | card scan, crop first The card is titled Scepter of the Unholy. Confirm it is the right art for this mace. |
+| ☐ | A028 | P1 | `weapon-hand-edward-odd.png` 745x1040 |  | Hand of Edward the Odd: `hand_of_edward_the_odd` / `hand_of_edward_the_odd` | Blocked | card scan, crop first The card is titled Scepter of the Unholy. Confirm it is the right art for this mace. |
 | ☐ | A029 | P1 | `weapon-Hypnotic_Blade.jpg` 1371x1200 |  | Hypnotic Blade: `hypnotic_blade` / `hypnotic_blade` | Queued |   |
 | ☐ | A030 | P1 | `weapon-ice-barbed-spear.png` 745x1040 |  | Ice Barbed Spear: `ice_barbed_spear` / `ice_barbed_spear` | Queued | card scan, crop first  |
 | ☐ | A031 | P1 | `weapon-staff-of-command.jpg` 1337x1200 |  | Lord Valthalak's Staff of Command: `lord_valthalaks_staff_of_command` / `lord_valthalaks_staff_of_command` | Queued |   |
@@ -341,6 +341,7 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A020 | Skipped (low-res) | `weapon-the-shatterer.jpg` | 200x279 | The Shatterer  |
 | A023 | Skipped (low-res) | `item-wall-of-the-dead.jpg` | 200x279 | Wall of the Dead  |
 | A026 | Skipped (low-res) | `weapon-doomfinger-wand.jpg` | 348x310 | Doomfinger  |
+| A028 | Blocked | `weapon-hand-edward-odd.png` | 745x1040 | Hand of Edward the Odd The card is titled Scepter of the Unholy. Confirm it is the right art for this mace. |
 | A046 | Skipped (low-res) | `alliance-dwarf-female-rogue-tier1.jpg` | 312x440 | Level Classes to 60: Dwarf Rogue F  |
 | A059 | Skipped (low-res) | `alliance-nightelf-male-druid-generic.jpg` | 200x279 | Level Classes to 60: Night Elf Druid M  |
 | A074 | Skipped (low-res) | `horde-tauren-female-druid-leather-leveling-generic.jpg` | 312x440 | Level Classes to 60: Tauren Druid F  |
