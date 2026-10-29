@@ -970,6 +970,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 22821, checked 2026-10-29: epic Bind on Pickup wand, item level 92, requires level
+        -- 60, 146 to 271 Shadow damage, speed 1.50, equip: +1% spell crit and +16 spell damage and healing. Dropped
+        -- by Kel'Thuzad (creature 15990) in Naxxramas; Wowhead gives no drop chance and GearSources agrees. Not in
+        -- Forever's tables yet, so not marked confirmed.
+        id = "doomfinger", library = true, itemQuality = 4, instance = { 533, "Naxxramas" },
+        icon = "inv_wand_1h_stratholme_d_02",
+        name = "Doomfinger",
+        short = "Doomfinger",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A caster's wand dropped by Kel'Thuzad in Naxxramas.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Doomfinger from Kel'Thuzad in Naxxramas.", auto = { item = 22821, owned = { "Doomfinger" } } },
+        },
+        completeWith = { item = 22821, owned = { "Doomfinger" } },
+        tips = {
+            "Defeat Kel'Thuzad, the last boss of {raid_naxx:Naxxramas}, for a chance at {item:22821:Doomfinger}.",
+            "It binds when picked up. It deals 146 to 271 Shadow damage and adds 1% spell critical strike and up to 16 spell damage and healing.",
+            "Players point out it is the rare wand that adds spell crit. Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 18534, checked 2026-10-25: rare (blue) Bind on Pickup two-hand staff, item level
         -- 63, requires level 58, +11 Stamina, +14 Intellect, +7 Spirit, equip: +1% spell crit and +23 spell
         -- power. Wowhead lists Mizzle the Crafty (no drop chance) and the Gordok Tribute chest (1 of 8
@@ -1938,6 +1962,60 @@ local library = {
             "It is a choice reward from Hero of the Stormpike (Alliance), Hero of the Frostwolf (Horde), The Legend of Korrak and Korrak the Bloodrager.",
             "It binds when picked up. It adds 13 Strength, 21 Agility and 20 Stamina.",
             "Warriors, Paladins and Hunters can use a polearm. Learn Polearms before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 12791, checked 2026-10-29: rare (blue) Bind on Pickup main-hand dagger, item level
+        -- 55, requires level 50, 51 to 95 damage, speed 2.00, chance on hit to make the target bleed for 100 damage
+        -- over 30 sec. Dropped by Plugger Spazzring (creature 9499) in Blackrock Depths; Wowhead gives no drop
+        -- chance and GearSources agrees. Not in Forever's tables yet, so not marked confirmed.
+        id = "barman_shanker", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        icon = "inv_drink_10",
+        name = "Barman Shanker",
+        short = "Barman Shanker",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A one-handed dagger dropped by Plugger Spazzring in Blackrock Depths.",
+        steps = {
+            { text = "Reach level 50.", auto = { level = 50 } },
+            { text = "Loot Barman Shanker from Plugger Spazzring in Blackrock Depths.", auto = { item = 12791, owned = { "Barman Shanker" } } },
+        },
+        completeWith = { item = 12791, owned = { "Barman Shanker" } },
+        tips = {
+            "Defeat Plugger Spazzring in Blackrock Depths for a chance at {item:12791:Barman Shanker} {map:brd:Show on map}.",
+            "It binds when picked up. Its chance on hit makes the target bleed for 100 damage over 30 seconds.",
+            "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 22335, checked 2026-10-29: rare (blue) Bind on Pickup two-hand staff, item level
+        -- 63, requires level 58, 90 to 136 damage, speed 2.10, +11 Stamina, +10 Intellect, equip: +30 spell
+        -- damage and healing, +1% spell hit. Dropped by Lord Valthalak (creature 16042) in Upper Blackrock
+        -- Spire; Wowhead gives no drop chance and GearSources agrees. Summon and fight hints are Wowhead item
+        -- comments (several agree, checked 2026-10-29): he is summoned in the Beast's Room with a brazier
+        -- earned at the end of the Dungeon Set 2 (Tier 0.5) quests, and the fight is hard. The brazier's exact
+        -- name and the quest that gives it are not on the page. Not in Forever's tables yet, so not marked
+        -- confirmed.
+        id = "lord_valthalaks_staff_of_command", library = true, itemQuality = 3, instance = { 229, "Blackrock Spire" },
+        icon = "inv_staff_07",
+        name = "Lord Valthalak's Staff of Command",
+        short = "Staff of Command",
+        category = "Rare Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A two-handed caster staff dropped by Lord Valthalak in Upper Blackrock Spire.",
+        steps = {
+            { text = "Reach level 58.", auto = { level = 58 } },
+            { text = "Loot Lord Valthalak's Staff of Command from Lord Valthalak in Upper Blackrock Spire.", auto = { item = 22335, owned = { "Lord Valthalak's Staff of Command" } } },
+        },
+        completeWith = { item = 22335, owned = { "Lord Valthalak's Staff of Command" } },
+        tips = {
+            "Defeat Lord Valthalak in {key_ubrs:Upper Blackrock Spire} for a chance at {item:22335:Lord Valthalak's Staff of Command} {map:brs:Show on map}. He is not a regular boss: he has to be summoned in the Beast's Room.",
+            "Players say you summon him with a brazier you get at the end of the {set_dungeon2:Dungeon Set 2 (Tier 0.5)} quests, where he is one of the last fights. Someone who has finished them can summon him again for a group.",
+            "Players call it a hard fight with shades that spawn until he is near 40% health. Mana drains, Shadow Protection and a well-geared tank help.",
+            "It binds when picked up. It adds 11 Stamina and 10 Intellect, up to 30 spell damage and healing, and 1% spell hit.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use a staff. Learn Staves before equipping it.",
         },
     },
 
