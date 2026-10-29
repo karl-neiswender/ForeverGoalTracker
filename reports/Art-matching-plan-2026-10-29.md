@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 53 of 148 workable banners verified.** Queued 95, Verified 53, Blocked 5, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 53 of 148 workable banners verified.** Queued 87, Installed 8, Verified 53, Blocked 5, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -177,14 +177,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A066 | P2 | `horde-orc-male-mage-warlock-generic-leveling.jpg` 4367x3545 |  | Level Classes to 60: Orc Mage M: `allclasses` / `allclasses_orc_mage_male` | Queued |   |
-| ☐ | A067 | P2 | `horde-orc-female-rogue-tier2.jpg` 1024x1325 |  | Level Classes to 60: Orc Rogue F: `allclasses` / `allclasses_orc_rogue_female` | Queued |   |
-| ☐ | A068 | P2 | `horde-orc-female-shaman-tier2.png` 745x1040 | `horde-orc-female-shaman-tier1.jpg` | Level Classes to 60: Orc Shaman F: `allclasses` / `allclasses_orc_shaman_female` | Queued | card scan, crop first  |
-| ☐ | A069 | P2 | `h-orc-male-shaman-generic-leveling.png` 745x1040 | `horde-orc-male-shaman-generic.jpg` | Level Classes to 60: Orc Shaman M: `allclasses` / `allclasses_orc_shaman_male` | Queued | card scan, crop first  |
-| ☐ | A070 | P2 | `horde-orc-female-warlock-leveling.jpg` 742x650 |  | Level Classes to 60: Orc Warlock F: `allclasses` / `allclasses_orc_warlock_female` | Queued |   |
-| ☐ | A071 | P2 | `horde-orc-male-warlock-tier1.jpg` 862x1000 | `horde-orc-male-warlock-tier2.jpg` | Level Classes to 60: Orc Warlock M: `allclasses` / `allclasses_orc_warlock_male` | Queued |   |
-| ☐ | A072 | P2 | `horde-orc-female-warrior-leveling-2.jpg` 2500x3445 | `horde-orc-female-warrior-generic-leveling-2.png` | Level Classes to 60: Orc Warrior F: `allclasses` / `allclasses_orc_warrior_female` | Queued | Karl's pick  |
-| ☐ | A073 | P2 | `horde-orc-male-warrior-generic-leveling-3.jpg` 984x1384 | `horde-orc-male-warrior-generic-leveling-2.jpg` | Level Classes to 60: Orc Warrior M: `allclasses` / `allclasses_orc_warrior_male` | Queued | Karl's pick  |
+| ☐ | A066 | P2 | `horde-orc-male-mage-warlock-generic-leveling.jpg` 4367x3545 |  | Level Classes to 60: Orc Mage M: `allclasses` / `allclasses_orc_mage_male` | Installed |   |
+| ☐ | A067 | P2 | `horde-orc-female-rogue-tier2.jpg` 1024x1325 |  | Level Classes to 60: Orc Rogue F: `allclasses` / `allclasses_orc_rogue_female` | Installed |   |
+| ☐ | A068 | P2 | `horde-orc-female-shaman-tier2.png` 745x1040 | `horde-orc-female-shaman-tier1.jpg` | Level Classes to 60: Orc Shaman F: `allclasses` / `allclasses_orc_shaman_female` | Installed | card scan, crop first  |
+| ☐ | A069 | P2 | `h-orc-male-shaman-generic-leveling.png` 745x1040 | `horde-orc-male-shaman-generic.jpg` | Level Classes to 60: Orc Shaman M: `allclasses` / `allclasses_orc_shaman_male` | Installed | card scan, crop first  |
+| ☐ | A070 | P2 | `horde-orc-female-warlock-leveling.jpg` 742x650 |  | Level Classes to 60: Orc Warlock F: `allclasses` / `allclasses_orc_warlock_female` | Installed |   |
+| ☐ | A071 | P2 | `horde-orc-male-warlock-tier1.jpg` 862x1000 | `horde-orc-male-warlock-tier2.jpg` | Level Classes to 60: Orc Warlock M: `allclasses` / `allclasses_orc_warlock_male` | Installed |   |
+| ☐ | A072 | P2 | `horde-orc-female-warrior-leveling-2.jpg` 2500x3445 | `horde-orc-female-warrior-generic-leveling-2.png` | Level Classes to 60: Orc Warrior F: `allclasses` / `allclasses_orc_warrior_female` | Installed | Karl's pick  |
+| ☐ | A073 | P2 | `horde-orc-male-warrior-generic-leveling-3.jpg` 984x1384 | `horde-orc-male-warrior-generic-leveling-2.jpg` | Level Classes to 60: Orc Warrior M: `allclasses` / `allclasses_orc_warrior_male` | Installed | Karl's pick  |
 
 ### Batch 9
 

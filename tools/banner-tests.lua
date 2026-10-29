@@ -104,6 +104,14 @@ do
     for _, entry in ipairs({
         {"HUNTER", "Orc", 2, "allclasses_orc_hunter_male-banner.blp"},
         {"MAGE", "Orc", 3, "allclasses_orc_mage_female-banner.blp"},
+        {"MAGE", "Orc", 2, "allclasses_orc_mage_male-banner.blp"},
+        {"ROGUE", "Orc", 3, "allclasses_orc_rogue_female-banner.blp"},
+        {"SHAMAN", "Orc", 3, "allclasses_orc_shaman_female-banner.blp"},
+        {"SHAMAN", "Orc", 2, "allclasses_orc_shaman_male-banner.blp"},
+        {"WARLOCK", "Orc", 3, "allclasses_orc_warlock_female-banner.blp"},
+        {"WARLOCK", "Orc", 2, "allclasses_orc_warlock_male-banner.blp"},
+        {"WARRIOR", "Orc", 3, "allclasses_orc_warrior_female-banner.blp"},
+        {"WARRIOR", "Orc", 2, "allclasses_orc_warrior_male-banner.blp"},
     }) do
         local path, aspect, preprocessed = B:ResolveArt("allclasses",
             {faction="Horde", class=entry[1], race=entry[2], sex=entry[3]})
@@ -120,8 +128,6 @@ do
         == "allclasses_nightelf_rogue-banner.blp", "female Night Elf Rogue keeps existing art")
     assert(B:ResolveArt("allclasses", {faction="Horde", class="HUNTER", race="Orc", sex=3})
         == "allclasses_horde_hunter-banner.blp", "female Orc Hunter keeps existing Horde art")
-    assert(B:ResolveArt("allclasses", {faction="Horde", class="MAGE", race="Orc", sex=2})
-        == "allclasses_troll_mage-banner.blp", "male Orc Mage keeps existing Horde art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="MAGE", race="Gnome", sex=3})
         == "allclasses_gnome_caster-banner.blp", "female Gnome Mage keeps her existing art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="PRIEST", race="Gnome", sex=3})
