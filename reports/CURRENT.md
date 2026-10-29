@@ -101,6 +101,12 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Art matching plan (2026-10-29, PC, Claude, planning only, uncommitted): one picked image per Needed, Borrowed
+  or Shared goal, per leveling race/class/sex half, per missing Tier set sex, plus a stage idea for leveling art that
+  follows the character's level ([plan](Art-matching-plan-2026-10-29.md), thumbnails in its `.html`). **Codex: skip
+  the 19 low-res picks in its section 6** (short side under 350 px; do not generate, upscale or install from them).
+  **Karl** will find larger copies of those files and tell Codex which slot each is for. Nothing from the plan is installed.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,
