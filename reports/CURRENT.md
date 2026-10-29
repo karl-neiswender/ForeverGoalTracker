@@ -117,6 +117,8 @@ its October 21 notes.
 
 - Art batch 3 (2026-10-29): Karl approved A022, A024, A025, A027, A028, A029, A030 and A031; eight banners installed, including the corrected second Ice Barbed Spear review. Karl confirmed A028's selected card art despite its printed title. Claude verification and full-restart native review remain pending.
 
+- Art batch 4 (2026-10-29): Karl approved A032 through A038; seven banners installed, including the A035 card art he confirmed. A039 needs no new banner because Exalted: Zandalar Tribe already shares the Hakkar raid_zg banner. Claude verification and full-restart native review remain pending.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,

@@ -5805,6 +5805,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.hypnotic_blade = {{path="hypnotic_blade-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.ice_barbed_spear = {{path="ice_barbed_spear-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.lord_valthalaks_staff_of_command = {{path="lord_valthalaks_staff_of_command-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.masterwork_stormhammer = {{path="masterwork_stormhammer-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.phantom_blade = {{path="phantom_blade-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.red_dragonscale_protector = {{path="red_dragonscale_protector-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.skuls_ghastly_touch = {{path="skuls_ghastly_touch-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.staff_of_jordan = {{path="staff_of_jordan-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.wand_of_fates = {{path="wand_of_fates-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.att_bwl = {{path="att_bwl-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.core_hound_tooth = {{path="core_hound_tooth-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.bloodseeker = {{path="bloodseeker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.blackcrow = {{path="blackcrow-banner.blp", aspect=4/3, preprocessed=true}}
@@ -6371,6 +6378,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         -- Shared images are keyed by image so every goal using them gets it.
         ["raid_bwl-banner.blp"] = { 0.7, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9, -- Blackwing Lair and its attunement
             embers = { box = { 0.40, 0.95, 0.40, 0.75 }, field = { 0.30, 1.0, 0.20, 0.90 }, count = 48, blurShare = 0.22, rise = 0.30 } },
+        ["att_bwl-banner.blp"] = { 0.8, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
+            embers = { box = { 0.72, 0.98, 0.38, 0.78 }, field = { 0.55, 1.0, 0.20, 0.90 }, count = 48, blurShare = 0.22, rise = 0.30 } },
         raid_mc = { 0.75, 0.5, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,
             embers = { box = { 0.45, 1.0, 0.35, 0.85 }, field = { 0.30, 1.0, 0.10, 0.95 }, count = 60, blurShare = 0.22, rise = 0.30 } },
         att_mc = { 0.65, 0.6, 0.3, { 1, 1, 1 }, glow = false, strength = 0.9,

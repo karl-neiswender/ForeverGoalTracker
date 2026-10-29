@@ -135,5 +135,45 @@
   "banner": "lord_valthalaks_staff_of_command",
   "date": "2026-10-29",
   "state": "installed"
+ },
+ "A032": {
+  "banner": "masterwork_stormhammer",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A033": {
+  "banner": "phantom_blade",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A034": {
+  "banner": "red_dragonscale_protector",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A035": {
+  "banner": "skuls_ghastly_touch",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A036": {
+  "banner": "staff_of_jordan",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A037": {
+  "banner": "wand_of_fates",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A038": {
+  "banner": "att_bwl",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A039": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed rep_zandalar already uses raid_zg-banner.blp from the existing Hakkar image; no new A039 banner should be installed.",
+  "state": "blocked"
  }
 }

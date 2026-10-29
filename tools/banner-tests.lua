@@ -2,6 +2,13 @@ local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
     for _, entry in ipairs({
+        {"masterwork_stormhammer", "masterwork_stormhammer-banner.blp"},
+        {"phantom_blade", "phantom_blade-banner.blp"},
+        {"red_dragonscale_protector", "red_dragonscale_protector-banner.blp"},
+        {"skuls_ghastly_touch", "skuls_ghastly_touch-banner.blp"},
+        {"staff_of_jordan", "staff_of_jordan-banner.blp"},
+        {"wand_of_fates", "wand_of_fates-banner.blp"},
+        {"att_bwl", "att_bwl-banner.blp"},
         {"viking_warhammer", "viking_warhammer-banner.blp"},
         {"barman_shanker", "barman_shanker-banner.blp"},
         {"claw_of_the_frost_wyrm", "claw_of_the_frost_wyrm-banner.blp"},

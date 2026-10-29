@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 16 of 151 workable banners verified.** Queued 127, Installed 8, Verified 16, Blocked 2, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 16 of 150 workable banners verified.** Queued 119, Installed 15, Verified 16, Blocked 3, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 151 workable banners; P1 is 35, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 150 workable banners; P1 is 34, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -125,14 +125,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A032 | P1 | `weapon-Masterwork_Stormhammer.png` 745x1040 |  | Masterwork Stormhammer: `masterwork_stormhammer` / `masterwork_stormhammer` | Queued | card scan, crop first  |
-| ☐ | A033 | P1 | `weapon-phantom-blade.jpg` 682x615 |  | Phantom Blade: `phantom_blade` / `phantom_blade` | Queued |   |
-| ☐ | A034 | P1 | `item-red-dragonscale-protector.jpg` 504x576 |  | Red Dragonscale Protector: `red_dragonscale_protector` / `red_dragonscale_protector` | Queued |  Older source with a dwarf holding it: alliance-dwarf-male-warrior-paladin-red-dragonscale-protector.jpg. |
-| ☐ | A035 | P1 | `weapon-skuls-ghastly-touch-wand.png` 745x1040 |  | Skul's Ghastly Touch: `skuls_ghastly_touch` / `skuls_ghastly_touch` | Queued | card scan, crop first The card is titled Vengeful Gladiator's Piercing Touch. Confirm it is the right art for this wand. |
-| ☐ | A036 | P1 | `weapon-staff-of-jordan.jpg` 704x541 |  | Staff of Jordan: `staff_of_jordan` / `staff_of_jordan` | Queued |   |
-| ☐ | A037 | P1 | `weapon-wand-of-fates.jpg` 1024x795 |  | Wand of Fates: `wand_of_fates` / `wand_of_fates` | Queued |   |
-| ☐ | A038 | P1 | `boss-nefarius.jpg` 3000x4000 |  | Attunement: Blackwing Lair (both): `att_bwl` / `att_bwl` | Queued | Karl's pick Karl's pick. Lord Victor Nefarius; goal inferred. My earlier pick, now the alternate: boss-nefarian-raid.jpg. Today it borrows the Clear Blackwing Lair image. Alt: raid-blackwinglair-boss-neltharion.jpg. |
-| ☐ | A039 | P1 | `boss-hakkar.jpg` 2500x3277 |  | Exalted: Zandalar Tribe (both): `rep_zandalar` / `rep_zandalar` | Queued |  Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence. |
+| ☐ | A032 | P1 | `weapon-Masterwork_Stormhammer.png` 745x1040 |  | Masterwork Stormhammer: `masterwork_stormhammer` / `masterwork_stormhammer` | Installed | card scan, crop first  |
+| ☐ | A033 | P1 | `weapon-phantom-blade.jpg` 682x615 |  | Phantom Blade: `phantom_blade` / `phantom_blade` | Installed |   |
+| ☐ | A034 | P1 | `item-red-dragonscale-protector.jpg` 504x576 |  | Red Dragonscale Protector: `red_dragonscale_protector` / `red_dragonscale_protector` | Installed |  Older source with a dwarf holding it: alliance-dwarf-male-warrior-paladin-red-dragonscale-protector.jpg. |
+| ☐ | A035 | P1 | `weapon-skuls-ghastly-touch-wand.png` 745x1040 |  | Skul's Ghastly Touch: `skuls_ghastly_touch` / `skuls_ghastly_touch` | Installed | card scan, crop first The card is titled Vengeful Gladiator's Piercing Touch. Confirm it is the right art for this wand. |
+| ☐ | A036 | P1 | `weapon-staff-of-jordan.jpg` 704x541 |  | Staff of Jordan: `staff_of_jordan` / `staff_of_jordan` | Installed |   |
+| ☐ | A037 | P1 | `weapon-wand-of-fates.jpg` 1024x795 |  | Wand of Fates: `wand_of_fates` / `wand_of_fates` | Installed |   |
+| ☐ | A038 | P1 | `boss-nefarius.jpg` 3000x4000 |  | Attunement: Blackwing Lair (both): `att_bwl` / `att_bwl` | Installed | Karl's pick Karl's pick. Lord Victor Nefarius; goal inferred. My earlier pick, now the alternate: boss-nefarian-raid.jpg. Today it borrows the Clear Blackwing Lair image. Alt: raid-blackwinglair-boss-neltharion.jpg. |
+| ☐ | A039 | P1 | `boss-hakkar.jpg` 2500x3277 |  | Exalted: Zandalar Tribe (both): `rep_zandalar` / `rep_zandalar` | Blocked |  Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence. |
 
 ### Batch 5
 
@@ -341,6 +341,7 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A020 | Skipped (low-res) | `weapon-the-shatterer.jpg` | 200x279 | The Shatterer  |
 | A023 | Skipped (low-res) | `item-wall-of-the-dead.jpg` | 200x279 | Wall of the Dead  |
 | A026 | Skipped (low-res) | `weapon-doomfinger-wand.jpg` | 348x310 | Doomfinger  |
+| A039 | Blocked | `boss-hakkar.jpg` | 2500x3277 | Exalted: Zandalar Tribe (both) Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence. |
 | A046 | Skipped (low-res) | `alliance-dwarf-female-rogue-tier1.jpg` | 312x440 | Level Classes to 60: Dwarf Rogue F  |
 | A059 | Skipped (low-res) | `alliance-nightelf-male-druid-generic.jpg` | 200x279 | Level Classes to 60: Night Elf Druid M  |
 | A074 | Skipped (low-res) | `horde-tauren-female-druid-leather-leveling-generic.jpg` | 312x440 | Level Classes to 60: Tauren Druid F  |
