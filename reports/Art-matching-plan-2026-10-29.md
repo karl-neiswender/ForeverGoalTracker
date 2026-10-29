@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 38 of 149 workable banners verified.** Queued 111, Verified 38, Blocked 4, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 38 of 148 workable banners verified.** Queued 103, Installed 7, Verified 38, Blocked 5, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 149 workable banners; P1 is 33, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 148 workable banners; P1 is 33, P2 is 45, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -151,14 +151,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A049 | P2 | `alliance-gnome-male-mage-generic.png` 745x1040 | `alliance-gnome-male-mage-tier2.png` | Level Classes to 60: Gnome Mage M: `allclasses` / `allclasses_gnome_mage_male` | Queued | card scan, crop first  |
-| ☐ | A050 | P2 | `alliance-gnome-male-priest-tier3.png` 745x1040 |  | Level Classes to 60: Gnome Priest M: `allclasses` / `allclasses_gnome_priest_male` | Queued | card scan, crop first  |
-| ☐ | A051 | P2 | `alliance-skyborne-female-mage-generic.jpg` 1548x1200 |  | Level Classes to 60: High Order Skyborne Mage F: `allclasses` / `allclasses_skyborne_mage_female` | Queued |   |
-| ☐ | A052 | P2 | `alliance-human-female-mage-generic.jpg` 2850x3661 | `alliance-human-female-mage-generic.png` | Level Classes to 60: Human Mage F: `allclasses` / `allclasses_human_mage_female` | Queued |   |
-| ☐ | A053 | P2 | `alliance-human-male-mage-generic.jpg` 1012x812 | `alliance-human-male-mage-tier2.jpg` | Level Classes to 60: Human Mage M: `allclasses` / `allclasses_human_mage_male` | Queued |   |
-| ☐ | A054 | P2 | `alliance-human-female-priest-generic-leveling.png` 745x1040 | `alliance-human-female-priest-tier1.jpg` | Level Classes to 60: Human Priest F: `allclasses` / `allclasses_human_priest_female` | Queued | card scan, crop first  |
-| ☐ | A055 | P2 | `alliance-human-male-priest-tier2.jpg` 1189x1379 |  | Level Classes to 60: Human Priest M: `allclasses` / `allclasses_human_priest_male` | Queued |   |
-| ☐ | A056 | P2 | `alliance-human-female-warlock-leveling.jpg` 1000x1143 | `alliance-human-female-warlock-tier2.jpg` | Level Classes to 60: Human Warlock F: `allclasses` / `allclasses_human_warlock_female` | Queued |   |
+| ☐ | A049 | P2 | `alliance-gnome-male-mage-generic.png` 745x1040 | `alliance-gnome-male-mage-tier2.png` | Level Classes to 60: Gnome Mage M: `allclasses` / `allclasses_gnome_mage_male` | Installed | card scan, crop first  |
+| ☐ | A050 | P2 | `alliance-gnome-male-priest-tier3.png` 745x1040 |  | Level Classes to 60: Gnome Priest M: `allclasses` / `allclasses_gnome_priest_male` | Installed | card scan, crop first  |
+| ☐ | A051 | P2 | `alliance-skyborne-female-mage-generic.jpg` 1548x1200 |  | Level Classes to 60: High Order Skyborne Mage F: `allclasses` / `allclasses_skyborne_mage_female` | Installed |   |
+| ☐ | A052 | P2 | `alliance-human-female-mage-generic.jpg` 2850x3661 | `alliance-human-female-mage-generic.png` | Level Classes to 60: Human Mage F: `allclasses` / `allclasses_human_mage_female` | Installed |   |
+| ☐ | A053 | P2 | `alliance-human-male-mage-generic.jpg` 1012x812 | `alliance-human-male-mage-tier2.jpg` | Level Classes to 60: Human Mage M: `allclasses` / `allclasses_human_mage_male` | Installed |   |
+| ☐ | A054 | P2 | `alliance-human-female-priest-generic-leveling.png` 745x1040 | `alliance-human-female-priest-tier1.jpg` | Level Classes to 60: Human Priest F: `allclasses` / `allclasses_human_priest_female` | Installed | card scan, crop first  |
+| ☐ | A055 | P2 | `alliance-human-male-priest-tier2.jpg` 1189x1379 |  | Level Classes to 60: Human Priest M: `allclasses` / `allclasses_human_priest_male` | Installed |   |
+| ☐ | A056 | P2 | `alliance-human-female-warlock-leveling.jpg` 1000x1143 | `alliance-human-female-warlock-tier2.jpg` | Level Classes to 60: Human Warlock F: `allclasses` / `allclasses_human_warlock_female` | Blocked |   |
 
 ### Batch 7
 
@@ -344,6 +344,7 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A039 | Blocked | `boss-hakkar.jpg` | 2500x3277 | Exalted: Zandalar Tribe (both) Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence. |
 | A040 | Blocked | `location-blackrock-mountain-gates.jpg` | 872x981 | Key: Shadowforge Key (both) Today it borrows the Seal of Ascension image. The Dark Iron gate face suits the Shadowforge gate. Alt: location-blackrock-spire-2.jpg. |
 | A046 | Skipped (low-res) | `alliance-dwarf-female-rogue-tier1.jpg` | 312x440 | Level Classes to 60: Dwarf Rogue F  |
+| A056 | Blocked | `alliance-human-female-warlock-leveling.jpg` | 1000x1143 | Level Classes to 60: Human Warlock F  |
 | A059 | Skipped (low-res) | `alliance-nightelf-male-druid-generic.jpg` | 200x279 | Level Classes to 60: Night Elf Druid M  |
 | A074 | Skipped (low-res) | `horde-tauren-female-druid-leather-leveling-generic.jpg` | 312x440 | Level Classes to 60: Tauren Druid F  |
 | A090 | Skipped (low-res) | `horde-undead-male-warlock-generic.jpg` | 220x308 | Level Classes to 60: Undead Warlock M  |

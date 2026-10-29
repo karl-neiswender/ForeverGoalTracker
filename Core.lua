@@ -5677,6 +5677,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="benediction-banner.blp", faction="Horde"},
         },
         allclasses = {
+            {path="allclasses_gnome_mage_male-banner.blp", faction="Alliance", class="MAGE", race="Gnome", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_gnome_priest_male-banner.blp", faction="Alliance", class="PRIEST", race="Gnome", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_skyborne_mage_female-banner.blp", faction="Alliance", class="MAGE", race="Skyborne", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_mage_female-banner.blp", faction="Alliance", class="MAGE", race="Human", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_mage_male-banner.blp", faction="Alliance", class="MAGE", race="Human", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_priest_female-banner.blp", faction="Alliance", class="PRIEST", race="Human", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_human_priest_male-banner.blp", faction="Alliance", class="PRIEST", race="Human", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_paladin_female-banner.blp", faction="Alliance", class="PALADIN", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_priest_female-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_priest_male-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf", sex=2, aspect=4/3, preprocessed=true},
