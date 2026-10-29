@@ -287,43 +287,49 @@
  "A057": {
   "banner": "allclasses_human_warlock_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
+  "state": "verified"
  },
  "A058": {
   "banner": "allclasses_nightelf_druid_female",
   "date": "2026-10-29",
-  "note": "Karl approved review v1 for installation. The v2 painterly revision remains a review only.",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
+  "state": "verified"
  },
  "A060": {
   "banner": "allclasses_nightelf_hunter_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
+  "state": "verified"
  },
  "A061": {
   "banner": "allclasses_nightelf_priest_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
+  "state": "verified"
  },
  "A062": {
   "banner": "allclasses_nightelf_priest_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
+  "state": "verified"
  },
  "A063": {
   "banner": "allclasses_nightelf_rogue_male",
   "date": "2026-10-29",
-  "note": "Karl approved review v2 for installation. The v1 draft remains a review only.",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
+  "state": "verified"
  },
  "A064": {
   "banner": "allclasses_orc_hunter_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
+  "state": "verified"
  },
  "A065": {
   "banner": "allclasses_orc_mage_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
+  "state": "verified"
  }
 }

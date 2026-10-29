@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 45 of 148 workable banners verified.** Queued 95, Installed 8, Verified 45, Blocked 5, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 53 of 148 workable banners verified.** Queued 95, Verified 53, Blocked 5, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -164,14 +164,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A057 | P2 | `alliance-human-male-warlock-tier1-2.png` 745x1040 | `alliance-human-male-warlock-tier1.png` | Level Classes to 60: Human Warlock M: `allclasses` / `allclasses_human_warlock_male` | Installed | card scan, crop first  |
-| ☐ | A058 | P2 | `alliance-nightelf-female-druid-generic.jpg` 745x1040 | `alliance-nightelf-female-druid-leather-dungeonset.png` | Level Classes to 60: Night Elf Druid F: `allclasses` / `allclasses_nightelf_druid_female` | Installed | card scan, crop first  |
-| ☐ | A060 | P2 | `alliance-nightelf-male-hunter-generic-2.jpg` 2000x1624 | `alliance-nightelf-male-hunter-generic-leveling-2.png` | Level Classes to 60: Night Elf Hunter M: `allclasses` / `allclasses_nightelf_hunter_male` | Installed |   |
-| ☐ | A061 | P2 | `alliance-nightelf-female-priest-leveling.png` 745x1040 | `a-nightelf-female-priest-shadow.png` | Level Classes to 60: Night Elf Priest F: `allclasses` / `allclasses_nightelf_priest_female` | Installed | card scan, crop first  |
-| ☐ | A062 | P2 | `alliance-nightelf-male-priest-leveling.png` 745x1040 |  | Level Classes to 60: Night Elf Priest M: `allclasses` / `allclasses_nightelf_priest_male` | Installed | card scan, crop first  |
-| ☐ | A063 | P2 | `alliance-nightelf-male-rogue-generic.png` 621x500 | `alliance-nightelf-male-rogue-tier1.jpg` | Level Classes to 60: Night Elf Rogue M: `allclasses` / `allclasses_nightelf_rogue_male` | Installed |   |
-| ☐ | A064 | P2 | `horde-orc-male-hunter-tier1.jpg` 1758x2048 | `horde-orc-male-hunter-tier2.jpg` | Level Classes to 60: Orc Hunter M: `allclasses` / `allclasses_orc_hunter_male` | Installed |   |
-| ☐ | A065 | P2 | `horde-orc-female-mage-generic-leveling.jpg` 4367x3545 |  | Level Classes to 60: Orc Mage F: `allclasses` / `allclasses_orc_mage_female` | Installed |   |
+| ☑ | A057 | P2 | `alliance-human-male-warlock-tier1-2.png` 745x1040 | `alliance-human-male-warlock-tier1.png` | Level Classes to 60: Human Warlock M: `allclasses` / `allclasses_human_warlock_male` | Verified | card scan, crop first  |
+| ☑ | A058 | P2 | `alliance-nightelf-female-druid-generic.jpg` 745x1040 | `alliance-nightelf-female-druid-leather-dungeonset.png` | Level Classes to 60: Night Elf Druid F: `allclasses` / `allclasses_nightelf_druid_female` | Verified | card scan, crop first  |
+| ☑ | A060 | P2 | `alliance-nightelf-male-hunter-generic-2.jpg` 2000x1624 | `alliance-nightelf-male-hunter-generic-leveling-2.png` | Level Classes to 60: Night Elf Hunter M: `allclasses` / `allclasses_nightelf_hunter_male` | Verified |   |
+| ☑ | A061 | P2 | `alliance-nightelf-female-priest-leveling.png` 745x1040 | `a-nightelf-female-priest-shadow.png` | Level Classes to 60: Night Elf Priest F: `allclasses` / `allclasses_nightelf_priest_female` | Verified | card scan, crop first  |
+| ☑ | A062 | P2 | `alliance-nightelf-male-priest-leveling.png` 745x1040 |  | Level Classes to 60: Night Elf Priest M: `allclasses` / `allclasses_nightelf_priest_male` | Verified | card scan, crop first  |
+| ☑ | A063 | P2 | `alliance-nightelf-male-rogue-generic.png` 621x500 | `alliance-nightelf-male-rogue-tier1.jpg` | Level Classes to 60: Night Elf Rogue M: `allclasses` / `allclasses_nightelf_rogue_male` | Verified |   |
+| ☑ | A064 | P2 | `horde-orc-male-hunter-tier1.jpg` 1758x2048 | `horde-orc-male-hunter-tier2.jpg` | Level Classes to 60: Orc Hunter M: `allclasses` / `allclasses_orc_hunter_male` | Verified |   |
+| ☑ | A065 | P2 | `horde-orc-female-mage-generic-leveling.jpg` 4367x3545 |  | Level Classes to 60: Orc Mage F: `allclasses` / `allclasses_orc_mage_female` | Verified |   |
 
 ### Batch 8
 
