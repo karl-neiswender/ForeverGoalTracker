@@ -1,5 +1,7 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
+assert(B:ResolveArt("key_brd") == "key_ubrs-banner.blp",
+    "Shadowforge Key keeps its existing Seal of Ascension image")
 do
     for _, entry in ipairs({
         {"masterwork_stormhammer", "masterwork_stormhammer-banner.blp"},
@@ -9,6 +11,8 @@ do
         {"staff_of_jordan", "staff_of_jordan-banner.blp"},
         {"wand_of_fates", "wand_of_fates-banner.blp"},
         {"att_bwl", "att_bwl-banner.blp"},
+        {"social_campfires", "social_campfires-banner.blp"},
+        {"mount_raptor", "mount_raptor-banner.blp"},
         {"viking_warhammer", "viking_warhammer-banner.blp"},
         {"barman_shanker", "barman_shanker-banner.blp"},
         {"claw_of_the_frost_wyrm", "claw_of_the_frost_wyrm-banner.blp"},
@@ -77,6 +81,21 @@ do
         "female Dwarf Hunter leveling uses her own approved art")
     assert(B:ResolveArt("allclasses", maleDwarf) == "allclasses_dwarf_hunter-banner.blp",
         "male Dwarf Hunter keeps the existing art")
+    for _, entry in ipairs({
+        {"PALADIN", 3, "allclasses_dwarf_paladin_female-banner.blp", true},
+        {"PRIEST", 3, "allclasses_dwarf_priest_female-banner.blp", true},
+        {"PRIEST", 2, "allclasses_dwarf_priest_male-banner.blp", true},
+        {"SHAMAN", 3, "allclasses_dwarf_shaman_female-banner.blp", true},
+        {"WARRIOR", 3, "allclasses_dwarf_warrior_female-banner.blp", true},
+        {"PALADIN", 2, "allclasses_dwarf_paladin-banner.blp"},
+        {"SHAMAN", 2, "allclasses_dwarf_shaman-banner.blp"},
+        {"WARRIOR", 2, "allclasses_dwarf_warrior-banner.blp"},
+    }) do
+        local path, aspect, preprocessed = B:ResolveArt("allclasses",
+            {faction="Alliance", class=entry[1], race="Dwarf", sex=entry[2]})
+        assert(path == entry[3] and (not entry[4] or (aspect == 4/3 and preprocessed)),
+            entry[1] .. " Dwarf sex " .. entry[2] .. " uses the correct leveling art")
+    end
     assert(B:ResolveArt("set_tier1_rogue", {faction="Alliance", class="ROGUE", race="Dwarf", sex=3})
         == "set_tier1_rogue_dwarf_female-banner.blp", "female Dwarf Rogue Nightslayer uses her own art")
     assert(B:ResolveArt("set_tier1_rogue", {faction="Alliance", class="ROGUE", race="Dwarf", sex=2})
@@ -751,8 +770,11 @@ do
         local pick = B:BestArtVariant(variants, {faction="Alliance", class="WARRIOR", race="NightElf", sex=sex})
         assert(pick and pick.path == "allclasses_nightelf_warrior_" .. suffix .. "-banner.blp", "Night Elf Warrior sex-specific banner")
     end
-    local dwarf = B:BestArtVariant(variants, {faction="Alliance", class="WARRIOR", race="Dwarf", sex=3})
-    assert(dwarf and dwarf.path == "allclasses_dwarf_warrior-banner.blp", "Night Elf sex variants preserve Dwarf artwork")
+    local dwarfFemale = B:BestArtVariant(variants, {faction="Alliance", class="WARRIOR", race="Dwarf", sex=3})
+    local dwarfMale = B:BestArtVariant(variants, {faction="Alliance", class="WARRIOR", race="Dwarf", sex=2})
+    assert(dwarfFemale and dwarfFemale.path == "allclasses_dwarf_warrior_female-banner.blp"
+        and dwarfMale and dwarfMale.path == "allclasses_dwarf_warrior-banner.blp",
+        "Night Elf sex variants preserve both Dwarf Warrior choices")
     local unknown = B:BestArtVariant(variants, {faction="Alliance", class="WARRIOR", race="NightElf"})
     assert(unknown and not unknown.sex, "missing saved sex keeps shared fallback")
 end

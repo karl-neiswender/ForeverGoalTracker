@@ -175,5 +175,45 @@
   "date": "2026-10-29",
   "note": "Karl confirmed rep_zandalar already uses raid_zg-banner.blp from the existing Hakkar image; no new A039 banner should be installed.",
   "state": "blocked"
+ },
+ "A040": {
+  "date": "2026-10-29",
+  "note": "Karl approved Batch 5 but confirmed Shadowforge Key already uses key_ubrs-banner.blp; no new A040 banner should be installed.",
+  "state": "blocked"
+ },
+ "A041": {
+  "banner": "social_campfires",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A042": {
+  "banner": "mount_raptor",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A043": {
+  "banner": "allclasses_dwarf_paladin_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A044": {
+  "banner": "allclasses_dwarf_priest_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A045": {
+  "banner": "allclasses_dwarf_priest_male",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A047": {
+  "banner": "allclasses_dwarf_shaman_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A048": {
+  "banner": "allclasses_dwarf_warrior_female",
+  "date": "2026-10-29",
+  "state": "installed"
  }
 }

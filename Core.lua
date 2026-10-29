@@ -5677,6 +5677,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="benediction-banner.blp", faction="Horde"},
         },
         allclasses = {
+            {path="allclasses_dwarf_paladin_female-banner.blp", faction="Alliance", class="PALADIN", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_dwarf_priest_female-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_dwarf_priest_male-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_dwarf_shaman_female-banner.blp", faction="Alliance", class="SHAMAN", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_dwarf_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_warlock_male-banner.blp", faction="Alliance", class="WARLOCK", race="Gnome", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_priest_male-banner.blp", faction="Horde", class="PRIEST", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_priest_female-banner.blp", faction="Horde", class="PRIEST", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
@@ -6131,12 +6136,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
-    for _, id in ipairs({"rep_zandalar", "mount_raptor"}) do
+    for _, id in ipairs({"rep_zandalar"}) do
         B.artPaths[id] = B.artPaths.raid_zg
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end
-    -- Place Campfires shows the Cooking campfire (its flame, snow and bloom are keyed by the image).
-    B.artPaths.social_campfires = "prof_cooking-banner.blp"
+    B.artPaths.mount_raptor = "mount_raptor-banner.blp"
+    B.artAspects.mount_raptor, B.preprocessed.mount_raptor = 4/3, true
+    -- Place Campfires uses its own campfire scene.
+    B.artPaths.social_campfires = "social_campfires-banner.blp"
     B.artPaths.social_friends = "social_friends-banner.blp"
     B.artPaths.social_cheers = "social_cheers-banner.blp"
     B.artPaths.social_waves = "social_waves-banner.blp"

@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 16 of 150 workable banners verified.** Queued 119, Installed 15, Verified 16, Blocked 3, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 16 of 149 workable banners verified.** Queued 111, Installed 22, Verified 16, Blocked 4, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 150 workable banners; P1 is 34, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 149 workable banners; P1 is 33, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -138,14 +138,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A040 | P1 | `location-blackrock-mountain-gates.jpg` 872x981 |  | Key: Shadowforge Key (both): `key_brd` / `key_brd` | Queued |  Today it borrows the Seal of Ascension image. The Dark Iron gate face suits the Shadowforge gate. Alt: location-blackrock-spire-2.jpg. |
-| ☐ | A041 | P1 | `alliance-dwarf-human-male-plate-campfire-2.jpg` 1024x1024 |  | Place Campfires (both): `social_campfires` / `social_campfires` | Queued | Karl's pick Karl's pick. Image of two plate-armored characters at a fire; goal inferred from the name. My earlier pick, now the alternate: goal-campfire.jpg. Today it borrows the Cooking image. Alt: alliance-dwarf-human-male-plate-campfire.jpg (two characters at a fire). |
-| ☐ | A042 | P1 | `mount-raptor.jpg` 1520x1190 |  | Swift Razzashi Raptor (both): `mount_raptor` / `mount_raptor` | Queued |  Today it borrows the Clear Zul'Gurub image. Not mount-swift-raptor.jpg, which is the Troll epic mount banner. |
-| ☐ | A043 | P2 | `alliance-dwarf-female-paladin-generic-leveling.jpg` 1050x1400 | `alliance-dwarf-female-warrior-paladin-generic-leveling.jpg` | Level Classes to 60: Dwarf Paladin F: `allclasses` / `allclasses_dwarf_paladin_female` | Queued |   |
-| ☐ | A044 | P2 | `alliance-dwarf-female-priest-generic-leveling-3.jpg` 1280x1700 | `alliance-dwarf-female-priest-generic-leveling-2.jpg` | Level Classes to 60: Dwarf Priest F: `allclasses` / `allclasses_dwarf_priest_female` | Queued |   |
-| ☐ | A045 | P2 | `alliance-dwarf-male-priest-leveling.jpg` 4642x3756 | `alliance-dwarf-male-priest-tier3.png` | Level Classes to 60: Dwarf Priest M: `allclasses` / `allclasses_dwarf_priest_male` | Queued |   |
-| ☐ | A047 | P2 | `alliance-dwarf-female-shaman-generic.jpg` 1800x1461 |  | Level Classes to 60: Dwarf Shaman F: `allclasses` / `allclasses_dwarf_shaman_female` | Queued |   |
-| ☐ | A048 | P2 | `alliance-dwarf-female-warrior-paladin-generic-leveling-2.jpg` 798x1024 | `alliance-dwarf-female-warrior-paladin-generic-leveling.jpg` | Level Classes to 60: Dwarf Warrior F: `allclasses` / `allclasses_dwarf_warrior_female` | Queued |   |
+| ☐ | A040 | P1 | `location-blackrock-mountain-gates.jpg` 872x981 |  | Key: Shadowforge Key (both): `key_brd` / `key_brd` | Blocked |  Today it borrows the Seal of Ascension image. The Dark Iron gate face suits the Shadowforge gate. Alt: location-blackrock-spire-2.jpg. |
+| ☐ | A041 | P1 | `alliance-dwarf-human-male-plate-campfire-2.jpg` 1024x1024 |  | Place Campfires (both): `social_campfires` / `social_campfires` | Installed | Karl's pick Karl's pick. Image of two plate-armored characters at a fire; goal inferred from the name. My earlier pick, now the alternate: goal-campfire.jpg. Today it borrows the Cooking image. Alt: alliance-dwarf-human-male-plate-campfire.jpg (two characters at a fire). |
+| ☐ | A042 | P1 | `mount-raptor.jpg` 1520x1190 |  | Swift Razzashi Raptor (both): `mount_raptor` / `mount_raptor` | Installed |  Today it borrows the Clear Zul'Gurub image. Not mount-swift-raptor.jpg, which is the Troll epic mount banner. |
+| ☐ | A043 | P2 | `alliance-dwarf-female-paladin-generic-leveling.jpg` 1050x1400 | `alliance-dwarf-female-warrior-paladin-generic-leveling.jpg` | Level Classes to 60: Dwarf Paladin F: `allclasses` / `allclasses_dwarf_paladin_female` | Installed |   |
+| ☐ | A044 | P2 | `alliance-dwarf-female-priest-generic-leveling-3.jpg` 1280x1700 | `alliance-dwarf-female-priest-generic-leveling-2.jpg` | Level Classes to 60: Dwarf Priest F: `allclasses` / `allclasses_dwarf_priest_female` | Installed |   |
+| ☐ | A045 | P2 | `alliance-dwarf-male-priest-leveling.jpg` 4642x3756 | `alliance-dwarf-male-priest-tier3.png` | Level Classes to 60: Dwarf Priest M: `allclasses` / `allclasses_dwarf_priest_male` | Installed |   |
+| ☐ | A047 | P2 | `alliance-dwarf-female-shaman-generic.jpg` 1800x1461 |  | Level Classes to 60: Dwarf Shaman F: `allclasses` / `allclasses_dwarf_shaman_female` | Installed |   |
+| ☐ | A048 | P2 | `alliance-dwarf-female-warrior-paladin-generic-leveling-2.jpg` 798x1024 | `alliance-dwarf-female-warrior-paladin-generic-leveling.jpg` | Level Classes to 60: Dwarf Warrior F: `allclasses` / `allclasses_dwarf_warrior_female` | Installed |   |
 
 ### Batch 6
 
@@ -342,6 +342,7 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A023 | Skipped (low-res) | `item-wall-of-the-dead.jpg` | 200x279 | Wall of the Dead  |
 | A026 | Skipped (low-res) | `weapon-doomfinger-wand.jpg` | 348x310 | Doomfinger  |
 | A039 | Blocked | `boss-hakkar.jpg` | 2500x3277 | Exalted: Zandalar Tribe (both) Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence. |
+| A040 | Blocked | `location-blackrock-mountain-gates.jpg` | 872x981 | Key: Shadowforge Key (both) Today it borrows the Seal of Ascension image. The Dark Iron gate face suits the Shadowforge gate. Alt: location-blackrock-spire-2.jpg. |
 | A046 | Skipped (low-res) | `alliance-dwarf-female-rogue-tier1.jpg` | 312x440 | Level Classes to 60: Dwarf Rogue F  |
 | A059 | Skipped (low-res) | `alliance-nightelf-male-druid-generic.jpg` | 200x279 | Level Classes to 60: Night Elf Druid M  |
 | A074 | Skipped (low-res) | `horde-tauren-female-druid-leather-leveling-generic.jpg` | 312x440 | Level Classes to 60: Tauren Druid F  |

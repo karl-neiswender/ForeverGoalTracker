@@ -119,6 +119,8 @@ its October 21 notes.
 
 - Art batch 4 (2026-10-29): Karl approved A032 through A038; seven banners installed, including the A035 card art he confirmed. A039 needs no new banner because Exalted: Zandalar Tribe already shares the Hakkar raid_zg banner. Claude verification and full-restart native review remain pending.
 
+- Art batch 5 (2026-10-29): Karl approved A041, A042, A043, A044, A045, A047 and A048; seven banners installed. A040 needs no new banner because Shadowforge Key already uses the key_ubrs image. Claude verification and full-restart native review remain pending.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,
