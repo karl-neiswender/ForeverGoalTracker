@@ -240,37 +240,44 @@
  "A049": {
   "banner": "allclasses_gnome_mage_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed 2026-10-29",
+  "state": "verified"
  },
  "A050": {
   "banner": "allclasses_gnome_priest_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed 2026-10-29",
+  "state": "verified"
  },
  "A051": {
   "banner": "allclasses_skyborne_mage_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed 2026-10-29",
+  "state": "verified"
  },
  "A052": {
   "banner": "allclasses_human_mage_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed 2026-10-29",
+  "state": "verified"
  },
  "A053": {
   "banner": "allclasses_human_mage_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed 2026-10-29",
+  "state": "verified"
  },
  "A054": {
   "banner": "allclasses_human_priest_female",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed 2026-10-29",
+  "state": "verified"
  },
  "A055": {
   "banner": "allclasses_human_priest_male",
   "date": "2026-10-29",
-  "state": "installed"
+  "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed 2026-10-29",
+  "state": "verified"
  },
  "A056": {
   "date": "2026-10-29",
