@@ -1965,5 +1965,61 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "black_amnesty": {
+    "source": "black_amnesty-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "brain_hacker": {
+    "source": "brain_hacker-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "cloak_of_flames": {
+    "source": "cloak_of_flames-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "cloak_of_the_shrouded_mists": {
+    "source": "cloak_of_the_shrouded_mists-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "cold_forged_hammer": {
+    "source": "cold_forged_hammer-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "crackling_staff": {
+    "source": "crackling_staff-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "crown_of_the_ogre_king": {
+    "source": "crown_of_the_ogre_king-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_dance_partners": {
+    "source": "social_dance_partners-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

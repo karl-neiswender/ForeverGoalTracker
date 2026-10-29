@@ -1,1 +1,42 @@
-{}
+{
+ "A001": {
+  "banner": "black_amnesty",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A003": {
+  "banner": "brain_hacker",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A004": {
+  "banner": "cloak_of_flames",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A005": {
+  "banner": "cloak_of_the_shrouded_mists",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A006": {
+  "banner": "cold_forged_hammer",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A007": {
+  "banner": "crackling_staff",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A009": {
+  "banner": "crown_of_the_ogre_king",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A010": {
+  "banner": "social_dance_partners",
+  "date": "2026-10-29",
+  "state": "installed"
+ }
+}

@@ -1,6 +1,24 @@
 local F, D = STUB_NS, ForeverGoalTrackerDB
 local B = F.goalBanner
 do
+    for _, entry in ipairs({
+        {"black_amnesty", "black_amnesty-banner.blp"},
+        {"brain_hacker", "brain_hacker-banner.blp"},
+        {"cloak_of_flames", "cloak_of_flames-banner.blp"},
+        {"cloak_of_the_shrouded_mists", "cloak_of_the_shrouded_mists-banner.blp"},
+        {"cold_forged_hammer", "cold_forged_hammer-banner.blp"},
+        {"crackling_staff", "crackling_staff-banner.blp"},
+        {"crown_of_the_ogre_king", "crown_of_the_ogre_king-banner.blp"},
+        {"social_dance_partners", "social_dance_partners-banner.blp"},
+    }) do
+        local goal, path = entry[1], entry[2]
+        local context = {faction="Alliance", class="MAGE", race="Human", sex=2}
+        local resolved, aspect, preprocessed = B:ResolveArt(goal, context)
+        assert(F.GoalById(goal) and resolved == path and aspect == 4/3 and preprocessed,
+            goal .. " uses its approved banner")
+    end
+end
+do
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="Human", sex=2})
         == "allclasses_human_rogue_male-banner.blp", "male Human Rogue leveling uses approved art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="Human", sex=3})

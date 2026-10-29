@@ -5781,6 +5781,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.wand_of_biting_cold = {{path="wand_of_biting_cold-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.mass_of_mcgowan = {{path="mass_of_mcgowan-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.twig_of_the_world_tree = {{path="twig_of_the_world_tree-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.black_amnesty = {{path="black_amnesty-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.brain_hacker = {{path="brain_hacker-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.cloak_of_flames = {{path="cloak_of_flames-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.cloak_of_the_shrouded_mists = {{path="cloak_of_the_shrouded_mists-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.cold_forged_hammer = {{path="cold_forged_hammer-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.crackling_staff = {{path="crackling_staff-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true}}
+    B.artVariants.crown_of_the_ogre_king = {{path="crown_of_the_ogre_king-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.social_dance_partners = {{path="social_dance_partners-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.core_hound_tooth = {{path="core_hound_tooth-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.bloodseeker = {{path="bloodseeker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.blackcrow = {{path="blackcrow-banner.blp", aspect=4/3, preprocessed=true}}

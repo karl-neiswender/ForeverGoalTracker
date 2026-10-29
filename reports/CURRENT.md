@@ -110,7 +110,8 @@ its October 21 notes.
   `reports/art-plan/status.json`, changed only through `tools/art-plan.py`; the page rebuilds with `art-plan.py build`.
   [Goal-art-checklist.html](Goal-art-checklist.html) stays the record of what is installed and mapped: it now has rows for
   the 15 new Library goals and shows each planned source image; update it per banner as `reports/reference/artwork.md` says.
-  Nothing from the plan is installed yet.
+
+- Art batch 1 (2026-10-29): Karl approved A001, A003, A004, A005, A006, A007, A009 and A010; eight banners installed and synced to Era, with checklist and Lua checks updated. Claude verification and full-restart native review remain pending.
 
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared

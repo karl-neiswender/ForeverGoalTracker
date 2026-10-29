@@ -1180,7 +1180,8 @@ do
     Wear(warSet, { [1] = 16866, [3] = 16868, [5] = 16865, [16] = 19323 })
     assert(B:ResolveArt(warSet.id) == B:OwnArt("unstoppable_force", warrior), "The Unstoppable Force now shows its own weapon art")
     Wear(warSet, { [1] = 16866, [3] = 16868, [5] = 16865, [16] = 20648 })
-    assert(B:ResolveArt(warSet.id) == mightArt, "a weapon with only shared art falls back to the armor set")
+    assert(B:ResolveArt(warSet.id) == B:OwnArt("cold_forged_hammer", warrior),
+        "Cold Forged Hammer now shows its own weapon art")
     Wear(warSet, {})
     local eyebrow = F.GoalEyebrow(dwarfSet, true)
     assert(eyebrow:find("^GEAR SET") and eyebrow:find("DWARFHUNT", 1, true), "the card says it is that character's gear set: " .. eyebrow)
