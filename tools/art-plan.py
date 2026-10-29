@@ -533,6 +533,9 @@ def thumb(f, cache={}):
     return cache[f]
 
 
+PAGE_SCRIPT = "<script>(function(){var k='artplan-batches',st={};try{st=JSON.parse(localStorage.getItem(k)||'{}')}catch(e){}var ds=document.querySelectorAll('details.batch');ds.forEach(function(d){var b=d.dataset.b;if(b in st){d.open=!!st[b]}var sm=d.querySelector('summary');sm.addEventListener('click',function(){setTimeout(function(){st[b]=d.open;try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}},0)})});document.getElementById('collapseDone').onclick=function(){ds.forEach(function(d){if(d.dataset.done==='1'){d.open=false;st[d.dataset.b]=false}});try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}};document.getElementById('expandAll').onclick=function(){ds.forEach(function(d){d.open=true;st[d.dataset.b]=true});try{localStorage.setItem(k,JSON.stringify(st))}catch(e){}};})();</script>"
+
+
 def build():
     plan, status = load()
     rows = plan["rows"]
@@ -601,6 +604,7 @@ def build():
          ".st{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.78rem;font-weight:600;border:1px solid var(--line)}"
          ".st.verified{background:var(--ok);color:#fff;border-color:var(--ok)}.st.installed,.st.approved{color:var(--ok);border-color:var(--ok)}.st.review{color:var(--info);border-color:var(--info)}"
          ".st.rejected,.st.blocked{color:var(--bad);border-color:var(--bad)}.st.skipped_lowres{color:var(--warn);border-color:var(--warn)}"
+         "details.batch{margin:10px 0}details.batch>summary{cursor:pointer;font-size:1.05rem;padding:6px 2px;list-style:revert}button{font:inherit;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer}"
          "tr.skip{background:rgba(192,57,43,.10)}.f{font-size:.82rem;color:var(--muted)}.tg{font-size:.85rem}"
          "</style></head><body><main>"]
     H.append(f"<h1>Art matching plan and work order</h1><p class='sub'>Built {today} {now}; this page reloads itself every 30 seconds. Locked by Karl on 2026-10-29 (commit 5abd851). Companion to "
@@ -624,8 +628,16 @@ def build():
         else:
             H.append("<ol>" + "".join(f"<li>{md_inline(x)}</li>" for x in val) + "</ol>")
     H.append("</div><h2>Work queue</h2><p class='sub'>☑ means verified by Claude. Batches go in order. A row keeps its id for good.</p>")
+    H.append("<p><button id='collapseDone'>Collapse completed batches</button> <button id='expandAll'>Expand all</button></p>")
     for b in sorted({r["batch"] for r in rows if r["batch"]}):
-        H.append(f"<h3 id='batch{b}'>Batch {b}</h3><table><thead><tr><th></th><th>Id</th><th>Source image</th><th>Targets (goal / key)</th><th>State</th><th>Notes</th></tr></thead><tbody>")
+        brows = [r for r in rows if r["batch"] == b]
+        bdone = sum(1 for r in brows if state_of(r, status) == "verified")
+        bclosed = sum(1 for r in brows if state_of(r, status) in ("blocked", "skipped_lowres"))
+        finished = bdone + bclosed == len(brows)
+        note = f" ({bclosed} blocked)" if bclosed else ""
+        badge = f"<span class='st verified'>done{note}</span>" if finished else f"<span class='st'>{bdone} of {len(brows)} verified</span>"
+        H.append(f"<details class='batch' id='batch{b}' data-b='{b}' data-done='{1 if finished else 0}'{'' if finished else ' open'}><summary><b>Batch {b}</b> {badge}</summary>"
+                 "<table><thead><tr><th></th><th>Id</th><th>Source image</th><th>Targets (goal / key)</th><th>State</th><th>Notes</th></tr></thead><tbody>")
         for r in [r for r in rows if r["batch"] == b]:
             s = state_of(r, status)
             tg = "".join(f"<div class='tg'>{html.escape(t['label'])}<div class='f'><code>{html.escape(str(t.get('goal')))}</code> / <code>{html.escape(t['key'] or '')}</code></div></div>" for t in r["targets"])
@@ -634,7 +646,7 @@ def build():
             H.append(f"<tr><td>{'☑' if s == 'verified' else '☐'}</td><td><b>{r['id']}</b><div class='f'>P{r['priority']}</div></td><td class='i'>"
                      f"{('<img src=\"' + thumb(r['file']) + '\" alt=\"\">') if thumb(r['file']) else ''}<div class='fn'>{html.escape(r['file'])} ({r['w']}x{r['h']})</div>{alt}</td>"
                      f"<td>{tg}</td><td><span class='st {s}'>{LABEL[s]}</span></td><td class='f'>{html.escape(fl)} {html.escape(r['notes'])}</td></tr>")
-        H.append("</tbody></table>")
+        H.append("</tbody></table></details>")
     H.append("<h2>Skipped or blocked: Codex, do not touch</h2><p class='sub'>Karl: find a larger copy of each low-res file, then <code>python tools/art-plan.py swap &lt;id&gt; &lt;newfile&gt;</code>.</p>"
              "<table><thead><tr><th>Id</th><th>Source image</th><th>State</th><th>Slots</th></tr></thead><tbody>")
     for r in skipped:
@@ -646,7 +658,8 @@ def build():
     H.append("<h2>Source files that still need the naming convention</h2><p class='sub'>Not renamed. Karl renames these himself.</p><table><tbody>" +
              "".join(f"<tr><td><code>{html.escape(k)}</code></td><td><code>{html.escape(v)}</code></td></tr>" for k, v in plan["renames"].items()) + "</tbody></table>")
     H.append(f"<h2>Idea: leveling art that follows the character's level</h2><p>Not started. Of {st['tot']} race, class and sex slots the folder has art for stage 1 on {st['cov'][0]}, stage 2 on {st['cov'][1]}, "
-             f"stage 3 on {st['cov'][2]}, and all three on {len(st['full'])}. Decide after Nov 4.</p></main></body></html>")
+             f"stage 3 on {st['cov'][2]}, and all three on {len(st['full'])}. Decide after Nov 4.</p>")
+    H.append(PAGE_SCRIPT + "</main></body></html>")
     HTML.write_text("".join(H), encoding="utf-8", newline="\n")
     print("wrote", MD.relative_to(root), f"({MD.stat().st_size} bytes) and", HTML.relative_to(root), f"({HTML.stat().st_size} bytes)")
     return 0
