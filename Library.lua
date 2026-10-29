@@ -2472,6 +2472,32 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19348, checked 2026-10-29: epic Bind on Pickup shield, item level 74, requires level
+        -- 60, 2787 armor, 51 block, +6 Stamina, +17 Intellect, +6 Spirit, equip: +37 healing. Dropped by
+        -- Vaelastrasz the Corrupt (creature 13020) in Blackwing Lair (GearSources agrees); Wowhead's sample is 1
+        -- drop in 16 kills, too small for a rate. It is a healer's shield, and the comments name Paladins and
+        -- Shamans as its users, so the class list is those two, not Warriors. Not in Forever's tables yet, so not
+        -- marked confirmed.
+        id = "red_dragonscale_protector", library = true, itemQuality = 4, instance = { 469, "Blackwing Lair" },
+        icon = "inv_shield_20",
+        name = "Red Dragonscale Protector",
+        short = "Dragonscale Shield",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A healer's shield dropped by Vaelastrasz the Corrupt in Blackwing Lair.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Red Dragonscale Protector from Vaelastrasz the Corrupt in Blackwing Lair.", auto = { item = 19348, owned = { "Red Dragonscale Protector" } } },
+        },
+        completeWith = { item = 19348, owned = { "Red Dragonscale Protector" } },
+        tips = {
+            "Defeat Vaelastrasz the Corrupt in {raid_bwl:Blackwing Lair} for a chance at {item:19348:Red Dragonscale Protector}.",
+            "It binds when picked up. It adds 6 Stamina, 17 Intellect, 6 Spirit and up to 37 healing, with 2787 armor and 51 block.",
+            "Paladins and Shamans can use a shield, and players call this one a healer's shield for them. Learn Shield before equipping it.",
+        },
+    },
+
+    {
         -- Item 13044: rare (blue) Bind on Equip two-hand sword, item level 57, requires level 52, equip: +99
         -- attack power against Demons. A world drop: 711 creatures are listed, no boss, the best chance 0.1%
         -- from Darkmaster Gandling in Scholomance, plus three chests at 0.01% (warcraftdb). Not in Forever's

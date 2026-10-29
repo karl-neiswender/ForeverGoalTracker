@@ -82,6 +82,7 @@ FGT.GOAL_CLASSES = {
     masterwork_stormhammer = ONE_HAND_MACE,
     hand_of_edward_the_odd = ONE_HAND_MACE,
     staff_of_jordan = { "WARRIOR", "HUNTER", "PRIEST", "SHAMAN", "DRUID", "MAGE", "WARLOCK" }, -- staff users
+    red_dragonscale_protector = { "PALADIN", "SHAMAN" }, -- healer shield
     immovable_object = SHIELD,
     wall_of_the_dead = SHIELD,
     skullflame_shield = SHIELD,
