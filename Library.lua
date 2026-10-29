@@ -800,6 +800,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19853, checked 2026-10-29: epic Bind on Pickup, Unique gun, item level 68, requires
+        -- level 60, 76 to 142 damage, speed 2.80, equip: +30 attack power. Dropped by Hakkar (creature 14834) in
+        -- Zul'Gurub (GearSources agrees); Wowhead gives no drop chance. Not in Forever's tables yet, so not marked
+        -- confirmed.
+        id = "gurubashi_dwarf_destroyer", library = true, itemQuality = 4, instance = { 309, "Zul'Gurub" },
+        icon = "inv_weapon_rifle_10",
+        name = "Gurubashi Dwarf Destroyer",
+        short = "Dwarf Destroyer",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A gun dropped by Hakkar in Zul'Gurub.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Gurubashi Dwarf Destroyer from Hakkar in Zul'Gurub.", auto = { item = 19853, owned = { "Gurubashi Dwarf Destroyer" } } },
+        },
+        completeWith = { item = 19853, owned = { "Gurubashi Dwarf Destroyer" } },
+        tips = {
+            "Defeat Hakkar, the last boss of {raid_zg:Zul'Gurub}, for a chance at {item:19853:Gurubashi Dwarf Destroyer}.",
+            "It binds when picked up and is Unique. It adds 30 attack power.",
+            "Warriors, Hunters and Rogues can use a gun. Learn Guns before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 7723, checked 2026-10-25: rare (blue) Bind on Pickup two-hand mace, item level
         -- 44, requires level 39, +17 Stamina, +16 Spirit. Dropped by Scarlet Commander Mograine in the Scarlet
         -- Monastery Cathedral (GearSources lists Mograine and High Inquisitor Whitemane; Wowhead lists
@@ -2514,6 +2538,69 @@ local library = {
             "The recipe comes from a Blacksmithing trainer once you have the Weaponsmith specialization and 235 skill. Check your trainer for the exact skill.",
             "You craft it with a Blacksmith Hammer at an anvil. It binds when equipped, so you can also buy one on the Auction House.",
             "Its chance on hit disarms the target's weapon for 10 seconds. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 7961 and spell 10007, checked 2026-10-29: rare (blue) Bind on Equip one-hand sword,
+        -- item level 49, requires level 44, 59 to 111 damage, speed 2.60, chance on hit lowers the target's armor
+        -- by 100 for 20 sec and stops it stealthing or turning invisible. Crafted at an anvil with Blacksmithing
+        -- 245 (Wowhead; no specialization is listed). Wowhead's "Taught by" lists three trainers: Borgosh
+        -- Corebender and Kelgruk Bloodaxe in Orgrimmar, Ironus Coldsteel in Ironforge; training cost 1 gold
+        -- 35 silver. Reagents (GearData agrees): 28 Mithril Bar, 8 Truesilver Bar, 6 Breath of Wind, 6 Aquamarine,
+        -- 2 Lesser Invisibility Potion, 4 Solid Grinding Stone, 2 Thick Leather. Needs a Blacksmith Hammer.
+        -- Forever: named in its tables, not confirmed.
+        id = "phantom_blade", library = true, itemQuality = 3,
+        icon = "inv_sword_40",
+        name = "Phantom Blade",
+        short = "Phantom Blade",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Weeks",
+        note = "A one-handed sword made by a Blacksmith. It needs Blacksmithing 245 and a lot of Mithril and Truesilver.",
+        steps = {
+            { text = "Reach level 44.", auto = { level = 44 } },
+            { text = "Reach Blacksmithing 245.", auto = { skill = { name = "Blacksmithing", rank = 245 } } },
+            { text = "Learn Phantom Blade from a Blacksmithing trainer." },
+            { text = "Gather 28 Mithril Bars.", auto = { item = 3860, count = 28 } },
+            { text = "Gather 8 Truesilver Bars.", auto = { item = 6037, count = 8 } },
+            { text = "Gather 6 Breath of Wind.", auto = { item = 7081, count = 6 } },
+            { text = "Gather 6 Aquamarine.", auto = { item = 7909, count = 6 } },
+            { text = "Gather 2 Lesser Invisibility Potions.", auto = { item = 3823, count = 2 } },
+            { text = "Gather 4 Solid Grinding Stones.", auto = { item = 7966, count = 4 } },
+            { text = "Gather 2 Thick Leather.", auto = { item = 4304, count = 2 } },
+            { text = "Craft Phantom Blade at an anvil.", auto = { item = 7961, owned = { "Phantom Blade" } } },
+        },
+        completeWith = { item = 7961, owned = { "Phantom Blade" } },
+        tips = {
+            "Wowhead lists Borgosh Corebender and Kelgruk Bloodaxe in Orgrimmar and Ironus Coldsteel in Ironforge as the trainers. Learning it costs about 1 gold 35 silver.",
+            "You craft it with a Blacksmith Hammer at an anvil. It binds when equipped, so you can also buy one on the Auction House.",
+            "Players say Breath of Wind is the hardest reagent to find.",
+            "Its chance on hit lowers the target's armor by 100 for 20 seconds and keeps it from stealthing or turning invisible. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
+        },
+    },
+
+    {
+        -- Wowhead Classic item 5191, checked 2026-10-29: rare (blue) Bind on Pickup one-hand sword, item level 24,
+        -- requires level 19, 30 to 57 damage, speed 2.80, equip: +12 attack power. Dropped by Edwin VanCleef
+        -- (creature 639) in the Deadmines (GearSources agrees); Wowhead gives no drop chance and its comments are
+        -- anecdotes (about 10 runs is typical, some players report far more). Not in Forever's tables yet, so
+        -- not marked confirmed.
+        id = "cruel_barb", library = true, itemQuality = 3, instance = { 36, "The Deadmines" },
+        icon = "inv_sword_24",
+        name = "Cruel Barb",
+        short = "Cruel Barb",
+        category = "Rare Weapon", difficulty = "Moderate",
+        timeEstimate = "Varies",
+        note = "A one-handed sword dropped by Edwin VanCleef in the Deadmines.",
+        steps = {
+            { text = "Reach level 19.", auto = { level = 19 } },
+            { text = "Loot Cruel Barb from Edwin VanCleef in the Deadmines.", auto = { item = 5191, owned = { "Cruel Barb" } } },
+        },
+        completeWith = { item = 5191, owned = { "Cruel Barb" } },
+        tips = {
+            "Defeat Edwin VanCleef, the last boss of the Deadmines, for a chance at {item:5191:Cruel Barb} {map:deadmines:Show on map}. Wowhead lists no drop chance, and players report anything from a few runs to dozens.",
+            "It binds when picked up. It adds 12 attack power.",
+            "Players love it as an early weapon, and Rogues and Warriors often carry two. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
         },
     },
 
