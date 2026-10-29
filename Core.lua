@@ -5677,6 +5677,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="benediction-banner.blp", faction="Horde"},
         },
         allclasses = {
+            {path="allclasses_gnome_warlock_male-banner.blp", faction="Alliance", class="WARLOCK", race="Gnome", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_priest_male-banner.blp", faction="Horde", class="PRIEST", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_priest_female-banner.blp", faction="Horde", class="PRIEST", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_human_rogue_female-banner.blp", faction="Alliance", class="ROGUE", race="Human", sex=3, aspect=4/3, preprocessed=true},
@@ -7646,6 +7647,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
+        ["allclasses_gnome_warlock_male-banner.blp"] = "Phil Gonzales",
         ["allclasses_undead_priest_male-banner.blp"] = "Bob Larkin",
         ["allclasses_undead_priest_female-banner.blp"] = "Triston Elwell",
         ["allclasses_human_hunter_male-banner.blp"] = "Jim Nelson",
