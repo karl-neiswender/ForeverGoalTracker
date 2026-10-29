@@ -74,9 +74,9 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is the limit, not generation. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 151 workable banners; P1 is 35, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 151 workable banners; P1 is 35, P2 is 46, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
-**Open decision for Karl:** clean paintings (not card scans, 700 px or more) could get a deterministic crop, grayscale and baked gradients instead of an imagegen edit, which is faster and cannot change the art. 59 workable images qualify. Default: use imagegen as the skill says; switch only if Karl approves that approach on a pilot batch.
+**Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
 ## Work queue
 
