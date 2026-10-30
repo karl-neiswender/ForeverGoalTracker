@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 82 of 133 workable banners verified.** Queued 51, Verified 82, Blocked 20, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 82 of 132 workable banners verified.** Queued 50, Verified 82, Blocked 21, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 133 workable banners; P1 is 33, P2 is 44, P3 is 48. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 132 workable banners; P1 is 33, P2 is 44, P3 is 47. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -235,7 +235,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A104 | P3 | `horde-orc-female-hunter-tier2-rhokdalar.png` 745x1040 |  | Tier 2 Hunter H F: `set_tier2_hunter` / `set_tier2_hunter_orc_female` | Queued | card scan, crop first  |
 | ☐ | A105 | P3 | `alliance-human-female-mage-tier2.jpg` 1238x1437 |  | Tier 2 Mage A F: `set_tier2_mage` / `set_tier2_mage_human_female` | Queued |   |
 | ☐ | A106 | P3 | `alliance-nightelf-female-priest-tier2-shadow.jpg` 4000x3259 | `alliance-human-female-priest-tier2.jpg` | Tier 2 Priest A F: `set_tier2_priest` / `set_tier2_priest_nightelf_female` | Queued |   |
-| ☐ | A107 | P3 | `alliance-human-male-rogue-tier2-2.jpg` 747x600 | `alliance-dwarf-male-rogue-tier2.jpg` | Tier 2 Rogue A M: `set_tier2_rogue` / `set_tier2_rogue_human_male` | Queued |   |
+| ☐ | A107 | P3 | `alliance-human-male-rogue-tier2-2.jpg` 747x600 | `alliance-dwarf-male-rogue-tier2.jpg` | Tier 2 Rogue A M: `set_tier2_rogue` / `set_tier2_rogue_human_male` | Blocked |   |
 | ☐ | A108 | P3 | `horde-orc-female-shaman-tier2-2.png` 745x1040 |  | Tier 2 Shaman H F: `set_tier2_shaman` / `set_tier2_shaman_orc_female` | Queued | card scan, crop first  |
 
 ### Batch 13
@@ -353,6 +353,7 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A097 | Blocked | `horde-tauren-female-priest-shadow-tier1.png` | 745x1040 | Tier 1 Priest H F  |
 | A102 | Blocked | `horde-tauren-female-druid-tier2.jpg` | 862x1200 | Tier 2 Druid H F  |
 | A103 | Skipped (low-res) | `alliance-nightelf-male-hunter-tier2-2.jpg` | 312x440 | Tier 2 Hunter A M  |
+| A107 | Blocked | `alliance-human-male-rogue-tier2-2.jpg` | 747x600 | Tier 2 Rogue A M  |
 | A110 | Blocked | `alliance-nightelf-female-warrior-tier2.jpg` | 1024x1365 | Tier 2 Warrior A F  |
 | A119 | Blocked | `horde-orc-male-shaman-tier3-2.jpg` | 1280x749 | Tier 3 Shaman H M  |
 | A126 | Skipped (low-res) | `alliance-human-male-paladin-dungeonset-2.jpg` | 220x308 | Dungeon Set 1 Paladin A  |
