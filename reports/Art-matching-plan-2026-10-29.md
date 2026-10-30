@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 76 of 133 workable banners verified.** Queued 51, Installed 6, Verified 76, Blocked 20, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 82 of 133 workable banners verified.** Queued 51, Verified 82, Blocked 20, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -216,14 +216,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A092 | P2 | `horde-undead-male-warrior-paladin-generic-leveling.jpg` 2500x3333 | `horde-undead-male-warrior-leveling-generic-pvp.jpg` | Level Classes to 60: Undead Warrior M: `allclasses` / `allclasses_undead_warrior_male`<br>Level Classes to 60: Undead Paladin M: `allclasses` / `allclasses_undead_warrior_male` | Installed | Karl's pick replacement proposal: slot already has art |
-| ☐ | A093 | P3 | `alliance-nightelf-female-druid-tier1-2.png` 745x1040 |  | Tier 1 Druid A F: `set_tier1_druid` / `set_tier1_druid_nightelf_female` | Installed | card scan, crop first  |
-| ☐ | A094 | P3 | `horde-tauren-druid-female-tier1.png` 745x1040 | `horde-tauren-female-druid-tier1-2.png` | Tier 1 Druid H F: `set_tier1_druid` / `set_tier1_druid_tauren_female` | Installed | card scan, crop first  |
-| ☐ | A095 | P3 | `alliance-human-female-hunter-tier1.png` 745x1040 |  | Tier 1 Hunter A F: `set_tier1_hunter` / `set_tier1_hunter_human_female` | Installed | card scan, crop first  |
+| ☑ | A092 | P2 | `horde-undead-male-warrior-paladin-generic-leveling.jpg` 2500x3333 | `horde-undead-male-warrior-leveling-generic-pvp.jpg` | Level Classes to 60: Undead Warrior M: `allclasses` / `allclasses_undead_warrior_male`<br>Level Classes to 60: Undead Paladin M: `allclasses` / `allclasses_undead_warrior_male` | Verified | Karl's pick replacement proposal: slot already has art |
+| ☑ | A093 | P3 | `alliance-nightelf-female-druid-tier1-2.png` 745x1040 |  | Tier 1 Druid A F: `set_tier1_druid` / `set_tier1_druid_nightelf_female` | Verified | card scan, crop first  |
+| ☑ | A094 | P3 | `horde-tauren-druid-female-tier1.png` 745x1040 | `horde-tauren-female-druid-tier1-2.png` | Tier 1 Druid H F: `set_tier1_druid` / `set_tier1_druid_tauren_female` | Verified | card scan, crop first  |
+| ☑ | A095 | P3 | `alliance-human-female-hunter-tier1.png` 745x1040 |  | Tier 1 Hunter A F: `set_tier1_hunter` / `set_tier1_hunter_human_female` | Verified | card scan, crop first  |
 | ☐ | A096 | P3 | `alliance-human-male-priest-benediction-tier1.jpg` 862x1000 |  | Tier 1 Priest A M: `set_tier1_priest` / `set_tier1_priest_human_male` | Blocked |   |
 | ☐ | A097 | P3 | `horde-tauren-female-priest-shadow-tier1.png` 745x1040 | `horde-undead-female-priest-tier1-2.jpg` | Tier 1 Priest H F: `set_tier1_priest` / `set_tier1_priest_tauren_female` | Blocked | card scan, crop first  |
-| ☐ | A098 | P3 | `alliance-human-female-rogue-tier1.png` 745x1040 |  | Tier 1 Rogue A F: `set_tier1_rogue` / `set_tier1_rogue_human_female` | Installed | card scan, crop first  |
-| ☐ | A099 | P3 | `h-orc-female-shaman-tier1-hero.png` 745x1040 | `horde-orc-female-shaman-tier1.jpg` | Tier 1 Shaman H F: `set_tier1_shaman` / `set_tier1_shaman_orc_female` | Installed | card scan, crop first  |
+| ☑ | A098 | P3 | `alliance-human-female-rogue-tier1.png` 745x1040 |  | Tier 1 Rogue A F: `set_tier1_rogue` / `set_tier1_rogue_human_female` | Verified | card scan, crop first  |
+| ☑ | A099 | P3 | `h-orc-female-shaman-tier1-hero.png` 745x1040 | `horde-orc-female-shaman-tier1.jpg` | Tier 1 Shaman H F: `set_tier1_shaman` / `set_tier1_shaman_orc_female` | Verified | card scan, crop first  |
 
 ### Batch 12
 
