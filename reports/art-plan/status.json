@@ -413,10 +413,47 @@
   "date": "2026-10-29",
   "state": "verified"
  },
+ "A083": {
+  "banner": "allclasses_troll_rogue_female",
+  "date": "2026-10-29",
+  "note": "Karl approved v3 from the original draft with only the eyepatch band corrected; v1 and v2 retained.",
+  "state": "installed"
+ },
  "A084": {
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A085": {
+  "banner": "allclasses_troll_warlock_male",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A086": {
+  "banner": "allclasses_troll_warrior_male",
+  "date": "2026-10-29",
+  "note": "Karl approved v2 with shield extending beyond the top-right and right edges; v1 retained.",
+  "state": "installed"
+ },
+ "A087": {
+  "banner": "allclasses_undead_mage_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A088": {
+  "banner": "allclasses_undead_mage_male",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A089": {
+  "banner": "allclasses_undead_warlock_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A091": {
+  "banner": "allclasses_undead_warrior_female",
+  "date": "2026-10-29",
+  "state": "installed"
  },
  "A096": {
   "date": "2026-10-29",

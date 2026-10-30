@@ -120,6 +120,14 @@ do
         {"WARRIOR", "Tauren", 3, "allclasses_tauren_warrior_female-banner.blp"},
         {"MAGE", "Troll", 3, "allclasses_troll_mage_female-banner.blp"},
         {"PRIEST", "Troll", 3, "allclasses_troll_priest_female-banner.blp"},
+        {"ROGUE", "Troll", 3, "allclasses_troll_rogue_female-banner.blp"},
+        {"WARLOCK", "Troll", 2, "allclasses_troll_warlock_male-banner.blp"},
+        {"WARRIOR", "Troll", 2, "allclasses_troll_warrior_male-banner.blp"},
+        {"MAGE", "Scourge", 3, "allclasses_undead_mage_female-banner.blp"},
+        {"MAGE", "Scourge", 2, "allclasses_undead_mage_male-banner.blp"},
+        {"WARLOCK", "Scourge", 3, "allclasses_undead_warlock_female-banner.blp"},
+        {"WARRIOR", "Scourge", 3, "allclasses_undead_warrior_female-banner.blp"},
+        {"PALADIN", "Scourge", 3, "allclasses_undead_warrior_female-banner.blp"},
     }) do
         local path, aspect, preprocessed = B:ResolveArt("allclasses",
             {faction="Horde", class=entry[1], race=entry[2], sex=entry[3]})
