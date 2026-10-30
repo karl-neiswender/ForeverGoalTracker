@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 69 of 134 workable banners verified.** Queued 58, Installed 7, Verified 69, Blocked 19, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 76 of 134 workable banners verified.** Queued 58, Verified 76, Blocked 19, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -203,14 +203,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A083 | P2 | `horde-troll-female-rogue-generic-leveling-2.png` 745x1040 | `horde-troll-female-rogue-generic-leveling.png` | Level Classes to 60: Troll Rogue F: `allclasses` / `allclasses_troll_rogue_female` | Installed | card scan, crop first  |
+| ☑ | A083 | P2 | `horde-troll-female-rogue-generic-leveling-2.png` 745x1040 | `horde-troll-female-rogue-generic-leveling.png` | Level Classes to 60: Troll Rogue F: `allclasses` / `allclasses_troll_rogue_female` | Verified | card scan, crop first  |
 | ☐ | A084 | P2 | `horde-troll-male-shaman-generic.png` 745x1040 | `horde-troll-male-shaman-leveling.png` | Level Classes to 60: Troll Shaman M: `allclasses` / `allclasses_troll_shaman_male` | Blocked | card scan, crop first  |
-| ☐ | A085 | P2 | `horde-troll-male-warlock-generic.png` 745x1040 |  | Level Classes to 60: Troll Warlock M: `allclasses` / `allclasses_troll_warlock_male` | Installed | card scan, crop first  |
-| ☐ | A086 | P2 | `horde-troll-male-warrior-leveling-2.jpg` 843x650 | `horde-troll-male-warrior-generic-2.jpg` | Level Classes to 60: Troll Warrior M: `allclasses` / `allclasses_troll_warrior_male` | Installed | Karl's pick  |
-| ☐ | A087 | P2 | `horde-undead-female-mage-tier3.png` 745x1040 |  | Level Classes to 60: Undead Mage F: `allclasses` / `allclasses_undead_mage_female` | Installed | card scan, crop first  |
-| ☐ | A088 | P2 | `horde-undead-male-mage-tier2.jpg` 500x675 |  | Level Classes to 60: Undead Mage M: `allclasses` / `allclasses_undead_mage_male` | Installed |   |
-| ☐ | A089 | P2 | `horde-undead-female-warlock-leveling.jpg` 1024x831 | `horde-undead-female-warlock-tier3.jpg` | Level Classes to 60: Undead Warlock F: `allclasses` / `allclasses_undead_warlock_female` | Installed |   |
-| ☐ | A091 | P2 | `horde-undead-female-warrior-paladin-generic-leveling.jpg` 4367x3545 |  | Level Classes to 60: Undead Warrior F: `allclasses` / `allclasses_undead_warrior_female`<br>Level Classes to 60: Undead Paladin F: `allclasses` / `allclasses_undead_paladin_female` | Installed | Karl's pick  |
+| ☑ | A085 | P2 | `horde-troll-male-warlock-generic.png` 745x1040 |  | Level Classes to 60: Troll Warlock M: `allclasses` / `allclasses_troll_warlock_male` | Verified | card scan, crop first  |
+| ☑ | A086 | P2 | `horde-troll-male-warrior-leveling-2.jpg` 843x650 | `horde-troll-male-warrior-generic-2.jpg` | Level Classes to 60: Troll Warrior M: `allclasses` / `allclasses_troll_warrior_male` | Verified | Karl's pick  |
+| ☑ | A087 | P2 | `horde-undead-female-mage-tier3.png` 745x1040 |  | Level Classes to 60: Undead Mage F: `allclasses` / `allclasses_undead_mage_female` | Verified | card scan, crop first  |
+| ☑ | A088 | P2 | `horde-undead-male-mage-tier2.jpg` 500x675 |  | Level Classes to 60: Undead Mage M: `allclasses` / `allclasses_undead_mage_male` | Verified |   |
+| ☑ | A089 | P2 | `horde-undead-female-warlock-leveling.jpg` 1024x831 | `horde-undead-female-warlock-tier3.jpg` | Level Classes to 60: Undead Warlock F: `allclasses` / `allclasses_undead_warlock_female` | Verified |   |
+| ☑ | A091 | P2 | `horde-undead-female-warrior-paladin-generic-leveling.jpg` 4367x3545 |  | Level Classes to 60: Undead Warrior F: `allclasses` / `allclasses_undead_warrior_female`<br>Level Classes to 60: Undead Paladin F: `allclasses` / `allclasses_undead_paladin_female` | Verified | Karl's pick  |
 
 ### Batch 11
 
