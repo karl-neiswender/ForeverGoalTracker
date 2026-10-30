@@ -372,5 +372,52 @@
   "banner": "allclasses_orc_warrior_male",
   "date": "2026-10-29",
   "state": "verified"
+ },
+ "A075": {
+  "date": "2026-10-29",
+  "state": "review"
+ },
+ "A076": {
+  "date": "2026-10-29",
+  "state": "review"
+ },
+ "A077": {
+  "date": "2026-10-29",
+  "state": "review"
+ },
+ "A078": {
+  "date": "2026-10-29",
+  "state": "review"
+ },
+ "A079": {
+  "date": "2026-10-29",
+  "state": "review"
+ },
+ "A080": {
+  "date": "2026-10-29",
+  "state": "review"
+ },
+ "A081": {
+  "date": "2026-10-29",
+  "state": "review"
+ },
+ "A082": {
+  "date": "2026-10-29",
+  "state": "review"
+ },
+ "A147": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed the Tier 2.5 leather, mail and plate banners are already loaded and in use; no new banner to install.",
+  "state": "blocked"
+ },
+ "A148": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed the Tier 2.5 leather, mail and plate banners are already loaded and in use; no new banner to install.",
+  "state": "blocked"
+ },
+ "A149": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed the Tier 2.5 leather, mail and plate banners are already loaded and in use; no new banner to install.",
+  "state": "blocked"
  }
 }
