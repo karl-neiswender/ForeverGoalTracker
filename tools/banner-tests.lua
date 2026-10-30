@@ -156,6 +156,20 @@ do
         == "set_tier1_rogue_human_female-banner.blp", "female Human Tier 1 Rogue uses approved art")
     assert(B:ResolveArt("set_tier1_shaman", {faction="Horde", class="SHAMAN", race="Orc", sex=3})
         == "set_tier1_shaman_orc_female-banner.blp", "female Orc Tier 1 Shaman uses approved art")
+    for _, entry in ipairs({
+        {"set_tier1_warlock", "Horde", "WARLOCK", "Troll", 3, "set_tier1_warlock_troll_female-banner.blp"},
+        {"set_tier1_warrior", "Horde", "WARRIOR", "Orc", 3, "set_tier1_warrior_orc_female-banner.blp"},
+        {"set_tier2_hunter", "Horde", "HUNTER", "Orc", 3, "set_tier2_hunter_orc_female-banner.blp"},
+        {"set_tier2_mage", "Alliance", "MAGE", "Human", 3, "set_tier2_mage_human_female-banner.blp"},
+        {"set_tier2_priest", "Alliance", "PRIEST", "NightElf", 3, "set_tier2_priest_nightelf_female-banner.blp"},
+        {"set_tier2_rogue", "Horde", "ROGUE", "Scourge", 2, "set_tier2_rogue_undead_male-banner.blp"},
+        {"set_tier2_shaman", "Horde", "SHAMAN", "Orc", 3, "set_tier2_shaman_orc_female-banner.blp"},
+    }) do
+        local path, aspect, preprocessed = B:ResolveArt(entry[1],
+            {faction=entry[2], class=entry[3], race=entry[4], sex=entry[5]})
+        assert(path == entry[6] and aspect == 4/3 and preprocessed,
+            entry[1] .. " " .. entry[4] .. " sex " .. entry[5] .. " uses approved art")
+    end
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="HUNTER", race="NightElf", sex=3})
         == "allclasses_nightelf_hunter-banner.blp", "female Night Elf Hunter keeps existing art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="NightElf", sex=3})

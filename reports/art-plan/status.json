@@ -495,15 +495,46 @@
   "date": "2026-10-30",
   "state": "verified"
  },
+ "A100": {
+  "banner": "set_tier1_warlock_troll_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A101": {
+  "banner": "set_tier1_warrior_orc_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
  "A102": {
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
  },
+ "A104": {
+  "banner": "set_tier2_hunter_orc_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A105": {
+  "banner": "set_tier2_mage_human_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A106": {
+  "banner": "set_tier2_priest_nightelf_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
  "A107": {
+  "banner": "set_tier2_rogue_undead_male",
   "date": "2026-10-30",
   "note": "Retargeted to Horde Undead male Tier 2 Rogue per Karl; source is Horde art.",
-  "state": "queued"
+  "state": "installed"
+ },
+ "A108": {
+  "banner": "set_tier2_shaman_orc_female",
+  "date": "2026-10-30",
+  "state": "installed"
  },
  "A110": {
   "date": "2026-10-29",

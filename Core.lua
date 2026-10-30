@@ -5664,6 +5664,27 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Most specific compatible artwork wins; list order breaks equal scores.
     -- Only approved runtime textures belong here, never source/review files.
     B.artVariants = {
+        set_tier1_warlock = {
+            {path="set_tier1_warlock_troll_female-banner.blp", faction="Horde", race="Troll", sex=3, aspect=4/3, preprocessed=true},
+        },
+        set_tier1_warrior = {
+            {path="set_tier1_warrior_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+        },
+        set_tier2_hunter = {
+            {path="set_tier2_hunter_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+        },
+        set_tier2_mage = {
+            {path="set_tier2_mage_human_female-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
+        },
+        set_tier2_priest = {
+            {path="set_tier2_priest_nightelf_female-banner.blp", faction="Alliance", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
+        },
+        set_tier2_rogue = {
+            {path="set_tier2_rogue_undead_male-banner.blp", faction="Horde", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
+        },
+        set_tier2_shaman = {
+            {path="set_tier2_shaman_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+        },
         set_tier1_druid = {
             {path="set_tier1_druid_nightelf_female-banner.blp", faction="Alliance", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
             {path="set_tier1_druid_tauren_female-banner.blp", faction="Horde", race="Tauren", sex=3, aspect=4/3, preprocessed=true},

@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 82 of 133 workable banners verified.** Queued 51, Verified 82, Blocked 20, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 82 of 133 workable banners verified.** Queued 44, Installed 7, Verified 82, Blocked 20, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -229,14 +229,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A100 | P3 | `horde-troll-female-warlock-tier1.png` 745x1040 |  | Tier 1 Warlock H F: `set_tier1_warlock` / `set_tier1_warlock_troll_female` | Queued | card scan, crop first  |
-| ☐ | A101 | P3 | `horde-orc-female-warrior-tier1.png` 745x1040 |  | Tier 1 Warrior H F: `set_tier1_warrior` / `set_tier1_warrior_orc_female` | Queued | Karl's pick, card scan, crop first  |
+| ☐ | A100 | P3 | `horde-troll-female-warlock-tier1.png` 745x1040 |  | Tier 1 Warlock H F: `set_tier1_warlock` / `set_tier1_warlock_troll_female` | Installed | card scan, crop first  |
+| ☐ | A101 | P3 | `horde-orc-female-warrior-tier1.png` 745x1040 |  | Tier 1 Warrior H F: `set_tier1_warrior` / `set_tier1_warrior_orc_female` | Installed | Karl's pick, card scan, crop first  |
 | ☐ | A102 | P3 | `horde-tauren-female-druid-tier2.jpg` 862x1200 |  | Tier 2 Druid H F: `set_tier2_druid` / `set_tier2_druid_tauren_female` | Blocked |   |
-| ☐ | A104 | P3 | `horde-orc-female-hunter-tier2-rhokdalar.png` 745x1040 |  | Tier 2 Hunter H F: `set_tier2_hunter` / `set_tier2_hunter_orc_female` | Queued | card scan, crop first  |
-| ☐ | A105 | P3 | `alliance-human-female-mage-tier2.jpg` 1238x1437 |  | Tier 2 Mage A F: `set_tier2_mage` / `set_tier2_mage_human_female` | Queued |   |
-| ☐ | A106 | P3 | `alliance-nightelf-female-priest-tier2-shadow.jpg` 4000x3259 | `alliance-human-female-priest-tier2.jpg` | Tier 2 Priest A F: `set_tier2_priest` / `set_tier2_priest_nightelf_female` | Queued |   |
-| ☐ | A107 | P3 | `alliance-human-male-rogue-tier2-2.jpg` 747x600 | `alliance-dwarf-male-rogue-tier2.jpg` | Tier 2 Rogue H M (Undead): `set_tier2_rogue` / `set_tier2_rogue_undead_male` | Queued |  Source is Horde (Undead male); file name is misleading. Rename to horde-undead-male-rogue-tier2-2.jpg when convenient. Source carries a tegehel.org watermark; leave it out of the banner. |
-| ☐ | A108 | P3 | `horde-orc-female-shaman-tier2-2.png` 745x1040 |  | Tier 2 Shaman H F: `set_tier2_shaman` / `set_tier2_shaman_orc_female` | Queued | card scan, crop first  |
+| ☐ | A104 | P3 | `horde-orc-female-hunter-tier2-rhokdalar.png` 745x1040 |  | Tier 2 Hunter H F: `set_tier2_hunter` / `set_tier2_hunter_orc_female` | Installed | card scan, crop first  |
+| ☐ | A105 | P3 | `alliance-human-female-mage-tier2.jpg` 1238x1437 |  | Tier 2 Mage A F: `set_tier2_mage` / `set_tier2_mage_human_female` | Installed |   |
+| ☐ | A106 | P3 | `alliance-nightelf-female-priest-tier2-shadow.jpg` 4000x3259 | `alliance-human-female-priest-tier2.jpg` | Tier 2 Priest A F: `set_tier2_priest` / `set_tier2_priest_nightelf_female` | Installed |   |
+| ☐ | A107 | P3 | `alliance-human-male-rogue-tier2-2.jpg` 747x600 | `alliance-dwarf-male-rogue-tier2.jpg` | Tier 2 Rogue H M (Undead): `set_tier2_rogue` / `set_tier2_rogue_undead_male` | Installed |  Source is Horde (Undead male); file name is misleading. Rename to horde-undead-male-rogue-tier2-2.jpg when convenient. Source carries a tegehel.org watermark; leave it out of the banner. |
+| ☐ | A108 | P3 | `horde-orc-female-shaman-tier2-2.png` 745x1040 |  | Tier 2 Shaman H F: `set_tier2_shaman` / `set_tier2_shaman_orc_female` | Installed | card scan, crop first  |
 
 ### Batch 13
 
