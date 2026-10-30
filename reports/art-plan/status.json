@@ -539,7 +539,7 @@
  "A109": {
   "banner": "set_tier2_warlock_human_male",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A110": {
   "date": "2026-10-29",
@@ -549,32 +549,32 @@
  "A111": {
   "banner": "tier3_druid_nightelf_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A112": {
   "banner": "tier3_druid_tauren_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A113": {
   "banner": "tier3_hunter_orc_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A114": {
   "banner": "tier3_mage_gnome_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A115": {
   "banner": "tier3_mage_orc_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A116": {
   "banner": "tier3_paladin_dwarf_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A119": {
   "date": "2026-10-29",
