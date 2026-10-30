@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 61 of 145 workable banners verified.** Queued 76, Installed 8, Verified 61, Blocked 8, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 69 of 143 workable banners verified.** Queued 74, Verified 69, Blocked 10, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 145 workable banners; P1 is 33, P2 is 45, P3 is 57. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 143 workable banners; P1 is 33, P2 is 45, P3 is 57. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -190,14 +190,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A075 | P2 | `horde-tauren-male-druid-leveling.jpg` 1200x1200 | `horde-tauren-male-shaman-druid-generic-leveling.png` | Level Classes to 60: Tauren Druid M: `allclasses` / `allclasses_tauren_druid_male` | Installed |   |
-| ☐ | A076 | P2 | `horde-tauren-female-hunter-generic-leveling.png` 745x1040 |  | Level Classes to 60: Tauren Hunter F: `allclasses` / `allclasses_tauren_hunter_female` | Installed | card scan, crop first  |
-| ☐ | A077 | P2 | `horde-tauren-male-hunter-generic-2.png` 745x1040 | `horde-tauren-male-hunter-generic-leveling.png` | Level Classes to 60: Tauren Hunter M: `allclasses` / `allclasses_tauren_hunter_male` | Installed | card scan, crop first  |
-| ☐ | A078 | P2 | `h-tauren-female-shaman-generic-leveling.png` 745x1040 | `horde-tauren-female-shaman-leveling-2.jpg` | Level Classes to 60: Tauren Shaman F: `allclasses` / `allclasses_tauren_shaman_female` | Installed | card scan, crop first  |
-| ☐ | A079 | P2 | `horde-tauren-male-shaman-leveling-2.png` 745x1040 | `horde-tauren-male-shaman-leveling.png` | Level Classes to 60: Tauren Shaman M: `allclasses` / `allclasses_tauren_shaman_male` | Installed | card scan, crop first  |
-| ☐ | A080 | P2 | `horde-tauren-female-warrior-generic-leveling.png` 745x1040 | `horde-tauren-female-warrior-generic-leveling-reaper.jpg` | Level Classes to 60: Tauren Warrior F: `allclasses` / `allclasses_tauren_warrior_female` | Installed | card scan, crop first  |
-| ☐ | A081 | P2 | `horde-troll-female-mage.png` 745x1040 |  | Level Classes to 60: Troll Mage F: `allclasses` / `allclasses_troll_mage_female` | Installed | card scan, crop first  |
-| ☐ | A082 | P2 | `horde-troll-female-priest-generic.jpg` 1024x831 |  | Level Classes to 60: Troll Priest F: `allclasses` / `allclasses_troll_priest_female` | Installed |   |
+| ☑ | A075 | P2 | `horde-tauren-male-druid-leveling.jpg` 1200x1200 | `horde-tauren-male-shaman-druid-generic-leveling.png` | Level Classes to 60: Tauren Druid M: `allclasses` / `allclasses_tauren_druid_male` | Verified |   |
+| ☑ | A076 | P2 | `horde-tauren-female-hunter-generic-leveling.png` 745x1040 |  | Level Classes to 60: Tauren Hunter F: `allclasses` / `allclasses_tauren_hunter_female` | Verified | card scan, crop first  |
+| ☑ | A077 | P2 | `horde-tauren-male-hunter-generic-2.png` 745x1040 | `horde-tauren-male-hunter-generic-leveling.png` | Level Classes to 60: Tauren Hunter M: `allclasses` / `allclasses_tauren_hunter_male` | Verified | card scan, crop first  |
+| ☑ | A078 | P2 | `h-tauren-female-shaman-generic-leveling.png` 745x1040 | `horde-tauren-female-shaman-leveling-2.jpg` | Level Classes to 60: Tauren Shaman F: `allclasses` / `allclasses_tauren_shaman_female` | Verified | card scan, crop first  |
+| ☑ | A079 | P2 | `horde-tauren-male-shaman-leveling-2.png` 745x1040 | `horde-tauren-male-shaman-leveling.png` | Level Classes to 60: Tauren Shaman M: `allclasses` / `allclasses_tauren_shaman_male` | Verified | card scan, crop first  |
+| ☑ | A080 | P2 | `horde-tauren-female-warrior-generic-leveling.png` 745x1040 | `horde-tauren-female-warrior-generic-leveling-reaper.jpg` | Level Classes to 60: Tauren Warrior F: `allclasses` / `allclasses_tauren_warrior_female` | Verified | card scan, crop first  |
+| ☑ | A081 | P2 | `horde-troll-female-mage.png` 745x1040 |  | Level Classes to 60: Troll Mage F: `allclasses` / `allclasses_troll_mage_female` | Verified | card scan, crop first  |
+| ☑ | A082 | P2 | `horde-troll-female-priest-generic.jpg` 1024x831 |  | Level Classes to 60: Troll Priest F: `allclasses` / `allclasses_troll_priest_female` | Verified |   |
 
 ### Batch 10
 
@@ -312,8 +312,8 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A158 | P3 | `horde-tauren-female-druid-pvpset-leather.jpg` 700x530 |  | Warlord's Sanctuary (Druid) F: `None` / `pvp_warlord_s_sanctuary_druid_f` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 | ☐ | A159 | P3 | `horde-tauren-male-druid-pvpset-leather.jpg` 1041x1200 |  | Warlord's Sanctuary (Druid) M: `None` / `pvp_warlord_s_sanctuary_druid_m` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 | ☐ | A160 | P3 | `horde-orc-male-warlock-pvpset-cloth.jpg` 550x788 | `horde-orc-male-warlock-pvpset-cloth-2.jpg` | Warlord's Threads (Warlock) M: `None` / `pvp_warlord_s_threads_warlock_m` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A161 | P4 | `alliance-gnome-male-warlock-generic-leveling.png` 745x1040 |  | Level Classes to 60: Gnome Warlock M: `allclasses` / `allclasses_gnome_warlock_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
-| ☐ | A162 | P4 | `horde-undead-male-rogue-generic-leveling-3.jpg` 1024x867 |  | Level Classes to 60: Undead Rogue M: `allclasses` / `allclasses_undead_rogue_male` | Queued | Karl's pick replacement proposal: slot already has art |
+| ☐ | A161 | P4 | `alliance-gnome-male-warlock-generic-leveling.png` 745x1040 |  | Level Classes to 60: Gnome Warlock M: `allclasses` / `allclasses_gnome_warlock_male` | Blocked | Karl's pick, card scan, crop first replacement proposal: slot already has art |
+| ☐ | A162 | P4 | `horde-undead-male-rogue-generic-leveling-3.jpg` 1024x867 |  | Level Classes to 60: Undead Rogue M: `allclasses` / `allclasses_undead_rogue_male` | Blocked | Karl's pick replacement proposal: slot already has art |
 | ☐ | A163 | P4 | `alliance-nightelf-male-hunter-tier1.jpg` 1050x1200 |  | Tier 1 Hunter A M: `set_tier1_hunter` / `set_tier1_hunter_nightelf_male` | Queued | Karl's pick replacement proposal: slot already has art |
 
 ### Batch 19
@@ -359,6 +359,8 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A148 | Blocked | `horde-orc-male-hunter-aqset-mail.jpg` | 861x1200 | Mail: Striker's Garb (Hunter), Stormcaller's Garb (Shaman) One image per armor type; map it to the goals in the title. |
 | A149 | Blocked | `alliance-dwarf-male-aqset-plate.jpg` | 861x1200 | Plate: Conqueror's Battlegear (Warrior), Avenger's Battlegear (Paladin) One image per armor type; map it to the goals in the title. |
 | A153 | Skipped (low-res) | `alliance-nightelf-male-druid-pvpset-leather.jpg` | 200x285 | Field Marshal's Sanctuary (Druid) M PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| A161 | Blocked | `alliance-gnome-male-warlock-generic-leveling.png` | 745x1040 | Level Classes to 60: Gnome Warlock M replacement proposal: slot already has art |
+| A162 | Blocked | `horde-undead-male-rogue-generic-leveling-3.jpg` | 1024x867 | Level Classes to 60: Undead Rogue M replacement proposal: slot already has art |
 | A168 | Skipped (low-res) | `alliance-dwarf-male-rogue-tier3.jpg` | 220x308 | Tier 3 Rogue A M replacement proposal: slot already has art |
 | A172 | Skipped (low-res) | `set-herod-the-scarlet-champion.jpg` | 312x440 | Chain of the Scarlet Crusade The set already has its own banner; this card is 312x440. |
 | A173 | Blocked | `goal-gold-horde.jpg` | 1000x842 | Save 5,000 Gold (Horde) Renamed from Cutpurse_full.jpg; the gold goal is done with one shared image. |
