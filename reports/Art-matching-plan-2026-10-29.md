@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 96 of 133 workable banners verified.** Queued 37, Verified 96, Blocked 20, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 96 of 132 workable banners verified.** Queued 30, Installed 6, Verified 96, Blocked 21, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 133 workable banners; P1 is 33, P2 is 44, P3 is 48. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 132 workable banners; P1 is 33, P2 is 44, P3 is 47. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -255,14 +255,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A117 | P3 | `horde-troll-male-priest-tier3.png` 745x1040 | `horde-undead-male-priest-tier3.png` | Tier 3 Priest H M: `tier3_priest` / `tier3_priest_troll_male` | Queued | card scan, crop first  |
-| ☐ | A118 | P3 | `horde-orc-female-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue H F: `tier3_rogue` / `tier3_rogue_orc_female` | Queued | card scan, crop first  |
+| ☐ | A117 | P3 | `horde-troll-male-priest-tier3.png` 745x1040 | `horde-undead-male-priest-tier3.png` | Tier 3 Priest H M: `tier3_priest` / `tier3_priest_troll_male` | Installed | card scan, crop first  |
+| ☐ | A118 | P3 | `horde-orc-female-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue H F: `tier3_rogue` / `tier3_rogue_orc_female` | Installed | card scan, crop first  |
 | ☐ | A119 | P3 | `horde-orc-male-shaman-tier3-2.jpg` 1280x749 | `horde-orc-male-shaman-tier3.jpg` | Tier 3 Shaman H M: `tier3_shaman` / `tier3_shaman_orc_male` | Blocked |   |
-| ☐ | A120 | P3 | `alliance-nightelf-female-druid-dungeonset-2.png` 745x1040 | `alliance-nightelf-female-druid-leather-dungeonset.png` | Dungeon Set 1 Druid A: `set_dungeon1_druid` / `set_dungeon1_druid_nightelf` | Queued | card scan, crop first  |
-| ☐ | A121 | P3 | `horde-tauren-male-druid-dungeonset.png` 745x1040 |  | Dungeon Set 1 Druid H: `set_dungeon1_druid` / `set_dungeon1_druid_tauren` | Queued | card scan, crop first  |
-| ☐ | A122 | P3 | `alliance-nightelf-female-hunter-dungeonset.jpg` 600x471 | `alliance-human-male-hunter-dungeonset.png` | Dungeon Set 1 Hunter A: `set_dungeon1_hunter` / `set_dungeon1_hunter_nightelf` | Queued | Karl's pick  |
-| ☐ | A123 | P3 | `horde-tauren-male-hunter-generic-leveling-dungeonset.png` 745x1040 |  | Dungeon Set 1 Hunter H: `set_dungeon1_hunter` / `set_dungeon1_hunter_tauren`<br>Dungeon Set 2 Hunter H: `set_dungeon2_hunter` / `set_dungeon2_hunter_tauren` | Queued | card scan, crop first  |
-| ☐ | A124 | P3 | `alliance-human-male-mage-generic-dungeonset.png` 745x1040 |  | Dungeon Set 1 Mage A: `set_dungeon1_mage` / `set_dungeon1_mage_human`<br>Dungeon Set 2 Mage A: `set_dungeon2_mage` / `set_dungeon2_mage_human` | Queued | card scan, crop first  |
+| ☐ | A120 | P3 | `alliance-nightelf-female-druid-dungeonset-2.png` 745x1040 | `alliance-nightelf-female-druid-leather-dungeonset.png` | Dungeon Set 1 Druid A: `set_dungeon1_druid` / `set_dungeon1_druid_nightelf` | Installed | card scan, crop first  |
+| ☐ | A121 | P3 | `horde-tauren-male-druid-dungeonset.png` 745x1040 |  | Dungeon Set 1 Druid H: `set_dungeon1_druid` / `set_dungeon1_druid_tauren` | Blocked | card scan, crop first  |
+| ☐ | A122 | P3 | `alliance-nightelf-female-hunter-dungeonset.jpg` 600x471 | `alliance-human-male-hunter-dungeonset.png` | Dungeon Set 1 Hunter A: `set_dungeon1_hunter` / `set_dungeon1_hunter_nightelf` | Installed | Karl's pick  |
+| ☐ | A123 | P3 | `horde-tauren-male-hunter-generic-leveling-dungeonset.png` 745x1040 |  | Dungeon Set 1 Hunter H: `set_dungeon1_hunter` / `set_dungeon1_hunter_tauren`<br>Dungeon Set 2 Hunter H: `set_dungeon2_hunter` / `set_dungeon2_hunter_tauren` | Installed | card scan, crop first  |
+| ☐ | A124 | P3 | `alliance-human-male-mage-generic-dungeonset.png` 745x1040 |  | Dungeon Set 1 Mage A: `set_dungeon1_mage` / `set_dungeon1_mage_human`<br>Dungeon Set 2 Mage A: `set_dungeon2_mage` / `set_dungeon2_mage_human` | Installed | card scan, crop first  |
 
 ### Batch 15
 
@@ -355,6 +355,7 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A103 | Skipped (low-res) | `alliance-nightelf-male-hunter-tier2-2.jpg` | 312x440 | Tier 2 Hunter A M  |
 | A110 | Blocked | `alliance-nightelf-female-warrior-tier2.jpg` | 1024x1365 | Tier 2 Warrior A F  |
 | A119 | Blocked | `horde-orc-male-shaman-tier3-2.jpg` | 1280x749 | Tier 3 Shaman H M  |
+| A121 | Blocked | `horde-tauren-male-druid-dungeonset.png` | 745x1040 | Dungeon Set 1 Druid H  |
 | A126 | Skipped (low-res) | `alliance-human-male-paladin-dungeonset-2.jpg` | 220x308 | Dungeon Set 1 Paladin A  |
 | A128 | Blocked | `horde-undead-male-cloth-dungeonset.jpg` | 1051x1200 | Dungeon Set 1 Priest H; Dungeon Set 2 Priest H  |
 | A129 | Skipped (low-res) | `alliance-gnome-male-rogue-dungeonset-ashtongue-blade.jpg` | 312x440 | Dungeon Set 1 Rogue A; Dungeon Set 2 Rogue A  |

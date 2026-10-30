@@ -576,10 +576,44 @@
   "date": "2026-10-30",
   "state": "verified"
  },
+ "A117": {
+  "banner": "tier3_priest_troll_male",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A118": {
+  "banner": "tier3_rogue_orc_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
  "A119": {
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A120": {
+  "banner": "set_dungeon1_druid_nightelf",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A121": {
+  "date": "2026-10-30",
+  "note": "Karl blocked after review: source has too many important details for the small banner view.",
+  "state": "blocked"
+ },
+ "A122": {
+  "banner": "set_dungeon1_hunter_nightelf",
+  "date": "2026-10-30",
+  "note": "Karl approved v2 with the added bow removed.",
+  "state": "installed"
+ },
+ "A123": {
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A124": {
+  "date": "2026-10-30",
+  "state": "installed"
  },
  "A128": {
   "date": "2026-10-29",

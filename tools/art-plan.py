@@ -356,7 +356,7 @@ def cmd_set(args):
         entry["date"] = date.today().isoformat()
         if "banner" in opts:
             entry["banner"] = opts["banner"]
-        elif state == "installed" and "banner" not in entry:
+        elif state == "installed" and "banner" not in entry and len(row["targets"]) == 1:
             entry["banner"] = row["targets"][0]["key"]
         if "note" in opts:
             entry["note"] = opts["note"]
@@ -410,7 +410,8 @@ def cmd_sheet(args):
     for i, r in enumerate(rows):
         y = i * (H + 26)
         key = r["targets"][0]["key"]
-        rev = sorted(FINAL.glob(f"{key}-review*.png")) or sorted(FINAL.glob(f"**/{key}*review*.png"))
+        blocked = state_of(r, status) == "blocked"
+        rev = [] if blocked else (sorted(FINAL.glob(f"{key}-review*.png")) or sorted(FINAL.glob(f"**/{key}*review*.png")))
         for j, p in enumerate([ART / r["file"], rev[-1] if rev else None]):
             if p and p.exists():
                 with Image.open(p) as src:
@@ -418,7 +419,7 @@ def cmd_sheet(args):
                     src.thumbnail((W - 6, H - 6))
                     im.paste(src, (j * W + 3, y + 3))
             else:
-                d.text((j * W + 10, y + 10), "no review image yet", fill=(255, 120, 120))
+                d.text((j * W + 10, y + 10), "blocked" if blocked else "no review image yet", fill=(255, 120, 120))
         d.text((6, y + H), f"{r['id']}  {r['targets'][0]['label']}  ->  {key}", fill=(255, 220, 120))
     out = FINAL / "review-sheets"
     out.mkdir(parents=True, exist_ok=True)
