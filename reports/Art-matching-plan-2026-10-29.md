@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 89 of 133 workable banners verified.** Queued 44, Verified 89, Blocked 20, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 89 of 133 workable banners verified.** Queued 37, Installed 7, Verified 89, Blocked 20, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -242,14 +242,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A109 | P3 | `alliance-human-male-warlock-tier2-2.jpg` 800x1067 | `alliance-human-male-warlock-tier2.png` | Tier 2 Warlock A M: `set_tier2_warlock` / `set_tier2_warlock_human_male` | Queued |   |
+| ☐ | A109 | P3 | `alliance-human-male-warlock-tier2-2.jpg` 800x1067 | `alliance-human-male-warlock-tier2.png` | Tier 2 Warlock A M: `set_tier2_warlock` / `set_tier2_warlock_human_male` | Installed |   |
 | ☐ | A110 | P3 | `alliance-nightelf-female-warrior-tier2.jpg` 1024x1365 | `alliance-nightelf-female-warrior-tier2.png` | Tier 2 Warrior A F: `set_tier2_warrior` / `set_tier2_warrior_nightelf_female` | Blocked |   |
-| ☐ | A111 | P3 | `alliance-nightelf-female-druid-tier3.jpg` 559x800 | `alliance-nightelf-female-druid-tier3-3.png` | Tier 3 Druid A F: `tier3_druid` / `tier3_druid_nightelf_female` | Queued | Karl's pick  |
-| ☐ | A112 | P3 | `horde-tauren-female-druid-tier3-2.png` 745x1040 |  | Tier 3 Druid H F: `tier3_druid` / `tier3_druid_tauren_female` | Queued | card scan, crop first  |
-| ☐ | A113 | P3 | `horde-orc-female-hunter-tier3.png` 745x1040 |  | Tier 3 Hunter H F: `tier3_hunter` / `tier3_hunter_orc_female` | Queued | card scan, crop first  |
-| ☐ | A114 | P3 | `alliance-gnome-female-mage-tier3.jpg` 1517x1200 | `alliance-gnome-female-mage-tier3.png` | Tier 3 Mage A F: `tier3_mage` / `tier3_mage_gnome_female` | Queued |   |
-| ☐ | A115 | P3 | `horde-orc-female-mage-tier3.png` 745x1040 |  | Tier 3 Mage H F: `tier3_mage` / `tier3_mage_orc_female` | Queued | card scan, crop first  |
-| ☐ | A116 | P3 | `alliance-dwarf-female-paladin-tier3-2.jpg` 1024x1024 | `alliance-dwarf-female-paladin-tier3.jpg` | Tier 3 Paladin A F: `tier3_paladin` / `tier3_paladin_dwarf_female` | Queued |   |
+| ☐ | A111 | P3 | `alliance-nightelf-female-druid-tier3.jpg` 559x800 | `alliance-nightelf-female-druid-tier3-3.png` | Tier 3 Druid A F: `tier3_druid` / `tier3_druid_nightelf_female` | Installed | Karl's pick  |
+| ☐ | A112 | P3 | `horde-tauren-female-druid-tier3-2.png` 745x1040 |  | Tier 3 Druid H F: `tier3_druid` / `tier3_druid_tauren_female` | Installed | card scan, crop first  |
+| ☐ | A113 | P3 | `horde-orc-female-hunter-tier3.png` 745x1040 |  | Tier 3 Hunter H F: `tier3_hunter` / `tier3_hunter_orc_female` | Installed | card scan, crop first  |
+| ☐ | A114 | P3 | `alliance-gnome-female-mage-tier3.jpg` 1517x1200 | `alliance-gnome-female-mage-tier3.png` | Tier 3 Mage A F: `tier3_mage` / `tier3_mage_gnome_female` | Installed |   |
+| ☐ | A115 | P3 | `horde-orc-female-mage-tier3.png` 745x1040 |  | Tier 3 Mage H F: `tier3_mage` / `tier3_mage_orc_female` | Installed | card scan, crop first  |
+| ☐ | A116 | P3 | `alliance-dwarf-female-paladin-tier3-2.jpg` 1024x1024 | `alliance-dwarf-female-paladin-tier3.jpg` | Tier 3 Paladin A F: `tier3_paladin` / `tier3_paladin_dwarf_female` | Installed |   |
 
 ### Batch 14
 

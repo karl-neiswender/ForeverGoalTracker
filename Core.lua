@@ -5685,6 +5685,23 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         set_tier2_shaman = {
             {path="set_tier2_shaman_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
         },
+        set_tier2_warlock = {
+            {path="set_tier2_warlock_human_male-banner.blp", faction="Alliance", race="Human", sex=2, aspect=4/3, preprocessed=true},
+        },
+        tier3_druid = {
+            {path="tier3_druid_nightelf_female-banner.blp", faction="Alliance", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
+            {path="tier3_druid_tauren_female-banner.blp", faction="Horde", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
+        },
+        tier3_hunter = {
+            {path="tier3_hunter_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+        },
+        tier3_mage = {
+            {path="tier3_mage_gnome_female-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
+            {path="tier3_mage_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+        },
+        tier3_paladin = {
+            {path="tier3_paladin_dwarf_female-banner.blp", faction="Alliance", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
+        },
         set_tier1_druid = {
             {path="set_tier1_druid_nightelf_female-banner.blp", faction="Alliance", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
             {path="set_tier1_druid_tauren_female-banner.blp", faction="Horde", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
@@ -6395,6 +6412,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["rep_ambassador_ally_darnassus-banner.blp"] = true, -- Darnassus
         ["set_tier1_druid-banner.blp"] = true, ["set_tier2_druid-banner.blp"] = true,
         ["tier3_druid-banner.blp"] = true, ["set_tier2_druid-horde-banner.blp"] = true,  -- druid sets
+        ["tier3_druid_nightelf_female-banner.blp"] = true, ["tier3_druid_tauren_female-banner.blp"] = true,
         ["allclasses_horde_druid-banner.blp"] = true,        -- leveling, Horde Druid
         ["set_tier2_paladin-banner.blp"] = true,             -- Judgement Armor (a forest)
         rhokdelar = true, lokdelar = true,                    -- forest weapons

@@ -536,10 +536,45 @@
   "date": "2026-10-30",
   "state": "verified"
  },
+ "A109": {
+  "banner": "set_tier2_warlock_human_male",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
  "A110": {
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A111": {
+  "banner": "tier3_druid_nightelf_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A112": {
+  "banner": "tier3_druid_tauren_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A113": {
+  "banner": "tier3_hunter_orc_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A114": {
+  "banner": "tier3_mage_gnome_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A115": {
+  "banner": "tier3_mage_orc_female",
+  "date": "2026-10-30",
+  "state": "installed"
+ },
+ "A116": {
+  "banner": "tier3_paladin_dwarf_female",
+  "date": "2026-10-30",
+  "state": "installed"
  },
  "A119": {
   "date": "2026-10-29",

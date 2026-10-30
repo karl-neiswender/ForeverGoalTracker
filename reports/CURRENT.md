@@ -135,6 +135,8 @@ its October 21 notes.
 
 - Art batch 12 (2026-10-30): Karl approved A100, A101, A104, A105 v2, A106 v2, A107 and A108. Seven Tier 1 and Tier 2 set banners are installed and synced to Era; A107 uses the corrected Horde Undead male target after the art plan was retargeted. `art-plan.py verify` for all seven and `tools/check.py` pass. A102 remains blocked. Claude status marking and full-restart native review remain pending.
 
+- Art batch 13 (2026-10-30): Karl approved A109, A111, A112, A113, A114 v4, A115 and A116. Seven Tier 2 and Tier 3 set banners are installed with character-specific mappings and synced to Era; A110 remains blocked. `art-plan.py verify` for all seven and `tools/check.py` pass. Full-restart native review and Claude status marking remain pending.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,
