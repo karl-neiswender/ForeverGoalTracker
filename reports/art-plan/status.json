@@ -413,6 +413,51 @@
   "date": "2026-10-29",
   "state": "verified"
  },
+ "A084": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A096": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A102": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A110": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A119": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A128": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A131": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A138": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A143": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
  "A147": {
   "date": "2026-10-29",
   "note": "Karl confirmed the Tier 2.5 leather, mail and plate banners are already loaded and in use; no new banner to install.",
@@ -431,13 +476,23 @@
  "A161": {
   "banner": "allclasses_gnome_warlock_male",
   "date": "2026-10-29",
-  "note": "Karl keeps the art already installed (previously edited); Codex must not redo it.",
-  "state": "blocked"
+  "note": "Unblocked by Karl; plan source art to be edited.",
+  "state": "queued"
  },
  "A162": {
   "banner": "allclasses_undead_rogue_male",
   "date": "2026-10-29",
-  "note": "Karl keeps the art already installed (previously edited); Codex must not redo it.",
+  "note": "Unblocked by Karl; plan source art to be edited.",
+  "state": "queued"
+ },
+ "A166": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
+  "state": "blocked"
+ },
+ "A171": {
+  "date": "2026-10-29",
+  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
  }
 }

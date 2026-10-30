@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 69 of 143 workable banners verified.** Queued 74, Verified 69, Blocked 10, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 69 of 134 workable banners verified.** Queued 65, Verified 69, Blocked 19, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 143 workable banners; P1 is 33, P2 is 45, P3 is 57. Finishing all of P1 and P2 by Nov 4 needs about 16 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 134 workable banners; P1 is 33, P2 is 44, P3 is 49. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -204,7 +204,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
 | ☐ | A083 | P2 | `horde-troll-female-rogue-generic-leveling-2.png` 745x1040 | `horde-troll-female-rogue-generic-leveling.png` | Level Classes to 60: Troll Rogue F: `allclasses` / `allclasses_troll_rogue_female` | Queued | card scan, crop first  |
-| ☐ | A084 | P2 | `horde-troll-male-shaman-generic.png` 745x1040 | `horde-troll-male-shaman-leveling.png` | Level Classes to 60: Troll Shaman M: `allclasses` / `allclasses_troll_shaman_male` | Queued | card scan, crop first  |
+| ☐ | A084 | P2 | `horde-troll-male-shaman-generic.png` 745x1040 | `horde-troll-male-shaman-leveling.png` | Level Classes to 60: Troll Shaman M: `allclasses` / `allclasses_troll_shaman_male` | Blocked | card scan, crop first  |
 | ☐ | A085 | P2 | `horde-troll-male-warlock-generic.png` 745x1040 |  | Level Classes to 60: Troll Warlock M: `allclasses` / `allclasses_troll_warlock_male` | Queued | card scan, crop first  |
 | ☐ | A086 | P2 | `horde-troll-male-warrior-leveling-2.jpg` 843x650 | `horde-troll-male-warrior-generic-2.jpg` | Level Classes to 60: Troll Warrior M: `allclasses` / `allclasses_troll_warrior_male` | Queued | Karl's pick  |
 | ☐ | A087 | P2 | `horde-undead-female-mage-tier3.png` 745x1040 |  | Level Classes to 60: Undead Mage F: `allclasses` / `allclasses_undead_mage_female` | Queued | card scan, crop first  |
@@ -220,7 +220,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A093 | P3 | `alliance-nightelf-female-druid-tier1-2.png` 745x1040 |  | Tier 1 Druid A F: `set_tier1_druid` / `set_tier1_druid_nightelf_female` | Queued | card scan, crop first  |
 | ☐ | A094 | P3 | `horde-tauren-druid-female-tier1.png` 745x1040 | `horde-tauren-female-druid-tier1-2.png` | Tier 1 Druid H F: `set_tier1_druid` / `set_tier1_druid_tauren_female` | Queued | card scan, crop first  |
 | ☐ | A095 | P3 | `alliance-human-female-hunter-tier1.png` 745x1040 |  | Tier 1 Hunter A F: `set_tier1_hunter` / `set_tier1_hunter_human_female` | Queued | card scan, crop first  |
-| ☐ | A096 | P3 | `alliance-human-male-priest-benediction-tier1.jpg` 862x1000 |  | Tier 1 Priest A M: `set_tier1_priest` / `set_tier1_priest_human_male` | Queued |   |
+| ☐ | A096 | P3 | `alliance-human-male-priest-benediction-tier1.jpg` 862x1000 |  | Tier 1 Priest A M: `set_tier1_priest` / `set_tier1_priest_human_male` | Blocked |   |
 | ☐ | A097 | P3 | `horde-tauren-female-priest-shadow-tier1.png` 745x1040 | `horde-undead-female-priest-tier1-2.jpg` | Tier 1 Priest H F: `set_tier1_priest` / `set_tier1_priest_tauren_female` | Queued | card scan, crop first  |
 | ☐ | A098 | P3 | `alliance-human-female-rogue-tier1.png` 745x1040 |  | Tier 1 Rogue A F: `set_tier1_rogue` / `set_tier1_rogue_human_female` | Queued | card scan, crop first  |
 | ☐ | A099 | P3 | `h-orc-female-shaman-tier1-hero.png` 745x1040 | `horde-orc-female-shaman-tier1.jpg` | Tier 1 Shaman H F: `set_tier1_shaman` / `set_tier1_shaman_orc_female` | Queued | card scan, crop first  |
@@ -231,7 +231,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 |---|---|---|---|---|---|---|---|
 | ☐ | A100 | P3 | `horde-troll-female-warlock-tier1.png` 745x1040 |  | Tier 1 Warlock H F: `set_tier1_warlock` / `set_tier1_warlock_troll_female` | Queued | card scan, crop first  |
 | ☐ | A101 | P3 | `horde-orc-female-warrior-tier1.png` 745x1040 |  | Tier 1 Warrior H F: `set_tier1_warrior` / `set_tier1_warrior_orc_female` | Queued | Karl's pick, card scan, crop first  |
-| ☐ | A102 | P3 | `horde-tauren-female-druid-tier2.jpg` 862x1200 |  | Tier 2 Druid H F: `set_tier2_druid` / `set_tier2_druid_tauren_female` | Queued |   |
+| ☐ | A102 | P3 | `horde-tauren-female-druid-tier2.jpg` 862x1200 |  | Tier 2 Druid H F: `set_tier2_druid` / `set_tier2_druid_tauren_female` | Blocked |   |
 | ☐ | A104 | P3 | `horde-orc-female-hunter-tier2-rhokdalar.png` 745x1040 |  | Tier 2 Hunter H F: `set_tier2_hunter` / `set_tier2_hunter_orc_female` | Queued | card scan, crop first  |
 | ☐ | A105 | P3 | `alliance-human-female-mage-tier2.jpg` 1238x1437 |  | Tier 2 Mage A F: `set_tier2_mage` / `set_tier2_mage_human_female` | Queued |   |
 | ☐ | A106 | P3 | `alliance-nightelf-female-priest-tier2-shadow.jpg` 4000x3259 | `alliance-human-female-priest-tier2.jpg` | Tier 2 Priest A F: `set_tier2_priest` / `set_tier2_priest_nightelf_female` | Queued |   |
@@ -243,7 +243,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
 | ☐ | A109 | P3 | `alliance-human-male-warlock-tier2-2.jpg` 800x1067 | `alliance-human-male-warlock-tier2.png` | Tier 2 Warlock A M: `set_tier2_warlock` / `set_tier2_warlock_human_male` | Queued |   |
-| ☐ | A110 | P3 | `alliance-nightelf-female-warrior-tier2.jpg` 1024x1365 | `alliance-nightelf-female-warrior-tier2.png` | Tier 2 Warrior A F: `set_tier2_warrior` / `set_tier2_warrior_nightelf_female` | Queued |   |
+| ☐ | A110 | P3 | `alliance-nightelf-female-warrior-tier2.jpg` 1024x1365 | `alliance-nightelf-female-warrior-tier2.png` | Tier 2 Warrior A F: `set_tier2_warrior` / `set_tier2_warrior_nightelf_female` | Blocked |   |
 | ☐ | A111 | P3 | `alliance-nightelf-female-druid-tier3.jpg` 559x800 | `alliance-nightelf-female-druid-tier3-3.png` | Tier 3 Druid A F: `tier3_druid` / `tier3_druid_nightelf_female` | Queued | Karl's pick  |
 | ☐ | A112 | P3 | `horde-tauren-female-druid-tier3-2.png` 745x1040 |  | Tier 3 Druid H F: `tier3_druid` / `tier3_druid_tauren_female` | Queued | card scan, crop first  |
 | ☐ | A113 | P3 | `horde-orc-female-hunter-tier3.png` 745x1040 |  | Tier 3 Hunter H F: `tier3_hunter` / `tier3_hunter_orc_female` | Queued | card scan, crop first  |
@@ -257,7 +257,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 |---|---|---|---|---|---|---|---|
 | ☐ | A117 | P3 | `horde-troll-male-priest-tier3.png` 745x1040 | `horde-undead-male-priest-tier3.png` | Tier 3 Priest H M: `tier3_priest` / `tier3_priest_troll_male` | Queued | card scan, crop first  |
 | ☐ | A118 | P3 | `horde-orc-female-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue H F: `tier3_rogue` / `tier3_rogue_orc_female` | Queued | card scan, crop first  |
-| ☐ | A119 | P3 | `horde-orc-male-shaman-tier3-2.jpg` 1280x749 | `horde-orc-male-shaman-tier3.jpg` | Tier 3 Shaman H M: `tier3_shaman` / `tier3_shaman_orc_male` | Queued |   |
+| ☐ | A119 | P3 | `horde-orc-male-shaman-tier3-2.jpg` 1280x749 | `horde-orc-male-shaman-tier3.jpg` | Tier 3 Shaman H M: `tier3_shaman` / `tier3_shaman_orc_male` | Blocked |   |
 | ☐ | A120 | P3 | `alliance-nightelf-female-druid-dungeonset-2.png` 745x1040 | `alliance-nightelf-female-druid-leather-dungeonset.png` | Dungeon Set 1 Druid A: `set_dungeon1_druid` / `set_dungeon1_druid_nightelf` | Queued | card scan, crop first  |
 | ☐ | A121 | P3 | `horde-tauren-male-druid-dungeonset.png` 745x1040 |  | Dungeon Set 1 Druid H: `set_dungeon1_druid` / `set_dungeon1_druid_tauren` | Queued | card scan, crop first  |
 | ☐ | A122 | P3 | `alliance-nightelf-female-hunter-dungeonset.jpg` 600x471 | `alliance-human-male-hunter-dungeonset.png` | Dungeon Set 1 Hunter A: `set_dungeon1_hunter` / `set_dungeon1_hunter_nightelf` | Queued | Karl's pick  |
@@ -270,8 +270,8 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 |---|---|---|---|---|---|---|---|
 | ☐ | A125 | P3 | `horde-troll-male-mage-dungeonset-2.png` 745x1040 | `horde-troll-male-mage-dungeonset.png` | Dungeon Set 1 Mage H: `set_dungeon1_mage` / `set_dungeon1_mage_troll` | Queued | card scan, crop first  |
 | ☐ | A127 | P3 | `alliance-dwarf-male-priest-dungeonset.jpg` 1024x837 |  | Dungeon Set 1 Priest A: `set_dungeon1_priest` / `set_dungeon1_priest_dwarf` | Queued |   |
-| ☐ | A128 | P3 | `horde-undead-male-cloth-dungeonset.jpg` 1051x1200 |  | Dungeon Set 1 Priest H: `set_dungeon1_priest` / `set_dungeon1_priest_undead`<br>Dungeon Set 2 Priest H: `set_dungeon2_priest` / `set_dungeon2_priest_undead` | Queued |   |
-| ☐ | A131 | P3 | `horde-orc-female-shaman-dungeonset.jpg` 1024x795 | `horde-tauren-female-shaman-dungeonset.png` | Dungeon Set 1 Shaman H: `set_dungeon1_shaman` / `set_dungeon1_shaman_orc` | Queued |   |
+| ☐ | A128 | P3 | `horde-undead-male-cloth-dungeonset.jpg` 1051x1200 |  | Dungeon Set 1 Priest H: `set_dungeon1_priest` / `set_dungeon1_priest_undead`<br>Dungeon Set 2 Priest H: `set_dungeon2_priest` / `set_dungeon2_priest_undead` | Blocked |   |
+| ☐ | A131 | P3 | `horde-orc-female-shaman-dungeonset.jpg` 1024x795 | `horde-tauren-female-shaman-dungeonset.png` | Dungeon Set 1 Shaman H: `set_dungeon1_shaman` / `set_dungeon1_shaman_orc` | Blocked |   |
 | ☐ | A132 | P3 | `alliance-gnome-female-warlock-generic-leveling-dungeonset.jpg` 1125x1500 |  | Dungeon Set 1 Warlock A: `set_dungeon1_warlock` / `set_dungeon1_warlock_gnome` | Queued |   |
 | ☐ | A133 | P3 | `horde-orc-male-warlock-dungeonset.png` 745x1040 | `horde-orc-male-warlock-dungeonset.jpg` | Dungeon Set 1 Warlock H: `set_dungeon1_warlock` / `set_dungeon1_warlock_orc` | Queued | card scan, crop first  |
 | ☐ | A134 | P3 | `alliance-dwarf-male-warrior-dungeonset-plate.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 1 Warrior A: `set_dungeon1_warrior` / `set_dungeon1_warrior_dwarf` | Queued | card scan, crop first  |
@@ -282,11 +282,11 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
 | ☐ | A137 | P3 | `horde-troll-female-leather-dungeonset1.png` 745x1040 |  | Dungeon Set 2 Druid H: `set_dungeon2_druid` / `set_dungeon2_druid_troll` | Queued | card scan, crop first  |
-| ☐ | A138 | P3 | `alliance-dwarf-male-hunter-dungeonset.jpg` 4200x5409 | `alliance-human-male-hunter-dungeonset.png` | Dungeon Set 2 Hunter A: `set_dungeon2_hunter` / `set_dungeon2_hunter_dwarf` | Queued |   |
+| ☐ | A138 | P3 | `alliance-dwarf-male-hunter-dungeonset.jpg` 4200x5409 | `alliance-human-male-hunter-dungeonset.png` | Dungeon Set 2 Hunter A: `set_dungeon2_hunter` / `set_dungeon2_hunter_dwarf` | Blocked |   |
 | ☐ | A139 | P3 | `horde-troll-male-mage-dungeonset-4.png` 745x1040 | `horde-troll-male-mage-dungeonset.png` | Dungeon Set 2 Mage H: `set_dungeon2_mage` / `set_dungeon2_mage_troll` | Queued | card scan, crop first  |
 | ☐ | A141 | P3 | `alliance-nightelf-female-priest-dungeonset.png` 745x1040 |  | Dungeon Set 2 Priest A: `set_dungeon2_priest` / `set_dungeon2_priest_nightelf` | Queued | card scan, crop first  |
 | ☐ | A142 | P3 | `horde-orc-male-shaman-dungeonset.png` 745x1040 | `horde-tauren-female-shaman-dungeonset.png` | Dungeon Set 2 Shaman H: `set_dungeon2_shaman` / `set_dungeon2_shaman_orc` | Queued | card scan, crop first  |
-| ☐ | A143 | P3 | `alliance-gnome-male-warlock-dungeonset1.png` 745x1040 |  | Dungeon Set 2 Warlock A: `set_dungeon2_warlock` / `set_dungeon2_warlock_gnome` | Queued | card scan, crop first  |
+| ☐ | A143 | P3 | `alliance-gnome-male-warlock-dungeonset1.png` 745x1040 |  | Dungeon Set 2 Warlock A: `set_dungeon2_warlock` / `set_dungeon2_warlock_gnome` | Blocked | card scan, crop first  |
 | ☐ | A145 | P3 | `alliance-nightelf-male-warrior-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Warrior A: `set_dungeon2_warrior` / `set_dungeon2_warrior_nightelf` | Queued | card scan, crop first  |
 | ☐ | A146 | P3 | `horde-undead-female-aqset-cloth.jpg` 745x1040 |  | Cloth: Enigma Vestments (Mage), Doomcaller's Attire (Warlock), Garments of the Oracle (Priest): `set_tier25` / `set_tier25_cloth` | Queued | card scan, crop first One image per armor type; map it to the goals in the title. |
 
@@ -312,8 +312,8 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A158 | P3 | `horde-tauren-female-druid-pvpset-leather.jpg` 700x530 |  | Warlord's Sanctuary (Druid) F: `None` / `pvp_warlord_s_sanctuary_druid_f` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 | ☐ | A159 | P3 | `horde-tauren-male-druid-pvpset-leather.jpg` 1041x1200 |  | Warlord's Sanctuary (Druid) M: `None` / `pvp_warlord_s_sanctuary_druid_m` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 | ☐ | A160 | P3 | `horde-orc-male-warlock-pvpset-cloth.jpg` 550x788 | `horde-orc-male-warlock-pvpset-cloth-2.jpg` | Warlord's Threads (Warlock) M: `None` / `pvp_warlord_s_threads_warlock_m` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A161 | P4 | `alliance-gnome-male-warlock-generic-leveling.png` 745x1040 |  | Level Classes to 60: Gnome Warlock M: `allclasses` / `allclasses_gnome_warlock_male` | Blocked | Karl's pick, card scan, crop first replacement proposal: slot already has art |
-| ☐ | A162 | P4 | `horde-undead-male-rogue-generic-leveling-3.jpg` 1024x867 |  | Level Classes to 60: Undead Rogue M: `allclasses` / `allclasses_undead_rogue_male` | Blocked | Karl's pick replacement proposal: slot already has art |
+| ☐ | A161 | P4 | `alliance-gnome-male-warlock-generic-leveling.png` 745x1040 |  | Level Classes to 60: Gnome Warlock M: `allclasses` / `allclasses_gnome_warlock_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
+| ☐ | A162 | P4 | `horde-undead-male-rogue-generic-leveling-3.jpg` 1024x867 |  | Level Classes to 60: Undead Rogue M: `allclasses` / `allclasses_undead_rogue_male` | Queued | Karl's pick replacement proposal: slot already has art |
 | ☐ | A163 | P4 | `alliance-nightelf-male-hunter-tier1.jpg` 1050x1200 |  | Tier 1 Hunter A M: `set_tier1_hunter` / `set_tier1_hunter_nightelf_male` | Queued | Karl's pick replacement proposal: slot already has art |
 
 ### Batch 19
@@ -322,11 +322,11 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 |---|---|---|---|---|---|---|---|
 | ☐ | A164 | P4 | `horde-tauren-male-hunter-tier1.png` 745x1040 |  | Tier 1 Hunter H M: `set_tier1_hunter` / `set_tier1_hunter_tauren_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
 | ☐ | A165 | P4 | `horde-orc-male-warrior-tier1-2.jpg` 1494x1200 |  | Tier 1 Warrior H M: `set_tier1_warrior` / `set_tier1_warrior_orc_male` | Queued | Karl's pick replacement proposal: slot already has art |
-| ☐ | A166 | P4 | `alliance-nightelf-female-hunter-tier2.jpg` 900x698 |  | Tier 2 Hunter A F: `set_tier2_hunter` / `set_tier2_hunter_nightelf_female` | Queued | Karl's pick replacement proposal: slot already has art |
+| ☐ | A166 | P4 | `alliance-nightelf-female-hunter-tier2.jpg` 900x698 |  | Tier 2 Hunter A F: `set_tier2_hunter` / `set_tier2_hunter_nightelf_female` | Blocked | Karl's pick replacement proposal: slot already has art |
 | ☐ | A167 | P4 | `horde-tauren-male-shaman-tier2-2.png` 745x1040 |  | Tier 2 Shaman H M: `set_tier2_shaman` / `set_tier2_shaman_tauren_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
 | ☐ | A169 | P4 | `horde-orc-male-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue H M: `tier3_rogue` / `tier3_rogue_orc_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
 | ☐ | A170 | P4 | `horde-tauren-female-shaman-tier3.jpg` 1000x775 |  | Tier 3 Shaman H F: `tier3_shaman` / `tier3_shaman_tauren_female` | Queued | Karl's pick replacement proposal: slot already has art |
-| ☐ | A171 | P4 | `alliance-nightelf-female-druid-pvpset-leather.jpg` 900x787 |  | Field Marshal's Sanctuary (Druid) F: `None` / `pvp_field_marshal_s_sanctuary_druid_f` | Queued | Karl's pick replacement proposal: slot already has art |
+| ☐ | A171 | P4 | `alliance-nightelf-female-druid-pvpset-leather.jpg` 900x787 |  | Field Marshal's Sanctuary (Druid) F: `None` / `pvp_field_marshal_s_sanctuary_druid_f` | Blocked | Karl's pick replacement proposal: slot already has art |
 
 ## Skipped or blocked (Codex: do not touch)
 
@@ -347,21 +347,30 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A056 | Blocked | `alliance-human-female-warlock-leveling.jpg` | 1000x1143 | Level Classes to 60: Human Warlock F  |
 | A059 | Skipped (low-res) | `alliance-nightelf-male-druid-generic.jpg` | 200x279 | Level Classes to 60: Night Elf Druid M  |
 | A074 | Skipped (low-res) | `horde-tauren-female-druid-leather-leveling-generic.jpg` | 312x440 | Level Classes to 60: Tauren Druid F  |
+| A084 | Blocked | `horde-troll-male-shaman-generic.png` | 745x1040 | Level Classes to 60: Troll Shaman M  |
 | A090 | Skipped (low-res) | `horde-undead-male-warlock-generic.jpg` | 220x308 | Level Classes to 60: Undead Warlock M  |
+| A096 | Blocked | `alliance-human-male-priest-benediction-tier1.jpg` | 862x1000 | Tier 1 Priest A M  |
+| A102 | Blocked | `horde-tauren-female-druid-tier2.jpg` | 862x1200 | Tier 2 Druid H F  |
 | A103 | Skipped (low-res) | `alliance-nightelf-male-hunter-tier2-2.jpg` | 312x440 | Tier 2 Hunter A M  |
+| A110 | Blocked | `alliance-nightelf-female-warrior-tier2.jpg` | 1024x1365 | Tier 2 Warrior A F  |
+| A119 | Blocked | `horde-orc-male-shaman-tier3-2.jpg` | 1280x749 | Tier 3 Shaman H M  |
 | A126 | Skipped (low-res) | `alliance-human-male-paladin-dungeonset-2.jpg` | 220x308 | Dungeon Set 1 Paladin A  |
+| A128 | Blocked | `horde-undead-male-cloth-dungeonset.jpg` | 1051x1200 | Dungeon Set 1 Priest H; Dungeon Set 2 Priest H  |
 | A129 | Skipped (low-res) | `alliance-gnome-male-rogue-dungeonset-ashtongue-blade.jpg` | 312x440 | Dungeon Set 1 Rogue A; Dungeon Set 2 Rogue A  |
 | A130 | Skipped (low-res) | `horde-orc-male-rogue-dungeonset.jpg` | 220x308 | Dungeon Set 1 Rogue H; Dungeon Set 2 Rogue H  |
+| A131 | Blocked | `horde-orc-female-shaman-dungeonset.jpg` | 1024x795 | Dungeon Set 1 Shaman H  |
 | A135 | Skipped (low-res) | `horde-tauren-female-warrior-dungeonset.jpg` | 312x440 | Dungeon Set 1 Warrior H; Dungeon Set 2 Warrior H  |
+| A138 | Blocked | `alliance-dwarf-male-hunter-dungeonset.jpg` | 4200x5409 | Dungeon Set 2 Hunter A  |
 | A140 | Skipped (low-res) | `alliance-human-male-paladin-dungeonset.jpg` | 220x308 | Dungeon Set 2 Paladin A  |
+| A143 | Blocked | `alliance-gnome-male-warlock-dungeonset1.png` | 745x1040 | Dungeon Set 2 Warlock A  |
 | A144 | Skipped (low-res) | `horde-orc-male-warlock-dungeonset-2.jpg` | 312x440 | Dungeon Set 2 Warlock H  |
 | A147 | Blocked | `alliance-nightelf-male-druid-aqset-leather.jpg` | 918x1200 | Leather: Deathdealer's Embrace (Rogue), Genesis Raiment (Druid) One image per armor type; map it to the goals in the title. |
 | A148 | Blocked | `horde-orc-male-hunter-aqset-mail.jpg` | 861x1200 | Mail: Striker's Garb (Hunter), Stormcaller's Garb (Shaman) One image per armor type; map it to the goals in the title. |
 | A149 | Blocked | `alliance-dwarf-male-aqset-plate.jpg` | 861x1200 | Plate: Conqueror's Battlegear (Warrior), Avenger's Battlegear (Paladin) One image per armor type; map it to the goals in the title. |
 | A153 | Skipped (low-res) | `alliance-nightelf-male-druid-pvpset-leather.jpg` | 200x285 | Field Marshal's Sanctuary (Druid) M PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| A161 | Blocked | `alliance-gnome-male-warlock-generic-leveling.png` | 745x1040 | Level Classes to 60: Gnome Warlock M replacement proposal: slot already has art |
-| A162 | Blocked | `horde-undead-male-rogue-generic-leveling-3.jpg` | 1024x867 | Level Classes to 60: Undead Rogue M replacement proposal: slot already has art |
+| A166 | Blocked | `alliance-nightelf-female-hunter-tier2.jpg` | 900x698 | Tier 2 Hunter A F replacement proposal: slot already has art |
 | A168 | Skipped (low-res) | `alliance-dwarf-male-rogue-tier3.jpg` | 220x308 | Tier 3 Rogue A M replacement proposal: slot already has art |
+| A171 | Blocked | `alliance-nightelf-female-druid-pvpset-leather.jpg` | 900x787 | Field Marshal's Sanctuary (Druid) F replacement proposal: slot already has art |
 | A172 | Skipped (low-res) | `set-herod-the-scarlet-champion.jpg` | 312x440 | Chain of the Scarlet Crusade The set already has its own banner; this card is 312x440. |
 | A173 | Blocked | `goal-gold-horde.jpg` | 1000x842 | Save 5,000 Gold (Horde) Renamed from Cutpurse_full.jpg; the gold goal is done with one shared image. |
 | A174 | Blocked | `profession-tailoring-2.jpg` | 512x512 | Tailoring profession banner Profession banners are done; this would be an addition. |
