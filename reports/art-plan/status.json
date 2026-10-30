@@ -579,12 +579,12 @@
  "A117": {
   "banner": "tier3_priest_troll_male",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A118": {
   "banner": "tier3_rogue_orc_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A119": {
   "date": "2026-10-29",
@@ -594,7 +594,7 @@
  "A120": {
   "banner": "set_dungeon1_druid_nightelf",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A121": {
   "date": "2026-10-30",
@@ -605,15 +605,15 @@
   "banner": "set_dungeon1_hunter_nightelf",
   "date": "2026-10-30",
   "note": "Karl approved v2 with the added bow removed.",
-  "state": "installed"
+  "state": "verified"
  },
  "A123": {
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A124": {
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A128": {
   "date": "2026-10-29",
