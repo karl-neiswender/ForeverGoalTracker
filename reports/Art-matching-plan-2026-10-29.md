@@ -1,8 +1,8 @@
-# Art matching plan and work order, built 2026-10-29
+# Art matching plan and work order, built 2026-10-30
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 76 of 134 workable banners verified.** Queued 58, Verified 76, Blocked 19, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 76 of 133 workable banners verified.** Queued 51, Installed 6, Verified 76, Blocked 20, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 134 workable banners; P1 is 33, P2 is 44, P3 is 49. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 133 workable banners; P1 is 33, P2 is 44, P3 is 48. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -216,14 +216,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A092 | P2 | `horde-undead-male-warrior-paladin-generic-leveling.jpg` 2500x3333 | `horde-undead-male-warrior-leveling-generic-pvp.jpg` | Level Classes to 60: Undead Warrior M: `allclasses` / `allclasses_undead_warrior_male`<br>Level Classes to 60: Undead Paladin M: `allclasses` / `allclasses_undead_warrior_male` | Queued | Karl's pick replacement proposal: slot already has art |
-| ☐ | A093 | P3 | `alliance-nightelf-female-druid-tier1-2.png` 745x1040 |  | Tier 1 Druid A F: `set_tier1_druid` / `set_tier1_druid_nightelf_female` | Queued | card scan, crop first  |
-| ☐ | A094 | P3 | `horde-tauren-druid-female-tier1.png` 745x1040 | `horde-tauren-female-druid-tier1-2.png` | Tier 1 Druid H F: `set_tier1_druid` / `set_tier1_druid_tauren_female` | Queued | card scan, crop first  |
-| ☐ | A095 | P3 | `alliance-human-female-hunter-tier1.png` 745x1040 |  | Tier 1 Hunter A F: `set_tier1_hunter` / `set_tier1_hunter_human_female` | Queued | card scan, crop first  |
+| ☐ | A092 | P2 | `horde-undead-male-warrior-paladin-generic-leveling.jpg` 2500x3333 | `horde-undead-male-warrior-leveling-generic-pvp.jpg` | Level Classes to 60: Undead Warrior M: `allclasses` / `allclasses_undead_warrior_male`<br>Level Classes to 60: Undead Paladin M: `allclasses` / `allclasses_undead_warrior_male` | Installed | Karl's pick replacement proposal: slot already has art |
+| ☐ | A093 | P3 | `alliance-nightelf-female-druid-tier1-2.png` 745x1040 |  | Tier 1 Druid A F: `set_tier1_druid` / `set_tier1_druid_nightelf_female` | Installed | card scan, crop first  |
+| ☐ | A094 | P3 | `horde-tauren-druid-female-tier1.png` 745x1040 | `horde-tauren-female-druid-tier1-2.png` | Tier 1 Druid H F: `set_tier1_druid` / `set_tier1_druid_tauren_female` | Installed | card scan, crop first  |
+| ☐ | A095 | P3 | `alliance-human-female-hunter-tier1.png` 745x1040 |  | Tier 1 Hunter A F: `set_tier1_hunter` / `set_tier1_hunter_human_female` | Installed | card scan, crop first  |
 | ☐ | A096 | P3 | `alliance-human-male-priest-benediction-tier1.jpg` 862x1000 |  | Tier 1 Priest A M: `set_tier1_priest` / `set_tier1_priest_human_male` | Blocked |   |
-| ☐ | A097 | P3 | `horde-tauren-female-priest-shadow-tier1.png` 745x1040 | `horde-undead-female-priest-tier1-2.jpg` | Tier 1 Priest H F: `set_tier1_priest` / `set_tier1_priest_tauren_female` | Queued | card scan, crop first  |
-| ☐ | A098 | P3 | `alliance-human-female-rogue-tier1.png` 745x1040 |  | Tier 1 Rogue A F: `set_tier1_rogue` / `set_tier1_rogue_human_female` | Queued | card scan, crop first  |
-| ☐ | A099 | P3 | `h-orc-female-shaman-tier1-hero.png` 745x1040 | `horde-orc-female-shaman-tier1.jpg` | Tier 1 Shaman H F: `set_tier1_shaman` / `set_tier1_shaman_orc_female` | Queued | card scan, crop first  |
+| ☐ | A097 | P3 | `horde-tauren-female-priest-shadow-tier1.png` 745x1040 | `horde-undead-female-priest-tier1-2.jpg` | Tier 1 Priest H F: `set_tier1_priest` / `set_tier1_priest_tauren_female` | Blocked | card scan, crop first  |
+| ☐ | A098 | P3 | `alliance-human-female-rogue-tier1.png` 745x1040 |  | Tier 1 Rogue A F: `set_tier1_rogue` / `set_tier1_rogue_human_female` | Installed | card scan, crop first  |
+| ☐ | A099 | P3 | `h-orc-female-shaman-tier1-hero.png` 745x1040 | `horde-orc-female-shaman-tier1.jpg` | Tier 1 Shaman H F: `set_tier1_shaman` / `set_tier1_shaman_orc_female` | Installed | card scan, crop first  |
 
 ### Batch 12
 
@@ -350,6 +350,7 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A084 | Blocked | `horde-troll-male-shaman-generic.png` | 745x1040 | Level Classes to 60: Troll Shaman M  |
 | A090 | Skipped (low-res) | `horde-undead-male-warlock-generic.jpg` | 220x308 | Level Classes to 60: Undead Warlock M  |
 | A096 | Blocked | `alliance-human-male-priest-benediction-tier1.jpg` | 862x1000 | Tier 1 Priest A M  |
+| A097 | Blocked | `horde-tauren-female-priest-shadow-tier1.png` | 745x1040 | Tier 1 Priest H F  |
 | A102 | Blocked | `horde-tauren-female-druid-tier2.jpg` | 862x1200 | Tier 2 Druid H F  |
 | A103 | Skipped (low-res) | `alliance-nightelf-male-hunter-tier2-2.jpg` | 312x440 | Tier 2 Hunter A M  |
 | A110 | Blocked | `alliance-nightelf-female-warrior-tier2.jpg` | 1024x1365 | Tier 2 Warrior A F  |

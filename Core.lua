@@ -5664,12 +5664,17 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     -- Most specific compatible artwork wins; list order breaks equal scores.
     -- Only approved runtime textures belong here, never source/review files.
     B.artVariants = {
+        set_tier1_druid = {
+            {path="set_tier1_druid_nightelf_female-banner.blp", faction="Alliance", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
+            {path="set_tier1_druid_tauren_female-banner.blp", faction="Horde", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
+        },
         -- This PvP weapon has dedicated art instead of the shared PvP fallback.
         glacial_blade = {
             {path="glacial_blade-banner.blp", faction="Horde", aspect=4/3, preprocessed=true},
         },
         set_tier1_rogue = {
             {path="set_tier1_rogue_dwarf_female-banner.blp", faction="Alliance", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
+            {path="set_tier1_rogue_human_female-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
             {path="set_tier1_rogue-alliance-banner.blp", faction="Alliance"},
         },
         benediction = {
@@ -5716,6 +5721,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_undead_warlock_female-banner.blp", faction="Horde", class="WARLOCK", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_warrior_female-banner.blp", faction="Horde", class="WARRIOR", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_warrior_female-banner.blp", faction="Horde", class="PALADIN", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_undead_warrior_male-banner.blp", faction="Horde", class="WARRIOR", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_undead_warrior_male-banner.blp", faction="Horde", class="PALADIN", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_paladin_female-banner.blp", faction="Alliance", class="PALADIN", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_priest_female-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_priest_male-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf", sex=2, aspect=4/3, preprocessed=true},
@@ -5904,7 +5911,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_set_cloth_horde = {{path="pvp_set_cloth_horde-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_set_leather_ally = {{path="pvp_set_leather_ally-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.set_dungeon1_priest = {{path="key_strat-banner.blp"}}
-    B.artVariants.set_tier1_hunter = {{path="set_tier1_hunter-alliance-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_tier1_hunter = {
+        {path="set_tier1_hunter_human_female-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
+        {path="set_tier1_hunter-alliance-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true},
+    }
     B.artVariants.set_dungeon2_shaman = {{path="set_dungeon2_shaman-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_mount_ally = {{path="pvp_mount_ally-banner.blp"}}
     B.artVariants.pvp_mount_horde = {{path="pvp_mount_horde-banner.blp", aspect=4/3, preprocessed=true}}
@@ -5926,7 +5936,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="rep_ambassador_horde_undercity-banner.blp", faction="Horde", race="Scourge", aspect=4/3, preprocessed=true},
     }
     table.insert(B.artVariants.tier3_rogue, {path="tier3_rogue_troll-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true})
-    B.artVariants.set_tier1_shaman = {{path="set_tier1_shaman_troll-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_tier1_shaman = {
+        {path="set_tier1_shaman_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+        {path="set_tier1_shaman_troll-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true},
+    }
     for _, id in ipairs({"set_dungeon1_warlock", "set_dungeon2_warlock"}) do
         B.artVariants[id] = {{path="allclasses_troll_warlock-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true}}
     end

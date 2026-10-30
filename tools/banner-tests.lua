@@ -128,6 +128,8 @@ do
         {"WARLOCK", "Scourge", 3, "allclasses_undead_warlock_female-banner.blp"},
         {"WARRIOR", "Scourge", 3, "allclasses_undead_warrior_female-banner.blp"},
         {"PALADIN", "Scourge", 3, "allclasses_undead_warrior_female-banner.blp"},
+        {"WARRIOR", "Scourge", 2, "allclasses_undead_warrior_male-banner.blp"},
+        {"PALADIN", "Scourge", 2, "allclasses_undead_warrior_male-banner.blp"},
     }) do
         local path, aspect, preprocessed = B:ResolveArt("allclasses",
             {faction="Horde", class=entry[1], race=entry[2], sex=entry[3]})
@@ -138,6 +140,22 @@ do
         == "allclasses_alliance_warlock-banner.blp", "female Human Warlock keeps existing Alliance art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="DRUID", race="NightElf", sex=2})
         == "set_tier2_druid-banner.blp", "male Night Elf Druid keeps existing Tier 2 art")
+    local druidPath, druidAspect, druidPreprocessed = B:ResolveArt("set_tier1_druid",
+        {faction="Alliance", class="DRUID", race="NightElf", sex=3})
+    assert(druidPath == "set_tier1_druid_nightelf_female-banner.blp" and druidAspect == 4/3 and druidPreprocessed,
+        "female Night Elf Tier 1 Druid uses approved art")
+    assert(B:ResolveArt("set_tier1_druid", {faction="Horde", class="DRUID", race="Tauren", sex=3})
+        == "set_tier1_druid_tauren_female-banner.blp", "female Tauren Tier 1 Druid uses approved art")
+    local hunterPath, hunterAspect, hunterPreprocessed = B:ResolveArt("set_tier1_hunter",
+        {faction="Alliance", class="HUNTER", race="Human", sex=3})
+    assert(hunterPath == "set_tier1_hunter_human_female-banner.blp" and hunterAspect == 4/3 and hunterPreprocessed,
+        "female Human Tier 1 Hunter uses approved art")
+    assert(B:ResolveArt("set_tier1_hunter", {faction="Alliance", class="HUNTER", race="Human", sex=2})
+        == "set_tier1_hunter-alliance-banner.blp", "male Human Tier 1 Hunter keeps Alliance art")
+    assert(B:ResolveArt("set_tier1_rogue", {faction="Alliance", class="ROGUE", race="Human", sex=3})
+        == "set_tier1_rogue_human_female-banner.blp", "female Human Tier 1 Rogue uses approved art")
+    assert(B:ResolveArt("set_tier1_shaman", {faction="Horde", class="SHAMAN", race="Orc", sex=3})
+        == "set_tier1_shaman_orc_female-banner.blp", "female Orc Tier 1 Shaman uses approved art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="HUNTER", race="NightElf", sex=3})
         == "allclasses_nightelf_hunter-banner.blp", "female Night Elf Hunter keeps existing art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="NightElf", sex=3})

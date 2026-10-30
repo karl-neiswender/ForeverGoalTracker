@@ -455,10 +455,45 @@
   "date": "2026-10-29",
   "state": "verified"
  },
+ "A092": {
+  "banner": "allclasses_undead_warrior_male",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A093": {
+  "banner": "set_tier1_druid_nightelf_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A094": {
+  "banner": "set_tier1_druid_tauren_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A095": {
+  "banner": "set_tier1_hunter_human_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
  "A096": {
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A097": {
+  "date": "2026-10-30",
+  "note": "Karl rejected final v5 staff revision on 2026-10-30; stop attempts and leave uninstalled.",
+  "state": "blocked"
+ },
+ "A098": {
+  "banner": "set_tier1_rogue_human_female",
+  "date": "2026-10-29",
+  "state": "installed"
+ },
+ "A099": {
+  "banner": "set_tier1_shaman_orc_female",
+  "date": "2026-10-29",
+  "state": "installed"
  },
  "A102": {
   "date": "2026-10-29",
