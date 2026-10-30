@@ -498,12 +498,12 @@
  "A100": {
   "banner": "set_tier1_warlock_troll_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A101": {
   "banner": "set_tier1_warrior_orc_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A102": {
   "date": "2026-10-29",
@@ -513,28 +513,28 @@
  "A104": {
   "banner": "set_tier2_hunter_orc_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A105": {
   "banner": "set_tier2_mage_human_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A106": {
   "banner": "set_tier2_priest_nightelf_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A107": {
   "banner": "set_tier2_rogue_undead_male",
   "date": "2026-10-30",
   "note": "Retargeted to Horde Undead male Tier 2 Rogue per Karl; source is Horde art.",
-  "state": "installed"
+  "state": "verified"
  },
  "A108": {
   "banner": "set_tier2_shaman_orc_female",
   "date": "2026-10-30",
-  "state": "installed"
+  "state": "verified"
  },
  "A110": {
   "date": "2026-10-29",
