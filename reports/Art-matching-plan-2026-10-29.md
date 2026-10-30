@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 61 of 145 workable banners verified.** Queued 76, In review 8, Verified 61, Blocked 8, Skipped (low-res) 22. 57 slots have no source image.
+**Progress: 61 of 145 workable banners verified.** Queued 76, Installed 8, Verified 61, Blocked 8, Skipped (low-res) 22. 57 slots have no source image.
 
 ## Codex: start here
 
@@ -190,14 +190,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A075 | P2 | `horde-tauren-male-druid-leveling.jpg` 1200x1200 | `horde-tauren-male-shaman-druid-generic-leveling.png` | Level Classes to 60: Tauren Druid M: `allclasses` / `allclasses_tauren_druid_male` | In review |   |
-| ☐ | A076 | P2 | `horde-tauren-female-hunter-generic-leveling.png` 745x1040 |  | Level Classes to 60: Tauren Hunter F: `allclasses` / `allclasses_tauren_hunter_female` | In review | card scan, crop first  |
-| ☐ | A077 | P2 | `horde-tauren-male-hunter-generic-2.png` 745x1040 | `horde-tauren-male-hunter-generic-leveling.png` | Level Classes to 60: Tauren Hunter M: `allclasses` / `allclasses_tauren_hunter_male` | In review | card scan, crop first  |
-| ☐ | A078 | P2 | `h-tauren-female-shaman-generic-leveling.png` 745x1040 | `horde-tauren-female-shaman-leveling-2.jpg` | Level Classes to 60: Tauren Shaman F: `allclasses` / `allclasses_tauren_shaman_female` | In review | card scan, crop first  |
-| ☐ | A079 | P2 | `horde-tauren-male-shaman-leveling-2.png` 745x1040 | `horde-tauren-male-shaman-leveling.png` | Level Classes to 60: Tauren Shaman M: `allclasses` / `allclasses_tauren_shaman_male` | In review | card scan, crop first  |
-| ☐ | A080 | P2 | `horde-tauren-female-warrior-generic-leveling.png` 745x1040 | `horde-tauren-female-warrior-generic-leveling-reaper.jpg` | Level Classes to 60: Tauren Warrior F: `allclasses` / `allclasses_tauren_warrior_female` | In review | card scan, crop first  |
-| ☐ | A081 | P2 | `horde-troll-female-mage.png` 745x1040 |  | Level Classes to 60: Troll Mage F: `allclasses` / `allclasses_troll_mage_female` | In review | card scan, crop first  |
-| ☐ | A082 | P2 | `horde-troll-female-priest-generic.jpg` 1024x831 |  | Level Classes to 60: Troll Priest F: `allclasses` / `allclasses_troll_priest_female` | In review |   |
+| ☐ | A075 | P2 | `horde-tauren-male-druid-leveling.jpg` 1200x1200 | `horde-tauren-male-shaman-druid-generic-leveling.png` | Level Classes to 60: Tauren Druid M: `allclasses` / `allclasses_tauren_druid_male` | Installed |   |
+| ☐ | A076 | P2 | `horde-tauren-female-hunter-generic-leveling.png` 745x1040 |  | Level Classes to 60: Tauren Hunter F: `allclasses` / `allclasses_tauren_hunter_female` | Installed | card scan, crop first  |
+| ☐ | A077 | P2 | `horde-tauren-male-hunter-generic-2.png` 745x1040 | `horde-tauren-male-hunter-generic-leveling.png` | Level Classes to 60: Tauren Hunter M: `allclasses` / `allclasses_tauren_hunter_male` | Installed | card scan, crop first  |
+| ☐ | A078 | P2 | `h-tauren-female-shaman-generic-leveling.png` 745x1040 | `horde-tauren-female-shaman-leveling-2.jpg` | Level Classes to 60: Tauren Shaman F: `allclasses` / `allclasses_tauren_shaman_female` | Installed | card scan, crop first  |
+| ☐ | A079 | P2 | `horde-tauren-male-shaman-leveling-2.png` 745x1040 | `horde-tauren-male-shaman-leveling.png` | Level Classes to 60: Tauren Shaman M: `allclasses` / `allclasses_tauren_shaman_male` | Installed | card scan, crop first  |
+| ☐ | A080 | P2 | `horde-tauren-female-warrior-generic-leveling.png` 745x1040 | `horde-tauren-female-warrior-generic-leveling-reaper.jpg` | Level Classes to 60: Tauren Warrior F: `allclasses` / `allclasses_tauren_warrior_female` | Installed | card scan, crop first  |
+| ☐ | A081 | P2 | `horde-troll-female-mage.png` 745x1040 |  | Level Classes to 60: Troll Mage F: `allclasses` / `allclasses_troll_mage_female` | Installed | card scan, crop first  |
+| ☐ | A082 | P2 | `horde-troll-female-priest-generic.jpg` 1024x831 |  | Level Classes to 60: Troll Priest F: `allclasses` / `allclasses_troll_priest_female` | Installed |   |
 
 ### Batch 10
 

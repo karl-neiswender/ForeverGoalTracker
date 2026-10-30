@@ -374,36 +374,44 @@
   "state": "verified"
  },
  "A075": {
+  "banner": "allclasses_tauren_druid_male",
   "date": "2026-10-29",
-  "state": "review"
+  "state": "installed"
  },
  "A076": {
+  "banner": "allclasses_tauren_hunter_female",
   "date": "2026-10-29",
-  "state": "review"
+  "state": "installed"
  },
  "A077": {
+  "banner": "allclasses_tauren_hunter_male",
   "date": "2026-10-29",
-  "state": "review"
+  "state": "installed"
  },
  "A078": {
+  "banner": "allclasses_tauren_shaman_female",
   "date": "2026-10-29",
-  "state": "review"
+  "state": "installed"
  },
  "A079": {
+  "banner": "allclasses_tauren_shaman_male",
   "date": "2026-10-29",
-  "state": "review"
+  "state": "installed"
  },
  "A080": {
+  "banner": "allclasses_tauren_warrior_female",
   "date": "2026-10-29",
-  "state": "review"
+  "state": "installed"
  },
  "A081": {
+  "banner": "allclasses_troll_mage_female",
   "date": "2026-10-29",
-  "state": "review"
+  "state": "installed"
  },
  "A082": {
+  "banner": "allclasses_troll_priest_female",
   "date": "2026-10-29",
-  "state": "review"
+  "state": "installed"
  },
  "A147": {
   "date": "2026-10-29",
@@ -419,5 +427,17 @@
   "date": "2026-10-29",
   "note": "Karl confirmed the Tier 2.5 leather, mail and plate banners are already loaded and in use; no new banner to install.",
   "state": "blocked"
+ },
+ "A161": {
+  "banner": "allclasses_gnome_warlock_male",
+  "date": "2026-10-29",
+  "note": "Different art already installed (earlier banner from other source); plan source not yet used. Karl decides: keep existing or replace.",
+  "state": "queued"
+ },
+ "A162": {
+  "banner": "allclasses_undead_rogue_male",
+  "date": "2026-10-29",
+  "note": "Different art already installed (earlier banner from other source); plan source not yet used. Karl decides: keep existing or replace.",
+  "state": "queued"
  }
 }
