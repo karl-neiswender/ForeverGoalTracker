@@ -127,6 +127,8 @@ its October 21 notes.
 
 - Art batch 8 (2026-10-29): Karl approved A066 through A073, with A070 v2. Eight Orc class banners are installed. Claude verification and full-restart native review remain pending.
 
+- Art batch 9 (2026-10-29): Karl approved A075 through A082. Eight Tauren and Troll class banners are installed. Claude verification and full-restart native review remain pending.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,
