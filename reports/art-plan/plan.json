@@ -3255,19 +3255,19 @@
    "file": "alliance-human-male-rogue-tier2-2.jpg",
    "group": "tier",
    "priority": 3,
-   "title": "Tier 2 Rogue A M",
+   "title": "Tier 2 Rogue H M (Undead)",
    "targets": [
     {
-     "label": "Tier 2 Rogue A M",
+     "label": "Tier 2 Rogue H M (Undead)",
      "goal": "set_tier2_rogue",
      "resolve": {
       "goal": "set_tier2_rogue",
-      "faction": "Alliance",
+      "faction": "Horde",
       "class": "ROGUE",
-      "race": "Human",
+      "race": "Scourge",
       "sex": 2
      },
-     "key": "set_tier2_rogue_human_male"
+     "key": "set_tier2_rogue_undead_male"
     }
    ],
    "alt": "alliance-dwarf-male-rogue-tier2.jpg",
@@ -3278,10 +3278,13 @@
    "karl": false,
    "inferred": false,
    "now": "done",
-   "notes": "",
+   "notes": "Source is Horde (Undead male); file name is misleading. Rename to horde-undead-male-rogue-tier2-2.jpg when convenient. Source carries a tegehel.org watermark; leave it out of the banner.",
    "id": "A107",
    "state": "queued",
-   "batch": 12
+   "batch": 12,
+   "corrections": [
+    "Karl 2026-10-30: source art is an Undead male rogue (Horde), so the target moved from Alliance Human male to Horde Undead male. File name still says alliance-human."
+   ]
   },
   {
    "file": "horde-orc-female-shaman-tier2-2.png",
@@ -5811,6 +5814,13 @@
    "goal": null,
    "why": "No image in the folder for this slot.",
    "id": "G057"
+  },
+  {
+   "group": "tier",
+   "slot": "Tier 2 Rogue A M",
+   "goal": "set_tier2_rogue",
+   "why": "The planned source turned out to be Horde (Undead). No Alliance male Tier 2 Rogue source in the folder.",
+   "id": "G058"
   }
  ],
  "corrections": [

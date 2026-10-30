@@ -502,8 +502,8 @@
  },
  "A107": {
   "date": "2026-10-30",
-  "note": "Karl: source is an Undead male rogue (Horde), not a Human male (Alliance). Do not install as Alliance. Needs retarget to Horde Undead male or a new Alliance source.",
-  "state": "blocked"
+  "note": "Retargeted to Horde Undead male Tier 2 Rogue per Karl; source is Horde art.",
+  "state": "queued"
  },
  "A110": {
   "date": "2026-10-29",
