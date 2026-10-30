@@ -5861,8 +5861,13 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="set_dungeon2_hunter_tauren-banner.blp", faction="Horde", class="HUNTER", race="Tauren", aspect=4/3, preprocessed=true},
         {path="dungeon_hunter_human_male-banner.blp", faction="Alliance", race="Human", sex=2, aspect=4/3, preprocessed=true},
     }
-    B.artVariants.set_dungeon1_mage = {{path="set_dungeon1_mage_human-banner.blp", faction="Alliance", class="MAGE", race="Human", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon1_mage = {
+        {path="set_dungeon1_mage_human-banner.blp", faction="Alliance", class="MAGE", race="Human", aspect=4/3, preprocessed=true},
+        {path="set_dungeon1_mage_troll-banner.blp", faction="Horde", class="MAGE", race="Troll", aspect=4/3, preprocessed=true},
+    }
     B.artVariants.set_dungeon2_mage = {{path="set_dungeon2_mage_human-banner.blp", faction="Alliance", class="MAGE", race="Human", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon1_warrior = {{path="set_dungeon1_warrior_dwarf-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon2_druid = {{path="set_dungeon2_druid_nightelf-banner.blp", faction="Alliance", class="DRUID", race="NightElf", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_set_plate_ally_warrior = {
         {path="pvp_set_plate_ally_warrior_gnome_female-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
         {path="pvp_set_plate_ally-banner.blp", aspect=4/3, preprocessed=true},
@@ -5964,7 +5969,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_set_cloth_ally = {{path="pvp_set_cloth_ally-banner.blp"}}
     B.artVariants.pvp_set_cloth_horde = {{path="pvp_set_cloth_horde-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_set_leather_ally = {{path="pvp_set_leather_ally-banner.blp", aspect=4/3, preprocessed=true}}
-    B.artVariants.set_dungeon1_priest = {{path="key_strat-banner.blp"}}
+    B.artVariants.set_dungeon1_priest = {
+        {path="set_dungeon1_priest_dwarf-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf", aspect=4/3, preprocessed=true},
+        {path="key_strat-banner.blp"},
+    }
     B.artVariants.set_tier1_hunter = {
         {path="set_tier1_hunter_human_female-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
         {path="set_tier1_hunter-alliance-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true},
@@ -5997,6 +6005,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     for _, id in ipairs({"set_dungeon1_warlock", "set_dungeon2_warlock"}) do
         B.artVariants[id] = {{path="allclasses_troll_warlock-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true}}
     end
+    table.insert(B.artVariants.set_dungeon1_warlock, 1, {path="set_dungeon1_warlock_gnome-banner.blp", faction="Alliance", class="WARLOCK", race="Gnome", aspect=4/3, preprocessed=true})
+    table.insert(B.artVariants.set_dungeon1_warlock, 2, {path="set_dungeon1_warlock_orc-banner.blp", faction="Horde", class="WARLOCK", race="Orc", aspect=4/3, preprocessed=true})
     table.insert(B.artVariants.social_buffs, 1, {path="social_buffs_horde-banner.blp", faction="Horde", class="MAGE", aspect=4/3, preprocessed=true})
     table.insert(B.artVariants.social_buffs, {path="social_buffs_horde-banner.blp", faction="Horde", aspect=4/3, preprocessed=true})
     B.artVariants.pvp_set_mail_horde = {{path="pvp_troll_hunter_mail-banner.blp", aspect=4/3, preprocessed=true}}
@@ -6430,6 +6440,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         ["tier3_druid-banner.blp"] = true, ["set_tier2_druid-horde-banner.blp"] = true,  -- druid sets
         ["tier3_druid_nightelf_female-banner.blp"] = true, ["tier3_druid_tauren_female-banner.blp"] = true,
         ["set_dungeon1_druid_nightelf-banner.blp"] = true,
+        ["set_dungeon2_druid_nightelf-banner.blp"] = true,
         ["allclasses_horde_druid-banner.blp"] = true,        -- leveling, Horde Druid
         ["set_tier2_paladin-banner.blp"] = true,             -- Judgement Armor (a forest)
         rhokdelar = true, lokdelar = true,                    -- forest weapons

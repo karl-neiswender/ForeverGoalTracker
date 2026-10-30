@@ -615,6 +615,16 @@
   "date": "2026-10-30",
   "state": "verified"
  },
+ "A125": {
+  "banner": "set_dungeon1_mage_troll",
+  "date": "2026-10-30",
+  "state": "verified"
+ },
+ "A127": {
+  "banner": "set_dungeon1_priest_dwarf",
+  "date": "2026-10-30",
+  "state": "verified"
+ },
  "A128": {
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
@@ -624,6 +634,26 @@
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A132": {
+  "banner": "set_dungeon1_warlock_gnome",
+  "date": "2026-10-30",
+  "state": "verified"
+ },
+ "A133": {
+  "banner": "set_dungeon1_warlock_orc",
+  "date": "2026-10-30",
+  "state": "verified"
+ },
+ "A134": {
+  "banner": "set_dungeon1_warrior_dwarf",
+  "date": "2026-10-30",
+  "state": "verified"
+ },
+ "A136": {
+  "banner": "set_dungeon2_druid_nightelf",
+  "date": "2026-10-30",
+  "state": "verified"
  },
  "A138": {
   "date": "2026-10-29",

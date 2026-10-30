@@ -139,6 +139,8 @@ its October 21 notes.
 
 - Art batch 14 (2026-10-30): Karl approved A117, A118, A120, A122 v2, A123 and A124. Six scenes cover eight Tier 3 and dungeon set targets, including both Dungeon Sets 1 and 2 for Tauren Hunters and Human Mages, and are synced to Era. A119 and A121 are blocked, with A121 unsuitable at banner size. `art-plan.py verify` for all eight targets and `tools/check.py` pass. Full-restart native review and Claude status marking remain pending.
 
+- Art batch 15 (2026-10-30): Karl approved A125, A127, A132, A133 v3, A134 and A136. Six Dungeon Set 1 and 2 class banners are installed with class and faction variants and synced to Era. `art-plan.py verify` for all six and `tools/check.py` pass. A128 and A131 remain blocked. Full-restart native review and Claude status marking remain pending. See `image-tests/batch-15-2026-10-30.md` for source and review picks.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,

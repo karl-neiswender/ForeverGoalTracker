@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 102 of 132 workable banners verified.** Queued 30, Verified 102, Blocked 21, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 108 of 132 workable banners verified.** Queued 24, Verified 108, Blocked 21, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -268,14 +268,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A125 | P3 | `horde-troll-male-mage-dungeonset-2.png` 745x1040 | `horde-troll-male-mage-dungeonset.png` | Dungeon Set 1 Mage H: `set_dungeon1_mage` / `set_dungeon1_mage_troll` | Queued | card scan, crop first  |
-| ☐ | A127 | P3 | `alliance-dwarf-male-priest-dungeonset.jpg` 1024x837 |  | Dungeon Set 1 Priest A: `set_dungeon1_priest` / `set_dungeon1_priest_dwarf` | Queued |   |
+| ☑ | A125 | P3 | `horde-troll-male-mage-dungeonset-2.png` 745x1040 | `horde-troll-male-mage-dungeonset.png` | Dungeon Set 1 Mage H: `set_dungeon1_mage` / `set_dungeon1_mage_troll` | Verified | card scan, crop first  |
+| ☑ | A127 | P3 | `alliance-dwarf-male-priest-dungeonset.jpg` 1024x837 |  | Dungeon Set 1 Priest A: `set_dungeon1_priest` / `set_dungeon1_priest_dwarf` | Verified |   |
 | ☐ | A128 | P3 | `horde-undead-male-cloth-dungeonset.jpg` 1051x1200 |  | Dungeon Set 1 Priest H: `set_dungeon1_priest` / `set_dungeon1_priest_undead`<br>Dungeon Set 2 Priest H: `set_dungeon2_priest` / `set_dungeon2_priest_undead` | Blocked |   |
 | ☐ | A131 | P3 | `horde-orc-female-shaman-dungeonset.jpg` 1024x795 | `horde-tauren-female-shaman-dungeonset.png` | Dungeon Set 1 Shaman H: `set_dungeon1_shaman` / `set_dungeon1_shaman_orc` | Blocked |   |
-| ☐ | A132 | P3 | `alliance-gnome-female-warlock-generic-leveling-dungeonset.jpg` 1125x1500 |  | Dungeon Set 1 Warlock A: `set_dungeon1_warlock` / `set_dungeon1_warlock_gnome` | Queued |   |
-| ☐ | A133 | P3 | `horde-orc-male-warlock-dungeonset.png` 745x1040 | `horde-orc-male-warlock-dungeonset.jpg` | Dungeon Set 1 Warlock H: `set_dungeon1_warlock` / `set_dungeon1_warlock_orc` | Queued | card scan, crop first  |
-| ☐ | A134 | P3 | `alliance-dwarf-male-warrior-dungeonset-plate.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 1 Warrior A: `set_dungeon1_warrior` / `set_dungeon1_warrior_dwarf` | Queued | card scan, crop first  |
-| ☐ | A136 | P3 | `alliance-nightelf-female-druid-dungeonset.png` 745x1040 | `alliance-nightelf-female-druid-leather-dungeonset.png` | Dungeon Set 2 Druid A: `set_dungeon2_druid` / `set_dungeon2_druid_nightelf` | Queued | card scan, crop first  |
+| ☑ | A132 | P3 | `alliance-gnome-female-warlock-generic-leveling-dungeonset.jpg` 1125x1500 |  | Dungeon Set 1 Warlock A: `set_dungeon1_warlock` / `set_dungeon1_warlock_gnome` | Verified |   |
+| ☑ | A133 | P3 | `horde-orc-male-warlock-dungeonset.png` 745x1040 | `horde-orc-male-warlock-dungeonset.jpg` | Dungeon Set 1 Warlock H: `set_dungeon1_warlock` / `set_dungeon1_warlock_orc` | Verified | card scan, crop first  |
+| ☑ | A134 | P3 | `alliance-dwarf-male-warrior-dungeonset-plate.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 1 Warrior A: `set_dungeon1_warrior` / `set_dungeon1_warrior_dwarf` | Verified | card scan, crop first  |
+| ☑ | A136 | P3 | `alliance-nightelf-female-druid-dungeonset.png` 745x1040 | `alliance-nightelf-female-druid-leather-dungeonset.png` | Dungeon Set 2 Druid A: `set_dungeon2_druid` / `set_dungeon2_druid_nightelf` | Verified | card scan, crop first  |
 
 ### Batch 16
 
