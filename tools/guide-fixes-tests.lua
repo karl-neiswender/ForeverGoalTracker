@@ -24,6 +24,7 @@ for _, id in ipairs({"raid_hyjal", "raid_barrow"}) do
     assert(not F.stepRows[1].miniBar.visible, "binary boss objective has no redundant bar")
     assert(F.stepRows[1].ruleEntry.stat, "automatic statistics tracking stays intact")
 end
+for _, c in pairs(D.characters) do c.skills = c.skills or {}; c.skills.Blacksmithing = 100 end -- bars appear once a climb has started
 F.SelectGoal(reaper.id)
 assert(F.stepRows[2].miniBar.visible, "profession count bar still appears on a reused row")
 if F.isForever then

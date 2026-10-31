@@ -122,5 +122,10 @@ FGT.QUESTS = {
     { "Ott's Masterwork", { 95125 }, startName = "Ott in Tarren Mill" },
     { "The Moonsilver Blade", { 95126 }, startName = "Ott in Tarren Mill" },
     { "Old Fire-Eye", { 95140 }, startName = "Lumina Windsinger at the Sepulcher" },
+    -- Named in weapon goals (ids from the Questie database in research_notes; Corruption has an Alliance and a Horde version).
+    { "Hero of the Frostwolf", { 8272 } },
+    { "The Legend of Korrak", { 7181 } },
+    { "Korrak the Bloodrager", { 7202 } },
+    { "Corruption of Earth and Seed", { 7064, 7065 } },
 
 }

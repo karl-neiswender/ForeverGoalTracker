@@ -153,11 +153,18 @@ for _,stepRow in ipairs(F.stepRows) do
 end
 assert(collections>0,"collection fixture reached real guide rows")
 F.SelectGoal("gold_5k")
-local goldBar=false
-for _,stepRow in ipairs(F.stepRows) do
-    if stepRow.ruleEntry and stepRow.ruleEntry.money then goldBar=stepRow.miniBar.testShown end
+local function GoldBarShown()
+    local shown=false
+    for _,stepRow in ipairs(F.stepRows) do
+        if stepRow.ruleEntry and stepRow.ruleEntry.money then shown=stepRow.miniBar.testShown end
+    end
+    return shown
 end
-assert(goldBar,"gold progress bar retained")
+assert(not GoldBarShown(),"no empty gold bar before any gold")
+D.characters[current].money=5000*10000
+F.SelectGoal("gold_5k")
+assert(GoldBarShown(),"gold progress bar retained once it has progress")
+D.characters[current].money=0
 for bar,methods in pairs(barMethods) do bar.Show,bar.Hide=methods[1],methods[2] end
 print("  per-goal stock, recipe sums, historical credit, scopes, alts, unknown items, slide lifecycle and narrow bounds pass")
 

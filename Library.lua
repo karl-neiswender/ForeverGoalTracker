@@ -105,7 +105,7 @@ local library = {
         steps = RepSteps(59),
         tips = {
             "Turn in {item:11370:Dark Iron Ore} and {item:18942:Fiery Flux} to Lokhtos Darkbargainer (Grim Guzzler, Blackrock Depths) early on.",
-            "From Honored on, turn in Molten Core materials such as {item:17011:Lava Cores} and {item:17010:Fiery Cores}.",
+            "From Honored on, turn in {map:mc:Molten Core} materials such as {item:17011:Lava Cores} and {item:17010:Fiery Cores}.",
         },
     },
     {
@@ -160,8 +160,8 @@ local library = {
         note = "Needed to douse Molten Core's runes without Aqual Quintessence; Revered gives the Eternal Quintessence.",
         steps = RepSteps(749),
         tips = {
-            "Complete Duke Hydraxis's quests on his island east of Azshara.",
-            "Kill Molten Core trash and bosses; each kill adds reputation.",
+            "Complete quests from Duke Hydraxis on his island east of Azshara.",
+            "Kill {map:mc:Molten Core} trash and bosses; each kill adds reputation.",
         },
     },
     {
@@ -193,7 +193,7 @@ local library = {
             { text = "Reach Exalted with Gnomeregan Exiles.", icon = "inv_misc_gear_01", auto = { rep = { faction = 54, standing = 8 }, forFaction = "Alliance" } },
         },
         tips = {
-            "Repeat cloth turn-ins at each city's cloth quartermaster.",
+            "Repeat cloth turn-ins at each city's quartermaster: {cloth_stormwind:Stormwind}, {cloth_ironforge:Ironforge}, {cloth_darnassus:Darnassus} and {cloth_gnomeregan:Gnomeregan Exiles}.",
         },
     },
     {
@@ -211,7 +211,7 @@ local library = {
             { text = "Reach Exalted with the Darkspear Trolls.", icon = "inv_misc_head_troll_01", auto = { rep = { faction = 530, standing = 8 }, forFaction = "Horde" } },
         },
         tips = {
-            "Repeat cloth turn-ins at each city's cloth quartermaster.",
+            "Repeat cloth turn-ins at each city's quartermaster: {cloth_orgrimmar:Orgrimmar}, {cloth_thunderbluff:Thunder Bluff}, {cloth_undercity:Undercity} and {cloth_darkspear:Darkspear Trolls}.",
         },
     },
 
@@ -309,7 +309,6 @@ local library = {
         },
         completeWith = { quest = 7631 },
         tips = {
-            "Requires a level 60 Warlock.",
             "Start with a demon trainer: Spackle Thornberry (Stormwind), Jubahl Corpseseeker (Ironforge), Martha Strain (Undercity) or Kurgul (Orgrimmar).",
             "Bring a group for the Dire Maul ritual.",
         },
@@ -337,10 +336,6 @@ local library = {
             { text = "Complete 'Judgment and Redemption' in {key_scholo:Scholomance} to earn the Charger.", auto = { quest = 7647 } },
         },
         completeWith = { quest = 7647 },
-        tips = {
-            "Requires a level 60 Paladin.",
-            "Check quest requirements before collecting materials and gold.",
-        },
     },
 
     -- ---------------- Weapons ----------------
@@ -391,9 +386,8 @@ local library = {
         category = "Epic Weapon", difficulty = "Very Hard",
         timeEstimate = "Varies",
         note = "Tanking sword (Warrior and Paladin) forged in Onyxia's breath.",
-        tips = { "{item:18401:Nostro's Compendium of Dragon Slaying} is a rare Dire Maul drop." },
         steps = {
-            { text = "Loot Nostro's Compendium of Dragon Slaying in Dire Maul.", auto = { item = 18401, quest = { 7508, 7509 } } },
+            { text = "Loot {item:18401:Nostro's Compendium of Dragon Slaying}, a rare drop in Dire Maul.", auto = { item = 18401, quest = { 7508, 7509 } } },
             { text = "Get the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library.",
               auto = { quest = { 7508, 7509 }, questTaken = { 7508, 7509 }, item = 18489 } },
             { text = "Heat the blade in {raid_ony:Onyxia's} fire breath.", auto = { item = { 18488, 18492, 18348 } } },
@@ -419,7 +413,6 @@ local library = {
         },
         completeWith = { item = 19854 },
         tips = {
-            "Defeat Hakkar in {raid_zg:Zul'Gurub} for a chance at {item:19854:Zin'rokh, Destroyer of Worlds}.",
             "Warriors, Paladins and Hunters can use this sword. Learn Two-Handed Swords before equipping it.",
         },
     },
@@ -438,12 +431,11 @@ local library = {
         note = "A two-handed sword dropped by Ragnaros in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Bonereaver's Edge from Ragnaros in Molten Core.", auto = { item = 17076, owned = { "Bonereaver's Edge" } } },
+            { text = "Loot Bonereaver's Edge from Ragnaros in {map:mc:Molten Core}.", auto = { item = 17076, owned = { "Bonereaver's Edge" } } },
         },
         completeWith = { item = 17076, owned = { "Bonereaver's Edge" } },
         tips = {
-            "Defeat Ragnaros, the last boss of {raid_mc:Molten Core}, for a chance at {item:17076:Bonereaver's Edge}. Wowhead's drop rate is about 5%.",
-            "It binds when picked up. Its chance on hit ignores 700 of your target's armor for 10 seconds, stacking up to 3 times.",
+            "Drop chance is about 5%.",
             "Warriors, Paladins and Hunters can use this sword. Learn Two-Handed Swords before equipping it.",
         },
     },
@@ -461,12 +453,11 @@ local library = {
         note = "A one-handed axe dropped by Onyxia in Onyxia's Lair.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Deathbringer from Onyxia in Onyxia's Lair.", auto = { item = 17068, owned = { "Deathbringer" } } },
+            { text = "Loot Deathbringer from Onyxia in {map:ony:Onyxia's Lair}.", auto = { item = 17068, owned = { "Deathbringer" } } },
         },
         completeWith = { item = 17068, owned = { "Deathbringer" } },
         tips = {
-            "Defeat Onyxia in {raid_ony:Onyxia's Lair} for a chance at {item:17068:Deathbringer}. You need the Drakefire Amulet to enter.",
-            "It binds when picked up. Its chance on hit sends a shadow bolt for 110 to 140 Shadow damage.",
+            "You need the Drakefire Amulet from the {att_ony:Onyxia attunement} to enter.",
             "Warriors, Paladins, Hunters and Shamans can use this axe. Learn One-Handed Axes before equipping it.",
         },
     },
@@ -485,12 +476,11 @@ local library = {
         note = "A two-handed mace from the Cache of the Firelord, the chest after Majordomo Executus in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Hyperthermically Insulated Lava Dredger from the Cache of the Firelord in Molten Core.", auto = { item = 18803, owned = { "Hyperthermically Insulated Lava Dredger" } } },
+            { text = "Loot Hyperthermically Insulated Lava Dredger from the Cache of the Firelord in {map:mc:Molten Core}.", auto = { item = 18803, owned = { "Hyperthermically Insulated Lava Dredger" } } },
         },
         completeWith = { item = 18803, owned = { "Hyperthermically Insulated Lava Dredger" } },
         tips = {
-            "Defeat Majordomo Executus in {raid_mc:Molten Core} to spawn the Cache of the Firelord. The {item:18803:Lava Dredger} is one of its possible drops.",
-            "It binds when picked up. It adds 25 Stamina, 24 Intellect, 15 Fire Resistance and 9 mana per 5 seconds.",
+            "Defeat Majordomo Executus to spawn the Cache of the Firelord.",
             "Warriors, Paladins, Shamans and Druids can use this mace. Learn Two-Handed Maces before equipping it.",
         },
     },
@@ -513,8 +503,6 @@ local library = {
         },
         completeWith = { item = 11809, owned = { "Flame Wrath" } },
         tips = {
-            "Defeat Ambassador Flamelash in Blackrock Depths for a chance at {item:11809:Flame Wrath} {map:brd:Show on map}.",
-            "It binds when picked up. Its chance on hit wraps you in a fire shield for 15 seconds and shoots a ring of fire for 130 to 170 damage to nearby enemies.",
             "Warriors, Paladins, Hunters and Druids can use this polearm. Learn Polearms before equipping it.",
         },
     },
@@ -549,10 +537,9 @@ local library = {
         },
         completeWith = { item = 12797, owned = { "Frostguard" } },
         tips = {
-            "{item:12836:Plans: Frostguard} drop from Foreman Marcrid, a rare level 58 creature in Western Plaguelands, who walks the area east of Lake Mereldar. Wowhead does not list a drop chance.",
-            "The plans need Blacksmithing 300 and the Master Swordsmith specialization.",
+            "{item:12836:Plans: Frostguard} drop from Foreman Marcrid, a rare level 58 creature who walks the area east of Lake Mereldar.",
             "Alchemists make {item:12360:Arcanite Bars} from {item:12359:Thorium Bars} and {item:12363:Arcane Crystals}.",
-            "Equipping it takes level 58 and One-Handed Swords. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it. It is Bind on Equip, and on Forever it is also Unique-Equipped.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it. Learn One-Handed Swords before equipping it. It is Bind on Equip, and on Forever it is also Unique-Equipped.",
         },
     },
 
@@ -585,10 +572,10 @@ local library = {
         },
         completeWith = { item = 12794, owned = { "Masterwork Stormhammer" } },
         tips = {
-            "{item:12837:Plans: Masterwork Stormhammer} drop from Goraluk Anvilcrack, a level 61 elite in {key_ubrs:Upper Blackrock Spire} {map:brs:Show on map}. Wowhead does not give a reliable drop chance.",
-            "The plans need Blacksmithing 300 and the Master Hammersmith specialization.",
-            "Its chance on hit blasts up to 3 targets for 105 to 145 Nature damage. It binds when equipped, so you can also buy one on the Auction House.",
-            "Equipping it takes level 57 and One-Handed Maces. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use it.",
+            "Upper Blackrock Spire needs the {key_ubrs:Seal of Ascension}.",
+            "{item:12837:Plans: Masterwork Stormhammer} drop from Goraluk Anvilcrack, a level 61 elite.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use it. Learn One-Handed Maces before equipping it.",
         },
     },
 
@@ -606,12 +593,11 @@ local library = {
         note = "A one-handed dagger for casters, dropped by Balnazzar in Stratholme.",
         steps = {
             { text = "Reach level 58.", auto = { level = 58 } },
-            { text = "Loot Gift of the Elven Magi from Balnazzar in Stratholme.", auto = { item = 13360, owned = { "Gift of the Elven Magi" } } },
+            { text = "Loot Gift of the Elven Magi from Balnazzar on the living side of Stratholme.", auto = { item = 13360, owned = { "Gift of the Elven Magi" } } },
         },
         completeWith = { item = 13360, owned = { "Gift of the Elven Magi" } },
         tips = {
-            "Defeat Balnazzar in the living side of Stratholme for a chance at {item:13360:Gift of the Elven Magi} {map:strat:Show on map}. Wowhead counts about 1 drop in 6 kills.",
-            "It binds when picked up. It adds 5 Stamina, 10 Intellect and 6 Spirit.",
+            "Drop chance is about 1 in 6 kills.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -639,7 +625,6 @@ local library = {
         tips = {
             "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn Frostwolf Clan reputation.",
             "Jekyll Flandring sells it for about 31 gold 53 silver. Grunnda Wolfheart, inside Alterac Valley, sells it too.",
-            "It binds when picked up and is Unique. It adds 10 Agility and its chance on hit blasts the target for 45 Frost damage.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -657,12 +642,10 @@ local library = {
         note = "A one-handed dagger dropped by Garr in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Gutgore Ripper from Garr in Molten Core.", auto = { item = 17071, owned = { "Gutgore Ripper" } } },
+            { text = "Loot Gutgore Ripper from Garr in {map:mc:Molten Core}.", auto = { item = 17071, owned = { "Gutgore Ripper" } } },
         },
         completeWith = { item = 17071, owned = { "Gutgore Ripper" } },
         tips = {
-            "Defeat Garr in {raid_mc:Molten Core} for a chance at {item:17071:Gutgore Ripper}.",
-            "It binds when picked up. Its chance on hit sends a shadow bolt for 75 Shadow damage and lowers the target's stats by 25 for 30 seconds.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -685,8 +668,6 @@ local library = {
         },
         completeWith = { item = 19874, owned = { "Halberd of Smiting" } },
         tips = {
-            "Defeat Bloodlord Mandokir in {raid_zg:Zul'Gurub} for a chance at {item:19874:Halberd of Smiting}.",
-            "It binds when picked up. Its equip effect gives a chance on a melee swing to decapitate the target for 452 to 676 damage.",
             "Warriors, Paladins, Hunters and Druids can use this polearm. Learn Polearms before equipping it.",
         },
     },
@@ -709,8 +690,6 @@ local library = {
         },
         completeWith = { item = 7713, owned = { "Illusionary Rod" } },
         tips = {
-            "Defeat Arcanist Doan, the last boss of the Library wing of the Scarlet Monastery, for a chance at {item:7713:Illusionary Rod} {map:sm:Show on map}.",
-            "It binds when picked up. It adds 7 Stamina, 15 Intellect and 10 Spirit.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
         },
     },
@@ -735,8 +714,6 @@ local library = {
         },
         completeWith = { item = 7714, owned = { "Hypnotic Blade" } },
         tips = {
-            "Defeat Arcanist Doan, the last boss of the Library wing of the Scarlet Monastery, for a chance at {item:7714:Hypnotic Blade} {map:sm:Show on map}.",
-            "It binds when picked up. It adds 8 Intellect, 3 Spirit and up to 9 spell damage and healing.",
             "Players call it a strong caster dagger for its level, especially for Mages and Warlocks, and not a Rogue weapon. Priests, Shamans, Mages, Warlocks and Druids can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -759,9 +736,7 @@ local library = {
         },
         completeWith = { item = 17719, owned = { "Inventor's Focal Sword" } },
         tips = {
-            "Defeat Tinkerer Gizlock in Maraudon for a chance at {item:17719:Inventor's Focal Sword} {map:mara:Show on map}.",
-            "It binds when picked up. Equipping it improves your chance to crit with spells by 1%.",
-            "Equipping it takes level 48 and One-Handed Swords. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it. Learn One-Handed Swords before equipping it.",
         },
     },
 
@@ -783,8 +758,6 @@ local library = {
         },
         completeWith = { item = 19884, owned = { "Jin'do's Judgement" } },
         tips = {
-            "Defeat Jin'do the Hexxer in {raid_zg:Zul'Gurub} for a chance at {item:19884:Jin'do's Judgement}.",
-            "It binds when picked up. On Classic Era it adds 10 Stamina, 10 Intellect, 2% spell hit, 14 mana per 5 seconds and 27 spell power. Forever changed its numbers, so check the tooltip there.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
         },
     },
@@ -807,9 +780,9 @@ local library = {
         },
         completeWith = { item = 2244, owned = { "Krol Blade" } },
         tips = {
-            "Wowhead lists about 100 creatures of level 53 to 60 that have dropped it, none of them bosses. Each drop is rare. Most reports are from Stratholme, Blackrock Spire, Blackrock Depths, Dire Maul and Scholomance, where you kill the most creatures at that level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "Equipping it takes level 51 and One-Handed Swords. It adds 7 Strength, 5 Stamina and 1% crit. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it.",
+            "About 100 creatures of level 53 to 60 drop it, none of them bosses. Most reports are from Stratholme, Blackrock Spire, Blackrock Depths, Dire Maul and Scholomance, where you kill the most creatures at that level.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it. Learn One-Handed Swords before equipping it.",
         },
     },
 
@@ -831,8 +804,6 @@ local library = {
         },
         completeWith = { item = 19909, owned = { "Will of Arlokk" } },
         tips = {
-            "Defeat High Priestess Arlokk in {raid_zg:Zul'Gurub} for a chance at {item:19909:Will of Arlokk}.",
-            "It binds when picked up and is Unique. It adds 15 Stamina, 19 Intellect, 35 Spirit and up to 46 healing.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
         },
     },
@@ -855,8 +826,6 @@ local library = {
         },
         completeWith = { item = 20038, owned = { "Mandokir's Sting" } },
         tips = {
-            "Defeat Bloodlord Mandokir in {raid_zg:Zul'Gurub} for a chance at {item:20038:Mandokir's Sting}.",
-            "It binds when picked up. It adds 11 Agility and 8 Stamina.",
             "Warriors, Hunters and Rogues can use a bow. Learn Bows before equipping it.",
         },
     },
@@ -879,8 +848,6 @@ local library = {
         },
         completeWith = { item = 19853, owned = { "Gurubashi Dwarf Destroyer" } },
         tips = {
-            "Defeat Hakkar, the last boss of {raid_zg:Zul'Gurub}, for a chance at {item:19853:Gurubashi Dwarf Destroyer}.",
-            "It binds when picked up and is Unique. It adds 30 attack power.",
             "Warriors, Hunters and Rogues can use a gun. Learn Guns before equipping it.",
         },
     },
@@ -904,8 +871,6 @@ local library = {
         },
         completeWith = { item = 7723, owned = { "Mograine's Might" } },
         tips = {
-            "Defeat Scarlet Commander Mograine in the Cathedral wing of the Scarlet Monastery for a chance at {item:7723:Mograine's Might} {map:sm:Show on map}.",
-            "It binds when picked up. On Classic Era it adds 17 Stamina and 16 Spirit. Forever changed it to 8 Strength, 14 Stamina and 16 Intellect with higher damage, so check the tooltip there.",
             "Warriors, Paladins, Shamans and Druids can use this mace. Learn Two-Handed Maces before equipping it.",
         },
     },
@@ -925,12 +890,11 @@ local library = {
         note = "A two-handed sword dropped by Magmadar, Garr, Baron Geddon and Golemagg the Incinerator in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Obsidian Edged Blade from a Molten Core boss.", auto = { item = 18822, owned = { "Obsidian Edged Blade" } } },
+            { text = "Loot Obsidian Edged Blade from a {map:mc:Molten Core} boss.", auto = { item = 18822, owned = { "Obsidian Edged Blade" } } },
         },
         completeWith = { item = 18822, owned = { "Obsidian Edged Blade" } },
         tips = {
-            "Four bosses in {raid_mc:Molten Core} drop {item:18822:Obsidian Edged Blade}: Magmadar, Garr, Baron Geddon and Golemagg the Incinerator. Wowhead's kill counts put each at roughly 3% to 6.5%.",
-            "It binds when picked up. It adds 42 Strength and 8 Two-Handed Swords skill.",
+            "Magmadar, Garr, Baron Geddon and Golemagg the Incinerator can drop it, roughly 3% to 6.5% each.",
             "Warriors, Paladins and Hunters can use this sword. Learn Two-Handed Swords before equipping it.",
         },
     },
@@ -949,12 +913,11 @@ local library = {
         note = "A one-handed dagger dropped by Ragnaros in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Perdition's Blade from Ragnaros in Molten Core.", auto = { item = 18816, owned = { "Perdition's Blade" } } },
+            { text = "Loot Perdition's Blade from Ragnaros in {map:mc:Molten Core}.", auto = { item = 18816, owned = { "Perdition's Blade" } } },
         },
         completeWith = { item = 18816, owned = { "Perdition's Blade" } },
         tips = {
-            "Defeat Ragnaros, the last boss of {raid_mc:Molten Core}, for a chance at {item:18816:Perdition's Blade}. Wowhead's drop rate is about 12%, roughly 1 kill in 8.",
-            "It binds when picked up and is Unique. Its chance on hit blasts the target for 40 to 56 Fire damage.",
+            "Drop chance is about 12%, roughly 1 kill in 8.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -973,12 +936,10 @@ local library = {
         note = "A two-handed sword dropped by Nefarian in Blackwing Lair.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Ashkandi from Nefarian in Blackwing Lair.", auto = { item = 19364, owned = { "Ashkandi, Greatsword of the Brotherhood" } } },
+            { text = "Loot Ashkandi from Nefarian in {map:bwl:Blackwing Lair}.", auto = { item = 19364, owned = { "Ashkandi, Greatsword of the Brotherhood" } } },
         },
         completeWith = { item = 19364, owned = { "Ashkandi, Greatsword of the Brotherhood" } },
         tips = {
-            "Defeat Nefarian, the last boss of {raid_bwl:Blackwing Lair}, for a chance at {item:19364:Ashkandi}.",
-            "It binds when picked up. It adds 33 Stamina and 86 attack power.",
             "Warriors, Paladins and Hunters can use this sword. Learn Two-Handed Swords before equipping it.",
         },
     },
@@ -997,12 +958,10 @@ local library = {
         note = "A one-handed sword dropped by Broodlord Lashlayer in Blackwing Lair.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Maladath from Broodlord Lashlayer in Blackwing Lair.", auto = { item = 19351, owned = { "Maladath, Runed Blade of the Black Flight" } } },
+            { text = "Loot Maladath from Broodlord Lashlayer in {map:bwl:Blackwing Lair}.", auto = { item = 19351, owned = { "Maladath, Runed Blade of the Black Flight" } } },
         },
         completeWith = { item = 19351, owned = { "Maladath, Runed Blade of the Black Flight" } },
         tips = {
-            "Defeat Broodlord Lashlayer, the second boss of {raid_bwl:Blackwing Lair}, for a chance at {item:19351:Maladath}.",
-            "It binds when picked up and is Unique. It adds 1% parry and 4 Swords skill.",
             "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use this sword. Learn One-Handed Swords before equipping it.",
         },
     },
@@ -1021,12 +980,10 @@ local library = {
         note = "A one-handed sword dropped by Kel'Thuzad in Naxxramas.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot The Hungering Cold from Kel'Thuzad in Naxxramas.", auto = { item = 23577, owned = { "The Hungering Cold" } } },
+            { text = "Loot The Hungering Cold from Kel'Thuzad in {map:naxx:Naxxramas}.", auto = { item = 23577, owned = { "The Hungering Cold" } } },
         },
         completeWith = { item = 23577, owned = { "The Hungering Cold" } },
         tips = {
-            "Defeat Kel'Thuzad, the last boss of {raid_naxx:Naxxramas}, for a chance at {item:23577:The Hungering Cold}.",
-            "It binds when picked up and is Unique. It adds 14 Stamina and 6 Swords skill.",
             "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use this sword. Learn One-Handed Swords before equipping it.",
         },
     },
@@ -1045,12 +1002,10 @@ local library = {
         note = "A two-handed mace dropped by Kel'Thuzad in Naxxramas.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Might of Menethil from Kel'Thuzad in Naxxramas.", auto = { item = 22798, owned = { "Might of Menethil" } } },
+            { text = "Loot Might of Menethil from Kel'Thuzad in {map:naxx:Naxxramas}.", auto = { item = 22798, owned = { "Might of Menethil" } } },
         },
         completeWith = { item = 22798, owned = { "Might of Menethil" } },
         tips = {
-            "Defeat Kel'Thuzad, the last boss of {raid_naxx:Naxxramas}, for a chance at {item:22798:Might of Menethil}.",
-            "It binds when picked up. It adds 20 Strength, 46 Stamina and 2% critical strike.",
             "Warriors, Paladins, Shamans and Druids can use a two-handed mace. Learn Two-Handed Maces before equipping it.",
         },
     },
@@ -1069,12 +1024,10 @@ local library = {
         note = "A caster's wand dropped by Kel'Thuzad in Naxxramas.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Doomfinger from Kel'Thuzad in Naxxramas.", auto = { item = 22821, owned = { "Doomfinger" } } },
+            { text = "Loot Doomfinger from Kel'Thuzad in {map:naxx:Naxxramas}.", auto = { item = 22821, owned = { "Doomfinger" } } },
         },
         completeWith = { item = 22821, owned = { "Doomfinger" } },
         tips = {
-            "Defeat Kel'Thuzad, the last boss of {raid_naxx:Naxxramas}, for a chance at {item:22821:Doomfinger}.",
-            "It binds when picked up. It deals 146 to 271 Shadow damage and adds 1% spell critical strike and up to 16 spell damage and healing.",
             "Players point out it is the rare wand that adds spell crit. Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
         },
     },
@@ -1093,12 +1046,10 @@ local library = {
         note = "A caster's wand dropped by Patchwerk in Naxxramas.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Wand of Fates from Patchwerk in Naxxramas.", auto = { item = 22820, owned = { "Wand of Fates" } } },
+            { text = "Loot Wand of Fates from Patchwerk in the Military Quarter of {map:naxx:Naxxramas}.", auto = { item = 22820, owned = { "Wand of Fates" } } },
         },
         completeWith = { item = 22820, owned = { "Wand of Fates" } },
         tips = {
-            "Defeat Patchwerk in the Military Quarter of {raid_naxx:Naxxramas} for a chance at {item:22820:Wand of Fates}.",
-            "It binds when picked up. It deals 119 to 222 Shadow damage and adds 7 Stamina, 7 Intellect, up to 12 spell damage and healing and 1% spell hit.",
             "Players weigh it against Doomfinger: this one has more stats and spell hit, and Doomfinger has more damage and spell crit. Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
         },
     },
@@ -1118,12 +1069,11 @@ local library = {
         note = "An off-hand fist weapon dropped by Sapphiron in Naxxramas.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Claw of the Frost Wyrm from Sapphiron in Naxxramas.", auto = { item = 23242, owned = { "Claw of the Frost Wyrm" } } },
+            { text = "Loot Claw of the Frost Wyrm from Sapphiron in the Frostwyrm Lair of {map:naxx:Naxxramas}.", auto = { item = 23242, owned = { "Claw of the Frost Wyrm" } } },
         },
         completeWith = { item = 23242, owned = { "Claw of the Frost Wyrm" } },
         tips = {
-            "Defeat Sapphiron in the Frostwyrm Lair of {raid_naxx:Naxxramas} for a chance at {item:23242:Claw of the Frost Wyrm}. The listed drop chance is about 21%, roughly 1 kill in 5.",
-            "It binds when picked up and is Unique. It adds 8 Stamina, 22 attack power, 1% critical strike and 1% hit.",
+            "Drop chance is about 21%, roughly 1 kill in 5.",
             "It goes in the off hand, so you need Dual Wield. Warriors, Rogues and Hunters can use a fist weapon there. Learn Fist Weapons before equipping it.",
         },
     },
@@ -1147,8 +1097,8 @@ local library = {
         },
         completeWith = { item = 18534, owned = { "Rod of the Ogre Magi" } },
         tips = {
-            "The Gordok Tribute chest appears in Dire Maul North after you defeat King Gordok. {item:18534:Rod of the Ogre Magi} is one of its rare rewards: Wowhead saw it in 1 of 8 chests opened, a small sample. Mizzle the Crafty also lists it, with no drop chance given.",
-            "It binds when picked up. It adds 11 Stamina, 14 Intellect, 7 Spirit, 1% spell crit and 23 spell power {map:dm:Show on map}.",
+            "The Gordok Tribute chest appears in Dire Maul North after you defeat King Gordok.",
+            "{item:18534:Rod of the Ogre Magi} is one of its rare rewards: 1 of 8 chests opened had it, a small sample. Mizzle the Crafty also lists it.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
         },
     },
@@ -1168,12 +1118,10 @@ local library = {
         note = "A two-handed polearm dropped by Sulfuron Harbinger in Molten Core.",
         steps = {
             { text = "Reach level 58.", auto = { level = 58 } },
-            { text = "Loot Shadowstrike from Sulfuron Harbinger in Molten Core.", auto = { item = 17074, owned = { "Shadowstrike" } } },
+            { text = "Loot Shadowstrike from Sulfuron Harbinger in {map:mc:Molten Core}.", auto = { item = 17074, owned = { "Shadowstrike" } } },
         },
         completeWith = { item = 17074, owned = { "Shadowstrike" } },
         tips = {
-            "Defeat Sulfuron Harbinger in {raid_mc:Molten Core} for a chance at {item:17074:Shadowstrike}.",
-            "It binds when picked up. Its chance on hit steals 100 to 180 life from the target, and using it transforms it into Thunderstrike (1 minute cooldown).",
             "Warriors, Paladins, Hunters and Druids can use this polearm. Learn Polearms before equipping it.",
         },
     },
@@ -1196,8 +1144,7 @@ local library = {
         },
         completeWith = { item = 13953, owned = { "Silent Fang" } },
         tips = {
-            "Defeat Darkmaster Gandling, the last boss of {key_scholo:Scholomance}, for a chance at {item:13953:Silent Fang} {map:scholo:Show on map}.",
-            "It binds when picked up. Its chance on hit silences the target for 6 seconds, so it cannot cast spells.",
+            "Scholomance needs the {key_scholo:Skeleton Key}.",
             "It is a main-hand sword. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it. Learn One-Handed Swords before equipping it.",
         },
     },
@@ -1217,12 +1164,11 @@ local library = {
         note = "A two-handed axe dropped by Ragnaros in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Spinal Reaper from Ragnaros in Molten Core.", auto = { item = 17104, owned = { "Spinal Reaper" } } },
+            { text = "Loot Spinal Reaper from Ragnaros in {map:mc:Molten Core}.", auto = { item = 17104, owned = { "Spinal Reaper" } } },
         },
         completeWith = { item = 17104, owned = { "Spinal Reaper" } },
         tips = {
-            "Defeat Ragnaros, the last boss of {raid_mc:Molten Core}, for a chance at {item:17104:Spinal Reaper}. Wowhead's drop rate is about 2.5%, roughly 1 kill in 40.",
-            "It binds when picked up. It adds 34 attack power, and killing a target that gives experience restores 150 mana or 20 rage (once every 10 seconds).",
+            "Drop chance is about 2.5%, roughly 1 kill in 40.",
             "Warriors, Paladins, Hunters and Shamans can use this axe. Learn Two-Handed Axes before equipping it.",
         },
     },
@@ -1242,12 +1188,10 @@ local library = {
         note = "A two-handed caster staff dropped by Golemagg the Incinerator in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Staff of Dominance from Golemagg the Incinerator in Molten Core.", auto = { item = 18842, owned = { "Staff of Dominance" } } },
+            { text = "Loot Staff of Dominance from Golemagg the Incinerator in {map:mc:Molten Core}.", auto = { item = 18842, owned = { "Staff of Dominance" } } },
         },
         completeWith = { item = 18842, owned = { "Staff of Dominance" } },
         tips = {
-            "Defeat Golemagg the Incinerator in {raid_mc:Molten Core} for a chance at {item:18842:Staff of Dominance}.",
-            "It binds when picked up. It adds 16 Stamina, 37 Intellect, 14 Spirit, 1% spell crit and 40 spell power.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
         },
     },
@@ -1271,8 +1215,6 @@ local library = {
         },
         completeWith = { item = 21452, owned = { "Staff of the Ruins" } },
         tips = {
-            "Defeat Ossirian the Unscarred, the last boss of the {raid_aq20:Ruins of Ahn'Qiraj}, for a chance at {item:21452:Staff of the Ruins}.",
-            "It binds when picked up. It adds 24 Stamina, 23 Intellect, 14 Spirit, 60 spell power, 1% spell crit and 1% spell hit.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
         },
     },
@@ -1299,9 +1241,8 @@ local library = {
         },
         completeWith = { item = 9372, owned = { "Sul'thraze the Lasher" } },
         tips = {
-            "Both blades drop in {map:zf:Zul'Farrak}: {item:9379:Sang'thraze the Deflector} from Antu'sul (about 1 kill in 7) and {item:11086:Jang'thraze the Protector} from Chief Ukorz Sandscalp, the last boss (about 1 in 6).",
+            "About 1 kill in 7 drops {item:9379:Sang'thraze the Deflector}, and about 1 in 6 drops {item:11086:Jang'thraze the Protector}.",
             "Both bind when picked up, so the same character has to loot both. Keep them in your bags, then use Jang'thraze.",
-            "It binds when picked up and is Unique. Its chance on hit lowers the target's Strength by 15 and deals 90 to 210 Shadow damage, plus 125 more over 15 seconds.",
             "Warriors, Paladins and Hunters can use a two-handed sword. Learn Two-Handed Swords before equipping it.",
         },
     },
@@ -1326,9 +1267,9 @@ local library = {
         },
         completeWith = { item = 6622, owned = { "Sword of Zeal" } },
         tips = {
-            "Wowhead lists about 100 creatures that have dropped it. The best known sources are Onyxia (about 2.6%), Nefarian (about 2.9%), Lord Kazzak (about 4.3%) and Azuregos (about 1.8%), plus many Molten Core creatures and the Sack of Spoils.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "Equipping it takes level 58 and One-Handed Swords. Its chance on hit adds 10 damage and 150 armor for 15 seconds. It is a main-hand sword: Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it.",
+            "About 100 creatures drop it. The best known sources are Onyxia (about 2.6%), Nefarian (about 2.9%), Lord Kazzak (about 4.3%) and Azuregos (about 1.8%), plus many {map:mc:Molten Core} creatures and the Sack of Spoils.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "It is a main-hand sword: Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use it. Learn One-Handed Swords before equipping it.",
         },
     },
 
@@ -1351,9 +1292,8 @@ local library = {
         },
         completeWith = { item = 647, owned = { "Destiny" } },
         tips = {
-            "Wowhead lists over 100 creatures of level 52 to 60 that have dropped it, none of them bosses. Each drop is rare. Most reports are from Stratholme, Scholomance, Blackrock Spire and Dire Maul, where you kill the most creatures at that level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "Its chance on hit increases your Strength by 200 for 10 seconds. Equipping it takes level 52 and Two-Handed Swords.",
+            "Over 100 creatures of level 52 to 60 drop it, none of them bosses. Most reports are from Stratholme, Scholomance, Blackrock Spire and Dire Maul, where you kill the most creatures at that level.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
             "Warriors, Paladins and Hunters can use it.",
         },
     },
@@ -1371,12 +1311,10 @@ local library = {
         note = "A one-handed mace for healers and casters, dropped by Garr in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Aurastone Hammer from Garr in Molten Core.", auto = { item = 17105, owned = { "Aurastone Hammer" } } },
+            { text = "Loot Aurastone Hammer from Garr in {map:mc:Molten Core}.", auto = { item = 17105, owned = { "Aurastone Hammer" } } },
         },
         completeWith = { item = 17105, owned = { "Aurastone Hammer" } },
         tips = {
-            "Defeat Garr in {raid_mc:Molten Core} for a chance at {item:17105:Aurastone Hammer}.",
-            "It binds when picked up. It adds 25 spell power, 10 Stamina, 10 Intellect and 5 mana per 5 seconds.",
             "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use it. Learn One-Handed Maces before equipping it.",
         },
     },
@@ -1399,8 +1337,7 @@ local library = {
         },
         completeWith = { item = 13937, owned = { "Headmaster's Charge" } },
         tips = {
-            "Defeat Darkmaster Gandling, the last boss of {key_scholo:Scholomance}, for a chance at {item:13937:Headmaster's Charge} {map:scholo:Show on map}.",
-            "It binds when picked up. Using it gives 20 Intellect to party members within 30 yards (10 minute cooldown), and it adds 30 Stamina and 20 Spirit.",
+            "Scholomance needs the {key_scholo:Skeleton Key}.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
         },
     },
@@ -1422,9 +1359,8 @@ local library = {
         },
         completeWith = { item = 1728, owned = { "Teebu's Blazing Longsword" } },
         tips = {
-            "It is Bind on Equip and Unique-Equipped.",
-            "Equipping it takes level 60 and One-Handed Swords. Warriors, Paladins, Hunters, Rogues, Mages and Warlocks can use it.",
-            "Its chance on hit blasts a target for 140 Fire damage.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Hunters, Rogues, Mages and Warlocks can use it. Learn One-Handed Swords before equipping it.",
         },
     },
 
@@ -1449,7 +1385,6 @@ local library = {
         },
         completeWith = { item = 12784, owned = { "Arcanite Reaper" } },
         tips = {
-            "{item:12838:Plans: Arcanite Reaper} drop from Bannok Grimaxe in Blackrock Spire.",
             "Alchemists make {item:12360:Arcanite Bars} from {item:12359:Thorium Bars} and {item:12363:Arcane Crystals}.",
             "Equipping the axe takes level 58 and the Two-Handed Axes skill: Warriors, Paladins, Hunters and Shamans can use it.",
         },
@@ -1470,12 +1405,10 @@ local library = {
         note = "A one-handed mace dropped by Timmy the Cruel in Stratholme.",
         steps = {
             { text = "Reach level 56.", auto = { level = 56 } },
-            { text = "Loot The Cruel Hand of Timmy from Timmy the Cruel in Stratholme.", auto = { item = 13401, owned = { "The Cruel Hand of Timmy" } } },
+            { text = "Loot The Cruel Hand of Timmy from Timmy the Cruel on the living side of Stratholme.", auto = { item = 13401, owned = { "The Cruel Hand of Timmy" } } },
         },
         completeWith = { item = 13401, owned = { "The Cruel Hand of Timmy" } },
         tips = {
-            "Defeat Timmy the Cruel on the living side of Stratholme for a chance at {item:13401:The Cruel Hand of Timmy} {map:strat:Show on map}.",
-            "It binds when picked up. Its chance on hit lowers all of the target's attributes by 15 for 1 minute.",
             "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a one-handed mace. Learn Maces before equipping it.",
         },
     },
@@ -1499,8 +1432,8 @@ local library = {
         },
         completeWith = { item = 13396, owned = { "Skul's Ghastly Touch" } },
         tips = {
-            "Skul is a rare level 58 elite on the living side of {key_strat:Stratholme} {map:strat:Show on map}, so he is not always there. Players say he spawns in Festival Lane or by Fras Siabi's shop, left of the living-side entrance.",
-            "It binds when picked up. It deals 70 to 131 Shadow damage and adds up to 14 shadow damage. Players rate it highly for Warlocks and Shadow Priests.",
+            "Skul is a rare level 58 elite on the living side of Stratholme, so he is not always there. Players say he spawns in Festival Lane or by Fras Siabi's shop, left of the living-side entrance.",
+            "Players rate it highly for Warlocks and Shadow Priests.",
             "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
         },
     },
@@ -1521,8 +1454,7 @@ local library = {
         },
         completeWith = { item = 11923, owned = { "The Hammer of Grace" } },
         tips = {
-            "Defeat The Seven in Blackrock Depths and open their chest for a chance at {item:11923:The Hammer of Grace} {map:brd:Show on map}.",
-            "It binds when picked up. It adds up to 31 healing.",
+            "Defeat The Seven to open their chest.",
             "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
         },
     },
@@ -1543,8 +1475,7 @@ local library = {
         },
         completeWith = { item = 11920, owned = { "Wraith Scythe" } },
         tips = {
-            "Defeat The Seven in Blackrock Depths and open their chest for a chance at {item:11920:Wraith Scythe} {map:brd:Show on map}.",
-            "It binds when picked up. Its chance on hit steals 45 life from the target.",
+            "Defeat The Seven to open their chest.",
             "Warriors, Paladins, Hunters and Shamans can use a main-hand axe. Learn Axes before equipping it.",
         },
     },
@@ -1566,9 +1497,8 @@ local library = {
         },
         completeWith = { item = 22254, owned = { "Wand of Eternal Light" } },
         tips = {
-            "Defeat Watchman Doomgrip in Blackrock Depths for a chance at {item:22254:Wand of Eternal Light} {map:brd:Show on map}. The listed drop chance is under 1%.",
+            "Drop chance is under 1%.",
             "Warbringer Constructs, Dark Coffers and the Secret Safe in Blackrock Depths can also hold it, even more rarely.",
-            "It binds when picked up. It adds 6 Intellect, 2 mana per 5 seconds and up to 9 healing.",
             "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
         },
     },
@@ -1585,12 +1515,11 @@ local library = {
         timeEstimate = "Varies",
         note = "A one-handed sword you choose as the reward for Corruption of Earth and Seed in Maraudon.",
         steps = {
-            { text = "Complete Corruption of Earth and Seed and choose Thrash Blade.", auto = { item = 17705, owned = { "Thrash Blade" } } },
+            { text = "Complete 'Corruption of Earth and Seed' and choose Thrash Blade.", auto = { item = 17705, owned = { "Thrash Blade" } } },
         },
         completeWith = { item = 17705, owned = { "Thrash Blade" } },
         tips = {
-            "Defeat Princess Theradras, the last boss of Maraudon {map:mara:Show on map}, then turn in Corruption of Earth and Seed in Desolace.",
-            "It binds when picked up and is Unique-Equipped. Its chance on hit grants an extra attack on your next swing.",
+            "Defeat Princess Theradras, the last boss of Maraudon, then turn the quest in at Desolace.",
             "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn Swords before equipping it.",
         },
     },
@@ -1611,8 +1540,6 @@ local library = {
         },
         completeWith = { item = 19861, owned = { "Touch of Chaos" } },
         tips = {
-            "Defeat Hakkar, the last boss of {raid_zg:Zul'Gurub}, for a chance at {item:19861:Touch of Chaos}.",
-            "It binds when picked up. It deals Shadow damage and adds up to 18 spell power.",
             "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
         },
     },
@@ -1633,8 +1560,7 @@ local library = {
         },
         completeWith = { item = 17075, owned = { "Vis'kag the Bloodletter" } },
         tips = {
-            "Defeat Onyxia in {raid_ony:Onyxia's Lair} for a chance at {item:17075:Vis'kag the Bloodletter}. The listed drop chance is about 8%, roughly 1 kill in 12.",
-            "It binds when picked up and is Unique. Its chance on hit deals a fatal wound for 240 damage.",
+            "Drop chance is about 8%, roughly 1 kill in 12.",
             "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn Swords before equipping it.",
         },
     },
@@ -1661,7 +1587,6 @@ local library = {
         tips = {
             "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn reputation.",
             "It costs about 79 gold 53 silver. Alliance buy it from Thanthaldis Snowgleam outside Alterac Valley or Gaelden Hammersmith inside. Horde buy it from Jekyll Flandring outside or Grunnda Wolfheart inside.",
-            "It binds when picked up and is Unique. It adds 15 Stamina and 27 block value. Forever changed its numbers, so check the tooltip there.",
             "Warriors, Paladins and Shamans can use a shield.",
         },
     },
@@ -1687,7 +1612,6 @@ local library = {
         tips = {
             "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn reputation.",
             "It costs about 125 gold 66 silver. Alliance buy it from Thanthaldis Snowgleam outside Alterac Valley or Gaelden Hammersmith inside. Horde buy it from Jekyll Flandring outside or Grunnda Wolfheart inside.",
-            "It binds when picked up and is Unique. Its chance on hit deals 200 to 300 damage and lowers the target's Intellect by 25 for 30 seconds. Forever changed its numbers, so check the tooltip there.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -1714,7 +1638,6 @@ local library = {
         tips = {
             "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn reputation.",
             "It costs about 156 gold 49 silver. Alliance buy it from Thanthaldis Snowgleam outside Alterac Valley or Gaelden Hammersmith inside. Horde buy it from Jekyll Flandring outside or Grunnda Wolfheart inside.",
-            "It binds when picked up and is Unique. It adds 19 Strength, 15 Stamina and 2% critical strike, and its chance on hit stuns the target for 1 second. Forever changed its numbers, so check the tooltip there.",
             "Warriors, Paladins, Shamans and Druids can use a two-handed mace. Learn Two-Handed Maces before equipping it.",
         },
     },
@@ -1735,8 +1658,7 @@ local library = {
         },
         completeWith = { item = 19108, owned = { "Wand of Biting Cold" } },
         tips = {
-            "It is a choice reward from Hero of the Stormpike (Alliance), Hero of the Frostwolf (Horde), The Legend of Korrak and Korrak the Bloodrager.",
-            "It binds when picked up. It deals Frost damage and adds up to 16 Frost spell damage.",
+            "It is a choice reward from 'Hero of the Stormpike' (Alliance), 'Hero of the Frostwolf' (Horde), 'The Legend of Korrak' and 'Korrak the Bloodrager'.",
             "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
         },
     },
@@ -1757,9 +1679,9 @@ local library = {
         },
         completeWith = { item = 13047, owned = { "Twig of the World Tree" } },
         tips = {
-            "Hundreds of high-level creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "It adds 14 Strength, 21 Stamina and 12 Spirit. Warriors, Paladins, Shamans and Druids can use a two-handed mace. Learn Two-Handed Maces before equipping it.",
+            "Many creatures near its level drop it, never a boss.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Shamans and Druids can use a two-handed mace. Learn Two-Handed Maces before equipping it.",
         },
     },
 
@@ -1781,9 +1703,9 @@ local library = {
         },
         completeWith = { item = 870, owned = { "Fiery War Axe" } },
         tips = {
-            "About 30 creatures of level 40 to 43 have dropped it, none of them bosses, such as the Grimtotem in Feralas and the scalebanes in Swamp of Sorrows. Each drop is very rare.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "Its chance on hit hurls a fireball for 155 to 197 Fire damage, plus 24 more over 6 seconds. Warriors, Paladins, Hunters and Shamans can use a two-handed axe. Learn Two-Handed Axes before equipping it.",
+            "About 30 creatures of level 40 to 43 have dropped it, none of them bosses, such as the Grimtotem in Feralas and the scalebanes in Swamp of Sorrows.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Hunters and Shamans can use a two-handed axe. Learn Two-Handed Axes before equipping it.",
         },
     },
 
@@ -1806,10 +1728,10 @@ local library = {
         },
         completeWith = { item = 2243, owned = { "Hand of Edward the Odd" } },
         tips = {
-            "It is a world drop with no listed source. Players have found it on trash in Molten Core and Stratholme and on a Chillwind in Winterspring. Each drop is very rare.",
-            "It binds when equipped and is Unique, so you can also buy one on the Auction House until someone wears it.",
-            "It adds 13 Intellect and 10 Spirit. Its chance on hit makes your next spell within 4 seconds instant, even a Hearthstone. Players say it procs rarely.",
-            "Equipping it takes level 57 and One-Handed Maces. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use it. Players rate it highest for Paladins and Shamans.",
+            "It is a world drop with no listed source. Players have found it on trash in {map:mc:Molten Core} and Stratholme and on a Chillwind in Winterspring.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Players say it procs rarely.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use it. Learn One-Handed Maces before equipping it. Players rate it highest for Paladins and Shamans.",
         },
     },
 
@@ -1833,9 +1755,9 @@ local library = {
         },
         completeWith = { item = 873, owned = { "Staff of Jordan" } },
         tips = {
-            "About 28 creatures have dropped it, mostly level 39 to 43. Wowhead's list leans on Stranglethorn Vale (Skullsplitters, Bloodsail pirates, Elder Mistvale Gorillas), and Scarlet Monastery, Gnomeregan and Razorfen Downs add some. Each drop is very rare.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "It adds 11 Intellect, 11 Spirit and up to 26 spell damage and healing. Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use a staff. Learn Staves before equipping it.",
+            "About 28 creatures have dropped it, mostly level 39 to 43. Wowhead's list leans on Stranglethorn Vale (Skullsplitters, Bloodsail pirates, Elder Mistvale Gorillas), and Scarlet Monastery, Gnomeregan and Razorfen Downs add some.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use a staff. Learn Staves before equipping it.",
         },
     },
 
@@ -1855,9 +1777,9 @@ local library = {
         },
         completeWith = { item = 13006, owned = { "Mass of McGowan" } },
         tips = {
-            "Hundreds of high-level creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "It adds 10 Strength and 10 Stamina. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+            "Many creatures near its level drop it, never a boss.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
         },
     },
 
@@ -1877,9 +1799,9 @@ local library = {
         },
         completeWith = { item = 1721, owned = { "Viking Warhammer" } },
         tips = {
-            "Hundreds of creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "It adds 5 Strength and 11 Stamina. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+            "Many creatures near its level drop it, never a boss.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
         },
     },
 
@@ -1900,9 +1822,9 @@ local library = {
         },
         completeWith = { item = 1979, owned = { "Wall of the Dead" } },
         tips = {
-            "Hundreds of creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "It adds 10 Strength and 15 Stamina. When you are struck it has a 3% chance to encase you in bone for 150 armor over 20 seconds. Warriors, Paladins and Shamans can use a shield.",
+            "Many creatures near its level drop it, never a boss.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins and Shamans can use a shield.",
         },
     },
 
@@ -1923,9 +1845,9 @@ local library = {
         },
         completeWith = { item = 1168, owned = { "Skullflame Shield" } },
         tips = {
-            "Hundreds of high-level creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "It adds 10 Fire and 10 Shadow resistance. When you are struck it can steal 35 life (3%) or burn nearby enemies for 75 to 125 Fire damage (1%). Warriors, Paladins and Shamans can use a shield.",
+            "Many creatures near its level drop it, never a boss.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins and Shamans can use a shield.",
         },
     },
 
@@ -1946,8 +1868,8 @@ local library = {
         },
         completeWith = { item = 18680, owned = { "Ancient Bone Bow" } },
         tips = {
-            "Six bosses in {key_scholo:Scholomance} can drop {item:18680:Ancient Bone Bow}: Doctor Theolen Krastinov, Instructor Malicia, Lady Illucia Barov, Lord Alexei Barov, Lorekeeper Polkelt and The Ravenian {map:scholo:Show on map}.",
-            "It binds when picked up. It adds 11 Agility.",
+            "Scholomance needs the {key_scholo:Skeleton Key}.",
+            "Doctor Theolen Krastinov, Instructor Malicia, Lady Illucia Barov, Lord Alexei Barov, Lorekeeper Polkelt and The Ravenian can all drop it.",
             "Warriors, Hunters and Rogues can use a bow. Learn Bows before equipping it.",
         },
     },
@@ -1980,10 +1902,8 @@ local library = {
         },
         completeWith = { item = 12798, owned = { "Annihilator" } },
         tips = {
-            "{item:12835:Plans: Annihilator} drop from Quartermaster Zigris in Lower Blackrock Spire {map:brs:Show on map}, about 1 kill in 10.",
-            "The plans need Blacksmithing 300 and the Master Axesmith specialization.",
+            "About 1 kill in 10 drops {item:12835:Plans: Annihilator}.",
             "Alchemists make {item:12360:Arcanite Bars} from {item:12359:Thorium Bars} and {item:12363:Arcane Crystals}.",
-            "It is Bind on Equip. Its chance on hit lowers the target's armor by 200, stacking up to 3 times. Forever changed its numbers, so check the tooltip there.",
             "Warriors, Paladins, Hunters and Shamans can use a main-hand axe. Learn Axes before equipping it.",
         },
     },
@@ -2001,12 +1921,11 @@ local library = {
         note = "A caster's main-hand sword dropped by Golemagg the Incinerator in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Azuresong Mageblade from Golemagg the Incinerator in Molten Core.", auto = { item = 17103, owned = { "Azuresong Mageblade" } } },
+            { text = "Loot Azuresong Mageblade from Golemagg the Incinerator in {map:mc:Molten Core}.", auto = { item = 17103, owned = { "Azuresong Mageblade" } } },
         },
         completeWith = { item = 17103, owned = { "Azuresong Mageblade" } },
         tips = {
-            "Defeat Golemagg the Incinerator in {raid_mc:Molten Core} for a chance at {item:17103:Azuresong Mageblade}. The listed drop chance is about 25%, roughly 1 kill in 4.",
-            "It binds when picked up. It adds 7 Stamina, 12 Intellect, 1% spell crit and up to 40 spell power.",
+            "Drop chance is about 25%, roughly 1 kill in 4.",
             "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a main-hand sword. Learn Swords before equipping it.",
         },
     },
@@ -2028,7 +1947,7 @@ local library = {
             { text = "Reach level 58.", auto = { level = 58 } },
             { text = "Reach Blacksmithing 300.", auto = { skill = { name = "Blacksmithing", rank = 300 } } },
             { text = "Learn the Weaponsmith specialization." },
-            { text = "Loot Plans: Heartseeker from Cannon Master Willey in Stratholme.", auto = { item = 12839 } },
+            { text = "Loot Plans: Heartseeker from Cannon Master Willey on the living side of Stratholme.", auto = { item = 12839 } },
             { text = "Gather 10 Arcanite Bars.", auto = { item = 12360, count = 10 } },
             { text = "Gather 10 Enchanted Thorium Bars.", auto = { item = 12655, count = 10 } },
             { text = "Gather 6 Star Rubies.", auto = { item = 7910, count = 6 } },
@@ -2040,10 +1959,9 @@ local library = {
         },
         completeWith = { item = 12783, owned = { "Heartseeker" } },
         tips = {
-            "{item:12839:Plans: Heartseeker} drop from Cannon Master Willey on the living side of Stratholme {map:strat:Show on map}, about 1 kill in 17.",
-            "The plans need Blacksmithing 300 and the Weaponsmith specialization. Axesmiths, Hammersmiths and Swordsmiths are Weaponsmiths too.",
+            "About 1 kill in 17 drops {item:12839:Plans: Heartseeker}.",
+            "Axesmiths, Hammersmiths and Swordsmiths are Weaponsmiths too.",
             "Alchemists make {item:12360:Arcanite Bars} from {item:12359:Thorium Bars} and {item:12363:Arcane Crystals}.",
-            "It is Bind on Equip and Unique. It adds 4 Strength and 1% crit. Forever changed its numbers, so check the tooltip there.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -2076,10 +1994,9 @@ local library = {
         },
         completeWith = { item = 19166, owned = { "Black Amnesty" } },
         tips = {
-            "Lokhtos Darkbargainer stands in the Grim Guzzler in Blackrock Depths {map:brd:Show on map}. He sells {item:19208:Plans: Black Amnesty} for about 7 gold.",
-            "The plans need Blacksmithing 300 and the Weaponsmith specialization. Axesmiths, Hammersmiths and Swordsmiths are Weaponsmiths too.",
-            "{item:17010:Fiery Cores} and {item:17011:Lava Cores} come from Molten Core. {item:11382:Blood of the Mountain} drops in Blackrock Depths.",
-            "It is Bind on Equip. Its chance on hit lowers your threat on the current target.",
+            "{item:19208:Plans: Black Amnesty} costs about 7 gold.",
+            "Axesmiths, Hammersmiths and Swordsmiths are Weaponsmiths too.",
+            "{item:17010:Fiery Cores} and {item:17011:Lava Cores} come from {map:mc:Molten Core}. {item:11382:Blood of the Mountain} drops in Blackrock Depths.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -2101,8 +2018,7 @@ local library = {
         },
         completeWith = { item = 12651, owned = { "Blackcrow" } },
         tips = {
-            "Defeat Shadow Hunter Vosh'gajin in Lower Blackrock Spire for a chance at {item:12651:Blackcrow} {map:brs:Show on map}. The listed drop chance is about 8%, roughly 1 kill in 12.",
-            "It binds when picked up. It adds 3 Agility and 1% hit.",
+            "Drop chance is about 8%, roughly 1 kill in 12.",
             "Warriors, Hunters and Rogues can use a crossbow. Learn Crossbows before equipping it.",
         },
     },
@@ -2120,12 +2036,11 @@ local library = {
         note = "A gun dropped by Golemagg the Incinerator in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Blastershot Launcher from Golemagg the Incinerator in Molten Core.", auto = { item = 17072, owned = { "Blastershot Launcher" } } },
+            { text = "Loot Blastershot Launcher from Golemagg the Incinerator in {map:mc:Molten Core}.", auto = { item = 17072, owned = { "Blastershot Launcher" } } },
         },
         completeWith = { item = 17072, owned = { "Blastershot Launcher" } },
         tips = {
-            "Defeat Golemagg the Incinerator in {raid_mc:Molten Core} for a chance at {item:17072:Blastershot Launcher}. The listed drop chance is about 25%, roughly 1 kill in 4.",
-            "It binds when picked up. It adds 6 Stamina and 1% crit.",
+            "Drop chance is about 25%, roughly 1 kill in 4.",
             "Warriors, Hunters and Rogues can use a gun. Learn Guns before equipping it.",
         },
     },
@@ -2147,8 +2062,7 @@ local library = {
         },
         completeWith = { item = 19107, owned = { "Bloodseeker" } },
         tips = {
-            "It is a choice reward from Hero of the Stormpike (Alliance), Hero of the Frostwolf (Horde), The Legend of Korrak and Korrak the Bloodrager.",
-            "It binds when picked up. It adds 8 Strength and 7 Agility.",
+            "It is a choice reward from 'Hero of the Stormpike' (Alliance), 'Hero of the Frostwolf' (Horde), 'The Legend of Korrak' and 'Korrak the Bloodrager'.",
             "Warriors, Hunters and Rogues can use a crossbow. Learn Crossbows before equipping it.",
         },
     },
@@ -2171,8 +2085,7 @@ local library = {
         },
         completeWith = { item = 19106, owned = { "Ice Barbed Spear" } },
         tips = {
-            "It is a choice reward from Hero of the Stormpike (Alliance), Hero of the Frostwolf (Horde), The Legend of Korrak and Korrak the Bloodrager.",
-            "It binds when picked up. It adds 13 Strength, 21 Agility and 20 Stamina.",
+            "It is a choice reward from 'Hero of the Stormpike' (Alliance), 'Hero of the Frostwolf' (Horde), 'The Legend of Korrak' and 'Korrak the Bloodrager'.",
             "Warriors, Paladins and Hunters can use a polearm. Learn Polearms before equipping it.",
         },
     },
@@ -2195,8 +2108,6 @@ local library = {
         },
         completeWith = { item = 12791, owned = { "Barman Shanker" } },
         tips = {
-            "Defeat Plugger Spazzring in Blackrock Depths for a chance at {item:12791:Barman Shanker} {map:brd:Show on map}.",
-            "It binds when picked up. Its chance on hit makes the target bleed for 100 damage over 30 seconds.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -2223,10 +2134,10 @@ local library = {
         },
         completeWith = { item = 22335, owned = { "Lord Valthalak's Staff of Command" } },
         tips = {
-            "Defeat Lord Valthalak in {key_ubrs:Upper Blackrock Spire} for a chance at {item:22335:Lord Valthalak's Staff of Command} {map:brs:Show on map}. He is not a regular boss: he has to be summoned in the Beast's Room.",
+            "Upper Blackrock Spire needs the {key_ubrs:Seal of Ascension}.",
+            "Lord Valthalak is not a regular boss: he has to be summoned in the Beast's Room.",
             "Players say you summon him with a brazier you get at the end of the {set_dungeon2:Dungeon Set 2 (Tier 0.5)} quests, where he is one of the last fights. Someone who has finished them can summon him again for a group.",
             "Players call it a hard fight with shades that spawn until he is near 40% health. Mana drains, Shadow Protection and a well-geared tank help.",
-            "It binds when picked up. It adds 11 Stamina and 10 Intellect, up to 30 spell damage and healing, and 1% spell hit.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use a staff. Learn Staves before equipping it.",
         },
     },
@@ -2244,12 +2155,10 @@ local library = {
         note = "A one-handed sword dropped by Grand Widow Faerlina in Naxxramas.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Widow's Remorse from Grand Widow Faerlina in Naxxramas.", auto = { item = 22806, owned = { "Widow's Remorse" } } },
+            { text = "Loot Widow's Remorse from Grand Widow Faerlina in the Arachnid Quarter of {map:naxx:Naxxramas}.", auto = { item = 22806, owned = { "Widow's Remorse" } } },
         },
         completeWith = { item = 22806, owned = { "Widow's Remorse" } },
         tips = {
-            "Defeat Grand Widow Faerlina in the Arachnid Quarter of {raid_naxx:Naxxramas} for a chance at {item:22806:Widow's Remorse}.",
-            "It binds when picked up and is Unique. It adds 17 Stamina, 100 armor and 1% hit.",
             "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
         },
     },
@@ -2271,9 +2180,9 @@ local library = {
         },
         completeWith = { item = 1263, owned = { "Brain Hacker" } },
         tips = {
-            "Hundreds of high-level creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "Its chance on hit wounds the target for 200 to 300 damage and lowers its Intellect by 25 for 30 seconds. Warriors, Paladins, Hunters and Shamans can use a two-handed axe. Learn Two-Handed Axes before equipping it.",
+            "Many creatures near its level drop it, never a boss.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Hunters and Shamans can use a two-handed axe. Learn Two-Handed Axes before equipping it.",
         },
     },
 
@@ -2296,9 +2205,8 @@ local library = {
         },
         completeWith = { item = 3475, owned = { "Cloak of Flames" } },
         tips = {
-            "About 70 level 60 creatures have dropped it, mostly in {raid_mc:Molten Core}, Blackwing Lair and Ahn'Qiraj, plus world bosses such as Azuregos. Each drop is rare and no drop chances are listed.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "It adds 15 Fire resistance and 50 armor, and deals 5 Fire damage to anyone who strikes you in melee. Any class can wear it.",
+            "About 70 level 60 creatures have dropped it, mostly in {map:mc:Molten Core}, {map:bwl:Blackwing Lair} and Ahn'Qiraj, plus world bosses such as Azuregos.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
         },
     },
 
@@ -2315,13 +2223,9 @@ local library = {
         note = "A cloak dropped by Ragnaros in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Cloak of the Shrouded Mists from Ragnaros in Molten Core.", auto = { item = 17102, owned = { "Cloak of the Shrouded Mists" } } },
+            { text = "Loot Cloak of the Shrouded Mists from Ragnaros in {map:mc:Molten Core}.", auto = { item = 17102, owned = { "Cloak of the Shrouded Mists" } } },
         },
         completeWith = { item = 17102, owned = { "Cloak of the Shrouded Mists" } },
-        tips = {
-            "Defeat Ragnaros, the last boss of {raid_mc:Molten Core}, for a chance at {item:17102:Cloak of the Shrouded Mists}.",
-            "It binds when picked up. It adds 22 Agility, 12 Stamina, 57 armor and 6 Fire and Nature resistance. Any class can wear it.",
-        },
     },
 
     {
@@ -2341,8 +2245,7 @@ local library = {
         },
         completeWith = { item = 20648, owned = { "Cold Forged Hammer" } },
         tips = {
-            "It is a choice reward from Hero of the Stormpike (Alliance) and Hero of the Frostwolf (Horde), quests from Alterac Valley.",
-            "It binds when picked up and is Unique. It adds 5 Stamina, 9 Intellect and 3 mana per 5 seconds.",
+            "It is a choice reward from 'Hero of the Stormpike' (Alliance) and 'Hero of the Frostwolf' (Horde), both Alterac Valley quests.",
             "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
         },
     },
@@ -2361,13 +2264,12 @@ local library = {
         note = "A one-handed dagger from the Cache of the Firelord, Majordomo Executus's chest in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Core Hound Tooth from the Cache of the Firelord in Molten Core.", auto = { item = 18805, owned = { "Core Hound Tooth" } } },
+            { text = "Loot Core Hound Tooth from the Cache of the Firelord in {map:mc:Molten Core}.", auto = { item = 18805, owned = { "Core Hound Tooth" } } },
         },
         completeWith = { item = 18805, owned = { "Core Hound Tooth" } },
         tips = {
-            "Defeat Majordomo Executus in {raid_mc:Molten Core} and open the Cache of the Firelord for a chance at {item:18805:Core Hound Tooth}.",
+            "Defeat Majordomo Executus to spawn the Cache of the Firelord.",
             "Flamewaker Elites and Healers can also drop it, but only about 1 time in 300.",
-            "It binds when picked up and is Unique. It adds 9 Stamina, 20 attack power and 1% crit.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -2396,7 +2298,6 @@ local library = {
         tips = {
             "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn Stormpike Guard reputation.",
             "Thanthaldis Snowgleam sells it for about 39 gold 85 silver. Gaelden Hammersmith, inside Alterac Valley, sells it too.",
-            "It binds when picked up and is Unique. It adds 25 Stamina, 16 Intellect and up to 15 spell power. Forever changed its numbers, so check the tooltip there.",
             "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use a staff. Learn Staves before equipping it.",
         },
     },
@@ -2414,12 +2315,11 @@ local library = {
         note = "A Fire wand dropped by four bosses in Molten Core.",
         steps = {
             { text = "Reach level 58.", auto = { level = 58 } },
-            { text = "Loot Crimson Shocker from a boss in Molten Core.", auto = { item = 17077, owned = { "Crimson Shocker" } } },
+            { text = "Loot Crimson Shocker from a boss in {map:mc:Molten Core}.", auto = { item = 17077, owned = { "Crimson Shocker" } } },
         },
         completeWith = { item = 17077, owned = { "Crimson Shocker" } },
         tips = {
-            "Lucifron, Gehennas, Shazzrah and Sulfuron Harbinger in {raid_mc:Molten Core} can drop {item:17077:Crimson Shocker}. No drop chance is listed.",
-            "It binds when picked up. It deals Fire damage and adds 10 Intellect and 10 Fire resistance.",
+            "Lucifron, Gehennas, Shazzrah and Sulfuron Harbinger can drop it.",
             "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
         },
     },
@@ -2441,11 +2341,6 @@ local library = {
             { text = "Loot Crown of the Ogre King from King Gordok in Dire Maul North.", auto = { item = 18526, owned = { "Crown of the Ogre King" } } },
         },
         completeWith = { item = 18526, owned = { "Crown of the Ogre King" } },
-        tips = {
-            "Defeat King Gordok, the last boss of Dire Maul North, for a chance at {item:18526:Crown of the Ogre King} {map:dm:Show on map}. No drop chance is listed.",
-            "It binds when picked up. It adds 16 Stamina, 18 Intellect, 11 Spirit, 73 armor and 1% spell crit.",
-            "It is a cloth helm, so any class can wear it.",
-        },
     },
 
     {
@@ -2461,12 +2356,10 @@ local library = {
         note = "A main-hand fist weapon dropped by Firemaw in Blackwing Lair.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Claw of the Black Drake from Firemaw in Blackwing Lair.", auto = { item = 19365, owned = { "Claw of the Black Drake" } } },
+            { text = "Loot Claw of the Black Drake from Firemaw in {map:bwl:Blackwing Lair}.", auto = { item = 19365, owned = { "Claw of the Black Drake" } } },
         },
         completeWith = { item = 19365, owned = { "Claw of the Black Drake" } },
         tips = {
-            "Defeat Firemaw in {raid_bwl:Blackwing Lair} for a chance at {item:19365:Claw of the Black Drake}. No drop chance is listed.",
-            "It binds when picked up and is Unique. It adds 13 Strength, 7 Stamina and 1% crit.",
             "Warriors, Rogues, Hunters, Shamans and Druids can use a fist weapon. Learn Fist Weapons before equipping it.",
         },
     },
@@ -2487,12 +2380,10 @@ local library = {
         note = "A healer's shield dropped by Vaelastrasz the Corrupt in Blackwing Lair.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Red Dragonscale Protector from Vaelastrasz the Corrupt in Blackwing Lair.", auto = { item = 19348, owned = { "Red Dragonscale Protector" } } },
+            { text = "Loot Red Dragonscale Protector from Vaelastrasz the Corrupt in {map:bwl:Blackwing Lair}.", auto = { item = 19348, owned = { "Red Dragonscale Protector" } } },
         },
         completeWith = { item = 19348, owned = { "Red Dragonscale Protector" } },
         tips = {
-            "Defeat Vaelastrasz the Corrupt in {raid_bwl:Blackwing Lair} for a chance at {item:19348:Red Dragonscale Protector}.",
-            "It binds when picked up. It adds 6 Stamina, 17 Intellect, 6 Spirit and up to 37 healing, with 2787 armor and 51 block.",
             "Paladins and Shamans can use a shield, and players call this one a healer's shield for them. Learn Shield before equipping it.",
         },
     },
@@ -2516,8 +2407,8 @@ local library = {
         completeWith = { item = 13044, owned = { "Demonslayer" } },
         tips = {
             "Over 700 creatures have dropped it, none of them with a real chance: the best listed is Darkmaster Gandling in Scholomance at about 0.1%, and a few chests at 0.01%. Expect to kill a great many creatures near its level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "Equipping it takes level 52 and Two-Handed Swords. It adds 99 attack power against Demons. Warriors, Paladins and Hunters can use it.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins and Hunters can use it. Learn Two-Handed Swords before equipping it.",
         },
     },
 
@@ -2539,8 +2430,7 @@ local library = {
         },
         completeWith = { item = 12602, owned = { "Draconian Deflector" } },
         tips = {
-            "Defeat General Drakkisath, the last boss of {key_ubrs:Upper Blackrock Spire}, for a chance at {item:12602:Draconian Deflector} {map:brs:Show on map}. No drop chance is listed.",
-            "It binds when picked up. It adds 7 Stamina, 10 Fire resistance, 10 defense and 40 block.",
+            "Upper Blackrock Spire needs the {key_ubrs:Seal of Ascension}.",
             "Warriors, Paladins and Shamans can use a shield.",
         },
     },
@@ -2559,12 +2449,10 @@ local library = {
         note = "A tanking shield dropped by Garr in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Drillborer Disk from Garr in Molten Core.", auto = { item = 17066, owned = { "Drillborer Disk" } } },
+            { text = "Loot Drillborer Disk from Garr in {map:mc:Molten Core}.", auto = { item = 17066, owned = { "Drillborer Disk" } } },
         },
         completeWith = { item = 17066, owned = { "Drillborer Disk" } },
         tips = {
-            "Defeat Garr in {raid_mc:Molten Core} for a chance at {item:17066:Drillborer Disk}. No drop chance is listed.",
-            "It binds when picked up. It adds 10 Stamina, 2% block chance and 23 block value, and deals 3 Arcane damage to anyone who strikes you.",
             "Warriors, Paladins and Shamans can use a shield.",
         },
     },
@@ -2586,9 +2474,9 @@ local library = {
         },
         completeWith = { item = 2099, owned = { "Dwarven Hand Cannon" } },
         tips = {
-            "About 580 creatures have dropped it, none of them bosses. Each drop is rare, so it comes from killing a lot of creatures near its level.",
-            "It binds when equipped, so you can also buy one on the Auction House until someone wears it.",
-            "It has a chance to hit your ranged target with a Flaming Cannonball for 33 to 49 Fire damage. Warriors, Hunters and Rogues can use a gun.",
+            "About 580 creatures have dropped it, none of them bosses.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Hunters and Rogues can use a gun.",
         },
     },
 
@@ -2615,7 +2503,6 @@ local library = {
         tips = {
             "Play Alterac Valley and turn in armor scraps, blood and crystals between matches to earn Stormpike Guard reputation.",
             "Thanthaldis Snowgleam sells it for about 31 gold 65 silver. Gaelden Hammersmith, inside Alterac Valley, sells it too.",
-            "It binds when picked up and is Unique. It adds 10 Agility and its chance on hit blasts the target for 45 Nature damage.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -2635,13 +2522,12 @@ local library = {
         note = "A main-hand fist weapon dropped by Magmadar in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Eskhandar's Right Claw from Magmadar in Molten Core.", auto = { item = 18203, owned = { "Eskhandar's Right Claw" } } },
+            { text = "Loot Eskhandar's Right Claw from Magmadar in {map:mc:Molten Core}.", auto = { item = 18203, owned = { "Eskhandar's Right Claw" } } },
         },
         completeWith = { item = 18203, owned = { "Eskhandar's Right Claw" } },
         tips = {
-            "Defeat Magmadar in {raid_mc:Molten Core} for a chance at {item:18203:Eskhandar's Right Claw}. The listed drop chance is about 20%, roughly 1 kill in 5.",
-            "It binds when picked up and is Unique. It adds 4 Agility, and its chance on hit raises your attack speed by 30% for 5 seconds.",
-            "It belongs to the four-piece Spirit of Eskhandar set. The Left Claw drops from Azuregos, the Pelt from Lord Kazzak and the Collar from Onyxia. Wearing all four adds a chance to call forth the spirit of Eskhandar.",
+            "Drop chance is about 20%, roughly 1 kill in 5.",
+            "It belongs to the four-piece Spirit of Eskhandar set. The Left Claw drops from Azuregos, the Pelt from Lord Kazzak and the Collar from Onyxia.",
             "Warriors, Rogues, Hunters, Shamans and Druids can use a fist weapon. Learn Fist Weapons before equipping it.",
         },
     },
@@ -2665,9 +2551,7 @@ local library = {
         },
         completeWith = { item = 13218, owned = { "Fang of the Crystal Spider" } },
         tips = {
-            "Defeat Crystal Fang in Lower Blackrock Spire for a chance at {item:13218:Fang of the Crystal Spider} {map:brs:Show on map}. No drop chance is listed.",
-            "It binds when picked up and is Unique. Its chance on hit slows the target's casting speed and attack speed by 10% for 10 seconds.",
-            "It forms the two-piece Spider's Kiss set with {item:13183:Venomspitter}, which drops from Mother Smolderweb in the same dungeon. Wearing both adds a chance to immobilize the target and cut its armor by 100.",
+            "It forms the two-piece Spider's Kiss set with {item:13183:Venomspitter}, which drops from Mother Smolderweb in the same dungeon.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -2689,8 +2573,8 @@ local library = {
         },
         completeWith = { item = 12590, owned = { "Felstriker" } },
         tips = {
-            "Defeat Warchief Rend Blackhand in {key_ubrs:Upper Blackrock Spire} for a chance at {item:12590:Felstriker} {map:brs:Show on map}. The listed drop chance is about 1%, roughly 1 kill in 100.",
-            "It binds when picked up. Its chance on hit makes all your attacks land and crit for 3 seconds.",
+            "Upper Blackrock Spire needs the {key_ubrs:Seal of Ascension}.",
+            "Drop chance is about 1%, roughly 1 kill in 100.",
             "Every class except Paladins can use a dagger. Learn Daggers before equipping it.",
         },
     },
@@ -2709,12 +2593,10 @@ local library = {
         note = "A two-handed sword dropped by Razorgore the Untamed in Blackwing Lair.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot The Untamed Blade from Razorgore the Untamed in Blackwing Lair.", auto = { item = 19334, owned = { "The Untamed Blade" } } },
+            { text = "Loot The Untamed Blade from Razorgore the Untamed in {map:bwl:Blackwing Lair}.", auto = { item = 19334, owned = { "The Untamed Blade" } } },
         },
         completeWith = { item = 19334, owned = { "The Untamed Blade" } },
         tips = {
-            "Defeat Razorgore the Untamed, the first boss of {raid_bwl:Blackwing Lair}, for a chance at {item:19334:The Untamed Blade}. No drop chance is listed.",
-            "It binds when picked up. It adds 22 Agility and 16 Stamina, and its chance on hit raises your Strength by 300 for 8 seconds.",
             "Warriors, Paladins and Hunters can use a two-handed sword. Learn Two-Handed Swords before equipping it.",
         },
     },
@@ -2749,9 +2631,9 @@ local library = {
         },
         completeWith = { item = 7954, owned = { "The Shatterer" } },
         tips = {
-            "The recipe comes from a Blacksmithing trainer once you have the Weaponsmith specialization and 235 skill. Check your trainer for the exact skill.",
-            "You craft it with a Blacksmith Hammer at an anvil. It binds when equipped, so you can also buy one on the Auction House.",
-            "Its chance on hit disarms the target's weapon for 10 seconds. Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
+            "Check your Blacksmithing trainer for the exact skill.",
+            "You need a Blacksmith Hammer to craft it. It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Paladins, Rogues, Priests, Shamans and Druids can use a main-hand mace. Learn Maces before equipping it.",
         },
     },
 
@@ -2786,10 +2668,10 @@ local library = {
         },
         completeWith = { item = 7961, owned = { "Phantom Blade" } },
         tips = {
-            "Wowhead lists Borgosh Corebender and Kelgruk Bloodaxe in Orgrimmar and Ironus Coldsteel in Ironforge as the trainers. Learning it costs about 1 gold 35 silver.",
-            "You craft it with a Blacksmith Hammer at an anvil. It binds when equipped, so you can also buy one on the Auction House.",
+            "Borgosh Corebender and Kelgruk Bloodaxe in Orgrimmar and Ironus Coldsteel in Ironforge teach it for about 1 gold 35 silver.",
+            "You need a Blacksmith Hammer to craft it. It binds when equipped, so you can also buy one on the Auction House.",
             "Players say Breath of Wind is the hardest reagent to find.",
-            "Its chance on hit lowers the target's armor by 100 for 20 seconds and keeps it from stealthing or turning invisible. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
+            "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
         },
     },
 
@@ -2812,8 +2694,7 @@ local library = {
         },
         completeWith = { item = 5191, owned = { "Cruel Barb" } },
         tips = {
-            "Defeat Edwin VanCleef, the last boss of the Deadmines, for a chance at {item:5191:Cruel Barb} {map:deadmines:Show on map}. Wowhead lists no drop chance, and players report anything from a few runs to dozens.",
-            "It binds when picked up. It adds 12 attack power.",
+            "Players report anything from a few runs to dozens before it drops.",
             "Players love it as an early weapon, and Rogues and Warriors often carry two. Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
         },
     },
@@ -2831,12 +2712,11 @@ local library = {
         note = "A one-handed sword dropped by Garr in Molten Core.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot Brutality Blade from Garr in Molten Core.", auto = { item = 18832, owned = { "Brutality Blade" } } },
+            { text = "Loot Brutality Blade from Garr in {map:mc:Molten Core}.", auto = { item = 18832, owned = { "Brutality Blade" } } },
         },
         completeWith = { item = 18832, owned = { "Brutality Blade" } },
         tips = {
-            "Defeat Garr in {raid_mc:Molten Core} for a chance at {item:18832:Brutality Blade}. The listed drop chance is about 20%, roughly 1 kill in 5.",
-            "It binds when picked up and is Unique. It adds 9 Strength, 9 Agility and 1% crit.",
+            "Drop chance is about 20%, roughly 1 kill in 5.",
             "Warriors, Paladins, Rogues, Hunters, Mages and Warlocks can use a one-handed sword. Learn One-Handed Swords before equipping it.",
         },
     },
@@ -2865,7 +2745,7 @@ local library = {
         note = "Needs the Drakefire Amulet from the faction-specific attunement chain. Keep it in your inventory when you enter; it does not need to be equipped. Bring fire resistance.",
         steps = {
             { text = "Earn the Drakefire Amulet from the {att_ony:Onyxia attunement}.", auto = { item = 16309 } },
-            { text = "Defeat Onyxia in Onyxia's Lair.", auto = { boss = "Onyxia" } },
+            { text = "Defeat Onyxia in {map:ony:Onyxia's Lair}.", auto = { boss = "Onyxia" } },
             { text = "Loot the Head of Onyxia and turn it in at your capital city.", auto = { item = { 18422, 18423 } } },
         },
     },
@@ -2887,7 +2767,7 @@ local library = {
             { text = "Defeat Lord Kazzak in the Tainted Scar in the Blasted Lands.", auto = { boss = "Lord Kazzak" } },
         },
         tips = {
-            "Lord Kazzak stands in the open in the Tainted Scar, in the south-west of the Blasted Lands. No attunement or instance is needed, but he is a raid-sized fight: bring a full raid.",
+            "No attunement or instance is needed, but he is a raid-sized fight: bring a full raid.",
             "He drops {item:18665:The Eye of Shadow}, {item:18546:Infernal Headcage}, {item:17112:Empyrean Demolisher}, {item:19134:Flayed Doomguard Belt} and other epics, plus the {item:21371:Pattern: Core Felcloth Bag}.",
             "Anyone in the raid who is eligible can loot, so you do not need a drop for the goal: the kill is what counts.",
         },
@@ -3191,9 +3071,9 @@ local library = {
         completeWith = { quest = 8193, item = { 19970, 19979 } },
         tips = {
             "Classic Era's tournament runs on Sundays. Check your realm's schedule; Forever's timing and rules are unconfirmed.",
-            "Fish in Stranglethorn Vale's Pools of Tastyfish, outside Booty Bay. Fishing 225+ reduces escaped fish.",
-            "Set your hearthstone in Booty Bay and leave bag space. Keep your hearthstone ready. Find Riggle Bassbait on the central docks near the inn.",
-            "The first 'Master Angler' turn-in wins. Either prize completes the goal: {item:19970:Arcanite Fishing Pole} or {item:19979:Hook of the Master Angler}.",
+            "Fishing 225 or higher reduces escaped fish.",
+            "Set your hearthstone in Booty Bay and leave bag space.",
+            "Either prize completes the goal: {item:19970:Arcanite Fishing Pole} or {item:19979:Hook of the Master Angler}.",
             "{item:19807:Speckled Tastyfish} expire after the event. You cannot save them for next week.",
         },
         steps = {
@@ -3534,7 +3414,7 @@ do
             tips = {
                 "The one-time donations unlock at levels 12 (Wool), 26 (Silk), 40 (Mageweave) and 50 (Runecloth).",
                 "After the Runecloth donation, " .. c.npc .. " offers the repeatable quest Additional Runecloth: 20 Runecloth for about 50 reputation. Repeat it to climb to Exalted.",
-                "Each capital has its own quartermaster and its own reputation. The Ambassador goal needs all of them.",
+                "Counts toward the {rep_ambassador:Ambassador} goal.",
             },
         })
     end
@@ -3563,7 +3443,6 @@ do
             },
             completeWith = { item = id, owned = { color .. " Qiraji" } },
             tips = {
-                "These crystals drop in {raid_aq40:Temple of Ahn'Qiraj} (AQ40).",
                 "Classic Era: level 60 required; usable only inside Temple of Ahn'Qiraj. Forever's rules are unconfirmed.",
                 "Red is rarer than blue, green and yellow. These mounts do not require the {mount_qiraji:black battle tank}'s Scarab Gong event.",
             },
@@ -3832,7 +3711,7 @@ local sets = {
         note = "The blue level-60 dungeon sets from Scholomance, Stratholme and Blackrock Spire. Pick the classes you want in the Library; owned pieces complete automatically.",
         sections = BuildSetSections(DUNGEON1),
         tips = {
-            "Darkmaster Gandling drops helms, General Drakkisath chests, and Baron Rivendare legs for every class.",
+            "Darkmaster Gandling (Scholomance) drops helms, General Drakkisath (Upper Blackrock Spire) chests, and Baron Rivendare (Stratholme) legs for every class.",
             "Most belts and bracers drop from trash in these dungeons.",
         },
     },
@@ -3862,7 +3741,6 @@ local sets = {
         timeEstimate = "Days",
         note = "A five-piece leather set from Wailing Caverns.",
         foreverNote = "New Forever set bonus: transform into a snake.",
-        tips = { "{item:10413:Gloves of the Fang} are a rare drop from Druids of the Fang in Wailing Caverns." },
         steps = {
             { text = "Loot Armor of the Fang from Lord Pythas in Wailing Caverns.", icon = "inv_shirt_16", auto = { item = 6473, owned = { "Armor of the Fang" } } },
             { text = "Loot Leggings of the Fang from Lord Cobrahn in Wailing Caverns.", icon = "inv_pants_11", auto = { item = 10410, owned = { "Leggings of the Fang" } } },
@@ -3896,8 +3774,7 @@ local sets = {
             { text = "Loot Scarlet Wristguards from a Scarlet Guardsman or Scarlet Protector in the Scarlet Monastery.", icon = "inv_bracer_03", auto = { item = 10333, owned = { "Scarlet Wristguards" } } },
         },
         tips = {
-            "Set bonuses: 2 pieces add 10 armor, 3 add 1 defense, 4 add 5 Shadow resistance, 5 add 15 attack power against Undead and 6 add 1% hit.",
-            "Optional: {item:7718:Herod's Shoulder} and {item:7719:Raging Berserker's Helm} drop from Herod in the Armory wing {map:sm:Show on map}. They are not part of the set but match it, and both bind when picked up.",
+            "Optional: {item:7718:Herod's Shoulder} and {item:7719:Raging Berserker's Helm} drop from Herod in the Armory wing. They are not part of the set but match it, and both bind when picked up.",
             "The pieces need levels 30 to 38. Warriors and Paladins can wear mail at once; Hunters and Shamans wear it from level 40.",
             "Drop chances are low: about 0.5% for the chestpiece, 2% for the belt, gauntlets and wristguards, and 15% for the leggings.",
         },
@@ -3933,8 +3810,8 @@ local sets = {
               auto = { item = 284716, owned = { "Band of the Better Half" } } },
         },
         tips = {
-            "{item:284715:First Mate Band} requires level 17. {item:284716:Band of the Better Half} requires level 60. Both bind on pickup.",
-            "Equip both rings for the set bonus. Angry increases Strength by 50 for 10 seconds.",
+            "{item:284715:First Mate Band} needs level 17 and {item:284716:Band of the Better Half} needs level 60. Both bind on pickup.",
+            "Equip both rings for the set bonus.",
             "{item:284715:First Mate Band} is a rare drop. Expect repeat Deadmines runs.",
         },
     },
@@ -3965,7 +3842,6 @@ local sets = {
         tips = {
             "{item:273051:Violet Sorcerer's Mantle} and {item:273044:Violet Sorcerer's Robes} bind on pickup. The other three pieces are tradable until equipped.",
             "Full set requires level 30. No class restriction listed.",
-            "Four pieces: chance to improve mana regeneration while casting, stronger in Strongholds and Cities. Five pieces: chance to summon an Arcane elemental with spell damage.",
         },
     },
 }

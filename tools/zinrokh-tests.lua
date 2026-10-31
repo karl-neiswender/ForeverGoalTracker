@@ -25,7 +25,7 @@ assert(D.progress[g.id][1] and D.progress[g.id][2], "historical ownership on an 
 alt.items = {}
 STUB_FIRE("BAG_UPDATE_DELAYED")
 assert(D.progress[g.id][2], "ownership credit stays after sword leaves snapshot")
-assert(F.LinkText(g.tips[1]):find("fgtgoal:raid_zg", 1, true), "raid tip resolves existing goal")
+assert(F.LinkText(g.steps[2].text):find("fgtentrance:hub:raid_zg", 1, true), "raid step links its entrance on the map")
 D.active, D.characters, D.progress = active, characters, progress
 UnitLevel = level
 print("  Zin'rokh: class filters, level threshold, alt ownership, sticky credit and raid link ok")

@@ -212,6 +212,16 @@ local TIER3 = {
     } },
 }
 
+-- A tip list that skips the entries a client doesn't use (false or nil).
+local function Tips(...)
+    local list = {}
+    for i = 1, select("#", ...) do
+        local tip = (select(i, ...))
+        if tip then list[#list + 1] = tip end
+    end
+    return list
+end
+
 local function Tier3Count(n, name)
     if n == 1 or name == "Mooncloth" then return n .. " " .. name end
     return n .. " " .. name .. "s"
@@ -233,7 +243,13 @@ local function BuildTier3Sections()
             table.insert(list, { name = p[1], icon = p[3], materials = materials,
                                  auto = { item = p[2], owned = { p[1] } } })
         end
-        table.insert(sections, { icon = "ClassIcon_" .. class, name = class .. " - " .. setName, pieces = list })
+        table.insert(sections, { icon = "ClassIcon_" .. class, name = class .. " - " .. setName, pieces = list,
+            tips = {
+                "Each raider needs to be {att_naxx:attuned to Naxxramas}: Honored with the {rep_argentdawn:Argent Dawn} and a {item:12811:Righteous Orb}.",
+                "Your quartermaster at Light's Hope Chapel is " .. set[3] .. ".",
+                "Trash in {map:naxx:Naxxramas} drops Wartorn " .. scrap .. " Scraps.",
+                "Owning a piece completes it and its materials. Check off materials as you collect them.",
+            } })
     end
     return sections
 end
@@ -279,11 +295,9 @@ FGT.goals = {
               links = { { 22691, "Corrupted Ashbringer" } } },
         },
         tips = {
-            "Bring a 40-player raid to Naxxramas.",
+            "Bring a 40-player raid to {map:naxx:Naxxramas}.",
             "Attunement needs Honored with the {rep_argentdawn:Argent Dawn} and a {item:12811:Righteous Orb}: 5 {item:12363:Arcane Crystals} and 2 {item:20725:Nexus Crystals} at Honored, fewer at Revered.",
-            "The chest appears after the Four Horsemen die.",
             "The Four Horsemen are Highlord Mograine, Thane Korth'azz, Sir Zeliek and Baron Rivendare. Raids use either a 2-tank rotation or a synced 4-group kill.",
-            "The sword is a rare, bind-on-pickup drop.",
             "Unequip it before visiting Argent Dawn NPCs. Wielding it makes them hostile.",
         },
     },
@@ -313,7 +327,6 @@ FGT.goals = {
             "Level 60 makes the daily quests safer.",
             "'Frostsaber Provisions' takes 5 {item:12622:Shardtooth Meat} (Shardtooth bears) and 5 {item:12623:Chillwind Meat} (Chillwind chimaeras), both in Winterspring.",
             "'Winterfall Intrusion' asks for 5 Winterfall Shaman and 5 Winterfall Ursa at Winterfall Village; the 'Rampaging Giants' are near Frostsaber Rock.",
-            "Expect several weeks of daily turn-ins to reach Exalted.",
         },
     },
 
@@ -334,7 +347,7 @@ FGT.goals = {
             { text = "Combine the 40 splinters into the Frame of Atiesh.", auto = { item = 22727, quest = 9250 } },
             { text = "Bring the Frame of Atiesh to Anachronos.", auto = { quest = 9250 },
               links = { { 22727, "Frame of Atiesh" } } },
-            { text = "Loot the Staff Head of Atiesh from Kel'Thuzad in Naxxramas.", auto = { item = 22733 } },
+            { text = "Loot the Staff Head of Atiesh from Kel'Thuzad in {map:naxx:Naxxramas}.", auto = { item = 22733 } },
             { text = "Loot the Base of Atiesh from C'Thun in Ahn'Qiraj.", auto = { item = 22734 } },
             { text = "Return both pieces to Anachronos.", auto = { quest = 9251 } },
             { text = "Accept your class's purification quest from Anachronos.", auto = { questTaken = {9257, 9269, 9270, 9271} } },
@@ -409,14 +422,14 @@ FGT.goals = {
         note = "Legendary sword requiring both Bindings of the Windseeker. Each binding has roughly a 3% drop chance.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Loot the Bindings of the Windseeker (left) from Baron Geddon in Molten Core.", auto = { item = 18563, quest = 7785 } },
-            { text = "Loot the Bindings of the Windseeker (right) from Garr in Molten Core.", auto = { item = 18564, quest = 7785 } },
+            { text = "Loot the Bindings of the Windseeker (left) from Baron Geddon in {map:mc:Molten Core}.", auto = { item = 18563, quest = 7785 } },
+            { text = "Loot the Bindings of the Windseeker (right) from Garr in {map:mc:Molten Core}.", auto = { item = 18564, quest = 7785 } },
             { text = "Complete 'Examine the Vessel' with Highlord Demitrian.", auto = { quest = 7785 }, mapZoom = 149 },
             { text = "Gather 10 Elementium Bars.", auto = { item = 17771, count = 10 } },
             { text = "Gather 100 Arcanite Bars.", auto = { item = 12360, count = 100 } },
             { text = "Gather 10 Fiery Cores (Molten Core).", auto = { item = 17010, count = 10 } },
             { text = "Gather 30 Elemental Flux.", auto = { item = 18567, count = 30 } },
-            { text = "Loot the Essence of the Firelord from Ragnaros in Molten Core.", auto = { item = { 19017, 18566 }, quest = 7786 } },
+            { text = "Loot the Essence of the Firelord from Ragnaros in {map:mc:Molten Core}.", auto = { item = { 19017, 18566 }, quest = 7786 } },
             { text = "Turn in the bindings, the Essence and the materials to Demitrian ('Thunderaan the Windseeker').", auto = { quest = 7786 }, mapZoom = 149 },
             { text = "Defeat Prince Thunderaan in Silithus.", auto = { quest = 7786 } },
             { text = "Turn in 'Rise, Thunderfury!' to receive Thunderfury.", auto = { item = 19019, quest = 7787 } },
@@ -442,7 +455,7 @@ FGT.goals = {
         tips = {
             "Each raider needs to be {att_naxx:attuned to Naxxramas}: Honored with the {rep_argentdawn:Argent Dawn} and a {item:12811:Righteous Orb}.",
             Tier3QuartermasterTip(),
-            "Naxxramas trash drops Wartorn scraps: cloth, leather, chain or plate.",
+            "Trash in {map:naxx:Naxxramas} drops Wartorn scraps: cloth, leather, chain or plate.",
             "Owning a piece completes it and its materials. Check off materials as you collect them.",
         },
     },
@@ -482,17 +495,16 @@ FGT.goals = {
         difficulty = "Hard",
         timeEstimate = "Ongoing",
         note = "Your faction's epic racial mounts. Requires level 60, Riding training and gold. Other races need Exalted with the mount's home city. Pick the mounts you want.",
-        tips = {
+        tips = Tips(
             "Your own race's mount needs no reputation. Another race's mount needs Exalted with that race's home city (Darkspear Trolls for the raptor, Ironforge for the ram).",
             FOREVER_CLIENT and "Journeyman Riding (100% speed): 1,000 gold. Epic racial mount: 200 gold. Total: 1,200 gold before faction discounts."
                 or "Honored with the vendor's city gives a small discount.",
             FOREVER_CLIENT and "Apprentice Riding (60% speed): 100 gold. Non-epic racial mount: 20 gold, before faction discounts."
                 or "Riding training and the mount are separate purchases.",
-            FOREVER_CLIENT and "Train Riding once per character. Each mount costs extra."
-                or "Each mount is a separate purchase.",
+            FOREVER_CLIENT and "Train Riding once per character. Each mount costs extra.",
             "For all mounts on one character, reach Exalted with your faction's cities. See {rep_ambassador:Ambassador}.",
-            "Any color counts. All colors cost the same.",
-        },
+            "Any color counts. All colors cost the same."
+        ),
         sections = {
             {
                 icon = "ability_mount_ridinghorse",
@@ -580,7 +592,7 @@ FGT.goals = {
         },
         tips = {
             "Crafting the {item:17193:Sulfuron Hammer} requires 300 Blacksmithing. You can hire a Blacksmith or buy the hammer instead.",
-            "{item:11382:Blood of the Mountain} is rare from Dark Iron deposits. Molten Core trash drops tradable {item:17011:Lava Cores} and {item:17010:Fiery Cores}.",
+            "{item:11382:Blood of the Mountain} is rare from Dark Iron deposits. {map:mc:Molten Core} trash drops tradable {item:17011:Lava Cores} and {item:17010:Fiery Cores}.",
             "The {item:17204:Eye of Sulfuras} is a rare drop from Ragnaros, roughly 3%.",
             "'A Binding Contract' costs one {item:17203:Sulfuron Ingot} and needs no Thorium Brotherhood reputation. Lokhtos is in the Grim Guzzler.",
         },

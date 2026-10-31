@@ -65,7 +65,7 @@ Do not revive retired features or old "next session" tasks without a current req
   Visible text uses the native Warcraft font; Cinzel Bold is for hidden tab-width
   metrics only. Respect animation preferences and reduced/off behavior.
 - Steps begin with an action, keeping item/quest name, count and useful location.
-  Put advice/drop chances in tips. Preserve prerequisites, costs, timing and
+  Put advice/drop chances in hints (the `tips` field, shown as Hints); a hint says what its step does not, and never repeats item tooltip stats. Preserve prerequisites, costs, timing and
   class/faction restrictions. Preserve exact link tags and material-parser strings.
 - Say `Unconfirmed` for uncertain Forever rules and `Source unknown` for missing
   sources; use `completes automatically` or `tracked automatically`. Use separate
