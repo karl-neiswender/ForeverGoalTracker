@@ -658,7 +658,7 @@
  "A137": {
   "banner": "set_dungeon2_druid_troll",
   "date": "2026-10-31",
-  "state": "installed"
+  "state": "verified"
  },
  "A138": {
   "date": "2026-10-29",
@@ -668,17 +668,17 @@
  "A139": {
   "banner": "set_dungeon2_mage_troll",
   "date": "2026-10-31",
-  "state": "installed"
+  "state": "verified"
  },
  "A141": {
   "banner": "set_dungeon2_priest_nightelf",
   "date": "2026-10-31",
-  "state": "installed"
+  "state": "verified"
  },
  "A142": {
   "banner": "set_dungeon2_shaman_orc",
   "date": "2026-10-31",
-  "state": "installed"
+  "state": "verified"
  },
  "A143": {
   "date": "2026-10-29",
@@ -693,7 +693,7 @@
  "A146": {
   "banner": "set_tier25_cloth",
   "date": "2026-10-31",
-  "state": "installed"
+  "state": "verified"
  },
  "A147": {
   "date": "2026-10-29",
@@ -709,6 +709,26 @@
   "date": "2026-10-29",
   "note": "Karl confirmed the Tier 2.5 leather, mail and plate banners are already loaded and in use; no new banner to install.",
   "state": "blocked"
+ },
+ "A150": {
+  "date": "2026-10-31",
+  "state": "review"
+ },
+ "A151": {
+  "date": "2026-10-31",
+  "state": "review"
+ },
+ "A152": {
+  "date": "2026-10-31",
+  "state": "review"
+ },
+ "A154": {
+  "date": "2026-10-31",
+  "state": "review"
+ },
+ "A155": {
+  "date": "2026-10-31",
+  "state": "review"
  },
  "A161": {
   "banner": "allclasses_gnome_warlock_male",
