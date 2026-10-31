@@ -143,6 +143,8 @@ its October 21 notes.
 
 - Art batch 16 (2026-10-31): Karl approved A137, A139, A141, A142 v6 and A146 v1 with the longer crystal blade. Five banners are installed and synced to Era; A146 serves the Mage, Priest and Warlock AQ cloth set goals. `art-plan.py verify` for all five and `tools/check.py` pass. A138, A143 and A145 are blocked, with A145 rejected after the agreed final sword-tip attempt. Full-restart native review remains pending. See `image-tests/batch-16-2026-10-31.md`.
 
+- Art batch 17 (2026-10-31): Karl approved A150, A151, A152, A154 and A155, explicitly choosing A155 v1. Five Alliance PvP class set banners are installed with race and sex specific variants and fallbacks, and synced to Era. `art-plan.py verify` and explicit resolver checks for all five, plus `tools/check.py`, pass. A147 through A149 remain blocked; A153 is skipped for low resolution. Full-restart native review remains pending. See `image-tests/batch-17-2026-10-31.md`.
+
 - Banner art untangle (decided 2026-10-28 with Karl: after launch, as 2.17.x, not before November 4): banner choice
   in Core.lua is spread over about 100 order-dependent assignments (collection art copied to children, the PvP shared
   loop, dedicated overrides, `factionArtPaths`, race/class/sex variants), and the checklist hand-copies it (`RC_ART`,

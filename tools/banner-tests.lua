@@ -316,6 +316,23 @@ for _, goal in ipairs(F.armorCollections.pvp_set_leather_ally.armorChildren) do
     assert(path == "pvp_set_leather_ally-banner.blp" and aspect == 4/3 and preprocessed,
         "Alliance leather class sets use approved Moonshadow art")
 end
+for _, row in ipairs({
+    {"pvp_set_plate_ally_paladin", "pvp_field_marshal_s_aegis_paladin_m", "Dwarf", 2, "pvp_set_plate_ally-banner.blp"},
+    {"pvp_set_cloth_ally_priest", "pvp_field_marshal_s_raiment_priest_f", "Human", 3, "pvp_set_cloth_ally-banner.blp"},
+    {"pvp_set_cloth_ally_mage", "pvp_field_marshal_s_regalia_mage_f", "Human", 3, "pvp_set_cloth_ally-banner.blp"},
+    {"pvp_set_cloth_ally_warlock", "pvp_field_marshal_s_threads_warlock_f", "Gnome", 3, "pvp_set_cloth_ally-banner.blp"},
+    {"pvp_set_leather_ally_rogue", "pvp_field_marshal_s_vestments_rogue_m", "NightElf", 2, "pvp_set_leather_ally-banner.blp"},
+}) do
+    local goal, key, race, sex, fallback = unpack(row)
+    assert(F.GoalById(goal), "approved PvP set child exists")
+    local path, aspect, preprocessed = B:ResolveArt(goal, {faction="Alliance", race=race, sex=sex})
+    assert(path == key .. "-banner.blp" and aspect == 4/3 and preprocessed,
+        "matching Alliance PvP set character gets dedicated art")
+    assert(B:ResolveArt(goal, {faction="Alliance", race=race, sex=sex == 2 and 3 or 2}) == fallback,
+        "other sex keeps its existing PvP set art")
+    assert(B:ResolveArt(goal, {faction="Horde", race=race, sex=sex}) == fallback,
+        "other faction keeps the PvP set fallback")
+end
 do
     local originalContext = B.PlayerArtContext
     for _, faction in ipairs({"Alliance", "Horde"}) do

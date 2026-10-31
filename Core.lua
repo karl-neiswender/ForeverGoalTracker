@@ -5879,6 +5879,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="pvp_set_plate_ally_warrior_gnome_female-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
         {path="pvp_set_plate_ally-banner.blp", aspect=4/3, preprocessed=true},
     }
+    B.artVariants.pvp_set_plate_ally_paladin = {
+        {path="pvp_field_marshal_s_aegis_paladin_m-banner.blp", faction="Alliance", race="Dwarf", sex=2, aspect=4/3, preprocessed=true},
+        {path="pvp_set_plate_ally-banner.blp", aspect=4/3, preprocessed=true},
+    }
     B.artVariants.widows_remorse = {{path="widows_remorse-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.lobotomizer = {{path="lobotomizer-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.demonslayer = {{path="demonslayer-banner.blp", aspect=4/3, preprocessed=true}}
@@ -5976,6 +5980,22 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_set_cloth_ally = {{path="pvp_set_cloth_ally-banner.blp"}}
     B.artVariants.pvp_set_cloth_horde = {{path="pvp_set_cloth_horde-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_set_leather_ally = {{path="pvp_set_leather_ally-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.pvp_set_cloth_ally_priest = {
+        {path="pvp_field_marshal_s_raiment_priest_f-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
+        {path="pvp_set_cloth_ally-banner.blp"},
+    }
+    B.artVariants.pvp_set_cloth_ally_mage = {
+        {path="pvp_field_marshal_s_regalia_mage_f-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
+        {path="pvp_set_cloth_ally-banner.blp"},
+    }
+    B.artVariants.pvp_set_cloth_ally_warlock = {
+        {path="pvp_field_marshal_s_threads_warlock_f-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
+        {path="pvp_set_cloth_ally-banner.blp"},
+    }
+    B.artVariants.pvp_set_leather_ally_rogue = {
+        {path="pvp_field_marshal_s_vestments_rogue_m-banner.blp", faction="Alliance", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
+        {path="pvp_set_leather_ally-banner.blp", aspect=4/3, preprocessed=true},
+    }
     B.artVariants.set_dungeon1_priest = {
         {path="set_dungeon1_priest_dwarf-banner.blp", faction="Alliance", class="PRIEST", race="Dwarf", aspect=4/3, preprocessed=true},
         {path="key_strat-banner.blp"},

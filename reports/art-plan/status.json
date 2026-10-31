@@ -711,24 +711,29 @@
   "state": "blocked"
  },
  "A150": {
+  "banner": "pvp_field_marshal_s_aegis_paladin_m",
   "date": "2026-10-31",
-  "state": "review"
+  "state": "installed"
  },
  "A151": {
+  "banner": "pvp_field_marshal_s_raiment_priest_f",
   "date": "2026-10-31",
-  "state": "review"
+  "state": "installed"
  },
  "A152": {
+  "banner": "pvp_field_marshal_s_regalia_mage_f",
   "date": "2026-10-31",
-  "state": "review"
+  "state": "installed"
  },
  "A154": {
+  "banner": "pvp_field_marshal_s_threads_warlock_f",
   "date": "2026-10-31",
-  "state": "review"
+  "state": "installed"
  },
  "A155": {
+  "banner": "pvp_field_marshal_s_vestments_rogue_m",
   "date": "2026-10-31",
-  "state": "review"
+  "state": "installed"
  },
  "A161": {
   "banner": "allclasses_gnome_warlock_male",

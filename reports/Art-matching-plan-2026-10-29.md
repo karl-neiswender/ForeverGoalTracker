@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 113 of 131 workable banners verified.** Queued 13, In review 5, Verified 113, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 113 of 131 workable banners verified.** Queued 13, Installed 5, Verified 113, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -297,11 +297,11 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A147 | P3 | `alliance-nightelf-male-druid-aqset-leather.jpg` 918x1200 |  | Leather: Deathdealer's Embrace (Rogue), Genesis Raiment (Druid): `set_tier25` / `set_tier25_leather` | Blocked |  One image per armor type; map it to the goals in the title. |
 | ☐ | A148 | P3 | `horde-orc-male-hunter-aqset-mail.jpg` 861x1200 |  | Mail: Striker's Garb (Hunter), Stormcaller's Garb (Shaman): `set_tier25` / `set_tier25_mail` | Blocked |  One image per armor type; map it to the goals in the title. |
 | ☐ | A149 | P3 | `alliance-dwarf-male-aqset-plate.jpg` 861x1200 |  | Plate: Conqueror's Battlegear (Warrior), Avenger's Battlegear (Paladin): `set_tier25` / `set_tier25_plate` | Blocked |  One image per armor type; map it to the goals in the title. |
-| ☐ | A150 | P3 | `alliance-dwarf-male-paladin-pvpset-plate.png` 745x1040 | `alliance-human-male-paladin-pvpset-plate.jpg` | Field Marshal's Aegis (Paladin) M: `None` / `pvp_field_marshal_s_aegis_paladin_m` | In review | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A151 | P3 | `alliance-human-female-priest-pvpset-cloth.png` 745x1040 |  | Field Marshal's Raiment (Priest) F: `None` / `pvp_field_marshal_s_raiment_priest_f` | In review | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A152 | P3 | `alliance-human-female-mage-pvpset-cloth.jpg` 929x750 | `alliance-human-female-mage-pvpset-cloth-2.jpg` | Field Marshal's Regalia (Mage) F: `None` / `pvp_field_marshal_s_regalia_mage_f` | In review |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A154 | P3 | `alliance-gnome-female-warlock-pvpset-cloth.png` 745x1040 | `alliance-human-female-warlock-pvpset-cloth.jpg` | Field Marshal's Threads (Warlock) F: `None` / `pvp_field_marshal_s_threads_warlock_f` | In review | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A155 | P3 | `alliance-nightelf-male-rogue-pvpset-leather-2.png` 745x1040 | `alliance-nightelf-male-rogue-pvpset-leather-3.png` | Field Marshal's Vestments (Rogue) M: `None` / `pvp_field_marshal_s_vestments_rogue_m` | In review | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☐ | A150 | P3 | `alliance-dwarf-male-paladin-pvpset-plate.png` 745x1040 | `alliance-human-male-paladin-pvpset-plate.jpg` | Field Marshal's Aegis (Paladin) M: `None` / `pvp_field_marshal_s_aegis_paladin_m` | Installed | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☐ | A151 | P3 | `alliance-human-female-priest-pvpset-cloth.png` 745x1040 |  | Field Marshal's Raiment (Priest) F: `None` / `pvp_field_marshal_s_raiment_priest_f` | Installed | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☐ | A152 | P3 | `alliance-human-female-mage-pvpset-cloth.jpg` 929x750 | `alliance-human-female-mage-pvpset-cloth-2.jpg` | Field Marshal's Regalia (Mage) F: `None` / `pvp_field_marshal_s_regalia_mage_f` | Installed |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☐ | A154 | P3 | `alliance-gnome-female-warlock-pvpset-cloth.png` 745x1040 | `alliance-human-female-warlock-pvpset-cloth.jpg` | Field Marshal's Threads (Warlock) F: `None` / `pvp_field_marshal_s_threads_warlock_f` | Installed | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☐ | A155 | P3 | `alliance-nightelf-male-rogue-pvpset-leather-2.png` 745x1040 | `alliance-nightelf-male-rogue-pvpset-leather-3.png` | Field Marshal's Vestments (Rogue) M: `None` / `pvp_field_marshal_s_vestments_rogue_m` | Installed | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 
 ### Batch 18
 

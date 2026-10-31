@@ -2770,5 +2770,40 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "pvp_field_marshal_s_aegis_paladin_m": {
+    "source": "pvp_field_marshal_s_aegis_paladin_m-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_field_marshal_s_raiment_priest_f": {
+    "source": "pvp_field_marshal_s_raiment_priest_f-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_field_marshal_s_regalia_mage_f": {
+    "source": "pvp_field_marshal_s_regalia_mage_f-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_field_marshal_s_threads_warlock_f": {
+    "source": "pvp_field_marshal_s_threads_warlock_f-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_field_marshal_s_vestments_rogue_m": {
+    "source": "pvp_field_marshal_s_vestments_rogue_m-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }
