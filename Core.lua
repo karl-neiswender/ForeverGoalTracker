@@ -8869,6 +8869,11 @@ local function GetStepRow(index, view)
     -- green check that replaces the count once every material is done
     row.doneCheck = row:CreateTexture(nil, "OVERLAY")
     row.doneCheck:SetTexture(FGT.Icon("check-white"))
+    FGT.Bars.Glass(row.miniBar) -- translucent track like the goal page's bar (Karl, 2026-10-31)
+    -- Quiet: the track should hardly draw the eye, only the fill does (Karl). A whisper of shade and
+    -- a barely-there hairline.
+    row.miniBar:SetBackdropColor(0, 0, 0, 0.14)
+    row.miniBar:SetBackdropBorderColor(1.00, 0.85, 0.55, 0.09)
     row.doneCheck:SetSize(13, 13)
     row.doneCheck:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, 0)
     row.doneCheck:SetDesaturated(true)
@@ -9292,7 +9297,7 @@ function FGT.LayoutTips(goal, yOffset, width)
     T.line:SetPoint("RIGHT", FGT.stepsDivider, "RIGHT", 0, 0)
     T.line:Show()
     yOffset = yOffset + 9
-    T.header:SetText("Tips")
+    T.header:SetText("Hints")
     FGT.SetPlusMinus(T.arrow, open)
     -- the count stays put either way: changing it on a click read as a flash (Karl)
     T.count:SetText("(" .. #tips .. ")")
@@ -9664,7 +9669,12 @@ RefreshSteps = function(goal, view)
                     local f, _, val, size = FGT.RepProgress(rule, FGT.RepBase(goal, i))
                     if f > 0 and f < 1 then cur, max = val, size end
                 end
-                if cur and max and not entry.hideProgressBar and not (rule.item and rule.count and rule.count > 1)
+                -- Only the long single climbs get a step bar (reputation, skills, gold), and only
+                -- once they have started. Count ladders (kills, friends, ranks, emotes) leave it
+                -- to the goal bar, so no empty strips (Karl, 2026-10-31).
+                local climb = rule.rep or rule.skill or rule.money
+                if cur and max and climb and cur > 0 and not entry.hideProgressBar
+                    and not (rule.item and rule.count and rule.count > 1)
                     and not IsStepDone(goal.id, i) then
                     row.miniBar:ClearAllPoints()
                     row.miniBar:SetPoint("TOPLEFT", row.text, "BOTTOMLEFT", 0, -6)
