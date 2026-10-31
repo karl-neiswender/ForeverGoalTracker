@@ -676,8 +676,9 @@
   "state": "installed"
  },
  "A142": {
+  "banner": "set_dungeon2_shaman_orc",
   "date": "2026-10-31",
-  "state": "review"
+  "state": "installed"
  },
  "A143": {
   "date": "2026-10-29",

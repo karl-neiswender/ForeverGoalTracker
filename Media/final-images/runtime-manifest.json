@@ -2735,5 +2735,40 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_druid_troll": {
+    "source": "set_dungeon2_druid_troll-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_mage_troll": {
+    "source": "set_dungeon2_mage_troll-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_priest_nightelf": {
+    "source": "set_dungeon2_priest_nightelf-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_shaman_orc": {
+    "source": "set_dungeon2_shaman_orc-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier25_cloth": {
+    "source": "set_tier25_cloth-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 108 of 131 workable banners verified.** Queued 18, In review 1, Installed 4, Verified 108, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 108 of 131 workable banners verified.** Queued 18, Installed 5, Verified 108, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -285,7 +285,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A138 | P3 | `alliance-dwarf-male-hunter-dungeonset.jpg` 4200x5409 | `alliance-human-male-hunter-dungeonset.png` | Dungeon Set 2 Hunter A: `set_dungeon2_hunter` / `set_dungeon2_hunter_dwarf` | Blocked |   |
 | ☐ | A139 | P3 | `horde-troll-male-mage-dungeonset-4.png` 745x1040 | `horde-troll-male-mage-dungeonset.png` | Dungeon Set 2 Mage H: `set_dungeon2_mage` / `set_dungeon2_mage_troll` | Installed | card scan, crop first  |
 | ☐ | A141 | P3 | `alliance-nightelf-female-priest-dungeonset.png` 745x1040 |  | Dungeon Set 2 Priest A: `set_dungeon2_priest` / `set_dungeon2_priest_nightelf` | Installed | card scan, crop first  |
-| ☐ | A142 | P3 | `horde-orc-male-shaman-dungeonset.png` 745x1040 | `horde-tauren-female-shaman-dungeonset.png` | Dungeon Set 2 Shaman H: `set_dungeon2_shaman` / `set_dungeon2_shaman_orc` | In review | card scan, crop first  |
+| ☐ | A142 | P3 | `horde-orc-male-shaman-dungeonset.png` 745x1040 | `horde-tauren-female-shaman-dungeonset.png` | Dungeon Set 2 Shaman H: `set_dungeon2_shaman` / `set_dungeon2_shaman_orc` | Installed | card scan, crop first  |
 | ☐ | A143 | P3 | `alliance-gnome-male-warlock-dungeonset1.png` 745x1040 |  | Dungeon Set 2 Warlock A: `set_dungeon2_warlock` / `set_dungeon2_warlock_gnome` | Blocked | card scan, crop first  |
 | ☐ | A145 | P3 | `alliance-nightelf-male-warrior-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Warrior A: `set_dungeon2_warrior` / `set_dungeon2_warrior_nightelf` | Blocked | card scan, crop first  |
 | ☐ | A146 | P3 | `horde-undead-female-aqset-cloth.jpg` 745x1040 |  | Cloth: Enigma Vestments (Mage), Doomcaller's Attire (Warlock), Garments of the Oracle (Priest): `set_tier25` / `set_tier25_cloth` | Installed | card scan, crop first One image per armor type; map it to the goals in the title. |
