@@ -1,8 +1,8 @@
-# Art matching plan and work order, built 2026-10-30
+# Art matching plan and work order, built 2026-10-31
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 108 of 132 workable banners verified.** Queued 24, Verified 108, Blocked 21, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 108 of 131 workable banners verified.** Queued 18, In review 1, Installed 4, Verified 108, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 132 workable banners; P1 is 33, P2 is 44, P3 is 47. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 131 workable banners; P1 is 33, P2 is 44, P3 is 46. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -281,14 +281,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A137 | P3 | `horde-troll-female-leather-dungeonset1.png` 745x1040 |  | Dungeon Set 2 Druid H: `set_dungeon2_druid` / `set_dungeon2_druid_troll` | Queued | card scan, crop first  |
+| ☐ | A137 | P3 | `horde-troll-female-leather-dungeonset1.png` 745x1040 |  | Dungeon Set 2 Druid H: `set_dungeon2_druid` / `set_dungeon2_druid_troll` | Installed | card scan, crop first  |
 | ☐ | A138 | P3 | `alliance-dwarf-male-hunter-dungeonset.jpg` 4200x5409 | `alliance-human-male-hunter-dungeonset.png` | Dungeon Set 2 Hunter A: `set_dungeon2_hunter` / `set_dungeon2_hunter_dwarf` | Blocked |   |
-| ☐ | A139 | P3 | `horde-troll-male-mage-dungeonset-4.png` 745x1040 | `horde-troll-male-mage-dungeonset.png` | Dungeon Set 2 Mage H: `set_dungeon2_mage` / `set_dungeon2_mage_troll` | Queued | card scan, crop first  |
-| ☐ | A141 | P3 | `alliance-nightelf-female-priest-dungeonset.png` 745x1040 |  | Dungeon Set 2 Priest A: `set_dungeon2_priest` / `set_dungeon2_priest_nightelf` | Queued | card scan, crop first  |
-| ☐ | A142 | P3 | `horde-orc-male-shaman-dungeonset.png` 745x1040 | `horde-tauren-female-shaman-dungeonset.png` | Dungeon Set 2 Shaman H: `set_dungeon2_shaman` / `set_dungeon2_shaman_orc` | Queued | card scan, crop first  |
+| ☐ | A139 | P3 | `horde-troll-male-mage-dungeonset-4.png` 745x1040 | `horde-troll-male-mage-dungeonset.png` | Dungeon Set 2 Mage H: `set_dungeon2_mage` / `set_dungeon2_mage_troll` | Installed | card scan, crop first  |
+| ☐ | A141 | P3 | `alliance-nightelf-female-priest-dungeonset.png` 745x1040 |  | Dungeon Set 2 Priest A: `set_dungeon2_priest` / `set_dungeon2_priest_nightelf` | Installed | card scan, crop first  |
+| ☐ | A142 | P3 | `horde-orc-male-shaman-dungeonset.png` 745x1040 | `horde-tauren-female-shaman-dungeonset.png` | Dungeon Set 2 Shaman H: `set_dungeon2_shaman` / `set_dungeon2_shaman_orc` | In review | card scan, crop first  |
 | ☐ | A143 | P3 | `alliance-gnome-male-warlock-dungeonset1.png` 745x1040 |  | Dungeon Set 2 Warlock A: `set_dungeon2_warlock` / `set_dungeon2_warlock_gnome` | Blocked | card scan, crop first  |
-| ☐ | A145 | P3 | `alliance-nightelf-male-warrior-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Warrior A: `set_dungeon2_warrior` / `set_dungeon2_warrior_nightelf` | Queued | card scan, crop first  |
-| ☐ | A146 | P3 | `horde-undead-female-aqset-cloth.jpg` 745x1040 |  | Cloth: Enigma Vestments (Mage), Doomcaller's Attire (Warlock), Garments of the Oracle (Priest): `set_tier25` / `set_tier25_cloth` | Queued | card scan, crop first One image per armor type; map it to the goals in the title. |
+| ☐ | A145 | P3 | `alliance-nightelf-male-warrior-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Warrior A: `set_dungeon2_warrior` / `set_dungeon2_warrior_nightelf` | Blocked | card scan, crop first  |
+| ☐ | A146 | P3 | `horde-undead-female-aqset-cloth.jpg` 745x1040 |  | Cloth: Enigma Vestments (Mage), Doomcaller's Attire (Warlock), Garments of the Oracle (Priest): `set_tier25` / `set_tier25_cloth` | Installed | card scan, crop first One image per armor type; map it to the goals in the title. |
 
 ### Batch 17
 
@@ -366,6 +366,7 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A140 | Skipped (low-res) | `alliance-human-male-paladin-dungeonset.jpg` | 220x308 | Dungeon Set 2 Paladin A  |
 | A143 | Blocked | `alliance-gnome-male-warlock-dungeonset1.png` | 745x1040 | Dungeon Set 2 Warlock A  |
 | A144 | Skipped (low-res) | `horde-orc-male-warlock-dungeonset-2.jpg` | 312x440 | Dungeon Set 2 Warlock H  |
+| A145 | Blocked | `alliance-nightelf-male-warrior-dungeonset.png` | 745x1040 | Dungeon Set 2 Warrior A  |
 | A147 | Blocked | `alliance-nightelf-male-druid-aqset-leather.jpg` | 918x1200 | Leather: Deathdealer's Embrace (Rogue), Genesis Raiment (Druid) One image per armor type; map it to the goals in the title. |
 | A148 | Blocked | `horde-orc-male-hunter-aqset-mail.jpg` | 861x1200 | Mail: Striker's Garb (Hunter), Stormcaller's Garb (Shaman) One image per armor type; map it to the goals in the title. |
 | A149 | Blocked | `alliance-dwarf-male-aqset-plate.jpg` | 861x1200 | Plate: Conqueror's Battlegear (Warrior), Avenger's Battlegear (Paladin) One image per armor type; map it to the goals in the title. |
