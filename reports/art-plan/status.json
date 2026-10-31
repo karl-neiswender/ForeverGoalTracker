@@ -735,17 +735,47 @@
   "date": "2026-10-31",
   "state": "verified"
  },
+ "A156": {
+  "banner": "pvp_warlord_s_battlegear_warrior_f",
+  "date": "2026-10-31",
+  "state": "verified"
+ },
+ "A157": {
+  "banner": "pvp_warlord_s_earthshaker_shaman_f",
+  "date": "2026-10-31",
+  "state": "verified"
+ },
+ "A158": {
+  "banner": "pvp_warlord_s_sanctuary_druid_f",
+  "date": "2026-10-31",
+  "state": "verified"
+ },
+ "A159": {
+  "banner": "pvp_warlord_s_sanctuary_druid_m",
+  "date": "2026-10-31",
+  "state": "verified"
+ },
+ "A160": {
+  "banner": "pvp_warlord_s_threads_warlock_m",
+  "date": "2026-10-31",
+  "state": "verified"
+ },
  "A161": {
   "banner": "allclasses_gnome_warlock_male",
-  "date": "2026-10-29",
+  "date": "2026-10-31",
   "note": "Unblocked by Karl; plan source art to be edited.",
-  "state": "queued"
+  "state": "verified"
  },
  "A162": {
   "banner": "allclasses_undead_rogue_male",
-  "date": "2026-10-29",
+  "date": "2026-10-31",
   "note": "Unblocked by Karl; plan source art to be edited.",
-  "state": "queued"
+  "state": "verified"
+ },
+ "A163": {
+  "banner": "set_tier1_hunter_nightelf_male",
+  "date": "2026-10-31",
+  "state": "verified"
  },
  "A166": {
   "date": "2026-10-29",

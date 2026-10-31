@@ -4842,8 +4842,8 @@
    "targets": [
     {
      "label": "Warlord's Battlegear (Warrior) F",
-     "goal": null,
-     "resolve": null,
+     "goal": "pvp_set_plate_horde_warrior",
+     "resolve": {"goal": "pvp_set_plate_horde_warrior", "faction": "Horde", "class": "WARRIOR", "race": "Troll", "sex": 3},
      "key": "pvp_warlord_s_battlegear_warrior_f"
     }
    ],
@@ -4868,8 +4868,8 @@
    "targets": [
     {
      "label": "Warlord's Earthshaker (Shaman) F",
-     "goal": null,
-     "resolve": null,
+     "goal": "pvp_set_mail_horde_shaman",
+     "resolve": {"goal": "pvp_set_mail_horde_shaman", "faction": "Horde", "class": "SHAMAN", "race": "Tauren", "sex": 3},
      "key": "pvp_warlord_s_earthshaker_shaman_f"
     }
    ],
@@ -4894,8 +4894,8 @@
    "targets": [
     {
      "label": "Warlord's Sanctuary (Druid) F",
-     "goal": null,
-     "resolve": null,
+     "goal": "pvp_set_leather_horde_druid",
+     "resolve": {"goal": "pvp_set_leather_horde_druid", "faction": "Horde", "class": "DRUID", "race": "Tauren", "sex": 3},
      "key": "pvp_warlord_s_sanctuary_druid_f"
     }
    ],
@@ -4920,8 +4920,8 @@
    "targets": [
     {
      "label": "Warlord's Sanctuary (Druid) M",
-     "goal": null,
-     "resolve": null,
+     "goal": "pvp_set_leather_horde_druid",
+     "resolve": {"goal": "pvp_set_leather_horde_druid", "faction": "Horde", "class": "DRUID", "race": "Tauren", "sex": 2},
      "key": "pvp_warlord_s_sanctuary_druid_m"
     }
    ],
@@ -4946,8 +4946,8 @@
    "targets": [
     {
      "label": "Warlord's Threads (Warlock) M",
-     "goal": null,
-     "resolve": null,
+     "goal": "pvp_set_cloth_horde_warlock",
+     "resolve": {"goal": "pvp_set_cloth_horde_warlock", "faction": "Horde", "class": "WARLOCK", "race": "Orc", "sex": 2},
      "key": "pvp_warlord_s_threads_warlock_m"
     }
    ],

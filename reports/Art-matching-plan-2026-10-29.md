@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 118 of 131 workable banners verified.** Queued 13, Verified 118, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 126 of 131 workable banners verified.** Queued 5, Verified 126, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -307,14 +307,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A156 | P3 | `horde-troll-female-warrior-plate-pvpset.png` 745x1040 |  | Warlord's Battlegear (Warrior) F: `None` / `pvp_warlord_s_battlegear_warrior_f` | Queued | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A157 | P3 | `horde-tauren-female-shaman-pvpset-mail.jpg` 500x442 |  | Warlord's Earthshaker (Shaman) F: `None` / `pvp_warlord_s_earthshaker_shaman_f` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A158 | P3 | `horde-tauren-female-druid-pvpset-leather.jpg` 700x530 |  | Warlord's Sanctuary (Druid) F: `None` / `pvp_warlord_s_sanctuary_druid_f` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A159 | P3 | `horde-tauren-male-druid-pvpset-leather.jpg` 1041x1200 |  | Warlord's Sanctuary (Druid) M: `None` / `pvp_warlord_s_sanctuary_druid_m` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A160 | P3 | `horde-orc-male-warlock-pvpset-cloth.jpg` 550x788 | `horde-orc-male-warlock-pvpset-cloth-2.jpg` | Warlord's Threads (Warlock) M: `None` / `pvp_warlord_s_threads_warlock_m` | Queued |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
-| ☐ | A161 | P4 | `alliance-gnome-male-warlock-generic-leveling.png` 745x1040 |  | Level Classes to 60: Gnome Warlock M: `allclasses` / `allclasses_gnome_warlock_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
-| ☐ | A162 | P4 | `horde-undead-male-rogue-generic-leveling-3.jpg` 1024x867 |  | Level Classes to 60: Undead Rogue M: `allclasses` / `allclasses_undead_rogue_male` | Queued | Karl's pick replacement proposal: slot already has art |
-| ☐ | A163 | P4 | `alliance-nightelf-male-hunter-tier1.jpg` 1050x1200 |  | Tier 1 Hunter A M: `set_tier1_hunter` / `set_tier1_hunter_nightelf_male` | Queued | Karl's pick replacement proposal: slot already has art |
+| ☑ | A156 | P3 | `horde-troll-female-warrior-plate-pvpset.png` 745x1040 |  | Warlord's Battlegear (Warrior) F: `pvp_set_plate_horde_warrior` / `pvp_warlord_s_battlegear_warrior_f` | Verified | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☑ | A157 | P3 | `horde-tauren-female-shaman-pvpset-mail.jpg` 500x442 |  | Warlord's Earthshaker (Shaman) F: `pvp_set_mail_horde_shaman` / `pvp_warlord_s_earthshaker_shaman_f` | Verified |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☑ | A158 | P3 | `horde-tauren-female-druid-pvpset-leather.jpg` 700x530 |  | Warlord's Sanctuary (Druid) F: `pvp_set_leather_horde_druid` / `pvp_warlord_s_sanctuary_druid_f` | Verified |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☑ | A159 | P3 | `horde-tauren-male-druid-pvpset-leather.jpg` 1041x1200 |  | Warlord's Sanctuary (Druid) M: `pvp_set_leather_horde_druid` / `pvp_warlord_s_sanctuary_druid_m` | Verified |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☑ | A160 | P3 | `horde-orc-male-warlock-pvpset-cloth.jpg` 550x788 | `horde-orc-male-warlock-pvpset-cloth-2.jpg` | Warlord's Threads (Warlock) M: `pvp_set_cloth_horde_warlock` / `pvp_warlord_s_threads_warlock_m` | Verified |  PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☑ | A161 | P4 | `alliance-gnome-male-warlock-generic-leveling.png` 745x1040 |  | Level Classes to 60: Gnome Warlock M: `allclasses` / `allclasses_gnome_warlock_male` | Verified | Karl's pick, card scan, crop first replacement proposal: slot already has art |
+| ☑ | A162 | P4 | `horde-undead-male-rogue-generic-leveling-3.jpg` 1024x867 |  | Level Classes to 60: Undead Rogue M: `allclasses` / `allclasses_undead_rogue_male` | Verified | Karl's pick replacement proposal: slot already has art |
+| ☑ | A163 | P4 | `alliance-nightelf-male-hunter-tier1.jpg` 1050x1200 |  | Tier 1 Hunter A M: `set_tier1_hunter` / `set_tier1_hunter_nightelf_male` | Verified | Karl's pick replacement proposal: slot already has art |
 
 ### Batch 19
 
