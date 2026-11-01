@@ -5669,6 +5669,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         },
         set_tier1_warrior = {
             {path="set_tier1_warrior_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+            {path="set_tier1_warrior_orc_male-banner.blp", faction="Horde", race="Orc", sex=2, aspect=4/3, preprocessed=true},
         },
         set_tier2_hunter = {
             {path="set_tier2_hunter_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
@@ -5684,6 +5685,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         },
         set_tier2_shaman = {
             {path="set_tier2_shaman_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+            {path="set_tier2_shaman_tauren_male-banner.blp", faction="Horde", race="Tauren", sex=2, aspect=4/3, preprocessed=true},
         },
         set_tier2_warlock = {
             {path="set_tier2_warlock_human_male-banner.blp", faction="Alliance", race="Human", sex=2, aspect=4/3, preprocessed=true},
@@ -5694,6 +5696,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         },
         tier3_hunter = {
             {path="tier3_hunter_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+        },
+        tier3_shaman = {
+            {path="tier3_shaman_tauren_female-banner.blp", faction="Horde", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
         },
         tier3_mage = {
             {path="tier3_mage_gnome_female-banner.blp", faction="Alliance", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
@@ -5946,6 +5951,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.tier3_rogue = {
         {path="tier3_rogue_human-banner.blp", faction="Alliance", race="Human", aspect=4/3, preprocessed=true},
         {path="tier3_rogue_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
+        {path="tier3_rogue_orc_male-banner.blp", faction="Horde", race="Orc", sex=2, aspect=4/3, preprocessed=true},
     }
     B.artVariants.tier3_priest = {
         {path="tier3_priest_gnome-banner.blp", faction="Alliance", race="Gnome", aspect=4/3, preprocessed=true},
@@ -6002,6 +6008,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     }
     B.artVariants.set_tier1_hunter = {
         {path="set_tier1_hunter_human_female-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
+        {path="set_tier1_hunter_nightelf_male-banner.blp", faction="Alliance", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
+        {path="set_tier1_hunter_tauren_male-banner.blp", faction="Horde", race="Tauren", sex=2, aspect=4/3, preprocessed=true},
         {path="set_tier1_hunter-alliance-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true},
     }
     B.artVariants.set_dungeon2_shaman = {
@@ -6040,6 +6048,23 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     table.insert(B.artVariants.social_buffs, 1, {path="social_buffs_horde-banner.blp", faction="Horde", class="MAGE", aspect=4/3, preprocessed=true})
     table.insert(B.artVariants.social_buffs, {path="social_buffs_horde-banner.blp", faction="Horde", aspect=4/3, preprocessed=true})
     B.artVariants.pvp_set_mail_horde = {{path="pvp_troll_hunter_mail-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.pvp_set_plate_horde_warrior = {
+        {path="pvp_warlord_s_battlegear_warrior_f-banner.blp", faction="Horde", race="Troll", sex=3, aspect=4/3, preprocessed=true},
+        {path="pvp_set_plate_horde-banner.blp", aspect=4/3, preprocessed=true},
+    }
+    B.artVariants.pvp_set_mail_horde_shaman = {
+        {path="pvp_warlord_s_earthshaker_shaman_f-banner.blp", faction="Horde", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
+        {path="pvp_set_mail_horde_shaman-banner.blp"},
+    }
+    B.artVariants.pvp_set_leather_horde_druid = {
+        {path="pvp_warlord_s_sanctuary_druid_f-banner.blp", faction="Horde", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
+        {path="pvp_warlord_s_sanctuary_druid_m-banner.blp", faction="Horde", race="Tauren", sex=2, aspect=4/3, preprocessed=true},
+        {path="set_tier2_warrior-banner.blp"},
+    }
+    B.artVariants.pvp_set_cloth_horde_warlock = {
+        {path="pvp_warlord_s_threads_warlock_m-banner.blp", faction="Horde", race="Orc", sex=2, aspect=4/3, preprocessed=true},
+        {path="pvp_set_cloth_horde-banner.blp", aspect=4/3, preprocessed=true},
+    }
     function B:PlayerArtContext()
         -- Use stable file tokens, not localized class/race display names.
         local race, class
@@ -7848,13 +7873,11 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.credit:SetTextColor(0.48, 0.48, 0.48)
     B.credit:SetPoint("BOTTOMRIGHT", detailPanel, "BOTTOMRIGHT", -38, 7)
     B.artArtists = {
-        ["allclasses_gnome_warlock_male-banner.blp"] = "Phil Gonzales",
         ["allclasses_undead_priest_male-banner.blp"] = "Bob Larkin",
         ["allclasses_undead_priest_female-banner.blp"] = "Triston Elwell",
         ["allclasses_human_hunter_male-banner.blp"] = "Jim Nelson",
         ["dungeon_hunter_human_male-banner.blp"] = "Leo Che (Concept Art House)",
         ["allclasses_human_rogue_male-banner.blp"] = "Ralph Horsley",
-        ["allclasses_undead_rogue_male-banner.blp"] = "Dave Allsop",
         ["allclasses_undead_rogue_female-banner.blp"] = "Gonzalo Ordonez",
         ["pvp_set_plate_ally_warrior_gnome_female-banner.blp"] = "Alex Horley Orlandelli",
         ["allclasses_gnome_warrior_female-banner.blp"] = "Alex Horley Orlandelli",

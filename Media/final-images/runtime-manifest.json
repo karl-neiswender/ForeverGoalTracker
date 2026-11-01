@@ -2805,5 +2805,82 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "pvp_warlord_s_battlegear_warrior_f": {
+    "source": "pvp_warlord_s_battlegear_warrior_f-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_warlord_s_earthshaker_shaman_f": {
+    "source": "pvp_warlord_s_earthshaker_shaman_f-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_warlord_s_sanctuary_druid_f": {
+    "source": "pvp_warlord_s_sanctuary_druid_f-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_warlord_s_sanctuary_druid_m": {
+    "source": "pvp_warlord_s_sanctuary_druid_m-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_warlord_s_threads_warlock_m": {
+    "source": "pvp_warlord_s_threads_warlock_m-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_hunter_nightelf_male": {
+    "source": "set_tier1_hunter_nightelf_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_hunter_tauren_male": {
+    "source": "set_tier1_hunter_tauren_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_warrior_orc_male": {
+    "source": "set_tier1_warrior_orc_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_shaman_tauren_male": {
+    "source": "set_tier2_shaman_tauren_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_shaman_tauren_female": {
+    "source": "tier3_shaman_tauren_female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_rogue_orc_male": {
+    "source": "tier3_rogue_orc_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

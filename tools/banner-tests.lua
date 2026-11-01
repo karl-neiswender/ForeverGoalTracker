@@ -333,6 +333,43 @@ for _, row in ipairs({
     assert(B:ResolveArt(goal, {faction="Horde", race=race, sex=sex}) == fallback,
         "other faction keeps the PvP set fallback")
 end
+for _, row in ipairs({
+    {"pvp_set_plate_horde_warrior", "pvp_warlord_s_battlegear_warrior_f", "Troll", 3, "pvp_set_plate_horde-banner.blp"},
+    {"pvp_set_mail_horde_shaman", "pvp_warlord_s_earthshaker_shaman_f", "Tauren", 3, "pvp_set_mail_horde_shaman-banner.blp"},
+    {"pvp_set_leather_horde_druid", "pvp_warlord_s_sanctuary_druid_f", "Tauren", 3, "pvp_warlord_s_sanctuary_druid_m-banner.blp"},
+    {"pvp_set_leather_horde_druid", "pvp_warlord_s_sanctuary_druid_m", "Tauren", 2, "pvp_warlord_s_sanctuary_druid_f-banner.blp"},
+    {"pvp_set_cloth_horde_warlock", "pvp_warlord_s_threads_warlock_m", "Orc", 2, "pvp_set_cloth_horde-banner.blp"},
+}) do
+    local goal, key, race, sex = unpack(row)
+    local path, aspect, preprocessed = B:ResolveArt(goal, {faction="Horde", race=race, sex=sex})
+    assert(F.GoalById(goal) and path == key .. "-banner.blp" and aspect == 4/3 and preprocessed,
+        "matching Horde PvP set character gets dedicated art")
+    assert(B:ResolveArt(goal, {faction="Alliance", race=race, sex=sex}) ~= key .. "-banner.blp",
+        "Alliance keeps its PvP set art")
+end
+assert(B:ResolveArt("pvp_set_leather_horde_druid", {faction="Horde", race="Troll", sex=2})
+    == "set_tier2_warrior-banner.blp", "other Horde Druid races keep the existing fallback")
+assert(B:ResolveArt("set_tier1_hunter", {faction="Alliance", race="NightElf", sex=2})
+    == "set_tier1_hunter_nightelf_male-banner.blp", "male Night Elf Hunter gets dedicated Tier 1 art")
+assert(B:ResolveArt("set_tier1_hunter", {faction="Alliance", race="NightElf", sex=3})
+    == "set_tier1_hunter-alliance-banner.blp", "female Night Elf Hunter keeps Alliance Tier 1 art")
+assert(B:ResolveArt("tier3_rogue", {faction="Horde", class="ROGUE", race="Orc", sex=2})
+    == "tier3_rogue_orc_male-banner.blp", "male Orc Rogue gets approved Tier 3 art")
+assert(B:ResolveArt("tier3_rogue", {faction="Horde", class="ROGUE", race="Orc", sex=3})
+    == "tier3_rogue_orc_female-banner.blp", "female Orc Rogue keeps her Tier 3 art")
+for _, row in ipairs({
+    {"set_tier1_hunter", "HUNTER", "Tauren", 2, "set_tier1_hunter_tauren_male"},
+    {"set_tier1_warrior", "WARRIOR", "Orc", 2, "set_tier1_warrior_orc_male"},
+    {"set_tier2_shaman", "SHAMAN", "Tauren", 2, "set_tier2_shaman_tauren_male"},
+    {"tier3_shaman", "SHAMAN", "Tauren", 3, "tier3_shaman_tauren_female"},
+}) do
+    local goal, class, race, sex, key = unpack(row)
+    local path, aspect, preprocessed = B:ResolveArt(goal, {faction="Horde", class=class, race=race, sex=sex})
+    assert(F.GoalById(goal) and path == key .. "-banner.blp" and aspect == 4/3 and preprocessed,
+        "approved Horde set character gets dedicated art")
+    assert(B:ResolveArt(goal, {faction="Horde", class=class, race=race, sex=sex == 2 and 3 or 2})
+        ~= key .. "-banner.blp", "other sex keeps existing Horde set art")
+end
 do
     local originalContext = B.PlayerArtContext
     for _, faction in ipairs({"Alliance", "Horde"}) do
