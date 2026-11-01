@@ -777,10 +777,36 @@
   "date": "2026-10-31",
   "state": "verified"
  },
+ "A164": {
+  "banner": "set_tier1_hunter_tauren_male",
+  "date": "2026-11-01",
+  "state": "verified"
+ },
+ "A165": {
+  "banner": "set_tier1_warrior_orc_male",
+  "date": "2026-11-01",
+  "state": "verified"
+ },
  "A166": {
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A167": {
+  "banner": "set_tier2_shaman_tauren_male",
+  "date": "2026-11-01",
+  "state": "verified"
+ },
+ "A169": {
+  "banner": "tier3_rogue_orc_male",
+  "date": "2026-11-01",
+  "note": "Karl approved v2 with the source-matched hooked dagger; v1 retained as a draft.",
+  "state": "verified"
+ },
+ "A170": {
+  "banner": "tier3_shaman_tauren_female",
+  "date": "2026-11-01",
+  "state": "verified"
  },
  "A171": {
   "date": "2026-10-29",

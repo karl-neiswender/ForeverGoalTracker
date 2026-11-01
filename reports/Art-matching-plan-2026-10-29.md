@@ -1,8 +1,8 @@
-# Art matching plan and work order, built 2026-10-31
+# Art matching plan and work order, built 2026-11-01
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 126 of 131 workable banners verified.** Queued 5, Verified 126, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 131 of 131 workable banners verified.** Verified 131, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
 
 ## Codex: start here
 
@@ -320,12 +320,12 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A164 | P4 | `horde-tauren-male-hunter-tier1.png` 745x1040 |  | Tier 1 Hunter H M: `set_tier1_hunter` / `set_tier1_hunter_tauren_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
-| ☐ | A165 | P4 | `horde-orc-male-warrior-tier1-2.jpg` 1494x1200 |  | Tier 1 Warrior H M: `set_tier1_warrior` / `set_tier1_warrior_orc_male` | Queued | Karl's pick replacement proposal: slot already has art |
+| ☑ | A164 | P4 | `horde-tauren-male-hunter-tier1.png` 745x1040 |  | Tier 1 Hunter H M: `set_tier1_hunter` / `set_tier1_hunter_tauren_male` | Verified | Karl's pick, card scan, crop first replacement proposal: slot already has art |
+| ☑ | A165 | P4 | `horde-orc-male-warrior-tier1-2.jpg` 1494x1200 |  | Tier 1 Warrior H M: `set_tier1_warrior` / `set_tier1_warrior_orc_male` | Verified | Karl's pick replacement proposal: slot already has art |
 | ☐ | A166 | P4 | `alliance-nightelf-female-hunter-tier2.jpg` 900x698 |  | Tier 2 Hunter A F: `set_tier2_hunter` / `set_tier2_hunter_nightelf_female` | Blocked | Karl's pick replacement proposal: slot already has art |
-| ☐ | A167 | P4 | `horde-tauren-male-shaman-tier2-2.png` 745x1040 |  | Tier 2 Shaman H M: `set_tier2_shaman` / `set_tier2_shaman_tauren_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
-| ☐ | A169 | P4 | `horde-orc-male-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue H M: `tier3_rogue` / `tier3_rogue_orc_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
-| ☐ | A170 | P4 | `horde-tauren-female-shaman-tier3.jpg` 1000x775 |  | Tier 3 Shaman H F: `tier3_shaman` / `tier3_shaman_tauren_female` | Queued | Karl's pick replacement proposal: slot already has art |
+| ☑ | A167 | P4 | `horde-tauren-male-shaman-tier2-2.png` 745x1040 |  | Tier 2 Shaman H M: `set_tier2_shaman` / `set_tier2_shaman_tauren_male` | Verified | Karl's pick, card scan, crop first replacement proposal: slot already has art |
+| ☑ | A169 | P4 | `horde-orc-male-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue H M: `tier3_rogue` / `tier3_rogue_orc_male` | Verified | Karl's pick, card scan, crop first replacement proposal: slot already has art |
+| ☑ | A170 | P4 | `horde-tauren-female-shaman-tier3.jpg` 1000x775 |  | Tier 3 Shaman H F: `tier3_shaman` / `tier3_shaman_tauren_female` | Verified | Karl's pick replacement proposal: slot already has art |
 | ☐ | A171 | P4 | `alliance-nightelf-female-druid-pvpset-leather.jpg` 900x787 |  | Field Marshal's Sanctuary (Druid) F: `None` / `pvp_field_marshal_s_sanctuary_druid_f` | Blocked | Karl's pick replacement proposal: slot already has art |
 
 ## Skipped or blocked (Codex: do not touch)
