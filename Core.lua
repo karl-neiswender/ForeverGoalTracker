@@ -14994,7 +14994,7 @@ local SCENES = {
     -- welcome wizard over an empty tracker, as a new player sees it
     [5] = { tab = "tracker", welcome = 2, interests = { raid = true, loot = true },   -- interests, two picked
             setup = function(DB) DB.active, DB.activeParts = {}, {} end },
-    [6] = { tab = "tracker", welcome = 3, interests = { raid = true, loot = true },   -- goals to get started
+    [6] = { tab = "tracker", welcome = 3, interests = { raid = true, pvp = true, grind = true },   -- goals to get started
             setup = function(DB) DB.active, DB.activeParts = {}, {} end },
     -- what's new in 2.6: Social goals, a changed gold target, the lockout
     -- chip on Molten Core, and "Find your next goal" at the end of the list
@@ -15054,8 +15054,9 @@ local SCENES = {
 -- in its Screenshots folder; tools/shots.py crops them to the window and
 -- names them (Screenshots/01-my-goals.png ...). Lossless TGA for the run,
 -- the player's format and quality put back after.
--- The list is in upload order (Karl, 2026-10-14): the hero, the banner effects (Wolfsbane) early,
--- the guide with the goals list folded (Corrupted Ashbringer), then the features.
+-- The list is in upload order (Karl, 2026-11-02): the hero (Thunderfury), Wolfsbane, then the headline
+-- features (Gear Planner, Materials, the map), the guides, the Library, what is new in Forever, then
+-- the suggestions and Settings. The welcome interests screen is no longer a gallery shot (scene 5 stays).
 -- tools/shots.py names the files in this same order.
 -- `forever = true`: the shot is about Forever-only content (Wolfsbane, the NEW and UPDATED labels,
 -- Embrace of the Viper); `/goals shots era` leaves those out, so the Forever ones are kept as they are
@@ -15064,20 +15065,19 @@ local SCENES = {
 FGT.SHOTS = {
     { scene = 1, file = "01-my-goals" },
     { scene = 11, file = "02-wolfsbane", forever = true },
-    { scene = 12, file = "03-map-view", wait = 8 }, -- (the zone map needs time to fade in over the artwork)
-    { scene = 4, file = "04-links-and-tips" },
-    { scene = 9, file = "05-materials" },
-    { scene = 10, file = "06-library-filters" },
-    { scene = 2, file = "07-new-and-updated", forever = true },
-    { scene = 3, file = "08-epic-mounts" },
-    { scene = 8, file = "09-find-your-next-goal", forever = true },
-    { scene = 5, file = "10-welcome" },
+    { scene = 13, file = "03-gear-planner", wait = 12 },
+    { scene = 9, file = "04-materials" },
+    { scene = 12, file = "05-map-view", wait = 8 }, -- (the zone map needs time to fade in over the artwork)
+    { scene = 4, file = "06-links-and-hints" },
+    { scene = 10, file = "07-library-filters" },
+    { scene = 2, file = "08-new-and-updated", forever = true },
+    { scene = 3, file = "09-epic-mounts" },
+    { scene = 8, file = "10-find-your-next-goal", forever = true },
     { scene = 6, file = "11-suggestions" },
     { scene = 1, settings = true, file = "12-settings" },
-    { scene = 13, file = "13-gear-planner", wait = 12 },
 }
 -- era: leave out the Forever-only shots. only: just the shot whose file starts with that ("03" or
--- "03-map-view"), for retaking one.
+-- "05-map-view"), for retaking one.
 function FGT.TakeShots(era, only)
     local shots = {}
     for _, s in ipairs(FGT.SHOTS) do
