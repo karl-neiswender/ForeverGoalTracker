@@ -1710,6 +1710,30 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 944, checked 2026-11-02: epic Bind on Equip two-hand staff, item level 61, requires
+        -- level 56, 147 to 221 damage, +20 Fire and Frost resistance, equip: +36 Fire and +36 Frost damage. A
+        -- world drop: 462 creatures listed on warcraftdb (levels 56 to 63, 332 of them elite, including Azuregos
+        -- and a few other world bosses), each at a tiny rate. Not in Forever's tables yet, so not marked confirmed.
+        id = "elemental_mage_staff", library = true, itemQuality = 4,
+        icon = "inv_staff_07",
+        name = "Elemental Mage Staff",
+        short = "Elemental Mage Staff",
+        category = "Epic Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "An epic staff that level 56 to 63 creatures can drop, mostly elites.",
+        steps = {
+            { text = "Reach level 56.", auto = { level = 56 } },
+            { text = "Loot Elemental Mage Staff, a rare world drop from level 56 to 63 creatures.", auto = { item = 944, owned = { "Elemental Mage Staff" } } },
+        },
+        completeWith = { item = 944, owned = { "Elemental Mage Staff" } },
+        tips = {
+            "About 460 creatures have dropped it, mostly elites, such as the Alterac Yetis and the Ancient Core Hounds in Molten Core.",
+            "It binds when equipped, so you can also buy one on the Auction House.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use it. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 2243, checked 2026-10-29: epic Bind on Equip, Unique one-hand mace, item level 62,
         -- requires level 57, 50 to 94 damage, speed 1.60, +13 Intellect, +10 Spirit, chance on hit: the next spell
         -- cast within 4 sec is instant. A world drop: Wowhead lists no creature and GearSources agrees. Comments
