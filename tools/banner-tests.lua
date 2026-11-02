@@ -34,6 +34,9 @@ do
         {"wall_of_the_dead", "wall_of_the_dead-banner.blp"},
         {"doomfinger", "doomfinger-banner.blp"},
         {"crimson_shocker", "crimson_shocker-banner.blp"},
+        {"blastershot_launcher", "blastershot_launcher-banner.blp"},
+        {"the_shatterer", "the_shatterer-banner.blp"},
+        {"cruel_barb", "cruel_barb-banner.blp"},
     }) do
         local goal, path = entry[1], entry[2]
         local resolved, aspect, preprocessed = B:ResolveArt(goal, {faction="Alliance", class="PALADIN", race="Human", sex=3})
@@ -45,11 +48,13 @@ do
     for _, row in ipairs({
         {"set_tier2_hunter", "Alliance", "HUNTER", "NightElf", 2, "set_tier2_hunter_nightelf_male-banner.blp"},
         {"set_dungeon1_paladin", "Alliance", "PALADIN", "Human", 2, "set_dungeon1_paladin_human-banner.blp"},
+        {"set_dungeon1_paladin", "Horde", "PALADIN", "Scourge", 3, "set_dungeon1_paladin_undead-banner.blp"},
         {"set_dungeon1_rogue", "Horde", "ROGUE", "Orc", 2, "set_dungeon1_rogue_orc-banner.blp"},
         {"set_dungeon2_rogue", "Horde", "ROGUE", "Orc", 2, "set_dungeon1_rogue_orc-banner.blp"},
         {"set_dungeon1_warrior", "Horde", "WARRIOR", "Tauren", 3, "set_dungeon1_warrior_tauren-banner.blp"},
         {"set_dungeon2_warrior", "Horde", "WARRIOR", "Tauren", 3, "set_dungeon1_warrior_tauren-banner.blp"},
         {"set_dungeon2_paladin", "Alliance", "PALADIN", "Human", 2, "set_dungeon2_paladin_human-banner.blp"},
+        {"set_dungeon2_paladin", "Horde", "PALADIN", "Scourge", 2, "set_dungeon2_paladin_undead-banner.blp"},
         {"set_dungeon2_warlock", "Horde", "WARLOCK", "Orc", 2, "set_dungeon2_warlock_orc-banner.blp"},
         {"pvp_set_leather_ally_druid", "Alliance", "DRUID", "NightElf", 2, "pvp_field_marshal_s_sanctuary_druid_m-banner.blp"},
     }) do
@@ -57,8 +62,12 @@ do
         local path, aspect, preprocessed = B:ResolveArt(goal,
             {faction=faction, class=class, race=race, sex=sex})
         assert(F.GoalById(goal) and path == expected and aspect == 4/3 and preprocessed,
-            goal .. " uses its approved batch 21 art")
+            goal .. " uses its approved character art")
     end
+    assert(B:ResolveArt("set_dungeon1_paladin", {faction="Horde", class="PALADIN", race="Orc", sex=2})
+        == "set_dungeon1_paladin-banner.blp", "other Horde Paladins keep Dungeon Set 1 fallback")
+    assert(B:ResolveArt("set_dungeon2_paladin", {faction="Horde", class="PALADIN", race="Orc", sex=2})
+        == "set_dungeon2-banner.blp", "other Horde Paladins keep Dungeon Set 2 fallback")
     assert(B:ResolveArt("set_tier2_hunter", {faction="Alliance", class="HUNTER", race="NightElf", sex=3})
         == "set_tier2_hunter-alliance-banner.blp", "female Night Elf Hunter keeps approved Alliance Tier 2 art")
     assert(B:ResolveArt("pvp_set_leather_ally_druid", {faction="Alliance", class="DRUID", race="NightElf", sex=3})

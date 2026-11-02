@@ -443,6 +443,11 @@ FINAL_BANNERS = {
     "raid_hyjal": "tall-1200x900/raid_hyjal.jpg",
     "raid_aq20": "tall-1200x900/raid_aq20.jpg",
     "raid_aq40": "tall-1200x900/raid_aq40.jpg",
+    "blastershot_launcher": "blastershot_launcher-master.png",
+    "the_shatterer": "the_shatterer-master.png",
+    "set_dungeon1_paladin_undead": "set_dungeon1_paladin_undead-master.png",
+    "set_dungeon2_paladin_undead": "set_dungeon2_paladin_undead-master.png",
+    "cruel_barb": "cruel_barb-master.png",
 }
 EXTRA_BANNERS = {
     "thunderfury": "thunderfury.png",

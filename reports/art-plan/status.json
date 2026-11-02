@@ -6,9 +6,10 @@
   "state": "verified"
  },
  "A002": {
+  "banner": "blastershot_launcher",
   "date": "2026-11-02",
   "note": "source swapped to weapon-blastershot-launcher-hires.jpg",
-  "state": "queued"
+  "state": "installed"
  },
  "A003": {
   "banner": "brain_hacker",
@@ -113,9 +114,10 @@
   "state": "verified"
  },
  "A020": {
+  "banner": "the_shatterer",
   "date": "2026-11-02",
   "note": "source swapped to weapon-the-shatterer.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A021": {
   "banner": "the_untamed_blade",
@@ -956,6 +958,21 @@
  },
  "A183": {
   "banner": "pvp_warlord_s_regalia_mage_m",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A184": {
+  "banner": "set_dungeon1_paladin_undead",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A185": {
+  "banner": "set_dungeon2_paladin_undead",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A186": {
+  "banner": "cruel_barb",
   "date": "2026-11-02",
   "state": "installed"
  }

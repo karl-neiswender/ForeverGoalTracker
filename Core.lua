@@ -5892,8 +5892,14 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.set_dungeon2_warrior = {{path="set_dungeon1_warrior_tauren-banner.blp", faction="Horde", class="WARRIOR", race="Tauren", aspect=4/3, preprocessed=true}}
     B.artVariants.set_dungeon1_rogue = {{path="set_dungeon1_rogue_orc-banner.blp", faction="Horde", class="ROGUE", race="Orc", aspect=4/3, preprocessed=true}}
     B.artVariants.set_dungeon2_rogue = {{path="set_dungeon1_rogue_orc-banner.blp", faction="Horde", class="ROGUE", race="Orc", aspect=4/3, preprocessed=true}}
-    B.artVariants.set_dungeon1_paladin = {{path="set_dungeon1_paladin_human-banner.blp", faction="Alliance", class="PALADIN", race="Human", aspect=4/3, preprocessed=true}}
-    B.artVariants.set_dungeon2_paladin = {{path="set_dungeon2_paladin_human-banner.blp", faction="Alliance", class="PALADIN", race="Human", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon1_paladin = {
+        {path="set_dungeon1_paladin_human-banner.blp", faction="Alliance", class="PALADIN", race="Human", aspect=4/3, preprocessed=true},
+        {path="set_dungeon1_paladin_undead-banner.blp", faction="Horde", class="PALADIN", race="Scourge", aspect=4/3, preprocessed=true},
+    }
+    B.artVariants.set_dungeon2_paladin = {
+        {path="set_dungeon2_paladin_human-banner.blp", faction="Alliance", class="PALADIN", race="Human", aspect=4/3, preprocessed=true},
+        {path="set_dungeon2_paladin_undead-banner.blp", faction="Horde", class="PALADIN", race="Scourge", aspect=4/3, preprocessed=true},
+    }
     B.artVariants.set_dungeon2_druid = {
         {path="set_dungeon2_druid_nightelf-banner.blp", faction="Alliance", class="DRUID", race="NightElf", aspect=4/3, preprocessed=true},
         {path="set_dungeon2_druid_troll-banner.blp", faction="Horde", class="DRUID", race="Troll", aspect=4/3, preprocessed=true},
@@ -6367,7 +6373,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.social_trades, B.preprocessed.social_trades = 4/3, true
     B.artPaths.tier3_warrior = "tier3_warrior_koringar-banner.blp"
     B.artAspects.tier3_warrior, B.preprocessed.tier3_warrior = 4/3, true
-    for _, id in ipairs({"aegis_of_the_blood_god", "elemental_mage_staff", "elementium_reinforced_bulwark"}) do
+    for _, id in ipairs({"aegis_of_the_blood_god", "elemental_mage_staff", "elementium_reinforced_bulwark",
+            "blastershot_launcher", "the_shatterer", "cruel_barb"}) do
         B.artPaths[id] = id .. "-banner.blp"
         B.artAspects[id], B.preprocessed[id] = 4/3, true
     end

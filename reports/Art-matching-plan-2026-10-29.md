@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 131 of 161 workable banners verified.** Queued 6, Installed 24, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
+**Progress: 131 of 161 workable banners verified.** Queued 1, Installed 29, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
 
 ## Codex: start here
 
@@ -371,11 +371,11 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A002 | P1 | `weapon-blastershot-launcher-hires.jpg` 800x639 |  | Blastershot Launcher: `blastershot_launcher` / `blastershot_launcher` | Queued |   |
-| ☐ | A020 | P1 | `weapon-the-shatterer.png` 745x1040 |  | The Shatterer: `the_shatterer` / `the_shatterer` | Queued | card scan, crop first  |
-| ☐ | A184 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 1 Paladin H: `set_dungeon1_paladin` / `set_dungeon1_paladin_undead` | Queued | Karl's pick Fills gap G054. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
-| ☐ | A185 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 2 Paladin H: `set_dungeon2_paladin` / `set_dungeon2_paladin_undead` | Queued | Karl's pick Fills gap G055. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
-| ☐ | A186 | P1 | `weapon-cutlace-blade.png` 745x1040 |  | Cruel Barb: `cruel_barb` / `cruel_barb` | Queued | Karl's pick, card scan, crop first Karl's pick (2026-11-02): the goblin raising a sword and looking straight at the viewer (Short John Mithril card, already in the artwork folder as weapon-cutlace-blade.png). The goblin and the sword are the focus. |
+| ☐ | A002 | P1 | `weapon-blastershot-launcher-hires.jpg` 800x639 |  | Blastershot Launcher: `blastershot_launcher` / `blastershot_launcher` | Installed |   |
+| ☐ | A020 | P1 | `weapon-the-shatterer.png` 745x1040 |  | The Shatterer: `the_shatterer` / `the_shatterer` | Installed | card scan, crop first  |
+| ☐ | A184 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 1 Paladin H: `set_dungeon1_paladin` / `set_dungeon1_paladin_undead` | Installed | Karl's pick Fills gap G054. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
+| ☐ | A185 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 2 Paladin H: `set_dungeon2_paladin` / `set_dungeon2_paladin_undead` | Installed | Karl's pick Fills gap G055. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
+| ☐ | A186 | P1 | `weapon-cutlace-blade.png` 745x1040 |  | Cruel Barb: `cruel_barb` / `cruel_barb` | Installed | Karl's pick, card scan, crop first Karl's pick (2026-11-02): the goblin raising a sword and looking straight at the viewer (Short John Mithril card, already in the artwork folder as weapon-cutlace-blade.png). The goblin and the sword are the focus. |
 
 ### Batch 24
 
