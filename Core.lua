@@ -5672,6 +5672,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="set_tier1_warrior_orc_male-banner.blp", faction="Horde", race="Orc", sex=2, aspect=4/3, preprocessed=true},
         },
         set_tier2_hunter = {
+            {path="set_tier2_hunter_nightelf_male-banner.blp", faction="Alliance", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
             {path="set_tier2_hunter_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
         },
         set_tier2_mage = {
@@ -5878,7 +5879,15 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="set_dungeon2_mage_human-banner.blp", faction="Alliance", class="MAGE", race="Human", aspect=4/3, preprocessed=true},
         {path="set_dungeon2_mage_troll-banner.blp", faction="Horde", class="MAGE", race="Troll", aspect=4/3, preprocessed=true},
     }
-    B.artVariants.set_dungeon1_warrior = {{path="set_dungeon1_warrior_dwarf-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon1_warrior = {
+        {path="set_dungeon1_warrior_dwarf-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf", aspect=4/3, preprocessed=true},
+        {path="set_dungeon1_warrior_tauren-banner.blp", faction="Horde", class="WARRIOR", race="Tauren", aspect=4/3, preprocessed=true},
+    }
+    B.artVariants.set_dungeon2_warrior = {{path="set_dungeon1_warrior_tauren-banner.blp", faction="Horde", class="WARRIOR", race="Tauren", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon1_rogue = {{path="set_dungeon1_rogue_orc-banner.blp", faction="Horde", class="ROGUE", race="Orc", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon2_rogue = {{path="set_dungeon1_rogue_orc-banner.blp", faction="Horde", class="ROGUE", race="Orc", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon1_paladin = {{path="set_dungeon1_paladin_human-banner.blp", faction="Alliance", class="PALADIN", race="Human", aspect=4/3, preprocessed=true}}
+    B.artVariants.set_dungeon2_paladin = {{path="set_dungeon2_paladin_human-banner.blp", faction="Alliance", class="PALADIN", race="Human", aspect=4/3, preprocessed=true}}
     B.artVariants.set_dungeon2_druid = {
         {path="set_dungeon2_druid_nightelf-banner.blp", faction="Alliance", class="DRUID", race="NightElf", aspect=4/3, preprocessed=true},
         {path="set_dungeon2_druid_troll-banner.blp", faction="Horde", class="DRUID", race="Troll", aspect=4/3, preprocessed=true},
@@ -5909,6 +5918,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.brain_hacker = {{path="brain_hacker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.cloak_of_flames = {{path="cloak_of_flames-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.cloak_of_the_shrouded_mists = {{path="cloak_of_the_shrouded_mists-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.crimson_shocker = {{path="crimson_shocker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.draconian_deflector = {{path="draconian_deflector-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.dwarven_hand_cannon = {{path="dwarven_hand_cannon-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.wall_of_the_dead = {{path="wall_of_the_dead-banner.blp", aspect=4/3, preprocessed=true}}
@@ -5994,6 +6004,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.pvp_set_cloth_ally = {{path="pvp_set_cloth_ally-banner.blp"}}
     B.artVariants.pvp_set_cloth_horde = {{path="pvp_set_cloth_horde-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.pvp_set_leather_ally = {{path="pvp_set_leather_ally-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.pvp_set_leather_ally_druid = {
+        {path="pvp_field_marshal_s_sanctuary_druid_m-banner.blp", faction="Alliance", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
+        {path="pvp_set_leather_ally-banner.blp", aspect=4/3, preprocessed=true},
+    }
     B.artVariants.pvp_set_cloth_ally_priest = {
         {path="pvp_field_marshal_s_raiment_priest_f-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
         {path="pvp_set_cloth_ally-banner.blp"},
@@ -6051,6 +6065,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     for _, id in ipairs({"set_dungeon1_warlock", "set_dungeon2_warlock"}) do
         B.artVariants[id] = {{path="allclasses_troll_warlock-banner.blp", faction="Horde", race="Troll", aspect=4/3, preprocessed=true}}
     end
+    table.insert(B.artVariants.set_dungeon2_warlock, 1, {path="set_dungeon2_warlock_orc-banner.blp", faction="Horde", class="WARLOCK", race="Orc", aspect=4/3, preprocessed=true})
     table.insert(B.artVariants.set_dungeon1_warlock, 1, {path="set_dungeon1_warlock_gnome-banner.blp", faction="Alliance", class="WARLOCK", race="Gnome", aspect=4/3, preprocessed=true})
     table.insert(B.artVariants.set_dungeon1_warlock, 2, {path="set_dungeon1_warlock_orc-banner.blp", faction="Horde", class="WARLOCK", race="Orc", aspect=4/3, preprocessed=true})
     table.insert(B.artVariants.social_buffs, 1, {path="social_buffs_horde-banner.blp", faction="Horde", class="MAGE", aspect=4/3, preprocessed=true})

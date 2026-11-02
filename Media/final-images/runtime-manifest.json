@@ -2938,5 +2938,61 @@
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
+  },
+  "crimson_shocker": {
+    "source": "crimson_shocker-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_hunter_nightelf_male": {
+    "source": "set_tier2_hunter_nightelf_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_paladin_human": {
+    "source": "set_dungeon1_paladin_human-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_rogue_orc": {
+    "source": "set_dungeon1_rogue_orc-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_warrior_tauren": {
+    "source": "set_dungeon1_warrior_tauren-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_paladin_human": {
+    "source": "set_dungeon2_paladin_human-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_warlock_orc": {
+    "source": "set_dungeon2_warlock_orc-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_field_marshal_s_sanctuary_druid_m": {
+    "source": "pvp_field_marshal_s_sanctuary_druid_m-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
   }
 }

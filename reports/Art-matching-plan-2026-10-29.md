@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 131 of 160 workable banners verified.** Queued 21, Installed 8, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
+**Progress: 131 of 161 workable banners verified.** Queued 14, Installed 16, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 160 workable banners; P1 is 44, P2 is 51, P3 is 57. Finishing all of P1 and P2 by Nov 4 needs about 19 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 161 workable banners; P1 is 45, P2 is 51, P3 is 57. Finishing all of P1 and P2 by Nov 4 needs about 19 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -345,14 +345,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A008 | P1 | `weapon-crimson-shocker.png` 745x1040 |  | Crimson Shocker: `crimson_shocker` / `crimson_shocker` | Queued | card scan, crop first  |
-| ☐ | A103 | P3 | `alliance-nightelf-male-hunter-tier2-2.png` 745x1040 | `alliance-nightelf-male-hunter-tier2.jpg` | Tier 2 Hunter A M: `set_tier2_hunter` / `set_tier2_hunter_nightelf_male` | Queued | card scan, crop first  |
-| ☐ | A126 | P3 | `alliance-human-male-paladin-dungeonset-2.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 1 Paladin A: `set_dungeon1_paladin` / `set_dungeon1_paladin_human` | Queued | card scan, crop first  |
-| ☐ | A130 | P3 | `horde-orc-male-rogue-generic-leveling-ph4.png` 745x1040 |  | Dungeon Set 1 Rogue H: `set_dungeon1_rogue` / `set_dungeon1_rogue_orc`<br>Dungeon Set 2 Rogue H: `set_dungeon2_rogue` / `set_dungeon2_rogue_orc` | Queued | card scan, crop first  |
-| ☐ | A135 | P3 | `horde-tauren-female-warrior-dungeonset.png` 745x1040 |  | Dungeon Set 1 Warrior H: `set_dungeon1_warrior` / `set_dungeon1_warrior_tauren`<br>Dungeon Set 2 Warrior H: `set_dungeon2_warrior` / `set_dungeon2_warrior_tauren` | Queued | card scan, crop first  |
-| ☐ | A140 | P3 | `alliance-human-male-paladin-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Paladin A: `set_dungeon2_paladin` / `set_dungeon2_paladin_human` | Queued | card scan, crop first  |
-| ☐ | A144 | P3 | `horde-orc-male-warlock-dungeonset-2.png` 745x1040 | `horde-orc-male-warlock-dungeonset.jpg` | Dungeon Set 2 Warlock H: `set_dungeon2_warlock` / `set_dungeon2_warlock_orc` | Queued | card scan, crop first  |
-| ☐ | A153 | P3 | `alliance-nightelf-male-druid-pvpset-leather.png` 745x1040 |  | Field Marshal's Sanctuary (Druid) M: `None` / `pvp_field_marshal_s_sanctuary_druid_m` | Queued | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☐ | A008 | P1 | `weapon-crimson-shocker.png` 745x1040 |  | Crimson Shocker: `crimson_shocker` / `crimson_shocker` | Installed | card scan, crop first  |
+| ☐ | A103 | P3 | `alliance-nightelf-male-hunter-tier2-2.png` 745x1040 | `alliance-nightelf-male-hunter-tier2.jpg` | Tier 2 Hunter A M: `set_tier2_hunter` / `set_tier2_hunter_nightelf_male` | Installed | card scan, crop first  |
+| ☐ | A126 | P3 | `alliance-human-male-paladin-dungeonset-2.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 1 Paladin A: `set_dungeon1_paladin` / `set_dungeon1_paladin_human` | Installed | card scan, crop first  |
+| ☐ | A130 | P3 | `horde-orc-male-rogue-generic-leveling-ph4.png` 745x1040 |  | Dungeon Set 1 Rogue H: `set_dungeon1_rogue` / `set_dungeon1_rogue_orc`<br>Dungeon Set 2 Rogue H: `set_dungeon2_rogue` / `set_dungeon2_rogue_orc` | Installed | card scan, crop first  |
+| ☐ | A135 | P3 | `horde-tauren-female-warrior-dungeonset.png` 745x1040 |  | Dungeon Set 1 Warrior H: `set_dungeon1_warrior` / `set_dungeon1_warrior_tauren`<br>Dungeon Set 2 Warrior H: `set_dungeon2_warrior` / `set_dungeon2_warrior_tauren` | Installed | card scan, crop first  |
+| ☐ | A140 | P3 | `alliance-human-male-paladin-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Paladin A: `set_dungeon2_paladin` / `set_dungeon2_paladin_human` | Installed | card scan, crop first  |
+| ☐ | A144 | P3 | `horde-orc-male-warlock-dungeonset-2.png` 745x1040 | `horde-orc-male-warlock-dungeonset.jpg` | Dungeon Set 2 Warlock H: `set_dungeon2_warlock` / `set_dungeon2_warlock_orc` | Installed | card scan, crop first  |
+| ☐ | A153 | P3 | `alliance-nightelf-male-druid-pvpset-leather.png` 745x1040 |  | Field Marshal's Sanctuary (Druid) M: `None` / `pvp_field_marshal_s_sanctuary_druid_m` | Installed | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 
 ### Batch 22
 
@@ -376,6 +376,12 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A184 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 1 Paladin H: `set_dungeon1_paladin` / `set_dungeon1_paladin_undead` | Queued | Karl's pick Fills gap G054. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
 | ☐ | A185 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 2 Paladin H: `set_dungeon2_paladin` / `set_dungeon2_paladin_undead` | Queued | Karl's pick Fills gap G055. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
 | ☐ | A186 | P1 | `weapon-cutlace-blade.png` 745x1040 |  | Cruel Barb: `cruel_barb` / `cruel_barb` | Queued | Karl's pick, card scan, crop first Karl's pick (2026-11-02): the goblin raising a sword and looking straight at the viewer (Short John Mithril card, already in the artwork folder as weapon-cutlace-blade.png). The goblin and the sword are the focus. |
+
+### Batch 24
+
+| | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
+|---|---|---|---|---|---|---|---|
+| ☐ | A187 | P1 | `location-booty-bay.jpg` 1600x802 |  | Exalted: Steamwheedle Cartel: `rep_steamwheedle` / `rep_steamwheedle` | Queued | Karl's pick New goal (Karl 2026-11-02): one goal for Booty Bay, Ratchet, Gadgetzan, Everlook and Forever's Powderfuse. Planned source is the Booty Bay location image; no goblin-town card exists for the others. Karl may swap in a goblin card. |
 
 ## Skipped or blocked (Codex: do not touch)
 

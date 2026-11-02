@@ -41,9 +41,10 @@
   "state": "verified"
  },
  "A008": {
+  "banner": "crimson_shocker",
   "date": "2026-11-02",
   "note": "source swapped to weapon-crimson-shocker.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A009": {
   "banner": "crown_of_the_ogre_king",
@@ -574,9 +575,10 @@
   "state": "blocked"
  },
  "A103": {
+  "banner": "set_tier2_hunter_nightelf_male",
   "date": "2026-11-02",
   "note": "source swapped to alliance-nightelf-male-hunter-tier2-2.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A104": {
   "banner": "set_tier2_hunter_orc_female",
@@ -689,9 +691,10 @@
   "state": "verified"
  },
  "A126": {
+  "banner": "set_dungeon1_paladin_human",
   "date": "2026-11-02",
   "note": "source swapped to alliance-human-male-paladin-dungeonset-2.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A127": {
   "banner": "set_dungeon1_priest_dwarf",
@@ -704,9 +707,10 @@
   "state": "blocked"
  },
  "A130": {
+  "banner": "set_dungeon1_rogue_orc",
   "date": "2026-11-02",
   "note": "source swapped to horde-orc-male-rogue-generic-leveling-ph4.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A131": {
   "date": "2026-10-29",
@@ -729,9 +733,10 @@
   "state": "verified"
  },
  "A135": {
+  "banner": "set_dungeon1_warrior_tauren",
   "date": "2026-11-02",
   "note": "source swapped to horde-tauren-female-warrior-dungeonset.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A136": {
   "banner": "set_dungeon2_druid_nightelf",
@@ -754,9 +759,10 @@
   "state": "verified"
  },
  "A140": {
+  "banner": "set_dungeon2_paladin_human",
   "date": "2026-11-02",
   "note": "source swapped to alliance-human-male-paladin-dungeonset.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A141": {
   "banner": "set_dungeon2_priest_nightelf",
@@ -774,9 +780,10 @@
   "state": "blocked"
  },
  "A144": {
+  "banner": "set_dungeon2_warlock_orc",
   "date": "2026-11-02",
   "note": "source swapped to horde-orc-male-warlock-dungeonset-2.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A145": {
   "date": "2026-10-31",
@@ -819,9 +826,10 @@
   "state": "verified"
  },
  "A153": {
+  "banner": "pvp_field_marshal_s_sanctuary_druid_m",
   "date": "2026-11-02",
   "note": "source swapped to alliance-nightelf-male-druid-pvpset-leather.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A154": {
   "banner": "pvp_field_marshal_s_threads_warlock_f",
