@@ -701,6 +701,28 @@ local library = {
     },
 
     {
+        -- Wowhead Classic item 19862, checked 2026-11-02: epic Bind on Pickup shield, item level 68, requires
+        -- level 60, 2575 armor, 47 block, equip: +30 block value, +7 Defense, +2% block. Dropped by Hakkar in
+        -- Zul'Gurub (GearSources and warcraftdb agree; no drop chance listed). Not in Forever's tables yet, so
+        -- not marked confirmed.
+        id = "aegis_of_the_blood_god", library = true, itemQuality = 4, instance = { 309, "Zul'Gurub" },
+        icon = "inv_shield_12",
+        name = "Aegis of the Blood God",
+        short = "Aegis of the Blood God",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A shield dropped by Hakkar in Zul'Gurub.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Aegis of the Blood God from Hakkar in Zul'Gurub.", auto = { item = 19862, owned = { "Aegis of the Blood God" } } },
+        },
+        completeWith = { item = 19862, owned = { "Aegis of the Blood God" } },
+        tips = {
+            "Warriors, Paladins and Shamans can use a shield. Learn Shield before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 7713, checked 2026-10-25: rare (blue) Bind on Pickup two-hand staff, item level
         -- 39, requires level 34, +7 Stamina, +15 Intellect, +10 Spirit. Dropped by Arcanist Doan, the last boss
         -- of the Scarlet Monastery Library (GearSources agrees; Wowhead's drop count is a single kill, so no
@@ -2504,6 +2526,27 @@ local library = {
             { text = "Loot Drillborer Disk from Garr in {map:mc:Molten Core}.", auto = { item = 17066, owned = { "Drillborer Disk" } } },
         },
         completeWith = { item = 17066, owned = { "Drillborer Disk" } },
+        tips = {
+            "Warriors, Paladins and Shamans can use a shield.",
+        },
+    },
+
+    {
+        -- Item 19349 (Wowhead Classic): epic Bind on Pickup shield, item level 77, requires level 60, 2893 armor,
+        -- 54 block, +23 Stamina, equip: +19 block value and +7 Defense. Dropped by Chromaggus in Blackwing Lair
+        -- (GearSources agrees; no drop chance checked). Not in Forever's tables yet, so not marked confirmed.
+        id = "elementium_reinforced_bulwark", library = true, itemQuality = 4, instance = { 469, "Blackwing Lair" },
+        icon = "inv_shield_17",
+        name = "Elementium Reinforced Bulwark",
+        short = "Reinforced Bulwark",
+        category = "Epic Weapon", difficulty = "Hard",
+        timeEstimate = "Varies",
+        note = "A tanking shield dropped by Chromaggus in Blackwing Lair.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Loot Elementium Reinforced Bulwark from Chromaggus in {map:bwl:Blackwing Lair}.", auto = { item = 19349, owned = { "Elementium Reinforced Bulwark" } } },
+        },
+        completeWith = { item = 19349, owned = { "Elementium Reinforced Bulwark" } },
         tips = {
             "Warriors, Paladins and Shamans can use a shield.",
         },
