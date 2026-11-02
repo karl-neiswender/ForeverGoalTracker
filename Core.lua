@@ -15688,7 +15688,7 @@ local INTERESTS = {
     { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" }, art = "grind" },
     { key = "social",  label = "Socializing", phrase = "socializing", icon = { "inv_misc_groupneedmore" }, art = "social" },
 }
-local MAX_ROWS = 6    -- rows in all, so the list fits without scrolling
+local MAX_ROWS = 9    -- rows in all; the step 3 card is tall enough for them (it scrolls in a small window)
 local MAX_SETS = 2    -- item sets among the suggestions
 local MAX_TRACKED = 4 -- matching goals already on My Goals, shown dimmed (only if there's room)
 
@@ -16887,7 +16887,7 @@ function W.Show(step)
     local mw, mh = main:GetWidth(), main:GetHeight()
     local hero = step == 1 or step == "back"
     local cw = math.min(hero and 900 or (step == 2 and 720 or 640), mw - 40) -- step 2: room for six tiles
-    local ch = math.min(hero and 440 or (step == 3 and 520 or 330), mh - 40)
+    local ch = math.min(hero and 440 or (step == 3 and 660 or 330), mh - 40)
     W.card:ClearAllPoints()
     W.card:SetSize(cw, ch)
     W.card:SetPoint("CENTER", W.frame, "CENTER", 0, 0)
