@@ -8938,6 +8938,11 @@ local function GetStepRow(index, view)
     row.levelText:SetJustifyH("RIGHT")
     row.levelText:Hide()
     row.miniBar = NewBar(row, 5)
+    FGT.Bars.Glass(row.miniBar) -- translucent track like the goal page's bar (Karl, 2026-10-31)
+    -- Quiet: the track should hardly draw the eye, only the fill does (Karl). A whisper of shade and
+    -- a barely-there hairline.
+    row.miniBar:SetBackdropColor(0, 0, 0, 0.14)
+    row.miniBar:SetBackdropBorderColor(1.00, 0.85, 0.55, 0.09)
     row.miniBar.label:Hide()
     row.miniBar:Hide()
     -- (pooled rows get reused across goals and steps: FGT.MiniProgress jumps when a row starts
@@ -8958,11 +8963,6 @@ local function GetStepRow(index, view)
     -- green check that replaces the count once every material is done
     row.doneCheck = row:CreateTexture(nil, "OVERLAY")
     row.doneCheck:SetTexture(FGT.Icon("check-white"))
-    FGT.Bars.Glass(row.miniBar) -- translucent track like the goal page's bar (Karl, 2026-10-31)
-    -- Quiet: the track should hardly draw the eye, only the fill does (Karl). A whisper of shade and
-    -- a barely-there hairline.
-    row.miniBar:SetBackdropColor(0, 0, 0, 0.14)
-    row.miniBar:SetBackdropBorderColor(1.00, 0.85, 0.55, 0.09)
     row.doneCheck:SetSize(13, 13)
     row.doneCheck:SetPoint("TOPRIGHT", row, "TOPRIGHT", -5, 0)
     row.doneCheck:SetDesaturated(true)
