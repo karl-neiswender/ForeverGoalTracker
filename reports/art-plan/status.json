@@ -905,6 +905,11 @@
   "date": "2026-11-01",
   "state": "verified"
  },
+ "A168": {
+  "date": "2026-11-02",
+  "note": "source swapped to alliance-dwarf-male-rogue-tier3.png",
+  "state": "queued"
+ },
  "A169": {
   "banner": "tier3_rogue_orc_male",
   "date": "2026-11-01",
