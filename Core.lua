@@ -11444,7 +11444,7 @@ function FGT.OpenGoalMenu(card)
         M.catcher:RegisterForClicks("AnyUp")
         M.catcher:SetScript("OnClick", FGT.CloseGoalMenu)
         M.rows = {}
-        for i = 1, 4 do
+        for i = 1, 5 do
             local row = CreateFrame("Button", nil, M)
             row:SetHeight(MENU_ROW)
             row.hl = row:CreateTexture(nil, "BACKGROUND")
@@ -11496,6 +11496,13 @@ function FGT.OpenGoalMenu(card)
             FGT.CloseGoalMenu()
             if FGT.Popout then FGT.Popout:Open(goal.id) end
         end)
+        M.rows[5].label:SetText("Send feedback")
+        M.rows[5].icon:SetTexture(FGT.Icon("bug-gold"))
+        M.rows[5]:SetScript("OnClick", function()
+            local goal = M.goal
+            FGT.CloseGoalMenu()
+            if FGT.Feedback then FGT.Feedback.Open({ goalId = goal.id, about = goal.short or goal.name }) end
+        end)
         -- new frames start shown
         M:Hide()
         M.catcher:Hide()
@@ -11505,9 +11512,10 @@ function FGT.OpenGoalMenu(card)
     M.goal = card.goal
     local fav = ForeverGoalTrackerDB.favorites[card.goal.id]
     M.rows[1].label:SetText(fav and "Remove from favorites" or "Add to favorites")
-    -- favorite, edit goal (when the goal has a target), remove last
+    -- favorite, pop out, edit goal (when the goal has a target), feedback, remove last
     local order = { M.rows[1], M.rows[4] }
     if card.goal.target then table.insert(order, M.rows[3]) end
+    table.insert(order, M.rows[5])
     table.insert(order, M.rows[2])
     M.rows[3]:SetShown(card.goal.target ~= nil)
     for i, row in ipairs(order) do
@@ -14470,6 +14478,10 @@ do
             elseif row.itemId or row.questId then
                 GameTooltip:Hide()
                 FGT.OpenWowheadCard(row.itemId and "item" or "quest", row.itemId or row.questId, row.text:GetText())
+                FGT.wowheadCard.row = row
+            elseif FGT.Feedback then -- nothing to link: right-click offers feedback on the step
+                GameTooltip:Hide()
+                FGT.Feedback.ForStep(row)
             end
             return true
         end
@@ -14531,6 +14543,21 @@ do
             K.hint = NewFontString(K, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
             K.hint:SetPoint("TOPLEFT", K.box, "BOTTOMLEFT", 0, -6)
             K.hint:SetText("Press Ctrl+C to copy, then paste it into your browser.")
+            -- a quiet way to report something wrong with this step or its link
+            K.report = CreateFrame("Button", nil, K)
+            K.report:SetPoint("TOPLEFT", K.hint, "BOTTOMLEFT", 0, -6)
+            K.report.text = NewFontString(K.report, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+            K.report.text:SetPoint("LEFT", 0, 0)
+            K.report.text:SetText("Something wrong here? Send feedback")
+            K.report:SetSize(K.report.text:GetStringWidth() + 4, 14)
+            K.report:SetScript("OnEnter", function(self) self.text:SetTextColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3]) end)
+            K.report:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end)
+            K.report:SetScript("OnClick", function()
+                local row, ctx = K.row, K.ctx
+                FGT.CloseWowheadCard()
+                if not FGT.Feedback then return end
+                if row then FGT.Feedback.ForStep(row) else FGT.Feedback.Open(ctx) end
+            end)
             -- NPC cards: where they stand, and a map button
             K.place = NewFontString(K, 11, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
             K.place:SetPoint("TOPLEFT", K.sub, "BOTTOMLEFT", 0, -10)
@@ -14573,6 +14600,10 @@ do
         K.box:SetText(K.url)
         -- the URL box sits under the NPC's place and map button, if any
         K.npc = npc
+        K.row = nil -- the step it came from, if any (StepLinkClick sets it)
+        K.ctx = { about = label and label:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|H.-|h(.-)|h", "%1") or nil,
+            itemId = kind == "item" and id or nil, questId = kind == "quest" and id or nil }
+        K.report:SetShown(FGT.Feedback ~= nil)
         K.box:ClearAllPoints()
         if npc then
             K.title:SetText(npc.name)
@@ -14585,13 +14616,13 @@ do
             K.map:SetShown(npc.map and true or false)
             K.map:SetLabel(FGT.UseTomTom() and "Set TomTom waypoint" or "Show on map")
             K.box:SetPoint("TOPLEFT", npc.map and K.map or K.place, "BOTTOMLEFT", 0, -10)
-            K:SetHeight((npc.map and 176 or 142) + (note and 14 or 0) + ((not npc.map and npc.where) and 14 or 0))
+            K:SetHeight((npc.map and 176 or 142) + (note and 14 or 0) + ((not npc.map and npc.where) and 14 or 0) + 18)
         else
             K.title:SetText("Wowhead link")
             K.place:Hide()
             K.map:Hide()
             K.box:SetPoint("TOPLEFT", K.sub, "BOTTOMLEFT", 0, -10)
-            K:SetHeight(112)
+            K:SetHeight(130)
         end
         K.box:SetPoint("RIGHT", K, "RIGHT", -14, 0)
         local x, y = GetCursorPosition()
@@ -15312,6 +15343,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     if FGT.HandlePopoutCommand and FGT.HandlePopoutCommand(msg) then return end
     if FGT.HandleRailCommand and FGT.HandleRailCommand(msg) then return end
     if FGT.HandleMapCommand and FGT.HandleMapCommand(msg) then return end
+    if FGT.HandleFeedbackCommand and FGT.HandleFeedbackCommand(msg) then return end
     msg = tostring(msg or ""):lower():match("^%s*(.-)%s*$")
     if msg == "testhunterpreraid" and FGT.CreateHunterPreRaidBuild then
         FGT.CreateHunterPreRaidBuild(); return

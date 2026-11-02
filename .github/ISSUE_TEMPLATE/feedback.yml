@@ -1,0 +1,28 @@
+name: Feedback
+description: A bug, a goal request or an idea for Forever Goal Tracker
+title: "[Feedback] "
+labels: ["feedback"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of feedback is this?
+      options:
+        - Bug
+        - Goal request
+        - Idea
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, or what would you like?
+      description: A sentence or two is plenty.
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details from the addon
+      description: Filled in for you by the addon (version, class, goal, recent tracking activity). It never includes your character's name or chat.
+      render: text

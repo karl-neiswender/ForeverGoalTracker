@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- You can now send feedback from the game: the bug icon in the title bar, /goals feedback, a goal's right-click menu, or right-clicking a step. Report a bug, ask for a goal or share an idea, and the addon fills in the details for you.
 - Added Elementium Reinforced Bulwark, a Blackwing Lair shield dropped by Chromaggus, to the Goal Library.
 - Tips are now called Hints. Goal steps and hints no longer repeat each other or what the item tooltip already shows, and more raids, dungeons and Alterac Valley quests link to the map and the quest log.
 - Gear Planner: Import from Wowhead. Paste a link from Wowhead's Classic Gear Planner to make it a new gear set, items and enchants included.

@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Bars.lua", "Core.lua", "Tallies.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Ambience.lua", "Audit.lua", "GearData.lua", "GearSources.lua", "GearCatalog.lua", "GearPlanner.lua", "PlannerEffects.lua", "VersionCheck.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Bars.lua", "Core.lua", "Tallies.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Feedback.lua", "Ambience.lua", "Audit.lua", "GearData.lua", "GearSources.lua", "GearCatalog.lua", "GearPlanner.lua", "PlannerEffects.lua", "VersionCheck.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -705,6 +705,8 @@ if ok_all:
         ("card density", None, open(os.path.join(here, "card-density-tests.lua"), encoding="utf-8").read()),
         ("Forever card density", None, open(os.path.join(here, "card-density-tests.lua"), encoding="utf-8").read(), True),
         ("empty tracker", None, open(os.path.join(here, "empty-tracker-tests.lua"), encoding="utf-8").read()),
+        ("feedback", None, open(os.path.join(here, "feedback-tests.lua"), encoding="utf-8").read()),
+        ("Forever feedback", None, open(os.path.join(here, "feedback-tests.lua"), encoding="utf-8").read(), True),
         ("Forever empty tracker", None, open(os.path.join(here, "empty-tracker-tests.lua"), encoding="utf-8").read(), True),
         ("item needs and previews", None, open(os.path.join(here, "item-tooltip-tests.lua"), encoding="utf-8").read()),
         ("Forever item needs and previews", None, open(os.path.join(here, "item-tooltip-tests.lua"), encoding="utf-8").read(), True),

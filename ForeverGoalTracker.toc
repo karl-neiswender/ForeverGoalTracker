@@ -27,6 +27,7 @@ Popout.lua
 Rail.lua
 Maplet.lua
 WhatsNew.lua
+Feedback.lua
 Ambience.lua
 Audit.lua
 GearData.lua
