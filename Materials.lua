@@ -433,7 +433,7 @@ function FGT.RefreshMaterials()
                 row.count = U.font(row,10,"",unpack(C.SUBTEXT)); row.count:SetJustifyH("LEFT")
                 row:SetScript("OnEnter", function(self)
                     local e = self.entry
-                    local summary = e.unknown and "Item count unavailable" or string.format("%d collected · %d remaining · %d%%",e.have,e.need-e.have,e.percent)
+                    local summary = e.unknown and "Count unavailable" or string.format("%d collected · %d remaining · %d%%",e.have,e.need-e.have,e.percent)
                     if e.id then
                         FGT.ShowItemTip(self,e.id,nil,e.name,nil,function(tip) tip:AddLine(" "); tip:AddLine(summary,unpack(C.TEXT)) end)
                     else
@@ -474,8 +474,7 @@ function FGT.RefreshMaterials()
     if M.goalId ~= goal.id then scroll.scroll:SetVerticalScroll(0); M.goalId=goal.id; options:Hide() end
     M:Place()
     -- A real shopping list draws the eye the first time that goal is viewed
-    -- with the window up: Tier 3 and AQ sets (9+ rows) slide the drawer open,
-    -- smaller lists (3 to 8) give it a little bounce.
+    -- with the window up: the drawer gives a little bounce (never opens itself).
     -- Once per goal ever; /goals materialsreset starts over.
     if #data >= 3 and U.main:IsShown() and not DB.demoBackup then
         DB.materialsSeen = DB.materialsSeen or {}
@@ -485,12 +484,8 @@ function FGT.RefreshMaterials()
             elseif M.canOpen then
                 DB.materialsSeen[goal.id] = true
                 local id = goal.id
-                local bigList = #data >= 9
                 C_Timer.After(0.35, function()
-                    if M.goalId == id and not M.open and U.main:IsShown() then
-                        -- (over the guide, a long list would hide the steps: just nudge)
-                        if bigList and not M.overlay then M:SetOpen(true) else M:Bounce() end
-                    end
+                    if M.goalId == id and not M.open and U.main:IsShown() then M:Bounce() end
                 end)
             end
         end

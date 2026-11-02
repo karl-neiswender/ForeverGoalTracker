@@ -342,7 +342,7 @@ FGT.goals = {
         note = "For Druids, Mages, Priests and Warlocks. Requires Naxxramas, Ahn'Qiraj 40 and Stratholme.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Collect 40 Splinters of Atiesh from Naxxramas bosses.", auto = { item = 22726, count = 40 },
+            { text = "Gather 40 Splinters of Atiesh from Naxxramas bosses.", auto = { item = 22726, count = 40 },
               links = { { 22726, "Splinters of Atiesh" } } }, -- the game says "Splinter of Atiesh"
             { text = "Combine the 40 splinters into the Frame of Atiesh.", auto = { item = 22727, quest = 9250 } },
             { text = "Bring the Frame of Atiesh to Anachronos.", auto = { quest = 9250 },
@@ -578,8 +578,8 @@ FGT.goals = {
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Loot the Eye of Sulfuras from Ragnaros in {raid_mc:Molten Core}.", auto = { item = 17204 } },
-            { text = "Get the Plans: Sulfuron Hammer from Lokhtos Darkbargainer in Blackrock Depths ('A Binding Contract').", auto = { item = 18592, quest = 7604 } },
-            { text = "Collect 8 Sulfuron Ingots from Golemagg the Incinerator in Molten Core.", auto = { item = 17203, count = 8 } },
+            { text = "Collect the Plans: Sulfuron Hammer from Lokhtos Darkbargainer in Blackrock Depths ('A Binding Contract').", auto = { item = 18592, quest = 7604 } },
+            { text = "Gather 8 Sulfuron Ingots from Golemagg the Incinerator in Molten Core.", auto = { item = 17203, count = 8 } },
             { text = "Smelt 20 Dark Iron Bars at the Black Forge in Blackrock Depths.", auto = { item = 11371, count = 20 } },
             { text = "Gather 50 Arcanite Bars.", auto = { item = 12360, count = 50 } },
             { text = "Gather 25 Essence of Fire.", auto = { item = 7078, count = 25 } },

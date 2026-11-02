@@ -636,7 +636,7 @@ local anyUnknown
 for _, item in ipairs(Cat.Search("NeckSlot", {})) do
     if not Cat.Source(item) and not item.note then anyUnknown = item; break end
 end
-assert(anyUnknown and Cat.Acquisition(anyUnknown):find("(Source unknown)", 1, true), "missing sources are called unknown")
+assert(anyUnknown and Cat.Acquisition(anyUnknown):find("Source unknown", 1, true), "missing sources are called unknown")
 assert(Cat.EntranceFor("Upper Blackrock Spire").id == "dungeon:brs" and Cat.EntranceFor("Molten Core").id == "dungeon:mc", "entrances resolve from place names")
 assert(Cat.EntranceFor("Nowhere in particular") == nil)
 print("  sources: boss pins, quests, crafted items, PvP ranks and honest unknowns ok")

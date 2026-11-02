@@ -277,7 +277,7 @@ local library = {
         steps = {
             "Complete the Scepter of the Shifting Sands quest chain.",
             "Ring the Scarab Gong in Silithus to open Ahn'Qiraj.",
-            { text = "Own the Black Qiraji Resonating Crystal.", auto = { item = 21176, owned = { "Black Qiraji" } } },
+            { text = "Obtain the Black Qiraji Resonating Crystal.", auto = { item = 21176, owned = { "Black Qiraji" } } },
         },
         completeWith = { item = 21176, owned = { "Black Qiraji" } },
         tips = {
@@ -388,7 +388,7 @@ local library = {
         note = "Tanking sword (Warrior and Paladin) forged in Onyxia's breath.",
         steps = {
             { text = "Loot {item:18401:Nostro's Compendium of Dragon Slaying}, a rare drop in Dire Maul.", auto = { item = 18401, quest = { 7508, 7509 } } },
-            { text = "Get the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library.",
+            { text = "Collect the Unfired Ancient Blade from 'The Forging of Quel'Serrar' in the Dire Maul library.",
               auto = { quest = { 7508, 7509 }, questTaken = { 7508, 7509 }, item = 18489 } },
             { text = "Heat the blade in {raid_ony:Onyxia's} fire breath.", auto = { item = { 18488, 18492, 18348 } } },
             { text = "Drive the Heated Ancient Blade into Onyxia's corpse before it cools.", auto = { item = { 18492, 18348 } },
@@ -1354,7 +1354,7 @@ local library = {
         note = "A unique level-60 main-hand sword. Source unknown.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
-            { text = "Collect Teebu's Blazing Longsword.  |cff888888Source unknown|r",
+            { text = "Collect Teebu's Blazing Longsword  |cff888888Source unknown|r",
               auto = { item = 1728, owned = { "Teebu's Blazing Longsword" } } },
         },
         completeWith = { item = 1728, owned = { "Teebu's Blazing Longsword" } },
@@ -1432,7 +1432,7 @@ local library = {
         },
         completeWith = { item = 13396, owned = { "Skul's Ghastly Touch" } },
         tips = {
-            "Skul is a rare level 58 elite on the living side of Stratholme, so he is not always there. Players say he spawns in Festival Lane or by Fras Siabi's shop, left of the living-side entrance.",
+            "Skul is a rare level 58 elite on the living side of Stratholme, so he is not always there. Players say he spawns in Festival Lane or by Fras Siabi's shop, near the living-side entrance.",
             "Players rate it highly for Warlocks and Shadow Priests.",
             "Priests, Mages and Warlocks can use a wand. Learn Wands before equipping it.",
         },

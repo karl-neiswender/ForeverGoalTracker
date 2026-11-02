@@ -27,7 +27,7 @@ assert(Find(F.MaterialRows(goal,true),12360).have==20,"historical completed mile
 
 -- A set's own gear is the reward, never a material (dropped pieces, planner slots, duplicate rings).
 local set = {id="materials_set", category="Item Set", steps={
-    {text="Collect Taut Dragonhide Shoulderpads (Source unknown)",auto={item=19389}},
+    {text="Collect Taut Dragonhide Shoulderpads  |cff888888Source unknown|r",auto={item=19389}},
     {text="Collect Handguards of Glory",auto={item=280905}},
     {text="Loot a ring twice",auto={item=23067,count=2},plannerSlot=12},
     {text="Gather 10 Sample Bars.",auto={item=12360,count=10}},
@@ -168,8 +168,8 @@ D.characters[current].money=0
 for bar,methods in pairs(barMethods) do bar.Show,bar.Hide=methods[1],methods[2] end
 print("  per-goal stock, recipe sums, historical credit, scopes, alts, unknown items, slide lifecycle and narrow bounds pass")
 
--- A goal with a real shopping list slides the drawer open once, the first
--- time it is viewed. Goals with little or nothing to collect never do.
+-- A goal with a real shopping list nudges the drawer once, the first time it
+-- is viewed. Goals with little or nothing to collect never do.
 do
     width=1000; U.main.GetWidth=function() return width end
     local oldShown=U.main.IsShown; U.main.IsShown=function() return true end
@@ -189,11 +189,14 @@ do
     assert(M.bounce==0 and M.span==22 and not M.open and not M.driver:GetScript("OnUpdate"),"bounce settles closed")
     F.SelectGoal("gold_5k"); F.SelectGoal("sulfuras")
     assert(not M.driver:GetScript("OnUpdate"),"bounce plays once per goal")
-    F.SetSetting("celebrations","off")
+    -- A long recipe list nudges too, and never opens by itself.
     F.SelectGoal("tier3_warrior")
-    assert(M.open and D.materialsSeen and D.materialsSeen.tier3_warrior,"recipe goal opens on first view rows="..#(M.data or {}).." can="..tostring(M.canOpen).." shown="..tostring(U.main:IsShown()).." goal="..tostring(M.goalId))
-    M:SetOpen(false); F.SelectGoal("gold_5k"); F.SelectGoal("tier3_warrior")
-    assert(not M.open,"later views do not reopen it")
+    assert(not M.open and D.materialsSeen and D.materialsSeen.tier3_warrior,"recipe goal is marked seen but stays closed")
+    assert(M.driver:GetScript("OnUpdate"),"recipe goal nudges on first view")
+    M.driver:SetScript("OnUpdate",nil); M.bounce=0
+    F.SelectGoal("gold_5k"); F.SelectGoal("tier3_warrior")
+    assert(not M.open and not M.driver:GetScript("OnUpdate"),"later views stay quiet")
+    F.SetSetting("celebrations","off")
     C_Timer.After=oldAfter; U.main.IsShown=oldShown
 end
 

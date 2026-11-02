@@ -8820,7 +8820,7 @@ local function GetStepRow(index, view)
             end
             GameTooltip:AddLine("Click to check off manually.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             if self.itemId then
-                GameTooltip:AddLine("Hover item: details. Right-click: Wowhead.",
+                GameTooltip:AddLine("Right-click: Wowhead",
                     C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             elseif self.questId then
                 GameTooltip:AddLine("Right-click: quest on Wowhead", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
@@ -15369,7 +15369,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
     end
     if msg == "materialsreset" then
         ForeverGoalTrackerDB.materialsSeen = nil
-        print(TAG .. "Materials will slide open again the first time you view each recipe goal.")
+        print(TAG .. "Materials will nudge again the first time you view each goal with a shopping list.")
         return
     end
     if msg == "settings" or msg == "options" or msg == "config" then

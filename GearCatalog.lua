@@ -777,7 +777,7 @@ function C.Acquisition(item)
     if source then
         text, advice = source.step:format(item.name), source.advice
     else
-        text = "Collect " .. item.name .. " (Source unknown)"
+        text = "Collect " .. item.name .. "  |cff888888Source unknown|r"
     end
     if item.note and not text:find(item.note, 1, true) and not (source and source.label:find(item.note, 1, true))
         and not (advice and advice:find(item.note, 1, true)) then
