@@ -5835,7 +5835,7 @@
    "batch": 23
   },
   {
-   "file": "location-booty-bay.jpg",
+   "file": "rep-steamwheedle-cartel.jpg",
    "group": "needed",
    "priority": 1,
    "title": "Exalted: Steamwheedle Cartel",
@@ -5849,18 +5849,21 @@
      "key": "rep_steamwheedle"
     }
    ],
-   "alt": null,
-   "w": 1600,
-   "h": 802,
+   "alt": "location-booty-bay.jpg",
+   "w": 1200,
+   "h": 1600,
    "card": false,
    "low": false,
    "karl": true,
    "inferred": false,
    "now": "",
-   "notes": "New goal (Karl 2026-11-02): one goal for Booty Bay, Ratchet, Gadgetzan, Everlook and Forever's Powderfuse. Planned source is the Booty Bay location image; no goblin-town card exists for the others. Karl may swap in a goblin card.",
+   "notes": "Karl's pick (2026-11-02): the top-hat goblin potion trader, from his op8 option. Portrait 1200x1600: crop to 4:3 around the face, hat and potion hand; keep the monocle and the glowing vial. Booty Bay location image stays as the alternate.",
    "id": "A187",
    "state": "queued",
-   "batch": 24
+   "batch": 24,
+   "previous": [
+    "location-booty-bay.jpg"
+   ]
   }
  ],
  "gaps": [

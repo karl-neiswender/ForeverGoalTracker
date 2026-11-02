@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 131 of 161 workable banners verified.** Queued 1, Installed 29, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
+**Progress: 160 of 161 workable banners verified.** Queued 1, Verified 160, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
 
 ## Codex: start here
 
@@ -332,56 +332,56 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A011 | P1 | `item-draconian-deflector.png` 745x1040 |  | Draconian Deflector: `draconian_deflector` / `draconian_deflector` | Installed | card scan, crop first  |
-| ☐ | A013 | P1 | `weapon-dwarven-hand-cannon.png` 745x1040 |  | Dwarven Hand Cannon: `dwarven_hand_cannon` / `dwarven_hand_cannon` | Installed | card scan, crop first  |
-| ☐ | A023 | P1 | `item-wall-of-the-dead.png` 745x1040 |  | Wall of the Dead: `wall_of_the_dead` / `wall_of_the_dead` | Installed | card scan, crop first  |
-| ☐ | A026 | P1 | `weapon-doomfinger.png` 745x1040 |  | Doomfinger: `doomfinger` / `doomfinger` | Installed | card scan, crop first  |
-| ☐ | A046 | P2 | `alliance-dwarf-female-rogue-tier1.png` 745x1040 |  | Level Classes to 60: Dwarf Rogue F: `allclasses` / `allclasses_dwarf_rogue_female` | Installed | card scan, crop first  |
-| ☐ | A059 | P2 | `alliance-nightelf-male-druid-generic-leveling-ph3-2.png` 745x1040 | `alliance-nightelf-male-druid-dungeonset.png` | Level Classes to 60: Night Elf Druid M: `allclasses` / `allclasses_nightelf_druid_male` | Installed | card scan, crop first  |
-| ☐ | A074 | P2 | `horde-tauren-female-druid-generic-leveling-ph4.png` 745x1040 | `horde-tauren-female-druid-leather-wailingcaverns-2.jpg` | Level Classes to 60: Tauren Druid F: `allclasses` / `allclasses_tauren_druid_female` | Installed | card scan, crop first  |
-| ☐ | A090 | P2 | `horde-undead-male-warlock-generic-leveling-ph3-4.png` 745x1040 |  | Level Classes to 60: Undead Warlock M: `allclasses` / `allclasses_undead_warlock_male` | Installed | card scan, crop first  |
+| ☑ | A011 | P1 | `item-draconian-deflector.png` 745x1040 |  | Draconian Deflector: `draconian_deflector` / `draconian_deflector` | Verified | card scan, crop first  |
+| ☑ | A013 | P1 | `weapon-dwarven-hand-cannon.png` 745x1040 |  | Dwarven Hand Cannon: `dwarven_hand_cannon` / `dwarven_hand_cannon` | Verified | card scan, crop first  |
+| ☑ | A023 | P1 | `item-wall-of-the-dead.png` 745x1040 |  | Wall of the Dead: `wall_of_the_dead` / `wall_of_the_dead` | Verified | card scan, crop first  |
+| ☑ | A026 | P1 | `weapon-doomfinger.png` 745x1040 |  | Doomfinger: `doomfinger` / `doomfinger` | Verified | card scan, crop first  |
+| ☑ | A046 | P2 | `alliance-dwarf-female-rogue-tier1.png` 745x1040 |  | Level Classes to 60: Dwarf Rogue F: `allclasses` / `allclasses_dwarf_rogue_female` | Verified | card scan, crop first  |
+| ☑ | A059 | P2 | `alliance-nightelf-male-druid-generic-leveling-ph3-2.png` 745x1040 | `alliance-nightelf-male-druid-dungeonset.png` | Level Classes to 60: Night Elf Druid M: `allclasses` / `allclasses_nightelf_druid_male` | Verified | card scan, crop first  |
+| ☑ | A074 | P2 | `horde-tauren-female-druid-generic-leveling-ph4.png` 745x1040 | `horde-tauren-female-druid-leather-wailingcaverns-2.jpg` | Level Classes to 60: Tauren Druid F: `allclasses` / `allclasses_tauren_druid_female` | Verified | card scan, crop first  |
+| ☑ | A090 | P2 | `horde-undead-male-warlock-generic-leveling-ph3-4.png` 745x1040 |  | Level Classes to 60: Undead Warlock M: `allclasses` / `allclasses_undead_warlock_male` | Verified | card scan, crop first  |
 
 ### Batch 21
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A008 | P1 | `weapon-crimson-shocker.png` 745x1040 |  | Crimson Shocker: `crimson_shocker` / `crimson_shocker` | Installed | card scan, crop first  |
-| ☐ | A103 | P3 | `alliance-nightelf-male-hunter-tier2-2.png` 745x1040 | `alliance-nightelf-male-hunter-tier2.jpg` | Tier 2 Hunter A M: `set_tier2_hunter` / `set_tier2_hunter_nightelf_male` | Installed | card scan, crop first  |
-| ☐ | A126 | P3 | `alliance-human-male-paladin-dungeonset-2.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 1 Paladin A: `set_dungeon1_paladin` / `set_dungeon1_paladin_human` | Installed | card scan, crop first  |
-| ☐ | A130 | P3 | `horde-orc-male-rogue-generic-leveling-ph4.png` 745x1040 |  | Dungeon Set 1 Rogue H: `set_dungeon1_rogue` / `set_dungeon1_rogue_orc`<br>Dungeon Set 2 Rogue H: `set_dungeon2_rogue` / `set_dungeon2_rogue_orc` | Installed | card scan, crop first  |
-| ☐ | A135 | P3 | `horde-tauren-female-warrior-dungeonset.png` 745x1040 |  | Dungeon Set 1 Warrior H: `set_dungeon1_warrior` / `set_dungeon1_warrior_tauren`<br>Dungeon Set 2 Warrior H: `set_dungeon2_warrior` / `set_dungeon2_warrior_tauren` | Installed | card scan, crop first  |
-| ☐ | A140 | P3 | `alliance-human-male-paladin-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Paladin A: `set_dungeon2_paladin` / `set_dungeon2_paladin_human` | Installed | card scan, crop first  |
-| ☐ | A144 | P3 | `horde-orc-male-warlock-dungeonset-2.png` 745x1040 | `horde-orc-male-warlock-dungeonset.jpg` | Dungeon Set 2 Warlock H: `set_dungeon2_warlock` / `set_dungeon2_warlock_orc` | Installed | card scan, crop first  |
-| ☐ | A153 | P3 | `alliance-nightelf-male-druid-pvpset-leather.png` 745x1040 |  | Field Marshal's Sanctuary (Druid) M: `None` / `pvp_field_marshal_s_sanctuary_druid_m` | Installed | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☑ | A008 | P1 | `weapon-crimson-shocker.png` 745x1040 |  | Crimson Shocker: `crimson_shocker` / `crimson_shocker` | Verified | card scan, crop first  |
+| ☑ | A103 | P3 | `alliance-nightelf-male-hunter-tier2-2.png` 745x1040 | `alliance-nightelf-male-hunter-tier2.jpg` | Tier 2 Hunter A M: `set_tier2_hunter` / `set_tier2_hunter_nightelf_male` | Verified | card scan, crop first  |
+| ☑ | A126 | P3 | `alliance-human-male-paladin-dungeonset-2.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 1 Paladin A: `set_dungeon1_paladin` / `set_dungeon1_paladin_human` | Verified | card scan, crop first  |
+| ☑ | A130 | P3 | `horde-orc-male-rogue-generic-leveling-ph4.png` 745x1040 |  | Dungeon Set 1 Rogue H: `set_dungeon1_rogue` / `set_dungeon1_rogue_orc`<br>Dungeon Set 2 Rogue H: `set_dungeon2_rogue` / `set_dungeon2_rogue_orc` | Verified | card scan, crop first  |
+| ☑ | A135 | P3 | `horde-tauren-female-warrior-dungeonset.png` 745x1040 |  | Dungeon Set 1 Warrior H: `set_dungeon1_warrior` / `set_dungeon1_warrior_tauren`<br>Dungeon Set 2 Warrior H: `set_dungeon2_warrior` / `set_dungeon2_warrior_tauren` | Verified | card scan, crop first  |
+| ☑ | A140 | P3 | `alliance-human-male-paladin-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Paladin A: `set_dungeon2_paladin` / `set_dungeon2_paladin_human` | Verified | card scan, crop first  |
+| ☑ | A144 | P3 | `horde-orc-male-warlock-dungeonset-2.png` 745x1040 | `horde-orc-male-warlock-dungeonset.jpg` | Dungeon Set 2 Warlock H: `set_dungeon2_warlock` / `set_dungeon2_warlock_orc` | Verified | card scan, crop first  |
+| ☑ | A153 | P3 | `alliance-nightelf-male-druid-pvpset-leather.png` 745x1040 |  | Field Marshal's Sanctuary (Druid) M: `None` / `pvp_field_marshal_s_sanctuary_druid_m` | Verified | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 
 ### Batch 22
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A176 | P2 | `alliance-gnome-female-rogue-generic-leveling-ph4.png` 745x1040 |  | Gnome Rogue F: `allclasses` / `allclasses_gnome_rogue_female` | Installed | Karl's pick, card scan, crop first Fills gap G002. Karl 2026-11-02 pass: art is a Gnome female Rogue. |
-| ☐ | A177 | P2 | `horde-orc-female-hunter-generic-leveling-ph4-2.png` 745x1040 | `horde-orc-female-hunter-generic-leveling-ph3.png` | Orc Hunter F: `allclasses` / `allclasses_orc_hunter_female` | Installed | Karl's pick, card scan, crop first Fills gap G010. Karl 2026-11-02 pass: art is a Orc female Hunter. |
-| ☐ | A178 | P2 | `horde-troll-female-hunter-warrior-generic-leveling-ph2.png` 745x1040 |  | Troll Warrior F: `allclasses` / `allclasses_troll_warrior_female` | Installed | Karl's pick, card scan, crop first Fills gap G011. Karl 2026-11-02 pass: art is a Troll female Warrior. |
-| ☐ | A179 | P1 | `item-aegis-of-the-blood-god.png` 745x1040 |  | Aegis of the Blood God: `aegis_of_the_blood_god` / `aegis_of_the_blood_god` | Installed | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
-| ☐ | A180 | P1 | `item-elemental-mage-staff.png` 745x1040 |  | Elemental Mage Staff: `elemental_mage_staff` / `elemental_mage_staff` | Installed | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
-| ☐ | A181 | P1 | `item-elementium-bulwark.png` 745x1040 |  | Elementium Reinforced Bulwark: `elementium_reinforced_bulwark` / `elementium_reinforced_bulwark` | Installed | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
-| ☐ | A182 | P3 | `alliance-human-female-warrior-tier3.png` 745x1040 |  | Tier 3 Warrior A F: `tier3_warrior` / `tier3_warrior_human_female` | Installed | Karl's pick, card scan, crop first Fills gap G043. Source card is the Human female Warrior from Karl 2026-11-02 (ph7 tier 3). |
-| ☐ | A183 | P3 | `horde-orc-male-warlock-mage-pvpset-cloth.png` 745x1040 |  | Warlord's Regalia (Mage) M: `pvp_set_cloth_horde_mage` / `pvp_warlord_s_regalia_mage_m` | Installed | Karl's pick, card scan, crop first Fills gap G051. PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☑ | A176 | P2 | `alliance-gnome-female-rogue-generic-leveling-ph4.png` 745x1040 |  | Gnome Rogue F: `allclasses` / `allclasses_gnome_rogue_female` | Verified | Karl's pick, card scan, crop first Fills gap G002. Karl 2026-11-02 pass: art is a Gnome female Rogue. |
+| ☑ | A177 | P2 | `horde-orc-female-hunter-generic-leveling-ph4-2.png` 745x1040 | `horde-orc-female-hunter-generic-leveling-ph3.png` | Orc Hunter F: `allclasses` / `allclasses_orc_hunter_female` | Verified | Karl's pick, card scan, crop first Fills gap G010. Karl 2026-11-02 pass: art is a Orc female Hunter. |
+| ☑ | A178 | P2 | `horde-troll-female-hunter-warrior-generic-leveling-ph2.png` 745x1040 |  | Troll Warrior F: `allclasses` / `allclasses_troll_warrior_female` | Verified | Karl's pick, card scan, crop first Fills gap G011. Karl 2026-11-02 pass: art is a Troll female Warrior. |
+| ☑ | A179 | P1 | `item-aegis-of-the-blood-god.png` 745x1040 |  | Aegis of the Blood God: `aegis_of_the_blood_god` / `aegis_of_the_blood_god` | Verified | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☑ | A180 | P1 | `item-elemental-mage-staff.png` 745x1040 |  | Elemental Mage Staff: `elemental_mage_staff` / `elemental_mage_staff` | Verified | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☑ | A181 | P1 | `item-elementium-bulwark.png` 745x1040 |  | Elementium Reinforced Bulwark: `elementium_reinforced_bulwark` / `elementium_reinforced_bulwark` | Verified | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☑ | A182 | P3 | `alliance-human-female-warrior-tier3.png` 745x1040 |  | Tier 3 Warrior A F: `tier3_warrior` / `tier3_warrior_human_female` | Verified | Karl's pick, card scan, crop first Fills gap G043. Source card is the Human female Warrior from Karl 2026-11-02 (ph7 tier 3). |
+| ☑ | A183 | P3 | `horde-orc-male-warlock-mage-pvpset-cloth.png` 745x1040 |  | Warlord's Regalia (Mage) M: `pvp_set_cloth_horde_mage` / `pvp_warlord_s_regalia_mage_m` | Verified | Karl's pick, card scan, crop first Fills gap G051. PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 
 ### Batch 23
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A002 | P1 | `weapon-blastershot-launcher-hires.jpg` 800x639 |  | Blastershot Launcher: `blastershot_launcher` / `blastershot_launcher` | Installed |   |
-| ☐ | A020 | P1 | `weapon-the-shatterer.png` 745x1040 |  | The Shatterer: `the_shatterer` / `the_shatterer` | Installed | card scan, crop first  |
-| ☐ | A184 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 1 Paladin H: `set_dungeon1_paladin` / `set_dungeon1_paladin_undead` | Installed | Karl's pick Fills gap G054. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
-| ☐ | A185 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 2 Paladin H: `set_dungeon2_paladin` / `set_dungeon2_paladin_undead` | Installed | Karl's pick Fills gap G055. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
-| ☐ | A186 | P1 | `weapon-cutlace-blade.png` 745x1040 |  | Cruel Barb: `cruel_barb` / `cruel_barb` | Installed | Karl's pick, card scan, crop first Karl's pick (2026-11-02): the goblin raising a sword and looking straight at the viewer (Short John Mithril card, already in the artwork folder as weapon-cutlace-blade.png). The goblin and the sword are the focus. |
+| ☑ | A002 | P1 | `weapon-blastershot-launcher-hires.jpg` 800x639 |  | Blastershot Launcher: `blastershot_launcher` / `blastershot_launcher` | Verified |   |
+| ☑ | A020 | P1 | `weapon-the-shatterer.png` 745x1040 |  | The Shatterer: `the_shatterer` / `the_shatterer` | Verified | card scan, crop first  |
+| ☑ | A184 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 1 Paladin H: `set_dungeon1_paladin` / `set_dungeon1_paladin_undead` | Verified | Karl's pick Fills gap G054. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
+| ☑ | A185 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 2 Paladin H: `set_dungeon2_paladin` / `set_dungeon2_paladin_undead` | Verified | Karl's pick Fills gap G055. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
+| ☑ | A186 | P1 | `weapon-cutlace-blade.png` 745x1040 |  | Cruel Barb: `cruel_barb` / `cruel_barb` | Verified | Karl's pick, card scan, crop first Karl's pick (2026-11-02): the goblin raising a sword and looking straight at the viewer (Short John Mithril card, already in the artwork folder as weapon-cutlace-blade.png). The goblin and the sword are the focus. |
 
 ### Batch 24
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A187 | P1 | `location-booty-bay.jpg` 1600x802 |  | Exalted: Steamwheedle Cartel: `rep_steamwheedle` / `rep_steamwheedle` | Queued | Karl's pick New goal (Karl 2026-11-02): one goal for Booty Bay, Ratchet, Gadgetzan, Everlook and Forever's Powderfuse. Planned source is the Booty Bay location image; no goblin-town card exists for the others. Karl may swap in a goblin card. |
+| ☐ | A187 | P1 | `rep-steamwheedle-cartel.jpg` 1200x1600 | `location-booty-bay.jpg` | Exalted: Steamwheedle Cartel: `rep_steamwheedle` / `rep_steamwheedle` | Queued | Karl's pick Karl's pick (2026-11-02): the top-hat goblin potion trader, from his op8 option. Portrait 1200x1600: crop to 4:3 around the face, hat and potion hand; keep the monocle and the glowing vial. Booty Bay location image stays as the alternate. |
 
 ## Skipped or blocked (Codex: do not touch)
 

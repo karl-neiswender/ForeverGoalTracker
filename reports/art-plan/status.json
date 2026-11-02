@@ -8,8 +8,8 @@
  "A002": {
   "banner": "blastershot_launcher",
   "date": "2026-11-02",
-  "note": "source swapped to weapon-blastershot-launcher-hires.jpg",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A003": {
   "banner": "brain_hacker",
@@ -44,8 +44,8 @@
  "A008": {
   "banner": "crimson_shocker",
   "date": "2026-11-02",
-  "note": "source swapped to weapon-crimson-shocker.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A009": {
   "banner": "crown_of_the_ogre_king",
@@ -62,8 +62,8 @@
  "A011": {
   "banner": "draconian_deflector",
   "date": "2026-11-02",
-  "note": "source swapped to item-draconian-deflector.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A012": {
   "banner": "drillborer_disk",
@@ -74,8 +74,8 @@
  "A013": {
   "banner": "dwarven_hand_cannon",
   "date": "2026-11-02",
-  "note": "source swapped to weapon-dwarven-hand-cannon.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A014": {
   "banner": "electrified_dagger",
@@ -116,8 +116,8 @@
  "A020": {
   "banner": "the_shatterer",
   "date": "2026-11-02",
-  "note": "source swapped to weapon-the-shatterer.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A021": {
   "banner": "the_untamed_blade",
@@ -134,8 +134,8 @@
  "A023": {
   "banner": "wall_of_the_dead",
   "date": "2026-11-02",
-  "note": "source swapped to item-wall-of-the-dead.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A024": {
   "banner": "barman_shanker",
@@ -152,8 +152,8 @@
  "A026": {
   "banner": "doomfinger",
   "date": "2026-11-02",
-  "note": "source swapped to weapon-doomfinger.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A027": {
   "banner": "gurubashi_dwarf_destroyer",
@@ -270,8 +270,8 @@
  "A046": {
   "banner": "allclasses_dwarf_rogue_female",
   "date": "2026-11-02",
-  "note": "source swapped to alliance-dwarf-female-rogue-tier1.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A047": {
   "banner": "allclasses_dwarf_shaman_female",
@@ -347,8 +347,8 @@
  "A059": {
   "banner": "allclasses_nightelf_druid_male",
   "date": "2026-11-02",
-  "note": "source swapped to alliance-nightelf-male-druid-generic-leveling-ph3-2.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A060": {
   "banner": "allclasses_nightelf_hunter_male",
@@ -430,8 +430,8 @@
  "A074": {
   "banner": "allclasses_tauren_druid_female",
   "date": "2026-11-02",
-  "note": "source swapped to horde-tauren-female-druid-generic-leveling-ph4.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A075": {
   "banner": "allclasses_tauren_druid_male",
@@ -513,8 +513,8 @@
  "A090": {
   "banner": "allclasses_undead_warlock_male",
   "date": "2026-11-02",
-  "note": "source swapped to horde-undead-male-warlock-generic-leveling-ph3-4.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A091": {
   "banner": "allclasses_undead_warrior_female",
@@ -579,8 +579,8 @@
  "A103": {
   "banner": "set_tier2_hunter_nightelf_male",
   "date": "2026-11-02",
-  "note": "source swapped to alliance-nightelf-male-hunter-tier2-2.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A104": {
   "banner": "set_tier2_hunter_orc_female",
@@ -695,8 +695,8 @@
  "A126": {
   "banner": "set_dungeon1_paladin_human",
   "date": "2026-11-02",
-  "note": "source swapped to alliance-human-male-paladin-dungeonset-2.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A127": {
   "banner": "set_dungeon1_priest_dwarf",
@@ -711,8 +711,8 @@
  "A130": {
   "banner": "set_dungeon1_rogue_orc",
   "date": "2026-11-02",
-  "note": "source swapped to horde-orc-male-rogue-generic-leveling-ph4.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A131": {
   "date": "2026-10-29",
@@ -737,8 +737,8 @@
  "A135": {
   "banner": "set_dungeon1_warrior_tauren",
   "date": "2026-11-02",
-  "note": "source swapped to horde-tauren-female-warrior-dungeonset.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A136": {
   "banner": "set_dungeon2_druid_nightelf",
@@ -763,8 +763,8 @@
  "A140": {
   "banner": "set_dungeon2_paladin_human",
   "date": "2026-11-02",
-  "note": "source swapped to alliance-human-male-paladin-dungeonset.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A141": {
   "banner": "set_dungeon2_priest_nightelf",
@@ -784,8 +784,8 @@
  "A144": {
   "banner": "set_dungeon2_warlock_orc",
   "date": "2026-11-02",
-  "note": "source swapped to horde-orc-male-warlock-dungeonset-2.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A145": {
   "date": "2026-10-31",
@@ -830,8 +830,8 @@
  "A153": {
   "banner": "pvp_field_marshal_s_sanctuary_druid_m",
   "date": "2026-11-02",
-  "note": "source swapped to alliance-nightelf-male-druid-pvpset-leather.png",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A154": {
   "banner": "pvp_field_marshal_s_threads_warlock_f",
@@ -924,56 +924,67 @@
  "A176": {
   "banner": "allclasses_gnome_rogue_female",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A177": {
   "banner": "allclasses_orc_hunter_female",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A178": {
   "banner": "allclasses_troll_warrior_female",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A179": {
   "banner": "aegis_of_the_blood_god",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A180": {
   "banner": "elemental_mage_staff",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A181": {
   "banner": "elementium_reinforced_bulwark",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A182": {
   "banner": "tier3_warrior_human_female",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A183": {
   "banner": "pvp_warlord_s_regalia_mage_m",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A184": {
   "banner": "set_dungeon1_paladin_undead",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A185": {
   "banner": "set_dungeon2_paladin_undead",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  },
  "A186": {
   "banner": "cruel_barb",
   "date": "2026-11-02",
-  "state": "installed"
+  "note": "Claude: verify ok, 2026-11-02",
+  "state": "verified"
  }
 }

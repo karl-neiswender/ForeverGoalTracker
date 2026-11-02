@@ -492,5 +492,14 @@
   "undead female rpgue ph6 t2.png": "horde-undead-female-rogue-tier2.png",
   "undead male mage ph7 t3.png": "horde-undead-male-mage-tier3.png",
   "buffs.png": "buffs-others-generic-default.png"
+ },
+ "batch3_2026_11_02": {
+  "rep steamwheedle op8.jpg": "rep-steamwheedle-cartel.jpg",
+  "nightelf male rogue ph3.jpg": "alliance-nightelf-male-rogue-generic-leveling-ph3.jpg",
+  "nightelf male druid ph2.jpg": "alliance-nightelf-male-druid-generic-leveling-ph2.jpg",
+  "undead male priest warlock ph1.jpg": "horde-undead-male-priest-warlock-generic-leveling-ph1.jpg",
+  "orc female rogue ph1.jpg": "horde-orc-female-rogue-generic-leveling-ph1-2.jpg",
+  "troll female hunter ph1.jpg": "horde-troll-female-hunter-generic-leveling-ph1.jpg",
+  "location Far_Watch_Post_full.jpg": "location-far-watch-post.jpg"
  }
 }

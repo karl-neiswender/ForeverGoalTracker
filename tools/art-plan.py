@@ -175,7 +175,9 @@ def verify_banner(key, goal, who_list, checklist_kind, rt_ns=None):
     elif ent.get("mips") != 10 or abs(ent.get("aspect", 0) - 4 / 3) > 0.01:
         problems.append("runtime-manifest entry is not 10 mips at 4:3")
     core = (root / "Core.lua").read_text(encoding="utf-8")
-    if f'"{key}-banner.blp"' not in core:
+    # a literal path, or the key listed in a loop that builds `id .. "-banner.blp"`
+    looped = any(f'"{key}"' in core[max(0, m.start() - 900):m.start()] for m in re.finditer(r'\.\. "-banner\.blp"', core))
+    if f'"{key}-banner.blp"' not in core and not looped:
         problems.append("Core.lua never mentions the banner path")
     if goal and who_list:
         rt, ns = rt_ns or load_addon()
