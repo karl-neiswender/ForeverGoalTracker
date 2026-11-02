@@ -5698,6 +5698,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         tier3_hunter = {
             {path="tier3_hunter_orc_female-banner.blp", faction="Horde", race="Orc", sex=3, aspect=4/3, preprocessed=true},
         },
+        tier3_warrior = {
+            {path="tier3_warrior_human_female-banner.blp", faction="Alliance", race="Human", sex=3, aspect=4/3, preprocessed=true},
+        },
         tier3_shaman = {
             {path="tier3_shaman_tauren_female-banner.blp", faction="Horde", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
         },
@@ -5741,6 +5744,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_nightelf_priest_male-banner.blp", faction="Alliance", class="PRIEST", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_rogue_male-banner.blp", faction="Alliance", class="ROGUE", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_orc_hunter_male-banner.blp", faction="Horde", class="HUNTER", race="Orc", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_orc_hunter_female-banner.blp", faction="Horde", class="HUNTER", race="Orc", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_orc_mage_female-banner.blp", faction="Horde", class="MAGE", race="Orc", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_orc_mage_male-banner.blp", faction="Horde", class="MAGE", race="Orc", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_orc_rogue_female-banner.blp", faction="Horde", class="ROGUE", race="Orc", sex=3, aspect=4/3, preprocessed=true},
@@ -5762,6 +5766,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_troll_rogue_female-banner.blp", faction="Horde", class="ROGUE", race="Troll", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_warlock_male-banner.blp", faction="Horde", class="WARLOCK", race="Troll", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_warrior_male-banner.blp", faction="Horde", class="WARRIOR", race="Troll", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_troll_warrior_female-banner.blp", faction="Horde", class="WARRIOR", race="Troll", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_mage_female-banner.blp", faction="Horde", class="MAGE", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_mage_male-banner.blp", faction="Horde", class="MAGE", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_warlock_female-banner.blp", faction="Horde", class="WARLOCK", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
@@ -5795,6 +5800,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_human_hunter-banner.blp", faction="Alliance", class="HUNTER", race="Human", aspect=4/3, preprocessed=true},
             {path="allclasses_human_rogue_male-banner.blp", faction="Alliance", class="ROGUE", race="Human", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Gnome", aspect=4/3, preprocessed=true},
+            {path="allclasses_gnome_rogue_female-banner.blp", faction="Alliance", class="ROGUE", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="PRIEST", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_caster-banner.blp", faction="Alliance", class="MAGE", race="Gnome", aspect=4/3, preprocessed=true},
             {path="allclasses_gnome_warlock_female-banner.blp", faction="Alliance", class="WARLOCK", race="Gnome", sex=3, aspect=4/3, preprocessed=true},
@@ -6088,6 +6094,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
         {path="pvp_warlord_s_threads_warlock_m-banner.blp", faction="Horde", race="Orc", sex=2, aspect=4/3, preprocessed=true},
         {path="pvp_set_cloth_horde-banner.blp", aspect=4/3, preprocessed=true},
     }
+    B.artVariants.pvp_set_cloth_horde_mage = {
+        {path="pvp_warlord_s_regalia_mage_m-banner.blp", faction="Horde", race="Orc", sex=2, aspect=4/3, preprocessed=true},
+        {path="pvp_set_cloth_horde-banner.blp", aspect=4/3, preprocessed=true},
+    }
     function B:PlayerArtContext()
         -- Use stable file tokens, not localized class/race display names.
         local race, class
@@ -6357,6 +6367,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.social_trades, B.preprocessed.social_trades = 4/3, true
     B.artPaths.tier3_warrior = "tier3_warrior_koringar-banner.blp"
     B.artAspects.tier3_warrior, B.preprocessed.tier3_warrior = 4/3, true
+    for _, id in ipairs({"aegis_of_the_blood_god", "elemental_mage_staff", "elementium_reinforced_bulwark"}) do
+        B.artPaths[id] = id .. "-banner.blp"
+        B.artAspects[id], B.preprocessed[id] = 4/3, true
+    end
     B.artAspects.social_guild_dungeon, B.preprocessed.social_guild_dungeon = 4/3, true
     B.artPaths.social_summons = "social_summons-banner.blp"
     B.artPaths.set_partners_in_crime = "set_partners_in_crime-banner.blp"

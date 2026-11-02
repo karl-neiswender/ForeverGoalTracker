@@ -14,6 +14,14 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "Media/artwork"
 FINAL = ROOT / "Media/final-images"
 FINAL_BANNERS = {
+    "allclasses_gnome_rogue_female": "allclasses_gnome_rogue_female-master.png",
+    "allclasses_orc_hunter_female": "allclasses_orc_hunter_female-master.png",
+    "allclasses_troll_warrior_female": "allclasses_troll_warrior_female-master.png",
+    "aegis_of_the_blood_god": "aegis_of_the_blood_god-master.png",
+    "elemental_mage_staff": "elemental_mage_staff-master.png",
+    "elementium_reinforced_bulwark": "elementium_reinforced_bulwark-master.png",
+    "tier3_warrior_human_female": "tier3_warrior_human_female-master.png",
+    "pvp_warlord_s_regalia_mage_m": "pvp_warlord_s_regalia_mage_m-master.png",
     "allclasses_gnome_warlock_male": "leveling/gnome-warlock-male-master.png",
     "allclasses_gnome_warrior_female": "pvp/gnome-warrior-female-master.png",
     "collect_the_1_ring": "collect_the_1_ring-master.png",

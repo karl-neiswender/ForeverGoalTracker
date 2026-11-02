@@ -1,1784 +1,146 @@
 {
-  "ashbringer": {
-    "source": "weapons/ashbringer-ryman-master.png",
+  "allclasses_gnome_rogue_female": {
+    "source": "allclasses_gnome_rogue_female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "atiesh": {
-    "source": "tall-1200x900/atiesh.jpg",
+  "allclasses_orc_hunter_female": {
+    "source": "allclasses_orc_hunter_female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "sulfuras": {
-    "source": "tall-1200x900/sulfuras.jpg",
+  "allclasses_troll_warrior_female": {
+    "source": "allclasses_troll_warrior_female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "thunderfury": {
-    "source": "tall-1200x900/thunderfury.jpg",
+  "aegis_of_the_blood_god": {
+    "source": "aegis_of_the_blood_god-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "quelserrar": {
-    "source": "tall-1200x900/quelserrar.jpg",
+  "elemental_mage_staff": {
+    "source": "elemental_mage_staff-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "benediction": {
-    "source": "tall-1200x900/benediction.jpg",
+  "elementium_reinforced_bulwark": {
+    "source": "elementium_reinforced_bulwark-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "raid_bwl": {
-    "source": "blackwing-lair/classic-key-art-master.png",
+  "tier3_warrior_human_female": {
+    "source": "tier3_warrior_human_female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "raid_mc": {
-    "source": "tall-1200x900/raid_mc.jpg",
+  "pvp_warlord_s_regalia_mage_m": {
+    "source": "pvp_warlord_s_regalia_mage_m-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "att_mc": {
-    "source": "tall-1200x900/att_mc.jpg",
+  "allclasses_gnome_warlock_male": {
+    "source": "leveling/gnome-warlock-male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_tier1": {
-    "source": "tall-1200x900/set_tier1.jpg",
+  "allclasses_gnome_warrior_female": {
+    "source": "pvp/gnome-warrior-female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "lokdelar": {
-    "source": "tall-1200x900/lokdelar.jpg",
+  "collect_the_1_ring": {
+    "source": "collect_the_1_ring-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "frostsaber": {
-    "source": "tall-1200x900/frostsaber.jpg",
+  "allclasses_undead_priest_male": {
+    "source": "allclasses_undead_priest_male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_viper": {
-    "source": "tall-1200x900/set_viper.jpg",
+  "allclasses_undead_priest_female": {
+    "source": "allclasses_undead_priest_female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "rep_cenarion": {
-    "source": "reputations/cenarion-circle-master.png",
+  "allclasses_human_rogue_female": {
+    "source": "allclasses_human_rogue_female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "key_scholo": {
-    "source": "tall-1200x900/key_scholo.jpg",
+  "allclasses_human_hunter_male": {
+    "source": "allclasses_human_hunter_male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "rhokdelar": {
-    "source": "tall-1200x900/rhokdelar-hunter.jpg",
+  "dungeon_hunter_human_male": {
+    "source": "dungeon_hunter_human_male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "raid_ony": {
-    "source": "tall-1200x900/raid_ony.jpg",
+  "allclasses_human_paladin_male": {
+    "source": "allclasses_human_paladin_male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_tier1_rogue": {
-    "source": "tier-sets/rogue/tier1.jpg",
+  "allclasses_undead_rogue_female": {
+    "source": "leveling/undead-rogue-female-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_tier2_rogue": {
-    "source": "tier-sets/rogue/tier2.jpg",
+  "allclasses_undead_rogue_male": {
+    "source": "leveling/undead-rogue-male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "tier3_rogue": {
-    "source": "tier-sets/rogue/tier3.jpg",
+  "allclasses_human_rogue_male": {
+    "source": "leveling/human-rogue-male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_tier1_hunter": {
-    "source": "tier-sets/hunter/tier1.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_hunter": {
-    "source": "tier-sets/hunter/tier2.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_mage": {
-    "source": "tier-sets/mage/tier1.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_mage": {
-    "source": "tier-sets/mage/tier2.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "mount_dreadsteed": {
-    "source": "tall-1200x900/mount_dreadsteed.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_warrior": {
-    "source": "tier-sets/warrior/tier1.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_warrior": {
-    "source": "tier-sets/warrior/tier2.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_druid": {
-    "source": "tier-sets/druid/tier2.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_warrior-alliance": {
-    "source": "tier-sets/warrior/tier2-alliance.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_shaman": {
-    "source": "tier-sets/shaman/tier2.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_warlock": {
-    "source": "tier-sets/warlock/tier1.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_warlock": {
-    "source": "tier-sets/warlock/tier2.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_warrior": {
-    "source": "tier-sets/warrior/tier3.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_violet_sorcerer": {
-    "source": "tall-1200x900/set_violet_sorcerer.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "raid_hyjal": {
-    "source": "tall-1200x900/raid_hyjal.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "raid_barrow": {
-    "source": "raids/burrow-deeps-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_mage": {
-    "source": "tier-sets/mage/tier3.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "raid_aq20": {
-    "source": "tall-1200x900/raid_aq20.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "raid_aq40": {
-    "source": "tall-1200x900/raid_aq40.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "mount_deathcharger": {
-    "source": "tall-1200x900/mount_deathcharger.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3": {
-    "source": "tall-1200x900/naxxramas.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "att_naxx": {
-    "source": "tall-1200x900/naxxramas.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_druid": {
-    "source": "tier-sets/druid/tier1.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_druid": {
-    "source": "tier-sets/druid/tier3.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_shaman": {
-    "source": "tier-sets/shaman/tier1.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_argentdawn": {
-    "source": "reputation/rep_argentdawn.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_dwarf": {
-    "source": "mounts/dwarf-ram.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_tauren": {
-    "source": "mounts/swift-kodo-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_orc": {
-    "source": "mounts/orc-wolf.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_shaman": {
-    "source": "tier-sets/shaman/tier3.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "raid_zg": {
-    "source": "zul-gurub/hakkar.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_warlock": {
-    "source": "tier-sets/warlock/tier3.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_paladin": {
-    "source": "tier-sets/paladin/tier3.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_paladin": {
-    "source": "tier-sets/paladin/tier2.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_shared": {
-    "source": "pvp/shared-pvp.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_nightelf": {
-    "source": "mounts/nightelf-nightsaber.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_human": {
-    "source": "mounts/human-palomino.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_troll": {
-    "source": "mounts/troll-raptor.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_gnome": {
-    "source": "mounts/gnome-mechanostrider.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_priest": {
-    "source": "tier-sets/priest/tier3.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_priest": {
-    "source": "tier-sets/priest/tier2.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_priest": {
-    "source": "tier-sets/priest/tier1-alliance-new-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_warlock-alliance": {
-    "source": "tier-sets/warlock/tier1-alliance.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_troll_mage": {
-    "source": "leveling/troll-mage.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_undead": {
-    "source": "mounts/skeletal-warhorse-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "epicmounts_skyborne": {
-    "source": "mounts/skyborne-mount-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_skyborne_rogue": {
-    "source": "mounts/skyborne-location.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "key_dm": {
-    "source": "additional-goals/key_dm.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_undead_paladin": {
-    "source": "leveling/undead-paladin.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_drums_of_war": {
-    "source": "pvp/drums-of-war.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_dwarf_shaman": {
-    "source": "leveling/dwarf-shaman-barador-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "mount_qiraji": {
-    "source": "mounts/scarab-lord-review.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_timbermaw": {
-    "source": "reputation/timbermaw.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_set_mail_horde": {
-    "source": "pvp/warlord-mail.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "gold_5k": {
-    "source": "additional-goals/gold.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_warlock-alliance": {
-    "source": "tier-sets/warlock/tier3-alliance.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_nightelf_hunter": {
-    "source": "leveling/nightelf-hunter.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_horde_hunter": {
-    "source": "leveling/horde-hunter.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_warlock-alliance": {
-    "source": "tier-sets/warlock/tier2-alliance.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_druid-horde": {
-    "source": "tier-sets/druid/tier2-horde.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_mount_ally": {
-    "source": "pvp/alliance-mounts.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_paladin": {
-    "source": "tier-sets/paladin/lawbringer-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_hunter": {
-    "source": "tier-sets/hunter/tier3.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier25": {
-    "source": "tier-sets/aq40/tier25-review-v2.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "fishing_extravaganza": {
-    "source": "fishing/booty-bay-review.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "mount_qiraji_aq": {
-    "source": "mounts/aq-battle-tanks.jpg",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_ambassador_horde": {
-    "source": "reputations/ambassador-horde-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_ambassador_ally": {
-    "source": "reputations/ambassador-alliance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_av_horde": {
-    "source": "pvp/frostwolf-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "mount_tiger": {
-    "source": "mounts/swift-zulian-tiger-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "wolfsbane": {
-    "source": "weapons/wolfsbane-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_thorium": {
-    "source": "reputations/thorium-brotherhood-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_wsg_ally": {
-    "source": "reputations/silverwing-sentinels-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_wsg_horde": {
-    "source": "reputations/warsong-outriders-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_av_ally": {
-    "source": "reputations/stormpike-guard-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "benediction-alliance": {
-    "source": "weapons/benediction-alliance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_dungeon1_hunter": {
-    "source": "tier-sets/hunter/beaststalker-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_dwarf_hunter": {
-    "source": "leveling/dwarf-hunter-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_blacksmithing": {
-    "source": "morning-2026-10-14/blacksmithing-alliance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_leatherworking": {
-    "source": "professions/leatherworking-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "mount_charger": {
-    "source": "mounts/charger-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "raid_naxx": {
-    "source": "morning-2026-10-14/naxxramas-kelthuzad-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_rogue-alliance": {
-    "source": "tier-sets/rogue/tier1-alliance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_enchanting": {
-    "source": "professions/enchanting-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_tailoring": {
-    "source": "professions/tailoring-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_fishing": {
-    "source": "professions/fishing-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_alchemy": {
-    "source": "professions/alchemy-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_first_aid": {
-    "source": "professions/first-aid-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_cooking": {
-    "source": "professions/cooking-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_herbalism": {
-    "source": "professions/herbalism-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_nozdormu": {
-    "source": "morning-2026-10-14/brood-nozdormu-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_hydraxian": {
-    "source": "reputations/hydraxian-waterlords-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_mining": {
-    "source": "professions/mining-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_engineering": {
-    "source": "professions/engineering-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_engineering-horde": {
-    "source": "professions/engineering-horde-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "key_ubrs": {
-    "source": "blackrock-spire/master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "key_strat": {
-    "source": "stratholme/master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_set_mail_horde_shaman": {
-    "source": "pvp/warlord-mail-shaman-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_dungeon1_warrior": {
-    "source": "tier-sets/warrior/valor-alliance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_dungeon2_hunter": {
-    "source": "beastmaster-hunter-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_arathi": {
-    "source": "pvp_arathi-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_tauren_warrior": {
-    "source": "allclasses_tauren_warrior-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_alliance_warlock": {
-    "source": "allclasses_alliance_warlock-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_horde_druid": {
-    "source": "allclasses_horde_druid-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_forever_raid": {
-    "source": "set_forever_raid-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_dungeon2": {
-    "source": "set_dungeon2-scholomance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_dungeon1_warlock": {
-    "source": "dreadmist-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_dungeon1_shaman": {
-    "source": "tier-sets/shaman/elements-five-thunders-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_set_cloth_ally": {
-    "source": "pvp/marshal-cloth-durgle-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_dungeon1_paladin": {
-    "source": "lightforge-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_dwarf_paladin": {
-    "source": "dwarf-paladin-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "att_ony_horde": {
-    "source": "onyxia-horde-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "att_ony_ally": {
-    "source": "onyxia-alliance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_buffs_mage": {
-    "source": "social-buffs/mage-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_buffs_druid": {
-    "source": "social-buffs/druid-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_buffs_paladin": {
-    "source": "social-buffs/paladin-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_buffs_priest": {
-    "source": "social-buffs/priest-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_set_plate_ally": {
-    "source": "pvp/plate/marshal-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_set_plate_horde": {
-    "source": "pvp/plate/warlord-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_friends": {
-    "source": "social-friends-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_mount_horde": {
-    "source": "pvp/war-kodo-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_ambassador_ally_ironforge": {
-    "source": "cities/ironforge-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_ambassador_ally_darnassus": {
-    "source": "cities/darnassus-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_ambassador_horde_thunderbluff": {
-    "source": "cities/thunderbluff-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rep_ambassador_horde_undercity": {
-    "source": "cities/undercity-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_set_mail_ally": {
-    "source": "pvp/marshal-mail-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_cheers": {
-    "source": "social-cheers-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "prof_blacksmithing-horde": {
-    "source": "professions/blacksmithing-horde-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_waves": {
-    "source": "morning-2026-10-14/social-wave-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_guild": {
-    "source": "morning-2026-10-14/social-guild-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_summons": {
-    "source": "morning-2026-10-14/warlock-summoning-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_partners_in_crime": {
-    "source": "morning-2026-10-14/partners-in-crime-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_guild_dungeon": {
-    "source": "morning-2026-10-14/dungeons-with-guildmates-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_rank14": {
-    "source": "morning-2026-10-14/rank14-victory-backlit-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier25_hunter": {
-    "source": "tier-sets/hunter/strikers-garb-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_warrior_koringar": {
-    "source": "tier-sets/warrior/tier3-koringar-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_trades": {
-    "source": "social/make-trades-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_set_leather_ally": {
-    "source": "pvp/marshal-leather-moonshadow-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_guild_raid": {
-    "source": "social/raids-with-guildmates-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier2_hunter-alliance": {
-    "source": "tier-sets/hunter/tier2-alliance-nordrassil-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_warlock-horde": {
-    "source": "tier-sets/warlock/tier3-horde-pagatha-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier25_plate": {
-    "source": "tier-sets/aq40/plate-savin-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "zinrokh": {
-    "source": "weapons/zinrokh-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier25_leather": {
-    "source": "tier-sets/aq40/leather-telrander-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_set_cloth_horde": {
-    "source": "pvp/warlord-cloth-thysta-clean-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "arcanite_reaper": {
-    "source": "weapons/arcanite-reaper-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_hugs": {
-    "source": "social/give-hugs-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_lol": {
-    "source": "social/say-lol-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_theramore_expedition": {
-    "source": "reputations/theramore-expeditionary-force-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "teebus": {
-    "source": "weapons/teebus-longsword-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_darkspear_raiders": {
-    "source": "reputations/darkspear-raiders-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_hunter-alliance": {
-    "source": "tier-sets/hunter/giantstalker-alliance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_dungeon2_shaman": {
-    "source": "tier-sets/shaman/elements-five-thunders-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "bonereavers_edge": {
-    "source": "weapons/bonereavers-edge-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "deathbringer": {
-    "source": "weapons/deathbringer-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "flame_wrath": {
-    "source": "weapons/flame-wrath-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "frostguard": {
-    "source": "weapons/frostguard-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "gift_of_the_elven_magi": {
-    "source": "weapons/gift-of-the-elven-magi-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "glacial_blade": {
-    "source": "weapons/glacial-blade-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "gutgore_ripper": {
-    "source": "weapons/gutgore-ripper-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "halberd_of_smiting": {
-    "source": "weapons/halberd-of-smiting-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "illusionary_rod": {
-    "source": "weapons/illusionary-rod-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "inventors_focal_sword": {
-    "source": "weapons/inventors-focal-sword-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "jindos_judgement": {
-    "source": "weapons/jindos-judgement-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "krol_blade": {
-    "source": "weapons/krol-blade-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "mograines_might": {
-    "source": "weapons/mograines-might-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "obsidian_edged_blade": {
-    "source": "weapons/obsidian-edged-blade-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "headmasters_charge": {
-    "source": "weapons/headmasters-charge-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "aurastone_hammer": {
-    "source": "weapons/aurastone-hammer-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "lava_dredger": {
-    "source": "weapons/lava-dredger-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "will_of_arlokk": {
-    "source": "weapons/will-of-arlokk-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "mandokirs_sting": {
-    "source": "weapons/mandokirs-sting-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "perditions_blade": {
-    "source": "weapons/perditions-blade-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "ashkandi": {
-    "source": "weapons/ashkandi-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "destiny": {
-    "source": "weapons/destiny-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "maladath": {
-    "source": "weapons/maladath-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "hungering_cold": {
-    "source": "weapons/hungering-cold-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "rod_of_the_ogre_magi": {
-    "source": "weapons/rod-of-the-ogre-magi-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "shadowstrike": {
-    "source": "weapons/shadowstrike-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "silent_fang": {
-    "source": "weapons/silent-fang-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "spinal_reaper": {
-    "source": "weapons/spinal-reaper-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_priest-horde": {
-    "source": "tier-sets/priest/tier1-horde-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "staff_of_dominance": {
-    "source": "weapons/staff-of-dominance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "staff_of_the_ruins": {
-    "source": "weapons/staff-of-the-ruins-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "sword_of_zeal": {
-    "source": "weapons/sword-of-zeal-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "raid_kazzak": {
-    "source": "raids/lord-kazzak-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "cruel_hand_of_timmy": {
-    "source": "weapons/cruel-hand-of-timmy-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "hammer_of_grace": {
-    "source": "weapons/hammer-of-grace-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "wraith_scythe": {
-    "source": "weapons/wraith-scythe-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "wand_of_eternal_light": {
-    "source": "weapons/wand-of-eternal-light-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "thrash_blade": {
-    "source": "weapons/thrash-blade-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "touch_of_chaos": {
-    "source": "weapons/touch-of-chaos-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_dwarf_rogue": {
-    "source": "leveling/dwarf-rogue-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_dwarf_warrior": {
-    "source": "leveling/dwarf-warrior-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_nightelf_rogue": {
-    "source": "leveling/nightelf-rogue-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_nightelf_warrior_female": {
-    "source": "leveling/nightelf-warrior-female-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_nightelf_warrior_male": {
-    "source": "leveling/nightelf-warrior-male-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_gnome_rogue": {
-    "source": "leveling/gnome-rogue-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_priest_gnome": {
-    "source": "tier-sets/priest/tier3-gnome-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_gnome_caster": {
-    "source": "leveling/gnome-caster-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_rogue_human": {
-    "source": "tier-sets/rogue/tier3-human-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_human_warrior_male": {
-    "source": "leveling/human-warrior-male-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_human_warrior_female": {
-    "source": "leveling/human-warrior-female-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_human_paladin": {
-    "source": "leveling/human-paladin-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_human_hunter": {
-    "source": "leveling/human-hunter-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_orc_rogue": {
-    "source": "leveling/orc-rogue-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_troll_hunter_male": {
-    "source": "leveling/troll-hunter-male-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "pvp_troll_hunter_mail": {
-    "source": "pvp/troll-hunter-mail-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_buffs_horde": {
-    "source": "social/buffs-horde-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_troll_rogue": {
-    "source": "leveling/troll-rogue-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "tier3_rogue_troll": {
-    "source": "tier-sets/rogue/tier3-troll-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_troll_priest": {
-    "source": "leveling/troll-priest-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_tier1_shaman_troll": {
-    "source": "tier-sets/shaman/tier1-troll-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_troll_warlock": {
-    "source": "leveling/troll-warlock-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_troll_hunter_female": {
-    "source": "leveling/troll-hunter-female-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_chests": {
-    "source": "chests-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "cloth_donations": {
-    "source": "donate-cloth-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_dances_horde": {
-    "source": "dance-horde-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_dances_alliance": {
-    "source": "dance-alliance-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "widows_remorse": {
-    "source": "widows-remorse-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "lobotomizer": {
-    "source": "the-lobotomizer-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "demonslayer": {
-    "source": "demonslayer-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "claw_of_the_black_drake": {
-    "source": "claw-of-the-black-drake-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_scarlet_crusade": {
-    "source": "scarlet-crusade-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "ancient_bone_bow": {
-    "source": "ancient-bone-bow-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "annihilator": {
-    "source": "annihilator-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "azuresong_mageblade": {
-    "source": "azuresong-mageblade-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_forever_raid_alliance": {
-    "source": "set_forever_raid-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "set_forever_raid_horde": {
-    "source": "forever-hyjal-horde-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "social_buffs_alliance": {
-    "source": "social-buffs/alliance-buff-others-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "might_of_menethil": {
-    "source": "might-of-menethil-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "sulthraze": {
-    "source": "sulthraze-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "fiery_war_axe": {
-    "source": "fiery-war-axe-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "viskag": {
-    "source": "viskag-bloodletter-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "unstoppable_force": {
-    "source": "unstoppable-force-master.png",
+  "allclasses_gnome_warrior_male": {
+    "source": "tier-sets/warrior/tier2-gnome-male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -1847,92 +209,36 @@
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "allclasses_gnome_warrior_male": {
-    "source": "tier-sets/warrior/tier2-gnome-male-master.png",
+  "might_of_menethil": {
+    "source": "might-of-menethil-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "allclasses_gnome_warrior_female": {
-    "source": "pvp/gnome-warrior-female-master.png",
+  "sulthraze": {
+    "source": "sulthraze-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "allclasses_human_rogue_male": {
-    "source": "leveling/human-rogue-male-master.png",
+  "fiery_war_axe": {
+    "source": "fiery-war-axe-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "allclasses_undead_rogue_male": {
-    "source": "leveling/undead-rogue-male-master.png",
+  "viskag": {
+    "source": "viskag-bloodletter-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "allclasses_undead_rogue_female": {
-    "source": "leveling/undead-rogue-female-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "collect_the_1_ring": {
-    "source": "collect_the_1_ring-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_undead_priest_male": {
-    "source": "allclasses_undead_priest_male-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_undead_priest_female": {
-    "source": "allclasses_undead_priest_female-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_human_rogue_female": {
-    "source": "allclasses_human_rogue_female-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_human_hunter_male": {
-    "source": "allclasses_human_hunter_male-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "dungeon_hunter_human_male": {
-    "source": "dungeon_hunter_human_male-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_human_paladin_male": {
-    "source": "allclasses_human_paladin_male-master.png",
-    "aspect": 1.3333333333333333,
-    "bytes": 175948,
-    "mips": 10,
-    "equivalent_tga_bytes": 786476
-  },
-  "allclasses_gnome_warlock_male": {
-    "source": "leveling/gnome-warlock-male-master.png",
+  "unstoppable_force": {
+    "source": "unstoppable-force-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -2024,6 +330,90 @@
   },
   "drillborer_disk": {
     "source": "drillborer_disk-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "draconian_deflector": {
+    "source": "draconian_deflector-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "dwarven_hand_cannon": {
+    "source": "dwarven_hand_cannon-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "wall_of_the_dead": {
+    "source": "wall_of_the_dead-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "doomfinger": {
+    "source": "doomfinger-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "crimson_shocker": {
+    "source": "crimson_shocker-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_hunter_nightelf_male": {
+    "source": "set_tier2_hunter_nightelf_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_paladin_human": {
+    "source": "set_dungeon1_paladin_human-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_rogue_orc": {
+    "source": "set_dungeon1_rogue_orc-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_warrior_tauren": {
+    "source": "set_dungeon1_warrior_tauren-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_paladin_human": {
+    "source": "set_dungeon2_paladin_human-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_warlock_orc": {
+    "source": "set_dungeon2_warlock_orc-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_field_marshal_s_sanctuary_druid_m": {
+    "source": "pvp_field_marshal_s_sanctuary_druid_m-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -2295,6 +685,13 @@
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
+  "allclasses_nightelf_druid_male": {
+    "source": "allclasses_nightelf_druid_male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
   "allclasses_nightelf_hunter_male": {
     "source": "allclasses_nightelf_hunter_male-master.png",
     "aspect": 1.3333333333333333,
@@ -2400,6 +797,13 @@
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
+  "allclasses_tauren_druid_female": {
+    "source": "allclasses_tauren_druid_female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
   "allclasses_tauren_hunter_female": {
     "source": "allclasses_tauren_hunter_female-master.png",
     "aspect": 1.3333333333333333,
@@ -2486,6 +890,13 @@
   },
   "allclasses_undead_warlock_female": {
     "source": "allclasses_undead_warlock_female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_undead_warlock_male": {
+    "source": "allclasses_undead_warlock_male-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -2883,50 +1294,267 @@
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "draconian_deflector": {
-    "source": "draconian_deflector-master.png",
+  "set_forever_raid_alliance": {
+    "source": "set_forever_raid-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "dwarven_hand_cannon": {
-    "source": "dwarven_hand_cannon-master.png",
+  "set_forever_raid_horde": {
+    "source": "forever-hyjal-horde-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "wall_of_the_dead": {
-    "source": "wall_of_the_dead-master.png",
+  "ancient_bone_bow": {
+    "source": "ancient-bone-bow-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "doomfinger": {
-    "source": "doomfinger-master.png",
+  "annihilator": {
+    "source": "annihilator-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "allclasses_nightelf_druid_male": {
-    "source": "allclasses_nightelf_druid_male-master.png",
+  "azuresong_mageblade": {
+    "source": "azuresong-mageblade-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "allclasses_tauren_druid_female": {
-    "source": "allclasses_tauren_druid_female-master.png",
+  "set_scarlet_crusade": {
+    "source": "scarlet-crusade-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "allclasses_undead_warlock_male": {
-    "source": "allclasses_undead_warlock_male-master.png",
+  "widows_remorse": {
+    "source": "widows-remorse-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "lobotomizer": {
+    "source": "the-lobotomizer-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "demonslayer": {
+    "source": "demonslayer-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "claw_of_the_black_drake": {
+    "source": "claw-of-the-black-drake-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_dances_alliance": {
+    "source": "dance-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_dances_horde": {
+    "source": "dance-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "cloth_donations": {
+    "source": "donate-cloth-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_chests": {
+    "source": "chests-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_hunter_female": {
+    "source": "leveling/troll-hunter-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_warlock": {
+    "source": "leveling/troll-warlock-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_shaman_troll": {
+    "source": "tier-sets/shaman/tier1-troll-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_priest": {
+    "source": "leveling/troll-priest-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_rogue_troll": {
+    "source": "tier-sets/rogue/tier3-troll-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_rogue": {
+    "source": "leveling/troll-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_buffs_horde": {
+    "source": "social/buffs-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_buffs_alliance": {
+    "source": "social-buffs/alliance-buff-others-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_troll_hunter_mail": {
+    "source": "pvp/troll-hunter-mail-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_hunter_male": {
+    "source": "leveling/troll-hunter-male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_orc_rogue": {
+    "source": "leveling/orc-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_hunter": {
+    "source": "leveling/human-hunter-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_paladin": {
+    "source": "leveling/human-paladin-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_warrior_female": {
+    "source": "leveling/human-warrior-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_human_warrior_male": {
+    "source": "leveling/human-warrior-male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_rogue_human": {
+    "source": "tier-sets/rogue/tier3-human-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_gnome_caster": {
+    "source": "leveling/gnome-caster-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_priest_gnome": {
+    "source": "tier-sets/priest/tier3-gnome-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_gnome_rogue": {
+    "source": "leveling/gnome-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_nightelf_warrior_male": {
+    "source": "leveling/nightelf-warrior-male-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_nightelf_warrior_female": {
+    "source": "leveling/nightelf-warrior-female-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_nightelf_rogue": {
+    "source": "leveling/nightelf-rogue-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_dwarf_warrior": {
+    "source": "leveling/dwarf-warrior-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_dwarf_rogue": {
+    "source": "leveling/dwarf-rogue-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
@@ -2939,57 +1567,1485 @@
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "crimson_shocker": {
-    "source": "crimson_shocker-master.png",
+  "pvp_theramore_expedition": {
+    "source": "reputations/theramore-expeditionary-force-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_tier2_hunter_nightelf_male": {
-    "source": "set_tier2_hunter_nightelf_male-master.png",
+  "pvp_darkspear_raiders": {
+    "source": "reputations/darkspear-raiders-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_dungeon1_paladin_human": {
-    "source": "set_dungeon1_paladin_human-master.png",
+  "touch_of_chaos": {
+    "source": "weapons/touch-of-chaos-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_dungeon1_rogue_orc": {
-    "source": "set_dungeon1_rogue_orc-master.png",
+  "thrash_blade": {
+    "source": "weapons/thrash-blade-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_dungeon1_warrior_tauren": {
-    "source": "set_dungeon1_warrior_tauren-master.png",
+  "wand_of_eternal_light": {
+    "source": "weapons/wand-of-eternal-light-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_dungeon2_paladin_human": {
-    "source": "set_dungeon2_paladin_human-master.png",
+  "wraith_scythe": {
+    "source": "weapons/wraith-scythe-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "set_dungeon2_warlock_orc": {
-    "source": "set_dungeon2_warlock_orc-master.png",
+  "hammer_of_grace": {
+    "source": "weapons/hammer-of-grace-master.png",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,
     "equivalent_tga_bytes": 786476
   },
-  "pvp_field_marshal_s_sanctuary_druid_m": {
-    "source": "pvp_field_marshal_s_sanctuary_druid_m-master.png",
+  "cruel_hand_of_timmy": {
+    "source": "weapons/cruel-hand-of-timmy-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_kazzak": {
+    "source": "raids/lord-kazzak-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_barrow": {
+    "source": "raids/burrow-deeps-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_lol": {
+    "source": "social/say-lol-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_hugs": {
+    "source": "social/give-hugs-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "arcanite_reaper": {
+    "source": "weapons/arcanite-reaper-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "teebus": {
+    "source": "weapons/teebus-longsword-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_cloth_horde": {
+    "source": "pvp/warlord-cloth-thysta-clean-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier25_leather": {
+    "source": "tier-sets/aq40/leather-telrander-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier25_plate": {
+    "source": "tier-sets/aq40/plate-savin-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_warlock-horde": {
+    "source": "tier-sets/warlock/tier3-horde-pagatha-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_hunter-alliance": {
+    "source": "tier-sets/hunter/tier2-alliance-nordrassil-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_guild_raid": {
+    "source": "social/raids-with-guildmates-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_leather_ally": {
+    "source": "pvp/marshal-leather-moonshadow-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_trades": {
+    "source": "social/make-trades-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier25_hunter": {
+    "source": "tier-sets/hunter/strikers-garb-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_rank14": {
+    "source": "morning-2026-10-14/rank14-victory-backlit-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_blacksmithing-horde": {
+    "source": "professions/blacksmithing-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_cheers": {
+    "source": "social-cheers-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_mail_ally": {
+    "source": "pvp/marshal-mail-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_ambassador_horde_thunderbluff": {
+    "source": "cities/thunderbluff-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_ambassador_horde_undercity": {
+    "source": "cities/undercity-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_ambassador_ally_ironforge": {
+    "source": "cities/ironforge-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_ambassador_ally_darnassus": {
+    "source": "cities/darnassus-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_mount_horde": {
+    "source": "pvp/war-kodo-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_friends": {
+    "source": "social-friends-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_plate_ally": {
+    "source": "pvp/plate/marshal-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_plate_horde": {
+    "source": "pvp/plate/warlord-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_buffs_mage": {
+    "source": "social-buffs/mage-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_buffs_druid": {
+    "source": "social-buffs/druid-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_buffs_paladin": {
+    "source": "social-buffs/paladin-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_buffs_priest": {
+    "source": "social-buffs/priest-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "att_ony_ally": {
+    "source": "onyxia-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "att_ony_horde": {
+    "source": "onyxia-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_paladin": {
+    "source": "lightforge-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_dwarf_paladin": {
+    "source": "dwarf-paladin-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_cloth_ally": {
+    "source": "pvp/marshal-cloth-durgle-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_shaman": {
+    "source": "tier-sets/shaman/elements-five-thunders-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_shaman": {
+    "source": "tier-sets/shaman/elements-five-thunders-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_hunter-alliance": {
+    "source": "tier-sets/hunter/giantstalker-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_warlock": {
+    "source": "dreadmist-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2": {
+    "source": "set_dungeon2-scholomance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_forever_raid": {
+    "source": "set_forever_raid-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon2_hunter": {
+    "source": "beastmaster-hunter-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "ashbringer": {
+    "source": "weapons/ashbringer-ryman-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_warrior": {
+    "source": "tier-sets/warrior/valor-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_mail_horde_shaman": {
+    "source": "pvp/warlord-mail-shaman-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "key_strat": {
+    "source": "stratholme/master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "key_ubrs": {
+    "source": "blackrock-spire/master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_engineering-horde": {
+    "source": "professions/engineering-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_engineering": {
+    "source": "professions/engineering-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_mining": {
+    "source": "professions/mining-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_hydraxian": {
+    "source": "reputations/hydraxian-waterlords-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_nozdormu": {
+    "source": "morning-2026-10-14/brood-nozdormu-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_cenarion": {
+    "source": "reputations/cenarion-circle-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_herbalism": {
+    "source": "professions/herbalism-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_alchemy": {
+    "source": "professions/alchemy-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_first_aid": {
+    "source": "professions/first-aid-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_cooking": {
+    "source": "professions/cooking-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_fishing": {
+    "source": "professions/fishing-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_blacksmithing": {
+    "source": "morning-2026-10-14/blacksmithing-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_leatherworking": {
+    "source": "professions/leatherworking-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_enchanting": {
+    "source": "professions/enchanting-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "prof_tailoring": {
+    "source": "professions/tailoring-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mount_charger": {
+    "source": "mounts/charger-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_naxx": {
+    "source": "morning-2026-10-14/naxxramas-kelthuzad-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_waves": {
+    "source": "morning-2026-10-14/social-wave-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_guild": {
+    "source": "morning-2026-10-14/social-guild-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_guild_dungeon": {
+    "source": "morning-2026-10-14/dungeons-with-guildmates-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "social_summons": {
+    "source": "morning-2026-10-14/warlock-summoning-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_partners_in_crime": {
+    "source": "morning-2026-10-14/partners-in-crime-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_rogue-alliance": {
+    "source": "tier-sets/rogue/tier1-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_dwarf_hunter": {
+    "source": "leveling/dwarf-hunter-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_bwl": {
+    "source": "blackwing-lair/classic-key-art-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_dungeon1_hunter": {
+    "source": "tier-sets/hunter/beaststalker-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "benediction-alliance": {
+    "source": "weapons/benediction-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_thorium": {
+    "source": "reputations/thorium-brotherhood-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_wsg_ally": {
+    "source": "reputations/silverwing-sentinels-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_wsg_horde": {
+    "source": "reputations/warsong-outriders-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_av_ally": {
+    "source": "reputations/stormpike-guard-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "wolfsbane": {
+    "source": "weapons/wolfsbane-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mount_tiger": {
+    "source": "mounts/swift-zulian-tiger-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_av_horde": {
+    "source": "pvp/frostwolf-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_ambassador_ally": {
+    "source": "reputations/ambassador-alliance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_ambassador_horde": {
+    "source": "reputations/ambassador-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mount_qiraji_aq": {
+    "source": "mounts/aq-battle-tanks.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "fishing_extravaganza": {
+    "source": "fishing/booty-bay-review.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier25": {
+    "source": "tier-sets/aq40/tier25-review-v2.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_hunter": {
+    "source": "tier-sets/hunter/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_warlock-alliance": {
+    "source": "tier-sets/warlock/tier3-alliance.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_warlock-alliance": {
+    "source": "tier-sets/warlock/tier2-alliance.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_druid-horde": {
+    "source": "tier-sets/druid/tier2-horde.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_paladin": {
+    "source": "tier-sets/paladin/lawbringer-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_nightelf_hunter": {
+    "source": "leveling/nightelf-hunter.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_horde_hunter": {
+    "source": "leveling/horde-hunter.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_mount_ally": {
+    "source": "pvp/alliance-mounts.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "gold_5k": {
+    "source": "additional-goals/gold.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_set_mail_horde": {
+    "source": "pvp/warlord-mail.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_timbermaw": {
+    "source": "reputation/timbermaw.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mount_qiraji": {
+    "source": "mounts/scarab-lord-review.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "zinrokh": {
+    "source": "weapons/zinrokh-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "sword_of_zeal": {
+    "source": "weapons/sword-of-zeal-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "staff_of_the_ruins": {
+    "source": "weapons/staff-of-the-ruins-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "staff_of_dominance": {
+    "source": "weapons/staff-of-dominance-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "spinal_reaper": {
+    "source": "weapons/spinal-reaper-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_priest-horde": {
+    "source": "tier-sets/priest/tier1-horde-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "silent_fang": {
+    "source": "weapons/silent-fang-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "shadowstrike": {
+    "source": "weapons/shadowstrike-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rod_of_the_ogre_magi": {
+    "source": "weapons/rod-of-the-ogre-magi-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "hungering_cold": {
+    "source": "weapons/hungering-cold-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "maladath": {
+    "source": "weapons/maladath-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "destiny": {
+    "source": "weapons/destiny-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "ashkandi": {
+    "source": "weapons/ashkandi-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "bonereavers_edge": {
+    "source": "weapons/bonereavers-edge-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "deathbringer": {
+    "source": "weapons/deathbringer-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "flame_wrath": {
+    "source": "weapons/flame-wrath-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "frostguard": {
+    "source": "weapons/frostguard-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "gift_of_the_elven_magi": {
+    "source": "weapons/gift-of-the-elven-magi-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "glacial_blade": {
+    "source": "weapons/glacial-blade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "gutgore_ripper": {
+    "source": "weapons/gutgore-ripper-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "halberd_of_smiting": {
+    "source": "weapons/halberd-of-smiting-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "illusionary_rod": {
+    "source": "weapons/illusionary-rod-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "inventors_focal_sword": {
+    "source": "weapons/inventors-focal-sword-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "jindos_judgement": {
+    "source": "weapons/jindos-judgement-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "krol_blade": {
+    "source": "weapons/krol-blade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mograines_might": {
+    "source": "weapons/mograines-might-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "obsidian_edged_blade": {
+    "source": "weapons/obsidian-edged-blade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "headmasters_charge": {
+    "source": "weapons/headmasters-charge-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "aurastone_hammer": {
+    "source": "weapons/aurastone-hammer-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "lava_dredger": {
+    "source": "weapons/lava-dredger-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "will_of_arlokk": {
+    "source": "weapons/will-of-arlokk-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mandokirs_sting": {
+    "source": "weapons/mandokirs-sting-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "perditions_blade": {
+    "source": "weapons/perditions-blade-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_dwarf_shaman": {
+    "source": "leveling/dwarf-shaman-barador-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_drums_of_war": {
+    "source": "pvp/drums-of-war.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_undead": {
+    "source": "mounts/skeletal-warhorse-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_arathi": {
+    "source": "pvp_arathi-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_tauren_warrior": {
+    "source": "allclasses_tauren_warrior-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_alliance_warlock": {
+    "source": "allclasses_alliance_warlock-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_horde_druid": {
+    "source": "allclasses_horde_druid-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_skyborne": {
+    "source": "mounts/skyborne-mount-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_skyborne_rogue": {
+    "source": "mounts/skyborne-location.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "key_dm": {
+    "source": "additional-goals/key_dm.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_undead_paladin": {
+    "source": "leveling/undead-paladin.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "allclasses_troll_mage": {
+    "source": "leveling/troll-mage.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_troll": {
+    "source": "mounts/troll-raptor.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_human": {
+    "source": "mounts/human-palomino.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_nightelf": {
+    "source": "mounts/nightelf-nightsaber.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "pvp_shared": {
+    "source": "pvp/shared-pvp.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_paladin": {
+    "source": "tier-sets/paladin/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_paladin": {
+    "source": "tier-sets/paladin/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_warlock": {
+    "source": "tier-sets/warlock/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_zg": {
+    "source": "zul-gurub/hakkar.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_shaman": {
+    "source": "tier-sets/shaman/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_orc": {
+    "source": "mounts/orc-wolf.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_tauren": {
+    "source": "mounts/swift-kodo-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_dwarf": {
+    "source": "mounts/dwarf-ram.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "epicmounts_gnome": {
+    "source": "mounts/gnome-mechanostrider.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rep_argentdawn": {
+    "source": "reputation/rep_argentdawn.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "atiesh": {
+    "source": "tall-1200x900/atiesh.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "sulfuras": {
+    "source": "tall-1200x900/sulfuras.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "thunderfury": {
+    "source": "tall-1200x900/thunderfury.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "quelserrar": {
+    "source": "tall-1200x900/quelserrar.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "benediction": {
+    "source": "tall-1200x900/benediction.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_mc": {
+    "source": "tall-1200x900/raid_mc.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "att_mc": {
+    "source": "tall-1200x900/att_mc.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1": {
+    "source": "tall-1200x900/set_tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "lokdelar": {
+    "source": "tall-1200x900/lokdelar.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "frostsaber": {
+    "source": "tall-1200x900/frostsaber.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_viper": {
+    "source": "tall-1200x900/set_viper.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "key_scholo": {
+    "source": "tall-1200x900/key_scholo.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "rhokdelar": {
+    "source": "tall-1200x900/rhokdelar-hunter.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_ony": {
+    "source": "tall-1200x900/raid_ony.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mount_dreadsteed": {
+    "source": "tall-1200x900/mount_dreadsteed.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "mount_deathcharger": {
+    "source": "tall-1200x900/mount_deathcharger.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3": {
+    "source": "tall-1200x900/naxxramas.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "att_naxx": {
+    "source": "tall-1200x900/naxxramas.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_rogue": {
+    "source": "tier-sets/rogue/tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_rogue": {
+    "source": "tier-sets/rogue/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_rogue": {
+    "source": "tier-sets/rogue/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_hunter": {
+    "source": "tier-sets/hunter/tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_hunter": {
+    "source": "tier-sets/hunter/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_mage": {
+    "source": "tier-sets/mage/tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_mage": {
+    "source": "tier-sets/mage/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_warrior": {
+    "source": "tier-sets/warrior/tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_warrior": {
+    "source": "tier-sets/warrior/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_warrior-alliance": {
+    "source": "tier-sets/warrior/tier2-alliance.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_druid": {
+    "source": "tier-sets/druid/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_druid": {
+    "source": "tier-sets/druid/tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_druid": {
+    "source": "tier-sets/druid/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_shaman": {
+    "source": "tier-sets/shaman/tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_shaman": {
+    "source": "tier-sets/shaman/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_warlock": {
+    "source": "tier-sets/warlock/tier1.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_warlock-alliance": {
+    "source": "tier-sets/warlock/tier1-alliance.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_warlock": {
+    "source": "tier-sets/warlock/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_warrior": {
+    "source": "tier-sets/warrior/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_warrior_koringar": {
+    "source": "tier-sets/warrior/tier3-koringar-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_mage": {
+    "source": "tier-sets/mage/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "tier3_priest": {
+    "source": "tier-sets/priest/tier3.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier2_priest": {
+    "source": "tier-sets/priest/tier2.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_tier1_priest": {
+    "source": "tier-sets/priest/tier1-alliance-new-master.png",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "set_violet_sorcerer": {
+    "source": "tall-1200x900/set_violet_sorcerer.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_hyjal": {
+    "source": "tall-1200x900/raid_hyjal.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_aq20": {
+    "source": "tall-1200x900/raid_aq20.jpg",
+    "aspect": 1.3333333333333333,
+    "bytes": 175948,
+    "mips": 10,
+    "equivalent_tga_bytes": 786476
+  },
+  "raid_aq40": {
+    "source": "tall-1200x900/raid_aq40.jpg",
     "aspect": 1.3333333333333333,
     "bytes": 175948,
     "mips": 10,

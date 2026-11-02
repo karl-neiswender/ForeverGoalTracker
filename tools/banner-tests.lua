@@ -112,6 +112,7 @@ do
     for _, entry in ipairs({
         {"MAGE", "Gnome", 2, "allclasses_gnome_mage_male-banner.blp"},
         {"PRIEST", "Gnome", 2, "allclasses_gnome_priest_male-banner.blp"},
+        {"ROGUE", "Gnome", 3, "allclasses_gnome_rogue_female-banner.blp"},
         {"MAGE", "Skyborne", 3, "allclasses_skyborne_mage_female-banner.blp"},
         {"MAGE", "Human", 3, "allclasses_human_mage_female-banner.blp"},
         {"MAGE", "Human", 2, "allclasses_human_mage_male-banner.blp"},
@@ -132,6 +133,7 @@ do
     end
     for _, entry in ipairs({
         {"HUNTER", "Orc", 2, "allclasses_orc_hunter_male-banner.blp"},
+        {"HUNTER", "Orc", 3, "allclasses_orc_hunter_female-banner.blp"},
         {"MAGE", "Orc", 3, "allclasses_orc_mage_female-banner.blp"},
         {"MAGE", "Orc", 2, "allclasses_orc_mage_male-banner.blp"},
         {"ROGUE", "Orc", 3, "allclasses_orc_rogue_female-banner.blp"},
@@ -153,6 +155,7 @@ do
         {"ROGUE", "Troll", 3, "allclasses_troll_rogue_female-banner.blp"},
         {"WARLOCK", "Troll", 2, "allclasses_troll_warlock_male-banner.blp"},
         {"WARRIOR", "Troll", 2, "allclasses_troll_warrior_male-banner.blp"},
+        {"WARRIOR", "Troll", 3, "allclasses_troll_warrior_female-banner.blp"},
         {"MAGE", "Scourge", 3, "allclasses_undead_mage_female-banner.blp"},
         {"MAGE", "Scourge", 2, "allclasses_undead_mage_male-banner.blp"},
         {"WARLOCK", "Scourge", 3, "allclasses_undead_warlock_female-banner.blp"},
@@ -207,8 +210,8 @@ do
         == "allclasses_nightelf_hunter-banner.blp", "female Night Elf Hunter keeps existing art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="NightElf", sex=3})
         == "allclasses_nightelf_rogue-banner.blp", "female Night Elf Rogue keeps existing art")
-    assert(B:ResolveArt("allclasses", {faction="Horde", class="HUNTER", race="Orc", sex=3})
-        == "allclasses_horde_hunter-banner.blp", "female Orc Hunter keeps existing Horde art")
+    assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="Gnome", sex=2})
+        == "allclasses_gnome_rogue-banner.blp", "male Gnome Rogue keeps existing art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="MAGE", race="Gnome", sex=3})
         == "allclasses_gnome_caster-banner.blp", "female Gnome Mage keeps her existing art")
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="PRIEST", race="Gnome", sex=3})
@@ -372,6 +375,7 @@ for _, row in ipairs({
     {"pvp_set_leather_horde_druid", "pvp_warlord_s_sanctuary_druid_f", "Tauren", 3, "pvp_warlord_s_sanctuary_druid_m-banner.blp"},
     {"pvp_set_leather_horde_druid", "pvp_warlord_s_sanctuary_druid_m", "Tauren", 2, "pvp_warlord_s_sanctuary_druid_f-banner.blp"},
     {"pvp_set_cloth_horde_warlock", "pvp_warlord_s_threads_warlock_m", "Orc", 2, "pvp_set_cloth_horde-banner.blp"},
+    {"pvp_set_cloth_horde_mage", "pvp_warlord_s_regalia_mage_m", "Orc", 2, "pvp_set_cloth_horde-banner.blp"},
 }) do
     local goal, key, race, sex = unpack(row)
     local path, aspect, preprocessed = B:ResolveArt(goal, {faction="Horde", race=race, sex=sex})
@@ -382,6 +386,19 @@ for _, row in ipairs({
 end
 assert(B:ResolveArt("pvp_set_leather_horde_druid", {faction="Horde", race="Troll", sex=2})
     == "set_tier2_warrior-banner.blp", "other Horde Druid races keep the existing fallback")
+assert(B:ResolveArt("pvp_set_cloth_horde_mage", {faction="Horde", race="Orc", sex=3})
+    == "pvp_set_cloth_horde-banner.blp", "female Orc Mages keep the Horde cloth PvP fallback")
+assert(B:ResolveArt("tier3_warrior", {faction="Alliance", race="Human", sex=3})
+    == "tier3_warrior_human_female-banner.blp", "female Human Warriors get dedicated Tier 3 art")
+assert(B:ResolveArt("tier3_warrior", {faction="Alliance", race="Human", sex=2})
+    == "tier3_warrior-banner.blp", "male Human Warriors keep Alliance Tier 3 art")
+assert(B:ResolveArt("tier3_warrior", {faction="Horde", race="Orc", sex=3})
+    == "tier3_warrior_koringar-banner.blp", "Horde Warriors keep Horde Tier 3 art")
+for _, id in ipairs({"aegis_of_the_blood_god", "elemental_mage_staff", "elementium_reinforced_bulwark"}) do
+    local path, aspect, preprocessed = B:ResolveArt(id)
+    assert(F.GoalById(id) and path == id .. "-banner.blp" and aspect == 4/3 and preprocessed,
+        id .. " resolves to its approved banner")
+end
 assert(B:ResolveArt("set_tier1_hunter", {faction="Alliance", race="NightElf", sex=2})
     == "set_tier1_hunter_nightelf_male-banner.blp", "male Night Elf Hunter gets dedicated Tier 1 art")
 assert(B:ResolveArt("set_tier1_hunter", {faction="Alliance", race="NightElf", sex=3})

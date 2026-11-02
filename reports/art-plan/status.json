@@ -918,5 +918,45 @@
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A176": {
+  "banner": "allclasses_gnome_rogue_female",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A177": {
+  "banner": "allclasses_orc_hunter_female",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A178": {
+  "banner": "allclasses_troll_warrior_female",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A179": {
+  "banner": "aegis_of_the_blood_god",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A180": {
+  "banner": "elemental_mage_staff",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A181": {
+  "banner": "elementium_reinforced_bulwark",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A182": {
+  "banner": "tier3_warrior_human_female",
+  "date": "2026-11-02",
+  "state": "installed"
+ },
+ "A183": {
+  "banner": "pvp_warlord_s_regalia_mage_m",
+  "date": "2026-11-02",
+  "state": "installed"
  }
 }

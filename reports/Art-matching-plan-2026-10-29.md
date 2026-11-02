@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 131 of 161 workable banners verified.** Queued 14, Installed 16, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
+**Progress: 131 of 161 workable banners verified.** Queued 6, Installed 24, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
 
 ## Codex: start here
 
@@ -358,14 +358,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A176 | P2 | `alliance-gnome-female-rogue-generic-leveling-ph4.png` 745x1040 |  | Gnome Rogue F: `allclasses` / `allclasses_gnome_rogue_female` | Queued | Karl's pick, card scan, crop first Fills gap G002. Karl 2026-11-02 pass: art is a Gnome female Rogue. |
-| ☐ | A177 | P2 | `horde-orc-female-hunter-generic-leveling-ph4-2.png` 745x1040 | `horde-orc-female-hunter-generic-leveling-ph3.png` | Orc Hunter F: `allclasses` / `allclasses_orc_hunter_female` | Queued | Karl's pick, card scan, crop first Fills gap G010. Karl 2026-11-02 pass: art is a Orc female Hunter. |
-| ☐ | A178 | P2 | `horde-troll-female-hunter-warrior-generic-leveling-ph2.png` 745x1040 |  | Troll Warrior F: `allclasses` / `allclasses_troll_warrior_female` | Queued | Karl's pick, card scan, crop first Fills gap G011. Karl 2026-11-02 pass: art is a Troll female Warrior. |
-| ☐ | A179 | P1 | `item-aegis-of-the-blood-god.png` 745x1040 |  | Aegis of the Blood God: `aegis_of_the_blood_god` / `aegis_of_the_blood_god` | Queued | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
-| ☐ | A180 | P1 | `item-elemental-mage-staff.png` 745x1040 |  | Elemental Mage Staff: `elemental_mage_staff` / `elemental_mage_staff` | Queued | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
-| ☐ | A181 | P1 | `item-elementium-bulwark.png` 745x1040 |  | Elementium Reinforced Bulwark: `elementium_reinforced_bulwark` / `elementium_reinforced_bulwark` | Queued | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
-| ☐ | A182 | P3 | `alliance-human-female-warrior-tier3.png` 745x1040 |  | Tier 3 Warrior A F: `tier3_warrior` / `tier3_warrior_human_female` | Queued | Karl's pick, card scan, crop first Fills gap G043. Source card is the Human female Warrior from Karl 2026-11-02 (ph7 tier 3). |
-| ☐ | A183 | P3 | `horde-orc-male-warlock-mage-pvpset-cloth.png` 745x1040 |  | Warlord's Regalia (Mage) M: `pvp_set_cloth_horde_mage` / `pvp_warlord_s_regalia_mage_m` | Queued | Karl's pick, card scan, crop first Fills gap G051. PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+| ☐ | A176 | P2 | `alliance-gnome-female-rogue-generic-leveling-ph4.png` 745x1040 |  | Gnome Rogue F: `allclasses` / `allclasses_gnome_rogue_female` | Installed | Karl's pick, card scan, crop first Fills gap G002. Karl 2026-11-02 pass: art is a Gnome female Rogue. |
+| ☐ | A177 | P2 | `horde-orc-female-hunter-generic-leveling-ph4-2.png` 745x1040 | `horde-orc-female-hunter-generic-leveling-ph3.png` | Orc Hunter F: `allclasses` / `allclasses_orc_hunter_female` | Installed | Karl's pick, card scan, crop first Fills gap G010. Karl 2026-11-02 pass: art is a Orc female Hunter. |
+| ☐ | A178 | P2 | `horde-troll-female-hunter-warrior-generic-leveling-ph2.png` 745x1040 |  | Troll Warrior F: `allclasses` / `allclasses_troll_warrior_female` | Installed | Karl's pick, card scan, crop first Fills gap G011. Karl 2026-11-02 pass: art is a Troll female Warrior. |
+| ☐ | A179 | P1 | `item-aegis-of-the-blood-god.png` 745x1040 |  | Aegis of the Blood God: `aegis_of_the_blood_god` / `aegis_of_the_blood_god` | Installed | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☐ | A180 | P1 | `item-elemental-mage-staff.png` 745x1040 |  | Elemental Mage Staff: `elemental_mage_staff` / `elemental_mage_staff` | Installed | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☐ | A181 | P1 | `item-elementium-bulwark.png` 745x1040 |  | Elementium Reinforced Bulwark: `elementium_reinforced_bulwark` / `elementium_reinforced_bulwark` | Installed | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☐ | A182 | P3 | `alliance-human-female-warrior-tier3.png` 745x1040 |  | Tier 3 Warrior A F: `tier3_warrior` / `tier3_warrior_human_female` | Installed | Karl's pick, card scan, crop first Fills gap G043. Source card is the Human female Warrior from Karl 2026-11-02 (ph7 tier 3). |
+| ☐ | A183 | P3 | `horde-orc-male-warlock-mage-pvpset-cloth.png` 745x1040 |  | Warlord's Regalia (Mage) M: `pvp_set_cloth_horde_mage` / `pvp_warlord_s_regalia_mage_m` | Installed | Karl's pick, card scan, crop first Fills gap G051. PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 
 ### Batch 23
 
