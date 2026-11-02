@@ -480,9 +480,9 @@
   "state": "verified"
  },
  "A084": {
-  "date": "2026-10-29",
-  "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
-  "state": "blocked"
+  "date": "2026-11-02",
+  "note": "source swapped to horde-troll-male-shaman-leveling.png",
+  "state": "queued"
  },
  "A085": {
   "banner": "allclasses_troll_warlock_male",

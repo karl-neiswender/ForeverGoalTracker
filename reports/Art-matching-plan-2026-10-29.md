@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 160 of 166 workable banners verified.** Queued 6, Verified 160, Blocked 22, Skipped (low-res) 3. 50 slots have no source image.
+**Progress: 160 of 168 workable banners verified.** Queued 8, Verified 160, Blocked 21, Skipped (low-res) 3. 49 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 166 workable banners; P1 is 45, P2 is 51, P3 is 61. Finishing all of P1 and P2 by Nov 4 needs about 19 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 168 workable banners; P1 is 45, P2 is 53, P3 is 61. Finishing all of P1 and P2 by Nov 4 needs about 20 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -204,7 +204,6 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
 | ☑ | A083 | P2 | `horde-troll-female-rogue-generic-leveling-2.png` 745x1040 | `horde-troll-female-rogue-generic-leveling.png` | Level Classes to 60: Troll Rogue F: `allclasses` / `allclasses_troll_rogue_female` | Verified | card scan, crop first  |
-| ☐ | A084 | P2 | `horde-troll-male-shaman-generic.png` 745x1040 | `horde-troll-male-shaman-leveling.png` | Level Classes to 60: Troll Shaman M: `allclasses` / `allclasses_troll_shaman_male` | Blocked | card scan, crop first  |
 | ☑ | A085 | P2 | `horde-troll-male-warlock-generic.png` 745x1040 |  | Level Classes to 60: Troll Warlock M: `allclasses` / `allclasses_troll_warlock_male` | Verified | card scan, crop first  |
 | ☑ | A086 | P2 | `horde-troll-male-warrior-leveling-2.jpg` 843x650 | `horde-troll-male-warrior-generic-2.jpg` | Level Classes to 60: Troll Warrior M: `allclasses` / `allclasses_troll_warrior_male` | Verified | Karl's pick  |
 | ☑ | A087 | P2 | `horde-undead-female-mage-tier3.png` 745x1040 |  | Level Classes to 60: Undead Mage F: `allclasses` / `allclasses_undead_mage_female` | Verified | card scan, crop first  |
@@ -381,12 +380,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
+| ☐ | A084 | P2 | `horde-troll-male-shaman-leveling.png` 745x1040 | `horde-troll-male-shaman-generic-leveling-ph3.png` | Level Classes to 60: Troll Shaman M: `allclasses` / `allclasses_troll_shaman_male` | Queued | card scan, crop first Karl 2026-11-02: Troll Shaman leveling art is wanted for both sexes. The addon resolves allclasses for a Troll Shaman to the shared Tier 1 Shaman banner today, so this slot was never mapped (the earlier 'already loaded' note referred to the Tier 1 troll banner). Primary is the Jee'zee card; alternate is Mojo Shaper Ojo'mon. |
 | ☐ | A168 | P4 | `alliance-dwarf-male-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue A M: `tier3_rogue` / `tier3_rogue_dwarf_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
 | ☐ | A187 | P1 | `rep-steamwheedle-cartel.jpg` 1200x1600 | `location-booty-bay.jpg` | Exalted: Steamwheedle Cartel: `rep_steamwheedle` / `rep_steamwheedle` | Queued | Karl's pick Karl's pick (2026-11-02): the top-hat goblin potion trader, from his op8 option. Portrait 1200x1600: crop to 4:3 around the face, hat and potion hand; keep the monocle and the glowing vial. Booty Bay location image stays as the alternate. |
 | ☐ | A188 | P3 | `alliance-nightelf-male-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue A M (Night Elf): `tier3_rogue` / `tier3_rogue_nightelf_male` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
 | ☐ | A189 | P3 | `alliance-nightelf-female-rogue-tier3.jpg` 745x1040 |  | Tier 3 Rogue A F (Night Elf): `tier3_rogue` / `tier3_rogue_nightelf_female` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
 | ☐ | A190 | P3 | `alliance-gnome-female-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue A F (Gnome): `tier3_rogue` / `tier3_rogue_gnome_female` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
 | ☐ | A191 | P3 | `alliance-human-male-warrior-tier1.png` 745x1040 | `alliance-nightelf-male-warrior-tier1.png` | Tier 1 Warrior A: `set_tier1_warrior` / `set_tier1_warrior-alliance` | Queued | Karl's pick, card scan, crop first Karl 2026-11-02: an Alliance Warrior sees the Horde orc Battlegear of Might image, because only the two Orc variants and the shared orc default exist. This is the Alliance default for every Alliance race. Source is the human male Battlegear of Might card; the Night Elf male card is the alternate. |
+| ☐ | A192 | P2 | `horde-troll-female-shaman-tier3.png` 745x1040 | `horde-troll-female-shaman-pvpset-mail.png` | Level Classes to 60: Troll Shaman F: `allclasses` / `allclasses_troll_shaman_female` | Queued | Karl's pick, card scan, crop first Karl 2026-11-02: female Troll Shaman art exists after all. Primary is the Soothing Wave card; alternate is Mojo Doctor Zin'tar (hooded, from the PvP mail file). |
 
 ## Skipped or blocked (Codex: do not touch)
 
@@ -397,7 +398,6 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A039 | Blocked | `boss-hakkar.jpg` | 2500x3277 | Exalted: Zandalar Tribe (both) Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence. |
 | A040 | Blocked | `location-blackrock-mountain-gates.jpg` | 872x981 | Key: Shadowforge Key (both) Today it borrows the Seal of Ascension image. The Dark Iron gate face suits the Shadowforge gate. Alt: location-blackrock-spire-2.jpg. |
 | A056 | Blocked | `alliance-human-female-warlock-leveling.jpg` | 1000x1143 | Level Classes to 60: Human Warlock F  |
-| A084 | Blocked | `horde-troll-male-shaman-generic.png` | 745x1040 | Level Classes to 60: Troll Shaman M  |
 | A096 | Blocked | `alliance-human-male-priest-benediction-tier1.jpg` | 862x1000 | Tier 1 Priest A M  |
 | A097 | Blocked | `horde-tauren-female-priest-shadow-tier1.png` | 745x1040 | Tier 1 Priest H F  |
 | A102 | Blocked | `horde-tauren-female-druid-tier2.jpg` | 862x1200 | Tier 2 Druid H F  |
@@ -431,7 +431,6 @@ No picture in the folder fits these. They need new art or a source from Karl; no
 - G007: High Order Skyborne Mage M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
 - G008: High Order Skyborne Druid M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
 - G009: High Order Skyborne Druid F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
-- G012: Troll Shaman F - No image of that sex. Closest, other sex: horde-troll-male-shaman-generic-leveling-ph3-2.png (Troll male, 745px); horde-troll-male-shaman-generic-leveling-ph3.png (Troll male, 745px). Keeps the shared banner.
 - G013: Windshaper Skyborne Warrior M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
 - G014: Windshaper Skyborne Warrior F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
 - G015: Windshaper Skyborne Hunter M - Forever-only race with no card art. Keeps the Skyborne location image and class art.

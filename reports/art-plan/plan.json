@@ -2522,7 +2522,7 @@
    "batch": 10
   },
   {
-   "file": "horde-troll-male-shaman-generic.png",
+   "file": "horde-troll-male-shaman-leveling.png",
    "group": "leveling",
    "priority": 2,
    "title": "Troll Shaman M",
@@ -2540,7 +2540,7 @@
      "key": "allclasses_troll_shaman_male"
     }
    ],
-   "alt": "horde-troll-male-shaman-leveling.png",
+   "alt": "horde-troll-male-shaman-generic-leveling-ph3.png",
    "w": 745,
    "h": 1040,
    "card": true,
@@ -2548,10 +2548,13 @@
    "karl": false,
    "inferred": false,
    "now": "set_tier1_shaman",
-   "notes": "",
+   "notes": "Karl 2026-11-02: Troll Shaman leveling art is wanted for both sexes. The addon resolves allclasses for a Troll Shaman to the shared Tier 1 Shaman banner today, so this slot was never mapped (the earlier 'already loaded' note referred to the Tier 1 troll banner). Primary is the Jee'zee card; alternate is Mojo Shaper Ojo'mon.",
    "id": "A084",
    "state": "queued",
-   "batch": 10
+   "batch": 24,
+   "previous": [
+    "horde-troll-male-shaman-generic.png"
+   ]
   },
   {
    "file": "horde-troll-male-warlock-generic.png",
@@ -5995,6 +5998,38 @@
    "id": "A191",
    "state": "queued",
    "batch": 24
+  },
+  {
+   "file": "horde-troll-female-shaman-tier3.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Troll Shaman F",
+   "targets": [
+    {
+     "label": "Level Classes to 60: Troll Shaman F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Troll",
+      "sex": 3
+     },
+     "key": "allclasses_troll_shaman_female"
+    }
+   ],
+   "alt": "horde-troll-female-shaman-pvpset-mail.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares the Tier 1 Shaman banner",
+   "notes": "Karl 2026-11-02: female Troll Shaman art exists after all. Primary is the Soothing Wave card; alternate is Mojo Doctor Zin'tar (hooded, from the PvP mail file).",
+   "id": "A192",
+   "state": "queued",
+   "batch": 24
   }
  ],
  "gaps": [
@@ -6053,14 +6088,6 @@
    "why": "No image in the folder for this slot.",
    "id": "G009",
    "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
-  },
-  {
-   "group": "leveling",
-   "slot": "Troll Shaman F",
-   "goal": null,
-   "why": "No image in the folder for this slot.",
-   "id": "G012",
-   "note": "No image of that sex. Closest, other sex: horde-troll-male-shaman-generic-leveling-ph3-2.png (Troll male, 745px); horde-troll-male-shaman-generic-leveling-ph3.png (Troll male, 745px). Keeps the shared banner."
   },
   {
    "group": "leveling",
@@ -6625,6 +6652,7 @@
   "G051": "A183",
   "G054": "A184",
   "G055": "A185",
-  "G001": "A186"
+  "G001": "A186",
+  "G012": "A192"
  }
 }
