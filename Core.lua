@@ -16007,7 +16007,7 @@ local function Suggest(picked)
                     if FGT.KnowsSkill(p) then table.insert(knownSec, p) end
                 end
                 if sec and #knownSec > 0 then push(list, Entry(me, "prof_secondary", PartKeys(sec, knownSec), tag)) end
-                for _, id in ipairs({ "rep_thorium", "rep_zandalar", "rep_hydraxian", "rep_nozdormu" }) do
+                for _, id in ipairs({ "rep_thorium", "rep_zandalar", "rep_hydraxian", "rep_nozdormu", "rep_steamwheedle" }) do
                     push(list, Entry(me, id, nil, tag))
                 end
             elseif it.key == "social" then
