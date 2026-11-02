@@ -3765,6 +3765,45 @@ do -- Short inner shadows stay inside the etched edge, below content.
     ApplyHGradient(right, {0,0,0}, {0,0,0}, 0,0.24)
 end
 
+-- What each sort's order is called, normal then reversed (the arrow button's tooltip).
+local SORT_DIRECTION = {
+    alpha = { "A to Z", "Z to A" },
+    difficulty = { "Easiest first", "Hardest first" },
+    duration = { "Shortest first", "Longest first" },
+    progress = { "Most progress first", "Least progress first" },
+    progression = { "Earliest sets first", "Latest sets first" },
+}
+-- A small button beside a sort dropdown that reverses the order. getMode() is the sort in use;
+-- onClick(reversed) runs after it flips.
+function FGT.NewSortDirButton(parent, getMode, onClick)
+    local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
+    b:SetSize(22, 22)
+    Etch(b, STYLE.button, 10)
+    b.icon = b:CreateTexture(nil, "OVERLAY")
+    b.icon:SetSize(14, 14)
+    b.icon:SetPoint("CENTER")
+    b.icon:SetTexture(FGT.Icon("chevron"))
+    function b:SetReversed(on)
+        self.reversed = on and true or false
+        self.icon:SetTexCoord(0, 1, self.reversed and 1 or 0, self.reversed and 0 or 1) -- down normally, up reversed
+    end
+    b:SetReversed(false)
+    b:SetScript("OnEnter", function(self)
+        self:SetEtch(STYLE.btnHover)
+        local names = SORT_DIRECTION[getMode()] or SORT_DIRECTION.alpha
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+        GameTooltip:AddLine("Reverse the order", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine("Now: " .. names[self.reversed and 2 or 1], 0.9, 0.9, 0.9, true)
+        GameTooltip:Show()
+    end)
+    b:SetScript("OnLeave", function(self) self:SetEtch(STYLE.button); GameTooltip:Hide() end)
+    b:SetScript("OnClick", function(self)
+        self:SetReversed(not self.reversed)
+        if onClick then onClick(self.reversed) end
+    end)
+    return b
+end
+
 -- Sort control - a dropdown button above the list. Built by hand (not
 -- Blizzard's UIDropDownMenu template, which differs between clients).
 local sortModes = {
@@ -3774,11 +3813,12 @@ local sortModes = {
     { key = "progress",   label = "Progress" },
 }
 local sortModeIndex = 1
+local sortDesc = false -- the order reversed (saved)
 
 -- Styled like the site's toolbar buttons: #3a3a3a, lighter on hover.
 local sortBar = CreateFrame("Button", nil, listPanel, "BackdropTemplate")
 sortBar:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 6, -6)
-sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 58, -6) -- room for Clear
+sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 58 - 26, -6) -- room for the reverse arrow and Clear
 sortBar:SetHeight(22)
 Etch(sortBar, STYLE.button, 10)
 local sortLabel = NewFontString(sortBar, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
@@ -3892,8 +3932,11 @@ local function CompareGoals(mode, a, b)
         local pb = tb > 0 and db / tb or 0
         if pa ~= pb then return pa > pb end -- most progress first
     end
-    -- alphabetical by what the list actually shows
-    return (a.short or a.name) < (b.short or b.name)
+    -- alphabetical by what the list actually shows; goals that show the same name keep a fixed order
+    -- (by id), so the reversed list is exactly the opposite
+    local na, nb = a.short or a.name, b.short or b.name
+    if na ~= nb then return na < nb end
+    return (a.id or "") < (b.id or "")
 end
 
 local LayoutGoalList -- forward declare, defined after listScrollObj exists
@@ -3902,10 +3945,23 @@ local function UpdateSortLabel()
     sortLabel:SetText("|cffbdbdbdSort:|r  " .. sortModes[sortModeIndex].label)
 end
 
+-- the reverse arrow beside the sort bar (Clear sits after it)
+sortBar.dir = FGT.NewSortDirButton(sortBar, function() return sortModes[sortModeIndex].key end, function(on)
+    sortDesc = on
+    if ForeverGoalTrackerDB then ForeverGoalTrackerDB.sortDesc = on or nil end
+    LayoutGoalList()
+end)
+sortBar.dir:SetPoint("LEFT", sortBar, "RIGHT", 4, 0)
+FGT.sortBar = sortBar -- (for the checks in tools/check.py)
+
 local function SetSortMode(index)
     sortModeIndex = index
+    -- a new sort starts in its normal order
+    sortDesc = false
+    sortBar.dir:SetReversed(false)
     if ForeverGoalTrackerDB then
         ForeverGoalTrackerDB.sortMode = sortModes[sortModeIndex].key
+        ForeverGoalTrackerDB.sortDesc = nil
     end
     UpdateSortLabel()
     LayoutGoalList()
@@ -4589,6 +4645,7 @@ LayoutGoalList = function()
     table.sort(sorted, function(a, b)
         local ga, gb = Group(a), Group(b)
         if ga ~= gb then return ga < gb end
+        if sortDesc then return CompareGoals(mode, b, a) end
         return CompareGoals(mode, a, b)
     end)
 
@@ -10639,7 +10696,7 @@ detailParts = { FGT.detailViewport.scroll, detailIcon, detailTag, detailTitle, d
 do
     local btn = CreateFrame("Button", nil, sortBar, "BackdropTemplate") -- hides with the sort bar
     btn:SetSize(52, 22)
-    btn:SetPoint("LEFT", sortBar, "RIGHT", 6, 0)
+    btn:SetPoint("LEFT", sortBar.dir, "RIGHT", 4, 0)
     Etch(btn, STYLE.button, 10)
     btn.text = NewFontString(btn, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
     btn.text:SetPoint("CENTER", 0, 0)
@@ -10753,6 +10810,7 @@ local FILTERS = {
 local libFilter = "all"
 -- The other filters. Session-only: they start clear after each reload.
 local LF = { show = "all", newOnly = false, forWho = "any", rows = {}, labels = {} }
+FGT.LF = LF -- (for the checks in tools/check.py)
 FGT.libState = LF
 local libScroll = CreateScrollArea(libraryPanel)
 local LayoutLibrary -- forward
@@ -11192,6 +11250,7 @@ function FGT.SetLibraryView(filterKey, expandId)
     LF.forDrop:SetValue("any")
     LF.faction, LF.autoFaction = nil, nil
     LF.sort = "alpha"; LF.sortDrop:SetValue("alpha")
+    LF.sortDesc = false; LF.sortDir:SetReversed(false)
     if FGT.searchBox and FGT.searchBox:GetText() ~= "" then FGT.searchBox:SetText("") end
     for k in pairs(libExpanded) do libExpanded[k] = nil end
     if expandId then libExpanded[expandId] = true end
@@ -11954,7 +12013,10 @@ LayoutLibrary = function()
         for _, sub in ipairs(card.subs or {}) do sub:Hide() end
     end
     local list = LF.Results(CurrentFilter())
-    table.sort(list, function(a, b) return CompareGoals(LF.sort, a, b) end) -- Sort dropdown
+    table.sort(list, function(a, b)  -- Sort dropdown, and its reverse arrow
+        if LF.sortDesc then return CompareGoals(LF.sort, b, a) end
+        return CompareGoals(LF.sort, a, b)
+    end)
     LF.shown = list
     LF.RefreshAddAll()
     local top = LF.LayoutTags(#list)
@@ -12115,7 +12177,15 @@ LF.sortDrop:SetOptions({
 })
 LF.sort = "alpha"
 LF.sortDrop:SetValue("alpha")
-LF.sortDrop.onChange = function(key) LF.sort = key; Refilter() end
+LF.sortDesc = false
+LF.sortDir = FGT.NewSortDirButton(libraryPanel, function() return LF.sort end, function(on) LF.sortDesc = on; Refilter() end)
+LF.sortDir:SetPoint("RIGHT", LF.sortDrop, "LEFT", -4, 0)
+LF.sortDrop.onChange = function(key)
+    LF.sort = key
+    LF.sortDesc = false -- a new sort starts in its normal order
+    LF.sortDir:SetReversed(false)
+    Refilter()
+end
 
 -- the farthest right, where each card's own Add button sits
 LF.addAll = FGT.NewDropdown(libraryPanel, nil, 8)
@@ -13787,6 +13857,8 @@ initFrame:SetScript("OnEvent", function(self, event, name)
             break
         end
     end
+    sortDesc = ForeverGoalTrackerDB.sortDesc and true or false
+    sortBar.dir:SetReversed(sortDesc)
     UpdateSortLabel()
     LayoutGoalList()
 

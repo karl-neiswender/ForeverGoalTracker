@@ -320,6 +320,21 @@ if ok_all:
             'STUB_PRINTS = {}; local W = STUB_NS.welcome; local D = ForeverGoalTrackerDB; D.interests = { raid = true, loot = true }; '
             'for round = 1, 6 do STUB_NS.OpenWelcome(nil, true); assert(#W.list == 6, "round " .. round .. " shows " .. #W.list .. " rows"); '
             'W.AddChosen() end; print("  six rounds of adding all suggestions each showed six rows")'),
+        # The Library's sort has a reverse arrow: the list comes back in the opposite order, and again in the first.
+        ("library sort reverse", None,
+            'local F = STUB_NS; local LF = F.LF; local function ids() local t = {}; for i, g in ipairs(LF.shown) do t[i] = g.id end; return t end; '
+            'F.LayoutLibrary(); local a = ids(); assert(#a > 20, "the Library lists goals: " .. #a); '
+            'for _, mode in ipairs({ "alpha", "difficulty", "duration", "progression" }) do '
+            'LF.sort = mode; LF.sortDesc = false; LF.sortDir:SetReversed(false); F.LayoutLibrary(); local fwd = ids(); '
+            'LF.sortDir:GetScript("OnClick")(LF.sortDir); F.LayoutLibrary(); local rev = ids(); '
+            'assert(LF.sortDesc and #rev == #fwd, mode .. ": the arrow reverses"); '
+            'for i = 1, #fwd do assert(fwd[i] == rev[#fwd + 1 - i], mode .. " reversed is the exact opposite at " .. i) end '
+            'end; '
+            'LF.sort = "alpha"; LF.sortDesc = false; LF.sortDir:SetReversed(false); F.LayoutLibrary(); '
+            'local bar = F.sortBar; local D = ForeverGoalTrackerDB; D.sortDesc = nil; '
+            'bar.dir:GetScript("OnClick")(bar.dir); assert(D.sortDesc == true, "My Goals remembers the reverse"); '
+            'bar.dir:GetScript("OnClick")(bar.dir); assert(D.sortDesc == nil, "and forgets it when flipped back"); '
+            'print("  the Library and My Goals sort reverse with their arrow")'),
         # First load and welcome back: art, greeting, the closest goals.
         ("welcome first load and welcome back", None,
             'STUB_PRINTS = {}; local W = STUB_NS.welcome; STUB_NS.OpenWelcome(1); '
