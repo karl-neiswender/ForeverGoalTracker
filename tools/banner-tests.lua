@@ -29,6 +29,10 @@ do
         {"heartseeker", "heartseeker-banner.blp"},
         {"skullflame_shield", "skullflame_shield-banner.blp"},
         {"the_untamed_blade", "the_untamed_blade-banner.blp"},
+        {"draconian_deflector", "draconian_deflector-banner.blp"},
+        {"dwarven_hand_cannon", "dwarven_hand_cannon-banner.blp"},
+        {"wall_of_the_dead", "wall_of_the_dead-banner.blp"},
+        {"doomfinger", "doomfinger-banner.blp"},
     }) do
         local goal, path = entry[1], entry[2]
         local resolved, aspect, preprocessed = B:ResolveArt(goal, {faction="Alliance", class="PALADIN", race="Human", sex=3})
@@ -91,6 +95,7 @@ do
         {"PRIEST", "Human", 2, "allclasses_human_priest_male-banner.blp"},
         {"WARLOCK", "Human", 2, "allclasses_human_warlock_male-banner.blp"},
         {"DRUID", "NightElf", 3, "allclasses_nightelf_druid_female-banner.blp"},
+        {"DRUID", "NightElf", 2, "allclasses_nightelf_druid_male-banner.blp"},
         {"HUNTER", "NightElf", 2, "allclasses_nightelf_hunter_male-banner.blp"},
         {"PRIEST", "NightElf", 3, "allclasses_nightelf_priest_female-banner.blp"},
         {"PRIEST", "NightElf", 2, "allclasses_nightelf_priest_male-banner.blp"},
@@ -113,6 +118,7 @@ do
         {"WARRIOR", "Orc", 3, "allclasses_orc_warrior_female-banner.blp"},
         {"WARRIOR", "Orc", 2, "allclasses_orc_warrior_male-banner.blp"},
         {"DRUID", "Tauren", 2, "allclasses_tauren_druid_male-banner.blp"},
+        {"DRUID", "Tauren", 3, "allclasses_tauren_druid_female-banner.blp"},
         {"HUNTER", "Tauren", 3, "allclasses_tauren_hunter_female-banner.blp"},
         {"HUNTER", "Tauren", 2, "allclasses_tauren_hunter_male-banner.blp"},
         {"SHAMAN", "Tauren", 3, "allclasses_tauren_shaman_female-banner.blp"},
@@ -126,6 +132,7 @@ do
         {"MAGE", "Scourge", 3, "allclasses_undead_mage_female-banner.blp"},
         {"MAGE", "Scourge", 2, "allclasses_undead_mage_male-banner.blp"},
         {"WARLOCK", "Scourge", 3, "allclasses_undead_warlock_female-banner.blp"},
+        {"WARLOCK", "Scourge", 2, "allclasses_undead_warlock_male-banner.blp"},
         {"WARRIOR", "Scourge", 3, "allclasses_undead_warrior_female-banner.blp"},
         {"PALADIN", "Scourge", 3, "allclasses_undead_warrior_female-banner.blp"},
         {"WARRIOR", "Scourge", 2, "allclasses_undead_warrior_male-banner.blp"},
@@ -138,8 +145,10 @@ do
     end
     assert(B:ResolveArt("allclasses", {faction="Alliance", class="WARLOCK", race="Human", sex=3})
         == "allclasses_alliance_warlock-banner.blp", "female Human Warlock keeps existing Alliance art")
-    assert(B:ResolveArt("allclasses", {faction="Alliance", class="DRUID", race="NightElf", sex=2})
-        == "set_tier2_druid-banner.blp", "male Night Elf Druid keeps existing Tier 2 art")
+    assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="Dwarf", sex=3})
+        == "allclasses_dwarf_rogue_female-banner.blp", "female Dwarf Rogue leveling uses approved art")
+    assert(B:ResolveArt("allclasses", {faction="Alliance", class="ROGUE", race="Dwarf", sex=2})
+        == "allclasses_dwarf_rogue-banner.blp", "male Dwarf Rogue keeps existing art")
     local druidPath, druidAspect, druidPreprocessed = B:ResolveArt("set_tier1_druid",
         {faction="Alliance", class="DRUID", race="NightElf", sex=3})
     assert(druidPath == "set_tier1_druid_nightelf_female-banner.blp" and druidAspect == 4/3 and druidPreprocessed,

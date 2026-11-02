@@ -58,9 +58,10 @@
   "state": "verified"
  },
  "A011": {
+  "banner": "draconian_deflector",
   "date": "2026-11-02",
   "note": "source swapped to item-draconian-deflector.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A012": {
   "banner": "drillborer_disk",
@@ -69,9 +70,10 @@
   "state": "verified"
  },
  "A013": {
+  "banner": "dwarven_hand_cannon",
   "date": "2026-11-02",
   "note": "source swapped to weapon-dwarven-hand-cannon.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A014": {
   "banner": "electrified_dagger",
@@ -127,9 +129,10 @@
   "state": "verified"
  },
  "A023": {
+  "banner": "wall_of_the_dead",
   "date": "2026-11-02",
   "note": "source swapped to item-wall-of-the-dead.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A024": {
   "banner": "barman_shanker",
@@ -144,9 +147,10 @@
   "state": "verified"
  },
  "A026": {
+  "banner": "doomfinger",
   "date": "2026-11-02",
   "note": "source swapped to weapon-doomfinger.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A027": {
   "banner": "gurubashi_dwarf_destroyer",
@@ -261,9 +265,10 @@
   "state": "verified"
  },
  "A046": {
+  "banner": "allclasses_dwarf_rogue_female",
   "date": "2026-11-02",
   "note": "source swapped to alliance-dwarf-female-rogue-tier1.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A047": {
   "banner": "allclasses_dwarf_shaman_female",
@@ -337,9 +342,10 @@
   "state": "verified"
  },
  "A059": {
+  "banner": "allclasses_nightelf_druid_male",
   "date": "2026-11-02",
   "note": "source swapped to alliance-nightelf-male-druid-generic-leveling-ph3-2.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A060": {
   "banner": "allclasses_nightelf_hunter_male",
@@ -419,9 +425,10 @@
   "state": "verified"
  },
  "A074": {
+  "banner": "allclasses_tauren_druid_female",
   "date": "2026-11-02",
   "note": "source swapped to horde-tauren-female-druid-generic-leveling-ph4.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A075": {
   "banner": "allclasses_tauren_druid_male",
@@ -501,9 +508,10 @@
   "state": "verified"
  },
  "A090": {
+  "banner": "allclasses_undead_warlock_male",
   "date": "2026-11-02",
   "note": "source swapped to horde-undead-male-warlock-generic-leveling-ph3-4.png",
-  "state": "queued"
+  "state": "installed"
  },
  "A091": {
   "banner": "allclasses_undead_warrior_female",

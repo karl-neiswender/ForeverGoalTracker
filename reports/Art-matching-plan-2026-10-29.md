@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 131 of 160 workable banners verified.** Queued 29, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
+**Progress: 131 of 160 workable banners verified.** Queued 21, Installed 8, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
 
 ## Codex: start here
 
@@ -332,14 +332,14 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
-| ☐ | A011 | P1 | `item-draconian-deflector.png` 745x1040 |  | Draconian Deflector: `draconian_deflector` / `draconian_deflector` | Queued | card scan, crop first  |
-| ☐ | A013 | P1 | `weapon-dwarven-hand-cannon.png` 745x1040 |  | Dwarven Hand Cannon: `dwarven_hand_cannon` / `dwarven_hand_cannon` | Queued | card scan, crop first  |
-| ☐ | A023 | P1 | `item-wall-of-the-dead.png` 745x1040 |  | Wall of the Dead: `wall_of_the_dead` / `wall_of_the_dead` | Queued | card scan, crop first  |
-| ☐ | A026 | P1 | `weapon-doomfinger.png` 745x1040 |  | Doomfinger: `doomfinger` / `doomfinger` | Queued | card scan, crop first  |
-| ☐ | A046 | P2 | `alliance-dwarf-female-rogue-tier1.png` 745x1040 |  | Level Classes to 60: Dwarf Rogue F: `allclasses` / `allclasses_dwarf_rogue_female` | Queued | card scan, crop first  |
-| ☐ | A059 | P2 | `alliance-nightelf-male-druid-generic-leveling-ph3-2.png` 745x1040 | `alliance-nightelf-male-druid-dungeonset.png` | Level Classes to 60: Night Elf Druid M: `allclasses` / `allclasses_nightelf_druid_male` | Queued | card scan, crop first  |
-| ☐ | A074 | P2 | `horde-tauren-female-druid-generic-leveling-ph4.png` 745x1040 | `horde-tauren-female-druid-leather-wailingcaverns-2.jpg` | Level Classes to 60: Tauren Druid F: `allclasses` / `allclasses_tauren_druid_female` | Queued | card scan, crop first  |
-| ☐ | A090 | P2 | `horde-undead-male-warlock-generic-leveling-ph3-4.png` 745x1040 |  | Level Classes to 60: Undead Warlock M: `allclasses` / `allclasses_undead_warlock_male` | Queued | card scan, crop first  |
+| ☐ | A011 | P1 | `item-draconian-deflector.png` 745x1040 |  | Draconian Deflector: `draconian_deflector` / `draconian_deflector` | Installed | card scan, crop first  |
+| ☐ | A013 | P1 | `weapon-dwarven-hand-cannon.png` 745x1040 |  | Dwarven Hand Cannon: `dwarven_hand_cannon` / `dwarven_hand_cannon` | Installed | card scan, crop first  |
+| ☐ | A023 | P1 | `item-wall-of-the-dead.png` 745x1040 |  | Wall of the Dead: `wall_of_the_dead` / `wall_of_the_dead` | Installed | card scan, crop first  |
+| ☐ | A026 | P1 | `weapon-doomfinger.png` 745x1040 |  | Doomfinger: `doomfinger` / `doomfinger` | Installed | card scan, crop first  |
+| ☐ | A046 | P2 | `alliance-dwarf-female-rogue-tier1.png` 745x1040 |  | Level Classes to 60: Dwarf Rogue F: `allclasses` / `allclasses_dwarf_rogue_female` | Installed | card scan, crop first  |
+| ☐ | A059 | P2 | `alliance-nightelf-male-druid-generic-leveling-ph3-2.png` 745x1040 | `alliance-nightelf-male-druid-dungeonset.png` | Level Classes to 60: Night Elf Druid M: `allclasses` / `allclasses_nightelf_druid_male` | Installed | card scan, crop first  |
+| ☐ | A074 | P2 | `horde-tauren-female-druid-generic-leveling-ph4.png` 745x1040 | `horde-tauren-female-druid-leather-wailingcaverns-2.jpg` | Level Classes to 60: Tauren Druid F: `allclasses` / `allclasses_tauren_druid_female` | Installed | card scan, crop first  |
+| ☐ | A090 | P2 | `horde-undead-male-warlock-generic-leveling-ph3-4.png` 745x1040 |  | Level Classes to 60: Undead Warlock M: `allclasses` / `allclasses_undead_warlock_male` | Installed | card scan, crop first  |
 
 ### Batch 21
 

@@ -5734,6 +5734,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_human_priest_male-banner.blp", faction="Alliance", class="PRIEST", race="Human", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_human_warlock_male-banner.blp", faction="Alliance", class="WARLOCK", race="Human", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_druid_female-banner.blp", faction="Alliance", class="DRUID", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_nightelf_druid_male-banner.blp", faction="Alliance", class="DRUID", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_hunter_male-banner.blp", faction="Alliance", class="HUNTER", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_priest_female-banner.blp", faction="Alliance", class="PRIEST", race="NightElf", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_nightelf_priest_male-banner.blp", faction="Alliance", class="PRIEST", race="NightElf", sex=2, aspect=4/3, preprocessed=true},
@@ -5749,6 +5750,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_orc_warrior_female-banner.blp", faction="Horde", class="WARRIOR", race="Orc", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_orc_warrior_male-banner.blp", faction="Horde", class="WARRIOR", race="Orc", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_tauren_druid_male-banner.blp", faction="Horde", class="DRUID", race="Tauren", sex=2, aspect=4/3, preprocessed=true},
+            {path="allclasses_tauren_druid_female-banner.blp", faction="Horde", class="DRUID", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_tauren_hunter_female-banner.blp", faction="Horde", class="HUNTER", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_tauren_hunter_male-banner.blp", faction="Horde", class="HUNTER", race="Tauren", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_tauren_shaman_female-banner.blp", faction="Horde", class="SHAMAN", race="Tauren", sex=3, aspect=4/3, preprocessed=true},
@@ -5762,6 +5764,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_undead_mage_female-banner.blp", faction="Horde", class="MAGE", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_mage_male-banner.blp", faction="Horde", class="MAGE", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_warlock_female-banner.blp", faction="Horde", class="WARLOCK", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
+            {path="allclasses_undead_warlock_male-banner.blp", faction="Horde", class="WARLOCK", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_warrior_female-banner.blp", faction="Horde", class="WARRIOR", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_warrior_female-banner.blp", faction="Horde", class="PALADIN", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_undead_warrior_male-banner.blp", faction="Horde", class="WARRIOR", race="Scourge", sex=2, aspect=4/3, preprocessed=true},
@@ -5802,6 +5805,7 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_nightelf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="NightElf", aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_warrior-banner.blp", faction="Alliance", class="WARRIOR", race="Dwarf", aspect=4/3, preprocessed=true},
             {path="allclasses_dwarf_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Dwarf", aspect=4/3, preprocessed=true},
+            {path="allclasses_dwarf_rogue_female-banner.blp", faction="Alliance", class="ROGUE", race="Dwarf", sex=3, aspect=4/3, preprocessed=true},
             -- Skyborne Rogues use the earlier Skyborne location image (Karl, 2026-10-29).
             {path="allclasses_skyborne_rogue-banner.blp", faction="Alliance", class="ROGUE", race="Skyborne"},
             {path="allclasses_skyborne_rogue-banner.blp", faction="Horde", class="ROGUE", race="Skyborne"},
@@ -5905,6 +5909,10 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artVariants.brain_hacker = {{path="brain_hacker-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.cloak_of_flames = {{path="cloak_of_flames-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.cloak_of_the_shrouded_mists = {{path="cloak_of_the_shrouded_mists-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.draconian_deflector = {{path="draconian_deflector-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.dwarven_hand_cannon = {{path="dwarven_hand_cannon-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.wall_of_the_dead = {{path="wall_of_the_dead-banner.blp", aspect=4/3, preprocessed=true}}
+    B.artVariants.doomfinger = {{path="doomfinger-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.cold_forged_hammer = {{path="cold_forged_hammer-banner.blp", aspect=4/3, preprocessed=true}}
     B.artVariants.crackling_staff = {{path="crackling_staff-banner.blp", faction="Alliance", aspect=4/3, preprocessed=true}}
     B.artVariants.crown_of_the_ogre_king = {{path="crown_of_the_ogre_king-banner.blp", aspect=4/3, preprocessed=true}}
