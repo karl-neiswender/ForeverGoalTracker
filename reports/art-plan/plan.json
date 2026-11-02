@@ -5963,6 +5963,38 @@
    "id": "A190",
    "state": "queued",
    "batch": 24
+  },
+  {
+   "file": "alliance-human-male-warrior-tier1.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 1 Warrior A",
+   "targets": [
+    {
+     "label": "Tier 1 Warrior A",
+     "goal": "set_tier1_warrior",
+     "resolve": {
+      "goal": "set_tier1_warrior",
+      "faction": "Alliance",
+      "class": "WARRIOR",
+      "race": null,
+      "sex": null
+     },
+     "key": "set_tier1_warrior-alliance"
+    }
+   ],
+   "alt": "alliance-nightelf-male-warrior-tier1.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares the Horde orc image",
+   "notes": "Karl 2026-11-02: an Alliance Warrior sees the Horde orc Battlegear of Might image, because only the two Orc variants and the shared orc default exist. This is the Alliance default for every Alliance race. Source is the human male Battlegear of Might card; the Night Elf male card is the alternate.",
+   "id": "A191",
+   "state": "queued",
+   "batch": 24
   }
  ],
  "gaps": [

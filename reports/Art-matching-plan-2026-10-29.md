@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 160 of 165 workable banners verified.** Queued 5, Verified 160, Blocked 22, Skipped (low-res) 3. 50 slots have no source image.
+**Progress: 160 of 166 workable banners verified.** Queued 6, Verified 160, Blocked 22, Skipped (low-res) 3. 50 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 165 workable banners; P1 is 45, P2 is 51, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 19 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 166 workable banners; P1 is 45, P2 is 51, P3 is 61. Finishing all of P1 and P2 by Nov 4 needs about 19 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -386,6 +386,7 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☐ | A188 | P3 | `alliance-nightelf-male-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue A M (Night Elf): `tier3_rogue` / `tier3_rogue_nightelf_male` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
 | ☐ | A189 | P3 | `alliance-nightelf-female-rogue-tier3.jpg` 745x1040 |  | Tier 3 Rogue A F (Night Elf): `tier3_rogue` / `tier3_rogue_nightelf_female` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
 | ☐ | A190 | P3 | `alliance-gnome-female-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue A F (Gnome): `tier3_rogue` / `tier3_rogue_gnome_female` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
+| ☐ | A191 | P3 | `alliance-human-male-warrior-tier1.png` 745x1040 | `alliance-nightelf-male-warrior-tier1.png` | Tier 1 Warrior A: `set_tier1_warrior` / `set_tier1_warrior-alliance` | Queued | Karl's pick, card scan, crop first Karl 2026-11-02: an Alliance Warrior sees the Horde orc Battlegear of Might image, because only the two Orc variants and the shared orc default exist. This is the Alliance default for every Alliance race. Source is the human male Battlegear of Might card; the Night Elf male card is the alternate. |
 
 ## Skipped or blocked (Codex: do not touch)
 
