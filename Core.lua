@@ -5793,6 +5793,8 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
             {path="allclasses_undead_rogue_female-banner.blp", faction="Horde", class="ROGUE", race="Scourge", sex=3, aspect=4/3, preprocessed=true},
             {path="allclasses_troll_priest-banner.blp", faction="Horde", class="PRIEST", race="Troll", aspect=4/3, preprocessed=true},
             {path="allclasses_troll_warlock-banner.blp", faction="Horde", class="WARLOCK", race="Troll", aspect=4/3, preprocessed=true},
+            -- until the Troll Shaman leveling banners are made (plan A084, A192): the Troll Tier 1 Shaman art
+            {path="set_tier1_shaman_troll-banner.blp", faction="Horde", class="SHAMAN", race="Troll", aspect=4/3, preprocessed=true},
             {path="allclasses_orc_rogue-banner.blp", faction="Horde", class="ROGUE", race="Orc", aspect=4/3, preprocessed=true},
             {path="allclasses_human_warrior_male-banner.blp", faction="Alliance", class="WARRIOR", race="Human", sex=2, aspect=4/3, preprocessed=true},
             {path="allclasses_human_warrior_female-banner.blp", faction="Alliance", class="WARRIOR", race="Human", sex=3, aspect=4/3, preprocessed=true},
