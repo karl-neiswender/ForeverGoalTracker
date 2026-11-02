@@ -314,6 +314,12 @@ if ok_all:
             'ForeverGoalTrackerDB.interests = { raid = true, loot = true }; STUB_NS.OpenWelcome(nil, true); '
             'for _, e in ipairs(W.list) do print(W.Title(e, { className = "Warrior" }) .. (e.tracked and "  [TRACKED: wrong]" or "")) end; '
             'STUB_NS.CloseWelcome(true)'),
+        # Adding every suggestion and asking again keeps the list at six rows: other interests fill in
+        # when the picked ones run out, instead of the list shrinking round by round.
+        ("find your next goal stays full", None,
+            'STUB_PRINTS = {}; local W = STUB_NS.welcome; local D = ForeverGoalTrackerDB; D.interests = { raid = true, loot = true }; '
+            'for round = 1, 6 do STUB_NS.OpenWelcome(nil, true); assert(#W.list == 6, "round " .. round .. " shows " .. #W.list .. " rows"); '
+            'W.AddChosen() end; print("  six rounds of adding all suggestions each showed six rows")'),
         # First load and welcome back: art, greeting, the closest goals.
         ("welcome first load and welcome back", None,
             'STUB_PRINTS = {}; local W = STUB_NS.welcome; STUB_NS.OpenWelcome(1); '
