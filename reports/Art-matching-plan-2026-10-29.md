@@ -2,7 +2,7 @@
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 160 of 161 workable banners verified.** Queued 1, Verified 160, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
+**Progress: 160 of 165 workable banners verified.** Queued 5, Verified 160, Blocked 22, Skipped (low-res) 3. 50 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 161 workable banners; P1 is 45, P2 is 51, P3 is 57. Finishing all of P1 and P2 by Nov 4 needs about 19 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 165 workable banners; P1 is 45, P2 is 51, P3 is 60. Finishing all of P1 and P2 by Nov 4 needs about 19 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -381,7 +381,11 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 
 | | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
 |---|---|---|---|---|---|---|---|
+| ☐ | A168 | P4 | `alliance-dwarf-male-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue A M: `tier3_rogue` / `tier3_rogue_dwarf_male` | Queued | Karl's pick, card scan, crop first replacement proposal: slot already has art |
 | ☐ | A187 | P1 | `rep-steamwheedle-cartel.jpg` 1200x1600 | `location-booty-bay.jpg` | Exalted: Steamwheedle Cartel: `rep_steamwheedle` / `rep_steamwheedle` | Queued | Karl's pick Karl's pick (2026-11-02): the top-hat goblin potion trader, from his op8 option. Portrait 1200x1600: crop to 4:3 around the face, hat and potion hand; keep the monocle and the glowing vial. Booty Bay location image stays as the alternate. |
+| ☐ | A188 | P3 | `alliance-nightelf-male-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue A M (Night Elf): `tier3_rogue` / `tier3_rogue_nightelf_male` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
+| ☐ | A189 | P3 | `alliance-nightelf-female-rogue-tier3.jpg` 745x1040 |  | Tier 3 Rogue A F (Night Elf): `tier3_rogue` / `tier3_rogue_nightelf_female` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
+| ☐ | A190 | P3 | `alliance-gnome-female-rogue-tier3.png` 745x1040 |  | Tier 3 Rogue A F (Gnome): `tier3_rogue` / `tier3_rogue_gnome_female` | Queued | Karl's pick, card scan, crop first Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more. |
 
 ## Skipped or blocked (Codex: do not touch)
 
@@ -409,7 +413,6 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 | A148 | Blocked | `horde-orc-male-hunter-aqset-mail.jpg` | 861x1200 | Mail: Striker's Garb (Hunter), Stormcaller's Garb (Shaman) One image per armor type; map it to the goals in the title. |
 | A149 | Blocked | `alliance-dwarf-male-aqset-plate.jpg` | 861x1200 | Plate: Conqueror's Battlegear (Warrior), Avenger's Battlegear (Paladin) One image per armor type; map it to the goals in the title. |
 | A166 | Blocked | `alliance-nightelf-female-hunter-tier2.jpg` | 900x698 | Tier 2 Hunter A F replacement proposal: slot already has art |
-| A168 | Skipped (low-res) | `alliance-dwarf-male-rogue-tier3.jpg` | 220x308 | Tier 3 Rogue A M replacement proposal: slot already has art |
 | A171 | Blocked | `alliance-nightelf-female-druid-pvpset-leather.jpg` | 900x787 | Field Marshal's Sanctuary (Druid) F replacement proposal: slot already has art |
 | A172 | Skipped (low-res) | `set-herod-the-scarlet-champion.jpg` | 312x440 | Chain of the Scarlet Crusade The set already has its own banner; this card is 312x440. |
 | A173 | Blocked | `goal-gold-horde.jpg` | 1000x842 | Save 5,000 Gold (Horde) Renamed from Cutpurse_full.jpg; the gold goal is done with one shared image. |

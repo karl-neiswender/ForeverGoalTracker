@@ -5273,7 +5273,7 @@
    "batch": 19
   },
   {
-   "file": "alliance-dwarf-male-rogue-tier3.jpg",
+   "file": "alliance-dwarf-male-rogue-tier3.png",
    "group": "tier",
    "priority": 4,
    "title": "Tier 3 Rogue A M",
@@ -5292,17 +5292,20 @@
     }
    ],
    "alt": null,
-   "w": 220,
-   "h": 308,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": true,
    "inferred": false,
    "now": "done",
    "notes": "replacement proposal: slot already has art",
    "id": "A168",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 24,
+   "previous": [
+    "alliance-dwarf-male-rogue-tier3.jpg"
+   ]
   },
   {
    "file": "horde-orc-male-rogue-tier3.png",
@@ -5864,6 +5867,102 @@
    "previous": [
     "location-booty-bay.jpg"
    ]
+  },
+  {
+   "file": "alliance-nightelf-male-rogue-tier3.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Rogue A M (Night Elf)",
+   "targets": [
+    {
+     "label": "Tier 3 Rogue A M (Night Elf)",
+     "goal": "tier3_rogue",
+     "resolve": {
+      "goal": "tier3_rogue",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "NightElf",
+      "sex": 2
+     },
+     "key": "tier3_rogue_nightelf_male"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares another banner",
+   "notes": "Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more.",
+   "id": "A188",
+   "state": "queued",
+   "batch": 24
+  },
+  {
+   "file": "alliance-nightelf-female-rogue-tier3.jpg",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Rogue A F (Night Elf)",
+   "targets": [
+    {
+     "label": "Tier 3 Rogue A F (Night Elf)",
+     "goal": "tier3_rogue",
+     "resolve": {
+      "goal": "tier3_rogue",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "NightElf",
+      "sex": 3
+     },
+     "key": "tier3_rogue_nightelf_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares another banner",
+   "notes": "Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more.",
+   "id": "A189",
+   "state": "queued",
+   "batch": 24
+  },
+  {
+   "file": "alliance-gnome-female-rogue-tier3.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Rogue A F (Gnome)",
+   "targets": [
+    {
+     "label": "Tier 3 Rogue A F (Gnome)",
+     "goal": "tier3_rogue",
+     "resolve": {
+      "goal": "tier3_rogue",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "Gnome",
+      "sex": 3
+     },
+     "key": "tier3_rogue_gnome_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares another banner",
+   "notes": "Queued 2026-11-02 after Karl asked why a Dwarf Rogue saw the shared Tier 3 image. Only races with their own Tier 3 Rogue art (Human, Troll, Orc) differ; this adds one more.",
+   "id": "A190",
+   "state": "queued",
+   "batch": 24
   }
  ],
  "gaps": [
