@@ -9000,7 +9000,8 @@ local function GetStepRow(index, view)
             self.num:Show()
             self.text:SetPoint("TOPLEFT", self.num, "TOPRIGHT", 4, 1)
         end
-        self.text:SetPoint("RIGHT", self, "RIGHT", 0, 0)
+        -- stops 22 short of the row's edge, so a long line (and a "Show on map" link) keeps clear of the scroll bar
+        self.text:SetPoint("RIGHT", self, "RIGHT", -22, 0)
     end
     row:SetStepIcon(nil)
 
@@ -9734,7 +9735,8 @@ RefreshSteps = function(goal, view)
                 stepText = stepText .. "\n|cff8f897c" .. FGT.TallyLine(goal) .. "|r"
             end
             row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(stepText, IsStepDone(goal.id, i), nil, type(entry) == "table" and entry.mapZoom or nil) or stepText)
-            row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46)))
+            -- 22 more than the icon and number need, so a long line (and a "Show on map" link) stops short of the scroll bar
+            row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46) - 22))
             -- item links first, so a finished step fades them too (Karl)
             FGT.SetStepLinks(row, type(entry) == "table" and entry.auto or nil, entry)
 
@@ -14985,9 +14987,10 @@ end
 --   materials = true opens the goal's Materials drawer
 --   libFor, libSort  the Library's For and Sort choices
 --   hints = true     opens the goal's Hints
+--   stepsBottom = true  scrolls the guide's steps to the end
 --   map = true       shows the goal's next step on the map (Maplet.lua); mapZoom = percent to start at (the step's own if absent)
 local SCENES = {
-    [1] = { tab = "tracker", goal = "thunderfury" },                     -- hero: My Goals + a guide
+    [1] = { tab = "tracker", goal = "thunderfury", stepsBottom = true }, -- hero: My Goals + a guide, scrolled so its last steps show
     [2] = { tab = "library", filter = "new", expand = "epicmounts" },    -- New & Updated, Skyborne row
     [3] = { tab = "tracker", goal = "epicmounts",                        -- groups: finished, counts, NEW open
             open = { "epicmounts_9" } },
@@ -15203,6 +15206,14 @@ function FGT.Demo(arg)
         C_Timer.After(0.1, function()
             if FGT.RefreshMaterials then FGT.RefreshMaterials() end
             FGT.materialsPanel:SetOpen(true, 0.3)
+        end)
+    end
+    if scene.stepsBottom then
+        -- after the goal page is laid out, so the steps know their room
+        C_Timer.After(0.2, function()
+            local s = stepsScrollObj.scroll
+            s:SetVerticalScroll(s:GetVerticalScrollRange())
+            stepsScrollObj:Update()
         end)
     end
     if scene.bottom then
