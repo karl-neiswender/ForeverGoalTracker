@@ -12,11 +12,11 @@ Needs Pillow (Mac: pip3 install pillow; PC: pip install --target tools/.py pillo
 import glob, os, sys
 
 # same order as FGT.SHOTS in Core.lua (the order to upload them in)
-NAMES = ["01-my-goals", "02-wolfsbane", "03-gear-planner", "04-materials", "05-map-view",
-         "06-links-and-hints", "07-library-filters", "08-new-and-updated", "09-epic-mounts",
-         "10-find-your-next-goal", "11-suggestions", "12-settings"]
+NAMES = ["01-my-goals", "02-wolfsbane", "03-gear-planner", "04-materials", "05-links-and-hints",
+         "06-library-filters", "07-new-and-updated", "08-epic-mounts", "09-find-your-next-goal",
+         "10-suggestions", "11-settings"]
 # about Forever-only content (`forever = true` in FGT.SHOTS): not retaken on Classic Era
-FOREVER_ONLY = ["02-wolfsbane", "08-new-and-updated", "10-find-your-next-goal"]
+FOREVER_ONLY = ["02-wolfsbane", "07-new-and-updated", "09-find-your-next-goal"]
 ERA = "--era" in sys.argv
 if ERA:
     NAMES = [n for n in NAMES if n not in FOREVER_ONLY]

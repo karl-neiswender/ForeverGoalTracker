@@ -651,7 +651,7 @@ if ok_all:
         'S("demo off"); assert(not D.active.wolfsbane, "demo off puts Wolfsbane back"); '
         'S("demo 12"); assert(D.active.mount_dreadsteed and D.progress.mount_dreadsteed and D.progress.mount_dreadsteed[4] and not D.progress.mount_dreadsteed[5], "scene 12 stages the Dreadsteed four steps in, the Gorzeeki step next"); '
         'S("demo off"); assert(not D.active.mount_dreadsteed, "demo off puts the Dreadsteed back"); '
-        'assert(#F.SHOTS == 12, "twelve gallery shots"); '
+        'assert(#F.SHOTS == 11, "eleven gallery shots"); '
         'local forever = 0; for _, s in ipairs(F.SHOTS) do if s.forever then forever = forever + 1 end end; '
         'assert(forever == 3, "Wolfsbane, New and Updated and Embrace of the Viper are the Forever-only shots"); '
         'S("demo 13"); local key = "Demo Dwarf Rogue-Demo"; '

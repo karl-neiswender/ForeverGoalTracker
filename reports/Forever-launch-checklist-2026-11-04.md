@@ -36,8 +36,8 @@ Without this step a Skyborne player gets the Orc backdrop (unknown race keys fal
 
 ## 5. Gallery and store page
 
-- The three Forever-only shots (`02-wolfsbane`, `08-new-and-updated`, `10-find-your-next-goal`) were taken on the 2.15.0 window and lack the Gear Planner tab. Retake them on Forever with `/goals shots` (all 12) or one at a time with `/goals shots 02`, then `python tools/shots.py --only 02`.
-- `09-epic-mounts` on Era shows the Skyborne row with a blue NEW label; on Forever that is now correct.
+- The three Forever-only shots (`02-wolfsbane`, `07-new-and-updated`, `09-find-your-next-goal`) were taken on the 2.15.0 window and lack the Gear Planner tab. Retake them on Forever with `/goals shots` (all 11) or one at a time with `/goals shots 02`, then `python tools/shots.py --only 02`.
+- `08-epic-mounts` on Era shows the Skyborne row with a blue NEW label; on Forever that is now correct.
 - Update the CurseForge description if Forever behavior changed what it should say about Forever support (the 2.16.0 text says Forever is unconfirmed).
 
 ## 6. Data checks that were waiting for launch

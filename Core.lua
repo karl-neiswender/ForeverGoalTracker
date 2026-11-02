@@ -14984,13 +14984,14 @@ end
 --   bottom = true    scrolls the goal list to the end
 --   materials = true opens the goal's Materials drawer
 --   libFor, libSort  the Library's For and Sort choices
+--   hints = true     opens the goal's Hints
 --   map = true       shows the goal's next step on the map (Maplet.lua); mapZoom = percent to start at (the step's own if absent)
 local SCENES = {
     [1] = { tab = "tracker", goal = "thunderfury" },                     -- hero: My Goals + a guide
     [2] = { tab = "library", filter = "new", expand = "epicmounts" },    -- New & Updated, Skyborne row
     [3] = { tab = "tracker", goal = "epicmounts",                        -- groups: finished, counts, NEW open
             open = { "epicmounts_9" } },
-    [4] = { tab = "tracker", goal = "ashbringer", rail = true },         -- links, tips, Forever notice, the goals list folded
+    [4] = { tab = "tracker", goal = "ashbringer", rail = true, hints = true }, -- links, hints (open), Forever notice, the goals list folded
     -- welcome wizard over an empty tracker, as a new player sees it
     [5] = { tab = "tracker", welcome = 2, interests = { raid = true, loot = true },   -- interests, two picked
             setup = function(DB) DB.active, DB.activeParts = {}, {} end },
@@ -15067,17 +15068,16 @@ FGT.SHOTS = {
     { scene = 11, file = "02-wolfsbane", forever = true },
     { scene = 13, file = "03-gear-planner", wait = 12 },
     { scene = 9, file = "04-materials" },
-    { scene = 12, file = "05-map-view", wait = 8 }, -- (the zone map needs time to fade in over the artwork)
-    { scene = 4, file = "06-links-and-hints" },
-    { scene = 10, file = "07-library-filters" },
-    { scene = 2, file = "08-new-and-updated", forever = true },
-    { scene = 3, file = "09-epic-mounts" },
-    { scene = 8, file = "10-find-your-next-goal", forever = true },
-    { scene = 6, file = "11-suggestions" },
-    { scene = 1, settings = true, file = "12-settings" },
+    { scene = 4, file = "05-links-and-hints" },
+    { scene = 10, file = "06-library-filters" },
+    { scene = 2, file = "07-new-and-updated", forever = true },
+    { scene = 3, file = "08-epic-mounts" },
+    { scene = 8, file = "09-find-your-next-goal", forever = true },
+    { scene = 6, file = "10-suggestions" },
+    { scene = 1, settings = true, file = "11-settings" },
 }
 -- era: leave out the Forever-only shots. only: just the shot whose file starts with that ("03" or
--- "05-map-view"), for retaking one.
+-- "05-links-and-hints"), for retaking one.
 function FGT.TakeShots(era, only)
     local shots = {}
     for _, s in ipairs(FGT.SHOTS) do
@@ -15095,10 +15095,16 @@ function FGT.TakeShots(era, only)
     local saved = getCVar and { getCVar("screenshotFormat"), getCVar("screenshotQuality") } or {}
     if setCVar then pcall(setCVar, "screenshotFormat", "tga"); pcall(setCVar, "screenshotQuality", "10") end
     FGT.shooting = true
+    -- the overall bar's numbers on in every shot, not only the ones taken just after progress moved
+    local savedNumbers = FGT.Setting("barNumbers")
+    FGT.SetSetting("barNumbers", "always")
+    if FGT.overallUI and FGT.overallUI.Want then FGT.overallUI.Want() end
     SlashCmdList["FOREVERGOALTRACKER"]("photo black")
     print(TAG .. "taking " .. #shots .. " screenshots" .. (era and " (Classic Era ones only)" or "") .. ". Keep your mouse off the window.")
     local function Finish(stopped)
         FGT.shooting = nil
+        FGT.SetSetting("barNumbers", savedNumbers)
+        if FGT.overallUI and FGT.overallUI.Want then FGT.overallUI.Want() end
         if FGT.CloseSettings then FGT.CloseSettings() end
         FGT.Demo("off")
         SlashCmdList["FOREVERGOALTRACKER"]("photo off")
@@ -15174,6 +15180,7 @@ function FGT.Demo(arg)
     FGT.demoFind = scene.find
     for k in pairs(FGT.sectionOpen) do FGT.sectionOpen[k] = nil end
     for _, key in ipairs(scene.open or {}) do FGT.sectionOpen[key] = true end
+    if scene.hints and scene.goal then FGT.tipsOpen[scene.goal] = true end
     if not main:IsShown() then FGT.ToggleFrame() end
     FGT.quietCelebrate = true
     listScrollObj.scroll:SetVerticalScroll(0)
