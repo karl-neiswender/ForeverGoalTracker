@@ -15688,7 +15688,7 @@ local INTERESTS = {
     { key = "grind",   label = "The Grind",  phrase = "the grind",  icon = { "inv_misc_coin_02" }, art = "grind" },
     { key = "social",  label = "Socializing", phrase = "socializing", icon = { "inv_misc_groupneedmore" }, art = "social" },
 }
-local MAX_ROWS = 9    -- rows in all; the step 3 card is tall enough for them (it scrolls in a small window)
+local MAX_ROWS = 6    -- rows in all, so the list fits without scrolling
 local MAX_SETS = 2    -- item sets among the suggestions
 local MAX_TRACKED = 4 -- matching goals already on My Goals, shown dimmed (only if there's room)
 
@@ -15863,7 +15863,8 @@ end
 W.Title = Title
 
 -- Suggestions for the logged-in character and the picked interests.
-local function Suggest(picked)
+local function Suggest(picked, rows)
+    local maxRows = rows or MAX_ROWS
     local me = Me()
     local seen = {}
     local function push(list, e)
@@ -16084,25 +16085,32 @@ local function Suggest(picked)
     -- leveling and the mount come first; interests fill the rest
     local newFixed = 0
     for _, e in ipairs(fixed) do if not e.tracked then newFixed = newFixed + 1 end end
-    local picks = RoundRobin(lists, math.max(0, MAX_ROWS - newFixed), MAX_TRACKED)
+    local picks = RoundRobin(lists, math.max(0, maxRows - newFixed), MAX_TRACKED)
 
-    -- Nothing left for those interests: offer a few from all of them.
+    -- Keep the list full. Each time "Find your next goal" is used, the picked interests have fewer
+    -- goals left; top the new rows up to a full list with goals from the other interests, so a few
+    -- rounds of adding goals do not shrink the list to a couple of rows.
     W.fallback = false
-    local anyNew = false
-    for _, e in ipairs(picks) do if not e.tracked then anyNew = true end end
-    if not anyNew and not picked.__all then
+    local newPicks = 0
+    for _, e in ipairs(picks) do if not e.tracked then newPicks = newPicks + 1 end end
+    local need = maxRows - newFixed - newPicks
+    if need > 0 and not picked.__all then
         local all = { __all = true }
         for _, it in ipairs(INTERESTS) do all[it.key] = true end
-        local fixedIds = {}
-        for _, e in ipairs(fixed) do fixedIds[e.goal.id] = true end
+        local skip = {}
+        for _, e in ipairs(fixed) do skip[e.goal.id] = true end
+        for _, e in ipairs(picks) do skip[e.goal.id] = true end
         local added = 0
-        for _, e in ipairs((Suggest(all))) do
-            if not fixedIds[e.goal.id] and not e.tracked and added < 4 then
+        -- ask for a long list from every interest, so there is plenty to choose from
+        for _, e in ipairs((Suggest(all, maxRows * 3))) do
+            if added < need and not skip[e.goal.id] and not e.tracked then
                 table.insert(picks, e)
+                skip[e.goal.id] = true
                 added = added + 1
             end
         end
-        W.fallback = added > 0
+        -- only when nothing at all matched the picked interests does the heading say so
+        W.fallback = added > 0 and newPicks == 0
     end
 
     -- Under 60: easier goals first, the long-haul dream last.
@@ -16122,7 +16130,7 @@ local function Suggest(picked)
     for pass = 1, 2 do
         for _, list in ipairs({ fixed, picks }) do
             for _, e in ipairs(list) do
-                if (pass == 1) == (not e.tracked) and #out < MAX_ROWS then table.insert(out, e) end
+                if (pass == 1) == (not e.tracked) and #out < maxRows then table.insert(out, e) end
             end
         end
     end
@@ -16887,7 +16895,7 @@ function W.Show(step)
     local mw, mh = main:GetWidth(), main:GetHeight()
     local hero = step == 1 or step == "back"
     local cw = math.min(hero and 900 or (step == 2 and 720 or 640), mw - 40) -- step 2: room for six tiles
-    local ch = math.min(hero and 440 or (step == 3 and 660 or 330), mh - 40)
+    local ch = math.min(hero and 440 or (step == 3 and 520 or 330), mh - 40)
     W.card:ClearAllPoints()
     W.card:SetSize(cw, ch)
     W.card:SetPoint("CENTER", W.frame, "CENTER", 0, 0)
