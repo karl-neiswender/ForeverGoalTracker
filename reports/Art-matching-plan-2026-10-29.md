@@ -1,8 +1,8 @@
-# Art matching plan and work order, built 2026-11-01
+# Art matching plan and work order, built 2026-11-02
 
 Locked by Karl on 2026-10-29 (commit 5abd851). Companion to [Goal-art-checklist.html](Goal-art-checklist.html), which stays the record of what is mapped where. This page is the work queue: open the `.html` copy for thumbnails. Rebuild with `python tools/art-plan.py build`.
 
-**Progress: 131 of 131 workable banners verified.** Verified 131, Blocked 22, Skipped (low-res) 22. 58 slots have no source image.
+**Progress: 131 of 160 workable banners verified.** Queued 29, Verified 131, Blocked 22, Skipped (low-res) 4. 50 slots have no source image.
 
 ## Codex: start here
 
@@ -74,7 +74,7 @@ The checklist is the record of what is mapped where. For every installed banner 
 
 ### Pace
 
-Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 131 workable banners; P1 is 33, P2 is 44, P3 is 46. Finishing all of P1 and P2 by Nov 4 needs about 15 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
+Karl's review is one limit, generation is the other. Past sessions installed 5 to 8 banners at a time, so 8 per batch matches that. The plan has 160 workable banners; P1 is 44, P2 is 51, P3 is 57. Finishing all of P1 and P2 by Nov 4 needs about 19 installed per day. If review or generation runs slower, P1 first, then P2, and leave P3 for 2.16.1.
 
 **Decided by Karl (2026-10-29): imagegen only.** Every banner, including clean paintings, is made with imagegen as the banner skill says. Do not use a deterministic crop, grayscale and gradient shortcut.
 
@@ -328,49 +328,80 @@ State: ☐ not verified, ☑ verified. Batches are in order; rows keep their id 
 | ☑ | A170 | P4 | `horde-tauren-female-shaman-tier3.jpg` 1000x775 |  | Tier 3 Shaman H F: `tier3_shaman` / `tier3_shaman_tauren_female` | Verified | Karl's pick replacement proposal: slot already has art |
 | ☐ | A171 | P4 | `alliance-nightelf-female-druid-pvpset-leather.jpg` 900x787 |  | Field Marshal's Sanctuary (Druid) F: `None` / `pvp_field_marshal_s_sanctuary_druid_f` | Blocked | Karl's pick replacement proposal: slot already has art |
 
+### Batch 20
+
+| | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
+|---|---|---|---|---|---|---|---|
+| ☐ | A011 | P1 | `item-draconian-deflector.png` 745x1040 |  | Draconian Deflector: `draconian_deflector` / `draconian_deflector` | Queued | card scan, crop first  |
+| ☐ | A013 | P1 | `weapon-dwarven-hand-cannon.png` 745x1040 |  | Dwarven Hand Cannon: `dwarven_hand_cannon` / `dwarven_hand_cannon` | Queued | card scan, crop first  |
+| ☐ | A023 | P1 | `item-wall-of-the-dead.png` 745x1040 |  | Wall of the Dead: `wall_of_the_dead` / `wall_of_the_dead` | Queued | card scan, crop first  |
+| ☐ | A026 | P1 | `weapon-doomfinger.png` 745x1040 |  | Doomfinger: `doomfinger` / `doomfinger` | Queued | card scan, crop first  |
+| ☐ | A046 | P2 | `alliance-dwarf-female-rogue-tier1.png` 745x1040 |  | Level Classes to 60: Dwarf Rogue F: `allclasses` / `allclasses_dwarf_rogue_female` | Queued | card scan, crop first  |
+| ☐ | A059 | P2 | `alliance-nightelf-male-druid-generic-leveling-ph3-2.png` 745x1040 | `alliance-nightelf-male-druid-dungeonset.png` | Level Classes to 60: Night Elf Druid M: `allclasses` / `allclasses_nightelf_druid_male` | Queued | card scan, crop first  |
+| ☐ | A074 | P2 | `horde-tauren-female-druid-generic-leveling-ph4.png` 745x1040 | `horde-tauren-female-druid-leather-wailingcaverns-2.jpg` | Level Classes to 60: Tauren Druid F: `allclasses` / `allclasses_tauren_druid_female` | Queued | card scan, crop first  |
+| ☐ | A090 | P2 | `horde-undead-male-warlock-generic-leveling-ph3-4.png` 745x1040 |  | Level Classes to 60: Undead Warlock M: `allclasses` / `allclasses_undead_warlock_male` | Queued | card scan, crop first  |
+
+### Batch 21
+
+| | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
+|---|---|---|---|---|---|---|---|
+| ☐ | A008 | P1 | `weapon-crimson-shocker.png` 745x1040 |  | Crimson Shocker: `crimson_shocker` / `crimson_shocker` | Queued | card scan, crop first  |
+| ☐ | A103 | P3 | `alliance-nightelf-male-hunter-tier2-2.png` 745x1040 | `alliance-nightelf-male-hunter-tier2.jpg` | Tier 2 Hunter A M: `set_tier2_hunter` / `set_tier2_hunter_nightelf_male` | Queued | card scan, crop first  |
+| ☐ | A126 | P3 | `alliance-human-male-paladin-dungeonset-2.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 1 Paladin A: `set_dungeon1_paladin` / `set_dungeon1_paladin_human` | Queued | card scan, crop first  |
+| ☐ | A130 | P3 | `horde-orc-male-rogue-generic-leveling-ph4.png` 745x1040 |  | Dungeon Set 1 Rogue H: `set_dungeon1_rogue` / `set_dungeon1_rogue_orc`<br>Dungeon Set 2 Rogue H: `set_dungeon2_rogue` / `set_dungeon2_rogue_orc` | Queued | card scan, crop first  |
+| ☐ | A135 | P3 | `horde-tauren-female-warrior-dungeonset.png` 745x1040 |  | Dungeon Set 1 Warrior H: `set_dungeon1_warrior` / `set_dungeon1_warrior_tauren`<br>Dungeon Set 2 Warrior H: `set_dungeon2_warrior` / `set_dungeon2_warrior_tauren` | Queued | card scan, crop first  |
+| ☐ | A140 | P3 | `alliance-human-male-paladin-dungeonset.png` 745x1040 | `alliance-human-male-dungeonset-plate.jpg` | Dungeon Set 2 Paladin A: `set_dungeon2_paladin` / `set_dungeon2_paladin_human` | Queued | card scan, crop first  |
+| ☐ | A144 | P3 | `horde-orc-male-warlock-dungeonset-2.png` 745x1040 | `horde-orc-male-warlock-dungeonset.jpg` | Dungeon Set 2 Warlock H: `set_dungeon2_warlock` / `set_dungeon2_warlock_orc` | Queued | card scan, crop first  |
+| ☐ | A153 | P3 | `alliance-nightelf-male-druid-pvpset-leather.png` 745x1040 |  | Field Marshal's Sanctuary (Druid) M: `None` / `pvp_field_marshal_s_sanctuary_druid_m` | Queued | card scan, crop first PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+
+### Batch 22
+
+| | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
+|---|---|---|---|---|---|---|---|
+| ☐ | A176 | P2 | `alliance-gnome-female-rogue-generic-leveling-ph4.png` 745x1040 |  | Gnome Rogue F: `allclasses` / `allclasses_gnome_rogue_female` | Queued | Karl's pick, card scan, crop first Fills gap G002. Karl 2026-11-02 pass: art is a Gnome female Rogue. |
+| ☐ | A177 | P2 | `horde-orc-female-hunter-generic-leveling-ph4-2.png` 745x1040 | `horde-orc-female-hunter-generic-leveling-ph3.png` | Orc Hunter F: `allclasses` / `allclasses_orc_hunter_female` | Queued | Karl's pick, card scan, crop first Fills gap G010. Karl 2026-11-02 pass: art is a Orc female Hunter. |
+| ☐ | A178 | P2 | `horde-troll-female-hunter-warrior-generic-leveling-ph2.png` 745x1040 |  | Troll Warrior F: `allclasses` / `allclasses_troll_warrior_female` | Queued | Karl's pick, card scan, crop first Fills gap G011. Karl 2026-11-02 pass: art is a Troll female Warrior. |
+| ☐ | A179 | P1 | `item-aegis-of-the-blood-god.png` 745x1040 |  | Aegis of the Blood God: `aegis_of_the_blood_god` / `aegis_of_the_blood_god` | Queued | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☐ | A180 | P1 | `item-elemental-mage-staff.png` 745x1040 |  | Elemental Mage Staff: `elemental_mage_staff` / `elemental_mage_staff` | Queued | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☐ | A181 | P1 | `item-elementium-bulwark.png` 745x1040 |  | Elementium Reinforced Bulwark: `elementium_reinforced_bulwark` / `elementium_reinforced_bulwark` | Queued | Karl's pick, card scan, crop first Goal had no checklist row; Karl supplied the card 2026-11-02. |
+| ☐ | A182 | P3 | `alliance-human-female-warrior-tier3.png` 745x1040 |  | Tier 3 Warrior A F: `tier3_warrior` / `tier3_warrior_human_female` | Queued | Karl's pick, card scan, crop first Fills gap G043. Source card is the Human female Warrior from Karl 2026-11-02 (ph7 tier 3). |
+| ☐ | A183 | P3 | `horde-orc-male-warlock-mage-pvpset-cloth.png` 745x1040 |  | Warlord's Regalia (Mage) M: `pvp_set_cloth_horde_mage` / `pvp_warlord_s_regalia_mage_m` | Queued | Karl's pick, card scan, crop first Fills gap G051. PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
+
+### Batch 23
+
+| | Id | Pri | Source image | Alt | Targets (goal, key) | State | Notes |
+|---|---|---|---|---|---|---|---|
+| ☐ | A002 | P1 | `weapon-blastershot-launcher-hires.jpg` 800x639 |  | Blastershot Launcher: `blastershot_launcher` / `blastershot_launcher` | Queued |   |
+| ☐ | A020 | P1 | `weapon-the-shatterer.png` 745x1040 |  | The Shatterer: `the_shatterer` / `the_shatterer` | Queued | card scan, crop first  |
+| ☐ | A184 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 1 Paladin H: `set_dungeon1_paladin` / `set_dungeon1_paladin_undead` | Queued | Karl's pick Fills gap G054. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
+| ☐ | A185 | P3 | `horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg` 1183x709 |  | Dungeon Set 2 Paladin H: `set_dungeon2_paladin` / `set_dungeon2_paladin_undead` | Queued | Karl's pick Fills gap G055. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner. |
+| ☐ | A186 | P1 | `weapon-cutlace-blade.png` 745x1040 |  | Cruel Barb: `cruel_barb` / `cruel_barb` | Queued | Karl's pick, card scan, crop first Karl's pick (2026-11-02): the goblin raising a sword and looking straight at the viewer (Short John Mithril card, already in the artwork folder as weapon-cutlace-blade.png). The goblin and the sword are the focus. |
+
 ## Skipped or blocked (Codex: do not touch)
 
 Karl: find a larger copy of each low-res file, then `python tools/art-plan.py swap <id> <newfile>`.
 
 | Id | State | Source image | Size | Slots |
 |---|---|---|---|---|
-| A002 | Skipped (low-res) | `weapon-blastershot-launcher.jpg` | 220x308 | Blastershot Launcher  |
-| A008 | Skipped (low-res) | `weapon-crimson-shocker.jpg` | 220x308 | Crimson Shocker  |
-| A011 | Skipped (low-res) | `item-draconian-deflector.jpg` | 200x279 | Draconian Deflector  |
-| A013 | Skipped (low-res) | `weapon-dwarven-hand-cannon.jpg` | 200x279 | Dwarven Hand Cannon  |
-| A020 | Skipped (low-res) | `weapon-the-shatterer.jpg` | 200x279 | The Shatterer  |
-| A023 | Skipped (low-res) | `item-wall-of-the-dead.jpg` | 200x279 | Wall of the Dead  |
-| A026 | Skipped (low-res) | `weapon-doomfinger-wand.jpg` | 348x310 | Doomfinger  |
 | A039 | Blocked | `boss-hakkar.jpg` | 2500x3277 | Exalted: Zandalar Tribe (both) Today it borrows Clear Zul'Gurub. Weakest match: nothing in the folder pictures the tribe. Medium confidence. |
 | A040 | Blocked | `location-blackrock-mountain-gates.jpg` | 872x981 | Key: Shadowforge Key (both) Today it borrows the Seal of Ascension image. The Dark Iron gate face suits the Shadowforge gate. Alt: location-blackrock-spire-2.jpg. |
-| A046 | Skipped (low-res) | `alliance-dwarf-female-rogue-tier1.jpg` | 312x440 | Level Classes to 60: Dwarf Rogue F  |
 | A056 | Blocked | `alliance-human-female-warlock-leveling.jpg` | 1000x1143 | Level Classes to 60: Human Warlock F  |
-| A059 | Skipped (low-res) | `alliance-nightelf-male-druid-generic.jpg` | 200x279 | Level Classes to 60: Night Elf Druid M  |
-| A074 | Skipped (low-res) | `horde-tauren-female-druid-leather-leveling-generic.jpg` | 312x440 | Level Classes to 60: Tauren Druid F  |
 | A084 | Blocked | `horde-troll-male-shaman-generic.png` | 745x1040 | Level Classes to 60: Troll Shaman M  |
-| A090 | Skipped (low-res) | `horde-undead-male-warlock-generic.jpg` | 220x308 | Level Classes to 60: Undead Warlock M  |
 | A096 | Blocked | `alliance-human-male-priest-benediction-tier1.jpg` | 862x1000 | Tier 1 Priest A M  |
 | A097 | Blocked | `horde-tauren-female-priest-shadow-tier1.png` | 745x1040 | Tier 1 Priest H F  |
 | A102 | Blocked | `horde-tauren-female-druid-tier2.jpg` | 862x1200 | Tier 2 Druid H F  |
-| A103 | Skipped (low-res) | `alliance-nightelf-male-hunter-tier2-2.jpg` | 312x440 | Tier 2 Hunter A M  |
 | A110 | Blocked | `alliance-nightelf-female-warrior-tier2.jpg` | 1024x1365 | Tier 2 Warrior A F  |
 | A119 | Blocked | `horde-orc-male-shaman-tier3-2.jpg` | 1280x749 | Tier 3 Shaman H M  |
 | A121 | Blocked | `horde-tauren-male-druid-dungeonset.png` | 745x1040 | Dungeon Set 1 Druid H  |
-| A126 | Skipped (low-res) | `alliance-human-male-paladin-dungeonset-2.jpg` | 220x308 | Dungeon Set 1 Paladin A  |
 | A128 | Blocked | `horde-undead-male-cloth-dungeonset.jpg` | 1051x1200 | Dungeon Set 1 Priest H; Dungeon Set 2 Priest H  |
 | A129 | Skipped (low-res) | `alliance-gnome-male-rogue-dungeonset-ashtongue-blade.jpg` | 312x440 | Dungeon Set 1 Rogue A; Dungeon Set 2 Rogue A  |
-| A130 | Skipped (low-res) | `horde-orc-male-rogue-dungeonset.jpg` | 220x308 | Dungeon Set 1 Rogue H; Dungeon Set 2 Rogue H  |
 | A131 | Blocked | `horde-orc-female-shaman-dungeonset.jpg` | 1024x795 | Dungeon Set 1 Shaman H  |
-| A135 | Skipped (low-res) | `horde-tauren-female-warrior-dungeonset.jpg` | 312x440 | Dungeon Set 1 Warrior H; Dungeon Set 2 Warrior H  |
 | A138 | Blocked | `alliance-dwarf-male-hunter-dungeonset.jpg` | 4200x5409 | Dungeon Set 2 Hunter A  |
-| A140 | Skipped (low-res) | `alliance-human-male-paladin-dungeonset.jpg` | 220x308 | Dungeon Set 2 Paladin A  |
 | A143 | Blocked | `alliance-gnome-male-warlock-dungeonset1.png` | 745x1040 | Dungeon Set 2 Warlock A  |
-| A144 | Skipped (low-res) | `horde-orc-male-warlock-dungeonset-2.jpg` | 312x440 | Dungeon Set 2 Warlock H  |
 | A145 | Blocked | `alliance-nightelf-male-warrior-dungeonset.png` | 745x1040 | Dungeon Set 2 Warrior A  |
 | A147 | Blocked | `alliance-nightelf-male-druid-aqset-leather.jpg` | 918x1200 | Leather: Deathdealer's Embrace (Rogue), Genesis Raiment (Druid) One image per armor type; map it to the goals in the title. |
 | A148 | Blocked | `horde-orc-male-hunter-aqset-mail.jpg` | 861x1200 | Mail: Striker's Garb (Hunter), Stormcaller's Garb (Shaman) One image per armor type; map it to the goals in the title. |
 | A149 | Blocked | `alliance-dwarf-male-aqset-plate.jpg` | 861x1200 | Plate: Conqueror's Battlegear (Warrior), Avenger's Battlegear (Paladin) One image per armor type; map it to the goals in the title. |
-| A153 | Skipped (low-res) | `alliance-nightelf-male-druid-pvpset-leather.jpg` | 200x285 | Field Marshal's Sanctuary (Druid) M PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua. |
 | A166 | Blocked | `alliance-nightelf-female-hunter-tier2.jpg` | 900x698 | Tier 2 Hunter A F replacement proposal: slot already has art |
 | A168 | Skipped (low-res) | `alliance-dwarf-male-rogue-tier3.jpg` | 220x308 | Tier 3 Rogue A M replacement proposal: slot already has art |
 | A171 | Blocked | `alliance-nightelf-female-druid-pvpset-leather.jpg` | 900x787 | Field Marshal's Sanctuary (Druid) F replacement proposal: slot already has art |
@@ -383,64 +414,56 @@ Karl: find a larger copy of each low-res file, then `python tools/art-plan.py sw
 
 No picture in the folder fits these. They need new art or a source from Karl; nothing to do for Codex.
 
-- G001: Cruel Barb
-- G002: Gnome Rogue F
-- G003: High Order Skyborne Warrior M
-- G004: High Order Skyborne Warrior F
-- G005: High Order Skyborne Hunter M
-- G006: High Order Skyborne Hunter F
-- G007: High Order Skyborne Mage M
-- G008: High Order Skyborne Druid M
-- G009: High Order Skyborne Druid F
-- G010: Orc Hunter F
-- G011: Troll Warrior F
-- G012: Troll Shaman F
-- G013: Windshaper Skyborne Warrior M
-- G014: Windshaper Skyborne Warrior F
-- G015: Windshaper Skyborne Hunter M
-- G016: Windshaper Skyborne Hunter F
-- G017: Windshaper Skyborne Shaman M
-- G018: Windshaper Skyborne Shaman F
-- G019: Windshaper Skyborne Druid M
-- G020: Windshaper Skyborne Druid F
-- G021: Tier 1 Hunter H F
-- G022: Tier 1 Mage A M
-- G023: Tier 1 Mage H M
-- G024: Tier 1 Paladin A F
-- G025: Tier 1 Paladin H F
-- G026: Tier 1 Rogue H F
-- G027: Tier 1 Shaman A F
-- G028: Tier 1 Warlock A F
-- G029: Tier 1 Warrior A F
-- G030: Tier 2 Druid A F
-- G031: Tier 2 Mage H F
-- G032: Tier 2 Paladin A F
-- G033: Tier 2 Paladin H F
-- G034: Tier 2 Priest H F
-- G035: Tier 2 Shaman A F
-- G036: Tier 2 Warlock H F
-- G037: Tier 2 Warrior H F
-- G038: Tier 3 Hunter A F
-- G039: Tier 3 Paladin H F
-- G040: Tier 3 Shaman A M
-- G041: Tier 3 Warlock A M
-- G042: Tier 3 Warlock H M
-- G043: Tier 3 Warrior A F
-- G044: Tier 3 Warrior H F
-- G045: Field Marshal's Battlegear (Warrior) M
-- G046: Field Marshal's Earthshaker (Shaman) F
-- G047: Field Marshal's Pursuit (Hunter) F
-- G048: Warlord's Aegis (Paladin) F
-- G049: Warlord's Pursuit (Hunter) F
-- G050: Warlord's Raiment (Priest) M
-- G051: Warlord's Regalia (Mage) M
-- G052: Warlord's Vestments (Rogue) M
-- G053: Warlord's Vestments (Rogue) F
-- G054: Dungeon Set 1 Paladin H
-- G055: Dungeon Set 2 Paladin H
-- G056: Dungeon Set 1 Shaman A
-- G057: Dungeon Set 2 Shaman A
-- G058: Tier 2 Rogue A M
+- G003: High Order Skyborne Warrior M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G004: High Order Skyborne Warrior F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G005: High Order Skyborne Hunter M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G006: High Order Skyborne Hunter F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G007: High Order Skyborne Mage M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G008: High Order Skyborne Druid M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G009: High Order Skyborne Druid F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G012: Troll Shaman F - No image of that sex. Closest, other sex: horde-troll-male-shaman-generic-leveling-ph3-2.png (Troll male, 745px); horde-troll-male-shaman-generic-leveling-ph3.png (Troll male, 745px). Keeps the shared banner.
+- G013: Windshaper Skyborne Warrior M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G014: Windshaper Skyborne Warrior F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G015: Windshaper Skyborne Hunter M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G016: Windshaper Skyborne Hunter F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G017: Windshaper Skyborne Shaman M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G018: Windshaper Skyborne Shaman F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G019: Windshaper Skyborne Druid M - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G020: Windshaper Skyborne Druid F - Forever-only race with no card art. Keeps the Skyborne location image and class art.
+- G021: Tier 1 Hunter H F - No image of this class and set in the folder. Keeps the shared banner.
+- G022: Tier 1 Mage A M - No image of that sex. Closest, other sex: alliance-gnome-female-mage-tier1.jpg (Gnome female, 3000px); alliance-human-female-mage-tier1-2.png (Human female, 745px). Keeps the shared banner.
+- G023: Tier 1 Mage H M - No image of this class and set in the folder. Keeps the shared banner.
+- G024: Tier 1 Paladin A F - Only candidate is a Human female Paladin dungeon-set image (Karl, 2026-10-29), not Tier 1. Keeps the shared banner.
+- G025: Tier 1 Paladin H F - No image of this class and set in the folder. Keeps the shared banner.
+- G026: Tier 1 Rogue H F - No image of that sex. Closest, other sex: horde-undead-male-rogue-tier1-blade-of-unquenched-thirst.jpg (Undead male, 1335px). Keeps the shared banner.
+- G027: Tier 1 Shaman A F - No image of this class and set in the folder. Keeps the shared banner.
+- G028: Tier 1 Warlock A F - No image of that sex. Closest, other sex: alliance-human-male-warlock-tier1.png (Human male, 745px). Keeps the shared banner.
+- G029: Tier 1 Warrior A F - No image of that sex. Closest, other sex: alliance-human-male-warrior-tier1.png (Human male, 745px); alliance-nightelf-male-warrior-tier1.png (Nightelf male, 745px). Keeps the shared banner.
+- G030: Tier 2 Druid A F - No image of that sex. Closest, other sex: alliance-nightelf-male-druid-tier2.jpg (Nightelf male, 948px). Keeps the shared banner.
+- G031: Tier 2 Mage H F - No image of this class and set in the folder. Keeps the shared banner.
+- G032: Tier 2 Paladin A F - No image of that sex. Closest, other sex: alliance-dwarf-male-paladin-tier2.png (Dwarf male, 745px). Keeps the shared banner.
+- G033: Tier 2 Paladin H F - No image of this class and set in the folder. Keeps the shared banner.
+- G034: Tier 2 Priest H F - No image of that sex. Closest, other sex: horde-undead-male-priest-tier2-weapon-anathema-shadow.png (Undead male, 745px). Keeps the shared banner.
+- G035: Tier 2 Shaman A F - No image of this class and set in the folder. Keeps the shared banner.
+- G036: Tier 2 Warlock H F - No image of that sex. Closest, other sex: horde-orc-male-warlock-tier2.jpg (Orc male, 1024px); horde-orc-warlock-tier2.jpg (Orc sex not named, 1234px). Keeps the shared banner.
+- G037: Tier 2 Warrior H F - No image of that sex. Closest, other sex: horde-orc-male-warrior-tier2.jpg (Orc male, 1238px); horde-orc-warrior-tier2.jpg (Orc sex not named, 1047px). Keeps the shared banner.
+- G038: Tier 3 Hunter A F - No image of this class and set in the folder. Keeps the shared banner.
+- G039: Tier 3 Paladin H F - No image of this class and set in the folder. Keeps the shared banner.
+- G040: Tier 3 Shaman A M - No image of this class and set in the folder. Keeps the shared banner.
+- G041: Tier 3 Warlock A M - No image of this class and set in the folder. Keeps the shared banner.
+- G042: Tier 3 Warlock H M - No image of that sex. Closest, other sex: horde-orc-female-warlock-tier3.png (Orc female, 745px); horde-undead-female-warlock-tier3.jpg (Undead female, 886px). Keeps the shared banner.
+- G044: Tier 3 Warrior H F - No image of that sex. Closest, other sex: horde-orc-male-warrior-tier3.png (Orc male, 745px); horde-tauren-male-warrior-tier3-thunderfury.jpg (Tauren male, 1494px). Keeps the shared banner.
+- G045: Field Marshal's Battlegear (Warrior) M - No image of that sex. Closest, other sex: alliance-gnome-female-warrior-pvpset-plate.png (Gnome female, 745px); alliance-human-female-warrior-pvpset-plate.png (Human female, 745px). Keeps the shared banner.
+- G046: Field Marshal's Earthshaker (Shaman) F - No image of this class and set in the folder. Keeps the shared banner.
+- G047: Field Marshal's Pursuit (Hunter) F - No image of that sex. Closest, other sex: alliance-dwarf-male-hunter-pvpset-mail.jpg (Dwarf male, 1671px). Keeps the shared banner.
+- G048: Warlord's Aegis (Paladin) F - No image of that sex. Closest, other sex: horde-undead-male-warrior-paladin-pvpset-plate.png (Undead male, 745px). Keeps the shared banner.
+- G049: Warlord's Pursuit (Hunter) F - No image of that sex. Closest, other sex: horde-orc-male-hunter-pvpset-mail.jpg (Orc male, 1050px); horde-troll-male-hunter-pvpset-mail.jpg (Troll male, 1429px). Keeps the shared banner.
+- G050: Warlord's Raiment (Priest) M - No image of that sex. Closest, other sex: horde-undead-female-priest-pvp-cloth.png (Undead female, 745px). Keeps the shared banner.
+- G052: Warlord's Vestments (Rogue) M - No image of this class and set in the folder. Keeps the shared banner.
+- G053: Warlord's Vestments (Rogue) F - No image of this class and set in the folder. Keeps the shared banner.
+- G056: Dungeon Set 1 Shaman A - No image of this class and set in the folder. Keeps the shared banner.
+- G057: Dungeon Set 2 Shaman A - No image of this class and set in the folder. Keeps the shared banner.
+- G058: Tier 2 Rogue A M - Only low-res Alliance male Tier 2 Rogue cards exist (dwarf 312px, human 220px). Keeps the existing Alliance banner.
 
 ## Corrections from Karl's review
 

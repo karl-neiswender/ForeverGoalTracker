@@ -32,7 +32,7 @@
    "batch": 1
   },
   {
-   "file": "weapon-blastershot-launcher.jpg",
+   "file": "weapon-blastershot-launcher-hires.jpg",
    "group": "needed",
    "priority": 1,
    "title": "Blastershot Launcher",
@@ -47,17 +47,20 @@
     }
    ],
    "alt": null,
-   "w": 220,
-   "h": 308,
-   "card": true,
-   "low": true,
+   "w": 800,
+   "h": 639,
+   "card": false,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "",
    "notes": "",
    "id": "A002",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 23,
+   "previous": [
+    "weapon-blastershot-launcher.jpg"
+   ]
   },
   {
    "file": "weapon-brain-hacker.png",
@@ -200,7 +203,7 @@
    "batch": 1
   },
   {
-   "file": "weapon-crimson-shocker.jpg",
+   "file": "weapon-crimson-shocker.png",
    "group": "needed",
    "priority": 1,
    "title": "Crimson Shocker",
@@ -215,17 +218,20 @@
     }
    ],
    "alt": null,
-   "w": 220,
-   "h": 308,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "",
    "notes": "",
    "id": "A008",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 21,
+   "previous": [
+    "weapon-crimson-shocker.jpg"
+   ]
   },
   {
    "file": "item-crown-of-the-ogre-king.png",
@@ -284,7 +290,7 @@
    "batch": 1
   },
   {
-   "file": "item-draconian-deflector.jpg",
+   "file": "item-draconian-deflector.png",
    "group": "needed",
    "priority": 1,
    "title": "Draconian Deflector",
@@ -299,17 +305,20 @@
     }
    ],
    "alt": null,
-   "w": 200,
-   "h": 279,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "",
    "notes": "",
    "id": "A011",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 20,
+   "previous": [
+    "item-draconian-deflector.jpg"
+   ]
   },
   {
    "file": "item-drillborer-disk.png",
@@ -340,7 +349,7 @@
    "batch": 2
   },
   {
-   "file": "weapon-dwarven-hand-cannon.jpg",
+   "file": "weapon-dwarven-hand-cannon.png",
    "group": "needed",
    "priority": 1,
    "title": "Dwarven Hand Cannon",
@@ -355,17 +364,20 @@
     }
    ],
    "alt": null,
-   "w": 200,
-   "h": 279,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "",
    "notes": "",
    "id": "A013",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 20,
+   "previous": [
+    "weapon-dwarven-hand-cannon.jpg"
+   ]
   },
   {
    "file": "weapon-electrified-dagger.png",
@@ -536,7 +548,7 @@
    "batch": 2
   },
   {
-   "file": "weapon-the-shatterer.jpg",
+   "file": "weapon-the-shatterer.png",
    "group": "needed",
    "priority": 1,
    "title": "The Shatterer",
@@ -551,17 +563,20 @@
     }
    ],
    "alt": null,
-   "w": 200,
-   "h": 279,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "",
    "notes": "",
    "id": "A020",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 23,
+   "previous": [
+    "weapon-the-shatterer.jpg"
+   ]
   },
   {
    "file": "alliance-human-female-paladin-tier3-weapon-untamed-blade.png",
@@ -620,7 +635,7 @@
    "batch": 3
   },
   {
-   "file": "item-wall-of-the-dead.jpg",
+   "file": "item-wall-of-the-dead.png",
    "group": "needed",
    "priority": 1,
    "title": "Wall of the Dead",
@@ -635,17 +650,20 @@
     }
    ],
    "alt": null,
-   "w": 200,
-   "h": 279,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "",
    "notes": "",
    "id": "A023",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 20,
+   "previous": [
+    "item-wall-of-the-dead.jpg"
+   ]
   },
   {
    "file": "weapon-Barman_Shanker.jpg",
@@ -704,7 +722,7 @@
    "batch": 3
   },
   {
-   "file": "weapon-doomfinger-wand.jpg",
+   "file": "weapon-doomfinger.png",
    "group": "newgoal",
    "priority": 1,
    "title": "Doomfinger",
@@ -719,17 +737,20 @@
     }
    ],
    "alt": null,
-   "w": 348,
-   "h": 310,
-   "card": false,
-   "low": true,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "",
    "notes": "",
    "id": "A026",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 20,
+   "previous": [
+    "weapon-doomfinger-wand.jpg"
+   ]
   },
   {
    "file": "weapon-Gurubashi_Dwarf_Destroyer.jpg",
@@ -1276,7 +1297,7 @@
    "batch": 5
   },
   {
-   "file": "alliance-dwarf-female-rogue-tier1.jpg",
+   "file": "alliance-dwarf-female-rogue-tier1.png",
    "group": "leveling",
    "priority": 2,
    "title": "Dwarf Rogue F",
@@ -1295,17 +1316,20 @@
     }
    ],
    "alt": null,
-   "w": 312,
-   "h": 440,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "allclasses_dwarf_rogue",
    "notes": "",
    "id": "A046",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 20,
+   "previous": [
+    "alliance-dwarf-female-rogue-tier1.jpg"
+   ]
   },
   {
    "file": "alliance-dwarf-female-shaman-generic.jpg",
@@ -1692,7 +1716,7 @@
    "batch": 7
   },
   {
-   "file": "alliance-nightelf-male-druid-generic.jpg",
+   "file": "alliance-nightelf-male-druid-generic-leveling-ph3-2.png",
    "group": "leveling",
    "priority": 2,
    "title": "Night Elf Druid M",
@@ -1711,17 +1735,20 @@
     }
    ],
    "alt": "alliance-nightelf-male-druid-dungeonset.png",
-   "w": 200,
-   "h": 279,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "set_tier2_druid",
    "notes": "",
    "id": "A059",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 20,
+   "previous": [
+    "alliance-nightelf-male-druid-generic.jpg"
+   ]
   },
   {
    "file": "alliance-nightelf-male-hunter-generic-2.jpg",
@@ -2172,7 +2199,7 @@
    "batch": 8
   },
   {
-   "file": "horde-tauren-female-druid-leather-leveling-generic.jpg",
+   "file": "horde-tauren-female-druid-generic-leveling-ph4.png",
    "group": "leveling",
    "priority": 2,
    "title": "Tauren Druid F",
@@ -2191,17 +2218,20 @@
     }
    ],
    "alt": "horde-tauren-female-druid-leather-wailingcaverns-2.jpg",
-   "w": 312,
-   "h": 440,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "allclasses_horde_druid",
    "notes": "",
    "id": "A074",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 20,
+   "previous": [
+    "horde-tauren-female-druid-leather-leveling-generic.jpg"
+   ]
   },
   {
    "file": "horde-tauren-male-druid-leveling.jpg",
@@ -2684,7 +2714,7 @@
    "batch": 10
   },
   {
-   "file": "horde-undead-male-warlock-generic.jpg",
+   "file": "horde-undead-male-warlock-generic-leveling-ph3-4.png",
    "group": "leveling",
    "priority": 2,
    "title": "Undead Warlock M",
@@ -2703,17 +2733,20 @@
     }
    ],
    "alt": null,
-   "w": 220,
-   "h": 308,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "set_tier1_warlock",
    "notes": "",
    "id": "A090",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 20,
+   "previous": [
+    "horde-undead-male-warlock-generic.jpg"
+   ]
   },
   {
    "file": "horde-undead-female-warrior-paladin-generic-leveling.jpg",
@@ -3124,7 +3157,7 @@
    "batch": 12
   },
   {
-   "file": "alliance-nightelf-male-hunter-tier2-2.jpg",
+   "file": "alliance-nightelf-male-hunter-tier2-2.png",
    "group": "tier",
    "priority": 3,
    "title": "Tier 2 Hunter A M",
@@ -3143,17 +3176,20 @@
     }
    ],
    "alt": "alliance-nightelf-male-hunter-tier2.jpg",
-   "w": 312,
-   "h": 440,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "done",
    "notes": "",
    "id": "A103",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 21,
+   "previous": [
+    "alliance-nightelf-male-hunter-tier2-2.jpg"
+   ]
   },
   {
    "file": "horde-orc-female-hunter-tier2-rhokdalar.png",
@@ -3887,7 +3923,7 @@
    "batch": 15
   },
   {
-   "file": "alliance-human-male-paladin-dungeonset-2.jpg",
+   "file": "alliance-human-male-paladin-dungeonset-2.png",
    "group": "dungeon",
    "priority": 3,
    "title": "Dungeon Set 1 Paladin A",
@@ -3906,17 +3942,20 @@
     }
    ],
    "alt": "alliance-human-male-dungeonset-plate.jpg",
-   "w": 220,
-   "h": 308,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "borrows a shared dungeon scene",
    "notes": "",
    "id": "A126",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 21,
+   "previous": [
+    "alliance-human-male-paladin-dungeonset-2.jpg"
+   ]
   },
   {
    "file": "alliance-dwarf-male-priest-dungeonset.jpg",
@@ -4039,7 +4078,7 @@
    "batch": null
   },
   {
-   "file": "horde-orc-male-rogue-dungeonset.jpg",
+   "file": "horde-orc-male-rogue-generic-leveling-ph4.png",
    "group": "dungeon",
    "priority": 3,
    "title": "Dungeon Set 1 Rogue H",
@@ -4070,17 +4109,20 @@
     }
    ],
    "alt": null,
-   "w": 220,
-   "h": 308,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "borrows a shared dungeon scene",
    "notes": "",
    "id": "A130",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 21,
+   "previous": [
+    "horde-orc-male-rogue-dungeonset.jpg"
+   ]
   },
   {
    "file": "horde-orc-female-shaman-dungeonset.jpg",
@@ -4211,7 +4253,7 @@
    "batch": 15
   },
   {
-   "file": "horde-tauren-female-warrior-dungeonset.jpg",
+   "file": "horde-tauren-female-warrior-dungeonset.png",
    "group": "dungeon",
    "priority": 3,
    "title": "Dungeon Set 1 Warrior H",
@@ -4242,17 +4284,20 @@
     }
    ],
    "alt": null,
-   "w": 312,
-   "h": 440,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "borrows a shared dungeon scene",
    "notes": "",
    "id": "A135",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 21,
+   "previous": [
+    "horde-tauren-female-warrior-dungeonset.jpg"
+   ]
   },
   {
    "file": "alliance-nightelf-female-druid-dungeonset.png",
@@ -4383,7 +4428,7 @@
    "batch": 16
   },
   {
-   "file": "alliance-human-male-paladin-dungeonset.jpg",
+   "file": "alliance-human-male-paladin-dungeonset.png",
    "group": "dungeon",
    "priority": 3,
    "title": "Dungeon Set 2 Paladin A",
@@ -4402,17 +4447,20 @@
     }
    ],
    "alt": "alliance-human-male-dungeonset-plate.jpg",
-   "w": 220,
-   "h": 308,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "borrows a shared dungeon scene",
    "notes": "",
    "id": "A140",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 21,
+   "previous": [
+    "alliance-human-male-paladin-dungeonset.jpg"
+   ]
   },
   {
    "file": "alliance-nightelf-female-priest-dungeonset.png",
@@ -4511,7 +4559,7 @@
    "batch": 16
   },
   {
-   "file": "horde-orc-male-warlock-dungeonset-2.jpg",
+   "file": "horde-orc-male-warlock-dungeonset-2.png",
    "group": "dungeon",
    "priority": 3,
    "title": "Dungeon Set 2 Warlock H",
@@ -4530,17 +4578,20 @@
     }
    ],
    "alt": "horde-orc-male-warlock-dungeonset.jpg",
-   "w": 312,
-   "h": 440,
+   "w": 745,
+   "h": 1040,
    "card": true,
-   "low": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "borrows a shared dungeon scene",
    "notes": "",
    "id": "A144",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 21,
+   "previous": [
+    "horde-orc-male-warlock-dungeonset-2.jpg"
+   ]
   },
   {
    "file": "alliance-nightelf-male-warrior-dungeonset.png",
@@ -4757,7 +4808,7 @@
    "batch": 17
   },
   {
-   "file": "alliance-nightelf-male-druid-pvpset-leather.jpg",
+   "file": "alliance-nightelf-male-druid-pvpset-leather.png",
    "group": "pvp",
    "priority": 3,
    "title": "Field Marshal's Sanctuary (Druid) M",
@@ -4770,17 +4821,20 @@
     }
    ],
    "alt": null,
-   "w": 200,
-   "h": 285,
-   "card": false,
-   "low": true,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
    "karl": false,
    "inferred": false,
    "now": "done",
    "notes": "PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
    "id": "A153",
    "state": "skipped_lowres",
-   "batch": null
+   "batch": 21,
+   "previous": [
+    "alliance-nightelf-male-druid-pvpset-leather.jpg"
+   ]
   },
   {
    "file": "alliance-gnome-female-warlock-pvpset-cloth.png",
@@ -4843,7 +4897,13 @@
     {
      "label": "Warlord's Battlegear (Warrior) F",
      "goal": "pvp_set_plate_horde_warrior",
-     "resolve": {"goal": "pvp_set_plate_horde_warrior", "faction": "Horde", "class": "WARRIOR", "race": "Troll", "sex": 3},
+     "resolve": {
+      "goal": "pvp_set_plate_horde_warrior",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Troll",
+      "sex": 3
+     },
      "key": "pvp_warlord_s_battlegear_warrior_f"
     }
    ],
@@ -4869,7 +4929,13 @@
     {
      "label": "Warlord's Earthshaker (Shaman) F",
      "goal": "pvp_set_mail_horde_shaman",
-     "resolve": {"goal": "pvp_set_mail_horde_shaman", "faction": "Horde", "class": "SHAMAN", "race": "Tauren", "sex": 3},
+     "resolve": {
+      "goal": "pvp_set_mail_horde_shaman",
+      "faction": "Horde",
+      "class": "SHAMAN",
+      "race": "Tauren",
+      "sex": 3
+     },
      "key": "pvp_warlord_s_earthshaker_shaman_f"
     }
    ],
@@ -4895,7 +4961,13 @@
     {
      "label": "Warlord's Sanctuary (Druid) F",
      "goal": "pvp_set_leather_horde_druid",
-     "resolve": {"goal": "pvp_set_leather_horde_druid", "faction": "Horde", "class": "DRUID", "race": "Tauren", "sex": 3},
+     "resolve": {
+      "goal": "pvp_set_leather_horde_druid",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Tauren",
+      "sex": 3
+     },
      "key": "pvp_warlord_s_sanctuary_druid_f"
     }
    ],
@@ -4921,7 +4993,13 @@
     {
      "label": "Warlord's Sanctuary (Druid) M",
      "goal": "pvp_set_leather_horde_druid",
-     "resolve": {"goal": "pvp_set_leather_horde_druid", "faction": "Horde", "class": "DRUID", "race": "Tauren", "sex": 2},
+     "resolve": {
+      "goal": "pvp_set_leather_horde_druid",
+      "faction": "Horde",
+      "class": "DRUID",
+      "race": "Tauren",
+      "sex": 2
+     },
      "key": "pvp_warlord_s_sanctuary_druid_m"
     }
    ],
@@ -4947,7 +5025,13 @@
     {
      "label": "Warlord's Threads (Warlock) M",
      "goal": "pvp_set_cloth_horde_warlock",
-     "resolve": {"goal": "pvp_set_cloth_horde_warlock", "faction": "Horde", "class": "WARLOCK", "race": "Orc", "sex": 2},
+     "resolve": {
+      "goal": "pvp_set_cloth_horde_warlock",
+      "faction": "Horde",
+      "class": "WARLOCK",
+      "race": "Orc",
+      "sex": 2
+     },
      "key": "pvp_warlord_s_threads_warlock_m"
     }
    ],
@@ -5413,414 +5497,744 @@
    "id": "A175",
    "state": "skipped_lowres",
    "batch": null
+  },
+  {
+   "file": "alliance-gnome-female-rogue-generic-leveling-ph4.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Gnome Rogue F",
+   "targets": [
+    {
+     "label": "Gnome Rogue F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Alliance",
+      "class": "ROGUE",
+      "race": "Gnome",
+      "sex": 3
+     },
+     "key": "allclasses_gnome_rogue_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares another banner",
+   "notes": "Fills gap G002. Karl 2026-11-02 pass: art is a Gnome female Rogue.",
+   "id": "A176",
+   "state": "queued",
+   "batch": 22
+  },
+  {
+   "file": "horde-orc-female-hunter-generic-leveling-ph4-2.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Orc Hunter F",
+   "targets": [
+    {
+     "label": "Orc Hunter F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "HUNTER",
+      "race": "Orc",
+      "sex": 3
+     },
+     "key": "allclasses_orc_hunter_female"
+    }
+   ],
+   "alt": "horde-orc-female-hunter-generic-leveling-ph3.png",
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares another banner",
+   "notes": "Fills gap G010. Karl 2026-11-02 pass: art is a Orc female Hunter.",
+   "id": "A177",
+   "state": "queued",
+   "batch": 22
+  },
+  {
+   "file": "horde-troll-female-hunter-warrior-generic-leveling-ph2.png",
+   "group": "leveling",
+   "priority": 2,
+   "title": "Troll Warrior F",
+   "targets": [
+    {
+     "label": "Troll Warrior F",
+     "goal": "allclasses",
+     "resolve": {
+      "goal": "allclasses",
+      "faction": "Horde",
+      "class": "WARRIOR",
+      "race": "Troll",
+      "sex": 3
+     },
+     "key": "allclasses_troll_warrior_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares another banner",
+   "notes": "Fills gap G011. Karl 2026-11-02 pass: art is a Troll female Warrior.",
+   "id": "A178",
+   "state": "queued",
+   "batch": 22
+  },
+  {
+   "file": "item-aegis-of-the-blood-god.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Aegis of the Blood God",
+   "targets": [
+    {
+     "label": "Aegis of the Blood God",
+     "goal": "aegis_of_the_blood_god",
+     "resolve": {
+      "goal": "aegis_of_the_blood_god"
+     },
+     "key": "aegis_of_the_blood_god"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "",
+   "notes": "Goal had no checklist row; Karl supplied the card 2026-11-02.",
+   "id": "A179",
+   "state": "queued",
+   "batch": 22
+  },
+  {
+   "file": "item-elemental-mage-staff.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Elemental Mage Staff",
+   "targets": [
+    {
+     "label": "Elemental Mage Staff",
+     "goal": "elemental_mage_staff",
+     "resolve": {
+      "goal": "elemental_mage_staff"
+     },
+     "key": "elemental_mage_staff"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "",
+   "notes": "Goal had no checklist row; Karl supplied the card 2026-11-02.",
+   "id": "A180",
+   "state": "queued",
+   "batch": 22
+  },
+  {
+   "file": "item-elementium-bulwark.png",
+   "group": "needed",
+   "priority": 1,
+   "title": "Elementium Reinforced Bulwark",
+   "targets": [
+    {
+     "label": "Elementium Reinforced Bulwark",
+     "goal": "elementium_reinforced_bulwark",
+     "resolve": {
+      "goal": "elementium_reinforced_bulwark"
+     },
+     "key": "elementium_reinforced_bulwark"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "",
+   "notes": "Goal had no checklist row; Karl supplied the card 2026-11-02.",
+   "id": "A181",
+   "state": "queued",
+   "batch": 22
+  },
+  {
+   "file": "alliance-human-female-warrior-tier3.png",
+   "group": "tier",
+   "priority": 3,
+   "title": "Tier 3 Warrior A F",
+   "targets": [
+    {
+     "label": "Tier 3 Warrior A F",
+     "goal": "tier3_warrior",
+     "resolve": {
+      "goal": "tier3_warrior",
+      "faction": "Alliance",
+      "class": "WARRIOR",
+      "race": "Human",
+      "sex": 3
+     },
+     "key": "tier3_warrior_human_female"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares another banner",
+   "notes": "Fills gap G043. Source card is the Human female Warrior from Karl 2026-11-02 (ph7 tier 3).",
+   "id": "A182",
+   "state": "queued",
+   "batch": 22
+  },
+  {
+   "file": "horde-orc-male-warlock-mage-pvpset-cloth.png",
+   "group": "pvp",
+   "priority": 3,
+   "title": "Warlord's Regalia (Mage) M",
+   "targets": [
+    {
+     "label": "Warlord's Regalia (Mage) M",
+     "goal": "pvp_set_cloth_horde_mage",
+     "resolve": {
+      "goal": "pvp_set_cloth_horde_mage",
+      "faction": "Horde",
+      "class": "MAGE",
+      "race": "Orc",
+      "sex": 2
+     },
+     "key": "pvp_warlord_s_regalia_mage_m"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "shares another banner",
+   "notes": "Fills gap G051. PvP set ids are armorChildren of the pvp_set_* collections; find the child id in Core.lua.",
+   "id": "A183",
+   "state": "queued",
+   "batch": 22
+  },
+  {
+   "file": "horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 1 Paladin H",
+   "targets": [
+    {
+     "label": "Dungeon Set 1 Paladin H",
+     "goal": "set_dungeon1_paladin",
+     "resolve": {
+      "goal": "set_dungeon1_paladin",
+      "faction": "Horde",
+      "class": "PALADIN",
+      "race": "Scourge",
+      "sex": null
+     },
+     "key": "set_dungeon1_paladin_undead"
+    }
+   ],
+   "alt": null,
+   "w": 1183,
+   "h": 709,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "Fills gap G054. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner.",
+   "id": "A184",
+   "state": "queued",
+   "batch": 23
+  },
+  {
+   "file": "horde-undead-female-paladin-dungeonset-generic-leveling-heroshot.jpg",
+   "group": "dungeon",
+   "priority": 3,
+   "title": "Dungeon Set 2 Paladin H",
+   "targets": [
+    {
+     "label": "Dungeon Set 2 Paladin H",
+     "goal": "set_dungeon2_paladin",
+     "resolve": {
+      "goal": "set_dungeon2_paladin",
+      "faction": "Horde",
+      "class": "PALADIN",
+      "race": "Scourge",
+      "sex": null
+     },
+     "key": "set_dungeon2_paladin_undead"
+    }
+   ],
+   "alt": null,
+   "w": 1183,
+   "h": 709,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "borrows a shared dungeon scene",
+   "notes": "Fills gap G055. Wide hero shot (1183x709, not a card); crop to 4:3 for the banner.",
+   "id": "A185",
+   "state": "queued",
+   "batch": 23
+  },
+  {
+   "file": "weapon-cutlace-blade.png",
+   "group": "newgoal",
+   "priority": 1,
+   "title": "Cruel Barb",
+   "targets": [
+    {
+     "label": "Cruel Barb",
+     "goal": "cruel_barb",
+     "resolve": {
+      "goal": "cruel_barb"
+     },
+     "key": "cruel_barb"
+    }
+   ],
+   "alt": null,
+   "w": 745,
+   "h": 1040,
+   "card": true,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "",
+   "notes": "Karl's pick (2026-11-02): the goblin raising a sword and looking straight at the viewer (Short John Mithril card, already in the artwork folder as weapon-cutlace-blade.png). The goblin and the sword are the focus.",
+   "id": "A186",
+   "state": "queued",
+   "batch": 23
   }
  ],
  "gaps": [
-  {
-   "group": "newgoal",
-   "slot": "Cruel Barb",
-   "goal": "cruel_barb",
-   "why": "No source in the folder. It needs the Cruel Barb card or other art.",
-   "id": "G001"
-  },
-  {
-   "group": "leveling",
-   "slot": "Gnome Rogue F",
-   "goal": null,
-   "why": "No image in the folder for this slot.",
-   "id": "G002"
-  },
   {
    "group": "leveling",
    "slot": "High Order Skyborne Warrior M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G003"
+   "id": "G003",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "High Order Skyborne Warrior F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G004"
+   "id": "G004",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "High Order Skyborne Hunter M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G005"
+   "id": "G005",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "High Order Skyborne Hunter F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G006"
+   "id": "G006",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "High Order Skyborne Mage M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G007"
+   "id": "G007",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "High Order Skyborne Druid M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G008"
+   "id": "G008",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "High Order Skyborne Druid F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G009"
-  },
-  {
-   "group": "leveling",
-   "slot": "Orc Hunter F",
-   "goal": null,
-   "why": "No image in the folder for this slot.",
-   "id": "G010"
-  },
-  {
-   "group": "leveling",
-   "slot": "Troll Warrior F",
-   "goal": null,
-   "why": "No image in the folder for this slot.",
-   "id": "G011"
+   "id": "G009",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "Troll Shaman F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G012"
+   "id": "G012",
+   "note": "No image of that sex. Closest, other sex: horde-troll-male-shaman-generic-leveling-ph3-2.png (Troll male, 745px); horde-troll-male-shaman-generic-leveling-ph3.png (Troll male, 745px). Keeps the shared banner."
   },
   {
    "group": "leveling",
    "slot": "Windshaper Skyborne Warrior M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G013"
+   "id": "G013",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "Windshaper Skyborne Warrior F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G014"
+   "id": "G014",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "Windshaper Skyborne Hunter M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G015"
+   "id": "G015",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "Windshaper Skyborne Hunter F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G016"
+   "id": "G016",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "Windshaper Skyborne Shaman M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G017"
+   "id": "G017",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "Windshaper Skyborne Shaman F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G018"
+   "id": "G018",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "Windshaper Skyborne Druid M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G019"
+   "id": "G019",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "leveling",
    "slot": "Windshaper Skyborne Druid F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G020"
+   "id": "G020",
+   "note": "Forever-only race with no card art. Keeps the Skyborne location image and class art."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Hunter H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G021"
+   "id": "G021",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Mage A M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G022"
+   "id": "G022",
+   "note": "No image of that sex. Closest, other sex: alliance-gnome-female-mage-tier1.jpg (Gnome female, 3000px); alliance-human-female-mage-tier1-2.png (Human female, 745px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Mage H M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G023"
+   "id": "G023",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Paladin A F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G024"
+   "id": "G024",
+   "note": "Only candidate is a Human female Paladin dungeon-set image (Karl, 2026-10-29), not Tier 1. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Paladin H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G025"
+   "id": "G025",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Rogue H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G026"
+   "id": "G026",
+   "note": "No image of that sex. Closest, other sex: horde-undead-male-rogue-tier1-blade-of-unquenched-thirst.jpg (Undead male, 1335px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Shaman A F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G027"
+   "id": "G027",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Warlock A F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G028"
+   "id": "G028",
+   "note": "No image of that sex. Closest, other sex: alliance-human-male-warlock-tier1.png (Human male, 745px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 1 Warrior A F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G029"
+   "id": "G029",
+   "note": "No image of that sex. Closest, other sex: alliance-human-male-warrior-tier1.png (Human male, 745px); alliance-nightelf-male-warrior-tier1.png (Nightelf male, 745px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Druid A F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G030"
+   "id": "G030",
+   "note": "No image of that sex. Closest, other sex: alliance-nightelf-male-druid-tier2.jpg (Nightelf male, 948px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Mage H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G031"
+   "id": "G031",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Paladin A F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G032"
+   "id": "G032",
+   "note": "No image of that sex. Closest, other sex: alliance-dwarf-male-paladin-tier2.png (Dwarf male, 745px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Paladin H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G033"
+   "id": "G033",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Priest H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G034"
+   "id": "G034",
+   "note": "No image of that sex. Closest, other sex: horde-undead-male-priest-tier2-weapon-anathema-shadow.png (Undead male, 745px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Shaman A F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G035"
+   "id": "G035",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Warlock H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G036"
+   "id": "G036",
+   "note": "No image of that sex. Closest, other sex: horde-orc-male-warlock-tier2.jpg (Orc male, 1024px); horde-orc-warlock-tier2.jpg (Orc sex not named, 1234px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Warrior H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G037"
+   "id": "G037",
+   "note": "No image of that sex. Closest, other sex: horde-orc-male-warrior-tier2.jpg (Orc male, 1238px); horde-orc-warrior-tier2.jpg (Orc sex not named, 1047px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 3 Hunter A F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G038"
+   "id": "G038",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 3 Paladin H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G039"
+   "id": "G039",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 3 Shaman A M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G040"
+   "id": "G040",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 3 Warlock A M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G041"
+   "id": "G041",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 3 Warlock H M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G042"
-  },
-  {
-   "group": "tier",
-   "slot": "Tier 3 Warrior A F",
-   "goal": null,
-   "why": "No image in the folder for this slot.",
-   "id": "G043"
+   "id": "G042",
+   "note": "No image of that sex. Closest, other sex: horde-orc-female-warlock-tier3.png (Orc female, 745px); horde-undead-female-warlock-tier3.jpg (Undead female, 886px). Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 3 Warrior H F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G044"
+   "id": "G044",
+   "note": "No image of that sex. Closest, other sex: horde-orc-male-warrior-tier3.png (Orc male, 745px); horde-tauren-male-warrior-tier3-thunderfury.jpg (Tauren male, 1494px). Keeps the shared banner."
   },
   {
    "group": "pvp",
    "slot": "Field Marshal's Battlegear (Warrior) M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G045"
+   "id": "G045",
+   "note": "No image of that sex. Closest, other sex: alliance-gnome-female-warrior-pvpset-plate.png (Gnome female, 745px); alliance-human-female-warrior-pvpset-plate.png (Human female, 745px). Keeps the shared banner."
   },
   {
    "group": "pvp",
    "slot": "Field Marshal's Earthshaker (Shaman) F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G046"
+   "id": "G046",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "pvp",
    "slot": "Field Marshal's Pursuit (Hunter) F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G047"
+   "id": "G047",
+   "note": "No image of that sex. Closest, other sex: alliance-dwarf-male-hunter-pvpset-mail.jpg (Dwarf male, 1671px). Keeps the shared banner."
   },
   {
    "group": "pvp",
    "slot": "Warlord's Aegis (Paladin) F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G048"
+   "id": "G048",
+   "note": "No image of that sex. Closest, other sex: horde-undead-male-warrior-paladin-pvpset-plate.png (Undead male, 745px). Keeps the shared banner."
   },
   {
    "group": "pvp",
    "slot": "Warlord's Pursuit (Hunter) F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G049"
+   "id": "G049",
+   "note": "No image of that sex. Closest, other sex: horde-orc-male-hunter-pvpset-mail.jpg (Orc male, 1050px); horde-troll-male-hunter-pvpset-mail.jpg (Troll male, 1429px). Keeps the shared banner."
   },
   {
    "group": "pvp",
    "slot": "Warlord's Raiment (Priest) M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G050"
-  },
-  {
-   "group": "pvp",
-   "slot": "Warlord's Regalia (Mage) M",
-   "goal": null,
-   "why": "No image in the folder for this slot.",
-   "id": "G051"
+   "id": "G050",
+   "note": "No image of that sex. Closest, other sex: horde-undead-female-priest-pvp-cloth.png (Undead female, 745px). Keeps the shared banner."
   },
   {
    "group": "pvp",
    "slot": "Warlord's Vestments (Rogue) M",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G052"
+   "id": "G052",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "pvp",
    "slot": "Warlord's Vestments (Rogue) F",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G053"
-  },
-  {
-   "group": "dungeon",
-   "slot": "Dungeon Set 1 Paladin H",
-   "goal": null,
-   "why": "No image in the folder for this slot.",
-   "id": "G054"
-  },
-  {
-   "group": "dungeon",
-   "slot": "Dungeon Set 2 Paladin H",
-   "goal": null,
-   "why": "No image in the folder for this slot.",
-   "id": "G055"
+   "id": "G053",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "dungeon",
    "slot": "Dungeon Set 1 Shaman A",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G056"
+   "id": "G056",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "dungeon",
    "slot": "Dungeon Set 2 Shaman A",
    "goal": null,
    "why": "No image in the folder for this slot.",
-   "id": "G057"
+   "id": "G057",
+   "note": "No image of this class and set in the folder. Keeps the shared banner."
   },
   {
    "group": "tier",
    "slot": "Tier 2 Rogue A M",
    "goal": "set_tier2_rogue",
    "why": "The planned source turned out to be Horde (Undead). No Alliance male Tier 2 Rogue source in the folder.",
-   "id": "G058"
+   "id": "G058",
+   "note": "Only low-res Alliance male Tier 2 Rogue cards exist (dwarf 312px, human 220px). Keeps the existing Alliance banner."
   }
  ],
  "corrections": [
@@ -6040,5 +6454,15 @@
     ]
    ]
   ]
+ },
+ "filled_gaps": {
+  "G002": "A176",
+  "G010": "A177",
+  "G011": "A178",
+  "G043": "A182",
+  "G051": "A183",
+  "G054": "A184",
+  "G055": "A185",
+  "G001": "A186"
  }
 }

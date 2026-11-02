@@ -5,6 +5,11 @@
   "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
   "state": "verified"
  },
+ "A002": {
+  "date": "2026-11-02",
+  "note": "source swapped to weapon-blastershot-launcher-hires.jpg",
+  "state": "queued"
+ },
  "A003": {
   "banner": "brain_hacker",
   "date": "2026-10-29",
@@ -35,6 +40,11 @@
   "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
   "state": "verified"
  },
+ "A008": {
+  "date": "2026-11-02",
+  "note": "source swapped to weapon-crimson-shocker.png",
+  "state": "queued"
+ },
  "A009": {
   "banner": "crown_of_the_ogre_king",
   "date": "2026-10-29",
@@ -47,11 +57,21 @@
   "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
   "state": "verified"
  },
+ "A011": {
+  "date": "2026-11-02",
+  "note": "source swapped to item-draconian-deflector.png",
+  "state": "queued"
+ },
  "A012": {
   "banner": "drillborer_disk",
   "date": "2026-10-29",
   "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
   "state": "verified"
+ },
+ "A013": {
+  "date": "2026-11-02",
+  "note": "source swapped to weapon-dwarven-hand-cannon.png",
+  "state": "queued"
  },
  "A014": {
   "banner": "electrified_dagger",
@@ -89,6 +109,11 @@
   "note": "Claude: verify ok and check.py 116 sessions, 2026-10-29",
   "state": "verified"
  },
+ "A020": {
+  "date": "2026-11-02",
+  "note": "source swapped to weapon-the-shatterer.png",
+  "state": "queued"
+ },
  "A021": {
   "banner": "the_untamed_blade",
   "date": "2026-10-29",
@@ -101,6 +126,11 @@
   "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
   "state": "verified"
  },
+ "A023": {
+  "date": "2026-11-02",
+  "note": "source swapped to item-wall-of-the-dead.png",
+  "state": "queued"
+ },
  "A024": {
   "banner": "barman_shanker",
   "date": "2026-10-29",
@@ -112,6 +142,11 @@
   "date": "2026-10-29",
   "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
   "state": "verified"
+ },
+ "A026": {
+  "date": "2026-11-02",
+  "note": "source swapped to weapon-doomfinger.png",
+  "state": "queued"
  },
  "A027": {
   "banner": "gurubashi_dwarf_destroyer",
@@ -225,6 +260,11 @@
   "note": "Claude: verify ok, check.py 116 sessions, masters and sources reviewed 2026-10-29",
   "state": "verified"
  },
+ "A046": {
+  "date": "2026-11-02",
+  "note": "source swapped to alliance-dwarf-female-rogue-tier1.png",
+  "state": "queued"
+ },
  "A047": {
   "banner": "allclasses_dwarf_shaman_female",
   "date": "2026-10-29",
@@ -295,6 +335,11 @@
   "date": "2026-10-29",
   "note": "Claude: verify ok, check.py 116 sessions, sources and masters reviewed, no near-duplicate masters, 2026-10-29",
   "state": "verified"
+ },
+ "A059": {
+  "date": "2026-11-02",
+  "note": "source swapped to alliance-nightelf-male-druid-generic-leveling-ph3-2.png",
+  "state": "queued"
  },
  "A060": {
   "banner": "allclasses_nightelf_hunter_male",
@@ -373,6 +418,11 @@
   "date": "2026-10-29",
   "state": "verified"
  },
+ "A074": {
+  "date": "2026-11-02",
+  "note": "source swapped to horde-tauren-female-druid-generic-leveling-ph4.png",
+  "state": "queued"
+ },
  "A075": {
   "banner": "allclasses_tauren_druid_male",
   "date": "2026-10-29",
@@ -450,6 +500,11 @@
   "date": "2026-10-29",
   "state": "verified"
  },
+ "A090": {
+  "date": "2026-11-02",
+  "note": "source swapped to horde-undead-male-warlock-generic-leveling-ph3-4.png",
+  "state": "queued"
+ },
  "A091": {
   "banner": "allclasses_undead_warrior_female",
   "date": "2026-10-29",
@@ -509,6 +564,11 @@
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A103": {
+  "date": "2026-11-02",
+  "note": "source swapped to alliance-nightelf-male-hunter-tier2-2.png",
+  "state": "queued"
  },
  "A104": {
   "banner": "set_tier2_hunter_orc_female",
@@ -620,6 +680,11 @@
   "date": "2026-10-30",
   "state": "verified"
  },
+ "A126": {
+  "date": "2026-11-02",
+  "note": "source swapped to alliance-human-male-paladin-dungeonset-2.png",
+  "state": "queued"
+ },
  "A127": {
   "banner": "set_dungeon1_priest_dwarf",
   "date": "2026-10-30",
@@ -629,6 +694,11 @@
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A130": {
+  "date": "2026-11-02",
+  "note": "source swapped to horde-orc-male-rogue-generic-leveling-ph4.png",
+  "state": "queued"
  },
  "A131": {
   "date": "2026-10-29",
@@ -650,6 +720,11 @@
   "date": "2026-10-30",
   "state": "verified"
  },
+ "A135": {
+  "date": "2026-11-02",
+  "note": "source swapped to horde-tauren-female-warrior-dungeonset.png",
+  "state": "queued"
+ },
  "A136": {
   "banner": "set_dungeon2_druid_nightelf",
   "date": "2026-10-30",
@@ -670,6 +745,11 @@
   "date": "2026-10-31",
   "state": "verified"
  },
+ "A140": {
+  "date": "2026-11-02",
+  "note": "source swapped to alliance-human-male-paladin-dungeonset.png",
+  "state": "queued"
+ },
  "A141": {
   "banner": "set_dungeon2_priest_nightelf",
   "date": "2026-10-31",
@@ -684,6 +764,11 @@
   "date": "2026-10-29",
   "note": "Karl confirmed art already edited, uploaded and mapped to its goals; Codex must not redo it.",
   "state": "blocked"
+ },
+ "A144": {
+  "date": "2026-11-02",
+  "note": "source swapped to horde-orc-male-warlock-dungeonset-2.png",
+  "state": "queued"
  },
  "A145": {
   "date": "2026-10-31",
@@ -724,6 +809,11 @@
   "banner": "pvp_field_marshal_s_regalia_mage_f",
   "date": "2026-10-31",
   "state": "verified"
+ },
+ "A153": {
+  "date": "2026-11-02",
+  "note": "source swapped to alliance-nightelf-male-druid-pvpset-leather.png",
+  "state": "queued"
  },
  "A154": {
   "banner": "pvp_field_marshal_s_threads_warlock_f",

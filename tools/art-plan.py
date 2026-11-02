@@ -579,7 +579,7 @@ def build():
     for r in skipped:
         md.append(f"| {r['id']} | {LABEL[state_of(r, status)]} | `{r['file']}` | {r['w']}x{r['h']} | {'; '.join(t['label'] for t in r['targets'])} {r['notes']} |")
     md += ["", "## Slots with no source image", "", "No picture in the folder fits these. They need new art or a source from Karl; nothing to do for Codex.", ""]
-    md += [f"- {g['id']}: {g['slot']}" for g in plan["gaps"]] + [""]
+    md += [f"- {g['id']}: {g['slot']}" + (f" - {g['note']}" if g.get("note") else "") for g in plan["gaps"]] + [""]
     md += ["## Corrections from Karl's review", ""] + [f"- `{c['file']}`: {c['why']}" for c in plan["corrections"]] + [""]
     md += ["## Source files that still need the naming convention", "", "Not renamed. Karl renames these himself.", "", "| Now | Proposed |", "|---|---|"]
     md += [f"| `{k}` | `{v}` |" for k, v in plan["renames"].items()] + [""]
@@ -661,7 +661,7 @@ def build():
         H.append(f"<tr class='skip'><td><b>{r['id']}</b></td><td class='i'>{('<img src=\"' + thumb(r['file']) + '\" alt=\"\">') if thumb(r['file']) else ''}<div class='fn'>{html.escape(r['file'])} ({r['w']}x{r['h']})</div></td>"
                  f"<td><span class='st {state_of(r, status)}'>{LABEL[state_of(r, status)]}</span></td><td class='f'>{html.escape('; '.join(t['label'] for t in r['targets']))} {html.escape(r['notes'])}</td></tr>")
     H.append("</tbody></table><h2>Slots with no source image</h2><p class='sub'>No picture in the folder fits these. They need new art or a source from Karl. Nothing for Codex.</p><ul>")
-    H += [f"<li>{g['id']}: {html.escape(g['slot'])}</li>" for g in plan["gaps"]]
+    H += [f"<li>{g['id']}: {html.escape(g['slot'])}" + (f" - {html.escape(g['note'])}" if g.get("note") else "") + "</li>" for g in plan["gaps"]]
     H.append("</ul><h2>Corrections from Karl's review</h2><ul>" + "".join(f"<li><code>{html.escape(c['file'])}</code>: {html.escape(c['why'])}</li>" for c in plan["corrections"]) + "</ul>")
     H.append("<h2>Source files that still need the naming convention</h2><p class='sub'>Not renamed. Karl renames these himself.</p><table><tbody>" +
              "".join(f"<tr><td><code>{html.escape(k)}</code></td><td><code>{html.escape(v)}</code></td></tr>" for k, v in plan["renames"].items()) + "</tbody></table>")
