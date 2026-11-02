@@ -5337,7 +5337,7 @@ function FGT.ShowSegmentTip(owner, goal, i, above)
         local _, st, val, size, who = FGT.RepProgress(rule, FGT.RepBase(goal, i))
         if st and st < (rule.rep.standing or 8) then
             local c = REP_COLORS[st] or SUB
-            GameTooltip:AddLine(FGT.STANDING[st] .. ":  " .. Commas(val) .. " / " .. Commas(size) .. "  \194\183  " .. pct,
+            GameTooltip:AddLine(FGT.STANDING[st] .. ":  " .. Commas(val) .. " / " .. Commas(size) .. "  \194\183  step " .. pct,
                 c[1], c[2], c[3])
             if who and who ~= UnitName("player") then GameTooltip:AddLine("Best: " .. who, SUB[1], SUB[2], SUB[3]) end
         else
