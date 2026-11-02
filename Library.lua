@@ -46,14 +46,14 @@ local function RepSteps(factionId)
 end
 
 -- One Exalted step per Steamwheedle Cartel town, each ticked from that town's own reputation.
--- Powderfuse only exists on Forever, and its faction id is not confirmed, so that step is ticked by hand.
+-- Powderfuse only exists on Forever (Wowhead Forever faction 2827), so that step is added there only.
 local function CartelSteps()
     local steps = {}
     for _, town in ipairs({ { "Booty Bay", 21 }, { "Ratchet", 470 }, { "Gadgetzan", 369 }, { "Everlook", 577 } }) do
         table.insert(steps, { text = "Reach Exalted with " .. town[1] .. ".", auto = { rep = { faction = town[2], standing = 8 } } })
     end
     if (select(4, GetBuildInfo()) or 0) >= 16000 then
-        table.insert(steps, { text = "Reach Exalted with Powderfuse." })
+        table.insert(steps, { text = "Reach Exalted with Powderfuse.", auto = { rep = { faction = 2827, standing = 8 } } })
     end
     return steps
 end
@@ -199,7 +199,7 @@ local library = {
         category = "Reputation", difficulty = "Hard",
         timeEstimate = "1-2 Months",
         note = "The goblin trading towns keep their own reputation each: Booty Bay, Ratchet, Gadgetzan and Everlook. Each town is one step and fills from that town's standing.",
-        foreverNote = "Forever adds a fifth town, Powderfuse. Tick that step by hand when you reach Exalted.",
+        foreverNote = "Forever adds a fifth town, Powderfuse, with its own step.",
         steps = CartelSteps(),
         tips = {
             "Each town tracks its own reputation bar.",
