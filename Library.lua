@@ -45,6 +45,19 @@ local function RepSteps(factionId)
     return steps
 end
 
+-- One Exalted step per Steamwheedle Cartel town, each ticked from that town's own reputation.
+-- Powderfuse only exists on Forever, and its faction id is not confirmed, so that step is ticked by hand.
+local function CartelSteps()
+    local steps = {}
+    for _, town in ipairs({ { "Booty Bay", 21 }, { "Ratchet", 470 }, { "Gadgetzan", 369 }, { "Everlook", 577 } }) do
+        table.insert(steps, { text = "Reach Exalted with " .. town[1] .. ".", auto = { rep = { faction = town[2], standing = 8 } } })
+    end
+    if (select(4, GetBuildInfo()) or 0) >= 16000 then
+        table.insert(steps, { text = "Reach Exalted with Powderfuse." })
+    end
+    return steps
+end
+
 -- One step per boss, each auto-ticked when the kill is seen.
 local function BossSteps(prefix, bosses)
     local steps = {}
@@ -176,6 +189,21 @@ local library = {
         tips = {
             "Complete 'The Charge of the Dragonflights' line to obtain your Signet Ring.",
             "Clear Temple of Ahn'Qiraj; kills and {item:21230:Ancient Qiraji Artifacts} raise reputation.",
+        },
+    },
+    {
+        id = "rep_steamwheedle", library = true, forever = "updated",
+        icon = { "inv_misc_coin_02", "inv_misc_coin_01" },
+        name = "Exalted: Steamwheedle Cartel",
+        short = "Steamwheedle Cartel",
+        category = "Reputation", difficulty = "Hard",
+        timeEstimate = "1-2 Months",
+        note = "The goblin trading towns keep their own reputation each: Booty Bay, Ratchet, Gadgetzan and Everlook. Each town is one step and fills from that town's standing.",
+        foreverNote = "Forever adds a fifth town, Powderfuse. Tick that step by hand when you reach Exalted.",
+        steps = CartelSteps(),
+        tips = {
+            "Each town tracks its own reputation bar.",
+            "Quests and kills near each town raise that town's reputation.",
         },
     },
     {

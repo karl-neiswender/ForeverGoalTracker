@@ -5833,6 +5833,34 @@
    "id": "A186",
    "state": "queued",
    "batch": 23
+  },
+  {
+   "file": "location-booty-bay.jpg",
+   "group": "needed",
+   "priority": 1,
+   "title": "Exalted: Steamwheedle Cartel",
+   "targets": [
+    {
+     "label": "Exalted: Steamwheedle Cartel",
+     "goal": "rep_steamwheedle",
+     "resolve": {
+      "goal": "rep_steamwheedle"
+     },
+     "key": "rep_steamwheedle"
+    }
+   ],
+   "alt": null,
+   "w": 1600,
+   "h": 802,
+   "card": false,
+   "low": false,
+   "karl": true,
+   "inferred": false,
+   "now": "",
+   "notes": "New goal (Karl 2026-11-02): one goal for Booty Bay, Ratchet, Gadgetzan, Everlook and Forever's Powderfuse. Planned source is the Booty Bay location image; no goblin-town card exists for the others. Karl may swap in a goblin card.",
+   "id": "A187",
+   "state": "queued",
+   "batch": 24
   }
  ],
  "gaps": [
