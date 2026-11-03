@@ -933,7 +933,7 @@ end
 FGT.StepRuleMet = RuleMet -- prerequisite evidence uses the same roster rules
 
 -- Short live readout for a step row: text, plus current/max when the
--- step has a count worth drawing as a bar.
+-- step has a count worth drawing as a bar. (Feedback reports quote it.)
 local function RuleReadout(rule)
     if not rule then return nil end
     local roster = RosterFor(rule)
@@ -991,6 +991,7 @@ local function RuleReadout(rule)
     end
     return nil
 end
+FGT.RuleReadout = RuleReadout
 
 -- Partial progress for the step segments (Karl's progress bar redesign, 2026-10-26). Each
 -- standing is an equal share of a reputation step, whatever its points, so the bar moves at the
@@ -14463,6 +14464,8 @@ do
             FGT.itemAskedAt[id] = FGT.itemAskedAt[id] or GetTime()
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
             print(TAG .. "that item's details are still loading. Shift-click again in a moment.")
+        elseif FGT.Feedback and FGT.Feedback.TakeLink(link) then
+            return -- typed into the feedback window instead
         elseif not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) then
             if ChatFrame_OpenChat then ChatFrame_OpenChat(link) end
         end

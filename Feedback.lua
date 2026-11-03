@@ -13,25 +13,24 @@ local STYLE = U.styles
 local F = {}
 FGT.Feedback = F
 
--- The form: a GitHub issue form (.github/ISSUE_TEMPLATE/feedback.yml). The
--- query names match that file's field ids.
+-- The form: Karl's Google Form "Forever Goal Tracker feedback" (no account needed).
+-- Each answer is pre-filled by its entry number, read from the form on 2026-11-03;
+-- a question added or replaced in the form gets a new number.
 local ENDPOINT = {
-    base = "https://github.com/karl-neiswender/ForeverGoalTracker/issues/new",
-    template = "feedback.yml",
+    base = "https://docs.google.com/forms/d/e/1FAIpQLScQ1LAmSwELPvHvnB--CkHbEmEX7XDt3NzMvHvm6MQIluiEbw/viewform?usp=pp_url",
+    kind = "entry.445946191", what = "entry.2062669808", details = "entry.332375755",
 }
 local MAX_TEXT = 600 -- characters the player can write
-local MAX_URL = 6500 -- keeps the link comfortable for browsers and GitHub
+local MAX_URL = 4000 -- Google refuses very long links (12,000 characters failed)
 
 local KINDS = {
     { key = "bug", label = "Bug", form = "Bug",
-      hint = "\"Catch the One Ring while fishing didn't count my fish.\"" },
+      hint = "For example: Catching the One Ring while fishing didn't count my fish." },
     { key = "goal", label = "Goal request", form = "Goal request",
-      hint = "\"Please add a goal for the Black War Tiger.\"" },
+      hint = "For example: Please add a goal for the Black War Tiger.\nShift-click an item to add it here." },
     { key = "idea", label = "Idea", form = "Idea",
-      hint = "\"Let me sort my goals by how close they are to done.\"" },
+      hint = "For example: Let me sort my goals by how close they are to done." },
 }
-
-local function DB() return ForeverGoalTrackerDB end
 
 -- ------------------------------------------------------------
 -- What the addon knows (never your character's name or realm)
@@ -40,6 +39,14 @@ local function Plain(s)
     s = tostring(s or "")
     s = s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|T.-|t", ""):gsub("|H.-|h(.-)|h", "%1")
     return (s:gsub("^%s+", ""):gsub("%s+$", ""))
+end
+
+-- an item or quest link as readable text with its id: "[Name] (item 123)"
+local function LinkText(link)
+    link = tostring(link or "")
+    local kind, id, name = link:match("|H(%a+):(%d+)[^|]*|h%[(.-)%]|h")
+    if kind then return string.format("[%s] (%s %s)", name, kind, id) end
+    return Plain(link)
 end
 
 -- the last few things the tracker could have counted, newest last
@@ -99,8 +106,9 @@ local function Version()
     return getMeta and getMeta(ADDON, "Version") or "?"
 end
 
--- ctx (all optional): goalId, step, itemId, questId, about (a plain label)
-local function Describe(ctx)
+-- ctx (all optional): goalId, step, readout, itemId, questId, about (a plain label)
+-- kind: a KINDS entry; tracking activity and errors only go with bugs
+local function Describe(ctx, kind)
     local lines = {}
     local function Add(s) lines[#lines + 1] = s end
     Add("Addon: Forever Goal Tracker " .. Version())
@@ -108,14 +116,16 @@ local function Describe(ctx)
     Add("Client: " .. (FGT.isForever and "Forever" or "Classic Era") .. (build and (", build " .. build) or ""))
     local level, class, race, faction = UnitLevel("player"), UnitClass("player"), UnitRace("player"), UnitFactionGroup("player")
     Add(string.format("Character: level %s %s %s (%s)", tostring(level), tostring(race), tostring(class), tostring(faction)))
-    local goal = ctx and ctx.goalId and FGT.GoalById(ctx.goalId) or (not ctx or not ctx.goalId) and U.goal() or nil
+    local goal = ctx and ctx.goalId and FGT.GoalById(ctx.goalId)
     if goal then
         local done, total = FGT.GoalProgress(goal)
         Add(string.format("Goal: %s (%s), %d of %d done", Plain(goal.name), tostring(goal.id), done or 0, total or 0))
     end
     if ctx and ctx.step then Add("Step: " .. Plain(ctx.step)) end
+    if ctx and ctx.readout then Add("Tracking right now: " .. Plain(ctx.readout)) end
     if ctx and ctx.itemId then Add("Item id: " .. tostring(ctx.itemId)) end
     if ctx and ctx.questId then Add("Quest id: " .. tostring(ctx.questId)) end
+    if kind and kind.key ~= "bug" then return table.concat(lines, "\n") end
     if #recent > 0 then
         Add("")
         Add("Recent activity:")
@@ -142,11 +152,10 @@ end
 
 function F.URL(kind, text, ctx)
     text = Plain(text):sub(1, MAX_TEXT)
-    local title = text:gsub("%s+", " "):sub(1, 60)
-    local details = Describe(ctx)
+    local details = Describe(ctx, kind)
     local function Build(d)
-        return string.format("%s?template=%s&title=%s&kind=%s&what=%s&details=%s", ENDPOINT.base, ENDPOINT.template,
-            Encode("[" .. kind.form .. "] " .. title), Encode(kind.form), Encode(text), Encode(d))
+        return string.format("%s&%s=%s&%s=%s&%s=%s", ENDPOINT.base, ENDPOINT.kind, Encode(kind.form),
+            ENDPOINT.what, Encode(text), ENDPOINT.details, Encode(d))
     end
     local url = Build(details)
     while #url > MAX_URL and #details > 200 do -- shorten the details, never the player's words
@@ -159,7 +168,7 @@ end
 -- ------------------------------------------------------------
 -- The window
 -- ------------------------------------------------------------
-local pop, current
+local pop
 local ctxNow, kindNow
 
 local function Button(parent, label, width)
@@ -182,15 +191,61 @@ local function Button(parent, label, width)
     return b
 end
 
+-- a quiet text button that turns gold on hover
+local function TextLink(parent, label)
+    local b = CreateFrame("Button", nil, parent)
+    b.text = U.font(b, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    b.text:SetPoint("LEFT", 0, 0)
+    b.text:SetText(label)
+    b:SetSize(math.ceil(b.text:GetStringWidth()) + 4, 16)
+    b:SetScript("OnEnter", function(self) self.text:SetTextColor(C.GOLD2[1], C.GOLD2[2], C.GOLD2[3]) end)
+    b:SetScript("OnLeave", function(self) self.text:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]); GameTooltip:Hide() end)
+    return b
+end
+
 function F.Close()
     if pop then pop:Hide() end
+end
+
+-- the privacy line, for what this report will carry
+local function PrivacyText()
+    local parts = "your addon version, class and level"
+    if ctxNow and ctxNow.goalId then parts = parts .. ", the goal" end
+    if kindNow.key == "bug" then parts = parts .. " and recent tracking" end
+    return "Adds " .. parts .. ". Never your name or chat."
+end
+
+-- the chip that says what the report is about; only a guess (the goal that
+-- happened to be open) can be removed
+local function RefreshAbout()
+    local chip = pop.chip
+    local about = ctxNow and ctxNow.about
+    if not about then chip:Hide(); return end
+    chip.text:SetWidth(0)
+    chip.text:SetText("About: " .. about)
+    local w = math.min(math.ceil(chip.text:GetStringWidth()), 290)
+    chip.text:SetWidth(w)
+    chip.remove:SetShown(ctxNow.removable and true or false)
+    chip:SetWidth(w + (ctxNow.removable and 30 or 16))
+    chip:Show()
+end
+
+local function Fit()
+    -- top padding, title, the subtitle's lines, then everything under it
+    local h = 17 + pop.title:GetStringHeight() + 7 + pop.sub:GetStringHeight()
+    if pop.write:IsShown() then
+        h = h + 14 + 24 + 10 + 120 + 36 + pop.hint:GetStringHeight() + 18 + 26 + 16
+    else
+        h = h + 22 + 26 + 10 + pop.copyHint:GetStringHeight() + 10 + pop.after:GetStringHeight() + 18 + 26 + 16
+    end
+    pop:SetHeight(math.ceil(h))
 end
 
 local function Build()
     pop = CreateFrame("Frame", "ForeverGoalTrackerFeedback", UIParent, "BackdropTemplate")
     pop:SetFrameStrata("DIALOG")
     pop:SetFrameLevel(200)
-    pop:SetSize(420, 336)
+    pop:SetSize(420, 340)
     pop:SetClampedToScreen(true)
     pop:EnableMouse(true)
     U.etch(pop, STYLE.window, 12)
@@ -218,13 +273,14 @@ local function Build()
     write:SetAllPoints(pop)
     pop.write = write
 
+    -- the kinds sit edge to edge as one control; the chosen one is lifted so its gold edge shows
     pop.pills = {}
     local prev
     for i, kind in ipairs(KINDS) do
         local pill = Button(write, kind.label, 12)
         pill:SetHeight(24)
-        pill:SetWidth(math.ceil(pill.text:GetStringWidth()) + 24)
-        if prev then pill:SetPoint("LEFT", prev, "RIGHT", 6, 0) else pill:SetPoint("TOPLEFT", pop.sub, "BOTTOMLEFT", 0, -14) end
+        pill:SetWidth(math.ceil(pill.text:GetStringWidth()) + 26)
+        if prev then pill:SetPoint("LEFT", prev, "RIGHT", -3, 0) else pill:SetPoint("TOPLEFT", pop.sub, "BOTTOMLEFT", 0, -14) end
         pill:SetScript("OnClick", function() F.SetKind(kind) end)
         pill.kind = kind
         pop.pills[i] = pill
@@ -267,31 +323,70 @@ local function Build()
     -- clicking anywhere in the field types in it
     field:EnableMouse(true)
     field:SetScript("OnMouseDown", function() box:SetFocus() end)
+    -- starts a little after the caret, so the blinking caret never sits on a letter
     pop.placeholder = U.font(field, 12, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    pop.placeholder:SetPoint("TOPLEFT", 12, -12)
+    pop.placeholder:SetPoint("TOPLEFT", 15, -12)
     pop.placeholder:SetPoint("RIGHT", field, "RIGHT", -12, 0)
     pop.placeholder:SetWordWrap(true)
     pop.counter = U.font(write, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    pop.counter:SetPoint("TOPRIGHT", field, "BOTTOMRIGHT", 0, -6)
-    pop.about = U.font(write, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
-    pop.about:SetPoint("TOPLEFT", field, "BOTTOMLEFT", 0, -6)
-    pop.about:SetPoint("RIGHT", pop.counter, "LEFT", -8, 0)
-    pop.about:SetWordWrap(false)
+    pop.counter:SetPoint("TOPRIGHT", field, "BOTTOMRIGHT", 0, -8)
+
+    local chip = CreateFrame("Frame", nil, write, "BackdropTemplate")
+    chip:SetHeight(20)
+    chip:SetPoint("TOPLEFT", field, "BOTTOMLEFT", 0, -6)
+    chip:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
+    chip:SetBackdropColor(0.03, 0.03, 0.03, 0.9)
+    chip:SetBackdropBorderColor(0.26, 0.24, 0.20, 1)
+    chip.text = U.font(chip, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+    chip.text:SetPoint("LEFT", 8, 0)
+    chip.text:SetWordWrap(false)
+    chip.remove = CreateFrame("Button", nil, chip)
+    chip.remove:SetSize(16, 16)
+    chip.remove:SetPoint("RIGHT", -2, 0)
+    chip.remove:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
+        GameTooltip:AddLine("Not about this goal")
+        GameTooltip:Show()
+    end)
+    chip.remove:SetScript("OnLeave", function() GameTooltip:Hide() end)
+    FGT.IconButton(chip.remove, "close", 9)
+    chip.remove:SetScript("OnClick", function()
+        GameTooltip:Hide()
+        ctxNow = nil
+        RefreshAbout()
+        pop.hint:SetText(PrivacyText())
+    end)
+    pop.chip = chip
+
     pop.hint = U.font(write, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    pop.hint:SetPoint("TOPLEFT", pop.about, "BOTTOMLEFT", 0, -10)
+    pop.hint:SetPoint("TOPLEFT", field, "BOTTOMLEFT", 0, -36)
     pop.hint:SetPoint("RIGHT", pop, "RIGHT", -16, 0)
     pop.hint:SetWordWrap(true)
-    pop.hint:SetText("Your report includes what you write, the addon and game version, your class and level, the goal you are on, and recent tracking activity. It never includes your character's name or your chat.")
+
+    -- hover shows exactly what will be sent
+    pop.included = TextLink(write, "What's included?")
+    pop.included:SetPoint("BOTTOMLEFT", pop, "BOTTOMLEFT", 16, 21)
+    pop.included:HookScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT")
+        GameTooltip:AddLine("What's included")
+        for line in (Describe(ctxNow, kindNow) .. "\n"):gmatch("(.-)\n") do
+            if line ~= "" then GameTooltip:AddLine(line, C.INK2[1], C.INK2[2], C.INK2[3]) end
+        end
+        GameTooltip:Show()
+    end)
 
     pop.cancel = Button(write, "Cancel", 84)
     pop.cancel:SetPoint("BOTTOMRIGHT", pop, "BOTTOMRIGHT", -108, 16)
-    pop.cancel:SetScript("OnClick", F.Close)
-    pop.next = Button(write, "Continue", 84)
+    pop.cancel:SetScript("OnClick", function()
+        pop.sent = true -- Cancel throws the draft away; Escape keeps it
+        F.Close()
+    end)
+    pop.next = Button(write, "Get link", 84)
     pop.next:SetPoint("BOTTOMRIGHT", pop, "BOTTOMRIGHT", -16, 16)
     pop.next:Look(STYLE.rowSel, STYLE.goldHover)
     pop.next:SetScript("OnClick", function() F.Step2() end)
 
-    box:SetScript("OnEscapePressed", F.Close)
+    box:SetScript("OnEscapePressed", F.Close) -- the draft is kept
     box:SetScript("OnTextChanged", function(self)
         local n = #self:GetText()
         pop.placeholder:SetShown(n == 0)
@@ -331,29 +426,35 @@ local function Build()
     pop.after:SetPoint("TOPLEFT", pop.copyHint, "BOTTOMLEFT", 0, -10)
     pop.after:SetPoint("RIGHT", pop, "RIGHT", -16, 0)
     pop.after:SetWordWrap(true)
-    pop.after:SetText("Your report will already be filled in. Sign in to GitHub if it asks, then press Submit new issue.")
+    pop.after:SetText("Your report will already be filled in. Press Submit at the end of the form. No account needed.")
     pop.back = Button(send, "Back", 84)
     pop.back:SetPoint("BOTTOMRIGHT", pop, "BOTTOMRIGHT", -108, 16)
     pop.back:SetScript("OnClick", function() F.Step1() end)
     pop.done = Button(send, "Done", 84)
     pop.done:SetPoint("BOTTOMRIGHT", pop, "BOTTOMRIGHT", -16, 16)
     pop.done:Look(STYLE.rowSel, STYLE.goldHover)
-    pop.done:SetScript("OnClick", F.Close)
+    pop.done:SetScript("OnClick", function()
+        pop.sent = true -- the next report starts empty
+        F.Close()
+    end)
 end
 
 function F.SetKind(kind)
     kindNow = kind
     for _, pill in ipairs(pop.pills) do
-        pill:Look(pill.kind == kind and STYLE.rowSel or STYLE.button, pill.kind == kind and STYLE.goldHover or STYLE.btnHover)
+        local on = pill.kind == kind
+        pill:Look(on and STYLE.rowSel or STYLE.button, on and STYLE.goldHover or STYLE.btnHover)
+        pill:SetFrameLevel(pop.write:GetFrameLevel() + (on and 3 or 1))
     end
     pop.placeholder:SetText(kind.hint)
+    pop.hint:SetText(PrivacyText())
 end
 
 function F.Step1()
     pop.title:SetText("Send feedback")
-    pop.sub:SetText("Report a bug, ask for a goal, or share an idea.")
+    pop.sub:SetText("Report a bug, ask for a goal, or share an idea.\nYou'll finish in your browser.")
     pop.send:Hide(); pop.write:Show()
-    pop:SetHeight(336)
+    Fit()
     pop.box:SetFocus()
 end
 
@@ -364,33 +465,55 @@ function F.Step2()
     pop.title:SetText("Almost done")
     pop.sub:SetText("Your feedback is ready to send.")
     pop.write:Hide(); pop.send:Show()
-    pop:SetHeight(214)
+    Fit()
     pop.link:SetText(pop.url)
     pop.link:SetFocus()
     pop.link:HighlightText()
 end
 
--- ctx (optional) says what the report is about: { goalId, step, itemId, questId, about }
+-- A shift-clicked item or quest goes into the box while you're typing in it.
+function F.TakeLink(link)
+    if not (pop and pop:IsShown() and pop.write:IsShown() and pop.box:HasFocus()) then return false end
+    pop.box:Insert(LinkText(link) .. " ")
+    return true
+end
+do
+    -- a post-hook: the chat box keeps working, and nothing of the game's is replaced
+    local owner, name, util = _G, "ChatEdit_InsertLink", rawget(_G, "ChatFrameUtil")
+    if not rawget(_G, name) and util and util.InsertLink then owner, name = util, "InsertLink" end
+    local hook = rawget(_G, "hooksecurefunc")
+    if hook and rawget(owner, name) then
+        hook(owner, name, function(link) F.TakeLink(link) end)
+    end
+end
+
+-- ctx (optional) says what the report is about: { goalId, step, readout, itemId, questId, about }
+-- With none, the goal that's open is suggested, and the player can remove it.
 -- kind (optional): "bug", "goal" or "idea"
 function F.Open(ctx, kindKey)
     if not pop then Build() end
-    ctxNow = ctx
-    local kind = KINDS[1]
-    for _, k in ipairs(KINDS) do if k.key == kindKey then kind = k end end
-    F.SetKind(kind)
-    pop.box:SetText("")
-    local about = ctx and ctx.about
-    if not about then
+    if not ctx then
         local goal = U.goal()
-        about = goal and ("About: " .. Plain(goal.name)) or nil
-    else
-        about = "About: " .. about
+        ctx = goal and { goalId = goal.id, about = Plain(goal.short or goal.name), removable = true } or nil
     end
-    pop.about:SetText(about or "")
+    ctxNow = ctx
+    -- an unsent draft survives closing the window (Escape, Cancel or a stray click)
+    if pop.sent or pop.box:GetText() == "" then
+        pop.sent = nil
+        pop.box:SetText("")
+        local kind = KINDS[1]
+        for _, k in ipairs(KINDS) do if k.key == kindKey then kind = k end end
+        F.SetKind(kind)
+    else
+        local kind = kindNow
+        for _, k in ipairs(KINDS) do if k.key == kindKey then kind = k end end
+        F.SetKind(kind)
+    end
+    RefreshAbout()
     pop:ClearAllPoints()
     if U.main:IsShown() then pop:SetPoint("CENTER", U.main, "CENTER", 0, 0) else pop:SetPoint("CENTER", UIParent, "CENTER", 0, 0) end
     pop.url = nil
-    pop.next:Enable2(false)
+    pop.next:Enable2(pop.box:GetText() ~= "")
     pop:Show()
     F.Step1()
 end
@@ -400,8 +523,9 @@ function F.ForStep(row)
     if row.popoutView and FGT.Popout and FGT.Popout.goalId then goal = FGT.GoalById(FGT.Popout.goalId) end
     goal = goal or U.goal()
     local step = row.text and row.text:GetText()
+    local readout = row.ruleEntry and FGT.RuleReadout and FGT.RuleReadout(row.ruleEntry)
     F.Open({
-        goalId = goal and goal.id, step = step, itemId = row.itemId, questId = row.questId,
+        goalId = goal and goal.id, step = step, readout = readout, itemId = row.itemId, questId = row.questId,
         about = step and Plain(step):sub(1, 70) or nil,
     })
 end
@@ -415,12 +539,16 @@ function FGT.HandleFeedbackCommand(msg)
 end
 
 -- ------------------------------------------------------------
--- The title bar icon
+-- The title bar icon: with the gear and close, the icons sit together
+-- and What's new moves out to their side
 -- ------------------------------------------------------------
 local btn = CreateFrame("Button", nil, T.bar)
 btn:SetSize(22, 22)
-local anchor = FGT.WhatsNew and FGT.WhatsNew.button or T.gear
-btn:SetPoint("RIGHT", anchor, "LEFT", -4, 0)
+btn:SetPoint("RIGHT", T.gear, "LEFT", -4, 0)
+if FGT.WhatsNew and FGT.WhatsNew.button then
+    FGT.WhatsNew.button:ClearAllPoints()
+    FGT.WhatsNew.button:SetPoint("RIGHT", btn, "LEFT", -8, 0)
+end
 btn:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
     GameTooltip:AddLine("Send feedback")
