@@ -24,12 +24,10 @@ local MAX_TEXT = 600 -- characters the player can write
 local MAX_URL = 4000 -- Google refuses very long links (12,000 characters failed)
 
 local KINDS = {
-    { key = "bug", label = "Bug", form = "Bug",
-      hint = "For example: Catching the One Ring while fishing didn't count my fish." },
+    { key = "bug", label = "Bug", form = "Bug", hint = "Describe the bug here." },
     { key = "goal", label = "Goal request", form = "Goal request",
-      hint = "For example: Please add a goal for the Black War Tiger.\nShift-click an item to add it here." },
-    { key = "idea", label = "Idea", form = "Idea",
-      hint = "For example: Let me sort my goals by how close they are to done." },
+      hint = "Request a goal here. Shift-click an item to add it." },
+    { key = "idea", label = "Idea", form = "Idea", hint = "Share your idea here." },
 }
 
 -- ------------------------------------------------------------
@@ -207,34 +205,41 @@ function F.Close()
     if pop then pop:Hide() end
 end
 
--- the privacy line, for what this report will carry
+-- the privacy note, for what this report will carry: two short lines beside the counter
 local function PrivacyText()
-    local parts = "your addon version, class and level"
-    if ctxNow and ctxNow.goalId then parts = parts .. ", the goal" end
-    if kindNow.key == "bug" then parts = parts .. " and recent tracking" end
-    return "Adds " .. parts .. ". Never your name or chat."
+    local parts = { "version", "class", "level" }
+    if ctxNow and ctxNow.goalId then parts[#parts + 1] = "goal" end
+    if kindNow.key == "bug" then parts[#parts + 1] = "recent tracking" end
+    local last = table.remove(parts)
+    return "Adds your " .. table.concat(parts, ", ") .. " and " .. last .. ".\nNever your name or chat."
 end
 
--- the chip that says what the report is about; only a guess (the goal that
--- happened to be open) can be removed
+-- the chip that says what the report is about, over the box; its x removes it (a stray right-click)
 local function RefreshAbout()
-    local chip = pop.chip
+    local chip, field = pop.chip, pop.field
     local about = ctxNow and ctxNow.about
-    if not about then chip:Hide(); return end
+    field:ClearAllPoints()
+    field:SetPoint("RIGHT", pop, "RIGHT", -16, 0)
+    if not about then
+        chip:Hide()
+        field:SetPoint("TOPLEFT", pop.pills[1], "BOTTOMLEFT", 0, -10)
+        return
+    end
     chip.text:SetWidth(0)
     chip.text:SetText("About: " .. about)
-    local w = math.min(math.ceil(chip.text:GetStringWidth()), 290)
+    local w = math.min(math.ceil(chip.text:GetStringWidth()), 330)
     chip.text:SetWidth(w)
-    chip.remove:SetShown(ctxNow.removable and true or false)
-    chip:SetWidth(w + (ctxNow.removable and 30 or 16))
+    chip:SetWidth(w + 30)
     chip:Show()
+    field:SetPoint("TOPLEFT", chip, "BOTTOMLEFT", 0, -8)
 end
 
 local function Fit()
     -- top padding, title, the subtitle's lines, then everything under it
     local h = 17 + pop.title:GetStringHeight() + 7 + pop.sub:GetStringHeight()
     if pop.write:IsShown() then
-        h = h + 14 + 24 + 10 + 120 + 36 + pop.hint:GetStringHeight() + 18 + 26 + 16
+        h = h + 14 + 24 + 10 + (pop.chip:IsShown() and 28 or 0) + 120
+            + 8 + math.max(pop.hint:GetStringHeight(), 12) + 14 + 26 + 16
     else
         h = h + 22 + 26 + 10 + pop.copyHint:GetStringHeight() + 10 + pop.after:GetStringHeight() + 18 + 26 + 16
     end
@@ -273,14 +278,14 @@ local function Build()
     write:SetAllPoints(pop)
     pop.write = write
 
-    -- the kinds sit edge to edge as one control; the chosen one is lifted so its gold edge shows
+    -- the kinds, a little apart like the Library's filter buttons; the chosen one is gold
     pop.pills = {}
     local prev
     for i, kind in ipairs(KINDS) do
         local pill = Button(write, kind.label, 12)
         pill:SetHeight(24)
         pill:SetWidth(math.ceil(pill.text:GetStringWidth()) + 26)
-        if prev then pill:SetPoint("LEFT", prev, "RIGHT", -3, 0) else pill:SetPoint("TOPLEFT", pop.sub, "BOTTOMLEFT", 0, -14) end
+        if prev then pill:SetPoint("LEFT", prev, "RIGHT", 6, 0) else pill:SetPoint("TOPLEFT", pop.sub, "BOTTOMLEFT", 0, -14) end
         pill:SetScript("OnClick", function() F.SetKind(kind) end)
         pill.kind = kind
         pop.pills[i] = pill
@@ -333,7 +338,7 @@ local function Build()
 
     local chip = CreateFrame("Frame", nil, write, "BackdropTemplate")
     chip:SetHeight(20)
-    chip:SetPoint("TOPLEFT", field, "BOTTOMLEFT", 0, -6)
+    chip:SetPoint("TOPLEFT", pop.pills[1], "BOTTOMLEFT", 0, -10)
     chip:SetBackdrop({ bgFile = "Interface\\Buttons\\WHITE8X8", edgeFile = "Interface\\Buttons\\WHITE8X8", edgeSize = 1 })
     chip:SetBackdropColor(0.03, 0.03, 0.03, 0.9)
     chip:SetBackdropBorderColor(0.26, 0.24, 0.20, 1)
@@ -345,7 +350,7 @@ local function Build()
     chip.remove:SetPoint("RIGHT", -2, 0)
     chip.remove:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_BOTTOM")
-        GameTooltip:AddLine("Not about this goal")
+        GameTooltip:AddLine("Remove")
         GameTooltip:Show()
     end)
     chip.remove:SetScript("OnLeave", function() GameTooltip:Hide() end)
@@ -355,12 +360,14 @@ local function Build()
         ctxNow = nil
         RefreshAbout()
         pop.hint:SetText(PrivacyText())
+        Fit()
     end)
     pop.chip = chip
 
     pop.hint = U.font(write, 10, "", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
-    pop.hint:SetPoint("TOPLEFT", field, "BOTTOMLEFT", 0, -36)
-    pop.hint:SetPoint("RIGHT", pop, "RIGHT", -16, 0)
+    -- on the counter's line, beside it
+    pop.hint:SetPoint("TOPLEFT", field, "BOTTOMLEFT", 0, -8)
+    pop.hint:SetPoint("RIGHT", field, "RIGHT", -64, 0)
     pop.hint:SetWordWrap(true)
 
     -- hover shows exactly what will be sent
@@ -488,14 +495,10 @@ do
 end
 
 -- ctx (optional) says what the report is about: { goalId, step, readout, itemId, questId, about }
--- With none, the goal that's open is suggested, and the player can remove it.
+-- With none (the title bar icon, /goals feedback) the report is general: the open goal is not assumed.
 -- kind (optional): "bug", "goal" or "idea"
 function F.Open(ctx, kindKey)
     if not pop then Build() end
-    if not ctx then
-        local goal = U.goal()
-        ctx = goal and { goalId = goal.id, about = Plain(goal.short or goal.name), removable = true } or nil
-    end
     ctxNow = ctx
     -- an unsent draft survives closing the window (Escape, Cancel or a stray click)
     if pop.sent or pop.box:GetText() == "" then
