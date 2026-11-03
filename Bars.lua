@@ -171,6 +171,7 @@ end
 -- FGT.StyleGoalRow): the light follows, so its core never stands taller than a thin bar
 -- (Karl, 2026-10-28: the tip looked too tall). Under 5 tall it stays within the bar.
 function B.Resize(bar, height)
+    B.Guard(B.Reround, bar, height) -- (the corners follow: a thin bar turns into a pill)
     local s = B[bar]
     if not s then return end
     s.height = height
@@ -183,6 +184,250 @@ function B.Resize(bar, height)
     s.spill = spill
     s.core:SetSize(height >= 13 and 2 or 1, height + 2 * math.min(2, spill - 1))
     s.glow:SetSize(math.max(6, math.floor(height * 0.8)), height + 2 * spill + 4)
+end
+
+-- ------------------------------------------------------------
+-- Rounded corners (Karl, 2026-11-03: to match the rounded corners across the window, with the
+-- fill clipped into them, never spilling out). The game has no corner radius, so a bar is drawn
+-- in pieces: its 1 unit outline is four edge strips and four quarter-ring arcs
+-- (Media/round-ring-<r>, from tools/round-corners.py), and its track and everything inside it are
+-- clipped by two end masks (Media/round-cap-<h>-l/r) that clamp to white, so each one only cuts
+-- its own end. The square backdrop is cleared and its colour calls (Skin, B.Glass, the hover
+-- ring) are routed to these pieces. The tip's core and glow stay unclipped: they spill past the
+-- bar's edges on purpose.
+-- ------------------------------------------------------------
+local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
+local CORNERS = { "TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT" }
+-- texcoords that turn the top-left arc into each corner
+local FLIP = { TOPLEFT = { 0, 1, 0, 1 }, TOPRIGHT = { 1, 0, 0, 1 }, BOTTOMLEFT = { 0, 1, 1, 0 }, BOTTOMRIGHT = { 1, 0, 1, 0 } }
+local LEFT_SIDE = { TOPLEFT = true, BOTTOMLEFT = true }
+
+-- The corner radius for a bar this tall: 4, like the window's etched tiles, or half the
+-- height on thin bars (a pill); square under 4 tall.
+function B.Radius(height)
+    if not height or height < 4 then return 0 end
+    return math.min(4, math.floor(height / 2))
+end
+
+-- An outline of strips and arcs on `frame`, recoloured as one (ring:SetColor).
+local function NewRing(frame, layer)
+    local ring = { edges = {}, arcs = {}, color = { 0, 0, 0, 1 } }
+    for i = 1, 4 do
+        local t = frame:CreateTexture(nil, layer or "BORDER")
+        t:SetTexture(SOLID)
+        t.fgtNoClip = true
+        ring.edges[i] = t
+    end
+    for _, c in ipairs(CORNERS) do
+        local t = frame:CreateTexture(nil, layer or "BORDER")
+        t.fgtNoClip = true
+        ring.arcs[c] = t
+    end
+    function ring:SetColor(r, g, b, a)
+        local col = self.color
+        col[1], col[2], col[3], col[4] = r or 0, g or 0, b or 0, a or 1
+        for _, t in ipairs(self.edges) do t:SetVertexColor(col[1], col[2], col[3], col[4]) end
+        for _, t in pairs(self.arcs) do t:SetVertexColor(col[1], col[2], col[3], col[4]) end
+    end
+    return ring
+end
+
+-- Lays a ring out at radius r; roundL/roundR false keep that end square (inner segment ends).
+local function PlaceRing(frame, ring, r, roundL, roundR)
+    local rl = (roundL and r >= 2) and r or 0
+    local rr = (roundR and r >= 2) and r or 0
+    local top, bottom, left, right = ring.edges[1], ring.edges[2], ring.edges[3], ring.edges[4]
+    for _, t in ipairs(ring.edges) do t:ClearAllPoints() end
+    top:SetPoint("TOPLEFT", frame, "TOPLEFT", rl, 0)
+    top:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -rr, 0)
+    top:SetHeight(1)
+    bottom:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", rl, 0)
+    bottom:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -rr, 0)
+    bottom:SetHeight(1)
+    left:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -rl)
+    left:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, rl)
+    left:SetWidth(1)
+    right:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -rr)
+    right:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, rr)
+    right:SetWidth(1)
+    for c, t in pairs(ring.arcs) do
+        local cr = LEFT_SIDE[c] and rl or rr
+        if cr > 0 then
+            local f = FLIP[c]
+            t:SetTexture(MEDIA .. "round-ring-" .. cr)
+            t:SetTexCoord(f[1], f[2], f[3], f[4])
+            t:ClearAllPoints()
+            t:SetPoint(c, frame, c, 0, 0)
+            t:SetSize(cr, cr)
+            t:Show()
+        else
+            t:Hide()
+        end
+    end
+end
+
+-- The game allows at most three masks on a texture (Era, 2026-11-03: "Texture already has the
+-- maximum number of mask textures (3)"), so each end of the inside takes one mask that cuts both
+-- its corners (Media/round-cap-<h>-l/r). Their shape depends on the inside's height, so there is a
+-- pair per bar height in use (tools/round-corners.py BAR_HEIGHTS); any other height stays square
+-- inside its rounded outline.
+local CAP_HEIGHTS = { [2] = true, [3] = true, [4] = true, [7] = true, [8] = true, [22] = true }
+local ENDS = { "LEFT", "RIGHT" }
+
+-- The two end masks on `owner` (the bar, or a frame of its own such as the idle glint's), cutting
+-- the inside of `bar`'s outline: radius r - 1, 1 in from each end.
+local function PlaceMasks(owner, bar)
+    local r = bar.roundRadius or 0
+    local h = (bar.roundHeight or 0) - 2
+    for _, e in ipairs(ENDS) do
+        local m = owner.roundMasks[e]
+        local left = e == "LEFT"
+        local round = r >= 2 and CAP_HEIGHTS[h] and (left and bar.roundL ~= false or not left and bar.roundR ~= false)
+        local top, bottom = left and "TOPLEFT" or "TOPRIGHT", left and "BOTTOMLEFT" or "BOTTOMRIGHT"
+        local dx = left and 1 or -1
+        m:ClearAllPoints()
+        m:SetPoint(top, bar, top, dx, -1)
+        m:SetPoint(bottom, bar, bottom, dx, 1)
+        if round then
+            m:SetTexture(MEDIA .. "round-cap-" .. h .. (left and "-l" or "-r"), "CLAMPTOWHITE", "CLAMPTOWHITE")
+            m:SetWidth(r - 1)
+        else
+            -- a square end: a plain white mask cuts nothing
+            m:SetTexture(SOLID, "CLAMPTOWHITE", "CLAMPTOWHITE")
+            m:SetWidth(1)
+        end
+    end
+end
+
+-- Clips every texture on `owner` (default: the bar) into the bar's rounded inside. Safe to call
+-- again: new textures (ticks, the hatch, the 100% shine) are picked up, old ones are skipped.
+function B.Clip(bar, owner)
+    owner = owner or bar
+    if not (bar.roundRing and owner.CreateMaskTexture) then return end
+    if not owner.roundMasks then
+        owner.roundMasks = {}
+        for _, e in ipairs(ENDS) do owner.roundMasks[e] = owner:CreateMaskTexture() end
+        bar.roundOwners[#bar.roundOwners + 1] = owner
+        PlaceMasks(owner, bar)
+    end
+    local s = B[bar]
+    for _, region in ipairs({ owner:GetRegions() }) do
+        if type(region) == "table" and region.GetObjectType and region:GetObjectType() == "Texture"
+            and not region.fgtNoClip and not region.fgtClipped
+            and not (s and (region == s.core or region == s.glow)) and region ~= bar.lip then
+            region.fgtClipped = true -- (first: a failure is never retried into the mask limit)
+            for _, e in ipairs(ENDS) do region:AddMaskTexture(owner.roundMasks[e]) end
+        end
+    end
+end
+
+-- Lays the outline, masks and lip out for this height (NewBar, B.Resize, segment ends).
+function B.Reround(bar, height)
+    if not bar.roundRing then return end
+    bar.roundHeight = height or bar.roundHeight
+    local r = B.Radius(bar.roundHeight)
+    bar.roundRadius = r
+    PlaceRing(bar, bar.roundRing, r, bar.roundL ~= false, bar.roundR ~= false)
+    for _, owner in ipairs(bar.roundOwners) do PlaceMasks(owner, bar) end
+    if bar.lip then -- the faint lit line under the track stops where the corners turn
+        bar.lip:ClearAllPoints()
+        bar.lip:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", bar.roundL ~= false and r or 0, 0)
+        bar.lip:SetPoint("TOPRIGHT", bar, "BOTTOMRIGHT", bar.roundR ~= false and -r or 0, 0)
+    end
+end
+
+-- Which ends turn: the goal page's segments round only the bar's two outer ends, so they still
+-- read as one bar seen through gaps.
+function B.SetRoundEnds(bar, left, right)
+    left, right = left and true or false, right and true or false
+    if bar.roundL == left and bar.roundR == right then return end
+    bar.roundL, bar.roundR = left, right
+    B.Reround(bar)
+end
+
+-- Runs a rounding step without letting an error stop the addon loading (bars made at load run
+-- in Core's main chunk). The first error is kept and printed once the chat is up (B.Report).
+function B.Guard(fn, ...)
+    local ok, err = pcall(fn, ...)
+    if not ok and not B.roundError then
+        B.roundError = tostring(err)
+        if C_Timer and C_Timer.After then
+            C_Timer.After(5, function()
+                print("|cffffd75eForever Goal Tracker:|r rounded bars failed, drawn square instead: " .. B.roundError)
+            end)
+        end
+    end
+    return ok
+end
+
+-- /goals barprobe: what the game actually applied to the visible bars' rounding (masks on the
+-- fill, their files and sizes, the pixel scale), to measure the corners instead of guessing.
+function B.Probe()
+    local TAG = "|cffffd75eForever Goal Tracker:|r "
+    print(TAG .. "bar probe" .. (B.roundError and (" - error: " .. B.roundError) or " - no rounding error"))
+    local n = 0
+    for _, bar in ipairs(FGT.allBars or {}) do
+        if bar:IsVisible() and n < 4 then
+            n = n + 1
+            local f = bar.fill
+            local masks = f.GetNumMaskTextures and f:GetNumMaskTextures() or -1
+            -- screen pixels per UI unit: the frame's scale times the screen's height over 768
+            local physH = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize()) or 768
+            local px = (bar:GetEffectiveScale() or 1) * (physH or 768) / 768
+            print(string.format("  bar %d: %.1f x %.1f units, %.2f px per unit, radius %s, ends %s/%s, fill %.1f wide, %d masks",
+                n, bar:GetWidth() or 0, bar:GetHeight() or 0, px,
+                tostring(bar.roundRadius), tostring(bar.roundL ~= false), tostring(bar.roundR ~= false), f:GetWidth() or 0, masks))
+            for i = 1, math.max(0, masks) do
+                local m = f:GetMaskTexture(i)
+                if m then
+                    print(string.format("    mask %d: %s, %.1f x %.1f, shown %s", i, tostring(m:GetTexture()),
+                        m:GetWidth() or 0, m:GetHeight() or 0, tostring(m:IsShown())))
+                end
+            end
+            local arc = bar.roundRing and bar.roundRing.arcs.TOPLEFT
+            if arc then print("    top-left arc: " .. tostring(arc:GetTexture()) .. ", shown " .. tostring(arc:IsShown())) end
+        end
+    end
+    if n == 0 then print("  no bar on screen: open the tracker first") end
+end
+
+local function NoOp() end
+-- NewBar calls this right after Skin: the square backdrop gives way to the rounded pieces.
+-- (Built first, the backdrop cleared last: a failure on the way leaves the square bar intact.)
+function B.Round(bar, height)
+    local br, bg, bb, ba = bar:GetBackdropBorderColor()
+    local cr, cg, cb, ca = bar:GetBackdropColor()
+    local roundBg = bar:CreateTexture(nil, "BACKGROUND", nil, -8)
+    roundBg:SetTexture(SOLID)
+    roundBg:SetPoint("TOPLEFT", 1, -1)
+    roundBg:SetPoint("BOTTOMRIGHT", -1, 1)
+    roundBg:SetVertexColor(0, 0, 0, 0)
+    local ring = NewRing(bar, "BORDER")
+    ring:SetColor(0, 0, 0, 0)
+    bar.roundOwners, bar.roundBg, bar.roundRing = {}, roundBg, ring
+    local ok, err = pcall(B.Reround, bar, height)
+    if not ok then -- undo: the square backdrop is still there
+        bar.roundRing, bar.roundBg = nil, nil
+        roundBg:Hide()
+        for _, t in ipairs(ring.edges) do t:Hide() end
+        for _, t in pairs(ring.arcs) do t:Hide() end
+        error(err, 0)
+    end
+    bar:SetBackdrop(nil)
+    local fill = { 0, 0, 0, 1 }
+    bar.SetBackdrop = NoOp -- (B.Glass sets one: only its colours matter now)
+    function bar:SetBackdropColor(r, g, b, a)
+        fill[1], fill[2], fill[3], fill[4] = r or 0, g or 0, b or 0, a or 1
+        self.roundBg:SetVertexColor(fill[1], fill[2], fill[3], fill[4])
+    end
+    function bar:GetBackdropColor() return fill[1], fill[2], fill[3], fill[4] end
+    function bar:SetBackdropBorderColor(r, g, b, a) self.roundRing:SetColor(r, g, b, a) end
+    function bar:GetBackdropBorderColor()
+        local c = self.roundRing.color
+        return c[1], c[2], c[3], c[4]
+    end
+    bar:SetBackdropColor(tonumber(cr) or 0, tonumber(cg) or 0, tonumber(cb) or 0, tonumber(ca) or 1)
+    bar:SetBackdropBorderColor(tonumber(br) or 0, tonumber(bg) or 0, tonumber(bb) or 0, tonumber(ba) or 1)
 end
 
 -- Glass track (Karl, 2026-10-26, option D of the segment mockups): the goal page's bar sits on
@@ -227,11 +472,28 @@ end
 -- One faint outline around a goal page bar, 2 outside it (option B): the segments share one, and
 -- the continuous bar gets the same so both are the same size on the page (Karl, 2026-10-26).
 -- A child of the frame, so it hides and fades with it.
+-- Rounded like the bar it surrounds, 2 further out (radius + 2), so the two curves run together.
+-- (Square, as before, if the rounded outline fails: B.Guard reports it.)
+local function RoundOutline(outline, frame)
+    local ring = NewRing(outline, "ARTWORK")
+    ring:SetColor(0, 0, 0, 0)
+    local r = B.Radius(frame:GetHeight())
+    PlaceRing(outline, ring, r > 0 and r + 2 or 0, true, true)
+    outline:SetBackdrop(nil)
+    outline.ring = ring
+    -- (the overall bar's outline fades in on hover: B.Ring recolours it like a border)
+    function outline:SetBackdropBorderColor(cr, cg, cb, ca) self.ring:SetColor(cr, cg, cb, ca) end
+    function outline:GetBackdropBorderColor()
+        local c = self.ring.color
+        return c[1], c[2], c[3], c[4]
+    end
+end
 function B.Outline(frame)
     local outline = CreateFrame("Frame", nil, frame, "BackdropTemplate")
     outline:SetPoint("TOPLEFT", -2, 2)
     outline:SetPoint("BOTTOMRIGHT", 2, -2)
     outline:SetBackdrop({ edgeFile = SOLID, edgeSize = 1 })
+    B.Guard(RoundOutline, outline, frame)
     outline:SetBackdropBorderColor(1.00, 0.85, 0.55, 0.16)
     outline:EnableMouse(false)
     return outline
@@ -617,6 +879,7 @@ function B.NewSegments(parent, height, makeBar)
         bar.hatch:SetPoint("BOTTOMRIGHT", -1, 1)
         bar.hatch:SetVertexColor(1.00, 0.86, 0.55, 0.07)
         bar.hatch:Hide()
+        B.Guard(B.Clip, bar) -- (the hatch keeps inside the rounded ends too)
         bar.segIndex = i
         -- the goal page's segments share one idle shine along the whole bar (Core's glint)
         if segs.wholeGradient then bar.glintGroup = segs end
@@ -644,6 +907,7 @@ function B.NewSegments(parent, height, makeBar)
             bar:ClearAllPoints()
             bar:SetPoint("TOPLEFT", self, "TOPLEFT", x, 0)
             bar:SetSize(math.max(1, right - x), height)
+            B.Guard(B.SetRoundEnds, bar, i == 1, i == n) -- only the whole bar's two ends turn
             if bar.span and bar.cur and not bar.fading then bar:Render(bar.cur) end
         end
     end

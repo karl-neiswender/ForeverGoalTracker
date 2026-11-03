@@ -2571,6 +2571,9 @@ local function NewBar(parent, height)
     lip:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", 0, 0)
     lip:SetPoint("TOPRIGHT", bar, "BOTTOMRIGHT", 0, 0)
     lip:SetVertexColor(1, 0.9, 0.6, 0.08)
+    -- rounded corners, the fill clipped into them (Bars.lua; it also places the lip). Guarded: an
+    -- error there stopped the whole addon loading in Era (2026-11-03), so it reports and moves on.
+    FGT.Bars.Guard(FGT.Bars.Round, bar, height)
 
     -- Fill: deep amber on the left building to blazing gold at the tip.
     bar.fill = bar:CreateTexture(nil, "ARTWORK", nil, 1)
@@ -2753,6 +2756,7 @@ local function NewBar(parent, height)
     FGT.allBars = FGT.allBars or {}
     table.insert(FGT.allBars, bar) -- for the idle glint below
     FGT.Bars.Attach(bar, height) -- the bright tip, its pulse and the earned trail (Bars.lua)
+    FGT.Bars.Guard(FGT.Bars.Clip, bar) -- the track and every layer of the fill keep inside the rounded corners
     return bar
 end
 
@@ -2785,6 +2789,7 @@ do
             t:SetPoint("BOTTOM", clip, "BOTTOM", 0, 0)
         end
         g.r:SetPoint("LEFT", g.l, "RIGHT", 0, 0)
+        FGT.Bars.Guard(FGT.Bars.Clip, bar, clip) -- (and inside the bar's rounded ends)
         bar.glint = g
         return g
     end
@@ -3098,7 +3103,10 @@ end
 
 function FGT.BarShine(bar)
     if FGT.Setting("celebrations") ~= "full" then return end
-    if not bar.shineL then MakeShine(bar, math.max(2, bar:GetHeight() - 2)) end
+    if not bar.shineL then
+        MakeShine(bar, math.max(2, bar:GetHeight() - 2))
+        if bar.roundRing then FGT.Bars.Guard(FGT.Bars.Clip, bar) end -- the shine stays inside the rounded ends
+    end
     -- a wide soft band sized to the bar (like the idle glint), bright core in the middle
     local side = math.max(12, math.min(70, bar:GetWidth() * 0.35))
     bar.shineL:SetWidth(side)
@@ -15845,6 +15853,7 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
         print(TAG .. string.format("reset %d goal%s. Steps the game can check will tick again on the next scan. Undo with |cffffffff/goals resetall undo|r.", n, n == 1 and "" or "s"))
         return
     end
+    if msg == "barprobe" then FGT.Bars.Probe() return end -- the rounded bars' masks, as applied
     if msg == "testnew" then
         -- Preview: shows the open goal as "new in Forever" until /reload.
         if not selectedId then

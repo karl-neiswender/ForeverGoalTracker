@@ -23,6 +23,13 @@ mt.__index = function(t, k)
     end
     return true
   end end
+  -- The game allows three masks on a texture and errors on a fourth (2026-11-03: the rounded bars
+  -- passed here with four, then stopped the addon loading in Era).
+  if k == "AddMaskTexture" then return function(self)
+    local n = (rawget(self, "_masks") or 0) + 1
+    if n > 3 then error("Texture:AddMaskTexture(): Texture already has the maximum number of mask textures (3)", 2) end
+    rawset(self, "_masks", n)
+  end end
   if type(k) == "string" and k:match("^Get") then return function() return 0, 0, 0, 0 end end
   if type(k) == "string" and (k:match("^Is") or k:match("^Has")) then return function() return false end end
   local m = newmock(); rawset(t, k, m); return m
