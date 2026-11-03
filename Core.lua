@@ -3071,6 +3071,8 @@ function FGT.CelebrateRow(row)
     elseif row.bigCheck then
         row.popChip = row.bigCheck
         row.popTex, row.popSize = nil, nil
+    elseif row.iconCheck and row.iconCheck:IsShown() then -- a group header's check on its icon
+        row.popChip, row.popTex, row.popSize = nil, row.iconCheck, 18
     else
         row.popChip, row.popTex, row.popSize = nil, row.doneCheck, 20
     end
@@ -4397,14 +4399,16 @@ local function RefreshGoalList()
             label = label .. "  |cff77736a\194\183|r  " .. math.max(1, math.floor(share / 10)) .. "%"
         end
         row.eyebrow:SetText(label)
-        local eyebrowColor = finished and C.DONE
-            or (isSelected and (isNew and C.FOREVER_LIGHT or C.SELECTED_EYEBROW))
+        -- finished: the Library's finished card (Karl, 2026-11-03): grey words and date, no bar
+        local eyebrowColor = (isSelected and not finished and (isNew and C.FOREVER_LIGHT or C.SELECTED_EYEBROW))
             or C.SUBTEXT
         row.eyebrow:SetTextColor(eyebrowColor[1], eyebrowColor[2], eyebrowColor[3])
+        row.eyebrow:SetAlpha(finished and 0.65 or 1)
+        row.name:SetAlpha(finished and 0.65 or 1)
         row.complete = finished
         if finished then
             row:SetEtch(STYLE.doneCard)
-            row.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
+            row.name:SetTextColor(C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
         elseif isSelected then
             row:SetEtch(STYLE.rowSel)
             row.name:SetTextColor(1, 1, 1)
@@ -4443,7 +4447,7 @@ local function RefreshGoalList()
         row.doneGlow:Hide()
         row.bigCheck:SetShown(complete)
         row.icon.tex:SetDesaturated(complete)
-        row.icon.tex:SetAlpha(complete and 0.45 or 1)
+        row.icon.tex:SetAlpha(complete and 0.35 or 1)
         local rim = row.catColor
         if complete then
             local g = rim[1] * 0.3 + rim[2] * 0.59 + rim[3] * 0.11
@@ -4454,7 +4458,7 @@ local function RefreshGoalList()
         -- no empty track on a goal not started yet (Karl, 2026-10-28): a quiet line on a
         -- comfortable card, nothing on a compact one
         local started = share > 0 or finished
-        row.bar:SetShown(started)
+        row.bar:SetShown(started and not finished) -- a finished card shows its date instead
         row.notStarted:SetShown(not started and not row.compact)
         -- the faction mark only on the card you are on or pointing at
         if row.factionWatermark then row.factionWatermark:SetShown(isSelected or row.hovered or false) end
@@ -9291,18 +9295,27 @@ local function GetHeaderRow(index, view)
     row.doneCheck:SetDesaturated(true)
     row.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
     row.doneCheck:Hide()
+    -- the Library's finished look (Karl, 2026-11-03): the green check over a faded icon
+    row.iconCheck = row.icon:CreateTexture(nil, "OVERLAY", nil, 7)
+    row.iconCheck:SetTexture(FGT.Icon("check-white"))
+    row.iconCheck:SetSize(18, 18)
+    row.iconCheck:SetPoint("CENTER", row.icon, "CENTER", 0, 0)
+    row.iconCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
+    row.iconCheck:Hide()
 
     -- Expanded headers wear the "selected" gold look; collapsed ones are
-    -- plain tiles that lighten on hover. Finished ones sit back quietly,
-    -- like checked steps, until hovered or opened.
+    -- plain tiles that lighten on hover. Finished ones sit back quietly on
+    -- the Library's dark finished surface, until hovered or opened.
     function row:ApplyState(hovered)
         local countColor = self.expanded
             and (self.foreverNew and C.FOREVER_LIGHT or C.SELECTED_EYEBROW)
             or C.SUBTEXT
         self.count:SetTextColor(countColor[1], countColor[2], countColor[3])
         local quiet = self.complete and not hovered and not self.expanded
-        self.icon:SetAlpha(quiet and 0.7 or 1)
+        self.icon.tex:SetAlpha(quiet and 0.35 or 1)
         self.icon.tex:SetDesaturated(quiet)
+        self.iconCheck:SetShown(self.complete and true or false)
+        if self.complete and self.doneGlow then self.doneGlow:Hide() end -- no green wash: the check says it
         -- the gold rim goes grey too (same brightness, no color)
         local rim = self.foreverNew and C.FOREVER or C.GOLD2
         if quiet then
@@ -9316,7 +9329,7 @@ local function GetHeaderRow(index, view)
             self:SetEtch(STYLE.rowSel)
             self.name:SetTextColor(1, 1, 1)
         else
-            self:SetEtch(hovered and STYLE.rowHover or STYLE.row)
+            self:SetEtch(hovered and STYLE.rowHover or (quiet and STYLE.doneCard) or STYLE.row)
             if hovered then
                 self.name:SetTextColor(1, 1, 1)
             elseif quiet then
@@ -9325,6 +9338,7 @@ local function GetHeaderRow(index, view)
                 self.name:SetTextColor(C.INK2[1], C.INK2[2], C.INK2[3])
             end
         end
+        self.name:SetAlpha(quiet and 0.65 or 1)
     end
     row:SetScript("OnEnter", function(self) self:ApplyState(true) end)
     row:SetScript("OnLeave", function(self) self:ApplyState(false) end)
@@ -9582,8 +9596,9 @@ local function RefreshTierSections(goal, view)
         FGT.PlaceGuideEntry(header, "section:" .. si, yOffset, header.complete, nil, view)
         header.count:SetText(sd .. " / " .. st)
         header.count:SetShown(not header.complete)
-        header.doneCheck:SetShown(header.complete)
-        header.doneGlow:SetShown(header.complete)
+        -- the check sits on the icon; the pop-out's headers have no icon, so it stays at the end there
+        header.doneCheck:SetShown(header.complete and not header.icon:IsShown())
+        header.doneGlow:Hide()
         header:ApplyState(header:IsMouseOver())
         -- An open group that finishes just now folds itself closed once
         -- its celebration has played, so its quiet finished look shows.
@@ -12059,6 +12074,13 @@ local function GetSub(card, index, part)
         sub.doneCheck:SetDesaturated(true)
         sub.doneCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
         sub.doneCheck:Hide()
+        -- as on the finished card: the green check over the faded icon
+        sub.iconCheck = sub.icon:CreateTexture(nil, "OVERLAY", nil, 7)
+        sub.iconCheck:SetTexture(FGT.Icon("check-white"))
+        sub.iconCheck:SetSize(18, 18)
+        sub.iconCheck:SetPoint("CENTER", sub.icon, "CENTER", 0, 0)
+        sub.iconCheck:SetVertexColor(C.DONE[1], C.DONE[2], C.DONE[3])
+        sub.iconCheck:Hide()
         card.subs[index] = sub
     end
     sub.goal, sub.key = card.goal, part.key
@@ -12154,12 +12176,17 @@ LayoutLibrary = function()
                     local finished = chosen and pt > 0 and pd >= pt
                     sub.bar:SetProgress(pd, pt)
                     sub.bar:SetShown(chosen and not finished)
+                    -- finished: the same dark surface, faded icon with its check and grey name as the card
                     sub.doneGlow:Hide()
-                    sub.doneCheck:SetShown(finished)
+                    sub.doneCheck:Hide()
+                    sub.iconCheck:SetShown(finished)
+                    sub:SetEtch(finished and STYLE.doneCard or STYLE.panel)
                     sub.icon.tex:SetDesaturated(finished)
-                    sub.icon.tex:SetAlpha(finished and 0.6 or 1)
+                    sub.icon.tex:SetAlpha(finished and 0.35 or 1)
+                    if finished and not sub.foreverNew then sub.icon:SetBackdropBorderColor(0.40, 0.40, 0.39, 1) end -- the card's grey rim
                     local lc = finished and C.SUBTEXT or C.TEXT
                     sub.label:SetTextColor(lc[1], lc[2], lc[3])
+                    sub.label:SetAlpha(finished and 0.65 or 1)
                     sub:Show()
                     cy = cy + SUB_H + 3
                   end
