@@ -73,7 +73,7 @@ bar.count:SetPoint("RIGHT", bar.caret, "LEFT", -6, 0)
 
 sortBar:ClearAllPoints()
 sortBar:SetPoint("TOPLEFT", view, "BOTTOMLEFT", 0, -4)
-sortBar:SetPoint("TOPRIGHT", view, "BOTTOMRIGHT", -58, -4) -- room for Clear
+sortBar:SetPoint("TOPRIGHT", view, "BOTTOMRIGHT", -82, -4) -- room for the reverse arrow and Clear (4 + 22 + 4 + 52)
 -- The Filters bar heads the open list; the rail's filter card has no use for it (the rail
 -- shows the count already, Karl 2026-10-28), so there the Show menu starts the card.
 local function BarShown(on)

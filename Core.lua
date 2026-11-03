@@ -3780,13 +3780,21 @@ function FGT.NewSortDirButton(parent, getMode, onClick)
     local b = CreateFrame("Button", nil, parent, "BackdropTemplate")
     b:SetSize(22, 22)
     Etch(b, STYLE.button, 10)
-    b.icon = b:CreateTexture(nil, "OVERLAY")
-    b.icon:SetSize(14, 14)
-    b.icon:SetPoint("CENTER")
-    b.icon:SetTexture(FGT.Icon("chevron"))
+    -- Codex's sort icon (two triangles, up over down), drawn as two halves: the half that
+    -- matches the order is lit, the other dimmed (down normally, up reversed)
+    b.up = b:CreateTexture(nil, "OVERLAY")
+    b.down = b:CreateTexture(nil, "OVERLAY")
+    for i, half in ipairs({ b.up, b.down }) do
+        half:SetTexture(FGT.Icon("sort"))
+        half:SetSize(14, 7)
+        half:SetTexCoord(0, 1, (i - 1) * 0.5, i * 0.5)
+    end
+    b.up:SetPoint("BOTTOM", b, "CENTER", 0, 0)
+    b.down:SetPoint("TOP", b, "CENTER", 0, 0)
     function b:SetReversed(on)
         self.reversed = on and true or false
-        self.icon:SetTexCoord(0, 1, self.reversed and 1 or 0, self.reversed and 0 or 1) -- down normally, up reversed
+        self.up:SetAlpha(self.reversed and 1 or 0.3)
+        self.down:SetAlpha(self.reversed and 0.3 or 1)
     end
     b:SetReversed(false)
     b:SetScript("OnEnter", function(self)
@@ -4233,7 +4241,7 @@ do
     view:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6, -6)
     sortBar:ClearAllPoints()
     sortBar:SetPoint("TOPLEFT", view, "BOTTOMLEFT", 0, -4)
-    sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 58, -32)
+    sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 58 - 26, -32) -- room for the reverse arrow and Clear
     function FGT.RefreshViewOptions()
         local p = FGT.PlayerProfile()
         local who = "this character"
