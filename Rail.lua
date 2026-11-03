@@ -14,12 +14,13 @@ local R = { f = 0, target = 0, saved = false }
 FGT.Rail = R
 
 -- Widths. OPEN is the list's own width (set from the tabs above it); a rail card
--- is the icon with 10 units each side (70), plus the list's insets (6 + 10 + 12).
+-- is the icon with 10 units each side (70), plus the list's insets (6 + 6 each side; the right one
+-- holds the scroll bar).
 local OPEN = list:GetWidth()
 if not OPEN or OPEN < 150 then OPEN = 258 end
-local RAIL = 98 -- 80 with compact cards (a 32px icon): R:Density
-local function RailCenter() return 12 + (RAIL - 28) / 2 end -- the rail card's middle, from the list's left
-local CARD_OPEN = OPEN - 28
+local RAIL = 94 -- 76 with compact cards (a 32px icon): R:Density
+local function RailCenter() return 12 + (RAIL - 24) / 2 end -- the rail card's middle, from the list's left
+local CARD_OPEN = OPEN - 24
 -- the folded rail's header: its filter button, count and divider (-70), then the cards
 -- (was 104, when the open list's controls set it; Karl, 2026-10-28: too much space under it)
 local HEAD = 84
@@ -415,6 +416,14 @@ function FGT.RailMarks(row)
     row.railStar:SetSize(14, 14)
     row.railStar:SetPoint("CENTER", row.icon, "TOPRIGHT", -3, -2)
     row.railStar:Hide(); row.railStarShadow:Hide()
+    -- new or updated in Forever: the glowing blue diamond on the card's own top-right corner,
+    -- as the Game Menu sets it on Edit Mode's (Karl, 2026-11-03), so it stays clear of the
+    -- icon's art and of the favorite star
+    row.railNew = row.rail:CreateTexture(nil, "OVERLAY")
+    FGT.SetForeverDiamond(row.railNew)
+    row.railNew:SetSize(24, 24)
+    row.railNew:SetPoint("CENTER", row, "TOPRIGHT", -6, -6)
+    row.railNew:Hide()
     row.rail:SetAlpha(railA)
     row.rail:SetShown(railA > 0)
     return true
@@ -638,7 +647,7 @@ function FGT.ListIsRail() return R.f >= 0.5 end
 -- Card density (Core's FGT.ApplyCardDensity): the rail is the icon with 10 each side, so
 -- compact cards fold to a narrower rail; its filter button and divider stay centered on it.
 function R:Density()
-    RAIL = FGT.Setting("cardDensity") == "compact" and 80 or 98
+    RAIL = FGT.Setting("cardDensity") == "compact" and 76 or 94
     local c = RailCenter()
     filter:ClearAllPoints()
     filter:SetPoint("CENTER", list, "TOPLEFT", c, -30)

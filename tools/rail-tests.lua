@@ -18,7 +18,7 @@ for _, d in ipairs(R.divider) do Track(d.tex) end
 R.inner.parentForTest = R.head
 R.inner.SetParent = function(self, p) self.parentForTest = p end
 R.inner.GetParent = function(self) return self.parentForTest end
--- (these widths are the comfortable rail's; compact's 80 is checked near the end)
+-- (these widths are the comfortable rail's; compact's 76 is checked near the end)
 local savedDensity = F.Setting("cardDensity")
 F.SetSetting("cardDensity", "comfortable"); F.ApplyCardDensity()
 D.active = { thunderfury = true, sulfuras = true, gold_5k = true }
@@ -29,7 +29,7 @@ F.SelectGoal("thunderfury")
 local makeMarks = F.RailMarks
 F.RailMarks = function(row)
     local made = makeMarks(row)
-    if made then Track(row.rail) end
+    if made then Track(row.rail); Track(row.railNew) end
     return made
 end
 local rows = {}
@@ -82,14 +82,32 @@ F.SetSetting("celebrations", "off")
 F.SetSetting("celebrations", "off")
 R:Toggle()
 assert(R.f == 1 and F.ListIsRail() and D.listRail == true, "the handle folds the list and remembers it")
-assert(list.widthForTest == 98, "the rail is the icons' width: " .. tostring(list.widthForTest))
+assert(list.widthForTest == 94, "the rail is the icons' width: " .. tostring(list.widthForTest))
 for _, d in ipairs(R.divider) do assert(d.tex:IsShown(), "the folded header has its bronze divider") end
 for _, row in ipairs(rows) do
-    assert(row.rail and row.railBar and row.railStar, "folding makes the card's rail marks")
+    assert(row.rail and row.railBar and row.railStar and row.railNew, "folding makes the card's rail marks")
+    assert(row.railNew:IsShown() == (F.ForeverWord(row.goal) ~= nil and not F.ForeverSeen(row.goal.id)),
+        "the Forever diamond marks an unseen new or updated goal on the rail's card corner")
     assert(not row.body:IsShown() and row.rail:IsShown(), "cards show their icon marks, not their text")
-    assert(row.body.sizeForTest == 230, "each card's text layer keeps the open width (trimmed by its clip)")
+    assert(row.body.sizeForTest == 234, "each card's text layer keeps the open width (trimmed by its clip)")
 end
 assert(not R.head:IsShown() and R.filter:IsShown(), "the header's controls give way to the filter button")
+
+-- The rail diamond means "not looked at yet": it stays while the goal is open, clears once
+-- you've moved on to another, and stays cleared; a goal that isn't new is never recorded.
+local savedSeen = D.foreverSeen
+D.foreverSeen = nil
+F.testNew.thunderfury = true
+F.SelectGoal("thunderfury")
+assert(U.rows.thunderfury.railNew:IsShown(), "a new goal shows its diamond, even while open")
+F.SelectGoal("gold_5k")
+assert(not U.rows.thunderfury.railNew:IsShown() and F.ForeverSeen("thunderfury"), "leaving it clears the diamond")
+F.SelectGoal("thunderfury"); F.SelectGoal("sulfuras")
+assert(not U.rows.thunderfury.railNew:IsShown(), "and it stays cleared")
+assert(not F.ForeverSeen("gold_5k"), "goals that aren't new aren't recorded")
+F.testNew.thunderfury = nil
+D.foreverSeen = savedSeen
+F.SelectGoal("thunderfury")
 assert(placed > 0, "the Materials drawer follows the list's new edge")
 
 -- The rail's card tooltip is the open list's full tooltip (name, category, difficulty...).
@@ -147,7 +165,7 @@ R:Toggle()
 local step = R.driver:GetScript("OnUpdate")
 assert(step and R.target == 1, "folding starts a slide")
 step(R.driver, 0.1)
-assert(R.f > 0 and R.f < 1 and list.widthForTest < 258 and list.widthForTest > 98, "mid-slide width")
+assert(R.f > 0 and R.f < 1 and list.widthForTest < 258 and list.widthForTest > 94, "mid-slide width")
 R:Toggle()
 local back = R.f
 R.driver:GetScript("OnUpdate")(R.driver, 0.05)
@@ -180,12 +198,12 @@ assert(R.f == 1, "and the rail returns after")
 F.ShowTab("library")
 assert(list.widthForTest == 258, "the Library's filters get the full width: " .. tostring(list.widthForTest))
 F.ShowTab("tracker")
-assert(list.widthForTest == 98 and R.f == 1, "back on My Goals the list is folded again: " .. tostring(list.widthForTest))
--- Compact cards (a 32px icon) fold to a narrower rail; comfortable ones back to 98.
+assert(list.widthForTest == 94 and R.f == 1, "back on My Goals the list is folded again: " .. tostring(list.widthForTest))
+-- Compact cards (a 32px icon) fold to a narrower rail; comfortable ones back to 94.
 F.SetSetting("cardDensity", "compact"); F.ApplyCardDensity()
-assert(list.widthForTest == 80, "compact cards fold to a narrower rail: " .. tostring(list.widthForTest))
+assert(list.widthForTest == 76, "compact cards fold to a narrower rail: " .. tostring(list.widthForTest))
 F.SetSetting("cardDensity", "comfortable"); F.ApplyCardDensity()
-assert(list.widthForTest == 98, "comfortable cards fold back to the full rail")
+assert(list.widthForTest == 94, "comfortable cards fold back to the full rail")
 R:Toggle()
 GameTooltip = nil
 F.SetSetting("cardDensity", savedDensity); F.ApplyCardDensity()

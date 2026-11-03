@@ -2404,16 +2404,34 @@ function FGT.ForeverNote(goal, short)
     end
 end
 
--- Bright Forever-blue dot for font strings ("|T...|t", tinted #408cff).
--- The logo is too small to read at chip size, so labels use the dot.
+-- The plain glow dot (gold section marks in the Library filters).
 FGT.FOREVER_DOT = "Interface\\AddOns\\" .. ADDON .. "\\Media\\dot"
--- The dot image carries its own soft glow, so the solid core is about
--- 40% of `size`; the glow also spaces it from the word after it. Nudged
--- down 3px to sit level with capital letters (measured in game).
--- grey: the desaturated dot on finished goals' grey info line (Karl)
+-- The mark for anything new or updated in Forever: the game's own glowing
+-- blue diamond (the "new" pip on Edit Mode in the Game Menu, atlas
+-- UI-HUD-MicroMenu-Communities-Icon-Notification; Karl, 2026-11-03). Read
+-- by file ID from the game, nothing copied; Era and Forever both ship it
+-- at the same spot on this 1024x512 sheet.
+FGT.FOREVER_DIAMOND = { file = 4708813, l = 859 / 1024, r = 897 / 1024, t = 1 / 512, b = 39 / 512 }
+-- Tinted from the game's cyan toward the light Forever blue of the NEW text
+-- beside it (Karl, 2026-11-03: "maybe change the tint").
+FGT.FOREVER_DIAMOND_TINT = { 156 / 255, 202 / 255, 1 }
+-- Its glow takes about half the cell (the solid core is 18 of 38px), so it
+-- draws 5px larger than the old dot's `size` (Karl: a little larger), with a
+-- space before the word. Nudged down 3px to sit level with capital letters.
+-- grey: the dimmed mark on finished goals' grey info line (Karl)
 function FGT.ForeverDot(size, grey, offset)
-    local tint = grey and "125:125:120" or "156:202:255"
-    return string.format("|T%s:%d:%d:0:%d:32:32:0:32:0:32:%s|t", FGT.FOREVER_DOT, size, size, offset or -3, tint)
+    local t = FGT.FOREVER_DIAMOND_TINT
+    local tint = grey and "125:125:120"
+        or string.format("%d:%d:%d", t[1] * 255, t[2] * 255, t[3] * 255)
+    size = size + 5
+    return string.format("|T%d:%d:%d:0:%d:1024:512:859:897:1:39:%s|t ", FGT.FOREVER_DIAMOND.file, size, size, offset or -3, tint)
+end
+-- The same diamond on a texture (the folded rail's corner mark).
+function FGT.SetForeverDiamond(tex)
+    local d, t = FGT.FOREVER_DIAMOND, FGT.FOREVER_DIAMOND_TINT
+    tex:SetTexture(d.file)
+    tex:SetTexCoord(d.l, d.r, d.t, d.b)
+    tex:SetVertexColor(t[1], t[2], t[3])
 end
 
 -- "<dot>NEW" (or UPDATED) in light Forever blue, after a name.
@@ -2456,6 +2474,22 @@ function FGT.ApplyForeverLook(frame, goal)
     frame.foreverNew = word and true or false
     if frame.bar and frame.bar.SetBlue then frame.bar:SetBlue(frame.foreverNew) end
     return word
+end
+
+-- The folded rail's diamond means "not looked at yet", as the game's own does
+-- (Karl, 2026-11-03): a new or updated goal counts as seen once you've opened
+-- it and moved on to another, so it keeps its diamond while it's open. The
+-- NEW chips stay; they describe the goal. Saved: DB.foreverSeen[id].
+function FGT.ForeverSeen(id)
+    local db = ForeverGoalTrackerDB
+    return db and db.foreverSeen and db.foreverSeen[id] and true or false
+end
+function FGT.MarkForeverSeen(id)
+    local db = ForeverGoalTrackerDB
+    local goal = id and db and FGT.GoalById(id)
+    if not goal or not FGT.ForeverWord(goal) then return end
+    db.foreverSeen = db.foreverSeen or {}
+    db.foreverSeen[id] = true
 end
 
 -- A part's row (Library part row, goal page group row). A new part in an
@@ -3827,7 +3861,7 @@ local sortDesc = false -- the order reversed (saved)
 -- Styled like the site's toolbar buttons: #3a3a3a, lighter on hover.
 local sortBar = CreateFrame("Button", nil, listPanel, "BackdropTemplate")
 sortBar:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 6, -6)
-sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 58 - 26, -6) -- room for the reverse arrow and Clear
+sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 82, -6) -- room for the reverse arrow and Clear (4 + 22 + 4 + 52)
 sortBar:SetHeight(22)
 Etch(sortBar, STYLE.button, 10)
 local sortLabel = NewFontString(sortBar, 10, "", C.TEXT[1], C.TEXT[2], C.TEXT[3])
@@ -3858,7 +3892,7 @@ do
     local box = CreateFrame("EditBox", nil, listPanel, "BackdropTemplate")
     box:SetHeight(22)
     box:SetPoint("TOPLEFT", sortBar, "BOTTOMLEFT", 0, -4)
-    box:SetPoint("TOPRIGHT", sortBar, "BOTTOMRIGHT", 58, -4) -- full width, under Sort and Clear
+    box:SetPoint("TOPRIGHT", sortBar, "BOTTOMRIGHT", 82, -4) -- full width, under Sort, the reverse arrow and Clear
     Etch(box, STYLE.row, 10)
     box:SetAutoFocus(false)
     FGT.RegisterFont(box, "body", 11, "")
@@ -4241,7 +4275,7 @@ do
     view:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6, -6)
     sortBar:ClearAllPoints()
     sortBar:SetPoint("TOPLEFT", view, "BOTTOMLEFT", 0, -4)
-    sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 58 - 26, -32) -- room for the reverse arrow and Clear
+    sortBar:SetPoint("TOPRIGHT", listPanel, "TOPRIGHT", -6 - 82, -32) -- room for the reverse arrow and Clear
     function FGT.RefreshViewOptions()
         local p = FGT.PlayerProfile()
         local who = "this character"
@@ -4398,6 +4432,7 @@ local function RefreshGoalList()
         if row.railStar then row.railStar:SetShown(fav); row.railStarShadow:SetShown(fav) end
         local showNew = isNew and not fav
         row.newChip:SetShown(showNew and true or false)
+        if row.railNew then row.railNew:SetShown((isNew and not FGT.ForeverSeen(row.goal.id)) and true or false) end
         row.newChip:ClearAllPoints()
         row.newChip:SetPoint("TOPRIGHT", row.body, "TOPRIGHT", -8, -8)
         local rightInset = fav and 28 or (showNew and (row.newChip:GetWidth() + 14) or 8)
@@ -4475,7 +4510,7 @@ function FGT.EnsureGoalRow(goal, i)
     i = i or 1
     local row = CreateFrame("Button", nil, listContent, "BackdropTemplate")
     row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, yStart - (i - 1) * (RowH() + 4))
-    row:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
+    row:SetPoint("RIGHT", listContent, "RIGHT", -2, 0)
     row:SetHeight(RowH())
     row.goal = goal
     Etch(row, STYLE.row, 12)
@@ -4690,7 +4725,7 @@ LayoutGoalList = function()
             local divider = NextDivider()
             divider:ClearAllPoints()
             divider:SetPoint("TOPLEFT", listContent, "TOPLEFT", 16, y)
-            divider:SetPoint("RIGHT", listContent, "RIGHT", -16, 0)
+            divider:SetPoint("RIGHT", listContent, "RIGHT", -12, 0)
             divider:Show()
             y = y - 11
         end
@@ -4698,7 +4733,7 @@ LayoutGoalList = function()
             if g.group then row.icon.tex:SetTexture(ResolveIcon(FGT.GoalIcon(g))) end -- race-matched thumbnail
             row:ClearAllPoints()
             row:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, y)
-            row:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
+            row:SetPoint("RIGHT", listContent, "RIGHT", -2, 0) -- 12 from the list's edge each side, like the left
         end
         y = y - (RowH() + 4)
     end
@@ -4713,7 +4748,7 @@ LayoutGoalList = function()
             y = y - 8
             fm:ClearAllPoints()
             fm:SetPoint("TOPLEFT", listContent, "TOPLEFT", 6, y)
-            fm:SetPoint("RIGHT", listContent, "RIGHT", -6, 0)
+            fm:SetPoint("RIGHT", listContent, "RIGHT", -2, 0)
             y = y - (fm:GetHeight() + 10)
         end
     end
@@ -4729,8 +4764,10 @@ LayoutGoalList = function()
         or "None of your goals fit this character. Show: All goals lists them all.")
     FGT.viewEmpty:SetShown(#sorted == 0 and #ActiveGoals() > 0)
 
+    -- the cards' own height, not padded to the view: a view that shrinks for a moment (the
+    -- list's header growing as it slides open) must not see a list too long and show the bar
     local totalListHeight = -y
-    listContent:SetHeight(math.max(totalListHeight, listScrollObj.scroll:GetHeight()))
+    listContent:SetHeight(math.max(totalListHeight, 1))
     listScrollObj:Update()
     if FGT.Rail then FGT.Rail:UpdateFilter() end
 end
@@ -9811,6 +9848,16 @@ RefreshSteps = function(goal, view)
             FGT.StyleStepLock(row, goal, i)
 
             local textHeight = row.text:GetStringHeight() or 14
+            -- Text is centered on the step's icon. Wrapped text is taller than the icon, so the
+            -- checkbox (or lock) and icon move down by the difference and the first line starts at
+            -- the row's top: it used to rise above the row, and on the first step out of the list.
+            if stepIcon then
+                local over = math.floor((textHeight - row.icon:GetHeight()) / 2 + 0.5)
+                if over > 0 then
+                    row.box:ClearAllPoints()
+                    row.box:SetPoint("TOPLEFT", 2, -2 - over)
+                end
+            end
             rowHeight2 = math.max(stepIcon and 26 or 20, textHeight + 6)
 
             -- Steps with a detection rule: readout on the right, plus a
@@ -9911,6 +9958,8 @@ SelectGoal = function(id, skipListRefresh)
     -- remembered, so an emptied list reads as cleared, not as a first visit
     ForeverGoalTrackerDB.hadGoals = true
     FGT.HideEmptyTracker()
+    -- the goal you're leaving has been looked at: its rail diamond clears
+    if selectedId and selectedId ~= id then FGT.MarkForeverSeen(selectedId) end
     selectedId = id
     ForeverGoalTrackerDB.selected = id
     FGT.fracPass = { stamp = GetTime() } -- one redraw: each goal's share is worked out once
@@ -10515,7 +10564,7 @@ do
     local add = CreateFrame("Button", nil, listPanel, "BackdropTemplate")
     add:SetHeight(FGT.ROW_H)
     add:SetPoint("TOPLEFT", listPanel, "TOPLEFT", 12, -12)
-    add:SetPoint("RIGHT", listPanel, "RIGHT", -16, 0)
+    add:SetPoint("RIGHT", listPanel, "RIGHT", -12, 0) -- the goal cards' insets, 12 each side
     Etch(add, STYLE.row, 12)
     local function Slot(card)
         local slot = CreateFrame("Frame", nil, card, "BackdropTemplate")
@@ -15776,6 +15825,9 @@ SlashCmdList["FOREVERGOALTRACKER"] = function(msg)
             return
         end
         FGT.testNew[selectedId] = not FGT.testNew[selectedId] or nil
+        -- a fresh preview starts unseen, so the rail diamond shows again
+        local seen = ForeverGoalTrackerDB.foreverSeen
+        if FGT.testNew[selectedId] and seen then seen[selectedId] = nil end
         SelectGoal(selectedId, true)
         if FGT.LayoutLibrary then FGT.LayoutLibrary() end
         print(TAG .. (FGT.testNew[selectedId] and "previewing this goal as new in Forever." or "preview off."))
