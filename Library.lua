@@ -1736,6 +1736,29 @@ local library = {
     },
 
     {
+        -- Reported by Karl 2026-11-04: a new legendary staff in WoW Forever, acquisition unknown. No item id,
+        -- level requirement or stats are confirmed, so the goal tracks ownership by name only and the staff
+        -- classes are assumed from the weapon type. Add the source, id and level when they are confirmed.
+        id = "taldramir", library = true, forever = "new", needs = "forever", itemQuality = 5,
+        icon = "inv_staff_13",
+        name = "Taldramir, the Whispering Wood",
+        short = "Taldramir",
+        category = "Legendary Weapon", difficulty = "Very Hard",
+        timeEstimate = "Varies",
+        note = "A new legendary staff in Forever. Source unknown.",
+        foreverNote = "A new legendary staff in Forever. How to get it is not known yet.",
+        steps = {
+            { text = "Collect Taldramir, the Whispering Wood  |cff888888Source unknown|r",
+              auto = { owned = { "Taldramir, the Whispering Wood" } } },
+        },
+        completeWith = { owned = { "Taldramir, the Whispering Wood" } },
+        tips = {
+            "Unconfirmed: nobody has reported how it drops or what it requires. This goal will be updated when its source is known.",
+            "Warriors, Hunters, Priests, Shamans, Druids, Mages and Warlocks can use a staff. Learn Staves before equipping it.",
+        },
+    },
+
+    {
         -- Wowhead Classic item 870, checked 2026-10-28: epic Bind on Equip two-hand axe, item level 40, requires
         -- level 35, 93 to 141 damage, chance on hit: 155 to 197 Fire damage plus 24 over 6 sec. A world drop from
         -- level 40 to 43 creatures: 33 listed, no boss, each at a tiny rate (Grimtotem Naturalist in Feralas, 1 of
