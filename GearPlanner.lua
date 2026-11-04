@@ -398,7 +398,9 @@ list.scroll:SetPoint("BOTTOMRIGHT", -12, 16)
 local listEmpty = Label(SD.body, "No sets yet.", 11, 16, -84)
 listEmpty:SetWidth(SD.width - 32); listEmpty:SetJustifyH("LEFT")
 listEmpty:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
-local rows, selected, draft, changing = {}, nil, nil, false
+local rows, draft, changing = {}, nil, false
+---@type table|nil
+local selected
 -- How much of the stage's width the drawer takes at a point in its slide: the stage keeps
 -- SD.STAGE at the least, and past that the drawer covers its right edge.
 function SD.Beside(fraction, area)

@@ -6860,6 +6860,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 277204|Q|Friend of the Library|Special|
 277203|Q|Friend of the Library|Special|
 281265|Q|Watching the Roads|Silverpine Forest|
+288926|W|||beta
 272724|V|Captain Dirgehammer|Stormwind City|
 16793|Q|Book of the Ancients|Desolace|
 4443|Q|To Steal From Thieves|Undercity|
@@ -7134,6 +7135,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 5622|Q|The Tower of Althalaxx|Darkshore|
 5351|Q|Hezrul Bloodmark|The Barrens|
 3235|Q|A Husband's Revenge|Silverpine Forest|
+288929|W|||beta
+288930|W|||beta
+288928|W|||beta
+288927|W|||beta
+288931|W|||beta
 280766|Q|Changing Tastes;Heartwoven|Excavation Site: Wetlands|
 276895|Q|The Broodmother|Mulgore|
 274445|V|Master Sergeant Biggins|Stormwind City|
@@ -7221,8 +7227,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 16658|Q|The Hunt Completed|Ashenvale|
 4504|Q|The Thandol Span|Wetlands|
 281305|Q|Understanding Our Present|Wetlands|
-273654|Q|Stronger than Steel|Mulgore|
 3749|Q|Elixir of Agony|Hillsbrad Foothills|
+273654|Q|Stronger than Steel|Mulgore|
 6667|Q|Gerenzo Wrenchwhistle|Stonetalon Mountains|
 16661|Q|Je'neu of the Earthen Ring|Ashenvale|
 16990|Q|Bloodfury Bloodline|Stonetalon Mountains|
@@ -7308,6 +7314,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 281274|Q|Stormy Potential|Durotar|
 4939|Q|Skull Rock|Durotar|
 9514|Q|Mage-tastic Gizmonitor;The Balnir Farmstead||
+288900|W|||beta
 9603|Q|The Relics of Wakening|Teldrassil|
 9513|Q|Mirror Lake||
 263312|Q|Deliver the News|Zephras Isle|

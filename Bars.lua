@@ -391,7 +391,7 @@ function B.Probe()
     if n == 0 then print("  no bar on screen: open the tracker first") end
 end
 
-local function NoOp() end
+local function NoOp(...) end
 -- NewBar calls this right after Skin: the square backdrop gives way to the rounded pieces.
 -- (Built first, the backdrop cleared last: a failure on the way leaves the square bar intact.)
 function B.Round(bar, height)
@@ -665,7 +665,8 @@ local RISE = 4
 -- vanishes in one frame (Karl, 2026-10-26).
 local function TipAlpha(a)
     GameTooltip:SetAlpha(a)
-    if GameTooltip.fgtShadow then GameTooltip.fgtShadow:SetAlpha(a) end
+    local shadow = rawget(GameTooltip, "fgtShadow")
+    if shadow then shadow:SetAlpha(a) end
 end
 local function PlaceTip(p)
     local e = EaseOut(p)

@@ -16156,6 +16156,8 @@ local function Suggest(picked, rows)
                         end
                     end
                 end
+                -- the class's Dungeon Set 1 leads: the gear that gets you into raids (Karl, 2026-11-03)
+                push(list, Entry(me, "set_dungeon1", ClassPart("set_dungeon1"), tag))
                 -- Forever's two new raids and their set (Tier 0.5) come first in the progression,
                 -- before Onyxia and Molten Core (Entry skips them on Classic Era)
                 push(list, Entry(me, "raid_barrow", nil, tag))

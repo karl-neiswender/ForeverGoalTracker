@@ -12,6 +12,14 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.17.0", date = "Nov 4, 2026", items = {
+        "You can now send feedback from the game with the bug icon in the title bar or /goals feedback",
+        "Added Import from Wowhead to Gear Planner",
+        "Added locks on steps that need a level, reputation, skill or quest you have not reached",
+        "Added dozens of weapons and Exalted: Steamwheedle Cartel to the Goal Library, with more goal artwork",
+        "Renamed Tips to Hints",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.16.0", date = "Oct 24, 2026", items = {
         "Added Gear Planner: plan a gear set slot by slot on your character, with item search, filters and where each item comes from",
         "Added enchants and scopes to Gear Planner, tracked as goal steps with their materials",

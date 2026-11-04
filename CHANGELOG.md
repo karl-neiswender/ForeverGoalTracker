@@ -1,44 +1,20 @@
 # Changelog
 
-## Unreleased
+## 2.17.0
 
 - You can now send feedback from the game: the bug icon in the title bar, /goals feedback, a goal's right-click menu, or right-clicking a step. Report a bug, ask for a goal or share an idea, and the addon fills in the details for you.
-- Added Elementium Reinforced Bulwark, a Blackwing Lair shield dropped by Chromaggus, to the Goal Library.
-- Tips are now called Hints. Goal steps and hints no longer repeat each other or what the item tooltip already shows, and more raids, dungeons and Alterac Valley quests link to the map and the quest log.
 - Gear Planner: Import from Wowhead. Paste a link from Wowhead's Classic Gear Planner to make it a new gear set, items and enchants included.
-- Added Sword of Zeal, a rare one-handed sword that raid bosses and high-level elites can drop, to the Goal Library.
-- Added Staff of the Ruins, a Ruins of Ahn'Qiraj staff dropped by Ossirian the Unscarred, to the Goal Library.
-- Added Staff of Dominance, a Molten Core staff dropped by Golemagg the Incinerator, to the Goal Library.
-- Added Spinal Reaper, a Molten Core axe dropped by Ragnaros, to the Goal Library.
-- Added Silent Fang, a Scholomance sword dropped by Darkmaster Gandling, to the Goal Library.
-- Added Shadowstrike, a Molten Core polearm dropped by Sulfuron Harbinger, to the Goal Library.
-- Added Rod of the Ogre Magi, a Dire Maul North staff from the Gordok Tribute chest, to the Goal Library.
-- Added Ashkandi, Greatsword of the Brotherhood, a Blackwing Lair sword dropped by Nefarian, to the Goal Library.
-- Added Perdition's Blade, a Molten Core dagger dropped by Ragnaros, to the Goal Library.
-- Added Obsidian Edged Blade, a Molten Core sword dropped by four of its bosses, to the Goal Library.
-- Added Mograine's Might, a Scarlet Monastery mace dropped by Scarlet Commander Mograine, to the Goal Library.
-- Added Mandokir's Sting, a Zul'Gurub bow dropped by Bloodlord Mandokir, to the Goal Library.
-- Added Will of Arlokk, a Zul'Gurub healing staff dropped by High Priestess Arlokk, to the Goal Library.
-- Added Krol Blade, a rare epic one-handed sword that level 53 to 60 creatures can drop, to the Goal Library.
-- Added Jin'do's Judgement, a Zul'Gurub staff dropped by Jin'do the Hexxer, to the Goal Library.
-- Added Inventor's Focal Sword, a Maraudon sword dropped by Tinkerer Gizlock, to the Goal Library.
-- Added Illusionary Rod, a Scarlet Monastery staff dropped by Arcanist Doan, to the Goal Library.
-- Added Halberd of Smiting, a Zul'Gurub polearm dropped by Bloodlord Mandokir, to the Goal Library.
-- Added Gutgore Ripper, a Molten Core dagger dropped by Garr, to the Goal Library.
-- Added Glacial Blade, a Frostwolf Clan dagger for the Horde, to the Goal Library.
-- Added Gift of the Elven Magi, a Stratholme dagger dropped by Balnazzar, to the Goal Library.
-- Added Frostguard, a Blacksmithing sword for Master Swordsmiths, to the Goal Library.
-- Added Flame Wrath, a Blackrock Depths polearm dropped by Ambassador Flamelash, to the Goal Library.
-- Added the Lava Dredger, a Molten Core mace from the Cache of the Firelord, to the Goal Library.
-- Added Deathbringer, an Onyxia's Lair axe dropped by Onyxia, to the Goal Library.
-- Added Bonereaver's Edge, a Molten Core sword dropped by Ragnaros, to the Goal Library.
-- Added Slay Lord Kazzak, the Blasted Lands world boss, to the Goal Library, with a map pin to the Tainted Scar.
-- Added Headmaster's Charge, a Scholomance staff dropped by Darkmaster Gandling, to the Goal Library.
-- Added Aurastone Hammer, a Molten Core mace dropped by Garr, to the Goal Library.
-- Added Destiny, a rare epic two-handed sword that level 52 to 60 creatures can drop, to the Goal Library.
-- Added The 1 Ring, a very rare fishing catch, to the Goal Library in a new Collectibles category, with a count of the fish you have caught since you added the goal.
 - Added locks on steps that need a level, reputation, skill or quest you have not reached. A click says what is needed, and Shift-click unlocks the step for the session.
+- Added Exalted: Steamwheedle Cartel to the Goal Library, with a step for each of Booty Bay, Ratchet, Gadgetzan and Everlook, and Powderfuse on Forever.
+- Added dozens of weapons, shields and other items to the Goal Library, from Molten Core, Blackwing Lair, Zul'Gurub, Scholomance, Dire Maul, Scarlet Monastery, the Deadmines and more, including Ashkandi, Bonereaver's Edge, Perdition's Blade and Elementium Reinforced Bulwark.
+- Added Slay Lord Kazzak, the Blasted Lands world boss, to the Goal Library, with a map pin to the Tainted Scar.
+- Added The 1 Ring, a very rare fishing catch, to the Goal Library in a new Collectibles category, with a count of the fish you have caught since you added the goal.
+- Added more goal artwork, including leveling banners for more races and sexes and new Tier, Dungeon Set and PvP set banners.
+- Renamed Tips to Hints. Goal steps and hints no longer repeat each other or what the item tooltip already shows, and more raids, dungeons and Alterac Valley quests link to the map and the quest log.
+- Changed goal suggestions to begin with your class's Dungeon Set 1, and Find your next goal now keeps its list full.
+- Changed progress bars to rounded corners, and finished goals to the Library's finished look everywhere.
 - Updated the Onyxia's Lair attunement and raid notes with Blizzard's Forever route, and a reminder to keep the Drakefire Amulet in your inventory (it does not need to be equipped).
+- UI improvements and bug fixes.
 
 ## 2.16.0
 

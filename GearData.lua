@@ -8,7 +8,7 @@
 -- (only equip bonuses read differently). The Forever client uses them in place of blocks.
 local _, FGT = ...
 FGT.GEARDB = {
-    builds = { era = '1.15.9.70003', forever = '1.60.1.70634' },
+    builds = { era = '1.15.9.70003', forever = '1.60.1.70755' },
     sets = {
         [1] = "The Gladiator",
         [41] = "Dal'Rend's Arms",
@@ -1140,6 +1140,7 @@ FGT.GEARDB = {
 20442|3|23|18|0|400|133301|1|0||1|Scout's Medallion||a6,t2|1
 20444|3|23|18|0|400|133300|1|0||1|Sentinel's Medallion||a6,t2|1
 281265|2|20|0|0|400|133288|2|0||0|Roadwatcher's Confidence||p3|1
+288926|4|10|1|0|400|133280|2|0||0|Choker of the Fire Lord||t1,i1,S6,H6|1
 ]==],
         [3] = [==[
 22479|4|86|60|0|402|135060|1|524||0|Bonescythe Pauldrons||a22,s22,t15,h1,c1|1
@@ -1842,7 +1843,7 @@ FGT.GEARDB = {
 270334|1|1|0|0|400|135009|2|0||0|Sweat-Stained Shirt|||1
 271655|1|1|0|0|400|7813752|2|0||0|Thendal Apprentice's Shirt|||0
 271663|1|1|0|0|400|7813752|2|0||0|Thendal Novice's Shirt|||0
-271668|1|1|0|0|402|7813752|2|0||0|Thendal Survivalist's Shirt|||0
+271668|1|1|0|0|400|7813752|2|0||0|Thendal Survivalist's Shirt|||0
 271669|1|1|0|0|400|7813752|2|0||0|Thendal Warrior's Shirt|||0
 2105|1|1|0|0|400|135018|1|0||0|Thug Shirt|||0
 6136|1|1|0|0|400|135018|1|0||0|Thug Shirt|||0
@@ -2492,7 +2493,7 @@ FGT.GEARDB = {
 5420|2|14|0|0|401|135011|1|0||0|Banshee Armor||t3|1
 2578|2|14|9|0|401|132715|1|0||0|Barbaric Linen Vest||t2,p2|2
 3292|2|13|8|0|401|135011|0|0||0|Ancestral Tunic||t1,i2|2
-270000|2|13|0|0|401|135009|2|0||0|Apprentice Wizard's Gown||i2,S2,H2|1
+270000|2|13|0|0|401|132665|2|0||0|Apprentice Wizard's Gown||i2,S2,H2|1
 3283|2|13|8|0|403|132719|0|0||0|Battle Chain Tunic||a1,s2|2
 3330|2|13|8|0|403|132624|0|0||0|Dargol's Hauberk||s2,t1|2
 6266|2|13|8|0|401|135009|0|0||0|Disciple's Vest|||2
@@ -6436,13 +6437,13 @@ FGT.GEARDB = {
 21203|4|70|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight|Requires Honored with Brood of Nozdormu|a21,t11,h1|1
 21208|4|70|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight|Requires Honored with Brood of Nozdormu|t8,i8,S25,H25|1
 19925|3|68|60|0|400|133386|0|466||1|Band of Jin||a14,t8,h1|1
-275973|3|68|60|0|400|133351|2|0||0|Brilliant Watcher's Signet|Requires Honored with The Watchers|t8,S10,H10,c1|1
-275972|3|68|60|0|400|133367|2|0||0|Ferocious Watcher's Signet|Requires Honored with The Watchers|t11,A24,h1|1
 19912|3|68|60|0|400|133381|0|464||1|Overlord's Onyx Band||t11,d75|1
 19920|3|68|60|0|400|133389|0|465||1|Primalist's Band||t8,i10|1
 19898|3|68|60|0|400|133386|0|466||1|Seal of Jin||t8,A20,c1|1
-275975|3|68|60|0|400|133352|2|0||0|Stalwart Watcher's Signet|Requires Honored with The Watchers|t14,d7|1
-275974|3|68|60|0|400|133353|2|0||0|Vigilant Watcher's Signet|Requires Honored with The Watchers|t10,p11,S9,H26|1
+275973|3|68|60|0|400|133351|2|0||0|Tracker's Signet of Brilliance|Requires Honored with The Watchers|t8,S10,H10,c1|1
+275972|3|68|60|0|400|133367|2|0||0|Tracker's Signet of Ferocity|Requires Honored with The Watchers|t11,A24,h1|1
+275974|3|68|60|0|400|133353|2|0||0|Tracker's Signet of Resolve|Requires Honored with The Watchers|t10,p11,S9,H26|1
+275975|3|68|60|0|400|133352|2|0||0|Tracker's Signet of Vigilance|Requires Honored with The Watchers|t14,d7|1
 19905|3|68|60|0|400|133388|0|462||1|Zanzil's Band||i13,h1|1
 18821|4|67|60|0|400|133349|1|0||1|Quick Strike Ring||s5,t8,A30,c1|1
 21182|3|66|0|0|400|133361|1|0||1|Band of Earthen Might||s6,h1,c1|1
@@ -6458,13 +6459,11 @@ FGT.GEARDB = {
 21405|4|65|60|8|400|133425|1|498||1|Band of Veiled Shadows||a18,s11,t8|1
 20721|3|65|60|0|400|133369|1|0||1|Band of the Cultist||a12,s7,t12|2
 272407|3|65|60|0|400|133402|2|0||1|Blessed Band of Light||t10,p8,S10,H31,h1|1
-275982|4|65|60|0|400|133351|2|0||0|Brilliant Watcher's Signet|Requires Exalted with The Watchers|t12,S17,H17,c1|1
 272406|3|65|60|0|400|133366|2|0||1|Channeler's Ring||i14,p8,h1|1
 272408|3|65|60|0|400|133343|2|0||1|Cutthroat's Signet||a14,t8,h1|1
 19325|4|65|60|0|400|133377|1|0||1|Don Julio's Band||t11,A16,h1,c1|1
 21563|4|65|60|0|400|133376|1|0||1|Don Rodrigo's Band||t7,c1|1
 20682|4|65|60|0|400|133365|1|0||1|Elemental Focus Band||t8,i11,S22,H22|1
-275981|4|65|60|0|400|133367|2|0||0|Ferocious Watcher's Signet|Requires Exalted with The Watchers|t14,A34,h1|1
 17108|4|65|60|0|400|133364|0|0||1|Mark of Deflection||s10,d25|1
 12017|2|65|60|0|400|133351|0|0||0|Prismatic Band|||2
 17982|3|65|60|0|400|133367|0|0||1|Ragnaros Core|||1
@@ -6479,20 +6478,24 @@ FGT.GEARDB = {
 21207|4|65|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight|Requires Friendly with Brood of Nozdormu|t7,i8,S22,H22|1
 21393|4|65|60|1|400|133425|1|495||1|Signet of Unyielding Strength||s11,t14,c1|1
 21402|4|65|60|4|400|133425|1|510||1|Signet of the Unseen Path||a19,t11,i8|1
-275984|4|65|60|0|400|133352|2|0||0|Stalwart Watcher's Signet|Requires Exalted with The Watchers|t18,d8|1
-275983|4|65|60|0|400|133353|2|0||0|Vigilant Watcher's Signet|Requires Exalted with The Watchers|t10,p14,S12,H37|1
+275982|4|65|60|0|400|133351|2|0||0|Warden's Signet of Brilliance|Requires Exalted with The Watchers|t12,S17,H17,c1|1
+275981|4|65|60|0|400|133367|2|0||0|Warden's Signet of Ferocity|Requires Exalted with The Watchers|t14,A34,h1|1
+275983|4|65|60|0|400|133353|2|0||0|Warden's Signet of Resolve|Requires Exalted with The Watchers|t10,p14,S12,H37|1
+275984|4|65|60|0|400|133352|2|0||0|Warden's Signet of Vigilance|Requires Exalted with The Watchers|t18,d8|1
 12058|2|64|59|0|400|133343|0|0||0|Demonic Bone Ring||s8,t5,p5|2
 11980|2|64|59|0|400|133347|0|0||0|Opal Ring|||2
 19518|3|63|58|0|400|133362|1|0||1|Advisor's Ring||t8,S14,H14|1
 22326|3|63|58|0|400|133361|0|0||1|Amalgam's Band||t5,i6,c1|1
 18103|3|63|58|0|400|133358|0|0||1|Band of Rumination||c1|1
 18522|3|63|58|0|400|133374|0|0||0|Band of the Ogre King||s14,t13|1
-275969|3|63|60|0|400|133351|2|0||0|Brilliant Watcher's Signet|Requires Friendly with The Watchers|t6,S8,H8,c1|1
 272068|3|63|58|0|400|133370|2|0||1|Darkspear Signet|Requires Honored with Darkspear Raiders|t16|1
 19109|3|63|58|0|400|133377|1|0||0|Deep Rooted Ring||t10,i10,S12,H12|1
 22433|3|63|58|0|400|133358|0|0||1|Don Mauricio's Band of Domination||t5,S11,H11,c1|1
-275968|3|63|60|0|400|133367|2|0||0|Ferocious Watcher's Signet|Requires Friendly with The Watchers|t10,A20,h1|1
 16058|3|63|0|0|400|133361|0|0||0|Fordring's Seal||t4,i5,H37|1
+275969|3|63|60|0|400|133351|2|0||0|Initiate's Signet of Brilliance|Requires Friendly with The Watchers|t6,S8,H8,c1|1
+275968|3|63|60|0|400|133367|2|0||0|Initiate's Signet of Ferocity|Requires Friendly with The Watchers|t10,A20,h1|1
+275970|3|63|60|0|400|133353|2|0||0|Initiate's Signet of Resolve|Requires Friendly with The Watchers|t10,p10,S7,H22|1
+275971|3|63|60|0|400|133352|2|0||0|Initiate's Signet of Vigilance|Requires Friendly with The Watchers|t10,d6|1
 272064|3|63|58|0|400|133362|2|0||1|Insurgent's Band|Requires Honored with Darkspear Raiders|t16,A17|1
 19510|3|63|58|0|400|133363|1|0||1|Legionnaire's Band||a11,s12,t8|1
 19522|3|63|58|0|400|133370|1|0||1|Lorekeeper's Ring||t8,S14,H14|1
@@ -6502,11 +6505,9 @@ FGT.GEARDB = {
 19514|3|63|58|0|400|133352|1|0||1|Protector's Band||a11,s12,t8|1
 22339|3|63|58|0|400|133377|0|0||1|Rune Band of Wizardry||t7,S16,H16,h1|1
 13345|3|63|58|0|400|133358|0|0||0|Seal of Rivendare||i17,p7|1
-275971|3|63|60|0|400|133352|2|0||0|Stalwart Watcher's Signet|Requires Friendly with The Watchers|t10,d6|1
 271908|3|63|58|0|400|133370|2|0||1|Theramore Signet|Requires Honored with Theramore Expeditionary Force|t16,A17|1
 18398|3|63|0|0|400|133352|1|0||0|Tidal Loop||t4,i7,p4|1
 11992|2|63|58|0|400|133351|0|0||0|Vermilion Band|||2
-275970|3|63|60|0|400|133353|2|0||0|Vigilant Watcher's Signet|Requires Friendly with The Watchers|t10,p10,S7,H22|1
 21179|3|62|0|0|400|133360|1|0||1|Band of Earthen Wrath||i8,c1|1
 22334|3|62|57|0|400|133347|0|0||1|Band of Mending||t7,i7,p6,H31|1
 22331|3|62|57|0|400|133375|0|0||1|Band of the Steadfast Hero||s7,t12,d7|1
@@ -6534,10 +6535,8 @@ FGT.GEARDB = {
 13392|3|61|56|0|400|133365|0|81||1|The Postmaster's Seal||t6,i3,p17|1
 13373|3|60|55|0|400|133721|0|0||1|Band of Flesh||a3,s6,t16|1
 13096|3|60|55|0|400|133359|0|0||1|Band of the Hierophant||t7,i10,p11|2
-275977|4|60|60|0|400|133351|2|0||0|Brilliant Watcher's Signet|Requires Revered with The Watchers|t10,S15,H15,c1|1
 12057|2|60|55|0|400|133356|0|0||0|Dragonscale Band||t13,p4|2
 12545|3|60|0|0|400|133347|0|0||0|Eye of Orgrimmar||i7,p4,S18,H18|1
-275976|4|60|60|0|400|133367|2|0||0|Ferocious Watcher's Signet|Requires Revered with The Watchers|t13,A30,h1|1
 18464|2|60|55|0|400|133348|0|0||0|Gordok Nose Ring||s5,t9|1
 12548|3|60|0|0|400|133347|0|0||0|Magni's Will||s6,t7,c1|1
 20692|2|60|55|0|400|133345|1|0||0|Multicolored Band||t10|2
@@ -6552,9 +6551,11 @@ FGT.GEARDB = {
 21201|4|60|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight||a18,t8,h1|1
 21206|4|60|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight||t6,i7,S21,H21|1
 12543|3|60|0|0|400|133347|0|0||0|Songstone of Ironforge||i7,p4,S18,H18|1
-275980|4|60|60|0|400|133352|2|0||0|Stalwart Watcher's Signet|Requires Revered with The Watchers|t16,d8|1
 12544|3|60|0|0|400|133347|0|0||0|Thrall's Resolve||s4,t7|1
-275979|4|60|60|0|400|133353|2|0||0|Vigilant Watcher's Signet|Requires Revered with The Watchers|t10,p13,S11,H33|1
+275977|4|60|60|0|400|133351|2|0||0|Watcher's Signet of Brilliance|Requires Revered with The Watchers|t10,S15,H15,c1|1
+275976|4|60|60|0|400|133367|2|0||0|Watcher's Signet of Ferocity|Requires Revered with The Watchers|t13,A30,h1|1
+275979|4|60|60|0|400|133353|2|0||0|Watcher's Signet of Resolve|Requires Revered with The Watchers|t10,p13,S11,H33|1
+275980|4|60|60|0|400|133352|2|0||0|Watcher's Signet of Vigilance|Requires Revered with The Watchers|t16,d8|1
 19065|3|59|0|0|400|133379|1|0||0|Emerald Circle||t14,p8|1
 18674|2|59|54|0|400|133356|0|0||0|Hardened Stone Band||s8,t8,d3|2
 18701|3|59|54|0|400|133366|0|0||1|Innervating Band||a15,t9|2
@@ -6788,6 +6789,11 @@ FGT.GEARDB = {
 11965|2|20|15|0|400|133347|0|0||0|Quartz Ring|||2
 3235|2|20|0|0|400|133357|1|0||0|Ring of Scorn||t4|1
 8350|2|15|10|0|400|133345|0|0||0|The 1 Ring||a1,s1,t1,i1,p1|2
+288929|4|10|1|0|400|133378|2|0||1|Band of Sulfuras||t2,i4,p2|1
+288930|4|10|1|0|400|133381|2|0||0|Cauterizing Band||t2,i2,S3,H8|1
+288928|4|10|1|0|400|133356|2|0||1|Heavy Dark Iron Ring||t4,d1|1
+288927|4|10|1|0|400|133349|2|0||1|Quick Strike Ring||s1,t1,A5|1
+288931|4|10|1|0|400|133380|2|0||0|Ring of Spell Power||S6,H6|1
 24358|4|6|1|0|400|133380|1|0||0|QATest +1000 Spell Dmg Ring||S1000,H1000|1
 ]==],
         [12] = [==[
@@ -8822,6 +8828,7 @@ FGT.GEARDB = {
 281274|2|11|0|0|210|0|2|0||0|Makeshift Stormcaller||i2|1
 4939|2|11|0|0|208|135344|1|0||0|Steady Bastard Sword||a2|1
 9514|2|10|0|128|210|135147|1|0||0|Arcane Staff||i1,p1|1
+288900|4|10|1|0|205|133041|2|0||0|Earthshaker||A4|1
 9603|2|10|0|0|210|135159|1|0||0|Gritroot Staff||t1|1
 9513|2|10|0|128|210|135158|1|0||0|Ley Staff||i1,p1|1
 263312|2|10|0|0|205|134435|2|0||0|Planting Shovel||s1|1
@@ -10182,6 +10189,7 @@ FGT.GEARDB = {
 4255|2|31|26|0|402|132723|4|0||0|Green Leather Armor||a8,i8|2
 3566|2|29|0|0|402|132716|1|0||0|Raptorbane Armor||t3,A16|1
 5316|2|25|0|0|402|135009|4|0||0|Barkshell Tunic||t4,S8,H8|1
+2314|2|24|19|0|402|132725|4|0||0|Toughened Leather Armor||t2,p7|2
 2866|2|23|18|0|403|132630|4|0||0|Rough Bronze Cuirass||t8|2
 20575|2|20|15|0|402|132686|4|0||0|Black Whelp Tunic||i5,S3,H3|2
 4244|2|20|15|0|402|132725|4|0||0|Hillman's Leather Vest||t4,S4,H4|2
@@ -10838,6 +10846,7 @@ FGT.GEARDB = {
         [2310] = '165|2318:5,2320:2',
         [2311] = '165|2318:8,2320:2,2324:1',
         [2312] = '165|4231:1,2318:4,2320:2',
+        [2314] = '165|2319:10,4231:2,2321:2',
         [2315] = '165|2319:4,2321:2,4340:1',
         [2316] = '165|2319:8,2321:1,4340:1',
         [2317] = '165|2319:6,2321:1,4340:1',
@@ -12532,7 +12541,7 @@ FGT.GEARDB = {
 1248640|2563|4|1024|31|E|0|Enchant Gloves - Superior Strength|Strength +15|20725:4,16203:8,7076:4
 1248645|8213|4|1024|31|E|0|Enchant Gloves - Natural Power|Nature Damage +20|20725:2,14344:5,248822:4
 1248661|1901|4|512|30|E|0|Enchant Bracer - Superior Intellect|Intellect +9|16203:10
-1248665|8214|4|512|30|E|0|Enchant Bracer - Superior Deflection|Defense +6|14344:3
+1248665|8214|4|512|30|E|0|Enchant Bracer - Superior Deflection|Defense +9|14344:3
 1248668|8215|2|0|1378|E|0|Enchant 2H Weapon - Strength|Strength +25|14344:8,16203:10,16204:8,12363:4
 1248757|8216|2|0|189939|E|0|Enchant Weapon - Insight|Insight|10940:10,11084:4,11082:4,249391:4,249399:4
 1248760|8721|2|0|189939|E|0|Enchant Weapon - Recovery|Recovery|11083:6,11084:4,11082:6,249391:4,2775:4
@@ -12554,5 +12563,6 @@ FGT.GEARDB = {
 1294054|8695|4|1024|0|E|0|Enchant Gloves - Lotus Claw|Lotus Claw|248822:1,14343:2,16204:12,16202:4
 1306907|8719|4|1050016|30|I|279258|Wild Leather Armor Kit|Defense +4 and Stamina +10|279258:1
 1307050|8720|2|0|262156|I|279272|SAF-T Ultra Precision Scope|+2% Crit|279272:1
+1328948|8737|4|256|30|E|0|Enchant Boots - Speed|Speed Increase|11178:2,11176:8,11175:2,12361:1
 ]==],
 }
