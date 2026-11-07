@@ -6853,14 +6853,18 @@ FGT.GEARSOURCES_FOREVER = [==[
 6720|Q|Frostmaw|Thunder Bluff|
 1282|Q|Morbent Fel|Duskwood|
 276199|V|Friz Frazzlespark|Riverglades|
+272072|V|Creeg Bothunk|The Barrens|
 274969|V|Master Sergeant Biggins|Stormwind City|
+272073|V|Creeg Bothunk|The Barrens|
+272074|V|Creeg Bothunk|The Barrens|
 4614|N|Unfettered Spirit||beta
 281321|Q|Gleaning Our Future|Wetlands|
+288926|W|||beta
 281290|Q|Gleaming Crescent Necklace|Ashenvale|
 277204|Q|Friend of the Library|Special|
 277203|Q|Friend of the Library|Special|
 281265|Q|Watching the Roads|Silverpine Forest|
-288926|W|||beta
+272105|V|Creeg Bothunk|The Barrens|
 272724|V|Captain Dirgehammer|Stormwind City|
 16793|Q|Book of the Ancients|Desolace|
 4443|Q|To Steal From Thieves|Undercity|
@@ -6913,6 +6917,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 5341|Q|Root Samples|Herbalism|
 5420|Q|The Demon Seed|Durotar|
 270000|Q|WANTED: "Hogger"|Elwynn Forest|
+7229|Q|Bashal'Aran|Darkshore|
 6085|Q|WANTED: "Hogger"|Elwynn Forest|
 263333|Q|Unfortunate News|Zephras Isle|
 257344|Q|Desperate Times|Zephras Isle|
@@ -6971,8 +6976,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 6671|Q|The Den|Stonetalon Mountains|
 2545|Q|Apprentice's Duties|Wetlands|
 270020|Q|Assault on Fenris Isle|Silverpine Forest|
-4816|V|Morg Gnarltree|Duskwood|
 270011|Q|Free From the Hold|The Barrens|
+270014|Q|The Sleeper Has Awakened|Darkshore|
 5310|Q|The Guns of Northwatch|The Barrens|
 1310|Q|The Everstill Bridge|Redridge Mountains|
 5327|Q|The Escape|The Barrens|
@@ -6990,6 +6995,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 263340|Q|Tower Defense|Zephras Isle|
 6084|Q|WANTED: "Hogger"|Elwynn Forest|
 263330|Q|Unfortunate News|Zephras Isle|
+5617|Q|Bashal'Aran|Darkshore|
 10549|Q|Protecting the Herd|Dun Morogh|
 281283|Q|Hides for the Forsaken|Tirisfal Glades|
 263307|Q|Mercy Falls on Deaf Ears|Zephras Isle|
@@ -7017,6 +7023,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 270013|Q|Oh Brother...|Deadmines|
 6092|Q|Underbelly Scales|Redridge Mountains|
 11853|Q|Stolen Silver|The Barrens|
+4789|V|Defias Profiteer|Westfall|
 2037|Q|Collecting Memories|Deadmines|
 270006|Q|The People's Militia|Westfall|
 15406|Q|Fruit of the Sea|Darkshore|
@@ -7066,7 +7073,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 281269|Q|Rocks to Rests|Orgrimmar|
 281271|Q|Rocks to Rests|Orgrimmar|
 281270|Q|Rocks to Rests|Orgrimmar|
+272095|V|Creeg Bothunk|The Barrens|
+272097|V|Creeg Bothunk|The Barrens|
 272703|V|Captain Dirgehammer|Stormwind City|
+272096|V|Creeg Bothunk|The Barrens|
+272098|V|Creeg Bothunk|The Barrens|
 276200|V|Friz Frazzlespark|Riverglades|
 277223|Q|No Honor Among Thieves|Desolace|
 270072|Q|Crushridge Warmongers|Alterac Mountains|
@@ -7095,6 +7106,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 5630|Q|The Absent Minded Prospector|Darkshore|
 1302|Q|Underbelly Scales|Redridge Mountains|
 2036|Q|Collecting Memories|Deadmines|
+7738|Q|Tharnariun's Hope|Darkshore|
 3458|Q|Wand to Bethor|Silverpine Forest|
 276723|Q|A Recipe For Death|Silverpine Forest|
 15405|Q|Fruit of the Sea|Darkshore|
@@ -7107,8 +7119,14 @@ FGT.GEARSOURCES_FOREVER = [==[
 273876|Q|Desperate Times|Zephras Isle|
 263306|Q|Mercy Falls on Deaf Ears|Zephras Isle|
 263310|Q|Free the Hollows|Zephras Isle|
+272068|V|Creeg Bothunk|The Barrens|
+272064|V|Creeg Bothunk|The Barrens|
+272069|V|Creeg Bothunk|The Barrens|
+272065|V|Creeg Bothunk|The Barrens|
 277208|Q|No Honor Among Thieves|Desolace|
 276202|V|Friz Frazzlespark|Riverglades|
+272070|V|Creeg Bothunk|The Barrens|
+272066|V|Creeg Bothunk|The Barrens|
 277209|Q|Terror of the Desert Skies|Badlands|
 276899|Q|Past Due|Scarlet Monastery|
 4135|Q|Bloody Bone Necklaces|Stranglethorn Vale|
@@ -7124,6 +7142,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 281320|Q|Gleaning Our Future|Wetlands|
 15467|Q|Hypercapacitor Gizmo|Thousand Needles|
 281304|Q|Understanding Our Present|Wetlands|
+288929|W|||beta
+288930|W|||beta
+288928|W|||beta
+288927|W|||beta
+288931|W|||beta
 281673|Q|The Offering of Blood|Silverpine Forest|
 281252|Q|Bloodfury Trinkets|Stonetalon Mountains|
 1319|Q|Howling in the Hills|Redridge Mountains|
@@ -7135,11 +7158,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 5622|Q|The Tower of Althalaxx|Darkshore|
 5351|Q|Hezrul Bloodmark|The Barrens|
 3235|Q|A Husband's Revenge|Silverpine Forest|
-288929|W|||beta
-288930|W|||beta
-288928|W|||beta
-288927|W|||beta
-288931|W|||beta
+272061|V|Creeg Bothunk|The Barrens|
+272060|V|Creeg Bothunk|The Barrens|
+272059|V|Creeg Bothunk|The Barrens|
+272062|V|Creeg Bothunk|The Barrens|
 280766|Q|Changing Tastes;Heartwoven|Excavation Site: Wetlands|
 276895|Q|The Broodmother|Mulgore|
 274445|V|Master Sergeant Biggins|Stormwind City|
@@ -7148,6 +7170,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272693|V|Captain O'Neal|Stormwind City|
 272847|V|Captain O'Neal|Stormwind City|
 272859|V|Captain O'Neal|Stormwind City|
+289294|N|Super Hogger||beta
 9520|Q|Call to Arms|Arathi Highlands|
 277515|Q|Hate the Hatefury|Desolace|
 271664|Q|Horrors in the Highland|Excavation Site: Wetlands|
@@ -7159,7 +7182,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 16891|Q|Arachnophobia|Stonetalon Mountains|
 5321|Q|Serena Bloodfeather|The Barrens|
 5279|Q|Serena Bloodfeather|The Barrens|
-3184|N|Deviate Shambler||beta
+3184|N|several creatures||beta
 5627|Q|The Absent Minded Prospector|Darkshore|
 3581|Q|Wand to Bethor|Silverpine Forest|
 281254|Q|Banner of the Fallen|Loch Modan|
@@ -7195,6 +7218,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 4821|V|Kara Adams|Redridge Mountains|
 1557|Q|The Coastal Menace|Westfall|
 5302|Q|Cry of the Thunderhawk|The Barrens|
+15207|Q|The Sleeper Has Awakened|Darkshore|
 6187|Q|In Defense of the King's Lands|Loch Modan|
 5325|Q|Samophlange|The Barrens|
 3450|Q|Pyrewood Ambush|Silverpine Forest|
@@ -7205,10 +7229,12 @@ FGT.GEARSOURCES_FOREVER = [==[
 11307|V|Kuna Thunderhorn|Thunder Bluff|
 277254|Q|Greater Friend of the Library|Special|
 17686|Q|Big Game Hunter|Stranglethorn Vale|
+289303|N|Super Hogger||beta
 3493|Q|Ormer's Revenge|Wetlands|
 6739|Q|The Sacred Flame|Thunder Bluff|
 3742|Q|Dangerous!|Hillsbrad Foothills|
 11304|V|||
+11303|V|Railee Thriceforged|Zephras Isle|
 2903|Q|A Hunter's Boast|Loch Modan|
 276695|Q|The Killing Fields|Westfall|
 276685|Q|Rare Books|Elwynn Forest|
@@ -7234,7 +7260,6 @@ FGT.GEARSOURCES_FOREVER = [==[
 16990|Q|Bloodfury Bloodline|Stonetalon Mountains|
 3561|Q|Apprentice's Duties|Wetlands|
 4797|V|Robert Aebischer|Hillsbrad Foothills|
-4798|V|Morg Gnarltree|Duskwood|
 4790|V|||
 4793|V|||
 4799|V|Robert Aebischer|Hillsbrad Foothills|
@@ -7243,6 +7268,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 5314|Q|Consumed by Hatred|The Barrens|
 3582|Q|A Recipe For Death|Silverpine Forest|
 5343|Q|Raptor Horns|The Barrens|
+7739|Q|Tharnariun's Hope|Darkshore|
 286427|Q|Exploring the Alliance|Stormwind City|
 3511|Q|Red Leather Bandanas|Westfall|
 1270|Q|Dry Times|Redridge Mountains|
@@ -7260,9 +7286,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 272850|V|Captain O'Neal|Stormwind City|
 272840|V|Captain O'Neal|Stormwind City|
 276203|V|Friz Frazzlespark|Riverglades|
+289295|N|Super Hogger||beta
 270085|Q|Big Game Hunter|Stranglethorn Vale|
 4128|Q|Venture Company Mining|Stranglethorn Vale|
 9521|Q|Call to Arms|Arathi Highlands|
+289296|N|Super Hogger||beta
 2000|Q|A Daughter's Love|Duskwood|
 271767|Q|Earthen Echo;Prehistoric Prism|Excavation Site: Wetlands|
 271766|Q|Earthen Echo;Prehistoric Prism|Excavation Site: Wetlands|
@@ -7274,6 +7302,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 3822|Q|Battle of Hillsbrad|Hillsbrad Foothills|
 281313|Q|Stopping the Cycle|Wetlands|
 6953|Q|The Test of Righteousness||
+288900|W|||beta
 15464|Q|Arikara|Thousand Needles|
 6093|Q|Tharil'zun|Redridge Mountains|
 5322|Q|Weapons of Choice|The Barrens|
@@ -7314,14 +7343,13 @@ FGT.GEARSOURCES_FOREVER = [==[
 281274|Q|Stormy Potential|Durotar|
 4939|Q|Skull Rock|Durotar|
 9514|Q|Mage-tastic Gizmonitor;The Balnir Farmstead||
-288900|W|||beta
 9603|Q|The Relics of Wakening|Teldrassil|
 9513|Q|Mirror Lake||
 263312|Q|Deliver the News|Zephras Isle|
 272695|V|Master Sergeant Biggins|Stormwind City|
 262765|V|Tamelyn Aldridge|Redridge Mountains|
 272694|V|Master Sergeant Biggins|Stormwind City|
-5976|V|Garyl|Orgrimmar|
+5976|V|||
 272722|V|Captain Dirgehammer|Stormwind City|
 3558|Q|Blisters on the Land|Wetlands|
 3555|Q|Missing In Action|Redridge Mountains|
@@ -7353,10 +7381,9 @@ FGT.GEARSOURCES_FOREVER = [==[
 6979|Q|Dead-tooth Jack||
 6983|Q|Dead-tooth Jack||
 6985|Q|Dead-tooth Jack||
-4765|V|Lizzarik|The Barrens|
 5344|Q|Centaur Bracers|The Barrens|
 5459|Q|Ursal the Mauler|Teldrassil|
-4766|V|Nargal Deatheye|The Barrens|
+4766|V||The Barrens|
 246164|Q|Murlocs at the Gates||
 5587|Q|Ursal the Mauler|Teldrassil|
 248006|Q|Rare Books|Elwynn Forest|
@@ -7382,14 +7409,17 @@ FGT.GEARSOURCES_FOREVER = [==[
 7558|N|Blackrock Champion||beta
 1131|Q|The Totem of Infliction|Duskwood|
 1172|Q|The Coastal Menace|Westfall|
+15206|Q|The Sleeper Has Awakened|Darkshore|
 11855|Q|Samophlange Manual|The Barrens|
 3451|Q|A Recipe For Death|Silverpine Forest|
 15945|N|Theramore Marine||beta
 5611|Q|For Love Eternal|Darkshore|
+15933|N|Tormented Soul or Riverpaw Mongrel||beta
 15866|Q|Curing the Sick||
 15944|N|Dustwind Storm Witch or Bandit Highwayman||beta
-15932|N|Vile Fin Seer||beta
+15932|N|Vile Fin Seer or Tormented Soul||beta
 7507|Q|Mage-tastic Gizmonitor;The Balnir Farmstead||
+15969|N|Ornery Galestrider||beta
 7508|Q|Mirror Lake||
 11284|V|||
 11285|V|||
@@ -7420,6 +7450,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 6677|Q|Retrieval for Mauren|Stonetalon Mountains|
 5240|Q|The Coastal Menace|Westfall|
 5252|Q|Beren's Peril|Silverpine Forest|
+15205|Q|The Sleeper Has Awakened|Darkshore|
 5309|Q|The Guns of Northwatch|The Barrens|
 3567|Q|Murloc Poachers|Redridge Mountains|
 5241|Q|Gathering Idols|Loch Modan|
@@ -7428,6 +7459,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 12296|Q|The People's Militia|Westfall|
 5242|Q|Arugal's Folly|Silverpine Forest|
 2904|Q|A Hunter's Boast|Loch Modan|
+5604|Q|Bashal'Aran|Darkshore|
 277255|Q|Leonid's Letter|Tirisfal Glades|
 3079|Q|The Demon Scarred Cloak|Mulgore|
 263430|Q|Boughs in the Wind||

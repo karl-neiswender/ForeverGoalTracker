@@ -8,7 +8,7 @@
 -- (only equip bonuses read differently). The Forever client uses them in place of blocks.
 local _, FGT = ...
 FGT.GEARDB = {
-    builds = { era = '1.15.9.70003', forever = '1.60.1.70755' },
+    builds = { era = '1.15.9.70003', forever = '1.60.1.70862' },
     sets = {
         [1] = "The Gladiator",
         [41] = "Dal'Rend's Arms",
@@ -1132,6 +1132,7 @@ FGT.GEARDB = {
 5003|2|31|26|0|400|133289|0|0||0|Crystal Starfire Medallion||t4,i4,p3|2
 10299|2|31|26|0|400|133290|1|0||0|Gnomeregan Amulet|||1
 5754|2|31|26|0|400|133278|0|0||0|Wolfpack Medallion||a3,t5|2
+288926|4|30|1|0|400|133280|2|0||0|Choker of the Fire Lord||t3,i3,S15,H15|2
 5002|2|30|25|0|400|133288|0|0||0|Glowing Green Talisman||t1,p6|2
 12047|2|30|25|0|400|133291|0|0||0|Spectral Necklace|||2
 281290|2|26|0|0|400|133298|2|0||0|Replica Crescent Necklace||a3,p3|1
@@ -1140,7 +1141,6 @@ FGT.GEARDB = {
 20442|3|23|18|0|400|133301|1|0||1|Scout's Medallion||a6,t2|1
 20444|3|23|18|0|400|133300|1|0||1|Sentinel's Medallion||a6,t2|1
 281265|2|20|0|0|400|133288|2|0||0|Roadwatcher's Confidence||p3|1
-288926|4|10|1|0|400|133280|2|0||0|Choker of the Fire Lord||t1,i1,S6,H6|1
 ]==],
         [3] = [==[
 22479|4|86|60|0|402|135060|1|524||0|Bonescythe Pauldrons||a22,s22,t15,h1,c1|1
@@ -6731,7 +6731,12 @@ FGT.GEARDB = {
 2933|3|31|0|0|400|133347|1|0||0|Seal of Wrynn||a3,s3,t4,i4,p3|1
 6750|2|31|0|0|400|133348|0|0||0|Snake Hoop||i6|1
 6749|2|31|0|0|400|133355|0|0||0|Tiger Band||s6|1
+288929|4|30|1|0|400|133378|2|0||1|Band of Sulfuras||t6,i10,p4|2
+288930|4|30|1|0|400|133381|2|0||0|Cauterizing Band||t4,i5,S7,H21|2
 10298|2|30|25|0|400|133352|1|0||0|Gnomeregan Band|||1
+288928|4|30|1|0|400|133356|2|0||1|Heavy Dark Iron Ring||t10,d2|2
+288927|4|30|1|0|400|133349|2|0||1|Quick Strike Ring||s2,t4,A14|2
+288931|4|30|1|0|400|133380|2|0||0|Ring of Spell Power||S16,H16|2
 13094|3|30|25|0|400|133368|0|0||1|The Queen's Jewel||t1,i2,p8|2
 11984|2|29|24|0|400|133352|0|0||0|Cobalt Ring|||2
 11969|2|29|24|0|400|133351|0|0||0|Jacinth Circle|||2
@@ -6789,11 +6794,6 @@ FGT.GEARDB = {
 11965|2|20|15|0|400|133347|0|0||0|Quartz Ring|||2
 3235|2|20|0|0|400|133357|1|0||0|Ring of Scorn||t4|1
 8350|2|15|10|0|400|133345|0|0||0|The 1 Ring||a1,s1,t1,i1,p1|2
-288929|4|10|1|0|400|133378|2|0||1|Band of Sulfuras||t2,i4,p2|1
-288930|4|10|1|0|400|133381|2|0||0|Cauterizing Band||t2,i2,S3,H8|1
-288928|4|10|1|0|400|133356|2|0||1|Heavy Dark Iron Ring||t4,d1|1
-288927|4|10|1|0|400|133349|2|0||1|Quick Strike Ring||s1,t1,A5|1
-288931|4|10|1|0|400|133380|2|0||0|Ring of Spell Power||S6,H6|1
 24358|4|6|1|0|400|133380|1|0||0|QATest +1000 Spell Dmg Ring||S1000,H1000|1
 ]==],
         [12] = [==[
@@ -7255,6 +7255,7 @@ FGT.GEARDB = {
 277243|3|45|40|0|200|0|2|0||0|Silverbane Slicer||s9,p4|1
 9359|3|45|40|0|204|133942|0|0||0|Southsea Lamp||a9,t4|2
 277245|3|45|40|0|204|0|2|0||0|Swampspine Crusher||a4,t9|1
+289294|5|45|1|0|207|135349|2|0||1|Thunderfury, Blessed Blade of the Windseeker||a3,t5|1
 6831|3|44|0|0|215|135311|0|0||0|Black Menace|||1
 7942|2|44|39|0|200|132394|1|0||0|Blue Glittering Axe||a8|2
 10761|3|44|39|0|215|135344|0|0||0|Coldrage Dagger|||1
@@ -7778,6 +7779,7 @@ FGT.GEARDB = {
 2825|4|42|37|0|202|135497|0|0||0|Bow of Searing Arrows|||2
 9426|3|41|36|0|202|135489|0|0||0|Monolithic Bow||a3,s6|2
 4087|2|41|36|0|202|135498|0|0||0|Trueshot Bow|||2
+289303|4|40|1|4|202|135489|2|0||1|Rhok'delar, Longbow of the Ancient Keepers||A10,c1|2
 13020|3|39|34|0|202|135499|0|0||0|Skystriker Bow|||2
 10567|3|38|33|0|202|135489|0|0||0|Quillshooter|||2
 11305|2|35|30|0|202|135495|1|0||0|Dense Shortbow|||2
@@ -8543,6 +8545,7 @@ FGT.GEARDB = {
 1604|2|45|40|0|208|135323|0|0||0|Chromatic Sword|||2
 250610|2|45|40|0|208|0|2|0||0|Mithril Claymore||s9,t15|2
 276203|3|45|40|0|206|0|2|0||0|Primitive Fishing Pole|Requires Honored with Powderfuse|a10,s7,t20|1
+289295|5|45|1|0|205|133066|2|0||1|Sulfuras, Hand of Ragnaros||s8,t8|1
 9423|3|45|40|0|205|133044|0|0||0|The Jackhammer|||2
 277250|3|45|40|0|205|0|2|0||0|The Skullcracker||p22,A18|1
 6830|3|44|0|0|201|132395|0|0||0|Bonebiter||s20,t10|1
@@ -8585,6 +8588,8 @@ FGT.GEARDB = {
 9521|2|41|0|0|201|132397|1|0||0|Skullsplitter||s15,t4|1
 1664|2|41|36|0|210|135165|0|0||0|Spellforce Rod||S20,H20|2
 13042|3|41|36|0|208|135351|0|0||0|Sword of the Magistrate||s8,t15,p10|2
+289297|4|40|1|16|210|135149|2|0||1|Anathema||t13,i18|2
+289296|4|40|1|16|210|135167|2|0||1|Benediction||t6,i18,p7|2
 274944|2|40|0|0|206|135128|2|0||0|Bloodsnout Striker||t11,A18|1
 9517|3|40|0|128|210|135151|1|0||0|Celestial Stave||i8,S22,H22|1
 270071|2|40|0|0|205|133053|2|0||0|Dark Hearted Hammer||s12,t8|1
@@ -8668,6 +8673,7 @@ FGT.GEARDB = {
 6953|3|31|0|2|205|133042|1|0||0|Verigan's Fist||t7,i6,p12|1
 3210|2|30|25|0|201|132408|0|0||0|Brutal War Axe|||2
 2084|2|30|25|0|208|135311|0|0||0|Darksteel Bastard Sword||s8,p7|2
+288900|4|30|1|0|205|133041|2|0||0|Earthshaker||A11|2
 249392|3|30|25|0|210|135156|2|0||0|Glimmering Staff||t11,i11|1
 9604|2|30|0|0|205|133479|0|0||0|Mechanic's Pipehammer||t10,i3|1
 249393|3|30|25|0|210|135168|2|0||0|Soulstaff||t11,p11|1
@@ -8828,7 +8834,6 @@ FGT.GEARDB = {
 281274|2|11|0|0|210|0|2|0||0|Makeshift Stormcaller||i2|1
 4939|2|11|0|0|208|135344|1|0||0|Steady Bastard Sword||a2|1
 9514|2|10|0|128|210|135147|1|0||0|Arcane Staff||i1,p1|1
-288900|4|10|1|0|205|133041|2|0||0|Earthshaker||A4|1
 9603|2|10|0|0|210|135159|1|0||0|Gritroot Staff||t1|1
 9513|2|10|0|128|210|135158|1|0||0|Ley Staff||i1,p1|1
 263312|2|10|0|0|205|134435|2|0||0|Planting Shovel||s1|1
@@ -9291,6 +9296,7 @@ FGT.GEARDB = {
 17039|2|36|0|0|204|133728|0|0||0|Skullbreaker||t3,i5|1
 6738|2|35|0|0|200|132403|1|0||0|Bleeding Crescent|||1
 2044|2|35|0|0|200|132397|1|0||0|Crescent of Forlorn Spirits||p6|1
+289292|4|35|1|0|204|133497|2|0||1|Hammer of Bestial Fury||s7,t6|2
 23168|3|35|30|0|215|135643|0|0||0|Scorn's Focal Dagger||S9,H9|1
 9446|3|34|29|0|207|135340|0|0||0|Electrocutioner Leg|||1
 4126|2|34|0|0|200|132415|1|0||0|Guerrilla Cleaver||a3,t4|1
