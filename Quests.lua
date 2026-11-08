@@ -127,5 +127,12 @@ FGT.QUESTS = {
     { "The Legend of Korrak", { 7181 } },
     { "Korrak the Bloodrager", { 7202 } },
     { "Corruption of Earth and Seed", { 7064, 7065 } },
+    -- Cozy Sleeping Bag: Forever note trail (forever.warcraftdb.com, 2026-11-07). Each starts at an object.
+    { "... and that note you found", { 79007, 79008 }, startName = "the Burned-Out Remains (Alliance: Westfall, Horde: the Barrens)" },
+    { "Stepping Stones", { 79192 }, startName = "the Nailed Plank (Alliance: the Barrens, Horde: Westfall)" },
+    { "Scramble", { 79980 }, startName = "the Pocket Litter in Stonetalon Mountains" },
+    { "Wet Job", { 79974 }, startName = "the Mound of Dirt in Stonetalon Mountains" },
+    { "Eagle's Fist", { 79975 }, startName = "the Carved Figurine in Loch Modan" },
+    { "This Must Be The Place", { 79976 }, startName = "the Messenger Bag on Thoradin's Wall" },
 
 }

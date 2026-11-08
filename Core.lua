@@ -1627,8 +1627,10 @@ do
     local function Index()
         if names then return end
         byId, names = {}, {}
+        -- faction = "Alliance" or "Horde": a spot only that faction uses (two entries can share a name)
+        local mine = UnitFactionGroup and UnitFactionGroup("player")
         for _, n in ipairs(FGT.NPCS or {}) do
-            if not n.forever or FGT.isForever then
+            if (not n.forever or FGT.isForever) and (not n.faction or not mine or n.faction == mine) then
                 -- Forever's own spot, where it differs
                 if FGT.isForever and n.f then
                     n.map, n.x, n.y, n.zone = n.f[1], n.f[2], n.f[3], n.f[4] or n.zone
@@ -1962,7 +1964,8 @@ function FGT.EnableGoalLinks(f)
         if npcId then
             local n = FGT.NpcById(npcId)
             if button == "RightButton" then
-                FGT.OpenWowheadCard("npc", npcId, n and n.name or text, nil, n)
+                -- (object = true: a clickable thing on the ground, Wowhead's object page)
+                FGT.OpenWowheadCard(n and n.object and "object" or "npc", npcId, n and n.name or text, nil, n)
                 return
             elseif IsShiftKeyDown() then
                 FGT.ShowNpcOnMap(npcId)

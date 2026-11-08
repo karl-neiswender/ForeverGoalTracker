@@ -728,6 +728,8 @@ if ok_all:
         ("Wolfsbane on Forever", None, open(os.path.join(here, "wolfsbane-tests.lua"), encoding="utf-8").read(), True),
         ("fishing tournament", None, open(os.path.join(here, "fishing-tests.lua"), encoding="utf-8").read()),
         ("Forever fishing tournament", None, open(os.path.join(here, "fishing-tests.lua"), encoding="utf-8").read(), True),
+        ("Cozy Sleeping Bag on Era", None, open(os.path.join(here, "sleeping-bag-tests.lua"), encoding="utf-8").read()),
+        ("Cozy Sleeping Bag on Forever", None, open(os.path.join(here, "sleeping-bag-tests.lua"), encoding="utf-8").read(), True),
         ("tally goals", None, open(os.path.join(here, "tally-tests.lua"), encoding="utf-8").read()),
         ("Forever tally goals", None, open(os.path.join(here, "tally-tests.lua"), encoding="utf-8").read(), True),
         ("AQ40 armor sets", None, open(os.path.join(here, "aq-armor-tests.lua"), encoding="utf-8").read()),

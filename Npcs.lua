@@ -131,6 +131,29 @@ FGT.NPCS = {
     { id = 4731, name = "Zachariah Post", tag = "Undead Horse Merchant", map = 1420, zone = "Tirisfal Glades", x = 59.8, y = 52.6 },
     { id = 7952, name = "Zjolnir", tag = "Raptor Handler", map = 1411, zone = "Durotar", x = 55.2, y = 75.4 },
     { id = 265756, name = "Genn Fairweather", tag = "Stablemaster and Riding Trainer", forever = true, map = 2521, zone = "Zephras Isle", x = 53.8, y = 81.2 },
+    -- Cozy Sleeping Bag chain: objects on the ground, not NPCs (object = true; right-click opens Wowhead's
+    -- object page). Ids from forever.warcraftdb.com, spots from the Method and wow.gg guides, 2026-11-07.
+    -- Each faction starts at its own Burned-Out Remains and crosses to the other zone's Nailed Plank.
+    -- 415107 is the Westfall remains in the database; 415106 (no spot listed) is taken to be the Barrens
+    -- one. Only one Nailed Plank id (424010) was found, so both faction entries use it.
+    { id = 415107, name = "Burned-Out Remains", object = true, forever = true, faction = "Alliance", tag = "Note",
+      map = 1436, zone = "Westfall", x = 37.1, y = 50.1, where = "At Alexston Farmstead, in the cart wreckage" },
+    { id = 415106, name = "Burned-Out Remains", object = true, forever = true, faction = "Horde", tag = "Note",
+      map = 1413, zone = "The Barrens", x = 46.1, y = 74.3, where = "In the burnt tower south of Camp Taurajo" },
+    { id = 424010, name = "Nailed Plank", object = true, forever = true, faction = "Alliance", tag = "Note",
+      map = 1413, zone = "The Barrens", x = 46.1, y = 74.3, where = "At the burnt tower south of Camp Taurajo" },
+    { id = 424010, name = "Nailed Plank", object = true, forever = true, faction = "Horde", tag = "Note",
+      map = 1436, zone = "Westfall", x = 37.1, y = 50.1, where = "At Alexston Farmstead, by the cart wreckage" },
+    { id = 424005, name = "Pocket Litter", object = true, forever = true, tag = "Note",
+      map = 1442, zone = "Stonetalon Mountains", x = 40.6, y = 52.4, where = "At a small camp up the hill path near Sun Rock Retreat" },
+    { id = 424012, name = "Mound of Dirt", object = true, forever = true, tag = "Note",
+      map = 1442, zone = "Stonetalon Mountains", x = 39.6, y = 49.9, where = "On the ledge down the cliff, north of the camp" },
+    { id = 424007, name = "Carved Figurine", object = true, forever = true, tag = "Note",
+      map = 1432, zone = "Loch Modan", x = 49.4, y = 12.9, where = "On a ledge of the Stonewrought Dam" },
+    { id = 406918, name = "Messenger Bag", object = true, forever = true, tag = "Note",
+      map = 1424, zone = "Hillsbrad Foothills", x = 87.3, y = 49.6, where = "On a platform on top of Thoradin's Wall" },
+    { id = 424006, name = "Hastily Rolled-Up Satchel", object = true, forever = true, tag = "Note",
+      map = 1424, zone = "Hillsbrad Foothills", x = 87.3, y = 49.6, where = "Under the Messenger Bag on Thoradin's Wall" },
 }
 
 -- Where a reputation's goal page points its "Show on map" link: the faction's main hub, for the
