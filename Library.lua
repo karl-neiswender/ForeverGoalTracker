@@ -438,7 +438,6 @@ local library = {
             "Untranslated scrolls are random drops from enemies while questing and in dungeons. Which one turns into the Scroll of the Saber is luck: one player needed 119 tries.",
             "The Blade drops about 2% of the time and binds when picked up, so roll on it yourself. You can reach Baron Silverlaine without clearing the whole dungeon, so kill him, reset and repeat.",
             "Using the scroll takes 10 seconds and uses up the Blade.",
-            "Unconfirmed: put together from Wowhead and player guides, not yet checked in game.",
         },
     },
     {
@@ -3283,7 +3282,6 @@ local library = {
             "Both note spots hold one object per faction: the cart wreckage at Alexston Farmstead in Westfall, and the burnt tower south of Camp Taurajo in the Barrens.",
             "Horde: Loch Modan is the hardest part. The dam is a long trip and level 30 guards are nearby.",
             "Thoradin's Wall: climb the cart leaning in the northern gap, then walk along the top of the wall to the platform.",
-            "Unconfirmed: put together from Forever's quest database and player guides, not yet checked in game.",
         },
         steps = {
             { text = "Reach level 14.", auto = { level = 14 } },

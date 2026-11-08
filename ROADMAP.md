@@ -62,6 +62,8 @@ The [release planning notes](reports/Release-plan-2026-10-17.md) describe the pr
 
 ## Recently shipped
 
+- **2.17.1:** Cozy Sleeping Bag, Coldflame Saber and Taldramir goals on Forever, and Gear Planner data for Forever's latest patch.
+
 - **2.17.0:** Send feedback from the game, Import from Wowhead in Gear Planner, step locks, Hints, Exalted: Steamwheedle Cartel, dozens of new weapon goals, more goal artwork, rounded progress bars, UI improvements and bug fixes.
 
 - **2.16.0:** Gear Planner: plan gear sets slot by slot on your character with item search, filters and sources, enchants and scopes, level ranges, links to Library goals, and gear set goals with your character's artwork.

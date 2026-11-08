@@ -12,6 +12,12 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.17.1", date = "Nov 7, 2026", items = {
+        "Added Cozy Sleeping Bag to the Goal Library on Forever, with every quest and note linked to the map",
+        "Added Coldflame Saber and Taldramir, the Whispering Wood to the Goal Library on Forever",
+        "Changed Gear Planner items and sources to Forever's latest patch",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.17.0", date = "Nov 4, 2026", items = {
         "You can now send feedback from the game with the bug icon in the title bar or /goals feedback",
         "Added Import from Wowhead to Gear Planner",

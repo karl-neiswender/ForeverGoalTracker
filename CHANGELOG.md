@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.17.1
+
+- Added Cozy Sleeping Bag to the Goal Library on Forever: follow a stranger's notes from Westfall and the Barrens to Thoradin's Wall, with every quest and note linked to the map.
+- Added Coldflame Saber, the new Mage sword from the Scroll of the Saber and the Blade of Silverlaine, to the Goal Library on Forever.
+- Added Taldramir, the Whispering Wood, Forever's new legendary staff, to the Goal Library. How to get it is not known yet.
+- Changed Gear Planner items and sources to Forever's latest patch, including Thunderfury, Sulfuras, Benediction and Anathema.
+- UI improvements and bug fixes.
+
 ## 2.17.0
 
 - You can now send feedback from the game: the bug icon in the title bar, /goals feedback, a goal's right-click menu, or right-clicking a step. Report a bug, ask for a goal or share an idea, and the addon fills in the details for you.
