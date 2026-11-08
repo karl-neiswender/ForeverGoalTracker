@@ -899,6 +899,112 @@ C.WOWHEAD_CLASSES = { warrior = "WARRIOR", paladin = "PALADIN", hunter = "HUNTER
     priest = "PRIEST", shaman = "SHAMAN", mage = "MAGE", warlock = "WARLOCK", druid = "DRUID" }
 C.WOWHEAD_NOT_A_LINK = "Paste a link from Wowhead's Classic Gear Planner."
 C.WOWHEAD_UNKNOWN = "This Wowhead link uses a format the planner can't read yet."
+
+local function NewLinkResult(classPart, level)
+    return { class = classPart and C.WOWHEAD_CLASSES[classPart:lower()],
+        level = (level and level >= 1 and level <= 60) and level or nil,
+        records = {}, slots = {}, enchants = {}, missing = {}, skipped = 0, seen = {} }
+end
+-- One item from the link; false when the slot is impossible or repeated.
+local function AddLinkRecord(result, slot, itemId, spell)
+    if slot < 1 or slot > 19 or result.seen[slot] then return false end
+    result.seen[slot] = true
+    local record = { slot = slot, item = itemId, spell = spell }
+    result.records[#result.records + 1] = record
+    local item = C.Get(itemId)
+    if item then
+        result.slots[slot] = itemId
+        if spell then
+            if C.EnchantFits(spell, item) then result.enchants[slot] = spell
+            else result.skipped = result.skipped + 1 end
+        end
+    else
+        result.missing[#result.missing + 1] = itemId
+        if spell then result.skipped = result.skipped + 1 end
+    end
+    return true
+end
+local function FinishLinkResult(result)
+    result.seen = nil
+    if #result.records == 0 then return nil, "This link has no gear in it." end
+    return result
+end
+
+-- Wowhead's newer links (read from Karl's Forever Rogue link, 2026-11-07, and Wowhead's own planner
+-- script): the first letter is the format version (2-5 known), the rest one long list of numbers.
+-- Each number takes one letter, or more when its first letter's leading bits say so (6 bits a
+-- letter, like UTF-8). In order: game data, gender, level, the three talent trees, the talent
+-- code's length and letters, from version 5 the legacy calculator's length and letters, then the
+-- item count and per item: flags, slot, item, the random enchant, upgrade and reforge when flagged,
+-- gems and enchants by count, and finally the shapeshift form. Every letter must be used up.
+local PACKED_VERSION_MAX = 5
+local function ReadPackedCode(code, classPart, version)
+    if version > PACKED_VERSION_MAX then return nil, C.WOWHEAD_UNKNOWN end
+    local o, pos = {}, 1
+    for i = 2, #code do
+        local v = B64[code:sub(i, i)]
+        if not v then return nil, C.WOWHEAD_UNKNOWN end
+        o[#o + 1] = v
+    end
+    local overrun = false
+    local function Num()
+        local first = o[pos]
+        if not first then overrun = true return 0 end
+        local n, a = 1, first
+        while a % 64 >= 32 do n, a = n + 1, a * 2 end
+        if n > 6 then overrun = true return 0 end
+        local value = first % (2 ^ (6 - n))
+        pos = pos + 1
+        local offset = 0
+        for k = 1, n - 1 do
+            offset = offset + 2 ^ (5 * k)
+            local d = o[pos]
+            if not d then overrun = true return 0 end
+            value, pos = value * 64 + d, pos + 1
+        end
+        return value + offset
+    end
+    local function Skip(count) pos = pos + count; if pos > #o + 1 then overrun = true end end
+    Num() -- game data
+    Num() -- gender
+    local level = Num()
+    for _ = 1, 3 do -- talent trees: points, packed seven ranks to a number
+        local points = Num()
+        while points > 0 and not overrun do
+            Num()
+            points = points - math.min(points, 7)
+        end
+    end
+    Skip(Num()) -- talent code extras
+    if version >= 5 then Skip(Num()) end -- legacy calculator
+    if overrun then return nil, C.WOWHEAD_UNKNOWN end
+    local result = NewLinkResult(classPart, level)
+    local count = Num()
+    for _ = 1, count do
+        local flags = Num()
+        local random, upgrade, reforge
+        if version >= 3 then
+            random, upgrade, reforge = flags % 256 >= 128, flags % 128 >= 64, flags % 64 >= 32
+        else
+            random, reforge = flags % 128 >= 64, flags % 64 >= 32
+        end
+        local gems, enchants = math.floor(flags / 4) % 8, flags % 4
+        local slot, itemId = Num(), Num()
+        if random then Num() end
+        if upgrade then Num() end
+        if reforge then Num() end
+        for _ = 1, gems do Num() end
+        local spell
+        for _ = 1, enchants do
+            local e = Num()
+            if not spell and e > 0 then spell = e end
+        end
+        if overrun or not AddLinkRecord(result, slot, itemId, spell) then return nil, C.WOWHEAD_UNKNOWN end
+    end
+    if pos <= #o then Num() end -- shapeshift form, left off when there is none
+    if overrun or pos <= #o then return nil, C.WOWHEAD_UNKNOWN end
+    return FinishLinkResult(result)
+end
 -- Read a pasted planner link, or just its code. Returns nil for empty text; nil and a message for
 -- text it can't read; otherwise { class, level, records, slots, enchants, missing, skipped }:
 -- records is every item the link holds ({ slot, item, spell }), slots and enchants only what the
@@ -913,38 +1019,25 @@ function C.ReadWowheadLink(text)
         code = text:match("^([%w_%-]+)=*$") -- a code alone: one long word (the shortest set is 16 letters)
         if not code or #code < 16 then return nil, C.WOWHEAD_NOT_A_LINK end
     end
+    local version = B64[code:sub(1, 1)]
+    if version and version >= 2 then return ReadPackedCode(code, classPart, version) end
     local b = Base64Bytes(code)
     if not b or #b < 4 or b[1] ~= 4 then return nil, C.WOWHEAD_UNKNOWN end
     local pos = 4 + b[3]
     if b[pos] ~= 0 then return nil, C.WOWHEAD_UNKNOWN end
     pos = pos + 1
-    local result = { class = classPart and C.WOWHEAD_CLASSES[classPart:lower()],
-        level = (b[2] >= 1 and b[2] <= 60) and b[2] or nil,
-        records = {}, slots = {}, enchants = {}, missing = {}, skipped = 0 }
+    local result = NewLinkResult(classPart, b[2])
     local function Int3(at) return b[at] * 65536 + b[at + 1] * 256 + b[at + 2] end
-    local seen = {}
     while pos <= #b do
         local slot, enchanted = b[pos] % 128, b[pos] >= 128
         local size = enchanted and 7 or 4
-        if slot > 19 or pos + size - 1 > #b or seen[slot] then return nil, C.WOWHEAD_UNKNOWN end
-        seen[slot] = true
-        local record = { slot = slot, item = Int3(pos + 1), spell = enchanted and Int3(pos + 4) or nil }
-        result.records[#result.records + 1] = record
-        local item = C.Get(record.item)
-        if item then
-            result.slots[slot] = record.item
-            if record.spell then
-                if C.EnchantFits(record.spell, item) then result.enchants[slot] = record.spell
-                else result.skipped = result.skipped + 1 end
-            end
-        else
-            result.missing[#result.missing + 1] = record.item
-            if record.spell then result.skipped = result.skipped + 1 end
+        if pos + size - 1 > #b then return nil, C.WOWHEAD_UNKNOWN end
+        if not AddLinkRecord(result, slot, Int3(pos + 1), enchanted and Int3(pos + 4) or nil) then
+            return nil, C.WOWHEAD_UNKNOWN
         end
         pos = pos + size
     end
-    if #result.records == 0 then return nil, "This link has no gear in it." end
-    return result
+    return FinishLinkResult(result)
 end
 
 -- Quality colors for item names (the game's own).

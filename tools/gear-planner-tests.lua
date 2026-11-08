@@ -1899,6 +1899,23 @@ do
     assert(Cat.ReadWowheadLink("") == nil and select(2, Cat.ReadWowheadLink("")) == nil, "an empty box says nothing")
     assert(select(2, Cat.ReadWowheadLink("hello there")) == Cat.WOWHEAD_NOT_A_LINK, "plain text is not a link")
     assert(select(2, Cat.ReadWowheadLink("C" .. CODE:sub(2))) == Cat.WOWHEAD_UNKNOWN, "another format version is refused")
+    -- Wowhead's newer packed links (version letter F): Karl's Forever Rogue link, 2026-11-07
+    local PACKED = "FQCgcAAAAKAFFCACAAACTBB1HVzgKAC1JmAD46LJAEyogBF1HZ0oZAG46PrBH1HXzgKBI0QqzIiBJ1HU8Aok3BK07-0oMAL0ddAM06lAN46QVAO0c5BP06jzIaBQ0dc0oiBR1NQ1jYAS1MrAT1W3"
+    local packedExpected = { { 1, 22005, 15402 }, { 2, 22150 }, { 3, 272105 }, { 4, 11840 }, { 5, 22009, 20025 },
+        { 6, 272395 }, { 7, 22007, 15402 }, { 8, 18506, 13890 }, { 9, 22004, 1248599 }, { 10, 21278, 20012 },
+        { 11, 19325 }, { 12, 21189 }, { 13, 272437 }, { 14, 19289 }, { 15, 21187, 13882 }, { 16, 19324, 20034 },
+        { 17, 22384, 23800 }, { 18, 22347 }, { 19, 22999 } }
+    local p = assert(Cat.ReadWowheadLink("https://www.wowhead.com/forever/gear-planner/rogue/human/" .. PACKED))
+    assert(p.class == "ROGUE" and p.level == 60 and #p.records == #packedExpected, "the packed link's class, level and 19 items")
+    for i, e in ipairs(packedExpected) do
+        local got = p.records[i]
+        assert(got.slot == e[1] and got.item == e[2] and got.spell == e[3],
+            "packed record " .. i .. ": slot " .. got.slot .. " item " .. got.item .. " enchant " .. tostring(got.spell))
+    end
+    assert(#assert(Cat.ReadWowheadLink(PACKED)).records == 19, "the packed code alone works too")
+    assert(select(2, Cat.ReadWowheadLink("G" .. PACKED:sub(2))) == Cat.WOWHEAD_UNKNOWN, "a packed version newer than 5 is refused")
+    assert(select(2, Cat.ReadWowheadLink(PACKED:sub(1, -3))) == Cat.WOWHEAD_UNKNOWN, "a cut-off packed link is refused")
+    assert(select(2, Cat.ReadWowheadLink(PACKED .. "AA")) == Cat.WOWHEAD_UNKNOWN, "a packed link with letters left over is refused")
     assert(select(2, Cat.ReadWowheadLink(CODE:sub(1, -5))) == Cat.WOWHEAD_UNKNOWN, "a cut-off link is refused")
     assert(select(2, Cat.ReadWowheadLink("https://www.wowhead.com/classic/gear-planner/rogue/human")) == "This link has no gear in it.",
         "an empty planner link says so")
