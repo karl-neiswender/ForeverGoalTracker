@@ -3232,9 +3232,10 @@ local library = {
     -- Westfall) or 79007 (Horde, in the Barrens), then 79192 Stepping Stones (Nailed Plank, ends at Pocket
     -- Litter), 79980 Scramble (to the Mound of Dirt), 79974 Wet Job (to the Carved Figurine, Loch Modan),
     -- 79975 Eagle's Fist (to the Messenger Bag, Thoradin's Wall) and 79976 This Must Be The Place (to the
-    -- Hastily Rolled-Up Satchel), which gives the bag. All require level 14. Coordinates from the Warcraft
-    -- Tavern guide; it names the starting spots the other way round, but Forever's database places the
-    -- Alliance start (object 415107) in Westfall. Not yet checked in game.
+    -- Hastily Rolled-Up Satchel), which gives the bag. All require level 14. Coordinates from the Method
+    -- and wow.gg guides (2026-11-07; the Pocket Litter only from wow.gg). The Warcraft Tavern guide names
+    -- the starting spots the other way round, but Forever's database places the Alliance start (object
+    -- 415107) in Westfall. Not yet checked in game.
     {
         id = "cozy_sleeping_bag", library = true, forever = "new", needs = "forever", itemQuality = 3,
         icon = "inv_misc_bag_bigbagofenchantments",
@@ -3245,22 +3246,22 @@ local library = {
         foreverNote = "A secret chase in Forever: follow a stranger's notes from Westfall and the Barrens to Thoradin's Wall.",
         tips = {
             "Each note is an object on the ground, not a quest giver. Click it to read it and pick up the next quest.",
-            "Alliance start at Alexston Farmstead in Westfall (37, 50) and go to the southern Barrens (46, 74). Horde do the same in reverse.",
+            "Both note spots hold one object per faction: the cart wreckage at Alexston Farmstead in Westfall, and the burnt tower south of Camp Taurajo in the Barrens.",
             "Horde: Loch Modan is the hardest part. The dam is a long trip and level 30 guards are nearby.",
             "Thoradin's Wall: climb the cart leaning in the northern gap, then walk along the top of the wall to the platform.",
-            "Unconfirmed: put together from Forever's quest database and a player guide, not yet checked in game.",
+            "Unconfirmed: put together from Forever's quest database and player guides, not yet checked in game. Coordinates from the Method and wow.gg guides.",
         },
         steps = {
             { text = "Reach level 14.", auto = { level = 14 } },
-            { text = "Read the note in the Burned-Out Remains to start '... and that note you found'. Alliance: Westfall. Horde: the Barrens.",
+            { text = "Read the note in the Burned-Out Remains to start '... and that note you found'. Alliance: Westfall (37.1, 50.1). Horde: the Barrens (46.1, 74.3).",
               icon = "inv_misc_note_01", auto = { questTaken = { 79007, 79008 } } },
-            { text = "Find the Nailed Plank in the other zone to finish '... and that note you found'.",
+            { text = "Find the Nailed Plank in the other zone to finish '... and that note you found'. Alliance: the Barrens (46.1, 74.3). Horde: Westfall (37.1, 50.1).",
               icon = "inv_misc_note_01", auto = { quest = { 79007, 79008 } } },
-            { text = "Complete 'Stepping Stones' at the Pocket Litter in Stonetalon Mountains, near Sun Rock Retreat.", auto = { quest = 79192 } },
-            { text = "Complete 'Scramble' at the Mound of Dirt, a hundred paces north down the cliff.", auto = { quest = 79980 } },
-            { text = "Complete 'Wet Job' at the Carved Figurine on the Stonewrought Dam ledge in Loch Modan (49, 12).", auto = { quest = 79974 } },
-            { text = "Complete 'Eagle's Fist' at the Messenger Bag on Thoradin's Wall in Arathi Highlands.", auto = { quest = 79975 } },
-            { text = "Complete 'This Must Be The Place' at the Hastily Rolled-Up Satchel to receive {item:211527:Cozy Sleeping Bag}.",
+            { text = "Complete 'Stepping Stones' at the Pocket Litter in Stonetalon Mountains, near Sun Rock Retreat (40.6, 52.4).", auto = { quest = 79192 } },
+            { text = "Complete 'Scramble' at the Mound of Dirt, a hundred paces north down the cliff (39.6, 49.9).", auto = { quest = 79980 } },
+            { text = "Complete 'Wet Job' at the Carved Figurine on the Stonewrought Dam ledge in Loch Modan (49.4, 12.9).", auto = { quest = 79974 } },
+            { text = "Complete 'Eagle's Fist' at the Messenger Bag on Thoradin's Wall, Hillsbrad Foothills (87.3, 49.6).", auto = { quest = 79975 } },
+            { text = "Complete 'This Must Be The Place' at the Hastily Rolled-Up Satchel under the Messenger Bag to receive {item:211527:Cozy Sleeping Bag}.",
               icon = "inv_misc_bag_bigbagofenchantments", auto = { quest = 79976, item = 211527 } },
         },
         completeWith = { quest = 79976, item = 211527 },
