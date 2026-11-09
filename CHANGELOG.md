@@ -1,8 +1,8 @@
 # Changelog
 
-## Unreleased
+## 2.18.0
 
-- You can now click a goal in the Goal Library to preview it: artwork, steps and hints in a panel that slides out beside the list, with no need to add the goal first.
+- You can now click a goal in the Goal Library to preview it: artwork, steps and hints in a panel that slides out, with no need to add the goal first.
 - Added Rotmender's Raiment, Krol'dok Battlegear, Defias Enforcer's Garb and Stormcloth Regalia to the Goal Library on Forever.
 - Added map links for Ruins of Lordaeron, Krol'dok Stronghold and Alcaz Prison on Forever.
 - Fixed Import from Wowhead for the planner's newer links.

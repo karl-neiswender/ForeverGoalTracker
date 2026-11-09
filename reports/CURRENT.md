@@ -101,10 +101,8 @@ its October 21 notes.
 
 ## Current invariants and open work
 
-- Next release (2026-11-09, PC, Claude): Karl asked to "push and mark for release". `main` is pushed and CHANGELOG `## Unreleased`
-  lists everything since `v2.17.1` (Library preview, four Forever item sets, three dungeon map links, newer Wowhead links). Not
-  tagged and nothing published. Still needed for the tag: Karl's go-ahead and version number, TOC, CHANGELOG heading and `FGT.WHATS_NEW`,
-  `sh tools/run-luals.sh` (not run on this code), `tools/copycheck.py`, gallery and description review (`reports/reference/publishing.md`).
+- Release 2.18.0 (2026-11-09, PC, Claude): Karl authorized publishing; tag `v2.18.0` ([record](checks/release-2.18.0.md)). It shows Welcome back
+  once to players with goals. Gallery shot of the preview and the description's latest releases list are still to do.
   Karl confirmed in live Forever: drawer fade, open-drawer tooltip, blank cards gone. Not in this push: Codex's realm-hiding edits in
   Core.lua, GearSources.lua, the eye icon files and the CurseForge drafts. The blank cards came from `LayoutLibrary` hiding and
   reshowing every card in one pass (contents reported not visible inside a visible card): only cards leaving the list are hidden now.

@@ -12,6 +12,12 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.18.0", date = "Nov 9, 2026", items = {
+        "You can now click a goal in the Goal Library to preview it, with no need to add it first",
+        "Added Rotmender's Raiment, Krol'dok Battlegear, Defias Enforcer's Garb and Stormcloth Regalia to the Goal Library on Forever",
+        "Added map links for Ruins of Lordaeron, Krol'dok Stronghold and Alcaz Prison on Forever",
+        "Fixed Import from Wowhead for the planner's newer links",
+    } },
     { version = "2.17.1", date = "Nov 7, 2026", items = {
         "Added Cozy Sleeping Bag to the Goal Library on Forever, with every quest and note linked to the map",
         "Added Coldflame Saber and Taldramir, the Whispering Wood to the Goal Library on Forever",
