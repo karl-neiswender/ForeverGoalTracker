@@ -223,6 +223,11 @@ FGT.DUNGEONS = {
     { id = "dungeon:naxx", name = "Naxxramas", manual = true, map = 1423, zone = "Eastern Plaguelands", x = 39, y = 26, unverifiedInForever = true, where = "Shows the floating necropolis. Enter at the portal in its base." },
     -- Entrance supplied by Karl during native review, 2026-10-16.
     { id = "dungeon:dalaran", name = "City of Dalaran", forever = true, map = 1421, zone = "Silverpine Forest", x = 69, y = 45.5, where = "Dungeon entrance." },
+    -- Forever dungeons, entrances from player guides (not checked in game), 2026-11-08. Ruins of Lordaeron: guides
+    -- give 71.6, 11.4 and 72.4, 11.6. Map 2548 is Riverglades in Forever's UiMap table (build 70862).
+    { id = "dungeon:ruins_lordaeron", name = "Ruins of Lordaeron", levels = "15-20", forever = true, map = 1420, zone = "Tirisfal Glades", x = 72, y = 11.5, where = "In the keep's main courtyard, up the stairs." },
+    { id = "dungeon:kroldok", name = "Krol'dok Stronghold", levels = "40-45", forever = true, map = 2548, zone = "Riverglades", x = 37.5, y = 37.2, where = "In a small cave near the closed fortress gates." },
+    { id = "dungeon:alcaz", name = "Alcaz Prison", levels = "48-53", forever = true, map = 1445, zone = "Dustwallow Marsh", x = 75.3, y = 14.1, where = "In the basement of the old tower on Alcaz Island." },
     -- Reuse the existing hub positions for named location links.
     FGT.HUBS.rep_argentdawn,
     FGT.HUBS.raid_zg,

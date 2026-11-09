@@ -132,6 +132,10 @@ FGT.GOAL_CLASSES = {
     mount_dreadsteed = { "WARLOCK" },
     set_viper = { "DRUID" },
     set_violet_sorcerer = { "MAGE", "PRIEST", "WARLOCK" },
+    set_rotmenders_raiment = { "MAGE", "PRIEST", "WARLOCK" },
+    set_stormcloth_regalia = { "MAGE", "PRIEST", "WARLOCK" },
+    set_kroldok_battlegear = { "WARRIOR", "PALADIN" },
+    set_defias_enforcer = { "ROGUE", "DRUID" },
 }
 FGT.GOAL_RACES = {
     wolfsbane = { "Scourge" },

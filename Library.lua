@@ -4034,6 +4034,138 @@ local sets = {
             "Full set requires level 30. No class restriction listed.",
         },
     },
+    {
+        -- Rotmender's Raiment: client ItemSet 2133 (slots from forever-Item.csv); names and levels from
+        -- forever.warcraftdb.com; drops, chances and icons from foreverchanges.pro and maxdps.com, 2026-11-08.
+        -- Those two disagree on the trash drops: "any enemy" against one named creature per piece.
+        id = "set_rotmenders_raiment", library = true, forever = "new", needs = "forever",
+        itemQuality = 3,
+        icon = "inv_shirt_04",
+        name = "Rotmender's Raiment",
+        short = "Rotmender's",
+        category = "Item Set", difficulty = "Moderate",
+        timeEstimate = "Days",
+        note = "New five-piece cloth leveling set from Ruins of Lordaeron, a level 15 to 20 dungeon. Owned pieces complete automatically.",
+        foreverNote = "A new five-piece leveling set for healers, with a healing-over-time proc at five pieces.",
+        steps = {
+            { text = "Loot {item:286978:Rotmender's Garb} from enemies in Ruins of Lordaeron.", icon = "inv_shirt_04",
+              auto = { item = 286978, owned = { "Rotmender's Garb" } } },
+            { text = "Loot {item:286980:Rotmender's Sash} from enemies in Ruins of Lordaeron.", icon = "inv_belt_11",
+              auto = { item = 286980, owned = { "Rotmender's Sash" } } },
+            { text = "Loot {item:271207:Rotmender's Leggings} from The Abandoned in Ruins of Lordaeron.", icon = "inv_pants_cloth_05",
+              auto = { item = 271207, owned = { "Rotmender's Leggings" } } },
+            { text = "Loot {item:271214:Rotmender's Treads} from Rath'mael in Ruins of Lordaeron.", icon = "inv_boots_05",
+              auto = { item = 271214, owned = { "Rotmender's Treads" } } },
+            { text = "Loot {item:286979:Rotmender's Gloves} from enemies in Ruins of Lordaeron.", icon = "inv_gauntlets_22",
+              auto = { item = 286979, owned = { "Rotmender's Gloves" } } },
+        },
+        tips = {
+            "The entrance is in the ruined capital of Lordaeron in Tirisfal Glades.",
+            "The Abandoned drops {item:271207:Rotmender's Leggings} about 37% of the time and Rath'mael drops {item:271214:Rotmender's Treads} about 30%. Both bind on pickup.",
+            "{item:286978:Rotmender's Garb}, {item:286980:Rotmender's Sash} and {item:286979:Rotmender's Gloves} are tradable until equipped, so check the Auction House. Which enemies drop them is Unconfirmed; expect low odds and repeat runs.",
+            "Full set requires level 19. No class restriction listed.",
+        },
+    },
+    {
+        -- Krol'dok Battlegear: client ItemSet 2135; names and levels from forever.warcraftdb.com; binding from
+        -- foreverchanges.pro; icons from maxdps.com; drops and entrance from the conquestcapped.com Krol'dok
+        -- Stronghold guide, 2026-11-08 (Chest "seen dropping" from Nar'gurk; the other four only "probable" trash).
+        id = "set_kroldok_battlegear", library = true, forever = "new", needs = "forever",
+        itemQuality = 3,
+        icon = "inv_chest_plate01",
+        name = "Krol'dok Battlegear",
+        short = "Krol'dok",
+        category = "Item Set", difficulty = "Moderate",
+        timeEstimate = "Days",
+        note = "New five-piece plate tank set from Krol'dok Stronghold, a level 40 to 45 dungeon. Owned pieces complete automatically.",
+        foreverNote = "A new five-piece tank set that can heal you on a block and builds Stamina as you take damage.",
+        steps = {
+            { text = "Loot {item:275006:Krol'dok Warplate Helmet} from enemies in Krol'dok Stronghold.", icon = "inv_helmet_20",
+              auto = { item = 275006, owned = { "Krol'dok Warplate Helmet" } } },
+            { text = "Loot {item:287014:Krol'dok Warplate Pauldrons} from enemies in Krol'dok Stronghold.", icon = "inv_shoulder_22",
+              auto = { item = 287014, owned = { "Krol'dok Warplate Pauldrons" } } },
+            { text = "Loot {item:275005:Krol'dok Warplate Chest} from Nar'gurk in Krol'dok Stronghold.", icon = "inv_chest_plate01",
+              auto = { item = 275005, owned = { "Krol'dok Warplate Chest" } } },
+            { text = "Loot {item:287013:Krol'dok Warplate Legplates} from enemies in Krol'dok Stronghold.", icon = "inv_pants_04",
+              auto = { item = 287013, owned = { "Krol'dok Warplate Legplates" } } },
+            { text = "Loot {item:287012:Krol'dok Warplate Gauntlets} from enemies in Krol'dok Stronghold.", icon = "inv_gauntlets_22",
+              auto = { item = 287012, owned = { "Krol'dok Warplate Gauntlets" } } },
+        },
+        tips = {
+            "The entrance is a small cave near the fortress gates in the Riverglades, around 37.5, 37.2. The gates themselves stay closed.",
+            "{item:275006:Krol'dok Warplate Helmet} and {item:275005:Krol'dok Warplate Chest} bind on pickup. {item:287014:Krol'dok Warplate Pauldrons}, {item:287013:Krol'dok Warplate Legplates} and {item:287012:Krol'dok Warplate Gauntlets} are tradable until equipped, so check the Auction House.",
+            "Only the {item:275005:Krol'dok Warplate Chest} has been seen dropping, from Nar'gurk. Where the other four drop is Unconfirmed.",
+            "Full set requires level 41. No class restriction listed.",
+        },
+    },
+    {
+        -- Defias Enforcer's Garb: client ItemSet 2136; names and levels from forever.warcraftdb.com; binding from
+        -- foreverchanges.pro; icons from maxdps.com; drops and entrance from the conquestcapped.com Alcaz Prison
+        -- guide, 2026-11-08 (Shoulderpads and Prowlers "seen dropping"; Mask and Chest "probable" trash; Legguards
+        -- not known). Other sites still guess the Deadmines from the name.
+        id = "set_defias_enforcer", library = true, forever = "new", needs = "forever",
+        itemQuality = 3,
+        icon = "inv_chest_leather_08",
+        name = "Defias Enforcer's Garb",
+        short = "Defias Enforcer's",
+        category = "Item Set", difficulty = "Moderate",
+        timeEstimate = "Days",
+        note = "New five-piece leather set from Alcaz Prison, a level 48 to 53 dungeon. Owned pieces complete automatically.",
+        foreverNote = "A new five-piece melee set with a critical strike proc that doubles in swamps.",
+        steps = {
+            { text = "Loot {item:287019:Defias Enforcer's Mask} from enemies in Alcaz Prison.", icon = "inv_misc_bandana_03",
+              auto = { item = 287019, owned = { "Defias Enforcer's Mask" } } },
+            { text = "Loot {item:276741:Defias Enforcer's Shoulderpads} from The Questioner in Alcaz Prison.", icon = "inv_shoulder_08",
+              auto = { item = 276741, owned = { "Defias Enforcer's Shoulderpads" } } },
+            { text = "Loot {item:287020:Defias Enforcer's Chest} from enemies in Alcaz Prison.", icon = "inv_chest_leather_08",
+              auto = { item = 287020, owned = { "Defias Enforcer's Chest" } } },
+            { text = "Collect {item:276746:Defias Enforcer's Legguards}  |cff888888Source unknown|r", icon = "inv_pants_06",
+              auto = { item = 276746, owned = { "Defias Enforcer's Legguards" } } },
+            { text = "Loot {item:287021:Defias Enforcer's Prowlers} from enemies in Alcaz Prison.", icon = "inv_boots_05",
+              auto = { item = 287021, owned = { "Defias Enforcer's Prowlers" } } },
+        },
+        tips = {
+            "The entrance is in the basement of the old tower on Alcaz Island, off the coast of Dustwallow Marsh, around 75.3, 14.1.",
+            "{item:276741:Defias Enforcer's Shoulderpads} and {item:276746:Defias Enforcer's Legguards} bind on pickup. {item:287019:Defias Enforcer's Mask}, {item:287020:Defias Enforcer's Chest} and {item:287021:Defias Enforcer's Prowlers} are tradable until equipped, so check the Auction House.",
+            "Where {item:287019:Defias Enforcer's Mask} and {item:287020:Defias Enforcer's Chest} drop is Unconfirmed.",
+            "Full set requires level 50. No class restriction listed.",
+        },
+    },
+    {
+        -- Stormcloth Regalia: client ItemSet 1972 (new in Forever; the items are Classic's). Recipes, reagents and
+        -- Forever's own patterns (254681 to 254686) from the client tables; skill 185 (Pants) and 205 (Boots) from
+        -- foreverchanges.pro, the rest by the same 45-point offset from each recipe's top rank. Pattern sources
+        -- are not recorded anywhere yet, 2026-11-08.
+        id = "set_stormcloth_regalia", library = true, forever = "new", needs = "forever",
+        itemQuality = 2,
+        icon = "inv_chest_cloth_08",
+        name = "Stormcloth Regalia",
+        short = "Stormcloth",
+        category = "Item Set", difficulty = "Moderate",
+        timeEstimate = "Days",
+        note = "A six-piece cloth set made with Tailoring. Owned pieces complete automatically.",
+        foreverNote = "These Tailoring patterns never reached players in the original game. In Forever the six pieces form a healing set.",
+        steps = {
+            { text = "Craft {item:10010:Stormcloth Pants} with Tailoring, or buy them.", icon = "inv_pants_13",
+              auto = { item = 10010, owned = { "Stormcloth Pants" } } },
+            { text = "Craft {item:10011:Stormcloth Gloves} with Tailoring, or buy them.", icon = "inv_gauntlets_17",
+              auto = { item = 10011, owned = { "Stormcloth Gloves" } } },
+            { text = "Craft {item:10020:Stormcloth Vest} with Tailoring, or buy it.", icon = "inv_chest_cloth_08",
+              auto = { item = 10020, owned = { "Stormcloth Vest" } } },
+            { text = "Craft {item:10032:Stormcloth Headband} with Tailoring, or buy it.", icon = "inv_helmet_30",
+              auto = { item = 10032, owned = { "Stormcloth Headband" } } },
+            { text = "Craft {item:10038:Stormcloth Shoulders} with Tailoring, or buy them.", icon = "inv_shoulder_25",
+              auto = { item = 10038, owned = { "Stormcloth Shoulders" } } },
+            { text = "Craft {item:10039:Stormcloth Boots} with Tailoring, or buy them.", icon = "inv_boots_05",
+              auto = { item = 10039, owned = { "Stormcloth Boots" } } },
+        },
+        tips = {
+            "Each piece needs its own pattern, starting with {item:254681:Pattern: Stormcloth Pants}, and Tailoring 185 to 205. Where the patterns come from: Source unknown.",
+            "All six pieces take 27 {item:4339:Bolt of Mageweave}, 23 {item:7079:Globe of Water}, 14 {item:8343:Heavy Silken Thread} and 2 {item:4304:Thick Leather}.",
+            "The pieces are tradable until equipped, so you can buy them without learning Tailoring.",
+            "Full set requires level 45. No class restriction listed.",
+        },
+    },
 }
 
 for _, goal in ipairs(sets) do
