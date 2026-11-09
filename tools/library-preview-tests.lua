@@ -103,6 +103,73 @@ do
     onCard = false
     card:GetScript("OnLeave")(card)
     assert(shown == false, "leaving the card hides it")
+
+    -- hover must never move the card's text
+    local moved = false
+    local nameSet, metaSet = card.name.SetPoint, card.meta.SetPoint
+    card.name.SetPoint = function() moved = true end
+    card.meta.SetPoint = function() moved = true end
+    onCard = true
+    card:GetScript("OnEnter")(card)
+    onCard = false
+    card:GetScript("OnLeave")(card)
+    assert(not moved, "hovering leaves the card's text where it is")
+    card.name.SetPoint, card.meta.SetPoint = nameSet, metaSet
+
+    -- a card hovered through a redraw gets its glass back afterward, whatever the frame
+    onCard = true
+    card.glyphOn = nil
+    F.LayoutLibrary()
+    assert(not LF.glyphQueued, "the glass re-syncs after a layout")
+    assert(card.glyphOn == true or not card:IsShown(), "a hovered card keeps its glass")
+    onCard = false
+end
+
+-- the drawer's contents fade with its slide
+do
+    local alpha
+    local body = P.body
+    local set = body.SetAlpha
+    body.SetAlpha = function(_, a) alpha = a end
+    P.fraction = 0.5
+    P:Place()
+    assert(alpha == 0.5, "contents follow the slide's progress")
+    P.fraction = P.open and 1 or 0
+    P:Place()
+    body.SetAlpha = set
+end
+
+-- with the drawer open a hover still says what a click does
+do
+    local card = LF.cards["annihilator"]
+    P:CardClick(F.GoalById("raid_aq20"))
+    assert(P.open, "the drawer is open for the hint")
+    local lines, shown = {}, false
+    GameTooltip = GameTooltip -- (the stub makes a new mock per read until it is pinned)
+    GameTooltip.AddLine = function(_, text) lines[#lines + 1] = text end
+    GameTooltip.Show = function() shown = true end
+    card:GetScript("OnEnter")(card)
+    assert(shown and lines[1] == "Click: Preview" and #lines == 1, "another card offers Preview, in one line")
+end
+
+-- a redraw never hides a card that stays listed: that round trip could blank its contents
+do
+    local stay, leave = LF.cards["annihilator"], nil
+    for _, c in pairs(LF.cards) do
+        if c ~= stay then leave = c; break end
+    end
+    assert(stay and leave, "two cards to compare")
+    local stayHide, leaveHide, results = stay.Hide, leave.Hide, LF.Results
+    local hid = {}
+    stay.Hide = function() hid.stay = true end
+    leave.Hide = function() hid.leave = true end
+    LF.Results = function() return { stay.goal } end
+    F.LayoutLibrary()
+    LF.Results = results
+    stay.Hide, leave.Hide = stayHide, leaveHide
+    assert(not hid.stay, "a card still in the list is left shown through a redraw")
+    assert(hid.leave, "a card that left the list is hidden")
+    F.LayoutLibrary()
 end
 
 -- a small window lays it over the list; too small and it stays shut

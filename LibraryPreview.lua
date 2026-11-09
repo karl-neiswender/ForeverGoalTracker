@@ -541,6 +541,7 @@ function P:Place()
     clip:SetShown(self.seen)
     handle:SetShown(self.seen)
     body:SetShown(self.fraction > 0)
+    body:SetAlpha(self.fraction) -- banner, text and buttons fade with the slide
     panel:EnableMouse(self.open)
     peek:SetShown(self.seen and self.overlay and self.fraction > 0)
 end

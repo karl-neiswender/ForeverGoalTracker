@@ -11894,7 +11894,7 @@ function LF.CardClick(card, frame, button)
 end
 
 -- The magnifying glass says a click previews: shown while the mouse is on the card but not its
--- buttons. Long text gives way to it only while it shows, so nothing else on the card shifts.
+-- buttons. Only the glass is touched here: the text always keeps room for it, so nothing shifts.
 LF.cards = libCards -- (for the checks in tools/check.py)
 function LF.SyncPreviewGlyph(card)
     local preview = FGT.LibraryPreview
@@ -11903,9 +11903,17 @@ function LF.SyncPreviewGlyph(card)
     if card.glyphOn == on then return end
     card.glyphOn = on
     card.previewGlyph:SetShown(on)
-    local gap = on and -34 or -10
-    card.name:SetPoint("RIGHT", card.pick or card.btn, "LEFT", gap, 0)
-    card.meta:SetPoint("RIGHT", card.pick or card.btn, "LEFT", gap, 0)
+end
+-- After a layout: the next frame, once the cards have settled, the glass finds the mouse again.
+function LF.QueueGlyphSync()
+    if LF.glyphQueued then return end
+    LF.glyphQueued = true
+    C_Timer.After(0, function()
+        LF.glyphQueued = false
+        for _, card in pairs(libCards) do
+            if card:IsShown() then LF.SyncPreviewGlyph(card) end
+        end
+    end)
 end
 
 -- The previewed goal's card wears the selected style, as on My Goals.
@@ -12022,6 +12030,8 @@ local function GetCard(goal)
     card.previewGlyph:SetSize(20, 20)
     card.previewGlyph:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -8, 0)
     card.previewGlyph:Hide()
+    card.name:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -34, 0) -- (long text stays clear of the glass)
+    card.meta:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -34, 0)
 
     card.bar = NewBar(card, 4)
     card.bar:SetPoint("BOTTOMLEFT", card.icon, "BOTTOMRIGHT", 10, 1)
@@ -12037,7 +12047,15 @@ local function GetCard(goal)
         self:SetEtch(self.previewSel and STYLE.rowSel or STYLE.rowHover)
         LF.SyncPreviewGlyph(self)
         local preview = FGT.LibraryPreview
-        if preview and preview.open then return end -- the drawer already says all of this
+        if preview and preview.open then
+            -- the drawer already says the rest: just what a click does, on the magnifying glass
+            GameTooltip:SetOwner(self, "ANCHOR_NONE")
+            GameTooltip:ClearAllPoints()
+            GameTooltip:SetPoint("BOTTOM", self.previewGlyph, "TOP", 0, 6)
+            GameTooltip:AddLine(preview:IsSelected(goal) and "Click: Hide preview" or "Click: Preview", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+            GameTooltip:Show()
+            return
+        end
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine(goal.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
         if goal.note then GameTooltip:AddLine(goal.note, 0.9, 0.9, 0.9, true) end
@@ -12160,10 +12178,7 @@ LayoutLibrary = function()
     LF.Layout()
 
     -- cards: active goals first within the filter, then alphabetical
-    for _, card in pairs(libCards) do -- every card, part cards included
-        card:Hide()
-        for _, sub in ipairs(card.subs or {}) do sub:Hide() end
-    end
+    local placed = {} -- what this layout keeps; the rest is hidden after the loop
     local list = LF.Results(CurrentFilter())
     table.sort(list, function(a, b)  -- Sort dropdown, and its reverse arrow
         if LF.sortDesc then return CompareGoals(LF.sort, b, a) end
@@ -12179,6 +12194,7 @@ LayoutLibrary = function()
     local cy = 0
     for _, g in ipairs(list) do
         local card = GetCard(g)
+        placed[card] = true
         card:ClearAllPoints()
         card:SetPoint("TOPLEFT", libScroll.content, "TOPLEFT", 4, -cy)
         card:SetPoint("RIGHT", libScroll.content, "RIGHT", -4, 0)
@@ -12219,7 +12235,6 @@ LayoutLibrary = function()
         card.bar:SetShown(LF.On(g) and not finished)
         StyleCardButton(card)
         card:Show()
-        LF.SyncPreviewGlyph(card) -- (a reused card may have lost the mouse while hidden)
         cy = cy + CARD_H + 6
 
         if g.group then
@@ -12234,6 +12249,7 @@ LayoutLibrary = function()
                 for i, part in ipairs(parts) do
                   if FGT.PartFits(g, part, who) then -- For: only that class's version
                     local sub = GetSub(card, i, part)
+                    placed[sub] = true
                     sub:ClearAllPoints()
                     sub:SetPoint("TOPLEFT", libScroll.content, "TOPLEFT", 40, -cy)
                     sub:SetPoint("RIGHT", libScroll.content, "RIGHT", -4, 0)
@@ -12259,6 +12275,15 @@ LayoutLibrary = function()
                 end
                 cy = cy + 6
             end
+        end
+    end
+    -- Hide only what left the list. Hiding every card and showing it again in the same pass could
+    -- leave a card's background, text and button invisible while the card itself stayed visible
+    -- (measured on a blank card in game, 2026-11-09).
+    for _, card in pairs(libCards) do -- every card, part cards included
+        if not placed[card] then card:Hide() end
+        for _, sub in ipairs(card.subs or {}) do
+            if not placed[sub] then sub:Hide() end
         end
     end
     -- Matches your search that the filters hide: say so, with a one-click way
@@ -12323,6 +12348,7 @@ LayoutLibrary = function()
     FGT.libNoMatch:SetPoint("TOP", libScroll.scroll, "TOP", 0, -40)
     FGT.libNoMatch:SetText((q ~= "") and ("No goals match \"" .. FGT.searchBox:GetText() .. "\".") or "No goals match these filters.")
     FGT.libNoMatch:SetShown(#list == 0 and #hidden == 0)
+    LF.QueueGlyphSync()
     if FGT.LibraryPreview then FGT.LibraryPreview:Refresh() end
 end
 
