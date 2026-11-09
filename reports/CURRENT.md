@@ -101,6 +101,12 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Goal Library preview (2026-11-09, PC, Claude, committed, unreleased; Karl chose the banner header on the
+  [mockup](https://claude.ai/artifact/8sUDgZVUzydaYotm9FqMNt)): `LibraryPreview.lua`, a read-only drawer opened by clicking a
+  card (same width, pace and small-window overlay as Materials). Hooks in Core.lua: `LF.ToggleGoal`, `LF.CardClick`,
+  `LF.PaintSelection`; `FGT.TrySetOn` in ItemTooltips.lua. `tools/check.py` passes (new `library-preview-tests.lua`);
+  synced to Forever. Native review pending; needs a full restart (new Lua file and the cards' hover icon, `preview-plus-white`).
+
 - Art matching plan and work order (2026-10-29, PC, Claude; Karl locked the picks in commit `5abd851`): **Codex, start
   with [the plan](Art-matching-plan-2026-10-29.md) (or its `.html`, which has thumbnails): "Codex: start here" is the
   work order.** 151 banners in 19 batches of 8, P1 goal banners first, all to be installed before Nov 4 (live Forever test;

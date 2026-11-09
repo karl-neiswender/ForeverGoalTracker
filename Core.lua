@@ -11874,6 +11874,53 @@ local function StyleCardButton(card)
     CenterCardLabel(card)
 end
 
+-- Add or remove a Library goal: the card's button and the preview's.
+function LF.ToggleGoal(goal)
+    if goal.partOf then
+        SetPartActive(goal.partOf, goal.partKey, not LF.On(goal))
+    elseif goal.group then
+        local all = FGT.SelectedPartCount(goal) == #FGT.GroupParts(goal)
+        SetGoalActive(goal, not all)
+    else
+        SetGoalActive(goal, not IsActive(goal))
+    end
+end
+
+-- A left click on a card (LibraryPreview.lua): a click released elsewhere doesn't count.
+function LF.CardClick(card, frame, button)
+    if button == "LeftButton" and frame:IsMouseOver() and FGT.LibraryPreview then
+        FGT.LibraryPreview:CardClick(card.goal)
+    end
+end
+
+-- The magnifying glass says a click previews: shown while the mouse is on the card but not its
+-- buttons. Long text gives way to it only while it shows, so nothing else on the card shifts.
+LF.cards = libCards -- (for the checks in tools/check.py)
+function LF.SyncPreviewGlyph(card)
+    local preview = FGT.LibraryPreview
+    local on = (preview and preview.canOpen and card:IsMouseOver() and not card.btn:IsMouseOver()
+        and not (card.pick and card.pick:IsMouseOver())) and true or false
+    if card.glyphOn == on then return end
+    card.glyphOn = on
+    card.previewGlyph:SetShown(on)
+    local gap = on and -34 or -10
+    card.name:SetPoint("RIGHT", card.pick or card.btn, "LEFT", gap, 0)
+    card.meta:SetPoint("RIGHT", card.pick or card.btn, "LEFT", gap, 0)
+end
+
+-- The previewed goal's card wears the selected style, as on My Goals.
+function LF.PaintSelection()
+    local preview = FGT.LibraryPreview
+    for _, card in pairs(libCards) do
+        local selected = preview and preview:IsSelected(card.goal) or false
+        if card.previewSel ~= selected then
+            card.previewSel = selected
+            card.restStyle = selected and STYLE.rowSel or card.baseStyle or STYLE.row
+            card:SetEtch(card.restStyle)
+        end
+    end
+end
+
 local function GetCard(goal)
     local card = libCards[goal.id]
     if card then return card end
@@ -11897,13 +11944,16 @@ local function GetCard(goal)
     if FGT.SetPreviewIds and FGT.SetPreviewIds(goal) then
         card.icon:EnableMouse(true)
         card.icon:SetScript("OnEnter", function(self)
+            LF.SyncPreviewGlyph(card) -- (the thumbnail is still the card, not one of its buttons)
             GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
             GameTooltip:AddLine(card.goal.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
             GameTooltip:AddLine("Ctrl-click: try on the whole set", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             GameTooltip:Show()
         end)
-        card.icon:SetScript("OnLeave", function() GameTooltip:Hide() end)
-        card.icon:SetScript("OnMouseUp", function(_, button) FGT.PreviewSetClick(card.goal, button) end)
+        card.icon:SetScript("OnLeave", function() LF.SyncPreviewGlyph(card); GameTooltip:Hide() end)
+        card.icon:SetScript("OnMouseUp", function(self, button)
+            if not FGT.PreviewSetClick(card.goal, button) then LF.CardClick(card, self, button) end
+        end)
     end
 
     card.btn = CreateFrame("Button", nil, card, "BackdropTemplate")
@@ -11919,16 +11969,7 @@ local function GetCard(goal)
     card.btnCheck:SetPoint("RIGHT", card.btnText, "LEFT", -4, 0) -- room between check and word (Karl)
     card.btn:SetScript("OnEnter", function() StyleCardButton(card) end)
     card.btn:SetScript("OnLeave", function() StyleCardButton(card) end)
-    card.btn:SetScript("OnClick", function()
-        if goal.partOf then
-            SetPartActive(goal.partOf, goal.partKey, not LF.On(goal))
-        elseif goal.group then
-            local all = FGT.SelectedPartCount(goal) == #FGT.GroupParts(goal)
-            SetGoalActive(goal, not all)
-        else
-            SetGoalActive(goal, not IsActive(goal))
-        end
-    end)
+    card.btn:SetScript("OnClick", function() LF.ToggleGoal(goal) end)
 
     -- Group goals: a "Choose" toggle opens the list of parts below.
     if goal.group then
@@ -11976,6 +12017,12 @@ local function GetCard(goal)
     card.metaPlain = card.metaBase
     card.meta:SetText(card.metaBase)
 
+    card.previewGlyph = card:CreateTexture(nil, "OVERLAY")
+    card.previewGlyph:SetTexture(FGT.Icon("preview-plus-white"))
+    card.previewGlyph:SetSize(20, 20)
+    card.previewGlyph:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -8, 0)
+    card.previewGlyph:Hide()
+
     card.bar = NewBar(card, 4)
     card.bar:SetPoint("BOTTOMLEFT", card.icon, "BOTTOMRIGHT", 10, 1)
     card.bar:SetPoint("RIGHT", card.pick or card.btn, "LEFT", -10, 0)
@@ -11985,8 +12032,12 @@ local function GetCard(goal)
 
     -- hover the card for the full description
     card:EnableMouse(true)
+    card:SetScript("OnMouseUp", function(self, button) LF.CardClick(self, self, button) end)
     card:SetScript("OnEnter", function(self)
-        self:SetEtch(STYLE.rowHover)
+        self:SetEtch(self.previewSel and STYLE.rowSel or STYLE.rowHover)
+        LF.SyncPreviewGlyph(self)
+        local preview = FGT.LibraryPreview
+        if preview and preview.open then return end -- the drawer already says all of this
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
         GameTooltip:AddLine(goal.name, C.TITLE[1], C.TITLE[2], C.TITLE[3])
         if goal.note then GameTooltip:AddLine(goal.note, 0.9, 0.9, 0.9, true) end
@@ -11994,10 +12045,12 @@ local function GetCard(goal)
         if fnote then GameTooltip:AddLine(fnote, C.FOREVER[1], C.FOREVER[2], C.FOREVER[3], true) end
         local d, t = LF.Progress(goal) -- a card may stand for one part (LF.RacePart)
         GameTooltip:AddLine(string.format("%d of %d steps done", d, t), C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+        if preview and preview.canOpen then GameTooltip:AddLine("Click: Preview", C.TITLE[1], C.TITLE[2], C.TITLE[3]) end
         GameTooltip:Show()
     end)
     card:SetScript("OnLeave", function(self)
         self:SetEtch(self.restStyle or STYLE.row) -- grey again on finished cards
+        LF.SyncPreviewGlyph(self)
         GameTooltip:Hide()
     end)
 
@@ -12148,6 +12201,7 @@ LayoutLibrary = function()
                 .. "|cff7d7d78" .. plain .. "  ·  " .. (on and ("Completed " .. on) or "Complete") .. "|r"
 
         end
+        card.baseStyle, card.previewSel = card.restStyle, nil -- (the preview's gold goes back on below)
         card.icon:SetIcon(FGT.GoalIcon(g), isNew and C.FOREVER or finished and { 0.40, 0.40, 0.39 } or card.baseRim)
         card.doneGlow:Hide()
         card.icon.tex:SetDesaturated(finished)
@@ -12165,6 +12219,7 @@ LayoutLibrary = function()
         card.bar:SetShown(LF.On(g) and not finished)
         StyleCardButton(card)
         card:Show()
+        LF.SyncPreviewGlyph(card) -- (a reused card may have lost the mouse while hidden)
         cy = cy + CARD_H + 6
 
         if g.group then
@@ -12268,6 +12323,7 @@ LayoutLibrary = function()
     FGT.libNoMatch:SetPoint("TOP", libScroll.scroll, "TOP", 0, -40)
     FGT.libNoMatch:SetText((q ~= "") and ("No goals match \"" .. FGT.searchBox:GetText() .. "\".") or "No goals match these filters.")
     FGT.libNoMatch:SetShown(#list == 0 and #hidden == 0)
+    if FGT.LibraryPreview then FGT.LibraryPreview:Refresh() end
 end
 
 -- Sort for the cards, and Add all for everything listed (with a confirm).
@@ -12438,7 +12494,15 @@ FGT.ShowTab = ShowTab
 FGT.trackerTab, FGT.libraryTab, FGT.libraryPanel = trackerTab, libraryTab, libraryPanel
 trackerTab:SetScript("OnClick", function() FGT.ShowTab("tracker") end)
 libraryTab:SetScript("OnClick", function() FGT.ShowTab("library") end)
-libraryPanel:SetScript("OnSizeChanged", function() if libraryPanel:IsShown() then LayoutLibrary() end end)
+libraryPanel:SetScript("OnSizeChanged", function()
+    if not libraryPanel:IsShown() then return end
+    -- while the preview slides only the cards' width follows; one full layout when it lands
+    if FGT.LibraryPreview and FGT.LibraryPreview.sliding then
+        libScroll.content:SetWidth(libScroll.scroll:GetWidth())
+    else
+        LayoutLibrary()
+    end
+end)
 
 end
 

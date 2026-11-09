@@ -23,7 +23,7 @@ here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, ".py"))
 from lupa import lua51
 
-FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Bars.lua", "Core.lua", "Tallies.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "WhatsNew.lua", "Feedback.lua", "Ambience.lua", "Audit.lua", "GearData.lua", "GearSources.lua", "GearCatalog.lua", "GearPlanner.lua", "PlannerEffects.lua", "VersionCheck.lua"] # load order, as in the .toc
+FILES = ["Data.lua", "Library.lua", "AQArmor.lua", "ArmorSets.lua", "Npcs.lua", "Quests.lua", "Dependencies.lua", "Filters.lua", "Bars.lua", "Core.lua", "Tallies.lua", "ItemTooltips.lua", "Materials.lua", "Popout.lua", "Rail.lua", "Maplet.lua", "LibraryPreview.lua", "WhatsNew.lua", "Feedback.lua", "Ambience.lua", "Audit.lua", "GearData.lua", "GearSources.lua", "GearCatalog.lua", "GearPlanner.lua", "PlannerEffects.lua", "VersionCheck.lua"] # load order, as in the .toc
 STUB = open(os.path.join(here, "wowstub.lua")).read()
 
 # Serializes the saved variables so the next "session" can start fresh.
@@ -716,6 +716,8 @@ if ok_all:
         ("Forever AQ40 battle tanks", None, open(os.path.join(here, "qiraji-tests.lua"), encoding="utf-8").read(), True),
         ("Zin'rokh on Era", None, open(os.path.join(here, "zinrokh-tests.lua"), encoding="utf-8").read()),
         ("Zin'rokh on Forever", None, open(os.path.join(here, "zinrokh-tests.lua"), encoding="utf-8").read(), True),
+        ("Library preview on Era", None, open(os.path.join(here, "library-preview-tests.lua"), encoding="utf-8").read()),
+        ("Library preview on Forever", None, open(os.path.join(here, "library-preview-tests.lua"), encoding="utf-8").read(), True),
         ("Library polish on Era", None, open(os.path.join(here, "library-polish-tests.lua"), encoding="utf-8").read()),
         ("Library polish on Forever", None, open(os.path.join(here, "library-polish-tests.lua"), encoding="utf-8").read(), True),
         ("guide fixes on Era", None, open(os.path.join(here, "guide-fixes-tests.lua"), encoding="utf-8").read()),

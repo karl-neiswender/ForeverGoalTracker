@@ -199,6 +199,11 @@ end
 -- named in one chat line.
 function FGT.PreviewSetClick(goal, button)
     if button ~= "LeftButton" or not (IsModifiedClick and IsModifiedClick("DRESSUP")) then return false end
+    return FGT.TrySetOn(goal)
+end
+
+-- Every piece of a set on your character in the dressing room (also the Library preview's Try on).
+function FGT.TrySetOn(goal)
     local ids = FGT.SetPreviewIds(goal)
     if not ids or not DressUpItemLink then return false end
     -- start from your own character: an open dressing room is reset first, so an

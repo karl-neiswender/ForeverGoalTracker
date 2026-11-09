@@ -26,6 +26,7 @@ Materials.lua
 Popout.lua
 Rail.lua
 Maplet.lua
+LibraryPreview.lua
 WhatsNew.lua
 Feedback.lua
 Ambience.lua
