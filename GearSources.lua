@@ -6847,29 +6847,233 @@ FGT.GEARSOURCES = [==[
 1913|N|Narg the Taskmaster||
 ]==]
 FGT.GEARSOURCES_FOREVER = [==[
+22478|Q|Bonescythe Helmet|Naxxramas|
+22514|Q|Circlet of Faith|Naxxramas|
+22438|Q|Cryptstalker Headpiece|Naxxramas|
+22418|Q|Dreadnaught Helmet|Naxxramas|
+22490|Q|Dreamwalker Headpiece|Naxxramas|
+22466|Q|Earthshatter Headpiece|Naxxramas|
+22498|Q|Frostfire Circlet|Naxxramas|
+22506|Q|Plagueheart Circlet|Naxxramas|
+22428|Q|Redemption Headpiece|Naxxramas|
+21387|Q|Avenger's Crown|Ahn'Qiraj|
+21329|Q|Conqueror's Crown|Ahn'Qiraj|
+21360|Q|Deathdealer's Helm|Ahn'Qiraj|
+21337|Q|Doomcaller's Circlet|Ahn'Qiraj|
+21347|Q|Enigma Circlet|Ahn'Qiraj|
+21353|Q|Genesis Helm|Ahn'Qiraj|
+21372|Q|Stormcaller's Diadem|Ahn'Qiraj|
+21366|Q|Striker's Diadem|Ahn'Qiraj|
+21348|Q|Tiara of the Oracle|Ahn'Qiraj|
+21517|Q|The Only Prescription|Tanaris|
+22689|Q||Eastern Plaguelands|
+18807|Q|The Darkreaver Menace||
+22013|Q|Saving the Best for Last||
+12185|Q|Avast Ye, Admiral!|Stranglethorn Vale|
+22097|Q|Saving the Best for Last|Orgrimmar|
+22005|Q|Saving the Best for Last||
+22074|Q|Saving the Best for Last||
+22109|Q|Saving the Best for Last||
+21999|Q|Saving the Best for Last||
 272725|V|Captain Dirgehammer|Stormwind City|
+22065|Q|Saving the Best for Last||
+22091|Q|Saving the Best for Last|Ironforge|
+22080|Q|Saving the Best for Last||
+281539|Q|Too Bad to Bear|Winterspring|
+260212|Q|Deadliest Catch|Azshara|
+11913|Q|A Little Help From My Friends|Un'Goro Crater|
+260195|Q|Vek'zol|Blasted Lands|
+21317|Q|Deadwood of the North|Timbermaw Hold|
+12018|Q|Abandoned Hope|Blackrock Depths|
+10741|Q|Rise, Obsidion!|Searing Gorge|
+10743|Q|Set Them Ablaze!|Searing Gorge|
+259846|Q|Summer Frontier Fishery|Azshara|
+19039|Q|Fuel for the Zapping|Feralas|
+20643|Q|Oran's Gratitude|The Hinterlands|
+277211|Q|Torn Mystical Scroll|Stranglethorn Vale|
+270093|Q|The Bloodsail Buccaneers|Stranglethorn Vale|
+9664|Q|Delivering the Relic|Feralas|
 277235|Q|No Honor Among Thieves|Desolace|
+20640|Q|Southsea Shakedown|Tanaris|
+275028|Q|A Miner Problem|Riverglades|
+271812|Q|Corpsefeeder's Carapace|Shen'dralas|
+276105|Q|WANTED: Scoutmaster Vargas|Riverglades|
+4124|Q|Return to Corporal Kaleb|Stranglethorn Vale|
+19972|Q|Rare Fish - Keefer's Angelfish|Fishing|
+4543|Q|Foul Magics|Arathi Highlands|
 270067|Q|WANTED: Marez Cowl|Arathi Highlands|
 6720|Q|Frostmaw|Thunder Bluff|
 1282|Q|Morbent Fel|Duskwood|
+7130|Q|Brutal Helm||
+6971|Q|Grimand's Armor||
+252455|N|Dextren Ward||beta
+3556|Q|You Have Served Us Well|Stormwind City|
+274021|V|Winklespark|The Barrens|
 276199|V|Friz Frazzlespark|Riverglades|
+274023|V|Rettrick|Tanaris|
+21712|Q|The Savior of Kalimdor|Ahn'Qiraj|
+19383|Q|The Lord of Blackrock||
+21529|Q|Nefarius's Corruption|Blackwing Lair|
+21531|Q|The Nightmare Manifests|Moonglade|
+18404|Q|Celebrating Good Times;For All To See||
+21507|Q|The Fall of Ossirian|Ruins of Ahn'Qiraj|
+21504|Q|The Fall of Ossirian|Ruins of Ahn'Qiraj|
+21505|Q|The Fall of Ossirian|Ruins of Ahn'Qiraj|
+21506|Q|The Fall of Ossirian|Ruins of Ahn'Qiraj|
+19612|Q|Enchanted South Seas Kelp|Zul'Gurub|
+19586|Q|The Heathen's Brand|Zul'Gurub|
+19604|Q|Kezan's Taint|Zul'Gurub|
+19620|Q|The Maelstrom's Tendril|Zul'Gurub|
+19600|Q|The Pebble of Kajaro|Zul'Gurub|
+19576|Q|Strength of Mount Mugamba|Zul'Gurub|
+19593|Q|The Eye of Zuldazar|Zul'Gurub|
+19608|Q|Vision of Voodress|Zul'Gurub|
+19616|Q|Zandalarian Shadow Talisman|Zul'Gurub|
+19588|Q|The Hero's Brand|Zul'Gurub|
+19601|Q|The Jewel of Kajaro|Zul'Gurub|
+19605|Q|Kezan's Unstoppable Taint|Zul'Gurub|
+19621|Q|Maelstrom's Wrath|Zul'Gurub|
+19613|Q|Pristine Enchanted South Seas Kelp|Zul'Gurub|
+19577|Q|The Rage of Mugamba|Zul'Gurub|
+19594|Q|The All-Seeing Eye of Zuldazar|Zul'Gurub|
+19609|Q|The Unmarred Vision of Voodress|Zul'Gurub|
+19617|Q|Zandalarian Shadow Mastery Talisman|Zul'Gurub|
+22150|Q|Falrin's Vendetta|Dire Maul|
+22149|Q|Falrin's Vendetta|Dire Maul|
 272072|V|Creeg Bothunk|The Barrens|
+16309|Q|Blood of the Black Dragon Champion;Drakefire Amulet|Blackrock Spire|
+275736|Q|Work Well Done|Mount Hyjal|
+22657|Q||Eastern Plaguelands|
+19610|Q|Enchanted South Seas Kelp|Zul'Gurub|
+19611|Q|Enchanted South Seas Kelp|Zul'Gurub|
+281281|Q|Halt the Hail|Mount Hyjal|
+19579|Q|The Heathen's Brand|Zul'Gurub|
+19585|Q|The Heathen's Brand|Zul'Gurub|
+15704|Q|Past Endeavors|Winterspring|
+19602|Q|Kezan's Taint|Zul'Gurub|
+19603|Q|Kezan's Taint|Zul'Gurub|
+19618|Q|The Maelstrom's Tendril|Zul'Gurub|
+19619|Q|The Maelstrom's Tendril|Zul'Gurub|
+22659|Q||Eastern Plaguelands|
+10778|Q|You Are Rakh'likh, Demon|Blasted Lands|
+13811|Q|<NYI> <TXT> Necklace of the Dawn|Eastern Plaguelands|
+19598|Q|The Pebble of Kajaro|Zul'Gurub|
+19599|Q|The Pebble of Kajaro|Zul'Gurub|
 274969|V|Master Sergeant Biggins|Stormwind City|
+19574|Q|Strength of Mount Mugamba|Zul'Gurub|
+19575|Q|Strength of Mount Mugamba|Zul'Gurub|
+20649|Q|Vyral the Vile|Silithus|
+19591|Q|The Eye of Zuldazar|Zul'Gurub|
+19592|Q|The Eye of Zuldazar|Zul'Gurub|
+19606|Q|Vision of Voodress|Zul'Gurub|
+19607|Q|Vision of Voodress|Zul'Gurub|
+19614|Q|Zandalarian Shadow Talisman|Zul'Gurub|
+19615|Q|Zandalarian Shadow Talisman|Zul'Gurub|
+277202|Q|Greater Friend of the Library|Special|
+275838|Q|A Revenge Now Bitter|Mount Hyjal|
+15799|Q|Mission Accomplished!|Western Plaguelands|
+274384|Q|Soldier's Solace|Mount Hyjal|
+281636|Q|Greater Friend of the Library|Special|
+281286|Q|Stormwind's High Order|Eastern Plaguelands|
+11196|Q|Broken Alliances;Tremors of the Earth|Badlands|
+16623|Q|Wildkin of Elune|Winterspring|
+281287|Q|Orgrimmar's Windshapers|Eastern Plaguelands|
+276900|Q|Thicker Than Water|City of Dalaran|
+13473|Q|Two Halves Become One|Western Plaguelands|
 272073|V|Creeg Bothunk|The Barrens|
+259892|Q|Master Feardred|Azshara|
+260171|Q|Potential Panacea|Azshara|
+19159|Q|WANTED: Vile Priestess Hexx and Her Minions|The Hinterlands|
+4743|Q|Summoning the Princess|Arathi Highlands|
+4112|Q|Mok'thardin's Enchantment|Stranglethorn Vale|
+277981|Q|Noise Complaints;The Offense of Grom'gol|Stranglethorn Vale|
+281302|Q|Whelps are the Worst!|Dustwallow Marsh|
+272185|Q|Forlorn Necklace|Shen'dralas|
+272184|Q|Forlorn Necklace|Shen'dralas|
 272074|V|Creeg Bothunk|The Barrens|
+4430|Q|The Crown of Will|Hillsbrad Foothills|
+274955|Q|Jom-jom's Escape|Riverglades|
+15690|Q|Bone Collector|Desolace|
 4614|N|Unfettered Spirit||beta
+281258|Q|Sentiments of the Lost|Wetlands|
 281321|Q|Gleaning Our Future|Wetlands|
 288926|W|||beta
 281290|Q|Gleaming Crescent Necklace|Ashenvale|
 277204|Q|Friend of the Library|Special|
 277203|Q|Friend of the Library|Special|
 281265|Q|Watching the Roads|Silverpine Forest|
+22479|Q|Bonescythe Pauldrons|Naxxramas|
+22439|Q|Cryptstalker Spaulders|Naxxramas|
+22419|Q|Dreadnaught Pauldrons|Naxxramas|
+22491|Q|Dreamwalker Spaulders|Naxxramas|
+22467|Q|Earthshatter Spaulders|Naxxramas|
+22499|Q|Frostfire Shoulderpads|Naxxramas|
+22507|Q|Plagueheart Shoulderpads|Naxxramas|
+22429|Q|Redemption Spaulders|Naxxramas|
+22515|Q|Shoulderpads of Faith|Naxxramas|
+21367|Q|Striker's Pauldrons|Ahn'Qiraj|
+21391|Q|Avenger's Pauldrons|Ahn'Qiraj|
+21330|Q|Conqueror's Spaulders|Ahn'Qiraj|
+21361|Q|Deathdealer's Spaulders|Ahn'Qiraj|
+21335|Q|Doomcaller's Mantle|Ahn'Qiraj|
+21345|Q|Enigma Shoulderpads|Ahn'Qiraj|
+21354|Q|Genesis Shoulderpads|Ahn'Qiraj|
+21350|Q|Mantle of the Oracle|Ahn'Qiraj|
+21376|Q|Stormcaller's Pauldrons|Ahn'Qiraj|
+19841|Q|Paragons of Power: The Confessor's Mantle|Zul'Gurub|
+19831|Q|Paragons of Power: The Predator's Mantle|Zul'Gurub|
+22016|Q|Anthion's Parting Words||
+22008|Q|Anthion's Parting Words||
 272105|V|Creeg Bothunk|The Barrens|
+22073|Q|Anthion's Parting Words||
+22112|Q|Anthion's Parting Words||
+22101|Q|Anthion's Parting Words|Orgrimmar|
+22068|Q|Anthion's Parting Words||
+22093|Q|Anthion's Parting Words|Ironforge|
+22001|Q|Anthion's Parting Words||
+22082|Q|Anthion's Parting Words||
+275737|Q|Work Well Done|Mount Hyjal|
+19849|Q|Paragons of Power: The Demoniac's Mantle|Zul'Gurub|
+19845|Q|Paragons of Power: The Illusionist's Mantle|Zul'Gurub|
+19835|Q|Paragons of Power: The Madcap's Mantle|Zul'Gurub|
+16995|Q|Duskwing, Oh How I Hate Thee...|Eastern Plaguelands|
 272724|V|Captain Dirgehammer|Stormwind City|
+15784|Q|High Chief Winterfall|Winterspring|
+281538|Q|Too Bad to Bear|Winterspring|
+275666|Q|Summit Sentries|Mount Hyjal|
+15792|Q|The Crystal of Zin-Malor|Winterspring|
+11874|Q|Ancient Spirit|Felwood|
+15812|Q|A Matter of Time|Western Plaguelands|
+15822|Q|Runecloth|Blackmaw Hold|
+11916|Q|Shizzle's Flyer|Un'Goro Crater|
+11871|Q|Calm Before the Storm||
+260169|Q|Potential Panacea|Azshara|
+11889|Q|The Mystery of Morrowgrain|Feathermoon Stronghold|
+10745|Q|Prayer to Elune|Searing Gorge|
+281275|Q|Mirrorscale|Feralas|
+281276|Q|Mirrorscale|Feralas|
+281278|Q|Mirrorscale|Feralas|
+281277|Q|Mirrorscale|Feralas|
+19037|Q|Zukk'ash Report|Feralas|
+9647|Q|Rescue OOX-22/FE!|Feralas|
+16739|Q|The Dunemaul Compound|Tanaris|
+11502|Q|Return to Apothecary Zinge|Undercity|
+277236|Q|Aeonas the Vindicated||
+277220|Q|Lost for Words|Feralas|
+274751|V|Rettrick|Tanaris|
+271811|Q|Corpsefeeder's Carapace|Shen'dralas|
+3765|Q|Taretha's Gift|Hillsbrad Foothills|
+6747|Q|The Corrupter|Desolace|
+6792|Q|The Karnitol Shipwreck|Desolace|
 16793|Q|Book of the Ancients|Desolace|
+15698|Q|Kodo Roundup|Desolace|
+4123|Q|Report to Doren|Stranglethorn Vale|
 4443|Q|To Steal From Thieves|Undercity|
 270044|Q|Bride of the Embalmer|Duskwood|
 3560|Q|Bride of the Embalmer|Duskwood|
+4140|Q|Bad Medicine|Stranglethorn Vale|
+11884|Q|Return to Vahlarriel|Desolace|
+5820|Q|The Branch of Cenarius|Ashenvale|
 270046|Q|Humbert's Sword|Hillsbrad Foothills|
 17047|Q|Fallen Sky Lake|Ashenvale|
 270039|Q|Ormer's Revenge|Wetlands|
@@ -6879,24 +7083,85 @@ FGT.GEARSOURCES_FOREVER = [==[
 5274|Q|Morganth|Redridge Mountains|
 6664|Q|Jin'Zil's Forest Magic|Stonetalon Mountains|
 276720|Q|WANTED: Syndicate Personnel|Hillsbrad Foothills|
+221316|Q|Ever After|Blackrock Depths|
 3427|V|Lisbeth Schneider|Stormwind City|
 3426|V|Lisbeth Schneider|Stormwind City|
 16059|V|||
 3428|V|||
 16060|V|||
+859|Q|A Hunter's Challenge|Loch Modan|
 3342|Q|Captain Sander's Hidden Treasure|Westfall|
 2575|Q|Red Linen Goods|Elwynn Forest|
 273812|V|Taliaa Brightsky|Zephras Isle|
 273813|V|Taliaa Brightsky|Zephras Isle|
 273814|V|Taliaa Brightsky|Zephras Isle|
+270334|Q|Consolation Prize|Riverglades|
+22476|Q|Bonescythe Breastplate|Naxxramas|
+22436|Q|Cryptstalker Tunic|Naxxramas|
+22416|Q|Dreadnaught Breastplate|Naxxramas|
+22488|Q|Dreamwalker Tunic|Naxxramas|
+22464|Q|Earthshatter Tunic|Naxxramas|
+22425|Q|Redemption Tunic|Naxxramas|
+21389|Q|Avenger's Breastplate|Ahn'Qiraj|
+21331|Q|Conqueror's Breastplate|Ahn'Qiraj|
+21364|Q|Deathdealer's Vest|Ahn'Qiraj|
+21357|Q|Genesis Vest|Ahn'Qiraj|
+21374|Q|Stormcaller's Hauberk|Ahn'Qiraj|
+21370|Q|Striker's Hauberk|Ahn'Qiraj|
+22652|Q|Glacial Vest|Naxxramas|
+22669|Q|Icebane Breastplate|Naxxramas|
+22664|Q|Icy Scale Breastplate|Naxxramas|
+22661|Q|Polar Tunic|Naxxramas|
+21183|Q|Veteran's Battlegear|Silithus|
+19828|Q|Paragons of Power: The Augur's Hauberk|Zul'Gurub|
+19825|Q|Paragons of Power: The Freethinker's Breastplate|Zul'Gurub|
+19838|Q|Paragons of Power: The Haruspex's Tunic|Zul'Gurub|
+19834|Q|Paragons of Power: The Madcap's Tunic|Zul'Gurub|
+19822|Q|Paragons of Power: The Vindicator's Breastplate|Zul'Gurub|
+275708|Q|Bait the Beast|Mount Hyjal|
+15786|Q|High Chief Winterfall|Winterspring|
+15787|Q|High Chief Winterfall|Winterspring|
+21322|Q|Winterfall Activity|Timbermaw Hold|
+21320|Q|Winterfall Activity|Timbermaw Hold|
+11193|Q|Broken Alliances;Tremors of the Earth|Badlands|
+275832|Q|The Experimental Method|Mount Hyjal|
+11194|Q|Broken Alliances;Tremors of the Earth|Badlands|
+11195|Q|Broken Alliances;Tremors of the Earth|Badlands|
+11876|Q|The Bait for Lar'korwi|Un'Goro Crater|
+9650|Q|Venom to the Undercity|The Hinterlands|
+270118|Q|Abandoned Hope|Blackrock Depths|
+260178|Q|Ley of the Land|Azshara|
+260181|Q|Murloc Thieves|Azshara|
+19127|Q|WANTED: Overseer Maltorius|Searing Gorge|
+19128|Q|WANTED: Overseer Maltorius|Searing Gorge|
+270113|Q|WANTED: Overseer Maltorius|Searing Gorge|
+281299|Q|Witch Doctor Ti'ik|The Hinterlands|
+21311|Q|Timbermaw Ally|Felwood|
+19042|Q|Improved Quality|Feralas|
+19041|Q|Improved Quality|Feralas|
+10827|Q|Gahz'ridian|Tanaris|
+20642|Q|Oran's Gratitude|The Hinterlands|
+270096|Q|Mai'Zoth|Stranglethorn Vale|
+4138|Q|The Bloodsail Buccaneers|Stranglethorn Vale|
+9663|Q|Delivering the Relic|Feralas|
+277221|Q|Lost for Words|Feralas|
+281303|Q|Whelps are the Worst!|Dustwallow Marsh|
 4119|Q|Raptor Mastery|Stranglethorn Vale|
+4508|Q|Trol'kalar|Arathi Highlands|
+270082|Q|Trol'kalar|Arathi Highlands|
 6773|Q|Khan Hratha|Desolace|
 270079|Q|The Real Threat|Arathi Highlands|
+274942|Q|Snargl's Snout|Riverglades|
+274938|Q|Snargl's Snout|Riverglades|
 277514|Q|Hate the Hatefury|Desolace|
+9516|Q|Astral Knot Garment||
+9515|Q|Nether-lace Garment||
+7133|Q|Brutal Hauberk||
 3750|Q|Humbert's Sword|Hillsbrad Foothills|
 5814|Q|Fallen Sky Lake|Ashenvale|
 15471|Q|WANTED: Arnak Grimtotem|Thousand Needles|
 3566|Q|Ormer's Revenge|Wetlands|
+7335|Q|Reception from Tyrande|Stonetalon Mountains|
 17005|Q|King of the Foulweald|Ashenvale|
 6670|Q|The Den|Stonetalon Mountains|
 270035|Q|Reclaiming the Charred Vale|Stonetalon Mountains|
@@ -6907,12 +7172,12 @@ FGT.GEARSOURCES_FOREVER = [==[
 5317|Q|Betrayal from Within|The Barrens|
 1273|Q|Blisters on the Land|Wetlands|
 6721|Q|Supplies to Auberdine|Ashenvale|
+7336|Q|Reception from Tyrande|Stonetalon Mountains|
 3733|Q|The Rescue|Hillsbrad Foothills|
 3585|Q|The Weaver|Silverpine Forest|
 3752|Q|The Rescue|Hillsbrad Foothills|
 6502|Q|Egg Hunt|The Barrens|
-270022|Q|The Absent Minded Prospector|Darkshore|
-4781|V|Halija Whitestrider|The Barrens|
+270022|Q|The Absent Minded Prospector|Wetlands|
 3166|Q|Filthy Paws|Loch Modan|
 5341|Q|Root Samples|Herbalism|
 5420|Q|The Demon Seed|Durotar|
@@ -6924,25 +7189,91 @@ FGT.GEARSOURCES_FOREVER = [==[
 2817|Q|Protecting the Herd|Dun Morogh|
 281284|Q|Hides for the Forsaken|Tirisfal Glades|
 263401|Q|Avenged Tenfold|Zephras Isle|
+22518|Q|Belt of Faith|Naxxramas|
+22482|Q|Bonescythe Waistguard|Naxxramas|
+22442|Q|Cryptstalker Girdle|Naxxramas|
+22422|Q|Dreadnaught Waistguard|Naxxramas|
+22494|Q|Dreamwalker Girdle|Naxxramas|
+22470|Q|Earthshatter Girdle|Naxxramas|
+22502|Q|Frostfire Belt|Naxxramas|
+22510|Q|Plagueheart Belt|Naxxramas|
+22431|Q|Redemption Girdle|Naxxramas|
+20216|Q|A Collection of Heads|Zul'Gurub|
+20215|Q|A Collection of Heads|Zul'Gurub|
+20213|Q|A Collection of Heads|Zul'Gurub|
+20217|Q|A Collection of Heads|Zul'Gurub|
+22010|Q|Just Compensation||
+21994|Q|Just Compensation||
+22098|Q|Just Compensation|Orgrimmar|
+22002|Q|Just Compensation|Ironforge|
+22070|Q|Just Compensation||
+22106|Q|Just Compensation||
+22062|Q|Just Compensation||
+22086|Q|Just Compensation|Ironforge|
+22078|Q|Just Compensation||
+275741|Q|Work Well Done|Mount Hyjal|
+19829|Q|Paragons of Power: The Augur's Belt|Zul'Gurub|
+19842|Q|Paragons of Power: The Confessor's Bindings|Zul'Gurub|
+19826|Q|Paragons of Power: The Freethinker's Belt|Zul'Gurub|
+19839|Q|Paragons of Power: The Haruspex's Belt|Zul'Gurub|
+19832|Q|Paragons of Power: The Predator's Belt|Zul'Gurub|
+19823|Q|Paragons of Power: The Vindicator's Belt|Zul'Gurub|
 272700|V|Captain Dirgehammer|Stormwind City|
+275434|Q|Water of Hyjal|Mount Hyjal|
+15707|Q|A Final Blow|Felwood|
+15709|Q|A Final Blow|Felwood|
+15791|Q|The Crystal of Zin-Malor|Winterspring|
+15813|Q|A Matter of Time|Western Plaguelands|
+275827|Q|Ewe Wandered Off|Elderwild|
+260196|Q|Vek'zol|Blasted Lands|
+260184|Q|Blackmaw Counter-Offensive|Azshara|
+281261|Q|Microcrystal Contamination|Un'Goro Crater|
+281262|Q|Microcrystal Contamination|Un'Goro Crater|
+11909|Q|Roll the Bones|Un'Goro Crater|
+260179|Q|Ley of the Land|Azshara|
+260182|Q|Murloc Thieves|Azshara|
+281260|Q|Memories of Rockard|Blasted Lands|
+9666|Q|Dark Heart|Feralas|
+19125|Q|Fiery Menace!|Searing Gorge|
+9657|Q|Wandering Shay|Feralas|
+21312|Q|Timbermaw Ally|Felwood|
+10706|Q|Doling Justice|Feralas|
+10462|Q|The Undermarket|Tailoring|
+11861|Q|Ledger from Tanaris|Searing Gorge|
+277216|Q|Lost for Words|Feralas|
+9636|Q|Deliver to MacKinley|Tanaris|
+4131|Q|Zanzil's Secret|Stranglethorn Vale|
+4117|Q|Akiris by the Bundle|Stranglethorn Vale|
+9705|Q|Army of the Black Dragon|Dustwallow Marsh|
+270087|Q|Overlord Mok'Morokk's Concern|Dustwallow Marsh|
+272187|Q|Rot and Regret|Maraudon|
 6788|Q|Khan Hratha|Desolace|
+6726|Q|Safety First|Thousand Needles|
+10747|Q|Mazen's Behest|Stormwind City|
 6780|Q|Centaur Bounty|Desolace|
+15588|Q|Clam Bait|Desolace|
+277232|Q|Returning to Port|Stranglethorn Vale|
+277224|Q|Returning to Port|Stranglethorn Vale|
+15587|Q|Clam Bait|Desolace|
 3753|Q|Costly Menace|Hillsbrad Foothills|
 7107|Q|Look to the Stars|Duskwood|
 3758|Q|Syndicate Assassins|Alterac Mountains|
 271769|Q|Fallen in the Fen|Excavation Site: Wetlands|
+9687|Q|Return to Vahlarriel|Desolace|
+11229|Q|The Branch of Cenarius|Ashenvale|
 3747|Q|Elixir of Agony|Hillsbrad Foothills|
 6719|Q|Highperch Venom|Dustwallow Marsh|
 6740|Q|The Sacred Flame|Thunder Bluff|
+15469|Q|Free at Last|Thousand Needles|
 5355|Q|Isha Awak|The Barrens|
 16659|Q|Je'neu of the Earthen Ring|Ashenvale|
-4828|V|Jennabink Powerseam|Wetlands|
+4828|V|Zixil|Hillsbrad Foothills|
 16987|Q|Bloodfury Bloodline|Stonetalon Mountains|
 16975|Q|Warsong Supplies|Ashenvale|
 276724|Q|Elixir of Pain|Hillsbrad Foothills|
+5609|Q|Escape Through Force|Darkshore|
 6477|Q|Consumed by Hatred|The Barrens|
 11936|Q|The Absent Minded Prospector|Darkshore|
-4786|V|Halija Whitestrider|The Barrens|
 15404|Q|WANTED: Murkdeep!|Darkshore|
 270007|Q|Collecting Memories|Deadmines|
 16608|Q|Aquatic Form||
@@ -6956,30 +7287,93 @@ FGT.GEARSOURCES_FOREVER = [==[
 263335|Q|Breaking the Breaker|Zephras Isle|
 263403|Q|Avenged Tenfold|Zephras Isle|
 263402|Q|Avenged Tenfold|Zephras Isle|
+22477|Q|Bonescythe Legplates|Naxxramas|
+22437|Q|Cryptstalker Legguards|Naxxramas|
+22417|Q|Dreadnaught Legplates|Naxxramas|
+22489|Q|Dreamwalker Legguards|Naxxramas|
+22465|Q|Earthshatter Legguards|Naxxramas|
+22497|Q|Frostfire Leggings|Naxxramas|
+22513|Q|Leggings of Faith|Naxxramas|
+22505|Q|Plagueheart Leggings|Naxxramas|
+22427|Q|Redemption Legguards|Naxxramas|
+21390|Q|Avenger's Legguards|Ahn'Qiraj|
+21332|Q|Conqueror's Legguards|Ahn'Qiraj|
+21362|Q|Deathdealer's Leggings|Ahn'Qiraj|
+21336|Q|Doomcaller's Trousers|Ahn'Qiraj|
+21346|Q|Enigma Leggings|Ahn'Qiraj|
+21356|Q|Genesis Trousers|Ahn'Qiraj|
+21375|Q|Stormcaller's Leggings|Ahn'Qiraj|
+21368|Q|Striker's Leggings|Ahn'Qiraj|
+21352|Q|Trousers of the Oracle|Ahn'Qiraj|
+22700|Q|The Only Song I Know...|Naxxramas|
+22699|Q|The Only Song I Know...|Naxxramas|
+22702|Q|The Only Song I Know...|Naxxramas|
+22701|Q|The Only Song I Know...|Naxxramas|
+21530|Q|Nefarius's Corruption|Blackwing Lair|
+22690|Q||Eastern Plaguelands|
+20703|Q|Armaments of War|Silithus|
+20704|Q|Armaments of War|Silithus|
+20701|Q|Armaments of War|Silithus|
+20702|Q|Armaments of War|Silithus|
+20699|Q|Armaments of War|Silithus|
+20700|Q|Armaments of War|Silithus|
+20705|Q|Armaments of War|Silithus|
+20707|Q|Armaments of War|Silithus|
 272723|V|Captain Dirgehammer|Stormwind City|
+276339|Q|Prey and Predator|Mount Hyjal|
+11882|Q|The Bait for Lar'korwi|Un'Goro Crater|
+11910|Q|A Little Help From My Friends|Un'Goro Crater|
+21316|Q|Deadwood of the North|Timbermaw Hold|
+11911|Q|A Little Help From My Friends|Un'Goro Crater|
+270122|Q|A Little Help From My Friends|Un'Goro Crater|
+12041|Q|Abandoned Hope|Blackrock Depths|
+10740|Q|Rise, Obsidion!|Searing Gorge|
+9652|Q|Saving Sharpbeak|The Hinterlands|
+10742|Q|Set Them Ablaze!|Searing Gorge|
+270114|Q|Set Them Ablaze!|Searing Gorge|
+270111|Q|Return to Primal Torntusk|The Hinterlands|
+19117|Q|Separation Anxiety|The Hinterlands|
+281298|Q|Witch Doctor Ti'ik|The Hinterlands|
+19124|Q|STOLEN: Smithing Tuyere and Lookout's Spyglass|Searing Gorge|
+270097|Q|Mai'Zoth|Stranglethorn Vale|
 276201|V|Friz Frazzlespark|Riverglades|
 270090|Q|Cracking Maury's Foot|Stranglethorn Vale|
+270083|Q|Trol'kalar|Arathi Highlands|
+274943|Q|Snargl's Snout|Riverglades|
 4976|Q|The Real Threat|Arathi Highlands|
 4108|Q|Panther Mastery|Stranglethorn Vale|
+274939|Q|Snargl's Snout|Riverglades|
+270077|Q|The Curse of the Tides|Stranglethorn Vale|
+15456|Q|Hints of a New Plague?|Hillsbrad Foothills|
 4741|Q|Stromgarde Badges|Arathi Highlands|
 270056|Q|Stromgarde Badges|Arathi Highlands|
 270057|Q|Stromgarde Badges|Arathi Highlands|
+5016|Q|Jarl Needs a Blade|Dustwallow Marsh|
+6737|Q|Parts of the Swarm|Thousand Needles|
 2954|Q|Morbent Fel|Duskwood|
 6282|Q|Battle of Hillsbrad|Hillsbrad Foothills|
+10043|Q|The Tower of Althalaxx|Darkshore|
 4505|Q|The Thandol Span|Wetlands|
 281310|Q|Carnage|Wetlands|
 3751|Q|Humbert's Sword|Hillsbrad Foothills|
 281309|Q|Carnage|Wetlands|
+7132|Q|Brutal Legguards||
+6973|Q|Mathiel's Armor||
+281295|Q|Packaged Pristine Pelts|Thousand Needles|
 15470|Q|WANTED: Arnak Grimtotem|Thousand Needles|
 270037|Q|Arikara|Thousand Needles|
 17006|Q|King of the Foulweald|Ashenvale|
 6671|Q|The Den|Stonetalon Mountains|
 2545|Q|Apprentice's Duties|Wetlands|
+274741|V|Winklespark|The Barrens|
 270020|Q|Assault on Fenris Isle|Silverpine Forest|
+4800|V|Morg Gnarltree|Duskwood|
 270011|Q|Free From the Hold|The Barrens|
 270014|Q|The Sleeper Has Awakened|Darkshore|
+6659|Q|Escape Through Stealth|Darkshore|
 5310|Q|The Guns of Northwatch|The Barrens|
 1310|Q|The Everstill Bridge|Redridge Mountains|
+14727|N|Deviate Crocolisk||beta
 5327|Q|The Escape|The Barrens|
 15203|Q|The Blackwood Corrupted|Darkshore|
 3457|Q|Wand to Bethor|Silverpine Forest|
@@ -7000,8 +7394,80 @@ FGT.GEARSOURCES_FOREVER = [==[
 281283|Q|Hides for the Forsaken|Tirisfal Glades|
 263307|Q|Mercy Falls on Deaf Ears|Zephras Isle|
 9599|Q|The Relics of Wakening|Teldrassil|
+22480|Q|Bonescythe Sabatons|Naxxramas|
+22440|Q|Cryptstalker Boots|Naxxramas|
+22420|Q|Dreadnaught Sabatons|Naxxramas|
+22492|Q|Dreamwalker Boots|Naxxramas|
+22468|Q|Earthshatter Boots|Naxxramas|
+22500|Q|Frostfire Sandals|Naxxramas|
+22508|Q|Plagueheart Sandals|Naxxramas|
+22430|Q|Redemption Boots|Naxxramas|
+22516|Q|Sandals of Faith|Naxxramas|
+21388|Q|Avenger's Greaves|Ahn'Qiraj|
+21333|Q|Conqueror's Greaves|Ahn'Qiraj|
+21359|Q|Deathdealer's Boots|Ahn'Qiraj|
+21338|Q|Doomcaller's Footwraps|Ahn'Qiraj|
+21344|Q|Enigma Boots|Ahn'Qiraj|
+21349|Q|Footwraps of the Oracle|Ahn'Qiraj|
+21355|Q|Genesis Boots|Ahn'Qiraj|
+21373|Q|Stormcaller's Footguards|Ahn'Qiraj|
+21365|Q|Striker's Footguards|Ahn'Qiraj|
+21532|Q|The Nightmare Manifests|Moonglade|
+22061|Q|Anthion's Parting Words||
+21995|Q|Anthion's Parting Words||
+22096|Q|Anthion's Parting Words|Orgrimmar|
+22003|Q|Anthion's Parting Words||
+22076|Q|Anthion's Parting Words||
+22107|Q|Anthion's Parting Words||
 272701|V|Captain Dirgehammer|Stormwind City|
+22064|Q|Anthion's Parting Words||
+22087|Q|Anthion's Parting Words|Ironforge|
+22084|Q|Anthion's Parting Words||
+275438|Q|Blight No More|Mount Hyjal|
+276341|Q|Blight No More|Mount Hyjal|
+274720|Q|Leather for Inclement Weather|Mount Hyjal|
+274719|Q|Leather for Inclement Weather|Mount Hyjal|
+274718|Q|Back to the Grind|Mount Hyjal|
+274721|Q|Threading a Solution|Mount Hyjal|
+11908|Q|Roll the Bones|Un'Goro Crater|
+11919|Q|Beware of Pterrordax|Un'Goro Crater|
+260185|Q|Blackmaw Counter-Offensive|Azshara|
+11872|Q|Calm Before the Storm||
+12050|Q|A Little Slime Goes a Long Way|Ironforge|
+12021|Q|Abandoned Hope|Blackrock Depths|
+260167|Q|Master Feardred|Azshara|
+10707|Q|Return to Tymor|Ironforge|
+281259|Q|Memories of Rockard|Blasted Lands|
+270104|Q|Dark Heart|Feralas|
+270101|Q|Rescue OOX-09/HL!|The Hinterlands|
+9645|Q|Rescue OOX-09/HL!|The Hinterlands|
+9646|Q|Rescue OOX-09/HL!|The Hinterlands|
+259890|Q|Winter Frontier Fishery|Azshara|
+270094|Q|The Brood of Onyxia|Dustwallow Marsh|
+10701|Q|The Brood of Onyxia|Dustwallow Marsh|
+10700|Q|The Brood of Onyxia|Dustwallow Marsh|
+4653|Q|Scrounging|Badlands|
+9633|Q|The Mark of Quality|Feralas|
+9630|Q|The Mark of Quality|Feralas|
+9637|Q|Deliver to MacKinley|Tanaris|
+20641|Q|Southsea Shakedown|Tanaris|
+9658|Q|Gordunni Cobalt|Feralas|
+10702|Q|Overlord Mok'Morokk's Concern|Dustwallow Marsh|
+9662|Q|The Battle Plans|Feralas|
+4136|Q|Split Bone Necklace|Stranglethorn Vale|
+4137|Q|Split Bone Necklace|Stranglethorn Vale|
+4109|Q|Excelsior|Stranglethorn Vale|
+10748|Q|Mazen's Behest|Stormwind City|
+6791|Q|The Karnitol Shipwreck|Desolace|
 17688|Q|The Green Hills of Stranglethorn|Stranglethorn Vale|
+3764|Q|Taretha's Gift|Hillsbrad Foothills|
+19969|Q|Rare Fish - Brownell's Blue Striped Racer|Fishing|
+270066|Q|Malin's Request|Arathi Highlands|
+15104|Q|Malin's Request|Arathi Highlands|
+15697|Q|Kodo Roundup|Desolace|
+274916|Q|In Memoriam|Riverglades|
+4139|Q|Report to Doren|Stranglethorn Vale|
+9519|Q|Hungry!|Dustwallow Marsh|
 276727|Q|Elixir of Agony|Hillsbrad Foothills|
 10653|Q|Horde Presence|The Barrens|
 277234|Q|WANTED: Incinerator Gar'im|Redridge Mountains|
@@ -7019,6 +7485,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 3741|Q|Elixir of Pain|Hillsbrad Foothills|
 6095|Q|Return to Kristoff|Stormwind City|
 6191|Q|WANTED: Chok'sul|Loch Modan|
+6666|Q|Gerenzo's Orders|Stonetalon Mountains|
 5311|Q|Free From the Hold|The Barrens|
 270013|Q|Oh Brother...|Deadmines|
 6092|Q|Underbelly Scales|Redridge Mountains|
@@ -7036,14 +7503,81 @@ FGT.GEARSOURCES_FOREVER = [==[
 263308|Q|Mercy Falls on Deaf Ears|Zephras Isle|
 281285|Q|Hides for the Forsaken|Tirisfal Glades|
 263309|Q|Free the Hollows|Zephras Isle|
+22519|Q|Bindings of Faith|Naxxramas|
+22483|Q|Bonescythe Bracers|Naxxramas|
+22443|Q|Cryptstalker Wristguards|Naxxramas|
+22423|Q|Dreadnaught Bracers|Naxxramas|
+22495|Q|Dreamwalker Wristguards|Naxxramas|
+22471|Q|Earthshatter Wristguards|Naxxramas|
+22503|Q|Frostfire Bindings|Naxxramas|
+22511|Q|Plagueheart Bindings|Naxxramas|
+22424|Q|Redemption Wristguards|Naxxramas|
+22655|Q|Glacial Wrists|Naxxramas|
+22671|Q|Icebane Bracers|Naxxramas|
+22665|Q|Icy Scale Bracers|Naxxramas|
+22663|Q|Polar Bracers|Naxxramas|
+22011|Q|An Earnest Proposition||
+22095|Q|An Earnest Proposition|Orgrimmar|
+21996|Q|An Earnest Proposition||
+22004|Q|An Earnest Proposition||
+22071|Q|An Earnest Proposition||
+22108|Q|An Earnest Proposition||
+22063|Q|An Earnest Proposition||
+22088|Q|An Earnest Proposition|Ironforge|
+22079|Q|An Earnest Proposition||
+21184|Q|Stalwart's Battlegear|Silithus|
+21186|Q|Stalwart's Battlegear|Silithus|
+275739|Q|Work Well Done|Mount Hyjal|
+19830|Q|Paragons of Power: The Augur's Bracers|Zul'Gurub|
+19843|Q|Paragons of Power: The Confessor's Wraps|Zul'Gurub|
+19848|Q|Paragons of Power: The Demoniac's Wraps|Zul'Gurub|
+19827|Q|Paragons of Power: The Freethinker's Armguards|Zul'Gurub|
+19840|Q|Paragons of Power: The Haruspex's Bracers|Zul'Gurub|
+19846|Q|Paragons of Power: The Illusionist's Wraps|Zul'Gurub|
+19836|Q|Paragons of Power: The Madcap's Bracers|Zul'Gurub|
+19833|Q|Paragons of Power: The Predator's Bracers|Zul'Gurub|
+19824|Q|Paragons of Power: The Vindicator's Armguards|Zul'Gurub|
+22667|Q||Eastern Plaguelands|
+22668|Q||Eastern Plaguelands|
 272702|V|Captain Dirgehammer|Stormwind City|
+15796|Q|Guarding Secrets|Winterspring|
+275390|Q|Water of Hyjal|Mount Hyjal|
+15797|Q|Guarding Secrets|Winterspring|
+277222|Q|Wrap Return|Mount Hyjal|
+260183|Q|Blackmaw Counter-Offensive|Azshara|
+11917|Q|Shizzle's Flyer|Un'Goro Crater|
+11875|Q|Further Corruption|Felwood|
+270102|Q|Rescue OOX-17/TN!|Tanaris|
+270103|Q|Rescue OOX-17/TN!|Tanaris|
+9638|Q|Tooga's Quest|Tanaris|
+270110|Q|Facing Negolash|Stranglethorn Vale|
+4118|Q|Message in a Bottle|Stranglethorn Vale|
+270105|Q|Dark Heart|Feralas|
+10746|Q|Prayer to Elune|Searing Gorge|
+281301|Q|Witch Doctor Ti'ik|The Hinterlands|
+10705|Q|Doling Justice|Feralas|
+270100|Q|The Captain's Chest|Stranglethorn Vale|
+11469|Q|The Captain's Chest|Stranglethorn Vale|
+274750|V|Rettrick|Tanaris|
+10461|Q|Shadoweaver|Tailoring|
 270091|Q|Cracking Maury's Foot|Stranglethorn Vale|
+272186|Q|Rot and Regret|Maraudon|
+4979|Q|Stone Is Better than Cloth|Badlands|
 270080|Q|WANTED: Otto and Falconcrest|Arathi Highlands|
+6793|Q|Reagents for Reclaimers Inc.|Desolace|
+4545|Q|Foul Magics|Arathi Highlands|
+270073|Q|Foul Magics|Arathi Highlands|
+270076|Q|The Curse of the Tides|Stranglethorn Vale|
 4745|Q|WANTED: Otto and Falconcrest|Arathi Highlands|
 4744|Q|WANTED: Marez Cowl|Arathi Highlands|
+15864|Q|Ghost-o-plasm Round Up|Desolace|
 270068|Q|WANTED: Marez Cowl|Arathi Highlands|
+16794|Q|Portals of the Legion|Desolace|
 16791|Q|Book of the Ancients|Desolace|
+4132|Q|Headhunting|Stranglethorn Vale|
+4133|Q|Headhunting|Stranglethorn Vale|
 2032|Q|To Steal From Thieves|Undercity|
+277214|Q|Returning to Port|Stranglethorn Vale|
 271732|Q|Open the Maw|Excavation Site: Wetlands|
 271740|Q|Open the Maw|Excavation Site: Wetlands|
 6722|Q|Fallen Sky Lake|Ashenvale|
@@ -7055,6 +7589,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 4795|V|||
 15462|Q|Protect Kanati Greycloud|Thousand Needles|
 4796|V|||
+274742|V|Winklespark|The Barrens|
 4794|V|||
 281251|Q|Stonetalon Supply Run|Stonetalon Mountains|
 276722|Q|Assault on Fenris Isle|Silverpine Forest|
@@ -7073,19 +7608,77 @@ FGT.GEARSOURCES_FOREVER = [==[
 281269|Q|Rocks to Rests|Orgrimmar|
 281271|Q|Rocks to Rests|Orgrimmar|
 281270|Q|Rocks to Rests|Orgrimmar|
+22481|Q|Bonescythe Gauntlets|Naxxramas|
+22441|Q|Cryptstalker Handguards|Naxxramas|
+22421|Q|Dreadnaught Gauntlets|Naxxramas|
+22493|Q|Dreamwalker Handguards|Naxxramas|
+22469|Q|Earthshatter Handguards|Naxxramas|
+22501|Q|Frostfire Gloves|Naxxramas|
+22517|Q|Gloves of Faith|Naxxramas|
+22509|Q|Plagueheart Gloves|Naxxramas|
+22426|Q|Redemption Handguards|Naxxramas|
+22654|Q|Glacial Gloves|Naxxramas|
+22670|Q|Icebane Gauntlets|Naxxramas|
+22666|Q|Icy Scale Gauntlets|Naxxramas|
+22662|Q|Polar Gloves|Naxxramas|
 272095|V|Creeg Bothunk|The Barrens|
 272097|V|Creeg Bothunk|The Barrens|
+21178|Q|Volunteer's Battlegear|Silithus|
+20650|Q|Vyral the Vile|Silithus|
+16994|Q|Duskwing, Oh How I Hate Thee...|Eastern Plaguelands|
+281279|Q|Halt the Hail|Mount Hyjal|
+281280|Q|Halt the Hail|Mount Hyjal|
 272703|V|Captain Dirgehammer|Stormwind City|
+275669|Q|Unsealing Blackthorne Pact|Mount Hyjal|
+15708|Q|A Final Blow|Felwood|
+21318|Q|Winterfall Activity|Timbermaw Hold|
+15795|Q|The Crystal of Zin-Malor|Winterspring|
+21319|Q|Winterfall Activity|Timbermaw Hold|
+277215|Q|Wrap Return|Mount Hyjal|
+275715|Q|Contents Under Pressure|Mount Hyjal|
+260211|Q|Deadliest Catch|Azshara|
+15823|Q|Runecloth|Blackmaw Hold|
+22006|Q|Just Compensation|Orgrimmar|
+11918|Q|Beware of Pterrordax|Un'Goro Crater|
 272096|V|Creeg Bothunk|The Barrens|
 272098|V|Creeg Bothunk|The Barrens|
+12051|Q|A Little Slime Goes a Long Way|Ironforge|
+11867|Q|Ogre Head On A Stick = Party|Burning Steppes|
+19116|Q|Separation Anxiety|The Hinterlands|
+19119|Q|The Final Message to the Wildhammer|The Hinterlands|
+11888|Q|The Mystery of Morrowgrain|Feathermoon Stronghold|
+9665|Q|Dark Heart|Feralas|
+9656|Q|Wandering Shay|Feralas|
+19126|Q|Curse These Fat Fingers|Searing Gorge|
+19123|Q|STOLEN: Smithing Tuyere and Lookout's Spyglass|Searing Gorge|
+16738|Q|The Dunemaul Compound|Tanaris|
+9634|Q|Return to Apothecary Zinge|Undercity|
 276200|V|Friz Frazzlespark|Riverglades|
+270089|Q|An Ambassador of Evil|Badlands|
+9632|Q|The Mark of Quality|Feralas|
+9631|Q|The Mark of Quality|Feralas|
 277223|Q|No Honor Among Thieves|Desolace|
+270086|Q|Overlord Mok'Morokk's Concern|Dustwallow Marsh|
+9704|Q|Identifying the Brood|Dustwallow Marsh|
+6727|Q|Safety First|Thousand Needles|
 270072|Q|Crushridge Warmongers|Alterac Mountains|
+4509|Q|Drowned Sorrows|Arathi Highlands|
+6794|Q|Reagents for Reclaimers Inc.|Desolace|
+16873|Q|Portals of the Legion|Desolace|
+6732|Q|News for Fizzle|Thousand Needles|
+274957|Q|High Stakes|Riverglades|
 4107|Q|Tiger Mastery|Stranglethorn Vale|
 6784|Q|Centaur Bounty|Desolace|
+9518|Q|Hungry!|Dustwallow Marsh|
+4121|Q|Hostile Takeover|Stranglethorn Vale|
+15585|Q|Clam Bait|Desolace|
+9698|Q|Return to Vahlarriel|Desolace|
+6744|Q|Alliance Relations|Orgrimmar|
 3759|Q|Syndicate Assassins|Alterac Mountains|
 3754|Q|Costly Menace|Hillsbrad Foothills|
 7106|Q|Look to the Stars|Duskwood|
+7129|Q|Brutal Gauntlets||
+6974|Q|Klockmort's Creation||
 10654|Q|Horde Presence|The Barrens|
 16741|Q|The Lost Pages|Ashenvale|
 16740|Q|The Lost Pages|Ashenvale|
@@ -7119,36 +7712,125 @@ FGT.GEARSOURCES_FOREVER = [==[
 273876|Q|Desperate Times|Zephras Isle|
 263306|Q|Mercy Falls on Deaf Ears|Zephras Isle|
 263310|Q|Free the Hollows|Zephras Isle|
+21709|Q|The Savior of Kalimdor|Ahn'Qiraj|
+19384|Q|The Lord of Blackrock||
+22707|Q|Ramaladni's Icy Grasp|Naxxramas|
+21200|Q||Tanaris|
+21205|Q||Tanaris|
+21210|Q||Tanaris|
+21526|Q|The Wrath of Neptulon|Azshara|
+21199|Q|The Path of the Protector|Tanaris|
+21204|Q|The Path of the Conqueror|Tanaris|
+21209|Q|The Path of the Invoker|Tanaris|
+18403|Q|Celebrating Good Times;For All To See||
+20600|Q|Waking Legends|Epic|
+22725|Q|A Humble Offering|Silithus|
+21198|Q|The Path of the Protector|Tanaris|
+21203|Q|The Path of the Conqueror|Tanaris|
+21208|Q|The Path of the Invoker|Tanaris|
+21182|Q|Veteran's Battlegear|Silithus|
+22681|Q||Eastern Plaguelands|
+22680|Q||Eastern Plaguelands|
+21190|Q|Champion's Battlegear|Silithus|
+21408|Q|Band of Unending Life|Ahn'Qiraj|
+21414|Q|Band of Vaulted Secrets|Ahn'Qiraj|
+21405|Q|Band of Veiled Shadows|Ahn'Qiraj|
+21396|Q|Ring of Eternal Justice|Ahn'Qiraj|
+21411|Q|Ring of Infinite Wisdom|Ahn'Qiraj|
+21417|Q|Ring of Unspoken Names|Ahn'Qiraj|
+21399|Q|Ring of the Gathering Storm|Ahn'Qiraj|
+21197|Q|The Path of the Protector|Tanaris|
+21202|Q|The Path of the Conqueror|Tanaris|
+21207|Q|The Path of the Invoker|Tanaris|
+21393|Q|Signet of Unyielding Strength|Ahn'Qiraj|
+21402|Q|Signet of the Unseen Path|Ahn'Qiraj|
 272068|V|Creeg Bothunk|The Barrens|
+275969|Q|A Ring of Gems|Winterspring|
+275968|Q|A Ring of Gems|Winterspring|
+275970|Q|A Ring of Gems|Winterspring|
+275971|Q|A Ring of Gems|Winterspring|
 272064|V|Creeg Bothunk|The Barrens|
+18399|Q|A Hero's Reward|Azshara|
+18398|Q|A Hero's Reward|Azshara|
+21179|Q|Volunteer's Battlegear|Silithus|
+21189|Q|Stalwart's Battlegear|Silithus|
+275738|Q|Return to Jereman|Mount Hyjal|
+275740|Q|Work Well Done|Mount Hyjal|
+15855|Q|Hidden Treasures|Eastern Plaguelands|
+21196|Q|The Path of the Protector|Tanaris|
+21201|Q|The Path of the Conqueror|Tanaris|
+21206|Q|The Path of the Invoker|Tanaris|
+19065|Q|Praise from the Emerald Circle <NYI> <TXT>|Felwood|
+275685|Q|Unsealing Blackthorne Pact|Mount Hyjal|
+275831|Q|Tarnished Treasures|Mount Hyjal|
+13812|Q|<NYI> <TXT> Ring of the Dawn|Eastern Plaguelands|
+273800|Q|Belle's Ring|Mount Hyjal|
+18402|Q|Uncovering Past Secrets|Moonglade|
+18400|Q|Uncovering Past Secrets|Moonglade|
+276333|Q|Wood Remains|Mount Hyjal|
+281288|Q|Orgrimmar's Windshapers;Stormwind's High Order|Eastern Plaguelands|
+15702|Q|Melding of Influences|Undercity|
+12102|Q|The Smoldering Ruins of Thaurissan|Ironforge|
+11868|Q|Ogre Head On A Stick = Party|Burning Steppes|
 272069|V|Creeg Bothunk|The Barrens|
 272065|V|Creeg Bothunk|The Barrens|
+10739|Q|Rise, Obsidion!|Searing Gorge|
+11869|Q|Krom'Grul|Burning Steppes|
+11862|Q|Bone-Bladed Weapons|Orgrimmar|
+9642|Q|Tooga's Quest|Tanaris|
+9655|Q|The Morrow Stone|Feralas|
+270109|Q|Facing Negolash|Stranglethorn Vale|
+19038|Q|Zukk'ash Report|Feralas|
+4550|Q|Death From Below|Arathi Highlands|
+4549|Q|Death From Below|Arathi Highlands|
+275043|Q|Bloodmaster's Ring|Riverglades|
+275044|Q|Bloodmaster's Ring|Riverglades|
 277208|Q|No Honor Among Thieves|Desolace|
 276202|V|Friz Frazzlespark|Riverglades|
+275045|Q|Bloodmaster's Ring|Riverglades|
+274754|V|Rettrick|Tanaris|
 272070|V|Creeg Bothunk|The Barrens|
 272066|V|Creeg Bothunk|The Barrens|
 277209|Q|Terror of the Desert Skies|Badlands|
-276899|Q|Past Due|Scarlet Monastery|
+274961|Q|Preventative Measures|Riverglades|
+6757|Q|The Missing Diplomat|Stormwind City|
+276899|Q|Past Due;Small Book, Big Effort||
+274915|Q|In Memoriam|Riverglades|
+1996|N|Bloodscalp Witch Doctor||beta
+278019|Q|Twice Misplaced Trust|Stranglethorn Vale|
+18585|Q|Service to the Horde|Dustwallow Marsh|
 4135|Q|Bloody Bone Necklaces|Stranglethorn Vale|
 281634|Q|Greater Friend of the Library|Special|
 270051|Q|A Daughter's Love|Duskwood|
+18586|Q|Service to the Horde|Dustwallow Marsh|
 281635|Q|Greater Friend of the Library|Special|
+9622|Q|Jarl Needs a Blade|Dustwallow Marsh|
+278017|Q|Twice Misplaced Trust|Stranglethorn Vale|
+278018|Q|Twice Misplaced Trust|Stranglethorn Vale|
 2043|Q|The Legend of Stalvan|Duskwood|
 270053|Q|The Legend of Stalvan|Duskwood|
+270052|Q|Jarl Needs a Blade|Dustwallow Marsh|
+15689|Q|Bodyguard for Hire|Desolace|
 270050|Q|A Grim Task|Wetlands|
 271670|Q|Horrors in the Highland|Excavation Site: Wetlands|
 2917|Q|A Grim Task|Wetlands|
 3760|Q|Battle of Hillsbrad|Hillsbrad Foothills|
+6790|Q|Centaur Bounty|Desolace|
 281320|Q|Gleaning Our Future|Wetlands|
 15467|Q|Hypercapacitor Gizmo|Thousand Needles|
+4535|Q|A King's Tribute|Ironforge|
 281304|Q|Understanding Our Present|Wetlands|
+1116|Q|Raene's Cleansing|Ashenvale|
+2933|Q|An Audience with the King|Stormwind City|
 288929|W|||beta
 288930|W|||beta
 288928|W|||beta
 288927|W|||beta
 288931|W|||beta
+6678|Q|Reception from Tyrande|Stonetalon Mountains|
 281673|Q|The Offering of Blood|Silverpine Forest|
 281252|Q|Bloodfury Trinkets|Stonetalon Mountains|
+277210|Q|The Horn of Xelthos||
 1319|Q|Howling in the Hills|Redridge Mountains|
 6669|Q|The Den|Stonetalon Mountains|
 3739|Q|Souvenirs of Death|Hillsbrad Foothills|
@@ -7158,24 +7840,112 @@ FGT.GEARSOURCES_FOREVER = [==[
 5622|Q|The Tower of Althalaxx|Darkshore|
 5351|Q|Hezrul Bloodmark|The Barrens|
 3235|Q|A Husband's Revenge|Silverpine Forest|
+23206|Q|The Fall of Kel'Thuzad|Naxxramas|
+23207|Q|The Fall of Kel'Thuzad|Naxxramas|
+18406|Q|Celebrating Good Times;For All To See||
+19948|Q|The Heart of Hakkar|Zul'Gurub|
+19950|Q|The Heart of Hakkar|Zul'Gurub|
+19949|Q|The Heart of Hakkar|Zul'Gurub|
+19288|Q|Darkmoon Beast Deck|Darkmoon Faire|
+19287|Q|Darkmoon Warlords Deck|Darkmoon Faire|
+19289|Q|Darkmoon Elementals Deck|Darkmoon Faire|
+19290|Q|Darkmoon Portals Deck|Darkmoon Faire|
+21180|Q|Champion's Battlegear|Silithus|
+21181|Q|Veteran's Battlegear|Silithus|
+21326|Q|The Root of All Evil|Timbermaw Hold|
+17690|Q|Proving Grounds|Alterac Valley|
+17905|Q|Rise and Be Recognized|Alterac Valley|
+17906|Q|Honored Amongst the Clan|Alterac Valley|
+17907|Q|Earned Reverence|Alterac Valley|
+17908|Q|Legendary Heroes|Alterac Valley|
+17909|Q|The Eye of Command|Alterac Valley|
+17759|Q|Alas, Andorhal|Western Plaguelands|
+17691|Q|Proving Grounds|Alterac Valley|
+17900|Q|Rise and Be Recognized|Alterac Valley|
+17901|Q|Honored Amongst the Guard|Alterac Valley|
+17902|Q|Earned Reverence|Alterac Valley|
+17903|Q|Legendary Heroes|Alterac Valley|
+17904|Q|The Eye of Command|Alterac Valley|
+22678|Q||Eastern Plaguelands|
+275347|Q|Final Death|Mount Hyjal|
+276337|Q|Blind Vengeance|Mount Hyjal|
+269741|Q|Open Season|Mount Hyjal|
+274386|Q|Soldier's Solace|Mount Hyjal|
+10659|Q|Heroes of Old|Blasted Lands|
+11905|Q|It's Dangerous to Go Alone|Un'Goro Crater|
+260205|Q|Your Final Reward|Azshara|
 272061|V|Creeg Bothunk|The Barrens|
 272060|V|Creeg Bothunk|The Barrens|
+270276|Q|Saving Sharpbeak|The Hinterlands|
+19120|Q|Job Opening: Guard Captain of Revantusk Village|The Hinterlands|
+18951|Q|Look at the Size of It!|Searing Gorge|
+270226|Q|Message in a Bottle|Stranglethorn Vale|
+219345|Q|Brought to Heel|Blasted Lands|
+19141|Q|Incendosaurs? Whateverosaur is More Like It|Searing Gorge|
+2820|Q|This Is Going to Be Hard|Badlands|
+4130|Q|Facing Negolash|Stranglethorn Vale|
+744|Q|Sweet Amber|Westfall|
+277844|Q|Mirage Mirror|Badlands|
 272059|V|Creeg Bothunk|The Barrens|
 272062|V|Creeg Bothunk|The Barrens|
 280766|Q|Changing Tastes;Heartwoven|Excavation Site: Wetlands|
 276895|Q|The Broodmother|Mulgore|
 274445|V|Master Sergeant Biggins|Stormwind City|
+19019|Q|Rise, Thunderfury!|Legendary|
+21244|Q|Imperial Qiraji Armaments|Ahn'Qiraj|
+21242|Q|Imperial Qiraji Armaments|Ahn'Qiraj|
+21268|Q|Imperial Qiraji Regalia|Ahn'Qiraj|
+21520|Q|Treasure of the Timeless One|Silithus|
+21522|Q|Treasure of the Timeless One|Silithus|
+21404|Q|Dagger of Veiled Shadows|Ahn'Qiraj|
+21416|Q|Kris of Unspoken Names|Ahn'Qiraj|
+21401|Q|Scythe of the Unseen Path|Ahn'Qiraj|
+21392|Q|Sickle of Unyielding Strength|Ahn'Qiraj|
 272843|V|Captain O'Neal|Stormwind City|
 272839|V|Captain O'Neal|Stormwind City|
 272693|V|Captain O'Neal|Stormwind City|
 272847|V|Captain O'Neal|Stormwind City|
 272859|V|Captain O'Neal|Stormwind City|
-289294|N|Super Hogger||beta
+22378|Q|The Perfect Poison|Silithus|
+22377|Q|The Perfect Poison|Silithus|
+17002|Q|The Corpulent One|Eastern Plaguelands|
+15783|Q|Shy-Rotam|Winterspring|
+15782|Q|Shy-Rotam|Winterspring|
+10697|Q|Enchanted Azsharite Fel Weaponry|Stranglethorn Vale|
+281587|Q|Head Scratcher|Mount Hyjal|
+15814|Q|Hameya's Plea|Eastern Plaguelands|
+275700|Q|Drum Up Trouble|Mount Hyjal|
+15800|Q|Mission Accomplished!|Western Plaguelands|
+274383|Q|Soldier's Solace|Mount Hyjal|
+15801|Q|Mission Accomplished!|Western Plaguelands|
+276338|Q|Kits and Cats|Mount Hyjal|
+15706|Q|The Remains of Trey Lightforge|Felwood|
+15705|Q|The Remains of Trey Lightforge|Felwood|
+15862|Q|Return to Tinkee|Winterspring|
+260172|Q|Ley of the Land|Azshara|
+260180|Q|Murloc Thieves|Azshara|
+19040|Q|Zapped Giants|Feralas|
+270092|Q|The Bloodsail Buccaneers|Stranglethorn Vale|
+11856|Q|A Hero's Welcome|Feralas|
+4987|Q|An Ambassador of Evil|Badlands|
+10703|Q|Challenge Overlord Mok'Morokk|Dustwallow Marsh|
+274753|V|Rettrick|Tanaris|
+277979|Q|Noise Complaints;The Offense of Grom'gol|Stranglethorn Vale|
+272180|Q|Tempered Expectations|Shen'dralas|
+9680|Q|Threat From the Sea|Swamp of Sorrows|
+271802|Q|Khan Jehn|Desolace|
 9520|Q|Call to Arms|Arathi Highlands|
+213105|Q|Taste Testing|Arathi Highlands|
+274920|Q|Saving Sunnyglade|Riverglades|
+274928|Q|Helping Hands|Riverglades|
+271796|Q|Proof of Concept|Shen'dralas|
+864|Q|Lee's Ultimate Test Quest... of Doom!|Special|
+277246|Q|The Eye of Bhossca||
 277515|Q|Hate the Hatefury|Desolace|
 271664|Q|Horrors in the Highland|Excavation Site: Wetlands|
 281314|Q|Stopping the Cycle|Wetlands|
 270048|Q|Insane Druids|Ashenvale|
+17046|Q|Raene's Cleansing|Ashenvale|
 281293|Q|Valuable Vantages|Hillsbrad Foothills|
 251485|Q|A Frightened Request|Ruins of Lordaeron|
 16890|Q|Torek's Assault|Ashenvale|
@@ -7183,41 +7953,81 @@ FGT.GEARSOURCES_FOREVER = [==[
 5321|Q|Serena Bloodfeather|The Barrens|
 5279|Q|Serena Bloodfeather|The Barrens|
 3184|N|several creatures||beta
-5627|Q|The Absent Minded Prospector|Darkshore|
+5627|Q|The Absent Minded Prospector|Wetlands|
+2908|Q|A Dark Threat Looms|Loch Modan|
 3581|Q|Wand to Bethor|Silverpine Forest|
 281254|Q|Banner of the Fallen|Loch Modan|
 281257|Q|Twisting the Knife|Loch Modan|
+6969|Q|Weapons of Elunite||
 6980|Q|Dead-tooth Jack||
-7298|Q|Snatch and Grab||
+7116|Q|Heirloom Weapon||
+7327|Q|Forged Steel||
+6981|Q|Grey Iron Weapons||
+15335|Q|The Fragments Within|Darkshore|
+15396|Q|The Fragments Within|Darkshore|
+7298|Q|||
+2218|Q|A Pilot's Revenge|Dun Morogh|
 257346|Q|Return to Valanaar|Zephras Isle|
 4974|Q|Supervisor Fizsprocket|Mulgore|
 248007|Q|Rare Books|Elwynn Forest|
+277988|Q|Stalk With The Earthmother|Mulgore|
 4947|Q|Skull Rock|Durotar|
 18957|Q|Druid of the Claw|Teldrassil|
 263314|Q|Deliver the News|Zephras Isle|
 263313|Q|Deliver the News|Zephras Isle|
 282284|Q|Twisted Hatred|Teldrassil|
+21269|Q|Imperial Qiraji Armaments|Ahn'Qiraj|
 272838|V|Captain O'Neal|Stormwind City|
 278468|V|Captain O'Neal|Stormwind City|
+16998|Q|Order Must Be Restored;The Scarlet Oracle, Demetria|Eastern Plaguelands|
+275649|Q|A Thorny Solution|Mount Hyjal|
+281637|Q|Greater Friend of the Library|Special|
+276334|Q|Wood Remains|Mount Hyjal|
+260210|Q|Deadliest Catch|Azshara|
+10686|Q|Venom to the Undercity|The Hinterlands|
+11915|Q|Shizzle's Flyer|Un'Goro Crater|
+276754|Q|The Dying Ancients|Mount Hyjal|
+9643|Q|Rescue OOX-17/TN!|Tanaris|
+275049|Q|Bring Me His Head|Riverglades|
+275051|Q|Bring Me His Head|Riverglades|
 277258|Q|Greater Friend of the Library|Special|
+4652|Q|Scrounging|Badlands|
 276204|V|Friz Frazzlespark|Riverglades|
 4129|Q|Cracking Maury's Foot|Stranglethorn Vale|
+9661|Q|The Battle Plans|Feralas|
+9706|Q|Army of the Black Dragon|Dustwallow Marsh|
+4507|Q|Trol'kalar|Arathi Highlands|
+6746|Q|The Corrupter|Desolace|
+280696|Q|The Tempest's Weapons||
 3763|Q|Crushridge Warmongers|Alterac Mountains|
+15865|Q|Ghost-o-plasm Round Up|Desolace|
+4975|Q|Malin's Request|Arathi Highlands|
+271798|Q|Proof of Concept|Shen'dralas|
+270065|Q|Gizelton Caravan|Desolace|
+15695|Q|Gizelton Caravan|Desolace|
+6828|Q|Galen's Escape|Swamp of Sorrows|
+4115|Q|The Defense of Grom'gol|Stranglethorn Vale|
 16788|Q|Claim Rackmore's Treasure!|Desolace|
 6223|Q|Bride of the Embalmer|Duskwood|
 2916|Q|A Grim Task|Wetlands|
 3761|Q|Battle of Hillsbrad|Hillsbrad Foothills|
 281307|Q|Old Habits|Wetlands|
+1547|Q|Worgen in the Woods|Duskwood|
+277257|Q|The Phylactery|Duskwood|
 15466|Q|Arikara|Thousand Needles|
 3743|Q|Dangerous!|Hillsbrad Foothills|
 6676|Q|Reclaiming the Charred Vale|Stonetalon Mountains|
 16660|Q|Je'neu of the Earthen Ring|Ashenvale|
 1276|Q|Tharil'zun|Redridge Mountains|
 5357|Q|Isha Awak|The Barrens|
+9607|Q|The Tome of Valor||
+4820|V|Kara Adams|Redridge Mountains|
 276889|Q|Chol'aruk the Ravener|The Barrens|
-4821|V|Kara Adams|Redridge Mountains|
+4822|V|Kara Adams|Redridge Mountains|
 1557|Q|The Coastal Menace|Westfall|
 5302|Q|Cry of the Thunderhawk|The Barrens|
+6970|Q|The Shieldsmith||
+7120|Q|Trial at the Field of Giants||
 15207|Q|The Sleeper Has Awakened|Darkshore|
 6187|Q|In Defense of the King's Lands|Loch Modan|
 5325|Q|Samophlange|The Barrens|
@@ -7226,43 +8036,94 @@ FGT.GEARSOURCES_FOREVER = [==[
 246265|Q|Making Repairs||
 263305|Q|A Firm Response|Zephras Isle|
 272841|V|Captain O'Neal|Stormwind City|
-11307|V|Kuna Thunderhorn|Thunder Bluff|
+16996|Q|Order Must Be Restored;The Scarlet Oracle, Demetria|Eastern Plaguelands|
+20646|Q|WANTED: Deathclasp, Terror of the Sands|Silithus|
+275439|Q|Feathers in Flight|Mount Hyjal|
+275441|Q|Feathers in Flight|Mount Hyjal|
+16622|Q|Wildkin of Elune|Winterspring|
+276902|Q|Thicker Than Water|City of Dalaran|
+19114|Q|Return to Primal Torntusk|The Hinterlands|
+270107|Q|Dark Vessels|The Hinterlands|
 277254|Q|Greater Friend of the Library|Special|
 17686|Q|Big Game Hunter|Stranglethorn Vale|
-289303|N|Super Hogger||beta
+5817|Q|Answered Questions|Ashenvale|
 3493|Q|Ormer's Revenge|Wetlands|
 6739|Q|The Sacred Flame|Thunder Bluff|
 3742|Q|Dangerous!|Hillsbrad Foothills|
 11304|V|||
-11303|V|Railee Thriceforged|Zephras Isle|
+11303|V|||
 2903|Q|A Hunter's Boast|Loch Modan|
 276695|Q|The Killing Fields|Westfall|
 276685|Q|Rare Books|Elwynn Forest|
 5346|Q|Centaur Bracers|The Barrens|
 263404|Q|Catching Wind|Zephras Isle|
+21710|Q|The Savior of Kalimdor|Ahn'Qiraj|
+22658|Q|Glacial Cloak|Naxxramas|
+21397|Q|Cape of Eternal Justice|Ahn'Qiraj|
+21409|Q|Cloak of Unending Life|Ahn'Qiraj|
+21406|Q|Cloak of Veiled Shadows|Ahn'Qiraj|
+21400|Q|Cloak of the Gathering Storm|Ahn'Qiraj|
+21403|Q|Cloak of the Unseen Path|Ahn'Qiraj|
+21394|Q|Drape of Unyielding Strength|Ahn'Qiraj|
+21415|Q|Drape of Vaulted Secrets|Ahn'Qiraj|
+21412|Q|Shroud of Infinite Wisdom|Ahn'Qiraj|
+21418|Q|Shroud of Unspoken Names|Ahn'Qiraj|
+21187|Q|Volunteer's Battlegear|Silithus|
+275711|Q|Bait the Beast|Mount Hyjal|
 272699|V|Master Sergeant Biggins|Stormwind City|
 272698|V|Master Sergeant Biggins|Stormwind City|
+20218|Q|Confront Yeh'kinya|Zul'Gurub|
+275668|Q|Summit Sentries|Mount Hyjal|
+20219|Q|Confront Yeh'kinya|Zul'Gurub|
+275833|Q|The Experimental Method|Mount Hyjal|
+274035|Q|Rites of Respect|Mount Hyjal|
+15804|Q|Glyphed Oaken Branch|Western Plaguelands|
+15789|Q|Strange Sources|Winterspring|
+11873|Q|Ancient Spirit|Felwood|
+15703|Q|Melding of Influences|Undercity|
+276901|Q|Thicker Than Water|City of Dalaran|
+260168|Q|Potential Panacea|Azshara|
+19121|Q|WANTED: Vile Priestess Hexx and Her Minions|The Hinterlands|
+9648|Q|Rescue OOX-22/FE!|Feralas|
+275050|Q|Bring Me His Head|Riverglades|
+275046|Q|Bring Me His Head|Riverglades|
+11858|Q|A Grim Discovery|Feralas|
+9635|Q|Return to Apothecary Zinge|Undercity|
+4113|Q|Stranglethorn Fever|Stranglethorn Vale|
+274752|V|Rettrick|Tanaris|
 12254|V|Kharedon|Moonglade|
+271810|Q|Corpsefeeder's Carapace|Shen'dralas|
+9703|Q|Identifying the Brood|Dustwallow Marsh|
+9660|Q|Gordunni Cobalt|Feralas|
 6789|Q|Khan Hratha|Desolace|
+6832|Q|Nothing But The Truth|Duskwood|
+4114|Q|Keep An Eye Out|Stranglethorn Vale|
+277206|Q|Strahnbrad Mystery|Alterac Mountains|
 277207|Q|Terror of the Desert Skies|Badlands|
+277205|Q|Return to Delgren||
 2805|Q|Bartolo's Yeti Fur Cloak|Hillsbrad Foothills|
 271716|Q|Prehistoric Prism|Excavation Site: Wetlands|
 271719|Q|Earthen Echo|Excavation Site: Wetlands|
+9699|Q|Return to Vahlarriel|Desolace|
+6745|Q|Alliance Relations|Orgrimmar|
 2953|Q|Morbent Fel|Duskwood|
 281319|Q|Gleaning Our Future|Wetlands|
 16658|Q|The Hunt Completed|Ashenvale|
 4504|Q|The Thandol Span|Wetlands|
 281305|Q|Understanding Our Present|Wetlands|
+2902|Q|Worgen in the Woods|Duskwood|
 3749|Q|Elixir of Agony|Hillsbrad Foothills|
 273654|Q|Stronger than Steel|Mulgore|
+15468|Q|Free at Last|Thousand Needles|
 6667|Q|Gerenzo Wrenchwhistle|Stonetalon Mountains|
 16661|Q|Je'neu of the Earthen Ring|Ashenvale|
 16990|Q|Bloodfury Bloodline|Stonetalon Mountains|
 3561|Q|Apprentice's Duties|Wetlands|
-4797|V|Robert Aebischer|Hillsbrad Foothills|
+4797|V|||
 4790|V|||
+274740|V|Winklespark|The Barrens|
 4793|V|||
-4799|V|Robert Aebischer|Hillsbrad Foothills|
+4799|V|||
 4792|V|||
 277289|Q|Wrongly Blamed, Justly Corrected|The Barrens|
 5314|Q|Consumed by Hatred|The Barrens|
@@ -7279,18 +8140,77 @@ FGT.GEARSOURCES_FOREVER = [==[
 10821|Q|Mura Runetotem|The Barrens|
 281289|Q|WANTED: Jai'vhanel|Darkshore|
 281250|Q|Teldrassil|Teldrassil|
+22589|Q|Atiesh, Greatstaff of the Guardian|Legendary|
+22630|Q|Atiesh, Greatstaff of the Guardian|Legendary|
+22631|Q|Atiesh, Greatstaff of the Guardian|Legendary|
+22632|Q|Atiesh, Greatstaff of the Guardian|Legendary|
+21273|Q|Imperial Qiraji Regalia|Ahn'Qiraj|
+21275|Q|Imperial Qiraji Regalia|Ahn'Qiraj|
+13262|Q|<UNUSED> Good and Evil|Stratholme|
+21188|Q|Champion's Battlegear|Silithus|
+22348|Q|The Perfect Poison|Silithus|
 272848|V|Captain O'Neal|Stormwind City|
 272851|V|Captain O'Neal|Stormwind City|
 272858|V|Captain O'Neal|Stormwind City|
 272849|V|Captain O'Neal|Stormwind City|
 272850|V|Captain O'Neal|Stormwind City|
 272840|V|Captain O'Neal|Stormwind City|
+19106|Q||Alterac Valley|
+20724|Q|Into The Maw of Madness|Silithus|
+17004|Q|The Corpulent One|Eastern Plaguelands|
+10698|Q|Enchanted Azsharite Fel Weaponry|Stranglethorn Vale|
+281588|Q|Head Scratcher|Mount Hyjal|
+276335|Q|Yashiro's Windwalk|Mount Hyjal|
+275742|Q|Flags of Our Forebears|Mount Hyjal|
+275648|Q|Twisted Tools|Mount Hyjal|
+275645|Q|Twisted Tools|Mount Hyjal|
+275701|Q|Drum Up Trouble|Mount Hyjal|
+275291|Q|Deeproar Down|Mount Hyjal|
+275729|Q|Contents Under Pressure|Mount Hyjal|
+11907|Q|The Mighty U'cha|Un'Goro Crater|
+260186|Q|Vek'zol|Blasted Lands|
+260207|Q|Your Final Reward|Azshara|
+221518|Q|The Price of Hope||
+260166|Q|Master Feardred|Azshara|
+11864|Q|Bone-Bladed Weapons|Orgrimmar|
+10652|Q|Weapons of Spirit|Feralas|
+270108|Q|Dark Vessels|The Hinterlands|
+19022|Q|Snapjaws, Mon!|The Hinterlands|
+9683|Q|Weapons of Spirit|Feralas|
+10826|Q|Gahz'ridian|Tanaris|
+4134|Q|Saving Yenniku|Stranglethorn Vale|
+11857|Q|A Hero's Welcome|Feralas|
 276203|V|Friz Frazzlespark|Riverglades|
-289295|N|Super Hogger||beta
+272179|Q|Tempered Expectations|Shen'dralas|
 270085|Q|Big Game Hunter|Stranglethorn Vale|
+277253|Q|WANTED: Ohk'zi|Feralas|
+9678|Q|Threat From the Sea|Swamp of Sorrows|
+9679|Q|Threat From the Sea|Swamp of Sorrows|
+271801|Q|Khan Jehn|Desolace|
+276102|Q|WANTED: Blademaster Kaijo|Riverglades|
+11265|Q|Nothing But The Truth|Duskwood|
+271803|Q|Khan Jehn|Desolace|
+281308|Q|Sword in the Slime|Dustwallow Marsh|
+4983|Q|Murdaloc|Badlands|
+274963|Q|WANTED: Old Rot-Chum|Riverglades|
+271800|Q|Khan Jehn|Desolace|
+4548|Q|Sunken Treasure|Arathi Highlands|
 4128|Q|Venture Company Mining|Stranglethorn Vale|
 9521|Q|Call to Arms|Arathi Highlands|
-289296|N|Super Hogger||beta
+274944|Q|Snargl's Snout|Riverglades|
+9517|Q|Celestial Power||
+270071|Q|Colonel Kurzen|Stranglethorn Vale|
+280604|Q|The Tempest's Weapons||
+15106|Q|The Completed Orb of Dar'Orahil||
+15105|Q|The Completed Orb of Noh'Orahil||
+274940|Q|Snargl's Snout|Riverglades|
+6975|Q|Whirlwind Weapon||
+6977|Q|Whirlwind Weapon||
+6976|Q|Whirlwind Weapon||
+274929|Q|Helping Hands|Riverglades|
+271794|Q|Test Your Theory|Desolace|
+271797|Q|Proof of Concept|Shen'dralas|
+271795|Q|Test Your Theory|Desolace|
 2000|Q|A Daughter's Love|Duskwood|
 271767|Q|Earthen Echo;Prehistoric Prism|Excavation Site: Wetlands|
 271766|Q|Earthen Echo;Prehistoric Prism|Excavation Site: Wetlands|
@@ -7301,6 +8221,9 @@ FGT.GEARSOURCES_FOREVER = [==[
 270049|Q|Insane Druids|Ashenvale|
 3822|Q|Battle of Hillsbrad|Hillsbrad Foothills|
 281313|Q|Stopping the Cycle|Wetlands|
+5815|Q|Raene's Cleansing|Ashenvale|
+268484|Q|The Moonsilver Blade||
+5614|Q|The Tower of Althalaxx|Darkshore|
 6953|Q|The Test of Righteousness||
 288900|W|||beta
 15464|Q|Arikara|Thousand Needles|
@@ -7313,22 +8236,25 @@ FGT.GEARSOURCES_FOREVER = [==[
 16889|Q|Torek's Assault|Ashenvale|
 277286|Q|Wrongly Blamed, Justly Corrected|The Barrens|
 5613|Q|The Tower of Althalaxx|Darkshore|
+4817|V|Ott|Hillsbrad Foothills|
 3452|Q|The Weaver|Silverpine Forest|
 16894|Q|Arachnophobia|Stonetalon Mountains|
+2907|Q|A Dark Threat Looms|Loch Modan|
 1893|Q|Oh Brother...|Deadmines|
-5626|Q|The Absent Minded Prospector|Darkshore|
+5626|Q|The Absent Minded Prospector|Wetlands|
 5306|Q|Cry of the Thunderhawk|The Barrens|
 5615|Q|Mathystra Relics|Darkshore|
 5318|Q|Serena Bloodfeather|The Barrens|
-4778|V|Lizzarik|The Barrens|
+4778|V|||
 11854|Q|Samophlange Manual|The Barrens|
-4777|V|Lizzarik|The Barrens|
+4777|V|||
 6186|Q|Gathering Idols|Loch Modan|
 1566|Q|The People's Militia|Westfall|
 281253|Q|Banner of the Fallen|Loch Modan|
 3586|Q|Arugal's Folly|Silverpine Forest|
 5340|Q|Apothecary Zamah|The Barrens|
 263407|Q|Confront Lorthuna|Zephras Isle|
+15397|Q|The Fragments Within|Darkshore|
 5345|Q|Centaur Bracers|The Barrens|
 6215|Q|WANTED: "Hogger"|Elwynn Forest|
 257343|Q|Return to Valanaar|Zephras Isle|
@@ -7344,29 +8270,105 @@ FGT.GEARSOURCES_FOREVER = [==[
 4939|Q|Skull Rock|Durotar|
 9514|Q|Mage-tastic Gizmonitor;The Balnir Farmstead||
 9603|Q|The Relics of Wakening|Teldrassil|
-9513|Q|Mirror Lake||
+9513|Q|Ju-Ju Heaps;Mirror Lake||
 263312|Q|Deliver the News|Zephras Isle|
+22999|Q|Tabard of the Argent Dawn|Invasion|
 272695|V|Master Sergeant Biggins|Stormwind City|
+20132|Q|Control Five Bases|Arathi Basin|
 262765|V|Tamelyn Aldridge|Redridge Mountains|
+20131|Q|Take Five Bases|Arathi Basin|
+276502|Q|Take Full Control|Darkspear Islands|
+275042|Q|News to Farholde|Riverglades|
 272694|V|Master Sergeant Biggins|Stormwind City|
+276504|Q|Darkspear Island Domination|Darkspear Islands|
 5976|V|||
+277717|Q|Legacy Reward: Spectral Bear Tabard|The Barrens|
+22496|Q|Frostfire Robe|Naxxramas|
+22504|Q|Plagueheart Robe|Naxxramas|
+22512|Q|Robe of Faith|Naxxramas|
+21334|Q|Doomcaller's Robes|Ahn'Qiraj|
+21343|Q|Enigma Robes|Ahn'Qiraj|
+21351|Q|Vestments of the Oracle|Ahn'Qiraj|
+21527|Q|The Wrath of Neptulon|Azshara|
+20033|Q|Paragons of Power: The Demoniac's Robes|Zul'Gurub|
+20034|Q|Paragons of Power: The Illusionist's Robes|Zul'Gurub|
 272722|V|Captain Dirgehammer|Stormwind City|
+9649|Q|Venom to the Undercity|The Hinterlands|
+19129|Q|Kill 'Em With Sleep Deprivation|Searing Gorge|
+6801|Q|... and Bugs|Dustwallow Marsh|
+274941|Q|Snargl's Snout|Riverglades|
+274946|Q|Snargl's Snout|Riverglades|
+2231|Q|WANTED: Baron Vardus|Hillsbrad Foothills|
+4120|Q|The Curse of the Tides|Stranglethorn Vale|
+6900|Q|The Completed Robe||
+15455|Q|Hints of a New Plague?|Hillsbrad Foothills|
+7511|Q|Astral Knot Garment||
+7512|Q|Nether-lace Garment||
+7334|Q|Reception from Tyrande|Stonetalon Mountains|
 3558|Q|Blisters on the Land|Wetlands|
 3555|Q|Missing In Action|Redridge Mountains|
 5812|Q|Ruuzel|Ashenvale|
 3461|Q|Assault on Fenris Isle|Silverpine Forest|
 6503|Q|Egg Hunt|The Barrens|
+7510|Q|Spellfire Robes||
+7509|Q|Manaweave Robe||
+4782|V|Halija Whitestrider|The Barrens|
 1561|Q|The Killing Fields|Westfall|
 3161|Q|Filthy Paws|Loch Modan|
 263332|Q|Unfortunate News|Zephras Isle|
 9598|Q|Druid of the Claw|Teldrassil|
+21523|Q|Treasure of the Timeless One|Silithus|
+21521|Q|Treasure of the Timeless One|Silithus|
+21395|Q|Blade of Eternal Justice|Ahn'Qiraj|
+21413|Q|Blade of Vaulted Secrets|Ahn'Qiraj|
+21410|Q|Gavel of Infinite Wisdom|Ahn'Qiraj|
+21398|Q|Hammer of the Gathering Storm|Ahn'Qiraj|
+21407|Q|Mace of Unending Life|Ahn'Qiraj|
+22688|Q||Eastern Plaguelands|
 272856|V|Captain O'Neal|Stormwind City|
 272844|V|Captain O'Neal|Stormwind City|
 272857|V|Captain O'Neal|Stormwind City|
+22379|Q|The Perfect Poison|Silithus|
+22380|Q|The Perfect Poison|Silithus|
+20648|Q|Hero of the Frostwolf;Hero of the Stormpike|Alterac Valley|
+20723|Q|Brann Bronzebeard's Lost Letter|Silithus|
+17003|Q|The Corpulent One|Eastern Plaguelands|
+281586|Q|Head Scratcher|Mount Hyjal|
+10696|Q|Enchanted Azsharite Fel Weaponry|Stranglethorn Vale|
+20647|Q|WANTED: Deathclasp, Terror of the Sands|Silithus|
+275647|Q|Twisted Tools|Mount Hyjal|
+275293|Q|Deeproar Down|Mount Hyjal|
+275698|Q|Drum Up Trouble|Mount Hyjal|
+275836|Q|Taste of Ash|Mount Hyjal|
+11906|Q|The Mighty U'cha|Un'Goro Crater|
+11120|Q|Revenge Exacted|Orgrimmar|
+260209|Q|The Head of the Serpent|Azshara|
+15863|Q|Return to Tinkee|Winterspring|
+9651|Q|Saving Sharpbeak|The Hinterlands|
+276903|Q|A Taste of Home|City of Dalaran|
+10744|Q|Set Them Ablaze!|Searing Gorge|
+9684|Q|Weapons of Spirit|Feralas|
+9686|Q|Weapons of Spirit|Feralas|
+270088|Q|An Ambassador of Evil|Badlands|
+272181|Q|Tempered Expectations|Shen'dralas|
+274948|Q|The Monster Surfaces|Riverglades|
+271804|Q|Khan Jehn|Desolace|
 270069|Q|Call to Arms|Arathi Highlands|
 4977|Q|The Real Threat|Arathi Highlands|
+4511|Q|Deep Sea Salvage|Arathi Highlands|
+280607|Q|The Tempest's Weapons||
+270070|Q|Colonel Kurzen|Stranglethorn Vale|
+280605|Q|The Tempest's Weapons||
+271799|Q|Test Your Theory|Desolace|
+4122|Q|The Hidden Key|Stranglethorn Vale|
+4978|Q|A Dwarf and His Tools|Badlands|
+6738|Q|Parts of the Swarm|Thousand Needles|
 2044|Q|The Legend of Stalvan|Duskwood|
+4126|Q|Bad Medicine|Stranglethorn Vale|
 6194|Q|Defeat Nek'rosh|Wetlands|
+3755|Q|Stormwind Ho!|Hillsbrad Foothills|
+4824|V|Ott|Hillsbrad Foothills|
+274744|V|Winklespark|The Barrens|
 2263|Q|Blisters on the Land|Wetlands|
 281297|Q|A Friend of the Family|Stormwind City|
 276886|Q|Chol'aruk the Ravener|The Barrens|
@@ -7378,10 +8380,23 @@ FGT.GEARSOURCES_FOREVER = [==[
 1480|Q|The People's Militia|Westfall|
 3570|Q|Arugal's Folly|Silverpine Forest|
 5324|Q|Samophlange|The Barrens|
+6966|Q|Weapons of Elunite||
+6968|Q|Weapons of Elunite||
+6967|Q|Weapons of Elunite||
 6979|Q|Dead-tooth Jack||
 6983|Q|Dead-tooth Jack||
 6985|Q|Dead-tooth Jack||
+7115|Q|Heirloom Weapon||
+7117|Q|Heirloom Weapon||
+7118|Q|Heirloom Weapon||
+7326|Q|Forged Steel||
+7328|Q|Forged Steel||
+7329|Q|Forged Steel||
+6978|Q|Grey Iron Weapons||
+6982|Q|Grey Iron Weapons||
+6984|Q|Grey Iron Weapons||
 5344|Q|Centaur Bracers|The Barrens|
+1009|Q|A Pilot's Revenge|Dun Morogh|
 5459|Q|Ursal the Mauler|Teldrassil|
 4766|V||The Barrens|
 246164|Q|Murlocs at the Gates||
@@ -7391,38 +8406,76 @@ FGT.GEARSOURCES_FOREVER = [==[
 4971|Q|The Demon Scarred Cloak|Mulgore|
 282064|Q|Leonid's Letter|Tirisfal Glades|
 4948|Q|Skull Rock|Durotar|
+278002|Q|Stalk With The Earthmother|Mulgore|
 272845|V|Captain O'Neal|Stormwind City|
+11863|Q|Bone-Bladed Weapons|Orgrimmar|
+19366|Q|The Lord of Blackrock||
 278158|V|Captain O'Neal|Stormwind City|
 278157|V|Captain O'Neal|Stormwind City|
+21185|Q|Stalwart's Battlegear|Silithus|
+15857|Q|Hidden Treasures|Eastern Plaguelands|
+18602|Q|Suppression||
+276336|Q|Yashiro's Windwalk|Mount Hyjal|
+275671|Q|Unsealing Blackthorne Pact|Mount Hyjal|
+275630|Q|Drawing Down the Malevolent|Mount Hyjal|
+260201|Q|Your Final Reward|Azshara|
+221344|Q|A Lesson in Literacy||
+260208|Q|The Head of the Serpent|Azshara|
+10709|Q|Revenge Exacted|Orgrimmar|
+11870|Q|Calm Before the Storm||
+18762|Q|Kroshius' Infernal Core||
+270112|Q|Saving Sharpbeak|The Hinterlands|
+276904|Q|A Taste of Home|City of Dalaran|
+10708|Q|Return to Tymor|Ironforge|
+19115|Q|Return to Primal Torntusk|The Hinterlands|
+9644|Q|Rescue OOX-17/TN!|Tanaris|
+11859|Q|A Grim Discovery|Feralas|
 277260|Q|Greater Friend of the Library|Special|
+277980|Q|Noise Complaints;The Offense of Grom'gol|Stranglethorn Vale|
+4125|Q|Mai'Zoth|Stranglethorn Vale|
+271805|Q|Khan Jehn|Desolace|
 6774|Q|Khan Hratha|Desolace|
+4984|Q|Forbidden Knowledge|Badlands|
+7515|Q|Celestial Power||
+15108|Q|The Completed Orb of Dar'Orahil||
+15107|Q|The Completed Orb of Noh'Orahil||
+276897|Q|Small Book, Big Effort|Mulgore|
 276898|Q|Past Due|Scarlet Monastery|
 7344|Q|Morbent Fel|Duskwood|
 2943|Q|Cleansing the Eye|Wetlands|
 281306|Q|Old Habits|Wetlands|
 281318|Q|Bloom of the Heavens|Wetlands|
 9800|N|Fallen Warrior||beta
+15947|N|Barbed Crustacean||beta
 15927|N|Thicket Lurker||beta
+274743|V|Winklespark|The Barrens|
 5323|Q|Supplies to Auberdine;Weapons of Choice||
 281294|Q|Valuable Vantages|Hillsbrad Foothills|
 6898|Q|The Orb of Soran'ruk||
 7558|N|Blackrock Champion||beta
 1131|Q|The Totem of Infliction|Duskwood|
+15946|N|Blackfathom Sea Witch||beta
 1172|Q|The Coastal Menace|Westfall|
+281291|Q|Baron Marinous|Darkshore|
+281292|Q|Baron Marinous|Darkshore|
+7608|N|Haunted Servitor||beta
 15206|Q|The Sleeper Has Awakened|Darkshore|
 11855|Q|Samophlange Manual|The Barrens|
 3451|Q|A Recipe For Death|Silverpine Forest|
 15945|N|Theramore Marine||beta
 5611|Q|For Love Eternal|Darkshore|
-15933|N|Tormented Soul or Riverpaw Mongrel||beta
+15933|N|several creatures||beta
 15866|Q|Curing the Sick||
 15944|N|Dustwind Storm Witch or Bandit Highwayman||beta
 15932|N|Vile Fin Seer or Tormented Soul||beta
 7507|Q|Mage-tastic Gizmonitor;The Balnir Farmstead||
 15969|N|Ornery Galestrider||beta
-7508|Q|Mirror Lake||
+7508|Q|Ju-Ju Heaps;Mirror Lake||
+18042|Q|A Fair Trade;Arrows Are For Sissies||
 11284|V|||
 11285|V|||
+3465|Q|Stealing Supplies|Desolace|
+3464|Q|Stealing Supplies|Desolace|
 3030|V|||
 3033|V|||
 2519|V|||
@@ -7430,20 +8483,52 @@ FGT.GEARSOURCES_FOREVER = [==[
 4960|Q|Sharing the Land|Mulgore|
 2516|V|||
 2512|V|||
+20086|Q|Junkboxes Needed||
+270106|Q|Dark Vessels|The Hinterlands|
+3463|Q|Stealing Supplies|Desolace|
+21272|Q|Imperial Qiraji Armaments|Ahn'Qiraj|
+22347|Q|The Perfect Poison|Silithus|
 272846|V|Captain O'Neal|Stormwind City|
 272842|V|Captain O'Neal|Stormwind City|
+19107|Q||Alterac Valley|
+19108|Q||Alterac Valley|
+16997|Q|Order Must Be Restored;The Scarlet Oracle, Demetria|Eastern Plaguelands|
+16992|Q|When Smokey Sings, I Get Violent|Eastern Plaguelands|
+16993|Q|When Smokey Sings, I Get Violent|Eastern Plaguelands|
+22656|Q||Eastern Plaguelands|
+275296|Q|Deeproar Down|Mount Hyjal|
+275837|Q|A Revenge Now Bitter|Mount Hyjal|
+276332|Q|Wood Remains|Mount Hyjal|
+13474|Q|Locked Away|Western Plaguelands|
+9654|Q|The Morrow Stone|Feralas|
+19118|Q|Dark Vessels|The Hinterlands|
+290333|Q|Gettin' Buzzed|Azshara|
+11860|Q|Ledger from Tanaris|Searing Gorge|
+10704|Q|Challenge Overlord Mok'Morokk|Dustwallow Marsh|
+277256|Q|Partial Mystical Notes|Stranglethorn Vale|
 17687|Q|Big Game Hunter|Stranglethorn Vale|
 270084|Q|Big Game Hunter|Stranglethorn Vale|
 5249|Q|Crushridge Warmongers|Alterac Mountains|
+4547|Q|Sunken Treasure|Arathi Highlands|
 5253|Q|Venture Company Mining|Stranglethorn Vale|
+7514|Q|Mage's Wand||
+274919|Q|Saving Sunnyglade|Riverglades|
+11263|Q|Mage's Wand||
+7513|Q|Mage's Wand||
+4127|Q|Colonel Kurzen|Stranglethorn Vale|
 5247|Q|WANTED: Otto and Falconcrest|Arathi Highlands|
+6729|Q|News for Fizzle|Thousand Needles|
+15692|Q|Gizelton Caravan|Desolace|
+15691|Q|Gizelton Caravan|Desolace|
 6798|Q|Questioning Reethe|Dustwallow Marsh|
 6797|Q|Questioning Reethe|Dustwallow Marsh|
 4086|Q|Pearl Diving|Badlands|
 5248|Q|Pearl Diving|Badlands|
 16789|Q|Claim Rackmore's Treasure!|Desolace|
-3041|N|Fallen Mage||beta
+3041|N|Mechano-Tank or Fallen Mage||beta
+5244|Q|Worgen in the Woods|Duskwood|
 5246|Q|Ormer's Revenge|Wetlands|
+5818|Q|Answered Questions|Ashenvale|
 5250|Q|Dangerous!|Hillsbrad Foothills|
 15465|Q|Arikara|Thousand Needles|
 5356|Q|Isha Awak|The Barrens|
@@ -7463,9 +8548,13 @@ FGT.GEARSOURCES_FOREVER = [==[
 277255|Q|Leonid's Letter|Tirisfal Glades|
 3079|Q|The Demon Scarred Cloak|Mulgore|
 263430|Q|Boughs in the Wind||
+18714|Q|Ancient Sinew Wrapped Lamina||
+274926|Q|A Hunter's Quiver|Riverglades|
 7371|V|Marda Weller|Stormwind City|
 3604|Q|The Night Watch|Duskwood|
 3605|Q|The Night Watch|Duskwood|
+3574|Q|Vyrin's Revenge|Loch Modan|
+3573|Q|Vyrin's Revenge|Loch Modan|
 11362|V|||
 5439|V|||
 5441|V|||
@@ -7474,4 +8563,6 @@ FGT.GEARSOURCES_FOREVER = [==[
 6189|Q|WANTED: Chok'sul|Loch Modan|
 15402|Q|Deep Ocean, Vast Sea|Darkshore|
 15401|Q|Deep Ocean, Vast Sea|Darkshore|
+10418|Q|Did You Lose This?|Blacksmithing|
+16604|Q|Garments of the Moon||
 ]==]

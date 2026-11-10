@@ -92,6 +92,9 @@ QUIVER_INV = 27
 JUNK = re.compile(
     r"^(\(?(old|deprecated|test|dep|unused|zz)\b|\[(PH|TMP|DNT)\]|monster\b|npc\b|qa\b|\*\*|\d+ )"
     r"|\((old|test)\)|deprecated|depricated|\bunused\b|^hidden |\bdnd\b|\bPH\b", re.I)
+# Forever beta event gear (level 1 legendary copies from the Super Hogger event). Not in the
+# real game, so the planner never shows them.
+BETA_EVENT = {289292, 289294, 289295, 289296, 289297, 289303}
 REP = {4: "Friendly", 5: "Honored", 6: "Revered", 7: "Exalted"}
 SKILL = {164: "Blacksmithing", 165: "Leatherworking", 197: "Tailoring", 171: "Alchemy",
          202: "Engineering", 333: "Enchanting", 755: "Jewelcrafting", 185: "Cooking",
@@ -278,7 +281,7 @@ def forever_stats(item_id, row, game_inv):
 
 def consider(item_id, sparse, item, source_flag):
     row, meta = sparse[item_id], item.get(item_id)
-    if not meta:
+    if not meta or int(item_id) in BETA_EVENT:
         return
     inv = num(meta, "InventoryType")
     if meta["ClassID"] == "11":

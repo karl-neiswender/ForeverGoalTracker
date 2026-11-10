@@ -8,7 +8,7 @@
 -- (only equip bonuses read differently). The Forever client uses them in place of blocks.
 local _, FGT = ...
 FGT.GEARDB = {
-    builds = { era = '1.15.9.70003', forever = '1.60.1.70862' },
+    builds = { era = '1.15.9.70003', forever = '1.60.1.70888' },
     sets = {
         [1] = "The Gladiator",
         [41] = "Dal'Rend's Arms",
@@ -6859,8 +6859,8 @@ FGT.GEARDB = {
 19979|3|65|0|0|400|136245|1|0||0|Hook of the Master Angler|||1
 19953|4|65|60|4|400|133306|1|477||1|Renataki's Charm of Beasts|||1
 19954|4|65|60|8|400|133306|1|478||1|Renataki's Charm of Trickery|||1
-272439|3|65|60|0|400|465877|2|0||0|Serenity Field||S14,H42|1
-272438|3|65|60|0|400|321487|2|0||0|Weakness Analyzer||S22,H22|1
+272439|3|65|60|0|400|465877|2|0||0|Serenity Field||S7,H21|1
+272438|3|65|60|0|400|321487|2|0||0|Weakness Analyzer||S18,H18|1
 19955|4|65|60|1024|400|133306|1|479||1|Wushoolay's Charm of Nature|||1
 19956|4|65|60|64|400|133306|1|476||1|Wushoolay's Charm of Spirits|||1
 13965|3|63|0|0|400|133604|0|0||0|Blackhand's Breadth||c2|1
@@ -7255,7 +7255,6 @@ FGT.GEARDB = {
 277243|3|45|40|0|200|0|2|0||0|Silverbane Slicer||s9,p4|1
 9359|3|45|40|0|204|133942|0|0||0|Southsea Lamp||a9,t4|2
 277245|3|45|40|0|204|0|2|0||0|Swampspine Crusher||a4,t9|1
-289294|5|45|1|0|207|135349|2|0||1|Thunderfury, Blessed Blade of the Windseeker||a3,t5|1
 6831|3|44|0|0|215|135311|0|0||0|Black Menace|||1
 7942|2|44|39|0|200|132394|1|0||0|Blue Glittering Axe||a8|2
 10761|3|44|39|0|215|135344|0|0||0|Coldrage Dagger|||1
@@ -7779,7 +7778,6 @@ FGT.GEARDB = {
 2825|4|42|37|0|202|135497|0|0||0|Bow of Searing Arrows|||2
 9426|3|41|36|0|202|135489|0|0||0|Monolithic Bow||a3,s6|2
 4087|2|41|36|0|202|135498|0|0||0|Trueshot Bow|||2
-289303|4|40|1|4|202|135489|2|0||1|Rhok'delar, Longbow of the Ancient Keepers||A10,c1|2
 13020|3|39|34|0|202|135499|0|0||0|Skystriker Bow|||2
 10567|3|38|33|0|202|135489|0|0||0|Quillshooter|||2
 11305|2|35|30|0|202|135495|1|0||0|Dense Shortbow|||2
@@ -8545,7 +8543,6 @@ FGT.GEARDB = {
 1604|2|45|40|0|208|135323|0|0||0|Chromatic Sword|||2
 250610|2|45|40|0|208|0|2|0||0|Mithril Claymore||s9,t15|2
 276203|3|45|40|0|206|0|2|0||0|Primitive Fishing Pole|Requires Honored with Powderfuse|a10,s7,t20|1
-289295|5|45|1|0|205|133066|2|0||1|Sulfuras, Hand of Ragnaros||s8,t8|1
 9423|3|45|40|0|205|133044|0|0||0|The Jackhammer|||2
 277250|3|45|40|0|205|0|2|0||0|The Skullcracker||p22,A18|1
 6830|3|44|0|0|201|132395|0|0||0|Bonebiter||s20,t10|1
@@ -8588,8 +8585,6 @@ FGT.GEARDB = {
 9521|2|41|0|0|201|132397|1|0||0|Skullsplitter||s15,t4|1
 1664|2|41|36|0|210|135165|0|0||0|Spellforce Rod||S20,H20|2
 13042|3|41|36|0|208|135351|0|0||0|Sword of the Magistrate||s8,t15,p10|2
-289297|4|40|1|16|210|135149|2|0||1|Anathema||t13,i18|2
-289296|4|40|1|16|210|135167|2|0||1|Benediction||t6,i18,p7|2
 274944|2|40|0|0|206|135128|2|0||0|Bloodsnout Striker||t11,A18|1
 9517|3|40|0|128|210|135151|1|0||0|Celestial Stave||i8,S22,H22|1
 270071|2|40|0|0|205|133053|2|0||0|Dark Hearted Hammer||s12,t8|1
@@ -9296,7 +9291,6 @@ FGT.GEARDB = {
 17039|2|36|0|0|204|133728|0|0||0|Skullbreaker||t3,i5|1
 6738|2|35|0|0|200|132403|1|0||0|Bleeding Crescent|||1
 2044|2|35|0|0|200|132397|1|0||0|Crescent of Forlorn Spirits||p6|1
-289292|4|35|1|0|204|133497|2|0||1|Hammer of Bestial Fury||s7,t6|2
 23168|3|35|30|0|215|135643|0|0||0|Scorn's Focal Dagger||S9,H9|1
 9446|3|34|29|0|207|135340|0|0||0|Electrocutioner Leg|||1
 4126|2|34|0|0|200|132415|1|0||0|Guerrilla Cleaver||a3,t4|1
@@ -9772,7 +9766,8 @@ FGT.GEARDB = {
 15323|2|50|45|0|203|135610|0|0||0|Percussion Shotgun|||2
 13065|3|50|45|0|219|135471|0|0||0|Wand of Allistarj|||2
 9483|3|49|44|0|219|135432|0|0||0|Flaming Incinerator|||2
-259891|2|48|0|0|203|0|2|0||0|Berdun's Trusty Rifle|||2
+259891|2|48|45|0|203|0|2|0||0|Berdun's Trusty Rifle|||1
+290333|2|48|0|0|203|0|2|0||0|Berdun's Trusty Rifle||s6|1
 249234|2|48|43|0|219|135466|2|0||0|Dreambough Wand||S7,H7|2
 2100|4|48|43|0|203|135615|0|0||0|Precisely Calibrated Boomstick||a14|2
 4089|2|48|43|0|203|135612|0|0||0|Ricochet Blunderbuss|||2
