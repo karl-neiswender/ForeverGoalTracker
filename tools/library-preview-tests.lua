@@ -152,6 +152,20 @@ do
     assert(shown and lines[1] == "Click: Preview" and #lines == 1, "another card offers Preview, in one line")
 end
 
+-- the banner fades out by itself, so the panel behind it always shows through at the seam
+do
+    local B, resolve = F.goalBanner, F.goalBanner.ResolveArt
+    B.ResolveArt = function() return "test-banner.blp", 2, true end
+    P:Draw()
+    B.ResolveArt = resolve
+    local bands = P.artBands
+    assert(#bands == 3 and bands[#bands].fgtGa2 == 0, "the banner ends fully transparent")
+    for i = 2, #bands do
+        assert(bands[i].fgtGa1 == bands[i - 1].fgtGa2, "each band picks up where the last one stopped")
+    end
+    P:Draw()
+end
+
 -- a redraw never hides a card that stays listed: that round trip could blank its contents
 do
     local stay, leave = LF.cards["annihilator"], nil

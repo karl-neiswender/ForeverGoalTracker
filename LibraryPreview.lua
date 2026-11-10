@@ -9,7 +9,10 @@ local library = FGT.libraryPanel
 local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
 local WIDTH, STRIP, GAP, SLIDE_TIME = 280, 22, 12, 0.7
 local LIST_MIN, ART_H, PAD, FOOT_H = 420, 158, 14, 46
-local ART_ALPHA, PANEL_RGB = 0.72, { 0.04, 0.04, 0.038 }
+-- The banner fades out by itself, so whatever the panel looks like there shows through and always
+-- matches. Each band: from and to (pixels down the banner), then its opacity at each end.
+local WHITE = { 1, 1, 1 }
+local ART_BANDS = { { 0, 24, 0.72, 0.72 }, { 24, 94, 0.72, 0.19 }, { 94, ART_H, 0.19, 0 } }
 
 local P = { open = false, seen = false, canOpen = true, fraction = 0, width = WIDTH, goal = nil,
     hintsOpen = false, sliding = false, rows = {}, hints = {} }
@@ -78,24 +81,16 @@ end)
 handle:Hide()
 
 -- Header: banner, icon, category, name, difficulty and time, description
-local art = content:CreateTexture(nil, "ARTWORK", nil, 0)
-P.art = art
-art:SetPoint("TOPLEFT", content, "TOPLEFT", 0, 0)
-local shade = content:CreateTexture(nil, "ARTWORK", nil, 2)
-shade:SetTexture("Interface\\Buttons\\WHITE8X8")
-shade:SetPoint("BOTTOMLEFT", art, "BOTTOMLEFT", 0, 0)
-shade:SetPoint("BOTTOMRIGHT", art, "BOTTOMRIGHT", 0, 0)
-shade:SetHeight(math.floor(ART_H * 0.7))
-FGT.PopoutUI.vgradient(shade, PANEL_RGB, PANEL_RGB, 0, 0.96)
--- a second, shorter one behind the title, so it reads over the brightest banners
-local textShade = content:CreateTexture(nil, "ARTWORK", nil, 3)
-textShade:SetTexture("Interface\\Buttons\\WHITE8X8")
-textShade:SetPoint("BOTTOMLEFT", art, "BOTTOMLEFT", 0, 0)
-textShade:SetPoint("BOTTOMRIGHT", art, "BOTTOMRIGHT", 0, 0)
-textShade:SetHeight(100)
-FGT.PopoutUI.vgradient(textShade, PANEL_RGB, PANEL_RGB, 0, 0.95)
+local artBands = {}
+P.artBands = artBands
+for i, band in ipairs(ART_BANDS) do
+    local tex = content:CreateTexture(nil, "ARTWORK", nil, 0)
+    tex:SetPoint("TOPLEFT", content, "TOPLEFT", 0, -band[1])
+    tex:SetHeight(band[2] - band[1])
+    artBands[i] = tex
+end
 local credit = U.font(content, 7, "", 0.48, 0.48, 0.48)
-credit:SetPoint("TOPRIGHT", art, "TOPRIGHT", -8, -6)
+credit:SetPoint("TOPRIGHT", artBands[1], "TOPRIGHT", -8, -6)
 credit:SetAlpha(0.6)
 
 local icon = FGT.PopoutUI.icon(content, 48)
@@ -288,16 +283,21 @@ function P:Draw(newGoal)
     local B, path, aspect, preprocessed = FGT.goalBanner, nil, nil, nil
     if B and B.ResolveArt then path, aspect, preprocessed = B:ResolveArt(source.id) end
     local hasArt = path ~= nil
-    art:SetShown(hasArt); shade:SetShown(hasArt); textShade:SetShown(hasArt); credit:SetText("")
+    for _, tex in ipairs(artBands) do tex:SetShown(hasArt) end
+    credit:SetText("")
     local y = PAD
     if hasArt then
-        art:SetTexture(MEDIA .. path)
-        art:SetDesaturated(not preprocessed)
-        art:SetAlpha(ART_ALPHA)
-        art:SetSize(w, ART_H)
         local fullH = w / (aspect or 1)
         local inset = fullH > ART_H and (1 - ART_H / fullH) / 2 or 0
-        art:SetTexCoord(0, 1, inset, 1 - inset)
+        local span = 1 - inset * 2
+        for i, tex in ipairs(artBands) do
+            local band = ART_BANDS[i]
+            tex:SetTexture(MEDIA .. path)
+            tex:SetDesaturated(not preprocessed)
+            tex:SetWidth(w)
+            tex:SetTexCoord(0, 1, inset + span * band[1] / ART_H, inset + span * band[2] / ART_H)
+            FGT.PopoutUI.vgradient(tex, WHITE, WHITE, band[3], band[4])
+        end
         local artist = B.artArtists and B.artArtists[path]
         if artist then
             credit:SetText((path == "set_tier1_rogue-alliance-banner.blp" and "Art by " or "Artwork by ") .. artist)
