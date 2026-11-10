@@ -626,6 +626,12 @@ function FGT.ReadStats(force)
     return out
 end
 
+-- A character's name for display. Forever characters have a second name, which only reaches the
+-- saved data once they log in; the first name alone keeps identifying them (CharKey).
+function FGT.CharacterFullName(c)
+    return c.surname and (c.name .. " " .. c.surname) or c.name
+end
+
 local function RecordCharacter()
     if not ForeverGoalTrackerDB then return end
     local name = UnitName("player")
@@ -637,6 +643,10 @@ local function RecordCharacter()
     local _, classFile = UnitClass("player")
     local raceFile = UnitRace and select(2, UnitRace("player")) or nil
     c.name     = name
+    if FGT.isForever and UnitNameUnmodified then -- (UnitName gives the first name alone)
+        local _, surname = UnitNameUnmodified("player")
+        if type(surname) == "string" and surname ~= "" then c.surname = surname end
+    end
     c.realm    = GetRealmName and GetRealmName() or ""
     c.class    = classFile
     c.race     = raceFile
@@ -8969,7 +8979,7 @@ local function GetStepRow(index, view)
                     C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             else
                 for _, c in ipairs(list) do
-                    GameTooltip:AddDoubleLine(c.name .. (c.realm ~= "" and (" - " .. c.realm) or ""),
+                    GameTooltip:AddDoubleLine(FGT.CharacterFullName(c) .. ((c.realm ~= "" and not FGT.isForever) and (" - " .. c.realm) or ""),
                         string.format("%.1f", PreciseLevel(c)), 0.9, 0.9, 0.9, 1, 0.82, 0)
                 end
                 GameTooltip:AddLine("Updates automatically as you level.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
@@ -9823,7 +9833,7 @@ RefreshSteps = function(goal, view)
             local lvl = best and PreciseLevel(best) or 0
             local done = lvl >= MAX_LEVEL
             if best then
-                row.text:SetText(stepText .. "  |cff8a8a8a" .. best.name .. "|r")
+                row.text:SetText(stepText .. "  |cff8a8a8a" .. FGT.CharacterFullName(best) .. "|r")
                 row.levelText:SetText(done and string.format("|cff9fe870Level %d / %d|r", MAX_LEVEL, MAX_LEVEL)
                     or string.format("Level %d / %d", math.floor(lvl), MAX_LEVEL))
             else
@@ -12905,10 +12915,14 @@ local function CharacterList(parent)
             local c = list[i].c
             it.key = list[i].key
             local cc = RAID_CLASS_COLORS and c.class and RAID_CLASS_COLORS[c.class]
-            it.name:SetText(c.name or it.key)
+            it.name:SetText(c.name and FGT.CharacterFullName(c) or it.key)
             if cc then it.name:SetTextColor(cc.r, cc.g, cc.b) else it.name:SetTextColor(C.TEXT[1], C.TEXT[2], C.TEXT[3]) end
             local className = (LOCALIZED_CLASS_NAMES_MALE and c.class and LOCALIZED_CLASS_NAMES_MALE[c.class]) or ""
-            it.detail:SetText(string.format("Level %d %s  ·  %s", c.level or 1, className, c.realm or ""))
+            if FGT.isForever then
+                it.detail:SetText(string.format("Level %d %s", c.level or 1, className))
+            else
+                it.detail:SetText(string.format("Level %d %s  ·  %s", c.level or 1, className, c.realm or ""))
+            end
             local isMe = it.key == me
             it.me:SetShown(isMe)
             it.remove:SetShown(not isMe)

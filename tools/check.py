@@ -718,6 +718,19 @@ if ok_all:
         ("Zin'rokh on Forever", None, open(os.path.join(here, "zinrokh-tests.lua"), encoding="utf-8").read(), True),
         ("Library preview on Era", None, open(os.path.join(here, "library-preview-tests.lua"), encoding="utf-8").read()),
         ("Library preview on Forever", None, open(os.path.join(here, "library-preview-tests.lua"), encoding="utf-8").read(), True),
+        ("Character second name on Forever", None,
+            'local F, D = STUB_NS, ForeverGoalTrackerDB; UnitNameUnmodified = function() return "Tester", "Ironshot" end; F.Count("namecheck", true); '
+            'local c; for _, v in pairs(D.characters) do if v.name == "Tester" then c = v end end; '
+            'assert(c.surname == "Ironshot", "the second name is saved"); assert(F.CharacterFullName(c) == "Tester Ironshot", "both names are shown"); '
+            'UnitNameUnmodified = function() return "Tester" end; F.Count("namecheck", true); assert(c.surname == "Ironshot", "a missing reply keeps the saved name"); '
+            'assert(F.CharacterFullName({ name = "Alt" }) == "Alt", "an alt not logged in since keeps its first name"); '
+            'D.characters["Alt-Realm"] = { name = "Alt", surname = "Stone" }; local line = F.PlannerFreshness({ plannerOwner = "Alt-Realm" }); '
+            'assert(line and line:find("^Alt Stone\'s gear") and line:find("when Alt logs in"), "the planner names the whole character: " .. tostring(line)); '
+            'D.characters["Alt-Realm"] = nil; c.surname = nil; ', True),
+        ("Character second name on Era", None,
+            'local F, D = STUB_NS, ForeverGoalTrackerDB; UnitNameUnmodified = function() return "Tester", "Realm" end; F.Count("namecheck", true); '
+            'local c; for _, v in pairs(D.characters) do if v.name == "Tester" then c = v end end; '
+            'assert(c.surname == nil and F.CharacterFullName(c) == "Tester", "Classic Era characters have one name"); '),
         ("Library polish on Era", None, open(os.path.join(here, "library-polish-tests.lua"), encoding="utf-8").read()),
         ("Library polish on Forever", None, open(os.path.join(here, "library-polish-tests.lua"), encoding="utf-8").read(), True),
         ("guide fixes on Era", None, open(os.path.join(here, "guide-fixes-tests.lua"), encoding="utf-8").read()),

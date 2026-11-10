@@ -50,14 +50,14 @@ local RACE_IDS = { Human = 1, Orc = 2, Dwarf = 3, NightElf = 4, Scourge = 5, Tau
 -- The planned character's class, race, faction, level and sex (UnitSex numbering).
 local function Who()
     local key = PlanKey()
+    local c = (ForeverGoalTrackerDB.characters or {})[key] or {}
     if key == U.charKey() then
         local _, class = UnitClass("player")
         local _, race = UnitRace("player")
-        return { key = key, me = true, name = UnitName("player"), class = class, race = race,
+        return { key = key, me = true, name = c.surname and FGT.CharacterFullName(c) or UnitName("player"), class = class, race = race,
             faction = UnitFactionGroup("player"), level = UnitLevel("player"), sex = UnitSex and UnitSex("player") }
     end
-    local c = (ForeverGoalTrackerDB.characters or {})[key] or {}
-    return { key = key, me = false, name = c.name or key, class = c.class, race = c.race,
+    return { key = key, me = false, name = c.name and FGT.CharacterFullName(c) or key, class = c.class, race = c.race,
         faction = c.faction, level = c.level, sex = c.sex }
 end
 -- The level a new set plans for: the character's own. With no set open (the welcome) the picker
@@ -169,7 +169,7 @@ function FGT.PlannerElsewhere(goal, step)
     if not item then return nil end
     local chars = ForeverGoalTrackerDB and ForeverGoalTrackerDB.characters or {}
     local owner = chars[rule.forCharacter]
-    local ownerName = owner and owner.name or "this set's character"
+    local ownerName = owner and owner.name and FGT.CharacterFullName(owner) or "this set's character"
     local mail, bound
     for key, c in pairs(chars) do
         local count = key ~= rule.forCharacter and c.items and c.items[item.id] or 0
@@ -178,7 +178,8 @@ function FGT.PlannerElsewhere(goal, step)
             for _, id in pairs(c.worn or {}) do if id == item.id then worn = worn + 1 end end
             local loose = count - worn -- the game's item count includes worn items
             local mailable = item.bind == 0 or item.bind == 3 or (item.bind == 2 and loose > 0)
-            if mailable then mail = mail or c.name else bound = bound or c.name end
+            local holder = FGT.CharacterFullName(c)
+            if mailable then mail = mail or holder else bound = bound or holder end
         end
     end
     if mail then return "On " .. mail .. ": mail it to " .. ownerName end
@@ -194,7 +195,7 @@ function FGT.PlannerFreshness(goal)
         or ago < 3600 and "less than an hour ago"
         or ago < 86400 and (math.floor(ago / 3600) .. (ago < 7200 and " hour ago" or " hours ago"))
         or (math.floor(ago / 86400) .. (ago < 172800 and " day ago" or " days ago"))
-    return c.name .. "'s gear, saved " .. when .. ". It updates when " .. c.name .. " logs in."
+    return FGT.CharacterFullName(c) .. "'s gear, saved " .. when .. ". It updates when " .. c.name .. " logs in."
 end
 function FGT.LoadPlannerGoals()
     local DB = ForeverGoalTrackerDB
@@ -3308,7 +3309,7 @@ ownerBtn:SetScript("OnClick", function()
             row.text:ClearAllPoints(); row.text:SetPoint("LEFT", 8, 0)
         end
         local c, color = entry.c, RAID_CLASS_COLORS and RAID_CLASS_COLORS[entry.c.class]
-        row.text:SetText((color and color.colorStr and ("|c" .. color.colorStr) or "") .. (c.name or entry.key) .. "|r"
+        row.text:SetText((color and color.colorStr and ("|c" .. color.colorStr) or "") .. (c.name and FGT.CharacterFullName(c) or entry.key) .. "|r"
             .. (c.level and ("  |cff9a8f78· Level " .. c.level .. "|r") or ""))
         row.chosen = entry.key == PlanKey(); PaintButton(row)
         row:ClearAllPoints(); row:SetPoint("TOPLEFT", 8, -y); row:Show(); y = y + 28
