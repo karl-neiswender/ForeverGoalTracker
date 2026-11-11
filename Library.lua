@@ -374,12 +374,12 @@ local library = {
         id = "mount_forsaken_charger", library = true, forever = "new", needs = "forever",
         faction = "Horde", classOnly = "PALADIN",
         icon = "ability_mount_charger",
-        name = "Forsaken Charger (Paladin Epic Mount)",
+        name = "Forsaken Charger",
         short = "Forsaken Charger",
         category = "Mount", difficulty = "Very Hard",
         timeEstimate = "2-4 Weeks",
         note = "Undead Paladin epic mount from Danitha Morr's level 60 quest chain at Bandarion Keep.",
-        foreverNote = "A new epic mount for Undead Paladins, with its own quest chain. The last part of the chain is not revealed yet.",
+        foreverNote = "A new epic mount for Undead Paladins. The last part of the chain is not revealed yet.",
         steps = {
             { text = "Reach level 60.", auto = { level = 60 } },
             { text = "Complete 'A Worthy Endeavor' by speaking with Danitha Morr at Bandarion Keep.", auto = { quest = 97174 } },
@@ -586,7 +586,7 @@ local library = {
         -- level 56, requires level 51, chance on hit for a fire shield and a ring of fire (130 to 170 damage).
         -- Dropped by Ambassador Flamelash in Blackrock Depths (GearSources agrees). Not in Forever's tables
         -- yet, so not marked confirmed.
-        id = "flame_wrath", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        id = "flame_wrath", library = true, forever = "listed", itemQuality = 3, instance = { 230, "Blackrock Depths" },
         icon = "inv_spear_01",
         name = "Flame Wrath",
         short = "Flame Wrath",
@@ -647,7 +647,7 @@ local library = {
         -- Wowhead, a sample too small for a rate). Reagents (GearData agrees): 20 Enchanted Thorium Bar, 8 Huge
         -- Emerald, 8 Large Opal, 6 Essence of Earth, 4 Enchanted Leather. Forever: named in its tables, and
         -- Forever lists an updated version, but the change is not known. Not confirmed.
-        id = "masterwork_stormhammer", library = true, itemQuality = 3,
+        id = "masterwork_stormhammer", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_hammer_04",
         name = "Masterwork Stormhammer",
         short = "Stormhammer",
@@ -680,7 +680,7 @@ local library = {
         -- level 63, requires level 58, +5 Stamina, +10 Intellect, +6 Spirit. Wowhead lists Grand Crusader
         -- Dathrohan (707 of 4,029 kills, about 17%) and Balnazzar, the one boss fight in Stratholme's living
         -- side; GearSources names Balnazzar. Not in Forever's tables yet, so not marked confirmed.
-        id = "gift_of_the_elven_magi", library = true, itemQuality = 3, instance = { 329, "Stratholme" },
+        id = "gift_of_the_elven_magi", library = true, forever = "listed", itemQuality = 3, instance = { 329, "Stratholme" },
         icon = "inv_weapon_shortblade_15",
         name = "Gift of the Elven Magi",
         short = "Elven Magi",
@@ -794,8 +794,8 @@ local library = {
         -- Wowhead Classic item 7713, checked 2026-10-25: rare (blue) Bind on Pickup two-hand staff, item level
         -- 39, requires level 34, +7 Stamina, +15 Intellect, +10 Spirit. Dropped by Arcanist Doan, the last boss
         -- of the Scarlet Monastery Library (GearSources agrees; Wowhead's drop count is a single kill, so no
-        -- rate is given). Not in Forever's tables yet, so not marked confirmed.
-        id = "illusionary_rod", library = true, itemQuality = 3, instance = { 189, "Scarlet Monastery" },
+        -- rate is given). Confirmed in Forever 2026-11-11: forever.warcraftdb.com loot shows Arcanist Doan dropping it.
+        id = "illusionary_rod", library = true, forever = "confirmed", itemQuality = 3, instance = { 189, "Scarlet Monastery" },
         icon = "inv_wand_04",
         name = "Illusionary Rod",
         short = "Illusionary Rod",
@@ -817,9 +817,9 @@ local library = {
         -- 39, requires level 34, 26 to 49 damage, speed 1.40, +8 Intellect, +3 Spirit, equip: +9 spell damage and
         -- healing. Dropped by Arcanist Doan, the last boss of the Scarlet Monastery Library (GearSources agrees;
         -- Wowhead lists no drop chance). Every comment calls it a caster dagger, so the class list is the casters
-        -- who can use a dagger, not Warriors, Hunters or Rogues. Not in Forever's tables yet, so not marked
-        -- confirmed.
-        id = "hypnotic_blade", library = true, itemQuality = 3, instance = { 189, "Scarlet Monastery" },
+        -- who can use a dagger, not Warriors, Hunters or Rogues. Confirmed in Forever 2026-11-11: forever.warcraftdb.com
+        -- loot shows Arcanist Doan dropping it.
+        id = "hypnotic_blade", library = true, forever = "confirmed", itemQuality = 3, instance = { 189, "Scarlet Monastery" },
         icon = "inv_weapon_shortblade_07",
         name = "Hypnotic Blade",
         short = "Hypnotic Blade",
@@ -841,7 +841,7 @@ local library = {
         -- 53, requires level 48, equip: +1% spell crit. Dropped by Tinkerer Gizlock in Maraudon (GearSources
         -- agrees; Wowhead's sample is only five kills, so no drop rate is given). Not in Forever's tables yet,
         -- so not marked confirmed.
-        id = "inventors_focal_sword", library = true, itemQuality = 3, instance = { 349, "Maraudon" },
+        id = "inventors_focal_sword", library = true, forever = "listed", itemQuality = 3, instance = { 349, "Maraudon" },
         icon = "inv_sword_14",
         name = "Inventor's Focal Sword",
         short = "Focal Sword",
@@ -885,7 +885,7 @@ local library = {
         -- requires level 51, +7 Strength, +5 Stamina, equip: +1% crit. A world drop with no boss: 102
         -- creatures of level 53 to 60 are listed, mostly in Stratholme, Blackrock Spire and Depths, Dire
         -- Maul and Scholomance, a few in the open world. Not in Forever's tables yet, so not marked confirmed.
-        id = "krol_blade", library = true, itemQuality = 4,
+        id = "krol_blade", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_sword_18",
         name = "Krol Blade",
         short = "Krol Blade",
@@ -1202,7 +1202,7 @@ local library = {
         -- power. Wowhead lists Mizzle the Crafty (no drop chance) and the Gordok Tribute chest (1 of 8
         -- opened) in Dire Maul North; GearSources names the Gordok Tribute. Not in Forever's tables yet
         -- (Wowhead Forever has no page), so not marked confirmed.
-        id = "rod_of_the_ogre_magi", library = true, itemQuality = 3, instance = { 429, "Dire Maul" },
+        id = "rod_of_the_ogre_magi", library = true, forever = "listed", itemQuality = 3, instance = { 429, "Dire Maul" },
         icon = "inv_staff_32",
         name = "Rod of the Ogre Magi",
         short = "Ogre Magi Rod",
@@ -1249,7 +1249,7 @@ local library = {
         -- 62, requires level 57, chance on hit to silence the target for 6 sec. Dropped by Darkmaster Gandling
         -- in Scholomance (GearSources agrees; the sample is 15 kills, so no rate is given). Not in Forever's
         -- tables yet (Wowhead Forever has no page), so not marked confirmed.
-        id = "silent_fang", library = true, itemQuality = 3, instance = { 289, "Scholomance" },
+        id = "silent_fang", library = true, forever = "listed", itemQuality = 3, instance = { 289, "Scholomance" },
         icon = "inv_sword_41",
         name = "Silent Fang",
         short = "Silent Fang",
@@ -1344,7 +1344,7 @@ local library = {
         -- Sandscalp, 10 of 60 kills on Wowhead) with Sang'thraze the Deflector (9379, Antu'sul, 14 of 97); both
         -- are Bind on Pickup and GearSources agrees on the bosses. The halves are used up when combined, so
         -- their steps also accept the finished sword. Not in Forever's tables yet, so not marked confirmed.
-        id = "sulthraze", library = true, itemQuality = 4, instance = { 209, "Zul'Farrak" },
+        id = "sulthraze", library = true, forever = "listed", itemQuality = 4, instance = { 209, "Zul'Farrak" },
         icon = "inv_sword_40",
         name = "Sul'thraze the Lasher",
         short = "Sul'thraze",
@@ -1396,7 +1396,7 @@ local library = {
         -- requires level 52, chance on hit +200 Strength for 10 sec. No boss drops it: 108 ordinary
         -- creatures of level 52 to 60 are listed, each at a handful of drops (most in Stratholme,
         -- Scholomance, Blackrock Spire and Dire Maul). Not in Forever's tables yet, so not marked confirmed.
-        id = "destiny", library = true, itemQuality = 4,
+        id = "destiny", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_sword_19",
         name = "Destiny",
         short = "Destiny",
@@ -1442,7 +1442,7 @@ local library = {
         -- requires level 57, +30 Stamina, +20 Spirit, use: +20 Intellect to party members within 30 yards
         -- (10 min cooldown). Dropped by Darkmaster Gandling in Scholomance (GearSources agrees). Not in
         -- Forever's tables yet, so not marked confirmed.
-        id = "headmasters_charge", library = true, itemQuality = 4, instance = { 289, "Scholomance" },
+        id = "headmasters_charge", library = true, forever = "listed", itemQuality = 4, instance = { 289, "Scholomance" },
         icon = "inv_jewelry_talisman_12",
         name = "Headmaster's Charge",
         short = "Headmaster's Charge",
@@ -1485,7 +1485,7 @@ local library = {
     {
         -- Wowhead Classic spell 16994 (item 12784, plans item 12838), checked 2026-10-15. Ingredients
         -- are counted in the Materials drawer from the "Gather" steps.
-        id = "arcanite_reaper", library = true, itemQuality = 3,
+        id = "arcanite_reaper", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_axe_09",
         name = "Arcanite Reaper",
         short = "Arcanite Reaper",
@@ -1514,7 +1514,7 @@ local library = {
         -- Item 13401: rare (blue) Bind on Pickup one-hand mace, item level 61, requires level 56, chance on
         -- hit lowers all attributes of the target by 15 for 1 min. Dropped by Timmy the Cruel in Stratholme's
         -- living side (no drop chance listed).
-        id = "cruel_hand_of_timmy", library = true, itemQuality = 3, instance = { 329, "Stratholme" },
+        id = "cruel_hand_of_timmy", library = true, forever = "listed", itemQuality = 3, instance = { 329, "Stratholme" },
         icon = "inv_misc_bone_elfskull_01",
         name = "The Cruel Hand of Timmy",
         short = "Hand of Timmy",
@@ -1537,7 +1537,7 @@ local library = {
         -- 10393), a level 58 rare elite on Stratholme's living side (GearSources agrees); Wowhead's sample is 1 drop
         -- in 3 kills, too small for a rate. Spawn spots are from a Wowhead comment: Festival Lane and by Fras
         -- Siabi's shop near the living-side entrance. Not in Forever's tables yet, so not marked confirmed.
-        id = "skuls_ghastly_touch", library = true, itemQuality = 3, instance = { 329, "Stratholme" },
+        id = "skuls_ghastly_touch", library = true, forever = "listed", itemQuality = 3, instance = { 329, "Stratholme" },
         icon = "inv_misc_bone_elfskull_01",
         name = "Skul's Ghastly Touch",
         short = "Skul's Touch",
@@ -1559,7 +1559,7 @@ local library = {
     {
         -- Item 11923: rare (blue) Bind on Pickup main-hand mace, item level 57, requires level 52, equip: +31
         -- healing. From the Chest of The Seven in Blackrock Depths.
-        id = "hammer_of_grace", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        id = "hammer_of_grace", library = true, forever = "listed", itemQuality = 3, instance = { 230, "Blackrock Depths" },
         icon = "inv_hammer_07",
         name = "The Hammer of Grace",
         short = "Hammer of Grace",
@@ -1580,7 +1580,7 @@ local library = {
     {
         -- Item 11920: rare (blue) Bind on Pickup main-hand axe, item level 56, requires level 51, chance on
         -- hit steals 45 life. From the Chest of The Seven in Blackrock Depths.
-        id = "wraith_scythe", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        id = "wraith_scythe", library = true, forever = "listed", itemQuality = 3, instance = { 230, "Blackrock Depths" },
         icon = "inv_axe_13",
         name = "Wraith Scythe",
         short = "Wraith Scythe",
@@ -1602,7 +1602,7 @@ local library = {
         -- Item 22254: rare (blue) Bind on Pickup wand, item level 57, requires level 52, +6 Intellect, equip:
         -- 2 mana per 5 sec and +9 healing. Watchman Doomgrip in Blackrock Depths 0.75%, Warbringer Construct
         -- 0.09%, Dark Coffer 0.3%, Secret Safe (warcraftdb).
-        id = "wand_of_eternal_light", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        id = "wand_of_eternal_light", library = true, forever = "listed", itemQuality = 3, instance = { 230, "Blackrock Depths" },
         icon = "inv_wand_02",
         name = "Wand of Eternal Light",
         short = "Eternal Light",
@@ -1625,7 +1625,7 @@ local library = {
         -- Item 17705: rare (blue) Bind on Pickup, Unique-Equipped one-hand sword, item level 53, chance on hit
         -- grants an extra attack. A choice reward from Corruption of Earth and Seed (quests 7064 and 7065),
         -- the Princess Theradras quest for Maraudon.
-        id = "thrash_blade", library = true, itemQuality = 3, instance = { 349, "Maraudon" },
+        id = "thrash_blade", library = true, forever = "listed", itemQuality = 3, instance = { 349, "Maraudon" },
         icon = "inv_sword_36",
         name = "Thrash Blade",
         short = "Thrash Blade",
@@ -1784,7 +1784,7 @@ local library = {
     {
         -- Item 13047: rare (blue) Bind on Equip two-hand mace, item level 58, requires level 53, +14 Strength,
         -- +21 Stamina, +12 Spirit. A world drop: 675 creatures listed, no boss (warcraftdb).
-        id = "twig_of_the_world_tree", library = true, itemQuality = 3,
+        id = "twig_of_the_world_tree", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_mace_13",
         name = "Twig of the World Tree",
         short = "World Tree Twig",
@@ -1831,7 +1831,7 @@ local library = {
         -- level 35, 93 to 141 damage, chance on hit: 155 to 197 Fire damage plus 24 over 6 sec. A world drop from
         -- level 40 to 43 creatures: 33 listed, no boss, each at a tiny rate (Grimtotem Naturalist in Feralas, 1 of
         -- 321 kills). Not in Forever's tables yet, so not marked confirmed.
-        id = "fiery_war_axe", library = true, itemQuality = 4,
+        id = "fiery_war_axe", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_axe_02",
         name = "Fiery War Axe",
         short = "Fiery War Axe",
@@ -1855,7 +1855,7 @@ local library = {
         -- level 56, 147 to 221 damage, +20 Fire and Frost resistance, equip: +36 Fire and +36 Frost damage. A
         -- world drop: 462 creatures listed on warcraftdb (levels 56 to 63, 332 of them elite, including Azuregos
         -- and a few other world bosses), each at a tiny rate. Not in Forever's tables yet, so not marked confirmed.
-        id = "elemental_mage_staff", library = true, itemQuality = 4,
+        id = "elemental_mage_staff", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_staff_07",
         name = "Elemental Mage Staff",
         short = "Elemental Mage Staff",
@@ -1880,7 +1880,7 @@ local library = {
         -- cast within 4 sec is instant. A world drop: Wowhead lists no creature and GearSources agrees. Comments
         -- report it from trash in Molten Core and Stratholme and from a Chillwind in Winterspring, with no rate.
         -- Not in Forever's tables yet, so not marked confirmed.
-        id = "hand_of_edward_the_odd", library = true, itemQuality = 4,
+        id = "hand_of_edward_the_odd", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_mace_14",
         name = "Hand of Edward the Odd",
         short = "Hand of Edward",
@@ -1907,7 +1907,7 @@ local library = {
         -- them in Stranglethorn Vale, the rest in Scarlet Monastery, Gnomeregan, Razorfen Downs, Badlands, Desolace,
         -- Tanaris, Ashenvale and others; each is one drop in hundreds of kills. GearSources calls it a world drop.
         -- Wowhead has no comments. Not in Forever's tables yet, so not marked confirmed.
-        id = "staff_of_jordan", library = true, itemQuality = 4,
+        id = "staff_of_jordan", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_staff_13",
         name = "Staff of Jordan",
         short = "Staff of Jordan",
@@ -1929,7 +1929,7 @@ local library = {
     {
         -- Item 13006: rare (blue) Bind on Equip main-hand mace, item level 62, requires level 57, +10 Strength,
         -- +10 Stamina. A world drop: 402 creatures listed, no boss (warcraftdb).
-        id = "mass_of_mcgowan", library = true, itemQuality = 3,
+        id = "mass_of_mcgowan", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_hammer_17",
         name = "Mass of McGowan",
         short = "Mass of McGowan",
@@ -1951,7 +1951,7 @@ local library = {
     {
         -- Item 1721: rare (blue) Bind on Equip main-hand mace, item level 54, requires level 49, +5 Strength,
         -- +11 Stamina. A world drop: 573 creatures listed, no boss (warcraftdb).
-        id = "viking_warhammer", library = true, itemQuality = 3,
+        id = "viking_warhammer", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_hammer_09",
         name = "Viking Warhammer",
         short = "Viking Warhammer",
@@ -1974,7 +1974,7 @@ local library = {
         -- Item 1979: epic Bind on Equip shield, item level 50, requires level 45, 1937 armor, 34 block, +10
         -- Strength, +15 Stamina, 3% chance when struck to add 150 armor for 20 sec. A world drop: 429
         -- creatures listed, no boss (warcraftdb).
-        id = "wall_of_the_dead", library = true, itemQuality = 4,
+        id = "wall_of_the_dead", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_shield_02",
         name = "Wall of the Dead",
         short = "Wall of the Dead",
@@ -1997,7 +1997,7 @@ local library = {
         -- Item 1168: epic Bind on Equip shield, item level 59, requires level 54, 2256 armor, 40 block, +10
         -- Fire and Shadow resistance; when struck, 3% chance to steal 35 life and 1% chance for 75 to 125
         -- Fire damage to nearby enemies. A world drop: 629 creatures listed, no boss (warcraftdb).
-        id = "skullflame_shield", library = true, itemQuality = 4,
+        id = "skullflame_shield", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_shield_01",
         name = "Skullflame Shield",
         short = "Skullflame Shield",
@@ -2020,7 +2020,7 @@ local library = {
         -- Item 18680: rare (blue) Bind on Pickup bow, item level 61, requires level 56, +11 Agility. Shared
         -- loot of six Scholomance bosses: Doctor Theolen Krastinov, Instructor Malicia, Lady Illucia Barov,
         -- Lord Alexei Barov, Lorekeeper Polkelt and The Ravenian (warcraftdb, no drop chances listed).
-        id = "ancient_bone_bow", library = true, itemQuality = 3, instance = { 289, "Scholomance" },
+        id = "ancient_bone_bow", library = true, forever = "listed", itemQuality = 3, instance = { 289, "Scholomance" },
         icon = "inv_weapon_bow_08",
         name = "Ancient Bone Bow",
         short = "Ancient Bone Bow",
@@ -2045,7 +2045,7 @@ local library = {
         -- Blacksmithing 300 and Master Axesmith (spell 17041, from ItemSparse) and drop from Quartermaster
         -- Zigris in Lower Blackrock Spire, 10% (warcraftdb). Reagents are in GearData. Forever's tables list
         -- an updated version (+14 attack power).
-        id = "annihilator", library = true, itemQuality = 3,
+        id = "annihilator", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_axe_12",
         name = "Annihilator",
         short = "Annihilator",
@@ -2101,7 +2101,7 @@ local library = {
         -- (spell 9787, from ItemSparse) and drop from Cannon Master Willey in Stratholme's living side, 6%
         -- (warcraftdb). Reagents are in GearData. Forever's tables list an updated version (+4 Agility in
         -- place of Strength, not Unique).
-        id = "heartseeker", library = true, itemQuality = 3,
+        id = "heartseeker", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_sword_17",
         name = "Heartseeker",
         short = "Heartseeker",
@@ -2137,7 +2137,7 @@ local library = {
         -- and Weaponsmith (spell 9787, from ItemSparse) and are sold by Lokhtos Darkbargainer for 7 gold
         -- (warcraftdb). The standing is in neither source; Revered with the Thorium Brotherhood is from
         -- memory, so verify in game. Reagents are in GearData. Named in Forever's tables, not confirmed.
-        id = "black_amnesty", library = true, itemQuality = 4,
+        id = "black_amnesty", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_weapon_shortblade_12",
         name = "Black Amnesty",
         short = "Black Amnesty",
@@ -2170,7 +2170,7 @@ local library = {
         -- Item 12651: rare (blue) Bind on Pickup crossbow, item level 59, requires level 54, +3 Agility, equip:
         -- +1% hit. Dropped by Shadow Hunter Vosh'gajin in Lower Blackrock Spire, 8% (warcraftdb). Not in
         -- Forever's tables yet, so not marked confirmed.
-        id = "blackcrow", library = true, itemQuality = 3, instance = { 229, "Blackrock Spire" },
+        id = "blackcrow", library = true, forever = "listed", itemQuality = 3, instance = { 229, "Blackrock Spire" },
         icon = "inv_weapon_crossbow_04",
         name = "Blackcrow",
         short = "Blackcrow",
@@ -2260,7 +2260,7 @@ local library = {
         -- 55, requires level 50, 51 to 95 damage, speed 2.00, chance on hit to make the target bleed for 100 damage
         -- over 30 sec. Dropped by Plugger Spazzring (creature 9499) in Blackrock Depths; Wowhead gives no drop
         -- chance and GearSources agrees. Not in Forever's tables yet, so not marked confirmed.
-        id = "barman_shanker", library = true, itemQuality = 3, instance = { 230, "Blackrock Depths" },
+        id = "barman_shanker", library = true, forever = "listed", itemQuality = 3, instance = { 230, "Blackrock Depths" },
         icon = "inv_drink_10",
         name = "Barman Shanker",
         short = "Barman Shanker",
@@ -2332,7 +2332,7 @@ local library = {
         -- Item 1263: epic Bind on Equip two-hand axe, item level 60, requires level 55, chance on hit wounds
         -- for 200 to 300 damage and lowers Intellect by 25 for 30 sec. A world drop: 518 creatures listed, no
         -- boss (warcraftdb). Not in Forever's tables yet, so not marked confirmed.
-        id = "brain_hacker", library = true, itemQuality = 4,
+        id = "brain_hacker", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_weapon_halberd_10",
         name = "Brain Hacker",
         short = "Brain Hacker",
@@ -2494,7 +2494,7 @@ local library = {
         -- Stamina, +18 Intellect, +11 Spirit, equip: +1% spell crit. Dropped by King Gordok in Dire Maul North
         -- (warcraftdb and GearSources; no drop chance listed). Not in Forever's tables yet, so not marked
         -- confirmed.
-        id = "crown_of_the_ogre_king", library = true, itemQuality = 3, instance = { 429, "Dire Maul" },
+        id = "crown_of_the_ogre_king", library = true, forever = "listed", itemQuality = 3, instance = { 429, "Dire Maul" },
         icon = "inv_crown_01",
         name = "Crown of the Ogre King",
         short = "Ogre King's Crown",
@@ -2558,7 +2558,7 @@ local library = {
         -- attack power against Demons. A world drop: 711 creatures are listed, no boss, the best chance 0.1%
         -- from Darkmaster Gandling in Scholomance, plus three chests at 0.01% (warcraftdb). Not in Forever's
         -- tables yet, so not marked confirmed.
-        id = "demonslayer", library = true, itemQuality = 3,
+        id = "demonslayer", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_sword_03",
         name = "Demonslayer",
         short = "Demonslayer",
@@ -2582,7 +2582,7 @@ local library = {
         -- block, +7 Stamina, +10 Fire resistance, equip: +10 defense. Dropped by General Drakkisath in Upper
         -- Blackrock Spire (warcraftdb and GearSources; no drop chance listed). Not in Forever's tables yet, so
         -- not marked confirmed.
-        id = "draconian_deflector", library = true, itemQuality = 3, instance = { 229, "Blackrock Spire" },
+        id = "draconian_deflector", library = true, forever = "listed", itemQuality = 3, instance = { 229, "Blackrock Spire" },
         icon = "inv_shield_20",
         name = "Draconian Deflector",
         short = "Draconian Deflector",
@@ -2647,7 +2647,7 @@ local library = {
         -- Item 2099: epic Bind on Equip gun, item level 58, requires level 53, equip: a chance to strike the
         -- ranged target with a Flaming Cannonball for 33 to 49 Fire damage. A world drop: 580 creatures are
         -- listed, no boss, no drop chances (warcraftdb). Not in Forever's tables yet, so not marked confirmed.
-        id = "dwarven_hand_cannon", library = true, itemQuality = 4,
+        id = "dwarven_hand_cannon", library = true, forever = "listed", itemQuality = 4,
         icon = "inv_weapon_rifle_09",
         name = "Dwarven Hand Cannon",
         short = "Hand Cannon",
@@ -2724,7 +2724,7 @@ local library = {
         -- Fang in Lower Blackrock Spire (warcraftdb and GearSources; no drop chance listed). Pairs with
         -- Venomspitter (Mother Smolderweb, same dungeon) as the set Spider's Kiss. Not in Forever's tables
         -- yet, so not marked confirmed.
-        id = "fang_of_the_crystal_spider", library = true, itemQuality = 3, instance = { 229, "Blackrock Spire" },
+        id = "fang_of_the_crystal_spider", library = true, forever = "listed", itemQuality = 3, instance = { 229, "Blackrock Spire" },
         icon = "inv_weapon_shortblade_16",
         name = "Fang of the Crystal Spider",
         short = "Crystal Spider Fang",
@@ -2746,7 +2746,7 @@ local library = {
         -- Item 12590: epic Bind on Pickup one-hand dagger, item level 63, requires level 58, no stats; chance on
         -- hit makes all attacks land and crit for 3 sec. Dropped by Warchief Rend Blackhand in Upper Blackrock
         -- Spire, 1% (warcraftdb and GearSources). Not in Forever's tables yet, so not marked confirmed.
-        id = "felstriker", library = true, itemQuality = 4, instance = { 229, "Blackrock Spire" },
+        id = "felstriker", library = true, forever = "listed", itemQuality = 4, instance = { 229, "Blackrock Spire" },
         icon = "inv_weapon_shortblade_25",
         name = "Felstriker",
         short = "Felstriker",
@@ -2794,7 +2794,7 @@ local library = {
         -- (that table is not the client data; the client tables give no required rank). Reagents are in
         -- GearData: 24 Mithril Bar, 4 Core of Earth, 6 Truesilver Bar, 5 Citrine, 5 Jade, 4 Solid Grinding
         -- Stone, 4 Thick Leather. Needs a Blacksmith Hammer. Forever: named in its tables, not confirmed.
-        id = "the_shatterer", library = true, itemQuality = 3,
+        id = "the_shatterer", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_hammer_18",
         name = "The Shatterer",
         short = "The Shatterer",
@@ -2832,7 +2832,7 @@ local library = {
         -- 35 silver. Reagents (GearData agrees): 28 Mithril Bar, 8 Truesilver Bar, 6 Breath of Wind, 6 Aquamarine,
         -- 2 Lesser Invisibility Potion, 4 Solid Grinding Stone, 2 Thick Leather. Needs a Blacksmith Hammer.
         -- Forever: named in its tables, not confirmed.
-        id = "phantom_blade", library = true, itemQuality = 3,
+        id = "phantom_blade", library = true, forever = "listed", itemQuality = 3,
         icon = "inv_sword_40",
         name = "Phantom Blade",
         short = "Phantom Blade",
@@ -2865,9 +2865,9 @@ local library = {
         -- Wowhead Classic item 5191, checked 2026-10-29: rare (blue) Bind on Pickup one-hand sword, item level 24,
         -- requires level 19, 30 to 57 damage, speed 2.80, equip: +12 attack power. Dropped by Edwin VanCleef
         -- (creature 639) in the Deadmines (GearSources agrees); Wowhead gives no drop chance and its comments are
-        -- anecdotes (about 10 runs is typical, some players report far more). Not in Forever's tables yet, so
-        -- not marked confirmed.
-        id = "cruel_barb", library = true, itemQuality = 3, instance = { 36, "The Deadmines" },
+        -- anecdotes (about 10 runs is typical, some players report far more). Confirmed in Forever 2026-11-11:
+        -- forever.warcraftdb.com loot shows Edwin VanCleef dropping it.
+        id = "cruel_barb", library = true, forever = "confirmed", itemQuality = 3, instance = { 36, "The Deadmines" },
         icon = "inv_sword_24",
         name = "Cruel Barb",
         short = "Cruel Barb",

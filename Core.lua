@@ -4290,7 +4290,8 @@ end
 -- My Goals view: every goal on the tracker, or only the ones the
 -- logged-in character can do (class, race and faction). A view only:
 -- progress still counts every character. Session-only, like the
--- Materials drawer; it starts on All goals after each reload.
+-- Materials drawer; it starts on This character after each reload
+-- (Karl, 2026-11-11), and All goals is one pick away.
 do
     local view = FGT.NewDropdown(listPanel, "Show:")
     FGT.myGoalsView = view
@@ -4309,7 +4310,7 @@ do
             { key = "all", label = "All goals" },
             { key = "me", label = "This character (" .. who .. ")", short = "This character" },
         })
-        view:SetValue(view.value or "all")
+        view:SetValue(view.value or "me")
     end
     FGT.RefreshViewOptions()
     local completed = CreateFrame("Button", nil, FGT.listSearch)
@@ -6519,6 +6520,9 @@ do -- Banner art lives behind the real widgets; no duplicate UI renderer.
     B.artAspects.social_friends, B.preprocessed.social_friends = 4/3, true
     B.artAspects.social_campfires, B.preprocessed.social_campfires = 4/3, true
     B.artPaths.wolfsbane = "wolfsbane-banner.blp"
+    -- Forsaken Charger: the Undead Paladin leveling portrait until it has its own banner (Karl, 2026-11-11).
+    B.artPaths.mount_forsaken_charger = "allclasses_undead_paladin-banner.blp"
+    B.artAspects.mount_forsaken_charger, B.preprocessed.mount_forsaken_charger = 4/3, true
     B.artPaths.key_ubrs = "key_ubrs-banner.blp"
     B.artPaths.key_brd = "key_ubrs-banner.blp"
     B.artAspects.key_brd, B.preprocessed.key_brd = 4/3, true
@@ -15205,7 +15209,7 @@ local function ClearExtras()
     if FGT.Maplet then FGT.Maplet:Reset() end -- the map scene's map fades back to the art at once
     if FGT.RailSync then FGT.RailSync(true) end
     if FGT.CloseWelcome then FGT.CloseWelcome(true) end
-    -- the Materials drawer closes, My Goals shows everything, unsearched
+    -- the Materials drawer closes, My Goals goes back to This character, unsearched
     local M = FGT.materialsPanel
     if M and M.open then
         if M.driver then M.driver:SetScript("OnUpdate", nil) end
@@ -15213,7 +15217,7 @@ local function ClearExtras()
         M:Place()
     end
     if FGT.listSearch and FGT.listSearch:GetText() ~= "" then FGT.listSearch:SetText("") end
-    if FGT.myGoalsView and FGT.myGoalsView.value ~= "all" then FGT.myGoalsView:SetValue("all") end
+    if FGT.myGoalsView and FGT.myGoalsView.value ~= "me" then FGT.myGoalsView:SetValue("me") end
 end
 
 local function Copy(v)

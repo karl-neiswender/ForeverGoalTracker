@@ -218,8 +218,10 @@ local function PaintDivider(a)
     end
 end
 
-local function FilterOn()
-    return (FGT.listQuery or "") ~= "" or (view.value or "all") ~= "all" or FGT.Setting("hideCompletedGoals")
+-- This character is the default view, so it only counts as a filter while it hides goals.
+local function FilterOn(shown, total)
+    return (FGT.listQuery or "") ~= "" or FGT.Setting("hideCompletedGoals")
+        or ((view.value or "me") ~= "all" and shown < total)
 end
 function R:UpdateFilter()
     local shown, total = 0, 0
@@ -228,7 +230,7 @@ function R:UpdateFilter()
         local row = rows[g.id]
         if row and row:IsShown() then shown = shown + 1 end
     end
-    local on = FilterOn()
+    local on = FilterOn(shown, total)
     -- always shown while folded (Karl, 2026-10-14): grey, gold while a filter is on
     filter.count:SetText(shown .. " of " .. total)
     local cc = on and C.ACCENT or C.SUBTEXT

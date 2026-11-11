@@ -56,6 +56,10 @@ local function Shown() for _, c in ipairs(controls) do if not c:IsShown() then r
 local function Hidden() for _, c in ipairs(controls) do if c:IsShown() then return false end end; return true end
 R:SetFilters(false, true)
 assert(not R.filtersOpen and Hidden() and R.head.heightForTest == 28, "folded: only the Filters bar: " .. tostring(R.head.heightForTest))
+-- My Goals starts on This character; it counts as a filter only while it hides a goal.
+assert(F.myGoalsView.value == "me", "My Goals starts on This character")
+assert(R.bar.count:GetText():find("^%d+ of %d+$"), "This character hides a goal: " .. tostring(R.bar.count:GetText()))
+F.myGoalsView:SetValue("all"); R:UpdateFilter()
 assert(R.bar.count:GetText():find("^%d+ goals$"), "the bar counts the goals: " .. tostring(R.bar.count:GetText()))
 R.bar:GetScript("OnClick")(R.bar)
 assert(R.filtersOpen and D.listFiltersOpen and Shown() and R.head.heightForTest == 126, "the bar opens the filters and remembers it")
