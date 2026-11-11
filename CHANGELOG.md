@@ -1,11 +1,11 @@
 # Changelog
 
-## Unreleased
+## 2.18.1
 
 - Added Forsaken Charger, the Undead Paladin epic mount, to the Goal Library on Forever.
-- Changed My Goals to start on the goals your current character can do. Pick All goals in Filters to see every goal.
-- Forever characters now show their full names, and realm names are hidden on Forever.
-- Hypnotic Blade, Illusionary Rod and Cruel Barb are now confirmed on Forever, and dozens more dungeon weapons are listed.
+- Changed My Goals to start on This character, the goals your current character can do (was All goals). Pick All goals in Filters to see every goal.
+- Changed Forever characters to show their full names, without realm names.
+- Changed Hypnotic Blade, Illusionary Rod and Cruel Barb to confirmed on Forever, and dozens more dungeon weapons to listed.
 - Added Forever sources for Violet Sorcerer's Sandals, Rotmender's Raiment and Pattern: Stormcloth Gloves.
 - Changed Gear Planner items and sources to Forever's latest patch.
 - UI improvements and bug fixes.

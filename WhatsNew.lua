@@ -12,6 +12,14 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.18.1", date = "Nov 11, 2026", items = {
+        "Added Forsaken Charger, the Undead Paladin epic mount, to the Goal Library on Forever",
+        "Changed My Goals to start on This character (was All goals)",
+        "Changed Forever characters to show their full names, without realm names",
+        "Changed Hypnotic Blade, Illusionary Rod, Cruel Barb and dozens more dungeon weapons to confirmed or listed on Forever",
+        "Changed Gear Planner items and sources to Forever's latest patch",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.18.0", date = "Nov 9, 2026", items = {
         "You can now click a goal in the Goal Library to preview it, with no need to add it first",
         "Added Rotmender's Raiment, Krol'dok Battlegear, Defias Enforcer's Garb and Stormcloth Regalia to the Goal Library on Forever",

@@ -101,16 +101,15 @@ its October 21 notes.
 
 ## Current invariants and open work
 
-- Next release (2026-11-11, PC, Claude): Karl asked to "commit, push, and mark for release". `main` is pushed and CHANGELOG
-  `## Unreleased` lists everything since `v2.18.0`. Not tagged and nothing published. Still needed for the tag: Karl's go-ahead and
-  version number, TOC, CHANGELOG heading and `FGT.WHATS_NEW`, `sh tools/run-luals.sh`, `tools/copycheck.py`, gallery and description
-  review (`reports/reference/publishing.md`). Native review pending for the charger, weapon labels and My Goals default. Not in this
-  push: GearSources.lua, the eye icon files and the CurseForge drafts. Also in it: `forever = "confirmed"` on hypnotic_blade,
-  illusionary_rod, cruel_barb (Forever loot data); `forever = "listed"` on 41 weapons with a Forever item page. Still flagged for
-  Karl: Teebu's Blazing Longsword is "confirmed" but missing from Forever's database; Frostguard, Sword of Zeal, Jin'do's Judgement
-  and Mograine's Might are "confirmed" without Forever loot data. My Goals Show now starts on "me" (Core.lua, Rail.lua `FilterOn`).
+- Release 2.18.1 (2026-11-11, PC, Claude): Karl authorized publishing ("Yes, 2.18.1"); tag `v2.18.1`
+  ([record](checks/release-2.18.1.md)). Native review of the charger, weapon labels and My Goals default is still pending.
+  Description's latest releases list still needs 2.18.0 and 2.18.1. Still flagged for Karl: Teebu's Blazing Longsword is
+  "confirmed" but missing from Forever's database; Frostguard, Sword of Zeal, Jin'do's Judgement and Mograine's Might are
+  "confirmed" without Forever loot data. Also shipped: `forever = "confirmed"` on hypnotic_blade, illusionary_rod,
+  cruel_barb; `forever = "listed"` on 41 weapons with a Forever item page; My Goals Show starts on "me" (Core.lua,
+  Rail.lua `FilterOn`).
 
-- Forsaken Charger and Forever re-check (2026-11-11, PC, Claude, committed, unreleased): new goal
+- Forsaken Charger and Forever re-check (2026-11-11, PC, Claude, released in 2.18.1): new goal
   `mount_forsaken_charger` (Horde Undead Paladin, Forever only) from Wowhead quests 97174 to 97179; the rest of
   the chain (97180 to 97187 return nothing) is not revealed, so the last step ticks from owning "Forsaken Charger".
   When the missing quests appear, insert them before that step with a progress remap. Re-check of the other
