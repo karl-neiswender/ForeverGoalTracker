@@ -101,6 +101,15 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Forsaken Charger and Forever re-check (2026-11-11, PC, Claude, uncommitted, unreleased): new goal
+  `mount_forsaken_charger` (Horde Undead Paladin, Forever only) from Wowhead quests 97174 to 97179; the rest of
+  the chain (97180 to 97187 return nothing) is not revealed, so the last step ticks from owning "Forsaken Charger".
+  When the missing quests appear, insert them before that step with a progress remap. Re-check of the other
+  Forever unknowns via forever.warcraftdb.com (Wowhead returned 403 after the quest scan): Violet Sorcerer's
+  Sandals, Rotmender's Garb and Gloves and Pattern: Stormcloth Gloves now have sources; Taldramir, Partners in
+  Crime, Krol'dok, Defias Enforcer's and the other five Stormcloth patterns are unchanged. check.py passes;
+  synced to Forever. Native review pending (no banner art yet: the goal uses fallback art).
+
 - Release 2.18.0 (2026-11-09, PC, Claude): Karl authorized publishing; tag `v2.18.0` ([record](checks/release-2.18.0.md)). It shows Welcome back
   once to players with goals. Gallery shot of the preview and the description's latest releases list are still to do.
   Karl confirmed in live Forever: drawer fade, open-drawer tooltip, blank cards gone. Not in this push: Codex's realm-hiding edits in

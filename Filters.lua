@@ -129,6 +129,7 @@ FGT.GOAL_CLASSES = {
     wolfsbane = { "PALADIN" },
     coldflame_saber = { "MAGE" },
     mount_charger = { "PALADIN" },
+    mount_forsaken_charger = { "PALADIN" },
     mount_dreadsteed = { "WARLOCK" },
     set_viper = { "DRUID" },
     set_violet_sorcerer = { "MAGE", "PRIEST", "WARLOCK" },
@@ -139,6 +140,7 @@ FGT.GOAL_CLASSES = {
 }
 FGT.GOAL_RACES = {
     wolfsbane = { "Scourge" },
+    mount_forsaken_charger = { "Scourge" },
 }
 
 local function Has(list, value)

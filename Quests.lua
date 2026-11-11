@@ -64,9 +64,10 @@ FGT.QUESTS = {
     { "Lord Grayson Shadowbreaker", { 7638 }, start = 6171, startName = "Duthorian Rall" },
     { "Emphasis on Sacrifice", { 7637 }, start = 928, startName = "Lord Grayson Shadowbreaker" },
     { "To Show Due Judgment", { 7639 }, start = 11406, startName = "High Priest Rohan" },
-    { "Exorcising Terrordale", { 7640 }, start = 928, startName = "Lord Grayson Shadowbreaker" },
+    -- The Forsaken Charger chain reuses two names (Wowhead Forever, 2026-11-11), so those share an entry.
+    { "Exorcising Terrordale", { 7640, 97176 }, startName = "Lord Grayson Shadowbreaker in Stormwind City (Undead Paladins: Danitha Morr at Bandarion Keep)" },
     { "The Work of Grimand Elmore", { 7641 }, start = 928, startName = "Lord Grayson Shadowbreaker" },
-    { "Collection of Goods", { 7642 }, start = 1416, startName = "Grimand Elmore" },
+    { "Collection of Goods", { 7642, 97179 }, startName = "Grimand Elmore in Stormwind City (Undead Paladins: Ott in Tarren Mill)" },
     { "Ancient Equine Spirit", { 7643 }, start = 928, startName = "Lord Grayson Shadowbreaker" },
     { "Blessed Arcanite Barding", { 7644 }, start = 14566, startName = "Ancient Equine Spirit" },
     { "Manna-Enriched Horse Feed", { 7645 }, start = 2357, startName = "Merideth Carlson" },
@@ -134,5 +135,12 @@ FGT.QUESTS = {
     { "Wet Job", { 79974 }, startName = "the Mound of Dirt in Stonetalon Mountains" },
     { "Eagle's Fist", { 79975 }, startName = "the Carved Figurine in Loch Modan" },
     { "This Must Be The Place", { 79976 }, startName = "the Messenger Bag on Thoradin's Wall" },
+    -- Forsaken Charger: Forever-only Undead Paladin chain (Wowhead, 2026-11-11). The first quest's giver is not listed.
+    { "A Worthy Endeavor", { 97174 } },
+    { "Due Sacrifice", { 97175 }, startName = "Danitha Morr at Bandarion Keep in Tirisfal Glades" },
+    { "Acts of Mercy", { 97177 }, startName = "High Priest Zayus in Orgrimmar" },
+    { "Ott of Tarren Mill", { 97178 }, startName = "Danitha Morr at Bandarion Keep in Tirisfal Glades" },
+    -- Stormcloth Gloves pattern (forever.warcraftdb.com, 2026-11-11). Its giver is not listed.
+    { "I Need a Tailor", { 92814 } },
 
 }

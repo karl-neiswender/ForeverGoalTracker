@@ -16219,6 +16219,8 @@ local function Suggest(picked, rows)
         push(fixed, Entry(me, "mount_dreadsteed", nil, "The Warlock's own epic mount"))
     elseif me.class == "PALADIN" and me.faction == "Alliance" then
         push(fixed, Entry(me, "mount_charger", nil, "The Paladin's own epic mount"))
+    elseif me.class == "PALADIN" and me.faction == "Horde" and FGT.isForever then
+        push(fixed, Entry(me, "mount_forsaken_charger", nil, "The Undead Paladin's own epic mount"))
     else
         local mounts = FGT.GoalById("epicmounts")
         local keys = mounts and PartKeys(mounts, { RACE_PART[me.race] or "" })

@@ -365,6 +365,41 @@ local library = {
         },
         completeWith = { quest = 7647 },
     },
+    {
+        -- Forsaken Charger: Wowhead Forever, 2026-11-11. Quests 97174 to 97179 are listed (series: A Worthy
+        -- Endeavor, Due Sacrifice, Acts of Mercy, Exorcising Terrordale; then Ott of Tarren Mill, Collection of
+        -- Goods); 97180 to 97187 return nothing yet, so the rest of the chain is not revealed. The mount is spell
+        -- 1296534 "Summon Forsaken Charger" (requires level 60, mount 3001). When the missing quests appear,
+        -- insert them before the last step and remap saved progress (steps are saved by position).
+        id = "mount_forsaken_charger", library = true, forever = "new", needs = "forever",
+        faction = "Horde", classOnly = "PALADIN",
+        icon = "ability_mount_charger",
+        name = "Forsaken Charger (Paladin Epic Mount)",
+        short = "Forsaken Charger",
+        category = "Mount", difficulty = "Very Hard",
+        timeEstimate = "2-4 Weeks",
+        note = "Undead Paladin epic mount from Danitha Morr's level 60 quest chain at Bandarion Keep.",
+        foreverNote = "A new epic mount for Undead Paladins, with its own quest chain. The last part of the chain is not revealed yet.",
+        steps = {
+            { text = "Reach level 60.", auto = { level = 60 } },
+            { text = "Complete 'A Worthy Endeavor' by speaking with Danitha Morr at Bandarion Keep.", auto = { quest = 97174 } },
+            { text = "Complete 'Due Sacrifice': donate 150 gold to High Priest Zayus in Orgrimmar for his censer.", auto = { quest = 97175 } },
+            { text = "Complete 'Acts of Mercy' by bringing the censer back to Danitha Morr.", auto = { quest = 97177 } },
+            { text = "Complete 'Exorcising Terrordale': free 25 Terrordale Spirits in the Eastern Plaguelands.", auto = { quest = 97176 } },
+            { text = "Complete 'Ott of Tarren Mill' by speaking with Ott in Hillsbrad Foothills.", auto = { quest = 97178 } },
+            { text = "Gather 40 {item:14047:Runecloth}.", auto = { item = 14047, count = 40, quest = 97179 } },
+            { text = "Gather 6 {item:12360:Arcanite Bar}.", auto = { item = 12360, count = 6, quest = 97179 } },
+            { text = "Gather 10 {item:8836:Arthas' Tears}.", auto = { item = 8836, count = 10, quest = 97179 } },
+            { text = "Gather 5 {item:13180:Stratholme Holy Water}.", auto = { item = 13180, count = 5, quest = 97179 } },
+            { text = "Complete 'Collection of Goods': bring the materials and 150 gold to Ott.", auto = { quest = 97179 } },
+            { text = "Finish Danitha Morr's chain and learn Summon Forsaken Charger.", auto = { owned = { "Forsaken Charger" } } },
+        },
+        completeWith = { owned = { "Forsaken Charger" } },
+        tips = {
+            "Bring 300 gold: 150 for the censer and 150 for Ott's work on the barding.",
+            "The quests after 'Collection of Goods' are Unconfirmed. This goal will add them when they are revealed.",
+        },
+    },
 
     -- ---------------- Weapons ----------------
     {
@@ -4007,7 +4042,7 @@ local sets = {
     },
     {
         -- Wowhead Forever item-set 2134 and all five item pages, 2026-10-09.
-        -- Only the Mantle and Robes have revealed drop sources so far.
+        -- Mantle and Robes have drop sources; the Sandals since 2026-11-11. Leggings and Wraps still unknown.
         id = "set_violet_sorcerer", library = true, forever = "new", needs = "forever",
         itemQuality = 3,
         icon = "inv_chest_cloth_25",
@@ -4024,13 +4059,15 @@ local sets = {
               auto = { item = 273044, owned = { "Violet Sorcerer's Robes" } } },
             { text = "Collect Violet Sorcerer's Leggings  |cff888888Source unknown|r", icon = "inv_pants_06",
               auto = { item = 286988, owned = { "Violet Sorcerer's Leggings" } } },
-            { text = "Collect Violet Sorcerer's Sandals  |cff888888Source unknown|r", icon = "inv_boots_05",
+            -- forever.warcraftdb.com, 2026-11-11: Sandals seen from Fallen Mage (NPC 255066), 1 of 24 kills; its zone is not listed.
+            { text = "Loot Violet Sorcerer's Sandals from a Fallen Mage.", icon = "inv_boots_05",
               auto = { item = 286987, owned = { "Violet Sorcerer's Sandals" } } },
             { text = "Collect Violet Sorcerer's Wraps  |cff888888Source unknown|r", icon = "inv_gauntlets_06",
               auto = { item = 286989, owned = { "Violet Sorcerer's Wraps" } } },
         },
         tips = {
             "{item:273051:Violet Sorcerer's Mantle} and {item:273044:Violet Sorcerer's Robes} bind on pickup. The other three pieces are tradable until equipped.",
+            "Players have seen {item:286987:Violet Sorcerer's Sandals} drop from a Fallen Mage about 1 time in 24. Where Fallen Mages are is Unconfirmed.",
             "Full set requires level 30. No class restriction listed.",
         },
     },
@@ -4062,7 +4099,9 @@ local sets = {
         tips = {
             "The entrance is in the ruined capital of Lordaeron in Tirisfal Glades.",
             "The Abandoned drops {item:271207:Rotmender's Leggings} about 37% of the time and Rath'mael drops {item:271214:Rotmender's Treads} about 30%. Both bind on pickup.",
-            "{item:286978:Rotmender's Garb}, {item:286980:Rotmender's Sash} and {item:286979:Rotmender's Gloves} are tradable until equipped, so check the Auction House. Which enemies drop them is Unconfirmed; expect low odds and repeat runs.",
+            "{item:286978:Rotmender's Garb}, {item:286980:Rotmender's Sash} and {item:286979:Rotmender's Gloves} are tradable until equipped, so check the Auction House.",
+            -- forever.warcraftdb.com loot samples, 2026-11-11 (small: 2 to 25 kills each).
+            "Players have seen {item:286978:Rotmender's Garb} drop from Ghostly Citizens, Plague Ghouls, Skeletons and Skeletal Soldiers, and {item:286979:Rotmender's Gloves} from Ragged Ghouls. Where {item:286980:Rotmender's Sash} drops is Unconfirmed; expect repeat runs.",
             "Full set requires level 19. No class restriction listed.",
         },
     },
@@ -4160,7 +4199,9 @@ local sets = {
               auto = { item = 10039, owned = { "Stormcloth Boots" } } },
         },
         tips = {
-            "Each piece needs its own pattern, starting with {item:254681:Pattern: Stormcloth Pants}, and Tailoring 185 to 205. Where the patterns come from: Source unknown.",
+            "Each piece needs its own pattern, starting with {item:254681:Pattern: Stormcloth Pants}, and Tailoring 185 to 205.",
+            -- forever.warcraftdb.com, 2026-11-11: quest 92814 (choice reward) and vendor Gorhak (NPC 253139, 60 x item 254432).
+            "{item:254682:Pattern: Stormcloth Gloves} is a reward choice from 'I Need a Tailor' in Desolace, or costs 60 {item:254432:Carved Centaur Totem} from Gorhak, the Magram Clan Quartermaster in Desolace. The other five patterns: Source unknown.",
             "All six pieces take 27 {item:4339:Bolt of Mageweave}, 23 {item:7079:Globe of Water}, 14 {item:8343:Heavy Silken Thread} and 2 {item:4304:Thick Leather}.",
             "The pieces are tradable until equipped, so you can buy them without learning Tailoring.",
             "Full set requires level 45. No class restriction listed.",
