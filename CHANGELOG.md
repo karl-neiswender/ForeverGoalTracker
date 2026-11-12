@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added Wit's Edge, the new level 60 Mage sword from the Scroll of Wit and the Witchblade, to the Goal Library on Forever.
+
 ## 2.18.1
 
 - Added Forsaken Charger, the Undead Paladin epic mount, to the Goal Library on Forever.

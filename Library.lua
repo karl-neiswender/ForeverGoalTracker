@@ -476,6 +476,38 @@ local library = {
         },
     },
     {
+        -- Wit's Edge: Karl's request, 2026-11-12, from the Wowhead Forever news post "New High Level Battle Mage
+        -- Weapon Discovered" (2026-11-12). Wowhead Forever tooltips (2026-11-12): Wit's Edge 276632 (rare Mage-only
+        -- main-hand sword, item level 65, requires level 57, bind on pickup, Wit's End: melee hits can grant
+        -- Clearcasting); Scroll of Wit 277504 (Mage only, "Use on Witchblade"); Witchblade 13964 (Darkmaster
+        -- Gandling, Scholomance, 33.33%; GearSources agrees). The news post says the scroll comes from Comprehension
+        -- on the level 175 skill scrolls (a Reddit report). Neither the rank nor the odds are confirmed in game.
+        id = "wits_edge", library = true, forever = "new", needs = "forever",
+        classOnly = "MAGE", itemQuality = 3,
+        icon = "inv_sword_11",
+        name = "Wit's Edge",
+        category = "Rare Weapon", difficulty = "Hard",
+        timeEstimate = "Days",
+        note = "A Mage-only sword made by using a deciphered Scroll of Wit on the Witchblade from Scholomance.",
+        foreverNote = "A new level 60 Mage weapon in Forever, built from a rare deciphered scroll and a Scholomance drop.",
+        steps = {
+            { text = "Learn Comprehend Scroll from a Mage trainer at level 6.", auto = { skill = { name = "Comprehension", rank = 1 } } },
+            { text = "Raise Comprehension to 175 by deciphering scrolls with Comprehend Scroll.", auto = { skill = { name = "Comprehension", rank = 175 } } },
+            { text = "Decipher a {item:277504:Scroll of Wit} from a level 175 untranslated scroll.", icon = "inv_misc_note_01",
+              auto = { item = { 277504, 276632 } } },
+            { text = "Loot {item:13964:Witchblade} from Darkmaster Gandling in {map:scholo:Scholomance}.", icon = "inv_weapon_shortblade_25",
+              auto = { item = { 13964, 276632 } } },
+            { text = "Reach level 57.", auto = { level = 57 } },
+            { text = "Use the {item:277504:Scroll of Wit} on the {item:13964:Witchblade} to make {item:276632:Wit's Edge}.", icon = "inv_sword_11",
+              auto = { item = 276632 } },
+        },
+        completeWith = { item = 276632 },
+        tips = {
+            "Unconfirmed: players report the {item:277504:Scroll of Wit} comes from the level 175 untranslated scrolls. Which one turns into it is luck.",
+            "The {item:13964:Witchblade} drops about a third of the time from Darkmaster Gandling in {map:scholo:Scholomance} and binds when picked up, so roll on it yourself.",
+        },
+    },
+    {
         id = "quelserrar", library = true,
         icon = "inv_sword_01",
         name = "Quel'Serrar",

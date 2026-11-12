@@ -128,6 +128,7 @@ FGT.GOAL_CLASSES = {
     lokdelar = { "HUNTER" },
     wolfsbane = { "PALADIN" },
     coldflame_saber = { "MAGE" },
+    wits_edge = { "MAGE" },
     mount_charger = { "PALADIN" },
     mount_forsaken_charger = { "PALADIN" },
     mount_dreadsteed = { "WARLOCK" },
