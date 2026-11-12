@@ -14456,7 +14456,7 @@ do
             if not name then
                 -- (never ask again for an item the game said it doesn't have:
                 -- its "no" answer redrew the list, which asked again, in a loop)
-                if not variants and not FGT.itemMissing[id] then
+                if not variants and not FGT.ItemMissing(id) then
                     waiting[id] = true
                     if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
                 end
@@ -14503,10 +14503,24 @@ do
     -- sets) hidden until players find them after launch, so their details
     -- never arrive. The server says so (success = false), or we give up
     -- after a couple of seconds (FGT.itemAskedAt).
+    -- A "no" lasts a minute, then the game is asked again: Forever reveals
+    -- items while you play (Wit's Edge, Karl 2026-11-12), and a no that
+    -- lasted the whole session hid them until a reload.
+    -- itemMissing[id] = when the game said no
     FGT.itemMissing, FGT.itemAskedAt = {}, {}
+    FGT.ITEM_RETRY = 60
+    function FGT.ItemMissing(id)
+        local t, asked, now = FGT.itemMissing[id], FGT.itemAskedAt[id], GetTime()
+        if (t and now - t >= FGT.ITEM_RETRY) or (asked and now - asked >= FGT.ITEM_RETRY) then
+            FGT.itemMissing[id], FGT.itemAskedAt[id] = nil, nil -- forget it: ask afresh
+            return false
+        end
+        return t ~= nil
+    end
     local function Unavailable(id)
+        if FGT.ItemMissing(id) then return true end
         local asked = FGT.itemAskedAt[id]
-        return FGT.itemMissing[id] or (asked and GetTime() - asked > 2)
+        return asked and GetTime() - asked > 2
     end
     FGT.ItemUnavailable = Unavailable
 
@@ -14519,7 +14533,7 @@ do
             local gear = FGT.GearCatalog and FGT.GearCatalog.Get(id)
             q = gear and gear.q -- unrevealed in Forever: our database's quality
         end
-        if not FGT.ItemInfo(id) and not FGT.itemMissing[id] then
+        if not FGT.ItemInfo(id) and not FGT.ItemMissing(id) then
             waiting[id] = true
             if C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
         end
@@ -14532,7 +14546,7 @@ do
     pcall(f.RegisterEvent, f, "GET_ITEM_INFO_RECEIVED")
     f:SetScript("OnEvent", function(_, _, id, ok)
         if ok == false then
-            FGT.itemMissing[id] = true
+            FGT.itemMissing[id] = GetTime()
             waiting[id] = nil -- nothing new to draw
         end
         -- the open tooltip was waiting for this item: show the real one now
@@ -14568,7 +14582,10 @@ do
         else
             -- not loaded: ask once, say "loading" briefly, then say it isn't
             -- in the game yet instead of the game's endless "Retrieving..."
-            if not FGT.itemMissing[id] and C_Item and C_Item.RequestLoadItemDataByID then C_Item.RequestLoadItemDataByID(id) end
+            if not FGT.ItemMissing(id) and C_Item and C_Item.RequestLoadItemDataByID then
+                waiting[id] = true -- if it arrives, the page's links get their color too
+                C_Item.RequestLoadItemDataByID(id)
+            end
             GameTooltip:AddLine(name or "Item", 1, 1, 1)
             if Unavailable(id) then
                 -- WoW Forever hides every item until a player finds one after
