@@ -8,7 +8,7 @@
 -- (only equip bonuses read differently). The Forever client uses them in place of blocks.
 local _, FGT = ...
 FGT.GEARDB = {
-    builds = { era = '1.15.9.70003', forever = '1.60.1.70888' },
+    builds = { era = '1.15.9.70003', forever = '1.60.1.70938' },
     sets = {
         [1] = "The Gladiator",
         [41] = "Dal'Rend's Arms",
@@ -1388,7 +1388,7 @@ FGT.GEARDB = {
 14325|2|61|56|0|401|135054|0|0||0|Resplendent Epaulets|||2
 13867|2|61|56|0|401|135052|1|0||0|Runecloth Shoulders||i15,p10|2
 13116|3|61|56|0|402|135049|0|0||0|Spaulders of the Unseen||a22,t7,i4|2
-276540|4|61|60|64|403|133827|2|2111||0|Spiritcaller Mantle|||2
+276540|4|61|60|64|403|0|2|2111||0|Spiritcaller Mantle|||2
 13955|3|61|56|0|404|135056|0|0||0|Stoneform Shoulders||d7|1
 13185|3|61|56|0|401|135033|0|0||0|Sunderseer Mantle||t4,i17,p11,S8,H8|1
 12927|3|61|56|0|402|135041|0|0||0|Truestrike Shoulders||A24,h2|1
@@ -3577,7 +3577,7 @@ FGT.GEARDB = {
 252603|4|61|56|0|403|0|2|0||0|Red Dragonscale Leggings||i32,S20,H20|2
 16709|3|61|56|0|402|134582|0|184||0|Shadowcraft Pants||a25,s12,t12|1
 14577|3|61|56|0|401|134588|0|0||0|Skullsmoke Pants||t20,i20|1
-276538|4|61|60|64|403|133826|2|2111||0|Spiritcaller Kilt|||2
+276538|4|61|60|64|403|0|2|2111||0|Spiritcaller Kilt|||2
 18390|3|61|57|0|402|134594|0|0||0|Tanglemoss Leggings||t12,i20,p13,c1|1
 13389|3|61|56|0|401|134586|0|81||0|The Postmaster's Trousers||t12,i20,p20|1
 252560|2|61|56|0|402|0|2|0||0|Tooled Leather Pants||t7,p17,S19,H19|2
@@ -4324,7 +4324,7 @@ FGT.GEARDB = {
 10146|2|61|56|0|402|132541|0|0||0|Mighty Boots|||2
 14631|3|61|56|0|401|132539|0|122||0|Necropile Boots||t15,i10,p9,S11,H11|1
 13259|3|61|56|0|404|132589|0|0||0|Ribsteel Footguards||a10,s10,t17|1
-276541|4|61|60|64|403|133821|2|2111||0|Spiritcaller Boots|||2
+276541|4|61|60|64|403|0|2|2111||0|Spiritcaller Boots|||2
 252601|2|61|56|0|403|0|2|0||0|Supple Scorpid Sabatons||s7,t7,S15,H15|2
 13391|3|61|56|0|401|132536|0|81||0|The Postmaster's Treads||t14,i15,p6,S7,H7|1
 13954|3|61|56|0|402|132542|0|0||0|Verdant Footpads||H37|1
@@ -4710,7 +4710,7 @@ FGT.GEARDB = {
 7952|2|36|0|8|402|132542|1|221||0|Boots of Thero-shan||a10,t3|1
 10582|3|36|31|0|402|132542|0|0||0|Briar Tredders||a5,i9,p8|2
 9519|2|36|0|0|401|132540|1|0||0|Durtfeet Stompers||s4,p9|1
-254013|2|36|31|0|401|0|2|0||0|Earthen Silk Slippers||p7,S24,H18|2
+254013|2|36|31|0|401|0|2|0||0|Earthen Silk Slippers||p7,S6,H17|2
 10359|2|36|0|0|401|132541|0|0||0|Everlast Boots||p11|1
 9864|2|36|31|0|403|132539|0|0||0|Renegade Boots|||2
 254007|3|35|30|0|401|0|2|0||0|Black Slippers||t6,i7,p4|1
@@ -5802,7 +5802,7 @@ FGT.GEARDB = {
 10149|2|61|56|0|402|132957|0|0||0|Mighty Gauntlets|||2
 13162|3|61|56|0|404|132963|0|0||0|Reiver Claws||s9,t15,c1|1
 13258|3|61|56|0|402|132956|0|0||0|Slaghide Gauntlets|||1
-276539|4|61|60|64|403|133824|2|2111||0|Spiritcaller Gloves|||2
+276539|4|61|60|64|403|0|2|2111||0|Spiritcaller Gloves|||2
 20655|2|60|55|0|401|132966|0|0||0|Abyssal Cloth Handwraps|||2
 20661|2|60|55|0|402|132939|0|0||0|Abyssal Leather Gloves|||2
 20659|2|60|55|0|403|132966|0|0||0|Abyssal Mail Handguards|||2
@@ -8593,7 +8593,7 @@ FGT.GEARDB = {
 13054|3|40|35|0|206|135125|0|0||0|Grim Reaper|||2
 13017|3|40|35|0|201|132418|0|0||0|Hellslayer Battle Axe|||2
 9383|3|40|35|0|201|132405|0|0||0|Obsidian Cleaver||a5,s6,t19|2
-280604|3|40|1|0|205|133522|2|0||0|Rage of the Storm||t15,i12|1
+280604|3|40|1|0|205|133522|2|0||0|Rage of the Storm||s16,t15|1
 15261|2|40|35|0|205|133053|0|0||0|Sequoia Branch|||2
 3856|2|40|35|0|201|132408|1|0||0|Shadow Crescent Axe||s11,t10|2
 15106|2|40|0|256|210|135149|1|0||0|Staff of Dar'Orahil||t3,i6|1
@@ -9628,8 +9628,8 @@ FGT.GEARDB = {
 276273|3|1|1|0|400|0|2|0||0|Empty Fish Bucket|||1
 ]==],
         [24] = [==[
-274387|4|65|60|0|602|249173|2|0||0|Swiftfeather Arrow|||1
-274388|4|65|60|0|603|249176|2|0||0|Swiftstrike Shot|||1
+274387|4|65|60|0|602|249173|2|0||0|Swiftfeather Arrow|||0
+274388|4|65|60|0|603|249176|2|0||0|Swiftstrike Shot|||0
 13377|3|61|56|0|603|132384|0|0||0|Miniature Cannon Balls|||1
 12654|3|59|54|0|602|132169|0|0||0|Doomshot|||1
 18042|2|57|52|0|602|132382|1|0||0|Thorium Headed Arrow|||0
@@ -10532,7 +10532,7 @@ FGT.GEARDB = {
 19120|2|51|0|0|400|134420|1|0||0|Rune of the Guard Captain||A2,h1|1
 13503|2|50|45|0|400|134334|4|0||0|Alchemist's Stone|Requires Alchemy (275)|p4|1
 18951|2|50|0|0|400|133612|4|0||0|Evonice's Landin' Pilla||p10|1
-10418|2|50|0|0|403|133435|4|0||0|Glimmering Mithril Insignia|Requires Blacksmithing (225)||1
+10418|2|50|0|0|400|133435|4|0||0|Glimmering Mithril Insignia|Requires Blacksmithing (225)||1
 219345|3|50|50|0|400|136091|1|0||0|Infernal Lasso||S8,H8|1
 21567|3|45|40|0|400|134415|1|0||0|Rune of Duty||t8|1
 21565|3|45|40|0|400|134418|1|0||0|Rune of Perfection||t8|1

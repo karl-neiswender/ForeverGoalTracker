@@ -6911,6 +6911,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 274021|V|Winklespark|The Barrens|
 276199|V|Friz Frazzlespark|Riverglades|
 274023|V|Rettrick|Tanaris|
+274022|V|Gezzy Gunkgear|Stranglethorn Vale|
 21712|Q|The Savior of Kalimdor|Ahn'Qiraj|
 19383|Q|The Lord of Blackrock||
 21529|Q|Nefarius's Corruption|Blackwing Lair|
@@ -6929,10 +6930,12 @@ FGT.GEARSOURCES_FOREVER = [==[
 19593|Q|The Eye of Zuldazar|Zul'Gurub|
 19608|Q|Vision of Voodress|Zul'Gurub|
 19616|Q|Zandalarian Shadow Talisman|Zul'Gurub|
+19491|V|Gelvas Grimegate|Elwynn Forest|
 19588|Q|The Hero's Brand|Zul'Gurub|
 19601|Q|The Jewel of Kajaro|Zul'Gurub|
 19605|Q|Kezan's Unstoppable Taint|Zul'Gurub|
 19621|Q|Maelstrom's Wrath|Zul'Gurub|
+19426|V|Gelvas Grimegate|Elwynn Forest|
 19613|Q|Pristine Enchanted South Seas Kelp|Zul'Gurub|
 19577|Q|The Rage of Mugamba|Zul'Gurub|
 19594|Q|The All-Seeing Eye of Zuldazar|Zul'Gurub|
@@ -6995,6 +6998,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 274955|Q|Jom-jom's Escape|Riverglades|
 15690|Q|Bone Collector|Desolace|
 4614|N|Unfettered Spirit||beta
+274749|V|Gezzy Gunkgear|Stranglethorn Vale|
 281258|Q|Sentiments of the Lost|Wetlands|
 281321|Q|Gleaning Our Future|Wetlands|
 288926|W|||beta
@@ -7095,6 +7099,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 273812|V|Taliaa Brightsky|Zephras Isle|
 273813|V|Taliaa Brightsky|Zephras Isle|
 273814|V|Taliaa Brightsky|Zephras Isle|
+273815|N|Al'Aketh Guardian||beta
 270334|Q|Consolation Prize|Riverglades|
 22476|Q|Bonescythe Breastplate|Naxxramas|
 22436|Q|Cryptstalker Tunic|Naxxramas|
@@ -7178,6 +7183,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 3752|Q|The Rescue|Hillsbrad Foothills|
 6502|Q|Egg Hunt|The Barrens|
 270022|Q|The Absent Minded Prospector|Wetlands|
+4781|V|Halija Whitestrider|The Barrens|
 3166|Q|Filthy Paws|Loch Modan|
 5341|Q|Root Samples|Herbalism|
 5420|Q|The Demon Seed|Durotar|
@@ -7219,6 +7225,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 19832|Q|Paragons of Power: The Predator's Belt|Zul'Gurub|
 19823|Q|Paragons of Power: The Vindicator's Belt|Zul'Gurub|
 272700|V|Captain Dirgehammer|Stormwind City|
+272397|V|Pix Xizzix|Stranglethorn Vale|
 275434|Q|Water of Hyjal|Mount Hyjal|
 15707|Q|A Final Blow|Felwood|
 15709|Q|A Final Blow|Felwood|
@@ -7274,6 +7281,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 5609|Q|Escape Through Force|Darkshore|
 6477|Q|Consumed by Hatred|The Barrens|
 11936|Q|The Absent Minded Prospector|Darkshore|
+4786|V|Aldren Cordon|Loch Modan|
 15404|Q|WANTED: Murkdeep!|Darkshore|
 270007|Q|Collecting Memories|Deadmines|
 16608|Q|Aquatic Form||
@@ -7468,6 +7476,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 274916|Q|In Memoriam|Riverglades|
 4139|Q|Report to Doren|Stranglethorn Vale|
 9519|Q|Hungry!|Dustwallow Marsh|
+274747|V|Gezzy Gunkgear|Stranglethorn Vale|
 276727|Q|Elixir of Agony|Hillsbrad Foothills|
 10653|Q|Horde Presence|The Barrens|
 277234|Q|WANTED: Incinerator Gar'im|Redridge Mountains|
@@ -7487,10 +7496,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 6191|Q|WANTED: Chok'sul|Loch Modan|
 6666|Q|Gerenzo's Orders|Stonetalon Mountains|
 5311|Q|Free From the Hold|The Barrens|
+4788|V|Kat Sampson|Loch Modan|
 270013|Q|Oh Brother...|Deadmines|
 6092|Q|Underbelly Scales|Redridge Mountains|
 11853|Q|Stolen Silver|The Barrens|
-4789|V|Defias Profiteer|Westfall|
+4789|V|||
 2037|Q|Collecting Memories|Deadmines|
 270006|Q|The People's Militia|Westfall|
 15406|Q|Fruit of the Sea|Darkshore|
@@ -7670,6 +7680,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 4107|Q|Tiger Mastery|Stranglethorn Vale|
 6784|Q|Centaur Bounty|Desolace|
 9518|Q|Hungry!|Dustwallow Marsh|
+274745|V|Gezzy Gunkgear|Stranglethorn Vale|
 4121|Q|Hostile Takeover|Stranglethorn Vale|
 15585|Q|Clam Bait|Desolace|
 9698|Q|Return to Vahlarriel|Desolace|
@@ -7735,6 +7746,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 21408|Q|Band of Unending Life|Ahn'Qiraj|
 21414|Q|Band of Vaulted Secrets|Ahn'Qiraj|
 21405|Q|Band of Veiled Shadows|Ahn'Qiraj|
+272407|V|Pix Xizzix|Stranglethorn Vale|
+272406|V|Pix Xizzix|Stranglethorn Vale|
+272408|V|Pix Xizzix|Stranglethorn Vale|
+272409|V|Pix Xizzix|Stranglethorn Vale|
 21396|Q|Ring of Eternal Justice|Ahn'Qiraj|
 21411|Q|Ring of Infinite Wisdom|Ahn'Qiraj|
 21417|Q|Ring of Unspoken Names|Ahn'Qiraj|
@@ -7809,6 +7824,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 278018|Q|Twice Misplaced Trust|Stranglethorn Vale|
 2043|Q|The Legend of Stalvan|Duskwood|
 270053|Q|The Legend of Stalvan|Duskwood|
+274746|V|Gezzy Gunkgear|Stranglethorn Vale|
 270052|Q|Jarl Needs a Blade|Dustwallow Marsh|
 15689|Q|Bodyguard for Hire|Desolace|
 270050|Q|A Grim Task|Wetlands|
@@ -7852,6 +7868,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 19290|Q|Darkmoon Portals Deck|Darkmoon Faire|
 21180|Q|Champion's Battlegear|Silithus|
 21181|Q|Veteran's Battlegear|Silithus|
+272437|V|Pix Xizzix|Stranglethorn Vale|
+272440|V|Pix Xizzix|Stranglethorn Vale|
+272439|V|Pix Xizzix|Stranglethorn Vale|
+272438|V|Pix Xizzix|Stranglethorn Vale|
 21326|Q|The Root of All Evil|Timbermaw Hold|
 17690|Q|Proving Grounds|Alterac Valley|
 17905|Q|Rise and Be Recognized|Alterac Valley|
@@ -7877,6 +7897,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272061|V|Creeg Bothunk|The Barrens|
 272060|V|Creeg Bothunk|The Barrens|
 270276|Q|Saving Sharpbeak|The Hinterlands|
+270225|Q|Job Opening: Guard Captain of Revantusk Village|The Hinterlands|
 19120|Q|Job Opening: Guard Captain of Revantusk Village|The Hinterlands|
 18951|Q|Look at the Size of It!|Searing Gorge|
 270226|Q|Message in a Bottle|Stranglethorn Vale|
@@ -7946,6 +7967,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 281314|Q|Stopping the Cycle|Wetlands|
 270048|Q|Insane Druids|Ashenvale|
 17046|Q|Raene's Cleansing|Ashenvale|
+15224|N|Twilight Acolyte||beta
 281293|Q|Valuable Vantages|Hillsbrad Foothills|
 251485|Q|A Frightened Request|Ruins of Lordaeron|
 16890|Q|Torek's Assault|Ashenvale|
@@ -7956,6 +7978,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 5627|Q|The Absent Minded Prospector|Wetlands|
 2908|Q|A Dark Threat Looms|Loch Modan|
 3581|Q|Wand to Bethor|Silverpine Forest|
+3572|Q|A Hunter's Challenge|Loch Modan|
 281254|Q|Banner of the Fallen|Loch Modan|
 281257|Q|Twisting the Knife|Loch Modan|
 6969|Q|Weapons of Elunite||
@@ -8044,8 +8067,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 276902|Q|Thicker Than Water|City of Dalaran|
 19114|Q|Return to Primal Torntusk|The Hinterlands|
 270107|Q|Dark Vessels|The Hinterlands|
+11308|V|Lhara|Elwynn Forest|
 277254|Q|Greater Friend of the Library|Special|
 17686|Q|Big Game Hunter|Stranglethorn Vale|
+11305|V|||
+11306|V|Lhara|Elwynn Forest|
 5817|Q|Answered Questions|Ashenvale|
 3493|Q|Ormer's Revenge|Wetlands|
 6739|Q|The Sacred Flame|Thunder Bluff|
@@ -8068,6 +8094,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 21415|Q|Drape of Vaulted Secrets|Ahn'Qiraj|
 21412|Q|Shroud of Infinite Wisdom|Ahn'Qiraj|
 21418|Q|Shroud of Unspoken Names|Ahn'Qiraj|
+272413|V|Pix Xizzix|Stranglethorn Vale|
 21187|Q|Volunteer's Battlegear|Silithus|
 275711|Q|Bait the Beast|Mount Hyjal|
 272699|V|Master Sergeant Biggins|Stormwind City|
@@ -8091,7 +8118,6 @@ FGT.GEARSOURCES_FOREVER = [==[
 9635|Q|Return to Apothecary Zinge|Undercity|
 4113|Q|Stranglethorn Fever|Stranglethorn Vale|
 274752|V|Rettrick|Tanaris|
-12254|V|Kharedon|Moonglade|
 271810|Q|Corpsefeeder's Carapace|Shen'dralas|
 9703|Q|Identifying the Brood|Dustwallow Marsh|
 9660|Q|Gordunni Cobalt|Feralas|
@@ -8398,7 +8424,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 5344|Q|Centaur Bracers|The Barrens|
 1009|Q|A Pilot's Revenge|Dun Morogh|
 5459|Q|Ursal the Mauler|Teldrassil|
-4766|V||The Barrens|
+4766|V|Nargal Deatheye|The Barrens|
 246164|Q|Murlocs at the Gates||
 5587|Q|Ursal the Mauler|Teldrassil|
 248006|Q|Rare Books|Elwynn Forest|
@@ -8525,6 +8551,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 4086|Q|Pearl Diving|Badlands|
 5248|Q|Pearl Diving|Badlands|
 16789|Q|Claim Rackmore's Treasure!|Desolace|
+274748|V|Gezzy Gunkgear|Stranglethorn Vale|
 3041|N|Mechano-Tank or Fallen Mage||beta
 5244|Q|Worgen in the Woods|Duskwood|
 5246|Q|Ormer's Revenge|Wetlands|
@@ -8559,6 +8586,16 @@ FGT.GEARSOURCES_FOREVER = [==[
 5439|V|||
 5441|V|||
 2101|V|Marda Weller|Stormwind City|
+272433|V|Pix Xizzix|Stranglethorn Vale|
+272428|V|Pix Xizzix|Stranglethorn Vale|
+272427|V|Pix Xizzix|Stranglethorn Vale|
+272429|V|Pix Xizzix|Stranglethorn Vale|
+272436|V|Pix Xizzix|Stranglethorn Vale|
+272435|V|Pix Xizzix|Stranglethorn Vale|
+272434|V|Pix Xizzix|Stranglethorn Vale|
+272430|V|Pix Xizzix|Stranglethorn Vale|
+272431|V|Pix Xizzix|Stranglethorn Vale|
+272432|V|Pix Xizzix|Stranglethorn Vale|
 263411|Q|Aquatic Form||
 6189|Q|WANTED: Chok'sul|Loch Modan|
 15402|Q|Deep Ocean, Vast Sea|Darkshore|
