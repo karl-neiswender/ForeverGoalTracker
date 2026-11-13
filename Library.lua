@@ -3352,9 +3352,9 @@ local library = {
         },
         steps = {
             { text = "Reach level 14.", auto = { level = 14 } },
-            { text = "Read the note in the Burned-Out Remains to start '... and that note you found'.",
+            { text = "Pick up '... and that note you found' from the note in the Burned-Out Remains (Alliance: Westfall, Horde: the Barrens).",
               icon = "inv_misc_note_01", auto = { questTaken = { 79007, 79008 } } },
-            { text = "Find the Nailed Plank in the other zone to complete '... and that note you found'.",
+            { text = "Turn in '... and that note you found' at the Nailed Plank on the other continent (Alliance: the Barrens, Horde: Westfall).",
               icon = "inv_misc_note_01", auto = { quest = { 79007, 79008 } } },
             { text = "Complete 'Stepping Stones' at the Pocket Litter in Stonetalon Mountains.", auto = { quest = 79192 } },
             { text = "Complete 'Scramble' at the Mound of Dirt, a hundred paces north down the cliff.", auto = { quest = 79980 } },
