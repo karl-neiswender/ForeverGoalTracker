@@ -6875,7 +6875,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 22074|Q|Saving the Best for Last||
 22109|Q|Saving the Best for Last||
 21999|Q|Saving the Best for Last||
+272471|V|Lady Palanseer|Orgrimmar|
+272641|V|Lady Palanseer|Orgrimmar|
 272725|V|Captain Dirgehammer|Stormwind City|
+273386|V|Lady Palanseer|Orgrimmar|
 22065|Q|Saving the Best for Last||
 22091|Q|Saving the Best for Last|Ironforge|
 22080|Q|Saving the Best for Last||
@@ -6884,6 +6887,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 11913|Q|A Little Help From My Friends|Un'Goro Crater|
 260195|Q|Vek'zol|Blasted Lands|
 21317|Q|Deadwood of the North|Timbermaw Hold|
+274756|V|Zippie Fizzbolt|Winterspring|
 12018|Q|Abandoned Hope|Blackrock Depths|
 10741|Q|Rise, Obsidion!|Searing Gorge|
 10743|Q|Set Them Ablaze!|Searing Gorge|
@@ -6909,6 +6913,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 252455|N|Dextren Ward||beta
 3556|Q|You Have Served Us Well|Stormwind City|
 274021|V|Winklespark|The Barrens|
+274024|V|Zippie Fizzbolt|Winterspring|
 276199|V|Friz Frazzlespark|Riverglades|
 274023|V|Rettrick|Tanaris|
 274022|V|Gezzy Gunkgear|Stranglethorn Vale|
@@ -6945,6 +6950,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 22149|Q|Falrin's Vendetta|Dire Maul|
 272072|V|Creeg Bothunk|The Barrens|
 16309|Q|Blood of the Black Dragon Champion;Drakefire Amulet|Blackrock Spire|
+271917|V|Bryanna Embreeze|The Barrens|
 275736|Q|Work Well Done|Mount Hyjal|
 22657|Q||Eastern Plaguelands|
 19610|Q|Enchanted South Seas Kelp|Zul'Gurub|
@@ -6963,6 +6969,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 19598|Q|The Pebble of Kajaro|Zul'Gurub|
 19599|Q|The Pebble of Kajaro|Zul'Gurub|
 274969|V|Master Sergeant Biggins|Stormwind City|
+274968|V|Brave Stonehide|Orgrimmar|
 19574|Q|Strength of Mount Mugamba|Zul'Gurub|
 19575|Q|Strength of Mount Mugamba|Zul'Gurub|
 20649|Q|Vyral the Vile|Silithus|
@@ -6984,6 +6991,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 276900|Q|Thicker Than Water|City of Dalaran|
 13473|Q|Two Halves Become One|Western Plaguelands|
 272073|V|Creeg Bothunk|The Barrens|
+271918|V|Bryanna Embreeze|The Barrens|
 259892|Q|Master Feardred|Azshara|
 260171|Q|Potential Panacea|Azshara|
 19159|Q|WANTED: Vile Priestess Hexx and Her Minions|The Hinterlands|
@@ -6995,6 +7003,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272184|Q|Forlorn Necklace|Shen'dralas|
 272074|V|Creeg Bothunk|The Barrens|
 4430|Q|The Crown of Will|Hillsbrad Foothills|
+271919|V|Bryanna Embreeze|The Barrens|
 274955|Q|Jom-jom's Escape|Riverglades|
 15690|Q|Bone Collector|Desolace|
 4614|N|Unfettered Spirit||beta
@@ -7035,13 +7044,17 @@ FGT.GEARSOURCES_FOREVER = [==[
 22068|Q|Anthion's Parting Words||
 22093|Q|Anthion's Parting Words|Ironforge|
 22001|Q|Anthion's Parting Words||
+271955|V|Bryanna Embreeze|The Barrens|
 22082|Q|Anthion's Parting Words||
 275737|Q|Work Well Done|Mount Hyjal|
 19849|Q|Paragons of Power: The Demoniac's Mantle|Zul'Gurub|
 19845|Q|Paragons of Power: The Illusionist's Mantle|Zul'Gurub|
 19835|Q|Paragons of Power: The Madcap's Mantle|Zul'Gurub|
 16995|Q|Duskwing, Oh How I Hate Thee...|Eastern Plaguelands|
+272469|V|Lady Palanseer|Orgrimmar|
+272642|V|Lady Palanseer|Orgrimmar|
 272724|V|Captain Dirgehammer|Stormwind City|
+273387|V|Lady Palanseer|Orgrimmar|
 15784|Q|High Chief Winterfall|Winterspring|
 281538|Q|Too Bad to Bear|Winterspring|
 275666|Q|Summit Sentries|Mount Hyjal|
@@ -7124,6 +7137,9 @@ FGT.GEARSOURCES_FOREVER = [==[
 19834|Q|Paragons of Power: The Madcap's Tunic|Zul'Gurub|
 19822|Q|Paragons of Power: The Vindicator's Breastplate|Zul'Gurub|
 275708|Q|Bait the Beast|Mount Hyjal|
+272472|V|Lady Palanseer|Orgrimmar|
+272626|V|Lady Palanseer|Orgrimmar|
+273384|V|Lady Palanseer|Orgrimmar|
 15786|Q|High Chief Winterfall|Winterspring|
 15787|Q|High Chief Winterfall|Winterspring|
 21322|Q|Winterfall Activity|Timbermaw Hold|
@@ -7133,6 +7149,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 11194|Q|Broken Alliances;Tremors of the Earth|Badlands|
 11195|Q|Broken Alliances;Tremors of the Earth|Badlands|
 11876|Q|The Bait for Lar'korwi|Un'Goro Crater|
+274758|V|Zippie Fizzbolt|Winterspring|
 9650|Q|Venom to the Undercity|The Hinterlands|
 270118|Q|Abandoned Hope|Blackrock Depths|
 260178|Q|Ley of the Land|Azshara|
@@ -7224,7 +7241,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 19839|Q|Paragons of Power: The Haruspex's Belt|Zul'Gurub|
 19832|Q|Paragons of Power: The Predator's Belt|Zul'Gurub|
 19823|Q|Paragons of Power: The Vindicator's Belt|Zul'Gurub|
+272463|V|Lady Palanseer|Orgrimmar|
+273367|V|Lady Palanseer|Orgrimmar|
 272700|V|Captain Dirgehammer|Stormwind City|
+273388|V|Lady Palanseer|Orgrimmar|
 272397|V|Pix Xizzix|Stranglethorn Vale|
 275434|Q|Water of Hyjal|Mount Hyjal|
 15707|Q|A Final Blow|Felwood|
@@ -7237,6 +7257,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 281261|Q|Microcrystal Contamination|Un'Goro Crater|
 281262|Q|Microcrystal Contamination|Un'Goro Crater|
 11909|Q|Roll the Bones|Un'Goro Crater|
+274757|V|Zippie Fizzbolt|Winterspring|
 260179|Q|Ley of the Land|Azshara|
 260182|Q|Murloc Thieves|Azshara|
 281260|Q|Memories of Rockard|Blasted Lands|
@@ -7327,7 +7348,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 20700|Q|Armaments of War|Silithus|
 20705|Q|Armaments of War|Silithus|
 20707|Q|Armaments of War|Silithus|
+272470|V|Lady Palanseer|Orgrimmar|
+272627|V|Lady Palanseer|Orgrimmar|
 272723|V|Captain Dirgehammer|Stormwind City|
+273385|V|Lady Palanseer|Orgrimmar|
 276339|Q|Prey and Predator|Mount Hyjal|
 11882|Q|The Bait for Lar'korwi|Un'Goro Crater|
 11910|Q|A Little Help From My Friends|Un'Goro Crater|
@@ -7427,7 +7451,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 22003|Q|Anthion's Parting Words||
 22076|Q|Anthion's Parting Words||
 22107|Q|Anthion's Parting Words||
+272462|V|Lady Palanseer|Orgrimmar|
+272606|V|Lady Palanseer|Orgrimmar|
 272701|V|Captain Dirgehammer|Stormwind City|
+273383|V|Lady Palanseer|Orgrimmar|
 22064|Q|Anthion's Parting Words||
 22087|Q|Anthion's Parting Words|Ironforge|
 22084|Q|Anthion's Parting Words||
@@ -7549,7 +7576,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 19824|Q|Paragons of Power: The Vindicator's Armguards|Zul'Gurub|
 22667|Q||Eastern Plaguelands|
 22668|Q||Eastern Plaguelands|
+272582|V|Lady Palanseer|Orgrimmar|
+272461|V|Lady Palanseer|Orgrimmar|
 272702|V|Captain Dirgehammer|Stormwind City|
+273381|V|Lady Palanseer|Orgrimmar|
 15796|Q|Guarding Secrets|Winterspring|
 275390|Q|Water of Hyjal|Mount Hyjal|
 15797|Q|Guarding Secrets|Winterspring|
@@ -7633,12 +7663,17 @@ FGT.GEARSOURCES_FOREVER = [==[
 22662|Q|Polar Gloves|Naxxramas|
 272095|V|Creeg Bothunk|The Barrens|
 272097|V|Creeg Bothunk|The Barrens|
+271940|V|Bryanna Embreeze|The Barrens|
+271945|V|Bryanna Embreeze|The Barrens|
 21178|Q|Volunteer's Battlegear|Silithus|
 20650|Q|Vyral the Vile|Silithus|
 16994|Q|Duskwing, Oh How I Hate Thee...|Eastern Plaguelands|
 281279|Q|Halt the Hail|Mount Hyjal|
 281280|Q|Halt the Hail|Mount Hyjal|
+272614|V|Lady Palanseer|Orgrimmar|
+272464|V|Lady Palanseer|Orgrimmar|
 272703|V|Captain Dirgehammer|Stormwind City|
+273382|V|Lady Palanseer|Orgrimmar|
 275669|Q|Unsealing Blackthorne Pact|Mount Hyjal|
 15708|Q|A Final Blow|Felwood|
 21318|Q|Winterfall Activity|Timbermaw Hold|
@@ -7652,6 +7687,9 @@ FGT.GEARSOURCES_FOREVER = [==[
 11918|Q|Beware of Pterrordax|Un'Goro Crater|
 272096|V|Creeg Bothunk|The Barrens|
 272098|V|Creeg Bothunk|The Barrens|
+274755|V|Zippie Fizzbolt|Winterspring|
+271941|V|Bryanna Embreeze|The Barrens|
+271946|V|Bryanna Embreeze|The Barrens|
 12051|Q|A Little Slime Goes a Long Way|Ironforge|
 11867|Q|Ogre Head On A Stick = Party|Burning Steppes|
 19116|Q|Separation Anxiety|The Hinterlands|
@@ -7765,7 +7803,9 @@ FGT.GEARSOURCES_FOREVER = [==[
 275970|Q|A Ring of Gems|Winterspring|
 275971|Q|A Ring of Gems|Winterspring|
 272064|V|Creeg Bothunk|The Barrens|
+271913|V|Bryanna Embreeze|The Barrens|
 18399|Q|A Hero's Reward|Azshara|
+271908|V|Bryanna Embreeze|The Barrens|
 18398|Q|A Hero's Reward|Azshara|
 21179|Q|Volunteer's Battlegear|Silithus|
 21189|Q|Stalwart's Battlegear|Silithus|
@@ -7789,8 +7829,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 11868|Q|Ogre Head On A Stick = Party|Burning Steppes|
 272069|V|Creeg Bothunk|The Barrens|
 272065|V|Creeg Bothunk|The Barrens|
+271914|V|Bryanna Embreeze|The Barrens|
 10739|Q|Rise, Obsidion!|Searing Gorge|
 11869|Q|Krom'Grul|Burning Steppes|
+271909|V|Bryanna Embreeze|The Barrens|
 11862|Q|Bone-Bladed Weapons|Orgrimmar|
 9642|Q|Tooga's Quest|Tanaris|
 9655|Q|The Morrow Stone|Feralas|
@@ -7806,6 +7848,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 274754|V|Rettrick|Tanaris|
 272070|V|Creeg Bothunk|The Barrens|
 272066|V|Creeg Bothunk|The Barrens|
+271915|V|Bryanna Embreeze|The Barrens|
+271910|V|Bryanna Embreeze|The Barrens|
 277209|Q|Terror of the Desert Skies|Badlands|
 274961|Q|Preventative Measures|Riverglades|
 6757|Q|The Missing Diplomat|Stormwind City|
@@ -7845,6 +7889,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 288931|W|||beta
 6678|Q|Reception from Tyrande|Stonetalon Mountains|
 281673|Q|The Offering of Blood|Silverpine Forest|
+1077|N|Defias Enchanter||beta
 281252|Q|Bloodfury Trinkets|Stonetalon Mountains|
 277210|Q|The Horn of Xelthos||
 1319|Q|Howling in the Hills|Redridge Mountains|
@@ -7893,9 +7938,15 @@ FGT.GEARSOURCES_FOREVER = [==[
 274386|Q|Soldier's Solace|Mount Hyjal|
 10659|Q|Heroes of Old|Blasted Lands|
 11905|Q|It's Dangerous to Go Alone|Un'Goro Crater|
+19024|Q|Arena Grandmaster||
+274760|V|Zippie Fizzbolt|Winterspring|
+274759|V|Zippie Fizzbolt|Winterspring|
 260205|Q|Your Final Reward|Azshara|
+274761|V|Zippie Fizzbolt|Winterspring|
 272061|V|Creeg Bothunk|The Barrens|
+271903|V|Bryanna Embreeze|The Barrens|
 272060|V|Creeg Bothunk|The Barrens|
+271906|V|Bryanna Embreeze|The Barrens|
 270276|Q|Saving Sharpbeak|The Hinterlands|
 270225|Q|Job Opening: Guard Captain of Revantusk Village|The Hinterlands|
 19120|Q|Job Opening: Guard Captain of Revantusk Village|The Hinterlands|
@@ -7908,10 +7959,13 @@ FGT.GEARSOURCES_FOREVER = [==[
 744|Q|Sweet Amber|Westfall|
 277844|Q|Mirage Mirror|Badlands|
 272059|V|Creeg Bothunk|The Barrens|
+271905|V|Bryanna Embreeze|The Barrens|
 272062|V|Creeg Bothunk|The Barrens|
+271904|V|Bryanna Embreeze|The Barrens|
 280766|Q|Changing Tastes;Heartwoven|Excavation Site: Wetlands|
 276895|Q|The Broodmother|Mulgore|
 274445|V|Master Sergeant Biggins|Stormwind City|
+274444|V|Brave Stonehide|Orgrimmar|
 19019|Q|Rise, Thunderfury!|Legendary|
 21244|Q|Imperial Qiraji Armaments|Ahn'Qiraj|
 21242|Q|Imperial Qiraji Armaments|Ahn'Qiraj|
@@ -7927,6 +7981,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 272693|V|Captain O'Neal|Stormwind City|
 272847|V|Captain O'Neal|Stormwind City|
 272859|V|Captain O'Neal|Stormwind City|
+272452|V|Sergeant Thunderhorn|Orgrimmar|
+272600|V|Sergeant Thunderhorn|Orgrimmar|
+272592|V|Sergeant Thunderhorn|Orgrimmar|
+272684|V|Sergeant Thunderhorn|Orgrimmar|
+272596|V|Sergeant Thunderhorn|Orgrimmar|
 22378|Q|The Perfect Poison|Silithus|
 22377|Q|The Perfect Poison|Silithus|
 17002|Q|The Corpulent One|Eastern Plaguelands|
@@ -8002,6 +8061,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 21269|Q|Imperial Qiraji Armaments|Ahn'Qiraj|
 272838|V|Captain O'Neal|Stormwind City|
 278468|V|Captain O'Neal|Stormwind City|
+278469|V|Sergeant Thunderhorn|Orgrimmar|
+272591|V|Sergeant Thunderhorn|Orgrimmar|
 16998|Q|Order Must Be Restored;The Scarlet Oracle, Demetria|Eastern Plaguelands|
 275649|Q|A Thorny Solution|Mount Hyjal|
 281637|Q|Greater Friend of the Library|Special|
@@ -8059,6 +8120,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 246265|Q|Making Repairs||
 263305|Q|A Firm Response|Zephras Isle|
 272841|V|Captain O'Neal|Stormwind City|
+272594|V|Sergeant Thunderhorn|Orgrimmar|
 16996|Q|Order Must Be Restored;The Scarlet Oracle, Demetria|Eastern Plaguelands|
 20646|Q|WANTED: Deathclasp, Terror of the Sands|Silithus|
 275439|Q|Feathers in Flight|Mount Hyjal|
@@ -8097,7 +8159,9 @@ FGT.GEARSOURCES_FOREVER = [==[
 272413|V|Pix Xizzix|Stranglethorn Vale|
 21187|Q|Volunteer's Battlegear|Silithus|
 275711|Q|Bait the Beast|Mount Hyjal|
+272589|V|Brave Stonehide|Orgrimmar|
 272699|V|Master Sergeant Biggins|Stormwind City|
+272578|V|Brave Stonehide|Orgrimmar|
 272698|V|Master Sergeant Biggins|Stormwind City|
 20218|Q|Confront Yeh'kinya|Zul'Gurub|
 275668|Q|Summit Sentries|Mount Hyjal|
@@ -8125,6 +8189,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 6832|Q|Nothing But The Truth|Duskwood|
 4114|Q|Keep An Eye Out|Stranglethorn Vale|
 277206|Q|Strahnbrad Mystery|Alterac Mountains|
+12253|V|Worb Strongstitch|Feralas|
 277207|Q|Terror of the Desert Skies|Badlands|
 277205|Q|Return to Delgren||
 2805|Q|Bartolo's Yeti Fur Cloak|Hillsbrad Foothills|
@@ -8146,6 +8211,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 16990|Q|Bloodfury Bloodline|Stonetalon Mountains|
 3561|Q|Apprentice's Duties|Wetlands|
 4797|V|||
+4798|V|Morg Gnarltree|Duskwood|
 4790|V|||
 274740|V|Winklespark|The Barrens|
 4793|V|||
@@ -8181,6 +8247,12 @@ FGT.GEARSOURCES_FOREVER = [==[
 272849|V|Captain O'Neal|Stormwind City|
 272850|V|Captain O'Neal|Stormwind City|
 272840|V|Captain O'Neal|Stormwind City|
+272593|V|Sergeant Thunderhorn|Orgrimmar|
+272682|V|Sergeant Thunderhorn|Orgrimmar|
+272604|V|Sergeant Thunderhorn|Orgrimmar|
+272602|V|Sergeant Thunderhorn|Orgrimmar|
+272601|V|Sergeant Thunderhorn|Orgrimmar|
+272603|V|Sergeant Thunderhorn|Orgrimmar|
 19106|Q||Alterac Valley|
 20724|Q|Into The Maw of Madness|Silithus|
 17004|Q|The Corpulent One|Eastern Plaguelands|
@@ -8300,14 +8372,17 @@ FGT.GEARSOURCES_FOREVER = [==[
 263312|Q|Deliver the News|Zephras Isle|
 22999|Q|Tabard of the Argent Dawn|Invasion|
 272695|V|Master Sergeant Biggins|Stormwind City|
+272450|V|Brave Stonehide|Orgrimmar|
 20132|Q|Control Five Bases|Arathi Basin|
 262765|V|Tamelyn Aldridge|Redridge Mountains|
 20131|Q|Take Five Bases|Arathi Basin|
 276502|Q|Take Full Control|Darkspear Islands|
 275042|Q|News to Farholde|Riverglades|
 272694|V|Master Sergeant Biggins|Stormwind City|
+272449|V|Brave Stonehide|Orgrimmar|
 276504|Q|Darkspear Island Domination|Darkspear Islands|
 5976|V|||
+285327|V|Archmage Alvareaux|Alterac Mountains|
 277717|Q|Legacy Reward: Spectral Bear Tabard|The Barrens|
 22496|Q|Frostfire Robe|Naxxramas|
 22504|Q|Plagueheart Robe|Naxxramas|
@@ -8354,6 +8429,9 @@ FGT.GEARSOURCES_FOREVER = [==[
 272856|V|Captain O'Neal|Stormwind City|
 272844|V|Captain O'Neal|Stormwind City|
 272857|V|Captain O'Neal|Stormwind City|
+272681|V|Sergeant Thunderhorn|Orgrimmar|
+272597|V|Sergeant Thunderhorn|Orgrimmar|
+272683|V|Sergeant Thunderhorn|Orgrimmar|
 22379|Q|The Perfect Poison|Silithus|
 22380|Q|The Perfect Poison|Silithus|
 20648|Q|Hero of the Frostwolf;Hero of the Stormpike|Alterac Valley|
@@ -8434,16 +8512,20 @@ FGT.GEARSOURCES_FOREVER = [==[
 4948|Q|Skull Rock|Durotar|
 278002|Q|Stalk With The Earthmother|Mulgore|
 272845|V|Captain O'Neal|Stormwind City|
+272598|V|Sergeant Thunderhorn|Orgrimmar|
 11863|Q|Bone-Bladed Weapons|Orgrimmar|
 19366|Q|The Lord of Blackrock||
 278158|V|Captain O'Neal|Stormwind City|
 278157|V|Captain O'Neal|Stormwind City|
+272685|V|Sergeant Thunderhorn|Orgrimmar|
+272686|V|Sergeant Thunderhorn|Orgrimmar|
 21185|Q|Stalwart's Battlegear|Silithus|
 15857|Q|Hidden Treasures|Eastern Plaguelands|
 18602|Q|Suppression||
 276336|Q|Yashiro's Windwalk|Mount Hyjal|
 275671|Q|Unsealing Blackthorne Pact|Mount Hyjal|
 275630|Q|Drawing Down the Malevolent|Mount Hyjal|
+15984|N|Elder Diemetradon||beta
 260201|Q|Your Final Reward|Azshara|
 221344|Q|A Lesson in Literacy||
 260208|Q|The Head of the Serpent|Azshara|
@@ -8516,6 +8598,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 22347|Q|The Perfect Poison|Silithus|
 272846|V|Captain O'Neal|Stormwind City|
 272842|V|Captain O'Neal|Stormwind City|
+272595|V|Sergeant Thunderhorn|Orgrimmar|
+272599|V|Sergeant Thunderhorn|Orgrimmar|
 19107|Q||Alterac Valley|
 19108|Q||Alterac Valley|
 16997|Q|Order Must Be Restored;The Scarlet Oracle, Demetria|Eastern Plaguelands|
