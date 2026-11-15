@@ -1,8 +1,11 @@
 # Changelog
 
-## Unreleased
+## 2.18.2
 
 - Added Wit's Edge, the new level 60 Mage sword from the Scroll of Wit and the Witchblade, to the Goal Library on Forever.
+- Added Forever sources for more than 80 Gear Planner items, from vendors in Orgrimmar, the Barrens and Winterspring.
+- Changed Gear Planner items and sources to Forever's latest patch.
+- UI improvements and bug fixes.
 
 ## 2.18.1
 

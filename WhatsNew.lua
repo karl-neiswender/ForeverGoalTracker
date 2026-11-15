@@ -12,6 +12,12 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.18.2", date = "Nov 15, 2026", items = {
+        "Added Wit's Edge, the new level 60 Mage sword, to the Goal Library on Forever",
+        "Added Forever sources for more than 80 Gear Planner items",
+        "Changed Gear Planner items and sources to Forever's latest patch",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.18.1", date = "Nov 11, 2026", items = {
         "Added Forsaken Charger, the Undead Paladin epic mount, to the Goal Library on Forever",
         "Changed My Goals to start on This character (was All goals)",
