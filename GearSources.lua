@@ -6875,10 +6875,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 22074|Q|Saving the Best for Last||
 22109|Q|Saving the Best for Last||
 21999|Q|Saving the Best for Last||
-272471|V|Lady Palanseer|Orgrimmar|
-272641|V|Lady Palanseer|Orgrimmar|
 272725|V|Captain Dirgehammer|Stormwind City|
-273386|V|Lady Palanseer|Orgrimmar|
 22065|Q|Saving the Best for Last||
 22091|Q|Saving the Best for Last|Ironforge|
 22080|Q|Saving the Best for Last||
@@ -7051,10 +7048,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 19845|Q|Paragons of Power: The Illusionist's Mantle|Zul'Gurub|
 19835|Q|Paragons of Power: The Madcap's Mantle|Zul'Gurub|
 16995|Q|Duskwing, Oh How I Hate Thee...|Eastern Plaguelands|
-272469|V|Lady Palanseer|Orgrimmar|
-272642|V|Lady Palanseer|Orgrimmar|
+272640|V|Lady Palanseer|Orgrimmar|
 272724|V|Captain Dirgehammer|Stormwind City|
-273387|V|Lady Palanseer|Orgrimmar|
 15784|Q|High Chief Winterfall|Winterspring|
 281538|Q|Too Bad to Bear|Winterspring|
 275666|Q|Summit Sentries|Mount Hyjal|
@@ -7137,9 +7132,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 19834|Q|Paragons of Power: The Madcap's Tunic|Zul'Gurub|
 19822|Q|Paragons of Power: The Vindicator's Breastplate|Zul'Gurub|
 275708|Q|Bait the Beast|Mount Hyjal|
-272472|V|Lady Palanseer|Orgrimmar|
-272626|V|Lady Palanseer|Orgrimmar|
-273384|V|Lady Palanseer|Orgrimmar|
+272490|V|Lady Palanseer|Orgrimmar|
 15786|Q|High Chief Winterfall|Winterspring|
 15787|Q|High Chief Winterfall|Winterspring|
 21322|Q|Winterfall Activity|Timbermaw Hold|
@@ -7241,10 +7234,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 19839|Q|Paragons of Power: The Haruspex's Belt|Zul'Gurub|
 19832|Q|Paragons of Power: The Predator's Belt|Zul'Gurub|
 19823|Q|Paragons of Power: The Vindicator's Belt|Zul'Gurub|
-272463|V|Lady Palanseer|Orgrimmar|
-273367|V|Lady Palanseer|Orgrimmar|
+272494|V|Lady Palanseer|Orgrimmar|
 272700|V|Captain Dirgehammer|Stormwind City|
-273388|V|Lady Palanseer|Orgrimmar|
 272397|V|Pix Xizzix|Stranglethorn Vale|
 275434|Q|Water of Hyjal|Mount Hyjal|
 15707|Q|A Final Blow|Felwood|
@@ -7348,10 +7339,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 20700|Q|Armaments of War|Silithus|
 20705|Q|Armaments of War|Silithus|
 20707|Q|Armaments of War|Silithus|
-272470|V|Lady Palanseer|Orgrimmar|
-272627|V|Lady Palanseer|Orgrimmar|
+272492|V|Lady Palanseer|Orgrimmar|
 272723|V|Captain Dirgehammer|Stormwind City|
-273385|V|Lady Palanseer|Orgrimmar|
 276339|Q|Prey and Predator|Mount Hyjal|
 11882|Q|The Bait for Lar'korwi|Un'Goro Crater|
 11910|Q|A Little Help From My Friends|Un'Goro Crater|
@@ -7399,7 +7388,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 2545|Q|Apprentice's Duties|Wetlands|
 274741|V|Winklespark|The Barrens|
 270020|Q|Assault on Fenris Isle|Silverpine Forest|
-4800|V|Morg Gnarltree|Duskwood|
+4816|V|Morg Gnarltree|Duskwood|
 270011|Q|Free From the Hold|The Barrens|
 270014|Q|The Sleeper Has Awakened|Darkshore|
 6659|Q|Escape Through Stealth|Darkshore|
@@ -7451,10 +7440,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 22003|Q|Anthion's Parting Words||
 22076|Q|Anthion's Parting Words||
 22107|Q|Anthion's Parting Words||
-272462|V|Lady Palanseer|Orgrimmar|
-272606|V|Lady Palanseer|Orgrimmar|
+272496|V|Lady Palanseer|Orgrimmar|
 272701|V|Captain Dirgehammer|Stormwind City|
-273383|V|Lady Palanseer|Orgrimmar|
 22064|Q|Anthion's Parting Words||
 22087|Q|Anthion's Parting Words|Ironforge|
 22084|Q|Anthion's Parting Words||
@@ -7576,10 +7563,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 19824|Q|Paragons of Power: The Vindicator's Armguards|Zul'Gurub|
 22667|Q||Eastern Plaguelands|
 22668|Q||Eastern Plaguelands|
-272582|V|Lady Palanseer|Orgrimmar|
-272461|V|Lady Palanseer|Orgrimmar|
+272483|V|Lady Palanseer|Orgrimmar|
 272702|V|Captain Dirgehammer|Stormwind City|
-273381|V|Lady Palanseer|Orgrimmar|
 15796|Q|Guarding Secrets|Winterspring|
 275390|Q|Water of Hyjal|Mount Hyjal|
 15797|Q|Guarding Secrets|Winterspring|
@@ -7670,10 +7655,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 16994|Q|Duskwing, Oh How I Hate Thee...|Eastern Plaguelands|
 281279|Q|Halt the Hail|Mount Hyjal|
 281280|Q|Halt the Hail|Mount Hyjal|
-272614|V|Lady Palanseer|Orgrimmar|
-272464|V|Lady Palanseer|Orgrimmar|
+272495|V|Lady Palanseer|Orgrimmar|
 272703|V|Captain Dirgehammer|Stormwind City|
-273382|V|Lady Palanseer|Orgrimmar|
 275669|Q|Unsealing Blackthorne Pact|Mount Hyjal|
 15708|Q|A Final Blow|Felwood|
 21318|Q|Winterfall Activity|Timbermaw Hold|
@@ -7917,6 +7900,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272440|V|Pix Xizzix|Stranglethorn Vale|
 272439|V|Pix Xizzix|Stranglethorn Vale|
 272438|V|Pix Xizzix|Stranglethorn Vale|
+268873|V|Dala Fairmaw|Mount Hyjal|
 21326|Q|The Root of All Evil|Timbermaw Hold|
 17690|Q|Proving Grounds|Alterac Valley|
 17905|Q|Rise and Be Recognized|Alterac Valley|
@@ -8026,10 +8010,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 281314|Q|Stopping the Cycle|Wetlands|
 270048|Q|Insane Druids|Ashenvale|
 17046|Q|Raene's Cleansing|Ashenvale|
-15224|N|Twilight Acolyte||beta
+15224|N|Twilight Acolyte or Blackfathom Myrmidon||beta
 281293|Q|Valuable Vantages|Hillsbrad Foothills|
 251485|Q|A Frightened Request|Ruins of Lordaeron|
 16890|Q|Torek's Assault|Ashenvale|
+15211|N|Bael'dun Excavator||beta
 16891|Q|Arachnophobia|Stonetalon Mountains|
 5321|Q|Serena Bloodfeather|The Barrens|
 5279|Q|Serena Bloodfeather|The Barrens|
@@ -8066,6 +8051,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 16998|Q|Order Must Be Restored;The Scarlet Oracle, Demetria|Eastern Plaguelands|
 275649|Q|A Thorny Solution|Mount Hyjal|
 281637|Q|Greater Friend of the Library|Special|
+274418|V|Dala Fairmaw|Mount Hyjal|
 276334|Q|Wood Remains|Mount Hyjal|
 260210|Q|Deadliest Catch|Azshara|
 10686|Q|Venom to the Undercity|The Hinterlands|
@@ -8210,12 +8196,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 16661|Q|Je'neu of the Earthen Ring|Ashenvale|
 16990|Q|Bloodfury Bloodline|Stonetalon Mountains|
 3561|Q|Apprentice's Duties|Wetlands|
-4797|V|||
-4798|V|Morg Gnarltree|Duskwood|
+4797|V|Robert Aebischer|Hillsbrad Foothills|
 4790|V|||
 274740|V|Winklespark|The Barrens|
 4793|V|||
-4799|V|||
+4799|V|Robert Aebischer|Hillsbrad Foothills|
 4792|V|||
 277289|Q|Wrongly Blamed, Justly Corrected|The Barrens|
 5314|Q|Consumed by Hatred|The Barrens|
@@ -8262,8 +8247,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 275742|Q|Flags of Our Forebears|Mount Hyjal|
 275648|Q|Twisted Tools|Mount Hyjal|
 275645|Q|Twisted Tools|Mount Hyjal|
+274419|V|Dala Fairmaw|Mount Hyjal|
 275701|Q|Drum Up Trouble|Mount Hyjal|
 275291|Q|Deeproar Down|Mount Hyjal|
+274420|V|Dala Fairmaw|Mount Hyjal|
 275729|Q|Contents Under Pressure|Mount Hyjal|
 11907|Q|The Mighty U'cha|Un'Goro Crater|
 260186|Q|Vek'zol|Blasted Lands|
@@ -8524,6 +8511,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 18602|Q|Suppression||
 276336|Q|Yashiro's Windwalk|Mount Hyjal|
 275671|Q|Unsealing Blackthorne Pact|Mount Hyjal|
+274417|V|Dala Fairmaw|Mount Hyjal|
 275630|Q|Drawing Down the Malevolent|Mount Hyjal|
 15984|N|Elder Diemetradon||beta
 260201|Q|Your Final Reward|Azshara|
@@ -8549,13 +8537,15 @@ FGT.GEARSOURCES_FOREVER = [==[
 15107|Q|The Completed Orb of Noh'Orahil||
 276897|Q|Small Book, Big Effort|Mulgore|
 276898|Q|Past Due|Scarlet Monastery|
+15929|N|Crystal Spine Basilisk||beta
 7344|Q|Morbent Fel|Duskwood|
 2943|Q|Cleansing the Eye|Wetlands|
 281306|Q|Old Habits|Wetlands|
+15928|N|Fallen Mage||beta
 281318|Q|Bloom of the Heavens|Wetlands|
 9800|N|Fallen Warrior||beta
 15947|N|Barbed Crustacean||beta
-15927|N|Thicket Lurker||beta
+15927|N|Irradiated Pillager or Thicket Lurker||beta
 274743|V|Winklespark|The Barrens|
 5323|Q|Supplies to Auberdine;Weapons of Choice||
 281294|Q|Valuable Vantages|Hillsbrad Foothills|
