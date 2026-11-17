@@ -942,6 +942,104 @@ local function RuleMet(rule)
 end
 FGT.StepRuleMet = RuleMet -- prerequisite evidence uses the same roster rules
 
+-- Which recorded characters meet a step's rule on their own, by name (Karl, 2026-11-17: a step
+-- done on another character says which). The same conditions as RuleMet, one character at a
+-- time; for summed rules (items, counters) the characters who hold some. Nil when no rule or
+-- nobody: a hand-ticked step, or an item since used up, names no one. Sorted, so it reads steady.
+function FGT.StepWho(rule)
+    if type(rule) ~= "table" then return nil end
+    local names = {}
+    for _, c in pairs(RosterFor(rule)) do
+        local ok = (rule.level and (c.level or 0) >= rule.level)
+            or (rule.raceLevel and c.race == rule.raceLevel.race and (c.level or 0) >= rule.raceLevel.level)
+            or (rule.race and c.race == rule.race)
+            or (rule.skill and c.skills and (c.skills[rule.skill.name] or 0) >= rule.skill.rank)
+            or (rule.money and (c.money or 0) >= rule.money)
+            or (rule.pvpRank and (c.pvpRank or 0) >= rule.pvpRank)
+            or (rule.hk and (c.hk or 0) >= rule.hk)
+            or (rule.guild and c.guilded)
+            or (rule.friends and (c.friends or 0) >= rule.friends)
+            or (rule.stat and ((c.stats and c.stats[rule.stat.id]) or 0) >= rule.stat.value)
+        if not ok and rule.item then
+            for _, id in ipairs(AsList(rule.item)) do
+                if ((c.items and c.items[id]) or 0) > 0 then ok = true break end
+            end
+        end
+        if not ok and rule.enchant then
+            local worn = c.enchants and c.enchants[rule.slot]
+            local id, enchant = (worn or ""):match("^(%d+):(%d+)$")
+            ok = tonumber(enchant) == rule.enchant and (not rule.onItem or tonumber(id) == rule.onItem)
+        end
+        if not ok then
+            for _, id in ipairs(AsList(rule.quest)) do
+                if c.quests and c.quests[id] then ok = true break end
+            end
+        end
+        if not ok then
+            for _, id in ipairs(AsList(rule.questTaken)) do
+                if (c.questsTaken and c.questsTaken[id]) or (c.quests and c.quests[id]) then ok = true break end
+            end
+        end
+        if not ok and rule.rep then
+            for _, fid in ipairs(AsList(rule.rep.faction)) do
+                local r = c.reps and c.reps[fid]
+                if r and (r.standing > rule.rep.standing
+                    or (r.standing == rule.rep.standing and (r.value or 0) >= (rule.rep.value or 0))) then ok = true break end
+            end
+        end
+        if not ok and rule.boss then
+            for _, want in ipairs(AsList(rule.boss)) do
+                for killed in pairs(c.bosses or FGT.EMPTY) do
+                    if killed:lower():find(want:lower(), 1, true) then ok = true break end
+                end
+                if ok then break end
+            end
+        end
+        if not ok then
+            for key in pairs(FGT.COUNTERS) do
+                if rule[key] and ((c.counts and c.counts[key]) or 0) > 0 then ok = true break end
+            end
+        end
+        if not ok and (rule.owned or rule.ownedPattern) then
+            local one = { c }
+            for _, want in ipairs(AsList(rule.owned)) do
+                if OwnsName(function(n) return n:find(want, 1, true) ~= nil end, one) then ok = true break end
+            end
+            for _, pat in ipairs(AsList(rule.ownedPattern)) do
+                if not ok and OwnsName(function(n) return n:find(pat) ~= nil end, one) then ok = true end
+            end
+        end
+        if ok and c.name then names[#names + 1] = FGT.CharacterFullName(c) end
+    end
+    if #names == 0 then return nil end
+    table.sort(names)
+    return names
+end
+
+-- The grey line under a finished step: "Done on Karl and Taliesin". Left out when the only one is
+-- the character you're playing, since that needs no saying. Three names at most, then "+2 more".
+function FGT.StepWhoLine(rule)
+    local names = FGT.StepWho(rule)
+    if not names then return nil end
+    local me = UnitName and UnitName("player")
+    local others = false
+    for _, n in ipairs(names) do
+        if n ~= me and n:match("^(%S+)") ~= me then others = true break end
+    end
+    if not others then return nil end
+    local shown = {}
+    for k = 1, math.min(3, #names) do shown[k] = names[k] end
+    local text
+    if #names > 3 then
+        text = table.concat(shown, ", ") .. " +" .. (#names - 3) .. " more"
+    elseif #shown == 1 then
+        text = shown[1]
+    else
+        text = table.concat(shown, ", ", 1, #shown - 1) .. " and " .. shown[#shown]
+    end
+    return "Done on " .. text
+end
+
 -- Short live readout for a step row: text, plus current/max when the
 -- step has a count worth drawing as a bar. (Feedback reports quote it.)
 local function RuleReadout(rule)
@@ -9674,8 +9772,11 @@ local function RefreshTierSections(goal, view)
                 local open = hasMats and FGT.pieceExpanded[pieceKey]
 
                 row.num:SetText("")
-                row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(FGT.StepText(piece.text or piece.name), md == mt, hasMats, piece.mapZoom)
-                    or FGT.StepText(piece.text or piece.name))
+                local pieceText = FGT.StepText(piece.text or piece.name)
+                -- a finished piece met on another character names who (FGT.StepWhoLine)
+                local who = md == mt and FGT.StepWhoLine(piece.auto)
+                if who then pieceText = pieceText .. "\n|cff8f897c" .. who .. "|r" end
+                row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(pieceText, md == mt, hasMats, piece.mapZoom) or pieceText)
                 FGT.LinkItemName(row) -- the piece's name as an item link
                 -- Top-align wrapped labels and use one horizontal anchor: a RIGHT
                 -- anchor would override SetWidth and let text run into the count.
@@ -9876,6 +9977,11 @@ RefreshSteps = function(goal, view)
             -- a step that shows its goal's tally (Tallies.lua): "1,284 fish caught so far" under the step
             if type(entry) == "table" and entry.tally and FGT.TallyLine then
                 stepText = stepText .. "\n|cff8f897c" .. FGT.TallyLine(goal) .. "|r"
+            end
+            -- a finished step met on another character names who (FGT.StepWhoLine)
+            if IsStepDone(goal.id, i) and type(entry) == "table" and entry.auto then
+                local who = FGT.StepWhoLine(entry.auto)
+                if who then stepText = stepText .. "\n|cff8f897c" .. who .. "|r" end
             end
             row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(stepText, IsStepDone(goal.id, i), nil, type(entry) == "table" and entry.mapZoom or nil) or stepText)
             -- 22 more than the icon and number need, so a long line (and a "Show on map" link) stops short of the scroll bar
