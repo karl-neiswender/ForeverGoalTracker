@@ -131,6 +131,17 @@ FGT.NPCS = {
     { id = 4731, name = "Zachariah Post", tag = "Undead Horse Merchant", map = 1420, zone = "Tirisfal Glades", x = 59.8, y = 52.6 },
     { id = 7952, name = "Zjolnir", tag = "Raptor Handler", map = 1411, zone = "Durotar", x = 55.2, y = 75.4 },
     { id = 265756, name = "Genn Fairweather", tag = "Stablemaster and Riding Trainer", forever = true, map = 2521, zone = "Zephras Isle", x = 53.8, y = 81.2 },
+    -- Racial riding trainers: Forever's 'Swift as the Wind' teaches Journeyman Riding (RIDING_TRAINER in
+    -- Data.lua). Spots from forever.warcraftdb.com map pins, 2026-11-17; Kildar, Ultham Ironhorn and
+    -- Binjy Featherwhistle have no Forever pin, so theirs are Classic (classic.warcraftdb.com).
+    { id = 4732, name = "Randal Hunter", tag = "Horse Riding Instructor", map = 1429, zone = "Elwynn Forest", x = 84.3, y = 64.9 },
+    { id = 4772, name = "Ultham Ironhorn", tag = "Ram Riding Instructor", map = 1426, zone = "Dun Morogh", x = 63.9, y = 50.1 },
+    { id = 4753, name = "Jartsam", tag = "Nightsaber Riding Instructor", map = 1457, zone = "Darnassus", x = 38.1, y = 16.1 },
+    { id = 7954, name = "Binjy Featherwhistle", tag = "Mechanostrider Pilot", map = 1426, zone = "Dun Morogh", x = 49.1, y = 48.1 },
+    { id = 4752, name = "Kildar", tag = "Wolf Riding Instructor", map = 1454, zone = "Orgrimmar", x = 69.4, y = 13.1 },
+    { id = 3690, name = "Kar Stormsinger", tag = "Kodo Riding Instructor", map = 1412, zone = "Mulgore", x = 46.8, y = 61.9 },
+    { id = 4773, name = "Velma Warnam", tag = "Undead Horse Riding Instructor", map = 1420, zone = "Tirisfal Glades", x = 60.2, y = 52.4 },
+    { id = 7953, name = "Xar'Ti", tag = "Raptor Riding Trainer", map = 1411, zone = "Durotar", x = 55.3, y = 75.5 },
     -- Cozy Sleeping Bag chain: objects on the ground, not NPCs (object = true; right-click opens Wowhead's
     -- object page). Ids from forever.warcraftdb.com, spots from the Method and wow.gg guides, 2026-11-07.
     -- Each faction starts at its own Burned-Out Remains and crosses to the other zone's Nailed Plank.

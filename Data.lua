@@ -59,14 +59,41 @@ FGT.difficultyColors = {
 local VENDOR_NPC = { ["Katie Hunter"] = 384, ["Veron Amberstill"] = 1261, ["Lelanai"] = 4730,
     ["Milli Featherwhistle"] = 7955, ["Ogunaro Wolfrunner"] = 3362, ["Harb Clawhoof"] = 3685,
     ["Zachariah Post"] = 4731, ["Zjolnir"] = 7952, ["Genn Fairweather"] = 265756 }
+-- Forever (2026-11-17, forever.warcraftdb.com quests 99201 to 99218): each race's riding trainer
+-- teaches Journeyman Riding in 'Swift as the Wind', then the race's mount vendor gives one swift
+-- mount free in 'An Epic Ride' (a choice of three colors). Later mounts are bought as before.
+-- The quest log names Kildar, Xar'Ti and Velma Warnam; the rest are the races' Classic trainers,
+-- all listed as Forever riding trainers.
+local RIDING_TRAINER = { Human = "Randal Hunter", Dwarf = "Ultham Ironhorn", NightElf = "Jartsam",
+    Gnome = "Binjy Featherwhistle", Orc = "Kildar", Tauren = "Kar Stormsinger", Scourge = "Velma Warnam",
+    Troll = "Xar'Ti", Skyborne = "Genn Fairweather" }
 local function BuildMountTasks(race, mountName, vendor, location, raceFile, ownedPatterns, gold, home, items, mapZoom)
-    gold = gold or (FOREVER_CLIENT and { "1,200", 1200 } or { "800-1,000", 800 })
+    -- Forever: Journeyman Riding (1,000g) is the cost; your own race's first swift mount is free.
+    gold = FOREVER_CLIENT and { "1,000", 1000 } or gold or { "800-1,000", 800 }
     local savings = (FOREVER_CLIENT and "Save " or "Save about ") .. gold[1] .. " gold on that character"
     local ids = {}
     for i, it in ipairs(items or {}) do ids[i] = it[1] end
     -- "Buy a Swift Ram" when it comes in several colors, "Buy the ..." for one
     local article = (#ids > 1) and "a " or "the "
     local link = items and { { ids[1], mountName, variants = items, npc = VENDOR_NPC[vendor], vendor = vendor } }
+    -- Forever: save the gold, train with your race's trainer, then the free mount quest. Saving
+    -- comes before training there (Core.lua moves older ticks once: foreverMountOrder).
+    local train = FOREVER_CLIENT and ("Train Journeyman Riding from " .. RIDING_TRAINER[raceFile] .. " ('Swift as the Wind')")
+        or "Train Expert Riding"
+    local buy = FOREVER_CLIENT and ("Complete 'An Epic Ride' and choose " .. article .. mountName .. " from " .. vendor)
+        or ("Buy " .. article .. mountName .. " from " .. vendor)
+    local scope = home and { forFaction = home[1] } or { forRace = raceFile }
+    local function Scoped(auto)
+        for k, v in pairs(scope) do auto[k] = v end
+        return auto
+    end
+    local riding = { name = train, materials = {}, shared = "riding",
+        auto = Scoped({ skill = { name = "Riding", rank = 150 } }) }
+    local money = { name = savings, materials = {}, auto = Scoped({ money = gold[2] * 10000 }) }
+    local mount = { name = buy, materials = {},
+        auto = Scoped({ ownedPattern = ownedPatterns, item = ids }), links = link, mapZoom = mapZoom }
+    local first, second = riding, money
+    if FOREVER_CLIENT then first, second = money, riding end
     if home then
         local side, repId, repName, races = home[1], home[2], home[3], home[4]
         return {
@@ -75,27 +102,13 @@ local function BuildMountTasks(race, mountName, vendor, location, raceFile, owne
             { name = "Reach Exalted with " .. repName .. " (optional for " .. races .. ")", materials = {},
               auto = { rep = { faction = repId, standing = 8 }, forFaction = side },
               skipIfRace = raceFile }, -- hidden while you play that race (FGT.PieceSkipped)
-            { name = "Train " .. (FOREVER_CLIENT and "Journeyman" or "Expert") .. " Riding", materials = {}, shared = "riding",
-              auto = { skill = { name = "Riding", rank = 150 }, forFaction = side } },
-            { name = savings, materials = {},
-              auto = { money = gold[2] * 10000, forFaction = side } },
-            { name = "Buy " .. article .. mountName .. " from " .. vendor, materials = {},
-              auto = { ownedPattern = ownedPatterns, item = ids, forFaction = side },
-              links = link, mapZoom = mapZoom },
+            first, second, mount,
         }
     end
     return {
         { name = "Level " .. (race:match("^[AEIOU]") and "an " or "a ") .. race .. " character to level 60", materials = {},
           auto = { raceLevel = { race = raceFile, level = 60 } } },
-        -- Warcraft Forever renamed the skill: Journeyman Riding is what
-        -- teaches swift mounts there. Same skill rank, 150.
-        { name = "Train " .. (FOREVER_CLIENT and "Journeyman" or "Expert") .. " Riding", materials = {}, shared = "riding",
-          auto = { skill = { name = "Riding", rank = 150 }, forRace = raceFile } },
-        { name = savings, materials = {},
-          auto = { money = gold[2] * 10000, forRace = raceFile } },
-        { name = "Buy " .. article .. mountName .. " from " .. vendor, materials = {},
-          auto = { ownedPattern = ownedPatterns, item = ids, forRace = raceFile },
-          links = link, mapZoom = mapZoom },
+        first, second, mount,
     }
 end
 
@@ -497,15 +510,20 @@ FGT.goals = {
         category = "Mount Collection",
         difficulty = "Hard",
         timeEstimate = "Ongoing",
-        note = "Your faction's epic racial mounts. Requires level 60, Riding training and gold. Other races need Exalted with the mount's home city. Pick the mounts you want.",
+        -- Confirmed in Forever 2026-11-17 for your own race's mount: the 'Swift as the Wind' and
+        -- 'An Epic Ride' quests (see RIDING_TRAINER). Other races' rules stay unconfirmed in a hint.
+        forever = "confirmed",
+        note = FOREVER_CLIENT and "Your faction's epic racial mounts. Requires level 60 and Journeyman Riding; your own race's first swift mount is free. Pick the mounts you want."
+            or "Your faction's epic racial mounts. Requires level 60, Riding training and gold. Other races need Exalted with the mount's home city. Pick the mounts you want.",
         tips = Tips(
-            "Your own race's mount needs no reputation. Another race's mount needs Exalted with that race's home city (Darkspear Trolls for the raptor, Ironforge for the ram).",
-            FOREVER_CLIENT and "Journeyman Riding (100% speed): 1,000 gold. Epic racial mount: 200 gold. Total: 1,200 gold before faction discounts."
+            FOREVER_CLIENT and "After training, your race's mount vendor gives your first swift mount free in 'An Epic Ride'. Each mount after that costs 200 gold."
+                or "Your own race's mount needs no reputation. Another race's mount needs Exalted with that race's home city (Darkspear Trolls for the raptor, Ironforge for the ram).",
+            FOREVER_CLIENT and "Journeyman Riding (100% speed): 1,000 gold before faction discounts."
                 or "Honored with the vendor's city gives a small discount.",
             FOREVER_CLIENT and "Apprentice Riding (60% speed): 100 gold. Non-epic racial mount: 20 gold, before faction discounts."
                 or "Riding training and the mount are separate purchases.",
-            FOREVER_CLIENT and "Train Riding once per character. Each mount costs extra.",
-            "For all mounts on one character, reach Exalted with your faction's cities. See {rep_ambassador:Ambassador}.",
+            FOREVER_CLIENT and "Another race's mount also needs that animal's riding skill from its race's trainer. Whether it still needs Exalted is Unconfirmed.",
+            not FOREVER_CLIENT and "For all mounts on one character, reach Exalted with your faction's cities. See {rep_ambassador:Ambassador}.",
             "Any color counts. All colors cost the same."
         ),
         sections = {
@@ -542,7 +560,9 @@ FGT.goals = {
             {
                 icon = "ability_mount_undeadhorse",
                 name = "Undead - Skeletal Warhorse",
-                pieces = BuildMountTasks("Undead", "Skeletal Warhorse", "Zachariah Post", "Brill, Tirisfal Glades", "Scourge", { "Skeletal Warhorse" }, nil, { "Horde", 68, "Undercity", "Undead" }, { { 18791, "Purple Skeletal Warhorse" }, { 13334, "Green Skeletal Warhorse" } }),
+                pieces = BuildMountTasks("Undead", "Skeletal Warhorse", "Zachariah Post", "Brill, Tirisfal Glades", "Scourge", { "Skeletal Warhorse" }, nil, { "Horde", 68, "Undercity", "Undead" }, { { 18791, "Purple Skeletal Warhorse" }, { 13334, "Green Skeletal Warhorse" },
+                    -- Forever adds a third color, offered in 'An Epic Ride' (quest 99211)
+                    FOREVER_CLIENT and { 274799, "Ochre Skeletal Warhorse" } or nil }),
             },
             {
                 icon = "ability_mount_raptor",

@@ -142,5 +142,11 @@ FGT.QUESTS = {
     { "Ott of Tarren Mill", { 97178 }, startName = "Danitha Morr at Bandarion Keep in Tirisfal Glades" },
     -- Stormcloth Gloves pattern (forever.warcraftdb.com, 2026-11-11). Its giver is not listed.
     { "I Need a Tailor", { 92814 } },
+    -- Epic racial mounts in Forever (forever.warcraftdb.com, 2026-11-17): one version per race, so any
+    -- of the ids counts. The trainer teaches Journeyman Riding; the mount vendor gives a swift mount.
+    { "Swift as the Wind", { 99201, 99202, 99203, 99204, 99205, 99206, 99207, 99208, 99209 },
+      startName = "your race's riding trainer" },
+    { "An Epic Ride", { 99210, 99211, 99212, 99213, 99214, 99215, 99216, 99217, 99218 },
+      startName = "your race's mount vendor" },
 
 }

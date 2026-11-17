@@ -14042,6 +14042,18 @@ initFrame:SetScript("OnEvent", function(self, event, name)
     ForeverGoalTrackerDB.attuneSteps = true
     FGT.MigrateArmorSets(ForeverGoalTrackerDB)
     FGT.MigrateAQMaterials(ForeverGoalTrackerDB)
+    -- Forever's epic racial mounts now save gold before training (Data.lua BuildMountTasks), so
+    -- the Riding and savings steps traded places. Move their ticks with them, once. Skyborne,
+    -- the 9th mount, has no reputation step: its pair sits one step earlier.
+    if FGT.isForever and not ForeverGoalTrackerDB.foreverMountOrder then
+        local p = ForeverGoalTrackerDB.progress.epicmounts
+        for si = 1, 9 do
+            local a = si == 9 and 2 or 3
+            local ka, kb = si .. "_" .. a .. "_piece", si .. "_" .. (a + 1) .. "_piece"
+            if p then p[ka], p[kb] = p[kb], p[ka] end
+        end
+        ForeverGoalTrackerDB.foreverMountOrder = true
+    end
     -- Image effects became Full / Subtle / Off (it was on or off)
     local saved = ForeverGoalTrackerDB.settings
     if saved and (saved.imageEffects == false or saved.imageEffects == true) then
