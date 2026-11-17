@@ -442,6 +442,9 @@ FGT.goals = {
 
     {
         id = "tier3",
+        -- Confirmed in Forever 2026-11-17: forever.warcraftdb.com shows all 72 pieces as rewards of the
+        -- same Naxxramas quests. The material counts are not in that data.
+        forever = "confirmed",
         itemQuality = 4, -- piece names' color when the game doesn't know the item
         group = true, -- pick class sets individually in the Library
         icon = "inv_helmet_58",

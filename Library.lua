@@ -1795,8 +1795,9 @@ local library = {
     {
         -- Item 19108: rare (blue) Bind on Pickup wand, item level 63, equip: +16 Frost spell damage. A choice
         -- reward from Hero of the Stormpike (8271), Hero of the Frostwolf (8272), The Legend of Korrak (7181)
-        -- and Korrak the Bloodrager (7202), all in Alterac Valley (warcraftdb). Named in Forever's tables.
-        id = "wand_of_biting_cold", library = true, itemQuality = 3,
+        -- and Korrak the Bloodrager (7202), all in Alterac Valley (warcraftdb). Confirmed in Forever 2026-11-17: forever.warcraftdb.com
+        -- shows the same four quests offering it.
+        id = "wand_of_biting_cold", library = true, forever = "confirmed", itemQuality = 3,
         icon = "inv_wand_01",
         name = "Wand of Biting Cold",
         short = "Biting Cold",
@@ -2246,8 +2247,9 @@ local library = {
         -- Item 19107: rare (blue) Bind on Pickup crossbow, item level 63, no required level, +8 Strength, +7
         -- Agility. A choice reward from Hero of the Stormpike (8271), Hero of the Frostwolf (8272), The Legend
         -- of Korrak (7181) and Korrak the Bloodrager (7202), all in Alterac Valley (warcraftdb), the same
-        -- quests as Wand of Biting Cold. Named in Forever's tables, not confirmed.
-        id = "bloodseeker", library = true, itemQuality = 3,
+        -- quests as Wand of Biting Cold. Confirmed in Forever 2026-11-17: forever.warcraftdb.com shows the
+        -- same four quests offering it.
+        id = "bloodseeker", library = true, forever = "confirmed", itemQuality = 3,
         icon = "inv_weapon_crossbow_07",
         name = "Bloodseeker",
         short = "Bloodseeker",
@@ -2268,9 +2270,9 @@ local library = {
         -- Wowhead Classic item 19106, checked 2026-10-28: rare (blue) Bind on Pickup polearm, item level 63, no
         -- required level, 155 to 233 damage, speed 3.60, +13 Strength, +21 Agility, +20 Stamina. A choice reward
         -- from Hero of the Stormpike (8271), Hero of the Frostwolf (8272), The Legend of Korrak (7181) and Korrak
-        -- the Bloodrager (7202), all in Alterac Valley, the same quests as Bloodseeker. Named in Forever's
-        -- tables, not confirmed.
-        id = "ice_barbed_spear", library = true, itemQuality = 3,
+        -- the Bloodrager (7202), all in Alterac Valley, the same quests as Bloodseeker. Confirmed in Forever
+        -- 2026-11-17: forever.warcraftdb.com shows the same four quests offering it.
+        id = "ice_barbed_spear", library = true, forever = "confirmed", itemQuality = 3,
         icon = "inv_spear_04",
         name = "Ice Barbed Spear",
         short = "Ice Barbed Spear",
@@ -2428,9 +2430,9 @@ local library = {
     {
         -- Item 20648: rare (blue) Bind on Pickup, Unique main-hand mace, item level 63, no required level, +5
         -- Stamina, +9 Intellect, equip: 3 mana per 5 sec. A choice reward from Hero of the Stormpike (8271)
-        -- and Hero of the Frostwolf (8272) in Alterac Valley (GearSources). Named in Forever's tables, not
-        -- confirmed. The client spells the name without a hyphen.
-        id = "cold_forged_hammer", library = true, itemQuality = 3,
+        -- and Hero of the Frostwolf (8272) in Alterac Valley (GearSources). Confirmed in Forever 2026-11-17:
+        -- forever.warcraftdb.com shows the same two quests offering it. The client spells the name without a hyphen.
+        id = "cold_forged_hammer", library = true, forever = "confirmed", itemQuality = 3,
         icon = "inv_hammer_22",
         name = "Cold Forged Hammer",
         short = "Cold Forged Hammer",

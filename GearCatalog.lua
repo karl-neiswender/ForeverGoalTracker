@@ -594,6 +594,11 @@ for _, boss in ipairs({ "Lucifron", "Magmadar", "Gehennas", "Garr", "Shazzrah", 
 for _, boss in ipairs({ "Razorgore the Untamed", "Vaelastrasz the Corrupt", "Broodlord Lashlayer",
     "Firemaw, Ebonroc or Flamegor", "Chromaggus", "Nefarian" }) do BOSS_PLACE[boss] = "Blackwing Lair" end
 BOSS_PLACE["Onyxia"] = "Onyxia's Lair"
+-- Forever drops placed by hand (2026-11-17, forever.warcraftdb.com NPC pages). Dextren Ward
+-- (NPC 1663) is The Stockade's elite boss; the Al'Aketh Guardian (NPC 252762) is not a boss but
+-- a level 10 to 11 High Order Skyborne mob on Zephras Isle.
+BOSS_PLACE["Dextren Ward"] = "The Stockade"
+BOSS_PLACE["Al'Aketh Guardian"] = "Zephras Isle"
 
 -- Turn a Library piece's source wording ("Garr", "Gyth (Upper Blackrock Spire)",
 -- "the quest 'X'", "Molten Core trash", "PvP rank 13") into a source.

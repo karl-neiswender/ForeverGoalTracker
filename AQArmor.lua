@@ -118,7 +118,9 @@ for _, set in ipairs(sets) do
     }
 end
 FGT.goals[#FGT.goals + 1] = {
-    id = "set_tier25", library = true, group = true, itemQuality = 4,
+    -- Confirmed in Forever 2026-11-17: forever.warcraftdb.com shows all 45 pieces as rewards of the
+    -- same Ahn'Qiraj quests. The token, idol and scarab costs are not in that data.
+    id = "set_tier25", library = true, group = true, itemQuality = 4, forever = "confirmed",
     name = "Tier 2.5 Set Appearances", short = "Tier 2.5 Sets", icon = "inv_helmet_72",
     category = "Item Set", difficulty = "Very Hard", timeEstimate = "3+ Months",
     note = "Five-piece Tier 2.5 sets. Trade AQ40 tokens, idols and scarabs; Brood of Nozdormu reputation is required. Pick the classes you want in the Library; owned pieces complete automatically.",

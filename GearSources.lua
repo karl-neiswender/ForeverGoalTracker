@@ -7126,6 +7126,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 22664|Q|Icy Scale Breastplate|Naxxramas|
 22661|Q|Polar Tunic|Naxxramas|
 21183|Q|Veteran's Battlegear|Silithus|
+10384|N|General Drakkisath||beta
 19828|Q|Paragons of Power: The Augur's Hauberk|Zul'Gurub|
 19825|Q|Paragons of Power: The Freethinker's Breastplate|Zul'Gurub|
 19838|Q|Paragons of Power: The Haruspex's Tunic|Zul'Gurub|
@@ -8145,6 +8146,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272413|V|Pix Xizzix|Stranglethorn Vale|
 21187|Q|Volunteer's Battlegear|Silithus|
 275711|Q|Bait the Beast|Mount Hyjal|
+15815|Q|Hameya's Plea|Eastern Plaguelands|
 272589|V|Brave Stonehide|Orgrimmar|
 272699|V|Master Sergeant Biggins|Stormwind City|
 272578|V|Brave Stonehide|Orgrimmar|
@@ -8526,6 +8528,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 19115|Q|Return to Primal Torntusk|The Hinterlands|
 9644|Q|Rescue OOX-17/TN!|Tanaris|
 11859|Q|A Grim Discovery|Feralas|
+7555|N|Krol'dok Centurion||beta
 277260|Q|Greater Friend of the Library|Special|
 277980|Q|Noise Complaints;The Offense of Grom'gol|Stranglethorn Vale|
 4125|Q|Mai'Zoth|Stranglethorn Vale|
@@ -8538,6 +8541,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 276897|Q|Small Book, Big Effort|Mulgore|
 276898|Q|Past Due|Scarlet Monastery|
 15929|N|Crystal Spine Basilisk||beta
+7609|N|Makrura Snapper||beta
 7344|Q|Morbent Fel|Duskwood|
 2943|Q|Cleansing the Eye|Wetlands|
 281306|Q|Old Habits|Wetlands|

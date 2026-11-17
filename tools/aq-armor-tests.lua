@@ -11,7 +11,8 @@ for _, child in ipairs(parent.armorChildren) do
     assert(F.goalBanner:ArtPath(child.id) == art, "AQ sets use approved plate, leather, cloth, Hunter or shared artwork")
     assert(F.goalBanner.artAspects[child.id] == 4/3 and F.goalBanner.preprocessed[child.id], "approved framing and grayscale treatment")
     assert(child.armorParent == parent.id and #child.sections == 1)
-    assert(not child.forever and not child.faction, "Classic set retains unverified Forever notice and both factions")
+    -- (confirmed 2026-11-17: Forever's data shows the same Ahn'Qiraj quests for every piece)
+    assert(child.forever == "confirmed" and not child.faction, "Classic set is confirmed in Forever for both factions")
     assert(#child.tips == 3 and #child.sections[1].pieces == 5, "general tips only; reagents live under each piece")
     assert(child.tips[3]:find("Neutral", 1, true) and child.tips[3]:find("Friendly", 1, true) and child.tips[3]:find("Honored", 1, true))
     for _, piece in ipairs(child.sections[1].pieces) do
