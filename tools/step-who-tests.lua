@@ -23,12 +23,24 @@ assert(same(F.StepWho({ skill = { name = "Riding", rank = 150 } }), { "Bryn" }))
 assert(same(F.StepWho({ money = 1000 * 10000 }), { "Bryn" }))
 assert(F.StepWho({ quest = 1 }) == nil and F.StepWho(nil) == nil, "nobody, or no rule: no names")
 
-assert(F.StepWhoLine({ quest = 7786 }) == "Done on Ada Stone and Bryn")
-assert(F.StepWhoLine({ item = 18776 }) == "Done on Bryn", "one other character")
-assert(F.StepWhoLine({ level = 60 }) == "Done on Bryn, Cole, Dax +1 more", "three names, then a count")
-assert(F.StepWhoLine({ skill = { name = "Riding", rank = 75 } }) == "Done on Bryn and Tester", "you are named beside the others")
-D.characters["Bryn-Realm"].skills.Riding = 0
-assert(F.StepWhoLine({ skill = { name = "Riding", rank = 75 } }) == nil, "only the character you play: nothing to say")
+-- under the step: only steps tied to one character (quests, items, mounts), worded "On ..."
+assert(F.StepWhoLine({ quest = 7786 }) == "On Ada Stone and Bryn")
+assert(F.StepWhoLine({ item = 18776 }) == "On Bryn", "one other character")
+assert(F.StepWhoLine({ level = 60 }) == nil, "any character counts for a level: tooltip only")
+assert(F.StepWhoLine({ skill = { name = "Riding", rank = 75 } }) == nil, "skills: tooltip only")
+D.characters["Tester-Realm"].items = { [18777] = 1 }
+assert(F.StepWhoLine({ item = 18777 }) == nil, "only the character you play: nothing under the step")
+
+-- tooltips: every finished step, "Done on" and then one name a line, you included
+local lines, tip = {}, GameTooltip
+GameTooltip = setmetatable({ AddLine = function(_, text) lines[#lines + 1] = text end }, { __index = tip })
+assert(F.AddStepWhoTip({ level = 60 }) and table.concat(lines, "|") == "Done on|   Bryn|   Cole|   Dax|   Tester",
+    "one name a line, so none breaks in two")
+lines = {}
+assert(F.AddStepWhoTip({ item = 18777 }) and lines[2] == "   Tester", "the tooltip still names you")
+lines = {}
+assert(not F.AddStepWhoTip({ quest = 1 }) and #lines == 0, "nobody: no lines")
+GameTooltip = tip
 
 D.characters = saved
-print("  finished steps name the characters that met them; only you, or nobody, adds no line")
+print("  finished steps: names in tooltips; under the step only for quests, items and mounts on another character")

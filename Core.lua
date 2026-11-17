@@ -1017,11 +1017,19 @@ function FGT.StepWho(rule)
     return names
 end
 
--- The grey line under a finished step: "Done on Karl and Taliesin". Left out when the only one is
--- the character you're playing, since that needs no saying. Three names at most, then "+2 more".
+-- Who finished a step, two ways (Karl, 2026-11-17):
+-- tooltip: "Done on Karl and Taliesin" when hovering any finished step or its bar segment.
+-- under the step: "On Gordon" only for steps tied to one character (a quest in their log, an item
+-- in their bags, a mount they own), where the next step needs that character; left out when that
+-- is the character you're playing. Level, reputation, skill and gold steps stay in the tooltip:
+-- any character counts there, so a list under every one was noise. Three names, then "+2 more".
 function FGT.StepWhoLine(rule)
     local names = FGT.StepWho(rule)
     if not names then return nil end
+    -- (no new local here: Core's main chunk is close to Lua's 200-local limit)
+    if not (rule.quest or rule.questTaken or rule.item or rule.owned or rule.ownedPattern or rule.enchant) then
+        return nil
+    end
     local me = UnitName and UnitName("player")
     local others = false
     for _, n in ipairs(names) do
@@ -1038,7 +1046,18 @@ function FGT.StepWhoLine(rule)
     else
         text = table.concat(shown, ", ", 1, #shown - 1) .. " and " .. shown[#shown]
     end
-    return "Done on " .. text
+    return "On " .. text
+end
+
+-- Tooltip lines for a finished step: "Done on", then one name a line so no name breaks in two
+-- (Karl, 2026-11-17). Six names, then "+2 more". Returns whether it added anything.
+function FGT.AddStepWhoTip(rule)
+    local names = FGT.StepWho(rule)
+    if not names then return false end
+    GameTooltip:AddLine("Done on", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3])
+    for k = 1, math.min(6, #names) do GameTooltip:AddLine("   " .. names[k], 0.9, 0.9, 0.9) end
+    if #names > 6 then GameTooltip:AddLine("   +" .. (#names - 6) .. " more", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3]) end
+    return true
 end
 
 -- Short live readout for a step row: text, plus current/max when the
@@ -5560,6 +5579,7 @@ function FGT.ShowSegmentTip(owner, goal, i, above)
     GameTooltip:AddLine(title, 1, 1, 1)
     if done then
         GameTooltip:AddLine("Done", C.DONE[1], C.DONE[2], C.DONE[3])
+        if rule then FGT.AddStepWhoTip(rule) end -- which characters met it
     elseif rule and rule.level then
         local best = 0
         for _, c in pairs(RosterFor(rule)) do best = math.max(best, c.level or 0) end
@@ -9099,7 +9119,9 @@ local function GetStepRow(index, view)
             if now then
                 GameTooltip:AddDoubleLine("Right now", now, C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], 1, 0.82, 0)
             end
-            GameTooltip:AddLine("Click to check off manually.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
+            if self.isDone then FGT.AddStepWhoTip(self.ruleEntry) end
+            -- (a click on a finished step unchecks it)
+            GameTooltip:AddLine(self.isDone and "Click to uncheck." or "Click to check off manually.", C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
             if self.itemId then
                 GameTooltip:AddLine("Right-click: Wowhead",
                     C.SUBTEXT[1], C.SUBTEXT[2], C.SUBTEXT[3], true)
