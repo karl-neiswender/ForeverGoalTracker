@@ -700,6 +700,8 @@ if ok_all:
         ("Forever pop-out polish", None, open(os.path.join(here, "popout-polish-tests.lua"), encoding="utf-8").read(), True),
         ("materials panel", None, open(os.path.join(here, "materials-tests.lua"), encoding="utf-8").read()),
         ("Forever materials panel", None, open(os.path.join(here, "materials-tests.lua"), encoding="utf-8").read(), True),
+        ("Library goal notices", None, open(os.path.join(here, "library-notice-tests.lua"), encoding="utf-8").read()),
+        ("Forever Library goal notices", None, open(os.path.join(here, "library-notice-tests.lua"), encoding="utf-8").read(), True),
         ("step characters", None, open(os.path.join(here, "step-who-tests.lua"), encoding="utf-8").read()),
         ("Forever step characters", None, open(os.path.join(here, "step-who-tests.lua"), encoding="utf-8").read(), True),
         ("racial mount costs", None, open(os.path.join(here, "mount-cost-tests.lua")).read()),

@@ -264,6 +264,7 @@ FGT.SETTING_DEFAULTS = {
     screenshot = false,      -- game screenshot when a goal finishes (Karl: off by default)
     stepChat = true,         -- "3 steps checked off", boss kills, level 60
     lootChat = false,        -- "Looted Arcanite Bar, 7 to go" for items a tracked goal needs
+    libraryChat = true,      -- a goal you aren't tracking finished, or an item you hold counts toward one
     celebrations = "full",   -- "full" / "subtle" / "off"
     sound = "off",           -- sound when a goal completes: a key of FGT.SOUNDS
     soundChannel = "SFX",    -- the game volume slider it follows: Master, SFX, Ambience, Music, Dialog
@@ -1220,10 +1221,14 @@ local function ApplyAutoRules(onlyGoal)
     -- Every automatic tick logs why (saved with the addon data), so a
     -- wrong tick can be traced to the rule and the numbers behind it.
     ForeverGoalTrackerDB.autoLog = ForeverGoalTrackerDB.autoLog or {}
+    -- This pass's ticks, for the chat notices about goals you aren't tracking (FGT.LibraryNotices)
+    local ticks = {}
+    FGT.autoTicks = ticks
     local function mark(goalId, key, why)
         if not IsStepDone(goalId, key) then
             SetStepDone(goalId, key, true)
             changed = changed + 1
+            ticks[#ticks + 1] = { goalId, key, why }
             ForeverGoalTrackerDB.autoLog[goalId .. ":" .. tostring(key)] =
                 (why or "?") .. " | " .. (date and date("%Y-%m-%d %H:%M:%S") or "")
         end
@@ -13136,6 +13141,8 @@ FGT.SETTINGS = {
           desc = "\"3 steps checked off\", boss kills and characters reaching 60" },
         { type = "toggle", key = "lootChat", label = "Needed loot in chat",
           desc = "When you loot an item a tracked goal needs, say how many are still to go" },
+        { type = "toggle", key = "libraryChat", label = "Library goals in chat",
+          desc = "When a goal you aren't tracking finishes, or an item you get counts toward one, say so with a link" },
         { type = "toggle", key = "versionReminder", label = "Version reminders",
           desc = "Say once when a newer version is out. Shares only the version number with your guild and group" },
         { type = "button", label = "Try the goal-complete alerts",
@@ -13510,7 +13517,18 @@ end
 -- Name. Current links use the game's "addon" link type, which it routes to
 -- the SetItemRef event untainted. Old "fgt:" links already in chat history
 -- are caught by a secure post-hook.
+-- A goal you aren't tracking (the Library notices in chat): open the Library with its preview.
+function FGT.OpenLibraryGoal(id)
+    local goal = id and FGT.GoalById(id)
+    if not goal then return end
+    if not main:IsShown() then FGT.ToggleFrame() end
+    FGT.ShowTab("library")
+    local preview = FGT.LibraryPreview
+    if preview and not preview:IsSelected(goal) then preview:CardClick(goal) end
+end
+
 local function HandleOurLink(kind, id)
+    if kind == "library" then return FGT.OpenLibraryGoal(id) end
     FGT.OpenToGoal(kind == "goal" and id or nil)
 end
 if EventRegistry and EventRegistry.RegisterCallback then
@@ -14289,6 +14307,98 @@ end
 
 -- Full scan + rule pass. Bag and money events can fire in bursts, so
 -- they're coalesced into one scan half a second after the last one.
+-- Goals you aren't tracking still tick in the background. When that finishes one (or one of a
+-- group's parts: a mount, a class set), or an item you now hold counts toward one, chat says so
+-- with a link that opens it in the Library (Karl, 2026-11-17). Only for ticks made while you play,
+-- never the login catch-up; each goal speaks once a session, three lines at most per check.
+-- Returns how many of the last pass's ticks were for goals you track, for "3 steps checked off".
+do
+    local said = {}
+    local function Part(goal, key)
+        if not goal.group then return nil end
+        if type(key) == "number" then return key end
+        return tonumber(tostring(key):match("^(%d+)_"))
+    end
+    local function Tracked(goal, key)
+        if goal.plannerOwner then return true end -- your own gear sets
+        local part = Part(goal, key)
+        if part then return PartSelected(goal, part) end
+        return IsActive(goal)
+    end
+    local function Finished(goal, part)
+        if part and goal.sections then
+            local section = goal.sections[part]
+            for pi, piece in ipairs(section and section.pieces or FGT.EMPTY) do
+                local d, t = FGT.PieceProgress(goal.id, part, pi, piece)
+                if d < t then return false end
+            end
+            return section ~= nil
+        elseif part then
+            return IsStepDone(goal.id, part)
+        end
+        local d, t = GoalProgress(goal)
+        return t > 0 and d >= t
+    end
+    local function Link(goal, part)
+        local section = part and goal.sections and goal.sections[part]
+        local name = section and (goal.name .. ": " .. section.name) or goal.name
+        return "|cffffd100|Haddon:" .. ADDON .. ":library:" .. goal.id .. "|h[" .. name .. "]|h|r"
+    end
+    local function Entry(goal, key)
+        if type(key) == "number" then return goal.steps and goal.steps[key] end
+        local si, pi = tostring(key):match("^(%d+)_(%d+)_piece$")
+        local section = si and goal.sections and goal.sections[tonumber(si)]
+        return section and section.pieces[tonumber(pi)]
+    end
+    function FGT.LibraryNotices(announce)
+        local ticks, tracked = FGT.autoTicks or FGT.EMPTY, 0
+        local lines, extra, seen = {}, 0, {}
+        for _, t in ipairs(ticks) do
+            local goal = FGT.GoalById(t[1])
+            if goal and Tracked(goal, t[2]) then
+                tracked = tracked + 1
+            elseif goal then
+                local part = Part(goal, t[2])
+                local id = goal.id .. ":" .. tostring(part or "")
+                local card = goal.armorParent and FGT.GoalById(goal.armorParent) or goal
+                if announce and not seen[id] and FGT.LibraryAvailable and FGT.LibraryAvailable(card) then
+                    local line
+                    if Finished(goal, part) then
+                        if said[id] ~= "done" then
+                            said[id] = "done"
+                            line = "You completed " .. Link(goal, part) .. ", a Library goal you're not tracking."
+                        end
+                    elseif not said[id] then
+                        -- an item you now hold that this goal needs
+                        local entry = Entry(goal, t[2])
+                        local rule = type(entry) == "table" and entry.auto
+                        local item = rule and AsList(rule.item)[1]
+                        if item then
+                            said[id] = "step"
+                            local name, itemLink = FGT.ItemInfo(item)
+                            -- (an item the game hasn't loaded yet has no name to show)
+                            line = ((itemLink or name) and ("Your " .. (itemLink or name)) or "An item you have")
+                                .. " counts toward " .. Link(goal, part)
+                                .. ", a Library goal you're not tracking."
+                        end
+                    end
+                    if line then
+                        seen[id] = true
+                        if #lines < 3 then lines[#lines + 1] = line else extra = extra + 1 end
+                    end
+                end
+            end
+        end
+        if FGT.Setting("libraryChat") then
+            for _, line in ipairs(lines) do print(TAG .. line) end
+            if extra > 0 then
+                print(TAG .. extra .. " more Library goal" .. (extra == 1 and "" or "s") .. " you're not tracking moved forward.")
+            end
+        end
+        return tracked
+    end
+end
+
 local lootPending, lootSaid = {}, {}
 local function ScanNow(announce)
     RecordCharacter()
@@ -14313,6 +14423,8 @@ local function ScanNow(announce)
         end
     end
     local changed = ApplyAutoRules()
+    -- the count is goals you track; the others get their own lines (FGT.LibraryNotices)
+    changed = FGT.LibraryNotices(announce and not FGT.firstRun)
     if changed > 0 and announce and not FGT.firstRun and FGT.Setting("stepChat") then
         print(TAG .. string.format("%d step%s checked off automatically.",
             changed, changed == 1 and "" or "s"))
@@ -15050,7 +15162,8 @@ function FGT.Count(key, quiet)
     if not me then return end
     me.counts = me.counts or {}
     me.counts[key] = (me.counts[key] or 0) + 1
-    local changed = ApplyAutoRules()
+    ApplyAutoRules()
+    local changed = FGT.LibraryNotices(not quiet)
     if changed > 0 and FGT.Setting("stepChat") and not quiet then
         print(TAG .. string.format("%d step%s checked off.", changed, changed == 1 and "" or "s"))
     end
@@ -15142,7 +15255,8 @@ local function RecordBossKill(name)
     FGT.CountGroupKill(me, name)
     me.bosses = me.bosses or {}
     me.bosses[name] = true
-    local changed = ApplyAutoRules()
+    ApplyAutoRules()
+    local changed = FGT.LibraryNotices(true)
     if changed > 0 and FGT.Setting("stepChat") then
         print(TAG .. string.format("%s defeated, %d step%s checked off.",
             name, changed, changed == 1 and "" or "s"))
