@@ -7194,7 +7194,6 @@ FGT.GEARSOURCES_FOREVER = [==[
 3752|Q|The Rescue|Hillsbrad Foothills|
 6502|Q|Egg Hunt|The Barrens|
 270022|Q|The Absent Minded Prospector|Wetlands|
-4781|V|Halija Whitestrider|The Barrens|
 3166|Q|Filthy Paws|Loch Modan|
 5341|Q|Root Samples|Herbalism|
 5420|Q|The Demon Seed|Durotar|
@@ -7239,6 +7238,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272700|V|Captain Dirgehammer|Stormwind City|
 272397|V|Pix Xizzix|Stranglethorn Vale|
 275434|Q|Water of Hyjal|Mount Hyjal|
+14864|N|Arcane Torrent||beta
 15707|Q|A Final Blow|Felwood|
 15709|Q|A Final Blow|Felwood|
 15791|Q|The Crystal of Zin-Malor|Winterspring|
@@ -7287,7 +7287,6 @@ FGT.GEARSOURCES_FOREVER = [==[
 15469|Q|Free at Last|Thousand Needles|
 5355|Q|Isha Awak|The Barrens|
 16659|Q|Je'neu of the Earthen Ring|Ashenvale|
-4828|V|Zixil|Hillsbrad Foothills|
 16987|Q|Bloodfury Bloodline|Stonetalon Mountains|
 16975|Q|Warsong Supplies|Ashenvale|
 276724|Q|Elixir of Pain|Hillsbrad Foothills|
@@ -7933,6 +7932,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272060|V|Creeg Bothunk|The Barrens|
 271906|V|Bryanna Embreeze|The Barrens|
 270276|Q|Saving Sharpbeak|The Hinterlands|
+270275|Q|Saving Sharpbeak|The Hinterlands|
 270225|Q|Job Opening: Guard Captain of Revantusk Village|The Hinterlands|
 19120|Q|Job Opening: Guard Captain of Revantusk Village|The Hinterlands|
 18951|Q|Look at the Size of It!|Searing Gorge|
@@ -8011,7 +8011,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 281314|Q|Stopping the Cycle|Wetlands|
 270048|Q|Insane Druids|Ashenvale|
 17046|Q|Raene's Cleansing|Ashenvale|
-15224|N|Twilight Acolyte or Blackfathom Myrmidon||beta
+15224|N|several creatures||beta
 281293|Q|Valuable Vantages|Hillsbrad Foothills|
 251485|Q|A Frightened Request|Ruins of Lordaeron|
 16890|Q|Torek's Assault|Ashenvale|
@@ -8119,8 +8119,8 @@ FGT.GEARSOURCES_FOREVER = [==[
 11308|V|Lhara|Elwynn Forest|
 277254|Q|Greater Friend of the Library|Special|
 17686|Q|Big Game Hunter|Stranglethorn Vale|
-11305|V|||
-11306|V|Lhara|Elwynn Forest|
+11305|V|Lhara|Elwynn Forest|
+11306|V|||
 5817|Q|Answered Questions|Ashenvale|
 3493|Q|Ormer's Revenge|Wetlands|
 6739|Q|The Sacred Flame|Thunder Bluff|
@@ -8154,6 +8154,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 20218|Q|Confront Yeh'kinya|Zul'Gurub|
 275668|Q|Summit Sentries|Mount Hyjal|
 20219|Q|Confront Yeh'kinya|Zul'Gurub|
+17523|Q|When Smokey Sings, I Get Violent|Eastern Plaguelands|
 275833|Q|The Experimental Method|Mount Hyjal|
 274035|Q|Rites of Respect|Mount Hyjal|
 15804|Q|Glyphed Oaken Branch|Western Plaguelands|
@@ -8402,7 +8403,6 @@ FGT.GEARSOURCES_FOREVER = [==[
 6503|Q|Egg Hunt|The Barrens|
 7510|Q|Spellfire Robes||
 7509|Q|Manaweave Robe||
-4782|V|Halija Whitestrider|The Barrens|
 1561|Q|The Killing Fields|Westfall|
 3161|Q|Filthy Paws|Loch Modan|
 263332|Q|Unfortunate News|Zephras Isle|
@@ -8539,9 +8539,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 15108|Q|The Completed Orb of Dar'Orahil||
 15107|Q|The Completed Orb of Noh'Orahil||
 276897|Q|Small Book, Big Effort|Mulgore|
+15918|N|High Plains Buzzard||beta
 276898|Q|Past Due|Scarlet Monastery|
 15929|N|Crystal Spine Basilisk||beta
-7609|N|Makrura Snapper||beta
+7609|N|Makrura Snapper or Lashtail Raptor||beta
 7344|Q|Morbent Fel|Duskwood|
 2943|Q|Cleansing the Eye|Wetlands|
 281306|Q|Old Habits|Wetlands|
@@ -8554,13 +8555,13 @@ FGT.GEARSOURCES_FOREVER = [==[
 5323|Q|Supplies to Auberdine;Weapons of Choice||
 281294|Q|Valuable Vantages|Hillsbrad Foothills|
 6898|Q|The Orb of Soran'ruk||
-7558|N|Blackrock Champion||beta
+7558|N|Irradiated Pillager or Blackrock Champion||beta
 1131|Q|The Totem of Infliction|Duskwood|
 15946|N|Blackfathom Sea Witch||beta
 1172|Q|The Coastal Menace|Westfall|
 281291|Q|Baron Marinous|Darkshore|
 281292|Q|Baron Marinous|Darkshore|
-7608|N|Haunted Servitor||beta
+7608|N|Riverpaw Overseer or Haunted Servitor||beta
 15206|Q|The Sleeper Has Awakened|Darkshore|
 11855|Q|Samophlange Manual|The Barrens|
 3451|Q|A Recipe For Death|Silverpine Forest|

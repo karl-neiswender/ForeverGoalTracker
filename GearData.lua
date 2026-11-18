@@ -8,7 +8,7 @@
 -- (only equip bonuses read differently). The Forever client uses them in place of blocks.
 local _, FGT = ...
 FGT.GEARDB = {
-    builds = { era = '1.15.9.70003', forever = '1.60.1.70938' },
+    builds = { era = '1.15.9.70003', forever = '1.60.1.70959' },
     sets = {
         [1] = "The Gladiator",
         [41] = "Dal'Rend's Arms",
@@ -488,11 +488,11 @@ FGT.GEARDB = {
 272671|3|60|55|256|401|133076|2|346||0|Premier Dreadweave Cowl||t26,i13,S11,H11|1
 273374|3|60|55|1024|402|133077|2|551||0|Premier Dreamhide Headguard||t26,i9,p6,S8,H24|1
 272643|3|60|55|256|401|133076|2|345||0|Premier Felweave Cowl||t26,i13,S11,H11|1
-274196|3|60|55|64|403|133077|2|2088||0|Premier Flatmail Headguard||s11,t26,i6|1
+274196|3|60|55|64|403|133077|2|2088||0|Premier Flatmail Headguard||s12,t25,i10|1
 272641|3|60|55|1024|402|133077|2|539||0|Premier Kodohide Headguard||t26,i9,p6,S8,H24|1
 274246|3|60|55|2|404|133073|2|2082||0|Premier Lamellar Headguard||t25,i9,S8,H24|1
 272727|3|60|55|8|402|133144|2|348||0|Premier Leather Veil||t25,A14,c1,d12|1
-272647|3|60|55|64|403|133077|2|301||0|Premier Linked Headguard||s11,t26,i6|1
+272647|3|60|55|64|403|133077|2|301||0|Premier Linked Headguard||s12,t25,i10|1
 274218|3|60|55|64|403|133077|2|2092||0|Premier Linkmail Helm||t26,i8,p8,S7,H22|1
 272854|3|60|55|2|404|133073|2|401||0|Premier Luminous Headguard||t25,i9,S8,H24|1
 272669|3|60|55|1024|402|133077|2|2081||0|Premier Lunarhide Headguard||t26,i14,S9,H9|1
@@ -1116,7 +1116,7 @@ FGT.GEARDB = {
 4614|2|35|30|0|400|133294|1|0||1|Pendant of Myzrael||t4,p6|1
 23169|3|35|30|0|400|133290|1|0||0|Scorn's Icy Choker||t5,i6,S7,H7|1
 15200|3|35|30|0|400|134317|1|0|H|1|Senior Sergeant's Insignia|Requires PvP rank 4|t9,p4|1
-274749|3|35|30|0|400|133297|2|0||0|Souvenir Sea Shell|Requires Honored with Booty Bay|t13|1
+274749|3|35|30|0|400|133297|2|0||0|Souvenir Sea Shell|Requires Honored with Booty Bay|t10|1
 5180|2|34|29|0|400|133279|0|0||0|Necklace of Harmony||p7|2
 272075|3|33|28|0|400|133295|2|0||0|Darkspear Warding Pendant|Requires Honored with Darkspear Raiders|t8,i5|1
 281258|2|33|0|0|400|133295|2|0||0|Essene's Hope||p7|1
@@ -2059,11 +2059,11 @@ FGT.GEARDB = {
 272742|3|60|55|2|404|132738|2|2086||0|Premier Chevalier Breastplate||s11,t25,i11|1
 272472|3|60|55|1024|402|132722|2|382||0|Premier Dragonhide Breastplate||s11,t26,i7|1
 273380|3|60|55|1024|402|132725|2|551||0|Premier Dreamhide Tunic||t26,i9,p7,S11,H33|1
-274194|3|60|55|64|403|132638|2|2088||0|Premier Flatmail Hauberk||s11,t25,i6|1
+274194|3|60|55|64|403|132638|2|2088||0|Premier Flatmail Hauberk||s11,t25,i10|1
 272626|3|60|55|1024|402|132722|2|539||0|Premier Kodohide Chestpiece||t26,i9,p7,S11,H33|1
 274244|3|60|55|2|404|132738|2|2082||0|Premier Lamellar Breastplate||t26,i7,S7,H22|1
 272726|3|60|55|8|402|132722|2|348||0|Premier Leather Armor||t26,A16,c1|1
-272625|3|60|55|64|403|132638|2|301||0|Premier Linked Hauberk||s11,t25,i6|1
+272625|3|60|55|64|403|132638|2|301||0|Premier Linked Hauberk||s11,t25,i10|1
 274219|3|60|55|64|403|132638|2|2092||0|Premier Linkmail Chestpiece||t25,i11,S7,H22|1
 272852|3|60|55|2|404|132738|2|401||0|Premier Luminous Breastplate||t26,i7,S7,H22|1
 273371|3|60|55|1024|402|132725|2|2081||0|Premier Lunarhide Tunic||t26,i11,S9,H9|1
@@ -2072,7 +2072,7 @@ FGT.GEARDB = {
 272739|3|60|55|1|404|132751|2|282||0|Premier Plate Chestguard||s11,t25,c1|1
 273357|3|60|55|64|403|132638|2|2090||0|Premier Ringmail Chestpiece||t25,i11,S7,H22|1
 274230|3|60|55|2|404|132738|2|2084||0|Premier Scaled Breastplate||s11,t25,i11|1
-274179|3|60|55|64|403|132638|2|2096||0|Premier Scalemail Chestpiece||t24,i11,S12,H12|1
+274179|3|60|55|64|403|132638|2|2096||0|Premier Scalemail Chestpiece||t25,i11,S12,H12|1
 272473|3|60|55|8|402|132720|2|522||0|Premier Shadowhide Hauberk||t26,A16,c1|1
 273384|3|60|55|1024|402|132722|2|2080||0|Premier Wyrmhide Chestpiece||t26,i11,S9,H9|1
 22089|4|60|0|0|404|132738|1|516||0|Soulforge Breastplate||s16,t17,i17,p12,S14,H14,c1|1
@@ -3572,7 +3572,7 @@ FGT.GEARDB = {
 250600|4|61|56|0|404|0|2|0||0|Martyr's Legplates||i14,p18,S25,H73|2
 14632|3|61|56|0|401|134588|0|122||0|Necropile Leggings||t21,i18,p12|1
 18386|3|61|56|0|401|134586|0|0||0|Padre's Trousers||i20,H42|1
-252606|4|61|56|0|403|0|2|0||0|Pristine Scorpid Leggings||s18,S33,H33,c1|2
+252606|4|61|56|0|403|0|2|0||0|Pristine Scorpid Leggings||s18,S38,H38,c1|2
 12420|2|61|56|0|403|134583|1|0||0|Radiant Leggings|||2
 252603|4|61|56|0|403|0|2|0||0|Red Dragonscale Leggings||i32,S20,H20|2
 16709|3|61|56|0|402|134582|0|184||0|Shadowcraft Pants||a25,s12,t12|1
@@ -3609,14 +3609,14 @@ FGT.GEARDB = {
 272853|3|60|55|2|404|134586|2|401||0|Premier Luminous Leggings||t25,i14,S7,H22|1
 272656|3|60|55|1024|402|134586|2|2081||0|Premier Lunarhide Leggings||t26,i11,S9,H9|1
 272458|3|60|55|128|401|134591|2|546||0|Premier Magus Pants||t26,i11,S14,H14|1
-272636|3|60|55|64|403|134589|2|2094||0|Premier Mail Legguards||t25,i8,S14,H14|1
+272636|3|60|55|64|403|134589|2|2094||0|Premier Mail Legguards||t26,i8,S14,H14|1
 273447|3|60|55|16|401|134586|2|2075||0|Premier Mooncloth Leggings||t25,i14,S8,H24|1
 272481|3|60|55|1|404|134586|2|281||0|Premier Mortarplate Legguards||a9,s15,t25|1
 272740|3|60|55|1|404|134584|2|282||0|Premier Plate Leggings||a9,s15,t25|1
 273359|3|60|55|64|403|134589|2|2090||0|Premier Ringmail Legguards||t25,i11,S7,H22|1
 272563|3|60|55|16|401|134591|2|549||0|Premier Satin Trousers||t25,i13,S14,H14|1
 274232|3|60|55|2|404|134586|2|2084||0|Premier Scaled Leggings||s13,t25,S7,H7|1
-274195|3|60|55|64|403|134589|2|2096||0|Premier Scalemail Legguards||t25,i8,S14,H14|1
+274195|3|60|55|64|403|134589|2|2096||0|Premier Scalemail Legguards||t26,i8,S14,H14|1
 272476|3|60|55|8|402|134588|2|522||0|Premier Shadowhide Leggings||a15,t26,d12|1
 272723|3|60|55|128|401|134588|2|343||0|Premier Silk Leggings||t26,i11,S14,H14|1
 272663|3|60|55|16|401|134591|2|2072||0|Premier Silken Legguards||t25,i14,S8,H24|1
@@ -4215,11 +4215,11 @@ FGT.GEARDB = {
 272554|4|65|60|256|401|132539|2|391|H|0|Premier Centurion's Felweave Boots||t26,i12,S18,H18|1
 273418|4|65|60|1024|402|132542|2|2076|H|0|Premier Centurion's Kodohide Boots||t26,i14,p8,S7,H22|1
 274251|4|65|60|2|404|132590|2|2083|H|0|Premier Centurion's Lamellar Boots||t26,i11,S8,H26|1
-272538|4|65|60|64|403|132587|2|386|H|0|Premier Centurion's Linked Boots||s12,t27,i7,S11,H11|1
+272538|4|65|60|64|403|132587|2|386|H|0|Premier Centurion's Linked Boots||s13,t21,i10,S12,H12|1
 272504|4|65|60|128|401|132539|2|387|H|0|Premier Centurion's Magus Boots||t26,i15,S14,H14|1
-273336|4|65|60|64|403|132587|2|2095|H|0|Premier Centurion's Mail Boots||t26,i10,S11,H11,c1|1
+273336|4|65|60|64|403|132587|2|2095|H|0|Premier Centurion's Mail Boots||t21,i10,S10,H10,c1|1
 272510|4|65|60|1|404|132585|2|383|H|0|Premier Centurion's Mortarplate Boots||a11,s13,t28|1
-273344|4|65|60|64|403|132587|2|2091|H|0|Premier Centurion's Ringmail Boots||t26,i14,S10,H31|1
+273344|4|65|60|64|403|132587|2|2091|H|0|Premier Centurion's Ringmail Boots||t21,i14,S10,H31|1
 272570|4|65|60|16|401|132539|2|390|H|0|Premier Centurion's Satin Boots||t26,i13,S19,H19|1
 274237|4|65|60|2|404|132590|2|2085|H|0|Premier Centurion's Scaled Boots||s12,t26,i8,S14,H14|1
 272523|4|65|60|8|402|132542|2|393|H|0|Premier Centurion's Shadowhide Treads||a20,t26|1
@@ -4230,14 +4230,14 @@ FGT.GEARDB = {
 272781|4|65|60|2|404|132590|2|2087||0|Premier Knight-Champion's Chevalier Boots||s12,t26,i8,S14,H14|1
 272807|4|65|60|256|401|132541|2|392||0|Premier Knight-Champion's Dreadweave Boots||t26,i12,S18,H18|1
 273404|4|65|60|1024|402|132542|2|2077||0|Premier Knight-Champion's Dreamhide Boots||t26,i14,p8,S7,H22|1
-274183|4|65|60|64|403|132587|2|2089||0|Premier Knight-Champion's Flatmail Boots||s12,t27,i7,S11,H11|1
+274183|4|65|60|64|403|132587|2|2089||0|Premier Knight-Champion's Flatmail Boots||s13,t21,i10,S12,H12|1
 272755|4|65|60|8|402|132542|2|394||0|Premier Knight-Champion's Leather Footguards||a20,t26|1
-274206|4|65|60|64|403|132587|2|2093||0|Premier Knight-Champion's Linkmail Boots||t26,i14,S10,H31|1
+274206|4|65|60|64|403|132587|2|2093||0|Premier Knight-Champion's Linkmail Boots||t21,i14,S10,H31|1
 273330|4|65|60|2|404|132590|2|402||0|Premier Knight-Champion's Luminous Boots||t26,i11,S8,H26|1
 273396|4|65|60|1024|402|132542|2|2078||0|Premier Knight-Champion's Lunarhide Boots||t28,i14,S11,H11|1
 273426|4|65|60|16|401|132541|2|2074||0|Premier Knight-Champion's Mooncloth Sandals||t26,i12,p11,S7,H22|1
 272792|4|65|60|1|404|132590|2|384||0|Premier Knight-Champion's Plate Boots||a11,s13,t28|1
-274198|4|65|60|64|403|132587|2|2097||0|Premier Knight-Champion's Scalemail Boots||t26,i10,S11,H11,c1|1
+274198|4|65|60|64|403|132587|2|2097||0|Premier Knight-Champion's Scalemail Boots||t21,i10,S10,H10,c1|1
 272746|4|65|60|128|401|132560|2|388||0|Premier Knight-Champion's Silk Footwraps||t26,i15,S14,H14|1
 272823|4|65|60|16|401|132541|2|389||0|Premier Knight-Champion's Voidcloth Sandals||t26,i13,S19,H19|1
 279268|4|65|60|0|401|132576|2|0||0|Rime-encrusted Boots||t21,p18|2
@@ -4357,23 +4357,23 @@ FGT.GEARDB = {
 272794|3|60|55|256|401|132536|2|346||0|Premier Dreadweave Boots||t19,i7,S14,H14|1
 273379|3|60|55|1024|402|132541|2|551||0|Premier Dreamhide Footwraps||t19,i12,p4,S4,H11|1
 272552|3|60|55|256|401|132539|2|345||0|Premier Felweave Boots||t19,i7,S14,H14|1
-274192|3|60|55|64|403|132541|2|2088||0|Premier Flatmail Greaves||s8,t20,i5,S7,H7|1
+274192|3|60|55|64|403|132541|2|2088||0|Premier Flatmail Greaves||s8,t17,i5,S7,H7|1
 272606|3|60|55|1024|402|132542|2|539||0|Premier Kodohide Treads||t19,i12,p4,S4,H11|1
 274258|3|60|55|2|404|132584|2|2082||0|Premier Lamellar Sabatons||t19,i10,S7,H22|1
 272704|3|60|55|8|402|132539|2|348||0|Premier Leather Boots||a14,t19|1
-272609|3|60|55|64|403|132541|2|301||0|Premier Linked Greaves||s8,t20,i5,S7,H7|1
-274217|3|60|55|64|403|132541|2|2092||0|Premier Linkmail Walkers||t19,i10,S7,H22|1
+272609|3|60|55|64|403|132541|2|301||0|Premier Linked Greaves||s8,t17,i5,S7,H7|1
+274217|3|60|55|64|403|132541|2|2092||0|Premier Linkmail Walkers||t17,i10,S5,H15|1
 273365|3|60|55|2|404|132584|2|401||0|Premier Luminous Sabatons||t19,i10,S7,H22|1
 273370|3|60|55|1024|402|132541|2|2081||0|Premier Lunarhide Footwraps||t20,i10,S7,H7|1
 272453|3|60|55|128|401|132539|2|546||0|Premier Magus Footwraps||t19,i12,S9,H9|1
-272484|3|60|55|64|403|132541|2|2094||0|Premier Mail Walkers||t19,i10,S7,H7|1
+272484|3|60|55|64|403|132541|2|2094||0|Premier Mail Walkers||t16,i7,S7,H7|1
 273443|3|60|55|16|401|132541|2|2075||0|Premier Mooncloth Boots||t19,i10,p10,S5,H15|1
 272477|3|60|55|1|404|132590|2|281||0|Premier Mortarplate Boots||a8,s9,t20|1
 272716|3|60|55|1|404|132590|2|282||0|Premier Plate Boots||a8,s9,t20|1
-273355|3|60|55|64|403|132541|2|2090||0|Premier Ringmail Walkers||t19,i10,S7,H22|1
+273355|3|60|55|64|403|132541|2|2090||0|Premier Ringmail Walkers||t17,i10,S5,H15|1
 272568|3|60|55|16|401|132539|2|549||0|Premier Satin Boots||t18,i11,S14,H14|1
 274226|3|60|55|2|404|132584|2|2084||0|Premier Scaled Sabatons||s10,t19,i7,S7,H7|1
-274176|3|60|55|64|403|132541|2|2096||0|Premier Scalemail Walkers||t19,i10,S7,H7|1
+274176|3|60|55|64|403|132541|2|2096||0|Premier Scalemail Walkers||t16,i7,S7,H7|1
 272608|3|60|55|8|402|132539|2|522||0|Premier Shadowhide Walkers||a14,t19|1
 272701|3|60|55|128|401|132539|2|343||0|Premier Silk Boots||t19,i12,S9,H9|1
 272611|3|60|55|16|401|132539|2|2072||0|Premier Silken Walkers||t19,i10,p10,S5,H15|1
@@ -6458,8 +6458,8 @@ FGT.GEARDB = {
 21414|4|65|60|128|400|133425|1|504||1|Band of Vaulted Secrets||t9,S18,H18,c1|1
 21405|4|65|60|8|400|133425|1|498||1|Band of Veiled Shadows||a18,s11,t8|1
 20721|3|65|60|0|400|133369|1|0||1|Band of the Cultist||a12,s7,t12|2
-272407|3|65|60|0|400|133402|2|0||1|Blessed Band of Light||t10,p8,S10,H31,h1|1
-272406|3|65|60|0|400|133366|2|0||1|Channeler's Ring||i14,p8,h1|1
+272407|3|65|60|0|400|133402|2|0||1|Blessed Band of Light||t10,p8,S10,H31|1
+272406|3|65|60|0|400|133366|2|0||1|Channeler's Ring||i14,S9,H9,h1|1
 272408|3|65|60|0|400|133343|2|0||1|Cutthroat's Signet||a14,t8,h1|1
 19325|4|65|60|0|400|133377|1|0||1|Don Julio's Band||t11,A16,h1,c1|1
 21563|4|65|60|0|400|133376|1|0||1|Don Rodrigo's Band||t7,c1|1
