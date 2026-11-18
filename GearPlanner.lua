@@ -1257,6 +1257,24 @@ local SLOT_ROW, GROUP_H = 26, 24
 left.title = Label(left, "Equipment", 16, 16, -16)
 left.count = U.font(left, 11); left.count:SetPoint("TOPRIGHT", left, "TOPRIGHT", -16, -19)
 left.count:SetJustifyH("RIGHT"); left.count:SetTextColor(colors.SUBTEXT[1], colors.SUBTEXT[2], colors.SUBTEXT[3])
+-- "Clear all" beside the count: empties the set in one click, then offers Undo (the same action
+-- as Clear selected set in the "..." menu; Karl, 2026-11-18).
+left.clearAll = CreateFrame("Button", nil, left)
+left.clearAll:SetHeight(16); left.clearAll:SetPoint("TOPRIGHT", left, "TOPRIGHT", -16, -17)
+left.clearAll.text = U.font(left.clearAll, 11); left.clearAll.text:SetPoint("RIGHT")
+function left.PaintClear()
+    local b = left.clearAll
+    local c = (b.hovered or b.undo) and colors.TITLE or colors.SUBTEXT
+    b.text:SetText(b.undo and "Undo clear" or "Clear all"); b.text:SetTextColor(c[1], c[2], c[3])
+    b:SetWidth(b.text:GetStringWidth() + 2)
+end
+left.clearAll:SetScript("OnEnter", function(self)
+    self.hovered = true; left.PaintClear()
+    GameTooltip:SetOwner(self, "ANCHOR_TOP")
+    GameTooltip:SetText(self.undo and "Put the cleared items back" or "Remove every item and enhancement from this set", 1, 1, 1)
+    GameTooltip:Show()
+end)
+left.clearAll:SetScript("OnLeave", function(self) self.hovered = false; left.PaintClear(); GameTooltip:Hide() end)
 local slotList = U.scroll(left)
 slotList.scroll:ClearAllPoints(); slotList.scroll:SetPoint("TOPLEFT", 10, -42)
 slotList.scroll:SetPoint("BOTTOMRIGHT", -16, 12)
@@ -2626,6 +2644,15 @@ Refresh = function()
         if button:IsShown() then shown = shown + 1; if item then filled = filled + 1 end end
     end
     left.count:SetText(selected and (filled .. " of " .. shown .. " filled") or "")
+    left.clearAll.undo = selected ~= nil and clearedBuild == selected
+    left.clearAll:SetShown(selected ~= nil and (filled > 0 or left.clearAll.undo))
+    left.PaintClear()
+    left.count:ClearAllPoints()
+    if left.clearAll:IsShown() then
+        left.count:SetPoint("TOPRIGHT", left.clearAll, "TOPLEFT", -10, -2)
+    else
+        left.count:SetPoint("TOPRIGHT", left, "TOPRIGHT", -16, -19)
+    end
     band.FitTitle() -- now that the character's line and the Library link have their text
 end
 
@@ -3124,6 +3151,10 @@ clear:SetScript("OnClick", function()
         selected.slots, selected.enchants = {}, nil
     end
     Deselect(); Dress(true); Save(true); Refresh()
+end)
+left.clearAll:SetScript("OnClick", function(self)
+    clear:Click(); GameTooltip:Hide()
+    if self:IsShown() and self:IsMouseOver() then self:GetScript("OnEnter")(self) end
 end)
 -- Start from what the character is wearing now: only items the database knows. The rest (grey
 -- starting gear, mostly) is left out quietly: the line naming it ran long and was cut off (Karl,
