@@ -97,7 +97,7 @@ do
     art.GetWidth, art.GetHeight = function() return 1000 end, function() return 1204 end
     local oldSetting = F.Setting
     F.Setting = function(key) if key == "imageEffects" then return setting end return oldSetting(key) end
-    for _, race in ipairs({ "Dwarf", "Gnome", "NightElf", "Scourge", "Orc", "Tauren", "Troll", "Human" }) do
+    for _, race in ipairs({ "Dwarf", "Gnome", "NightElf", "Scourge", "Orc", "Tauren", "Troll", "Human", "Skyborne" }) do
         setting = nil
         T.background.race = nil
         T.background:SetRace(race)
@@ -110,8 +110,8 @@ do
         for _, e in ipairs(PE.engine.emberDots) do if e.wait then waiting = waiting + 1 end end
         assert(PE.engine.emberCount == 0 or waiting > PE.engine.emberCount * 0.8, race .. " does not start with a full field")
         for _ = 1, 400 do tick(PE.driver, 0.016) end -- (about 6 s)
-        -- (the troll, the tauren and the human have only the clouds and leaves, no particles of their own)
-        local bare = race == "Troll" or race == "Tauren" or race == "Human"
+        -- (the troll, the tauren, the human and the Skyborne have only the clouds and leaves, no particles of their own)
+        local bare = race == "Troll" or race == "Tauren" or race == "Human" or race == "Skyborne"
         assert(bare and PE.engine.emberCount == 0 or not bare and PE.engine.emberCount > 0, race .. " has its own particles or none")
         assert(PE.engine.shaftCount == 0, race .. " has no lights, only weather")
         setting = "subtle"; PE.Refresh()
@@ -207,7 +207,7 @@ do
     local oldRace, top, frozen = T.background.race, nil, T.model.frozenW
     T.model.frozenW = nil -- (the width held while the drawer slides)
     T.background.texture.SetPoint = function(_, _, _, _, _, y) top = y end
-    for raceFile, ground in pairs({ Orc = 0.70, NightElf = 0.77, Dwarf = 0.69, Scourge = 0.77, Tauren = 0.64 }) do
+    for raceFile, ground in pairs({ Orc = 0.70, NightElf = 0.77, Dwarf = 0.69, Scourge = 0.77, Tauren = 0.64, Skyborne = 0.78 }) do
         T.background.race = raceFile
         for _, size in ipairs({ {1225, 745}, {825, 720}, {800, 400}, {400, 650} }) do
             local w, h = size[1], size[2]
@@ -233,7 +233,7 @@ do
     local selected
     T.background.race = nil
     T.background.texture.SetTexture = function(_, path) selected = path end
-    for _, raceFile in ipairs({"Human", "Dwarf", "Gnome", "NightElf", "Orc", "Tauren", "Troll", "Scourge"}) do
+    for _, raceFile in ipairs({"Human", "Dwarf", "Gnome", "NightElf", "Orc", "Tauren", "Troll", "Scourge", "Skyborne"}) do
         T.background:SetRace(raceFile)
         assert(selected == "Interface\\AddOns\\ForeverGoalTracker\\Media\\dressing-room\\" .. raceFile,
             "race selects its installed backdrop")

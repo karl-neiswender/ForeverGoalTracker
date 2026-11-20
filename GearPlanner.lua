@@ -698,14 +698,14 @@ background:SetAllPoints()
 background.texture = background:CreateTexture(nil, "BACKGROUND")
 background.texture:SetAlpha(0.18)
 background.races = { Human = true, Dwarf = true, Gnome = true, NightElf = true,
-    Orc = true, Tauren = true, Troll = true, Scourge = true }
+    Orc = true, Tauren = true, Troll = true, Scourge = true, Skyborne = true }
 -- Backdrops with a set place to stand that an even crop would miss: the height (0 top, 1 bottom)
 -- of that ground in the image, placed where the character's feet rest (FEET of the panel's height) as far
 -- as covering the panel allows. Others crop evenly. The orc stands on the crest of its rock,
 -- the night elf on its path, low enough to keep the treeline and the arch, the dwarf on the
--- cobbles rather than the snow beside them, the undead on the open path in front of the headstones. The tauren's grass has no single
+-- cobbles rather than the snow beside them, the undead on the open path in front of the headstones, the Skyborne on the stone terrace. The tauren's grass has no single
 -- spot: its ground is where the even crop already put the feet, so zooming out can follow them.
-background.ground, background.FEET = { Orc = 0.70, NightElf = 0.77, Dwarf = 0.69, Scourge = 0.77, Tauren = 0.64 }, 0.78
+background.ground, background.FEET = { Orc = 0.70, NightElf = 0.77, Dwarf = 0.69, Scourge = 0.77, Tauren = 0.64, Skyborne = 0.78 }, 0.78
 function background:SetRace(raceFile)
     raceFile = self.races[raceFile] and raceFile or "Orc"
     if self.race == raceFile then return end

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Added a Skyborne backdrop to the Gear Planner: Skyborne characters now stand on a stone terrace above the clouds.
+
 ## 2.18.2
 
 - Added Wit's Edge, the new level 60 Mage sword from the Scroll of Wit and the Witchblade, to the Goal Library on Forever.

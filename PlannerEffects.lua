@@ -46,6 +46,7 @@ local SPECS = {
     Orc = { dust = 0.7, embers = Embers({ 0.15, 0.95, 0.62, 0.97 }, { 0.10, 1.0, 0.30, 0.97 }, 22) }, -- the embers (the floating ash was taken out)
     Tauren = { dust = 1 }, -- the goal page's own clouds and leaves (the blown dust was taken out)
     Troll = { dust = 0.7 }, -- only the clouds and the blowing leaves (the fast blown dust was taken out)
+    Skyborne = { dust = 1 }, -- clouds and leaves only: the canopy and the sea of cloud need no particles
     Human = { dust = 2.2 }, -- clouds and leaves only, the leaves a little stronger than the others'
 }
 local STRENGTH = 1 -- the particles' and lights' overall level on the backdrop
