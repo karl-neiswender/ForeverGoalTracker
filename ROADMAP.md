@@ -62,6 +62,8 @@ The [release planning notes](reports/Release-plan-2026-10-17.md) describe the pr
 
 ## Recently shipped
 
+- **2.19.0:** Chat notices for Library goals you aren't tracking, the characters that finished each step, Forever's free swift mount quests, confirmed Tier 2.5 and Tier 3, a Skyborne Gear Planner backdrop, and Gear Planner data for Forever's latest patch.
+
 - **2.18.2:** Wit's Edge on Forever, Forever sources for more than 80 Gear Planner items, and Gear Planner data for Forever's latest patch.
 
 - **2.18.1:** Forsaken Charger on Forever, My Goals starting on This character, full Forever character names, Forever labels for dungeon weapons, and Gear Planner data for Forever's latest patch.

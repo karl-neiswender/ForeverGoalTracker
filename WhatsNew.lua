@@ -12,6 +12,15 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.19.0", date = "Nov 20, 2026", items = {
+        "You can now see in chat when a Goal Library goal you aren't tracking finishes or moves forward (new setting: Library goals in chat)",
+        "You can now hover a finished step to see which of your characters finished it",
+        "Changed Epic Racial Mounts on Forever to follow the game's own free swift mount quests",
+        "Changed Tier 2.5, Tier 3 and four Alterac Valley weapons to confirmed on Forever",
+        "Added a Skyborne backdrop and a Clear all link to the Gear Planner",
+        "Changed Gear Planner items and sources to Forever's latest patch",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.18.2", date = "Nov 15, 2026", items = {
         "Added Wit's Edge, the new level 60 Mage sword, to the Goal Library on Forever",
         "Added Forever sources for more than 80 Gear Planner items",
