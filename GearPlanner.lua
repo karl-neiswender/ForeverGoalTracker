@@ -48,8 +48,8 @@ local planFor
 local function PlanKey() return planFor or U.charKey() end
 local RACE_IDS = { Human = 1, Orc = 2, Dwarf = 3, NightElf = 4, Scourge = 5, Tauren = 6, Gnome = 7, Troll = 8, Skyborne = 95 }
 -- The planned character's class, race, faction, level and sex (UnitSex numbering).
-local function Who()
-    local key = PlanKey()
+local function Who(key)
+    key = key or PlanKey() -- (another key: that character, for the View set window)
     local c = (ForeverGoalTrackerDB.characters or {})[key] or {}
     if key == U.charKey() then
         local _, class = UnitClass("player")
@@ -108,7 +108,7 @@ local function SyncGoal(build, ownerKey)
         local item = Cat.Get(build.slots[slot])
         if item then
             copies[item.id] = (copies[item.id] or 0) + 1
-            local acquisition, advice = Cat.Acquisition(item)
+            local acquisition, advice = Cat.Acquisition(item, owner and owner.faction)
             local finger = Cat.SLOT_NAMES[slot]:match("^Finger(%d)")
             local trinket = Cat.SLOT_NAMES[slot]:match("^Trinket(%d)")
             local suffix = finger and (finger == "0" and " (Finger 1)" or " (Finger 2)")
@@ -116,6 +116,7 @@ local function SyncGoal(build, ownerKey)
             -- A step per planned slot; the same item twice needs two owned copies.
             local step = { text = acquisition .. suffix,
                 auto = { item = item.id, count = copies[item.id], forCharacter = ownerKey }, plannerSlot = slot,
+                slotSuffix = suffix ~= "" and suffix or nil, -- left off where the goal page shows the slot
                 tip = advice, reagents = Cat.Reagents(item.id) }
             local library, kind = Cat.GoalFor(item.id, owner and owner.faction)
             if library and kind == "reward" then
@@ -1170,6 +1171,20 @@ local function SlotLabel(slot)
     if slot == "RangedSlot" and Cat.UsesRelic(class) then return "Relic" end
     for _, spec in ipairs(slots) do if spec[1] == slot then return spec[2] end end
     return slot
+end
+-- A Gear Planner goal's step shows its slot (Head, Main Hand) in place of a step number.
+-- A relic slot reads Relic for its owner's class, as the planner shows it.
+function FGT.GearStepSlot(goal, entry)
+    local slot = goal and goal.plannerOwner and type(entry) == "table" and entry.plannerSlot
+    local name = slot and Cat.SLOT_NAMES[slot]
+    if not name then return nil end
+    if name == "RangedSlot" then
+        local chars = ForeverGoalTrackerDB and ForeverGoalTrackerDB.characters
+        local owner = chars and chars[goal.plannerOwner]
+        if owner and Cat.UsesRelic(owner.class) then return "Relic" end
+    end
+    for _, spec in ipairs(slots) do if spec[1] == name then return spec[2] end end
+    return nil
 end
 local function SlotTexture(slot)
     local class = Who().class
@@ -3441,6 +3456,22 @@ function FGT.GearPlannerDemoOff()
     local root = db.gearPlanner
     if root and root.characters then root.characters[key] = nil end
     band.SetOpen(false)
+end
+-- What the View set window (ViewSet.lua) needs to stage a set the way the planner does: the set
+-- behind a goal, its owner's look, and the planner's own camera, backdrop and wear settings.
+FGT.GearView = {
+    RACE_IDS = RACE_IDS, NO_MODEL = NO_MODEL, REST_ZOOM = REST_ZOOM,
+    races = background.races, ground = background.ground, FEET = background.FEET, shadowFeet = background.shadowFeet,
+    side = textVeil.SIDE, top = textVeil.TOP, floor = styles.panel.bottom,
+    prefs = function() return Prefs() end,
+}
+-- The set and its character for a Gear Planner goal, or nil.
+function FGT.GearView.SetFor(goal)
+    local owner = goal and goal.plannerOwner
+    local store = owner and ForeverGoalTrackerDB and Root().characters[owner]
+    for _, build in ipairs(store and store.builds or {}) do
+        if build.goalId == goal.id then return build, Who(owner) end
+    end
 end
 -- Expose only prototype operations needed by regression checks.
 FGT.GearPlannerTest = { store = Store, new = function() new:GetScript("OnClick")() end, isFavorite = SD.IsFavorite,

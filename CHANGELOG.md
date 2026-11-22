@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Added View set: see a Gear Planner set on its character, with its racial backdrop and weather, from the eye on the set's goal page.
+- Gear Planner steps now link their vendor, quest giver, quest and enchant. Hover for details; Shift-click a vendor or quest giver for a map pin.
+- Gear Planner steps now show their slot (Head, Main Hand) in place of a step number.
+- Show: This character now also hides other races' mounts and other classes' rows inside a goal.
+
 ## 2.19.0
 
 - You can now see in chat when a Goal Library goal you aren't tracking finishes or moves forward (new setting: Library goals in chat).

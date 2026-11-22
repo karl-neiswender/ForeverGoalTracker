@@ -337,7 +337,8 @@ function P:Refresh()
     self.refreshing = true
     local count, single = 0, nil
     for si in ipairs(goal.sections or FGT.EMPTY) do
-        if FGT.PartSelected(goal, si) then count, single = count + 1, si end
+        -- parts for another race or class don't count while Show is on This character
+        if FGT.PartSelected(goal, si) and (not FGT.PartForMe or FGT.PartForMe(goal, si)) then count, single = count + 1, si end
     end
     self.singleSection = count == 1 and single or nil
     if self.restoreCollapsed ~= nil then

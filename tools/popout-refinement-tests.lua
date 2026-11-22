@@ -110,6 +110,16 @@ assert(P.open and P.collapsed and P.height==expandedHeight, "reload restores col
 P:ToggleCollapsed()
 D.activeParts.epicmounts={[1]=true,[2]=true}; D.progress.epicmounts={}
 assert(P:Open("epicmounts"), "multi-part mount remains available")
+-- Show: This character (the default) keeps only the Human's own mount; All goals shows both
+assert(P.singleSection == 1 and not P.layout.byKey["section:2"], "This character hides another race's mount")
+F.myGoalsView:SetValue("all"); P:Refresh()
 assert(not P.singleSection and P.layout.byKey["section:1"] and P.layout.byKey["section:2"], "multiple groups retain their headings")
+F.myGoalsView:SetValue("me")
+-- Level Classes to 60 keeps only the player's class row under This character
+local classes = F.GoalById("allclasses")
+assert(F.PartForMe(classes, 1) and not F.PartForMe(classes, 2), "This character shows only its own class's row")
+F.myGoalsView:SetValue("all")
+assert(F.PartForMe(classes, 2), "All goals shows every class")
+F.myGoalsView:SetValue("me")
 P:Close(false)
 print("  pop-out refinements: above-main layering, outside settings dismissal, fading shade, merged header, click versus drag, collapse restoration and full-set preview ok")

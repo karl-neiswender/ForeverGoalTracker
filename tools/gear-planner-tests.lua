@@ -653,7 +653,8 @@ local _, insigniaTip = Cat.Acquisition(insignia)
 assert(Cat.SourceLabel(insignia) == "PvP rank 4" and insigniaTip:find("Sold by Officer Areyn.", 1, true), "PvP rank keeps the game's wording, names the quartermaster")
 local _, coifTip = Cat.Acquisition(coif)
 local hogger = select(1, Cat.Acquisition(Cat.Get(6085)))
-assert(hogger:find(F.isForever and "'WANTED: \"Hogger\"'" or "'Wanted: \"Hogger\"'", 1, true), "each client names its own quest")
+-- (a linked quest: {quest:id:name}, its giver linked too)
+assert(hogger:find(F.isForever and ':WANTED: "Hogger"}' or ':Wanted: "Hogger"}', 1, true) and hogger:find('{quest:', 1, true), "each client names its own quest")
 assert(Cat.SourceLabel(Cat.Get(4614)) == "World drop", "a creature or two seen in the beta does not replace a world drop")
 do -- a drop the site cannot place, from a boss we know, gets its raid and pin
     local saved = F.GEARSOURCES
@@ -1117,6 +1118,17 @@ do
     for i, step in ipairs(goal.steps) do if step.auto and step.auto.enchant then index = i end end
     assert(index and goal.steps[index].auto.enchant == chosen.effect and goal.steps[index].auto.slot == 9, "an enchant step for the bracer")
     assert(goal.steps[index].text:find("Superior Strength", 1, true) and #goal.steps[index].reagents > 0, "the step names the enchant and costs its materials")
+    assert(F.GearStepSlot(goal, goal.steps[index]) == "Wrists", "the goal page labels the step with its slot")
+    assert(F.GearStepSlot(goal, { text = "x" }) == nil and F.GearStepSlot({ steps = {} }, goal.steps[index]) == nil,
+        "only a Gear Planner set's slotted steps get a slot label")
+    -- View set: the set on its character in a view-only window; the X closes it
+    assert(F.ShowViewSet(goal) and F.ViewSet.title:GetText() == build.name, "View set opens the set")
+    assert(F.ViewSet.build == build and F.ViewSet.backdrop.race, "View set stages the set on a racial backdrop")
+    F.ViewSet.close:GetScript("OnClick")(F.ViewSet.close) -- the X closes it
+    assert(not F.ShowViewSet({ id = "nope", plannerOwner = goal.plannerOwner }), "no window for a set that is gone")
+    -- the enchant step links its enchant (an Enchanting spell or the item that applies it)
+    assert(goal.steps[index].text:find("{spell:", 1, true) or goal.steps[index].text:find("{item:", 1, true),
+        "the enchant step links the enchant")
     assert(not D.progress[goal.id][index], "not done before it is worn")
     D.characters[key].enchants = { [9] = "1:" .. chosen.effect }
     F.RefreshPlannerGoals()
@@ -1967,4 +1979,29 @@ do
     store.selected = open
     F.ShowTab("tracker")
     print("  Wowhead import: reads the link, refuses what it can't, previews and makes a new set")
+end
+
+-- Vendor and quest steps link who to see and where (GearLinks.lua, tools/linkdb.py)
+do
+    local Cat = F.GearCatalog
+    local vendorItem, questItem
+    for line in F.GEARLINKS:gmatch("[^\n]+") do
+        local id, kind = line:match("^(%d+)|(%a)|")
+        if kind == "V" and not vendorItem and Cat.Get(tonumber(id)) then vendorItem = Cat.Get(tonumber(id)) end
+        if kind == "Q" and not questItem and Cat.Get(tonumber(id)) then questItem = Cat.Get(tonumber(id)) end
+    end
+    assert(vendorItem and questItem, "the generated links cover vendor and quest items")
+    local buy = Cat.LinkedStep(vendorItem, { kind = "V" }, nil)
+    assert(buy and buy:find("^Buy ") and buy:find("{npc:%d+:"), "a vendor step links its vendor")
+    local npc = F.NpcById(tonumber(buy:match("{npc:(%d+):")))
+    assert(npc and npc.name, "a linked vendor has a tooltip record")
+    local linked = F.LinkText(buy)
+    assert(linked:find("|Hfgtnpc:", 1, true) and not linked:find("{npc:", 1, true), "the vendor tag becomes an NPC link")
+    local quest = Cat.LinkedStep(questItem, { kind = "Q" }, nil)
+    assert(quest and quest:find("{quest:%d+:"), "a quest step links its quest")
+    local qlinked = F.LinkText(quest)
+    local key = tonumber(qlinked:match("|Hfgtquest:(%d+)|h"))
+    assert(key and F.QUESTS[key] and F.QUESTS[key][2][1] == key - 100000, "the quest link reaches a quest record by id")
+    assert(F.LinkText("{spell:20025:Greater Stats}"):find("|Hfgtspell:20025|h", 1, true), "an enchant tag becomes a spell link")
+    print("  gear links: vendors, quest givers, quests and enchants link by id")
 end

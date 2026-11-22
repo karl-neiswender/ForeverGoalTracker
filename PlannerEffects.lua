@@ -14,9 +14,8 @@ local ADDON, FGT = ...
 -- the planner's edge shading, the light and the character. Settings > Images > Image effects
 -- applies: Full plays all of it, Subtle only the clouds, Off none. All of it stops while the
 -- planner is hidden.
-local pb, B, A = FGT.plannerBackdrop, FGT.goalBanner, FGT.ambience
-if not (pb and B) then return end
-local host, area, art = pb.frame, pb.area, pb.texture
+local B, A = FGT.goalBanner, FGT.ambience
+if not (FGT.plannerBackdrop and B) then return end
 
 -- The spec shapes are the banner's own (see the long note above B.shafts in Core.lua).
 local function Snow(count, rise, sizeScale, strength, fadeIn)
@@ -51,73 +50,80 @@ local SPECS = {
 }
 local STRENGTH = 1 -- the particles' and lights' overall level on the backdrop
 
--- The second copy of the banner's engine: its own tables, drawing on the planner's backdrop.
--- `flat` keeps the goal page's fade toward the left edge and its faded bottom out of it (the
--- planner shades its own edges); false in `lightMask` leaves the goal page's mask behind.
-local E = setmetatable({
-    host = host, art = art, uv = { 0, 1, 0, 1 }, flat = true, lightMask = false,
-    emberDots = {}, shafts = {}, shaftInfo = {}, lightSpan = {},
-    emberLevel = 4, shaftLevel = 3, glowLevel = STRENGTH, sourceAspect = 1143 / 1376, coldStart = 5,
-    emberCount = 0, shaftCount = 0,
-}, { __index = B })
-FGT.PlannerEffects = { engine = E, specs = SPECS }
+-- An engine for one backdrop: pb = { frame, texture, area } (the planner's stage, or the View set
+-- window's own copy of it, ViewSet.lua). Each keeps its own particles and stops while its stage is hidden.
+function FGT.NewPlannerEffects(pb)
+    local host, area, art = pb.frame, pb.area, pb.texture
+    -- The second copy of the banner's engine: its own tables, drawing on the planner's backdrop.
+    -- `flat` keeps the goal page's fade toward the left edge and its faded bottom out of it (the
+    -- planner shades its own edges); false in `lightMask` leaves the goal page's mask behind.
+    local E = setmetatable({
+        host = host, art = art, uv = { 0, 1, 0, 1 }, flat = true, lightMask = false,
+        emberDots = {}, shafts = {}, shaftInfo = {}, lightSpan = {},
+        emberLevel = 4, shaftLevel = 3, glowLevel = STRENGTH, sourceAspect = 1143 / 1376, coldStart = 5,
+        emberCount = 0, shaftCount = 0,
+    }, { __index = B })
+    local fx = { engine = E, specs = SPECS }
 
--- The drifting clouds and dust: above the backdrop (sublevel 0), the clouds under the dust.
-local layers = A and A.Build and A.Build(host, area, 2, 1) or {}
-local driver = CreateFrame("Frame", nil, host)
-local race, running, dirty, clock = nil, false, false, 0
+    -- The drifting clouds and dust: above the backdrop (sublevel 0), the clouds under the dust.
+    local layers = A and A.Build and A.Build(host, area, 2, 1) or {}
+    local driver = CreateFrame("Frame", nil, host)
+    local race, running, dirty, clock = nil, false, false, 0
 
-local function Tick(_, dt)
-    dt = math.min(dt or 0, 0.05)
-    clock = clock + dt
-    local w = art:GetWidth() or 0
-    if w < 1 then return end
-    E.shownArtHeight = art:GetHeight() or 0
-    if dirty then
-        -- (made once the backdrop has its size: particles are placed in the art's pixels)
-        dirty = false
-        E:ResetEmbers(); E:ResetShafts()
-    end
-    E:StepEmbers(dt)
-    E:StepShafts(clock)
-end
-
--- Stops stepping. `clear` also takes the particles away (a setting or a race changed them); with
--- the planner merely closed they are kept, and carry on where they were when it opens again.
-local function Stop(clear)
-    if running then driver:SetScript("OnUpdate", nil); running = false end
-    if clear then E:HideEmbers(); E:HideShafts(); dirty = true end
-end
-
-local function Refresh()
-    local level = FGT.EffectsLevel()
-    local visible = area:IsVisible() and true or false
-    if A and A.Apply then A.Apply(layers, level, visible, true) end
-    local spec = SPECS[race]
-    if visible and level == "full" and spec then
-        if not running then
-            running = true
-            driver:SetScript("OnUpdate", Tick)
+    local function Tick(_, dt)
+        dt = math.min(dt or 0, 0.05)
+        clock = clock + dt
+        local w = art:GetWidth() or 0
+        if w < 1 then return end
+        E.shownArtHeight = art:GetHeight() or 0
+        if dirty then
+            -- (made once the backdrop has its size: particles are placed in the art's pixels)
+            dirty = false
+            E:ResetEmbers(); E:ResetShafts()
         end
-    else
-        Stop(visible)
+        E:StepEmbers(dt)
+        E:StepShafts(clock)
     end
-end
 
-local function SetRace(raceFile)
-    if raceFile == race then return end
-    race = raceFile
-    local spec = SPECS[race]
-    E.glowSpec = spec
-    if A and A.SetDustStrength then A.SetDustStrength(layers, spec and spec.dust or 1) end
-    -- the old race's particles and lights go; the new ones are made at the next step
-    E:HideEmbers(); E:HideShafts()
-    dirty = true
-    Refresh()
-end
+    -- Stops stepping. `clear` also takes the particles away (a setting or a race changed them); with
+    -- the planner merely closed they are kept, and carry on where they were when it opens again.
+    local function Stop(clear)
+        if running then driver:SetScript("OnUpdate", nil); running = false end
+        if clear then E:HideEmbers(); E:HideShafts(); dirty = true end
+    end
 
-FGT.PlannerEffects.Refresh, FGT.PlannerEffects.SetRace = Refresh, SetRace
-FGT.PlannerEffects.driver, FGT.PlannerEffects.layers, FGT.PlannerEffects.Tick = driver, layers, Tick
-area:HookScript("OnShow", Refresh)
-area:HookScript("OnHide", Refresh)
-SetRace(pb.frame.race)
+    local function Refresh()
+        local level = FGT.EffectsLevel()
+        local visible = area:IsVisible() and true or false
+        if A and A.Apply then A.Apply(layers, level, visible, true) end
+        local spec = SPECS[race]
+        if visible and level == "full" and spec then
+            if not running then
+                running = true
+                driver:SetScript("OnUpdate", Tick)
+            end
+        else
+            Stop(visible)
+        end
+    end
+
+    local function SetRace(raceFile)
+        if raceFile == race then return end
+        race = raceFile
+        local spec = SPECS[race]
+        E.glowSpec = spec
+        if A and A.SetDustStrength then A.SetDustStrength(layers, spec and spec.dust or 1) end
+        -- the old race's particles and lights go; the new ones are made at the next step
+        E:HideEmbers(); E:HideShafts()
+        dirty = true
+        Refresh()
+    end
+
+    fx.Refresh, fx.SetRace = Refresh, SetRace
+    fx.driver, fx.layers, fx.Tick = driver, layers, Tick
+    area:HookScript("OnShow", Refresh)
+    area:HookScript("OnHide", Refresh)
+    SetRace(pb.frame.race)
+    return fx
+end
+FGT.PlannerEffects = FGT.NewPlannerEffects(FGT.plannerBackdrop)

@@ -1554,6 +1554,30 @@ do
     end
 end
 
+-- Enchant links in Gear Planner steps: green, like the enchant line on an item. Hover for the
+-- game's own spell tooltip (an Enchanting formula lists its reagents).
+do
+    local SPELL_GREEN = "4fd14f"
+    function FGT.SpellTag(id, label)
+        return "|cff" .. SPELL_GREEN .. "|Hfgtspell:" .. id .. "|h" .. label .. "|h|r"
+    end
+    function FGT.ShowSpellTip(owner, id)
+        GameTooltip:SetOwner(owner, "ANCHOR_CURSOR")
+        local ok = GameTooltip.SetSpellByID and pcall(GameTooltip.SetSpellByID, GameTooltip, id)
+        if not ok then pcall(GameTooltip.SetHyperlink, GameTooltip, "spell:" .. id) end
+        GameTooltip:AddLine(" ")
+        GameTooltip:AddLine("Shift-click: link in chat", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:AddLine("Right-click: Wowhead", C.GOLD2[1], C.GOLD2[2], C.GOLD2[3])
+        GameTooltip:Show()
+    end
+    function FGT.SpellChat(id)
+        local legacy = rawget(_G, "GetSpellLink") -- Classic Era's global; C_Spell elsewhere
+        local link = legacy and legacy(id)
+        if not link and C_Spell and C_Spell.GetSpellLink then link = C_Spell.GetSpellLink(id) end
+        if link and not (ChatEdit_InsertLink and ChatEdit_InsertLink(link)) and ChatFrame_OpenChat then ChatFrame_OpenChat(link) end
+    end
+end
+
 function FGT.LinkText(s)
     -- {item:ID:name}: an item named in a tip (or a step that doesn't track
     -- it) links like the step items do (FGT.ItemTag, further down)
@@ -1562,6 +1586,17 @@ function FGT.LinkText(s)
     end))
     s = (s:gsub("{map:([%w_]+):([^}]+)}", function(id, label)
         return FGT.LocationTag and FGT.LocationTag("dungeon:" .. id, label) or label
+    end))
+    -- {npc:ID:name}, {quest:ID:name}, {spell:ID:name}: a Gear Planner step's vendor or quest
+    -- giver, its quest and its enchant (GearCatalog.lua), linked by id rather than by name
+    s = (s:gsub("{npc:(%d+):([^}]+)}", function(id, label)
+        return FGT.NpcTag and FGT.NpcTag(tonumber(id), label) or label
+    end))
+    s = (s:gsub("{quest:(%d+):([^}]+)}", function(id, label)
+        return FGT.QuestTag and FGT.QuestTag(tonumber(id), label) or label
+    end))
+    s = (s:gsub("{spell:(%d+):([^}]+)}", function(id, label)
+        return FGT.SpellTag and FGT.SpellTag(tonumber(id), label) or label
     end))
     s = (s:gsub("{([%w_]+):([^}]+)}", function(id, label)
         local alias = FGT.LINK_ALIAS[id]
@@ -1778,7 +1813,18 @@ do
         -- longest first, so "Vartrus the Ancient" wins over "Vartrus"
         table.sort(names, function(a, b) return #a[1] > #b[1] end)
     end
-        function FGT.NpcById(id) Index(); return byId[id] end
+    -- an NPC only the Gear Planner's links name (GearLinks.lua): found by id, never by name
+    function FGT.NpcById(id)
+        Index()
+        if byId[id] == nil and FGT.GearCatalog and FGT.GearCatalog.LinkNpc then
+            byId[id] = FGT.GearCatalog.LinkNpc(id) or false
+        end
+        return byId[id] or nil
+    end
+    function FGT.NpcTag(id, label)
+        if not FGT.NpcById(id) then return label end
+        return "|cff" .. TEAL .. "|Hfgtnpc:" .. id .. "|h" .. label .. "|h|r"
+    end
 
     local function Word(c) return c ~= "" and c:find("[%w']") ~= nil end
     function FGT.LinkNpcs(text)
@@ -1824,7 +1870,9 @@ do
         end
         -- a spot read from Classic Era's own map data that Forever hasn't confirmed (raid entrances)
         if FGT.isForever and n.unverifiedInForever then return "Unconfirmed in Forever. This spot is from Classic Era." end
-        if not n.map then return "No map pin: inside a dungeon, where the map can't show it." end
+        if not n.map then
+            return n.noSpot and "No map spot known." or "No map pin: inside a dungeon, where the map can't show it."
+        end
     end
     function FGT.NpcNoteColor(n)
         if FGT.isForever and (n.missingInForever or n.unverifiedInForever) then return C.FOREVER_LIGHT[1], C.FOREVER_LIGHT[2], C.FOREVER_LIGHT[3], true end
@@ -1922,6 +1970,18 @@ do
     FGT.LINK_ICONS = FGT.LINK_ICONS or {}
     table.insert(FGT.LINK_ICONS, { FGT.QUEST_ICON, Icon(QUEST, true) })
     if DAILY ~= QUEST then table.insert(FGT.LINK_ICONS, { FGT.DAILY_ICON, Icon(DAILY, true) }) end
+    -- A Gear Planner quest (GearLinks.lua), linked by its id: kept in FGT.QUESTS past the end of
+    -- the list (key 100000 + id), so the name scan above never sees it but the tooltip, chat and
+    -- Wowhead handlers below work as for any quest.
+    function FGT.QuestTag(id, label)
+        local key = 100000 + id
+        if not FGT.QUESTS[key] then
+            local q = FGT.GearCatalog and FGT.GearCatalog.LinkQuest and FGT.GearCatalog.LinkQuest(id)
+            local giver = q and q.start and FGT.NpcById(q.start)
+            FGT.QUESTS[key] = { label, { id }, start = q and q.start, startName = giver and giver.name or nil }
+        end
+        return FGT.QUEST_ICON .. "|cff" .. YELLOW .. "|Hfgtquest:" .. key .. "|h" .. label .. "|h|r"
+    end
     local order
     function FGT.LinkQuests(text)
         if not text:find("'", 1, true) then return text end
@@ -2064,6 +2124,12 @@ function FGT.EnableGoalLinks(f)
             FGT.ShowQuestTip(self, questKey)
             return
         end
+        local spellId = tonumber(link:match("^fgtspell:(%d+)") or "")
+        if spellId then
+            FGT.overLink = "spell"
+            FGT.ShowSpellTip(self, spellId)
+            return
+        end
         local id = link:match("^fgtgoal:(.+)")
         local goal = id and FGT.GoalById(id)
         if not goal then return end
@@ -2114,8 +2180,18 @@ function FGT.EnableGoalLinks(f)
                 return
             end
         end
-        -- a plain click on an NPC, quest or item name ticks the step (below)
-        local tick = (npcId or questKey) and true
+        local spellId = tonumber(link:match("^fgtspell:(%d+)") or "")
+        if spellId then
+            if button == "RightButton" then
+                FGT.OpenWowheadCard("spell", spellId, text)
+                return
+            elseif IsShiftKeyDown() then
+                FGT.SpellChat(spellId)
+                return
+            end
+        end
+        -- a plain click on an NPC, quest, enchant or item name ticks the step (below)
+        local tick = (npcId or questKey or spellId) and true
         -- a mount type: right-click and shift-click use its first color
         local itemId = tonumber(link:match("^item:(%d+)") or link:match("^fgtvariants:(%d+)") or "")
         if itemId then
@@ -4466,16 +4542,77 @@ do
                 first = first or g.id
             end
         end
-        if first then FGT.SelectGoal(first) end
+        if first then FGT.SelectGoal(first)
+        elseif selectedId and FGT.GoalById(selectedId) then
+            FGT.RefreshStepView(FGT.GoalById(selectedId)) -- its other races' and classes' parts show or hide
+        end
     end
 end
-function FGT.MyGoalsShows(goal)
-    local view = FGT.myGoalsView
-    if FGT.Setting("hideCompletedGoals") then
-        local done, total = GoalProgress(goal)
-        if total > 0 and done >= total then return false end
+do
+    -- The race or class one part of a pick-your-parts goal is for, or nil when
+    -- it suits anyone: an Epic Racial Mounts race (its pieces name the race), a
+    -- class's armor set ("Druid - ...") or a Level Classes to 60 row.
+    local function PartOwner(goal, key)
+        if goal.sections then
+            local section = goal.sections[key]
+            if not section then return nil end
+            if section.partRace == nil then
+                local race = false
+                for _, piece in ipairs(section.pieces or {}) do
+                    local a = type(piece) == "table" and piece.auto
+                    race = (type(piece) == "table" and piece.skipIfRace)
+                        or (a and (a.forRace or (a.raceLevel and a.raceLevel.race))) or false
+                    if race then break end
+                end
+                section.partRace = race
+            end
+            -- "Druid - Bloodfang Armor" names a class; "Human - Swift Steed" names a race
+            local class = FGT.SectionClass(section.name)
+            for _, c in ipairs(FGT.CLASSES) do
+                if c.token == class then return section.partRace or nil, class end
+            end
+            return section.partRace or nil, nil
+        end
+        local entry = goal.steps and goal.steps[key]
+        return nil, type(entry) == "table" and entry.autoClass or nil
     end
-    return not view or view.value ~= "me" or FGT.GoalFits(goal, FGT.PlayerProfile())
+
+    -- This character view: a group goal's parts for another race or class stay
+    -- hidden on the goal page (a Gnome Warlock sees only the Mechanostrider and
+    -- the Warlock row). A view only; progress still counts every character.
+    function FGT.PartForMe(goal, key)
+        local view = FGT.myGoalsView
+        if not (goal and goal.group) or not view or view.value ~= "me" then return true end
+        local race, class = PartOwner(goal, key)
+        if not race and not class then return true end
+        local me = FGT.PlayerProfile()
+        if race and me.race and race ~= me.race then return false end
+        if class and me.class and class ~= me.class then return false end
+        return true
+    end
+
+    -- False when every part picked for a group goal belongs to someone else.
+    local function HasPartForMe(goal)
+        if not goal.group then return true end
+        local count = goal.sections and #goal.sections or (goal.steps and #goal.steps) or 0
+        local any = false
+        for key = 1, count do
+            if PartSelected(goal, key) then
+                any = true
+                if FGT.PartForMe(goal, key) then return true end
+            end
+        end
+        return not any
+    end
+
+    function FGT.MyGoalsShows(goal)
+        local view = FGT.myGoalsView
+        if FGT.Setting("hideCompletedGoals") then
+            local done, total = GoalProgress(goal)
+            if total > 0 and done >= total then return false end
+        end
+        return not view or view.value ~= "me" or (FGT.GoalFits(goal, FGT.PlayerProfile()) and HasPartForMe(goal))
+    end
 end
 -- Closing mid-drag (Escape) must not leave the window stuck to the mouse.
 main:HookScript("OnHide", function()
@@ -5398,18 +5535,48 @@ do
     end)
     b:Hide()
     FGT.detailEditBtn = b
+    -- "View set" (ViewSet.lua): an eye beside the pencil on a Gear Planner goal, opening the set
+    -- on its character in a small view-only window
+    local v = CreateFrame("Button", nil, FGT.detailBody)
+    v:SetSize(22, 22)
+    v.icon = v:CreateTexture(nil, "ARTWORK")
+    v.icon:SetTexture(FGT.Icon("eye-white"))
+    v.icon:SetSize(16, 16)
+    v.icon:SetPoint("CENTER")
+    local function ViewTint(on)
+        local c = on and C.ACCENT or C.SUBTEXT
+        v.icon:SetVertexColor(c[1], c[2], c[3], on and 1 or 0.8)
+    end
+    ViewTint(false)
+    v:SetScript("OnEnter", function(self)
+        ViewTint(true)
+        GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+        GameTooltip:AddLine("View set", C.TITLE[1], C.TITLE[2], C.TITLE[3])
+        GameTooltip:AddLine("See this set on its character.", C.INK2[1], C.INK2[2], C.INK2[3])
+        GameTooltip:Show()
+    end)
+    v:SetScript("OnLeave", function() ViewTint(false); GameTooltip:Hide() end)
+    v:SetScript("OnClick", function(self)
+        GameTooltip:Hide()
+        if self.goal and FGT.ShowViewSet then FGT.ShowViewSet(self.goal) end
+    end)
+    v:Hide()
+    FGT.viewSetBtn = v
     function FGT.UpdateEditButton(goal)
-        b.goal = goal
+        b.goal, v.goal = goal, goal
         -- gear sets open their planner page, and only on the character they belong to
         b:SetShown(goal and (goal.target ~= nil or goal.plannerOwner ~= nil) or false)
-        -- the reset arrow sits left of the pencil (or in its place), and a
-        -- long title stays clear of both
+        v:SetShown(goal and goal.plannerOwner and FGT.ShowViewSet and FGT.GearView and FGT.GearView.SetFor(goal) and true or false)
+        v:ClearAllPoints(); v:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", b:IsShown() and -46 or -20, -(FGT.DETAIL_TOP - 2))
+        -- the reset arrow sits left of the pencil and the eye (or in their place), and a
+        -- long title stays clear of them
         local resetShown = goal and not goal.autoLevels
+        local before = (b:IsShown() and 1 or 0) + (v:IsShown() and 1 or 0)
         if FGT.resetBtn then
             FGT.resetBtn:ClearAllPoints()
-            FGT.resetBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", b:IsShown() and -46 or -20, -(FGT.DETAIL_TOP - 2))
+            FGT.resetBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20 - 26 * before, -(FGT.DETAIL_TOP - 2))
         end
-        local icons = (b:IsShown() and 1 or 0) + (resetShown and 1 or 0)
+        local icons = before + (resetShown and 1 or 0)
         FGT.detailNoteBtn:ClearAllPoints()
         FGT.detailNoteBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20 - 26 * icons, -(FGT.DETAIL_TOP - 2))
         icons = icons + 1
@@ -8571,7 +8738,7 @@ do
 end
 
 function FGT.ShowStepSection(goal, si, section, view)
-    if not PartSelected(goal, si) then return false end
+    if not PartSelected(goal, si) or not FGT.PartForMe(goal, si) then return false end
     local done, total = SectionProgress(goal, si, section)
     return not FGT.HideGuideEntry("section:" .. si, total > 0 and done == total, view)
 end
@@ -9938,8 +10105,8 @@ RefreshSteps = function(goal, view)
         local stepIcon = not view and type(entry) == "table" and entry.icon or nil
         local row = GetStepRow(i, view)
         row.segStep = i -- (hovering the row rings its progress bar segment)
-        if not PartSelected(goal, i) or FGT.PieceSkipped(entry) then
-            row:Hide() -- part of a group you haven't added, or a step your race skips
+        if not PartSelected(goal, i) or FGT.PieceSkipped(entry) or not FGT.PartForMe(goal, i) then
+            row:Hide() -- part of a group you haven't added, a step your race skips, or another class's row
         else
         shown = shown + 1
         local complete = IsAutoStep(entry) and AutoStepFraction(entry) >= 1 or
@@ -9953,7 +10120,19 @@ RefreshSteps = function(goal, view)
         row:SetPoint("RIGHT", stepsContainer, "RIGHT", 0, 0)
         SetRowIndent(row, 2)
 
-        row.num:SetText(shown .. ".")
+        -- a Gear Planner set names each step's slot (Head, Finger 1) in place of a number, in a
+        -- wider column; the slot then needn't repeat in the step's text
+        local slotLabel = FGT.GearStepSlot and FGT.GearStepSlot(goal, entry)
+        row.num:SetText(slotLabel or (shown .. "."))
+        row.num:SetJustifyH(slotLabel and "LEFT" or "RIGHT")
+        row.slotExtra = slotLabel and 54 or 0 -- 72 wide against a number's 18
+        if slotLabel then
+            row.num:SetWordWrap(false) -- "Main Hand" stays on one line
+            row.num:SetWidth(72)
+            if entry.slotSuffix and stepText:sub(-#entry.slotSuffix) == entry.slotSuffix then
+                stepText = stepText:sub(1, -#entry.slotSuffix - 1)
+            end
+        end
         row:SetStepIcon(stepIcon)
 
         local rowHeight2
@@ -10012,7 +10191,7 @@ RefreshSteps = function(goal, view)
             end
             row.text:SetText(FGT.MapLinkText and FGT.MapLinkText(stepText, IsStepDone(goal.id, i), nil, type(entry) == "table" and entry.mapZoom or nil) or stepText)
             -- 22 more than the icon and number need, so a long line (and a "Show on map" link) stops short of the scroll bar
-            row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46) - 22))
+            row.text:SetWidth(math.max(50, width - (stepIcon and 58 or 46) - 22 - (row.slotExtra or 0)))
             -- item links first, so a finished step fades them too (Karl)
             FGT.SetStepLinks(row, type(entry) == "table" and entry.auto or nil, entry)
 
@@ -10919,7 +11098,7 @@ end
 detailParts = { FGT.detailViewport.scroll, detailIcon, detailTag, detailTitle, detailDiffChip, detailTimeChip, detailNote,
     detailBar, FGT.detailSegs, divider, stepsHeader, stepsScrollObj.scroll, resetBtn,
     FGT.detailNewChip, FGT.detailDoneChip, FGT.foreverNotice, FGT.expandAllBtn, FGT.detailLockChip, FGT.detailEditBtn,
-    FGT.personalNote, FGT.detailNoteBtn, FGT.goalBanner, FGT.completedStepsBtn }
+    FGT.viewSetBtn, FGT.personalNote, FGT.detailNoteBtn, FGT.goalBanner, FGT.completedStepsBtn }
 
 -- "Clear" next to the sort bar: removes every goal from My Goals in one
 -- go, after a confirm in the right-click menu's style. Progress is kept

@@ -571,8 +571,11 @@ function C.EnchantSource(e) return e.enchanting and "Enchanting" or "Applied fro
 -- The goal step for an enchant on a planned item.
 function C.EnchantStep(e, item)
     local effect = (e.text ~= "" and e.text ~= e.short) and (" (" .. e.text .. ")") or ""
-    if e.enchanting then return "Enchant " .. item.name .. " with " .. e.short .. effect end
-    return "Apply " .. e.name .. " to " .. item.name .. effect
+    -- the enchant links: an Enchanting spell shows its tooltip (reagents included), an item
+    -- that applies it (an arcanum, a scope) its item tooltip
+    if e.enchanting then return "Enchant " .. item.name .. " with {spell:" .. e.spell .. ":" .. e.short .. "}" .. effect end
+    local name = (e.item and e.item > 0) and ("{item:" .. e.item .. ":" .. e.name .. "}") or ("{spell:" .. e.spell .. ":" .. e.name .. "}")
+    return "Apply " .. name .. " to " .. item.name .. effect
 end
 -- Searching enchants: name or effect, like the item search.
 function C.SearchEnchants(item, text, out)
@@ -679,7 +682,7 @@ local function Parse(kind, who, place, detail)
         local quests = who ~= "" and Quoted(who)
         return { step = "Complete " .. (quests or "a quest") .. (place and (" in " .. place) or "") .. " for %s",
             label = "Quest · " .. (place or (quests and not who:find(";", 1, true) and who) or "several quests"),
-            place = place, quest = true }
+            place = place, quest = true, kind = "Q" }
     elseif kind == "N" then
         -- A creature the site cannot place, but a boss we know (BOSS_PLACE), gets its raid.
         if BOSS_PLACE[who] then
@@ -693,7 +696,7 @@ local function Parse(kind, who, place, detail)
             advice = "Drops at random from creatures around its level." }
     elseif kind == "V" then
         return { step = "Buy %s from " .. (who ~= "" and who or "a vendor") .. (place and (" in " .. place) or ""),
-            label = "Vendor · " .. (place or (who ~= "" and who) or "several vendors"), vendor = who ~= "" and who or nil }
+            label = "Vendor · " .. (place or (who ~= "" and who) or "several vendors"), vendor = who ~= "" and who or nil, kind = "V" }
     elseif kind == "O" and who ~= "" then
         return { step = "Loot %s from " .. who, label = who }
     end
@@ -775,12 +778,81 @@ function C.SourceLabel(item)
     return item.note or "Source unknown"
 end
 
--- The goal step and an optional tip for collecting an item.
-function C.Acquisition(item)
+-- Links for vendor and quest steps (GearLinks.lua, tools/linkdb.py): the vendor's or quest
+-- giver's NPC (a teal link: where they stand, Shift-click for the map pin) and the quest itself.
+-- Forever's own lists first there, then Classic's.
+local linkTexts = {}
+local function LinkLine(list, id)
+    local key = list .. (FGT.isForever and "_FOREVER" or "")
+    for _, name in ipairs(FGT.isForever and { key, list } or { list }) do
+        linkTexts[name] = linkTexts[name] or ("\n" .. (FGT[name] or ""))
+        local first = linkTexts[name]:find("\n" .. id .. "|", 1, true)
+        if first then return linkTexts[name]:match("^\n%d+|([^\n]*)", first), name end
+    end
+end
+local SIDE = { Alliance = "A", Horde = "H" }
+-- An NPC from the generated list, shaped like an FGT.NPCS entry (FGT.NpcById falls back to it).
+function C.LinkNpc(id)
+    local line, list = LinkLine("GEARNPCS", id)
+    if not line then return nil end
+    local name, title, sides, map, x, y, zone = line:match("^([^|]*)|([^|]*)|([^|]*)|([^|]*)|([^|]*)|([^|]*)|(.*)$")
+    if not name then return nil end
+    return { id = id, name = name, tag = title ~= "" and title or nil, sides = sides,
+        map = tonumber(map), x = tonumber(x), y = tonumber(y), zone = zone ~= "" and zone or nil,
+        noSpot = map == "" or nil,
+        -- on Forever, a spot from the Classic list (Forever's site has not placed them)
+        unverifiedInForever = FGT.isForever and list == "GEARNPCS" or nil }
+end
+function C.LinkQuest(id)
+    local line = LinkLine("GEARQUESTS", id)
+    if not line then return nil end
+    local name, side, start = line:match("^([^|]*)|([^|]*)|([^|]*)|")
+    return name and { id = id, name = name, side = side, start = tonumber(start) } or nil
+end
+local function NpcText(npc)
+    return "{npc:" .. npc.id .. ":" .. npc.name .. "}" .. (npc.zone and (" in " .. npc.zone) or "")
+end
+-- The linked step for a vendor or quest source, for a character of `faction` (nil: either).
+-- Nil when the generated lists know nothing for the item.
+local function LinkedStep(item, source, faction)
+    local line = source and (source.kind == "V" or source.kind == "Q") and LinkLine("GEARLINKS", item.id)
+    local kind, ids
+    if line then kind, ids = line:match("^(%a)|([%d,]+)$") end
+    if not kind then return nil end
+    local side = SIDE[faction or ""]
+    if kind == "V" then
+        -- one vendor friendly to the set's faction, one with a map spot first
+        local best, others = nil, 0
+        for id in ids:gmatch("%d+") do
+            local npc = C.LinkNpc(tonumber(id))
+            if npc and (not side or npc.sides:find(side, 1, true)) then
+                if not best or (npc.map and not best.map) then best = npc end
+                others = others + 1
+            end
+        end
+        if not best then return nil end
+        return "Buy " .. item.name .. " from " .. NpcText(best) .. (others > 1 and " (or another vendor)" or "")
+    end
+    -- a quest for the set's faction; its giver links too
+    for id in ids:gmatch("%d+") do
+        local quest = C.LinkQuest(tonumber(id))
+        if quest and (not side or quest.side:find(side, 1, true)) then
+            local giver = quest.start and C.LinkNpc(quest.start)
+            return "Complete {quest:" .. quest.id .. ":" .. quest.name .. "}"
+                .. (giver and (" from " .. NpcText(giver)) or (source.place and (" in " .. source.place) or ""))
+                .. " for " .. item.name
+        end
+    end
+end
+C.LinkedStep = LinkedStep
+
+-- The goal step and an optional tip for collecting an item, for a character of `faction` (the
+-- set's owner: which vendor and quest version to name).
+function C.Acquisition(item, faction)
     local source = C.Source(item)
     local text, advice
     if source then
-        text, advice = source.step:format(item.name), source.advice
+        text, advice = LinkedStep(item, source, faction) or source.step:format(item.name), source.advice
     else
         text = "Collect " .. item.name .. "  |cff888888Source unknown|r"
     end
