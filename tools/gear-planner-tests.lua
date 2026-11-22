@@ -683,6 +683,12 @@ if F.isForever then
     assert(helm.set == 0 and Cat.ForeverStatus(helm) == "updated", "Forever's PvP pieces leave the old set")
     local ring = Cat.Get(272409)
     assert(ring and ring.stats:find("t10", 1, true), "Forever-only items have stats from the item-level budget")
+    -- Engraved Band exists only as a server hotfix (tools/hotfixes.py), not in the client tables.
+    local band
+    for _, item in ipairs(Cat.Search("Finger0Slot", { text = "engraved band" })) do
+        if item.id == 260219 then band = item end
+    end
+    assert(band and band.q == 3 and band.ilvl == 62 and band.stats:find("s14", 1, true), "hotfix-only items reach the planner")
 else
     assert(dawn.ilvl == 64 and dawn.req == 59 and not dawn.updated, "Classic Era keeps Classic's item")
     assert(helm.set == 395, "Classic Era keeps the Classic set")

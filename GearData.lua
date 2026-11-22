@@ -8,7 +8,7 @@
 -- (only equip bonuses read differently). The Forever client uses them in place of blocks.
 local _, FGT = ...
 FGT.GEARDB = {
-    builds = { era = '1.15.9.70003', forever = '1.60.1.70959' },
+    builds = { era = '1.15.9.70003', forever = '1.60.1.71037' },
     sets = {
         [1] = "The Gladiator",
         [41] = "Dal'Rend's Arms",
@@ -182,6 +182,15 @@ FGT.GEARDB = {
         [549] = "Champion's Raiment",
         [550] = "Lieutenant Commander's Pursuance",
         [551] = "Lieutenant Commander's Refuge",
+        [1667] = "Feralheart Raiment",
+        [1669] = "Beastmaster Armor",
+        [1671] = "Sorcerer's Regalia",
+        [1673] = "Soulforge Armor",
+        [1675] = "Vestments of the Virtuous",
+        [1676] = "Darkmantle Armor",
+        [1679] = "The Five Thunders",
+        [1681] = "Deathmist Raiment",
+        [1778] = "Battlegear of Heroism",
         [1968] = "Blessed Plate",
         [1972] = "Stormcloth Regalia",
         [2071] = "Teachings of the Furbolgs",
@@ -211,7 +220,31 @@ FGT.GEARDB = {
         [2095] = "Warlord's Thunderfist",
         [2096] = "Lieutenant Commander's Thunderfist",
         [2097] = "Field Marshal's Thunderfist",
+        [2098] = "Manaflare Regalia",
+        [2099] = "Grimstitch Armor",
+        [2100] = "Demonheart Raiment",
+        [2101] = "Wildstalker Armor",
+        [2102] = "Battlegear of Glory",
+        [2103] = "Battleplate of Glory",
+        [2104] = "Vestments of Conviction",
+        [2105] = "Raiments of Conviction",
+        [2106] = "Justice Battlegear",
+        [2107] = "Justice Armor",
+        [2108] = "Justice Battleplate",
+        [2109] = "The Spiritcaller",
+        [2110] = "The Spiritcaller's Rage",
         [2111] = "The Spiritcaller's Storm",
+        [2112] = "Grovekeeper Raiment",
+        [2113] = "Grovekeeper Rage",
+        [2114] = "Grovekeeper Eclipse",
+        [2115] = "Grovekeeper Ferocity",
+        [2130] = "Rider of the Plaguelands",
+        [2131] = "Partners in Crime",
+        [2132] = "Blessing of Kalimdor",
+        [2133] = "Rotmender's Raiment",
+        [2134] = "Violet Sorcerer's Vestments",
+        [2135] = "Krol'dok Battlegear",
+        [2136] = "Defias Enforcer's Garb",
         [100000] = "Battlegear of Glory",
         [100001] = "Battleplate of Glory",
         [100002] = "Justice Armor",
@@ -379,12 +412,12 @@ FGT.GEARDB = {
 280963|4|65|60|64|403|Interface\Icons\inv_helm_mail_raidshamanhyjalc60_d_01|3|100011||0|Spiritcaller Headdress|||1
 280951|4|65|60|64|403|Interface\Icons\inv_helm_mail_raidshamanhyjalc60_d_01|3|100009||0|Spiritcaller Helmet|||1
 280898|4|65|60|4|403|Interface\Icons\inv_helm_mail_raidhunterhyjalc60_d_01|3|100005||0|Wildstalker's Helm|||1
-14332|2|64|59|0|401|133074|0|0||0|Eternal Crown|||2
-14979|2|64|59|0|404|133078|0|0||0|Exalted Helmet|||2
-15439|2|64|59|0|402|132767|0|0||0|Supreme Crown|||2
-15684|2|64|59|0|403|133101|0|0||0|Triumphant Skullcap|||2
-10261|2|63|58|0|402|133694|0|0||0|Adventurer's Bandana|||2
-18421|3|63|0|0|403|133121|0|0||0|Backwood Helm||a21,t13,i9,p9,c1|1
+14332|2|64|59|0|401|133074|1|0||0|Eternal Crown|||2
+14979|2|64|59|0|404|133078|1|0||0|Exalted Helmet|||2
+15439|2|64|59|0|402|132767|1|0||0|Supreme Crown|||2
+15684|2|64|59|0|403|133101|1|0||0|Triumphant Skullcap|||2
+10261|2|63|58|0|402|133694|1|0||0|Adventurer's Bandana|||2
+18421|3|63|0|0|403|133121|1|0||0|Backwood Helm||a21,t13,i9,p9,c1|1
 16526|3|63|58|4|403|133071|0|361|H|1|Champion's Chain Headguard|Requires PvP rank 10|a15,t24,i10,A12|1
 16503|3|63|58|1024|402|133077|1|382|H|1|Champion's Dragonhide Helm|Requires PvP rank 10|a11,s11,t16,i11,p9,A16,S13,H13|1
 17570|3|63|58|256|401|133076|1|345|H|1|Champion's Dreadweave Hood|Requires PvP rank 10|t20,i20,S16,H16|1
@@ -393,20 +426,21 @@ FGT.GEARDB = {
 16514|3|63|58|1|404|133077|1|281|H|1|Champion's Plate Headguard|Requires PvP rank 10|a8,s9,t31|1
 17610|3|63|58|16|401|133119|1|342|H|1|Champion's Satin Cowl|Requires PvP rank 10|t20,i20,S16,H16|1
 16489|3|63|58|128|401|133074|1|341|H|1|Champion's Silk Hood|Requires PvP rank 10|t16,i16,p16,c1|1
-13986|3|63|0|0|401|132767|0|0||0|Crown of Caer Darrow||t8,i20,p20|1
-13359|3|63|58|0|403|133071|0|0||0|Crown of Tyranny||t20,A40,c1|1
-18526|3|63|58|0|401|132767|0|0||0|Crown of the Ogre King||t16,i18,p11,c1|1
+13986|3|63|0|0|401|132767|1|0||0|Crown of Caer Darrow||t8,i20,p20|1
+13359|3|63|58|0|403|133071|1|0||0|Crown of Tyranny||t20,A40,c1|1
+18526|3|63|58|0|401|132767|1|0||0|Crown of the Ogre King||t16,i18,p11,c1|1
 20551|3|63|58|0|404|133078|1|0||0|Darkrune Helm||t13,c1|2
-14460|2|63|58|0|401|133123|0|0||0|Elunarian Diadem||t16,i20|2
+280019|3|63|58|0|403|0|2|0||0|Dinofrill Casque||a17,t24,c1|1
+14460|2|63|58|0|401|133123|1|0||0|Elunarian Diadem||t16,i20|2
 250597|3|63|58|0|404|0|2|0||0|Enriched Thorium Helm||t21,S23,H23,d8|1
-12587|3|63|58|0|402|133148|0|0||0|Eye of Rend||s13,t7,c2|1
-13113|3|63|58|0|402|133072|0|0||0|Feathermoon Headdress||t13,i20,p21|2
+12587|3|63|58|0|402|133148|1|0||0|Eye of Rend||s13,t7,c2|1
+13113|3|63|58|0|402|133072|1|0||0|Feathermoon Headdress||t13,i20,p21|2
 19105|3|63|58|0|401|133163|0|0||0|Frost Runed Headdress||t10,i10|1
-18718|3|63|58|0|404|133078|0|0||0|Grand Crusader's Helm||s16,t16,p12|1
-22411|3|63|58|0|404|133069|0|0||0|Helm of the Executioner||s14,t20,h2|1
-10388|2|63|58|0|404|133101|0|0||0|Hyperion Helm|||2
-14686|2|63|58|0|402|133076|0|0||0|Indomitable Headdress||t9,i15,p18|2
-22302|3|63|58|400|401|133132|0|520||0|Ironweave Cowl||t24,i15|1
+18718|3|63|58|0|404|133078|1|0||0|Grand Crusader's Helm||s16,t16,p12|1
+22411|3|63|58|0|404|133069|1|0||0|Helm of the Executioner||s14,t20,h2|1
+10388|2|63|58|0|404|133101|1|0||0|Hyperion Helm|||2
+14686|2|63|58|0|402|133076|1|0||0|Indomitable Headdress||t9,i15,p18|2
+22302|3|63|58|400|401|133132|1|520||0|Ironweave Cowl||t24,i15|1
 16428|3|63|58|4|403|133123|1|362|A|1|Lieutenant Commander's Chain Helmet|Requires PvP rank 10|a15,t24,i10,A12|1
 16416|3|63|58|128|401|133126|1|343|A|1|Lieutenant Commander's Crown|Requires PvP rank 10|t16,i16,p16,c1|1
 17598|3|63|58|16|401|133126|1|344|A|1|Lieutenant Commander's Diadem|Requires PvP rank 10|t20,i20,S16,H16|1
@@ -415,73 +449,86 @@ FGT.GEARDB = {
 16434|3|63|58|2|404|133073|1|401|A|1|Lieutenant Commander's Lamellar Headguard|Requires PvP rank 10|a8,s9,t31|1
 16418|3|63|58|8|402|133144|1|348|A|1|Lieutenant Commander's Leather Veil|Requires PvP rank 10|t26,A12,h1,d25|1
 16429|3|63|58|1|404|133073|1|282|A|1|Lieutenant Commander's Plate Helm|Requires PvP rank 10|a8,s9,t31|1
-10250|2|63|58|0|401|133153|0|0||0|Master's Hat|||2
-10272|2|63|58|0|403|133345|0|0||0|Masterwork Circlet|||2
-22267|3|63|60|0|401|133164|0|0||0|Spellweaver's Turban||i9,S36,H36,h1|1
-14814|2|63|58|0|403|133078|0|0||0|Warstrike Helmet||a10,t23,i3|2
-16677|3|62|57|0|403|133126|0|186||0|Beaststalker's Cap||a20,t20,i10,p6|1
-14539|3|62|57|0|402|133116|0|0||0|Bone Ring Helm||a5,s6,t30,i6,p6|1
+10250|2|63|58|0|401|133153|1|0||0|Master's Hat|||2
+10272|2|63|58|0|403|133345|1|0||0|Masterwork Circlet|||2
+22267|3|63|60|0|401|133164|1|0||0|Spellweaver's Turban||i9,S36,H36,h1|1
+14814|2|63|58|0|403|133078|1|0||0|Warstrike Helmet||a10,t23,i3|2
+16677|3|62|57|0|403|133126|1|186||0|Beaststalker's Cap||a20,t20,i10,p6|1
+14539|3|62|57|0|402|133116|1|0||0|Bone Ring Helm||a5,s6,t30,i6,p6|1
 12752|4|62|0|1488|401|133161|0|0||0|Cap of the Scarlet Savant||t17,i20,c2|1
-16667|3|62|57|0|403|133072|0|187||0|Coif of Elements||s7,t13,i23,p12|1
-16693|3|62|57|0|401|132767|0|182||0|Devout Crown||t13,i24,p15|1
-16698|3|62|57|0|401|133131|0|183||0|Dreadmist Mask||t15,i23,p12|1
+16667|3|62|57|0|403|133072|1|187||0|Coif of Elements||s7,t13,i23,p12|1
+16693|3|62|57|0|401|132767|1|182||0|Devout Crown||t13,i24,p15|1
+16698|3|62|57|0|401|133131|1|183||0|Dreadmist Mask||t15,i23,p12|1
 12620|3|62|57|0|404|133070|1|0||0|Enchanted Thorium Helm||s12,t25,d9|2
-15193|2|62|57|0|402|133074|0|0||0|Grand Crown|||2
+15193|2|62|57|0|402|133074|1|0||0|Grand Crown|||2
 18807|3|62|0|0|403|133126|1|0||0|Helm of Latent Power||t12,i14,p12,S14,H14,c1|1
-16731|3|62|57|0|404|133070|0|189||0|Helm of Valor||a9,s15,t23,p8|1
+16731|3|62|57|0|404|133070|1|189||0|Helm of Valor||a9,s15,t23,p8|1
 18870|4|62|57|0|403|133120|0|0||0|Helm of the Lifegiver||t14,i30,p9,H42|1
-10139|2|62|57|0|401|132768|0|0||0|High Councillor's Circlet|||2
-16727|3|62|57|0|404|133076|0|188||0|Lightforge Helm||a6,s13,t20,i14,p10|1
-16686|3|62|57|0|401|132768|0|181||0|Magister's Crown||t11,i30,p5|1
-10160|2|62|57|0|403|132767|0|0||0|Mercurial Circlet|||2
-10150|2|62|57|0|402|133156|0|0||0|Mighty Helmet|||2
+10139|2|62|57|0|401|132768|1|0||0|High Councillor's Circlet|||2
+280076|3|62|57|0|402|0|2|0||0|Horns of Varrox||t18,A48|1
+16727|3|62|57|0|404|133076|1|188||0|Lightforge Helm||a6,s13,t20,i14,p10|1
+279931|3|62|1|0|401|133131|2|0||0|Lost Researcher's Hood||t16,i19,S10,H29|1
+16686|3|62|57|0|401|132768|1|181||0|Magister's Crown||t11,i30,p5|1
+10160|2|62|57|0|403|132767|1|0||0|Mercurial Circlet|||2
+10150|2|62|57|0|402|133156|1|0||0|Mighty Helmet|||2
 14140|3|62|57|0|401|133693|1|0||0|Mooncloth Circlet||t13,i23,p15|2
-14322|2|62|57|0|401|133069|0|0||0|Resplendent Circlet|||2
-16707|3|62|57|0|402|133143|0|184||0|Shadowcraft Cap||a20,s13,t18,p5|1
-20134|4|62|0|0|403|133159|0|0||0|Skyfury Helm||s13,t14,p12,c3|1
-14866|2|62|57|0|404|133121|0|0||0|Warleader's Crown||s18,t16,p5|2
-16720|3|62|57|0|402|133129|0|185||0|Wildheart Cowl||s6,t10,i20,p20|1
+14322|2|62|57|0|401|133069|1|0||0|Resplendent Circlet|||2
+284086|3|62|57|0|402|0|2|0||0|Scarlet Executioner's Guise||s24,p17,h1|1
+16707|3|62|57|0|402|133143|1|184||0|Shadowcraft Cap||a20,s13,t18,p5|1
+20134|4|62|0|0|403|133159|1|0||0|Skyfury Helm||s13,t14,p12,c3|1
+279932|3|62|1|0|401|133131|2|0||0|Slime-Resistant Shroud||t16,i19,S10,H29|1
+14866|2|62|57|0|404|133121|1|0||0|Warleader's Crown||s18,t16,p5|2
+16720|3|62|57|0|402|133129|1|185||0|Wildheart Cowl||s6,t10,i20,p20|1
 252605|4|61|56|0|403|0|2|0||0|Black Dragonscale Helm||a21,i38,c1|2
 252604|4|61|56|0|403|0|2|0||0|Blue Dragonscale Helm||i18,S25,H25,h1|2
 252482|2|61|56|0|402|0|2|0||0|Blue Suede Hat||a16,s17,t7|2
-14312|2|61|56|0|401|132767|0|0||0|Celestial Crown|||2
-10379|2|61|56|0|404|133069|0|0||0|Commander's Helm|||2
-13216|2|61|0|0|401|133074|0|0||0|Crown of the Penitent||i20|1
+14312|2|61|56|0|401|132767|1|0||0|Celestial Crown|||2
+10379|2|61|56|0|404|133069|1|0||0|Commander's Helm|||2
+280072|3|61|56|0|401|0|2|0||0|Cowl of Dark Ambition||t18,i16,S21|1
+13216|2|61|0|0|401|133074|1|0||0|Crown of the Penitent||i20|1
 254137|2|61|56|0|401|0|2|0||0|Earthenweave Crown||p18,S14,H40|2
 254135|2|61|56|0|401|0|2|0||0|Ghostweave Hood||p18,S21,H21|2
 12636|3|61|56|0|403|133126|1|0||0|Helm of the Great Chief||t12,p30|2
-22407|3|61|56|0|402|133143|0|0||0|Helm of the New Moon||t14,i13,p12,S23,H23|1
-18490|3|61|56|0|402|133143|0|0||0|Insightful Hood||t12,i15,p9,H33,c1|1
+22407|3|61|56|0|402|133143|1|0||0|Helm of the New Moon||t14,i13,p12,S23,H23|1
+18490|3|61|56|0|402|133143|1|0||0|Insightful Hood||t12,i15,p9,H33,c1|1
 12640|4|61|56|0|404|133138|1|0||0|Lionheart Helm||s18,h2,c2|2
 252561|4|61|56|0|402|0|2|0||0|Living Crown||i18,p14,S25,H73|2
-15670|2|61|56|0|403|133101|0|0||0|Magnificent Helmet|||2
-10226|2|61|56|0|402|133076|0|0||0|Nightshade Helmet|||2
+15670|2|61|56|0|403|133101|1|0||0|Magnificent Helmet|||2
+10226|2|61|56|0|402|133076|1|0||0|Nightshade Helmet|||2
 274027|4|61|60|0|401|132537|2|0||0|Placeholder|||2
 12612|2|61|56|0|404|133071|1|0||0|Runic Plate Helm|||2
 12904|2|61|61|0|401|133133|1|0||0|Shawn's Super Special Swami Hat|||2
 250599|4|61|56|0|404|0|2|0||0|Stalwart Helm||s12,S38,H38,h2|2
-13390|3|61|56|0|401|133685|0|81||0|The Postmaster's Band||t10,i25,p10,S14,H14|1
+13390|3|61|56|0|401|133685|1|81||0|The Postmaster's Band||t10,i25,p10,S14,H14|1
 252485|4|61|56|0|402|0|2|0||0|Warbear Helm||a14,s18,t33|2
 14130|2|61|56|0|401|133165|1|0||0|Wizardweave Turban|||2
 22013|4|60|0|0|403|133126|1|515||0|Beastmaster's Cap||a22,t21,i12,h1|1
+226901|4|60|0|4|403|133126|1|1669||0|Beastmaster's Helm||a22,t21,i12,h1|1
+276434|3|60|55|0|403|133120|2|0||0|Black Guard Skullcap||t19,p18,S10,H31|1
 250593|2|60|55|0|404|0|2|1968||0|Blessed Plate Helm||s11,t7,S23,H23|2
 12185|2|60|0|0|401|133168|1|0||0|Bloodsail Admiral's Hat||t25|1
-18479|2|60|55|0|403|133090|0|0||0|Carrion Scorpid Helm||t10,S26,H26|1
+18479|2|60|55|0|403|133090|1|0||0|Carrion Scorpid Helm||t10,S26,H26|1
 22097|4|60|0|0|403|133072|1|519||0|Coif of The Five Thunders||t22,i21,p12,S14,H14,c1|1
 22005|4|60|0|0|402|133143|1|512||0|Darkmantle Cap||a26,s13,t18,c1|1
+226849|4|60|0|8|402|133143|1|1676||0|Darkmantle Helm||a26,s13,t18,c1|1
+226925|4|60|0|256|401|133131|1|1681||0|Deathmist Helm||t24,i24,S16,H16,h1|1
 22074|4|60|0|0|401|133131|1|518||0|Deathmist Mask||t24,i24,S16,H16,h1|1
-12953|3|60|55|0|403|133141|0|0||0|Dragoneye Coif||t17,A38|1
-22225|3|60|55|0|401|133129|0|0||0|Dragonskin Cowl||t12,i15,S18,H18|1
-10219|2|60|55|0|401|132767|0|0||0|Elegant Circlet|||2
+12953|3|60|55|0|403|133141|1|0||0|Dragoneye Coif||t17,A38|1
+22225|3|60|55|0|401|133129|1|0||0|Dragonskin Cowl||t12,i15,S18,H18|1
+10219|2|60|55|0|401|132767|1|0||0|Elegant Circlet|||2
 22109|4|60|0|0|402|133129|1|513||0|Feralheart Cowl||a9,s14,t17,i17,p16,S16,H16|1
-12952|3|60|55|0|404|133125|0|0||0|Gyth's Skull||t20,d9|1
+226819|4|60|0|1024|402|133129|1|1667||0|Feralheart Helm||a9,s14,t17,i17,p16,S16,H16|1
+12952|3|60|55|0|404|133125|1|0||0|Gyth's Skull||t20,d9|1
 21999|4|60|0|0|404|133070|1|511||0|Helm of Heroism||s18,t32,c1|1
-8308|2|60|55|0|403|132767|0|0||0|Hero's Band||a9,t14,p17|2
-14935|2|60|55|0|404|133122|0|0||0|Heroic Skullcap|||2
-15664|2|60|55|0|403|133111|0|0||0|Impenetrable Helmet|||2
+226877|4|60|0|1|404|133070|1|1778||0|Helm of Heroism||s18,t32,c1|1
+227037|4|60|0|64|403|133072|1|1679||0|Helm of The Five Thunders||t22,i21,p12,S14,H14,c1|1
+8308|2|60|55|0|403|132767|1|0||0|Hero's Band||a9,t14,p17|2
+14935|2|60|55|0|404|133122|1|0||0|Heroic Skullcap|||2
+15664|2|60|55|0|403|133111|1|0||0|Impenetrable Helmet|||2
 16983|4|60|55|0|402|133076|1|0||0|Molten Helm||t16,d25|2
-15430|2|60|55|0|402|133689|0|0||0|Peerless Headband|||2
+15430|2|60|55|0|402|133689|1|0||0|Peerless Headband|||2
 272733|3|60|55|1024|402|133143|2|381||0|Premier Beasthide Shroud||a7,s14,t26|1
+272491|3|60|55|4|403|133071|2|361||0|Premier Chain Headguard||a10,t19,i7,A12|1
 272737|3|60|55|4|403|133123|2|362||0|Premier Chainmail Helmet||a10,t19,i7,A12|1
 272743|3|60|55|2|404|133073|2|2086||0|Premier Chevalier Headguard||s11,t25,i7,S7,H7|1
 272471|3|60|55|1024|402|133077|2|382||0|Premier Dragonhide Helm||a7,s14,t26|1
@@ -510,173 +557,195 @@ FGT.GEARDB = {
 272649|3|60|55|16|401|133119|2|2072||0|Premier Silken Hood||t25,i10,p10,S7,H20|1
 272814|3|60|55|16|401|133126|2|344||0|Premier Voidcloth Diadem||t25,i15,S11,H11|1
 273386|3|60|55|1024|402|133077|2|2080||0|Premier Wyrmhide Headguard||t26,i14,S9,H9|1
-18480|2|60|55|0|404|133125|0|0||0|Scarab Plate Helm||t13,i20|1
+18480|2|60|55|0|404|133125|1|0||0|Scarab Plate Helm||t13,i20|1
 22065|4|60|0|0|401|132768|1|517||0|Sorcerer's Crown||t16,i25,p14,S11,H11,c1|1
+226941|4|60|0|128|401|132768|1|1671||0|Sorcerer's Helm||t16,i25,p14,S11,H11,c1|1
 22091|4|60|0|0|404|133076|1|516||0|Soulforge Helm||s16,t17,i17,p12,S14,H14,c1|1
-12604|3|60|55|0|401|132768|0|0||0|Starfire Tiara||i28,p10|1
-12960|3|60|55|0|402|133126|0|0||0|Tribal War Feathers||t12,i15,H33|1
+226997|4|60|0|2|404|133076|1|1673||0|Soulforge Helm||s16,t17,i17,p12,S14,H14,c1|1
+12604|3|60|55|0|401|132768|1|0||0|Starfire Tiara||i28,p10|1
+12960|3|60|55|0|402|133126|1|0||0|Tribal War Feathers||t12,i15,H33|1
 20408|2|60|60|0|401|133129|1|492||0|Twilight Cultist Cowl|||0
 22080|4|60|0|0|401|132767|1|514||0|Virtuous Crown||t16,i17,p16,S11,H11,c1|1
+226965|4|60|0|16|401|132767|1|1675||0|Virtuous Helm||t16,i17,p16,S11,H11,c1|1
 12633|3|60|55|0|404|133111|1|0||0|Whitesoul Helm||i15,p15,H35|2
 281539|2|59|0|0|401|0|2|0||0|Bear Fur Cowl||t17,i17|1
-14307|2|59|54|0|401|132768|0|0||0|Bonecaster's Crown|||2
-11808|4|59|54|0|401|135805|0|0||0|Circle of Flame||t20|1
-18727|3|59|54|0|401|133153|0|0||0|Crimson Felt Hat||t8,i8,p8,S30,H30|1
-10235|2|59|54|0|403|133076|0|0||0|Engraved Helm|||2
-14969|2|59|54|0|404|133073|0|0||0|Glorious Headdress|||2
+14307|2|59|54|0|401|132768|1|0||0|Bonecaster's Crown|||2
+11808|4|59|54|0|401|135805|1|0||0|Circle of Flame||t20|1
+18727|3|59|54|0|401|133153|1|0||0|Crimson Felt Hat||t8,i8,p8,S30,H30|1
+10235|2|59|54|0|403|133076|1|0||0|Engraved Helm|||2
+14969|2|59|54|0|404|133073|1|0||0|Glorious Headdress|||2
 15080|2|59|54|0|403|133122|1|0||0|Heavy Scorpid Helm||t20,p13|2
-2245|4|59|54|0|403|133073|0|0||0|Helm of Narv||a13,t32,p18|2
-10372|2|59|54|0|404|133074|0|0||0|Imbued Plate Helmet||a17,t17|2
+2245|4|59|54|0|403|133073|1|0||0|Helm of Narv||a13,t32,p18|2
+10372|2|59|54|0|404|133074|1|0||0|Imbued Plate Helmet||a17,t17|2
 12427|2|59|54|0|404|133124|1|321||0|Imperial Plate Helm||s18,t17|2
+280058|3|59|54|0|403|0|2|0||0|Impish Chain Hood||t19,p16,A34|1
 12417|2|59|54|0|403|132767|1|0||0|Radiant Circlet|||2
 13866|2|59|54|0|401|133694|1|0||0|Runecloth Headband||i20,p13|2
-8299|2|59|54|0|402|133076|0|0||0|Traveler's Helm||t13,i14,p14|2
-8292|2|58|53|0|401|133090|0|0||0|Arcane Cover||t10,i17,p10|2
-14804|2|58|53|0|403|133076|0|0||0|Bloodlust Helm||i18,p14|2
-18308|2|58|53|0|402|133153|0|0||0|Clever Hat||t10,i11|1
-10279|2|58|53|0|404|133078|0|0||0|Emerald Helm|||2
+276071|3|59|54|0|404|133127|2|0||0|The Black Helm||s13,t25,d8|1
+8299|2|59|54|0|402|133076|1|0||0|Traveler's Helm||t13,i14,p14|2
+8292|2|58|53|0|401|133090|1|0||0|Arcane Cover||t10,i17,p10|2
+14804|2|58|53|0|403|133076|1|0||0|Bloodlust Helm||i18,p14|2
+18308|2|58|53|0|402|133153|1|0||0|Clever Hat||t10,i11|1
+284065|2|58|53|0|401|0|2|0||0|Crown of Maldazzar||t17|2
+10279|2|58|53|0|404|133078|1|0||0|Emerald Helm|||2
 14111|2|58|53|0|401|133136|1|0||0|Felcloth Hood||i10|2
-18325|3|58|53|0|402|133133|0|0||0|Felhide Cap||a21,t14|1
-18319|3|58|53|0|403|133140|0|0||0|Fervent Helm||t14|1
-18313|3|58|53|0|404|133121|0|0||0|Helm of Awareness||t17,d50|1
+18325|3|58|53|0|402|133133|1|0||0|Felhide Cap||a21,t14|1
+18319|3|58|53|0|403|133140|1|0||0|Fervent Helm||t14|1
+282558|3|58|53|0|401|133130|2|0||0|Firebird's Cowl||t24,i7|1
+18313|3|58|53|0|404|133121|1|0||0|Helm of Awareness||t17,d50|1
 16008|2|58|0|0|401|133149|1|0||0|Master Engineer's Goggles|Requires Engineering (280)|t16,p17|2
-14676|2|58|53|0|402|133076|0|0||0|Pridelord Halo||a17,t14,p6|2
+14676|2|58|53|0|402|133076|1|0||0|Pridelord Halo||a17,t14,p6|2
 15094|2|58|53|0|402|133681|1|0||0|Runic Leather Headband||i20,p12|2
 252555|2|58|53|0|402|0|2|0||0|Tooled Leather Crown||i12,p15,S14,H14|2
-14858|2|58|53|0|404|133121|0|0||0|Vanguard Headdress||s10,t21|2
-10097|2|57|52|0|401|132767|0|0||0|Councillor's Circlet|||2
-11925|3|57|52|0|402|133143|0|0||0|Ghostshroud||a19,s12,t18|1
-14449|2|57|52|0|401|132767|0|0||0|Highborne Crown||s3,i22,p6|2
-14925|2|57|52|0|404|133078|0|0||0|Lofty Helm|||2
-13404|3|57|52|0|402|133693|0|0||0|Mask of the Unforgiven||t12,h2,c1|1
-10123|2|57|52|0|403|132768|0|0||0|Ornate Circlet|||2
-15185|2|57|52|0|402|132500|0|0||0|Praetorian Coif|||2
-11735|3|57|52|0|402|133148|0|0||0|Ragefury Eyepatch||s6,t9,c2|1
-11729|3|57|52|0|403|133069|0|1||0|Savage Gladiator Helm||a12,t28|1
+14858|2|58|53|0|404|133121|1|0||0|Vanguard Headdress||s10,t21|2
+10097|2|57|52|0|401|132767|1|0||0|Councillor's Circlet|||2
+11925|3|57|52|0|402|133143|1|0||0|Ghostshroud||a19,s12,t18|1
+14449|2|57|52|0|401|132767|1|0||0|Highborne Crown||s3,i22,p6|2
+14925|2|57|52|0|404|133078|1|0||0|Lofty Helm|||2
+13404|3|57|52|0|402|133693|1|0||0|Mask of the Unforgiven||t12,h2,c1|1
+10123|2|57|52|0|403|132768|1|0||0|Ornate Circlet|||2
+15185|2|57|52|0|402|132500|1|0||0|Praetorian Coif|||2
+11735|3|57|52|0|402|133148|1|0||0|Ragefury Eyepatch||s6,t9,c2|1
+11729|3|57|52|0|403|133069|1|1||0|Savage Gladiator Helm||a12,t28|1
 252597|2|57|52|0|403|0|2|0||0|Supple Scorpid Helm||s11,t13,S17,H17|2
-10111|2|57|52|0|402|133152|0|0||0|Wanderer's Hat|||2
+10111|2|57|52|0|402|133152|1|0||0|Wanderer's Hat|||2
+284270|3|56|51|0|404|0|2|0||0|Ancient Giant's Gaze||s21,t16|1
 260212|3|56|0|0|401|133152|2|0||0|Bad Hat||i17,p17,S12,H37|1
-11746|3|56|51|0|404|133125|0|0||0|Golem Skull Helm||s18,t18,d7|1
-10833|3|56|51|0|403|133127|0|0||0|Horns of Eranikus||i27,p11|1
-15391|2|56|51|0|402|133142|0|0||0|Jadefire Cap|||2
-15651|2|56|51|0|403|132768|0|0||0|Merciless Crown|||2
-18698|3|56|51|0|402|133143|0|0||0|Tattered Leather Hood||a10,t23,h1|2
-10168|2|56|51|0|404|132767|0|0||0|Templar Crown|||2
+11746|3|56|51|0|404|133125|1|0||0|Golem Skull Helm||s18,t18,d7|1
+10833|3|56|51|0|403|133127|1|0||0|Horns of Eranikus||i27,p11|1
+15391|2|56|51|0|402|133142|1|0||0|Jadefire Cap|||2
+15651|2|56|51|0|403|132768|1|0||0|Merciless Crown|||2
+18698|3|56|51|0|402|133143|1|0||0|Tattered Leather Hood||a10,t23,h1|2
+10168|2|56|51|0|404|132767|1|0||0|Templar Crown|||2
 12410|2|56|51|0|404|133125|1|0||0|Thorium Helm|||2
 15086|2|56|51|0|402|133683|1|0||0|Wicked Leather Headband||a16,t16|2
-14293|2|55|50|0|401|132767|0|0||0|Arachnidian Circlet|||2
-11839|3|55|50|0|401|133146|0|0||0|Chief Architect's Monocle||t10,i27,p3|1
+14293|2|55|50|0|401|132767|1|0||0|Arachnidian Circlet|||2
+279448|2|55|1|0|402|0|2|0||0|Bloodsplattered Bandana||t17,c1|1
+276877|3|55|50|0|401|133152|2|0||0|Brewmancer Nightcap||t12,i8|1
+11839|3|55|50|0|401|133146|1|0||0|Chief Architect's Monocle||t10,i27,p3|1
 11913|2|55|0|0|403|133158|1|0||0|Clayridge Helm||a16,p15|1
-8270|2|55|50|0|403|133074|0|0||0|Ebonhold Helmet||t16,p15|2
-3075|4|55|49|0|401|133146|0|0||0|Eye of Flame||i10,p10|2
-22223|3|55|50|0|404|133122|0|0||0|Foreman's Head Protector||s15,t14,i11,S13,H13|1
-10782|2|55|0|0|401|133140|0|0||0|Hakkari Shroud||t16,i15|1
+282049|2|55|50|0|402|133119|2|0||0|Deathmaw's Guise||a16,t6,c1|2
+8270|2|55|50|0|403|133074|1|0||0|Ebonhold Helmet||t16,p15|2
+3075|4|55|49|0|401|133146|1|0||0|Eye of Flame||i10,p10|2
+22223|3|55|50|0|404|133122|1|0||0|Foreman's Head Protector||s15,t14,i11,S13,H13|1
+10782|2|55|0|0|401|133140|1|0||0|Hakkari Shroud||t16,i15|1
 260195|2|55|0|0|401|0|2|0||0|Headdress of the Damned||t16|1
-11124|3|55|0|0|403|133123|0|0||0|Helm of Exile||a11,i18,p18|1
+11124|3|55|0|0|403|133123|1|0||0|Helm of Exile||a11,i18,p18|1
 21317|2|55|0|0|402|133078|1|0||0|Helm of the Pathfinder||t17,c1|1
-14961|2|55|50|0|404|133125|0|0||0|High Chief's Crown|||2
+14961|2|55|50|0|404|133125|1|0||0|High Chief's Crown|||2
 274756|2|55|50|0|402|0|2|0||0|Impractical Headwarmer|Requires Friendly with Everlook|a13,t13|1
-15645|2|55|50|0|403|133076|0|0||0|Ironhide Helmet|||2
-10175|2|55|50|0|401|133163|0|0||0|Mystical Headwrap|||2
-10187|2|55|50|0|402|133148|0|0||0|Swashbuckler's Eyepatch|||2
-8317|2|54|49|0|404|133118|0|0||0|Alabaster Plate Helmet||t16,p15|2
-10749|3|54|0|0|404|133124|0|0||0|Avenguard Helm||a5,t25,p10|1
+15645|2|55|50|0|403|133076|1|0||0|Ironhide Helmet|||2
+10175|2|55|50|0|401|133163|1|0||0|Mystical Headwrap|||2
+270123|2|55|0|0|402|133148|2|0||0|Ragnar's Favorite Hat||t11,S20,H20|1
+10187|2|55|50|0|402|133148|1|0||0|Swashbuckler's Eyepatch|||2
+8317|2|54|49|0|404|133118|1|0||0|Alabaster Plate Helmet||t16,p15|2
+10749|3|54|0|0|404|133124|1|0||0|Avenguard Helm||a5,t25,p10|1
 12018|2|54|0|0|403|133069|1|0||0|Conservator Helm||t16,p15|1
-17715|3|54|49|0|401|132767|0|0||0|Eye of Theradras||t13,i20,p11|1
-10751|3|54|0|0|401|132767|0|0||0|Gemburst Circlet||a5,t9,i17,p18|1
-8261|2|54|49|0|402|133076|0|0||0|Serpentskin Helm||i16,p15|2
+17715|3|54|49|0|401|132767|1|0||0|Eye of Theradras||t13,i20,p11|1
+10751|3|54|0|0|401|132767|1|0||0|Gemburst Circlet||a5,t9,i17,p18|1
+8261|2|54|49|0|402|133076|1|0||0|Serpentskin Helm||i16,p15|2
+270117|3|54|0|0|402|133111|2|0||0|Shapeshifter's Helm||a18,t12,i12,d7|1
 15999|2|54|0|0|401|133149|1|0||0|Spellpower Goggles Xtreme Plus|Requires Engineering (270)|S27,H27|2
+287017|3|53|48|0|401|133101|2|0||0|Chaplain's Mitre||t22,p10,H26|2
 252581|2|53|48|0|403|0|2|0||0|Charged Scorpid Helm||i16,p10,S12,H12|2
-10198|2|53|48|0|403|133127|0|0||0|Crusader's Helm|||2
-10241|2|53|48|0|404|133123|0|0||0|Heavy Lamellar Helm|||2
-17734|3|53|48|0|404|133122|0|0||0|Helm of the Mountain||d7|1
-8254|2|53|48|0|401|132767|0|0||0|Imperial Red Circlet||i16,p15|2
-14667|2|53|48|0|402|133127|0|0||0|Keeper's Wreath||t10,i10,p16|2
+10198|2|53|48|0|403|133127|1|0||0|Crusader's Helm|||2
+287019|3|53|48|0|402|0|2|2136||0|Defias Enforcer's Mask||t20,A30|2
+10241|2|53|48|0|404|133123|1|0||0|Heavy Lamellar Helm|||2
+17734|3|53|48|0|404|133122|1|0||0|Helm of the Mountain||d7|1
+8254|2|53|48|0|401|132767|1|0||0|Imperial Red Circlet||i16,p15|2
+14667|2|53|48|0|402|133127|1|0||0|Keeper's Wreath||t10,i10,p16|2
 10741|2|53|0|0|402|133090|1|0||0|Lordrec Helmet||a16,t10,p3|1
-14281|2|53|48|0|401|132505|0|0||0|Opulent Crown|||2
-14795|2|53|48|0|403|133078|0|0||0|Protector Helm||t20,p7|2
-14849|2|53|48|0|404|133124|0|0||0|Sunscale Helmet||a6,s16,t12|2
-12549|3|52|47|0|403|133078|0|0||0|Braincage||t5,i25,p9|2
-19984|3|52|0|0|402|133132|0|0||0|Ebon Mask||t11,A36,c1|1
-15634|2|52|47|0|403|132767|0|0||0|Formidable Circlet|||2
-20521|3|52|0|0|404|133069|0|0||0|Fury Visor||s18,h1,c1|1
-14919|2|52|47|0|404|132514|0|0||0|Jade Circlet|||2
+14281|2|53|48|0|401|132505|1|0||0|Opulent Crown|||2
+14795|2|53|48|0|403|133078|1|0||0|Protector Helm||t20,p7|2
+14849|2|53|48|0|404|133124|1|0||0|Sunscale Helmet||a6,s16,t12|2
+12549|3|52|47|0|403|133078|1|0||0|Braincage||t5,i25,p9|2
+19984|3|52|0|0|402|133132|1|0||0|Ebon Mask||t11,A36,c1|1
+15634|2|52|47|0|403|132767|1|0||0|Formidable Circlet|||2
+20521|3|52|0|0|404|133069|1|0||0|Fury Visor||s18,h1,c1|1
+14919|2|52|47|0|404|132514|1|0||0|Jade Circlet|||2
 22273|3|52|0|0|402|133132|1|0||0|Moonshadow Hood||i15,S18,H18,c1|1
-13073|3|52|47|0|404|133127|0|0||0|Mugthol's Helm||s10,t17,p17|2
+13073|3|52|47|0|404|133127|1|0||0|Mugthol's Helm||s10,t17,p17|2
 19986|3|52|0|0|402|133148|1|0||0|Pirate's Eye Patch||a12,t20|1
-10073|2|52|47|0|402|133111|0|0||0|Righteous Helmet|||2
-17740|3|52|47|0|402|133101|0|0||0|Soothsayer's Headdress||t7,i25,p8|1
-17767|3|51|46|0|403|133119|0|0||0|Bloomsprout Headpiece||t18,A36|1
+10073|2|52|47|0|402|133111|1|0||0|Righteous Helmet|||2
+17740|3|52|47|0|402|133101|1|0||0|Soothsayer's Headdress||t7,i25,p8|1
+17767|3|51|46|0|403|133119|1|0||0|Bloomsprout Headpiece||t18,A36|1
+284199|2|51|46|0|402|133119|2|0||0|Death Howl's Guise||a16|2
 10743|2|51|0|0|403|133119|1|0||0|Drakefire Headguard||s5,i9,p15|1
-10061|2|51|46|0|401|133134|0|0||0|Duskwoven Turban|||2
-10083|2|51|46|0|403|132767|0|0||0|Lord's Crown|||2
-15175|2|51|46|0|402|133111|0|0||0|Potent Helmet|||2
-10132|2|51|46|0|404|133071|0|0||0|Revenant Helmet|||2
-10630|3|51|46|0|401|132767|0|0||0|Soulcatcher Halo||i25,p10|2
-9940|2|50|45|0|401|133131|0|0||0|Abjurer's Hood|||2
-14952|2|50|45|0|404|133101|0|0||0|Bloodforged Helmet|||2
-9953|2|50|45|0|402|133126|0|0||0|Chieftain's Headdress|||2
+10061|2|51|46|0|401|133134|1|0||0|Duskwoven Turban|||2
+10083|2|51|46|0|403|132767|1|0||0|Lord's Crown|||2
+15175|2|51|46|0|402|133111|1|0||0|Potent Helmet|||2
+10132|2|51|46|0|404|133071|1|0||0|Revenant Helmet|||2
+10630|3|51|46|0|401|132767|1|0||0|Soulcatcher Halo||i25,p10|2
+9940|2|50|45|0|401|133131|1|0||0|Abjurer's Hood|||2
+14952|2|50|45|0|404|133101|1|0||0|Bloodforged Helmet|||2
+9953|2|50|45|0|402|133126|1|0||0|Chieftain's Headdress|||2
 10041|3|50|45|0|401|132767|1|0||0|Dreamweave Circlet||i10,p12,S21,H21|2
-9479|3|50|45|0|402|132266|0|0||0|Embrace of the Lycan||s8,t16,p5,A32|1
-15623|2|50|45|0|403|132767|0|0||0|Gryphon Mail Crown|||2
+9479|3|50|45|0|402|132266|1|0||0|Embrace of the Lycan||s8,t16,p5,A32|1
+15623|2|50|45|0|403|132767|1|0||0|Gryphon Mail Crown|||2
 8348|3|50|45|0|402|133076|1|0||0|Helm of Fire||a17,t10|2
-8131|2|50|45|0|403|133078|0|0||0|Myrmidon's Helm||a7,i11,p14|2
-15384|2|50|45|0|402|133126|0|0||0|Rageclaw Helm|||2
+8131|2|50|45|0|403|133078|1|0||0|Myrmidon's Helm||a7,i11,p14|2
+15384|2|50|45|0|402|133126|1|0||0|Rageclaw Helm|||2
 9653|2|50|0|0|401|133149|1|0||0|Speedy Racer Goggles||a14,i14|1
 8208|2|50|45|0|403|133122|1|0||0|Tough Scorpid Helm||a14,p14|2
-14441|2|50|45|0|401|133134|0|0||0|Venomshroud Mask||t10,i16|2
-9470|3|49|44|0|401|132482|0|0||0|Bad Mojo Mask||i24|1
-14271|2|49|44|0|401|132520|0|0||0|Gaea's Circlet|||2
+14441|2|50|45|0|401|133134|1|0||0|Venomshroud Mask||t10,i16|2
+9470|3|49|44|0|401|132482|1|0||0|Bad Mojo Mask||i24|1
+14271|2|49|44|0|401|132520|1|0||0|Gaea's Circlet|||2
 10504|3|49|0|0|401|133146|1|0||0|Green Lens|Requires Engineering (245)|t10|2
+270099|3|49|0|0|401|133111|2|0||0|Magister Cowl||S18,H18|1
 7937|2|49|44|0|404|133078|1|0||0|Ornate Mithril Helm||s10,c1|2
-10207|2|49|44|0|404|132767|0|0||0|Overlord's Crown|||2
-14658|2|49|44|0|402|133118|0|0||0|Scorpashi Skullcap||a14,s3,t13|2
+10207|2|49|44|0|404|132767|1|0||0|Overlord's Crown|||2
+14658|2|49|44|0|402|133118|1|0||0|Scorpashi Skullcap||a14,s3,t13|2
 10025|2|49|44|0|401|133129|1|0||0|Shadoweave Mask||i10|2
 10030|2|48|43|0|401|133131|1|0||0|Admiral's Hat|||2
-14263|2|48|43|0|401|133694|0|0||0|Bloodwoven Mask|||2
-14907|2|48|43|0|404|133127|0|0||0|Brutish Helmet|||2
-8122|2|48|43|0|402|133127|0|0||0|Heraldic Headpiece||t14,i9,p8|2
-8115|2|48|43|0|401|133134|0|0||0|Hibernal Cowl||i13,p14|2
-15167|2|48|43|0|402|133694|0|0||0|Imposing Bandana|||2
-14785|2|48|43|0|403|133101|0|0||0|Khan's Helmet||a7,i16,p3|2
+14263|2|48|43|0|401|133694|1|0||0|Bloodwoven Mask|||2
+14907|2|48|43|0|404|133127|1|0||0|Brutish Helmet|||2
+8122|2|48|43|0|402|133127|1|0||0|Heraldic Headpiece||t14,i9,p8|2
+8115|2|48|43|0|401|133134|1|0||0|Hibernal Cowl||i13,p14|2
+15167|2|48|43|0|402|133694|1|0||0|Imposing Bandana|||2
+14785|2|48|43|0|403|133101|1|0||0|Khan's Helmet||a7,i16,p3|2
 10033|2|48|43|0|401|133694|1|0||0|Red Mageweave Headband||i20|2
 250543|2|48|43|0|404|0|2|0||0|Shining Mithril Helm||s14,S15,H15|2
 10032|2|48|43|0|401|133132|1|0||0|Stormcloth Headband||i10,p10|2
-8279|2|48|43|0|404|133124|0|0||0|Valorous Helm||a14,t13|2
-9963|2|48|43|0|403|132767|0|0||0|Warmonger's Circlet|||2
+274644|3|48|43|0|403|133119|2|0||0|Undying Headdress||t17,i8,A26|1
+8279|2|48|43|0|404|133124|1|0||0|Valorous Helm||a14,t13|2
+9963|2|48|43|0|403|132767|1|0||0|Warmonger's Circlet|||2
 259846|2|48|0|0|401|0|2|0||0|Wide-Brimmed Fishing Hat|Requires Fishing|t13,p13|1
-13112|3|48|43|0|402|133121|0|0||0|Winged Helm||i23,p10|2
+13112|3|48|43|0|402|133121|1|0||0|Winged Helm||i23,p10|2
 19039|2|48|0|0|402|133153|1|0||0|Zorbin's Water Resistant Hat||t9,i14,p8|1
-7529|2|47|42|0|402|133120|0|0||0|Cabalist Helm|||2
-13102|3|47|42|0|401|133345|0|0||0|Cassandra's Grace||t7,p9,H44|2
-7540|2|47|42|0|403|133070|0|0||0|Champion's Helmet|||2
-9534|3|47|0|0|402|133135|0|0||0|Engineer's Guild Headpiece||i23,p9|1
+7529|2|47|42|0|402|133120|1|0||0|Cabalist Helm|||2
+13102|3|47|42|0|401|133345|1|0||0|Cassandra's Grace||t7,p9,H44|2
+7540|2|47|42|0|403|133070|1|0||0|Champion's Helmet|||2
+9534|3|47|0|0|402|133135|1|0||0|Engineer's Guild Headpiece||i23,p9|1
 10726|2|47|0|0|401|133151|1|0||0|Gnomish Mind Control Cap|Requires Engineering (215)|p14|2
 10588|2|47|0|0|401|133151|1|0||0|Goblin Rocket Helmet|Requires Engineering (235)|t15|2
-7520|2|47|42|0|401|133111|0|0||0|Gossamer Headpiece|||2
+7520|2|47|42|0|401|133111|1|0||0|Gossamer Headpiece|||2
 7934|2|47|42|0|404|133078|1|0||0|Heavy Mithril Helm||t15|2
-13128|3|47|42|0|403|133120|0|0||0|High Bergg Helm||t10,i15,p15|2
-17776|2|47|0|0|402|133137|0|0||0|Sprightring Helm||a15,t10|1
+13128|3|47|42|0|403|133120|1|0||0|High Bergg Helm||t10,i15,p15|2
+17776|2|47|0|0|402|133137|1|0||0|Sprightring Helm||a15,t10|1
+275010|3|47|42|0|401|0|2|0||0|Strongly Scented Hood||p21,S15,H15|1
 20643|2|47|0|0|402|133117|1|0||0|Undercity Reservist's Cap||a11,s10,t10|1
-15373|2|47|42|0|402|133119|0|0||0|Wolf Rider's Headgear|||2
+15373|2|47|42|0|402|133119|1|0||0|Wolf Rider's Headgear|||2
 10024|2|46|41|0|401|133693|1|0||0|Black Mageweave Headband||i12,p13|2
-15615|2|46|41|0|403|133070|0|0||0|Bonelink Helmet|||2
+15615|2|46|41|0|403|133070|1|0||0|Bonelink Helmet|||2
 10506|2|46|0|0|401|133151|1|0||0|Deepdive Helmet|Requires Engineering (230)|t15|2
 277211|2|46|0|0|401|0|2|0||0|Dudd's Thinkin' Cap||t10,i14|1
-10090|2|46|41|0|404|133078|0|0||0|Gothic Plate Helmet|||2
+10090|2|46|41|0|404|133078|1|0||0|Gothic Plate Helmet|||2
+275006|3|46|41|0|404|0|2|2135||0|Krol'dok Warplate Helmet||s19,t10,p10|1
 7931|2|46|41|0|403|133137|1|0||0|Mithril Coif||t12,p13|2
+283545|2|46|41|0|402|133119|2|0||0|Moonchaser's Headdress||i13,S15,H15|2
 10503|2|46|0|0|401|133149|1|0||0|Rose Colored Goggles|Requires Engineering (230)|i12,p13|2
 8191|2|46|41|0|403|133142|1|0||0|Turtle Scale Helm||t10,i10,p10|2
-14843|2|46|41|0|404|133101|0|0||0|Tyrant's Helm||a4,s5,t16|2
-14436|2|46|41|0|401|133111|0|0||0|Windchaser Coronet||a4,i15,p7|2
-15602|2|45|40|0|403|133090|0|0||0|Ancient Crown|||2
+14843|2|46|41|0|404|133101|1|0||0|Tyrant's Helm||a4,s5,t16|2
+14436|2|46|41|0|401|133111|1|0||0|Windchaser Coronet||a4,i15,p7|2
+15602|2|45|40|0|403|133090|1|0||0|Ancient Crown|||2
 280311|2|45|40|0|402|0|2|0||0|Bent Goggles|Requires Engineering (200)||1
-4080|2|45|40|0|403|133118|0|0||0|Blackforge Cowl||t12,i7,p7|2
+4080|2|45|40|0|403|133118|1|0||0|Blackforge Cowl||t12,i7,p7|2
 270093|2|45|0|0|401|133693|2|0||0|Blackwater Cap||i17,S6,H6|1
 280313|2|45|40|0|404|0|2|0||0|Dented Goggles|Requires Engineering (200)||1
 280310|2|45|40|0|401|0|2|0||0|Floppy Goggles|Requires Engineering (200)||1
-14252|2|45|40|0|401|132511|0|0||0|Lunar Coronet|||2
-9915|2|45|40|0|401|133693|0|0||0|Royal Headband|||2
+287011|3|45|40|0|403|0|2|0||0|Guise of Battle||a17,t12,i10|2
+14252|2|45|40|0|401|132511|1|0||0|Lunar Coronet|||2
+9915|2|45|40|0|401|133693|1|0||0|Royal Headband|||2
 9664|2|45|0|0|404|133121|1|0||0|Sentinel's Guard||a9,t12,p6|1
 277235|2|45|0|0|404|0|2|0||0|Soldier's Visor||s14,t10|1
 20640|2|45|0|0|404|133122|1|0||0|Southsea Head Bucket||s6,t15,d4|1
@@ -697,99 +766,106 @@ FGT.GEARDB = {
 20596|2|45|0|0|400|134174|1|0||0|Sturdy Male Tauren Mask|||2
 20597|2|45|0|0|400|134177|1|0||0|Sturdy Male Troll Mask|||2
 20598|2|45|0|0|400|134179|1|0||0|Sturdy Male Undead Mask|||2
-9921|2|45|40|0|402|133119|0|0||0|Tracker's Headband|||2
+9921|2|45|40|0|402|133119|1|0||0|Tracker's Headband|||2
 275028|2|45|0|0|401|133161|2|0||0|Twilight Mine Light||t12,S13,H13|1
-14944|2|45|40|0|404|132517|0|0||0|Warbringer's Crown|||2
-14604|2|45|40|0|402|133111|0|0||0|Warden's Wizard Hat||a13,t11,i3|2
+275002|3|45|40|0|402|0|2|0||0|War Handler's Gaze||a11,t17,i10|1
+14944|2|45|40|0|404|132517|1|0||0|Warbringer's Crown|||2
+14604|2|45|40|0|402|133111|1|0||0|Warden's Wizard Hat||a13,t11,i3|2
 8214|2|45|40|0|402|133078|1|0||0|Wild Leather Helmet|||2
 8345|3|45|40|32256|402|133072|1|0||0|Wolfshead Helm||p10|2
 8201|2|44|39|0|402|132482|1|0||0|Big Voodoo Mask||i14,p9|2
-9932|2|44|39|0|403|133090|0|0||0|Brigade Circlet|||2
+9932|2|44|39|0|403|133090|1|0||0|Brigade Circlet|||2
 10501|2|44|0|0|401|133149|1|0||0|Catseye Ultra Goggles|Requires Engineering (220)||2
-8142|2|44|40|0|404|133124|0|0||0|Chromite Barbute||a12,s12|2
-14246|2|44|39|0|401|133090|0|0||0|Darkmist Wizard Hat|||2
-10763|3|44|40|0|404|133111|0|0||0|Icemetal Barbute||s15,t10,p7|1
-9429|3|44|39|0|401|133117|0|0||0|Miner's Hat of the Deep||a4,t7,i17,p10|2
-6429|2|44|39|0|401|133090|0|0||0|Mistscape Wizard Hat||t4,i10,p6|2
-7720|3|44|39|0|401|133101|0|0||0|Whitemane's Chapeau||t9,i14,p14|1
+8142|2|44|40|0|404|133124|1|0||0|Chromite Barbute||a12,s12|2
+14246|2|44|39|0|401|133090|1|0||0|Darkmist Wizard Hat|||2
+10763|3|44|40|0|404|133111|1|0||0|Icemetal Barbute||s15,t10,p7|1
+9429|3|44|39|0|401|133117|1|0||0|Miner's Hat of the Deep||a4,t7,i17,p10|2
+6429|2|44|39|0|401|133090|1|0||0|Mistscape Wizard Hat||t4,i10,p6|2
+7720|3|44|39|0|401|133101|1|0||0|Whitemane's Chapeau||t9,i14,p14|1
 271812|3|43|1|0|401|132767|2|0||0|Discarded Circlet||t16,i11,p10|1
-9969|2|43|40|0|404|133127|0|0||0|Embossed Plate Helmet|||2
-6433|2|43|38|0|402|133118|0|0||0|Imperial Leather Helm||i12,p11|2
-15156|2|43|38|0|402|133111|0|0||0|Nocturnal Cap|||2
-9431|3|43|38|0|401|133130|0|0||0|Papal Fez||i17,p9,H22|2
-14774|2|43|38|0|403|133121|0|0||0|Ravager's Crown||s7,t15|2
+9969|2|43|40|0|404|133127|1|0||0|Embossed Plate Helmet|||2
+6433|2|43|38|0|402|133118|1|0||0|Imperial Leather Helm||i12,p11|2
+15156|2|43|38|0|402|133111|1|0||0|Nocturnal Cap|||2
+9431|3|43|38|0|401|133130|1|0||0|Papal Fez||i17,p9,H22|2
+14774|2|43|38|0|403|133121|1|0||0|Ravager's Crown||s7,t15|2
 276105|2|43|0|0|402|133148|2|0||0|Scoutmaster's Eyepatch||t12,p10|1
-1624|2|43|38|0|403|133071|0|0||0|Skullsplitter Helm||a11,t12|2
+1624|2|43|38|0|403|133071|1|0||0|Skullsplitter Helm||a11,t12|2
 10502|2|43|0|0|401|133149|1|0||0|Spellpower Goggles Xtreme|Requires Engineering (215)|S21,H21|2
-14831|2|43|40|0|404|132768|0|0||0|Symbolic Crown||t16,p5|2
+14831|2|43|40|0|404|132768|1|0||0|Symbolic Crown||t16,p5|2
 10008|2|43|38|0|401|133763|1|0||0|White Bandit Mask||a11,s11|2
-7488|2|42|37|0|403|132767|0|0||0|Captain's Circlet|||2
-9290|2|42|40|0|404|133124|0|0||0|Field Plate Helmet|||2
+7488|2|42|37|0|403|132767|1|0||0|Captain's Circlet|||2
+9290|2|42|40|0|404|133124|1|0||0|Field Plate Helmet|||2
 10545|2|42|0|0|401|133149|1|0||0|Gnomish Goggles|Requires Engineering (210)|a9,t9,p9|1
-9394|3|42|40|0|404|133127|0|0||0|Horned Viking Helmet||a10,t15|1
+9394|3|42|40|0|404|133127|1|0||0|Horned Viking Helmet||a10,t15|1
 7953|2|42|0|8|402|133143|1|221||0|Mask of Thero-shan||a14|1
-7719|3|42|37|0|403|133127|0|0||0|Raging Berserker's Helm||s13,t8,c1|1
-7479|2|42|37|0|402|133111|0|0||0|Ranger Helm|||2
-7470|2|42|37|0|401|133090|0|0||0|Regal Wizard Hat|||2
-14421|2|42|37|0|401|132500|0|0||0|Silksand Circlet||t6,i9,p10|2
-15593|2|42|37|0|403|132767|0|0||0|Steadfast Coronet|||2
-2624|2|42|37|0|401|133072|0|0||0|Thinking Cap||i17|2
-15363|2|42|37|0|402|133121|0|0||0|Trickster's Headdress|||2
-14228|2|41|36|0|401|132521|0|0||0|Embersilk Coronet|||2
+7719|3|42|37|0|403|133127|1|0||0|Raging Berserker's Helm||s13,t8,c1|1
+7479|2|42|37|0|402|133111|1|0||0|Ranger Helm|||2
+7470|2|42|37|0|401|133090|1|0||0|Regal Wizard Hat|||2
+279930|2|42|1|0|402|0|2|0||0|Saltseer's Helm||i12,p5,S8,H8|1
+274609|3|42|37|0|403|0|2|0||0|Serpentbane Crown||t16|1
+14421|2|42|37|0|401|132500|1|0||0|Silksand Circlet||t6,i9,p10|2
+15593|2|42|37|0|403|132767|1|0||0|Steadfast Coronet|||2
+2624|2|42|37|0|401|133072|1|0||0|Thinking Cap||i17|2
+15363|2|42|37|0|402|133121|1|0||0|Trickster's Headdress|||2
+14228|2|41|36|0|401|132521|1|0||0|Embersilk Coronet|||2
 10500|2|41|0|0|401|133149|1|0||0|Fire Goggles|Requires Engineering (205)||2
 10543|2|41|0|0|401|133162|1|0||0|Goblin Construction Helmet|Requires Engineering (205)||1
 10542|2|41|0|0|403|133127|1|0||0|Goblin Mining Helmet|Requires Engineering (205)|t15|1
-2623|2|41|36|0|401|132767|0|0||0|Holy Diadem||t11,p11|2
-9902|2|41|36|0|403|133139|0|0||0|Jazeraint Helm|||2
+2623|2|41|36|0|401|132767|1|0||0|Holy Diadem||t11,p11|2
+9902|2|41|36|0|403|133139|1|0||0|Jazeraint Helm|||2
 8176|2|41|36|0|402|132513|1|0||0|Nightscape Headband||a12,t11|2
-14899|2|41|40|0|404|133122|0|0||0|Saltstone Helm|||2
-9878|2|41|36|0|401|133153|0|0||0|Sorcerer Hat|||2
+14899|2|41|40|0|404|133122|1|0||0|Saltstone Helm|||2
+9878|2|41|36|0|401|133153|1|0||0|Sorcerer Hat|||2
 4124|2|40|0|0|402|133117|1|0||0|Cap of Harmony||t11,p10|1
 8174|2|40|35|0|402|133117|1|0||0|Comfortable Leather Hat||t11,p10|2
-10574|3|40|35|0|401|133756|0|0||0|Corpseshroud||a5,i19,p6|2
-2955|2|40|35|0|401|133132|0|0||0|First Mate Hat||t11,p10|2
-14220|2|40|35|0|401|132512|0|0||0|Geomancer's Cap|||2
+10574|3|40|35|0|401|133756|1|0||0|Corpseshroud||a5,i19,p6|2
+2955|2|40|35|0|401|133132|1|0||0|First Mate Hat||t11,p10|2
+14220|2|40|35|0|401|132512|1|0||0|Geomancer's Cap|||2
 250537|2|40|35|0|403|0|2|0||0|Hard Gold Coif||s14,S7,H7|2
-14591|2|40|35|0|402|133117|0|0||0|Hawkeye's Helm||a11,s4,t8|2
-9889|2|40|35|0|402|132514|0|0||0|Huntsman's Cap|||2
-8161|2|40|40|0|404|133159|0|0||0|Jouster's Visor||a10,t11|2
-5608|2|40|35|0|401|133072|0|0||0|Living Cowl||t11,p10|2
+14591|2|40|35|0|402|133117|1|0||0|Hawkeye's Helm||a11,s4,t8|2
+9889|2|40|35|0|402|132514|1|0||0|Huntsman's Cap|||2
+8161|2|40|40|0|404|133159|1|0||0|Jouster's Visor||a10,t11|2
+5608|2|40|35|0|401|133072|1|0||0|Living Cowl||t11,p10|2
 19972|2|40|0|0|401|133133|1|0||0|Lucky Fishing Hat|Requires Fishing|t15|1
-15580|2|40|35|0|403|133141|0|0||0|Sparkleshell Headwrap|||2
+15580|2|40|35|0|403|133141|1|0||0|Sparkleshell Headwrap|||2
 4543|2|40|0|0|402|133111|1|0||0|White Drakeskin Cap||i11,p10|1
-2620|2|39|34|0|401|133756|0|0||0|Augural Shroud||t5,i10,S11,H11|2
-4041|2|39|34|0|401|133135|0|0||0|Aurora Cowl||t10,i10|2
-4078|2|39|34|0|403|133131|0|0||0|Chief Brigadier Coif||a10,t11|2
-15146|2|39|34|0|402|133117|0|0||0|Ghostwalker Crown|||2
-6422|2|39|34|0|402|133111|0|0||0|Glyphed Helm||a6,i6,p6|2
-15572|2|39|34|0|403|132767|0|0||0|Marauder's Circlet|||2
+2620|2|39|34|0|401|133756|1|0||0|Augural Shroud||t5,i10,S11,H11|2
+4041|2|39|34|0|401|133135|1|0||0|Aurora Cowl||t10,i10|2
+4078|2|39|34|0|403|133131|1|0||0|Chief Brigadier Coif||a10,t11|2
+274959|2|39|0|0|403|133127|2|0||0|Farholde Horns||t13,A12|1
+15146|2|39|34|0|402|133117|1|0||0|Ghostwalker Crown|||2
+6422|2|39|34|0|402|133111|1|0||0|Glyphed Helm||a6,i6,p6|2
+15572|2|39|34|0|403|132767|1|0||0|Marauder's Circlet|||2
+278567|2|39|0|0|401|133135|2|0||0|Stromgarde Hood||t8,h1|1
 270067|2|39|0|0|402|132514|2|0||0|Wild Headdress||i11,S12,H12|1
-5624|2|38|33|0|401|132767|0|0||0|Circlet of the Order||t7,i3,p10|2
-1280|2|38|33|0|402|133132|0|0||0|Cloaked Hood||a10,t10|2
+5624|2|38|33|0|401|132767|1|0||0|Circlet of the Order||t7,i3,p10|2
+1280|2|38|33|0|402|133132|1|0||0|Cloaked Hood||a10,t10|2
 19743|2|38|33|0|402|133132|1|0||0|Cloaked Hood TEST||a10,t10|2
-14765|2|38|33|0|403|132768|0|0||0|Enduring Circlet||a3,s6,t12|2
-9375|3|38|33|0|402|133120|0|0||0|Expert Goldminer's Helmet||a5,t6|2
+14765|2|38|33|0|403|132768|1|0||0|Enduring Circlet||a3,s6,t12|2
+9375|3|38|33|0|402|133120|1|0||0|Expert Goldminer's Helmet||a5,t6|2
 3837|2|38|33|0|403|133138|1|0||0|Golden Scale Coif||s10,p10|2
-15353|2|38|33|0|402|133117|0|0||0|Headhunter's Headdress|||2
-7456|2|38|33|0|403|132767|0|0||0|Knight's Headguard|||2
-7441|2|38|33|0|402|133117|0|0||0|Sentinel Cap|||2
-14410|2|38|33|0|401|132515|0|0||0|Stonecloth Circlet||s3,i10|2
-7432|2|38|33|0|401|133131|0|0||0|Twilight Cowl|||2
-9420|3|37|32|0|402|133117|0|0||0|Adventurer's Pith Helmet||a9,t14,p7|2
+15353|2|38|33|0|402|133117|1|0||0|Headhunter's Headdress|||2
+7456|2|38|33|0|403|132767|1|0||0|Knight's Headguard|||2
+7441|2|38|33|0|402|133117|1|0||0|Sentinel Cap|||2
+14410|2|38|33|0|401|132515|1|0||0|Stonecloth Circlet||s3,i10|2
+7432|2|38|33|0|401|133131|1|0||0|Twilight Cowl|||2
+9420|3|37|32|0|402|133117|1|0||0|Adventurer's Pith Helmet||a9,t14,p7|2
 4393|2|37|32|0|401|133146|1|0||0|Craftsman's Monocle|Requires Engineering (185)|i15|2
-15134|2|37|32|0|402|133117|0|0||0|Cutthroat's Hat|||2
+15134|2|37|32|0|402|133117|1|0||0|Cutthroat's Hat|||2
 254015|2|37|32|0|401|0|2|0||0|Earthen Silk Hood||p10,S8,H22|2
-9492|3|37|32|0|401|132995|0|0||0|Electromagnetic Gigaflux Reactivator||i15,p12|1
-2622|2|37|32|0|401|133072|0|0||0|Nimar's Tribal Headdress||t6,i7,p10|2
-15558|2|37|32|0|403|132768|0|0||0|Pillager's Crown|||2
-3345|2|37|32|0|401|133117|0|0||0|Silk Wizard Hat||i10,p9|2
+9492|3|37|32|0|401|132995|1|0||0|Electromagnetic Gigaflux Reactivator||i15,p12|1
+2622|2|37|32|0|401|133072|1|0||0|Nimar's Tribal Headdress||t6,i7,p10|2
+15558|2|37|32|0|403|132768|1|0||0|Pillager's Crown|||2
+3345|2|37|32|0|401|133117|1|0||0|Silk Wizard Hat||i10,p9|2
 6720|2|37|0|0|402|133119|1|0||0|Spirit Hunter Headdress||a10,p9|1
-9859|2|36|31|0|402|133117|0|0||0|Archer's Cap|||2
-9849|2|36|31|0|401|133134|0|0||0|Conjurer's Hood|||2
-2621|2|36|31|0|401|133132|0|0||0|Cowl of Necromancy||i15|2
-3011|2|36|31|0|402|133126|0|0||0|Feathered Headdress||i10,p9|2
-9870|2|36|31|0|403|132768|0|0||0|Renegade Circlet|||2
-14208|2|36|31|0|401|132514|0|0||0|Vital Headband|||2
+9859|2|36|31|0|402|133117|1|0||0|Archer's Cap|||2
+9849|2|36|31|0|401|133134|1|0||0|Conjurer's Hood|||2
+2621|2|36|31|0|401|133132|1|0||0|Cowl of Necromancy||i15|2
+3011|2|36|31|0|402|133126|1|0||0|Feathered Headdress||i10,p9|2
+284712|2|36|31|0|402|0|2|0||0|Hyena Hide Helm||s10|2
+274291|3|36|31|0|403|133118|2|0||0|Polished Skullcap||s7,t8|1
+9870|2|36|31|0|403|132768|1|0||0|Renegade Circlet|||2
+14208|2|36|31|0|401|132514|1|0||0|Vital Headband|||2
 277050|2|35|30|0|402|0|2|0||0|Azure Gustwoven Hood||s9,t9|2
 277048|2|35|30|0|403|0|2|0||0|Azure Skyforged Helm||s9,t9|2
 277054|2|35|30|0|401|0|2|0||0|Azure Stormsewn Cowl||t9,i9|2
@@ -800,44 +876,44 @@ FGT.GEARDB = {
 277040|2|35|30|0|403|0|2|0||0|Cloudy Skyforged Helm||s9,t9|2
 277046|2|35|30|0|401|0|2|0||0|Cloudy Stormsewn Cowl||t9,i9|2
 277044|2|35|30|0|402|0|2|0||0|Cloudy Windraveled Cover||t9,i9|2
-14584|2|35|30|0|402|133117|0|0||0|Dokebi Hat||s4,i11,p5|2
-7691|3|35|30|0|401|133130|0|0||0|Embalmed Shroud||t7,i11,p12|1
-4052|2|35|30|0|402|133117|0|0||0|Insignia Cap||t7,i11|2
-4077|2|35|30|0|403|132768|0|0||0|Mail Combat Headguard||t9,p9|2
-4039|2|35|30|0|401|133132|0|0||0|Nightsky Cowl||i12,p5|2
-15550|2|35|30|0|403|132767|0|0||0|Thick Scale Crown|||2
-14200|2|35|30|0|401|133133|0|0||0|Thistlefur Cap|||2
-7357|2|34|29|0|401|133117|0|0||0|Elder's Hat|||2
+14584|2|35|30|0|402|133117|1|0||0|Dokebi Hat||s4,i11,p5|2
+7691|3|35|30|0|401|133130|1|0||0|Embalmed Shroud||t7,i11,p12|1
+4052|2|35|30|0|402|133117|1|0||0|Insignia Cap||t7,i11|2
+4077|2|35|30|0|403|132768|1|0||0|Mail Combat Headguard||t9,p9|2
+4039|2|35|30|0|401|133132|1|0||0|Nightsky Cowl||i12,p5|2
+15550|2|35|30|0|403|132767|1|0||0|Thick Scale Crown|||2
+14200|2|35|30|0|401|133133|1|0||0|Thistlefur Cap|||2
+7357|2|34|29|0|401|133117|1|0||0|Elder's Hat|||2
 3836|2|34|29|0|403|133071|1|0||0|Green Iron Helm||s5,t11|2
-15339|2|34|29|0|402|133117|0|0||0|Pathfinder Hat|||2
+15339|2|34|29|0|402|133117|1|0||0|Pathfinder Hat|||2
 4323|2|34|29|0|401|133129|1|0||0|Shadow Hood||i11|2
-15540|2|34|29|0|403|133077|0|0||0|Wicked Chain Helmet|||2
+15540|2|34|29|0|403|133077|1|0||0|Wicked Chain Helmet|||2
 4322|2|33|28|0|401|133133|1|0||0|Enchanter's Cowl||i10,p6|2
-3020|3|33|28|0|402|133117|0|0||0|Enduring Cap||i16,p7|2
-7413|2|33|28|0|402|133117|0|0||0|Infiltrator Cap|||2
-7420|2|33|28|0|403|132767|0|0||0|Phalanx Headguard|||2
-14401|2|33|28|0|401|133136|0|0||0|Resilient Cap||a2,i11,p4|2
-14753|2|33|28|0|403|133161|0|0||0|Slayer's Skullcap||a3,s9,t7|2
+3020|3|33|28|0|402|133117|1|0||0|Enduring Cap||i16,p7|2
+7413|2|33|28|0|402|133117|1|0||0|Infiltrator Cap|||2
+7420|2|33|28|0|403|132767|1|0||0|Phalanx Headguard|||2
+14401|2|33|28|0|401|133136|1|0||0|Resilient Cap||a2,i11,p4|2
+14753|2|33|28|0|403|133161|1|0||0|Slayer's Skullcap||a3,s9,t7|2
 1282|2|33|0|0|403|133070|1|0||0|Sparkmetal Coif||s9,p8|1
-5819|3|33|28|0|403|133071|0|0||0|Sunblaze Coif||t10,p10|2
-6686|2|33|28|0|403|133077|0|0||0|Tusken Helm||a8,s9|1
-10408|2|32|27|0|403|133138|0|0||0|Banded Helm|||2
-10289|2|32|27|0|401|133117|0|0||0|Durable Hat|||2
-13127|3|32|27|0|403|133126|0|0||0|Frostreaver Crown||s4,t15,p4|2
-2721|3|32|27|0|401|133118|0|0||0|Holy Shroud||p6,H33|2
-14189|2|32|27|0|401|133131|0|0||0|Raincaller Cap|||2
-10406|2|32|27|0|402|133681|0|0||0|Scaled Leather Headband|||2
-6204|2|32|27|0|402|133119|0|0||0|Tribal Worg Helm||a7,i6,p6|2
-6688|2|32|27|0|402|133119|0|0||0|Whisperwind Headdress||t3,i7,p7|1
+5819|3|33|28|0|403|133071|1|0||0|Sunblaze Coif||t10,p10|2
+6686|2|33|28|0|403|133077|1|0||0|Tusken Helm||a8,s9|1
+10408|2|32|27|0|403|133138|1|0||0|Banded Helm|||2
+10289|2|32|27|0|401|133117|1|0||0|Durable Hat|||2
+13127|3|32|27|0|403|133126|1|0||0|Frostreaver Crown||s4,t15,p4|2
+2721|3|32|27|0|401|133118|1|0||0|Holy Shroud||p6,H33|2
+14189|2|32|27|0|401|133131|1|0||0|Raincaller Cap|||2
+10406|2|32|27|0|402|133681|1|0||0|Scaled Leather Headband|||2
+6204|2|32|27|0|402|133119|1|0||0|Tribal Worg Helm||a7,i6,p6|2
+6688|2|32|27|0|402|133119|1|0||0|Whisperwind Headdress||t3,i7,p7|1
 7130|2|31|0|1|403|133070|1|0||0|Brutal Helm||a7,t8|1
-4048|2|31|26|0|402|133117|0|0||0|Emblazoned Hat||t7,i6,p6|2
+4048|2|31|26|0|402|133117|1|0||0|Emblazoned Hat||t7,i6,p6|2
 6971|2|31|0|1|403|133141|1|0||0|Fire Hardened Coif||a7,t8|1
-6389|2|31|26|0|403|133141|0|0||0|Glimmering Mail Coif||a6,t7,p6|2
-15129|2|31|26|0|402|133117|0|0||0|Robust Helm|||2
-5753|2|31|26|0|402|133072|0|0||0|Ruffled Chaplet||t8,i7|2
-10288|2|31|26|0|401|133693|0|0||0|Sage's Circlet|||2
-15533|2|31|26|0|403|132767|0|0||0|Sentry's Headdress|||2
-14178|2|31|26|0|401|133134|0|0||0|Watcher's Cap|||2
+6389|2|31|26|0|403|133141|1|0||0|Glimmering Mail Coif||a6,t7,p6|2
+15129|2|31|26|0|402|133117|1|0||0|Robust Helm|||2
+5753|2|31|26|0|402|133072|1|0||0|Ruffled Chaplet||t8,i7|2
+10288|2|31|26|0|401|133693|1|0||0|Sage's Circlet|||2
+15533|2|31|26|0|403|132767|1|0||0|Sentry's Headdress|||2
+14178|2|31|26|0|401|133134|1|0||0|Watcher's Cap|||2
 250501|3|30|25|0|403|0|2|0||0|Acolyte's Chain Helm||t11,S8,H25|1
 252512|3|30|25|0|402|0|2|0||0|Brawler's Leather Helm||a10,t13|1
 250502|3|30|25|0|403|0|2|0||0|Crusader's Chain Helm||s11,S14,H14|1
@@ -849,19 +925,23 @@ FGT.GEARDB = {
 253981|3|30|25|0|401|0|2|0||0|Filigreed Shadow Circlet||t12|1
 253985|3|30|25|0|401|0|2|0||0|Filigreed Shining Circlet||t12|1
 253977|3|30|25|0|401|0|2|0||0|Filigreed Silky Circlet||t12|1
+274155|3|30|25|0|402|133116|2|0||0|Geomancer Headdress||p14,S4,H13|1
 4385|2|30|0|0|401|133149|1|0||0|Green Tinted Goggles|Requires Engineering (150)|t8,p7|2
 250499|3|30|25|0|403|0|2|0||0|Guard's Chain Helm||a12,t11|1
-4724|2|30|25|0|402|133122|0|0||0|Humbert's Helm||a7,t8|2
+4724|2|30|25|0|402|133122|1|0||0|Humbert's Helm||a7,t8|2
 281675|2|30|0|0|401|0|2|0||0|Lakeshire Firefighter's Headband||t6,i8|1
 277227|2|30|0|0|403|0|2|0||0|Magistrate's Chain Hood||s5,t9|1
 250500|3|30|25|0|403|0|2|0||0|Protector's Chain Helm||t11,d7|1
-3392|2|30|25|0|402|133077|0|0||0|Ringed Helm||t8,p7|2
+3392|2|30|25|0|402|133077|1|0||0|Ringed Helm||t8,p7|2
 277219|2|30|0|0|402|0|2|0||0|Solomon's Comfortable Hat||a9,p5|1
 252514|3|30|25|0|402|0|2|0||0|Stormrider's Leather Helm||t13,p10|1
 252456|3|30|25|0|402|0|2|0||0|Totemic Leather Helm||t13,S12,H12|1
 252513|3|30|25|0|402|0|2|0||0|Trapper's Leather Helm||t13,i10|1
 250498|3|30|25|0|403|0|2|0||0|Veteran's Chain Helm||s12,t11|1
 252515|3|30|25|0|402|0|2|0||0|Wisdom's Leather Helm||t13,S7,H21|1
+284401|3|29|24|0|401|133132|2|0||0|Sorrow's Shroud||t11,S5,H21|1
+273645|3|26|21|0|401|133693|2|0||0|Blindwatcher's Sight|||1
+284400|3|26|21|0|403|0|2|0||0|Foreman's Helm||s8,t9|1
 250531|3|25|20|0|403|0|2|0||0|Acolyte's Silvered Chain Helm||t9,S7,H21|1
 252504|3|25|20|0|402|0|2|0||0|Brawler's Leather Hood||a8,t10|1
 250532|3|25|20|0|403|0|2|0||0|Crusader's Silvered Chain Helm||t9,S11,H11|1
@@ -945,57 +1025,59 @@ FGT.GEARDB = {
 19605|4|65|0|256|400|133313|1|481||1|Kezan's Unstoppable Taint||t13,i8,S14,H14|1
 19621|4|65|0|4|400|133313|1|477||1|Maelstrom's Wrath||a15,t9,i6|1
 19426|4|65|60|0|400|133303|1|0||0|Orb of the Darkmoon||t11,p8,S22,H22|1
-12048|2|65|60|0|400|133298|0|0||0|Prismatic Pendant|||2
+12048|2|65|60|0|400|133298|1|0||0|Prismatic Pendant|||2
 19613|4|65|0|1024|400|133313|1|479||1|Pristine Enchanted South Seas Kelp||s6,t10,i10,p9|1
 19577|4|65|0|1|400|133313|1|474||1|Rage of Mugamba||a8,s8,t13,d56|1
 19594|4|65|0|16|400|133313|1|480||1|The All-Seeing Eye of Zuldazar||t8,i8,p13,H18|1
 19609|4|65|0|64|400|133313|1|476||1|Unmarred Vision of Voodress||s6,t10,i10,p9|1
 20685|4|65|60|0|400|133308|1|0||0|Wavefront Necklace||t5,i6,H24|1
 19617|4|65|0|8|400|133313|1|478||1|Zandalarian Shadow Mastery Talisman||a15,s6,t9|1
-14558|4|64|59|0|400|133295|0|0||0|Lady Maye's Pendant||t10,i19,p10|2
+14558|4|64|59|0|400|133295|1|0||0|Lady Maye's Pendant||t10,i19,p10|2
 20695|3|63|58|0|400|133291|1|0||0|Abyssal War Beads||t15,A20|2
-22327|3|63|58|0|400|133295|0|0||0|Amulet of the Redeemed||t9,i9,p8,H15|1
+22327|3|63|58|0|400|133295|1|0||0|Amulet of the Redeemed||t9,i9,p8,H15|1
 22150|3|63|0|0|400|133280|1|0||0|Beads of Ogre Might||t7,A24,h1|1
 22149|3|63|0|0|400|133280|1|0||0|Beads of Ogre Mojo||t7,i12,S13,H13|1
 272072|3|63|58|0|400|133295|2|0||0|Darkspear Warding Pendant|Requires Honored with Darkspear Raiders|t15,i10|1
 16309|3|63|50|0|400|133444|1|0||1|Drakefire Amulet||t10|1
-15411|3|63|0|0|400|133440|0|0||0|Mark of Fordring||A26,c1|1
+15411|3|63|0|0|400|133440|1|0||0|Mark of Fordring||A26,c1|1
 18443|3|63|58|0|400|134311|1|0|A|1|Master Sergeant's Insignia|Requires PvP rank 4|t17,p7|1
-22340|3|63|58|0|400|133291|0|0||0|Pendant of Celerity||a15,h1|1
+22340|3|63|58|0|400|133291|1|0||0|Pendant of Celerity||a15,h1|1
 19534|3|63|58|0|400|133301|1|0||1|Scout's Medallion||a15,t10|1
 271917|3|63|58|0|400|133295|2|0||0|Seal of the Expedition|Requires Honored with Theramore Expeditionary Force|t15,i10|1
 16335|3|63|58|0|400|134317|1|0|H|1|Senior Sergeant's Insignia|Requires PvP rank 4|t17,p7|1
 19538|3|63|58|0|400|133300|1|0||1|Sentinel's Medallion||a15,t10|1
-12103|3|63|58|0|400|133441|0|0||0|Star of Mystaria||t9,i9,p8,h1|1
-13141|3|63|58|0|400|133296|0|0||0|Tooth of Gnarr||t8,i14|1
-12027|2|63|58|0|400|133297|0|0||0|Vermilion Necklace|||2
-18723|3|62|57|0|400|133288|0|0||0|Animated Chain Necklace||t7,p6,H33|1
-18381|3|62|57|0|400|133884|0|0||0|Evil Eye Pendant||a15,d7|1
-12036|2|62|57|0|400|133296|0|0||0|Granite Necklace|||2
-18691|3|61|56|0|400|133293|0|0||0|Dark Advisor's Pendant||t8,i7|1
-18397|3|61|56|0|400|133294|0|0||0|Elder Magus Pendant||t6,i10,p7|1
-12929|3|61|56|0|400|133292|0|0||0|Emberfury Talisman||t8,p5,c1|1
-13960|3|61|56|0|400|134335|0|0||0|Heart of the Fiend||t5,i5,p15|1
+12103|3|63|58|0|400|133441|1|0||0|Star of Mystaria||t9,i9,p8,h1|1
+280009|3|63|58|0|400|133309|2|0||0|Titanosaur Scale Pendant||t10,p8|1
+13141|3|63|58|0|400|133296|1|0||0|Tooth of Gnarr||t8,i14|1
+12027|2|63|58|0|400|133297|1|0||0|Vermilion Necklace|||2
+18723|3|62|57|0|400|133288|1|0||0|Animated Chain Necklace||t7,p6,H33|1
+18381|3|62|57|0|400|133884|1|0||0|Evil Eye Pendant||a15,d7|1
+12036|2|62|57|0|400|133296|1|0||0|Granite Necklace|||2
+18691|3|61|56|0|400|133293|1|0||0|Dark Advisor's Pendant||t8,i7|1
+18397|3|61|56|0|400|133294|1|0||0|Elder Magus Pendant||t6,i10,p7|1
+12929|3|61|56|0|400|133292|1|0||0|Emberfury Talisman||t8,p5,c1|1
+13960|3|61|56|0|400|134335|1|0||0|Heart of the Fiend||t5,i5,p15|1
 275736|3|61|0|0|400|134229|2|0||0|Horn of Ve'han||t10,h1,d5|1
-22403|3|61|56|0|400|133297|0|0||0|Nacreous Shell Necklace||t8,i8,S9,H9,h1|1
-18678|3|61|56|0|400|133290|0|0||0|Tempestria's Frozen Necklace||t8,i5|2
-17044|3|61|0|0|400|133440|0|0||0|Will of the Martyr||t10,A30|1
+22403|3|61|56|0|400|133297|1|0||0|Nacreous Shell Necklace||t8,i8,S9,H9,h1|1
+18678|3|61|56|0|400|133290|1|0||0|Tempestria's Frozen Necklace||t8,i5|2
+17044|3|61|0|0|400|133440|1|0||0|Will of the Martyr||t10,A30|1
 22657|4|60|0|0|400|133279|1|0||0|Amulet of the Dawn||t13,i13,S15,H15|1
-18728|3|60|55|0|400|133298|0|0||0|Anastari Heirloom||t15|1
+18728|3|60|55|0|400|133298|1|0||0|Anastari Heirloom||t15|1
 15856|3|60|0|0|400|133298|1|0||0|Archlight Talisman||t8,i10,p10|1
 23125|3|60|55|0|400|132507|1|0||0|Chains of the Lich||S22,H22|1
 19610|2|60|0|1024|400|133310|1|0||1|Enchanted South Seas Kelp||t8,i8,p7|1
 19611|3|60|0|1024|400|133311|1|0||1|Enchanted South Seas Kelp||s6,t8,i8,p7|1
+284097|3|60|55|0|400|133884|2|0||0|Everstaring Abomination Eye||t13,p6,h1|1
 281281|2|60|0|0|400|133303|2|0||0|Frost's Whisper Pendant||S12,H12|1
 19096|3|60|55|0|400|133294|1|0||0|Frostwolf Advisor's Pendant||t10,i10|1
 19095|3|60|55|0|400|133303|1|0||0|Frostwolf Legionnaire's Pendant||t15,A18|1
-13212|3|60|55|0|400|132503|0|0||0|Halycon's Spiked Collar||t7|1
+13212|3|60|55|0|400|132503|1|0||0|Halycon's Spiked Collar||t7|1
 19579|2|60|0|2|400|133310|1|0||1|Heathen's Brand||s8,t8,p7|1
 19585|3|60|0|2|400|133311|1|0||1|Heathen's Brand||s8,t8,i6,p7|1
 15704|2|60|0|0|400|133278|1|0||0|Hunter's Insignia Medal||t15|1
-11933|3|60|55|0|400|134131|0|0||0|Imperial Jewel||t7,A32|1
-1443|4|60|55|0|400|133276|0|0||0|Jeweled Amulet of Cainwyn||t8,i18,p10|2
-12046|2|60|55|0|400|133288|0|0||0|Jungle Necklace|||2
+11933|3|60|55|0|400|134131|1|0||0|Imperial Jewel||t7,A32|1
+1443|4|60|55|0|400|133276|1|0||0|Jeweled Amulet of Cainwyn||t8,i18,p10|2
+12046|2|60|55|0|400|133288|1|0||0|Jungle Necklace|||2
 19602|2|60|0|256|400|133310|1|0||1|Kezan's Taint||t10,S12,H12|1
 19603|3|60|0|256|400|133311|1|0||1|Kezan's Taint||t10,i6,S12,H12|1
 19618|2|60|0|4|400|133310|1|0||1|Maelstrom's Tendril||a12,t7|1
@@ -1013,7 +1095,7 @@ FGT.GEARDB = {
 19574|2|60|0|1|400|133310|1|0||1|Strength of Mugamba||s7,t10,d4|1
 19575|3|60|0|1|400|133311|1|0||1|Strength of Mugamba||a6,s7,t10,d4|1
 20649|2|60|0|0|400|133302|1|0||1|Sunprism Pendant||a12,t7|1
-13177|3|60|55|0|400|133279|0|0||0|Talisman of Evasion||a13,d25|1
+13177|3|60|55|0|400|133279|1|0||0|Talisman of Evasion||a13,d25|1
 19591|2|60|0|16|400|133310|1|0||1|The Eye of Zuldazar||t6,i7,p10|1
 19592|3|60|0|16|400|133311|1|0||1|The Eye of Zuldazar||t6,i7,p10,H13|1
 19606|2|60|0|64|400|133310|1|0||1|Vision of Voodress||t8,i8,p7|1
@@ -1021,126 +1103,157 @@ FGT.GEARDB = {
 19614|2|60|0|8|400|133310|1|0||1|Zandalarian Shadow Talisman||a12,t7|1
 19615|3|60|0|8|400|133311|1|0||1|Zandalarian Shadow Talisman||a12,s6,t7|1
 18023|3|59|54|0|400|134128|1|0||0|Blood Ruby Pendant||t10,i10|2
-18340|3|59|54|0|400|133447|0|0||0|Eidolon Talisman||t9|2
-13002|3|59|54|0|400|133278|0|0||0|Lady Alizabeth's Pendant||t8,p15|2
-12026|2|59|54|0|400|133298|0|0||0|Quicksilver Pendant|||2
+287035|3|59|54|0|400|133294|2|0||0|Demon Worshipper's Necklace||i13,S11,H11|2
+18340|3|59|54|0|400|133447|1|0||0|Eidolon Talisman||t9|2
+286614|3|59|54|0|400|4639595|2|0||0|Gruff's Tough Tongue||i7,p13|1
+13002|3|59|54|0|400|133278|1|0||0|Lady Alizabeth's Pendant||t8,p15|2
+12026|2|59|54|0|400|133298|1|0||0|Quicksilver Pendant|||2
 277202|3|58|0|0|400|458247|2|0||0|Artifact Seeker's Pendant||a8,s9,t14|1
-12059|3|58|0|0|400|133278|0|0||0|Conqueror's Medallion||a4,s10,t11,p5|1
+12059|3|58|0|0|400|133278|1|0||0|Conqueror's Medallion||a4,s10,t11,p5|1
+270126|3|58|0|0|400|133290|2|0||0|Conqueror's Pendant||t7,i7,p5,S13,H13|1
 275838|2|58|0|0|400|133296|2|0||0|Dirtwalker Pendant||s11,p6|1
 15799|2|58|0|0|400|133278|1|0||0|Heroic Commendation Medal||t12,p5|1
 274384|2|58|0|0|400|133308|2|0||0|Illegible Dogtags||t5,i4,S13,H13|1
 281636|3|58|0|0|400|454054|2|0||0|Museum Keeper's Chain||t10,i10,S11,H11|1
-18317|3|58|53|0|400|133290|0|0||0|Tempest Talisman||i7,p6,c1|1
+18317|3|58|53|0|400|133290|1|0||0|Tempest Talisman||i7,p6,c1|1
 16009|2|58|0|0|400|133282|1|0||0|Voice Amplification Modulator|||2
 281286|2|57|0|0|400|133323|2|0||0|High Order Pendant||i11,S7,H7|1
-13091|3|57|52|0|400|133441|0|0||0|Medallion of Grand Marshal Morris||t7,d10|2
+13091|3|57|52|0|400|133441|1|0||0|Medallion of Grand Marshal Morris||t7,d10|2
 11196|2|57|0|0|400|133294|1|0||0|Mindburst Medallion||t5,i6,p5|1
-12035|2|57|52|0|400|133293|0|0||0|Obsidian Pendant|||2
+279893|2|57|1|0|400|1535080|2|0||0|Nama's Cherished Necklace||t9,A12|1
+12035|2|57|52|0|400|133293|1|0||0|Obsidian Pendant|||2
 16623|2|57|0|0|400|133295|1|0||0|Opaline Medallion||t3,i13|1
+281598|2|57|52|0|400|132501|2|0||0|Rusthowl's Worn Collar||t12|2
 281287|2|57|0|0|400|133322|2|0||0|Windshaper Pendant||s11,t6|1
-18289|3|56|51|0|400|133296|0|0||0|Barbed Thorn Necklace||t7,i6|2
-10829|3|56|51|0|400|133279|0|0||0|Dragon's Eye||t6,p15|1
-12045|2|56|51|0|400|133293|0|0||0|Swamp Pendant|||2
-11755|3|56|51|0|400|133684|0|0||0|Verek's Collar||s6,t7,d25|1
+18289|3|56|51|0|400|133296|1|0||0|Barbed Thorn Necklace||t7,i6|2
+282019|2|56|51|0|400|133306|2|0||0|Braided Seer Stones||p10,S10|2
+10829|3|56|51|0|400|133279|1|0||0|Dragon's Eye||t6,p15|1
+12045|2|56|51|0|400|133293|1|0||0|Swamp Pendant|||2
+11755|3|56|51|0|400|133684|1|0||0|Verek's Collar||s6,t7,d25|1
+279833|3|55|1|0|400|133302|2|0||0|Courier's Clasp||i10,p7,S8,H8|1
 19303|3|55|50|0|400|133298|1|0||0|Darkmoon Necklace||i6|1
 276900|2|54|1|0|400|133309|2|0||0|Denric's Dog Tags||t6,i10|1
 13473|2|54|0|0|400|133444|1|0||0|Felstone Good Luck Charm|||1
-17707|3|54|49|0|400|135227|0|0||0|Gemshard Heart||t10,i10,p6|1
-12025|2|54|49|0|400|133291|0|0||0|Selenium Chain|||2
+17707|3|54|49|0|400|135227|1|0||0|Gemshard Heart||t10,i10,p6|1
+284067|2|54|49|0|400|133290|2|0||0|Rusted Family Memento||p10|2
+12025|2|54|49|0|400|133291|1|0||0|Selenium Chain|||2
+276740|3|54|49|0|400|133300|2|0||0|Sentimental Locket||s7,h1|1
 272073|3|53|48|0|400|133295|2|0||0|Darkspear Warding Pendant|Requires Honored with Darkspear Raiders|t13,i9|1
-12034|2|53|48|0|400|133294|0|0||0|Marble Necklace|||2
+12034|2|53|48|0|400|133294|1|0||0|Marble Necklace|||2
 19535|3|53|48|0|400|133301|1|0||1|Scout's Medallion||a12,t8|1
 271918|3|53|48|0|400|133295|2|0||0|Seal of the Expedition|Requires Honored with Theramore Expeditionary Force|t13,i9|1
 19539|3|53|48|0|400|133300|1|0||1|Sentinel's Medallion||a12,t8|1
-20037|3|52|0|0|400|134135|0|0||0|Arcane Crystal Pendant||i6,S16,H16|1
+20037|3|52|0|0|400|134135|1|0||0|Arcane Crystal Pendant||i6,S16,H16|1
 259892|2|52|0|0|400|133282|2|0||0|Feardred's Cleansed Amulet||p8,S9,H9|1
 11946|2|52|47|0|400|133289|1|0||0|Fire Opal Necklace|||1
+287024|3|52|47|0|400|133438|2|0||0|Mark of Captivity||t11,A15,d5|2
 260171|2|52|0|0|400|133280|2|0||0|Timbermaw Prayer Beads||a10,p5|1
-12044|2|51|46|0|400|133294|0|0||0|Arctic Pendant|||2
-13085|3|51|46|0|400|133298|0|0||0|Horizon Choker||t4,i14,p4|2
-1315|4|51|46|0|400|133938|0|0||0|Lei of Lilies||t10,p15|2
+12044|2|51|46|0|400|133294|1|0||0|Arctic Pendant|||2
+13085|3|51|46|0|400|133298|1|0||0|Horizon Choker||t4,i14,p4|2
+1315|4|51|46|0|400|133938|1|0||0|Lei of Lilies||t10,p15|2
 19159|3|51|0|0|400|134196|1|0||0|Woven Ivy Necklace||a9,s6,t10|1
 18444|3|50|45|0|400|134311|1|0|A|1|Master Sergeant's Insignia|Requires PvP rank 4|t14,p6|1
 4743|2|50|0|0|400|134132|1|0||0|Pulsating Crystalline Shard||t8,p8|1
 18428|3|50|45|0|400|134317|1|0|H|1|Senior Sergeant's Insignia|Requires PvP rank 4|t14,p6|1
-12024|2|50|45|0|400|133294|0|0||0|Vanadium Talisman|||2
-13089|3|49|44|0|400|133282|0|0||0|Skibi's Pendant||a13,s5,p3|2
-9641|3|48|43|0|400|133289|0|0||0|Lifeblood Amulet||t13,p5|1
-12032|2|48|43|0|400|133293|0|0||0|Onyx Choker|||2
-12043|2|47|42|0|400|133295|0|0||0|Desert Choker|||2
+12024|2|50|45|0|400|133294|1|0||0|Vanadium Talisman|||2
+13089|3|49|44|0|400|133282|1|0||0|Skibi's Pendant||a13,s5,p3|2
+9641|3|48|43|0|400|133289|1|0||0|Lifeblood Amulet||t13,p5|1
+12032|2|48|43|0|400|133293|1|0||0|Onyx Choker|||2
+12043|2|47|42|0|400|133295|1|0||0|Desert Choker|||2
 7551|2|47|42|0|400|133294|0|0||0|Entwined Opaline Talisman||a3,t10|2
 7549|2|47|42|0|400|132520|0|0||0|Fairy's Embrace||t2,i5,p5|2
-7888|3|47|0|0|400|133289|0|0||0|Jarkal's Enhancing Necklace||t10,i1,p10|1
+7888|3|47|0|0|400|133289|1|0||0|Jarkal's Enhancing Necklace||t10,i1,p10|1
+270095|2|47|0|0|400|133290|2|0||0|Medal of Valor||A12|1
 5029|2|47|42|0|400|133296|1|0||0|Talisman of the Naga Lord||s2,t10|2
-7673|3|47|0|0|400|133289|0|0||0|Talvash's Enhancing Necklace||t10,i1,p10|1
+7673|3|47|0|0|400|133289|1|0||0|Talvash's Enhancing Necklace||t10,i1,p10|1
 7550|2|47|42|0|400|133289|0|0||0|Warrior's Honor||s3,t10|2
-6723|2|45|0|0|400|133278|0|0||0|Medal of Courage||t9,p3|1
-9243|2|45|40|0|400|134338|0|0||1|Shriveled Heart||t13|1
-12023|2|45|40|0|400|133290|0|0||0|Tellurium Necklace|||2
-10824|3|44|0|0|400|133294|0|0||0|Amberglow Talisman||a1,t7,p10|1
+275004|3|46|41|0|400|133306|2|0||0|Chain of the Corruptor||a4,t12,S5,H5|1
+279859|2|46|1|0|400|133298|2|0||0|Indoctrinated Choker||t5,p6,A8|1
+286568|2|45|40|0|400|133291|2|0||0|Blisterpaw Bones|||2
+6723|2|45|0|0|400|133278|1|0||0|Medal of Courage||t9,p3|1
+9243|2|45|40|0|400|134338|1|0||1|Shriveled Heart||t13|1
+12023|2|45|40|0|400|133290|1|0||0|Tellurium Necklace|||2
+10824|3|44|0|0|400|133294|1|0||0|Amberglow Talisman||a1,t7,p10|1
 4112|2|44|0|0|400|133291|1|0||0|Choker of the High Shaman||i5,p8|1
-10711|3|44|0|0|400|133289|0|0||0|Dragon's Blood Necklace||t12,p5|1
-12031|2|44|39|0|400|133294|0|0||0|Lodestone Necklace|||2
+279850|3|44|1|0|400|133291|2|0||0|Curio-Adorned Necklace||i9,p7,S5,H5|1
+10711|3|44|0|0|400|133289|1|0||0|Dragon's Blood Necklace||t12,p5|1
+12031|2|44|39|0|400|133294|1|0||0|Lodestone Necklace|||2
+267090|2|44|0|0|400|133854|2|0||0|Semblance of Twilight||t8|1
 277981|2|44|1|0|400|4632778|2|0||0|Souvenir Ogre Tooth||a5,t8|1
-7722|3|44|39|0|400|133276|0|0||0|Triune Amulet||t7,i7,p7|1
+7722|3|44|39|0|400|133276|1|0||0|Triune Amulet||t7,i7,p7|1
 281302|2|44|0|0|400|133280|2|0||0|Whelpscale Necklace||s7,p7|1
 272185|2|43|1|0|400|133293|2|0||0|Amulet of Forgiveness||p7,S4,H13|1
 272184|2|43|1|0|400|133292|2|0||0|Amulet of Vengeance||s6,t7|1
+279863|3|43|38|0|400|133296|2|0||0|Black Horn Necklace||s5,t8,S2,H2|1
 272074|3|43|38|0|400|133295|2|0||0|Darkspear Warding Pendant|Requires Honored with Darkspear Raiders|t11,i7|1
 4430|2|43|0|0|400|133290|1|0||0|Ethereal Talisman||a4,s5,t6|1
-1714|3|43|38|0|400|133297|0|0||0|Necklace of Calisea||t8,i7,p7|2
+1714|3|43|38|0|400|133297|1|0||0|Necklace of Calisea||t8,i7,p7|2
 19536|3|43|38|0|400|133301|1|0||1|Scout's Medallion||a11,t7|1
 271919|3|43|38|0|400|133295|2|0||0|Seal of the Expedition|Requires Honored with Theramore Expeditionary Force|t11,i7|1
 19540|3|43|38|0|400|133300|1|0||1|Sentinel's Medallion||a11,t7|1
 271806|2|43|1|0|400|133303|2|0||0|Survivor's Amulet||s5,t8|1
 271807|2|43|1|0|400|133280|2|0||0|Weathered Necklace||t8,i5|1
+274385|3|42|37|0|400|132507|2|0||0|Abomination Chain||t10,A6,d3|1
 274955|2|42|0|0|400|454063|2|0||0|Clobrok's Block Rock||s7|1
-12042|2|42|37|0|400|133291|0|0||0|Marsh Chain|||2
-17773|2|42|0|0|400|133293|0|0||0|Prodigious Shadowshard Pendant||i10|1
-17772|2|42|0|0|400|133293|0|0||0|Zealous Shadowshard Pendant||A20|1
+284708|2|42|37|0|400|133292|2|0||0|Demonstrike Emblem||a6,A8|2
+12042|2|42|37|0|400|133291|1|0||0|Marsh Chain|||2
+17773|2|42|0|0|400|133293|1|0||0|Prodigious Shadowshard Pendant||i10|1
+17772|2|42|0|0|400|133293|1|0||0|Zealous Shadowshard Pendant||A20|1
 281657|3|41|36|0|400|133298|2|0||0|Corrupted Riverglades Pendant||a9,s6,p6|1
-7746|2|41|0|0|400|133434|0|0||0|Explorers' League Commendation||t6,p6|1
-13088|3|41|36|0|400|133276|0|0||0|Gazlowe's Charm||s4,t11,p3|2
-10769|3|41|36|0|400|134335|0|0||0|Glowing Eye of Mordresh||i5,p11|1
-12022|2|41|36|0|400|133292|0|0||0|Iridium Chain|||2
+7746|2|41|0|0|400|133434|1|0||0|Explorers' League Commendation||t6,p6|1
+13088|3|41|36|0|400|133276|1|0||0|Gazlowe's Charm||s4,t11,p3|2
+10769|3|41|36|0|400|134335|1|0||0|Glowing Eye of Mordresh||i5,p11|1
+12022|2|41|36|0|400|133292|1|0||0|Iridium Chain|||2
 15690|2|41|0|0|400|133296|1|0||0|Kodobone Necklace||t7,p4|1
-12030|2|39|34|0|400|133293|0|0||0|Jet Chain|||2
-12040|2|38|33|0|400|133288|0|0||0|Forest Pendant|||2
-12020|2|36|31|0|400|133296|0|0||0|Thallium Choker|||2
+285095|2|40|35|0|400|133884|2|0||0|Twitching Eye||t6|2
+12030|2|39|34|0|400|133293|1|0||0|Jet Chain|||2
+12040|2|38|33|0|400|133288|1|0||0|Forest Pendant|||2
+279837|2|36|1|0|400|133335|2|0||0|Fallen Guard's Pendant||s3|1
+12020|2|36|31|0|400|133296|1|0||0|Thallium Choker|||2
+273049|3|35|30|0|400|466975|2|0||0|Archmagister's Faceted Pendant||i6,A12|1
 5005|2|35|30|0|400|133292|0|0||0|Emberspark Pendant||t2,p7|2
-7731|3|35|30|0|400|133293|0|0||0|Ghostshard Talisman||t9,p4|1
-12029|2|35|30|0|400|133288|0|0||0|Greenstone Talisman|||2
-13084|3|35|30|0|400|133282|0|0||0|Kaleidoscope Chain||a4,s4,t4,i4,p4|2
+7731|3|35|30|0|400|133293|1|0||0|Ghostshard Talisman||t9,p4|1
+12029|2|35|30|0|400|133288|1|0||0|Greenstone Talisman|||2
+13084|3|35|30|0|400|133282|1|0||0|Kaleidoscope Chain||a4,s4,t4,i4,p4|2
 5004|2|35|30|0|400|133295|0|0||0|Mark of the Kirin Tor||i7,p2|2
 18442|3|35|30|0|400|134311|1|0|A|1|Master Sergeant's Insignia|Requires PvP rank 4|t9,p4|1
 4614|2|35|30|0|400|133294|1|0||1|Pendant of Myzrael||t4,p6|1
 23169|3|35|30|0|400|133290|1|0||0|Scorn's Icy Choker||t5,i6,S7,H7|1
 15200|3|35|30|0|400|134317|1|0|H|1|Senior Sergeant's Insignia|Requires PvP rank 4|t9,p4|1
 274749|3|35|30|0|400|133297|2|0||0|Souvenir Sea Shell|Requires Honored with Booty Bay|t10|1
-5180|2|34|29|0|400|133279|0|0||0|Necklace of Harmony||p7|2
+5180|2|34|29|0|400|133279|1|0||0|Necklace of Harmony||p7|2
+274068|3|34|29|0|400|133278|2|0||0|Thermaplugg Medal of Honor||t6,p6,A10|1
 272075|3|33|28|0|400|133295|2|0||0|Darkspear Warding Pendant|Requires Honored with Darkspear Raiders|t8,i5|1
 281258|2|33|0|0|400|133295|2|0||0|Essene's Hope||p7|1
-13087|3|33|28|0|400|133296|0|0||0|River Pride Choker||s4,t9|2
+286995|3|33|28|0|400|135733|2|0||0|Guardian's Emblem||t8,S6,H6|2
+286984|3|33|28|0|400|133296|2|0||0|Mark of the Marsh||a8,s5|2
+13087|3|33|28|0|400|133296|1|0||0|River Pride Choker||s4,t9|2
 19537|3|33|28|0|400|133301|1|0||1|Scout's Medallion||a8,t5|1
 271920|3|33|28|0|400|133295|2|0||0|Seal of the Expedition|Requires Honored with Theramore Expeditionary Force|t8,i5|1
 19541|3|33|28|0|400|133300|1|0||1|Sentinel's Medallion||a8,t5|1
-12039|2|33|28|0|400|133298|0|0||0|Tundra Necklace|||2
-12028|2|32|27|0|400|133295|0|0||0|Basalt Necklace|||2
-12019|2|32|27|0|400|133288|0|0||0|Cerulean Talisman|||2
+12039|2|33|28|0|400|133298|1|0||0|Tundra Necklace|||2
+12028|2|32|27|0|400|133295|1|0||0|Basalt Necklace|||2
+12019|2|32|27|0|400|133288|1|0||0|Cerulean Talisman|||2
+282653|2|32|27|0|400|133288|2|0||0|Dissolved Locket||a6,p3|2
 281321|3|32|0|0|400|133302|2|0||0|Giantstone Medallion||p10|1
-6695|3|32|27|0|400|133291|0|0||0|Stygian Bone Amulet||t4,p8|1
-5003|2|31|26|0|400|133289|0|0||0|Crystal Starfire Medallion||t4,i4,p3|2
+6695|3|32|27|0|400|133291|1|0||0|Stygian Bone Amulet||t4,p8|1
+5003|2|31|26|0|400|133289|1|0||0|Crystal Starfire Medallion||t4,i4,p3|2
 10299|2|31|26|0|400|133290|1|0||0|Gnomeregan Amulet|||1
-5754|2|31|26|0|400|133278|0|0||0|Wolfpack Medallion||a3,t5|2
+5754|2|31|26|0|400|133278|1|0||0|Wolfpack Medallion||a3,t5|2
 288926|4|30|1|0|400|133280|2|0||0|Choker of the Fire Lord||t3,i3,S15,H15|2
-5002|2|30|25|0|400|133288|0|0||0|Glowing Green Talisman||t1,p6|2
-12047|2|30|25|0|400|133291|0|0||0|Spectral Necklace|||2
+5002|2|30|25|0|400|133288|1|0||0|Glowing Green Talisman||t1,p6|2
+12047|2|30|25|0|400|133291|1|0||0|Spectral Necklace|||2
 281290|2|26|0|0|400|133298|2|0||0|Replica Crescent Necklace||a3,p3|1
+285331|3|25|20|0|400|133291|2|2132||0|Mark of the Pack Leader||s5,i5|1
+279870|2|24|1|0|400|133295|2|0||0|Tarnished Locket||t6|1
 277204|2|23|0|0|400|133288|2|0||0|Erudite's Amulet||a2,t3|1
 277203|2|23|0|0|400|133298|2|0||0|Scholarly Pendant||t3,p2|1
 20442|3|23|18|0|400|133301|1|0||1|Scout's Medallion||a6,t2|1
 20444|3|23|18|0|400|133300|1|0||1|Sentinel's Medallion||a6,t2|1
+273088|3|22|17|0|400|133884|2|0||0|Snake Eye Kaleidoscope||a1,s1,t1,i1,p1|1
+273457|3|22|17|0|400|133294|2|0||0|Sorcerer Collar||i2,p2|1
 281265|2|20|0|0|400|133288|2|0||0|Roadwatcher's Confidence||p3|1
+270227|3|18|13|0|400|466975|2|0||0|Ephemeral Choker||p5|1
 ]==],
         [3] = [==[
 22479|4|86|60|0|402|135060|1|524||0|Bonescythe Pauldrons||a22,s22,t15,h1,c1|1
@@ -1249,12 +1362,21 @@ FGT.GEARDB = {
 16823|4|66|60|8|402|135056|0|204||0|Nightslayer Shoulder Pads||a26,s3,t12,h1|1
 16868|4|66|60|1|404|135046|0|209||0|Pauldrons of Might||s15,t22,d55|1
 22016|3|65|0|0|403|135041|1|515||0|Beastmaster's Mantle||a12,t18,i10|1
+226899|3|65|0|4|403|135041|1|1669||0|Beastmaster's Shoulders||a12,t18,i10|1
 19689|3|65|60|0|402|135054|1|442||0|Blood Tiger Shoulders||s13,t13,i12,p10|2
 19691|3|65|60|0|403|135046|1|443||0|Bloodsoul Shoulders||a24,t10|2
+226847|3|65|0|8|402|135038|1|1676||0|Darkmantle Shoulders||a24,t10|1
 22008|3|65|0|0|402|135038|1|512||0|Darkmantle Spaulders||a24,t10|1
 19695|3|65|60|0|404|135032|1|444||0|Darksoul Shoulders||t24,h1|2
+272106|4|65|60|0|403|135043|2|0||0|Darkspear Epaulets|Requires Exalted with Darkspear Raiders|a27,t12,c1|1
+272107|4|65|60|0|404|135056|2|0||0|Darkspear Mantle|Requires Exalted with Darkspear Raiders|t24,S12,H37,c1|1
 272105|4|65|60|0|402|135037|2|0||0|Darkspear Pauldrons|Requires Exalted with Darkspear Raiders|a27,t12,c1|1
+272958|4|65|60|0|403|135045|2|0||0|Darkspear Shoulderguards|Requires Exalted with Darkspear Raiders|t12,i27,S16,H16|1
+272103|4|65|60|0|401|135033|2|0||0|Darkspear Shoulderpads|Requires Exalted with Darkspear Raiders|t15,i27,S12,H12|1
+272104|4|65|60|0|402|135055|2|0||0|Darkspear Shoulders|Requires Exalted with Darkspear Raiders|t15,i27,S12,H12|1
+272108|4|65|60|0|404|135053|2|0||0|Darkspear Spaulders|Requires Exalted with Darkspear Raiders|s12,t27,c1|1
 22073|3|65|0|0|401|133732|1|518||0|Deathmist Mantle||t16,i16,S12,H12|1
+226923|3|65|0|256|401|133732|1|1681||0|Deathmist Shoulders||t16,i16,S12,H12|1
 20158|4|65|60|0|403|135032|1|483||1|Defiler's Chain Pauldrons|Requires Exalted with The Defilers|a20,t18,i17|1
 20176|4|65|60|0|401|135055|1|485||1|Defiler's Epaulets|Requires Exalted with The Defilers|t18,i17,S12,H12|1
 20184|4|65|60|0|404|135032|1|0||1|Defiler's Lamellar Spaulders|Requires Exalted with The Defilers|a17,s18,t15,i10|1
@@ -1264,6 +1386,7 @@ FGT.GEARDB = {
 20212|4|65|60|0|404|135032|1|487||1|Defiler's Plate Spaulders|Requires Exalted with The Defilers|a17,s18,t20|1
 280882|4|65|60|256|401|Interface\Icons\inv_shoulder_cloth_raidwarlockhyjalc60_d_01|3|100013||0|Demonheart Spaulders|||1
 279255|4|65|60|0|403|135041|2|0||0|Eternity Pauldrons||t21,p18,S10,H30|2
+226817|3|65|0|1024|402|135032|1|1667||0|Feralheart Shoulders||a5,s8,t9,i16,p8,S6,H6|1
 22112|3|65|0|0|402|135032|1|513||0|Feralheart Spaulders||a5,s8,t9,i16,p8,S6,H6|1
 280876|4|65|60|8|402|Interface\Icons\inv_shoulder_leather_raidroguehyjalc60_d_01|3|100006||0|Grimstitch Spaulders|||1
 280976|4|65|60|1024|402|Interface\Icons\inv_shoulder_leather_raiddruidhyjalc60_d_01|3|100014||0|Grovekeeper Pauldrons|||1
@@ -1313,19 +1436,30 @@ FGT.GEARDB = {
 272753|4|65|60|128|401|135054|2|388|A|0|Premier Marshal's Silk Spaulders||t26,i17,S12,H12|1
 272820|4|65|60|16|401|135033|2|389|A|0|Premier Marshal's Voidcloth Mantle||t26,i14,S16,H16|1
 280903|4|65|60|1|404|Interface\Icons\inv_shoulder_plate_raidwarriorhyjalc60_d_01|3|100000||0|Shoulders of Glory|||1
+226875|3|65|0|1|404|135061|1|1778||0|Shoulders of Heroism||a12,s12,t18|1
+227035|3|65|0|64|403|135060|1|1679||0|Shoulders of The Five Thunders||s10,t11,i11,p10,S12,H12|1
 22068|3|65|0|0|401|135054|1|517||0|Sorcerer's Mantle||t11,i17,p7,S9,H9|1
+226939|3|65|0|128|401|135054|1|1671||0|Sorcerer's Shoulders||t11,i17,p7,S9,H9|1
+226995|3|65|0|2|404|135041|1|1673||0|Soulforge Shoulders||s10,t11,i11,S12,H12|1
 22093|3|65|0|0|404|135041|1|516||0|Soulforge Spaulders||s10,t11,i11,S12,H12|1
 22001|3|65|0|0|404|135061|1|511||0|Spaulders of Heroism||a12,s12,t18|1
 280944|4|65|60|64|403|Interface\Icons\inv_shoulder_mail_raidshamanhyjalc60_d_01|3|100009||0|Spiritcaller Epaulets|||1
 280962|4|65|60|64|403|Interface\Icons\inv_shoulder_mail_raidshamanhyjalc60_d_01|3|100011||0|Spiritcaller Mantle|||1
 280956|4|65|60|64|403|Interface\Icons\inv_shoulder_mail_raidshamanhyjalc60_d_01|3|100010||0|Spiritcaller Spaulders|||1
+271956|4|65|60|0|403|135043|2|0||0|Theramore Epaulets|Requires Exalted with Theramore Expeditionary Force|a27,t12,c1|1
+271957|4|65|60|0|404|135056|2|0||0|Theramore Mantle|Requires Exalted with Theramore Expeditionary Force|t24,S12,H37,c1|1
 271955|4|65|60|0|402|135037|2|0||0|Theramore Pauldrons|Requires Exalted with Theramore Expeditionary Force|a27,t12,c1|1
+272957|4|65|60|0|403|135045|2|0||0|Theramore Shoulderguards|Requires Exalted with Theramore Expeditionary Force|t12,i27,S16,H16|1
+271953|4|65|60|0|401|135033|2|0||0|Theramore Shoulderpads|Requires Exalted with Theramore Expeditionary Force|t15,i27,S12,H12|1
+271954|4|65|60|0|402|135055|2|0||0|Theramore Shoulders|Requires Exalted with Theramore Expeditionary Force|t15,i27,S12,H12|1
+271959|4|65|60|0|404|135053|2|0||0|Theramore Spaulders|Requires Exalted with Theramore Expeditionary Force|s12,t27,c1|1
 22082|3|65|0|0|401|135033|1|514||0|Virtuous Mantle||t12,i13,p12,S12,H12|1
+226963|3|65|0|16|401|135033|1|1675||0|Virtuous Shoulders||t12,i13,p12,S12,H12|1
 280897|4|65|60|4|403|Interface\Icons\inv_shoulder_l_mail_raidhunterhyjalc60_d_01|3|100005||0|Wildstalker's Spaulders|||1
 19059|3|64|59|0|401|135044|1|0||0|Argent Shoulders||t23,p8|2
 19058|3|64|59|0|402|135057|1|0||0|Golden Mantle of the Dawn||t22,d25|2
 19050|3|64|59|0|401|135050|1|0||0|Mantle of the Timbermaw||i21|2
-10263|2|63|58|0|402|135046|0|0||0|Adventurer's Shoulders|||2
+10263|2|63|58|0|402|135046|1|0||0|Adventurer's Shoulders|||2
 12588|3|63|58|0|403|135042|0|0||0|Bonespike Shoulder|||1
 16528|3|63|58|4|403|135032|1|361|H|1|Champion's Chain Pauldrons|Requires PvP rank 10|a10,t20,A12|1
 16501|3|63|58|1024|402|135038|1|382|H|1|Champion's Dragonhide Spaulders|Requires PvP rank 10|a10,s10,t10,i6,p10,S8,H8|1
@@ -1335,8 +1469,8 @@ FGT.GEARDB = {
 16516|3|63|58|1|404|135042|1|281|H|1|Champion's Plate Pauldrons|Requires PvP rank 10|a6,s7,t23|1
 17613|3|63|58|16|401|135032|1|342|H|1|Champion's Satin Shoulderpads|Requires PvP rank 10|t16,i15,S12,H12|1
 16492|3|63|58|128|401|135033|1|341|H|1|Champion's Silk Shoulderpads|Requires PvP rank 10|t16,i15,S12,H12|1
-14335|2|63|58|0|401|135045|0|0||0|Eternal Spaulders|||2
-10390|2|63|58|0|404|135054|0|0||0|Hyperion Pauldrons|||2
+14335|2|63|58|0|401|135045|1|0||0|Eternal Spaulders|||2
+10390|2|63|58|0|404|135054|1|0||0|Hyperion Pauldrons|||2
 18747|3|63|58|0|401|135033|1|0||1|Item Properties Test||A40,S12,H12,c5|1
 16427|3|63|58|4|403|135049|1|362|A|1|Lieutenant Commander's Chain Pauldrons|Requires PvP rank 10|a10,t20,A12|1
 16423|3|63|58|1024|402|135054|1|381|A|1|Lieutenant Commander's Dragonhide Epaulets|Requires PvP rank 10|a10,s10,t10,i6,p10,S8,H8|1
@@ -1346,71 +1480,87 @@ FGT.GEARDB = {
 16432|3|63|58|1|404|135051|1|282|A|1|Lieutenant Commander's Plate Pauldrons|Requires PvP rank 10|a6,s7,t23|1
 17601|3|63|58|16|401|135033|1|344|A|1|Lieutenant Commander's Satin Amice|Requires PvP rank 10|t16,i15,S12,H12|1
 16415|3|63|58|128|401|135033|1|343|A|1|Lieutenant Commander's Silk Spaulders|Requires PvP rank 10|t16,i15,S12,H12|1
-10253|2|63|58|0|401|135040|0|0||0|Master's Mantle|||2
-10274|2|63|58|0|403|135054|0|0||0|Masterwork Pauldrons|||2
+10253|2|63|58|0|401|135040|1|0||0|Master's Mantle|||2
+10274|2|63|58|0|403|135054|1|0||0|Masterwork Pauldrons|||2
 12617|2|63|58|0|403|135046|1|0||0|Savage Mail Shoulders||s10,t17|2
-18720|3|63|58|0|401|135054|0|0||0|Shroud of the Nathrezim||i16,p10,c1|1
-15441|2|63|58|0|402|135052|0|0||0|Supreme Shoulders|||2
-22412|3|63|58|0|401|135033|0|0||0|Thuzadin Mantle||t11,i18,S12,H12|1
-15686|2|63|58|0|403|135054|0|0||0|Triumphant Shoulder Pads|||2
+18720|3|63|58|0|401|135054|1|0||0|Shroud of the Nathrezim||i16,p10,c1|1
+15441|2|63|58|0|402|135052|1|0||0|Supreme Shoulders|||2
+22412|3|63|58|0|401|135033|1|0||0|Thuzadin Mantle||t11,i18,S12,H12|1
+15686|2|63|58|0|403|135054|1|0||0|Triumphant Shoulder Pads|||2
 19111|3|63|58|0|403|135043|0|0||0|Winteraxe Epaulets||t20,i10,p6|1
-13358|3|63|58|0|402|135055|0|0||0|Wyrmtongue Shoulders||a23,t10|1
-18384|3|62|57|0|404|135048|0|0||0|Bile-etched Spaulders||s17,t6,i6,d7|1
-18686|3|62|57|0|403|135034|0|0||0|Bone Golem Shoulders||a19,t9,i9|1
-14538|3|62|57|0|401|135033|0|0||0|Deadwalker Mantle||t19,i9|1
-14503|3|62|57|0|402|135056|0|0||0|Death's Clutch||a10,s10,t10,i10,p10|1
-18757|3|62|57|0|401|135056|0|0||0|Diabolic Mantle||t16|1
-14463|2|62|57|0|401|135033|0|0||0|Elunarian Spaulders||t10,i10,p10|2
-14981|2|62|57|0|404|135044|0|0||0|Exalted Epaulets|||2
+13358|3|63|58|0|402|135055|1|0||0|Wyrmtongue Shoulders||a23,t10|1
+18384|3|62|57|0|404|135048|1|0||0|Bile-etched Spaulders||s17,t6,i6,d7|1
+280075|3|62|57|0|404|0|2|0||0|Bleak Eye Shoulderplates||a14,t14,i12|1
+18686|3|62|57|0|403|135034|1|0||0|Bone Golem Shoulders||a19,t9,i9|1
+279904|3|62|1|0|403|135057|2|0||0|Crystalline Pauldrons||t19,S15,H15|1
+14538|3|62|57|0|401|135033|1|0||0|Deadwalker Mantle||t19,i9|1
+14503|3|62|57|0|402|135056|1|0||0|Death's Clutch||a10,s10,t10,i10,p10|1
+18757|3|62|57|0|401|135056|1|0||0|Diabolic Mantle||t16|1
+279903|3|62|1|0|403|135059|2|0||0|Diemetradon Scale Spaulders||t19,S15,H15|1
+14463|2|62|57|0|401|135033|1|0||0|Elunarian Spaulders||t10,i10,p10|2
+14981|2|62|57|0|404|135044|1|0||0|Exalted Epaulets|||2
 14112|2|62|57|0|401|135054|1|0||0|Felcloth Shoulders||p5|2
 16988|4|62|57|0|403|135054|1|0||0|Fiery Chain Shoulders||t10,i14|2
-18374|3|62|57|0|402|135055|0|0||0|Flamescarred Shoulders||a12,s12,t11|1
-10142|2|62|57|0|401|135033|0|0||0|High Councillor's Mantle|||2
-10163|2|62|57|0|403|135054|0|0||0|Mercurial Pauldrons|||2
-10153|2|62|57|0|402|135055|0|0||0|Mighty Spaulders|||2
-14548|3|62|57|0|403|135042|0|0||0|Royal Cap Spaulders||t8,i9,p13,H26|1
+18374|3|62|57|0|402|135055|1|0||0|Flamescarred Shoulders||a12,s12,t11|1
+10142|2|62|57|0|401|135033|1|0||0|High Councillor's Mantle|||2
+10163|2|62|57|0|403|135054|1|0||0|Mercurial Pauldrons|||2
+10153|2|62|57|0|402|135055|1|0||0|Mighty Spaulders|||2
+14548|3|62|57|0|403|135042|1|0||0|Royal Cap Spaulders||t8,i9,p13,H26|1
 15096|2|62|57|0|402|135046|1|0||0|Runic Leather Shoulders||i15,p10|2
-14817|2|62|57|0|403|135033|0|0||0|Warstrike Shoulder Pads||t8,i16|2
-13533|2|61|56|0|404|135049|0|0||0|Acid-etched Pauldrons|||1
-18681|3|61|56|0|401|135036|0|0||0|Burial Shawl||i16,S20,H20|1
-10383|2|61|56|0|404|135032|0|0||0|Commander's Pauldrons|||2
-18528|3|61|56|0|402|135057|0|0||0|Cyclone Spaulders||t11,i11,p9,S14,H14|1
-13133|3|61|56|0|403|135054|0|0||0|Drakesfire Epaulets||t5,i14,p15|2
+14817|2|62|57|0|403|135033|1|0||0|Warstrike Shoulder Pads||t8,i16|2
+13533|2|61|56|0|404|135049|1|0||0|Acid-etched Pauldrons|||1
+18681|3|61|56|0|401|135036|1|0||0|Burial Shawl||i16,S20,H20|1
+10383|2|61|56|0|404|135032|1|0||0|Commander's Pauldrons|||2
+18528|3|61|56|0|402|135057|1|0||0|Cyclone Spaulders||t11,i11,p9,S14,H14|1
+13133|3|61|56|0|403|135054|1|0||0|Drakesfire Epaulets||t5,i14,p15|2
 16980|4|61|56|0|401|135054|1|0||0|Flarecore Mantle||t9,i10,p10|2
 15081|2|61|56|0|403|135038|1|0||0|Heavy Scorpid Shoulders||t14,p13|2
 275737|3|61|0|0|403|135042|2|0||0|Hermit's Pauldron||p13,A26,h1|1
-14688|2|61|56|0|402|135054|0|0||0|Indomitable Epaulets||i18,p5|2
-22305|3|61|56|400|401|135036|0|520||0|Ironweave Mantle||t17,i11|1
-15677|2|61|56|0|403|135054|0|0||0|Magnificent Shoulders|||2
-22405|3|61|56|0|401|135033|0|0||0|Mantle of the Scarlet Crusade||t11,i11,p12,H20|1
+14688|2|61|56|0|402|135054|1|0||0|Indomitable Epaulets||i18,p5|2
+22305|3|61|56|400|401|135036|1|520||0|Ironweave Mantle||t17,i11|1
+15677|2|61|56|0|403|135054|1|0||0|Magnificent Shoulders|||2
+22405|3|61|56|0|401|135033|1|0||0|Mantle of the Scarlet Crusade||t11,i11,p12,H20|1
 14139|3|61|56|0|401|135033|1|0||0|Mooncloth Shoulders||t9,i17,p11|2
-14633|3|61|56|0|401|135033|0|122||0|Necropile Mantle||t17,i11,p9|1
-14325|2|61|56|0|401|135054|0|0||0|Resplendent Epaulets|||2
+14633|3|61|56|0|401|135033|1|122||0|Necropile Mantle||t17,i11,p9|1
+287042|3|61|56|0|404|0|2|0||0|Pauldrons of the Stone Guardian||t12,p11,A24,d6|2
+14325|2|61|56|0|401|135054|1|0||0|Resplendent Epaulets|||2
 13867|2|61|56|0|401|135052|1|0||0|Runecloth Shoulders||i15,p10|2
-13116|3|61|56|0|402|135049|0|0||0|Spaulders of the Unseen||a22,t7,i4|2
-276540|4|61|60|64|403|0|2|2111||0|Spiritcaller Mantle|||2
-13955|3|61|56|0|404|135056|0|0||0|Stoneform Shoulders||d7|1
-13185|3|61|56|0|401|135033|0|0||0|Sunderseer Mantle||t4,i17,p11,S8,H8|1
-12927|3|61|56|0|402|135041|0|0||0|Truestrike Shoulders||A24,h2|1
+13116|3|61|56|0|402|135049|1|0||0|Spaulders of the Unseen||a22,t7,i4|2
+13955|3|61|56|0|404|135056|1|0||0|Stoneform Shoulders||d7|1
+13185|3|61|56|0|401|135033|1|0||0|Sunderseer Mantle||t4,i17,p11,S8,H8|1
+12927|3|61|56|0|402|135041|1|0||0|Truestrike Shoulders||A24,h2|1
 15055|2|61|56|0|402|135044|1|141||0|Volcanic Shoulders|||2
-14868|2|61|56|0|404|135033|0|0||0|Warleader's Shoulders||s6,t17|2
+14868|2|61|56|0|404|135033|1|0||0|Warleader's Shoulders||s6,t17|2
 19849|4|61|0|256|401|135048|1|481||0|Zandalar Demoniac's Mantle||t23,i19,S12,H12|1
 19845|4|61|0|128|401|135048|1|482||0|Zandalar Illusionist's Mantle||t13,i21,p10,S12,H12|1
 19835|4|61|0|8|402|135060|1|478||0|Zandalar Madcap's Mantle||a20,s12,t12,h1|1
-16679|3|60|55|0|403|135041|0|186||0|Beaststalker's Mantle||a11,t17,i7,p4|1
+16679|3|60|55|0|403|135041|1|186||0|Beaststalker's Mantle||a11,t17,i7,p4|1
 15051|3|60|55|0|403|135032|1|489||0|Black Dragonscale Shoulders||t9,A40|2
-18493|3|60|55|0|404|135057|0|0||0|Bulky Iron Spaulders||s15,t12,p5,d6|1
-18494|3|60|55|0|403|135046|0|0||0|Denwatcher's Shoulders||t10,i10,p10,S18,H18|1
-16695|3|60|55|0|401|135033|0|182||0|Devout Mantle||t4,i21,p9|1
-16701|3|60|55|0|401|133732|0|183||0|Dreadmist Mantle||t14,i15,p9|1
+18493|3|60|55|0|404|135057|1|0||0|Bulky Iron Spaulders||s15,t12,p5,d6|1
+273942|4|60|60|256|401|0|2|2100||0|Demonheart Spaulders||t13,i11,S13,H13,h1,c1|2
+18494|3|60|55|0|403|135046|1|0||0|Denwatcher's Shoulders||t10,i10,p10,S18,H18|1
+16695|3|60|55|0|401|135033|1|182||0|Devout Mantle||t4,i21,p9|1
+16701|3|60|55|0|401|133732|1|183||0|Dreadmist Mantle||t14,i15,p9|1
 16995|2|60|0|0|402|135050|1|0||0|Duskwing Mantle||a17,t6|1
-10210|2|60|55|0|401|135041|0|0||0|Elegant Mantle|||2
-13961|3|60|0|0|402|135055|0|0||0|Halycon's Muzzle||i22,p5|1
-8310|2|60|55|0|403|135054|0|0||0|Hero's Pauldrons||i13,p13|2
-16729|3|60|55|0|404|135041|0|188||0|Lightforge Spaulders||a4,s9,t15,i11,p5|1
-16689|3|60|55|0|401|135054|0|181||0|Magister's Mantle||t6,i22,p6|1
-10228|2|60|55|0|402|135042|0|0||0|Nightshade Spaulders|||2
-16669|3|60|55|0|403|135060|0|187||0|Pauldrons of Elements||s6,t14,i15,p6|1
+10210|2|60|55|0|401|135041|1|0||0|Elegant Mantle|||2
+273930|4|60|60|8|402|0|2|2099||0|Grimstitch Spaulders||a16,s9,t16,c1|2
+273890|4|60|60|1024|402|0|2|2115||0|Grovekeeper Mantle||a8,s15,t18,i12|2
+273894|4|60|60|1024|402|0|2|2112||0|Grovekeeper Pauldrons||t14,i12,p11,S8,H24|2
+273886|4|60|60|1024|402|0|2|2114||0|Grovekeeper Shoulderpads||t14,i16,S13,H13|2
+273898|4|60|60|1024|402|0|2|2113||0|Grovekeeper Spaulders||a8,s13,t22,d7|2
+13961|3|60|0|0|402|135055|1|0||0|Halycon's Muzzle||i22,p5|1
+8310|2|60|55|0|403|135054|1|0||0|Hero's Pauldrons||i13,p13|2
+273914|4|60|60|2|404|0|2|2107||0|Justice Epaulets||t14,i10,p9,S6,H20,c1|2
+273918|4|60|60|2|404|0|2|2108||0|Justice Pauldrons||t19,i13,S11,H11,d5|2
+273910|4|60|60|2|404|0|2|2106||0|Justice Spaulders||s15,t11,i11,S10,H10,h1|2
+16729|3|60|55|0|404|135041|1|188||0|Lightforge Spaulders||a4,s9,t15,i11,p5|1
+16689|3|60|55|0|401|135054|1|181||0|Magister's Mantle||t6,i22,p6|1
+273906|4|60|60|128|401|0|2|2098||0|Manaflare Mantle||t14,i12,S13,H13,h1|2
+273922|4|60|60|16|401|0|2|2105||0|Mantle of Conviction||t14,i17,S13,H13,h1|2
+10228|2|60|55|0|402|135042|1|0||0|Nightshade Spaulders|||2
+273926|4|60|60|16|401|0|2|2104||0|Pauldrons of Conviction||t15,i11,p13,S11,H32|2
+16669|3|60|55|0|403|135060|1|187||0|Pauldrons of Elements||s6,t14,i15,p6|1
+273950|4|60|60|1|404|0|2|2103||0|Pauldrons of Glory||s13,t21,d7|2
 272732|3|60|55|1024|402|135054|2|381||0|Premier Beasthide Epaulets||a5,s10,t20,i4|1
 272640|3|60|55|4|403|135032|2|361||0|Premier Chain Shoulders||a13,t19,A12|1
 272736|3|60|55|4|403|135049|2|362||0|Premier Chainmail Pauldrons||a13,t19,A12|1
@@ -1442,142 +1592,157 @@ FGT.GEARDB = {
 272817|3|60|55|16|401|135033|2|344||0|Premier Voidcloth Amice||t19,i12,S11,H11|1
 273387|3|60|55|1024|402|135038|2|2080||0|Premier Wyrmhide Shoulders||t20,i8,S7,H7|1
 12610|2|60|55|0|404|135054|1|0||0|Runic Plate Shoulders|||2
-16708|3|60|55|0|402|135038|0|184||0|Shadowcraft Spaulders||a22,t9|1
-13166|3|60|55|0|404|135054|0|0||0|Slamshot Shoulders||t21,A20|1
-13374|3|60|55|0|401|135033|0|0||0|Soulstealer Mantle||i22,p9|1
-16733|3|60|55|0|404|135061|0|189||0|Spaulders of Valor||a9,s11,t17|1
-18742|3|60|55|0|403|135045|0|0||0|Stratholme Militia Shoulderguard||a22,t9|2
+16708|3|60|55|0|402|135038|1|184||0|Shadowcraft Spaulders||a22,t9|1
+273946|4|60|60|1|404|0|2|2102||0|Shoulders of Glory||a11,s17,t17|2
+13166|3|60|55|0|404|135054|1|0||0|Slamshot Shoulders||t21,A20|1
+13374|3|60|55|0|401|135033|1|0||0|Soulstealer Mantle||i22,p9|1
+16733|3|60|55|0|404|135061|1|189||0|Spaulders of Valor||a9,s11,t17|1
+273938|4|60|60|64|403|0|2|2109||0|Spiritcaller Epaulets||t15,i14,p12,S8,H24|2
+276540|4|60|60|64|403|0|2|2111||0|Spiritcaller Mantle||t15,i13,S12,H12,c1|2
+273934|4|60|60|64|403|0|2|2110||0|Spiritcaller Spaulders||s14,t19,i10,S11,H11|2
+18742|3|60|55|0|403|135045|1|0||0|Stratholme Militia Shoulderguard||a22,t9|2
 252558|2|60|55|0|402|0|2|0||0|Tooled Leather Epaulets||t13,p10,S11,H11|2
 20406|2|60|60|0|401|135036|1|492||0|Twilight Cultist Mantle|||0
-16718|3|60|55|0|402|135032|0|185||0|Wildheart Spaulders||t9,i18,p8|1
-13538|2|60|55|0|403|135044|0|0||0|Windshrieker Pauldrons|||1
-8288|2|59|54|0|401|135033|0|0||0|Arcane Pads||t4,i18|2
+16718|3|60|55|0|402|135032|1|185||0|Wildheart Spaulders||t9,i18,p8|1
+273902|4|60|60|4|403|0|2|2101||0|Wildstalker's Spaulders||a17,t17,i11,p9|2
+13538|2|60|55|0|403|135044|1|0||0|Windshrieker Pauldrons|||1
+8288|2|59|54|0|401|135033|1|0||0|Arcane Pads||t4,i18|2
 15049|3|59|54|0|403|135049|1|491||0|Blue Dragonscale Shoulders||i21,p6|2
-14316|2|59|54|0|401|135056|0|0||0|Celestial Pauldrons|||2
+14316|2|59|54|0|401|135056|1|0||0|Celestial Pauldrons|||2
 15784|2|59|0|0|401|135033|1|0||0|Crystal Breeze Mantle||t12,p13|1
-13257|3|59|54|0|402|135038|0|0||0|Demonic Runed Spaulders||s12,t12,i14|1
-12557|3|59|54|0|404|135056|0|0||0|Ebonsteel Spaulders||a7,s6,t16|1
+13257|3|59|54|0|402|135038|1|0||0|Demonic Runed Spaulders||s12,t12,i14|1
+282021|2|59|54|0|404|135054|2|0||0|Dreadscorn's Spaulders||s7,t13|2
+12557|3|59|54|0|404|135056|1|0||0|Ebonsteel Spaulders||a7,s6,t16|1
 254127|2|59|54|0|401|0|2|0||0|Ghostweave Mantle||p12,S15,H15|2
-15693|2|59|54|0|402|135055|0|0||0|Grand Shoulders|||2
-14937|2|59|54|0|404|135047|0|0||0|Heroic Pauldrons|||2
-10374|2|59|54|0|404|135033|0|0||0|Imbued Plate Pauldrons||s13,p13|2
-15666|2|59|54|0|403|135044|0|0||0|Impenetrable Pauldrons|||2
+15693|2|59|54|0|402|135055|1|0||0|Grand Shoulders|||2
+14937|2|59|54|0|404|135047|1|0||0|Heroic Pauldrons|||2
+10374|2|59|54|0|404|135033|1|0||0|Imbued Plate Pauldrons||s13,p13|2
+15666|2|59|54|0|403|135044|1|0||0|Impenetrable Pauldrons|||2
 281538|2|59|0|0|402|0|2|0||0|Matriarch's Mantle||s10,p14|1
 15058|3|59|54|0|402|135036|1|142||0|Stormshroud Shoulders||t12,c1,d25|2
-8301|2|59|54|0|402|135054|0|0||0|Traveler's Spaulders||s13,p13|2
+8301|2|59|54|0|402|135054|1|0||0|Traveler's Spaulders||s13,p13|2
 275666|2|59|0|0|402|135032|2|0||0|Whitemane's Plateau||p11,S16,H16|1
 252556|2|59|54|0|402|0|2|0||0|Wicked Leather Shoulders||a11,t14|2
-12109|2|58|0|0|401|135033|0|0||0|Azure Moon Amice||t8,i15|1
+12109|2|58|0|0|401|135033|1|0||0|Azure Moon Amice||t8,i15|1
 11605|2|58|53|0|404|135040|1|0||0|Dark Iron Shoulders||t10|2
 12625|3|58|53|0|404|135051|1|0||0|Dawnbringer Shoulders||p10,H44|2
-18320|3|58|53|0|403|135054|0|0||0|Demonheart Spaulders||a14,s9,t14|1
-10281|2|58|53|0|404|135033|0|0||0|Emerald Pauldrons|||2
-10237|2|58|53|0|403|135054|0|0||0|Engraved Pauldrons|||2
-15432|2|58|53|0|402|135039|0|0||0|Peerless Shoulders|||2
+18320|3|58|53|0|403|135054|1|0||0|Demonheart Spaulders||a14,s9,t14|1
+10281|2|58|53|0|404|135033|1|0||0|Emerald Pauldrons|||2
+10237|2|58|53|0|403|135054|1|0||0|Engraved Pauldrons|||2
+15432|2|58|53|0|402|135039|1|0||0|Peerless Shoulders|||2
 15792|2|58|0|0|402|135049|1|0||0|Plow Wood Spaulders||t6,i15,p6|1
-12082|2|58|0|0|402|135047|0|0||0|Wyrmhide Spaulders||h2|1
-14806|2|57|52|0|403|135054|0|0||0|Bloodlust Epaulets||t9,i14|2
+12082|2|58|0|0|402|135047|1|0||0|Wyrmhide Spaulders||h2|1
+14806|2|57|52|0|403|135054|1|0||0|Bloodlust Epaulets||t9,i14|2
 252554|2|57|52|0|402|0|2|0||0|Blue Suede Shoulders||a5,s10,t12|2
-11782|3|57|52|0|401|135033|0|0||0|Boreal Mantle||t5,i8|1
-10100|2|57|52|0|401|135037|0|0||0|Councillor's Shoulders|||2
-22241|3|57|52|0|402|135038|0|0||0|Dark Warder's Pauldrons||a17,s11,t7|1
+11782|3|57|52|0|401|135033|1|0||0|Boreal Mantle||t5,i8|1
+10100|2|57|52|0|401|135037|1|0||0|Councillor's Shoulders|||2
+22241|3|57|52|0|402|135038|1|0||0|Dark Warder's Pauldrons||a17,s11,t7|1
 254119|2|57|52|0|401|0|2|0||0|Earthenweave Mantle||p12,S9,H26|2
-14971|2|57|52|0|404|135051|0|0||0|Glorious Shoulder Pads|||2
-18699|3|57|52|0|402|135058|0|0||0|Icy Tomb Spaulders||a11,t11|2
-14678|2|57|52|0|402|135054|0|0||0|Pridelord Pauldrons||a16,t2,p4|2
-13405|3|57|52|0|404|135056|0|0||0|Wailing Nightbane Pauldrons||s14,t14,d3|1
-10113|2|57|52|0|402|135039|0|0||0|Wanderer's Shoulders|||2
-14298|2|56|51|0|401|135045|0|0||0|Bonecaster's Spaulders|||2
+14971|2|57|52|0|404|135051|1|0||0|Glorious Shoulder Pads|||2
+18699|3|57|52|0|402|135058|1|0||0|Icy Tomb Spaulders||a11,t11|2
+14678|2|57|52|0|402|135054|1|0||0|Pridelord Pauldrons||a16,t2,p4|2
+277117|3|57|52|0|403|135033|2|1||0|Savage Gladiator Shoulders||s11,t16,h1|1
+13405|3|57|52|0|404|135056|1|0||0|Wailing Nightbane Pauldrons||s14,t14,d3|1
+10113|2|57|52|0|402|135039|1|0||0|Wanderer's Shoulders|||2
+284105|2|57|52|0|402|135039|2|0||0|Wildhammer Soldier's Spaulders||a11,s13|2
+14298|2|56|51|0|401|135045|1|0||0|Bonecaster's Spaulders|||2
 11874|2|56|0|0|402|135061|1|0||0|Clouddrift Mantle||a12,s12|1
-13013|3|56|51|0|401|135045|0|0||0|Elder Wizard's Mantle||i20,S11,H11|2
-22212|3|56|51|0|403|135047|0|0||0|Golem Fitted Pauldrons||a13,t17|1
+13013|3|56|51|0|401|135045|1|0||0|Elder Wizard's Mantle||i20,S11,H11|2
+22212|3|56|51|0|403|135047|1|0||0|Golem Fitted Pauldrons||a13,t17|1
 15812|2|56|0|0|401|135033|1|0||0|Orchid Amice||s4,t4,i15,p3|1
-10125|2|56|51|0|403|135033|0|0||0|Ornate Pauldrons|||2
+10125|2|56|51|0|403|135033|1|0||0|Ornate Pauldrons|||2
 252592|2|56|51|0|403|0|2|0||0|Supple Scorpid Shoulders||s8,t12,S9,H9|2
-10170|2|56|51|0|404|135061|0|0||0|Templar Pauldrons|||2
-14860|2|56|51|0|404|135058|0|0||0|Vanguard Pauldrons||a8,t8,p12|2
-8319|2|55|50|0|404|135060|0|0||0|Alabaster Plate Pauldrons||s12,p12|2
+10170|2|56|51|0|404|135061|1|0||0|Templar Pauldrons|||2
+14860|2|56|51|0|404|135058|1|0||0|Vanguard Pauldrons||a8,t8,p12|2
+8319|2|55|50|0|404|135060|1|0||0|Alabaster Plate Pauldrons||s12,p12|2
 252583|2|55|50|0|403|0|2|0||0|Charged Scorpid Shoulders||i12,p8,S9,H9|2
-11722|3|55|50|0|403|135061|0|0||0|Dregmetal Spaulders||s6,t5,i15,p10|1
-11842|3|55|50|0|403|135046|0|0||0|Lead Surveyor's Mantle||i14,p8,S15,H15|1
-10172|2|55|50|0|401|135052|0|0||0|Mystical Mantle|||2
+11722|3|55|50|0|403|135061|1|0||0|Dregmetal Spaulders||s6,t5,i15,p10|1
+11842|3|55|50|0|403|135046|1|0||0|Lead Surveyor's Mantle||i14,p8,S15,H15|1
+10172|2|55|50|0|401|135052|1|0||0|Mystical Mantle|||2
+279829|2|55|1|0|403|0|2|0||0|Naga Scale Spaulders||t14,p3,h1|1
 15822|2|55|0|0|402|135055|1|0||0|Shadowskin Spaulders||a18|1
 11916|2|55|0|0|402|135056|1|0||0|Shizzle's Muzzle||s6,t6,p12|1
-11685|3|55|50|0|402|135044|0|0||0|Splinthide Shoulders||s11,t10,i10,S9,H9|1
-14552|4|55|50|0|404|135051|0|0||0|Stockade Pauldrons||t20,p10,d10|2
-10189|2|55|50|0|402|135054|0|0||0|Swashbuckler's Shoulderpads|||2
-8272|2|54|49|0|403|135058|0|0||0|Ebonhold Shoulderpads||i12,p11|2
-14452|2|54|49|0|401|135055|0|0||0|Highborne Pauldrons||t11,p12|2
+11685|3|55|50|0|402|135044|1|0||0|Splinthide Shoulders||s11,t10,i10,S9,H9|1
+14552|4|55|50|0|404|135051|1|0||0|Stockade Pauldrons||t20,p10,d10|2
+10189|2|55|50|0|402|135054|1|0||0|Swashbuckler's Shoulderpads|||2
+8272|2|54|49|0|403|135058|1|0||0|Ebonhold Shoulderpads||i12,p11|2
+14452|2|54|49|0|401|135055|1|0||0|Highborne Pauldrons||t11,p12|2
 15067|3|54|49|0|402|135037|1|144||0|Ironfeather Shoulders||i20,p8|2
 15061|3|54|49|0|402|135049|1|0||0|Living Shoulders||t8,p13,H31|2
-14929|2|54|49|0|404|135059|0|0||0|Lofty Shoulder Pads|||2
-15656|2|54|49|0|403|135054|0|0||0|Merciless Epaulets|||2
-15187|2|54|49|0|402|135054|0|0||0|Praetorian Pauldrons|||2
+14929|2|54|49|0|404|135059|1|0||0|Lofty Shoulder Pads|||2
+15656|2|54|49|0|403|135054|1|0||0|Merciless Epaulets|||2
+15187|2|54|49|0|402|135054|1|0||0|Praetorian Pauldrons|||2
 11871|2|54|0|0|402|135046|1|0||0|Snarkshaw Spaulders||s12,t11|1
-10200|2|53|48|0|403|135059|0|0||0|Crusader's Pauldrons|||2
-10245|2|53|48|0|404|135049|0|0||0|Heavy Lamellar Pauldrons|||2
-14963|2|53|48|0|404|135036|0|0||0|High Chief's Pauldrons|||2
+10200|2|53|48|0|403|135059|1|0||0|Crusader's Pauldrons|||2
+276741|3|53|48|0|402|0|2|2136||0|Defias Enforcer's Shoulderpads||t13,A28|1
+10245|2|53|48|0|404|135049|1|0||0|Heavy Lamellar Pauldrons|||2
+14963|2|53|48|0|404|135036|1|0||0|High Chief's Pauldrons|||2
 12428|2|53|47|0|404|135033|1|321||0|Imperial Plate Shoulders||s12,t11|2
-15647|2|53|48|0|403|135055|0|0||0|Ironhide Pauldrons|||2
-15395|2|53|48|0|402|135049|0|0||0|Jadefire Epaulets|||2
-22234|3|53|48|0|401|135040|0|0||0|Mantle of Lost Hope||t5,i11,H26|1
-11963|2|53|0|0|402|135056|0|0||0|Penance Spaulders||a8,t11,p7|1
-17732|3|53|48|0|401|135036|0|0||0|Rotgrip Mantle||i17,p11|1
-8263|2|53|48|0|402|135054|0|0||0|Serpentskin Spaulders||i12,p11|2
+15647|2|53|48|0|403|135055|1|0||0|Ironhide Pauldrons|||2
+15395|2|53|48|0|402|135049|1|0||0|Jadefire Epaulets|||2
+22234|3|53|48|0|401|135040|1|0||0|Mantle of Lost Hope||t5,i11,H26|1
+11963|2|53|0|0|402|135056|1|0||0|Penance Spaulders||a8,t11,p7|1
+17732|3|53|48|0|401|135036|1|0||0|Rotgrip Mantle||i17,p11|1
+8263|2|53|48|0|402|135054|1|0||0|Serpentskin Spaulders||i12,p11|2
 260169|2|52|0|0|401|0|2|0||0|Amice of Sorrow||i14,S9,H9|1
-14296|2|52|47|0|401|135049|0|0||0|Arachnidian Pauldrons|||2
-10783|3|52|47|0|402|135049|0|0||0|Atal'ai Spaulders|||1
+14296|2|52|47|0|401|135049|1|0||0|Arachnidian Pauldrons|||2
+10783|3|52|47|0|402|135049|1|0||0|Atal'ai Spaulders|||1
 250586|2|52|47|0|404|135041|2|1968||0|Blessed Plate Pauldrons||s5,t7,S15,H15|2
-11632|3|52|47|0|404|135057|0|0||0|Earthslag Shoulders||s13,t8,i8,S9,H9|1
-8250|2|52|47|0|401|135054|0|0||0|Imperial Red Mantle||a4,i15|2
-11624|3|52|47|0|401|135056|0|0||0|Kentic Amice||t5,i13,p6,S14,H14|1
-10085|2|52|47|0|403|135061|0|0||0|Lord's Pauldrons|||2
-20517|3|52|0|0|404|135047|0|0||0|Razorsteel Shoulders||a10,s10,t9,h1|1
-10063|2|51|46|0|401|135049|0|0||0|Duskwoven Amice|||2
-14669|2|51|46|0|402|135049|0|0||0|Keeper's Mantle||t6,i14|2
-17749|3|51|46|0|402|135037|0|0||0|Phytoskin Spaulders||a16,t10|1
-14797|2|51|46|0|403|135060|0|0||0|Protector Pads||t9,p6|2
-10134|2|51|46|0|404|135045|0|0||0|Revenant Shoulders|||2
-10075|2|51|46|0|402|135044|0|0||0|Righteous Spaulders|||2
-14851|2|51|46|0|404|135051|0|0||0|Sunscale Spaulders||a5,t13,p4|2
-13066|3|51|46|0|404|135055|0|0||0|Wyrmslayer Spaulders||a8,s12,t12|2
+284064|3|52|47|0|404|135055|2|0||0|Cliffbreaker's Pauldrons||s12,t12,S13,H13|1
+11632|3|52|47|0|404|135057|1|0||0|Earthslag Shoulders||s13,t8,i8,S9,H9|1
+8250|2|52|47|0|401|135054|1|0||0|Imperial Red Mantle||a4,i15|2
+11624|3|52|47|0|401|135056|1|0||0|Kentic Amice||t5,i13,p6,S14,H14|1
+10085|2|52|47|0|403|135061|1|0||0|Lord's Pauldrons|||2
+20517|3|52|0|0|404|135047|1|0||0|Razorsteel Shoulders||a10,s10,t9,h1|1
+287022|3|52|47|0|403|135053|2|0||0|Spaulders of Containment||s10,t15|2
+10063|2|51|46|0|401|135049|1|0||0|Duskwoven Amice|||2
+14669|2|51|46|0|402|135049|1|0||0|Keeper's Mantle||t6,i14|2
+17749|3|51|46|0|402|135037|1|0||0|Phytoskin Spaulders||a16,t10|1
+14797|2|51|46|0|403|135060|1|0||0|Protector Pads||t9,p6|2
+10134|2|51|46|0|404|135045|1|0||0|Revenant Shoulders|||2
+10075|2|51|46|0|402|135044|1|0||0|Righteous Spaulders|||2
+14851|2|51|46|0|404|135051|1|0||0|Sunscale Spaulders||a5,t13,p4|2
+13066|3|51|46|0|404|135055|1|0||0|Wyrmslayer Spaulders||a8,s12,t12|2
 11889|2|50|0|0|404|135059|1|0||0|Bark Iron Pauldrons||a5,s11,p8|1
-9476|3|50|45|0|404|135032|0|0||0|Big Bad Pauldrons||s12,t12,p8|1
-9955|2|50|45|0|402|135032|0|0||0|Chieftain's Shoulders|||2
+9476|3|50|45|0|404|135032|1|0||0|Big Bad Pauldrons||s12,t12,p8|1
+9955|2|50|45|0|402|135032|1|0||0|Chieftain's Shoulders|||2
 10745|2|50|0|0|402|135049|1|0||0|Kaylari Shoulders||s11,t10|1
 281275|2|50|0|0|401|0|2|0||0|Mantle of Scaleslaying||t11,p11|1
-8133|2|50|45|0|403|135057|0|0||0|Myrmidon's Pauldrons||i11,p10|2
-14278|2|50|45|0|401|135056|0|0||0|Opulent Mantle|||2
-10209|2|50|45|0|404|135044|0|0||0|Overlord's Spaulders|||2
+8133|2|50|45|0|403|135057|1|0||0|Myrmidon's Pauldrons||i11,p10|2
+14278|2|50|45|0|401|135056|1|0||0|Opulent Mantle|||2
+10209|2|50|45|0|404|135044|1|0||0|Overlord's Spaulders|||2
 281276|2|50|0|0|402|0|2|0||0|Pauldrons of Scaleslaying||a11,t11|1
 281278|2|50|0|0|404|0|2|0||0|Shoulderplates of Scaleslaying||s11,t11|1
 281277|2|50|0|0|403|0|2|0||0|Shoulders of Scaleslaying||t11,i11|1
-9941|2|49|44|0|401|135033|0|0||0|Abjurer's Mantle|||2
-15638|2|49|44|0|403|135061|0|0||0|Formidable Shoulder Pads|||2
-14921|2|49|44|0|404|135047|0|0||0|Jade Epaulets|||2
-15177|2|49|44|0|402|135044|0|0||0|Potent Shoulders|||2
+9941|2|49|44|0|401|135033|1|0||0|Abjurer's Mantle|||2
+15638|2|49|44|0|403|135061|1|0||0|Formidable Shoulder Pads|||2
+14921|2|49|44|0|404|135047|1|0||0|Jade Epaulets|||2
+15177|2|49|44|0|402|135044|1|0||0|Potent Shoulders|||2
 10038|2|49|44|0|401|135056|1|0||0|Stormcloth Shoulders|||2
-14443|2|49|44|0|401|135049|0|0||0|Venomshroud Mantle||t4,i12|2
-9965|2|49|44|0|403|135036|0|0||0|Warmonger's Pauldrons|||2
+14443|2|49|44|0|401|135049|1|0||0|Venomshroud Mantle||t4,i12|2
+9965|2|49|44|0|403|135036|1|0||0|Warmonger's Pauldrons|||2
+270098|2|48|0|0|402|135032|2|0||0|Dank Shoulderpads||a4,t13|1
 19037|2|48|0|0|404|135057|1|0||0|Emerald Peak Spaulders||a6,s7,t10|1
 9647|2|48|0|0|402|135056|1|0||0|Failed Flying Experiment||a10,s10|1
-14273|2|48|43|0|401|135048|0|0||0|Gaea's Amice|||2
-15628|2|48|43|0|403|135032|0|0||0|Gryphon Mail Pauldrons|||2
-8124|2|48|43|0|402|135054|0|0||0|Heraldic Spaulders||i10,p10|2
-8111|2|48|43|0|401|135049|0|0||0|Hibernal Mantle||i10,p10|2
-15386|2|48|43|0|402|135032|0|0||0|Rageclaw Shoulder Pads|||2
+14273|2|48|43|0|401|135048|1|0||0|Gaea's Amice|||2
+15628|2|48|43|0|403|135032|1|0||0|Gryphon Mail Pauldrons|||2
+8124|2|48|43|0|402|135054|1|0||0|Heraldic Spaulders||i10,p10|2
+8111|2|48|43|0|401|135049|1|0||0|Hibernal Mantle||i10,p10|2
+15386|2|48|43|0|402|135032|1|0||0|Rageclaw Shoulder Pads|||2
 16739|2|48|0|0|402|135038|1|0||0|Rugwood Mantle||t6,i11,p4|1
+286552|3|48|43|0|401|0|2|0||0|Sandcaster's Mantle||p14,S9|1
 8207|2|48|43|0|403|135035|1|0||0|Tough Scorpid Shoulders||a10,p10|2
-8281|2|48|43|0|404|135059|0|0||0|Valorous Pauldrons||s10,p10|2
-14955|2|47|42|0|404|135054|0|0||0|Bloodforged Shoulder Pads|||2
-14266|2|47|42|0|401|135033|0|0||0|Bloodwoven Pads|||2
-7532|2|47|42|0|402|135032|0|0||0|Cabalist Spaulders|||2
-7543|2|47|42|0|403|135053|0|0||0|Champion's Pauldrons|||2
-11310|3|47|42|0|401|135036|0|0||0|Flameseer Mantle||p10|1
-10092|2|47|42|0|404|135039|0|0||0|Gothic Plate Spaulders|||2
-17779|2|47|0|0|404|135054|0|0||0|Hulkstone Pauldrons||s5,t13|1
+8281|2|48|43|0|404|135059|1|0||0|Valorous Pauldrons||s10,p10|2
+14955|2|47|42|0|404|135054|1|0||0|Bloodforged Shoulder Pads|||2
+14266|2|47|42|0|401|135033|1|0||0|Bloodwoven Pads|||2
+7532|2|47|42|0|402|135032|1|0||0|Cabalist Spaulders|||2
+7543|2|47|42|0|403|135053|1|0||0|Champion's Pauldrons|||2
+282560|3|47|42|0|403|135034|2|0||0|Earth-Infused Rockguards||t13,i10,S8,H8|1
+11310|3|47|42|0|401|135036|1|0||0|Flameseer Mantle||p10|1
+10092|2|47|42|0|404|135039|1|0||0|Gothic Plate Spaulders|||2
+17779|2|47|0|0|404|135054|1|0||0|Hulkstone Pauldrons||s5,t13|1
 250580|3|47|42|0|404|0|2|0||0|Justicar's Pauldrons||s8,t10,S16,H16|1
-14787|2|47|42|0|403|135054|0|0||0|Khan's Mantle||a12,p5|2
+14787|2|47|42|0|403|135054|1|0||0|Khan's Mantle||a12,p5|2
 252538|3|47|42|0|402|0|2|0||0|Mender's Leather Shoulders||t6,i9,p7,S8,H24|1
 252569|3|47|42|0|403|0|2|0||0|Mender's Mail Shoulders||t6,i9,p7,S8,H24|1
 7932|2|47|42|0|403|135043|1|0||0|Mithril Scale Shoulders||t10,p10|2
@@ -1591,7 +1756,9 @@ FGT.GEARDB = {
 250579|3|47|42|0|404|0|2|0||0|Prefect's Pauldrons||t8,i10,S10,H29|1
 252534|3|47|42|0|402|0|2|0||0|Prowler's Leather Shoulders||a9,s11,t7,i6|1
 10029|2|47|42|0|401|135054|1|0||0|Red Mageweave Shoulders||i15|2
-14660|2|47|42|0|402|135036|0|0||0|Scorpashi Shoulder Pads||a7,s6,t10|2
+274660|3|47|42|0|403|135038|2|0||0|Sandarr's Shoulders||s6,t12,p12|1
+274638|3|47|42|0|403|135050|2|0||0|Sandfury Pauldrons||i7,p11,S15,H15|1
+14660|2|47|42|0|402|135036|1|0||0|Scorpashi Shoulder Pads||a7,s6,t10|2
 250577|3|47|42|0|404|0|2|0||0|Sentinel's Pauldrons||s8,t13,d10|1
 10028|2|47|42|0|401|135056|1|0||0|Shadoweave Shoulders||t7|2
 252568|3|47|42|0|403|0|2|0||0|Skirmisher's Mail Shoulders||s11,t7,i6,S10,H10|1
@@ -1602,190 +1769,213 @@ FGT.GEARDB = {
 252536|3|47|42|0|402|0|2|0||0|Warden's Leather Shoulders||a7,s9,t11|1
 250578|3|47|42|0|404|0|2|0||0|Warder's Pauldrons||t13,S9,H9,d10|1
 10027|2|46|41|0|401|135056|1|0||0|Black Mageweave Shoulders||i9,p10|2
-4733|2|46|41|0|403|135040|0|0||0|Blackforge Pauldrons||i10,p9|2
-9531|2|46|0|0|404|135054|0|0||0|Gemshale Pauldrons||s10,t9|1
-7523|2|46|41|0|401|135033|0|0||0|Gossamer Shoulderpads|||2
+4733|2|46|41|0|403|135040|1|0||0|Blackforge Pauldrons||i10,p9|2
+9531|2|46|0|0|404|135054|1|0||0|Gemshale Pauldrons||s10,t9|1
+7523|2|46|41|0|401|135033|1|0||0|Gossamer Shoulderpads|||2
+287014|3|46|41|0|404|135053|2|2135||0|Krol'dok Warplate Pauldrons||t14,h1|2
 11502|2|46|0|0|402|135055|1|0||0|Loreskin Shoulders||s10,p9|1
-15617|2|45|40|0|403|135053|0|0||0|Bonelink Epaulets|||2
-14909|2|45|40|0|404|135042|0|0||0|Brutish Shoulders|||2
-8144|2|45|40|0|404|135060|0|0||0|Chromite Pauldrons||s10,t9|2
+15617|2|45|40|0|403|135053|1|0||0|Bonelink Epaulets|||2
+14909|2|45|40|0|404|135042|1|0||0|Brutish Shoulders|||2
+8144|2|45|40|0|404|135060|1|0||0|Chromite Pauldrons||s10,t9|2
+282004|2|45|40|0|403|135046|2|0||0|Flesheater's Scales||a11,t7|2
+287008|3|45|40|0|401|0|2|0||0|Ogre Magi's Mantle||t13,i6,h1|2
 7928|2|45|40|0|404|135040|1|0||0|Ornate Mithril Shoulder||s5,d25|2
+275036|2|45|0|0|404|135047|2|0||0|Pauldron of Order||s11,p7|1
 277236|3|45|0|0|404|0|2|0||0|Pauldrons of Vindication||s10,t10,c1|1
-9411|2|45|40|0|403|135033|0|0||0|Rockshard Pauldrons||s2,i9,p9|1
-9912|2|45|40|0|401|135033|0|0||0|Royal Amice|||2
+9411|2|45|40|0|403|135033|1|0||0|Rockshard Pauldrons||s2,i9,p9|1
+9912|2|45|40|0|401|135033|1|0||0|Royal Amice|||2
 277220|2|45|0|0|402|0|2|0||0|Shabby Spaulders||t10,i8|1
-13115|3|45|40|0|402|135050|0|0||0|Sheepshear Mantle||t3,i16,p6|2
+13115|3|45|40|0|402|135050|1|0||0|Sheepshear Mantle||t3,i16,p6|2
 250541|2|45|40|0|404|0|2|0||0|Shining Mithril Pauldrons||s10,S11,H11|2
 277228|2|45|40|0|403|0|2|0||0|Snakescale Pauldrons||a11,t6|1
 277212|2|45|40|0|401|0|2|0||0|Soulwoven Epaulets||t9,p9|1
-9430|3|45|40|0|403|135049|0|0||0|Spaulders of a Lost Age||t16,p7|2
+9430|3|45|40|0|403|135049|1|0||0|Spaulders of a Lost Age||t16,p7|2
 274751|2|45|40|0|402|0|2|0||0|Sunburn Spaulders|Requires Friendly with Gadgetzan|a11,A12|1
-9923|2|45|40|0|402|135049|0|0||0|Tracker's Shoulderpads|||2
-14432|2|45|40|0|401|135033|0|0||0|Windchaser Amice||a3,i13|2
-15608|2|44|39|0|403|135040|0|0||0|Ancient Pauldrons|||2
-9934|2|44|39|0|403|135054|0|0||0|Brigade Pauldrons|||2
-4737|2|44|39|0|402|135036|0|0||0|Imperial Leather Spaulders||s9,p9|2
-15169|2|44|39|0|402|135054|0|0||0|Imposing Shoulders|||2
-14247|2|44|39|0|401|135043|0|0||0|Lunar Mantle|||2
-14841|2|44|40|0|404|135054|0|0||0|Tyrant's Epaulets||a4,t12|2
+9923|2|45|40|0|402|135049|1|0||0|Tracker's Shoulderpads|||2
+14432|2|45|40|0|401|135033|1|0||0|Windchaser Amice||a3,i13|2
+15608|2|44|39|0|403|135040|1|0||0|Ancient Pauldrons|||2
+9934|2|44|39|0|403|135054|1|0||0|Brigade Pauldrons|||2
+4737|2|44|39|0|402|135036|1|0||0|Imperial Leather Spaulders||s9,p9|2
+15169|2|44|39|0|402|135054|1|0||0|Imposing Shoulders|||2
+14247|2|44|39|0|401|135043|1|0||0|Lunar Mantle|||2
+274996|3|44|39|0|403|0|2|0||0|Resistance Breaker Spaulder||a10,t15|1
+14841|2|44|40|0|404|135054|1|0||0|Tyrant's Epaulets||a4,t12|2
 8210|2|44|39|0|402|135049|1|0||0|Wild Leather Shoulders|||2
-7491|2|43|38|0|403|135049|0|0||0|Captain's Shoulderguards|||2
+7491|2|43|38|0|403|135049|1|0||0|Captain's Shoulderguards|||2
 271811|3|43|1|0|403|0|2|0||0|Clacking Carapace Spaulders||a7,t14,A8|1
-14243|2|43|38|0|401|135033|0|0||0|Darkmist Mantle|||2
-9971|2|43|40|0|404|135054|0|0||0|Embossed Plate Pauldrons|||2
-4734|2|43|38|0|401|135033|0|0||0|Mistscape Mantle||i11,p5|2
-14776|2|43|38|0|403|135054|0|0||0|Ravager's Mantle||s7,t5,p3|2
-13132|3|43|38|0|403|135042|0|0||0|Skeletal Shoulders||s6,t15|2
-14946|2|43|40|0|404|135053|0|0||0|Warbringer's Spaulders|||2
-15375|2|43|38|0|402|135054|0|0||0|Wolf Rider's Shoulder Pads|||2
-9292|2|42|40|0|404|135040|0|0||0|Field Plate Pauldrons|||2
-10774|3|42|37|0|402|135059|0|0||0|Fleshhide Shoulders||a6,s5,t15|1
-7718|3|42|37|0|403|135032|0|0||0|Herod's Shoulder||s6,t15|1
+14243|2|43|38|0|401|135033|1|0||0|Darkmist Mantle|||2
+9971|2|43|40|0|404|135054|1|0||0|Embossed Plate Pauldrons|||2
+4734|2|43|38|0|401|135033|1|0||0|Mistscape Mantle||i11,p5|2
+14776|2|43|38|0|403|135054|1|0||0|Ravager's Mantle||s7,t5,p3|2
+13132|3|43|38|0|403|135042|1|0||0|Skeletal Shoulders||s6,t15|2
+14946|2|43|40|0|404|135053|1|0||0|Warbringer's Spaulders|||2
+15375|2|43|38|0|402|135054|1|0||0|Wolf Rider's Shoulder Pads|||2
+9292|2|42|40|0|404|135040|1|0||0|Field Plate Pauldrons|||2
+10774|3|42|37|0|402|135059|1|0||0|Fleshhide Shoulders||a6,s5,t15|1
+7718|3|42|37|0|403|135032|1|0||0|Herod's Shoulder||s6,t15|1
 8192|2|42|37|0|402|135038|1|0||0|Nightscape Shoulders||a11,t5|2
-7482|2|42|37|0|402|135049|0|0||0|Ranger Shoulders|||2
-7473|2|42|37|0|401|135033|0|0||0|Regal Mantle|||2
-15597|2|42|37|0|403|135052|0|0||0|Steadfast Shoulders|||2
-14830|2|42|40|0|404|135042|0|0||0|Symbolic Pauldrons||t11,p5|2
+7482|2|42|37|0|402|135049|1|0||0|Ranger Shoulders|||2
+7473|2|42|37|0|401|135033|1|0||0|Regal Mantle|||2
+15597|2|42|37|0|403|135052|1|0||0|Steadfast Shoulders|||2
+14830|2|42|40|0|404|135042|1|0||0|Symbolic Pauldrons||t11,p5|2
 254033|2|41|36|0|401|0|2|0||0|Earthen Silk Shoulders||p8,S6,H18|2
 7918|2|41|40|0|404|135053|1|0||0|Heavy Mithril Shoulder||t12|2
-9894|2|41|36|0|402|135039|0|0||0|Huntsman's Shoulders|||2
-19507|2|41|36|0|401|135058|0|0||1|Inquisitor's Shawl||i8,S9,H9|1
-9904|2|41|36|0|403|135057|0|0||0|Jazeraint Pauldrons|||2
-8163|2|41|40|0|404|135043|0|0||0|Jouster's Pauldrons||s9,p8|2
-9389|2|41|36|0|402|135056|0|0||0|Revelosh's Spaulders|||1
-14901|2|41|40|0|404|135036|0|0||0|Saltstone Shoulder Pads|||2
-9881|2|41|36|0|401|135033|0|0||0|Sorcerer Mantle|||2
-15583|2|41|36|0|403|135041|0|0||0|Sparkleshell Shoulder Pads|||2
-14603|2|41|36|0|402|135056|0|0||0|Warden's Mantle||t4,i9,p4|2
+9894|2|41|36|0|402|135039|1|0||0|Huntsman's Shoulders|||2
+19507|2|41|36|0|401|135058|1|0||1|Inquisitor's Shawl||i8,S9,H9|1
+9904|2|41|36|0|403|135057|1|0||0|Jazeraint Pauldrons|||2
+8163|2|41|40|0|404|135043|1|0||0|Jouster's Pauldrons||s9,p8|2
+9389|2|41|36|0|402|135056|1|0||0|Revelosh's Spaulders|||1
+281676|2|41|36|0|402|135037|2|0||0|Rog'mar Trainee Shoulderpads||a10,t5|2
+279879|3|41|1|0|402|0|2|0||0|Rune-Etched Epaulets||a11,t12,d4|1
+14901|2|41|40|0|404|135036|1|0||0|Saltstone Shoulder Pads|||2
+282704|3|41|36|0|401|135036|2|0||0|Shadow Council Apprentice's Mantle||i12,h1|1
+9881|2|41|36|0|401|135033|1|0||0|Sorcerer Mantle|||2
+15583|2|41|36|0|403|135041|1|0||0|Sparkleshell Shoulder Pads|||2
+274607|3|41|36|0|403|0|2|0||0|Viscera Spaulders||s9,t10|1
+14603|2|41|36|0|402|135056|1|0||0|Warden's Mantle||t4,i9,p4|2
+287001|3|41|36|0|402|0|2|0||0|Waterlogged Shoulderpads||t12,i8,h1|2
 3765|2|40|0|0|403|135034|1|0||0|Brigand's Pauldrons||s8,t8|1
-4725|2|40|35|0|403|135045|0|0||0|Chief Brigadier Pauldrons||s8,p8|2
+4725|2|40|35|0|403|135045|1|0||0|Chief Brigadier Pauldrons||s8,p8|2
 6747|2|40|0|0|403|135034|1|0||0|Enforcer Pauldrons||s8,t8|1
 250539|2|40|35|0|403|0|2|0||0|Hard Gold Pauldrons||s11,S5,H5|2
-15574|2|40|35|0|403|135058|0|0||0|Marauder's Shoulder Pads|||2
-15158|2|40|35|0|402|135053|0|0||0|Nocturnal Shoulder Pads|||2
+15574|2|40|35|0|403|135058|1|0||0|Marauder's Shoulder Pads|||2
+279889|2|40|1|0|401|0|2|0||0|Naga Priestess's Mantle||t8,p6,S3,H10|1
+15158|2|40|35|0|402|135053|1|0||0|Nocturnal Shoulder Pads|||2
 6792|2|40|0|0|403|135060|1|0||0|Sanguine Pauldrons||s8,p8|1
-14423|2|40|35|0|401|135033|0|0||0|Silksand Shoulder Pads||s1,i11,p3|2
-4729|2|39|34|0|401|135033|0|0||0|Aurora Mantle||t8,p8|2
-14232|2|39|34|0|401|135033|0|0||0|Embersilk Mantle|||2
-4731|2|39|34|0|402|135056|0|0||0|Glyphed Epaulets||s8,p8|2
-15368|2|39|34|0|402|135039|0|0||0|Trickster's Pauldrons|||2
+14423|2|40|35|0|401|135033|1|0||0|Silksand Shoulder Pads||s1,i11,p3|2
+4729|2|39|34|0|401|135033|1|0||0|Aurora Mantle||t8,p8|2
+14232|2|39|34|0|401|135033|1|0||0|Embersilk Mantle|||2
+4731|2|39|34|0|402|135056|1|0||0|Glyphed Epaulets||s8,p8|2
+15368|2|39|34|0|402|135039|1|0||0|Trickster's Pauldrons|||2
 16793|2|38|0|0|403|135047|1|0||0|Arcmetal Shoulders||a9,t5|1
 7060|2|38|33|0|401|135058|1|0||0|Azure Shoulders||t5|2
 7059|2|38|33|0|401|135054|1|0||0|Crimson Silk Shoulders||i8,p7|2
-14767|2|38|33|0|403|135052|0|0||0|Enduring Pauldrons||s8,t7|2
-7755|3|38|33|0|402|135044|0|0||0|Flintrock Shoulders||a10,s5,t10|2
-14223|2|38|33|0|401|135033|0|0||0|Geomancer's Spaulders|||2
-14596|2|38|33|0|402|135038|0|0||0|Hawkeye's Epaulets||a9,t5|2
-7459|2|38|33|0|403|135058|0|0||0|Knight's Pauldrons|||2
-7712|2|38|33|0|401|135036|0|0||0|Mantle of Doan||i8,p7|1
-13103|3|38|33|0|401|135049|0|0||0|Pads of the Venom Spider||t12,p6|2
-7445|2|38|33|0|402|135039|0|0||0|Sentinel Shoulders|||2
-7435|2|38|33|0|401|135033|0|0||0|Twilight Mantle|||2
+14767|2|38|33|0|403|135052|1|0||0|Enduring Pauldrons||s8,t7|2
+7755|3|38|33|0|402|135044|1|0||0|Flintrock Shoulders||a10,s5,t10|2
+14223|2|38|33|0|401|135033|1|0||0|Geomancer's Spaulders|||2
+14596|2|38|33|0|402|135038|1|0||0|Hawkeye's Epaulets||a9,t5|2
+7459|2|38|33|0|403|135058|1|0||0|Knight's Pauldrons|||2
+7712|2|38|33|0|401|135036|1|0||0|Mantle of Doan||i8,p7|1
+13103|3|38|33|0|401|135049|1|0||0|Pads of the Venom Spider||t12,p6|2
+7445|2|38|33|0|402|135039|1|0||0|Sentinel Shoulders|||2
+7435|2|38|33|0|401|135033|1|0||0|Twilight Mantle|||2
 15698|2|38|0|0|403|135045|1|0||0|Wrangling Spaulders||a2,s8,t6|1
-9863|2|37|32|0|402|135039|0|0||0|Archer's Shoulderpads|||2
-4810|2|37|32|0|402|135039|0|0||0|Boulder Pads||s8,p7|2
+9863|2|37|32|0|402|135039|1|0||0|Archer's Shoulderpads|||2
+4810|2|37|32|0|402|135039|1|0||0|Boulder Pads||s8,p7|2
 4123|2|37|0|0|403|135038|1|0||0|Frost Metal Pauldrons||t11|1
-9872|2|37|32|0|403|135040|0|0||0|Renegade Pauldrons|||2
-4197|3|36|0|0|401|135036|0|0||0|Berylline Pads||t5,i10,p6|1
-9850|2|36|31|0|401|135036|0|0||0|Conjurer's Mantle|||2
-15150|2|36|31|0|402|135039|0|0||0|Ghostwalker Pads|||2
+9872|2|37|32|0|403|135040|1|0||0|Renegade Pauldrons|||2
+279842|3|36|1|0|403|0|2|0||0|Battle Spaulders||s4,t11,p7|1
+4197|3|36|0|0|401|135036|1|0||0|Berylline Pads||t5,i10,p6|1
+9850|2|36|31|0|401|135036|1|0||0|Conjurer's Mantle|||2
+15150|2|36|31|0|402|135039|1|0||0|Ghostwalker Pads|||2
 7057|2|36|31|0|401|135049|1|0||0|Green Silken Shoulders||i11|2
 4443|2|36|0|0|403|135038|1|0||0|Grim Pauldrons||s7,p7|1
-15562|2|36|31|0|403|135046|0|0||0|Pillager's Pauldrons|||2
-14412|2|36|31|0|401|135034|0|0||0|Stonecloth Epaulets||t4,i9|2
+15562|2|36|31|0|403|135046|1|0||0|Pillager's Pauldrons|||2
+279839|3|36|1|0|403|0|2|0||0|Spellguard Pauldrons||s4,t11,i7|1
+14412|2|36|31|0|401|135034|1|0||0|Stonecloth Epaulets||t4,i9|2
 277051|2|35|30|0|402|0|2|0||0|Azure Gustwoven Spaulders||a7,t7|2
 277049|2|35|30|0|403|0|2|0||0|Azure Skyforged Pauldrons||a7,t7|2
 277055|2|35|30|0|401|0|2|0||0|Azure Stormsewn Epaulets||t7,p7|2
 277053|2|35|30|0|402|0|2|0||0|Azure Windraveled Drapes||t7,p7|2
 5964|2|35|30|0|402|135039|1|0||0|Barbaric Shoulders||a5,t6,p5|2
-7684|2|35|30|0|401|135036|0|0||0|Bloodmage Mantle||i8,p4|1
+7684|2|35|30|0|401|135036|1|0||0|Bloodmage Mantle||i8,p4|1
 277043|2|35|30|0|402|0|2|0||0|Cloudy Gustwoven Spaulders||a7,t7|2
 277041|2|35|30|0|403|0|2|0||0|Cloudy Skyforged Pauldrons||a7,t7|2
 277047|2|35|30|0|401|0|2|0||0|Cloudy Stormsewn Epaulets||t7,p7|2
 277045|2|35|30|0|402|0|2|0||0|Cloudy Windraveled Drapes||t7,p7|2
 270044|2|35|0|0|402|135039|2|0||0|Darkshire Shoulderguards||t7,p7|1
 3841|2|35|30|0|403|135040|1|0||0|Golden Scale Shoulders||s7,p6|2
-15357|2|35|30|0|402|135039|0|0||0|Headhunter's Spaulders|||2
-4721|2|35|30|0|402|135038|0|0||0|Insignia Mantle||a7,p7|2
-6404|2|35|30|0|403|135038|0|0||0|Mail Combat Spaulders||s7,p7|2
+15357|2|35|30|0|402|135039|1|0||0|Headhunter's Spaulders|||2
+4721|2|35|30|0|402|135038|1|0||0|Insignia Mantle||a7,p7|2
+6404|2|35|30|0|403|135038|1|0||0|Mail Combat Spaulders||s7,p7|2
 3560|2|35|0|0|401|135036|1|0||0|Mantle of Honor||i7,p7|1
-4718|2|35|30|0|401|135036|0|0||0|Nightsky Mantle||i8,p5|2
-14212|2|35|30|0|401|135049|0|0||0|Vital Shoulders|||2
-15140|2|34|29|0|402|135042|0|0||0|Cutthroat's Mantle|||2
+4718|2|35|30|0|401|135036|1|0||0|Nightsky Mantle||i8,p5|2
+273051|3|35|30|0|401|0|2|2134||0|Violet Sorcerer's Mantle||i9|1
+14212|2|35|30|0|401|135049|1|0||0|Vital Shoulders|||2
+15140|2|34|29|0|402|135042|1|0||0|Cutthroat's Mantle|||2
 4140|2|34|0|0|401|135037|1|0||0|Palm Frond Mantle||i7,p6|1
-15553|2|34|29|0|403|135049|0|0||0|Thick Scale Shoulder Pads|||2
-14201|2|34|29|0|401|135036|0|0||0|Thistlefur Mantle|||2
-7367|2|33|28|0|401|135057|0|0||0|Elder's Mantle|||2
-7408|2|33|28|0|402|135039|0|0||0|Infiltrator Shoulders|||2
-7750|2|33|0|0|401|135054|0|0||0|Mantle of Woe||i7,p4|1
+15553|2|34|29|0|403|135049|1|0||0|Thick Scale Shoulder Pads|||2
+14201|2|34|29|0|401|135036|1|0||0|Thistlefur Mantle|||2
+285191|2|33|28|0|403|135040|2|0||0|Banished Centaur's Pauldrons||t7,p4|2
+7367|2|33|28|0|401|135057|1|0||0|Elder's Mantle|||2
+7408|2|33|28|0|402|135039|1|0||0|Infiltrator Shoulders|||2
+7750|2|33|0|0|401|135054|1|0||0|Mantle of Woe||i7,p4|1
 11884|2|33|0|0|401|135033|1|0||0|Moonlit Amice||t7,p6|1
-7424|2|33|28|0|403|135057|0|0||0|Phalanx Spaulders|||2
-9842|2|32|27|0|403|135046|0|0||0|Banded Pauldrons|||2
+7424|2|33|28|0|403|135057|1|0||0|Phalanx Spaulders|||2
+273028|3|33|28|0|403|135058|2|0||0|Reliquary Mantle||t12|1
+273047|3|33|28|0|402|0|2|0||0|Unstable Crystalline Shoulderpads||a9,t6|1
+9842|2|32|27|0|403|135046|1|0||0|Banded Pauldrons|||2
 7913|2|32|27|0|403|135054|1|0||0|Barbaric Iron Shoulders||a6,s6|2
-6697|3|32|27|0|401|135036|0|0||0|Batwing Mantle||a3,i10,p5|1
-14587|2|32|27|0|402|135039|0|0||0|Dokebi Mantle||s2,t6,p5|2
-9824|2|32|27|0|401|135037|0|0||0|Durable Shoulders|||2
+6697|3|32|27|0|401|135036|1|0||0|Batwing Mantle||a3,i10,p5|1
+14587|2|32|27|0|402|135039|1|0||0|Dokebi Mantle||s2,t6,p5|2
+9824|2|32|27|0|401|135037|1|0||0|Durable Shoulders|||2
 5820|2|32|0|0|401|135036|1|0||0|Faerie Mantle||i6,p6|1
 3840|2|32|27|0|403|135040|1|0||0|Green Iron Shoulders||s4,t7|2
-14397|2|32|27|0|401|135037|0|0||0|Resilient Mantle||i9|2
-9834|2|32|27|0|402|135039|0|0||0|Scaled Leather Shoulders|||2
-7727|3|32|27|0|402|135054|0|0||0|Watchman Pauldrons||s3,t11,p4|2
-15542|2|32|27|0|403|135040|0|0||0|Wicked Chain Shoulder Pads|||2
-2278|3|31|26|0|402|135049|0|0||0|Forest Tracker Epaulets||a11,s5|2
-15345|2|31|26|0|402|135039|0|0||0|Pathfinder Shoulder Pads|||2
-14758|2|31|26|0|403|135054|0|0||0|Slayer's Shoulder Pads||s3,t5|2
-6685|2|30|25|0|401|135040|0|0||0|Death Speaker Mantle||i7,p3|1
+14397|2|32|27|0|401|135037|1|0||0|Resilient Mantle||i9|2
+9834|2|32|27|0|402|135039|1|0||0|Scaled Leather Shoulders|||2
+7727|3|32|27|0|402|135054|1|0||0|Watchman Pauldrons||s3,t11,p4|2
+15542|2|32|27|0|403|135040|1|0||0|Wicked Chain Shoulder Pads|||2
+2278|3|31|26|0|402|135049|1|0||0|Forest Tracker Epaulets||a11,s5|2
+15345|2|31|26|0|402|135039|1|0||0|Pathfinder Shoulder Pads|||2
+14758|2|31|26|0|403|135054|1|0||0|Slayer's Shoulder Pads||s3,t5|2
+6685|2|30|25|0|401|135040|1|0||0|Death Speaker Mantle||i7,p3|1
 4835|2|30|25|0|403|135036|1|0||0|Elite Shoulders||s6,t5|2
-6399|2|30|25|0|402|135039|0|0||0|Emblazoned Shoulders||i7,p3|2
+6399|2|30|25|0|402|135039|1|0||0|Emblazoned Shoulders||i7,p3|2
 270046|2|30|0|0|401|135033|2|0||0|Ethereal Mantle||i5,p5|1
-9536|2|30|0|0|401|135033|0|0||0|Fairywing Mantle||t1,i8|1
-6388|2|30|25|0|403|135051|0|0||0|Glimmering Mail Pauldrons||s6,p5|2
+9536|2|30|0|0|401|135033|1|0||0|Fairywing Mantle||t1,i8|1
+6388|2|30|25|0|403|135051|1|0||0|Glimmering Mail Pauldrons||s6,p5|2
 215365|2|30|25|0|401|135033|1|0||0|Invoker's Mantle||i5,S7,H7|2
 17047|2|30|0|0|401|135040|1|0||0|Luminescent Amice||t6,i4,p2|1
-2264|3|30|25|0|402|135039|0|0||0|Mantle of Thieves||a10,t4,p3|2
-15127|2|30|25|0|402|135039|0|0||0|Robust Shoulders|||2
-6617|2|30|25|0|401|135033|0|0||0|Sage's Mantle|||2
-15531|2|30|25|0|403|135040|0|0||0|Sentry's Shoulderguards|||2
-7415|2|29|24|0|402|135039|0|0||0|Dervish Spaulders|||2
-14186|2|29|24|0|401|135036|0|0||0|Raincaller Mantle|||2
+2264|3|30|25|0|402|135039|1|0||0|Mantle of Thieves||a10,t4,p3|2
+15127|2|30|25|0|402|135039|1|0||0|Robust Shoulders|||2
+6617|2|30|25|0|401|135033|1|0||0|Sage's Mantle|||2
+284399|3|30|25|0|401|0|2|0||0|Seared Grove Shoulderpads||t8,i3|1
+15531|2|30|25|0|403|135040|1|0||0|Sentry's Shoulderguards|||2
+7415|2|29|24|0|402|135039|1|0||0|Dervish Spaulders|||2
+282717|2|29|24|0|402|135037|2|0||0|Durable Bearhide Pauldrons||s2,t7|2
+14186|2|29|24|0|401|135036|1|0||0|Raincaller Mantle|||2
 270039|2|29|0|0|402|135039|2|0||0|Raptorclaw Shoulders||i3,S7,H7|1
-6395|2|29|24|0|401|135036|0|0||0|Silver-thread Amice||t2,i7|2
-13131|3|29|24|0|403|135049|0|0||0|Sparkleshell Mantle||a4,t10|2
-6597|2|28|23|0|403|135038|0|0||0|Battleforge Shoulderguards|||2
+6395|2|29|24|0|401|135036|1|0||0|Silver-thread Amice||t2,i7|2
+13131|3|29|24|0|403|135049|1|0||0|Sparkleshell Mantle||a4,t10|2
+6597|2|28|23|0|403|135038|1|0||0|Battleforge Shoulderguards|||2
 4252|2|28|23|0|402|135043|1|0||0|Dark Leather Shoulders||a7|2
 15457|2|28|0|0|401|135036|1|0||0|Desert Shoulders||i5,p5|1
-3748|3|28|23|0|401|135036|0|0||0|Feline Mantle||a2,i10,p3|1
-3324|2|28|0|0|401|135040|0|0||0|Ghostly Mantle||i5,p5|1
+3748|3|28|23|0|401|135036|1|0||0|Feline Mantle||a2,i10,p3|1
+3324|2|28|0|0|401|135040|1|0||0|Ghostly Mantle||i5,p5|1
 4833|2|28|23|0|403|135036|1|0||0|Glorious Shoulders||t5,p5|2
 2913|2|28|0|0|401|135036|1|0||0|Silk Mantle of Gamn||i6,p4|1
-14182|2|28|23|0|401|135040|0|0||0|Watcher's Mantle|||2
-15338|2|28|23|0|402|135049|0|0||0|Wrangler's Mantle|||2
-14573|2|27|22|0|402|135037|0|0||0|Bristlebark Amice||a6,s3|2
+14182|2|28|23|0|401|135040|1|0||0|Watcher's Mantle|||2
+15338|2|28|23|0|402|135049|1|0||0|Wrangler's Mantle|||2
+14573|2|27|22|0|402|135037|1|0||0|Bristlebark Amice||a6,s3|2
+270024|2|27|0|0|403|135058|2|0||0|Bronzed Shoulderguards||t4,p5|1
 7352|2|27|22|0|402|135037|1|0||0|Earthen Leather Shoulders||t7|2
-9796|2|27|22|0|401|135044|0|0||0|Ivycloth Mantle|||2
-4705|2|27|22|0|403|135039|0|0||0|Lambent Scale Pauldrons||s5,t5|2
+9796|2|27|22|0|401|135044|1|0||0|Ivycloth Mantle|||2
+4705|2|27|22|0|403|135039|1|0||0|Lambent Scale Pauldrons||s5,t5|2
 5274|2|27|0|0|401|135040|1|0||0|Rose Mantle||i5,p5|1
-14378|2|27|22|0|401|135040|0|0||0|Sanguine Mantle||t3,i6|2
-6461|3|27|22|0|401|135036|0|0||0|Slime-encrusted Pads|||1
-15523|2|27|22|0|403|135050|0|0||0|Spiked Chain Shoulder Pads|||2
+14378|2|27|22|0|401|135040|1|0||0|Sanguine Mantle||t3,i6|2
+6461|3|27|22|0|401|135036|1|0||0|Slime-encrusted Pads|||1
+15523|2|27|22|0|403|135050|1|0||0|Spiked Chain Shoulder Pads|||2
 250486|2|27|22|0|403|0|2|0||0|Sterling Silver Shoulders||s4,t4,S4,H4|2
-9807|2|27|22|0|402|135039|0|0||0|Superior Shoulders|||2
-4661|2|26|21|0|401|135040|0|0||0|Bright Mantle||i5,p4|2
-17695|2|26|0|0|401|135040|0|0||0|Chestnut Mantle||t2,i6|1
-9817|2|26|21|0|403|135038|0|0||0|Fortified Spaulders|||2
-10287|2|26|21|0|401|135044|0|0||0|Greenweave Mantle|||2
+9807|2|27|22|0|402|135039|1|0||0|Superior Shoulders|||2
+270023|2|27|0|0|402|135058|2|0||0|Tanned Shoulderpads||s3,i6|1
+4661|2|26|21|0|401|135040|1|0||0|Bright Mantle||i5,p4|2
+17695|2|26|0|0|401|135040|1|0||0|Chestnut Mantle||t2,i6|1
+273804|3|26|21|0|402|135039|2|0||0|Executioner Mantle||p9,A10|1
+9817|2|26|21|0|403|135038|1|0||0|Fortified Spaulders|||2
+10287|2|26|21|0|401|135044|1|0||0|Greenweave Mantle|||2
 4251|2|26|21|0|402|135039|1|0||0|Hillman's Shoulders||t5,p4|2
-14749|2|26|21|0|403|135038|0|0||0|Hulking Spaulders||s4,p2|2
-15116|2|26|21|0|402|135039|0|0||0|Rigid Shoulders|||2
-10657|2|26|0|0|401|135040|0|0||0|Talbar Mantle||t3,i6|1
+14749|2|26|21|0|403|135038|1|0||0|Hulking Spaulders||s4,p2|2
+15116|2|26|21|0|402|135039|1|0||0|Rigid Shoulders|||2
+10657|2|26|0|0|401|135040|1|0||0|Talbar Mantle||t3,i6|1
 6664|2|26|0|0|401|135036|1|0||0|Voodoo Mantle||t4,p5|1
-3231|2|25|20|0|403|135038|0|0||0|Cutthroat Pauldrons||s4,t4|2
-4709|2|25|20|0|402|135039|0|0||0|Forest Leather Mantle||t4,p4|2
-15513|2|25|20|0|403|135037|0|0||0|Grunt's Pauldrons|||2
-12998|3|25|20|0|401|135044|0|0||0|Magician's Mantle||i9,S5,H5|2
-14566|2|25|20|0|402|135039|0|0||0|Prospector's Pads||t4,p4|2
+3231|2|25|20|0|403|135038|1|0||0|Cutthroat Pauldrons||s4,t4|2
+4709|2|25|20|0|402|135039|1|0||0|Forest Leather Mantle||t4,p4|2
+15513|2|25|20|0|403|135037|1|0||0|Grunt's Pauldrons|||2
+12998|3|25|20|0|401|135044|1|0||0|Magician's Mantle||i9,S5,H5|2
+14566|2|25|20|0|402|135039|1|0||0|Prospector's Pads||t4,p4|2
 3481|2|25|20|0|403|135040|1|0||0|Silvered Bronze Shoulders||s3,t3,p3|2
 276720|2|22|0|0|403|0|2|0||0|Criminal's Pauldrons||t2,p4|1
+280363|2|20|15|0|405|135037|2|0||0|Nightclaw Mantle|Requires Exalted with Nightclaw Druids||1
 287628|3|1|1|0|405|8382588|2|0||0|Gilded Blademaster's Shoulders|||1
 ]==],
         [4] = [==[
@@ -1918,16 +2108,16 @@ FGT.GEARDB = {
 280902|4|65|60|1|404|Interface\Icons\inv_chest_plate_raidwarriorhyjalc60_d_01|3|100000||0|Breastplate of Glory|||1
 280908|4|65|60|1|404|Interface\Icons\inv_chest_plate_raidwarriorhyjalc60_d_01|3|100001||0|Chestguard of Glory|||1
 19693|3|65|60|0|404|132743|1|444||0|Darksoul Breastplate||t32,h1|2
-14328|2|65|60|0|401|135021|0|0||0|Eternal Chestguard|||2
-14975|2|65|60|0|404|132745|0|0||0|Exalted Harness|||2
+14328|2|65|60|0|401|135021|1|0||0|Eternal Chestguard|||2
+14975|2|65|60|0|404|132745|1|0||0|Exalted Harness|||2
 280879|4|65|60|8|402|Interface\Icons\inv_robe_leather_raidroguehyjalc60_d_01|3|100006||0|Grimstitch Chestpiece|||1
 280974|4|65|60|1024|402|Interface\Icons\inv_robe_leather_raiddruidhyjalc60_d_01|3|100014||0|Grovekeeper Chestguard|||1
 10384|2|65|60|0|404|132751|1|0||0|Hyperion Armor|||2
 280928|4|65|60|2|404|Interface\Icons\inv_chest_plate_raidpaladinhyjalc60_d_01|3|100003||0|Justice Breastplate|||1
 280941|4|65|60|2|404|Interface\Icons\inv_chest_plate_raidpaladinhyjalc60_d_01|3|100004||0|Justice Chestguard|||1
 280934|4|65|60|2|404|Interface\Icons\inv_chest_plate_raidpaladinhyjalc60_d_01|3|100002||0|Justice Tunic|||1
-10246|2|65|60|0|401|135008|0|0||0|Master's Vest|||2
-10266|2|65|60|0|403|132751|0|0||0|Masterwork Breastplate|||2
+10246|2|65|60|0|401|135008|1|0||0|Master's Vest|||2
+10266|2|65|60|0|403|132751|1|0||0|Masterwork Breastplate|||2
 272761|4|65|60|1024|402|132648|2|397|A|0|Premier Field Marshal's Beasthide Breastplate||s12,t37,i8,c1|1
 272775|4|65|60|4|403|132625|2|395|A|0|Premier Field Marshal's Chainmail Breastplate||a18,t34,i12,A24|1
 272782|4|65|60|2|404|132738|2|2087|A|0|Premier Field Marshal's Chevalier Chestplate||s15,t34,i12,c1|1
@@ -1955,28 +2145,30 @@ FGT.GEARDB = {
 280955|4|65|60|64|403|Interface\Icons\inv_chest_mail_raidshamanhyjalc60_d_01|3|100010||0|Spiritcaller Armor|||1
 280950|4|65|60|64|403|Interface\Icons\inv_chest_mail_raidshamanhyjalc60_d_01|3|100009||0|Spiritcaller Breastplate|||1
 280961|4|65|60|64|403|Interface\Icons\inv_chest_mail_raidshamanhyjalc60_d_01|3|100011||0|Spiritcaller Embrace|||1
-15442|2|65|60|0|402|132741|0|0||0|Supreme Breastplate|||2
-15680|2|65|60|0|403|132751|0|0||0|Triumphant Chestpiece|||2
+15442|2|65|60|0|402|132741|1|0||0|Supreme Breastplate|||2
+15680|2|65|60|0|403|132751|1|0||0|Triumphant Chestpiece|||2
 280896|4|65|60|4|403|Interface\Icons\inv_chest_mail_raidhunterhyjalc60_d_01|3|100005||0|Wildstalker's Breastplate|||1
 19828|4|65|0|64|403|132715|1|476||0|Zandalar Augur's Hauberk||t19,i15,S34,H34,c1|1
 19825|4|65|0|2|404|132742|1|475||0|Zandalar Freethinker's Breastplate||s19,t26,i16,p7,c1|1
 19838|4|65|0|1024|402|132721|1|479||0|Zandalar Haruspex's Tunic||t15,i24,p23,H33|1
 19834|4|65|0|8|402|132725|1|478||0|Zandalar Madcap's Tunic||t19,A44,c2|1
 19822|4|65|0|1|404|132742|1|474||0|Zandalar Vindicator's Breastplate||a15,s23,t24,d4|1
-14456|2|64|59|0|401|132642|0|0||0|Elunarian Vest||s5,t12,p21|2
-10135|2|64|59|0|401|135021|0|0||0|High Councillor's Tunic|||2
-14680|2|64|59|0|402|132717|0|0||0|Indomitable Vest||t5,i9,p23|2
-10157|2|64|59|0|403|132629|0|0||0|Mercurial Breastplate|||2
-10151|2|64|59|0|402|132646|0|0||0|Mighty Tunic|||2
-14811|2|64|59|0|403|132627|0|0||0|Warstrike Chestguard||s3,t10,p23|2
-16674|3|63|58|0|403|132625|0|186||0|Beaststalker's Tunic||a21,s5,t16,i13,p6|1
+14456|2|64|59|0|401|132642|1|0||0|Elunarian Vest||s5,t12,p21|2
+10135|2|64|59|0|401|135021|1|0||0|High Councillor's Tunic|||2
+14680|2|64|59|0|402|132717|1|0||0|Indomitable Vest||t5,i9,p23|2
+10157|2|64|59|0|403|132629|1|0||0|Mercurial Breastplate|||2
+10151|2|64|59|0|402|132646|1|0||0|Mighty Tunic|||2
+14811|2|64|59|0|403|132627|1|0||0|Warstrike Chestguard||s3,t10,p23|2
+16674|3|63|58|0|403|132625|1|186||0|Beaststalker's Tunic||a21,s5,t16,i13,p6|1
 23087|3|63|58|0|404|132745|0|533||0|Breastplate of Undead Slaying||t20|1
-16730|3|63|58|0|404|132738|0|189||0|Breastplate of Valor||a10,s15,t24,p6|1
+16730|3|63|58|0|404|132738|1|189||0|Breastplate of Valor||a10,s15,t24,p6|1
 13090|3|63|58|0|403|132638|1|0||0|Breastplate of the Chosen||a14,s14,t14,i14,p14|1
 23088|3|63|58|0|403|132630|0|535||0|Chestguard of Undead Slaying||t20|1
-10378|2|63|58|0|404|132741|0|0||0|Commander's Armor|||2
+10378|2|63|58|0|404|132741|1|0||0|Commander's Armor|||2
+280027|3|63|58|0|404|0|2|0||0|Crownroar Chestplate||p21,S13,H40,c1|1
 20550|3|63|58|0|404|132741|1|0||0|Darkrune Breastplate||t14,d25|2
 12618|3|63|58|0|404|132745|1|0||0|Enchanted Thorium Breastplate||s12,t26,d9|2
+280013|3|63|58|0|403|0|2|0||0|Frostfang Mail Vest||t17,S13,H40|1
 12641|4|63|57|0|403|132629|1|0||0|Invulnerable Mail||d13|2
 16425|3|63|58|4|403|132628|1|362|A|1|Knight-Captain's Chain Hauberk|Requires PvP rank 8|a16,t18,A26,c1|1
 16421|3|63|58|1024|402|132725|1|381|A|1|Knight-Captain's Dragonhide Tunic|Requires PvP rank 8|a9,s13,t14,i8,S16,H16,c1|1
@@ -1988,71 +2180,82 @@ FGT.GEARDB = {
 16505|3|63|58|8|402|132720|1|347|H|1|Legionnaire's Leather Hauberk|Requires PvP rank 8|a13,t25,c1|1
 16522|3|63|58|64|403|132638|1|301|H|1|Legionnaire's Mail Chestpiece|Requires PvP rank 8|t20,i20,c1|1
 16513|3|63|58|1|404|132751|1|281|H|1|Legionnaire's Plate Armor|Requires PvP rank 8|a6,s9,t25,c1|1
-16726|3|63|58|0|404|132738|0|188||0|Lightforge Breastplate||s13,t21,i16,p8|1
-10220|2|63|58|0|402|132717|0|0||0|Nightshade Tunic|||2
-15413|3|63|0|0|404|132744|0|0||0|Ornate Adamantium Breastplate||t22,d10|1
-14318|2|63|58|0|401|132659|0|0||0|Resplendent Tunic|||2
-16721|3|63|58|0|402|132722|0|184||0|Shadowcraft Tunic||a26,t13,p12|1
+16726|3|63|58|0|404|132738|1|188||0|Lightforge Breastplate||s13,t21,i16,p8|1
+10220|2|63|58|0|402|132717|1|0||0|Nightshade Tunic|||2
+15413|3|63|0|0|404|132744|1|0||0|Ornate Adamantium Breastplate||t22,d10|1
+14318|2|63|58|0|401|132659|1|0||0|Resplendent Tunic|||2
+16721|3|63|58|0|402|132722|1|184||0|Shadowcraft Tunic||a26,t13,p12|1
+280016|3|63|58|0|402|0|2|0||0|Spiderchitin Wrap||s18,t24|1
 23089|3|63|58|0|402|132721|0|534||0|Tunic of Undead Slaying||t20|1
-22409|3|63|58|0|402|132723|0|0||0|Tunic of the Crescent Moon||t14,i12,p11,S15,H15,c1|1
-16666|3|63|58|0|403|132633|0|187||0|Vest of Elements||t13,i20,p20|1
-14862|2|63|58|0|404|132744|0|0||0|Warleader's Breastplate||s8,t25|2
-16706|3|63|58|0|402|132741|0|185||0|Wildheart Vest||t13,i20,p20|1
+22409|3|63|58|0|402|132723|1|0||0|Tunic of the Crescent Moon||t14,i12,p11,S15,H15,c1|1
+16666|3|63|58|0|403|132633|1|187||0|Vest of Elements||t13,i20,p20|1
+14862|2|63|58|0|404|132744|1|0||0|Warleader's Breastplate||s8,t25|2
+16706|3|63|58|0|402|132741|1|185||0|Wildheart Vest||t13,i20,p20|1
 12757|4|62|0|0|402|132635|0|0||0|Breastplate of Bloodthirst||s13,t20,c2,d25|1
-12895|4|62|0|0|404|132744|0|0||0|Breastplate of the Chromatic Flight||a10,s20,t30|1
-18373|3|62|57|0|402|132723|0|0||0|Chestplate of Tranquility||t10,i20,p6,S23,H23|1
-13123|3|62|57|0|403|132628|0|0||0|Dreamwalker Armor||t17,i20,p20|2
-10218|2|62|57|0|401|132649|0|0||0|Elegant Tunic|||2
+12895|4|62|0|0|404|132744|1|0||0|Breastplate of the Chromatic Flight||a10,s20,t30|1
+18373|3|62|57|0|402|132723|1|0||0|Chestplate of Tranquility||t10,i20,p6,S23,H23|1
+13123|3|62|57|0|403|132628|1|0||0|Dreamwalker Armor||t17,i20,p20|2
+10218|2|62|57|0|401|132649|1|0||0|Elegant Tunic|||2
 250595|3|62|57|0|404|0|2|0||0|Enriched Thorium Breastplate||t25,S14,H14,d9|1
 15068|2|62|57|0|402|132632|1|0||0|Frostsaber Tunic|||2
-15195|2|62|57|0|402|132720|0|0||0|Grand Breastplate|||2
-8303|2|62|57|0|403|132749|0|0||0|Hero's Breastplate||t7,p24|2
-14931|2|62|57|0|404|132632|0|0||0|Heroic Armor|||2
-10368|2|62|57|0|404|132744|0|0||0|Imbued Plate Armor||s15,t14,p14|2
-18503|3|62|57|0|404|132636|0|0||0|Kromcrush's Chestplate||s16,t16,d10|1
-15669|2|62|57|0|403|132629|0|0||0|Magnificent Breastplate|||2
-18530|3|62|57|0|403|132634|0|0||0|Ogre Forged Hauberk||a20,s8,t13,i8,c1|1
+15195|2|62|57|0|402|132720|1|0||0|Grand Breastplate|||2
+8303|2|62|57|0|403|132749|1|0||0|Hero's Breastplate||t7,p24|2
+14931|2|62|57|0|404|132632|1|0||0|Heroic Armor|||2
+10368|2|62|57|0|404|132744|1|0||0|Imbued Plate Armor||s15,t14,p14|2
+18503|3|62|57|0|404|132636|1|0||0|Kromcrush's Chestplate||s16,t16,d10|1
+15669|2|62|57|0|403|132629|1|0||0|Magnificent Breastplate|||2
+18530|3|62|57|0|403|132634|1|0||0|Ogre Forged Hauberk||a20,s8,t13,i8,c1|1
 15141|4|62|57|0|403|132741|1|0||0|Onyxia Scale Breastplate||a15,s15,t15,i14,p14,c1|2
 12613|2|62|57|0|404|132746|1|0||0|Runic Breastplate|||2
 15090|2|62|57|0|402|132722|1|0||0|Runic Leather Armor||i21,p13|2
 20478|3|62|57|0|403|132742|1|0||0|Sandstalker Breastplate||t13|2
 12615|2|62|57|0|403|132738|1|0||0|Savage Mail Tunic||s27|2
+282027|3|62|57|0|403|132628|2|0||0|Scales of the Devourer||a14,s15,t18,S16,H16|1
 20479|3|62|57|0|403|132717|1|0||0|Spitfire Breastplate||a16,i16,S15,H15|2
-13944|3|62|57|0|402|132639|0|0||0|Tombstone Breastplate||s10,t10,c2|1
-8283|2|61|56|0|401|135017|0|0||0|Arcane Armor||t7,i23|2
+13944|3|62|57|0|402|132639|1|0||0|Tombstone Breastplate||s10,t10,c2|1
+8283|2|61|56|0|401|135017|1|0||0|Arcane Armor||t7,i23|2
 250594|2|61|56|0|404|132738|2|1968||0|Blessed Plate Chest||s20,t8,S13,H13|2
-14611|3|61|56|0|403|132720|0|123||0|Bloodmail Hauberk||s10,t15,i15,p10,d25|1
-14536|3|61|56|0|403|132636|0|0||0|Bonebrace Hauberk||i13,p4,A56|2
+14611|3|61|56|0|403|132720|1|123||0|Bloodmail Hauberk||s10,t15,i15,p10,d25|1
+14536|3|61|56|0|403|132636|1|0||0|Bonebrace Hauberk||i13,p4,A56|2
 250601|4|61|56|0|404|0|2|0||0|Breastplate of Salvation||i14,p33,S14,H40|2
-14637|3|61|56|0|402|132718|0|121||0|Cadaverous Armor||a8,s8,A60|1
-14308|2|61|56|0|401|132633|0|0||0|Celestial Tunic|||2
+280073|3|61|56|0|404|132742|2|0||0|Burnished Pridescales||s16,t16,p19,h1|1
+14637|3|61|56|0|402|132718|1|121||0|Cadaverous Armor||a8,s8,A60|1
+14308|2|61|56|0|401|132633|1|0||0|Celestial Tunic|||2
 252483|4|61|56|0|402|0|2|0||0|Dawn Armor||a37,h1,c1|2
-14624|3|61|56|0|404|132637|0|124||0|Deathbone Chestplate||t12,d17|1
+14624|3|61|56|0|404|132637|1|124||0|Deathbone Chestplate||t12,d17|1
 275708|3|61|0|0|402|132725|2|0||0|Ghansurok Hide Tunic||a26,t11|1
-14966|2|61|56|0|404|132738|0|0||0|Glorious Breastplate|||2
-15660|2|61|56|0|403|132736|0|0||0|Impenetrable Breastplate|||2
-12603|3|61|56|0|402|132741|0|0||0|Nightbrace Tunic||a5,t10,A50|1
-15433|2|61|56|0|402|132717|0|0||0|Peerless Armor|||2
-12609|3|61|56|0|401|132658|0|0||0|Polychromatic Visionwrap|||1
+14966|2|61|56|0|404|132738|1|0||0|Glorious Breastplate|||2
+15660|2|61|56|0|403|132736|1|0||0|Impenetrable Breastplate|||2
+284162|2|61|56|0|401|132642|2|0||0|Mossflayer Witchdoctor's Robe||i8|2
+12603|3|61|56|0|402|132741|1|0||0|Nightbrace Tunic||a5,t10,A50|1
+15433|2|61|56|0|402|132717|1|0||0|Peerless Armor|||2
+12609|3|61|56|0|401|132658|1|0||0|Polychromatic Visionwrap|||1
 15047|3|61|56|0|403|132628|1|0||0|Red Dragonscale Breastplate||H66|2
-13388|3|61|56|0|401|132725|0|81||0|The Postmaster's Tunic||t13,i20,p10,S15,H15|1
+286590|3|61|56|0|404|0|2|0||0|Silithid Queen's Husk||t23,A24,c1|1
+13388|3|61|56|0|401|132725|1|81||0|The Postmaster's Tunic||t13,i20,p10,S15,H15|1
 252484|4|61|56|0|402|0|2|0||0|Timbermaw Tunic||a18,s33,c1|2
-8296|2|61|56|0|402|132720|0|0||0|Traveler's Jerkin||t6,i21,p10|2
+8296|2|61|56|0|402|132720|1|0||0|Traveler's Jerkin||t6,i21,p10|2
 15085|2|61|56|0|402|132741|1|0||0|Wicked Leather Armor||a25,t7|2
+226904|4|60|0|4|403|132625|1|1669||0|Beastmaster's Chest||a25,t16,i13,c1|1
 22060|4|60|0|0|403|132625|1|515||0|Beastmaster's Tunic||a25,t16,i13,c1|1
-14306|2|60|55|0|401|132658|0|0||0|Bonecaster's Vest|||2
+14306|2|60|55|0|401|132658|1|0||0|Bonecaster's Vest|||2
 12106|2|60|0|0|404|132723|1|0||0|Boulderskin Breastplate||s13|1
 21997|4|60|0|0|404|132738|1|511||0|Breastplate of Heroism||a13,s21,t26,h1|1
 12104|2|60|0|0|402|132717|1|0||0|Brindlethorn Tunic||t22,A20|1
+226880|4|60|0|1|404|132738|1|1778||0|Chest of Heroism||a13,s21,t26,h1|1
+227040|4|60|0|64|403|132633|1|1679||0|Chest of The Five Thunders||s12,t17,i17,p16,S14,H14,c1|1
+226852|4|60|0|8|402|132722|1|1676||0|Darkmantle Chest||a31,t15,h2|1
 22009|4|60|0|0|402|132722|1|512||0|Darkmantle Tunic||a31,t15,h2|1
-10275|2|60|55|0|404|132647|0|0||0|Emerald Breastplate|||2
-10230|2|60|55|0|403|132751|0|0||0|Engraved Breastplate|||2
+10275|2|60|55|0|404|132647|1|0||0|Emerald Breastplate|||2
+10230|2|60|55|0|403|132751|1|0||0|Engraved Breastplate|||2
+226822|4|60|0|1024|402|132741|1|1667||0|Feralheart Chest||a9,s16,t17,i17,p14,S12,H12|1
 22113|4|60|0|0|402|132741|1|513||0|Feralheart Vest||a9,s16,t17,i17,p14,S12,H12|1
-18478|2|60|55|0|402|132721|0|0||0|Hyena Hide Jerkin||a20,t13|1
+18478|2|60|55|0|402|132721|1|0||0|Hyena Hide Jerkin||a20,t13|1
 12422|2|60|55|0|404|132745|1|321||0|Imperial Plate Chest||s18,t17|2
 15059|3|60|55|0|402|132742|1|0||0|Living Breastplate||t10,p25,H26|2
 14138|3|60|55|0|401|132649|1|0||0|Mooncloth Vest||t12,i20,p19|2
-13168|3|60|55|0|404|132748|0|0||0|Plate of the Shaman King||s12,t15,i15,S18,H18|1
+276399|3|60|55|0|404|132744|2|0||0|Plate of the Scarlet Bastion||t18,S12,H35|1
+13168|3|60|55|0|404|132748|1|0||0|Plate of the Shaman King||s12,t15,i15,S18,H18|1
 272730|3|60|55|1024|402|132725|2|381||0|Premier Beasthide Tunic||s11,t26,i7|1
 272490|3|60|55|4|403|132626|2|361||0|Premier Chain Breastplate||a14,t19,i8,A14|1
 272734|3|60|55|4|403|132628|2|362||0|Premier Chainmail Hauberk||a14,t19,i8,A14|1
@@ -2075,312 +2278,341 @@ FGT.GEARDB = {
 274179|3|60|55|64|403|132638|2|2096||0|Premier Scalemail Chestpiece||t25,i11,S12,H12|1
 272473|3|60|55|8|402|132720|2|522||0|Premier Shadowhide Hauberk||t26,A16,c1|1
 273384|3|60|55|1024|402|132722|2|2080||0|Premier Wyrmhide Chestpiece||t26,i11,S9,H9|1
+287037|3|60|55|0|401|0|2|0||0|Shaper's Robe||i15,p15,S18,H18|2
 22089|4|60|0|0|404|132738|1|516||0|Soulforge Breastplate||s16,t17,i17,p12,S14,H14,c1|1
+227000|4|60|0|2|404|132738|1|1673||0|Soulforge Chest||s16,t17,i17,p12,S14,H14,c1|1
 22102|4|60|0|0|403|132633|1|519||0|Vest of The Five Thunders||s12,t17,i17,p16,S14,H14,c1|1
-10105|2|60|55|0|402|132725|0|0||0|Wanderer's Armor|||2
-14798|2|59|54|0|403|132629|0|0||0|Bloodlust Breastplate||a8,s9,t20|2
-10104|2|59|54|0|401|132651|0|0||0|Councillor's Tunic|||2
+10105|2|60|55|0|402|132725|1|0||0|Wanderer's Armor|||2
+14798|2|59|54|0|403|132629|1|0||0|Bloodlust Breastplate||a8,s9,t20|2
+10104|2|59|54|0|401|132651|1|0||0|Councillor's Tunic|||2
 11604|3|59|54|0|404|132743|1|0||0|Dark Iron Plate||t12|1
 254121|2|59|54|0|401|0|2|0||0|Earthenweave Vest||p17,S14,H40|2
-18312|3|59|54|0|404|132746|0|0||0|Energized Chestplate||s13,t20,i12|1
+18312|3|59|54|0|404|132746|1|0||0|Energized Chestplate||s13,t20,i12|1
 15786|2|59|0|0|402|132721|1|0||0|Fernpulse Jerkin||t5,i8,p22|1
-14455|2|59|54|0|401|135007|0|0||0|Highborne Padded Armor||i19,p15|2
-15827|2|59|0|0|403|132626|0|0||0|Jadescale Breastplate||t23,p7|1
-14670|2|59|54|0|402|132717|0|0||0|Pridelord Armor||a24,t5|2
-13394|3|59|54|0|404|132637|0|0||0|Skul's Cold Embrace||s19,t20,d6|1
+14455|2|59|54|0|401|135007|1|0||0|Highborne Padded Armor||i19,p15|2
+15827|2|59|0|0|403|132626|1|0||0|Jadescale Breastplate||t23,p7|1
+14670|2|59|54|0|402|132717|1|0||0|Pridelord Armor||a24,t5|2
+13394|3|59|54|0|404|132637|1|0||0|Skul's Cold Embrace||s19,t20,d6|1
 252599|2|59|54|0|403|0|2|0||0|Supple Scorpid Vest||s15,t16,S12,H12|2
-15825|2|59|0|0|402|132741|0|0||0|Traphook Jerkin||a24,s5|1
-14854|2|59|54|0|404|132744|0|0||0|Vanguard Breastplate||a6,t22,p7|2
+15825|2|59|0|0|402|132741|1|0||0|Traphook Jerkin||a24,s5|1
+14854|2|59|54|0|404|132744|1|0||0|Vanguard Breastplate||a6,t22,p7|2
 15787|2|59|0|0|403|132638|1|0||0|Willow Band Hauberk||a20,t10,i6|1
-12108|2|58|0|0|403|132638|0|0||0|Basaltscale Armor||t10,p21|1
+284215|3|58|53|0|402|132720|2|0||0|Ancient Lichen Vestments||i16,p18,S20,H20|1
+12108|2|58|0|0|403|132638|1|0||0|Basaltscale Armor||t10,p21|1
 15050|3|58|53|0|403|132741|1|489||0|Black Dragonscale Breastplate||t8,A50|2
 252480|2|58|53|0|402|0|2|0||0|Blue Suede Armor||a8,s16,t12|2
 15075|2|58|53|0|402|132722|1|0||0|Chimeric Vest|||2
 269502|2|58|53|0|404|132739|2|0||0|Dwarven Plate||a6,s7,t13|2
-18304|2|58|53|0|403|132742|0|0||0|Greenroot Mail||i17,H35|1
+18304|2|58|53|0|403|132742|1|0||0|Greenroot Mail||i17,H35|1
 15066|3|58|53|0|402|132721|1|144||0|Ironfeather Breastplate||i12,p28|2
-10181|2|58|53|0|401|135021|0|0||0|Mystical Armor|||2
-10118|2|58|53|0|403|132632|0|0||0|Ornate Breastplate|||2
-11820|3|58|53|0|403|132739|0|0||0|Royal Decorated Armor||a12,s8,t26|1
-13378|3|58|53|0|402|132679|0|0||0|Songbird Blouse||a13,s13,t13,i13,p13|1
-10182|2|58|53|0|402|132717|0|0||0|Swashbuckler's Breastplate|||2
-10164|2|58|53|0|404|132751|0|0||0|Templar Chestplate|||2
+10181|2|58|53|0|401|135021|1|0||0|Mystical Armor|||2
+10118|2|58|53|0|403|132632|1|0||0|Ornate Breastplate|||2
+11820|3|58|53|0|403|132739|1|0||0|Royal Decorated Armor||a12,s8,t26|1
+13378|3|58|53|0|402|132679|1|0||0|Songbird Blouse||a13,s13,t13,i13,p13|1
+10182|2|58|53|0|402|132717|1|0||0|Swashbuckler's Breastplate|||2
+10164|2|58|53|0|404|132751|1|0||0|Templar Chestplate|||2
 21322|2|58|0|0|404|132751|1|0||0|Ursa's Embrace||a17,d10|1
 21320|2|58|0|0|403|132638|1|0||0|Vest of the Den Watcher||a20,t12|1
-8312|2|57|52|0|404|132627|0|0||0|Alabaster Breastplate||s17,t3,p3|2
-14288|2|57|52|0|401|135021|0|0||0|Arachnidian Armor|||2
+8312|2|57|52|0|404|132627|1|0||0|Alabaster Breastplate||s17,t3,p3|2
+14288|2|57|52|0|401|135021|1|0||0|Arachnidian Armor|||2
 11193|2|57|0|0|402|132717|1|0||0|Blazewind Breastplate||a23,s3,t5|1
 15048|3|57|52|0|403|132626|1|491||0|Blue Dragonscale Breastplate||i28,p8|2
 252598|2|57|52|0|403|0|2|0||0|Charged Scorpid Vest||i15,p14,S12,H12|2
 275832|2|57|0|0|402|132721|2|0||0|Crowfeather Tunic||a11,i10,S20,H20|1
-11926|3|57|52|0|403|132629|0|0||0|Deathdealer Breastplate||s8,t8,c2|1
-12628|3|57|52|0|404|132741|0|0||0|Demon Forged Breastplate||t12|2
-14924|2|57|52|0|404|132760|0|0||0|Lofty Breastplate|||2
-15650|2|57|52|0|403|132722|0|0||0|Merciless Surcoat|||2
-15179|2|57|52|0|402|132629|0|0||0|Praetorian Padded Armor|||2
+11926|3|57|52|0|403|132629|1|0||0|Deathdealer Breastplate||s8,t8,c2|1
+12628|3|57|52|0|404|132741|1|0||0|Demon Forged Breastplate||t12|2
+280084|3|57|52|0|403|0|2|0||0|Furbolg Rib Protector||a20,t15,h1|1
+14924|2|57|52|0|404|132760|1|0||0|Lofty Breastplate|||2
+280079|3|57|52|0|402|0|2|0||0|Lunarlight Robe||t17,p14|1
+15650|2|57|52|0|403|132722|1|0||0|Merciless Surcoat|||2
+15179|2|57|52|0|402|132629|1|0||0|Praetorian Padded Armor|||2
 11194|2|57|0|0|403|132629|1|0||0|Prismscale Hauberk||t3,i4,p23|1
-11726|4|57|52|0|403|132637|0|1||0|Savage Gladiator Chain||a14,s13,t13,c2|1
+11726|4|57|52|0|403|132637|1|1||0|Savage Gladiator Chain||a14,s13,t13,c2|1
 15056|3|57|52|0|402|132723|1|142||0|Stormshroud Armor||c2,d25|2
 15053|2|57|52|0|402|132722|1|141||0|Volcanic Breastplate|||2
 11195|2|57|0|0|404|132638|1|0||0|Warforged Chestplate||s24,t2|1
 11606|2|56|51|0|403|132638|1|0||0|Dark Iron Mail||t13|2
-8265|2|56|51|0|403|132639|0|0||0|Ebonhold Armor||t22,i6|2
-14958|2|56|51|0|404|132636|0|0||0|High Chief's Armor|||2
-8245|2|56|51|0|401|135007|0|0||0|Imperial Red Tunic||t6,p21|2
-15640|2|56|51|0|403|132743|0|0||0|Ironhide Breastplate|||2
-15390|2|56|51|0|402|132742|0|0||0|Jadefire Chestguard|||2
-14287|2|56|51|0|401|132684|0|0||0|Opulent Tunic|||2
+8265|2|56|51|0|403|132639|1|0||0|Ebonhold Armor||t22,i6|2
+14958|2|56|51|0|404|132636|1|0||0|High Chief's Armor|||2
+8245|2|56|51|0|401|135007|1|0||0|Imperial Red Tunic||t6,p21|2
+15640|2|56|51|0|403|132743|1|0||0|Ironhide Breastplate|||2
+15390|2|56|51|0|402|132742|1|0||0|Jadefire Chestguard|||2
+14287|2|56|51|0|401|132684|1|0||0|Opulent Tunic|||2
 11876|2|56|0|0|402|132722|1|0||0|Plainstalker Tunic||a4,t23|1
-8258|2|56|51|0|402|132717|0|0||0|Serpentskin Armor||t15,i10,p11|2
+8258|2|56|51|0|402|132717|1|0||0|Serpentskin Armor||t15,i10,p11|2
 252552|2|56|51|0|402|0|2|0||0|Tooled Leather Armor||i16,p11,S12,H12|2
-11678|3|55|50|0|404|132743|0|0||0|Carapace of Anub'shiah||a11,s11,t22|1
+11678|3|55|50|0|404|132743|1|0||0|Carapace of Anub'shiah||a11,s11,t22|1
 274758|2|55|50|0|404|0|2|0||0|Coldmetal Guard|Requires Friendly with Everlook|s19,t11|1
-10193|2|55|50|0|403|132628|0|0||0|Crusader's Armor|||2
-10057|2|55|50|0|401|132724|0|0||0|Duskwoven Tunic|||2
+10193|2|55|50|0|403|132628|1|0||0|Crusader's Armor|||2
+10057|2|55|50|0|401|132724|1|0||0|Duskwoven Tunic|||2
 14141|2|55|50|0|401|135012|1|0||0|Ghostweave Vest||i9|2
-10781|2|55|0|0|402|132717|0|0||0|Hakkari Breastplate||a4,t22|1
-10240|2|55|50|0|404|132723|0|0||0|Heavy Lamellar Chestpiece|||2
+10781|2|55|0|0|402|132717|1|0||0|Hakkari Breastplate||a4,t22|1
+10240|2|55|50|0|404|132723|1|0||0|Heavy Lamellar Chestpiece|||2
 9650|2|55|0|0|403|132751|1|0||0|Honorguard Chestpiece||s22,t3,i3|1
-12793|3|55|50|0|402|132716|0|0||0|Mixologist's Tunic||a11,s18,t18|1
-10070|2|55|50|0|402|132632|0|0||0|Righteous Armor|||2
+12793|3|55|50|0|402|132716|1|0||0|Mixologist's Tunic||a11,s18,t18|1
+10070|2|55|50|0|402|132632|1|0||0|Righteous Armor|||2
 253884|2|55|50|0|401|0|2|0||0|Template Item|||2
-10806|3|55|50|0|401|132679|0|0||0|Vestments of the Atal'ai Prophet||i11,p27|1
+10806|3|55|50|0|401|132679|1|0||0|Vestments of the Atal'ai Prophet||i11,p27|1
 15064|3|55|50|0|402|132719|1|0||0|Warbear Harness||s11,t27|2
 270118|3|54|0|0|401|135021|2|0||0|Cindercloth Gown||t16,i24|1
-13067|3|54|49|0|404|132741|0|0||0|Hydralick Armor||a8,s13,t20|2
-14664|2|54|49|0|402|132717|0|0||0|Keeper's Armor||a5,t9,p18|2
-14789|2|54|49|0|403|132723|0|0||0|Protector Breastplate||s4,t21,p4|2
+276739|3|54|49|0|403|0|2|0||0|Cutthroat Chestguard||t20,A32,h1|1
+287020|3|54|49|0|402|0|2|2136||0|Defias Enforcer's Chest||a22,s14,t11|2
+13067|3|54|49|0|404|132741|1|0||0|Hydralick Armor||a8,s13,t20|2
+14664|2|54|49|0|402|132717|1|0||0|Keeper's Armor||a5,t9,p18|2
+14789|2|54|49|0|403|132723|1|0||0|Protector Breastplate||s4,t21,p4|2
 12415|2|54|49|0|403|132751|1|0||0|Radiant Breastplate|||2
-10128|2|54|49|0|404|132746|0|0||0|Revenant Chestplate|||2
-11633|3|54|49|0|404|132737|0|0||0|Spiderfang Carapace||s14,t14,i13,S13,H13|1
-14844|2|54|49|0|404|132751|0|0||0|Sunscale Chestguard||t21,p6|2
-14437|2|54|49|0|401|135010|0|0||0|Venomshroud Vest||t18,p9|2
-10845|3|54|49|0|404|132743|0|0||0|Warrior's Embrace||a4,t11,d50|1
+10128|2|54|49|0|404|132746|1|0||0|Revenant Chestplate|||2
+11633|3|54|49|0|404|132737|1|0||0|Spiderfang Carapace||s14,t14,i13,S13,H13|1
+14844|2|54|49|0|404|132751|1|0||0|Sunscale Chestguard||t21,p6|2
+14437|2|54|49|0|401|135010|1|0||0|Venomshroud Vest||t18,p9|2
+10845|3|54|49|0|404|132743|1|0||0|Warrior's Embrace||a4,t11,d50|1
 12624|3|54|49|0|403|132634|1|0||0|Wildthorn Mail||t5,p11|2
-9946|2|53|48|0|401|135021|0|0||0|Abjurer's Tunic|||2
-9950|2|53|48|0|402|132720|0|0||0|Chieftain's Breastplate|||2
+9946|2|53|48|0|401|135021|1|0||0|Abjurer's Tunic|||2
+9950|2|53|48|0|402|132720|1|0||0|Chieftain's Breastplate|||2
 15076|2|53|48|0|403|132637|1|0||0|Heavy Scorpid Vest||t16,p15|2
-14915|2|53|48|0|404|132742|0|0||0|Jade Breastplate|||2
-10077|2|53|48|0|403|132750|0|0||0|Lord's Breastplate|||2
-12049|2|53|0|0|403|132638|0|0||0|Splintsteel Armor||s12,t12,p12|1
-10784|3|52|47|0|403|132627|0|0||0|Atal'ai Breastplate||A22|1
+14915|2|53|48|0|404|132742|1|0||0|Jade Breastplate|||2
+10077|2|53|48|0|403|132750|1|0||0|Lord's Breastplate|||2
+12049|2|53|0|0|403|132638|1|0||0|Splintsteel Armor||s12,t12,p12|1
+10784|3|52|47|0|403|132627|1|0||0|Atal'ai Breastplate||A22|1
+282094|2|52|47|0|402|0|2|0||0|Blackheart's Vest||a15,s16|2
 14042|2|52|47|0|401|132648|1|0||0|Cindercloth Vest||p11|2
-22272|3|52|0|0|402|132723|0|0||0|Forest's Embrace||i8,p7,H55|1
-15631|2|52|47|0|403|132632|0|0||0|Formidable Chestpiece|||2
-14277|2|52|47|0|401|132649|0|0||0|Gaea's Tunic|||2
+22272|3|52|0|0|402|132723|1|0||0|Forest's Embrace||i8,p7,H55|1
+15631|2|52|47|0|403|132632|1|0||0|Formidable Chestpiece|||2
+14277|2|52|47|0|401|132649|1|0||0|Gaea's Tunic|||2
 15045|3|52|47|0|403|132628|1|490||0|Green Dragonscale Breastplate||t10,p21|2
-22274|3|52|0|0|402|132723|0|0||0|Grizzled Pelt||a16,s17,t11|1
+22274|3|52|0|0|402|132723|1|0||0|Grizzled Pelt||a16,s17,t11|1
 260178|2|52|0|0|404|0|2|0||0|Honor Guard's Plate||s18,t9|1
-10203|2|52|47|0|404|132739|0|0||0|Overlord's Chestplate|||2
-15170|2|52|47|0|402|132635|0|0||0|Potent Armor|||2
+10203|2|52|47|0|404|132739|1|0||0|Overlord's Chestplate|||2
+15170|2|52|47|0|402|132635|1|0||0|Potent Armor|||2
 13857|2|52|47|0|401|132645|1|0||0|Runecloth Tunic||i11,p17|2
 260181|2|52|0|0|404|0|2|0||0|Sentinel's Plate||s18,t9|1
-14948|2|51|46|0|404|132629|0|0||0|Bloodforged Chestpiece|||2
-14267|2|51|46|0|401|135008|0|0||0|Bloodwoven Jerkin|||2
-13009|3|51|46|0|402|132721|0|0||0|Cow King's Hide||t10|2
+286571|2|52|47|0|403|132631|2|0||0|Silithid Hauberk||a16,i12|2
+14948|2|51|46|0|404|132629|1|0||0|Bloodforged Chestpiece|||2
+14267|2|51|46|0|401|135008|1|0||0|Bloodwoven Jerkin|||2
+13009|3|51|46|0|402|132721|1|0||0|Cow King's Hide||t10|2
 8367|3|51|46|0|403|132629|1|0||0|Dragonscale Breastplate||t10|2
 13869|2|51|46|0|401|132649|1|0||0|Frostweave Tunic||i11|2
-17742|3|51|46|0|402|132723|0|0||0|Fungus Shroud Armor||a25,t10|1
-15622|2|51|46|0|403|132741|0|0||0|Gryphon Mail Breastplate|||2
-8119|2|51|46|0|402|132717|0|0||0|Heraldic Breastplate||s4,t20|2
-8106|2|51|45|0|401|135010|0|0||0|Hibernal Armor||t4,p20|2
-8126|2|51|46|0|403|132628|0|0||0|Myrmidon's Breastplate||t19,p6|2
-15381|2|51|46|0|402|132720|0|0||0|Rageclaw Chestguard|||2
-8274|2|51|46|0|404|132646|0|0||0|Valorous Chestguard||s20,p3|2
-14904|2|50|45|0|404|132626|0|0||0|Brutish Breastplate|||2
-7527|2|50|45|0|402|132720|0|0||0|Cabalist Chestpiece|||2
+17742|3|51|46|0|402|132723|1|0||0|Fungus Shroud Armor||a25,t10|1
+15622|2|51|46|0|403|132741|1|0||0|Gryphon Mail Breastplate|||2
+8119|2|51|46|0|402|132717|1|0||0|Heraldic Breastplate||s4,t20|2
+8106|2|51|45|0|401|135010|1|0||0|Hibernal Armor||t4,p20|2
+8126|2|51|46|0|403|132628|1|0||0|Myrmidon's Breastplate||t19,p6|2
+15381|2|51|46|0|402|132720|1|0||0|Rageclaw Chestguard|||2
+8274|2|51|46|0|404|132646|1|0||0|Valorous Chestguard||s20,p3|2
+284061|2|50|45|0|402|132719|2|0||0|Berserker's Wraps||a5,s16,t8|2
+14904|2|50|45|0|404|132626|1|0||0|Brutish Breastplate|||2
+7527|2|50|45|0|402|132720|1|0||0|Cabalist Chestpiece|||2
 19127|2|50|0|0|402|132718|1|0||0|Charred Leather Tunic||a18,t8|1
 8349|3|50|45|0|402|132721|1|0||0|Feathered Breastplate||i10,p24|2
-7517|2|50|45|0|401|135007|0|0||0|Gossamer Tunic|||2
+7517|2|50|45|0|401|135007|1|0||0|Gossamer Tunic|||2
 19128|2|50|0|0|403|132635|1|0||0|Seared Mail Vest||a11,t11,i11|1
 270113|2|50|0|0|401|135007|2|0||0|Singed Cloth Robe||i14,S16,H16|1
 12405|2|50|45|0|404|132743|1|0||0|Thorium Armor|||2
-9957|2|50|45|0|403|132759|0|0||0|Warmonger's Chestpiece|||2
-10086|2|49|44|0|404|132722|0|0||0|Gothic Plate Armor|||2
-9473|3|49|44|0|402|132720|0|0||0|Jinxed Hoodoo Skin||s8,t10,p20|1
-14779|2|49|44|0|403|132643|0|0||0|Khan's Chestpiece||t17,p10|2
+9957|2|50|45|0|403|132759|1|0||0|Warmonger's Chestpiece|||2
+10086|2|49|44|0|404|132722|1|0||0|Gothic Plate Armor|||2
+9473|3|49|44|0|402|132720|1|0||0|Jinxed Hoodoo Skin||s8,t10,p20|1
+14779|2|49|44|0|403|132643|1|0||0|Khan's Chestpiece||t17,p10|2
 281299|2|49|0|0|402|0|2|0||0|Profane Ritual Robes||a17,t9|1
-14655|2|49|44|0|402|132722|0|0||0|Scorpashi Breastplate||a17,t8,p4|2
+14655|2|49|44|0|402|132722|1|0||0|Scorpashi Breastplate||a17,t8,p4|2
 7939|3|49|44|0|404|132739|1|0||0|Truesilver Breastplate||t12|2
-14427|2|49|44|0|401|135007|0|0||0|Windchaser Wraps||t10,p17|2
-7538|2|48|43|0|403|132627|0|0||0|Champion's Armor|||2
+14427|2|49|44|0|401|135007|1|0||0|Windchaser Wraps||t10,p17|2
+7538|2|48|43|0|403|132627|1|0||0|Champion's Armor|||2
 21311|2|48|0|0|401|132646|1|0||0|Earth Warder's Vest||i13|1
-9469|3|48|43|0|403|132628|0|0||0|Gahz'rilla Scale Armor||t10,p23|1
+9469|3|48|43|0|403|132628|1|0||0|Gahz'rilla Scale Armor||t10,p23|1
 19042|2|48|0|0|402|132723|1|0||0|Jangdor's Handcrafted Tunic||a7,s6,t15|1
 7935|2|48|43|0|404|132745|1|0||0|Ornate Mithril Breastplate||c1,d25|2
 19041|2|48|0|0|402|132722|1|0||0|Pratt's Handcrafted Tunic||a7,s6,t15|1
-9905|2|48|43|0|401|135017|0|0||0|Royal Blouse|||2
+9905|2|48|43|0|401|135017|1|0||0|Royal Blouse|||2
 10827|2|48|0|0|402|132720|1|0||0|Surveyor's Tunic||s11,p15|1
-9924|2|48|43|0|402|132723|0|0||0|Tracker's Tunic|||2
-14835|2|48|43|0|404|132743|0|0||0|Tyrant's Chestpiece||a3,s16,t7|2
+9924|2|48|43|0|402|132723|1|0||0|Tracker's Tunic|||2
+14835|2|48|43|0|404|132743|1|0||0|Tyrant's Chestpiece||a3,s16,t7|2
+274651|3|48|43|0|404|132746|2|0||0|Zealot Plate||s13|1
 20642|2|47|0|0|401|132688|1|0||0|Antiquated Nobleman's Tunic||t10,i10,S13,H13|1
-4082|2|47|42|0|403|132634|0|0||0|Blackforge Breastplate||a14,p11|2
-15609|2|47|42|0|403|132627|0|0||0|Bonelink Armor|||2
-8138|2|47|42|0|404|132749|0|0||0|Chromite Chestplate||s11,t11,p10|2
-9415|3|47|42|0|401|135009|0|0||0|Grimlok's Tribal Vestments||t10,i5,p20|1
-15164|2|47|42|0|402|132720|0|0||0|Imposing Vest|||2
-14249|2|47|42|0|401|135017|0|0||0|Lunar Vest|||2
-17777|2|47|0|0|403|132629|0|0||0|Relentless Chain||t10,i10,A20|1
-15601|2|46|41|0|403|132632|0|0||0|Ancient Chestpiece|||2
-14237|2|46|41|0|401|135020|0|0||0|Darkmist Armor|||2
-1677|2|46|41|0|403|132628|0|0||0|Drake-scale Vest||s15,p8|2
+4082|2|47|42|0|403|132634|1|0||0|Blackforge Breastplate||a14,p11|2
+15609|2|47|42|0|403|132627|1|0||0|Bonelink Armor|||2
+8138|2|47|42|0|404|132749|1|0||0|Chromite Chestplate||s11,t11,p10|2
+9415|3|47|42|0|401|135009|1|0||0|Grimlok's Tribal Vestments||t10,i5,p20|1
+15164|2|47|42|0|402|132720|1|0||0|Imposing Vest|||2
+14249|2|47|42|0|401|135017|1|0||0|Lunar Vest|||2
+17777|2|47|0|0|403|132629|1|0||0|Relentless Chain||t10,i10,A20|1
+274639|3|47|42|0|403|132747|2|0||0|Sacrificial Chain Vest||i6,p16,A34|1
+282008|3|47|42|0|404|132746|2|0||0|Wyrmak's Cuirass||s9,t21,S11,H11|1
+15601|2|46|41|0|403|132632|1|0||0|Ancient Chestpiece|||2
+14237|2|46|41|0|401|135020|1|0||0|Darkmist Armor|||2
+1677|2|46|41|0|403|132628|1|0||0|Drake-scale Vest||s15,p8|2
+281891|2|46|41|0|403|132624|2|0||0|Fishscale Hauberk||a11,t13,p5|2
 7930|2|46|41|0|404|132745|1|0||0|Heavy Mithril Breastplate||t15|2
-6430|2|46|41|0|402|132722|0|0||0|Imperial Leather Breastplate||t16,i7|2
-7113|2|46|41|0|401|135021|0|0||0|Mistscape Armor||t3,p18|2
+6430|2|46|41|0|402|132722|1|0||0|Imperial Leather Breastplate||t16,i7|2
+275005|3|46|41|0|404|132736|2|2135||0|Krol'dok Warplate Chest||s10,t10,d13|1
+7113|2|46|41|0|401|135021|1|0||0|Mistscape Armor||t3,p18|2
 270096|2|46|0|0|404|132722|2|0||0|Rebel Breastplate||s14,t10|1
-14939|2|46|41|0|404|132725|0|0||0|Warbringer's Chestguard|||2
-15376|2|46|41|0|402|132722|0|0||0|Wolf Rider's Padded Armor|||2
+14939|2|46|41|0|404|132725|1|0||0|Warbringer's Chestguard|||2
+15376|2|46|41|0|402|132722|1|0||0|Wolf Rider's Padded Armor|||2
 4138|2|45|0|0|403|132638|1|0||0|Blackwater Tunic||s7,p15|1
-9928|2|45|40|0|403|132750|0|0||0|Brigade Breastplate|||2
+9928|2|45|40|0|403|132750|1|0||0|Brigade Breastplate|||2
 9663|2|45|0|0|403|132638|1|0||0|Dawnrider's Chestpiece||a16,p5|1
 10021|3|45|40|0|401|132683|1|0||0|Dreamweave Vest||i9,p14,S18,H18|2
-9966|2|45|40|0|404|132722|0|0||0|Embossed Plate Armor|||2
+9966|2|45|40|0|404|132722|1|0||0|Embossed Plate Armor|||2
 277229|2|45|40|0|403|0|2|0||0|Enduring Chain Vest|||1
 277221|2|45|0|0|402|0|2|0||0|Grimtotem Naturalist's Tunic||a10,s14|1
 277237|2|45|40|0|404|0|2|0||0|Inspiring Chestplate||i13,p13|1
-7477|2|45|40|0|402|132723|0|0||0|Ranger Tunic|||2
-7332|2|45|40|0|401|135007|0|0||0|Regal Armor|||2
+7477|2|45|40|0|402|132723|1|0||0|Ranger Tunic|||2
+7332|2|45|40|0|401|135007|1|0||0|Regal Armor|||2
 250540|2|45|40|0|404|0|2|0||0|Shining Mithril Breastplate||s14,S14,H14|2
 10020|2|45|40|0|401|132649|1|0||0|Stormcloth Vest||t8,p8,H29|2
 8211|2|45|40|0|402|132647|1|0||0|Wild Leather Vest|||2
 281303|2|44|0|0|403|0|2|0||0|Bleached Scale Vest||s6,i15|1
-7486|2|44|39|0|403|132742|0|0||0|Captain's Breastplate|||2
-10764|3|44|39|0|403|132747|0|0||0|Deathchill Armor||t3,i9,p20|1
-9286|2|44|40|0|404|132749|0|0||0|Field Plate Armor|||2
-1981|4|44|39|0|403|132741|0|0||0|Icemail Jerkin||a5,t15,p24|2
-1715|3|44|39|0|403|132631|0|0||0|Polished Jazeraint Armor||s9,t10,p17|2
-14768|2|44|39|0|403|132629|0|0||0|Ravager's Armor||a4,s4,t10,p10|2
-14417|2|44|39|0|401|135007|0|0||0|Silksand Tunic||i16,p5|2
+7486|2|44|39|0|403|132742|1|0||0|Captain's Breastplate|||2
+274428|3|44|39|0|404|132745|2|0||0|Dark Golem Breastplate||s5,t10,d25|1
+10764|3|44|39|0|403|132747|1|0||0|Deathchill Armor||t3,i9,p20|1
+9286|2|44|40|0|404|132749|1|0||0|Field Plate Armor|||2
+1981|4|44|39|0|403|132741|1|0||0|Icemail Jerkin||a5,t15,p24|2
+285088|2|44|39|0|401|0|2|0||0|Ooze Dripping Robes||t9,i12|2
+1715|3|44|39|0|403|132631|1|0||0|Polished Jazeraint Armor||s9,t10,p17|2
+14768|2|44|39|0|403|132629|1|0||0|Ravager's Armor||a4,s4,t10,p10|2
+14417|2|44|39|0|401|135007|1|0||0|Silksand Tunic||i16,p5|2
 8203|2|44|39|0|403|132717|1|0||0|Tough Scorpid Breastplate||a15,p7|2
-14601|2|44|39|0|402|132719|0|0||0|Warden's Wraps||a12,t12|2
-9887|2|43|38|0|402|132722|0|0||0|Huntsman's Armor|||2
+14601|2|44|39|0|402|132719|1|0||0|Warden's Wraps||a12,t12|2
+9887|2|43|38|0|402|132722|1|0||0|Huntsman's Armor|||2
 4119|2|43|0|0|402|132722|1|0||0|Raptor Hunter Tunic||a3,s4,t16|1
 10007|2|43|38|0|401|135013|1|0||0|Red Mageweave Vest||i18|2
-9874|2|43|38|0|401|135017|0|0||0|Sorcerer Drape|||2
-15591|2|43|38|0|403|132626|0|0||0|Steadfast Breastplate|||2
-14821|2|43|40|0|404|132746|0|0||0|Symbolic Breastplate||s14,t9|2
+9874|2|43|38|0|401|135017|1|0||0|Sorcerer Drape|||2
+15591|2|43|38|0|403|132626|1|0||0|Steadfast Breastplate|||2
+14821|2|43|40|0|404|132746|1|0||0|Symbolic Breastplate||s14,t9|2
 7950|2|42|0|8|402|132718|1|221||0|Armor of Thero-shan||a7,h1|1
 4508|2|42|0|0|403|132743|1|0||0|Blood-tinged Armor||s5,t15|1
-10775|3|42|40|0|404|132743|0|0||0|Carapace of Tuten'kash||a8,s10,t15|1
+10775|3|42|40|0|404|132743|1|0||0|Carapace of Tuten'kash||a8,s10,t15|1
 270082|2|42|0|0|401|135017|2|0||0|Ceremonial Gown||i11,S13,H13|1
-14230|2|42|37|0|401|135008|0|0||0|Embersilk Tunic|||2
+14230|2|42|37|0|401|135008|1|0||0|Embersilk Tunic|||2
 6773|2|42|0|0|403|132629|1|0||0|Gelkis Marauder Chain||a7,s14|1
-9897|2|42|37|0|403|132631|0|0||0|Jazeraint Chestguard|||2
-8157|2|42|40|0|404|132746|0|0||0|Jouster's Chestplate||s15,t4|2
-15159|2|42|37|0|402|132720|0|0||0|Nocturnal Tunic|||2
+279881|3|42|1|0|403|0|2|0||0|Intrepid Explorer's Chainmail||a12,t8,p16|1
+9897|2|42|37|0|403|132631|1|0||0|Jazeraint Chestguard|||2
+8157|2|42|40|0|404|132746|1|0||0|Jouster's Chestplate||s15,t4|2
+15159|2|42|37|0|402|132720|1|0||0|Nocturnal Tunic|||2
 8189|2|42|37|0|403|132634|1|0||0|Turtle Scale Breastplate||t9,i9,p9|2
-7112|2|41|36|0|401|135005|0|0||0|Aurora Armor||t4,p15|2
+7112|2|41|36|0|401|135005|1|0||0|Aurora Armor||t4,p15|2
 9998|2|41|36|0|401|132718|1|0||0|Black Mageweave Vest||i11,p12|2
-6411|2|41|36|0|403|132743|0|0||0|Chief Brigadier Armor||t15,p4|2
-9434|3|41|36|0|401|132718|0|0||0|Elemental Raiment||S21,H21|2
-14216|2|41|36|0|401|132646|0|0||0|Geomancer's Jerkin|||2
-4058|2|41|36|0|402|132722|0|0||0|Glyphed Breastplate||t4,p15|2
+6411|2|41|36|0|403|132743|1|0||0|Chief Brigadier Armor||t15,p4|2
+9434|3|41|36|0|401|132718|1|0||0|Elemental Raiment||S21,H21|2
+14216|2|41|36|0|401|132646|1|0||0|Geomancer's Jerkin|||2
+4058|2|41|36|0|402|132722|1|0||0|Glyphed Breastplate||t4,p15|2
 8175|2|41|36|0|402|132718|1|0||0|Nightscape Tunic||a15,t6|2
-14895|2|41|40|0|404|132743|0|0||0|Saltstone Surcoat|||2
-15578|2|41|36|0|403|132751|0|0||0|Sparkleshell Breastplate|||2
-15359|2|41|36|0|402|132649|0|0||0|Trickster's Vest|||2
+14895|2|41|40|0|404|132743|1|0||0|Saltstone Surcoat|||2
+15578|2|41|36|0|403|132751|1|0||0|Sparkleshell Breastplate|||2
+15359|2|41|36|0|402|132649|1|0||0|Trickster's Vest|||2
 270079|2|41|0|0|401|135017|2|0||0|Witchdoctor's Dress||i17|1
 274942|2|40|0|0|402|132717|2|0||0|Bristlepelt Vest||a8,t12|1
-10581|3|40|35|0|401|132723|0|0||0|Death's Head Vestment||t12,i8,p13|2
+10581|3|40|35|0|401|132723|1|0||0|Death's Head Vestment||t12,i8,p13|2
+286999|3|40|35|0|402|0|2|0||0|Deathcrawler's Chest||a11,s7,t12,d5|2
 274938|2|40|0|0|402|132717|2|0||0|Gnollhide Tunic||a11,p11|1
 3845|2|40|35|0|403|132628|1|0||0|Golden Scale Cuirass||s14,p6|2
-14592|2|40|35|0|402|132721|0|0||0|Hawkeye's Tunic||a12,t8|2
-15567|2|40|35|0|403|132739|0|0||0|Marauder's Tunic|||2
-7439|2|40|35|0|402|132719|0|0||0|Sentinel Breastplate|||2
+14592|2|40|35|0|402|132721|1|0||0|Hawkeye's Tunic||a12,t8|2
+15567|2|40|35|0|403|132739|1|0||0|Marauder's Tunic|||2
+274611|3|40|35|0|401|0|2|0||0|Robe of the Drowned||t15,i11|1
+7439|2|40|35|0|402|132719|1|0||0|Sentinel Breastplate|||2
 7963|2|40|35|0|403|132740|1|0||0|Steel Breastplate|||2
-7429|2|40|35|0|401|135017|0|0||0|Twilight Armor|||2
-14760|2|39|34|0|403|132637|0|0||0|Enduring Breastplate||s12,t7,p3|2
-7454|2|39|34|0|403|132739|0|0||0|Knight's Breastplate|||2
-10583|3|39|34|0|402|132723|0|0||0|Quillward Harness||a19,s8|2
-10328|3|39|34|0|403|132629|0|163||0|Scarlet Chestpiece||s8,t19|2
-14407|2|39|34|0|401|135012|0|0||0|Stonecloth Vest||s2,t2,p15|2
-9854|2|38|33|0|402|132723|0|0||0|Archer's Jerkin|||2
-7759|3|38|33|0|403|132633|0|0||0|Archon Chestpiece||s12,t12,p8|2
-9844|2|38|33|0|401|132647|0|0||0|Conjurer's Vest|||2
-9866|2|38|33|0|403|132634|0|0||0|Renegade Chestguard|||2
-15144|2|37|32|0|402|132736|0|0||0|Ghostwalker Rags|||2
-7111|2|37|32|0|401|132646|0|0||0|Nightsky Armor||t8,i8,p8|2
-15557|2|37|32|0|403|132634|0|0||0|Pillager's Chestguard|||2
-14215|2|37|32|0|401|135010|0|0||0|Vital Tunic|||2
+7429|2|40|35|0|401|135017|1|0||0|Twilight Armor|||2
+282557|2|39|34|0|402|132716|2|0||0|Broken Tooth's Flayed Hide||a12,t8|2
+14760|2|39|34|0|403|132637|1|0||0|Enduring Breastplate||s12,t7,p3|2
+7454|2|39|34|0|403|132739|1|0||0|Knight's Breastplate|||2
+10583|3|39|34|0|402|132723|1|0||0|Quillward Harness||a19,s8|2
+10328|3|39|34|0|403|132629|1|163||0|Scarlet Chestpiece||s8,t19|2
+14407|2|39|34|0|401|135012|1|0||0|Stonecloth Vest||s2,t2,p15|2
+286639|3|38|33|0|401|0|2|0||0|Ambassador's Bloodrobes||t12,p6|1
+9854|2|38|33|0|402|132723|1|0||0|Archer's Jerkin|||2
+7759|3|38|33|0|403|132633|1|0||0|Archon Chestpiece||s12,t12,p8|2
+9844|2|38|33|0|401|132647|1|0||0|Conjurer's Vest|||2
+270054|2|38|0|0|402|132723|2|0||0|Cultist's Chestguard||s8,t8,p6|1
+9866|2|38|33|0|403|132634|1|0||0|Renegade Chestguard|||2
+15144|2|37|32|0|402|132736|1|0||0|Ghostwalker Rags|||2
+7111|2|37|32|0|401|132646|1|0||0|Nightsky Armor||t8,i8,p8|2
+15557|2|37|32|0|403|132634|1|0||0|Pillager's Chestguard|||2
+14215|2|37|32|0|401|135010|1|0||0|Vital Tunic|||2
 3844|3|36|31|0|403|132624|1|0||0|Green Iron Hauberk||s7,t11|2
-15356|2|36|31|0|402|132723|0|0||0|Headhunter's Armor|||2
-4057|2|36|31|0|402|132721|0|0||0|Insignia Chestguard||t13,p3|2
-4074|2|36|31|0|403|132635|0|0||0|Mail Combat Armor||s13,t3|2
-15546|2|36|31|0|403|132647|0|0||0|Thick Scale Breastplate|||2
-14202|2|36|31|0|401|135011|0|0||0|Thistlefur Jerkin|||2
-13110|3|36|31|0|402|132719|0|0||0|Wolffear Harness||a17,t6,p3|2
+15356|2|36|31|0|402|132723|1|0||0|Headhunter's Armor|||2
+4057|2|36|31|0|402|132721|1|0||0|Insignia Chestguard||t13,p3|2
+4074|2|36|31|0|403|132635|1|0||0|Mail Combat Armor||s13,t3|2
+15546|2|36|31|0|403|132647|1|0||0|Thick Scale Breastplate|||2
+14202|2|36|31|0|401|135011|1|0||0|Thistlefur Jerkin|||2
+13110|3|36|31|0|402|132719|1|0||0|Wolffear Harness||a17,t6,p3|2
 7374|2|35|30|0|402|132718|1|0||0|Dusky Leather Armor||a14|2
-7353|2|35|30|0|401|135020|0|0||0|Elder's Padded Armor|||2
+7353|2|35|30|0|401|135020|1|0||0|Elder's Padded Armor|||2
 7375|2|35|30|0|402|132631|1|0||0|Green Whelp Armor||p11|2
 4256|2|35|30|0|402|132723|1|0||0|Guardian Armor||i10,p9|2
-7407|2|35|30|0|402|132718|0|0||0|Infiltrator Armor|||2
-7688|3|35|30|0|403|132750|0|0||0|Ironspine's Ribcage||a3,s6,t17|1
-5755|2|35|30|0|403|132739|0|0||0|Onyx Shredder Plate||t8,p10|2
-7418|2|35|30|0|403|132736|0|0||0|Phalanx Breastplate|||2
-9406|3|35|30|0|402|132723|0|0||0|Spirewind Fetter||s7,t11,i12|2
-15130|2|34|29|0|402|132719|0|0||0|Cutthroat's Vest|||2
-9819|2|34|29|0|401|132646|0|0||0|Durable Tunic|||2
+7407|2|35|30|0|402|132718|1|0||0|Infiltrator Armor|||2
+7688|3|35|30|0|403|132750|1|0||0|Ironspine's Ribcage||a3,s6,t17|1
+282711|2|35|30|0|401|0|2|0||0|Naga Maiden's Gown||t9,i9|2
+5755|2|35|30|0|403|132739|1|0||0|Onyx Shredder Plate||t8,p10|2
+7418|2|35|30|0|403|132736|1|0||0|Phalanx Breastplate|||2
+9406|3|35|30|0|402|132723|1|0||0|Spirewind Fetter||s7,t11,i12|2
+284697|2|34|29|0|401|0|2|0||0|Arcane Charged Robes||i9|2
+15130|2|34|29|0|402|132719|1|0||0|Cutthroat's Vest|||2
+9819|2|34|29|0|401|132646|1|0||0|Durable Tunic|||2
 7051|2|34|29|0|401|135008|1|0||0|Earthen Vest||t6,p10|2
+273038|3|34|29|0|402|0|2|0||0|Garb of Fallen Felbark||a9,t7,i13|1
 250533|2|34|29|0|403|0|2|0||0|Hard Gold Cuirass||s11,S6,H6|2
 5782|2|34|29|0|402|132634|1|0||0|Thick Murloc Armor||s9,t8|2
-15536|2|34|29|0|403|132739|0|0||0|Wicked Chain Chestpiece|||2
+15536|2|34|29|0|403|132739|1|0||0|Wicked Chain Chestpiece|||2
 277514|2|33|1|0|401|0|2|0||0|Aka'rai's Tattered Vestments||t9,p9|1
-9836|2|33|28|0|403|132739|0|0||0|Banded Armor|||2
-14581|2|33|28|0|402|132716|0|0||0|Dokebi Chestguard||t10,p6|2
+9836|2|33|28|0|403|132739|1|0||0|Banded Armor|||2
+14581|2|33|28|0|402|132716|1|0||0|Dokebi Chestguard||t10,p6|2
 7065|2|33|28|0|401|132647|1|0||0|Green Silk Armor||i13|2
 4455|2|33|28|0|402|132719|1|0||0|Raptor Hide Harness||t13|2
-14398|2|33|28|0|401|135013|0|0||0|Resilient Tunic||a4,i11|2
-9835|2|33|28|0|402|132725|0|0||0|Scaled Leather Tunic|||2
-14751|2|33|28|0|403|132629|0|0||0|Slayer's Surcoat||a3,s10,t5|2
+14398|2|33|28|0|401|135013|1|0||0|Resilient Tunic||a4,i11|2
+9835|2|33|28|0|402|132725|1|0||0|Scaled Leather Tunic|||2
+14751|2|33|28|0|403|132629|1|0||0|Slayer's Surcoat||a3,s10,t5|2
 7914|2|32|27|0|403|132636|1|0||0|Barbaric Iron Breastplate||s12|0
-6396|2|32|27|0|402|132723|0|0||0|Emblazoned Chestpiece||a7,t6,p6|2
-15346|2|32|27|0|402|132656|0|0||0|Pathfinder Vest|||2
-6609|2|32|27|0|401|135012|0|0||0|Sage's Cloth|||2
+270043|3|32|0|0|402|132716|2|0||0|Dreamer's Chestguard||s10,t5,p11|1
+6396|2|32|27|0|402|132723|1|0||0|Emblazoned Chestpiece||a7,t6,p6|2
+273035|3|32|27|0|403|0|2|0||0|Mana-Warped Chain Shirt||s12,t8|1
+15346|2|32|27|0|402|132656|1|0||0|Pathfinder Vest|||2
+6609|2|32|27|0|401|135012|1|0||0|Sage's Cloth|||2
 9516|2|31|0|128|401|135015|1|0||0|Astral Knot Blouse||t6,i9|1
-1488|3|31|26|0|403|132624|0|0||0|Avenger's Armor||s15,t6|2
-4071|2|31|26|0|403|132751|0|0||0|Glimmering Mail Breastplate||s3,t11|2
+1488|3|31|26|0|403|132624|1|0||0|Avenger's Armor||s15,t6|2
+273026|3|31|26|0|402|133684|2|0||0|Garb of Florid Feathers||a9,i15|1
+4071|2|31|26|0|403|132751|1|0||0|Glimmering Mail Breastplate||s3,t11|2
 4255|2|31|26|0|402|132723|1|0||0|Green Leather Armor||a8,p8|2
 9515|2|31|0|128|401|135011|1|0||0|Nether-lace Tunic||t6,i9|1
-14190|2|31|26|0|401|135014|0|0||0|Raincaller Vest|||2
-15128|2|31|26|0|402|132646|0|0||0|Robust Tunic|||2
-15524|2|31|26|0|403|132719|0|0||0|Sentry's Surcoat|||2
-7110|2|31|26|0|401|135022|0|0||0|Silver-thread Armor||i4,p11|2
+14190|2|31|26|0|401|135014|1|0||0|Raincaller Vest|||2
+15128|2|31|26|0|402|132646|1|0||0|Robust Tunic|||2
+15524|2|31|26|0|403|132719|1|0||0|Sentry's Surcoat|||2
+7110|2|31|26|0|401|135022|1|0||0|Silver-thread Armor||i4,p11|2
 4324|2|30|25|0|401|132678|1|0||0|Azure Silk Vest||i9|2
 7133|3|30|0|1|403|132629|1|0||0|Brutal Hauberk||s5,t14|1
-6603|2|30|25|0|402|132716|0|0||0|Dervish Tunic|||2
-1717|3|30|25|0|403|132624|0|0||0|Double Link Tunic||d9|2
+6603|2|30|25|0|402|132716|1|0||0|Dervish Tunic|||2
+1717|3|30|25|0|403|132624|1|0||0|Double Link Tunic||d9|2
 6972|3|30|0|1|403|132629|1|0||0|Fire Hardened Hauberk||s5,t14|1
-914|2|30|25|0|403|132624|0|0||0|Large Ogre Chain Armor||s10,t1|2
-2234|2|30|25|0|401|135020|0|0||0|Nightwalker Armor||s9,t4|2
+914|2|30|25|0|403|132624|1|0||0|Large Ogre Chain Armor||s10,t1|2
+2234|2|30|25|0|401|135020|1|0||0|Nightwalker Armor||s9,t4|2
 3750|2|30|0|0|402|132724|1|0||0|Ribbed Breastplate||s5,t5,p5|1
 5814|2|30|0|0|402|132725|1|0||0|Snapbrook Armor||s4,p9|1
-15518|2|30|25|0|403|132639|0|0||0|Spiked Chain Breastplate|||2
+15518|2|30|25|0|403|132639|1|0||0|Spiked Chain Breastplate|||2
 250487|2|30|25|0|403|0|2|0||0|Sterling Silver Breastplate||s7,t6,S7,H7|2
-14180|2|30|25|0|401|135010|0|0||0|Watcher's Jerkin|||2
-6592|2|29|24|0|403|132629|0|0||0|Battleforge Armor|||2
+14180|2|30|25|0|401|135010|1|0||0|Watcher's Jerkin|||2
+6592|2|29|24|0|403|132629|1|0||0|Battleforge Armor|||2
 15471|2|29|0|0|402|132716|1|0||0|Brawnhide Armor||a4,t9,p3|1
-9791|2|29|24|0|401|135010|0|0||0|Ivycloth Tunic|||2
+9791|2|29|24|0|401|135010|1|0||0|Ivycloth Tunic|||2
 3566|2|29|0|0|402|132716|1|0||0|Raptorbane Armor||t3|1
 2870|3|29|24|0|403|132750|1|0||0|Shining Silver Breastplate||s14,t6|2
-15337|2|29|24|0|402|132656|0|0||0|Wrangler's Wraps|||2
-14570|2|28|23|0|402|132723|0|0||0|Bristlebark Blouse||a7,t6|2
+15337|2|29|24|0|402|132656|1|0||0|Wrangler's Wraps|||2
+14570|2|28|23|0|402|132723|1|0||0|Bristlebark Blouse||a7,t6|2
 7335|2|28|0|0|402|132721|1|0||0|Grizzly Tunic||t10|1
-14744|2|28|23|0|403|132637|0|0||0|Hulking Chestguard||s5,t8|2
-3053|2|28|23|0|403|132624|0|0||0|Humbert's Chestpiece||s10|2
-6627|3|28|23|0|403|132743|0|0||0|Mutant Scale Breastplate||s13,t5|1
-14372|2|28|23|0|401|135013|0|0||0|Sanguine Armor||t7,i6|2
-9809|2|28|23|0|402|132725|0|0||0|Superior Tunic|||2
+14744|2|28|23|0|403|132637|1|0||0|Hulking Chestguard||s5,t8|2
+3053|2|28|23|0|403|132624|1|0||0|Humbert's Chestpiece||s10|2
+6627|3|28|23|0|403|132743|1|0||0|Mutant Scale Breastplate||s13,t5|1
+14372|2|28|23|0|401|135013|1|0||0|Sanguine Armor||t7,i6|2
+9809|2|28|23|0|402|132725|1|0||0|Superior Tunic|||2
 250521|3|27|22|0|403|0|2|0||0|Acolyte's Silvered Chain Shirt||t6,i7,S7,H22|1
 17005|2|27|0|0|402|135017|1|0||0|Boorguard Tunic||a7,t6|1
 252508|3|27|22|0|402|0|2|0||0|Brawler's Leather Tunic||a8,s6,t6,p5|1
-6608|2|27|22|0|401|132722|0|0||0|Bright Armor||i8,p4|2
+6608|2|27|22|0|401|132722|1|0||0|Bright Armor||i8,p4|2
 250522|3|27|22|0|403|0|2|0||0|Crusader's Silvered Chain Shirt||s6,t7,S12,H12|1
 252450|3|27|22|0|402|0|2|0||0|Defender's Leather Tunic||a6,s6,t8|1
 253965|3|27|22|0|401|0|2|0||0|Flame Gown||t6,i7,p4|1
-9774|2|27|22|0|401|132656|0|0||0|Greenweave Vest|||2
+9774|2|27|22|0|401|132656|1|0||0|Greenweave Vest|||2
 250519|3|27|22|0|403|0|2|0||0|Guard's Silvered Chain Shirt||s6,t10,d7|1
-4448|2|27|22|0|403|134321|0|0||0|Husk of Naraxis||s5,t7|2
-3049|2|27|22|0|403|132628|0|0||0|Lambent Scale Breastplate||t8,p3|2
+4448|2|27|22|0|403|134321|1|0||0|Husk of Naraxis||s5,t7|2
+3049|2|27|22|0|403|132628|1|0||0|Lambent Scale Breastplate||t8,p3|2
 6670|2|27|0|0|402|132716|1|0||0|Panther Armor||a9,s2|1
 253969|3|27|22|0|401|0|2|0||0|Pearly Gown||t6,i7,p4|1
 253961|3|27|22|0|401|0|2|0||0|Pristine Gown||t6,i7,p4,S7,H20|1
@@ -2394,51 +2626,57 @@ FGT.GEARDB = {
 252509|3|27|22|0|402|0|2|0||0|Trapper's Leather Tunic||a8,t6,i6,p5|1
 250518|3|27|22|0|403|0|2|0||0|Veteran's Silvered Chain Shirt||a6,s10,t7|1
 252511|3|27|22|0|402|0|2|0||0|Wisdom's Leather Tunic||t5,i6,p6,S6,H18|1
+273805|3|26|21|0|402|132719|2|0||0|Blackrock Harness||t8,A14,d4|1
 2016|2|26|21|0|403|132624|0|0||0|Dusty Chain Armor||s8,t2|2
-3055|2|26|21|0|402|132723|0|0||0|Forest Leather Chestpiece||t4,p7|2
-15514|2|26|21|0|403|132624|0|0||0|Grunt's Chestpiece|||2
-3416|3|26|21|0|403|132624|0|0||0|Martyr's Chain||s8,t8,p5|2
+3055|2|26|21|0|402|132723|1|0||0|Forest Leather Chestpiece||t4,p7|2
+15514|2|26|21|0|403|132624|1|0||0|Grunt's Chestpiece|||2
+3416|3|26|21|0|403|132624|1|0||0|Martyr's Chain||s8,t8,p5|2
 14158|2|26|21|0|401|135011|1|0||0|Pagan Vest|||2
-15118|2|26|21|0|402|132725|0|0||0|Rigid Tunic|||2
+15118|2|26|21|0|402|132725|1|0||0|Rigid Tunic|||2
 2869|2|26|21|0|403|132631|1|0||0|Silvered Bronze Breastplate||s5,t5,p4|2
 5316|2|25|0|0|402|135009|1|0||0|Barkshell Tunic||t4,i7|1
 3431|2|25|0|0|402|132717|1|0||0|Bone-studded Leather||a1,s6,t5|1
 1275|2|25|0|0|403|132624|1|0||0|Deputy Chain Coat||t4,p7|1
+277213|3|25|20|0|401|0|2|0||0|Dro'zem's Tunic||i9,S11,H11|1
 5317|2|25|0|0|402|135010|1|0||0|Dry Moss Tunic||a2,t8|1
 1273|2|25|0|0|403|132742|1|0||0|Forest Chain||t2,p8|1
-9818|2|25|20|0|403|132624|0|0||0|Fortified Chain|||2
-1489|3|25|20|0|402|132723|0|0||0|Gloomshroud Armor||s5,p12|2
-6642|3|25|20|0|403|132627|0|0||0|Phantom Armor||s3,t11,p5|1
-6584|2|25|20|0|402|132725|0|0||0|Scouting Tunic|||2
-6567|2|25|20|0|401|135012|0|0||0|Shimmering Armor|||2
-6907|3|25|20|0|403|135010|0|0||0|Tortoise Armor|||1
-10399|3|24|19|0|402|132723|0|161||0|Blackened Defias Armor||a3,s4,t11|1
+9818|2|25|20|0|403|132624|1|0||0|Fortified Chain|||2
+1489|3|25|20|0|402|132723|1|0||0|Gloomshroud Armor||s5,p12|2
+6642|3|25|20|0|403|132627|1|0||0|Phantom Armor||s3,t11,p5|1
+6584|2|25|20|0|402|132725|1|0||0|Scouting Tunic|||2
+6567|2|25|20|0|401|135012|1|0||0|Shimmering Armor|||2
+6907|3|25|20|0|403|135010|1|0||0|Tortoise Armor|||1
+10399|3|24|19|0|402|132723|1|161||0|Blackened Defias Armor||a3,s4,t11|1
 6721|2|24|0|0|403|132720|1|0||0|Chestplate of Kor||s4,t4,p4|1
-5202|3|24|19|0|401|135012|0|0||0|Corsair's Overshirt||t5,p11|1
-15500|2|24|19|0|403|132626|0|0||0|Outrunner's Chestguard|||2
-14133|2|24|19|0|401|135009|0|0||0|Ritual Tunic|||2
-1486|3|24|19|0|401|135006|0|0||0|Tree Bark Jacket||t6,i10|2
-2041|3|24|0|0|402|132722|0|0||0|Tunic of Westfall||a11,t5|1
+5202|3|24|19|0|401|135012|1|0||0|Corsair's Overshirt||t5,p11|1
+15500|2|24|19|0|403|132626|1|0||0|Outrunner's Chestguard|||2
+279869|2|24|1|0|403|0|2|0||0|Remembrance Armor||s3,t5,i3|1
+14133|2|24|19|0|401|135009|1|0||0|Ritual Tunic|||2
+1486|3|24|19|0|401|135006|1|0||0|Tree Bark Jacket||t6,i10|2
+2041|3|24|0|0|402|132722|1|0||0|Tunic of Westfall||a11,t5|1
 7336|2|24|0|0|403|132624|1|0||0|Wildwood Chain||a1,s8|1
-6473|2|23|18|0|402|135020|0|162||0|Armor of the Fang||s2,p7|1
-9782|2|23|18|0|402|135015|0|0||0|Bandit Jerkin|||2
-14175|2|23|18|0|401|135012|0|0||0|Buccaneer's Vest|||2
-6580|2|23|18|0|403|132626|0|0||0|Defender Tunic|||2
-14369|2|23|18|0|401|135017|0|0||0|Mystic's Wrap||a3,i7|2
+6473|2|23|18|0|402|135020|1|162||0|Armor of the Fang||s2,p7|1
+9782|2|23|18|0|402|135015|1|0||0|Bandit Jerkin|||2
+14175|2|23|18|0|401|135012|1|0||0|Buccaneer's Vest|||2
+6580|2|23|18|0|403|132626|1|0||0|Defender Tunic|||2
+14369|2|23|18|0|401|135017|1|0||0|Mystic's Wrap||a3,i7|2
 3733|2|23|0|0|403|132624|1|0||0|Orcish War Chain||s6,t3|1
-14562|2|23|18|0|402|132724|0|0||0|Prospector's Chestpiece||a6,s2,t3|2
-14730|2|23|18|0|403|132624|0|0||0|War Paint Chestpiece||s6,t4|2
+14562|2|23|18|0|402|132724|1|0||0|Prospector's Chestpiece||a6,s2,t3|2
+286978|3|23|18|0|401|0|2|2133||0|Rotmender's Garb||i10,S4,H11|2
+14730|2|23|18|0|403|132624|1|0||0|War Paint Chestpiece||s6,t4|2
+271212|3|22|17|0|402|133684|2|0||0|Bloodied Chestwraps||a7,p9|1
 3585|2|22|0|0|402|132723|1|0||0|Camouflaged Tunic||a2,t6|1
-15311|2|22|17|0|402|132719|0|0||0|Feral Harness|||2
+15311|2|22|17|0|402|132719|1|0||0|Feral Harness|||2
 3752|2|22|0|0|401|135011|1|0||0|Grunt Vest||s5,p4|1
-6197|2|22|17|0|402|132760|0|0||0|Loch Croc Hide Vest||t7|2
-12988|3|22|17|0|402|132725|0|0||0|Starsight Tunic||t4,p10|2
+6197|2|22|17|0|402|132760|1|0||0|Loch Croc Hide Vest||t7|2
+12988|3|22|17|0|402|132725|1|0||0|Starsight Tunic||t4,p10|2
 6502|2|22|0|0|403|132626|1|0||0|Violet Scale Armor||t6,p1|1
-15488|2|21|16|0|403|132629|0|0||0|Bloodspattered Surcoat|||2
-2989|2|21|16|0|403|132628|0|0||0|Burnished Tunic||s6,t3|2
-2985|2|21|16|0|402|132724|0|0||0|Inscribed Leather Breastplate||t5,p3|2
-6561|2|21|16|0|401|135006|0|0||0|Seer's Padded Armor||t3,p6|2
-14121|2|20|15|0|401|132716|0|0||0|Aboriginal Vest|||2
+15488|2|21|16|0|403|132629|1|0||0|Bloodspattered Surcoat|||2
+2989|2|21|16|0|403|132628|1|0||0|Burnished Tunic||s6,t3|2
+2985|2|21|16|0|402|132724|1|0||0|Inscribed Leather Breastplate||t5,p3|2
+6561|2|21|16|0|401|135006|1|0||0|Seer's Padded Armor||t3,p6|2
+271205|3|20|15|0|403|0|2|0||0|Abomination Bones||s8|1
+14121|2|20|15|0|401|132716|1|0||0|Aboriginal Vest|||2
 250491|3|20|15|0|403|0|2|0||0|Acolyte's Chain Shirt||t4,i5,S5,H16|1
 270022|2|20|0|0|401|135012|2|0||0|Archaeologist's Gown||p5,S2,H2|1
 20575|2|20|15|0|402|132686|1|0||0|Black Whelp Tunic||a3,s5|2
@@ -2454,58 +2692,62 @@ FGT.GEARDB = {
 250489|3|20|15|0|403|0|2|0||0|Guard's Chain Shirt||s4,t7,d5|1
 4244|2|20|15|0|402|132725|1|0||0|Hillman's Leather Vest||t4,p4|2
 6731|2|20|15|0|403|132740|1|0||0|Ironforge Breastplate||s3,t3|2
-15018|2|20|15|0|402|132715|0|0||0|Lupine Vest|||2
+271206|3|20|15|0|401|0|2|0||0|Leftover Abomination Skin||p9|1
+15018|2|20|15|0|402|132715|1|0||0|Lupine Vest|||2
 250490|3|20|15|0|403|0|2|0||0|Protector's Chain Shirt||t7,S5,H5,d3|1
-9783|2|20|15|0|403|132629|0|0||0|Raider's Chestpiece|||2
+9783|2|20|15|0|403|132629|1|0||0|Raider's Chestpiece|||2
 252492|3|20|15|0|402|0|2|0||0|Stormrider's Leather Armor||t3,i5,p3,S8,H8|1
 252435|3|20|15|0|402|0|2|0||0|Totemic Leather Armor||s7,t3,i3,S6,H6|1
 252491|3|20|15|0|402|0|2|0||0|Trapper's Leather Armor||a7,t5,i3,p3|1
 250488|3|20|15|0|403|0|2|0||0|Veteran's Chain Shirt||a4,s7,t5|1
 4781|2|20|15|0|401|135014|1|0||0|Whispering Vest||p6|2
 252493|3|20|15|0|402|0|2|0||0|Wisdom's Leather Armor||t3,i5,p3,S5,H15|1
-6552|2|19|14|0|402|135015|0|0||0|Bard's Tunic|||2
+6552|2|19|14|0|402|135015|1|0||0|Bard's Tunic|||2
+286536|2|19|14|0|402|132760|2|0||0|Heckler's Hide||a5,p3|2
 5781|2|19|14|0|402|132634|1|0||0|Murloc Scale Breastplate||a3,s5|2
-6536|2|19|14|0|401|135024|0|0||0|Willow Vest|||2
-3310|2|18|13|0|401|135011|0|0||0|Barbaric Cloth Vest||t4,i2|2
-3306|2|18|13|0|403|132647|0|0||0|Brackwater Vest||s4,t3|2
-3313|2|18|13|0|402|132719|0|0||0|Ceremonial Leather Harness||a4,p3|2
+6536|2|19|14|0|401|135024|1|0||0|Willow Vest|||2
+3310|2|18|13|0|401|135011|1|0||0|Barbaric Cloth Vest||t4,i2|2
+3306|2|18|13|0|403|132647|1|0||0|Brackwater Vest||s4,t3|2
+3313|2|18|13|0|402|132719|1|0||0|Ceremonial Leather Harness||a4,p3|2
+271098|3|18|13|0|403|132624|2|0||0|Golemguard Chest||t6|1
 6709|2|18|13|0|402|132724|1|0||0|Moonglow Vest||i3,p4|2
 2864|2|18|13|0|403|132738|1|0||0|Runed Copper Breastplate||s4,t3|2
-6545|2|18|13|0|403|132638|0|0||0|Soldier's Armor|||2
+6545|2|18|13|0|403|132638|1|0||0|Soldier's Armor|||2
 4243|2|17|12|0|402|132724|1|0||0|Fine Leather Tunic||a4,t3|2
-2973|2|17|12|0|402|132760|0|0||0|Hunting Tunic||a2,t4|2
+2973|2|17|12|0|402|132760|1|0||0|Hunting Tunic||a2,t4|2
 281324|2|17|0|0|401|0|2|0||0|Sailing Tunic||p5|1
-2969|2|17|12|0|401|132647|0|0||0|Spellbinder Vest||i5|2
-15304|2|16|11|0|402|132716|0|0||0|Grizzly Jerkin|||2
+2969|2|17|12|0|401|132647|1|0||0|Spellbinder Vest||i5|2
+15304|2|16|11|0|402|132716|1|0||0|Grizzly Jerkin|||2
 6730|2|16|11|0|403|132624|1|0||0|Ironforge Chain||t4|2
-14096|2|16|11|0|401|135009|0|0||0|Native Vest|||2
-2977|2|16|11|0|403|132631|0|0||0|Veteran Armor||s3,t2|2
-15487|2|16|11|0|403|132629|0|0||0|War Torn Tunic|||2
-9765|2|15|10|0|403|132627|0|0||0|Cadet Vest|||2
-1211|2|15|10|0|402|132719|0|0||0|Gnoll War Harness||s2,t2|2
+14096|2|16|11|0|401|135009|1|0||0|Native Vest|||2
+2977|2|16|11|0|403|132631|1|0||0|Veteran Armor||s3,t2|2
+15487|2|16|11|0|403|132629|1|0||0|War Torn Tunic|||2
+9765|2|15|10|0|403|132627|1|0||0|Cadet Vest|||2
+283480|2|15|10|0|403|132630|2|0||0|Cracked Carapace Hauberk||a3,p3|2
+1211|2|15|10|0|402|132719|1|0||0|Gnoll War Harness||s2,t2|2
 2273|2|15|10|0|403|132626|0|0||0|Guerrilla Armor||p4|2
-9757|2|15|10|0|402|135010|0|0||0|Gypsy Tunic|||2
+9757|2|15|10|0|402|135010|1|0||0|Gypsy Tunic|||2
 3166|2|15|0|0|403|132624|1|0||0|Ironheart Chain||t4|1
-9749|2|15|10|0|401|135009|0|0||0|Simple Blouse|||2
-6180|2|15|10|0|403|132634|0|0||0|Slarkskin||a3,t2|2
+9749|2|15|10|0|401|135009|1|0||0|Simple Blouse|||2
+6180|2|15|10|0|403|132634|1|0||0|Slarkskin||a3,t2|2
 5341|2|15|0|0|402|135011|1|0||0|Spore-covered Tunic||t1,p3|1
-6195|2|15|10|0|403|132624|0|0||0|Wax-polished Armor||s2,t3|2
+6195|2|15|10|0|403|132624|1|0||0|Wax-polished Armor||s2,t3|2
 5420|2|14|0|0|401|135011|1|0||0|Banshee Armor||t3|1
 2578|2|14|9|0|401|132715|1|0||0|Barbaric Linen Vest||t2,p2|2
-3292|2|13|8|0|401|135011|0|0||0|Ancestral Tunic||t1,i2|2
+3292|2|13|8|0|401|135011|1|0||0|Ancestral Tunic||t1,i2|2
 270000|2|13|0|0|401|132665|2|0||0|Apprentice Wizard's Gown||i2,S2,H2|1
-3283|2|13|8|0|403|132719|0|0||0|Battle Chain Tunic||a1,s2|2
-3330|2|13|8|0|403|132624|0|0||0|Dargol's Hauberk||s2,t1|2
-6266|2|13|8|0|401|135009|0|0||0|Disciple's Vest|||2
+3283|2|13|8|0|403|132719|1|0||0|Battle Chain Tunic||a1,s2|2
+3330|2|13|8|0|403|132624|1|0||0|Dargol's Hauberk||s2,t1|2
+6266|2|13|8|0|401|135009|1|0||0|Disciple's Vest|||2
 7229|2|13|0|0|403|132634|1|0||0|Explorer's Vest||t2,i1|1
 6085|2|13|0|0|402|132724|1|0||0|Footman Tunic||a1,t2|1
-2087|2|13|8|0|402|132760|0|0||0|Hard Crawler Carapace||s2,t1|2
-6336|2|13|8|0|403|132624|0|0||0|Infantry Tunic|||2
+2087|2|13|8|0|402|132760|1|0||0|Hard Crawler Carapace||s2,t1|2
+6336|2|13|8|0|403|132624|1|0||0|Infantry Tunic|||2
 263333|2|13|0|0|403|7737715|2|0||0|Peacekeeper's Mail||t3|1
-6268|2|13|8|0|402|135010|0|0||0|Pioneer Tunic|||2
-821|2|13|8|0|402|135011|0|0||0|Riverpaw Leather Vest||a1,t2|2
+6268|2|13|8|0|402|135010|1|0||0|Pioneer Tunic|||2
+821|2|13|8|0|402|135011|1|0||0|Riverpaw Leather Vest||a1,t2|2
 257344|2|13|0|0|402|7734196|2|0||0|Skywatcher's Vestments||a1,t2|1
-3288|2|13|8|0|402|132657|0|0||0|Tribal Vest||a2,t1|2
+3288|2|13|8|0|402|132657|1|0||0|Tribal Vest||a2,t1|2
 277022|2|12|7|0|402|0|2|0||0|Azure Gustwoven Harness||s2|2
 277016|2|12|7|0|403|0|2|0||0|Azure Skyforged Chainmail||s2|2
 277034|2|12|7|0|401|0|2|0||0|Azure Stormsewn Vest||i2|2
@@ -2518,20 +2760,26 @@ FGT.GEARDB = {
 2300|2|12|7|0|402|132724|1|0||0|Embossed Leather Vest||t2|2
 6239|2|12|7|0|401|132681|1|0||0|Red Linen Vest||p2|2
 2817|2|12|0|0|402|135014|1|0||0|Soft Leather Tunic||t2|1
-14094|2|11|6|0|401|135009|0|0||0|Beaded Wraps|||2
-2961|2|11|6|0|402|135013|0|0||0|Burnt Leather Vest||p2|2
-15479|2|11|6|0|403|132638|0|0||0|Charger's Armor|||2
-10553|2|11|6|0|401|135009|0|0||0|Foreman Vest||s2|2
+277056|2|11|6|0|403|0|2|0||0|Al'Aketh Chainmail||t2|2
+277062|2|11|6|0|402|0|2|0||0|Al'Aketh Harness||t2|2
+277068|2|11|6|0|402|0|2|0||0|Al'Aketh Jerkin||t2|2
+277074|2|11|6|0|401|0|2|0||0|Al'Aketh Vestments||t2|2
+14094|2|11|6|0|401|135009|1|0||0|Beaded Wraps|||2
+2961|2|11|6|0|402|135013|1|0||0|Burnt Leather Vest||p2|2
+15479|2|11|6|0|403|132638|1|0||0|Charger's Armor|||2
+284165|2|11|6|0|402|132724|2|0||0|Duskstalker's Hide||a2|2
+10553|2|11|6|0|401|135009|1|0||0|Foreman Vest||s2|2
 281284|2|11|0|0|402|0|2|0||0|Howlhide Vest||a2|1
-2957|2|11|6|0|401|132647|0|0||0|Journeyman's Vest||p2|2
+2957|2|11|6|0|401|132647|1|0||0|Journeyman's Vest||p2|2
 263401|2|11|0|0|402|7731374|2|0||0|Martyr's Armor||a2|1
-15010|2|11|6|0|402|132719|0|0||0|Primal Wraps|||2
-2965|2|11|6|0|403|132624|0|0||0|Warrior's Tunic||s2|2
-3000|2|10|5|0|402|132724|0|0||0|Brood Mother Carapace||t1|2
+15010|2|11|6|0|402|132719|1|0||0|Primal Wraps|||2
+2965|2|11|6|0|403|132624|1|0||0|Warrior's Tunic||s2|2
+3000|2|10|5|0|402|132724|1|0||0|Brood Mother Carapace||t1|2
 3471|2|10|5|0|403|132624|1|0||0|Copper Chain Vest||s1|2
 276721|2|10|0|0|403|0|2|0||0|DNT CHEST|||1
-17922|2|10|5|0|402|132715|0|0||0|Lionfur Armor||i1|2
-4861|2|10|5|0|402|132715|0|0||0|Sleek Feathered Tunic||a1|2
+17922|2|10|5|0|402|132715|1|0||0|Lionfur Armor||i1|2
+4861|2|10|5|0|402|132715|1|0||0|Sleek Feathered Tunic||a1|2
+263007|2|8|6|0|401|0|2|0||0|Skyseer's Vest||i1|1
 287621|3|1|1|0|405|8382584|2|0||0|Gilded Blademaster's Chestpiece|||1
 ]==],
         [6] = [==[
@@ -2557,7 +2805,7 @@ FGT.GEARDB = {
 21598|4|81|60|0|404|132520|1|0||0|Royal Qiraji Belt||a13,s13,t22,d33|1
 19137|4|78|60|0|404|132518|0|0||0|Onslaught Girdle||s31,t11,h1,c1|1
 19388|4|77|60|0|401|132502|0|0||0|Angelista's Grasp||t17,i20,p13,h2|1
-19392|4|77|60|0|404|132500|0|0||0|Girdle of the Fallen Crusader||a10,s20,t15,i17,p13|1
+19392|4|77|60|0|404|132500|1|0||0|Girdle of the Fallen Crusader||a10,s20,t15,i17,p13|1
 19393|4|77|60|0|403|132510|0|0||0|Primalist's Linked Waistguard||s16,t13,i16,p15,S20,H20|1
 16944|4|76|60|64|403|132503|0|216||0|Belt of Ten Storms||t13,i18,p11,H26,c1|1
 16925|4|76|60|16|401|132511|0|211||0|Belt of Transcendence||t14,i26,p9,H26|1
@@ -2607,12 +2855,16 @@ FGT.GEARDB = {
 20670|2|65|60|0|403|132505|0|0||0|Abyssal Mail Clutch|||2
 20673|2|65|60|0|404|132515|0|0||0|Abyssal Plate Girdle|||2
 22010|3|65|0|0|403|132517|1|515||0|Beastmaster's Belt||a16,t16,i10|1
+226898|3|65|0|4|403|132517|1|1669||0|Beastmaster's Waist||a16,t16,i10|1
 21994|3|65|0|0|404|132523|1|511||0|Belt of Heroism||a9,s15,t12,d7|1
 22098|3|65|0|0|403|132505|1|519||0|Cord of The Five Thunders||s10,t11,i11,S12,H12|1
 22002|3|65|0|0|402|132492|1|512||0|Darkmantle Belt||a17,s10,t13|1
+226846|3|65|0|8|402|132492|1|1676||0|Darkmantle Waist||a17,s10,t13|1
 22070|3|65|0|0|401|132501|1|518||0|Deathmist Belt||t16,i16,S12,H12|1
+226922|3|65|0|256|401|132501|1|1681||0|Deathmist Waist||t16,i16,S12,H12|1
 279252|4|65|60|0|402|0|2|0||0|Elderwild Waistcord||t21,p18,S10,H30|2
 22106|3|65|0|0|402|132504|1|513||0|Feralheart Belt||a7,s6,t9,i12,p8,S7,H7|1
+226816|3|65|0|1024|402|132504|1|1667||0|Feralheart Waist||a7,s6,t9,i12,p8,S7,H7|1
 16572|4|65|60|4|403|132503|1|0|H|1|General's Chain Girdle|Requires PvP rank 12|a18,s5,t18,i18|1
 16556|4|65|60|1024|402|132495|1|0|H|1|General's Dragonhide Belt|Requires PvP rank 12|t18,i25,p10|1
 17589|4|65|60|256|401|132502|1|0|H|1|General's Dreadweave Belt|Requires PvP rank 12|t15,i23,p15|1
@@ -2662,9 +2914,15 @@ FGT.GEARDB = {
 273412|4|65|60|1024|402|132495|2|0|H|0|Premier Legionnaire's Wyrmhide Belt||t28,i14,S11,H11|1
 20261|3|65|60|0|402|132515|0|0||0|Shadow Panther Hide Belt||a16,s8,t10,d25|2
 22062|3|65|0|0|401|132497|1|517||0|Sorcerer's Belt||t12,i14,p7,S14,H14|1
+226938|3|65|0|128|401|132497|1|1671||0|Sorcerer's Waist||t12,i14,p7,S14,H14|1
 22086|3|65|0|0|404|132500|1|516||0|Soulforge Belt||s10,t11,i11,S12,H12|1
+226994|3|65|0|2|404|132500|1|1673||0|Soulforge Waist||s10,t11,i11,S12,H12|1
 22078|3|65|0|0|401|132499|1|514||0|Virtuous Belt||t12,i13,p12,S12,H12|1
-13142|3|63|58|0|404|132522|0|0||0|Brigam Girdle||s15,t16,h1|1
+226962|3|65|0|16|401|132499|1|1675||0|Virtuous Waist||t12,i13,p12,S12,H12|1
+226874|3|65|0|1|404|132523|1|1778||0|Waist of Heroism||a9,s15,t12,d7|1
+227034|3|65|0|64|403|132505|1|1679||0|Waist of The Five Thunders||s10,t11,i11,S12,H12|1
+13142|3|63|58|0|404|132522|1|0||0|Brigam Girdle||s15,t16,h1|1
+280011|3|63|58|0|401|0|2|0||0|Deeproar Cord||i12,p14,c1|1
 20150|3|63|58|0|403|132509|1|483||1|Defiler's Chain Girdle|Requires Honored with The Defilers|t10,A34,c1|1
 20163|3|63|58|0|401|132506|1|485||1|Defiler's Cloth Girdle|Requires Honored with The Defilers|t7,i6,S14,H14,c1|1
 20177|3|63|58|0|404|132503|1|0||1|Defiler's Lamellar Girdle|Requires Honored with The Defilers|s15,t6,i10,c1|1
@@ -2672,8 +2930,8 @@ FGT.GEARDB = {
 20171|3|63|58|0|402|132506|1|488||1|Defiler's Lizardhide Girdle|Requires Honored with The Defilers|t7,i17,c1|1
 20195|3|63|58|0|403|132509|1|484||1|Defiler's Mail Girdle|Requires Honored with The Defilers|t10,i17,c1|1
 20204|3|63|58|0|404|132503|1|487||1|Defiler's Plate Girdle|Requires Honored with The Defilers|s17,t10,c1|1
-18104|3|63|58|0|403|132492|0|0||1|Feralsurge Girdle||t9,i10|1
-13502|3|63|58|0|404|132512|0|0||0|Handcrafted Mastersmith Girdle||a10,s11,t10|1
+18104|3|63|58|0|403|132492|1|0||1|Feralsurge Girdle||t9,i10|1
+13502|3|63|58|0|404|132512|1|0||0|Handcrafted Mastersmith Girdle||a10,s11,t10|1
 20043|3|63|58|0|403|132509|1|469||1|Highlander's Chain Girdle|Requires Honored with The League of Arathor|t10,A34,c1|1
 20047|3|63|58|0|401|132506|1|473||1|Highlander's Cloth Girdle|Requires Honored with The League of Arathor|t7,i6,S14,H14,c1|1
 20042|3|63|58|0|404|132503|1|468||1|Highlander's Lamellar Girdle|Requires Honored with The League of Arathor|s15,t6,i10,c1|1
@@ -2682,37 +2940,41 @@ FGT.GEARDB = {
 20044|3|63|58|0|403|132509|1|470||1|Highlander's Mail Girdle|Requires Honored with The League of Arathor|t10,i17,c1|1
 20041|3|63|58|0|404|132503|1|467||1|Highlander's Plate Girdle|Requires Honored with The League of Arathor|s17,t10,c1|1
 20539|3|63|58|0|401|132503|1|0||0|Runed Stygian Belt||t10|2
-10259|2|62|57|0|402|132495|0|0||0|Adventurer's Belt|||2
+10259|2|62|57|0|402|132495|1|0||0|Adventurer's Belt|||2
 18405|4|62|57|0|401|132520|1|0||0|Belt of the Archmage||t10,i25,c1|2
 13950|3|62|57|0|403|132498|0|0||0|Detention Strap||t10,i17,p11|1
-18391|3|62|57|0|402|132515|0|0||0|Eyestalk Cord||t9,i15,H35|1
-13526|2|62|57|0|402|132498|0|0||0|Flamescarred Girdle|||1
-14502|3|62|57|0|402|132499|0|0||0|Frostbite Girdle||a15,s5,t15|1
+18391|3|62|57|0|402|132515|1|0||0|Eyestalk Cord||t9,i15,H35|1
+13526|2|62|57|0|402|132498|1|0||0|Flamescarred Girdle|||1
+14502|3|62|57|0|402|132499|1|0||0|Frostbite Girdle||a15,s5,t15|1
 18504|3|62|57|0|402|132515|1|0||0|Girdle of Insight||t9,i23|2
-10255|2|62|57|0|401|132493|0|0||0|Master's Belt|||2
-10269|2|62|57|0|403|132500|0|0||0|Masterwork Girdle|||2
-18505|3|62|57|0|402|132491|0|0||0|Mugger's Belt||t16,c1|1
-18721|3|61|56|0|403|132507|0|0||0|Barrage Girdle||t6,i6,p6,S23,H23|1
-22325|3|61|56|0|402|132515|0|0||0|Belt of the Trickster||a22,t9|1
-14614|3|61|56|0|403|132512|0|123||0|Bloodmail Belt||a12,s12,t11,i9|1
-14636|3|61|56|0|402|132505|0|121||0|Cadaverous Belt||t12,A40|1
-13956|3|61|56|0|401|132501|0|0||0|Clutch of Andros||t9,i19,h1|1
-12606|3|61|56|0|402|132499|0|0||0|Crystallized Girdle||t6,i19,p6,S9,H9|1
-14620|3|61|56|0|404|132501|0|124||0|Deathbone Girdle||t15,d9|1
-12589|3|61|56|0|401|132500|0|0||0|Dustfeather Sash||t10,i18,S9,H9|1
-18529|3|61|56|0|404|132507|0|0||0|Elemental Plate Girdle||s17,t10|1
-14337|2|61|56|0|401|132499|0|0||0|Eternal Cord|||2
-13387|3|61|56|0|403|132510|0|0||0|Foresight Girdle|||1
-10387|2|61|56|0|404|132517|0|0||0|Hyperion Girdle|||2
-22306|3|61|56|400|401|132492|0|520||0|Ironweave Belt||t17,i11|1
+10255|2|62|57|0|401|132493|1|0||0|Master's Belt|||2
+10269|2|62|57|0|403|132500|1|0||0|Masterwork Girdle|||2
+18505|3|62|57|0|402|132491|1|0||0|Mugger's Belt||t16,c1|1
+18721|3|61|56|0|403|132507|1|0||0|Barrage Girdle||t6,i6,p6,S23,H23|1
+22325|3|61|56|0|402|132515|1|0||0|Belt of the Trickster||a22,t9|1
+280067|3|61|56|0|403|0|2|0||0|Blackmaw Chain Belt||a17,t12,d24|1
+14614|3|61|56|0|403|132512|1|123||0|Bloodmail Belt||a12,s12,t11,i9|1
+14636|3|61|56|0|402|132505|1|121||0|Cadaverous Belt||t12,A40|1
+13956|3|61|56|0|401|132501|1|0||0|Clutch of Andros||t9,i19,h1|1
+12606|3|61|56|0|402|132499|1|0||0|Crystallized Girdle||t6,i19,p6,S9,H9|1
+14620|3|61|56|0|404|132501|1|124||0|Deathbone Girdle||t15,d9|1
+287040|3|61|56|0|402|0|2|0||0|Dinosaur Hide Belt||a12,t18|2
+12589|3|61|56|0|401|132500|1|0||0|Dustfeather Sash||t10,i18,S9,H9|1
+18529|3|61|56|0|404|132507|1|0||0|Elemental Plate Girdle||s17,t10|1
+14337|2|61|56|0|401|132499|1|0||0|Eternal Cord|||2
+13387|3|61|56|0|403|132510|1|0||0|Foresight Girdle|||1
+284268|2|61|56|0|402|0|2|0||0|Furbolg Shaman's Girdle||s14|2
+10387|2|61|56|0|404|132517|1|0||0|Hyperion Girdle|||2
+22306|3|61|56|400|401|132492|1|520||0|Ironweave Belt||t17,i11|1
 275741|3|61|0|0|403|132506|2|0||0|Ketharas' Linked Belt||t10,i13,S20,H20|1
-22232|3|61|56|0|403|132507|0|0||0|Marksman's Girdle||a21,h1|1
-10154|2|61|56|0|403|132500|0|0||0|Mercurial Girdle|||2
-14553|4|61|56|0|402|132498|0|0||0|Sash of Mercy||t14,p10,H53|2
-18676|3|61|56|0|403|132520|0|0||0|Sash of the Windreaver||t6,i7,p7|2
-15434|2|61|56|0|402|132501|0|0||0|Supreme Sash|||2
-18740|3|61|56|0|401|132502|0|0||0|Thuzadin Sash||t11,i12,p11,S11,H11|1
-18393|3|61|56|0|403|132523|0|0||0|Warpwood Binding||a14,t6,i9,c1|1
+22232|3|61|56|0|403|132507|1|0||0|Marksman's Girdle||a21,h1|1
+10154|2|61|56|0|403|132500|1|0||0|Mercurial Girdle|||2
+14553|4|61|56|0|402|132498|1|0||0|Sash of Mercy||t14,p10,H53|2
+18676|3|61|56|0|403|132520|1|0||0|Sash of the Windreaver||t6,i7,p7|2
+15434|2|61|56|0|402|132501|1|0||0|Supreme Sash|||2
+18740|3|61|56|0|401|132502|1|0||0|Thuzadin Sash||t11,i12,p11,S11,H11|1
+280070|3|61|56|0|402|0|2|0||0|Veilpiercer Girdle||a8,t13,p8,d9|1
+18393|3|61|56|0|403|132523|1|0||0|Warpwood Binding||a14,t6,i9,c1|1
 19829|4|61|0|64|403|132508|1|476||0|Zandalar Augur's Belt||t10,i21,S12,H12|1
 19842|4|61|0|16|401|132497|1|480||0|Zandalar Confessor's Bindings||t12,i20,p12,H26|1
 19826|4|61|0|2|404|132521|1|475||0|Zandalar Freethinker's Belt||a10,s16,t16,i12,H26|1
@@ -2720,21 +2982,21 @@ FGT.GEARDB = {
 19832|4|61|0|4|403|132508|1|477||0|Zandalar Predator's Belt||a20,t12,i12,p9,h1|1
 19823|4|61|0|1|404|132521|1|474||0|Zandalar Vindicator's Belt||s25,t10,c1|1
 272395|4|60|60|8|402|132515|2|0||0|Assassin's Waistguard||a21,t11,h2|1
-18702|3|60|55|0|404|132517|0|0||0|Belt of the Ordained||t9,i8,H42|2
+18702|3|60|55|0|404|132517|1|0||0|Belt of the Ordained||t9,i8,H42|2
 272398|4|60|60|1024|402|132494|2|0||0|Caretaker's Cord||t14,p24,S8,H23|1
-12634|3|60|55|0|403|132502|0|0||0|Chiselbrand Girdle||t6,p6,A44|1
-13252|3|60|55|0|402|132499|0|0||0|Cloudrunner Girdle||a15,s14|1
+12634|3|60|55|0|403|132502|1|0||0|Chiselbrand Girdle||t6,p6,A44|1
+13252|3|60|55|0|402|132499|1|0||0|Cloudrunner Girdle||a15,s14|1
 260829|2|60|55|0|401|3694922|2|0||0|EZ-Thro Magnetic Displacer|||2
-14465|2|60|55|0|401|132506|0|0||0|Elunarian Belt||s6,i20,p10|2
+14465|2|60|55|0|401|132506|1|0||0|Elunarian Belt||s6,i20,p10|2
 272401|4|60|60|1024|402|132504|2|0||0|Elunite Cord||t11,i24,S16,H16|1
-14977|2|60|55|0|404|132513|0|0||0|Exalted Girdle|||2
+14977|2|60|55|0|404|132513|1|0||0|Exalted Girdle|||2
 19090|3|60|55|0|401|132493|1|0||0|Frostwolf Cloth Belt||t11,i10,S18,H18|1
 19089|3|60|55|0|402|132515|1|0||0|Frostwolf Leather Belt||a10,s11,t15|1
 19088|3|60|55|0|403|132507|1|0||0|Frostwolf Mail Belt||a12,t12,i12|1
 19087|3|60|55|0|404|132524|1|0||0|Frostwolf Plate Belt||a7,s18,t8|1
-10144|2|60|55|0|401|132493|0|0||0|High Councillor's Sash|||2
-18451|2|60|55|0|402|132505|0|0||0|Hyena Hide Belt||t13,A28|1
-14684|2|60|55|0|402|132501|0|0||0|Indomitable Belt||t6,i17|2
+10144|2|60|55|0|401|132493|1|0||0|High Councillor's Sash|||2
+18451|2|60|55|0|402|132505|1|0||0|Hyena Hide Belt||t13,A28|1
+14684|2|60|55|0|402|132501|1|0||0|Indomitable Belt||t6,i17|2
 16400|3|60|55|4|403|132517|1|0|A|1|Knight-Captain's Chain Girdle|Requires PvP rank 8|a14,t15,i9|1
 16399|3|60|55|1024|402|132512|1|0|A|1|Knight-Captain's Dragonhide Girdle|Requires PvP rank 8|s5,t10,i15,p8|1
 17565|3|60|55|256|401|132511|1|0|A|1|Knight-Captain's Dreadweave Belt|Requires PvP rank 8|t10,i17,p10|1
@@ -2748,8 +3010,10 @@ FGT.GEARDB = {
 16500|3|60|55|8|402|132495|1|0|H|1|Legionnaire's Leather Girdle|Requires PvP rank 8|a15,s9,t14|1
 17614|3|60|55|16|401|132502|1|0|H|1|Legionnaire's Satin Sash|Requires PvP rank 8|t10,i17,p10|1
 16488|3|60|55|128|401|132502|1|0|H|1|Legionnaire's Silk Belt|Requires PvP rank 8|t10,i17,p10|1
-18475|2|60|55|0|401|132496|0|0||0|Oddly Magical Belt||t13,S16,H16|1
-13959|3|60|0|0|404|132502|0|0||0|Omokk's Girth Restrainer||s15,t9,c1|1
+272393|4|60|60|128|401|236919|2|0||0|Magician's Cord||t12,i24,S19,H19|1
+284158|2|60|55|0|403|132500|2|0||0|Mossflayer Warlord's Girdle||a9,s14,S6,H6|2
+18475|2|60|55|0|401|132496|1|0||0|Oddly Magical Belt||t13,S16,H16|1
+13959|3|60|0|0|404|132502|1|0||0|Omokk's Girth Restrainer||s15,t9,c1|1
 272394|4|60|60|16|401|236896|2|0||0|Penitent's Cinch||t14,p24,S8,H23|1
 272711|3|60|55|1024|402|132512|2|0||0|Premier Beasthide Girdle||a6,s11,t19,i5|1
 272494|3|60|55|4|403|132503|2|0||0|Premier Chain Girdle||a12,t19,i7|1
@@ -2785,99 +3049,103 @@ FGT.GEARDB = {
 272397|4|60|60|4|403|132514|2|0||0|Ranger's Belt||a24,t11,i14|1
 272405|4|60|60|2|404|132500|2|0||0|Redeemer's Waistcord||t24,S8,H23,c1|1
 260828|2|60|55|0|401|133031|2|0||0|SAF-T Nitro Boosts|||2
-22207|3|60|55|0|403|132517|0|0||0|Sash of the Grand Hunt||a15,t14,i6|1
+22207|3|60|55|0|403|132517|1|0||0|Sash of the Grand Hunt||a15,t14,i6|1
 272396|4|60|60|1024|402|132505|2|0||0|Shifter's Belt||a24,s14,t11|1
 19094|3|60|55|0|401|132493|1|0||0|Stormpike Cloth Girdle||t11,i10,S18,H18|1
 19093|3|60|55|0|402|132515|1|0||0|Stormpike Leather Girdle||a10,s11,t15|1
 19092|3|60|55|0|403|132507|1|0||0|Stormpike Mail Girdle||a12,t12,i12|1
 19091|3|60|55|0|404|132524|1|0||0|Stormpike Plate Girdle||a7,s18,t8|1
 272399|4|60|60|64|403|132522|2|0||0|Stormseeker's Girdle||t11,i24,S16,H16|1
-15683|2|60|55|0|403|132500|0|0||0|Triumphant Girdle|||2
+15683|2|60|55|0|403|132500|1|0||0|Triumphant Girdle|||2
 272403|4|60|60|1|404|132522|2|0||0|Valiant's Waistguard||a24,s14,t11|1
 272404|4|60|60|2|404|132496|2|0||0|Vindicator's Belt||s24,t11,S16,H16|1
-13962|3|60|0|0|402|132504|0|0||0|Vosh'gajin's Strand||s9,t6,c1,d25|1
+13962|3|60|0|0|402|132504|1|0||0|Vosh'gajin's Strand||s9,t6,c1,d25|1
 23126|3|60|55|0|401|132502|0|0||0|Waistband of Balzaphon||t13,i14|1
 15088|2|60|55|0|402|132492|1|0||0|Wicked Leather Belt||a14,t13|2
 272410|4|60|60|64|403|132505|2|0||0|Windseeker's Belt||s24,t11,S16,H16|1
 250592|2|59|54|0|404|0|2|1968||0|Blessed Plate Belt||s15,t5,S9,H9|2
 252481|2|59|54|0|402|0|2|0||0|Blue Suede Belt||a4,s9,t14|2
-10381|2|59|54|0|404|132502|0|0||0|Commander's Girdle|||2
+10381|2|59|54|0|404|132502|1|0||0|Commander's Girdle|||2
 16989|4|59|54|0|403|132502|1|0||0|Fiery Chain Girdle||t10,i9,p8|2
-13403|3|59|54|0|401|132491|0|0||0|Grimgore Noose||t9,i17,p10|1
-8306|2|59|54|0|403|132519|0|0||0|Hero's Belt||t13,p13|2
-10145|2|59|54|0|402|132501|0|0||0|Mighty Girdle|||2
+13403|3|59|54|0|401|132491|1|0||0|Grimgore Noose||t9,i17,p10|1
+8306|2|59|54|0|403|132519|1|0||0|Hero's Belt||t13,p13|2
+10145|2|59|54|0|402|132501|1|0||0|Mighty Girdle|||2
 275434|2|59|0|0|403|132509|2|0||0|Murkborn Girdle||t10,i10,A18|1
 18341|2|59|54|0|401|132521|0|0||0|Quel'dorai Sash||i13|2
-15859|2|59|0|0|403|132512|0|0||0|Seapost Girdle||t8,i8,p13|1
+286612|2|59|54|0|401|132504|2|0||0|Sand-Covered Silk Sash||t16|2
+15859|2|59|0|0|403|132512|1|0||0|Seapost Girdle||t8,i8,p13|1
 14864|2|59|54|0|404|132511|1|0||0|Warleader's Belt||s6,t10,p6|2
-14808|2|59|54|0|403|132505|0|0||0|Warstrike Belt||t4,i16,p5|2
-18327|3|59|54|0|401|132506|0|0||0|Whipvine Cord||i9,H31|1
-16680|3|58|53|0|403|132517|0|186||0|Beaststalker's Belt||a10,s9,t6,i9,p11|2
-16736|3|58|53|0|404|132523|0|189||0|Belt of Valor||a7,s14,t8,p4|2
+14808|2|59|54|0|403|132505|1|0||0|Warstrike Belt||t4,i16,p5|2
+18327|3|59|54|0|401|132506|1|0||0|Whipvine Cord||i9,H31|1
+16680|3|58|53|0|403|132517|1|186||0|Beaststalker's Belt||a10,s9,t6,i9,p11|2
+16736|3|58|53|0|404|132523|1|189||0|Belt of Valor||a7,s14,t8,p4|2
 275611|3|58|53|0|402|0|2|0||0|Bileblister Girdle||t17,i14|2
 15707|2|58|0|0|401|132497|1|0||0|Brantwood Sash||a9,i10,p10|1
 275620|3|58|53|0|403|0|2|0||0|Broodwatcher's Belt||t21,S5,H16|2
 275626|3|58|53|0|404|0|2|0||0|Clutchlord's Support||s7,t21|2
-16673|3|58|53|0|403|132505|0|187||0|Cord of Elements||s9,t6,i17,p7|2
-16696|3|58|53|0|401|132499|0|182||0|Devout Belt||t4,i20,p9|2
-16702|3|58|53|0|401|132501|0|183||0|Dreadmist Belt||t10,i17,p9|2
-10216|2|58|53|0|401|132518|0|0||0|Elegant Belt|||2
+16673|3|58|53|0|403|132505|1|187||0|Cord of Elements||s9,t6,i17,p7|2
+16696|3|58|53|0|401|132499|1|182||0|Devout Belt||t4,i20,p9|2
+16702|3|58|53|0|401|132501|1|183||0|Dreadmist Belt||t10,i17,p9|2
+10216|2|58|53|0|401|132518|1|0||0|Elegant Belt|||2
 15709|2|58|0|0|404|132522|1|0||0|Gearforge Girdle||a4,s16,t5|1
 19051|3|58|53|0|404|132500|1|0||0|Girdle of the Dawn||s21,t9|2
 275623|3|58|53|0|404|0|2|0||0|Goregasher Support||s14,t17|2
 19043|3|58|53|0|403|132505|1|0||0|Heavy Timbermaw Belt||t9,A42|2
 275614|3|58|53|0|402|0|2|0||0|Hivethrasher's Girdle||a7,t21|2
-16723|3|58|53|0|404|132500|0|188||0|Lightforge Belt||s10,t9,i15,p6|2
-16685|3|58|53|0|401|132497|0|181||0|Magister's Belt||t6,i21,p6|2
-15673|2|58|53|0|403|132500|0|0||0|Magnificent Belt|||2
+16723|3|58|53|0|404|132500|1|188||0|Lightforge Belt||s10,t9,i15,p6|2
+16685|3|58|53|0|401|132497|1|181||0|Magister's Belt||t6,i21,p6|2
+15673|2|58|53|0|403|132500|1|0||0|Magnificent Belt|||2
 19044|3|58|53|0|402|132498|1|0||0|Might of the Timbermaw||s21,t9|2
-10221|2|58|53|0|402|132501|0|0||0|Nightshade Girdle|||2
-13384|3|58|53|0|404|132519|0|0||0|Rainbow Girdle||a9,s10,t10,i10,p9|1
-14327|2|58|53|0|401|132502|0|0||0|Resplendent Belt|||2
-11807|3|58|53|0|401|132500|0|0||0|Sash of the Burning Heart||t10,i10,p10|1
+10221|2|58|53|0|402|132501|1|0||0|Nightshade Girdle|||2
+13384|3|58|53|0|404|132519|1|0||0|Rainbow Girdle||a9,s10,t10,i10,p9|1
+14327|2|58|53|0|401|132502|1|0||0|Resplendent Belt|||2
+11807|3|58|53|0|401|132500|1|0||0|Sash of the Burning Heart||t10,i10,p10|1
 275617|3|58|53|0|403|0|2|0||0|Scalegut Belt||a14,t17|2
-16713|3|58|53|0|402|132492|0|184||0|Shadowcraft Belt||a14,s9,t10,p9|2
+16713|3|58|53|0|402|132492|1|184||0|Shadowcraft Belt||a14,s9,t10,p9|2
 275608|3|58|53|0|401|0|2|0||0|Swarmtender's Cord||t21,S5,H16|2
 15791|2|58|0|0|401|132499|1|0||0|Turquoise Sash||a6,i15,p6|1
-12083|2|58|0|0|401|132500|0|0||0|Valconian Sash||t4,i17|1
+12083|2|58|0|0|401|132500|1|0||0|Valconian Sash||t4,i17|1
 275605|3|58|53|0|401|0|2|0||0|Venomspew Cord||t17,i14|2
-16716|3|58|53|0|402|132504|0|185||0|Wildheart Belt||t9,i17,p10|2
+16716|3|58|53|0|402|132504|1|185||0|Wildheart Belt||t9,i17,p10|2
 19047|3|58|53|0|401|132498|1|0||0|Wisdom of the Timbermaw||i21|2
-11783|3|57|52|0|403|132522|0|0||0|Chillsteel Girdle||i20,p7|1
-10233|2|57|52|0|403|132500|0|0||0|Engraved Girdle|||2
-13077|3|57|52|0|404|132521|0|0||0|Girdle of Uther||a9,s9,t10,i9,p10|2
-15191|2|57|52|0|402|132501|0|0||0|Grand Belt|||2
-14934|2|57|52|0|404|132501|0|0||0|Heroic Girdle|||2
-10370|2|57|52|0|404|132501|0|0||0|Imbued Plate Girdle||s13,t12|2
-13118|3|57|52|0|402|132514|0|0||0|Serpentine Sash||a14,s9,t14|2
-8291|2|56|51|0|401|132493|0|0||0|Arcane Sash||t4,i16|2
-14309|2|56|51|0|401|132518|0|0||0|Celestial Belt|||2
+11783|3|57|52|0|403|132522|1|0||0|Chillsteel Girdle||i20,p7|1
+287032|3|57|52|0|404|0|2|0||0|Den Champion's Binding||s16,p8,S14,H14|2
+10233|2|57|52|0|403|132500|1|0||0|Engraved Girdle|||2
+13077|3|57|52|0|404|132521|1|0||0|Girdle of Uther||a9,s9,t10,i9,p10|2
+15191|2|57|52|0|402|132501|1|0||0|Grand Belt|||2
+14934|2|57|52|0|404|132501|1|0||0|Heroic Girdle|||2
+10370|2|57|52|0|404|132501|1|0||0|Imbued Plate Girdle||s13,t12|2
+13118|3|57|52|0|402|132514|1|0||0|Serpentine Sash||a14,s9,t14|2
+8291|2|56|51|0|401|132493|1|0||0|Arcane Sash||t4,i16|2
+14309|2|56|51|0|401|132518|1|0||0|Celestial Belt|||2
 15813|2|56|0|0|403|132511|1|0||0|Gold Link Belt||t12,i12|1
 15082|2|56|51|0|403|132492|1|0||0|Heavy Scorpid Belt||t12,p12|2
-15663|2|56|51|0|403|132507|0|0||0|Impenetrable Belt|||2
-15428|2|56|51|0|402|132501|0|0||0|Peerless Belt|||2
+15663|2|56|51|0|403|132507|1|0||0|Impenetrable Belt|||2
+282074|2|56|51|0|401|132499|2|0||0|Ogre Sorcerer Belt||s5,i13,S9,H9|2
+15428|2|56|51|0|402|132501|1|0||0|Peerless Belt|||2
 15093|2|56|51|0|402|132512|1|0||0|Runic Leather Belt||i14,p9|2
-12115|2|56|0|0|404|132523|0|0||0|Stalwart Clutch||t12,d8|1
+12115|2|56|0|0|404|132523|1|0||0|Stalwart Clutch||t12,d8|1
 252595|2|56|51|0|403|0|2|0||0|Supple Scorpid Belt||t12,S12,H12|2
-8293|2|56|51|0|402|132501|0|0||0|Traveler's Belt||t5,i16|2
-22242|3|56|51|0|403|132507|0|0||0|Verek's Leash||a8,s8,t8,i8,p7,S11,H11|1
+8293|2|56|51|0|402|132501|1|0||0|Traveler's Belt||t5,i16|2
+22242|3|56|51|0|403|132507|1|0||0|Verek's Leash||a8,s8,t8,i8,p7,S11,H11|1
 275827|2|56|0|0|401|132499|2|0||0|Wool-Stitched Waistband||p9,S7,H22|1
 260196|2|55|0|0|402|236896|2|0||0|Belt of Shadows||a14,s12|1
-14803|2|55|50|0|403|132502|0|0||0|Bloodlust Belt||i14,p9|2
-14304|2|55|50|0|401|132519|0|0||0|Bonecaster's Belt|||2
+14803|2|55|50|0|403|132502|1|0||0|Bloodlust Belt||i14,p9|2
+14304|2|55|50|0|401|132519|1|0||0|Bonecaster's Belt|||2
 260184|3|55|0|0|404|0|2|0||0|Cliff Walker's Cinch||a8,s17,t9|1
 281261|2|55|0|0|402|0|2|0||0|Crystal-flecked Cord||t9,i14|1
 281262|2|55|0|0|403|0|2|0||0|Crystal-flecked Waistguard||s6,i15|1
-10278|2|55|50|0|404|132493|0|0||0|Emerald Girdle|||2
+10278|2|55|50|0|404|132493|1|0||0|Emerald Girdle|||2
 11909|2|55|0|0|402|132498|1|0||0|Excavator's Utility Belt||t4,i16|1
-11686|3|55|50|0|402|132501|0|0||0|Girdle of Beastial Fury||s8,t10,A30|1
-14968|2|55|50|0|404|132500|0|0||0|Glorious Belt|||2
+11686|3|55|50|0|402|132501|1|0||0|Girdle of Beastial Fury||s8,t10,A30|1
+14968|2|55|50|0|404|132500|1|0||0|Glorious Belt|||2
 250575|3|55|50|0|404|0|2|0||0|Justicar's Waistguard||s10,t13,S16,H16|1
+279473|2|55|1|0|401|237277|2|0||0|Makeshift Belt||i12,p10,S6,H6|1
 252477|3|55|50|0|402|0|2|0||0|Mender's Leather Waistguard||t10,i12,S10,H30|1
 252591|3|55|50|0|403|0|2|0||0|Mender's Mail Belt||t10,i12,S10,H30|1
-11866|3|55|0|0|402|132500|0|0||0|Nagmara's Whipping Belt||s8,t14,p13|1
+11866|3|55|0|0|402|132500|1|0||0|Nagmara's Whipping Belt||s8,t14,p13|1
 250571|3|55|50|0|404|0|2|0||0|Officer's Waistguard||a10,s14,t13|1
-10122|2|55|50|0|403|132496|0|0||0|Ornate Girdle|||2
+10122|2|55|50|0|403|132496|1|0||0|Ornate Girdle|||2
 250574|3|55|50|0|404|0|2|0||0|Prefect's Waistguard||t13,i10,S10,H30|1
 14674|2|55|50|0|402|132501|1|0||0|Pridelord Girdle||a12,s4,t8|2
 252473|3|55|50|0|402|0|2|0||0|Prowler's Leather Waistguard||a12,s14,t10|1
@@ -2887,18 +3155,19 @@ FGT.GEARDB = {
 252476|3|55|50|0|402|0|2|0||0|Skycaller's Leather Waistguard||t10,i12,S16,H16|1
 252589|3|55|50|0|403|0|2|0||0|Skycaller's Mail Belt||t10,i12,S16,H16|1
 252588|3|55|50|0|403|0|2|0||0|Stalker's Mail Belt||a14,t12,i10|1
-11703|3|55|50|0|404|132505|0|0||0|Stonewall Girdle||t12|1
+11703|3|55|50|0|404|132505|1|0||0|Stonewall Girdle||t12|1
 274757|2|55|50|0|403|0|2|0||0|Substandard Belt Chain|Requires Friendly with Everlook|a15,A13|1
 252475|3|55|50|0|402|0|2|0||0|Warden's Leather Waistguard||s12,t14|1
 250573|3|55|50|0|404|0|2|0||0|Warder's Waistguard||t14,S15,H15,d10|1
-11662|3|54|49|0|401|132518|0|0||0|Ban'thok Sash||t10,i11,S12,H12,h1|1
-10103|2|54|49|0|401|132514|0|0||0|Councillor's Sash|||2
-8268|2|54|49|0|403|132515|0|0||0|Ebonhold Girdle||t7,i14|2
-15654|2|54|49|0|403|132496|0|0||0|Merciless Belt|||2
-10166|2|54|49|0|404|132521|0|0||0|Templar Girdle|||2
-14856|2|54|49|0|404|132511|0|0||0|Vanguard Girdle||t8,p9|2
-10109|2|54|49|0|402|132500|0|0||0|Wanderer's Belt|||2
-12466|3|53|48|0|401|132500|0|0||0|Dawnspire Cord||i19,p8|1
+11662|3|54|49|0|401|132518|1|0||0|Ban'thok Sash||t10,i11,S12,H12,h1|1
+286619|2|54|49|0|402|132515|2|0||0|Big Basher's Belt||s9|2
+10103|2|54|49|0|401|132514|1|0||0|Councillor's Sash|||2
+8268|2|54|49|0|403|132515|1|0||0|Ebonhold Girdle||t7,i14|2
+15654|2|54|49|0|403|132496|1|0||0|Merciless Belt|||2
+10166|2|54|49|0|404|132521|1|0||0|Templar Girdle|||2
+14856|2|54|49|0|404|132511|1|0||0|Vanguard Girdle||t8,p9|2
+10109|2|54|49|0|402|132500|1|0||0|Wanderer's Belt|||2
+12466|3|53|48|0|401|132500|1|0||0|Dawnspire Cord||i19,p8|1
 20151|3|53|48|0|403|132509|1|0||1|Defiler's Chain Girdle|Requires Honored with The Defilers|t8,A20,c1|1
 20165|3|53|48|0|401|132506|1|0||1|Defiler's Cloth Girdle|Requires Honored with The Defilers|t6,i5,S9,H9,c1|1
 20179|3|53|48|0|404|132503|1|0||1|Defiler's Lamellar Girdle|Requires Honored with The Defilers|s11,t4,i8,c1|1
@@ -2907,7 +3176,8 @@ FGT.GEARDB = {
 20196|3|53|48|0|403|132509|1|0||1|Defiler's Mail Girdle|Requires Honored with The Defilers|t8,i10,c1|1
 20205|3|53|48|0|404|132503|1|0||1|Defiler's Plate Girdle|Requires Honored with The Defilers|s10,t8,c1|1
 14143|2|53|48|0|401|132505|1|0||0|Ghostweave Belt||i8|2
-14454|2|53|48|0|401|132519|0|0||0|Highborne Cord||a5,t9,i12|2
+276742|3|53|48|0|404|0|2|0||0|Girdle of Extracted Answers||s12,t15|1
+14454|2|53|48|0|401|132519|1|0||0|Highborne Cord||a5,t9,i12|2
 20088|3|53|48|0|403|132509|1|0||1|Highlander's Chain Girdle|Requires Honored with The League of Arathor|t8,A20,c1|1
 20097|3|53|48|0|401|132506|1|0||1|Highlander's Cloth Girdle|Requires Honored with The League of Arathor|t6,i5,S9,H9,c1|1
 20106|3|53|48|0|404|132503|1|0||1|Highlander's Lamellar Girdle|Requires Honored with The League of Arathor|s11,t4,i8,c1|1
@@ -2917,12 +3187,12 @@ FGT.GEARDB = {
 20124|3|53|48|0|404|132503|1|0||1|Highlander's Plate Girdle|Requires Honored with The League of Arathor|s10,t8,c1|1
 12424|2|53|47|0|404|132490|1|321||0|Imperial Plate Belt||s12,t11|2
 15180|2|53|48|0|402|132500|1|0||0|Praetorian Girdle|||2
-13144|3|53|48|0|401|132496|0|0||0|Serenity Belt||t7,i17|2
-8315|2|52|47|0|404|132507|0|0||0|Alabaster Plate Girdle||s15,t4|2
-10788|2|52|47|0|404|132504|0|0||0|Atal'ai Girdle|||1
+13144|3|53|48|0|401|132496|1|0||0|Serenity Belt||t7,i17|2
+8315|2|52|47|0|404|132507|1|0||0|Alabaster Plate Girdle||s15,t4|2
+10788|2|52|47|0|404|132504|1|0||0|Atal'ai Girdle|||1
 260179|2|52|0|0|402|0|2|0||0|Barkwoven Belt||p11,S13,H13|1
 254087|3|52|47|0|401|0|2|0||0|Black Waistcord||t12,i9|1
-10197|2|52|47|0|403|132493|0|0||0|Crusader's Belt|||2
+10197|2|52|47|0|403|132493|1|0||0|Crusader's Belt|||2
 254077|2|52|47|0|401|0|2|0||0|Earthenweave Cord||p11,S9,H26|2
 260182|2|52|0|0|402|0|2|0||0|Elunar Belt||p11,S13,H13|1
 254085|3|52|47|0|401|0|2|0||0|Fiery Waistcord||t12,i9|1
@@ -2931,84 +3201,91 @@ FGT.GEARDB = {
 254081|3|52|47|0|401|0|2|0||0|Gilded Waistcord||t12,i9,S10,H29|1
 254089|3|52|47|0|401|0|2|0||0|Golden Waistcord||t12,i9|1
 15388|2|52|47|0|402|132510|1|0||0|Jadefire Belt|||2
-14927|2|52|47|0|404|132521|0|0||0|Lofty Belt|||2
-10180|2|52|47|0|401|132491|0|0||0|Mystical Belt|||2
+14927|2|52|47|0|404|132521|1|0||0|Lofty Belt|||2
+10180|2|52|47|0|401|132491|1|0||0|Mystical Belt|||2
 12416|2|52|47|0|403|132500|1|0||0|Radiant Belt|||2
 254091|3|52|47|0|401|0|2|0||0|Radiant Waistcord||t12,i9|1
-10190|2|52|47|0|402|132502|0|0||0|Swashbuckler's Belt|||2
+10190|2|52|47|0|402|132502|1|0||0|Swashbuckler's Belt|||2
 252544|2|52|47|0|402|0|2|0||0|Tooled Leather Belt||i11,p8,S9,H9|2
-14289|2|51|46|0|401|132499|0|0||0|Arachnidian Girdle|||2
-10798|3|51|46|0|404|132504|0|0||0|Atal'alarion's Tusk Ring||s18,t8|1
+14289|2|51|46|0|401|132499|1|0||0|Arachnidian Girdle|||2
+10798|3|51|46|0|404|132504|1|0||0|Atal'alarion's Tusk Ring||s18,t8|1
 252575|2|51|46|0|403|0|2|0||0|Charged Scorpid Belt||i10,p8,S8,H8|2
-17750|2|51|46|0|401|132514|0|0||0|Chloromesh Girdle|||1
-10243|2|51|46|0|404|132499|0|0||0|Heavy Lamellar Girdle|||2
-14960|2|51|46|0|404|132518|0|0||0|High Chief's Belt|||2
-8253|2|51|46|0|401|132518|0|0||0|Imperial Red Sash||s4,i15|2
-15641|2|51|46|0|403|132492|0|0||0|Ironhide Belt|||2
+17750|2|51|46|0|401|132514|1|0||0|Chloromesh Girdle|||1
+10243|2|51|46|0|404|132499|1|0||0|Heavy Lamellar Girdle|||2
+14960|2|51|46|0|404|132518|1|0||0|High Chief's Belt|||2
+8253|2|51|46|0|401|132518|1|0||0|Imperial Red Sash||s4,i15|2
+15641|2|51|46|0|403|132492|1|0||0|Ironhide Belt|||2
 13856|2|51|46|0|401|132504|1|0||0|Runecloth Belt||i12,p8|2
 281260|2|50|0|0|401|0|2|0||0|Ancestral Waistcord||i12,p8|1
-10081|2|50|45|0|403|132524|0|0||0|Lord's Girdle|||2
-14286|2|50|45|0|401|132510|0|0||0|Opulent Belt|||2
-14793|2|50|45|0|403|132492|0|0||0|Protector Waistband||a10,t10,p4|2
-10130|2|50|45|0|404|132519|0|0||0|Revenant Girdle|||2
-17755|3|50|45|0|401|132513|0|0||0|Satyrmane Sash||t10,i15|1
-8255|2|50|45|0|402|132501|0|0||0|Serpentskin Girdle||t7,i13|2
+10081|2|50|45|0|403|132524|1|0||0|Lord's Girdle|||2
+14286|2|50|45|0|401|132510|1|0||0|Opulent Belt|||2
+14793|2|50|45|0|403|132492|1|0||0|Protector Waistband||a10,t10,p4|2
+10130|2|50|45|0|404|132519|1|0||0|Revenant Girdle|||2
+17755|3|50|45|0|401|132513|1|0||0|Satyrmane Sash||t10,i15|1
+8255|2|50|45|0|402|132501|1|0||0|Serpentskin Girdle||t7,i13|2
 9666|2|50|0|0|403|132515|1|0||0|Stronghorn Girdle||t11,i10|1
 12406|2|50|45|0|404|132519|1|0||0|Thorium Belt|||2
-13134|3|49|44|0|403|132512|0|0||0|Belt of the Gladiator||s18,t7|2
-10066|2|49|44|0|401|132492|0|0||0|Duskwoven Sash|||2
-15636|2|49|44|0|403|132524|0|0||0|Formidable Belt|||2
+13134|3|49|44|0|403|132512|1|0||0|Belt of the Gladiator||s18,t7|2
+10066|2|49|44|0|401|132492|1|0||0|Duskwoven Sash|||2
+15636|2|49|44|0|403|132524|1|0||0|Formidable Belt|||2
 14661|2|49|44|0|402|132501|1|0||0|Keeper's Cord||s6,i7,p9|2
-8129|2|49|44|0|403|132495|0|0||0|Myrmidon's Girdle||t10,i11|2
-10067|2|49|44|0|402|132505|0|0||0|Righteous Waistguard|||2
+8129|2|49|44|0|403|132495|1|0||0|Myrmidon's Girdle||t10,i11|2
+10067|2|49|44|0|402|132505|1|0||0|Righteous Waistguard|||2
 19125|2|49|0|0|403|132505|1|0||0|Seared Mail Girdle||a12,t7|1
-14847|2|49|44|0|404|132508|0|0||0|Sunscale Belt||s10,t5|2
+14847|2|49|44|0|404|132508|1|0||0|Sunscale Belt||s10,t5|2
 9657|2|49|0|0|402|132506|1|0||0|Vinehedge Cinch||s14,t3|1
-9945|2|48|43|0|401|132511|0|0||0|Abjurer's Sash|||2
+9945|2|48|43|0|401|132511|1|0||0|Abjurer's Sash|||2
 21312|2|48|0|0|403|132498|1|0||0|Belt of the Den Watcher||t6,A24|1
-9947|2|48|43|0|402|132501|0|0||0|Chieftain's Belt|||2
-15619|2|48|43|0|403|132518|0|0||0|Gryphon Mail Belt|||2
-10206|2|48|43|0|404|132495|0|0||0|Overlord's Girdle|||2
-14446|2|48|43|0|401|132514|0|0||0|Venomshroud Belt||t10,p8|2
-14276|2|47|42|0|401|132499|0|0||0|Gaea's Belt|||2
-8116|2|47|42|0|402|132501|0|0||0|Heraldic Belt||s10,t10|2
-8114|2|47|42|0|401|132514|0|0||0|Hibernal Sash||t4,i13|2
-14918|2|47|42|0|404|132506|0|0||0|Jade Belt|||2
+9947|2|48|43|0|402|132501|1|0||0|Chieftain's Belt|||2
+274653|3|48|43|0|403|132504|2|0||0|Deep Ritual Girdle||s11,p12,S6,H16|1
+15619|2|48|43|0|403|132518|1|0||0|Gryphon Mail Belt|||2
+10206|2|48|43|0|404|132495|1|0||0|Overlord's Girdle|||2
+14446|2|48|43|0|401|132514|1|0||0|Venomshroud Belt||t10,p8|2
+274659|3|47|42|0|404|132516|2|0||0|Bloodsand Belt||t7,S6,H18|1
+284848|2|47|42|0|404|132520|2|0||0|Diamond Studded Belt||s5,t11,d4|2
+14276|2|47|42|0|401|132499|1|0||0|Gaea's Belt|||2
+8116|2|47|42|0|402|132501|1|0||0|Heraldic Belt||s10,t10|2
+8114|2|47|42|0|401|132514|1|0||0|Hibernal Sash||t4,i13|2
+14918|2|47|42|0|404|132506|1|0||0|Jade Belt|||2
 10706|2|47|0|0|403|132522|1|0||0|Nightscale Girdle||s14,t2|1
-15178|2|47|42|0|402|132505|0|0||0|Potent Belt|||2
-17778|2|47|0|0|402|132514|0|0||0|Sagebrush Girdle||a15|1
+15178|2|47|42|0|402|132505|1|0||0|Potent Belt|||2
+17778|2|47|0|0|402|132514|1|0||0|Sagebrush Girdle||a15|1
 10462|2|47|0|0|401|132515|1|0||0|Shadowy Belt||t7,i11,p4|1
-9961|2|47|42|0|403|132497|0|0||0|Warmonger's Belt|||2
-14950|2|46|41|0|404|132502|0|0||0|Bloodforged Belt|||2
-7535|2|46|41|0|402|132501|0|0||0|Cabalist Belt|||2
-7546|2|46|41|0|403|132493|0|0||0|Champion's Girdle|||2
+9961|2|47|42|0|403|132497|1|0||0|Warmonger's Belt|||2
+14950|2|46|41|0|404|132502|1|0||0|Bloodforged Belt|||2
+7535|2|46|41|0|402|132501|1|0||0|Cabalist Belt|||2
+7546|2|46|41|0|403|132493|1|0||0|Champion's Girdle|||2
 11861|2|46|0|0|403|132516|1|0||0|Girdle of Reprisal||s12|1
-7526|2|46|41|0|401|132496|0|0||0|Gossamer Belt|||2
-14783|2|46|41|0|403|132500|0|0||0|Khan's Belt||t7,i11|2
-15378|2|46|41|0|402|132501|0|0||0|Rageclaw Belt|||2
-8277|2|46|41|0|404|132508|0|0||0|Valorous Girdle||s13,t3|2
+7526|2|46|41|0|401|132496|1|0||0|Gossamer Belt|||2
+14783|2|46|41|0|403|132500|1|0||0|Khan's Belt||t7,i11|2
+15378|2|46|41|0|402|132501|1|0||0|Rageclaw Belt|||2
+279854|2|46|1|0|402|0|2|0||0|Twilight Initiate's Belt||a11,p7|1
+8277|2|46|41|0|404|132508|1|0||0|Valorous Girdle||s13,t3|2
+286429|3|45|40|0|401|132494|2|0||0|Big-Belly Belt||s8,p9,S9,H26|1
 254043|3|45|40|0|401|0|2|0||0|Black Cord||t8,i8,p6|1
-14258|2|45|40|0|401|132496|0|0||0|Bloodwoven Cord|||2
+275041|2|45|0|0|401|132493|2|0||0|Bloodied Sash||p11,S5,H13|1
+14258|2|45|40|0|401|132496|1|0||0|Bloodwoven Cord|||2
 277216|2|45|40|0|401|0|2|0||0|Cross-Stitched Cord||t11|1
 254041|3|45|40|0|401|0|2|0||0|Fiery Cord||t8,i8,p6|1
 254039|3|45|40|0|401|0|2|0||0|Frothing Cord||t8,i8,p6|1
 254037|3|45|40|0|401|0|2|0||0|Gilded Cord||t8,i8,p6,S8,H22|1
 277240|2|45|40|0|404|0|2|0||0|Gilded Plate Belt||A19,S11,H11|1
 254045|3|45|40|0|401|0|2|0||0|Golden Cord||t8,i8,p6|1
-10088|2|45|40|0|404|132502|0|0||0|Gothic Plate Girdle|||2
+10088|2|45|40|0|404|132502|1|0||0|Gothic Plate Girdle|||2
 254047|3|45|40|0|401|0|2|0||0|Radiant Cord||t8,i8,p6|1
 14652|2|45|40|0|402|132501|1|0||0|Scorpashi Sash||a10,s4,t7|2
 9636|2|45|0|0|401|133694|1|0||0|Swashbuckler Sash||s10,t9|1
 4131|2|44|0|0|402|132506|1|0||0|Belt of Corruption||t9,i9|1
-6425|2|44|39|0|403|132515|0|0||0|Blackforge Girdle||a9,t9|2
-14906|2|44|40|0|404|132513|0|0||0|Brutish Belt|||2
+6425|2|44|39|0|403|132515|1|0||0|Blackforge Girdle||a9,t9|2
+14906|2|44|40|0|404|132513|1|0||0|Brutish Belt|||2
+274997|3|44|39|0|403|0|2|0||0|Chain of Binding||t15,S12,H12|1
 9682|2|44|0|0|402|132494|1|0||0|Leather Chef's Belt||t3,i12|1
-9906|2|44|39|0|401|132499|0|0||0|Royal Sash|||2
+9906|2|44|39|0|401|132499|1|0||0|Royal Sash|||2
 4117|2|44|0|0|401|133694|1|0||0|Scorching Sash||p9|1
 12258|2|44|39|0|403|132492|1|0||0|Serpent Clasp Belt||c1|2
-9916|2|44|39|0|402|132506|0|0||0|Tracker's Belt|||2
-9931|2|43|38|0|403|132500|0|0||0|Brigade Girdle|||2
-8140|2|43|40|0|404|132503|0|0||0|Chromite Girdle||s9,t9|2
+9916|2|44|39|0|402|132506|1|0||0|Tracker's Belt|||2
+9931|2|43|38|0|403|132500|1|0||0|Brigade Girdle|||2
+8140|2|43|40|0|404|132503|1|0||0|Chromite Girdle||s9,t9|2
 20153|3|43|40|0|403|132509|1|0||1|Defiler's Chain Girdle|Requires Honored with The Defilers|t6,A8,c1|1
 20166|3|43|38|0|401|132506|1|0||1|Defiler's Cloth Girdle|Requires Honored with The Defilers|t4,i4,S14,H14|1
 20180|3|43|40|0|404|132503|1|0||1|Defiler's Lamellar Girdle|Requires Honored with The Defilers|s12,t6,i6|1
@@ -3024,68 +3301,76 @@ FGT.GEARDB = {
 20104|3|43|38|0|402|132506|1|0||1|Highlander's Lizardhide Girdle|Requires Honored with The League of Arathor|t4,i15|1
 20119|3|43|40|0|403|132509|1|0||1|Highlander's Mail Girdle|Requires Honored with The League of Arathor|t6,i15|1
 20125|3|43|40|0|404|132503|1|0||1|Highlander's Plate Girdle|Requires Honored with The League of Arathor|s15,t6|1
-15161|2|43|38|0|402|132501|0|0||0|Imposing Belt|||2
+15161|2|43|38|0|402|132501|1|0||0|Imposing Belt|||2
+285103|2|43|38|0|403|132520|2|0||0|Marsh Serpent's Scales||a10,i7|2
 9705|2|43|0|0|402|132491|1|0||0|Tharg's Shoelace||s13|1
 270087|2|43|0|0|403|132500|2|0||0|Thick Ogre's Belt||a7,s10|1
 272187|3|43|1|0|404|0|2|0||0|Thornplated Cord||t9,i9,p9|1
-14838|2|43|40|0|404|132513|0|0||0|Tyrant's Belt||s9,p3|2
-14435|2|43|38|0|401|132512|0|0||0|Windchaser Cinch||i8,p9|2
-10768|3|42|37|0|403|132500|0|0||0|Boar Champion's Belt||s15,t6|1
-15613|2|42|37|0|403|132524|0|0||0|Bonelink Belt|||2
-9968|2|42|40|0|404|132500|0|0||0|Embossed Plate Girdle|||2
+14838|2|43|40|0|404|132513|1|0||0|Tyrant's Belt||s9,p3|2
+14435|2|43|38|0|401|132512|1|0||0|Windchaser Cinch||i8,p9|2
+10768|3|42|37|0|403|132500|1|0||0|Boar Champion's Belt||s15,t6|1
+15613|2|42|37|0|403|132524|1|0||0|Bonelink Belt|||2
+9968|2|42|40|0|404|132500|1|0||0|Embossed Plate Girdle|||2
 12257|2|42|37|0|403|132523|1|0||0|Heavy Notched Belt||s10,t6|2
-4738|2|42|37|0|402|132501|0|0||0|Imperial Leather Belt||s11,t4|2
-14255|2|42|36|0|401|132497|0|0||0|Lunar Belt|||2
+4738|2|42|37|0|402|132501|1|0||0|Imperial Leather Belt||s11,t4|2
+14255|2|42|36|0|401|132497|1|0||0|Lunar Belt|||2
 6788|2|42|0|0|402|132500|1|0||0|Magram Hunter's Belt||a8,t9|1
-4736|2|42|37|0|401|132493|0|0||0|Mistscape Sash||t4,i11|2
-13117|3|42|37|0|402|132504|0|0||0|Ogron's Sash||a9,s9,t9|2
-14943|2|42|40|0|404|132503|0|0||0|Warbringer's Belt|||2
-15369|2|42|37|0|402|132491|0|0||0|Wolf Rider's Belt|||2
-15606|2|41|36|0|403|132499|0|0||0|Ancient Belt|||2
-7494|2|41|36|0|403|132514|0|0||0|Captain's Waistguard|||2
-14245|2|41|36|0|401|132499|0|0||0|Darkmist Girdle|||2
-10771|3|41|36|0|401|132513|0|0||0|Deathmage Sash||t6,i15|1
-9288|2|41|40|0|404|132492|0|0||0|Field Plate Girdle|||2
-7485|2|41|36|0|402|132506|0|0||0|Ranger Cord|||2
+4736|2|42|37|0|401|132493|1|0||0|Mistscape Sash||t4,i11|2
+13117|3|42|37|0|402|132504|1|0||0|Ogron's Sash||a9,s9,t9|2
+279882|2|42|1|0|403|132498|2|0||0|Rusted Troll War Belt||t4,i9,A12|1
+14943|2|42|40|0|404|132503|1|0||0|Warbringer's Belt|||2
+15369|2|42|37|0|402|132491|1|0||0|Wolf Rider's Belt|||2
+15606|2|41|36|0|403|132499|1|0||0|Ancient Belt|||2
+7494|2|41|36|0|403|132514|1|0||0|Captain's Waistguard|||2
+14245|2|41|36|0|401|132499|1|0||0|Darkmist Girdle|||2
+10771|3|41|36|0|401|132513|1|0||0|Deathmage Sash||t6,i15|1
+9288|2|41|40|0|404|132492|1|0||0|Field Plate Girdle|||2
+7485|2|41|36|0|402|132506|1|0||0|Ranger Cord|||2
 6726|2|41|0|0|401|132504|1|0||0|Razzeric's Customized Seatbelt||t1,i12|1
-14827|2|41|40|0|404|132520|0|0||0|Symbolic Belt||a3,s8|2
+14827|2|41|40|0|404|132520|1|0||0|Symbolic Belt||a3,s8|2
 10747|2|41|0|0|401|132500|1|0||0|Teacher's Sash||t1,i12|1
 4264|2|40|35|0|402|132498|1|0||0|Barbaric Belt||s11|2
-13145|3|40|40|0|404|132516|0|0||0|Enormous Ogre Belt||s12,t5,p5|2
-9901|2|40|35|0|403|132516|0|0||0|Jazeraint Belt|||2
-8159|2|40|40|0|404|132511|0|0||0|Jouster's Girdle||s10,t4|2
-3985|2|40|35|0|401|133694|0|0||1|Monogrammed Sash||t5,i10|1
-7476|2|40|35|0|401|132497|0|0||0|Regal Sash|||2
-14898|2|40|40|0|404|132502|0|0||0|Saltstone Girdle|||2
+274605|3|40|35|0|401|0|2|0||0|Briny Sash||i9,S9,H26|1
+13145|3|40|40|0|404|132516|1|0||0|Enormous Ogre Belt||s12,t5,p5|2
+9901|2|40|35|0|403|132516|1|0||0|Jazeraint Belt|||2
+8159|2|40|40|0|404|132511|1|0||0|Jouster's Girdle||s10,t4|2
+3985|2|40|35|0|401|133694|1|0||1|Monogrammed Sash||t5,i10|1
+7476|2|40|35|0|401|132497|1|0||0|Regal Sash|||2
+14898|2|40|40|0|404|132502|1|0||0|Saltstone Girdle|||2
 4329|2|40|35|0|401|132495|1|0||0|Star Belt||p4,S13,H13|2
-14598|2|40|35|0|402|132504|0|0||0|Warden's Waistband||a8,t6,p4|2
+286658|3|40|35|0|403|0|2|0||0|Umbral Scaled Belt||i12,A14|1
+14598|2|40|35|0|402|132504|1|0||0|Warden's Waistband||a8,t6,p4|2
+284707|2|39|34|0|402|132515|2|0||0|Basilisk Sinew Belt||t7,S10,H10|2
 7387|2|39|34|0|402|132495|1|0||0|Dusky Belt||a8,t8|2
 7061|2|39|34|0|401|132513|1|0||0|Earthen Silk Belt||t8,p8|2
-9891|2|39|34|0|402|132506|0|0||0|Huntsman's Belt|||2
-14773|2|39|34|0|403|132498|0|0||0|Ravager's Cord||a4,s6,t8|2
-14426|2|39|34|0|401|132495|0|0||0|Silksand Girdle||t8,p8|2
-9875|2|39|34|0|401|132499|0|0||0|Sorcerer Sash|||2
-4727|2|38|33|0|403|132505|0|0||0|Chief Brigadier Girdle||s10,t3|2
-6421|2|38|33|0|402|132504|0|0||0|Glyphed Belt||a6,t6,p5|2
-15154|2|38|33|0|402|132504|0|0||0|Nocturnal Sash|||2
-15598|2|38|33|0|403|132519|0|0||0|Steadfast Girdle|||2
-6418|2|37|32|0|401|132495|0|0||0|Aurora Sash||t2,i10|2
-14235|2|37|32|0|401|132500|0|0||0|Embersilk Cord|||2
+9891|2|39|34|0|402|132506|1|0||0|Huntsman's Belt|||2
+14773|2|39|34|0|403|132498|1|0||0|Ravager's Cord||a4,s6,t8|2
+14426|2|39|34|0|401|132495|1|0||0|Silksand Girdle||t8,p8|2
+9875|2|39|34|0|401|132499|1|0||0|Sorcerer Sash|||2
+4727|2|38|33|0|403|132505|1|0||0|Chief Brigadier Girdle||s10,t3|2
+6421|2|38|33|0|402|132504|1|0||0|Glyphed Belt||a6,t6,p5|2
+15154|2|38|33|0|402|132504|1|0||0|Nocturnal Sash|||2
+15598|2|38|33|0|403|132519|1|0||0|Steadfast Girdle|||2
+6418|2|37|32|0|401|132495|1|0||0|Aurora Sash||t2,i10|2
+14235|2|37|32|0|401|132500|1|0||0|Embersilk Cord|||2
 4262|3|37|32|0|402|132490|1|0||0|Gem-studded Leather Belt||t8,p6|2
-7462|2|37|32|0|403|132515|0|0||0|Knight's Girdle|||2
-10329|2|37|32|0|403|132495|0|163||0|Scarlet Belt||s8,t7|2
-13105|3|37|32|0|401|132500|0|0||0|Sutarn's Ring||t6,i10,p6|2
-15361|2|37|32|0|402|132498|0|0||0|Trickster's Sash|||2
-14217|2|36|31|0|401|132491|0|0||0|Geomancer's Cord|||2
+7462|2|37|32|0|403|132515|1|0||0|Knight's Girdle|||2
+10329|2|37|32|0|403|132495|1|163||0|Scarlet Belt||s8,t7|2
+13105|3|37|32|0|401|132500|1|0||0|Sutarn's Ring||t6,i10,p6|2
+15361|2|37|32|0|402|132498|1|0||0|Trickster's Sash|||2
+14217|2|36|31|0|401|132491|1|0||0|Geomancer's Cord|||2
 223173|2|36|31|0|401|132491|1|0||0|Geomancer's Cord|||2
-14588|2|36|31|0|402|132498|0|0||0|Hawkeye's Cord||a6,s4,t6|2
+14588|2|36|31|0|402|132498|1|0||0|Hawkeye's Cord||a6,s4,t6|2
+279846|2|36|1|0|402|0|2|0||0|Larcenist's Belt||a6,t8|1
 6780|2|36|0|0|401|132513|1|0||0|Lilac Sash||i9,p3|1
-7448|2|36|31|0|402|132493|0|0||0|Sentinel Girdle|||2
-15575|2|36|31|0|403|132516|0|0||0|Sparkleshell Belt|||2
+7448|2|36|31|0|402|132493|1|0||0|Sentinel Girdle|||2
+15575|2|36|31|0|403|132516|1|0||0|Sparkleshell Belt|||2
 4328|2|36|31|0|401|132514|1|0||0|Spider Belt||i8|2
-6742|3|36|0|0|403|132524|0|0||0|Stonefist Girdle||s6,t5|1
-7438|2|36|31|0|401|132499|0|0||0|Twilight Belt|||2
-9855|2|35|30|0|402|132492|0|0||0|Archer's Belt|||2
+6742|3|36|0|0|403|132524|1|0||0|Stonefist Girdle||s6,t5|1
+279836|2|36|1|0|403|0|2|0||0|Thorn Protecting Girdle||t8,A12|1
+7438|2|36|31|0|401|132499|1|0||0|Twilight Belt|||2
+251962|2|36|0|0|401|132493|2|0||0|Violet Sash||i9,S6,H6|1
+9855|2|35|30|0|402|132492|1|0||0|Archer's Belt|||2
 7052|2|35|30|0|401|132511|1|0||0|Azure Silk Belt||i5|2
 15588|2|35|0|0|403|132510|1|0||0|Bracesteel Belt||a4,s4,t7|1
 280308|2|35|30|0|403|0|2|0||0|Clanking Cord|Requires Engineering (175)||1
@@ -3094,12 +3379,12 @@ FGT.GEARDB = {
 277232|2|35|0|0|403|0|2|0||0|Jailer's Discarded Chain||t7,A12|1
 250560|3|35|30|0|403|0|2|0||0|Justicar's Belt||s6,t7,S12,H12|1
 277224|2|35|0|0|402|0|2|0||0|Kurzen Headshrinker's Cinch||t8,S5,H5|1
-15571|2|35|30|0|403|132515|0|0||0|Marauder's Belt|||2
+15571|2|35|30|0|403|132515|1|0||0|Marauder's Belt|||2
 252523|3|35|30|0|402|0|2|0||0|Mender's Leather Belt||t4,i6,p6,S6,H19|1
 250556|3|35|30|0|403|0|2|0||0|Officer's Belt||a6,s10,t7|1
 250559|3|35|30|0|403|0|2|0||0|Prefect's Belt||t6,i7,S7,H22|1
 252459|3|35|30|0|402|0|2|0||0|Prowler's Leather Belt||a6,s9,t6,i4|1
-9869|2|35|30|0|403|132515|0|0||0|Renegade Belt|||2
+9869|2|35|30|0|403|132515|1|0||0|Renegade Belt|||2
 15587|2|35|0|0|402|132523|1|0||0|Ringtail Girdle||t5,A16|1
 250557|3|35|30|0|403|0|2|0||0|Sentinel's Belt||s6,t10,d7|1
 252461|3|35|30|0|402|0|2|0||0|Skirmisher's Leather Belt||s9,t6,i4,S7,H7|1
@@ -3109,14 +3394,16 @@ FGT.GEARDB = {
 252460|3|35|30|0|402|0|2|0||0|Warden's Leather Belt||a6,s6,t9|1
 250558|3|35|30|0|403|0|2|0||0|Warder's Belt||t10,S7,H7,d7|1
 280306|2|35|30|0|401|0|2|0||0|Whimsical Waistwrap|Requires Engineering (175)||1
-9853|2|34|29|0|401|132504|0|0||0|Conjurer's Cinch|||2
-14761|2|34|29|0|403|132518|0|0||0|Enduring Belt||s6,t3|2
-15148|2|34|29|0|402|132493|0|0||0|Ghostwalker Belt|||2
+273039|3|34|29|0|401|0|2|0||0|Blightleaf Rope||i10,S7,H7|1
+9853|2|34|29|0|401|132504|1|0||0|Conjurer's Cinch|||2
+14761|2|34|29|0|403|132518|1|0||0|Enduring Belt||s6,t3|2
+15148|2|34|29|0|402|132493|1|0||0|Ghostwalker Belt|||2
 4258|2|34|29|0|402|132492|1|0||0|Guardian Belt||i7,p6|2
-6409|2|34|29|0|402|132498|0|0||0|Insignia Belt||t7,i6|2
-4717|2|34|29|0|403|132498|0|0||0|Mail Combat Belt||s7,t6|2
+6409|2|34|29|0|402|132498|1|0||0|Insignia Belt||t7,i6|2
+4717|2|34|29|0|403|132498|1|0||0|Mail Combat Belt||s7,t6|2
 3753|2|34|0|0|402|132506|1|0||0|Shepherd's Girdle||t7,i6|1
-14414|2|34|29|0|401|132492|0|0||0|Stonecloth Belt||a3,t6,p6|2
+274042|3|34|29|0|402|132501|2|0||0|Skullduggery Belt||p7,A16|1
+14414|2|34|29|0|401|132492|1|0||0|Stonecloth Belt||a3,t6,p6|2
 7107|2|33|0|0|403|132495|1|0||0|Belt of the Stars||s6,t6|1
 3758|2|33|0|0|403|132495|1|0||0|Crusader Belt||s7,t6|1
 271769|2|33|0|0|401|132505|2|0||0|Daewyn's Girdle||p6,S7,H7|1
@@ -3127,9 +3414,9 @@ FGT.GEARDB = {
 20172|3|33|28|0|402|132506|1|0||1|Defiler's Lizardhide Girdle|Requires Honored with The Defilers|t4,i12|1
 20197|3|33|28|0|402|132509|1|0||1|Defiler's Mail Girdle|Requires Honored with The Defilers|t5,i12|1
 20207|3|33|28|0|403|132503|1|0||1|Defiler's Plate Girdle|Requires Honored with The Defilers|s12,t5|1
-9405|3|33|28|0|403|132516|0|0||0|Girdle of Golem Strength||s12,d3|2
+9405|3|33|28|0|403|132516|1|0||0|Girdle of Golem Strength||s12,d3|2
 9687|2|33|0|0|402|132506|1|0||0|Grappler's Belt||s7,t5|1
-15349|2|33|28|0|402|132492|0|0||0|Headhunter's Belt|||2
+15349|2|33|28|0|402|132492|1|0||0|Headhunter's Belt|||2
 20090|3|33|28|0|402|132509|1|0||1|Highlander's Chain Girdle|Requires Honored with The League of Arathor|t5,A24|1
 20099|3|33|28|0|401|132506|1|0||1|Highlander's Cloth Girdle|Requires Honored with The League of Arathor|t4,i3,S11,H11|1
 20108|3|33|28|0|403|132503|1|0||1|Highlander's Lamellar Girdle|Requires Honored with The League of Arathor|s11,t4,i5|1
@@ -3137,152 +3424,168 @@ FGT.GEARDB = {
 20105|3|33|28|0|402|132506|1|0||1|Highlander's Lizardhide Girdle|Requires Honored with The League of Arathor|t4,i12|1
 20120|3|33|28|0|402|132509|1|0||1|Highlander's Mail Girdle|Requires Honored with The League of Arathor|t5,i12|1
 20126|3|33|28|0|403|132503|1|0||1|Highlander's Plate Girdle|Requires Honored with The League of Arathor|s12,t5|1
-4720|2|33|28|0|401|132492|0|0||0|Nightsky Sash||t3,i8|2
-15554|2|33|28|0|403|132513|0|0||0|Pillager's Girdle|||2
+4720|2|33|28|0|401|132492|1|0||0|Nightsky Sash||t3,i8|2
+15554|2|33|28|0|403|132513|1|0||0|Pillager's Girdle|||2
 4456|2|33|28|0|402|132491|1|0||0|Raptor Hide Belt||s6,t6|2
-14209|2|33|28|0|401|132510|0|0||0|Vital Sash|||2
+273041|3|33|28|0|402|0|2|0||0|Slitherwrap Girdle||a9,t6|1
+271768|2|33|0|0|403|132524|2|0||0|Songblade Stabilizer||t6,d11|1
+14209|2|33|28|0|401|132510|1|0||0|Vital Sash|||2
 11229|2|32|0|0|403|132495|1|0||0|Brightscale Girdle||s6,t6|1
+284382|2|32|27|0|402|132492|2|0||0|Budding Leaf Belt||t6,S6,H13|2
 7948|2|32|0|8|402|132511|1|221||0|Girdle of Thero-shan||a6,t6|1
 4257|2|32|27|0|402|132506|1|0||0|Green Leather Belt||a6,p6|2
-7406|2|32|27|0|402|132492|0|0||0|Infiltrator Cord|||2
-7422|2|32|27|0|403|132494|0|0||0|Phalanx Girdle|||2
-14205|2|32|27|0|401|132512|0|0||0|Thistlefur Belt|||2
-9840|2|31|26|0|403|132495|0|0||0|Banded Girdle|||2
-4463|2|31|26|0|401|132500|0|0||0|Beaded Raptor Collar||s6,t6|2
-15136|2|31|26|0|402|132500|0|0||0|Cutthroat's Belt|||2
-7370|2|31|26|0|401|132504|0|0||0|Elder's Sash|||2
-6911|3|31|26|0|402|132514|0|0||0|Moss Cinch||t5,i11|1
-15549|2|31|26|0|403|132510|0|0||0|Thick Scale Belt|||2
-10404|2|30|25|0|401|132492|0|0||0|Durable Belt|||2
+7406|2|32|27|0|402|132492|1|0||0|Infiltrator Cord|||2
+7422|2|32|27|0|403|132494|1|0||0|Phalanx Girdle|||2
+286993|3|32|27|0|403|0|2|0||0|Suffused Bindings||t9,i4,S6,H6|2
+14205|2|32|27|0|401|132512|1|0||0|Thistlefur Belt|||2
+9840|2|31|26|0|403|132495|1|0||0|Banded Girdle|||2
+4463|2|31|26|0|401|132500|1|0||0|Beaded Raptor Collar||s6,t6|2
+15136|2|31|26|0|402|132500|1|0||0|Cutthroat's Belt|||2
+7370|2|31|26|0|401|132504|1|0||0|Elder's Sash|||2
+6911|3|31|26|0|402|132514|1|0||0|Moss Cinch||t5,i11|1
+273023|3|31|26|0|403|0|2|0||0|Saltscale Girdle||s9,i9|1
+15549|2|31|26|0|403|132510|1|0||0|Thick Scale Belt|||2
+10404|2|30|25|0|401|132492|1|0||0|Durable Belt|||2
 215366|2|30|25|0|401|132492|1|0||0|Invoker's Cord||i5,S7,H7|2
 3747|2|30|0|0|402|132499|1|0||0|Meditative Sash||t6,p5|1
-14406|2|30|25|0|401|132492|0|0||0|Resilient Cord||s1,i6,p4|2
-9827|2|30|25|0|402|132498|0|0||0|Scaled Leather Belt|||2
-15539|2|30|25|0|403|132515|0|0||0|Wicked Chain Waistband|||2
+14406|2|30|25|0|401|132492|1|0||0|Resilient Cord||s1,i6,p4|2
+9827|2|30|25|0|402|132498|1|0||0|Scaled Leather Belt|||2
+273846|3|30|25|0|403|132516|2|0||0|Twilight Lord Girdle||s8|1
+15539|2|30|25|0|403|132515|1|0||0|Wicked Chain Waistband|||2
 6719|2|30|0|0|402|132504|1|0||0|Windborne Belt||a6,t5|1
 6740|2|29|0|0|402|132499|1|0||0|Azure Sash||t3,i7|1
-6392|3|29|24|0|401|132499|0|0||0|Belt of Arugal||a2,i10,p3|1
-14578|2|29|24|0|402|132500|0|0||0|Dokebi Cord||s1,i4,p6|2
+6392|3|29|24|0|401|132499|1|0||0|Belt of Arugal||a2,i10,p3|1
+273807|3|29|24|0|402|132513|2|0||0|Demolition Girdle||s8,S9|1
+14578|2|29|24|0|402|132500|1|0||0|Dokebi Cord||s1,i4,p6|2
 4829|2|29|24|0|401|132493|1|0||0|Dreamer's Belt||i7,p2|2
-6398|2|29|24|0|402|132500|0|0||0|Emblazoned Belt||s7,t3|2
-6200|2|29|24|0|403|132498|0|0||0|Garneg's War Belt||s7,t2|2
-4712|2|29|24|0|403|132521|0|0||0|Glimmering Mail Girdle||s7,t2|2
-6611|2|29|24|0|401|133693|0|0||0|Sage's Sash|||2
+6398|2|29|24|0|402|132500|1|0||0|Emblazoned Belt||s7,t3|2
+6200|2|29|24|0|403|132498|1|0||0|Garneg's War Belt||s7,t2|2
+4712|2|29|24|0|403|132521|1|0||0|Glimmering Mail Girdle||s7,t2|2
+6611|2|29|24|0|401|133693|1|0||0|Sage's Sash|||2
 15469|2|29|0|0|402|132499|1|0||0|Windsong Cinch||t5,A12|1
-6594|2|28|23|0|403|132500|0|0||0|Battleforge Girdle|||2
+6594|2|28|23|0|403|132500|1|0||0|Battleforge Girdle|||2
 5355|2|28|0|0|402|132493|1|0||0|Beastmaster's Girdle||a5,t5|1
-15347|2|28|23|0|402|132514|0|0||0|Pathfinder Belt|||2
-14194|2|28|23|0|401|133693|0|0||0|Raincaller Cord|||2
-14755|2|28|23|0|403|132502|0|0||0|Slayer's Sash||s6,t4|2
+15347|2|28|23|0|402|132514|1|0||0|Pathfinder Belt|||2
+14194|2|28|23|0|401|133693|1|0||0|Raincaller Cord|||2
+14755|2|28|23|0|403|132502|1|0||0|Slayer's Sash||s6,t4|2
 4827|2|28|23|0|401|132518|1|0||0|Wizard's Belt||i8|2
-3562|2|27|0|0|402|132494|0|0||0|Belt of Vindication||a4,t2|1
+3562|2|27|0|0|402|132494|1|0||0|Belt of Vindication||a4,t2|1
 16659|2|27|0|0|402|132498|1|0||0|Deftkin Belt||a4,t3,A12|1
-6600|2|27|22|0|402|132514|0|0||0|Dervish Belt|||2
+6600|2|27|22|0|402|132514|1|0||0|Dervish Belt|||2
 4828|2|27|22|0|401|132515|1|0||0|Nightwind Belt||t3,i6|2
 16987|2|27|0|0|402|132494|1|0||0|Screecher Belt||t3,i5,p2,A12|1
-13011|3|27|22|0|402|132511|0|0||0|Silver-lined Belt||i9,p4|2
-4714|2|27|22|0|401|132492|0|0||0|Silver-thread Sash||t4,i5|2
+13011|3|27|22|0|402|132511|1|0||0|Silver-lined Belt||i9,p4|2
+4714|2|27|22|0|401|132492|1|0||0|Silver-thread Sash||t4,i5|2
 281323|2|27|0|0|403|0|2|0||0|Spirit-buckle Belt||s5,i4|1
 16975|3|27|0|0|401|132491|1|0||0|Warsong Sash||t4,i9|1
-14185|2|27|22|0|401|132510|0|0||0|Watcher's Cinch|||2
-6319|2|26|21|0|402|132492|0|0||0|Girdle of the Blindwatcher||t3,i5|1
-9799|2|26|21|0|401|132514|0|0||0|Ivycloth Sash|||2
-4707|2|26|21|0|403|132493|0|0||0|Lambent Scale Girdle||s5,t4|2
-15120|2|26|21|0|402|132495|0|0||0|Robust Girdle|||2
-15528|2|26|21|0|403|132516|0|0||0|Sentry's Sash|||2
+14185|2|27|22|0|401|132510|1|0||0|Watcher's Cinch|||2
+6319|2|26|21|0|402|132492|1|0||0|Girdle of the Blindwatcher||t3,i5|1
+9799|2|26|21|0|401|132514|1|0||0|Ivycloth Sash|||2
+4707|2|26|21|0|403|132493|1|0||0|Lambent Scale Girdle||s5,t4|2
+15120|2|26|21|0|402|132495|1|0||0|Robust Girdle|||2
+15528|2|26|21|0|403|132516|1|0||0|Sentry's Sash|||2
 4249|2|25|20|0|402|132492|1|0||0|Dark Leather Belt||a4,t4|2
-6908|2|25|20|0|401|132513|0|0||0|Ghamoo-ra's Bind||t4,i4|1
-7000|2|25|0|0|402|132493|0|0||0|Heartwood Girdle||t4,p4|1
+6908|2|25|20|0|401|132513|1|0||0|Ghamoo-ra's Bind||t4,i4|1
+7000|2|25|0|0|402|132493|1|0||0|Heartwood Girdle||t4,p4|1
 4250|2|25|20|0|402|132495|1|0||0|Hillman's Belt||t4,p4|2
-14373|2|25|20|0|401|132492|0|0||0|Sanguine Belt||t3,i5|2
-15515|2|25|20|0|403|132505|0|0||0|Spiked Chain Belt|||2
-9801|2|25|20|0|402|132491|0|0||0|Superior Belt|||2
-4708|2|24|19|0|401|132500|0|0||0|Bright Belt||t4,i4|2
-4785|2|24|19|0|401|132491|0|0||0|Brimstone Belt||t3,i5|2
-6460|3|24|19|0|403|132492|0|0||0|Cobrahn's Grasp||a3,s8|1
-9814|2|24|19|0|403|132493|0|0||0|Fortified Belt|||2
-3429|2|24|19|0|402|132493|0|0||0|Guardsman Belt||a4,t4|2
+14373|2|25|20|0|401|132492|1|0||0|Sanguine Belt||t3,i5|2
+15515|2|25|20|0|403|132505|1|0||0|Spiked Chain Belt|||2
+9801|2|25|20|0|402|132491|1|0||0|Superior Belt|||2
+4708|2|24|19|0|401|132500|1|0||0|Bright Belt||t4,i4|2
+4785|2|24|19|0|401|132491|1|0||0|Brimstone Belt||t3,i5|2
+6460|3|24|19|0|403|132492|1|0||0|Cobrahn's Grasp||a3,s8|1
+9814|2|24|19|0|403|132493|1|0||0|Fortified Belt|||2
+3429|2|24|19|0|402|132493|1|0||0|Guardsman Belt||a4,t4|2
 276724|2|24|0|0|403|0|2|0||0|Trophy Belt||i5,p3|1
-15329|2|24|19|0|402|132505|0|0||0|Wrangler's Belt|||2
-14567|2|23|18|0|402|132492|0|0||0|Bristlebark Belt||a4,t4|2
+15329|2|24|19|0|402|132505|1|0||0|Wrangler's Belt|||2
+14567|2|23|18|0|402|132492|1|0||0|Bristlebark Belt||a4,t4|2
 6468|3|23|18|0|402|132498|1|0||0|Deviate Scale Belt||a5,t6,p3|2
-6382|2|23|18|0|402|132492|0|0||0|Forest Leather Belt||s4,t4|2
-2911|3|23|18|0|401|132493|0|0||0|Keller's Girdle||t3,i8|2
-5975|2|23|18|0|402|132492|0|0||0|Ruffian Belt||s6|2
-3229|2|23|18|0|401|132496|0|0||0|Tarantula Silk Sash||s2,i5|2
-5750|2|23|18|0|403|132492|0|0||0|Warchief's Girdle||s5,t2|2
-10403|2|22|17|0|402|132515|0|161||0|Blackened Defias Belt||s5|2
-6576|2|22|17|0|403|132511|0|0||0|Defender Girdle|||2
+6382|2|23|18|0|402|132492|1|0||0|Forest Leather Belt||s4,t4|2
+2911|3|23|18|0|401|132493|1|0||0|Keller's Girdle||t3,i8|2
+5975|2|23|18|0|402|132492|1|0||0|Ruffian Belt||s6|2
+3229|2|23|18|0|401|132496|1|0||0|Tarantula Silk Sash||s2,i5|2
+5750|2|23|18|0|403|132492|1|0||0|Warchief's Girdle||s5,t2|2
+10403|2|22|17|0|402|132515|1|161||0|Blackened Defias Belt||s5|2
+6576|2|22|17|0|403|132511|1|0||0|Defender Girdle|||2
 253929|3|22|17|0|401|0|2|0||0|Flame Sash||t5,i4|1
-9766|2|22|17|0|401|132494|0|0||0|Greenweave Sash|||2
-14746|2|22|17|0|403|132511|0|0||0|Hulking Belt||s5|2
-1299|2|22|17|0|401|132518|0|0||0|Lesser Belt of the Spire||t4,p3|2
+9766|2|22|17|0|401|132494|1|0||0|Greenweave Sash|||2
+14746|2|22|17|0|403|132511|1|0||0|Hulking Belt||s5|2
+1299|2|22|17|0|401|132518|1|0||0|Lesser Belt of the Spire||t4,p3|2
 253933|3|22|17|0|401|0|2|0||0|Pearly Sash||t5,i4|1
 253925|3|22|17|0|401|0|2|0||0|Pristine Sash||t5,i4,S4,H11|1
+286980|3|22|17|0|401|0|2|2133||0|Rotmender's Sash||t6,i6|2
 253931|3|22|17|0|401|0|2|0||0|Shadow Sash||t5,i4|1
-6570|2|22|17|0|401|132514|0|0||0|Shimmering Sash|||2
+6570|2|22|17|0|401|132514|1|0||0|Shimmering Sash|||2
 253935|3|22|17|0|401|0|2|0||0|Shining Sash||t5,i4|1
 253927|3|22|17|0|401|0|2|0||0|Silky Sash||t5,i4|1
+273089|3|22|17|0|401|132510|2|0||0|Slither Cord|||1
 5609|2|22|0|0|402|132492|1|0||0|Steadfast Cinch||s4,t3|1
-1215|2|22|17|0|402|132498|0|0||0|Support Girdle||s4,t3|2
-10412|2|21|16|0|402|132519|0|162||0|Belt of the Fang||a2,t3|1
-4436|2|21|16|0|401|132493|0|0||0|Jewel-encrusted Sash||t2,i4|2
-14164|2|21|16|0|401|132513|0|0||0|Pagan Belt|||2
-6581|2|21|16|0|402|132505|0|0||0|Scouting Belt|||2
-14173|2|20|15|0|401|132511|0|0||0|Buccaneer's Cord|||2
-4697|2|20|15|0|403|132523|0|0||0|Burnished Girdle||s4,t2|2
+1215|2|22|17|0|402|132498|1|0||0|Support Girdle||s4,t3|2
+10412|2|21|16|0|402|132519|1|162||0|Belt of the Fang||a2,t3|1
+4436|2|21|16|0|401|132493|1|0||0|Jewel-encrusted Sash||t2,i4|2
+14164|2|21|16|0|401|132513|1|0||0|Pagan Belt|||2
+6581|2|21|16|0|402|132505|1|0||0|Scouting Belt|||2
+271210|3|21|16|0|401|0|2|0||0|Tuskwrap Belt||p5,S6,H6|1
+271201|3|20|15|0|403|0|2|0||0|Atrophic Girdle||s3,t7|1
+14173|2|20|15|0|401|132511|1|0||0|Buccaneer's Cord|||2
+4697|2|20|15|0|403|132523|1|0||0|Burnished Girdle||s4,t2|2
 6477|2|20|0|0|401|132491|1|0||0|Grassland Sash||t3,i3|1
-15510|2|20|15|0|403|132504|0|0||0|Grunt's Belt|||2
+15510|2|20|15|0|403|132504|1|0||0|Grunt's Belt|||2
 11936|2|20|0|0|401|132512|1|0||0|Relic Hunter Belt||s2,i4,p2|1
-15110|2|20|15|0|402|132494|0|0||0|Rigid Belt|||2
-5425|2|20|15|0|403|132492|0|0||0|Runescale Girdle||s5|2
-12978|3|20|15|0|403|132504|0|0||0|Stormbringer Belt||s5,t2|2
+15110|2|20|15|0|402|132494|1|0||0|Rigid Belt|||2
+5425|2|20|15|0|403|132492|1|0||0|Runescale Girdle||s5|2
+12978|3|20|15|0|403|132504|1|0||0|Stormbringer Belt||s5,t2|2
 4786|2|20|15|0|401|132491|1|0||0|Wise Man's Belt||i5|2
-9775|2|19|14|0|402|132492|0|0||0|Bandit Cinch|||2
-15497|2|19|14|0|403|132518|0|0||0|Outrunner's Cord|||2
-14131|2|19|14|0|401|132494|0|0||0|Ritual Belt|||2
+9775|2|19|14|0|402|132492|1|0||0|Bandit Cinch|||2
+285339|3|19|14|0|403|0|2|0||0|Centaur War Chain||s3,t6|1
+15497|2|19|14|0|403|132518|1|0||0|Outrunner's Cord|||2
+14131|2|19|14|0|401|132494|1|0||0|Ritual Belt|||2
 15404|2|18|0|0|403|132499|1|0||0|Breakwater Girdle||a2,t3|1
-5967|2|18|13|0|401|132499|0|0||0|Girdle of Nobility||t2,i3|2
+5967|2|18|13|0|401|132499|1|0||0|Girdle of Nobility||t2,i3|2
+270230|3|18|13|0|403|132509|2|0||0|Kindlegem Girdle||t7|1
 5780|2|18|13|0|402|132491|1|0||0|Murloc Scale Belt||a3,s2|2
-14559|2|18|13|0|402|132515|0|0||0|Prospector's Sash||t3,p2|2
-9788|2|18|13|0|403|132500|0|0||0|Raider's Belt|||2
-4699|2|18|13|0|401|132511|0|0||0|Seer's Belt||i4|2
+14559|2|18|13|0|402|132515|1|0||0|Prospector's Sash||t3,p2|2
+9788|2|18|13|0|403|132500|1|0||0|Raider's Belt|||2
+4699|2|18|13|0|401|132511|1|0||0|Seer's Belt||i4|2
 270007|2|18|0|0|401|132511|2|0||0|Worn Miner's Waistcord||t2,i3|1
 250516|3|17|12|0|403|0|2|0||0|Acolyte's Chain Belt||t3,i4,S3,H9|1
 252428|3|17|12|0|402|0|2|0||0|Brawler's Leather Belt||a4,s4,t3|1
 250517|3|17|12|0|403|0|2|0||0|Crusader's Chain Belt||s3,t4,S5,H5|1
 252430|3|17|12|0|402|0|2|0||0|Defender's Leather Belt||s4,t4|1
-15308|2|17|12|0|402|132492|0|0||0|Feral Cord|||2
+279897|2|17|1|0|402|132492|2|0||0|Dusty Belt||a2,p2|1
+15308|2|17|12|0|402|132492|1|0||0|Feral Cord|||2
 250514|3|17|12|0|403|0|2|0||0|Guard's Chain Belt||s4,t4,d3|1
-6379|2|17|12|0|402|132515|0|0||0|Inscribed Leather Belt||t2,i2|2
-14025|2|17|12|0|401|132515|0|0||0|Mystic's Belt||a2,p2|2
+6379|2|17|12|0|402|132515|1|0||0|Inscribed Leather Belt||t2,i2|2
+14025|2|17|12|0|401|132515|1|0||0|Mystic's Belt||a2,p2|2
 250515|3|17|12|0|403|0|2|0||0|Protector's Chain Belt||t4,S5,H5,d2|1
 252432|3|17|12|0|402|0|2|0||0|Stormrider's Leather Belt||t3,i4,S4,H4|1
 252431|3|17|12|0|402|0|2|0||0|Totemic Leather Belt||s4,t3,S4,H4|1
 252429|3|17|12|0|402|0|2|0||0|Trapper's Leather Belt||a4,t4,i3|1
 250513|3|17|12|0|403|0|2|0||0|Veteran's Chain Belt||a3,s4,t4|1
-14725|2|17|12|0|403|132514|0|0||0|War Paint Waistband||s3|2
+14725|2|17|12|0|403|132514|1|0||0|War Paint Waistband||s3|2
 252433|3|17|12|0|402|0|2|0||0|Wisdom's Leather Belt||t3,i4,S3,H8|1
 16608|2|16|0|1024|402|132515|1|0||0|Aquarius Belt||t2,i2|1
-6548|2|16|11|0|403|132514|0|0||0|Soldier's Girdle|||2
-6539|2|16|11|0|401|132494|0|0||0|Willow Belt|||2
-14113|2|15|10|0|401|132494|0|0||0|Aboriginal Sash|||2
-6558|2|15|10|0|402|132492|0|0||0|Bard's Belt|||2
+6548|2|16|11|0|403|132514|1|0||0|Soldier's Girdle|||2
+6539|2|16|11|0|401|132494|1|0||0|Willow Belt|||2
+14113|2|15|10|0|401|132494|1|0||0|Aboriginal Sash|||2
+6558|2|15|10|0|402|132492|1|0||0|Bard's Belt|||2
 263405|2|15|0|0|402|132495|2|0||0|Belt of Blades||a2,s2|1
 5275|2|15|0|0|402|132490|1|0||0|Binding Girdle||i3|1
-15492|2|15|10|0|403|132502|0|0||0|Bloodspattered Sash|||2
+15492|2|15|10|0|403|132502|1|0||0|Bloodspattered Sash|||2
 3344|2|15|0|0|401|133694|1|0||0|Captain Sander's Sash||t2,p2|1
 5328|2|15|0|0|403|132492|1|0||0|Cinched Belt||s2,t2|1
 3217|2|15|0|0|401|132512|1|0||0|Foreman Belt||t2,p2|1
 10820|2|15|0|0|401|132498|1|0||0|Jackseed Belt||i3|1
-15011|2|15|10|0|402|132492|0|0||0|Lupine Cord|||2
+15011|2|15|10|0|402|132492|1|0||0|Lupine Cord|||2
 253885|3|15|10|0|401|0|2|0||0|Novice Arcanist's Sash||t3,i3,S4,H4|1
 253887|3|15|10|0|401|0|2|0||0|Novice Ardent's Sash||i3,p3,S2,H6|1
-2283|2|15|10|0|401|132494|0|0||0|Rat Cloth Belt||t2,p2|2
-832|2|15|10|0|403|132492|0|0||0|Silver Defias Belt||s2,t2|2
-2899|2|15|10|0|402|132490|0|0||0|Wendigo Collar||s3|2
+2283|2|15|10|0|401|132494|1|0||0|Rat Cloth Belt||t2,p2|2
+832|2|15|10|0|403|132492|1|0||0|Silver Defias Belt||s2,t2|2
+2899|2|15|10|0|402|132490|1|0||0|Wendigo Collar||s3|2
 15399|2|14|0|0|402|132495|1|0||0|Dryweed Belt||i2|1
 263335|2|13|0|0|402|7751144|2|0||0|Hunter's Cord||t2|1
+286731|2|12|0|0|403|0|2|0||0|Aggor's Refitted Belt||t2|1
+283460|2|12|7|0|402|132492|2|0||0|Decaying Flesh Belt||i2|2
 263403|2|11|0|0|403|7737711|2|0||0|Cilice of Regret||s1|1
 263402|2|11|0|0|401|132495|2|0||0|Sash of Sorrow||i1|1
 277025|2|10|5|0|402|0|2|0||0|Azure Gustwoven Belt||t1|2
@@ -3293,6 +3596,9 @@ FGT.GEARDB = {
 276995|2|10|5|0|403|0|2|0||0|Cloudy Skyforged Chain||t1|2
 277013|2|10|5|0|401|0|2|0||0|Cloudy Stormsewn Cord||t1|2
 277007|2|10|5|0|402|0|2|0||0|Cloudy Windraveled Strap||t1|2
+285273|2|10|5|0|402|0|2|0||0|Scout Ranger's Belt||s1|2
+285272|2|10|5|0|401|0|2|0||0|Skyseer's Belt||p1|2
+285274|2|10|5|0|403|0|2|0||0|Thendal Watcher's Belt||t1|2
 287622|3|1|1|0|405|8382581|2|0||0|Gilded Blademaster's Belt|||1
 ]==],
         [7] = [==[
@@ -3395,23 +3701,32 @@ FGT.GEARDB = {
 19899|3|68|60|0|401|134608|0|0||0|Ritualistic Legguards||t13,i14,p20,H37|1
 20260|3|68|60|0|403|134658|0|0||0|Seafury Leggings||s15,t15,i15,p14,S16,H16|1
 16796|4|66|60|128|401|134588|0|201||0|Arcanist Leggings||t18,i23,p10,S20,H20,c1|1
+226900|3|66|0|4|403|134583|1|1669||0|Beastmaster's Legs||a28,t14,i9|1
 22017|3|66|0|0|403|134583|1|515||0|Beastmaster's Pants||a28,t14,i9|1
 16835|4|66|60|1024|402|134586|0|205||0|Cenarion Leggings||t18,i19,p20,H22,c1|1
+226848|3|66|0|8|402|134582|1|1676||0|Darkmantle Legs||a25,s15,t15|1
 22007|3|66|0|0|402|134582|1|512||0|Darkmantle Pants||a25,s15,t15|1
 22072|3|66|0|0|401|134588|1|518||0|Deathmist Leggings||t22,i21,S16,H16|1
+226924|3|66|0|256|401|134588|1|1681||0|Deathmist Legs||t22,i21,S16,H16|1
 16843|4|66|60|64|403|134583|0|207||0|Earthfury Legguards||t18,i19,p21,S12,H12|1
 16810|4|66|60|256|401|134608|0|203||0|Felheart Pants||t20,i19,p10,S30,H30|1
 22111|3|66|0|0|402|134588|1|513||0|Feralheart Kilt||a12,s14,t14,i14,p14,S9,H9|1
+226818|3|66|0|1024|402|134588|1|1667||0|Feralheart Legs||a12,s14,t14,i14,p14,S9,H9|1
 16847|4|66|60|4|403|134655|0|206||0|Giantstalker's Leggings||a32,t15,i6,p8,c1|1
 22100|3|66|0|0|403|134583|1|519||0|Kilt of The Five Thunders||s10,t17,i17,p16,S11,H11|1
 16855|4|66|60|2|404|134584|0|208||0|Lawbringer Legplates||s7,t24,i18,p18,H22|1
 22690|3|66|0|0|403|134583|1|0||0|Leggings of the Plague Hunter||a20,t16,i10,c1|1
 22000|3|66|0|0|404|134584|1|511||0|Legplates of Heroism||a11,s25,t16,d5|1
 16867|4|66|60|1|404|134584|0|209||0|Legplates of Might||s24,t23,d32|1
+226876|3|66|0|1|404|134584|1|1778||0|Legs of Heroism||a11,s25,t16,d5|1
+227036|3|66|0|64|403|134583|1|1679||0|Legs of The Five Thunders||s10,t17,i17,p16,S11,H11|1
 16822|4|66|60|8|402|134586|0|204||0|Nightslayer Pants||a33,s10,t15,c1|1
 16814|4|66|60|16|401|134588|0|202||0|Pants of Prophecy||t18,i24,p20,H22|1
 22067|3|66|0|0|401|134586|1|517||0|Sorcerer's Leggings||t17,i22,p10,S16,H16|1
+226940|3|66|0|128|401|134586|1|1671||0|Sorcerer's Legs||t17,i22,p10,S16,H16|1
 22092|3|66|0|0|404|134584|1|516||0|Soulforge Legplates||s16,t17,i17,p10,S11,H11|1
+226996|3|66|0|2|404|134584|1|1673||0|Soulforge Legs||s16,t17,i17,p10,S11,H11|1
+226964|3|66|0|16|401|134588|1|1675||0|Virtuous Legs||t13,i14,p12,S16,H16|1
 22085|3|66|0|0|401|134588|1|514||0|Virtuous Skirt||t13,i14,p12,S16,H16|1
 279265|4|65|60|0|404|134691|2|0||0|Azerothium Legplates||a18,s24,t27|2
 19683|3|65|60|0|401|134608|1|421||0|Bloodvine Leggings||i6,S37,H37,h1|2
@@ -3474,12 +3789,12 @@ FGT.GEARDB = {
 280954|4|65|60|64|403|Interface\Icons\inv_pant_mail_raidshamanhyjalc60_d_01|3|100010||0|Spiritcaller Leggings|||1
 280947|4|65|60|64|403|Interface\Icons\inv_pant_mail_raidshamanhyjalc60_d_01|3|100009||0|Spiritcaller Pants|||1
 280895|4|65|60|4|403|Interface\Icons\inv_pant_mail_raidhunterhyjalc60_d_01|3|100005||0|Wildstalker's Legguards|||1
-10262|2|64|59|0|402|134586|0|0||0|Adventurer's Legguards|||2
-10389|2|64|59|0|404|134584|0|0||0|Hyperion Legplates|||2
-10252|2|64|59|0|401|134589|0|0||0|Master's Leggings|||2
-10273|2|64|59|0|403|134586|0|0||0|Masterwork Legplates|||2
+10262|2|64|59|0|402|134586|1|0||0|Adventurer's Legguards|||2
+10389|2|64|59|0|404|134584|1|0||0|Hyperion Legplates|||2
+10252|2|64|59|0|401|134589|1|0||0|Master's Leggings|||2
+10273|2|64|59|0|403|134586|1|0||0|Masterwork Legplates|||2
 18875|4|64|59|0|402|134592|0|0||0|Salamander Scale Pants||t14,i14,H51|1
-12963|3|63|58|0|402|134586|0|0||0|Blademaster Leggings||a5,h1,c1,d50|1
+12963|3|63|58|0|402|134586|1|0||0|Blademaster Leggings||a5,h1,c1,d50|1
 20703|3|63|0|0|402|134626|1|0||0|Cenarion Reservist's Leggings||t13,A26|1
 20704|3|63|0|0|402|134626|1|0||0|Cenarion Reservist's Leggings||t13,H29|1
 20701|3|63|0|0|403|134660|1|0||0|Cenarion Reservist's Legguards||t13,i13|1
@@ -3489,12 +3804,12 @@ FGT.GEARDB = {
 20705|3|63|0|0|401|134600|1|0||0|Cenarion Reservist's Pants||t13,S15,H15|1
 20706|3|63|0|0|401|134600|1|0||0|Cenarion Reservist's Pants||t13,S15,H15|1
 20707|3|63|0|0|401|134600|1|0||0|Cenarion Reservist's Pants||t13,H29|1
-13075|3|63|58|0|404|134584|0|0||0|Direwing Legguards||a15,s15,t16,p16|2
+13075|3|63|58|0|404|134584|1|0||0|Direwing Legguards||a15,s15,t16,p16|2
 12619|3|63|58|0|404|134584|1|0||0|Enchanted Thorium Leggings||s20,t21,d8|2
 250596|3|63|58|0|404|0|2|0||0|Enriched Thorium Leggings||t26,S14,H14,d9|1
-14334|2|63|58|0|401|134593|0|0||0|Eternal Sarong|||2
-14980|2|63|58|0|404|134592|0|0||0|Exalted Legplates|||2
-10141|2|63|58|0|401|134593|0|0||0|High Councillor's Pants|||2
+14334|2|63|58|0|401|134593|1|0||0|Eternal Sarong|||2
+14980|2|63|58|0|404|134592|1|0||0|Exalted Legplates|||2
+10141|2|63|58|0|401|134593|1|0||0|High Councillor's Pants|||2
 16426|3|63|58|4|403|134590|1|362|A|1|Knight-Captain's Chain Leggings|Requires PvP rank 8|a18,t17,c1,d25|1
 16422|3|63|58|1024|402|134586|1|381|A|1|Knight-Captain's Dragonhide Leggings|Requires PvP rank 8|a12,s12,t12,i9,p12,A18,d25|1
 17567|3|63|58|256|401|134586|1|346|A|1|Knight-Captain's Dreadweave Leggings|Requires PvP rank 8|t21,i20,S16,H16|1
@@ -3503,8 +3818,9 @@ FGT.GEARDB = {
 16431|3|63|58|1|404|134584|1|282|A|1|Knight-Captain's Plate Leggings|Requires PvP rank 8|s7,t13,c2|1
 17599|3|63|58|16|401|134586|1|344|A|1|Knight-Captain's Satin Leggings|Requires PvP rank 8|t16,i13,p16,S19,H19|1
 16414|3|63|58|128|401|134588|1|343|A|1|Knight-Captain's Silk Leggings|Requires PvP rank 8|t16,i13,p16,S19,H19|1
-18524|3|63|58|0|403|134583|0|0||0|Leggings of Destruction||a14,t20,i13,c1|1
-22342|3|63|58|0|401|134589|0|0||0|Leggings of Torment||t16,i16|1
+280025|3|63|58|0|401|0|2|0||0|Leggings of Curation||t19,S22,H22|1
+18524|3|63|58|0|403|134583|1|0||0|Leggings of Destruction||a14,t20,i13,c1|1
+22342|3|63|58|0|401|134589|1|0||0|Leggings of Torment||t16,i16|1
 16527|3|63|58|4|403|134583|1|361|H|1|Legionnaire's Chain Leggings|Requires PvP rank 8|a18,t17,c1,d25|1
 16502|3|63|58|1024|402|134586|1|382|H|1|Legionnaire's Dragonhide Trousers|Requires PvP rank 8|a12,s12,t12,i9,p12,A18,d25|1
 17571|3|63|58|256|401|134586|1|345|H|1|Legionnaire's Dreadweave Leggings|Requires PvP rank 8|t15,i13,S28,H28|1
@@ -3513,85 +3829,103 @@ FGT.GEARDB = {
 16515|3|63|58|1|404|134586|1|281|H|1|Legionnaire's Plate Legguards|Requires PvP rank 8|s7,t13,c2|1
 17611|3|63|58|16|401|134591|1|342|H|1|Legionnaire's Satin Trousers|Requires PvP rank 8|t16,i13,p16,S19,H19|1
 16490|3|63|58|128|401|134591|1|341|H|1|Legionnaire's Silk Pants|Requires PvP rank 8|t16,i13,p16,S19,H19|1
-22328|3|63|58|0|404|134584|0|0||0|Legplates of Vigilance||t22,d15|1
+280024|3|63|58|0|404|0|2|0||0|Legplates of Reinforced Crystal||s18,t22,c1|1
+22328|3|63|58|0|404|134584|1|0||0|Legplates of Vigilance||t22,d15|1
 18872|4|63|58|0|401|134588|0|0||0|Manastorm Leggings||t19,i14|1
-10162|2|63|58|0|403|134586|0|0||0|Mercurial Legguards|||2
-10152|2|63|58|0|402|134586|0|0||0|Mighty Leggings|||2
+10162|2|63|58|0|403|134586|1|0||0|Mercurial Legguards|||2
+10152|2|63|58|0|402|134586|1|0||0|Mighty Leggings|||2
 20538|3|63|58|0|401|134599|1|0||0|Runed Stygian Leggings||t13|2
-12965|3|63|58|0|401|134586|0|0||0|Spiritshroud Leggings||t13,i16,p16,S19,H19|1
-15440|2|63|58|0|402|134586|0|0||0|Supreme Leggings|||2
-12964|3|63|58|0|403|134584|0|0||0|Tristam Legguards||t13,A34,d50|1
-15685|2|63|58|0|403|134586|0|0||0|Triumphant Legplates|||2
-12935|3|63|58|0|404|134584|0|0||0|Warmaster Legguards||s13,t15,d50|1
+12965|3|63|58|0|401|134586|1|0||0|Spiritshroud Leggings||t13,i16,p16,S19,H19|1
+15440|2|63|58|0|402|134586|1|0||0|Supreme Leggings|||2
+12964|3|63|58|0|403|134584|1|0||0|Tristam Legguards||t13,A34,d50|1
+15685|2|63|58|0|403|134586|1|0||0|Triumphant Legplates|||2
+12935|3|63|58|0|404|134584|1|0||0|Warmaster Legguards||s13,t15,d50|1
 20674|3|62|57|0|401|134598|0|0||0|Abyssal Cloth Pants||c1|2
 20665|3|62|57|0|402|134630|0|0||0|Abyssal Leather Leggings||c1|2
 20668|3|62|57|0|403|134668|0|0||0|Abyssal Mail Legguards||c1|2
 20671|3|62|57|0|404|134688|0|0||0|Abyssal Plate Legplates||c1|2
 15052|3|62|57|0|403|134583|1|489||0|Black Dragonscale Leggings||t8,A54|2
-14554|4|62|57|0|404|134584|0|0||0|Cloudkeeper Legplates||a20,s20,t20|2
-10382|2|62|57|0|404|134583|0|0||0|Commander's Leggings|||2
-18380|3|62|57|0|404|134584|0|0||0|Eldritch Reinforced Legplates||a9,s15,t20,c1|1
-14462|2|62|57|0|401|134590|0|0||0|Elunarian Sarong||t11,i14,p14|2
-14545|3|62|57|0|402|134591|0|0||0|Ghostloom Leggings||t10,i18,p13|1
-14687|2|62|57|0|402|134586|0|0||0|Indomitable Leggings||t15,i18,p7|2
-22303|3|62|57|400|401|134588|0|520||0|Ironweave Pants||t24,i15|1
+14554|4|62|57|0|404|134584|1|0||0|Cloudkeeper Legplates||a20,s20,t20|2
+10382|2|62|57|0|404|134583|1|0||0|Commander's Leggings|||2
+18380|3|62|57|0|404|134584|1|0||0|Eldritch Reinforced Legplates||a9,s15,t20,c1|1
+14462|2|62|57|0|401|134590|1|0||0|Elunarian Sarong||t11,i14,p14|2
+279901|3|62|1|0|404|0|2|0||0|Expeditionary Legplates||s18,t22,d8|1
+14545|3|62|57|0|402|134591|1|0||0|Ghostloom Leggings||t10,i18,p13|1
+14687|2|62|57|0|402|134586|1|0||0|Indomitable Leggings||t15,i18,p7|2
+22303|3|62|57|400|401|134588|1|520||0|Ironweave Pants||t24,i15|1
 12756|4|62|0|0|402|134585|0|0||0|Leggings of Arcana||i20,p30,S18,H18|1
-12903|4|62|0|0|403|134583|0|0||0|Legguards of the Chromatic Defier||a33,s9,t15|1
-12945|4|62|0|0|403|134583|0|0||0|Legplates of the Chromatic Defier||t16,i19,p26|1
-14522|3|62|57|0|403|134584|0|0||0|Maelstrom Leggings||t20,i20,p10,H13|1
-10227|2|62|57|0|402|134586|0|0||0|Nightshade Leggings|||2
-18736|3|62|57|0|402|134592|0|0||0|Plaguehound Leggings||a30,t6,h1|2
+12903|4|62|0|0|403|134583|1|0||0|Legguards of the Chromatic Defier||a33,s9,t15|1
+12945|4|62|0|0|403|134583|1|0||0|Legplates of the Chromatic Defier||t16,i19,p26|1
+14522|3|62|57|0|403|134584|1|0||0|Maelstrom Leggings||t20,i20,p10,H13|1
+10227|2|62|57|0|402|134586|1|0||0|Nightshade Leggings|||2
+18736|3|62|57|0|402|134592|1|0||0|Plaguehound Leggings||a30,t6,h1|2
+279902|3|62|1|0|404|0|2|0||0|Reinforced Muck Protectors||s18,t22,d8|1
 12614|2|62|57|0|404|134584|1|0||0|Runic Plate Leggings|||2
-18378|3|62|57|0|403|134583|0|0||0|Silvermoon Leggings||a6,t16,i16,p10,S18,H18|1
+18378|3|62|57|0|403|134583|1|0||0|Silvermoon Leggings||a6,t16,i16,p10,S18,H18|1
 14867|2|62|57|0|404|134583|0|0||0|Warleader's Leggings||a7,s15,t18|2
-14816|2|62|57|0|403|134583|0|0||0|Warstrike Legguards||t10,i3,p22|2
-18690|3|62|57|0|404|134584|0|0||0|Wraithplate Leggings||t20,d25|1
-16678|3|61|56|0|403|134583|0|186||0|Beaststalker's Pants||a26,s6,t6,p12|1
-14612|3|61|56|0|403|134586|0|123||0|Bloodmail Legguards||a12,s15,t16,i15|1
-14638|3|61|56|0|402|134587|0|121||0|Cadaverous Leggings||t18,A52|1
+14816|2|62|57|0|403|134583|1|0||0|Warstrike Legguards||t10,i3,p22|2
+18690|3|62|57|0|404|134584|1|0||0|Wraithplate Leggings||t20,d25|1
+16678|3|61|56|0|403|134583|1|186||0|Beaststalker's Pants||a26,s6,t6,p12|1
+14612|3|61|56|0|403|134586|1|123||0|Bloodmail Legguards||a12,s15,t16,i15|1
+14638|3|61|56|0|402|134587|1|121||0|Cadaverous Leggings||t18,A52|1
 250598|4|61|56|0|404|0|2|0||0|Champion's Legplates||s18,S38,H38,c1|2
-18739|3|61|56|0|404|134584|0|0||0|Chitinous Plate Legguards||t20,i20|1
-13531|2|61|56|0|402|134589|0|0||0|Crypt Stalker Leggings|||1
-14623|3|61|56|0|404|134584|0|124||0|Deathbone Legguards||t20,d13|1
-16694|3|61|56|0|401|134588|0|182||0|Devout Skirt||t12,i15,p23|1
-16699|3|61|56|0|401|134588|0|183||0|Dreadmist Leggings||t15,i14,p21|1
-10217|2|61|56|0|401|134586|0|0||0|Elegant Leggings|||2
+18739|3|61|56|0|404|134584|1|0||0|Chitinous Plate Legguards||t20,i20|1
+13531|2|61|56|0|402|134589|1|0||0|Crypt Stalker Leggings|||1
+14623|3|61|56|0|404|134584|1|124||0|Deathbone Legguards||t20,d13|1
+16694|3|61|56|0|401|134588|1|182||0|Devout Skirt||t12,i15,p23|1
+16699|3|61|56|0|401|134588|1|183||0|Dreadmist Leggings||t15,i14,p21|1
+10217|2|61|56|0|401|134586|1|0||0|Elegant Leggings|||2
 18861|4|61|56|0|404|134584|0|0||0|Flamewaker Legplates||s18,t22,d25|1
-18682|3|61|56|0|402|134582|0|0||0|Ghoul Skin Leggings||t20,i8,p8,H44|1
-15194|2|61|56|0|402|134586|0|0||0|Grand Legguards|||2
-8309|2|61|56|0|403|134583|0|0||0|Hero's Leggings||a18,p17|2
-14936|2|61|56|0|404|134584|0|0||0|Heroic Legplates|||2
-10373|2|61|56|0|404|134588|0|0||0|Imbued Plate Leggings||s18,p17|2
+18682|3|61|56|0|402|134582|1|0||0|Ghoul Skin Leggings||t20,i8,p8,H44|1
+15194|2|61|56|0|402|134586|1|0||0|Grand Legguards|||2
+8309|2|61|56|0|403|134583|1|0||0|Hero's Leggings||a18,p17|2
+14936|2|61|56|0|404|134584|1|0||0|Heroic Legplates|||2
+10373|2|61|56|0|404|134588|1|0||0|Imbued Plate Leggings||s18,p17|2
 12429|2|61|56|0|404|134584|1|321||0|Imperial Plate Leggings||s18,t18|2
 252486|4|61|56|0|402|0|2|0||0|Ironfeather Leggings||i18,S38,H38,c1|2
-16668|3|61|56|0|403|134583|0|187||0|Kilt of Elements||a6,s12,t7,i15,p20|1
-16732|3|61|56|0|404|134584|0|189||0|Legplates of Valor||a11,s23,t15,p4|1
-16728|3|61|56|0|404|134584|0|188||0|Lightforge Legplates||a8,s20,t14,i12,p9|1
-16687|3|61|56|0|401|134586|0|181||0|Magister's Leggings||t12,i20,p21|1
-15676|2|61|56|0|403|134586|0|0||0|Magnificent Leggings|||2
+16668|3|61|56|0|403|134583|1|187||0|Kilt of Elements||a6,s12,t7,i15,p20|1
+16732|3|61|56|0|404|134584|1|189||0|Legplates of Valor||a11,s23,t15,p4|1
+16728|3|61|56|0|404|134584|1|188||0|Lightforge Legplates||a8,s20,t14,i12,p9|1
+284261|3|61|56|0|404|134588|2|0||0|Magically Fortified Legguards||t27,S16,H16,d6|1
+16687|3|61|56|0|401|134586|1|181||0|Magister's Leggings||t12,i20,p21|1
+15676|2|61|56|0|403|134586|1|0||0|Magnificent Leggings|||2
 250600|4|61|56|0|404|0|2|0||0|Martyr's Legplates||i14,p18,S25,H73|2
-14632|3|61|56|0|401|134588|0|122||0|Necropile Leggings||t21,i18,p12|1
-18386|3|61|56|0|401|134586|0|0||0|Padre's Trousers||i20,H42|1
+14632|3|61|56|0|401|134588|1|122||0|Necropile Leggings||t21,i18,p12|1
+18386|3|61|56|0|401|134586|1|0||0|Padre's Trousers||i20,H42|1
 252606|4|61|56|0|403|0|2|0||0|Pristine Scorpid Leggings||s18,S38,H38,c1|2
 12420|2|61|56|0|403|134583|1|0||0|Radiant Leggings|||2
 252603|4|61|56|0|403|0|2|0||0|Red Dragonscale Leggings||i32,S20,H20|2
-16709|3|61|56|0|402|134582|0|184||0|Shadowcraft Pants||a25,s12,t12|1
-14577|3|61|56|0|401|134588|0|0||0|Skullsmoke Pants||t20,i20|1
-276538|4|61|60|64|403|0|2|2111||0|Spiritcaller Kilt|||2
-18390|3|61|57|0|402|134594|0|0||0|Tanglemoss Leggings||t12,i20,p13,c1|1
-13389|3|61|56|0|401|134586|0|81||0|The Postmaster's Trousers||t12,i20,p20|1
+16709|3|61|56|0|402|134582|1|184||0|Shadowcraft Pants||a25,s12,t12|1
+14577|3|61|56|0|401|134588|1|0||0|Skullsmoke Pants||t20,i20|1
+18390|3|61|57|0|402|134594|1|0||0|Tanglemoss Leggings||t12,i20,p13,c1|1
+13389|3|61|56|0|401|134586|1|81||0|The Postmaster's Trousers||t12,i20,p20|1
 252560|2|61|56|0|402|0|2|0||0|Tooled Leather Pants||t7,p17,S19,H19|2
-16719|3|61|56|0|402|134588|0|185||0|Wildheart Kilt||a12,s13,t14,i14,p14|1
-13206|3|61|56|0|401|134586|0|0||0|Wolfshear Leggings||t5,p25,H26|1
-8289|2|60|55|0|401|134593|0|0||0|Arcane Leggings||t17,i17|2
+280066|3|61|56|0|401|0|2|0||0|Trousers of the Ebon Giant||t20,p16,S21,H21|1
+16719|3|61|56|0|402|134588|1|185||0|Wildheart Kilt||a12,s13,t14,i14,p14|1
+13206|3|61|56|0|401|134586|1|0||0|Wolfshear Leggings||t5,p25,H26|1
+8289|2|60|55|0|401|134593|1|0||0|Arcane Leggings||t17,i17|2
 276340|2|60|0|0|402|134582|2|0||0|Blademaster Hakama||a22,s7,p5|1
 20295|3|60|55|0|403|134667|1|491||0|Blue Dragonscale Leggings||i20,p19|2
 17013|4|60|55|0|404|134584|1|0||0|Dark Iron Leggings||t14|2
+273940|4|60|60|256|401|0|2|2100||0|Demonheart Leggings||t16,i19,p10,S20,H20,h1|2
 15062|3|60|55|0|402|134706|1|143||0|Devilsaur Leggings||t12,A46,c1|2
-9402|3|60|55|0|402|134592|0|0||0|Earthborn Kilt||t12,p29|2
+9402|3|60|55|0|402|134592|1|0||0|Earthborn Kilt||t12,p29|2
 19742|3|60|55|0|402|134592|1|0||0|Earthborn Kilt TEST||t12,p29|2
-13498|3|60|55|0|404|134584|0|0||0|Handcrafted Mastersmith Leggings||s29,t12|1
-15665|2|60|55|0|403|134581|0|0||0|Impenetrable Legguards|||2
+273928|4|60|60|8|402|0|2|2099||0|Grimstitch Pants||a19,s16,t19,h1|2
+273888|4|60|60|1024|402|0|2|2115||0|Grovekeeper Kilt||a14,s18,t21,i16|2
+273896|4|60|60|1024|402|0|2|2113||0|Grovekeeper Leggings||a15,s19,t22,d7|2
+273892|4|60|60|1024|402|0|2|2112||0|Grovekeeper Legguards||t20,i19,p16,S11,H33|2
+273884|4|60|60|1024|402|0|2|2114||0|Grovekeeper Trousers||t20,i19,p13,S21,H21|2
+13498|3|60|55|0|404|134584|1|0||0|Handcrafted Mastersmith Leggings||s29,t12|1
+15665|2|60|55|0|403|134581|1|0||0|Impenetrable Legguards|||2
+273908|4|60|60|2|404|0|2|2106||0|Justice Leggings||s18,t19,i17,S8,H8,c1|2
+273916|4|60|60|2|404|0|2|2108||0|Justice Legguards||t23,i21,S11,H11,h1,d7|2
+273912|4|60|60|2|404|0|2|2107||0|Justice Legplates||t19,i16,p13,S10,H31,c1|2
+273924|4|60|60|16|401|0|2|2104||0|Leggings of Conviction||t19,i16,p20,S11,H33|2
+273948|4|60|60|1|404|0|2|2103||0|Legguards of Glory||s19,t20,d35|2
+273944|4|60|60|1|404|0|2|2102||0|Legplates of Glory||a15,s22,t23,h1|2
+273904|4|60|60|128|401|0|2|2098||0|Manaflare Pants||t16,i19,p9,S20,H20|2
+273920|4|60|60|16|401|0|2|2105||0|Pants of Conviction||t20,i18,p10,S15,H15,c1|2
 272731|3|60|55|1024|402|134586|2|381||0|Premier Beasthide Leggings||a5,s12,t26,d12|1
 272492|3|60|55|4|403|134583|2|361||0|Premier Chain Leggings||a13,t19,i9,d12|1
 272735|3|60|55|4|403|134590|2|362||0|Premier Chainmail Leggings||a13,t19,i9,d12|1
@@ -3623,335 +3957,378 @@ FGT.GEARDB = {
 272815|3|60|55|16|401|134586|2|344||0|Premier Voidcloth Leggings||t25,i13,S14,H14|1
 273385|3|60|55|1024|402|134586|2|2080||0|Premier Wyrmhide Leggings||t26,i11,S9,H9|1
 12105|2|60|0|0|403|134583|1|0||0|Pridemail Leggings||p13|1
-14324|2|60|55|0|401|134592|0|0||0|Resplendent Sarong|||2
+14324|2|60|55|0|401|134592|1|0||0|Resplendent Sarong|||2
 15095|2|60|55|0|402|134582|1|0||0|Runic Leather Pants||i13,p20|2
-18477|2|60|55|0|402|134594|0|0||0|Shaggy Leggings||i19|1
-13170|3|60|55|0|401|134593|0|0||0|Skyshroud Leggings||t8,i8,S34,H34|1
+18477|2|60|55|0|402|134594|1|0||0|Shaggy Leggings||i19|1
+13170|3|60|55|0|401|134593|1|0||0|Skyshroud Leggings||t8,i8,S34,H34|1
+276538|4|60|60|64|403|0|2|2111||0|Spiritcaller Kilt||t20,i19,S27,H27|2
+273932|4|60|60|64|403|0|2|2110||0|Spiritcaller Leggings||a12,s18,t19,i14,S11,H11|2
+273936|4|60|60|64|403|0|2|2109||0|Spiritcaller Pants||t20,i19,p12,S7,H22,c1|2
 12414|2|60|55|0|404|134584|1|0||0|Thorium Leggings|||2
-18346|2|60|55|0|401|134589|0|0||0|Threadbare Trousers||t13|1
+18346|2|60|55|0|401|134589|1|0||0|Threadbare Trousers||t13|1
 22385|4|60|55|0|404|134584|1|0||0|Titanic Leggings||s30,h2,c1|2
-8300|2|60|55|0|402|134586|0|0||0|Traveler's Leggings||a17,s17|2
-13169|3|60|55|0|402|134589|0|0||0|Tressermane Leggings||t12,i14,p15,S19,H19|1
+8300|2|60|55|0|402|134586|1|0||0|Traveler's Leggings||a17,s17|2
+13169|3|60|55|0|402|134589|1|0||0|Tressermane Leggings||t12,i14,p15,S19,H19|1
 12107|2|60|0|0|401|134586|1|0||0|Whispersilk Leggings||p20,S15,H15|1
+273900|4|60|60|4|403|0|2|2101||0|Wildstalker's Legguards||a20,t18,i18,c1|2
 250591|2|59|54|0|404|134680|2|1968||0|Blessed Plate Leggings||s7,t20,S13,H13|2
-14315|2|59|54|0|401|134593|0|0||0|Celestial Kilt|||2
+14315|2|59|54|0|401|134593|1|0||0|Celestial Kilt|||2
 252600|2|59|54|0|403|0|2|0||0|Charged Scorpid Leggings||i9,p9,S20,H20|2
-10280|2|59|54|0|404|134583|0|0||0|Emerald Legplates|||2
-10236|2|59|54|0|403|134586|0|0||0|Engraved Leggings|||2
-11823|3|59|54|0|402|134593|0|0||0|Luminary Kilt||t8,i20,p8,S22,H22|1
-15431|2|59|54|0|402|134586|0|0||0|Peerless Leggings|||2
-18305|2|58|53|0|404|134584|0|0||0|Breakwater Legguards||s12,d25|1
+10280|2|59|54|0|404|134583|1|0||0|Emerald Legplates|||2
+10236|2|59|54|0|403|134586|1|0||0|Engraved Leggings|||2
+286640|3|59|54|0|401|134600|2|0||0|High Priestess's Kilt||t23,i17|1
+11823|3|59|54|0|402|134593|1|0||0|Luminary Kilt||t8,i20,p8,S22,H22|1
+15431|2|59|54|0|402|134586|1|0||0|Peerless Leggings|||2
+18305|2|58|53|0|404|134584|1|0||0|Breakwater Legguards||s12,d25|1
 14104|2|58|53|0|401|134589|1|0||0|Brightcloth Pants|||2
-10101|2|58|53|0|401|134590|0|0||0|Councillor's Pants|||2
+10101|2|58|53|0|401|134590|1|0||0|Councillor's Pants|||2
 254125|2|58|53|0|401|0|2|0||0|Earthenweave Leggings||p16,S13,H37|2
 14144|2|58|53|0|401|134581|1|0||0|Ghostweave Pants||i12|2
-14970|2|58|53|0|404|134582|0|0||0|Glorious Legplates|||2
-11802|3|58|53|0|404|134584|0|0||0|Lavacrest Leggings||s28,t12|1
+14970|2|58|53|0|404|134582|1|0||0|Glorious Legplates|||2
+11802|3|58|53|0|404|134584|1|0||0|Lavacrest Leggings||s28,t12|1
 14137|3|58|53|0|401|134593|1|0||0|Mooncloth Leggings||t12,i14,p21|2
-14677|2|58|53|0|402|134586|0|0||0|Pridelord Pants||a23,s3,t4|2
-10112|2|58|53|0|402|134586|0|0||0|Wanderer's Leggings|||2
-11821|3|58|53|0|402|134589|0|0||0|Warstrife Leggings||a6,s6,t12,d50|1
+14677|2|58|53|0|402|134586|1|0||0|Pridelord Pants||a23,s3,t4|2
+287031|3|58|53|0|403|134586|2|0||0|Spearfisher's Waders||a17,i19,d21|2
+10112|2|58|53|0|402|134586|1|0||0|Wanderer's Leggings|||2
+11821|3|58|53|0|402|134589|1|0||0|Warstrife Leggings||a6,s6,t12,d50|1
 15087|2|58|53|0|402|134592|1|0||0|Wicked Leather Pants||a20,t12|2
-13383|3|58|53|0|403|134594|0|0||0|Woollies of the Prancing Minstrel||t12,i10|1
-14805|2|57|52|0|403|134583|0|0||0|Bloodlust Britches||t15,i7,p14|2
-14305|2|57|52|0|401|134593|0|0||0|Bonecaster's Sarong|||2
+13383|3|58|53|0|403|134594|1|0||0|Woollies of the Prancing Minstrel||t12,i10|1
+14805|2|57|52|0|403|134583|1|0||0|Bloodlust Britches||t15,i7,p14|2
+14305|2|57|52|0|401|134593|1|0||0|Bonecaster's Sarong|||2
 276339|2|57|0|0|402|134592|2|0||0|Cured Staghide Leggings||a14,t13,d9|1
 15069|2|57|52|0|402|134581|1|0||0|Frostsaber Leggings|||2
-11929|3|57|52|0|401|134591|0|0||0|Haunting Specter Leggings||i12,p28|1
+11929|3|57|52|0|401|134591|1|0||0|Haunting Specter Leggings||i12,p28|1
 15079|2|57|52|0|403|134592|1|0||0|Heavy Scorpid Leggings||t12,p20|2
-22271|3|57|52|0|402|134646|0|0||0|Leggings of Frenzied Magic||t15,i15,S16,H16|1
-11927|3|57|52|0|404|134584|0|0||0|Legplates of the Eternal Guardian||d15|1
+270127|2|57|0|0|401|134590|2|0||0|Incanter's Pantaloons||i13,S14,H14|1
+22271|3|57|52|0|402|134646|1|0||0|Leggings of Frenzied Magic||t15,i15,S16,H16|1
+11927|3|57|52|0|404|134584|1|0||0|Legplates of the Eternal Guardian||d15|1
 15060|3|57|52|0|402|134585|1|0||0|Living Leggings||t8,p25,H26|2
-10124|2|57|52|0|403|134584|0|0||0|Ornate Legguards|||2
+287029|3|57|52|0|402|0|2|0||0|Nature Guardian's Legguards||i22|2
+10124|2|57|52|0|403|134584|1|0||0|Ornate Legguards|||2
+275721|2|57|0|0|402|134592|2|0||0|Rocketeer Leggings||S23,H23|1
 13865|2|57|52|0|401|134589|1|0||0|Runecloth Pants||i12,p20|2
-18745|3|57|52|0|401|134581|0|0||0|Sacred Cloth Leggings||t12,i19,p12,S14,H14|2
-11728|3|57|52|0|403|134583|0|1||0|Savage Gladiator Leggings||a18,s12,t19|1
-10169|2|57|52|0|404|134586|0|0||0|Templar Legplates|||2
-14859|2|57|52|0|404|134583|0|0||0|Vanguard Legplates||t10,p21|2
+18745|3|57|52|0|401|134581|1|0||0|Sacred Cloth Leggings||t12,i19,p12,S14,H14|2
+11728|3|57|52|0|403|134583|1|1||0|Savage Gladiator Leggings||a18,s12,t19|1
+10169|2|57|52|0|404|134586|1|0||0|Templar Legplates|||2
+14859|2|57|52|0|404|134583|1|0||0|Vanguard Legplates||t10,p21|2
 15065|3|57|52|0|402|134706|1|0||0|Warbear Woolies||s28,t12|2
-8318|2|56|51|0|404|134581|0|0||0|Alabaster Plate Leggings||s15,t3,p16|2
+8318|2|56|51|0|404|134581|1|0||0|Alabaster Plate Leggings||s15,t3,p16|2
 252478|2|56|51|0|402|0|2|0||0|Blue Suede Pants||a6,s14,t16|2
 15072|2|56|51|0|402|134582|1|0||0|Chimeric Leggings|||2
 14045|2|56|51|0|401|134586|1|0||0|Cindercloth Pants||i12|2
-8271|2|56|51|0|403|134583|0|0||0|Ebonhold Leggings||a5,t14,p14|2
+8271|2|56|51|0|403|134583|1|0||0|Ebonhold Leggings||a5,t14,p14|2
 13871|2|56|51|0|401|134588|1|0||0|Frostweave Pants||p12|2
-15119|2|56|51|0|401|134588|0|0||0|Highborne Pants||a9,i15,p10|2
-15655|2|56|51|0|403|134586|0|0||0|Merciless Legguards|||2
-10177|2|56|51|0|401|134586|0|0||0|Mystical Leggings|||2
+15119|2|56|51|0|401|134588|1|0||0|Highborne Pants||a9,i15,p10|2
+15655|2|56|51|0|403|134586|1|0||0|Merciless Legguards|||2
+10177|2|56|51|0|401|134586|1|0||0|Mystical Leggings|||2
 11882|2|56|0|0|403|134583|1|0||0|Outrider Leggings||s16,t16|1
-10188|2|56|51|0|402|134586|0|0||0|Swashbuckler's Leggings|||2
-18298|3|56|51|0|402|134591|0|0||0|Unbridled Leggings||s11,t18|2
-13130|3|56|51|0|403|134583|0|0||0|Windrunner Legguards||a27,p11|2
-14295|2|55|50|0|401|134594|0|0||0|Arachnidian Legguards|||2
+10188|2|56|51|0|402|134586|1|0||0|Swashbuckler's Leggings|||2
+18298|3|56|51|0|402|134591|1|0||0|Unbridled Leggings||s11,t18|2
+13130|3|56|51|0|403|134583|1|0||0|Windrunner Legguards||a27,p11|2
+14295|2|55|50|0|401|134594|1|0||0|Arachnidian Legguards|||2
 11910|2|55|0|0|404|134584|1|0||0|Bejeweled Legguards||t15,p8,d25|1
+276746|3|55|50|0|402|0|2|2136||0|Defias Enforcer's Legguards||a20,h1|1
 14107|2|55|50|0|401|134586|1|0||0|Felcloth Pants||i12|2
-15646|2|55|50|0|403|134583|0|0||0|Ironhide Legguards|||2
-10807|3|55|50|0|401|134591|0|0||0|Kilt of the Atal'ai Prophet||s4,t9,i18,p18|1
+15646|2|55|50|0|403|134583|1|0||0|Ironhide Legguards|||2
+10807|3|55|50|0|401|134591|1|0||0|Kilt of the Atal'ai Prophet||s4,t9,i18,p18|1
+270115|3|55|0|0|402|134591|2|0||0|Leggings of Freedom and Sorrow||a16,t18,d8|1
 21316|2|55|0|0|404|134662|1|0||0|Leggings of the Ursa||s17,c1|1
-14928|2|55|50|0|404|134584|0|0||0|Lofty Legguards|||2
-15186|2|55|50|0|402|134586|0|0||0|Praetorian Leggings|||2
-11123|3|55|0|0|401|134588|0|0||0|Rainstrider Leggings||a8,t7,p27|1
-11841|3|55|50|0|401|134589|0|0||0|Senior Designer's Pantaloons||t8,i7,p18,H40|1
+14928|2|55|50|0|404|134584|1|0||0|Lofty Legguards|||2
+279826|2|55|1|0|401|0|2|0||0|Marshdweller's Pants||t13,i8,p10,S11,H11|1
+15186|2|55|50|0|402|134586|1|0||0|Praetorian Leggings|||2
+11123|3|55|0|0|401|134588|1|0||0|Rainstrider Leggings||a8,t7,p27|1
+11841|3|55|50|0|401|134589|1|0||0|Senior Designer's Pantaloons||t8,i7,p18,H40|1
 15057|3|55|50|0|402|134589|1|142||0|Stormshroud Pants||c2,d25|2
 11911|2|55|0|0|401|134588|1|0||0|Treetop Leggings||s8,t8,p18|1
 14132|2|55|50|0|401|134589|1|0||0|Wizardweave Leggings|||2
 270122|2|55|0|0|402|134586|2|0||0|Yesterday's Pants||s14,t12,p9|1
-10199|2|54|49|0|403|134583|0|0||0|Crusader's Leggings|||2
-17711|3|54|49|0|404|134584|0|0||0|Elemental Rockridge Leggings||s20,t18|1
+10199|2|54|49|0|403|134583|1|0||0|Crusader's Leggings|||2
+17711|3|54|49|0|404|134584|1|0||0|Elemental Rockridge Leggings||s20,t18|1
 15046|3|54|49|0|403|134585|1|490||0|Green Dragonscale Leggings||t10,p22|2
-10244|2|54|49|0|404|134583|0|0||0|Heavy Lamellar Leggings|||2
-14962|2|54|49|0|404|134588|0|0||0|High Chief's Legguards|||2
-8251|2|54|49|0|401|134586|0|0||0|Imperial Red Pants||a15,i15|2
-15394|2|54|49|0|402|134586|0|0||0|Jadefire Pants|||2
-14283|2|54|49|0|401|134592|0|0||0|Opulent Leggings|||2
-8262|2|54|49|0|402|134586|0|0||0|Serpentskin Leggings||a16,s13,t5|2
+10244|2|54|49|0|404|134583|1|0||0|Heavy Lamellar Leggings|||2
+14962|2|54|49|0|404|134588|1|0||0|High Chief's Legguards|||2
+8251|2|54|49|0|401|134586|1|0||0|Imperial Red Pants||a15,i15|2
+15394|2|54|49|0|402|134586|1|0||0|Jadefire Pants|||2
+14283|2|54|49|0|401|134592|1|0||0|Opulent Leggings|||2
+8262|2|54|49|0|402|134586|1|0||0|Serpentskin Leggings||a16,s13,t5|2
 15054|2|54|49|0|402|134586|1|141||0|Volcanic Leggings|||2
-10842|3|54|49|0|402|134594|0|0||0|Windscale Sarong||a7,t10,i10,p20|1
+10842|3|54|49|0|402|134594|1|0||0|Windscale Sarong||a7,t10,i10,p20|1
 12041|2|54|0|0|402|134593|1|0||0|Windshear Leggings||a14,t4,p16|1
 10740|2|53|0|0|404|134584|1|0||0|Centurion Legplates||a15,s15|1
-10064|2|53|48|0|401|134589|0|0||0|Duskwoven Pants|||2
+10064|2|53|48|0|401|134589|1|0||0|Duskwoven Pants|||2
 9652|2|53|0|0|402|134593|1|0||0|Gryphon Rider's Leggings||a15,s15|1
-14796|2|53|48|0|403|134583|0|0||0|Protector Legguards||t6,p21|2
-10074|2|53|48|0|402|134591|0|0||0|Righteous Leggings|||2
-11749|3|53|48|0|403|134583|0|0||0|Searingscale Leggings||a13,t13,i13,p10|1
+14796|2|53|48|0|403|134583|1|0||0|Protector Legguards||t6,p21|2
+282009|2|53|48|0|402|134587|2|0||0|Ravaged Leather Leggings||a17,t12|2
+10074|2|53|48|0|402|134591|1|0||0|Righteous Leggings|||2
+11749|3|53|48|0|403|134583|1|0||0|Searingscale Leggings||a13,t13,i13,p10|1
 252580|2|53|48|0|403|0|2|0||0|Supple Scorpid Leggings||s10,t16,S12,H12|2
-10785|2|52|47|0|402|134587|0|0||0|Atal'ai Leggings|||1
-13008|3|52|47|0|401|134586|0|0||0|Dalewind Trousers||t5,i9,p25|2
-14668|2|52|47|0|402|134586|0|0||0|Keeper's Woolies||a19,t7,p3|2
-10084|2|52|47|0|403|134584|0|0||0|Lord's Legguards|||2
-10133|2|52|47|0|404|134583|0|0||0|Revenant Leggings|||2
+10785|2|52|47|0|402|134587|1|0||0|Atal'ai Leggings|||1
+13008|3|52|47|0|401|134586|1|0||0|Dalewind Trousers||t5,i9,p25|2
+14668|2|52|47|0|402|134586|1|0||0|Keeper's Woolies||a19,t7,p3|2
+10084|2|52|47|0|403|134584|1|0||0|Lord's Legguards|||2
+10133|2|52|47|0|404|134583|1|0||0|Revenant Leggings|||2
 20524|3|52|0|0|402|134599|1|0||0|Shadowhide Leggings||i12,p6|1
-14850|2|52|47|0|404|134582|0|0||0|Sunscale Legplates||a3,s19,t7|2
-14444|2|52|47|0|401|134594|0|0||0|Venomshroud Leggings||i15,p12|2
-17751|2|51|46|0|402|134585|0|0||0|Brusslehide Leggings||t11,i15|1
-9954|2|51|46|0|402|134592|0|0||0|Chieftain's Leggings|||2
+14850|2|52|47|0|404|134582|1|0||0|Sunscale Legplates||a3,s19,t7|2
+14444|2|52|47|0|401|134594|1|0||0|Venomshroud Leggings||i15,p12|2
+17751|2|51|46|0|402|134585|1|0||0|Brusslehide Leggings||t11,i15|1
+9954|2|51|46|0|402|134592|1|0||0|Chieftain's Leggings|||2
+284043|2|51|46|0|403|134583|2|0||0|Dissolved Link Legguards||s17,i11|2
 10742|2|51|0|0|401|134585|1|0||0|Dragonflight Leggings||a13,s6,p14|1
 270114|2|51|0|0|402|134592|2|0||0|Dragonscale Pants||a13,s11,p8|1
 270111|2|51|0|0|402|134706|2|0||0|Forest Troll Leggings||a11,s17|1
-15637|2|51|46|0|403|134584|0|0||0|Formidable Legguards|||2
-14274|2|51|46|0|401|134591|0|0||0|Gaea's Leggings|||2
+15637|2|51|46|0|403|134584|1|0||0|Formidable Legguards|||2
+14274|2|51|46|0|401|134591|1|0||0|Gaea's Leggings|||2
 281316|2|51|0|0|403|0|2|0||0|Glimmerchain Trousers||t18,i9|1
-14920|2|51|46|0|404|134585|0|0||0|Jade Legplates|||2
-8132|2|51|46|0|403|134592|0|0||0|Myrmidon's Leggings||a14,p14|2
-10633|3|51|46|0|404|134584|0|0||0|Silvershell Leggings||s20,t12,p10|2
-9942|2|50|45|0|401|134588|0|0||0|Abjurer's Pants|||2
-15627|2|50|45|0|403|134586|0|0||0|Gryphon Mail Legguards|||2
-17754|3|50|45|0|403|134706|0|0||0|Infernal Trickster Leggings||a20,i9|1
+14920|2|51|46|0|404|134585|1|0||0|Jade Legplates|||2
+8132|2|51|46|0|403|134592|1|0||0|Myrmidon's Leggings||a14,p14|2
+10633|3|51|46|0|404|134584|1|0||0|Silvershell Leggings||s20,t12,p10|2
+9942|2|50|45|0|401|134588|1|0||0|Abjurer's Pants|||2
+284272|2|50|45|0|402|134586|2|0||0|Chimaera Hide Legs|||2
+15627|2|50|45|0|403|134586|1|0||0|Gryphon Mail Legguards|||2
+284847|2|50|45|0|401|0|2|0||0|Hippogryph Down Leggings||i16,S7,H23|2
+17754|3|50|45|0|403|134706|1|0||0|Infernal Trickster Leggings||a20,i9|1
 19117|2|50|0|0|404|134585|1|0||0|Laquered Wooden Plate Legplates||s17,t10|1
-10208|2|50|45|0|404|134581|0|0||0|Overlord's Legplates|||2
-15176|2|50|45|0|402|134586|0|0||0|Potent Pants|||2
-9484|3|50|45|0|401|134588|0|0||0|Spellshock Leggings||t9,i10,S23,H23|2
+10208|2|50|45|0|404|134581|1|0||0|Overlord's Legplates|||2
+15176|2|50|45|0|402|134586|1|0||0|Potent Pants|||2
+9484|3|50|45|0|401|134588|1|0||0|Spellshock Leggings||t9,i10,S23,H23|2
 8212|2|50|45|0|402|134594|1|0||0|Wild Leather Leggings|||2
-14953|2|49|44|0|404|134586|0|0||0|Bloodforged Legplates|||2
+14953|2|49|44|0|404|134586|1|0||0|Bloodforged Legplates|||2
 12256|2|49|44|0|401|134586|1|0||0|Cindercloth Leggings||p15|2
-8123|2|49|44|0|402|134586|0|0||0|Heraldic Leggings||a14,p13|2
-8112|2|49|44|0|401|134594|0|0||0|Hibernal Pants||a11,i11,p11|2
-9474|3|49|44|0|402|134585|0|0||0|Jinxed Hoodoo Kilt||i10,p24|1
-15385|2|49|44|0|402|134592|0|0||0|Rageclaw Leggings|||2
+8123|2|49|44|0|402|134586|1|0||0|Heraldic Leggings||a14,p13|2
+8112|2|49|44|0|401|134594|1|0||0|Hibernal Pants||a11,i11,p11|2
+9474|3|49|44|0|402|134585|1|0||0|Jinxed Hoodoo Kilt||i10,p24|1
+15385|2|49|44|0|402|134592|1|0||0|Rageclaw Leggings|||2
 250544|2|49|44|0|404|0|2|0||0|Shining Mithril Pants||s14,S16,H16|2
 281298|2|49|0|0|401|0|2|0||0|Ti'ik's Tattered Trousers||i16,p11|1
 8206|2|49|44|0|403|134592|1|0||0|Tough Scorpid Leggings||a17,p10|2
-8280|2|49|44|0|404|134592|0|0||0|Valorous Legguards||s14,p13|2
-9964|2|49|44|0|403|134586|0|0||0|Warmonger's Leggings|||2
-14264|2|48|43|0|401|134592|0|0||0|Bloodwoven Pants|||2
-14908|2|48|43|0|404|134584|0|0||0|Brutish Legguards|||2
-7528|2|48|43|0|402|134706|0|0||0|Cabalist Leggings|||2
-7539|2|48|43|0|403|134583|0|0||0|Champion's Leggings|||2
+8280|2|49|44|0|404|134592|1|0||0|Valorous Legguards||s14,p13|2
+9964|2|49|44|0|403|134586|1|0||0|Warmonger's Leggings|||2
+14264|2|48|43|0|401|134592|1|0||0|Bloodwoven Pants|||2
+14908|2|48|43|0|404|134584|1|0||0|Brutish Legguards|||2
+7528|2|48|43|0|402|134706|1|0||0|Cabalist Leggings|||2
+7539|2|48|43|0|403|134583|1|0||0|Champion's Leggings|||2
+286569|2|48|43|0|401|134608|2|0||0|Firebird Leggings||i14|2
+274657|3|48|43|0|402|134593|2|0||0|Hydra Leather Legs||t11,p12,S22,H22|1
 19124|2|48|0|0|404|134584|1|0||0|Slagplate Leggings||s12,t12,d3|1
 8202|2|47|42|0|402|134582|1|0||0|Big Voodoo Pants||i10,p15|2
-7519|2|47|42|0|401|134592|0|0||0|Gossamer Pants|||2
-10091|2|47|42|0|404|134589|0|0||0|Gothic Plate Leggings|||2
-14786|2|47|42|0|403|134586|0|0||0|Khan's Legguards||a11,t14,p5|2
-14659|2|47|42|0|402|134587|0|0||0|Scorpashi Leggings||a15,t10|2
+7519|2|47|42|0|401|134592|1|0||0|Gossamer Pants|||2
+10091|2|47|42|0|404|134589|1|0||0|Gothic Plate Leggings|||2
+14786|2|47|42|0|403|134586|1|0||0|Khan's Legguards||a11,t14,p5|2
+14659|2|47|42|0|402|134587|1|0||0|Scorpashi Leggings||a15,t10|2
 8185|2|47|42|0|403|134582|1|0||0|Turtle Scale Leggings||t11,i10,p11|2
-14840|2|47|42|0|404|134586|0|0||0|Tyrant's Legplates||s19,p4|2
+14840|2|47|42|0|404|134586|1|0||0|Tyrant's Legplates||s19,p4|2
 270097|2|46|0|0|403|134583|2|0||0|Archer's Leggings||a17,t6|1
-4084|2|46|41|0|403|134583|0|0||0|Blackforge Leggings||a12,i13|2
-15616|2|46|41|0|403|134581|0|0||0|Bonelink Legplates|||2
-8143|2|46|41|0|404|134583|0|0||0|Chromite Legplates||s13,p12|2
-13074|3|46|41|0|404|134584|0|0||0|Golem Shard Leggings||s22,d6|2
+4084|2|46|41|0|403|134583|1|0||0|Blackforge Leggings||a12,i13|2
+15616|2|46|41|0|403|134581|1|0||0|Bonelink Legplates|||2
+8143|2|46|41|0|404|134583|1|0||0|Chromite Legplates||s13,p12|2
+13074|3|46|41|0|404|134584|1|0||0|Golem Shard Leggings||s22,d6|2
+287013|3|46|41|0|404|0|2|2135||0|Krol'dok Warplate Legplates||s8,t19,d8|2
 8193|2|46|41|0|402|134591|1|0||0|Nightscape Pants||a16,t7|2
-9414|2|46|41|0|402|134586|0|0||0|Oilskin Leggings||a13,p12|1
+9414|2|46|41|0|402|134586|1|0||0|Oilskin Leggings||a13,p12|1
 12255|2|46|41|0|401|134581|1|0||0|Pale Leggings||i13,p12|2
-9911|2|46|41|0|401|134593|0|0||0|Royal Trousers|||2
-9922|2|46|41|0|402|134594|0|0||0|Tracker's Leggings|||2
-14433|2|46|41|0|401|134592|0|0||0|Windchaser Woolies||s5,i12,p10|2
-9933|2|45|40|0|403|134584|0|0||0|Brigade Leggings|||2
+9911|2|46|41|0|401|134593|1|0||0|Royal Trousers|||2
+9922|2|46|41|0|402|134594|1|0||0|Tracker's Leggings|||2
+14433|2|46|41|0|401|134592|1|0||0|Windchaser Woolies||s5,i12,p10|2
+9933|2|45|40|0|403|134584|1|0||0|Brigade Leggings|||2
 277233|2|45|40|0|403|0|2|0||0|Clinking Mail Legguards||t10,i14|1
 277241|2|45|40|0|404|0|2|0||0|Double-Plated Legplates||t15|1
 277225|2|45|40|0|402|0|2|0||0|Feathered Leggings||t13,A25|1
-4062|2|45|40|0|402|134587|0|0||0|Imperial Leather Pants||t12,p12|2
-15168|2|45|40|0|402|134586|0|0||0|Imposing Pants|||2
-4478|2|45|40|0|403|134583|0|0||0|Iridescent Scale Leggings|||2
-14257|2|45|40|0|401|134593|0|0||0|Lunar Leggings|||2
+4062|2|45|40|0|402|134587|1|0||0|Imperial Leather Pants||t12,p12|2
+15168|2|45|40|0|402|134586|1|0||0|Imposing Pants|||2
+4478|2|45|40|0|403|134583|1|0||0|Iridescent Scale Leggings|||2
+14257|2|45|40|0|401|134593|1|0||0|Lunar Leggings|||2
 276201|2|45|40|0|403|0|2|0||0|Misplaced Pantaloons|Requires Friendly with Powderfuse|i13,p13|1
-4046|2|45|40|0|401|134593|0|0||0|Mistscape Pants||t12,p12|2
+4046|2|45|40|0|401|134593|1|0||0|Mistscape Pants||t12,p12|2
 277217|2|45|40|0|401|0|2|0||0|Patchy Pants||t15,i8|1
-14945|2|45|40|0|404|134584|0|0||0|Warbringer's Legguards|||2
-15607|2|44|39|0|403|134584|0|0||0|Ancient Legguards|||2
+274999|3|45|40|0|401|0|2|0||0|Shadecaster's Leggings||t21,i10|1
+284843|2|45|40|0|402|134592|2|0||0|Sturdy Bearhide Legguards||t15|2
+14945|2|45|40|0|404|134584|1|0||0|Warbringer's Legguards|||2
+15607|2|44|39|0|403|134584|1|0||0|Ancient Legguards|||2
 270090|2|44|0|0|401|134593|2|0||0|Beggar's Leggings||p12,S14,H14|1
-9970|2|44|40|0|404|134586|0|0||0|Embossed Plate Leggings|||2
+275023|3|44|0|0|401|237277|2|0||0|Bolder'ok Loincloth||p13,S9,H26|1
+9970|2|44|40|0|404|134586|1|0||0|Embossed Plate Leggings|||2
 7926|2|44|40|0|404|134584|1|0||0|Ornate Mithril Pants||s12,d25|2
-7469|2|44|39|0|401|134593|0|0||0|Regal Leggings|||2
+7469|2|44|39|0|401|134593|1|0||0|Regal Leggings|||2
 10010|2|44|39|0|401|134593|1|0||0|Stormcloth Pants||p15|2
-15374|2|44|39|0|402|134586|0|0||0|Wolf Rider's Leggings|||2
-1718|3|43|38|0|402|134586|0|0||0|Basilisk Hide Pants||a21,t8,p3|2
-7487|2|43|38|0|403|134590|0|0||0|Captain's Leggings|||2
-14242|2|43|38|0|401|134588|0|0||0|Darkmist Pants|||2
-9291|2|43|40|0|404|134583|0|0||0|Field Plate Leggings|||2
-7478|2|43|38|0|402|134594|0|0||0|Ranger Leggings|||2
-14775|2|43|38|0|403|134586|0|0||0|Ravager's Woolies||s9,t10,p9|2
+287009|3|44|39|0|402|0|2|0||0|Twilight Enforcer's Legs||t12,A33|2
+15374|2|44|39|0|402|134586|1|0||0|Wolf Rider's Leggings|||2
+1718|3|43|38|0|402|134586|1|0||0|Basilisk Hide Pants||a21,t8,p3|2
+7487|2|43|38|0|403|134590|1|0||0|Captain's Leggings|||2
+14242|2|43|38|0|401|134588|1|0||0|Darkmist Pants|||2
+9291|2|43|40|0|404|134583|1|0||0|Field Plate Leggings|||2
+7478|2|43|38|0|402|134594|1|0||0|Ranger Leggings|||2
+14775|2|43|38|0|403|134586|1|0||0|Ravager's Woolies||s9,t10,p9|2
 10009|2|43|38|0|401|134586|1|0||0|Red Mageweave Pants||i12,S14,H14|2
-10330|3|43|38|0|403|134583|0|163||0|Scarlet Leggings||s20,t10|1
-14605|2|43|38|0|402|134586|0|0||0|Warden's Woolies||t12,i12|2
+10330|3|43|38|0|403|134583|1|163||0|Scarlet Leggings||s20,t10|1
+14605|2|43|38|0|402|134586|1|0||0|Warden's Woolies||t12,i12|2
 270083|2|42|0|0|402|134594|2|0||0|Blooded Pants||a13,t9|1
+274962|2|42|0|0|402|134593|2|0||0|Crocskin Waders||s8,t11,p6|1
+270074|2|42|0|0|402|134594|2|0||0|Doomcaller's Pants||s13,i9|1
 7921|2|42|40|0|404|134583|1|0||0|Heavy Mithril Pants||t11|2
-9893|2|42|37|0|402|134594|0|0||0|Huntsman's Leggings|||2
-9903|2|42|37|0|403|134583|0|0||0|Jazeraint Leggings|||2
+9893|2|42|37|0|402|134594|1|0||0|Huntsman's Leggings|||2
+9903|2|42|37|0|403|134583|1|0||0|Jazeraint Leggings|||2
 7920|2|42|37|0|403|134583|1|0||0|Mithril Scale Pants||p11,d25|2
 7929|2|42|37|0|403|134583|1|0||0|Orcish War Leggings||s17|2
 10002|2|42|37|0|401|134591|1|0||0|Shadoweave Pants||t6|2
-14424|2|42|37|0|401|134589|0|0||0|Silksand Legwraps||t9,p13|2
-9883|2|42|37|0|401|134588|0|0||0|Sorcerer Pants|||2
-14829|2|42|40|0|404|134593|0|0||0|Symbolic Legplates||a6,s15|2
+14424|2|42|37|0|401|134589|1|0||0|Silksand Legwraps||t9,p13|2
+9883|2|42|37|0|401|134588|1|0||0|Sorcerer Pants|||2
+14829|2|42|40|0|404|134593|1|0||0|Symbolic Legplates||a6,s15|2
+279878|3|41|1|0|401|0|2|0||0|Apprentice Sorcerer's Slacks||i9,p17,S8|1
 9999|2|41|36|0|401|134589|1|0||0|Black Mageweave Leggings||i8,p14|2
-8162|2|41|40|0|404|134583|0|0||0|Jouster's Legplates||s11,p11|2
-15157|2|41|36|0|402|134583|0|0||0|Nocturnal Leggings|||2
-15596|2|41|36|0|403|134588|0|0||0|Steadfast Legplates|||2
-4044|2|40|35|0|401|134581|0|0||0|Aurora Pants||i11,p10|2
-4079|2|40|35|0|403|134583|0|0||0|Chief Brigadier Leggings||s11,p10|2
-14233|2|40|35|0|401|134592|0|0||0|Embersilk Leggings|||2
-4060|2|40|35|0|402|134593|0|0||0|Glyphed Leggings||t11,i10|2
+8162|2|41|40|0|404|134583|1|0||0|Jouster's Legplates||s11,p11|2
+15157|2|41|36|0|402|134583|1|0||0|Nocturnal Leggings|||2
+15596|2|41|36|0|403|134588|1|0||0|Steadfast Legplates|||2
+4044|2|40|35|0|401|134581|1|0||0|Aurora Pants||i11,p10|2
+274602|3|40|35|0|402|0|2|0||0|Brinebelly Leggings||a15,t11,p9|1
+4079|2|40|35|0|403|134583|1|0||0|Chief Brigadier Leggings||s11,p10|2
+286997|3|40|35|0|401|0|2|0||0|Depth-Risen Leggings||p17,S10,H10|2
+14233|2|40|35|0|401|134592|1|0||0|Embersilk Leggings|||2
+4060|2|40|35|0|402|134593|1|0||0|Glyphed Leggings||t11,i10|2
 274943|2|40|0|0|403|134583|2|0||0|Gnoll Crusher Leggings||s11,i11|1
 4976|2|40|0|0|402|134593|1|0||0|Mistspray Kilt||p16|1
 4108|2|40|0|0|402|134582|1|0||0|Panther Hunter Leggings||a10,t11|1
-14900|2|40|40|0|404|134587|0|0||0|Saltstone Legplates|||2
+287002|3|40|35|0|403|0|2|0||0|Risen Sentry's Links||s8,t15,d8|2
+14900|2|40|40|0|404|134587|1|0||0|Saltstone Legplates|||2
 274939|2|40|0|0|403|134583|2|0||0|Southern Watch Leggings||s13,t8|1
-15582|2|40|35|0|403|134589|0|0||0|Sparkleshell Legguards|||2
-9407|3|40|35|0|401|134581|0|0||0|Stoneweaver Leggings||t9,i8,p15|1
-15366|2|40|35|0|402|134593|0|0||0|Trickster's Leggings|||2
+15582|2|40|35|0|403|134589|1|0||0|Sparkleshell Legguards|||2
+9407|3|40|35|0|401|134581|1|0||0|Stoneweaver Leggings||t9,i8,p15|1
+279888|2|40|1|0|402|134593|2|0||0|Tidesoaked Leggings||s5,t8,p7|1
+15366|2|40|35|0|402|134593|1|0||0|Trickster's Leggings|||2
 270077|2|40|0|0|403|134590|2|0||0|Undertow Legguards||a6,s9,t8|1
-13129|3|39|34|0|403|134583|0|0||0|Firemane Leggings||s19,t5|2
-14224|2|39|34|0|401|134589|0|0||0|Geomancer's Trousers|||2
-7455|2|39|34|0|403|134584|0|0||0|Knight's Legguards|||2
-9396|3|39|34|0|403|134590|0|0||0|Legguards of the Vault||a5,s13,t13,p5|2
-7440|2|39|34|0|402|134706|0|0||0|Sentinel Trousers|||2
-7431|2|39|34|0|401|134588|0|0||0|Twilight Pants|||2
-7760|3|39|34|0|402|134586|0|0||0|Warchief Kilt||s5,i6,p19|2
+13129|3|39|34|0|403|134583|1|0||0|Firemane Leggings||s19,t5|2
+14224|2|39|34|0|401|134589|1|0||0|Geomancer's Trousers|||2
+7455|2|39|34|0|403|134584|1|0||0|Knight's Legguards|||2
+9396|3|39|34|0|403|134590|1|0||0|Legguards of the Vault||a5,s13,t13,p5|2
+7440|2|39|34|0|402|134706|1|0||0|Sentinel Trousers|||2
+7431|2|39|34|0|401|134588|1|0||0|Twilight Pants|||2
+7760|3|39|34|0|402|134586|1|0||0|Warchief Kilt||s5,i6,p19|2
 250536|2|38|33|0|403|0|2|0||0|Hard Gold Leggings||s10,S12,H12|2
-14595|2|38|33|0|402|134589|0|0||0|Hawkeye's Breeches||a14,t3|2
-15573|2|38|33|0|403|134589|0|0||0|Marauder's Leggings|||2
-9862|2|37|32|0|402|134587|0|0||0|Archer's Trousers|||2
-9851|2|37|32|0|401|134587|0|0||0|Conjurer's Breeches|||2
-9625|3|37|0|0|403|134583|0|0||0|Dual Reinforced Leggings||d5|1
-14766|2|37|32|0|403|134583|0|0||0|Enduring Breeches||a8,s8,t6|2
+14595|2|38|33|0|402|134589|1|0||0|Hawkeye's Breeches||a14,t3|2
+15573|2|38|33|0|403|134589|1|0||0|Marauder's Leggings|||2
+284713|2|37|32|0|403|134583|2|0||0|Accursed Legguards||s6,t11,p6|2
+9862|2|37|32|0|402|134587|1|0||0|Archer's Trousers|||2
+9851|2|37|32|0|401|134587|1|0||0|Conjurer's Breeches|||2
+9625|3|37|0|0|403|134583|1|0||0|Dual Reinforced Leggings||d5|1
+14766|2|37|32|0|403|134583|1|0||0|Enduring Breeches||a8,s8,t6|2
 15456|2|37|0|0|402|134593|1|0||0|Lightstep Leggings||a13,t5|1
-9871|2|37|32|0|403|134583|0|0||0|Renegade Leggings|||2
-14415|2|37|32|0|401|134581|0|0||0|Stonecloth Britches||t3,i5,p12|2
+285177|3|37|32|0|402|134626|2|0||0|Nature's Sting Legguards||t15,i10,S8,H8|1
+9871|2|37|32|0|403|134583|1|0||0|Renegade Leggings|||2
+14415|2|37|32|0|401|134581|1|0||0|Stonecloth Britches||t3,i5,p12|2
 4741|2|37|0|0|403|134583|1|0||0|Stromgarde Cavalry Leggings||a2,s8,t6|1
 270056|2|37|0|0|401|134587|2|0||0|Stromgarde Librarian Leggings||t6,i9,S9,H9|1
 270057|2|37|0|0|402|134587|2|0||0|Stromgarde Operative Pants||a9,s8,t6|1
-9624|3|37|0|0|402|134588|0|0||0|Triprunner Dungarees||a18,s3,t6|1
-15151|2|36|31|0|402|134706|0|0||0|Ghostwalker Legguards|||2
+9624|3|37|0|0|402|134588|1|0||0|Triprunner Dungarees||a18,s3,t6|1
+282713|2|36|31|0|402|134586|2|0||0|Bloodstained Pants||s12|2
+15151|2|36|31|0|402|134706|1|0||0|Ghostwalker Legguards|||2
 7949|2|36|0|8|402|134592|1|221||0|Leggings of Thero-shan||a10,A10|1
-6402|2|36|31|0|403|134589|0|0||0|Mail Combat Leggings||s9,p9|2
-6405|2|36|31|0|401|134588|0|0||0|Nightsky Trousers||a5,t5,p10|2
-15561|2|36|31|0|403|134583|0|0||0|Pillager's Leggings|||2
-14207|2|36|31|0|401|134587|0|0||0|Vital Leggings|||2
+6402|2|36|31|0|403|134589|1|0||0|Mail Combat Leggings||s9,p9|2
+6405|2|36|31|0|401|134588|1|0||0|Nightsky Trousers||a5,t5,p10|2
+15561|2|36|31|0|403|134583|1|0||0|Pillager's Leggings|||2
+14207|2|36|31|0|401|134587|1|0||0|Vital Leggings|||2
 5016|2|35|0|0|401|134590|1|0||0|Artisan's Trousers||a9,p9|1
-7709|3|35|30|0|401|134587|0|0||0|Blighted Leggings||p17|1
+7709|3|35|30|0|401|134587|1|0||0|Blighted Leggings||p17|1
 6737|2|35|0|0|401|134586|1|0||0|Dryleaf Pants||t9,p9|1
 253999|2|35|30|0|401|0|2|0||0|Earthen Leggings||p11,S5,H15|2
-15358|2|35|30|0|402|134587|0|0||0|Headhunter's Woolies|||2
-4054|2|35|30|0|402|134589|0|0||0|Insignia Leggings||a9,p9|2
-2277|3|35|30|0|401|134581|0|0||0|Necromancer Leggings||t12,i11|2
-15551|2|35|30|0|403|134584|0|0||0|Thick Scale Legguards|||2
-14203|2|35|30|0|401|134592|0|0||0|Thistlefur Pants|||2
+15358|2|35|30|0|402|134587|1|0||0|Headhunter's Woolies|||2
+4054|2|35|30|0|402|134589|1|0||0|Insignia Leggings||a9,p9|2
+2277|3|35|30|0|401|134581|1|0||0|Necromancer Leggings||t12,i11|2
+15551|2|35|30|0|403|134584|1|0||0|Thick Scale Legguards|||2
+14203|2|35|30|0|401|134592|1|0||0|Thistlefur Pants|||2
 5963|2|34|29|0|402|134592|1|0||0|Barbaric Leggings||a7,t7,p7|2
-7368|2|34|29|0|401|134588|0|0||0|Elder's Pants|||2
-6690|2|34|29|0|402|134594|0|0||0|Ferine Leggings||a8,s9|1
+7368|2|34|29|0|401|134588|1|0||0|Elder's Pants|||2
+6690|2|34|29|0|402|134594|1|0||0|Ferine Leggings||a8,s9|1
 3843|2|34|29|0|403|134584|1|0||0|Golden Scale Leggings||s11,p5|2
-7414|2|34|29|0|402|134587|0|0||0|Infiltrator Pants|||2
-7423|2|34|29|0|403|134584|0|0||0|Phalanx Leggings|||2
-15139|2|33|28|0|402|134587|0|0||0|Cutthroat's Pants|||2
-9825|2|33|28|0|401|134589|0|0||0|Durable Pants|||2
+7414|2|34|29|0|402|134587|1|0||0|Infiltrator Pants|||2
+7423|2|34|29|0|403|134584|1|0||0|Phalanx Leggings|||2
+274161|3|34|29|0|403|134590|2|0||0|Quillord Mail Leggings||t11,p8,d50|1
+286988|3|34|29|0|401|0|2|2134||0|Violet Sorcerer's Leggings||i13,p5,S12,H12|2
+286990|3|33|28|0|402|0|2|0||0|Arcane Remnant Leggings||i12|2
+15139|2|33|28|0|402|134587|1|0||0|Cutthroat's Pants|||2
+9825|2|33|28|0|401|134589|1|0||0|Durable Pants|||2
 7373|2|33|28|0|402|134587|1|0||0|Dusky Leather Leggings||a13|2
 2954|2|33|0|0|401|134588|1|0||0|Night Watch Pantaloons||t9,i8|1
-14404|2|33|28|0|401|134586|0|0||0|Resilient Leggings||a5,p11|2
-9833|2|33|28|0|402|134582|0|0||0|Scaled Leather Leggings|||2
-15541|2|33|28|0|403|134583|0|0||0|Wicked Chain Legguards|||2
-9841|2|32|27|0|403|134583|0|0||0|Banded Leggings|||2
-14585|2|32|27|0|402|134586|0|0||0|Dokebi Leggings||s3,i7,p8|2
+273048|3|33|28|0|403|0|2|0||0|Refractory Scaleguards||s12|1
+14404|2|33|28|0|401|134586|1|0||0|Resilient Leggings||a5,p11|2
+9833|2|33|28|0|402|134582|1|0||0|Scaled Leather Leggings|||2
+15541|2|33|28|0|403|134583|1|0||0|Wicked Chain Legguards|||2
+9841|2|32|27|0|403|134583|1|0||0|Banded Leggings|||2
+14585|2|32|27|0|402|134586|1|0||0|Dokebi Leggings||s3,i7,p8|2
 5962|2|32|27|0|402|134582|1|0||0|Guardian Pants||i8,p8|2
 6282|2|32|0|0|401|134581|1|0||0|Sacred Burial Trousers||s3,i5,p9|1
-6616|2|32|27|0|401|134581|0|0||0|Sage's Pants|||2
-14757|2|32|27|0|403|134583|0|0||0|Slayer's Pants||s11,t3,p1|2
-4050|2|31|26|0|402|134586|0|0||0|Emblazoned Leggings||t8,p7|2
+6616|2|32|27|0|401|134581|1|0||0|Sage's Pants|||2
+14757|2|32|27|0|403|134583|1|0||0|Slayer's Pants||s11,t3,p1|2
+286986|3|31|26|0|401|0|2|0||0|Abandoned Leggings||t8,p6|2
+4050|2|31|26|0|402|134586|1|0||0|Emblazoned Leggings||t8,p7|2
 3842|2|31|26|0|403|134585|1|0||0|Green Iron Leggings||s8,t8|2
-6910|3|31|26|0|401|134594|0|0||0|Leech Pants||t1,i5,p15|1
-15344|2|31|26|0|402|134587|0|0||0|Pathfinder Pants|||2
+6910|3|31|26|0|401|134594|1|0||0|Leech Pants||t1,i5,p15|1
+15344|2|31|26|0|402|134587|1|0||0|Pathfinder Pants|||2
 10043|2|31|0|0|401|134591|1|0||0|Pious Legwraps||t8,p7|1
-14193|2|31|26|0|401|134593|0|0||0|Raincaller Pants|||2
+14193|2|31|26|0|401|134593|1|0||0|Raincaller Pants|||2
 10423|2|31|26|0|403|134584|1|0||0|Silvered Bronze Leggings||s7,t6,p6|2
+273022|3|31|26|0|402|134591|2|0||0|Supple Bellyskin Leggings||s6,t14|1
 4505|2|31|0|0|401|134590|1|0||0|Swampland Trousers||t11,i4|1
 250526|3|30|25|0|403|0|2|0||0|Acolyte's Silvered Chain Leggings||t7,i8,S8,H25|1
 252516|3|30|25|0|402|0|2|0||0|Brawler's Leather Legguards||a9,s7,t7,p6|1
 281310|2|30|0|0|402|0|2|0||0|Carnage Trousers||t6,i8|1
 250527|3|30|25|0|403|0|2|0||0|Crusader's Silvered Chain Leggings||s7,t8,S13,H13|1
 252457|3|30|25|0|402|0|2|0||0|Defender's Leather Kilt||a7,s7,t9|1
-6607|2|30|25|0|402|134587|0|0||0|Dervish Leggings|||2
+6607|2|30|25|0|402|134587|1|0||0|Dervish Leggings|||2
 253991|3|30|25|0|401|0|2|0||0|Flame Leggings||t7,i7,p5|1
-6386|2|30|25|0|403|134586|0|0||0|Glimmering Mail Legguards||a7,s8|2
+6386|2|30|25|0|403|134586|1|0||0|Glimmering Mail Legguards||a7,s8|2
 250524|3|30|25|0|403|0|2|0||0|Guard's Silvered Chain Leggings||s7,t11,d8|1
 3751|2|30|0|0|403|134583|1|0||0|Mercenary Leggings||a7,s7|1
 253995|3|30|25|0|401|0|2|0||0|Pearly Leggings||t7,i7,p5|1
-9509|3|30|25|0|402|134588|0|0||0|Petrolspill Leggings||a14,t6|2
+9509|3|30|25|0|402|134588|1|0||0|Petrolspill Leggings||a14,t6|2
 253987|3|30|25|0|401|0|2|0||0|Pristine Leggings||t7,i7,p5,S7,H22|1
 250525|3|30|25|0|403|0|2|0||0|Protector's Silvered Chain Leggings||t11,S8,H8,d8|1
 281309|2|30|0|0|402|0|2|0||0|Razormaw Shorts||a8,t6|1
 253993|3|30|25|0|401|0|2|0||0|Shadow Leggings||t7,i7,p5|1
 253997|3|30|25|0|401|0|2|0||0|Shining Leggings||t7,i7,p5|1
 253989|3|30|25|0|401|0|2|0||0|Silky Leggings||t7,i7,p5|1
-4037|2|30|25|0|401|134588|0|0||0|Silver-thread Pants||t4,i8,p4|2
+4037|2|30|25|0|401|134588|1|0||0|Silver-thread Pants||t4,i8,p4|2
 252518|3|30|25|0|402|0|2|0||0|Stormrider's Leather Kilt||s7,t6,i7,p11|1
 252458|3|30|25|0|402|0|2|0||0|Totemic Leather Leggings||s9,t7,i6,S8,H8|1
 252517|3|30|25|0|402|0|2|0||0|Trapper's Leather Legguards||a9,t7,i7,p6|1
-13114|3|30|25|0|402|134586|0|0||0|Troll's Bane Leggings||a14,t4,p4|2
+13114|3|30|25|0|402|134586|1|0||0|Troll's Bane Leggings||a14,t4,p4|2
 250523|3|30|25|0|403|0|2|0||0|Veteran's Silvered Chain Leggings||a7,s11,t8|1
-14183|2|30|25|0|401|134581|0|0||0|Watcher's Leggings|||2
+14183|2|30|25|0|401|134581|1|0||0|Watcher's Leggings|||2
 252519|3|30|25|0|402|0|2|0||0|Wisdom's Leather Leggings||t6,i7,p7,S7,H21|1
 7132|2|29|0|1|403|134583|1|0||0|Brutal Legguards||s7,t7|1
+270031|3|29|0|0|402|134582|2|0||0|Dark Ritual Leggings||t9,S14,H14|1
 6973|2|29|0|1|403|134583|1|0||0|Fire Hardened Leggings||s7,t7|1
-4723|2|29|24|0|401|134582|0|0||0|Humbert's Pants||t7,p7|2
+4723|2|29|24|0|401|134582|1|0||0|Humbert's Pants||t7,p7|2
+285338|3|29|24|0|402|134592|2|0||0|Kodohide Legguards||s4,i11,S10,H10|1
+270036|3|29|0|0|401|134594|2|0||0|Magistrate's Pantaloons||i13,S7,H7|1
 4832|2|29|24|0|402|134587|1|0||0|Mystic Sarong||t7,p7|2
 281295|2|29|0|0|402|0|2|0||0|Pelt Pants||a6,s8|1
 15470|2|29|0|0|403|134583|1|0||0|Plainsguard Leggings||s7,t8|1
-15126|2|29|24|0|402|134587|0|0||0|Robust Leggings|||2
-14379|2|29|24|0|401|134582|0|0||0|Sanguine Trousers||s4,p9|2
-15529|2|29|24|0|403|134706|0|0||0|Sentry's Leggings|||2
+15126|2|29|24|0|402|134587|1|0||0|Robust Leggings|||2
+14379|2|29|24|0|401|134582|1|0||0|Sanguine Trousers||s4,p9|2
+15529|2|29|24|0|403|134706|1|0||0|Sentry's Leggings|||2
 7046|2|28|23|0|401|134588|1|0||0|Azure Silk Pants||i6|2
-6596|2|28|23|0|403|134586|0|0||0|Battleforge Legguards|||2
-6903|2|28|23|0|401|134582|0|0||0|Gaze Dreamer Pants||i7,p6|1
-9797|2|28|23|0|401|134594|0|0||0|Ivycloth Pants|||2
+6596|2|28|23|0|403|134586|1|0||0|Battleforge Legguards|||2
+6903|2|28|23|0|401|134582|1|0||0|Gaze Dreamer Pants||i7,p6|1
+9797|2|28|23|0|401|134594|1|0||0|Ivycloth Pants|||2
 4830|2|28|23|0|402|134586|1|0||0|Saber Leggings||a7,p6|2
 270037|2|28|0|0|402|134582|2|0||0|Smouldering Leggings||i9,p3|1
-9808|2|28|23|0|402|134582|0|0||0|Superior Leggings|||2
+9808|2|28|23|0|402|134582|1|0||0|Superior Leggings|||2
 17006|2|27|0|0|403|134583|1|0||0|Cobalt Legguards||a3,s5,t7|1
-9772|2|27|22|0|401|134590|0|0||0|Greenweave Leggings|||2
+9772|2|27|22|0|401|134590|1|0||0|Greenweave Leggings|||2
 6671|2|27|0|0|403|134583|1|0||0|Juggernaut Leggings||s10|1
-2233|2|27|22|0|402|134592|0|0||0|Shadow Weaver Leggings||a6,p6|2
-15521|2|27|22|0|403|134583|0|0||0|Spiked Chain Leggings|||2
-15336|2|27|22|0|402|134582|0|0||0|Wrangler's Leggings|||2
-3067|2|26|21|0|401|134582|0|0||0|Bright Pants||t6,p6|2
-14574|2|26|21|0|402|134587|0|0||0|Bristlebark Britches||a8,p3|2
-2906|2|26|0|0|403|134583|0|0||0|Darkshire Mail Leggings||s6,p6|1
-13010|3|26|21|0|403|134583|0|0||0|Dreamsinger Legguards||s8,t8,p5|2
-3056|2|26|21|0|402|134587|0|0||0|Forest Leather Pants||a6,p6|2
-3048|2|26|21|0|403|134583|0|0||0|Lambent Scale Legguards||a4,s7|2
+2233|2|27|22|0|402|134592|1|0||0|Shadow Weaver Leggings||a6,p6|2
+15521|2|27|22|0|403|134583|1|0||0|Spiked Chain Leggings|||2
+15336|2|27|22|0|402|134582|1|0||0|Wrangler's Leggings|||2
+3067|2|26|21|0|401|134582|1|0||0|Bright Pants||t6,p6|2
+14574|2|26|21|0|402|134587|1|0||0|Bristlebark Britches||a8,p3|2
+2906|2|26|0|0|403|134583|1|0||0|Darkshire Mail Leggings||s6,p6|1
+13010|3|26|21|0|403|134583|1|0||0|Dreamsinger Legguards||s8,t8,p5|2
+3056|2|26|21|0|402|134587|1|0||0|Forest Leather Pants||a6,p6|2
+3048|2|26|21|0|403|134583|1|0||0|Lambent Scale Legguards||a4,s7|2
 2545|2|26|0|0|403|134583|1|0||0|Malleable Chain Leggings||a3,s7,t3|1
-3073|2|26|21|0|401|134586|0|0||0|Smoldering Pants|||2
+3073|2|26|21|0|401|134586|1|0||0|Smoldering Pants|||2
 4831|2|26|21|0|402|134590|1|0||0|Stalking Pants||a6,t6|2
 250484|2|26|21|0|403|0|2|0||0|Sterling Silver Leggings||s3,t3,S4,H4|2
+273647|3|26|21|0|402|134592|2|0||0|Worgpelt Leggings||a10,s5|1
 23173|3|25|20|0|401|134586|0|0||0|Abomination Skin Leggings||t7,i8,S9,H9|1
 250496|3|25|20|0|403|134669|2|0||0|Acolyte's Chain Leggings||t5,i7,S7,H21|1
 252500|3|25|20|0|402|0|2|0||0|Brawler's Leather Pants||a9,s6,t4,p4|1
@@ -3963,10 +4340,10 @@ FGT.GEARDB = {
 253943|3|25|20|0|401|0|2|0||0|Filigreed Shadow Leggings||t5,i6,p4|1
 253947|3|25|20|0|401|0|2|0||0|Filigreed Shining Leggings||t5,i6,p4|1
 253939|3|25|20|0|401|0|2|0||0|Filigreed Silky Leggings||t5,i6,p4|1
-9815|2|25|20|0|403|134583|0|0||0|Fortified Leggings|||2
+9815|2|25|20|0|403|134583|1|0||0|Fortified Leggings|||2
 250494|3|25|20|0|403|0|2|0||0|Guard's Chain Leggings||s5,t9,d7|1
-14748|2|25|20|0|403|134583|0|0||0|Hulking Leggings||a3,s8|2
-14165|2|25|20|0|401|134582|0|0||0|Pagan Britches|||2
+14748|2|25|20|0|403|134583|1|0||0|Hulking Leggings||a3,s8|2
+14165|2|25|20|0|401|134582|1|0||0|Pagan Britches|||2
 4317|2|25|20|0|401|134586|1|0||0|Phoenix Pants||i4|2
 250495|3|25|20|0|403|0|2|0||0|Protector's Chain Leggings||t9,S6,H6,d5|1
 274741|2|25|20|0|401|0|2|0||0|Rumpled Kilt|Requires Friendly with Ratchet|t7,S5,H5|1
@@ -3975,118 +4352,135 @@ FGT.GEARDB = {
 252501|3|25|20|0|402|0|2|0||0|Trapper's Leather Pants||a9,s6,i4,p4|1
 250493|3|25|20|0|403|0|2|0||0|Veteran's Chain Leggings||a5,s9,t7|1
 252503|3|25|20|0|402|0|2|0||0|Wisdom's Leather Pants||t4,i6,p4,S7,H20|1
-6087|3|24|0|0|403|134583|0|0||0|Chausses of Westfall||s11,t5|1
+6087|3|24|0|0|403|134583|1|0||0|Chausses of Westfall||s11,t5|1
 10048|2|24|14|0|401|134582|1|0||0|Colorful Kilt||a5,p5|2
+279868|2|24|1|0|402|0|2|0||0|Duty Bound Leggings||a6,i4|1
 270020|2|24|0|0|402|134582|2|0||0|Gnollhide Pants||s6,t4|1
-15511|2|24|19|0|403|134583|0|0||0|Grunt's Legguards|||2
+15511|2|24|19|0|403|134583|1|0||0|Grunt's Legguards|||2
 4816|2|24|19|0|403|134583|1|0||0|Legionnaire's Leggings||s5,p5|2
-15117|2|24|19|0|402|134582|0|0||0|Rigid Leggings|||2
-6587|2|24|19|0|402|134582|0|0||0|Scouting Trousers|||2
-6568|2|24|19|0|401|134581|0|0||0|Shimmering Trousers|||2
-3022|2|23|18|0|402|134582|0|0||0|Bluegill Breeches||a8|2
+15117|2|24|19|0|402|134582|1|0||0|Rigid Leggings|||2
+6587|2|24|19|0|402|134582|1|0||0|Scouting Trousers|||2
+6568|2|24|19|0|401|134581|1|0||0|Shimmering Trousers|||2
+3022|2|23|18|0|402|134582|1|0||0|Bluegill Breeches||a8|2
 5961|2|23|18|0|402|134589|1|0||0|Dark Leather Pants||a8|2
-6578|2|23|18|0|403|134583|0|0||0|Defender Leggings|||2
-10410|3|23|18|0|402|134591|0|162||0|Leggings of the Fang||a9,s5,t4|1
+6578|2|23|18|0|403|134583|1|0||0|Defender Leggings|||2
+10410|3|23|18|0|402|134591|1|162||0|Leggings of the Fang||a9,s5,t4|1
 4800|2|23|18|0|403|134583|1|0||0|Mighty Chain Pants||s5,t5|2
-9781|2|22|17|0|402|134586|0|0||0|Bandit Pants|||2
-14171|2|22|17|0|401|134586|0|0||0|Buccaneer's Pants|||2
-12987|3|22|17|0|401|134586|0|0||0|Darkweave Breeches||t4,i7,p6|2
+9781|2|22|17|0|402|134586|1|0||0|Bandit Pants|||2
+14171|2|22|17|0|401|134586|1|0||0|Buccaneer's Pants|||2
+12987|3|22|17|0|401|134586|1|0||0|Darkweave Breeches||t4,i7,p6|2
+270016|2|22|0|0|402|134586|2|0||0|Dreamer's Leggings||i6,S2,H2|1
 4316|2|22|17|0|401|134581|1|0||0|Heavy Woolen Pants||i3,p6|2
-15503|2|22|17|0|403|134583|0|0||0|Outrunner's Legguards|||2
-2990|2|21|16|0|403|134582|0|0||0|Burnished Leggings||s4,p4|2
+273289|3|22|17|0|401|134589|2|0||0|Ogre Loincloth||s4,t6,S6,H18|1
+15503|2|22|17|0|403|134583|1|0||0|Outrunner's Legguards|||2
+271207|3|22|17|0|401|0|2|2133||0|Rotmender's Leggings||t5|1
+271209|3|21|16|0|403|0|2|0||0|Bonerust Leggings||a9,s4|1
+2990|2|21|16|0|403|134582|1|0||0|Burnished Leggings||s4,p4|2
 270011|2|21|0|0|401|134586|2|0||0|Embroidered Leggings||t5,S4,H4|1
 5958|2|21|16|0|402|134582|1|0||0|Fine Leather Pants||i5,p4|2
-14565|2|21|16|0|402|134582|0|0||0|Prospector's Woolies||a6,s1|2
-14125|2|21|16|0|401|134589|0|0||0|Ritual Leggings|||2
+14565|2|21|16|0|402|134582|1|0||0|Prospector's Woolies||a6,s1|2
+14125|2|21|16|0|401|134589|1|0||0|Ritual Leggings|||2
 2865|2|21|16|0|403|134583|1|0||0|Rough Bronze Leggings||t5,p4|2
-5199|2|21|16|0|402|134582|0|0||0|Smelting Pants||t5,p4|1
-5422|2|20|15|0|402|134582|0|0||0|Brambleweed Leggings||a4,p4|2
+5199|2|21|16|0|402|134582|1|0||0|Smelting Pants||t5,p4|1
+5422|2|20|15|0|402|134582|1|0||0|Brambleweed Leggings||a4,p4|2
 270014|2|20|0|0|402|134586|2|0||0|Deerhide Pants||s5,t3|1
-15312|2|20|15|0|402|134586|0|0||0|Feral Leggings|||2
-2166|2|20|15|0|403|134583|0|0||0|Foreman's Leggings||a3,t3,p3|2
-2986|2|20|15|0|402|134582|0|0||0|Inscribed Leather Pants||t4,i4|2
+15312|2|20|15|0|402|134586|1|0||0|Feral Leggings|||2
+2166|2|20|15|0|403|134583|1|0||0|Foreman's Leggings||a3,t3,p3|2
+2986|2|20|15|0|402|134582|1|0||0|Inscribed Leather Pants||t4,i4|2
 6659|2|20|0|0|401|134586|1|0||0|Scarab Trousers||t4,p4|1
-4434|2|20|15|0|401|134582|0|0||0|Scarecrow Trousers||p6|2
+4434|2|20|15|0|401|134582|1|0||0|Scarecrow Trousers||p6|2
 5310|2|20|0|0|401|134582|1|0||0|Sea Dog Britches||s4,p4|1
-3563|2|20|15|0|401|134582|0|0||0|Seafarer's Pantaloons||t4,p4|2
-2982|2|20|15|0|401|134581|0|0||0|Seer's Pants||t3,p5|2
-6480|2|20|0|0|402|134582|0|0||0|Slick Deviate Leggings||a4,t4|1
+3563|2|20|15|0|401|134582|1|0||0|Seafarer's Pantaloons||t4,p4|2
+2982|2|20|15|0|401|134581|1|0||0|Seer's Pants||t3,p5|2
+6480|2|20|0|0|402|134582|1|0||0|Slick Deviate Leggings||a4,t4|1
 1310|2|20|0|0|402|134582|1|0||0|Smith's Trousers||a4,s4|1
-1934|2|20|15|0|402|134582|0|0||0|Stonemason Trousers||a4,p4|2
-1943|2|19|14|0|403|134583|0|0||0|Goblin Mail Leggings||s4,t3|2
+1934|2|20|15|0|402|134582|1|0||0|Stonemason Trousers||a4,p4|2
+1943|2|19|14|0|403|134583|1|0||0|Goblin Mail Leggings||s4,t3|2
 7282|2|19|14|0|402|134582|1|0||0|Light Leather Pants||a5,p3|2
-15017|2|19|14|0|402|134586|0|0||0|Lupine Leggings|||2
-14370|2|19|14|0|401|134582|0|0||0|Mystic's Woolies||p6|2
-9789|2|19|14|0|403|134583|0|0||0|Raider's Legguards|||2
+15017|2|19|14|0|402|134586|1|0||0|Lupine Leggings|||2
+14370|2|19|14|0|401|134582|1|0||0|Mystic's Woolies||p6|2
+9789|2|19|14|0|403|134583|1|0||0|Raider's Legguards|||2
 14727|2|19|14|0|403|134585|1|0||0|War Paint Legguards||a1,s3,t4|2
-6553|2|18|13|0|402|134586|0|0||0|Bard's Trousers|||2
-10400|2|18|13|0|402|134592|0|161||0|Blackened Defias Leggings||a3,s3|2
-15493|2|18|13|0|403|134586|0|0||0|Bloodspattered Loincloth|||2
-15450|2|18|0|0|402|134587|0|0||0|Dredgemire Leggings||a2,t2,p2|1
-15451|2|18|0|0|403|134583|0|0||0|Gargoyle Leggings||a2,s2,t2|1
-15449|2|18|0|0|401|134594|0|0||0|Ghastly Trousers||t2,i4|1
+6553|2|18|13|0|402|134586|1|0||0|Bard's Trousers|||2
+10400|2|18|13|0|402|134592|1|161||0|Blackened Defias Leggings||a3,s3|2
+15493|2|18|13|0|403|134586|1|0||0|Bloodspattered Loincloth|||2
+270260|3|18|13|0|402|134586|2|0||0|Direhammer Leggings||a4,t7|1
+15450|2|18|0|0|402|134587|1|0||0|Dredgemire Leggings||a2,t2,p2|1
+284192|2|18|13|0|401|134706|2|0||0|Furbolg Loincloth||t4|2
+15451|2|18|0|0|403|134583|1|0||0|Gargoyle Leggings||a2,s2,t2|1
+15449|2|18|0|0|401|134594|1|0||0|Ghastly Trousers||t2,i4|1
 5327|2|18|0|0|402|134582|1|0||0|Greasy Tinker's Pants||a3,s3|1
 15203|2|18|0|0|403|134588|1|0||0|Guststorm Legguards||s3,t3,p1|1
-1929|2|18|13|0|401|134582|0|0||0|Silk-threaded Trousers||a3,p3|2
+1929|2|18|13|0|401|134582|1|0||0|Silk-threaded Trousers||a3,p3|2
 3457|2|18|0|0|401|134594|1|0||0|Stamped Trousers||i3,p3|1
 15202|2|18|0|0|402|134582|1|0||0|Wildkeeper Leggings||a4,t1,p2|1
-6540|2|18|13|0|401|134590|0|0||0|Willow Pants|||2
-14119|2|17|12|0|401|134706|0|0||0|Aboriginal Loincloth|||2
-3315|2|17|12|0|402|134706|0|0||0|Ceremonial Leather Loincloth||s3,p3|2
+6540|2|18|13|0|401|134590|1|0||0|Willow Pants|||2
+14119|2|17|12|0|401|134706|1|0||0|Aboriginal Loincloth|||2
+3315|2|17|12|0|402|134706|1|0||0|Ceremonial Leather Loincloth||s3,p3|2
+279900|2|17|1|0|402|0|2|0||0|Deepgrave Trousers||a3,p3|1
 1436|2|17|0|0|402|134585|1|0||0|Frontier Britches||a3,s3|1
 1832|2|17|0|0|401|134586|1|0||0|Lucky Trousers||a2,t2,p3|1
 2694|2|17|0|0|403|134583|1|0||0|Settler's Leggings||a3,p3|1
-6546|2|17|12|0|403|134590|0|0||0|Soldier's Leggings|||2
-3309|2|16|11|0|401|134706|0|0||0|Barbaric Loincloth||s3,i2|2
-3305|2|16|11|0|403|134583|0|0||0|Brackwater Leggings||a2,t3|2
-2974|2|16|11|0|402|134706|0|0||0|Hunting Pants||a3,p2|2
-2970|2|16|11|0|401|134590|0|0||0|Spellbinder Pants||t2,i3|2
+6546|2|17|12|0|403|134590|1|0||0|Soldier's Leggings|||2
+3309|2|16|11|0|401|134706|1|0||0|Barbaric Loincloth||s3,i2|2
+3305|2|16|11|0|403|134583|1|0||0|Brackwater Leggings||a2,t3|2
+2974|2|16|11|0|402|134706|1|0||0|Hunting Pants||a3,p2|2
+2970|2|16|11|0|401|134590|1|0||0|Spellbinder Pants||t2,i3|2
 4242|2|15|10|0|402|134582|1|0||0|Embossed Leather Pants||t2,p3|2
 3578|2|15|0|0|402|134585|1|0||0|Harvester's Pants||a2,p3|1
 4909|2|15|0|0|402|134582|1|0||0|Kodo Hunter's Leggings||a4|1
 12295|2|15|0|0|401|134586|1|0||0|Leggings of the People's Militia||s2,p2|1
 2818|2|15|0|0|402|134582|1|0||0|Stretched Leather Trousers||a2,s2|1
-2978|2|15|10|0|403|134589|0|0||0|Veteran Leggings||a2,s2|2
-9763|2|14|9|0|403|134590|0|0||0|Cadet Leggings|||2
-15303|2|14|9|0|402|134589|0|0||0|Grizzly Pants|||2
-9756|2|14|9|0|402|134585|0|0||0|Gypsy Trousers|||2
+2978|2|15|10|0|403|134589|1|0||0|Veteran Leggings||a2,s2|2
+9763|2|14|9|0|403|134590|1|0||0|Cadet Leggings|||2
+15303|2|14|9|0|402|134589|1|0||0|Grizzly Pants|||2
+9756|2|14|9|0|402|134585|1|0||0|Gypsy Trousers|||2
 4309|2|14|9|0|401|134587|1|0||0|Handstitched Linen Britches||i2,p2|2
-14097|2|14|9|0|401|134582|0|0||0|Native Pants|||2
-9747|2|14|9|0|401|134586|0|0||0|Simple Britches|||2
-15485|2|14|9|0|403|134586|0|0||0|War Torn Pants|||2
-3291|2|13|8|0|401|134706|0|0||0|Ancestral Woollies||p3|2
+286752|2|14|9|0|402|0|2|0||0|Igleggings||i3|2
+14097|2|14|9|0|401|134582|1|0||0|Native Pants|||2
+263016|2|14|9|0|402|7734217|2|0||0|Scout Ranger's Leggings||t3|2
+9747|2|14|9|0|401|134586|1|0||0|Simple Britches|||2
+263015|2|14|9|0|401|7751150|2|0||0|Skyseer's Pants||p3|2
+263017|2|14|9|0|403|7737718|2|0||0|Thendal Watcher's Leggings||t3|2
+15485|2|14|9|0|403|134586|1|0||0|War Torn Pants|||2
+3291|2|13|8|0|401|134706|1|0||0|Ancestral Woollies||p3|2
 257342|2|13|0|0|403|7737718|2|0||0|Elite Peacekeeper's Leggings||s3|1
 263340|2|13|0|0|403|7737718|2|0||0|Peacekeeper's Legguards||a3|1
 3473|2|13|8|0|403|134583|1|0||0|Runed Copper Pants||s2,t2|2
 6084|2|13|0|0|403|134583|1|0||0|Stormwind Guard Leggings||s3|1
 263330|2|13|0|0|402|7731377|2|0||0|Tracker's Pants||a3|1
 5617|2|13|0|0|402|134582|1|0||0|Vagabond Leggings||a1,s2|1
+284361|2|13|8|0|403|134583|2|0||0|Venture Company Legguards||s3|2
 277026|2|12|7|0|402|0|2|0||0|Azure Gustwoven Trousers||t2|2
 277020|2|12|7|0|403|0|2|0||0|Azure Skyforged Legguards||t2|2
 277038|2|12|7|0|401|0|2|0||0|Azure Stormsewn Leggings||t2|2
 277032|2|12|7|0|402|0|2|0||0|Azure Windraveled Pants||t2|2
-3282|2|12|7|0|403|134583|0|0||0|Battle Chain Pants||s1,t1|2
+3282|2|12|7|0|403|134583|1|0||0|Battle Chain Pants||s1,t1|2
 277002|2|12|7|0|402|0|2|0||0|Cloudy Gustwoven Trousers||t2|2
 276996|2|12|7|0|403|0|2|0||0|Cloudy Skyforged Legguards||t2|2
 277014|2|12|7|0|401|0|2|0||0|Cloudy Stormsewn Leggings||t2|2
 277008|2|12|7|0|402|0|2|0||0|Cloudy Windraveled Pants||t2|2
-6267|2|12|7|0|401|134586|0|0||0|Disciple's Pants|||2
-6337|2|12|7|0|403|134583|0|0||0|Infantry Leggings|||2
-6269|2|12|7|0|402|134585|0|0||0|Pioneer Trousers|||2
+6267|2|12|7|0|401|134586|1|0||0|Disciple's Pants|||2
+6337|2|12|7|0|403|134583|1|0||0|Infantry Leggings|||2
+6269|2|12|7|0|402|134585|1|0||0|Pioneer Trousers|||2
 10549|2|12|0|0|401|134593|1|0||0|Rancher's Trousers||t1,p1|1
-3287|2|12|7|0|402|134586|0|0||0|Tribal Pants||a1,s1|2
-14090|2|11|6|0|401|134582|0|0||0|Beaded Britches|||2
-15477|2|11|6|0|403|134592|0|0||0|Charger's Pants|||2
-10554|2|11|6|0|401|134587|0|0||0|Foreman Pants||s1,t1|2
+3287|2|12|7|0|402|134586|1|0||0|Tribal Pants||a1,s1|2
+277078|2|11|6|0|401|0|2|0||0|Al'Aketh Leggings||p2|2
+277060|2|11|6|0|403|0|2|0||0|Al'Aketh Legguards||a2|2
+277072|2|11|6|0|402|0|2|0||0|Al'Aketh Pants||p2|2
+277066|2|11|6|0|402|0|2|0||0|Al'Aketh Trousers||a2|2
+14090|2|11|6|0|401|134582|1|0||0|Beaded Britches|||2
+15477|2|11|6|0|403|134592|1|0||0|Charger's Pants|||2
+10554|2|11|6|0|401|134587|1|0||0|Foreman Pants||s1,t1|2
 281283|2|11|0|0|401|0|2|0||0|Patchwing Pants||i2|1
-15009|2|11|6|0|402|134585|0|0||0|Primal Leggings|||2
+15009|2|11|6|0|402|134585|1|0||0|Primal Leggings|||2
 7280|2|11|6|0|402|134582|1|0||0|Rugged Leather Pants||t1|2
 263307|2|11|0|0|401|7758825|2|0||0|Shadowgale Pants||S2,H2|1
 9599|2|10|0|0|403|134583|1|0||0|Barkmail Leggings||t1|1
-2962|2|10|5|0|402|134586|0|0||0|Burnt Leather Breeches||a1|2
+2962|2|10|5|0|402|134586|1|0||0|Burnt Leather Breeches||a1|2
 276725|2|10|0|0|403|0|2|0||0|DNT LEGS|||1
-2958|2|10|5|0|401|134590|0|0||0|Journeyman's Pants||p1|2
-2966|2|10|5|0|403|134583|0|0||0|Warrior's Pants||t1|2
+2958|2|10|5|0|401|134590|1|0||0|Journeyman's Pants||p1|2
+2966|2|10|5|0|403|134583|1|0||0|Warrior's Pants||t1|2
 287623|3|1|1|0|405|8382587|2|0||0|Gilded Blademaster's Legguards|||1
 ]==],
         [8] = [==[
@@ -4265,12 +4659,12 @@ FGT.GEARDB = {
 20167|3|63|58|0|402|132561|1|488||1|Defiler's Lizardhide Boots|Requires Revered with The Defilers|a8,t16,i8,A16|1
 20199|3|63|58|0|403|132545|1|484||1|Defiler's Mail Greaves|Requires Revered with The Defilers|a15,t16,i8|1
 20208|3|63|58|0|404|132585|1|487||1|Defiler's Plate Greaves|Requires Revered with The Defilers|a12,s14,t12|1
-18102|3|63|58|0|401|132539|0|0||1|Dragonrider Boots||t5,i16,S18,H18|1
+18102|3|63|58|0|401|132539|1|0||1|Dragonrider Boots||t5,i16,S18,H18|1
 20715|3|63|0|0|402|132542|1|0||0|Dunestalker's Boots||a19,s9,t10|1
-14978|2|63|58|0|404|132592|0|0||0|Exalted Sabatons|||2
-22247|3|63|58|0|401|132560|0|0||0|Faith Healer's Boots||t10,i12,p12,H26|1
-13369|3|63|58|0|401|132539|0|0||0|Fire Striders||p5|1
-18521|3|63|58|0|404|132582|0|0||0|Grimy Metal Boots||s17,d25|1
+14978|2|63|58|0|404|132592|1|0||0|Exalted Sabatons|||2
+22247|3|63|58|0|401|132560|1|0||0|Faith Healer's Boots||t10,i12,p12,H26|1
+13369|3|63|58|0|401|132539|1|0||0|Fire Striders||p5|1
+18521|3|63|58|0|404|132582|1|0||0|Grimy Metal Boots||s17,d25|1
 20050|3|63|58|0|403|132545|1|469||1|Highlander's Chain Greaves|Requires Revered with The League of Arathor|a15,t16,i8|1
 20054|3|63|58|0|401|132564|1|473||1|Highlander's Cloth Boots|Requires Revered with The League of Arathor|t16,i8,S12,H12|1
 20049|3|63|58|0|404|132585|1|468||1|Highlander's Lamellar Greaves|Requires Revered with The League of Arathor|a12,s14,t8,i8|1
@@ -4286,68 +4680,88 @@ FGT.GEARDB = {
 16405|3|63|58|1|404|132590|1|282|A|1|Knight-Lieutenant's Plate Boots|Requires PvP rank 7|a5,s8,t23|1
 17594|3|63|58|16|401|132541|1|344|A|1|Knight-Lieutenant's Satin Boots|Requires PvP rank 7|t16,i15,S12,H12|1
 16369|3|63|58|128|401|132539|1|343|A|1|Knight-Lieutenant's Silk Boots|Requires PvP rank 7|t16,i15,S12,H12|1
-10247|2|63|58|0|401|132539|0|0||0|Master's Boots|||2
-10270|2|63|58|0|403|132584|0|0||0|Masterwork Boots|||2
+10247|2|63|58|0|401|132539|1|0||0|Master's Boots|||2
+10270|2|63|58|0|403|132584|1|0||0|Masterwork Boots|||2
+280017|3|63|58|0|403|0|2|0||0|Octoclaw Chain Boots||a11,t16,i14|1
 20537|3|63|58|0|401|132539|1|0||0|Runed Stygian Boots||t8|2
 20714|3|63|0|0|402|132542|1|0||0|Sandstorm Boots||t12,i12,S14,H14|1
 12616|2|63|58|0|403|132582|1|0||0|Savage Mail Boots||s13,t15|2
-18424|3|63|0|0|402|132539|0|0||0|Sedge Boots||t18,i11|1
-15435|2|63|58|0|402|132589|0|0||0|Supreme Shoes|||2
-15678|2|63|58|0|403|132584|0|0||0|Triumphant Sabatons|||2
-10257|2|62|57|0|402|132541|0|0||0|Adventurer's Boots|||2
-18507|3|62|57|0|401|132539|0|0||0|Boots of the Full Moon||t12,i12,p9,H26|1
-13398|3|62|57|0|402|132542|0|0||0|Boots of the Shrieker||t10,i10,p10,S12,H12|1
-14537|3|62|57|0|404|132590|0|0||0|Corpselight Greaves||t22|1
-14329|2|62|57|0|401|132541|0|0||0|Eternal Boots|||2
-18047|3|62|57|0|403|132536|0|0||0|Flame Walkers||t10,d25|1
-10385|2|62|57|0|404|132589|0|0||0|Hyperion Greaves|||2
-14681|2|62|57|0|402|132535|0|0||0|Indomitable Boots||a16,t6,p5|2
-13527|2|62|57|0|404|132590|0|0||0|Lavawalker Greaves|||1
-18735|3|62|57|0|401|132537|0|0||0|Maleki's Footwraps||t9,i9|1
+18424|3|63|0|0|402|132539|1|0||0|Sedge Boots||t18,i11|1
+15435|2|63|58|0|402|132589|1|0||0|Supreme Shoes|||2
+15678|2|63|58|0|403|132584|1|0||0|Triumphant Sabatons|||2
+10257|2|62|57|0|402|132541|1|0||0|Adventurer's Boots|||2
+18507|3|62|57|0|401|132539|1|0||0|Boots of the Full Moon||t12,i12,p9,H26|1
+13398|3|62|57|0|402|132542|1|0||0|Boots of the Shrieker||t10,i10,p10,S12,H12|1
+14537|3|62|57|0|404|132590|1|0||0|Corpselight Greaves||t22|1
+14329|2|62|57|0|401|132541|1|0||0|Eternal Boots|||2
+18047|3|62|57|0|403|132536|1|0||0|Flame Walkers||t10,d25|1
+10385|2|62|57|0|404|132589|1|0||0|Hyperion Greaves|||2
+14681|2|62|57|0|402|132535|1|0||0|Indomitable Boots||a16,t6,p5|2
+13527|2|62|57|0|404|132590|1|0||0|Lavawalker Greaves|||1
+18735|3|62|57|0|401|132537|1|0||0|Maleki's Footwraps||t9,i9|1
 18506|3|62|57|0|402|132542|1|0||0|Mongoose Boots||a23,t9|2
-18379|3|62|57|0|403|132587|0|0||0|Odious Greaves||t18,i9,A22|1
-18694|3|62|57|0|403|132535|0|0||0|Shadowy Mail Greaves||t22|1
-14809|2|62|57|0|403|132541|0|0||0|Warstrike Sabatons||a6,t16,p4|2
-18716|3|61|56|0|402|132542|0|0||0|Ash Covered Boots||a13,t13,d25|1
+18379|3|62|57|0|403|132587|1|0||0|Odious Greaves||t18,i9,A22|1
+279906|3|62|1|0|402|0|2|0||0|Potent Treads||s9,t14,i11,d7|1
+279905|3|62|1|0|402|0|2|0||0|Ravasaur Hide Footpads||s9,t14,i11,d7|1
+18694|3|62|57|0|403|132535|1|0||0|Shadowy Mail Greaves||t22|1
+14809|2|62|57|0|403|132541|1|0||0|Warstrike Sabatons||a6,t16,p4|2
+18716|3|61|56|0|402|132542|1|0||0|Ash Covered Boots||a13,t13,d25|1
 16984|4|61|56|0|403|132590|1|489||0|Black Dragonscale Boots||t10,A28|2
-14616|3|61|56|0|403|132535|0|123||0|Bloodmail Boots||a9,s9,t10,i10,h1|1
-22472|3|61|56|0|402|132542|0|0||0|Boots of Ferocity||a13,s13,t13|1
-14641|3|61|56|0|402|132539|0|121||0|Cadaverous Walkers||t20,A24|1
+14616|3|61|56|0|403|132535|1|123||0|Bloodmail Boots||a9,s9,t10,i10,h1|1
+22472|3|61|56|0|402|132542|1|0||0|Boots of Ferocity||a13,s13,t13|1
+14641|3|61|56|0|402|132539|1|121||0|Cadaverous Walkers||t20,A24|1
 252602|2|61|56|0|403|0|2|0||0|Charged Scorpid Boots||i9,p9,S14,H14|2
-14621|3|61|56|0|404|132535|0|124||0|Deathbone Sabatons||t9,d10|1
-13530|2|61|56|0|401|132539|0|0||0|Fangdrip Runners|||1
-10137|2|61|56|0|401|132542|0|0||0|High Councillor's Boots|||2
-22311|3|61|56|400|401|132562|0|520||0|Ironweave Boots||t17,i11|1
-22231|3|61|56|0|401|132559|0|0||0|Kayser's Boots of Precision||t11,i18,h1|1
-13381|3|61|56|0|404|132590|0|0||0|Master Cannoneer Boots||s10,t21|1
-10155|2|61|56|0|403|132536|0|0||0|Mercurial Greaves|||2
-10146|2|61|56|0|402|132541|0|0||0|Mighty Boots|||2
-14631|3|61|56|0|401|132539|0|122||0|Necropile Boots||t15,i10,p9,S11,H11|1
-13259|3|61|56|0|404|132589|0|0||0|Ribsteel Footguards||a10,s10,t17|1
-276541|4|61|60|64|403|0|2|2111||0|Spiritcaller Boots|||2
+14621|3|61|56|0|404|132535|1|124||0|Deathbone Sabatons||t9,d10|1
+13530|2|61|56|0|401|132539|1|0||0|Fangdrip Runners|||1
+10137|2|61|56|0|401|132542|1|0||0|High Councillor's Boots|||2
+22311|3|61|56|400|401|132562|1|520||0|Ironweave Boots||t17,i11|1
+22231|3|61|56|0|401|132559|1|0||0|Kayser's Boots of Precision||t11,i18,h1|1
+13381|3|61|56|0|404|132590|1|0||0|Master Cannoneer Boots||s10,t21|1
+10155|2|61|56|0|403|132536|1|0||0|Mercurial Greaves|||2
+10146|2|61|56|0|402|132541|1|0||0|Mighty Boots|||2
+14631|3|61|56|0|401|132539|1|122||0|Necropile Boots||t15,i10,p9,S11,H11|1
+13259|3|61|56|0|404|132589|1|0||0|Ribsteel Footguards||a10,s10,t17|1
 252601|2|61|56|0|403|0|2|0||0|Supple Scorpid Sabatons||s7,t7,S15,H15|2
-13391|3|61|56|0|401|132536|0|81||0|The Postmaster's Treads||t14,i15,p6,S7,H7|1
-13954|3|61|56|0|402|132542|0|0||0|Verdant Footpads||H37|1
-13260|3|61|56|0|403|132535|0|0||0|Wind Dancer Boots||i9,p16,d25|2
-13967|3|61|56|0|403|132585|0|0||0|Windreaver Greaves||a20,h1|1
+13391|3|61|56|0|401|132536|1|81||0|The Postmaster's Treads||t14,i15,p6,S7,H7|1
+13954|3|61|56|0|402|132542|1|0||0|Verdant Footpads||H37|1
+13260|3|61|56|0|403|132535|1|0||0|Wind Dancer Boots||i9,p16,d25|2
+13967|3|61|56|0|403|132585|1|0||0|Windreaver Greaves||a20,h1|1
 20652|2|60|55|0|401|132567|0|0||0|Abyssal Cloth Slippers|||2
 20658|2|60|55|0|402|132541|0|0||0|Abyssal Leather Boots|||2
 20656|2|60|55|0|403|132552|0|0||0|Abyssal Mail Sabatons|||2
 20662|2|60|55|0|404|132586|0|0||0|Abyssal Plate Greaves|||2
 22061|4|60|0|0|403|132588|1|515||0|Beastmaster's Boots||a24,t9|1
+226903|4|60|0|4|403|132588|1|1669||0|Beastmaster's Boots||a24,t9|1
+273927|4|60|60|16|401|0|2|2104||0|Boots of Conviction||t14,i21,S8,H24|2
 21995|4|60|0|0|404|132584|1|511||0|Boots of Heroism||s20,t20,h1|1
+226879|4|60|0|1|404|132584|1|1778||0|Boots of Heroism||s20,t20,h1|1
 22096|4|60|0|0|403|132592|1|519||0|Boots of The Five Thunders||s12,t13,i12,p10,S12,H12|1
-10376|2|60|55|0|404|132589|0|0||0|Commander's Boots|||2
+227039|4|60|0|64|403|132592|1|1679||0|Boots of The Five Thunders||s12,t13,i12,p10,S12,H12|1
+10376|2|60|55|0|404|132589|1|0||0|Commander's Boots|||2
 22003|4|60|0|0|402|132542|1|512||0|Darkmantle Boots||a24,t10|1
+226851|4|60|0|8|402|132542|1|1676||0|Darkmantle Boots||a24,t10|1
+226927|4|60|0|256|401|132539|1|1681||0|Deathmist Boots||t24,i14,S12,H12|1
 22076|4|60|0|0|401|132539|1|518||0|Deathmist Sandals||t24,i14,S12,H12|1
-14458|2|60|55|0|401|132542|0|0||0|Elunarian Boots||i6,p17|2
+273943|4|60|60|256|401|0|2|2100||0|Demonheart Boots||t19,i15,S17,H17|2
+14458|2|60|55|0|401|132542|1|0||0|Elunarian Boots||i6,p17|2
 22107|4|60|0|0|402|132542|1|513||0|Feralheart Boots||a7,s12,t13,i12,p10,S11,H11|1
+226821|4|60|0|1024|402|132542|1|1667||0|Feralheart Boots||a7,s12,t13,i12,p10,S11,H11|1
 254129|2|60|55|0|401|0|2|0||0|Ghostweave Boots||p13,S16,H16|2
-15189|2|60|55|0|402|132541|0|0||0|Grand Boots|||2
-8307|2|60|55|0|403|132589|0|0||0|Hero's Boots||t19,p2|2
-15674|2|60|55|0|403|132536|0|0||0|Magnificent Greaves|||2
-18476|2|60|55|0|402|132541|0|0||0|Mud Stained Boots||s10,t15|1
-13210|3|60|55|0|402|132592|0|0||0|Pads of the Dread Wolf||t14,A40|1
+15189|2|60|55|0|402|132541|1|0||0|Grand Boots|||2
+273947|4|60|60|1|404|0|2|2102||0|Greaves of Glory||s21,t13,c1|2
+273931|4|60|60|8|402|0|2|2099||0|Grimstitch Boots||a21,t14,h1|2
+273895|4|60|60|1024|402|0|2|2112||0|Grovekeeper Boots||t14,i21,S8,H24|2
+273891|4|60|60|1024|402|0|2|2115||0|Grovekeeper Sandals||a18,s11,t14,i7|2
+273887|4|60|60|1024|402|0|2|2114||0|Grovekeeper Stompers||t14,i12,p11,S13,H13,h1|2
+273899|4|60|60|1024|402|0|2|2113||0|Grovekeeper Treads||s15,t18,h1,d7|2
+8307|2|60|55|0|403|132589|1|0||0|Hero's Boots||t19,p2|2
+273911|4|60|60|2|404|0|2|2106||0|Justice Greaves||s14,t10,i9,S11,H11,c1|2
+273919|4|60|60|2|404|0|2|2108||0|Justice Sabatons||t19,i13,S11,H11,d5|2
+273915|4|60|60|2|404|0|2|2107||0|Justice Treads||t13,i11,S6,H18,c1|2
+15674|2|60|55|0|403|132536|1|0||0|Magnificent Greaves|||2
+273907|4|60|60|128|401|0|2|2098||0|Manaflare Boots||t14,i11,S25,H25|2
+18476|2|60|55|0|402|132541|1|0||0|Mud Stained Boots||s10,t15|1
+13210|3|60|55|0|402|132592|1|0||0|Pads of the Dread Wolf||t14,A40|1
 269503|2|60|56|0|402|132539|2|0||0|Poacher Boots||a15,s3,t7|2
 272705|3|60|55|1024|402|132541|2|381||0|Premier Beasthide Footwraps||a6,s12,t19,i4|1
 272496|3|60|55|4|403|132539|2|361||0|Premier Chain Boots||a11,t19,i5,A12|1
@@ -4380,114 +4794,132 @@ FGT.GEARDB = {
 272810|3|60|55|16|401|132541|2|344||0|Premier Voidcloth Boots||t18,i11,S14,H14|1
 273383|3|60|55|1024|402|132542|2|2080||0|Premier Wyrmhide Treads||t20,i10,S7,H7|1
 12611|2|60|55|0|404|132582|1|0||0|Runic Plate Boots|||2
+273951|4|60|60|1|404|0|2|2103||0|Sabatons of Glory||s13,t20,d8|2
 22064|4|60|0|0|401|132536|1|517||0|Sorcerer's Boots||t14,i16,p10,S21,H21|1
+226943|4|60|0|128|401|132536|1|1671||0|Sorcerer's Boots||t14,i16,p10,S21,H21|1
 22087|4|60|0|0|404|132584|1|516||0|Soulforge Boots||s12,t13,i12,p10,S12,H12|1
-15861|2|60|0|0|402|132541|0|0||0|Swiftfoot Treads||a18,s5|1
+226999|4|60|0|2|404|132584|1|1673||0|Soulforge Boots||s12,t13,i12,p10,S12,H12|1
+276541|4|60|60|64|403|0|2|2111||0|Spiritcaller Boots||t14,i11,S25,H25|2
+273939|4|60|60|64|403|0|2|2109||0|Spiritcaller Greaves||t14,i12,p11,S11,H34|2
+273935|4|60|60|64|403|0|2|2110||0|Spiritcaller Treads||s14,t15,i12,S13,H13|2
+15861|2|60|0|0|402|132541|1|0||0|Swiftfoot Treads||a18,s5|1
+273923|4|60|60|16|401|0|2|2105||0|Treads of Conviction||t14,i12,p11,S13,H13,h1|2
+226967|4|60|0|16|401|132539|1|1675||0|Virtuous Boots||t12,i13,p12,S12,H12|1
 22084|4|60|0|0|401|132539|1|514||0|Virtuous Sandals||t12,i13,p12,S12,H12|1
-14865|2|60|55|0|404|132539|0|0||0|Warleader's Greaves||t16,p8|2
-16675|3|59|54|0|403|132588|0|186||0|Beaststalker's Boots||a21,t9|1
-16670|3|59|54|0|403|132592|0|187||0|Boots of Elements||a9,p17|1
-16734|3|59|54|0|404|132584|0|189||0|Boots of Valor||a4,s8,t20,p3|1
+14865|2|60|55|0|404|132539|1|0||0|Warleader's Greaves||t16,p8|2
+273903|4|60|60|4|403|0|2|2101||0|Wildstalker's Greaves||a15,t11,i10,p12,h1|2
+16675|3|59|54|0|403|132588|1|186||0|Beaststalker's Boots||a21,t9|1
+16670|3|59|54|0|403|132592|1|187||0|Boots of Elements||a9,p17|1
+16734|3|59|54|0|404|132584|1|189||0|Boots of Valor||a4,s8,t20,p3|1
 16982|4|59|54|0|402|132541|1|0||0|Corehound Boots||a13,t10|2
-18692|3|59|54|0|404|132589|0|0||0|Death Knight Sabatons||s11,t11,i11,p9|1
-16691|3|59|54|0|401|132539|0|182||0|Devout Sandals||t9,i10,p17|1
-16704|3|59|54|0|401|132539|0|183||0|Dreadmist Sandals||t17,i9,p10|1
-10211|2|59|54|0|401|132536|0|0||0|Elegant Boots|||2
-12556|3|59|54|0|401|132592|0|0||0|High Priestess Boots||t20,p7|1
-15658|2|59|54|0|403|132589|0|0||0|Impenetrable Sabatons|||2
+18692|3|59|54|0|404|132589|1|0||0|Death Knight Sabatons||s11,t11,i11,p9|1
+16691|3|59|54|0|401|132539|1|182||0|Devout Sandals||t9,i10,p17|1
+16704|3|59|54|0|401|132539|1|183||0|Dreadmist Sandals||t17,i9,p10|1
+10211|2|59|54|0|401|132536|1|0||0|Elegant Boots|||2
+12556|3|59|54|0|401|132592|1|0||0|High Priestess Boots||t20,p7|1
+15658|2|59|54|0|403|132589|1|0||0|Impenetrable Sabatons|||2
 12426|2|59|54|0|404|132582|1|321||0|Imperial Plate Boots||s13,t12|2
-16725|3|59|54|0|404|132584|0|188||0|Lightforge Boots||s8,t18,p9|1
-16682|3|59|54|0|401|132536|0|181||0|Magister's Boots||t9,i14,p14|1
-18318|3|59|54|0|403|132535|0|0||0|Merciful Greaves||t14,i14,H20|1
-10222|2|59|54|0|402|132535|0|0||0|Nightshade Boots|||2
-13282|3|59|54|0|401|132539|0|0||0|Ogreseer Tower Boots||t13,i13,p13|1
-11822|3|59|54|0|401|132539|0|0||0|Omnicast Boots||t6,i9,S22,H22|1
-14319|2|59|54|0|401|132542|0|0||0|Resplendent Boots|||2
-16711|3|59|54|0|402|132542|0|184||0|Shadowcraft Boots||a21,t9|1
-12553|3|59|54|0|402|132536|0|0||0|Swiftwalker Boots||a21,s4,t7|1
-13402|3|59|54|0|403|132535|0|0||0|Timmy's Galoshes||a17,t11,i11|1
-16715|3|59|54|0|402|132542|0|185||0|Wildheart Boots||t10,i9,p17|1
-13101|3|59|54|0|401|132539|0|0||0|Wolfrunner Shoes||t11,i11,p11,S13,H13|2
+16725|3|59|54|0|404|132584|1|188||0|Lightforge Boots||s8,t18,p9|1
+16682|3|59|54|0|401|132536|1|181||0|Magister's Boots||t9,i14,p14|1
+18318|3|59|54|0|403|132535|1|0||0|Merciful Greaves||t14,i14,H20|1
+287038|3|59|54|0|401|0|2|0||0|Naturopathy Footpads||p17,S7,H22|2
+10222|2|59|54|0|402|132535|1|0||0|Nightshade Boots|||2
+13282|3|59|54|0|401|132539|1|0||0|Ogreseer Tower Boots||t13,i13,p13|1
+11822|3|59|54|0|401|132539|1|0||0|Omnicast Boots||t6,i9,S22,H22|1
+14319|2|59|54|0|401|132542|1|0||0|Resplendent Boots|||2
+16711|3|59|54|0|402|132542|1|184||0|Shadowcraft Boots||a21,t9|1
+12553|3|59|54|0|402|132536|1|0||0|Swiftwalker Boots||a21,s4,t7|1
+13402|3|59|54|0|403|132535|1|0||0|Timmy's Galoshes||a17,t11,i11|1
+284161|2|59|54|0|401|0|2|0||0|Treads of Rotting Flesh||t7,i14|2
+16715|3|59|54|0|402|132542|1|185||0|Wildheart Boots||t10,i9,p17|1
+13101|3|59|54|0|401|132539|1|0||0|Wolfrunner Shoes||t11,i11,p11,S13,H13|2
 19056|3|58|53|0|401|132560|1|0||0|Argent Boots||t21,p7|2
 275612|3|58|53|0|402|0|2|0||0|Bileblister Boots||p8,S22,H22|2
-14799|2|58|53|0|403|132535|0|0||0|Bloodlust Boots||s4,t9,p14|2
+14799|2|58|53|0|403|132535|1|0||0|Bloodlust Boots||s4,t9,p14|2
 275621|3|58|53|0|403|0|2|0||0|Broodwatcher's Treaders||t10,S14,H43|2
-14310|2|58|53|0|401|132539|0|0||0|Celestial Slippers|||2
+14310|2|58|53|0|401|132539|1|0||0|Celestial Slippers|||2
 275627|3|58|53|0|404|0|2|0||0|Clutchlord's Stompers||s19,t10|2
 19052|3|58|53|0|402|132565|1|0||0|Dawn Treaders||t18,d25|2
-10234|2|58|53|0|403|132589|0|0||0|Engraved Boots|||2
+10234|2|58|53|0|403|132589|1|0||0|Engraved Boots|||2
+287033|3|58|53|0|404|0|2|0||0|Furbolg Berserker's Boots||s18,p9|2
 275624|3|58|53|0|404|0|2|0||0|Goregasher Stompers||t8,A38|2
 275438|2|58|0|0|404|132589|2|0||0|Greaves of Mourning||s13,S9,H26|1
-14932|2|58|53|0|404|132587|0|0||0|Heroic Greaves|||2
+14932|2|58|53|0|404|132587|1|0||0|Heroic Greaves|||2
 275615|3|58|53|0|402|0|2|0||0|Hivethrasher's Boots||a19,t10|2
-10371|2|58|53|0|404|132586|0|0||0|Imbued Plate Greaves||s13,p12|2
-15426|2|58|53|0|402|132542|0|0||0|Peerless Boots|||2
+10371|2|58|53|0|404|132586|1|0||0|Imbued Plate Greaves||s13,p12|2
+15426|2|58|53|0|402|132542|1|0||0|Peerless Boots|||2
 276341|2|58|0|0|404|132589|2|0||0|Plaguecrusher Greaves||s13,S9,H26|1
 12419|2|58|53|0|403|132584|1|0||0|Radiant Boots|||2
-18307|2|58|53|0|401|132539|0|0||0|Riptide Shoes||i12|1
-13070|3|58|53|0|404|132586|0|0||0|Sapphiron's Scale Boots||a9,s14,t14|2
+18307|2|58|53|0|401|132539|1|0||0|Riptide Shoes||i12|1
+13070|3|58|53|0|404|132586|1|0||0|Sapphiron's Scale Boots||a9,s14,t14|2
 275618|3|58|53|0|403|0|2|0||0|Scalegut Treaders||a8,A38|2
-11787|3|58|53|0|404|132582|0|0||0|Shalehusk Boots||t5,d50|1
+11787|3|58|53|0|404|132582|1|0||0|Shalehusk Boots||t5,d50|1
 275609|3|58|53|0|401|0|2|0||0|Swarmtender's Footpads||t10,S14,H43|2
-13284|3|58|53|0|403|132535|0|0||0|Swiftdart Battleboots||a17,t9,i10|1
+13284|3|58|53|0|403|132535|1|0||0|Swiftdart Battleboots||a17,t9,i10|1
+284154|2|58|53|0|404|132586|2|0||0|Unmovable Sabatons||t14|2
 275606|3|58|53|0|401|0|2|0||0|Venomspew Footpads||p8,S22,H22|2
-18322|3|58|53|0|402|132542|0|0||0|Waterspout Boots||i6,p6,S25,H25|1
+18322|3|58|53|0|402|132542|1|0||0|Waterspout Boots||i6,p6,S25,H25|1
 274720|2|57|0|0|403|132535|2|0||0|Abandoned Boots||s12,t11|1
-8284|2|57|52|0|401|132539|0|0||0|Arcane Boots||t3,i4,p16|2
-18043|3|57|52|0|402|132542|0|0||0|Coal Miner Boots||s9,t17|1
+280078|3|57|52|0|402|0|2|0||0|Apprentice's Protective Treads||a11,t12,c1|1
+8284|2|57|52|0|401|132539|1|0||0|Arcane Boots||t3,i4,p16|2
+18043|3|57|52|0|402|132542|1|0||0|Coal Miner Boots||s9,t17|1
 14108|2|57|52|0|401|132539|1|0||0|Felcloth Boots||p12|2
-22275|3|57|52|0|402|132542|0|0||0|Firemoss Boots||t8,i18,H20|1
+22275|3|57|52|0|402|132542|1|0||0|Firemoss Boots||t8,i18,H20|1
 274719|2|57|0|0|402|132540|2|0||0|Forgotten Trompers||a14,i9|1
 274718|2|57|0|0|404|132588|2|0||0|Lost Veteran's Sabatons||s10,t13|1
-10119|2|57|52|0|403|132586|0|0||0|Ornate Greaves|||2
-11731|3|57|52|0|403|132535|0|1||0|Savage Gladiator Greaves||a15,s10,t13|1
-18411|2|57|0|0|402|132540|0|0||0|Spry Boots||a12,d25|1
+10119|2|57|52|0|403|132586|1|0||0|Ornate Greaves|||2
+280081|3|57|52|0|401|0|2|0||0|Sad-Sack Sandals||t13|1
+11731|3|57|52|0|403|132535|1|1||0|Savage Gladiator Greaves||a15,s10,t13|1
+18411|2|57|0|0|402|132540|1|0||0|Spry Boots||a12,d25|1
 274721|2|57|0|0|401|132579|2|0||0|Tattered Sandals||i13,S7,H21|1
-8294|2|57|52|0|402|132535|0|0||0|Traveler's Boots||a17,p4|2
+8294|2|57|52|0|402|132535|1|0||0|Traveler's Boots||a17,p4|2
 252479|2|57|52|0|402|0|2|0||0|Wicked Leather Boots||a12,t12|2
-10095|2|56|51|0|401|132543|0|0||0|Councillor's Boots|||2
-10276|2|56|51|0|404|132535|0|0||0|Emerald Sabatons|||2
-14972|2|56|51|0|404|132584|0|0||0|Glorious Sabatons|||2
+10095|2|56|51|0|401|132543|1|0||0|Councillor's Boots|||2
+10276|2|56|51|0|404|132535|1|0||0|Emerald Sabatons|||2
+14972|2|56|51|0|404|132584|1|0||0|Glorious Sabatons|||2
 252594|2|56|51|0|403|0|2|0||0|Heavy Scorpid Boots||a10,t9|2
 15802|3|56|51|0|401|132539|1|0||0|Mooncloth Boots||t11,i14,p13|2
-14671|2|56|51|0|402|132535|0|0||0|Pridelord Boots||s4,t14,p7|2
+14671|2|56|51|0|402|132535|1|0||0|Pridelord Boots||s4,t14,p7|2
 13864|2|56|51|0|401|132539|1|0||0|Runecloth Boots||i9,p14|2
-22245|3|56|51|0|401|132562|0|0||0|Soot Encrusted Footwear||t8,i9,p14,H20|1
+282071|2|56|51|0|404|132587|2|0||0|Shin Slicers||a7,t5,c1|2
+22245|3|56|51|0|401|132562|1|0||0|Soot Encrusted Footwear||t8,i9,p14,H20|1
 12409|2|56|51|0|404|132589|1|0||0|Thorium Boots|||2
-10106|2|56|51|0|402|132541|0|0||0|Wanderer's Boots|||2
+10106|2|56|51|0|402|132541|1|0||0|Wanderer's Boots|||2
 11908|2|55|0|0|401|132539|1|0||0|Archaeologist's Quarry Boots||a9,t10,i9|1
-12555|3|55|50|0|404|132587|0|0||0|Battlechaser's Greaves||a13,s14,t8|2
+12555|3|55|50|0|404|132587|1|0||0|Battlechaser's Greaves||a13,s14,t8|2
 254113|3|55|50|0|401|0|2|0||0|Black Sandals||t13,i9|1
+270120|3|55|0|0|403|132588|2|0||0|Boots of Requite||a14,i12,p11|1
 15073|2|55|50|0|402|132541|1|0||0|Chimeric Boots|||2
-18697|3|55|50|0|401|132579|0|0||0|Coldstone Slippers||t9,i14|2
+18697|3|55|50|0|401|132579|1|0||0|Coldstone Slippers||t9,i14|2
 11919|2|55|0|0|404|132589|1|0||0|Cragplate Greaves||s12,t12|1
-8269|2|55|50|0|403|132539|0|0||0|Ebonhold Boots||t16,p4|2
-22270|3|55|50|0|404|132583|0|0||0|Entrenching Boots||a5,s11,t10,i10,S7,H7|1
+8269|2|55|50|0|403|132539|1|0||0|Ebonhold Boots||t16,p4|2
+22270|3|55|50|0|404|132583|1|0||0|Entrenching Boots||a5,s11,t10,i10,S7,H7|1
 254111|3|55|50|0|401|0|2|0||0|Fiery Sandals||t13,i9|1
 15071|2|55|50|0|402|132539|1|0||0|Frostsaber Boots|||2
 254109|3|55|50|0|401|0|2|0||0|Frothing Sandals||t13,i9|1
 254107|3|55|50|0|401|0|2|0||0|Gilded Sandals||t13,i9,S11,H31|1
 254115|3|55|50|0|401|0|2|0||0|Golden Sandals||t13,i9|1
 260185|3|55|0|0|403|0|2|0||0|Hippogryph Hide Boots||s17,t9,S9,H9|1
-18295|3|55|50|0|401|132540|0|0||0|Phasing Boots||t6,i6|2
-15181|2|55|50|0|402|132588|0|0||0|Praetorian Boots|||2
+18295|3|55|50|0|401|132540|1|0||0|Phasing Boots||t6,i6|2
+15181|2|55|50|0|402|132588|1|0||0|Praetorian Boots|||2
 254117|3|55|50|0|401|0|2|0||0|Radiant Sandals||t13,i9|1
-11675|3|55|50|0|402|132535|0|0||0|Shadefiend Boots||a11,s10,t13|1
-10167|2|55|50|0|404|132584|0|0||0|Templar Boots|||2
-10846|3|54|49|0|403|132535|0|0||0|Bloodshot Greaves||a6,s5,t20|1
-14299|2|54|49|0|401|132541|0|0||0|Bonecaster's Boots|||2
+11675|3|55|50|0|402|132535|1|0||0|Shadefiend Boots||a11,s10,t13|1
+10167|2|55|50|0|404|132584|1|0||0|Templar Boots|||2
+10846|3|54|49|0|403|132535|1|0||0|Bloodshot Greaves||a6,s5,t20|1
+14299|2|54|49|0|401|132541|1|0||0|Bonecaster's Boots|||2
 254093|2|54|49|0|401|0|2|0||0|Earthenweave Boots||p11,S9,H26|2
 11872|2|54|0|0|404|132582|1|0||0|Eschewal Greaves||t11,d25|1
 12050|2|54|0|0|401|132539|1|0||0|Hazecover Boots||a4,t8,p7|1
-15694|2|54|49|0|403|132589|0|0||0|Merciless Greaves|||2
-10179|2|54|49|0|401|132543|0|0||0|Mystical Boots|||2
-13111|3|54|49|0|402|132579|0|0||0|Sandals of the Insurgent||i8,p20|2
+15694|2|54|49|0|403|132589|1|0||0|Merciless Greaves|||2
+10179|2|54|49|0|401|132543|1|0||0|Mystical Boots|||2
+13111|3|54|49|0|402|132579|1|0||0|Sandals of the Insurgent||i8,p20|2
 12021|2|54|0|0|404|132582|1|0||0|Shieldplate Sabatons||s12,t11|1
-10183|2|54|49|0|402|132542|0|0||0|Swashbuckler's Boots|||2
-14857|2|54|49|0|404|132586|0|0||0|Vanguard Sabatons||a3,s8,t13|2
-8316|2|53|48|0|404|132587|0|0||0|Alabaster Plate Greaves||s12,t11|2
-17728|3|53|48|0|402|132539|0|0||0|Albino Crocscale Boots||a20,t5|1
-10192|2|53|48|0|403|132588|0|0||0|Crusader's Boots|||2
+10183|2|54|49|0|402|132542|1|0||0|Swashbuckler's Boots|||2
+14857|2|54|49|0|404|132586|1|0||0|Vanguard Sabatons||a3,s8,t13|2
+8316|2|53|48|0|404|132587|1|0||0|Alabaster Plate Greaves||s12,t11|2
+17728|3|53|48|0|402|132539|1|0||0|Albino Crocscale Boots||a20,t5|1
+10192|2|53|48|0|403|132588|1|0||0|Crusader's Boots|||2
+287021|3|53|48|0|402|0|2|2136||0|Defias Enforcer's Prowlers||t16,A28|2
 20155|3|53|48|0|403|132545|1|0||1|Defiler's Chain Greaves|Requires Revered with The Defilers|a12,t13,i6|1
 20160|3|53|48|0|401|132564|1|0||1|Defiler's Cloth Boots|Requires Revered with The Defilers|t13,i6,S9,H9|1
 20185|3|53|48|0|404|132585|1|0||1|Defiler's Lamellar Greaves|Requires Revered with The Defilers|a10,s11,t7,i6|1
@@ -4495,9 +4927,9 @@ FGT.GEARDB = {
 20170|3|53|48|0|402|132561|1|0||1|Defiler's Lizardhide Boots|Requires Revered with The Defilers|a8,t13,i7,A12|1
 20202|3|53|48|0|403|132545|1|0||1|Defiler's Mail Greaves|Requires Revered with The Defilers|a12,t13,i6|1
 20211|3|53|48|0|404|132585|1|0||1|Defiler's Plate Greaves|Requires Revered with The Defilers|a10,s11,t10|1
-11627|3|53|48|0|403|132535|0|0||0|Fleetfoot Greaves||a19,t6,i5|1
-22240|3|53|48|0|403|132547|0|0||0|Greaves of Withering Despair||t10,i10,S11,H11,h1|1
-14447|2|53|48|0|401|132541|0|0||0|Highborne Footpads||a4,t9,i12|2
+11627|3|53|48|0|403|132535|1|0||0|Fleetfoot Greaves||a19,t6,i5|1
+22240|3|53|48|0|403|132547|1|0||0|Greaves of Withering Despair||t10,i10,S11,H11,h1|1
+14447|2|53|48|0|401|132541|1|0||0|Highborne Footpads||a4,t9,i12|2
 20091|3|53|48|0|403|132545|1|0||1|Highlander's Chain Greaves|Requires Revered with The League of Arathor|a12,t13,i6|1
 20094|3|53|48|0|401|132564|1|0||1|Highlander's Cloth Boots|Requires Revered with The League of Arathor|t13,i6,S9,H9|1
 20109|3|53|48|0|404|132585|1|0||1|Highlander's Lamellar Greaves|Requires Revered with The League of Arathor|a10,s11,t7,i6|1
@@ -4505,99 +4937,103 @@ FGT.GEARDB = {
 20100|3|53|48|0|402|132561|1|0||1|Highlander's Lizardhide Boots|Requires Revered with The League of Arathor|a8,t13,i7,A12|1
 20121|3|53|48|0|403|132545|1|0||1|Highlander's Mail Greaves|Requires Revered with The League of Arathor|a12,t13,i6|1
 20127|3|53|48|0|404|132585|1|0||1|Highlander's Plate Greaves|Requires Revered with The League of Arathor|a10,s11,t10|1
-15389|2|53|48|0|402|132542|0|0||0|Jadefire Sabatons|||2
-14922|2|53|48|0|404|132592|0|0||0|Lofty Sabatons|||2
-11865|2|53|0|0|401|132536|0|0||0|Rancor Boots||a12,i11|1
+15389|2|53|48|0|402|132542|1|0||0|Jadefire Sabatons|||2
+14922|2|53|48|0|404|132592|1|0||0|Lofty Sabatons|||2
+11865|2|53|0|0|401|132536|1|0||0|Rancor Boots||a12,i11|1
 252545|2|53|48|0|402|0|2|0||0|Tooled Leather Boots||i5,p8,S8,H8|2
 260167|2|52|0|0|402|0|2|0||0|Adventurer's Lost Boots||a4,t15,p8|1
-10786|2|52|47|0|403|132535|0|0||0|Atal'ai Boots|||1
+10786|2|52|47|0|403|132535|1|0||0|Atal'ai Boots|||1
 250587|2|52|47|0|404|132584|2|1968||0|Blessed Plate Boots||s13,t7,S6,H6|2
 252467|2|52|47|0|402|0|2|0||0|Blue Suede Shoes||a5,s10,t11|2
-10238|2|52|47|0|404|132535|0|0||0|Heavy Lamellar Boots|||2
-8246|2|52|47|0|401|132536|0|0||0|Imperial Red Boots||a4,p15|2
-15642|2|52|47|0|403|132536|0|0||0|Ironhide Greaves|||2
+10238|2|52|47|0|404|132535|1|0||0|Heavy Lamellar Boots|||2
+8246|2|52|47|0|401|132536|1|0||0|Imperial Red Boots||a4,p15|2
+15642|2|52|47|0|403|132536|1|0||0|Ironhide Greaves|||2
 250565|3|52|47|0|404|0|2|0||0|Justicar's Sabatons||s9,t12,S15,H15|1
+286616|2|52|47|0|402|132538|2|0||0|Matriarch's Prowlers||a11|2
 252472|3|52|47|0|402|0|2|0||0|Mender's Leather Boots||t9,i11,S9,H28|1
 252579|3|52|47|0|403|0|2|0||0|Mender's Mail Sabatons||t9,i11,S9,H28|1
 250561|3|52|47|0|404|0|2|0||0|Officer's Sabatons||a9,s13,t12|1
 250564|3|52|47|0|404|0|2|0||0|Prefect's Sabatons||t12,i9,S9,H27|1
 252468|3|52|47|0|402|0|2|0||0|Prowler's Leather Boots||a11,s13,t9|1
 250562|3|52|47|0|404|0|2|0||0|Sentinel's Sabatons||s12,t13,d9|1
-8256|2|52|47|0|402|132535|0|0||0|Serpentskin Boots||a10,s7,t8|2
+8256|2|52|47|0|402|132535|1|0||0|Serpentskin Boots||a10,s7,t8|2
 252578|3|52|47|0|403|0|2|0||0|Skirmisher's Mail Sabatons||s13,t9,S13,H13|1
 252469|3|52|47|0|402|0|2|0||0|Skulker's Leather Boots||a13,s11,t9|1
 252471|3|52|47|0|402|0|2|0||0|Skycaller's Leather Boots||t9,i11,S15,H15|1
 252577|3|52|47|0|403|0|2|0||0|Skycaller's Mail Sabatons||t9,i11,S15,H15|1
-10801|3|52|47|0|402|132541|0|0||0|Slitherscale Boots||s5,t12,p15|1
+10801|3|52|47|0|402|132541|1|0||0|Slitherscale Boots||s5,t12,p15|1
 252576|3|52|47|0|403|0|2|0||0|Stalker's Mail Sabatons||a13,t11,i9|1
 10707|2|52|0|0|404|132582|1|0||0|Steelsmith Greaves||s11,t11|1
 252470|3|52|47|0|402|0|2|0||0|Warden's Leather Boots||s11,t13|1
 250563|3|52|47|0|404|0|2|0||0|Warder's Sabatons||t13,S14,H14,d9|1
-20255|3|52|0|0|402|132562|0|0||0|Whisperwalk Boots||a18,t4|1
-14290|2|51|46|0|401|132539|0|0||0|Arachnidian Footpads|||2
-14957|2|51|46|0|404|132539|0|0||0|High Chief's Sabatons|||2
-14662|2|51|46|0|402|132535|0|0||0|Keeper's Hooves||a12,s3,t6|2
-10082|2|51|46|0|403|132587|0|0||0|Lord's Boots|||2
+20255|3|52|0|0|402|132562|1|0||0|Whisperwalk Boots||a18,t4|1
+14290|2|51|46|0|401|132539|1|0||0|Arachnidian Footpads|||2
+14957|2|51|46|0|404|132539|1|0||0|High Chief's Sabatons|||2
+14662|2|51|46|0|402|132535|1|0||0|Keeper's Hooves||a12,s3,t6|2
+10082|2|51|46|0|403|132587|1|0||0|Lord's Boots|||2
 281317|2|51|0|0|404|0|2|0||0|Redstone Boots||i11,p11|1
-10068|2|51|46|0|402|132535|0|0||0|Righteous Boots|||2
+10068|2|51|46|0|402|132535|1|0||0|Righteous Boots|||2
 252574|2|51|46|0|403|0|2|0||0|Supple Scorpid Boots||s8,t10,S8,H8|2
-17748|3|51|46|0|401|132539|0|0||0|Vinerot Sandals||i12,p12|1
-10058|2|50|45|0|401|132543|0|0||0|Duskwoven Sandals|||2
-13125|3|50|45|0|403|132535|0|0||0|Elven Chain Boots||a18,t3,p7|2
-10629|3|50|45|0|401|132539|0|0||0|Mistwalker Boots||i8,p18|2
-14285|2|50|45|0|401|132541|0|0||0|Opulent Boots|||2
-15171|2|50|45|0|402|132535|0|0||0|Potent Boots|||2
-14794|2|50|45|0|403|132543|0|0||0|Protector Ankleguards||t8,i8,p8|2
-10131|2|50|45|0|404|132583|0|0||0|Revenant Boots|||2
+17748|3|51|46|0|401|132539|1|0||0|Vinerot Sandals||i12,p12|1
+10058|2|50|45|0|401|132543|1|0||0|Duskwoven Sandals|||2
+13125|3|50|45|0|403|132535|1|0||0|Elven Chain Boots||a18,t3,p7|2
+10629|3|50|45|0|401|132539|1|0||0|Mistwalker Boots||i8,p18|2
+14285|2|50|45|0|401|132541|1|0||0|Opulent Boots|||2
+15171|2|50|45|0|402|132535|1|0||0|Potent Boots|||2
+14794|2|50|45|0|403|132543|1|0||0|Protector Ankleguards||t8,i8,p8|2
+10131|2|50|45|0|404|132583|1|0||0|Revenant Boots|||2
 281259|2|50|0|0|404|0|2|0||0|Stonard Stompers||t13,p7|1
 270104|2|50|0|0|402|132535|2|0||0|Stonewalker's Slippers||t12,i8|1
 10039|2|50|45|0|401|132539|1|0||0|Stormcloth Boots||t10|2
-14848|2|50|45|0|404|132541|0|0||0|Sunscale Sabatons||a3,t14,p5|2
-9936|2|49|44|0|401|132543|0|0||0|Abjurer's Boots|||2
-9948|2|49|44|0|402|132535|0|0||0|Chieftain's Boots|||2
+14848|2|50|45|0|404|132541|1|0||0|Sunscale Sabatons||a3,t14,p5|2
+285047|2|50|45|0|402|0|2|0||0|Yeti Hide Stompers||s15,t4|2
+9936|2|49|44|0|401|132543|1|0||0|Abjurer's Boots|||2
+9948|2|49|44|0|402|132535|1|0||0|Chieftain's Boots|||2
 10044|2|49|44|0|401|132539|1|0||0|Cindercloth Boots|||2
-15630|2|49|44|0|403|132587|0|0||0|Formidable Sabatons|||2
+15630|2|49|44|0|403|132587|1|0||0|Formidable Sabatons|||2
 270101|2|49|0|0|402|132535|2|0||0|Gnomish Floatation Device||s10,t10|1
 9645|2|49|0|0|401|132535|1|0||0|Gnomish Inventor Boots||t7,i2,p11|1
 9646|2|49|0|0|404|132588|1|0||0|Gnomish Water Sinking Device||t16|1
-14913|2|49|44|0|404|132586|0|0||0|Jade Greaves|||2
-8130|2|49|44|0|403|132535|0|0||0|Myrmidon's Greaves||a14,i4|2
+14913|2|49|44|0|404|132586|1|0||0|Jade Greaves|||2
+8130|2|49|44|0|403|132535|1|0||0|Myrmidon's Greaves||a14,i4|2
 7936|2|49|44|0|404|132535|1|0||0|Ornate Mithril Boots||d25|2
 8213|2|49|44|0|402|132541|1|0||0|Wild Leather Boots|||2
+282631|2|49|44|0|401|132539|2|0||0|Xorothian Footwraps||t5,i8|2
 259890|2|48|0|0|401|132539|2|0||0|Deep-Sea Waders||t10,p10|1
-10201|2|48|43|0|404|132535|0|0||0|Overlord's Greaves|||2
-15379|2|48|43|0|402|132535|0|0||0|Rageclaw Boots|||2
+10201|2|48|43|0|404|132535|1|0||0|Overlord's Greaves|||2
+15379|2|48|43|0|402|132535|1|0||0|Rageclaw Boots|||2
 10031|2|48|43|0|401|132539|1|0||0|Shadoweave Boots||p10|2
-14438|2|48|43|0|401|132543|0|0||0|Venomshroud Boots||t13,i5|2
-9962|2|48|43|0|403|132589|0|0||0|Warmonger's Greaves|||2
-14951|2|47|42|0|404|132536|0|0||0|Bloodforged Sabatons|||2
-14269|2|47|42|0|401|132541|0|0||0|Gaea's Slippers|||2
-15626|2|47|42|0|403|132542|0|0||0|Gryphon Mail Greaves|||2
+14438|2|48|43|0|401|132543|1|0||0|Venomshroud Boots||t13,i5|2
+9962|2|48|43|0|403|132589|1|0||0|Warmonger's Greaves|||2
+285063|3|47|42|0|404|132587|2|0||0|Black Brood Battleguards||s9,t13,d6|1
+14951|2|47|42|0|404|132536|1|0||0|Bloodforged Sabatons|||2
+14269|2|47|42|0|401|132541|1|0||0|Gaea's Slippers|||2
+15626|2|47|42|0|403|132542|1|0||0|Gryphon Mail Greaves|||2
 7933|2|47|42|0|404|132582|1|0||0|Heavy Mithril Boots||t12|2
-8117|2|47|42|0|402|132535|0|0||0|Heraldic Boots||a13,t4|2
-8107|2|47|42|0|401|132543|0|0||0|Hibernal Boots||t11,i7|2
+8117|2|47|42|0|402|132535|1|0||0|Heraldic Boots||a13,t4|2
+8107|2|47|42|0|401|132543|1|0||0|Hibernal Boots||t11,i7|2
 8197|2|47|42|0|402|132539|1|0||0|Nightscape Boots||a12|2
-12470|3|47|42|0|402|132603|0|0||0|Sandstalker Ankleguards||a17,s6,p3|1
+12470|3|47|42|0|402|132603|1|0||0|Sandstalker Ankleguards||a17,s6,p3|1
 8209|2|47|42|0|403|132539|1|0||0|Tough Scorpid Boots||a12,p7|2
-8278|2|47|42|0|404|132589|0|0||0|Valorous Greaves||a4,t10,p7|2
+8278|2|47|42|0|404|132589|1|0||0|Valorous Greaves||a4,t10,p7|2
 10026|2|46|41|0|401|132539|1|0||0|Black Mageweave Boots||i7,p11|2
-14259|2|46|41|0|401|132542|0|0||0|Bloodwoven Boots|||2
-14911|2|46|41|0|404|132587|0|0||0|Brutish Boots|||2
-7531|2|46|41|0|402|132535|0|0||0|Cabalist Boots|||2
-7542|2|46|41|0|403|132590|0|0||0|Champion's Greaves|||2
-14784|2|46|41|0|403|132535|0|0||0|Khan's Greaves||t12,i5|2
-14653|2|46|41|0|402|132535|0|0||0|Scorpashi Slippers||a13,t3|2
+14259|2|46|41|0|401|132542|1|0||0|Bloodwoven Boots|||2
+14911|2|46|41|0|404|132587|1|0||0|Brutish Boots|||2
+7531|2|46|41|0|402|132535|1|0||0|Cabalist Boots|||2
+7542|2|46|41|0|403|132590|1|0||0|Champion's Greaves|||2
+14784|2|46|41|0|403|132535|1|0||0|Khan's Greaves||t12,i5|2
+14653|2|46|41|0|402|132535|1|0||0|Scorpashi Slippers||a13,t3|2
 270094|2|45|0|0|402|132542|2|0||0|Black Whelp Boots||a9,p9|1
-6423|2|45|40|0|403|132539|0|0||0|Blackforge Greaves||a10,s9|2
-15614|2|45|40|0|403|132590|0|0||0|Bonelink Sabatons|||2
-14549|4|45|40|0|404|132586|0|0||0|Boots of Avoidance||a14,t11,d50|2
+6423|2|45|40|0|403|132539|1|0||0|Blackforge Greaves||a10,s9|2
+15614|2|45|40|0|403|132590|1|0||0|Bonelink Sabatons|||2
+14549|4|45|40|0|404|132586|1|0||0|Boots of Avoidance||a14,t11,d50|2
 10701|2|45|0|0|403|132588|1|0||0|Boots of Zua'tec||t13,p2|1
 10700|2|45|0|0|401|132536|1|0||0|Encarmine Boots||s4,t8,i8|1
 10724|2|45|0|0|401|132536|1|0||0|Gnomish Rocket Boots|Requires Engineering (225)||2
 7189|2|45|0|0|401|133029|1|0||0|Goblin Rocket Boots|||2
-7522|2|45|40|0|401|132543|0|0||0|Gossamer Boots|||2
-10089|2|45|40|0|404|132542|0|0||0|Gothic Sabatons|||2
-15162|2|45|40|0|402|132536|0|0||0|Imposing Boots|||2
+7522|2|45|40|0|401|132543|1|0||0|Gossamer Boots|||2
+10089|2|45|40|0|404|132542|1|0||0|Gothic Sabatons|||2
+15162|2|45|40|0|402|132536|1|0||0|Imposing Boots|||2
 4653|2|45|0|0|403|132535|1|0||0|Ironheel Boots||s10,t9|1
 9633|2|45|0|0|402|132539|1|0||0|Jangdor's Handcrafted Boots||a11,t6|1
 250550|3|45|40|0|404|0|2|0||0|Justicar's Boots||s7,t9,S15,H15|1
@@ -4607,6 +5043,7 @@ FGT.GEARDB = {
 9630|2|45|0|0|402|132541|1|0||0|Pratt's Handcrafted Boots||a11,t6|1
 250549|3|45|40|0|404|0|2|0||0|Prefect's Boots||t7,i9,S9,H28|1
 252465|3|45|40|0|402|0|2|0||0|Prowler's Leather Shoes||a7,s11,t7,i5|1
+285101|2|45|40|0|403|0|2|0||0|Rot-Fused Greaves||a5,s6,t10|2
 250547|3|45|40|0|404|0|2|0||0|Sentinel's Boots||s7,t13,d9|1
 250542|2|45|40|0|404|0|2|0||0|Shining Mithril Boots||s9,S12,H12|2
 9637|2|45|0|0|404|132588|1|0||0|Shinkicker Boots||a9,s10|1
@@ -4619,16 +5056,19 @@ FGT.GEARDB = {
 252562|3|45|40|0|403|0|2|0||0|Stalker's Mail Boots||a11,t7,i7,p5|1
 252466|3|45|40|0|402|0|2|0||0|Warden's Leather Shoes||a7,s7,t11|1
 250548|3|45|40|0|404|0|2|0||0|Warder's Boots||t13,S9,H9,d9|1
-15599|2|44|39|0|403|132585|0|0||0|Ancient Greaves|||2
-8141|2|44|40|0|404|132539|0|0||0|Chromite Greaves||s4,t12|2
-13100|3|44|39|0|401|132537|0|0||0|Furen's Boots||i7,p16|2
-9907|2|44|39|0|401|132539|0|0||0|Royal Boots|||2
-9917|2|44|39|0|402|132542|0|0||0|Tracker's Boots|||2
-14839|2|44|40|0|404|132587|0|0||0|Tyrant's Greaves||a4,s8,t8|2
-14428|2|44|39|0|401|132542|0|0||0|Windchaser Footpads||a3,t2,p12|2
-15370|2|44|39|0|402|132542|0|0||0|Wolf Rider's Boots|||2
+275003|3|45|40|0|404|132585|2|0||0|Worgbinder's Treads||s10,i15|1
+15599|2|44|39|0|403|132585|1|0||0|Ancient Greaves|||2
+8141|2|44|40|0|404|132539|1|0||0|Chromite Greaves||s4,t12|2
+284040|2|44|39|0|402|132539|2|0||0|Cliff Jumpers||a12|2
+13100|3|44|39|0|401|132537|1|0||0|Furen's Boots||i7,p16|2
+9907|2|44|39|0|401|132539|1|0||0|Royal Boots|||2
+287007|3|44|39|0|401|0|2|0||0|Stretched Footpads||t13,S5,H14|2
+9917|2|44|39|0|402|132542|1|0||0|Tracker's Boots|||2
+14839|2|44|40|0|404|132587|1|0||0|Tyrant's Greaves||a4,s8,t8|2
+14428|2|44|39|0|401|132542|1|0||0|Windchaser Footpads||a3,t2,p12|2
+15370|2|44|39|0|402|132542|1|0||0|Wolf Rider's Boots|||2
 9658|2|43|0|0|401|132536|1|0||0|Boots of the Maharishi||a4,i9,p6|1
-9926|2|43|38|0|403|132589|0|0||0|Brigade Boots|||2
+9926|2|43|38|0|403|132589|1|0||0|Brigade Boots|||2
 20156|3|43|40|0|403|132545|1|0||1|Defiler's Chain Greaves|Requires Revered with The Defilers|a10,t10,i3|1
 20161|3|43|38|0|401|132564|1|0||1|Defiler's Cloth Boots|Requires Revered with The Defilers|t10,i3,S8,H8|1
 20183|3|43|40|0|404|132585|1|0||1|Defiler's Lamellar Greaves|Requires Revered with The Defilers|a8,s8,t6,i5|1
@@ -4644,95 +5084,101 @@ FGT.GEARDB = {
 20101|3|43|38|0|402|132561|1|0||1|Highlander's Lizardhide Boots|Requires Revered with The League of Arathor|a6,t10,i5,A6|1
 20122|3|43|40|0|403|132545|1|0||1|Highlander's Mail Greaves|Requires Revered with The League of Arathor|a10,t10,i3|1
 20128|3|43|40|0|404|132585|1|0||1|Highlander's Plate Greaves|Requires Revered with The League of Arathor|a8,s8,t8|1
-6431|2|43|38|0|402|132535|0|0||0|Imperial Leather Boots||a11,s5|2
-4047|2|43|38|0|401|132543|0|0||0|Mistscape Boots||t11,i2,p4|2
+6431|2|43|38|0|402|132535|1|0||0|Imperial Leather Boots||a11,s5|2
+4047|2|43|38|0|401|132543|1|0||0|Mistscape Boots||t11,i2,p4|2
 9662|2|43|0|0|404|132582|1|0||0|Rushridge Boots||a7,t10|1
-14940|2|43|40|0|404|132590|0|0||0|Warbringer's Sabatons|||2
-7490|2|42|37|0|403|132590|0|0||0|Captain's Boots|||2
+14940|2|43|40|0|404|132590|1|0||0|Warbringer's Sabatons|||2
+7490|2|42|37|0|403|132590|1|0||0|Captain's Boots|||2
 4136|2|42|0|0|403|132535|1|0||0|Darkspear Boots||s9,p8|1
 4137|2|42|0|0|401|132539|1|0||0|Darkspear Shoes||t7,i3,p3|1
-9973|2|42|40|0|404|132588|0|0||0|Embossed Plate Boots|||2
-14250|2|42|37|0|401|132541|0|0||0|Lunar Slippers|||2
-13068|3|42|40|0|404|132590|0|0||0|Obsidian Greaves||a6,s10,t10|2
-7481|2|42|37|0|402|132542|0|0||0|Ranger Boots|||2
-14769|2|42|37|0|403|132579|0|0||0|Ravager's Sandals||s4,t10,p4|2
-14828|2|42|40|0|404|132539|0|0||0|Symbolic Greaves||s9,t6,p4|2
-14599|2|42|37|0|402|132542|0|0||0|Warden's Footpads||s3,i7,p9|2
-14238|2|41|36|0|401|132541|0|0||0|Darkmist Boots|||2
-19509|2|41|36|0|403|132545|0|0||1|Dusty Mail Boots||t9|1
+9973|2|42|40|0|404|132588|1|0||0|Embossed Plate Boots|||2
+14250|2|42|37|0|401|132541|1|0||0|Lunar Slippers|||2
+13068|3|42|40|0|404|132590|1|0||0|Obsidian Greaves||a6,s10,t10|2
+7481|2|42|37|0|402|132542|1|0||0|Ranger Boots|||2
+14769|2|42|37|0|403|132579|1|0||0|Ravager's Sandals||s4,t10,p4|2
+14828|2|42|40|0|404|132539|1|0||0|Symbolic Greaves||s9,t6,p4|2
+14599|2|42|37|0|402|132542|1|0||0|Warden's Footpads||s3,i7,p9|2
+14238|2|41|36|0|401|132541|1|0||0|Darkmist Boots|||2
+19509|2|41|36|0|403|132545|1|0||1|Dusty Mail Boots||t9|1
 4109|2|41|0|0|402|132541|1|0||0|Excelsior Boots||a9,s7|1
-9289|2|41|40|0|404|132535|0|0||0|Field Plate Boots|||2
-15152|2|41|36|0|402|132542|0|0||0|Nocturnal Shoes|||2
-7472|2|41|36|0|401|132539|0|0||0|Regal Boots|||2
-9387|2|41|40|0|404|132587|0|0||0|Revelosh's Boots|||1
-15589|2|41|36|0|403|132535|0|0||0|Steadfast Stompers|||2
+9289|2|41|40|0|404|132535|1|0||0|Field Plate Boots|||2
+15152|2|41|36|0|402|132542|1|0||0|Nocturnal Shoes|||2
+7472|2|41|36|0|401|132539|1|0||0|Regal Boots|||2
+9387|2|41|40|0|404|132587|1|0||0|Revelosh's Boots|||1
+15589|2|41|36|0|403|132535|1|0||0|Steadfast Stompers|||2
 10748|2|41|0|0|402|132541|1|0||0|Wanderlust Boots||a10,s5|1
 274490|2|40|35|0|402|132539|2|0||0|Centaur Hoofwarmers||a4,t10|2
 7390|2|40|35|0|402|132541|1|0||0|Dusky Boots||a11,t3|2
 3847|2|40|35|0|403|132535|1|0||0|Golden Scale Boots||s8,p8|2
 6791|2|40|0|0|401|132536|1|0||0|Hellion Boots||a3,i5,p9|1
-9885|2|40|35|0|402|132541|0|0||0|Huntsman's Boots|||2
-9895|2|40|35|0|403|132589|0|0||0|Jazeraint Boots|||2
-8160|2|40|40|0|404|132583|0|0||0|Jouster's Greaves||s8,t8|2
+9885|2|40|35|0|402|132541|1|0||0|Huntsman's Boots|||2
+9895|2|40|35|0|403|132589|1|0||0|Jazeraint Boots|||2
+8160|2|40|40|0|404|132583|1|0||0|Jouster's Greaves||s8,t8|2
 17688|2|40|0|0|404|132582|1|0||0|Jungle Boots||s7,t4|1
 3764|2|40|0|0|401|132539|1|0||0|Mantis Boots||a2,s3,p7|1
 19969|2|40|0|0|401|132543|1|0||0|Nat Pagle's Extreme Anglin' Boots|Requires Fishing|t12|1
-14896|2|40|40|0|404|132589|0|0||0|Saltstone Sabatons|||2
-9876|2|40|35|0|401|132539|0|0||0|Sorcerer Slippers|||2
+14896|2|40|40|0|404|132589|1|0||0|Saltstone Sabatons|||2
+9876|2|40|35|0|401|132539|1|0||0|Sorcerer Slippers|||2
 7391|2|40|35|0|402|132542|1|0||0|Swift Boots||p10|2
-9398|2|40|35|0|402|132536|0|0||0|Worn Running Boots||a11,t3|1
-6412|2|39|34|0|403|132539|0|0||0|Chief Brigadier Boots||s8,t8|2
-6420|2|39|34|0|402|132542|0|0||0|Glyphed Boots||a10,t4|2
-14418|2|39|34|0|401|132542|0|0||0|Silksand Boots||t3,p11|2
-15576|2|39|34|0|403|132584|0|0||0|Sparkleshell Sabatons|||2
+9398|2|40|35|0|402|132536|1|0||0|Worn Running Boots||a11,t3|1
+6412|2|39|34|0|403|132539|1|0||0|Chief Brigadier Boots||s8,t8|2
+6420|2|39|34|0|402|132542|1|0||0|Glyphed Boots||a10,t4|2
+274294|2|39|34|0|401|132539|2|0||0|Library Walkers||i9,S5,H13|1
+14418|2|39|34|0|401|132542|1|0||0|Silksand Boots||t3,p11|2
+287000|3|39|34|0|402|0|2|0||0|Skin-Flayed Footguards||a9,t6,A13|2
+15576|2|39|34|0|403|132584|1|0||0|Sparkleshell Sabatons|||2
 270066|2|39|0|0|402|132541|2|0||0|Tower Boots||s9,t6|1
-15362|2|39|34|0|402|132541|0|0||0|Trickster's Boots|||2
+15362|2|39|34|0|402|132541|1|0||0|Trickster's Boots|||2
 15104|2|39|0|0|401|132541|1|0||0|Wingborne Boots||i5,p10|1
-6416|2|38|33|0|401|132539|0|0||0|Aurora Boots||t3,p10|2
-14236|2|38|33|0|401|132542|0|0||0|Embersilk Boots|||2
+6416|2|38|33|0|401|132539|1|0||0|Aurora Boots||t3,p10|2
+14236|2|38|33|0|401|132542|1|0||0|Embersilk Boots|||2
 15697|2|38|0|0|401|132543|1|0||0|Kodo Rustler Boots||t3,i8,p5|1
-15565|2|38|33|0|403|132535|0|0||0|Marauder's Boots|||2
-10578|3|38|33|0|401|132535|0|0||0|Thoughtcast Boots||t3,i6,p13|2
-9382|2|38|33|0|402|132542|0|0||0|Tromping Miner's Boots||s8,t7|2
+271718|3|38|33|0|403|132554|2|0||0|Linken's Boots of Iron||a8,t12|1
+15565|2|38|33|0|403|132535|1|0||0|Marauder's Boots|||2
+10578|3|38|33|0|401|132535|1|0||0|Thoughtcast Boots||t3,i6,p13|2
+9382|2|38|33|0|402|132542|1|0||0|Tromping Miner's Boots||s8,t7|2
 274916|2|38|0|0|403|132535|2|0||0|Verger Greaves||s7,S8,H8|1
-1678|3|37|32|0|403|132535|0|0||0|Black Ogre Kickers||s6,t13|2
-14762|2|37|32|0|403|132539|0|0||0|Enduring Boots||s4,t8,p1|2
-14218|2|37|32|0|401|132541|0|0||0|Geomancer's Boots|||2
-14589|2|37|32|0|402|132541|0|0||0|Hawkeye's Shoes||a10,t3|2
+1678|3|37|32|0|403|132535|1|0||0|Black Ogre Kickers||s6,t13|2
+14762|2|37|32|0|403|132539|1|0||0|Enduring Boots||s4,t8,p1|2
+14218|2|37|32|0|401|132541|1|0||0|Geomancer's Boots|||2
+14589|2|37|32|0|402|132541|1|0||0|Hawkeye's Shoes||a10,t3|2
 4139|2|37|0|0|401|132579|1|0||0|Junglewalker Sandals||t8,i5,p2|1
-7458|2|37|32|0|403|132535|0|0||0|Knight's Boots|||2
+7458|2|37|32|0|403|132535|1|0||0|Knight's Boots|||2
 3846|2|37|32|0|403|132535|1|0||0|Polished Steel Boots||t11|2
-7444|2|37|32|0|402|132592|0|0||0|Sentinel Boots|||2
-2276|3|37|32|0|402|132543|0|0||0|Swampwalker Boots||a13,t6|2
-7434|2|37|32|0|401|132539|0|0||0|Twilight Boots|||2
-9856|2|36|31|0|402|132542|0|0||0|Archer's Boots|||2
+7444|2|37|32|0|402|132592|1|0||0|Sentinel Boots|||2
+2276|3|37|32|0|402|132543|1|0||0|Swampwalker Boots||a13,t6|2
+7434|2|37|32|0|401|132539|1|0||0|Twilight Boots|||2
+9856|2|36|31|0|402|132542|1|0||0|Archer's Boots|||2
 7916|2|36|31|0|403|132582|1|0||0|Barbaric Iron Boots||a7,s7|2
 7952|2|36|0|8|402|132542|1|221||0|Boots of Thero-shan||a10,t3|1
-10582|3|36|31|0|402|132542|0|0||0|Briar Tredders||a5,i9,p8|2
+10582|3|36|31|0|402|132542|1|0||0|Briar Tredders||a5,i9,p8|2
 9519|2|36|0|0|401|132540|1|0||0|Durtfeet Stompers||s4,p9|1
 254013|2|36|31|0|401|0|2|0||0|Earthen Silk Slippers||p7,S6,H17|2
-10359|2|36|0|0|401|132541|0|0||0|Everlast Boots||p11|1
-9864|2|36|31|0|403|132539|0|0||0|Renegade Boots|||2
+279843|3|36|1|0|401|0|2|0||0|Enchanted Sandals||t10,S9,H9|1
+10359|2|36|0|0|401|132541|1|0||0|Everlast Boots||p11|1
+251963|2|36|0|0|402|0|2|0||0|Gravewalker Boots||a5,t7,p5|1
+9864|2|36|31|0|403|132539|1|0||0|Renegade Boots|||2
+279840|3|36|1|0|402|0|2|0||0|Renewing Footpads||t5,i11,S4,H11|1
 254007|3|35|30|0|401|0|2|0||0|Black Slippers||t6,i7,p4|1
 4325|2|35|30|0|401|132539|1|0||0|Boots of the Enchanter||i5,p8|2
-9845|2|35|30|0|401|132539|0|0||0|Conjurer's Shoes|||2
+9845|2|35|30|0|401|132539|1|0||0|Conjurer's Shoes|||2
 254005|3|35|30|0|401|0|2|0||0|Fiery Slippers||t6,i7,p4|1
 254003|3|35|30|0|401|0|2|0||0|Frothing Slippers||t6,i7,p4|1
-15142|2|35|30|0|402|132592|0|0||0|Ghostwalker Boots|||2
+15142|2|35|30|0|402|132592|1|0||0|Ghostwalker Boots|||2
 254001|3|35|30|0|401|0|2|0||0|Gilded Slippers||t6,i7,p4,S7,H20|1
 254009|3|35|30|0|401|0|2|0||0|Golden Slippers||t6,i7,p4|1
 250534|2|35|30|0|403|0|2|0||0|Hard Gold Boots||s7,S7,H7|2
-4076|2|35|30|0|403|132541|0|0||0|Mail Combat Boots||s3,t9|2
+4076|2|35|30|0|403|132541|1|0||0|Mail Combat Boots||s3,t9|2
 254011|3|35|30|0|401|0|2|0||0|Radiant Slippers||t6,i7,p4|1
-13124|3|35|30|0|403|132535|0|0||0|Ravasaur Scale Boots||s3,t11,p5|2
-10332|3|35|30|0|403|132536|0|163||0|Scarlet Boots||a5,t12|2
+13124|3|35|30|0|403|132535|1|0||0|Ravasaur Scale Boots||s3,t11,p5|2
+10332|3|35|30|0|403|132536|1|163||0|Scarlet Boots||a5,t12|2
 274747|2|35|30|0|401|0|2|0||0|Soggy Boots|Requires Friendly with Booty Bay|i4,p8|1
-14408|2|35|30|0|401|132539|0|0||0|Stonecloth Boots||t5,p8|2
-15350|2|34|29|0|402|132539|0|0||0|Headhunter's Slippers|||2
-4055|2|34|29|0|402|132541|0|0||0|Insignia Boots||a8,t4|2
-6406|2|34|29|0|401|132539|0|0||0|Nightsky Boots||t8,i4|2
-7417|2|34|29|0|403|132535|0|0||0|Phalanx Boots|||2
-14214|2|34|29|0|401|132539|0|0||0|Vital Boots|||2
+14408|2|35|30|0|401|132539|1|0||0|Stonecloth Boots||t5,p8|2
+15350|2|34|29|0|402|132539|1|0||0|Headhunter's Slippers|||2
+4055|2|34|29|0|402|132541|1|0||0|Insignia Boots||a8,t4|2
+6406|2|34|29|0|401|132539|1|0||0|Nightsky Boots||t8,i4|2
+7417|2|34|29|0|403|132535|1|0||0|Phalanx Boots|||2
+14214|2|34|29|0|401|132539|1|0||0|Vital Boots|||2
 20157|3|33|28|0|402|132545|1|0||1|Defiler's Chain Greaves|Requires Revered with The Defilers|a8,t8|1
 20162|3|33|28|0|401|132564|1|0||1|Defiler's Cloth Boots|Requires Revered with The Defilers|t8,S7,H7|1
 20182|3|33|28|0|403|132585|1|0||1|Defiler's Lamellar Greaves|Requires Revered with The Defilers|a6,s6,t4,i4|1
@@ -4740,8 +5186,8 @@ FGT.GEARDB = {
 20169|3|33|28|0|402|132561|1|0||1|Defiler's Lizardhide Boots|Requires Revered with The Defilers|a5,t8,i4|1
 20201|3|33|28|0|402|132545|1|0||1|Defiler's Mail Greaves|Requires Revered with The Defilers|a8,t8|1
 20210|3|33|28|0|403|132585|1|0||1|Defiler's Plate Greaves|Requires Revered with The Defilers|a6,s6,t6|1
-7354|2|33|28|0|401|132539|0|0||0|Elder's Boots|||2
-9450|2|33|28|0|402|132537|0|0||0|Gnomebot Operating Boots||t8,p3|1
+7354|2|33|28|0|401|132539|1|0||0|Elder's Boots|||2
+9450|2|33|28|0|402|132537|1|0||0|Gnomebot Operating Boots||t8,p3|1
 20093|3|33|28|0|402|132545|1|0||1|Highlander's Chain Greaves|Requires Revered with The League of Arathor|a8,t8|1
 20096|3|33|28|0|401|132564|1|0||1|Highlander's Cloth Boots|Requires Revered with The League of Arathor|t8,S7,H7|1
 20111|3|33|28|0|403|132585|1|0||1|Highlander's Lamellar Greaves|Requires Revered with The League of Arathor|a6,s6,t4,i4|1
@@ -4749,149 +5195,166 @@ FGT.GEARDB = {
 20102|3|33|28|0|402|132561|1|0||1|Highlander's Lizardhide Boots|Requires Revered with The League of Arathor|a5,t8,i4|1
 20123|3|33|28|0|402|132545|1|0||1|Highlander's Mail Greaves|Requires Revered with The League of Arathor|a8,t8|1
 20129|3|33|28|0|403|132585|1|0||1|Highlander's Plate Greaves|Requires Revered with The League of Arathor|a6,s6,t6|1
-7409|2|33|28|0|402|132539|0|0||0|Infiltrator Boots|||2
-15555|2|33|28|0|403|132592|0|0||0|Pillager's Boots|||2
-9454|3|32|27|0|401|132539|0|0||0|Acidic Walkers||i8,p4,S5,H5|1
-10409|2|32|27|0|403|132535|0|0||0|Banded Boots|||2
-9510|3|32|27|0|403|132535|0|0||0|Caverndeep Trudgers||a4,s4,t10|2
-15131|2|32|27|0|402|132539|0|0||0|Cutthroat's Boots|||2
-15544|2|32|27|0|403|132539|0|0||0|Thick Scale Sabatons|||2
-14196|2|32|27|0|401|132538|0|0||0|Thistlefur Sandals|||2
-4464|2|32|27|0|403|132535|0|0||0|Trouncing Boots||a6,s6|2
-14579|2|31|26|0|402|132543|0|0||0|Dokebi Boots||t7,p4|2
-9820|2|31|26|0|401|132537|0|0||0|Durable Boots|||2
-4073|2|31|26|0|403|132584|0|0||0|Glimmering Mail Greaves||s6,t6|2
-14399|2|31|26|0|401|132539|0|0||0|Resilient Boots||a2,p8|2
-9828|2|31|26|0|402|132537|0|0||0|Scaled Leather Boots|||2
-15534|2|31|26|0|403|132541|0|0||0|Wicked Chain Boots|||2
-4051|2|30|25|0|402|132543|0|0||0|Emblazoned Boots||a3,t7|2
+7409|2|33|28|0|402|132539|1|0||0|Infiltrator Boots|||2
+273042|3|33|28|0|403|0|2|0||0|Manascale Treads||s7,i7,c1|1
+15555|2|33|28|0|403|132592|1|0||0|Pillager's Boots|||2
+286987|3|33|28|0|401|0|2|2134||0|Violet Sorcerer's Sandals||t7,i11|2
+9454|3|32|27|0|401|132539|1|0||0|Acidic Walkers||i8,p4,S5,H5|1
+10409|2|32|27|0|403|132535|1|0||0|Banded Boots|||2
+9510|3|32|27|0|403|132535|1|0||0|Caverndeep Trudgers||a4,s4,t10|2
+15131|2|32|27|0|402|132539|1|0||0|Cutthroat's Boots|||2
+286991|3|32|27|0|402|0|2|0||0|Roused Nature Footwraps||t6,p9,S4,H13|2
+270047|2|32|0|0|403|132535|2|0||0|Sentinel's Boots||s4,t4,p6|1
+15544|2|32|27|0|403|132539|1|0||0|Thick Scale Sabatons|||2
+14196|2|32|27|0|401|132538|1|0||0|Thistlefur Sandals|||2
+4464|2|32|27|0|403|132535|1|0||0|Trouncing Boots||a6,s6|2
+14579|2|31|26|0|402|132543|1|0||0|Dokebi Boots||t7,p4|2
+9820|2|31|26|0|401|132537|1|0||0|Durable Boots|||2
+4073|2|31|26|0|403|132584|1|0||0|Glimmering Mail Greaves||s6,t6|2
+273024|3|31|26|0|401|0|2|0||0|Glinteye Slippers||t9,p6,S7,H7|1
+273025|3|31|26|0|403|0|2|0||0|Raptorclaw Greaves||s7,t7,i6|1
+14399|2|31|26|0|401|132539|1|0||0|Resilient Boots||a2,p8|2
+9828|2|31|26|0|402|132537|1|0||0|Scaled Leather Boots|||2
+15534|2|31|26|0|403|132541|1|0||0|Wicked Chain Boots|||2
+4051|2|30|25|0|402|132543|1|0||0|Emblazoned Boots||a3,t7|2
 276727|2|30|0|0|403|0|2|0||0|Glistening Stompers||s5,i5|1
-7754|3|30|25|0|402|132539|0|0||0|Harbinger Boots||s2,t11,p3|2
-6752|2|30|0|0|402|132537|0|0||0|Lancer Boots||a6,t5|1
-15341|2|30|25|0|402|132539|0|0||0|Pathfinder Footpads|||2
+7754|3|30|25|0|402|132539|1|0||0|Harbinger Boots||s2,t11,p3|2
+6752|2|30|0|0|402|132537|1|0||0|Lancer Boots||a6,t5|1
+15341|2|30|25|0|402|132539|1|0||0|Pathfinder Footpads|||2
 10653|2|30|0|0|402|132537|1|0||0|Trailblazer Boots||a7,t3|1
-7751|2|30|0|0|402|132537|0|0||0|Vorrel's Boots||a8,t2|1
-6590|2|29|24|0|403|132589|0|0||0|Battleforge Boots|||2
+7751|2|30|0|0|402|132537|1|0||0|Vorrel's Boots||a8,t2|1
+6590|2|29|24|0|403|132589|1|0||0|Battleforge Boots|||2
 3484|2|29|24|0|403|132535|1|0||0|Green Iron Boots||s3,t7|2
-6335|2|29|0|0|402|132537|0|0||0|Grizzled Boots||s2,t7|1
-13099|3|29|24|0|401|132539|0|0||0|Moccasins of the White Hare||a3,p8|2
-14195|2|29|24|0|401|132539|0|0||0|Raincaller Boots|||2
-14756|2|29|24|0|403|132535|0|0||0|Slayer's Slippers||s6,p4|2
+6335|2|29|0|0|402|132537|1|0||0|Grizzled Boots||s2,t7|1
+13099|3|29|24|0|401|132539|1|0||0|Moccasins of the White Hare||a3,p8|2
+14195|2|29|24|0|401|132539|1|0||0|Raincaller Boots|||2
+284403|3|29|24|0|402|132551|2|0||0|Shapeshifting Sentinel's Strides||a8,A16|1
+14756|2|29|24|0|403|132535|1|0||0|Slayer's Slippers||s6,p4|2
 277234|2|28|0|0|403|0|2|0||0|Alacritous Treads||a5,s5|1
 7027|2|28|23|0|401|132539|1|0||0|Boots of Darkness||t5|2
-6601|2|28|23|0|402|132537|0|0||0|Dervish Boots|||2
+6601|2|28|23|0|402|132537|1|0||0|Dervish Boots|||2
 277226|2|28|0|0|402|0|2|0||0|Disjointed Shoes||A12,S5,H5|1
 277218|2|28|0|0|401|0|2|0||0|Incinerator's Boots||t3,i6|1
-15121|2|28|23|0|402|132537|0|0||0|Robust Boots|||2
-6612|2|28|23|0|401|132539|0|0||0|Sage's Boots|||2
-15525|2|28|23|0|403|132589|0|0||0|Sentry's Slippers|||2
+15121|2|28|23|0|402|132537|1|0||0|Robust Boots|||2
+6612|2|28|23|0|401|132539|1|0||0|Sage's Boots|||2
+15525|2|28|23|0|403|132589|1|0||0|Sentry's Slippers|||2
 4321|2|28|23|0|401|132537|1|0||0|Spider Silk Slippers||a3,p7|2
+273842|3|28|23|0|403|132536|2|0||0|Treacherous Treads||s5,t7|1
 15458|2|28|0|0|402|132537|1|0||0|Tundra Boots||t2,i6,p3|1
 6668|2|27|0|0|402|132537|1|0||0|Draftsman Boots||s5,t5|1
-1955|2|27|22|0|403|132535|0|0||0|Dragonmaw Chain Boots||a3,t6|2
+1955|2|27|22|0|403|132535|1|0||0|Dragonmaw Chain Boots||a3,t6|2
+282642|2|27|22|0|402|0|2|0||0|Feather-Stitched Moccasins||i5,S5|2
+273646|3|27|22|0|403|132535|2|0||0|Half-Eaten Boots||s8|1
 252449|2|27|22|0|402|0|2|0||0|Hillman's Leather Boots||t4,S6,H6|2
-3045|2|27|22|0|403|132588|0|0||0|Lambent Scale Boots||t6,p3|2
-6394|2|27|22|0|401|132539|0|0||0|Silver-thread Boots||t4,i5|2
-15516|2|27|22|0|403|132579|0|0||0|Spiked Chain Slippers|||2
+3045|2|27|22|0|403|132588|1|0||0|Lambent Scale Boots||t6,p3|2
+6394|2|27|22|0|401|132539|1|0||0|Silver-thread Boots||t4,i5|2
+15516|2|27|22|0|403|132579|1|0||0|Spiked Chain Slippers|||2
 16977|3|27|0|0|402|132539|1|0||0|Warsong Boots||a8,t6|1
 3482|2|26|21|0|403|132535|1|0||0|Silvered Bronze Boots||s4,t4,p3|2
-9802|2|26|21|0|402|132537|0|0||0|Superior Boots|||2
-14176|2|26|21|0|401|132539|0|0||0|Watcher's Boots|||2
-2033|2|25|0|0|402|132542|0|0||0|Ambassador's Boots||a4,t4|1
-2232|2|25|20|0|401|132539|0|0||0|Dark Runner Boots||t5,p3|2
-9810|2|25|20|0|403|132535|0|0||0|Fortified Boots|||2
+9802|2|26|21|0|402|132537|1|0||0|Superior Boots|||2
+14176|2|26|21|0|401|132539|1|0||0|Watcher's Boots|||2
+2033|2|25|0|0|402|132542|1|0||0|Ambassador's Boots||a4,t4|1
+2232|2|25|20|0|401|132539|1|0||0|Dark Runner Boots||t5,p3|2
+9810|2|25|20|0|403|132535|1|0||0|Fortified Boots|||2
 2910|2|25|0|0|403|132535|1|0||0|Gold Militia Boots||s3,t5|1
-9792|2|25|20|0|401|132539|0|0||0|Ivycloth Boots|||2
+9792|2|25|20|0|401|132539|1|0||0|Ivycloth Boots|||2
 15461|2|25|0|0|401|132542|1|0||0|Lightheel Boots||i4,p4|1
 2949|2|25|0|0|402|132541|1|0||0|Mariner Boots||a1,t6|1
-6998|2|25|0|0|401|132539|0|0||0|Nimbus Boots||a3,p5|1
-10658|2|25|0|0|403|132541|0|0||0|Quagmire Galoshes||t6|1
+6998|2|25|0|0|401|132539|1|0||0|Nimbus Boots||a3,p5|1
+10658|2|25|0|0|403|132541|1|0||0|Quagmire Galoshes||t6|1
 4320|3|25|20|0|401|132539|1|0||0|Spidersilk Boots||t4,i4,p7|2
 250483|2|25|20|0|403|0|2|0||0|Sterling Silver Boots||s3,t3,S4,H4|2
 276274|3|25|1|0|401|0|2|0||0|Surfer Shoes||t10|1
 7187|2|25|20|0|402|132539|0|0||0|VanCleef's Boots||a6|1
 16985|2|25|0|0|401|132539|1|0||0|Windseeker Boots||p6|1
-15330|2|25|20|0|402|132539|0|0||0|Wrangler's Boots|||2
+15330|2|25|20|0|402|132539|1|0||0|Wrangler's Boots|||2
 5821|2|24|0|0|402|132541|1|0||0|Darkstalker Boots||a5,t2|1
-1121|3|24|19|0|402|132592|0|0||0|Feet of the Lynx||a8,s3|2
+1121|3|24|19|0|402|132592|1|0||0|Feet of the Lynx||a8,s3|2
 6482|2|24|0|0|401|132539|1|0||0|Firewalker Boots||s2,i1,p5|1
-3057|2|24|19|0|402|132542|0|0||0|Forest Leather Boots||s4,t4|2
-14742|2|24|19|0|403|132541|0|0||0|Hulking Boots||s4,t4|2
+3057|2|24|19|0|402|132542|1|0||0|Forest Leather Boots||s4,t4|2
+14742|2|24|19|0|403|132541|1|0||0|Hulking Boots||s4,t4|2
 270019|2|24|0|0|402|132539|2|0||0|Loch Walkers||a4,p3|1
-14374|2|24|19|0|401|132540|0|0||0|Sanguine Sandals||t4,i4|2
+271214|3|24|19|0|401|0|2|2133||0|Rotmender's Treads||t7,S5,H15|1
+14374|2|24|19|0|401|132540|1|0||0|Sanguine Sandals||t4,i4|2
 3741|2|24|0|0|402|132542|1|0||0|Stomping Boots||a4,s4|1
 6095|2|24|0|0|401|132539|1|0||0|Wandering Boots||t4,i4|1
-3065|2|23|18|0|401|132541|0|0||0|Bright Boots||t5,p2|2
-14568|2|23|18|0|402|132542|0|0||0|Bristlebark Boots||a5,t3|2
-6573|2|23|18|0|403|132582|0|0||0|Defender Boots|||2
-10411|2|23|18|0|402|132538|0|162||0|Footpads of the Fang||a4,t4|1
-9767|2|23|18|0|401|132537|0|0||0|Greenweave Sandals|||2
+3065|2|23|18|0|401|132541|1|0||0|Bright Boots||t5,p2|2
+14568|2|23|18|0|402|132542|1|0||0|Bristlebark Boots||a5,t3|2
+6573|2|23|18|0|403|132582|1|0||0|Defender Boots|||2
+10411|2|23|18|0|402|132538|1|162||0|Footpads of the Fang||a4,t4|1
+9767|2|23|18|0|401|132537|1|0||0|Greenweave Sandals|||2
 6191|2|23|0|0|401|132539|1|0||0|Kimbra Boots||a4,p3|1
 6478|2|23|0|0|401|132539|1|0||0|Rat Stompers||s3,p4|1
-6459|2|23|18|0|403|132535|0|0||0|Savage Trodders||t6|1
-3076|2|23|18|0|401|132543|0|0||0|Smoldering Boots||p6|2
+6459|2|23|18|0|403|132535|1|0||0|Savage Trodders||t6|1
+3076|2|23|18|0|401|132543|1|0||0|Smoldering Boots||p6|2
 250506|3|22|17|0|403|0|2|0||0|Acolyte's Boots||t4,i5,S4,H11|1
 252439|3|22|17|0|402|0|2|0||0|Brawler's Leather Boots||a5,s5,t4|1
 250507|3|22|17|0|403|0|2|0||0|Crusader's Boots||s4,t5,S6,H6|1
 252441|3|22|17|0|402|0|2|0||0|Defender's Leather Boots||s5,t5|1
 6666|2|22|0|0|403|132535|1|0||0|Dredge Boots||a3,t4|1
 250504|3|22|17|0|403|0|2|0||0|Guard's Boots||s5,t5,d4|1
-14159|2|22|17|0|401|132539|0|0||0|Pagan Shoes|||2
+14159|2|22|17|0|401|132539|1|0||0|Pagan Shoes|||2
 250505|3|22|17|0|403|0|2|0||0|Protector's Boots||t5,S6,H6,d4|1
-6582|2|22|17|0|402|132539|0|0||0|Scouting Boots|||2
+6582|2|22|17|0|402|132539|1|0||0|Scouting Boots|||2
 252443|3|22|17|0|402|0|2|0||0|Stormrider's Leather Boots||t4,i5,S6,H6|1
 252442|3|22|17|0|402|0|2|0||0|Totemic Leather Boots||s5,t4,S6,H6|1
 252440|3|22|17|0|402|0|2|0||0|Trapper's Leather Boots||a5,t5,i4|1
 250503|3|22|17|0|403|0|2|0||0|Veteran's Boots||a4,s5,t5|1
+271211|3|22|17|0|403|0|2|0||0|Vilewalkers||s7,t5|1
 252444|3|22|17|0|402|0|2|0||0|Wisdom's Leather Boots||t4,i5,S4,H11|1
-1560|2|21|16|0|401|132579|0|0||0|Bluegill Sandals||i2,p4|2
+1560|2|21|16|0|401|132579|1|0||0|Bluegill Sandals||i2,p4|2
 5311|2|21|0|0|402|132537|1|0||0|Buckled Boots||t4,i2,p1|1
-2991|2|21|16|0|403|132588|0|0||0|Burnished Boots||s2,t4|2
-2168|2|21|16|0|401|132537|0|0||0|Foreman's Boots||t4,i2|2
-15506|2|21|16|0|403|132542|0|0||0|Grunt's AnkleWraps|||2
-15111|2|21|16|0|402|132537|0|0||0|Rigid Moccasins|||2
-6562|2|21|16|0|401|132539|0|0||0|Shimmering Boots|||2
-12982|3|21|16|0|403|132535|0|0||0|Silver-linked Footguards||s3,t7|2
+2991|2|21|16|0|403|132588|1|0||0|Burnished Boots||s2,t4|2
+285345|3|21|16|0|401|132539|2|0||0|Feather Padded Treads||t6,S5,H5|1
+2168|2|21|16|0|401|132537|1|0||0|Foreman's Boots||t4,i2|2
+15506|2|21|16|0|403|132542|1|0||0|Grunt's AnkleWraps|||2
+15111|2|21|16|0|402|132537|1|0||0|Rigid Moccasins|||2
+6562|2|21|16|0|401|132539|1|0||0|Shimmering Boots|||2
+12982|3|21|16|0|403|132535|1|0||0|Silver-linked Footguards||s3,t7|2
 4788|2|20|15|0|402|132539|1|0||0|Agile Boots||a5|2
-9776|2|20|15|0|402|132539|0|0||0|Bandit Boots|||2
+9776|2|20|15|0|402|132539|1|0||0|Bandit Boots|||2
 270013|2|20|0|0|402|132539|2|0||0|Miner's Workboots||p5|1
-15498|2|20|15|0|403|132539|0|0||0|Outrunner's Slippers|||2
+15498|2|20|15|0|403|132539|1|0||0|Outrunner's Slippers|||2
 4313|2|20|15|0|401|132543|1|0||0|Red Woolen Boots||p5|2
-14129|2|20|15|0|401|132537|0|0||0|Ritual Sandals|||2
-1446|2|19|14|0|403|132535|0|0||0|Blackrock Boots||s3,t3|2
-14174|2|19|14|0|401|132539|0|0||0|Buccaneer's Boots|||2
-14560|2|19|14|0|402|132539|0|0||0|Prospector's Boots||t2,p3|2
-9784|2|19|14|0|403|132535|0|0||0|Raider's Boots|||2
+14129|2|20|15|0|401|132537|1|0||0|Ritual Sandals|||2
+270009|2|20|0|0|403|132535|2|0||0|Safety Boots||s4,t2|1
+1446|2|19|14|0|403|132535|1|0||0|Blackrock Boots||s3,t3|2
+14174|2|19|14|0|401|132539|1|0||0|Buccaneer's Boots|||2
+14560|2|19|14|0|402|132539|1|0||0|Prospector's Boots||t2,p3|2
+9784|2|19|14|0|403|132535|1|0||0|Raider's Boots|||2
 2583|2|19|14|0|401|132543|1|0||0|Woolen Boots||a2,i2,p2|2
 6092|2|18|0|0|402|132539|1|0||0|Black Whelp Boots||t4|1
-10402|2|18|13|0|402|132539|0|161||0|Blackened Defias Boots||a3,t2|2
-15305|2|18|13|0|402|132539|0|0||0|Feral Shoes|||2
-2987|2|18|13|0|402|132539|0|0||0|Inscribed Leather Boots||a2,t3|2
-14364|2|18|13|0|401|132539|0|0||0|Mystic's Slippers||t2,i2|2
+10402|2|18|13|0|402|132539|1|161||0|Blackened Defias Boots||a3,t2|2
+273007|3|18|13|0|402|132540|2|0||0|Chasm Walkers||p5,A4|1
+15305|2|18|13|0|402|132539|1|0||0|Feral Shoes|||2
+2987|2|18|13|0|402|132539|1|0||0|Inscribed Leather Boots||a2,t3|2
+14364|2|18|13|0|401|132539|1|0||0|Mystic's Slippers||t2,i2|2
 11853|2|18|0|0|402|132537|1|0||0|Rambling Boots||a3,t1|1
 4789|2|18|13|0|402|132537|1|0||0|Stable Boots||t4|2
+270229|3|18|13|0|403|132535|2|0||0|Treads of the Protector Golem||s5|1
 2037|2|18|0|0|403|132535|1|0||0|Tunneler's Boots||t3,p2|1
-4660|2|18|13|0|401|132540|0|0||0|Walking Boots||a2,i3|2
+4660|2|18|13|0|401|132540|1|0||0|Walking Boots||a2,i3|2
 270006|2|17|0|0|402|132539|2|0||0|Boots of the People's Militia||S4,H4|1
 15406|2|17|0|0|403|132535|1|0||0|Crustacean Boots||t3|1
 253893|3|17|12|0|401|0|2|0||0|Flame Boots||t4,i3|1
 253897|3|17|12|0|401|0|2|0||0|Pearly Boots||t4,i3|1
 253889|3|17|12|0|401|0|2|0||0|Pristine Boots||t4,i3,S3,H9|1
-2983|2|17|12|0|401|132539|0|0||0|Seer's Boots||t3,i1|2
+2983|2|17|12|0|401|132539|1|0||0|Seer's Boots||t3,i1|2
 253895|3|17|12|0|401|0|2|0||0|Shadow Boots||t4,i3|1
 253899|3|17|12|0|401|0|2|0||0|Shining Boots||t4,i3|1
 253891|3|17|12|0|401|0|2|0||0|Silky Boots||t4,i3|1
-6551|2|17|12|0|403|132535|0|0||0|Soldier's Boots|||2
-14722|2|17|12|0|403|132540|0|0||0|War Paint Anklewraps||s2,t2|2
-14114|2|16|11|0|401|132592|0|0||0|Aboriginal Footwraps|||2
-6557|2|16|11|0|402|132539|0|0||0|Bard's Boots|||2
-15489|2|16|11|0|403|132537|0|0||0|Bloodspattered Sabatons|||2
-15012|2|16|11|0|402|132539|0|0||0|Lupine Slippers|||2
+6551|2|17|12|0|403|132535|1|0||0|Soldier's Boots|||2
+14722|2|17|12|0|403|132540|1|0||0|War Paint Anklewraps||s2,t2|2
+14114|2|16|11|0|401|132592|1|0||0|Aboriginal Footwraps|||2
+6557|2|16|11|0|402|132539|1|0||0|Bard's Boots|||2
+15489|2|16|11|0|403|132537|1|0||0|Bloodspattered Sabatons|||2
+283361|2|16|11|0|402|132542|2|0||0|Gorefang's Runners||a3,t1|2
+15012|2|16|11|0|402|132539|1|0||0|Lupine Slippers|||2
 5320|2|16|0|0|403|132535|1|0||0|Padded Lamellar Boots||s2,t2|1
 4312|2|16|11|0|401|132543|1|0||0|Soft-soled Linen Boots||t2,i2|2
-3307|2|15|10|0|401|132539|0|0||0|Barbaric Cloth Boots||t1,i2|2
+3307|2|15|10|0|401|132539|1|0||0|Barbaric Cloth Boots||t1,i2|2
 252424|3|15|10|0|402|0|2|0||0|Black Whelp Slippers||i4,S3,H9|1
-3302|2|15|10|0|403|132537|0|0||0|Brackwater Boots||t3|2
+3302|2|15|10|0|403|132537|1|0||0|Brackwater Boots||t3|2
 252425|3|15|10|0|402|0|2|0||0|Dark Leather Boots||a4,t4|1
 2309|2|15|10|0|402|132539|1|0||0|Embossed Leather Boots||t2,p2|2
 263406|2|15|0|0|401|7758819|2|0||0|Empyrean Shoes||p2,S2,H2|1
@@ -4899,13 +5362,16 @@ FGT.GEARDB = {
 250620|3|15|10|0|403|0|2|0||0|Gemmed Copper Boots||s4,t4|1
 250482|3|15|10|0|403|0|2|0||0|Glowing Copper Boots||i4,S3,H9|1
 5944|2|15|0|0|403|132535|1|0||0|Greaves of the People's Militia||t3|1
+270002|2|15|0|0|402|132539|2|0||0|Midshipman's Worn Boots||a3|1
 252427|3|15|10|0|402|0|2|0||0|Moonglow Boots||t4,S5,H5|1
 6188|2|15|0|0|403|132535|1|0||0|Mud Stompers||t3|1
 252426|3|15|10|0|402|0|2|0||0|Murloc Scale Shoes||s4,t4|1
 5968|2|15|10|0|402|132537|0|0||0|Rugged Boots||t3|2
 250621|3|15|10|0|403|0|2|0||0|Strange Copper Boots||t4,S5,H5|1
-6537|2|15|10|0|401|132537|0|0||0|Willow Boots|||2
+6537|2|15|10|0|401|132537|1|0||0|Willow Boots|||2
+281993|2|14|9|0|402|132539|2|0||0|Gnoll Hide Boots||s2|2
 263339|2|13|0|0|401|132539|2|0||0|Windswept Slippers||p2|1
+286751|2|12|7|0|401|0|2|0||0|Ghostfang's Steps||p2|2
 277027|2|11|6|0|402|0|2|0||0|Azure Gustwoven Boots||a1|2
 277021|2|11|6|0|403|0|2|0||0|Azure Skyforged Greaves||a1|2
 277039|2|11|6|0|401|0|2|0||0|Azure Stormsewn Shoes||p1|2
@@ -4917,7 +5383,14 @@ FGT.GEARDB = {
 263308|2|11|0|0|403|7737712|2|0||0|Cult Hunter's Boots||t1|1
 281285|2|11|0|0|403|0|2|0||0|Finscale Soles||s1|1
 263309|2|11|0|0|402|132542|2|0||0|Freedom Walkers||s1|1
+277067|2|10|5|0|402|0|2|0||0|Al'Aketh Boots||s1|2
+277073|2|10|5|0|402|0|2|0||0|Al'Aketh Footwraps||i1|2
+277061|2|10|5|0|403|0|2|0||0|Al'Aketh Greaves||s1|2
+277079|2|10|5|0|401|0|2|0||0|Al'Aketh Shoes||i1|2
 277672|2|10|4|0|403|0|2|0||0|Rough Copper Chain Boots||s1|2
+285268|2|10|5|0|402|0|2|0||0|Scout Ranger's Boots||s1|2
+285264|2|10|5|0|401|0|2|0||0|Skyseer's Slippers||t1|2
+285269|2|10|5|0|403|0|2|0||0|Thendal Watcher's Boots||t1|2
 287624|3|1|1|0|405|8382582|2|0||0|Gilded Blademaster's Boots|||1
 ]==],
         [9] = [==[
@@ -4979,13 +5452,17 @@ FGT.GEARDB = {
 16825|4|66|60|8|402|132601|0|204||0|Nightslayer Bracelets||a20,t15|2
 16819|4|66|60|16|401|132608|0|202||0|Vambraces of Prophecy||t8,i14,p10,H24|2
 22011|3|65|0|0|403|132616|1|515||0|Beastmaster's Bindings||a16,t7,i5|1
+226897|3|65|0|4|403|132616|1|1669||0|Beastmaster's Wrists||a16,t7,i5|1
 19578|4|65|60|0|404|132605|1|0||1|Berserker Bracers||a8,s19,t11|1
 22095|3|65|0|0|403|132601|1|519||0|Bindings of The Five Thunders||t10,i9,p9,S8,H8|1
 21996|3|65|0|0|404|132617|1|511||0|Bracers of Heroism||a5,s9,t14,d3|1
 22004|3|65|0|0|402|132606|1|512||0|Darkmantle Bracers||a15,s7,t7|1
+226845|3|65|0|8|402|132606|1|1676||0|Darkmantle Wrists||a15,s7,t7|1
 22071|3|65|0|0|401|132612|1|518||0|Deathmist Bracers||t12,i12,S8,H8|1
+226921|3|65|0|256|401|132612|1|1681||0|Deathmist Wrists||t12,i12,S8,H8|1
 19595|4|65|60|0|401|132612|1|0||0|Dryad's Wrist Bindings||t8,i8,p7,S22,H22|1
 22108|3|65|0|0|402|132608|1|513||0|Feralheart Bracers||a6,s6,t6,i12,p5,S5,H5|1
+226815|3|65|0|1024|402|132608|1|1667||0|Feralheart Wrists||a6,s6,t6,i12,p5,S5,H5|1
 19587|4|65|60|0|402|132611|1|0||0|Forest Stalker's Bracers||a19,s11,t8|1
 16570|4|65|60|4|403|132615|1|0|H|1|General's Chain Wristguards|Requires PvP rank 12|a20,t10,i7|1
 16553|4|65|60|1024|402|132602|1|0|H|1|General's Dragonhide Bracers|Requires PvP rank 12|t10,i19,p10|1
@@ -5035,15 +5512,21 @@ FGT.GEARDB = {
 273409|4|65|60|1024|402|132602|2|0|H|0|Premier Legionnaire's Wyrmhide Bracers||t21,i10,S7,H7|1
 19687|3|65|60|0|402|132606|1|441||0|Primal Batskin Bracers||a14,t7,h1|2
 22063|3|65|0|0|401|133365|1|517||0|Sorcerer's Bindings||t8,i12,p5,S8,H8|1
+226937|3|65|0|128|401|133365|1|1671||0|Sorcerer's Wrists||t8,i12,p5,S8,H8|1
 22088|3|65|0|0|404|132613|1|516||0|Soulforge Bracers||s9,t10,i9,S8,H8|1
+226993|3|65|0|2|404|132613|1|1673||0|Soulforge Wrists||s9,t10,i9,S8,H8|1
 279256|4|65|60|0|403|132601|2|0||0|Tranquil Wristguards||s16,t14,i10|2
 22079|3|65|0|0|401|132520|1|514||0|Virtuous Bracers||t8,i8,p8,S9,H9|1
+226961|3|65|0|16|401|132520|1|1675||0|Virtuous Wrists||t8,i8,p8,S9,H9|1
 19582|4|65|60|0|403|132602|1|0||0|Windtalker's Wristguards||t8,i8,p7,A38|1
 19146|4|65|60|0|402|132603|0|0||0|Wristguards of Stability||s24,t8|1
+226873|3|65|0|1|404|132617|1|1778||0|Wrists of Heroism||a5,s9,t14,d3|1
+227033|3|65|0|64|403|132601|1|0||0|Wrists of The Five Thunders||t10,i9,p9,S8,H8|1
 18263|4|64|60|0|401|132608|1|0||0|Flarecore Wraps||i8|2
-12936|3|63|58|0|404|132616|0|0||0|Battleborn Armbraces||h1,c1|1
-12966|3|63|58|0|402|132606|0|0||0|Blackmist Armguards||s5,t13,h1|1
-18525|3|63|58|0|402|132611|0|0||0|Bracers of Prosperity||t8,i10,p5,H22|1
+284091|3|64|59|0|404|132616|2|0||0|Scarlet Forgemaster's Bindings||a11,t11|1
+12936|3|63|58|0|404|132616|1|0||0|Battleborn Armbraces||h1,c1|1
+12966|3|63|58|0|402|132606|1|0||0|Blackmist Armguards||s5,t13,h1|1
+18525|3|63|58|0|402|132611|1|0||0|Bracers of Prosperity||t8,i10,p5,H22|1
 23091|3|63|58|0|401|132611|0|536||0|Bracers of Undead Cleansing||t6,i7|2
 23090|3|63|58|0|404|132613|0|533||0|Bracers of Undead Slaying||t10|2
 18434|3|63|58|1024|402|132602|1|0|H|1|First Sergeant's Dragonhide Armguards|Requires PvP rank 5|t17,i7|1
@@ -5052,7 +5535,9 @@ FGT.GEARDB = {
 18429|3|63|58|1|404|132618|1|0|H|1|First Sergeant's Plate Bracers|Requires PvP rank 5|s7,t17|1
 16486|3|63|58|400|401|132606|1|0|H|1|First Sergeant's Silk Cuffs|Requires PvP rank 5|t17,i7|1
 19112|3|63|58|0|404|132617|0|0||0|Frozen Steel Vambraces||a11,s12,t7|1
-18533|3|63|58|0|404|132613|0|0||0|Gordok Bracers of Power||s17,t7|1
+280010|3|63|58|0|404|0|2|0||0|Gargantuan Wristguards||t11,p5,A20,h1|1
+18533|3|63|58|0|404|132613|1|0||0|Gordok Bracers of Power||s17,t7|1
+278570|3|63|58|0|401|132608|2|0||0|Mardenholde Armbands||t10,i10|1
 18448|3|63|58|4|403|132605|1|0|A|1|Sergeant Major's Chain Armguards|Requires PvP rank 5|t17,i7|1
 18454|3|63|58|1024|402|132602|1|0|A|1|Sergeant Major's Dragonhide Armsplints|Requires PvP rank 5|t17,i7|1
 18452|3|63|58|8|402|132606|1|0|A|1|Sergeant Major's Leather Armsplints|Requires PvP rank 5|a7,t17|1
@@ -5062,28 +5547,29 @@ FGT.GEARDB = {
 23093|3|63|58|0|402|132607|0|534||0|Wristwraps of Undead Slaying||t10|2
 19113|3|63|58|0|402|132607|0|0||0|Yeti Hide Bracers||a8,s7,t14|1
 23129|3|62|57|0|401|132612|0|0||0|Bracers of Mending||t5,i9,p13,H18|1
-18375|3|62|57|0|402|132606|0|0||0|Bracers of the Eclipse||a10,t9,A24|1
+18375|3|62|57|0|402|132606|1|0||0|Bracers of the Eclipse||a10,t9,A24|1
 21184|4|62|0|0|404|132606|1|0||0|Deeprock Bracers||a10,s19,t8|1
-18394|3|62|57|0|403|132604|0|0||0|Demon Howl Wristguards||t17,A14|1
-18754|3|62|57|0|404|132614|0|0||0|Fel Hardened Bracers||s12,t12,d3|1
-13107|3|62|57|0|401|132612|0|0||0|Magiskull Cuffs||t7,i17|2
-10248|2|62|57|0|401|132606|0|0||0|Master's Bracers|||2
-10265|2|62|57|0|403|132602|0|0||0|Masterwork Bracers|||2
+18394|3|62|57|0|403|132604|1|0||0|Demon Howl Wristguards||t17,A14|1
+18754|3|62|57|0|404|132614|1|0||0|Fel Hardened Bracers||s12,t12,d3|1
+13107|3|62|57|0|401|132612|1|0||0|Magiskull Cuffs||t7,i17|2
+10248|2|62|57|0|401|132606|1|0||0|Master's Bracers|||2
+10265|2|62|57|0|403|132602|1|0||0|Masterwork Bracers|||2
 21186|4|62|0|0|401|132611|1|0||0|Rockfury Bracers||t7,S27,H27,h1|1
 20476|3|62|57|0|403|132611|1|0||0|Sandstalker Bracers||t7|2
 20481|3|62|57|0|403|132604|1|0||0|Spitfire Bracers||a9,i9,S8,H8|2
 18508|3|62|57|0|403|132604|1|0||0|Swift Flight Bracers||t7,A41|2
-13528|2|62|57|0|403|132615|0|0||0|Twilight Void Bracers|||1
-13951|3|62|57|0|404|132617|0|0||0|Vigorsteel Vambraces||a7,t17|1
-10256|2|61|56|0|402|132612|0|0||0|Adventurer's Bracers|||2
-13208|3|61|56|0|402|132606|0|0||0|Bleak Howler Armguards||i8,p14,H15|1
-14330|2|61|56|0|401|132615|0|0||0|Eternal Bindings|||2
-22313|3|61|56|400|401|132612|0|520||0|Ironweave Bracers||t14,i8|1
-13969|3|61|56|0|403|132615|0|0||0|Loomguard Armbraces||t6,i7,H33|1
-18351|2|61|56|0|404|132617|0|0||0|Magically Sealed Bracers||d3|1
-18741|3|61|56|0|404|132616|0|0||0|Morlune's Bracer||t7,i12,p11|2
-14629|3|61|56|0|401|132606|0|122||0|Necropile Cuffs||t12,i11,p7|1
-15679|2|61|56|0|403|132602|0|0||0|Triumphant Bracers|||2
+13528|2|62|57|0|403|132615|1|0||0|Twilight Void Bracers|||1
+13951|3|62|57|0|404|132617|1|0||0|Vigorsteel Vambraces||a7,t17|1
+10256|2|61|56|0|402|132612|1|0||0|Adventurer's Bracers|||2
+13208|3|61|56|0|402|132606|1|0||0|Bleak Howler Armguards||i8,p14,H15|1
+14330|2|61|56|0|401|132615|1|0||0|Eternal Bindings|||2
+22313|3|61|56|400|401|132612|1|520||0|Ironweave Bracers||t14,i8|1
+13969|3|61|56|0|403|132615|1|0||0|Loomguard Armbraces||t6,i7,H33|1
+18351|2|61|56|0|404|132617|1|0||0|Magically Sealed Bracers||d3|1
+18741|3|61|56|0|404|132616|1|0||0|Morlune's Bracer||t7,i12,p11|2
+14629|3|61|56|0|401|132606|1|122||0|Necropile Cuffs||t12,i11,p7|1
+280069|3|61|56|0|403|0|2|0||0|Shamanic Wristguards||t13,i10|1
+15679|2|61|56|0|403|132602|1|0||0|Triumphant Bracers|||2
 275739|3|61|0|0|402|132611|2|0||0|Wild Wristguards||s14,t7,p7|1
 19830|4|61|0|64|403|132614|1|476||0|Zandalar Augur's Bracers||t12,i11,S13,H13|1
 19843|4|61|0|16|401|132606|1|480||0|Zandalar Confessor's Wraps||t10,i11,p12,H24|1
@@ -5094,17 +5580,17 @@ FGT.GEARDB = {
 19836|4|61|0|8|402|132613|1|478||0|Zandalar Madcap's Bracers||a14,s9,t14|1
 19833|4|61|0|4|403|132617|1|477||0|Zandalar Predator's Bracers||t10,i10,A34|1
 19824|4|61|0|1|404|132613|1|474||0|Zandalar Vindicator's Armguards||a13,s13,t13|1
-15860|2|60|0|0|404|132616|0|0||0|Blinkstrike Armguards||s3,c1|1
+15860|2|60|0|0|404|132616|1|0||0|Blinkstrike Armguards||s3,c1|1
 252559|2|60|55|0|402|0|2|0||0|Blue Suede Bracers||a3,s12,t6|2
 22667|4|60|0|0|401|132611|1|0||0|Bracers of Hope||t10,i11,p12,H18|1
 22668|4|60|0|0|402|132603|1|0||0|Bracers of Subterfuge||a15,s10,t12|1
-13179|3|60|55|0|403|132608|0|0||0|Brazecore Armguards||t10,i11|1
-13537|2|60|55|0|402|132606|0|0||0|Chillhide Bracers|||1
+13179|3|60|55|0|403|132608|1|0||0|Brazecore Armguards||t10,i11|1
+13537|2|60|55|0|402|132606|1|0||0|Chillhide Bracers|||1
 254131|2|60|55|0|401|0|2|0||0|Earthenweave Cuffs||p10,S8,H22|2
 269501|2|60|55|0|401|132602|2|0||0|Elven Chain Wristguards||t10,S5,H5|2
-18459|2|60|55|0|404|132618|0|0||0|Gallant's Wristguards||i14,H29|1
-10136|2|60|55|0|401|132604|0|0||0|High Councillor's Bracers|||2
-10391|2|60|55|0|404|132616|0|0||0|Hyperion Vambraces|||2
+18459|2|60|55|0|404|132618|1|0||0|Gallant's Wristguards||i14,H29|1
+10136|2|60|55|0|401|132604|1|0||0|High Councillor's Bracers|||2
+10391|2|60|55|0|404|132616|1|0||0|Hyperion Vambraces|||2
 16402|3|60|55|4|403|132616|1|0|A|1|Knight-Captain's Chain Armguards|Requires PvP rank 8|a17,s5|1
 16395|3|60|55|1024|402|132601|1|0|A|1|Knight-Captain's Dragonhide Armsplints|Requires PvP rank 8|t14,i10|1
 17563|3|60|55|256|401|132608|1|0|A|1|Knight-Captain's Dreadweave Bracers|Requires PvP rank 8|t15,i7,p3|1
@@ -5116,9 +5602,9 @@ FGT.GEARDB = {
 16493|3|60|55|1024|402|132602|1|0|H|1|Legionnaire's Dragonhide Armguards|Requires PvP rank 8|t14,i10|1
 17575|3|60|55|256|401|132606|1|0|H|1|Legionnaire's Dreadweave Bracers|Requires PvP rank 8|t15,i7,p3|1
 17615|3|60|55|16|401|132606|1|0|H|1|Legionnaire's Satin Cuffs|Requires PvP rank 8|t15,i7,p3|1
-10156|2|60|55|0|403|132617|0|0||0|Mercurial Bracers|||2
-10147|2|60|55|0|402|132617|0|0||0|Mighty Armsplints|||2
-18458|2|60|55|0|403|132602|0|0||0|Modest Armguards||i10,S12,H12|1
+10156|2|60|55|0|403|132617|1|0||0|Mercurial Bracers|||2
+10147|2|60|55|0|402|132617|1|0||0|Mighty Armsplints|||2
+18458|2|60|55|0|403|132602|1|0||0|Modest Armguards||i10,S12,H12|1
 272707|3|60|55|1024|402|132601|2|0||0|Premier Beasthide Armsplints||a4,s7,t15|1
 272483|3|60|55|4|403|132615|2|0||0|Premier Chain Bracers||t15,i7,A8|1
 272830|3|60|55|4|403|132605|2|0||0|Premier Chainmail Armguards||t15,i7,A8|1
@@ -5149,114 +5635,128 @@ FGT.GEARDB = {
 273450|3|60|55|16|401|132608|2|0||0|Premier Silken Cuffs||t14,i9,S4,H11|1
 272811|3|60|55|16|401|132608|2|0||0|Premier Voidcloth Cuffs||t15,i6,S7,H7|1
 273381|3|60|55|1024|402|132602|2|0||0|Premier Wyrmhide Armguards||t15,i7,S5,H5|1
-13211|3|60|55|0|403|132606|0|0||0|Slashclaw Bracers||a7,t7,p6,h1|1
-18497|3|60|55|0|401|132612|0|0||0|Sublime Wristguards||t6,i10,p6,S12,H12|1
-15436|2|60|55|0|402|132614|0|0||0|Supreme Bracers|||2
-22204|3|60|55|0|402|132609|0|0||0|Wristguards of Renown||a10,s9,t10|1
-13958|3|60|0|0|401|132603|0|0||0|Wyrmthalak's Shackles||i9,p15|1
-10377|2|59|54|0|404|132612|0|0||0|Commander's Vambraces|||2
+13211|3|60|55|0|403|132606|1|0||0|Slashclaw Bracers||a7,t7,p6,h1|1
+280061|3|60|55|0|404|0|2|0||0|Spike Crested Bracers||t10,A20,h1|1
+18497|3|60|55|0|401|132612|1|0||0|Sublime Wristguards||t6,i10,p6,S12,H12|1
+15436|2|60|55|0|402|132614|1|0||0|Supreme Bracers|||2
+287039|3|60|55|0|402|132615|2|0||0|Tattered Explorer's Cuffs||s8,t13,S5,H15|2
+287041|3|60|55|0|403|0|2|0||0|Time-Forgotten Bindings||t13,p5,h1|2
+22204|3|60|55|0|402|132609|1|0||0|Wristguards of Renown||a10,s9,t10|1
+13958|3|60|0|0|401|132603|1|0||0|Wyrmthalak's Shackles||i9,p15|1
+287030|3|59|54|0|403|0|2|0||0|Blackmaw Bindings||a14,p6,S10,H10|2
+10377|2|59|54|0|404|132612|1|0||0|Commander's Vambraces|||2
 17014|4|59|54|0|404|132606|1|0||0|Dark Iron Bracers||t7|2
-14983|2|59|54|0|404|132608|0|0||0|Exalted Armsplints|||2
-12626|3|59|54|0|401|132606|0|0||0|Funeral Cuffs||i14,p5|1
-14682|2|59|54|0|402|132602|0|0||0|Indomitable Armguards||i12,p5|2
-13135|3|59|54|0|403|132616|0|0||0|Lordly Armguards||a7,s7,t8,i7,p8|2
-18726|3|59|54|0|402|132610|0|0||0|Magistrate's Cuffs||t15|1
-18337|2|59|54|0|401|132608|0|0||0|Orphic Bracers||i7,p7|2
+14983|2|59|54|0|404|132608|1|0||0|Exalted Armsplints|||2
+12626|3|59|54|0|401|132606|1|0||0|Funeral Cuffs||i14,p5|1
+14682|2|59|54|0|402|132602|1|0||0|Indomitable Armguards||i12,p5|2
+13135|3|59|54|0|403|132616|1|0||0|Lordly Armguards||a7,s7,t8,i7,p8|2
+18726|3|59|54|0|402|132610|1|0||0|Magistrate's Cuffs||t15|1
+18337|2|59|54|0|401|132608|1|0||0|Orphic Bracers||i7,p7|2
+282048|2|59|54|0|402|132603|2|0||0|Ragged Dark Iron Cuffs||a9,t7|2
 15796|2|59|0|0|403|132616|1|0||0|Seaspray Bracers||t12,i4|1
 275390|2|59|0|0|401|132606|2|0||0|Shallow Bindings||t9,S11,H11|1
 15797|2|59|0|0|404|132617|1|0||0|Shining Armplates||s2,t13|1
 252557|2|59|54|0|402|0|2|0||0|Tooled Leather Bracers||i11,p4,S5,H5|2
-13400|3|59|54|0|404|132616|0|0||0|Vambraces of the Sadist||s6,t7,c1|1
-14810|2|59|54|0|403|132603|0|0||0|Warstrike Armsplints||i3,p13|2
-10213|2|58|53|0|401|132612|0|0||0|Elegant Bracers|||2
-14457|2|58|53|0|401|132608|0|0||0|Elunarian Cuffs||t9,p10|2
-8302|2|58|53|0|403|132616|0|0||0|Hero's Bracers||a4,i12|2
-15668|2|58|53|0|403|132609|0|0||0|Magnificent Bracers|||2
-18700|3|58|53|0|402|132606|0|0||0|Malefic Bracers||a7,t16|2
-10223|2|58|53|0|402|132615|0|0||0|Nightshade Armguards|||2
+13400|3|59|54|0|404|132616|1|0||0|Vambraces of the Sadist||s6,t7,c1|1
+14810|2|59|54|0|403|132603|1|0||0|Warstrike Armsplints||i3,p13|2
+284104|2|58|53|0|401|132606|2|0||0|Cultist's Cuffs||p8,S12,H12|2
+10213|2|58|53|0|401|132612|1|0||0|Elegant Bracers|||2
+14457|2|58|53|0|401|132608|1|0||0|Elunarian Cuffs||t9,p10|2
+8302|2|58|53|0|403|132616|1|0||0|Hero's Bracers||a4,i12|2
+15668|2|58|53|0|403|132609|1|0||0|Magnificent Bracers|||2
+18700|3|58|53|0|402|132606|1|0||0|Malefic Bracers||a7,t16|2
+10223|2|58|53|0|402|132615|1|0||0|Nightshade Armguards|||2
+287028|3|58|53|0|401|0|2|0||0|Tormented Cuffs||t13,S9,H9|2
 277222|2|58|0|0|402|0|2|0||0|War Painted Cuffs||t9,d6|1
-14869|2|58|53|0|404|132606|0|0||0|Warleader's Bracers||s2,t13|2
-16681|3|57|52|0|403|132616|0|186||0|Beaststalker's Bindings||a15,t7|2
-16671|3|57|52|0|403|132601|0|187||0|Bindings of Elements||t7,i10,p10|2
-22205|3|57|52|0|404|132613|0|0||0|Black Steel Bindings||a7,s10,t10|1
+14869|2|58|53|0|404|132606|1|0||0|Warleader's Bracers||s2,t13|2
+16681|3|57|52|0|403|132616|1|186||0|Beaststalker's Bindings||a15,t7|2
+16671|3|57|52|0|403|132601|1|187||0|Bindings of Elements||t7,i10,p10|2
+22205|3|57|52|0|404|132613|1|0||0|Black Steel Bindings||a7,s10,t10|1
 250590|2|57|52|0|404|132618|2|1968||0|Blessed Plate Bracers||s11,t6,S4,H4|2
-16735|3|57|52|0|404|132617|0|189||0|Bracers of Valor||a3,s7,t14,p2|2
-11764|3|57|52|0|402|132601|0|0||0|Cinderhide Armsplints|||1
-16697|3|57|52|0|401|132520|0|182||0|Devout Bracers||t7,i10,p10|2
-16703|3|57|52|0|401|132612|0|183||0|Dreadmist Bracers||t10,i10,p7|2
-11767|3|57|52|0|404|132617|0|0||0|Emberplate Armguards|||1
-11766|3|57|52|0|401|132604|0|0||0|Flameweave Cuffs|||1
-15188|2|57|52|0|402|132617|0|0||0|Grand Armguards|||2
-10375|2|57|52|0|404|132606|0|0||0|Imbued Plate Vambraces||t12,i4|2
+16735|3|57|52|0|404|132617|1|189||0|Bracers of Valor||a3,s7,t14,p2|2
+11764|3|57|52|0|402|132601|1|0||0|Cinderhide Armsplints|||1
+16697|3|57|52|0|401|132520|1|182||0|Devout Bracers||t7,i10,p10|2
+16703|3|57|52|0|401|132612|1|183||0|Dreadmist Bracers||t10,i10,p7|2
+11767|3|57|52|0|404|132617|1|0||0|Emberplate Armguards|||1
+11766|3|57|52|0|401|132604|1|0||0|Flameweave Cuffs|||1
+15188|2|57|52|0|402|132617|1|0||0|Grand Armguards|||2
+10375|2|57|52|0|404|132606|1|0||0|Imbued Plate Vambraces||t12,i4|2
 11768|2|57|52|0|401|132609|0|0||0|Incendic Bracers|||1
-16722|3|57|52|0|404|132613|0|188||0|Lightforge Bracers||a4,s7,t10,p8|2
-16683|3|57|52|0|401|133365|0|181||0|Magister's Bindings||t4,i15,p5|2
-11765|3|57|52|0|403|132617|0|0||0|Pyremail Wristguards|||1
-14320|2|57|52|0|401|132608|0|0||0|Resplendent Bracelets|||2
+16722|3|57|52|0|404|132613|1|188||0|Lightforge Bracers||a4,s7,t10,p8|2
+16683|3|57|52|0|401|133365|1|181||0|Magister's Bindings||t4,i15,p5|2
+11765|3|57|52|0|403|132617|1|0||0|Pyremail Wristguards|||1
+14320|2|57|52|0|401|132608|1|0||0|Resplendent Bracelets|||2
 254123|2|57|52|0|401|0|2|0||0|Runecloth Cuffs||i10,S11,H11|2
-16710|3|57|52|0|402|132606|0|184||0|Shadowcraft Bracers||a15,t7|2
-13409|3|57|52|0|401|132612|0|0||0|Tearfall Bracers|||1
-16714|3|57|52|0|402|132608|0|185||0|Wildheart Bracers||s7,i15|2
-8285|2|56|51|0|401|132608|0|0||0|Arcane Bands||t6,i11|2
+270125|3|57|0|0|403|132617|2|0||0|Satyrhide Armbands||a14,i9|1
+16710|3|57|52|0|402|132606|1|184||0|Shadowcraft Bracers||a15,t7|2
+13409|3|57|52|0|401|132612|1|0||0|Tearfall Bracers|||1
+270124|3|57|0|0|402|132615|2|0||0|Warpwood Bracers||a10,s10|1
+16714|3|57|52|0|402|132608|1|185||0|Wildheart Bracers||s7,i15|2
+8285|2|56|51|0|401|132608|1|0||0|Arcane Bands||t6,i11|2
 252593|2|56|51|0|403|0|2|0||0|Charged Scorpid Bracers||i7,p6,S9,H9|2
-12112|2|56|0|0|403|132616|0|0||0|Crypt Demon Bracers||a14|1
-10282|2|56|51|0|404|132602|0|0||0|Emerald Vambraces|||2
-10229|2|56|51|0|403|132602|0|0||0|Engraved Bracers|||2
-14938|2|56|51|0|404|132613|0|0||0|Heroic Bracers|||2
-18296|3|56|51|0|403|132605|0|0||0|Marksman Bands||a12,t6|2
-8295|2|56|51|0|402|132602|0|0||0|Traveler's Bracers||a11,t6|2
+12112|2|56|0|0|403|132616|1|0||0|Crypt Demon Bracers||a14|1
+10282|2|56|51|0|404|132602|1|0||0|Emerald Vambraces|||2
+10229|2|56|51|0|403|132602|1|0||0|Engraved Bracers|||2
+14938|2|56|51|0|404|132613|1|0||0|Heroic Bracers|||2
+18296|3|56|51|0|403|132605|1|0||0|Marksman Bands||a12,t6|2
+8295|2|56|51|0|402|132602|1|0||0|Traveler's Bracers||a11,t6|2
+276884|3|56|51|0|401|132606|2|0||0|Verek's Loyal Wraps||p14,S7,H20|1
 19580|4|55|50|0|404|132605|1|0||1|Berserker Bracers||a7,s17,t9|1
-14311|2|55|50|0|401|132616|0|0||0|Celestial Bindings|||2
-13120|3|55|50|0|402|132606|0|0||0|Deepfury Bracers||a15,s4,t4|2
+14311|2|55|50|0|401|132616|1|0||0|Celestial Bindings|||2
+13120|3|55|50|0|402|132606|1|0||0|Deepfury Bracers||a15,s4,t4|2
 19596|4|55|50|0|401|132612|1|0||0|Dryad's Wrist Bindings||t7,i6,p6,S20,H20|1
 19589|4|55|50|0|402|132611|1|0||0|Forest Stalker's Bracers||a17,s9,t7|1
-14974|2|55|50|0|404|132618|0|0||0|Glorious Bindings|||2
-15659|2|55|50|0|403|132614|0|0||0|Impenetrable Bindings|||2
-11962|3|55|0|0|401|132612|0|0||0|Manacle Cuffs||t6,i15|1
-15425|2|55|50|0|402|132601|0|0||0|Peerless Bracers|||2
-11679|3|55|50|0|403|132612|0|0||0|Rubicund Armguards||a8,t14|1
+14974|2|55|50|0|404|132618|1|0||0|Glorious Bindings|||2
+15659|2|55|50|0|403|132614|1|0||0|Impenetrable Bindings|||2
+11962|3|55|0|0|401|132612|1|0||0|Manacle Cuffs||t6,i15|1
+15425|2|55|50|0|402|132601|1|0||0|Peerless Bracers|||2
+270121|3|55|0|0|404|132613|2|0||0|Private Rocknot's Spare Bracers||s10,t9,p8|1
+11679|3|55|50|0|403|132612|1|0||0|Rubicund Armguards||a8,t14|1
 15092|2|55|50|0|402|132610|1|0||0|Runic Leather Bracers||i10,p10|2
 260183|3|55|0|0|402|0|2|0||0|Sacred Bangle||t12,p6,S8,H8|1
 11917|2|55|0|0|401|132606|1|0||0|Shizzle's Nozzle Wiper||t3,i12,p3|1
 252582|2|55|50|0|403|0|2|0||0|Supple Scorpid Bracers||s6,t8,S7,H7|2
 19583|4|55|50|0|403|132602|1|0||0|Windtalker's Wristguards||t7,i6,p6,A34|1
-12546|3|54|49|0|401|132604|0|0||0|Aristocratic Cuffs||i15,p6|2
-17714|3|54|49|0|403|132613|0|0||0|Bracers of the Stone Princess||t6,i5,A30|1
+12546|3|54|49|0|401|132604|1|0||0|Aristocratic Cuffs||i15,p6|2
+17714|3|54|49|0|403|132613|1|0||0|Bracers of the Stone Princess||t6,i5,A30|1
 11875|2|54|0|0|401|132612|1|0||0|Breezecloud Bracers||t3,i12|1
-10096|2|54|49|0|401|132611|0|0||0|Councillor's Cuffs|||2
+10096|2|54|49|0|401|132611|1|0||0|Councillor's Cuffs|||2
 12425|2|54|49|0|404|132618|1|321||0|Imperial Plate Bracers||s9,t8|2
-10126|2|54|49|0|403|132613|0|0||0|Ornate Bracers|||2
-10171|2|54|49|0|404|132613|0|0||0|Templar Bracers|||2
-10107|2|54|49|0|402|132604|0|0||0|Wanderer's Bracers|||2
-8311|2|53|48|0|404|132615|0|0||0|Alabaster Plate Vambraces||a2,s3,t12|2
-14807|2|53|48|0|403|132602|0|0||0|Bloodlust Bracelets||a11,p5|2
-14301|2|53|48|0|401|132616|0|0||0|Bonecaster's Bindings|||2
-10173|2|53|48|0|401|132609|0|0||0|Mystical Bracers|||2
-14672|2|53|48|0|402|132602|0|0||0|Pridelord Bands||a10,s5,t3|2
-12550|3|53|48|0|404|132616|0|0||0|Runed Golem Shackles||s14,d4|2
+10126|2|54|49|0|403|132613|1|0||0|Ornate Bracers|||2
+10171|2|54|49|0|404|132613|1|0||0|Templar Bracers|||2
+10107|2|54|49|0|402|132604|1|0||0|Wanderer's Bracers|||2
+8311|2|53|48|0|404|132615|1|0||0|Alabaster Plate Vambraces||a2,s3,t12|2
+14807|2|53|48|0|403|132602|1|0||0|Bloodlust Bracelets||a11,p5|2
+14301|2|53|48|0|401|132616|1|0||0|Bonecaster's Bindings|||2
+287023|3|53|48|0|404|0|2|0||0|Iron-Wrought Cuffs||t8,p7,d8|2
+10173|2|53|48|0|401|132609|1|0||0|Mystical Bracers|||2
+14672|2|53|48|0|402|132602|1|0||0|Pridelord Bands||a10,s5,t3|2
+12550|3|53|48|0|404|132616|1|0||0|Runed Golem Shackles||s14,d4|2
 15084|2|53|48|0|402|132606|1|0||0|Wicked Leather Bracers||a11,t5|2
-10800|3|52|47|0|402|132607|0|0||0|Darkwater Bracers|||1
-8264|2|52|47|0|403|132602|0|0||0|Ebonhold Wristguards||t11,i3|2
-14448|2|52|47|0|401|132612|0|0||0|Highborne Bracelets||t6,i9|2
-10184|2|52|47|0|402|132602|0|0||0|Swashbuckler's Bracers|||2
-14861|2|52|47|0|404|132615|0|0||0|Vanguard Vambraces||t11,p4|2
-10191|2|51|46|0|403|132613|0|0||0|Crusader's Armguards|||2
-10239|2|51|46|0|404|132602|0|0||0|Heavy Lamellar Vambraces|||2
+10800|3|52|47|0|402|132607|1|0||0|Darkwater Bracers|||1
+8264|2|52|47|0|403|132602|1|0||0|Ebonhold Wristguards||t11,i3|2
+14448|2|52|47|0|401|132612|1|0||0|Highborne Bracelets||t6,i9|2
+276736|3|52|47|0|403|0|2|0||0|Seascale Bracers||t8,S10|1
+286570|2|52|47|0|402|132603|2|0||0|Silithid Flesh Bindings||s8,t8|2
+10184|2|52|47|0|402|132602|1|0||0|Swashbuckler's Bracers|||2
+14861|2|52|47|0|404|132615|1|0||0|Vanguard Vambraces||t11,p4|2
+10191|2|51|46|0|403|132613|1|0||0|Crusader's Armguards|||2
+10239|2|51|46|0|404|132602|1|0||0|Heavy Lamellar Vambraces|||2
 15077|2|51|46|0|403|132608|1|0||0|Heavy Scorpid Bracers||t8,p8|2
-8247|2|51|46|0|401|132612|0|0||0|Imperial Red Bracers||t3,i11|2
-15649|2|51|46|0|403|132609|0|0||0|Merciless Bracers|||2
-17746|3|51|46|0|404|132605|0|0||0|Noxxion's Shackles||t5|1
-15182|2|51|46|0|402|132613|0|0||0|Praetorian Wristbands|||2
+8247|2|51|46|0|401|132612|1|0||0|Imperial Red Bracers||t3,i11|2
+15649|2|51|46|0|403|132609|1|0||0|Merciless Bracers|||2
+17746|3|51|46|0|404|132605|1|0||0|Noxxion's Shackles||t5|1
+15182|2|51|46|0|402|132613|1|0||0|Praetorian Wristbands|||2
 270102|2|51|0|0|402|132615|2|0||0|Projectile Redirectors||a10,s5|1
 270103|2|51|0|0|403|132600|2|0||0|Reloading Assist Armbands||a10,p5|1
 12408|2|51|46|0|404|132612|1|0||0|Thorium Bracers|||2
-14291|2|50|45|0|401|132606|0|0||0|Arachnidian Bracelets|||2
-18711|3|50|45|0|403|132602|0|0||0|Arena Bands||t6,A28|2
-18710|3|50|45|0|402|132607|0|0||0|Arena Bracers||a6,t14|2
-18712|3|50|45|0|404|132618|0|0||0|Arena Vambraces||t6|2
-18709|3|50|45|0|401|132609|0|0||0|Arena Wristguards||p6,c1|2
+14291|2|50|45|0|401|132606|1|0||0|Arachnidian Bracelets|||2
+18711|3|50|45|0|403|132602|1|0||0|Arena Bands||t6,A28|2
+18710|3|50|45|0|402|132607|1|0||0|Arena Bracers||a6,t14|2
+18712|3|50|45|0|404|132618|1|0||0|Arena Vambraces||t6|2
+18709|3|50|45|0|401|132609|1|0||0|Arena Wristguards||p6,c1|2
 9638|2|50|0|0|403|132605|1|0||0|Chelonian Cuffs||t4,i10|1
-10059|2|50|45|0|401|132606|0|0||0|Duskwoven Bracers|||2
+10059|2|50|45|0|401|132606|1|0||0|Duskwoven Bracers|||2
 270110|2|50|0|0|403|132613|2|0||0|First Mate's Armguards||a8,i8|1
 18436|3|50|45|1024|402|132602|1|0|H|1|First Sergeant's Dragonhide Armguards|Requires PvP rank 5|t14,i6|1
 18435|3|50|45|8|402|132606|1|0|H|1|First Sergeant's Leather Armguards|Requires PvP rank 5|a6,t14|1
@@ -5265,10 +5765,10 @@ FGT.GEARDB = {
 18430|3|50|45|1|404|132618|1|0|H|1|First Sergeant's Plate Bracers|Requires PvP rank 5|s6,t14|1
 272580|3|50|45|1|404|132618|2|0||1|First Sergeant's Plate Bracers||s6,t14|1
 18437|3|50|45|400|401|132606|1|0|H|1|First Sergeant's Silk Cuffs|Requires PvP rank 5|t14,i6|1
-15639|2|50|45|0|403|132608|0|0||0|Ironhide Bracers|||2
-15387|2|50|45|0|402|132605|0|0||0|Jadefire Bracelets|||2
+15639|2|50|45|0|403|132608|1|0||0|Ironhide Bracers|||2
+15387|2|50|45|0|402|132605|1|0||0|Jadefire Bracelets|||2
 250585|3|50|45|0|404|0|2|0||0|Justicar's Wristguards||s6,t8,S12,H12|1
-14923|2|50|45|0|404|132613|0|0||0|Lofty Armguards|||2
+14923|2|50|45|0|404|132613|1|0||0|Lofty Armguards|||2
 252543|3|50|45|0|402|0|2|0||0|Mender's Leather Bracers||t5,i7,p6,S6,H19|1
 252573|3|50|45|0|403|0|2|0||0|Mender's Mail Bracers||t5,i7,p6,S6,H19|1
 254065|3|50|45|0|401|0|2|0||0|Netherflame Cuffs||t7,i7,p5|1
@@ -5290,7 +5790,7 @@ FGT.GEARDB = {
 18453|3|50|45|8|402|132606|1|0|A|1|Sergeant Major's Leather Armsplints|Requires PvP rank 5|a6,t14|1
 18447|3|50|45|3|404|132617|1|0|A|1|Sergeant Major's Plate Wristguards|Requires PvP rank 5|s6,t14|1
 18457|3|50|45|400|401|132606|1|0|A|1|Sergeant Major's Silk Cuffs|Requires PvP rank 5|t14,i6|1
-8257|2|50|45|0|402|132602|0|0||0|Serpentskin Bracers||a3,t11,i2|2
+8257|2|50|45|0|402|132602|1|0||0|Serpentskin Bracers||a3,t11,i2|2
 252572|3|50|45|0|403|0|2|0||0|Skirmisher's Mail Bracers||s9,t6,i5,S8,H8|1
 252540|3|50|45|0|402|0|2|0||0|Skulker's Leather Bracers||a9,s7,t6,p5|1
 252542|3|50|45|0|402|0|2|0||0|Skycaller's Leather Bracers||t6,i7,p5,S10,H10|1
@@ -5299,255 +5799,287 @@ FGT.GEARDB = {
 252541|3|50|45|0|402|0|2|0||0|Warden's Leather Bracers||a6,s7,t9|1
 250583|3|50|45|0|404|0|2|0||0|Warder's Wristguards||t11,S7,H7,d8|1
 14550|4|49|44|0|402|132608|1|0||0|Bladebane Armguards||a10,s6,t10,p8|2
-14965|2|49|44|0|404|132612|0|0||0|High Chief's Bindings|||2
-10076|2|49|44|0|403|132613|0|0||0|Lord's Armguards|||2
-14279|2|49|44|0|401|132606|0|0||0|Opulent Bracers|||2
-14788|2|49|44|0|403|132602|0|0||0|Protector Armguards||t11,p3|2
-10127|2|49|44|0|404|132615|0|0||0|Revenant Bracers|||2
-10069|2|49|44|0|402|132613|0|0||0|Righteous Bracers|||2
+14965|2|49|44|0|404|132612|1|0||0|High Chief's Bindings|||2
+10076|2|49|44|0|403|132613|1|0||0|Lord's Armguards|||2
+14279|2|49|44|0|401|132606|1|0||0|Opulent Bracers|||2
+14788|2|49|44|0|403|132602|1|0||0|Protector Armguards||t11,p3|2
+10127|2|49|44|0|404|132615|1|0||0|Revenant Bracers|||2
+10069|2|49|44|0|402|132613|1|0||0|Righteous Bracers|||2
 281301|2|49|0|0|404|0|2|0||0|Sacrificial Shackles||t7,i9|1
-10632|3|49|44|0|403|133345|0|0||0|Slimescale Bracers||t4,i4,p13|2
-9937|2|48|43|0|401|132610|0|0||0|Abjurer's Bands|||2
-9949|2|48|43|0|402|132615|0|0||0|Chieftain's Bracers|||2
-15629|2|48|43|0|403|132606|0|0||0|Formidable Bracers|||2
-13076|3|48|43|0|404|132616|0|0||0|Giantslayer Bracers||a5,s10,t6|2
-14663|2|48|43|0|402|132602|0|0||0|Keeper's Bindings||t9,p5|2
-8125|2|48|43|0|403|132602|0|0||0|Myrmidon's Bracers||a5,i5,p5|2
-10202|2|48|43|0|404|132602|0|0||0|Overlord's Vambraces|||2
-14853|2|48|43|0|404|132608|0|0||0|Sunscale Wristguards||s6,t8,i2|2
+10632|3|49|44|0|403|133345|1|0||0|Slimescale Bracers||t4,i4,p13|2
+9937|2|48|43|0|401|132610|1|0||0|Abjurer's Bands|||2
+9949|2|48|43|0|402|132615|1|0||0|Chieftain's Bracers|||2
+15629|2|48|43|0|403|132606|1|0||0|Formidable Bracers|||2
+13076|3|48|43|0|404|132616|1|0||0|Giantslayer Bracers||a5,s10,t6|2
+14663|2|48|43|0|402|132602|1|0||0|Keeper's Bindings||t9,p5|2
+8125|2|48|43|0|403|132602|1|0||0|Myrmidon's Bracers||a5,i5,p5|2
+10202|2|48|43|0|404|132602|1|0||0|Overlord's Vambraces|||2
+14853|2|48|43|0|404|132608|1|0||0|Sunscale Wristguards||s6,t8,i2|2
 10705|2|47|0|0|401|132611|1|0||0|Firwillow Wristbands||a2,i10|1
 270100|2|47|0|0|402|132615|2|0||0|Freebooter's Armband||t10,A6|1
-15620|2|47|42|0|403|132612|0|0||0|Gryphon Mail Bracelets|||2
-8108|2|47|42|0|401|132605|0|0||0|Hibernal Bracers||t3,i10|2
-15172|2|47|42|0|402|132613|0|0||0|Potent Bands|||2
-14439|2|47|42|0|401|132605|0|0||0|Venomshroud Armguards||i4,p8|2
+282556|2|47|42|0|404|132612|2|0||0|Groundshaker's Bindings||s10,t2|2
+15620|2|47|42|0|403|132612|1|0||0|Gryphon Mail Bracelets|||2
+8108|2|47|42|0|401|132605|1|0||0|Hibernal Bracers||t3,i10|2
+15172|2|47|42|0|402|132613|1|0||0|Potent Bands|||2
+14439|2|47|42|0|401|132605|1|0||0|Venomshroud Armguards||i4,p8|2
 11469|2|46|0|0|401|132612|1|0||0|Bloodband Bracers||t4,i9,p3|1
-9433|3|46|41|0|401|132611|0|0||0|Forgotten Wraps||a3,t4,i12|2
-14268|2|46|41|0|401|132608|0|0||0|Gaea's Cuffs|||2
-8118|2|46|41|0|402|132602|0|0||0|Heraldic Bracers||a8,t5|2
-14914|2|46|41|0|404|132611|0|0||0|Jade Bracers|||2
-15380|2|46|41|0|402|132615|0|0||0|Rageclaw Bracers|||2
-8273|2|46|41|0|404|132615|0|0||0|Valorous Wristguards||s9,t4|2
-9956|2|46|41|0|403|132600|0|0||0|Warmonger's Bracers|||2
+279860|2|46|1|0|401|0|2|0||0|Convert's Bindings||t5,p7,S5,H5|1
+9433|3|46|41|0|401|132611|1|0||0|Forgotten Wraps||a3,t4,i12|2
+14268|2|46|41|0|401|132608|1|0||0|Gaea's Cuffs|||2
+8118|2|46|41|0|402|132602|1|0||0|Heraldic Bracers||a8,t5|2
+14914|2|46|41|0|404|132611|1|0||0|Jade Bracers|||2
+15380|2|46|41|0|402|132615|1|0||0|Rageclaw Bracers|||2
+8273|2|46|41|0|404|132615|1|0||0|Valorous Wristguards||s9,t4|2
+9956|2|46|41|0|403|132600|1|0||0|Warmonger's Bracers|||2
 19581|4|45|40|0|404|132605|1|0||1|Berserker Bracers||a6,s14,t8|1
-14956|2|45|40|0|404|132608|0|0||0|Bloodforged Bindings|||2
-7534|2|45|40|0|402|132615|0|0||0|Cabalist Bracers|||2
-7545|2|45|40|0|403|132615|0|0||0|Champion's Bracers|||2
+14956|2|45|40|0|404|132608|1|0||0|Bloodforged Bindings|||2
+7534|2|45|40|0|402|132615|1|0||0|Cabalist Bracers|||2
+7545|2|45|40|0|403|132615|1|0||0|Champion's Bracers|||2
 19597|4|45|40|0|401|132612|1|0||0|Dryad's Wrist Bindings||t6,i6,p5,S16,H16|1
 19590|4|45|40|0|402|132611|1|0||0|Forest Stalker's Bracers||a14,s8,t6|1
-7525|2|45|40|0|401|132608|0|0||0|Gossamer Bracers|||2
-10094|2|45|40|0|404|132607|0|0||0|Gothic Plate Vambraces|||2
+7525|2|45|40|0|401|132608|1|0||0|Gossamer Bracers|||2
+10094|2|45|40|0|404|132607|1|0||0|Gothic Plate Vambraces|||2
 277230|2|45|40|0|403|0|2|0||0|Grayscale Bracers||a7,s7|1
-14778|2|45|40|0|403|132602|0|0||0|Khan's Bindings||s6,t5,p5|2
+14778|2|45|40|0|403|132602|1|0||0|Khan's Bindings||s6,t5,p5|2
 274750|2|45|40|0|404|0|2|0||0|Reflective Wristguards|Requires Friendly with Gadgetzan|i8,S3,H9|1
 10461|2|45|0|0|401|132606|1|0||0|Shadowy Bracers||i8,p4|1
 277238|2|45|40|0|404|0|2|0||0|Shimmering Bracers||t7,i7|1
 19584|4|45|40|0|403|132602|1|0||0|Windtalker's Wristguards||t6,i6,p5,A28|1
-14260|2|44|39|0|401|132608|0|0||0|Bloodwoven Bracers|||2
-14910|2|44|40|0|404|132612|0|0||0|Brutish Armguards|||2
-14654|2|44|39|0|402|132602|0|0||0|Scorpashi Wristbands||a6,t7,i1|2
+14260|2|44|39|0|401|132608|1|0||0|Bloodwoven Bracers|||2
+14910|2|44|40|0|404|132612|1|0||0|Brutish Armguards|||2
+14654|2|44|39|0|402|132602|1|0||0|Scorpashi Wristbands||a6,t7,i1|2
 270091|2|44|0|0|402|132608|2|0||0|Seadog's Battered Cuffs||a8,t5|1
 8205|2|44|39|0|403|132608|1|0||0|Tough Scorpid Bracers||a7,p6|2
-9925|2|44|39|0|402|132608|0|0||0|Tracker's Wristguards|||2
-6426|2|43|38|0|403|132606|0|0||0|Blackforge Bracers||t8,p3|2
-15610|2|43|38|0|403|132615|0|0||0|Bonelink Bracers|||2
-8137|2|43|40|0|404|132613|0|0||0|Chromite Bracers||a4,t8|2
-15163|2|43|38|0|402|132615|0|0||0|Imposing Bracers|||2
+9925|2|44|39|0|402|132608|1|0||0|Tracker's Wristguards|||2
+6426|2|43|38|0|403|132606|1|0||0|Blackforge Bracers||t8,p3|2
+15610|2|43|38|0|403|132615|1|0||0|Bonelink Bracers|||2
+8137|2|43|40|0|404|132613|1|0||0|Chromite Bracers||a4,t8|2
+15163|2|43|38|0|402|132615|1|0||0|Imposing Bracers|||2
 7924|2|43|38|0|403|132606|1|0||0|Mithril Scale Bracers||t6,p7|2
 272186|3|43|1|0|402|0|2|0||0|Overgrown Cuffs||a7,t7,A14|1
-9909|2|43|38|0|401|132608|0|0||0|Royal Bands|||2
-14834|2|43|40|0|404|132612|0|0||0|Tyrant's Armguards||s4,t7,p4|2
-14429|2|43|38|0|401|132606|0|0||0|Windchaser Cuffs||a2,i9|2
-15600|2|42|37|0|403|132614|0|0||0|Ancient Vambraces|||2
-9927|2|42|37|0|403|132612|0|0||0|Brigade Bracers|||2
-9972|2|42|40|0|404|132602|0|0||0|Embossed Plate Bracers|||2
+9909|2|43|38|0|401|132608|1|0||0|Royal Bands|||2
+14834|2|43|40|0|404|132612|1|0||0|Tyrant's Armguards||s4,t7,p4|2
+14429|2|43|38|0|401|132606|1|0||0|Windchaser Cuffs||a2,i9|2
+15600|2|42|37|0|403|132614|1|0||0|Ancient Vambraces|||2
+9927|2|42|37|0|403|132612|1|0||0|Brigade Bracers|||2
+274380|3|42|37|0|401|132611|2|0||0|Decaying Flesh Bands||a9|1
+9972|2|42|40|0|404|132602|1|0||0|Embossed Plate Bracers|||2
 4979|2|42|0|0|401|132606|1|0||0|Enchanted Stonecloth Bracers||t4,i8|1
-4061|2|42|37|0|402|132602|0|0||0|Imperial Leather Bracers||a8,t4|2
-9409|3|42|37|0|403|132618|0|0||0|Ironaya's Bracers|||1
-4045|2|42|37|0|401|132608|0|0||0|Mistscape Bracers||t3,i8|2
-9432|3|42|40|0|404|132613|0|0||0|Skullplate Bracers||s5,t9,p5|2
+4061|2|42|37|0|402|132602|1|0||0|Imperial Leather Bracers||a8,t4|2
+9409|3|42|37|0|403|132618|1|0||0|Ironaya's Bracers|||1
+4045|2|42|37|0|401|132608|1|0||0|Mistscape Bracers||t3,i8|2
+279883|2|42|1|0|401|0|2|0||0|Mutinous Cuffs||t7,S7,H7|1
+9432|3|42|40|0|404|132613|1|0||0|Skullplate Bracers||s5,t9,p5|2
 8198|2|42|37|0|403|132605|1|0||0|Turtle Scale Bracers|||2
-14941|2|42|40|0|404|132618|0|0||0|Warbringer's Armsplints|||2
-15377|2|42|37|0|402|132608|0|0||0|Wolf Rider's Wristbands|||2
-19508|2|41|36|0|402|132610|0|0||1|Branded Leather Bracers||t4,A14|1
-13199|3|41|36|0|403|132618|0|0||0|Crushridge Bindings||s5,t11|2
-9285|2|41|40|0|404|132616|0|0||0|Field Plate Vambraces|||2
-14248|2|41|36|0|401|132608|0|0||0|Lunar Bindings|||2
-7484|2|41|36|0|402|132608|0|0||0|Ranger Wristguards|||2
-7475|2|41|36|0|401|132608|0|0||0|Regal Cuffs|||2
-14832|2|41|40|0|404|132606|0|0||0|Symbolic Vambraces||t7,p4|2
+14941|2|42|40|0|404|132618|1|0||0|Warbringer's Armsplints|||2
+15377|2|42|37|0|402|132608|1|0||0|Wolf Rider's Wristbands|||2
+19508|2|41|36|0|402|132610|1|0||1|Branded Leather Bracers||t4,A14|1
+13199|3|41|36|0|403|132618|1|0||0|Crushridge Bindings||s5,t11|2
+9285|2|41|40|0|404|132616|1|0||0|Field Plate Vambraces|||2
+14248|2|41|36|0|401|132608|1|0||0|Lunar Bindings|||2
+7484|2|41|36|0|402|132608|1|0||0|Ranger Wristguards|||2
+7475|2|41|36|0|401|132608|1|0||0|Regal Cuffs|||2
+285093|2|41|36|0|402|0|2|0||0|Ripscaled Cuffs||a6,t6|2
+14832|2|41|40|0|404|132606|1|0||0|Symbolic Vambraces||t7,p4|2
 270080|2|40|0|0|402|132608|2|0||0|Arathi Armbands||a5,s7|1
 6793|2|40|0|0|403|132613|1|0||0|Auric Bracers||t8,i3|1
-7493|2|40|35|0|403|132611|0|0||0|Captain's Bracers|||2
-14240|2|40|35|0|401|132612|0|0||0|Darkmist Bands|||2
+7493|2|40|35|0|403|132611|1|0||0|Captain's Bracers|||2
+14240|2|40|35|0|401|132612|1|0||0|Darkmist Bands|||2
 254019|2|40|35|0|401|0|2|0||0|Earthen Silk Cuffs||p5,S4,H10|2
-8156|2|40|40|0|404|132606|0|0||0|Jouster's Wristguards||a2,t8|2
+8156|2|40|40|0|404|132606|1|0||0|Jouster's Wristguards||a2,t8|2
 4545|2|40|0|0|401|132606|1|0||0|Radiant Silver Bracers||t3,i8|1
-14770|2|40|35|0|403|132601|0|0||0|Ravager's Armguards||a4,s7|2
-9388|2|40|35|0|403|132615|0|0||0|Revelosh's Armguards|||1
-14903|2|40|40|0|404|132603|0|0||0|Saltstone Armsplints|||2
+14770|2|40|35|0|403|132601|1|0||0|Ravager's Armguards||a4,s7|2
+9388|2|40|35|0|403|132615|1|0||0|Revelosh's Armguards|||1
+14903|2|40|40|0|404|132603|1|0||0|Saltstone Armsplints|||2
 270073|2|40|0|0|403|132611|2|0||0|Stromgarde Cuffs||s8,t3|1
 270076|2|40|0|0|402|132608|2|0||0|Tidal Bracers||a5,s5,t3|1
 4745|2|40|0|0|403|132608|1|0||0|War Rider Bracers||a3,t8|1
-14600|2|40|35|0|402|132608|0|0||0|Warden's Wristbands||a3,i8|2
+14600|2|40|35|0|402|132608|1|0||0|Warden's Wristbands||a3,i8|2
 4744|2|39|0|0|401|132617|1|0||0|Arcane Runed Bracers||t1,i8|1
+274600|3|39|34|0|403|0|2|0||0|Berserker Shackles||s7,d6|1
 15864|2|39|0|0|401|132606|1|0||0|Condor Bracers||t6,p6|1
-13119|3|39|34|0|402|132608|0|0||0|Enchanted Kodo Bracers||i4,p10|2
+286998|3|39|34|0|401|0|2|0||0|Deep Flora Bindings||t4,S7,H20|2
+13119|3|39|34|0|402|132608|1|0||0|Enchanted Kodo Bracers||i4,p10|2
 4260|2|39|34|0|402|132609|1|0||0|Guardian Leather Bracers||i6,p6|2
-9886|2|39|34|0|402|132605|0|0||0|Huntsman's Bands|||2
-9896|2|39|34|0|403|132616|0|0||0|Jazeraint Bracers|||2
-15160|2|39|34|0|402|132608|0|0||0|Nocturnal Wristbands|||2
-9879|2|39|34|0|401|132608|0|0||0|Sorcerer Bracelets|||2
+9886|2|39|34|0|402|132605|1|0||0|Huntsman's Bands|||2
+9896|2|39|34|0|403|132616|1|0||0|Jazeraint Bracers|||2
+15160|2|39|34|0|402|132608|1|0||0|Nocturnal Wristbands|||2
+274599|3|39|34|0|402|0|2|0||0|Oathbound Bracers||a6,h1|1
+9879|2|39|34|0|401|132608|1|0||0|Sorcerer Bracelets|||2
 270068|2|39|0|0|403|132611|2|0||0|Stromgarde Bracers||s8,t3|1
-4043|2|38|33|0|401|132606|0|0||0|Aurora Bracers||t2,i8|2
+4043|2|38|33|0|401|132606|1|0||0|Aurora Bracers||t2,i8|2
+270055|2|38|0|0|402|132607|2|0||0|Charged Leather Bracers||a4,t4,p4|1
+274932|2|38|0|0|402|132601|2|0||0|Coyote Hide Wraps||t5,S6,H6|1
+274931|2|38|0|0|402|132607|2|0||0|Fur-Lined Bracers||a5,p5|1
 7386|2|38|33|0|402|132605|1|0||0|Green Whelp Bracers||p8|2
 16794|2|38|0|0|403|132606|1|0||0|Gripsteel Wristguards||a3,s5,t5|1
 5783|2|38|33|0|402|132604|1|0||0|Murloc Scale Bracers||s5,t6|2
-14419|2|38|33|0|401|132601|0|0||0|Silksand Bracers||t6,p5|2
+14419|2|38|33|0|401|132601|1|0||0|Silksand Bracers||t6,p5|2
 16791|2|38|0|0|401|132612|1|0||0|Silkstream Cuffs||t4,i5,p4|1
-15360|2|38|33|0|402|132606|0|0||0|Trickster's Bindings|||2
-6413|2|37|32|0|403|132617|0|0||0|Chief Brigadier Bracers||s3,t7|2
+15360|2|38|33|0|402|132606|1|0||0|Trickster's Bindings|||2
+6413|2|37|32|0|403|132617|1|0||0|Chief Brigadier Bracers||s3,t7|2
 4132|2|37|0|0|403|132608|1|0||0|Darkspear Armsplints||s7,t2|1
 4133|2|37|0|0|401|132609|1|0||0|Darkspear Cuffs||t3,i7|1
 7378|2|37|32|0|402|132606|1|0||0|Dusky Bracers||a8|2
-14226|2|37|32|0|401|132608|0|0||0|Embersilk Bracelets|||2
-4059|2|37|32|0|402|132608|0|0||0|Glyphed Bracers||a6,t4|2
+14226|2|37|32|0|401|132608|1|0||0|Embersilk Bracelets|||2
+4059|2|37|32|0|402|132608|1|0||0|Glyphed Bracers||a6,t4|2
 250535|2|37|32|0|403|0|2|0||0|Hard Gold Bracers||s6,S6,H6|2
-15590|2|37|32|0|403|132612|0|0||0|Steadfast Bracelets|||2
-10358|2|36|0|0|403|132603|0|0||0|Duracin Bracers||a7,t3|1
+15590|2|37|32|0|403|132612|1|0||0|Steadfast Bracelets|||2
+10358|2|36|0|0|403|132603|1|0||0|Duracin Bracers||a7,t3|1
 2032|2|36|0|0|401|132609|1|0||0|Gallan Cuffs||t3,i7|1
 4259|2|36|31|0|402|132611|1|0||0|Green Leather Bracers||a6,p5|2
-7461|2|36|31|0|403|132606|0|0||0|Knight's Bracers|||2
-10333|2|36|31|0|403|132602|0|163||0|Scarlet Wristguards||t8|2
-7447|2|36|31|0|402|132607|0|0||0|Sentinel Bracers|||2
-15577|2|36|31|0|403|132609|0|0||0|Sparkleshell Bracers|||2
-7437|2|36|31|0|401|132608|0|0||0|Twilight Cuffs|||2
-9846|2|35|30|0|401|132612|0|0||0|Conjurer's Bracers|||2
+7461|2|36|31|0|403|132606|1|0||0|Knight's Bracers|||2
+10333|2|36|31|0|403|132602|1|163||0|Scarlet Wristguards||t8|2
+7447|2|36|31|0|402|132607|1|0||0|Sentinel Bracers|||2
+15577|2|36|31|0|403|132609|1|0||0|Sparkleshell Bracers|||2
+7437|2|36|31|0|401|132608|1|0||0|Twilight Cuffs|||2
+251965|2|36|0|0|403|0|2|0||0|Undead Knight's Bracers||s3,t6,i3|1
+9846|2|35|30|0|401|132612|1|0||0|Conjurer's Bracers|||2
 277214|2|35|0|0|401|0|2|0||0|Crusty Cuffs||t5,p5|1
-14221|2|35|30|0|401|132601|0|0||0|Geomancer's Bracers|||2
-14590|2|35|30|0|402|132603|0|0||0|Hawkeye's Bracers||a6,s4|2
-15566|2|35|30|0|403|132615|0|0||0|Marauder's Bracers|||2
-9428|3|35|30|0|402|132605|0|0||0|Unearthed Bands||A8|2
-9857|2|34|29|0|402|132611|0|0||0|Archer's Bracers|||2
-14759|2|34|29|0|403|132606|0|0||0|Enduring Bracers||a2,s3,t5|2
-9865|2|34|29|0|403|132606|0|0||0|Renegade Bracers|||2
-14416|2|34|29|0|401|132606|0|0||0|Stonecloth Bindings||t4,i5|2
+14221|2|35|30|0|401|132601|1|0||0|Geomancer's Bracers|||2
+14590|2|35|30|0|402|132603|1|0||0|Hawkeye's Bracers||a6,s4|2
+15566|2|35|30|0|403|132615|1|0||0|Marauder's Bracers|||2
+9428|3|35|30|0|402|132605|1|0||0|Unearthed Bands||A8|2
+9857|2|34|29|0|402|132611|1|0||0|Archer's Bracers|||2
+14759|2|34|29|0|403|132606|1|0||0|Enduring Bracers||a2,s3,t5|2
+9865|2|34|29|0|403|132606|1|0||0|Renegade Bracers|||2
+14416|2|34|29|0|401|132606|1|0||0|Stonecloth Bindings||t4,i5|2
 271732|2|33|0|0|402|132603|2|0||0|Dirt-Heavy Bracers||p4,A10|1
-9455|3|33|28|0|402|132608|0|0||0|Emissary Cuffs|||1
+9455|3|33|28|0|402|132608|1|0||0|Emissary Cuffs|||1
 1216|2|33|28|0|401|132606|0|0||0|Frost Bracers|||2
-15143|2|33|28|0|402|132607|0|0||0|Ghostwalker Bindings|||2
-6410|2|33|28|0|402|132603|0|0||0|Insignia Bracers||a6,t2|2
+15143|2|33|28|0|402|132607|1|0||0|Ghostwalker Bindings|||2
+6410|2|33|28|0|402|132603|1|0||0|Insignia Bracers||a6,t2|2
 271740|2|33|0|0|401|132609|2|0||0|Knife-Polishing Rag||p4,S6,H6|1
-6403|2|33|28|0|403|132603|0|0||0|Mail Combat Armguards||a2,t6|2
-6407|2|33|28|0|401|132606|0|0||0|Nightsky Wristbands||i6,p3|2
-9448|2|33|28|0|401|133679|0|0||0|Spidertank Oilrag|||1
+6403|2|33|28|0|403|132603|1|0||0|Mail Combat Armguards||a2,t6|2
+6407|2|33|28|0|401|132606|1|0||0|Nightsky Wristbands||i6,p3|2
+9448|2|33|28|0|401|133679|1|0||0|Spidertank Oilrag|||1
 18948|3|32|27|0|402|132614|1|0||0|Barbaric Bracers||a4,t6,p4|2
-15556|2|32|27|0|403|132606|0|0||0|Pillager's Bracers|||2
-14206|2|32|27|0|401|132605|0|0||0|Vital Bracelets|||2
-7355|2|31|26|0|401|132612|0|0||0|Elder's Bracers|||2
-13106|3|31|26|0|401|132618|0|0||0|Glowing Magical Bracelets||s3,i8|2
-7410|2|31|26|0|402|132606|0|0||0|Infiltrator Bracers|||2
-7416|2|31|26|0|403|132613|0|0||0|Phalanx Bracers|||2
-9837|2|30|25|0|403|132602|0|0||0|Banded Bracers|||2
+282716|2|32|27|0|403|132600|2|0||0|Imbued Scaled Cuffs||s5,S5,H5|2
+15556|2|32|27|0|403|132606|1|0||0|Pillager's Bracers|||2
+270042|2|32|0|0|402|132601|2|0||0|Technician's Bracers||s4,t4,i4|1
+14206|2|32|27|0|401|132605|1|0||0|Vital Bracelets|||2
+7355|2|31|26|0|401|132612|1|0||0|Elder's Bracers|||2
+13106|3|31|26|0|401|132618|1|0||0|Glowing Magical Bracelets||s3,i8|2
+273036|3|31|26|0|401|132609|2|0||0|Graveweave Bindings||s6,S5,H5|1
+7410|2|31|26|0|402|132606|1|0||0|Infiltrator Bracers|||2
+7416|2|31|26|0|403|132613|1|0||0|Phalanx Bracers|||2
+286985|3|31|26|0|402|0|2|0||0|Thicket Bindings||t8,h1|2
+9837|2|30|25|0|403|132602|1|0||0|Banded Bracers|||2
 6722|2|30|0|0|403|132602|1|0||0|Beastial Manacles||s1,t6|1
-9821|2|30|25|0|401|132610|0|0||0|Durable Bracers|||2
-9535|2|30|0|0|403|132601|0|0||0|Fire-welded Bracers||a6,t1|1
-15351|2|30|25|0|402|132612|0|0||0|Headhunter's Bands|||2
-6198|2|30|25|0|402|132600|0|0||0|Jurassic Wristguards||a5,s2|2
+9821|2|30|25|0|401|132610|1|0||0|Durable Bracers|||2
+9535|2|30|0|0|403|132601|1|0||0|Fire-welded Bracers||a6,t1|1
+15351|2|30|25|0|402|132612|1|0||0|Headhunter's Bands|||2
+6198|2|30|25|0|402|132600|1|0||0|Jurassic Wristguards||a5,s2|2
 210781|3|30|25|0|401|236968|1|0||0|Phoenix Bindings|||2
-4438|3|30|25|0|403|132602|0|0||0|Pugilist Bracers||s8,t3|2
-15545|2|30|25|0|403|132605|0|0||0|Thick Scale Bracelets|||2
-14197|2|30|25|0|401|132612|0|0||0|Thistlefur Bands|||2
-15132|2|29|24|0|402|132609|0|0||0|Cutthroat's Armguards|||2
-6387|2|29|24|0|403|132618|0|0||0|Glimmering Mail Bracers||a2,t5|2
-897|2|29|24|0|402|132604|0|0||0|Madwolf Bracers||a5,t2|2
-14402|2|29|24|0|401|132600|0|0||0|Resilient Bands||t4,p4|2
-9829|2|29|24|0|402|132602|0|0||0|Scaled Leather Bracers|||2
-4534|2|29|0|0|403|132605|0|0||0|Steel-clasped Bracers||t6,p1|1
-15535|2|29|24|0|403|132606|0|0||0|Wicked Chain Bracers|||2
-4049|2|28|23|0|402|132612|0|0||0|Emblazoned Bracers||t5,i2|2
-1351|2|28|23|0|401|132615|0|0||0|Fingerbone Bracers||t2,i5|2
-2017|2|28|23|0|402|132602|0|0||0|Glowing Leather Bracers||a2,t5|2
+4438|3|30|25|0|403|132602|1|0||0|Pugilist Bracers||s8,t3|2
+15545|2|30|25|0|403|132605|1|0||0|Thick Scale Bracelets|||2
+14197|2|30|25|0|401|132612|1|0||0|Thistlefur Bands|||2
+273808|3|29|24|0|401|132606|2|0||0|Bridgebreaker Bindings||S3,H9|1
+270032|3|29|0|0|402|132611|2|0||0|Cultist's Armguards||t7,A10|1
+15132|2|29|24|0|402|132609|1|0||0|Cutthroat's Armguards|||2
+6387|2|29|24|0|403|132618|1|0||0|Glimmering Mail Bracers||a2,t5|2
+897|2|29|24|0|402|132604|1|0||0|Madwolf Bracers||a5,t2|2
+14402|2|29|24|0|401|132600|1|0||0|Resilient Bands||t4,p4|2
+9829|2|29|24|0|402|132602|1|0||0|Scaled Leather Bracers|||2
+4534|2|29|0|0|403|132605|1|0||0|Steel-clasped Bracers||t6,p1|1
+15535|2|29|24|0|403|132606|1|0||0|Wicked Chain Bracers|||2
+4049|2|28|23|0|402|132612|1|0||0|Emblazoned Bracers||t5,i2|2
+1351|2|28|23|0|401|132615|1|0||0|Fingerbone Bracers||t2,i5|2
+2017|2|28|23|0|402|132602|1|0||0|Glowing Leather Bracers||a2,t5|2
 15459|2|28|0|0|403|132601|1|0||0|Grimtoll Wristguards||a1,s5,t2|1
-14187|2|28|23|0|401|132606|0|0||0|Raincaller Cuffs|||2
-6613|2|28|23|0|401|132610|0|0||0|Sage's Bracers|||2
-14750|2|28|23|0|403|132610|0|0||0|Slayer's Cuffs||s4,t4|2
-6902|2|27|22|0|402|132607|0|0||0|Bands of Serra'kis||s4,t2|1
-6591|2|27|22|0|403|132609|0|0||0|Battleforge Wristguards|||2
-7003|2|27|0|0|403|132605|0|0||0|Beetle Clasps||a2,t5|1
+14187|2|28|23|0|401|132606|1|0||0|Raincaller Cuffs|||2
+6613|2|28|23|0|401|132610|1|0||0|Sage's Bracers|||2
+14750|2|28|23|0|403|132610|1|0||0|Slayer's Cuffs||s4,t4|2
+6902|2|27|22|0|402|132607|1|0||0|Bands of Serra'kis||s4,t2|1
+6591|2|27|22|0|403|132609|1|0||0|Battleforge Wristguards|||2
+7003|2|27|0|0|403|132605|1|0||0|Beetle Clasps||a2,t5|1
 270033|2|27|0|0|402|132602|2|0||0|Demonhide Bracers||a4,s3|1
-6602|2|27|22|0|402|132611|0|0||0|Dervish Bracers|||2
-14580|2|27|22|0|402|132612|0|0||0|Dokebi Bracers||i3,p4|2
+6602|2|27|22|0|402|132611|1|0||0|Dervish Bracers|||2
+14580|2|27|22|0|402|132612|1|0||0|Dokebi Bracers||i3,p4|2
 270028|2|27|0|0|401|132610|2|0||0|Harpy Bangles||t1,i4|1
-4036|2|27|22|0|401|132606|0|0||0|Silver-thread Cuffs||t2,i5|2
+4036|2|27|22|0|401|132606|1|0||0|Silver-thread Cuffs||t2,i5|2
 6675|2|27|0|0|403|132605|1|0||0|Tempered Bracers||t5,p1|1
-13012|3|27|22|0|403|132601|0|0||0|Yorgen Bracers||a3,s6,t3|2
-3230|2|26|21|0|402|132606|0|0||0|Black Wolf Bracers||t5|1
-3204|2|26|21|0|402|132605|0|0||0|Deepwood Bracers||t5,p1|2
+13012|3|27|22|0|403|132601|1|0||0|Yorgen Bracers||a3,s6,t3|2
+3230|2|26|21|0|402|132606|1|0||0|Black Wolf Bracers||t5|1
+3204|2|26|21|0|402|132605|1|0||0|Deepwood Bracers||t5,p1|2
 6665|2|26|0|0|403|132606|1|0||0|Hexed Bracers||a2,t4|1
-3228|3|26|21|0|403|132601|0|0||0|Jimmied Handcuffs||s3,t7|1
-3212|2|26|21|0|403|132600|0|0||0|Lambent Scale Bracers||s2,t4|2
-15348|2|26|21|0|402|132611|0|0||0|Pathfinder Bracers|||2
-15532|2|26|21|0|403|132615|0|0||0|Sentry's Armsplints|||2
-9803|2|26|21|0|402|132601|0|0||0|Superior Bracers|||2
-14177|2|26|21|0|401|132605|0|0||0|Watcher's Cuffs|||2
+3228|3|26|21|0|403|132601|1|0||0|Jimmied Handcuffs||s3,t7|1
+3212|2|26|21|0|403|132600|1|0||0|Lambent Scale Bracers||s2,t4|2
+15348|2|26|21|0|402|132611|1|0||0|Pathfinder Bracers|||2
+15532|2|26|21|0|403|132615|1|0||0|Sentry's Armsplints|||2
+270021|2|26|0|0|402|132606|2|0||0|Staghide Armguards||a3,t3|1
+9803|2|26|21|0|402|132601|1|0||0|Superior Bracers|||2
+14177|2|26|21|0|401|132605|1|0||0|Watcher's Cuffs|||2
 4795|2|25|20|0|402|132606|1|0||0|Bear Bracers||t5|2
-12999|3|25|20|0|402|132608|0|0||0|Drakewing Bands||t3,p6|2
-9793|2|25|20|0|401|132611|0|0||0|Ivycloth Bracelets|||2
+279388|2|25|0|0|403|132601|2|0||0|Brewer's Bracers||s4,t2|1
+12999|3|25|20|0|402|132608|1|0||0|Drakewing Bands||t3,p6|2
+9793|2|25|20|0|401|132611|1|0||0|Ivycloth Bracelets|||2
 15462|2|25|0|0|402|132606|1|0||0|Loamflake Bracers||a5|1
 4796|2|25|20|0|402|132603|1|0||0|Owl Bracers||i5|2
 2868|2|25|20|0|403|132606|1|0||0|Patterned Bronze Bracers||s5|2
 274742|2|25|20|0|402|0|2|0||0|Ratchet Wristwraps|Requires Friendly with Ratchet|a3,i4|1
-5943|2|25|20|0|403|132602|0|0||0|Rift Bracers||t5|1
-15122|2|25|20|0|402|132611|0|0||0|Robust Bracers|||2
-14375|2|25|20|0|401|132601|0|0||0|Sanguine Cuffs||t4,p2|2
-15517|2|25|20|0|403|132615|0|0||0|Spiked Chain Wristbands|||2
+5943|2|25|20|0|403|132602|1|0||0|Rift Bracers||t5|1
+15122|2|25|20|0|402|132611|1|0||0|Robust Bracers|||2
+14375|2|25|20|0|401|132601|1|0||0|Sanguine Cuffs||t4,p2|2
+15517|2|25|20|0|403|132615|1|0||0|Spiked Chain Wristbands|||2
 4794|2|25|20|0|402|132603|1|0||0|Wolf Bracers||a4,t2|2
 281251|2|24|0|0|402|0|2|0||0|Courier's Wristguards||a3,t3|1
-3202|2|24|19|0|402|132605|0|0||0|Forest Leather Bracers||a5|2
-9811|2|24|19|0|403|132602|0|0||0|Fortified Bracers|||2
+3202|2|24|19|0|402|132605|1|0||0|Forest Leather Bracers||a5|2
+9811|2|24|19|0|403|132602|1|0||0|Fortified Bracers|||2
 276722|2|24|0|0|403|0|2|0||0|Gnoll Shackles||s2,i4|1
+279875|2|24|1|0|402|0|2|0||0|Spare Part Bindings||a3,t3|1
 251486|2|24|0|0|401|132609|2|0||0|Tabitha's Cuffs||t4,S3,H3|1
-3647|2|23|18|0|401|132601|0|0||0|Bright Bracers||i4|2
+281926|2|23|18|0|401|132611|2|0||0|Bound Bracers||i3|2
+3647|2|23|18|0|401|132601|1|0||0|Bright Bracers||i4|2
 2867|2|23|18|0|403|132604|1|0||0|Rough Bronze Bracers||t4|2
-15331|2|23|18|0|402|132605|0|0||0|Wrangler's Wristbands|||2
-14569|2|22|17|0|402|132607|0|0||0|Bristlebark Bindings||a3,s2|2
-6574|2|22|17|0|403|132613|0|0||0|Defender Bracers|||2
-14743|2|22|17|0|403|132608|0|0||0|Hulking Bands||t3,p2|2
-1974|3|22|17|0|401|132606|0|0||0|Mindthrust Bracers||i9|2
-9768|2|21|16|0|401|132611|0|0||0|Greenweave Bracers|||2
-6583|2|21|16|0|402|132606|0|0||0|Scouting Bracers|||2
+15331|2|23|18|0|402|132605|1|0||0|Wrangler's Wristbands|||2
+270015|2|22|0|0|402|132606|2|0||0|Bravo's Armbands||a3,s3|1
+14569|2|22|17|0|402|132607|1|0||0|Bristlebark Bindings||a3,s2|2
+6574|2|22|17|0|403|132613|1|0||0|Defender Bracers|||2
+14743|2|22|17|0|403|132608|1|0||0|Hulking Bands||t3,p2|2
+1974|3|22|17|0|401|132606|1|0||0|Mindthrust Bracers||i9|2
+273293|3|21|16|0|403|132602|2|0||0|Bandsaw Wristbands||t5|1
+286981|3|21|16|0|403|132605|2|0||0|Death Bindings||s5,p2|2
+9768|2|21|16|0|401|132611|1|0||0|Greenweave Bracers|||2
+6583|2|21|16|0|402|132606|1|0||0|Scouting Bracers|||2
 16981|2|20|0|0|401|132609|1|0||0|Owlbeard Bracers||t1,i2,p1|1
 270010|2|20|0|0|403|132602|2|0||0|Raptorcrest Bracers||s3,t1|1
 281256|2|20|0|0|401|0|2|0||0|Repurposed Hair Band||i2,p2|1
-15112|2|20|15|0|402|132600|0|0||0|Rigid Bracelets|||2
-6563|2|20|15|0|401|132611|0|0||0|Shimmering Bracers|||2
+15112|2|20|15|0|402|132600|1|0||0|Rigid Bracelets|||2
+6563|2|20|15|0|401|132611|1|0||0|Shimmering Bracers|||2
+271202|3|20|15|0|402|0|2|0||0|Witherbite Bracers||a4,S5,H5|1
 1306|2|20|0|0|402|132603|1|0||0|Wolfmane Wristguards||a2,t2|1
-9777|2|19|14|0|402|132604|0|0||0|Bandit Bracers|||2
-14166|2|19|14|0|401|132611|0|0||0|Buccaneer's Bracers|||2
-3211|2|19|14|0|403|132600|0|0||0|Burnished Bracers||s2,t2|2
-15507|2|19|14|0|403|132608|0|0||0|Grunt's Bracers|||2
-14160|2|19|14|0|401|132610|0|0||0|Pagan Bands|||2
-14147|2|18|13|0|403|132606|0|0||0|Cavedweller Bracers||s1,t2|1
-14148|2|18|13|0|401|132612|0|0||0|Crystalline Cuffs||i1,p2|1
-15452|2|18|0|0|401|132607|0|0||0|Featherbead Bracers||i3|1
-15499|2|18|13|0|403|132612|0|0||0|Outrunner's Cuffs|||2
+9777|2|19|14|0|402|132604|1|0||0|Bandit Bracers|||2
+14166|2|19|14|0|401|132611|1|0||0|Buccaneer's Bracers|||2
+3211|2|19|14|0|403|132600|1|0||0|Burnished Bracers||s2,t2|2
+15507|2|19|14|0|403|132608|1|0||0|Grunt's Bracers|||2
+14160|2|19|14|0|401|132610|1|0||0|Pagan Bands|||2
+271096|3|18|13|0|401|132610|2|0||0|Aetherwisp Bracers||S3,H3|1
+14147|2|18|13|0|403|132606|1|0||0|Cavedweller Bracers||s1,t2|1
+14148|2|18|13|0|401|132612|1|0||0|Crystalline Cuffs||i1,p2|1
+15452|2|18|0|0|401|132607|1|0||0|Featherbead Bracers||i3|1
+270003|2|18|0|0|403|132612|2|0||0|Garrison Cuffs||p2,S1,H2|1
+15499|2|18|13|0|403|132612|1|0||0|Outrunner's Cuffs|||2
 15403|2|18|0|0|402|132609|1|0||0|Ridgeback Bracers||t2,p2|1
-14122|2|18|13|0|401|132609|0|0||0|Ritual Bands|||2
-15453|2|18|0|0|402|132606|0|0||0|Savannah Bracers||t3|1
+14122|2|18|13|0|401|132609|1|0||0|Ritual Bands|||2
+15453|2|18|0|0|402|132606|1|0||0|Savannah Bracers||t3|1
 5315|2|18|0|0|401|132610|1|0||0|Timberland Armguards||t2,p2|1
-3205|2|17|12|0|402|132606|0|0||0|Inscribed Leather Bracers||i3|2
-14366|2|17|12|0|401|132606|0|0||0|Mystic's Bracelets||t1,i2|2
-14561|2|17|12|0|402|132606|0|0||0|Prospector's Cuffs||a2,t1|2
-9785|2|17|12|0|403|132612|0|0||0|Raider's Bracers|||2
-3645|2|17|12|0|401|132606|0|0||0|Seer's Cuffs||i1,p2|2
-14723|2|17|12|0|403|132605|0|0||0|War Paint Bindings||t3|2
-15306|2|16|11|0|402|132604|0|0||0|Feral Bindings|||2
-6556|2|15|10|0|402|132604|0|0||0|Bard's Bracers|||2
-15495|2|15|10|0|403|132609|0|0||0|Bloodspattered Wristbands|||2
-6550|2|15|10|0|403|132611|0|0||0|Soldier's Wristguards|||2
-6543|2|15|10|0|401|132611|0|0||0|Willow Bracers|||2
+280095|2|17|0|0|403|132602|2|0||0|Cryptwalker Bracers||s2,p2|1
+3205|2|17|12|0|402|132606|1|0||0|Inscribed Leather Bracers||i3|2
+14366|2|17|12|0|401|132606|1|0||0|Mystic's Bracelets||t1,i2|2
+14561|2|17|12|0|402|132606|1|0||0|Prospector's Cuffs||a2,t1|2
+9785|2|17|12|0|403|132612|1|0||0|Raider's Bracers|||2
+3645|2|17|12|0|401|132606|1|0||0|Seer's Cuffs||i1,p2|2
+14723|2|17|12|0|403|132605|1|0||0|War Paint Bindings||t3|2
+15306|2|16|11|0|402|132604|1|0||0|Feral Bindings|||2
+6556|2|15|10|0|402|132604|1|0||0|Bard's Bracers|||2
+15495|2|15|10|0|403|132609|1|0||0|Bloodspattered Wristbands|||2
+6550|2|15|10|0|403|132611|1|0||0|Soldier's Wristguards|||2
+6543|2|15|10|0|401|132611|1|0||0|Willow Bracers|||2
+283471|2|14|9|0|401|132606|2|0||0|Fellicent's Bindings||t2|2
+283473|2|13|8|0|402|132601|2|0||0|Batwing Bindings||a1|2
 263338|2|13|0|0|402|132606|2|0||0|Defender's Bracers||t1|1
+284320|2|13|8|0|402|132603|2|0||0|Flayed Scorpid Bands||a1,t1|2
 263336|2|13|0|0|401|7758820|2|0||0|Windsong Bangles||S1,H1|1
 263311|2|11|0|0|403|7737713|2|0||0|Scuffed Cuffs||s1|1
 277023|2|10|5|0|402|0|2|0||0|Azure Gustwoven Bracers||s1|2
@@ -5721,17 +6253,22 @@ FGT.GEARDB = {
 272824|4|65|60|16|401|132948|2|389|A|0|Premier Lieutenant Commander's Voidcloth Gloves||t26,i15,S14,H14|1
 19686|3|65|60|0|402|132965|1|441||0|Primal Batskin Gloves||a10,t9,h2|2
 272095|4|65|60|0|404|132963|2|0||0|Raider Gauntlets|Requires Exalted with Darkspear Raiders|a11,s27,t15|1
+272099|4|65|60|0|402|132961|2|0||0|Raider Gloves|Requires Exalted with Darkspear Raiders|a27,s11,t15|1
+272101|4|65|60|0|403|132945|2|0||0|Raider Handguards|Requires Exalted with Darkspear Raiders|t15,i21,S16,H16|1
 272097|4|65|60|0|401|132956|2|0||0|Raider Handwraps|Requires Exalted with Darkspear Raiders|t15,i27,S8,H24|1
 20259|3|65|60|0|402|132959|0|0||0|Shadow Panther Hide Gloves||s15,t10,c1|2
 280949|4|65|60|64|403|Interface\Icons\inv_glove_mail_raidshamanhyjalc60_d_01|3|100009||0|Spiritcaller Gauntlets|||1
 280958|4|65|60|64|403|Interface\Icons\inv_glove_mail_raidshamanhyjalc60_d_01|3|100011||0|Spiritcaller Gloves|||1
 280952|4|65|60|64|403|Interface\Icons\inv_glove_mail_raidshamanhyjalc60_d_01|3|100010||0|Spiritcaller Grips|||1
 271940|4|65|60|0|404|132963|2|0||0|Theramore Gauntlets|Requires Exalted with Theramore Expeditionary Force|a11,s27,t15|1
+271948|4|65|60|0|402|132961|2|0||0|Theramore Gloves|Requires Exalted with Theramore Expeditionary Force|a27,s11,t15|1
+271950|4|65|60|0|403|132945|2|0||0|Theramore Handguards|Requires Exalted with Theramore Expeditionary Force|t15,i21,S16,H16|1
 271945|4|65|60|0|401|132956|2|0||0|Theramore Handwraps|Requires Exalted with Theramore Expeditionary Force|t15,i27,S8,H24|1
 280893|4|65|60|4|403|Interface\Icons\inv_glove_mail_raidhunterhyjalc60_d_01|3|100005||0|Wildstalker's Gauntlets|||1
 19057|3|64|59|0|404|132963|1|0||0|Gloves of the Dawn||s23,t10|2
 19049|3|64|59|0|402|132960|1|0||0|Timbermaw Brawlers||s23,t10|2
-10260|2|63|58|0|402|132959|0|0||0|Adventurer's Gloves|||2
+10260|2|63|58|0|402|132959|1|0||0|Adventurer's Gloves|||2
+280026|3|63|58|0|403|0|2|0||0|Albinofur Grips||a12,t18|1
 16530|3|63|58|4|403|132951|1|361|H|1|Blood Guard's Chain Gauntlets|Requires PvP rank 7|a11,t18|1
 16496|3|63|58|1024|402|132959|1|382|H|1|Blood Guard's Dragonhide Gauntlets|Requires PvP rank 7|a12,s12,t12|1
 17577|3|63|58|256|401|132953|1|345|H|1|Blood Guard's Dreadweave Gloves|Requires PvP rank 7|t11,S21,H21|1
@@ -5743,15 +6280,16 @@ FGT.GEARDB = {
 20549|3|63|58|0|404|132961|1|0||0|Darkrune Gauntlets||t8,d50|2
 20717|3|63|0|0|401|132951|1|0||0|Desert Bloom Gloves||t5,i5,p5,H51|1
 20713|3|63|0|0|403|132945|1|0||0|Desertstalkers's Gauntlets||a16,t15,i10|1
-13344|3|63|58|0|403|132965|0|0||0|Dracorian Gauntlets||t10,i11,p9,S16,H16|1
-14333|2|63|58|0|401|132940|0|0||0|Eternal Gloves|||2
-22410|3|63|58|0|403|132945|0|0||0|Gauntlets of Deftness||a23,t10|1
+13344|3|63|58|0|403|132965|1|0||0|Dracorian Gauntlets||t10,i11,p9,S16,H16|1
+14333|2|63|58|0|401|132940|1|0||0|Eternal Gloves|||2
+22410|3|63|58|0|403|132945|1|0||0|Gauntlets of Deftness||a23,t10|1
 23078|3|63|0|0|404|132963|1|533||0|Gauntlets of Undead Slaying||t15|1
 23084|3|63|0|0|401|132950|1|536||0|Gloves of Undead Cleansing||t10,i10|1
-22343|3|63|58|0|403|132945|0|0||0|Handguards of Savagery||t10,i9,A38|1
+22343|3|63|58|0|403|132945|1|0||0|Handguards of Savagery||t10,i9,A38|1
 23082|3|63|0|0|403|132945|1|535||0|Handguards of Undead Slaying||t15|1
 23081|3|63|0|0|402|132940|1|534||0|Handwraps of Undead Slaying||t15|1
-18527|3|63|58|0|403|132944|0|0||0|Harmonious Gauntlets||t5,i5,p5,H51|1
+18527|3|63|58|0|403|132944|1|0||0|Harmonious Gauntlets||t5,i5,p5,H51|1
+280028|3|63|58|0|404|0|2|0||0|Heartflame Gauntlets||i14,c1|1
 16403|3|63|58|4|403|132944|1|362|A|1|Knight-Lieutenant's Chain Gauntlets|Requires PvP rank 7|a11,t18|1
 16397|3|63|58|1024|402|132960|1|381|A|1|Knight-Lieutenant's Dragonhide Gloves|Requires PvP rank 7|a12,s12,t12|1
 17564|3|63|58|256|401|132953|1|346|A|1|Knight-Lieutenant's Dreadweave Gloves|Requires PvP rank 7|t18,i11|1
@@ -5760,68 +6298,82 @@ FGT.GEARDB = {
 16406|3|63|58|1|404|132957|1|282|A|1|Knight-Lieutenant's Plate Gauntlets|Requires PvP rank 7|s16,t15|1
 17596|3|63|58|16|401|132964|1|344|A|1|Knight-Lieutenant's Satin Gloves|Requires PvP rank 7|t11,S21,H21|1
 16391|3|63|58|128|401|132951|1|343|A|1|Knight-Lieutenant's Silk Gloves|Requires PvP rank 7|t11,S21,H21|1
-10251|2|63|58|0|401|132961|0|0||0|Master's Gloves|||2
-10268|2|63|58|0|403|132938|0|0||0|Masterwork Gauntlets|||2
+10251|2|63|58|0|401|132961|1|0||0|Master's Gloves|||2
+10268|2|63|58|0|403|132938|1|0||0|Masterwork Gauntlets|||2
 20716|3|63|0|0|401|132951|1|0||0|Sandworm Skin Gloves||t8,i5,S27,H27|1
-15438|2|63|58|0|402|132960|0|0||0|Supreme Gloves|||2
-15682|2|63|58|0|403|132938|0|0||0|Triumphant Gauntlets|||2
+15438|2|63|58|0|402|132960|1|0||0|Supreme Gloves|||2
+15682|2|63|58|0|403|132938|1|0||0|Triumphant Gauntlets|||2
 20712|3|63|0|0|403|132945|1|0||0|Wastewalker's Gauntlets||a10,s10,t10,i10,p10|1
-14525|3|62|57|0|404|132963|0|0||0|Boneclenched Gauntlets||s15,t14,d7|1
-13525|2|62|57|0|401|132949|0|0||0|Darkbind Fingers|||1
+14525|3|62|57|0|404|132963|1|0||0|Boneclenched Gauntlets||s15,t14,d7|1
+13525|2|62|57|0|401|132949|1|0||0|Darkbind Fingers|||1
 14543|3|62|57|0|401|132949|0|0||0|Darkshade Gloves||t6,i7,p6|1
-18722|3|62|57|0|404|132947|0|0||0|Death Grips||s22|1
-14461|2|62|57|0|401|132944|0|0||0|Elunarian Handgrips||t8,i8,p12|2
+18722|3|62|57|0|404|132947|1|0||0|Death Grips||s22|1
+14461|2|62|57|0|401|132944|1|0||0|Elunarian Handgrips||t8,i8,p12|2
 18407|3|62|57|0|401|132953|1|0||0|Felcloth Gloves||t9|2
 16979|4|62|57|31632|401|132960|1|0||0|Flarecore Gloves||t10,i14|2
 21178|3|62|0|0|402|132952|1|0||0|Gloves of Earthen Power||i9,S27,H27|1
 14146|4|62|57|31632|401|132940|1|0||0|Gloves of Spell Mastery||i10,p8,c2|2
-10386|2|62|57|0|404|132937|0|0||0|Hyperion Gauntlets|||2
-14685|2|62|57|0|402|132949|0|0||0|Indomitable Gauntlets||t13,i14|2
+10386|2|62|57|0|404|132937|1|0||0|Hyperion Gauntlets|||2
+14685|2|62|57|0|402|132949|1|0||0|Indomitable Gauntlets||t13,i14|2
 18408|3|62|57|0|401|132953|1|0||0|Inferno Gloves||i9|2
 18409|3|62|57|0|401|132951|1|0||0|Mooncloth Gloves||t9,i16,p15|2
-18377|3|62|57|0|402|132955|0|0||0|Quickdraw Gloves||a8,s7,t7,d25|1
+18377|3|62|57|0|402|132955|1|0||0|Quickdraw Gloves||a8,s7,t7,d25|1
 20477|3|62|57|0|403|132945|1|0||0|Sandstalker Gauntlets||t9|2
-18693|3|62|57|0|401|132950|0|0||0|Shivery Handwraps||t12,i12,p9|1
+18693|3|62|57|0|401|132950|1|0||0|Shivery Handwraps||t12,i12,p9|1
+20133|4|62|0|64|403|132964|2|0||0|Skyfury Gauntlets||t12,S14,H14,h1,c1|1
 20480|3|62|57|0|403|132945|1|0||0|Spitfire Gauntlets||a12,i12,S11,H11|2
 21278|3|62|57|0|402|132939|1|142||0|Stormshroud Gloves||h1,c1|2
 12639|4|62|57|0|404|132964|1|0||0|Stronghold Gauntlets||t12,c1,d25|2
 23128|3|62|57|0|401|132950|0|0||0|The Shadow's Grasp||t14,i14|1
-14815|2|62|57|0|403|132938|0|0||0|Warstrike Gauntlets||t11,i10,p10|2
-14615|3|61|56|0|403|132960|0|123||0|Bloodmail Gauntlets||s9,t10,i10,c1|1
-14640|3|61|56|0|402|132949|0|121||0|Cadaverous Gloves||t9,A44|1
-13532|2|61|56|0|403|132965|0|0||0|Darkspinner Claws|||1
-14622|3|61|56|0|404|132962|0|124||0|Deathbone Gauntlets||t14,d10|1
-14976|2|61|56|0|404|132938|0|0||0|Exalted Gauntlets|||2
-13184|3|61|56|0|402|132947|0|0||0|Fallbrush Handgrips||t11,i12,p11,H20|1
-18383|3|61|56|0|404|132943|0|0||0|Force Imbued Gauntlets||t14,d7|1
-13957|3|61|56|0|402|132943|0|0||0|Gargoyle Slashers||a5,s10,t12,c1|1
-18349|2|61|56|0|403|132946|0|0||0|Gauntlets of Accuracy||a15,h1|1
-10140|2|61|56|0|401|132940|0|0||0|High Councillor's Gloves|||2
-22304|3|61|56|400|401|132961|0|520||0|Ironweave Gloves||t17,i11|1
-10161|2|61|56|0|403|132960|0|0||0|Mercurial Gauntlets|||2
-10149|2|61|56|0|402|132957|0|0||0|Mighty Gauntlets|||2
-13162|3|61|56|0|404|132963|0|0||0|Reiver Claws||s9,t15,c1|1
-13258|3|61|56|0|402|132956|0|0||0|Slaghide Gauntlets|||1
-276539|4|61|60|64|403|0|2|2111||0|Spiritcaller Gloves|||2
+14815|2|62|57|0|403|132938|1|0||0|Warstrike Gauntlets||t11,i10,p10|2
+14615|3|61|56|0|403|132960|1|123||0|Bloodmail Gauntlets||s9,t10,i10,c1|1
+14640|3|61|56|0|402|132949|1|121||0|Cadaverous Gloves||t9,A44|1
+13532|2|61|56|0|403|132965|1|0||0|Darkspinner Claws|||1
+14622|3|61|56|0|404|132962|1|124||0|Deathbone Gauntlets||t14,d10|1
+14976|2|61|56|0|404|132938|1|0||0|Exalted Gauntlets|||2
+13184|3|61|56|0|402|132947|1|0||0|Fallbrush Handgrips||t11,i12,p11,H20|1
+18383|3|61|56|0|404|132943|1|0||0|Force Imbued Gauntlets||t14,d7|1
+13957|3|61|56|0|402|132943|1|0||0|Gargoyle Slashers||a5,s10,t12,c1|1
+18349|2|61|56|0|403|132946|1|0||0|Gauntlets of Accuracy||a15,h1|1
+10140|2|61|56|0|401|132940|1|0||0|High Councillor's Gloves|||2
+22304|3|61|56|400|401|132961|1|520||0|Ironweave Gloves||t17,i11|1
+10161|2|61|56|0|403|132960|1|0||0|Mercurial Gauntlets|||2
+10149|2|61|56|0|402|132957|1|0||0|Mighty Gauntlets|||2
+13162|3|61|56|0|404|132963|1|0||0|Reiver Claws||s9,t15,c1|1
+13258|3|61|56|0|402|132956|1|0||0|Slaghide Gauntlets|||1
 20655|2|60|55|0|401|132966|0|0||0|Abyssal Cloth Handwraps|||2
 20661|2|60|55|0|402|132939|0|0||0|Abyssal Leather Gloves|||2
 20659|2|60|55|0|403|132966|0|0||0|Abyssal Mail Handguards|||2
 20653|2|60|55|0|404|132963|0|0||0|Abyssal Plate Gauntlets|||2
-12637|3|60|55|0|404|132960|0|0||0|Backusarian Gauntlets||s9,t15,i9|1
-13539|2|60|55|0|404|132963|0|0||0|Banshee's Touch|||1
-18387|3|60|55|0|401|132950|0|0||0|Brightspark Gloves||t9,i15,c1|1
-10380|2|60|55|0|404|132966|0|0||0|Commander's Gauntlets|||2
+12637|3|60|55|0|404|132960|1|0||0|Backusarian Gauntlets||s9,t15,i9|1
+13539|2|60|55|0|404|132963|1|0||0|Banshee's Touch|||1
+18387|3|60|55|0|401|132950|1|0||0|Brightspark Gloves||t9,i15,c1|1
+10380|2|60|55|0|404|132966|1|0||0|Commander's Gauntlets|||2
+273941|4|60|60|256|401|0|2|2100||0|Demonheart Gloves||t15,i13,S13,H13,c1|2
 20650|2|60|0|0|404|132962|1|0||0|Desert Wind Gauntlets||s11,t10,d6|1
 16994|2|60|0|0|402|132936|1|0||0|Duskwing Gloves||t11,i14,p5|1
-13244|3|60|55|0|403|132963|0|0||0|Gilded Gauntlets||t14,i15|1
-18367|3|60|0|0|403|132943|0|0||0|Gordok's Gauntlets||t10,i10,p9,c1|1
-18368|3|60|0|0|402|132935|0|0||0|Gordok's Gloves||t10,i10,p9,c1|1
-18366|3|60|0|0|404|132943|0|0||0|Gordok's Handguards||s10,t10,p9,c1|1
-18369|3|60|0|0|401|132940|0|0||0|Gordok's Handwraps||t10,i10,p9,c1|1
-15192|2|60|55|0|402|132965|0|0||0|Grand Gauntlets|||2
+273945|4|60|60|1|404|0|2|2102||0|Gauntlets of Glory||a12,s15,t14|2
+13244|3|60|55|0|403|132963|1|0||0|Gilded Gauntlets||t14,i15|1
+273921|4|60|60|16|401|0|2|2105||0|Gloves of Conviction||t15,i11,S11,H11|2
+18367|3|60|0|0|403|132943|1|0||0|Gordok's Gauntlets||t10,i10,p9,c1|1
+18368|3|60|0|0|402|132935|1|0||0|Gordok's Gloves||t10,i10,p9,c1|1
+18366|3|60|0|0|404|132943|1|0||0|Gordok's Handguards||s10,t10,p9,c1|1
+18369|3|60|0|0|401|132940|1|0||0|Gordok's Handwraps||t10,i10,p9,c1|1
+15192|2|60|55|0|402|132965|1|0||0|Grand Gauntlets|||2
+273929|4|60|60|8|402|0|2|2099||0|Grimstitch Gloves||a13,s10,t15,c1|2
+273897|4|60|60|1024|402|0|2|2113||0|Grovekeeper Gauntlets||s15,t18,d7|2
+273885|4|60|60|1024|402|0|2|2114||0|Grovekeeper Grips||t15,i14,S20,H20|2
+273893|4|60|60|1024|402|0|2|2112||0|Grovekeeper Handguards||t15,i13,p7,S5,H14,c1|2
+273889|4|60|60|1024|402|0|2|2115||0|Grovekeeper Mitts||a14,s12,t15,i11|2
 281279|2|60|0|0|404|0|2|0||0|Hailgiant's Fists||s12,t14|1
-13253|3|60|55|0|401|132948|0|0||0|Hands of Power||i6,p6,S26,H26|1
-15672|2|60|55|0|403|132953|0|0||0|Magnificent Gauntlets|||2
+273925|4|60|60|16|401|0|2|2104||0|Handguards of Conviction||t14,i12,p11,S6,H20|2
+273949|4|60|60|1|404|0|2|2103||0|Handguards of Glory||a6,s14,t20,d8|2
+13253|3|60|55|0|401|132948|1|0||0|Hands of Power||i6,p6,S26,H26|1
+273909|4|60|60|2|404|0|2|2106||0|Justice Gauntlets||s12,t14,i11,S13,H13,h1|2
+273913|4|60|60|2|404|0|2|2107||0|Justice Gloves||t14,i21,S8,H24|2
+273917|4|60|60|2|404|0|2|2108||0|Justice Handguards||t18,i13,S18,H18,d5|2
+15672|2|60|55|0|403|132953|1|0||0|Magnificent Gauntlets|||2
+273905|4|60|60|128|401|0|2|2098||0|Manaflare Gloves||t12,i14,p10,S13,H13,h1|2
 281280|2|60|0|0|403|0|2|0||0|Mountain Climbers||t15,i10|1
 272709|3|60|55|1024|402|132960|2|381||0|Premier Beasthide Gloves||a6,s10,t20|1
 272495|3|60|55|4|403|132951|2|361||0|Premier Chain Gauntlets||a8,t20,i6,A12|1
@@ -5853,96 +6405,114 @@ FGT.GEARDB = {
 272619|3|60|55|16|401|132951|2|2072||0|Premier Silken Handwraps||t20,i9,S6,H18|1
 272812|3|60|55|16|401|132964|2|344||0|Premier Voidcloth Gloves||t19,i12,S8,H8|1
 273382|3|60|55|1024|402|132959|2|2080||0|Premier Wyrmhide Gauntlets||t21,i8,S7,H7|1
-14323|2|60|55|0|401|132937|0|0||0|Resplendent Gauntlets|||2
-18730|3|60|55|0|401|132950|0|0||0|Shadowy Laced Handwraps||i15|1
-13072|3|60|55|0|404|132937|0|0||0|Stonegrip Gauntlets||s9,t14,d10|2
-13963|3|60|0|0|403|132949|0|0||0|Voone's Vice Grips||a9,t6,h2|1
-14863|2|60|55|0|404|132962|0|0||0|Warleader's Gauntlets||s17,t6|2
-16676|3|59|54|0|403|132944|0|186||0|Beaststalker's Gloves||a14,t9,i9,p10|2
-16692|3|59|54|0|401|132948|0|182||0|Devout Gloves||t9,i10,p17|2
-16705|3|59|54|0|401|132966|0|183||0|Dreadmist Wraps||t13,i9,p14|2
-10214|2|59|54|0|401|132939|0|0||0|Elegant Gloves|||2
-15858|2|59|0|0|401|132950|0|0||0|Freewind Gloves||p19|1
+14323|2|60|55|0|401|132937|1|0||0|Resplendent Gauntlets|||2
+18730|3|60|55|0|401|132950|1|0||0|Shadowy Laced Handwraps||i15|1
+273937|4|60|60|64|403|0|2|2109||0|Spiritcaller Gauntlets||t14,i21,S8,H24|2
+276539|4|60|60|64|403|0|2|2111||0|Spiritcaller Gloves||t14,i12,p11,S13,H13,h1|2
+273933|4|60|60|64|403|0|2|2110||0|Spiritcaller Grips||s14,t15,i13,S12,H12|2
+13072|3|60|55|0|404|132937|1|0||0|Stonegrip Gauntlets||s9,t14,d10|2
+276455|3|60|55|0|402|132938|2|0||0|Swordsmith Mitts||i8|1
+13963|3|60|0|0|403|132949|1|0||0|Voone's Vice Grips||a9,t6,h2|1
+14863|2|60|55|0|404|132962|1|0||0|Warleader's Gauntlets||s17,t6|2
+273901|4|60|60|4|403|0|2|2101||0|Wildstalker's Gauntlets||a13,t11,i12,p7,c1|2
+280064|3|60|55|0|402|0|2|0||0|Withering Grips||t14,i12,S16,H16|1
+16676|3|59|54|0|403|132944|1|186||0|Beaststalker's Gloves||a14,t9,i9,p10|2
+16692|3|59|54|0|401|132948|1|182||0|Devout Gloves||t9,i10,p17|2
+16705|3|59|54|0|401|132966|1|183||0|Dreadmist Wraps||t13,i9,p14|2
+10214|2|59|54|0|401|132939|1|0||0|Elegant Gloves|||2
+15858|2|59|0|0|401|132950|1|0||0|Freewind Gloves||p19|1
 15070|2|59|54|0|402|132950|1|0||0|Frostsaber Gloves|||2
-16672|3|59|54|0|403|132945|0|187||0|Gauntlets of Elements||s9,t4,i10,p16|2
-16737|3|59|54|0|404|132960|0|189||0|Gauntlets of Valor||a3,s17,t10,p8|2
-18309|3|59|54|0|402|132954|0|0||0|Gloves of Restoration||t10,i9,H37|1
-12554|3|59|54|0|401|132966|0|0||0|Hands of the Exalted Herald||i13,p12,H33|1
-8305|2|59|54|0|403|132943|0|0||0|Hero's Gauntlets||a13,i13|2
-16724|3|59|54|0|404|132953|0|188||0|Lightforge Gauntlets||s14,t9,p14|2
-16684|3|59|54|0|401|132951|0|181||0|Magister's Gloves||t9,i14,p14|2
-10225|2|59|54|0|402|132949|0|0||0|Nightshade Gloves|||2
+16672|3|59|54|0|403|132945|1|187||0|Gauntlets of Elements||s9,t4,i10,p16|2
+16737|3|59|54|0|404|132960|1|189||0|Gauntlets of Valor||a3,s17,t10,p8|2
+18309|3|59|54|0|402|132954|1|0||0|Gloves of Restoration||t10,i9,H37|1
+276395|3|59|54|0|401|132957|2|0||0|Grimm's Packing Gloves||t20,h1|1
+12554|3|59|54|0|401|132966|1|0||0|Hands of the Exalted Herald||i13,p12,H33|1
+8305|2|59|54|0|403|132943|1|0||0|Hero's Gauntlets||a13,i13|2
+16724|3|59|54|0|404|132953|1|188||0|Lightforge Gauntlets||s14,t9,p14|2
+16684|3|59|54|0|401|132951|1|181||0|Magister's Gloves||t9,i14,p14|2
+10225|2|59|54|0|402|132949|1|0||0|Nightshade Gloves|||2
+285066|3|59|54|0|401|0|2|0||0|Ooze Rummagers||t17,p17|1
 275669|2|59|0|0|402|132960|2|0||0|Punchy's Punchers||s13|1
-18326|3|59|54|0|404|132965|0|0||0|Razor Gauntlets||s8|1
-16712|3|59|54|0|402|132958|0|184||0|Shadowcraft Gloves||a14,s9,t9,p10|2
-13395|3|59|54|0|402|132961|0|0||0|Skul's Fingerbone Claws||t10,A40|1
-18344|3|59|54|0|402|132957|0|0||0|Stonebark Gauntlets||a10,t10|2
+18326|3|59|54|0|404|132965|1|0||0|Razor Gauntlets||s8|1
+16712|3|59|54|0|402|132958|1|184||0|Shadowcraft Gloves||a14,s9,t9,p10|2
+13395|3|59|54|0|402|132961|1|0||0|Skul's Fingerbone Claws||t10,A40|1
+18344|3|59|54|0|402|132957|1|0||0|Stonebark Gauntlets||a10,t10|2
 12632|3|59|54|0|403|132964|1|0||0|Storm Gauntlets||i7|2
-13255|3|59|54|0|403|132964|0|0||0|Trueaim Gauntlets||h1|1
-16717|3|59|54|0|402|132951|0|185||0|Wildheart Gloves||i9,p21|2
+13255|3|59|54|0|403|132964|1|0||0|Trueaim Gauntlets||h1|1
+16717|3|59|54|0|402|132951|1|185||0|Wildheart Gloves||i9,p21|2
+284266|2|59|54|0|401|132961|2|0||0|Wintersaber Hide Lined Gloves||t7|2
 275610|3|58|53|0|402|0|2|0||0|Bileblister Claws||t19,i11|2
 15708|2|58|0|0|402|132959|1|0||0|Blight Leather Gloves||a13,s8,t8|1
 275619|3|58|53|0|403|0|2|0||0|Broodwatcher's Clenchers||p20,S5,H16|2
-14314|2|58|53|0|401|132954|0|0||0|Celestial Handwraps|||2
+14314|2|58|53|0|401|132954|1|0||0|Celestial Handwraps|||2
 275625|3|58|53|0|404|0|2|0||0|Clutchlord's Grips||s7,t20|2
 15063|3|58|53|0|402|132960|1|143||0|Devilsaur Gauntlets||t9,A28,c1|2
 21318|2|58|0|0|401|132958|1|0||0|Earth Warder's Gloves||S22,H22|1
 15795|2|58|0|0|404|132964|1|0||0|Emerald Mist Gauntlets||s12,t13|1
-10232|2|58|53|0|403|132937|0|0||0|Engraved Gauntlets|||2
+10232|2|58|53|0|403|132937|1|0||0|Engraved Gauntlets|||2
 12631|3|58|53|0|404|132937|1|0||0|Fiery Plate Gauntlets|||2
-18306|2|58|53|0|401|132956|0|0||0|Gloves of Shadowy Mist||t12|1
+18306|2|58|53|0|401|132956|1|0||0|Gloves of Shadowy Mist||t12|1
 21319|2|58|0|0|402|132955|1|0||0|Gloves of the Pathfinder||a12,s13|1
 275622|3|58|53|0|404|0|2|0||0|Goregasher Grips||s11,t19|2
-14933|2|58|53|0|404|132965|0|0||0|Heroic Gauntlets|||2
+14933|2|58|53|0|404|132965|1|0||0|Heroic Gauntlets|||2
 275613|3|58|53|0|402|0|2|0||0|Hivethrasher's Claws||a7,t20|2
-10369|2|58|53|0|404|132940|0|0||0|Imbued Plate Gauntlets||a3,s18,t3|2
-12111|2|58|0|0|404|132960|0|0||0|Lavaplate Gauntlets||s17,t5|1
-11814|3|58|53|0|403|132938|0|0||0|Molten Fists||a10,t11,i11|1
-15429|2|58|53|0|402|132949|0|0||0|Peerless Gloves|||2
-18744|3|58|53|0|402|132952|0|0||0|Plaguebat Fur Gloves||a13,t14|2
+10369|2|58|53|0|404|132940|1|0||0|Imbued Plate Gauntlets||a3,s18,t3|2
+12111|2|58|0|0|404|132960|1|0||0|Lavaplate Gauntlets||s17,t5|1
+11814|3|58|53|0|403|132938|1|0||0|Molten Fists||a10,t11,i11|1
+15429|2|58|53|0|402|132949|1|0||0|Peerless Gloves|||2
+18744|3|58|53|0|402|132952|1|0||0|Plaguebat Fur Gloves||a13,t14|2
 277215|2|58|0|0|401|0|2|0||0|Plain Handwraps||t17,S4,H13|1
 275616|3|58|53|0|403|0|2|0||0|Scalegut Clenchers||a11,t19|2
 275607|3|58|53|0|401|0|2|0||0|Swarmtender's Gloves||p20,S5,H16|2
 275604|3|58|53|0|401|0|2|0||0|Venomspew Gloves||t19,i11|2
-8287|2|57|52|0|401|132940|0|0||0|Arcane Gloves||t13,i12|2
-13181|3|57|52|0|401|132949|0|0||0|Demonskin Gloves||t9,i9,p17|1
-10277|2|57|52|0|404|132938|0|0||0|Emerald Gauntlets|||2
-15662|2|57|52|0|403|132963|0|0||0|Impenetrable Gauntlets|||2
+8287|2|57|52|0|401|132940|1|0||0|Arcane Gloves||t13,i12|2
+13181|3|57|52|0|401|132949|1|0||0|Demonskin Gloves||t9,i9,p17|1
+10277|2|57|52|0|404|132938|1|0||0|Emerald Gauntlets|||2
+15662|2|57|52|0|403|132963|1|0||0|Impenetrable Gauntlets|||2
 250589|2|57|52|0|404|0|2|321||0|Imperial Plate Gauntlets||s12,t12|2
-22256|3|57|52|0|401|132951|0|0||0|Mana Shaping Handwraps||t9,i11,p7,S16,H16|1
+22256|3|57|52|0|401|132951|1|0||0|Mana Shaping Handwraps||t9,i11,p7,S16,H16|1
+280086|3|57|52|0|404|0|2|0||0|Octofinger Gauntlets||t16,h1,d25|1
 12418|2|57|52|0|403|132960|1|0||0|Radiant Gloves|||2
 275715|2|57|0|0|401|132950|2|0||0|Rocket Pilot Gloves||p11|1
-11730|3|57|52|0|403|132938|0|1||0|Savage Gladiator Grips||a9,s5,t14,i12|1
+11730|3|57|52|0|403|132938|1|1||0|Savage Gladiator Grips||a9,s5,t14,i12|1
 252553|2|57|52|0|402|0|2|0||0|Tooled Leather Gauntlets||i12,p8,S9,H9|2
-8298|2|57|52|0|402|132949|0|0||0|Traveler's Gloves||s13,i12|2
-14302|2|56|51|0|401|132943|0|0||0|Bonecaster's Gloves|||2
+8298|2|57|52|0|402|132949|1|0||0|Traveler's Gloves||s13,i12|2
+14302|2|56|51|0|401|132943|1|0||0|Bonecaster's Gloves|||2
 252596|2|56|51|0|403|0|2|0||0|Charged Scorpid Gauntlets||i9,p8,S12,H12|2
-11745|3|56|51|0|404|132956|0|0||0|Fists of Phalanx||s20,t9|1
-14967|2|56|51|0|404|132944|0|0||0|Glorious Gauntlets|||2
+286618|2|56|51|0|404|132963|2|0||0|Clutchmother's Guards||t13,h1|2
+11745|3|56|51|0|404|132956|1|0||0|Fists of Phalanx||s20,t9|1
+14967|2|56|51|0|404|132944|1|0||0|Glorious Gauntlets|||2
 20296|3|56|51|0|403|132946|1|490||0|Green Dragonscale Gauntlets||t5,p18|2
-12547|3|56|51|0|402|132957|0|0||0|Mar Alom's Grip||t5,i10,p8,H22|2
-12114|2|56|0|0|402|132951|0|0||0|Nightfall Gloves||a12,s12|1
-10121|2|56|51|0|403|132944|0|0||0|Ornate Gauntlets|||2
+12547|3|56|51|0|402|132957|1|0||0|Mar Alom's Grip||t5,i10,p8,H22|2
+12114|2|56|0|0|402|132951|1|0||0|Nightfall Gloves||a12,s12|1
+10121|2|56|51|0|403|132944|1|0||0|Ornate Gauntlets|||2
 260211|3|56|0|0|402|0|2|0||0|Panic Hands||a13,s13,t13|1
-14675|2|56|51|0|402|132949|0|0||0|Pridelord Gloves||a12,s7,t8|2
+14675|2|56|51|0|402|132949|1|0||0|Pridelord Gloves||a12,s7,t8|2
 22015|4|55|0|0|403|132944|1|515||0|Beastmaster's Gloves||a14,t12,i10|1
+226902|4|55|0|4|403|132944|1|1669||0|Beastmaster's Gloves||a14,t12,i10|1
 254101|3|55|50|0|401|0|2|0||0|Black Gloves||t9,i10,p8|1
-14802|2|55|50|0|403|132953|0|0||0|Bloodlust Gauntlets||a7,s7,t12|2
+14802|2|55|50|0|403|132953|1|0||0|Bloodlust Gauntlets||a7,s7,t12|2
 15823|2|55|0|0|403|132963|1|0||0|Bricksteel Gauntlets||s18|1
-10099|2|55|50|0|401|132955|0|0||0|Councillor's Gloves|||2
+10099|2|55|50|0|401|132955|1|0||0|Councillor's Gloves|||2
 22006|4|55|0|0|402|132958|1|512||0|Darkmantle Gloves||a22,s12,t9|1
+226850|4|55|0|8|402|132958|1|1676||0|Darkmantle Gloves||a22,s12,t9|1
+226926|4|55|0|256|401|132966|1|1681||0|Deathmist Gloves||t16,i13,S13,H13,h1|1
 22077|4|55|0|0|401|132966|1|518||0|Deathmist Wraps||t16,i13,S13,H13,h1|1
 22110|4|55|0|0|402|132951|1|513||0|Feralheart Gloves||a9,s10,t10,i12,p10,S11,H11|1
+226820|4|55|0|1024|402|132951|1|1667||0|Feralheart Gloves||a9,s10,t10,i12,p10,S11,H11|1
 254099|3|55|50|0|401|0|2|0||0|Fiery Gloves||t9,i10,p8|1
 254097|3|55|50|0|401|0|2|0||0|Frothing Gloves||t9,i10,p8|1
 21998|4|55|0|0|404|132960|1|511||0|Gauntlets of Heroism||s18,t12,c1|1
 22099|4|55|0|0|403|132945|1|519||0|Gauntlets of The Five Thunders||s9,t12,i14,S12,H12|1
 254095|3|55|50|0|401|0|2|0||0|Gilded Gloves||t9,i10,p8,S10,H29|1
-10808|3|55|50|0|401|132951|0|0||0|Gloves of the Atal'ai Prophet||s5,t6,p20|1
+226878|4|55|0|1|404|132960|1|1778||0|Gloves of Heroism||s18,t12,c1|1
+227038|4|55|0|64|403|132945|1|1679||0|Gloves of The Five Thunders||s9,t12,i14,S12,H12|1
+10808|3|55|50|0|401|132951|1|0||0|Gloves of the Atal'ai Prophet||s5,t6,p20|1
 254103|3|55|50|0|401|0|2|0||0|Golden Gloves||t9,i10,p8|1
 11918|2|55|0|0|403|132951|1|0||0|Grotslab Gloves||a12,i12|1
 15078|2|55|50|0|403|132958|1|0||0|Heavy Scorpid Gauntlet||t12,p12|2
 250555|3|55|50|0|404|0|2|0||0|Justicar's Gloves||s9,t11,S19,H19|1
+279824|2|55|1|0|404|0|2|0||0|Kor'kron Battle Gauntlets||s6,t9,i8|1
 252551|3|55|50|0|402|0|2|0||0|Mender's Leather Gauntlets||t6,i9,p9,S10,H31|1
 252587|3|55|50|0|403|0|2|0||0|Mender's Mail Gauntlets||t6,i9,p9,S10,H31|1
 250551|3|55|50|0|404|0|2|0||0|Officer's Gloves||a9,s16,t11|1
@@ -5950,6 +6520,8 @@ FGT.GEARDB = {
 252547|3|55|50|0|402|0|2|0||0|Prowler's Leather Gauntlets||a9,s14,t9,i6|1
 254105|3|55|50|0|401|0|2|0||0|Radiant Gloves||t9,i10,p8|1
 272096|4|55|50|0|404|132963|2|0||0|Raider Gauntlets|Requires Exalted with Darkspear Raiders|a10,s23,t12|1
+272100|4|55|50|0|402|132961|2|0||0|Raider Gloves|Requires Exalted with Darkspear Raiders|a23,s10,t12|1
+272102|4|55|50|0|403|132945|2|0||0|Raider Handguards|Requires Exalted with Darkspear Raiders|t12,i17,S13,H13|1
 272098|4|55|50|0|401|132956|2|0||0|Raider Handwraps|Requires Exalted with Darkspear Raiders|t12,i23,S7,H22|1
 13863|2|55|50|0|401|132959|1|0||0|Runecloth Gloves||i9,p9,S12,H12|2
 250552|3|55|50|0|404|0|2|0||0|Sentinel's Gloves||s9,t16,d11|1
@@ -5958,358 +6530,401 @@ FGT.GEARDB = {
 252550|3|55|50|0|402|0|2|0||0|Skycaller's Leather Gauntlets||t9,i9,p6,S16,H16|1
 252585|3|55|50|0|403|0|2|0||0|Skycaller's Mail Gauntlets||t9,i9,p6,S16,H16|1
 22066|4|55|0|0|401|132951|1|517||0|Sorcerer's Gloves||t12,i14,p10,S12,H12,h1|1
+226942|4|55|0|128|401|132951|1|1671||0|Sorcerer's Gloves||t12,i14,p10,S12,H12,h1|1
 22090|4|55|0|0|404|132953|1|516||0|Soulforge Gauntlets||s9,t10,i10,S11,H11,c1|1
+226998|4|55|0|2|404|132953|1|1673||0|Soulforge Gloves||s9,t10,i10,S11,H11,c1|1
 252584|3|55|50|0|403|0|2|0||0|Stalker's Mail Gauntlets||a14,t9,i9,p6|1
 274755|2|55|50|0|401|0|2|0||0|Steamwheedle Grips|Requires Friendly with Everlook|i9,p14|1
-10165|2|55|50|0|404|132963|0|0||0|Templar Gauntlets|||2
+10165|2|55|50|0|404|132963|1|0||0|Templar Gauntlets|||2
+279825|2|55|1|0|404|0|2|0||0|Theramore Defender's Gauntlets||s6,t9,i8|1
 271941|4|55|50|0|404|132963|2|0||0|Theramore Gauntlets|Requires Exalted with Theramore Expeditionary Force|a10,s23,t12|1
+271949|4|55|50|0|402|132961|2|0||0|Theramore Gloves|Requires Exalted with Theramore Expeditionary Force|a23,s10,t12|1
+271951|4|55|50|0|403|132945|2|0||0|Theramore Handguards|Requires Exalted with Theramore Expeditionary Force|t12,i17,S13,H13|1
 271946|4|55|50|0|401|132956|2|0||0|Theramore Handwraps|Requires Exalted with Theramore Expeditionary Force|t12,i23,S7,H22|1
-14855|2|55|50|0|404|132951|0|0||0|Vanguard Gauntlets||a9,t12,p6|2
+14855|2|55|50|0|404|132951|1|0||0|Vanguard Gauntlets||a9,t12,p6|2
 22081|4|55|0|0|401|132948|1|514||0|Virtuous Gloves||t14,i15,p12,S11,H11|1
-10110|2|55|50|0|402|132958|0|0||0|Wanderer's Gloves|||2
+226966|4|55|0|16|401|132948|1|1675||0|Virtuous Gloves||t14,i15,p12,S11,H11|1
+10110|2|55|50|0|402|132958|1|0||0|Wanderer's Gloves|||2
 252549|3|55|50|0|402|0|2|0||0|Warden's Leather Gauntlets||a9,s9,t14|1
 250553|3|55|50|0|404|0|2|0||0|Warder's Gloves||t16,S11,H11,d11|1
 250588|2|54|49|0|404|132963|2|1968||0|Blessed Plate Gauntlet||s5,t13,S8,H8|2
 12051|2|54|0|0|403|132938|1|0||0|Brazen Gauntlets||a12,s12,t2|1
 14101|2|54|49|0|401|132955|1|0||0|Brightcloth Gloves|||2
 14043|2|54|49|0|401|132939|1|0||0|Cindercloth Gloves||p11|2
-8267|2|54|49|0|403|132949|0|0||0|Ebonhold Gauntlets||i7,p14|2
+282012|2|54|49|0|401|132957|2|0||0|Corsepickers||p12,S11,H11|2
+8267|2|54|49|0|403|132949|1|0||0|Ebonhold Gauntlets||i7,p14|2
+284285|2|54|49|0|403|132963|2|0||0|Feardred's Gauntlets||s11,S13,H13|2
 14142|2|54|49|0|401|132939|1|0||0|Ghostweave Gloves||i8|2
-10176|2|54|49|0|401|132957|0|0||0|Mystical Gloves|||2
-11665|3|54|49|0|402|132949|0|0||0|Ogreseer Fists||t10,i10,p8,S13,H13|1
-15184|2|54|49|0|402|132963|0|0||0|Praetorian Gloves|||2
+10176|2|54|49|0|401|132957|1|0||0|Mystical Gloves|||2
+11665|3|54|49|0|402|132949|1|0||0|Ogreseer Fists||t10,i10,p8,S13,H13|1
+15184|2|54|49|0|402|132963|1|0||0|Praetorian Gloves|||2
 15091|2|54|49|0|402|132965|1|0||0|Runic Leather Gauntlets||i8,p14|2
-11634|3|54|49|0|401|132946|0|0||0|Silkweb Gloves||t14,i13|1
-8314|2|53|48|0|404|132960|0|0||0|Alabaster Plate Gauntlets||a7,s14|2
-13126|3|53|48|0|403|132944|0|0||0|Battlecaller Gauntlets||s8,t9,p15|2
-12464|3|53|48|0|402|132953|0|0||0|Bloodfire Talons||i5,p9,S18,H18|1
+11634|3|54|49|0|401|132946|1|0||0|Silkweb Gloves||t14,i13|1
+8314|2|53|48|0|404|132960|1|0||0|Alabaster Plate Gauntlets||a7,s14|2
+13126|3|53|48|0|403|132944|1|0||0|Battlecaller Gauntlets||s8,t9,p15|2
+12464|3|53|48|0|402|132953|1|0||0|Bloodfire Talons||i5,p9,S18,H18|1
 252546|2|53|48|0|402|0|2|0||0|Blue Suede Gloves||a4,s9,t5|2
 15074|2|53|48|0|402|132957|1|0||0|Chimeric Gloves|||2
 13870|2|53|47|0|401|132939|1|0||0|Frostweave Gloves||i6|2
-14451|2|53|48|0|401|132951|0|0||0|Highborne Gloves||a5,s3,i10,p10|2
-14926|2|53|48|0|404|132963|0|0||0|Lofty Gauntlets|||2
+14451|2|53|48|0|401|132951|1|0||0|Highborne Gloves||a5,s3,i10,p10|2
+14926|2|53|48|0|404|132963|1|0||0|Lofty Gauntlets|||2
 11867|2|53|0|0|403|132960|1|0||0|Maddening Gauntlets||a5,s15|1
-15653|2|53|48|0|403|132938|0|0||0|Merciless Gauntlets|||2
-17736|3|53|48|0|403|132962|0|0||0|Rockgrip Gauntlets||t10,i10,A28|1
-10186|2|53|48|0|402|132937|0|0||0|Swashbuckler's Gloves|||2
-10787|3|52|47|0|401|132617|0|0||0|Atal'ai Gloves||S9,H9|1
-20369|3|52|0|0|403|132964|0|0||0|Azurite Fists||a6,t7,i7,p6,c1|1
-10196|2|52|47|0|403|132957|0|0||0|Crusader's Gauntlets|||2
+15653|2|53|48|0|403|132938|1|0||0|Merciless Gauntlets|||2
+17736|3|53|48|0|403|132962|1|0||0|Rockgrip Gauntlets||t10,i10,A28|1
+284218|2|53|48|0|401|132951|2|0||0|Slime-Coated Gloves||i13,S6,H6|2
+10186|2|53|48|0|402|132937|1|0||0|Swashbuckler's Gloves|||2
+10787|3|52|47|0|401|132617|1|0||0|Atal'ai Gloves||S9,H9|1
+20369|3|52|0|0|403|132964|1|0||0|Azurite Fists||a6,t7,i7,p6,c1|1
+287018|3|52|47|0|401|0|2|0||0|Compound Gloves||t15,S11,H11,h1|2
+10196|2|52|47|0|403|132957|1|0||0|Crusader's Gauntlets|||2
 254075|2|52|47|0|401|0|2|0||0|Earthenweave Gloves||p11,S9,H26|2
-10242|2|52|47|0|404|132938|0|0||0|Heavy Lamellar Gauntlets|||2
-14959|2|52|47|0|404|132940|0|0||0|High Chief's Gauntlets|||2
-8249|2|52|47|0|401|132953|0|0||0|Imperial Red Gloves||t11,i11|2
-15644|2|52|47|0|403|132956|0|0||0|Ironhide Gauntlets|||2
-15393|2|52|47|0|402|132945|0|0||0|Jadefire Gloves|||2
-8260|2|52|47|0|402|132949|0|0||0|Serpentskin Gloves||a11,s11|2
+276733|3|52|47|0|404|0|2|0||0|Grips of Control||t12,i12|1
+10242|2|52|47|0|404|132938|1|0||0|Heavy Lamellar Gauntlets|||2
+14959|2|52|47|0|404|132940|1|0||0|High Chief's Gauntlets|||2
+8249|2|52|47|0|401|132953|1|0||0|Imperial Red Gloves||t11,i11|2
+15644|2|52|47|0|403|132956|1|0||0|Ironhide Gauntlets|||2
+15393|2|52|47|0|402|132945|1|0||0|Jadefire Gloves|||2
+8260|2|52|47|0|402|132949|1|0||0|Serpentskin Gloves||a11,s11|2
 15083|2|52|47|0|402|132965|1|0||0|Wicked Leather Gauntlets||a12,t11|2
-14294|2|51|46|0|401|132949|0|0||0|Arachnidian Gloves|||2
-10062|2|51|46|0|401|132957|0|0||0|Duskwoven Gloves|||2
-14666|2|51|46|0|402|132949|0|0||0|Keeper's Gloves||i11,p10|2
-10072|2|51|46|0|402|132946|0|0||0|Righteous Gloves|||2
-17007|4|51|46|0|403|132949|0|0||0|Stonerender Gauntlets||t10,i10,p20|2
-2564|3|50|45|0|402|132941|0|0||0|Elven Spirit Claws||i5,p9|2
+14294|2|51|46|0|401|132949|1|0||0|Arachnidian Gloves|||2
+10062|2|51|46|0|401|132957|1|0||0|Duskwoven Gloves|||2
+14666|2|51|46|0|402|132949|1|0||0|Keeper's Gloves||i11,p10|2
+10072|2|51|46|0|402|132946|1|0||0|Righteous Gloves|||2
+17007|4|51|46|0|403|132949|1|0||0|Stonerender Gauntlets||t10,i10,p20|2
+2564|3|50|45|0|402|132941|1|0||0|Elven Spirit Claws||i5,p9|2
+282568|2|50|45|0|401|132953|2|0||0|Fireflare Handwraps||p11|2
 19116|2|50|0|0|401|132950|1|0||0|Greenleaf Handwraps||i11,H22|1
-10080|2|50|45|0|403|132963|0|0||0|Lord's Gauntlets|||2
-14282|2|50|45|0|401|132957|0|0||0|Opulent Gloves|||2
+10080|2|50|45|0|403|132963|1|0||0|Lord's Gauntlets|||2
+14282|2|50|45|0|401|132957|1|0||0|Opulent Gloves|||2
 19119|2|50|0|0|402|132942|1|0||0|Owlbeast Hide Gloves||t8,i9,p8|1
-15174|2|50|45|0|402|132946|0|0||0|Potent Gloves|||2
-14792|2|50|45|0|403|132938|0|0||0|Protector Gauntlets||a4,p15|2
+15174|2|50|45|0|402|132946|1|0||0|Potent Gloves|||2
+14792|2|50|45|0|403|132938|1|0||0|Protector Gauntlets||a4,p15|2
 11888|2|50|0|0|401|132959|1|0||0|Quintis' Research Gloves||i11,p10|1
-10129|2|50|45|0|404|132965|0|0||0|Revenant Gauntlets|||2
-14846|2|50|45|0|404|132938|0|0||0|Sunscale Gauntlets||a3,s12,t7|2
+10129|2|50|45|0|404|132965|1|0||0|Revenant Gauntlets|||2
+14846|2|50|45|0|404|132938|1|0||0|Sunscale Gauntlets||a3,s12,t7|2
 9665|2|50|0|0|401|132952|1|0||0|Wingcrest Gloves||t11,i10|1
-9939|2|49|44|0|401|132951|0|0||0|Abjurer's Gloves|||2
-9952|2|49|44|0|402|132956|0|0||0|Chieftain's Gloves|||2
-14551|4|49|44|0|403|132964|0|0||0|Edgemaster's Handguards|||2
+9939|2|49|44|0|401|132951|1|0||0|Abjurer's Gloves|||2
+9952|2|49|44|0|402|132956|1|0||0|Chieftain's Gloves|||2
+14551|4|49|44|0|403|132964|1|0||0|Edgemaster's Handguards|||2
 9656|2|49|0|0|404|132963|1|0||0|Granite Grips||s15|1
-8128|2|49|44|0|403|132938|0|0||0|Myrmidon's Gauntlets||t11,i10|2
-10205|2|49|44|0|404|132938|0|0||0|Overlord's Gauntlets|||2
+8128|2|49|44|0|403|132938|1|0||0|Myrmidon's Gauntlets||t11,i10|2
+10205|2|49|44|0|404|132938|1|0||0|Overlord's Gauntlets|||2
 250545|2|49|44|0|404|0|2|0||0|Shining Mithril Gauntlet||s12,S9,H9|2
 19126|2|49|0|0|404|132956|1|0||0|Slagplate Gauntlets||s12,t7|1
-14442|2|49|44|0|401|132957|0|0||0|Venomshroud Mitts||i6,p12|2
+14442|2|49|44|0|401|132957|1|0||0|Venomshroud Mitts||i6,p12|2
 19123|2|48|0|0|401|132953|1|0||0|Everwarm Handwraps||i10|1
-15635|2|48|43|0|403|132963|0|0||0|Formidable Gauntlets|||2
-14917|2|48|43|0|404|132964|0|0||0|Jade Gauntlets|||2
-15383|2|48|43|0|402|132956|0|0||0|Rageclaw Gloves|||2
-9640|3|48|43|0|404|132960|0|0||0|Vice Grips||A14|1
+15635|2|48|43|0|403|132963|1|0||0|Formidable Gauntlets|||2
+14917|2|48|43|0|404|132964|1|0||0|Jade Gauntlets|||2
+15383|2|48|43|0|402|132956|1|0||0|Rageclaw Gloves|||2
+282097|2|48|43|0|404|132963|2|0||0|Unbreakable Golem Grips||t10|2
+9640|3|48|43|0|404|132960|1|0||0|Vice Grips||A14|1
 16738|2|48|0|0|401|132949|1|0||0|Witherseed Gloves||t7,p13|1
-14949|2|47|42|0|404|132953|0|0||0|Bloodforged Gauntlets|||2
-17770|2|47|0|0|404|132964|0|0||0|Branchclaw Gauntlets||s12|1
-14272|2|47|42|0|401|132949|0|0||0|Gaea's Handwraps|||2
-15625|2|47|42|0|403|132944|0|0||0|Gryphon Mail Gauntlets|||2
-8121|2|47|42|0|402|132949|0|0||0|Heraldic Gloves||a10,s10|2
-8110|2|47|42|0|401|132957|0|0||0|Hibernal Gloves||a10,i10|2
-18083|3|47|42|0|401|132943|0|0||1|Jumanza Grips||t10,i11,p10|1
-8276|2|47|42|0|404|132963|0|0||0|Valorous Gauntlets||s14,t2|2
-9960|2|47|42|0|403|132960|0|0||0|Warmonger's Gauntlets|||2
-7530|2|46|41|0|402|132956|0|0||0|Cabalist Gloves|||2
-7541|2|46|41|0|403|132963|0|0||0|Champion's Gauntlets|||2
+14949|2|47|42|0|404|132953|1|0||0|Bloodforged Gauntlets|||2
+17770|2|47|0|0|404|132964|1|0||0|Branchclaw Gauntlets||s12|1
+14272|2|47|42|0|401|132949|1|0||0|Gaea's Handwraps|||2
+15625|2|47|42|0|403|132944|1|0||0|Gryphon Mail Gauntlets|||2
+8121|2|47|42|0|402|132949|1|0||0|Heraldic Gloves||a10,s10|2
+8110|2|47|42|0|401|132957|1|0||0|Hibernal Gloves||a10,i10|2
+18083|3|47|42|0|401|132943|1|0||1|Jumanza Grips||t10,i11,p10|1
+8276|2|47|42|0|404|132963|1|0||0|Valorous Gauntlets||s14,t2|2
+9960|2|47|42|0|403|132960|1|0||0|Warmonger's Gauntlets|||2
+7530|2|46|41|0|402|132956|1|0||0|Cabalist Gloves|||2
+7541|2|46|41|0|403|132963|1|0||0|Champion's Gauntlets|||2
 8346|3|46|41|0|402|132964|1|0||0|Gauntlets of the Sea||a7|2
-7521|2|46|41|0|401|132966|0|0||0|Gossamer Gloves|||2
-10087|2|46|41|0|404|132955|0|0||0|Gothic Plate Gauntlets|||2
-10631|3|46|41|0|403|132945|0|0||0|Murkwater Gauntlets||s13,t12,i4|2
-14657|2|46|41|0|402|132959|0|0||0|Scorpashi Gloves||a4,p12|2
+7521|2|46|41|0|401|132966|1|0||0|Gossamer Gloves|||2
+10087|2|46|41|0|404|132955|1|0||0|Gothic Plate Gauntlets|||2
+10631|3|46|41|0|403|132945|1|0||0|Murkwater Gauntlets||s13,t12,i4|2
+14657|2|46|41|0|402|132959|1|0||0|Scorpashi Gloves||a4,p12|2
 9634|2|46|0|0|401|132956|1|0||0|Skilled Handling Gloves||a6,t6,i10|1
 277239|2|45|40|0|404|0|2|0||0|Bejeweled Punchers||s6,p11|1
-14262|2|45|40|0|401|132953|0|0||0|Bloodwoven Mitts|||2
-14905|2|45|40|0|404|132962|0|0||0|Brutish Gauntlets|||2
+14262|2|45|40|0|401|132953|1|0||0|Bloodwoven Mitts|||2
+14905|2|45|40|0|404|132962|1|0||0|Brutish Gauntlets|||2
 277231|2|45|40|0|403|0|2|0||0|Conductive Gauntlets||i7,A21|1
-9410|3|45|40|0|404|132946|0|0||0|Cragfists||d5|1
+9410|3|45|40|0|404|132946|1|0||0|Cragfists||d5|1
 276200|2|45|40|0|404|0|2|0||0|Crawler's Clackers|Requires Friendly with Powderfuse|t11,A12|1
 8347|3|45|40|0|403|132944|1|0||0|Dragonscale Gauntlets||t7,p6,c1|2
 10019|3|45|40|0|401|132952|1|0||0|Dreamweave Gloves||i4,p7,S18,H18|2
-15166|2|45|40|0|402|132956|0|0||0|Imposing Gloves|||2
+15166|2|45|40|0|402|132956|1|0||0|Imposing Gloves|||2
 270089|2|45|0|0|402|132959|2|0||0|Ironforge Agent's Gloves||a11,s7|1
 9632|2|45|0|0|402|132957|1|0||0|Jangdor's Handcrafted Gloves||a9,s10|1
-14782|2|45|40|0|403|132953|0|0||0|Khan's Gloves||t10,i4,p7|2
-13071|3|45|40|0|404|132944|0|0||0|Plated Fist of Hakoo||a10,s10,t10|2
+14782|2|45|40|0|403|132953|1|0||0|Khan's Gloves||t10,i4,p7|2
+287012|3|45|40|0|404|0|2|2135||0|Krol'dok Warplate Gauntlets||t9,d25|2
+13071|3|45|40|0|404|132944|1|0||0|Plated Fist of Hakoo||a10,s10,t10|2
 9631|2|45|0|0|402|132957|1|0||0|Pratt's Handcrafted Gloves||a9,s10|1
 10018|2|45|40|0|401|132953|1|0||0|Red Mageweave Gloves||i10,S11,H11|2
 10023|2|45|40|0|401|132943|1|0||0|Shadoweave Gloves||i5|2
 8204|2|45|40|0|403|132958|1|0||0|Tough Scorpid Gloves||a10,p9|2
 277223|2|45|0|0|402|0|2|0||0|Traveled Gloves||s9,S11,H11|1
 7938|3|45|40|0|404|132963|1|0||0|Truesilver Gauntlets||s16,t7|2
-4083|2|44|39|0|403|132966|0|0||0|Blackforge Gauntlets||a4,p12|2
-15612|2|44|39|0|403|132963|0|0||0|Bonelink Gauntlets|||2
-8139|2|44|40|0|404|132962|0|0||0|Chromite Gauntlets||a4,s12|2
-7724|3|44|39|0|403|132953|0|0||0|Gauntlets of Divinity||t7,A32|1
+4083|2|44|39|0|403|132966|1|0||0|Blackforge Gauntlets||a4,p12|2
+15612|2|44|39|0|403|132963|1|0||0|Bonelink Gauntlets|||2
+8139|2|44|40|0|404|132962|1|0||0|Chromite Gauntlets||a4,s12|2
+7724|3|44|39|0|403|132953|1|0||0|Gauntlets of Divinity||t7,A32|1
 7925|2|44|39|0|403|132965|1|0||0|Mithril Scale Gloves||t9,p10|2
 7927|2|44|40|0|404|132965|1|0||0|Ornate Mithril Gloves||c1|2
-9910|2|44|39|0|401|132951|0|0||0|Royal Gloves|||2
+287010|3|44|39|0|402|0|2|0||0|Outrider's Gloves||a13,s9|2
+275021|3|44|0|0|401|132955|2|0||0|Prisoner Handwraps||p12,S15,H15|1
+9910|2|44|39|0|401|132951|1|0||0|Royal Gloves|||2
 10011|2|44|39|0|401|132951|1|0||0|Stormcloth Gloves||S16,H16|2
-9920|2|44|39|0|402|132959|0|0||0|Tracker's Gloves|||2
-14833|2|44|40|0|404|132953|0|0||0|Tyrant's Gauntlets||s12,p4|2
-14431|2|44|39|0|401|132957|0|0||0|Windchaser Handguards||a3,p13|2
+281896|2|44|39|0|402|132961|2|0||0|Surveyor's Gloves||t8,S12,H12|2
+9920|2|44|39|0|402|132959|1|0||0|Tracker's Gloves|||2
+14833|2|44|40|0|404|132953|1|0||0|Tyrant's Gauntlets||s12,p4|2
+14431|2|44|39|0|401|132957|1|0||0|Windchaser Handguards||a3,p13|2
 10003|2|43|38|0|401|132939|1|0||0|Black Mageweave Gloves||S15,H15|2
-10765|2|43|38|0|402|132943|0|0||0|Bonefingers||t9,i9|1
-9930|2|43|38|0|403|132960|0|0||0|Brigade Gauntlets|||2
-9967|2|43|40|0|404|132957|0|0||0|Embossed Plate Gauntlets|||2
-4063|2|43|38|0|402|132959|0|0||0|Imperial Leather Gloves||a9,s9|2
-14253|2|43|38|0|401|132954|0|0||0|Lunar Handwraps|||2
-6428|2|43|38|0|401|132957|0|0||0|Mistscape Gloves||a4,t4,i9|2
+10765|2|43|38|0|402|132943|1|0||0|Bonefingers||t9,i9|1
+9930|2|43|38|0|403|132960|1|0||0|Brigade Gauntlets|||2
+9967|2|43|40|0|404|132957|1|0||0|Embossed Plate Gauntlets|||2
+4063|2|43|38|0|402|132959|1|0||0|Imperial Leather Gloves||a9,s9|2
+14253|2|43|38|0|401|132954|1|0||0|Lunar Handwraps|||2
+6428|2|43|38|0|401|132957|1|0||0|Mistscape Gloves||a4,t4,i9|2
 270086|2|43|0|0|401|132966|2|0||0|Oversized Ogre's Mittens||i11,S4,H4|1
 9704|2|43|0|0|402|132957|1|0||0|Rustler Gloves||s9,i9|1
-15372|2|43|38|0|402|132959|0|0||0|Wolf Rider's Gloves|||2
-15605|2|42|37|0|403|132950|0|0||0|Ancient Gauntlets|||2
-10777|3|42|37|0|402|132966|0|0||0|Arachnid Gloves|||1
+15372|2|43|38|0|402|132959|1|0||0|Wolf Rider's Gloves|||2
+15605|2|42|37|0|403|132950|1|0||0|Ancient Gauntlets|||2
+10777|3|42|37|0|402|132966|1|0||0|Arachnid Gloves|||1
 7064|2|42|37|0|401|132939|1|0||0|Crimson Silk Gloves||i6|2
-867|4|42|37|0|402|132940|0|0||0|Gloves of Holy Might||A20,c1|2
-7471|2|42|37|0|401|132966|0|0||0|Regal Gloves|||2
-14942|2|42|40|0|404|132961|0|0||0|Warbringer's Gauntlets|||2
-7489|2|41|36|0|403|132938|0|0||0|Captain's Gauntlets|||2
-14241|2|41|36|0|401|132966|0|0||0|Darkmist Handguards|||2
-9287|2|41|40|0|404|132938|0|0||0|Field Plate Gauntlets|||2
+270075|2|42|0|0|403|132946|2|0||0|Fists of Impending Doom||i7,A20|1
+867|4|42|37|0|402|132940|1|0||0|Gloves of Holy Might||A20,c1|2
+7471|2|42|37|0|401|132966|1|0||0|Regal Gloves|||2
+274610|3|42|37|0|402|0|2|0||0|Ritual-Binder's Gloves||a13,p6,S8,H8|1
+14942|2|42|40|0|404|132961|1|0||0|Warbringer's Gauntlets|||2
+7489|2|41|36|0|403|132938|1|0||0|Captain's Gauntlets|||2
+14241|2|41|36|0|401|132966|1|0||0|Darkmist Handguards|||2
+9287|2|41|40|0|404|132938|1|0||0|Field Plate Gauntlets|||2
 9366|2|41|36|0|403|132963|1|0||0|Golden Scale Gauntlets||s11,p4|2
 217273|2|41|36|0|403|132963|1|0||0|Golden Scale Gauntlets||s11,S5,H5|2
 7919|2|41|40|0|404|132961|1|0||0|Heavy Mithril Gauntlet||t8|2
-7480|2|41|36|0|402|132959|0|0||0|Ranger Gloves|||2
+7480|2|41|36|0|402|132959|1|0||0|Ranger Gloves|||2
 6727|2|41|0|0|402|132958|1|0||0|Razzeric's Racing Grips||a8,t9|1
-14826|2|41|40|0|404|132949|0|0||0|Symbolic Gauntlets||s9,t6|2
+14826|2|41|40|0|404|132949|1|0||0|Symbolic Gauntlets||s9,t6|2
 8187|2|41|36|0|403|132939|1|0||0|Turtle Scale Gloves||t7,i6,p6|2
 217270|2|41|36|0|403|132939|1|0||0|Turtle Scale Gloves||t7,i6,S7,H7|2
-14606|2|41|36|0|402|132939|0|0||0|Warden's Gloves||i4,p11|2
+14606|2|41|36|0|402|132939|1|0||0|Warden's Gloves||i4,p11|2
 270072|2|40|0|0|402|132949|2|0||0|Alterac Assassin's Gloves||a12|1
 254027|3|40|35|0|401|0|2|0||0|Black Handwraps||t9,i7|1
-1659|2|40|35|0|401|132938|0|0||0|Engineering Gloves||s8,i8|2
+286662|3|40|35|0|401|0|2|0||0|Deep-Dweller's Grips||t4,p11,h1|1
+1659|2|40|35|0|401|132938|1|0||0|Engineering Gloves||s8,i8|2
+270060|2|40|0|0|403|132962|2|0||0|Excavator Gauntlets||s8,p8|1
 254025|3|40|35|0|401|0|2|0||0|Fiery Handwraps||t9,i7|1
 254023|3|40|35|0|401|0|2|0||0|Frothing Handwraps||t9,i7|1
 254021|3|40|35|0|401|0|2|0||0|Gilded Handwraps||t9,i7,S8,H22|2
 254029|3|40|35|0|401|0|2|0||0|Golden Handwraps||t9,i7|1
 250538|2|40|35|0|403|0|2|0||0|Hard Gold Gauntlet||s8,S9,H9|2
-9892|2|40|35|0|402|132949|0|0||0|Huntsman's Gloves|||2
-9900|2|40|35|0|403|132946|0|0||0|Jazeraint Gauntlets|||2
-8158|2|40|40|0|404|132951|0|0||0|Jouster's Gauntlets||a3,s11|2
+9892|2|40|35|0|402|132949|1|0||0|Huntsman's Gloves|||2
+9900|2|40|35|0|403|132946|1|0||0|Jazeraint Gauntlets|||2
+8158|2|40|40|0|404|132951|1|0||0|Jouster's Gauntlets||a3,s11|2
 250570|3|40|35|0|403|0|2|0||0|Justicar's Gauntlet||s7,t9,S11,H11|1
 252530|3|40|35|0|402|0|2|0||0|Mender's Leather Gloves||t7,i9,S7,H21|1
 250566|3|40|35|0|403|0|2|0||0|Officer's Gauntlet||a7,s10,t9|1
 250569|3|40|35|0|403|0|2|0||0|Prefect's Gauntlet||t9,i7,S7,H21|1
 252524|3|40|35|0|402|0|2|0||0|Prowler's Leather Gloves||a9,s10,t7|1
 254031|3|40|35|0|401|0|2|0||0|Radiant Handwraps||t9,i7|1
-14772|2|40|35|0|403|132938|0|0||0|Ravager's Handwraps||s9,t6|2
-9390|2|40|35|0|401|132951|0|0||0|Revelosh's Gloves|||1
-14897|2|40|40|0|404|132956|0|0||0|Saltstone Gauntlets|||2
+14772|2|40|35|0|403|132938|1|0||0|Ravager's Handwraps||s9,t6|2
+270059|2|40|0|0|401|132955|2|0||0|Restorer's Fine Gloves||t6,p8,S4,H11|1
+9390|2|40|35|0|401|132951|1|0||0|Revelosh's Gloves|||1
+14897|2|40|40|0|404|132956|1|0||0|Saltstone Gauntlets|||2
 4509|2|40|0|0|402|132957|1|0||0|Seawolf Gloves||a3,s11|1
 250567|3|40|35|0|403|0|2|0||0|Sentinel's Gauntlet||s9,t10,d7|1
 18238|3|40|35|0|402|132966|1|0||0|Shadowskin Gloves||t6,c1|2
-14422|2|40|35|0|401|132961|0|0||0|Silksand Gloves||t5,p10|2
+14422|2|40|35|0|401|132961|1|0||0|Silksand Gloves||t5,p10|2
 252528|3|40|35|0|402|0|2|0||0|Skirmisher's Leather Gloves||s10,t7,S10,H10|1
 252525|3|40|35|0|402|0|2|0||0|Skulker's Leather Gloves||a10,s9,t7|1
 252529|3|40|35|0|402|0|2|0||0|Skycaller's Leather Gloves||t7,i9,S11,H11|1
-9880|2|40|35|0|401|132955|0|0||0|Sorcerer Gloves|||2
+9880|2|40|35|0|401|132955|1|0||0|Sorcerer Gloves|||2
 252526|3|40|35|0|402|0|2|0||0|Stalker's Leather Gloves||a10,t9,i7|1
 6794|2|40|0|0|402|132960|1|0||0|Stormfire Gauntlets||s10,p4|1
 252527|3|40|35|0|402|0|2|0||0|Warden's Leather Gloves||s9,t10|1
 250568|3|40|35|0|403|0|2|0||0|Warder's Gauntlet||t10,S11,H11,d7|1
-4042|2|39|34|0|401|132961|0|0||0|Aurora Gloves||a8,i8|2
+4042|2|39|34|0|401|132961|1|0||0|Aurora Gloves||a8,i8|2
+287003|3|39|34|0|403|132945|2|0||0|Corroded Handguards||t5,c1|2
 254017|2|39|34|0|401|0|2|0||0|Earthen Silk Gloves||p8,S6,H18|2
-15155|2|39|34|0|402|132959|0|0||0|Nocturnal Gloves|||2
-15595|2|39|34|0|403|132938|0|0||0|Steadfast Gloves|||2
-10760|2|39|34|0|402|132957|0|0||0|Swine Fists||a8,s8|1
+15155|2|39|34|0|402|132959|1|0||0|Nocturnal Gloves|||2
+15595|2|39|34|0|403|132938|1|0||0|Steadfast Gloves|||2
+10760|2|39|34|0|402|132957|1|0||0|Swine Fists||a8,s8|1
 16873|2|38|0|0|402|132959|1|0||0|Braidfur Gloves||t5,i7,p4|1
-1988|2|38|33|0|403|132956|0|0||0|Chief Brigadier Gauntlets||s6,t6,p5|2
-14231|2|38|33|0|401|132955|0|0||0|Embersilk Mitts|||2
+1988|2|38|33|0|403|132956|1|0||0|Chief Brigadier Gauntlets||s6,t6,p5|2
+14231|2|38|33|0|401|132955|1|0||0|Embersilk Mitts|||2
 17721|2|38|33|0|402|132955|1|0||0|Gloves of the Greatfather||H18|2
-6419|2|38|33|0|402|132948|0|0||0|Glyphed Mitts||a7,s8|2
+6419|2|38|33|0|402|132948|1|0||0|Glyphed Mitts||a7,s8|2
 6732|2|38|0|0|402|132949|1|0||0|Gnomish Mechanic's Gloves||s8,i7|1
 274957|2|38|0|0|402|132955|2|0||0|Lumber Luggers||s11|1
-10331|2|38|33|0|403|132953|0|163||0|Scarlet Gauntlets||a7,s8|2
-15581|2|38|33|0|403|132945|0|0||0|Sparkleshell Gauntlets|||2
-15365|2|38|33|0|402|132949|0|0||0|Trickster's Handwraps|||2
+10331|2|38|33|0|403|132953|1|163||0|Scarlet Gauntlets||a7,s8|2
+15581|2|38|33|0|403|132945|1|0||0|Sparkleshell Gauntlets|||2
+15365|2|38|33|0|402|132949|1|0||0|Trickster's Handwraps|||2
 7917|2|37|32|0|403|132965|1|0||0|Barbaric Iron Gloves||s11|2
-14222|2|37|32|0|401|132955|0|0||0|Geomancer's Gloves|||2
-14594|2|37|32|0|402|132955|0|0||0|Hawkeye's Gloves||a8,t7|2
-7457|2|37|32|0|403|132962|0|0||0|Knight's Gauntlets|||2
-4980|2|37|0|0|402|132938|0|0||0|Prospector Gloves||a8,i7|1
-7443|2|37|32|0|402|132939|0|0||0|Sentinel Gloves|||2
+14222|2|37|32|0|401|132955|1|0||0|Geomancer's Gloves|||2
+14594|2|37|32|0|402|132955|1|0||0|Hawkeye's Gloves||a8,t7|2
+7457|2|37|32|0|403|132962|1|0||0|Knight's Gauntlets|||2
+4980|2|37|0|0|402|132938|1|0||0|Prospector Gloves||a8,i7|1
+7443|2|37|32|0|402|132939|1|0||0|Sentinel Gloves|||2
 4107|2|37|0|0|402|132938|1|0||0|Tiger Hunter Gloves||a8,s7|1
-7433|2|37|32|0|401|132955|0|0||0|Twilight Gloves|||2
+7433|2|37|32|0|401|132955|1|0||0|Twilight Gloves|||2
 6784|2|36|0|0|402|132938|1|0||0|Braced Handguards||a7,t7|1
-9848|2|36|31|0|401|132956|0|0||0|Conjurer's Gloves|||2
-15149|2|36|31|0|402|132939|0|0||0|Ghostwalker Gloves|||2
-15570|2|36|31|0|403|132958|0|0||0|Marauder's Gauntlets|||2
+9848|2|36|31|0|401|132956|1|0||0|Conjurer's Gloves|||2
+15149|2|36|31|0|402|132939|1|0||0|Ghostwalker Gloves|||2
+15570|2|36|31|0|403|132958|1|0||0|Marauder's Gauntlets|||2
 9518|2|36|0|0|402|132959|1|0||0|Mud's Crushers||s11|1
-9435|3|36|31|0|403|132945|0|0||0|Reticulated Bone Gauntlets||s13,t5|2
-10584|3|36|31|0|403|132945|0|0||0|Stormgale Fists||s10,t3,p7|2
-9861|2|35|30|0|402|132956|0|0||0|Archer's Gloves|||2
+9435|3|36|31|0|403|132945|1|0||0|Reticulated Bone Gauntlets||s13,t5|2
+279849|2|36|1|0|402|0|2|0||0|Runebound Gloves||t7,p4,A12|1
+10584|3|36|31|0|403|132945|1|0||0|Stormgale Fists||s10,t3,p7|2
+9861|2|35|30|0|402|132956|1|0||0|Archer's Gloves|||2
 274745|2|35|30|0|403|0|2|0||0|Deckswabber's Mitts|Requires Friendly with Booty Bay|a9,s2|1
-7690|3|35|30|0|402|132966|0|0||0|Ebon Vise||a6,s4,t8|1
-14764|2|35|30|0|403|132943|0|0||0|Enduring Gauntlets||a3,s7,t5|2
+7690|3|35|30|0|402|132966|1|0||0|Ebon Vise||a6,s4,t8|1
+14764|2|35|30|0|403|132943|1|0||0|Enduring Gauntlets||a3,s7,t5|2
 4121|2|35|0|0|401|132940|1|0||0|Gemmed Gloves||a5,i6,p5|1
 15585|2|35|0|0|401|132949|1|0||0|Pardoc Grips||t5,p8|1
-9868|2|35|30|0|403|132962|0|0||0|Renegade Gauntlets|||2
-14411|2|35|30|0|401|132955|0|0||0|Stonecloth Gloves||t5,p8|2
+9868|2|35|30|0|403|132962|1|0||0|Renegade Gauntlets|||2
+14411|2|35|30|0|401|132955|1|0||0|Stonecloth Gloves||t5,p8|2
 23170|3|35|30|0|403|132945|0|0||0|The Frozen Clutch||t10,A20|1
-7756|2|34|29|0|402|132941|0|0||0|Dog Training Gloves|||1
-9395|3|34|29|0|401|132958|0|0||0|Gloves of Old||i5,p12|2
-9445|3|34|29|0|403|132951|0|0||0|Grubbis Paws||a5,s6,p9|1
-15355|2|34|29|0|402|132956|0|0||0|Headhunter's Mitts|||2
-6408|2|34|29|0|402|132955|0|0||0|Insignia Gloves||a6,s7|2
-4075|2|34|29|0|403|132959|0|0||0|Mail Combat Gauntlets||a4,s8|2
-4040|2|34|29|0|401|132955|0|0||0|Nightsky Gloves||t7,i6|2
-15560|2|34|29|0|403|132945|0|0||0|Pillager's Gloves|||2
-14211|2|34|29|0|401|132957|0|0||0|Vital Handwraps|||2
-15137|2|33|28|0|402|132956|0|0||0|Cutthroat's Mitts|||2
+7756|2|34|29|0|402|132941|1|0||0|Dog Training Gloves|||1
+9395|3|34|29|0|401|132958|1|0||0|Gloves of Old||i5,p12|2
+9445|3|34|29|0|403|132951|1|0||0|Grubbis Paws||a5,s6,p9|1
+15355|2|34|29|0|402|132956|1|0||0|Headhunter's Mitts|||2
+6408|2|34|29|0|402|132955|1|0||0|Insignia Gloves||a6,s7|2
+4075|2|34|29|0|403|132959|1|0||0|Mail Combat Gauntlets||a4,s8|2
+4040|2|34|29|0|401|132955|1|0||0|Nightsky Gloves||t7,i6|2
+15560|2|34|29|0|403|132945|1|0||0|Pillager's Gloves|||2
+14211|2|34|29|0|401|132957|1|0||0|Vital Handwraps|||2
+273054|3|33|28|0|402|0|2|0||0|Cartilage Shapers||a9,p8|1
+286992|3|33|28|0|403|0|2|0||0|Construct's Grips||s12,t4|2
+15137|2|33|28|0|402|132956|1|0||0|Cutthroat's Mitts|||2
 9698|2|33|0|0|402|132955|1|0||0|Gloves of Insight||t7,i6|1
 6744|2|33|0|0|401|132937|1|0||0|Gloves of Kapelan||s7,i6|1
 3759|2|33|0|0|401|132940|1|0||0|Insulated Sage Gloves||t7,i6|1
-7421|2|33|28|0|403|132945|0|0||0|Phalanx Gauntlets|||2
+7421|2|33|28|0|403|132945|1|0||0|Phalanx Gauntlets|||2
 3754|2|33|0|0|402|132955|1|0||0|Shepherd's Gloves||a6,s7|1
-14199|2|33|28|0|401|132940|0|0||0|Thistlefur Gloves|||2
+14199|2|33|28|0|401|132940|1|0||0|Thistlefur Gloves|||2
+274159|3|33|27|0|402|132939|2|0||0|Thorncursed Grips||A18|1
+284573|2|33|28|0|402|0|2|0||0|Ursol'lok's Paws||t6|2
+286989|3|33|28|0|401|132949|2|2134||0|Violet Sorcerer's Wraps||i9,h1|2
 7106|2|33|0|0|401|132954|1|0||0|Zodiac Gloves||i4,p7|1
-4465|2|32|27|0|403|132943|0|0||0|Bonefist Gauntlets||s8,t3|2
-14583|2|32|27|0|402|132958|0|0||0|Dokebi Gloves||t6,i6|2
-7366|2|32|27|0|401|132951|0|0||0|Elder's Gloves|||2
-3341|2|32|27|0|403|132938|0|0||0|Gauntlets of Ogre Strength||s3,A16|2
+4465|2|32|27|0|403|132943|1|0||0|Bonefist Gauntlets||s8,t3|2
+14583|2|32|27|0|402|132958|1|0||0|Dokebi Gloves||t6,i6|2
+7366|2|32|27|0|401|132951|1|0||0|Elder's Gloves|||2
+273034|3|32|27|0|401|0|2|0||0|Ephemeral Grips||t7,i7|1
+3341|2|32|27|0|403|132938|1|0||0|Gauntlets of Ogre Strength||s3,A16|2
 7951|2|32|0|8|402|132949|1|221||0|Hands of Thero-shan|||1
-9491|3|32|27|0|401|132950|0|0||0|Hotshot Pilot's Gloves||a3,t5,i8,p5|2
-7412|2|32|27|0|402|132956|0|0||0|Infiltrator Gloves|||2
-15548|2|32|27|0|403|132945|0|0||0|Thick Scale Gauntlets|||2
-9839|2|31|26|0|403|132945|0|0||0|Banded Gauntlets|||2
+9491|3|32|27|0|401|132950|1|0||0|Hotshot Pilot's Gloves||a3,t5,i8,p5|2
+7412|2|32|27|0|402|132956|1|0||0|Infiltrator Gloves|||2
+270045|2|32|0|0|402|132956|2|0||0|Operator's Gloves||s6,t4,p4|1
+15548|2|32|27|0|403|132945|1|0||0|Thick Scale Gauntlets|||2
+9839|2|31|26|0|403|132945|1|0||0|Banded Gauntlets|||2
 7129|2|31|0|1|403|132938|1|0||0|Brutal Gauntlets||s6,t6|1
-9823|2|31|26|0|401|132939|0|0||0|Durable Gloves|||2
+273824|3|31|26|0|402|132958|2|0||0|Defias Jailbreakers||a6,t7|1
+9823|2|31|26|0|401|132939|1|0||0|Durable Gloves|||2
 6974|2|31|0|1|403|132938|1|0||0|Fire Hardened Gauntlets||s6,t6|1
 10654|2|31|0|0|401|132955|1|0||0|Jutebraid Gloves||s6,i6|1
 16741|2|31|0|0|402|132946|1|0||0|Oilrag Handwraps||t2,i2,p8|1
-14403|2|31|26|0|401|132955|0|0||0|Resilient Handgrips||a3,t4,i6|2
-9832|2|31|26|0|402|132958|0|0||0|Scaled Leather Gloves|||2
-9609|2|31|0|0|401|132961|0|0||0|Shilly Mitts||i6,p6|1
+14403|2|31|26|0|401|132955|1|0||0|Resilient Handgrips||a3,t4,i6|2
+9832|2|31|26|0|402|132958|1|0||0|Scaled Leather Gloves|||2
+9609|2|31|0|0|401|132961|1|0||0|Shilly Mitts||i6,p6|1
 16740|2|31|0|0|401|132952|1|0||0|Shredder Operating Gloves||a2,t5,i6|1
 4254|2|30|25|0|402|132939|1|0||0|Barbaric Gloves||a4,t5,p4|2
-4072|2|30|25|0|403|132937|0|0||0|Glimmering Mail Gauntlets||a3,s7|2
+4072|2|30|25|0|403|132937|1|0||0|Glimmering Mail Gauntlets||a3,s7|2
 3485|2|30|25|0|403|132939|1|0||0|Green Iron Gauntlets||s5,t6|2
-15343|2|30|25|0|402|132958|0|0||0|Pathfinder Gloves|||2
-14191|2|30|25|0|401|132954|0|0||0|Raincaller Mitts|||2
+273810|3|30|25|0|403|132939|2|0||0|Ogre Grips||s4,t10|1
+15343|2|30|25|0|402|132958|1|0||0|Pathfinder Gloves|||2
+14191|2|30|25|0|401|132954|1|0||0|Raincaller Mitts|||2
 270038|2|30|0|0|403|132960|2|0||0|Runed Gauntlets||s5,t5|1
 7049|2|30|25|0|401|132950|1|0||0|Truefaith Gloves||i3,H15|2
-15538|2|30|25|0|403|132949|0|0||0|Wicked Chain Gauntlets|||2
+15538|2|30|25|0|403|132949|1|0||0|Wicked Chain Gauntlets|||2
 4319|2|29|24|0|401|132951|1|0||0|Azure Silk Gloves||p3|2
-6397|2|29|24|0|402|132958|0|0||0|Emblazoned Gloves||a5,t6|2
+6397|2|29|24|0|402|132958|1|0||0|Emblazoned Gloves||a5,t6|2
 7047|2|29|24|0|401|132956|1|0||0|Hands of Darkness||p5|2
 7359|2|29|24|0|402|132957|1|0||0|Heavy Earthen Gloves||A16|2
 4247|2|29|24|0|402|132939|1|0||0|Hillman's Leather Gloves||t6,p5|2
-15125|2|29|24|0|402|132958|0|0||0|Robust Gloves|||2
-6615|2|29|24|0|401|132950|0|0||0|Sage's Gloves|||2
-14754|2|29|24|0|403|132938|0|0||0|Slayer's Gloves||t6,p5|2
-6906|3|28|23|0|403|132944|0|0||0|Algae Fists||s10,t4|1
-6595|2|28|23|0|403|132960|0|0||0|Battleforge Gauntlets|||2
-720|3|28|23|0|402|132939|0|0||0|Brawler Gloves||s8,t7|2
-6605|2|28|23|0|402|132958|0|0||0|Dervish Gloves|||2
+15125|2|29|24|0|402|132958|1|0||0|Robust Gloves|||2
+6615|2|29|24|0|401|132950|1|0||0|Sage's Gloves|||2
+14754|2|29|24|0|403|132938|1|0||0|Slayer's Gloves||t6,p5|2
+6906|3|28|23|0|403|132944|1|0||0|Algae Fists||s10,t4|1
+6595|2|28|23|0|403|132960|1|0||0|Battleforge Gauntlets|||2
+720|3|28|23|0|402|132939|1|0||0|Brawler Gloves||s8,t7|2
+6605|2|28|23|0|402|132958|1|0||0|Dervish Gloves|||2
 6733|2|28|23|0|403|132939|1|0||0|Ironforge Gauntlets||A12|2
 7358|2|28|23|0|402|132939|1|0||0|Pilferer's Gloves||a8|2
-6393|2|28|23|0|401|132961|0|0||0|Silver-thread Gloves||i5,p5|2
-14181|2|28|23|0|401|132939|0|0||0|Watcher's Handwraps|||2
+6393|2|28|23|0|401|132961|1|0||0|Silver-thread Gloves||i5,p5|2
+270030|2|28|0|0|401|132961|2|0||0|Tattered Mittens||t6,S3,H9|1
+270029|2|28|0|0|401|132961|2|0||0|Town Clerk's Mittens||i7,S3,H3|1
+14181|2|28|23|0|401|132939|1|0||0|Watcher's Handwraps|||2
+282655|2|27|22|0|401|0|2|0||0|Bog Pickers||t5|2
 7349|2|27|22|0|402|132952|1|0||0|Herbalist's Gloves|||2
-3047|2|27|22|0|403|132945|0|0||0|Lambent Scale Gloves||a3,s6|2
-888|3|27|22|0|402|132947|0|0||0|Naga Battle Gloves||s4,t4,p7|1
-15527|2|27|22|0|403|132956|0|0||0|Sentry's Gloves|||2
+3047|2|27|22|0|403|132945|1|0||0|Lambent Scale Gloves||a3,s6|2
+888|3|27|22|0|402|132947|1|0||0|Naga Battle Gloves||s4,t4,p7|1
+15527|2|27|22|0|403|132956|1|0||0|Sentry's Gloves|||2
 270034|2|27|0|0|403|132955|2|0||0|Shadow Gauntlets||s5,t4|1
 3483|2|27|22|0|403|132939|1|0||0|Silvered Bronze Gauntlets||s4,t4,p3|2
-9806|2|27|22|0|402|132939|0|0||0|Superior Gloves|||2
+270025|2|27|0|0|403|132955|2|0||0|Silvered Gauntlets||t5,S3,H9|1
+9806|2|27|22|0|402|132939|1|0||0|Superior Gloves|||2
 4253|3|27|22|0|402|132958|1|0||0|Toughened Leather Gloves||a6,t3,p6|2
 16978|3|27|0|0|403|132949|1|0||0|Warsong Gauntlets||s10,t3|1
-1978|3|27|22|0|402|132938|0|0||0|Wolfclaw Gloves||a6,s5,t6|2
-15334|2|27|22|0|402|132961|0|0||0|Wrangler's Gloves|||2
+1978|3|27|22|0|402|132938|1|0||0|Wolfclaw Gloves||a6,s5,t6|2
+15334|2|27|22|0|402|132961|1|0||0|Wrangler's Gloves|||2
 4248|2|26|21|0|402|132939|1|0||0|Dark Leather Gloves|||2
 4318|2|26|21|0|401|132939|1|0||0|Gloves of Meditation||p7|2
-9795|2|26|21|0|401|132961|0|0||0|Ivycloth Gloves|||2
-14377|2|26|21|0|401|132955|0|0||0|Sanguine Handwraps||t5,i4|2
-15520|2|26|21|0|403|132956|0|0||0|Spiked Chain Gauntlets|||2
+9795|2|26|21|0|401|132961|1|0||0|Ivycloth Gloves|||2
+14377|2|26|21|0|401|132955|1|0||0|Sanguine Handwraps||t5,i4|2
+15520|2|26|21|0|403|132956|1|0||0|Spiked Chain Gauntlets|||2
 250485|2|26|21|0|403|0|2|0||0|Sterling Silver Gauntlet||s4,t4,S4,H4|2
 7348|2|25|20|0|402|132939|1|0||0|Fletcher's Gloves||c1|2
-3058|2|25|20|0|402|132955|0|0||0|Forest Leather Gloves||a4,t4|2
-9813|2|25|20|0|403|132955|0|0||0|Fortified Gauntlets|||2
-9771|2|25|20|0|401|132952|0|0||0|Greenweave Gloves|||2
+3058|2|25|20|0|402|132955|1|0||0|Forest Leather Gloves||a4,t4|2
+9813|2|25|20|0|403|132955|1|0||0|Fortified Gauntlets|||2
+9771|2|25|20|0|401|132952|1|0||0|Greenweave Gloves|||2
 15463|2|25|0|0|403|132943|1|0||0|Palestrider Gloves||s5,t2|1
 4331|2|25|20|0|401|132953|1|0||0|Phoenix Gloves|||2
 16986|2|25|0|0|403|132943|1|0||0|Sandspire Gloves||s5,t2|1
-3066|2|24|19|0|401|132957|0|0||0|Bright Gloves||i4,p4|2
-14572|2|24|19|0|402|132955|0|0||0|Bristlebark Gloves||a4,s4|2
+279877|2|24|1|0|401|0|2|0||0|Blight Gloves||S5,H5|1
+3066|2|24|19|0|401|132957|1|0||0|Bright Gloves||i4,p4|2
+14572|2|24|19|0|402|132955|1|0||0|Bristlebark Gloves||a4,s4|2
 2230|2|24|0|0|403|132939|1|0||0|Gloves of Brawn||s6|1
 5822|2|24|0|0|403|132938|1|0||0|Hedgeseed Gauntlets||s5,t2|1
 7285|2|24|19|0|402|132939|1|0||0|Nimble Leather Gloves||a4,p4|2
 7284|2|24|19|0|402|132939|1|0||0|Red Whelp Gloves|||2
-3074|2|24|19|0|401|132939|0|0||0|Smoldering Gloves||t3,p5|2
-6481|2|23|0|0|403|132939|0|0||0|Dagmire Gauntlets||a2,s5|1
-6577|2|23|18|0|403|132945|0|0||0|Defender Gauntlets|||2
-14747|2|23|18|0|403|132939|0|0||0|Hulking Gauntlets||a2,s5,t1|2
-14162|2|23|18|0|401|132939|0|0||0|Pagan Mitts|||2
-6586|2|23|18|0|402|132961|0|0||0|Scouting Gloves|||2
-5970|2|23|18|0|401|132953|0|0||0|Serpent Gloves||a4,i4|1
-12994|3|23|18|0|403|132945|0|0||0|Thorbia's Gauntlets||s8,t3|2
-892|2|22|17|0|401|132938|0|0||0|Gnoll Casting Gloves||S6,H6|2
-5195|2|22|17|0|401|132957|0|0||0|Gold-flecked Gloves||s4,i3|1
-7606|2|22|0|0|403|132938|0|0||0|Polar Gauntlets||s5|1
-6628|2|22|17|0|401|136076|0|0||0|Raven's Claws||t4,i3|2
-15115|2|22|17|0|402|132958|0|0||0|Rigid Gloves|||2
-6565|2|22|17|0|401|132950|0|0||0|Shimmering Gloves|||2
+3074|2|24|19|0|401|132939|1|0||0|Smoldering Gloves||t3,p5|2
+6481|2|23|0|0|403|132939|1|0||0|Dagmire Gauntlets||a2,s5|1
+6577|2|23|18|0|403|132945|1|0||0|Defender Gauntlets|||2
+14747|2|23|18|0|403|132939|1|0||0|Hulking Gauntlets||a2,s5,t1|2
+14162|2|23|18|0|401|132939|1|0||0|Pagan Mitts|||2
+6586|2|23|18|0|402|132961|1|0||0|Scouting Gloves|||2
+5970|2|23|18|0|401|132953|1|0||0|Serpent Gloves||a4,i4|1
+12994|3|23|18|0|403|132945|1|0||0|Thorbia's Gauntlets||s8,t3|2
+892|2|22|17|0|401|132938|1|0||0|Gnoll Casting Gloves||S6,H6|2
+5195|2|22|17|0|401|132957|1|0||0|Gold-flecked Gloves||s4,i3|1
+271208|3|22|17|0|403|0|2|0||0|Grip of Fear||s6,i6|1
+7606|2|22|0|0|403|132938|1|0||0|Polar Gauntlets||s5|1
+6628|2|22|17|0|401|136076|1|0||0|Raven's Claws||t4,i3|2
+15115|2|22|17|0|402|132958|1|0||0|Rigid Gloves|||2
+286979|3|22|17|0|401|0|2|2133||0|Rotmender's Gloves||i3,p8|2
+6565|2|22|17|0|401|132950|1|0||0|Shimmering Gloves|||2
 6467|2|21|16|0|402|132939|1|0||0|Deviate Scale Gloves||a3,t3|2
-15509|2|21|16|0|403|132953|0|0||0|Grunt's Handwraps|||2
+285351|2|21|16|0|402|132939|2|0||0|Foreman's Enforcers||t3,A7|2
+15509|2|21|16|0|403|132953|1|0||0|Grunt's Handwraps|||2
 3559|2|21|0|0|403|132938|1|0||0|Night Watch Gauntlets||a1,s4|1
+282636|2|21|16|0|401|132950|2|0||0|Silkspun Gloves||p4,S2|2
 250511|3|20|15|0|403|0|2|0||0|Acolyte's Gloves||t3,i5,S3,H10|1
-9780|2|20|15|0|402|132949|0|0||0|Bandit Gloves|||2
+9780|2|20|15|0|402|132949|1|0||0|Bandit Gloves|||2
 3565|2|20|0|0|401|132939|1|0||0|Beerstained Gloves||s3,t3|1
-1448|2|20|15|0|403|132938|0|0||0|Blackrock Gauntlets||a3,s3|2
+1448|2|20|15|0|403|132938|1|0||0|Blackrock Gauntlets||a3,s3|2
 252494|3|20|15|0|402|0|2|0||0|Brawler's Leather Gloves||a4,s4,t3|1
 1303|2|20|0|0|403|132938|1|0||0|Bridgeworker's Gloves||s4,p2|1
-14168|2|20|15|0|401|132950|0|0||0|Buccaneer's Gloves|||2
-2992|2|20|15|0|403|132944|0|0||0|Burnished Gloves||a2,s4|2
+14168|2|20|15|0|401|132950|1|0||0|Buccaneer's Gloves|||2
+2992|2|20|15|0|403|132944|1|0||0|Burnished Gloves||a2,s4|2
 250512|3|20|15|0|403|0|2|0||0|Crusader's Gloves||s3,t5,S5,H5|1
 252496|3|20|15|0|402|0|2|0||0|Defender's Leather Gloves||s4,t4|1
 253917|3|20|15|0|401|0|2|0||0|Flame Gloves||t4,i3|1
-2167|2|20|15|0|402|132955|0|0||0|Foreman's Gloves||s5|2
-1314|2|20|15|0|402|132947|0|0||0|Ghoul Fingers||a3,s3|2
+2167|2|20|15|0|402|132955|1|0||0|Foreman's Gloves||s5|2
+1314|2|20|15|0|402|132947|1|0||0|Ghoul Fingers||a3,s3|2
 5299|2|20|0|0|402|132952|1|0||0|Gloves of the Moon||a3,t3|1
 250509|3|20|15|0|403|0|2|0||0|Guard's Gloves||s5,t5,d3|1
 5629|2|20|0|0|402|132939|1|0||0|Hammerfist Gloves||a3,s3|1
-12977|3|20|15|0|401|132961|0|0||0|Magefist Gloves||t3,i5,p4|2
+270008|2|20|0|0|402|132949|2|0||0|Heat Resistant Mitts||a4,t1|1
+12977|3|20|15|0|401|132961|1|0||0|Magefist Gloves||t3,i5,p4|2
 270012|2|20|0|0|401|132950|2|0||0|Miner's Workgloves||t5|1
-15502|2|20|15|0|403|132951|0|0||0|Outrunner's Gloves|||2
+15502|2|20|15|0|403|132951|1|0||0|Outrunner's Gloves|||2
 253921|3|20|15|0|401|0|2|0||0|Pearly Gloves||t4,i3|1
 253913|3|20|15|0|401|0|2|0||0|Pristine Gloves||t4,i3,S4,H11|1
 250510|3|20|15|0|403|0|2|0||0|Protector's Gloves||t5,S5,H5,d3|1
 1304|2|20|0|0|401|132939|1|0||0|Riding Gloves||a3,i3|1
-14124|2|20|15|0|401|132952|0|0||0|Ritual Gloves|||2
+14124|2|20|15|0|401|132952|1|0||0|Ritual Gloves|||2
 5312|2|20|0|0|403|132938|1|0||0|Riveted Gauntlets||s4,t1|1
 253919|3|20|15|0|401|0|2|0||0|Shadow Gloves||t4,i3|1
 253923|3|20|15|0|401|0|2|0||0|Shining Gloves||t4,i3|1
@@ -6320,45 +6935,50 @@ FGT.GEARDB = {
 250508|3|20|15|0|403|0|2|0||0|Veteran's Gloves||a3,s5,t5|1
 5630|2|20|0|0|402|132939|1|0||0|Windfelt Gloves||i3,p3|1
 252499|3|20|15|0|402|0|2|0||0|Wisdom's Leather Gloves||t3,i4,S3,H10|1
-10413|2|19|14|0|402|132952|0|162||0|Gloves of the Fang||a3,s2|2
-2988|2|19|14|0|402|132952|0|0||0|Inscribed Leather Gloves||a2,p3|2
-14367|2|19|14|0|401|132952|0|0||0|Mystic's Gloves||p4|2
-14564|2|19|14|0|402|132952|0|0||0|Prospector's Mitts||a2,s3|2
-9787|2|19|14|0|403|132938|0|0||0|Raider's Gauntlets|||2
-10919|2|18|0|0|401|132940|0|0||0|Apothecary Gloves||i3,p2|1
+10413|2|19|14|0|402|132952|1|162||0|Gloves of the Fang||a3,s2|2
+2988|2|19|14|0|402|132952|1|0||0|Inscribed Leather Gloves||a2,p3|2
+14367|2|19|14|0|401|132952|1|0||0|Mystic's Gloves||p4|2
+14564|2|19|14|0|402|132952|1|0||0|Prospector's Mitts||a2,s3|2
+9787|2|19|14|0|403|132938|1|0||0|Raider's Gauntlets|||2
+10919|2|18|0|0|401|132940|1|0||0|Apothecary Gloves||i3,p2|1
 1302|2|18|0|0|402|132951|1|0||0|Black Whelp Gloves||a3,s2|1
-10401|2|18|13|0|402|132952|0|161||0|Blackened Defias Gloves||s3,t1|2
+10401|2|18|13|0|402|132952|1|161||0|Blackened Defias Gloves||s3,t1|2
 2036|2|18|0|0|402|132939|1|0||0|Dusty Mining Gloves||a2,s3|1
 7738|2|18|0|0|401|132952|1|0||0|Evergreen Gloves||i3,p2|1
-15310|2|18|13|0|402|132939|0|0||0|Feral Gloves|||2
-1944|2|18|13|0|402|132938|0|0||0|Metalworking Gloves||s3,t1|2
+15310|2|18|13|0|402|132939|1|0||0|Feral Gloves|||2
+270231|3|18|13|0|402|132959|2|0||0|Flamefist Grips||a5,p5|1
+284185|2|18|13|0|403|132946|2|0||0|Greymist Gauntlets||s3,i3|2
+1944|2|18|13|0|402|132938|1|0||0|Metalworking Gloves||s3,t1|2
 3458|2|18|0|0|403|132938|1|0||0|Rugged Mail Gloves||s3,t1|1
-2984|2|18|13|0|401|132952|0|0||0|Seer's Gloves||p4|2
-14726|2|18|13|0|403|132946|0|0||0|War Paint Gloves||s3,t1|2
+2984|2|18|13|0|401|132952|1|0||0|Seer's Gloves||p4|2
+14726|2|18|13|0|403|132946|1|0||0|War Paint Gloves||s3,t1|2
 276723|2|18|0|0|403|0|2|0||0|Wise Gauntlets||p4|1
-1945|2|18|13|0|402|132955|0|0||0|Woodworking Gloves||i3,p2|2
-6554|2|17|12|0|402|132949|0|0||0|Bard's Gloves|||2
+1945|2|18|13|0|402|132955|1|0||0|Woodworking Gloves||i3,p2|2
+6554|2|17|12|0|402|132949|1|0||0|Bard's Gloves|||2
 4310|2|17|12|0|401|132939|1|0||0|Heavy Woolen Gloves||i2,p2|2
-2274|2|17|12|0|403|132937|0|0||0|Sapper's Gloves||a2,s3|2
+2274|2|17|12|0|403|132937|1|0||0|Sapper's Gloves||a2,s3|2
 15405|2|17|0|0|402|132939|1|0||0|Shucking Gloves||t2,i2|1
-4676|2|17|12|0|403|132937|0|0||0|Skeletal Gauntlets||s3|2
-6547|2|17|12|0|403|132946|0|0||0|Soldier's Gauntlets|||2
-14117|2|16|11|0|401|132952|0|0||0|Aboriginal Gloves|||2
+4676|2|17|12|0|403|132937|1|0||0|Skeletal Gauntlets||s3|2
+6547|2|17|12|0|403|132946|1|0||0|Soldier's Gauntlets|||2
+280096|2|17|0|0|401|132952|2|0||0|Tomb Robber's Gloves||t1,i2|1
+14117|2|16|11|0|401|132952|1|0||0|Aboriginal Gloves|||2
+283259|2|16|11|0|402|132939|2|0||0|Bearhide Vicegrips||s3|2
 281315|2|16|0|0|401|0|2|0||0|Foulfur Gloves||i3|1
-15016|2|16|11|0|402|132949|0|0||0|Lupine Handwraps|||2
+15016|2|16|11|0|402|132949|1|0||0|Lupine Handwraps|||2
 5337|2|16|0|0|401|132940|1|0||0|Wayfaring Gloves||p3|1
-6541|2|16|11|0|401|132957|0|0||0|Willow Gloves|||2
-4768|2|15|10|0|401|132939|0|0||0|Adept's Gloves||t2,i2|2
-3308|2|15|10|0|401|132952|0|0||0|Barbaric Cloth Gloves||s1,t1,p2|2
+6541|2|16|11|0|401|132957|1|0||0|Willow Gloves|||2
+4768|2|15|10|0|401|132939|1|0||0|Adept's Gloves||t2,i2|2
+3308|2|15|10|0|401|132952|1|0||0|Barbaric Cloth Gloves||s1,t1,p2|2
 12522|2|15|0|0|402|132939|1|0||0|Bingles' Flying Gloves||a2,i2|1
-15491|2|15|10|0|403|132949|0|0||0|Bloodspattered Gloves|||2
+15491|2|15|10|0|403|132949|1|0||0|Bloodspattered Gloves|||2
 10637|2|15|0|0|401|132940|1|0||0|Brewer's Gloves||s2,i2|1
-3314|2|15|10|0|402|132952|0|0||0|Ceremonial Leather Gloves||a2,s2|2
-4767|2|15|10|0|401|132939|0|0||0|Coppercloth Gloves||s3|2
+3314|2|15|10|0|402|132952|1|0||0|Ceremonial Leather Gloves||a2,s2|2
+286533|2|15|10|0|402|0|2|0||0|Cheetah Hide Grips||a3|2
+4767|2|15|10|0|401|132939|1|0||0|Coppercloth Gloves||s3|2
 2312|2|15|10|0|402|132939|1|0||0|Fine Leather Gloves||i2,p2|2
 3474|2|15|10|0|403|132939|1|0||0|Gemmed Copper Gauntlets|||2
-2976|2|15|10|0|402|132939|0|0||0|Hunting Gloves||a2,t1|2
-2980|2|15|10|0|403|132939|0|0||0|Veteran Gloves||s3|2
+2976|2|15|10|0|402|132939|1|0||0|Hunting Gloves||a2,t1|2
+2980|2|15|10|0|403|132939|1|0||0|Veteran Gloves||s3|2
 270004|2|14|0|0|402|132949|2|0||0|Murloc-hide Gloves||a2|1
 263337|2|13|0|0|403|7737716|2|0||0|Breaker's Gauntlets||s2|1
 273876|2|13|0|0|401|7734215|2|0||0|Broken Cultist Gloves||p2|1
@@ -6370,8 +6990,16 @@ FGT.GEARDB = {
 276994|2|11|6|0|403|0|2|0||0|Cloudy Skyforged Gauntlets||a1|2
 277012|2|11|6|0|401|0|2|0||0|Cloudy Stormsewn Handwraps||p1|2
 277006|2|11|6|0|402|0|2|0||0|Cloudy Windraveled Mitts||p1|2
+284323|2|11|6|0|401|132950|2|0||0|Geolord's Mitts||i1|2
 263306|2|11|0|0|402|7734215|2|0||0|Nightclaw Gloves||a1|1
+285254|2|11|6|0|402|0|2|0||0|Scout Ranger's Gloves||a1|2
+285253|2|11|6|0|401|0|2|0||0|Skyseer's Gloves||i1|2
 263310|2|11|0|0|401|7758823|2|0||0|Sorrowsong Gloves||i1|1
+285255|2|11|6|0|403|0|2|0||0|Thendal Watcher's Gloves||s1|2
+277058|2|10|5|0|403|0|2|0||0|Al'Aketh Gauntlets||t1|2
+277064|2|10|5|0|402|0|2|0||0|Al'Aketh Gloves||t1|2
+277076|2|10|5|0|401|0|2|0||0|Al'Aketh Handwraps||t1|2
+277070|2|10|5|0|402|0|2|0||0|Al'Aketh Mitts||t1|2
 287625|3|1|1|0|405|8382585|2|0||0|Gilded Blademaster's Gloves|||1
 ]==],
         [11] = [==[
@@ -6432,6 +7060,7 @@ FGT.GEARDB = {
 19893|3|71|60|0|400|133388|0|462||1|Zanzil's Seal||t10,i10,S11,H11,h1|1
 22725|3|70|0|0|400|133353|1|0||1|Band of Cenarius||t10|1
 19434|4|70|60|0|400|133366|1|0||1|Band of Dark Dominion||t12,i6|1
+284716|4|70|60|0|400|133396|2|2131||0|Band of the Better Half||s18,t10|1
 17110|4|70|60|0|400|133363|0|0||1|Seal of the Archmagus||t11,i11,p11|1
 21198|4|70|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight|Requires Honored with Brood of Nozdormu|s12,t21,d6|1
 21203|4|70|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight|Requires Honored with Brood of Nozdormu|a21,t11,h1|1
@@ -6464,8 +7093,9 @@ FGT.GEARDB = {
 19325|4|65|60|0|400|133377|1|0||1|Don Julio's Band||t11,A16,h1,c1|1
 21563|4|65|60|0|400|133376|1|0||1|Don Rodrigo's Band||t7,c1|1
 20682|4|65|60|0|400|133365|1|0||1|Elemental Focus Band||t8,i11,S22,H22|1
+284079|3|65|60|0|400|133359|2|0||0|High Clerist's Seal||t11,p14,S5,H16|1
 17108|4|65|60|0|400|133364|0|0||1|Mark of Deflection||s10,d25|1
-12017|2|65|60|0|400|133351|0|0||0|Prismatic Band|||2
+12017|2|65|60|0|400|133351|1|0||0|Prismatic Band|||2
 17982|3|65|60|0|400|133367|0|0||1|Ragnaros Core|||1
 272409|3|65|60|0|400|133343|2|0||1|Ring of Awareness||s8,t10,d9|1
 21396|4|65|60|2|400|133425|1|506||1|Ring of Eternal Justice||s12,t11,i12,S13,H13|1
@@ -6482,16 +7112,16 @@ FGT.GEARDB = {
 275981|4|65|60|0|400|133367|2|0||0|Warden's Signet of Ferocity|Requires Exalted with The Watchers|t14,A34,h1|1
 275983|4|65|60|0|400|133353|2|0||0|Warden's Signet of Resolve|Requires Exalted with The Watchers|t10,p14,S12,H37|1
 275984|4|65|60|0|400|133352|2|0||0|Warden's Signet of Vigilance|Requires Exalted with The Watchers|t18,d8|1
-12058|2|64|59|0|400|133343|0|0||0|Demonic Bone Ring||s8,t5,p5|2
-11980|2|64|59|0|400|133347|0|0||0|Opal Ring|||2
+12058|2|64|59|0|400|133343|1|0||0|Demonic Bone Ring||s8,t5,p5|2
+11980|2|64|59|0|400|133347|1|0||0|Opal Ring|||2
 19518|3|63|58|0|400|133362|1|0||1|Advisor's Ring||t8,S14,H14|1
-22326|3|63|58|0|400|133361|0|0||1|Amalgam's Band||t5,i6,c1|1
-18103|3|63|58|0|400|133358|0|0||1|Band of Rumination||c1|1
-18522|3|63|58|0|400|133374|0|0||0|Band of the Ogre King||s14,t13|1
+22326|3|63|58|0|400|133361|1|0||1|Amalgam's Band||t5,i6,c1|1
+18103|3|63|58|0|400|133358|1|0||1|Band of Rumination||c1|1
+18522|3|63|58|0|400|133374|1|0||0|Band of the Ogre King||s14,t13|1
 272068|3|63|58|0|400|133370|2|0||1|Darkspear Signet|Requires Honored with Darkspear Raiders|t16|1
 19109|3|63|58|0|400|133377|1|0||0|Deep Rooted Ring||t10,i10,S12,H12|1
-22433|3|63|58|0|400|133358|0|0||1|Don Mauricio's Band of Domination||t5,S11,H11,c1|1
-16058|3|63|0|0|400|133361|0|0||0|Fordring's Seal||t4,i5,H37|1
+22433|3|63|58|0|400|133358|1|0||1|Don Mauricio's Band of Domination||t5,S11,H11,c1|1
+16058|3|63|0|0|400|133361|1|0||0|Fordring's Seal||t4,i5,H37|1
 275969|3|63|60|0|400|133351|2|0||0|Initiate's Signet of Brilliance|Requires Friendly with The Watchers|t6,S8,H8,c1|1
 275968|3|63|60|0|400|133367|2|0||0|Initiate's Signet of Ferocity|Requires Friendly with The Watchers|t10,A20,h1|1
 275970|3|63|60|0|400|133353|2|0||0|Initiate's Signet of Resolve|Requires Friendly with The Watchers|t10,p10,S7,H22|1
@@ -6501,107 +7131,120 @@ FGT.GEARDB = {
 19522|3|63|58|0|400|133370|1|0||1|Lorekeeper's Ring||t8,S14,H14|1
 271913|3|63|58|0|400|133370|2|0||1|Militant's Band|Requires Honored with Theramore Expeditionary Force|t16|1
 18399|3|63|0|0|400|133370|1|0||0|Ocean's Breeze||a7,s4,t4|1
-13098|3|63|58|0|400|133360|0|0||1|Painweaver Band||t7,A16,c1|1
+13098|3|63|58|0|400|133360|1|0||1|Painweaver Band||t7,A16,c1|1
 19514|3|63|58|0|400|133352|1|0||1|Protector's Band||a11,s12,t8|1
-22339|3|63|58|0|400|133377|0|0||1|Rune Band of Wizardry||t7,S16,H16,h1|1
-13345|3|63|58|0|400|133358|0|0||0|Seal of Rivendare||i17,p7|1
+22339|3|63|58|0|400|133377|1|0||1|Rune Band of Wizardry||t7,S16,H16,h1|1
+13345|3|63|58|0|400|133358|1|0||0|Seal of Rivendare||i17,p7|1
 271908|3|63|58|0|400|133370|2|0||1|Theramore Signet|Requires Honored with Theramore Expeditionary Force|t16,A17|1
 18398|3|63|0|0|400|133352|1|0||0|Tidal Loop||t4,i7,p4|1
-11992|2|63|58|0|400|133351|0|0||0|Vermilion Band|||2
+280015|3|63|58|0|400|133383|2|0||0|Venomvessel Ring||t11,p9,h1|1
+11992|2|63|58|0|400|133351|1|0||0|Vermilion Band|||2
 21179|3|62|0|0|400|133360|1|0||1|Band of Earthen Wrath||i8,c1|1
-22334|3|62|57|0|400|133347|0|0||1|Band of Mending||t7,i7,p6,H31|1
-22331|3|62|57|0|400|133375|0|0||1|Band of the Steadfast Hero||s7,t12,d7|1
+22334|3|62|57|0|400|133347|1|0||1|Band of Mending||t7,i7,p6,H31|1
+22331|3|62|57|0|400|133375|1|0||1|Band of the Steadfast Hero||s7,t12,d7|1
 17000|2|62|0|0|400|133358|1|0||0|Band of the Wraith|||1
-17001|2|62|0|0|400|133371|0|0||0|Elemental Circle|||1
-18395|3|62|57|0|400|133353|0|0||0|Emerald Flame Ring||t7,i12,p8,H15|1
-12005|2|62|57|0|400|133343|0|0||0|Granite Ring|||2
+260217|3|62|0|0|400|514159|2|0||0|Eagle's Head Signet||a14,i8,p7|1
+17001|2|62|0|0|400|133371|1|0||0|Elemental Circle|||1
+18395|3|62|57|0|400|133353|1|0||0|Emerald Flame Ring||t7,i12,p8,H15|1
+260219|3|62|0|0|400|1379209|2|0||0|Engraved Band||s14,p10|1
+284253|3|62|57|0|400|133370|2|0||1|Eternally Frozen Band|||1
+12005|2|62|57|0|400|133343|1|0||0|Granite Ring|||2
+260218|3|62|0|0|400|133408|2|0||0|Malefactor's End||t6,i14|1
 21189|4|62|0|0|400|133383|1|0||1|Might of Cenarius||t8,h1|1
 18760|3|62|57|0|400|133351|1|0||1|Necromantic Band|||1
-18022|3|62|0|0|400|133372|0|0||0|Royal Seal of Alexis||t10,i10,p8|1
-13217|2|61|0|0|400|133372|0|0||0|Band of the Penitent||c1|1
-17045|3|61|0|0|400|133367|0|0||0|Blood of the Martyr||t15,i10|1
-18684|3|61|56|0|400|133357|0|0||1|Dimly Opalescent Ring||i7|1
-11934|3|61|55|0|400|133366|0|0||0|Emperor's Seal|||1
-12926|3|61|56|0|400|135926|0|0||1|Flaming Band|||1
-18679|2|61|56|0|400|133371|0|0||0|Frigid Ring||i10|2
+260216|3|62|0|0|400|133382|2|0||0|Ouroboros Ring||s7,t13|1
+18022|3|62|0|0|400|133372|1|0||0|Royal Seal of Alexis||t10,i10,p8|1
+284102|3|62|57|0|400|133359|2|2130||0|Signet of the Soulless Rider||s14,p9,h1|1
+276073|3|61|56|0|400|133359|2|0||0|Band of the Damned||i11,p6,S15,H15|1
+13217|2|61|0|0|400|133372|1|0||0|Band of the Penitent||c1|1
+17045|3|61|0|0|400|133367|1|0||0|Blood of the Martyr||t15,i10|1
+18684|3|61|56|0|400|133357|1|0||1|Dimly Opalescent Ring||i7|1
+11934|3|61|55|0|400|133366|1|0||0|Emperor's Seal|||1
+12926|3|61|56|0|400|135926|1|0||1|Flaming Band|||1
+18679|2|61|56|0|400|133371|1|0||0|Frigid Ring||i10|2
 275738|3|61|0|0|400|133358|2|0||0|Jereman's Bauble||i11,p7,S15,H15|1
-12016|2|61|56|0|400|133350|0|0||0|Jungle Ring|||2
-13001|3|61|55|0|400|133354|0|0||0|Maiden's Circle||i7,p6,S18,H18|2
-13143|4|61|56|0|400|133359|0|0||0|Mark of the Dragon Lord|||1
-11979|2|61|56|0|400|133356|0|0||0|Peridot Circle|||2
+12016|2|61|56|0|400|133350|1|0||0|Jungle Ring|||2
+13001|3|61|55|0|400|133354|1|0||0|Maiden's Circle||i7,p6,S18,H18|2
+13143|4|61|56|0|400|133359|1|0||0|Mark of the Dragon Lord|||1
+11979|2|61|56|0|400|133356|1|0||0|Peridot Circle|||2
 275740|3|61|0|0|400|133353|2|0||0|Ring of Nature's Cycles||p14,S7,H20|1
-12344|3|61|0|0|400|133343|0|0||1|Seal of Ascension|||1
-18500|3|61|56|0|400|133355|0|0||0|Tarnished Elven Ring||a15,h1|1
-13392|3|61|56|0|400|133365|0|81||1|The Postmaster's Seal||t6,i3,p17|1
-13373|3|60|55|0|400|133721|0|0||1|Band of Flesh||a3,s6,t16|1
-13096|3|60|55|0|400|133359|0|0||1|Band of the Hierophant||t7,i10,p11|2
-12057|2|60|55|0|400|133356|0|0||0|Dragonscale Band||t13,p4|2
-12545|3|60|0|0|400|133347|0|0||0|Eye of Orgrimmar||i7,p4,S18,H18|1
-18464|2|60|55|0|400|133348|0|0||0|Gordok Nose Ring||s5,t9|1
-12548|3|60|0|0|400|133347|0|0||0|Magni's Will||s6,t7,c1|1
+12344|3|61|0|0|400|133343|1|0||1|Seal of Ascension|||1
+18500|3|61|56|0|400|133355|1|0||0|Tarnished Elven Ring||a15,h1|1
+13392|3|61|56|0|400|133365|1|81||1|The Postmaster's Seal||t6,i3,p17|1
+13373|3|60|55|0|400|133721|1|0||1|Band of Flesh||a3,s6,t16|1
+13096|3|60|55|0|400|133359|1|0||1|Band of the Hierophant||t7,i10,p11|2
+286597|2|60|55|0|400|133370|2|0||1|Calm Air Band||p11,S6,H19|2
+12057|2|60|55|0|400|133356|1|0||0|Dragonscale Band||t13,p4|2
+12545|3|60|0|0|400|133347|1|0||0|Eye of Orgrimmar||i7,p4,S18,H18|1
+18464|2|60|55|0|400|133348|1|0||0|Gordok Nose Ring||s5,t9|1
+12548|3|60|0|0|400|133347|1|0||0|Magni's Will||s6,t7,c1|1
 20692|2|60|55|0|400|133345|1|0||0|Multicolored Band||t10|2
-18345|2|60|55|0|400|133357|0|0||0|Murmuring Ring||i10|1
+18345|2|60|55|0|400|133357|1|0||0|Murmuring Ring||i10|1
+287043|3|60|55|0|400|133356|2|0||0|Predaceous Band||t14|2
 18968|4|60|0|0|400|133356|1|0||0|Ring of Critical Testing||c50|1
 18970|4|60|0|0|400|133368|1|0||0|Ring of Critical Testing 2||c50|1
 18971|4|60|0|0|400|133347|1|0||0|Ring of Critical Testing 3|||1
 18982|4|60|0|0|400|133357|1|0||0|Ring of Critical Testing 4||c50|1
 15855|3|60|0|0|400|133368|1|0||0|Ring of Protection||t9|1
-13178|3|60|55|0|400|133364|0|0||1|Rosewine Circle||H29|1
+13178|3|60|55|0|400|133364|1|0||1|Rosewine Circle||H29|1
 21196|4|60|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight||s10,t18,d5|1
 21201|4|60|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight||a18,t8,h1|1
 21206|4|60|60|0|400|133382|1|0||1|Signet Ring of the Bronze Dragonflight||t6,i7,S21,H21|1
-12543|3|60|0|0|400|133347|0|0||0|Songstone of Ironforge||i7,p4,S18,H18|1
-12544|3|60|0|0|400|133347|0|0||0|Thrall's Resolve||s4,t7|1
+12543|3|60|0|0|400|133347|1|0||0|Songstone of Ironforge||i7,p4,S18,H18|1
+12544|3|60|0|0|400|133347|1|0||0|Thrall's Resolve||s4,t7|1
 275977|4|60|60|0|400|133351|2|0||0|Watcher's Signet of Brilliance|Requires Revered with The Watchers|t10,S15,H15,c1|1
 275976|4|60|60|0|400|133367|2|0||0|Watcher's Signet of Ferocity|Requires Revered with The Watchers|t13,A30,h1|1
 275979|4|60|60|0|400|133353|2|0||0|Watcher's Signet of Resolve|Requires Revered with The Watchers|t10,p13,S11,H33|1
 275980|4|60|60|0|400|133352|2|0||0|Watcher's Signet of Vigilance|Requires Revered with The Watchers|t16,d8|1
 19065|3|59|0|0|400|133379|1|0||0|Emerald Circle||t14,p8|1
-18674|2|59|54|0|400|133356|0|0||0|Hardened Stone Band||s8,t8,d3|2
-18701|3|59|54|0|400|133366|0|0||1|Innervating Band||a15,t9|2
-13283|3|59|54|0|400|135926|0|0||1|Magus Ring||t8,i12,p7|1
-11669|3|59|54|0|400|133347|0|0||1|Naglering||t10,d5|1
-18343|2|59|59|0|400|133356|0|0||0|Petrified Band||t9|2
-11991|2|59|54|0|400|133343|0|0||0|Quicksilver Ring|||2
-18314|3|59|54|0|400|133373|0|0||0|Ring of Demonic Guile||i10|1
-18315|3|59|54|0|400|133370|0|0||0|Ring of Demonic Potency||t10|1
+276396|3|59|54|0|400|133363|2|0||0|Ezra's Seal of Authenticity||s9,t12,d15|1
+18674|2|59|54|0|400|133356|1|0||0|Hardened Stone Band||s8,t8,d3|2
+18701|3|59|54|0|400|133366|1|0||1|Innervating Band||a15,t9|2
+13283|3|59|54|0|400|135926|1|0||1|Magus Ring||t8,i12,p7|1
+11669|3|59|54|0|400|133347|1|0||1|Naglering||t10,d5|1
+18343|2|59|59|0|400|133356|1|0||0|Petrified Band||t9|2
+11991|2|59|54|0|400|133343|1|0||0|Quicksilver Ring|||2
+18314|3|59|54|0|400|133373|1|0||0|Ring of Demonic Guile||i10|1
+18315|3|59|54|0|400|133370|1|0||0|Ring of Demonic Potency||t10|1
 275685|2|59|0|0|400|133368|2|0||0|Stormwind Intelligence Seal||a9,i8,S4,H11|1
-18302|2|58|53|0|400|133362|0|0||0|Band of Vigor||a7,s8,t7|1
+18302|2|58|53|0|400|133362|1|0||0|Band of Vigor||a7,s8,t7|1
 275831|2|58|0|0|400|133365|2|0||0|Highfeather Bangle||a12,i5|1
-11978|2|58|53|0|400|133346|0|0||0|Jasper Link|||2
-2246|4|58|53|0|400|133347|0|0||1|Myrmidon's Signet||a7,s10,t17|2
-12004|2|58|53|0|400|133343|0|0||0|Obsidian Band|||2
+11978|2|58|53|0|400|133346|1|0||0|Jasper Link|||2
+2246|4|58|53|0|400|133347|1|0||1|Myrmidon's Signet||a7,s10,t17|2
+12004|2|58|53|0|400|133343|1|0||0|Obsidian Band|||2
 13812|2|58|0|0|400|133375|1|0||0|Ring of the Dawn||t14|1
 273800|2|58|0|0|400|133364|2|0||0|Thomas's Ring||p9,A20|1
 282026|2|58|53|0|400|133358|2|0||0|Unyielding Battle Signet||s3,t12,p3|2
-22257|3|57|52|0|400|133378|0|0||1|Bloodclot Band||t8,i8,p7,H15|1
+22257|3|57|52|0|400|133378|1|0||1|Bloodclot Band||t8,i8,p7,H15|1
 282080|2|57|52|0|400|133346|2|0||0|Flame Seared Signet||t8,S6,H6|2
 18402|2|57|0|0|400|133363|1|0||0|Glowing Crystal Ring||t5,i12|1
-22255|3|57|52|0|400|133346|0|0||1|Magma Forged Band||a12,s7,t7|1
+22255|3|57|52|0|400|133346|1|0||1|Magma Forged Band||a12,s7,t7|1
 18400|2|57|0|0|400|133361|1|0||0|Ring of Living Stone||s10,t9|1
 276333|2|57|0|0|400|133369|2|0||0|Sawyer Family Seal||t9|1
 281288|2|57|0|0|400|133375|2|0||0|Shen'dorei Signet||s7,t7,i7|1
-12015|2|57|52|0|400|133354|0|0||0|Swamp Ring|||2
-12056|2|56|51|0|400|133352|0|0||0|Ring of the Heavens||t13,p3|2
+12015|2|57|52|0|400|133354|1|0||0|Swamp Ring|||2
+12056|2|56|51|0|400|133352|1|0||0|Ring of the Heavens||t13,p3|2
 15702|2|55|0|0|400|133722|1|0||0|Chemist's Ring||t4,i10,p4|1
 13475|2|55|0|0|400|133345|1|0||0|Dalson Family Wedding Ring||t13|1
 19302|3|55|50|0|400|133376|1|0||0|Darkmoon Ring||t6|1
-10780|2|55|0|0|400|133347|0|0||0|Mark of Hakkar||s7,t10|1
-11990|2|55|50|0|400|133346|0|0||0|Selenium Loop|||2
-11977|2|55|50|0|400|133354|0|0||0|Serpentine Loop|||2
-17713|3|54|49|0|400|133359|0|0||1|Blackstone Ring||t6,A20,h1|1
-11824|3|54|49|0|400|133350|0|0||1|Cyclopean Band||s4,t8,i7,p4,S9,H9|1
-10795|3|54|49|0|400|133346|0|0||0|Drakeclaw Band||d4|1
-12038|2|54|0|0|400|133345|0|0||0|Lagrave's Seal||t7,i7,p7|1
-12002|2|54|49|0|400|133346|0|0||0|Marble Circle|||2
+10780|2|55|0|0|400|133347|1|0||0|Mark of Hakkar||s7,t10|1
+11990|2|55|50|0|400|133346|1|0||0|Selenium Loop|||2
+11977|2|55|50|0|400|133354|1|0||0|Serpentine Loop|||2
+17713|3|54|49|0|400|133359|1|0||1|Blackstone Ring||t6,A20,h1|1
+11824|3|54|49|0|400|133350|1|0||1|Cyclopean Band||s4,t8,i7,p4,S9,H9|1
+270119|2|54|0|0|400|133346|2|0||0|Dark Iron Signet||t5,A14|1
+10795|3|54|49|0|400|133346|1|0||0|Drakeclaw Band||d4|1
+12038|2|54|0|0|400|133345|1|0||0|Lagrave's Seal||t7,i7,p7|1
+12002|2|54|49|0|400|133346|1|0||0|Marble Circle|||2
 12102|2|54|0|0|400|133357|1|0||0|Ring of the Aristocrat||t10,p6|1
 19519|3|53|48|0|400|133362|1|0||1|Advisor's Ring||t6,S12,H12|1
-12014|2|53|48|0|400|133349|0|0||0|Arctic Ring|||2
+12014|2|53|48|0|400|133349|1|0||0|Arctic Ring|||2
 11868|2|53|0|0|400|133357|1|0||0|Choking Band||p13|1
 11945|2|53|48|0|400|133357|1|0||0|Dark Iron Ring|||1
 272069|3|53|48|0|400|133370|2|0||1|Darkspear Signet|Requires Honored with Darkspear Raiders|t14|1
-5266|3|53|48|0|400|133347|0|0||1|Eye of Adaegus||t5,i6,p12|2
+5266|3|53|48|0|400|133347|1|0||1|Eye of Adaegus||t5,i6,p12|2
 272065|3|53|48|0|400|133362|2|0||1|Insurgent's Band|Requires Honored with Darkspear Raiders|t14,A15|1
+284041|2|53|48|0|400|133359|2|0||0|Ironback Signet||t10,d4|2
 19511|3|53|48|0|400|133363|1|0||1|Legionnaire's Band||a9,s10,t6|1
 19523|3|53|48|0|400|133370|1|0||1|Lorekeeper's Ring||t6,S12,H12|1
 271914|3|53|48|0|400|133370|2|0||1|Militant's Band|Requires Honored with Theramore Expeditionary Force|t14|1
@@ -6609,89 +7252,102 @@ FGT.GEARDB = {
 10739|2|53|0|0|400|133353|1|0||0|Ring of Fortitude||t10,p6|1
 11869|2|53|0|0|400|133348|1|0||0|Sha'ni's Ring||t10,p6|1
 271909|3|53|48|0|400|133370|2|0||1|Theramore Signet|Requires Honored with Theramore Expeditionary Force|t14,A15|1
-20505|3|52|0|0|400|133385|0|0||0|Chivalrous Signet||s7,t7,i7,H15|1
-20006|3|52|0|0|400|133374|0|0||0|Circle of Hope|||1
-942|4|52|47|0|400|133349|0|0||0|Freezing Band|||2
-11976|2|52|47|0|400|133346|0|0||0|Sardonyx Knuckle|||2
-12055|2|52|47|0|400|133357|0|0||0|Stardust Band||t5,i5,p3|2
+20505|3|52|0|0|400|133385|1|0||0|Chivalrous Signet||s7,t7,i7,H15|1
+20006|3|52|0|0|400|133374|1|0||0|Circle of Hope|||1
+942|4|52|47|0|400|133349|1|0||0|Freezing Band|||2
+11976|2|52|47|0|400|133346|1|0||0|Sardonyx Knuckle|||2
+12055|2|52|47|0|400|133357|1|0||0|Stardust Band||t5,i5,p3|2
 11862|2|52|0|0|400|133722|1|0||0|White Bone Band||A24|1
-11989|2|51|46|0|400|133350|0|0||0|Vanadium Loop|||2
+276734|3|52|47|0|400|133406|2|0||0|Wrex's Pinky Ring||a11,t9|1
+11989|2|51|46|0|400|133350|1|0||0|Vanadium Loop|||2
 9642|2|50|0|0|400|133352|1|0||0|Band of the Great Tortoise|||1
 4988|2|50|0|0|400|133346|1|0||0|Burning Obsidian Band||t12|1
-12001|2|50|45|0|400|133343|0|0||0|Onyx Ring|||2
-862|3|50|45|0|400|132523|0|0||0|Runed Ring||S7,H7|2
+12001|2|50|45|0|400|133343|1|0||0|Onyx Ring|||2
+284282|3|50|45|0|400|133351|2|0||0|Queen Guard's Royal Seal||a8,s11,t6|2
+862|3|50|45|0|400|132523|1|0||0|Runed Ring||S7,H7|2
 9655|2|50|0|0|400|133354|1|0||0|Seedtime Hoop||s4,p10|1
 270109|2|50|0|0|400|133354|2|0||0|Smotts' Pinky Ring||t11,S4,H4|1
-12013|2|49|44|0|400|133356|0|0||0|Desert Ring|||2
-11975|2|49|44|0|400|133349|0|0||0|Topaz Ring|||2
-7553|2|48|43|0|400|133353|0|0||0|Band of the Unicorn||S13,H13|2
-6440|3|48|43|0|400|132519|0|0||1|Brainlash||i15,p5|2
+12013|2|49|44|0|400|133356|1|0||0|Desert Ring|||2
+11975|2|49|44|0|400|133349|1|0||0|Topaz Ring|||2
+7553|2|48|43|0|400|133353|1|0||0|Band of the Unicorn||S13,H13|2
+274642|3|48|43|0|400|133367|2|0||0|Blood Ritual Ring||t13,d3|1
+6440|3|48|43|0|400|132519|1|0||1|Brainlash||i15,p5|2
 19038|2|48|0|0|400|133345|1|0||0|Ring of Subtlety|||1
-11118|3|47|42|0|400|135241|0|0||1|Archaedic Stone|||1
-9533|3|47|0|0|400|133345|0|0||0|Masons Fraternity Ring||a13,t5|1
-11988|2|47|42|0|400|133354|0|0||0|Tellurium Band|||2
-17768|2|47|0|0|400|133360|0|0||0|Woodseed Hoop||t5,i9|1
-11974|2|46|41|0|400|133343|0|0||0|Aquamarine Ring|||2
+11118|3|47|42|0|400|135241|1|0||1|Archaedic Stone|||1
+9533|3|47|0|0|400|133345|1|0||0|Masons Fraternity Ring||a13,t5|1
+11988|2|47|42|0|400|133354|1|0||0|Tellurium Band|||2
+286554|3|47|42|0|400|133358|2|0||0|Warleader's Signet||s12,t6|1
+17768|2|47|0|0|400|133360|1|0||0|Woodseed Hoop||t5,i9|1
+11974|2|46|41|0|400|133343|1|0||0|Aquamarine Ring|||2
 4550|2|46|0|0|400|133352|1|0||0|Coldwater Ring||i3,p9|1
-11999|2|46|41|0|400|133344|0|0||0|Lodestone Hoop|||2
-10634|3|46|41|0|400|133352|0|0||1|Mindseye Circle||t5,i12|2
-1447|4|46|41|0|400|132516|0|0||1|Ring of Saviors||t14,p8|2
+11999|2|46|41|0|400|133344|1|0||0|Lodestone Hoop|||2
+10634|3|46|41|0|400|133352|1|0||1|Mindseye Circle||t5,i12|2
+1447|4|46|41|0|400|132516|1|0||1|Ring of Saviors||t14,p8|2
 4549|2|46|0|0|400|133346|1|0||0|Seafire Band||a2,s2,t10|1
+286428|3|45|40|0|400|133375|2|0||0|Band of Bossman||t6,p5,S7,H22|1
 275043|3|45|0|0|400|133367|2|0||0|Bloodmaster's Ring||t7,i6,S9,H9|1
 275044|3|45|0|0|400|133346|2|0||0|Bloodsport Band||t6,A22|1
 277208|2|45|0|0|400|133345|2|0||0|Determined Band||t8,A9|1
 276202|2|45|40|0|400|133384|2|0||0|Disengagement Ring|Requires Friendly with Powderfuse|a8,p5|1
-12012|2|45|40|0|400|133350|0|0||0|Marsh Ring|||2
+12012|2|45|40|0|400|133350|1|0||0|Marsh Ring|||2
 275045|3|45|0|0|400|133722|2|0||0|Ogre Horn Ring||a3,s4,t10,d3|1
 274754|3|45|40|0|400|134066|2|0||0|Suspicious Spare Part|Requires Honored with Gadgetzan|s7,t11|1
-13095|3|44|39|0|400|133346|0|0||1|Assault Band||t7,p5,A20|2
-7552|2|44|39|0|400|133352|0|0||0|Falcon's Hook||a9,s3|2
+275000|3|45|40|0|400|133359|2|0||0|Zarmok's Plated Signet||t9|1
+13095|3|44|39|0|400|133346|1|0||1|Assault Band||t7,p5,A20|2
+7552|2|44|39|0|400|133352|1|0||0|Falcon's Hook||a9,s3|2
+270081|3|44|0|0|400|133343|2|0||0|Purified Ring||i12,S5,H5|1
 19520|3|43|38|0|400|133362|1|0||1|Advisor's Ring||t5,S9,H9|1
 272070|3|43|38|0|400|133370|2|0||1|Darkspear Signet|Requires Honored with Darkspear Raiders|t11|1
 271809|2|43|1|0|400|133345|2|0||0|Desolate Band||t8,i5|1
-11973|2|43|38|0|400|133345|0|0||0|Hematite Link|||2
+11973|2|43|38|0|400|133345|1|0||0|Hematite Link|||2
 272066|3|43|38|0|400|133362|2|0||1|Insurgent's Band|Requires Honored with Darkspear Raiders|t11,A12|1
-11987|2|43|38|0|400|133357|0|0||0|Iridium Circle|||2
+11987|2|43|38|0|400|133357|1|0||0|Iridium Circle|||2
 19512|3|43|38|0|400|133363|1|0||1|Legionnaire's Band||a8,s8,t5|1
 19524|3|43|38|0|400|133370|1|0||1|Lorekeeper's Ring||t5,S9,H9|1
 271915|3|43|38|0|400|133370|2|0||1|Militant's Band|Requires Honored with Theramore Expeditionary Force|t11|1
 19515|3|43|38|0|400|133352|1|0||1|Protector's Band||a8,s8,t5|1
 271808|2|43|1|0|400|133356|2|0||0|Scavenger's Ring||t8,i5|1
 271910|3|43|38|0|400|133370|2|0||1|Theramore Signet|Requires Honored with Theramore Expeditionary Force|t11,A12|1
-1980|4|43|38|0|400|133357|0|0||0|Underworld Band||t10,p6|2
-11998|2|42|37|0|400|133343|0|0||0|Jet Loop|||2
-12011|2|41|36|0|400|133354|0|0||0|Forest Hoop|||2
-11972|2|40|35|0|400|133344|0|0||0|Carnelian Loop|||2
+1980|4|43|38|0|400|133357|1|0||0|Underworld Band||t10,p6|2
+274295|3|42|37|0|400|133367|2|0||0|Band of Crimson Light||S6,H18|1
+11998|2|42|37|0|400|133343|1|0||0|Jet Loop|||2
+12011|2|41|36|0|400|133354|1|0||0|Forest Hoop|||2
+274614|3|41|36|0|400|133722|2|0||0|Knucklebone Ring||t7|1
+282705|3|41|36|0|400|133351|2|0||0|Ruul's Secondstone||p9,S9|1
+11972|2|40|35|0|400|133344|1|0||0|Carnelian Loop|||2
+286651|3|40|35|0|400|133346|2|0||0|Flamestarter's Signet||i10|1
 5010|2|40|35|0|400|133345|0|0||0|Inscribed Gold Ring||s2,t8|2
 277209|2|40|0|0|400|133356|2|0||0|Ponderous Loop||t4,i7|1
 5743|2|40|35|0|400|133353|1|0||0|Prismstone Ring||i9|2
-5011|2|40|35|0|400|133354|0|0||0|Welken Ring||i5,p7|2
+5011|2|40|35|0|400|133354|1|0||0|Welken Ring||i5,p7|2
 274961|2|39|0|0|400|133347|2|0||0|Brute Slayer Band||i6|1
-11986|2|39|34|0|400|133348|0|0||0|Thallium Hoop|||2
-10710|3|38|0|0|400|133346|0|0||0|Dragonclaw Ring||t10,p4|1
-11997|2|38|33|0|400|133350|0|0||0|Greenstone Circle|||2
+285089|2|39|34|0|400|133350|2|0||0|Swamp Roamer's Band||t6|2
+11986|2|39|34|0|400|133348|1|0||0|Thallium Hoop|||2
+10710|3|38|0|0|400|133346|1|0||0|Dragonclaw Ring||t10,p4|1
+11997|2|38|33|0|400|133350|1|0||0|Greenstone Circle|||2
 6757|2|38|0|0|400|133347|1|0||0|Jaina's Signet Ring||s3,t7|1
 276899|3|38|1|0|400|133343|2|0||0|Knucklebound Thimble||t8|1
 274915|2|38|0|0|400|133343|2|0||0|Sacristan Band||t7,S2,H6|1
-11971|2|37|32|0|400|133357|0|0||0|Amethyst Band|||2
-13093|3|37|32|0|400|133367|0|0||1|Blush Ember Ring||a5,s4,p8|2
-9461|3|37|32|0|400|134063|0|0||0|Charged Gear|||1
-12010|2|37|32|0|400|133346|0|0||0|Fen Ring|||2
+11971|2|37|32|0|400|133357|1|0||0|Amethyst Band|||2
+13093|3|37|32|0|400|133367|1|0||1|Blush Ember Ring||a5,s4,p8|2
+9461|3|37|32|0|400|134063|1|0||0|Charged Gear|||1
+12010|2|37|32|0|400|133346|1|0||0|Fen Ring|||2
 1996|2|37|32|0|400|133357|1|0||0|Voodoo Band||i7,p3|2
-6693|3|36|31|0|400|133722|0|0||1|Agamaggan's Clutch||t5,p9|1
-2262|3|36|31|0|400|133357|0|0||1|Mark of Kern||t4,A20|2
-5009|2|36|31|0|400|133357|0|0||0|Mindbender Loop||i7,p2|2
+6693|3|36|31|0|400|133722|1|0||1|Agamaggan's Clutch||t5,p9|1
+2262|3|36|31|0|400|133357|1|0||1|Mark of Kern||t4,A20|2
+5009|2|36|31|0|400|133357|1|0||0|Mindbender Loop||i7,p2|2
 1993|2|36|31|0|400|132524|1|0||0|Ogremind Ring||i7,p3|2
-2951|3|36|31|0|400|133354|0|0||1|Ring of the Underwood||a10,s2,t3|2
+2951|3|36|31|0|400|133354|1|0||1|Ring of the Underwood||a10,s2,t3|2
+279845|2|36|1|0|400|133345|2|0||0|Solid Gold Band||p5,S4,H11|1
 278019|2|35|1|0|400|133344|2|0||0|Apology Ring||t6,S4,H4|1
 18585|3|35|0|0|400|133351|1|0||0|Band of Allegiance||s9,t4|1
 4135|2|35|0|0|400|133722|1|0||0|Bloodbone Band||t7,p2|1
-11985|2|35|30|0|400|133350|0|0||0|Cerulean Ring|||2
+11985|2|35|30|0|400|133350|1|0||0|Cerulean Ring|||2
 281634|3|35|0|0|400|133344|2|0||0|Field Researcher's Loop||a7,t7|1
-7686|3|35|30|0|400|133346|0|0||1|Ironspine's Eye||a9,s4|1
+7686|3|35|30|0|400|133346|1|0||1|Ironspine's Eye||a9,s4|1
 270051|2|35|0|0|400|133350|2|0||0|Ladimore Heirloom Ring||i6,S5,H5|1
 18586|3|35|0|0|400|133355|1|0||0|Lonetree's Circle||t6,i6,p4|1
-9588|3|35|0|0|400|133345|0|0||1|Nogg's Gold Ring||t9,p4|1
+9588|3|35|0|0|400|133345|1|0||1|Nogg's Gold Ring||t9,p4|1
 281635|3|35|0|0|400|133356|2|0||0|Philanthropist's Ring||i5,S10,H10|1
 9622|2|35|0|0|400|132522|1|0||0|Reedknot Ring||t3,p6|1
 278017|2|35|1|0|400|133364|2|0||0|Refunded Ring||t8|1
@@ -6700,12 +7356,13 @@ FGT.GEARDB = {
 270053|2|35|0|0|400|133350|2|0||0|Ring of Ruin||a6,s4|1
 274746|2|35|30|0|400|133344|2|0||0|Sea Giant's Toe Ring|Requires Friendly with Booty Bay|S6,H18|1
 270052|2|35|0|0|400|133350|2|0||0|Swamp Ring||a2,A14|1
-9538|3|35|0|0|400|133345|0|0||1|Talvash's Gold Ring||t9,p4|1
+9538|3|35|0|0|400|133345|1|0||1|Talvash's Gold Ring||t9,p4|1
 15689|2|35|0|0|400|133369|1|0||0|Trader's Ring||t8|1
-11996|2|34|29|0|400|133355|0|0||0|Basalt Ring|||2
-9447|3|34|29|0|400|134066|0|0||1|Electrocutioner Lagnut||t4,p9|1
+11996|2|34|29|0|400|133355|1|0||0|Basalt Ring|||2
+9447|3|34|29|0|400|134066|1|0||1|Electrocutioner Lagnut||t4,p9|1
 270050|2|34|0|0|400|133355|2|0||0|Fury Ring||s6,p2|1
-11970|2|34|29|0|400|133353|0|0||0|Spinel Ring|||2
+11970|2|34|29|0|400|133353|1|0||0|Spinel Ring|||2
+285190|3|34|29|0|400|133367|2|0||0|Wyvern Heart Band||a5,t5,A15|1
 19521|3|33|28|0|400|133362|1|0||1|Advisor's Ring||t4,S7,H7|1
 271670|2|33|0|0|400|133354|2|0||0|Curl of Life||t5,S5,H5|1
 272071|3|33|28|0|400|133370|2|0||1|Darkspear Signet|Requires Honored with Darkspear Raiders|t8|1
@@ -6714,86 +7371,99 @@ FGT.GEARDB = {
 19525|3|33|28|0|400|133370|1|0||1|Lorekeeper's Ring||t4,S7,H7|1
 271916|3|33|28|0|400|133370|2|0||1|Militant's Band|Requires Honored with Theramore Expeditionary Force|t8|1
 19517|3|33|28|0|400|133352|1|0||1|Protector's Band||a6,s6,t4|1
+273030|3|33|28|0|400|133370|2|0||0|Ring of Power Regulation||S6,H6|1
 271911|3|33|28|0|400|133370|2|0||1|Theramore Signet|Requires Honored with Theramore Expeditionary Force|t8,A9|1
 2917|2|33|0|0|400|133349|1|0||0|Tranquil Ring||i1,p7|1
-12009|2|33|28|0|400|133347|0|0||0|Tundra Ring|||2
+12009|2|33|28|0|400|133347|1|0||0|Tundra Ring|||2
 3760|2|32|0|0|400|133345|1|0||0|Band of the Undercity||t3,p5|1
+274078|2|32|0|0|400|133368|2|0||0|Boar Signet||t5,d25|1
 282283|3|32|1|0|400|1769008|2|0||0|Malignant Root||t7,A8,S4,H4|1
 6790|2|32|0|0|400|133344|1|0||0|Ring of Calm||p7|1
 281320|3|32|0|0|400|133357|2|0||0|Rune-Etched Ring||t10|1
-5007|2|31|26|0|400|134412|0|0||0|Band of Thorns||p6|2
+273031|3|32|27|0|400|133370|2|0||0|Runemender's Seal||i6,p6,S3,H9|1
+5007|2|31|26|0|400|134412|1|0||0|Band of Thorns||p6|2
+273032|3|31|25|0|400|133370|2|0||0|Bonebinder's Signet||s5,p6|1
 9362|2|31|0|0|400|133345|1|0||1|Brilliant Gold Ring||t4,p4|1
 15467|2|31|0|0|400|133364|1|0||0|Inventor's League Ring||t4,p4|1
 4535|2|31|0|0|400|133355|1|0||0|Ironforge Memorial Ring||t5,p4|1
-6748|2|31|0|0|400|133356|0|0||0|Monkey Ring||a6|1
+6748|2|31|0|0|400|133356|1|0||0|Monkey Ring||a6|1
 281304|2|31|0|0|400|133345|2|0||0|Prospector's Signet||t4,i4|1
 1116|2|31|0|0|400|133343|1|0||0|Ring of Pure Silver||t1,p6|1
 2933|3|31|0|0|400|133347|1|0||0|Seal of Wrynn||a3,s3,t4,i4,p3|1
-6750|2|31|0|0|400|133348|0|0||0|Snake Hoop||i6|1
-6749|2|31|0|0|400|133355|0|0||0|Tiger Band||s6|1
+6750|2|31|0|0|400|133348|1|0||0|Snake Hoop||i6|1
+6749|2|31|0|0|400|133355|1|0||0|Tiger Band||s6|1
 288929|4|30|1|0|400|133378|2|0||1|Band of Sulfuras||t6,i10,p4|2
 288930|4|30|1|0|400|133381|2|0||0|Cauterizing Band||t4,i5,S7,H21|2
 10298|2|30|25|0|400|133352|1|0||0|Gnomeregan Band|||1
 288928|4|30|1|0|400|133356|2|0||1|Heavy Dark Iron Ring||t10,d2|2
 288927|4|30|1|0|400|133349|2|0||1|Quick Strike Ring||s2,t4,A14|2
 288931|4|30|1|0|400|133380|2|0||0|Ring of Spell Power||S16,H16|2
-13094|3|30|25|0|400|133368|0|0||1|The Queen's Jewel||t1,i2,p8|2
-11984|2|29|24|0|400|133352|0|0||0|Cobalt Ring|||2
-11969|2|29|24|0|400|133351|0|0||0|Jacinth Circle|||2
-2039|3|29|24|0|400|133344|0|0||1|Plains Ring||t8,i3|2
-6414|3|29|0|0|400|133357|0|0||0|Seal of Sylvanas||s3,t8|1
-13097|3|29|24|0|400|133351|0|0||1|Thunderbrow Ring||a3,s8|2
+13094|3|30|25|0|400|133368|1|0||1|The Queen's Jewel||t1,i2,p8|2
+11984|2|29|24|0|400|133352|1|0||0|Cobalt Ring|||2
+11969|2|29|24|0|400|133351|1|0||0|Jacinth Circle|||2
+2039|3|29|24|0|400|133344|1|0||1|Plains Ring||t8,i3|2
+6414|3|29|0|0|400|133357|1|0||0|Seal of Sylvanas||s3,t8|1
+284699|2|29|24|0|400|133352|2|0||0|Still Water Band||t4|2
+13097|3|29|24|0|400|133351|1|0||1|Thunderbrow Ring||a3,s8|2
 6678|2|28|0|0|400|132521|1|0||0|Band of Elven Grace||t3,p4|1
-11995|2|28|23|0|400|133347|0|0||0|Ivory Band|||2
+11995|2|28|23|0|400|133347|1|0||0|Ivory Band|||2
 281673|2|28|0|0|400|133368|2|0||0|Loop of Sacrifice||s3,i5|1
-12008|2|28|23|0|400|133345|0|0||0|Savannah Ring|||2
-4999|2|27|22|0|400|132518|0|0||0|Azora's Will||i5|2
+273820|3|28|23|0|400|133364|2|0||0|Nightskulker Ring|||1
+12008|2|28|23|0|400|133345|1|0||0|Savannah Ring|||2
+4999|2|27|22|0|400|132518|1|0||0|Azora's Will||i5|2
 281927|2|27|22|0|400|133345|2|0||0|Boulderheart Band||s4,t2|2
-5001|2|27|22|0|400|133346|0|0||0|Heart Ring||t5|2
-11968|2|26|21|0|400|133356|0|0||0|Amber Hoop|||2
-11983|2|26|21|0|400|133347|0|0||0|Chrome Ring|||2
-6463|3|26|21|0|400|133357|0|0||1|Deep Fathom Ring||t3,i3,p6|1
+5001|2|27|22|0|400|133346|1|0||0|Heart Ring||t5|2
+273839|3|27|22|0|400|133344|2|0||0|Spiked Shell Band||t5|1
+11968|2|26|21|0|400|133356|1|0||0|Amber Hoop|||2
+11983|2|26|21|0|400|133347|1|0||0|Chrome Ring|||2
+273806|3|26|21|0|400|133357|2|0||0|Dark Horde Band||t6,S6,H6|1
+6463|3|26|21|0|400|133357|1|0||1|Deep Fathom Ring||t3,i3,p6|1
 1077|2|26|21|0|400|133356|1|0||1|Defias Mage Ring||i4,p3|2
 281252|2|26|0|0|400|133345|2|0||0|Harpy Claw Ring||p5|1
-6321|3|26|21|0|400|132518|0|0||1|Silverlaine's Family Seal||s7,t3|1
-17694|2|25|0|0|400|133344|0|0||0|Band of the Fist||a3,s3|1
-11994|2|25|20|0|400|133352|0|0||0|Coral Band|||2
-1076|2|25|20|0|400|133344|0|0||0|Defias Renegade Ring||a3,t3|2
-12007|2|25|20|0|400|133344|0|0||0|Prairie Ring|||2
+6321|3|26|21|0|400|132518|1|0||1|Silverlaine's Family Seal||s7,t3|1
+17694|2|25|0|0|400|133344|1|0||0|Band of the Fist||a3,s3|1
+11994|2|25|20|0|400|133352|1|0||0|Coral Band|||2
+1076|2|25|20|0|400|133344|1|0||0|Defias Renegade Ring||a3,t3|2
+12007|2|25|20|0|400|133344|1|0||0|Prairie Ring|||2
 277210|3|25|0|8|400|133344|2|0||0|Pyrewood Signet Ring||a4,t4|1
 1319|2|25|0|0|400|132520|1|0||0|Ring of Iron Will||t4,p2|1
-1491|3|25|20|0|400|133356|0|0||1|Ring of Precision||a6,p3|2
+1491|3|25|20|0|400|133356|1|0||1|Ring of Precision||a6,p3|2
 1462|2|25|20|0|400|133357|1|0||1|Ring of the Shadow|||2
 6669|2|25|0|0|400|133354|1|0||0|Sacred Band||i2,p4|1
 3739|2|25|0|0|400|132501|1|0||0|Skull Ring||t3,i3|1
-6743|2|25|0|0|400|133350|0|0||0|Sustaining Ring||t1,p4|1
+6743|2|25|0|0|400|133350|1|0||0|Sustaining Ring||t1,p4|1
 5313|2|25|0|0|400|134413|1|0||0|Totemic Clan Ring||i3,p3|1
-6199|2|24|19|0|400|134321|0|0||1|Black Widow Band||i7|2
-4998|2|24|19|0|400|133346|0|0||0|Blood Ring||t5|2
-12054|2|24|19|0|400|133346|0|0||0|Demon Band||s4,t2,p2|2
+6199|2|24|19|0|400|134321|1|0||1|Black Widow Band||i7|2
+4998|2|24|19|0|400|133346|1|0||0|Blood Ring||t5|2
+12054|2|24|19|0|400|133346|1|0||0|Demon Band||s4,t2,p2|2
 1449|2|24|0|0|400|133355|1|0||0|Minor Channeling Ring||i2,p4|1
 20426|3|23|18|0|400|133362|1|0||1|Advisor's Ring||t2,S5,H5|1
-12996|3|23|18|0|400|133373|0|0||1|Band of Purification||t2,p6|2
+12996|3|23|18|0|400|133373|1|0||1|Band of Purification||t2,p6|2
 17692|2|23|0|0|400|133344|1|0||0|Horn Ring||t3,p2|1
 20429|3|23|18|0|400|133363|1|0||1|Legionnaire's Band||a4,s4,t2|1
 20431|3|23|18|0|400|133370|1|0||1|Lorekeeper's Ring||t2,S5,H5|1
 20439|3|23|18|0|400|133352|1|0||1|Protector's Band||a4,s4,t2|1
-11982|2|23|18|0|400|133355|0|0||0|Viridian Band|||2
-11967|2|23|18|0|400|133349|0|0||0|Zircon Band|||2
-6332|3|22|17|0|400|133347|0|0||1|Black Pearl Ring||t1,i1,p6|2
-11993|2|22|17|0|400|133356|0|0||0|Clay Ring|||2
+285330|3|23|18|0|400|133345|2|2132||0|Signet of the Zhevra||a6,p2|1
+279867|2|23|1|0|400|133361|2|0||0|Slain Baron's Signet||t3,d1|1
+11982|2|23|18|0|400|133355|1|0||0|Viridian Band|||2
+11967|2|23|18|0|400|133349|1|0||0|Zircon Band|||2
+6332|3|22|17|0|400|133347|1|0||1|Black Pearl Ring||t1,i1,p6|2
+11993|2|22|17|0|400|133356|1|0||0|Clay Ring|||2
 5622|2|22|0|0|400|132522|1|0||0|Clergy Ring||t1,p3|1
-1156|3|22|17|0|400|133351|0|0||1|Lavishly Jeweled Ring||a2,i6|1
-12006|2|22|17|0|400|133354|0|0||0|Meadow Ring|||2
-12985|3|22|17|0|400|133370|0|0||1|Ring of Defense||d4|2
-12052|2|21|16|0|400|133347|0|0||0|Ring of the Moon||s1,t3|2
-12053|2|21|16|0|400|133343|0|0||0|Volcanic Rock Ring||t1,i3|2
+284715|3|22|17|0|400|133343|2|2131||0|First Mate Band||s4,t5|1
+1156|3|22|17|0|400|133351|1|0||1|Lavishly Jeweled Ring||a2,i6|1
+12006|2|22|17|0|400|133354|1|0||0|Meadow Ring|||2
+12985|3|22|17|0|400|133370|1|0||1|Ring of Defense||d4|2
+12052|2|21|16|0|400|133347|1|0||0|Ring of the Moon||s1,t3|2
+286535|2|21|16|0|400|133354|2|0||0|Sludge-Stained Band||p3,S3,H3|2
+12053|2|21|16|0|400|133343|1|0||0|Volcanic Rock Ring||t1,i3|2
 5351|2|20|0|0|400|133343|1|0||0|Bounty Hunter's Ring||a3,t1|1
-11981|2|20|15|0|400|133343|0|0||0|Lead Band|||2
+11981|2|20|15|0|400|133343|1|0||0|Lead Band|||2
 1189|2|20|15|0|400|133345|1|0||1|Overseer's Ring||s3|2
-11965|2|20|15|0|400|133347|0|0||0|Quartz Ring|||2
+11965|2|20|15|0|400|133347|1|0||0|Quartz Ring|||2
 3235|2|20|0|0|400|133357|1|0||0|Ring of Scorn||t4|1
-8350|2|15|10|0|400|133345|0|0||0|The 1 Ring||a1,s1,t1,i1,p1|2
+8350|2|15|10|0|400|133345|1|0||0|The 1 Ring||a1,s1,t1,i1,p1|2
+286745|2|14|9|0|400|133354|2|0||0|Furlfeather Ring||S1,H2|2
 24358|4|6|1|0|400|133380|1|0||0|QATest +1000 Spell Dmg Ring||S1000,H1000|1
 ]==],
         [12] = [==[
@@ -6863,43 +7533,48 @@ FGT.GEARDB = {
 272438|3|65|60|0|400|321487|2|0||0|Weakness Analyzer||S18,H18|1
 19955|4|65|60|1024|400|133306|1|479||1|Wushoolay's Charm of Nature|||1
 19956|4|65|60|64|400|133306|1|476||1|Wushoolay's Charm of Spirits|||1
-13965|3|63|0|0|400|133604|0|0||0|Blackhand's Breadth||c2|1
-18537|3|63|58|0|400|135228|0|0||0|Counterattack Lodestone||A22,d25|1
+13965|3|63|0|0|400|133604|1|0||0|Blackhand's Breadth||c2|1
+280032|3|63|58|0|400|133884|2|0||0|Bolt's Charged Eyeball|||1
+18537|3|63|58|0|400|135228|1|0||0|Counterattack Lodestone||A22,d25|1
 20072|3|63|58|0|400|133438|1|0||1|Defiler's Talisman|Requires Friendly with The Defilers||1
-22268|3|63|58|0|400|133442|0|0||1|Draconic Infused Emblem|||1
-13968|3|63|0|1488|400|133441|0|0||0|Eye of the Beast||c2|1
-13966|3|63|0|0|400|133442|0|0||0|Mark of Tyranny||d25|1
+22268|3|63|58|0|400|133442|1|0||1|Draconic Infused Emblem|||1
+13968|3|63|0|1488|400|133441|1|0||0|Eye of the Beast||c2|1
+13966|3|63|0|0|400|133442|1|0||0|Mark of Tyranny||d25|1
+284231|3|63|58|0|400|136129|2|0||0|Sayaad Charm|||1
 20071|3|63|58|0|400|133438|1|0||1|Talisman of Arathor|Requires Friendly with The League of Arathor||1
-14557|4|63|58|0|400|134229|0|0||0|The Lion Horn of Stormwind|||2
-14022|3|62|0|0|400|133706|0|0||0|Barov Peasant Caller|||1
-14023|3|62|0|0|400|133706|0|0||0|Barov Peasant Caller|||1
+14557|4|63|58|0|400|134229|1|0||0|The Lion Horn of Stormwind|||2
+14022|3|62|0|0|400|133706|1|0||0|Barov Peasant Caller|||1
+14023|3|62|0|0|400|133706|1|0||0|Barov Peasant Caller|||1
 268873|4|62|55|0|400|134228|2|2071||0|Defender of the Barkskin|||1
 21326|4|62|0|0|400|134227|1|0||1|Defender of the Timbermaw|Requires Exalted with Timbermaw Hold||1
-18465|3|62|0|8|400|133443|0|0||1|Royal Seal of Eldre'Thalas||h2|1
-18466|3|62|0|1|400|133443|0|0||1|Royal Seal of Eldre'Thalas|||1
-18467|3|62|0|256|400|133443|0|0||1|Royal Seal of Eldre'Thalas||S23,H23|1
-18468|3|62|0|128|400|133443|0|0||1|Royal Seal of Eldre'Thalas|||1
-18469|3|62|0|16|400|133443|0|0||1|Royal Seal of Eldre'Thalas||H33|1
-18470|3|62|0|1024|400|133443|0|0||1|Royal Seal of Eldre'Thalas||H44|1
-18471|3|62|0|64|400|133443|0|0||1|Royal Seal of Eldre'Thalas||S23,H23|1
-18472|3|62|0|2|400|133443|0|0||1|Royal Seal of Eldre'Thalas||H22|1
-18473|3|62|0|4|400|133443|0|0||1|Royal Seal of Eldre'Thalas||A48|1
-18370|3|62|57|0|400|134458|0|0||0|Vigilance Charm||d50|1
-13382|3|61|56|0|400|133712|0|0||0|Cannonball Runner|||1
-22321|3|61|56|0|400|134084|0|0||1|Heart of Wyrmthalak|||1
+18465|3|62|0|8|400|133443|1|0||1|Royal Seal of Eldre'Thalas||h2|1
+18466|3|62|0|1|400|133443|1|0||1|Royal Seal of Eldre'Thalas|||1
+18467|3|62|0|256|400|133443|1|0||1|Royal Seal of Eldre'Thalas||S23,H23|1
+18468|3|62|0|128|400|133443|1|0||1|Royal Seal of Eldre'Thalas|||1
+18469|3|62|0|16|400|133443|1|0||1|Royal Seal of Eldre'Thalas||H33|1
+18470|3|62|0|1024|400|133443|1|0||1|Royal Seal of Eldre'Thalas||H44|1
+18471|3|62|0|64|400|133443|1|0||1|Royal Seal of Eldre'Thalas||S23,H23|1
+18472|3|62|0|2|400|133443|1|0||1|Royal Seal of Eldre'Thalas||H22|1
+18473|3|62|0|4|400|133443|1|0||1|Royal Seal of Eldre'Thalas||A48|1
+280074|3|62|57|0|400|134060|2|0||0|Scalding Flamehoof||a4,s4,t4,i4,p4|1
+18370|3|62|57|0|400|134458|1|0||0|Vigilance Charm||d50|1
+280065|3|61|56|0|400|133718|2|0||0|Behemoth Bones||A34|1
+13382|3|61|56|0|400|133712|1|0||0|Cannonball Runner|||1
+280071|3|61|56|0|400|134396|2|0||0|Flamebreak Talisman|||1
+22321|3|61|56|0|400|134084|1|0||1|Heart of Wyrmthalak|||1
 13164|3|61|56|0|400|134084|1|0||1|Heart of the Scale|||1
-18371|3|61|56|0|400|132489|0|0||0|Mindtap Talisman|||1
-19812|3|61|0|0|400|134419|0|0||1|Rune of the Dawn|||1
-13209|3|61|0|0|400|133612|0|0||1|Seal of the Dawn|||1
-13171|2|61|0|0|400|135825|0|0||0|Smokey's Lighter|||1
-12930|3|60|55|0|400|134413|0|0||1|Briarwood Reed||S29,H29|1
-10455|2|60|0|0|400|135229|0|0||0|Chained Essence of Eranikus|||1
+18371|3|61|56|0|400|132489|1|0||0|Mindtap Talisman|||1
+19812|3|61|0|0|400|134419|1|0||1|Rune of the Dawn|||1
+13209|3|61|0|0|400|133612|1|0||1|Seal of the Dawn|||1
+13171|2|61|0|0|400|135825|1|0||0|Smokey's Lighter|||1
+12930|3|60|55|0|400|134413|1|0||1|Briarwood Reed||S29,H29|1
+10455|2|60|0|0|400|135229|1|0||0|Chained Essence of Eranikus|||1
 10779|2|60|0|0|400|136168|1|0||0|Demon's Blood||d3|1
 260821|2|60|60|0|400|133868|2|0||0|EZ and SAF Field Transporter: Mt. Hyjal|||3
 260819|2|60|55|0|400|133860|2|0||0|EZ-Thro Field Transporter: Gadgetzan|||3
 191312|4|60|60|0|400|135441|1|0||1|Failsafe Phylactery|||1
 18355|3|60|55|4|400|133293|1|0||0|Ferra's Collar|||1
-11810|3|60|55|0|400|133276|0|0||1|Force of Will||d7|1
+11810|3|60|55|0|400|133276|1|0||1|Force of Will||d7|1
 17690|2|60|0|0|400|133283|1|0||1|Frostwolf Insignia Rank 1|||1
 17905|2|60|0|0|400|133283|1|0||1|Frostwolf Insignia Rank 2|||1
 17906|2|60|0|0|400|133284|1|0||1|Frostwolf Insignia Rank 3||d25|1
@@ -6907,14 +7582,19 @@ FGT.GEARDB = {
 17908|3|60|0|0|400|133286|1|0||1|Frostwolf Insignia Rank 5||d25|1
 17909|4|60|0|0|400|133287|1|0||1|Frostwolf Insignia Rank 6||d50|1
 260824|3|60|60|0|400|133864|2|0||0|Gnomish Poultryizer|||1
+280060|3|60|55|0|400|132184|2|0||0|Lucky Shovelnose Tuft||s11,p11|1
 17759|2|60|0|0|400|133440|1|0||0|Mark of Resolution|||1
-18354|3|60|55|31488|400|133280|0|0||1|Pimgib's Collar|||1
-15867|2|60|0|0|400|134139|0|0||0|Prismcharm|||1
-15873|3|60|0|0|400|132790|0|0||0|Ragged John's Neverending Cup|||1
-13515|3|60|55|0|400|134068|0|0||1|Ramstein's Lightning Bolts|||1
+277558|2|60|55|0|400|136104|2|0||0|Mushgog's Crown of Thorns|||1
+18354|3|60|55|31488|400|133280|1|0||1|Pimgib's Collar|||1
+15867|2|60|0|0|400|134139|1|0||0|Prismcharm|||1
+15873|3|60|0|0|400|132790|1|0||0|Ragged John's Neverending Cup|||1
+13515|3|60|55|0|400|134068|1|0||1|Ramstein's Lightning Bolts|||1
+277556|2|60|55|0|400|134339|2|0||0|Razza's Heart|||1
 260820|2|60|55|0|400|133859|2|0||0|SAF-T Emergency Ripper: Everlook|||3
-13213|3|60|55|0|400|134120|0|0||0|Smolderweb's Eye|||1
-13544|2|60|0|0|400|134337|0|0||1|Spectral Essence|||1
+277559|3|60|55|0|400|134902|2|0||0|Shen'dralar Relic||t9|1
+277557|2|60|55|0|400|134518|2|0||0|Skarr's Broken Gauntlet|||1
+13213|3|60|55|0|400|134120|1|0||0|Smolderweb's Eye|||1
+13544|2|60|0|0|400|134337|1|0||1|Spectral Essence|||1
 17691|2|60|0|0|400|133429|1|0||1|Stormpike Insignia Rank 1|||1
 17900|2|60|0|0|400|133429|1|0||1|Stormpike Insignia Rank 2|||1
 17901|2|60|0|0|400|133430|1|0||1|Stormpike Insignia Rank 3||d25|1
@@ -6922,18 +7602,19 @@ FGT.GEARDB = {
 17903|3|60|0|0|400|133432|1|0||1|Stormpike Insignia Rank 5||d25|1
 17904|4|60|0|0|400|133433|1|0||1|Stormpike Insignia Rank 6||d50|1
 22678|4|60|0|0|400|134123|1|0||1|Talisman of Ascendance|||1
-12065|2|60|0|0|400|133435|0|0||0|Ward of the Elements|||1
+12065|2|60|0|0|400|133435|1|0||0|Ward of the Elements|||1
 275347|2|59|0|0|400|133439|2|0||0|Lichbane|||1
-1973|3|59|54|0|400|134334|0|0||0|Orb of Deception|||2
-11819|3|59|54|0|400|133439|0|0||1|Second Wind||H22|1
+1973|3|59|54|0|400|134334|1|0||0|Orb of Deception|||2
+11819|3|59|54|0|400|133439|1|0||1|Second Wind||H22|1
 276337|2|59|0|0|400|133442|2|0||0|Thaelemaches' Talisman||A18|1
-11832|3|58|53|0|400|133282|0|0||1|Burst of Knowledge||S12,H12|1
-11815|3|58|53|0|400|133434|0|0||1|Hand of Justice||A20|1
-13379|3|58|53|0|400|133942|0|0||0|Piccolo of the Flaming Fire|||1
+11832|3|58|53|0|400|133282|1|0||1|Burst of Knowledge||S12,H12|1
+11815|3|58|53|0|400|133434|1|0||1|Hand of Justice||A20|1
+260308|2|58|0|0|400|959837|2|0||0|Hyjal Postal Clasp|||1
+13379|3|58|53|0|400|133942|1|0||0|Piccolo of the Flaming Fire|||1
 269741|2|58|0|0|400|463480|2|0||0|Scented Runewood Brooch|||1
 274386|2|58|0|0|400|133070|2|0||0|Toy Soldier|||1
 10659|2|57|0|0|400|134095|1|0||0|Shard of the Splithooves|||1
-833|4|56|51|0|400|134580|0|0||0|Lifestone|||2
+833|4|56|51|0|400|134580|1|0||0|Lifestone|||2
 11905|2|56|0|0|400|135646|1|0||0|Linken's Boomerang|||1
 19024|3|55|0|0|400|133599|1|0||0|Arena Grand Master||d25|1
 18984|2|55|0|0|400|133865|1|0||0|Dimensional Ripper - Everlook|Requires Engineering (260)||3
@@ -6944,49 +7625,58 @@ FGT.GEARDB = {
 260205|2|55|0|0|400|134464|2|0||0|Highborne Research Tablet|||1
 249470|3|55|50|0|400|134128|2|0||0|Molten Heart of the Mountain|||1
 274761|3|55|50|0|400|133863|2|0||0|Parachute-Priest Pager|Requires Honored with Everlook||1
-11811|3|55|50|0|400|134084|0|0||1|Smoking Heart of the Mountain|||1
+11811|3|55|50|0|400|134084|1|0||1|Smoking Heart of the Mountain|||1
+276744|3|55|50|0|400|133627|2|0||0|Zarla's Snack Pouch||S11,H11|1
 272061|3|53|48|0|400|134419|2|0||0|Darkspear Voodoo Seal|Requires Friendly with Darkspear Raiders|t10|1
 21115|3|53|48|0|400|133438|1|0||1|Defiler's Talisman|Requires Friendly with The Defilers||1
 271903|3|53|48|0|400|134419|2|0||0|Enriched Seal|Requires Friendly with Theramore Expeditionary Force|t10|1
+276743|3|53|48|0|400|133597|2|0||0|Fingerbreaker Stamp||d6|1
 272060|3|53|48|0|400|134421|2|0||0|Relentless Raider's Seal|Requires Friendly with Darkspear Raiders|t10|1
 21117|3|53|48|0|400|133438|1|0||1|Talisman of Arathor|Requires Friendly with The League of Arathor||1
 271906|3|53|48|0|400|134421|2|0||0|Volunteer's Lucky Seal|Requires Friendly with Theramore Expeditionary Force|t10|1
-20534|3|52|0|0|400|134072|0|0||0|Abyss Shard|||1
-19990|3|52|0|0|400|133298|0|0||0|Blessed Prayer Beads|||1
-19991|3|52|0|0|400|133884|0|0||0|Devilsaur Eye|||1
-19992|3|52|0|0|400|133724|0|0||0|Devilsaur Tooth|||1
-20130|3|52|0|0|400|132788|0|0||0|Diamond Flask|||1
+286556|3|53|48|0|400|796638|2|0||0|Winds of Tanaris||A16|1
+20534|3|52|0|0|400|134072|1|0||0|Abyss Shard|||1
+19990|3|52|0|0|400|133298|1|0||0|Blessed Prayer Beads|||1
+19991|3|52|0|0|400|133884|1|0||0|Devilsaur Eye|||1
+19992|3|52|0|0|400|133724|1|0||0|Devilsaur Tooth|||1
+20130|3|52|0|0|400|132788|1|0||0|Diamond Flask|||1
 20525|3|52|0|0|400|136069|1|0||0|Earthen Sigil|||1
-20503|3|52|0|0|400|135463|0|0||0|Enamored Water Spirit|||1
-20036|3|52|0|0|400|134085|0|0||0|Fire Ruby|||1
-20512|3|52|0|0|400|134123|0|0||0|Sanctified Orb|||1
+20503|3|52|0|0|400|135463|1|0||0|Enamored Water Spirit|||1
+20036|3|52|0|0|400|134085|1|0||0|Fire Ruby|||1
+20512|3|52|0|0|400|134123|1|0||0|Sanctified Orb|||1
 18986|2|52|0|0|400|133870|1|0||0|Ultrasafe Transporter: Gadgetzan|Requires Engineering (260)||3
-11302|3|52|47|0|400|133439|0|0||1|Uther's Strength|||2
+11302|3|52|47|0|400|133439|1|0||1|Uther's Strength|||2
 270276|2|51|0|0|400|133791|2|0||0|Cleansed Vilebranch Icon||S2,H2,c1|1
 270275|2|51|0|0|400|133792|2|0||0|Cleansed Vilebranch Medallion||A2,h1|1
-17744|3|51|46|0|400|134125|0|0||0|Heart of Noxxion|||1
+17744|3|51|46|0|400|134125|1|0||0|Heart of Noxxion|||1
 270225|2|51|0|0|400|134891|2|0||0|Jewel of the Guard Captain||S2,H2,c1|1
 19120|2|51|0|0|400|134420|1|0||0|Rune of the Guard Captain||A20,h1|1
-7734|3|51|46|0|400|133622|0|0||1|Six Demon Bag|||2
-11122|2|50|0|0|400|134010|0|0||0|Carrot on a Stick|||1
+7734|3|51|46|0|400|133622|1|0||1|Six Demon Bag|||2
+11122|2|50|0|0|400|134010|1|0||0|Carrot on a Stick|||1
 18951|2|50|0|0|400|133612|1|0||1|Evonice's Landin' Pilla|||1
 270226|2|50|0|0|400|133980|2|0||0|Golden Banana|||1
-1490|2|50|0|0|400|133438|0|0||1|Guardian Talisman|||1
+1490|2|50|0|0|400|133438|1|0||1|Guardian Talisman|||1
 219345|3|50|50|0|400|136091|1|0||0|Infernal Lasso|||1
 19141|2|50|0|0|400|132911|1|0||0|Luffa|||1
 2820|2|50|0|0|400|134376|1|0||0|Nifty Stopwatch|||1
 4130|2|50|0|0|400|134377|1|0||0|Smotts' Compass||d25|1
-17774|2|48|0|0|400|133441|0|0||0|Mark of the Chosen|||1
+17774|2|48|0|0|400|133441|1|0||0|Mark of the Chosen|||1
+275009|3|47|42|0|400|133793|2|0||0|Emblem of Slamming||A14|1
+274648|3|47|42|0|400|134128|2|0||0|The Desert Rose|||1
+274641|3|47|42|0|400|134457|2|0||0|Theka's Last Breath|||1
+282778|3|46|41|0|400|134317|2|0||0|Mark of the Red Flight|||1
 12805|2|46|0|0|400|134337|1|0||0|Orb of Fire|||1
-1713|3|45|40|0|400|135943|0|0||0|Ankh of Life|||2
+1713|3|45|40|0|400|135943|1|0||0|Ankh of Life|||2
 21567|3|45|40|0|400|134415|1|0||1|Rune of Duty||t7|1
 21565|3|45|40|0|400|134418|1|0||1|Rune of Perfection||t7|1
 744|2|44|0|0|400|132788|1|0||0|Thunderbrew's Boot Flask|||1
-2802|3|43|38|0|400|133434|0|0||0|Blazing Emblem|||2
+2802|3|43|38|0|400|133434|1|0||0|Blazing Emblem|||2
 21116|3|43|38|0|400|133438|1|0||1|Defiler's Talisman|Requires Friendly with The Defilers||1
 21118|3|43|38|0|400|133438|1|0||1|Talisman of Arathor|Requires Friendly with The League of Arathor||1
-1404|2|41|36|0|400|134414|0|0||0|Tidal Charm|||1
+1404|2|41|36|0|400|134414|1|0||0|Tidal Charm|||1
 5079|2|40|35|0|400|133884|1|0||0|Cold Basilisk Eye|||2
+286646|3|40|35|0|400|133966|2|0||0|Gill's Gills||A12|1
+274615|3|40|35|0|400|132852|2|0||0|Heart of the Primeval|||1
 277844|2|40|35|0|400|458243|2|0||0|Mirage Mirror|||1
 277910|2|40|35|0|400|656679|2|0||0|Mysticbloom Seed|||1
 18438|3|40|35|0|400|134951|0|0||1|Sergeant's Mark|Requires PvP rank 3||1
@@ -6998,9 +7688,13 @@ FGT.GEARDB = {
 21120|3|33|28|0|400|133438|1|0||1|Defiler's Talisman|Requires Friendly with The Defilers||1
 280766|2|33|1|0|400|133633|2|0||0|Satchel of Potions|||1
 21119|3|33|28|0|400|133438|1|0||1|Talisman of Arathor|Requires Friendly with The League of Arathor||1
+274152|3|30|25|0|400|134172|2|0||0|Roogug's Severed Head||p6|1
 276895|2|30|1|0|400|237431|2|0||0|Transformative Cocoon|||1
+273840|3|29|24|0|400|136155|2|0||0|Cursed Murloc Eye|||1
+273643|3|26|21|0|400|133439|2|0||0|Worgenbane Talisman|||1
 21568|3|25|20|0|400|134415|1|0||1|Rune of Duty||t4|1
 21566|3|25|20|0|400|134418|1|0||1|Rune of Perfection||t4|1
+273298|3|23|18|0|400|134440|2|0||0|Lookie's Spyglass||p1|1
 274445|3|1|0|0|400|133452|2|0||1|Greater Insignia of the Alliance|||1
 274444|3|1|0|0|400|133453|2|0||1|Greater Insignia of the Horde|||1
 209611|3|1|0|4|400|133452|1|0||1|Insignia of the Alliance|||1
@@ -7096,7 +7790,7 @@ FGT.GEARDB = {
 19103|3|65|60|0|200|132416|1|0||1|Frostbite||s15|1
 19099|3|65|60|0|215|135642|1|0||1|Glacial Blade||a10|1
 279261|4|65|60|0|204|7957558|2|0||0|Greenhammer||a8,t12,h1|2
-15221|2|65|60|0|207|135276|0|0||0|Holy War Sword|||2
+15221|2|65|60|0|207|135276|1|0||0|Holy War Sword|||2
 279259|4|65|60|0|207|135277|2|0||0|Ironwood Blade||s8,t12,h1|2
 272843|4|65|60|0|215|135662|2|0|A|0|Premier Grand Marshal's Dirk||t2,A24,c1|1
 272839|4|65|60|0|200|132418|2|0|A|0|Premier Grand Marshal's Handaxe||t2,A24,c1|1
@@ -7114,269 +7808,324 @@ FGT.GEARDB = {
 19324|4|65|60|0|215|135330|1|0||1|The Lobotomizer|||1
 22377|3|65|0|0|215|135315|1|0||1|The Thunderwood Poker||a13,t6|1
 19921|3|65|60|0|200|132399|0|0||0|Zulian Hacker|||2
-15247|2|64|59|0|215|135639|0|0||0|Bloodstrike Dagger|||2
-15240|2|64|59|0|200|132407|0|0||0|Demon's Claw|||2
-14555|4|63|58|0|215|135344|0|0||0|Alcor's Sunrazor|||2
+15247|2|64|59|0|215|135639|1|0||0|Bloodstrike Dagger|||2
+15240|2|64|59|0|200|132407|1|0||0|Demon's Claw|||2
+14555|4|63|58|0|215|135344|1|0||0|Alcor's Sunrazor|||2
 250618|3|63|58|0|213|134296|2|0||0|Bagh Nakh||a13,t5|2
+280029|3|63|58|0|200|0|2|0||0|Cinderedge Crescent||t10,A14|1
 19110|3|63|58|0|207|135357|0|0||0|Cold Forged Blade||a5,t13|1
-13984|3|63|0|0|215|135657|0|0||0|Darrowspike|||1
-12590|4|63|58|0|215|135661|0|0||0|Felstriker|||1
-13360|3|63|58|0|215|135651|0|0||0|Gift of the Elven Magi||t5,i10,p6|1
+13984|3|63|0|0|215|135657|1|0||0|Darrowspike|||1
+12590|4|63|58|0|215|135661|1|0||0|Felstriker|||1
+13360|3|63|58|0|215|135651|1|0||0|Gift of the Elven Magi||t5,i10,p6|1
 12783|3|63|58|0|215|135315|1|0||1|Heartseeker||s4,c1|2
 19550|3|63|58|0|207|135341|1|0||1|Legionnaire's Sword||s13,t5|1
 19554|3|63|58|0|207|135328|1|0||1|Protector's Sword||s13,t5|1
-5267|3|63|58|0|215|135639|0|0||1|Scarlet Kris||a10,t10|2
+280022|3|63|58|0|207|0|2|0||0|Scaleguard Scimitar||t8,A14|1
+5267|3|63|58|0|215|135639|1|0||1|Scarlet Kris||a10,t10|2
 19542|3|63|58|0|215|135651|1|0||1|Scout's Blade||a13,t5|1
 19546|3|63|58|0|215|135650|1|0||1|Sentinel's Blade||a13,t5|1
-13361|3|63|58|0|207|135302|0|0||0|Skullforge Reaver|||1
-13246|3|62|0|0|207|135275|0|0||0|Argent Avenger|||1
-18737|3|62|57|0|200|132402|0|0||0|Bone Slicing Hatchet||a13,t5|1
-14487|3|62|57|0|204|133050|0|0||0|Bonechill Hammer|||1
-13368|3|62|57|0|215|135648|0|0||0|Bonescraper||A30|1
-15246|2|62|57|0|215|135639|0|0||0|Demon Blade|||2
-2243|4|62|57|0|204|133489|0|0||1|Hand of Edward the Odd||i13,p10|2
+13361|3|63|58|0|207|135302|1|0||0|Skullforge Reaver|||1
+280012|3|63|58|0|207|0|2|0||0|Talon of Tor'Rel||t5,A16|1
+280021|3|63|58|0|215|136231|2|0||0|Tooth of the Matriarch||a10|1
+13246|3|62|0|0|207|135275|1|0||0|Argent Avenger|||1
+18737|3|62|57|0|200|132402|1|0||0|Bone Slicing Hatchet||a13,t5|1
+14487|3|62|57|0|204|133050|1|0||0|Bonechill Hammer|||1
+13368|3|62|57|0|215|135648|1|0||0|Bonescraper||A30|1
+279908|3|62|1|0|200|132415|2|0||0|Crystal-Infused Cleaver||s6,p9,c1|1
+15246|2|62|57|0|215|135639|1|0||0|Demon Blade|||2
+2243|4|62|57|0|204|133489|1|0||1|Hand of Edward the Odd||i13,p10|2
+286613|3|62|57|0|215|135646|2|0||0|King Mosh's Tooth||a11,A13|1
 23132|3|62|57|0|207|135275|0|0||0|Lord Blackwood's Blade||t14|1
+284157|2|62|57|0|207|135327|2|0||0|Ranger Lord's Longsword||a9,t5|2
 20675|3|62|57|0|200|132404|0|0||0|Soulrender||A28|1
-18758|3|62|57|0|215|135654|0|0||0|Specter's Blade|||1
-18376|3|62|57|0|204|133482|0|0||0|Timeworn Mace||s7,t11|1
-13964|3|62|57|0|215|135661|0|0||0|Witchblade||i8,S14,H14|1
-18484|3|61|56|0|207|135640|0|0||0|Cho'Rush's Blade||A28|1
-13218|3|61|56|0|215|135652|0|65||1|Fang of the Crystal Spider|||1
-15239|2|61|56|0|200|132401|0|0||0|Felstone Reaver|||2
-14024|3|61|56|0|215|135652|0|0||0|Frightalon|||1
-18683|3|61|56|0|204|133050|0|0||0|Hammer of the Vesper||s7,t12|1
+18758|3|62|57|0|215|135654|1|0||0|Specter's Blade|||1
+18376|3|62|57|0|204|133482|1|0||0|Timeworn Mace||s7,t11|1
+13964|3|62|57|0|215|135661|1|0||0|Witchblade||i8,S14,H14|1
+287045|3|61|56|0|200|0|2|0||0|Ancient Mattock||t8,p8|2
+280068|3|61|56|0|213|0|2|0||0|Bloody Claws of Attack||A8|1
+18484|3|61|56|0|207|135640|1|0||0|Cho'Rush's Blade||A28|1
+13218|3|61|56|0|215|135652|1|65||1|Fang of the Crystal Spider|||1
+15239|2|61|56|0|200|132401|1|0||0|Felstone Reaver|||2
+14024|3|61|56|0|215|135652|1|0||0|Frightalon|||1
+18683|3|61|56|0|204|133050|1|0||0|Hammer of the Vesper||s7,t12|1
 17002|2|61|0|0|200|135575|1|0||0|Ichor Spitter|||1
-22317|3|61|56|0|213|132945|0|0||0|Lefty's Brass Knuckle||a12,s5|1
-15806|3|61|0|0|207|135344|0|0||0|Mirah's Song||a9,s9|1
-13015|3|61|56|0|200|132399|0|0||0|Serathil||s9|2
-13401|3|61|56|0|204|133729|0|0||0|The Cruel Hand of Timmy|||1
-22322|3|61|56|0|204|133490|0|0||0|The Jaw Breaker||c1|1
-18347|2|61|56|0|200|132402|0|0||0|Well Balanced Axe||a11|1
-13204|3|60|55|0|204|133490|0|0||0|Bashguuder||s9|1
+22317|3|61|56|0|213|132945|1|0||0|Lefty's Brass Knuckle||a12,s5|1
+15806|3|61|0|0|207|135344|1|0||0|Mirah's Song||a9,s9|1
+13015|3|61|56|0|200|132399|1|0||0|Serathil||s9|2
+13401|3|61|56|0|204|133729|1|0||0|The Cruel Hand of Timmy|||1
+22322|3|61|56|0|204|133490|1|0||0|The Jaw Breaker||c1|1
+18347|2|61|56|0|200|132402|1|0||0|Well Balanced Axe||a11|1
+13204|3|60|55|0|204|133490|1|0||0|Bashguuder||s9|1
 15783|2|60|0|0|215|135650|1|0||0|Beasthunter Dagger|||1
 15782|2|60|0|0|207|135343|1|0||0|Beaststalker Blade|||1
-12061|2|60|0|0|207|135327|0|0||0|Blade of Reckoning||A22|1
+12061|2|60|0|0|207|135327|1|0||0|Blade of Reckoning||A22|1
 20657|3|60|55|0|215|135663|0|0||1|Crystal Tipped Stiletto||t5,A24|1
 10697|2|60|0|0|215|135341|1|0||0|Enchanted Azsharite Felbane Dagger|||1
+260213|2|60|0|0|213|0|2|0||0|Great Bear Claw||a4,s8,t5|1
 281587|3|60|1|0|207|0|2|0||0|Greatflank Flayer||s5,t11,d3|1
+287034|3|60|55|0|215|0|2|0||0|Grove Subjugator's Blade||t6,c1|2
 15814|2|60|0|0|207|135344|1|0||0|Hameya's Slayer|||1
-18498|3|60|55|0|200|132402|0|0||0|Hedgecutter||s5,t12|1
-13198|3|60|55|0|213|132945|0|0||0|Hurd Smasher|||1
-12582|3|60|55|0|215|135648|0|0||0|Keris of Zul'Serak|||1
-18463|2|60|55|0|207|135274|0|0||0|Ogre Pocket Knife||t7,A16|1
-12062|2|60|0|0|215|135322|0|0||0|Skilled Fighting Blade|||1
-13183|3|60|55|0|204|135472|0|65||1|Venomspitter|||1
-15853|3|60|0|0|200|132399|0|0||0|Windreaper|||1
-15219|2|59|54|0|207|135324|0|0||0|Dimensional Blade|||2
-18310|3|59|54|0|207|135316|0|0||0|Fiendish Machete||a5|1
+18498|3|60|55|0|200|132402|1|0||0|Hedgecutter||s5,t12|1
+13198|3|60|55|0|213|132945|1|0||0|Hurd Smasher|||1
+12582|3|60|55|0|215|135648|1|0||0|Keris of Zul'Serak|||1
+276419|3|60|55|0|204|133060|2|0||0|Lightcrest Hammer|||1
+18463|2|60|55|0|207|135274|1|0||0|Ogre Pocket Knife||t7,A16|1
+276398|3|60|55|0|204|133048|2|0||0|Scarlet Malice||t10,A16|1
+12062|2|60|0|0|215|135322|1|0||0|Skilled Fighting Blade|||1
+13183|3|60|55|0|204|135472|1|65||1|Venomspitter|||1
+15853|3|60|0|0|200|132399|1|0||0|Windreaper|||1
+15219|2|59|54|0|207|135324|1|0||0|Dimensional Blade|||2
+18310|3|59|54|0|207|135316|1|0||0|Fiendish Machete||a5|1
 275700|2|58|0|0|204|133027|2|0||0|Glaive Thrower Muffler||s6,t7|1
 15800|2|58|0|0|207|135327|1|0||0|Intrepid Shortsword||t11|1
 274383|2|58|0|0|215|135651|2|0||0|Kanai's Knife||a9,A10|1
-13286|3|58|53|0|200|134710|0|0||0|Rivenspike|||1
+13286|3|58|53|0|200|134710|1|0||0|Rivenspike|||1
 15801|2|58|0|0|207|135326|1|0||0|Valiant Shortsword||i11|1
-15238|2|58|53|0|200|132407|0|0||0|Warlord's Axe|||2
-13036|3|57|52|0|207|135352|0|0||0|Assassination Blade||s3,c1|2
-11922|3|57|52|0|215|135651|0|0||0|Blood-etched Blade||t12,S6,H6|1
+15238|2|58|53|0|200|132407|1|0||0|Warlord's Axe|||2
+13036|3|57|52|0|207|135352|1|0||0|Assassination Blade||s3,c1|2
+11922|3|57|52|0|215|135651|1|0||0|Blood-etched Blade||t12,S6,H6|1
 250616|2|57|52|0|215|0|2|0||0|Bold Dirk||a6,A16|2
+274265|2|57|0|0|200|132405|2|0||0|Brush Cutter||t5|1
 276338|2|57|0|0|213|132116|2|0||0|Claw of Shalla'kal||A10|1
-15218|2|57|52|0|207|135349|0|0||0|Crystal Sword|||2
-10847|4|57|52|0|207|135348|0|0||0|Dragon's Call|||1
-22266|3|57|52|0|215|135124|0|0||0|Flarethorn||i5|1
+15218|2|57|52|0|207|135349|1|0||0|Crystal Sword|||2
+274271|2|57|0|0|215|135651|2|0||0|Deadhead Blade||a5|1
+10847|4|57|52|0|207|135348|1|0||0|Dragon's Call|||1
+280077|3|57|52|0|213|0|2|0||0|Fist of Revelation||t6,p9,h1|1
+22266|3|57|52|0|215|135124|1|0||0|Flarethorn||i5|1
 15706|2|57|0|0|215|135651|1|0||0|Hunt Tracker Blade||a8,p5|1
-13182|3|57|52|0|207|135346|0|0||0|Phase Blade||s7,t12|1
-24222|3|57|52|0|215|135654|0|0||0|The Shadowfoot Stabber||t8,A18|2
+13182|3|57|52|0|207|135346|1|0||0|Phase Blade||s7,t12|1
+24222|3|57|52|0|215|135654|1|0||0|The Shadowfoot Stabber||t8,A18|2
 15705|2|57|0|0|207|135349|1|0||0|Tidecrest Blade||s8,p5|1
+280085|3|57|52|0|215|0|2|0||0|Tunnelweb Pincer||a7,t8|1
 12777|3|56|51|0|207|135340|1|0||0|Blazing Rapier|||2
-11744|3|56|51|0|213|132945|0|0||0|Bloodfist|||1
-10828|3|56|51|0|215|135652|0|0||1|Dire Nail|||1
-15229|2|55|50|0|204|133039|0|0||0|Blesswind Hammer|||2
-15237|2|55|50|0|200|132407|0|0||0|Corpse Harvester|||2
+11744|3|56|51|0|213|132945|1|0||0|Bloodfist|||1
+10828|3|56|51|0|215|135652|1|0||1|Dire Nail|||1
+274517|2|56|56|0|207|135321|2|0||0|Unerring Purpose||s5,A16|2
+15229|2|55|50|0|204|133039|1|0||0|Blesswind Hammer|||2
+282023|2|55|50|0|213|135663|2|0||0|Clack's Claw||s8,p4|2
+15237|2|55|50|0|200|132407|1|0||0|Corpse Harvester|||2
 12774|3|55|50|0|200|132396|1|0||0|Dawn's Edge||c1|2
-8190|3|55|50|0|207|135280|0|0||0|Hanzo Sword|||2
-6660|3|55|50|0|215|135643|0|0||0|Julie's Dagger|||2
+279474|3|55|1|0|215|0|2|0||0|Dustwallow Dirk||a6,t10|1
+8190|3|55|50|0|207|135280|1|0||0|Hanzo Sword|||2
+6660|3|55|50|0|215|135643|1|0||0|Julie's Dagger|||2
 11743|2|55|50|0|213|132945|0|0||0|Rockfist||s10|1
 250614|3|55|50|0|213|0|2|0||0|Thorium Cestus||t9,A16|1
 15862|2|54|0|0|200|135576|1|0||0|Blitzcleaver||A20|1
-12535|3|54|49|0|207|135351|0|0||0|Doomforged Straightedge||s10,A12|2
-10804|2|54|49|0|204|133048|0|0||0|Fist of the Damned|||1
-11635|3|54|49|0|215|135646|0|0||1|Hookfang Shanker|||1
-10750|3|54|0|0|215|135322|0|0||0|Lifeforce Dirk||t11|1
-15217|2|54|49|0|207|135351|0|0||0|Widow Blade|||2
-13014|3|53|48|0|200|132415|0|0||0|Axe of Rin'ji||a5,t11|2
-10797|3|53|48|0|207|135279|0|0||0|Firebreather|||1
-17719|3|53|48|0|207|135312|0|0||0|Inventor's Focal Sword||c1|1
+12535|3|54|49|0|207|135351|1|0||0|Doomforged Straightedge||s10,A12|2
+10804|2|54|49|0|204|133048|1|0||0|Fist of the Damned|||1
+11635|3|54|49|0|215|135646|1|0||1|Hookfang Shanker|||1
+276738|3|54|49|0|215|135655|2|0||0|Katerina's Shanker||a7,d12|1
+10750|3|54|0|0|215|135322|1|0||0|Lifeforce Dirk||t11|1
+15217|2|54|49|0|207|135351|1|0||0|Widow Blade|||2
+13014|3|53|48|0|200|132415|1|0||0|Axe of Rin'ji||a5,t11|2
+10797|3|53|48|0|207|135279|1|0||0|Firebreather|||1
+17719|3|53|48|0|207|135312|1|0||0|Inventor's Focal Sword||c1|1
 19551|3|53|48|0|207|135341|1|0||1|Legionnaire's Sword||s11,t5|1
 19555|3|53|48|0|207|135328|1|0||1|Protector's Sword||s11,t5|1
 19543|3|53|48|0|215|135651|1|0||1|Scout's Blade||a11,t5|1
 19547|3|53|48|0|215|135650|1|0||1|Sentinel's Blade||a11,t5|1
-2163|4|53|48|0|215|135302|0|0||1|Shadowblade|||2
-15228|2|53|48|0|204|133729|0|0||0|Smashing Star|||2
-17705|3|53|0|0|207|135346|0|0||0|Thrash Blade|||1
+2163|4|53|48|0|215|135302|1|0||1|Shadowblade|||2
+15228|2|53|48|0|204|133729|1|0||0|Smashing Star|||2
+17705|3|53|0|0|207|135346|1|0||0|Thrash Blade|||1
 260172|2|52|0|0|215|0|2|0||0|Assassin's Dagger||a6,s6|1
 281628|3|52|0|2|207|135349|2|0||0|Blade of Bandarion||s5,t11|1
-20035|3|52|0|0|215|135642|0|0||0|Glacial Spike||i4|1
-15236|2|52|47|0|200|132407|0|0||0|Moon Cleaver|||2
+20035|3|52|0|0|215|135642|1|0||0|Glacial Spike||i4|1
+284283|2|52|47|0|215|0|2|0||0|Horn of Antilos||t5,i6|2
+15236|2|52|47|0|200|132407|1|0||0|Moon Cleaver|||2
 260180|2|52|0|0|215|0|2|0||0|Scout's Dagger||a6,s6|1
+282010|2|52|47|0|215|133723|2|0||1|Tusk of Grunter||a4,s7|2
 7947|2|51|46|0|215|135650|1|0||0|Ebon Shiv||a9|2
-15216|2|51|46|0|207|135351|0|0||0|Rune Sword|||2
-12531|3|51|46|0|215|135639|0|0||1|Searing Needle|||2
-17055|3|50|45|0|204|133054|0|0||0|Changuk Smasher||t6,i6,p5|2
+15216|2|51|46|0|207|135351|1|0||0|Rune Sword|||2
+12531|3|51|46|0|215|135639|1|0||1|Searing Needle|||2
+17055|3|50|45|0|204|133054|1|0||0|Changuk Smasher||t6,i6,p5|2
 17054|3|50|45|0|207|135351|0|0||0|Joonho's Mercy|||2
-17752|3|50|45|0|215|135645|0|0||1|Satyr's Lash|||1
-15245|2|50|45|0|215|135639|0|0||0|Vorpal Dagger|||2
-15227|2|49|44|0|204|133490|0|0||0|Diamond-Tip Bludgeon|||2
-9379|3|49|44|0|207|135355|0|0||1|Sang'thraze the Deflector||d25|1
-13035|3|49|44|0|207|135343|0|0||0|Serpent Slicer|||2
-10625|3|49|44|0|215|135351|0|0||1|Stealthblade|||2
-15235|2|48|43|0|200|132407|0|0||0|Crescent Edge|||2
+17752|3|50|45|0|215|135645|1|0||1|Satyr's Lash|||1
+15245|2|50|45|0|215|135639|1|0||0|Vorpal Dagger|||2
+15227|2|49|44|0|204|133490|1|0||0|Diamond-Tip Bludgeon|||2
+9379|3|49|44|0|207|135355|1|0||1|Sang'thraze the Deflector||d25|1
+13035|3|49|44|0|207|135343|1|0||0|Serpent Slicer|||2
+10625|3|49|44|0|215|135351|1|0||1|Stealthblade|||2
+15235|2|48|43|0|200|132407|1|0||0|Crescent Edge|||2
 19040|2|48|0|0|207|135346|1|0||0|Zorbin's Mega-Slicer||a6,t5|1
-4088|2|47|42|0|215|135351|0|0||0|Dreadblade|||2
-871|4|47|42|0|200|132408|0|0||0|Flurry Axe|||2
-9467|2|47|42|0|215|134298|0|0||1|Gahz'rilla Fang|||1
-5616|3|47|42|0|215|135341|0|0||1|Gutwrencher|||2
+4088|2|47|42|0|215|135351|1|0||0|Dreadblade|||2
+871|4|47|42|0|200|132408|1|0||0|Flurry Axe|||2
+9467|2|47|42|0|215|134298|1|0||1|Gahz'rilla Fang|||1
+5616|3|47|42|0|215|135341|1|0||1|Gutwrencher|||2
 250611|2|47|42|0|215|0|2|0||0|Mithril Stiletto||a8|2
-754|3|47|42|0|207|135312|0|0||0|Shortsword of Vengeance|||2
-1608|2|47|42|0|204|133729|0|0||0|Skullcrusher Mace|||2
-4091|3|47|42|0|215|135639|0|0||1|Widowmaker||a8,s7|2
-9511|3|46|41|0|207|135350|0|0||0|Bloodletter Scalpel|||2
-1994|2|46|41|0|200|132407|0|0||0|Ebonclaw Reaver|||2
-9419|2|46|41|0|204|133054|0|0||0|Galgann's Firehammer|||1
-4090|3|46|41|0|204|132790|0|0||0|Mug O' Hurt|||2
+275008|3|47|42|0|213|135593|2|0||0|Mugg's Crosser||s5,t6|1
+275007|3|47|42|0|213|135593|2|0||0|Mugg's Jabber||a5,t6|1
+279852|3|47|1|0|204|0|2|0||0|Rock on Stick||s4|1
+754|3|47|42|0|207|135312|1|0||0|Shortsword of Vengeance|||2
+1608|2|47|42|0|204|133729|1|0||0|Skullcrusher Mace|||2
+285043|2|47|42|0|215|0|2|0||0|Snarling Fang||t6,A9|2
+4091|3|47|42|0|215|135639|1|0||1|Widowmaker||a8,s7|2
+284046|2|47|42|0|215|135637|2|0||0|Witherheart's Stabber||a7,p2|2
+9511|3|46|41|0|207|135350|1|0||0|Bloodletter Scalpel|||2
+1994|2|46|41|0|200|132407|1|0||0|Ebonclaw Reaver|||2
+9419|2|46|41|0|204|133054|1|0||0|Galgann's Firehammer|||1
+4090|3|46|41|0|204|132790|1|0||0|Mug O' Hurt|||2
+281665|3|46|41|0|204|133057|2|0||0|Twilight Forgehammer|||1
 270092|2|45|0|0|207|135346|2|0||0|Blackwater Scimitar||a5,s5|1
 11856|2|45|0|0|215|135311|1|0||0|Ceremonial Elven Blade||a6,t3|1
-9465|3|45|40|0|200|134707|0|0||1|Digmaster 5000|Requires Mining (175)|a4|2
+9465|3|45|40|0|200|134707|1|0||1|Digmaster 5000|Requires Mining (175)|a4|2
 4987|2|45|0|0|207|135326|1|0||0|Dwarf Captain's Sword||t9|1
 10703|2|45|0|0|215|135322|1|0||0|Fiendish Skiv||s8|1
 277244|3|45|40|0|213|0|2|0||0|Guardian's Maulers||a9,p4|1
-2164|4|45|40|0|215|135311|0|0||0|Gut Ripper|||2
+2164|4|45|40|0|215|135311|1|0||0|Gut Ripper|||2
 274753|3|45|40|0|215|0|2|0||0|Jhordy's Misplaced Screwdriver|Requires Honored with Gadgetzan|a9,s6|1
 250609|2|45|40|0|213|134295|2|0||0|Mithril Claws||a5,s6|2
-19808|2|45|40|0|204|133913|0|0||0|Rockhide Strongfish||t8|2
+19808|2|45|40|0|204|133913|1|0||0|Rockhide Strongfish||t8|2
 277243|3|45|40|0|200|0|2|0||0|Silverbane Slicer||s9,p4|1
-9359|3|45|40|0|204|133942|0|0||0|Southsea Lamp||a9,t4|2
+9359|3|45|40|0|204|133942|1|0||0|Southsea Lamp||a9,t4|2
 277245|3|45|40|0|204|0|2|0||0|Swampspine Crusher||a4,t9|1
-6831|3|44|0|0|215|135311|0|0||0|Black Menace|||1
+286430|3|45|40|0|204|0|2|0||0|Toofbreaker||s7,t5|1
+6831|3|44|0|0|215|135311|1|0||0|Black Menace|||1
 7942|2|44|39|0|200|132394|1|0||0|Blue Glittering Axe||a8|2
-10761|3|44|39|0|215|135344|0|0||0|Coldrage Dagger|||1
+10761|3|44|39|0|215|135344|1|0||0|Coldrage Dagger|||1
+275025|3|44|0|0|204|133045|2|0||0|Dunston's Ogre Duster||s10,t4|1
 277979|2|44|1|0|204|0|2|0||0|Mauler's Mutton||t5,p6|1
-3187|2|44|39|0|215|135639|0|0||0|Sacrificial Kris|||2
-6802|3|44|0|0|207|135317|0|0||0|Sword of Omen||a3,s9,t4|1
-6829|3|44|0|0|207|135328|0|0||0|Sword of Serenity||t9,p4|1
-10823|3|44|0|0|207|135345|0|0||0|Vanquisher's Sword||A28|1
-8196|2|43|38|0|207|135346|0|0||0|Ebon Scimitar|||2
-8194|2|43|38|0|204|133043|0|0||0|Goblin Nutcracker|||2
+3187|2|44|39|0|215|135639|1|0||0|Sacrificial Kris|||2
+274995|3|44|39|0|204|0|2|0||0|Slavecrusher Scepter||s6,t9|1
+6802|3|44|0|0|207|135317|1|0||0|Sword of Omen||a3,s9,t4|1
+6829|3|44|0|0|207|135328|1|0||0|Sword of Serenity||t9,p4|1
+10823|3|44|0|0|207|135345|1|0||0|Vanquisher's Sword||A28|1
+282550|2|43|38|0|204|134520|2|0||0|Combat Tuning Wrench||a5,s5|2
+8196|2|43|38|0|207|135346|1|0||0|Ebon Scimitar|||2
+8194|2|43|38|0|204|133043|1|0||0|Goblin Nutcracker|||2
+279857|3|43|38|0|215|0|2|0||0|Kroog's Backscratcher||p7,A14|1
 19552|3|43|38|0|207|135341|1|0||1|Legionnaire's Sword||s8,t3|1
-9401|3|43|38|0|207|135325|0|0||0|Nordic Longshank||a8,t5|1
+9401|3|43|38|0|207|135325|1|0||0|Nordic Longshank||a8,t5|1
 19556|3|43|38|0|207|135328|1|0||1|Protector's Sword||s8,t3|1
 19544|3|43|38|0|215|135651|1|0||1|Scout's Blade||a8,t3|1
 19548|3|43|38|0|215|135650|1|0||1|Sentinel's Blade||a8,t3|1
 272180|2|43|1|0|207|0|2|0||0|Spectral Magister's Commission||s5,i4|1
 9680|2|43|0|0|215|135654|1|0||0|Tok'kar's Murloc Shanker||a6,t3|1
 271802|3|42|35|0|204|0|2|0||0|Bludgeon of Betrayed Virtues||a2,s3,t6|1
-15244|2|42|37|0|215|135637|0|0||0|Razor Blade|||2
-9427|3|42|37|0|204|133718|0|0||0|Stonevault Bonebreaker||a4,s8|2
-9424|3|41|36|0|207|135352|0|0||0|Ginn-su Sword||a8,s4|2
-10772|2|41|36|0|200|132417|0|0||0|Glutton's Cleaver|||1
+285102|2|42|37|0|215|0|2|0||0|Darkmist Dirk||t5,A8|2
+279887|3|42|1|0|200|132397|2|0||0|I'lalai Flayer||a3,s4,t8|1
+274952|2|42|0|0|215|135661|2|0||0|Jom-jom's Gabbar|||1
+15244|2|42|37|0|215|135637|1|0||0|Razor Blade|||2
+282700|2|42|37|0|200|132392|2|0||0|Shadow Scalper|||2
+9427|3|42|37|0|204|133718|1|0||0|Stonevault Bonebreaker||a4,s8|2
+9424|3|41|36|0|207|135352|1|0||0|Ginn-su Sword||a8,s4|2
+10772|2|41|36|0|200|132417|1|0||0|Glutton's Cleaver|||1
 250607|2|41|36|0|215|0|2|0||0|Mithril Shortsword||A14|2
 9520|2|41|0|0|215|135654|1|0||0|Silent Hunter||a7|1
-13034|3|41|36|0|207|135340|0|0||0|Speedsteel Rapier||a8,t3|2
-9392|3|40|35|0|207|135327|0|0||0|Annealed Blade||s6,t6|2
+13034|3|41|36|0|207|135340|1|0||0|Speedsteel Rapier||a8,t3|2
+9392|3|40|35|0|207|135327|1|0||0|Annealed Blade||s6,t6|2
 5742|2|40|35|0|215|135322|0|0||0|Gemstone Dagger|||2
-15214|2|40|35|0|207|135321|0|0||0|Nobles Brand|||2
+15214|2|40|35|0|207|135321|1|0||0|Nobles Brand|||2
+286650|3|40|35|0|204|135432|2|0||0|Pyromancer's Baton|||1
+287006|3|40|35|0|200|0|2|0||0|Resurged Axe||i7,S4|2
 213105|3|40|40|1|204|133969|1|0||0|Shawarmageddon|||1
 274920|2|40|0|0|207|135316|2|0||0|Twilight Carver||t4,A10|1
+274598|3|39|34|0|200|132404|2|0||0|Bloodslash Axe||s5,t5|1
 274928|2|39|0|0|200|132405|2|0||0|Curly's Chopper||t6,d2|1
-7736|3|39|34|0|204|133486|0|0||0|Fight Club||s6,t6|2
-1207|2|39|34|0|204|133490|0|0||0|Murphstar|||2
-1265|3|39|34|0|207|135302|0|0||0|Scorpion Sting|||2
+7736|3|39|34|0|204|133486|1|0||0|Fight Club||s6,t6|2
+1207|2|39|34|0|204|133490|1|0||0|Murphstar|||2
+1265|3|39|34|0|207|135302|1|0||0|Scorpion Sting|||2
 12260|2|39|34|0|215|135641|1|0||0|Searing Golden Blade|||2
-1602|3|39|34|0|200|132397|0|0||0|Sickle Axe||a5,s6,t3|2
-8006|3|39|34|0|215|135661|0|0||0|The Ziggler|||2
+1602|3|39|34|0|200|132397|1|0||0|Sickle Axe||a5,s6,t3|2
+8006|3|39|34|0|215|135661|1|0||0|The Ziggler|||2
 271796|2|38|35|0|207|0|2|0||0|Blade of the Magram Clan||t3,A9|1
+282551|2|38|33|0|213|132945|2|0||0|Golem Fist|||2
 864|2|38|33|0|207|135328|1|0||0|Knightly Longsword|||2
-936|3|38|33|0|204|133729|0|0||0|Midnight Mace|||2
+936|3|38|33|0|204|133729|1|0||0|Midnight Mace|||2
 9718|3|38|33|0|207|135280|1|0||0|Reforged Blade of Heroes||s3,t8|2
-9378|3|38|33|0|200|134708|0|0||1|Shovelphlange's Mining Axe||s6,A10|2
-1465|2|38|33|0|215|135651|0|0||0|Tigerbane|||2
-8223|3|37|32|0|207|135353|0|0||1|Blade of the Basilisk|||2
-10571|3|37|32|0|204|133727|0|0||0|Ebony Boneclub||s5|2
-863|2|37|32|0|200|132399|0|0||0|Gloom Reaper|||2
-5756|3|37|32|0|215|135660|0|0||0|Sliverblade|||2
-934|3|37|32|0|200|132405|0|0||0|Stalvan's Reaper|||2
-15243|2|36|31|0|215|135637|0|0||0|Deadly Kris|||2
-9386|3|36|31|0|204|135432|0|0||1|Excavator's Brand|||2
+9378|3|38|33|0|200|134708|1|0||1|Shovelphlange's Mining Axe||s6,A10|2
+1465|2|38|33|0|215|135651|1|0||0|Tigerbane|||2
+8223|3|37|32|0|207|135353|1|0||1|Blade of the Basilisk|||2
+10571|3|37|32|0|204|133727|1|0||0|Ebony Boneclub||s5|2
+863|2|37|32|0|200|132399|1|0||0|Gloom Reaper|||2
+281750|2|37|32|0|215|135640|2|0||0|Murloc Oracle's Dagger||t3,p5|2
+282703|2|37|32|0|215|134298|2|0||0|Needletooth's Needletooth|||2
+5756|3|37|32|0|215|135660|1|0||0|Sliverblade|||2
+934|3|37|32|0|200|132405|1|0||0|Stalvan's Reaper|||2
+15243|2|36|31|0|215|135637|1|0||0|Deadly Kris|||2
+9386|3|36|31|0|204|135432|1|0||1|Excavator's Brand|||2
 12259|2|36|31|0|215|135641|1|0||0|Glinting Steel Dagger||A12|2
-6331|3|36|31|0|215|135651|0|0||1|Howling Blade|||2
-15213|2|36|31|0|207|135346|0|0||0|Mercenary Blade|||2
-6692|3|36|31|0|200|132409|0|0||1|Pronged Reaver||s6,p5|1
+6331|3|36|31|0|215|135651|1|0||1|Howling Blade|||2
+15213|2|36|31|0|207|135346|1|0||0|Mercenary Blade|||2
+6692|3|36|31|0|200|132409|1|0||1|Pronged Reaver||s6,p5|1
 277246|3|36|0|8|207|0|2|0||0|Ruby-Adorned Blade||a3,t8|1
-9384|3|36|31|0|215|135654|0|0||1|Stonevault Shiv||a7,t3|2
-8225|3|36|31|0|207|135340|0|0||1|Tainted Pierce|||2
-7687|3|35|30|0|204|133056|0|0||0|Ironspine's Fist||s7|1
+9384|3|36|31|0|215|135654|1|0||1|Stonevault Shiv||a7,t3|2
+8225|3|36|31|0|207|135340|1|0||1|Tainted Pierce|||2
+7687|3|35|30|0|204|133056|1|0||0|Ironspine's Fist||s7|1
 3850|2|35|30|0|207|135346|1|0||0|Jade Serpentblade||a4,s4|2
-5256|2|35|30|0|204|133491|0|0||0|Kovork's Rattle||a5,s2|2
-9457|3|35|30|0|204|133483|0|0||0|Royal Diplomatic Scepter||t2,p7|1
-6691|3|35|30|0|215|133723|0|0||1|Swinetusk Shank||t6,p4|1
+5256|2|35|30|0|204|133491|1|0||0|Kovork's Rattle||a5,s2|2
+9457|3|35|30|0|204|133483|1|0||0|Royal Diplomatic Scepter||t2,p7|1
+284717|2|35|30|0|200|132405|2|0||0|Royal Satyr Slicer||p3,A9|2
+6691|3|35|30|0|215|133723|1|0||1|Swinetusk Shank||t6,p4|1
+286996|3|34|29|0|207|135324|2|0||0|City Guard's Tarnished Blade||t6,S5,H5|2
 12248|2|34|29|0|215|135651|1|0||0|Daring Dirk||a5|2
-2080|2|34|29|0|200|132402|0|0||0|Hillborne Axe|||2
-7682|3|34|29|0|215|135124|0|0||0|Torturing Poker|||1
-13033|3|34|29|0|207|135313|0|0||0|Zealot Blade||i5,p6|2
+2080|2|34|29|0|200|132402|1|0||0|Hillborne Axe|||2
+7682|3|34|29|0|215|135124|1|0||0|Torturing Poker|||1
+13033|3|34|29|0|207|135313|1|0||0|Zealot Blade||i5,p6|2
 277515|2|33|1|0|215|0|2|0||0|Dagger of Deals||a4,t3|1
-15232|2|33|28|0|200|135649|0|0||0|Hacking Cleaver|||2
+15232|2|33|28|0|200|135649|1|0||0|Hacking Cleaver|||2
 271664|2|33|0|0|200|132392|2|0||0|Hornbeam Heft||s6|1
 19553|3|33|28|0|207|135341|1|0||1|Legionnaire's Sword||s7,t3|1
 19557|3|33|28|0|207|135328|1|0||1|Protector's Sword||s7,t3|1
 19545|3|33|28|0|215|135651|1|0||1|Scout's Blade||a7,t3|1
 19549|3|33|28|0|215|135650|1|0||1|Sentinel's Blade||a7,t3|1
+280805|2|33|1|0|215|135652|2|0||0|Serrated Raptor Claw||a3,A6|1
 12247|2|32|27|0|215|135640|1|0||0|Broad Bladed Knife||t5|2
-2912|3|32|27|0|215|135652|0|0||1|Claw of the Shadowmancer||i2|2
+2912|3|32|27|0|215|135652|1|0||1|Claw of the Shadowmancer||i2|2
 281314|3|32|0|0|215|0|2|0||0|Subdued Dragon's Fang||a7,t2|1
-9453|3|32|27|0|215|135638|0|0||1|Toxic Revenger|||1
+9453|3|32|27|0|215|135638|1|0||1|Toxic Revenger|||1
 270048|2|32|0|0|204|133478|2|0||0|Uthil's Cudgel||t3,p3|1
 17046|2|31|0|0|200|132417|1|0||0|Gutterblade||s3,t3|1
 250604|2|31|26|0|213|0|2|0||0|Iron Fists||a5|2
-865|2|31|26|0|204|133478|0|0||0|Leaden Mace|||2
-15231|2|31|26|0|200|132405|0|0||0|Splitting Hatchet|||2
-776|3|31|26|0|215|135638|0|0||1|Vendetta||a6|2
+865|2|31|26|0|204|133478|1|0||0|Leaden Mace|||2
+15231|2|31|26|0|200|132405|1|0||0|Splitting Hatchet|||2
+776|3|31|26|0|215|135638|1|0||1|Vendetta||a6|2
 279393|3|30|0|0|207|135325|2|0||0|Frostfall|||1
 279392|3|30|0|0|207|135325|2|0||0|Glimmer|||1
-7786|3|30|25|0|200|132405|0|0||0|Headsplitter||s3,t5|2
-15242|2|30|25|0|215|135637|0|0||0|Honed Stiletto|||2
-16886|3|30|0|0|207|135343|0|0||0|Outlaw Sabre||A15|1
-9485|3|30|25|0|200|132405|0|0||0|Vibroblade|||2
+7786|3|30|25|0|200|132405|1|0||0|Headsplitter||s3,t5|2
+15242|2|30|25|0|215|135637|1|0||0|Honed Stiletto|||2
+16886|3|30|0|0|207|135343|1|0||0|Outlaw Sabre||A15|1
+9485|3|30|25|0|200|132405|1|0||0|Vibroblade|||2
 4825|2|29|24|0|200|132415|1|0||0|Callous Axe||A8|2
-3336|2|29|24|0|215|135646|0|0||0|Flesh Piercer|||2
-6220|3|29|24|0|215|135661|0|0||1|Meteor Shard|||1
-6904|3|28|23|0|215|134298|0|0||0|Bite of Serra'kis|||1
-2819|2|28|23|0|215|135641|0|0||0|Cross Dagger|||2
-753|2|28|23|0|207|135346|0|0||0|Dragonmaw Shortsword||t4|2
+3336|2|29|24|0|215|135646|1|0||0|Flesh Piercer|||2
+285212|2|29|24|0|204|133049|2|0||0|Foulmountain Family Hammer||t2,S4,H4|2
+6220|3|29|24|0|215|135661|1|0||1|Meteor Shard|||1
+6904|3|28|23|0|215|134298|1|0||0|Bite of Serra'kis|||1
+2819|2|28|23|0|215|135641|1|0||0|Cross Dagger|||2
+753|2|28|23|0|207|135346|1|0||0|Dragonmaw Shortsword||t4|2
+284667|3|28|23|0|207|135312|2|0||0|Flame Seared Sword|||2
 5541|2|28|23|0|204|133042|1|0||0|Iridescent Hammer||s3,t3|2
-9488|3|28|23|0|204|133045|0|0||0|Oscillating Power Hammer||s5,t1|2
-1454|3|27|22|0|200|132415|0|0||0|Axe of the Enforcer||s4,t3|2
-4449|2|27|22|0|215|134298|0|0||0|Naraxis' Fang|||2
-13032|3|27|22|0|207|135327|0|0||0|Sword of Corruption|||2
-15241|2|26|21|0|215|135637|0|0||0|Battle Knife|||2
-4446|3|26|21|0|215|135638|0|0||0|Blackvenom Blade||a1|2
-2942|3|26|21|0|213|132938|0|0||0|Iron Knuckles|||1
-2941|3|26|21|0|215|135654|0|0||0|Prison Shank||a5,t2|1
-4454|3|26|21|0|215|135652|0|0||1|Talon of Vultros||a5,p2|2
-5752|2|26|21|0|215|135652|0|0||0|Wyvern Tailspike|||2
+9488|3|28|23|0|204|133045|1|0||0|Oscillating Power Hammer||s5,t1|2
+285346|3|27|22|0|207|135321|2|0||0|Alliance Outrunner's Sword||a5,A6|1
+1454|3|27|22|0|200|132415|1|0||0|Axe of the Enforcer||s4,t3|2
+4449|2|27|22|0|215|134298|1|0||0|Naraxis' Fang|||2
+13032|3|27|22|0|207|135327|1|0||0|Sword of Corruption|||2
+15241|2|26|21|0|215|135637|1|0||0|Battle Knife|||2
+4446|3|26|21|0|215|135638|1|0||0|Blackvenom Blade||a1|2
+2942|3|26|21|0|213|132938|1|0||0|Iron Knuckles|||1
+2941|3|26|21|0|215|135654|1|0||0|Prison Shank||a5,t2|1
+286534|2|26|21|0|215|237394|2|0||0|Silithid Piercer||a3|2
+4454|3|26|21|0|215|135652|1|0||1|Talon of Vultros||a5,p2|2
+286537|2|26|21|0|204|133049|2|0||0|Thunderstomp's Horn|||2
+5752|2|26|21|0|215|135652|1|0||0|Wyvern Tailspike|||2
 15224|2|25|20|0|204|133045|1|0||0|Battlesmasher|||2
 2236|3|25|20|0|215|135638|1|0||1|Blackfang||p2|2
-1292|3|25|20|0|200|132417|0|0||0|Butcher's Cleaver||a2,s5|1
+1292|3|25|20|0|200|132417|1|0||0|Butcher's Cleaver||a2,s5|1
 3490|2|25|20|0|215|135641|1|0||0|Deadly Bronze Poniard||a4|2
 2194|3|25|20|0|204|133043|1|0||1|Diamond Hammer||s3,t4|2
-3413|3|25|20|0|215|135330|0|0||0|Doomspike||s3,t3|2
-1481|3|25|20|0|200|132404|0|0||0|Grimclaw|||2
+3413|3|25|20|0|215|135330|1|0||0|Doomspike||s3,t3|2
+1481|3|25|20|0|200|132404|1|0||0|Grimclaw|||2
+284702|2|25|20|0|207|135325|2|0||0|Slimy Sword||t3|2
 6360|2|25|20|0|204|133890|1|0||0|Steelscale Crushfish||s4|2
 281293|2|25|0|0|207|0|2|0||0|Weathered Deathstalker's Blade||s4|1
-1935|3|24|19|0|215|135660|0|0||0|Assassin's Blade||a4,s3|2
-5191|3|24|19|0|207|135325|0|0||0|Cruel Barb||A12|1
+1935|3|24|19|0|215|135660|1|0||0|Assassin's Blade||a4,s3|2
+5191|3|24|19|0|207|135325|1|0||0|Cruel Barb||A12|1
 251485|2|24|0|0|215|135650|2|0||0|Edward's Knife||a2,t2|1
+279876|2|24|1|0|207|135689|2|0||0|Plaguefang|||1
 16890|2|24|0|0|207|135343|1|0||0|Slatemetal Cutlass||a2,s2|1
-6472|3|24|19|0|204|135472|0|0||0|Stinging Viper|||1
-6633|2|23|18|0|207|135314|0|0||0|Butcher's Slicer||s2,t2|1
-2567|3|23|18|0|215|135651|0|0||1|Evocator's Blade||i4,p2|2
+6472|3|24|19|0|204|135472|1|0||0|Stinging Viper|||1
+284386|3|24|19|0|215|135660|2|0||0|Whipfang's Skinsearer|||1
+6633|2|23|18|0|207|135314|1|0||0|Butcher's Slicer||s2,t2|1
+2567|3|23|18|0|215|135651|1|0||1|Evocator's Blade||i4,p2|2
 20430|3|23|18|0|207|135341|1|0||1|Legionnaire's Sword||s4,t2|1
 5540|2|23|18|0|215|135641|1|0||0|Pearl-handled Dagger||a2,t2|2
 20440|3|23|18|0|207|135328|1|0||1|Protector's Sword||s4,t2|1
@@ -7384,75 +8133,89 @@ FGT.GEARDB = {
 20441|3|23|18|0|215|135651|1|0||1|Scout's Blade||a4,t2|1
 20443|3|23|18|0|215|135650|1|0||1|Sentinel's Blade||a4,t2|1
 15211|2|22|17|0|207|135321|1|0||0|Militant Shortsword|||2
-5196|2|22|17|0|200|132416|0|0||0|Smite's Reaver||s2,t1,p1|1
-6333|2|22|17|0|215|135646|0|0||0|Spikelash Dagger||a2,t2|2
-6448|2|22|17|0|215|135646|0|0||0|Tail Spike||a2,s2|1
-5192|2|22|17|0|207|135325|0|0||1|Thief's Blade||a3|1
+5196|2|22|17|0|200|132416|1|0||0|Smite's Reaver||s2,t1,p1|1
+6333|2|22|17|0|215|135646|1|0||0|Spikelash Dagger||a2,t2|2
+6448|2|22|17|0|215|135646|1|0||0|Tail Spike||a2,s2|1
+5192|2|22|17|0|207|135325|1|0||1|Thief's Blade||a3|1
+271218|3|22|17|0|207|135314|2|0||0|Vileblood Scimitar||p5|1
 250602|2|21|16|0|213|132938|2|0||0|Brass Knuckles||a2,t2|2
-1937|2|21|16|0|207|135325|0|0||0|Buzz Saw||a2,s2|1
+1937|2|21|16|0|207|135325|1|0||0|Buzz Saw||a2,s2|1
 16891|2|21|0|0|207|135324|1|0||0|Claystone Shortsword||t3|1
-5197|2|21|16|0|204|132906|0|0||0|Cookie's Tenderizer||s3|1
-1483|3|21|16|0|204|133045|0|0||0|Face Smasher||s3,t3|2
+5197|2|21|16|0|204|132906|1|0||0|Cookie's Tenderizer||s3|1
+282639|3|21|16|0|200|135578|2|0||0|Emogg's "Crusher"||s4,t2|1
+1483|3|21|16|0|204|133045|1|0||0|Face Smasher||s3,t3|2
 4568|2|21|16|0|200|132403|1|0||0|Grunt Axe|||2
 3848|2|20|15|0|215|135640|1|0||0|Big Bronze Knife||t3|2
 5321|2|20|0|0|207|135276|1|0||0|Elegant Shortsword||t3|1
 5279|2|20|0|0|215|135650|1|0||0|Harpy Skinner||a3|1
 3184|2|20|15|0|215|135637|1|0||0|Hook Dagger|||2
 12976|3|20|15|0|207|135327|1|0||0|Ironpatch Blade||s4,t2|2
+271204|3|20|15|0|215|134298|2|0||0|Meathook Slicer||t5|1
 935|3|20|15|0|207|135327|1|0||0|Night Watch Shortsword||t4|2
 5627|2|20|0|0|215|135641|1|0||0|Relic Blade||t3|1
-5426|3|20|15|0|200|132417|0|0||0|Serpent's Kiss|||2
+5426|3|20|15|0|200|132417|1|0||0|Serpent's Kiss|||2
 2908|2|20|0|0|215|135651|1|0||0|Thornblade||a3|1
-1951|2|19|14|0|207|135325|0|0||0|Blackwater Cutlass||a2|2
-2235|2|19|14|0|215|135651|0|0||0|Brackclaw||a1,s1|2
-899|2|19|14|0|215|134298|0|0||0|Venom Web Fang|||2
+1951|2|19|14|0|207|135325|1|0||0|Blackwater Cutlass||a2|2
+2235|2|19|14|0|215|135651|1|0||0|Brackclaw||a1,s1|2
+899|2|19|14|0|215|134298|1|0||0|Venom Web Fang|||2
 3222|2|19|14|0|215|135640|0|0||0|Wicked Dagger||a1,s1|2
-14151|2|18|13|0|215|135661|0|0||0|Chanting Blade||a1,t1|1
-1936|2|18|13|0|215|135641|0|0||0|Goblin Screwdriver||a2|2
-2020|2|18|13|0|215|135652|0|0||0|Hollowfang Blade||s2|2
-15443|2|18|0|0|215|135641|0|0||0|Kris of Orgrimmar||t1,p1|1
-2078|2|18|13|0|207|135321|0|0||0|Northern Shortsword|||2
-2089|2|18|0|0|215|135637|0|0||0|Scrimshaw Dagger||t2|1
+14151|2|18|13|0|215|135661|1|0||0|Chanting Blade||a1,t1|1
+1936|2|18|13|0|215|135641|1|0||0|Goblin Screwdriver||a2|2
+2020|2|18|13|0|215|135652|1|0||0|Hollowfang Blade||s2|2
+15443|2|18|0|0|215|135641|1|0||0|Kris of Orgrimmar||t1,p1|1
+2078|2|18|13|0|207|135321|1|0||0|Northern Shortsword|||2
+2089|2|18|0|0|215|135637|1|0||0|Scrimshaw Dagger||t2|1
 3581|2|18|0|0|215|135637|1|0||0|Serrated Knife||a1,t1|1
-2074|2|18|0|0|207|135324|0|0||0|Solid Shortblade||s1,t1|1
+284177|2|18|13|0|204|133486|2|0||0|Sinslayer's Smasher||s2|2
+2074|2|18|0|0|207|135324|1|0||0|Solid Shortblade||s1,t1|1
 2664|2|18|13|0|215|134298|0|0||0|Spinner Fang||t1|2
 3572|2|17|0|0|207|135274|1|0||0|Daryl's Shortsword||a2|1
 281254|2|17|0|0|204|0|2|0||0|Invader's Mace||s2,p1|1
-2079|2|17|12|0|204|133048|0|0||0|Sergeant's Warhammer|||2
-820|2|17|12|0|215|135637|0|0||0|Slicer Blade||a2|2
-4571|2|17|12|0|215|135651|0|0||0|War Knife|||2
+2079|2|17|12|0|204|133048|1|0||0|Sergeant's Warhammer|||2
+820|2|17|12|0|215|135637|1|0||0|Slicer Blade||a2|2
+4571|2|17|12|0|215|135651|1|0||0|War Knife|||2
 281257|2|16|0|0|215|0|2|0||0|Daggerfang's Daggerfang||a2|1
-15210|2|16|11|0|207|135274|0|0||0|Raider Shortsword|||2
+15210|2|16|11|0|207|135274|1|0||0|Raider Shortsword|||2
 6969|2|15|0|1|215|135641|1|0||0|Elunite Dagger||t1|1
-1287|2|15|10|0|215|134298|0|0||0|Giant Tarantula Fang||t1|2
+276188|2|15|0|0|207|7789512|2|0||1|Eluvi'ana|||1
+1287|2|15|10|0|215|134298|1|0||0|Giant Tarantula Fang||t1|2
 6980|2|15|0|1|215|135651|1|0||0|Haggard's Dagger||t1|1
 7116|2|15|0|1|215|135651|1|0||0|Heirloom Dagger||t1|1
-2088|2|15|10|0|215|133723|0|0||0|Long Crawler Limb||t1|2
-5112|2|15|10|0|215|135638|0|0||0|Ritual Blade||a1|2
+2088|2|15|10|0|215|133723|1|0||0|Long Crawler Limb||t1|2
+5112|2|15|10|0|215|135638|1|0||0|Ritual Blade||a1|2
+270001|2|15|0|0|207|135274|2|0||0|Rusty Cutlass||t1|1
+284174|2|15|10|0|215|135651|2|0||0|Serrated Shadowclaw||a1|2
 7327|2|15|0|1|215|135641|1|0||0|Thun'grim's Dagger||t1|1
 6981|2|15|0|1|215|135651|1|0||0|Umbral Dagger||t1|1
+263936|2|15|10|0|215|7792229|2|0||0|Windforged Shortblade||A2|2
 15335|2|14|0|0|207|135321|1|0||0|Briarsteel Shortsword||t1|1
-2632|2|14|9|0|215|135637|0|0||0|Curved Dagger|||2
+2632|2|14|9|0|215|135637|1|0||0|Curved Dagger|||2
 15396|2|14|0|0|215|135641|1|0||0|Curvewood Dagger||t1|1
+264501|2|13|8|0|207|7789512|2|0||1|Ancient Skyborne Blade|||1
 7298|2|13|0|8|215|135662|1|0||1|Blade of Cunning||a2|1
 2218|2|13|0|0|215|135641|1|0||0|Craftsman's Dagger||a1|1
+286755|2|13|8|0|207|0|2|0||0|Helm Splitter||s1|2
 257346|2|13|0|0|215|7792229|2|0||0|Quickblade's Dagger||a1|1
-2266|2|13|8|0|215|135644|0|0||0|Stonesplinter Dagger||a1|2
+2266|2|13|8|0|215|135644|1|0||0|Stonesplinter Dagger||a1|2
 254779|2|12|0|0|207|924822|2|0||0|A'sharahm, the Roiling Tempest||t1|1
+283462|2|12|7|0|215|135640|2|0||0|Bayne's Bite||s1|2
 4974|2|12|0|0|215|135641|1|0||0|Compact Fighting Knife||a1|1
 248007|2|12|0|0|215|135651|2|0||1|Militia Shortblade||a1|1
-2140|2|11|6|0|215|135637|0|0||0|Carving Knife|||2
+286730|2|12|0|0|215|0|2|0||0|Pristine Orcish Dagger||a1|1
+2140|2|11|6|0|215|135637|1|0||0|Carving Knife|||2
+284321|2|11|6|0|200|132392|2|0||0|Centaur Raider's Axe||a1|2
 277988|2|11|0|0|215|135654|2|0||0|Hoof-Holstered Blade||s1|1
 4947|2|11|0|0|215|135638|1|0||0|Jagged Dagger||s1|1
-816|2|11|6|0|215|135637|0|0||0|Small Hand Blade||a1|2
+816|2|11|6|0|215|135637|1|0||0|Small Hand Blade||a1|2
 18957|2|10|0|0|207|135276|1|0||0|Brushwood Blade||t1|1
-1917|2|10|5|0|215|135651|0|0||0|Jeweled Dagger||t1|2
-727|2|10|5|0|207|135274|0|0||0|Notched Shortsword|||2
+1917|2|10|5|0|215|135651|1|0||0|Jeweled Dagger||t1|2
+727|2|10|5|0|207|135274|1|0||0|Notched Shortsword|||2
 263314|2|10|0|0|204|133057|2|0||0|Roofing Hammer||p1|1
 241089|2|10|5|0|215|135651|1|0||0|Scarlet Dagger||t1|2
 263432|2|10|0|0|215|135641|2|0||0|Skulker's Shiv||a1|1
 263313|2|10|0|0|204|134520|2|0||0|Trusty Wrench||a1|1
 282284|2|10|1|0|215|0|2|0||0|Webwood Slicer||a1|1
+280304|4|1|1|0|215|135360|2|0||0|Invisible Dagger|||1
 ]==],
         [14] = [==[
 22819|4|92|60|0|406|134973|0|0||0|Shield of Condemnation||t10,i10,H59|1
@@ -7474,250 +8237,271 @@ FGT.GEARDB = {
 17066|4|67|60|0|406|134956|0|0||0|Drillborer Disk||t10,d50|1
 20688|4|65|60|0|406|134961|0|0||0|Earthen Guard||t19,d7|1
 279262|4|65|60|0|406|7956963|2|0||0|Evergreen Shield||t16,S8,H23,c1|2
-14982|2|65|60|0|406|134948|0|0||0|Exalted Shield|||2
+14982|2|65|60|0|406|134948|1|0||0|Exalted Shield|||2
 18168|4|65|60|0|406|135741|1|0||0|Force Reactive Disk|Requires Engineering (300)|t11|2
-10367|2|65|60|0|406|135940|0|0||0|Hyperion Shield|||2
-10271|2|65|60|0|406|134948|0|0||0|Masterwork Shield|||2
+10367|2|65|60|0|406|135940|1|0||0|Hyperion Shield|||2
+10271|2|65|60|0|406|134948|1|0||0|Masterwork Shield|||2
 272838|4|65|60|0|406|134951|2|0|A|0|Premier Grand Marshal's Aegis||s9,t21|1
 278468|4|65|60|0|406|134951|2|0|A|0|Premier Grand Marshal's Barricade||t21,i9,S6,H18|1
 278469|4|65|60|0|406|134965|2|0|H|0|Premier High Warlord's Barricade||t21,i9,S6,H18|1
 272591|4|65|60|0|406|134965|2|0|H|0|Premier High Warlord's Shield Wall||s9,t21|1
 19321|4|65|60|0|406|135835|1|0||1|The Immovable Object||t15|1
-15687|2|65|60|0|406|134948|0|0||0|Triumphant Shield|||2
-10158|2|64|59|0|406|134951|0|0||0|Mercurial Guard|||2
-14812|2|64|59|0|406|134966|0|0||0|Warstrike Buckler||t3,p15|2
-14002|3|63|0|0|406|134951|0|0||0|Darrowshire Strongguard||t8,p8|1
-10366|2|63|58|0|406|136185|0|0||0|Demon Guard|||2
-22336|3|63|58|0|406|134948|0|0||0|Draconian Aegis of the Legion||t7,S20,H20|1
-12602|3|63|58|0|406|134966|0|0||0|Draconian Deflector||t7,d10|1
-15991|2|63|58|0|406|134953|0|0||0|Warleader's Shield||a4,t14|2
-13243|3|62|0|0|406|134951|0|0||0|Argent Defender|||1
-18499|3|62|57|0|406|134956|0|0||0|Barrier Shield||d50|1
-18756|3|62|57|0|406|134963|0|0||0|Dreadguard's Protector||s18,t5|1
-13083|3|62|57|0|406|134951|0|0||0|Garrett Family Crest||a5,i4,p17|2
-8313|2|62|57|0|406|134953|0|0||0|Hero's Buckler||s7,i12|2
-15887|2|62|57|0|406|134950|0|0||0|Heroic Guard|||2
-18696|3|62|57|0|406|134948|0|0||0|Intricately Runed Shield||t8|1
+15687|2|65|60|0|406|134948|1|0||0|Triumphant Shield|||2
+284066|2|64|59|0|406|134970|2|0||0|Husk of the Husk||p12,S6,H18|2
+10158|2|64|59|0|406|134951|1|0||0|Mercurial Guard|||2
+14812|2|64|59|0|406|134966|1|0||0|Warstrike Buckler||t3,p15|2
+14002|3|63|0|0|406|134951|1|0||0|Darrowshire Strongguard||t8,p8|1
+10366|2|63|58|0|406|136185|1|0||0|Demon Guard|||2
+22336|3|63|58|0|406|134948|1|0||0|Draconian Aegis of the Legion||t7,S20,H20|1
+12602|3|63|58|0|406|134966|1|0||0|Draconian Deflector||t7,d10|1
+280014|3|63|58|0|406|0|2|0||0|Raptorscale Bulwark||s12,d16|1
+15991|2|63|58|0|406|134953|1|0||0|Warleader's Shield||a4,t14|2
+13243|3|62|0|0|406|134951|1|0||0|Argent Defender|||1
+18499|3|62|57|0|406|134956|1|0||0|Barrier Shield||d50|1
+18756|3|62|57|0|406|134963|1|0||0|Dreadguard's Protector||s18,t5|1
+13083|3|62|57|0|406|134951|1|0||0|Garrett Family Crest||a5,i4,p17|2
+8313|2|62|57|0|406|134953|1|0||0|Hero's Buckler||s7,i12|2
+15887|2|62|57|0|406|134950|1|0||0|Heroic Guard|||2
+18696|3|62|57|0|406|134948|1|0||0|Intricately Runed Shield||t8|1
 23139|3|62|57|0|406|134948|0|0||0|Lord Blackwood's Buckler||t10|1
-15675|2|62|57|0|406|134951|0|0||0|Magnificent Guard|||2
-14528|3|62|57|0|406|134948|0|0||0|Rattlecage Buckler||t7,i12,p7|1
+15675|2|62|57|0|406|134951|1|0||0|Magnificent Guard|||2
+14528|3|62|57|0|406|134948|1|0||0|Rattlecage Buckler||t7,i12,p7|1
 16998|3|62|0|0|406|134952|1|0||0|Sacred Protector||t15,i10|1
-13529|3|61|56|0|406|134948|0|0||0|Husk of Nerub'enkan||t10|1
-15943|2|61|56|0|406|134956|0|0||0|Imbued Shield||s3,t14|2
-15667|2|61|56|0|406|134949|0|0||0|Impenetrable Wall|||2
-18485|3|61|56|0|406|134959|0|0||0|Observer's Shield||t9,i14,p5|1
-18352|2|61|56|0|406|134964|0|0||0|Petrified Bark Shield|||1
-13205|3|61|56|0|406|134960|0|0||0|Rhombeard Protector||i15,p10|1
-13375|3|60|55|0|406|134965|0|0||0|Crest of Retribution|||1
-10363|2|60|55|0|406|134949|0|0||0|Engraved Wall|||2
-14973|2|60|55|0|406|134961|0|0||0|Glorious Shield|||2
-18673|3|59|54|0|406|134949|0|0||0|Avalanchion's Stony Hide||t16|2
-14800|2|59|54|0|406|134955|0|0||0|Bloodlust Buckler||i7,p11|2
+13529|3|61|56|0|406|134948|1|0||0|Husk of Nerub'enkan||t10|1
+15943|2|61|56|0|406|134956|1|0||0|Imbued Shield||s3,t14|2
+15667|2|61|56|0|406|134949|1|0||0|Impenetrable Wall|||2
+18485|3|61|56|0|406|134959|1|0||0|Observer's Shield||t9,i14,p5|1
+18352|2|61|56|0|406|134964|1|0||0|Petrified Bark Shield|||1
+13205|3|61|56|0|406|134960|1|0||0|Rhombeard Protector||i15,p10|1
+280063|3|60|55|0|406|0|2|0||0|Bloodfur Bulwark||t10,d50|1
+13375|3|60|55|0|406|134965|1|0||0|Crest of Retribution|||1
+10363|2|60|55|0|406|134949|1|0||0|Engraved Wall|||2
+14973|2|60|55|0|406|134961|1|0||0|Glorious Shield|||2
+276456|3|60|55|0|406|134955|2|0||0|Plague Defiled Buckler||t8,S13,H13|1
+18673|3|59|54|0|406|134949|1|0||0|Avalanchion's Stony Hide||t16|2
+14800|2|59|54|0|406|134955|1|0||0|Bloodlust Buckler||i7,p11|2
 275649|2|59|0|0|406|134955|2|0||0|Bramblebark Barrier||s6,t7|1
-10365|2|59|54|0|406|134950|0|0||0|Emerald Shield|||2
-18535|3|59|0|0|406|134958|0|0||0|Milli's Shield||t7,p7|1
+10365|2|59|54|0|406|134950|1|0||0|Emerald Shield|||2
+18535|3|59|0|0|406|134958|1|0||0|Milli's Shield||t7,p7|1
 18342|3|59|54|0|406|134952|0|0||0|Quel'dorai Guard||d25|2
-1168|4|59|54|0|406|134947|0|0||0|Skullflame Shield|||2
-15890|2|59|54|0|406|134956|0|0||0|Vanguard Shield||t12,p5|2
+1168|4|59|54|0|406|134947|1|0||0|Skullflame Shield|||2
+15890|2|59|54|0|406|134956|1|0||0|Vanguard Shield||t12,p5|2
 281637|3|58|0|0|406|0|2|0||0|Antique Bulwark||t13,d8|1
 274418|3|58|53|0|406|0|2|0||0|Burrow Barricade||t15|1
-18303|2|58|53|0|406|134956|0|0||0|Nimble Buckler||a5,d75|1
-10362|2|58|53|0|406|135940|0|0||0|Ornate Shield|||2
-11785|3|58|53|0|406|134952|0|0||0|Rock Golem Bulwark||t10|1
-10364|2|58|53|0|406|134951|0|0||0|Templar Shield|||2
-8320|2|57|52|0|406|134950|0|0||0|Alabaster Shield||s3,t13|2
+286609|2|58|53|0|406|134967|2|0||0|Krellack's Carapace||p6,d7|2
+18303|2|58|53|0|406|134956|1|0||0|Nimble Buckler||a5,d75|1
+10362|2|58|53|0|406|135940|1|0||0|Ornate Shield|||2
+11785|3|58|53|0|406|134952|1|0||0|Rock Golem Bulwark||t10|1
+10364|2|58|53|0|406|134951|1|0||0|Templar Shield|||2
+8320|2|57|52|0|406|134950|1|0||0|Alabaster Shield||s3,t13|2
 276334|2|57|0|0|406|134955|2|0||0|Hand-Hewn Buckler||t9,S11,H11|1
-14930|2|57|52|0|406|134963|0|0||0|Lofty Shield|||2
-15657|2|57|52|0|406|134948|0|0||0|Merciless Shield|||2
+14930|2|57|52|0|406|134963|1|0||0|Lofty Shield|||2
+15657|2|57|52|0|406|134948|1|0||0|Merciless Shield|||2
 260210|3|56|0|0|406|0|2|0||0|A Bigger Shield||a7,t7,d4|1
 13254|3|56|51|0|406|134958|0|0||0|Astral Guard||t6|1
-10835|3|56|51|0|406|134950|0|0||0|Crest of Supremacy||a6,s6,t7,i7,p7|1
-8275|2|56|51|0|406|134950|0|0||0|Ebonhold Buckler||t4,p12|2
-14964|2|56|51|0|406|134966|0|0||0|High Chief's Shield|||2
-15648|2|56|51|0|406|134965|0|0||0|Ironhide Shield|||2
+276879|3|56|51|0|406|134953|2|0||0|Backroom Bulwark||t12,p8,S6,H18|1
+10835|3|56|51|0|406|134950|1|0||0|Crest of Supremacy||a6,s6,t7,i7,p7|1
+8275|2|56|51|0|406|134950|1|0||0|Ebonhold Buckler||t4,p12|2
+14964|2|56|51|0|406|134966|1|0||0|High Chief's Shield|||2
+15648|2|56|51|0|406|134965|1|0||0|Ironhide Shield|||2
 10686|2|55|0|0|406|134948|1|0||0|Aegis of Battle||a6,t10|1
-10195|2|55|50|0|406|134956|0|0||0|Crusader's Shield|||2
-10204|2|55|50|0|406|134955|0|0||0|Heavy Lamellar Shield|||2
+10195|2|55|50|0|406|134956|1|0||0|Crusader's Shield|||2
+279831|3|55|1|0|406|0|2|0||0|Fatebound Buckler||a5,s8,t9|1
+10204|2|55|50|0|406|134955|1|0||0|Heavy Lamellar Shield|||2
 11915|2|55|0|0|406|134953|1|0||0|Shizzle's Drizzle Blocker||s13,t1|1
 276754|3|55|0|0|406|134959|2|0||0|Sunderbark Vigil||t12,S6,H18|1
-1203|3|54|49|0|406|134952|0|0||0|Aegis of Stormwind||s6,t15|2
-14790|2|54|49|0|406|134948|0|0||0|Protector Buckler||a3,i10,p5|2
-10093|2|54|49|0|406|134952|0|0||0|Revenant Deflector|||2
-14852|2|54|49|0|406|134948|0|0||0|Sunscale Shield||s5,t10,p3|2
-17718|3|53|48|0|406|134956|0|0||0|Gizlock's Hypertech Buckler||t5,i10|1
-14916|2|53|48|0|406|134967|0|0||0|Jade Deflector|||2
-10078|2|53|48|0|406|135964|0|0||0|Lord's Crest|||2
-15633|2|52|47|0|406|134950|0|0||0|Formidable Crest|||2
+1203|3|54|49|0|406|134952|1|0||0|Aegis of Stormwind||s6,t15|2
+14790|2|54|49|0|406|134948|1|0||0|Protector Buckler||a3,i10,p5|2
+10093|2|54|49|0|406|134952|1|0||0|Revenant Deflector|||2
+14852|2|54|49|0|406|134948|1|0||0|Sunscale Shield||s5,t10,p3|2
+17718|3|53|48|0|406|134956|1|0||0|Gizlock's Hypertech Buckler||t5,i10|1
+14916|2|53|48|0|406|134967|1|0||0|Jade Deflector|||2
+10078|2|53|48|0|406|135964|1|0||0|Lord's Crest|||2
+15633|2|52|47|0|406|134950|1|0||0|Formidable Crest|||2
 20502|3|52|0|0|406|134957|1|0||0|Ironbark Shield||t6,c1|1
-9974|2|52|47|0|406|135971|0|0||0|Overlord's Shield|||2
-11631|3|52|47|0|406|134948|0|0||0|Stoneshell Guard||s6,t9|1
-14954|2|51|46|0|406|134951|0|0||0|Bloodforged Shield|||2
-15621|2|51|46|0|406|134948|0|0||0|Gryphon Mail Buckler|||2
-8134|2|51|46|0|406|134948|0|0||0|Myrmidon's Defender||a2,t2,p11|2
+9974|2|52|47|0|406|135971|1|0||0|Overlord's Shield|||2
+11631|3|52|47|0|406|134948|1|0||0|Stoneshell Guard||s6,t9|1
+14954|2|51|46|0|406|134951|1|0||0|Bloodforged Shield|||2
+15621|2|51|46|0|406|134948|1|0||0|Gryphon Mail Buckler|||2
+8134|2|51|46|0|406|134948|1|0||0|Myrmidon's Defender||a2,t2,p11|2
 9643|2|51|0|0|406|134948|1|0||0|Optomatic Deflector||s5,d50|1
-8282|2|51|46|0|406|134948|0|0||0|Valorous Shield||s6,t9|2
-14912|2|50|45|0|406|134948|0|0||0|Brutish Shield|||2
-1979|4|50|45|0|406|134948|0|0||0|Wall of the Dead||s10,t15|2
-9958|2|50|45|0|406|134948|0|0||0|Warmonger's Buckler|||2
-7537|2|49|44|0|406|134953|0|0||0|Gothic Shield|||2
-14780|2|49|44|0|406|134951|0|0||0|Khan's Buckler||a3,t5,i9|2
-7536|2|48|43|0|406|134949|0|0||0|Champion's Wall Shield|||2
-2040|3|48|43|0|406|134962|0|0||0|Troll Protector||t10,d50|2
-14842|2|48|43|0|406|134963|0|0||0|Tyrant's Shield||s9,t5|2
-4069|2|47|42|0|406|134956|0|0||0|Blackforge Buckler||t3,p10|2
-15618|2|47|42|0|406|134949|0|0||0|Bonelink Wall Shield|||2
-15604|2|46|41|0|406|134949|0|0||0|Ancient Defender|||2
-1169|4|46|41|0|406|136162|0|0||0|Blackskull Shield||t5,p10|2
-8135|2|46|41|0|406|134950|0|0||0|Chromite Shield||s3,t10|2
+8282|2|51|46|0|406|134948|1|0||0|Valorous Shield||s6,t9|2
+14912|2|50|45|0|406|134948|1|0||0|Brutish Shield|||2
+275864|3|50|45|0|406|134959|2|0||0|Putridus Wall||t10,d5|1
+1979|4|50|45|0|406|134948|1|0||0|Wall of the Dead||s10,t15|2
+9958|2|50|45|0|406|134948|1|0||0|Warmonger's Buckler|||2
+7537|2|49|44|0|406|134953|1|0||0|Gothic Shield|||2
+14780|2|49|44|0|406|134951|1|0||0|Khan's Buckler||a3,t5,i9|2
+7536|2|48|43|0|406|134949|1|0||0|Champion's Wall Shield|||2
+2040|3|48|43|0|406|134962|1|0||0|Troll Protector||t10,d50|2
+14842|2|48|43|0|406|134963|1|0||0|Tyrant's Shield||s9,t5|2
+274652|3|48|43|0|406|134962|2|0||0|Wall of Water||S14,H14|1
+4069|2|47|42|0|406|134956|1|0||0|Blackforge Buckler||t3,p10|2
+15618|2|47|42|0|406|134949|1|0||0|Bonelink Wall Shield|||2
+15604|2|46|41|0|406|134949|1|0||0|Ancient Defender|||2
+1169|4|46|41|0|406|136162|1|0||0|Blackskull Shield||t5,p10|2
+8135|2|46|41|0|406|134950|1|0||0|Chromite Shield||s3,t10|2
 275049|2|46|0|0|406|134949|2|0||0|Farholde Bastion||s9,t5|1
-13082|3|46|41|0|406|134961|0|0||0|Mountainside Buckler||i5,p12|2
+13082|3|46|41|0|406|134961|1|0||0|Mountainside Buckler||i5,p12|2
 275051|2|46|0|0|406|134949|2|0||0|Twilight Barrier||s9,t5|1
-14947|2|46|41|0|406|134965|0|0||0|Warbringer's Shield|||2
-9918|2|45|40|0|406|134949|0|0||0|Brigade Defender|||2
+14947|2|46|41|0|406|134965|1|0||0|Warbringer's Shield|||2
+9918|2|45|40|0|406|134949|1|0||0|Brigade Defender|||2
 277258|3|45|40|0|406|0|2|0||0|Crest of Elucidation||p12,S4,H11|1
-9935|2|45|40|0|406|134951|0|0||0|Embossed Plate Shield|||2
+9935|2|45|40|0|406|134951|1|0||0|Embossed Plate Shield|||2
 4652|2|45|0|0|406|134957|1|0||0|Salbac Shield||s9,p3|1
 276204|3|45|40|0|406|0|2|0||0|Thrash's Trash|Requires Honored with Powderfuse|t5,S14,H5|1
-7726|3|44|39|0|406|134951|0|0||0|Aegis of the Scarlet Commander||s7,t8,p7|1
-7495|2|44|39|0|406|134956|0|0||0|Captain's Buckler|||2
+7726|3|44|39|0|406|134951|1|0||0|Aegis of the Scarlet Commander||s7,t8,p7|1
+7495|2|44|39|0|406|134956|1|0||0|Captain's Buckler|||2
 4129|2|44|0|0|406|134952|1|0||0|Collection Plate||s2,t9|1
-14777|2|44|39|0|406|134948|0|0||0|Ravager's Shield||s3,i7,p6|2
+14777|2|44|39|0|406|134948|1|0||0|Ravager's Shield||s3,i7,p6|2
+281650|3|43|38|0|406|136162|2|0||0|Dragonscale Buckler||t9,d3|1
 9661|2|43|0|0|406|134959|1|0||0|Earthclasp Barrier||t1,p9|1
-7496|2|43|38|0|406|134951|0|0||0|Field Plate Shield|||2
-15592|2|43|38|0|406|134957|0|0||0|Steadfast Buckler|||2
-14825|2|43|38|0|406|134961|0|0||0|Symbolic Crest||s4,t7,p4|2
+7496|2|43|38|0|406|134951|1|0||0|Field Plate Shield|||2
+15592|2|43|38|0|406|134957|1|0||0|Steadfast Buckler|||2
+14825|2|43|38|0|406|134961|1|0||0|Symbolic Crest||s4,t7,p4|2
 9706|2|43|0|0|406|134961|1|0||0|Tharg's Disk||t10|1
-9899|2|42|37|0|406|134951|0|0||0|Jazeraint Shield|||2
-9404|3|42|37|0|406|134948|0|0||0|Olaf's All Purpose Shield||t11|1
+9899|2|42|37|0|406|134951|1|0||0|Jazeraint Shield|||2
+274608|3|42|37|0|406|135461|2|0||0|Maw of Min'loth||t8|1
+9404|3|42|37|0|406|134948|1|0||0|Olaf's All Purpose Shield||t11|1
 4507|2|42|0|0|406|134953|1|0||0|Pit Fighter's Shield||s8,t3|1
-10767|3|42|37|0|406|134963|0|0||0|Savage Boar's Guard||s11,t6|1
-17508|2|41|0|0|406|134948|0|0||0|Forcestone Buckler||t3,p8|1
-4070|2|41|36|0|406|134948|0|0||0|Jouster's Crest||t9|2
-14902|2|41|36|0|406|134958|0|0||0|Saltstone Shield|||2
-15584|2|41|36|0|406|134951|0|0||0|Sparkleshell Shield|||2
-1204|4|41|36|0|406|134952|0|0||0|The Green Tower||t13,p7|2
-7747|2|41|0|0|406|134948|0|0||0|Vile Protector||s4|1
+10767|3|42|37|0|406|134963|1|0||0|Savage Boar's Guard||s11,t6|1
+282555|2|42|37|0|406|134949|2|0||0|Shadowforge Shield||t7,S8,H8|2
+17508|2|41|0|0|406|134948|1|0||0|Forcestone Buckler||t3,p8|1
+4070|2|41|36|0|406|134948|1|0||0|Jouster's Crest||t9|2
+14902|2|41|36|0|406|134958|1|0||0|Saltstone Shield|||2
+15584|2|41|36|0|406|134951|1|0||0|Sparkleshell Shield|||2
+1204|4|41|36|0|406|134952|1|0||0|The Green Tower||t13,p7|2
+7747|2|41|0|0|406|134948|1|0||0|Vile Protector||s4|1
 6746|2|40|0|0|406|134956|1|0||0|Basalt Buckler||t2,i8|1
-4068|2|40|35|0|406|134952|0|0||0|Chief Brigadier Shield||t9|2
+4068|2|40|35|0|406|134952|1|0||0|Chief Brigadier Shield||t9|2
 280696|3|40|1|0|406|134955|2|0||0|Elementalist's Guard||t9,i6|1
 3763|2|40|0|0|406|134956|1|0||0|Lunar Buckler||s3,p8|1
-15569|2|40|35|0|406|134952|0|0||0|Marauder's Crest|||2
+15569|2|40|35|0|406|134952|1|0||0|Marauder's Crest|||2
 15865|2|39|0|0|406|134956|1|0||0|Anchorhold Buckler||i6,p4|1
-15990|2|39|34|0|406|134951|0|0||0|Enduring Shield||a3,s6,t4|2
-4067|2|39|34|0|406|134956|0|0||0|Glyphed Buckler||t4,p7|2
-7465|2|39|34|0|406|134952|0|0||0|Knight's Crest|||2
-15367|2|39|34|0|406|134962|0|0||0|Trickster's Protector|||2
+15990|2|39|34|0|406|134951|1|0||0|Enduring Shield||a3,s6,t4|2
+4067|2|39|34|0|406|134956|1|0||0|Glyphed Buckler||t4,p7|2
+7465|2|39|34|0|406|134952|1|0||0|Knight's Crest|||2
+15367|2|39|34|0|406|134962|1|0||0|Trickster's Protector|||2
 4975|2|39|0|0|406|134956|1|0||0|Vigilant Buckler||t7,d25|1
 271798|2|38|35|0|406|0|2|0||0|Desperate Barrier||s4,t6|1
 270065|2|38|0|0|406|134956|2|0||0|Farseer's Forgotten Shield||t4,S7,H7|1
 270270|2|38|0|0|406|514535|2|0||0|Scale of the Tidebender|||1
-7463|2|38|33|0|406|134956|0|0||0|Sentinel Buckler|||2
-13081|3|38|33|0|406|134948|0|0||0|Skullance Shield||a4,s8,t5|2
+7463|2|38|33|0|406|134956|1|0||0|Sentinel Buckler|||2
+13081|3|38|33|0|406|134948|1|0||0|Skullance Shield||a4,s8,t5|2
 15695|2|38|0|0|406|134953|1|0||0|Studded Ring Shield||s6,t4|1
 6828|2|38|0|0|406|134956|1|0||0|Visionary Buckler||t4,p7|1
 4115|2|37|0|0|406|134948|1|0||0|Grom'gol Buckler||s2,t3,p7|1
-14607|2|37|32|0|406|134956|0|0||0|Hawkeye's Buckler||s5,i6|2
-15563|2|37|32|0|406|134953|0|0||0|Pillager's Shield|||2
-9873|2|37|32|0|406|134953|0|0||0|Renegade Shield|||2
-9458|3|37|32|0|406|134956|0|0||0|Thermaplugg's Central Core||p3|1
-9858|2|36|31|0|406|134955|0|0||0|Archer's Buckler|||2
+14607|2|37|32|0|406|134956|1|0||0|Hawkeye's Buckler||s5,i6|2
+15563|2|37|32|0|406|134953|1|0||0|Pillager's Shield|||2
+9873|2|37|32|0|406|134953|1|0||0|Renegade Shield|||2
+9458|3|37|32|0|406|134956|1|0||0|Thermaplugg's Central Core||p3|1
+9858|2|36|31|0|406|134955|1|0||0|Archer's Buckler|||2
 16788|2|36|0|0|406|134956|1|0||0|Captain Rackmore's Wheel||t8|1
-4065|2|36|31|0|406|134951|0|0||0|Combat Shield||s7,t2|2
-9522|2|36|0|0|406|134956|0|0||0|Energized Stone Circle||t2,p7|1
-15145|2|36|31|0|406|134956|0|0||0|Ghostwalker Buckler|||2
-6694|3|36|31|0|406|134948|0|0||0|Heart of Agamaggan||t7,p8|1
-6725|3|36|0|0|406|134956|0|0||0|Marbled Buckler||a5,s5,t5,p5|1
-15552|2|36|31|0|406|134953|0|0||0|Thick Scale Shield|||2
+4065|2|36|31|0|406|134951|1|0||0|Combat Shield||s7,t2|2
+9522|2|36|0|0|406|134956|1|0||0|Energized Stone Circle||t2,p7|1
+15145|2|36|31|0|406|134956|1|0||0|Ghostwalker Buckler|||2
+6694|3|36|31|0|406|134948|1|0||0|Heart of Agamaggan||t7,p8|1
+6725|3|36|0|0|406|134956|1|0||0|Marbled Buckler||a5,s5,t5,p5|1
+15552|2|36|31|0|406|134953|1|0||0|Thick Scale Shield|||2
 6223|2|35|0|0|406|134951|1|0||0|Crest of Darkshire||s2,t7|1
-4066|2|35|30|0|406|134956|0|0||0|Insignia Buckler||t3,p7|2
+4066|2|35|30|0|406|134956|1|0||0|Insignia Buckler||t3,p7|2
 2916|2|34|0|0|406|134948|1|0||0|Gold Lion Shield||s2,t5,p3|1
-15352|2|34|29|0|406|134967|0|0||0|Headhunter's Buckler|||2
-4477|2|34|29|0|406|134948|0|0||0|Nefarious Buckler||s3,t6|2
-7331|2|34|29|0|406|134953|0|0||0|Phalanx Shield|||2
-15543|2|34|29|0|406|134955|0|0||0|Wicked Chain Shield|||2
-9843|2|33|28|0|406|134955|0|0||0|Banded Shield|||2
-15133|2|33|28|0|406|134955|0|0||0|Cutthroat's Buckler|||2
-7330|2|33|28|0|406|134955|0|0||0|Infiltrator Buckler|||2
+15352|2|34|29|0|406|134967|1|0||0|Headhunter's Buckler|||2
+274043|3|34|29|0|406|134949|2|0||0|Irradiated Shield||p9|1
+4477|2|34|29|0|406|134948|1|0||0|Nefarious Buckler||s3,t6|2
+274290|3|34|29|0|406|134953|2|0||0|Painwalker Buckler||t6,S5,H13|1
+7331|2|34|29|0|406|134953|1|0||0|Phalanx Shield|||2
+15543|2|34|29|0|406|134955|1|0||0|Wicked Chain Shield|||2
+9843|2|33|28|0|406|134955|1|0||0|Banded Shield|||2
+273055|3|33|28|0|406|0|2|0||0|Bonepile Gaze||s5,t5|1
+15133|2|33|28|0|406|134955|1|0||0|Cutthroat's Buckler|||2
+7330|2|33|28|0|406|134955|1|0||0|Infiltrator Buckler|||2
 3761|2|32|0|0|406|134947|1|0||0|Deadskull Shield||s1,t7|1
-9830|2|32|27|0|406|134956|0|0||0|Scaled Shield|||2
-15892|2|32|27|0|406|134961|0|0||0|Slayer's Shield||a3,s6|2
-14608|2|31|26|0|406|134955|0|0||0|Dokebi Buckler||t3,i5|2
+9830|2|32|27|0|406|134956|1|0||0|Scaled Shield|||2
+15892|2|32|27|0|406|134961|1|0||0|Slayer's Shield||a3,s6|2
+286982|3|32|27|0|406|0|2|0||0|Unearthed Barrier||t8|2
+14608|2|31|26|0|406|134955|1|0||0|Dokebi Buckler||t3,i5|2
 281307|2|31|0|0|406|0|2|0||0|Dragonmaw Buckler||s3,t5|1
-6400|2|31|26|0|406|134951|0|0||0|Glimmering Shield||s4,t3|2
-7787|3|31|26|0|406|134948|0|0||0|Resplendent Guardian||t7,d25|2
-15530|2|31|26|0|406|134955|0|0||0|Sentry's Shield|||2
-4064|2|30|25|0|406|134955|0|0||0|Emblazoned Buckler||t2,p5|2
-15342|2|30|25|0|406|134967|0|0||0|Pathfinder Guard|||2
-13079|3|30|25|0|406|134956|0|0||0|Shield of Thorsen||s7|2
+6400|2|31|26|0|406|134951|1|0||0|Glimmering Shield||s4,t3|2
+7787|3|31|26|0|406|134948|1|0||0|Resplendent Guardian||t7,d25|2
+15530|2|31|26|0|406|134955|1|0||0|Sentry's Shield|||2
+4064|2|30|25|0|406|134955|1|0||0|Emblazoned Buckler||t2,p5|2
+15342|2|30|25|0|406|134967|1|0||0|Pathfinder Guard|||2
+273811|3|30|25|0|406|134957|2|0||0|Repurposed Rack||s6,S7,H7|1
+13079|3|30|25|0|406|134956|1|0||0|Shield of Thorsen||s7|2
 1547|2|30|0|0|406|135940|1|0||0|Shield of the Faith||p6|1
-7002|3|29|0|0|406|134948|0|0||0|Arctic Buckler||t3,p8|1
-6599|2|29|24|0|406|134951|0|0||0|Battleforge Shield|||2
+7002|3|29|0|0|406|134948|1|0||0|Arctic Buckler||t3,p8|1
+6599|2|29|24|0|406|134951|1|0||0|Battleforge Shield|||2
+285344|3|29|24|0|406|134950|2|0||0|Guard Captain's Barrier||s6,d4|1
 277257|3|29|0|0|406|0|2|0||0|Raven Hill Crest|||1
-15522|2|29|24|0|406|134953|0|0||0|Spiked Chain Shield|||2
+15522|2|29|24|0|406|134953|1|0||0|Spiked Chain Shield|||2
 15466|2|28|0|0|406|134967|1|0||0|Clink Shield||a2,s3,t4|1
-6320|3|28|23|0|406|134949|0|0||0|Commander's Crest||s6,t3,p3|1
-6598|2|28|23|0|406|134956|0|0||0|Dervish Buckler|||2
-15123|2|28|23|0|406|134956|0|0||0|Robust Buckler|||2
+6320|3|28|23|0|406|134949|1|0||0|Commander's Crest||s6,t3,p3|1
+6598|2|28|23|0|406|134956|1|0||0|Dervish Buckler|||2
+15123|2|28|23|0|406|134956|1|0||0|Robust Buckler|||2
 3743|2|28|0|0|406|134955|1|0||0|Sentry Buckler||i1,p5|1
 6676|2|27|0|0|406|134955|1|0||0|Constable Buckler||t4,p3|1
 16660|2|27|0|0|406|134962|1|0||0|Driftmire Shield||s2,t3,i3|1
 1276|2|27|0|0|406|134955|1|0||0|Fire Hardened Buckler||p5|1
-3656|2|27|22|0|406|134949|0|0||0|Lambent Scale Shield||s4,t2|2
+3656|2|27|22|0|406|134949|1|0||0|Lambent Scale Shield||s4,t2|2
 5357|2|27|0|0|406|134955|1|0||0|Ward of the Vale||i1,p5|1
-15332|2|27|22|0|406|134948|0|0||0|Wrangler's Buckler|||2
-15891|2|26|21|0|406|134965|0|0||0|Hulking Shield||t5|2
-9804|2|26|21|0|406|134955|0|0||0|Superior Buckler|||2
+15332|2|27|22|0|406|134948|1|0||0|Wrangler's Buckler|||2
+15891|2|26|21|0|406|134965|1|0||0|Hulking Shield||t5|2
+9804|2|26|21|0|406|134955|1|0||0|Superior Buckler|||2
 9607|2|25|0|2|406|134952|1|0||0|Bastion of Stormwind||d3|1
-15894|2|25|20|0|406|134955|0|0||0|Bristlebark Buckler||a2,i4|2
-9816|2|25|20|0|406|134953|0|0||0|Fortified Shield|||2
+15894|2|25|20|0|406|134955|1|0||0|Bristlebark Buckler||a2,i4|2
+9816|2|25|20|0|406|134953|1|0||0|Fortified Shield|||2
 4820|2|25|20|0|406|134956|1|0||0|Guardian Buckler||t3,p3|2
-6630|3|25|20|0|406|134956|0|0||0|Seedcloud Buckler||i6,p3|1
-4444|2|24|19|0|406|134321|0|0||0|Black Husk Shield||t3,p4|2
-6383|2|24|19|0|406|134955|0|0||0|Forest Buckler||t2,i4|2
-15512|2|24|19|0|406|134957|0|0||0|Grunt's Shield|||2
-12997|3|24|19|0|406|134948|0|0||0|Redbeard Crest||s6,t3|2
+6630|3|25|20|0|406|134956|1|0||0|Seedcloud Buckler||i6,p3|1
+4444|2|24|19|0|406|134321|1|0||0|Black Husk Shield||t3,p4|2
+6383|2|24|19|0|406|134955|1|0||0|Forest Buckler||t2,i4|2
+15512|2|24|19|0|406|134957|1|0||0|Grunt's Shield|||2
+271213|3|24|19|0|406|0|2|0||0|Mirror of Rath'mael||s5,d23|1
+12997|3|24|19|0|406|134948|1|0||0|Redbeard Crest||s6,t3|2
 7188|2|24|19|0|406|134950|0|0||0|Stormwind Guard Shield||s2,t4|2
 276889|2|24|1|0|406|0|2|0||0|Thornwoven Shield||t4,p2|1
 4821|2|23|18|0|406|134955|1|0||0|Bear Buckler||s3,t3|2
-6572|2|23|18|0|406|134952|0|0||0|Defender Shield|||2
+6572|2|23|18|0|406|134952|1|0||0|Defender Shield|||2
 4822|2|23|18|0|406|134955|1|0||0|Owl's Disk||i4|2
-15113|2|23|18|0|406|134955|0|0||0|Rigid Buckler|||2
-15504|2|22|17|0|406|134956|0|0||0|Outrunner's Shield|||2
-6571|2|22|17|0|406|134948|0|0||0|Scouting Buckler|||2
-3655|2|21|16|0|406|134949|0|0||0|Burnished Shield||s2,t3|2
-2021|2|21|16|0|406|134321|0|0||0|Green Carapace Shield|||2
-15893|2|21|16|0|406|134955|0|0||0|Prospector's Buckler||t1,i3|2
-9778|2|20|15|0|406|134955|0|0||0|Bandit Buckler|||2
+15113|2|23|18|0|406|134955|1|0||0|Rigid Buckler|||2
+15504|2|22|17|0|406|134956|1|0||0|Outrunner's Shield|||2
+6571|2|22|17|0|406|134948|1|0||0|Scouting Buckler|||2
+3655|2|21|16|0|406|134949|1|0||0|Burnished Shield||s2,t3|2
+2021|2|21|16|0|406|134321|1|0||0|Green Carapace Shield|||2
+15893|2|21|16|0|406|134955|1|0||0|Prospector's Buckler||t1,i3|2
+9778|2|20|15|0|406|134955|1|0||0|Bandit Buckler|||2
 1557|2|20|0|0|406|134955|1|0||0|Buckler of the Seas||p3|1
 5302|2|20|0|0|406|134956|1|0||0|Cobalt Buckler||t3|1
 6970|2|20|0|1|406|134951|1|0||0|Furen's Favor||s3|1
-5443|3|20|15|0|406|134948|0|0||0|Gold-plated Buckler||a2,t5|1
-13245|3|20|15|0|406|134964|0|0||0|Kresh's Back||d4|1
+5443|3|20|15|0|406|134948|1|0||0|Gold-plated Buckler||a2,t5|1
+13245|3|20|15|0|406|134964|1|0||0|Kresh's Back||d4|1
 7120|2|20|0|1|406|134960|1|0||0|Ruga's Bulwark||s3|1
 15207|2|20|0|0|406|134957|1|0||0|Steelcap Shield||s2,t2|1
-14729|2|20|15|0|406|134964|0|0||0|War Paint Shield||s2,p2|2
-15307|2|19|14|0|406|134955|0|0||0|Feral Buckler|||2
-9790|2|19|14|0|406|134955|0|0||0|Raider's Shield|||2
-15494|2|18|13|0|406|134960|0|0||0|Bloodspattered Shield|||2
-4290|2|18|13|0|406|134955|0|0||0|Dust Bowl||s2,p2|2
-6380|2|18|13|0|406|134955|0|0||0|Inscribed Buckler||i2,p2|2
+14729|2|20|15|0|406|134964|1|0||0|War Paint Shield||s2,p2|2
+15307|2|19|14|0|406|134955|1|0||0|Feral Buckler|||2
+9790|2|19|14|0|406|134955|1|0||0|Raider's Shield|||2
+15494|2|18|13|0|406|134960|1|0||0|Bloodspattered Shield|||2
+4290|2|18|13|0|406|134955|1|0||0|Dust Bowl||s2,p2|2
+6380|2|18|13|0|406|134955|1|0||0|Inscribed Buckler||i2,p2|2
 6187|2|17|0|0|406|134951|1|0||0|Dwarven Defender||t3|1
-15014|2|17|12|0|406|134955|0|0||0|Lupine Buckler|||2
-6560|2|17|12|0|406|134956|0|0||0|Soldier's Shield|||2
-6559|2|16|11|0|406|134955|0|0||0|Bard's Buckler|||2
+15014|2|17|12|0|406|134955|1|0||0|Lupine Buckler|||2
+6560|2|17|12|0|406|134956|1|0||0|Soldier's Shield|||2
+6559|2|16|11|0|406|134955|1|0||0|Bard's Buckler|||2
 5325|2|16|0|0|406|134952|1|0||0|Welding Shield||t2|1
-3653|2|15|10|0|406|134955|0|0||0|Ceremonial Buckler||p2|2
+3653|2|15|10|0|406|134955|1|0||0|Ceremonial Buckler||p2|2
 3450|2|15|0|0|406|134950|1|0||0|Faerleia's Shield||s2|1
 3160|2|15|0|0|406|134956|1|0||0|Ironplate Buckler||p2|1
-3651|2|15|10|0|406|134955|0|0||0|Veteran Shield||s2|2
-3654|2|14|9|0|406|134955|0|0||0|Brackwater Shield||a1,t1|2
-3652|2|14|9|0|406|134955|0|0||0|Hunting Buckler||t1,i1|2
+3651|2|15|10|0|406|134955|1|0||0|Veteran Shield||s2|2
+3654|2|14|9|0|406|134955|1|0||0|Brackwater Shield||a1,t1|2
+3652|2|14|9|0|406|134955|1|0||0|Hunting Buckler||t1,i1|2
 246265|2|14|0|0|406|134957|2|0||0|Salvaged Wooden Tower Shield||t2|1
-9764|2|13|8|0|406|134955|0|0||0|Cadet Shield|||2
-15298|2|13|8|0|406|134956|0|0||0|Grizzly Buckler|||2
-9753|2|12|7|0|406|134956|0|0||0|Gypsy Buckler|||2
-15486|2|12|7|0|406|134954|0|0||0|War Torn Shield|||2
-7108|2|11|6|0|406|134955|0|0||0|Infantry Shield|||2
+275290|2|14|0|0|406|7793188|2|0||0|Stormforged Protector||s1,t1|1
+9764|2|13|8|0|406|134955|1|0||0|Cadet Shield|||2
+15298|2|13|8|0|406|134956|1|0||0|Grizzly Buckler|||2
+9753|2|12|7|0|406|134956|1|0||0|Gypsy Buckler|||2
+15486|2|12|7|0|406|134954|1|0||0|War Torn Shield|||2
+7108|2|11|6|0|406|134955|1|0||0|Infantry Shield|||2
+284322|2|11|6|0|406|134955|2|0||0|Invading Marine's Shield||p1|2
 263431|2|10|0|0|406|7793188|2|0||0|Defender's Aegis||s1|1
 263305|2|10|0|0|406|7793188|2|0||0|Windshaped Shield||s1|1
 ]==],
@@ -7733,88 +8517,94 @@ FGT.GEARDB = {
 21478|4|68|60|0|202|135501|0|0||0|Bow of Taut Sinew||A22|1
 19993|3|68|60|0|202|135462|0|0||0|Hoodoo Hunting Bow||a10,t4|1
 20038|4|66|60|0|202|135461|0|0||0|Mandokir's Sting||a11,t8|1
-15289|2|65|60|0|202|135494|0|0||0|Archstrike Bow|||2
+15289|2|65|60|0|202|135494|1|0||0|Archstrike Bow|||2
 272841|4|65|60|0|202|135500|2|0|A|0|Premier Grand Marshal's Bullseye||t6,A32|1
 272594|4|65|60|0|202|135496|2|0|H|0|Premier High Warlord's Recurve||t6,A32|1
-13023|3|63|58|0|202|135499|0|0||0|Eaglehorn Long Bow||a10,t4|2
-15296|2|63|58|0|202|135500|0|0||0|Hawkeye Bow|||2
+13023|3|63|58|0|202|135499|1|0||0|Eaglehorn Long Bow||a10,t4|2
+15296|2|63|58|0|202|135500|1|0||0|Hawkeye Bow|||2
 19558|3|63|58|0|202|135494|1|0||0|Outrider's Bow||a4,t10|1
 19562|3|63|58|0|202|135490|1|0||0|Outrunner's Bow||a4,t10|1
 16996|3|62|0|0|202|135492|1|0||0|Gorewood Bow||a3,s2,t9|1
-18680|3|61|56|0|202|135496|0|0||0|Ancient Bone Bow||a11|1
-15288|2|61|56|0|202|135495|0|0||0|Blasthorn Bow|||2
-22318|3|61|56|0|202|135500|0|0||0|Malgen's Long Bow||t4,A20|1
+18680|3|61|56|0|202|135496|1|0||0|Ancient Bone Bow||a11|1
+15288|2|61|56|0|202|135495|1|0||0|Blasthorn Bow|||2
+22318|3|61|56|0|202|135500|1|0||0|Malgen's Long Bow||t4,A20|1
 20663|3|60|55|0|202|135498|0|0||0|Deep Strike Bow||a6,t4,i6|1
-18482|2|60|55|0|202|135493|0|0||0|Ogre Toothpick Shooter||a6,t5|1
-18729|3|60|55|0|202|135500|0|0||0|Screeching Bow||t3|1
+18482|2|60|55|0|202|135493|1|0||0|Ogre Toothpick Shooter||a6,t5|1
+18729|3|60|55|0|202|135500|1|0||0|Screeching Bow||t3|1
 13175|2|60|55|0|202|135498|0|0||0|Voone's Twitchbow|||1
-12653|3|59|54|0|202|135496|0|0||0|Riphook||A22|1
+12653|3|59|54|0|202|135496|1|0||0|Riphook||A22|1
 20646|2|59|0|0|202|135491|1|0||0|Sandstrider's Mark||t8|1
-18323|3|58|53|0|202|135491|0|0||0|Satyr's Bow||a3,h1|1
+18323|3|58|53|0|202|135491|1|0||0|Satyr's Bow||a3,h1|1
 275439|2|57|0|0|202|135496|2|0||0|Blunderflame Bone Bow|||1
 275441|2|57|0|0|202|135496|2|0||0|Cremation Longbow|||1
 16622|2|57|0|0|202|135494|1|0||0|Thornflinger|||1
-13022|3|55|50|0|202|135499|0|0||0|Gryphonwing Long Bow||a8,t4|2
-15295|2|55|50|0|202|135498|0|0||0|Quillfire Bow|||2
+13022|3|55|50|0|202|135499|1|0||0|Gryphonwing Long Bow||a8,t4|2
+15295|2|55|50|0|202|135498|1|0||0|Quillfire Bow|||2
 276902|2|54|1|0|202|0|2|0||0|Youngster's First Bow||t5,A7|1
-11628|3|53|48|0|202|135492|0|0||0|Houndmaster's Bow||a3|1
-2824|4|53|48|0|202|135500|0|0||0|Hurricane|||2
+11628|3|53|48|0|202|135492|1|0||0|Houndmaster's Bow||a3|1
+2824|4|53|48|0|202|135500|1|0||0|Hurricane|||2
 19559|3|53|48|0|202|135494|1|0||0|Outrider's Bow||a3,t8|1
 19563|3|53|48|0|202|135490|1|0||0|Outrunner's Bow||a3,t8|1
-15294|2|53|48|0|202|135495|0|0||0|Siege Bow|||2
-17753|3|53|0|0|202|135491|0|0||0|Verdant Keeper's Aim|||1
-15291|2|51|46|0|202|135496|0|0||0|Harpy Needler|||2
+15294|2|53|48|0|202|135495|1|0||0|Siege Bow|||2
+17753|3|53|0|0|202|135491|1|0||0|Verdant Keeper's Aim|||1
+15291|2|51|46|0|202|135496|1|0||0|Harpy Needler|||2
+284050|2|51|46|0|202|135493|2|0||0|High Elf's Recurve||a3|2
 19114|2|51|0|0|202|135496|1|0||0|Highland Bow||a5,t4|1
 270107|2|50|0|0|202|135496|2|0||0|Bloodstained Longbow||a6,t2|1
 11308|2|49|44|0|202|135495|1|0||0|Sylvan Shortbow|||2
+274646|3|47|42|0|202|135503|2|0||0|Arch of the Covenant||a5|1
 11307|2|47|42|0|202|135489|1|0||0|Massive Longbow|||2
-13021|3|47|42|0|202|135496|0|0||0|Needle Threader||t6,p4|2
-10624|3|47|42|0|202|135496|0|0||0|Stinging Bow||s3,A14|2
-15287|2|45|40|0|202|135490|0|0||0|Crusader Bow|||2
+13021|3|47|42|0|202|135496|1|0||0|Needle Threader||t6,p4|2
+10624|3|47|42|0|202|135496|1|0||0|Stinging Bow||s3,A14|2
+15287|2|45|40|0|202|135490|1|0||0|Crusader Bow|||2
 277254|3|45|40|0|202|0|2|0||0|Truthseeker's Bow||a7,t3|1
 17686|2|43|0|0|202|135499|1|0||0|Master Hunter's Bow|||1
 19560|3|43|38|0|202|135494|1|0||0|Outrider's Bow||a3,t6|1
 19564|3|43|38|0|202|135490|1|0||0|Outrunner's Bow||a3,t6|1
-2825|4|42|37|0|202|135497|0|0||0|Bow of Searing Arrows|||2
-9426|3|41|36|0|202|135489|0|0||0|Monolithic Bow||a3,s6|2
-4087|2|41|36|0|202|135498|0|0||0|Trueshot Bow|||2
-13020|3|39|34|0|202|135499|0|0||0|Skystriker Bow|||2
-10567|3|38|33|0|202|135489|0|0||0|Quillshooter|||2
+2825|4|42|37|0|202|135497|1|0||0|Bow of Searing Arrows|||2
+9426|3|41|36|0|202|135489|1|0||0|Monolithic Bow||a3,s6|2
+4087|2|41|36|0|202|135498|1|0||0|Trueshot Bow|||2
+275052|2|39|0|0|202|133727|2|0||0|Orc Bone Bow||A10|1
+13020|3|39|34|0|202|135499|1|0||0|Skystriker Bow|||2
+10567|3|38|33|0|202|135489|1|0||0|Quillshooter|||2
 11305|2|35|30|0|202|135495|1|0||0|Dense Shortbow|||2
-15286|2|35|30|0|202|135498|0|0||0|Long Redwood Bow|||2
-3037|2|34|29|0|202|135500|0|0||0|Whipwood Recurve Bow|||2
+15286|2|35|30|0|202|135498|1|0||0|Long Redwood Bow|||2
+3037|2|34|29|0|202|135500|1|0||0|Whipwood Recurve Bow|||2
 19561|3|33|28|0|202|135494|1|0||0|Outrider's Bow|||1
 19565|3|33|28|0|202|135490|1|0||0|Outrunner's Bow|||1
-15285|2|32|27|0|202|135491|0|0||0|Archer's Longbow|||2
-13019|3|32|27|0|202|135499|0|0||0|Harpyclaw Short Bow|||2
-6696|3|32|27|0|202|135500|0|0||0|Nightstalker Bow||a3|1
-4474|2|32|27|0|202|135498|0|0||0|Ravenwood Bow|||2
+15285|2|32|27|0|202|135491|1|0||0|Archer's Longbow|||2
+13019|3|32|27|0|202|135499|1|0||0|Harpyclaw Short Bow|||2
+6696|3|32|27|0|202|135500|1|0||0|Nightstalker Bow||a3|1
+4474|2|32|27|0|202|135498|1|0||0|Ravenwood Bow|||2
 11306|2|32|27|0|202|135495|1|0||0|Sturdy Recurve|||2
 5817|2|30|0|0|202|135489|1|0||0|Lunaris Bow|||1
 3493|2|30|0|0|202|135491|1|0||0|Raptor's End|||1
 6739|2|29|0|0|202|135496|1|0||0|Cliffrunner's Aim|||1
 281264|2|29|0|0|202|0|2|0||0|Ghastly Bow||a2,p2|1
-15284|2|29|24|0|202|135489|0|0||0|Long Battle Bow|||2
+15284|2|29|24|0|202|135489|1|0||0|Long Battle Bow|||2
 3742|2|28|0|0|202|135490|1|0||0|Bow of Plunder|||1
-8183|2|27|22|0|202|135492|0|0||0|Precision Bow|||2
+273843|3|28|23|0|202|135491|2|0||0|Fallenroot Longbow||a2,t4|1
+285347|3|27|22|0|202|135493|2|0||0|Alliance Outrunner Bow||a4,p3|1
+8183|2|27|22|0|202|135492|1|0||0|Precision Bow|||2
 217315|2|27|23|0|202|135492|1|0||0|Precision Bow|||1
-3078|2|26|21|0|202|135492|0|0||0|Naga Heartpiercer|||1
-3021|3|25|20|0|202|135499|0|0||0|Ranger Bow||a1|2
-6469|3|24|19|0|202|135498|0|0||0|Venomstrike|||1
+3078|2|26|21|0|202|135492|1|0||0|Naga Heartpiercer|||1
+3021|3|25|20|0|202|135499|1|0||0|Ranger Bow||a1|2
+6469|3|24|19|0|202|135498|1|0||0|Venomstrike|||1
 20437|3|23|18|0|202|135494|1|0||0|Outrider's Bow|||1
 20438|3|23|18|0|202|135490|1|0||0|Outrunner's Bow|||1
-3039|2|23|18|0|202|135491|0|0||0|Short Ash Bow|||2
-4576|2|21|16|0|202|135495|0|0||0|Light Bow|||2
+3039|2|23|18|0|202|135491|1|0||0|Short Ash Bow|||2
+4576|2|21|16|0|202|135495|1|0||0|Light Bow|||2
 11304|2|19|14|0|202|135490|1|0||0|Fine Longbow|||2
 5748|2|16|11|0|202|135495|0|0||0|Centaur Longbow|||2
 11303|2|16|11|0|202|135495|1|0||0|Fine Shortbow|||2
 2903|2|15|0|0|202|135490|1|0||0|Daryl's Hunting Bow|||1
 276695|2|15|0|0|202|135489|2|0||0|Harvester's Pestslayer||a1,t1|1
-3036|2|15|10|0|202|135500|0|0||0|Heavy Shortbow|||2
+3036|2|15|10|0|202|135500|1|0||0|Heavy Shortbow|||2
 276685|2|14|0|0|202|0|2|0||0|Militia Bow||a1|1
 5346|2|14|0|0|202|135496|1|0||0|Orcish Battle Bow|||1
 263404|2|13|0|0|202|7810733|2|0||0|Bow of Hours||a1|1
-8180|2|11|6|0|202|135491|0|0||0|Hunting Bow|||2
+286748|2|12|7|0|202|0|2|0||0|Bristlebark Bow||a1|2
+8180|2|11|6|0|202|135491|1|0||0|Hunting Bow|||2
 ]==],
         [16] = [==[
 23050|4|90|60|0|401|133777|0|0||0|Cloak of the Necropolis||t12,i11,S26,H26,h1,c1|1
@@ -7862,396 +8652,444 @@ FGT.GEARDB = {
 21412|4|67|60|16|401|133768|1|508||0|Shroud of Infinite Wisdom||t12,i14,p11,H24|1
 21418|4|67|60|256|401|133772|1|500||0|Shroud of Unspoken Names||t16,i9,S18,H18|1
 18204|4|66|60|0|401|133759|0|261||1|Eskhandar's Pelt||t20,c1|1
+272411|3|65|60|0|401|133757|2|0||0|Arcanoweave Cloak||i8,S16,H16,h1|1
 279270|4|65|60|1088|401|133765|2|0||0|Cloak of Earth and Sky||t16,p14|2
-3475|4|65|60|0|401|133760|0|0||0|Cloak of Flames|||2
+3475|4|65|60|0|401|133760|1|0||0|Cloak of Flames|||2
 20073|4|65|60|0|401|133754|1|0||0|Cloak of the Honor Guard|Requires Exalted with The League of Arathor|a5,t11,A34|1
 20068|4|65|60|0|401|133754|1|0||0|Deathguard's Cloak|Requires Exalted with The Defilers|a5,t11,A34|1
 272413|3|65|60|0|401|133758|2|0||0|Drape of Recovery||t8,S10,H31|1
 279269|4|65|60|0|401|133753|2|0||0|Fel Cape||t16,c1|2
+272414|3|65|60|0|401|133762|2|0||0|Howler's Furs||t8,A28,h1|1
+272415|3|65|60|0|401|133768|2|0||0|Stalwart Cloak||t14,h1|1
 20691|4|65|60|0|401|133772|0|0||0|Windshear Cape||a15,s8,t14,i7|1
 19526|3|63|58|0|401|133770|1|0||1|Battle Healer's Cloak||t11,p8,H26|1
-12967|3|63|58|0|401|133757|0|0||0|Bloodmoon Cloak||t17,p5|1
-13340|3|63|58|0|401|133772|0|0||0|Cape of the Black Baron||a15,A20|1
+12967|3|63|58|0|401|133757|1|0||0|Bloodmoon Cloak||t17,p5|1
+13340|3|63|58|0|401|133772|1|0||0|Cape of the Black Baron||a15,A20|1
 19530|3|63|58|0|401|133765|1|0||1|Caretaker's Cape||t11,p8,H26|1
 23127|3|63|58|0|401|133754|0|0||0|Cloak of Revanchion||a10,s10,t11|1
 20697|3|63|58|0|401|133771|0|0||0|Crystalline Threaded Cape||t5,i4,S20,H20|2
-12968|3|63|58|0|401|133770|0|0||0|Frostweaver Cape||i12,p12|1
-18495|3|63|58|0|401|133773|0|0||0|Redoubt Cloak||t15,d7|1
+272063|3|63|58|0|401|133772|2|0||0|Darkspear Raider's Cloak|Requires Honored with Darkspear Raiders|t8,i16,p6|1
+271907|3|63|58|0|401|133772|2|0||0|Expeditionary's Cape|Requires Honored with Theramore Expeditionary Force|t8,i16,p6|1
+12968|3|63|58|0|401|133770|1|0||0|Frostweaver Cape||i12,p12|1
+18495|3|63|58|0|401|133773|1|0||0|Redoubt Cloak||t15,d7|1
+280045|3|63|58|0|401|0|2|0||0|Regal Direhorn Drape||t11,A18,S12,H12|1
 16342|3|63|58|0|401|133773|1|0||1|Sergeant's Cape|Requires PvP rank 3|t17|1
 18461|3|63|58|0|401|133759|1|0||1|Sergeant's Cloak|Requires PvP rank 3|t17|1
-22269|3|63|58|0|401|133772|0|0||0|Shadow Prowler's Cloak||a17,t7|1
-22337|3|63|58|0|401|133771|0|0||0|Shroud of Domination||s17,t7|1
-15421|3|63|0|0|401|133759|0|0||0|Shroud of the Exile||t7,i15,p7|1
+22269|3|63|58|0|401|133772|1|0||0|Shadow Prowler's Cloak||a17,t7|1
+22337|3|63|58|0|401|133771|1|0||0|Shroud of Domination||s17,t7|1
+15421|3|63|0|0|401|133759|1|0||0|Shroud of the Exile||t7,i15,p7|1
 18509|4|62|57|0|401|133754|1|0||0|Chromatic Cloak||t10,c1|2
 18413|3|62|57|0|401|133758|1|0||0|Cloak of Warding||d5|2
-18389|3|62|57|0|401|133753|0|0||0|Cloak of the Cosmos||t7,i11,H26|1
+18389|3|62|57|0|401|133753|1|0||0|Cloak of the Cosmos||t7,i11,H26|1
 21187|3|62|0|0|401|133759|1|0||0|Earthweave Cloak||a15,h1|1
-18382|3|62|57|0|401|133766|0|0||0|Fluctuating Cloak|||1
+18382|3|62|57|0|401|133766|1|0||0|Fluctuating Cloak|||1
 18510|4|62|57|0|401|133753|1|0||0|Hide of the Wild||t8,i10,H42|2
-18734|3|62|57|0|401|133763|0|0||0|Pale Moon Cloak||s8,t12|1
-18689|3|62|57|0|401|133772|0|0||0|Phantasmal Cloak||s12,t11|1
+284100|3|62|57|0|401|133772|2|2130||0|Horseman's Unyielding Shroud||t13,A27|1
+18734|3|62|57|0|401|133763|1|0||0|Pale Moon Cloak||s8,t12|1
+18689|3|62|57|0|401|133772|1|0||0|Phantasmal Cloak||s12,t11|1
 18511|4|62|57|0|401|133772|1|0||0|Shifting Cloak||a17,t8,d25|2
-18350|2|61|56|0|401|133770|0|0||0|Amplifying Cloak||S18,H18|1
-13386|3|61|56|0|401|133771|0|0||0|Archivist Cape|||1
+18350|2|61|56|0|401|133770|1|0||0|Amplifying Cloak||S18,H18|1
+13386|3|61|56|0|401|133771|1|0||0|Archivist Cape|||1
 275711|3|61|0|0|401|133762|2|0||0|Chimaera Wing Cape||t10,S8,H22|1
 10249|2|61|56|0|401|133772|1|0||0|Master's Cloak|||2
-10267|2|61|56|0|401|133766|0|0||0|Masterwork Cape|||2
-22330|3|61|56|0|401|133768|0|0||0|Shroud of Arcane Mastery||t10,i11,h1|1
-13397|3|61|56|0|401|133771|0|0||0|Stoneskin Gargoyle Cape||a8,s7,t14|1
-15437|2|61|56|0|401|133754|0|0||0|Supreme Cape|||2
-12905|3|61|56|0|401|132657|0|0||0|Wildfire Cape|||1
-18677|2|61|56|0|401|133765|0|0||0|Zephyr Cloak|||2
-10258|2|60|55|0|401|133760|0|0||0|Adventurer's Cape|||2
-13203|3|60|55|0|401|133771|0|0||0|Armswake Cloak||t15,A16|1
+10267|2|61|56|0|401|133766|1|0||0|Masterwork Cape|||2
+22330|3|61|56|0|401|133768|1|0||0|Shroud of Arcane Mastery||t10,i11,h1|1
+276072|3|61|56|0|401|133772|2|0||0|Soulwoven Drape||t8,p12,S7,H20|1
+13397|3|61|56|0|401|133771|1|0||0|Stoneskin Gargoyle Cape||a8,s7,t14|1
+15437|2|61|56|0|401|133754|1|0||0|Supreme Cape|||2
+12905|3|61|56|0|401|132657|1|0||0|Wildfire Cape|||1
+18677|2|61|56|0|401|133765|1|0||0|Zephyr Cloak|||2
+10258|2|60|55|0|401|133760|1|0||0|Adventurer's Cape|||2
+13203|3|60|55|0|401|133771|1|0||0|Armswake Cloak||t15,A16|1
+280062|3|60|55|0|401|0|2|0||0|Cloak of the Fleshborer||a6,s6,t6,i6,p6|1
 19085|3|60|55|0|401|133768|1|0||0|Frostwolf Advisor's Cloak||t11,S14,H14|1
 19083|3|60|55|0|401|133768|1|0||0|Frostwolf Legionnaire's Cloak||t11,A24|1
 15815|2|60|0|0|401|133770|1|0||0|Hameya's Cloak|||1
-18496|3|60|55|0|401|133754|0|0||0|Heliotrope Cloak||i10,c1|1
+18496|3|60|55|0|401|133754|1|0||0|Heliotrope Cloak||i10,c1|1
 15138|3|60|55|0|401|133757|1|0||0|Onyxia Scale Cloak||t7|2
+287044|3|60|55|0|401|0|2|0||0|Predator's Shroud||a9,t14,A11|2
 272589|3|60|55|0|401|133759|2|0||0|Premier Sergeant's Cape||t16|1
 272699|3|60|55|0|401|133773|2|0||0|Premier Sergeant's Cape||t16|1
 272578|3|60|55|0|401|133759|2|0||0|Premier Sergeant's Cloak||a8,s8,t8,i8,p8|1
 272698|3|60|55|0|401|133773|2|0||0|Premier Sergeant's Cloak||a8,s8,t8,i8,p8|1
+281599|2|60|55|0|401|133757|2|0||0|Ragged Colors||p5,A25|2
 16337|3|60|55|0|401|133773|1|0|A|1|Sergeant Major's Cape|Requires PvP rank 5|a8,s8,t8,i8,p8|1
 19086|3|60|55|0|401|133770|1|0||0|Stormpike Sage's Cloak||t11,S14,H14|1
 19084|3|60|55|0|401|133770|1|0||0|Stormpike Soldier's Cloak||t11,A24|1
-11930|3|60|55|0|401|133772|0|0||0|The Emperor's New Cape||a7,t16|1
+11930|3|60|55|0|401|133772|1|0||0|The Emperor's New Cape||a7,t16|1
 20693|2|60|55|0|401|133754|0|0||0|Weighted Cloak||s8,t8|2
-18339|2|59|54|0|401|133773|0|0||0|Eidolon Cloak||t5|2
+18339|2|59|54|0|401|133773|1|0||0|Eidolon Cloak||t5|2
 20218|3|59|0|0|401|133765|1|0||0|Faded Hakkari Cloak||t5,i8|1
-18743|3|59|54|0|401|133770|0|0||0|Gracious Cape||i7|2
-10138|2|59|54|0|401|133768|0|0||0|High Councillor's Cloak|||2
-14683|2|59|54|0|401|133769|0|0||0|Indomitable Cloak||t3,p13|2
-10159|2|59|54|0|401|133770|0|0||0|Mercurial Cloak|||2
-13376|3|59|54|0|401|133766|0|0||0|Royal Tribunal Cloak||t7,i16|1
-18328|3|59|54|0|401|133769|0|0||0|Shadewood Cloak||s13,t7|1
+18743|3|59|54|0|401|133770|1|0||0|Gracious Cape||i7|2
+10138|2|59|54|0|401|133768|1|0||0|High Councillor's Cloak|||2
+14683|2|59|54|0|401|133769|1|0||0|Indomitable Cloak||t3,p13|2
+10159|2|59|54|0|401|133770|1|0||0|Mercurial Cloak|||2
+13376|3|59|54|0|401|133766|1|0||0|Royal Tribunal Cloak||t7,i16|1
+18328|3|59|54|0|401|133769|1|0||0|Shadewood Cloak||s13,t7|1
 275668|2|59|0|0|401|133769|2|0||0|Summit Drape||s8,i10|1
 20219|3|59|0|0|401|133766|1|0||0|Tattered Hakkari Cape||s7,t6|1
-12608|3|58|53|0|401|133770|0|0||0|Butcher's Apron||t7,p16|1
-11812|3|58|53|0|401|133770|0|0||0|Cape of the Fire Salamander||t9,p6|1
-14331|2|58|53|0|401|133756|0|0||0|Eternal Cloak|||2
-17061|3|58|53|0|401|133772|0|0||0|Juno's Shadow||t10,i5|2
-13007|3|58|53|0|401|133770|0|0||0|Mageflame Cloak|||2
-10148|2|58|53|0|401|133762|0|0||0|Mighty Cloak|||2
-12110|2|58|0|0|401|133768|0|0||0|Raincaster Drape||p9,H22|1
-12066|2|58|0|0|401|133754|0|0||0|Shaleskin Cape||a6,t11|1
+12608|3|58|53|0|401|133770|1|0||0|Butcher's Apron||t7,p16|1
+11812|3|58|53|0|401|133770|1|0||0|Cape of the Fire Salamander||t9,p6|1
+14331|2|58|53|0|401|133756|1|0||0|Eternal Cloak|||2
+17061|3|58|53|0|401|133772|1|0||0|Juno's Shadow||t10,i5|2
+13007|3|58|53|0|401|133770|1|0||0|Mageflame Cloak|||2
+10148|2|58|53|0|401|133762|1|0||0|Mighty Cloak|||2
+12110|2|58|0|0|401|133768|1|0||0|Raincaster Drape||p9,H22|1
+12066|2|58|0|0|401|133754|1|0||0|Shaleskin Cape||a6,t11|1
 17523|2|58|0|0|401|133770|1|0||0|Smokey's Drape||t9|1
-15681|2|58|53|0|401|133766|0|0||0|Triumphant Cloak|||2
+15681|2|58|53|0|401|133766|1|0||0|Triumphant Cloak|||2
 275833|2|57|0|0|401|133755|2|0||0|Bristlecone Cloak||t10|1
-10212|2|57|52|0|401|133758|0|0||0|Elegant Cloak|||2
-14459|2|57|52|0|401|133761|0|0||0|Elunarian Cloak||s2,t6,p11|2
-8304|2|57|52|0|401|133754|0|0||0|Hero's Cape||t11,i6|2
-10224|2|57|52|0|401|133754|0|0||0|Nightshade Cloak|||2
+10212|2|57|52|0|401|133758|1|0||0|Elegant Cloak|||2
+14459|2|57|52|0|401|133761|1|0||0|Elunarian Cloak||s2,t6,p11|2
+279891|2|57|1|0|401|0|2|0||0|Guidance of Ursoc||s10,t4|1
+8304|2|57|52|0|401|133754|1|0||0|Hero's Cape||t11,i6|2
+284262|2|57|52|0|401|133770|2|0||0|Howling Hide||s12,A1|2
+10224|2|57|52|0|401|133754|1|0||0|Nightshade Cloak|||2
 274035|2|57|0|0|401|133762|2|0||0|Staghide Drape||a7,t7,p8|1
-14813|2|57|52|0|401|133753|0|0||0|Warstrike Cape||a3,s7,t10|2
+14813|2|57|52|0|401|133753|1|0||0|Warstrike Cape||a3,s7,t10|2
+279892|2|57|1|0|401|0|2|0||0|Wisdom of Ursol||i10,S5,H14|1
 15804|2|56|0|0|401|133770|1|0||0|Cerise Drape||a6,t7,i6,p6|1
 15789|2|56|0|0|401|133768|1|0||0|Deep River Cloak||a11,t7|1
 11873|2|56|0|0|401|133757|1|0||0|Ethereal Mist Cape||i3,p12|1
-15671|2|56|51|0|401|133770|0|0||0|Magnificent Cloak|||2
-12551|3|56|51|0|401|133773|0|0||0|Stoneshield Cloak||t6|2
-12113|2|56|0|0|401|133760|0|0||0|Sunborne Cape||p5|1
-8286|2|55|50|0|401|133768|0|0||0|Arcane Cloak||t3,p12|2
-12552|3|55|50|0|401|133770|0|0||0|Blisterbane Wrap||a15,t3|2
+15671|2|56|51|0|401|133770|1|0||0|Magnificent Cloak|||2
+12551|3|56|51|0|401|133773|1|0||0|Stoneshield Cloak||t6|2
+12113|2|56|0|0|401|133760|1|0||0|Sunborne Cape||p5|1
+8286|2|55|50|0|401|133768|1|0||0|Arcane Cloak||t3,p12|2
+12552|3|55|50|0|401|133770|1|0||0|Blisterbane Wrap||a15,t3|2
 14103|2|55|50|0|401|133763|1|0||0|Brightcloth Cloak|||2
 15703|2|55|0|0|401|133763|1|0||0|Chemist's Smock||a3,t12|1
 14044|2|55|50|0|401|133770|1|0||0|Cindercloth Cloak||i8|2
 14134|3|55|50|0|401|133770|1|0||0|Cloak of Fire||t7|2
-13122|3|55|50|0|401|133773|0|0||0|Dark Phantom Cape||a15,p6|2
-10231|2|55|50|0|401|133770|0|0||0|Engraved Cape|||2
-15190|2|55|50|0|401|133754|0|0||0|Grand Cloak|||2
-11677|3|55|50|0|401|133771|0|0||0|Graverot Cape||t15,p6|1
-14321|2|55|50|0|401|133760|0|0||0|Resplendent Cloak|||2
-8297|2|55|50|0|401|133770|0|0||0|Traveler's Cloak||t4,p11|2
-14313|2|54|49|0|401|133757|0|0||0|Celestial Cape|||2
-10843|3|54|49|0|401|133757|0|0||0|Featherskin Cape||t4,i4,p15|1
-15661|2|54|49|0|401|133763|0|0||0|Impenetrable Cloak|||2
-15427|2|54|49|0|401|133754|0|0||0|Peerless Cloak|||2
+13122|3|55|50|0|401|133773|1|0||0|Dark Phantom Cape||a15,p6|2
+10231|2|55|50|0|401|133770|1|0||0|Engraved Cape|||2
+15190|2|55|50|0|401|133754|1|0||0|Grand Cloak|||2
+11677|3|55|50|0|401|133771|1|0||0|Graverot Cape||t15,p6|1
+14321|2|55|50|0|401|133760|1|0||0|Resplendent Cloak|||2
+8297|2|55|50|0|401|133770|1|0||0|Traveler's Cloak||t4,p11|2
+14313|2|54|49|0|401|133757|1|0||0|Celestial Cape|||2
+10843|3|54|49|0|401|133757|1|0||0|Featherskin Cape||t4,i4,p15|1
+15661|2|54|49|0|401|133763|1|0||0|Impenetrable Cloak|||2
+15427|2|54|49|0|401|133754|1|0||0|Peerless Cloak|||2
 276901|2|54|1|0|401|0|2|0||0|Uncle's Heroism||s10,p6|1
 19527|3|53|48|0|401|133770|1|0||1|Battle Healer's Cloak||t9,p6,H22|1
-11626|3|53|48|0|401|133770|0|0||0|Blackveil Cape||a14,s6|1
+11626|3|53|48|0|401|133770|1|0||0|Blackveil Cape||a14,s6|1
 19531|3|53|48|0|401|133765|1|0||1|Caretaker's Cape||t9,p6,H22|1
-10098|2|53|48|0|401|133769|0|0||0|Councillor's Cloak|||2
-12465|3|53|48|0|401|133757|0|0||0|Nightfall Drape||t14,p8|1
-10120|2|53|48|0|401|133758|0|0||0|Ornate Cloak|||2
+10098|2|53|48|0|401|133769|1|0||0|Councillor's Cloak|||2
+272076|3|53|48|0|401|133772|2|0||0|Darkspear Raider's Cloak|Requires Honored with Darkspear Raiders|t7,i14,p5|1
+271921|3|53|48|0|401|133772|2|0||0|Expeditionary's Cape|Requires Honored with Theramore Expeditionary Force|t7,i14,p5|1
+12465|3|53|48|0|401|133757|1|0||0|Nightfall Drape||t14,p8|1
+10120|2|53|48|0|401|133758|1|0||0|Ornate Cloak|||2
 13860|2|53|48|0|401|133762|1|0||0|Runecloth Cloak||i8,p9|2
-10108|2|53|48|0|401|133762|0|0||0|Wanderer's Cloak|||2
-14801|2|52|47|0|401|133770|0|0||0|Bloodlust Cape||s9,t6|2
-14300|2|52|47|0|401|133754|0|0||0|Bonecaster's Cape|||2
-19982|3|52|0|0|401|133772|0|0||0|Duskbat Drape||a14|1
+10108|2|53|48|0|401|133762|1|0||0|Wanderer's Cloak|||2
+14801|2|52|47|0|401|133770|1|0||0|Bloodlust Cape||s9,t6|2
+14300|2|52|47|0|401|133754|1|0||0|Bonecaster's Cape|||2
+276737|3|52|47|0|401|133757|2|0||0|Cloak of the Tidemistress||t13,h1|1
+19982|3|52|0|0|401|133772|1|0||0|Duskbat Drape||a14|1
 22230|3|52|0|0|401|133755|1|0||0|Frightmaw Hide||s15|1
-17739|3|52|47|0|401|133769|0|0||0|Grovekeeper's Drape||t12|1
+17739|3|52|47|0|401|133769|1|0||0|Grovekeeper's Drape||t12|1
+284197|2|52|47|0|401|133755|2|0||0|Hide of Mongress||t8,d5|2
 260168|2|52|0|0|401|133755|2|0||0|Mourner's Shroud||s7,t9|1
-10174|2|52|47|0|401|133754|0|0||0|Mystical Cape|||2
-14673|2|52|47|0|401|133762|0|0||0|Pridelord Cape||a9,s3,t5|2
-11623|3|52|47|0|401|133772|0|0||0|Spritecaster Cape||t4,i4,p5,S14,H14|1
-10802|2|52|47|0|401|133754|0|0||0|Wingveil Cloak||p12|1
+10174|2|52|47|0|401|133754|1|0||0|Mystical Cape|||2
+14673|2|52|47|0|401|133762|1|0||0|Pridelord Cape||a9,s3,t5|2
+11623|3|52|47|0|401|133772|1|0||0|Spritecaster Cape||t4,i4,p5,S14,H14|1
+10802|2|52|47|0|401|133754|1|0||0|Wingveil Cloak||p12|1
 19121|3|51|0|0|401|133769|1|0||0|Deep Woodlands Cloak||t6,i9,S12,H12|1
-8266|2|51|46|0|401|133757|0|0||0|Ebonhold Cloak||a7,t4,p9|2
-14450|2|51|46|0|401|132655|0|0||0|Highborne Cloak||t4,i9,p4|2
-15652|2|51|46|0|401|133760|0|0||0|Merciless Cloak|||2
-10185|2|51|46|0|401|133770|0|0||0|Swashbuckler's Cape|||2
-10194|2|50|45|0|401|133766|0|0||0|Crusader's Cloak|||2
-8248|2|50|45|0|401|133770|0|0||0|Imperial Red Cloak||i11,p4|2
-15183|2|50|45|0|401|133770|0|0||0|Praetorian Cloak|||2
+8266|2|51|46|0|401|133757|1|0||0|Ebonhold Cloak||a7,t4,p9|2
+14450|2|51|46|0|401|132655|1|0||0|Highborne Cloak||t4,i9,p4|2
+15652|2|51|46|0|401|133760|1|0||0|Merciless Cloak|||2
+286572|2|51|46|0|401|133764|2|0||0|Ogre Casting Cloak||s10,S5,H5|2
+10185|2|51|46|0|401|133770|1|0||0|Swashbuckler's Cape|||2
+284866|2|51|46|0|401|133769|2|0||0|Windserpent Scaled Cloak||a10,h1|2
+10194|2|50|45|0|401|133766|1|0||0|Crusader's Cloak|||2
+8248|2|50|45|0|401|133770|1|0||0|Imperial Red Cloak||i11,p4|2
+15183|2|50|45|0|401|133770|1|0||0|Praetorian Cloak|||2
 18441|3|50|45|0|401|133773|1|0||1|Sergeant's Cape|Requires PvP rank 3|t14|1
 16341|3|50|45|0|401|133759|1|0||1|Sergeant's Cloak|Requires PvP rank 3|t14|1
 272451|3|50|45|0|401|133759|2|0||1|Sergeant's Cloak||t14|1
-8259|2|50|45|0|401|133769|0|0||0|Serpentskin Cloak||a11,t2|2
+8259|2|50|45|0|401|133769|1|0||0|Serpentskin Cloak||a11,t2|2
 8215|2|50|45|0|401|133755|1|0||0|Wild Leather Cloak|||2
-14292|2|49|44|0|401|132656|0|0||0|Arachnidian Cape|||2
-13109|3|49|44|0|401|133772|0|0||0|Blackflame Cape||a12|2
-10060|2|49|44|0|401|133772|0|0||0|Duskwoven Cape|||2
-15643|2|49|44|0|401|133774|0|0||0|Ironhide Cloak|||2
-15392|2|49|44|0|401|133769|0|0||0|Jadefire Cloak|||2
-10071|2|49|44|0|401|133758|0|0||0|Righteous Cloak|||2
-9938|2|48|43|0|401|133768|0|0||0|Abjurer's Cloak|||2
+14292|2|49|44|0|401|132656|1|0||0|Arachnidian Cape|||2
+13109|3|49|44|0|401|133772|1|0||0|Blackflame Cape||a12|2
+10060|2|49|44|0|401|133772|1|0||0|Duskwoven Cape|||2
+15643|2|49|44|0|401|133774|1|0||0|Ironhide Cloak|||2
+15392|2|49|44|0|401|133769|1|0||0|Jadefire Cloak|||2
+10071|2|49|44|0|401|133758|1|0||0|Righteous Cloak|||2
+9938|2|48|43|0|401|133768|1|0||0|Abjurer's Cloak|||2
 8216|2|48|43|0|401|133754|1|0||0|Big Voodoo Cloak||i9,p5|2
 9648|2|48|0|0|401|133757|1|0||0|Chainlink Towel||i3,p10|1
-14665|2|48|43|0|401|133769|0|0||0|Keeper's Cloak||t3,i10|2
-10079|2|48|43|0|401|133754|0|0||0|Lord's Cape|||2
-14280|2|48|43|0|401|133772|0|0||0|Opulent Cape|||2
-14791|2|48|43|0|401|133757|0|0||0|Protector Cape||a2,s4,t9|2
-9951|2|47|42|0|401|133770|0|0||0|Chieftain's Cloak|||2
-8127|2|47|42|0|401|133766|0|0||0|Myrmidon's Cape||t10,p3|2
-9512|3|46|41|0|401|133757|0|0||0|Blackmetal Cape||a12,t5|2
+274645|3|48|43|0|401|133759|2|0||0|Desert Ziggurat Drape||t9|1
+14665|2|48|43|0|401|133769|1|0||0|Keeper's Cloak||t3,i10|2
+10079|2|48|43|0|401|133754|1|0||0|Lord's Cape|||2
+14280|2|48|43|0|401|133772|1|0||0|Opulent Cape|||2
+14791|2|48|43|0|401|133757|1|0||0|Protector Cape||a2,s4,t9|2
+9951|2|47|42|0|401|133770|1|0||0|Chieftain's Cloak|||2
+8127|2|47|42|0|401|133766|1|0||0|Myrmidon's Cape||t10,p3|2
+9512|3|46|41|0|401|133757|1|0||0|Blackmetal Cape||a12,t5|2
 275050|2|46|0|0|401|133774|2|0||0|Cloak of the Cult||t9,S4,H11|1
-11311|2|46|41|0|401|133760|0|0||0|Emberscale Cape||t10,p3|1
-15632|2|46|41|0|401|133754|0|0||0|Formidable Cape|||2
-8109|2|46|41|0|401|133767|0|0||0|Hibernal Cloak||t4,p9|2
+11311|2|46|41|0|401|133760|1|0||0|Emberscale Cape||t10,p3|1
+15632|2|46|41|0|401|133754|1|0||0|Formidable Cape|||2
+8109|2|46|41|0|401|133767|1|0||0|Hibernal Cloak||t4,p9|2
 8195|2|46|41|0|401|133755|1|0||0|Nightscape Cloak||a10,t3|2
-15173|2|46|41|0|401|133758|0|0||0|Potent Cape|||2
+15173|2|46|41|0|401|133758|1|0||0|Potent Cape|||2
+279855|2|46|1|0|401|133771|2|0||0|Torn Cultist Cloak||i7|1
 275046|2|46|0|0|401|133774|2|0||0|Twilight Overlord Drape||t9,S4,H11|1
-14440|2|46|41|0|401|133761|0|0||0|Venomshroud Cape||t6,p6|2
+14440|2|46|41|0|401|133761|1|0||0|Venomshroud Cape||t6,p6|2
 11858|2|45|0|0|401|133760|1|0||0|Battlehard Cape||t8,A10|1
-14270|2|45|40|0|401|132655|0|0||0|Gaea's Cloak|||2
-15624|2|45|40|0|401|133771|0|0||0|Gryphon Cloak|||2
-8120|2|45|40|0|401|133770|0|0||0|Heraldic Cloak||a4,t9|2
+14270|2|45|40|0|401|132655|1|0||0|Gaea's Cloak|||2
+15624|2|45|40|0|401|133771|1|0||0|Gryphon Cloak|||2
+8120|2|45|40|0|401|133770|1|0||0|Heraldic Cloak||a4,t9|2
 9635|2|45|0|0|401|133763|1|0||0|Master Apothecary Cape||i1,p10|1
 4113|2|45|0|0|401|133762|1|0||0|Medicine Blanket||t4,p9|1
 10518|2|45|0|0|401|133763|1|0||0|Parachute Cloak|Requires Engineering (225)|a8|2
-15382|2|45|40|0|401|133770|0|0||0|Rageclaw Cloak|||2
+15382|2|45|40|0|401|133770|1|0||0|Rageclaw Cloak|||2
+282005|2|45|40|0|401|133757|2|0||0|Saltwater Shawl||i7,p7|2
 274752|2|45|40|0|401|0|2|0||0|Sandstorm Cover|Requires Friendly with Gadgetzan|p8,S4,H4|1
 16336|3|45|40|0|401|133773|1|0|A|1|Sergeant Major's Cape|Requires PvP rank 5|a6,s6,t6,i6,p6|1
-9959|2|45|40|0|401|133772|0|0||0|Warmonger's Cloak|||2
-7533|2|44|39|0|401|133770|0|0||0|Cabalist Cloak|||2
-7544|2|44|39|0|401|133763|0|0||0|Champion's Cape|||2
-7524|2|44|39|0|401|133766|0|0||0|Gossamer Cape|||2
-14781|2|44|39|0|401|133760|0|0||0|Khan's Cloak||s4,t8,p1|2
-14656|2|44|39|0|401|133762|0|0||0|Scorpashi Cape||a5,s2,t7|2
+9959|2|45|40|0|401|133772|1|0||0|Warmonger's Cloak|||2
+7533|2|44|39|0|401|133770|1|0||0|Cabalist Cloak|||2
+7544|2|44|39|0|401|133763|1|0||0|Champion's Cape|||2
+7524|2|44|39|0|401|133766|1|0||0|Gossamer Cape|||2
+14781|2|44|39|0|401|133760|1|0||0|Khan's Cloak||s4,t8,p1|2
+14656|2|44|39|0|401|133762|1|0||0|Scorpashi Cape||a5,s2,t7|2
 12254|2|44|39|0|401|133756|1|0||0|Well Oiled Cloak||t10|2
 19528|3|43|38|0|401|133770|1|0||1|Battle Healer's Cloak||t8,p5,H18|1
-14261|2|43|38|0|401|133760|0|0||0|Bloodwoven Cloak|||2
-15611|2|43|38|0|401|133763|0|0||0|Bonelink Cape|||2
+14261|2|43|38|0|401|133760|1|0||0|Bloodwoven Cloak|||2
+15611|2|43|38|0|401|133763|1|0||0|Bonelink Cape|||2
 19532|3|43|38|0|401|133765|1|0||1|Caretaker's Cape||t8,p5,H18|1
 271810|3|43|1|0|401|0|2|0||0|Corpsefeeder's Shedding||a4,s4,t11|1
-9908|2|43|38|0|401|133754|0|0||0|Royal Cape|||2
+272077|3|43|38|0|401|133772|2|0||0|Darkspear Raider's Cloak|Requires Honored with Darkspear Raiders|t6,i11,p4|1
+271922|3|43|38|0|401|133772|2|0||0|Expeditionary's Cape|Requires Honored with Theramore Expeditionary Force|t6,i11,p4|1
+9908|2|43|38|0|401|133754|1|0||0|Royal Cape|||2
 9703|2|43|0|0|401|133774|1|0||0|Scorched Cape||t2,p9|1
 9660|2|43|0|0|401|133760|1|0||0|Stargazer Cloak||p10|1
-9919|2|43|38|0|401|133753|0|0||0|Tracker's Cloak|||2
-6424|2|42|37|0|401|133772|0|0||0|Blackforge Cape||i8,p4|2
+9919|2|43|38|0|401|133753|1|0||0|Tracker's Cloak|||2
+6424|2|42|37|0|401|133772|1|0||0|Blackforge Cape||i8,p4|2
 6789|2|42|0|0|401|133764|1|0||0|Ceremonial Centaur Blanket||i2,p9|1
 6832|2|42|0|0|401|132656|1|0||0|Cloak of Blight||p10|1
 4114|2|42|0|0|401|133758|1|0||0|Darktide Cape||a6,t7|1
-15165|2|42|37|0|401|133770|0|0||0|Imposing Cape|||2
-10776|3|42|35|0|401|133769|0|0||0|Silky Spider Cape||t11,p5|1
-14430|2|42|37|0|401|133765|0|0||0|Windchaser Cloak||t4,i6,p4|2
-15603|2|41|36|0|401|133763|0|0||0|Ancient Cloak|||2
-9929|2|41|36|0|401|133770|0|0||0|Brigade Cloak|||2
+15165|2|42|37|0|401|133770|1|0||0|Imposing Cape|||2
+281746|2|42|37|0|401|134354|2|0||0|Kurmokk's Pelt||s7,d4|1
+10776|3|42|35|0|401|133769|1|0||0|Silky Spider Cape||t11,p5|1
+279884|2|42|1|0|401|0|2|0||0|South Seas Shroud||t7,p3,d3|1
+14430|2|42|37|0|401|133765|1|0||0|Windchaser Cloak||t4,i6,p4|2
+15603|2|41|36|0|401|133763|1|0||0|Ancient Cloak|||2
+9929|2|41|36|0|401|133770|1|0||0|Brigade Cloak|||2
 277206|2|41|0|0|401|0|2|0||0|Brilliant Cloak||t5,i5,S6,H6|1
 12253|2|41|36|0|401|133770|1|0||0|Brilliant Red Cloak||t9|2
-6432|2|41|36|0|401|133770|0|0||0|Imperial Cloak||a8,t3|2
+6432|2|41|36|0|401|133770|1|0||0|Imperial Cloak||a8,t3|2
 23178|3|41|36|0|401|133769|0|0||0|Mantle of Lady Falther'ess||i9,S9,H9|1
-4735|2|41|36|0|401|133765|0|0||0|Mistscape Cloak||t3,p8|2
-15371|2|41|36|0|401|133774|0|0||0|Wolf Rider's Cloak|||2
+4735|2|41|36|0|401|133765|1|0||0|Mistscape Cloak||t3,p8|2
+15371|2|41|36|0|401|133774|1|0||0|Wolf Rider's Cloak|||2
 4327|3|40|35|0|401|133756|1|0||0|Icy Cloak||p6|2
-14251|2|40|35|0|401|133754|0|0||0|Lunar Cloak|||2
-7483|2|40|35|0|401|133753|0|0||0|Ranger Cloak|||2
-7474|2|40|35|0|401|133754|0|0||0|Regal Cloak|||2
+14251|2|40|35|0|401|133754|1|0||0|Lunar Cloak|||2
+274613|3|40|35|0|401|0|2|0||0|Priestess Cloak||i9,S4,H11|1
+7483|2|40|35|0|401|133753|1|0||0|Ranger Cloak|||2
+7474|2|40|35|0|401|133754|1|0||0|Regal Cloak|||2
+274612|3|40|35|0|401|0|2|0||0|Waterlogged Burial Shroud||t7,A12|1
 277207|2|40|0|0|401|0|2|0||0|Well-Weathered Cloak||t6|1
-7492|2|39|34|0|401|133753|0|0||0|Captain's Cloak|||2
-14239|2|39|34|0|401|133756|0|0||0|Darkmist Cape|||2
-9397|3|39|34|0|401|133770|0|0||0|Energy Cloak||p10|2
-14771|2|39|34|0|401|133770|0|0||0|Ravager's Cloak||s2,t8,p2|2
-14602|2|39|34|0|401|133774|0|0||0|Warden's Cloak||s4,t5,p4|2
-9890|2|38|33|0|401|133761|0|0||0|Huntsman's Cape|||2
-9898|2|38|33|0|401|133759|0|0||0|Jazeraint Cloak|||2
-14420|2|38|33|0|401|133756|0|0||0|Silksand Cape||t6,i5|2
-9877|2|38|33|0|401|133765|0|0||0|Sorcerer Cloak|||2
-13121|3|38|33|0|401|133756|0|0||0|Wing of the Whelpling||a4,t10|2
-6417|2|37|32|0|401|133756|0|0||0|Aurora Cloak||t2,p7|2
-5257|3|37|32|0|401|133756|0|0||0|Dark Hooded Cape||a10,s4|2
-4732|2|37|32|0|401|132655|0|0||0|Glyphed Cloak||t2,i7|2
+7492|2|39|34|0|401|133753|1|0||0|Captain's Cloak|||2
+14239|2|39|34|0|401|133756|1|0||0|Darkmist Cape|||2
+9397|3|39|34|0|401|133770|1|0||0|Energy Cloak||p10|2
+14771|2|39|34|0|401|133770|1|0||0|Ravager's Cloak||s2,t8,p2|2
+14602|2|39|34|0|401|133774|1|0||0|Warden's Cloak||s4,t5,p4|2
+9890|2|38|33|0|401|133761|1|0||0|Huntsman's Cape|||2
+9898|2|38|33|0|401|133759|1|0||0|Jazeraint Cloak|||2
+14420|2|38|33|0|401|133756|1|0||0|Silksand Cape||t6,i5|2
+9877|2|38|33|0|401|133765|1|0||0|Sorcerer Cloak|||2
+13121|3|38|33|0|401|133756|1|0||0|Wing of the Whelpling||a4,t10|2
+6417|2|37|32|0|401|133756|1|0||0|Aurora Cloak||t2,p7|2
+5257|3|37|32|0|401|133756|1|0||0|Dark Hooded Cape||a10,s4|2
+283253|2|37|32|0|401|133762|2|0||0|Denmother's Hide||s5,p5|2
+4732|2|37|32|0|401|132655|1|0||0|Glyphed Cloak||t2,i7|2
 5965|2|37|32|0|401|133755|1|0||0|Guardian Cloak||i5,p6|2
 4326|2|37|32|0|401|133754|1|0||0|Long Silken Cloak||i5,p6|2
-15153|2|37|32|0|401|133754|0|0||0|Nocturnal Cloak|||2
-15594|2|37|32|0|401|133754|0|0||0|Steadfast Cloak|||2
-4726|2|36|31|0|401|133754|0|0||0|Chief Brigadier Cloak||a3,t7|2
+15153|2|37|32|0|401|133754|1|0||0|Nocturnal Cloak|||2
+15594|2|37|32|0|401|133754|1|0||0|Steadfast Cloak|||2
+4726|2|36|31|0|401|133754|1|0||0|Chief Brigadier Cloak||a3,t7|2
+279848|2|36|1|0|401|0|2|0||0|Construct Cloak||s5,p5|1
 7056|2|36|31|0|401|132657|1|0||0|Crimson Silk Cloak||t3|2
-14229|2|36|31|0|401|133760|0|0||0|Embersilk Cloak|||2
+14229|2|36|31|0|401|133760|1|0||0|Embersilk Cloak|||2
 7377|2|36|31|0|401|133756|1|0||0|Frost Leather Cloak|||2
-7446|2|36|31|0|401|133758|0|0||0|Sentinel Cloak|||2
-15364|2|36|31|0|401|133768|0|0||0|Trickster's Cloak|||2
+7446|2|36|31|0|401|133758|1|0||0|Sentinel Cloak|||2
+15364|2|36|31|0|401|133768|1|0||0|Trickster's Cloak|||2
+279835|2|36|1|0|401|133765|2|0||0|Vine Pruner's Cloak||t6,S5,H5|1
 7053|2|35|30|0|401|132655|1|0||0|Azure Silk Cloak||p3|2
 277205|3|35|0|0|401|0|2|0||0|Cloak of the Divine Storm||s5,t5|1
-14593|2|35|30|0|401|133755|0|0||0|Hawkeye's Cloak||a7,s3|2
+14593|2|35|30|0|401|133755|1|0||0|Hawkeye's Cloak||a7,s3|2
 18440|3|35|30|0|401|133773|1|0||1|Sergeant's Cape|Requires PvP rank 3|t9|1
 18427|3|35|30|0|401|133759|1|0||1|Sergeant's Cloak|Requires PvP rank 3|t9|1
-15579|2|35|30|0|401|133759|0|0||0|Sparkleshell Cloak|||2
-7436|2|35|30|0|401|133765|0|0||0|Twilight Cape|||2
-9860|2|34|29|0|401|133755|0|0||0|Archer's Cloak|||2
-14219|2|34|29|0|401|133759|0|0||0|Geomancer's Cloak|||2
-7460|2|34|29|0|401|133768|0|0||0|Knight's Cloak|||2
-13108|3|34|29|0|401|134348|0|0||0|Tigerstrike Mantle||a8,t7|2
+15579|2|35|30|0|401|133759|1|0||0|Sparkleshell Cloak|||2
+7436|2|35|30|0|401|133765|1|0||0|Twilight Cape|||2
+9860|2|34|29|0|401|133755|1|0||0|Archer's Cloak|||2
+14219|2|34|29|0|401|133759|1|0||0|Geomancer's Cloak|||2
+7460|2|34|29|0|401|133768|1|0||0|Knight's Cloak|||2
+13108|3|34|29|0|401|134348|1|0||0|Tigerstrike Mantle||a8,t7|2
 2805|2|34|0|0|401|133756|1|0||0|Yeti Fur Cloak||a6,p3|1
 19529|3|33|28|0|401|133770|1|0||1|Battle Healer's Cloak||t6,p4,H13|1
 19533|3|33|28|0|401|133765|1|0||1|Caretaker's Cape||t6,p4,H13|1
-9847|2|33|28|0|401|133769|0|0||0|Conjurer's Cloak|||2
+9847|2|33|28|0|401|133769|1|0||0|Conjurer's Cloak|||2
 271716|3|33|0|0|401|133773|2|0||0|Explorer's League Dustcover||a5,i5,p5|1
 271719|3|33|0|0|401|133756|2|0||0|Furs of the Earthen Ring||s5,i5,p5|1
 9699|2|33|0|0|401|133754|1|0||0|Garrison Cloak||a3,t6|1
-15147|2|33|28|0|401|133758|0|0||0|Ghostwalker Cloak|||2
-4643|2|33|0|0|401|133754|0|0||0|Grimsteel Cape||a2,t6|1
-15568|2|33|28|0|401|133759|0|0||0|Marauder's Cloak|||2
-9867|2|33|28|0|401|133757|0|0||0|Renegade Cloak|||2
-14409|2|33|28|0|401|133763|0|0||0|Stonecloth Cape||s1,t5,p3|2
+15147|2|33|28|0|401|133758|1|0||0|Ghostwalker Cloak|||2
+4643|2|33|0|0|401|133754|1|0||0|Grimsteel Cape||a2,t6|1
+15568|2|33|28|0|401|133759|1|0||0|Marauder's Cloak|||2
+9867|2|33|28|0|401|133757|1|0||0|Renegade Cloak|||2
+14409|2|33|28|0|401|133763|1|0||0|Stonecloth Cape||s1,t5,p3|2
 6745|2|33|0|0|401|133765|1|0||0|Swiftrunner Cape||a6,t2|1
-5181|2|33|28|0|401|133754|0|0||0|Vibrant Silk Cape||i1,p7|2
+286994|3|33|28|0|401|0|2|0||0|Tattered Kirin Tor Cloak||i8,h1|2
+5181|2|33|28|0|401|133754|1|0||0|Vibrant Silk Cape||i1,p7|2
 2953|2|33|0|0|401|133757|1|0||0|Watch Master's Cloak||t7|1
-4716|2|32|27|0|401|133766|0|0||0|Combat Cloak||t6,p2|2
-14763|2|32|27|0|401|133754|0|0||0|Enduring Cape||a2,s2,t7|2
+4716|2|32|27|0|401|133766|1|0||0|Combat Cloak||t6,p2|2
+282658|2|32|27|0|401|0|2|0||0|Dragonmaw Battle Shroud||s7,p1|2
+273045|3|32|27|0|401|133770|2|0||0|Drape of Shifting Energy||p7,A12|1
+14763|2|32|27|0|401|133754|1|0||0|Enduring Cape||a2,s2,t7|2
+284383|3|32|27|0|401|133769|2|0||0|Faerie Dragon's Skin||t5,p5|1
 281319|3|32|0|0|401|0|2|0||0|Golem War Cloak||s6|1
-15354|2|32|27|0|401|133755|0|0||0|Headhunter's Cloak|||2
-4722|2|32|27|0|401|133767|0|0||0|Insignia Cloak||t2,p6|2
-4719|2|32|27|0|401|132682|0|0||0|Nightsky Cloak||t2,p6|2
-14210|2|32|27|0|401|133767|0|0||0|Vital Cape|||2
+15354|2|32|27|0|401|133755|1|0||0|Headhunter's Cloak|||2
+4722|2|32|27|0|401|133767|1|0||0|Insignia Cloak||t2,p6|2
+4719|2|32|27|0|401|132682|1|0||0|Nightsky Cloak||t2,p6|2
+14210|2|32|27|0|401|133767|1|0||0|Vital Cape|||2
 16658|2|32|0|0|401|133762|1|0||0|Wildhunter Cloak||t2|1
-4462|2|31|26|0|401|133754|0|0||0|Cloak of Rot||i7|2
+4462|2|31|26|0|401|133754|1|0||0|Cloak of Rot||i7|2
 4504|2|31|0|0|401|133757|1|0||0|Dwarven Guard Cloak||a1,t6|1
 281305|2|31|0|0|401|0|2|0||0|Excavation Cloak||s4,t4|1
-7411|2|31|26|0|401|133754|0|0||0|Infiltrator Cloak|||2
-15559|2|31|26|0|401|133757|0|0||0|Pillager's Cloak|||2
-14198|2|31|26|0|401|133754|0|0||0|Thistlefur Cloak|||2
+7411|2|31|26|0|401|133754|1|0||0|Infiltrator Cloak|||2
+15559|2|31|26|0|401|133757|1|0||0|Pillager's Cloak|||2
+273825|3|31|26|0|401|133770|2|0||0|Red Wool Cloak||S3,H9|1
+14198|2|31|26|0|401|133754|1|0||0|Thistlefur Cloak|||2
 2902|2|30|0|0|401|133758|1|0||0|Cloak of the Faith||t4,p4|1
 271720|3|30|25|0|401|134304|2|0||1|Crocolisk Skin Gaiter||a4,s5,t5|1
-15135|2|30|25|0|401|133760|0|0||0|Cutthroat's Cape|||2
-7356|2|30|25|0|401|133754|0|0||0|Elder's Cloak|||2
+15135|2|30|25|0|401|133760|1|0||0|Cutthroat's Cape|||2
+7356|2|30|25|0|401|133754|1|0||0|Elder's Cloak|||2
 3749|2|30|0|0|401|133765|1|0||0|High Apothecary Cloak||t2,p5|1
-6751|2|30|0|0|401|133763|0|0||0|Mourning Shawl||t7|1
-7419|2|30|25|0|401|133767|0|0||0|Phalanx Cloak|||2
-9605|2|30|0|0|401|133758|0|0||0|Repairman's Cape||i1,p6|1
+6751|2|30|0|0|401|133763|1|0||0|Mourning Shawl||t7|1
+7419|2|30|25|0|401|133767|1|0||0|Phalanx Cloak|||2
+9605|2|30|0|0|401|133758|1|0||0|Repairman's Cape||i1,p6|1
 16315|3|30|25|0|401|133773|1|0|A|1|Sergeant Major's Cape|Requires PvP rank 5|a4,s4,t4,i4,p4|1
-9838|2|29|24|0|401|133758|0|0||0|Banded Cloak|||2
+274149|3|30|25|0|401|133763|2|0||0|Thornweaver Drape||p6,S7,H7|1
+9838|2|29|24|0|401|133758|1|0||0|Banded Cloak|||2
 273654|2|29|0|0|401|133759|2|0||0|Crystal Thread Cloak||t4|1
-9822|2|29|24|0|401|133762|0|0||0|Durable Cape|||2
-6901|3|29|24|0|401|134305|0|0||0|Glowing Thresher Cape||s3,p8|1
-14400|2|29|24|0|401|133766|0|0||0|Resilient Cape||i6|2
-9831|2|29|24|0|401|133759|0|0||0|Scaled Cloak|||2
-15547|2|29|24|0|401|133769|0|0||0|Thick Scale Cloak|||2
+9822|2|29|24|0|401|133762|1|0||0|Durable Cape|||2
+6901|3|29|24|0|401|134305|1|0||0|Glowing Thresher Cape||s3,p8|1
+14400|2|29|24|0|401|133766|1|0||0|Resilient Cape||i6|2
+9831|2|29|24|0|401|133759|1|0||0|Scaled Cloak|||2
+15547|2|29|24|0|401|133769|1|0||0|Thick Scale Cloak|||2
 15468|2|29|0|0|401|133757|1|0||0|Windsong Drape||i4,p4|1
-13005|3|28|23|0|401|133768|0|0||0|Amy's Blanket||t3,p7|2
-14582|2|28|23|0|401|133762|0|0||0|Dokebi Cape||t5,i2|2
-4711|2|28|23|0|401|133762|0|0||0|Glimmering Cloak||t2,p5|2
-6614|2|28|23|0|401|133768|0|0||0|Sage's Cloak|||2
-15537|2|28|23|0|401|133754|0|0||0|Wicked Chain Cloak|||2
-4715|2|27|22|0|401|133760|0|0||0|Emblazoned Cloak||t5,p2|2
+13005|3|28|23|0|401|133768|1|0||0|Amy's Blanket||t3,p7|2
+14582|2|28|23|0|401|133762|1|0||0|Dokebi Cape||t5,i2|2
+4711|2|28|23|0|401|133762|1|0||0|Glimmering Cloak||t2,p5|2
+6614|2|28|23|0|401|133768|1|0||0|Sage's Cloak|||2
+15537|2|28|23|0|401|133754|1|0||0|Wicked Chain Cloak|||2
+4715|2|27|22|0|401|133760|1|0||0|Emblazoned Cloak||t5,p2|2
 6667|2|27|0|0|401|133765|1|0||0|Engineer's Cloak||t5,i2|1
-15340|2|27|22|0|401|133753|0|0||0|Pathfinder Cloak|||2
-7004|2|27|0|0|401|133770|0|0||0|Prelacy Cape||p5|1
-14188|2|27|22|0|401|133768|0|0||0|Raincaller Cloak|||2
-14752|2|27|22|0|401|133760|0|0||0|Slayer's Cape||s4,t3|2
+15340|2|27|22|0|401|133753|1|0||0|Pathfinder Cloak|||2
+7004|2|27|0|0|401|133770|1|0||0|Prelacy Cape||p5|1
+14188|2|27|22|0|401|133768|1|0||0|Raincaller Cloak|||2
+14752|2|27|22|0|401|133760|1|0||0|Slayer's Cape||s4,t3|2
 16661|2|27|0|0|401|133767|1|0||0|Soft Willow Cape||i5|1
 16990|2|27|0|0|401|133754|1|0||0|Spritekin Cloak||a4,t3|1
-6314|2|27|22|0|401|133762|0|0||0|Wolfmaster Cape||a4,t2|1
-6593|2|26|21|0|401|133770|0|0||0|Battleforge Cloak|||2
-4447|2|26|21|0|401|133756|0|0||0|Cloak of Night||a5|2
-6604|2|26|21|0|401|133759|0|0||0|Dervish Cape|||2
-5971|2|26|21|0|401|133756|0|0||0|Feathered Cape||a2,t4|2
-6340|2|26|21|0|401|134367|0|0||0|Fenrus' Hide||a4,t2|1
+6314|2|27|22|0|401|133762|1|0||0|Wolfmaster Cape||a4,t2|1
+6593|2|26|21|0|401|133770|1|0||0|Battleforge Cloak|||2
+4447|2|26|21|0|401|133756|1|0||0|Cloak of Night||a5|2
+6604|2|26|21|0|401|133759|1|0||0|Dervish Cape|||2
+5971|2|26|21|0|401|133756|1|0||0|Feathered Cape||a2,t4|2
+6340|2|26|21|0|401|134367|1|0||0|Fenrus' Hide||a4,t2|1
 3561|2|26|0|0|401|133756|1|0||0|Resilient Poncho||t5|1
-4713|2|26|21|0|401|133754|0|0||0|Silver-thread Cloak||i4,p2|2
-5193|3|25|20|0|401|133760|0|0||0|Cape of the Brotherhood||a6,t3|1
+4713|2|26|21|0|401|133754|1|0||0|Silver-thread Cloak||i4,p2|2
+5193|3|25|20|0|401|133760|1|0||0|Cape of the Brotherhood||a6,t3|1
 4797|2|25|20|0|401|133760|1|0||0|Fiery Cloak|||2
 4798|2|25|20|0|401|133754|1|0||0|Heavy Runed Cloak||t3,p3|2
 4790|2|25|20|0|401|133770|1|0||0|Inferno Cloak|||2
-9794|2|25|20|0|401|133767|0|0||0|Ivycloth Cloak|||2
+9794|2|25|20|0|401|133767|1|0||0|Ivycloth Cloak|||2
 274740|2|25|20|0|401|0|2|0||0|Quilted Cloak|Requires Friendly with Ratchet|a3,t4|1
-15124|2|25|20|0|401|133755|0|0||0|Robust Cloak|||2
-5751|2|25|20|0|401|133762|0|0||0|Webwing Cloak||a5|2
-4706|2|24|19|0|401|133758|0|0||0|Lambent Scale Cloak||s4,p2|2
-2059|3|24|19|0|401|133756|0|0||0|Sentry Cloak||a4,t5|2
-15526|2|24|19|0|401|133763|0|0||0|Sentry's Cape|||2
-9805|2|24|19|0|401|133762|0|0||0|Superior Cloak|||2
+15124|2|25|20|0|401|133755|1|0||0|Robust Cloak|||2
+5751|2|25|20|0|401|133762|1|0||0|Webwing Cloak||a5|2
+4706|2|24|19|0|401|133758|1|0||0|Lambent Scale Cloak||s4,p2|2
+2059|3|24|19|0|401|133756|1|0||0|Sentry Cloak||a4,t5|2
+15526|2|24|19|0|401|133763|1|0||0|Sentry's Cape|||2
+9805|2|24|19|0|401|133762|1|0||0|Superior Cloak|||2
 4793|2|24|19|0|401|133753|1|0||0|Sylvan Cloak||t2,p4|2
-14179|2|24|19|0|401|133767|0|0||0|Watcher's Cape|||2
+14179|2|24|19|0|401|133767|1|0||0|Watcher's Cape|||2
 4799|2|23|18|0|401|133754|1|0||0|Antiquated Cloak||p4|2
 20427|3|23|18|0|401|133770|1|0||1|Battle Healer's Cloak||t4,p2,H9|1
-6381|2|23|18|0|401|133762|0|0||0|Bright Cloak||t2,p3|2
+6381|2|23|18|0|401|133762|1|0||0|Bright Cloak||t2,p3|2
 20428|3|23|18|0|401|133765|1|0||1|Caretaker's Cape||t4,p2,H9|1
-3018|2|23|18|0|401|134367|0|0||0|Hide of Lupos||a3,t2|2
-5969|2|23|18|0|401|133766|0|0||0|Regent's Cloak||p4|2
-15519|2|23|18|0|401|133772|0|0||0|Spiked Chain Cloak|||2
+279865|2|23|1|0|401|0|2|0||0|Grave Shroud||s3,t3|1
+3018|2|23|18|0|401|134367|1|0||0|Hide of Lupos||a3,t2|2
+5969|2|23|18|0|401|133766|1|0||0|Regent's Cloak||p4|2
+15519|2|23|18|0|401|133772|1|0||0|Spiked Chain Cloak|||2
 4792|2|23|18|0|401|133763|1|0||0|Spirit Cloak||p4|2
-6629|2|23|18|0|401|133769|0|0||0|Sporid Cape||t3,p2|1
+6629|2|23|18|0|401|133769|1|0||0|Sporid Cape||t3,p2|1
 277289|2|23|1|0|401|0|2|0||0|Traveler's Shawl||t2,p3|1
-4710|2|22|17|0|401|133761|0|0||0|Forest Cloak||t3,i2|2
-9812|2|22|17|0|401|133766|0|0||0|Fortified Cloak|||2
-6449|3|22|17|0|401|132656|0|0||0|Glowing Lizardscale Cloak||a6,p2|1
-14376|2|22|17|0|401|133770|0|0||0|Sanguine Cape||i4|2
-15333|2|22|17|0|401|133753|0|0||0|Wrangler's Cloak|||2
-14571|2|21|16|0|401|133761|0|0||0|Bristlebark Cape||a4|2
-12979|3|21|16|0|401|133760|0|0||0|Firebane Cloak||t5|2
+273084|3|22|17|0|401|133769|2|0||0|Cloak of Hermitic Bliss|||1
+4710|2|22|17|0|401|133761|1|0||0|Forest Cloak||t3,i2|2
+9812|2|22|17|0|401|133766|1|0||0|Fortified Cloak|||2
+6449|3|22|17|0|401|132656|1|0||0|Glowing Lizardscale Cloak||a6,p2|1
+14376|2|22|17|0|401|133770|1|0||0|Sanguine Cape||i4|2
+15333|2|22|17|0|401|133753|1|0||0|Wrangler's Cloak|||2
+14571|2|21|16|0|401|133761|1|0||0|Bristlebark Cape||a4|2
+284187|2|21|16|0|401|133770|2|0||0|Crazed Firecaller's Cloak||i3|2
+12979|3|21|16|0|401|133760|1|0||0|Firebane Cloak||t5|2
 4311|2|21|16|0|401|133766|1|0||0|Heavy Woolen Cloak||p4|2
-6564|2|21|16|0|401|133767|0|0||0|Shimmering Cloak|||2
+285329|3|21|16|0|401|0|2|2132||0|Raptor Hide Cloak||t4,p3|1
+6564|2|21|16|0|401|133767|1|0||0|Shimmering Cloak|||2
 7283|2|20|15|0|401|134305|1|0||0|Black Whelp Cloak||t3|2
 5314|2|20|0|0|401|133762|1|0||0|Boar Hunter's Cape||a3|1
-6575|2|20|15|0|401|133757|0|0||0|Defender Cloak|||2
-2241|2|20|15|0|401|133756|0|0||0|Desperado Cape||t3|2
-5387|2|20|0|0|401|133762|0|0||1|Enchanted Moonstalker Cloak||t3|1
-6632|2|20|15|0|401|133754|0|0||0|Feyscale Cloak||t3,p2|1
-9770|2|20|15|0|401|133769|0|0||0|Greenweave Cloak|||2
-14745|2|20|15|0|401|133772|0|0||0|Hulking Cloak||s1,t3|2
-1190|2|20|15|0|401|133760|0|0||0|Overseer's Cloak||t3|2
-6585|2|20|15|0|401|133754|0|0||0|Scouting Cloak|||2
-14167|2|19|14|0|401|133770|0|0||0|Buccaneer's Cape|||2
-15508|2|19|14|0|401|133766|0|0||0|Grunt's Cape|||2
-5444|2|19|14|0|401|133763|0|0||0|Miner's Cape||t3|1
+6575|2|20|15|0|401|133757|1|0||0|Defender Cloak|||2
+2241|2|20|15|0|401|133756|1|0||0|Desperado Cape||t3|2
+5387|2|20|0|0|401|133762|1|0||1|Enchanted Moonstalker Cloak||t3|1
+6632|2|20|15|0|401|133754|1|0||0|Feyscale Cloak||t3,p2|1
+9770|2|20|15|0|401|133769|1|0||0|Greenweave Cloak|||2
+14745|2|20|15|0|401|133772|1|0||0|Hulking Cloak||s1,t3|2
+1190|2|20|15|0|401|133760|1|0||0|Overseer's Cloak||t3|2
+6585|2|20|15|0|401|133754|1|0||0|Scouting Cloak|||2
+14167|2|19|14|0|401|133770|1|0||0|Buccaneer's Cape|||2
+15508|2|19|14|0|401|133766|1|0||0|Grunt's Cape|||2
+5444|2|19|14|0|401|133763|1|0||0|Miner's Cape||t3|1
 5542|2|19|14|0|401|133763|1|0||0|Pearl-clasped Cloak||i3|2
-6179|2|19|14|0|401|133754|0|0||0|Privateer's Cape||a2,t2|2
-15114|2|19|14|0|401|133762|0|0||0|Rigid Cape|||2
+6179|2|19|14|0|401|133754|1|0||0|Privateer's Cape||a2,t2|2
+15114|2|19|14|0|401|133762|1|0||0|Rigid Cape|||2
 3582|2|18|0|0|401|133753|1|0||0|Acidproof Cloak||t3|1
-9779|2|18|13|0|401|133771|0|0||0|Bandit Cloak|||2
+9779|2|18|13|0|401|133771|1|0||0|Bandit Cloak|||2
 5343|2|18|0|0|401|133755|1|0||0|Barkeeper's Cloak||t3|1
-4695|2|18|13|0|401|133758|0|0||0|Burnished Cloak||t3|2
+4695|2|18|13|0|401|133758|1|0||0|Burnished Cloak||t3|2
 6466|2|18|13|0|401|134305|1|0||0|Deviate Scale Cloak||a2,t2|2
-14161|2|18|13|0|401|133762|0|0||0|Pagan Cape|||2
-1930|2|18|13|0|401|133763|0|0||0|Stonemason Cloak||t3|2
-14149|2|18|13|0|401|133770|0|0||0|Subterranean Cape||a2,s2|1
+14161|2|18|13|0|401|133762|1|0||0|Pagan Cape|||2
+273005|3|18|13|0|401|133770|2|0||0|Satyrskin Cloak||t3|1
+271097|3|18|13|0|401|133764|2|0||0|Spiritwraith Drape||a3,p4|1
+1930|2|18|13|0|401|133763|1|0||0|Stonemason Cloak||t3|2
+14149|2|18|13|0|401|133770|1|0||0|Subterranean Cape||a2,s2|1
 7739|2|18|0|0|401|133769|1|0||0|Timberland Cape||p3|1
-15501|2|17|12|0|401|133765|0|0||0|Outrunner's Cloak|||2
-14563|2|17|12|0|401|133763|0|0||0|Prospector's Cloak||s1,t2|2
-14123|2|17|12|0|401|133766|0|0||0|Ritual Cape|||2
-6378|2|17|12|0|401|133757|0|0||0|Seer's Cape||i2,p2|2
-4701|2|16|11|0|401|133763|0|0||0|Inscribed Cloak||t2|2
-9786|2|16|11|0|401|133770|0|0||0|Raider's Cloak|||2
-14724|2|16|11|0|401|133770|0|0||0|War Paint Cloak||a1,s1,t1|2
-1355|2|15|10|0|401|134354|0|0||0|Buckskin Cape||a2|2
+279899|2|17|1|0|401|133763|2|0||0|Catacomb Cloak||t2,A3|1
+15501|2|17|12|0|401|133765|1|0||0|Outrunner's Cloak|||2
+14563|2|17|12|0|401|133763|1|0||0|Prospector's Cloak||s1,t2|2
+14123|2|17|12|0|401|133766|1|0||0|Ritual Cape|||2
+6378|2|17|12|0|401|133757|1|0||0|Seer's Cape||i2,p2|2
+4701|2|16|11|0|401|133763|1|0||0|Inscribed Cloak||t2|2
+9786|2|16|11|0|401|133770|1|0||0|Raider's Cloak|||2
+14724|2|16|11|0|401|133770|1|0||0|War Paint Cloak||a1,s1,t1|2
+1355|2|15|10|0|401|134354|1|0||0|Buckskin Cape||a2|2
 286427|2|15|0|0|401|133768|2|0||0|Cloak of the Honored Guest||t1,A1,S1|1
 3511|2|15|0|0|401|133766|1|0||0|Cloak of the People's Militia||a2|1
-15309|2|15|10|0|401|133770|0|0||0|Feral Cloak|||2
+15309|2|15|10|0|401|133770|1|0||0|Feral Cloak|||2
 2308|2|15|10|0|401|133762|1|0||0|Fine Leather Cloak||t2|2
 1270|2|15|0|0|401|133767|1|0||0|Finely Woven Cloak||p2|1
 5610|2|15|0|0|401|133763|1|0||0|Gustweald Cloak||t2|1
-4771|2|15|10|0|401|133762|0|0||0|Harvest Cloak||p2|2
+4771|2|15|10|0|401|133762|1|0||0|Harvest Cloak||p2|2
 286426|2|15|0|0|401|133766|2|0||0|Honorbound Cloak||t1,A1,S1|1
 10638|2|15|0|0|401|133770|1|0||0|Long Draping Cape||t2|1
 3449|2|15|0|0|401|133765|1|0||0|Mystic Shawl||i2|1
-14365|2|15|10|0|401|133768|0|0||0|Mystic's Cape||a1,p1|2
-2284|2|15|10|0|401|133762|0|0||0|Rat Cloth Cloak||t2|2
-5111|2|15|10|0|401|133150|0|0||0|Rathorian's Cape||t2|2
+14365|2|15|10|0|401|133768|1|0||0|Mystic's Cape||a1,p1|2
+285228|2|15|10|0|401|133756|2|0||0|Mystmane's Pelt||s1,t1|1
+2284|2|15|10|0|401|133762|1|0||0|Rat Cloth Cloak||t2|2
+5111|2|15|10|0|401|133150|1|0||0|Rathorian's Cape||t2|2
 10821|2|15|0|0|401|133762|1|0||0|Sower's Cloak||p2|1
-6542|2|15|10|0|401|133769|0|0||0|Willow Cape|||2
+6542|2|15|10|0|401|133769|1|0||0|Willow Cape|||2
 281289|2|13|0|0|401|0|2|0||0|Swordfeather Cloak||s1|1
+286744|2|13|0|0|401|0|2|0||0|Thrice-Stitched Flesh||a1|1
 281250|2|11|0|0|401|0|2|0||0|Forest Oracle's Cloak||t1|1
+286746|2|11|6|0|401|0|2|0||0|Shal'ma's Shawl||p1|2
 285353|3|1|1|0|405|0|2|0||0|Eternal Explorer's Backpack|||1
 287626|3|1|1|0|405|8382583|2|0||0|Gilded Blademaster's Banner|||1
 287620|3|1|1|0|405|8392824|2|0||0|Rugged Totemic Backpack|||1
@@ -8330,7 +9168,7 @@ FGT.GEARDB = {
 21492|4|66|60|0|208|135366|0|0||0|Manslayer of the Qiraji||a15,s35,t20|1
 211941|3|66|58|0|206|135574|1|0||0|Windwalker's Yari|||1
 19102|3|65|60|0|210|135157|1|0||1|Crackling Staff||t25,i16,S15,H15|1
-15258|2|65|60|0|208|135327|0|0||0|Divine Warblade|||2
+15258|2|65|60|0|208|135327|1|0||0|Divine Warblade|||2
 22348|3|65|0|0|205|133047|1|0||0|Doomulus Prime||s22,t22,h1|1
 279260|4|65|60|0|201|7957675|2|0||0|Forest Defender's Axe||s18,t27,S28,H28|2
 20069|4|65|60|0|210|135466|1|0||0|Ironbark Staff|Requires Exalted with The League of Arathor|t19,i10,S41,H41,c2|1
@@ -8353,488 +9191,581 @@ FGT.GEARDB = {
 19101|3|65|60|0|210|135167|1|0||1|Whiteout Staff||t25,i16,S15,H15|1
 19909|4|65|60|0|210|135172|0|0||1|Will of Arlokk||t15,i19,p35,H46|1
 20258|3|65|60|0|210|135171|0|0||1|Zulian Ceremonial Staff||t13,i16,S32,H32|2
-2801|4|64|59|0|208|135280|0|0||1|Blade of Hanna||a11,s11,t11,i11,p11|2
+2801|4|64|59|0|208|135280|1|0||1|Blade of Hanna||a11,s11,t11,i11,p11|2
 211940|3|64|59|0|206|135574|1|0||0|Ecks'av's Tribal Guardian|||1
 19566|3|63|58|0|210|135162|1|0||0|Advisor's Gnarled Staff||t21,i13|1
 12790|3|63|58|0|208|135349|1|0||0|Arcanite Champion|||2
 12784|3|63|58|0|201|132400|1|0||0|Arcanite Reaper||t13,A62|2
-18520|3|63|58|0|208|135291|0|0||0|Barbarous Blade||A60,c1|1
-12592|4|63|58|0|208|135330|0|0||0|Blackblade of Shahram|||1
-12583|3|63|58|0|206|135574|0|0||0|Blackhand Doomsaw|||1
-18420|3|63|0|0|205|133477|0|0||0|Bonecrusher||s30,c1|1
-15267|2|63|58|0|205|133047|0|0||0|Brutehammer|||2
+18520|3|63|58|0|208|135291|1|0||0|Barbarous Blade||A60,c1|1
+12592|4|63|58|0|208|135330|1|0||0|Blackblade of Shahram|||1
+12583|3|63|58|0|206|135574|1|0||0|Blackhand Doomsaw|||1
+18420|3|63|0|0|205|133477|1|0||0|Bonecrusher||s30,c1|1
+15267|2|63|58|0|205|133047|1|0||0|Brutehammer|||2
 20696|3|63|58|0|205|133047|0|0||0|Crystal Spiked Maul||s16,c2|2
-15273|2|63|58|0|201|132409|0|0||0|Death Striker|||2
-13348|3|63|58|0|208|135312|0|0||0|Demonshear|||1
-18717|3|63|58|0|205|133043|0|0||0|Hammer of the Grand Crusader||t10,i26,p9,H22|1
+272079|3|63|58|0|201|132409|2|0||0|Darkspear Raider's Reaper|Requires Revered with Darkspear Raiders|s33,t8|1
+15273|2|63|58|0|201|132409|1|0||0|Death Striker|||2
+13348|3|63|58|0|208|135312|1|0||0|Demonshear|||1
+280018|3|63|58|0|205|133477|2|0||0|Hammer of Thundering Hooves||s24,t17,c1|1
+18717|3|63|58|0|205|133043|1|0||0|Hammer of the Grand Crusader||t10,i26,p9,H22|1
 12796|3|63|58|0|205|133046|1|0||0|Hammer of the Titans||s15|2
 19106|3|63|0|0|206|135127|1|0||0|Ice Barbed Spear||a21,s13,t20|1
 250619|3|63|58|0|206|0|2|0||0|Legionite Glaive||a16,A54,h1|1
-22335|3|63|58|0|210|135144|0|0||0|Lord Valthalak's Staff of Command||t11,i10,S30,H30,h1|1
+22335|3|63|58|0|210|135144|1|0||0|Lord Valthalak's Staff of Command||t11,i10,S30,H30,h1|1
 19570|3|63|58|0|210|135165|1|0||0|Lorekeeper's Staff||t21,i13|1
-18534|3|63|58|0|210|135169|0|0||0|Rod of the Ogre Magi||t11,i14,p7,S23,H23,c1|1
-13505|4|63|58|0|208|135315|0|0||0|Runeblade of Baron Rivendare|||1
-12969|3|63|58|0|205|133054|0|0||0|Seeping Willow|||1
+280023|3|63|58|0|210|133450|2|0||0|Nanaya's Control Spire||i19|1
+271924|3|63|58|0|201|132409|2|0||0|Rebels' Rugged Reaper|Requires Revered with Theramore Expeditionary Force|s33,t8|1
+18534|3|63|58|0|210|135169|1|0||0|Rod of the Ogre Magi||t11,i14,p7,S23,H23,c1|1
+13505|4|63|58|0|208|135315|1|0||0|Runeblade of Baron Rivendare|||1
+12969|3|63|58|0|205|133054|1|0||0|Seeping Willow|||1
 17074|4|63|58|0|206|135131|0|0||0|Shadowstrike|||1
-15418|3|63|0|0|205|133044|0|0||0|Shimmering Platinum Warhammer|||1
+15418|3|63|0|0|205|133044|1|0||0|Shimmering Platinum Warhammer|||1
 250617|3|63|58|0|201|0|2|0||0|Stormcarver||s15,t11,S32,H32|2
 17223|4|63|58|0|206|135131|1|0||0|Thunderstrike|||1
-18538|4|63|58|0|201|132401|0|0||0|Treant's Bane||s25,t15,c2|1
-13982|3|63|0|0|208|135349|0|0||0|Warblade of Caer Darrow|||1
-13249|3|62|0|0|210|135150|0|0||0|Argent Crusader||t6,i30,p10|1
+18538|4|63|58|0|201|132401|1|0||0|Treant's Bane||s25,t15,c2|1
+13982|3|63|0|0|208|135349|1|0||0|Warblade of Caer Darrow|||1
+13249|3|62|0|0|210|135150|1|0||0|Argent Crusader||t6,i30,p10|1
+279910|3|62|1|0|206|0|2|0||0|Beastslayer's Trident||a26,h2|1
 20724|2|62|0|0|210|135144|1|0||1|Corrupted Blackwood Staff||t11,S26,H26|1
 20669|3|62|57|0|208|135345|0|0||0|Darkstone Claymore||t17,A54|1
-13983|3|62|57|0|201|135579|0|0||0|Gravestone War Axe|||1
-22333|3|62|57|0|205|133041|0|0||0|Hammer of Divine Might||t13,i15,S27,H27|1
-13937|4|62|57|0|210|133445|0|0||0|Headmaster's Charge||t30,p20|1
-18759|3|62|57|0|201|132409|0|0||0|Malicious Axe||t30,A26|1
-18502|3|62|57|0|206|135579|0|0||0|Monstrous Glaive||t23,d32|1
-13163|3|62|57|0|208|135316|0|0||0|Relentless Scythe||a8,s20,t8,d25|1
-15257|2|62|57|0|208|135280|0|0||0|Shin Blade|||2
-13000|3|62|57|0|210|135160|0|0||0|Staff of Hale Magefire||i25,p22|2
-22394|3|62|57|0|210|135166|0|0||0|Staff of Metanoia||t15,i15,p13,H35|1
-18531|3|62|57|0|205|133059|0|0||0|Unyielding Maul||t12,d8|1
-14541|3|61|56|0|208|135273|0|0||0|Barovian Family Sword|||1
+282085|3|62|57|0|208|135329|2|0||0|Dragonblood Greatsword||s14,t26|1
+13983|3|62|57|0|201|135579|1|0||0|Gravestone War Axe|||1
+22333|3|62|57|0|205|133041|1|0||0|Hammer of Divine Might||t13,i15,S27,H27|1
+13937|4|62|57|0|210|133445|1|0||0|Headmaster's Charge||t30,p20|1
+18759|3|62|57|0|201|132409|1|0||0|Malicious Axe||t30,A26|1
+18502|3|62|57|0|206|135579|1|0||0|Monstrous Glaive||t23,d32|1
+13163|3|62|57|0|208|135316|1|0||0|Relentless Scythe||a8,s20,t8,d25|1
+15257|2|62|57|0|208|135280|1|0||0|Shin Blade|||2
+13000|3|62|57|0|210|135160|1|0||0|Staff of Hale Magefire||i25,p22|2
+22394|3|62|57|0|210|135166|1|0||0|Staff of Metanoia||t15,i15,p13,H35|1
+18531|3|62|57|0|205|133059|1|0||0|Unyielding Maul||t12,d8|1
+14541|3|61|56|0|208|135273|1|0||0|Barovian Family Sword|||1
 13148|3|61|56|0|206|135128|0|0||0|Chillpike|||1
-944|4|61|56|0|210|135144|0|0||0|Elemental Mage Staff|||2
-15266|2|61|56|0|205|133045|0|0||0|Fierce Mauler|||2
-22314|3|61|56|0|206|135129|0|0||0|Huntsman's Harpoon||a35|1
-13393|3|61|56|0|205|133476|0|0||0|Malown's Slam|||1
-22406|3|61|56|0|210|135160|0|0||0|Redemption||p12,H66|1
+944|4|61|56|0|210|135144|1|0||0|Elemental Mage Staff|||2
+15266|2|61|56|0|205|133045|1|0||0|Fierce Mauler|||2
+282070|2|61|56|0|205|133058|2|0||0|Gruklash's Basher||s18,t13,p11|2
+22314|3|61|56|0|206|135129|1|0||0|Huntsman's Harpoon||a35|1
+13393|3|61|56|0|205|133476|1|0||0|Malown's Slam|||1
+287046|3|61|56|0|210|135157|2|0||0|Pylon Poker||s25,p16,h1|2
+22406|3|61|56|0|210|135160|1|0||0|Redemption||p12,H66|1
 17004|2|61|0|0|210|135147|1|0||0|Sarah's Guide||t20,i15|1
-18353|2|61|56|0|210|135145|0|0||0|Stoneflower Staff||i24,c1|1
-13161|3|61|56|0|210|135166|0|0||0|Trindlehaven Staff||t12,i25,S14,H14|1
+18353|2|61|56|0|210|135145|1|0||0|Stoneflower Staff||i24,c1|1
+13161|3|61|56|0|210|135166|1|0||0|Trindlehaven Staff||t12,i25,S14,H14|1
 20654|3|60|55|0|210|135148|0|0||0|Amethyst War Staff||t6,i9,S34,H34|1
-1263|4|60|55|0|201|135580|0|0||0|Brain Hacker|||2
-15854|3|60|0|0|210|135144|0|0||0|Dancing Sliver||i12,p29|1
+1263|4|60|55|0|201|135580|1|0||0|Brain Hacker|||2
+15854|3|60|0|0|210|135144|1|0||0|Dancing Sliver||i12,p29|1
 12802|3|60|55|0|206|135131|1|0||0|Darkspear|||2
-13053|3|60|55|0|208|135271|0|0||0|Doombringer|||2
+13053|3|60|55|0|208|135271|1|0||0|Doombringer|||2
 10698|2|60|0|0|210|135150|1|0||0|Enchanted Azsharite Felbane Staff|||1
-13167|3|60|55|0|205|133041|0|0||0|Fist of Omokk||s29,t12|1
+13167|3|60|55|0|205|133041|1|0||0|Fist of Omokk||s29,t12|1
+276397|3|60|55|0|205|133489|2|0||0|Hand of the Zealous||t22,i16,c1|1
 281588|3|60|1|0|206|0|2|0||0|Nature's Cull||t26,A23|1
 276335|2|60|0|0|208|135345|2|0||0|Polished Doomguard Edge||t5,A44|1
-18481|2|60|55|0|205|133480|0|0||0|Skullcracking Mace||a10,s22|1
-13372|3|60|55|0|210|135145|0|0||0|Slavedriver's Cane||s29,t12|1
-15278|2|60|55|0|210|135140|0|0||0|Solstice Staff|||2
+276403|3|60|55|0|205|133488|2|0||0|Scarlet Bonebreaker||t23,p15,A22|1
+18481|2|60|55|0|205|133480|1|0||0|Skullcracking Mace||a10,s22|1
+13372|3|60|55|0|210|135145|1|0||0|Slavedriver's Cane||s29,t12|1
+15278|2|60|55|0|210|135140|1|0||0|Solstice Staff|||2
 23124|3|60|55|0|210|135144|0|0||0|Staff of Balzaphon||t8,i10,p7,S29,H29,c1|1
+260214|2|60|0|0|210|135187|2|0||0|Staff of Wild Beasts||p19,c1|1
 20660|3|60|55|0|206|135129|0|0||0|Stonecutting Glaive||a12,s29|1
-13060|3|60|55|0|206|135131|0|0||0|The Needler|||2
+13060|3|60|55|0|206|135131|1|0||0|The Needler|||2
+280059|3|60|55|0|206|0|2|0||0|Tuskblade Halberd||a14,t18|1
+260215|2|60|0|0|205|0|2|0||0|Wild Malleus||a11,s13,t12,p8|1
 275742|2|59|0|0|206|135277|2|0||0|Demonbane Blade||A38|1
-11931|3|59|54|0|201|132416|0|0||0|Dreadforge Retaliator||A30,c1,d25|1
-14531|3|59|54|0|205|133050|0|0||0|Frightskull Shaft|||1
-11932|3|59|54|0|210|135167|0|0||0|Guiding Stave of Wisdom||t11,p10,H53|1
-15256|2|59|54|0|208|135327|0|0||0|Massacre Sword|||2
-18725|3|59|54|0|206|135130|0|0||0|Peacemaker||A56,c1|1
+11931|3|59|54|0|201|132416|1|0||0|Dreadforge Retaliator||A30,c1,d25|1
+280056|3|59|54|0|201|0|2|0||0|Flameslash Crescent||s19,i8,h2,c1|1
+14531|3|59|54|0|205|133050|1|0||0|Frightskull Shaft|||1
+276069|3|59|54|0|205|133489|2|0||0|Gravetoll Gavel||t16,i21,p13|1
+11932|3|59|54|0|210|135167|1|0||0|Guiding Stave of Wisdom||t11,p10,H53|1
+284257|3|59|54|0|201|132456|2|0||0|Icesworn Decapitator||s17,t18,S13,H13|1
+15256|2|59|54|0|208|135327|1|0||0|Massacre Sword|||2
+18725|3|59|54|0|206|135130|1|0||0|Peacemaker||A56,c1|1
 275648|2|59|0|0|210|135139|2|0||0|Purified Gnarlybark Staff||p19,c1|1
-15272|2|59|54|0|201|132408|0|0||0|Razor Axe|||2
+15272|2|59|54|0|201|132408|1|0||0|Razor Axe|||2
 275645|2|59|0|0|206|135126|2|0||0|Reforged Spear||s14,t13|1
 274419|3|58|53|0|206|0|2|0||0|Bear Poking Stick||a24,t9,A27|1
 275701|2|58|0|0|210|133025|2|0||0|Copper Plated Pipe||a20,i12|1
 12782|3|58|53|0|208|135277|1|0||0|Corruption||s30,t30|1
-22208|3|58|53|0|205|133047|0|0||0|Lavastone Hammer||s10,t14,i12,S20,H20|1
-15276|2|58|53|0|210|135151|0|0||0|Magus Long Staff|||2
-15265|2|58|53|0|205|133047|0|0||0|Painbringer|||2
-18311|3|58|53|0|210|135151|0|0||0|Quel'dorai Channeling Rod||t8,i18,p8|1
+22208|3|58|53|0|205|133047|1|0||0|Lavastone Hammer||s10,t14,i12,S20,H20|1
+15276|2|58|53|0|210|135151|1|0||0|Magus Long Staff|||2
+15265|2|58|53|0|205|133047|1|0||0|Painbringer|||2
+18311|3|58|53|0|210|135151|1|0||0|Quel'dorai Channeling Rod||t8,i18,p8|1
 275291|2|58|0|0|210|135167|2|0||0|Staff of the Deeproar||t13,i12,p14|1
-13285|3|58|53|0|201|135581|0|0||0|The Blackrock Slicer|||1
-13047|3|58|53|0|205|133488|0|0||0|Twig of the World Tree||s14,t21,p12|2
-18324|3|58|53|0|201|132408|0|0||0|Waveslicer||s26,c1|1
+286408|3|58|0|0|208|135326|2|0||0|Sword of Mourning||s22,S18,H18,c1|1
+13285|3|58|53|0|201|135581|1|0||0|The Blackrock Slicer|||1
+13047|3|58|53|0|205|133488|1|0||0|Twig of the World Tree||s14,t21,p12|2
+18324|3|58|53|0|201|132408|1|0||0|Waveslicer||s26,c1|1
 274420|3|58|53|0|210|0|2|0||0|Wisepaw Totem||t19,i23|1
+280080|3|57|52|0|208|0|2|0||0|Claymore of Two Moons||t17|1
 11607|3|57|52|0|201|135572|1|0||0|Dark Iron Sunderer|||2
-13044|3|57|52|0|208|135273|0|0||0|Demonslayer|||2
-647|4|57|52|0|208|135317|0|0||0|Destiny|||2
-15255|2|57|52|0|208|135278|0|0||0|Gallant Flamberge|||2
-11921|3|57|52|0|205|133045|0|0||0|Impervious Giant||h1,c2|1
+13044|3|57|52|0|208|135273|1|0||0|Demonslayer|||2
+647|4|57|52|0|208|135317|1|0||0|Destiny|||2
+15255|2|57|52|0|208|135278|1|0||0|Gallant Flamberge|||2
+11921|3|57|52|0|205|133045|1|0||0|Impervious Giant||h1,c2|1
 275729|2|57|0|0|208|135355|2|0||0|Rusty Propeller Blade||s21,p5|1
-18410|2|57|0|0|208|135329|0|0||0|Sprinter's Sword|||1
-16039|3|57|52|0|208|135351|0|0||0|Ta'Kierthan Songblade|||2
+18410|2|57|0|0|208|135329|1|0||0|Sprinter's Sword|||1
+280082|3|57|52|0|210|0|2|0||0|Staff of Sorrow||i15,p21,h1|1
+16039|3|57|52|0|208|135351|1|0||0|Ta'Kierthan Songblade|||2
 250615|3|57|52|0|206|0|2|0||0|Thorium Poleaxe||a25,s13,t10|2
-11816|3|56|51|0|201|135576|0|0||0|Angerforge's Battle Axe||s27,t11|1
-15264|2|56|51|0|205|133053|0|0||0|Backbreaker|||2
-15271|2|56|51|0|201|132403|0|0||0|Colossal Great Axe|||2
+274270|2|57|0|0|201|135424|2|0||0|Weed Whacker||s12|1
+11816|3|56|51|0|201|135576|1|0||0|Angerforge's Battle Axe||s27,t11|1
+15264|2|56|51|0|205|133053|1|0||0|Backbreaker|||2
+15271|2|56|51|0|201|132403|1|0||0|Colossal Great Axe|||2
 12776|3|56|51|0|205|133042|1|0||0|Enchanted Battlehammer||h2,d25|2
-11809|3|56|51|0|206|135124|0|0||0|Flame Wrath|||1
-11803|3|56|51|0|205|133046|0|0||0|Force of Magma||s14|1
-13056|3|56|51|0|206|135130|0|0||0|Frenzied Striker||h2,d25|2
+11809|3|56|51|0|206|135124|1|0||0|Flame Wrath|||1
+11803|3|56|51|0|205|133046|1|0||0|Force of Magma||s14|1
+13056|3|56|51|0|206|135130|1|0||0|Frenzied Striker||h2,d25|2
 12775|2|56|51|0|201|135581|1|0||0|Huge Thorium Battleaxe|||2
-13003|3|56|51|0|201|135572|0|0||0|Lord Alexander's Battle Axe||a17,s16,t16|2
-12532|3|56|51|0|210|135469|0|0||0|Spire of the Stoneshaper||t20,i17|2
-11786|3|56|51|0|208|135357|0|0||0|Stone of the Earth||t12|1
+13003|3|56|51|0|201|135572|1|0||0|Lord Alexander's Battle Axe||a17,s16,t16|2
+12532|3|56|51|0|210|135469|1|0||0|Spire of the Stoneshaper||t20,i17|2
+11786|3|56|51|0|208|135357|1|0||0|Stone of the Earth||t12|1
 11907|2|55|0|0|201|132401|1|0||0|Beastslayer|||1
 11608|3|55|50|0|205|133046|1|0||0|Dark Iron Pulverizer|||2
 260186|2|55|0|0|208|0|2|0||0|Darkblade|||1
-12000|2|55|0|0|201|132393|0|0||0|Limb Cleaver||s21,t6|1
+12000|2|55|0|0|201|132393|1|0||0|Limb Cleaver||s21,t6|1
 260207|2|55|0|0|210|135144|2|0||0|Staff of Archmage Selwyn||t16,i16|1
-9372|4|55|50|0|208|135350|0|0||1|Sul'thraze the Lasher|||1
+9372|4|55|50|0|208|135350|1|0||1|Sul'thraze the Lasher|||1
 250613|3|55|50|0|205|0|2|0||0|Thorium Greatmace||s21,S23,H23|1
 221518|3|55|0|0|205|133042|1|0||0|Whisper||s20,t12,c1|1
 12769|3|54|49|0|201|132418|1|0||0|Bleakwood Hew||s11,t5|2
-15254|2|54|49|0|208|135327|0|0||0|Dark Espadon|||2
-812|4|54|49|0|210|135166|0|0||0|Glowing Brightwood Staff||t15,i29,p9|2
+15254|2|54|49|0|208|135327|1|0||0|Dark Espadon|||2
+287025|3|54|49|0|210|0|2|0||0|Enchantresses' Spire||t21,i21|2
+812|4|54|49|0|210|135166|1|0||0|Glowing Brightwood Staff||t15,i29,p9|2
 12772|2|54|49|0|205|133046|1|0||0|Inlaid Thorium Hammer||s23|2
-17766|3|54|49|0|205|133047|0|0||0|Princess Theradras' Scepter|||1
-12243|3|54|49|0|206|135574|0|0||0|Smoldering Claw|||1
-1607|3|54|49|0|210|136163|0|0||0|Soulkeeper||i11,p26|2
-10844|3|54|49|0|210|135169|0|0||0|Spire of Hakkar||t16,p16,S18,H18|1
-15275|2|54|49|0|210|135140|0|0||0|Thaumaturgist Staff|||2
+17766|3|54|49|0|205|133047|1|0||0|Princess Theradras' Scepter|||1
+12243|3|54|49|0|206|135574|1|0||0|Smoldering Claw|||1
+1607|3|54|49|0|210|136163|1|0||0|Soulkeeper||i11,p26|2
+10844|3|54|49|0|210|135169|1|0||0|Spire of Hakkar||t16,p16,S18,H18|1
+15275|2|54|49|0|210|135140|1|0||0|Thaumaturgist Staff|||2
 19567|3|53|48|0|210|135162|1|0||0|Advisor's Gnarled Staff||t18,i11|1
-12463|3|53|48|0|208|135317|0|0||0|Drakefang Butcher||s15|1
-17730|3|53|48|0|201|132395|0|0||0|Gatorbite Axe|||1
-11750|3|53|48|0|210|135155|0|0||0|Kindling Stave||t10,i12,p13,c1|1
+272080|3|53|48|0|201|132409|2|0||0|Darkspear Raider's Reaper|Requires Revered with Darkspear Raiders|s27,t7|1
+12463|3|53|48|0|208|135317|1|0||0|Drakefang Butcher||s15|1
+17730|3|53|48|0|201|132395|1|0||0|Gatorbite Axe|||1
+11750|3|53|48|0|210|135155|1|0||0|Kindling Stave||t10,i12,p13,c1|1
 19571|3|53|48|0|210|135165|1|0||0|Lorekeeper's Staff||t18,i11|1
-17743|3|53|0|0|210|135225|0|0||0|Resurgence Rod|||1
-15253|2|52|47|0|208|135330|0|0||0|Beheading Blade|||2
-15274|2|52|47|0|210|135163|0|0||0|Diviner Long Staff|||2
+271925|3|53|48|0|201|132409|2|0||0|Rebels' Rugged Reaper|Requires Revered with Theramore Expeditionary Force|s27,t7|1
+17743|3|53|0|0|210|135225|1|0||0|Resurgence Rod|||1
+276732|3|52|47|0|205|0|2|0||0|Alcaz Willcrusher||s20,c1,d24|1
+15253|2|52|47|0|208|135330|1|0||0|Beheading Blade|||2
+15274|2|52|47|0|210|135163|1|0||0|Diviner Long Staff|||2
 20522|3|52|0|0|210|135157|1|0||1|Feral Staff||a16,s17|1
-20083|3|52|0|0|206|135125|0|0||0|Hunting Spear||t17,c1|1
-20504|3|52|47|0|208|135349|0|0||0|Lightforged Blade||s9,t9|1
-22458|3|52|0|0|210|135165|0|0||0|Moonshadow Stave||S18,H18,c1|1
+20083|3|52|0|0|206|135125|1|0||0|Hunting Spear||t17,c1|1
+20504|3|52|47|0|208|135349|1|0||0|Lightforged Blade||s9,t9|1
+22458|3|52|0|0|210|135165|1|0||0|Moonshadow Stave||S18,H18,c1|1
 260166|2|52|0|0|205|0|2|0||0|Rageroar's Best Club||s15,p15|1
-20536|3|52|0|0|210|135358|0|0||0|Soul Harvester||t16,h1|1
-13059|3|52|47|0|206|135130|0|0||0|Stoneraven||a13,s13,t15,p9|2
-2915|4|52|47|0|205|133039|0|0||0|Taran Icebreaker|||2
-12528|3|52|47|0|205|133044|0|0||0|The Judge's Gavel|||2
+20536|3|52|0|0|210|135358|1|0||0|Soul Harvester||t16,h1|1
+13059|3|52|47|0|206|135130|1|0||0|Stoneraven||a13,s13,t15,p9|2
+2915|4|52|47|0|205|133039|1|0||0|Taran Icebreaker|||2
+12528|3|52|47|0|205|133044|1|0||0|The Judge's Gavel|||2
 12764|2|52|47|0|208|135323|1|0||0|Thorium Greatsword||s22|2
 7960|3|52|47|0|208|135317|1|0||0|Truesilver Champion|||2
-13052|3|52|47|0|208|135356|0|0||0|Warmonger||s3,h3|2
+13052|3|52|47|0|208|135356|1|0||0|Warmonger||s3,h3|2
 11864|2|52|0|0|206|135128|1|0||0|White Bone Spear||t21,i3|1
-20556|3|52|0|0|210|135225|0|0||0|Wildstaff||s10,t10,i9,h1,c1|1
-10799|3|51|46|0|206|135129|0|0||0|Headspike||s15,t18|1
+20556|3|52|0|0|210|135225|1|0||0|Wildstaff||s10,t10,i9,h1,c1|1
+10799|3|51|46|0|206|135129|1|0||0|Headspike||s15,t18|1
+282632|2|51|46|0|210|0|2|0||0|Scalding Staff||s14|2
 10652|2|51|0|0|201|135575|1|0||0|Will of the Mountain Giant||s15,t14|1
-13046|3|50|45|0|205|133041|0|0||0|Blanchard's Stout||s20,t15|2
+13046|3|50|45|0|205|133041|1|0||0|Blanchard's Stout||s20,t15|2
 7959|3|50|45|0|206|135130|1|0||0|Blight|||2
 270108|2|50|0|0|205|133048|2|0||0|Bloodied Longmace||t21|1
+286641|3|50|45|0|201|132395|2|0||0|Cannibal's Cleaver||t19,A17|1
 249454|3|50|45|0|210|135151|2|0||0|Dreamstaff||t19,p19|1
 19022|2|50|0|0|220|132931|1|0||1|Nat Pagle's Extreme Angler FC-5000|Requires Fishing (100)||1
 249453|3|50|45|0|210|135150|2|0||0|Radiant Staff||t19,i19|1
-10626|3|50|45|0|205|133043|0|0||0|Ragehammer|||2
-15263|2|50|45|0|205|133048|0|0||0|Royal Mallet|||2
+10626|3|50|45|0|205|133043|1|0||0|Ragehammer|||2
+286645|3|50|45|0|206|135131|2|0||0|Reforged Atal'ai Spear||s19,t14,c1|1
+15263|2|50|45|0|205|133048|1|0||0|Royal Mallet|||2
 9683|2|50|0|0|210|135162|1|0||0|Strength of the Treant||t7,i18|1
-9477|3|50|45|0|210|135225|0|0||0|The Chief's Enforcer|||1
-13043|3|49|44|0|208|135277|0|0||0|Blade of the Titans||s10,t24|2
-9475|3|49|44|0|206|135124|0|0||0|Diabolic Skiver|||1
-1639|2|49|44|0|201|132395|0|0||0|Grinning Axe|||2
-2291|4|49|44|0|201|132406|0|0||0|Kang the Decapitator|||2
-9418|3|49|44|0|208|135357|0|0||0|Stoneslayer|||1
-9481|3|49|44|0|201|132394|0|0||0|The Minotaur||s8,t24,p5|2
-9413|3|49|44|0|205|133049|0|0||0|The Rockpounder||s5,c2|1
-15252|2|49|44|0|208|135355|0|0||0|Tusker Sword|||2
-13055|3|48|43|0|206|135129|0|0||0|Bonechewer||s23,t10|2
+9477|3|50|45|0|210|135225|1|0||0|The Chief's Enforcer|||1
+282014|2|50|45|0|210|135145|2|0||0|Twisted Shadow Staff||t21|2
+13043|3|49|44|0|208|135277|1|0||0|Blade of the Titans||s10,t24|2
+9475|3|49|44|0|206|135124|1|0||0|Diabolic Skiver|||1
+282007|3|49|44|0|210|135154|2|0||0|Emerald Watcher's Dreamstaff||i19,p19|1
+1639|2|49|44|0|201|132395|1|0||0|Grinning Axe|||2
+281648|3|49|44|0|205|133053|2|0||0|Gul'gash's Greathammer||s19,S21|1
+2291|4|49|44|0|201|132406|1|0||0|Kang the Decapitator|||2
+274432|3|49|44|0|210|135148|2|0||0|Stone Keeper Spire||t19|1
+9418|3|49|44|0|208|135357|1|0||0|Stoneslayer|||1
+9481|3|49|44|0|201|132394|1|0||0|The Minotaur||s8,t24,p5|2
+9413|3|49|44|0|205|133049|1|0||0|The Rockpounder||s5,c2|1
+15252|2|49|44|0|208|135355|1|0||0|Tusker Sword|||2
+13055|3|48|43|0|206|135129|1|0||0|Bonechewer||s23,t10|2
 250612|2|48|43|0|201|0|2|0||0|Charged Mithril Battleaxe||s14,S15,H15|2
-3208|2|48|43|0|205|133479|0|0||0|Conk Hammer|||2
-10628|3|48|43|0|208|135341|0|0||0|Deathblow|||2
-13018|3|48|43|0|201|132418|0|0||0|Executioner's Cleaver||s23,h1|2
-9480|3|48|43|0|206|135128|0|0||0|Eyegouger||a23,s10|2
+3208|2|48|43|0|205|133479|1|0||0|Conk Hammer|||2
+10628|3|48|43|0|208|135341|1|0||0|Deathblow|||2
+13018|3|48|43|0|201|132418|1|0||0|Executioner's Cleaver||s23,h1|2
+9480|3|48|43|0|206|135128|1|0||0|Eyegouger||a23,s10|2
+284850|2|48|43|0|210|135155|2|0||0|Naga Caster's Staff||t15,i10|2
 10826|2|48|0|0|210|135164|1|0||0|Staff of Lore||i5,p18|1
 275824|3|48|1|0|201|132453|2|0||0|Wardcleaver|||0
-943|4|48|43|0|210|135166|0|0||0|Warden Staff||t11,d10|2
-8199|2|47|42|0|208|135327|0|0||0|Battlefield Destroyer|||2
-10627|3|47|42|0|210|135165|0|0||0|Bludgeon of the Grinning Dog|||2
-9416|3|47|42|0|206|135131|0|0||0|Grimlok's Charge||a15,s10,t15|1
-12469|3|47|42|0|208|135272|0|0||0|Mutilator|||1
-9482|3|47|42|0|210|135168|0|0||0|Witch Doctor's Cane||p9|2
-18082|3|47|42|0|210|135147|0|0||1|Zum'rah's Vexing Cane||t10,i10,S21,H21|1
-15270|2|46|41|0|201|132408|0|0||0|Gigantic War Axe|||2
-15262|2|46|41|0|205|133056|0|0||0|Greater Maul|||2
+943|4|48|43|0|210|135166|1|0||0|Warden Staff||t11,d10|2
+8199|2|47|42|0|208|135327|1|0||0|Battlefield Destroyer|||2
+279480|3|47|1|0|205|0|2|0||0|Bigger Rock on Bigger Stick||s14|1
+10627|3|47|42|0|210|135165|1|0||0|Bludgeon of the Grinning Dog|||2
+9416|3|47|42|0|206|135131|1|0||0|Grimlok's Charge||a15,s10,t15|1
+12469|3|47|42|0|208|135272|1|0||0|Mutilator|||1
+274654|3|47|43|0|201|132407|2|0||0|Sandfury Guillotine||S16,H47,c1|1
+279853|3|47|1|0|210|135159|2|0||0|Stick No Rock||s10,p18|1
+287015|3|47|42|0|205|0|2|0||0|Supreme Smasher||s18,t6|2
+9482|3|47|42|0|210|135168|1|0||0|Witch Doctor's Cane||p9|2
+18082|3|47|42|0|210|135147|1|0||1|Zum'rah's Vexing Cane||t10,i10,S21,H21|1
+15270|2|46|41|0|201|132408|1|0||0|Gigantic War Axe|||2
+15262|2|46|41|0|205|133056|1|0||0|Greater Maul|||2
 4134|2|46|0|0|210|135150|1|0||0|Nimboya's Mystical Staff||i8,p15|1
 11857|2|46|0|0|210|135148|1|0||0|Sanctimonial Rod||t4,p17|1
-9527|2|46|0|0|210|135473|0|0||0|Spellshifter Rod||t6,i16|1
-1720|3|46|41|0|210|135162|0|0||0|Tanglewood Staff||s9,p18|2
-1604|2|45|40|0|208|135323|0|0||0|Chromatic Sword|||2
+274431|3|46|41|0|210|135147|2|0||0|Sandstorm Staff||t13|1
+9527|2|46|0|0|210|135473|1|0||0|Spellshifter Rod||t6,i16|1
+1720|3|46|41|0|210|135162|1|0||0|Tanglewood Staff||s9,p18|2
+275011|2|46|0|0|205|133046|2|0||0|Thud Hammer||s13,t13|1
+275001|3|45|40|0|208|135311|2|0||0|Bloodied Gutslicer||a14,t17,p10|1
+1604|2|45|40|0|208|135323|1|0||0|Chromatic Sword|||2
 250610|2|45|40|0|208|0|2|0||0|Mithril Claymore||s9,t15|2
 276203|3|45|40|0|206|0|2|0||0|Primitive Fishing Pole|Requires Honored with Powderfuse|a10,s7,t20|1
-9423|3|45|40|0|205|133044|0|0||0|The Jackhammer|||2
+9423|3|45|40|0|205|133044|1|0||0|The Jackhammer|||2
 277250|3|45|40|0|205|0|2|0||0|The Skullcracker||p22,A18|1
-6830|3|44|0|0|201|132395|0|0||0|Bonebiter||s20,t10|1
-1680|2|44|39|0|201|132408|0|0||0|Headchopper||s9,c1|2
-13058|3|44|39|0|206|135125|0|0||0|Khoo's Point||t20,p10|2
-1521|2|44|39|0|201|132409|0|0||0|Lumbering Ogre Axe||s15,t7|2
-7723|3|44|39|0|205|133488|0|0||0|Mograine's Might||t17,p16|1
-1982|4|44|39|0|208|135272|0|0||0|Nightblade|||2
-9425|3|44|39|0|201|135578|0|0||0|Pendulum of Doom|||2
-1613|2|44|39|0|210|135140|0|0||0|Spiritchaser Staff|||2
-13051|3|44|39|0|208|135345|0|0||0|Witchfury|||2
+284063|2|45|40|0|201|132395|2|0||0|Witherbark Hatecleaver||s13,S15,H15|2
+274485|3|44|39|0|201|132392|2|0||0|Axe of Lingering Dread||d50|1
+6830|3|44|0|0|201|132395|1|0||0|Bonebiter||s20,t10|1
+1680|2|44|39|0|201|132408|1|0||0|Headchopper||s9,c1|2
+13058|3|44|39|0|206|135125|1|0||0|Khoo's Point||t20,p10|2
+1521|2|44|39|0|201|132409|1|0||0|Lumbering Ogre Axe||s15,t7|2
+7723|3|44|39|0|205|133488|1|0||0|Mograine's Might||t17,p16|1
+1982|4|44|39|0|208|135272|1|0||0|Nightblade|||2
+9425|3|44|39|0|201|135578|1|0||0|Pendulum of Doom|||2
+274430|3|44|39|0|201|132395|2|0||0|Rock Sentinel Slicer||i12|1
+1613|2|44|39|0|210|135140|1|0||0|Spiritchaser Staff|||2
+13051|3|44|39|0|208|135345|1|0||0|Witchfury|||2
 19568|3|43|38|0|210|135162|1|0||0|Advisor's Gnarled Staff||t14,i9|1
+274381|3|43|38|0|210|3386335|2|0||0|Coldbringer Spine||p20,h1|1
+272081|3|43|38|0|201|132409|2|0||0|Darkspear Raider's Reaper|Requires Revered with Darkspear Raiders|s22,t5|1
 272179|2|43|1|0|208|0|2|0||0|Greatsword of Great Pasts||s14,i9|1
-15251|2|43|38|0|208|135352|0|0||0|Headstriker Sword|||2
+15251|2|43|38|0|208|135352|1|0||0|Headstriker Sword|||2
 19572|3|43|38|0|210|135165|1|0||0|Lorekeeper's Staff||t14,i9|1
 270085|2|43|0|0|208|135352|2|0||0|Master Hunter's Spellsword||s12,S14,H14|1
 250608|2|43|38|0|205|0|2|0||0|Mithril Warhammer||a14,s9|2
+271926|3|43|38|0|201|132409|2|0||0|Rebels' Rugged Reaper|Requires Revered with Theramore Expeditionary Force|s22,t5|1
 277253|2|43|0|0|210|135148|2|0||0|Staff of Brutal Cunning||i6,p15|1
 9678|2|43|0|0|205|133480|1|0||0|Tok'kar's Murloc Basher||t18|1
 9679|2|43|0|0|201|135562|1|0||0|Tok'kar's Murloc Chopper||s15,t6|1
 271801|3|42|35|0|201|0|2|0||0|Abandoned Ferocity||a4,s10,t12|1
+274484|3|42|37|0|201|132392|2|0||0|Axe of Inevitable Ruin|||1
 276102|2|42|0|0|208|135277|2|0||0|Bladewind||s10,t4|1
+279885|3|42|1|0|205|0|2|0||0|Ceremonial Mallet||t15,A22|1
 11265|2|42|0|0|205|133053|1|0||0|Cragwood Maul||t17|1
-9626|2|42|0|0|201|132400|0|0||0|Dwarven Charge||s12,t11|1
+9626|2|42|0|0|201|132400|1|0||0|Dwarven Charge||s12,t11|1
 271803|3|42|35|0|210|0|2|0||0|Greatstaff of the Necrokhans||t16,i12,p6|1
-9408|3|42|37|0|210|135165|0|0||0|Ironshod Bludgeon||s8,t20|1
+270078|2|42|0|0|210|135145|2|0||0|Guardian Staff||a11,t11|1
+9408|3|42|37|0|210|135165|1|0||0|Ironshod Bludgeon||s8,t20|1
 281308|2|42|0|0|208|0|2|0||0|Jameson's Backup Sword||s11,p11|1
-866|2|42|37|0|210|135145|0|0||0|Monk's Staff|||2
-1640|2|42|37|0|201|132409|0|0||0|Monstrous War Axe|||2
-7717|3|42|37|0|201|135575|0|0||0|Ravager|||1
+866|2|42|37|0|210|135145|1|0||0|Monk's Staff|||2
+1640|2|42|37|0|201|132409|1|0||0|Monstrous War Axe|||2
+7717|3|42|37|0|201|135575|1|0||0|Ravager|||1
 4983|2|42|0|0|205|133054|1|0||0|Rock Pulverizer||A34|1
 274963|2|42|0|0|206|135129|2|0||0|Rot-Covered Harpoon|||1
 271800|3|42|35|0|206|0|2|0||0|Scavenged Magram Armament||a5,t14,A12|1
-1722|3|42|37|0|205|133041|0|0||0|Thornstone Sledgehammer||s20|2
-10758|3|42|35|0|208|135355|0|0||0|X'caliboar||s20,t8|1
-1625|2|41|36|0|208|135356|0|0||0|Exquisite Flamberge|||2
-1986|2|41|36|0|208|135313|0|0||0|Gutrender|||2
+287005|3|42|37|0|208|0|2|0||0|Sword of Dismemberment|||2
+1722|3|42|37|0|205|133041|1|0||0|Thornstone Sledgehammer||s20|2
+10758|3|42|35|0|208|135355|1|0||0|X'caliboar||s20,t8|1
+274606|3|41|36|0|210|135468|2|0||0|Bloodspine Staff||t12,i11,p12|1
+1625|2|41|36|0|208|135356|1|0||0|Exquisite Flamberge|||2
+1986|2|41|36|0|208|135313|1|0||0|Gutrender|||2
+282003|2|41|36|0|208|135324|2|0||0|Lost Chieftain's Greatsword||s13,t9|2
+282702|2|41|36|0|205|133046|2|0||0|Molok's Masher||t17|2
 4548|2|41|0|0|205|133041|1|0||0|Servomechanic Sledgehammer|Requires Engineering (100)||1
 4128|2|41|0|0|205|134436|1|0||0|Silver Spade||t4,p15|1
 9521|2|41|0|0|201|132397|1|0||0|Skullsplitter||s15,t4|1
-1664|2|41|36|0|210|135165|0|0||0|Spellforce Rod||S20,H20|2
-13042|3|41|36|0|208|135351|0|0||0|Sword of the Magistrate||s8,t15,p10|2
+1664|2|41|36|0|210|135165|1|0||0|Spellforce Rod||S20,H20|2
+13042|3|41|36|0|208|135351|1|0||0|Sword of the Magistrate||s8,t15,p10|2
 274944|2|40|0|0|206|135128|2|0||0|Bloodsnout Striker||t11,A18|1
 9517|3|40|0|128|210|135151|1|0||0|Celestial Stave||i8,S22,H22|1
 270071|2|40|0|0|205|133053|2|0||0|Dark Hearted Hammer||s12,t8|1
-870|4|40|35|0|201|132393|0|0||0|Fiery War Axe|||2
+870|4|40|35|0|201|132393|1|0||0|Fiery War Axe|||2
 3854|2|40|35|0|208|135275|1|0||0|Frost Tiger Blade||c1|2
-13054|3|40|35|0|206|135125|0|0||0|Grim Reaper|||2
-13017|3|40|35|0|201|132418|0|0||0|Hellslayer Battle Axe|||2
-9383|3|40|35|0|201|132405|0|0||0|Obsidian Cleaver||a5,s6,t19|2
+13054|3|40|35|0|206|135125|1|0||0|Grim Reaper|||2
+274601|3|40|35|0|206|0|2|0||0|Harpoon of Command||t15,d25|1
+13017|3|40|35|0|201|132418|1|0||0|Hellslayer Battle Axe|||2
+9383|3|40|35|0|201|132405|1|0||0|Obsidian Cleaver||a5,s6,t19|2
 280604|3|40|1|0|205|133522|2|0||0|Rage of the Storm||s16,t15|1
-15261|2|40|35|0|205|133053|0|0||0|Sequoia Branch|||2
+15261|2|40|35|0|205|133053|1|0||0|Sequoia Branch|||2
 3856|2|40|35|0|201|132408|1|0||0|Shadow Crescent Axe||s11,t10|2
 15106|2|40|0|256|210|135149|1|0||0|Staff of Dar'Orahil||t3,i6|1
-873|4|40|35|0|210|135150|0|0||0|Staff of Jordan||i11,p11,S26,H26|2
+873|4|40|35|0|210|135150|1|0||0|Staff of Jordan||i11,p11,S26,H26|2
 15105|2|40|0|256|210|135151|1|0||0|Staff of Noh'Orahil||t3,i6|1
 274940|2|40|0|0|206|135128|2|0||0|Unbalanced Fighting Stick||s13,t8|1
 6975|3|40|0|1|201|132403|1|0||0|Whirlwind Axe||s15,t14|1
 6977|3|40|0|1|208|135313|1|0||0|Whirlwind Sword||s15,t14|1
 6976|3|40|0|1|205|133045|1|0||0|Whirlwind Warhammer||s15,t14|1
 274929|2|39|0|0|201|1059116|2|0||0|Hurley's Felling Axe||s7|1
-7713|3|39|34|0|210|135466|0|0||0|Illusionary Rod||t7,i15,p10|1
-10570|3|39|34|0|201|132395|0|0||0|Manslayer||t8,A38|2
-7758|3|39|34|0|206|135131|0|0||0|Ruthless Shiv||s19,t8|2
+7713|3|39|34|0|210|135466|1|0||0|Illusionary Rod||t7,i15,p10|1
+10570|3|39|34|0|201|132395|1|0||0|Manslayer||t8,A38|2
+7758|3|39|34|0|206|135131|1|0||0|Ruthless Shiv||s19,t8|2
 12252|2|39|34|0|210|135144|1|0||0|Staff of Protection|||2
-937|3|38|33|0|210|135150|0|0||0|Black Duskwood Staff|||2
+937|3|38|33|0|210|135150|1|0||0|Black Duskwood Staff|||2
 271794|2|38|35|0|206|0|2|0||0|Centaur Spear||s9,t11|1
 271797|2|38|35|0|210|0|2|0||0|Staff of Revelations||i8,p11|1
-15260|2|38|33|0|205|133054|0|0||0|Stone Hammer|||2
+15260|2|38|33|0|205|133054|1|0||0|Stone Hammer|||2
 271795|2|38|35|0|208|0|2|0||0|Wanderer's Broadsword||t8,h1|1
+281661|2|38|33|0|206|1060568|2|0||0|Well-Worn Pitchfork||s14,t3|2
 12251|2|37|32|0|210|135158|1|0||0|Big Stick||s15|2
-10573|3|37|32|0|208|135351|0|0||0|Boneslasher||a5,s16,t7|2
+10573|3|37|32|0|208|135351|1|0||0|Boneslasher||a5,s16,t7|2
 3855|2|37|32|0|201|135423|1|0||0|Massive Iron Axe||s11,t7|2
 250605|2|37|32|0|206|0|2|0||0|Steel Spear||a13,A10|2
-6327|3|37|32|0|205|133484|0|0||0|The Pacifier||s18,t7|2
-9391|3|37|32|1|205|134436|0|0||0|The Shoveler||t15,A20|2
-9459|3|37|32|0|201|132394|0|0||0|Thermaplugg's Left Arm||s18,t7|1
-7757|3|37|32|0|210|135469|0|0||0|Windweaver Staff||t7,i15|2
-9385|3|36|31|0|208|135351|0|0||0|Archaic Defender||d10|2
-1990|2|36|31|0|205|133481|0|0||0|Ballast Maul|||2
-1522|2|36|31|0|206|135128|0|0||0|Headhunting Spear||a11,p6|2
-1523|2|36|31|0|205|133489|0|0||0|Huge Stone Club||t14|2
-1679|2|36|31|0|205|133476|0|0||0|Korg Bat||s12,t5|2
-7710|3|36|31|0|210|135155|0|0||0|Loksey's Training Stick|||1
+6327|3|37|32|0|205|133484|1|0||0|The Pacifier||s18,t7|2
+9391|3|37|32|1|205|134436|1|0||0|The Shoveler||t15,A20|2
+9459|3|37|32|0|201|132394|1|0||0|Thermaplugg's Left Arm||s18,t7|1
+7757|3|37|32|0|210|135469|1|0||0|Windweaver Staff||t7,i15|2
+9385|3|36|31|0|208|135351|1|0||0|Archaic Defender||d10|2
+1990|2|36|31|0|205|133481|1|0||0|Ballast Maul|||2
+279841|3|36|1|0|205|0|2|0||0|Defender of Dalaran||s9,t13,i9|1
+1522|2|36|31|0|206|135128|1|0||0|Headhunting Spear||a11,p6|2
+1523|2|36|31|0|205|133489|1|0||0|Huge Stone Club||t14|2
+1679|2|36|31|0|205|133476|1|0||0|Korg Bat||s12,t5|2
+7710|3|36|31|0|210|135155|1|0||0|Loksey's Training Stick|||1
 3853|2|36|31|0|208|135326|1|0||0|Moonsteel Broadsword||t4,p12|2
-1726|3|36|31|0|206|135125|0|0||0|Poison-tipped Bone Spear|||2
+1726|3|36|31|0|206|135125|1|0||0|Poison-tipped Bone Spear|||2
+279844|3|36|1|0|210|0|2|0||0|Striking Staff||s9,t6,i14|1
 2000|2|35|0|0|208|135278|1|0||0|Archeus|||1
-7689|3|35|30|0|208|135302|0|0||0|Morbid Dawn||s10,t15|1
-3197|2|35|30|0|208|135357|0|0||0|Stonecutter Claymore|||2
-13045|3|35|30|0|205|133488|0|0||0|Viscous Hammer||s3,t6,A34|2
-3185|2|34|29|0|210|135147|0|0||0|Acrobatic Staff|||2
-7730|3|34|29|0|205|133041|0|0||0|Cobalt Crusher|||2
-6687|3|34|29|0|201|135562|0|0||0|Corpsemaker||s15,t8|1
-1991|2|34|29|0|205|134436|0|0||0|Goblin Power Shovel||a10,s6|2
+7689|3|35|30|0|208|135302|1|0||0|Morbid Dawn||s10,t15|1
+3197|2|35|30|0|208|135357|1|0||0|Stonecutter Claymore|||2
+13045|3|35|30|0|205|133488|1|0||0|Viscous Hammer||s3,t6,A34|2
+3185|2|34|29|0|210|135147|1|0||0|Acrobatic Staff|||2
+7730|3|34|29|0|205|133041|1|0||0|Cobalt Crusher|||2
+6687|3|34|29|0|201|135562|1|0||0|Corpsemaker||s15,t8|1
+273037|3|34|29|0|206|0|2|0||0|Felbough Arm||a10,h1|1
+1991|2|34|29|0|205|134436|1|0||0|Goblin Power Shovel||a10,s6|2
 3852|2|34|29|0|205|133041|1|0||0|Golden Iron Destroyer||s11,t4|2
-9449|3|34|29|0|205|133489|0|0||0|Manual Crowd Pummeler||a5,s16|1
+9449|3|34|29|0|205|133489|1|0||0|Manual Crowd Pummeler||a5,s16|1
 12250|2|34|29|0|201|132408|1|0||0|Midnight Axe|||2
 19569|3|33|28|0|210|135162|1|0||0|Advisor's Gnarled Staff||t11,i7|1
-1998|2|33|28|0|210|135155|0|0||0|Bloodscalp Channeling Staff|||2
-2299|3|33|28|0|201|132393|0|0||0|Burning War Axe|||2
-2877|3|33|28|0|208|135324|0|0||0|Combatant Claymore||t10,p15|2
+286983|3|33|28|0|201|0|2|0||0|Ancient Cleaver||s12,S14,H14|2
+1998|2|33|28|0|210|135155|1|0||0|Bloodscalp Channeling Staff|||2
+2299|3|33|28|0|201|132393|1|0||0|Burning War Axe|||2
+2877|3|33|28|0|208|135324|1|0||0|Combatant Claymore||t10,p15|2
+273046|3|33|28|0|201|135423|2|0||0|Guardian's Dualblade|||1
 271767|3|33|0|0|210|135147|2|0||0|Healer's Staff||t12|1
 271766|3|33|0|0|205|133046|2|0||0|Heavehammer||A32|1
 271667|2|33|0|0|205|133053|2|0||0|Ironwood Destroyer|||1
 19573|3|33|28|0|210|135165|1|0||0|Lorekeeper's Staff||t11,i7|1
+273040|3|33|28|0|210|0|2|0||0|Spine of the Devourer||t14|1
 3209|2|32|0|0|208|135280|1|0||0|Ancient War Sword||s9,t6|1
-7753|3|32|27|0|201|132401|0|0||0|Bloodspiller|||2
+7753|3|32|27|0|201|132401|1|0||0|Bloodspiller|||2
 5813|2|32|0|0|208|135280|1|0||0|Emil's Brand||s11,t3|1
 281312|3|32|0|0|210|0|2|0||0|Fallen Dragon's Scepter||i11,p13|1
-15250|2|32|27|0|208|135321|0|0||0|Glimmering Flamberge|||2
-9452|3|32|27|0|210|135152|0|0||0|Hydrocane|||1
+15250|2|32|27|0|208|135321|1|0||0|Glimmering Flamberge|||2
+9452|3|32|27|0|210|135152|1|0||0|Hydrocane|||1
 270049|2|32|0|0|210|135147|2|0||0|Mavoris's Warstaff||s11,t3|1
 3822|2|32|0|0|208|135272|1|0||0|Runic Darkblade|||1
 281313|3|32|0|0|208|0|2|0||0|Trusty Sword||t12,p12|1
-6689|3|32|27|0|210|135138|0|0||0|Wind Spirit Staff||t3,i5,p15|1
+6689|3|32|27|0|210|135138|1|0||0|Wind Spirit Staff||t3,i5,p15|1
+274158|3|31|26|0|210|135154|2|0||0|Death Prophet Spine||t11|1
+284459|3|31|26|0|205|133046|2|0||0|Dendweller's Hammer||t12|1
 5815|2|31|0|0|205|133484|1|0||0|Glacial Stone|||1
-791|3|31|26|0|210|135139|0|0||0|Gnarled Ash Staff||t6,p15|2
+791|3|31|26|0|210|135139|1|0||0|Gnarled Ash Staff||t6,p15|2
 12249|2|31|26|0|201|132408|1|0||0|Merciless Axe||s12|2
 268484|2|31|0|2|208|135326|2|0||0|Moonsilver Blade||t7,i7|1
 5614|2|31|0|0|208|135328|1|0||0|Seraph's Strike||s3,p10|1
 3851|2|31|26|0|205|133044|1|0||0|Solid Iron Maul||t12|2
-6909|3|31|26|0|208|135352|0|0||0|Strike of the Hydra|||1
+6909|3|31|26|0|208|135352|1|0||0|Strike of the Hydra|||1
 6953|3|31|0|2|205|133042|1|0||0|Verigan's Fist||t7,i6,p12|1
-3210|2|30|25|0|201|132408|0|0||0|Brutal War Axe|||2
-2084|2|30|25|0|208|135311|0|0||0|Darksteel Bastard Sword||s8,p7|2
+267369|3|31|0|2|208|135326|2|0||0|Wolfsbane||t9,i10|1
+3210|2|30|25|0|201|132408|1|0||0|Brutal War Axe|||2
+2084|2|30|25|0|208|135311|1|0||0|Darksteel Bastard Sword||s8,p7|2
 288900|4|30|1|0|205|133041|2|0||0|Earthshaker||A11|2
 249392|3|30|25|0|210|135156|2|0||0|Glimmering Staff||t11,i11|1
-9604|2|30|0|0|205|133479|0|0||0|Mechanic's Pipehammer||t10,i3|1
+282721|2|30|25|0|210|0|2|0||0|Gnoll Shaman's Staff||s7|2
+9604|2|30|0|0|205|133479|1|0||0|Mechanic's Pipehammer||t10,i3|1
 249393|3|30|25|0|210|135168|2|0||0|Soulstaff||t11,p11|1
-6679|2|29|24|0|206|135128|0|0||0|Armor Piercer||a11|1
-2014|2|29|24|0|208|135313|0|0||0|Black Metal Greatsword||s7,t7|2
-13049|3|29|26|0|208|135356|0|0||0|Deanship Claymore||p4,d10|2
-9490|3|29|24|0|208|135347|0|0||0|Gizmotron Megachopper||a5,s14|2
+6679|2|29|24|0|206|135128|1|0||0|Armor Piercer||a11|1
+2014|2|29|24|0|208|135313|1|0||0|Black Metal Greatsword||s7,t7|2
+13049|3|29|26|0|208|135356|1|0||0|Deanship Claymore||p4,d10|2
+9490|3|29|24|0|208|135347|1|0||0|Gizmotron Megachopper||a5,s14|2
 913|2|29|24|0|208|135311|0|0||0|Huge Ogre Sword||s11|2
-2077|2|29|24|0|210|135468|0|0||0|Magician Staff|||2
-1155|3|29|24|0|210|135143|0|0||0|Rod of the Sleepwalker||i11,p10|1
-1976|3|29|24|0|205|133053|0|0||0|Slaghammer||s11,t10|2
-756|2|29|24|0|201|134708|0|0||0|Tunnel Pick||a7,t7|2
-3201|2|28|23|0|201|132408|0|0||0|Barbarian War Axe|||2
-2015|2|28|23|0|201|132408|0|0||0|Black Metal War Axe||s10|2
-13057|3|28|23|0|206|135125|0|0||0|Bloodpike|||2
+2077|2|29|24|0|210|135468|1|0||0|Magician Staff|||2
+1155|3|29|24|0|210|135143|1|0||0|Rod of the Sleepwalker||i11,p10|1
+1976|3|29|24|0|205|133053|1|0||0|Slaghammer||s11,t10|2
+756|2|29|24|0|201|134708|1|0||0|Tunnel Pick||a7,t7|2
+3201|2|28|23|0|201|132408|1|0||0|Barbarian War Axe|||2
+2015|2|28|23|0|201|132408|1|0||0|Black Metal War Axe||s10|2
+13057|3|28|23|0|206|135125|1|0||0|Bloodpike|||2
+273819|3|28|23|0|206|135128|2|0||0|Boneslicer|||1
 15464|2|28|0|0|205|133053|1|0||0|Brute Hammer||a1,s4,t8|1
-3206|2|28|23|0|208|135321|0|0||0|Cavalier Two-hander|||2
-3203|3|28|23|0|205|133488|0|0||0|Dense Triangle Mace||s10,t10|2
-1975|3|28|23|0|208|135326|0|0||0|Pysan's Old Greatsword||s5,p13|2
+3206|2|28|23|0|208|135321|1|0||0|Cavalier Two-hander|||2
+3203|3|28|23|0|205|133488|1|0||0|Dense Triangle Mace||s10,t10|2
+273817|3|28|23|0|205|134435|2|0||1|Graverobber's Shovel||t10,A1|1
+1975|3|28|23|0|208|135326|1|0||0|Pysan's Old Greatsword||s5,p13|2
 241090|2|28|23|0|201|132408|1|0||0|Scarlet Great Axe||s10|2
-9486|3|28|23|0|201|132415|0|0||0|Supercharger Battle Axe|||2
-2072|2|27|22|0|210|135141|0|0||0|Dwarven Magestaff|||2
-2227|2|27|22|0|201|135562|0|0||0|Heavy Ogre War Axe||s7,t5|2
-2280|2|27|22|0|210|135143|0|0||0|Kam's Walking Stick||a3,i8|2
-2058|2|27|22|0|205|133053|0|0||0|Kazon's Maul||s8,t4|2
-2226|2|27|22|0|210|135468|0|0||0|Ogremage Staff||s11|2
+9486|3|28|23|0|201|132415|1|0||0|Supercharger Battle Axe|||2
+285328|3|28|23|0|201|132395|2|0||0|Taurenbane's Family Cleaver||t9|1
+273841|3|28|23|0|205|133046|2|0||0|Twilight Maul||S12,H12|1
+284700|2|27|22|0|205|133476|2|0||0|Den Guardian's Crusher||A20|2
+2072|2|27|22|0|210|135141|1|0||0|Dwarven Magestaff|||2
+2227|2|27|22|0|201|135562|1|0||0|Heavy Ogre War Axe||s7,t5|2
+2280|2|27|22|0|210|135143|1|0||0|Kam's Walking Stick||a3,i8|2
+2058|2|27|22|0|205|133053|1|0||0|Kazon's Maul||s8,t4|2
+2226|2|27|22|0|210|135468|1|0||0|Ogremage Staff||s11|2
 6093|2|27|0|0|205|133482|1|0||0|Orc Crusher||s8,t4|1
-6905|2|27|22|0|201|135576|0|0||0|Reef Axe||t5,p7|1
-2549|3|27|22|0|210|135162|0|0||0|Staff of the Shade|||2
-3191|2|26|21|0|201|132397|0|0||0|Arced War Axe||s6,t6|1
-2013|2|26|21|0|210|135163|0|0||0|Cryptbone Staff||s4,i6,p4|2
+6905|2|27|22|0|201|135576|1|0||0|Reef Axe||t5,p7|1
+2549|3|27|22|0|210|135162|1|0||0|Staff of the Shade|||2
+286540|3|27|22|0|208|135321|2|0||0|The Skyblade||s10,t8,S6,H6|2
+270027|2|27|0|0|205|133053|2|0||0|Ursine Hammer||a5,i5,p5|1
+285350|3|26|21|0|210|135148|2|0||0|Alliance Outrunner Staff||t9,p9|1
+3191|2|26|21|0|201|132397|1|0||0|Arced War Axe||s6,t6|1
+2013|2|26|21|0|210|135163|1|0||0|Cryptbone Staff||s4,i6,p4|2
 5322|2|26|0|0|205|133053|1|0||0|Demolition Hammer||s9|1
-13041|3|26|21|0|208|135326|0|0||0|Guardian Blade||d9|2
-6641|2|26|21|0|208|135315|0|0||0|Haunting Blade||p9|1
-1264|2|26|0|0|205|133482|0|0||0|Headbasher||s8,t3|1
-13016|3|26|21|0|201|132401|0|0||0|Killmaim|||2
-6318|3|26|21|0|210|135164|0|0||0|Odo's Ley Staff||t5,p12|1
-3417|3|26|21|0|208|135311|0|0||0|Onyx Claymore||s9,t5,p6|2
-15249|2|26|21|0|208|135324|0|0||0|Polished Zweihander|||2
+13041|3|26|21|0|208|135326|1|0||0|Guardian Blade||d9|2
+6641|2|26|21|0|208|135315|1|0||0|Haunting Blade||p9|1
+1264|2|26|0|0|205|133482|1|0||0|Headbasher||s8,t3|1
+13016|3|26|21|0|201|132401|1|0||0|Killmaim|||2
+6318|3|26|21|0|210|135164|1|0||0|Odo's Ley Staff||t5,p12|1
+3417|3|26|21|0|208|135311|1|0||0|Onyx Claymore||s9,t5,p6|2
+15249|2|26|21|0|208|135324|1|0||0|Polished Zweihander|||2
 3738|2|25|0|0|210|135466|1|0||0|Brewing Rod||t6,p5|1
 250603|2|25|20|0|206|0|2|0||0|Bronze Dory||a8,A6|2
-2205|3|25|20|0|208|135351|0|0||0|Duskbringer|||2
-1317|2|25|0|0|210|135153|0|0||0|Hardened Root Staff||s1,p8|1
-15259|2|25|20|0|205|133053|0|0||0|Hefty Battlehammer|||2
+2205|3|25|20|0|208|135351|1|0||0|Duskbringer|||2
+1317|2|25|0|0|210|135153|1|0||0|Hardened Root Staff||s1,p8|1
+15259|2|25|20|0|205|133053|1|0||0|Hefty Battlehammer|||2
 2950|2|25|0|0|210|135152|1|0||0|Icicle Rod||i4|1
-911|2|25|20|0|205|133476|0|0||0|Ironwood Treebranch||s8,t2|2
+911|2|25|20|0|205|133476|1|0||0|Ironwood Treebranch||s8,t2|2
 281296|2|25|0|0|206|0|2|0||0|Knight's Lance||a7,t5|1
-6631|3|25|20|0|210|135162|0|0||0|Living Root||t2,p12|1
-1461|2|25|20|0|201|135424|0|0||0|Slayer's Battle Axe||a5,s6|2
+6631|3|25|20|0|210|135162|1|0||0|Living Root||t2,p12|1
+1461|2|25|20|0|201|135424|1|0||0|Slayer's Battle Axe||a5,s6|2
 15109|2|25|0|256|210|135146|1|0||0|Staff of Soran'ruk|||1
 23171|3|25|20|0|201|132394|0|0||0|The Axe of Severing||s14|1
 276887|2|24|1|0|205|0|2|0||0|Big Bad Basher||s4,t6|1
-1455|2|24|19|0|201|135562|0|0||0|Blackrock Champion's Axe||s8|2
-6505|3|24|0|0|210|135141|0|0||0|Crescent Staff||t7,i7,p7|1
+1455|2|24|19|0|201|135562|1|0||0|Blackrock Champion's Axe||s8|2
+271215|3|24|19|0|210|0|2|0||0|Coldspire Staff|||1
+6505|3|24|0|0|210|135141|1|0||0|Crescent Staff||t7,i7,p7|1
 4818|2|24|19|0|208|135329|1|0||0|Executioner's Sword||s8|2
-15269|2|24|19|0|201|132415|0|0||0|Massive Battle Axe|||2
+251533|3|24|0|0|201|132409|2|0||0|Forsaken Greataxe||s8,t4|1
+284704|2|24|19|0|210|135145|2|0||0|Frostbitten Staff||p6|2
+251534|3|24|0|0|210|135153|2|0||0|Gnarled Necromancer's Staff||p10|1
+270018|3|24|0|0|205|133052|2|0||0|Hammerbone||s7,p10|1
+15269|2|24|19|0|201|132415|1|0||0|Massive Battle Axe|||2
 16889|2|24|0|0|210|135157|1|0||0|Polished Walking Staff||t3,i7|1
-2042|3|24|0|0|210|135147|0|0||0|Staff of Westfall||i5,p11|1
-3415|3|24|19|0|210|135169|0|0||0|Staff of the Friar||t4,i3,p11|2
-890|3|24|19|0|210|135141|0|0||0|Twisted Chanter's Staff||t6,i10|2
+285332|3|24|19|0|206|135130|2|0||0|Puncturing Spear|||1
+2042|3|24|0|0|210|135147|1|0||0|Staff of Westfall||i5,p11|1
+3415|3|24|19|0|210|135169|1|0||0|Staff of the Friar||t4,i3,p11|2
+890|3|24|19|0|210|135141|1|0||0|Twisted Chanter's Staff||t6,i10|2
 20425|3|23|18|0|210|135162|1|0||0|Advisor's Gnarled Staff||t8,i4|1
-3198|2|23|18|0|205|133053|0|0||0|Battering Hammer|||2
-5201|3|23|18|0|210|135150|0|0||0|Emberstone Staff||t5,i8,p5|1
+3198|2|23|18|0|205|133053|1|0||0|Battering Hammer|||2
+5201|3|23|18|0|210|135150|1|0||0|Emberstone Staff||t5,i8,p5|1
 277286|2|23|1|0|201|132408|2|0||0|Encroacher's Claim||s4,p6|1
 20434|3|23|18|0|210|135165|1|0||0|Lorekeeper's Staff||t8,i4|1
-1318|3|23|18|0|201|135424|0|0||0|Night Reaver|||2
-3227|2|23|18|0|210|135149|0|0||0|Nightbane Staff|||2
-5749|2|23|18|0|201|132397|0|0||0|Scythe Axe||a6,t3|2
-12992|3|23|18|0|208|135322|0|0||0|Searing Blade|||2
-2175|2|23|18|0|201|135424|0|0||0|Shadowhide Battle Axe||s6,t3|2
-1458|2|23|18|0|205|133053|0|0||0|Shadowhide Maul||s6,t3|2
-7230|3|23|18|0|205|133046|0|0||0|Smite's Mighty Hammer||a4,s11|1
-880|2|23|18|0|210|135162|0|0||0|Staff of Horrors|||2
-2271|3|23|18|0|210|135168|0|0||0|Staff of the Blessed Seer||t2,p3,H24|2
+279864|2|23|1|0|208|0|2|0||0|Monstrous Cleaver||t6,A4|1
+1318|3|23|18|0|201|135424|1|0||0|Night Reaver|||2
+3227|2|23|18|0|210|135149|1|0||0|Nightbane Staff|||2
+5749|2|23|18|0|201|132397|1|0||0|Scythe Axe||a6,t3|2
+12992|3|23|18|0|208|135322|1|0||0|Searing Blade|||2
+2175|2|23|18|0|201|135424|1|0||0|Shadowhide Battle Axe||s6,t3|2
+1458|2|23|18|0|205|133053|1|0||0|Shadowhide Maul||s6,t3|2
+7230|3|23|18|0|205|133046|1|0||0|Smite's Mighty Hammer||a4,s11|1
+880|2|23|18|0|210|135162|1|0||0|Staff of Horrors|||2
+2271|3|23|18|0|210|135168|1|0||0|Staff of the Blessed Seer||t2,p3,H24|2
 5613|2|23|0|0|210|135160|1|0||0|Staff of the Purifier||p8|1
-5194|3|23|18|0|201|135424|0|0||0|Taskmaster Axe||t8,p8|1
-3199|2|22|17|0|201|135424|0|0||0|Battle Slayer|||2
+286977|3|23|18|0|208|135312|2|0||0|Sword of the Fallen||s6,i9|2
+5194|3|23|18|0|201|135424|1|0||0|Taskmaster Axe||t8,p8|1
+3199|2|22|17|0|201|135424|1|0||0|Battle Slayer|||2
 4817|2|22|17|0|208|135311|1|0||0|Blessed Claymore||t7|2
 3452|2|22|0|0|210|135144|1|0||0|Ceranium Rod||t7|1
-12989|3|22|20|0|206|135128|0|0||0|Gargoyle's Bite||s10|2
-5200|2|22|20|0|206|135130|0|0||0|Impaling Harpoon||a7|1
-1484|3|22|17|0|210|135466|0|0||0|Witching Stave||i8|2
-3194|3|21|16|0|205|133476|0|0||0|Black Malice|||2
+12989|3|22|20|0|206|135128|1|0||0|Gargoyle's Bite||s10|2
+5200|2|22|20|0|206|135130|1|0||0|Impaling Harpoon||a7|1
+1484|3|22|17|0|210|135466|1|0||0|Witching Stave||i8|2
+3194|3|21|16|0|205|133476|1|0||0|Black Malice|||2
 16894|2|21|0|0|210|135469|1|0||0|Clear Crystal Rod||t4,i5|1
-1218|2|21|16|0|205|133489|0|0||0|Heavy Gnoll War Club||s10|2
-3193|2|21|16|0|205|133052|0|0||0|Oak Mallet|||2
-1406|2|21|20|0|206|135129|0|0||0|Pearl-encrusted Spear||a6,t3|2
-12983|3|21|16|0|205|133046|0|0||0|Rakzur Club||s4,t8,p5|2
-872|2|21|16|0|201|135419|0|0||0|Rockslicer||s7|1
-3571|2|21|16|0|205|133052|0|0||0|Trogg Beater||t7|2
+271217|3|21|16|0|201|0|2|0||0|Corpse Chopper|||1
+1218|2|21|16|0|205|133489|1|0||0|Heavy Gnoll War Club||s10|2
+3193|2|21|16|0|205|133052|1|0||0|Oak Mallet|||2
+1406|2|21|20|0|206|135129|1|0||0|Pearl-encrusted Spear||a6,t3|2
+12983|3|21|16|0|205|133046|1|0||0|Rakzur Club||s4,t8,p5|2
+872|2|21|16|0|201|135419|1|0||0|Rockslicer||s7|1
+3571|2|21|16|0|205|133052|1|0||0|Trogg Beater||t7|2
 19970|3|20|0|0|220|132931|1|0||1|Arcanite Fishing Pole|Requires Fishing (300)||1
-5423|3|20|15|0|201|132408|0|0||0|Boahn's Fang||s9,p4|2
-4437|2|20|15|0|210|135151|0|0||0|Channeler's Staff||i6|2
+5423|3|20|15|0|201|132408|1|0||0|Boahn's Fang||s9,p4|2
+4437|2|20|15|0|210|135151|1|0||0|Channeler's Staff||i6|2
 2907|2|20|0|0|201|135419|1|0||0|Dwarven Tree Chopper|||1
-15248|2|20|15|0|208|135324|0|0||0|Gleaming Claymore|||2
-1300|2|20|15|0|210|135469|0|0||0|Lesser Staff of the Spire||i6|2
-1220|2|20|15|0|201|132405|0|0||0|Lupine Axe||a6|2
+15248|2|20|15|0|208|135324|1|0||0|Gleaming Claymore|||2
+1300|2|20|15|0|210|135469|1|0||0|Lesser Staff of the Spire||i6|2
+1220|2|20|15|0|201|132405|1|0||0|Lupine Axe||a6|2
 1893|2|20|0|0|201|134709|1|0||0|Miner's Revenge||p6|1
-12975|3|20|15|0|201|132394|0|0||0|Prospector Axe||s7,t8|2
-1460|2|20|15|0|208|135356|0|0||0|Shadowhide Two-handed Sword||s4,t4|2
-5182|2|20|15|0|208|135327|0|0||0|Shiver Blade|||2
+12975|3|20|15|0|201|132394|1|0||0|Prospector Axe||s7,t8|2
+271203|3|20|15|0|210|135146|2|0||0|Segmented Spider Leg||a9,p5|1
+1460|2|20|15|0|208|135356|1|0||0|Shadowhide Two-handed Sword||s4,t4|2
+5182|2|20|15|0|208|135327|1|0||0|Shiver Blade|||2
 5626|2|20|0|0|201|132417|1|0||0|Skullchipper||s6,t1|1
 5306|2|20|0|0|210|135225|1|0||0|Wind Rider Staff||p6|1
 5615|2|20|0|0|208|135352|1|0||0|Woodsman Sword||a2,t5|1
 5318|2|20|0|0|201|135572|1|0||0|Zhovur Axe||t6|1
-2203|2|19|14|0|201|132417|0|0||0|Brashclaw's Chopper||s6|2
-1387|2|19|14|0|208|135277|0|0||0|Ghoulfang|||2
-1539|2|19|14|0|210|135154|0|0||0|Gnarled Hermit's Staff||p6|2
+2203|2|19|14|0|201|132417|1|0||0|Brashclaw's Chopper||s6|2
+1387|2|19|14|0|208|135277|1|0||0|Ghoulfang|||2
+1539|2|19|14|0|210|135154|1|0||0|Gnarled Hermit's Staff||p6|2
 3487|2|19|14|0|208|135312|1|0||0|Heavy Copper Broadsword||t6|2
 4778|2|19|14|0|205|133476|1|0||0|Heavy Spiked Mace||s6|2
-4575|2|19|14|0|210|135168|0|0||0|Medicine Staff|||2
-2823|2|19|14|0|201|132397|0|0||0|Mo'grosh Can Opener||s6|2
-1473|2|19|14|0|210|135145|0|0||0|Riverside Staff||p6|2
+4575|2|19|14|0|210|135168|1|0||0|Medicine Staff|||2
+2823|2|19|14|0|201|132397|1|0||0|Mo'grosh Can Opener||s6|2
+1473|2|19|14|0|210|135145|1|0||0|Riverside Staff||p6|2
 11854|2|19|0|0|208|135356|1|0||0|Samophlange Screwdriver||p6|1
-15424|2|18|0|0|201|132395|0|0||0|Axe of Orgrimmar||s3,t3|1
-3195|2|18|13|0|201|132401|0|0||0|Barbaric Battle Axe|||2
-3196|2|18|13|0|208|135324|0|0||0|Edged Bastard Sword|||2
+15424|2|18|0|0|201|132395|1|0||0|Axe of Orgrimmar||s3,t3|1
+3195|2|18|13|0|201|132401|1|0||0|Barbaric Battle Axe|||2
+3196|2|18|13|0|208|135324|1|0||0|Edged Bastard Sword|||2
+270228|3|18|13|0|210|135155|2|0||0|Golemheart Stave|||1
+279895|3|18|1|0|205|133058|2|0||0|Ironforge Greathammer|||1
 4777|2|18|13|0|205|133053|1|0||0|Ironwood Maul||t5|2
-2822|2|18|13|0|208|135355|0|0||0|Mo'grosh Toothpick||t5|2
-6094|2|18|0|0|201|135419|0|0||0|Piercing Axe||a5|1
-1391|2|18|13|0|210|135473|0|0||0|Riverpaw Mystic Staff||i2,p4|2
-3902|2|18|13|0|210|135466|0|0||0|Staff of Nobles||t2,p4|2
-15444|2|18|0|0|210|135225|0|0||0|Staff of Orgrimmar||i4,p2|1
+2822|2|18|13|0|208|135355|1|0||0|Mo'grosh Toothpick||t5|2
+6094|2|18|0|0|201|135419|1|0||0|Piercing Axe||a5|1
+1391|2|18|13|0|210|135473|1|0||0|Riverpaw Mystic Staff||i2,p4|2
+3902|2|18|13|0|210|135466|1|0||0|Staff of Nobles||t2,p4|2
+15444|2|18|0|0|210|135225|1|0||0|Staff of Orgrimmar||i4,p2|1
 6186|2|18|0|0|208|135356|1|0||0|Trogg Slicer||p5|1
 269717|2|18|0|0|208|135350|2|0||0|Wildgore Greatsword||s5|1
-2204|2|17|12|0|208|135321|0|0||0|Brashclaw's Skewer||t5|2
-1959|2|17|12|0|201|134707|0|0||0|Cold Iron Pick||t2,p4|2
+2204|2|17|12|0|208|135321|1|0||0|Brashclaw's Skewer||t5|2
+1959|2|17|12|0|201|134707|1|0||0|Cold Iron Pick||t2,p4|2
 1566|2|17|0|0|208|135326|1|0||0|Edge of the People's Militia||t5|1
-1405|2|17|12|0|210|135143|0|0||0|Foamspittle Staff||p5|2
+1405|2|17|12|0|210|135143|1|0||0|Foamspittle Staff||p5|2
 281253|2|17|0|0|201|0|2|0||0|Mountaineer's Greataxe||s3,t4|1
-1928|2|16|11|0|210|135155|0|0||0|Defias Mage Staff||i4|2
+1928|2|16|11|0|210|135155|1|0||0|Defias Mage Staff||i4|2
+284173|2|16|11|0|210|135145|2|0||0|Impcaster's Staff||p4|2
 3586|2|16|0|0|201|132402|1|0||0|Logsplitter||s3,t2|1
-4567|2|16|11|0|208|135274|0|0||0|Merc Sword|||2
-15268|2|16|11|0|201|132400|0|0||0|Twin-bladed Axe|||2
-4570|2|15|10|0|205|133052|0|0||0|Birchwood Maul|||2
-6205|2|15|10|0|205|134435|0|0||0|Burrowing Shovel||a4|2
+4567|2|16|11|0|208|135274|1|0||0|Merc Sword|||2
+15268|2|16|11|0|201|132400|1|0||0|Twin-bladed Axe|||2
+4570|2|15|10|0|205|133052|1|0||0|Birchwood Maul|||2
+6205|2|15|10|0|205|134435|1|0||0|Burrowing Shovel||a4|2
 5340|2|15|0|0|210|135145|1|0||0|Cauldron Stirrer||t4|1
-3188|2|15|10|0|208|135348|0|0||0|Coral Claymore||t4|2
+3188|2|15|10|0|208|135348|1|0||0|Coral Claymore||t4|2
+263935|2|15|10|0|210|135145|2|0||0|Elunar Longstaff||a3,s3|2
 263407|2|15|0|0|208|7789738|2|0||0|Empyrean Greatsword||s4|1
-1933|2|15|10|0|210|135150|0|0||0|Staff of Conjuring|||2
+263937|2|15|10|0|210|7798447|2|0||0|Skyseeker's Greatstaff||i3,p3|2
+1933|2|15|10|0|210|135150|1|0||0|Staff of Conjuring|||2
 15397|2|14|0|0|210|135145|1|0||0|Oakthrush Staff||t2,i2|1
 5345|2|14|0|0|205|133052|1|0||0|Stonewood Hammer||t3|1
+286754|2|14|9|0|210|0|2|0||0|Ukta's Conduit||t3|2
 6215|2|13|0|0|210|135145|1|0||0|Balanced Fighting Stick||a2,t2|1
 257343|2|13|0|0|210|7798447|2|0||0|Balanced Quarterstaff||t2,p2|1
+284286|2|13|8|0|201|132395|2|0||0|Battleguard Captain's Sticker||s3|1
 3440|2|13|0|0|205|133479|1|0||0|Bonecracker||s3|1
 3488|2|13|8|0|201|135420|1|0||0|Copper Battle Axe||t3|2
 3446|2|13|0|0|210|135153|1|0||0|Darkwood Staff||t3|1
 246165|2|13|0|0|205|133052|2|0||0|Driftwood Smasher||t2|1
+284287|2|13|8|0|210|135147|2|0||0|Felweaver's Staff||i3|1
+284166|2|13|8|0|210|135145|2|0||0|Gnarlpine War Staff||s3|2
 257345|2|13|0|0|205|7792097|2|0||0|Honed Greathammer||s2,p2|1
-4564|2|13|8|0|205|133489|0|0||0|Spiked Club|||2
-4566|2|13|8|0|210|135145|0|0||0|Sturdy Quarterstaff|||2
+286742|2|13|0|0|201|0|2|0||0|Riptear's Cleaver||s3|1
+4564|2|13|8|0|205|133489|1|0||0|Spiked Club|||2
+4566|2|13|8|0|210|135145|1|0||0|Sturdy Quarterstaff|||2
 248008|2|12|0|0|210|135155|2|0||0|Apprentice's Spellstaff||i2|1
 3103|2|12|0|0|205|133052|1|0||0|Coldridge Hammer||s1,p1|1
 4964|2|12|0|0|205|133052|1|0|H|0|Goblin Smasher||s2|1
-2254|2|12|7|0|205|133041|0|0||0|Icepane Warhammer||s2|2
+2254|2|12|7|0|205|133041|1|0||0|Icepane Warhammer||s2|2
 248005|2|12|0|0|205|133053|2|0||0|Northshire Hammer||s2|1
-3192|2|12|7|0|208|135350|0|0||0|Short Bastard Sword|||2
+3192|2|12|7|0|208|135350|1|0||0|Short Bastard Sword|||2
 281274|2|11|0|0|210|0|2|0||0|Makeshift Stormcaller||i2|1
 4939|2|11|0|0|208|135344|1|0||0|Steady Bastard Sword||a2|1
 9514|2|10|0|128|210|135147|1|0||0|Arcane Staff||i1,p1|1
 9603|2|10|0|0|210|135159|1|0||0|Gritroot Staff||t1|1
 9513|2|10|0|128|210|135158|1|0||0|Ley Staff||i1,p1|1
 263312|2|10|0|0|205|134435|2|0||0|Planting Shovel||s1|1
-4562|2|10|5|0|201|135420|0|0||0|Severing Axe|||2
-8178|2|10|5|0|208|135355|0|0||0|Training Sword|||2
+4562|2|10|5|0|201|135420|1|0||0|Severing Axe|||2
+8178|2|10|5|0|208|135355|1|0||0|Training Sword|||2
 263434|2|10|0|0|210|7798447|2|0||0|Winged Beast Staff||a1|1
+286749|2|10|5|0|210|0|2|0||0|Wrathroot||i1|2
 251960|2|10|5|0|201|5502806|2|0||0|Yngwe's Axe||a1,A1|2
 287648|3|1|1|0|208|8422168|2|0||0|Gilded Blademaster's Greatsword|||1
 ]==],
@@ -8870,11 +9801,11 @@ FGT.GEARDB = {
 280729|1|1|1|0|405|8101155|2|0||0|Shen'dorei Tabard|||1
 277717|3|1|0|0|400|7941423|2|0||1|Spectral Bear Tabard|||1
 285352|4|1|1|0|405|8119728|2|0||0|Tabard of Eternal Exploration|||1
-23705|4|1|0|0|400|134473|0|0||1|Tabard of Flame|||1
-23709|1|1|0|0|400|135026|0|0||1|Tabard of Frost|||1
+23705|4|1|0|0|400|134473|1|0||1|Tabard of Flame|||1
+23709|1|1|0|0|400|135026|1|0||1|Tabard of Frost|||1
 191481|4|1|0|0|400|135017|1|0||0|Tabard of Mastery|||1
-23192|1|1|0|0|400|133770|0|0||1|Tabard of the Scarlet Crusade|||1
-23710|1|1|0|0|400|135026|0|0||1|Upperdeck Tabard #3|||1
+23192|1|1|0|0|400|133770|1|0||1|Tabard of the Scarlet Crusade|||1
+23710|1|1|0|0|400|135026|1|0||1|Upperdeck Tabard #3|||1
 ]==],
         [20] = [==[
 22496|4|92|60|0|401|132684|1|526||0|Frostfire Robe||t21,i27,S47,H47,h1,c1|1
@@ -8916,11 +9847,11 @@ FGT.GEARDB = {
 16815|4|66|60|16|401|132644|0|202||0|Robes of Prophecy||t20,i27,p17,H22|1
 21499|4|66|60|0|401|132658|0|0||0|Vestments of the Shifting Sands||t20,i14,p8,S32,H32,c1|1
 280883|4|65|60|256|401|Interface\Icons\inv_chest_cloth_raidwarlockhyjalc60_d_01|3|100013||0|Demonheart Robes|||1
-14336|2|65|60|0|401|132670|0|0||0|Eternal Wraps|||2
+14336|2|65|60|0|401|132670|1|0||0|Eternal Wraps|||2
 20032|4|65|60|0|401|132666|0|0||1|Flowing Ritual Robes||t15,i23,p24,S22,H22|1
 280919|4|65|60|16|401|Interface\Icons\inv_robe_cloth_raidpriesthyjalc60_d_01|3|100008||0|Garb of Conviction|||1
 280450|4|65|60|128|401|Interface\Icons\inv_chest_cloth_raidmagehyjalc60_d_01|3|100012||0|Manaflare Robes|||1
-10254|2|65|60|0|401|132670|0|0||0|Master's Robe|||2
+10254|2|65|60|0|401|132670|1|0||0|Master's Robe|||2
 272805|4|65|60|256|401|132650|2|392|A|0|Premier Field Marshal's Dreadweave Robe||t34,i12,S23,H23|1
 273424|4|65|60|16|401|132643|2|2074|A|0|Premier Field Marshal's Mooncloth Vestments||t34,i14,p9,S13,H40|1
 272752|4|65|60|128|401|132653|2|388|A|0|Premier Field Marshal's Silk Vestments||t34,i12,S18,H18,c1|1
@@ -8933,37 +9864,38 @@ FGT.GEARDB = {
 279266|4|65|60|0|401|132658|2|0||0|Robes of Fiery Devastation||t27,i24|2
 20033|4|65|0|256|401|132653|1|481||0|Zandalar Demoniac's Robe||t35,S27,H27,h1|1
 20034|4|65|0|128|401|132653|1|482||0|Zandalar Illusionist's Robe||t23,i24,S27,H27,h1|1
-14464|2|64|59|0|401|132680|0|0||0|Elunarian Silk Robes||s5,t12,p21|2
+14464|2|64|59|0|401|132680|1|0||0|Elunarian Silk Robes||s5,t12,p21|2
 10143|2|64|59|0|401|132653|1|0||0|High Councillor's Robe|||2
-16690|3|63|58|0|401|132652|0|182||0|Devout Robe||t13,i24,p15|1
-16700|3|63|58|0|401|132690|0|183||0|Dreadmist Robe||t20,i21,p13|1
-22301|3|63|58|400|401|132689|0|520||0|Ironweave Robe||t24,i15|1
+16690|3|63|58|0|401|132652|1|182||0|Devout Robe||t13,i24,p15|1
+16700|3|63|58|0|401|132690|1|183||0|Dreadmist Robe||t20,i21,p13|1
+22301|3|63|58|400|401|132689|1|520||0|Ironweave Robe||t24,i15|1
 17568|3|63|58|256|401|132666|1|346|A|1|Knight-Captain's Dreadweave Robe|Requires PvP rank 8|t20,i20,S16,H16|1
 17600|3|63|58|16|401|132652|1|344|A|1|Knight-Captain's Satin Robes|Requires PvP rank 8|t20,i20,S16,H16|1
 16413|3|63|58|128|401|132670|1|343|A|1|Knight-Captain's Silk Raiment|Requires PvP rank 8|t20,i20,c1|1
 17572|3|63|58|256|401|132716|1|345|H|1|Legionnaire's Dreadweave Robe|Requires PvP rank 8|t20,i20,S16,H16|1
 17612|3|63|58|16|401|132716|1|342|H|1|Legionnaire's Satin Vestments|Requires PvP rank 8|t20,i20,S16,H16|1
 16491|3|63|58|128|401|132669|1|341|H|1|Legionnaire's Silk Robes|Requires PvP rank 8|t20,i20,c1|1
-16688|3|63|58|0|401|132666|0|181||0|Magister's Robes||t9,i31,p8|1
-14326|2|63|58|0|401|132666|0|0||0|Resplendent Robes|||2
+16688|3|63|58|0|401|132666|1|181||0|Magister's Robes||t9,i31,p8|1
+14326|2|63|58|0|401|132666|1|0||0|Resplendent Robes|||2
 23085|3|63|58|0|401|132645|0|536||0|Robe of Undead Cleansing||t12,i13|1
-13346|3|63|58|0|401|132649|0|0||0|Robes of the Exalted||i5,p11,H68|1
+13346|3|63|58|0|401|132649|1|0||0|Robes of the Exalted||i5,p11,H68|1
 13080|3|63|58|0|401|132643|1|0||0|Widow's Clutch||t10,i24,p15|1
-13314|4|62|57|0|401|132653|0|0||0|Alanna's Embrace||t20,i20,p20,S20,H20|1
-10215|2|62|57|0|401|132671|0|0||0|Elegant Robes|||2
-14340|3|62|57|0|401|132687|0|0||0|Freezing Lich Robes||t15|1
-18532|3|62|57|0|401|132670|0|0||0|Mindsurge Robe||t12,i13|1
-18385|3|62|57|0|401|132692|0|0||0|Robe of Everlasting Night||t11,i13,p5,S27,H27|1
+13314|4|62|57|0|401|132653|1|0||0|Alanna's Embrace||t20,i20,p20,S20,H20|1
+10215|2|62|57|0|401|132671|1|0||0|Elegant Robes|||2
+14340|3|62|57|0|401|132687|1|0||0|Freezing Lich Robes||t15|1
+18532|3|62|57|0|401|132670|1|0||0|Mindsurge Robe||t12,i13|1
+18385|3|62|57|0|401|132692|1|0||0|Robe of Everlasting Night||t11,i13,p5,S27,H27|1
 14152|4|62|57|31360|401|132679|1|0||0|Robe of the Archmage||i12,S40,H40,c1|1
 14153|4|62|57|31488|401|132692|1|0||0|Robe of the Void||t14,S46,H46|1
 14154|4|62|57|31248|401|132672|1|0||0|Truefaith Vestments||t14,H73|1
-8290|2|61|56|0|401|132670|0|0||0|Arcane Robe||t7,p23|2
-14317|2|61|56|0|401|132669|0|0||0|Celestial Silk Robes|||2
+8290|2|61|56|0|401|132670|1|0||0|Arcane Robe||t7,p23|2
+14317|2|61|56|0|401|132669|1|0||0|Celestial Silk Robes|||2
 14106|2|61|56|0|401|132650|1|0||0|Felcloth Robe||t7|2
 18486|3|61|56|0|401|132645|1|0||0|Mooncloth Robe||t12,i25,p12|2
-14626|3|61|56|0|401|132684|0|122||0|Necropile Robe||t22,i12,p12,S8,H8|1
-14303|2|60|55|0|401|132679|0|0||0|Bonecaster's Shroud|||2
-13535|2|60|55|0|401|132688|0|0||0|Coldtouch Phantom Wraps|||1
+14626|3|61|56|0|401|132684|1|122||0|Necropile Robe||t22,i12,p12,S8,H8|1
+14303|2|60|55|0|401|132679|1|0||0|Bonecaster's Shroud|||2
+13535|2|60|55|0|401|132688|1|0||0|Coldtouch Phantom Wraps|||1
+226928|4|60|0|256|401|132690|1|1681||0|Deathmist Chest||t27,i22,S12,H12,c1|1
 22075|4|60|0|0|401|132690|1|518||0|Deathmist Robe||t27,i22,S12,H12,c1|1
 272800|3|60|55|256|401|132666|2|346||0|Premier Dreadweave Robe||t25,i9,S18,H18|1
 272548|3|60|55|256|401|132716|2|345||0|Premier Felweave Robe||t25,i9,S18,H18|1
@@ -8973,143 +9905,153 @@ FGT.GEARDB = {
 272722|3|60|55|128|401|132670|2|343||0|Premier Silk Raiment||t25,i10,S14,H14|1
 272634|3|60|55|16|401|132716|2|2072||0|Premier Silken Tunic||t25,i10,p6,S9,H26|1
 272816|3|60|55|16|401|132652|2|344||0|Premier Voidcloth Robes||t26,i11,S14,H14|1
-18450|2|60|55|0|401|132665|0|0||0|Robe of Combustion||i17|1
-11924|3|60|55|0|401|132657|0|0||0|Robes of the Royal Crown||t19,i12,p10,S18,H18|1
+18450|2|60|55|0|401|132665|1|0||0|Robe of Combustion||i17|1
+11924|3|60|55|0|401|132657|1|0||0|Robes of the Royal Crown||t19,i12,p10,S18,H18|1
+226944|4|60|0|128|401|132666|1|1671||0|Sorcerer's Chest||t14,i25,p9,S16,H16|1
 22069|4|60|0|0|401|132666|1|517||0|Sorcerer's Robes||t14,i25,p9,S16,H16|1
 20407|2|60|60|0|401|132658|1|492||0|Twilight Cultist Robe|||0
+226968|4|60|0|16|401|132652|1|1675||0|Virtuous Chest||t21,i22,p12,S14,H14|1
 22083|4|60|0|0|401|132652|1|514||0|Virtuous Robe||t21,i22,p12,S14,H14|1
 14128|2|60|55|0|401|132687|1|0||0|Wizardweave Robe|||2
-15824|2|59|0|0|401|132648|0|0||0|Astoria Robes||s5,i20,p10|1
-10102|2|59|54|0|401|132680|0|0||0|Councillor's Robes|||2
-14453|2|59|54|0|401|132677|0|0||0|Highborne Robes||i19,p15|2
-10178|2|58|53|0|401|132658|0|0||0|Mystical Robe|||2
-14297|2|57|52|0|401|132676|0|0||0|Arachnidian Robes|||2
+15824|2|59|0|0|401|132648|1|0||0|Astoria Robes||s5,i20,p10|1
+10102|2|59|54|0|401|132680|1|0||0|Councillor's Robes|||2
+14453|2|59|54|0|401|132677|1|0||0|Highborne Robes||i19,p15|2
+276394|3|59|54|0|401|132688|2|0||0|Luxurious Smoking Jacket||i18,S17,H17|1
+280057|3|59|54|0|401|0|2|0||0|Robes of Dark Summons||t14,S21,H21,h2|1
+10178|2|58|53|0|401|132658|1|0||0|Mystical Robe|||2
+14297|2|57|52|0|401|132676|1|0||0|Arachnidian Robes|||2
 14136|3|57|52|0|401|132690|1|0||0|Robe of Winter Night||i12|2
-8252|2|56|51|0|401|132666|0|0||0|Imperial Red Robe||t6,p21|2
-14284|2|56|51|0|401|132687|0|0||0|Opulent Robes|||2
-10065|2|55|50|0|401|132687|0|0||0|Duskwoven Robe|||2
-12462|4|55|50|0|401|132683|0|0||0|Embrace of the Wind Serpent||t9,i17,p30|1
+8252|2|56|51|0|401|132666|1|0||0|Imperial Red Robe||t6,p21|2
+14284|2|56|51|0|401|132687|1|0||0|Opulent Robes|||2
+276745|3|55|50|0|401|132661|2|0||0|Beastbond Robe||i16,p16|1
+10065|2|55|50|0|401|132687|1|0||0|Duskwoven Robe|||2
+12462|4|55|50|0|401|132683|1|0||0|Embrace of the Wind Serpent||t9,i17,p30|1
 9649|2|55|0|0|401|132658|1|0||0|Royal Highmark Vestments||t3,i3,p16|1
 14100|2|54|49|0|401|132667|1|0||0|Brightcloth Robe|||2
-14445|2|54|49|0|401|132642|0|0||0|Venomshroud Silk Robes||t20,p11|2
-9943|2|53|48|0|401|132664|0|0||0|Abjurer's Robe|||2
-11747|3|53|48|0|402|132648|0|0||0|Flamestrider Robes||t5,i6,p16,S20,H20|1
-17050|3|52|47|0|401|132645|0|0||0|Chan's Imperial Robes||t20,i10,p10|2
-14275|2|52|47|0|401|132670|0|0||0|Gaea's Raiment|||2
-20530|3|52|0|0|401|132651|0|0||0|Robes of Servitude||t15,i10|1
+14445|2|54|49|0|401|132642|1|0||0|Venomshroud Silk Robes||t20,p11|2
+9943|2|53|48|0|401|132664|1|0||0|Abjurer's Robe|||2
+11747|3|53|48|0|402|132648|1|0||0|Flamestrider Robes||t5,i6,p16,S20,H20|1
+282633|3|53|48|0|401|0|2|0||0|Mastrogonde's Sinister Gown||t12,i12,p17|1
+17050|3|52|47|0|401|132645|1|0||0|Chan's Imperial Robes||t20,i10,p10|2
+14275|2|52|47|0|401|132670|1|0||0|Gaea's Raiment|||2
+20530|3|52|0|0|401|132651|1|0||0|Robes of Servitude||t15,i10|1
 13858|2|52|47|0|401|132645|1|0||0|Runecloth Robe||i17,p11|2
-14265|2|51|46|0|401|132643|0|0||0|Bloodwoven Wraps|||2
+14265|2|51|46|0|401|132643|1|0||0|Bloodwoven Wraps|||2
 13868|2|51|46|0|401|132644|1|0||0|Frostweave Robe||p11|2
-12542|3|51|46|0|401|132681|0|0||0|Funeral Pyre Vestment||t13,i13,p13|2
-8113|2|51|46|0|401|132642|0|0||0|Hibernal Robe||t4,i20|2
-17741|3|51|46|0|401|132656|0|0||0|Nature's Embrace|||1
-7518|2|50|45|0|401|132645|0|0||0|Gossamer Robe|||2
+12542|3|51|46|0|401|132681|1|0||0|Funeral Pyre Vestment||t13,i13,p13|2
+8113|2|51|46|0|401|132642|1|0||0|Hibernal Robe||t4,i20|2
+17741|3|51|46|0|401|132656|1|0||0|Nature's Embrace|||1
+7518|2|50|45|0|401|132645|1|0||0|Gossamer Robe|||2
 4989|2|50|0|0|401|132670|1|0||0|Mage Dragon Robe||s7,p18|1
 19129|2|49|0|0|401|132657|1|0||0|Everglowing Robe||i11,p11,S13,H13|1
-14434|2|49|44|0|401|132670|0|0||0|Windchaser Robes||t10,p17|2
-9913|2|48|43|0|401|132644|0|0||0|Royal Gown|||2
-17775|2|47|0|0|401|132690|0|0||0|Acumen Robes||i20|1
-14254|2|47|42|0|401|132678|0|0||0|Lunar Raiment|||2
-940|4|47|42|0|401|132667|0|0||0|Robes of Insight||i25,p15|2
-14244|2|46|41|0|401|132677|0|0||0|Darkmist Wraps|||2
-6427|2|46|41|0|401|132644|0|0||0|Mistscape Robe||t3,p18|2
+14434|2|49|44|0|401|132670|1|0||0|Windchaser Robes||t10,p17|2
+9913|2|48|43|0|401|132644|1|0||0|Royal Gown|||2
+17775|2|47|0|0|401|132690|1|0||0|Acumen Robes||i20|1
+14254|2|47|42|0|401|132678|1|0||0|Lunar Raiment|||2
+940|4|47|42|0|401|132667|1|0||0|Robes of Insight||i25,p15|2
+14244|2|46|41|0|401|132677|1|0||0|Darkmist Wraps|||2
+6427|2|46|41|0|401|132644|1|0||0|Mistscape Robe||t3,p18|2
+281666|2|46|41|0|401|132658|2|0||0|Robes of the Blind Cultist||p11,S16|2
 10042|2|45|40|0|401|132666|1|0||0|Cindercloth Robe|||2
-7468|2|45|40|0|401|132677|0|0||0|Regal Robe|||2
-10762|3|44|39|0|401|132658|0|0||0|Robes of the Lich||t20,i10|1
-14425|2|44|39|0|401|132650|0|0||0|Silksand Wraps||i16,p5|2
+7468|2|45|40|0|401|132677|1|0||0|Regal Robe|||2
+10762|3|44|39|0|401|132658|1|0||0|Robes of the Lich||t20,i10|1
+14425|2|44|39|0|401|132650|1|0||0|Silksand Wraps||i16,p5|2
 8200|2|43|38|0|402|132666|1|0||0|Big Voodoo Robe||i14,p9|2
 10004|2|43|38|0|401|132679|1|0||0|Shadoweave Robe||p7|2
-9884|2|43|38|0|401|132664|0|0||0|Sorcerer Robe|||2
+9884|2|43|38|0|401|132664|1|0||0|Sorcerer Robe|||2
 10001|2|42|37|0|401|132654|1|0||0|Black Mageweave Robe||i8,p14|2
-14234|2|42|37|0|401|132666|0|0||0|Embersilk Robes|||2
-6415|2|41|36|0|401|132673|0|0||0|Aurora Robe||t4,p15|2
+14234|2|42|37|0|401|132666|1|0||0|Embersilk Robes|||2
+6415|2|41|36|0|401|132673|1|0||0|Aurora Robe||t4,p15|2
 7063|2|41|36|0|401|132666|1|0||0|Crimson Silk Robe||i15,p6|2
-14225|2|41|36|0|401|132681|0|0||0|Geomancer's Wraps|||2
+14225|2|41|36|0|401|132681|1|0||0|Geomancer's Wraps|||2
 6801|2|40|0|0|401|132680|1|0||0|Baroque Apron||s6,t6,p7|1
 274941|2|40|0|0|401|132665|2|0||0|Bristle Hills Mystic Robe||i11,S12,H12|1
-4746|2|40|0|0|401|132660|0|0||0|Doomsayer's Robe||p20|1
+4746|2|40|0|0|401|132660|1|0||0|Doomsayer's Robe||p20|1
 274946|2|40|0|0|401|132665|2|0||0|Gnollblood Robe||p11,S11,H11|1
 2231|2|40|0|0|401|132666|1|0||0|Inferno Robe|||1
 4120|2|40|0|0|401|132660|1|0||0|Robe of Crystal Waters||t8,i10,p9|1
-1716|3|40|35|0|401|132658|0|0||0|Robe of the Magi||i6,p5,S22,H22|2
-7430|2|40|35|0|401|132666|0|0||0|Twilight Robe|||2
-14413|2|39|34|0|401|132646|0|0||0|Stonecloth Robe||s2,t2,p15|2
-9852|2|38|33|0|401|132663|0|0||0|Conjurer's Robe|||2
+1716|3|40|35|0|401|132658|1|0||0|Robe of the Magi||i6,p5,S22,H22|2
+7430|2|40|35|0|401|132666|1|0||0|Twilight Robe|||2
+14413|2|39|34|0|401|132646|1|0||0|Stonecloth Robe||s2,t2,p15|2
+9852|2|38|33|0|401|132663|1|0||0|Conjurer's Robe|||2
 6900|3|38|0|256|401|132666|1|0||0|Enchanted Gold Bloodrobe||t10,i17|1
-7711|2|38|33|0|401|132666|0|0||0|Robe of Doan||t4,p13|1
+7711|2|38|33|0|401|132666|1|0||0|Robe of Doan||t4,p13|1
 7054|3|38|33|0|401|132643|1|0||0|Robe of Power||i12,p8,S14,H14|1
-9623|3|37|0|0|401|132659|0|0||0|Civinad Robes||t7,p18|1
+9623|3|37|0|0|401|132659|1|0||0|Civinad Robes||t7,p18|1
 15455|2|37|0|0|401|132673|1|0||0|Dustfall Robes||t8,i11|1
-4038|2|37|32|0|401|132669|0|0||0|Nightsky Robe||t8,i8,p8|2
-14213|2|37|32|0|401|132647|0|0||0|Vital Raiment|||2
-14204|2|36|31|0|401|132661|0|0||0|Thistlefur Robe|||2
-17043|2|36|0|0|401|132647|0|0||0|Zealot's Robe||t12,i4,p3|1
-7369|2|35|30|0|401|132658|0|0||0|Elder's Robe|||2
-4476|2|34|29|0|401|132680|0|0||0|Beastwalker Robe||a3,t6,p6|2
-7728|3|34|29|0|401|132666|0|0||0|Beguiler Robes||t7,i12,p8|2
-9826|2|34|29|0|401|132661|0|0||0|Durable Robe|||2
-1997|2|34|29|0|401|132663|0|0||0|Pressed Felt Robe||i3,p12|2
-14405|2|33|28|0|401|132681|0|0||0|Resilient Robe||a4,i11|2
-6610|2|32|27|0|401|132660|0|0||0|Sage's Robe|||2
+4038|2|37|32|0|401|132669|1|0||0|Nightsky Robe||t8,i8,p8|2
+14213|2|37|32|0|401|132647|1|0||0|Vital Raiment|||2
+14204|2|36|31|0|401|132661|1|0||0|Thistlefur Robe|||2
+17043|2|36|0|0|401|132647|1|0||0|Zealot's Robe||t12,i4,p3|1
+7369|2|35|30|0|401|132658|1|0||0|Elder's Robe|||2
+4476|2|34|29|0|401|132680|1|0||0|Beastwalker Robe||a3,t6,p6|2
+7728|3|34|29|0|401|132666|1|0||0|Beguiler Robes||t7,i12,p8|2
+9826|2|34|29|0|401|132661|1|0||0|Durable Robe|||2
+1997|2|34|29|0|401|132663|1|0||0|Pressed Felt Robe||i3,p12|2
+14405|2|33|28|0|401|132681|1|0||0|Resilient Robe||a4,i11|2
+6610|2|32|27|0|401|132660|1|0||0|Sage's Robe|||2
+273044|3|32|27|0|401|0|2|2134||0|Violet Sorcerer's Robes||i15,S9,H9|1
 7511|2|31|0|128|401|132645|1|0||0|Astral Knot Robe||t6,i6,p6|1
-6682|2|31|26|0|401|132661|0|0||0|Death Speaker Robes||t3,i8,p6|1
-9508|3|31|26|0|401|135018|0|0||0|Mechbuilder's Overalls|Requires Engineering (75)|t5,i15|2
+6682|2|31|26|0|401|132661|1|0||0|Death Speaker Robes||t3,i8,p6|1
+9508|3|31|26|0|401|135018|1|0||0|Mechbuilder's Overalls|Requires Engineering (75)|t5,i15|2
 7512|2|31|0|128|401|132661|1|0||0|Nether-lace Robe||t6,i6,p6|1
-14192|2|31|26|0|401|132660|0|0||0|Raincaller Robes|||2
-1297|2|31|26|0|401|132658|0|0||0|Robes of the Shadowcaster||i1,p11|2
-4035|2|31|26|0|401|132673|0|0||0|Silver-thread Robe||i11,p4|2
+14192|2|31|26|0|401|132660|1|0||0|Raincaller Robes|||2
+1297|2|31|26|0|401|132658|1|0||0|Robes of the Shadowcaster||i1,p11|2
+4035|2|31|26|0|401|132673|1|0||0|Silver-thread Robe||i11,p4|2
 5770|2|30|25|0|401|132670|1|0||0|Robes of Arcana||i8,p7|2
-14184|2|30|25|0|401|132663|0|0||0|Watcher's Robes|||2
-9798|2|29|24|0|401|132683|0|0||0|Ivycloth Robe|||2
-6324|3|29|24|0|401|132672|0|0||0|Robes of Arugal||a3,t5,i9,p10|1
+14184|2|30|25|0|401|132663|1|0||0|Watcher's Robes|||2
+9798|2|29|24|0|401|132683|1|0||0|Ivycloth Robe|||2
+6324|3|29|24|0|401|132672|1|0||0|Robes of Arugal||a3,t5,i9,p10|1
 7334|2|28|0|0|401|132651|1|0||0|Efflorescent Robe||t9,i2|1
-14380|2|28|23|0|401|132650|0|0||0|Sanguine Robe||t7,i6|2
-3069|2|27|22|0|401|132667|0|0||0|Bright Robe||i4,p8|2
-9773|2|27|22|0|401|132656|0|0||0|Greenweave Robe|||2
+14380|2|28|23|0|401|132650|1|0||0|Sanguine Robe||t7,i6|2
+3069|2|27|22|0|401|132667|1|0||0|Bright Robe||i4,p8|2
+9773|2|27|22|0|401|132656|1|0||0|Greenweave Robe|||2
 5766|2|27|22|0|401|132658|1|0||0|Lesser Wizard's Robe||i8,p5|2
-2566|2|27|22|0|401|132643|0|0||0|Sacrificial Robes||t3,p8|2
-2800|3|26|21|0|401|132689|0|0||0|Black Velvet Robes||t5,i12|2
-14163|2|26|21|0|401|132661|0|0||0|Pagan Wraps|||2
-3072|2|26|21|0|401|132659|0|0||0|Smoldering Robe||t6,p6|2
-3569|2|26|21|0|401|132683|0|0||0|Vicar's Robe||t4,p7|2
+2566|2|27|22|0|401|132643|1|0||0|Sacrificial Robes||t3,p8|2
+2800|3|26|21|0|401|132689|1|0||0|Black Velvet Robes||t5,i12|2
+14163|2|26|21|0|401|132661|1|0||0|Pagan Wraps|||2
+3072|2|26|21|0|401|132659|1|0||0|Smoldering Robe||t6,p6|2
+3569|2|26|21|0|401|132683|1|0||0|Vicar's Robe||t4,p7|2
 3558|2|25|0|0|401|132655|1|0||0|Fen Keeper Robe||p9|1
-2292|3|25|20|0|401|132677|0|0||0|Necrology Robes||t3,i12|2
+2292|3|25|20|0|401|132677|1|0||0|Necrology Robes||t3,i12|2
 3555|2|25|0|0|401|132681|1|0||0|Robe of Solomon||t7,p3|1
 5812|2|25|0|0|401|132679|1|0||0|Robes of Antiquity||i2,p8|1
-2034|2|25|20|0|401|132645|0|0||0|Scholarly Robes||i2,p8|2
-6569|2|25|20|0|401|132683|0|0||0|Shimmering Robe|||2
+2034|2|25|20|0|401|132645|1|0||0|Scholarly Robes||i2,p8|2
+6569|2|25|20|0|401|132683|1|0||0|Shimmering Robe|||2
 3461|2|24|0|0|401|132659|1|0||0|High Robe of the Adjudicator||i2,p7|1
-14127|2|24|19|0|401|132659|0|0||0|Ritual Shroud|||2
-6226|2|23|18|0|401|132665|0|0||0|Bloody Apron||t8|1
-14172|2|23|18|0|401|132659|0|0||0|Buccaneer's Robes|||2
+14127|2|24|19|0|401|132659|1|0||0|Ritual Shroud|||2
+6226|2|23|18|0|401|132665|1|0||0|Bloody Apron||t8|1
+14172|2|23|18|0|401|132659|1|0||0|Buccaneer's Robes|||2
 6264|2|23|18|0|401|132665|1|0||0|Greater Adept's Robe||t1,i2,p7|2
-14371|2|23|18|0|401|132655|0|0||0|Mystic's Robe||a3,i7|2
+14371|2|23|18|0|401|132655|1|0||0|Mystic's Robe||a3,i7|2
 6503|2|22|0|0|401|132642|1|0||0|Harlequin Robes||i2,p6|1
-6465|2|22|17|0|401|132677|0|0||0|Robe of the Moccasin||s2,t2,p6|1
+6465|2|22|17|0|401|132677|1|0||0|Robe of the Moccasin||s2,t2,p6|1
 2585|2|21|16|0|401|132654|1|0||0|Gray Woolen Robe||t4,i5|2
-2981|2|21|16|0|401|132649|0|0||0|Seer's Robe||i6,p3|2
-14120|2|20|15|0|401|132657|0|0||0|Aboriginal Robe|||2
+2981|2|21|16|0|401|132649|1|0||0|Seer's Robe||i6,p3|2
+14120|2|20|15|0|401|132657|1|0||0|Aboriginal Robe|||2
 6263|2|20|15|0|401|135017|1|0||0|Blue Overalls||s4,t4|2
 253901|3|20|15|0|401|0|2|0||0|Filigreed Pristine Gown||t4,i5,p3,S5,H13|1
 7510|2|20|0|128|401|132659|1|0||0|Lesser Spellfire Robes||i6|1
 7509|2|20|0|128|401|132677|1|0||0|Manaweave Robe||i6|1
-6538|2|19|14|0|401|132656|0|0||0|Willow Robe|||2
-6531|2|18|13|0|401|132655|0|0||0|Barbaric Cloth Robe||t4,i2|2
+6538|2|19|14|0|401|132656|1|0||0|Willow Robe|||2
+6531|2|18|13|0|401|132655|1|0||0|Barbaric Cloth Robe||t4,i2|2
 6243|2|18|13|0|401|132663|1|0||0|Green Woolen Robe||t2,i3,p3|2
-3019|2|18|13|0|401|132679|0|0||0|Noble's Robe||s1,t3,p3|2
-14150|2|18|13|0|401|132665|0|0||0|Robe of Evocation||t3,i4|1
+3019|2|18|13|0|401|132679|1|0||0|Noble's Robe||s1,t3,p3|2
+14150|2|18|13|0|401|132665|1|0||0|Robe of Evocation||t3,i4|1
+270261|3|18|13|0|401|132650|2|0||0|Robes of the Disgraced Thane||p4,S8,H8|1
 4782|2|18|13|0|401|132658|1|0||0|Solstice Robe||t1,i1,p5|2
-6528|2|17|12|0|401|132663|0|0||0|Spellbinder Robe||i2,p4|2
-14109|2|16|11|0|401|132662|0|0||0|Native Robe|||2
+6528|2|17|12|0|401|132663|1|0||0|Spellbinder Robe||i2,p4|2
+14109|2|16|11|0|401|132662|1|0||0|Native Robe|||2
+284167|2|15|10|0|401|0|2|0||0|Blackmoss Robes||t3,i3|2
 1561|2|15|0|0|401|132654|1|0||0|Harvester's Robe||t2,p2|1
 3161|2|15|0|0|401|132662|1|0||0|Robe of the Keeper||t4|1
-9748|2|15|10|0|401|132659|0|0||0|Simple Robe|||2
+9748|2|15|10|0|401|132659|1|0||0|Simple Robe|||2
 6242|2|14|9|0|401|132664|1|0||0|Blue Linen Robe||p3|2
-6527|2|13|8|0|401|132654|0|0||0|Ancestral Robe||t1,i2|2
-6512|2|13|8|0|401|132663|0|0||0|Disciple's Robe|||2
+6527|2|13|8|0|401|132654|1|0||0|Ancestral Robe||t1,i2|2
+6512|2|13|8|0|401|132663|1|0||0|Disciple's Robe|||2
 263332|2|13|0|0|401|7813757|2|0||0|Elder's Tunic||i4|1
-14091|2|11|6|0|401|132663|0|0||0|Beaded Robe|||2
-6511|2|11|6|0|401|135012|0|0||0|Journeyman's Robe||i2|2
+14091|2|11|6|0|401|132663|1|0||0|Beaded Robe|||2
+6511|2|11|6|0|401|135012|1|0||0|Journeyman's Robe||i2|2
 6238|2|10|5|0|401|132662|1|0||0|Brown Linen Robe||p1|2
 2572|2|10|5|0|401|132659|1|0||0|Red Linen Robe||i1|2
 9598|2|10|0|0|401|132677|1|0||0|Sleeping Robes||t1|1
@@ -9129,7 +10071,7 @@ FGT.GEARDB = {
 19335|4|73|60|0|204|133481|0|0||1|Spineshatter||s9,t16,d5|1
 17103|4|71|60|0|207|135349|0|0||0|Azuresong Mageblade||t7,i12,S40,H40,c1|1
 20580|4|71|60|0|204|133497|1|0||1|Hammer of Bestial Fury||s13,t12,A154|1
-18348|4|71|60|3|207|135271|0|0||1|Quel'Serrar||t12|1
+18348|4|71|60|3|207|135271|1|0||1|Quel'Serrar||t12|1
 21395|4|70|60|2|207|135367|1|506||0|Blade of Eternal Justice||s9,t11,i7|1
 21413|4|70|60|128|207|135367|1|504||0|Blade of Vaulted Secrets||t8,i16,S40,H40,h1|1
 21410|4|70|60|16|204|133474|1|508||0|Gavel of Infinite Wisdom||t10,i11,H90|1
@@ -9162,81 +10104,93 @@ FGT.GEARDB = {
 22379|3|65|0|0|215|135322|1|0||0|Shivsprocket's Shiv||t13,S13,H13|1
 22380|3|65|0|0|204|133042|1|0||0|Simone's Cultivating Hammer||i6,H37|1
 18878|4|65|60|0|215|135643|0|0||1|Sorcerous Dagger||t8,i17,S20,H20|1
-1728|4|65|60|0|207|135323|0|0||1|Teebu's Blazing Longsword|||2
+1728|4|65|60|0|207|135323|1|0||1|Teebu's Blazing Longsword|||2
 19896|4|65|60|0|213|135592|0|463||1|Thekal's Grasp||t13,c1|1
+276632|3|65|57|128|207|135291|2|0||0|Wit's Edge||i4|1
 22383|4|64|59|0|207|135361|1|0||0|Sageblade||t14,i6,S20,H20|2
 12798|3|63|58|0|200|132403|1|0||0|Annihilator|||2
+271928|3|63|58|0|215|135654|2|0||0|Clever Expeditionary's Spellblade|Requires Revered with Theramore Expeditionary Force|t8,i11,p5|1
 20648|3|63|0|0|204|133059|1|0||1|Cold Forged Hammer||t5,i9|1
-12940|3|63|58|0|207|135353|0|41||0|Dal'Rend's Sacred Charge||s4,c1|1
+12940|3|63|58|0|207|135353|1|41||0|Dal'Rend's Sacred Charge||s4,c1|1
+272083|3|63|58|0|215|135654|2|0||0|Darkspear Insurgent's Spellblade|Requires Revered with Darkspear Raiders|t8,i11,p5|1
+272091|3|63|58|0|204|133053|2|0||0|Darkspear Skirmisher's Bludgeon|Requires Revered with Darkspear Raiders|t13,A11|1
 20698|4|63|58|0|207|135323|0|0||1|Elemental Attuned Blade||i6,S32,H32|2
 12797|3|63|58|0|207|135291|1|0||0|Frostguard|||2
+271936|3|63|58|0|204|133042|2|0||0|Guerrilla's Jagged Mace|Requires Revered with Theramore Expeditionary Force|t13,A10|1
 12794|3|63|57|0|204|133041|1|0||0|Masterwork Stormhammer|||2
 22384|4|63|58|0|204|133045|1|0||0|Persuader||h1,c1|2
-12709|3|63|58|0|215|135343|0|0||0|Pip's Skinner|||1
-13349|3|63|58|0|204|133482|0|0||0|Scepter of the Unholy||t5|1
-6622|3|63|58|0|207|135349|0|0||0|Sword of Zeal|||2
-15220|2|62|57|0|207|135346|0|0||0|Battlefell Sabre|||2
-22332|3|62|57|0|207|135326|0|0||0|Blade of Necromancy||t4,c1|1
-18372|3|62|57|0|215|135654|0|0||0|Blade of the New Moon||t5|1
+12709|3|63|58|0|215|135343|1|0||0|Pip's Skinner|||1
+13349|3|63|58|0|204|133482|1|0||0|Scepter of the Unholy||t5|1
+6622|3|63|58|0|207|135349|1|0||0|Sword of Zeal|||2
+15220|2|62|57|0|207|135346|1|0||0|Battlefell Sabre|||2
+22332|3|62|57|0|207|135326|1|0||0|Blade of Necromancy||t4,c1|1
+284101|3|62|57|0|207|135302|2|2130||0|Blade of Senseless Slaughter||a4,s11,t5|1
+18372|3|62|57|0|215|135654|1|0||0|Blade of the New Moon||t5|1
 20723|2|62|0|0|200|134709|1|0||0|Brann's Trusty Pick||s11|1
 20666|3|62|57|0|204|133051|0|0||1|Hardened Steel Warhammer||t10,i6,H11|1
-13952|3|62|57|0|200|132394|0|0||0|Iceblade Hacker|||1
-13006|3|62|57|0|204|133054|0|0||0|Mass of McGowan||s10,t10|2
-18396|3|62|57|0|207|135658|0|0||0|Mind Carver||i8,S12,H12|1
-13953|3|62|57|0|207|135351|0|0||0|Silent Fang|||1
-13028|3|61|56|0|204|133056|0|0||0|Bludstone Hammer||t5,p12|2
-22315|3|61|56|0|204|133039|0|0||0|Hammer of Revitalization||t5,H26|1
+13952|3|62|57|0|200|132394|1|0||0|Iceblade Hacker|||1
+13006|3|62|57|0|204|133054|1|0||0|Mass of McGowan||s10,t10|2
+18396|3|62|57|0|207|135658|1|0||0|Mind Carver||i8,S12,H12|1
+13953|3|62|57|0|207|135351|1|0||0|Silent Fang|||1
+13028|3|61|56|0|204|133056|1|0||0|Bludstone Hammer||t5,p12|2
+22315|3|61|56|0|204|133039|1|0||0|Hammer of Revitalization||t5,H26|1
 17003|2|61|0|0|204|133731|1|0||0|Skullstone Hammer||t4,i9,p3|1
-22404|3|61|56|0|213|135652|0|0||0|Willey's Back Scratcher||t12,A10|1
+22404|3|61|56|0|213|135652|1|0||0|Willey's Back Scratcher||t12,A10|1
 12795|3|60|55|0|213|135663|1|0||0|Blood Talon|||1
 281586|3|60|1|0|204|0|2|0||0|Elderwild Construction Hammer||t8,i10,p4|1
 10696|2|60|0|0|207|135662|1|0||0|Enchanted Azsharite Felbane Sword|||1
-11684|4|60|55|0|204|135847|0|0||1|Ironfoe|||1
-18462|2|60|55|0|213|132947|0|0||0|Jagged Bone Fist||s8,t7|1
-18048|3|60|55|0|204|133043|0|0||0|Mastersmith's Hammer||i5,S14,H14|1
-18671|3|59|54|0|204|133483|0|0||0|Baron Charr's Sceptre||s5|2
+11684|4|60|55|0|204|135847|1|0||1|Ironfoe|||1
+18462|2|60|55|0|213|132947|1|0||0|Jagged Bone Fist||s8,t7|1
+18048|3|60|55|0|204|133043|1|0||0|Mastersmith's Hammer||i5,S14,H14|1
+276404|3|60|55|0|204|133039|2|0||0|Masterwork Crimson Hammer||t10,p10|1
+18671|3|59|54|0|204|133483|1|0||0|Baron Charr's Sceptre||s5|2
 20647|2|59|0|0|215|135656|1|0||1|Black Crystal Dagger||i3|1
 275647|2|59|0|0|215|135648|2|0||0|Cleansed Ritual Kris||p4|1
-12621|3|59|54|0|200|135581|0|0||0|Demonfork|||1
-14576|3|59|54|0|207|135313|0|0||0|Ebon Hilt of Marduk|||1
-18321|3|59|54|0|204|133488|0|0||0|Energetic Rod||i5,S14,H14|1
+12621|3|59|54|0|200|135581|1|0||0|Demonfork|||1
+14576|3|59|54|0|207|135313|1|0||0|Ebon Hilt of Marduk|||1
+18321|3|59|54|0|204|133488|1|0||0|Energetic Rod||i5,S14,H14|1
 275293|2|58|0|0|204|133482|2|0||0|Barkskin Scepter||i13|1
 12792|2|58|53|0|204|133043|1|0||0|Volcanic Hammer|||2
 275698|2|58|0|0|204|134520|2|0||0|Yaely's Mending Tool||i11|1
 275836|2|57|0|0|215|135661|2|0||0|Acolyte Blade||t5,p8|1
-811|4|57|52|0|200|132398|0|0||0|Axe of the Deep Woods|||2
-18044|3|57|52|0|204|132791|0|0||0|Hurley's Tankard||a5,t12|1
-18491|3|57|0|0|215|135657|0|0||0|Lorespinner||t5,i6,p5|1
+811|4|57|52|0|200|132398|1|0||0|Axe of the Deep Woods|||2
+18044|3|57|52|0|204|132791|1|0||0|Hurley's Tankard||a5,t12|1
+18491|3|57|0|0|215|135657|1|0||0|Lorespinner||t5,i6,p5|1
 12779|2|57|52|0|200|132408|0|0||0|Rune Edge||a5,s5,t5|1
 12781|3|57|52|0|204|133477|1|0||0|Serenity|||2
-13408|3|57|52|0|200|135575|0|0||0|Soul Breaker|||1
-11923|3|57|52|0|204|133044|0|0||0|The Hammer of Grace||H31|1
-2244|4|56|51|0|207|135316|0|0||0|Krol Blade||s7,t5,c1|2
-11902|2|56|0|0|207|135349|0|0||0|Linken's Sword of Mastery|||1
-11817|3|56|51|0|207|135326|0|0||0|Lord General's Sword|||1
-11805|3|56|51|0|204|133046|0|0||0|Rubidium Hammer||s5|1
-10837|3|56|51|0|200|132398|0|0||0|Tooth of Eranikus||s6,h1|1
-11920|3|56|51|0|200|132404|0|0||0|Wraith Scythe|||1
-12791|3|55|50|0|215|132797|0|0||0|Barman Shanker|||1
+13408|3|57|52|0|200|135575|1|0||0|Soul Breaker|||1
+11923|3|57|52|0|204|133044|1|0||0|The Hammer of Grace||H31|1
+2244|4|56|51|0|207|135316|1|0||0|Krol Blade||s7,t5,c1|2
+11902|2|56|0|0|207|135349|1|0||0|Linken's Sword of Mastery|||1
+11817|3|56|51|0|207|135326|1|0||0|Lord General's Sword|||1
+11805|3|56|51|0|204|133046|1|0||0|Rubidium Hammer||s5|1
+10837|3|56|51|0|200|132398|1|0||0|Tooth of Eranikus||s6,h1|1
+11920|3|56|51|0|200|132404|1|0||0|Wraith Scythe|||1
+12791|3|55|50|0|215|132797|1|0||0|Barman Shanker|||1
 11906|2|55|0|0|204|133060|1|0||0|Beastsmasher|||1
 11120|2|55|0|0|204|133047|1|0||0|Belgrom's Hammer||s10|1
-11702|3|55|50|0|200|132403|0|0||0|Grizzle's Skinner||a6,s8,t5|1
+11702|3|55|50|0|200|132403|1|0||0|Grizzle's Skinner||a6,s8,t5|1
 12773|2|55|50|0|200|132403|1|0||0|Ornate Thorium Handaxe||s10|1
-11964|2|55|0|0|204|133483|0|0||0|Swiftstrike Cudgel||h1|1
+11964|2|55|0|0|204|133483|1|0||0|Swiftstrike Cudgel||h1|1
 260209|2|55|0|0|204|0|2|0||0|Truesong's Hammer||s10|1
-17780|4|54|49|0|215|135279|0|0||1|Blade of Eternal Darkness|||1
-10803|2|54|49|0|207|135348|0|0||0|Blade of the Wretched|||1
-17710|3|54|49|0|215|135650|0|0||0|Charstone Dirk||i11|1
-10805|2|54|49|0|200|132403|0|0||0|Eater of the Dead|||1
+17780|4|54|49|0|215|135279|1|0||1|Blade of Eternal Darkness|||1
+10803|2|54|49|0|207|135348|1|0||0|Blade of the Wretched|||1
+17710|3|54|49|0|215|135650|1|0||0|Charstone Dirk||i11|1
+10805|2|54|49|0|200|132403|1|0||0|Eater of the Dead|||1
 15863|2|54|0|0|204|133482|1|0||0|Grave Scepter||i8,p5|1
 810|4|54|49|0|204|133048|1|0||0|Hammer of the Northern Wind|||2
-10838|3|54|49|0|204|133486|0|0||0|Might of Hakkar||t11,p5|1
-1721|3|54|49|0|204|133046|0|0||0|Viking Warhammer||s5,t11|2
-11784|3|53|48|0|207|135324|0|0||0|Arbiter's Blade||t8,i5,S8,H8|1
-13027|3|53|48|0|204|133057|0|0||0|Bonesnapper||s11,t5|2
-17943|3|53|48|0|204|133054|0|0||0|Fist of Stone|||1
+10838|3|54|49|0|204|133486|1|0||0|Might of Hakkar||t11,p5|1
+1721|3|54|49|0|204|133046|1|0||0|Viking Warhammer||s5,t11|2
+11784|3|53|48|0|207|135324|1|0||0|Arbiter's Blade||t8,i5,S8,H8|1
+13027|3|53|48|0|204|133057|1|0||0|Bonesnapper||s11,t5|2
+271929|3|53|48|0|215|135654|2|0||0|Clever Expeditionary's Spellblade|Requires Revered with Theramore Expeditionary Force|t7,i10,p4|1
+272084|3|53|48|0|215|135654|2|0||0|Darkspear Insurgent's Spellblade|Requires Revered with Darkspear Raiders|t7,i10,p4|1
+272092|3|53|48|0|204|133053|2|0||0|Darkspear Skirmisher's Bludgeon|Requires Revered with Darkspear Raiders|t11,A9|1
+17943|3|53|48|0|204|133054|1|0||0|Fist of Stone|||1
 9651|2|53|0|0|204|133038|1|0||0|Gryphon Rider's Stormhammer|||1
-12527|3|53|48|0|200|132404|0|0||0|Ribsplitter||A10|2
+271937|3|53|48|0|204|133042|2|0||0|Guerrilla's Jagged Mace|Requires Revered with Theramore Expeditionary Force|t11,A9|1
+284230|2|53|48|0|213|132941|2|0||0|Rage Paw||s9|2
+12527|3|53|48|0|200|132404|1|0||0|Ribsplitter||A10|2
 20003|3|52|0|0|213|134295|1|0||0|Devilsaur Claws||a4,h1|1
 16769|2|52|47|0|204|133486|1|0||0|Furbolg Medicine Totem||t6,p6|1
 276903|2|52|1|0|215|0|2|0||0|Shimmerwine Shanker||a7,t4|1
@@ -9244,131 +10198,157 @@ FGT.GEARDB = {
 9684|2|51|0|0|200|132403|1|0||0|Force of the Hippogryph||a9|1
 9686|2|51|0|0|204|133060|1|0||0|Spirit of the Faerie Dragon||t9|1
 11603|3|51|46|0|213|132369|0|0||0|Vilerend Slicer|||2
-809|4|50|45|0|207|135329|0|0||0|Bloodrazor|||2
+809|4|50|45|0|207|135329|1|0||0|Bloodrazor|||2
 8708|4|50|40|0|204|133061|1|0||1|Hammer of Expertise|||1
-11086|3|50|45|0|207|135353|0|0||1|Jang'thraze the Protector|||1
-9478|3|50|45|0|200|132398|0|0||0|Ripsaw|||1
+11086|3|50|45|0|207|135353|1|0||1|Jang'thraze the Protector|||1
+9478|3|50|45|0|200|132398|1|0||0|Ripsaw|||1
 7961|3|49|44|0|207|135350|1|0||0|Phantom Blade|||2
 7946|2|49|44|0|204|133054|1|0||0|Runed Mithril Hammer||s7,t4|2
 7944|2|48|43|0|207|135340|1|0||0|Dazzling Mithril Rapier||a8|2
-9639|3|48|43|0|204|133486|0|0||0|The Hand of Antu'sul|||1
-10623|3|48|43|0|200|132398|0|0||0|Winter's Bite|||2
+9639|3|48|43|0|204|133486|1|0||0|The Hand of Antu'sul|||1
+10623|3|48|43|0|200|132398|1|0||0|Winter's Bite|||2
+274658|3|47|42|0|200|132404|2|0||0|Dune Hacker||t10|1
+274647|3|47|42|0|215|135651|2|0||0|Farraki Kris|||1
 7954|3|47|42|0|204|133055|1|0||0|The Shatterer|||2
 7945|2|46|41|0|204|133490|1|0||0|Big Black Mace||s8|2
-2815|3|45|40|0|200|132417|0|0||0|Curve-bladed Ripper||s8,t5|2
-15215|2|45|40|0|207|135314|0|0||0|Furious Falchion|||2
-13026|3|45|40|0|204|133041|0|0||0|Heaven's Light||a4,s4,t4,i4,p5|2
+2815|3|45|40|0|200|132417|1|0||0|Curve-bladed Ripper||s8,t5|2
+15215|2|45|40|0|207|135314|1|0||0|Furious Falchion|||2
+13026|3|45|40|0|204|133041|1|0||0|Heaven's Light||a4,s4,t4,i4,p5|2
 277248|3|45|40|0|215|0|2|0||0|Notched Ritual Rib||t4,i9|1
+274998|3|45|40|0|215|0|2|0||0|Shadowlight Athame||t9,i5|1
 270088|2|45|0|0|204|133043|2|0||0|Thane's Hammer||i8|1
 7943|2|45|40|0|207|135280|1|0||0|Wicked Mithril Blade||a4,s6|2
-7721|3|44|39|0|204|133039|0|0||0|Hand of Righteousness||p8,H15|1
-868|4|43|38|0|204|133488|0|0||0|Ardent Custodian||d5|2
+7721|3|44|39|0|204|133039|1|0||0|Hand of Righteousness||p8,H15|1
+868|4|43|38|0|204|133488|1|0||0|Ardent Custodian||d5|2
+271930|3|43|38|0|215|135654|2|0||0|Clever Expeditionary's Spellblade|Requires Revered with Theramore Expeditionary Force|t5,i8,p3|1
+272085|3|43|38|0|215|135654|2|0||0|Darkspear Insurgent's Spellblade|Requires Revered with Darkspear Raiders|t5,i8,p3|1
+272093|3|43|38|0|204|133053|2|0||0|Darkspear Skirmisher's Bludgeon|Requires Revered with Darkspear Raiders|t8,A7|1
+271938|3|43|38|0|204|133042|2|0||0|Guerrilla's Jagged Mace|Requires Revered with Theramore Expeditionary Force|t8,A7|1
 272181|2|43|0|0|215|0|2|0||0|Phantasmal Shiv||t5,i4|1
 274948|2|42|0|0|215|132798|2|0||0|Bottle of Powderfuse Port||i7|1
 7941|2|42|37|0|200|132405|1|0||0|Heavy Mithril Axe||t7|2
+279886|3|42|1|0|207|135350|2|0||0|Sacrificial Sword||t8,p5|1
 271804|3|42|35|0|204|0|2|0||0|Soulsplatter Mace||t3,i6,p1|1
-869|4|41|36|0|207|135326|0|0||0|Dazzling Longsword|||2
+869|4|41|36|0|207|135326|1|0||0|Dazzling Longsword|||2
 270069|2|41|0|0|215|135651|2|0||0|Mindslicer||i7|1
 4116|2|41|0|0|207|135343|0|0||0|Olmann Sewar||t7|1
 4977|2|41|0|0|207|135350|1|0||0|Sword of Hammerfall||s4,t5|1
 4511|2|40|0|0|204|133044|1|0||0|Black Water Hammer||s7|1
-15234|2|40|35|0|200|132394|0|0||0|Greater Scythe|||2
+274603|3|40|35|0|207|0|2|0||0|Dreadfrost Saber||t8|1
+15234|2|40|35|0|200|132394|1|0||0|Greater Scythe|||2
 280607|3|40|1|0|213|135600|2|0||0|Lightning's Grasp||i6|1
 270070|2|40|0|0|215|135651|2|0||0|Madman's Blade||p7|1
+286649|3|40|35|0|215|135656|2|0||0|Tidebound Dagger||i7,p6|1
 280605|3|40|1|0|213|135606|2|0||0|Tidebringer's Claw||t5|1
-6804|2|40|0|0|204|133042|0|0||0|Windstorm Hammer||s4,t5|1
-7714|3|39|34|0|215|135643|0|0||0|Hypnotic Blade||i8,p3,S9,H9|1
-15233|2|39|34|0|200|132399|0|0||0|Savage Axe|||2
+6804|2|40|0|0|204|133042|1|0||0|Windstorm Hammer||s4,t5|1
+7714|3|39|34|0|215|135643|1|0||0|Hypnotic Blade||i8,p3,S9,H9|1
+15233|2|39|34|0|200|132399|1|0||0|Savage Axe|||2
 271799|2|38|35|0|215|0|2|0||0|Desert Crawler's Claw||t2,i5|1
 17704|2|38|33|0|200|132397|1|0||0|Edge of Winter||t3|2
 250606|2|38|33|0|204|0|2|0||0|Iron Morningstar||s4,S5,H5|2
-7761|3|38|33|0|200|132397|0|0||0|Steelclaw Reaver||a3,t8|2
+7761|3|38|33|0|200|132397|1|0||0|Steelclaw Reaver||a3,t8|2
+283255|2|38|33|0|207|135325|2|0||0|Syndicate Executioner's Slicer||a4,s4|2
 4122|2|37|0|0|204|133476|1|0||0|Bookmaker's Scepter||i6|1
-13025|3|37|32|0|204|133053|0|0||0|Deadwood Sledge||t2,p7|2
-15226|2|37|32|0|204|133053|0|0||0|Giant Club|||2
+13025|3|37|32|0|204|133053|1|0||0|Deadwood Sledge||t2,p7|2
+15226|2|37|32|0|204|133053|1|0||0|Giant Club|||2
 4978|2|36|0|0|204|133041|1|0||0|Ryedol's Hammer||s6|1
-8224|2|36|31|0|207|135662|0|0||0|Silithid Ripper|||2
-17039|2|36|0|0|204|133728|0|0||0|Skullbreaker||t3,i5|1
+8224|2|36|31|0|207|135662|1|0||0|Silithid Ripper|||2
+17039|2|36|0|0|204|133728|1|0||0|Skullbreaker||t3,i5|1
 6738|2|35|0|0|200|132403|1|0||0|Bleeding Crescent|||1
 2044|2|35|0|0|200|132397|1|0||0|Crescent of Forlorn Spirits||p6|1
 23168|3|35|30|0|215|135643|0|0||0|Scorn's Focal Dagger||S9,H9|1
-9446|3|34|29|0|207|135340|0|0||0|Electrocutioner Leg|||1
+9446|3|34|29|0|207|135340|1|0||0|Electrocutioner Leg|||1
 4126|2|34|0|0|200|132415|1|0||0|Guerrilla Cleaver||a3,t4|1
-2816|3|33|28|0|204|133482|0|0||0|Death Speaker Scepter||p1,H11|1
-7752|3|33|28|0|204|133054|0|0||0|Dreamslayer||s7,p3|2
-15225|2|33|28|0|204|133045|0|0||0|Sequoia Hammer|||2
+2816|3|33|28|0|204|133482|1|0||0|Death Speaker Scepter||p1,H11|1
+7752|3|33|28|0|204|133054|1|0||0|Dreamslayer||s7,p3|2
+15225|2|33|28|0|204|133045|1|0||0|Sequoia Hammer|||2
+273053|3|33|28|0|215|133723|2|0||0|Tendonscraper Dagger||t5|1
 6194|2|32|0|0|200|132408|1|0||0|Barreling Reaper||t5|1
 3755|2|32|0|0|200|132416|1|0||0|Fish Gutter||p5|1
 3849|2|32|27|0|207|135321|1|0||0|Hardened Iron Shortsword||t5|2
-13048|3|31|26|0|204|133041|0|0||0|Looming Gavel||a3,t6|2
-12974|3|31|26|0|207|135311|0|0||0|The Black Knight|||2
-8226|3|31|26|0|207|135316|0|0||0|The Butcher||a5,t4|2
-2878|3|30|25|0|200|132405|0|0||0|Bearded Boneaxe||a4,s4|2
+273827|3|31|26|0|207|135325|2|0||0|Debt Collector|||1
+13048|3|31|26|0|204|133041|1|0||0|Looming Gavel||a3,t6|2
+12974|3|31|26|0|207|135311|1|0||0|The Black Knight|||2
+8226|3|31|26|0|207|135316|1|0||0|The Butcher||a5,t4|2
+2878|3|30|25|0|200|132405|1|0||0|Bearded Boneaxe||a4,s4|2
+273809|3|30|25|0|200|132392|2|0||0|Hamhock's Cleaver||s4,A8|1
 3492|2|30|25|0|204|133041|1|0||0|Mighty Iron Hammer||s5|2
-3186|2|30|25|0|207|135343|0|0||0|Viking Sword|||2
-13024|3|29|24|0|204|133041|0|0||0|Beazel's Basher||s6,p2|2
-1727|3|28|23|0|207|135327|0|0||0|Sword of Decay|||2
+3186|2|30|25|0|207|135343|1|0||0|Viking Sword|||2
+13024|3|29|24|0|204|133041|1|0||0|Beazel's Basher||s6,p2|2
+276631|3|29|21|128|207|135275|2|0||0|Coldflame Saber||i7|1
+1727|3|28|23|0|207|135327|1|0||0|Sword of Decay|||2
 4824|2|27|22|0|200|132405|1|0||0|Blurred Axe||a4|2
-3414|3|27|22|0|204|133483|0|0||0|Crested Scepter||t5,i2|2
-15212|2|27|22|0|207|135356|0|0||0|Fighter Broadsword|||2
-1493|3|27|22|0|207|135325|0|0||0|Heavy Marauder Scimitar||s4,t3|2
-2018|2|27|22|0|207|135317|0|0||0|Skeletal Longsword||t4|2
-886|2|26|21|0|207|135327|0|0||0|Black Metal Shortsword|||2
-11121|2|26|21|0|207|135346|0|0||0|Darkwater Talwar|||1
+3414|3|27|22|0|204|133483|1|0||0|Crested Scepter||t5,i2|2
+15212|2|27|22|0|207|135356|1|0||0|Fighter Broadsword|||2
+1493|3|27|22|0|207|135325|1|0||0|Heavy Marauder Scimitar||s4,t3|2
+2018|2|27|22|0|207|135317|1|0||0|Skeletal Longsword||t4|2
+886|2|26|21|0|207|135327|1|0||0|Black Metal Shortsword|||2
+273637|3|26|21|0|207|135275|2|0||0|Blade of Silverlaine|||1
+11121|2|26|21|0|207|135346|1|0||0|Darkwater Talwar|||1
 4826|2|26|21|0|200|132417|1|0||0|Marauder Axe||t4|2
-2011|3|26|21|0|207|135325|0|0||0|Twisted Sabre||t2,p5|2
-6323|2|25|20|0|204|133477|0|0||0|Baron's Scepter||s4|1
+2011|3|26|21|0|207|135325|1|0||0|Twisted Sabre||t2,p5|2
+6323|2|25|20|0|204|133477|1|0||0|Baron's Scepter||s4|1
 274744|3|25|20|0|204|0|2|0||0|Barrens Basher|Requires Honored with Ratchet|s2,t5|1
 3491|2|25|20|0|204|133483|1|0||0|Heavy Bronze Mace||s4|2
-3400|2|25|0|0|207|135321|0|0||0|Lucine Longsword||t4|1
+3400|2|25|0|0|207|135321|1|0||0|Lucine Longsword||t4|1
 2263|2|25|0|0|207|135321|1|0||0|Phytoblade|Requires Herbalism (100)||1
-15230|2|25|20|0|200|132415|0|0||0|Ridge Cleaver|||2
+15230|2|25|20|0|200|132415|1|0||0|Ridge Cleaver|||2
 281297|2|25|0|0|215|0|2|0||0|Royal Dagger||i4|1
-920|2|25|20|0|204|133486|0|0||0|Wicked Spiked Mace||a4|2
-885|2|24|19|0|200|132405|0|0||0|Black Metal Axe||s2,t2|2
-2046|2|24|19|0|207|135662|0|0||0|Bluegill Kukri||s3|2
+920|2|25|20|0|204|133486|1|0||0|Wicked Spiked Mace||a4|2
+885|2|24|19|0|200|132405|1|0||0|Black Metal Axe||s2,t2|2
+2046|2|24|19|0|207|135662|1|0||0|Bluegill Kukri||s3|2
 276886|2|24|1|0|207|0|2|0||0|Chol'aruk's Trophy Sword||t2,A4|1
-3740|2|24|19|0|207|135662|0|0||0|Decapitating Sword|||2
-15223|2|24|19|0|204|133045|0|0||0|Jagged Star|||2
+3740|2|24|19|0|207|135662|1|0||0|Decapitating Sword|||2
+15223|2|24|19|0|204|133045|1|0||0|Jagged Star|||2
 276888|2|24|1|0|215|0|2|0||0|Quilboar Toothpick||i2,p2|1
-1482|3|24|19|0|207|135311|0|0||0|Shadowfang|||2
-1459|2|24|19|0|200|135421|0|0||0|Shadowhide Scalper||s3|2
-2256|3|24|19|0|204|133729|0|0||0|Skeletal Club|||2
-2035|2|24|19|0|207|135321|0|0||0|Sword of the Night Sky||a2,s2|2
+1482|3|24|19|0|207|135311|1|0||0|Shadowfang|||2
+1459|2|24|19|0|200|135421|1|0||0|Shadowhide Scalper||s3|2
+2256|3|24|19|0|204|133729|1|0||0|Skeletal Club|||2
+2035|2|24|19|0|207|135321|1|0||0|Sword of the Night Sky||a2,s2|2
 3462|2|24|0|0|207|135302|1|0||0|Talonstrike||a3|1
-6504|3|24|0|0|207|135314|0|0||0|Wingblade||a5,t2|1
-4445|2|23|18|0|200|132407|0|0||0|Flesh Carver||a2,t2|2
-790|2|23|18|0|200|132405|0|0||0|Forester's Axe|||2
-2807|3|23|18|0|200|132418|0|0||0|Guillotine Axe||a3,s3|2
+279874|2|24|1|0|204|0|2|0||0|The Stitcher||t3|1
+6504|3|24|0|0|207|135314|1|0||0|Wingblade||a5,t2|1
+4445|2|23|18|0|200|132407|1|0||0|Flesh Carver||a2,t2|2
+790|2|23|18|0|200|132405|1|0||0|Forester's Axe|||2
+273297|3|23|18|0|204|133482|2|0||0|Goblin Hammer||t4|1
+2807|3|23|18|0|200|132418|1|0||0|Guillotine Axe||a3,s3|2
 277288|2|23|1|0|200|0|2|0||0|Pathfinder's Clearway||t2,i2|1
-1938|2|22|17|0|204|133052|0|0||0|Block Mallet||t3|2
-4439|2|22|17|0|204|133485|0|0||0|Bruiser Club||s2,t2|2
-1457|2|22|17|0|204|133476|0|0||0|Shadowhide Mace||t3|2
-789|2|22|17|0|204|133045|0|0||0|Stout Battlehammer|||2
-1296|2|21|16|0|204|133481|0|0||0|Blackrock Mace||s3|2
-4949|2|21|16|0|200|132414|0|0||0|Orcish Cleaver||s1|2
+1938|2|22|17|0|204|133052|1|0||0|Block Mallet||t3|2
+4439|2|22|17|0|204|133485|1|0||0|Bruiser Club||s2,t2|2
+273456|3|22|17|0|213|134297|2|0||0|Cell Keeper's Claws||a2,A6|1
+271216|3|22|17|0|204|0|2|0||0|Scepter of the Abandoned|||1
+1457|2|22|17|0|204|133476|1|0||0|Shadowhide Mace||t3|2
+789|2|22|17|0|204|133045|1|0||0|Stout Battlehammer|||2
+1296|2|21|16|0|204|133481|1|0||0|Blackrock Mace||s3|2
+4949|2|21|16|0|200|132414|1|0||0|Orcish Cleaver||s1|2
 5757|2|20|0|0|204|133486|1|0||0|Hardwood Cudgel||s2,t2|1
-15222|2|19|14|0|204|133045|0|0||0|Barbed Club|||2
-1440|2|19|14|0|204|133048|0|0||0|Gnoll Skull Basher||s2,t2|2
-1469|2|19|14|0|207|135325|0|0||0|Scimitar of Atun||a2|2
-14145|2|18|13|0|207|135648|0|0||0|Cursed Felblade|||1
-15445|2|18|0|0|204|133060|0|0||0|Hammer of Orgrimmar||s1,t1|1
+15222|2|19|14|0|204|133045|1|0||0|Barbed Club|||2
+1440|2|19|14|0|204|133048|1|0||0|Gnoll Skull Basher||s2,t2|2
+270005|2|19|0|0|204|133048|2|0||0|Monastic Hammer||i2|1
+1469|2|19|14|0|207|135325|1|0||0|Scimitar of Atun||a2|2
+272998|3|18|13|0|213|132369|2|0||0|Bone Knuckles||A6|1
+14145|2|18|13|0|207|135648|1|0||0|Cursed Felblade|||1
+270256|3|18|13|0|200|132409|2|0||0|Durgen's Crescent Axe||s4|1
+271095|3|18|13|0|215|133723|2|0||0|Fang of Magmatus||i4|1
+15445|2|18|0|0|204|133060|1|0||0|Hammer of Orgrimmar||s1,t1|1
 269716|2|18|0|0|215|135641|2|0||0|Keen Skinning Knife||i2|1
-2821|2|18|13|0|204|133052|0|0||0|Mo'grosh Masher||s2|2
+2821|2|18|13|0|204|133052|1|0||0|Mo'grosh Masher||s2|2
+273003|3|18|13|0|215|135639|2|0||0|Searing Dagger||p4|1
 3154|2|18|0|0|200|132402|1|0||0|Thelsamar Axe||a2|1
+272996|3|18|13|0|204|133727|2|0||0|Trogg Scepter||p4|1
 1480|2|17|0|0|204|133057|1|0||0|Fist of the People's Militia||s2|1
-1214|2|17|12|0|204|133046|0|0||0|Gnoll Punisher||s2|2
-1958|2|17|12|0|204|133718|0|0||0|Petrified Shinbone||t2|2
+1214|2|17|12|0|204|133046|1|0||0|Gnoll Punisher||s2|2
+1958|2|17|12|0|204|133718|1|0||0|Petrified Shinbone||t2|2
 3489|2|17|12|0|200|135419|1|0||0|Thick War Axe||s1,t1|2
-827|2|17|12|0|204|133476|0|0||0|Wicked Blackjack||s2|2
+827|2|17|12|0|204|133476|1|0||0|Wicked Blackjack||s2|2
 3570|2|16|0|0|204|133481|1|0||0|Bonegrinding Pestle||s2|1
-1925|2|16|11|0|207|135340|0|0||0|Defias Rapier||a2|2
+1925|2|16|11|0|207|135340|1|0||0|Defias Rapier||a2|2
 5324|2|16|0|0|204|133057|1|0||0|Engineer's Hammer||t2|1
-1219|2|16|11|0|207|135314|0|0||0|Redridge Machete||t2|2
-826|2|15|10|0|200|132392|0|0||0|Brutish Riverpaw Axe||s1|2
-1927|2|15|10|0|200|132402|0|0||0|Deadmines Cleaver||p1|2
-1394|2|15|10|0|204|133485|0|0||0|Driftwood Club||t1|2
-2073|2|15|10|0|200|132395|0|0||0|Dwarven Hatchet|||2
+1219|2|16|11|0|207|135314|1|0||0|Redridge Machete||t2|2
+826|2|15|10|0|200|132392|1|0||0|Brutish Riverpaw Axe||s1|2
+1927|2|15|10|0|200|132402|1|0||0|Deadmines Cleaver||p1|2
+1394|2|15|10|0|204|133485|1|0||0|Driftwood Club||t1|2
+2073|2|15|10|0|200|132395|1|0||0|Dwarven Hatchet|||2
 6966|2|15|0|1|200|132395|1|0||0|Elunite Axe||t1|1
 6968|2|15|0|1|204|133057|1|0||0|Elunite Hammer||t1|1
 6967|2|15|0|1|207|135274|1|0||0|Elunite Sword||t1|1
@@ -9379,33 +10359,33 @@ FGT.GEARDB = {
 7117|2|15|0|1|204|133049|1|0||0|Heirloom Hammer||t1|1
 7118|2|15|0|1|207|135274|1|0||0|Heirloom Sword||t1|1
 5255|2|15|10|0|200|135421|0|0||0|Quilboar Tomahawk||a1|2
-2267|2|15|10|0|204|133487|0|0||0|Stonesplinter Mace||t1|2
+2267|2|15|10|0|204|133487|1|0||0|Stonesplinter Mace||t1|2
 7326|2|15|0|1|200|132392|1|0||0|Thun'grim's Axe||t1|1
 7328|2|15|0|1|204|133487|1|0||0|Thun'grim's Mace||t1|1
 7329|2|15|0|1|207|135274|1|0||0|Thun'grim's Sword||t1|1
 6978|2|15|0|1|200|132408|1|0||0|Umbral Axe||t1|1
 6982|2|15|0|1|204|133487|1|0||0|Umbral Mace||t1|1
 6984|2|15|0|1|207|135274|1|0||0|Umbral Sword||t1|1
-1926|2|15|10|0|204|133481|0|0||0|Weighted Sap||s1|2
+1926|2|15|10|0|204|133481|1|0||0|Weighted Sap||s1|2
 4765|2|14|9|0|207|135321|1|0||0|Enamelled Broadsword||s1|2
 5344|2|14|0|0|200|135419|1|0||0|Pointed Axe||a1|1
-4569|2|14|9|0|204|133045|0|0||0|Staunch Hammer|||2
+4569|2|14|9|0|204|133045|1|0||0|Staunch Hammer|||2
 1009|2|13|0|0|204|133045|1|0||0|Compact Hammer||t1|1
 5459|2|13|0|0|200|132392|1|0||0|Defender Axe|||1
 4766|2|13|8|0|207|135325|1|0||0|Feral Blade||a1|2
 246164|2|13|0|0|204|133476|2|0||0|Skullthumper|||1
-2265|2|13|8|0|200|132410|0|0||0|Stonesplinter Axe||s1|2
+2265|2|13|8|0|200|132410|1|0||0|Stonesplinter Axe||s1|2
 5587|2|13|0|0|204|133490|1|0||0|Thornroot Club||t1|1
-4303|2|12|7|0|204|133054|0|0||0|Cranial Thumper||s1|2
+4303|2|12|7|0|204|133054|1|0||0|Cranial Thumper||s1|2
 248006|2|12|0|0|207|132321|2|0||0|Militia Sword||t1|1
 277247|2|12|0|0|204|0|2|0||0|Mug of Muddled Memories||i1,p1|1
-5744|2|12|7|0|207|135325|0|0||0|Pale Skinner|||2
-2075|2|12|7|0|204|133481|0|0||0|Priest's Mace|||2
+5744|2|12|7|0|207|135325|1|0||0|Pale Skinner|||2
+2075|2|12|7|0|204|133481|1|0||0|Priest's Mace|||2
 4971|2|12|0|0|204|133046|1|0||0|Skorn's Hammer||s1|1
 282064|2|12|0|0|215|0|2|0||0|Tim's Lost Rib||a1,t1|1
-3223|2|11|6|0|204|133482|0|0||0|Frostmane Scepter||t1|2
-2281|2|11|6|0|200|132410|0|0||0|Rodentia Flint Axe||p1|2
-4561|2|11|6|0|200|132410|0|0||0|Scalping Tomahawk|||2
+3223|2|11|6|0|204|133482|1|0||0|Frostmane Scepter||t1|2
+2281|2|11|6|0|200|132410|1|0||0|Rodentia Flint Axe||p1|2
+4561|2|11|6|0|200|132410|1|0||0|Scalping Tomahawk|||2
 4948|2|11|0|0|204|133476|1|0||0|Stinging Mace||s1|1
 278002|2|11|0|0|204|133485|2|0||0|Valley Cosh||t1|1
 ]==],
@@ -9418,13 +10398,13 @@ FGT.GEARDB = {
 19910|4|65|60|0|213|135592|0|463||1|Arlokk's Grasp|||1
 272845|4|65|60|0|213|132302|2|0|A|0|Premier Grand Marshal's Left Hand Blade||t2,A24,c1|1
 272598|4|65|60|0|213|134297|2|0|H|0|Premier High Warlord's Left Claw||t2,A24,c1|1
-12939|3|63|58|0|207|135350|0|41||0|Dal'Rend's Tribal Guardian||d7|1
-18392|3|62|57|0|215|135641|0|0||0|Distracting Dagger|||1
-13399|3|59|54|0|213|132945|0|0||0|Gargoyle Shredder Talons|||1
-17738|3|52|47|0|213|132369|0|0||0|Claw of Celebras|||1
+12939|3|63|58|0|207|135350|1|41||0|Dal'Rend's Tribal Guardian||d7|1
+18392|3|62|57|0|215|135641|1|0||0|Distracting Dagger|||1
+13399|3|59|54|0|213|132945|1|0||0|Gargoyle Shredder Talons|||1
+17738|3|52|47|0|213|132369|1|0||0|Claw of Celebras|||1
 20005|3|52|0|0|213|134295|1|0||0|Devilsaur Claws||a4|1
 11863|2|52|0|0|213|132369|1|0||0|White Bone Shredder||a7,s4|1
-9608|2|31|0|0|200|134520|0|0||0|Shoni's Disarming Tool|||1
+9608|2|31|0|0|200|134520|1|0||0|Shoni's Disarming Tool|||1
 ]==],
         [23] = [==[
 23049|4|90|60|0|400|134546|0|0||0|Sapphiron's Left Eye||t12,i8,S26,H26,h1,c1|1
@@ -9459,115 +10439,130 @@ FGT.GEARDB = {
 19310|4|65|60|0|400|133743|1|0||1|Tome of the Ice Lord||i9|1
 15968|2|64|59|0|400|134337|1|0||0|Elunarian Sphere||a2,t3,i14|2
 15941|2|64|59|0|400|135467|1|0||0|High Councillor's Scepter|||2
-13353|4|63|58|0|400|133738|0|0||0|Book of the Dead||t8,i15,p10|1
-18523|3|63|58|0|400|134333|0|0||0|Brightly Glowing Stone||t7,H37|1
+13353|4|63|58|0|400|133738|1|0||0|Book of the Dead||t8,i15,p10|1
+18523|3|63|58|0|400|134333|1|0||0|Brightly Glowing Stone||t7,H37|1
+271932|3|63|58|0|400|133738|2|0||0|Insurgent's Manifesto|Requires Revered with Theramore Expeditionary Force|t17,i7,S8,H8|1
 15988|2|63|58|0|400|134335|1|0||0|Resplendent Orb|||2
-22329|3|63|58|0|400|135469|0|0||0|Scepter of Interminable Focus||S9,H9,h1,c1|1
-22253|3|63|58|0|400|133738|0|0||0|Tome of the Lost||t6,i7,S18,H18|1
+22329|3|63|58|0|400|135469|1|0||0|Scepter of Interminable Focus||S9,H9,h1,c1|1
+272087|3|63|58|0|400|133738|2|0||0|Tome of the Darkspear Prophecy|Requires Revered with Darkspear Raiders|t17,i7,S8,H8|1
+22253|3|63|58|0|400|133738|1|0||0|Tome of the Lost||t6,i7,S18,H18|1
 23156|3|62|57|0|400|133727|0|0||0|Blackwood's Thigh||t12,i13,S9,H9|1
 21185|4|62|0|0|400|134125|1|0||0|Earthcalm Orb||i10,H18|1
 15940|2|62|57|0|400|135473|1|0||0|Elegant Scepter|||2
-13524|3|62|57|0|400|133730|0|0||0|Skull of Burning Shadows|||1
-18695|3|62|57|0|400|133738|0|0||0|Spellbound Tome||t6,i17,p3|1
+279912|3|62|1|0|400|0|2|0||0|Faintly Glowing Orb||t13,p8,S11,H11|1
+13524|3|62|57|0|400|133730|1|0||0|Skull of Burning Shadows|||1
+18695|3|62|57|0|400|133738|1|0||0|Spellbound Tome||t6,i17,p3|1
 15931|2|61|56|0|400|135140|1|0||0|Arcane Star||t5,i10,p8|2
 15987|2|61|56|0|400|134333|1|0||0|Astral Orb|||2
-15805|3|61|0|0|400|133941|0|0||0|Penelope's Rose||t10,i11,p11|1
-13315|2|61|0|0|400|133738|0|0||0|Testament of Hope||p10|1
-22319|3|61|56|0|400|133739|0|0||0|Tome of Divine Right||t4,i5,H26|1
-13385|3|61|56|0|400|133737|0|0||0|Tome of Knowledge||a8,s8,t8,i8,p8|1
+15805|3|61|0|0|400|133941|1|0||0|Penelope's Rose||t10,i11,p11|1
+13315|2|61|0|0|400|133738|1|0||0|Testament of Hope||p10|1
+22319|3|61|56|0|400|133739|1|0||0|Tome of Divine Right||t4,i5,H26|1
+13385|3|61|56|0|400|133737|1|0||0|Tome of Knowledge||a8,s8,t8,i8,p8|1
 15986|2|60|55|0|400|135160|1|0||0|Bonecaster's Star|||2
 20694|2|60|55|0|400|134336|0|0||0|Glowing Black Orb||i10,S12,H12|2
-18425|2|60|55|0|400|132792|0|0||0|Kreeg's Mug||t12,p15|1
+18425|2|60|55|0|400|132792|1|0||0|Kreeg's Mug||t12,p15|1
 15857|3|60|0|0|400|135148|1|0||0|Magebane Scion|||1
-11928|3|60|55|0|400|133488|0|0||0|Thaurissan's Royal Scepter||t5,i5,p10,H22|1
+11928|3|60|55|0|400|133488|1|0||0|Thaurissan's Royal Scepter||t5,i5,p10,H22|1
 18602|3|60|0|256|400|133738|1|0||1|Tome of Sacrifice||t8|1
 276336|2|60|0|0|400|134337|2|0||0|Yashiro's Spirit Bead||p12,S5,H15|1
 15939|2|59|54|0|400|135466|1|0||0|Councillor's Scepter|||2
-18672|2|59|54|0|400|134337|0|0||0|Elemental Ember||t10|2
+18672|2|59|54|0|400|134337|1|0||0|Elemental Ember||t10|2
 275671|2|59|0|0|400|134743|2|0||0|Field Agent Beverage||p4|1
-13261|3|59|54|0|400|135471|0|0||0|Globe of D'sak||t5,i16|1
+13261|3|59|54|0|400|135471|1|0||0|Globe of D'sak||t5,i16|1
 15967|2|59|54|0|400|135464|1|0||0|Highborne Star||a3,t6,i11|2
-4696|3|59|54|0|400|132790|0|0||0|Lapidis Tankard of Tidesippe||i5,p16|2
-18536|3|59|0|0|400|133738|0|0||0|Milli's Lexicon||t6,i7|1
+4696|3|59|54|0|400|132790|1|0||0|Lapidis Tankard of Tidesippe||i5,p16|2
+18536|3|59|0|0|400|133738|1|0||0|Milli's Lexicon||t6,i7|1
 274417|3|58|53|0|400|0|2|0||0|Barkskin Baubles||t10,p10,S7,H22|1
 275630|2|58|0|0|400|134132|2|0||0|Depleted Eye of Influence||S12,H12|1
 13371|2|58|0|0|400|134337|1|0||1|Father Flame|||1
-11935|3|58|53|0|400|134337|0|0||0|Magmus Stone||t7,p4|1
+11935|3|58|53|0|400|134337|1|0||0|Magmus Stone||t7,p4|1
 15938|2|58|53|0|400|134334|1|0||0|Mystical Orb|||2
-18316|3|58|53|0|400|134336|0|0||0|Obsidian Bauble||i7,S19,H19|1
+18316|3|58|53|0|400|134336|1|0||0|Obsidian Bauble||i7,S19,H19|1
 15985|2|57|52|0|400|135465|1|0||0|Arachnidian Branch|||2
 15930|2|56|51|0|400|135468|1|0||0|Imperial Red Scepter||a2,t4,i12|2
 15984|2|56|51|0|400|135144|1|0||0|Opulent Scepter|||2
-11904|2|56|0|0|400|134564|0|0||0|Spirit of Aquementas||S20,H20|1
+11904|2|56|0|0|400|134564|1|0||0|Spirit of Aquementas||S20,H20|1
+284228|2|56|51|0|400|454047|2|0||0|Vial of Vile Liquid||i13,c1|2
 15936|2|55|50|0|400|133749|1|0||0|Duskwoven Branch|||2
 260201|2|55|0|0|400|0|2|0||0|Highborne Memory Crystal||p9,S6,H19|1
 221344|3|55|0|128|400|133743|1|0||1|Personal Spellbook||S21,H21|1
 260208|2|55|0|0|400|0|2|0||0|Prelate's Orb||p13|1
 10709|2|55|0|0|400|134337|1|0||0|Pyrestone Orb||p13|1
-10796|3|54|49|0|400|134335|0|0||0|Drakestone||S7,H7|1
+10796|3|54|49|0|400|134335|1|0||0|Drakestone||S7,H7|1
 11870|2|54|0|0|400|133731|1|0||0|Oblivion Orb||t4,p11|1
 18762|3|54|0|0|400|134430|1|0||0|Shard of the Green Flame||t12|1
 15966|2|54|49|0|400|134125|1|0||0|Venomshroud Orb||t5,p10|2
-9944|2|53|48|0|400|134125|0|0||0|Abjurer's Crystal|||2
-17737|3|53|48|0|400|134333|0|0||0|Cloud Stone||i10,p10|1
-11625|3|53|48|0|400|134335|0|0||0|Enthralled Sphere||t3,i14,p5|1
+9944|2|53|48|0|400|134125|1|0||0|Abjurer's Crystal|||2
+17737|3|53|48|0|400|134333|1|0||0|Cloud Stone||i10,p10|1
+11625|3|53|48|0|400|134335|1|0||0|Enthralled Sphere||t3,i14,p5|1
 270112|2|53|0|0|400|135150|2|0||0|Gryphon Rider's Crop||i7,S12,H12|1
+271933|3|53|48|0|400|133738|2|0||0|Insurgent's Manifesto|Requires Revered with Theramore Expeditionary Force|t14,i6,S5,H5|1
+272088|3|53|48|0|400|133738|2|0||0|Tome of the Darkspear Prophecy|Requires Revered with Darkspear Raiders|t14,i6,S5,H5|1
 16768|2|52|0|0|400|133644|1|0||0|Furbolg Medicine Pouch||t10|1
 15983|2|52|47|0|400|135466|1|0||0|Gaea's Scepter|||2
+282088|2|52|47|0|400|134337|2|0||0|Heart of Smoldar||t8,S5,H16|2
 276904|2|52|1|0|400|0|2|0||0|Shimmerwine Spirits||i6,p9|1
 10708|2|52|0|0|400|133729|1|0||0|Skullspell Orb||i12|1
 19989|3|52|0|0|400|133743|1|0||0|Tome of Devouring Shadows|||1
-13030|3|51|46|0|400|133727|0|0||0|Basilisk Bone|||2
+13030|3|51|46|0|400|133727|1|0||0|Basilisk Bone|||2
 15982|2|51|46|0|400|135150|1|0||0|Bloodwoven Rod|||2
 19115|2|51|0|0|400|134799|1|0||0|Flask of Forest Mojo||i8,S9,H9|1
 15937|2|51|46|0|400|134333|1|0||0|Hibernal Sphere||p12|2
 9644|2|51|0|0|400|133711|1|0||0|Thermotastic Egg Timer||a3,p11|1
-7557|2|50|45|0|400|135464|0|0||0|Gossamer Rod|||2
+7557|2|50|45|0|400|135464|1|0||0|Gossamer Rod|||2
 249455|3|50|45|0|400|134922|2|0||0|Truesilver Conduit||t8,i8,S10,H10|1
 249456|3|50|45|0|400|4638472|2|0||0|Twisting Essence Jar||t8,p8,S6,H19|1
-15965|2|49|44|0|400|135140|0|0||0|Windchaser Orb||a1,t2,p11|2
+15965|2|49|44|0|400|135140|1|0||0|Windchaser Orb||a1,t2,p11|2
 9914|2|48|43|0|400|133483|1|0||0|Royal Scepter|||2
-12471|3|47|42|0|400|135158|0|0||0|Desertwalker Cane||t5,i4,p13|1
-5028|2|47|42|0|400|135472|0|0||0|Lord Sakrasis' Scepter||i6,p8|2
+12471|3|47|42|0|400|135158|1|0||0|Desertwalker Cane||t5,i4,p13|1
+5028|2|47|42|0|400|135472|1|0||0|Lord Sakrasis' Scepter||i6,p8|2
 15981|2|47|42|0|400|134122|1|0||0|Lunar Sphere|||2
 15980|2|46|41|0|400|134337|1|0||0|Darkmist Orb|||2
-7611|2|46|41|0|400|135140|0|0||0|Mistscape Stave||t3,i9|2
+7611|2|46|41|0|400|135140|1|0||0|Mistscape Stave||t3,i9|2
 277259|3|45|40|0|400|0|2|0||0|Fermented Restoration Potion||t12,p5|1
 11859|2|45|0|0|400|134104|1|0||0|Jademoon Orb||t3,i4,p8|1
 7555|2|45|40|0|400|135464|1|0||0|Regal Star|||2
 277260|3|45|40|0|400|0|2|0||0|Researcher's Night Light||t12|1
+287016|3|45|40|0|400|0|2|0||0|Shadow-Seer Orb||t9|2
 277980|2|44|1|0|400|0|2|0||0|Ogre Bone||t8,i4|1
-11262|3|44|0|0|400|134333|0|0||0|Orb of Lorica||i6,p11|1
-6803|3|44|0|0|400|135138|0|0||0|Prophetic Cane||t5,i12|1
+11262|3|44|0|0|400|134333|1|0||0|Orb of Lorica||i6,p11|1
+6803|3|44|0|0|400|135138|1|0||0|Prophetic Cane||t5,i12|1
+282706|3|44|39|0|400|133974|2|0||0|Rotting Meat||t12,S8|1
 15964|2|44|39|0|400|134334|1|0||0|Silksand Star||t2,p9|2
+271934|3|43|38|0|400|133738|2|0||0|Insurgent's Manifesto|Requires Revered with Theramore Expeditionary Force|t12,i5,S4,H4|1
 9882|2|43|38|0|400|134333|1|0||0|Sorcerer Sphere|||2
+272089|3|43|38|0|400|133738|2|0||0|Tome of the Darkspear Prophecy|Requires Revered with Darkspear Raiders|t12,i5,S4,H4|1
 4125|2|43|0|0|400|134333|1|0||0|Tranquil Orb||t4,p8|1
-13029|3|43|38|0|400|134336|0|0||0|Umbral Crystal||t5|2
+13029|3|43|38|0|400|134336|1|0||0|Umbral Crystal||t5|2
+279880|3|42|1|0|400|133642|2|0||0|Ancient Voodoo Pouch||i9,S5|1
 15979|2|42|37|0|400|135165|1|0||0|Embersilk Stave|||2
-9627|2|42|0|0|400|134249|0|0||0|Explorer's League Lodestar||t7,p6|1
+9627|2|42|0|0|400|134249|1|0||0|Explorer's League Lodestar||t7,p6|1
 271805|3|42|35|0|400|0|2|0||0|Thrice-Damned Effigy||t2,i4,p7|1
 6774|2|42|0|0|400|135465|1|0||0|Uthek's Finger||t5,i5,p5|1
 7610|2|41|36|0|400|134121|1|0||0|Aurora Sphere||i7,p4|2
 15978|2|41|36|0|400|135169|1|0||0|Geomancer's Rod|||2
-10770|3|41|36|0|400|133729|0|0||0|Mordresh's Lifeless Skull||t5,p11|1
-7749|2|41|0|0|400|134335|0|0||0|Omega Orb||S11,H11|1
+10770|3|41|36|0|400|133729|1|0||0|Mordresh's Lifeless Skull||t5,p11|1
+7749|2|41|0|0|400|134335|1|0||0|Omega Orb||S11,H11|1
 4984|2|41|0|0|400|133729|1|0||0|Skull of Impending Doom||i7|1
 7515|3|40|0|31360|400|134335|1|0||0|Celestial Orb||i3,S13,H13|1
 15108|3|40|0|31488|400|134335|1|0||0|Orb of Dar'Orahil||i5|1
 15107|3|40|0|31488|400|134335|1|0||0|Orb of Noh'Orahil||i5|1
 7556|2|40|35|0|400|134336|1|0||0|Twilight Orb|||2
+283254|2|39|34|0|400|134337|2|0||0|Heart of Alterac||t7,i5|2
 15963|2|39|34|0|400|135157|1|0||0|Stonecloth Branch||s3,t8|2
 276897|3|38|1|0|400|0|2|0||0|A Lesson in Destruction||t8,p6,S6,H6|1
-9393|3|38|33|0|400|134249|0|0||0|Beacon of Hope||p4,H22|2
+9393|3|38|33|0|400|134249|1|0||0|Beacon of Hope||p4,H22|2
 15918|2|38|33|0|400|134336|1|0||0|Conjurer's Sphere|||2
-7685|3|38|33|0|400|134334|0|0||0|Orb of the Forgotten Seer||S12,H12|1
+7685|3|38|33|0|400|134334|1|0||0|Orb of the Forgotten Seer||S12,H12|1
 276898|3|38|1|0|400|0|2|0||0|Salve and Salvation||p9,S3,H9|1
-1992|3|38|33|0|400|133731|0|0||0|Swampchill Fetish|||2
+1992|3|38|33|0|400|133731|1|0||0|Swampchill Fetish|||2
 15929|2|37|32|0|400|134336|1|0||0|Nightsky Orb||t2,i6,p3|2
 15977|2|37|32|0|400|134333|1|0||0|Vital Orb|||2
+279838|2|36|1|0|400|0|2|0||0|Arcane Infused Rod|||1
 15976|2|36|31|0|400|135474|1|0||0|Thistlefur Branch|||2
 7609|2|35|30|0|400|135144|1|0||0|Elder's Amber Stave|||2
-2565|3|35|30|0|400|135124|0|0||0|Rod of Molten Fire|||2
+273052|3|35|30|0|400|134336|2|0||0|Ponderous Orb||i2,p8,S4,H11|1
+2565|3|35|30|0|400|135124|1|0||0|Rod of Molten Fire|||2
 15935|2|34|29|0|400|135139|1|0||0|Durable Rod|||2
 15962|2|33|28|0|400|135145|1|0||0|Satyr's Rod||a1,i6,p2|2
 7344|2|33|0|0|400|135142|1|0||0|Torch of Holy Flame||p5|1
@@ -9576,19 +10571,24 @@ FGT.GEARDB = {
 2943|2|31|0|0|400|134335|1|0||0|Eye of Paleth||H13|1
 281306|2|31|0|0|400|133733|2|0||0|Flamescarred Spellbook||t2,p5|1
 15975|2|31|26|0|400|135467|1|0||0|Raincaller Scepter|||2
+273027|3|31|26|0|400|136017|2|0||0|Raptor's Gaze||t4,i4,S8,H8|1
 15928|2|31|26|0|400|135469|1|0||0|Silver-thread Rod||t3,p5|2
+285192|2|30|25|0|400|0|2|0||0|Kobold Firestarter||t4|2
 249394|3|30|25|0|400|1769010|2|0||0|Orb of Mystic Insight||i6,S7,H7|1
 249395|3|30|25|0|400|134336|2|0||0|Orb of Souls||p6,S4,H13|1
 4837|2|30|25|0|400|133438|1|0||0|Strength of Will||p6|2
 15973|2|30|25|0|400|135464|1|0||0|Watcher's Star|||2
-16887|3|30|0|0|400|135474|0|0||0|Witch's Finger||t4,i7|1
+16887|3|30|0|0|400|135474|1|0||0|Witch's Finger||t4,i7|1
 281318|2|29|0|0|400|0|2|0||0|Bouquet of Auberdine Flowers||t4,i4|1
 9800|2|29|24|0|400|134333|1|0||0|Ivy Orb|||2
 4836|2|28|23|0|400|133434|1|0||0|Fireproof Orb|||2
-13031|3|28|23|0|400|134333|0|0||0|Orb of Mistmantle||p4,H9|2
+13031|3|28|23|0|400|134333|1|0||0|Orb of Mistmantle||p4,H9|2
 15947|2|28|23|0|400|135160|1|0||0|Sanguine Star||t4,p4|2
+286541|2|27|22|0|400|132791|2|0||0|Bael'dun Tankard||t3,p4|2
 15927|2|27|22|0|400|134123|1|0||0|Bright Sphere||i4,p2|2
 9769|2|27|22|0|400|135153|1|0||0|Greenweave Branch|||2
+285348|3|26|21|0|400|0|2|0||0|Alliance Outrunner Healing Rod||S4,H12|1
+282654|2|26|21|0|400|133718|2|0||1|Gnawed Bone||t3,p3|2
 4838|2|26|21|0|400|134564|1|0||0|Orb of Power||t2,i4|2
 15974|2|26|21|0|400|135144|1|0||0|Pagan Rod|||2
 274743|3|25|20|0|400|0|2|0||0|Defective Samophlange|Requires Honored with Ratchet|i5,p5|1
@@ -9597,23 +10597,26 @@ FGT.GEARDB = {
 6898|2|25|0|31488|400|134335|1|0||0|Orb of Soran'ruk|||1
 7558|2|25|20|0|400|135466|1|0||0|Shimmering Stave|||2
 1131|2|25|0|0|400|133729|1|0||0|Totem of Infliction|||1
+284668|2|24|19|0|400|134860|2|0||0|Apothecary's Concoction|||2
 15972|2|24|19|0|400|132795|1|0||0|Ritual Stein|||2
 15912|2|23|18|0|400|135467|1|0||0|Buccaneer's Orb|||2
 15946|2|23|18|0|400|134121|1|0||0|Mystic's Sphere||t2,p3|2
-2879|3|22|17|0|400|135466|0|0||1|Antipodean Rod|||2
+2879|3|22|17|0|400|135466|1|0||1|Antipodean Rod|||2
+273137|3|22|17|0|400|1063033|2|0||0|Skum's Bucket||t3,S3,H10|1
 1172|2|21|0|0|400|135432|1|0||0|Grayson's Torch||p4|1
 281291|3|21|0|0|400|0|2|0||0|Mathystra Channeling Orb||t3,i5|1
 281292|3|21|0|0|400|0|2|0||0|Onu's Patience||t3,p5|1
 7608|2|21|16|0|400|132791|1|0||0|Seer's Fine Stein||i3,p1|2
 15971|2|20|15|0|400|135225|1|0||0|Aboriginal Rod|||2
 15206|2|20|0|0|400|135466|1|0||0|Jadefinger Baton||t2,p2|1
-5183|3|20|15|0|400|134336|0|0||0|Pulsating Hydra Heart||t2|2
-6341|2|19|14|0|400|134249|0|0||0|Eerie Stable Lantern||t3|1
+5183|3|20|15|0|400|134336|1|0||0|Pulsating Hydra Heart||t2|2
+6341|2|19|14|0|400|134249|1|0||0|Eerie Stable Lantern||t3|1
 11855|2|19|0|0|400|134520|1|0||0|Tork Wrench||s2,i2|1
 7554|2|19|14|0|400|135139|1|0||0|Willow Branch|||2
 3451|2|18|0|0|400|134799|1|0||0|Nightglow Concoction||p3|1
 15945|2|18|13|0|400|135153|1|0||0|Runic Stave||t2,p2|2
-7559|2|17|12|0|400|135139|0|0||0|Runic Cane||t3|2
+279898|2|17|1|0|400|133739|2|0||0|Dwarven Tome||p1,S3,H3|1
+7559|2|17|12|0|400|135139|1|0||0|Runic Cane||t3|2
 15926|2|17|12|0|400|134333|1|0||0|Spellbinder Orb||i3|2
 5611|2|16|0|0|400|134797|1|0||0|Tear of Grief||i5|1
 15970|2|15|10|0|400|135465|1|0||0|Native Branch|||2
@@ -9630,19 +10633,19 @@ FGT.GEARDB = {
         [24] = [==[
 274387|4|65|60|0|602|249173|2|0||0|Swiftfeather Arrow|||0
 274388|4|65|60|0|603|249176|2|0||0|Swiftstrike Shot|||0
-13377|3|61|56|0|603|132384|0|0||0|Miniature Cannon Balls|||1
-12654|3|59|54|0|602|132169|0|0||0|Doomshot|||1
+13377|3|61|56|0|603|132384|1|0||0|Miniature Cannon Balls|||1
+12654|3|59|54|0|602|132169|1|0||0|Doomshot|||1
 18042|2|57|52|0|602|132382|1|0||0|Thorium Headed Arrow|||0
 15997|2|57|52|0|603|132385|1|0||0|Thorium Shells|||0
 19316|2|54|51|0|602|135855|1|0||0|Ice Threaded Arrow|||1
 19317|2|54|51|0|603|135844|1|0||0|Ice Threaded Bullet|||1
-11630|3|52|47|0|603|132384|0|0||0|Rockshard Pellets|||0
+11630|3|52|47|0|603|132384|1|0||0|Rockshard Pellets|||0
 10513|2|49|44|0|603|132383|1|0||0|Mithril Gyro-Shot|||0
 11284|1|45|40|0|603|132383|1|0||0|Accurate Slugs|||0
 11285|1|45|40|0|602|135661|1|0||0|Jagged Arrow|||0
 10579|3|42|37|0|602|132382|1|0||0|Explosive Arrow|||0
 10512|2|42|37|0|603|132383|1|0||0|Hi-Impact Mithril Slugs|||0
-9399|2|40|35|0|602|132381|0|0||0|Precision Arrow|||0
+9399|2|40|35|0|602|132381|1|0||0|Precision Arrow|||0
 3465|2|36|0|0|603|132384|1|0||0|Exploding Shot|||0
 8069|1|35|30|0|603|132384|1|0||0|Crafted Solid Shot|||0
 3464|2|35|0|0|602|132382|1|0||0|Feathered Arrow|||0
@@ -9658,19 +10661,48 @@ FGT.GEARDB = {
 2512|1|5|1|0|602|132382|1|0||0|Rough Arrow|||0
 ]==],
         [25] = [==[
+284587|4|63|58|0|216|135431|2|0||0|Ankle Slicers||t9,A12|2
 21135|3|63|58|0|216|135424|1|0||0|Assassin's Throwing Axe||a11|0
-13173|3|60|55|0|216|135424|0|0||0|Flightblade Throwing Axe|||1
+13173|3|60|55|0|216|135424|1|0||0|Flightblade Throwing Axe|||1
+287077|2|59|1|0|216|135648|2|0||0|Demonbane Knife||p4,A6|1
+287076|2|58|1|0|216|0|2|0||0|Noggle's Razorblade||a7,s2|1
 285278|2|57|52|0|216|133629|2|0||0|Satchel of Dark Iron Bombs||t8|1
+285284|2|56|51|0|216|135662|2|0||0|Balanced Knives|||2
+287075|2|55|1|0|216|0|2|0||0|Belgrom's Revenge||A14|1
 285281|3|54|49|0|216|133057|2|0||0|Arcanite Blacksmith Hammer||s6,p4|1
 20086|2|52|0|0|216|135427|1|0||0|Dusksteel Throwing Knife|||1
 270106|2|50|0|0|216|135427|2|0||0|Vicious Throwing Stars||a5,s5|1
+287074|2|49|1|0|216|0|2|0||0|Lard's Lunch Slicer||t5|1
+274643|3|48|43|0|216|135422|2|0||0|Gutcutter Hatchet||t6,A12|1
 285277|2|46|41|0|216|133640|2|0||1|Satchel of Iron Bombs||t6|1
+287070|3|45|40|0|216|0|2|0||0|Skypierce Javelin||s3|2
+287073|2|43|1|0|216|0|2|0||0|Orwin's Axe||s4,t4|1
+287072|2|42|1|0|216|0|2|0||0|Bladewhisper's Namesake||t4|1
+287071|2|41|1|0|216|135653|2|0||0|Goblin Switchblade||a3|1
+285100|2|40|35|0|216|133724|2|0||0|Serrated Raptor Teeth||a4|2
 285280|2|39|34|0|216|133057|2|0||0|Mithril Blacksmith Hammer||s5|1
+285283|2|38|33|0|216|135420|2|0||0|Serrated Axes|||2
 3463|2|37|0|0|216|132330|1|0||0|Silver Star|||1
+274292|3|36|31|0|216|135646|2|0||0|Houndmaster Boomerang||t4,A4|1
+274160|3|36|31|0|216|135421|2|0||0|Quilrager Throwing Axe||s4|1
+287069|2|34|1|0|216|0|2|0||0|Yeti Skinner||A7|1
+287068|3|33|28|0|216|135655|2|0||0|Excavated Dagger||a4,s4|2
 285276|2|33|28|0|216|133635|2|0||1|Satchel of Bronze Bombs||t4|1
+287067|2|32|1|0|216|0|2|0||0|Dragonmaw Skinflayer||s3,p3|1
+287066|2|30|1|0|216|0|2|0||0|Wizlo's Tuning Wrench||a2,p2|1
+284696|2|29|24|0|216|133723|2|0||0|Carved Furbolg Tooth||a2,s2|2
 281660|2|27|0|0|216|132330|2|0||0|Iron Star||a3|1
+274092|3|26|19|0|216|135426|2|0||0|Sharpened Cutlery|||1
+287064|2|23|1|0|216|135646|2|0||0|Beastculler's Knife||a1|1
 285279|2|22|17|0|216|133057|2|0||0|Cracked Blacksmith Hammer||s2|1
+285292|3|21|16|0|216|134427|2|0||0|Dull Sawblade||t2,A6|1
+285282|2|18|13|0|216|135641|2|0||0|Jagged Knives|||2
 285275|2|18|13|0|216|133626|2|0||1|Satchel of Copper Bombs||t2|1
+287063|2|17|12|0|216|0|2|0||0|Serrated Knife||a1,p1|2
+287062|2|14|1|0|216|0|2|0||0|Darnassian Knife||a1|1
+287061|2|12|1|0|216|0|2|0||0|Cheese Knife||t1|1
+287060|2|11|1|0|216|0|2|0||0|Rezlak's Spare Knife|||1
+287059|2|10|1|0|216|135653|2|0||0|Footman's Pocketknife||s1|1
 ]==],
         [26] = [==[
 22821|4|92|60|0|219|135482|0|0||0|Doomfinger||S16,H16,c1|1
@@ -9708,179 +10740,213 @@ FGT.GEARDB = {
 272595|4|65|60|0|218|135539|2|0|H|0|Premier High Warlord's Crossbow||t6,A32|1
 272599|4|65|60|0|203|135615|2|0|H|0|Premier High Warlord's Street Sweeper||t6,A32|1
 279246|4|65|60|0|219|135432|2|0||0|Torch of Light||p11,S6,H17|2
-15283|2|64|59|0|219|135143|0|0||0|Lunar Wand|||2
+15283|2|64|59|0|219|135143|1|0||0|Lunar Wand|||2
 19107|3|63|0|0|218|135536|1|0||0|Bloodseeker||a7,s8|1
 17077|4|63|58|0|219|135150|0|0||0|Crimson Shocker||i10|1
-22408|3|63|58|0|219|135469|0|0||0|Ritssyn's Wand of Bad Mojo||t4,S11,H11|1
+280020|3|63|58|0|203|0|2|0||0|Deep Jungle Rifle||t5,A14|1
+22408|3|63|58|0|219|135469|1|0||0|Ritssyn's Wand of Bad Mojo||t4,S11,H11|1
+280031|3|63|58|0|219|0|2|0||0|Sparklance Wand||p4|1
 19108|3|63|0|0|219|135463|1|0||0|Wand of Biting Cold|||1
-13938|3|62|57|0|219|133732|0|0||0|Bonecreeper Stylus||i4,S11,H11|1
-18761|3|62|57|0|219|135474|0|0||0|Oblivion's Touch||i11|1
+13938|3|62|57|0|219|133732|1|0||0|Bonecreeper Stylus||i4,S11,H11|1
+18761|3|62|57|0|219|135474|1|0||0|Oblivion's Touch||i11|1
 20672|3|62|57|0|219|135474|0|0||0|Sparkling Crystal Wand||i9,S5,H5|1
-18388|3|62|57|0|218|135537|0|0||0|Stoneshatter|||1
+18388|3|62|57|0|218|135537|1|0||0|Stoneshatter|||1
 16997|3|62|0|0|219|135467|1|0||0|Stormrager||t8,i5|1
-18755|3|62|57|0|203|135612|0|0||0|Xorothian Firestick||a4,t6|1
-18738|3|61|56|0|218|135533|0|0||0|Carapace Spine Crossbow||a4,t9|1
+18755|3|62|57|0|203|135612|1|0||0|Xorothian Firestick||a4,t6|1
+18738|3|61|56|0|218|135533|1|0||0|Carapace Spine Crossbow||a4,t9|1
 16007|3|61|56|0|203|135612|1|0||0|Flawless Arcanite Rifle||A10|2
-18483|3|61|56|0|219|135467|0|0||0|Mana Channeling Wand|||1
-13380|3|61|56|0|203|135616|0|0||0|Willey's Portable Howitzer||t9,A8|1
-13534|3|60|55|0|219|135654|0|0||0|Banshee Finger|||1
+18483|3|61|56|0|219|135467|1|0||0|Mana Channeling Wand|||1
+281600|2|61|56|0|219|135474|2|0||0|Wail of Death||t6,p4|2
+13380|3|61|56|0|203|135616|1|0||0|Willey's Portable Howitzer||t9,A8|1
+13534|3|60|55|0|219|135654|1|0||0|Banshee Finger|||1
 249385|3|60|55|0|219|135469|2|0||0|Brilliant Wand||i7,S9,H9|1
-15282|2|60|55|0|219|135468|0|0||0|Dragon Finger|||2
+15282|2|60|55|0|219|135468|1|0||0|Dragon Finger|||2
+284070|2|60|55|0|219|135645|2|0||0|Dreadwhisper's Touch||t11|2
 249237|2|60|55|0|219|135475|2|0||0|Greater Eternal Wand||S9,H9|2
-15325|2|60|55|0|203|135615|0|0||0|Sharpshooter Harquebus|||2
+15325|2|60|55|0|203|135615|1|0||0|Sharpshooter Harquebus|||2
 16992|2|60|0|0|203|135617|1|0||0|Smokey's Explosive Launcher|||1
 16993|2|60|0|0|219|135465|1|0||0|Smokey's Fireshooter|||1
 22656|4|60|0|0|203|135615|1|0||0|The Purifier||c1|1
-18460|2|60|55|0|203|135616|0|0||0|Unsophisticated Hand Cannon||s8|1
-12651|3|59|54|0|218|135533|0|0||0|Blackcrow||a3,h1|1
-18338|3|59|54|0|219|135464|0|0||0|Wand of Arcane Potency|||2
+18460|2|60|55|0|203|135616|1|0||0|Unsophisticated Hand Cannon||s8|1
+12651|3|59|54|0|218|135533|1|0||0|Blackcrow||a3,h1|1
+287036|3|59|54|0|219|135469|2|0||0|Satyr's Touch||t9|2
+18338|3|59|54|0|219|135464|1|0||0|Wand of Arcane Potency|||2
 275296|2|58|0|0|203|135613|2|0||0|Deadwood Boomstick||t6,A8|1
-2099|4|58|53|0|203|135618|0|0||0|Dwarven Hand Cannon|||2
+2099|4|58|53|0|203|135618|1|0||0|Dwarven Hand Cannon|||2
 275837|2|58|0|0|219|135473|2|0||0|Felflick's Fire Flicker||S8,H8|1
-18301|2|58|53|0|219|135468|0|0||0|Lethtendris's Wand||S9,H9|1
-13146|3|58|53|0|203|135617|0|0||0|Shell Launcher Shotgun|||2
-13004|3|58|53|0|219|135473|0|0||0|Torch of Austen|||2
+18301|2|58|53|0|219|135468|1|0||0|Lethtendris's Wand||S9,H9|1
+282029|2|58|53|0|203|135616|2|0||0|Reaver's Repeater||t5,A13|2
+13146|3|58|53|0|203|135617|1|0||0|Shell Launcher Shotgun|||2
+13004|3|58|53|0|219|135473|1|0||0|Torch of Austen|||2
 276332|2|57|0|0|218|135536|2|0||0|Abigail's Hope||s5,t6|1
-15281|2|57|52|0|219|135147|0|0||0|Glowstar Rod|||2
-13396|3|57|52|0|219|133729|0|0||0|Skul's Ghastly Touch|||1
-22254|3|57|52|0|219|135464|0|0||0|Wand of Eternal Light||i6,H9|1
+15281|2|57|52|0|219|135147|1|0||0|Glowstar Rod|||2
+13396|3|57|52|0|219|133729|1|0||0|Skul's Ghastly Touch|||1
+280083|3|57|52|0|203|0|2|0||0|Truesight Rifle||t4,A8|1
+22254|3|57|52|0|219|135464|1|0||0|Wand of Eternal Light||i6,H9|1
 15324|2|56|51|0|203|135610|1|0||0|Burnside Rifle|||2
 13248|3|56|51|0|203|135615|0|0||0|Burstshot Harquebus||t8,A10|1
 13474|2|56|0|0|203|135613|1|0||0|Farmer Dalson's Shotgun|||1
-13040|3|56|51|0|218|135533|0|0||0|Heartseeking Crossbow||a9,t4|2
-10836|3|56|51|0|219|135466|0|0||0|Rod of Corrosion|||1
-12605|3|56|51|0|219|133729|0|0||0|Serpentine Skuller|||1
+13040|3|56|51|0|218|135533|1|0||0|Heartseeking Crossbow||a9,t4|2
+10836|3|56|51|0|219|135466|1|0||0|Rod of Corrosion|||1
+12605|3|56|51|0|219|133729|1|0||0|Serpentine Skuller|||1
 16004|3|55|50|0|203|135617|1|0||0|Dark Iron Rifle|||2
+287026|3|54|49|0|203|0|2|0||0|Escape Plan||a11|2
 249232|2|54|49|0|219|135467|2|0||0|Lesser Eternal Wand||S8,H8|2
-11629|3|53|48|0|203|135616|0|0||0|Houndmaster's Rifle||a3|1
-17717|3|53|48|0|203|135614|0|0||0|Megashot Rifle||A19|1
-11748|3|53|48|0|219|135150|0|0||0|Pyric Caduceus|||1
-15280|2|53|48|0|219|135468|0|0||0|Wizard's Hand|||2
+11629|3|53|48|0|203|135616|1|0||0|Houndmaster's Rifle||a3|1
+17717|3|53|48|0|203|135614|1|0||0|Megashot Rifle||A19|1
+11748|3|53|48|0|219|135150|1|0||0|Pyric Caduceus|||1
+15280|2|53|48|0|219|135468|1|0||0|Wizard's Hand|||2
 15995|2|52|47|0|203|135616|1|0||0|Thorium Rifle||A17|2
-20082|3|52|0|0|219|135471|0|0||0|Woestave||t3|1
-15279|2|51|46|0|219|135469|0|0||0|Ivory Wand|||2
-17745|3|51|46|0|219|135466|0|0||0|Noxious Shooter||t7|1
+276735|3|52|47|0|219|0|2|0||0|Tidesong Wand||t3,i4|1
+20082|3|52|0|0|219|135471|1|0||0|Woestave||t3|1
+15279|2|51|46|0|219|135469|1|0||0|Ivory Wand|||2
+17745|3|51|46|0|219|135466|1|0||0|Noxious Shooter||t7|1
+282020|2|51|46|0|219|135465|2|0||0|Stonegaze Wand||t6,H7|2
 9654|2|50|0|0|219|135469|1|0||0|Cairnstone Sliver|||1
-13139|3|50|45|0|203|135617|0|0||0|Guttbuster||a8,s3|2
+13139|3|50|45|0|203|135617|1|0||0|Guttbuster||a8,s3|2
 19118|2|50|0|0|219|135474|1|0||0|Nature's Breath||t3,i6|1
-15323|2|50|45|0|203|135610|0|0||0|Percussion Shotgun|||2
-13065|3|50|45|0|219|135471|0|0||0|Wand of Allistarj|||2
-9483|3|49|44|0|219|135432|0|0||0|Flaming Incinerator|||2
+15323|2|50|45|0|203|135610|1|0||0|Percussion Shotgun|||2
+13065|3|50|45|0|219|135471|1|0||0|Wand of Allistarj|||2
+9483|3|49|44|0|219|135432|1|0||0|Flaming Incinerator|||2
+284859|2|49|44|0|218|135533|2|0||0|Silithid Sinew Crossbow||a3,t5|2
 259891|2|48|45|0|203|0|2|0||0|Berdun's Trusty Rifle|||1
 290333|2|48|0|0|203|0|2|0||0|Berdun's Trusty Rifle||s6|1
 249234|2|48|43|0|219|135466|2|0||0|Dreambough Wand||S7,H7|2
-2100|4|48|43|0|203|135615|0|0||0|Precisely Calibrated Boomstick||a14|2
-4089|2|48|43|0|203|135612|0|0||0|Ricochet Blunderbuss|||2
-13039|3|48|43|0|218|135533|0|0||0|Skull Splitting Crossbow||s3,A14|2
-9412|3|47|42|0|203|135616|0|0||0|Galgann's Fireblaster|||1
+274655|3|48|43|0|219|135475|2|0||0|Peacekeeper Wand||S4,H4|1
+2100|4|48|43|0|203|135615|1|0||0|Precisely Calibrated Boomstick||a14|2
+4089|2|48|43|0|203|135612|1|0||0|Ricochet Blunderbuss|||2
+13039|3|48|43|0|218|135533|1|0||0|Skull Splitting Crossbow||s3,A14|2
+9412|3|47|42|0|203|135616|1|0||0|Galgann's Fireblaster|||1
 11860|2|46|0|0|219|135470|1|0||0|Charged Lightning Rod|||1
 10704|2|46|0|0|219|135463|1|0||0|Chillnail Splinter|||1
 277256|2|45|40|0|219|0|2|0||0|Dudd's Second-Favorite Wand||i5|1
-5216|2|45|40|0|219|135468|0|0||0|Umbral Wand|||2
+275040|2|45|0|0|218|135536|2|0||0|Head-Harvest Crossbow||a3,A6|1
+5216|2|45|40|0|219|135468|1|0||0|Umbral Wand|||2
 10510|2|44|39|0|203|135616|1|0||0|Mithril Heavy-bore Rifle||A14|2
-3430|2|44|39|0|203|135614|0|0||0|Sniper Rifle|||2
+3430|2|44|39|0|203|135614|1|0||0|Sniper Rifle|||2
+274425|3|44|39|0|219|135469|2|0||0|White Obsidian Wand||S6,H6|1
 17687|2|43|0|0|203|135614|1|0||0|Master Hunter's Rifle|||1
 270084|2|43|0|0|219|135465|2|0||0|Master Hunter's Wand||S7,H7|1
-9422|3|43|38|0|203|134536|0|0||0|Shadowforge Bushmaster|||2
-13064|3|42|37|0|219|135471|0|0||0|Jaina's Firestarter||i6,p3|2
-13138|3|42|37|0|203|135617|0|0||0|The Silencer||A14|2
+9422|3|43|38|0|203|134536|1|0||0|Shadowforge Bushmaster|||2
+13064|3|42|37|0|219|135471|1|0||0|Jaina's Firestarter||i6,p3|2
+282561|3|42|37|0|203|135613|2|0||0|Siegebreaker's Blaster|||1
+13138|3|42|37|0|203|135617|1|0||0|The Silencer||A14|2
 249144|2|42|37|0|219|135465|2|0||0|Twisted Nether Wand||S6,H6|2
-5215|2|41|36|0|219|135473|0|0||0|Ember Wand|||2
+5215|2|41|36|0|219|135473|1|0||0|Ember Wand|||2
 23177|3|41|36|0|219|135474|0|0||0|Lady Falther'ess' Finger|||1
 10508|2|41|36|0|203|135616|1|0||0|Mithril Blunderbuss||a5|2
 5249|2|40|0|0|219|135473|1|0||0|Burning Sliver|||1
-6806|2|40|0|0|219|135466|0|0||0|Dancing Flame|||1
+6806|2|40|0|0|219|135466|1|0||0|Dancing Flame|||1
+274604|3|40|35|0|203|0|2|0||0|Frosty Blunderbuss||t4,A10|1
 4547|2|40|0|0|219|135464|1|0||0|Gnomish Zapper|||1
 5253|2|40|0|0|219|135473|1|0||0|Goblin Igniter|||1
 7514|3|40|0|128|219|135467|1|0||0|Icefury Wand||i3|1
 274919|2|40|0|0|219|135471|2|0||0|Neophyte's Wand|||1
 11263|3|40|0|128|219|135469|1|0||0|Nether Force Wand||i3|1
-10766|3|40|35|128|219|135465|0|0||0|Plaguerot Sprig|||1
+10766|3|40|35|128|219|135465|1|0||0|Plaguerot Sprig|||1
 7513|3|40|0|128|219|135471|1|0||0|Ragefire Wand||i3|1
 4127|2|40|0|0|203|135611|1|0||0|Shrapnel Blaster|||1
-13038|3|40|35|0|218|135533|0|0||0|Swiftwind||a7|2
-10572|3|39|34|128|219|135463|0|0||0|Freezing Shard|||2
+13038|3|40|35|0|218|135533|1|0||0|Swiftwind||a7|2
+287004|3|40|35|0|219|0|2|0||0|Touch of the Depths||i5|2
+10572|3|39|34|128|219|135463|1|0||0|Freezing Shard|||2
 5247|2|39|0|0|219|135144|1|0||0|Rod of Sorrow|||1
-15322|2|39|34|0|203|135610|0|0||0|Smoothbore Gun|||2
-9381|3|38|33|0|219|135154|0|0||0|Earthen Rod|||2
+15322|2|39|34|0|203|135610|1|0||0|Smoothbore Gun|||2
+274293|3|39|34|0|218|135536|2|0||0|Spellsever Crossbow||A8|1
+9381|3|38|33|0|219|135154|1|0||0|Earthen Rod|||2
 6729|2|38|0|0|219|135473|1|0||0|Fizzle's Zippy Lighter|||1
 15692|2|38|0|0|219|135469|1|0||0|Kodo Brander|||1
 15691|2|38|0|0|203|135613|1|0||0|Sidegunner Shottie|||1
 6798|2|37|0|0|203|135613|1|0||0|Blasting Hackbut|||1
-8188|2|37|32|0|203|135617|0|0||0|Explosive Shotgun|||2
+8188|2|37|32|0|203|135617|1|0||0|Explosive Shotgun|||2
 6797|2|37|0|0|219|135465|1|0||0|Eyepoker|||1
 4086|2|37|0|0|203|135616|1|0||0|Flash Rifle|||1
 5248|2|37|0|0|219|135464|1|0||0|Flash Wand|||1
 16789|2|36|0|0|219|135145|1|0||0|Captain Rackmore's Tiller|||1
-17042|2|36|0|0|203|135610|0|0||0|Nail Spitter|||1
+17042|2|36|0|0|203|135610|1|0||0|Nail Spitter|||1
+274084|3|36|0|0|203|135614|2|0||0|Quilboar Blaster||a4,p4|1
+279847|2|36|1|0|219|0|2|0||0|Unstable Power Core||t4|1
 274748|3|35|30|0|203|0|2|0||0|Booty Bay Bruiser's Buckshot|Requires Honored with Booty Bay|t3,A9|1
-9456|3|35|30|0|203|135611|0|0||0|Glass Shooter|||1
+9456|3|35|30|0|203|135611|1|0||0|Glass Shooter|||1
 11290|2|35|30|0|219|135469|0|0||0|Greater Mystic Wand|||2
 217287|2|35|30|0|219|135469|1|0||0|Greater Mystic Wand||S5,H5|2
-7708|3|35|30|0|219|135466|0|0||0|Necrotic Wand|||1
-5213|2|35|30|0|219|135468|0|0||0|Scorching Wand|||2
-13137|3|34|29|0|203|135617|0|0||0|Ironweaver|||2
-13063|3|34|29|0|219|135139|0|0||0|Starfaller|||2
-5245|2|34|29|0|219|135144|0|0||0|Summoner's Wand|||2
-3042|2|33|28|0|203|135610|0|0||0|BKP "Sparrow" Smallbore|||2
-7729|3|33|28|0|203|135615|0|0||0|Chesterfall Musket|||2
-13037|3|32|27|0|218|135533|0|0||0|Crystalpine Stinger|||2
-5214|2|32|27|0|219|135463|0|0||0|Wand of Eventide|||2
+7708|3|35|30|0|219|135466|1|0||0|Necrotic Wand|||1
+5213|2|35|30|0|219|135468|1|0||0|Scorching Wand|||2
+13137|3|34|29|0|203|135617|1|0||0|Ironweaver|||2
+13063|3|34|29|0|219|135139|1|0||0|Starfaller|||2
+5245|2|34|29|0|219|135144|1|0||0|Summoner's Wand|||2
+3042|2|33|28|0|203|135610|1|0||0|BKP "Sparrow" Smallbore|||2
+7729|3|33|28|0|203|135615|1|0||0|Chesterfall Musket|||2
+273029|3|33|28|0|203|134536|2|0||0|Golemsight Long Gun||a6|1
+13037|3|32|27|0|218|135533|1|0||0|Crystalpine Stinger|||2
+5214|2|32|27|0|219|135463|1|0||0|Wand of Eventide|||2
+273043|3|32|27|0|219|135468|2|0||0|Wand of Mana Concentration||i4|1
 3041|2|31|26|0|203|135614|1|0||0|"Mage-Eye" Blunderbuss|||2
-9489|2|31|26|0|219|135467|0|0||0|Gyromatic Icemaker|||1
+273829|3|31|26|0|218|135531|2|0||0|Concealed Hand Crossbow||A12|1
+273033|3|31|26|0|218|135535|2|0||0|Gravespike Repeater||A8|1
+9489|2|31|26|0|219|135467|1|0||0|Gyromatic Icemaker|||1
 11289|2|31|26|0|219|135139|1|0||0|Lesser Mystic Wand|||2
 5244|2|30|0|0|219|135464|1|0||0|Consecrated Wand|||1
+282710|3|30|25|0|203|135612|2|0||0|Dun Garok Rifle||a3,p3|1
 5246|2|30|0|0|219|135139|1|0||0|Excavation Rod|||1
 5818|2|30|0|0|219|135473|1|0||0|Moonbeam Wand|||1
-8184|2|29|24|0|219|135473|0|0||0|Firestarter|||2
-7001|3|29|0|0|219|135466|0|0||0|Gravestone Scepter||p1|1
-9487|3|29|24|0|203|135615|0|0||0|Hi-tech Supergun|||2
+8184|2|29|24|0|219|135473|1|0||0|Firestarter|||2
+7001|3|29|0|0|219|135466|1|0||0|Gravestone Scepter||p1|1
+9487|3|29|24|0|203|135615|1|0||0|Hi-tech Supergun|||2
 4383|2|29|24|0|203|135615|1|0||0|Moonsight Rifle|||2
 281263|2|29|0|0|219|0|2|0||0|Wicked Lich's Finger||i2,p2|1
 5250|2|28|0|0|219|135139|1|0||0|Charred Wand|||1
 15465|2|28|0|0|219|135469|1|0||0|Stingshot Wand|||1
 5356|2|27|0|0|219|135124|1|0||0|Branding Rod|||1
-2098|3|27|22|0|203|135617|0|0||0|Double-barreled Shotgun|||2
+2098|3|27|22|0|203|135617|1|0||0|Double-barreled Shotgun|||2
 217314|2|27|23|0|203|135615|1|0||0|Moonsight Rifle|||1
-6315|2|27|22|0|218|135530|0|0||0|Steelarrow Crossbow|||2
-13062|3|27|22|0|219|135139|0|0||0|Thunderwood|||2
-8186|2|26|21|0|219|135468|0|0||0|Dire Wand|||2
+284574|2|27|22|0|219|0|2|0||0|Snapped Branch Wand|||2
+6315|2|27|22|0|218|135530|1|0||0|Steelarrow Crossbow|||2
+13062|3|27|22|0|219|135139|1|0||0|Thunderwood|||2
+8186|2|26|21|0|219|135468|1|0||0|Dire Wand|||2
 4379|2|26|21|0|203|135616|1|0||0|Silver-plated Shotgun|||2
 6677|2|26|0|0|219|135467|1|0||0|Spellcrafter Wand|||1
 4372|2|24|19|0|203|135616|1|0||0|Lovingly Crafted Boomstick|||2
 11288|2|23|13|0|219|135144|1|0||0|Greater Magic Wand|||2
-8071|2|23|0|0|219|135139|0|0||0|Sizzle Stick|||1
-5198|3|22|17|0|219|135139|0|0||0|Cookie's Stirring Rod|||1
-7607|2|22|0|0|219|135139|0|0||0|Sable Wand|||1
+8071|2|23|0|0|219|135139|1|0||0|Sizzle Stick|||1
+5198|3|22|17|0|219|135139|1|0||0|Cookie's Stirring Rod|||1
+7607|2|22|0|0|219|135139|1|0||0|Sable Wand|||1
 4369|2|21|16|0|203|135616|1|0||0|Deadly Blunderbuss|||2
-13136|3|21|16|0|203|135617|0|0||0|Lil Timmy's Peashooter|||2
-12984|3|21|16|0|219|135464|0|0||0|Skycaller|||2
+13136|3|21|16|0|203|135617|1|0||0|Lil Timmy's Peashooter|||2
+12984|3|21|16|0|219|135464|1|0||0|Skycaller|||2
 5240|2|21|0|0|219|135139|1|0||0|Torchlight Wand|||1
 5252|2|21|0|0|219|135466|1|0||0|Wand of Decay|||1
-5243|3|20|15|0|219|135473|0|0||0|Firebelcher|||1
-5207|2|20|15|0|219|135469|0|0||0|Opaque Wand|||2
+5243|3|20|15|0|219|135473|1|0||0|Firebelcher|||1
+5207|2|20|15|0|219|135469|1|0||0|Opaque Wand|||2
 15205|2|20|0|0|203|135613|1|0||0|Owlsight Rifle|||1
 5309|2|20|0|0|203|135613|1|0||0|Privateer Musket|||1
+281925|2|20|15|0|219|135473|2|0||0|Whelpfire Wand|||2
 3567|2|19|0|0|203|135610|1|0||0|Dwarven Fishing Pole|||1
 6255|2|19|14|0|203|135614|0|0||0|Fishing Pole (JEFFTEST)|||2
-3040|2|19|14|0|203|135610|0|0||0|Hunter's Muzzle Loader|||2
+3040|2|19|14|0|203|135610|1|0||0|Hunter's Muzzle Loader|||2
+284193|2|19|14|0|219|135143|2|0||0|Moongazer's Wand|||2
+272999|3|18|13|0|218|135531|2|0||0|Barbaric Crossbow|||1
+279894|3|18|1|0|203|0|2|0||0|Calibrated Blunderbuss||t3|1
+279896|3|18|1|0|219|135473|2|0||0|Deepblaze|||1
 5241|2|18|0|0|219|135139|1|0||0|Dwarven Flamestick|||1
 5326|2|18|0|0|219|135139|1|0||0|Flaring Baton|||1
 15204|2|18|0|0|219|135469|1|0||0|Moonstone Wand|||1
 269742|2|18|0|0|203|135614|2|0||0|Walton's Second-Favorite Gun||a2|1
-5212|2|17|12|0|219|135139|0|0||0|Blazing Wand|||2
+5212|2|17|12|0|219|135139|1|0||0|Blazing Wand|||2
 12296|2|17|0|0|219|135139|1|0||0|Spark of the People's Militia|||1
 5242|2|16|0|0|219|135139|1|0||0|Cinder Wand|||1
 2904|2|16|0|0|203|135612|1|0||0|Daryl's Hunting Rifle|||1
 276694|2|15|0|0|203|135612|2|0||0|Captain Sander's Lucky Shooter||s1|1
 11287|2|15|5|0|219|135139|1|0||0|Lesser Magic Wand|||2
-5071|2|14|9|0|219|135645|0|0||0|Shadow Wand|||2
-4577|2|13|8|0|203|135612|0|0||0|Compact Shotgun|||2
+5071|2|14|9|0|219|135645|1|0||0|Shadow Wand|||2
+4577|2|13|8|0|203|135612|1|0||0|Compact Shotgun|||2
 5604|2|13|0|0|219|135139|1|0||0|Elven Wand|||1
-5069|2|12|7|0|219|135139|0|0||0|Fire Wand|||2
+286743|2|13|0|0|219|0|2|0||0|Riptear's Spare Arm|||1
+5069|2|12|7|0|219|135139|1|0||0|Fire Wand|||2
 277255|2|12|0|0|203|0|2|0||0|Misplaced Shooter||s1,t1|1
 202256|2|12|0|8|203|135619|1|0||0|Privateer's Ornate Pistol|||1
 3079|2|12|0|0|203|135610|1|0||0|Skorn's Rifle|||1
+286753|2|12|7|0|203|0|2|0||0|Snarlsnout Shooter||s1|2
+286750|2|12|7|0|219|0|2|0||0|Wisesight Wand||i1|2
 4362|2|10|5|0|203|135612|1|0||0|Rough Boomstick|||2
 263430|2|10|0|0|219|7802125|2|0||0|Windbough Wand||i1|1
 ]==],
@@ -9888,8 +10954,8 @@ FGT.GEARDB = {
 18714|4|75|60|4|1102|134403|1|0||1|Ancient Sinew Wrapped Lamina|||1
 19320|3|60|55|0|1103|133581|1|0||1|Gnoll Skin Bandolier|||1
 19319|3|60|55|0|1102|134406|1|0||1|Harpy Hide Quiver|||1
-2663|2|55|50|0|1103|133581|0|0||1|Ribbly's Bandolier|||1
-2662|2|55|50|0|1102|134406|0|0||1|Ribbly's Quiver|||1
+2663|2|55|50|0|1103|133581|1|0||1|Ribbly's Bandolier|||1
+2662|2|55|50|0|1102|134406|1|0||1|Ribbly's Quiver|||1
 8217|2|45|40|0|1102|134407|1|0||0|Quickdraw Quiver|||0
 8218|2|45|40|0|1103|133635|1|0||0|Thick Leather Ammo Pouch|||0
 274926|2|40|35|0|1102|134408|2|0||0|Matriarch Quiver|||1
@@ -9901,6 +10967,7 @@ FGT.GEARDB = {
 3573|1|15|0|0|1102|134403|1|0||1|Hunting Quiver|||1
 11362|1|15|10|0|1102|134410|1|0||0|Medium Quiver|||0
 11363|1|15|10|0|1103|133581|1|0||0|Medium Shot Pouch|||0
+286734|1|10|0|0|1102|134410|2|0||0|Ban'ethil Quiver|||1
 7278|1|5|1|0|1102|134401|1|0||0|Light Leather Quiver|||0
 7279|1|5|1|0|1103|133581|1|0||0|Small Leather Ammo Pouch|||0
 5439|1|5|1|0|1102|134409|1|0||0|Small Quiver|||0
@@ -9918,12 +10985,12 @@ FGT.GEARDB = {
 272433|3|65|60|0|409|135829|2|0||0|Burning Totem|||1
 272428|3|65|60|0|408|611424|2|0||0|Enraged Idol|||1
 272427|3|65|60|0|408|134912|2|0||0|Howling Idol|||1
-23198|3|65|60|0|408|134912|0|0||1|Idol of Brutality|||1
+23198|3|65|60|0|408|134912|1|0||1|Idol of Brutality|||1
 279250|4|65|60|0|408|236162|2|0||0|Idol of Swiftness|||2
 272429|3|65|60|0|408|132848|2|0||0|Idol of Synthesis|||1
 23197|3|65|60|0|408|134914|1|0||1|Idol of the Moon|||2
 279251|4|65|60|0|408|134233|2|0||0|Idol of the Ursine Twins|||2
-23201|3|65|60|0|407|134916|0|0||1|Libram of Divinity|||1
+23201|3|65|60|0|407|134916|1|0||1|Libram of Divinity|||1
 272436|3|65|60|0|407|133743|2|0||0|Libram of Economy|||1
 23203|3|65|60|0|407|134917|1|0||1|Libram of Fervor|||2
 228175|3|65|60|0|407|134916|1|0||1|Libram of Holy Alacrity|||1
@@ -9933,18 +11000,18 @@ FGT.GEARDB = {
 279247|4|65|60|0|407|134915|2|0||0|Steadfast Libram|||2
 272430|3|65|60|0|408|463485|2|0||0|Swarming Idol|||1
 272431|3|65|60|0|409|4667424|2|0||0|Tidal Totem|||1
-23200|3|65|60|0|409|134918|0|0||1|Totem of Sustaining|||1
+23200|3|65|60|0|409|134918|1|0||1|Totem of Sustaining|||1
 228176|3|65|60|0|409|134920|1|0||1|Totem of Thunder|||1
 279249|4|65|60|0|409|5927655|2|0||0|Totem of Urgency|||2
 23199|3|65|60|0|409|134919|1|0||1|Totem of the Storm|||2
 272432|3|65|60|0|409|1020304|2|0||0|Totem of the Storm|||1
-22398|3|62|57|0|408|134914|0|0||1|Idol of Rejuvenation|||1
-22401|3|62|57|0|407|134916|0|0||1|Libram of Hope|||1
-22345|3|62|57|0|409|134920|0|0||1|Totem of Rebirth|||1
+22398|3|62|57|0|408|134914|1|0||1|Idol of Rejuvenation|||1
+22401|3|62|57|0|407|134916|1|0||1|Libram of Hope|||1
+22345|3|62|57|0|409|134920|1|0||1|Totem of Rebirth|||1
 227444|2|60|1|1024|408|134912|1|0||1|Idol of the Huntress|||1
-22397|3|57|52|0|408|134912|0|0||1|Idol of Ferocity|||1
-22400|3|57|52|0|407|134917|0|0||1|Libram of Truth|||1
-22395|3|57|52|0|409|134919|0|0||1|Totem of Rage|||1
+22397|3|57|52|0|408|134912|1|0||1|Idol of Ferocity|||1
+22400|3|57|52|0|407|134917|1|0||1|Libram of Truth|||1
+22395|3|57|52|0|409|134919|1|0||1|Totem of Rage|||1
 220606|3|55|50|0|408|134912|1|0||1|Idol of the Dream|||1
 220915|2|50|1|1024|408|136061|1|0||1|Idol of the Raging Shambler|||1
 249442|3|45|40|0|407|134916|2|0||0|Libram of Invocation|||1
@@ -9997,10 +11064,18 @@ FGT.GEARDB = {
 23316|3|71|60|16|401|133119|4|0|A|1|Lieutenant Commander's Satin Hood|Requires PvP rank 10|t20,i18,S21,H21|1
 23318|3|71|60|128|401|133074|4|0|A|1|Lieutenant Commander's Silk Cowl|Requires PvP rank 10|t19,i18,p6,S21,H21,c1|1
 22689|3|66|0|0|402|133111|1|0||0|Sanctified Leather Helm||t14,i19,p12,S13,H40|1
+18421|3|63|0|0|403|133121|4|0||0|Backwood Helm||a19,t13,i10,p10,c1|1
 16503|3|63|58|1024|402|133077|4|0|H|1|Champion's Dragonhide Helm|Requires PvP rank 10|a11,s11,t16,i11,p9,A16,S13,H13|1
 17570|3|63|58|256|401|133076|4|0|H|1|Champion's Dreadweave Hood|Requires PvP rank 10|t20,i20,S16,H16|1
 16521|3|63|58|64|403|133077|4|0|H|1|Champion's Mail Helm|Requires PvP rank 10|s8,t25,i9,c1|1
 16514|3|63|58|1|404|133077|4|0|H|1|Champion's Plate Headguard|Requires PvP rank 10|a8,s9,t31|1
+13986|3|63|0|0|401|132767|4|0||0|Crown of Caer Darrow||t8,i15,p20,S5,H15|1
+13359|3|63|58|0|403|133071|4|0||0|Crown of Tyranny||t25,A40,c1|1
+18526|3|63|58|0|401|132767|4|0||0|Crown of the Ogre King||t12,i16,p11,c1|1
+12587|3|63|58|0|402|133148|4|0||0|Eye of Rend||s15,t17,c1|1
+18718|3|63|58|0|404|133078|4|0||0|Grand Crusader's Helm||s16,t16,p10|1
+22411|3|63|58|0|404|133069|4|0||0|Helm of the Executioner||s15,t23,h1|1
+22302|3|63|58|400|401|133132|1|520||0|Ironweave Cowl||t24,i15,S11,H11|1
 16428|3|63|58|4|403|133123|4|0|A|1|Lieutenant Commander's Chain Helmet|Requires PvP rank 10|a15,t24,i10,A12|1
 16416|3|63|58|128|401|133126|4|0|A|1|Lieutenant Commander's Crown|Requires PvP rank 10|t16,i16,p16,c1|1
 17598|3|63|58|16|401|133126|4|0|A|1|Lieutenant Commander's Diadem|Requires PvP rank 10|t20,i20,S16,H16|1
@@ -10009,21 +11084,71 @@ FGT.GEARDB = {
 16434|3|63|58|2|404|133073|4|0|A|1|Lieutenant Commander's Lamellar Headguard|Requires PvP rank 10|a8,s9,t31|1
 16418|3|63|58|8|402|133144|4|0|A|1|Lieutenant Commander's Leather Veil|Requires PvP rank 10|t26,A12,h1,d25|1
 16429|3|63|58|1|404|133073|4|0|A|1|Lieutenant Commander's Plate Helm|Requires PvP rank 10|a8,s9,t31|1
+22267|3|63|60|0|401|133164|4|0||0|Spellweaver's Turban||p13,S33,H33,h1|1
+16677|3|62|57|0|403|133126|4|186||0|Beaststalker's Cap||a20,t20,i13,p6|1
+14539|3|62|57|0|402|133116|4|0||0|Bone Ring Helm||a5,s6,t30,i6,d4|1
+16667|3|62|57|0|403|133072|1|187||0|Coif of Elements||s7,t13,i23,p12,S12,H12|1
+16693|3|62|57|0|401|132767|1|182||0|Devout Crown||t13,i24,p15,S7,H20|1
+16698|3|62|57|0|401|133131|1|183||0|Dreadmist Mask||t15,i23,p12,S14,H14|1
+16731|3|62|57|0|404|133070|4|189||0|Helm of Valor||a9,s15,t27|1
+16727|3|62|57|0|404|133076|4|188||0|Lightforge Helm||a7,s14,t20,i13|1
+16686|3|62|57|0|401|132768|4|181||0|Magister's Crown||t10,i30,S11,H11|1
 14140|3|62|57|0|401|133693|4|0||0|Mooncloth Circlet||t13,p15,S17,H51|2
+16707|3|62|57|0|402|133143|4|184||0|Shadowcraft Cap||a20,s6,t20,p13|1
+20134|4|62|0|0|403|133159|4|0||0|Skyfury Helm||s18,t18,i12,p12,c1|1
+16720|3|62|57|0|402|133129|1|185||0|Wildheart Cowl||s6,t10,i20,p20,S5,H15|1
+13216|2|61|0|0|401|133074|1|0||0|Crown of the Penitent||i20,S3,H10|1
 12636|3|61|56|0|403|133126|4|0||0|Helm of the Great Chief||p12,S15,H30|2
+22407|3|61|56|0|402|133143|1|0||0|Helm of the New Moon||t14,i14,p12,S23,H23|1
+18490|3|61|56|0|402|133143|1|0||0|Insightful Hood||t12,i15,p9,S8,H24,c1|1
 12612|2|61|56|0|404|133071|4|0||0|Runic Plate Helm||t19|2
+13390|3|61|56|0|401|133685|1|81||0|The Postmaster's Band||t10,i25,p10,S15,H15|1
 14130|2|61|56|0|401|133165|1|0||0|Wizardweave Turban||S21,H21|2
 12185|3|60|0|0|405|133168|4|0||0|Bloodsail Admiral's Hat|||1
+18479|2|60|55|0|403|133090|4|0||0|Carrion Scorpid Helm||t14,S18,H18,h1|1
+18480|2|60|55|0|404|133125|4|0||0|Scarab Plate Helm||t10,i17,S7,H22|1
+12604|3|60|55|0|401|132768|4|0||0|Starfire Tiara||i10,p10|1
+12960|3|60|55|0|402|133126|1|0||0|Tribal War Feathers||t12,i15,S11,H33|1
 12633|3|60|55|0|404|133111|1|0||0|Whitesoul Helm||i15,p15,S12,H35|2
+18727|3|59|54|0|401|133153|4|0||0|Crimson Felt Hat||t8,i10,p10,S30,H30|1
 15080|2|59|54|0|403|133122|4|0||0|Heavy Scorpid Helm||a13,t20|2
+2245|4|59|54|0|403|133073|4|0||0|Helm of Narv||a18,t32,A22|2
 12417|2|59|54|0|403|132767|4|0||0|Radiant Circlet||t9|2
 13866|2|59|54|0|401|133694|4|0||0|Runecloth Headband||i20,S15,H15|2
+18308|3|58|53|0|402|133153|4|0||0|Clever Hat||t6,i15|1
+18319|3|58|53|0|403|133140|1|0||0|Fervent Helm||t14,d25|1
 15094|2|58|53|0|402|133681|4|0||0|Runic Leather Headband||i20,S12,H12|2
+11925|3|57|52|0|402|133143|4|0||0|Ghostshroud||a19,s10,t18|1
+13404|3|57|52|0|402|133693|1|0||0|Mask of the Unforgiven||t13,h2,c1,d6|1
+11735|3|57|52|0|402|133148|1|0||0|Ragefury Eyepatch||s6,t10,c2|1
+11729|3|57|52|0|403|133069|4|1||0|Savage Gladiator Helm||a12,s8,t26|1
+11746|3|56|51|0|404|133125|1|0||0|Golem Skull Helm||s18,t18,d8|1
+10833|3|56|51|0|403|133127|1|0||0|Horns of Eranikus||i27,p10,S4,H11|1
+18698|3|56|51|0|402|133143|4|0||0|Tattered Leather Hood||a10,t25,h1|2
 12410|2|56|51|0|404|133125|4|0||0|Thorium Helm||t18|2
+11839|3|55|50|0|401|133146|4|0||0|Chief Architect's Monocle||t10,i24,p3,h1|1
+22223|3|55|50|0|404|133122|1|0||0|Foreman's Head Protector||s15,t14,i11,S14,H14|1
+11124|3|55|0|0|403|133123|1|0||0|Helm of Exile||a11,i18,p17|1
+10749|3|54|0|0|404|133124|4|0||0|Avenguard Helm||a9,t25,p10|1
 12018|3|54|0|0|403|133069|4|0||0|Conservator Helm||t22,p20|1
+17715|3|54|49|0|401|132767|4|0||0|Eye of Theradras||t10,i19,p10,c1|1
+10751|3|54|0|0|401|132767|4|0||0|Gemburst Circlet||t9,i17,p18,S4,H13|1
+17734|3|53|48|0|404|133122|4|0||0|Helm of the Mountain||t3,d7|1
+12549|3|52|47|0|403|133078|4|0||0|Braincage||t5,i20,p9,h1|2
+19984|3|52|0|0|402|133132|4|0||0|Ebon Mask||t14,A36,c1|1
+20521|3|52|0|0|404|133069|4|0||0|Fury Visor||s18,p9,h1,c1|1
+17740|3|52|47|0|402|133101|4|0||0|Soothsayer's Headdress||t7,i15,p8,S23,H23|1
+17767|3|51|46|0|403|133119|4|0||0|Bloomsprout Headpiece||t15,A36|1
+10782|2|51|0|0|401|133140|4|0||0|Hakkari Shroud||t15,S17,H17|1
+10630|3|51|46|0|401|132767|4|0||0|Soulcatcher Halo||i25,S6,H18|2
 8208|2|50|45|0|403|133122|4|0||0|Tough Scorpid Helm||a14,i14|2
+9470|3|49|44|0|401|132482|4|0||0|Bad Mojo Mask||i21|1
+9479|3|49|44|0|402|132266|4|0||0|Embrace of the Lycan||s8,t16,p5,A32|1
+9534|3|49|0|0|402|133135|4|0||0|Engineer's Guild Headpiece||p22,S10,H29|1
+17776|2|49|0|0|402|133137|4|0||0|Sprightring Helm||a11,t16|1
 10033|2|48|43|0|401|133694|1|0||0|Red Mageweave Headband||i20,S19,H19|2
 10032|2|48|43|0|401|133132|4|1972||0|Stormcloth Headband||i10,p10,S8,H24|2
+13102|3|47|42|0|401|133345|1|0||0|Cassandra's Grace||t7,p9,S15,H44|2
 10024|2|46|41|0|401|133693|4|0||0|Black Mageweave Headband||i12,S13,H13|2
 10506|2|46|0|0|401|133151|4|0||0|Deepdive Helmet|Requires Engineering (230)|t4|2
 8191|2|46|41|0|403|133142|4|0||0|Turtle Scale Helm||t10,i10,S10,H10|2
@@ -10044,19 +11169,73 @@ FGT.GEARDB = {
 20597|2|45|0|0|405|134177|4|0||0|Sturdy Male Troll Mask|||2
 20598|2|45|0|0|405|134179|4|0||0|Sturdy Male Undead Mask|||2
 8201|2|44|39|0|402|132482|4|0||0|Big Voodoo Mask||i14,S9,H9|2
+5608|2|44|39|0|401|133072|4|0||0|Living Cowl||t12,S13,H13|2
+9429|3|44|39|0|401|133117|4|0||0|Miner's Hat of the Deep||t7,i17,S12,H12|2
+7720|3|44|39|0|401|133101|4|0||0|Whitemane's Chapeau||t9,i10,p12,S7,H20|1
+10763|3|43|40|0|404|133111|4|0||0|Icemetal Barbute||s14,t7,i10|1
+9431|3|43|38|0|401|133130|1|0||0|Papal Fez||i17,p9,S8,H22|2
 7922|2|43|40|0|404|133071|4|0||0|Steel Plate Helm||s12,t12|2
 8174|2|40|35|0|402|133117|4|0||0|Comfortable Leather Hat||t11,S10,H10|2
+10574|3|40|35|0|401|133756|4|0||0|Corpseshroud||a5,i19,S7,H7|2
+9375|3|40|35|0|402|133120|4|0||0|Expert Goldminer's Helmet||a7,t8|2
 4543|2|40|0|0|402|133111|4|0||0|White Drakeskin Cap||p10,S13,H13|1
+2622|2|39|34|0|401|133072|4|0||0|Nimar's Tribal Headdress||t6,i7,p11|2
+3011|2|38|33|0|402|133126|4|0||0|Feathered Headdress||i11,p10|2
 3837|2|38|33|0|403|133138|4|0||0|Golden Scale Coif||s10,t10|2
+9492|3|36|31|0|401|132995|4|0||0|Electromagnetic Gigaflux Reactivator||i8,p9,S8,H8|1
+7691|3|35|30|0|401|133130|4|0||0|Embalmed Shroud||t7,p12,S8,H24|1
+5753|2|34|29|0|402|133072|4|0||0|Ruffled Chaplet||t9,i8|2
+6204|2|34|29|0|402|133119|4|0||0|Tribal Worg Helm||a8,i7,p7|2
+6686|3|34|29|0|403|133077|4|0||0|Tusken Helm||s13|1
+6688|3|34|29|0|402|133119|4|0||0|Whisperwind Headdress||t11,p11,S7,H7|1
 4322|2|33|28|0|401|133133|4|0||0|Enchanter's Cowl||i10,S6,H6|2
+5819|3|33|28|0|403|133071|4|0||0|Sunblaze Coif||t10,S8,H22|2
+2721|3|32|27|0|401|133118|1|0||0|Holy Shroud||p6,S11,H33|2
 7050|2|32|27|0|401|133693|4|0||0|Silk Headband||t8,S9,H9|2
+3392|2|31|26|0|402|133077|4|0||0|Ringed Helm||t9,p8|2
 7048|2|29|24|0|401|133131|4|0||0|Azure Silk Hood||t8|2
 ]==],
         [2] = [==[
 18404|4|65|0|0|400|133296|4|0||0|Onyxia Tooth Pendant||a7,t8,h1,c1|1
 20685|4|65|60|0|400|133308|1|0||0|Wavefront Necklace||t5,i6,S8,H24|1
+14558|4|64|59|0|400|133295|4|0||0|Lady Maye's Pendant||t10,i19,S11,H11|2
+22327|3|63|58|0|400|133295|1|0||0|Amulet of the Redeemed||t9,i10,p8,S5,H15|1
+22340|3|63|58|0|400|133291|4|0||0|Pendant of Celerity||a10,h1|1
+12103|3|63|58|0|400|133441|4|0||0|Star of Mystaria||t7,i7,p7,h1|1
+13141|3|63|58|0|400|133296|4|0||0|Tooth of Gnarr||t7,i11,S5,H15|1
+18723|3|62|57|0|400|133288|1|0||0|Animated Chain Necklace||t8,p7,S11,H33|1
+18678|3|62|57|0|400|133290|4|0||0|Tempestria's Frozen Necklace||t8,i5|2
+18691|3|61|56|0|400|133293|1|0||0|Dark Advisor's Pendant||t9,i8|1
+18397|3|61|56|0|400|133294|4|0||0|Elder Magus Pendant||i10,p7,S7,H7|1
+12929|3|61|56|0|400|133292|4|0||0|Emberfury Talisman||t8,S6,H6,c1|1
+13960|3|61|56|0|400|134335|4|0||0|Heart of the Fiend||t10,p10,S7,H22|1
+22403|3|61|56|0|400|133297|1|0||0|Nacreous Shell Necklace||t7,i8,S9,H9,h1|1
 15856|3|60|0|0|400|133298|4|0||0|Archlight Talisman||t8,i10,S12,H12|1
+13212|3|60|55|0|400|132503|1|0||0|Halycon's Spiked Collar||t7,A20|1
+11933|3|60|55|0|400|134131|1|0||0|Imperial Jewel||t8,A32|1
+1443|4|60|55|0|400|133276|4|0||0|Jeweled Amulet of Cainwyn||i18,p10,S6,H18|2
+13177|3|60|55|0|400|133279|4|0||0|Talisman of Evasion||a8,d31|1
+18340|3|59|54|0|400|133447|4|0||0|Eidolon Talisman|||2
+12059|3|58|0|0|400|133278|1|0||0|Conqueror's Medallion||a5,s10,t11,p6|1
+18317|3|58|53|0|400|133290|1|0||0|Tempest Talisman||i6,p6,S2,H7,c1|1
 11196|2|57|0|0|400|133294|4|0||0|Mindburst Medallion||i6,p5,S6,H6|1
+10829|3|56|51|0|400|133279|4|0||0|Dragon's Eye||p15,S4,H13|1
+11755|3|56|51|0|400|133684|1|0||0|Verek's Collar||s6,t7,d28|1
+17707|3|54|49|0|400|135227|4|0||0|Gemshard Heart||t10,i9,S5,H15|1
+9641|3|50|45|0|400|133289|4|0||0|Lifeblood Amulet||t14|1
+6723|2|47|0|0|400|133278|4|0||0|Medal of Courage||t9|1
+7888|3|46|0|0|400|133289|4|0||0|Jarkal's Enhancing Necklace||t10,i1,S12,H12|1
+7673|3|46|0|0|400|133289|4|0||0|Talvash's Enhancing Necklace||t10,i1,S12,H12|1
+10711|3|44|0|0|400|133289|4|0||0|Dragon's Blood Necklace||t12|1
+17773|2|44|0|0|400|133293|4|0||0|Prodigious Shadowshard Pendant||S9,H9|1
+7722|3|44|39|0|400|133276|4|0||0|Triune Amulet||t7,p7,S8,H8|1
+17772|2|44|0|0|400|133293|4|0||0|Zealous Shadowshard Pendant||A14|1
+10769|3|41|36|0|400|134335|4|0||0|Glowing Eye of Mordresh||i8,S7,H20|1
+7746|3|40|0|0|400|133434|4|0||0|Explorers' League Commendation||t9,p9|1
+5180|2|36|31|0|400|133279|4|0||0|Necklace of Harmony||a4,i4,p4|2
+7731|3|35|30|0|400|133293|4|0||0|Ghostshard Talisman||t9,A14|1
+6695|3|34|29|0|400|133291|4|0||0|Stygian Bone Amulet||t4,S5,H5|1
+5754|2|34|29|0|400|133278|4|0||0|Wolfpack Medallion||a4,t6|2
 ]==],
         [3] = [==[
 16468|4|74|60|4|403|135041|4|0|A|1|Field Marshal's Chain Spaulders|Requires PvP rank 13|a26,t21,i10,h1|1
@@ -10093,36 +11272,103 @@ FGT.GEARDB = {
 16432|3|63|58|1|404|135051|4|0|A|1|Lieutenant Commander's Plate Pauldrons|Requires PvP rank 10|a6,s7,t23|1
 17601|3|63|58|16|401|135033|4|0|A|1|Lieutenant Commander's Satin Amice|Requires PvP rank 10|t16,i15,S12,H12|1
 16415|3|63|58|128|401|135033|4|0|A|1|Lieutenant Commander's Silk Spaulders|Requires PvP rank 10|t16,i15,S12,H12|1
+18720|3|63|58|0|401|135054|4|0||0|Shroud of the Nathrezim||i16,p8,S7,H7,c1|1
+22412|3|63|58|0|401|135033|1|0||0|Thuzadin Mantle||t11,i18,S15,H15|1
+18384|3|62|57|0|404|135048|4|0||0|Bile-etched Spaulders||s17,t10,i9,d7|1
+18686|3|62|57|0|403|135034|4|0||0|Bone Golem Shoulders||a19,t9,i12|1
+14538|3|62|57|0|401|135033|4|0||0|Deadwalker Mantle||t19,i11|1
+14503|3|62|57|0|402|135056|4|0||0|Death's Clutch||a10,s10,t10,i10,h1|1
+18374|3|62|57|0|402|135055|1|0||0|Flamescarred Shoulders||a12,s11,t10|1
+14548|3|62|57|0|403|135042|4|0||0|Royal Cap Spaulders||t15,p13,S9,H26|1
 15096|2|62|57|0|402|135046|4|0||0|Runic Leather Shoulders||i15,S10,H10|2
+13533|3|61|56|0|404|135049|4|0||0|Acid-etched Pauldrons||t10,d5|1
 19059|3|61|56|0|401|135044|4|0||0|Argent Shoulders||p7,S25,H25|2
+18681|3|61|56|0|401|135036|4|0||0|Burial Shawl||t4,i16,S20,H20|1
 19058|3|61|56|0|402|135057|4|0||0|Golden Mantle of the Dawn||a11,s13,t20|2
 15081|2|61|56|0|403|135038|4|0||0|Heavy Scorpid Shoulders||a13,t14|2
+22305|3|61|56|400|401|135036|1|520||0|Ironweave Mantle||t17,i11,S9,H9|1
+22405|3|61|56|0|401|135033|1|0||0|Mantle of the Scarlet Crusade||t11,i12,p12,S7,H20|1
 19050|3|61|56|0|401|135050|4|0||0|Mantle of the Timbermaw||i13,S17,H17,c1|2
 14139|3|61|56|0|401|135033|4|0||0|Mooncloth Shoulders||t9,p11,S13,H37|2
+14633|3|61|56|0|401|135033|1|122||0|Necropile Mantle||t17,i11,p9,S9,H9|1
 13867|2|61|56|0|401|135052|4|0||0|Runecloth Shoulders||i15,S12,H12|2
+12927|3|61|56|0|402|135041|4|0||0|Truestrike Shoulders||t10,A24,h1|1
 15055|2|61|56|0|402|135044|4|141||0|Volcanic Shoulders||t4|2
+16679|3|60|55|0|403|135041|4|186||0|Beaststalker's Mantle||a11,t17,i7,p7|1
+18493|3|60|55|0|404|135057|1|0||0|Bulky Iron Spaulders||s15,t12,p5,d7|1
+16695|3|60|55|0|401|135033|1|182||0|Devout Mantle||t4,i21,p9,S4,H11|1
+16701|3|60|55|0|401|133732|4|183||0|Dreadmist Mantle||t14,i15,S11,H11|1
+13961|3|60|0|0|402|135055|4|0||0|Halycon's Muzzle||i19,S15,H15|1
+16729|3|60|55|0|404|135041|4|188||0|Lightforge Spaulders||a5,s9,t15,i10,h1|1
+16689|3|60|55|0|401|135054|4|181||0|Magister's Mantle||t6,i22,S8,H8|1
+16669|3|60|55|0|403|135060|1|187||0|Pauldrons of Elements||s5,t14,i15,p6|1
 12610|2|60|55|0|404|135054|4|0||0|Runic Plate Shoulders||t14|2
+13374|3|60|55|0|401|135033|4|0||0|Soulstealer Mantle||i22,h1|1
+16733|3|60|55|0|404|135061|1|189||0|Spaulders of Valor||a9,s11,t17,d4|1
+18742|3|60|55|0|403|135045|4|0||0|Stratholme Militia Shoulderguard||a22,t9,i6|2
+16718|3|60|55|0|402|135032|1|185||0|Wildheart Spaulders||t9,i18,p8,S7,H20|1
+13538|3|60|55|0|403|135044|4|0||0|Windshrieker Pauldrons||i7,A22|1
 15049|3|59|54|0|403|135049|4|491||0|Blue Dragonscale Shoulders||i21,S6,H6|2
+12557|3|59|54|0|404|135056|4|0||0|Ebonsteel Spaulders||a9,s8,t16|1
+12109|2|58|0|0|401|135033|4|0||0|Azure Moon Amice||i15,S9,H9|1
 12625|3|58|53|0|404|135051|1|0||0|Dawnbringer Shoulders||p10,S15,H44|2
+18320|3|58|53|0|403|135054|4|0||0|Demondash Spaulders||a14,s9,t14|1
+12082|2|58|0|0|402|135047|1|0||0|Wyrmhide Spaulders||A12,h2|1
+18699|3|57|52|0|402|135058|1|0||0|Icy Tomb Spaulders||a11,t10|2
+22212|3|56|51|0|403|135047|4|0||0|Golem Fitted Pauldrons||a13,t17,i6|1
+11722|3|55|50|0|403|135061|4|0||0|Dregmetal Spaulders||s8,t6,i17,p9|1
+11842|3|55|50|0|403|135046|1|0||0|Lead Surveyor's Mantle||i14,p9,S15,H15|1
+14552|4|55|50|0|404|135051|4|0||0|Stockade Pauldrons||t20,S12,H12,d10|2
 15067|3|54|49|0|402|135037|1|144||0|Ironfeather Shoulders||i20,p8,S15,H15|2
 15061|3|54|49|0|402|135049|1|0||0|Living Shoulders||t8,p13,S10,H31|2
+22234|3|53|48|0|401|135040|1|0||0|Mantle of Lost Hope||t5,i11,S9,H26|1
+11963|2|53|0|0|402|135056|4|0||0|Penance Spaulders||a8,t8,p9|1
+17732|3|53|48|0|401|135036|4|0||0|Rotgrip Mantle||i18,S13,H13|1
+11632|3|52|47|0|404|135057|1|0||0|Earthslag Shoulders||s13,t8,i8,S11,H11|1
+11624|3|52|47|0|401|135056|1|0||0|Kentic Amice||t6,i13,p6,S14,H14|1
+20517|3|52|0|0|404|135047|4|0||0|Razorsteel Shoulders||s10,t10,h1|1
+17749|3|51|46|0|402|135037|1|0||0|Phytoskin Spaulders||a15,t9|1
+9476|3|50|45|0|404|135032|4|0||0|Big Bad Pauldrons||s12,t12|1
+17779|2|49|0|0|404|135054|4|0||0|Hulkstone Pauldrons||t13,d25|1
 10038|2|49|44|0|401|135056|4|1972||0|Stormcloth Shoulders||t10,S7,H22|2
+9531|2|48|0|0|404|135054|4|0||0|Gemshale Pauldrons||s5,t10,i8|1
 16739|2|48|0|0|402|135038|4|0||0|Rugwood Mantle||i11,p4,S7,H7|1
 8207|2|48|43|0|403|135035|4|0||0|Tough Scorpid Shoulders||a10,i10|2
 7932|2|47|42|0|403|135043|4|0||0|Mithril Plate Shoulders||t10,p10|2
 10029|2|47|42|0|401|135054|1|0||0|Red Mageweave Shoulders||i15,S7,H7|2
 10027|2|46|41|0|401|135056|4|0||0|Black Mageweave Shoulders||i9,S10,H10|2
+9411|3|46|41|0|403|135033|4|0||0|Rockshard Pauldrons||s3,i13,p6,S12,H12|1
 7928|2|45|40|0|404|135040|4|0||0|Ornate Mithril Shoulders||s5,d25|2
+9430|3|45|40|0|403|135049|4|0||0|Spaulders of a Lost Age||t10,S12,H12|2
+7718|3|42|37|0|403|135032|4|0||0|Herod's Shoulder||t15,A12|1
+19507|3|42|37|0|401|135058|4|0||0|Inquisitor's Shawl||i13,S7,H22|1
+9389|3|42|37|0|402|135056|4|0||0|Revelosh's Spaulders|||1
+4810|2|41|36|0|402|135039|4|0||0|Boulder Pads||s9,p8|2
+7712|2|39|34|0|401|135036|4|0||0|Mantle of Doan||i6,p8,S7,H7|1
+4197|3|36|0|0|401|135036|4|0||0|Berylline Pads||t5,i10,S7,H7|1
 7057|2|36|31|0|401|135049|1|0||0|Green Silken Shoulders||i11,S8,H8|2
 5964|2|35|30|0|402|135039|4|0||0|Barbaric Shoulders||a5,s5,t6|2
+7684|3|35|30|0|401|135036|4|0||0|Bloodmage Mantle||i9,S9,H9|1
 3841|2|35|30|0|403|135040|4|0||0|Golden Scale Shoulders||s7,t6|2
+7750|2|35|0|0|401|135054|4|0||0|Mantle of Woe||i8,S3,H3|1
+6697|3|34|29|0|401|135036|4|0||0|Batwing Mantle||a3,i11,S6,H6|1
 11884|2|33|0|0|401|135033|4|0||0|Moonlit Amice||t7,S7,H7|1
+6685|3|32|27|0|401|135040|4|0||0|Death Speaker Mantle||i11,S6,H6|1
+9536|2|32|0|0|401|135033|4|0||0|Fairywing Mantle||t1,i6,S4,H4|1
+3231|2|29|24|0|403|135038|4|0||0|Cutthroat Pauldrons||s5,t5|2
+17695|2|28|0|0|401|135040|4|0||0|Chestnut Mantle||t3,S5,H5|1
+3748|3|28|23|0|401|135036|4|0||0|Feline Mantle||a2,i8,S4,H4|1
+3324|2|27|0|0|401|135040|4|0||0|Ghostly Mantle||p6,S2,H6|1
 5274|2|27|0|0|401|135040|4|0||0|Rose Mantle||i5,S5,H5|1
 4251|2|26|21|0|402|135039|1|0||0|Hillman's Shoulders||t5,p3|2
+10657|2|26|0|0|401|135040|4|0||0|Talbar Mantle||t2,i4|1
+6461|3|25|20|0|401|135036|4|0||0|Slime-encrusted Pads|||1
 6189|2|24|0|0|403|135036|4|0||0|Durable Chain Shoulders||t6|1
 4315|2|24|19|0|401|135040|4|0||0|Reinforced Woolen Shoulders||i4,S5,H5|2
+5404|3|23|18|0|402|135039|4|0||0|Serpent's Shoulders||a5,p7|1
 4314|2|22|17|0|401|135037|4|0||0|Double-Stitched Woolen Shoulders||t4,S4,H4|2
 3480|2|22|17|0|403|135036|4|0||0|Rough Bronze Shoulders||s3,t4|2
+5254|3|22|17|0|402|135039|4|0||0|Rugged Spaulders|||1
 ]==],
         [4] = [==[
 6833|1|25|0|0|405|135012|4|0||0|White Tuxedo Shirt|||0
@@ -10144,6 +11390,8 @@ FGT.GEARDB = {
 23294|3|68|60|1024|402|132722|4|0|A|1|Knight-Captain's Dragonhide Chestpiece|Requires PvP rank 8|a12,s13,t13,i12,S15,H15,c1|1
 22877|3|68|60|1024|402|132722|4|0|H|1|Legionnaire's Dragonhide Chestpiece|Requires PvP rank 8|a12,s13,t13,i12,S15,H15,c1|1
 22879|3|68|60|8|402|132720|4|0|H|1|Legionnaire's Leather Chestpiece|Requires PvP rank 8|t22,A34,h1,c1|1
+16674|3|63|58|0|403|132625|4|186||0|Beaststalker's Tunic||a21,s8,t16,i13,p6|1
+16730|3|63|58|0|404|132738|4|189||0|Breastplate of Valor||a10,s15,t24,p12|1
 12641|4|63|57|0|403|132629|4|0||0|Invulnerable Mail||t20|2
 16425|3|63|58|4|403|132628|4|0|A|1|Knight-Captain's Chain Hauberk|Requires PvP rank 8|a16,t18,A26,c1|1
 16421|3|63|58|1024|402|132725|4|0|A|1|Knight-Captain's Dragonhide Tunic|Requires PvP rank 8|a9,s13,t14,i8,S16,H16,c1|1
@@ -10154,33 +11402,73 @@ FGT.GEARDB = {
 16504|3|63|58|1024|402|132722|4|0|H|1|Legionnaire's Dragonhide Breastplate|Requires PvP rank 8|a9,s13,t14,i8,S16,H16,c1|1
 16522|3|63|58|64|403|132638|4|0|H|1|Legionnaire's Mail Chestpiece|Requires PvP rank 8|t20,i20,c1|1
 16513|3|63|58|1|404|132751|4|0|H|1|Legionnaire's Plate Armor|Requires PvP rank 8|a6,s9,t25,c1|1
+15413|3|63|0|0|404|132744|4|0||0|Ornate Adamantium Breastplate||s9,t22,d10|1
+16721|3|63|58|0|402|132722|1|184||0|Shadowcraft Tunic||a26,t13,p12,h1|1
+16666|3|63|58|0|403|132633|4|187||0|Vest of Elements||t13,i20,S23,H23|1
+16706|3|63|58|0|402|132741|1|185||0|Wildheart Vest||t13,i20,p20,S4,H11|1
+12895|4|62|0|0|404|132744|4|0||0|Breastplate of the Chromatic Flight||a15,s20,t27,d6|1
 15068|2|62|57|0|402|132632|4|0||0|Frostsaber Tunic||t12|2
 12613|2|62|57|0|404|132746|4|0||0|Runic Breastplate||t18|2
 15090|2|62|57|0|402|132722|4|0||0|Runic Leather Armor||i21,S13,H13|2
 20479|3|62|57|0|403|132717|4|0||0|Spitfire Breastplate||a16,i16,p15,S15,H15|2
+13944|3|62|57|0|402|132639|4|0||0|Tombstone Breastplate||s12,t12,c2|1
+14611|3|61|56|0|403|132720|4|123||0|Bloodmail Hauberk||s11,t15,i15,d25|1
+14536|3|61|56|0|403|132636|4|0||0|Bonebrace Hauberk||i15,p4,A56|2
+14637|3|61|56|0|402|132718|4|121||0|Cadaverous Armor||t10,A60,d12|1
+14624|3|61|56|0|404|132637|4|124||0|Deathbone Chestplate||t16,i11,d17|1
+12603|3|61|56|0|402|132741|1|0||0|Nightbrace Tunic||a6,t10,A50|1
+12609|3|61|56|0|401|132658|4|0||0|Polychromatic Visionwrap||t14|1
 15047|3|61|56|0|403|132628|1|0||0|Red Dragonscale Breastplate||S19,H57|2
+13388|3|61|56|0|401|132725|1|81||0|The Postmaster's Tunic||t13,i20,p10,S18,H18|1
+18478|2|60|55|0|402|132721|4|0||0|Hyena Hide Jerkin||a15,t13,d7|1
 15059|3|60|55|0|402|132742|1|0||0|Living Breastplate||t10,p25,S9,H26|2
 14138|3|60|55|0|401|132649|4|0||0|Mooncloth Vest||i20,p19,S9,H26|2
+13168|3|60|55|0|404|132748|1|0||0|Plate of the Shaman King||s12,t15,i14,S18,H18|1
+13394|3|60|55|0|404|132637|4|0||0|Skul's Cold Embrace||s19,t20,d6|1
+18312|3|59|54|0|404|132746|1|0||0|Energized Chestplate||s13,t20,i12,S15,H15|1
 15786|2|59|0|0|402|132721|4|0||0|Fernpulse Jerkin||t5,i8,S26,H26|1
+15827|2|59|0|0|403|132626|4|0||0|Jadescale Breastplate||t23,S5,H15|1
+15825|2|59|0|0|402|132741|4|0||0|Traphook Jerkin||a18,s4,p15|1
+12108|2|58|0|0|403|132638|4|0||0|Basaltscale Armor||s8,t10,p12,S14,H14|1
 15075|2|58|53|0|402|132722|4|0||0|Chimeric Vest||t11|2
+18304|2|58|53|0|403|132742|4|0||0|Greenroot Mail||i17,p9,S9,H26|1
 15066|3|58|53|0|402|132721|1|144||0|Ironfeather Breastplate||i12,p28,S21,H21|2
+11820|3|58|53|0|403|132739|1|0||0|Royal Decorated Armor||a12,s9,t26|1
+13378|3|58|53|0|402|132679|4|0||0|Songbird Blouse||a10,s14,t22,d7|1
 15048|3|57|52|0|403|132626|4|491||0|Blue Dragonscale Breastplate||i28,S8,H8|2
+11926|3|57|52|0|403|132629|4|0||0|Deathdealer Breastplate||s8,t11,c1|1
+11726|4|57|52|0|403|132637|4|1||0|Savage Gladiator Chain||a14,s16,t18,c2|1
 15053|2|57|52|0|402|132722|4|141||0|Volcanic Breastplate||t11|2
 14141|2|55|50|0|401|135012|4|0||0|Ghostweave Vest||p20,S9,H9|2
+12793|3|55|50|0|402|132716|1|0||0|Mixologist's Tunic||a10,s18,t18|1
+10806|3|55|50|0|401|132679|4|0||0|Vestments of the Atal'ai Prophet||p22,S13,H13|1
 15064|3|55|50|0|402|132719|4|0||0|Warbear Harness||a18,s11,t27|2
+10845|3|54|49|0|404|132743|4|0||0|Warrior's Embrace||a6,t14,d45|1
 12624|3|54|49|0|403|132634|4|0||0|Wildthorn Mail||t5,S11,H11,h1|2
 15076|2|53|48|0|403|132637|4|0||0|Heavy Scorpid Vest||a15,t16|2
+12049|2|53|0|0|403|132638|4|0||0|Splintsteel Armor||s9,t14,p12|1
+22272|3|52|0|0|402|132723|1|0||0|Forest's Embrace||i9,p8,S15,H44|1
 15045|3|52|47|0|403|132628|4|490||0|Green Dragonscale Breastplate||t10,S21,H10|2
+22274|3|52|0|0|402|132723|4|0||0|Grizzled Pelt||a16,s17,t13|1
 13857|2|52|47|0|401|132645|4|0||0|Runecloth Tunic||i11,S17,H17|2
+10781|2|51|0|0|402|132717|4|0||0|Hakkari Breastplate||a4,t17,d7|1
 8349|3|50|45|0|402|132721|1|0||0|Feathered Breastplate||i10,p24,S19,H19|2
 12405|2|50|45|0|404|132743|4|0||0|Thorium Armor||t15|2
+9473|3|49|44|0|402|132720|4|0||0|Jinxed Hoodoo Skin||s10,t20,p8|1
+17777|2|49|0|0|403|132629|4|0||0|Relentless Chain||t11,i11,A20|1
+9469|3|48|43|0|403|132628|4|0||0|Gahz'rilla Scale Armor||t10,p16,S11,H33|1
+9415|3|47|42|0|401|135009|4|0||0|Grimlok's Tribal Vestments||t10,i5,p14,S10,H29|1
 10020|2|45|40|0|401|132649|4|1972||0|Stormcloth Vest||t8,p8,S10,H58|2
+1981|4|44|39|0|403|132741|4|0||0|Icemail Jerkin||a24,t15,h1|2
 8203|2|44|39|0|403|132717|4|0||0|Tough Scorpid Breastplate||a15,i7|2
+10764|3|43|39|0|403|132747|4|0||0|Deathchill Armor||t3,i9,p15,S7,H20|1
 6773|2|42|35|0|403|132629|4|0||0|Kolkar Marauder Chain||a7,s14|1
 8189|2|42|37|0|403|132634|4|0||0|Turtle Scale Breastplate||t9,i9,S9,H9|2
 9998|2|41|36|0|401|132718|4|0||0|Black Mageweave Vest||p12,S11,H11|2
+10581|3|40|35|0|401|132723|4|0||0|Death's Head Vestment||t8,i8,p13,S6,H18|2
 3845|2|40|35|0|403|132628|4|0||0|Golden Scale Cuirass||s14,t6|2
 7963|2|40|35|0|403|132740|4|0||0|Steel Breastplate||t12,d50|2
+7759|3|38|33|0|403|132633|4|0||0|Archon Chestpiece||s12,t12,S9,H9|2
 5739|2|38|33|0|402|132719|4|0||0|Barbaric Harness||a8,s7,t8|2
 7058|2|37|32|0|401|135008|4|0||0|Crimson Silk Vest||i10,S12,H12|2
 7375|2|35|30|0|402|132631|4|0||0|Green Whelp Armor||t11|2
@@ -10188,45 +11476,130 @@ FGT.GEARDB = {
 7065|2|33|28|0|401|132647|1|0||0|Green Silk Armor||i13,S9,H9|2
 7914|2|32|27|0|403|132636|4|0||0|Barbaric Iron Breastplate||s12|2
 4255|2|31|26|0|402|132723|4|0||0|Green Leather Armor||a8,i8|2
+4448|2|29|24|0|403|134321|4|0||0|Husk of Naraxis||s6,t8|2
 3566|2|29|0|0|402|132716|1|0||0|Raptorbane Armor||t3,A16|1
+3416|3|28|23|0|403|132624|4|0||0|Martyr's Chain||s9,t9|2
+6642|3|27|22|0|403|132627|4|0||0|Phantom Armor||s3,t12,p5|1
+6907|3|27|22|0|403|135010|4|0||0|Tortoise Armor|||1
+1486|3|26|21|0|401|135006|4|0||0|Tree Bark Jacket||S13,H13|2
 5316|2|25|0|0|402|135009|4|0||0|Barkshell Tunic||t4,S8,H8|1
+1489|3|25|20|0|402|132723|4|0||0|Gloomshroud Armor||s5,t8,p8|2
+6197|2|24|19|0|402|132760|4|0||0|Loch Croc Hide Vest||t8|2
 2314|2|24|19|0|402|132725|4|0||0|Toughened Leather Armor||t2,p7|2
+6473|3|23|18|0|402|135020|4|162||0|Armor of the Fang||s3,i3,p10|1
+6627|3|23|18|0|403|132743|4|0||0|Mutant Scale Breastplate||s10,t4|1
 2866|2|23|18|0|403|132630|4|0||0|Rough Bronze Cuirass||t8|2
+10399|3|22|17|0|402|132723|4|161||0|Blackened Defias Armor||a3,s4,t10|1
+5202|3|22|17|0|401|135012|4|0||0|Corsair's Overshirt||t5,p8,S3,H11|1
 20575|2|20|15|0|402|132686|4|0||0|Black Whelp Tunic||i5,S3,H3|2
 4244|2|20|15|0|402|132725|4|0||0|Hillman's Leather Vest||t4,S4,H4|2
 6709|2|18|13|0|402|132724|4|0||0|Moonglow Vest||i3,S4,H4|2
 2582|2|17|12|0|401|132680|4|0||0|Green Woolen Vest||p4,S4,H4|2
+6180|2|17|12|0|403|132634|4|0||0|Slarkskin||a3,t4|2
+6195|2|17|12|0|403|132624|4|0||0|Wax-polished Armor||s3,t4|2
+9757|2|15|10|0|402|135010|4|0||0|Nomad Tunic|||2
 2578|2|14|9|0|401|132715|4|0||0|Barbaric Linen Vest||t2,S2,H2|2
+2069|2|14|9|0|402|132760|4|0||0|Black Bear Hide Vest||t3|2
+10553|2|13|8|0|401|135009|4|0||0|Foreman Vest||s3|2
 2311|2|13|8|0|402|132760|4|0||0|White Leather Jerkin||s2,S2,H2|2
 6240|2|12|7|0|401|132678|1|0||0|Blue Linen Vest||p2,S1,H1|2
+17922|2|12|7|0|402|132715|4|0||0|Lionfur Armor||i2|2
 6239|2|12|7|0|401|132681|4|0||0|Red Linen Vest||i2,S1,H1|2
+4861|2|11|6|0|402|132715|4|0||0|Sleek Feathered Tunic||a2|2
 5957|2|10|3|0|402|132760|4|0||0|Handstitched Leather Vest||a1|2
 10421|2|10|2|0|403|132624|4|0||0|Rough Copper Vest||t1|2
 ]==],
         [6] = [==[
 19162|4|70|60|0|402|132513|1|0||0|Corehound Belt||i16,S21,H62|2
+13142|3|63|58|0|404|132522|4|0||0|Brigam Girdle||s14,t18,h1|1
+18104|3|63|58|0|403|132492|4|0||0|Feralsurge Girdle||s9,i11|1
 18405|4|62|57|0|401|132520|4|0||0|Belt of the Archmage||t10,i16,S20,H20,c1|2
+18391|3|62|57|0|402|132515|4|0||0|Eyestalk Cord||t9,i18,S10,H31|1
+13526|3|62|57|0|402|132498|4|0||0|Flamescarred Girdle||t12,d5|1
+14502|3|62|57|0|402|132499|4|0||0|Frostbite Girdle||a15,s3,t15|1
 18504|3|62|57|0|402|132515|1|0||0|Girdle of Insight||t9,i23,S15,H15|2
+18505|3|62|57|0|402|132491|1|0||0|Mugger's Belt||t15,c1|1
+18676|3|62|57|0|403|132520|4|0||0|Sash of the Windreaver||t6,i7,p7|2
+18721|3|61|56|0|403|132507|4|0||0|Barrage Girdle||t8,i8,p6,S23,H23|1
+14636|3|61|56|0|402|132505|1|121||0|Cadaverous Belt||t12,A40,d12|1
+13956|3|61|56|0|401|132501|1|0||0|Clutch of Andros||t10,i19,h1|1
+12606|3|61|56|0|402|132499|1|0||0|Crystallized Girdle||t6,i19,p6,S13,H13|1
+14620|3|61|56|0|404|132501|4|124||0|Deathbone Girdle||t15,i11,d9|1
+12589|3|61|56|0|401|132500|1|0||0|Dustfeather Sash||t10,i17,S9,H9|1
+14553|4|61|56|0|402|132498|4|0||0|Sash of Mercy||t14,p12,S18,H53|2
+18740|3|61|56|0|401|132502|1|0||0|Thuzadin Sash||t11,i12,p11,S12,H12|1
+18393|3|61|56|0|403|132523|4|0||0|Warpwood Binding||a13,t9,i6,c1|1
+18702|3|60|55|0|404|132517|4|0||0|Belt of the Ordained||t11,i14,S11,H33|2
+13252|3|60|55|0|402|132499|1|0||0|Cloudrunner Girdle||a14,s13|1
+13403|3|60|55|0|401|132491|4|0||0|Grimgore Noose||t9,i18,p10,S4,H11|1
+18451|2|60|55|0|402|132505|1|0||0|Hyena Hide Belt||t13,A22|1
+13959|3|60|0|0|404|132502|1|0||0|Omokk's Girth Restrainer||s14,t9,c1|1
+22207|3|60|55|0|403|132517|1|0||0|Sash of the Grand Hunt||a15,t14,i6,h1|1
+13962|3|60|0|0|402|132504|4|0||0|Vosh'gajin's Strand||t6,c1,d31|1
+15859|2|59|0|0|403|132512|4|0||0|Seapost Girdle||t8,p13,S9,H9|1
+18327|3|59|54|0|401|132506|1|0||0|Whipvine Cord||i9,S10,H29|1
+16680|3|58|53|0|403|132517|1|186||0|Beaststalker's Belt||a10,s8,t6,i9,p11|2
+16736|3|58|53|0|404|132523|4|189||0|Belt of Valor||a7,s14,t12,p4,d6|2
 15707|2|58|0|0|401|132497|4|0||0|Brantwood Sash||t9,i10,p10|1
+16696|3|58|53|0|401|132499|1|182||0|Devout Belt||t4,i20,p9,S4,H11|2
+16702|3|58|53|0|401|132501|4|183||0|Dreadmist Belt||t10,i14,p9,S9,H9|2
+16723|3|58|53|0|404|132500|4|188||0|Lightforge Belt||s10,t9,i15,S7,H7,h1|2
+16685|3|58|53|0|401|132497|4|181||0|Magister's Belt||t6,i21,S7,H7|2
 19044|3|58|53|0|402|132498|4|0||0|Might of the Timbermaw||a14,s21,t9|2
+13384|3|58|53|0|404|132519|4|0||0|Rainbow Girdle||a8,s10,t10,p8,S12,H12|1
+16713|3|58|53|0|402|132492|4|184||0|Shadowcraft Belt||a14,s9,t10,p11|2
+12083|2|58|0|0|401|132500|4|0||0|Valconian Sash||t6,S17,H17|1
+16716|3|58|53|0|402|132504|1|185||0|Wildheart Belt||t9,i17,p10,S4,H11|2
 19047|3|58|53|0|401|132498|4|0||0|Wisdom of the Timbermaw||i14,p9,S11,H31|2
+11783|3|57|52|0|403|132522|4|0||0|Chillsteel Girdle||i16,p7,S6,H18|1
 15082|2|56|51|0|403|132492|4|0||0|Heavy Scorpid Belt||a12,t12|2
 15093|2|56|51|0|402|132512|4|0||0|Runic Leather Belt||i14,S9,H9|2
+12115|2|56|0|0|404|132523|4|0||0|Stalwart Clutch||t9,p9,d6|1
+22242|3|56|51|0|403|132507|4|0||0|Verek's Leash||a7,s8,t8,i8,S11,H11|1
+11686|3|55|50|0|402|132501|1|0||0|Girdle of Beastial Fury||s8,t10,A30,d6|1
+11866|3|55|0|0|402|132500|4|0||0|Nagmara's Whipping Belt||s8,t14,d9|1
+11703|3|55|50|0|404|132505|4|0||0|Stonewall Girdle||s6,t12,d4|1
+11662|3|54|49|0|401|132518|1|0||0|Ban'thok Sash||t10,i10,S12,H12,h1|1
+12466|3|53|48|0|401|132500|4|0||0|Dawnspire Cord||i19,S6,H18|1
 14143|2|53|48|0|401|132505|4|0||0|Ghostweave Belt||p9,S8,H8|2
 12416|2|52|47|0|403|132500|4|0||0|Radiant Belt||t7|2
+17750|3|51|46|0|401|132514|4|0||0|Chloromesh Girdle||t6|1
 13856|2|51|46|0|401|132504|4|0||0|Runecloth Belt||i12,S8,H8|2
+17755|3|50|45|0|401|132513|4|0||0|Satyrmane Sash||t7,i10,S14,H14|1
 12406|2|50|45|0|404|132519|4|0||0|Thorium Belt||t12|2
+17778|2|49|0|0|402|132514|4|0||0|Sagebrush Girdle||a11,i9|1
 6788|2|42|35|0|402|132500|4|0||0|Kolkar Hunter's Belt||a8,t9|1
+10771|3|41|36|0|401|132513|4|0||0|Deathmage Sash||i15,S7,H7|1
 7061|2|39|34|0|401|132513|4|0||0|Earthen Silk Belt||p8,S6,H8|2
 4262|3|37|32|0|402|132490|4|0||0|Gem-studded Leather Belt||t8,A6|2
+10329|3|37|32|0|403|132495|4|163||0|Scarlet Belt||s12,t10|2
 7052|2|35|30|0|401|132511|4|0||0|Azure Silk Belt||t5|2
 7055|2|35|30|0|401|132493|4|0||0|Crimson Silk Belt||i7,S6,H6|2
 4258|2|34|29|0|402|132492|4|0||0|Guardian Belt||i7,S6,H6|2
 3753|2|34|0|0|402|132506|4|0||0|Shepherd's Girdle||t7,S7,H7|1
+4463|2|33|28|0|401|132500|4|0||0|Beaded Raptor Collar||s6,t6|2
 4257|2|32|27|0|402|132506|4|0||0|Green Leather Belt||a6,i6|2
+6200|2|31|26|0|403|132498|4|0||0|Garneg's War Belt||s8,t2|2
+6911|3|30|25|0|402|132514|4|0||0|Moss Cinch||t5,S12|1
+3562|3|29|0|0|402|132494|4|0||0|Belt of Vindication||a7,t3|1
+6392|3|28|23|0|401|132499|4|0||0|Belt of Arugal||a2,i3,p5,S9,H9|1
+6908|3|27|22|0|401|132513|4|0||0|Ghamoo-ra's Bind||t7,S8,H8|1
+7000|2|27|0|0|402|132493|4|0||0|Heartwood Girdle||t5,S6,H6|1
 16975|3|27|0|0|401|132491|4|0||0|Warsong Sash||t4,S11,H11|1
+4785|2|26|21|0|401|132491|4|0||0|Brimstone Belt||t4,i6|2
+6319|3|26|21|0|402|132492|4|0||0|Girdle of the Blindwatcher||t5,S7,H7|1
 4250|2|25|20|0|402|132495|4|0||0|Hillman's Belt||t4,S4,H4|2
+3229|2|25|20|0|401|132496|4|0||0|Tarantula Silk Sash||i5,p2|2
+5750|2|25|20|0|403|132492|4|0||0|Warchief's Girdle||s5,t2|2
+5975|2|24|19|0|402|132492|4|0||0|Ruffian Belt||s6|2
+1215|2|24|19|0|402|132498|4|0||0|Support Girdle||s5,t4|2
 6468|3|23|18|0|402|132498|4|0||0|Deviate Scale Belt||a5,s3,t6|2
+4436|2|23|18|0|401|132493|4|0||0|Jewel-encrusted Sash||t2,i5|2
+10403|3|22|17|0|402|132515|4|161||0|Blackened Defias Belt||A18|1
+6460|3|22|17|0|403|132492|4|0||0|Cobrahn's Grasp||a3,s7|1
+10412|3|21|16|0|402|132519|4|162||0|Belt of the Fang||a3,t5|1
+5425|2|21|16|0|403|132492|4|0||0|Runescale Girdle||s5|2
+5967|2|20|15|0|401|132499|4|0||0|Girdle of Nobility||t3,i4|2
 2857|2|18|13|0|403|132492|4|0||0|Runed Copper Belt||s3,t2|2
 4246|2|16|11|0|402|132493|4|0||0|Fine Leather Belt||a2,t2|2
 2546|2|13|8|0|403|132498|4|0||0|Royal Frostmane Girdle||i2|2
@@ -10257,6 +11630,7 @@ FGT.GEARDB = {
 22878|3|68|60|1024|402|134586|4|0|H|1|Legionnaire's Dragonhide Leggings|Requires PvP rank 8|a12,s12,t12,i12,p5,S14,H14,c1|1
 22880|3|68|60|8|402|134588|4|0|H|1|Legionnaire's Leather Legguards|Requires PvP rank 8|t22,A34,h1,c1|1
 22676|4|65|60|0|403|134583|1|0||0|Outrider's Mail Leggings||s14,t22,i22,c1|1
+12963|3|63|58|0|402|134586|4|0||0|Blademaster Leggings||A24,h1,c1,d50|1
 20704|3|63|0|0|402|134626|1|0||0|Cenarion Reservist's Leggings||t13,S10,H29|1
 20707|3|63|0|0|401|134600|1|0||0|Cenarion Reservist's Pants||t13,S10,H29|1
 16426|3|63|58|4|403|134590|4|0|A|1|Knight-Captain's Chain Leggings|Requires PvP rank 8|a18,t17,c1,d25|1
@@ -10267,49 +11641,125 @@ FGT.GEARDB = {
 16431|3|63|58|1|404|134584|4|0|A|1|Knight-Captain's Plate Leggings|Requires PvP rank 8|s7,t13,c2|1
 17599|3|63|58|16|401|134586|4|0|A|1|Knight-Captain's Satin Leggings|Requires PvP rank 8|t16,i13,p16,S19,H19|1
 16414|3|63|58|128|401|134588|4|0|A|1|Knight-Captain's Silk Leggings|Requires PvP rank 8|t16,i13,p16,S19,H19|1
+18524|3|63|58|0|403|134583|1|0||0|Leggings of Destruction||a14,t21,i13,c1|1
 16527|3|63|58|4|403|134583|4|0|H|1|Legionnaire's Chain Leggings|Requires PvP rank 8|a18,t17,c1,d25|1
 16502|3|63|58|1024|402|134586|4|0|H|1|Legionnaire's Dragonhide Trousers|Requires PvP rank 8|a12,s12,t12,i9,p12,A18,d25|1
 17571|3|63|58|256|401|134586|4|0|H|1|Legionnaire's Dreadweave Leggings|Requires PvP rank 8|t15,i13,S28,H28|1
 16523|3|63|58|64|403|134589|4|0|H|1|Legionnaire's Mail Leggings|Requires PvP rank 8|a5,t20,i11,S25,H25|1
 16515|3|63|58|1|404|134586|4|0|H|1|Legionnaire's Plate Legguards|Requires PvP rank 8|s7,t13,c2|1
+22328|3|63|58|0|404|134584|1|0||0|Legplates of Vigilance||t22,h1,d15|1
+12964|3|63|58|0|403|134584|4|0||0|Tristam Legguards||t18,A38,d38|1
+12935|3|63|58|0|404|134584|1|0||0|Warmaster Legguards||s13,t16,d60|1
+18380|3|62|57|0|404|134584|4|0||0|Eldritch Reinforced Legplates||s15,t20,i9,c1|1
+14545|3|62|57|0|402|134591|4|0||0|Ghostloom Leggings||t10,i18,S15,H15|1
+22303|3|62|57|400|401|134588|1|520||0|Ironweave Pants||t24,i15,h1|1
+12903|4|62|0|0|403|134583|4|0||0|Legguards of the Chromatic Defier||a31,s9,t15,i7|1
+12945|4|62|0|0|403|134583|4|0||0|Legplates of the Chromatic Defier||t14,i16,p19,S15,H44|1
+14522|3|62|57|0|403|134584|1|0||0|Maelstrom Leggings||t20,i20,p10,S8,H22|1
+18736|3|62|57|0|402|134592|4|0||0|Plaguehound Leggings||a30,t9,h1|2
 12614|2|62|57|0|404|134584|4|0||0|Runic Plate Leggings||t19|2
+18690|3|62|57|0|404|134584|1|0||0|Wraithplate Leggings||t20,d30|1
+16678|3|61|56|0|403|134583|4|186||0|Beaststalker's Pants||a26,s6,t6,i10,p12|1
+14638|3|61|56|0|402|134587|1|121||0|Cadaverous Leggings||t18,A52,d12|1
+13531|3|61|56|0|402|134589|4|0||0|Crypt Stalker Leggings||t14,d6|1
+14623|3|61|56|0|404|134584|4|124||0|Deathbone Legguards||t20,i14,d13|1
+16694|3|61|56|0|401|134588|1|182||0|Devout Skirt||t12,i15,p23,S8,H24|1
+16699|3|61|56|0|401|134588|1|183||0|Dreadmist Leggings||t15,i14,p21,S12,H12|1
+18682|3|61|56|0|402|134582|1|0||0|Ghoul Skin Leggings||t20,i8,p9,S15,H44|1
+16668|3|61|56|0|403|134583|4|187||0|Kilt of Elements||t7,i15,p20,S14,H14|1
+16728|3|61|56|0|404|134584|4|188||0|Lightforge Legplates||a9,s20,t14,i12|1
+16687|3|61|56|0|401|134586|4|181||0|Magister's Leggings||t12,i15,p21,S7,H7,h1|1
+14632|3|61|56|0|401|134588|1|122||0|Necropile Leggings||t21,i18,p12,S8,H8|1
+18386|3|61|56|0|401|134586|1|0||0|Padre's Trousers||i20,S12,H37|1
 12420|2|61|56|0|403|134583|4|0||0|Radiant Leggings||t12|2
+16709|3|61|56|0|402|134582|4|184||0|Shadowcraft Pants||a25,t14,p14|1
+14577|3|61|56|0|401|134588|4|0||0|Skullsmoke Pants||t20,i15,c1|1
+18390|3|61|57|0|402|134594|4|0||0|Tanglemoss Leggings||t12,p19,S10,H29,c1|1
+13389|3|61|56|0|401|134586|4|81||0|The Postmaster's Trousers||t12,i20,p15,S13,H13|1
+16719|3|61|56|0|402|134588|4|185||0|Wildheart Kilt||s12,t14,i14,p14,S8,H24|1
+13206|3|61|56|0|401|134586|4|0||0|Wolfshear Leggings||t10,p25,S9,H26|1
 20295|3|60|55|0|403|134667|4|491||0|Blue Dragonscale Leggings||i20,S19,H19|2
+13498|3|60|55|0|404|134584|4|0||0|Handcrafted Mastersmith Leggings||s25,t12|1
 15095|2|60|55|0|402|134582|4|0||0|Runic Leather Pants||i13,S20,H20|2
+18477|2|60|55|0|402|134594|1|0||0|Shaggy Leggings||i19,S13,H13|1
+13170|3|60|55|0|401|134593|4|0||0|Skyshroud Leggings||t11,i12,S30,H30|1
 12414|2|60|55|0|404|134584|4|0||0|Thorium Leggings||t19|2
+18346|3|60|55|0|401|134589|4|0||0|Threadbare Trousers||t18,S23,H23|1
+13169|3|60|55|0|402|134589|1|0||0|Tressermane Leggings||t13,i14,p15,S19,H19|1
+18305|3|58|53|0|404|134584|4|0||0|Breakwater Legguards||s22,d25|1
 14104|2|58|53|0|401|134589|1|0||0|Brightcloth Pants||S19,H19|2
 14144|2|58|53|0|401|134581|4|0||0|Ghostweave Pants||p20,S26,H26|2
+11802|3|58|53|0|404|134584|4|0||0|Lavacrest Leggings||s27,t12,p5|1
 14137|3|58|53|0|401|134593|4|0||0|Mooncloth Leggings||t12,p21,S11,H31|2
+11821|3|58|53|0|402|134589|4|0||0|Warstrife Leggings||a7,s8,t22,d32|1
+13383|3|58|53|0|403|134594|1|0||0|Woollies of the Prancing Minstrel||t12,i10,S5,H15|1
 15069|2|57|52|0|402|134581|4|0||0|Frostsaber Leggings||t11|2
+11929|3|57|52|0|401|134591|4|0||0|Haunting Specter Leggings||i12,p26|1
 15079|2|57|52|0|403|134592|4|0||0|Heavy Scorpid Leggings||a20,t12|2
+11927|3|57|52|0|404|134584|1|0||0|Legplates of the Eternal Guardian||d65|1
 15060|3|57|52|0|402|134585|1|0||0|Living Leggings||t8,p25,S9,H26|2
 13865|2|57|52|0|401|134589|4|0||0|Runecloth Pants||p20,S14,H14|2
 15065|3|57|52|0|402|134706|4|0||0|Warbear Woolies||a18,s28,t12|2
 15072|2|56|51|0|402|134582|4|0||0|Chimeric Leggings||t11|2
+18298|3|56|51|0|402|134591|1|0||0|Unbridled Leggings||s11,t18,d9|2
+10807|3|55|50|0|401|134591|4|0||0|Kilt of the Atal'ai Prophet||t9,i18,p18,S3,H9|1
+11123|3|55|0|0|401|134588|4|0||0|Rainstrider Leggings||t7,p26,S6,H18|1
+11841|3|55|50|0|401|134589|1|0||0|Senior Designer's Pantaloons||t8,i7,p18,S12,H37|1
 11911|2|55|0|0|401|134588|4|0||0|Treetop Leggings||t8,i8,p18|1
 14132|2|55|50|0|401|134589|1|0||0|Wizardweave Leggings||S19,H19|2
+17711|3|54|49|0|404|134584|4|0||0|Elemental Rockridge Leggings||s20,t16|1
 15046|3|54|49|0|403|134585|4|490||0|Green Dragonscale Leggings||t10,S17,H22|2
 15054|2|54|49|0|402|134586|4|141||0|Volcanic Leggings||t10|2
+10842|3|54|49|0|402|134594|4|0||0|Windscale Sarong||t10,p20,S8,H8,h1|1
 12041|3|54|0|0|402|134593|4|0||0|Windshear Leggings||a19,t5,p22|1
+11749|3|53|48|0|403|134583|4|0||0|Searingscale Leggings||a13,t13,i13,p6|1
+17751|3|51|46|0|402|134585|4|0||0|Brusslehide Leggings||t12,i7,S23,H23|1
+10633|3|51|46|0|404|134584|4|0||0|Silvershell Leggings||s20,t15,p10|2
+17754|3|50|45|0|403|134706|4|0||0|Infernal Trickster Leggings||a20,i8,p10,h1|1
+9474|3|49|44|0|402|134585|4|0||0|Jinxed Hoodoo Kilt||i10,p19,S8,H24|1
 8206|2|49|44|0|403|134592|4|0||0|Tough Scorpid Leggings||a17,i10|2
 8202|2|47|42|0|402|134582|4|0||0|Big Voodoo Pants||i10,S15,H15|2
+4478|2|47|42|0|403|134583|4|0||0|Iridescent Scale Leggings|||2
+9414|3|47|42|0|402|134586|4|0||0|Oilskin Leggings||a18,p11|1
 8185|2|47|42|0|403|134582|4|0||0|Turtle Scale Leggings||t11,i10,S11,H11|2
+10330|3|44|39|0|403|134583|4|163||0|Scarlet Leggings||s21,t10|1
 10010|2|44|39|0|401|134593|4|1972||0|Stormcloth Pants||p15,S5,H15|2
 7920|2|42|40|0|403|134584|4|0||0|Mithril Plate Pants||p11,d25|2
 7929|2|42|40|0|403|134583|4|0||0|Orcish War Leggings||s17|2
+9407|3|42|37|0|401|134581|4|0||0|Stoneweaver Leggings||t9,i8,p12,S7,H20|1
 9999|2|41|36|0|401|134589|4|0||0|Black Mageweave Leggings||p14,S8,H8|2
 4976|2|41|0|0|402|134593|4|0||0|Mistspray Kilt||p17|1
 7062|2|39|34|0|401|134586|4|0||0|Crimson Silk Pantaloons||i13,S8,H8|2
+7760|3|39|34|0|402|134586|4|0||0|Warchief Kilt||s5,i6,p14,S8,H24|2
+9625|3|37|0|0|403|134583|4|0||0|Dual Reinforced Leggings||s12,d5|1
+7709|3|35|30|0|401|134587|4|0||0|Blighted Leggings||p14|1
 5963|2|34|29|0|402|134592|4|0||0|Barbaric Leggings||a7,s7,t7|2
+6690|3|34|29|0|402|134594|4|0||0|Ferine Leggings||i12,A26|1
 3843|2|34|29|0|403|134584|4|0||0|Golden Scale Leggings||s11,t5|2
 5962|2|32|27|0|402|134582|4|0||0|Guardian Pants||i8,S8,H8|2
+6910|3|29|24|0|401|134594|4|0||0|Leech Pants||t5,S5,H5|1
+2906|2|28|0|0|403|134583|4|0||0|Darkshire Mail Leggings||s7,p7|1
+6903|3|28|23|0|401|134582|4|0||0|Gaze Dreamer Pants||p9,S12,H12|1
+3563|2|24|19|0|401|134582|4|0||0|Seafarer's Pantaloons||t5,p5|2
+5422|2|22|17|0|402|134582|4|0||0|Brambleweed Leggings||a5,p5|2
 4316|2|22|17|0|401|134581|4|0||0|Heavy Woolen Pants||p6,S3,H3|2
+10410|3|22|17|0|402|134591|4|162||0|Leggings of the Fang||a9,s5,t4|1
+4434|2|22|17|0|401|134582|4|0||0|Scarecrow Trousers||i5,p5|2
+5199|3|21|16|0|402|134582|4|0||0|Smelting Pants||t7,p5|1
+1934|3|20|15|0|402|134582|4|0||0|Stonemason Trousers||a7,p7|2
+10400|3|19|14|0|402|134592|4|161||0|Blackened Defias Leggings||a6,s6|1
 10048|2|19|14|0|401|134582|4|0||0|Colorful Kilt||p5,S5,H5|2
 7282|2|19|14|0|402|134582|4|0||0|Light Leather Pants||a5,t3|2
+15450|2|18|0|0|402|134587|4|0||0|Dredgemire Leggings||t3,p3|1
+15451|2|18|0|0|403|134583|4|0||0|Gargoyle Leggings||s3,p3|1
+15449|2|18|0|0|401|134594|1|0||0|Ghastly Trousers||t3,i3|1
+1929|3|18|13|0|401|134582|4|0||0|Silk-threaded Trousers||a5,S7,H7|2
 4242|2|15|10|0|402|134582|4|0||0|Embossed Leather Pants||t2,S3,H3|2
 12295|2|15|0|0|401|134586|4|0||0|Leggings of the People's Militia||s2,S2,H2|1
 10047|2|15|10|0|401|134591|4|0||0|Simple Kilt||t3,S2,H2|2
 4309|2|14|9|0|401|134587|4|0||0|Handstitched Linen Britches||i2,S2,H2|2
+9756|2|14|9|0|402|134585|4|0||0|Nomad Trousers|||2
+10554|2|13|8|0|401|134587|4|0||0|Foreman Pants||s2,t2|2
 10549|2|12|0|0|401|134593|4|0||0|Rancher's Trousers||p1,S1,H1|1
 4343|2|10|5|0|401|134586|4|0||0|Brown Linen Pants||S1,H1|2
 2852|2|10|4|0|403|134583|4|0||0|Copper Chain Pants||t1|2
@@ -10344,6 +11794,9 @@ FGT.GEARDB = {
 16518|3|63|58|64|403|132541|4|0|H|1|Blood Guard's Mail Walkers|Requires PvP rank 7|t14,i10,S14,H14|1
 16509|3|63|58|1|404|132590|4|0|H|1|Blood Guard's Plate Boots|Requires PvP rank 7|a5,s8,t23|1
 20711|3|63|0|0|404|132583|1|0||0|Crystal Lined Greaves||s12,t12,i12,S5,H15|1
+18102|3|63|58|0|401|132539|1|0||0|Dragonrider Boots||t5,i16,S18,H18|1
+22247|3|63|58|0|401|132560|1|0||0|Faith Healer's Boots||t10,i12,p12,S8,H24|1
+18521|3|63|58|0|404|132582|4|0||0|Grimy Metal Boots||s17,t7,d25|1
 16401|3|63|58|4|403|132541|4|0|A|1|Knight-Lieutenant's Chain Boots|Requires PvP rank 7|a10,t17,d25|1
 16393|3|63|58|1024|402|132541|4|0|A|1|Knight-Lieutenant's Dragonhide Footwraps|Requires PvP rank 7|a5,s12,t12,i5,p5,S14,H14|1
 17562|3|63|58|256|401|132536|4|0|A|1|Knight-Lieutenant's Dreadweave Boots|Requires PvP rank 7|t10,i15,S19,H19|1
@@ -10352,32 +11805,108 @@ FGT.GEARDB = {
 16405|3|63|58|1|404|132590|4|0|A|1|Knight-Lieutenant's Plate Boots|Requires PvP rank 7|a5,s8,t23|1
 17594|3|63|58|16|401|132541|4|0|A|1|Knight-Lieutenant's Satin Boots|Requires PvP rank 7|t16,i15,S12,H12|1
 16369|3|63|58|128|401|132539|4|0|A|1|Knight-Lieutenant's Silk Boots|Requires PvP rank 7|t16,i15,S12,H12|1
+18424|3|63|0|0|402|132539|1|0||0|Sedge Boots||t18,i11,S7,H20|1
+18507|3|62|57|0|401|132539|4|0||0|Boots of the Full Moon||t12,i12,p11,S9,H26|1
+13398|3|62|57|0|402|132542|4|0||0|Boots of the Shrieker||t10,i10,S12,H12|1
+14537|3|62|57|0|404|132590|4|0||0|Corpselight Greaves||t20,A14|1
+13527|3|62|57|0|404|132590|4|0||0|Lavawalker Greaves||s12|1
+18735|3|62|57|0|401|132537|4|0||0|Maleki's Footwraps||t19,i11|1
+18694|3|62|57|0|403|132535|4|0||0|Shadowy Mail Greaves||t20,A14|1
+13954|3|62|57|0|402|132542|4|0||0|Verdant Footpads||S12,H38|1
+18716|3|61|56|0|402|132542|1|0||0|Ash Covered Boots||a13,t13,d28|1
 16984|4|61|56|0|403|132590|4|0||0|Black Dragonscale Boots||t10,A28|2
+14616|3|61|56|0|403|132535|1|123||0|Bloodmail Boots||a8,s9,t10,i10,h1|1
+22472|3|61|56|0|402|132542|4|0||0|Boots of Ferocity||a9,s12,t13,d6|1
+14621|3|61|56|0|404|132535|4|124||0|Deathbone Sabatons||t11,i14,d10|1
+13530|3|61|56|0|401|132539|4|0||0|Fangdrip Runners|||1
 19048|3|61|56|0|403|132553|4|0||0|Heavy Timbermaw Boots||t21,A20|2
+22311|3|61|56|400|401|132562|1|520||0|Ironweave Boots||t17,i11,h1|1
+22231|3|61|56|0|401|132559|1|0||0|Kayser's Boots of Precision||t11,i18,S4,H4,h1|1
+13381|3|61|56|0|404|132590|1|0||0|Master Cannoneer Boots||s10,t21,d25|1
+14631|3|61|56|0|401|132539|1|122||0|Necropile Boots||t15,i10,p9,S13,H13|1
+13259|3|61|56|0|404|132589|4|0||0|Ribsteel Footguards||a10,s10,t19|1
+13391|3|61|56|0|401|132536|1|81||0|The Postmaster's Treads||t14,i15,p6,S9,H9|1
+13260|3|61|56|0|403|132535|4|0||0|Wind Dancer Boots||a12,p16,d25|2
+13967|3|61|56|0|403|132585|4|0||0|Windreaver Greaves||a20,i4,h1|1
+18476|2|60|55|0|402|132541|4|0||0|Mud Stained Boots||s7,t15,d4|1
 12611|2|60|55|0|404|132582|4|0||0|Runic Plate Boots||t14|2
+15861|2|60|0|0|402|132541|4|0||0|Swiftfoot Treads||a14,s4,t12|1
+13402|3|60|55|0|403|132535|4|0||0|Timmy's Galoshes||a18,t11,i10|1
+16675|3|59|54|0|403|132588|4|186||0|Beaststalker's Boots||a21,t9,i3|1
+16670|3|59|54|0|403|132592|1|187||0|Boots of Elements||a9,p17,S14,H14|1
+16734|3|59|54|0|404|132584|4|189||0|Boots of Valor||a5,s9,t20,d2|1
+18692|3|59|54|0|404|132589|4|0||0|Death Knight Sabatons||s11,t11,i11,S11,H11|1
+16691|3|59|54|0|401|132539|1|182||0|Devout Sandals||t9,i10,p17,S4,H11|1
+16704|3|59|54|0|401|132539|4|183||0|Dreadmist Sandals||t17,i7,p10,S9,H9|1
+12556|3|59|54|0|401|132592|4|0||0|High Priestess Boots||t10,p7|1
+16725|3|59|54|0|404|132584|4|188||0|Lightforge Boots||s11,t18,p9|1
+16682|3|59|54|0|401|132536|4|181||0|Magister's Boots||t7,i14,p14,S9,H9|1
+18318|3|59|54|0|403|132535|1|0||0|Merciful Greaves||t14,i14,S7,H20|1
+13282|3|59|54|0|401|132539|4|0||0|Ogreseer Tower Boots||i13,p13,S9,H26|1
+11822|3|59|54|0|401|132539|4|0||0|Omnicast Boots||t8,i12,S20,H20|1
+12553|3|59|54|0|402|132536|1|0||0|Swiftwalker Boots||a21,s5,t8|1
+16715|3|59|54|0|402|132542|1|185||0|Wildheart Boots||t10,i9,p17,S4,H11|1
 19056|3|58|53|0|401|132560|4|0||0|Argent Boots||t21,S8,H8|2
 19052|3|58|53|0|402|132565|4|0||0|Dawn Treaders||a14,s9,t18|2
 12419|2|58|53|0|403|132584|4|0||0|Radiant Boots||t9|2
+18307|3|58|53|0|401|132539|4|0||0|Riptide Shoes||i9|1
+11787|3|58|53|0|404|132582|4|0||0|Shalehusk Boots||t10,d38|1
+13284|3|58|53|0|403|132535|4|0||0|Swiftdart Battleboots||a17,t11,i10|1
+18322|3|58|53|0|402|132542|4|0||0|Waterspout Boots||i8,p9,S22,H22|1
+18043|3|57|52|0|402|132542|1|0||0|Coal Miner Boots||s9,t17,d5|1
+22275|3|57|52|0|402|132542|1|0||0|Firemoss Boots||t8,i18,S7,H20|1
+11731|3|57|52|0|403|132535|1|1||0|Savage Gladiator Greaves||a15,s9,t13|1
+18411|2|57|0|0|402|132540|4|0||0|Spry Boots||a8,d19|1
 15802|3|56|51|0|401|132539|4|0||0|Mooncloth Boots||i14,p13,S8,H24|2
 13864|2|56|51|0|401|132539|4|0||0|Runecloth Boots||p14,S11,H11|2
+22245|3|56|51|0|401|132562|1|0||0|Soot Encrusted Footwear||t8,i9,p14,S7,H20|1
 15073|2|55|50|0|402|132541|4|0||0|Chimeric Boots||t9|2
+22270|3|55|50|0|404|132583|4|0||0|Entrenching Boots||s11,t10,i10,S7,H7,d3|1
 15071|2|55|50|0|402|132539|4|0||0|Frostsaber Boots||t9|2
+10846|3|54|49|0|403|132535|4|0||0|Bloodshot Greaves||a6,s5,t14,i13|1
 12021|3|54|0|0|404|132582|4|0||0|Shieldplate Sabatons||s12,t15,p9|1
+11627|3|53|48|0|403|132535|1|0||0|Fleetfoot Greaves||a19,t6,i6|1
+11865|2|53|0|0|401|132536|4|0||0|Rancor Boots||a9,t10,i8|1
+10801|3|52|47|0|402|132541|4|0||0|Slitherscale Boots||s5,t12,p10,d7|1
+20255|3|52|0|0|402|132562|1|0||0|Whisperwalk Boots||a17,t4|1
+17748|3|51|46|0|401|132539|4|0||0|Vinerot Sandals||i9,p10,S6,H18|1
+10629|3|50|45|0|401|132539|4|0||0|Mistwalker Boots||p18,S9,H9|2
 10039|2|50|45|0|401|132539|4|1972||0|Stormcloth Boots||t10,S8,H24|2
 8209|2|47|42|0|403|132539|4|0||0|Tough Scorpid Boots||a12,i7|2
 10026|2|46|41|0|401|132539|4|0||0|Black Mageweave Boots||i7,S11,H11|2
+14549|4|45|40|0|404|132586|4|0||0|Boots of Avoidance||s6,t11,d38|2
 10700|2|45|0|0|401|132536|4|0||0|Encarmine Boots||t8,i8,p4|1
+19509|3|42|37|0|403|132545|4|0||0|Dusty Mail Boots||t14|1
+9387|3|42|40|0|404|132587|4|0||0|Revelosh's Boots|||1
+9398|3|42|37|0|402|132536|4|0||0|Worn Running Boots||a13,t10|1
+1678|3|41|36|0|403|132535|4|0||0|Black Ogre Kickers||s6,t14|2
 3847|2|40|35|0|403|132535|4|0||0|Golden Scale Boots||s8,t8|2
 7391|2|40|35|0|402|132542|4|0||0|Swift Boots||t10|2
+9382|2|40|35|0|402|132542|4|0||0|Tromping Miner's Boots||s9,t8|2
 15104|2|39|0|0|401|132541|4|0||0|Wingborne Boots||p10,S6,H6|1
+10359|2|38|0|0|401|132541|4|0||0|Everlast Boots||p9,S3,H10|1
+10578|3|38|33|0|401|132535|4|0||0|Thoughtcast Boots||t3,p13,S5,H13|2
 4325|2|35|30|0|401|132539|4|0||0|Boots of the Enchanter||p8,S5,H5|2
+7751|2|35|0|0|402|132537|4|0||0|Vorrel's Boots||a7,t3,p7|1
+9450|3|34|29|0|402|132537|4|0||0|Gnomebot Operating Boots||t12,S4,H11|1
+4464|2|34|29|0|403|132535|4|0||0|Trouncing Boots||a7,s7|2
+9510|3|32|27|0|403|132535|4|0||0|Caverndeep Trudgers||s4,t10|2
+6752|2|32|0|0|402|132537|4|0||0|Lancer Boots||a5,t6,p4|1
+2033|2|28|0|0|402|132542|4|0||0|Ambassador's Boots||a3,t5,p4|1
+6335|2|28|0|0|402|132537|4|0||0|Grizzled Boots||t7|1
 4321|2|28|23|0|401|132537|4|0||0|Spider Silk Slippers||p7,S3,H3|2
+6998|2|27|0|0|401|132539|4|0||0|Nimbus Boots||a5,S3,H10|1
+10658|2|25|0|0|403|132541|4|0||0|Quagmire Galoshes||t4,i4|1
 4320|3|25|20|0|401|132539|4|0||0|Spidersilk Boots||t4,i4,S7,H7|2
 6482|2|24|0|0|401|132539|4|0||0|Firewalker Boots||i1,p5,S2,H2|1
 6191|2|24|0|0|401|132539|4|0||0|Kimbra Boots||i4,p3|1
+6459|3|23|18|0|403|132535|4|0||0|Savage Trodders||t7|1
+10411|3|22|17|0|402|132538|4|162||0|Footpads of the Fang||a6,t6|1
 5311|2|21|0|0|402|132537|4|0||0|Buckled Boots||t4,i2,S1,H1|1
+10402|3|20|15|0|402|132539|4|161||0|Blackened Defias Boots||a6,t4|1
 2315|2|20|15|0|402|132539|4|0||0|Gray Leather Boots||a5|2
 4313|2|20|15|0|401|132543|1|0||0|Red Woolen Boots||p5,S4,H4|2
+4660|2|20|15|0|401|132540|4|0||0|Walking Boots||a3,i4|2
 2583|2|19|14|0|401|132543|4|0||0|Woolen Boots||i2,p2,S2,H2|2
 2307|2|18|13|0|402|132540|4|0||0|Fine Leather Boots||a3,t2|2
 6350|2|18|13|0|403|132535|4|0||0|Rough Bronze Boots||s2,t3|2
@@ -10385,29 +11914,85 @@ FGT.GEARDB = {
 2309|2|15|10|0|402|132539|4|0||0|Embossed Leather Boots||t2,S2,H2|2
 2569|2|13|8|0|401|132543|4|0||0|Linen Boots||t2|2
 6201|2|12|7|0|402|132539|4|0||0|Lithe Boots||t2|2
+18612|2|10|5|0|403|132535|4|0||0|Bloody Chain Boots||t1|2
 3469|2|10|4|0|403|0|4|0||0|Copper Chain Boots||t1|2
 ]==],
         [9] = [==[
+227033|3|65|0|64|403|132601|4|1679||0|Wrists of The Five Thunders||t10,i9,p9,S8,H8|1
+12936|3|63|58|0|404|132616|4|0||0|Battleborn Armbraces||p7,h1,c1|1
+18525|3|63|58|0|402|132611|1|0||0|Bracers of Prosperity||t8,i10,p5,S7,H22|1
+18394|3|62|57|0|403|132604|1|0||0|Demon Howl Wristguards||t17,A10|1
 20481|3|62|57|0|403|132604|4|0||0|Spitfire Bracers||a9,i9,p9,S8,H8|2
+13528|3|62|57|0|403|132615|4|0||0|Twilight Void Bracers||i7|1
+13208|3|61|56|0|402|132606|1|0||0|Bleak Howler Armguards||i9,p14,S5,H15|1
+22313|3|61|56|400|401|132612|1|520||0|Ironweave Bracers||t14,i8,h1|1
+13969|3|61|56|0|403|132615|1|0||0|Loomguard Armbraces||t6,i7,S10,H29|1
+18351|3|61|56|0|404|132617|4|0||0|Magically Sealed Bracers||d5|1
+18741|3|61|56|0|404|132616|4|0||0|Morlune's Bracer||i12,p11,S5,H15|2
+14629|3|61|56|0|401|132606|4|122||0|Necropile Cuffs||t12,i11,p4,S6,H6|1
+15860|2|60|0|0|404|132616|1|0||0|Blinkstrike Armguards||s4|1
 22667|4|60|0|0|401|132611|1|0||0|Bracers of Hope||t10,i11,p12,S6,H18|1
+13179|3|60|55|0|403|132608|4|0||0|Brazecore Armguards||t10,i8,S8,H8|1
+13537|3|60|55|0|402|132606|4|0||0|Chillhide Bracers||t7,d4|1
+18459|2|60|55|0|404|132618|4|0||0|Gallant's Wristguards||i10,S7,H22|1
+13211|3|60|55|0|403|132606|4|0||0|Slashclaw Bracers||a7,t7,p9,h1|1
+13400|3|60|55|0|404|132616|4|0||0|Vambraces of the Sadist||s7,t8,c1|1
+13958|3|60|0|0|401|132603|4|0||0|Wyrmthalak's Shackles||p15,S7,H20|1
+12626|3|59|54|0|401|132606|4|0||0|Funeral Cuffs||i14,S6,H18|1
+18726|3|59|54|0|402|132610|1|0||0|Magistrate's Cuffs||t15,d7|1
+18700|3|58|53|0|402|132606|1|0||0|Malefic Bracers||a6,t16,d2|2
+16681|3|57|52|0|403|132616|1|186||0|Beaststalker's Bindings||a15,t8|2
+16671|3|57|52|0|403|132601|4|187||0|Bindings of Elements||t7,i8,p10,S5,H5|2
+16735|3|57|52|0|404|132617|1|189||0|Bracers of Valor||a3,s7,t14,p2,d2|2
+16697|3|57|52|0|401|132520|4|182||0|Devout Bracers||t7,i8,p10,S4,H11|2
+16703|3|57|52|0|401|132612|4|183||0|Dreadmist Bracers||t10,i11,p5,S5,H5|2
+16722|3|57|52|0|404|132613|4|188||0|Lightforge Bracers||a5,s8,t10,i7|2
+16683|3|57|52|0|401|133365|4|181||0|Magister's Bindings||t6,i13,p6|2
+16714|3|57|52|0|402|132608|4|185||0|Wildheart Bracers||s5,i15,S3,H9|2
+12112|2|56|0|0|403|132616|4|0||0|Crypt Demon Bracers||a11,i7|1
+18296|3|56|51|0|403|132605|4|0||0|Marksman Bands||a12,t8,h1|2
+11962|3|55|0|0|401|132612|4|0||0|Manacle Cuffs||i15,S7,H7|1
+11679|3|55|50|0|403|132612|4|0||0|Rubicund Armguards||a8,t14,i3|1
 15092|2|55|50|0|402|132610|4|0||0|Runic Leather Bracers||i10,S10,H10|2
+12546|3|54|49|0|401|132604|4|0||0|Aristocratic Cuffs||i15,S4,H11|2
+17714|3|54|49|0|403|132613|1|0||0|Bracers of the Stone Princess||t6,i5,A28|1
+12550|3|53|48|0|404|132616|1|0||0|Runed Golem Shackles||s14,d5|2
 15077|2|51|46|0|403|132608|4|0||0|Heavy Scorpid Bracers||a8,t8|2
+17746|3|51|46|0|404|132605|4|0||0|Noxxion's Shackles||s5,t9|1
 12408|2|51|46|0|404|132612|4|0||0|Thorium Bracers||t8|2
+10632|3|49|44|0|403|133345|4|0||0|Slimescale Bracers||i4,p13,S3,H9|2
 11469|2|47|0|0|401|132612|4|0||0|Bloodband Bracers||i9,p3,S5,H5|1
 8205|2|44|39|0|403|132608|4|0||0|Tough Scorpid Bracers||a7,i6|2
 7924|2|43|40|0|403|132606|4|0||0|Mithril Plate Bracers||t6,p7|2
+19508|3|42|37|0|402|132610|4|0||0|Branded Leather Bracers||t6,A20|1
+9388|3|42|37|0|403|132615|4|0||0|Revelosh's Armguards|||1
 8198|2|42|37|0|403|132605|4|0||0|Turtle Scale Bracers||t5,i5,S6,H6|2
 4545|2|40|0|0|401|132606|4|0||0|Radiant Silver Bracers||i8,S4,H4|1
 4744|2|39|0|0|401|132617|4|0||0|Arcane Runed Bracers||t1,S9,H9|1
 15864|2|39|0|0|401|132606|4|0||0|Condor Bracers||t6,S7,H7|1
 4260|2|39|34|0|402|132609|4|0||0|Guardian Leather Bracers||i6,S6,H6|2
+10358|2|38|0|0|403|132603|4|0||0|Duracin Bracers||a5,t5,p3|1
 7386|2|38|33|0|402|132605|4|0||0|Green Whelp Bracers||i8|2
 6040|2|37|32|0|403|132609|4|0||0|Golden Scale Bracers||s6,t5|2
 4259|2|36|31|0|402|132611|4|0||0|Green Leather Bracers||a6,i5|2
+10333|3|36|31|0|403|132602|4|163||0|Scarlet Wristguards||t11|2
+9455|3|35|30|0|402|132608|4|0||0|Emissary Cuffs|||1
+9448|3|34|29|0|401|133679|4|0||0|Spidertank Oilrag||S9,H9|1
 3835|2|33|28|0|403|132605|4|0||0|Green Iron Bracers||s4,t5|2
+6198|2|33|28|0|402|132600|4|0||0|Jurassic Wristguards||a6,s2|2
 18948|3|32|27|0|402|132614|4|0||0|Barbaric Bracers||a4,s4,t6|2
+9535|2|32|0|0|403|132601|4|0||0|Fire-welded Bracers||a4,t1,p4|1
+3228|3|28|23|0|403|132601|4|0||0|Jimmied Handcuffs||s3,t8|1
+4534|2|28|0|0|403|132605|4|0||0|Steel-clasped Bracers||t4,p4|1
+6902|3|27|22|0|402|132607|4|0||0|Bands of Serra'kis||s6,t3|1
+3230|3|27|22|0|402|132606|4|0||0|Black Wolf Bracers||t7,A4|1
+7003|2|26|0|0|403|132605|4|0||0|Beetle Clasps||t3,A6|1
+5943|2|25|20|0|403|132602|1|0||0|Rift Bracers||t4,S2,H2|1
+1974|3|22|17|0|401|132606|4|0||0|Mindthrust Bracers||t1,i5|2
 16981|2|20|0|0|401|132609|4|0||0|Owlbeard Bracers||t1,i2,S1,H1|1
 2854|2|19|14|0|403|132602|4|0||0|Runed Copper Bracers||s2,t2|2
+14147|3|18|13|0|403|132606|4|0||0|Cavedweller Bracers||s2,p3|1
+14148|3|18|13|0|401|132612|4|0||0|Crystalline Cuffs||t2,p3|1
 7281|2|14|9|0|402|132603|4|0||0|Light Leather Bracers||a1,s1|2
 4308|2|12|7|0|401|132611|4|0||0|Green Linen Bracers||p1|2
 763|2|12|7|0|402|132607|4|0||0|Ice-covered Bracers||a1|2
@@ -10444,10 +12029,14 @@ FGT.GEARDB = {
 16519|3|63|58|64|403|132945|4|0|H|1|Blood Guard's Mail Grips|Requires PvP rank 7|s6,t15,i7,S19,H19|1
 16510|3|63|58|1|404|132960|4|0|H|1|Blood Guard's Plate Gloves|Requires PvP rank 7|s16,t15|1
 20717|3|63|0|0|401|132951|1|0||0|Desert Bloom Gloves||t5,i5,p5,S17,H51|1
+13344|3|63|58|0|403|132965|1|0||0|Dracorian Gauntlets||t10,i11,p9,S19,H19|1
+22410|3|63|58|0|403|132945|4|0||0|Gauntlets of Deftness||a20,t10,i6|1
 23078|3|63|0|0|404|132963|1|533||0|Gauntlets of Undead Slaying||t15,A30|1
 23084|3|63|0|0|401|132950|1|536||0|Gloves of Undead Cleansing||t10,i10,S18,H18|1
+22343|3|63|58|0|403|132945|4|0||0|Handguards of Savagery||t13,i10,A36|1
 23082|3|63|0|0|403|132945|1|535||0|Handguards of Undead Slaying||t15,A30|1
 23081|3|63|0|0|402|132940|1|534||0|Handwraps of Undead Slaying||t15,A30|1
+18527|3|63|58|0|403|132944|4|0||0|Harmonious Gauntlets||t10,i10,p10,S11,H33|1
 16403|3|63|58|4|403|132944|4|0|A|1|Knight-Lieutenant's Chain Gauntlets|Requires PvP rank 7|a11,t18|1
 16397|3|63|58|1024|402|132960|4|0|A|1|Knight-Lieutenant's Dragonhide Gloves|Requires PvP rank 7|a12,s12,t12|1
 17564|3|63|58|256|401|132953|4|0|A|1|Knight-Lieutenant's Dreadweave Gloves|Requires PvP rank 7|t18,i11|1
@@ -10456,43 +12045,118 @@ FGT.GEARDB = {
 16406|3|63|58|1|404|132957|4|0|A|1|Knight-Lieutenant's Plate Gauntlets|Requires PvP rank 7|s16,t15|1
 17596|3|63|58|16|401|132964|4|0|A|1|Knight-Lieutenant's Satin Gloves|Requires PvP rank 7|t11,S21,H21|1
 16391|3|63|58|128|401|132951|4|0|A|1|Knight-Lieutenant's Silk Gloves|Requires PvP rank 7|t11,S21,H21|1
+14525|3|62|57|0|404|132963|1|0||0|Boneclenched Gauntlets||s16,t15,d7|1
+13525|3|62|57|0|401|132949|4|0||0|Darkbind Fingers||i12,S6,H18|1
 14146|4|62|57|31632|401|132940|4|0||0|Gloves of Spell Mastery||i10,S9,H9,c2|2
 18409|3|62|57|0|401|132951|4|0||0|Mooncloth Gloves||t9,i16,S11,H33|2
+18377|3|62|57|0|402|132955|4|0||0|Quickdraw Gloves||a8,s7,t10,i9,d19|1
 20480|3|62|57|0|403|132945|4|0||0|Spitfire Gauntlets||a12,i12,p12,S11,H11|2
 12639|4|62|57|0|404|132964|4|0||0|Stronghold Gauntlets||t18,c1,d25|2
+14615|3|61|56|0|403|132960|4|123||0|Bloodmail Gauntlets||s11,t10,i10,c1|1
+13532|3|61|56|0|403|132965|4|0||0|Darkspinner Claws||t10,h1|1
+14622|3|61|56|0|404|132962|4|124||0|Deathbone Gauntlets||t14,i11,d10|1
+13184|3|61|56|0|402|132947|1|0||0|Fallbrush Handgrips||t11,i12,p11,S7,H20|1
+13957|3|61|56|0|402|132943|4|0||0|Gargoyle Slashers||s10,t12,c1|1
+18349|3|61|56|0|403|132946|4|0||0|Gauntlets of Accuracy||a15,p13,h1|1
 19057|3|61|56|0|404|132963|4|0||0|Gloves of the Dawn||s21,t9|2
+13162|3|61|56|0|404|132963|4|0||0|Reiver Claws||s11,t15,c1|1
 19049|3|61|56|0|402|132960|4|0||0|Timbermaw Brawlers||a14,s21,t9|2
+12637|3|60|55|0|404|132960|1|0||0|Backusarian Gauntlets||s9,t15,i9,d7|1
+13539|3|60|55|0|404|132963|4|0||0|Banshee's Touch||s10,t9|1
+18387|3|60|55|0|401|132950|1|0||0|Brightspark Gloves||t9,i16,c1|1
+13244|3|60|55|0|403|132963|4|0||0|Gilded Gauntlets||t14,i10,S7,H22|1
+18367|3|60|0|0|403|132943|4|0||0|Gordok's Gauntlets||t10,i10,S11,H11,c1|1
+18368|3|60|0|0|402|132935|4|0||0|Gordok's Gloves||a9,t10,i10,c1|1
+18369|3|60|0|0|401|132940|4|0||0|Gordok's Handwraps||t10,p10,S7,H20,c1|1
+13253|3|60|55|0|401|132948|4|0||0|Hands of Power||i9,p8,S23,H23|1
+18730|3|60|55|0|401|132950|1|0||0|Shadowy Laced Handwraps||i15,S11,H11|1
+13395|3|60|55|0|402|132961|4|0||0|Skul's Fingerbone Claws||t10,i5,A42|1
+13963|3|60|0|0|403|132949|4|0||0|Voone's Vice Grips||a9,t15,h1|1
+16676|3|59|54|0|403|132944|1|186||0|Beaststalker's Gloves||a14,t10,i10,p10|2
+16692|3|59|54|0|401|132948|1|182||0|Devout Gloves||t8,i10,p17,S5,H15|2
+16705|3|59|54|0|401|132966|1|183||0|Dreadmist Wraps||t13,i9,p14,h1|2
+15858|2|59|0|0|401|132950|4|0||0|Freewind Gloves||p14,S7,H20|1
 15070|2|59|54|0|402|132950|4|0||0|Frostsaber Gloves||t7|2
+16672|3|59|54|0|403|132945|4|187||0|Gauntlets of Elements||t4,i10,p16,S6,H6,h1|2
+16737|3|59|54|0|404|132960|1|189||0|Gauntlets of Valor||a3,s17,t10,p8,d4|2
+18309|3|59|54|0|402|132954|4|0||0|Gloves of Restoration||t13,i12,S10,H31|1
+12554|3|59|54|0|401|132966|1|0||0|Hands of the Exalted Herald||i13,p12,S10,H31|1
+16724|3|59|54|0|404|132953|4|188||0|Lightforge Gauntlets||s14,t9,i5,p14|2
+16684|3|59|54|0|401|132951|1|181||0|Magister's Gloves||t8,i14,p14,S7,H7|2
+18326|3|59|54|0|404|132965|1|0||0|Razor Gauntlets||s9|1
+16712|3|59|54|0|402|132958|1|184||0|Shadowcraft Gloves||a14,s9,t10,p11|2
+18344|3|59|54|0|402|132957|4|0||0|Stonebark Gauntlets||a14,t10|2
 12632|3|59|54|0|403|132964|4|0||0|Storm Gauntlets||t7,S18,H18,h1|2
+16717|3|59|54|0|402|132951|1|185||0|Wildheart Gloves||i9,p21,S4,H11|2
+18306|3|58|53|0|401|132956|4|0||0|Gloves of Shadowy Mist||t16|1
+12111|2|58|0|0|404|132960|4|0||0|Lavaplate Gauntlets||s13,t8|1
+18744|3|58|53|0|402|132952|1|0||0|Plaguebat Fur Gloves||a13,t14,d4|2
+13181|3|57|52|0|401|132949|4|0||0|Demonskin Gloves||t8,i9,p15|1
 12418|2|57|52|0|403|132960|4|0||0|Radiant Gloves||t9|2
+11745|3|56|51|0|404|132956|1|0||0|Fists of Phalanx||s20,t9,A4|1
 20296|3|56|51|0|403|132946|4|490||0|Green Dragonscale Gauntlets||t5,S14,H40|2
+12547|3|56|51|0|402|132957|4|0||0|Mar Alom's Grip||t12,i10,p8,S7,H22|2
+12114|2|56|0|0|402|132951|4|0||0|Nightfall Gloves||a9,s9,i9|1
+10808|3|55|50|0|401|132951|4|0||0|Gloves of the Atal'ai Prophet||t6,p20,S4,H13|1
 15078|2|55|50|0|403|132958|4|0||0|Heavy Scorpid Gauntlet||a12,t12|2
 14101|2|54|49|0|401|132955|1|0||0|Brightcloth Gloves||S13,H13|2
 14142|2|54|49|0|401|132939|4|0||0|Ghostweave Gloves||p15,S9,H9|2
+11665|3|54|49|0|402|132949|4|0||0|Ogreseer Fists||t9,i10,p10,S13,H13|1
 15091|2|54|49|0|402|132965|4|0||0|Runic Leather Gauntlets||i8,S14,H14|2
+11634|3|54|49|0|401|132946|1|0||0|Silkweb Gloves||t14,i13,S4,H11|1
+12464|3|53|48|0|402|132953|1|0||0|Bloodfire Talons||i5,p9,S12,H12|1
 15074|2|53|48|0|402|132957|4|0||0|Chimeric Gloves||t8|2
+17736|3|53|48|0|403|132962|1|0||0|Rockgrip Gauntlets||t10,i11,A28|1
+10787|3|52|47|0|401|132617|1|0||0|Atal'ai Gloves|||1
+17007|4|51|46|0|403|132949|4|0||0|Stonerender Gauntlets||s20,t11,i7,S9,H9|2
 19116|2|50|0|0|401|132950|1|0||0|Greenleaf Handwraps||i11,S7,H22|1
+9640|3|50|45|0|404|132960|4|0||0|Vice Grips||A14|1
+17770|2|49|0|0|404|132964|4|0||0|Branchclaw Gauntlets||s9,t5|1
+18083|3|48|43|0|401|132943|4|0||0|Jumanza Grips||t10,i7,S6,H18|1
 16738|2|48|0|0|401|132949|4|0||0|Witherseed Gloves||p13,S8,H8|1
+9410|3|46|41|0|404|132946|4|0||0|Cragfists||d5|1
 8346|3|46|41|0|402|132964|1|0||0|Gauntlets of the Sea||a7,S18,H6|2
+10631|3|46|41|0|403|132945|1|0||0|Murkwater Gauntlets||s13,t12,i5|2
 8347|3|45|40|0|403|132944|4|0||0|Dragonscale Gauntlets||a6,t7,c1|2
 8204|2|45|40|0|403|132958|4|0||0|Tough Scorpid Gloves||a10,i9|2
 7925|2|44|40|0|403|132965|4|0||0|Mithril Plate Gloves||t9,p10|2
 10011|2|44|39|0|401|132951|4|1972||0|Stormcloth Gloves||i12,S4,H11|2
+10765|3|43|38|0|402|132943|4|0||0|Bonefingers||t9,i9|1
+867|4|42|37|0|402|132940|1|0||0|Gloves of Holy Might||A10,c1|2
+9390|3|42|37|0|401|132951|4|0||0|Revelosh's Gloves|||1
+10760|3|42|37|0|402|132957|4|0||0|Swine Fists||a8,s8|1
 9366|2|41|36|0|403|132963|4|0||0|Golden Scale Gauntlets||s11,t4|2
 8187|2|41|36|0|403|132939|4|0||0|Turtle Scale Gloves||t7,i6,S6,H6|2
+4980|2|40|0|0|402|132938|4|0||0|Prospector Gloves||i8,S9,H9|1
 17721|2|38|33|0|402|132955|1|0||0|Gloves of the Greatfather||S24,H26|2
 5966|2|38|33|0|402|132939|4|0||0|Guardian Gloves||i8,S8,H8|2
+10331|3|38|33|0|403|132953|4|163||0|Scarlet Gauntlets||a10,s12|2
+7756|3|36|31|0|402|132941|4|0||0|Dog Training Gloves||A24|1
+4465|2|34|29|0|403|132943|4|0||0|Bonefist Gauntlets||s9,t3|2
 9698|2|33|0|0|402|132955|4|0||0|Gloves of Insight||t7,S7,H7|1
+9491|3|32|27|0|401|132950|1|0||0|Hotshot Pilot's Gloves||a4,t5,i8,p5|2
+9609|2|32|0|0|401|132961|4|0||0|Shilly Mitts||p6,S5,H5|1
 16741|2|31|0|0|402|132946|4|0||0|Oilrag Handwraps||t2,i2,S9,H9|1
 4254|2|30|25|0|402|132939|4|0||0|Barbaric Gloves||a4,s4,t5|2
 10654|2|30|0|0|401|132955|4|0||0|Jutebraid Gloves||i5,S6,H6|1
 7049|2|30|25|0|401|132950|1|0||0|Truefaith Gloves||i3,S5,H15|2
 4247|2|29|24|0|402|132939|4|0||0|Hillman's Leather Gloves||t6,S5,H5|2
+6906|3|28|23|0|403|132944|4|0||0|Algae Fists||s8,t5|1
+888|3|27|22|0|402|132947|4|0||0|Naga Battle Gloves||s4,t4,S5,H15|1
 4253|3|27|22|0|402|132958|4|0||0|Toughened Leather Gloves||a6,s6,t3|2
 4318|2|26|21|0|401|132939|1|0||0|Gloves of Meditation||p7,S5,H5|2
 7285|2|24|19|0|402|132939|4|0||0|Nimble Leather Gloves||a4,t4|2
+6628|2|24|19|0|401|136076|4|0||0|Raven's Claws||t5,i4|2
+5970|3|23|18|0|401|132953|4|0||0|Serpent Gloves||a6,S7,H7|1
+5195|3|22|17|0|401|132957|4|0||0|Gold-flecked Gloves||s7|1
+7606|2|22|0|0|403|132938|4|0||0|Polar Gauntlets||s4,p2|1
+1314|2|21|16|0|402|132947|4|0||0|Ghoul Fingers||a3,s3|2
 5312|2|21|0|0|403|132938|4|0||0|Riveted Gauntlets||s4,t1|1
+10919|2|20|0|0|401|132940|4|0||0|Apothecary Gloves||S4,H4|1
 5630|2|20|0|0|402|132939|4|0||0|Windfelt Gloves||i3,S4,H4|1
+10401|3|19|14|0|402|132952|4|161||0|Blackened Defias Gloves||s6,t2|2
+10413|3|19|14|0|402|132952|4|162||0|Gloves of the Fang||a6,s4|2
+4768|3|17|12|0|401|132939|4|0||0|Adept's Gloves||t5,i5|1
 4310|2|17|12|0|401|132939|4|0||0|Heavy Woolen Gloves||i2,S2,H2|2
 2312|2|15|10|0|402|132939|4|0||0|Fine Leather Gloves||i2,S2,H2|2
 15402|2|14|0|0|403|132938|4|0||0|Noosegrip Gauntlets||s2|1
@@ -10500,40 +12164,156 @@ FGT.GEARDB = {
 4239|2|13|8|0|402|132939|4|0||0|Embossed Leather Gloves||a1,t1|2
 6202|2|13|8|0|401|132939|4|0||0|Fingerless Gloves||a2|2
 3472|2|12|7|0|403|132938|4|0||0|Runed Copper Gauntlets||s1,t1|2
+1965|2|12|7|0|402|132939|4|0||0|White Wolf Gloves||a2|2
 4307|2|10|5|0|401|132939|4|0||0|Heavy Linen Gloves||S1,H1|2
 ]==],
         [11] = [==[
 19140|4|71|60|0|400|133381|1|0||0|Cauterizing Band||t9,i12,S15,H46|1
 22681|3|66|0|0|400|133375|1|0||1|Band of Piety||t10,i10,S7,H22|1
 18403|4|65|0|0|400|133369|4|0||0|Dragonslayer's Signet||t11,i11,S7,H7,c1|1
+22326|3|63|58|0|400|133361|1|0||0|Amalgam's Band||t5,i6,c1|1
+18103|3|63|58|0|400|133358|1|0||0|Band of Rumination||c1|1
+22433|3|63|58|0|400|133358|4|0||0|Don Mauricio's Band of Domination||t10,S11,H11,c1|1
+16058|3|63|0|0|400|133361|1|0||0|Fordring's Seal||t5,i6,S12,H37|1
+13098|3|63|58|0|400|133360|4|0||0|Painweaver Band||t9,A12,c1|1
+22339|3|63|58|0|400|133377|1|0||0|Rune Band of Wizardry||t7,S13,H13,h1|1
+13345|3|63|58|0|400|133358|4|0||0|Seal of Rivendare||i17,S8,H8|1
+22334|3|62|57|0|400|133347|1|0||0|Band of Mending||t7,i7,p6,S10,H31|1
+22331|3|62|57|0|400|133375|1|0||0|Band of the Steadfast Hero||s7,t12,d7|1
+17001|3|62|0|0|400|133371|4|0||0|Elemental Circle|||1
+18395|3|62|57|0|400|133353|1|0||0|Emerald Flame Ring||t7,i12,p8,S5,H15|1
+18679|2|62|57|0|400|133371|4|0||0|Frigid Ring||i10|2
+18022|3|62|0|0|400|133372|4|0||0|Royal Seal of Alexis||t10,p8,S7,H22|1
+17045|3|61|0|0|400|133367|4|0||0|Blood of the Martyr||t10,i10,S12,H12|1
+18684|3|61|56|0|400|133357|1|0||0|Dimly Opalescent Ring||i7|1
+12926|3|61|56|0|400|135926|1|0||0|Flaming Band|||1
+12344|3|61|0|0|400|133343|1|0||0|Seal of Ascension|||1
+18500|3|61|56|0|400|133355|4|0||0|Tarnished Elven Ring||a10,h1|1
+13392|3|61|56|0|400|133365|4|81||0|The Postmaster's Seal||t6,i3,p12,S13,H13|1
+13373|3|60|55|0|400|133721|1|0||0|Band of Flesh||a3,s6,t16|1
 19325|4|60|55|0|400|133377|4|0||1|Don Julio's Band||t10,A14,h1,c1|1
 21563|4|60|60|0|400|133376|4|0||1|Don Rodrigo's Band||t6,c1|1
+12545|3|60|0|0|400|133347|4|0||0|Eye of Orgrimmar||i7,S18,H18|1
+18464|2|60|55|0|400|133348|4|0||0|Gordok Nose Ring||s8,t12|1
+18674|2|60|55|0|400|133356|4|0||0|Hardened Stone Band||s9,t9,d3|2
+12548|3|60|0|0|400|133347|1|0||0|Magni's Will||s7,t8,c1|1
+18345|3|60|55|0|400|133357|4|0||0|Murmuring Ring||i13|1
+13178|3|60|55|0|400|133364|1|0||0|Rosewine Circle||S8,H24|1
+12543|3|60|0|0|400|133347|4|0||0|Songstone of Ironforge||i7,S18,H18|1
+12544|3|60|0|0|400|133347|4|0||0|Thrall's Resolve||s6,t7|1
+18701|3|59|54|0|400|133366|1|0||0|Innervating Band||a15,t9|2
+13283|3|59|54|0|400|135926|1|0||0|Magus Ring||t8,i12,p7|1
+11669|3|59|54|0|400|133347|1|0||0|Naglering||t10,d5|1
+18314|3|59|54|0|400|133373|1|0||0|Ring of Demonic Guile||i10,h1|1
+18315|3|59|54|0|400|133370|1|0||0|Ring of Demonic Potency||t10,d7|1
+18302|3|58|53|0|400|133362|4|0||0|Band of Vigor||a7,s8,t7,p10|1
+2246|4|58|53|0|400|133347|1|0||1|Myrmidon's Signet||a7,s11,t17|2
+22257|3|57|52|0|400|133378|1|0||0|Bloodclot Band||t8,i8,p6,S5,H15|1
+22255|3|57|52|0|400|133346|1|0||0|Magma Forged Band||a12,s7,t7|1
 19302|3|55|50|0|400|133376|4|0||0|Darkmoon Ring||t14|1
+17713|3|54|49|0|400|133359|1|0||0|Blackstone Ring||t6,A20,h1|1
+11824|3|54|49|0|400|133350|1|0||0|Cyclopean Band||s4,t8,i7,p4,S9,H9|1
+12038|2|54|0|0|400|133345|4|0||0|Lagrave's Seal||i7,p7,S8,H8|1
+20505|3|52|0|0|400|133385|1|0||1|Chivalrous Signet||s7,t7,i7,S6,H18|1
+20006|3|52|0|0|400|133374|1|0||1|Circle of Hope|||1
+10780|2|51|0|0|400|133347|4|0||0|Mark of Hakkar||s6,t9|1
+9533|3|49|0|0|400|133345|4|0||0|Masons Fraternity Ring||a14,t5|1
+17768|2|49|0|0|400|133360|4|0||0|Woodseed Hoop||i10,S6,H6|1
+6440|3|48|43|0|400|132519|4|0||0|Brainlash||i10,p5,S11,H11|2
+11118|3|47|42|0|400|135241|1|0||0|Archaedic Stone|||1
+10634|3|46|41|0|400|133352|1|0||0|Mindseye Circle||t4,i12|2
+1447|4|46|41|0|400|132516|4|0||0|Ring of Saviors||t15|2
+1980|4|43|38|0|400|133357|4|0||0|Underworld Band||t12,i5|2
+10710|2|39|0|0|400|133346|4|0||0|Dragonclaw Ring||t7|1
+9588|3|37|0|0|400|133345|4|0||0|Nogg's Gold Ring||t10,d3|1
+9538|3|37|0|0|400|133345|4|0||0|Talvash's Gold Ring||t10,d3|1
+9461|3|36|31|0|400|134063|4|0||0|Charged Gear|||1
+2262|3|36|31|0|400|133357|1|0||0|Mark of Kern||t4,A20|2
+6693|3|35|30|0|400|133722|4|0||0|Agamaggan's Clutch||t5,p6|1
+7686|3|35|30|0|400|133346|1|0||0|Ironspine's Eye||a9,s4|1
 9622|2|35|0|0|400|132522|4|0||0|Reedknot Ring||t3,S7,H7|1
 2043|2|35|0|0|400|133343|4|0||0|Ring of Forlorn Spirits||t2,S8,H8|1
+9447|3|34|29|0|400|134066|4|0||0|Electrocutioner Lagnut||t4,p7,S3,H9|1
 2917|2|34|0|0|400|133349|4|0||0|Tranquil Ring||i1,p7|1
+6748|2|32|0|0|400|133356|4|0||0|Monkey Ring||a5,p5|1
+6750|2|32|0|0|400|133348|4|0||0|Snake Hoop||i5,S6,H6|1
+6749|2|32|0|0|400|133355|4|0||0|Tiger Band||s5,p5|1
+2039|3|29|24|0|400|133344|1|0||0|Plains Ring||t8,i3|2
+6414|3|29|0|0|400|133357|4|0||0|Seal of Sylvanas||t8,A6|1
+17694|2|28|0|0|400|133344|4|0||0|Band of the Fist||a4,s4|1
+1491|3|27|22|0|400|133356|4|0||0|Ring of Precision||a6,p3|2
+6199|2|26|21|0|400|134321|4|0||1|Black Widow Band||i7|2
+1076|3|26|21|0|400|133344|4|0||0|Defias Renegade Ring||a4,t6|1
+6321|3|26|21|0|400|132518|4|0||0|Silverlaine's Family Seal||s5,t2|1
 6669|2|25|0|0|400|133354|4|0||0|Sacred Band||p4,S2,H2|1
+6743|2|25|0|0|400|133350|4|0||0|Sustaining Ring||t4|1
+6332|3|24|19|0|400|133347|4|0||1|Black Pearl Ring||t2,i2,p6|2
+6463|3|24|19|0|400|133357|4|0||0|Deep Fathom Ring||t3|1
 1449|2|24|0|0|400|133355|4|0||0|Minor Channeling Ring||i2,S5,H5|1
+1156|3|22|17|0|400|133351|1|0||0|Lavishly Jeweled Ring||a2,i6|1
 ]==],
         [12] = [==[
-18406|4|65|0|0|400|136168|4|0||0|Onyxia Blood Talisman|||1
+19288|4|65|60|0|400|134484|4|0||1|Darkmoon Card: Blue Dragon|||1
+19287|4|65|60|0|400|134488|4|0||1|Darkmoon Card: Heroism|||1
+19289|4|65|60|0|400|134491|4|0||1|Darkmoon Card: Maelstrom|||1
+19290|4|65|60|0|400|134495|4|0||1|Darkmoon Card: Twisting Nether|||1
+18406|4|65|0|0|400|136168|4|0||0|Onyxia Blood Talisman||d33|1
+13965|3|63|0|0|400|133604|1|0||0|Blackhand's Breadth||c1|1
+18537|3|63|58|0|400|135228|1|0||0|Counterattack Lodestone||A1|1
 20072|3|63|58|0|400|133438|4|0||0|Defiler's Talisman|Requires Friendly with The Defilers|t12|1
+22268|3|63|58|0|400|133442|1|0||0|Draconic Infused Emblem|||1
+13968|3|63|0|0|400|133441|4|0||0|Eye of the Beast||c1|1
 20071|3|63|58|0|400|133438|4|0||0|Talisman of Arathor|Requires Friendly with The League of Arathor|t12|1
+14557|4|63|58|0|400|134229|1|0||0|The Lion Horn of Stormwind||d8|2
 21326|4|62|0|0|400|134227|4|2071||0|Defender of the Timbermaw|Requires Exalted with Timbermaw Hold||1
+18465|3|62|0|8|400|133443|1|0||1|Royal Seal of Eldre'Thalas||h1|1
+18467|3|62|0|256|400|133443|1|0||1|Royal Seal of Eldre'Thalas||S1,H1|1
+18469|3|62|0|16|400|133443|1|0||1|Royal Seal of Eldre'Thalas||S7,H22|1
+18470|3|62|0|1024|400|133443|1|0||1|Royal Seal of Eldre'Thalas||S7,H22|1
+18471|3|62|0|64|400|133443|1|0||1|Royal Seal of Eldre'Thalas||S1,H1|1
+18472|3|62|0|2|400|133443|1|0||1|Royal Seal of Eldre'Thalas||S7,H22|1
+18473|3|62|0|4|400|133443|4|0||1|Royal Seal of Eldre'Thalas||a10|1
+18370|3|62|57|0|400|134458|4|0||0|Vigilance Charm||s10|1
+22321|3|61|56|0|400|134084|1|0||0|Heart of Wyrmthalak|||1
+19812|3|61|0|0|400|134419|1|0||0|Rune of the Dawn|||1
+13209|3|61|0|0|400|133612|1|0||0|Seal of the Dawn|||1
 16022|3|60|50|0|400|134153|4|0||0|Arcanite Dragonling|Requires Engineering (300)||2
+12930|3|60|55|0|400|134413|1|0||0|Briarwood Reed||S2,H2|1
+10455|2|60|0|0|400|135229|1|0||1|Chained Essence of Eranikus|||1
 10779|2|60|0|0|400|136168|1|0||0|Demon's Blood||d4|1
+11810|3|60|55|0|400|133276|1|0||0|Force of Will||d4|1
+18354|3|60|55|31488|400|133280|1|0||0|Pimgib's Collar|||1
+13515|3|60|55|0|400|134068|1|0||0|Ramstein's Lightning Bolts|||1
+13213|3|60|55|0|400|134120|1|0||0|Smolderweb's Eye||h1|1
+13544|2|60|0|0|400|134337|1|0||0|Spectral Essence|||1
 18639|3|60|55|0|400|133874|4|0||0|Ultra-Flash Shadow Reflector|Requires Engineering (300)||2
+11819|3|59|54|0|400|133439|1|0||0|Second Wind||S5,H15|1
+11832|3|58|53|0|400|133282|1|0||0|Burst of Knowledge|||1
+11815|3|58|53|0|400|133434|1|0||0|Hand of Justice||A12|1
 18638|3|58|53|0|400|133862|4|0||0|Hyper-Radiant Flame Reflector|Requires Engineering (290)||2
 19024|3|55|50|0|400|133599|4|0||0|Arena Grand Master||d25|1
 18637|2|55|0|0|400|133867|4|0||0|Major Recombobulator|Requires Engineering (275)||0
+11811|3|55|50|0|400|134084|1|0||0|Smoking Heart of the Mountain|||1
 21115|3|53|48|0|400|133438|4|0||0|Defiler's Talisman|Requires Friendly with The Defilers|t10|1
 21117|3|53|48|0|400|133438|4|0||0|Talisman of Arathor|Requires Friendly with The League of Arathor|t10|1
+20534|3|52|0|256|400|134072|4|0||1|Abyss Shard||S12,H12|1
+19990|3|52|0|16|400|133298|4|0||1|Blessed Prayer Beads||S4,H11|1
+19991|3|52|0|4|400|133884|4|0||1|Devilsaur Eye||A16|1
+19992|3|52|0|4|400|133724|4|0||1|Devilsaur Tooth||a7|1
+20130|3|52|0|1|400|132788|4|0||1|Diamond Flask|||1
+20503|3|52|0|64|400|135463|4|0||1|Enamored Water Spirit|||1
+20036|3|52|0|128|400|134085|4|0||1|Fire Ruby|||1
 18634|3|52|47|0|400|133860|4|0||0|Gyrofreeze Ice Reflector|Requires Engineering (260)||2
+20512|3|52|0|2|400|134123|4|0||1|Sanctified Orb||S15,H15|1
+11302|3|52|47|0|400|133439|1|0||0|Uther's Strength||S6,H18|2
 19120|2|51|0|0|400|134420|1|0||0|Rune of the Guard Captain||A2,h1|1
+7734|3|51|46|0|400|133622|1|0||0|Six Demon Bag|||2
 13503|2|50|45|0|400|134334|4|0||0|Alchemist's Stone|Requires Alchemy (275)|p4|1
 18951|2|50|0|0|400|133612|4|0||0|Evonice's Landin' Pilla||p10|1
 10418|2|50|0|0|400|133435|4|0||0|Glimmering Mithril Insignia|Requires Blacksmithing (225)||1
+1490|2|50|0|0|400|133438|4|0||0|Guardian Talisman||t9|1
 219345|3|50|50|0|400|136091|1|0||0|Infernal Lasso||S8,H8|1
+1713|3|45|40|0|400|135943|4|0||0|Ankh of Life||p12|2
 21567|3|45|40|0|400|134415|1|0||0|Rune of Duty||t8|1
 21565|3|45|40|0|400|134418|1|0||0|Rune of Perfection||t8|1
 744|2|44|0|0|400|132788|4|0||0|Thunderbrew's Boot Flask||p8|1
@@ -10543,6 +12323,7 @@ FGT.GEARDB = {
 8663|2|40|0|0|400|133598|4|0||1|Mithril Insignia|Requires Blacksmithing (210)||4
 21120|3|33|28|0|400|133438|4|0||0|Defiler's Talisman|Requires Friendly with The Defilers|t6|1
 21119|3|33|28|0|400|133438|4|0||0|Talisman of Arathor|Requires Friendly with The League of Arathor|t6|1
+3456|3|30|25|0|400|132161|4|0||0|Dog Whistle|||1
 4381|2|28|0|0|400|133001|4|0||0|Minor Recombobulator|Requires Engineering (140)||0
 7506|2|25|0|0|400|134376|4|0||0|Gnomish Universal Remote|Requires Engineering (125)||2
 21568|3|25|20|0|400|134415|1|0||0|Rune of Duty||t4|1
@@ -10576,31 +12357,105 @@ FGT.GEARDB = {
 12783|3|63|58|0|215|135315|4|0||0|Heartseeker||a4,c1|2
 12794|3|63|57|0|204|133041|4|0||0|Masterwork Stormhammer|||2
 22384|4|63|58|0|204|133045|4|0||0|Persuader||h1,c1|2
+13246|3|62|0|0|207|135275|1|0||0|Argent Avenger||A14|1
+18758|3|62|57|0|215|135654|1|0||0|Specter's Blade||A24|1
+18484|3|61|56|0|207|135640|1|0||0|Cho'Rush's Blade||A20|1
+13218|3|61|56|0|215|135652|1|65||0|Fang of the Crystal Spider|||1
+14024|3|61|56|0|215|135652|1|0||0|Frightalon||A20|1
+18683|3|61|56|0|204|133050|1|0||0|Hammer of the Vesper||s8,t12|1
+22317|3|61|56|0|213|132945|4|0||0|Lefty's Brass Knuckle||a12,s8|1
+22322|3|61|56|0|204|133490|1|0||0|The Jaw Breaker||A6,c1|1
+18347|3|61|56|0|200|132402|4|0||0|Well Balanced Axe||a11,t9|1
 15783|2|60|0|0|215|135650|1|0||0|Beasthunter Dagger||A18|1
 15782|2|60|0|0|207|135343|1|0||0|Beaststalker Blade||A18|1
+12061|2|60|0|0|207|135327|4|0||0|Blade of Reckoning||t6,A15|1
 10697|2|60|0|0|215|135341|1|0||0|Enchanted Azsharite Felbane Dagger||A18|1
+18498|3|60|55|0|200|132402|1|0||0|Hedgecutter||s5,t11|1
+18462|2|60|55|0|213|132947|4|0||0|Jagged Bone Fist||s8,t7|1
+18463|2|60|55|0|207|135274|4|0||0|Ogre Pocket Knife||t5,A16|1
+13401|3|60|55|0|204|133729|4|0||0|The Cruel Hand of Timmy|||1
 19324|4|60|55|0|215|135330|4|0||1|The Lobotomizer|||1
+13183|3|60|55|0|204|135472|1|65||0|Venomspitter|||1
+18310|3|59|54|0|207|135316|1|0||0|Fiendish Machete||a5,A18|1
 12792|2|58|53|0|204|133043|4|0||0|Volcanic Hammer|||2
 12781|3|57|52|0|204|133477|4|0||0|Serenity|||2
+11744|3|56|51|0|213|132945|4|0||0|Bloodfist||t6,A12|1
 12773|2|55|50|0|200|132403|4|0||0|Ornate Thorium Handaxe||s10|1
+12535|3|54|49|0|207|135351|1|0||0|Doomforged Straightedge||s10,A14|2
+10804|3|54|49|0|204|133048|4|0||0|Fist of the Damned||d2|1
+11635|3|54|49|0|215|135646|1|0||0|Hookfang Shanker|||1
+2163|4|53|48|0|215|135302|4|0||0|Shadowblade||a5,h1|2
+17055|3|52|47|0|204|133054|4|0||0|Changuk Smasher||t7,i7,p5|2
+12531|3|51|46|0|215|135639|1|0||0|Searing Needle|||2
+9379|3|50|45|0|207|135355|4|0||1|Sang'thraze the Deflector|||1
+17752|3|50|45|0|215|135645|4|0||0|Satyr's Lash||a5|1
 7961|3|49|44|0|207|135350|4|0||0|Phantom Blade|||2
 7946|2|49|44|0|204|133054|4|0||0|Runed Mithril Hammer||t7,d4|2
 7944|2|48|43|0|207|135340|4|0||0|Dazzling Mithril Rapier||a8|2
+9467|3|48|43|0|215|134298|4|0||0|Gahz'rilla Fang|||1
+5616|3|47|42|0|215|135341|1|0||0|Gutwrencher|||2
 7954|3|47|42|0|204|133055|4|0||0|The Shatterer|||2
 7945|2|46|41|0|204|133490|4|0||0|Big Black Mace||s8|2
+9465|3|45|40|0|200|134707|1|0||0|Digmaster 5000|Requires Mining (175)|a4|2
 7943|2|45|40|0|207|135280|4|0||0|Wicked Mithril Blade||a4,s6|2
+10823|3|44|0|0|207|135345|1|0||0|Vanquisher's Sword||A22|1
+10761|3|43|38|0|215|135344|4|0||0|Coldrage Dagger|||1
+10772|3|42|37|0|200|132417|4|0||0|Glutton's Cleaver|||1
 7941|2|42|37|0|200|132405|4|0||0|Heavy Mithril Axe||t7|2
 213105|2|40|0|0|204|133969|4|0||0|Shawarmageddon|||1
+9378|3|40|35|0|200|134708|4|0||1|Shovelphlange's Mining Axe||s7,A11|2
+8223|3|39|34|0|207|135353|4|0||1|Blade of the Basilisk|||2
+7736|3|39|34|0|204|133486|4|0||0|Fight Club||s5,t4|2
 12260|2|39|34|0|215|135641|4|0||0|Searing Golden Blade||i7|2
 17704|2|38|33|0|200|132397|4|0||0|Edge of Winter||t3|2
+6331|3|38|33|0|215|135651|4|0||1|Howling Blade||a4|2
+5256|2|38|33|0|204|133491|4|0||0|Kovork's Rattle||a5,s2|2
+1465|2|38|33|0|215|135651|1|0||0|Tigerbane||A10|2
+10571|3|37|32|0|204|133727|1|0||0|Ebony Boneclub||s6|2
+9386|3|36|31|0|204|135432|1|0||0|Excavator's Brand|||2
+9384|3|36|31|0|215|135654|1|0||0|Stonevault Shiv||a7,t3|2
+8225|3|36|31|0|207|135340|1|0||0|Tainted Pierce|||2
 3850|2|35|30|0|207|135346|4|0||0|Jade Serpentblade||a4,A4|2
+6692|3|35|30|0|200|132409|4|0||0|Pronged Reaver||s5,p5|1
+7683|3|34|29|0|213|132945|4|0||0|Bloody Brass Knuckles||A12|1
 3849|2|32|27|0|207|135321|4|0||0|Hardened Iron Shortsword||t5|2
+16886|3|32|0|0|207|135343|4|0||0|Outlaw Sabre||A16|1
+6681|3|32|27|0|215|135646|4|0||0|Thornspike|||1
+9453|3|32|27|0|215|135638|1|0||0|Toxic Revenger|||1
+776|3|31|26|0|215|135638|1|0||0|Vendetta||a7|2
 3492|2|30|25|0|204|133041|4|0||0|Mighty Iron Hammer||s5|2
+1454|3|29|24|0|200|132415|4|0||0|Axe of the Enforcer||s5,t4|2
+4449|2|29|24|0|215|134298|4|0||0|Naraxis' Fang|||2
+4446|3|28|23|0|215|135638|4|0||0|Blackvenom Blade||a1|2
+2942|3|28|23|0|213|132938|4|0||0|Iron Knuckles|||1
+6220|3|28|23|0|215|135661|4|0||0|Meteor Shard|||1
+2941|3|28|23|0|215|135654|4|0||0|Prison Shank||a6,t2|1
+4454|3|28|23|0|215|135652|4|0||1|Talon of Vultros||a6,p3|2
+3413|3|27|22|0|215|135330|4|0||0|Doomspike||s3,t3|2
+1481|3|27|22|0|200|132404|4|0||0|Grimclaw|||2
+5752|2|27|22|0|215|135652|4|0||0|Wyvern Tailspike|||2
 3491|2|25|20|0|204|133483|4|0||0|Heavy Bronze Mace||s4|2
 2850|2|24|19|0|207|135274|4|0||0|Bronze Shortsword||a3|2
+6333|2|24|19|0|215|135646|4|0||0|Spikelash Dagger||a2,t2|2
 2849|2|23|18|0|200|132408|4|0||0|Bronze Axe||s3|2
-2848|2|22|17|0|204|133483|4|0||0|Bronze Mace||t3|0
+6633|3|23|18|0|207|135314|4|0||0|Butcher's Slicer||t3,A6|1
+1937|3|23|18|0|207|135325|4|0||0|Buzz Saw||a3,t3|1
+2848|2|22|17|0|204|133483|4|0||0|Bronze Mace||t3|2
+5192|3|22|17|0|207|135325|4|0||0|Thief's Blade||a4|1
+2235|2|21|16|0|215|135651|4|0||0|Brackclaw||a2,s2|2
+5197|3|21|16|0|204|132906|4|0||0|Cookie's Tenderizer||p4|1
+5426|3|21|16|0|200|132417|4|0||0|Serpent's Kiss|||2
+5196|3|21|17|0|200|132416|4|0||0|Smite's Reaver||s3,p3|1
+6448|3|21|16|0|215|135646|4|0||0|Tail Spike||a3,s3|1
+1951|3|19|14|0|207|135325|4|0||0|Blackwater Cutlass||a4|2
+2089|2|19|0|0|215|135637|4|0||0|Scrimshaw Dagger||t2|1
+2074|2|19|0|0|207|135324|4|0||0|Solid Shortblade||s1,t1|1
+14151|3|18|13|0|215|135661|4|0||0|Chanting Blade||a2,t3|1
+1936|3|18|13|0|215|135641|4|0||0|Goblin Screwdriver||a4|2
+15443|3|18|0|0|215|135641|4|0||0|Kris of Orgrimmar||t4|1
+5112|2|17|12|0|215|135638|4|0||0|Ritual Blade||a2|2
 3489|2|17|12|0|200|135419|4|0||0|Thick War Axe||s1,t1|2
+1917|2|12|7|0|215|135651|4|0||0|Jeweled Dagger||t1|2
 4302|2|12|7|0|215|135641|4|0||0|Small Green Dagger||t1|2
 3225|2|11|6|0|215|135637|4|0||0|Bloodstained Knife||a1|2
 7166|2|11|6|0|215|135650|4|0||0|Copper Dagger||a1|2
@@ -10608,64 +12463,172 @@ FGT.GEARDB = {
 ]==],
         [14] = [==[
 21610|4|81|60|0|406|134970|1|0||0|Wormscale Blocker||t10,i13,S12,H35|1
+14002|3|63|0|0|406|134951|4|0||0|Darrowshire Strongguard||t8,d5|1
+22336|3|63|58|0|406|134948|1|0||0|Draconian Aegis of the Legion||t7,S18,H18|1
+13243|3|62|0|0|406|134951|4|0||0|Argent Defender||t11|1
+18696|3|62|57|0|406|134948|1|0||0|Intricately Runed Shield||t8,S6,H6|1
+14528|3|62|57|0|406|134948|4|0||0|Rattlecage Buckler||t7,i12,S5,H15|1
+13529|3|61|56|0|406|134948|1|0||0|Husk of Nerub'enkan||t10,d2|1
+18485|3|61|56|0|406|134959|4|0||0|Observer's Shield||t7,i14,h1|1
+18352|3|61|56|0|406|134964|4|0||0|Petrified Bark Shield|||1
+13205|3|61|56|0|406|134960|4|0||0|Rhombeard Protector||i14,p7,S12,H12|1
+18673|3|60|55|0|406|134949|4|0||0|Avalanchion's Stony Hide||t16|2
+13375|3|60|55|0|406|134965|4|0||0|Crest of Retribution||s14,d30|1
 19321|4|60|60|0|406|135835|4|0||1|The Immovable Object||t14|1
+18535|3|59|0|0|406|134958|4|0||0|Milli's Shield||t7,S5,H15|1
+18303|2|58|53|0|406|134956|4|0||0|Nimble Buckler||a9,d50|1
+10835|3|56|51|0|406|134950|4|0||0|Crest of Supremacy||a6,s6,t7,i7,d5|1
+17718|3|53|48|0|406|134956|4|0||0|Gizlock's Hypertech Buckler||i10,S5,H13|1
+11631|3|52|47|0|406|134948|1|0||0|Stoneshell Guard||s7,t9|1
+1979|4|50|45|0|406|134948|1|0||0|Wall of the Dead||s11,t15|2
+1169|4|46|41|0|406|136162|4|0||0|Blackskull Shield||t5|2
+7726|3|44|39|0|406|134951|4|0||0|Aegis of the Scarlet Commander||s7,t8|1
+9403|3|42|37|0|406|134953|4|0||0|Battered Viking Shield||p10,S5,H13|1
+1204|4|41|36|0|406|134952|4|0||0|The Green Tower||s7,t7|2
+17508|3|40|0|0|406|134948|4|0||0|Forcestone Buckler||t4,p8,S6,H18|1
+7747|3|40|0|0|406|134948|4|0||0|Vile Protector||s6|1
 15865|2|39|0|0|406|134956|4|0||0|Anchorhold Buckler||i6,S5,H5|1
+9522|2|38|0|0|406|134956|4|0||0|Energized Stone Circle||t4,S3,H10|1
+4477|2|36|31|0|406|134948|4|0||0|Nefarious Buckler||s3,t7|2
+9458|3|36|31|0|406|134956|4|0||0|Thermaplugg's Central Core||p3|1
+6694|3|35|30|0|406|134948|4|0||0|Heart of Agamaggan||t7,S5,H15|1
+7002|3|29|0|0|406|134948|4|0||0|Arctic Buckler||t8,p3|1
+4444|2|26|21|0|406|134321|4|0||0|Black Husk Shield||t3,p4|2
+6320|3|26|21|0|406|134949|4|0||0|Commander's Crest||s5,t3|1
+6630|3|24|19|0|406|134956|4|0||0|Seedcloud Buckler||i5,S5,H5|1
+13245|3|23|18|0|406|134964|4|0||0|Kresh's Back||d5|1
+5443|3|22|17|0|406|134948|4|0||0|Gold-plated Buckler||a2,t5|1
+6447|3|21|16|0|406|134967|4|0||0|Worn Turtle Shell Shield|||1
 1557|2|20|0|0|406|134955|1|0||0|Buckler of the Seas||p2,S2,H2|1
 3160|2|15|0|0|406|134956|4|0||0|Ironplate Buckler||S2,H2|1
 6203|2|13|8|0|406|134955|4|0||0|Thuggish Shield||s1|2
+9753|2|12|7|0|406|134956|4|0||0|Nomad Buckler|||2
 ]==],
         [15] = [==[
+22318|3|61|56|0|202|135500|1|0||0|Malgen's Long Bow||t4,A18|1
+18729|3|60|55|0|202|135500|1|0||0|Screeching Bow||t4|1
+18323|3|58|53|0|202|135491|4|0||0|Satyr's Bow||A4,h1|1
 16622|2|57|0|0|202|135494|4|0||0|Thornflinger||a8|1
+11628|3|53|48|0|202|135492|4|0||0|Houndmaster's Bow||s3,A12|1
+9400|3|43|38|0|202|135499|4|0||0|Baelog's Shortbow||s5,t5|1
 17686|2|43|0|0|202|135499|4|0||0|Master Hunter's Bow||a6|1
+13020|3|39|34|0|202|135499|4|0||0|Skystriker Bow||a5,i5|2
 11305|2|35|30|0|202|135495|1|0||0|Dense Shortbow||d3|2
+15286|2|35|30|0|202|135498|4|0||0|Long Redwood Bow||t4|2
+6696|3|34|29|0|202|135500|4|0||0|Nightstalker Bow||a3|1
+4474|2|34|29|0|202|135498|4|0||0|Ravenwood Bow||a3,i3|2
+3037|2|34|29|0|202|135500|4|0||0|Whipwood Recurve Bow||t4|2
 19561|3|33|28|0|202|135494|4|0||0|Outrider's Bow||a2,t5|1
 19565|3|33|28|0|202|135490|4|0||0|Outrunner's Bow||a2,t5|1
+15285|2|32|27|0|202|135491|1|0||0|Archer's Longbow||A9|2
+13019|3|32|27|0|202|135499|4|0||0|Harpyclaw Short Bow||i4|2
 11306|2|32|27|0|202|135495|4|0||0|Sturdy Recurve||t4|2
 5817|2|30|0|0|202|135489|4|0||0|Lunaris Bow||a2,t2|1
 3493|2|30|0|0|202|135491|4|0||0|Raptor's End||a2,t2|1
 6739|2|29|0|0|202|135496|4|0||0|Cliffrunner's Aim||a2,i2|1
+15284|2|29|24|0|202|135489|4|0||0|Long Battle Bow||s3|2
 3742|2|28|0|0|202|135490|4|0||0|Bow of Plunder||a2,t2|1
+3078|3|27|22|0|202|135492|4|0||0|Naga Heartpiercer|||1
 20437|3|23|18|0|202|135494|4|0||0|Outrider's Bow||a2,t3|1
 20438|3|23|18|0|202|135490|4|0||0|Outrunner's Bow||a2,t3|1
+3039|2|23|18|0|202|135491|4|0||0|Short Ash Bow||p2|2
+4576|2|21|16|0|202|135495|4|0||0|Light Bow||a2|2
 11304|2|19|14|0|202|135490|1|0||0|Fine Longbow||A4|2
 11303|2|16|11|0|202|135495|4|0||0|Fine Shortbow||a1|2
 2903|2|15|0|0|202|135490|4|0||0|Daryl's Hunting Bow||a1|1
+3036|2|15|10|0|202|135500|4|0||0|Heavy Shortbow||s1|2
 5346|2|14|0|0|202|135496|4|0||0|Orcish Battle Bow||s1|1
 ]==],
         [16] = [==[
 21412|4|67|60|16|401|133768|1|508||0|Shroud of Infinite Wisdom||t12,i14,p11,S8,H24|1
+3475|4|65|60|0|401|133760|1|0||0|Cloak of Flames||h1|2
 19526|3|63|58|0|401|133770|1|0||1|Battle Healer's Cloak||t11,p8,S9,H26|1
+12967|3|63|58|0|401|133757|4|0||0|Bloodmoon Cloak||t17,d3|1
 19530|3|63|58|0|401|133765|1|0||1|Caretaker's Cape||t11,p8,S9,H26|1
+12968|3|63|58|0|401|133770|4|0||0|Frostweaver Cape||i13|1
+22269|3|63|58|0|401|133772|4|0||0|Shadow Prowler's Cloak||a16,t9|1
+22337|3|63|58|0|401|133771|1|0||0|Shroud of Domination||s17,t8|1
+15421|3|63|0|0|401|133759|4|0||0|Shroud of the Exile||t7,i10,p7,S12,H12|1
+18389|3|62|57|0|401|133753|4|0||0|Cloak of the Cosmos||t7,i14,S7,H20|1
 18510|4|62|57|0|401|133753|1|0||0|Hide of the Wild||t8,i10,S14,H42|2
+18734|3|62|57|0|401|133763|1|0||0|Pale Moon Cloak||s9,t12|1
+13397|3|62|57|0|401|133771|4|0||0|Stoneskin Gargoyle Cape||a8,s7,t14|1
+18677|2|62|57|0|401|133765|4|0||0|Zephyr Cloak|||2
+18350|3|61|56|0|401|133770|4|0||0|Amplifying Cloak||p14,S15,H15|1
+22330|3|61|56|0|401|133768|1|0||0|Shroud of Arcane Mastery||t10,i10|1
+11930|3|60|55|0|401|133772|1|0||0|The Emperor's New Cape||a8,t16|1
+18743|3|59|54|0|401|133770|1|0||0|Gracious Cape||i7,S3,H7|2
+13376|3|59|54|0|401|133766|4|0||0|Royal Tribunal Cloak||t5,i16,S5,H5|1
+18328|3|59|54|0|401|133769|1|0||0|Shadewood Cloak||s13,t8|1
 20219|3|59|0|0|401|133766|4|0||0|Tattered Hakkari Cape||s11,t10|1
+12608|3|58|53|0|401|133770|1|0||0|Butcher's Apron||t7,p15,S3,H9|1
+11812|3|58|53|0|401|133770|1|0||0|Cape of the Fire Salamander||t9,p6,d12|1
+17061|3|58|53|0|401|133772|4|0||0|Juno's Shadow||t8,i5|2
+12110|2|58|0|0|401|133768|4|0||0|Raincaster Drape||p7,S5,H16,c1|1
 14134|3|55|50|0|401|133770|4|0||0|Cloak of Fire|||2
+11677|3|55|50|0|401|133771|1|0||0|Graverot Cape||t15,p5|1
+10843|3|54|49|0|401|133757|4|0||0|Featherskin Cape||t4,p15,S3,H9|1
 19527|3|53|48|0|401|133770|1|0||1|Battle Healer's Cloak||t9,p6,S7,H22|1
+11626|3|53|48|0|401|133770|4|0||0|Blackveil Cape||a14,s6,p4|1
 19531|3|53|48|0|401|133765|1|0||1|Caretaker's Cape||t9,p6,S7,H22|1
+12465|3|53|48|0|401|133757|4|0||0|Nightfall Drape||t14,S9,H9|1
 13860|2|53|48|0|401|133762|4|0||0|Runecloth Cloak||i8,S9,H9|2
+11623|3|52|47|0|401|133772|4|0||0|Spritecaster Cape||t5,i6,p6,S14,H14|1
+10802|2|52|47|0|401|133754|1|0||0|Wingveil Cloak||p11,S2,H7|1
 8216|2|48|43|0|401|133754|4|0||0|Big Voodoo Cloak||i9,S5,H5|2
+11311|3|47|42|0|401|133760|4|0||0|Emberscale Cape||t14|1
 19528|3|43|38|0|401|133770|1|0||1|Battle Healer's Cloak||t8,p5,S6,H18|1
 19532|3|43|38|0|401|133765|1|0||1|Caretaker's Cape||t8,p5,S6,H18|1
 6789|2|42|35|0|401|133764|4|0||0|Ceremonial Centaur Blanket||i2,p9|1
 6832|3|42|0|0|401|132656|4|0||0|Cloak of Blight||p13|1
+10776|3|42|37|0|401|133769|4|0||0|Silky Spider Cape||t10|1
 4327|3|40|35|0|401|133756|1|0||0|Icy Cloak||p6,S7,H7|2
+5257|3|39|34|0|401|133756|4|0||0|Dark Hooded Cape||a10,s4|2
 5965|2|37|32|0|401|133755|4|0||0|Guardian Cloak||i5,S6,H6|2
 4326|2|37|32|0|401|133754|4|0||0|Long Silken Cloak||i5,S6,H6|2
 7056|2|36|31|0|401|132657|1|0||0|Crimson Silk Cloak||t3,S5,H5|2
+5181|2|36|31|0|401|133754|4|0||0|Vibrant Silk Cape||i1,p8|2
+4643|2|35|0|0|401|133754|4|0||0|Grimsteel Cape||a2,t7|1
 2805|2|34|0|0|401|133756|4|0||0|Yeti Fur Cloak||a6,s3|1
 19529|3|33|28|0|401|133770|1|0||1|Battle Healer's Cloak||t6,p4,S4,H13|1
 19533|3|33|28|0|401|133765|1|0||1|Caretaker's Cape||t6,p4,S4,H13|1
+4462|2|33|28|0|401|133754|4|0||0|Cloak of Rot||i8|2
+6751|2|32|0|0|401|133763|4|0||0|Mourning Shawl||t8|1
+9605|2|32|0|0|401|133758|4|0||0|Repairman's Cape||i3,p5,S2,H6|1
 16658|2|32|0|0|401|133762|1|0||0|Wildhunter Cloak||t2,A10|1
 3719|2|30|25|0|401|133759|4|0||0|Hillman's Cloak||t4,S5,H5|2
+6901|3|29|24|0|401|134305|4|0||0|Glowing Thresher Cape||p8,S3,H7|1
 15468|2|29|0|0|401|133757|4|0||0|Windsong Drape||p4,S5,H5|1
+4447|2|28|23|0|401|133756|4|0||0|Cloak of Night||a6|2
+5971|2|28|23|0|401|133756|4|0||0|Feathered Cape||a2,t5|2
+6340|3|27|22|0|401|134367|4|0||0|Fenrus' Hide||a4,t6|1
+5751|2|27|22|0|401|133762|4|0||0|Webwing Cloak||a5|2
+6314|3|27|22|0|401|133762|4|0||0|Wolfmaster Cape||t3,A10|1
+7004|2|26|0|0|401|133770|4|0||0|Prelacy Cape||p3,S2,H7|1
+3018|2|25|20|0|401|134367|4|0||0|Hide of Lupos||a4,t3|2
+5193|3|24|19|0|401|133760|4|0||0|Cape of the Brotherhood||a5,t3|1
+5969|2|24|19|0|401|133766|4|0||0|Regent's Cloak||p5|2
 20427|3|23|18|0|401|133770|1|0||1|Battle Healer's Cloak||t4,p2,S3,H9|1
 20428|3|23|18|0|401|133765|1|0||1|Caretaker's Cape||t4,p2,S3,H9|1
+2241|2|23|18|0|401|133756|4|0||0|Desperado Cape||t4|2
+6449|3|23|18|0|401|132656|4|0||0|Glowing Lizardscale Cloak||a6|1
 2316|2|22|17|0|401|133762|4|0||0|Dark Leather Cloak||a3,s2|2
+5444|3|22|17|0|401|133763|4|0||0|Miner's Cape||t5,A4|1
+6629|3|22|17|0|401|133769|4|0||0|Sporid Cape||t6|1
+6632|3|21|16|0|401|133754|4|0||0|Feyscale Cloak||t5,S3,H3|1
 4311|2|21|16|0|401|133766|1|0||0|Heavy Woolen Cloak||p4,S4,H4|2
+6179|2|21|16|0|401|133754|4|0||0|Privateer's Cape||a3,t3|2
 7283|2|20|15|0|401|134305|4|0||0|Black Whelp Cloak||S3,H3|2
 5542|2|19|14|0|401|133763|1|0||0|Pearl-clasped Cloak||i3,S2,H2|2
+14149|3|18|13|0|401|133770|4|0||0|Subterranean Cape||s3|1
+1355|2|17|12|0|401|134354|4|0||0|Buckskin Cape||a3|2
+4771|2|17|12|0|401|133762|4|0||0|Harvest Cloak||p2|2
+2284|2|17|12|0|401|133762|4|0||0|Rat Cloth Cloak||t3|2
+5111|2|17|12|0|401|133150|4|0||0|Rathorian's Cape||t3|2
 2584|2|16|11|0|401|133762|4|0||0|Woolen Cape||p1,S1,H1|2
 3449|2|15|0|0|401|133765|4|0||0|Mystic Shawl||S2,H2|1
 2310|2|13|8|0|401|133150|4|0||0|Embossed Leather Cloak||a1|2
+4772|2|13|8|0|401|133764|4|0||0|Warm Cloak||p1|1
 2580|2|12|7|0|401|133759|4|0||0|Reinforced Linen Cape||S1,H1|2
 3008|2|11|6|0|401|133756|4|0||0|Wendigo Fur Cloak||s1|2
 3322|2|10|5|0|401|133763|4|0||0|Wispy Cloak||p1|2
@@ -10677,33 +12640,134 @@ FGT.GEARDB = {
 18874|4|78|60|0|210|133729|1|0|H|0|High Warlord's War Staff|Requires PvP rank 14|t41,i23,p17|1
 18608|4|75|60|16|210|135167|1|0||1|Benediction||t10,i31,p12|1
 19884|4|66|60|0|210|135170|1|0||0|Jin'do's Judgement||t10,i10,h2|1
-19102|3|65|60|0|210|135157|4|0||1|Crackling Staff||i25,S25,H25|1
-19101|3|65|60|0|210|135167|1|0||1|Whiteout Staff||t25,i16|1
+19102|3|65|60|0|210|135157|4|0||1|Crackling Staff||t25,i25|1
+19101|3|65|60|0|210|135167|4|0||1|Whiteout Staff||t25,i25|1
+2801|4|64|59|0|208|135280|4|0||0|Blade of Hanna|||2
+18520|3|63|58|0|208|135291|1|0||0|Barbarous Blade||A50,c1|1
+18420|3|63|0|0|205|133477|4|0||0|Bonecrusher||s26,c1|1
+18717|3|63|58|0|205|133043|4|0||0|Hammer of the Grand Crusader||t10,i26,p17|1
+22335|3|63|58|0|210|135144|4|0||0|Lord Valthalak's Staff of Command||t21,i21,h1|1
+18534|3|63|58|0|210|135169|4|0||0|Rod of the Ogre Magi||t14,i20,p11,c1|1
+18538|4|63|58|0|201|132401|4|0||0|Treant's Bane||s10,t9,c2|1
 20724|2|62|0|0|210|135144|4|0||0|Corrupted Blackwood Staff||t11,i22|1
+22333|3|62|57|0|205|133041|4|0||0|Hammer of Divine Might||t21,i26|1
+18759|3|62|57|0|201|132409|1|0||0|Malicious Axe||t30,A28|1
+18502|3|62|57|0|206|135579|1|0||0|Monstrous Glaive||t23,A24,d25|1
+13163|3|62|57|0|208|135316|4|0||0|Relentless Scythe||a9,s20,t11,d25|1
+22394|3|62|57|0|210|135166|4|0||0|Staff of Metanoia||t15,i15,p22|1
+18531|3|62|57|0|205|133059|4|0||0|Unyielding Maul||t15,d11|1
+944|4|61|56|0|210|135144|4|0||0|Elemental Mage Staff||i26|2
+22314|3|61|56|0|206|135129|4|0||0|Huntsman's Harpoon||a30|1
+22406|3|61|56|0|210|135160|1|0||0|Redemption||p12|1
+18353|3|61|56|0|210|135145|4|0||0|Stoneflower Staff||i24,c1|1
+13161|3|61|56|0|210|135166|1|0||0|Trindlehaven Staff||t12,i25|1
+1263|4|60|55|0|201|135580|4|0||0|Brain Hacker||t16,c1|2
 10698|2|60|0|0|210|135150|1|0||0|Enchanted Azsharite Felbane Staff||A40|1
 20069|4|60|55|0|210|135466|4|0||0|Ironbark Staff|Requires Exalted with The League of Arathor|t18,i15,c2|1
 20220|4|60|55|0|210|135466|4|0||0|Ironbark Staff|Requires Exalted with The Defilers|t18,i15,c2|1
+18481|2|60|55|0|205|133480|4|0||0|Skullcracking Mace||a7,s22|1
 19323|4|60|55|0|205|133050|4|0||1|The Unstoppable Force||s18,t17,c2|1
+11931|3|59|54|0|201|132416|4|0||0|Dreadforge Retaliator||t8,A42,c1,d25|1
+11932|3|59|54|0|210|135167|1|0||0|Guiding Stave of Wisdom||t11,p10|1
+16039|3|59|54|0|208|135351|4|0||0|Ta'Kierthan Songblade||a18,s18,p18|2
+22208|3|58|53|0|205|133047|4|0||0|Lavastone Hammer||s13,t14,i12,S20,H20|1
+18324|3|58|53|0|201|132408|4|0||0|Waveslicer||s23,c1|1
+13044|3|57|52|0|208|135273|1|0||0|Demonslayer||A52|2
+647|4|57|52|0|208|135317|4|0||0|Destiny||s10|2
+11921|3|57|52|0|205|133045|4|0||0|Impervious Giant||t18,h1,c1|1
+11816|3|56|51|0|201|135576|4|0||0|Angerforge's Battle Axe||s22,t11|1
 12776|3|56|51|0|205|133042|1|0||0|Enchanted Battlehammer||h2,d35|2
+11809|3|56|51|0|206|135124|4|0||0|Flame Wrath||s10,t17|1
+11786|3|56|51|0|208|135357|4|0||0|Stone of the Earth||t28|1
 11907|2|55|0|0|201|132401|1|0||0|Beastslayer||A36|1
+10844|3|54|49|0|210|135169|1|0||0|Spire of Hakkar||t16,p16|1
+11750|3|53|48|0|210|135155|4|0||0|Kindling Stave||t10,i12,c1|1
 221518|3|53|0|0|205|133042|4|0||0|Whisper||s23,S14,H14,c1|1
+20504|3|52|47|0|208|135349|4|0||0|Lightforged Blade||s12,t12|1
+22458|3|52|0|0|210|135165|1|0||0|Moonshadow Stave||c1|1
+20536|3|52|0|0|210|135358|4|0||0|Soul Harvester||t19,i16,h1|1
+2915|4|52|47|0|205|133039|4|0||0|Taran Icebreaker||t14|2
+20556|3|52|0|0|210|135225|1|0||0|Wildstaff||s10,t10,i10,h1,c1|1
+10799|3|51|46|0|206|135129|1|0||0|Headspike||s15,t18,d7|1
+9481|3|49|44|0|201|132394|4|0||0|The Minotaur||s8,t24|2
+9527|2|48|0|0|210|135473|4|0||0|Spellshifter Rod||t6,i17|1
+18082|3|48|43|0|210|135147|4|0||0|Zum'rah's Vexing Cane||t10,i10|1
+1604|3|47|42|0|208|135323|4|0||0|Chromatic Sword|||2
+12469|3|47|42|0|208|135272|1|0||0|Mutilator||d25|1
+9482|3|47|42|0|210|135168|4|0||0|Witch Doctor's Cane||p18|2
+1680|2|46|41|0|201|132408|4|0||0|Headchopper||s10,c1|2
+7723|3|44|39|0|205|133488|4|0||0|Mograine's Might||s8,t14,i16|1
+9425|3|44|39|0|201|135578|4|0||0|Pendulum of Doom|||1
 11265|3|42|0|0|205|133053|4|0||0|Cragwood Maul||t24|1
+10758|3|42|37|0|208|135355|4|0||0|X'caliboar||s20,t7|1
+6327|3|41|36|0|205|133484|4|0||0|The Pacifier||s20,t8|2
 9517|3|40|0|128|210|135151|1|0||0|Celestial Stave||i8|1
+870|4|40|35|0|201|132393|4|0||0|Fiery War Axe||s15|2
+13017|3|40|35|0|201|132418|1|0||0|Hellslayer Battle Axe||A34|2
 3856|2|40|35|0|201|132408|4|0||0|Shadow Crescent Axe||s11,S10,H10|2
 15106|2|40|0|256|210|135149|4|0||0|Staff of Dar'Orahil||t3,i11,h1|1
+873|4|40|35|0|210|135150|4|0||0|Staff of Jordan||i20,p10,h2|2
 15105|2|40|0|256|210|135151|4|0||0|Staff of Noh'Orahil||t3,i4,c1|1
 6975|3|40|0|1|201|132403|1|0||0|Whirlwind Axe||s16,t15|1
 6977|3|40|0|1|208|135313|1|0||0|Whirlwind Sword||s16,t15|1
 6976|3|40|0|1|205|133045|1|0||0|Whirlwind Warhammer||s16,t15|1
+7713|3|39|34|0|210|135466|4|0||0|Illusionary Rod||t10,i6,p7,c1|1
+10570|3|39|34|0|201|132395|1|0||0|Manslayer||t8,A30|2
+7758|3|39|34|0|206|135131|4|0||0|Ruthless Shiv||t8,A38|2
+10573|3|37|32|0|208|135351|4|0||0|Boneslasher||s16,t7|2
+7757|3|37|32|0|210|135469|4|0||0|Windweaver Staff||t17|2
+7710|3|36|31|0|210|135155|1|0||0|Loksey's Training Stick||A28|1
 3853|2|36|31|0|208|135326|4|0||0|Moonsteel Broadsword||s4,S12,H12|2
+9459|3|36|31|0|201|132394|4|0||0|Thermaplugg's Left Arm||s17,t5,i4|1
 3852|2|34|29|0|205|133041|4|0||0|Golden Iron Destroyer||s11,S4,H4|2
+9449|3|34|29|0|205|133489|1|0||1|Manual Crowd Pummeler||a5,s16|1
+6689|3|34|29|0|210|135138|4|0||0|Wind Spirit Staff||t6,p16|1
+9604|2|32|0|0|205|133479|4|0||0|Mechanic's Pipehammer||i12|1
 6953|3|31|0|2|205|133042|4|0||0|Verigan's Fist||t5,i6,p10|1
+1264|3|29|0|0|205|133482|4|0||0|Headbasher||s9,t5,i10|1
+2280|3|29|24|0|210|135143|4|0||0|Kam's Walking Stick||a10,i3|1
+2058|2|29|24|0|205|133053|4|0||0|Kazon's Maul||s9,t4|2
+1155|3|29|24|0|210|135143|4|0||0|Rod of the Sleepwalker||p11|1
+3417|3|28|23|0|208|135311|4|0||0|Onyx Claymore||s10,t5,p6|2
+1975|3|28|23|0|208|135326|4|0||0|Pysan's Old Greatsword||s5,S10,H29|2
 7958|2|27|22|0|201|132415|4|0||0|Bronze Battle Axe||s10|2
+1317|2|27|0|0|210|135153|4|0||0|Hardened Root Staff||s1,p9|1
+6641|3|27|22|0|208|135315|4|0||0|Haunting Blade||S11,H33|1
+6905|3|27|22|0|201|135576|4|0||0|Reef Axe||s8,S8,H24|1
+2549|3|27|22|0|210|135162|4|0||0|Staff of the Shade||t15|2
+3191|3|26|21|0|201|132397|4|0||0|Arced War Axe||s9,t9|1
 7957|2|26|21|0|208|135321|4|0||0|Bronze Greatsword||t6,S7,H7|2
+3415|3|26|21|0|210|135169|4|0||0|Staff of the Friar||t4,i3,p12|2
 7956|2|25|20|0|205|133055|4|0||0|Bronze Warhammer||s6,t6|2
+3227|2|25|20|0|210|135149|4|0||0|Nightbane Staff|||2
+5749|2|25|20|0|201|132397|4|0||0|Scythe Axe||a7,t3|2
 15109|3|25|0|256|210|135146|4|0||0|Staff of Soran'ruk||t14|1
+2271|3|25|20|0|210|135168|4|0||0|Staff of the Blessed Seer||t9,p10|2
+6505|3|24|0|0|210|135141|4|0||0|Crescent Staff||a7,t7,i7|1
+2042|3|24|0|0|210|135147|4|0||0|Staff of Westfall||i5,p6|1
+4437|2|23|18|0|210|135151|4|0||0|Channeler's Staff||i8|2
+6631|3|23|18|0|210|135162|4|0||0|Living Root||t2,p5|1
+872|3|23|18|0|201|135419|4|0||1|Rockslicer||s7|1
+3571|2|23|18|0|205|133052|4|0||0|Trogg Beater||t8|2
+5423|3|22|17|0|201|132408|4|0||0|Boahn's Fang||s10,p4|2
+5201|3|22|17|0|210|135150|4|0||0|Emberstone Staff||t8|1
+5200|3|22|17|0|206|135130|4|0||0|Impaling Harpoon||a9,i5|1
+5182|2|22|17|0|208|135327|4|0||0|Shiver Blade|||2
+1484|3|22|17|0|210|135466|4|0||0|Witching Stave||t6,i5|2
+1387|2|21|16|0|208|135277|4|0||0|Ghoulfang|||2
+1539|2|21|16|0|210|135154|4|0||0|Gnarled Hermit's Staff||p7|2
+5187|3|21|16|0|205|133046|4|0||0|Rhahk'Zor's Hammer||t8,S8,H8|1
+2203|2|20|15|0|201|132417|4|0||0|Brashclaw's Chopper||s6|2
+2204|2|20|15|0|208|135321|4|0||0|Brashclaw's Skewer||t6|2
+3902|2|20|15|0|210|135466|4|0||0|Staff of Nobles||t2,p5|2
+6094|2|19|0|0|201|135419|4|0||0|Piercing Axe||a6|1
+15424|3|18|0|0|201|132395|4|0||0|Axe of Orgrimmar||t6,p6|1
+15444|3|18|0|0|210|135225|4|0||0|Staff of Orgrimmar||a6,i6|1
+6205|2|17|12|0|205|134435|4|0||0|Burrowing Shovel||s5|2
+3188|2|17|12|0|208|135348|4|0||0|Coral Claymore||s3,t3|2
 6214|2|16|11|0|205|133055|4|0||0|Heavy Copper Maul||s4|2
 7955|2|11|6|0|208|135322|4|0||0|Copper Claymore||s1,t1|2
+3334|2|10|5|0|205|134435|4|0||0|Farmer's Shovel||s1|2
 ]==],
         [20] = [==[
 21663|4|77|60|0|401|132664|1|0||0|Robes of the Guardian Saint||t20,i22,S23,H70|1
@@ -10715,26 +12779,58 @@ FGT.GEARDB = {
 16535|4|74|60|128|401|132716|4|0|H|1|Warlord's Silk Raiment|Requires PvP rank 13|t28,i17,p6,S33,H33,c1|1
 23303|3|68|60|16|401|132716|4|0|A|1|Knight-Captain's Satin Tunic|Requires PvP rank 8|t19,i15,S21,H21|1
 23305|3|68|60|128|401|132669|4|0|A|1|Knight-Captain's Silk Tunic|Requires PvP rank 8|t18,i17,p5,S21,H21,c1|1
+16690|3|63|58|0|401|132652|1|182||0|Devout Robe||t13,i24,p15,S7,H20|1
+16700|3|63|58|0|401|132690|4|183||0|Dreadmist Robe||t20,i21,p10|1
 17568|3|63|58|256|401|132666|4|0|A|1|Knight-Captain's Dreadweave Robe|Requires PvP rank 8|t20,i20,S16,H16|1
 17600|3|63|58|16|401|132652|4|0|A|1|Knight-Captain's Satin Robes|Requires PvP rank 8|t20,i20,S16,H16|1
 16413|3|63|58|128|401|132670|4|0|A|1|Knight-Captain's Silk Raiment|Requires PvP rank 8|t20,i20,c1|1
 17572|3|63|58|256|401|132716|4|0|H|1|Legionnaire's Dreadweave Robe|Requires PvP rank 8|t20,i20,S16,H16|1
+16688|3|63|58|0|401|132666|4|181||0|Magister's Robes||t9,i28,p8,S12,H12|1
+13346|3|63|58|0|401|132649|4|0||0|Robes of the Exalted||i8,p25,S13,H40|1
+13314|4|62|57|0|401|132653|4|0||0|Alanna's Embrace||t20,i20,S23,H23|1
+14340|3|62|57|0|401|132687|4|0||0|Freezing Lich Robes||t19|1
+18532|3|62|57|0|401|132670|1|0||0|Mindsurge Robe||t12,i13,S7,H20|1
 14153|4|62|57|31488|401|132692|4|0||0|Robe of the Void||t10,i9,S46,H46|1
 14154|4|62|57|31248|401|132672|4|0||0|Truefaith Vestments||t14,p16,S25,H73|1
 18486|3|61|56|0|401|132645|4|0||0|Mooncloth Robe||t12,i25,S9,H26|2
+14626|3|61|56|0|401|132684|1|122||0|Necropile Robe||t22,i12,p12,S15,H15|1
+13535|3|60|55|0|401|132688|4|0||0|Coldtouch Phantom Wraps||h1|1
 14128|2|60|55|0|401|132687|1|0||0|Wizardweave Robe||S20,H20|2
+15824|2|59|0|0|401|132648|4|0||0|Astoria Robes||i20,p10,S10,H10|1
+12462|4|55|50|0|401|132683|4|0||0|Embrace of the Wind Serpent||i10,p30,S11,H33|1
 14100|2|54|49|0|401|132667|1|0||0|Brightcloth Robe||S18,H18|2
+11747|3|53|48|0|402|132648|4|0||0|Flamestrider Robes||t5,i4,p16,S20,H20|1
 13858|2|52|47|0|401|132645|4|0||0|Runecloth Robe||i17,S11,H11|2
+12542|3|51|46|0|401|132681|4|0||0|Funeral Pyre Vestment||t13,i13,S9,H26|2
+17775|2|49|0|0|401|132690|4|0||0|Acumen Robes||i15,S14,H14|1
+940|4|47|42|0|401|132667|4|0||0|Robes of Insight||i24,S11,H33|2
 8200|2|43|38|0|402|132666|4|0||0|Big Voodoo Robe||i14,S9,H9|2
+10762|3|43|38|0|401|132658|4|0||0|Robes of the Lich||t20|1
+4746|2|42|0|0|401|132660|4|0||0|Doomsayer's Robe||p18,S6,H16|1
 7063|2|41|36|0|401|132666|4|0||0|Crimson Silk Robe||i15|2
+7711|2|39|34|0|401|132666|4|0||0|Robe of Doan||t4,p8|1
+17043|2|38|0|0|401|132647|4|0||0|Zealot's Robe||i7,p7,S11,H11|1
+9623|3|37|0|0|401|132659|4|0||0|Civinad Robes||t7,p12,S9,H26|1
 15455|2|37|0|0|401|132673|4|0||0|Dustfall Robes||t8,S13,H13|1
+4476|2|36|31|0|401|132680|4|0||0|Beastwalker Robe||a3,t6,p6|2
+7728|3|34|29|0|401|132666|4|0||0|Beguiler Robes||i12,p8,S9,H9|2
+6682|3|31|26|0|401|132661|4|0||0|Death Speaker Robes||t4,i11,S7,H20|1
+9508|3|31|26|0|401|135018|4|0||0|Mechbuilder's Overalls|Requires Engineering (75)|t5,i12,S8,H8|2
 5770|2|30|25|0|401|132670|4|0||0|Robes of Arcana||p7,S8,H8|2
+6324|3|28|23|0|401|132672|4|0||0|Robes of Arugal||t5,p6,S6,H18|1
 5766|2|27|22|0|401|132658|4|0||0|Lesser Wizard's Robe||i8,S5,H5|2
+3569|2|26|21|0|401|132683|1|0||0|Vicar's Robe||t3,p7,S1,H4|2
+2292|3|25|20|0|401|132677|4|0||0|Necrology Robes||t3,i5|2
+2034|3|25|20|0|401|132645|4|0||0|Scholarly Robes||p12,S3,H3|2
+6226|3|24|19|0|401|132665|4|0||0|Bloody Apron||t10,S4,H13|1
 3461|2|24|0|0|401|132659|4|0||0|High Robe of the Adjudicator||i2,S8,H8|1
 6264|2|23|18|0|401|132665|4|0||0|Greater Adept's Robe||i2,p7,S1,H1|2
+6465|3|22|17|0|401|132677|4|0||0|Robe of the Moccasin||s3,p10,S3,H9|1
 6787|2|22|17|0|401|135016|4|0||0|White Woolen Dress||t5,p4|2
 2585|2|21|16|0|401|132654|4|0||0|Gray Woolen Robe||i5,S4,H4|2
+3019|2|20|15|0|401|132679|4|0||0|Noble's Robe||s1,t4,p4|2
 6243|2|18|13|0|401|132663|4|0||0|Green Woolen Robe||i3,S3,H3|2
+14150|3|18|13|0|401|132665|4|0||0|Robe of Evocation||t6,i4,p4|1
 1561|2|15|0|0|401|132654|4|0||0|Harvester's Robe||p2,S2,H2|1
 6242|2|14|9|0|401|132664|1|0||0|Blue Linen Robe||p3,S2,H2|2
 16604|2|10|0|16|401|132677|4|0||0|Moon Robes of Elune||p1|1
@@ -10752,75 +12848,216 @@ FGT.GEARDB = {
 21398|4|70|60|64|204|133474|1|502||0|Hammer of the Gathering Storm||s7,t10,i9|1
 21407|4|70|60|1024|204|133474|1|494||0|Mace of Unending Life||a7,s9,t10,i11,A1|1
 22688|3|66|0|0|215|135639|1|0||1|Verimonde's Last Resort||t7,i8|1
+18348|4|65|60|3|207|135271|4|0||1|Quel'Serrar||t11|1
 22379|3|65|0|0|215|135322|1|0||0|Shivsprocket's Shiv||t13|1
 22380|3|65|0|0|204|133042|1|0||0|Simone's Cultivating Hammer||i6|1
+1728|4|65|60|0|207|135323|1|0||0|Teebu's Blazing Longsword|||2
 22383|4|64|59|0|207|135361|1|0||0|Sageblade||t14,i6,h1|2
+13360|3|63|58|0|215|135651|4|0||0|Gift of the Elven Magi||t6,i10,p7|1
+12709|3|63|58|0|215|135343|1|0||0|Pip's Skinner||A20|1
+22332|3|62|57|0|207|135326|4|0||0|Blade of Necromancy|||1
+18372|3|62|57|0|215|135654|4|0||0|Blade of the New Moon||t15|1
+18396|3|62|57|0|207|135658|4|0||0|Mind Carver|||1
+13964|3|62|57|0|215|135661|4|0||0|Witchblade||i8|1
+22315|3|61|56|0|204|133039|1|0||0|Hammer of Revitalization||t5|1
+22404|3|61|56|0|213|135652|1|0||0|Willey's Back Scratcher||t12,A16|1
+18671|3|60|55|0|204|133483|4|0||0|Baron Charr's Sceptre||s5|2
 10696|2|60|0|0|207|135662|1|0||0|Enchanted Azsharite Felbane Sword||A18|1
+11684|4|60|55|0|204|135847|1|0||0|Ironfoe|||1
+18048|3|60|55|0|204|133043|4|0||0|Mastersmith's Hammer||t10,h1|1
 20214|4|60|55|0|215|135311|4|0||0|Mindfang|Requires Exalted with The Defilers|t8,c1|1
 20070|4|60|55|0|215|135311|4|0||0|Sageclaw|Requires Exalted with The League of Arathor|t8,c1|1
+18321|3|59|54|0|204|133488|1|0||0|Energetic Rod||i5|1
 15801|2|58|0|0|207|135326|4|0||0|Valiant Shortsword||i11|1
+11922|3|57|52|0|215|135651|4|0||0|Blood-Etched Blade||t12|1
+22266|3|57|52|0|215|135124|4|0||0|Flarethorn||i5|1
+18044|3|57|52|0|204|132791|4|0||0|Hurley's Tankard||a5,t12,p3|1
+11923|3|57|52|0|204|133044|1|0||0|The Hammer of Grace|||1
+10828|3|56|51|0|215|135652|4|0||0|Dire Nail|||1
+11902|3|56|0|0|207|135349|4|0||0|Linken's Sword of Mastery|||1
 11906|2|55|0|0|204|133060|1|0||0|Beastsmasher||A16|1
+11702|3|55|50|0|200|132403|1|0||1|Grizzle's Skinner||a6,s8,t6|1
+11964|2|55|0|0|204|133483|4|0||0|Swiftstrike Cudgel||a5,h1|1
+17780|4|54|49|0|215|135279|1|0||0|Blade of Eternal Darkness||S62,H62|1
+10803|3|54|49|0|207|135348|4|0||0|Blade of the Wretched|||1
+10805|3|54|49|0|200|132403|4|0||0|Eater of the Dead||A16|1
+10838|3|54|49|0|204|133486|4|0||0|Might of Hakkar||t11,p3|1
+11784|3|53|48|0|207|135324|1|0||0|Arbiter's Blade||t8,i5,h1|1
+17719|3|53|48|0|207|135312|4|0||0|Inventor's Focal Sword||c1|1
+20035|3|52|0|0|215|135642|4|0||0|Glacial Spike||i4|1
+809|4|50|45|0|207|135329|1|0||0|Bloodrazor||A20|2
+9478|3|50|45|0|200|132398|1|0||0|Ripsaw||A10|1
+9639|3|50|45|0|204|133486|4|0||0|The Hand of Antu'sul|||1
+10625|3|49|44|0|215|135351|4|0||0|Stealthblade|||2
+9419|3|47|42|0|204|133054|4|0||0|Galgann's Firehammer|||1
+7721|3|44|39|0|204|133039|4|0||0|Hand of Righteousness||t7,p8|1
+7714|3|39|34|0|215|135643|1|0||0|Hypnotic Blade||i8,p3|1
+8224|2|38|33|0|207|135662|4|0||0|Silithid Ripper|||2
+17039|2|38|0|0|204|133728|4|0||0|Skullbreaker||t3,i5|1
+6804|2|38|0|0|204|133042|4|0||0|Windstorm Hammer||s3,t4|1
+9457|3|35|30|0|204|133483|4|0||0|Royal Diplomatic Scepter||t3,p7|1
+6691|3|35|30|0|215|133723|4|0||0|Swinetusk Shank||t6,p4|1
+2816|3|33|28|0|204|133482|4|0||0|Death Speaker Scepter||H68|1
+3414|3|29|24|0|204|133483|4|0||0|Crested Scepter||t6,i2|2
+11121|3|27|22|0|207|135346|4|0||0|Darkwater Talwar|||1
+3400|2|27|0|0|207|135321|4|0||0|Lucine Longsword||t3,p3|1
+6323|3|26|21|0|204|133477|4|0||0|Baron's Scepter||s2,t3|1
+2035|2|26|21|0|207|135321|4|0||0|Sword of the Night Sky||a3,s3|2
+2567|3|25|20|0|215|135651|4|0||0|Evocator's Blade||i2,p5|2
+4445|2|25|20|0|200|132407|4|0||0|Flesh Carver||a3,t3|2
+1938|2|24|19|0|204|133052|4|0||0|Block Mallet||t3|2
+4439|2|24|19|0|204|133485|4|0||0|Bruiser Club||s2,t2|2
+2169|3|21|16|0|215|135641|4|0||0|Buzzer Blade|||1
+1469|2|21|16|0|207|135325|4|0||0|Scimitar of Atun||a3|2
+1214|2|19|14|0|204|133046|4|0||0|Gnoll Punisher||s2|2
+14145|3|18|13|0|207|135648|4|0||0|Cursed Felblade|||1
+15445|3|18|0|0|204|133060|4|0||0|Hammer of Orgrimmar||s3,p3|1
+4303|2|14|9|0|204|133054|4|0||0|Cranial Thumper||s1|2
+5744|2|14|9|0|207|135325|4|0||0|Pale Skinner||t1|2
+3223|2|13|8|0|204|133482|4|0||0|Frostmane Scepter||t1|2
 1913|2|12|7|0|204|133476|4|0||0|Studded Blackjack||s1|2
+18610|2|10|5|0|207|135314|4|0||0|Keen Machete||t1|2
+]==],
+        [22] = [==[
+18392|3|62|57|0|215|135641|4|0||0|Distracting Dagger||a3|1
+13399|3|62|57|0|213|132945|4|0||0|Gargoyle Shredder Talons|||1
+9608|2|32|0|0|200|134520|4|0||0|Shoni's Disarming Tool||p4|1
 ]==],
         [23] = [==[
+18523|3|63|58|0|400|134333|4|0||0|Brightly Glowing Stone||t14,S10,H29|1
+22329|3|63|58|0|400|135469|4|0||0|Scepter of Interminable Focus||i8,p8,h1,c1|1
+22253|3|63|58|0|400|133738|4|0||0|Tome of the Lost||t8,i7,S18,H18|1
 21185|4|62|0|0|400|134125|1|0||0|Earthcalm Orb||i10,S6,H18|1
+13524|3|62|57|0|400|133730|1|0||0|Skull of Burning Shadows||h1|1
+18695|3|62|57|0|400|133738|4|0||0|Spellbound Tome||t6,i16|1
+15805|3|61|0|0|400|133941|4|0||0|Penelope's Rose||i11,p10,S7,H22|1
+13315|2|61|0|0|400|133738|4|0||0|Testament of Hope||p5,S6,H17|1
+22319|3|61|56|0|400|133739|4|0||0|Tome of Divine Right||t6,i6,S9,H26|1
+13385|3|61|56|0|400|133737|4|0||0|Tome of Knowledge||a8,s8,t8,i8|1
+18672|2|60|55|0|400|134337|4|0||0|Elemental Ember||t11|2
+18425|3|60|55|0|400|132792|4|0||0|Kreeg's Mug||t10,p6|1
 19312|4|60|55|0|400|133941|4|0||1|Lei of the Lifegiver||t11,S12,H37|1
+11928|3|60|55|0|400|133488|4|0||0|Thaurissan's Royal Scepter||t7,i6,p10,S7,H22|1
 19315|4|60|55|0|400|133749|4|0||1|Therazane's Touch||S29,H29|1
 19308|4|60|55|0|400|133733|4|0||1|Tome of Arcane Domination|||1
 19311|4|60|55|0|400|133741|4|0||1|Tome of Fiery Arcana|||1
 18602|3|60|0|256|400|133738|4|0||1|Tome of Sacrifice||t12|1
 19309|4|60|55|0|400|133738|4|0||1|Tome of Shadow Force||t7|1
 19310|4|60|55|0|400|133743|4|0||1|Tome of the Ice Lord||i8|1
+13261|3|59|54|0|400|135471|4|0||0|Globe of D'sak||t5,i11|1
+18536|3|59|0|0|400|133738|4|0||0|Milli's Lexicon||S11,H11|1
+11935|3|58|53|0|400|134337|4|0||0|Magmus Stone||t7,S3,H9|1
+18316|3|58|53|0|400|134336|4|0||0|Obsidian Bauble||i9,S15,H15|1
+11904|3|56|0|0|400|134564|4|0||0|Spirit of Aquementas||S21,H21|1
 221344|3|55|0|128|400|133743|4|0||1|Personal Spellbook||i9,S16,H16|1
+10796|3|54|49|0|400|134335|1|0||0|Drakestone|||1
+17737|3|53|48|0|400|134333|4|0||0|Cloud Stone||i8,h1|1
+11625|3|53|48|0|400|134335|4|0||0|Enthralled Sphere||i9,p3,S6,H6|1
+12471|3|47|42|0|400|135158|4|0||0|Desertwalker Cane||t8,i7,S7,H20|1
+5028|2|47|42|0|400|135472|4|0||0|Lord Sakrasis' Scepter||i6|2
 4125|2|46|0|0|400|134333|4|0||0|Tranquil Orb||t4,p9|1
+11262|3|44|0|0|400|134333|4|0||0|Orb of Lorica||i10,S6,H18|1
+6803|3|44|0|0|400|135138|4|0||0|Prophetic Cane||t5,i8,S6,H18|1
+9627|2|42|0|0|400|134249|4|0||0|Explorer's League Lodestar||t7,S5,H14|1
 6774|2|42|35|0|400|135465|4|0||0|Traitor's Finger||t5,i5,p5|1
+10770|3|41|36|0|400|133729|4|0||0|Mordresh's Lifeless Skull||p5|1
+7749|3|40|0|0|400|134335|4|0||0|Omega Orb||S9,H9|1
+9393|3|38|33|0|400|134249|1|0||0|Beacon of Hope||p4,S8,H22|2
+7685|3|37|32|0|400|134334|4|0||0|Orb of the Forgotten Seer||S14,H14|1
+16887|3|32|0|0|400|135474|4|0||0|Witch's Finger||t4,i8|1
 2944|2|31|26|0|400|134336|4|0||1|Cursed Eye of Paleth|||4
 2943|2|31|0|0|400|134335|1|0||0|Eye of Paleth||S4,H13|1
 6898|3|25|0|31488|400|134335|4|0||0|Orb of Soran'ruk|||1
+5183|3|22|17|0|400|134336|4|0||0|Pulsating Hydra Heart||t2|1
+6341|3|21|19|0|400|134249|4|0||0|Eerie Stable Lantern||t4|1
+7559|2|19|14|0|400|135139|4|0||0|Runic Cane||t3|2
 ]==],
         [25] = [==[
 21135|3|63|58|0|216|135424|4|0||0|Assassin's Throwing Axe||a11|1
+13173|3|60|55|0|216|135424|4|0||0|Flightblade Throwing Axe||s9,p6|1
 20086|2|52|0|0|216|135427|4|0||0|Dusksteel Throwing Knife||a7|1
 3463|2|35|0|0|216|132330|4|0||0|Silver Star||a4|1
 ]==],
         [26] = [==[
+22408|3|63|58|0|219|135469|1|0||0|Ritssyn's Wand of Bad Mojo||t5,S11,H11|1
+13938|3|62|57|0|219|133732|1|0||0|Bonecreeper Stylus||i5,S11,H11|1
+18761|3|62|57|0|219|135474|4|0||0|Oblivion's Touch||i7,S9,H9|1
+18388|3|62|57|0|218|135537|1|0||0|Stoneshatter||h1|1
+18755|3|62|57|0|203|135612|4|0||0|Xorothian Firestick||a4,t4|1
+18738|3|61|56|0|218|135533|1|0||0|Carapace Spine Crossbow||a5,t9|1
 16007|3|61|56|0|203|135612|4|0||0|Flawless Arcanite Rifle||t9,A10|2
+13380|3|61|56|0|203|135616|1|0||0|Willey's Portable Howitzer||t9,A10|1
+12605|3|60|51|0|219|133729|4|0||0|Serpentine Skuller|||1
+13396|3|60|55|0|219|133729|4|0||0|Skul's Ghastly Touch|||1
+18301|3|58|53|0|219|135468|4|0||0|Lethtendris's Wand||S9,H9|1
+22254|3|57|52|0|219|135464|1|0||0|Wand of Eternal Light||i6,S3,H9|1
 13474|2|56|0|0|203|135613|4|0||0|Farmer Dalson's Shotgun||t8|1
+11629|3|53|48|0|203|135616|1|0||0|Houndmaster's Rifle||a3,A12|1
+11748|3|53|48|0|219|135150|4|0||0|Pyric Caduceus||p3|1
+17745|3|51|46|0|219|135466|4|0||0|Noxious Shooter||t5,S5,H5|1
 9654|2|50|0|0|219|135469|4|0||0|Cairnstone Sliver||i5,p5|1
+2100|4|48|43|0|203|135615|4|0||0|Precisely Calibrated Boomstick||a7,c1|2
 11860|2|46|0|0|219|135470|4|0||0|Charged Lightning Rod||i4,S5,H5|1
 10704|2|46|0|0|219|135463|4|0||0|Chillnail Splinter||p6|1
 17687|2|43|0|0|203|135614|4|0||0|Master Hunter's Rifle||a4,s4|1
+10766|3|42|37|0|219|135465|4|0||0|Plaguerot Sprig||S6,H6|1
 5249|2|40|0|0|219|135473|1|0||0|Burning Sliver||S6,H6|1
 4547|2|40|0|0|219|135464|4|0||0|Gnomish Zapper||t4,S3,H3|1
 5253|2|40|0|0|219|135473|4|0||0|Goblin Igniter||i4,p3|1
 5247|2|40|0|0|219|135144|4|0||0|Rod of Sorrow||t4,p3|1
 4127|2|40|0|0|203|135611|4|0||0|Shrapnel Blaster||a4,i3|1
+15322|2|39|34|0|203|135610|4|0||0|Smoothbore Gun||p5|2
+6806|2|38|0|0|219|135466|4|0||0|Dancing Flame||i4,S4,H4|1
+9381|3|38|33|0|219|135154|1|0||0|Earthen Rod||S3,H9|2
 6729|2|38|0|0|219|135473|4|0||0|Fizzle's Zippy Lighter||i3,S4,H4|1
 15692|2|38|0|0|219|135469|4|0||0|Kodo Brander||t3,S4,H4|1
+17042|2|38|0|0|203|135610|4|0||0|Nail Spitter||s3,t4|1
 15691|2|38|0|0|203|135613|4|0||0|Sidegunner Shottie||a3,s3|1
 6798|2|37|0|0|203|135613|4|0||0|Blasting Hackbut||a3,t4|1
+8188|2|37|32|0|203|135617|4|0||0|Explosive Shotgun||s5|2
 6797|2|37|0|0|219|135465|4|0||0|Eyepoker||t3,p4|1
 4086|2|37|0|0|203|135616|4|0||0|Flash Rifle||s4,t3|1
 5248|2|37|0|0|219|135464|4|0||0|Flash Wand||i4,p3|1
 16789|2|36|0|0|219|135145|4|0||0|Captain Rackmore's Tiller||p3,S2,H6|1
+9456|3|35|30|0|203|135611|1|0||0|Glass Shooter||A12|1
+7708|3|35|30|0|219|135466|1|0||0|Necrotic Wand||S3,H9|1
+13137|3|34|29|0|203|135617|4|0||0|Ironweaver||t4,d3|2
+13063|3|34|29|0|219|135139|4|0||0|Starfaller||i4|2
+5245|2|34|29|0|219|135144|4|0||0|Summoner's Wand||i4|2
+3042|2|33|28|0|203|135610|4|0||0|BKP "Sparrow" Smallbore||a4|2
+7729|3|33|28|0|203|135615|4|0||0|Chesterfall Musket||t6|2
+13037|3|32|27|0|218|135533|4|0||0|Crystalpine Stinger||a4,i4|2
+5214|2|32|27|0|219|135463|1|0||0|Wand of Eventide||S5,H5|2
 3041|2|31|26|0|203|135614|4|0||0|"Mage-Eye" Blunderbuss||a4|2
+9489|3|31|26|0|219|135467|4|0||0|Gyromatic Icemaker|||1
 11289|2|31|26|0|219|135139|4|0||0|Lesser Mystic Wand||i4|2
 5244|2|30|0|0|219|135464|4|0||0|Consecrated Wand||i2,p2|1
 5246|2|30|0|0|219|135139|4|0||0|Excavation Rod||t2,S2,H2|1
 5818|2|30|0|0|219|135473|4|0||0|Moonbeam Wand||i2,S2,H2|1
+7001|3|29|0|0|219|135466|4|0||0|Gravestone Scepter||p3|1
+9487|3|29|24|0|203|135615|4|0||0|Hi-Tech Supergun||d3|2
 5250|2|28|0|0|219|135139|4|0||0|Charred Wand||i2,S2,H2|1
 15465|2|28|0|0|219|135469|4|0||0|Stingshot Wand||t2,i2|1
 5356|2|27|0|0|219|135124|4|0||0|Branding Rod||i2,S2,H2|1
+2098|3|27|22|0|203|135617|4|0||0|Double-barreled Shotgun||a3,s3|2
+6315|2|27|22|0|218|135530|4|0||0|Steelarrow Crossbow||a3|2
+13062|3|27|22|0|219|135139|1|0||0|Thunderwood||S6,H6|2
+8186|2|26|21|0|219|135468|4|0||0|Dire Wand||t3|2
 4379|2|26|21|0|203|135616|4|0||0|Silver-plated Shotgun||t3|2
 6677|2|26|0|0|219|135467|1|0||0|Spellcrafter Wand||S4,H4|1
 4372|2|24|19|0|203|135616|4|0||0|Lovingly Crafted Boomstick||p3|2
+5243|3|23|18|0|219|135473|4|0||0|Firebelcher|||1
 11288|2|23|13|0|219|135144|1|0||0|Greater Magic Wand||S2,H2|2
+8071|2|23|0|0|219|135139|1|0||0|Sizzle Stick||S2,H2|1
+7607|2|22|0|0|219|135139|4|0||0|Sable Wand||p2|1
 4369|2|21|16|0|203|135616|4|0||0|Deadly Blunderbuss||a2|2
+13136|3|21|16|0|203|135617|4|0||0|Lil Timmy's Peashooter||a4|2
 5240|2|21|0|0|219|135139|1|0||0|Torchlight Wand||S2,H2|1
 5252|2|21|0|0|219|135466|4|0||0|Wand of Decay||i2|1
 15205|2|20|0|0|203|135613|4|0||0|Owlsight Rifle||a2|1
 5309|2|20|0|0|203|135613|4|0||0|Privateer Musket||a2|1
 3567|2|19|0|0|203|135610|4|0||0|Dwarven Fishing Pole||s2|1
+3040|2|19|14|0|203|135610|1|0||0|Hunter's Muzzle Loader||A5|2
 5241|2|18|0|0|219|135139|4|0||0|Dwarven Flamestick||p2|1
 5326|2|18|0|0|219|135139|4|0||0|Flaring Baton||i2|1
 15204|2|18|0|0|219|135469|4|0||0|Moonstone Wand||i2|1
@@ -10828,14 +13065,24 @@ FGT.GEARDB = {
 5242|2|16|0|0|219|135139|1|0||0|Cinder Wand||S1,H1|1
 2904|2|16|0|0|203|135612|4|0||0|Daryl's Hunting Rifle||s1|1
 11287|2|15|5|0|219|135139|1|0||0|Lesser Magic Wand||S1,H1|2
+4577|2|13|8|0|203|135612|4|0||0|Compact Shotgun||t1|2
 5604|2|13|0|0|219|135139|4|0||0|Elven Wand||i1|1
 3079|2|12|0|0|203|135610|4|0||0|Skorn's Rifle||a1|1
 4362|2|10|5|0|203|135612|4|0||0|Rough Boomstick||t1|2
 ]==],
         [28] = [==[
+23198|3|65|60|0|408|134912|1|0||0|Idol of Brutality|||1
+23201|3|65|60|0|407|134916|1|0||0|Libram of Divinity|||1
+23200|3|65|60|0|409|134918|1|0||0|Totem of Sustaining|||1
 228176|3|65|60|0|409|134920|1|0||0|Totem of Thunder|||1
+22398|3|62|57|0|408|134914|1|0||0|Idol of Rejuvenation|||1
+22401|3|62|57|0|407|134916|1|0||0|Libram of Hope|||1
+22345|3|62|57|0|409|134920|4|0||0|Totem of Tides|||1
 220606|3|60|55|0|408|134912|4|0||0|Idol of the Dream|||1
 228175|3|60|55|0|407|134916|4|0||0|Libram of Holy Alacrity|||1
+22397|3|57|52|0|408|134912|1|0||0|Idol of Ferocity|||1
+22400|3|57|52|0|407|134917|1|0||0|Libram of Truth|||1
+22395|3|57|52|0|409|134919|1|0||0|Totem of Rage|||1
 ]==],
     },
     recipes = {
@@ -12011,6 +14258,74 @@ FGT.GEARDB = {
         [260824] = '202|16204:10,14344:2,249726:2,251290:2',
         [260828] = '202|238787:1,260813:2',
         [260829] = '202|238788:1,260815:1',
+        [273884] = '165|274030:5,15407:4,248825:24,14341:8',
+        [273885] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273886] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273887] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273888] = '165|274030:5,15407:4,248825:24,14341:8',
+        [273889] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273890] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273891] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273892] = '165|274030:5,15407:4,248825:24,14341:8',
+        [273893] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273894] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273895] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273896] = '165|274030:5,15407:4,248825:24,14341:8',
+        [273897] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273898] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273899] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273900] = '165|274030:5,15407:4,248825:24,14341:8',
+        [273901] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273902] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273903] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273904] = '197|274030:5,14342:3,14048:22,14341:8',
+        [273905] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273906] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273907] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273908] = '164|274030:5,12360:4,251291:18,18567:1',
+        [273909] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273910] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273911] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273912] = '164|274030:5,12360:4,251291:18,18567:1',
+        [273913] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273914] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273915] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273916] = '164|274030:5,12360:4,251291:18,18567:1',
+        [273917] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273918] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273919] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273920] = '197|274030:5,14342:3,14048:22,14341:8',
+        [273921] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273922] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273923] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273924] = '197|274030:5,14342:3,14048:22,14341:8',
+        [273925] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273926] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273927] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273928] = '165|274030:5,15407:4,248825:24,14341:8',
+        [273929] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273930] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273931] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273932] = '165|274030:5,15407:4,248825:24,14341:8',
+        [273933] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273934] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273935] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273936] = '165|274030:5,15407:4,248825:24,14341:8',
+        [273937] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273938] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273939] = '165|274030:3,15407:2,248825:18,14341:8',
+        [273940] = '197|274030:5,14342:3,14048:22,14341:8',
+        [273941] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273942] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273943] = '197|274030:3,14342:2,14048:16,14341:8',
+        [273944] = '164|274030:5,12360:4,251291:18,18567:1',
+        [273945] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273946] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273947] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273948] = '164|274030:5,12360:4,251291:18,18567:1',
+        [273949] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273950] = '164|274030:3,12360:2,251291:12,18567:1',
+        [273951] = '164|274030:3,12360:2,251291:12,18567:1',
         [274387] = '202|251291:8,17056:5,7069:1',
         [274388] = '202|251291:8,12365:8,7067:1',
         [275604] = '197|14048:4,14343:1,7082:3,14341:6',

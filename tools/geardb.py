@@ -5,7 +5,8 @@ Source: wago.tools' public exports of the game's own client tables
 (ItemSparse, Item, ItemSet, Faction; SpellEffect, SpellReagents and SkillLineAbility
 for recipes; SpellName, SpellItemEnchantment, SpellEquippedItems, ItemEffect and
 ItemXItemEffect for enchants) for Classic Era 1.15.9 and WoW Forever
-1.60.1. Nothing is read from Wowhead.
+1.60.1, plus the item hotfixes Forever's server sends (tools/hotfixes.py, saved in
+tools/forever-hotfixes). Nothing is read from Wowhead.
 
   - Classic Era is complete (names, quality, slot, class limits), so it is the
     base. Season of Discovery ids (200000+) are dropped unless Forever has them.
@@ -83,6 +84,50 @@ era_sparse, era_item = table("era", "ItemSparse"), table("era", "Item")
 for_sparse, for_item = table("forever", "ItemSparse"), table("forever", "Item")
 era_sets, for_sets = table("era", "ItemSet"), table("forever", "ItemSet")
 era_fac, for_fac = table("era", "Faction"), table("forever", "Faction")
+
+
+# Forever sends many items from the server as hotfixes; its client tables list them with no
+# name or stats, or not at all (Engraved Band, 260219). hotfixes.py reads them from the live
+# client's cache. The rows are saved to tools/forever-hotfixes so a machine without that cache
+# builds the same data; the cache adds to the saved rows and wins where both have an item.
+def load_hotfixes():
+    import hotfixes
+    saved = os.path.join(HERE, "forever-hotfixes")
+    rows = {}
+    for name in ("ItemSparse", "Item"):
+        path = os.path.join(saved, name + ".csv")
+        if os.path.exists(path):
+            with open(path, newline="", encoding="utf-8") as f:
+                rows[name] = {r["ID"]: r for r in csv.DictReader(f)}
+        else:
+            rows[name] = {}
+    build, live, skipped = hotfixes.read()
+    if skipped:
+        print("hotfix cache: %d rows did not fit the known layout (new build?)" % skipped, file=sys.stderr)
+    if build:
+        for name in rows:
+            rows[name].update(live[name])
+        os.makedirs(saved, exist_ok=True)
+        for name, source in (("ItemSparse", for_sparse), ("Item", for_item)):
+            columns = list(next(iter(source.values())).keys())
+            with open(os.path.join(saved, name + ".csv"), "w", newline="", encoding="utf-8") as f:
+                w = csv.DictWriter(f, columns, lineterminator="\n")
+                w.writeheader()
+                for item_id in sorted(rows[name], key=int):
+                    w.writerow(rows[name][item_id])
+    return build, rows
+
+
+hotfix_build, hotfix_rows = load_hotfixes()
+# The server also sends Season of Discovery items (ids 200000 to 249999: Inquisition gear, the
+# remade dungeon sets, test items). Like the tables' own leftovers there, they do not count.
+for name, rows in hotfix_rows.items():
+    for item_id in [k for k in rows if 200000 <= int(k) < 250000]:
+        del rows[item_id]
+for_sparse.update(hotfix_rows["ItemSparse"])
+for_item.update(hotfix_rows["Item"])
+print("Forever hotfix items:", len(hotfix_rows["ItemSparse"]),
+      "(live cache %s)" % hotfix_build if hotfix_build else "(saved rows; no live cache here)")
 
 # Inventory types the planner can show (bags, ammo and quivers are not gear).
 INV_OK = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28}  # 24 = ammo

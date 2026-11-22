@@ -101,6 +101,18 @@ its October 21 notes.
 
 ## Current invariants and open work
 
+- Forever hotfix items (2026-11-21, PC, Claude): Karl found Engraved Band (260219, Blackmaw
+  Reclamation) missing from the Gear Planner. Forever's server sends many items as hotfixes; the client tables
+  wago.tools exports list them with no name or stats. `tools/hotfixes.py` reads ItemSparse and Item rows from
+  the live client's `_forever_/Cache/ADB/enUS/DBCache.bin` (layouts 6FCC3191 and 9A2A4834 from WoWDBDefs;
+  checked against 1,635 rows also in the tables: identical except 3 real hotfix changes). `geardb.py` merges
+  them over the tables and saves them to `tools/forever-hotfixes/` (committed) so a machine without that
+  cache builds the same data. Season of Discovery ids 200000 to 249999 from hotfixes are ignored (the server
+  also sends Inquisition gear and test items). `GearData.lua` rebuilt from build 71037 with hotfixes: 9,687
+  to 10,721 items (about 960 new Forever items, most of the new rings), 4,092 Classic items now revealed in
+  Forever (flag 0 to 1), foreverBlocks 819 to 1,997 (Forever's server stats differ from Era's on many items).
+  Rerun `python3 tools/geardb.py` after playing live Forever on a new build to pick up new hotfixes.
+
 - Release 2.18.1 (2026-11-11, PC, Claude): Karl authorized publishing ("Yes, 2.18.1"); tag `v2.18.1`
   ([record](checks/release-2.18.1.md)). Native review of the charger, weapon labels and My Goals default is still pending.
   Description's latest releases list still needs 2.18.0 and 2.18.1. Still flagged for Karl: Teebu's Blazing Longsword is
