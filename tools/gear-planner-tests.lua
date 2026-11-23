@@ -662,6 +662,11 @@ do -- a drop the site cannot place, from a boss we know, gets its raid and pin
     Cat.ReleaseSources()
     local source = Cat.Source({ id = 999001, name = "Test Item" })
     assert(source.label == "Ragnaros · Molten Core" and Cat.EntranceFor(source.place).id == "dungeon:mc", "known boss gets its raid")
+    -- a creature Classic's list names as a boss somewhere gets that place (Cookie, Deadmines)
+    F.GEARSOURCES = "999002|N|Cookie||\n5197|B|Cookie|Deadmines|"
+    Cat.ReleaseSources()
+    source = Cat.Source({ id = 999002, name = "Test Item" })
+    assert(source.label == "Cookie · Deadmines" and source.place == "Deadmines", "a Classic boss's drop gets its dungeon")
     F.GEARSOURCES = saved
     Cat.ReleaseSources()
 end

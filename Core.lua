@@ -5537,15 +5537,20 @@ do
     FGT.detailEditBtn = b
     -- "View set" (ViewSet.lua): an eye beside the pencil on a Gear Planner goal, opening the set
     -- on its character in a small view-only window
+    -- (an eye and the words "View set" in gold, so it reads at a glance beside the grey icons)
     local v = CreateFrame("Button", nil, FGT.detailBody)
-    v:SetSize(22, 22)
     v.icon = v:CreateTexture(nil, "ARTWORK")
     v.icon:SetTexture(FGT.Icon("eye-white"))
-    v.icon:SetSize(16, 16)
-    v.icon:SetPoint("CENTER")
+    v.icon:SetSize(18, 18)
+    v.icon:SetPoint("LEFT", 2, 0)
+    v.label = NewFontString(v, 11, "", C.ACCENT[1], C.ACCENT[2], C.ACCENT[3])
+    v.label:SetPoint("LEFT", v.icon, "RIGHT", 4, 0)
+    v.label:SetText("View set")
+    v:SetSize(math.ceil(v.label:GetStringWidth()) + 28, 22)
     local function ViewTint(on)
-        local c = on and C.ACCENT or C.SUBTEXT
-        v.icon:SetVertexColor(c[1], c[2], c[3], on and 1 or 0.8)
+        local c = on and C.TITLE or C.ACCENT
+        v.icon:SetVertexColor(c[1], c[2], c[3], 1)
+        v.label:SetTextColor(on and 1 or c[1], on and 1 or c[2], on and 1 or c[3])
     end
     ViewTint(false)
     v:SetScript("OnEnter", function(self)
@@ -5571,7 +5576,8 @@ do
         -- the reset arrow sits left of the pencil and the eye (or in their place), and a
         -- long title stays clear of them
         local resetShown = goal and not goal.autoLevels
-        local before = (b:IsShown() and 1 or 0) + (v:IsShown() and 1 or 0)
+        -- in 26 px icon slots; the labeled eye takes its own width
+        local before = (b:IsShown() and 1 or 0) + (v:IsShown() and (v:GetWidth() + 4) / 26 or 0)
         if FGT.resetBtn then
             FGT.resetBtn:ClearAllPoints()
             FGT.resetBtn:SetPoint("TOPRIGHT", FGT.detailBody, "TOPRIGHT", -20 - 26 * before, -(FGT.DETAIL_TOP - 2))

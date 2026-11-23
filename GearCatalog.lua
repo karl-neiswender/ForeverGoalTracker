@@ -669,6 +669,18 @@ local function Line(key, id)
     local first = texts[key]:find("\n" .. id .. "|", 1, true)
     if first then return texts[key]:match("^\n%d+|(%a)|([^|\n]*)|([^|\n]*)|([^|\n]*)", first) end
 end
+-- A creature's dungeon or raid when Classic's list names it as a boss there (Cookie, Deadmines),
+-- for drops the site lists without a place.
+local bossPlaces = {}
+local function KnownPlace(who)
+    if BOSS_PLACE[who] then return BOSS_PLACE[who] end
+    local cached = bossPlaces[who]
+    if cached ~= nil then return cached or nil end
+    texts.GEARSOURCES = texts.GEARSOURCES or ("\n" .. (FGT.GEARSOURCES or ""))
+    local place = texts.GEARSOURCES:match("\n%d+|B|" .. who:gsub("%p", "%%%0") .. "|([^|\n]+)|")
+    bossPlaces[who] = place or false
+    return place
+end
 local function Parse(kind, who, place, detail)
     if place == "" then place = nil end
     if kind == "B" then
@@ -684,9 +696,10 @@ local function Parse(kind, who, place, detail)
             label = "Quest · " .. (place or (quests and not who:find(";", 1, true) and who) or "several quests"),
             place = place, quest = true, kind = "Q" }
     elseif kind == "N" then
-        -- A creature the site cannot place, but a boss we know (BOSS_PLACE), gets its raid.
-        if BOSS_PLACE[who] then
-            local source = Loot(who, BOSS_PLACE[who])
+        -- A creature the site cannot place, but a boss we know (BOSS_PLACE, or a Classic boss line), gets its place.
+        local known = KnownPlace(who)
+        if known then
+            local source = Loot(who, known)
             source.seen = detail == "beta"
             return source
         end
@@ -722,7 +735,7 @@ local function Imported(id)
     imported[id] = source or false
     return source
 end
-function C.ReleaseSources() imported, texts = {}, {} end
+function C.ReleaseSources() imported, texts, bossPlaces = {}, {}, {} end
 
 function C.Source(item)
     if not item then return nil end

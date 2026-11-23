@@ -14,7 +14,7 @@ local C = U.colors
 
 local V = CreateFrame("Frame", "ForeverGoalTrackerViewSet", UIParent, "BackdropTemplate")
 FGT.ViewSet = V
-V:SetSize(340, 470)
+V:SetSize(460, 620)
 V:SetPoint("CENTER", UIParent, "CENTER", 0, 20)
 V:SetFrameStrata("DIALOG"); V:SetToplevel(true); V:SetClampedToScreen(true)
 V:SetMovable(true); V:EnableMouse(true); V:RegisterForDrag("LeftButton")
@@ -49,7 +49,7 @@ close:SetScript("OnLeave", function() Tint(false) end)
 close:SetScript("OnClick", function() V:Hide() end)
 
 -- ------------------------------------------------------------
--- The stage: the planner's, at a smaller size
+-- The stage: the planner's, in its own window
 -- ------------------------------------------------------------
 local area = CreateFrame("Frame", nil, V)
 area:SetPoint("TOPLEFT", V, "TOPLEFT", 6, -46)
