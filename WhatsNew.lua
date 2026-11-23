@@ -12,6 +12,14 @@ local C = U.colors
 -- the closing "UI improvements and bug fixes" when small tweaks went in.
 -- tools/copycheck.py enforces the verbs.
 FGT.WHATS_NEW = {
+    { version = "2.20.0", date = "Nov 23, 2026", items = {
+        "Added View set: see a Gear Planner set on its character, with its racial backdrop and weather",
+        "Added links to Gear Planner steps: vendors and quest givers with map pins, quests and enchants",
+        "Changed Gear Planner steps to show their slot (was a step number), with each enchant under its item",
+        "Changed This character to also hide other races' mounts and other classes' rows inside a goal",
+        "Changed Gear Planner items and sources to Forever's latest patch",
+        "UI improvements and bug fixes",
+    } },
     { version = "2.19.0", date = "Nov 20, 2026", items = {
         "You can now see in chat when a Goal Library goal you aren't tracking finishes or moves forward (new setting: Library goals in chat)",
         "You can now hover a finished step to see which of your characters finished it",

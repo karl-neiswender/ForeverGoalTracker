@@ -6887,6 +6887,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 13359|N|Grand Crusader Dathrohan||beta
 12587|N|Warchief Rend Blackhand||beta
 18718|N|Grand Crusader Dathrohan||beta
+22411|N|Baron Rivendare||beta
 22267|N|General Drakkisath||beta
 16677|N|Darkmaster Gandling||beta
 14539|N|Rattlegore||beta
@@ -6924,11 +6925,17 @@ FGT.GEARSOURCES_FOREVER = [==[
 10097|N|Bloodaxe Warmonger||beta
 14449|N|Hyjal Bear||beta
 13404|N|The Unforgiven||beta
+11735|N|Hurley Blackbreath||beta
 10111|N|Bloodaxe Raider or Skeletal Berserker||beta
 260212|Q|Deadliest Catch|Azshara|
+11746|N|Magmus||beta
 10833|N|Shade of Eranikus||beta
+10168|N|Shadowforge Senator||beta
 279448|Q|Blood Red Bandanas|Alcaz Prison|
+276877|N|Plugger Spazzring||beta
+11839|N|Fineous Darkvire||beta
 11913|Q|A Little Help From My Friends|Un'Goro Crater|
+22223|N|Fineous Darkvire||beta
 260195|Q|Vek'zol|Blasted Lands|
 11124|Q|Jammal'an the Prophet|Sunken Temple|
 21317|Q|Deadwood of the North|Timbermaw Hold|
@@ -6942,6 +6949,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 10751|Q|The God Hakkar|Sunken Temple|
 270117|Q|The God Hakkar|Sunken Temple|
 10741|Q|Rise, Obsidion!|Searing Gorge|
+14795|N|Deadwood Shaman||beta
 19984|Q|The Azure Key||
 20521|Q|Voodoo Feathers||
 17740|N|Celebras the Cursed||beta
@@ -6992,7 +7000,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 7441|N|several creatures||beta
 15134|N|Frozen Soul||beta
 6720|Q|Frostmaw|Thunder Bluff|
-9859|N|Boulderfist Brute||beta
+9859|N|Cleft Scorpid or Boulderfist Brute||beta
 9849|N|several creatures||beta
 274291|N|Bloodmage Thalnos||beta
 14584|N|Withered Reaver||beta
@@ -7053,6 +7061,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 271917|V|Bryanna Embreeze|The Barrens|
 12103|N|Grand Crusader Dathrohan||beta
 280009|N|Titanosaur||beta
+13141|N|General Drakkisath||beta
 18723|N|Ramstein the Gorger||beta
 12929|N|Pyroguard Emberseer||beta
 13960|N|Kirtonos the Herald||beta
@@ -7067,6 +7076,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 19579|Q|The Heathen's Brand|Zul'Gurub|
 19585|Q|The Heathen's Brand|Zul'Gurub|
 15704|Q|Past Endeavors|Winterspring|
+11933|N|Emperor Dagran Thaurissan||beta
 19602|Q|Kezan's Taint|Zul'Gurub|
 19603|Q|Kezan's Taint|Zul'Gurub|
 19618|Q|The Maelstrom's Tendril|Zul'Gurub|
@@ -7147,7 +7157,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 279837|Q|Starving Arcane|City of Dalaran|
 273049|N|Shade of the Archmage||beta
 7731|N|Azshir the Sleepless||beta
-4614|N|Unfettered Spirit||beta
+4614|N|several creatures||beta
 274749|V|Gezzy Gunkgear|Stranglethorn Vale|
 274068|N|Crowd Pummeler 9-60||beta
 281258|Q|Sentiments of the Lost|Wetlands|
@@ -7212,6 +7222,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 22412|N|Baron Rivendare||beta
 13358|N|Grand Crusader Dathrohan||beta
 279904|Q|Crystalline Elements|The Shaper's Terrace|
+14538|N|Rattlegore||beta
 279903|Q|Panic at the Digsite|The Shaper's Terrace|
 10142|N|Jandice Barov||beta
 10163|N|Aspect of Corruption or Blackhand Veteran||beta
@@ -7221,13 +7232,14 @@ FGT.GEARSOURCES_FOREVER = [==[
 22405|N|Cannon Master Willey||beta
 287042|N|Eastgrotto Gorilla||beta
 13955|N|Kirtonos the Herald||beta
+12927|N|Pyroguard Emberseer||beta
 19849|Q|Paragons of Power: The Demoniac's Mantle|Zul'Gurub|
 19845|Q|Paragons of Power: The Illusionist's Mantle|Zul'Gurub|
 19835|Q|Paragons of Power: The Madcap's Mantle|Zul'Gurub|
 16679|N|Overlord Wyrmthalak||beta
 16701|N|Jandice Barov||beta
 16995|Q|Duskwing, Oh How I Hate Thee...|Eastern Plaguelands|
-13961|Q|Warlord's Command|Blackrock Spire|
+13961|Q|Maxwell's Mission;Warlord's Command|Blackrock Spire|
 8310|N|Blackhand Dreadweaver||beta
 16689|N|Ras Frostwhisper||beta
 272640|V|Lady Palanseer|Orgrimmar|
@@ -7246,6 +7258,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 15792|Q|The Crystal of Zin-Malor|Winterspring|
 12082|Q|A Taste of Flame|Blackrock Depths|
 11874|Q|Ancient Spirit|Felwood|
+22212|N|Phalanx||beta
 15812|Q|A Matter of Time|Western Plaguelands|
 10170|N|Scholomance Necrolyte||beta
 279829|Q|A Bit of Wet Work;A Little Payback|Alcaz Prison|
@@ -7340,6 +7353,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 7415|N|Irradiated Horror||beta
 270039|Q|Ormer's Revenge|Wetlands|
 6395|N|several creatures||beta
+13131|N|Snapjaw||beta
 15457|Q|Grimtotem Spying|Thousand Needles|
 3324|Q|Deathstalkers in Shadowfang|Shadowfang Keep|
 4833|V|Robert Aebischer|Hillsbrad Foothills|
@@ -7414,12 +7428,15 @@ FGT.GEARSOURCES_FOREVER = [==[
 272490|V|Lady Palanseer|Orgrimmar|
 10104|N|Scholomance Necrolyte||beta
 15786|Q|High Chief Winterfall|Winterspring|
-15827|Q|The Pack Mistress|Blackrock Spire|
-15825|Q|The Pack Mistress|Blackrock Spire|
+15827|Q|Put Her Down;The Pack Mistress|Blackrock Spire|
+15825|Q|Put Her Down;The Pack Mistress|Blackrock Spire|
 15787|Q|High Chief Winterfall|Winterspring|
 12108|Q|The Rise of the Machines|Blackrock Depths|
+18304|N|Pusillin||beta
 10118|N|Chromatic Dragonspawn||beta
+11820|N|General Angerforge||beta
 13378|N|Hearthsinger Forresten||beta
+10182|N|Plague Ghoul||beta
 21322|Q|Winterfall Activity|Timbermaw Hold|
 21320|Q|Winterfall Activity|Timbermaw Hold|
 11193|Q|Broken Alliances;Tremors of the Earth|Badlands|
@@ -7427,9 +7444,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 14924|N|Winterfall Totemic||beta
 11194|Q|Broken Alliances;Tremors of the Earth|Badlands|
 11195|Q|Broken Alliances;Tremors of the Earth|Badlands|
+14287|N|Warpwood Treant or Deadwood Avenger||beta
 11876|Q|The Bait for Lar'korwi|Un'Goro Crater|
 274758|V|Zippie Fizzbolt|Winterspring|
 9650|Q|Venom to the Undercity|The Hinterlands|
+12793|N|Plugger Spazzring||beta
 10806|N|Jammal'an the Prophet||beta
 270118|Q|Abandoned Hope|Blackrock Depths|
 287020|N|Defias Bounty Hunter||beta
@@ -7442,6 +7461,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 22272|Q|A Better Ingredient||
 22274|Q|A Better Ingredient||
 260178|Q|Ley of the Land|Azshara|
+10203|N|Anvilrage Guardsman||beta
 260181|Q|Murloc Thieves|Azshara|
 19127|Q|WANTED: Overseer Maltorius|Searing Gorge|
 19128|Q|WANTED: Overseer Maltorius|Searing Gorge|
@@ -7503,7 +7523,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 15128|N|Quilguard Champion||beta
 15524|N|Ward Guardian||beta
 7133|Q|Brutal Hauberk||
-6603|N|Scargil or Torn Fin Tidehunter||beta
+6603|N|several creatures||beta
 3750|Q|Humbert's Sword|Hillsbrad Foothills|
 5814|Q|Fallen Sky Lake|Ashenvale|
 14180|N|Quilguard Champion||beta
@@ -7546,7 +7566,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 3733|Q|The Rescue|Hillsbrad Foothills|
 14562|N|Druid of the Fang||beta
 286978|N|several creatures||beta
-14730|N|Deviate Venomwing or Fallenroot Hellcaller||beta
+14730|N|Fallenroot Hellcaller or Deviate Venomwing||beta
 271212|N|Viktor the Vile||beta
 3585|Q|The Weaver|Silverpine Forest|
 3752|Q|The Rescue|Hillsbrad Foothills|
@@ -7560,6 +7580,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 271206|N|The Baron||beta
 15018|N|Fallenroot Satyr||beta
 9783|N|several creatures||beta
+4781|V|Halija Whitestrider|The Barrens|
 6552|N|Murloc Flesheater||beta
 6536|N|Sister Rathtalon or Dire Condor||beta
 3310|N|Searing Blade Warlock||beta
@@ -7584,7 +7605,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 6266|N|Defias Smuggler||beta
 7229|Q|Bashal'Aran|Darkshore|
 6085|Q|WANTED: "Hogger"|Elwynn Forest|
-6336|N|Wandering Spirit||beta
+6336|N|Wandering Spirit or Tormented Soul||beta
 263333|Q|Unfortunate News|Zephras Isle|
 6268|N|Leper Gnome or Dark Iron Spy||beta
 257344|Q|Desperate Times|Zephras Isle|
@@ -7628,6 +7649,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 13526|N|Maleki the Pallid||beta
 14502|N|Ras Frostwhisper||beta
 18721|N|Cannon Master Willey||beta
+13956|N|Kirtonos the Herald||beta
 18529|N|Gordok Tribute||beta
 13387|N|Archivist Galford||beta
 275741|Q|Work Well Done|Mount Hyjal|
@@ -7637,17 +7659,18 @@ FGT.GEARSOURCES_FOREVER = [==[
 19839|Q|Paragons of Power: The Haruspex's Belt|Zul'Gurub|
 19832|Q|Paragons of Power: The Predator's Belt|Zul'Gurub|
 19823|Q|Paragons of Power: The Vindicator's Belt|Zul'Gurub|
-13959|Q|Warlord's Command|Blackrock Spire|
+13959|Q|Maxwell's Mission;Warlord's Command|Blackrock Spire|
 272494|V|Lady Palanseer|Orgrimmar|
 272700|V|Captain Dirgehammer|Stormwind City|
 272397|V|Pix Xizzix|Stranglethorn Vale|
-13962|Q|Warlord's Command|Blackrock Spire|
+22207|N|Emperor Dagran Thaurissan||beta
+13962|Q|Maxwell's Mission;Warlord's Command|Blackrock Spire|
 10145|N|Overlord Wyrmthalak||beta
 275434|Q|Water of Hyjal|Mount Hyjal|
 15859|Q|Bijou's Reconnaissance Report|Blackrock Spire|
 14864|N|Arcane Torrent||beta
 18327|N|Alzzin the Wildshaper||beta
-16680|N|Quartermaster Zigris or Firebrand Grunt||beta
+16680|N|Firebrand Grunt or Quartermaster Zigris||beta
 15707|Q|A Final Blow|Felwood|
 16673|N|several creatures||beta
 16696|N|Quartermaster Zigris||beta
@@ -7655,14 +7678,17 @@ FGT.GEARSOURCES_FOREVER = [==[
 10216|N|Bloodaxe Evoker||beta
 15709|Q|A Final Blow|Felwood|
 16723|N|Crimson Gallant||beta
-16685|N|Thuzadin Necromancer||beta
+16685|N|Thuzadin Necromancer or Smolderthorn Mystic||beta
 16713|N|Quartermaster Zigris or Scarshield Legionnaire||beta
 15791|Q|The Crystal of Zin-Malor|Winterspring|
 12083|Q|A Taste of Flame|Blackrock Depths|
 16716|N|Spectral Researcher||beta
+11783|N|Warder Stilgiss||beta
 10370|N|Chromatic Whelp||beta
+14309|N|Deadwood Den Watcher||beta
 15813|Q|A Matter of Time|Western Plaguelands|
 12115|Q|Disharmony of Fire;Incendius!|Blackrock Depths|
+22242|N|Verek||beta
 275827|Q|Ewe Wandered Off|Elderwild|
 260196|Q|Vek'zol|Blasted Lands|
 260184|Q|Blackmaw Counter-Offensive|Azshara|
@@ -7671,10 +7697,15 @@ FGT.GEARSOURCES_FOREVER = [==[
 11909|Q|Roll the Bones|Un'Goro Crater|
 279473|Q|Blood Red Bandanas|Alcaz Prison|
 11866|Q|The Love Potion|Blackrock Depths|
+10122|N|Smolderthorn Shadow Priest||beta
 274757|V|Zippie Fizzbolt|Winterspring|
 8268|N|Scarshield Spellbinder||beta
+14856|N|Deadwood Shaman||beta
+14454|N|Deadwood Shaman||beta
+8315|N|Anvilrage Medic||beta
 260179|Q|Ley of the Land|Azshara|
 260182|Q|Murloc Thieves|Azshara|
+10180|N|Blazing Fireguard||beta
 17750|N|Razorlash||beta
 281260|Q|Memories of Rockard|Blasted Lands|
 17755|N|Lord Vyletongue||beta
@@ -7782,10 +7813,12 @@ FGT.GEARSOURCES_FOREVER = [==[
 14567|N|Twilight Acolyte||beta
 6382|N|Son of Arugal||beta
 5750|N|Ma'ruk Wyrmscale||beta
+6576|N|Gray Bear||beta
 14746|N|Blackfathom Myrmidon||beta
 1299|N|Blackrock Shadowcaster||beta
 286980|N|Stone Watcher||beta
 6570|N|Vile Bat||beta
+273089|N|Lord Pythas||beta
 5609|Q|Escape Through Force|Darkshore|
 10412|N|Lady Anacondra||beta
 14164|N|several creatures||beta
@@ -7851,6 +7884,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 22701|Q|The Only Song I Know...|Naxxramas|
 21530|Q|Nefarius's Corruption|Blackwing Lair|
 22690|Q||Eastern Plaguelands|
+22085|Q|Anthion's Parting Words|Ironforge|
 12963|N|The Beast||beta
 20703|Q|Armaments of War|Silithus|
 20704|Q|Armaments of War|Silithus|
@@ -7874,6 +7908,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 18390|N|Tendris Warpwood||beta
 16719|N|Baron Rivendare||beta
 8289|N|Venom Belcher||beta
+13498|N|Goraluk Anvilcrack||beta
 272492|V|Lady Palanseer|Orgrimmar|
 272723|V|Captain Dirgehammer|Stormwind City|
 13170|N|Highlord Omokk||beta
@@ -7882,6 +7917,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 276339|Q|Prey and Predator|Mount Hyjal|
 270127|Q|Pusillin and the Elder Azj'Tordin|Dire Maul|
 10124|N|Crimson Guardsman||beta
+18745|N|Crypt Beast||beta
 15655|N|Hyjal Owl||beta
 11882|Q|The Bait for Lar'korwi|Un'Goro Crater|
 11910|Q|A Little Help From My Friends|Un'Goro Crater|
@@ -7889,6 +7925,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 21316|Q|Deadwood of the North|Timbermaw Hold|
 279826|Q|A Bit of Wet Work;A Little Payback|Alcaz Prison|
 11123|Q|Jammal'an the Prophet|Sunken Temple|
+11841|N|Fineous Darkvire||beta
 11911|Q|A Little Help From My Friends|Un'Goro Crater|
 270122|Q|A Little Help From My Friends|Un'Goro Crater|
 8262|N|Spirestone Enforcer||beta
@@ -7896,10 +7933,12 @@ FGT.GEARSOURCES_FOREVER = [==[
 12041|Q|Abandoned Hope|Blackrock Depths|
 10740|Q|Rise, Obsidion!|Searing Gorge|
 9652|Q|Saving Sharpbeak|The Hinterlands|
+14668|N|Deadwood Den Watcher||beta
 10133|N|Rotting Cadaver||beta
 10742|Q|Set Them Ablaze!|Searing Gorge|
 270114|Q|Set Them Ablaze!|Searing Gorge|
 270111|Q|Return to Primal Torntusk|The Hinterlands|
+8132|N|Hammered Patron||beta
 19117|Q|Separation Anxiety|The Hinterlands|
 281298|Q|Witch Doctor Ti'ik|The Hinterlands|
 274657|N|Gahz'rilla||beta
@@ -7995,7 +8034,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 6087|Q|The Defias Brotherhood|Deadmines|
 279868|Q|Bloodied Insignia|Ruins of Lordaeron|
 270020|Q|Assault on Fenris Isle|Silverpine Forest|
-15511|N|Deviate Venomwing or Twilight Reaver||beta
+15511|N|Twilight Reaver or Deviate Venomwing||beta
 4816|V|Morg Gnarltree|Duskwood|
 15117|N|several creatures||beta
 6587|N|several creatures||beta
@@ -8100,6 +8139,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 10270|N|Rage Talon Captain||beta
 13398|N|Darkmaster Gandling||beta
 14537|N|Rattlegore||beta
+18047|N|Goraluk Anvilcrack||beta
 10385|N|Rage Talon Captain||beta
 13527|N|Maleki the Pallid||beta
 279906|Q|Crystalline Elements|The Shaper's Terrace|
@@ -8124,22 +8164,26 @@ FGT.GEARSOURCES_FOREVER = [==[
 16691|N|Maleki the Pallid||beta
 10211|N|Large Solid Chest or Crimson Defender||beta
 16682|N|Hearthsinger Forresten||beta
-10222|N|Blackhand Veteran||beta
+10222|N|Large Solid Chest or Blackhand Veteran||beta
+11822|N|Golem Lord Argelmach||beta
 16711|N|Rattlegore||beta
 13402|N|Timmy the Cruel||beta
 10234|N|Spirestone Warlord||beta
 275438|Q|Blight No More|Mount Hyjal|
 276341|Q|Blight No More|Mount Hyjal|
 274720|Q|Leather for Inclement Weather|Mount Hyjal|
+22275|N|Hurley Blackbreath||beta
 274719|Q|Leather for Inclement Weather|Mount Hyjal|
 274718|Q|Back to the Grind|Mount Hyjal|
 18411|Q|Pusillin and the Elder Azj'Tordin|Dire Maul|
 274721|Q|Threading a Solution|Mount Hyjal|
+10095|N|Weapon Technician||beta
 11908|Q|Roll the Bones|Un'Goro Crater|
 270120|Q|The Love Potion|Blackrock Depths|
 11919|Q|Beware of Pterrordax|Un'Goro Crater|
 8269|N|Scarshield Legionnaire||beta
 260185|Q|Blackmaw Counter-Offensive|Azshara|
+11675|N|Anub'shiah||beta
 11872|Q|Calm Before the Storm||
 12050|Q|A Little Slime Goes a Long Way|Ironforge|
 12021|Q|Abandoned Hope|Blackrock Depths|
@@ -8148,6 +8192,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 10707|Q|Return to Tymor|Ironforge|
 20255|Q|The Azure Key||
 14662|N|Thunderhead Skystormer||beta
+10131|N|Anvilrage Guardsman||beta
 281259|Q|Memories of Rockard|Blasted Lands|
 270104|Q|Dark Heart|Feralas|
 270101|Q|Rescue OOX-09/HL!|The Hinterlands|
@@ -8155,7 +8200,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 9646|Q|Rescue OOX-09/HL!|The Hinterlands|
 259890|Q|Winter Frontier Fishery|Azshara|
 14438|N|Strashaz Soldier||beta
-14259|N|Frayfeather Patriarch||beta
+14259|N|Gahz'rilla or Frayfeather Patriarch||beta
 14911|N|Hulking Feral Scar||beta
 270094|Q|The Brood of Onyxia|Dustwallow Marsh|
 10701|Q|The Brood of Onyxia|Dustwallow Marsh|
@@ -8346,14 +8391,17 @@ FGT.GEARSOURCES_FOREVER = [==[
 15860|Q|The Darkstone Tablet|Blackrock Spire|
 22667|Q||Eastern Plaguelands|
 22668|Q||Eastern Plaguelands|
-10136|N|Blackhand Assassin or Chromatic Dragonspawn||beta
+13179|N|War Master Voone||beta
+10136|N|several creatures||beta
 10391|N|Blackhand Iron Guard||beta
+10156|N|Overlord Wyrmthalak||beta
 10147|N|Aspect of Malice||beta
 272483|V|Lady Palanseer|Orgrimmar|
 272702|V|Captain Dirgehammer|Stormwind City|
 13211|N|Halycon||beta
-13958|Q|Warlord's Command|Blackrock Spire|
+13958|Q|Maxwell's Mission;Warlord's Command|Blackrock Spire|
 14682|N|Wormwing Harpy||beta
+18726|N|Magistrate Barthilas||beta
 15796|Q|Guarding Secrets|Winterspring|
 275390|Q|Water of Hyjal|Mount Hyjal|
 15797|Q|Guarding Secrets|Winterspring|
@@ -8364,7 +8412,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 14869|N|Sand Skitterer or Felguard Sentinel||beta
 16681|N|Crimson Defender or Rage Talon Dragonspawn||beta
 16671|N|Splintered Skeleton||beta
+11764|N|Lord Incendius||beta
 16703|N|Quartermaster Zigris or Blackhand Dreadweaver||beta
+11767|N|Lord Incendius||beta
+11766|N|Lord Incendius||beta
 16722|N|Risen Protector||beta
 270125|Q|Lethtendris's Web|Dire Maul|
 16710|N|Instructor Malicia or Plague Ghoul||beta
@@ -8372,12 +8423,14 @@ FGT.GEARSOURCES_FOREVER = [==[
 270124|Q|Lethtendris's Web|Dire Maul|
 12112|Q|Disharmony of Fire;Incendius!|Blackrock Depths|
 8295|N|Rotting Cadaver||beta
+276884|N|Verek||beta
 11962|Q|The Love Potion|Blackrock Depths|
 270121|Q|The Love Potion|Blackrock Depths|
 260183|Q|Blackmaw Counter-Offensive|Azshara|
 11917|Q|Shizzle's Flyer|Un'Goro Crater|
 11875|Q|Further Corruption|Felwood|
 10126|N|Scarshield Legionnaire||beta
+14301|N|Deadwood Den Watcher||beta
 270102|Q|Rescue OOX-17/TN!|Tanaris|
 270103|Q|Rescue OOX-17/TN!|Tanaris|
 9638|Q|Tooga's Quest|Tanaris|
@@ -8393,6 +8446,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 14439|N|Defias Bounty Hunter or Subterranean Diemetradon||beta
 11469|Q|The Captain's Chest|Stranglethorn Vale|
 279860|Q|Tome of Twilight|Krol'dok Stronghold|
+14778|N|Wastewander Rogue||beta
 274750|V|Rettrick|Tanaris|
 10461|Q|Shadoweaver|Tailoring|
 14654|N|Rock Worm||beta
@@ -8447,6 +8501,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 9448|N|Electrocutioner 6000||beta
 270042|Q|A Fine Mess|Gnomeregan|
 273036|N|Atrexis the Grave Knight||beta
+7410|N|Snapjaw||beta
 9837|N|Dark Iron Tunneler||beta
 6722|Q|Fallen Sky Lake|Ashenvale|
 9821|N|Mana Echo or Snapjaw||beta
@@ -8496,7 +8551,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 14743|N|Blindlight Murloc or Bristleback Geomancer||beta
 273293|N|Sneed||beta
 286981|N|Skeletal Soldier||beta
-9768|N|Deviate Adder||beta
+9768|N|Lord Serpentis or Deviate Adder||beta
 6583|N|Mo'grosh Shaman or Mutanus the Devourer||beta
 16981|Q|Earthen Arise|Stonetalon Mountains|
 270010|Q|Earthen Arise|Stonetalon Mountains|
@@ -8574,6 +8629,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 13957|N|Kirtonos the Herald||beta
 10149|N|Overlord Wyrmthalak||beta
 13162|N|Overlord Wyrmthalak||beta
+13258|N|Urok Doomhowl||beta
 20650|Q|Vyral the Vile|Silithus|
 16994|Q|Duskwing, Oh How I Hate Thee...|Eastern Plaguelands|
 13244|N|Mother Smolderweb||beta
@@ -8585,11 +8641,13 @@ FGT.GEARSOURCES_FOREVER = [==[
 281280|Q|Halt the Hail|Mount Hyjal|
 272495|V|Lady Palanseer|Orgrimmar|
 272703|V|Captain Dirgehammer|Stormwind City|
-13963|Q|Warlord's Command|Blackrock Spire|
+18730|N|Baroness Anastari||beta
+13963|Q|Maxwell's Mission;Warlord's Command|Blackrock Spire|
 16676|N|War Master Voone||beta
 10214|N|Overlord Wyrmthalak||beta
 15858|Q|Bijou's Reconnaissance Report|Blackrock Spire|
 16672|N|Pyroguard Emberseer||beta
+16737|N|Ramstein the Gorger||beta
 16724|N|Timmy the Cruel||beta
 16684|N|Doctor Theolen Krastinov||beta
 275669|Q|Unsealing Blackthorne Pact|Mount Hyjal|
@@ -8604,7 +8662,9 @@ FGT.GEARSOURCES_FOREVER = [==[
 277215|Q|Wrap Return|Mount Hyjal|
 10277|N|Plague Ghoul||beta
 275715|Q|Contents Under Pressure|Mount Hyjal|
+11745|N|Phalanx||beta
 12114|Q|Disharmony of Fire;Incendius!|Blackrock Depths|
+10121|N|Mezzir the Howler||beta
 260211|Q|Deadliest Catch|Azshara|
 15823|Q|Runecloth|Blackmaw Hold|
 22006|Q|Just Compensation|Orgrimmar|
@@ -8621,9 +8681,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 271949|V|Bryanna Embreeze|The Barrens|
 271951|V|Bryanna Embreeze|The Barrens|
 271946|V|Bryanna Embreeze|The Barrens|
+22081|Q|Just Compensation|Ironforge|
 12051|Q|A Little Slime Goes a Long Way|Ironforge|
 10176|N|Tainted Shrubbery||beta
-15184|N|Fledgling Chillwind||beta
+15184|N|Whip Lasher or Fledgling Chillwind||beta
+14451|N|Deadwood Den Watcher||beta
 11867|Q|Ogre Head On A Stick = Party|Burning Steppes|
 10787|N|Zul'Lor||beta
 20369|Q|Da Voodoo||
@@ -8646,7 +8708,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 270089|Q|An Ambassador of Evil|Badlands|
 9632|Q|The Mark of Quality|Feralas|
 14782|N|Sandfury Blood Drinker||beta
-287012|N|Twilight Grunt||beta
+287012|N|Shadowhide Bully or Twilight Grunt||beta
 9631|Q|The Mark of Quality|Feralas|
 277223|Q|No Honor Among Thieves|Desolace|
 4083|N|Solid Chest||beta
@@ -8862,20 +8924,24 @@ FGT.GEARSOURCES_FOREVER = [==[
 260216|Q|Blackmaw Reclamation|Blackmaw Hold|
 18022|Q|Ramstein|Stratholme|
 13217|Q|Houses of the Holy|Stratholme|
+11934|N|Emperor Dagran Thaurissan||beta
 12926|N|Pyroguard Emberseer||beta
 275738|Q|Return to Jereman|Mount Hyjal|
 12016|N|Ramstein the Gorger||beta
 11979|N|Rage Talon Fire Tongue||beta
 275740|Q|Work Well Done|Mount Hyjal|
 12344|Q|Seal of Ascension|Blackrock Spire|
+12545|Q|The Princess Saved?|Blackrock Depths|
 18464|N|Guard Mol'dar||beta
 15855|Q|Hidden Treasures|Eastern Plaguelands|
 13178|N|Urok Doomhowl||beta
 21196|Q|The Path of the Protector|Tanaris|
 21201|Q|The Path of the Conqueror|Tanaris|
 21206|Q|The Path of the Invoker|Tanaris|
+12544|Q|The Princess Saved?|Blackrock Depths|
 19065|Q|Praise from the Emerald Circle <NYI> <TXT>|Felwood|
 18314|N|Alzzin the Wildshaper||beta
+18315|N|Alzzin the Wildshaper||beta
 275685|Q|Unsealing Blackthorne Pact|Mount Hyjal|
 275831|Q|Tarnished Treasures|Mount Hyjal|
 11978|N|Spire Scarab||beta
@@ -8901,6 +8967,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 271909|V|Bryanna Embreeze|The Barrens|
 20505|Q|Forging the Mightstone||
 20006|Q|Blood of Morphaz||
+942|N|Anvilrage Medic||beta
 11862|Q|Bone-Bladed Weapons|Orgrimmar|
 9642|Q|Tooga's Quest|Tanaris|
 9655|Q|The Morrow Stone|Feralas|
@@ -9014,14 +9081,14 @@ FGT.GEARSOURCES_FOREVER = [==[
 1449|Q|WANTED: Chok'sul|Loch Modan|
 17692|Q|Vorsha the Lasher|Ashenvale|
 279867|Q|Abominable Creatures;Unending Torment||
-11982|N|Son of Arugal or Rabid Shadowhide Gnoll||beta
+11982|N|several creatures||beta
 11967|N|Defias Inmate||beta
 5622|Q|The Tower of Althalaxx|Darkshore|
 284715|N|Mr. Smite||beta
 1156|N|Gilnid||beta
 12052|N|Haunted Servitor or Starving Dire Wolf||beta
 5351|Q|Hezrul Bloodmark|The Barrens|
-11981|N|Wailing Guardsman or Deviate Venomwing||beta
+11981|N|Deviate Venomwing or Wailing Guardsman||beta
 11965|N|Lord Cobrahn or Young Wetlands Crocolisk||beta
 3235|Q|A Husband's Revenge|Silverpine Forest|
 23206|Q|The Fall of Kel'Thuzad|Naxxramas|
@@ -9040,11 +9107,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 272440|V|Pix Xizzix|Stranglethorn Vale|
 272439|V|Pix Xizzix|Stranglethorn Vale|
 272438|V|Pix Xizzix|Stranglethorn Vale|
-13965|Q|For The Horde!|Blackrock Spire|
+13965|Q|For The Horde!;General Drakkisath's Demise|Blackrock Spire|
 280032|N|Bolt||beta
 22268|N|General Drakkisath||beta
-13968|Q|For The Horde!|Blackrock Spire|
-13966|Q|For The Horde!|Blackrock Spire|
+13968|Q|For The Horde!;General Drakkisath's Demise|Blackrock Spire|
+13966|Q|For The Horde!;General Drakkisath's Demise|Blackrock Spire|
 14022|Q|The Last Barov|Western Plaguelands|
 268873|V|Dala Fairmaw|Mount Hyjal|
 21326|Q|The Root of All Evil|Timbermaw Hold|
@@ -9082,8 +9149,11 @@ FGT.GEARSOURCES_FOREVER = [==[
 17903|Q|Legendary Heroes|Alterac Valley|
 17904|Q|The Eye of Command|Alterac Valley|
 22678|Q||Eastern Plaguelands|
+12065|Q|Jail Break!|Blackrock Depths|
 275347|Q|Final Death|Mount Hyjal|
+11819|N|Golem Lord Argelmach||beta
 276337|Q|Blind Vengeance|Mount Hyjal|
+260308|Q|Top of the Post|Mount Hyjal|
 13379|N|Hearthsinger Forresten||beta
 269741|Q|Open Season|Mount Hyjal|
 274386|Q|Soldier's Solace|Mount Hyjal|
@@ -9169,16 +9239,19 @@ FGT.GEARSOURCES_FOREVER = [==[
 279908|Q|Mapping the Way Forward;The Dark Crystal|The Shaper's Terrace|
 18758|N|Death Knight Darkreaver||beta
 13964|N|Darkmaster Gandling||beta
+14024|N|Kirtonos the Herald||beta
 17002|Q|The Corpulent One|Eastern Plaguelands|
 15806|Q|Kirtonos the Herald|Scholomance|
 15783|Q|Shy-Rotam|Winterspring|
 15782|Q|Shy-Rotam|Winterspring|
+12061|Q|Jail Break!|Blackrock Depths|
 10697|Q|Enchanted Azsharite Fel Weaponry|Stranglethorn Vale|
 260213|Q|Claws That Rend, Tusks that Gore|Blackmaw Hold|
 281587|Q|Head Scratcher|Mount Hyjal|
 15814|Q|Hameya's Plea|Eastern Plaguelands|
 12582|N|War Master Voone||beta
 276398|N|Malor the Zealous||beta
+12062|Q|Jail Break!|Blackrock Depths|
 15853|Q|Dawn's Gambit|Scholomance|
 15219|N|several creatures||beta
 275700|Q|Drum Up Trouble|Mount Hyjal|
@@ -9188,6 +9261,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 15238|N|Plague Ghoul||beta
 274265|Q|Celastrus the Bitter|Mount Hyjal|
 276338|Q|Kits and Cats|Mount Hyjal|
+15218|N|Weapon Technician||beta
 274271|Q|Celastrus the Bitter|Mount Hyjal|
 15706|Q|The Remains of Trey Lightforge|Felwood|
 15705|Q|The Remains of Trey Lightforge|Felwood|
@@ -9195,6 +9269,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 15862|Q|Return to Tinkee|Winterspring|
 276738|N|Katerina the Cleaner||beta
 10750|Q|The God Hakkar|Sunken Temple|
+15217|N|Tyrant Devilsaur||beta
 15228|N|Whip Lasher||beta
 17705|Q|Corruption of Earth and Seed|Maraudon|
 260172|Q|Ley of the Land|Azshara|
@@ -9296,7 +9371,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 3572|Q|A Hunter's Challenge|Loch Modan|
 281254|Q|Banner of the Fallen|Loch Modan|
 2079|N|Shore Crawler||beta
-4571|N|Deviate Slayer||beta
+4571|N|Deviate Slayer or Evolving Ectoplasm||beta
 281257|Q|Twisting the Knife|Loch Modan|
 15210|N|several creatures||beta
 6969|Q|Weapons of Elunite||
@@ -9439,6 +9514,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 246265|Q|Making Repairs||
 275290|Q|The Skybreaker Bulwark||
 9764|N|several creatures||beta
+15298|N|Lightning Hide||beta
 15486|N|Ursal the Mauler or Burning Blade Apprentice||beta
 263305|Q|A Firm Response|Zephras Isle|
 272841|V|Captain O'Neal|Stormwind City|
@@ -9455,6 +9531,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 16622|Q|Wildkin of Elune|Winterspring|
 276902|Q|Thicker Than Water|City of Dalaran|
 17753|Q|Corruption of Earth and Seed|Maraudon|
+15291|N|Deep Stinger||beta
 19114|Q|Return to Primal Torntusk|The Hinterlands|
 270107|Q|Dark Vessels|The Hinterlands|
 11308|V|Lhara|Elwynn Forest|
@@ -9511,6 +9588,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 18389|N|Immol'thar||beta
 21187|Q|Volunteer's Battlegear|Silithus|
 275711|Q|Bait the Beast|Mount Hyjal|
+10249|N|General Drakkisath||beta
 12905|N|Pyroguard Emberseer||beta
 15815|Q|Hameya's Plea|Eastern Plaguelands|
 272589|V|Brave Stonehide|Orgrimmar|
@@ -9519,7 +9597,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272698|V|Master Sergeant Biggins|Stormwind City|
 18339|N|Eldreth Phantasm||beta
 20218|Q|Confront Yeh'kinya|Zul'Gurub|
-10138|N|Blackhand Assassin or Spirestone Reaver||beta
+10138|N|several creatures||beta
 13376|N|Magistrate Barthilas||beta
 275668|Q|Summit Sentries|Mount Hyjal|
 20219|Q|Confront Yeh'kinya|Zul'Gurub|
@@ -9645,6 +9723,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 4792|V|||
 6629|N|Verdan the Everliving||beta
 277289|Q|Wrongly Blamed, Justly Corrected|The Barrens|
+273084|N|Kresh||beta
 4710|N|Wailing Guardsman or Shadowhide Gnoll||beta
 9812|N|several creatures||beta
 6449|N|Skum||beta
@@ -9653,7 +9732,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 6632|N|Deviate Faerie Dragon||beta
 14745|N|Deviate Crocolisk or Deviate Guardian||beta
 14167|N|Blackrock Grunt||beta
-15508|N|Deviate Ravager||beta
+15508|N|Deviate Ravager or Druid of the Fang||beta
 15114|N|Druid of the Fang||beta
 3582|Q|A Recipe For Death|Silverpine Forest|
 9779|N|Goblin Engineer or Murloc Oracle||beta
@@ -9707,6 +9786,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 272602|V|Sergeant Thunderhorn|Orgrimmar|
 272601|V|Sergeant Thunderhorn|Orgrimmar|
 272603|V|Sergeant Thunderhorn|Orgrimmar|
+12583|N|Warchief Rend Blackhand||beta
 272079|V|Creeg Bothunk|The Barrens|
 15273|N|Rage Talon Captain||beta
 19106|Q||Alterac Valley|
@@ -9719,6 +9799,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 13163|N|Overlord Wyrmthalak||beta
 17004|Q|The Corpulent One|Eastern Plaguelands|
 18353|N|Tendris Warpwood||beta
+13161|N|Overlord Wyrmthalak||beta
 15854|Q|Dawn's Gambit|Scholomance|
 10698|Q|Enchanted Azsharite Fel Weaponry|Stranglethorn Vale|
 13167|N|Highlord Omokk||beta
@@ -9731,6 +9812,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 260214|Q|Claws That Rend, Tusks that Gore|Blackmaw Hold|
 260215|Q|Claws That Rend, Tusks that Gore|Blackmaw Hold|
 275742|Q|Flags of Our Forebears|Mount Hyjal|
+11931|N|Emperor Dagran Thaurissan||beta
 14531|N|Rattlegore||beta
 15256|N|Rage Talon Dragonspawn||beta
 275648|Q|Twisted Tools|Mount Hyjal|
@@ -9740,14 +9822,17 @@ FGT.GEARSOURCES_FOREVER = [==[
 275701|Q|Drum Up Trouble|Mount Hyjal|
 15276|N|Rockwing Gargoyle||beta
 15265|N|Plague Ghoul||beta
+18311|N|Lethtendris||beta
 275291|Q|Deeproar Down|Mount Hyjal|
 286408|Q|The Reliquary of Tyr||
 13285|N|Spirestone Battle Lord||beta
+18324|N|Hydrospawn||beta
 274420|V|Dala Fairmaw|Mount Hyjal|
-13044|N|Unstable Corpse||beta
+13044|N|Smolderthorn Headhunter or Unstable Corpse||beta
 275729|Q|Contents Under Pressure|Mount Hyjal|
 18410|Q|Pusillin and the Elder Azj'Tordin|Dire Maul|
 274270|Q|Celastrus the Bitter|Mount Hyjal|
+11816|N|General Angerforge||beta
 15271|N|Bloodaxe Raider||beta
 11907|Q|The Mighty U'cha|Un'Goro Crater|
 260186|Q|Vek'zol|Blasted Lands|
@@ -9756,6 +9841,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 221518|Q|The Price of Hope||
 15254|N|Scarshield Spellbinder||beta
 17766|N|Princess Theradras||beta
+1607|N|Skeletal Executioner||beta
 15275|N|Skeletal Guardian||beta
 272080|V|Creeg Bothunk|The Barrens|
 17730|N|Rotgrip||beta
@@ -9767,6 +9853,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 22458|Q|A Better Ingredient||
 260166|Q|Master Feardred|Azshara|
 20536|Q|Trolls of a Feather||
+13059|N|Twilight's Hammer Ambassador||beta
 11864|Q|Bone-Bladed Weapons|Orgrimmar|
 20556|Q|Da Voodoo||
 10799|N|Atal'alarion||beta
@@ -9775,6 +9862,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 19022|Q|Snapjaws, Mon!|The Hinterlands|
 9683|Q|Weapons of Spirit|Feralas|
 9477|N|Chief Ukorz Sandscalp||beta
+1639|N|Anvilrage Guardsman||beta
 9418|N|Archaedas||beta
 9413|N|Archaedas||beta
 3208|N|Sandfury Blood Drinker||beta
@@ -10001,13 +10089,15 @@ FGT.GEARSOURCES_FOREVER = [==[
 20033|Q|Paragons of Power: The Demoniac's Robes|Zul'Gurub|
 20034|Q|Paragons of Power: The Illusionist's Robes|Zul'Gurub|
 16690|N|General Drakkisath||beta
+16688|N|General Drakkisath||beta
 14626|N|Lorekeeper Polkelt||beta
 272722|V|Captain Dirgehammer|Stormwind City|
 18450|N|Guard Fengus||beta
-15824|Q|The Pack Mistress|Blackrock Spire|
+15824|Q|Put Her Down;The Pack Mistress|Blackrock Spire|
 276745|N|Blazeroar||beta
 9649|Q|Venom to the Undercity|The Hinterlands|
 20530|Q|Trolls of a Feather||
+7518|N|Anvilrage Footman||beta
 19129|Q|Kill 'Em With Sleep Deprivation|Searing Gorge|
 17775|Q|Twisted Evils|Maraudon|
 14244|N|Sandfury Shadowcaster||beta
@@ -10042,7 +10132,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 6503|Q|Egg Hunt|The Barrens|
 6465|N|Lord Cobrahn||beta
 2981|N|Shadowfang Whitescalp||beta
-14120|N|Nightmare Ectoplasm||beta
+14120|N|Nightmare Ectoplasm or Druid of the Fang||beta
 7510|Q|Spellfire Robes||
 7509|Q|Manaweave Robe||
 14150|N|Jergosh the Invoker||beta
@@ -10078,18 +10168,21 @@ FGT.GEARSOURCES_FOREVER = [==[
 272091|V|Creeg Bothunk|The Barrens|
 271936|V|Bryanna Embreeze|The Barrens|
 12709|N|The Beast||beta
-15220|N|Baron Rivendare or Blackhand Dreadweaver||beta
+13349|N|Baron Rivendare||beta
+15220|N|several creatures||beta
 20723|Q|Brann Bronzebeard's Lost Letter|Silithus|
 13953|N|Darkmaster Gandling||beta
 17003|Q|The Corpulent One|Eastern Plaguelands|
 281586|Q|Head Scratcher|Mount Hyjal|
 10696|Q|Enchanted Azsharite Fel Weaponry|Stranglethorn Vale|
+18048|N|Goraluk Anvilcrack||beta
 276404|N|Crimson Hammersmith||beta
 20647|Q|WANTED: Deathclasp, Terror of the Sands|Silithus|
 275647|Q|Twisted Tools|Mount Hyjal|
 275293|Q|Deeproar Down|Mount Hyjal|
 275698|Q|Drum Up Trouble|Mount Hyjal|
 275836|Q|Taste of Ash|Mount Hyjal|
+18044|N|Hurley Blackbreath||beta
 18491|Q|Lethtendris's Web|Dire Maul|
 13408|N|The Unforgiven||beta
 11906|Q|The Mighty U'cha|Un'Goro Crater|
@@ -10098,6 +10191,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 260209|Q|The Head of the Serpent|Azshara|
 10803|N|Ogom the Wretched||beta
 15863|Q|Return to Tinkee|Winterspring|
+11784|N|Warder Stilgiss||beta
 271929|V|Bryanna Embreeze|The Barrens|
 272084|V|Creeg Bothunk|The Barrens|
 272092|V|Creeg Bothunk|The Barrens|
@@ -10127,6 +10221,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 280607|Q|The Tempest's Weapons||
 270070|Q|Colonel Kurzen|Stranglethorn Vale|
 280605|Q|The Tempest's Weapons||
+6804|Q|Final Passage|Thousand Needles|
 7714|N|Arcanist Doan||beta
 15233|N|Skullsplitter Warrior||beta
 271799|Q|Test Your Theory|Desolace|
@@ -10145,7 +10240,6 @@ FGT.GEARSOURCES_FOREVER = [==[
 273827|N|Bazil Thredd||beta
 273809|N|Hamhock||beta
 3186|N|Snapjaw||beta
-4824|V|Ott|Hillsbrad Foothills|
 3414|N|Blindlight Muckdweller||beta
 15212|N|several creatures||beta
 273637|N|Baron Silverlaine||beta
@@ -10235,12 +10329,14 @@ FGT.GEARSOURCES_FOREVER = [==[
 15805|Q|Kirtonos the Herald|Scholomance|
 13315|Q|The Restless Souls|Stratholme|
 15857|Q|Hidden Treasures|Eastern Plaguelands|
+11928|N|Emperor Dagran Thaurissan||beta
 18602|Q|Suppression||
 276336|Q|Yashiro's Windwalk|Mount Hyjal|
 275671|Q|Unsealing Blackthorne Pact|Mount Hyjal|
 18536|Q|Shards of the Felvine|Moonglade|
 274417|V|Dala Fairmaw|Mount Hyjal|
 275630|Q|Drawing Down the Malevolent|Mount Hyjal|
+11935|N|Magmus||beta
 18316|N|Pusillin||beta
 15984|N|Elder Diemetradon||beta
 15936|N|Spire Spiderling||beta
@@ -10259,6 +10355,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 19115|Q|Return to Primal Torntusk|The Hinterlands|
 9644|Q|Rescue OOX-17/TN!|Tanaris|
 7557|N|Vilebranch Raiding Wolf||beta
+9914|N|Hammered Patron||beta
 11859|Q|A Grim Discovery|Feralas|
 7555|N|Krol'dok Centurion||beta
 277260|Q|Greater Friend of the Library|Special|
@@ -10284,7 +10381,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 276898|Q|Past Due|Scarlet Monastery|
 15929|N|Crystal Spine Basilisk||beta
 279838|Q|Starving Arcane|City of Dalaran|
-7609|N|Makrura Snapper or Lashtail Raptor||beta
+7609|N|several creatures||beta
 273052|N|Shade of the Archmage||beta
 7344|Q|Morbent Fel|Duskwood|
 2943|Q|Cleansing the Eye|Wetlands|
@@ -10322,6 +10419,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 15932|N|Vile Fin Seer or Tormented Soul||beta
 7507|Q|Mage-tastic Gizmonitor;The Balnir Farmstead||
 15969|N|Ornery Galestrider||beta
+15925|N|Wandering Spirit||beta
 7508|Q|Ju-Ju Heaps;Mirror Lake||
 13377|N|Cannon Master Willey||beta
 12654|N|Shadow Hunter Vosh'gajin||beta
@@ -10373,6 +10471,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 18738|N|Nerub'enkan||beta
 13380|N|Cannon Master Willey||beta
 13534|N|Baroness Anastari||beta
+15282|N|Emperor Dagran Thaurissan||beta
 16992|Q|When Smokey Sings, I Get Violent|Eastern Plaguelands|
 16993|Q|When Smokey Sings, I Get Violent|Eastern Plaguelands|
 22656|Q||Eastern Plaguelands|
@@ -10381,13 +10480,14 @@ FGT.GEARSOURCES_FOREVER = [==[
 275296|Q|Deeproar Down|Mount Hyjal|
 275837|Q|A Revenge Now Bitter|Mount Hyjal|
 276332|Q|Wood Remains|Mount Hyjal|
-15281|N|Old Rusthowl||beta
+15281|N|Old Rusthowl or Twilight's Hammer Ambassador||beta
 13396|N|Skul||beta
 15324|N|Supply Crate||beta
 13474|Q|Locked Away|Western Plaguelands|
 10836|N|Shade of Eranikus||beta
 12605|N|Jed Runewatcher||beta
 17717|N|Tinkerer Gizlock||beta
+15280|N|Blazing Fireguard||beta
 276735|N|Tidemistress Ca'zass||beta
 20082|Q|Blood of Morphaz||
 15279|N|Noxxion||beta
@@ -10403,6 +10503,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 270084|Q|Big Game Hunter|Stranglethorn Vale|
 5215|N|Jungle Stalker||beta
 5249|Q|Crushridge Warmongers|Alterac Mountains|
+6806|Q|Final Passage|Thousand Needles|
 274604|N|Captain Dreadrise||beta
 4547|Q|Sunken Treasure|Arathi Highlands|
 5253|Q|Venture Company Mining|Stranglethorn Vale|
@@ -10468,7 +10569,7 @@ FGT.GEARSOURCES_FOREVER = [==[
 5242|Q|Arugal's Folly|Silverpine Forest|
 2904|Q|A Hunter's Boast|Loch Modan|
 5071|N|several creatures||beta
-4577|N|Captain Dargol or Murloc Coastrunner||beta
+4577|N|several creatures||beta
 5604|Q|Bashal'Aran|Darkshore|
 286743|Q|Rear Guard Patrol|Tirisfal Glades|
 5069|N|Sunscale Lashtail or Zhevra Runner||beta
@@ -10497,9 +10598,10 @@ FGT.GEARSOURCES_FOREVER = [==[
 272434|V|Pix Xizzix|Stranglethorn Vale|
 272430|V|Pix Xizzix|Stranglethorn Vale|
 272431|V|Pix Xizzix|Stranglethorn Vale|
-23200|N|Doctor Theolen Krastinov||beta
+23200|N|Lord Alexei Barov or Doctor Theolen Krastinov||beta
 23199|N|Bile Spewer||beta
 272432|V|Pix Xizzix|Stranglethorn Vale|
+22395|N|Magmus||beta
 263411|Q|Aquatic Form||
 6189|Q|WANTED: Chok'sul|Loch Modan|
 5404|N|Lady Anacondra||beta
