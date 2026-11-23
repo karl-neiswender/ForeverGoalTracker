@@ -2,9 +2,10 @@
 
 ## Unreleased
 
-- Added View set: see a Gear Planner set on its character, with its racial backdrop and weather, from the eye on the set's goal page.
+- Added View set: see a Gear Planner set on its character, with its racial backdrop and weather, from the View set button on the set's goal page. Scroll to zoom.
 - Gear Planner steps now link their vendor, quest giver, quest and enchant. Hover for details; Shift-click a vendor or quest giver for a map pin.
-- Gear Planner steps now show their slot (Head, Main Hand) in place of a step number.
+- Gear Planner steps now show their slot (Head, Main Hand) in place of a step number, with each planned enchant tucked in under its item.
+- Gear Planner set pieces with no known source now name their set.
 - Show: This character now also hides other races' mounts and other classes' rows inside a goal.
 
 ## 2.19.0

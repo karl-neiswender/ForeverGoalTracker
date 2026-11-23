@@ -76,8 +76,13 @@ model:SetFrameLevel(bg:GetFrameLevel() + 1)
 if model.SetAutoDress then model:SetAutoDress(false) end
 model:SetAllPoints(area)
 model:EnableMouse(true)
-V.hint = U.font(area, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
-V.hint:SetText("Drag to turn")
+-- (on its own layer over the stage: on the stage itself the floor shading covered it)
+local front = CreateFrame("Frame", nil, area)
+front:SetAllPoints(area)
+front:SetFrameLevel(model:GetFrameLevel() + 2)
+V.hint = U.font(front, 10, "", C.INK2[1], C.INK2[2], C.INK2[3])
+V.hint:SetShadowColor(0, 0, 0, 1); V.hint:SetShadowOffset(1, -1)
+V.hint:SetText("Drag to turn · Scroll to zoom · Double-click to reset")
 V.hint:SetPoint("BOTTOM", area, "BOTTOM", 0, 8)
 
 local function SetRace(raceFile)
@@ -126,17 +131,42 @@ local function Layout()
         t:SetHeight(height / 24)
         FGT.PopoutUI.vgradient(t, floor, floor, 0.92 * p1 * p1 * (3 - 2 * p1), 0.92 * p2 * p2 * (3 - 2 * p2))
     end
+    V.size = { w = w, h = h, aspect = aspect, feetMove = feetMove }
+    local prefs = ForeverGoalTrackerDB and GV.prefs()
+    V.lightOn = not prefs or prefs.light ~= false
+    V.ApplyZoom(V.zoom or GV.REST_ZOOM)
+end
+
+-- The camera at a zoom, as the planner's ApplyZoom: the portrait zoom up to 0.8, then the camera
+-- distance (blended across 0.76 to 0.84), with the character moved by right-drag. The foot
+-- shadow fades as the feet leave the view; the light grows as the camera closes in.
+local MAX_ZOOM = 1
+local function Handover(value)
+    if value <= 0.76 then return 0 end
+    if value >= 0.84 then return 0.04 + (value - 0.84) end
+    local u = (value - 0.76) / 0.08
+    return 0.08 * (u * u * u - u * u * u * u / 2)
+end
+function V.ApplyZoom(value)
+    V.zoom = value
+    local size = V.size
+    if not size then return end
+    local w, h = size.w, size.h
+    local closer = math.max(0, value - GV.REST_ZOOM)
+    local feet = math.max(0, 1 - closer * 2.5)
     local rest = GV.shadowFeet[bg.race] or 0.785
     bg.shadow:ClearAllPoints()
-    bg.shadow:SetPoint("CENTER", model, "CENTER", 0, -h * (rest + feetMove - 0.5))
-    bg.shadow:SetSize(math.min(w, h * 0.56), h * 0.105); bg.shadow:SetAlpha(0.9)
-    local prefs = ForeverGoalTrackerDB and GV.prefs()
-    bg.light:SetShown(not prefs or prefs.light ~= false)
+    bg.shadow:SetPoint("CENTER", model, "CENTER", 0, -h * (rest + size.feetMove - 0.5))
+    bg.shadow:SetSize(math.min(w, h * 0.56), h * 0.105)
+    bg.shadow:SetAlpha(0.9 * feet); bg.shadow:SetShown(feet > 0)
+    local grow = 1 + closer * 0.6
+    bg.light:SetShown(V.lightOn)
     bg.light:ClearAllPoints(); bg.light:SetPoint("CENTER", model, "CENTER", 0, h * 0.06)
-    bg.light:SetSize(math.min(w, h * 0.62), h * 0.85); bg.light:SetAlpha(0.09)
-    if model.SetCamDistanceScale then model:SetCamDistanceScale(1.3 * aspect) end
-    if model.SetPortraitZoom then model:SetPortraitZoom(GV.REST_ZOOM) end
-    if model.SetPosition then model:SetPosition(0, 0, 0) end
+    bg.light:SetSize(math.min(w, h * 0.62 * grow), h * 0.85 * grow); bg.light:SetAlpha(0.09)
+    local shared = Handover(value)
+    if model.SetCamDistanceScale then model:SetCamDistanceScale((1.3 - 2 * shared) * size.aspect) end
+    if model.SetPortraitZoom then model:SetPortraitZoom(value - shared) end
+    if model.SetPosition then model:SetPosition(0, V.offsetY or 0, V.offsetZ or 0) end
 end
 area:SetScript("OnSizeChanged", Layout)
 
@@ -190,18 +220,78 @@ V:SetScript("OnEvent", function(_, _, itemId, ok)
     end
 end)
 V:SetScript("OnShow", function() V:RegisterEvent("GET_ITEM_INFO_RECEIVED") end)
-V:SetScript("OnHide", function() V:UnregisterEvent("GET_ITEM_INFO_RECEIVED"); model:SetScript("OnUpdate", nil) end)
+V:SetScript("OnHide", function()
+    V:UnregisterEvent("GET_ITEM_INFO_RECEIVED"); model:SetScript("OnUpdate", nil); V.camera:SetScript("OnUpdate", nil)
+end)
 
--- Left-drag turns the character; nothing else on the stage responds.
+-- Left-drag turns the character, right-drag moves it, the wheel zooms (gliding, as in the
+-- planner), and a double-click puts the camera back.
+local camera = CreateFrame("Frame", nil, V)
+V.camera = camera
+local target = { zoom = GV.REST_ZOOM, y = 0, z = 0 }
+V.target = target
+function camera.Glide(_, dt)
+    local k = 1 - math.exp(-math.min(dt, 0.1) * 12)
+    local zoom = V.zoom + (target.zoom - V.zoom) * k
+    V.offsetY = V.offsetY + (target.y - V.offsetY) * k
+    V.offsetZ = V.offsetZ + (target.z - V.offsetZ) * k
+    if math.abs(target.zoom - zoom) < 0.0005 and math.abs(target.y - V.offsetY) < 0.0005
+        and math.abs(target.z - V.offsetZ) < 0.0005 then
+        V.offsetY, V.offsetZ = target.y, target.z
+        V.ApplyZoom(target.zoom)
+        camera:SetScript("OnUpdate", nil)
+    else
+        V.ApplyZoom(zoom)
+    end
+end
+local function GlideTo(zoom, y, z)
+    target.zoom, target.y, target.z = zoom, y or target.y, z or target.z
+    if FGT.Setting and FGT.Setting("celebrations") == "off" then
+        camera:SetScript("OnUpdate", nil); V.offsetY, V.offsetZ = target.y, target.z; V.ApplyZoom(target.zoom); return
+    end
+    camera:SetScript("OnUpdate", camera.Glide)
+end
+function V.ResetCamera(glide)
+    camera:SetScript("OnUpdate", nil)
+    if glide then GlideTo(GV.REST_ZOOM, 0, 0); return end
+    target.zoom, target.y, target.z = GV.REST_ZOOM, 0, 0
+    V.offsetY, V.offsetZ = 0, 0
+    V.ApplyZoom(GV.REST_ZOOM)
+end
+V.offsetY, V.offsetZ = 0, 0
+model:EnableMouseWheel(true)
+model:SetScript("OnMouseWheel", function(_, delta)
+    GlideTo(math.max(0, math.min(MAX_ZOOM, target.zoom + delta * 0.1)))
+end)
 model:SetScript("OnMouseDown", function(_, button)
-    if button ~= "LeftButton" then return end
-    local last = GetCursorPosition()
-    model:SetScript("OnUpdate", function()
-        if not IsMouseButtonDown("LeftButton") then model:SetScript("OnUpdate", nil); return end
-        local x = GetCursorPosition()
-        V.facing = (V.facing or 0) + (x - last) * 0.01; last = x
-        model:SetFacing(V.facing)
-    end)
+    if button == "LeftButton" then
+        -- (a model has no OnDoubleClick, only buttons do: two presses within 0.3 s count as one)
+        local now = GetTime()
+        if V.lastPress and now - V.lastPress < 0.3 then
+            V.lastPress = nil; V.ResetCamera(true); return
+        end
+        V.lastPress = now
+        local last = GetCursorPosition()
+        model:SetScript("OnUpdate", function()
+            if not IsMouseButtonDown("LeftButton") then model:SetScript("OnUpdate", nil); return end
+            local x = GetCursorPosition()
+            V.facing = (V.facing or 0) + (x - last) * 0.01; last = x
+            model:SetFacing(V.facing)
+        end)
+    elseif button == "RightButton" then
+        camera:SetScript("OnUpdate", nil)
+        local lastX, lastY = GetCursorPosition()
+        model:SetScript("OnUpdate", function()
+            if not IsMouseButtonDown("RightButton") then model:SetScript("OnUpdate", nil); return end
+            local x, y = GetCursorPosition()
+            local k = 1.6 / (math.max(1, area:GetHeight()) * model:GetEffectiveScale()) * (1 - (V.zoom or 0) * 0.6)
+            V.offsetY = math.max(-1.5, math.min(1.5, V.offsetY + (x - lastX) * k))
+            V.offsetZ = math.max(-1.5, math.min(1.5, V.offsetZ + (y - lastY) * k))
+            target.y, target.z = V.offsetY, V.offsetZ
+            lastX, lastY = x, y
+            V.ApplyZoom(V.zoom)
+        end)
+    end
 end)
 model:SetScript("OnMouseUp", function() model:SetScript("OnUpdate", nil) end)
 
@@ -223,6 +313,7 @@ function FGT.ShowViewSet(goal)
         pcall(model.SetCustomRace, model, GV.RACE_IDS[who.race], who.sex == 3 and 1 or 0)
     end
     model:SetFacing(0)
+    V.ResetCamera()
     Layout(); PaintGear()
     if V.effects then V.effects.Refresh() end
     return true

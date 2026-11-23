@@ -95,7 +95,13 @@ STUB_FRAMES = {}
 local fmt = {}
 for k, v in pairs(mt) do fmt[k] = v end
 fmt.__index = function(t, k)
-  if k == "SetScript" then return function(self, name, fn) rawset(self, "_s_" .. name, fn) end end
+  if k == "SetScript" then return function(self, name, fn)
+    -- as in the game: only buttons have click handlers (a model's OnDoubleClick stops the file)
+    local kind = rawget(self, "_stubType")
+    if (name == "OnClick" or name == "OnDoubleClick") and kind and not kind:find("Button") then
+      error(kind .. " doesn't have a \"" .. name .. "\" script", 2)
+    end
+    rawset(self, "_s_" .. name, fn) end end
   if k == "GetScript" then return function(self, name) return rawget(self, "_s_" .. name) end end
   if k == "GetParent" then return function(self) return rawget(self, "_stubParent") end end
   if k == "HookScript" then return function(self, name, fn)
@@ -115,9 +121,9 @@ fmt.__index = function(t, k)
   if type(k) == "string" and k:match("^%l") then return nil end
   return mt.__index(t, k)
 end
-CreateFrame = function(_, name, parent)
+CreateFrame = function(kind, name, parent)
   local f = setmetatable({}, fmt)
-  f._stubName, f._stubParent = name, parent
+  f._stubName, f._stubParent, f._stubType = name, parent, type(kind) == "string" and kind or nil
   table.insert(STUB_FRAMES, f)
   return f
 end

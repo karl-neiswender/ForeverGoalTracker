@@ -636,7 +636,13 @@ local anyUnknown
 for _, item in ipairs(Cat.Search("NeckSlot", {})) do
     if not Cat.Source(item) and not item.note then anyUnknown = item; break end
 end
-assert(anyUnknown and Cat.Acquisition(anyUnknown):find("Source unknown", 1, true), "missing sources are called unknown")
+assert(anyUnknown and (Cat.Acquisition(anyUnknown):find("Source unknown", 1, true)
+    or Cat.Acquisition(anyUnknown):find("Source not revealed yet", 1, true)), "missing sources are called unknown")
+do -- a set piece with no source names its set (Mark of the Pack Leader, Blessing of Kalimdor)
+    local text, tip = Cat.Acquisition({ id = 999003, name = "Test Mark", set = 2132, forever = 2 })
+    assert(text:find("Source not revealed yet · Blessing of Kalimdor set", 1, true), "an unplaced set piece names its set")
+    assert(tip:find("Part of the Blessing of Kalimdor set.", 1, true), "and says so in its tip")
+end
 assert(Cat.EntranceFor("Upper Blackrock Spire").id == "dungeon:brs" and Cat.EntranceFor("Molten Core").id == "dungeon:mc", "entrances resolve from place names")
 assert(Cat.EntranceFor("Nowhere in particular") == nil)
 print("  sources: boss pins, quests, crafted items, PvP ranks and honest unknowns ok")
@@ -1124,11 +1130,28 @@ do
     assert(index and goal.steps[index].auto.enchant == chosen.effect and goal.steps[index].auto.slot == 9, "an enchant step for the bracer")
     assert(goal.steps[index].text:find("Superior Strength", 1, true) and #goal.steps[index].reagents > 0, "the step names the enchant and costs its materials")
     assert(F.GearStepSlot(goal, goal.steps[index]) == "Wrists", "the goal page labels the step with its slot")
+    -- it sits under its item's step and leaves the item's name off (the page tucks it in)
+    local bracer = goal.steps[index - 1]
+    assert(bracer.auto.item == build.slots[9] and goal.steps[index].plannerSlot == 9, "the enchant follows its item")
+    assert(not goal.steps[index].text:find(Cat.Get(build.slots[9]).name, 1, true)
+        and (goal.steps[index].text:find("^Enchant with ") or goal.steps[index].text:find("^Apply ")), "the enchant step leaves the item's name off")
     assert(F.GearStepSlot(goal, { text = "x" }) == nil and F.GearStepSlot({ steps = {} }, goal.steps[index]) == nil,
         "only a Gear Planner set's slotted steps get a slot label")
     -- View set: the set on its character in a view-only window; the X closes it
+    assert(F.viewSetBtn:GetScript("OnClick") and F.ShowViewSet, "ViewSet.lua loads to its end, so the button has a window to open")
     assert(F.ShowViewSet(goal) and F.ViewSet.title:GetText() == build.name, "View set opens the set")
     assert(F.ViewSet.build == build and F.ViewSet.backdrop.race, "View set stages the set on a racial backdrop")
+    -- the wheel zooms in (within bounds); opening a set again starts at the resting view
+    local vs = F.ViewSet
+    for _ = 1, 20 do vs.model:GetScript("OnMouseWheel")(vs.model, 1) end
+    assert(vs.target.zoom == 1, "the wheel zooms in, no further than the planner's closest view")
+    vs.lastPress = nil
+    vs.model:GetScript("OnMouseDown")(vs.model, "LeftButton") -- (the stub's clock stands still:
+    vs.model:GetScript("OnMouseDown")(vs.model, "LeftButton") -- two presses read as a double-click)
+    assert(vs.target.zoom == F.GearView.REST_ZOOM and vs.target.y == 0, "a double-click puts the camera back")
+    vs.model:GetScript("OnMouseWheel")(vs.model, 1)
+    F.ShowViewSet(goal)
+    assert(vs.zoom == F.GearView.REST_ZOOM and vs.target.zoom == F.GearView.REST_ZOOM, "each opening starts at rest")
     F.ViewSet.close:GetScript("OnClick")(F.ViewSet.close) -- the X closes it
     assert(not F.ShowViewSet({ id = "nope", plannerOwner = goal.plannerOwner }), "no window for a set that is gone")
     -- the enchant step links its enchant (an Enchanting spell or the item that applies it)

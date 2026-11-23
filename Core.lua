@@ -9537,6 +9537,7 @@ end
 -- Re-anchors a pooled row's checkbox at the given left indent, so the
 -- same row pool can render top-level steps, Tier 3 pieces (indented),
 -- and Tier 3 materials (indented further) without separate pools.
+FGT.ENCHANT_INDENT = 14 -- how far a Gear Planner enchant row's checkbox steps in under its item
 local function SetRowIndent(row, indent)
     row.box:ClearAllPoints()
     row.box:SetPoint("TOPLEFT", indent, -2)
@@ -10129,9 +10130,16 @@ RefreshSteps = function(goal, view)
         -- a Gear Planner set names each step's slot (Head, Finger 1) in place of a number, in a
         -- wider column; the slot then needn't repeat in the step's text
         local slotLabel = FGT.GearStepSlot and FGT.GearStepSlot(goal, entry)
+        -- its planned enchant tucks in under the item: the checkbox steps in, and a green
+        -- "Enchant" with the Enchanting icon takes the slot's place (Karl, 2026-11-23)
+        local enchantRow = slotLabel and type(entry) == "table" and entry.auto and entry.auto.enchant and true or false
+        if enchantRow then
+            SetRowIndent(row, 2 + FGT.ENCHANT_INDENT)
+            slotLabel = "|TInterface\\Icons\\Trade_Engraving:12:12:0:0:64:64:5:59:5:59|t |cff4fa84fEnchant|r"
+        end
         row.num:SetText(slotLabel or (shown .. "."))
         row.num:SetJustifyH(slotLabel and "LEFT" or "RIGHT")
-        row.slotExtra = slotLabel and 54 or 0 -- 72 wide against a number's 18
+        row.slotExtra = slotLabel and (54 + (enchantRow and FGT.ENCHANT_INDENT or 0)) or 0 -- 72 wide against a number's 18
         if slotLabel then
             row.num:SetWordWrap(false) -- "Main Hand" stays on one line
             row.num:SetWidth(72)

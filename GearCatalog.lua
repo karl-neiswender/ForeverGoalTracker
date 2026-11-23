@@ -569,13 +569,15 @@ function C.EnchantIcon(e)
 end
 function C.EnchantSource(e) return e.enchanting and "Enchanting" or "Applied from the item" end
 -- The goal step for an enchant on a planned item.
+-- The step sits right under its item's (the goal page tucks it in), so it leaves the item's
+-- name off; the effect follows in grey.
 function C.EnchantStep(e, item)
-    local effect = (e.text ~= "" and e.text ~= e.short) and (" (" .. e.text .. ")") or ""
+    local effect = (e.text ~= "" and e.text ~= e.short) and ("  |cff8f897c" .. e.text .. "|r") or ""
     -- the enchant links: an Enchanting spell shows its tooltip (reagents included), an item
     -- that applies it (an arcanum, a scope) its item tooltip
-    if e.enchanting then return "Enchant " .. item.name .. " with {spell:" .. e.spell .. ":" .. e.short .. "}" .. effect end
+    if e.enchanting then return "Enchant with {spell:" .. e.spell .. ":" .. e.short .. "}" .. effect end
     local name = (e.item and e.item > 0) and ("{item:" .. e.item .. ":" .. e.name .. "}") or ("{spell:" .. e.spell .. ":" .. e.name .. "}")
-    return "Apply " .. name .. " to " .. item.name .. effect
+    return "Apply " .. name .. effect
 end
 -- Searching enchants: name or effect, like the item search.
 function C.SearchEnchants(item, text, out)
@@ -867,7 +869,15 @@ function C.Acquisition(item, faction)
     if source then
         text, advice = LinkedStep(item, source, faction) or source.step:format(item.name), source.advice
     else
-        text = "Collect " .. item.name .. "  |cff888888Source unknown|r"
+        -- a set piece nobody has placed yet (Forever's Blessing of Kalimdor): name its set
+        local set = C.SetName(item.set)
+        local new = (item.forever or 0) >= 2
+        text = "Collect " .. item.name .. "  |cff888888" .. (new and "Source not revealed yet" or "Source unknown")
+            .. (set and (" · " .. set .. " set") or "") .. "|r"
+        if set then
+            advice = "Part of the " .. set .. " set" .. (new and ". WoW Forever has not shown where it comes from yet;"
+                .. " the other pieces' sources may point the way." or ".")
+        end
     end
     if item.note and not text:find(item.note, 1, true) and not (source and source.label:find(item.note, 1, true))
         and not (advice and advice:find(item.note, 1, true)) then
